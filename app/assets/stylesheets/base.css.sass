@@ -1,0 +1,79 @@
+@import "compass/reset"
+@import "compass/css3"
+@import "compass/utilities"
+
+$ff-blue: #010080
+$content-width: 800px
+
+=box
+  +border-image(image_url("border.png") 15 round)
+  background-color: $ff-blue
+  border:
+    top: 0
+    style: solid
+    width: 20px
+
+=box-title
+  position: absolute
+  top: -15px
+  padding-top: 10px
+  left: 0
+  background-color: $ff-blue
+  z-index: 3
+  +box
+
+=box-content
+  margin-top: -20px
+  padding-top: 64px
+  +box
+
+@font-face
+  font
+    family: 'ferrum'
+    weight: 'normal,bold'
+    style:  'normal'
+    src: asset-url('ferrum', font) format('opentype'), asset-url('ferrum', font) format('opentype')
+
+body
+  background-color: black
+  color: white
+  font-size: 16px
+  font-family: 'Hiragino Kaku Gothic Pro'
+
+a
+  color: white
+  text-decoration: none
+
+textarea
+  font-size: 16px
+  border: none
+  background-color: $ff-blue
+  color: white
+
+input
+  font-size: 16px
+  border: none
+  background-color: $ff-blue
+  color: white
+
+aside
+  position: absolute
+  left: $content-width + 3
+  ul
+    li
+      margin: 8px 0
+
+nav#menu
+  margin-top: -15px
+  padding-top: 7px
+  +box
+
+nav#time
+  +box
+  text-align: right
+
+  .date
+    margin-bottom: 8px
+
+#content
+  width: $content-width

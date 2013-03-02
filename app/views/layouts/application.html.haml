@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %title 256 INTERNS
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body{class: "#{controller_name}_#{action_name}"}
+    %aside
+      %nav#menu
+        %ul
+          - if current_user
+            %li.user_icon= image_tag current_user.icon_url
+            %li= link_to 'ユーザー', users_path
+            %li= link_to 'プラクティス', practices_path
+            %li= link_to 'ログアウト', logout_path
+          - else
+            %li= link_to 'ログイン', auth_at_provider_path(:provider => :github)
+          %li= link_to 'スタート', root_path
+      %nav#time
+    #content
+      = yield

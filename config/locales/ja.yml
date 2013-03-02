@@ -1,0 +1,312 @@
+# Japanese translations for Ruby on Rails
+# by Akira Matsuda (ronnie@dio.jp)
+# AR error messages are basically taken from Ruby-GetText-Package. Thanks to Masao Mutoh.
+# contributors:
+#  - Tsutomu Kuroda (t-kuroda@oiax.jp)
+
+ja:
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      short: "%m/%d"
+      long: "%Y年%m月%d日(%a)"
+
+    day_names: [日曜日, 月曜日, 火曜日, 水曜日, 木曜日, 金曜日, 土曜日]
+    abbr_day_names: [日, 月, 火, 水, 木, 金, 土]
+
+    month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
+    abbr_month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
+
+    order:
+      - :year
+      - :month
+      - :day
+
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
+      short: "%y/%m/%d %H:%M"
+      long: "%K年%m月%d日 %H時%M分%S秒"
+    am: "午前"
+    pm: "午後"
+
+  support:
+    array:
+      sentence_connector: "と"
+      skip_last_comma: true
+      words_connector: "と"
+      two_words_connector: "と"
+      last_word_connector: "と"
+
+    select:
+      prompt: "選択してください。"
+
+  number:
+    format:
+      separator: "."
+      delimiter: ","
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: false
+
+    currency:
+      format:
+        format: "%n%u"
+        unit: "円"
+        separator: "."
+        delimiter: ","
+        precision: 3
+        significant: false
+        strip_insignificant_zeros: false
+
+    percentage:
+      format:
+        delimiter: ""
+
+    precision:
+      format:
+        delimiter: ""
+
+    human:
+      format:
+        delimiter: ""
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+
+      storage_units:
+        format: "%n%u"
+        units:
+          byte: "バイト"
+          kb: "キロバイト"
+          mb: "メガバイト"
+          gb: "ギガバイト"
+          tb: "テラバイト"
+
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: "千"
+          million: "百万"
+          billion: "十億"
+          trillion: "兆"
+          quadrillion: "千兆"
+
+  datetime:
+    distance_in_words:
+      half_a_minute: "30秒前後"
+      less_than_x_seconds:
+        one:   "1秒以内"
+        other: "%{count}秒以内"
+      x_seconds:
+        one:   "1秒"
+        other: "%{count}秒"
+      less_than_x_minutes:
+        one:   "1分以内"
+        other: "%{count}分以内"
+      x_minutes:
+        one:   "1分"
+        other: "%{count}分"
+      about_x_hours:
+        one:   "約1時間"
+        other: "約%{count}時間"
+      x_days:
+        one:   "1日"
+        other: "%{count}日"
+      about_x_months:
+        one:   "約1ヶ月"
+        other: "約%{count}ヶ月"
+      x_months:
+        one:   "1ヶ月"
+        other: "%{count}ヶ月"
+      about_x_years:
+        one:   "約1年"
+        other: "約%{count}年"
+      over_x_years:
+        one:   "1年以上"
+        other: "%{count}年以上"
+      almost_x_years:
+        one:   "1年弱"
+        other: "%{count}年弱"
+
+    prompts:
+      year:   "年"
+      month:  "月"
+      day:    "日"
+      hour:   "時"
+      minute: "分"
+      second: "秒"
+
+  helpers:
+    select:
+      prompt: "選択してください。"
+
+    submit:
+      create: "登録する"
+      update: "更新する"
+      submit: "保存する"
+
+    label:
+      practice:
+        name: タイトル
+        description: 内容
+
+      story:
+        id: ID
+        title: 題名
+        body: 物語
+        view: 閲覧数
+        user: 作者
+        tag_list: タグ
+        publish: 掲載
+        violation: 規約違反
+
+      user:
+        name: 名前
+        email: Email
+        profile: プロフィール
+        gender: 性別
+        password: パスワード
+        password_confirmation: パスワード（確認）
+        current_password: 現在のパスワード
+        remember_me: 記憶する
+        icon_file_name: 画像ファイル名
+        icon: アイコン
+        notify_comment: コメント通知
+
+      comment:
+        id: ID
+        body: 本文
+        name: 名前
+        story_id: 怖い話ID
+        story_title: 怖い話タイトル
+        icon: アイコン
+        user_id: ユーザーID
+        icon_number: アイコン番号
+
+  errors:
+    format: "%{attribute} %{message}"
+
+    messages: &errors_messages
+      inclusion: "は一覧にありません。"
+      exclusion: "は予約されています。"
+      invalid: "は不正な値です。"
+      confirmation: "が一致しません。"
+      accepted: "を受諾してください。"
+      empty: "を入力してください。"
+      blank: "を入力してください。"
+      too_long: "は%{count}文字以内で入力してください。"
+      too_short: "は%{count}文字以上で入力してください。"
+      wrong_length: "は%{count}文字で入力してください。"
+      not_a_number: "は数値で入力してください。"
+      not_an_integer: "は整数で入力してください。"
+      greater_than: "は%{count}より大きい値にしてください。"
+      greater_than_or_equal_to: "は%{count}以上の値にしてください。"
+      equal_to: "は%{count}にしてください。"
+      less_than: "は%{count}より小さい値にしてください。"
+      less_than_or_equal_to: "は%{count}以下の値にしてください。"
+      odd: "は奇数にしてください。"
+      even: "は偶数にしてください。"
+      line_too_long: "は1行を%{count}文字以内で入力して下さい。"
+      not_a_zenkaku: "は全角文字を一文字以上含めて下さい。"
+      wrong_image: "はjpg、png、gifのいずれかにして下さい。"
+
+  activerecord:
+    models:
+      user: ユーザー
+      story: 怖話
+      wallpaper: 背景
+      comment: コメント
+
+    attributes:
+      user:
+        name: 名前
+        email: Email
+        profile: プロフィール
+        gender: 性別
+        password: パスワード
+        password_confirmation: パスワード（確認）
+        current_password: 現在のパスワード
+        icon: 画像ファイル
+        icon_file_name: 画像ファイル名
+        icon_file_size: 画像ファイルのサイズ
+        icon_content_type: 画像ファイルの種類
+        notify_comment: コメント通知
+
+      story:
+        title: 題名
+        body: 本文
+        tag_list: タグ
+        publish: 掲載
+        violation: 規約違反
+
+      comment:
+        body: 本文
+        story_id: 怖い話ID
+        story: 怖い話
+
+      wallpaper:
+        name: 背景画像の名前
+        image: 画像ファイル
+        image_file_name: 画像ファイル名
+        image_file_size: 画像ファイルのサイズ
+        image_content_type: 画像ファイルの種類
+
+    errors:
+      template:
+        header:
+          one:   "%{model}にエラーが発生しました。"
+          other: "%{model}に%{count}つのエラーが発生しました。"
+        body: "次の項目を確認してください。"
+
+      messages:
+        taken: "はすでに存在します。"
+        record_invalid: "バリデーションに失敗しました。 %{errors}"
+        <<: *errors_messages
+
+      full_messages:
+        format: "%{attribute}%{message}"
+  views:
+    pagination:
+      previous: "« 前ページ"
+      next: "次ページ »"
+      truncate: ""
+      last: 最後のページ
+      first: 最初のページ
+
+  notice_mailer:
+    comment_notice:
+      subject: "[怖話]あなたの投稿した怖い話にコメントが来ています"
+
+  logout: "ログアウト"
+  login_with_github: "ログイン"
+  logged_in_from_Github: "ログインしました"
+  failed_to_login_from_Github: "ログインできませんでした"
+  please_login_first: "ログインしてください"
+  are_you_sure: "ほんとうによろしいですか？"
+  edit: "編集"
+  destroy: "削除"
+  save: "保存"
+  unstarted: "未着手"
+  active: "作業中"
+  finished: "完了"
+  dashboard: "ダッシュボード"
+  new_practice: "新規プラクティス"
+  256interns: "256 INTERNS"
+  users: "ユーザー"
+  my_practices: "マイプラクティス"
+  activities: "アクティビティ"
+  practices: "プラクティス"
+  names_practices: "%{name}'s Practices"
+  new_intern: "ニューインターン"
+  continue: "コンティニュー"
+  introduction: "イントロダクション"
+  registration_form: "申し込みフォーム"
+  programmer: "プログラマー"
+  designer: "デザイナー"
+  listing_users: "ユーザー"
+  listing_practices: "プラクティス"
+  editing_practice: "編集"
+  show: "表示"
+  back: "戻る"

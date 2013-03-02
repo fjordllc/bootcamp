@@ -1,0 +1,71 @@
+@import "base"
+
+body.practices_index
+  h1
+    +box-title
+
+  .practices
+    position: relative
+    +box-content
+
+    td
+      padding: 10px 0
+
+      .id
+        display: inline
+        margin-right: 6px
+
+      .title
+        display: inline
+
+  .new
+    +box
+    z-index: -1
+    margin-top: -12px
+    padding-top: 2px
+    width: 130px
+
+body.practices_show
+  h1
+    +box-title
+
+  .practice
+    +box-content
+    position: relative
+
+  .edit
+    margin-top: -14px
+    padding-top: 4px
+    float: left
+    +box
+    z-index: -1
+
+  .delete
+    margin-top: -14px
+    padding-top: 4px
+    float: left
+    +box
+    z-index: -1
+
+body.practices_new,
+body.practices_edit
+  h1
+    +box-title
+    width: $content-width - 100
+    input
+      height: 28px
+      width: $content-width - 100
+
+  .practice
+    +box-content
+    position: relative
+    textarea
+      margin-top: 10px
+      width: 760px
+
+  .save
+    z-index: -1
+    +box
+    margin-top: -14px
+    padding-top: 4px
+    width: 50px

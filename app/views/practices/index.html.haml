@@ -1,0 +1,9 @@
+%h1 プラクティス
+.practices
+  %table
+    - @practices.each do |practice|
+      %tr
+        %td
+          .id #{practice.id}.
+          .title= link_to practice.title, practice
+.new= link_to '新規プラクティス', new_practice_path
