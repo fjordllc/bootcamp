@@ -1,4 +1,4 @@
 %h1= @practice.title
 .practice~ simple_format @practice.description
-.edit= link_to '編集', edit_practice_path(@practice)
-.delete= link_to '削除', @practice, :confirm => '本当によろしいですか？', :method => :delete
+.edit= link_to t('edit'), edit_practice_path(@practice)
+.delete= link_to t('destroy'), @practice, confirm: t('are_you_sure'), method: :delete

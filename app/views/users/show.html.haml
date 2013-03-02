@@ -1,12 +1,9 @@
 %p#notice= notice
-
 %p
   %b Title:
   = @practice.title
 %p
   %b Description:
   = @practice.description
-
-= link_to 'Edit', edit_practice_path(@practice)
-\|
-= link_to 'Back', practices_path
+= link_to t('edit'), edit_practice_path(@practice)
+= link_to t('back'), practices_path

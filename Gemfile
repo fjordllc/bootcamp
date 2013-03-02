@@ -8,7 +8,7 @@ gem 'rails', '3.2.11'
 gem 'sqlite3'
 gem 'dynamic_form'
 gem 'haml-rails'
-gem 'sorcery', '~> 0.7.12'
+gem 'sorcery', '~> 0.8.1'
 gem 'oauth2'
 gem 'compass-rails'
 gem 'erb2haml'
@@ -44,6 +44,5 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 group :development, :test do
-  gem 'shoulda-matchers'
   gem 'capybara'
 end

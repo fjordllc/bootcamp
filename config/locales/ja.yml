@@ -285,6 +285,7 @@ ja:
   failed_to_login_from_Github: "ログインできませんでした"
   please_login_first: "ログインしてください"
   are_you_sure: "ほんとうによろしいですか？"
+  start: "スタート"
   edit: "編集"
   destroy: "削除"
   save: "保存"

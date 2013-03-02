@@ -1,2 +1,0 @@
-module PracticesHelper
-end

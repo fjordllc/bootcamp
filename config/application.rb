@@ -58,5 +58,14 @@ module Interns
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.generators do |g|
+      g.template_engine :haml
+      g.stylesheet_engine :sass
+      g.javascripts false
+      g.stylesheets false
+      g.assets false
+      g.helper false
+    end
   end
 end

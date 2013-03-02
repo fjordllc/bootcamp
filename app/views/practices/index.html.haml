@@ -1,4 +1,4 @@
-%h1 プラクティス
+%h1= t('practices')
 .practices
   %table
     - @practices.each do |practice|
@@ -6,4 +6,4 @@
         %td
           .id #{practice.id}.
           .title= link_to practice.title, practice
-.new= link_to '新規プラクティス', new_practice_path
+.new= link_to t('new_practice'), new_practice_path
