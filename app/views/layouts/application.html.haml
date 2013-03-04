@@ -12,7 +12,7 @@
         %p#alert= alert
         %ul
           - if current_user
-            %li= current_user.username
+            %li= current_user.login_name
             %li= link_to t('users'), users_path
             %li= link_to t('practices'), practices_path
             %li= link_to t('logout'), logout_path

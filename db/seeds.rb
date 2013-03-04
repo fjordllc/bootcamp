@@ -1,53 +1,66 @@
+User.delete_all
 Practice.delete_all
 
-Practice.create!(title: "OS X Lionをクリーンインストールする")
-Practice.create!(title: "Terminalの基礎を覚える")
-Practice.create!(title: "PC性能の見方を知る")
-Practice.create!(title: "Debianをインストールする")
-Practice.create!(title: "Linuxのファイル操作の基礎を覚える")
-Practice.create!(title: "aptの基礎を覚える")
-Practice.create!(title: "viをインストールする")
-Practice.create!(title: "viのチュートリアルをやる")
-Practice.create!(title: "sudoをインストールする")
-Practice.create!(title: "sshdをインストールする")
-Practice.create!(title: "リモートのサーバーにsshで鍵を使ってログインする")
-Practice.create!(title: "sshdでパスワード認証を禁止にする")
-Practice.create!(title: "sshdでrootでのログインを禁止にする")
-Practice.create!(title: "telnetを使ってget, postを試し、HTTPの基礎を理解する")
-Practice.create!(title: "HTTPのrequestとresponse、headerとbodyを理解する")
-Practice.create!(title: "nginxをインストールする")
-Practice.create!(title: "nginxにネームベースのVirtualHostを使ってサイトを作る")
-Practice.create!(title: "sslの基礎を理解する")
-Practice.create!(title: "nginxで自己認証した証明書を使ったssl対応サイトを作る")
-Practice.create!(title: "sqlの基礎を理解する")
-Practice.create!(title: "mysqlをインストールする")
-Practice.create!(title: "mysql, mysqladminコマンドでユーザー、データベース、テーブルを作成する")
-Practice.create!(title: "rubyをインストールする")
-Practice.create!(title: "rvmをインストールする")
-Practice.create!(title: "rvmで複数バージョンのrubyを切り替えれるようにする")
-Practice.create!(title: "「プログラミング入門 - Rubyを使って」をやる")
-Practice.create!(title: "「プログラミング入門 - Rubyを使って」をgithubにpushする")
-Practice.create!(title: "「プログラミング入門 - Rubyを使って」のテストをrspecで書く")
-Practice.create!(title: "rubygemsの基礎を理解する")
-Practice.create!(title: "gemコマンドを使ってgemのインストール、更新、削除をする")
-Practice.create!(title: "rakeの基礎を理解する")
-Practice.create!(title: "rakeでCプログラムをコンパイルするRakefileを書く")
-Practice.create!(title: "Getting Started with RailsにしたがってRailsアプリを作る")
-Practice.create!(title: "ActionControllerを理解する")
-Practice.create!(title: "ActionViewを理解する")
-Practice.create!(title: "ActiveRecordを理解する")
-Practice.create!(title: "ActiveSupportを理解する")
-Practice.create!(title: "Railsのroutesを理解する")
-Practice.create!(title: "Railsのi18nの基礎を理解する")
-Practice.create!(title: "sorceryを使ってユーザー認証を作る")
-Practice.create!(title: "sorceryを使ってTwitter認証を作る")
-Practice.create!(title: "exception_notificationを使ってエラーのメール通知機能を作る")
-Practice.create!(title: "paperclipを使って画像アップロード機能を作る")
-Practice.create!(title: "TDDの基礎を理解する")
-Practice.create!(title: "unittestの基礎を理解する")
-Practice.create!(title: "rspecを使ってRailsアプリのテストを書く")
-Practice.create!(title: "capybaraを使ってrequest specを書く")
-Practice.create!(title: "Try Gitをやる")
-Practice.create!(title: "unicornを使ってrailsアプリを動かす")
-Practice.create!(title: "capistranoを使ってrailsアプリをデプロイする")
-Practice.create!(title: "capistrano-extを使ってstaging環境にアプリをデプロイする")
+User.create!(
+  login_name: 'test',
+  name: 'hoge',
+  email: 'hoge@hoge.com',
+  password: 'test',
+  password_confirmation: 'test'
+)
+
+practice_list = [
+  { title: "OS X Lionをクリーンインストールする" },
+  { title: "Terminalの基礎を覚える" },
+  { title: "PC性能の見方を知る" },
+  { title: "Debianをインストールする" },
+  { title: "Linuxのファイル操作の基礎を覚える" },
+  { title: "aptの基礎を覚える" },
+  { title: "viをインストールする" },
+  { title: "viのチュートリアルをやる" },
+  { title: "sudoをインストールする" },
+  { title: "sshdをインストールする" },
+  { title: "リモートのサーバーにsshで鍵を使ってログインする" },
+  { title: "sshdでパスワード認証を禁止にする" },
+  { title: "sshdでrootでのログインを禁止にする" },
+  { title: "telnetを使ってget, postを試し、HTTPの基礎を理解する" },
+  { title: "HTTPのrequestとresponse、headerとbodyを理解する" },
+  { title: "nginxをインストールする" },
+  { title: "nginxにネームベースのVirtualHostを使ってサイトを作る" },
+  { title: "sslの基礎を理解する" },
+  { title: "nginxで自己認証した証明書を使ったssl対応サイトを作る" },
+  { title: "sqlの基礎を理解する" },
+  { title: "mysqlをインストールする" },
+  { title: "mysql, mysqladminコマンドでユーザー、データベース、テーブルを作成する" },
+  { title: "rubyをインストールする" },
+  { title: "rvmをインストールする" },
+  { title: "rvmで複数バージョンのrubyを切り替えれるようにする" },
+  { title: "「プログラミング入門 - Rubyを使って」をやる" },
+  { title: "「プログラミング入門 - Rubyを使って」をgithubにpushする" },
+  { title: "「プログラミング入門 - Rubyを使って」のテストをrspecで書く" },
+  { title: "rubygemsの基礎を理解する" },
+  { title: "gemコマンドを使ってgemのインストール、更新、削除をする" },
+  { title: "rakeの基礎を理解する" },
+  { title: "rakeでCプログラムをコンパイルするRakefileを書く" },
+  { title: "Getting Started with RailsにしたがってRailsアプリを作る" },
+  { title: "ActionControllerを理解する" },
+  { title: "ActionViewを理解する" },
+  { title: "ActiveRecordを理解する" },
+  { title: "ActiveSupportを理解する" },
+  { title: "Railsのroutesを理解する" },
+  { title: "Railsのi18nの基礎を理解する" },
+  { title: "sorceryを使ってユーザー認証を作る" },
+  { title: "sorceryを使ってTwitter認証を作る" },
+  { title: "exception_notificationを使ってエラーのメール通知機能を作る" },
+  { title: "paperclipを使って画像アップロード機能を作る" },
+  { title: "TDDの基礎を理解する" },
+  { title: "unittestの基礎を理解する" },
+  { title: "rspecを使ってRailsアプリのテストを書く" },
+  { title: "capybaraを使ってrequest specを書く" },
+  { title: "Try Gitをやる" },
+  { title: "unicornを使ってrailsアプリを動かす" },
+  { title: "capistranoを使ってrailsアプリをデプロイする" },
+  { title: "capistrano-extを使ってstaging環境にアプリをデプロイする" }
+]
+
+Practice.create!(practice_list)

@@ -1,70 +1,49 @@
 class PracticesController < ApplicationController
+  before_action :set_practice, only: [:show, :edit, :update, :destroy]
+
   def index
     @practices = Practice.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @practices }
-    end
   end
 
   def show
-    @practice = Practice.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @practice }
-    end
   end
 
   def new
     @practice = Practice.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @practice }
-    end
   end
 
   def edit
-    @practice = Practice.find(params[:id])
   end
 
   def create
-    @practice = Practice.new(params[:practice])
+    @practice = Practice.new(practice_params)
 
-    respond_to do |format|
-      if @practice.save
-        format.html { redirect_to @practice, notice: 'Practice was successfully created.' }
-        format.json { render json: @practice, status: :created, location: @practice }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @practice.errors, status: :unprocessable_entity }
-      end
+    if @practice.save
+      redirect_to @practice, notice: 'Practice was successfully created.'
+    else
+      render action: 'new'
     end
   end
 
   def update
-    @practice = Practice.find(params[:id])
-
-    respond_to do |format|
-      if @practice.update_attributes(params[:practice])
-        format.html { redirect_to @practice, notice: 'Practice was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @practice.errors, status: :unprocessable_entity }
-      end
+    if @practice.update(practice_params)
+      redirect_to @practice, notice: 'Practice was successfully updated.'
+    else
+      render action: "edit"
     end
   end
 
   def destroy
-    @practice = Practice.find(params[:id])
     @practice.destroy
-
-    respond_to do |format|
-      format.html { redirect_to practices_url }
-      format.json { head :no_content }
-    end
+    redirect_to practices_url
   end
+
+  private
+    def practice_params
+      params.require(:practice).permit(:title, :draft)
+    end
+
+    def set_practice
+      @practice = Practice.find(params[:id])
+    end
 end
