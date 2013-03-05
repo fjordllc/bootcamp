@@ -2,7 +2,7 @@
 # The default is nothing which will include only core features (password encryption, login/logout).
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging, :external
-Rails.application.config.sorcery.submodules = [:external]
+Rails.application.config.sorcery.submodules = [:remember_me]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -26,6 +26,18 @@ Rails.application.config.sorcery.configure do |config|
   #
   # config.cookie_domain =
 
+  config.user_config do |user|
+    # -- remember_me --
+    # allow the remember_me cookie to settable through AJAX
+    # Default: `true`
+    #
+    # user.remember_me_httponly =
+
+    # How long in seconds the session length will be
+    # Default: `604800`
+    #
+    user.remember_me_for = 256.weeks
+  end
 
   # -- session timeout --
   # How long in seconds to keep the session alive.
@@ -70,7 +82,7 @@ Rails.application.config.sorcery.configure do |config|
   # What providers are supported by this app, i.e. [:twitter, :facebook, :github, :google, :liveid] .
   # Default: `[]`
   #
-  config.external_providers = [:github]
+  # config.external_providers =
 
 
   # You can change it by your local ca_file. i.e. '/etc/pki/tls/certs/ca-bundle.crt'
@@ -80,6 +92,17 @@ Rails.application.config.sorcery.configure do |config|
   # config.ca_file =
 
 
+  # For information about LinkedIn API:
+  # - user info fields go to https://developer.linkedin.com/documents/profile-fields
+  # - access permissions go to https://developer.linkedin.com/documents/authentication#granting
+  #
+  # config.linkedin.key = ""
+  # config.linkedin.secret = ""
+  # config.linkedin.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=linkedin"
+  # config.linkedin.user_info_fields = ['first-name', 'last-name']
+  # config.linkedin.user_info_mapping = {first_name: "firstName", last_name: "lastName"}
+  # config.linkedin.access_permissions = ['r_basicprofile'] 
+  #
   # Twitter wil not accept any requests nor redirect uri containing localhost,
   # make sure you use 0.0.0.0:3000 to access your app in development
   #
@@ -92,16 +115,22 @@ Rails.application.config.sorcery.configure do |config|
   # config.facebook.secret = ""
   # config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
   # config.facebook.user_info_mapping = {:email => "name"}
-
-  config.github.key = "a27eafbf33e96c3c4d1d"
-  config.github.secret = "4d20b35307be8e533941d2ca4d21e2067f312af3"
-  config.github.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=github"
-  config.github.user_info_mapping = {:username => "login", :email => "email"}
-
+  # config.facebook.access_permissions = ["email", "publish_stream"]
+  #
+  # config.github.key = ""
+  # config.github.secret = ""
+  # config.github.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=github"
+  # config.github.user_info_mapping = {:email => "name"}
+  #
   # config.google.key = ""
   # config.google.secret = ""
   # config.google.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=google"
   # config.google.user_info_mapping = {:email => "email", :username => "name"}
+  #
+  # config.vk.key = ""
+  # config.vk.secret = ""
+  # config.vk.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=vk"
+  # config.vk.user_info_mapping = {:login => "domain", :name => "full_name"}
   #
   # To use liveid in development mode you have to replace mydomain.com with
   # a valid domain even in development. To use a valid domain in development
@@ -371,7 +400,7 @@ Rails.application.config.sorcery.configure do |config|
     # Class which holds the various external provider data for this user.
     # Default: `nil`
     #
-    user.authentications_class = Authentication
+    # user.authentications_class =
 
 
     # User's identifier in authentications class.
