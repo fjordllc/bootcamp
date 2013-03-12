@@ -163,7 +163,7 @@ ja:
         violation: 規約違反
 
       user:
-        name: 名前
+        username: ユーザー名
         email: Email
         profile: プロフィール
         gender: 性別
@@ -221,7 +221,7 @@ ja:
 
     attributes:
       user:
-        name: 名前
+        username: "ユーザー名"
         email: Email
         profile: プロフィール
         gender: 性別
@@ -279,10 +279,9 @@ ja:
     comment_notice:
       subject: "[怖話]あなたの投稿した怖い話にコメントが来ています"
 
+  sign_up: "サインアップ"
+  sign_in: "サインイン"
   logout: "ログアウト"
-  login_with_github: "ログイン"
-  logged_in_from_Github: "ログインしました"
-  failed_to_login_from_Github: "ログインできませんでした"
   please_login_first: "ログインしてください"
   are_you_sure: "ほんとうによろしいですか？"
   start: "スタート"
@@ -300,7 +299,7 @@ ja:
   activities: "アクティビティ"
   practices: "プラクティス"
   names_practices: "%{name}'s Practices"
-  new_intern: "ニューインターン"
+  enter_for_intern: "インターンシップを申し込む"
   continue: "コンティニュー"
   introduction: "イントロダクション"
   registration_form: "申し込みフォーム"

@@ -1,4 +1,6 @@
 = form_for @user do |f|
+  - if @user.errors.any?
+    = error_messages_for :user
   .field
     = f.label :username
     %br/
@@ -15,3 +17,5 @@
     = f.label :password_confirmation
     %br/
     = f.password_field :password_confirmation
+  .action
+    = f.submit

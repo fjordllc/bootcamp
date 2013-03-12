@@ -66,6 +66,7 @@ GEM
     faraday (0.8.6)
       multipart-post (~> 1.1)
     ffi (1.4.0)
+    flat-ui-rails (0.0.2)
     fssm (0.2.10)
     haml (4.0.0)
       tilt
@@ -140,6 +141,9 @@ GEM
       rubyzip
       websocket (~> 1.0.4)
     sexp_processor (4.1.5)
+    simple_form (2.0.4)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     sorcery (0.8.1)
       bcrypt-ruby (~> 3.0.0)
       oauth (~> 0.4.4)
@@ -173,11 +177,13 @@ DEPENDENCIES
   compass-rails
   dynamic_form
   erb2haml
+  flat-ui-rails
   haml-rails
   jquery-rails
   oauth2
   rails (= 3.2.11)
   sass-rails (~> 3.2.3)
+  simple_form
   sorcery (~> 0.8.1)
   sqlite3
   uglifier (>= 1.0.3)

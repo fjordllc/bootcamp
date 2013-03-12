@@ -6,19 +6,20 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body{class: "#{controller_name}_#{action_name}"}
-    %aside
-      %nav#menu
+    .container-fluid
+      #header
+        %p#notice= notice
+        %p#alert= alert
         %ul
           - if current_user
-            %li.user_icon= image_tag current_user
+            %li= current_user.username
             %li= link_to t('users'), users_path
             %li= link_to t('practices'), practices_path
             %li= link_to t('logout'), logout_path
           - else
             %li= link_to t('sign_up'), new_user_path
-            %li= link_to t('login'), login_path
-      %nav#time
-    %p#notice= notice
-    %p#alert= alert
-    #content
-      = yield
+            %li= link_to t('sign_in'), login_path
+      .row-fluid
+        .span4
+        .span8
+          = yield

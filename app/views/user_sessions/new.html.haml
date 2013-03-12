@@ -1,3 +1,2 @@
-%h1 Login
-= render 'form'
-= link_to 'Back', user_sessions_path
+%h1= t('sign_in')
+= render 'form', user: @user

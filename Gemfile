@@ -13,6 +13,8 @@ gem 'oauth2'
 gem 'compass-rails'
 gem 'erb2haml'
 gem 'active_decorator'
+gem 'simple_form'
+gem 'flat-ui-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
