@@ -1,4 +1,4 @@
 %h1= @practice.title
-.practice~ simple_format @practice.description
+.practice= simple_format @practice.description
 .edit= link_to t('edit'), edit_practice_path(@practice)
-.delete= link_to t('destroy'), @practice, confirm: t('are_you_sure'), method: :delete
+.delete= link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete

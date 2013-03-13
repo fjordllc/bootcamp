@@ -2,9 +2,13 @@
   - if @user.errors.any?
     = error_messages_for :user
   .field
-    = f.label :username
+    = f.label :login_name
     %br/
-    = f.text_field :username
+    = f.text_field :login_name
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name
   .field
     = f.label :email
     %br/
