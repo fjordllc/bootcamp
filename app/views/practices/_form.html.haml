@@ -2,5 +2,5 @@
   - if @practice.errors.any?
     = error_messages_for :practice
   %h1= f.text_field :title
-  .practice= f.text_area :description
+  .practice= f.text_area :draft
   .save= f.submit

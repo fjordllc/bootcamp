@@ -1,8 +1,4 @@
 class User < ActiveRecord::Base
-  attr_accessible :username,
-                  :email,
-                  :password,
-                  :password_confirmation
   authenticates_with_sorcery!
 
   validates_length_of :password,
