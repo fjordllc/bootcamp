@@ -40,7 +40,7 @@ class PracticesController < ApplicationController
 
   private
     def practice_params
-      params.require(:practice).permit(:title, :draft)
+      params.require(:practice).permit(:title, :description)
     end
 
     def set_practice
