@@ -163,7 +163,7 @@ ja:
         violation: 規約違反
 
       user:
-        username: ユーザー名
+        username: "ユーザー名"
         email: Email
         profile: プロフィール
         gender: 性別

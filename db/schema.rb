@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20130305115750) do
 
   create_table "practices", force: true do |t|
     t.string   "title",       null: false
-    t.text     "draft"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
