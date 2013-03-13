@@ -17,9 +17,11 @@ ja:
         password: 'パスワード'
       user:
         new:
-          email: 'E-mail to sign in.'
+          name: '名前'
+          name_kana: '名前（カナ）'
+          email: 'Email'
         edit:
-          email: 'E-mail.'
+          email: 'Email'
     hints:
       defaults:
         login_name: 'User name to sign in.'

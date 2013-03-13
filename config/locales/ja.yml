@@ -163,7 +163,9 @@ ja:
         violation: 規約違反
 
       user:
-        username: "ユーザー名"
+        login_name: "ユーザー名"
+        name: "名前"
+        name_kana: "名前（カナ）"
         email: Email
         profile: プロフィール
         gender: 性別
@@ -221,7 +223,9 @@ ja:
 
     attributes:
       user:
-        username: "ユーザー名"
+        login_name: "ユーザー名"
+        name: "名前"
+        name_kana: "名前（カナ）"
         email: Email
         profile: プロフィール
         gender: 性別
@@ -314,3 +318,5 @@ ja:
   invalid_email_or_password: "ユーザー名かパスワードが違います。"
   sign_in_successful: "サインインしました。"
   sign_out: "サインアウトしました。"
+  registration successfull: "サインアップしました。"
+  user_was_successfully updated: "ユーザーを更新しました。"

@@ -13,13 +13,14 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = current_user
   end
 
   def create
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to(:users, notice: 'Registration successfull. Check your email for activation instructions.')
+      redirect_to :users, notice: t('registration successfull')
     else
       render action: 'new'
     end
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to(@user, notice: 'User was successfully updated.')
+      redirect_to(@user, notice: t('user_was_successfully updated'))
     else
       render action: 'edit'
     end
@@ -43,6 +44,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(
         :login_name,
         :name,
+        :name_kana,
         :email,
         :password,
         :password_cofirmation

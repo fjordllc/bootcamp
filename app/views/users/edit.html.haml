@@ -1,4 +1,2 @@
-%h1 Editing user
-= render 'form'
-= link_to 'Show', @user
-= link_to 'Back', users_path
+%h1= t('editing_user')
+= render 'form', user: @user

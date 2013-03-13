@@ -1,17 +1,9 @@
 %h1= t('listing_users')
-%table
-  %tr
-    %th LoginName
-    %th Name
-    %th Icon
-    %th
-    %th
+%ul
   - @users.each do |user|
-    %tr
-      %td= link_to user.login_name, user
-      %td= user.name
-      %td= image_tag user.icon_url
-      %td= link_to t('edit'), edit_user_path(user)
-      %td= link_to t('destroy'), user, data: { confirm: t('are_you_sure') }, method: :delete
-%br
-= link_to t('new_user'), new_user_path
+    %li
+      .icon= gravatar_tag user
+      .login_name= user.login_name
+      %ruby
+        .name= user.name
+        %rt.name_kana= user.name_kana
