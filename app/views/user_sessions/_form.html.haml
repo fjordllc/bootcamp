@@ -1,7 +1,4 @@
 = simple_form_for :user, url: user_sessions_path do |f|
-  .control-group
-    = f.text_field :login_name, placeholder: t('helpers.label.user.username')
-  .control-group
-    = f.password_field :password, placeholder: t('helpers.label.user.password')
-  .form-actions
-    = f.submit t('sign_in'), class: 'btn btn-large btn-primary'
+  = f.input :login_name, label: false, hint: false, placeholder: t('helpers.label.user.username')
+  = f.input :password, label: false, hint: false, placeholder: t('helpers.label.user.password')
+  = f.submit t('sign_in'), class: 'btn btn-large btn-primary'

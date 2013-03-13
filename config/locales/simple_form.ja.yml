@@ -13,7 +13,8 @@ ja:
     # Labels and hints examples
     labels:
       defaults:
-        password: 'Password'
+        login_name: 'ログイン名'
+        password: 'パスワード'
       user:
         new:
           email: 'E-mail to sign in.'
@@ -21,5 +22,5 @@ ja:
           email: 'E-mail.'
     hints:
       defaults:
-        username: 'User name to sign in.'
+        login_name: 'User name to sign in.'
         password: 'No special characters, please.'

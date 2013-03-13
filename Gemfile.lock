@@ -38,6 +38,8 @@ GEM
     arel (4.0.0.beta1)
     atomic (1.0.1)
     bcrypt-ruby (3.0.1)
+    bootstrap-sass (2.3.0.1)
+      sass (~> 3.2)
     builder (3.1.4)
     capybara (2.0.2)
       mime-types (>= 1.16)
@@ -67,6 +69,7 @@ GEM
       multipart-post (~> 1.1)
     ffi (1.4.0)
     flat-ui-rails (0.0.2)
+    gravatarify (3.1.0)
     haml (4.0.0)
       tilt
     haml-rails (0.4)
@@ -172,11 +175,13 @@ PLATFORMS
 
 DEPENDENCIES
   active_decorator
+  bootstrap-sass (~> 2.3.0.1)
   capybara
   coffee-rails (~> 4.0.0.beta1)
   dynamic_form
   erb2haml
   flat-ui-rails
+  gravatarify
   haml-rails
   jquery-rails
   puma

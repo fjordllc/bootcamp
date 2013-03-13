@@ -2,15 +2,13 @@
 %html
   %head
     %title= t('256interns')
-    = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
     = csrf_meta_tags
   %body{class: "#{controller_name}_#{action_name}"}
-    .container-fluid
+    .container
       #header
-        %p#notice= notice
-        %p#alert= alert
-        %ul
+        %ul.nav.nav-pills.pull-right
           - if current_user
             %li= current_user.login_name
             %li= link_to t('users'), users_path
@@ -19,7 +17,10 @@
           - else
             %li= link_to t('sign_up'), new_user_path
             %li= link_to t('sign_in'), login_path
-      .row-fluid
-        .span4
-        .span8
-          = yield
+        %h1= t('256interns')
+        - if notice
+          .alert.alert-info= notice
+        - if alert
+          .alert.alert-error= alert
+      .row
+        .span12= yield

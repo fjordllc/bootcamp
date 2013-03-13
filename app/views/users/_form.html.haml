@@ -1,25 +1,10 @@
-= form_for @user do |f|
-  - if @user.errors.any?
+= simple_form_for user do |f|
+  - if user.errors.any?
     = error_messages_for :user
-  .field
-    = f.label :login_name
-    %br/
-    = f.text_field :login_name
-  .field
-    = f.label :name
-    %br/
-    = f.text_field :name
-  .field
-    = f.label :email
-    %br/
-    = f.text_field :email
-  .field
-    = f.label :password
-    %br/
-    = f.password_field :password
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation
-  .action
-    = f.submit
+  = f.input :login_name, hint: false
+  = f.input :name, hint: false
+  = f.input :name_kana, hint: false
+  = f.input :email, hint: false
+  = f.input :password, hint: false
+  = f.input :password_confirmation, hint: false
+  = f.submit nil, class: 'btn btn-large'

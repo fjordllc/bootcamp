@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password,
     if: :password,
     message: "should match confirmation"
+  validates :login_name, presence: true
+  validates :email, presence: true
+  validates :name, presence: true
+  validates :name_kana, presence: true
 end

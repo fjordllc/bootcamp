@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130305115750) do
+ActiveRecord::Schema.define(version: 20130313095813) do
 
   create_table "practices", force: true do |t|
     t.string   "title",       null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20130305115750) do
     t.datetime "updated_at"
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
+    t.string   "name_kana"
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"

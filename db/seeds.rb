@@ -7,10 +7,11 @@ Practice.delete_all
 
 User.create!(
   login_name: 'test',
-  name: 'hoge',
-  email: 'hoge@hoge.com',
-  password: 'test',
-  password_confirmation: 'test'
+  name: '駒形真幸',
+  name_kana: 'コマガタマサキ',
+  email: 'komagata@gmail.com',
+  password: 'testtest',
+  password_confirmation: 'testtest'
 )
 
 import_fixture 'practices'
