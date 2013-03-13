@@ -69,6 +69,8 @@ GEM
       multipart-post (~> 1.1)
     ffi (1.4.0)
     flat-ui-rails (0.0.2)
+    font-awesome-rails (3.0.2.0)
+      railties (>= 3.1)
     gravatarify (3.1.0)
     haml (4.0.0)
       tilt
@@ -181,6 +183,7 @@ DEPENDENCIES
   dynamic_form
   erb2haml
   flat-ui-rails
+  font-awesome-rails
   gravatarify
   haml-rails
   jquery-rails

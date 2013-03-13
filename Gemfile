@@ -11,6 +11,7 @@ gem 'flat-ui-rails'
 gem 'puma', require: false
 gem 'redcarpet'
 gem 'gravatarify'
+gem 'font-awesome-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 4.0.0.beta1'
