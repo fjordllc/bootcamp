@@ -4,7 +4,7 @@ gem 'rails', '~> 4.0.0.beta1'
 gem 'jquery-rails'
 gem 'dynamic_form'
 gem 'haml-rails'
-gem 'sorcery', git: 'git://github.com/NoamB/sorcery.git'
+gem 'sorcery', github: 'NoamB/sorcery'
 gem 'active_decorator'
 gem 'simple_form', '~> 3.0.0.beta1'
 gem 'flat-ui-rails'
@@ -12,6 +12,8 @@ gem 'puma', require: false
 gem 'redcarpet'
 gem 'gravatarify'
 gem 'simple_enum'
+gem 'lingman', github: 'hrysd/lingman'
+gem 'settingslogic'
 
 group :assets do
   gem 'sass-rails',   '~> 4.0.0.beta1'

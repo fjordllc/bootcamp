@@ -1,0 +1,14 @@
+defaults: &defaults
+  bot_id: BOTID
+  room_id: ROOMID
+  secret: SECRET
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
