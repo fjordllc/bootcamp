@@ -166,6 +166,7 @@ ja:
         login_name: "ユーザー名"
         first_name: "名"
         last_name: "姓"
+        full_name: "フルネーム"
         email: Email
         profile: プロフィール
         gender: 性別
@@ -176,6 +177,9 @@ ja:
         icon_file_name: 画像ファイル名
         icon: アイコン
         notify_comment: コメント通知
+
+      learning:
+        status: "ステータス"
 
       comment:
         id: ID

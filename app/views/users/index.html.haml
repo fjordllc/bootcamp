@@ -1,5 +1,8 @@
 %h1= t('listing_users')
-%table(width="100%")
+%table(width="100%" class="table table-striped table-bordered table-condensed")
+  %tr
+    %th= t('helpers.label.user.icon')
+    %th= t('helpers.label.user.full_name')
   - @users.each do |user|
     %tr
       %td.icon= gravatar_tag user, size: 100

@@ -1,5 +1,8 @@
 %h1= t('practices')
-%table(width="100%")
+%table(width="100%" class="table table-striped table-bordered table-condensed")
+  %tr
+    %th= t('helpers.label.practice.name')
+    %th= t('helpers.label.learning.status')
   - @practices.each do |practice|
     %tr
       %td.title= link_to practice.title, practice
