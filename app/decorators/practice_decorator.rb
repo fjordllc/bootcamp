@@ -1,5 +1,4 @@
 module PracticeDecorator
-
   def status(user_id)
     learning = Learning.find_by(user_id: user_id, practice_id: self.id)
     learning.present? ? learning.status : :unstarted
