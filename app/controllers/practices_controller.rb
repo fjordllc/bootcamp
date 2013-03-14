@@ -1,4 +1,5 @@
 class PracticesController < ApplicationController
+  before_action :require_login
   before_action :set_practice, only: [:show, :edit, :update, :destroy]
 
   def index

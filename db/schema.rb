@@ -13,6 +13,14 @@
 
 ActiveRecord::Schema.define(version: 20130313095813) do
 
+  create_table "learnings", force: true do |t|
+    t.integer  "user_id",                 null: false
+    t.integer  "practice_id",             null: false
+    t.integer  "status_cd",   default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "practices", force: true do |t|
     t.string   "title",       null: false
     t.text     "description"
