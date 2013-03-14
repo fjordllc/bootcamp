@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_login
+  before_action :require_login, except: %w(new create)
   before_action :set_user, only: %w(show edit update destroy)
 
   def index
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to :users, notice: t('registration successfull')
+      redirect_to :users, notice: t('registration_successfull')
     else
       render action: 'new'
     end
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to(@user, notice: t('user_was_successfully updated'))
+      redirect_to @user, notice: t('user_was_successfully_updated')
     else
       render action: 'edit'
     end
@@ -44,8 +44,8 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(
         :login_name,
-        :name,
-        :name_kana,
+        :first_name,
+        :last_name,
         :email,
         :password,
         :password_cofirmation

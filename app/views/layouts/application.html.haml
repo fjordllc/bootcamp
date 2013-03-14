@@ -10,7 +10,9 @@
       #header
         %ul.nav.nav-pills.pull-right
           - if current_user
-            %li= current_user.login_name
+            %li
+              = gravatar_tag current_user, size: 20
+              = current_user.login_name
             %li= link_to t('logout'), logout_path
           - else
             %li= link_to t('sign_up'), new_user_path

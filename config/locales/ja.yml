@@ -164,8 +164,8 @@ ja:
 
       user:
         login_name: "ユーザー名"
-        name: "名前"
-        name_kana: "名前（カナ）"
+        first_name: "名"
+        last_name: "姓"
         email: Email
         profile: プロフィール
         gender: 性別
@@ -224,8 +224,8 @@ ja:
     attributes:
       user:
         login_name: "ユーザー名"
-        name: "名前"
-        name_kana: "名前（カナ）"
+        first_name: "名"
+        last_name: "姓"
         email: Email
         profile: プロフィール
         gender: 性別

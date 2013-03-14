@@ -1,10 +1,10 @@
 = simple_form_for user do |f|
   - if user.errors.any?
     = error_messages_for :user
-  = f.input :login_name, label: false, hint: false, placeholder: t('helpers.label.user.login_name')
-  = f.input :name, label: false, hint: false, placeholder: t('helpers.label.user.name')
-  = f.input :name_kana, label: false, hint: false, placeholder: t('helpers.label.user.name_kana')
-  = f.input :email, label: false, hint: false, placeholder: t('helpers.label.user.email')
-  = f.input :password, label: false, hint: false, placeholder: t('helpers.label.user.password')
-  = f.input :password_confirmation, label: false, hint: false, placeholder: t('helpers.label.user.password_confirmation')
+  = f.input :login_name, hint: false, placeholder: t('helpers.label.user.login_name')
+  = f.input :first_name, hint: false, placeholder: t('helpers.label.user.first_name')
+  = f.input :last_name, hint: false, placeholder: t('helpers.label.user.last_name')
+  = f.input :email, hint: false, placeholder: t('helpers.label.user.email')
+  = f.input :password, hint: false, placeholder: t('helpers.label.user.password')
+  = f.input :password_confirmation, hint: false, placeholder: t('helpers.label.user.password_confirmation')
   = f.submit nil, class: 'btn btn-large'

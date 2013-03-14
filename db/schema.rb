@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 20130313095813) do
 
   create_table "users", force: true do |t|
     t.string   "login_name",                   null: false
-    t.string   "name"
     t.string   "email"
     t.string   "crypted_password"
     t.string   "salt"
@@ -38,7 +37,8 @@ ActiveRecord::Schema.define(version: 20130313095813) do
     t.datetime "updated_at"
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
-    t.string   "name_kana"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"

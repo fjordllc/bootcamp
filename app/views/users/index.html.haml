@@ -2,8 +2,5 @@
 %ul
   - @users.each do |user|
     %li
-      .icon= gravatar_tag user
-      .login_name= user.login_name
-      %ruby
-        .name= user.name
-        %rt.name_kana= user.name_kana
+      .icon= gravatar_tag user, size: 100
+      .name= user.full_name

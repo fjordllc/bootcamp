@@ -1,4 +1,3 @@
-# coding: utf-8
 module PracticeDecorator
 
   def status(user_id)
