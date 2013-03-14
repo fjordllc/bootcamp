@@ -24,8 +24,10 @@ end
 group :development do
   gem 'sqlite3'
   gem 'erb2haml'
+  gem 'pry-rails'
 end
 
 group :development, :test do
   gem 'capybara'
+  gem 'rspec-rails', '~> 2.13.0'
 end
