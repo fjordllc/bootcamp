@@ -69,8 +69,9 @@ GEM
       multipart-post (~> 1.1)
     ffi (1.4.0)
     flat-ui-rails (0.0.2)
-    font-awesome-rails (3.0.2.0)
-      railties (>= 3.1)
+    font-awesome-sass-rails (3.0.0.1)
+      railties (>= 3.1.1)
+      sass-rails (>= 3.1.1)
     gravatarify (3.1.0)
     haml (4.0.0)
       tilt
@@ -144,6 +145,8 @@ GEM
       rubyzip
       websocket (~> 1.0.4)
     sexp_processor (4.1.5)
+    simple_enum (1.6.4)
+      activesupport (>= 3.0.0)
     simple_form (3.0.0.beta1)
       actionpack (>= 4.0.0.beta, < 4.1)
       activemodel (>= 4.0.0.beta, < 4.1)
@@ -183,7 +186,7 @@ DEPENDENCIES
   dynamic_form
   erb2haml
   flat-ui-rails
-  font-awesome-rails
+  font-awesome-sass-rails (~> 3.0.0.1)
   gravatarify
   haml-rails
   jquery-rails
@@ -191,6 +194,7 @@ DEPENDENCIES
   rails (~> 4.0.0.beta1)
   redcarpet
   sass-rails (~> 4.0.0.beta1)
+  simple_enum
   simple_form (~> 3.0.0.beta1)
   sorcery!
   sqlite3
