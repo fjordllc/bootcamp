@@ -1,9 +1,7 @@
 %h1= t('practices')
-.practices
-  %ol
-    - @practices.each do |practice|
-      %li.title
-        = link_to practice.title, practice
-      = practice.learning_status(current_user.id)
-
+%table(width="100%")
+  - @practices.each do |practice|
+    %tr
+      %td.title= link_to practice.title, practice
+      %td= practice.learning_status(current_user.id)
 .new= link_to t('new_practice'), new_practice_path

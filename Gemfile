@@ -21,6 +21,7 @@ group :assets do
   gem 'font-awesome-sass-rails', '~> 3.0.0.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '~> 2.3.0.1'
+  gem 'bootswatch-rails'
 end
 
 group :development do
