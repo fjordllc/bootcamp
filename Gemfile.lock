@@ -7,6 +7,12 @@ GIT
       oauth (~> 0.4.4)
       oauth2 (~> 0.8.0)
 
+GIT
+  remote: git://github.com/hrysd/lingman.git
+  revision: 9fa4f68191f9deffd7e2815863b051d5f5453d89
+  specs:
+    lingman (0.0.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -164,6 +170,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
+    settingslogic (2.0.9)
     sexp_processor (4.1.5)
     simple_enum (1.6.4)
       activesupport (>= 3.0.0)
@@ -211,12 +218,14 @@ DEPENDENCIES
   gravatarify
   haml-rails
   jquery-rails
+  lingman!
   pry-rails
   puma
   rails (~> 4.0.0.beta1)
   redcarpet
   rspec-rails (~> 2.13.0)
   sass-rails (~> 4.0.0.beta1)
+  settingslogic
   simple_enum
   simple_form (~> 3.0.0.beta1)
   sorcery!
