@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
+  has_many :learnings
 
   validates_length_of :password,
     minimum: 4,
