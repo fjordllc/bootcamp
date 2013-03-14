@@ -1,5 +1,5 @@
 class LearningsController < ApplicationController
-  before_action :set_practice
+  before_action :set_practice, only: %i(start finish)
   layout false
 
   def start
