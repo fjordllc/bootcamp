@@ -3,5 +3,5 @@
     = error_messages_for :practice
   = f.input :title, input_html: { class: 'input-block-level' }
   = f.input :description, input_html: { class: 'input-block-level', rows: 20 }
-  = f.select :aim, Practice.aims.keys
+  = f.input :aim, collection: Practice.aims_for_select
   = f.submit nil, class: 'btn btn-primary'

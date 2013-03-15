@@ -14,7 +14,7 @@ module PracticeDecorator
   end
 
   def for
-    "for #{self.aim.to_s}"
+    t('for', aim: t(self.aim))
   end
 
   private

@@ -225,6 +225,17 @@ ja:
       wallpaper: 背景
       comment: コメント
 
+    enums:
+      user:
+        majors:
+          programmer: 'プログラマー'
+          designer: 'デザイナー'
+      practice:
+        aims:
+          everyone: '共通'
+          programmer: 'プログラマー向け'
+          designer: 'デザイナー向け'
+
     attributes:
       user:
         login_name: "ユーザー名"
@@ -241,10 +252,12 @@ ja:
         icon_file_size: 画像ファイルのサイズ
         icon_content_type: 画像ファイルの種類
         notify_comment: コメント通知
+        major: 専攻
 
       practice:
         title: "タイトル"
         description: "内容"
+        aim: 対象
 
       comment:
         body: 本文
@@ -311,6 +324,7 @@ ja:
   registration_form: "申し込みフォーム"
   programmer: "プログラマー"
   designer: "デザイナー"
+  everyone: "共通"
   listing_users: "ユーザー一覧"
   listing_practices: "プラクティス一覧"
   editing_practice: "プラクティス編集"
@@ -323,3 +337,4 @@ ja:
   user_was_successfully_updated: "ユーザーを更新しました。"
   practice_was_successfully_updated: "ユーザーを更新しました。"
   complete: '完了'
+  for: '%{aim}向け'
