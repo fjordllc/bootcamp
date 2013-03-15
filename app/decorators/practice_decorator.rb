@@ -13,6 +13,10 @@ module PracticeDecorator
     end
   end
 
+  def for
+    "for #{self.aim.to_s}"
+  end
+
   private
     def btn_group
       { 'unstarted' => 'btn', 'active' => 'btn btn-info', 'complete' => 'btn btn-success' }
