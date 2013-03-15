@@ -1,6 +1,8 @@
 %h1= t('practices')
-%table(class="table table-striped")
-  - @practices.each do |practice|
-    %tr
+%table.table.table-striped.practices
+  %tbody
+    = tr_for @practices do |practice|
       %td.title= link_to practice.title, practice
       %td.status= practice.learning_status(current_user.id)
+      %td.handle
+        %i.icon-align-justify

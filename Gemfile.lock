@@ -144,6 +144,8 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.17.0, < 2.0)
     rake (10.0.3)
+    ranked-model (0.2.0)
+      activerecord (>= 3.0.3)
     rdoc (3.12.2)
       json (~> 1.4)
     redcarpet (2.2.2)
@@ -225,6 +227,7 @@ DEPENDENCIES
   pry-rails
   puma
   rails (~> 4.0.0.beta1)
+  ranked-model
   redcarpet
   rspec-rails (~> 2.13.0)
   sass-rails (~> 4.0.0.beta1)

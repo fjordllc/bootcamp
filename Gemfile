@@ -14,6 +14,7 @@ gem 'gravatarify'
 gem 'simple_enum'
 gem 'lingman', github: 'hrysd/lingman'
 gem 'settingslogic'
+gem 'ranked-model'
 
 group :assets do
   gem 'sass-rails',   '~> 4.0.0.beta1'
