@@ -1,6 +1,6 @@
 class PracticesController < ApplicationController
   before_action :require_login
-  before_action :set_practice, only: [:show, :edit, :update, :destroy]
+  before_action :set_practice, only: %w(show edit update destroy)
 
   def index
     @practices = Practice.all
@@ -20,17 +20,17 @@ class PracticesController < ApplicationController
     @practice = Practice.new(practice_params)
 
     if @practice.save
-      redirect_to @practice, notice: 'Practice was successfully created.'
+      redirect_to @practice, notice: t('practice_was_successfully_created')
     else
-      render action: 'new'
+      render 'new'
     end
   end
 
   def update
     if @practice.update(practice_params)
-      redirect_to @practice, notice: 'Practice was successfully updated.'
+      redirect_to @practice, notice: t('practice_was_successfully_updated')
     else
-      render action: "edit"
+      render 'edit'
     end
   end
 

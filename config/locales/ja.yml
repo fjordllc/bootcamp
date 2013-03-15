@@ -149,8 +149,8 @@ ja:
 
     label:
       practice:
-        name: タイトル
-        description: 内容
+        title: "タイトル"
+        description: "内容"
 
       story:
         id: ID
@@ -220,8 +220,8 @@ ja:
 
   activerecord:
     models:
-      user: ユーザー
-      story: 怖話
+      user: "ユーザー"
+      practice: "プラクティス"
       wallpaper: 背景
       comment: コメント
 
@@ -242,12 +242,9 @@ ja:
         icon_content_type: 画像ファイルの種類
         notify_comment: コメント通知
 
-      story:
-        title: 題名
-        body: 本文
-        tag_list: タグ
-        publish: 掲載
-        violation: 規約違反
+      practice:
+        title: "タイトル"
+        description: "内容"
 
       comment:
         body: 本文
@@ -291,7 +288,7 @@ ja:
   sign_in: "サインイン"
   logout: "ログアウト"
   please_sign_in_first: "ログインしてください"
-  are_you_sure: "ほんとうによろしいですか？"
+  are_you_sure: "本当によろしいですか？"
   start: "スタート"
   edit: "編集"
   destroy: "削除"
@@ -314,14 +311,15 @@ ja:
   registration_form: "申し込みフォーム"
   programmer: "プログラマー"
   designer: "デザイナー"
-  listing_users: "ユーザー"
-  listing_practices: "プラクティス"
-  editing_practice: "編集"
+  listing_users: "ユーザー一覧"
+  listing_practices: "プラクティス一覧"
+  editing_practice: "プラクティス編集"
   show: "表示"
   back: "戻る"
   invalid_email_or_password: "ユーザー名かパスワードが違います。"
   sign_in_successful: "サインインしました。"
   sign_out: "サインアウトしました。"
-  registration successfull: "サインアップしました。"
-  user_was_successfully updated: "ユーザーを更新しました。"
+  registration_successfull: "サインアップしました。"
+  user_was_successfully_updated: "ユーザーを更新しました。"
+  practice_was_successfully_updated: "ユーザーを更新しました。"
   complete: '完了'

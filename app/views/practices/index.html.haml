@@ -1,7 +1,6 @@
 %h1= t('practices')
-%table(width="100%" class="table table-striped")
+%table(class="table table-striped")
   - @practices.each do |practice|
     %tr
       %td.title= link_to practice.title, practice
-      %td= practice.learning_status(current_user.id)
-.new= link_to t('new_practice'), new_practice_path
+      %td.status= practice.learning_status(current_user.id)

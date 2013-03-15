@@ -1,4 +1,3 @@
-%p
-  %b Name:
-  = @user.name
-= link_to t('edit'), edit_user_path(@user)
+.icon= gravatar_tag @user, size: 100
+%p= @user.login_name
+%p= @user.full_name

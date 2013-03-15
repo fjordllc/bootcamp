@@ -1,5 +1,5 @@
 %h1= @practice.title
-- if @practice.description.present?
+- if @practice.description?
   .practice= simple_format rendering(@practice.description)
-.edit= link_to t('edit'), edit_practice_path(@practice)
-.delete= link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete
+= link_to t('edit'), edit_practice_path(@practice), class: 'btn'
+= link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'

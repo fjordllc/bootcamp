@@ -1,6 +1,6 @@
-= form_for @practice do |f|
-  - if @practice.errors.any?
+= simple_form_for practice do |f|
+  - if practice.errors.any?
     = error_messages_for :practice
-  %h1= f.text_field :title
-  .practice= f.text_area :description
-  .save= f.submit
+  = f.input :title, input_html: { class: 'input-block-level' }
+  = f.input :description, input_html: { class: 'input-block-level', rows: 20 }
+  = f.submit nil, class: 'btn btn-primary'

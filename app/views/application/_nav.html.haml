@@ -4,10 +4,14 @@
       = link_to current_user do
         = gravatar_tag current_user, size: 20
         = current_user.login_name
-  %li{controller_name == 'practices' ? { class: 'active' } : {}}
-    = link_to practices_path do
+  %li.dropdown{controller_name == 'practices' ? { class: 'active' } : {}}
+    %a.dropdown-toggle(href="#" data-toggle="dropdown")
       %i(class="icon-tasks")
       = t('practices')
+      %b(class="caret")
+    %ul.dropdown-menu
+      %li= link_to t('listing_practices'), practices_path
+      %li= link_to t('new_practice'), new_practice_path
   %li{controller_name == 'users' ? { class: 'active' } : {}}
     = link_to users_path do
       %i(class="icon-user")

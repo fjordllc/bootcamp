@@ -1,6 +1,9 @@
 %h1= t('listing_users')
-%table(width="100%" class="table table-striped")
+%table(class="table table-striped")
   - @users.each do |user|
     %tr
-      %td.icon= gravatar_tag user, size: 100
-      %td.name= user.full_name
+      %td.icon
+        = link_to user do
+          = gravatar_tag user, size: 100
+      %td.login_name= link_to user.login_name, user
+      %td.full_name= link_to user.full_name, user
