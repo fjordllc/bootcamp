@@ -11,16 +11,18 @@ User.create!(
   last_name: 'Komagata',
   email: 'komagata@gmail.com',
   password: 'testtest',
-  password_confirmation: 'testtest'
+  password_confirmation: 'testtest',
+  major_cd: 0
 )
 
 User.create!(
   login_name: 'machida',
   first_name: 'Teppei',
-  last_name: 'machida',
+  last_name: 'Machida',
   email: 'machidanohimitsu@gmail.com',
   password: 'testtest',
-  password_confirmation: 'testtest'
+  password_confirmation: 'testtest',
+  major_cd: 1
 )
 
 import_fixture 'practices'

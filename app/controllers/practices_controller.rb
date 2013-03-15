@@ -3,7 +3,14 @@ class PracticesController < ApplicationController
   before_action :set_practice, only: %w(show edit update destroy)
 
   def index
-    @practices = Practice.all
+    case current_user.major
+    when :programmer
+      @practices = Practice.for_programmer
+    when :designer
+      @practices = Practice.for_designer
+    else
+      @practices = Practice.all
+    end
   end
 
   def show
@@ -41,7 +48,7 @@ class PracticesController < ApplicationController
 
   private
     def practice_params
-      params.require(:practice).permit(:title, :description)
+      params.require(:practice).permit(:title, :description, :aim)
     end
 
     def set_practice
