@@ -49,7 +49,8 @@ class UsersController < ApplicationController
         :last_name,
         :email,
         :password,
-        :password_cofirmation
+        :password_cofirmation,
+        :major
       )
     end
 
