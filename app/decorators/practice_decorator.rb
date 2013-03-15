@@ -6,20 +6,21 @@ module PracticeDecorator
 
   def learning_status(user_id)
     status = self.status(user_id).to_s
-    content_tag(:p, id: "practice-#{self.id}", class: "status #{status}") do
-      content_tag(:span, "#{status}", class: btn_color(status))
+    content_tag(:div, id: "practice-#{self.id}", class: 'btn-group') do
+      btn_group.each do |btn_name, btn_class|
+        concat generate_button(status, btn_name, btn_class)
+      end
     end
   end
 
   private
-    def btn_color(status)
-      case status
-      when 'unstarted'
-        'btn'
-      when 'active'
-        'btn btn-info'
-      when 'complete'
-        'btn btn-success'
-      end
+    def btn_group
+      { 'unstarted' => 'btn', 'active' => 'btn btn-info', 'complete' => 'btn btn-success' }
+    end
+
+    def generate_button(status, btn_name, btn_class)
+      btn_class += " #{btn_name}"
+      btn_class += ' disabled' if status != btn_name
+      content_tag(:button, I18n.t(btn_name), class: btn_class)
     end
 end
