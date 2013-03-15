@@ -7,12 +7,12 @@ class UserSessionsController < ApplicationController
       redirect_back_or_to :users, notice: t('sign_in_successful')
     else
       flash.now[:alert] = t('invalid_email_or_password')
-      render action: 'new'
+      render 'new'
     end
   end
 
   def destroy
     logout
-    redirect_to :users, notice: t('sign_out')
+    redirect_to root_url, notice: t('sign_out')
   end
 end

@@ -21,9 +21,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to :users, notice: t('registration_successfull')
+      login(@user.login_name, @user.password, true)
+      redirect_to :practices, notice: t('registration_successfull')
     else
-      render action: 'new'
+      render 'new'
     end
   end
 
@@ -31,7 +32,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(user_params)
       redirect_to @user, notice: t('user_was_successfully_updated')
     else
-      render action: 'edit'
+      render 'edit'
     end
   end
 

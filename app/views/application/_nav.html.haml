@@ -1,0 +1,28 @@
+%ul.nav.nav-pills.pull-right
+  - if current_user
+    %li
+      = link_to current_user do
+        = gravatar_tag current_user, size: 20
+        = current_user.login_name
+  %li{controller_name == 'practices' ? { class: 'active' } : {}}
+    = link_to practices_path do
+      %i(class="icon-tasks")
+      = t('practices')
+  %li{controller_name == 'users' ? { class: 'active' } : {}}
+    = link_to users_path do
+      %i(class="icon-user")
+      = t('listing_users') 
+  - if current_user
+    %li
+      = link_to logout_path do
+        %i(class="icon-off")
+        = t('logout')
+  - else
+    %li
+      = link_to login_path do
+        %i(class="icon-off")
+        = t('sign_in')
+    %li
+      = link_to new_user_path do
+        %i(class="icon-off")
+        = t('sign_up') 

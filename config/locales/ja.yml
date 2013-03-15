@@ -290,7 +290,7 @@ ja:
   sign_up: "サインアップ"
   sign_in: "サインイン"
   logout: "ログアウト"
-  please_login_first: "ログインしてください"
+  please_sign_in_first: "ログインしてください"
   are_you_sure: "ほんとうによろしいですか？"
   start: "スタート"
   edit: "編集"

@@ -8,22 +8,9 @@
   %body{class: "#{controller_name}_#{action_name}"}
     .container
       #header
-        %ul.nav.nav-pills.pull-right
-          - if current_user
-            %li
-              = gravatar_tag current_user, size: 20
-              = current_user.login_name
-            %li= link_to t('logout'), logout_path
-          - else
-            %li= link_to t('sign_up'), new_user_path
-            %li= link_to t('sign_in'), login_path
-          %li= link_to t('practices'), practices_path
-          %li= link_to t('listing_users'), users_path
+        = render 'application/nav'
         %h1= link_to t('256interns'), root_path
-        - if notice
-          .alert.alert-info= notice
-        - if alert
-          .alert.alert-error= alert
+        = render 'application/alert'
       .row
         .span12= yield
       #footer
