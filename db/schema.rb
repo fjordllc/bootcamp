@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20130315082621) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "aim_cd",      default: 0, null: false
+    t.integer  "target_cd",   default: 0, null: false
     t.integer  "row_order"
   end
 
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20130315082621) do
     t.datetime "remember_me_token_expires_at"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "major_cd"
+    t.integer  "job_cd"
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"
