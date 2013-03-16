@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  as_enum :major, [:programmer, :designer]
+  as_enum :job, [:programmer, :designer]
   authenticates_with_sorcery!
   has_many :learnings
 

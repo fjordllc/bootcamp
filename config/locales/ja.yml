@@ -337,4 +337,4 @@ ja:
   user_was_successfully_updated: "ユーザーを更新しました。"
   practice_was_successfully_updated: "ユーザーを更新しました。"
   complete: '完了'
-  for: '%{aim}向け'
+  for: '%{target} 課題'

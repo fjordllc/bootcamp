@@ -12,7 +12,7 @@ User.create!(
   email: 'komagata@gmail.com',
   password: 'testtest',
   password_confirmation: 'testtest',
-  major_cd: 0
+  job_cd: 0
 )
 
 User.create!(
@@ -22,7 +22,7 @@ User.create!(
   email: 'machidanohimitsu@gmail.com',
   password: 'testtest',
   password_confirmation: 'testtest',
-  major_cd: 1
+  job_cd: 1
 )
 
 import_fixture 'practices'
