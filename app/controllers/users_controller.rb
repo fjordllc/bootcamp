@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_login, except: %w(new create)
+  before_action :require_login, only: %w(new edit create update destroy)
   before_action :set_user, only: %w(show edit update destroy)
 
   def index

@@ -1,5 +1,5 @@
 class PracticesController < ApplicationController
-  before_action :require_login
+  before_action :require_login, only: %w(new edit create update destory)
   before_action :set_practice, only: %w(show edit update destroy)
 
   def index

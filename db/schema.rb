@@ -12,7 +12,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20130315082621) do
-ActiveRecord::Schema.define(version: 20130315065106) do
 
   create_table "learnings", force: true do |t|
     t.integer  "user_id",                 null: false
@@ -27,8 +26,8 @@ ActiveRecord::Schema.define(version: 20130315065106) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "row_order"
     t.integer  "aim_cd",      default: 0, null: false
+    t.integer  "row_order"
   end
 
   create_table "users", force: true do |t|
