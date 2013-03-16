@@ -14,12 +14,16 @@ module PracticeDecorator
   end
 
   def for
-    t('for', aim: t(self.aim))
+    t('for', target: t(self.target))
   end
 
   private
     def btn_group
-      { 'unstarted' => 'btn', 'active' => 'btn btn-info', 'complete' => 'btn btn-success' }
+      {
+        'unstarted' => 'btn',
+        'active'    => 'btn btn-info',
+        'complete'  => 'btn btn-success'
+      }.freeze
     end
 
     def generate_button(status, btn_name, btn_class)

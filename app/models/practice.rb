@@ -1,10 +1,11 @@
 class Practice < ActiveRecord::Base
   include RankedModel
   ranks :row_order
-  as_enum :aim, [:everyone, :programmer, :designer]
+  as_enum :target, [:everyone, :programmer, :designer]
   has_many :learnings
   validates :title, presence: true
   validates :description, presence: true
-  scope :for_programmer, ->{ where.not(aim_cd: Practice.designer) }
-  scope :for_designer, ->{ where.not(aim_cd: Practice.programmer) }
+
+  scope :for_programmer, ->{ where.not(target_cd: Practice.designer) }
+  scope :for_designer, ->{ where.not(target_cd: Practice.programmer) }
 end

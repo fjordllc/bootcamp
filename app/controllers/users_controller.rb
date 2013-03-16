@@ -50,7 +50,7 @@ class UsersController < ApplicationController
         :email,
         :password,
         :password_cofirmation,
-        :major
+        :job
       )
     end
 
