@@ -2,249 +2,348 @@ practice_1:
   id: 1
   title: "OS X Lionをクリーンインストールする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 0
 
 practice_2:
   id: 2
   title: "Terminalの基礎を覚える"
   description: "description..."
+  goal: "goal..."
+  target_cd: 0
 
 practice_3:
   id: 3
   title: "PC性能の見方を知る"
   description: "description..."
+  goal: "goal..."
+  target_cd: 0
 
 practice_4:
   id: 4
   title: "Debianをインストールする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_5:
   id: 5
   title: "Linuxのファイル操作の基礎を覚える"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_6:
   id: 6
   title: "aptの基礎を覚える"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_7:
   id: 7
   title: "viをインストールする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_8:
   id: 8
   title: "viのチュートリアルをやる"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_9:
   id: 9
   title: "sudoをインストールする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_10:
   id: 10
   title: "sshdをインストールする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_11:
   id: 11
   title: "リモートのサーバーにsshで鍵を使ってログインする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_12:
   id: 12
   title: "sshdでパスワード認証を禁止にする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_13:
   id: 13
   title: "sshdでrootでのログインを禁止にする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_14:
   id: 14
   title: "telnetを使ってget, postを試し、HTTPの基礎を理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_15:
   id: 15
   title: "HTTPのrequestとresponse、headerとbodyを理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_16:
   id: 16
   title: "nginxをインストールする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_17:
   id: 17
   title: "nginxにネームベースのVirtualHostを使ってサイトを作る"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_18:
   id: 18
   title: "sslの基礎を理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_19:
   id: 19
   title: "nginxで自己認証した証明書を使ったssl対応サイトを作る"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_20:
   id: 20
   title: "sqlの基礎を理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_21:
   id: 21
   title: "mysqlをインストールする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_22:
   id: 22
   title: "mysql, mysqladminコマンドでユーザー、データベース、テーブルを作成する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_23:
   id: 23
   title: "rubyをインストールする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 0
 
 practice_24:
   id: 24
-  title: "rvmをインストールする"
+  title: "rbenvをインストールする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 0
 
 practice_25:
   id: 25
-  title: "rvmで複数バージョンのrubyを切り替えれるようにする"
+  title: "rbenvで複数バージョンのrubyを切り替えれるようにする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 0
 
 practice_26:
   id: 26
   title: "「プログラミング入門 - Rubyを使って」をやる"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_27:
   id: 27
   title: "「プログラミング入門 - Rubyを使って」をgithubにpushする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_28:
   id: 28
   title: "「プログラミング入門 - Rubyを使って」のテストをrspecで書く"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_29:
   id: 29
   title: "rubygemsの基礎を理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_30:
   id: 30
   title: "gemコマンドを使ってgemのインストール、更新、削除をする"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_31:
   id: 31
   title: "rakeの基礎を理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_32:
   id: 32
   title: "rakeでCプログラムをコンパイルするRakefileを書く"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_33:
   id: 33
   title: "Getting Started with RailsにしたがってRailsアプリを作る"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_34:
   id: 34
   title: "ActionControllerを理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_35:
   id: 35
   title: "ActionViewを理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_36:
   id: 36
   title: "ActiveRecordを理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_37:
   id: 37
   title: "ActiveSupportを理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_38:
   id: 38
   title: "Railsのroutesを理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_39:
   id: 39
   title: "Railsのi18nの基礎を理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_40:
   id: 40
   title: "sorceryを使ってユーザー認証を作る"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_41:
   id: 41
   title: "sorceryを使ってTwitter認証を作る"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_42:
   id: 42
   title: "exception_notificationを使ってエラーのメール通知機能を作る"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_43:
   id: 43
   title: "paperclipを使って画像アップロード機能を作る"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_44:
   id: 44
   title: "TDDの基礎を理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_45:
   id: 45
   title: "unittestの基礎を理解する"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_46:
   id: 46
   title: "rspecを使ってRailsアプリのテストを書く"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_47:
   id: 47
   title: "capybaraを使ってrequest specを書く"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_48:
   id: 48
   title: "Try Gitをやる"
   description: "description..."
+  goal: "goal..."
+  target_cd: 0
 
 practice_49:
   id: 49
   title: "unicornを使ってrailsアプリを動かす"
   description: "description..."
+  goal: "goal..."
+  target_cd: 1
 
 practice_50:
   id: 50
   title: "capistranoを使ってrailsアプリをデプロイする"
   description: "description..."
-
+  goal: "goal..."
+  target_cd: 1

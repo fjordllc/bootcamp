@@ -1,19 +1,10 @@
 class PracticesController < ApplicationController
-  before_action :require_login, only: %w(new edit create update destory)
-  before_action :set_practice, only: %w(show edit update destroy)
+  before_action :require_login, except: %w(index show)
+  before_action :set_practice, only: %w(show edit update destroy sort)
+  respond_to :html, :json
 
   def index
-    @practices =
-      if current_user.job.present?
-        case current_user.job
-        when :programmer
-          Practice.for_programmer
-        when :designer
-          Practice.for_designer
-        end
-      else
-        Practice.all
-      end
+    @practices = Practice.rank(:row_order).all
   end
 
   def show
@@ -32,26 +23,31 @@ class PracticesController < ApplicationController
     if @practice.save
       redirect_to @practice, notice: t('practice_was_successfully_created')
     else
-      render 'new'
+      render :new
     end
   end
 
   def update
     if @practice.update(practice_params)
-      redirect_to @practice, notice: t('practice_was_successfully_updated')
-    else
-      render 'edit'
+      flash[:notice] = t('practice_was_successfully_updated')
     end
+    respond_with @practice
   end
 
   def destroy
     @practice.destroy
-    redirect_to practices_url
+    redirect_to practices_url, notice: t('practice_was_successfully_deleted')
   end
 
   private
     def practice_params
-      params.require(:practice).permit(:title, :description, :target)
+      params.require(:practice).permit(
+        :title,
+        :description,
+        :goal,
+        :target,
+        :row_order
+      )
     end
 
     def set_practice

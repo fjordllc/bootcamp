@@ -1,8 +1,21 @@
 %h1= t('practices')
+%ul.nav.nav-tabs
+  %li{params['target'].blank? ? { class: 'active' } : {}}
+    = link_to t('all'), practices_path
+  %li{params['target'] == 'everyone' ? { class: 'active' } : {}}
+    = link_to t('for_everyone'), practices_path(target: 'everyone')
+  %li{params['target'] == 'programmer' ? { class: 'active' } : {}}
+    = link_to t('for_programmer'), practices_path(target: 'programmer')
+  %li{params['target'] == 'designer' ? { class: 'active' } : {}}
+    = link_to t('for_designer'), practices_path(target: 'designer')
 %table.table.table-striped.practices
   %tbody
-    = tr_for @practices do |practice|
-      %td.title= link_to practice.title, practice
-      %td.status= practice.learning_status(current_user.id)
-      %td.handle
-        %i.icon-align-justify
+    - @practices.each do |practice|
+      %tr{practice_attr(practice)}
+        %td.title
+          = link_to practice.title, practice
+        - if current_user
+          %td.status= practice.learning_status(current_user.id)
+          %td.handle
+            %i.icon-align-justify
+= link_to t('new_practice'), new_practice_path, class: 'btn btn-block btn-primary'

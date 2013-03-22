@@ -68,6 +68,9 @@ GEM
     coffee-script-source (1.6.1)
     diff-lcs (1.2.1)
     dynamic_form (1.1.4)
+    elusive-iconfont-sass-rails (1.0.1)
+      railties (>= 3.1.1)
+      sass-rails (>= 3.1.1)
     erb2haml (0.1.4)
       haml
       hpricot
@@ -217,6 +220,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0.beta1)
   dynamic_form
+  elusive-iconfont-sass-rails
   erb2haml
   flat-ui-rails
   font-awesome-sass-rails (~> 3.0.0.1)

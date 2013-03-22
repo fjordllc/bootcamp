@@ -1,6 +1,6 @@
 $ ->
-  getPracticeId = ($element) ->
-    $element.attr('id').split('-')[1]
+  getPracticeId = (element) ->
+    element.attr('id').split('-')[1]
 
   $('button.unstarted').on 'click', ->
     return if $(this).hasClass('disabled')
@@ -37,16 +37,3 @@ $ ->
           $(element).removeClass('disabled')
         else
           $(element).addClass('disabled')
-
-  $('.practices tbody').sortable
-    axis: "y"
-    handle: ".handle"
-    update: (e, ui) -> 
-      console.log "change!"
-      console.log 
-      id = ui.item[0].id.split('_')[1]
-      $.ajax
-        type: 'PUT',
-        url: "/practices/#{id}",
-        dataType: 'json',
-        data: { practices: { row_order_position: 0 } }
