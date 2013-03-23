@@ -227,11 +227,11 @@ ja:
 
     enums:
       user:
-        majors:
+        jobs:
           programmer: 'プログラマー'
           designer: 'デザイナー'
       practice:
-        aims:
+        targets:
           everyone: '共通'
           programmer: 'プログラマー向け'
           designer: 'デザイナー向け'
@@ -252,7 +252,7 @@ ja:
         icon_file_size: 画像ファイルのサイズ
         icon_content_type: 画像ファイルの種類
         notify_comment: コメント通知
-        major: 専攻
+        job: 志望
 
       practice:
         title: "タイトル"
