@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/NoamB/sorcery.git
-  revision: 3583f49814453082368fcd312491dc9cdd7b7e62
+  revision: 53717ea0b155e907fb2f66b0a0e0d4ff184e82ea
   specs:
     sorcery (0.8.1)
       bcrypt-ruby (~> 3.0.0)
@@ -41,7 +41,7 @@ GEM
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.33)
-    arel (4.0.0.beta1)
+    arel (4.0.0.beta2)
     atomic (1.0.1)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.3.0.1)
@@ -65,7 +65,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.1)
+    coffee-script-source (1.6.2)
     diff-lcs (1.2.1)
     dynamic_form (1.1.4)
     elusive-iconfont-sass-rails (1.0.1)
@@ -80,13 +80,13 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.6)
       multipart-post (~> 1.1)
-    ffi (1.4.0)
+    ffi (1.5.0)
     flat-ui-rails (0.0.2)
     font-awesome-sass-rails (3.0.0.1)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
     gravatarify (3.1.0)
-    haml (4.0.0)
+    haml (4.0.1)
       tilt
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
@@ -101,7 +101,7 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.7.7)
-    jwt (0.1.7)
+    jwt (0.1.8)
       multi_json (>= 1.5)
     mail (2.5.3)
       i18n (>= 0.4.0)
@@ -109,10 +109,10 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.1)
     mime-types (1.21)
-    minitest (4.6.2)
-    multi_json (1.6.1)
+    minitest (4.7.0)
+    multi_json (1.7.2)
     multipart-post (1.2.0)
-    nokogiri (1.5.6)
+    nokogiri (1.5.9)
     oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -163,7 +163,7 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
-    ruby_parser (3.1.1)
+    ruby_parser (3.1.2)
       sexp_processor (~> 4.1)
     rubyzip (0.9.9)
     sass (3.2.7)
@@ -178,7 +178,7 @@ GEM
       rubyzip
       websocket (~> 1.0.4)
     settingslogic (2.0.9)
-    sexp_processor (4.1.5)
+    sexp_processor (4.2.0)
     simple_enum (1.6.4)
       activesupport (>= 3.0.0)
     simple_form (3.0.0.beta1)
@@ -198,7 +198,7 @@ GEM
     thor (0.17.0)
     thread_safe (0.1.0)
       atomic
-    tilt (1.3.5)
+    tilt (1.3.6)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)

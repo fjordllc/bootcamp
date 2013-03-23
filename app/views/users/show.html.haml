@@ -2,3 +2,5 @@
 %p= @user.login_name
 %p= @user.full_name
 %p= t(@user.job)
+- if current_user
+  = link_to t('edit'), edit_user_path(current_user), class: 'btn btn-primary'

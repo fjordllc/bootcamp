@@ -167,9 +167,10 @@ ja:
         first_name: "名"
         last_name: "姓"
         full_name: "フルネーム"
-        email: Email
-        profile: プロフィール
-        gender: 性別
+        email: "Email"
+        twitter_url: "Twitter URL"
+        facebook_url: "Facebook URL"
+        blog_url: "ブログURL"
         password: パスワード
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
@@ -228,22 +229,23 @@ ja:
     enums:
       user:
         jobs:
-          programmer: 'プログラマー'
-          designer: 'デザイナー'
+          programmer: "プログラマー"
+          designer: "デザイナー"
       practice:
         targets:
-          everyone: '共通'
-          programmer: 'プログラマー向け'
-          designer: 'デザイナー向け'
+          everyone: "共通"
+          programmer: "プログラマー向け"
+          designer: "デザイナー向け"
 
     attributes:
       user:
         login_name: "ユーザー名"
         first_name: "名"
         last_name: "姓"
-        email: Email
-        profile: プロフィール
-        gender: 性別
+        email: "Email"
+        twitter_url: "Twitter URL"
+        facebook_url: "Facebook URL"
+        blog_url: "ブログURL"
         password: パスワード
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
@@ -329,6 +331,7 @@ ja:
   listing_users: "ユーザー一覧"
   listing_practices: "プラクティス一覧"
   editing_practice: "プラクティス編集"
+  editing_user: "アカウント情報編集"
   show: "表示"
   back: "戻る"
   invalid_email_or_password: "ユーザー名かパスワードが違います。"

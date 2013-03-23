@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_login, only: %w(new edit create update destroy)
-  before_action :set_user, only: %w(show edit update destroy)
+  before_action :require_login, except: %w(index show)
+  before_action :set_user, only: %w(show)
 
   def index
     @users = User.all
@@ -29,6 +29,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = current_user
     if @user.update_attributes(user_params)
       redirect_to @user, notice: t('user_was_successfully_updated')
     else
@@ -37,8 +38,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to users_url
+    current_user.destroy
+    redirect_to users_url, notice: t('user_was_successfully_deleted')
   end
 
   private
@@ -48,6 +49,9 @@ class UsersController < ApplicationController
         :first_name,
         :last_name,
         :email,
+        :twitter_url,
+        :facebook_url,
+        :blog_url,
         :password,
         :password_cofirmation,
         :job

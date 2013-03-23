@@ -1,8 +1,8 @@
 practice_1:
   id: 1
-  title: "OS X Lionをクリーンインストールする"
+  title: "OS X Mountain Lionをクリーンインストールする"
   description: "description..."
-  goal: "goal..."
+  goal: "OS X Mountain Lionをクリーンインストールする"
   target_cd: 0
 
 practice_2:

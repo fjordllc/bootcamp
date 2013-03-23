@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130322055740) do
+ActiveRecord::Schema.define(version: 20130323091346) do
 
   create_table "learnings", force: true do |t|
     t.integer  "user_id",                 null: false
@@ -44,6 +44,9 @@ ActiveRecord::Schema.define(version: 20130322055740) do
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "job_cd"
+    t.string   "twitter_url"
+    t.string   "facebook_url"
+    t.string   "blog_url"
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"
