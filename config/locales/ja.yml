@@ -308,7 +308,7 @@ ja:
   destroy: "削除"
   save: "保存"
   unstarted: "未着手"
-  active: "作業中"
+  started: "作業中"
   finished: "完了"
   dashboard: "ダッシュボード"
   new_user: "新規ユーザー"

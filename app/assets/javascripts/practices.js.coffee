@@ -2,38 +2,32 @@ $ ->
   getPracticeId = (element) ->
     element.attr('id').split('-')[1]
 
-  $('button.unstarted').on 'click', ->
-    return if $(this).hasClass('disabled')
-    practice_id = getPracticeId($(this).parent())
+  $(document).on 'click', 'button.unstarted', ->
+    that = this
+    practice_id = getPracticeId($(this))
     $.ajax "/practices/#{practice_id}/start",
       type: 'POST'
     .done ->
-      $.each $("#practice-#{practice_id}").children(), (i, element)->
-        if $(element).hasClass('active')
-          $(element).removeClass('disabled')
-        else
-          $(element).addClass('disabled')
+      $(that)
+        .attr({class: 'btn started'})
+        .text(I18n.t('started'))
 
-  $('button.active').on 'click', ->
-    return if $(this).hasClass('disabled')
-    practice_id = getPracticeId($(this).parent())
+  $(document).on 'click', 'button.started', ->
+    that = this
+    practice_id = getPracticeId($(this))
     $.ajax "/practices/#{practice_id}/finish",
       type: 'PUT'
     .done ->
-      $.each $("#practice-#{practice_id}").children(), (i, element)->
-        if $(element).hasClass('complete')
-          $(element).removeClass('disabled')
-        else
-          $(element).addClass('disabled')
+      $(that)
+        .attr({class: 'btn complete'})
+        .text(I18n.t('complete'))
 
-  $('button.complete').on 'click', ->
-    return if $(this).hasClass('disabled')
-    practice_id = getPracticeId($(this).parent())
+  $(document).on 'click', 'button.complete', ->
+    that = this
+    practice_id = getPracticeId($(this))
     $.ajax "/practices/#{practice_id}/destroy",
       type: 'DELETE'
     .done ->
-      $.each $("#practice-#{practice_id}").children(), (i, element)->
-        if $(element).hasClass('unstarted')
-          $(element).removeClass('disabled')
-        else
-          $(element).addClass('disabled')
+      $(that)
+        .attr({class: 'btn unstarted'})
+        .text(I18n.t('unstarted'))
