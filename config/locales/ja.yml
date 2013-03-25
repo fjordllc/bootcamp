@@ -151,6 +151,8 @@ ja:
       practice:
         title: "タイトル"
         description: "内容"
+        goal: "終了条件"
+        target: "ターゲット"
 
       story:
         id: ID
