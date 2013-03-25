@@ -8,7 +8,7 @@ class LearningsController < ApplicationController
       practice_id: params[:practice_id]
     )
 
-    notify("#{current_user.name}が「#{@practice.title}」を始めました。 #{url_for(@practice)}") if Rails.env.production?
+    notify("#{current_user.full_name}(#{current_user.login_name})が「#{@practice.title}」を始めました。 #{url_for(@practice)}") if Rails.env.production?
     head :ok if learning.save
   end
 
@@ -18,7 +18,7 @@ class LearningsController < ApplicationController
       practice_id: params[:practice_id]
     )
 
-    notify("#{current_user.name}が「#{@practice.title}」を完了しました。 #{url_for(@practice)}") if Rails.env.production?
+    notify("#{current_user.full_name}(#{current_user.login_name})が「#{@practice.title}」を完了しました。 #{url_for(@practice)}") if Rails.env.production?
     learning.status = :complete
     head :ok if learning.save
   end
@@ -39,9 +39,9 @@ class LearningsController < ApplicationController
 
     def notify(text)
       Lingman::Updater.update(
-        Settings.bot_id,
-        Settings.room_id,
-        Settings.secret,
+        ENV['LINGR_BOTID'],
+        ENV['LINGR_ROOMID'],
+        ENV['LINGR_SECRET'],
         text
       )
     end
