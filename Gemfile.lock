@@ -76,6 +76,7 @@ GEM
       hpricot
       ruby_parser
     erubis (2.7.0)
+    excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
     faraday (0.8.6)
@@ -93,6 +94,11 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
+    heroku-api (0.3.8)
+      excon (~> 0.16.10)
+    heroku_san (4.2.5)
+      heroku-api (>= 0.1.2)
+      rake
     hike (1.2.1)
     hpricot (0.8.6)
     httpauth (0.2.0)
@@ -227,6 +233,7 @@ DEPENDENCIES
   font-awesome-sass-rails (~> 3.0.0.1)
   gravatarify
   haml-rails
+  heroku_san
   jquery-rails
   lingman!
   pg

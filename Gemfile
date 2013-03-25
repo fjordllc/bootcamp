@@ -36,6 +36,7 @@ group :development do
   gem 'sqlite3'
   gem 'erb2haml'
   gem 'pry-rails'
+  gem 'heroku_san'
 end
 
 group :development, :test do
