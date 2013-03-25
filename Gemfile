@@ -28,6 +28,10 @@ group :assets do
   gem 'elusive-iconfont-sass-rails'
 end
 
+group :production do
+  gem 'pg'
+end
+
 group :development do
   gem 'sqlite3'
   gem 'erb2haml'
