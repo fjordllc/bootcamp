@@ -4,5 +4,5 @@
   = f.input :title, input_html: { class: 'input-block-level' }
   = f.input :description, input_html: { class: 'input-block-level', rows: 20 }
   = f.input :goal, input_html: { class: 'input-block-level', rows: 10 }
-  = f.input :target, collection: Practice.targets_for_select
+  = f.input :target, collection: Practice.targets_for_select, as: :radio_buttons
   = f.submit nil, class: 'btn btn-primary'
