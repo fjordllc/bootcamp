@@ -11,11 +11,12 @@
   %body{class: "#{controller_name}_#{action_name}"}
     .container
       #header
-        = render 'application/nav'
+        = render 'nav'
         %h1= link_to t('256interns'), root_path
-        = render 'application/alert'
+        = render 'alert'
       .row
         .span12= yield
       #footer
         ©
         = link_to 'FJORD, LLC', 'http://fjord.jp'
+    = render 'fork_me'
