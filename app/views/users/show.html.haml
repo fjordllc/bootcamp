@@ -1,6 +1,19 @@
 .icon= gravatar_tag @user, size: 100
-%p= @user.login_name
-%p= @user.full_name
-%p= t(@user.job)
+%dl
+  %dt= t('helpers.label.user.login_name')
+  %dd= @user.login_name
+  %dt= t('helpers.label.user.full_name')
+  %dd= @user.full_name
+  %dt= t('helpers.label.user.job')
+  %dd= t(@user.job)
+  - if @user.twitter_url?
+    %dt= t('helpers.label.user.twitter_url')
+    %dd= link_to @user.twitter_url
+  - if @user.facebook_url?
+    %dt= t('helpers.label.user.facebook_url')
+    %dd= link_to @user.facebook_url
+  - if @user.blog_url?
+    %dt= t('helpers.label.user.blog_url')
+    %dd= link_to @user.blog_url
 - if current_user
   = link_to t('edit'), edit_user_path(current_user), class: 'btn btn-primary'

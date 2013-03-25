@@ -175,9 +175,7 @@ ja:
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
         remember_me: 記憶する
-        icon_file_name: 画像ファイル名
-        icon: アイコン
-        notify_comment: コメント通知
+        job: "職種"
 
       learning:
         status: "ステータス"
@@ -254,7 +252,7 @@ ja:
         icon_file_size: 画像ファイルのサイズ
         icon_content_type: 画像ファイルの種類
         notify_comment: コメント通知
-        job: 志望
+        job: "職種"
 
       practice:
         title: "タイトル"
