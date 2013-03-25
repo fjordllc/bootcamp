@@ -24,9 +24,4 @@ Interns::Application.configure do
 
   # Debug mode disables concatenation and preprocessing of assets.
   config.assets.debug = false
-
-  config.middleware.use ExceptionNotifier,
-    :email_prefix => '[256interns] ',
-    :sender_address => %("notifier" <notifier@interns.com>),
-    :exception_recipients => 'develop@fjord.jp'
 end
