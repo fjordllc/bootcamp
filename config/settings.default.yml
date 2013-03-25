@@ -2,6 +2,9 @@ defaults: &defaults
   bot_id: BOTID
   room_id: ROOMID
   secret: SECRET
+  basic_auth:
+    name: intern
+    pass: test
 
 development:
   <<: *defaults

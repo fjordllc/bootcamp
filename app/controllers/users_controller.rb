@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :require_login, except: %w(index show)
+  before_action :require_login, except: %w(index show new create)
   before_action :set_user, only: %w(show)
-  http_basic_authenticate_with name: 'intern', password: ENV['INTERN_PASSWORD'] || 'test'
+  http_basic_authenticate_with name: Settings.basic_auth.name, password: ENV['INTERN_PASSWORD'] || Settings.basic_auth.pass
 
   def index
     @users = User.all
