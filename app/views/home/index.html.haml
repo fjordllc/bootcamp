@@ -1,2 +1,22 @@
-%ul
-  %li= link_to t('enter_for_intern'), 'http://intern-fantasy.herokuapp.com'
+%h2.lead.text-center Web系スタートアップでインターンしてプログラム・デザインを身につけよう。
+%h2.text-center= t('how_256interns_works')
+%p インターンシップとは、応募者は就業体験と職業訓練を得、企業は見込み社員と労働力を得る仕組みです。
+２５６インターンではお金を払って行くスクールとお金を貰ってやるアルバイトの中間地点として、１週間毎に学習と作業を交換することにより、誰もお金を払わないインターンシップを実現します。
+.text-center= link_to t('enter_for_intern'), 'http://intern-fantasy.herokuapp.com', class: 'btn btn-primary btn-large'
+%h2.text-center 256インターンの仕組み
+.row
+  .span4
+    %h3 学習週
+    %p １週間自分のペースで学習する。
+  .span4
+    %h3 作業週
+    %p 次の１週間Webサービスを作る作業をする。
+  .span4
+    %h3 学習と作業の交換
+    %p それを交互に繰り返す。
+%h2.text-center ローカルとリモート
+%p ２５６インターンではオフィスに行く一般的なインターンをローカルインターン。インターネット経由でのみのリモートインターンの両方が可能です。リモートであればオフィスに通えない場所に済む人や昼間学校や会社、子育てで忙しい人でも参加できます。
+%h2.text-center 参加企業
+= link_to 'FJORD, LLC', 'http://fjord.jp'
+%p ２５６インターンでは参加企業を募集しています。当サービスを使えば、プログラマーがいなくて教える事ができない企業や、手間がかかって既存のインターンシップが行えない企業様でもインターンシップの利点を活かせます。
+%p= link_to 'お問い合わせはこちら', 'mailto:info@fjord.jp'
