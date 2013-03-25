@@ -74,7 +74,7 @@ GEM
     excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    faraday (0.8.6)
+    faraday (0.8.7)
       multipart-post (~> 1.1)
     ffi (1.5.0)
     flat-ui-rails (0.0.2)
