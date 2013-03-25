@@ -26,9 +26,8 @@ ActiveRecord::Schema.define(version: 20130323091346) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position"
-    t.integer  "row_order"
     t.integer  "target_cd",   default: 0, null: false
+    t.integer  "row_order"
     t.text     "goal"
   end
 
