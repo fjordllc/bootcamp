@@ -77,4 +77,9 @@ Interns::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => '[256interns] ',
+    :sender_address => %("notifier" <notifier@interns.com>),
+    :exception_recipients => 'develop@fjord.jp'
 end
