@@ -15,5 +15,10 @@
   - if @user.blog_url?
     %dt= t('helpers.label.user.blog_url')
     %dd= link_to @user.blog_url
+%h3= t('completed_practices')
+%ul
+  - @user.completed_practices.each do |practice|
+    %li
+      .title= link_to practice.title, practice
 - if current_user
   = link_to t('edit'), edit_user_path(current_user), class: 'btn btn-primary'
