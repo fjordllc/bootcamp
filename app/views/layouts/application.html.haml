@@ -19,4 +19,5 @@
       #footer
         ©
         = link_to 'FJORD, LLC', 'http://fjord.jp'
-    = render 'fork_me'
+    - if controller_name == 'home'
+      = render 'fork_me'
