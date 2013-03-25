@@ -71,6 +71,8 @@ GEM
       hpricot
       ruby_parser
     erubis (2.7.0)
+    exception_notification (3.0.1)
+      actionmailer (>= 3.0.4)
     excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -224,6 +226,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0.beta1)
   dynamic_form
   erb2haml
+  exception_notification
   flat-ui-rails
   font-awesome-sass-rails (~> 3.0.0.1)
   gravatarify
