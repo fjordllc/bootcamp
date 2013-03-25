@@ -120,6 +120,7 @@ GEM
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
       rack (~> 1.2)
+    pg (0.14.1)
     polyglot (0.3.3)
     pry (0.9.12)
       coderay (~> 1.0.5)
@@ -228,6 +229,7 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   lingman!
+  pg
   pry-rails
   puma
   rails (~> 4.0.0.beta1)
