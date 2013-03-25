@@ -19,6 +19,7 @@ gem 'settingslogic'
 gem 'ranked-model'
 gem 'font-awesome-sass-rails', '~> 3.0.0.1'
 gem 'bootstrap-sass', '~> 2.3.0.1'
+gem 'i18n-js'
 
 group :assets do
   gem 'sass-rails',   '~> 4.0.0.beta1'

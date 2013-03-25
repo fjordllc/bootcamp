@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require jquery-ui-1.10.2.custom.min
 //= require bootstrap
+//= require i18n
+//= require i18n/translations
 //= require_tree .
