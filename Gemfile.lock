@@ -46,8 +46,6 @@ GEM
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.3.0.1)
       sass (~> 3.2)
-    bootswatch-rails (0.4.0)
-      railties (>= 3.1)
     builder (3.1.4)
     capybara (2.0.2)
       mime-types (>= 1.16)
@@ -68,9 +66,6 @@ GEM
     coffee-script-source (1.6.2)
     diff-lcs (1.2.1)
     dynamic_form (1.1.4)
-    elusive-iconfont-sass-rails (1.0.1)
-      railties (>= 3.1.1)
-      sass-rails (>= 3.1.1)
     erb2haml (0.1.4)
       haml
       hpricot
@@ -223,11 +218,9 @@ PLATFORMS
 DEPENDENCIES
   active_decorator
   bootstrap-sass (~> 2.3.0.1)
-  bootswatch-rails
   capybara
   coffee-rails (~> 4.0.0.beta1)
   dynamic_form
-  elusive-iconfont-sass-rails
   erb2haml
   flat-ui-rails
   font-awesome-sass-rails (~> 3.0.0.1)
