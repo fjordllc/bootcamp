@@ -27,15 +27,30 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-  def my_practices_size
-    Practice.where(target_cd: job_cd + 1).size.to_f
-  end
 
-  def completed_my_practices_size
-    completed_practices.where(target_cd: job_cd + 1).size.to_f
-  end
 
   def completed_percentage
     completed_my_practices_size / my_practices_size * 100
   end
+
+  private
+    def my_practices_size
+      my_practices = case job
+                     when :programmer
+                       Practice.for_programmer
+                     when :designer
+                       Practice.for_designer
+                     end
+      my_practices.size.to_f
+    end
+
+    def completed_my_practices_size
+      my_practices = case job
+                     when :programmer
+                       completed_practices.for_programmer
+                     when :designer
+                       completed_practices.for_designer
+                     end
+      my_practices.size.to_f
+    end
 end
