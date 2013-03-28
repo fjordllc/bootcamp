@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_login, except: %w(index show new create)
-  before_action :set_user, only: %w(show)
+  before_action :require_login, only: %w[edit update destroy]
+  before_action :set_user, only: %w[show]
   http_basic_authenticate_with name: 'intern', password: ENV['INTERN_PASSWORD'] || 'test'
 
   def index
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      login(@user.login_name, @user.password, true)
+      login(@user.login_name, params[:user][:password], true)
       redirect_to :practices, notice: t('registration_successfull')
     else
       render 'new'
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       redirect_to @user, notice: t('user_was_successfully_updated')
     else
       render 'edit'

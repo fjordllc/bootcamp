@@ -13,6 +13,13 @@ GIT
   specs:
     lingman (0.0.3)
 
+GIT
+  remote: git://github.com/sinsoku/active_decorator.git
+  revision: 7125b68128ff289261a23dcf4562757dba47d069
+  branch: support_rspec
+  specs:
+    active_decorator (0.3.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -25,7 +32,6 @@ GEM
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    active_decorator (0.3.4)
     activemodel (4.0.0.beta1)
       activesupport (= 4.0.0.beta1)
       builder (~> 3.1.0)
@@ -54,6 +60,9 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
+    capybara-webkit (0.14.2)
+      capybara (~> 2.0, >= 2.0.2)
+      json
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.0.9)
@@ -74,6 +83,11 @@ GEM
     excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
     ffi (1.6.0)
@@ -218,12 +232,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_decorator
+  active_decorator!
   bootstrap-sass (~> 2.3.0.1)
   capybara
+  capybara-webkit
   coffee-rails (~> 4.0.0.beta1)
   dynamic_form
   erb2haml
+  factory_girl_rails
   flat-ui-rails
   font-awesome-sass-rails (~> 3.0.0.1)
   gravatarify
