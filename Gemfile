@@ -7,7 +7,7 @@ gem 'jquery-rails'
 gem 'dynamic_form'
 gem 'haml-rails'
 gem 'sorcery', github: 'NoamB/sorcery'
-gem 'active_decorator'
+gem 'active_decorator', github: 'sinsoku/active_decorator', branch: 'support_rspec'
 gem 'simple_form', '~> 3.0.0.beta1'
 gem 'flat-ui-rails'
 gem 'puma', require: false
@@ -41,4 +41,6 @@ end
 group :development, :test do
   gem 'capybara'
   gem 'rspec-rails', '~> 2.13.0'
+  gem 'factory_girl_rails'
+  gem 'capybara-webkit'
 end
