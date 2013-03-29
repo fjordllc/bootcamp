@@ -10,7 +10,7 @@ describe PracticeDecorator do
     subject { decorate(practice).learning_status(user.id) }
 
     context 'when learning is not found' do
-      let(:user) { FactoryGirl.create(:user, :programmer) }
+      let(:user) { FactoryGirl.create(:user) }
       let(:practice) { FactoryGirl.create(:practice, :for_programmer) }
 
       it { should eq("<button class=\"unstarted btn\" id=\"practice-#{practice.id}\">未着手</button>") }

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   describe 'validation' do
-    let(:user) { FactoryGirl.build(:user, :programmer) }
+    let(:user) { FactoryGirl.build(:user) }
     it { user.should be_valid }
 
     describe '#login_name' do
@@ -12,7 +12,7 @@ describe User do
       end
 
       it 'is unique' do
-        another_user = FactoryGirl.create(:user, :programmer, login_name: 'hrysd')
+        another_user = FactoryGirl.create(:user, login_name: 'hrysd')
         user.login_name = 'hrysd'
         user.should have(1).error_on(:login_name)
       end
@@ -25,7 +25,7 @@ describe User do
       end
 
       it 'is unique' do
-        another_user = FactoryGirl.create(:user, :programmer, email: 'hoge@hoge.com')
+        another_user = FactoryGirl.create(:user, email: 'hoge@hoge.com')
         user.email = 'hoge@hoge.com'
         user.should have(1).error_on(:email)
       end
@@ -67,7 +67,7 @@ describe User do
 
   describe '#full_name' do
     subject { user.full_name }
-    let(:user) { FactoryGirl.create(:user, :programmer, last_name: 'Yoshida', first_name: 'Hiroshi') }
+    let(:user) { FactoryGirl.create(:user, last_name: 'Yoshida', first_name: 'Hiroshi') }
 
     it { should eq('Yoshida Hiroshi') }
   end

@@ -9,10 +9,7 @@ FactoryGirl.define do
     last_name  'Yoshida'
     password   'testtest'
     password_confirmation { |u| u.password }
-
-    trait :programmer do
-      job_cd 0
-    end
+    job_cd 0
 
     trait :designer do
       job_cd 1
@@ -37,28 +34,12 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_started_practices_for_designer do
-      after(:create) do |user|
-        FactoryGirl.create_list(:active_learnings_for_designer, 10, user: user)
-      end
-    end
-
-    trait :with_finished_practices_for_designer do
-      after(:create) do |user|
-        FactoryGirl.create_list(:completed_learnings_for_designer, 10, user: user)
-      end
-    end
-
     factory :programmer_with_started_practices,
-      traits: [:programmer, :with_started_practices_for_programmer]
+      traits: [:with_started_practices_for_programmer]
     factory :programmer_with_finished_all_practices,
-      traits: [:programmer, :with_finished_all_practices_for_programmer]
+      traits: [:with_finished_all_practices_for_programmer]
     factory :programmer_with_finished_practices,
-      traits: [:programmer, :with_finished_practices_for_programmer]
-    factory :designer_with_started_practices,
-      traits: [:designer, :with_started_practices_for_designer]
-    factory :designer_with_finished_practices,
-      traits: [:designer, :with_finished_practices_for_designer]
+      traits: [:with_finished_practices_for_programmer]
   end
 
   factory :practice do
@@ -103,9 +84,5 @@ FactoryGirl.define do
       traits: [:started, :for_programmer]
     factory :completed_learnings_for_programmer,
       traits: [:completed, :for_programmer]
-    factory :active_learnings_for_designer,
-      traits: [:started, :for_designer]
-    factory :completed_learnings_for_designer,
-      traits: [:completed, :for_designer]
   end
 end

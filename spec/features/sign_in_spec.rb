@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'Sign in' do
   background do
-    FactoryGirl.create(:user, :programmer, login_name: 'hrysd', password: 'hogehoge')
+    FactoryGirl.create(:user, login_name: 'hrysd', password: 'hogehoge')
   end
 
   scenario 'successfully' do
