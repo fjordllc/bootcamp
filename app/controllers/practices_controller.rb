@@ -4,7 +4,7 @@ class PracticesController < ApplicationController
   respond_to :html, :json
 
   def index
-    @practices = Practice.rank(:row_order).all
+    @practices = Practice.rank(:row_order).to_a
   end
 
   def show

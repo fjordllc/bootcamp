@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
     completed_my_practices_size.to_f / my_practices_size.to_f * 100
   end
 
+  def full_name
+    "#{self.last_name} #{self.first_name}"
+  end
+
   private
     def my_practices_size
       Practice.where(target_cd: [0, target_cd]).size

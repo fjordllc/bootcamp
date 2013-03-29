@@ -64,4 +64,11 @@ describe User do
       it { should eq(0) }
     end
   end
+
+  describe '#full_name' do
+    subject { user.full_name }
+    let(:user) { FactoryGirl.create(:user, :programmer, last_name: 'Yoshida', first_name: 'Hiroshi') }
+
+    it { should eq('Yoshida Hiroshi') }
+  end
 end
