@@ -4,11 +4,7 @@ Interns::Application.routes.draw do
   resources :users
   resources :user_sessions
   resources :practices do
-    controller :learnings do
-      post   '/start'   => :start
-      put    '/finish'  => :finish
-      delete '/destroy' => :destroy
-    end
+    resource :learnings, only: %w[create update destroy]
   end
 
   get 'login'  => 'user_sessions#new',     as: :login

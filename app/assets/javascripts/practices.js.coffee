@@ -5,7 +5,7 @@ $ ->
   $(document).on 'click', 'button.unstarted', ->
     that = this
     practice_id = getPracticeId($(this))
-    $.ajax "/practices/#{practice_id}/start",
+    $.ajax "/practices/#{practice_id}/learnings",
       type: 'POST'
     .done ->
       $(that)
@@ -15,7 +15,7 @@ $ ->
   $(document).on 'click', 'button.started', ->
     that = this
     practice_id = getPracticeId($(this))
-    $.ajax "/practices/#{practice_id}/finish",
+    $.ajax "/practices/#{practice_id}/learnings",
       type: 'PUT'
     .done ->
       $(that)
@@ -25,7 +25,7 @@ $ ->
   $(document).on 'click', 'button.complete', ->
     that = this
     practice_id = getPracticeId($(this))
-    $.ajax "/practices/#{practice_id}/destroy",
+    $.ajax "/practices/#{practice_id}/learnings",
       type: 'DELETE'
     .done ->
       $(that)
