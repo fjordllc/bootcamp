@@ -195,7 +195,6 @@ GEM
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
-    settingslogic (2.0.9)
     sexp_processor (4.2.0)
     simple_enum (1.6.4)
       activesupport (>= 3.0.0)
@@ -256,7 +255,6 @@ DEPENDENCIES
   redcarpet
   rspec-rails (~> 2.13.0)
   sass-rails (~> 4.0.0.beta1)
-  settingslogic
   simple_enum
   simple_form (~> 3.0.0.beta1)
   sorcery!
