@@ -1,7 +1,8 @@
 !!!
 %html
   %head
-    %title= t('256interns')
+    - page_title = yield :title
+    %title= (page_title.present? ? "#{page_title} - " : '') + t('256interns')
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
