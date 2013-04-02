@@ -23,6 +23,7 @@ $ ->
         .text(I18n.t('complete'))
 
   $(document).on 'click', 'button.complete', ->
+    return unless confirm(I18n.t('practice_status_reset_confirmation'))
     that = this
     practice_id = getPracticeId($(this))
     $.ajax "/practices/#{practice_id}/learnings",
