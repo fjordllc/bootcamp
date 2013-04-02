@@ -15,6 +15,11 @@
   - if @user.blog_url?
     %dt= t('helpers.label.user.blog_url')
     %dd= link_to @user.blog_url
+%h3= t('active_practices')
+%ul
+  - @user.active_practices.each do |practice|
+    %li
+      .title= link_to practice.title, practice
 %h3= t('completed_practices')
 .row
   .span11
