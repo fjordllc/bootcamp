@@ -9,13 +9,13 @@
   %dd= t(@user.job)
   - if @user.twitter_url?
     %dt= t('helpers.label.user.twitter_url')
-    %dd= link_to @user.twitter_url
+    %dd= link_to @user.twitter_url, @user.twitter_url
   - if @user.facebook_url?
     %dt= t('helpers.label.user.facebook_url')
-    %dd= link_to @user.facebook_url
+    %dd= link_to @user.facebook_url, @user.facebook_url
   - if @user.blog_url?
     %dt= t('helpers.label.user.blog_url')
-    %dd= link_to @user.blog_url
+    %dd= link_to @user.blog_url, @user.blog_url
 %h3= t('active_practices')
 %ul
   - @user.active_practices.each do |practice|
