@@ -13,7 +13,7 @@ describe PracticeDecorator do
       let(:user) { FactoryGirl.create(:user) }
       let(:practice) { FactoryGirl.create(:practice, :for_programmer) }
 
-      it { should eq("<button class=\"unstarted btn\" id=\"practice-#{practice.id}\">未着手</button>") }
+      it { should eq("<button class=\"unstarted btn\" id=\"practice-#{practice.id}\">開始</button>") }
     end
 
     context 'when learning status is started' do
@@ -21,7 +21,15 @@ describe PracticeDecorator do
       let(:user) { learning.user }
       let(:practice) { learning.practice }
 
-      it { should eq("<button class=\"started btn\" id=\"practice-#{practice.id}\">作業中</button>") }
+      it { should eq("<button class=\"started btn\" id=\"practice-#{practice.id}\">完了</button>") }
+    end
+
+    context 'when learning status is completed' do
+      let(:learning) { FactoryGirl.create(:completed_learnings_for_programmer) }
+      let(:user) { learning.user }
+      let(:practice) { learning.practice }
+
+      it { should eq("<button class=\"complete btn\" id=\"practice-#{practice.id}\">済</button>") }
     end
   end
 
