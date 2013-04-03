@@ -18,10 +18,15 @@ module ApplicationHelper
       gsub(/_controller/, "_") + action_name
   end
 
+  def my_practice?(practice)
+    return false if current_user.blank?
+    [:everyone, current_user.job].include?(practice.target)
+  end
+
   def practice_attr(practice)
     target = params['target'] || 'all'
     options =
-      if target == 'all' or target.to_sym == practice.target
+      if target == 'all' or target.to_sym == practice.target or (target == 'me' and my_practice?(practice))
         {}
       else
         { style: 'display:none' }
