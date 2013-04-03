@@ -9,6 +9,9 @@
     = link_to t('for_programmer'), practices_path(target: 'programmer')
   %li{params['target'] == 'designer' ? { class: 'active' } : {}}
     = link_to t('for_designer'), practices_path(target: 'designer')
+  - if current_user.present?
+    %li{params['target'] == 'me' ? { class: 'active' } : {}}
+      = link_to t('my_practices'), practices_path(target: 'me')
 %table.table.table-striped.practices
   %tbody
     - @practices.each do |practice|
