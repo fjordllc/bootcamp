@@ -12,6 +12,6 @@
 
 %h3= t('completed_users')
 - @practice.completed_users.each do |user|
-  .icon.in_line
+  .icon
     = link_to user do
       = gravatar_tag user, size: 50
