@@ -1,8 +1,8 @@
 - title t('practices')
 %h1= t('practices')
 %ul.nav.nav-tabs
-  %li{params['target'].blank? ? { class: 'active' } : {}}
-    = link_to t('all'), practices_path
+  %li{(params['target'].blank? or params['target'] == 'all') ? { class: 'active' } : {}}
+    = link_to t('all'), practices_path(target: 'all')
   %li{params['target'] == 'everyone' ? { class: 'active' } : {}}
     = link_to t('for_everyone'), practices_path(target: 'everyone')
   %li{params['target'] == 'programmer' ? { class: 'active' } : {}}
