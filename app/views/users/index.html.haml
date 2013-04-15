@@ -1,5 +1,5 @@
 - title t('listing_users')
-%h1= t('listing_users')
+%h1 #{t('listing_users')} (#{@users.size})
 %table(class="table table-striped")
   - @users.each do |user|
     %tr
