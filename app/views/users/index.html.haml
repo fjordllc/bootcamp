@@ -6,12 +6,11 @@
       %td.icon
         = link_to user do
           = gravatar_tag user, size: 100
-      %td.login_name= link_to user.login_name, user
-      %td.full_name= link_to user.full_name, user
-    - if current_user.present? and user.active_learnings.present?
-      %tr
-        %th= t('active_practices')
-        %td.active_practice
+        .login_name= link_to user.login_name, user
+        .full_name= link_to user.full_name, user
+      %td
+        - if current_user.present? and user.active_learnings.present?
+          %strong= t('active_practices')
           %ul
             - user.active_learnings.each do |learning|
               %li= link_to learning.practice.title, learning.practice
