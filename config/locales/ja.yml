@@ -314,6 +314,8 @@ ja:
   finished: "完了"
   complete: "済"
   practice_status_reset_confirmation: "未着手状態に戻しますがよろしいですか？"
+  hide_completed: "完了済みプラクティスを隠す"
+  show_completed: "完了済みプラクティスを表示"
   dashboard: "ダッシュボード"
   new_user: "新規ユーザー"
   new_practice: "新規プラクティス"

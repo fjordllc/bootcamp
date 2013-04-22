@@ -1,5 +1,7 @@
 - title t('practices')
 %h1= t('practices')
+- if current_user.present?
+  %button#display-switch.btn.on= t('hide_completed')
 %ul.nav.nav-tabs
   %li{(params['target'].blank? or params['target'] == 'all') ? { class: 'active' } : {}}
     = link_to t('all'), practices_path(target: 'all')
