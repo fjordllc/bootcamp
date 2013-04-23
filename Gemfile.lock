@@ -47,6 +47,7 @@ GEM
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.33)
+    addressable (2.3.4)
     arel (4.0.0.beta2)
     atomic (1.0.1)
     bcrypt-ruby (3.0.1)
@@ -120,6 +121,8 @@ GEM
     json (1.7.7)
     jwt (0.1.8)
       multi_json (>= 1.5)
+    launchy (2.3.0)
+      addressable (~> 2.3)
     mail (2.5.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -246,6 +249,7 @@ DEPENDENCIES
   heroku_san
   i18n-js
   jquery-rails
+  launchy
   lingman!
   pg
   pry-rails
