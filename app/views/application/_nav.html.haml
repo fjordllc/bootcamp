@@ -7,11 +7,15 @@
   %li{(controller_name == 'users' and action_name == 'index') ? { class: 'active' } : {}}
     = link_to users_path do
       %i.icon-user
-      = t('listing_users')
+      = t('users')
   %li{controller_name == 'practices' ? { class: 'active' } : {}}
     = link_to practices_path do
       %i.icon-tasks
       = t('practices')
+  %li{controller_name == 'companies' ? { class: 'active' } : {}}
+    = link_to companies_path do
+      %i.icon-briefcase
+      = t('companies')
   - if current_user
     %li
       = link_to logout_path do

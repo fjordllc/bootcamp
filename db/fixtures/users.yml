@@ -10,6 +10,7 @@ komagata:
   facebook_url: http://www.facebook.com/komagata1111
   blog_url: http://komagata.org
   job_cd: 0
+  company_id: 1
 
 machida:
   id: 2
@@ -23,3 +24,4 @@ machida:
   facebook_url:
   blog_url:
   job_cd: 1
+  company_id: 1

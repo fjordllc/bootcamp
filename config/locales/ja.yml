@@ -178,6 +178,7 @@ ja:
         current_password: 現在のパスワード
         remember_me: 記憶する
         job: "職種"
+        company: "会社"
 
       learning:
         status: "ステータス"
@@ -191,6 +192,12 @@ ja:
         icon: アイコン
         user_id: ユーザーID
         icon_number: アイコン番号
+
+      company:
+        id: ID
+        name: "名前"
+        description: "詳細"
+        website: "ウェブサイト"
 
   errors:
     format: "%{attribute} %{message}"
@@ -223,7 +230,7 @@ ja:
     models:
       user: "ユーザー"
       practice: "プラクティス"
-      wallpaper: 背景
+      company: "会社"
       comment: コメント
 
     enums:
@@ -255,6 +262,7 @@ ja:
         icon_content_type: 画像ファイルの種類
         notify_comment: コメント通知
         job: "職種"
+        company: "会社"
 
       practice:
         title: "タイトル"
@@ -267,12 +275,10 @@ ja:
         story_id: 怖い話ID
         story: 怖い話
 
-      wallpaper:
-        name: 背景画像の名前
-        image: 画像ファイル
-        image_file_name: 画像ファイル名
-        image_file_size: 画像ファイルのサイズ
-        image_content_type: 画像ファイルの種類
+      company:
+        name: "名前"
+        description: "詳細"
+        website: "ウェブサイト"
 
     errors:
       template:
@@ -304,6 +310,7 @@ ja:
   sign_in: "サインイン"
   logout: "ログアウト"
   please_sign_in_first: "ログインしてください"
+  please_sign_in_as_admin: "管理者としてログインしてください"
   are_you_sure: "本当によろしいですか？"
   start: "スタート"
   edit: "編集"
@@ -318,6 +325,7 @@ ja:
   show_completed: "完了済みプラクティスを表示"
   dashboard: "ダッシュボード"
   new_user: "新規ユーザー"
+  new_company: "新規会社"
   new_practice: "新規プラクティス"
   256interns: "256 INTERNS"
   users: "ユーザー"
@@ -334,7 +342,10 @@ ja:
   everyone: "共通"
   listing_users: "ユーザー一覧"
   listing_practices: "プラクティス一覧"
+  listing_companies: "会社一覧"
+  companies: "会社"
   editing_practice: "プラクティス編集"
+  editing_company: "会社編集"
   editing_user: "アカウント情報編集"
   show: "表示"
   back: "戻る"
@@ -346,6 +357,10 @@ ja:
   practice_was_successfully_created: "プラクティスを作成しました。"
   practice_was_successfully_updated: "プラクティスを更新しました。"
   practice_was_successfully_deleted: "プラクティスを削除しました。"
+  company_was_successfully_created: "会社を作成しました。"
+  company_was_successfully_updated: "会社を更新しました。"
+  company_was_successfully_deleted: "会社を削除しました。"
+  for: "%{target} 課題"
   for: "%{target} 課題"
   for_everyone: "共通"
   for_programmer: "プログラマー向け"

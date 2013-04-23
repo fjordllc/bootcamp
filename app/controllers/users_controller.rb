@@ -12,10 +12,12 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @companies = Company.all
   end
 
   def edit
     @user = current_user
+    @companies = Company.all
   end
 
   def create
@@ -55,7 +57,8 @@ class UsersController < ApplicationController
         :blog_url,
         :password,
         :password_cofirmation,
-        :job
+        :job,
+        :company_id
       )
     end
 

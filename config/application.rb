@@ -20,5 +20,14 @@ module Interns
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.i18n.default_locale = :ja
+
+    config.generators do |g|
+      g.template_engine :haml
+      g.stylesheet_engine :sass
+      g.javascripts false
+      g.stylesheets false
+      g.assets false
+      g.helper false
+    end
   end
 end

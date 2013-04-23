@@ -11,4 +11,5 @@
   = f.input :password, hint: false, placeholder: t('helpers.label.user.password')
   = f.input :password_confirmation, hint: false, placeholder: t('helpers.label.user.password_confirmation')
   = f.input :job, collection: User.jobs_for_select, as: :radio_buttons
+  = f.association :company, include_blank: false
   = f.submit nil, class: 'btn btn-primary'
