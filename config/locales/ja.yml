@@ -154,16 +154,6 @@ ja:
         goal: "終了条件"
         target: "ターゲット"
 
-      story:
-        id: ID
-        title: 題名
-        body: 物語
-        view: 閲覧数
-        user: 作者
-        tag_list: タグ
-        publish: 掲載
-        violation: 規約違反
-
       user:
         login_name: "ユーザー名"
         first_name: "名"
@@ -182,16 +172,6 @@ ja:
 
       learning:
         status: "ステータス"
-
-      comment:
-        id: ID
-        body: 本文
-        name: 名前
-        story_id: 怖い話ID
-        story_title: 怖い話タイトル
-        icon: アイコン
-        user_id: ユーザーID
-        icon_number: アイコン番号
 
       company:
         id: ID
@@ -270,11 +250,6 @@ ja:
         goal: "終了条件"
         target: "ターゲット"
 
-      comment:
-        body: 本文
-        story_id: 怖い話ID
-        story: 怖い話
-
       company:
         name: "名前"
         description: "詳細"
@@ -301,10 +276,6 @@ ja:
       truncate: ""
       last: 最後のページ
       first: 最初のページ
-
-  notice_mailer:
-    comment_notice:
-      subject: "[怖話]あなたの投稿した怖い話にコメントが来ています"
 
   sign_up: "サインアップ"
   sign_in: "サインイン"
