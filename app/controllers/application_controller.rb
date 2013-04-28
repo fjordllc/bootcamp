@@ -7,6 +7,16 @@ class ApplicationController < ActionController::Base
       redirect_to login_path, alert: t("please_sign_in_first")
     end
 
+    def admin_login?
+      current_user and current_user.admin?
+    end
+
+    def require_admin_login
+      if not admin_login?
+        redirect_to root_path, alert: t('please_sign_in_as_admin')
+      end
+    end
+
   private
     def init_user
       if current_user

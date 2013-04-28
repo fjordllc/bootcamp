@@ -32,3 +32,22 @@ $ ->
       $(that)
         .attr({class: 'btn unstarted'})
         .text(I18n.t('unstarted'))
+
+  showCompletedPractice = (display) ->
+    for practice in $('tr.practice.target')
+      if (not display) and $(practice).find('.btn').hasClass('complete')
+        $(practice).hide()
+      else
+        $(practice).show()
+
+  $(document).on 'click', '#display-switch', ->
+    if $(this).hasClass('on')
+      $(this).removeClass('on')
+      $(this).text(I18n.t('show_completed'))
+      showCompletedPractice(false)
+    else
+      $(this).addClass('on')
+      $(this).text(I18n.t('hide_completed'))
+      showCompletedPractice(true)
+
+  $('#display-switch').click()

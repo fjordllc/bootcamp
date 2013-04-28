@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   as_enum :job, [:programmer, :designer]
   authenticates_with_sorcery!
 
+  belongs_to :company
+
   has_many :learnings
 
   has_many :completed_learnings,
@@ -26,6 +28,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :company_id, presence: true
 
   def completed_percentage
     completed_my_practices_size.to_f / my_practices_size.to_f * 100
@@ -33,6 +36,10 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{self.last_name} #{self.first_name}"
+  end
+
+  def admin?
+    id == 1
   end
 
   private

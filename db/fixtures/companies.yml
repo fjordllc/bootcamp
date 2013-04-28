@@ -1,0 +1,11 @@
+company_1:
+  id: 1
+  name: "FJORD, LLC"
+  description: "合同会社フィヨルド"
+  website: "http://fjord.jp"
+
+company_2:
+  id: 2
+  name: "root inc."
+  description: "株式会社ルート"
+  website: "http://ic-root.com/"
