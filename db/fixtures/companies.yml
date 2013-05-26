@@ -9,3 +9,9 @@ company_2:
   name: "root inc."
   description: "株式会社ルート"
   website: "http://ic-root.com/"
+
+company_3:
+  id: 3
+  name: "esm inc."
+  description: "株式会社永和システムマネジメント"
+  website: "http://www.esm.co.jp/"
