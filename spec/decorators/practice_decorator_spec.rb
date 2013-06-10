@@ -2,12 +2,13 @@
 require 'spec_helper'
 
 describe PracticeDecorator do
-  let(:practice) { Practice.new.extend PracticeDecorator }
-  subject { practice }
-  it { should be_a Practice }
+  before do
+    ActiveDecorator::ViewContext.current = ApplicationController.new.view_context
+    ActiveDecorator::Decorator.instance.decorate practice
+  end
 
   describe '#learning_status' do
-    subject { decorate(practice).learning_status(user.id) }
+    subject { practice.learning_status(user.id) }
 
     context 'when learning is not found' do
       let(:user) { FactoryGirl.create(:user) }
@@ -34,7 +35,7 @@ describe PracticeDecorator do
   end
 
   describe '#for' do
-    subject { decorate(practice).for }
+    subject { practice.for }
 
     context 'when target everyone' do
       let(:practice) { FactoryGirl.create(:practice) }
