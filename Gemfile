@@ -16,7 +16,7 @@ gem 'puma', require: false
 gem 'rails', '~> 4.0.0.rc2'
 gem 'ranked-model'
 gem 'redcarpet'
-gem 'sass-rails', '~> 4.0.0.rc1'
+gem 'sass-rails', '~> 4.0.0.rc2'
 gem 'simple_enum'
 gem 'simple_form', '~> 3.0.0.beta1'
 gem 'sorcery', github: 'NoamB/sorcery'
