@@ -1,5 +1,10 @@
 # 256 interns
 
+[![Build Status](https://api.travis-ci.org/fjordllc/interns.png?branch=master)](https://travis-ci.org/fjordllc/interns)
+[![Code Climate](https://codeclimate.com/github/fjordllc/interns.png)](https://codeclimate.com/github/fjordllc/interns)
+[![Coverage Status](https://coveralls.io/repos/fjordllc/interns/badge.png?branch=master)](https://coveralls.io/r/fjordllc/interns)
+[![Dependency Status](https://gemnasium.com/fjordllc/interns.png)](https://gemnasium.com/fjordllc/interns)
+
 Intern management and e-learning tool.
 
 ## Requirement
