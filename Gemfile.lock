@@ -94,14 +94,11 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
-<<<<<<< HEAD
-=======
     heroku-api (0.3.13)
       excon (~> 0.25.0)
     heroku_san (4.2.5)
       heroku-api (>= 0.1.2)
       rake
->>>>>>> 8bce9b010b7a5ade45c8042110355ac29d3c980d
     hike (1.2.3)
     httpauth (0.2.0)
     i18n (0.6.4)
