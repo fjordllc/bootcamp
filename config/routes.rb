@@ -5,7 +5,7 @@ Interns::Application.routes.draw do
   end
   resources :companies, only: %w(index show)
   resources :users
-  resources :user_sessions
+  resources :user_sessions, only: %w(new create destroy)
   resources :practices do
     resource :learnings, only: %w(create update destroy)
   end
