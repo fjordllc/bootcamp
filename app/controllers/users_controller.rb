@@ -24,6 +24,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      notify("#{@user.full_name}(#{@user.login_name})が256 INTERNSにJoinしました。 #{url_for(@user)}")
       login(@user.login_name, params[:user][:password], true)
       redirect_to :practices, notice: t('registration_successfull')
     else
