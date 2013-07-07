@@ -8,8 +8,8 @@
   %dt= t('helpers.label.user.job')
   %dd= t(@user.job)
   - if @user.twitter_url?
-    %dt= t('helpers.label.user.twitter_url')
-    %dd= link_to @user.twitter_url, @user.twitter_url
+    %dt= t('helpers.label.user.twitter')
+    %dd= link_to '@' + @user.twitter_id, 'https://twitter.com/' + @user.twitter_id
   - if @user.facebook_url?
     %dt= t('helpers.label.user.facebook_url')
     %dd= link_to @user.facebook_url, @user.facebook_url
