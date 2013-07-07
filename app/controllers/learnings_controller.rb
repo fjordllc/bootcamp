@@ -36,13 +36,4 @@ class LearningsController < ApplicationController
     def set_practice
       @practice = Practice.find(params[:practice_id])
     end
-
-    def notify(text)
-      Lingman::Updater.update(
-        ENV['BOT_ID'],
-        ENV['ROOM_ID'],
-        ENV['SECRET'],
-        text
-      ) if Rails.env.production?
-    end
 end
