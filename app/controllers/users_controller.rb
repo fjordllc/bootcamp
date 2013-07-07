@@ -57,7 +57,7 @@ class UsersController < ApplicationController
         :facebook_url,
         :blog_url,
         :password,
-        :password_cofirmation,
+        :password_confirmation,
         :job,
         :company_id
       )

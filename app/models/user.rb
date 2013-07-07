@@ -20,15 +20,19 @@ class User < ActiveRecord::Base
 
   has_many :active_practices,
     through: :active_learnings,
-    source: :practice
+    source:  :practice
 
-  validates_length_of :password, minimum: 4, if: :password
-  validates_confirmation_of :password, if: :password
-  validates :login_name, presence: true, uniqueness: true
-  validates :email, presence: true, uniqueness: true
-  validates :first_name, presence: true
-  validates :last_name, presence: true
   validates :company_id, presence: true
+  validates :email,      presence: true, uniqueness: true
+  validates :first_name, presence: true
+  validates :last_name,  presence: true
+  validates :login_name, presence: true, uniqueness: true
+
+  validates :password, {
+    length: { minimum: 4 },
+    confirmation: true,
+    if: :password_required?
+  }
 
   def completed_percentage
     completed_my_practices_size.to_f / my_practices_size.to_f * 100
@@ -49,6 +53,7 @@ class User < ActiveRecord::Base
   end
 
   private
+
     def my_practices_size
       Practice.where(target_cd: [0, target_cd]).size
     end
@@ -59,5 +64,9 @@ class User < ActiveRecord::Base
 
     def target_cd
       job_cd == 0 ? 1 : 2
+    end
+
+    def password_required?
+      new_record? || password.present?
     end
 end
