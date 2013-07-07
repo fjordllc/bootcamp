@@ -27,7 +27,6 @@ group :production do
 end
 
 group :development do
-  gem 'heroku_san'
   gem 'pry-rails'
   gem 'sqlite3'
 end
