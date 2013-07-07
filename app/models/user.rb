@@ -38,6 +38,12 @@ class User < ActiveRecord::Base
     "#{self.last_name} #{self.first_name}"
   end
 
+  def twitter_id
+    twitter_url.sub(/^https:\/\/twitter.com\//, '')
+               .sub(/^http:\/\/twitter.com\//, '')
+               .sub(/^@/, '')
+  end
+
   def admin?
     id == 1
   end

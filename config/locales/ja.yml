@@ -160,6 +160,7 @@ ja:
         last_name: "姓"
         full_name: "フルネーム"
         email: "Email"
+        twitter: "Twitter"
         twitter_url: "Twitter URL"
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
