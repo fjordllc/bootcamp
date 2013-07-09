@@ -13,4 +13,5 @@
           %strong= t('active_practices')
           %ul
             - user.active_learnings.each do |learning|
-              %li= link_to learning.practice.title, learning.practice
+              - if learning.practice
+                %li= link_to learning.practice.title, learning.practice
