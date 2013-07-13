@@ -24,6 +24,7 @@ class PracticesController < ApplicationController
     @practice = Practice.new(practice_params)
 
     if @practice.save
+      notify("#{current_user.full_name}(#{current_user.login_name})がプラクティス「#{@practice.title}」を作成しました。 #{url_for(@practice)}")
       redirect_to @practice, notice: t('practice_was_successfully_created')
     else
       render :new
@@ -32,6 +33,7 @@ class PracticesController < ApplicationController
 
   def update
     if @practice.update(practice_params)
+      notify("#{current_user.full_name}(#{current_user.login_name})がプラクティス「#{@practice.title}」を編集しました。 #{url_for(@practice)}")
       flash[:notice] = t('practice_was_successfully_updated')
     end
     respond_with @practice
@@ -39,6 +41,7 @@ class PracticesController < ApplicationController
 
   def destroy
     @practice.destroy
+    notify("#{current_user.full_name}(#{current_user.login_name})がプラクティス「#{@practice.title}」を削除しました。")
     redirect_to practices_url, notice: t('practice_was_successfully_deleted')
   end
 
