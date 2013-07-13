@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   http_basic_authenticate_with name: 'intern', password: ENV['INTERN_PASSWORD'] || 'test'
 
   def index
-    @users = User.all
+    @users = User.all.order('id DESC')
   end
 
   def show
