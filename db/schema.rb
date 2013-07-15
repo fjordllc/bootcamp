@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130423075409) do
+ActiveRecord::Schema.define(version: 20130715082527) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20130423075409) do
     t.string   "website"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "tos"
   end
 
   create_table "learnings", force: true do |t|
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 20130423075409) do
     t.string   "facebook_url"
     t.string   "blog_url"
     t.integer  "company_id",                   default: 1
+    t.text     "description"
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"

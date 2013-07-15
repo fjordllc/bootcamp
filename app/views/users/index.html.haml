@@ -9,6 +9,10 @@
         .login_name= link_to user.login_name, user
         .full_name= link_to user.full_name, user
       %td
+        .job= t(user.job)
+        .company= link_to user.company.name, user.company
+        .description= user.description
+      %td
         - if current_user.present? and user.active_learnings.present?
           %strong= t('active_practices')
           %ul

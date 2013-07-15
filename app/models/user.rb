@@ -53,7 +53,6 @@ class User < ActiveRecord::Base
   end
 
   private
-
     def my_practices_size
       Practice.where(target_cd: [0, target_cd]).size
     end
