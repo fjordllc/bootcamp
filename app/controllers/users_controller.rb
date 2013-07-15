@@ -53,6 +53,7 @@ class UsersController < ApplicationController
         :first_name,
         :last_name,
         :email,
+        :description,
         :twitter_url,
         :facebook_url,
         :blog_url,
