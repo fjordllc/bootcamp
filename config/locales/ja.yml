@@ -231,6 +231,7 @@ ja:
         login_name: "ユーザー名"
         first_name: "名"
         last_name: "姓"
+        description: "自己紹介（動ける曜日・時間）"
         email: "Email"
         twitter_url: "Twitter URL"
         facebook_url: "Facebook URL"
