@@ -11,7 +11,7 @@
       %td
         .job= t(user.job)
         .company= link_to user.company.name, user.company
-        .description= user.description
+        .description= simple_format user.description
       %td
         - if current_user.present? and user.active_learnings.present?
           %strong= t('active_practices')
