@@ -159,6 +159,7 @@ ja:
         first_name: "名"
         last_name: "姓"
         full_name: "フルネーム"
+        description: "自己紹介（動ける曜日・時間）"
         email: "Email"
         twitter: "Twitter"
         twitter_url: "Twitter URL"
