@@ -28,6 +28,8 @@ end
 
 group :development do
   gem 'sqlite3'
+  gem 'quiet_assets'
+  gem 'heroku_san'
 end
 
 group :development, :test do
