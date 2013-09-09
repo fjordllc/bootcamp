@@ -22,12 +22,15 @@ gem 'simple_form', '~> 3.0.0.rc'
 gem 'sorcery'
 gem 'uglifier', '>= 1.3.0'
 
-group :production do
+group :production, :staging do
   gem 'pg'
 end
 
 group :development do
   gem 'sqlite3'
+  gem 'quiet_assets'
+  gem 'heroku_san'
+  gem 'heroku'
 end
 
 group :development, :test do
