@@ -1,22 +1,22 @@
-!!!
-%html
-  %head
+doctype html
+html
+  head
     - page_title = yield :title
-    %title= (page_title.present? ? "#{page_title} - " : '') + t('256interns')
+    title #{page_title.present? ? page_title + ' - ' : ''}#{t('256interns')}
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
-    :javascript
+    javascript:
       I18n.locale = '#{I18n.locale}'
       I18n.fallbacks = true
-  %body{class: "#{controller_name}_#{action_name}"}
+  body class="#{controller_name}_#{action_name}"
     .container
       #header
         = render 'nav'
-        %h1= link_to t('256interns'), root_path
+        h1= link_to t('256interns'), root_path
         = render 'alert'
       .row
         .span12= yield
       #footer
-        ©
+        | ©
         = link_to 'FJORD, LLC', 'http://fjord.jp'

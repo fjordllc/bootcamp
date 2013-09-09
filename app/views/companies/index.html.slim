@@ -1,0 +1,11 @@
+h1= t('listing_companies')
+table.table
+  tr
+    th= t('helpers.label.company.name')
+    th= t('helpers.label.company.description')
+    th= t('helpers.label.company.website')
+  - @companies.each do |company|
+    tr
+      td= link_to company.name, company
+      td= company.description
+      td= link_to company.website, company.website
