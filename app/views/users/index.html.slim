@@ -1,21 +1,21 @@
 - title t('listing_users')
-%h1 #{t('listing_users')} (#{@users.size})
-%table(class="table table-striped")
+h1 #{t('listing_users')} (#{@users.size})
+table class="table table-striped"
   - @users.each do |user|
-    %tr
-      %td.icon
+    tr
+      td.icon
         = link_to user do
           = gravatar_tag user, size: 100
         .login_name= link_to user.login_name, user
         .full_name= link_to user.full_name, user
-      %td
+      td
         .job= t(user.job)
         .company= link_to user.company.name, user.company
         .description= simple_format user.description
-      %td
+      td
         - if current_user.present? and user.active_learnings.present?
-          %strong= t('active_practices')
-          %ul
+          strong= t('active_practices')
+          ul
             - user.active_learnings.each do |learning|
               - if learning.practice
-                %li= link_to learning.practice.title, learning.practice
+                li= link_to learning.practice.title, learning.practice
