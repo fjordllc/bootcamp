@@ -165,12 +165,14 @@ ja:
         twitter_url: "Twitter URL"
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
-        password: パスワード
-        password_confirmation: パスワード（確認）
-        current_password: 現在のパスワード
-        remember_me: 記憶する
+        password: "パスワード"
+        password_confirmation: "パスワード（確認）"
+        current_password: "現在のパスワード"
+        remember_me: "記憶する"
         job: "職種"
         company: "会社"
+        created_at: "インターン開始日"
+        part: "パート"
 
       learning:
         status: "ステータス"
@@ -344,3 +346,6 @@ ja:
   completed_users: "プラクティスを完了したユーザー一覧"
   completed_practices: "完了したプラクティス"
   active_practices: "進行中のプラクティス"
+  learning_week: "学習週"
+  working_week: "作業週"
+  current_week_is_xxx: "今週は%{part}です"

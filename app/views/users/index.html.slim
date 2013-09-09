@@ -8,6 +8,7 @@ table class="table table-striped"
           = gravatar_tag user, size: 100
         .login_name= link_to user.login_name, user
         .full_name= link_to user.full_name, user
+        .part= t(:current_week_is_xxx, part: t(user.part))
       td
         .job= t(user.job)
         .company= link_to user.company.name, user.company

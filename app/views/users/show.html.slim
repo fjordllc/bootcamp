@@ -9,6 +9,10 @@ dl
   dd= t(@user.job)
   dt= t('helpers.label.user.description')
   dd= simple_format @user.description
+  dt= t('helpers.label.user.created_at')
+  dd= l @user.created_at.to_date
+  dt= t('helpers.label.user.part')
+  dd= t(@user.part)
   - if @user.twitter_url?
     dt= t('helpers.label.user.twitter')
     dd= link_to '@' + @user.twitter_id, 'https://twitter.com/' + @user.twitter_id
@@ -27,12 +31,11 @@ h3= t('completed_practices')
 .row
   .span11
     .progress
-      .bar(style="width: # @user.completed_percentage %;")
+      .bar style="width:#{@user.completed_percentage}%"
   .span1
     = number_to_percentage @user.completed_percentage, precision: 0
 ul
   - @user.completed_practices.each do |practice|
-    li
-      .title= link_to practice.title, practice
+    li.title= link_to practice.title, practice
 - if current_user == @user
   = link_to t('edit'), edit_user_path(current_user), class: 'btn btn-primary'

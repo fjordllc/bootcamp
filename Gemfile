@@ -24,6 +24,7 @@ gem 'uglifier', '>= 1.3.0'
 
 group :production, :staging do
   gem 'pg'
+  gem 'newrelic_rpm'
 end
 
 group :development do
