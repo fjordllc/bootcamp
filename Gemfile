@@ -2,18 +2,18 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
+gem 'rails', '4.0.0'
 gem 'active_decorator'
-gem 'bootstrap-sass', '~> 2.3.0.1'
+gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'coffee-rails',   '~> 4.0.0'
 gem 'dynamic_form'
-gem 'font-awesome-sass-rails', '~> 3.0.0.1'
+gem 'font-awesome-sass-rails', '~> 3.0.2.2'
 gem 'gravatarify'
-gem 'haml-rails'
+gem 'slim-rails'
 gem 'i18n-js'
 gem 'jquery-rails'
 gem 'lingman', github: 'hrysd/lingman'
 gem 'puma', require: false
-gem 'rails', '~> 4.0.0'
 gem 'ranked-model'
 gem 'redcarpet'
 gem 'sass-rails', '~> 4.0.0'
@@ -27,7 +27,6 @@ group :production do
 end
 
 group :development do
-  gem 'pry-rails'
   gem 'sqlite3'
 end
 
@@ -36,6 +35,5 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
-  gem 'launchy'
   gem 'rspec-rails', '~> 2.13.0'
 end
