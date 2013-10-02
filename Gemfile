@@ -18,7 +18,7 @@ gem 'ranked-model'
 gem 'redcarpet'
 gem 'sass-rails', '~> 4.0.0'
 gem 'simple_enum'
-gem 'simple_form', '~> 3.0.0.rc'
+gem 'simple_form', '~> 3.0.0'
 gem 'sorcery'
 gem 'uglifier', '>= 1.3.0'
 
