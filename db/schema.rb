@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130715082527) do
+ActiveRecord::Schema.define(version: 20131002072708) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20130715082527) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "login_name",                               null: false
+    t.string   "login_name",                                   null: false
     t.string   "email"
     t.string   "crypted_password"
     t.string   "salt"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20130715082527) do
     t.string   "blog_url"
     t.integer  "company_id",                   default: 1
     t.text     "description"
+    t.boolean  "find_job_assist",              default: false, null: false
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"

@@ -13,6 +13,8 @@ dl
   dd= l @user.created_at.to_date
   dt= t('helpers.label.user.part')
   dd= t(@user.part)
+  dt= t('helpers.label.user.find_job_assist')
+  dd= user_find_job_assist(@user)
   - if @user.twitter_url?
     dt= t('helpers.label.user.twitter')
     dd= link_to '@' + @user.twitter_id, 'https://twitter.com/' + @user.twitter_id

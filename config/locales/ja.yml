@@ -170,6 +170,7 @@ ja:
         current_password: "現在のパスワード"
         remember_me: "記憶する"
         job: "職種"
+        find_job_assist: "就職支援"
         company: "会社"
         created_at: "インターン開始日"
         part: "パート"
@@ -215,7 +216,7 @@ ja:
       user: "ユーザー"
       practice: "プラクティス"
       company: "会社"
-      comment: コメント
+      comment: "コメント"
 
     enums:
       user:
@@ -247,6 +248,7 @@ ja:
         icon_content_type: 画像ファイルの種類
         notify_comment: コメント通知
         job: "職種"
+        find_job_assist: "就職支援"
         company: "会社"
 
       practice:
@@ -349,3 +351,6 @@ ja:
   learning_week: "学習週"
   working_week: "作業週"
   current_week_is_xxx: "今週は%{part}です"
+  i_want_to_find_job_assist: "フィヨルドの就職支援を希望する"
+  i_do_not_want_to_find_job_assist: "フィヨルドの就職支援を希望しない"
+  we_will_find_rails_job_by_our_best: "（町田、駒形が知り合いのrailsを使った会社や知り合いの就職支援サイトなどを駆使して全力で就職先探しをサポートします）"

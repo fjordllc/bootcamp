@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  as_enum :job, [:programmer, :designer]
+  as_enum :job, %i(programmer designer)
   authenticates_with_sorcery!
 
   belongs_to :company
