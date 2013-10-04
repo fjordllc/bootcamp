@@ -8,3 +8,4 @@ Practice.delete_all
 import_fixture 'companies'
 import_fixture 'users'
 import_fixture 'practices'
+import_fixture 'categories'

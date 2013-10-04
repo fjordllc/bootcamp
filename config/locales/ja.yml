@@ -281,9 +281,16 @@ ja:
       previous: "« 前ページ"
       next: "次ページ »"
       truncate: ""
-      last: 最後のページ
-      first: 最初のページ
+      last: "最後のページ"
+      first: "最初のページ"
 
+  admin:
+    home:
+      index:
+        company: "企業一覧"
+        category: "カテゴリー一覧"
+
+  admin_index: "管理画面"
   sign_up: "サインアップ"
   sign_in: "サインイン"
   logout: "ログアウト"
@@ -344,6 +351,7 @@ ja:
   for_programmer: "プログラマー向け"
   for_designer: "デザイナー向け"
   all: "全て"
+  all_user: "全員"
   how_256interns_works: "256インターンとは"
   completed_users: "プラクティスを完了したユーザー一覧"
   completed_practices: "完了したプラクティス"

@@ -1,8 +1,8 @@
 = simple_form_for practice do |f|
-  - if practice.errors.any?
-    = error_messages_for :practice
+  = f.error_notification
   = f.input :title, input_html: { class: 'input-block-level' }
   = f.input :description, input_html: { class: 'input-block-level', rows: 20 }
   = f.input :goal, input_html: { class: 'input-block-level', rows: 10 }
   = f.input :target, collection: Practice.targets_for_select, as: :radio_buttons
+  = f.input :category_id, collection: Category.all, include_blank: false
   = f.submit nil, class: 'btn btn-primary'

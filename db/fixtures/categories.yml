@@ -1,0 +1,80 @@
+category_1:
+  id: 1
+  name: "このサイトについて"
+  slug: "about-this-site"
+
+category_2:
+  id: 2
+  name: "Mac OS X"
+  slug: "mac-os-x"
+
+category_3:
+  id: 3
+  name: "HTML & CSS"
+  slug: "html-and-css"
+
+category_4:
+  id: 4
+  name: "UNIX"
+  slug: "unix"
+
+category_5:
+  id: 5
+  name: "Ruby"
+  slug: "ruby"
+
+category_6:
+  id: 6
+  name: "Ruby on Rails"
+  slug: "ruby-on-rails"
+
+category_7:
+  id: 7
+  name: "SQL"
+  slug: "sql"
+
+category_8:
+  id: 8
+  name: "Vim"
+  slug: "vim"
+
+category_9:
+  id: 9
+  name: "自動テスト"
+  slug: "testing"
+
+category_10:
+  id: 10
+  name: "JavaScript"
+  slug: "javascript"
+
+category_11:
+  id: 11
+  name: "Git"
+  slug: "git"
+
+category_12:
+  id: 12
+  name: "開発手法"
+  slug: "development"
+
+category_13:
+  id: 13
+  name: "iOS"
+  slug: "ios"
+
+category_14:
+  id: 14
+  name: "Android"
+  slug: "android"
+
+category_15:
+  id: 15
+  name: "Nginx"
+  slug: "nginx"
+
+category_16:
+  id: 16
+  name: "HTTP"
+  slug: "http"
+

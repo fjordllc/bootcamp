@@ -9,19 +9,13 @@ ul.nav.nav-tabs
     = link_to t('for_everyone'), practices_path(target: 'everyone')
   li class="#{params['target'] == 'programmer' ? 'active' : ''}" 
     = link_to t('for_programmer'), practices_path(target: 'programmer')
-  li class="#{params['target'] == 'designer' ? 'active' : ''}" 
-    = link_to t('for_designer'), practices_path(target: 'designer')
   - if current_user.present?
     li class="#{params['target'] == 'me' ? 'active' : ''}" 
       = link_to t('my_practices'), practices_path(target: 'me')
-table.table.table-striped.practices
-  tbody
-    - @practices.each do |practice|
-      tr *practice_attr(practice)
-        td.title
-          = link_to practice.title, practice
-        - if current_user
-          td.status= practice.learning_status(current_user.id)
-          td.handle
-            i.icon-align-justify
+- @categories.each do |category|
+  - if category.practices.present?
+    h2= category.name
+    table.table.table-striped.practices
+      tbody
+        = render category.practices
 = link_to t('new_practice'), new_practice_path, class: 'btn btn-block btn-primary'

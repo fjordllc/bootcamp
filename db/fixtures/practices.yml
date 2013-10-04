@@ -4,6 +4,7 @@ practice_1:
   description: "description..."
   goal: "OS X Mountain Lionをクリーンインストールする"
   target_cd: 0
+  category_id: 2
 
 practice_2:
   id: 2
@@ -11,6 +12,7 @@ practice_2:
   description: "description..."
   goal: "goal..."
   target_cd: 0
+  category_id: 4
 
 practice_3:
   id: 3
@@ -18,6 +20,7 @@ practice_3:
   description: "description..."
   goal: "goal..."
   target_cd: 0
+  category_id: 2
 
 practice_4:
   id: 4
@@ -25,6 +28,7 @@ practice_4:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 4
 
 practice_5:
   id: 5
@@ -32,6 +36,7 @@ practice_5:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 4
 
 practice_6:
   id: 6
@@ -39,6 +44,7 @@ practice_6:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 4
 
 practice_7:
   id: 7
@@ -46,6 +52,7 @@ practice_7:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 8
 
 practice_8:
   id: 8
@@ -53,6 +60,7 @@ practice_8:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 8
 
 practice_9:
   id: 9
@@ -60,6 +68,7 @@ practice_9:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 4
 
 practice_10:
   id: 10
@@ -67,6 +76,7 @@ practice_10:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 4
 
 practice_11:
   id: 11
@@ -74,6 +84,7 @@ practice_11:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 4
 
 practice_12:
   id: 12
@@ -81,6 +92,7 @@ practice_12:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 4
 
 practice_13:
   id: 13
@@ -88,6 +100,7 @@ practice_13:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 4
 
 practice_14:
   id: 14
@@ -95,6 +108,7 @@ practice_14:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 16
 
 practice_15:
   id: 15
@@ -102,6 +116,7 @@ practice_15:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 16
 
 practice_16:
   id: 16
@@ -109,6 +124,7 @@ practice_16:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 15
 
 practice_17:
   id: 17
@@ -116,6 +132,7 @@ practice_17:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 15
 
 practice_18:
   id: 18
@@ -123,6 +140,7 @@ practice_18:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 16
 
 practice_19:
   id: 19
@@ -130,6 +148,7 @@ practice_19:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 15
 
 practice_20:
   id: 20
@@ -137,6 +156,7 @@ practice_20:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 7
 
 practice_21:
   id: 21
@@ -144,6 +164,7 @@ practice_21:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 7
 
 practice_22:
   id: 22
@@ -151,6 +172,7 @@ practice_22:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 7
 
 practice_23:
   id: 23
@@ -158,6 +180,7 @@ practice_23:
   description: "description..."
   goal: "goal..."
   target_cd: 0
+  category_id: 5
 
 practice_24:
   id: 24
@@ -165,6 +188,7 @@ practice_24:
   description: "description..."
   goal: "goal..."
   target_cd: 0
+  category_id: 5
 
 practice_25:
   id: 25
@@ -172,6 +196,7 @@ practice_25:
   description: "description..."
   goal: "goal..."
   target_cd: 0
+  category_id: 5
 
 practice_26:
   id: 26
@@ -179,6 +204,7 @@ practice_26:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 5
 
 practice_27:
   id: 27
@@ -186,13 +212,15 @@ practice_27:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 11
 
 practice_28:
   id: 28
-  title: "「プログラミング入門 - Rubyを使って」のテストをrspecで書く"
+  title: "「プログラミング入門 - Rubyを使って」のテストをtestunitで書く"
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 9
 
 practice_29:
   id: 29
@@ -200,6 +228,7 @@ practice_29:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 5
 
 practice_30:
   id: 30
@@ -207,6 +236,7 @@ practice_30:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 5
 
 practice_31:
   id: 31
@@ -214,6 +244,7 @@ practice_31:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 5
 
 practice_32:
   id: 32
@@ -221,6 +252,7 @@ practice_32:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 5
 
 practice_33:
   id: 33
@@ -228,6 +260,7 @@ practice_33:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6
 
 practice_34:
   id: 34
@@ -235,6 +268,7 @@ practice_34:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6
 
 practice_35:
   id: 35
@@ -242,6 +276,7 @@ practice_35:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6
 
 practice_36:
   id: 36
@@ -249,6 +284,7 @@ practice_36:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6
 
 practice_37:
   id: 37
@@ -256,6 +292,7 @@ practice_37:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6
 
 practice_38:
   id: 38
@@ -263,6 +300,7 @@ practice_38:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6
 
 practice_39:
   id: 39
@@ -270,20 +308,23 @@ practice_39:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6
 
 practice_40:
   id: 40
-  title: "sorceryを使ってユーザー認証を作る"
+  title: "deviseを使ってユーザー認証を作る"
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6
 
 practice_41:
   id: 41
-  title: "sorceryを使ってTwitter認証を作る"
+  title: "deviseを使ってTwitter認証を作る"
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6
 
 practice_42:
   id: 42
@@ -291,6 +332,7 @@ practice_42:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6
 
 practice_43:
   id: 43
@@ -298,6 +340,7 @@ practice_43:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6
 
 practice_44:
   id: 44
@@ -305,6 +348,7 @@ practice_44:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 9
 
 practice_45:
   id: 45
@@ -312,6 +356,7 @@ practice_45:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 9
 
 practice_46:
   id: 46
@@ -319,6 +364,7 @@ practice_46:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 9
 
 practice_47:
   id: 47
@@ -326,6 +372,7 @@ practice_47:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 9
 
 practice_48:
   id: 48
@@ -333,6 +380,7 @@ practice_48:
   description: "description..."
   goal: "goal..."
   target_cd: 0
+  category_id: 11
 
 practice_49:
   id: 49
@@ -340,6 +388,7 @@ practice_49:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6
 
 practice_50:
   id: 50
@@ -347,3 +396,4 @@ practice_50:
   description: "description..."
   goal: "goal..."
   target_cd: 1
+  category_id: 6

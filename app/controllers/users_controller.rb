@@ -4,7 +4,16 @@ class UsersController < ApplicationController
   http_basic_authenticate_with name: 'intern', password: ENV['INTERN_PASSWORD'] || 'test'
 
   def index
-    @users = User.all.order('id DESC')
+    @users = User.order('id desc')
+    @users =
+      case params.fetch('target', 'all')
+      when 'learning'
+        @users.select(&:learning_week?)
+      when 'working'
+        @users.select {|u| u.working_week? }
+      else
+        @users
+      end
   end
 
   def show

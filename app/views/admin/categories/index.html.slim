@@ -1,0 +1,19 @@
+h1= t('listing_categories')
+
+table.table
+  tr
+    th Name
+    th Slug
+    th
+    th
+    th
+
+  - @categories.each do |category|
+    tr
+      td= category.name
+      td= category.slug
+      td= link_to t('show'), [:admin, category]
+      td= link_to t('edit'), edit_admin_category_path(category)
+      td= link_to t('destroy'), [:admin, category], data: { confirm: t('are_you_sure') }, method: :delete
+br
+= link_to 'New Category', new_admin_category_path, class: 'btn btn-primary'

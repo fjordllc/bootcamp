@@ -7,6 +7,7 @@ class PracticesController < ApplicationController
     if current_user.present? and params['target'].blank?
       redirect_to practices_path(target: 'me')
     end
+    @categories = Category.all
     @practices = Practice.rank(:row_order).to_a
   end
 
@@ -52,6 +53,7 @@ class PracticesController < ApplicationController
         :description,
         :goal,
         :target,
+        :category_id,
         :row_order
       )
     end

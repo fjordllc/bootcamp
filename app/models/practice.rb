@@ -10,6 +10,7 @@ class Practice < ActiveRecord::Base
   has_many :completed_users,
     through: :completed_learnings,
     source: :user
+  belongs_to :category
 
   validates :title, presence: true
   validates :description, presence: true

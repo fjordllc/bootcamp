@@ -12,7 +12,7 @@ table.table
       td= company.name
       td= company.description
       td= company.website
-      td= link_to t('show'), admin_company_path(company)
+      td= link_to t('show'), [:admin, company]
       td= link_to t('edit'), edit_admin_company_path(company)
-      td= link_to t('destroy'), admin_company_path(company), method: :delete, data:   confirm: t('are_you_sure')  
+      td= link_to t('destroy'), [:admin, company], data: { confirm: t('are_you_sure') }, method: :delete
 = link_to t('new_company'), new_admin_company_path, class: 'btn btn-primary'

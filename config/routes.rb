@@ -1,7 +1,9 @@
 Interns::Application.routes.draw do
   root to: 'home#index'
   namespace :admin do
+    root to: 'home#index'
     resources :companies
+    resources :categories
   end
   resources :companies, only: %w(index show)
   resources :users
