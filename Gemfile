@@ -10,7 +10,6 @@ gem 'dynamic_form'
 gem 'font-awesome-sass-rails', '~> 3.0.2.2'
 gem 'gravatarify'
 gem 'slim-rails'
-gem 'i18n-js'
 gem 'jquery-rails'
 gem 'lingman', github: 'hrysd/lingman'
 gem 'puma', require: false

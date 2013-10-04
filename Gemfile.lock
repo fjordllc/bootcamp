@@ -90,8 +90,6 @@ GEM
     hike (1.2.3)
     httpauth (0.2.0)
     i18n (0.6.5)
-    i18n-js (2.1.2)
-      i18n
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -233,7 +231,6 @@ DEPENDENCIES
   gravatarify
   heroku
   heroku_san
-  i18n-js
   jquery-rails
   lingman!
   newrelic_rpm

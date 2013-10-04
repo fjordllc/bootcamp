@@ -10,7 +10,7 @@ $ ->
     .done ->
       $(that)
         .attr({class: 'btn started'})
-        .text(I18n.t('started'))
+        .text('started')
 
   $(document).on 'click', 'button.started', ->
     that = this
@@ -20,10 +20,10 @@ $ ->
     .done ->
       $(that)
         .attr({class: 'btn complete'})
-        .text(I18n.t('complete'))
+        .text('complete')
 
   $(document).on 'click', 'button.complete', ->
-    return unless confirm(I18n.t('practice_status_reset_confirmation'))
+    return unless confirm('practice_status_reset_confirmation')
     that = this
     practice_id = getPracticeId($(this))
     $.ajax "/practices/#{practice_id}/learnings",
@@ -31,7 +31,7 @@ $ ->
     .done ->
       $(that)
         .attr({class: 'btn unstarted'})
-        .text(I18n.t('unstarted'))
+        .text('unstarted')
 
   showCompletedPractice = (display) ->
     for practice in $('tr.practice.target')
@@ -43,11 +43,11 @@ $ ->
   $(document).on 'click', '#display-switch', ->
     if $(this).hasClass('on')
       $(this).removeClass('on')
-      $(this).text(I18n.t('show_completed'))
+      $(this).text('show_completed')
       showCompletedPractice(false)
     else
       $(this).addClass('on')
-      $(this).text(I18n.t('hide_completed'))
+      $(this).text('hide_completed')
       showCompletedPractice(true)
 
   $('#display-switch').click()
