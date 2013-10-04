@@ -13,9 +13,8 @@ ul.nav.nav-tabs
     li class="#{params['target'] == 'me' ? 'active' : ''}" 
       = link_to t('my_practices'), practices_path(target: 'me')
 - @categories.each do |category|
-  - if category.practices.present?
-    h2= category.name
-    table.table.table-striped.practices
-      tbody
-        = render category.practices
+  h2= category.name
+  table.table.table-striped.practices
+    tbody
+      = render category.practices
 = link_to t('new_practice'), new_practice_path, class: 'btn btn-block btn-primary'
