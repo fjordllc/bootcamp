@@ -29,4 +29,12 @@ namespace :intern do
     ActiveRecord::FixtureSet.create_fixtures \
       "#{Rails.root}/db/fixtures", 'categories'
   end
+
+  desc 'Reset position'
+  task 'reset_position' do
+    Practice.order('id').each do |practice|
+      practice.position = practice.id
+      practice.save!
+    end
+  end
 end

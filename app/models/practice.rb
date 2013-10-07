@@ -1,6 +1,4 @@
 class Practice < ActiveRecord::Base
-  include RankedModel
-  ranks :row_order
   as_enum :target, [:everyone, :programmer, :designer]
   has_many :learnings
 
@@ -11,6 +9,7 @@ class Practice < ActiveRecord::Base
     through: :completed_learnings,
     source: :user
   belongs_to :category
+  acts_as_list scope: :category
 
   validates :title, presence: true
   validates :description, presence: true

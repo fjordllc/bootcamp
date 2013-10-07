@@ -4,4 +4,11 @@ tr *practice_attr(practice)
   - if current_user
     td.status= practice.learning_status(current_user.id)
     td.handle
-      i.icon-align-justify
+      = link_to practice_position_path(practice, move: :top), method: :put, class: 'btn'
+        i.icon-double-angle-up
+      = link_to practice_position_path(practice, move: :higher), method: :put, class: 'btn'
+        i.icon-angle-up
+      = link_to practice_position_path(practice, move: :lower), method: :put, class: 'btn'
+        i.icon-angle-down
+      = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'btn'
+        i.icon-double-angle-down

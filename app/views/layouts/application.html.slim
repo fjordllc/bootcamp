@@ -7,13 +7,11 @@ html
     = javascript_include_tag 'application'
     = csrf_meta_tags
   body class="#{controller_name}_#{action_name}"
+    = render 'header'
+    = render 'alert'
     .container
-      #header
-        = render 'nav'
-        h1= link_to t('256interns'), root_path
-        = render 'alert'
       .row
         .span12= yield
-      #footer
-        | ©
-        = link_to 'FJORD, LLC', 'http://fjord.jp'
+    #footer
+      | ©
+      = link_to 'FJORD, LLC', 'http://fjord.jp'

@@ -10,7 +10,7 @@ $ ->
     .done ->
       $(that)
         .attr({class: 'btn started'})
-        .text('started')
+        .text('開始')
 
   $(document).on 'click', 'button.started', ->
     that = this
@@ -20,10 +20,10 @@ $ ->
     .done ->
       $(that)
         .attr({class: 'btn complete'})
-        .text('complete')
+        .text('完了')
 
   $(document).on 'click', 'button.complete', ->
-    return unless confirm('practice_status_reset_confirmation')
+    return unless confirm('未着手に戻してよろしいですか？')
     that = this
     practice_id = getPracticeId($(this))
     $.ajax "/practices/#{practice_id}/learnings",
@@ -31,7 +31,7 @@ $ ->
     .done ->
       $(that)
         .attr({class: 'btn unstarted'})
-        .text('unstarted')
+        .text('未着手')
 
   showCompletedPractice = (display) ->
     for practice in $('tr.practice.target')
@@ -43,11 +43,11 @@ $ ->
   $(document).on 'click', '#display-switch', ->
     if $(this).hasClass('on')
       $(this).removeClass('on')
-      $(this).text('show_completed')
+      $(this).text('完了済みプラクティスも表示する')
       showCompletedPractice(false)
     else
       $(this).addClass('on')
-      $(this).text('hide_completed')
+      $(this).text('完了済みプラクティスを隠す')
       showCompletedPractice(true)
 
   $('#display-switch').click()

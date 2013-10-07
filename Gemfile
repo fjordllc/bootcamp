@@ -13,13 +13,13 @@ gem 'slim-rails'
 gem 'jquery-rails'
 gem 'lingman', github: 'hrysd/lingman'
 gem 'puma', require: false
-gem 'ranked-model'
 gem 'redcarpet'
 gem 'sass-rails', '~> 4.0.0'
 gem 'simple_enum'
 gem 'simple_form', '~> 3.0.0'
 gem 'sorcery'
 gem 'uglifier', '>= 1.3.0'
+gem 'acts_as_list'
 
 group :production, :staging do
   gem 'pg'

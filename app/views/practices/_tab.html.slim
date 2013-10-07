@@ -1,0 +1,10 @@
+ul.nav.nav-tabs
+  li class="#{params['target'].blank? or params['target'] == 'all' ? 'active' : ''}"
+    = link_to t('all'), practices_path(target: 'all')
+  li class="#{params['target'] == 'everyone' ? 'active' : ''}"  
+    = link_to t('for_everyone'), practices_path(target: 'everyone')
+  li class="#{params['target'] == 'programmer' ? 'active' : ''}" 
+    = link_to t('for_programmer'), practices_path(target: 'programmer')
+  - if current_user.present?
+    li class="#{params['target'] == 'me' ? 'active' : ''}" 
+      = link_to t('my_practices'), practices_path(target: 'me')

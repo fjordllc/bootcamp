@@ -5,11 +5,12 @@ Interns::Application.routes.draw do
     resources :companies
     resources :categories
   end
-  resources :companies, only: %w(index show)
+  resources :companies, only: %i(index show)
   resources :users
-  resources :user_sessions, only: %w(new create destroy)
+  resources :user_sessions, only: %i(new create destroy)
   resources :practices do
-    resource :learnings, only: %w(create update destroy)
+    resource :learnings, only: %i(create update destroy)
+    resource :position, only: %i(update)
   end
   get 'application' => 'home#application', as: :application
   get 'login'  => 'user_sessions#new',     as: :login

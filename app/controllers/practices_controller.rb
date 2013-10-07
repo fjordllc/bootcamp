@@ -8,7 +8,7 @@ class PracticesController < ApplicationController
       redirect_to practices_path(target: 'me')
     end
     @categories = Category.all
-    @practices = Practice.rank(:row_order).to_a
+    @practices = Practice.all
   end
 
   def show
@@ -54,7 +54,7 @@ class PracticesController < ApplicationController
         :goal,
         :target,
         :category_id,
-        :row_order
+        :position
       )
     end
 
