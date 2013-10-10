@@ -23,14 +23,4 @@ module ApplicationHelper
     [:everyone, current_user.job].include?(practice.target)
   end
 
-  def practice_attr(practice)
-    target = params['target'] || 'all'
-    options =
-      if target == 'all' or target.to_sym == practice.target or (target == 'me' and my_practice?(practice))
-        { class: 'target' }
-      else
-        { style: 'display:none' }
-      end
-    options.merge(id: "practice_#{practice.id}", class: 'practice ' + options[:class].to_s)
-  end
 end

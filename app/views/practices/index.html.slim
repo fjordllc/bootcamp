@@ -1,8 +1,5 @@
 - title t('practices')
 h1= t('practices')
-- if current_user.present?
-  button#display-switch.btn.on= t('hide_completed')
-= render 'tab'
 - @categories.each do |category|
   - if category.practices.present?
     h2= category.name

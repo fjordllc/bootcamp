@@ -18,4 +18,23 @@ class Practice < ActiveRecord::Base
 
   scope :for_programmer, ->{ where.not(target_cd: Practice.designer) }
   scope :for_designer, ->{ where.not(target_cd: Practice.programmer) }
+
+  def status(user)
+    learnings = Learning.where(
+      user_id: user.id,
+      practice_id: id
+    )
+    if learnings.present?
+      learnings.first.status
+    else
+      :not_complete
+    end
+  end
+
+  def complete?(user)
+    Learning.where(
+      user_id: user.id,
+      practice_id: id
+    ).exists?
+  end
 end

@@ -8,7 +8,6 @@ class PracticesController < ApplicationController
       redirect_to practices_path(target: 'me')
     end
     @categories = Category.all
-    @practices = Practice.all
   end
 
   def show

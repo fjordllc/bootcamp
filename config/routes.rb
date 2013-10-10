@@ -8,8 +8,8 @@ Interns::Application.routes.draw do
   resources :companies, only: %i(index show)
   resources :users
   resources :user_sessions, only: %i(new create destroy)
-  resources :practices do
-    resource :learnings, only: %i(create update destroy)
+  resources :practices, shallow: true do
+    resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
   end
   get 'application' => 'home#application', as: :application

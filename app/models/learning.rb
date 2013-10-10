@@ -1,5 +1,5 @@
 class Learning < ActiveRecord::Base
-  as_enum :status, [:started, :complete]
+  as_enum :status, started: 0, complete: 1
   belongs_to :user
   belongs_to :practice
 

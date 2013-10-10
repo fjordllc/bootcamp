@@ -19,7 +19,7 @@ class LearningsController < ApplicationController
     )
 
     notify("#{current_user.full_name}(#{current_user.login_name})が「#{@practice.title}」を完了しました。 #{url_for(@practice)}")
-    learning.status = :complete
+    learning.status = params[:status].to_sym
     head :ok if learning.save
   end
 

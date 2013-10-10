@@ -1,53 +1,34 @@
 $ ->
-  getPracticeId = (element) ->
-    element.attr('id').split('-')[1]
+  if $('body.practices_index').length > 0
 
-  $(document).on 'click', 'button.unstarted', ->
-    that = this
-    practice_id = getPracticeId($(this))
-    $.ajax "/practices/#{practice_id}/learnings",
-      type: 'POST'
-    .done ->
-      $(that)
-        .attr({class: 'btn started'})
-        .text('開始')
+    $('.practices').on 'click', '.practice .status .not_complete', {}, ->
+      tr = $(this).parent().parent().parent()
+      [x, practice_id] = tr[0].id.split('_')
+      $.ajax "/practices/#{practice_id}/learning",
+        type: 'DELETE'
+      .done =>
+        console.log $('.status button', this)
+        $('.status button', this).attr('disabled', true)
 
-  $(document).on 'click', 'button.started', ->
-    that = this
-    practice_id = getPracticeId($(this))
-    $.ajax "/practices/#{practice_id}/learnings",
-      type: 'PUT'
-    .done ->
-      $(that)
-        .attr({class: 'btn complete'})
-        .text('完了')
+    $('.practices').on 'click', '.practice .status .started', {}, ->
+      tr = $(this).parent().parent().parent()
+      [x, practice_id] = tr[0].id.split('_')
+      $.ajax "/practices/#{practice_id}/learning",
+        type: 'PUT',
+        data: "status=started"
+      .done =>
+        console.log $('.status button', this)
+        $('.status .started', this).attr('disabled', true)
 
-  $(document).on 'click', 'button.complete', ->
-    return unless confirm('未着手に戻してよろしいですか？')
-    that = this
-    practice_id = getPracticeId($(this))
-    $.ajax "/practices/#{practice_id}/learnings",
-      type: 'DELETE'
-    .done ->
-      $(that)
-        .attr({class: 'btn unstarted'})
-        .text('未着手')
 
-  showCompletedPractice = (display) ->
-    for practice in $('tr.practice.target')
-      if (not display) and $(practice).find('.btn').hasClass('complete')
-        $(practice).hide()
-      else
-        $(practice).show()
 
-  $(document).on 'click', '#display-switch', ->
-    if $(this).hasClass('on')
-      $(this).removeClass('on')
-      $(this).text('完了済みプラクティスも表示する')
-      showCompletedPractice(false)
-    else
-      $(this).addClass('on')
-      $(this).text('完了済みプラクティスを隠す')
-      showCompletedPractice(true)
-
-  $('#display-switch').click()
+    # destroy
+    #    $('.practices').on 'click', '.complete', {}, ->
+    #      console.log 'destroy'
+    #      [x, practice_id] = this.id.split('_')
+    #      $.ajax "/practices/#{practice_id}/learning",
+    #        type: 'DELETE'
+    #      .done =>
+    #        $("#practice_#{practice_id}").
+    #          removeClass('complete').addClass('not_complete').
+    #        $("#practice_#{practice_id} .status button").text('未完了')

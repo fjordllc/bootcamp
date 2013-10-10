@@ -1,14 +1,17 @@
-tr *practice_attr(practice)
+- status = practice.status(current_user)
+= content_tag_for :tr, practice, class: practice.status(current_user) do |practice|
   td.title
     = link_to practice.title, practice
   - if current_user
-    td.status= practice.learning_status(current_user.id)
+    td.status
+      = render 'status', practice: practice
     td.handle
-      = link_to practice_position_path(practice, move: :top), method: :put, class: 'btn'
-        i.icon-double-angle-up
-      = link_to practice_position_path(practice, move: :higher), method: :put, class: 'btn'
-        i.icon-angle-up
-      = link_to practice_position_path(practice, move: :lower), method: :put, class: 'btn'
-        i.icon-angle-down
-      = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'btn'
-        i.icon-double-angle-down
+      .btn-group
+        = link_to practice_position_path(practice, move: :top), method: :put, class: 'btn'
+          i.icon-double-angle-up
+        = link_to practice_position_path(practice, move: :higher), method: :put, class: 'btn'
+          i.icon-angle-up
+        = link_to practice_position_path(practice, move: :lower), method: :put, class: 'btn'
+          i.icon-angle-down
+        = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'btn'
+          i.icon-double-angle-down
