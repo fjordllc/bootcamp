@@ -304,7 +304,7 @@ ja:
   not_complete: "未完"
   unstarted: "開始"
   complete: "完了"
-  started: "着手"
+  started: "開始"
   practice_status_reset_confirmation: "未着手状態に戻しますがよろしいですか？"
   hide_completed: "完了済みプラクティスを隠す"
   show_completed: "完了済みプラクティスを表示"

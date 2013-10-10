@@ -9,3 +9,9 @@ learning_2:
   user_id: 1
   practice_id: 2
   status_cd: 1
+
+learning_3:
+  id: 3
+  user_id: 1
+  practice_id: 3
+  status_cd: 2

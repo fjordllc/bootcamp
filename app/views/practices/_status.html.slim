@@ -1,6 +1,6 @@
 .btn-group
   - %i(not_complete started complete).each do |status|
     - if practice.status(current_user) == status
-      button.btn.btn-success[class="#{status}" disabled]= t(status)
+      button.btn.btn-success[class="#{status}" data-status="#{status}" disabled]= t(status)
     - else
-      button.btn[class="#{status}"]= t(status)
+      button.btn[class="#{status}" data-status="#{status}"]= t(status)

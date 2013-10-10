@@ -24,10 +24,10 @@ class Practice < ActiveRecord::Base
       user_id: user.id,
       practice_id: id
     )
-    if learnings.present?
-      learnings.first.status
-    else
+    if learnings.blank?
       :not_complete
+    else
+      learnings.first.status
     end
   end
 
