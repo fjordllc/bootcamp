@@ -1,9 +1,9 @@
-- status = practice.status(current_user)
-= content_tag_for :tr, practice, class: practice.status(current_user) do |practice|
+= content_tag_for :tr, practice do |practice|
   td.title
     = link_to practice.title, practice
   - if current_user
     td.status
+      - status = practice.status(current_user)
       = render 'status', practice: practice
     td.handle
       .btn-group
