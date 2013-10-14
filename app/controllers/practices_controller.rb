@@ -7,7 +7,7 @@ class PracticesController < ApplicationController
     if current_user.present? and params['target'].blank?
       redirect_to practices_path(target: 'me')
     end
-    @categories = Category.all
+    @categories = Category.order('position')
   end
 
   def show

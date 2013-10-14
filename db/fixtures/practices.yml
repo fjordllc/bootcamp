@@ -5,6 +5,7 @@ practice_1:
   goal: "OS X Mountain Lionをクリーンインストールする"
   target_cd: 0
   category_id: 2
+  position: 1
 
 practice_2:
   id: 2
@@ -13,6 +14,7 @@ practice_2:
   goal: "goal..."
   target_cd: 0
   category_id: 4
+  position: 2
 
 practice_3:
   id: 3
@@ -21,6 +23,7 @@ practice_3:
   goal: "goal..."
   target_cd: 0
   category_id: 2
+  position: 3
 
 practice_4:
   id: 4
@@ -29,6 +32,7 @@ practice_4:
   goal: "goal..."
   target_cd: 1
   category_id: 4
+  position: 4
 
 practice_5:
   id: 5
@@ -37,6 +41,7 @@ practice_5:
   goal: "goal..."
   target_cd: 1
   category_id: 4
+  position: 5
 
 practice_6:
   id: 6
@@ -45,6 +50,7 @@ practice_6:
   goal: "goal..."
   target_cd: 1
   category_id: 4
+  position: 6
 
 practice_7:
   id: 7
@@ -53,6 +59,7 @@ practice_7:
   goal: "goal..."
   target_cd: 1
   category_id: 8
+  position: 7
 
 practice_8:
   id: 8
@@ -61,6 +68,7 @@ practice_8:
   goal: "goal..."
   target_cd: 1
   category_id: 8
+  position: 8
 
 practice_9:
   id: 9
@@ -69,6 +77,7 @@ practice_9:
   goal: "goal..."
   target_cd: 1
   category_id: 4
+  position: 9
 
 practice_10:
   id: 10
@@ -77,6 +86,7 @@ practice_10:
   goal: "goal..."
   target_cd: 1
   category_id: 4
+  position: 10
 
 practice_11:
   id: 11
@@ -85,6 +95,7 @@ practice_11:
   goal: "goal..."
   target_cd: 1
   category_id: 4
+  position: 11
 
 practice_12:
   id: 12
@@ -93,6 +104,7 @@ practice_12:
   goal: "goal..."
   target_cd: 1
   category_id: 4
+  position: 12
 
 practice_13:
   id: 13
@@ -101,6 +113,7 @@ practice_13:
   goal: "goal..."
   target_cd: 1
   category_id: 4
+  position: 13
 
 practice_14:
   id: 14
@@ -109,6 +122,7 @@ practice_14:
   goal: "goal..."
   target_cd: 1
   category_id: 16
+  position: 14
 
 practice_15:
   id: 15
@@ -117,6 +131,7 @@ practice_15:
   goal: "goal..."
   target_cd: 1
   category_id: 16
+  position: 15
 
 practice_16:
   id: 16
@@ -125,6 +140,7 @@ practice_16:
   goal: "goal..."
   target_cd: 1
   category_id: 15
+  position: 16
 
 practice_17:
   id: 17
@@ -133,6 +149,7 @@ practice_17:
   goal: "goal..."
   target_cd: 1
   category_id: 15
+  position: 17
 
 practice_18:
   id: 18
@@ -141,6 +158,7 @@ practice_18:
   goal: "goal..."
   target_cd: 1
   category_id: 16
+  position: 18
 
 practice_19:
   id: 19
@@ -149,6 +167,7 @@ practice_19:
   goal: "goal..."
   target_cd: 1
   category_id: 15
+  position: 19
 
 practice_20:
   id: 20
@@ -157,6 +176,7 @@ practice_20:
   goal: "goal..."
   target_cd: 1
   category_id: 7
+  position: 20
 
 practice_21:
   id: 21
@@ -165,6 +185,7 @@ practice_21:
   goal: "goal..."
   target_cd: 1
   category_id: 7
+  position: 21
 
 practice_22:
   id: 22
@@ -173,6 +194,7 @@ practice_22:
   goal: "goal..."
   target_cd: 1
   category_id: 7
+  position: 22
 
 practice_23:
   id: 23
@@ -181,6 +203,7 @@ practice_23:
   goal: "goal..."
   target_cd: 0
   category_id: 5
+  position: 23
 
 practice_24:
   id: 24
@@ -189,6 +212,7 @@ practice_24:
   goal: "goal..."
   target_cd: 0
   category_id: 5
+  position: 24
 
 practice_25:
   id: 25
@@ -197,6 +221,7 @@ practice_25:
   goal: "goal..."
   target_cd: 0
   category_id: 5
+  position: 25
 
 practice_26:
   id: 26
@@ -205,6 +230,7 @@ practice_26:
   goal: "goal..."
   target_cd: 1
   category_id: 5
+  position: 26
 
 practice_27:
   id: 27
@@ -213,6 +239,7 @@ practice_27:
   goal: "goal..."
   target_cd: 1
   category_id: 11
+  position: 27
 
 practice_28:
   id: 28
@@ -221,6 +248,7 @@ practice_28:
   goal: "goal..."
   target_cd: 1
   category_id: 9
+  position: 28
 
 practice_29:
   id: 29
@@ -229,6 +257,7 @@ practice_29:
   goal: "goal..."
   target_cd: 1
   category_id: 5
+  position: 29
 
 practice_30:
   id: 30
@@ -237,6 +266,7 @@ practice_30:
   goal: "goal..."
   target_cd: 1
   category_id: 5
+  position: 30
 
 practice_31:
   id: 31
@@ -245,6 +275,7 @@ practice_31:
   goal: "goal..."
   target_cd: 1
   category_id: 5
+  position: 31
 
 practice_32:
   id: 32
@@ -253,6 +284,7 @@ practice_32:
   goal: "goal..."
   target_cd: 1
   category_id: 5
+  position: 32
 
 practice_33:
   id: 33
@@ -261,6 +293,7 @@ practice_33:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 33
 
 practice_34:
   id: 34
@@ -269,6 +302,7 @@ practice_34:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 34
 
 practice_35:
   id: 35
@@ -277,6 +311,7 @@ practice_35:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 35
 
 practice_36:
   id: 36
@@ -285,6 +320,7 @@ practice_36:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 36
 
 practice_37:
   id: 37
@@ -293,6 +329,7 @@ practice_37:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 37
 
 practice_38:
   id: 38
@@ -301,6 +338,7 @@ practice_38:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 38
 
 practice_39:
   id: 39
@@ -309,6 +347,7 @@ practice_39:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 39
 
 practice_40:
   id: 40
@@ -317,6 +356,7 @@ practice_40:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 40
 
 practice_41:
   id: 41
@@ -325,6 +365,7 @@ practice_41:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 41
 
 practice_42:
   id: 42
@@ -333,6 +374,7 @@ practice_42:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 42
 
 practice_43:
   id: 43
@@ -341,6 +383,7 @@ practice_43:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 43
 
 practice_44:
   id: 44
@@ -349,6 +392,7 @@ practice_44:
   goal: "goal..."
   target_cd: 1
   category_id: 9
+  position: 44
 
 practice_45:
   id: 45
@@ -357,6 +401,7 @@ practice_45:
   goal: "goal..."
   target_cd: 1
   category_id: 9
+  position: 45
 
 practice_46:
   id: 46
@@ -365,6 +410,7 @@ practice_46:
   goal: "goal..."
   target_cd: 1
   category_id: 9
+  position: 46
 
 practice_47:
   id: 47
@@ -373,6 +419,7 @@ practice_47:
   goal: "goal..."
   target_cd: 1
   category_id: 9
+  position: 47
 
 practice_48:
   id: 48
@@ -381,6 +428,7 @@ practice_48:
   goal: "goal..."
   target_cd: 0
   category_id: 11
+  position: 48
 
 practice_49:
   id: 49
@@ -389,6 +437,7 @@ practice_49:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 49
 
 practice_50:
   id: 50
@@ -397,3 +446,4 @@ practice_50:
   goal: "goal..."
   target_cd: 1
   category_id: 6
+  position: 50

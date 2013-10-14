@@ -328,6 +328,7 @@ ja:
   listing_users: "ユーザー一覧"
   listing_practices: "プラクティス一覧"
   listing_companies: "会社一覧"
+  listing_categories: "カテゴリー一覧"
   companies: "会社"
   editing_practice: "プラクティス編集"
   editing_company: "会社編集"

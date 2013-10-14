@@ -4,16 +4,23 @@ table.table
   tr
     th Name
     th Slug
-    th
-    th
-    th
-
+    th[colspan="2"] Action
+    th Order
   - @categories.each do |category|
     tr
-      td= category.name
+      td= link_to category.name, [:admin, category]
       td= category.slug
-      td= link_to t('show'), [:admin, category]
-      td= link_to t('edit'), edit_admin_category_path(category)
-      td= link_to t('destroy'), [:admin, category], data: { confirm: t('are_you_sure') }, method: :delete
+      td= link_to t('edit'), edit_admin_category_path(category), class: 'btn'
+      td= link_to t('destroy'), [:admin, category], data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn'
+      td.handle
+        .btn-group
+          = link_to admin_category_position_path(category, move: :top), method: :put, class: 'btn'
+            i.icon-double-angle-up
+          = link_to admin_category_position_path(category, move: :higher), method: :put, class: 'btn'
+            i.icon-angle-up
+          = link_to admin_category_position_path(category, move: :lower), method: :put, class: 'btn'
+            i.icon-angle-down
+          = link_to admin_category_position_path(category, move: :bottom), method: :put, class: 'btn'
+            i.icon-double-angle-down
 br
 = link_to 'New Category', new_admin_category_path, class: 'btn btn-primary'

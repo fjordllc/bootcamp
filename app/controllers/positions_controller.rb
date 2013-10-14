@@ -11,8 +11,6 @@ class PositionsController < ApplicationController
       @practice.move_to_top
     when 'bottom'
       @practice.move_to_bottom
-    else
-      puts 'notthinggggggggggggggggggggggggggggggggggg'
     end
 
     redirect_to practices_url

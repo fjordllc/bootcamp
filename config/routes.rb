@@ -3,7 +3,9 @@ Interns::Application.routes.draw do
   namespace :admin do
     root to: 'home#index'
     resources :companies
-    resources :categories
+    resources :categories do
+      resource :position, only: %i(update), controller: 'categories/position'
+    end
   end
   resources :companies, only: %i(index show)
   resources :users

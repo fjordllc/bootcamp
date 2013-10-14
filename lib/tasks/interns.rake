@@ -7,7 +7,7 @@ namespace :intern do
     Practice.delete_all
     import 'practices'
   end
-  
+
   desc 'Dump practices'
   task :dump_practice do
     Practice.all.each do |practice|
@@ -18,7 +18,7 @@ namespace :intern do
     description: "#{practice.description}"
     goal: "#{practice.goal}"
     target_cd: #{practice.target_cd}
-  
+
       EOS
     end
   end
@@ -30,11 +30,20 @@ namespace :intern do
       "#{Rails.root}/db/fixtures", 'categories'
   end
 
-  desc 'Reset position'
-  task 'reset_position' do
+  desc 'Reset practice position'
+  task 'reset_practice_position' do
     Practice.order('id').each do |practice|
       practice.position = practice.id
       practice.save!
     end
   end
+
+  desc 'Reset category position'
+  task 'reset_category_position' do
+    Category.order('id').each do |category|
+      category.position = category.id
+      category.save!
+    end
+  end
+
 end
