@@ -1,95 +1,111 @@
 category_1:
   id: 1
-  name: "このサイトについて"
-  slug: "about-this-site"
+  name: "学習の準備"
+  slug: "ready-for-learn"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_2:
   id: 2
   name: "Mac OS X"
   slug: "mac-os-x"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_3:
   id: 3
   name: "HTML & CSS"
   slug: "html-and-css"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_4:
   id: 4
   name: "UNIX"
   slug: "unix"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_5:
   id: 5
   name: "Ruby"
   slug: "ruby"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_6:
   id: 6
   name: "Ruby on Rails"
   slug: "ruby-on-rails"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_7:
   id: 7
   name: "SQL"
   slug: "sql"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_8:
   id: 8
   name: "Vim"
   slug: "vim"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_9:
   id: 9
   name: "自動テスト"
   slug: "testing"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_10:
   id: 10
   name: "JavaScript"
   slug: "javascript"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_11:
   id: 11
   name: "Git"
   slug: "git"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_12:
   id: 12
   name: "開発手法"
   slug: "development"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_13:
   id: 13
   name: "iOS"
   slug: "ios"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_14:
   id: 14
   name: "Android"
   slug: "android"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_15:
   id: 15
   name: "Nginx"
   slug: "nginx"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1
 
 category_16:
   id: 16
   name: "HTTP"
   slug: "http"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 1

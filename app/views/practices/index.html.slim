@@ -3,6 +3,7 @@ h1= t('practices')
 - @categories.each do |category|
   - if category.practices.present?
     h2= category.name
+    p.description= simple_format category.description
     table.table.table-striped.practices
       tbody
         = render category.practices

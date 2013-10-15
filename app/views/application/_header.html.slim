@@ -7,14 +7,19 @@ header.navbar
           = link_to current_user do
             = gravatar_tag current_user, size: 20
             = current_user.login_name
-      li class="#{controller_name == 'users' and action_name == 'index' ? 'active' : ''}"
-        = link_to users_path do
-          i.icon-user
-          = t('users')
+      - if current_user and current_user.admin?
+        li
+          = link_to admin_root_path do
+            i.icon-off
+            = t('admin_index')
       li class="#{controller_name == 'practices' ? 'active' : ''}"  
         = link_to practices_path do
           i.icon-tasks
           = t('practices')
+      li class="#{controller_name == 'users' and action_name == 'index' ? 'active' : ''}"
+        = link_to users_path do
+          i.icon-user
+          = t('users')
       li class="#{controller_name == 'companies' ? 'active' : ''}"
         = link_to companies_path do
           i.icon-briefcase
