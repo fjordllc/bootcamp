@@ -1,0 +1,31 @@
+header.navbar
+  .navbar-inner
+    .brand= link_to t('256interns'), root_path
+    ul.nav.pull-right
+      - if current_user
+        li
+          = link_to current_user do
+            = gravatar_tag current_user, size: 20
+            = current_user.login_name
+      li class="#{controller_name == 'companies' ? 'active' : ''}"
+        = link_to admin_companies_path do
+          i.icon-briefcase
+          = t('companies')
+      li class="#{controller_name == 'categories' ? 'active' : ''}"
+        = link_to admin_categories_path do
+          i.icon-briefcase
+          = t('categories')
+      - if current_user
+        li
+          = link_to logout_path do
+            i.icon-off
+            = t('logout')
+      - else
+        li
+          = link_to login_path do
+            i.icon-off
+            = t('sign_in')
+        li
+          = link_to new_user_path do
+            i.icon-ok
+            = t('sign_up')

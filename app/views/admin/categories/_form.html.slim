@@ -1,7 +1,8 @@
 = simple_form_for([:admin, category]) do |f|
   = f.error_notification
   .form-inputs
-    = f.input :name
-    = f.input :slug
+    = f.input :name, input_html: { class: 'input-block-level' }
+    = f.input :slug, input_html: { class: 'input-block-level' }
+    = f.input :description, input_html: { class: 'input-block-level', rows: 10 }
   .form-actions
     = f.button :submit
