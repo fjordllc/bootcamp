@@ -229,7 +229,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   dynamic_form
-  exception_notification (~> 3.0.1)
+  exception_notification
   factory_girl_rails
   font-awesome-sass-rails (~> 3.0.2.2)
   gravatarify
