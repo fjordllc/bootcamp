@@ -165,11 +165,13 @@ ja:
         twitter_url: "Twitter URL"
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
+        feed_url: "ブログのフィードURL"
         password: "パスワード"
         password_confirmation: "パスワード（確認）"
         current_password: "現在のパスワード"
         remember_me: "記憶する"
         job: "職種"
+        purpose: "インターンの目的"
         find_job_assist: "就職支援"
         company: "会社"
         created_at: "インターン開始日"
@@ -223,6 +225,11 @@ ja:
         jobs:
           programmer: "プログラマー"
           designer: "デザイナー"
+        purposes:
+          get_job: "就職"
+          change_job: "転職"
+          start_venture: "起業"
+          skill_up: "スキルアップ"
       practice:
         targets:
           everyone: "共通"
@@ -239,6 +246,7 @@ ja:
         twitter_url: "Twitter URL"
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
+        feed_url: "ブログのフィードURL"
         password: パスワード
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
@@ -248,6 +256,7 @@ ja:
         icon_content_type: 画像ファイルの種類
         notify_comment: コメント通知
         job: "職種"
+        purpose: "インターンの目的"
         find_job_assist: "就職支援"
         company: "会社"
 

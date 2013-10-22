@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131015082027) do
+ActiveRecord::Schema.define(version: 20131022024739) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 20131015082027) do
     t.integer  "company_id",                   default: 1
     t.text     "description"
     t.boolean  "find_job_assist",              default: false, null: false
+    t.integer  "purpose_cd",                   default: 0,     null: false
+    t.string   "feed_url"
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"

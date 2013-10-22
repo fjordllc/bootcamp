@@ -5,13 +5,15 @@
   = f.input :email, hint: false, placeholder: t('helpers.label.user.email')
   = f.input :first_name, hint: false, placeholder: t('helpers.label.user.first_name')
   = f.input :last_name, hint: false, placeholder: t('helpers.label.user.last_name')
-  = f.input :description, hint: false, placeholder: t('helpers.label.user.description')
+  = f.input :description, hint: false, placeholder: t('helpers.label.user.description'), input_html: { class: 'input-block-level', rows: 10 }
   = f.input :twitter_url, hint: false, placeholder: t('helpers.label.user.twitter_url'), input_html: { class: 'span6' }
   = f.input :facebook_url, hint: false, placeholder: t('helpers.label.user.facebook_url'), input_html: { class: 'span6' }
   = f.input :blog_url, hint: false, placeholder: t('helpers.label.user.blog_url'), input_html: { class: 'span6' }
+  = f.input :feed_url, hint: false, placeholder: t('helpers.label.user.feed_url'), input_html: { class: 'span6' }
   = f.input :password, hint: false, placeholder: t('helpers.label.user.password')
   = f.input :password_confirmation, hint: false, placeholder: t('helpers.label.user.password_confirmation')
   = f.input :job, collection: User.jobs_for_select, as: :radio_buttons
+  = f.input :purpose, collection: User.purposes_for_select, as: :radio_buttons
   = f.input :find_job_assist, inline_label: t('i_want_to_find_job_assist')
   p= t('we_will_find_rails_job_by_our_best')
   = f.association :company, include_blank: false

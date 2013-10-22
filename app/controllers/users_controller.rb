@@ -66,9 +66,11 @@ class UsersController < ApplicationController
         :twitter_url,
         :facebook_url,
         :blog_url,
+        :feed_url,
         :password,
         :password_confirmation,
         :job,
+        :purpose,
         :find_job_assist,
         :company_id
       )

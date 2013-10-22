@@ -6,13 +6,15 @@ dl
   dt= t('helpers.label.user.full_name')
   dd= @user.full_name
   dt= t('helpers.label.user.job')
-  dd= t(@user.job)
+  dd= t("activerecord.enums.user.jobs.#{@user.job}")
   dt= t('helpers.label.user.description')
   dd= simple_format @user.description
   dt= t('helpers.label.user.created_at')
   dd= l @user.created_at.to_date
   dt= t('helpers.label.user.part')
   dd= t(@user.part)
+  dt= t('helpers.label.user.purpose')
+  dd= t("activerecord.enums.user.purposes.#{@user.purpose}")
   dt= t('helpers.label.user.find_job_assist')
   dd= user_find_job_assist(@user)
   - if @user.twitter_url?
@@ -23,7 +25,11 @@ dl
     dd= link_to @user.facebook_url, @user.facebook_url
   - if @user.blog_url?
     dt= t('helpers.label.user.blog_url')
-    dd= link_to @user.blog_url, @user.blog_url
+    dd
+      = link_to @user.blog_url, @user.blog_url
+      - if @user.feed_url?
+        = link_to @user.feed_url do
+          i.icon-rss
 h3= t('active_practices')
 ul
   - @user.active_practices.each do |practice|
