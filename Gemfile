@@ -20,6 +20,7 @@ gem 'simple_form', '~> 3.0.0'
 gem 'sorcery'
 gem 'uglifier', '>= 1.3.0'
 gem 'acts_as_list'
+gem 'exception_notification', '~> 3.0.1', require: 'exception_notifier'
 
 group :production, :staging do
   gem 'pg'

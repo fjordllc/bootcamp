@@ -79,4 +79,23 @@ Interns::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.assets.initialize_on_precompile = true
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
+    :authentication => :plain,
+    :address => "smtp.sendgrid.net",
+    :port => 587,
+    :domain => "heroku.com",
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD']
+  }
+
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => '[interns] ',
+    :sender_address => %("notifier" <notifier@fjord.jp>),
+    :exception_recipients => 'develop@fjord.jp'
+
+  config.action_mailer.default_url_options = { host: '256interns.com' }
 end

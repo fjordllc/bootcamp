@@ -64,6 +64,8 @@ GEM
     diff-lcs (1.2.4)
     dynamic_form (1.1.4)
     erubis (2.7.0)
+    exception_notification (3.0.1)
+      actionmailer (>= 3.0.4)
     excon (0.20.1)
     execjs (2.0.1)
     factory_girl (4.2.0)
@@ -227,6 +229,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   dynamic_form
+  exception_notification (~> 3.0.1)
   factory_girl_rails
   font-awesome-sass-rails (~> 3.0.2.2)
   gravatarify
