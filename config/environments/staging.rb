@@ -92,10 +92,5 @@ Interns::Application.configure do
     :password => ENV['SENDGRID_PASSWORD']
   }
 
-  config.middleware.use ExceptionNotifier,
-    :email_prefix => '[interns] ',
-    :sender_address => %("notifier" <notifier@fjord.jp>),
-    :exception_recipients => 'develop@fjord.jp'
-
   config.action_mailer.default_url_options = { host: 'interns-com-staging.herokuapp.com' }
 end
