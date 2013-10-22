@@ -1,0 +1,13 @@
+- title t('practices')
+h1= t("bob's_practices", name: @user.login_name)
+- @categories.each do |category|
+  - if category.practices.present?
+    h2= category.name
+    p.description= simple_format category.description
+    table.table.table-striped.practices
+      tbody
+        = content_tag_for :tr, category.practices do |practice|
+          td.title= link_to practice.title, practice
+          - status = practice.status(@user)
+          td.status
+            label[class="#{status}"]= t(status)

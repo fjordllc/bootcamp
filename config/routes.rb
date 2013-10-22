@@ -8,7 +8,9 @@ Interns::Application.routes.draw do
     end
   end
   resources :companies, only: %i(index show)
-  resources :users
+  resources :users do
+    resources :practices, only: %i(index), controller: 'users/practices'
+  end
   resources :user_sessions, only: %i(new create destroy)
   resources :practices, shallow: true do
     resource :learning, only: %i(create update destroy)

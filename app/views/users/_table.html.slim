@@ -23,3 +23,4 @@ table class="table"
             - user.active_learnings.each do |learning|
               - if learning.practice
                 li= link_to learning.practice.title, learning.practice
+        .btn= link_to t('status_for_all_practices'), user_practices_path(user)
