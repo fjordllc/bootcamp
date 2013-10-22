@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
     not learning_week?(now)
   end
 
+  def active?
+    updated_at > 2.weeks.ago
+  end
+
   private
     def my_practices_size
       Practice.where(target_cd: [0, target_cd]).size

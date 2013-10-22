@@ -1,0 +1,25 @@
+table class="table"
+  - users.each do |user|
+    tr *user_tr_attrs(user)
+      td.icon
+        = link_to user do
+          = gravatar_tag user, size: 100
+        .login_name= link_to user.login_name, user
+        .full_name= link_to user.full_name, user
+        .part= t(:current_week_is_xxx, part: t(user.part))
+      td
+        .job= t(user.job)
+        .company
+          b= "#{t('helpers.label.user.company')}: "
+          = link_to user.company.name, user.company
+        .updated_at
+          b= "#{t('helpers.label.user.updated_at')}: "
+          = l user.updated_at, format: :long
+        .description= simple_format user.description
+      td
+        - if current_user.present? and user.active_learnings.present?
+          strong= t('active_practices')
+          ul
+            - user.active_learnings.each do |learning|
+              - if learning.practice
+                li= link_to learning.practice.title, learning.practice

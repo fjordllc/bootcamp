@@ -26,7 +26,7 @@ ja:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
       short: "%y/%m/%d %H:%M"
-      long: "%K年%m月%d日 %H時%M分%S秒"
+      long: "%Y年%m月%d日 %H時%M分%S秒"
     am: "午前"
     pm: "午後"
 
@@ -175,6 +175,7 @@ ja:
         find_job_assist: "就職支援"
         company: "会社"
         created_at: "インターン開始日"
+        updated_at: "最終活動日時"
         part: "パート"
 
       learning:
@@ -259,6 +260,8 @@ ja:
         purpose: "インターンの目的"
         find_job_assist: "就職支援"
         company: "会社"
+        created_at: "インターン開始日時"
+        updated_at: "最終活動日時"
 
       practice:
         title: "タイトル"
@@ -374,3 +377,5 @@ ja:
   i_want_to_find_job_assist: "フィヨルドの就職支援を希望する"
   i_do_not_want_to_find_job_assist: "フィヨルドの就職支援を希望しない"
   we_will_find_rails_job_by_our_best: "（町田、駒形が知り合いのrailsを使った会社や知り合いの就職支援サイトなどを駆使して全力で就職先探しをサポートします）"
+  active_users: "アクティブユーザー"
+  inactive_users: "最近活動の無いユーザー"

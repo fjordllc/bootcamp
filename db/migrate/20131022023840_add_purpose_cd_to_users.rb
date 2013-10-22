@@ -1,4 +1,4 @@
-class AddPurposeCdInUsers < ActiveRecord::Migration
+class AddPurposeCdToUsers < ActiveRecord::Migration
   def change
     add_column :users, :purpose_cd, :integer, default: 0, null: false
   end

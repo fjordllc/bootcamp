@@ -1,6 +1,6 @@
 class Learning < ActiveRecord::Base
   as_enum :status, started: 0, complete: 1, not_complete: 2
-  belongs_to :user
+  belongs_to :user, touch: true
   belongs_to :practice
 
   validates :user_id, presence: true

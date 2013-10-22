@@ -1,23 +1,7 @@
 - title t('listing_users')
 h1 #{t('listing_users')} (#{@users.size})
 = render 'tab'
-table class="table table-striped"
-  - @users.each do |user|
-    tr
-      td.icon
-        = link_to user do
-          = gravatar_tag user, size: 100
-        .login_name= link_to user.login_name, user
-        .full_name= link_to user.full_name, user
-        .part= t(:current_week_is_xxx, part: t(user.part))
-      td
-        .job= t(user.job)
-        .company= link_to user.company.name, user.company
-        .description= simple_format user.description
-      td
-        - if current_user.present? and user.active_learnings.present?
-          strong= t('active_practices')
-          ul
-            - user.active_learnings.each do |learning|
-              - if learning.practice
-                li= link_to learning.practice.title, learning.practice
+h2= t('active_users')
+= render 'table', users: @active_users
+h2= t('inactive_users')
+= render 'table', users: @inactive_users

@@ -7,6 +7,8 @@ dl
   dd= @user.full_name
   dt= t('helpers.label.user.job')
   dd= t("activerecord.enums.user.jobs.#{@user.job}")
+  dt= t('helpers.label.user.company')
+  dd= link_to @user.company.name, @user.company
   dt= t('helpers.label.user.description')
   dd= simple_format @user.description
   dt= t('helpers.label.user.created_at')
@@ -17,6 +19,8 @@ dl
   dd= t("activerecord.enums.user.purposes.#{@user.purpose}")
   dt= t('helpers.label.user.find_job_assist')
   dd= user_find_job_assist(@user)
+  dt= t('helpers.label.user.updated_at')
+  dd= l @user.updated_at, format: :long
   - if @user.twitter_url?
     dt= t('helpers.label.user.twitter')
     dd= link_to '@' + @user.twitter_id, 'https://twitter.com/' + @user.twitter_id

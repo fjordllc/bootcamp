@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   http_basic_authenticate_with name: 'intern', password: ENV['INTERN_PASSWORD'] || 'test'
 
   def index
-    @users = User.order('id desc')
+    @users = User.order('updated_at desc')
     @users =
       case params.fetch('target', 'all')
       when 'learning'
@@ -14,6 +14,8 @@ class UsersController < ApplicationController
       else
         @users
       end
+    @active_users = @users.select(&:active?)
+    @inactive_users = @users.reject(&:active?)
   end
 
   def show
