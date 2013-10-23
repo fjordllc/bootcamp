@@ -3,8 +3,17 @@ h1= t('practices')
 - @categories.each do |category|
   - if category.practices.present?
     h2= category.name
+
     p.description= simple_format category.description
     table.table.table-striped.practices
       tbody
         = render category.practices
+
+    .row
+      .span11
+        .progress
+          .bar style="width:#{current_user.completed_percentage_by(category)}%"
+      .span1
+        p #{current_user.completed_practices_size(category)} / #{category.practices.size}
+
 = link_to t('new_practice'), new_practice_path, class: 'btn btn-block btn-primary'

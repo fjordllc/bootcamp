@@ -4,9 +4,6 @@ class PracticesController < ApplicationController
   respond_to :html, :json
 
   def index
-    if current_user.present? and params['target'].blank?
-      redirect_to practices_path(target: 'me')
-    end
     @categories = Category.order('position')
   end
 

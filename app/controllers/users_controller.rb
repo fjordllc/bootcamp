@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   http_basic_authenticate_with name: 'intern', password: ENV['INTERN_PASSWORD'] || 'test'
 
   def index
+    @categories = Category.order('position')
     @users = User.order('updated_at desc')
     @users =
       case params.fetch('target', 'all')

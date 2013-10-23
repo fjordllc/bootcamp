@@ -2,6 +2,6 @@
 h1 #{t('listing_users')} (#{@users.size})
 = render 'tab'
 h2= t('active_users', count: @active_users.count)
-= render 'table', users: @active_users
+= render 'user', users: @active_users
 h2= t('inactive_users', count: @inactive_users.count)
-= render 'table', users: @inactive_users
+= render 'user', users: @inactive_users

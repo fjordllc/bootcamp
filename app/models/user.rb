@@ -38,6 +38,14 @@ class User < ActiveRecord::Base
     completed_my_practices_size.to_f / my_practices_size.to_f * 100
   end
 
+  def completed_practices_size(category)
+    completed_practices.where(category_id: category.id).size
+  end
+
+  def completed_percentage_by(category)
+    completed_practices_size(category).to_f / category.practices.size.to_f * 100
+  end
+
   def full_name
     "#{self.last_name} #{self.first_name}"
   end

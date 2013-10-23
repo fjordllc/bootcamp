@@ -1,6 +1,10 @@
 $black: #031f29
 $white: white
 
+.progress
+  .bar
+    color: $black
+
 body.practices_index
   #display-switch
     float: right
@@ -32,16 +36,18 @@ body.practices_show
   text-align: center
 
 body.users_index
-  table
-    td.icon
-      width: 120px
+  .user
+    margin-bottom: 20px
 
-    tr.inactive
-      filter: sepia(100%)
-      -webkit-filter: sepia(100%)
-      -moz-filter: sepia(100%)
-      -o-filter: sepia(100%)
-      -ms-filter: sepia(100%)
+  .icon
+    width: 120px
+
+  .inactive
+    filter: sepia(100%)
+    -webkit-filter: sepia(100%)
+    -moz-filter: sepia(100%)
+    -o-filter: sepia(100%)
+    -ms-filter: sepia(100%)
 
 .home_index
   color: $white
