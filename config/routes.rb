@@ -11,6 +11,7 @@ Interns::Application.routes.draw do
   resources :users do
     resources :practices, only: %i(index), controller: 'users/practices'
   end
+  resource :current_user, only: :update, controller: 'current_user'
   resources :user_sessions, only: %i(new create destroy)
   resources :practices, shallow: true do
     resource :learning, only: %i(create update destroy)

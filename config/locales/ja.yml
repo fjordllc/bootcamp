@@ -363,6 +363,7 @@ ja:
   company_was_successfully_created: "会社を作成しました。"
   company_was_successfully_updated: "会社を更新しました。"
   company_was_successfully_deleted: "会社を削除しました。"
+  learning_users: "学習中ユーザー"
   for: "%{target} 課題"
   for: "%{target} 課題"
   for_everyone: "共通"

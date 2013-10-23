@@ -6,12 +6,15 @@ html
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
+    javascript:
+      var signed_in = #{current_user ? true : false}
   body class="#{controller_name}_#{action_name}"
     = render 'header'
     = render 'alert'
     .container
       .row
-        .span12= yield
+        .span10= yield
+        .span2= render 'active_users'
     #footer
       | ©
       = link_to 'FJORD, LLC', 'http://fjord.jp'
