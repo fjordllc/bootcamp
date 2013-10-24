@@ -1,5 +1,5 @@
 class PracticesController < ApplicationController
-  before_action :require_login, except: %w(index show)
+  before_action :require_login
   before_action :set_practice, only: %w(show edit update destroy sort)
   respond_to :html, :json
 
