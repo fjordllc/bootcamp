@@ -8,7 +8,7 @@ class CoursesController < ApplicationController
 lesson_#{c.id}:
   id: #{c.id}
   title: "#{c.title}"
-  body: "#{c.description.encode("UTF-16BE", "UTF-8", invalid: :replace, undef: :replace, replace: '.').encode("UTF-8")}"
+  description: "#{c.description.encode("UTF-16BE", "UTF-8", invalid: :replace, undef: :replace, replace: '.').encode("UTF-8")}"
   goal: "#{c.goal.encode("UTF-16BE", "UTF-8", invalid: :replace, undef: :replace, replace: '.').encode("UTF-8")}"
   course_id: #{c.category_id}
   position: #{c.position}
