@@ -1,5 +1,4 @@
 class CoursesController < ApplicationController
-  before_action :require_login
   respond_to :yaml
 
   def index
@@ -15,7 +14,7 @@ lesson_#{c.id}:
   position: #{c.position}
 
       EOS
-    end
+    enk
 
     render :inline => output, :content_type => 'text/yaml'
   end
