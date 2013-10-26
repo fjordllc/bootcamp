@@ -14,7 +14,7 @@ lesson_#{c.id}:
   position: #{c.position}
 
       EOS
-    enk
+    end
 
     render :inline => output, :content_type => 'text/yaml'
   end
