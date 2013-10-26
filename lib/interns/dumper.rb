@@ -13,6 +13,7 @@ courses_#{c.id}:
 
           EOS
         end
+      end
 
       def dump_practices
         Practice.order('position').each do |c|
@@ -27,6 +28,7 @@ lesson_#{c.id}:
 
           EOS
         end
+      end
 
       def dump_users
         User.all.each do |c|
@@ -36,6 +38,7 @@ user_#{c.id}:
           EOS
         end
       end
+
     end
   end
 end
