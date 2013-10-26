@@ -17,9 +17,6 @@ courses_#{c.id}:
 
       def dump_practices
         Practice.order('position').each do |c|
-
-
-
           puts <<-EOS
 lesson_#{c.id}:
   id: #{c.id}

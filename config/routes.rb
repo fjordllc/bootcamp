@@ -17,6 +17,7 @@ Interns::Application.routes.draw do
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
   end
+  resources :courses, only: :index
   get 'application' => 'home#application', as: :application
   get 'login'  => 'user_sessions#new',     as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
