@@ -21,6 +21,7 @@ gem 'sorcery'
 gem 'uglifier', '>= 1.3.0'
 gem 'acts_as_list'
 gem 'exception_notification'
+gem 'feedzirra'
 
 group :production, :staging do
   gem 'pg'

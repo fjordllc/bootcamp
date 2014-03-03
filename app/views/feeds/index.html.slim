@@ -1,0 +1,6 @@
+h1 Feeds
+ul.entries
+  - @entries.each do |entry|
+    li.entry
+      h3= link_to entry.title, entry.url
+      .content= raw entry.content

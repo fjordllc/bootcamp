@@ -60,6 +60,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    curb (0.8.5)
     database_cleaner (1.2.0)
     diff-lcs (1.2.4)
     dynamic_form (1.1.4)
@@ -76,6 +77,10 @@ GEM
       railties (>= 3.0.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
+    feedzirra (0.7.1)
+      curb (~> 0.8.1)
+      loofah (~> 1.2.1)
+      sax-machine (~> 0.2.1)
     ffi (1.9.0)
     font-awesome-sass-rails (3.0.2.2)
       railties (>= 3.1.1)
@@ -103,6 +108,8 @@ GEM
       multi_json (>= 1.5)
     launchy (2.3.0)
       addressable (~> 2.3)
+    loofah (1.2.1)
+      nokogiri (>= 1.4.4)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -170,6 +177,8 @@ GEM
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
+    sax-machine (0.2.1)
+      nokogiri (~> 1.6.0)
     selenium-webdriver (2.37.0)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
@@ -232,6 +241,7 @@ DEPENDENCIES
   dynamic_form
   exception_notification
   factory_girl_rails
+  feedzirra
   font-awesome-sass-rails (~> 3.0.2.2)
   gravatarify
   heroku
