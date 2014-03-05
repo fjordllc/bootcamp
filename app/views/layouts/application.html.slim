@@ -8,6 +8,8 @@ html
     = csrf_meta_tags
     javascript:
       var signed_in = #{current_user ? true : false}
+    - if head_last = yield(:head_last)
+      = head_last
   body class="#{controller_name}_#{action_name}"
     = render 'header'
     = render 'alert'

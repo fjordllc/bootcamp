@@ -1,3 +1,5 @@
+- content_for :head_last do
+  = auto_discovery_link_tag :atom, feeds_url(format: 'atom'), title: 'みんなのブログ'
 h1 みんなのブログ
 ul.entries
   - @entries.each do |entry|
