@@ -22,6 +22,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'acts_as_list'
 gem 'exception_notification'
 gem 'feedzirra'
+gem 'jbuilder'
 
 group :production, :staging do
   gem 'pg'
