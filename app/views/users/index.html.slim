@@ -1,4 +1,6 @@
 - title t('listing_users')
+- content_for :head_last do
+  = auto_discovery_link_tag :atom, feeds_url(format: 'atom'), title: 'みんなのブログ'
 h1 #{t('listing_users')} (#{@users.size})
 = render 'tab'
 h2= t('active_users', count: @active_users.count)
