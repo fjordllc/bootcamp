@@ -1,0 +1,7 @@
+h1 みんなのブログ
+ul.entries
+  - @entries.each do |entry|
+    li.entry
+      h3= link_to entry.title, entry.url
+      .content= raw entry.content
+      .published= entry.published

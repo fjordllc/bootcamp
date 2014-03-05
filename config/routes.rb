@@ -7,6 +7,7 @@ Interns::Application.routes.draw do
       resource :position, only: %i(update), controller: 'categories/position'
     end
   end
+  resources :feeds, only: %i(index)
   resources :companies, only: %i(index show)
   resources :users do
     resources :practices, only: %i(index), controller: 'users/practices'
