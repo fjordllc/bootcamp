@@ -5,9 +5,16 @@ h2= t('helpers.label.practice.description')
 .practice= simple_format rendering(@practice.description)
 h2= t('helpers.label.practice.goal')
 .goal= simple_format rendering(@practice.goal)
-= link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
-= link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
-
+.buttons
+  = link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
+  = link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+button.im-stack.btn.btn-danger= '行き詰まった！'
+javascript:
+  $(document).on('click', '.im-stack', function(){
+    var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
+    $.post('/lingr_notices', {text: text});
+    console.log('it is test');
+  });
 h3= t('completed_users')
 - @practice.completed_users.each do |user|
   .icon.completed-users
