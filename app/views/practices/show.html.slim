@@ -5,9 +5,10 @@ h2= t('helpers.label.practice.description')
 .practice= simple_format rendering(@practice.description)
 h2= t('helpers.label.practice.goal')
 .goal= simple_format rendering(@practice.goal)
-= link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
-= link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
-
+.buttons
+  = link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
+  = link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+= link_to '行き詰まった！', '#', class: 'btn btn-danger'
 h3= t('completed_users')
 - @practice.completed_users.each do |user|
   .icon.completed-users
