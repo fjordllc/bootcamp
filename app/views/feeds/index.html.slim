@@ -6,4 +6,5 @@ ul.entries
     li.entry
       h3= link_to entry.title, entry.url
       .content= raw entry.content
-      .published= entry.published
+      .published published at #{entry.published}
+      .author posted by #{entry.author}
