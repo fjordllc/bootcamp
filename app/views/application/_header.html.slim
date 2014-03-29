@@ -12,7 +12,11 @@ header.navbar
           = link_to admin_root_path do
             i.icon-off
             = t('admin_index')
-      li class="#{controller_name == 'practices' ? 'active' : ''}"  
+      li
+        = link_to feeds_path do
+          i.icon-book
+          | みんなのブログ
+      li class="#{controller_name == 'practices' ? 'active' : ''}"
         = link_to practices_path do
           i.icon-tasks
           = t('practices')
