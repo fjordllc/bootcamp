@@ -31,3 +31,21 @@ machida:
   company_id: 1
   description: "月曜日と木曜日の午前中勤務です。"
   created_at: <%= (Date.today - 7) %>
+
+tanaka:
+  id: 3
+  login_name: tanaka
+  email: tanaka@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  first_name: Taro
+  last_name: Tanaka
+  twitter_url: http://twitter.com/tanaka
+  facebook_url: http://www.facebook.com/tanaka
+  blog_url: http://tanaka.com
+  feed_url: http://tanaka.com/index.atom
+  job_cd: 0
+  company_id: 1
+  description: "田中です。"
+  created_at: <%= Date.today %>
+  graduation: true
