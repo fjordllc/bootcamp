@@ -67,6 +67,7 @@ class UsersController < ApplicationController
         :last_name,
         :email,
         :description,
+        :github_account,
         :twitter_url,
         :facebook_url,
         :blog_url,

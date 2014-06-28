@@ -19,4 +19,8 @@ module UsersHelper
       { class: 'inactive' }
     end
   end
+
+  def user_github_url(user)
+    "https://github.com/#{user.github_account}"
+  end
 end

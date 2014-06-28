@@ -166,6 +166,7 @@ ja:
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
         feed_url: "ブログのフィードURL"
+        github_account: "Githubアカウント"
         password: "パスワード"
         password_confirmation: "パスワード（確認）"
         current_password: "現在のパスワード"
@@ -248,6 +249,7 @@ ja:
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
         feed_url: "ブログのフィードURL"
+        github_account: "Githubアカウント"
         password: パスワード
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード

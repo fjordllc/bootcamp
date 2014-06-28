@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140405123134) do
+ActiveRecord::Schema.define(version: 20140628140357) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -73,7 +73,10 @@ ActiveRecord::Schema.define(version: 20140405123134) do
     t.integer  "purpose_cd",                   default: 0,     null: false
     t.string   "feed_url"
     t.datetime "accessed_at"
+    t.datetime "crawled_at"
+    t.text     "feed"
     t.boolean  "graduation",                   default: false, null: false
+    t.string   "github_account"
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"

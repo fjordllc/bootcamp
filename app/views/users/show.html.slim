@@ -21,6 +21,9 @@ dl
   dd= user_find_job_assist(@user)
   dt= t('helpers.label.user.updated_at')
   dd= l @user.updated_at, format: :long
+  - if @user.github_account?
+    dt= t('helpers.label.user.github_account')
+    dd= link_to @user.github_account, user_github_url(@user)
   - if @user.twitter_url?
     dt= t('helpers.label.user.twitter')
     dd= link_to '@' + @user.twitter_id, 'https://twitter.com/' + @user.twitter_id
