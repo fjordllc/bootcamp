@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def index
     @categories = Category.order('position')
-    @users = User.order('updated_at desc')
+    @users = User.in_school.order('updated_at desc')
     @users =
       case params.fetch('target', 'all')
       when 'learning'
@@ -17,6 +17,7 @@ class UsersController < ApplicationController
       end
     @active_users = @users.select(&:active?)
     @inactive_users = @users.reject(&:active?)
+    @graduated_users = User.graduated.order('updated_at desc')
   end
 
   def show

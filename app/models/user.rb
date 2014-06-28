@@ -34,6 +34,9 @@ class User < ActiveRecord::Base
     if: :password_required?
   }
 
+  scope :in_school, -> { where(graduation: false) }
+  scope :graduated, -> { where(graduation: true) }
+
   def completed_percentage
     completed_my_practices_size.to_f / my_practices_size.to_f * 100
   end
