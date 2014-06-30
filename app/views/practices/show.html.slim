@@ -12,7 +12,7 @@ button.im-stack.btn.btn-danger= '行き詰まった！'
 javascript:
   $(document).on('click', '.im-stack', function(){
     var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
-    $.post('/lingr_notices', {text: text});
+    $.post('/chat_notices', {text: text});
     console.log('it is test');
   });
 h3= t('completed_users')

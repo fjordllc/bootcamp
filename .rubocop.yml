@@ -1,0 +1,48 @@
+# tolerant of https://github.com/airbnb/ruby styles
+LineLength:
+  Max: 100
+
+MethodLength:
+  Max: 30
+
+NumericLiterals:
+  MinDigits: 12
+
+ClassAndModuleChildren:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+DotPosition:
+  Enabled: false
+
+EmptyLinesAroundAccessModifier:
+  Enabled: false
+
+HandleExceptions:
+  Enabled: false
+
+IfUnlessModifier:
+  Enabled: false
+
+IndentHash:
+  Enabled: false
+
+NegatedIf:
+  Enabled: false
+
+PercentLiteralDelimiters:
+  Enabled: false
+
+RedundantSelf:
+  Enabled: false
+
+Semicolon:
+  Enabled: false
+
+TrailingComma:
+  Enabled: false
+
+UselessAssignment:
+  Enabled: false

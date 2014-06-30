@@ -1,4 +1,4 @@
-class LingrNoticesController < ApplicationController
+class ChatNoticesController < ApplicationController
   respond_to :json
 
   def create
