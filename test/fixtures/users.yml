@@ -1,0 +1,17 @@
+komagata:
+  login_name: komagata
+  first_name: Masaki
+  last_name: Komagata
+  email: komagata@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  updated_at: <%= Time.new(2014, 1, 10, 0, 0, 0) %>
+
+machida:
+  login_name: machida
+  first_name: Teppei
+  last_name: Machida
+  email: machida@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  updated_at: <%= Time.new(2014, 1, 1, 0, 0, 0) %>

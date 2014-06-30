@@ -9,7 +9,7 @@ Intern management and e-learning tool.
 
 ## Requirement
 
-ruby-2.0.0-p
+ruby-2.1.2
 
 ## Install
 
@@ -20,4 +20,4 @@ ruby-2.0.0-p
 ### Heroku
 
     $ heroku config:set LANG=ja_JP.UTF-8 INTERN_PASSWORD=xxxxxxxx
-    $ heroku run rake db:migrate db:seed assets:precompile
+    $ heroku run rake db:migrate db:seed

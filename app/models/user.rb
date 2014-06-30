@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    "#{self.last_name} #{self.first_name}"
+    "#{last_name} #{first_name}"
   end
 
   def twitter_id
