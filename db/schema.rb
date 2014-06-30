@@ -73,8 +73,6 @@ ActiveRecord::Schema.define(version: 20140628140357) do
     t.integer  "purpose_cd",                   default: 0,     null: false
     t.string   "feed_url"
     t.datetime "accessed_at"
-    t.datetime "crawled_at"
-    t.text     "feed"
     t.boolean  "graduation",                   default: false, null: false
     t.string   "github_account"
   end

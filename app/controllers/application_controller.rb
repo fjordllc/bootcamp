@@ -31,8 +31,8 @@ class ApplicationController < ActionController::Base
   end
 
   def notify(text)
-    if Rails.env.production?
-      open("http://gitter-hubot-fjord-jp.herokuapp.com/hubot/httpd-echo?message=#{text}")
-    end
+    text = URI.encode(text)
+    uri = URI.parse("http://gitter-hubot-fjord-jp.herokuapp.com/hubot/httpd-echo?message=#{text}")
+    Net::HTTP.get(uri) if Rails.env.production?
   end
 end
