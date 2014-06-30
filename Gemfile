@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.2'
 
-gem 'rails', '4.0.6'
+gem 'rails', '4.1.2'
 gem 'active_decorator'
 gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'coffee-rails',   '~> 4.0.0'
@@ -34,6 +34,7 @@ group :development do
   gem 'quiet_assets'
   gem 'heroku_san'
   gem 'heroku'
+  gem 'spring'
 end
 
 group :development, :test do
