@@ -4,7 +4,7 @@ require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
 
 module Interns
   class Application < Rails::Application
@@ -20,14 +20,5 @@ module Interns
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :ja
-
-    config.generators do |g|
-      g.template_engine :slim
-      g.stylesheet_engine :sass
-      g.javascripts false
-      g.stylesheets false
-      g.assets false
-      g.helper false
-    end
   end
 end

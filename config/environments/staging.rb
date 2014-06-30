@@ -78,20 +78,15 @@ Interns::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  config.assets.initialize_on_precompile = true
-
   config.action_mailer.delivery_method = :smtp
-
   config.action_mailer.smtp_settings = {
-    :authentication => :plain,
-    :address => "smtp.sendgrid.net",
-    :port => 587,
-    :domain => "heroku.com",
-    :user_name => ENV['SENDGRID_USERNAME'],
-    :password => ENV['SENDGRID_PASSWORD']
+    authentication: :plain,
+    address:        'smtp.sendgrid.net',
+    port:           587,
+    domain:         'heroku.com',
+    user_name:      ENV['SENDGRID_USERNAME'],
+    password:       ENV['SENDGRID_PASSWORD']
   }
-
   config.action_mailer.perform_deliveries = true
-
   config.action_mailer.default_url_options = { host: 'interns-com-staging.herokuapp.com' }
 end
