@@ -31,8 +31,23 @@ class ApplicationController < ActionController::Base
   end
 
   def notify(text)
+    if Rails.env.production?
+      notify_gitter(text)
+      notify_sqwiggle(text) if current_user.nexway?
+    end
+  end
+
+  def notify_gitter(text)
     text = URI.encode(text)
     uri = URI.parse("http://gitter-hubot-fjord-jp.herokuapp.com/hubot/httpd-echo?message=#{text}")
-    Net::HTTP.get(uri) if Rails.env.production?
+    Net::HTTP.get(uri)
+  end
+
+  def notify_sqwiggle(text)
+    client = Sqwiggle.client(ENV['SQWIGGLE_API_KEY'])
+    message = client.messages.new
+    message.room_id = client.rooms.find('nexwaytraining').id
+    message.text = text
+    message.save!
   end
 end

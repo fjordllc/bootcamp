@@ -80,6 +80,10 @@ class User < ActiveRecord::Base
     updated_at > 2.weeks.ago
   end
 
+  def nexway?
+    company.name == '株式会社ネクスウェイ'
+  end
+
   private
     def my_practices_size
       Practice.where(target_cd: [0, target_cd]).size

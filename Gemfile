@@ -22,6 +22,7 @@ gem 'exception_notification'
 gem 'feedjira'
 gem 'jbuilder'
 gem 'active_decorator'
+gem 'sqwiggle-ruby'
 
 group :production, :staging do
   gem 'pg'
