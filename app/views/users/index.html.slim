@@ -9,3 +9,5 @@ h2= t('inactive_users', count: @inactive_users.count)
 = render 'user', users: @inactive_users
 h2 卒業生 (#{@graduated_users.count})
 = render 'user', users: @graduated_users
+h2 アドバイザー
+= render 'user', users: @adviser_users

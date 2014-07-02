@@ -49,3 +49,21 @@ tanaka:
   description: "田中です。"
   created_at: <%= Date.today %>
   graduation: true
+
+mineo:
+  id: 4
+  login_name: mineo
+  email: mineo@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  first_name: Jirou
+  last_name: Mineo
+  twitter_url: http://twitter.com/mineo
+  facebook_url: http://www.facebook.com/mineo
+  blog_url: http://mineo.com
+  feed_url: http://mineo.com/index.atom
+  job_cd: 0
+  company_id: 1
+  description: "峰尾です。"
+  created_at: <%= Date.today %>
+  adviser: true
