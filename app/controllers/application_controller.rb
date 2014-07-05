@@ -31,9 +31,10 @@ class ApplicationController < ActionController::Base
   end
 
   def notify(text)
+    user = current_user || @user
     if Rails.env.production?
       notify_gitter(text)
-      notify_sqwiggle(text) if current_user.nexway?
+      notify_sqwiggle(text) if user.nexway?
     end
   end
 
