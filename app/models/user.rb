@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
   end
 
   def working_week?(now = Time.now)
-    not learning_week?(now)
+    !learning_week?(now)
   end
 
   def active?
@@ -84,6 +84,10 @@ class User < ActiveRecord::Base
 
   def nexway?
     company.name == '株式会社ネクスウェイ'
+  end
+
+  def wake?
+    !sleep?
   end
 
   private

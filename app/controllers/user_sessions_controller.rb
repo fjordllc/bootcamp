@@ -3,7 +3,8 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    if @user = login(params[:user][:login_name], params[:user][:password], true)
+    @user = login(params[:user][:login_name], params[:user][:password], true)
+    if @user && @user.wake?
       save_updated_at(@user)
       redirect_back_or_to :users, notice: t('sign_in_successful')
     else

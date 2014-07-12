@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702063701) do
+ActiveRecord::Schema.define(version: 20140712083806) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20140702063701) do
     t.boolean  "graduation",                   default: false, null: false
     t.string   "github_account"
     t.boolean  "adviser"
+    t.boolean  "sleep",                        default: false, null: false
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"

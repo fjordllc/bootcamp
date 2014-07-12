@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  fixtures :users
-
   test 'full_name' do
     assert_equal users(:komagata).full_name, 'Komagata Masaki'
   end
@@ -15,5 +13,10 @@ class UserTest < ActiveSupport::TestCase
     travel_to Time.new(2014, 1, 20, 0, 0, 0) do
       assert_not users(:machida).active?
     end
+  end
+
+  test 'awake?' do
+    assert users(:komagata).wake?
+    assert_not users(:sleeper).wake?
   end
 end
