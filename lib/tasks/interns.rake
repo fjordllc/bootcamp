@@ -46,4 +46,14 @@ namespace :intern do
     end
   end
 
+  desc 'Let sleep unactive users.'
+  task 'sleep' do
+    users = User.in_school.
+                 not_advisers.
+                 where('accessed_at < ?', 3.months.ago)
+    users.each do |user|
+      user.update_attributes!(sleep: true)
+      puts "#{user.login_name}, R.I.P."
+    end
+  end
 end
