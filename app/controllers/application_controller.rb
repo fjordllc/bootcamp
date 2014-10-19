@@ -30,25 +30,32 @@ class ApplicationController < ActionController::Base
     @current_user = User.find(current_user.id) if current_user
   end
 
-  def notify(text)
+  def notify(text, options = {})
     user = current_user || @user
-    if Rails.env.production?
-      notify_gitter(text)
-      notify_sqwiggle(text) if user.nexway?
+    notify_slack(text) if Rails.env.production?
+  end
+
+  def notify_slack(text, options = {})
+    uri = URI.parse("https://fjord.slack.com/services/hooks/incoming-webhook?token=#{ENV['SLACK_WEBHOOK_TOKEN']}")
+    payload = {
+      channel:  "#learning",
+      username: "256interns",
+      icon_url: "http://i.gyazo.com/a8afa9d690ff4bbd87459709bbfe8be9.png",
+      text:     text
+    }
+    if options[:pretext]
+      payload[:fallback] = options[:pretext]
+      payload[:pretext] = options[:pretext]
+      payload.delete(:text)
     end
-  end
-
-  def notify_gitter(text)
-    text = URI.encode(text)
-    uri = URI.parse("http://gitter-hubot-fjord-jp.herokuapp.com/hubot/httpd-echo?message=#{text}")
-    Net::HTTP.get(uri)
-  end
-
-  def notify_sqwiggle(text)
-    client = Sqwiggle.client(ENV['SQWIGGLE_API_KEY'])
-    message = client.messages.new
-    message.room_id = client.rooms.find('nexwaytraining').id
-    message.text = text
-    message.save!
+    if options[:title]
+      payload[:fields] = [{
+        title: options[:title],
+        value: options[:value],
+        short: false
+      }]
+    end
+    logger.info payload
+    Net::HTTP.post_form(uri, { payload: payload.to_json })
   end
 end

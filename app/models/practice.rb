@@ -37,4 +37,8 @@ class Practice < ActiveRecord::Base
       practice_id: id
     ).exists?
   end
+
+  def all_text
+    [title, description, goal].join("\n")
+  end
 end

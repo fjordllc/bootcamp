@@ -21,7 +21,7 @@ class PracticesController < ApplicationController
     @practice = Practice.new(practice_params)
 
     if @practice.save
-      notify("#{current_user.full_name}(#{current_user.login_name})がプラクティス「#{@practice.title}」を作成しました。 #{url_for(@practice)}")
+      notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を作成しました。"
       redirect_to @practice, notice: t('practice_was_successfully_created')
     else
       render :new
@@ -29,8 +29,10 @@ class PracticesController < ApplicationController
   end
 
   def update
+    old_practice = @practice.dup
     if @practice.update(practice_params)
-      notify("#{current_user.full_name}(#{current_user.login_name})がプラクティス「#{@practice.title}」を編集しました。 #{url_for(@practice)}")
+      text = "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を編集しました。"
+      notify text, pretext: text, title: "差分", value: Diffy::Diff.new(old_practice.all_text + "\n", @practice.all_text + "\n").to_s
       flash[:notice] = t('practice_was_successfully_updated')
     end
     respond_with @practice
@@ -38,23 +40,24 @@ class PracticesController < ApplicationController
 
   def destroy
     @practice.destroy
-    notify("#{current_user.full_name}(#{current_user.login_name})がプラクティス「#{@practice.title}」を削除しました。")
+    notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を削除しました。"
     redirect_to practices_url, notice: t('practice_was_successfully_deleted')
   end
 
   private
-    def practice_params
-      params.require(:practice).permit(
-        :title,
-        :description,
-        :goal,
-        :target,
-        :category_id,
-        :position
-      )
-    end
 
-    def set_practice
-      @practice = Practice.find(params[:id])
-    end
+  def practice_params
+    params.require(:practice).permit(
+      :title,
+      :description,
+      :goal,
+      :target,
+      :category_id,
+      :position
+    )
+  end
+
+  def set_practice
+    @practice = Practice.find(params[:id])
+  end
 end

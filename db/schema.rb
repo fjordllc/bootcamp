@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 20140712083806) do
     t.datetime "accessed_at"
     t.boolean  "graduation",                   default: false, null: false
     t.string   "github_account"
-    t.boolean  "adviser"
+    t.boolean  "adviser",                      default: false, null: false
     t.boolean  "sleep",                        default: false, null: false
   end
 

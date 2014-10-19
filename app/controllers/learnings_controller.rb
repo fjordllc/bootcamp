@@ -1,4 +1,5 @@
 class LearningsController < ApplicationController
+  include Rails.application.routes.url_helpers
   before_action :set_practice, only: %i(update)
   layout false
 
@@ -9,7 +10,7 @@ class LearningsController < ApplicationController
     )
     learning.status = params[:status].to_sym
 
-    notify("#{current_user.full_name}(#{current_user.login_name})が「#{@practice.title}」を#{t(learning.status)}しました。 #{url_for(@practice)}")
+    notify "<#{user_url(current_user)}|#{current_user.login_name}>が<#{practice_url(@practice)}|#{@practice.title}>を#{t learning.status}しました。"
 
     head :ok if learning.save
   end
