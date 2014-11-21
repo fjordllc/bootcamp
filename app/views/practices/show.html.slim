@@ -2,9 +2,9 @@
 h1= @practice.title
 span.label.label-info= t(@practice.target)
 h2= t('helpers.label.practice.description')
-.practice= simple_format rendering(@practice.description)
+.practice.js-target-blank= simple_format rendering(@practice.description)
 h2= t('helpers.label.practice.goal')
-.goal= simple_format rendering(@practice.goal)
+.goal.js-target-blank= simple_format rendering(@practice.goal)
 .buttons
   = link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
   = link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
