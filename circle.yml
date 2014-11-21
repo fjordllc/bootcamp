@@ -1,0 +1,5 @@
+deployment:
+  production:
+    branch: master
+    heroku:
+      appname: interns-com
