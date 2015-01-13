@@ -18,4 +18,6 @@
   = f.input :find_job_assist, inline_label: t('i_want_to_find_job_assist')
   p= t('we_will_find_rails_job_by_our_best')
   = f.association :company, include_blank: false
+  #nda= render 'nda'
+  = f.input :nda, inline_label: t('helpers.label.user.nda')
   = f.submit nil, class: 'btn btn-primary'

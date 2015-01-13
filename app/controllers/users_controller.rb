@@ -78,7 +78,8 @@ class UsersController < ApplicationController
         :job,
         :purpose,
         :find_job_assist,
-        :company_id
+        :company_id,
+        :nda
       )
     end
 
