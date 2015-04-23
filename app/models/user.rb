@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
   scope :graduated, -> { where(graduation: true) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
+  scope :slept, -> { where(sleep: true) }
+  scope :woke, -> { where(sleep: false) }
 
   def completed_percentage
     completed_my_practices_size.to_f / my_practices_size.to_f * 100

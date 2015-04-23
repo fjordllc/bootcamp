@@ -1,1 +1,3 @@
 h1= t('admin_index')
+h2 Active user's email
+pre= @users.pluck(:email).join(", ")
