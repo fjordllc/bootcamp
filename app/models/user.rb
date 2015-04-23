@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    id == 1
+    [1, 2].include?(id)
   end
 
   def part(now = Time.now)
