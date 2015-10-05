@@ -54,7 +54,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    curb (0.8.5)
+    curb (0.8.8)
     diffy (3.0.7)
     dynamic_form (1.1.4)
     erubis (2.7.0)
@@ -211,6 +211,7 @@ DEPENDENCIES
   capybara (~> 2.0.3)
   capybara-webkit
   coffee-rails (~> 4.0.0)
+  curb (~> 0.8.8)
   diffy
   dynamic_form
   exception_notification
@@ -235,3 +236,6 @@ DEPENDENCIES
   spring
   sqlite3
   uglifier (>= 1.3.0)
+
+BUNDLED WITH
+   1.10.6

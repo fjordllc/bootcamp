@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.2'
+ruby '2.2.3'
 
 gem 'rails', '4.1.2'
 gem 'sass-rails', '~> 4.0.3'
@@ -20,6 +20,7 @@ gem 'sorcery'
 gem 'acts_as_list'
 gem 'exception_notification'
 gem 'feedjira'
+gem 'curb', '~> 0.8.8'
 gem 'jbuilder'
 gem 'active_decorator'
 gem 'diffy'
