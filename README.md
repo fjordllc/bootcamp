@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/fjordllc/interns.png?label=ready&title=Ready)](https://waffle.io/fjordllc/interns)
 # 256 interns
 
 [![Build Status](https://api.travis-ci.org/fjordllc/interns.png?branch=master)](https://travis-ci.org/fjordllc/interns)
