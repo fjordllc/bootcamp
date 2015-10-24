@@ -1,22 +1,38 @@
-= simple_form_for user do |f|
+= form_for user do |f|
   - if user.errors.any?
     = error_messages_for :user
-  = f.input :login_name, hint: false, placeholder: t('helpers.label.user.login_name')
-  = f.input :email, hint: false, placeholder: t('helpers.label.user.email')
-  = f.input :first_name, hint: false, placeholder: t('helpers.label.user.first_name')
-  = f.input :last_name, hint: false, placeholder: t('helpers.label.user.last_name')
-  = f.input :description, hint: false, placeholder: t('helpers.label.user.description'), input_html: { class: 'input-block-level', rows: 10 }
-  = f.input :github_account, hint: false, placeholder: t('helpers.label.user.github_account'), input_html: { class: 'span6' }
-  = f.input :twitter_url, hint: false, placeholder: t('helpers.label.user.twitter_url'), input_html: { class: 'span6' }
-  = f.input :facebook_url, hint: false, placeholder: t('helpers.label.user.facebook_url'), input_html: { class: 'span6' }
-  = f.input :blog_url, hint: false, placeholder: t('helpers.label.user.blog_url'), input_html: { class: 'span6' }
-  = f.input :feed_url, hint: false, placeholder: t('helpers.label.user.feed_url'), input_html: { class: 'span6' }
-  = f.input :password, hint: false, placeholder: t('helpers.label.user.password')
-  = f.input :password_confirmation, hint: false, placeholder: t('helpers.label.user.password_confirmation')
-  = f.input :purpose, collection: User.purposes_for_select, as: :radio_buttons
-  = f.input :find_job_assist, inline_label: t('i_want_to_find_job_assist')
-  p= t('we_will_find_rails_job_by_our_best')
-  = f.association :company, include_blank: false
+  label アカウント名
+  = f.text_field :login_name, hint: false, placeholder: t('helpers.label.user.login_name')
+  label Email
+  = f.text_field :email, hint: false, placeholder: t('helpers.label.user.email')
+  label 氏名
+  = f.text_field :first_name, hint: false, placeholder: t('helpers.label.user.first_name')
+  = f.text_field :last_name, hint: false, placeholder: t('helpers.label.user.last_name')
+  label 自己紹介
+  = f.text_area :description, hint: false, placeholder: t('helpers.label.user.description'), input_html: { class: 'input-block-level', rows: 10 }
+  label GitHubアカウント
+  = f.text_field :github_account, hint: false, placeholder: t('helpers.label.user.github_account'), input_html: { class: 'span6' }
+  label Twitterアカウント
+  = f.text_field :twitter_url, hint: false, placeholder: t('helpers.label.user.twitter_url'), input_html: { class: 'span6' }
+  label Facebookアカウント
+  = f.text_field :facebook_url, hint: false, placeholder: t('helpers.label.user.facebook_url'), input_html: { class: 'span6' }
+  label ブログURL
+  = f.text_field :blog_url, hint: false, placeholder: t('helpers.label.user.blog_url'), input_html: { class: 'span6' }
+  label RSSフィードURL
+  = f.text_field :feed_url, hint: false, placeholder: t('helpers.label.user.feed_url'), input_html: { class: 'span6' }
+  label パスワード
+  = f.text_field :password, hint: false, placeholder: t('helpers.label.user.password')
+  label パスワード（確認）
+  = f.text_field :password_confirmation, hint: false, placeholder: t('helpers.label.user.password_confirmation')
+  label インターンの目的
+  = f.collection_radio_buttons :purpose_cd, User.purposes.map {|k,v| [v, t("activerecord.enums.user.purposes.#{k}")] }, :first, :last
+  label= t('i_want_to_find_job_assist')
+  = f.check_box :find_job_assist
+  label= t('we_will_find_rails_job_by_our_best')
+  label 会社
+  = f.collection_select :company_id, Company.all, :id, :name
   #nda= render 'nda'
-  = f.input :nda, inline_label: t('helpers.label.user.nda')
-  = f.submit nil, class: 'btn btn-primary'
+  label NDAに同意する
+  = f.check_box :nda, inline_label: t('helpers.label.user.nda')
+  .actions
+    = f.submit nil, class: 'btn btn-primary'

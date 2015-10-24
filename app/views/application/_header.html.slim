@@ -1,44 +1,18 @@
-header.navbar
-  .navbar-inner
-    .brand= link_to t('256interns'), root_path
-    ul.nav.pull-right
-      - if current_user
-        li
-          = link_to current_user do
-            = gravatar_tag current_user, size: 20
-            = current_user.login_name
-      - if current_user and current_user.admin?
-        li
-          = link_to admin_root_path do
-            i.icon-off
-            = t('admin_index')
-      li
-        = link_to feeds_path do
-          i.icon-book
-          | みんなのブログ
-      li class="#{controller_name == 'practices' ? 'active' : ''}"
-        = link_to practices_path do
-          i.icon-tasks
-          = t('practices')
-      li class="#{controller_name == 'users' and action_name == 'index' ? 'active' : ''}"
-        = link_to users_path do
-          i.icon-user
-          = t('users')
-      li class="#{controller_name == 'companies' ? 'active' : ''}"
-        = link_to companies_path do
-          i.icon-briefcase
-          = t('companies')
-      - if current_user
-        li
-          = link_to logout_path do
-            i.icon-off
-            = t('logout')
-      - else
-        li
-          = link_to login_path do
-            i.icon-off
-            = t('sign_in')
-        li
-          = link_to new_user_path do
-            i.icon-ok
-            = t('sign_up')
+header.navigation role="banner" 
+  .navigation-wrapper
+    = link_to t('256interns'), root_path, class: 'logo'
+    a#js-mobile-menu.navigation-menu-button href="javascript:void(0)"  MENU
+    nav role="navigation" 
+      ul#js-navigation-menu.navigation-menu.show
+        - if current_user and current_user.admin?
+          li.nav-link= link_to = t('admin_index'), admin_root_path
+        li.nav-link= link_to "みんなのブログ", feeds_path
+        li.nav-link= link_to t('practices'), practices_path
+        li.nav-link= link_to t('users'), users_path
+        li.nav-link= link_to t('companies'), companies_path
+        - if current_user
+          li.nav-link= link_to t('logout'), logout_path
+        - else
+          li.nav-link= link_to t('sign_in'), login_path
+          li.nav-link= link_to t('sign_up'), new_user_path
+        

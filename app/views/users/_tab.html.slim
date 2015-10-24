@@ -1,7 +1,8 @@
-ul.nav.nav-tabs
-  li class="#{user_tab_attrs('all')}"
-    = link_to t('all_user'), users_path(target: 'all')
-  li class="#{user_tab_attrs('learning')}"
-    = link_to t('learning_week'), users_path(target: 'learning')
-  li class="#{user_tab_attrs('working')}"
-    = link_to t('working_week'), users_path(target: 'working')
+h2= t('active_users', count: user_by_type(users.student.active, target).count)
+= render 'user', users: user_by_type(users.student.active, target)
+h2= t('inactive_users', count: user_by_type(users.student.inactive, target).count)
+= render 'user', users: user_by_type(users.student.inactive, target)
+h2 卒業生 (#{user_by_type(users.graduated, target).count})
+= render 'user', users: user_by_type(users.graduated, target)
+h2 アドバイザー
+= render 'user', users: user_by_type(users.advisers, target)

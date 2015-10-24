@@ -1,26 +1,20 @@
 - users.each do |user|
-  .row.user *user_tr_attrs(user)
-    .span2.icon
-      = link_to user do
-        = gravatar_tag user, size: 100
-      .login_name= link_to user.login_name, user
-    .span4
+  .comment
+    .comment-image
+      = gravatar_tag user, size: '100'
+    .comment-content
+      h1= link_to user.login_name, user
       .company
         b= "#{t('helpers.label.user.company')}: "
         = link_to user.company.name, user.company
       .description= simple_format user.description
-    .span4 
       - if current_user.present? and user.active_learnings.present?
         strong= t('active_practices')
         ul
           - user.active_learnings.each do |learning|
             - if learning.practice
               li= link_to learning.practice.title, learning.practice
-      .row
-        .span3
-          .progress
-            .bar[style="width:#{user.completed_percentage}%"]
-        .span1
-          = "#{user.completed_practices.size} / #{Practice.count}"
-
-      .btn= link_to t('status_for_all_practices'), user_practices_path(user)
+        .progress-bar
+          span.meter[stype="width:#{user.completed_percentage}%"]
+        = "#{user.completed_practices.size} / #{Practice.count}"
+        p= link_to t('status_for_all_practices'), user_practices_path(user)

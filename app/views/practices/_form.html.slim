@@ -1,7 +1,11 @@
-= simple_form_for practice do |f|
-  = f.error_notification
-  = f.input :title, input_html: { class: 'input-block-level' }
-  = f.input :description, input_html: { class: 'input-block-level', rows: 20 }
-  = f.input :goal, input_html: { class: 'input-block-level', rows: 10 }
-  = f.input :category_id, collection: Category.all, include_blank: false
-  = f.submit nil, class: 'btn btn-primary'
+= form_for practice do |f|
+  label 名前
+  = f.text_field :title, size: '10', class: 'input-block-level'
+  label 詳細
+  = f.text_area :description, size: '10x20', class: 'input-block-level'
+  label ゴール
+  = f.text_area :goal, class: 'input-block-level', size: '10x10'
+  label カテゴリー
+  = f.collection_select :category_id, Category.all, :id, :name
+  .actions
+    = f.submit nil, class: 'btn btn-primary'

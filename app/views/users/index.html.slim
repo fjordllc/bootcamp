@@ -1,13 +1,16 @@
 - title t('listing_users')
 - content_for :head_last do
   = auto_discovery_link_tag :atom, feeds_url(format: 'atom'), title: 'みんなのブログ'
+
 h1 #{t('listing_users')} (#{@users.size})
-= render 'tab'
-h2= t('active_users', count: @active_users.count)
-= render 'user', users: @active_users
-h2= t('inactive_users', count: @inactive_users.count)
-= render 'user', users: @inactive_users
-h2 卒業生 (#{@graduated_users.count})
-= render 'user', users: @graduated_users
-h2 アドバイザー
-= render 'user', users: @adviser_users
+
+ul.accordion-tabs-minimal
+  li.tab-header-and-content
+    = link_to t('all_user'), users_path(target: 'all')
+    .tab-content= render 'tab', users: @users, target: :all
+  li.tab-header-and-content
+    = link_to t('learning_week'), users_path(target: 'learning')
+    .tab-content= render 'tab', users: @users, target: :learning
+  li.tab-header-and-content
+    = link_to t('working_week'), users_path(target: 'working')
+    .tab-content= render 'tab', users: @users, target: :working

@@ -225,9 +225,6 @@ ja:
 
     enums:
       user:
-        jobs:
-          programmer: "プログラマー"
-          designer: "デザイナー"
         purposes:
           get_job: "就職"
           change_job: "転職"

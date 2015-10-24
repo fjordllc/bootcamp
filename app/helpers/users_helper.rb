@@ -23,4 +23,15 @@ module UsersHelper
   def user_github_url(user)
     "https://github.com/#{user.github_account}"
   end
+
+  def user_by_type(users, type = :all)
+    case type
+    when :learning
+      users.select(&:learning_week?)
+    when :working
+      users.select(&:working_week?)
+    else
+      users
+    end
+  end
 end

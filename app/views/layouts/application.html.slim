@@ -4,6 +4,8 @@ html
     - page_title = yield :title
     title #{page_title.present? ? page_title + ' - ' : ''}#{t('256interns')}
     = stylesheet_link_tag 'application', media: 'all'
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Nunito:400,700,300'
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Varela+Round'
     = javascript_include_tag 'application'
     = csrf_meta_tags
     javascript:
@@ -13,10 +15,6 @@ html
   body class="#{controller_name}_#{action_name}"
     = render 'header'
     = render 'alert'
-    .container
-      .row
-        .span10.relative= yield
-        .span2= render 'active_users'
-    #footer
-      | ©
-      = link_to 'FJORD, LLC', 'http://fjord.jp'
+    #container
+      = yield
+    = render 'footer'

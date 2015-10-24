@@ -5,20 +5,7 @@ class UsersController < ApplicationController
 
   def index
     @categories = Category.order('position')
-    @users = User.in_school.not_advisers.order('updated_at desc')
-    @users =
-      case params.fetch('target', 'all')
-      when 'learning'
-        @users.select(&:learning_week?)
-      when 'working'
-        @users.select { |u| u.working_week? }
-      else
-        @users
-      end
-    @active_users = @users.select(&:active?)
-    @inactive_users = @users.reject(&:active?)
-    @graduated_users = User.graduated.order('updated_at desc')
-    @adviser_users = User.where(adviser: true).order('updated_at desc')
+    @users = User.order(updated_at: :desc)
   end
 
   def show
