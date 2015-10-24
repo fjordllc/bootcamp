@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  as_enum :job, %i(programmer designer)
   as_enum :purpose, %i(get_job change_job start_venture skill_up)
   authenticates_with_sorcery!
 
@@ -43,7 +42,7 @@ class User < ActiveRecord::Base
   scope :woke, -> { where(sleep: false) }
 
   def completed_percentage
-    completed_my_practices_size.to_f / my_practices_size.to_f * 100
+    completed_practices.size.to_f / Practice.count.to_f * 100
   end
 
   def completed_practices_size(category)
@@ -94,18 +93,6 @@ class User < ActiveRecord::Base
   end
 
   private
-
-  def my_practices_size
-    Practice.where(target_cd: [0, target_cd]).size
-  end
-
-  def completed_my_practices_size
-    completed_practices.where(target_cd: [0, target_cd]).size
-  end
-
-  def target_cd
-    job_cd == 0 ? 1 : 2
-  end
 
   def password_required?
     new_record? || password.present?

@@ -1,5 +1,4 @@
 class Practice < ActiveRecord::Base
-  as_enum :target, [:everyone, :programmer, :designer]
   has_many :learnings
 
   has_many :completed_learnings,
@@ -14,10 +13,6 @@ class Practice < ActiveRecord::Base
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true
-  validates :target, presence: true
-
-  scope :for_programmer, ->{ where.not(target_cd: Practice.designer) }
-  scope :for_designer, ->{ where.not(target_cd: Practice.programmer) }
 
   def status(user)
     learnings = Learning.where(
