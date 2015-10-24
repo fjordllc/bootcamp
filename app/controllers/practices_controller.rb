@@ -51,7 +51,6 @@ class PracticesController < ApplicationController
       :title,
       :description,
       :goal,
-      :target,
       :category_id,
       :position
     )

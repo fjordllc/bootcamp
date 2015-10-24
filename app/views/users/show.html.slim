@@ -5,8 +5,6 @@ dl
   dd= @user.login_name
   dt= t('helpers.label.user.full_name')
   dd= @user.full_name
-  dt= t('helpers.label.user.job')
-  dd= t("activerecord.enums.user.jobs.#{@user.job}")
   dt= t('helpers.label.user.company')
   dd= link_to @user.company.name, @user.company
   dt= t('helpers.label.user.description')

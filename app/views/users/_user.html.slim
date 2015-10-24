@@ -4,8 +4,7 @@
       = link_to user do
         = gravatar_tag user, size: 100
       .login_name= link_to user.login_name, user
-    .span4 
-      .job= t(user.job)
+    .span4
       .company
         b= "#{t('helpers.label.user.company')}: "
         = link_to user.company.name, user.company

@@ -371,8 +371,6 @@ ja:
   for: "%{target} 課題"
   for: "%{target} 課題"
   for_everyone: "共通"
-  for_programmer: "プログラマー向け"
-  for_designer: "デザイナー向け"
   all: "全て"
   all_user: "全員"
   how_256interns_works: "256インターンとは"
