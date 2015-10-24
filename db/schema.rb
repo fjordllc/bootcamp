@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113101553) do
+ActiveRecord::Schema.define(version: 20151023061446) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -51,6 +51,15 @@ ActiveRecord::Schema.define(version: 20150113101553) do
   end
 
   add_index "practices", ["category_id"], name: "index_practices_on_category_id"
+
+  create_table "reports", force: true do |t|
+    t.integer  "user_id",         null: false
+    t.string   "title",           null: false
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id_updated"
+  end
 
   create_table "users", force: true do |t|
     t.string   "login_name",                                   null: false

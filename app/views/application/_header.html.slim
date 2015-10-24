@@ -12,6 +12,10 @@ header.navbar
           = link_to admin_root_path do
             i.icon-off
             = t('admin_index')
+      li class="#{controller_name == 'reports' ? 'active' : ''}"
+        = link_to reports_path do
+          i.icon-tasks
+          | 日報
       li
         = link_to feeds_path do
           i.icon-book

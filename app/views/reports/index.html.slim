@@ -1,0 +1,25 @@
+- title t('reports')
+h1= t('reports')
+- if @reports.nil? == false
+  - @reports.each do |report|
+    - if report.present?
+      table.table
+        table.table-striped.reports
+          = link_to report, itempro: "url" do
+            span.contents-list__title(itemprop="name")= report.title
+          = t("　")  
+          buttons
+            = link_to t('編集（未実装）'), edit_report_path(@reports), class: 'btn btn-primary'
+          buttons
+            = link_to t('コピー（未実装）'), new_report_path, class: 'btn btn-default'
+          p.description= simple_format report.description
+        table
+        = t('updated_by')
+        = link_to report.user, itempro: "url" do
+          = report.user.login_name
+        time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+          = t("　")
+          = l report.updated_at, format: :long
+
+table.table
+= link_to t('new_report'), new_report_path, class: 'btn btn-block btn-primary'
