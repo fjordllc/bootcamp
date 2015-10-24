@@ -22,7 +22,6 @@ gem 'exception_notification'
 gem 'feedjira'
 gem 'curb', '~> 0.8.8'
 gem 'jbuilder'
-gem 'active_decorator'
 gem 'diffy'
 
 group :production, :staging do
