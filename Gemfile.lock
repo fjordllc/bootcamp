@@ -31,13 +31,6 @@ GEM
       activerecord (>= 3.0)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
-    bitters (1.0.0)
-      bourbon (>= 3.2)
-      sass (>= 3.2)
-      thor
-    bourbon (3.2.4)
-      sass (~> 3.2)
-      thor
     builder (3.2.2)
     capybara (2.0.3)
       mime-types (>= 1.16)
@@ -103,9 +96,6 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    neat (1.5.1)
-      bourbon (>= 3.1)
-      sass (~> 3.2.19)
     newrelic_rpm (3.9.0.229)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
@@ -146,7 +136,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.3.2)
     redcarpet (3.1.2)
-    refills (0.1.0)
     rubyzip (1.1.4)
     sass (3.2.19)
     sass-rails (4.0.3)
@@ -207,8 +196,6 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_list
-  bitters
-  bourbon
   capybara (~> 2.0.3)
   capybara-webkit
   coffee-rails (~> 4.0.0)
@@ -221,7 +208,6 @@ DEPENDENCIES
   heroku_san
   jbuilder
   jquery-rails
-  neat
   newrelic_rpm
   pg
   puma
@@ -229,7 +215,6 @@ DEPENDENCIES
   rails (= 4.1.2)
   rails_12factor
   redcarpet
-  refills
   sass-rails (~> 4.0.3)
   simple_enum
   slim-rails

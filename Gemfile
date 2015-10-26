@@ -20,10 +20,6 @@ gem 'feedjira'
 gem 'curb', '~> 0.8.8'
 gem 'jbuilder'
 gem 'diffy'
-gem 'bourbon'
-gem 'neat'
-gem 'bitters'
-gem 'refills'
 
 group :production, :staging do
   gem 'pg'
