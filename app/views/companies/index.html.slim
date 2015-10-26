@@ -1,11 +1,16 @@
-h1= t('listing_companies')
-table.table
-  tr
-    th= t('helpers.label.company.name')
-    th= t('helpers.label.company.description')
-    th= t('helpers.label.company.website')
-  - @companies.each do |company|
-    tr
-      td= link_to company.name, company
-      td= company.description
-      td= link_to company.website, company.website
+.mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone
+mdl-cell.mdl-cell--8-col
+  h3= t('listing_companies')
+  table.companies.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
+    thead
+      tr
+        th= t('helpers.label.company.name')
+        th= t('helpers.label.company.description')
+        th= t('helpers.label.company.website')
+    tbody
+      - @companies.each do |company|
+        tr
+          td.mdl-data-table__cell--non-numeric= link_to company.name, company
+          td= company.description
+          td= link_to company.website, company.website
+.mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone

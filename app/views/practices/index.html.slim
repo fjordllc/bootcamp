@@ -1,19 +1,15 @@
-- title t('practices')
-h1= t('practices')
-- @categories.each do |category|
-  - if category.practices.present?
-    h2= category.name
-
-    p.description= simple_format category.description
-    table.table.table-striped.practices
-      tbody
-        = render category.practices
-
-    .row
-      .span9
-        .progress
-          .bar style="width:#{current_user.completed_percentage_by(category)}%"
-      .span1
+.mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone
+mdl-cell.mdl-cell--8-col
+  - title t('practices')
+  h3= t('practices')
+  - @categories.each do |category|
+    - if category.practices.present?
+      .category.mdl-color--white.mdl-shadow--2dp
+        h4= category.name
+        p.description= simple_format category.description
+        table.practices
+          tbody
+            = render category.practices
         p #{current_user.completed_practices_size(category)} / #{category.practices.size}
-
-= link_to t('new_practice'), new_practice_path, class: 'btn btn-block btn-primary'
+  = link_to t('new_practice'), new_practice_path
+.mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone

@@ -1,0 +1,11 @@
+- if current_user && current_user.admin?
+  = link_to t('admin_index'), admin_root_path, class: 'mdl-navigation__link'
+= link_to "みんなのブログ", feeds_path, class: 'mdl-navigation__link'
+= link_to t('practices'), practices_path, class: 'mdl-navigation__link'
+= link_to t('users'), users_path, class: 'mdl-navigation__link'
+= link_to t('companies'), companies_path, class: 'mdl-navigation__link'
+- if current_user
+  = link_to t('logout'), logout_path, class: 'mdl-navigation__link'
+- else
+  = link_to t('sign_in'), login_path, class: 'mdl-navigation__link'
+  = link_to t('sign_up'), new_user_path, class: 'mdl-navigation__link'

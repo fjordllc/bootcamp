@@ -1,20 +1,6 @@
 - users.each do |user|
-  .comment
-    .comment-image
-      = gravatar_tag user, size: '100'
-    .comment-content
-      h1= link_to user.login_name, user
-      .company
-        b= "#{t('helpers.label.user.company')}: "
-        = link_to user.company.name, user.company
-      .description= simple_format user.description
-      - if current_user.present? and user.active_learnings.present?
-        strong= t('active_practices')
-        ul
-          - user.active_learnings.each do |learning|
-            - if learning.practice
-              li= link_to learning.practice.title, learning.practice
-        .progress-bar
-          span.meter[stype="width:#{user.completed_percentage}%"]
-        = "#{user.completed_practices.size} / #{Practice.count}"
-        p= link_to t('status_for_all_practices'), user_practices_path(user)
+  .user-card-image.mdl-card.mdl-shadow--2dp(style="background: url('#{gravatar_url user}') center / cover")
+    .mdl-card__title.mdl-card--expand
+    .mdl-card__actions
+      span.user-card-image__name
+        = link_to user.login_name, user

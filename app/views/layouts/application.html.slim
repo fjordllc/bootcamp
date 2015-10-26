@@ -4,22 +4,21 @@ html
     - page_title = yield :title
     title #{page_title.present? ? page_title + ' - ' : ''}#{t('256interns')}
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    = stylesheet_link_tag 'https://storage.googleapis.com/code.getmdl.io/1.0.5/material.indigo-pink.min.css'
+    = stylesheet_link_tag 'https://storage.googleapis.com/code.getmdl.io/1.0.5/material.cyan-indigo.min.css'
     = javascript_include_tag 'https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js'
     = stylesheet_link_tag 'https://fonts.googleapis.com/icon?family=Material+Icons'
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
     = csrf_meta_tags
     javascript:
       var signed_in = #{current_user ? true : false}
     - if head_last = yield(:head_last)
       = head_last
   body class="#{controller_name}_#{action_name}"
-    = render 'header'
-    = render 'alert'
-    main.mdl-layout__content
-      .page-content
-      
-        button.mdl-button.mdl-js-button.mdl-button--fab.mdl-button--colored
-          i.material-icons add
-      
-        = yield
-    = render 'footer'
+    .mdl-layout.mdl-js-layout
+      = render 'header'
+      = render 'alert'
+      main.mdl-layout__content
+        .page-content.mdl-grid
+          = yield
+      = render 'footer'

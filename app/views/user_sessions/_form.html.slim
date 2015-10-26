@@ -1,4 +1,9 @@
-= simple_form_for :user, url: user_sessions_path do |f|
-  = f.input :login_name, label: false, hint: false, placeholder: t('helpers.label.user.login_name')
-  = f.input :password, label: false, hint: false, placeholder: t('helpers.label.user.password')
-  = f.submit t('sign_in'), class: 'btn btn-large btn-primary'
+= form_for :user, url: user_sessions_path do |f|
+  .field.mdl-textfield.mdl-js-textfield
+    = f.label :login_name, class: 'mdl-textfield__label'
+    = f.text_field :login_name, class: 'mdl-textfield__input'
+  .field.mdl-textfield.mdl-js-textfield
+    = f.label :password, class: 'mdl-textfield__label'
+    = f.text_field :password, class: 'mdl-textfield__input'
+  .field
+    = f.submit t('sign_in'), class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'

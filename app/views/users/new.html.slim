@@ -1,2 +1,6 @@
-h1= t('sign_up')
-= render 'form', user: @user, companies: @companies
+.mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone
+mdl-cell.mdl-cell--8-col
+  .sign-in.mdl-color--white.mdl-shadow--2dp
+    h3= t('sign_up')
+    = render 'form', user: @user, companies: @companies
+.mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone
