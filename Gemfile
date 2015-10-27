@@ -9,7 +9,7 @@ gem 'dynamic_form'
 gem 'gravatarify'
 gem 'slim-rails'
 gem 'jquery-rails'
-gem 'puma', '~> 3.0'
+gem 'puma', require: false
 gem 'simple_enum'
 gem 'sorcery'
 gem 'acts_as_list'
@@ -53,7 +53,6 @@ group :development, :test do
   gem 'capybara', '~> 2.8'
   gem 'pry-byebug'
   gem 'simple_seed'
-  gem 'byebug', platform: :mri
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

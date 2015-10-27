@@ -1,0 +1,26 @@
+- title @question.title
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title
+        = @question.title
+
+.page-body
+  .container
+    .question
+      .question__description
+        = markdown @question.description
+      .question__content
+        = link_to @question.user, class: 'question__user' do
+          .question__user-icon= gravatar_tag @question.user, size: 44, html: { class: 'category-practices-item__user-icon' }
+          .question__user-name= @question.user.login_name
+        time.contents-list-meta__created_at(datetime="#{@question.created_at.to_datetime}" pubdate="pubdate")
+          = l @question.created_at, format: :short
+        - if current_user == @question.user
+          .question__actions
+            = link_to "編集", edit_question_path(@question), class: 'btn btn-primary'
+            = link_to "削除", question_path(@question), data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'btn btn-danger'
+      = render @question.answers
+    .new_question
+      h3 回答する
+      = render 'answers/form', question: @question, answer: Answer.new

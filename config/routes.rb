@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  resources :questions
+
   root to: 'home#index'
   namespace :admin do
-    root to: 'home#index'
+    root to: 'home#index', as: :root
     resources :companies
     resources :users
     resources :categories, except: %i(show) do
@@ -19,11 +21,9 @@ Rails.application.routes.draw do
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
   end
-  resources :reports
   resources :reports do
     resources :comments
   end
-
   get "pages/new", to: "pages#new"
   get "pages", to: "pages#index", as: :pages
   post "pages", to: "pages#create"
@@ -32,7 +32,10 @@ Rails.application.routes.draw do
   put "pages/:title", to: "pages#update"
   delete "pages/:title", to: "pages#destroy"
   get "pages/:title/edit", to: "pages#edit"
-
+  resources :questions do
+    resources :answers, only: %i(edit create update destroy)
+    resource :correct_answer, only: :create, controller: "questions/correct_answers"
+  end
   resources :courses, only: :index
   resources :chat_notices, only: :create
   get 'login'  => 'user_sessions#new',     as: :login
