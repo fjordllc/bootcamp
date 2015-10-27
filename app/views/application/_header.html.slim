@@ -6,14 +6,38 @@ header.mdl-layout__header.mdl-layout__header--scroll
     .mdl-layout-spacer
     /! Navigation
     nav.mdl-navigation
-      = render 'nav'
+      - if current_user
+        - if current_user.admin?
+          = link_to t('admin_index'), admin_root_path, class: 'mdl-navigation__link'
+        = link_to t('logout'), logout_path, class: 'mdl-navigation__link'
+        = link_to "みんなのブログ", feeds_path, class: 'mdl-navigation__link'
+        = link_to t('practices'), practices_path, class: 'mdl-navigation__link'
+        = link_to t('users'), users_path, class: 'mdl-navigation__link'
+        = link_to t('companies'), companies_path, class: 'mdl-navigation__link'
+      - else
+        = link_to t('sign_in'), login_path, class: 'mdl-navigation__link'
+        = link_to t('sign_up'), new_user_path, class: 'mdl-navigation__link'
     .mdl-layout-spacer
     .mdl-textfield.mdl-js-textfield.mdl-textfield--expandable.mdl-textfield--floating-label.mdl-textfield--align-right
       label.mdl-button.mdl-js-button.mdl-button--icon for="fixed-header-drawer-exp" 
         i.material-icons search
       .mdl-textfield__expandable-holder
         input#fixed-header-drawer-exp.mdl-textfield__input name="sample" type="text" /
-.mdl-layout__drawer
-  span.mdl-layout-title= t('256interns')
+.mdl-layout__drawer.mdl-shadow--2dp
+  span.mdl-layout-title
+    - if current_user
+      img.user-icon(src="#{gravatar_url current_user}")
+    - else
+      = t('256interns')
   nav.mdl-navigation
-    = render 'nav'
+    - if current_user
+      - if current_user.admin?
+        = link_to t('admin_index'), admin_root_path, class: 'mdl-navigation__link'
+      = link_to t('logout'), logout_path, class: 'mdl-navigation__link'
+      = link_to "みんなのブログ", feeds_path, class: 'mdl-navigation__link'
+      = link_to t('practices'), practices_path, class: 'mdl-navigation__link'
+      = link_to t('users'), users_path, class: 'mdl-navigation__link'
+      = link_to t('companies'), companies_path, class: 'mdl-navigation__link'
+    - else
+      = link_to t('sign_in'), login_path, class: 'mdl-navigation__link'
+      = link_to t('sign_up'), new_user_path, class: 'mdl-navigation__link'
