@@ -1,9 +1,11 @@
 doctype html
-html
+html lang="ja"
   head
+    meta charset="utf-8" /
+    meta content="IE=edge" http-equiv="X-UA-Compatible" /
+    meta content="width=device-width, initial-scale=1" name="viewport" /
     - page_title = yield :title
     title #{page_title.present? ? page_title + ' - ' : ''}#{t('256interns')}
-    meta(name="viewport" content="width=device-width, initial-scale=1.0")
     = stylesheet_link_tag 'https://storage.googleapis.com/code.getmdl.io/1.0.5/material.cyan-indigo.min.css'
     = javascript_include_tag 'https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js'
     = stylesheet_link_tag 'https://fonts.googleapis.com/icon?family=Material+Icons'
