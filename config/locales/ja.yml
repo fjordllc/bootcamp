@@ -373,7 +373,7 @@ ja:
   all_user: "全員"
   how_256interns_works: "256インターンとは"
   completed: "完了"
-  completed_users: "プラクティスを完了したユーザー一覧"
+  completed_users: "完了したユーザー"
   completed_practices: "完了したプラクティス"
   active_practices: "進行中のプラクティス"
   learning_week: "学習週"

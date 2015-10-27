@@ -6,4 +6,4 @@
         .icon= link_to user do
           = gravatar_tag user
       .panel-body
-        .description= simple_format user.description
+        .description= simple_format truncate(user.description, length: 100)
