@@ -1,22 +1,67 @@
-= simple_form_for user do |f|
+= form_for user do |f|
   - if user.errors.any?
     = error_messages_for :user
-  = f.input :login_name, hint: false, placeholder: t('helpers.label.user.login_name')
-  = f.input :email, hint: false, placeholder: t('helpers.label.user.email')
-  = f.input :first_name, hint: false, placeholder: t('helpers.label.user.first_name')
-  = f.input :last_name, hint: false, placeholder: t('helpers.label.user.last_name')
-  = f.input :description, hint: false, placeholder: t('helpers.label.user.description'), input_html: { class: 'input-block-level', rows: 10 }
-  = f.input :github_account, hint: false, placeholder: t('helpers.label.user.github_account'), input_html: { class: 'span6' }
-  = f.input :twitter_url, hint: false, placeholder: t('helpers.label.user.twitter_url'), input_html: { class: 'span6' }
-  = f.input :facebook_url, hint: false, placeholder: t('helpers.label.user.facebook_url'), input_html: { class: 'span6' }
-  = f.input :blog_url, hint: false, placeholder: t('helpers.label.user.blog_url'), input_html: { class: 'span6' }
-  = f.input :feed_url, hint: false, placeholder: t('helpers.label.user.feed_url'), input_html: { class: 'span6' }
-  = f.input :password, hint: false, placeholder: t('helpers.label.user.password')
-  = f.input :password_confirmation, hint: false, placeholder: t('helpers.label.user.password_confirmation')
-  = f.input :purpose, collection: User.purposes_for_select, as: :radio_buttons
-  = f.input :find_job_assist, inline_label: t('i_want_to_find_job_assist')
-  p= t('we_will_find_rails_job_by_our_best')
-  = f.association :company, include_blank: false
-  #nda= render 'nda'
-  = f.input :nda, inline_label: t('helpers.label.user.nda')
-  = f.submit nil, class: 'btn btn-primary'
+  .form-group
+    = f.label :login_name
+    = f.text_field :login_name, class: 'form-control'
+  .form-group
+    = f.label :email
+    = f.text_field :email, class: 'form-control'
+  .form-group
+    = f.label :first_name
+    = f.text_field :first_name, class: 'form-control'
+  .form-group
+    = f.label :last_name
+    = f.text_field :last_name, class: 'form-control'
+  .form-group
+    = f.label :description
+    = f.text_area :description, class: 'form-control', size: '10x10'
+  .form-group
+    = f.label :github_account
+    = f.text_field :github_account, class: 'form-control'
+  .form-group
+    = f.label :twitter_url
+    = f.text_field :twitter_url, class: 'form-control'
+  .form-group
+    = f.label :facebook_url
+    = f.text_field :facebook_url, class: 'form-control'
+  .form-group
+    = f.label :blog_url
+    = f.text_field :blog_url, class: 'form-control'
+  .form-group
+    = f.label :feed_url
+    = f.text_field :feed_url, class: 'form-control'
+  .form-group
+    = f.label :password
+    = f.text_field :password, class: 'form-control'
+  .form-group
+    = f.label :password_confirmation
+    = f.text_field :password_confirmation, class: 'form-control'
+  .form-group
+    = f.label :purpose, style: 'display: block'
+    = f.collection_radio_buttons :purpose_cd, User.purposes.map {|k,v| [v, t("activerecord.enums.user.purposes.#{k}")] }, :first, :last do |b|
+      = b.label class: 'radio-inline' do
+        = b.radio_button + b.text
+    end
+  .form-group
+    = f.label :find_job_assist, style: 'display: block'
+    .checkbox
+      label
+        = f.check_box :find_job_assist
+        = t('i_want_to_find_job_assist')
+    span.help-block= t('we_will_find_rails_job_by_our_best')
+  .form-group
+    = f.label :company
+    = f.collection_select :company_id, Company.all, :id, :name, {}, class: 'form-control'
+  .form-group
+    = f.label :nda
+    #nda
+      .panel.panel-default
+        .panel-body
+          = render 'nda'
+    .checkbox
+      label
+        = f.check_box :nda
+        = t('agree_nda')
+  .form-group
+    = f.submit nil, class: 'btn btn-primary'

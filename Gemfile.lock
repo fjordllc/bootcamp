@@ -31,8 +31,6 @@ GEM
       activerecord (>= 3.0)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
-    bootstrap-sass (2.3.2.2)
-      sass (~> 3.2)
     builder (3.2.2)
     capybara (2.0.3)
       mime-types (>= 1.16)
@@ -69,9 +67,6 @@ GEM
       loofah (~> 2.0.0)
       sax-machine (~> 0.2.1)
     ffi (1.9.3)
-    font-awesome-sass-rails (3.0.2.2)
-      railties (>= 3.1.1)
-      sass-rails (>= 3.1.1)
     gravatarify (3.1.1)
     heroku-api (0.3.18)
       excon (~> 0.27)
@@ -157,9 +152,6 @@ GEM
       websocket (~> 1.0.4)
     simple_enum (1.6.9)
       activesupport (>= 3.0.0)
-    simple_form (3.0.2)
-      actionpack (~> 4.0)
-      activemodel (~> 4.0)
     slim (2.0.2)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -204,7 +196,6 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_list
-  bootstrap-sass (~> 2.3.2.2)
   capybara (~> 2.0.3)
   capybara-webkit
   coffee-rails (~> 4.0.0)
@@ -213,7 +204,6 @@ DEPENDENCIES
   dynamic_form
   exception_notification
   feedjira
-  font-awesome-sass-rails (~> 3.0.2.2)
   gravatarify
   heroku_san
   jbuilder
@@ -227,7 +217,6 @@ DEPENDENCIES
   redcarpet
   sass-rails (~> 4.0.3)
   simple_enum
-  simple_form (~> 3.0.0)
   slim-rails
   sorcery
   spring

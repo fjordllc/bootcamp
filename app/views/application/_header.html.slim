@@ -1,44 +1,31 @@
-header.navbar
-  .navbar-inner
-    .brand= link_to t('256interns'), root_path
-    ul.nav.pull-right
-      - if current_user
-        li
-          = link_to current_user do
-            = gravatar_tag current_user, size: 20
-            = current_user.login_name
-      - if current_user and current_user.admin?
-        li
-          = link_to admin_root_path do
-            i.icon-off
-            = t('admin_index')
-      li
-        = link_to feeds_path do
-          i.icon-book
-          | みんなのブログ
-      li class="#{controller_name == 'practices' ? 'active' : ''}"
-        = link_to practices_path do
-          i.icon-tasks
-          = t('practices')
-      li class="#{controller_name == 'users' and action_name == 'index' ? 'active' : ''}"
-        = link_to users_path do
-          i.icon-user
-          = t('users')
-      li class="#{controller_name == 'companies' ? 'active' : ''}"
-        = link_to companies_path do
-          i.icon-briefcase
-          = t('companies')
-      - if current_user
-        li
-          = link_to logout_path do
-            i.icon-off
-            = t('logout')
-      - else
-        li
-          = link_to login_path do
-            i.icon-off
-            = t('sign_in')
-        li
-          = link_to new_user_path do
-            i.icon-ok
-            = t('sign_up')
+nav.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button" 
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      = link_to t('256interns'), root_path, class: 'navbar-brand'
+    #navbar.navbar-collapse.collapse
+      ul.nav.navbar-nav
+        - if current_user
+          - if current_user.admin?
+            li(class="#{controller_name == 'home' ? 'active' : ''}")= link_to t('admin_index'), admin_root_path
+          li(class="#{controller_name == 'feeds' ? 'active' : ''}")= link_to "みんなのブログ", feeds_path
+          li(class="#{controller_name == 'practices' ? 'active' : ''}")= link_to t('practices'), practices_path
+          li(class="#{controller_name == 'users' ? 'active' : ''}")= link_to t('users'), users_path
+          li(class="#{controller_name == 'companies' ? 'active' : ''}")= link_to t('companies'), companies_path
+      ul.nav.navbar-nav.navbar-right
+        - if current_user
+          li.dropdown
+            a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
+              span.icon= gravatar_tag current_user, size: '20'
+              span.login-name= current_user.login_name
+              span.caret
+            ul.dropdown-menu
+              li= link_to t('editing_user'), edit_user_path(current_user)
+              li= link_to t('logout'), logout_path, class: 'mdl-navigation__link'
+        - else
+          li= link_to t('sign_in'), login_path
+          li= link_to t('sign_up'), new_user_path

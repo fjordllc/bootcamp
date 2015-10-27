@@ -7,11 +7,11 @@
       = render 'status', practice: practice
     td.handle
       .btn-group
-        = link_to practice_position_path(practice, move: :top), method: :put, class: 'btn'
-          i.icon-double-angle-up
-        = link_to practice_position_path(practice, move: :higher), method: :put, class: 'btn'
-          i.icon-angle-up
-        = link_to practice_position_path(practice, move: :lower), method: :put, class: 'btn'
-          i.icon-angle-down
-        = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'btn'
-          i.icon-double-angle-down
+        = link_to practice_position_path(practice, move: :top), method: :put, class: 'btn btn-default'
+          i.fa.fa-angle-double-up
+        = link_to practice_position_path(practice, move: :higher), method: :put, class: 'btn btn-default'
+          i.fa.fa-angle-up
+        = link_to practice_position_path(practice, move: :lower), method: :put, class: 'btn btn-default'
+          i.fa.fa-angle-down
+        = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'btn btn-default'
+          i.fa.fa-angle-double-down

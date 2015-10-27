@@ -12,8 +12,10 @@ module ApplicationHelper
     content_tag_for(:tr, record, prefix, options, &block)
   end
 
-  def view_slug
-    controller.class.to_s.underscore.gsub(%r{/}, "-").gsub(/_controller/, "_") + action_name
+  def page_slug
+    controller.class.to_s.underscore.
+      gsub(%r{/}, "-").
+      gsub(/_controller/, "_") + action_name
   end
 
   def my_practice?(practice)

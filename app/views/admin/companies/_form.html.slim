@@ -1,8 +1,10 @@
-= simple_form_for([:admin, company]) do |f|
-  = f.error_notification
+= form_for([:admin, company]) do |f|
   .form-inputs
-    = f.input :name
-    = f.input :description
-    = f.input :website
-  .form-actions
-    = f.button :submit
+    label 会社名
+    = f.text_field :name, class: 'input-block-level'
+    label 詳細
+    = f.text_area :description, size: '10x20', class: 'input-block-level'
+    label ウェブサイトURL
+    = f.text_field :website, class: 'input-block-level'
+  .actions
+    = f.submit nil, class: 'btn btn-primary'

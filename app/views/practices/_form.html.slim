@@ -1,7 +1,15 @@
-= simple_form_for practice do |f|
-  = f.error_notification
-  = f.input :title, input_html: { class: 'input-block-level' }
-  = f.input :description, input_html: { class: 'input-block-level', rows: 20 }
-  = f.input :goal, input_html: { class: 'input-block-level', rows: 10 }
-  = f.input :category_id, collection: Category.all, include_blank: false
-  = f.submit nil, class: 'btn btn-primary'
+= form_for practice do |f|
+  .form-group
+    = f.label :title
+    = f.text_field :title, size: '10', class: 'form-control'
+  .form-group
+    = f.label :description
+    = f.text_area :description, size: '10x20', class: 'form-control'
+  .form-group
+    = f.label :goal
+    = f.text_area :goal, size: '10x10', class: 'form-control'
+  .form-group
+    = f.label :category_id
+    = f.collection_select :category_id, Category.all, :id, :name, {}, class: 'form-control'
+  .form-group
+    = f.submit nil, class: 'btn btn-primary'

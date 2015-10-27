@@ -1,6 +1,6 @@
 ul.nav.nav-tabs
   li class="#{params['target'].blank? or params['target'] == 'all' ? 'active' : ''}"
     = link_to t('all'), practices_path(target: 'all')
-  - if current_user.present?
+  - if current_user
     li class="#{params['target'] == 'me' ? 'active' : ''}" 
       = link_to t('my_practices'), practices_path(target: 'me')
