@@ -302,6 +302,13 @@ ja:
         title: タイトル
         body: 本文
 
+      question:
+        title: タイトル
+        description: 詳細
+
+      answer:
+        description: 詳細
+
     errors:
       template:
         header:
@@ -377,7 +384,7 @@ ja:
   comments_count: "件"
   blank: " "
   listing_companies: "会社一覧"
-  listing_categories: "カテゴリー一覧"
+  listing_questions: "Q & A"
   companies: "会社"
   categories: "カテゴリー"
   editing_practice: "プラクティス編集"
@@ -386,7 +393,10 @@ ja:
   editing_category: "カテゴリー編集"
   editing_report: "日報の編集"
   editing_comment: "コメントの編集"
+  editing_question: 質問編集
+  editing_answer: 回答編集
   new_category: "カテゴリー追加"
+  new_question: "質問追加"
   show: "表示"
   back: "戻る"
   copy: "コピー"
@@ -396,10 +406,6 @@ ja:
   sign_in_successful: "サインインしました。"
   sign_out: "サインアウトしました。"
   registration_successfull: "サインアップしました。"
-  user_was_successfully_updated: "ユーザーを更新しました。"
-  practice_was_successfully_created: "プラクティスを作成しました。"
-  practice_was_successfully_updated: "プラクティスを更新しました。"
-  practice_was_successfully_deleted: "プラクティスを削除しました。"
   company_was_successfully_created: "会社を作成しました。"
   company_was_successfully_updated: "会社を更新しました。"
   company_was_successfully_deleted: "会社を削除しました。"
@@ -409,9 +415,10 @@ ja:
   comment_was_successfully_created: "コメントを投稿しました。"
   comment_was_successfully_updated: "コメントを更新しました。"
   comment_was_successfully_deleted: "コメントを削除しました。"
+  company_was_successfully_destroyed: "会社を削除しました。"
   category_was_successfully_created: "カテゴリーを作成しました。"
   category_was_successfully_updated: "カテゴリーを更新しました。"
-  category_was_successfully_deleted: "カテゴリーを削除しました。"
+  category_was_successfully_destroyed: "カテゴリーを削除しました。"
   learning_users: "学習中ユーザー"
   for: "%{target} 課題"
   for: "%{target} 課題"
@@ -439,3 +446,8 @@ ja:
   related-reports: 関連した日報
   search_report: 日報検索
   search_for: "'%{text}' の検索結果"
+  q_and_a: "Q & A"
+  action: 操作
+  order: 並び順
+  solved: 解決済み
+  unsolved: 未解決

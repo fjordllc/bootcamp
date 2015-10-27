@@ -24,7 +24,7 @@ class PracticesController < ApplicationController
       notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を作成しました。",
         username: "#{current_user.login_name}@256interns.com",
         icon_url: gravatar_url(current_user)
-      redirect_to @practice, notice: t('practice_was_successfully_created')
+      redirect_to @practice, notice: "プラクティスを作成しました。"
     else
       render :new
     end
@@ -38,7 +38,7 @@ class PracticesController < ApplicationController
       notify "#{text}\n```#{diff}```",
         username: "#{current_user.login_name}@256interns.com",
         icon_url: gravatar_url(current_user)
-      redirect_to @practice, notice: t('practice_was_successfully_updated')
+      redirect_to @practice, notice: "プラクティスを更新しました。"
     else
       render :edit
     end
@@ -49,7 +49,7 @@ class PracticesController < ApplicationController
     notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を削除しました。",
       username: "#{current_user.login_name}@256interns.com",
       icon_url: gravatar_url(current_user)
-    redirect_to practices_url, notice: t('practice_was_successfully_deleted')
+    redirect_to practices_url, notice: "プラクティスを削除しました。"
   end
 
   private
