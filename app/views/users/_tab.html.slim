@@ -1,8 +1,0 @@
-h4= t('active_users', count: user_by_type(users.student.active, target).count)
-= render 'user', users: user_by_type(users.student.active, target)
-h4= t('inactive_users', count: user_by_type(users.student.inactive, target).count)
-= render 'user', users: user_by_type(users.student.inactive, target)
-h4 卒業生 (#{user_by_type(users.graduated, target).count})
-= render 'user', users: user_by_type(users.graduated, target)
-h4 アドバイザー
-= render 'user', users: user_by_type(users.advisers, target)

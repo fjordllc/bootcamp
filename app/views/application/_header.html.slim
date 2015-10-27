@@ -1,43 +1,31 @@
-header.mdl-layout__header.mdl-layout__header--scroll
-  .mdl-layout__header-row
-    /! Title
-    span.mdl-layout-title= t('256interns')
-    /! Add spacer, to align navigation to the right
-    .mdl-layout-spacer
-    /! Navigation
-    nav.mdl-navigation
-      - if current_user
-        - if current_user.admin?
-          = link_to t('admin_index'), admin_root_path, class: 'mdl-navigation__link'
-        = link_to t('logout'), logout_path, class: 'mdl-navigation__link'
-        = link_to "みんなのブログ", feeds_path, class: 'mdl-navigation__link'
-        = link_to t('practices'), practices_path, class: 'mdl-navigation__link'
-        = link_to t('users'), users_path, class: 'mdl-navigation__link'
-        = link_to t('companies'), companies_path, class: 'mdl-navigation__link'
-      - else
-        = link_to t('sign_in'), login_path, class: 'mdl-navigation__link'
-        = link_to t('sign_up'), new_user_path, class: 'mdl-navigation__link'
-    .mdl-layout-spacer
-    .mdl-textfield.mdl-js-textfield.mdl-textfield--expandable.mdl-textfield--floating-label.mdl-textfield--align-right
-      label.mdl-button.mdl-js-button.mdl-button--icon for="fixed-header-drawer-exp" 
-        i.material-icons search
-      .mdl-textfield__expandable-holder
-        input#fixed-header-drawer-exp.mdl-textfield__input name="sample" type="text" /
-.mdl-layout__drawer.mdl-shadow--2dp
-  span.mdl-layout-title
-    - if current_user
-      img.user-icon(src="#{gravatar_url current_user}")
-    - else
-      = t('256interns')
-  nav.mdl-navigation
-    - if current_user
-      - if current_user.admin?
-        = link_to t('admin_index'), admin_root_path, class: 'mdl-navigation__link'
-      = link_to t('logout'), logout_path, class: 'mdl-navigation__link'
-      = link_to "みんなのブログ", feeds_path, class: 'mdl-navigation__link'
-      = link_to t('practices'), practices_path, class: 'mdl-navigation__link'
-      = link_to t('users'), users_path, class: 'mdl-navigation__link'
-      = link_to t('companies'), companies_path, class: 'mdl-navigation__link'
-    - else
-      = link_to t('sign_in'), login_path, class: 'mdl-navigation__link'
-      = link_to t('sign_up'), new_user_path, class: 'mdl-navigation__link'
+nav.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button" 
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      = link_to t('256interns'), root_path, class: 'navbar-brand'
+    #navbar.navbar-collapse.collapse
+      ul.nav.navbar-nav
+        - if current_user
+          - if current_user.admin?
+            li= link_to t('admin_index'), admin_root_path
+          li= link_to "みんなのブログ", feeds_path
+          li= link_to t('practices'), practices_path
+          li= link_to t('users'), users_path
+          li= link_to t('companies'), companies_path
+      ul.nav.navbar-nav.navbar-right
+        - if current_user
+          li.dropdown
+            a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
+              span.icon= gravatar_tag current_user, size: '20'
+              span.login-name= current_user.login_name
+              span.caret
+            ul.dropdown-menu
+              li= link_to t('editing_user'), edit_user_path(current_user)
+              li= link_to t('logout'), logout_path, class: 'mdl-navigation__link'
+        - else
+          li= link_to t('sign_in'), login_path
+          li= link_to t('sign_up'), new_user_path

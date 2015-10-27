@@ -1,6 +1,9 @@
 - users.each do |user|
-  .user-card-image.mdl-card.mdl-shadow--2dp(style="background: url('#{gravatar_url user}') center / cover")
-    .mdl-card__title.mdl-card--expand
-    .mdl-card__actions
-      span.user-card-image__name
-        = link_to user.login_name, user
+  .col-sm-4.col-xs-12
+    .user.panel.panel-primary(class="#{user.active? ? 'active' : 'inactive'}")
+      .panel-heading
+        .login-name= link_to user.login_name, user
+        .icon= link_to user do
+          = gravatar_tag user
+      .panel-body
+        .description= user.description

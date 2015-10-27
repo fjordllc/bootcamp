@@ -1,7 +1,6 @@
-.mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone
-mdl-cell.mdl-cell--8-col
-  article#what_is_intern
-    h2= t('how_256interns_works')
+section
+  h2.page-header= t('how_256interns_works')
+  .lead-text
     p
       = link_to 'インターンシップ', 'http://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%83%E3%83%97'
       | とは、応募者は就業体験と職業訓練を得、企業は見込み社員と労働力を得る仕組みです。
@@ -9,52 +8,53 @@ mdl-cell.mdl-cell--8-col
       | ２５６インターンではお金を払って行くスクールとお金を貰ってやるアルバイトの中間地点として、
       br/
       | １週間毎に学習と作業を交換することにより、誰もお金を払わないインターンシップを実現します。
-  article#application_for_intern
-    = link_to application_path do
-      = image_tag '256intern_07.png'
-  #three_pictures
-    .row
-      .span4.leaning_week
-        = image_tag '256intern_11.png'
-        h3 学習週
-        p １週間自分のペースで学習する。
-      .span4.working_week
-        = image_tag '256intern_13.png'
-        h3 作業週
-        p 次の１週間Webサービスを作る作業をする。
-      .span4.exchange
-        = image_tag '256intern_15.png'
-        h3 学習と作業の交換
-        p 学習週と作業週を交互に繰り返す。
-  article#local_and_remote
-    h2 ローカルとリモート
-    p
-      | ２５６インターンではオフィスに行く一般的なインターンをローカルインターン。
-      br/
-      | インターネット経由でのみのリモートインターンの両方が可能です。
-      br/
-      | リモートであればオフィスに通えない場所に済む人や昼間学校や会社、子育てで忙しい人でも参加できます。
-    .intern_image= image_tag '256intern_21.png'
-  #company
-    h2 参加企業
-    .row
-      .span4.fjord
-        = link_to 'http://fjord.jp' do
-          = image_tag '256intern_24.png'
-          .name FJORD, LLC
-      .span4.root
-        = link_to 'http://ic-root.com/' do
-          = image_tag '256intern_26.png'
-          .name root inc.
-      .span4.esm
-        = link_to 'http://www.esm.co.jp' do
-          = image_tag 'esm_logo.png'
-          .name 株式会社永和システムマネジメント
-    p
-      | ２５６インターンでは参加企業を募集しています。当サービスを使えば、プログラマーがいなくて教える事ができない企業や、
-      br/
-      | 手間がかかって既存のインターンシップが行えない企業様でもインターンシップの利点を活かせます。
-    .inquiry
-      = link_to 'mailto:info@fjord.jp' do
-        = image_tag '256intern_31.png'
-.mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone
+section.center
+  = link_to 'インターンに申し込む', 'http://intern-fantasy.herokuapp.com/', target: '_blank', class: 'btn btn-success'
+section
+  .row
+    .col-xs-12.col-sm-4.leaning_week
+      = image_tag '256intern_11.png'
+      h3 学習週
+      p １週間自分のペースで学習する。
+    .col-xs-12.col-sm-4.working_week
+      = image_tag '256intern_13.png'
+      h3 作業週
+      p 次の１週間Webサービスを作る作業をする。
+    .col-xs-12.col-sm-4.exchange
+      = image_tag '256intern_15.png'
+      h3 学習と作業の交換
+      p 学習週と作業週を交互に繰り返す。
+section
+  h2.page-header ローカルとリモート
+  .center
+    = image_tag '256intern_21.png'
+section.center
+  p
+    | ２５６インターンではオフィスに行く一般的なインターンをローカルインターン。
+    br/
+    | インターネット経由でのみのリモートインターンの両方が可能です。
+    br/
+    | リモートであればオフィスに通えない場所に済む人や昼間学校や会社、子育てで忙しい人でも参加できます。
+section
+  h2.page-header 参加企業
+  .row
+    .col-xs-12.col-sm-4.fjord
+      = link_to 'http://fjord.jp' do
+        = image_tag '256intern_24.png'
+        .name FJORD, LLC
+    .col-xs-12.col-sm-4.root
+      = link_to 'http://ic-root.com/' do
+        = image_tag '256intern_26.png'
+        .name root inc.
+    .col-xs-12.col-sm-4.esm
+      = link_to 'http://www.esm.co.jp' do
+        = image_tag 'esm_logo.png'
+        .name 株式会社永和システムマネジメント
+section
+  p
+    | ２５６インターンでは参加企業を募集しています。当サービスを使えば、プログラマーがいなくて教える事ができない企業や、
+    br/
+    | 手間がかかって既存のインターンシップが行えない企業様でもインターンシップの利点を活かせます。
+section
+  .center
+    = link_to 'お問い合わせはこちら', 'mailto:info@fjord.jp', class: 'btn btn-success'

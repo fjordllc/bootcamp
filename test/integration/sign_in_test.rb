@@ -5,7 +5,7 @@ class SignInTest < ActionDispatch::IntegrationTest
 
   test 'success' do
     visit '/login'
-    within('form.user') do
+    within('#sign-in-form') do
       fill_in('user[login_name]', with: 'komagata')
       fill_in('user[password]',   with: 'testtest')
     end
@@ -15,7 +15,7 @@ class SignInTest < ActionDispatch::IntegrationTest
 
   test 'fail' do
     visit '/login'
-    within('form.user') do
+    within('#sign-in-form') do
       fill_in('user[login_name]', with: 'komagata')
       fill_in('user[password]',   with: 'xxxxxxxx')
     end

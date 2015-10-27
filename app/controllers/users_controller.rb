@@ -6,6 +6,20 @@ class UsersController < ApplicationController
   def index
     @categories = Category.order('position')
     @users = User.order(updated_at: :desc)
+    @target = params[:target] || 'all'
+    @users =
+      case @target
+      when 'all'
+        @users
+      when 'learning'
+        @users.student.select(&:learning_week?)
+      when 'working'
+        @users.student.select(&:working_week?)
+      when 'graduate'
+        @users.graduated
+      when 'adviser'
+        @users.advisers
+      end
   end
 
   def show

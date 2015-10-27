@@ -1,14 +1,12 @@
-.mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone
-article.practice.mdl-color--white.content.mdl-color-text--grey-800.mdl-cell.mdl-cell--8-col.mdl-shadow--2dp
-  - title @practice.title
-  h3= @practice.title
-  h4= t('helpers.label.practice.description')
-  .practice.js-target-blank= simple_format rendering(@practice.description)
-  h4= t('helpers.label.practice.goal')
-  .goal.js-target-blank= simple_format rendering(@practice.goal)
-  .buttons
-    = link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
-    = link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+- title @practice.title
+h3= @practice.title
+h4= t('helpers.label.practice.description')
+.practice.js-target-blank= simple_format rendering(@practice.description)
+h4= t('helpers.label.practice.goal')
+.goal.js-target-blank= simple_format rendering(@practice.goal)
+.buttons
+  = link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
+  = link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
   button.im-stack.btn.btn-danger= '行き詰まった！'
   javascript:
     $(document).on('click', '.im-stack', function(){
@@ -16,9 +14,8 @@ article.practice.mdl-color--white.content.mdl-color-text--grey-800.mdl-cell.mdl-
       $.post('/chat_notices', {text: text});
       console.log('it is test');
     });
-  h4= t('completed_users')
-  - @practice.completed_users.each do |user|
-    .icon.completed-users
-      = link_to user do
-        = gravatar_tag user, size: 50
-.mdl-cell.mdl-cell--2-col.mdl-cell--hide-tablet.mdl-cell--hide-phone
+h4= t('completed_users')
+- @practice.completed_users.each do |user|
+  .icon.completed-users
+    = link_to user do
+      = gravatar_tag user, size: 50

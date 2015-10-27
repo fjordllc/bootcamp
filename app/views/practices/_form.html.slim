@@ -1,11 +1,15 @@
 = form_for practice do |f|
-  label 名前
-  = f.text_field :title, size: '10', class: 'input-block-level'
-  label 詳細
-  = f.text_area :description, size: '10x20', class: 'input-block-level'
-  label ゴール
-  = f.text_area :goal, class: 'input-block-level', size: '10x10'
-  label カテゴリー
-  = f.collection_select :category_id, Category.all, :id, :name
-  .actions
+  .form-group
+    = f.label :title
+    = f.text_field :title, size: '10', class: 'form-control'
+  .form-group
+    = f.label :description
+    = f.text_area :description, size: '10x20', class: 'form-control'
+  .form-group
+    = f.label :goal
+    = f.text_area :goal, size: '10x10', class: 'form-control'
+  .form-group
+    = f.label :category_id
+    = f.collection_select :category_id, Category.all, :id, :name, {}, class: 'form-control'
+  .form-group
     = f.submit nil, class: 'btn btn-primary'

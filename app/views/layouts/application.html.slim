@@ -6,21 +6,18 @@ html lang="ja"
     meta content="width=device-width, initial-scale=1" name="viewport" /
     - page_title = yield :title
     title #{page_title.present? ? page_title + ' - ' : ''}#{t('256interns')}
-    = stylesheet_link_tag 'https://storage.googleapis.com/code.getmdl.io/1.0.5/material.cyan-indigo.min.css'
-    = javascript_include_tag 'https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js'
-    = stylesheet_link_tag 'https://fonts.googleapis.com/icon?family=Material+Icons'
+    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', media: 'all'
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
+    = javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', integrity: 'sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==', crossorigin: 'anonymous'
     = csrf_meta_tags
     javascript:
       var signed_in = #{current_user ? true : false}
     - if head_last = yield(:head_last)
       = head_last
   body class="#{controller_name}_#{action_name}"
-    .mdl-layout.mdl-js-layout
+    .container
       = render 'header'
       = render 'alert'
-      main.mdl-layout__content
-        .page-content.mdl-grid
-          = yield
+      = yield
       = render 'footer'
