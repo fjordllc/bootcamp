@@ -12,18 +12,16 @@
 
 ActiveRecord::Schema.define(version: 20161216053008) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "answers", force: :cascade do |t|
     t.text     "description"
     t.integer  "user_id"
     t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["question_id"], name: "index_answers_on_question_id", using: :btree
-    t.index ["user_id"], name: "index_answers_on_user_id", using: :btree
   end
+
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id"
+  add_index "answers", ["user_id"], name: "index_answers_on_user_id"
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -116,6 +114,20 @@ ActiveRecord::Schema.define(version: 20161216053008) do
     t.integer  "correct_answer_id"
     t.index ["user_id"], name: "index_questions_on_user_id", using: :btree
   end
+
+  add_index "practices_reports", ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id"
+  add_index "practices_reports", ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
+
+  create_table "questions", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "correct_answer_id"
+  end
+
+  add_index "questions", ["user_id"], name: "index_questions_on_user_id"
 
   create_table "reports", force: :cascade do |t|
     t.integer  "user_id",                 null: false

@@ -1,7 +1,6 @@
 class QuestionsController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
-  before_action :require_login
   before_action :set_question, only: %i(show edit update destroy)
 
   def index

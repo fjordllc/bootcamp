@@ -3,7 +3,7 @@
     = error_messages_for :answer
   .form-group
     = f.label :description
-    = f.text_area :description, required: true, class: "form-control"
+    = f.text_area :description, class: "form-control"
   .actions
     = hidden_field_tag :return_to, params[:return_to].presence
     = f.submit '保存', class: "btn btn-primary btn-sm"

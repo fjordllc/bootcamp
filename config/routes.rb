@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   resources :questions
 
-  root to: "home#index"
+  root to: 'home#index'
   namespace :admin do
-    root to: "home#index", as: :root
+    root to: 'home#index', as: :root
     resources :companies
     resources :users
     resources :categories, except: %i(show) do
