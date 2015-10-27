@@ -11,11 +11,11 @@ nav.navbar.navbar-default
       ul.nav.navbar-nav
         - if current_user
           - if current_user.admin?
-            li= link_to t('admin_index'), admin_root_path
-          li= link_to "みんなのブログ", feeds_path
-          li= link_to t('practices'), practices_path
-          li= link_to t('users'), users_path
-          li= link_to t('companies'), companies_path
+            li(class="#{controller_name == 'home' ? 'active' : ''}")= link_to t('admin_index'), admin_root_path
+          li(class="#{controller_name == 'feeds' ? 'active' : ''}")= link_to "みんなのブログ", feeds_path
+          li(class="#{controller_name == 'practices' ? 'active' : ''}")= link_to t('practices'), practices_path
+          li(class="#{controller_name == 'users' ? 'active' : ''}")= link_to t('users'), users_path
+          li(class="#{controller_name == 'companies' ? 'active' : ''}")= link_to t('companies'), companies_path
       ul.nav.navbar-nav.navbar-right
         - if current_user
           li.dropdown

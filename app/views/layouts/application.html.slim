@@ -15,7 +15,7 @@ html lang="ja"
       var signed_in = #{current_user ? true : false}
     - if head_last = yield(:head_last)
       = head_last
-  body class="#{controller_name}_#{action_name}"
+  body class="#{page_slug}"
     .container
       = render 'header'
       = render 'alert'
