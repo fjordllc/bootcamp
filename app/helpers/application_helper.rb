@@ -14,7 +14,7 @@ module ApplicationHelper
 
   def page_slug
     controller.class.to_s.underscore.
-      gsub(/\//, "-").
+      gsub(%r{/}, "-").
       gsub(/_controller/, "_") + action_name
   end
 

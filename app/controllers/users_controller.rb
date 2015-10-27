@@ -1,23 +1,23 @@
 class UsersController < ApplicationController
   before_action :require_login, only: %w[edit update destroy]
   before_action :set_user, only: %w[show]
-  http_basic_authenticate_with name: 'intern', password: ENV['INTERN_PASSWORD'] || 'test', only: %i(new create)
+  http_basic_authenticate_with name: "intern", password: ENV["INTERN_PASSWORD"] || "test", only: %i(new create)
 
   def index
-    @categories = Category.order('position')
+    @categories = Category.order("position")
     @users = User.order(updated_at: :desc)
-    @target = params[:target] || 'all'
+    @target = params[:target] || "all"
     @users =
       case @target
-      when 'all'
+      when "all"
         @users
-      when 'learning'
+      when "learning"
         @users.student.select(&:learning_week?)
-      when 'working'
+      when "working"
         @users.student.select(&:working_week?)
-      when 'graduate'
+      when "graduate"
         @users.graduated
-      when 'adviser'
+      when "adviser"
         @users.advisers
       end
   end
