@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     end
   end
   resources :feeds, only: %i(index)
-  resources :companies, only: %i(index show)
   resources :users do
     resources :practices, only: %i(index), controller: 'users/practices'
   end

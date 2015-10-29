@@ -1,5 +1,5 @@
 nav.navbar.navbar-default
-  .container-fluid
+  .container
     .navbar-header
       button.navbar-toggle.collapsed aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button" 
         span.sr-only Toggle navigation
@@ -15,7 +15,6 @@ nav.navbar.navbar-default
           li(class="#{controller_name == 'feeds' ? 'active' : ''}")= link_to "みんなのブログ", feeds_path
           li(class="#{controller_name == 'practices' ? 'active' : ''}")= link_to t('practices'), practices_path
           li(class="#{controller_name == 'users' ? 'active' : ''}")= link_to t('users'), users_path
-          li(class="#{controller_name == 'companies' ? 'active' : ''}")= link_to t('companies'), companies_path
       ul.nav.navbar-nav.navbar-right
         - if current_user
           li.dropdown

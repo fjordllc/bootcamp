@@ -6,7 +6,7 @@ dl
   dt= t('helpers.label.user.full_name')
   dd= @user.full_name
   dt= t('helpers.label.user.company')
-  dd= link_to @user.company.name, @user.company
+  dd= @user.company.name
   dt= t('helpers.label.user.description')
   dd= simple_format @user.description
   dt= t('helpers.label.user.created_at')

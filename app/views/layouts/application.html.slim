@@ -16,8 +16,8 @@ html lang="ja"
     - if head_last = yield(:head_last)
       = head_last
   body class="#{page_slug}"
+    = render 'header'
     .container
-      = render 'header'
       = render 'alert'
       = yield
       = render 'footer'
