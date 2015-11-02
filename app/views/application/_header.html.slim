@@ -12,6 +12,7 @@ nav.navbar.navbar-default
         - if current_user
           - if current_user.admin?
             li(class="#{controller_name == 'home' ? 'active' : ''}")= link_to t('admin_index'), admin_root_path
+            li(class="#{controller_name == 'categories' ? 'active' : ''}")= link_to t('categories'), admin_categories_path
           li(class="#{controller_name == 'feeds' ? 'active' : ''}")= link_to "みんなのブログ", feeds_path
           li(class="#{controller_name == 'practices' ? 'active' : ''}")= link_to t('practices'), practices_path
           li(class="#{controller_name == 'users' ? 'active' : ''}")= link_to t('users'), users_path

@@ -276,6 +276,11 @@ ja:
         description: "詳細"
         website: "ウェブサイト"
 
+      category:
+        name: 名前
+        slug: URLスラッグ
+        description: 詳細
+
     errors:
       template:
         header:
@@ -350,6 +355,7 @@ ja:
   editing_company: "会社編集"
   editing_user: "アカウント情報編集"
   editing_category: "カテゴリー編集"
+  new_category: "カテゴリー追加"
   show: "表示"
   back: "戻る"
   "bob's_practices": "%{name}のプラクティス"
@@ -365,6 +371,9 @@ ja:
   company_was_successfully_created: "会社を作成しました。"
   company_was_successfully_updated: "会社を更新しました。"
   company_was_successfully_deleted: "会社を削除しました。"
+  category_was_successfully_created: "カテゴリーを作成しました。"
+  category_was_successfully_updated: "カテゴリーを更新しました。"
+  category_was_successfully_deleted: "カテゴリーを削除しました。"
   learning_users: "学習中ユーザー"
   for: "%{target} 課題"
   for: "%{target} 課題"
@@ -387,3 +396,5 @@ ja:
   agree_nda: "秘密保持契約に同意する"
   active_users: "アクティブユーザー (%{count})"
   inactive_users: "最近活動の無いユーザー (%{count})"
+  action: 操作
+  order: 並び順

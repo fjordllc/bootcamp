@@ -1,26 +1,27 @@
-h1= t('listing_categories')
+h3= t('listing_categories')
 
-table.table
+table.table.categories
   tr
-    th Name
-    th Slug
-    th[colspan="2"] Action
-    th Order
+    th= t('activerecord.attributes.category.name')
+    th= t('activerecord.attributes.category.slug')
+    th.actions= t('action')
+    th.handle= t('order')
   - @categories.each do |category|
     tr
-      td= link_to category.name, [:admin, category]
+      td= category.name
       td= category.slug
-      td= link_to t('edit'), edit_admin_category_path(category), class: 'btn'
-      td= link_to t('destroy'), [:admin, category], data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn'
+      td.actions
+        = link_to t('edit'), edit_admin_category_path(category), class: 'btn btn-primary'
+        = link_to t('destroy'), [:admin, category], data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
       td.handle
         .btn-group
-          = link_to admin_category_position_path(category, move: :top), method: :put, class: 'btn'
-            i.icon-double-angle-up
-          = link_to admin_category_position_path(category, move: :higher), method: :put, class: 'btn'
-            i.icon-angle-up
-          = link_to admin_category_position_path(category, move: :lower), method: :put, class: 'btn'
-            i.icon-angle-down
-          = link_to admin_category_position_path(category, move: :bottom), method: :put, class: 'btn'
-            i.icon-double-angle-down
+          = link_to admin_category_position_path(category, move: :top), method: :put, class: 'btn btn-default'
+            i.fa.fa-angle-double-up
+          = link_to admin_category_position_path(category, move: :higher), method: :put, class: 'btn btn-default'
+            i.fa.fa-angle-up
+          = link_to admin_category_position_path(category, move: :lower), method: :put, class: 'btn btn-default'
+            i.fa.fa-angle-down
+          = link_to admin_category_position_path(category, move: :bottom), method: :put, class: 'btn btn-default'
+            i.fa.fa-angle-double-down
 br
-= link_to 'New Category', new_admin_category_path, class: 'btn btn-primary'
+= link_to t('new_category'), new_admin_category_path, class: 'btn btn-primary'

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'home#index'
     resources :companies
-    resources :categories do
+    resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: 'categories/position'
     end
   end

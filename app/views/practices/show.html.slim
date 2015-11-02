@@ -1,9 +1,25 @@
 - title @practice.title
-h3= @practice.title
-h4= t('helpers.label.practice.description')
-.practice.js-target-blank= simple_format rendering(@practice.description)
-h4= t('helpers.label.practice.goal')
-.goal.js-target-blank= simple_format rendering(@practice.goal)
+.page-header
+  h3= @practice.title
+.panel.panel-default
+  .panel-heading
+    h4= t('helpers.label.practice.description')
+  .panel-body
+    .practice.js-target-blank= simple_format rendering(@practice.description)
+    
+.panel.panel-default
+  .panel-heading
+    h4= t('helpers.label.practice.goal')
+  .panel-body
+    .goal.js-target-blank= simple_format rendering(@practice.goal)
+.panel.panel-default
+  .panel-heading
+    h4= t('completed_users')
+  .panel-body
+    - @practice.completed_users.each do |user|
+      .icon.completed-users
+        = link_to user do
+          = gravatar_tag user, size: 64
 .buttons
   = link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
   = link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
@@ -14,8 +30,3 @@ h4= t('helpers.label.practice.goal')
       $.post('/chat_notices', {text: text});
       console.log('it is test');
     });
-h4= t('completed_users')
-- @practice.completed_users.each do |user|
-  .icon.completed-users
-    = link_to user do
-      = gravatar_tag user, size: 64
