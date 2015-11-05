@@ -32,16 +32,16 @@ class ApplicationController < ActionController::Base
 
   def notify(text, options = {})
     user = current_user || @user
-    notify_slack(text) if Rails.env.production?
+    notify_slack(text, options) if Rails.env.production?
   end
 
   def notify_slack(text, options = {})
     uri = URI.parse("https://fjord.slack.com/services/hooks/incoming-webhook?token=#{ENV['SLACK_WEBHOOK_TOKEN']}")
     payload = {
-      channel:  "#learning",
-      username: "256interns",
-      icon_url: "http://i.gyazo.com/a8afa9d690ff4bbd87459709bbfe8be9.png",
-      text:     text
+      channel: "#learning",
+      username: options[:username] || "256interns",
+      icon_url: options[:icon_url] || "http://i.gyazo.com/a8afa9d690ff4bbd87459709bbfe8be9.png",
+      text: text
     }
     if options[:pretext]
       payload[:fallback] = options[:pretext]
