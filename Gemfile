@@ -20,6 +20,7 @@ gem 'feedjira'
 gem 'curb', '~> 0.8.8'
 gem 'jbuilder'
 gem 'diffy'
+gem 'slack-notifier'
 
 group :production, :staging do
   gem 'pg'
@@ -32,6 +33,7 @@ group :development do
   gem 'quiet_assets'
   gem 'heroku_san'
   gem 'spring'
+  gem 'pry-remote'
 end
 
 group :development, :test do
