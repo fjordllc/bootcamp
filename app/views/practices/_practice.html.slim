@@ -2,9 +2,9 @@
   td.title
     = link_to practice.title, practice
   td.started-users
-    - practice.started_users.each do |user|
+    - practice.started_users.student.each do |user|
       = link_to user do
-        = gravatar_tag user, size: 45
+        = gravatar_tag user, size: 45, class: user.active? ? 'active' : 'inactive'
   - if current_user
     td.status
       - status = practice.status(current_user)
