@@ -35,7 +35,7 @@ class PracticesController < ApplicationController
     old_practice = @practice.dup
     if @practice.update(practice_params)
       text = "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を編集しました。"
-      diff = Diffy::Diff.new(old_practice.all_text + "\n", @practice.all_text + "\n").to_s
+      diff = Diffy::Diff.new(old_practice.all_text + "\n", @practice.all_text + "\n", context: 1).to_s
       notify "#{text}\n```#{diff}```",
         username: "#{current_user.login_name}@256interns.com",
         icon_url: gravatar_url(current_user)
