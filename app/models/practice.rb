@@ -1,9 +1,14 @@
 class Practice < ActiveRecord::Base
   has_many :learnings
-
+  has_many :started_learnings,
+    -> { where(status_cd: 0) },
+    class_name: 'Learning'
   has_many :completed_learnings,
     -> { where(status_cd: 1) },
     class_name: 'Learning'
+  has_many :started_users,
+    through: :started_learnings,
+    source: :user
   has_many :completed_users,
     through: :completed_learnings,
     source: :user

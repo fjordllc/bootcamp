@@ -5,6 +5,5 @@
       .panel-heading= category.name
       .panel-body= simple_format category.description
       table.table.practices
-        tbody
-          = render category.practices
+        = render category.practices
 = link_to t('new_practice'), new_practice_path, class: 'btn btn-primary'
