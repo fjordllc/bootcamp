@@ -4,7 +4,8 @@
   td.started-users
     - practice.started_users.student.each do |user|
       = link_to user do
-        = gravatar_tag user, size: 45, class: user.active? ? 'active' : 'inactive'
+        .icon(class="#{user.active? ? 'active' : 'inactive'}")
+          = gravatar_tag user, size: 45
   - if current_user
     td.status
       - status = practice.status(current_user)
