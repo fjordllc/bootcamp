@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   end
   resources :courses, only: :index
   resources :chat_notices, only: :create
-  get 'application' => 'home#application', as: :application
   get 'login'  => 'user_sessions#new',     as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
 end

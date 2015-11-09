@@ -4,7 +4,4 @@ class HomeController < ApplicationController
       redirect_to controller: :users, action: :index
     end
   end
-
-  def application
-  end
 end
