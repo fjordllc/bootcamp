@@ -17,8 +17,23 @@ practice_2:
 practice_3:
   id: 3
   title: "PC性能の見方を知る"
-  description: "description..."
-  goal: "goal..."
+  description: |-
+    - [CPUが分かる](http://homepage2.nifty.com/kamurai/CPU.htm)
+    - [メモリが分かる](http://homepage2.nifty.com/kamurai/MEMORY.htm)
+    - [HDDが分かる](http://homepage2.nifty.com/kamurai/HDD.htm)
+
+    # 参考
+
+    - [MacBook Pro モデルを識別する方法](http://support.apple.com/kb/HT4132?viewlocale=ja_JP)
+    - CPUとHDDがやりとりすると遅いのでメモリと、メモリとやりとりすると遅いのでキャッシュメモリと…という様になるが、どことやりとりされるかはPC側で自動的に判断されるので考える必要はない。
+
+  goal: |-
+    - CPUが何か説明できる。
+    - メモリが何か説明できる。
+    - HDDが何か説明できる。
+    - 自分のMacのOS、モデル番号、CPU、メモリ容量、HDD（SSD）容量をチャットに投稿して確認をもらう。
+
+    参照: [Macの型番調べ辛い - komagata](http://docs.komagata.org/4433)
   category_id: 2
   position: 3
 
