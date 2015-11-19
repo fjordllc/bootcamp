@@ -31,15 +31,11 @@ class ApplicationController < ActionController::Base
   end
 
   def notify(text, options = {})
-    notify_slack(text, options) if Rails.env.production?
-  end
+    return nil if Rails.env.production?
 
-  def notify_slack(text, options = {})
-    webhook_url = "https://hooks.slack.com/services/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"
-    icon_url = options[:icon_url] || "http://i.gyazo.com/a8afa9d690ff4bbd87459709bbfe8be9.png"
-
-    notifier = Slack::Notifier.new webhook_url
-    notifier.username = options[:username] || "256interns"
+    icon_url = options[:icon_url] || 'http://i.gyazo.com/a8afa9d690ff4bbd87459709bbfe8be9.png'
+    notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK_URL']
+    notifier.username = options[:username] || '256interns'
     notifier.ping text, icon_url: icon_url
   end
 end

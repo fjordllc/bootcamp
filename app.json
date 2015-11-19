@@ -2,9 +2,6 @@
   "name":"interns",
   "scripts":{},
   "env":{
-    "BOT_ID":{
-      "required":true
-    },
     "GEM_PATH":{
       "required":true
     },
@@ -29,10 +26,7 @@
     "SECRET":{
       "required":true
     },
-    "SLACK_WEBHOOK_TOKEN":{
-      "required":true
-    },
-    "SQWIGGLE_API_KEY":{
+    "SLACK_WEBHOOK_URL":{
       "required":true
     },
     "TZ":{
