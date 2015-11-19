@@ -33,10 +33,10 @@
     = f.text_field :feed_url, class: 'form-control'
   .form-group
     = f.label :password
-    = f.text_field :password, class: 'form-control'
+    = f.password_field :password, class: 'form-control'
   .form-group
     = f.label :password_confirmation
-    = f.text_field :password_confirmation, class: 'form-control'
+    = f.password_field :password_confirmation, class: 'form-control'
   .form-group
     = f.label :purpose, style: 'display: block'
     = f.collection_radio_buttons :purpose_cd, User.purposes.map {|k,v| [v, t("activerecord.enums.user.purposes.#{k}")] }, :first, :last do |b|
