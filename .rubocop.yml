@@ -1,6 +1,6 @@
 # tolerant of https://github.com/airbnb/ruby styles
 LineLength:
-  Max: 100
+  Max: 128
 
 MethodLength:
   Max: 30
@@ -46,3 +46,25 @@ TrailingComma:
 
 UselessAssignment:
   Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Style/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: space
+
+Style/SpaceBeforeBlockBraces:
+  EnforcedStyle: space
+
+Style/Lambda:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+CoffeeScript:
+  Enabled: true
+  config_file: config/.coffeelint.json
