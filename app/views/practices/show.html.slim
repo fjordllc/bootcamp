@@ -5,13 +5,13 @@
   .panel-heading
     h4= t('helpers.label.practice.description')
   .panel-body
-    .practice.js-target-blank= simple_format rendering(@practice.description)
+    .practice.js-target-blank= rendering(@practice.description).html_safe
     
 .panel.panel-default
   .panel-heading
     h4= t('helpers.label.practice.goal')
   .panel-body
-    .goal.js-target-blank= simple_format rendering(@practice.goal)
+    .goal.js-target-blank= rendering(@practice.goal).html_safe
 .panel.panel-default
   .panel-heading
     h4= t('completed_users')
