@@ -2,7 +2,7 @@ class FeedsController < ApplicationController
   respond_to :html, :atom
 
   def index
-    urls = User.pluck(:feed_url).reject { |f| f.blank?}
+    urls = User.pluck(:feed_url).reject { |f| f.blank? }
     hydra = Typhoeus::Hydra.new
     requests = urls.map do |url|
       req = Typhoeus::Request.new(url, followlocation: true)
@@ -24,7 +24,7 @@ class FeedsController < ApplicationController
             @entries << entry
           end
         else
-          raise "Unknown feed format."
+          raise 'Unknown feed format.'
         end
       rescue
         next
