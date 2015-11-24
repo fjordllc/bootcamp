@@ -21,6 +21,7 @@ gem 'curb', '~> 0.8.8'
 gem 'jbuilder'
 gem 'diffy'
 gem 'slack-notifier'
+gem "typhoeus"
 
 group :production, :staging do
   gem 'pg'
