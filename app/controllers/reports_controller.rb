@@ -45,7 +45,8 @@ class ReportsController < ApplicationController
     # @report = Report.new
 
     # if @report.save
-    #   notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@report)}|#{@report.title}>を作成しました。"
+    #   notify "<#{url_for(current_user)}|#{current_user.login_name}>が
+                # <#{url_for(@report)}|#{@report.title}>を作成しました。"
     #   redirect_to @report, notice: t('report_was_successfully_created')
     # else
     #   render :new
@@ -65,7 +66,7 @@ class ReportsController < ApplicationController
     # old_report = @report.dup
     # if @report.update(report_params)
     #   text = "<#{url_for(current_user)}|#{current_user.login_name}>が
-                <#{url_for(@report)}|#{@report.title}>を編集しました。"
+                # <#{url_for(@report)}|#{@report.title}>を編集しました。"
     #   notify text, pretext: text, title: "差分",
                 # value: Diffy::Diff.new(old_report.all_text + "\n", @report.all_text + "\n").to_s
     #   flash[:notice] = t('report_was_successfully_updated')
