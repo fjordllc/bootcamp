@@ -1,12 +1,15 @@
-class Users::ReportsController < ApplicationController
-  before_action :require_login
-  before_action :set_user
+module Users
+  class ReportsController < ApplicationController
+    before_action :require_login
+    before_action :set_user
 
-  def index
-  end
+    def index
+    end
 
-  private
+    private
+
     def set_user
       @user = User.find(params[:user_id])
     end
+  end
 end

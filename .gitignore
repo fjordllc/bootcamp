@@ -16,5 +16,3 @@
 
 vendor/bundle/
 .envrc
-
-*.DS_Store
