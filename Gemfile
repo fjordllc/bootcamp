@@ -16,11 +16,12 @@ gem 'simple_enum'
 gem 'sorcery'
 gem 'acts_as_list'
 gem 'exception_notification'
-gem 'feedjira'
+gem 'feedjira', '2.0.0'
 gem 'curb', '~> 0.8.8'
 gem 'jbuilder'
 gem 'diffy'
 gem 'slack-notifier'
+gem "typhoeus"
 
 group :production, :staging do
   gem 'pg'

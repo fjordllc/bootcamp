@@ -56,6 +56,8 @@ GEM
     diffy (3.0.7)
     dynamic_form (1.1.4)
     erubis (2.7.0)
+    ethon (0.7.4)
+      ffi (>= 1.3.0)
     exception_notification (4.1.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
@@ -196,6 +198,8 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    typhoeus (0.7.2)
+      ethon (>= 0.7.4)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -217,7 +221,7 @@ DEPENDENCIES
   diffy
   dynamic_form
   exception_notification
-  feedjira
+  feedjira (= 2.0.0)
   gravatarify
   heroku_san
   jbuilder
@@ -237,6 +241,7 @@ DEPENDENCIES
   sorcery
   spring
   sqlite3
+  typhoeus
   uglifier (>= 1.3.0)
 
 BUNDLED WITH

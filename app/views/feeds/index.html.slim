@@ -3,6 +3,10 @@
 - @entries.each do |entry|
   article.entry
     h4= link_to entry.title, entry.url
-    .content= raw entry.content
+    - if entry.content.nil?
+      .content= raw entry.summary
+    - else
+      .content= raw entry.content
     .published published at #{entry.published}
-    .author posted by #{entry.author}
+    - if entry.author
+      .author posted by #{entry.author}
