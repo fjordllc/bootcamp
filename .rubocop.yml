@@ -46,3 +46,6 @@ TrailingComma:
 
 UselessAssignment:
   Enabled: false
+
+AsciiComments:
+  Enabled: false

@@ -64,8 +64,10 @@ class ReportsController < ApplicationController
     end
     # old_report = @report.dup
     # if @report.update(report_params)
-    #   text = "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@report)}|#{@report.title}>を編集しました。"
-    #   notify text, pretext: text, title: "差分", value: Diffy::Diff.new(old_report.all_text + "\n", @report.all_text + "\n").to_s
+    #   text = "<#{url_for(current_user)}|#{current_user.login_name}>が
+                <#{url_for(@report)}|#{@report.title}>を編集しました。"
+    #   notify text, pretext: text, title: "差分",
+                # value: Diffy::Diff.new(old_report.all_text + "\n", @report.all_text + "\n").to_s
     #   flash[:notice] = t('report_was_successfully_updated')
     # end
     # respond_with @report
@@ -73,7 +75,8 @@ class ReportsController < ApplicationController
 
   def destroy
     @report.destroy
-    notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@report)}|#{@report.title}>を削除しました。"
+    notify "<#{url_for(current_user)}|#{current_user.login_name}>が
+            <#{url_for(@report)}|#{@report.title}>を削除しました。"
     redirect_to reports_url, notice: t("report_was_successfully_deleted")
   end
 
