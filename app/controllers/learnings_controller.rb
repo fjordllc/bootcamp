@@ -16,7 +16,12 @@ class LearningsController < ApplicationController
       username: "#{current_user.login_name}@256interns.com",
       icon_url: gravatar_url(current_user)
 
-    head :ok if learning.save
+    if learning.save
+      head :ok
+    else
+      render json: learning.errors, status: :unprocessable_entity
+    end
+
   end
 
   private
