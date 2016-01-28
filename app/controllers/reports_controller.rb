@@ -26,7 +26,7 @@ class ReportsController < ApplicationController
     @report = Report.new(report_params)
     @report.user = current_user
     if @report.save
-      redirect_to @report, notice: t("report_was_successfully_created")
+      redirect_to @report, notice: t('report_was_successfully_created')
     else
       render :new
     end
@@ -34,7 +34,7 @@ class ReportsController < ApplicationController
 
   def update
     if @report.update(report_params)
-      redirect_to @report, notice: t("report_was_successfully_updated")
+      redirect_to @report, notice: t('report_was_successfully_updated')
     else
       render :edit
     end
@@ -42,8 +42,9 @@ class ReportsController < ApplicationController
 
   def destroy
     @report.destroy
-    notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@report)}|#{@report.title}>を削除しました。"
-    redirect_to reports_url, notice: t("report_was_successfully_deleted")
+    notify "<#{url_for(current_user)}|#{current_user.login_name}>が
+      <#{url_for(@report)}|#{@report.title}>を削除しました。"
+    redirect_to reports_url, notice: t('report_was_successfully_deleted')
   end
 
   private
