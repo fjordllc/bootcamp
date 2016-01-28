@@ -190,6 +190,10 @@ ja:
         description: "詳細"
         website: "ウェブサイト"
 
+      report:
+        title: "タイトル"
+        description: "内容"
+
   errors:
     format: "%{attribute} %{message}"
 
@@ -223,6 +227,7 @@ ja:
       practice: "プラクティス"
       company: "会社"
       comment: "コメント"
+      report: "日報"
 
     enums:
       user:
@@ -281,6 +286,10 @@ ja:
         slug: URLスラッグ
         description: 詳細
 
+      report:
+        title: "タイトル"
+        description: "内容"
+
     errors:
       template:
         header:
@@ -331,6 +340,9 @@ ja:
   new_user: "新規ユーザー"
   new_company: "新規会社"
   new_practice: "新規プラクティス"
+  new_report: "日報の新規作成"
+  created_by: "created by "
+  updated_by: "updated by "
   256interns: "256 INTERNS"
   users: "ユーザー"
   my_practices: "マイプラクティス"
@@ -347,6 +359,7 @@ ja:
   listing_users: "ユーザー一覧"
   listing_courses: "コース一覧"
   listing_practices: "プラクティス一覧"
+  reports: "日報"
   listing_companies: "会社一覧"
   listing_categories: "カテゴリー一覧"
   companies: "会社"
@@ -355,6 +368,7 @@ ja:
   editing_company: "会社編集"
   editing_user: "アカウント情報編集"
   editing_category: "カテゴリー編集"
+  editing_report: "日報の編集"
   new_category: "カテゴリー追加"
   show: "表示"
   back: "戻る"
@@ -371,6 +385,9 @@ ja:
   company_was_successfully_created: "会社を作成しました。"
   company_was_successfully_updated: "会社を更新しました。"
   company_was_successfully_deleted: "会社を削除しました。"
+  report_was_successfully_created: "日報を作成しました。"
+  report_was_successfully_updated: "日報を更新しました。"
+  report_was_successfully_deleted: "日報を削除しました。"
   category_was_successfully_created: "カテゴリーを作成しました。"
   category_was_successfully_updated: "カテゴリーを更新しました。"
   category_was_successfully_deleted: "カテゴリーを削除しました。"
