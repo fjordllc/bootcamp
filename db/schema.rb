@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022011615) do
+ActiveRecord::Schema.define(version: 20151024062526) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -40,11 +40,10 @@ ActiveRecord::Schema.define(version: 20151022011615) do
   end
 
   create_table "practices", force: true do |t|
-    t.string   "title",                   null: false
+    t.string   "title",       null: false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "target_cd",   default: 0, null: false
     t.text     "goal"
     t.integer  "category_id"
     t.integer  "position"
@@ -71,7 +70,6 @@ ActiveRecord::Schema.define(version: 20151022011615) do
     t.datetime "remember_me_token_expires_at"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "job_cd"
     t.string   "twitter_url"
     t.string   "facebook_url"
     t.string   "blog_url"

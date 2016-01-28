@@ -4,7 +4,7 @@ buttons
   = link_to t('edit'), edit_report_path(@report), class: 'btn btn-primary'
   = link_to t('コピー（未実装）'), new_report_path(@report), class: 'btn btn-default'
 table.table
-= @report.description
+= simple_format @report.description
 table.table
 = t('created_by')
 = link_to @report.user, itempro: "url" do

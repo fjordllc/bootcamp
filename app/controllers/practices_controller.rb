@@ -1,4 +1,5 @@
 class PracticesController < ApplicationController
+  include Gravatarify::Helper
   before_action :require_login
   before_action :set_practice, only: %w(show edit update destroy sort)
   respond_to :html, :json
@@ -21,7 +22,9 @@ class PracticesController < ApplicationController
     @practice = Practice.new(practice_params)
 
     if @practice.save
-      notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を作成しました。"
+      notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を作成しました。",
+        username: "#{current_user.login_name}@256interns.com",
+        icon_url: gravatar_url(current_user)
       redirect_to @practice, notice: t('practice_was_successfully_created')
     else
       render :new
@@ -32,7 +35,10 @@ class PracticesController < ApplicationController
     old_practice = @practice.dup
     if @practice.update(practice_params)
       text = "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を編集しました。"
-      notify text, pretext: text, title: "差分", value: Diffy::Diff.new(old_practice.all_text + "\n", @practice.all_text + "\n").to_s
+      diff = Diffy::Diff.new(old_practice.all_text + "\n", @practice.all_text + "\n", context: 1).to_s
+      notify "#{text}\n```#{diff}```",
+        username: "#{current_user.login_name}@256interns.com",
+        icon_url: gravatar_url(current_user)
       flash[:notice] = t('practice_was_successfully_updated')
     end
     respond_with @practice
@@ -40,7 +46,9 @@ class PracticesController < ApplicationController
 
   def destroy
     @practice.destroy
-    notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を削除しました。"
+    notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を削除しました。",
+      username: "#{current_user.login_name}@256interns.com",
+      icon_url: gravatar_url(current_user)
     redirect_to practices_url, notice: t('practice_was_successfully_deleted')
   end
 
@@ -51,7 +59,6 @@ class PracticesController < ApplicationController
       :title,
       :description,
       :goal,
-      :target,
       :category_id,
       :position
     )

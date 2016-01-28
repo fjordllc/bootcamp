@@ -1,8 +1,12 @@
-= simple_form_for([:admin, category]) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :name, input_html: { class: 'input-block-level' }
-    = f.input :slug, input_html: { class: 'input-block-level' }
-    = f.input :description, input_html: { class: 'input-block-level', rows: 10 }
-  .form-actions
-    = f.button :submit
+= form_for([:admin, category]) do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :slug
+    = f.text_field :slug, class: 'form-control'
+  .form-group
+    = f.label :description
+    = f.text_area :description, size: '10x10', class: 'form-control'
+  .form-group
+    = f.submit nil, class: 'btn btn-primary'

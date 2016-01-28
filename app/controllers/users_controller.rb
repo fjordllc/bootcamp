@@ -1,24 +1,26 @@
 class UsersController < ApplicationController
+  include Gravatarify::Helper
   before_action :require_login, only: %w[edit update destroy]
   before_action :set_user, only: %w[show]
-  http_basic_authenticate_with name: 'intern', password: ENV['INTERN_PASSWORD'] || 'test'
+  http_basic_authenticate_with name: "intern", password: ENV["INTERN_PASSWORD"] || "test", only: %i(new create)
 
   def index
-    @categories = Category.order('position')
-    @users = User.in_school.not_advisers.order('updated_at desc')
+    @categories = Category.order("position")
+    @users = User.order(updated_at: :desc)
+    @target = params[:target] || "all"
     @users =
-      case params.fetch('target', 'all')
-      when 'learning'
-        @users.select(&:learning_week?)
-      when 'working'
-        @users.select { |u| u.working_week? }
-      else
+      case @target
+      when "all"
         @users
+      when "learning"
+        @users.student.select(&:learning_week?)
+      when "working"
+        @users.student.select(&:working_week?)
+      when "graduate"
+        @users.graduated
+      when "adviser"
+        @users.advisers
       end
-    @active_users = @users.select(&:active?)
-    @inactive_users = @users.reject(&:active?)
-    @graduated_users = User.graduated.order('updated_at desc')
-    @adviser_users = User.where(adviser: true).order('updated_at desc')
   end
 
   def show
@@ -38,7 +40,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間として256INTERNSにJOINしました。"
+      notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間として256INTERNSにJOINしました。",
+        username: "#{@user.login_name}@256interns.com",
+        icon_url: gravatar_url(@user)
       login(@user.login_name, params[:user][:password], true)
       redirect_to :practices, notice: t('registration_successfull')
     else

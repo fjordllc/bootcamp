@@ -1,5 +1,6 @@
 class LearningsController < ApplicationController
   include Rails.application.routes.url_helpers
+  include Gravatarify::Helper
   before_action :set_practice, only: %i(update)
   layout false
 
@@ -10,9 +11,17 @@ class LearningsController < ApplicationController
     )
     learning.status = params[:status].to_sym
 
-    notify "<#{user_url(current_user)}|#{current_user.login_name}>が<#{practice_url(@practice)}|#{@practice.title}>を#{t learning.status}しました。"
+    text = "<#{user_url(current_user)}|#{current_user.login_name}>が<#{practice_url(@practice)}|#{@practice.title}>を#{t learning.status}しました。"
+    notify text,
+      username: "#{current_user.login_name}@256interns.com",
+      icon_url: gravatar_url(current_user)
 
-    head :ok if learning.save
+    if learning.save
+      head :ok
+    else
+      render json: learning.errors, status: :unprocessable_entity
+    end
+
   end
 
   private

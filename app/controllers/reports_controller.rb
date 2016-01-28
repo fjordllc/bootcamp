@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   before_action :require_login
-  before_action :set_reports, only: %w(show edit update destroy sort)
+  before_action :set_reports, only: %w(index show edit update destroy sort)
   before_action :set_report, only: %w(show edit update destroy sort)
   before_action :set_user, only: :show
   respond_to :html, :json

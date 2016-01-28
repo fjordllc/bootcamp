@@ -153,6 +153,7 @@ ja:
         description: "内容"
         goal: "終了条件"
         target: "ターゲット"
+        category_id: "カテゴリー"
 
       user:
         login_name: "ユーザー名"
@@ -178,7 +179,7 @@ ja:
         created_at: "インターン開始日"
         updated_at: "最終活動日時"
         part: "パート"
-        nda: 秘密保持契約に同意する
+        nda: 秘密保持契約
 
       learning:
         status: "ステータス"
@@ -230,9 +231,6 @@ ja:
 
     enums:
       user:
-        jobs:
-          programmer: "プログラマー"
-          designer: "デザイナー"
         purposes:
           get_job: "就職"
           change_job: "転職"
@@ -282,6 +280,11 @@ ja:
         name: "名前"
         description: "詳細"
         website: "ウェブサイト"
+
+      category:
+        name: 名前
+        slug: URLスラッグ
+        description: 詳細
 
       report:
         title: "タイトル"
@@ -366,6 +369,7 @@ ja:
   editing_user: "アカウント情報編集"
   editing_category: "カテゴリー編集"
   editing_report: "日報の編集"
+  new_category: "カテゴリー追加"
   show: "表示"
   back: "戻る"
   "bob's_practices": "%{name}のプラクティス"
@@ -384,24 +388,30 @@ ja:
   report_was_successfully_created: "日報を作成しました。"
   report_was_successfully_updated: "日報を更新しました。"
   report_was_successfully_deleted: "日報を削除しました。"
+  category_was_successfully_created: "カテゴリーを作成しました。"
+  category_was_successfully_updated: "カテゴリーを更新しました。"
+  category_was_successfully_deleted: "カテゴリーを削除しました。"
   learning_users: "学習中ユーザー"
   for: "%{target} 課題"
   for: "%{target} 課題"
   for_everyone: "共通"
-  for_programmer: "プログラマー向け"
-  for_designer: "デザイナー向け"
   all: "全て"
   all_user: "全員"
   how_256interns_works: "256インターンとは"
   completed: "完了"
-  completed_users: "プラクティスを完了したユーザー一覧"
+  completed_users: "完了したユーザー"
   completed_practices: "完了したプラクティス"
   active_practices: "進行中のプラクティス"
   learning_week: "学習週"
   working_week: "作業週"
+  graduate: "卒業生"
+  adviser: "アドバイザー"
   current_week_is_xxx: "今週は%{part}です"
   i_want_to_find_job_assist: "フィヨルドの就職支援を希望する"
   i_do_not_want_to_find_job_assist: "フィヨルドの就職支援を希望しない"
-  we_will_find_rails_job_by_our_best: "（町田、駒形が知り合いのrailsを使った会社や知り合いの就職支援サイトなどを駆使して全力で就職先探しをサポートします）"
+  we_will_find_rails_job_by_our_best: "町田、駒形が知り合いのrailsを使った会社や知り合いの就職支援サイトなどを駆使して全力で就職先探しをサポートします"
+  agree_nda: "秘密保持契約に同意する"
   active_users: "アクティブユーザー (%{count})"
   inactive_users: "最近活動の無いユーザー (%{count})"
+  action: 操作
+  order: 並び順

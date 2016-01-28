@@ -6,24 +6,22 @@ gem 'rails', '4.1.2'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails',   '~> 4.0.0'
-gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'dynamic_form'
-gem 'font-awesome-sass-rails', '~> 3.0.2.2'
 gem 'gravatarify'
 gem 'slim-rails'
 gem 'jquery-rails'
 gem 'puma', require: false
 gem 'redcarpet'
 gem 'simple_enum'
-gem 'simple_form', '~> 3.0.0'
 gem 'sorcery'
 gem 'acts_as_list'
 gem 'exception_notification'
-gem 'feedjira'
+gem 'feedjira', '2.0.0'
 gem 'curb', '~> 0.8.8'
 gem 'jbuilder'
-gem 'active_decorator'
 gem 'diffy'
+gem 'slack-notifier'
+gem "typhoeus"
 
 group :production, :staging do
   gem 'pg'
@@ -36,6 +34,7 @@ group :development do
   gem 'quiet_assets'
   gem 'heroku_san'
   gem 'spring'
+  gem 'pry-remote'
 end
 
 group :development, :test do

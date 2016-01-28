@@ -3,12 +3,11 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'home#index'
     resources :companies
-    resources :categories do
+    resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: 'categories/position'
     end
   end
   resources :feeds, only: %i(index)
-  resources :companies, only: %i(index show)
   resources :users do
     resources :practices, only: %i(index), controller: 'users/practices'
     resources :reports, only: %i(index), controller: "users/reports"
@@ -22,7 +21,6 @@ Rails.application.routes.draw do
   resources :reports
   resources :courses, only: :index
   resources :chat_notices, only: :create
-  get 'application' => 'home#application', as: :application
   get 'login'  => 'user_sessions#new',     as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
 end
