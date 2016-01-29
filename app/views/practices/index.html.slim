@@ -1,9 +1,18 @@
 - title t('practices')
-- @categories.each do |category|
-  - if category.practices.present?
-    .panel.panel-primary
-      .panel-heading= category.name
-      .panel-body= simple_format category.description
-      table.table.practices
-        = render category.practices
-= link_to t('new_practice'), new_practice_path, class: 'btn btn-primary'
+header.page-header
+  .container
+    h2.page-header__title
+      = t('practices')
+
+.page-body
+  .container
+    - @categories.each do |category|
+      - if category.practices.present?
+        .card.categories-item
+          .card-header
+            h2.categories-item__title= category.name
+          .card-block
+            = simple_format category.description
+          .category-practices
+            = render category.practices
+    = link_to t('new_practice'), new_practice_path, class: 'btn btn-primary'

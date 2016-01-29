@@ -1,32 +1,35 @@
 - title @practice.title
 .page-header
-  h3= @practice.title
-.panel.panel-default
-  .panel-heading
-    h4= t('helpers.label.practice.description')
-  .panel-body
-    .practice.js-target-blank= rendering(@practice.description).html_safe
-    
-.panel.panel-default
-  .panel-heading
-    h4= t('helpers.label.practice.goal')
-  .panel-body
-    .goal.js-target-blank= rendering(@practice.goal).html_safe
-.panel.panel-default
-  .panel-heading
-    h4= t('completed_users')
-  .panel-body
-    - @practice.completed_users.each do |user|
-      .icon.completed-users
-        = link_to user do
-          = gravatar_tag user, size: 64
-.buttons
-  = link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
-  = link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
-  button.im-stack.btn.btn-danger= '行き詰まった！'
-  javascript:
-    $(document).on('click', '.im-stack', function(){
-      var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
-      $.post('/chat_notices', {text: text});
-      console.log('it is test');
-    });
+  .container
+    h1.page-header__title
+      = @practice.title
+.container
+  .card
+    .card-header
+      h2.practices-item__title= t('helpers.label.practice.description')
+    .card-block
+      .practice.js-target-blank= rendering(@practice.description).html_safe
+      
+  .card
+    .card-header
+      h2.practices-item__title= t('helpers.label.practice.goal')
+    .card-block
+      .goal.js-target-blank= rendering(@practice.goal).html_safe
+  .card
+    .card-header
+      h2.practices-item__title= t('completed_users')
+    .card-block
+      - @practice.completed_users.each do |user|
+        .icon.completed-users
+          = link_to user do
+            = gravatar_tag user, size: 64
+  .buttons
+    = link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
+    = link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+    button.im-stack.btn.btn-warning= '行き詰まった！'
+    javascript:
+      $(document).on('click', '.im-stack', function(){
+        var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
+        $.post('/chat_notices', {text: text});
+        console.log('it is test');
+      });

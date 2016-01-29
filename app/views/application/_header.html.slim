@@ -1,31 +1,37 @@
-nav.navbar.navbar-default
-  .container
-    .navbar-header
-      button.navbar-toggle.collapsed aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button" 
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      = link_to t('256interns'), root_path, class: 'navbar-brand'
-    #navbar.navbar-collapse.collapse
-      ul.nav.navbar-nav
+nav.global-nav
+  .container.global-nav__container
+    = link_to t('256interns'), root_path, class: 'global-nav__title'
+    .global-nav-links.is-contents-links
+      ul.global-nav-links__items
         - if current_user
           - if current_user.admin?
-            li(class="#{controller_name == 'home' ? 'active' : ''}")= link_to t('admin_index'), admin_root_path
-            li(class="#{controller_name == 'categories' ? 'active' : ''}")= link_to t('categories'), admin_categories_path
-          li(class="#{controller_name == 'feeds' ? 'active' : ''}")= link_to "みんなのブログ", feeds_path
-          li(class="#{controller_name == 'practices' ? 'active' : ''}")= link_to t('practices'), practices_path
-          li(class="#{controller_name == 'users' ? 'active' : ''}")= link_to t('users'), users_path
-      ul.nav.navbar-nav.navbar-right
+            li.global-nav-links__item
+              = link_to t('admin_index'), admin_root_path, class: "global-nav-links__link #{controller_name == 'home' ? 'is-active' : ''}"
+            li.global-nav-links__item
+              = link_to t('categories'), admin_categories_path, class: "global-nav-links__link #{controller_name == 'categories' ? 'is-active' : ''}"
+          li.global-nav-links__item
+            = link_to "みんなのブログ", feeds_path, class: "global-nav-links__link #{controller_name == 'feeds' ? 'is-active' : ''}"
+          li.global-nav-links__item
+            = link_to t('practices'), practices_path, class: "global-nav-links__link #{controller_name == 'practices' ? 'is-active' : ''}"
+          li.global-nav-links__item
+            = link_to t('users'), users_path, class: "global-nav-links__link #{controller_name == 'users' ? 'is-active' : ''}"
+    .global-nav-links.is-auth-links
+      ul.global-nav-links__items
         - if current_user
-          li.dropdown
-            a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
-              span.icon= gravatar_tag current_user, size: '20'
-              span.login-name= current_user.login_name
-              span.caret
-            ul.dropdown-menu
-              li= link_to t('editing_user'), edit_user_path(current_user)
-              li= link_to t('logout'), logout_path, class: 'mdl-navigation__link'
+          li.global-nav-links__item.dropdown
+            a.dropdown-toggle.global-nav-links__link(aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" )
+              span.global-nav-links__link-icon= gravatar_tag current_user, size: '32'
+              span.global-nav-links__link-login-name= current_user.login_name
+            ul.global-nav-dropdown.dropdown-menu
+              li.global-nav-dropdown__item
+                = link_to t('editing_user'), edit_user_path(current_user), class: "global-nav-dropdown__link"
+              li.global-nav-dropdown__item
+                = link_to t('logout'), logout_path, class: "global-nav-dropdown__link"
         - else
-          li= link_to t('sign_in'), login_path
-          li= link_to t('sign_up'), new_user_path
+          li.global-nav-links__item
+            = link_to t('sign_in'), login_path, class: "global-nav-links__link"
+          li.global-nav-links__item
+            = link_to t('sign_up'), new_user_path, class: "global-nav-links__link"
+
+    .global-nav__open-drawer.js-open-drawer-trigger
+      i.fa.fa-bars

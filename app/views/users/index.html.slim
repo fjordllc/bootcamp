@@ -1,16 +1,13 @@
 - title t('listing_users')
 - content_for :head_last do
-  = auto_discovery_link_tag :atom, feeds_url(format: 'atom'), title: 'みんなのブログ'
-ul.nav.nav-pills
-  li(class="#{@target == 'all' ? 'active': ''}")
-    = link_to t('all_user'), users_path(target: 'all')
-  li(class="#{@target == 'learning' ? 'active': ''}")
-    = link_to t('learning_week'), users_path(target: 'learning')
-  li(class="#{@target == 'working' ? 'active': ''}")
-    = link_to t('working_week'), users_path(target: 'working')
-  li(class="#{@target == 'graduate' ? 'active': ''}")
-    = link_to t('graduate'), users_path(target: 'graduate')
-  li(class="#{@target == 'adviser' ? 'active': ''}")
-    = link_to t('adviser'), users_path(target: 'adviser')
-.users.row
-  = render 'user', users: @users
+  = auto_discovery_link_tag :atom, feeds_url(format: 'atom'), title: 'メンバー'
+header.page-header.is-margin-bottom-0
+  .container
+    h2.page-header__title
+      = t('listing_users')
+
+.page-body
+  = render 'users_local_nav'
+  .container
+    .users
+      = render 'user', users: @users
