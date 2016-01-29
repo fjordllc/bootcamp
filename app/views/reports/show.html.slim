@@ -2,7 +2,8 @@
 h2= @report.title
 buttons
   = link_to t('edit'), edit_report_path(@report), class: 'btn btn-primary'
-  = link_to t('コピー（未実装）'), new_report_path(@report), class: 'btn btn-default'
+  //= link_to t('コピー（未実装）'), new_report_path(@report), class: 'btn btn-default'
+  = link_to t('destroy'), report_path(@report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
 table.table
 = simple_format @report.description
 table.table
@@ -21,7 +22,5 @@ time.contents-list-meta__updated_at(datetime="#{@report.updated_at.to_datetime}"
   = l @report.updated_at, format: :long
 
 table.table
-buttons
-= link_to t('destroy'), report_path(@report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
 table.table
 = link_to t('new_report'), new_report_path, class: 'btn btn-block btn-primary'

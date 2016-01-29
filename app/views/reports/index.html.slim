@@ -8,10 +8,10 @@ h1= t('reports')
           = link_to report, itempro: "url" do
             span.contents-list__title(itemprop="name")= report.title
           = t("　")  
-          buttons
-            = link_to t('編集（未実装）'), edit_report_path(@reports), class: 'btn btn-primary'
-          buttons
-            = link_to t('コピー（未実装）'), new_report_path, class: 'btn btn-default'
+          //buttons
+            //= link_to t('編集（未実装）'), edit_report_path(@reports), class: 'btn btn-primary'
+          //buttons
+            //= link_to t('コピー（未実装）'), new_report_path, class: 'btn btn-default'
         table
         = t('updated_by')
         = link_to report.user, itempro: "url" do
