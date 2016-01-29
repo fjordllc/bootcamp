@@ -1,4 +1,6 @@
 = form_for practice do |f|
+  - if practice.errors.any?
+    = error_messages_for :practice
   .form-group
     = f.label :title
     = f.text_field :title, size: '10', :required => true, class: 'form-control'

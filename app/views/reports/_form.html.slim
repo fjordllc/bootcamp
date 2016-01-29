@@ -1,4 +1,6 @@
 = form_for report do |f|
+  - if report.errors.any?
+    = error_messages_for :report
   .form-group
     = f.label :title
     - if @report_flag == true
