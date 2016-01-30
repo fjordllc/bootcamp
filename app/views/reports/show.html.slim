@@ -5,7 +5,7 @@ buttons
   //= link_to t('コピー（未実装）'), new_report_path(@report), class: 'btn btn-default'
   = link_to t('destroy'), report_path(@report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
 table.table
-= simple_format @report.description
+.report.js-target-blank= rendering(@report.description).html_safe
 table.table
 = t('created_by')
 = link_to @report.user, itempro: "url" do
