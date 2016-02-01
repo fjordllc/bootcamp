@@ -6,12 +6,17 @@
     .col-sm-6
       .form-group
         = f.label :description
-        = f.text_area :description, class: 'form-control'
+        = f.text_area :description, size: '10x10', class: 'form-control'
     .col-sm-6
       | プレビュー
   .form-group
-    = f.label :goal
-    = f.text_area :goal, size: '10x10', class: 'form-control'
+  .row
+    .col-sm-6
+      .form-group
+        = f.label :goal
+        = f.text_area :goal, size: '10x10', class: 'form-control'
+    .col-sm-6
+      | プレビュー
   .form-group
     = f.label :category_id
     = f.collection_select :category_id, Category.all, :id, :name, {}, class: 'form-control'
