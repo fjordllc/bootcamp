@@ -7,7 +7,7 @@ h1= t('reports')
         table.table-striped.reports
           = link_to report, itempro: "url" do
             span.contents-list__title(itemprop="name")= report.title
-          = t("　")  
+          //= t("　")
           //buttons
             //= link_to t('編集（未実装）'), edit_report_path(@reports), class: 'btn btn-primary'
           //buttons
