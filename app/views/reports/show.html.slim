@@ -2,7 +2,6 @@
 h2= @report.title
 buttons
   = link_to t('edit'), edit_report_path(@report), class: 'btn btn-primary'
-  //= link_to t('コピー（未実装）'), new_report_path(@report), class: 'btn btn-default'
   = link_to t('destroy'), report_path(@report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
 table.table
 .report.js-target-blank= rendering(@report.description).html_safe
