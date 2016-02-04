@@ -22,6 +22,7 @@
   "devDependencies": {
     "highlight.js": "^9.1.0",
     "markdown-it": "^5.1.0",
-    "markdown-it-emoji": "^1.1.0"
+    "markdown-it-emoji": "^1.1.0",
+    "pygments-css": "^1.0.0"
   }
 }
