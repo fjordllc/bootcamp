@@ -1,0 +1,27 @@
+{
+  "name": "interns",
+  "version": "1.0.0",
+  "description": "[![Stories in Ready](https://badge.waffle.io/fjordllc/interns.png?label=ready&title=Ready)](https://waffle.io/fjordllc/interns) # 256 interns",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fjordllc/interns.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fjordllc/interns/issues"
+  },
+  "homepage": "https://github.com/fjordllc/interns#readme",
+  "devDependencies": {
+    "highlight.js": "^9.1.0",
+    "markdown-it": "^5.1.0",
+    "markdown-it-emoji": "^1.1.0"
+  }
+}

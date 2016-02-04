@@ -21,11 +21,14 @@ gem 'jbuilder'
 gem 'diffy'
 gem 'slack-notifier'
 gem "typhoeus"
+gem "gemoji"
+
+gem 'sprockets', '>= 3.0.0'
+gem 'sprockets-es6'
 
 # sass
 gem 'sassc-rails'
 gem 'bootstrap', '~> 4.0.0.alpha3'
-gem 'sanitize'
 gem 'bourbon'
 #gem 'oulu'
 gem 'oulu', path: '../oulu'

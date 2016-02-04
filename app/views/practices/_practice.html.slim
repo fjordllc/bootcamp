@@ -1,7 +1,7 @@
 = content_tag_for :tr, practice do |practice|
   .category-practices-item
     .category-practices-item__value.is-title
-      = link_to practice.title, practice
+      = link_to emojify(practice.title), practice
     .category-practices-item__value.is-started-users
       - practice.started_users.student.each do |user|
         = link_to user, class: "category-practices-item__user-link" do

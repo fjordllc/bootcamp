@@ -7,7 +7,6 @@ module PracticesHelper
       autolink:            true,
       tables:              true,
       superscript:         true,
-      space_after_headers: true
-    ).render(text)
+    ).render(text).html_safe
   end
 end

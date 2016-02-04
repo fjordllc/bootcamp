@@ -1,6 +1,8 @@
 .is-long-text-style
   h1
+    +text-block(2.2em 1.4 .6em)
   h2
+    +text-block(1.8em 1.4 .6em)
   h3
     +text-block(1.4em 1.4 .6em)
   p
@@ -12,6 +14,8 @@
     margin-top: 2.2em
   img
     max-width: 100%
+  >img,
+  a img
     display: block
     +margin(horizontal, auto)
     margin-bottom: 1.4em
