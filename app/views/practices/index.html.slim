@@ -12,7 +12,8 @@ header.page-header
           .card-header
             h2.categories-item__title= category.name
           .card-block
-            = simple_format category.description
+            .js-target-blank.is-long-text-style
+              = rendering(emojify(category.description)).html_safe            
           .category-practices
             = render category.practices
     = link_to t('new_practice'), new_practice_path, class: 'btn btn-primary'
