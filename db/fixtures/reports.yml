@@ -1,0 +1,21 @@
+report_1:
+  id: 1
+  user_id: 1
+  title: "作業週1日目"
+  description: |-
+    今日はローカルで怖話を動かしてみました。
+    rbenv で ruby を動かすのは初めてだったので、色々手間取りました。
+
+report_2:
+  id: 2
+  user_id: 1
+  title: "作業週2日目"
+  description: |-
+    今日はローカルで 256 interens を動かしてみました。
+    ruby の指定バージョンが 2.2.3 だったので、 rbenv で ruby のバージョンを上げました。
+
+report_3:
+  id: 3
+  user_id: 1
+  title: "学習週1日目"
+  description: "今日は CSS の勉強をしました。デザイン難しい。。。"

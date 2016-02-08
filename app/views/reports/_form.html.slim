@@ -1,0 +1,14 @@
+= form_for report do |f|
+  - if report.errors.any?
+    = error_messages_for :report
+  .form-group
+    = f.label :title
+    - if @report_flag == true
+      = f.text_field :title, size: '10', :required => true, class: 'form-control', value: '日報/' << @report_date.strftime("%Y/%m/%d/") << @user_name << ':'
+    - else
+      = f.text_field :title, size: '10', class: 'form-control'
+  .form-group
+    = f.label :description
+    = f.text_area :description, size: '10x20', :required => true, class: 'form-control'
+  .form-group
+    = f.submit nil, class: 'btn btn-primary'

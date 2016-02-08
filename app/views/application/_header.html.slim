@@ -16,6 +16,7 @@ nav.navbar.navbar-default
           li(class="#{controller_name == 'feeds' ? 'active' : ''}")= link_to "みんなのブログ", feeds_path
           li(class="#{controller_name == 'practices' ? 'active' : ''}")= link_to t('practices'), practices_path
           li(class="#{controller_name == 'users' ? 'active' : ''}")= link_to t('users'), users_path
+          li(class="#{controller_name == 'reports' ? 'active' : ''}")= link_to t('reports'), reports_path
       ul.nav.navbar-nav.navbar-right
         - if current_user
           li.dropdown

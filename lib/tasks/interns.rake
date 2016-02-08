@@ -46,6 +46,13 @@ namespace :intern do
     end
   end
 
+  desc 'Import reports.'
+  task 'import_reports' do
+    require 'active_record/fixtures'
+    ActiveRecord::FixtureSet.create_fixtures \
+      "#{Rails.root}/db/fixtures", 'reports'
+  end
+
   desc 'Let sleep unactive users.'
   task 'sleep' do
     users = User.in_school.

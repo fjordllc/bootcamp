@@ -51,6 +51,14 @@ ActiveRecord::Schema.define(version: 20151024062526) do
 
   add_index "practices", ["category_id"], name: "index_practices_on_category_id"
 
+  create_table "reports", force: true do |t|
+    t.integer  "user_id",     null: false
+    t.string   "title",       null: false
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "login_name",                                   null: false
     t.string   "email"
