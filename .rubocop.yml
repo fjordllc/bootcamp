@@ -68,3 +68,7 @@ Style/GuardClause:
 CoffeeScript:
   Enabled: true
   config_file: config/.coffeelint.json
+
+AllCops:
+  Exclude:
+    - 'node_modules/**/*'
