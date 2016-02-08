@@ -1,0 +1,41 @@
+.mobile-global-nav
+  +fixed(right 0, top 0)
+  +size(280px, 100%)
+  background-color: $base-color
+  display: none
+  +screen-xs
+    display: block
+.mobile-global-nav-cerrent-user
+  background-color: #464646
+  +padding(vertical, 1rem)
+.mobile-global-nav-cerrent-user__icon-image
+  border-radius: 50%
+  display: block
+  +margin(horizontal, auto)
+  margin-bottom: .5rem
+.mobile-global-nav-cerrent-user__name
+  +text-block(1rem 1.4 1rem, center $reversal-text bold)
+
+.mobile-global-nav__link
+  +block-link
+  +text-block(1rem 1.5, $text)
+  +padding(vertical, .5rem)
+  +padding(horizontal, 1rem)
+  border-bottom: #ccc solid 1px
+
+.mobile-global-nav-cerrent-user__icon-link-items
+  text-align: center
+  font-size: 0
+.mobile-global-nav-cerrent-user__icon-link-item
+  display: inline-block
+.mobile-global-nav-cerrent-user__icon-link
+  +block-link
+  +size(32px)
+  +text-block(1rem 32px, $reversal-text center)
+  border-radius: 50%
+  background-color: rgba(white, .4)
+  +margin(horizontal, .5rem)
+
+.close-drawer-overlay
+  right: 280px
+  z-index: 1

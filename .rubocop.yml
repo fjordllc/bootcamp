@@ -68,3 +68,9 @@ Style/GuardClause:
 CoffeeScript:
   Enabled: true
   config_file: config/.coffeelint.json
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - 'node_modules/**/*'
+    - 'db/migrate/**/*'

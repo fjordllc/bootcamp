@@ -1,0 +1,22 @@
+- title @report.title
+header.page-header
+  .container
+    h2.page-header__title
+      = @report.title
+
+.page-body
+  .container
+    .report
+      header.report__header
+        = link_to @report.user, itempro: "url", class: "report__author-link" do
+          = gravatar_tag @report.user, size: 120, html: { class: "report__author-icon"}
+          .report__author-name= @report.user.login_name
+        time.report__created-at(datetime="#{@report.created_at.to_datetime}" pubdate="pubdate")
+          = l @report.created_at, format: :date_default
+      .report__body.js-target-blank.is-long-text-style
+        = rendering(@report.description).html_safe
+      footer.report__footer
+        .btn-group
+          = link_to t('edit'), edit_report_path(@report), class: 'btn btn-primary'
+          = link_to t('destroy'), report_path(@report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+          = link_to t('back'), reports_path, class: 'btn btn-secondary'

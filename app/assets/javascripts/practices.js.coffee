@@ -10,6 +10,7 @@ $ ->
       .done =>
         $('.status button:disabled', tr).attr('disabled', false).removeClass('btn-success')
         $(this).attr('disabled', true).addClass('btn-success')
+$ ->
   $(".js-target-blank a").click ->
     window.open @href, ""
     false

@@ -1,0 +1,32 @@
+nav.mobile-global-nav.js-drawer-target
+  - if current_user
+    .mobile-global-nav-cerrent-user
+      = gravatar_tag current_user, size: '88', html: { class: 'mobile-global-nav-cerrent-user__icon-image' }
+      .mobile-global-nav-cerrent-user__name= current_user.login_name
+      ul.mobile-global-nav-cerrent-user__icon-link-items
+        li.mobile-global-nav-cerrent-user__icon-link-item
+          = link_to edit_user_path(current_user), class: "mobile-global-nav-cerrent-user__icon-link" do
+            i.fa.fa-cog
+        li.mobile-global-nav-cerrent-user__icon-link-item
+          = link_to logout_path, class: "mobile-global-nav-cerrent-user__icon-link" do
+            i.fa.fa-sign-out
+  - if current_user
+    ul.mobile-global-nav__items
+      - if current_user.admin?
+        li.mobile-global-nav__item
+          = link_to t('admin_index'), admin_root_path, class: "mobile-global-nav__link #{controller_name == 'home' ? 'is-active' : ''}"
+        li.mobile-global-nav__item
+          = link_to t('categories'), admin_categories_path, class: "mobile-global-nav__link #{controller_name == 'categories' ? 'is-active' : ''}"
+      li.mobile-global-nav__item
+        = link_to "みんなのブログ", feeds_path, class: "mobile-global-nav__link #{controller_name == 'feeds' ? 'is-active' : ''}"
+      li.mobile-global-nav__item
+        = link_to t('practices'), practices_path, class: "mobile-global-nav__link #{controller_name == 'practices' ? 'is-active' : ''}"
+      li.mobile-global-nav__item
+        = link_to t('users'), users_path, class: "mobile-global-nav__link #{controller_name == 'users' ? 'is-active' : ''}"
+
+  - else
+  ul.mobile-global-nav__items
+    li.mobile-global-nav__item
+      = link_to t('sign_in'), login_path, class: "global-nav-links__link"
+    li.mobile-global-nav__item
+      = link_to t('sign_up'), new_user_path, class: "global-nav-links__link"
