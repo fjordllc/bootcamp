@@ -1,25 +1,22 @@
 - title @report.title
-h2= @report.title
-buttons
-  = link_to t('edit'), edit_report_path(@report), class: 'btn btn-primary'
-  = link_to t('destroy'), report_path(@report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
-table.table
-.report.js-target-blank= rendering(@report.description).html_safe
-table.table
-= t('created_by')
-= link_to @report.user, itempro: "url" do
-  = @report.user.login_name
-time.contents-list-meta__created_at(datetime="#{@report.created_at.to_datetime}" pubdate="pubdate")
-  = t("　")
-  = l @report.created_at, format: :long
-table
-= t('updated_by')
-= link_to @report.user, itempro: "url" do
-  = @report.user.login_name
-time.contents-list-meta__updated_at(datetime="#{@report.updated_at.to_datetime}" pubdate="pubdate")
-  = t("　")
-  = l @report.updated_at, format: :long
+header.page-header
+  .container
+    h2.page-header__title
+      = @report.title
 
-table.table
-table.table
-= link_to t('new_report'), new_report_path, class: 'btn btn-block btn-primary'
+.page-body
+  .container
+    .report
+      header.report__header
+        = link_to @report.user, itempro: "url", class: "report__author-link" do
+          = gravatar_tag @report.user, size: 120, html: { class: "report__author-icon"}
+          .report__author-name= @report.user.login_name
+        time.report__created-at(datetime="#{@report.created_at.to_datetime}" pubdate="pubdate")
+          = l @report.created_at, format: :date_default
+      .report__body.js-target-blank.is-long-text-style
+        = rendering(@report.description).html_safe
+      footer.report__footer
+        .btn-group
+          = link_to t('edit'), edit_report_path(@report), class: 'btn btn-primary'
+          = link_to t('destroy'), report_path(@report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+          = link_to t('back'), reports_path, class: 'btn btn-secondary'

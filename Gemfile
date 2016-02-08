@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 gem 'rails', '4.1.2'
-gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails',   '~> 4.0.0'
 gem 'dynamic_form'
@@ -22,6 +21,19 @@ gem 'jbuilder'
 gem 'diffy'
 gem 'slack-notifier'
 gem "typhoeus"
+gem "gemoji"
+gem 'qiita-markdown'
+
+gem 'sprockets', '>= 3.0.0'
+gem 'sprockets-es6'
+
+# sass
+gem 'sassc-rails'
+gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'bourbon'
+gem 'oulu'
+#gem 'oulu', path: '../oulu'
+
 
 group :production, :staging do
   gem 'pg'
@@ -35,6 +47,7 @@ group :development do
   gem 'heroku_san'
   gem 'spring'
   gem 'pry-remote'
+  gem 'xray-rails'
 end
 
 group :development, :test do

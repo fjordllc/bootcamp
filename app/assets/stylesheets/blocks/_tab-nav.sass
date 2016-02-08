@@ -1,0 +1,22 @@
+.tab-nav
+  background-color: #1E88E5
+  margin-bottom: 2rem
+.tab-nav__items
+  display: flex
+  overflow-x: auto
+  overflow-y: hidden
+.tab-nav__item
+  margin-right: .5rem
+  &:last-child
+    margin-right: 0
+  +screen-xs
+    margin-right: 0
+.tab-nav__item-link
+  +block-link
+  +padding(horizontal, 2rem)
+  +border(top horizontal, 1px solid $background-color)
+  +text-block(1rem 2.8, $reversal-text)
+  white-space: nowrap
+  &.is-active
+    background-color: $background-color
+    color: $text

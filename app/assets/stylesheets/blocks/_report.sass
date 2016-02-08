@@ -1,0 +1,24 @@
+.report
+  background-color: $base-color
+  padding: 2rem 2rem 2rem 188px
+  +position(relative)
+.report__header
+  +position(absolute, left 0, top 0)
+  +size(160px, 100%)
+  padding: 1.6rem
+  border-right: #EEE solid 2px
+.report__author-link
+  +block-link
+  margin-bottom: 1rem
+.report__author-icon
+  +size(100%, auto)
+  border-radius: 50%
+  margin-bottom: .5rem
+.report__author-name
+  +text-block(1rem 1.4, $text center)
+.report__created-at
+  display: block
+  +text-block(.9rem 1.4, $text center)
+  +margin(horizontal, -1rem)
+.report__body
+  margin-bottom: 2rem

@@ -1,19 +1,20 @@
 - title t('reports')
-h1= t('reports')
-- if @reports.nil? == false
-  - @reports.each do |report|
-    - if report.present?
-      table.table
-        table.table-striped.reports
-          = link_to report, itempro: "url" do
-            span.contents-list__title(itemprop="name")= report.title
-        table
-        = t('updated_by')
-        = link_to report.user, itempro: "url" do
-          = report.user.login_name
-        time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
-          = t("　")
-          = l report.updated_at, format: :long
+header.page-header
+  .container
+    h2.page-header__title
+      = t('reports')
 
-table.table
-= link_to t('new_report'), new_report_path, class: 'btn btn-block btn-primary'
+.page-body
+  .container
+    - if @reports.nil? == false
+      - @reports.each do |report|
+        - if report.present?
+          .reports
+            .reports-item
+              = link_to report, itempro: "url", class: "reports-item__link" do
+                h3.creports-item__title(itemprop="name")= report.title
+                = gravatar_tag report.user, size: 44, html: { class: "category-practices-item__user-icon"}
+              time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+                = l report.updated_at, format: :short
+
+    = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-lg'
