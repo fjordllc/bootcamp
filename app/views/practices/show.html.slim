@@ -28,6 +28,7 @@
   .buttons
     = link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
     = link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+    = link_to t('back'), practices_path, class: 'btn btn-secondary'
     button.im-stack.btn.btn-warning= '行き詰まった！'
     javascript:
       $(document).on('click', '.im-stack', function(){

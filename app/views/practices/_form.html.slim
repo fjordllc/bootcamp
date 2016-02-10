@@ -25,7 +25,7 @@
     = f.collection_select :category_id, Category.all, :id, :name, {}, class: 'form-control'
   .form-group
     = f.submit nil, class: 'btn btn-primary btn-lg'
-    - if params[:action] == 'new'
+    - if params[:action] == 'new' || params[:action] == 'create'
       = link_to "キャンセル", practices_path, class: "btn btn-secondary"
-    - else
+    - elsif params[:action] == 'edit' || params[:action] == 'update'
       = link_to "キャンセル", practice_path, class: "btn btn-secondary"

@@ -1,3 +1,4 @@
+= link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-lg'
 - title @report.title
 header.page-header
   .container
@@ -12,9 +13,9 @@ header.page-header
           = gravatar_tag @report.user, size: 120, html: { class: "report__author-icon"}
           .report__author-name= @report.user.login_name
         time.report__created-at(datetime="#{@report.created_at.to_datetime}" pubdate="pubdate")
-          = l @report.created_at, format: :date_default
+          = l @report.updated_at, format: :short
       .report__body.js-target-blank.is-long-text-style
-        = rendering(@report.description).html_safe
+        = qiita_markdown(@report.description).html_safe
       footer.report__footer
         .btn-group
           = link_to t('edit'), edit_report_path(@report), class: 'btn btn-primary'

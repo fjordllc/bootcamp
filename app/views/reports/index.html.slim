@@ -1,3 +1,4 @@
+= link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-lg'
 - title t('reports')
 header.page-header
   .container
@@ -16,5 +17,3 @@ header.page-header
                 = gravatar_tag report.user, size: 44, html: { class: "category-practices-item__user-icon"}
               time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
                 = l report.updated_at, format: :short
-
-    = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-lg'
