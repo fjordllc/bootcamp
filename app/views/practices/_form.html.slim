@@ -3,12 +3,12 @@
     = error_messages_for :practice
   .form-group
     = f.label :title
-    = f.text_field :title, size: '10', class: 'form-control'
+    = f.text_field :title, size: '10', class: 'form-control js-warning-form'
   .row.js-markdown-parent
     .col-sm-6
       .form-group
         = f.label :description
-        = f.text_area :description, size: '10x10', class: 'form-control js-markdown-input practices-edit__input'
+        = f.text_area :description, size: '10x10', class: 'form-control js-warning-form js-markdown-input practices-edit__input'
     .col-sm-6
       | プレビュー
       .js-markdown-preview.is-long-text-style.practices-edit__preview
