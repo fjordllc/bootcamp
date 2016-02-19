@@ -8,7 +8,7 @@ header.page-header
   .container
     - @categories.each do |category|
       - if category.practices.present?
-        .card.categories-item
+        .card.categories-item.practices
           .card-header
             h2.categories-item__title= category.name
           .card-block

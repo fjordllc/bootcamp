@@ -20,7 +20,6 @@ $ ->
     $('pre code').each (i, block) ->
       hljs.highlightBlock block
 
-
   $('.js-markdown-input').keyup ->
     val = $(this).val()
     html = markdown.render(val)

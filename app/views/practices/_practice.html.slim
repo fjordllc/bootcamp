@@ -1,5 +1,5 @@
 = content_tag_for :tr, practice do |practice|
-  .category-practices-item
+  .category-practices-item.js-practice(id= "practice_#{practice.id}")
     .category-practices-item__value.is-title
       = link_to emojify(practice.title), practice
     .category-practices-item__value.is-started-users
@@ -12,17 +12,17 @@
         .btn-group
           - %i(not_complete started complete).each do |status|
             - if practice.status(current_user) == status
-              button.btn.btn-success[class="#{status}" data-status="#{status}" disabled]= t(status)
+              button.btn.btn-success.js-practice-state[class="#{status}" data-status="#{status}" disabled]= t(status)
             - else
-              button.btn.btn-secondary[class="#{status}" data-status="#{status}"]= t(status)
+              button.btn.btn-secondary.js-practice-state[class="#{status}" data-status="#{status}"]= t(status)
       - if current_user.admin?
         .category-practices-item__value.is-handle
           .btn-group
-            = link_to practice_position_path(practice, move: :top), method: :put, class: 'btn btn-secondary'
+            = link_to practice_position_path(practice, move: :top), method: :put, class: 'btn btn-secondary js-practice-state'
               i.fa.fa-angle-double-up
-            = link_to practice_position_path(practice, move: :higher), method: :put, class: 'btn btn-secondary'
+            = link_to practice_position_path(practice, move: :higher), method: :put, class: 'btn btn-secondary js-practice-state'
               i.fa.fa-angle-up
-            = link_to practice_position_path(practice, move: :lower), method: :put, class: 'btn btn-secondary'
+            = link_to practice_position_path(practice, move: :lower), method: :put, class: 'btn btn-secondary js-practice-state'
               i.fa.fa-angle-down
-            = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'btn btn-secondary'
+            = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'btn btn-secondary js-practice-state'
               i.fa.fa-angle-double-down
