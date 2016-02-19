@@ -15,5 +15,6 @@
 //= require markdown-it/dist/markdown-it
 //= require markdown-it-emoji/dist/markdown-it-emoji
 //= require highlight.min
+//= require autosize/dist/autosize
 //= require base
 //= require_tree .
