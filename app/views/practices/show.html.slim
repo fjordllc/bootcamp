@@ -22,9 +22,10 @@
       h2.practices-item__title= t('completed_users')
     .card-block
       - @practice.completed_users.each do |user|
-        .icon.completed-users
-          = link_to user do
-            = gravatar_tag user, size: 64
+        ul.completed-users
+          li.completed-users__user
+            = link_to user, class: "completed-users__user-link" do
+              span.completed-users__user-icon= gravatar_tag user, size: 64
   .buttons
     = link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
     = link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'

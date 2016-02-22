@@ -5,11 +5,6 @@ nav.global-nav
       .global-nav-links.is-contents-links
         ul.global-nav-links__items
           - if current_user
-            - if current_user.admin?
-              li.global-nav-links__item
-                = link_to t('admin_index'), admin_root_path, class: "global-nav-links__link #{controller_name == 'home' ? 'is-active' : ''}"
-              li.global-nav-links__item
-                = link_to t('categories'), admin_categories_path, class: "global-nav-links__link #{controller_name == 'categories' ? 'is-active' : ''}"
             li.global-nav-links__item
               = link_to t('practices'), practices_path, class: "global-nav-links__link #{controller_name == 'practices' ? 'is-active' : ''}"
             li.global-nav-links__item
@@ -26,6 +21,11 @@ nav.global-nav
                 span.global-nav-links__link-icon= gravatar_tag current_user, size: '32'
                 span.global-nav-links__link-login-name= current_user.login_name
               ul.global-nav-dropdown.dropdown-menu
+                - if current_user.admin?
+                  li.global-nav-dropdown__item
+                    = link_to t('admin_index'), admin_root_path, class: "global-nav-dropdown__link"
+                  li.global-nav-dropdown__item
+                    = link_to t('categories'), admin_categories_path, class: "global-nav-dropdown__link"
                 li.global-nav-dropdown__item
                   = link_to t('editing_user'), edit_user_path(current_user), class: "global-nav-dropdown__link"
                 li.global-nav-dropdown__item

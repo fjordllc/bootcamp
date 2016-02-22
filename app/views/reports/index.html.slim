@@ -1,9 +1,10 @@
 - title t('reports')
 header.page-header
   .container
-    h2.page-header__title
-      = t('reports')
-= link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-lg'
+    .page-header__container
+      h2.page-header__title
+        = t('reports')
+      = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
 .page-body
   .container
     - if @reports.nil? == false
