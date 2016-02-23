@@ -1,0 +1,26 @@
+$header-height: 4rem
+$header-inner: 2.75rem
+$header-button: 2.5rem
+.header
+  background-color: #2e3231
+.header__container
+  +position(relative)
+  height: $header-height
+
+.header-nav
+  +position(absolute, right 0, top 50%)
+  margin-top: ($header-inner / -2)
+.header-nav__items
+  display: flex
+.header-nav__item
+  margin-left: .2rem
+.header-nav__item-link
+  +block-link
+  +size($header-inner)
+  padding: ($header-inner - $header-button) / 2
+.header-nav__item-link-inner
+  +block-link
+  +size($header-button)
+  background-color: #515655
+  +text-block(1.6rem $header-button, center white)
+  border-radius: 4px
