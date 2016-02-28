@@ -1,0 +1,34 @@
+.is-long-text-style
+  h1
+    +text-block(2.2em 1.4 .6em)
+  h2
+    +text-block(1.8em 1.4 .6em)
+  h3
+    +text-block(1.4em 1.4 .6em)
+  p
+    +text-block(1em 1.8 1.4em)
+  p + h1,
+  p + h2,
+  p + h3,
+  p + h4,
+    margin-top: .9em
+  img
+    max-width: 100%
+  >img,
+  a img
+    display: block
+    +margin(horizontal, auto)
+    margin-bottom: 1.4em
+  ul
+    margin-bottom: 1.8em
+    margin-left: 1.6em
+  li
+    +text-block(1rem 1.6 .8em)
+  .twitter-tweet
+    +margin(horizontal, auto)
+    margin-bottom: 2.5rem !important
+  a
+    *:last-child
+      margin-bottom: 1.4em
+  *:last-child
+    margin-bottom: 0

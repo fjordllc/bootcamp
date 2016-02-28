@@ -7,7 +7,11 @@ module PracticesHelper
       autolink:            true,
       tables:              true,
       superscript:         true,
-      space_after_headers: true
-    ).render(text)
+    ).render(text).html_safe
+  end
+
+  def qiita_markdown(markdown)
+    processor = Qiita::Markdown::Processor.new
+    processor.call(markdown)[:output].to_s.html_safe
   end
 end

@@ -1,0 +1,59 @@
+.categories__header
+  background-color: #1E88E5
+.categories-item__title
+  color: $reversal-text
+.categories__labels
+  display: flex
+  justify-content: space-between
+.categories__label
+  flex: 1
+  +text-block(.8rem 2rem, $reversal-text center)
+.categories__item
+  display: flex
+  justify-content: space-between
+  border-bottom: #ccc solid 1px
+  background-color: $base-color
+  +padding(vertical, .5rem)
+.categories__item-value
+  flex: 1
+  +padding(horizontal, 1rem)
+
+.category-practices-item
+  display: flex
+  justify-content: space-between
+  padding: 1.25rem
+  border-top: 1px solid #ccc
+  +screen-xs
+    flex-wrap: wrap
+
+.category-practices-item__value
+  flex: 1
+  &.is-title
+    flex: 2
+    +screen-xs
+      flex: auto
+      width: 100%
+      margin-bottom: .5rem
+  &.is-started-users
+    +screen-xs
+      flex: auto
+      width: 100%
+      margin-bottom: .5rem
+  &.is-status
+    width: 180px
+    text-align: center
+    +screen-xs
+      flex: auto
+      width: 100%
+  &.is-handle
+    width: 180px
+    text-align: center
+    +screen-xs
+      flex: auto
+      width: 100%
+      margin-top: .5rem
+.category-practices-item__user-icon
+  border-radius: 50%
+  +screen-xs
+    margin-right: .5rem
+    +size(24px)

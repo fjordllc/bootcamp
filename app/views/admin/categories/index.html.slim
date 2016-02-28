@@ -1,27 +1,35 @@
-h3= t('listing_categories')
+header.page-header
+  .container
+    h2.page-header__title
+      = t('listing_categories')
 
-table.table.categories
-  tr
-    th= t('activerecord.attributes.category.name')
-    th= t('activerecord.attributes.category.slug')
-    th.actions= t('action')
-    th.handle= t('order')
-  - @categories.each do |category|
-    tr
-      td= category.name
-      td= category.slug
-      td.actions
-        = link_to t('edit'), edit_admin_category_path(category), class: 'btn btn-primary'
-        = link_to t('destroy'), [:admin, category], data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
-      td.handle
-        .btn-group
-          = link_to admin_category_position_path(category, move: :top), method: :put, class: 'btn btn-default'
-            i.fa.fa-angle-double-up
-          = link_to admin_category_position_path(category, move: :higher), method: :put, class: 'btn btn-default'
-            i.fa.fa-angle-up
-          = link_to admin_category_position_path(category, move: :lower), method: :put, class: 'btn btn-default'
-            i.fa.fa-angle-down
-          = link_to admin_category_position_path(category, move: :bottom), method: :put, class: 'btn btn-default'
-            i.fa.fa-angle-double-down
-br
-= link_to t('new_category'), new_admin_category_path, class: 'btn btn-primary'
+.page-body
+  .container
+    .categories
+      header.categories__header
+        .categories__labels
+          .categories__label= t('activerecord.attributes.category.name')
+          .categories__label= t('activerecord.attributes.category.slug')
+          .categories__label.actions= t('action')
+          .categories__label.handle= t('order')
+      - @categories.each do |category|
+        .categories__item
+          .categories__item-value= category.name
+          .categories__item-value= category.slug
+          .categories__item-value.is-text-align-center
+            .btn-group
+              = link_to edit_admin_category_path(category), class: 'btn btn-primary' do
+                i.fa.fa-pencil
+              = link_to [:admin, category], data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger' do
+                i.fa.fa-trash-o
+          .categories__item-value.is-text-align-center
+            .btn-group
+              = link_to admin_category_position_path(category, move: :top), method: :put, class: 'btn btn-secondary'
+                i.fa.fa-angle-double-up
+              = link_to admin_category_position_path(category, move: :higher), method: :put, class: 'btn btn-secondary'
+                i.fa.fa-angle-up
+              = link_to admin_category_position_path(category, move: :lower), method: :put, class: 'btn btn-secondary'
+                i.fa.fa-angle-down
+              = link_to admin_category_position_path(category, move: :bottom), method: :put, class: 'btn btn-secondary'
+                i.fa.fa-angle-double-down
+    = link_to t('new_category'), new_admin_category_path, class: 'btn btn-primary btn-lg'
