@@ -19,6 +19,10 @@ Rails.application.routes.draw do
     resource :position, only: %i(update)
   end
   resources :reports
+  resources :reports do
+    resources :comments
+  end
+
   resources :courses, only: :index
   resources :chat_notices, only: :create
   get 'login'  => 'user_sessions#new',     as: :login

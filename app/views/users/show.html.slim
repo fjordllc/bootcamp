@@ -54,3 +54,20 @@ header.page-header
     ul
       - @user.completed_practices.each do |practice|
         li.title= link_to practice.title, practice
+
+      h3= t('reports')
+      - if @reports.any?
+          - @reports.each do |report|
+            .reports-item
+              = link_to report, itempro: "url", class: "reports-item__link" do
+                h3.creports-item__title(itemprop="name")= report.title
+              time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+                = l report.updated_at, format: :short
+                - if report.comments.any?
+                  = t('blank')
+                  = t('report_comments_any')
+                  = report.comments.count
+                  = t('comments_count')
+              .btn-group
+                = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
+                = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'

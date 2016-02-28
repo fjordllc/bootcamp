@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   include Gravatarify::Helper
   before_action :require_login, only: %w[edit update destroy]
   before_action :set_user, only: %w[show]
+  before_action :set_reports, only: %w[show]
   http_basic_authenticate_with name: "intern", password: ENV["INTERN_PASSWORD"] || "test", only: %i(new create)
 
   def index
@@ -89,5 +90,9 @@ class UsersController < ApplicationController
 
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def set_reports
+      @reports = Report.where(user_id: @user.id).order(updated_at: :desc, id: :desc)
     end
 end

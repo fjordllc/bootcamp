@@ -1,9 +1,10 @@
 - title @report.title
 header.page-header
   .container
-    h2.page-header__title
-      = @report.title
-= link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-lg'
+    .page-header__container
+      h2.page-header__title
+        = @report.title
+      = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
 
 .page-body
   .container
@@ -21,3 +22,28 @@ header.page-header
           = link_to t('edit'), edit_report_path(@report), class: 'btn btn-primary'
           = link_to t('destroy'), report_path(@report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
           = link_to t('back'), reports_path, class: 'btn btn-secondary'
+      h2.comment__body
+        = t('comments')
+        - @comments.any?
+          = @comments.count
+          = t('comments_count')
+      - if @comments.any?
+          - @comments.each do |comment|
+            .comment__description
+              = link_to comment.user, itempro: 'url', class: 'report__author-link' do
+                = gravatar_tag comment.user, size: 44, html: { class: "category-practices-item__user-icon"}
+                = t('blank')
+                = comment.user.login_name
+              = qiita_markdown(comment.description).html_safe
+            time.report__created-at(datetime='#{@report.created_at.to_datetime}' pubdate='pubdate')
+              = l comment.updated_at, format: :short
+              .btn-group
+                = link_to t('edit'), edit_report_comment_path(@report, comment), class: 'btn btn-primary'
+                = link_to t('destroy'), report_comment_path(@report, comment), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+
+      .comment__form
+        = form_for ([@report, @comment]) do |f|
+          .form-group
+            = f.text_area :description, size: '5x5', required: true, class: 'form-control js-markdown-input practices-edit__input'
+          .form-group
+            = f.submit nil, class: 'btn btn-primary btn-sm'

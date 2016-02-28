@@ -18,4 +18,12 @@ report_3:
   id: 3
   user_id: 1
   title: "学習週1日目"
-  description: "今日は CSS の勉強をしました。デザイン難しい。。。"
+  description: |-
+    今日は CSS の勉強をしました。デザイン難しい。。。
+
+report_4:
+  id: 4
+  user_id: 2
+  title: "256interns で Bootstrap のバージョン更新"
+  description: |-
+    256interns で Bootstrap のバージョン更新を行った他、デザインの微調整を行いました。
