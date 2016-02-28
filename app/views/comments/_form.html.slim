@@ -1,0 +1,13 @@
+.comment__form
+  = form_for ([@report, @comment]) do |f|
+    .row.js-markdown-parent
+      .col-sm-6
+        .form-group
+          | 内容
+          = f.text_area :description, size: '5x5', required: true, class: 'form-control js-warning-form js-markdown-input practices-edit__input'
+      .col-sm-6
+        | プレビュー
+        .js-markdown-preview.is-long-text-style.practices-edit__preview
+    .form-group
+      = f.submit nil, class: 'btn btn-primary btn-sm'
+      = link_to 'キャンセル', report_path(@report), class: 'btn btn-secondary btn-sm'

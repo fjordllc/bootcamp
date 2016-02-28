@@ -2,6 +2,8 @@ class ReportsController < ApplicationController
   before_action :require_login
   before_action :set_reports, only: %w(index show edit update destroy sort)
   before_action :set_report, only: %w(show edit update destroy sort)
+  before_action :set_comments, only: %w(show edit update destroy sort)
+  before_action :set_comment, only: %w(show edit update destroy sort)
   before_action :set_user, only: :show
   respond_to :html, :json
 
@@ -42,8 +44,6 @@ class ReportsController < ApplicationController
 
   def destroy
     @report.destroy
-    notify "<#{url_for(current_user)}|#{current_user.login_name}>が
-      <#{url_for(@report)}|#{@report.title}>を削除しました。"
     redirect_to reports_url, notice: t('report_was_successfully_deleted')
   end
 
@@ -57,7 +57,7 @@ class ReportsController < ApplicationController
   end
 
   def set_reports
-    @reports = Report.order(updated_at: :desc)
+    @reports = Report.order(updated_at: :desc, id: :desc)
   end
 
   def set_report
@@ -66,5 +66,13 @@ class ReportsController < ApplicationController
 
   def set_user
     @user = User.find_by(id: params[:user_id])
+  end
+
+  def set_comment
+    @comment = Comment.new
+  end
+
+  def set_comments
+    @comments = Comment.where(report_id: @report.id).order(created_at: :asc)
   end
 end
