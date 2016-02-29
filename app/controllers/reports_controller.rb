@@ -15,9 +15,17 @@ class ReportsController < ApplicationController
 
   def new
     @report = Report.new
-    @report_flag = true
-    @report_date = Time.zone.today
-    @user_name = current_user.login_name
+    if params[:format].present?
+      @report_copy_flag = true
+      @report = Report.find_by(id: params[:format])
+      @report_title = @report.title
+      @report_description = @report.description
+      @report = Report.new
+    else
+      @report_flag = true
+      @report_date = Time.zone.today
+      @user_name = current_user.login_name
+    end
   end
 
   def edit
