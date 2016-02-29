@@ -1,49 +1,73 @@
 - title @user.login_name
-.icon= gravatar_tag @user, size: 100
-dl
-  dt= t('helpers.label.user.login_name')
-  dd= @user.login_name
-  dt= t('helpers.label.user.full_name')
-  dd= @user.full_name
-  dt= t('helpers.label.user.company')
-  dd= @user.company.name
-  dt= t('helpers.label.user.description')
-  dd= simple_format @user.description
-  dt= t('helpers.label.user.created_at')
-  dd= l @user.created_at.to_date
-  dt= t('helpers.label.user.part')
-  dd= t(@user.part)
-  dt= t('helpers.label.user.purpose')
-  dd= t("activerecord.enums.user.purposes.#{@user.purpose}")
-  dt= t('helpers.label.user.find_job_assist')
-  dd= user_find_job_assist(@user)
-  dt= t('helpers.label.user.updated_at')
-  dd= l @user.updated_at, format: :long
-  - if @user.github_account?
-    dt= t('helpers.label.user.github_account')
-    dd= link_to @user.github_account, user_github_url(@user)
-  - if @user.twitter_url?
-    dt= t('helpers.label.user.twitter')
-    dd= link_to '@' + @user.twitter_id, 'https://twitter.com/' + @user.twitter_id
-  - if @user.facebook_url?
-    dt= t('helpers.label.user.facebook_url')
-    dd= link_to @user.facebook_url, @user.facebook_url
-  - if @user.blog_url?
-    dt= t('helpers.label.user.blog_url')
-    dd
-      = link_to @user.blog_url, @user.blog_url
-      - if @user.feed_url?
-        = link_to @user.feed_url do
-          i.icon-rss
-h3= t('active_practices')
-ul
-  - @user.active_practices.each do |practice|
-    li
-      .title= link_to practice.title, practice
-h3= t('completed_practices')
-.progress
-  .progress-bar.progress-bar-info aria-valuemax="100" aria-valuemin="0" aria-valuenow="#{@user.completed_percentage}" role="progressbar" style=("min-width: 2em; width: #{number_to_percentage @user.completed_percentage, precision: 0};") 
-    | #{number_to_percentage @user.completed_percentage, precision: 0}
-ul
-  - @user.completed_practices.each do |practice|
-    li.title= link_to practice.title, practice
+
+header.page-header
+  .container
+    h1.page-header__title= @user.login_name
+
+.page-body
+  .container
+    .icon= gravatar_tag @user, size: 100
+    dl
+      dt= t('helpers.label.user.login_name')
+      dd= @user.login_name
+      dt= t('helpers.label.user.full_name')
+      dd= @user.full_name
+      dt= t('helpers.label.user.company')
+      dd= @user.company.name
+      dt= t('helpers.label.user.description')
+      dd= simple_format @user.description
+      dt= t('helpers.label.user.created_at')
+      dd= l @user.created_at.to_date
+      dt= t('helpers.label.user.part')
+      dd= t(@user.part)
+      dt= t('helpers.label.user.purpose')
+      dd= t("activerecord.enums.user.purposes.#{@user.purpose}")
+      dt= t('helpers.label.user.find_job_assist')
+      dd= user_find_job_assist(@user)
+      dt= t('helpers.label.user.updated_at')
+      dd= l @user.updated_at, format: :long
+      - if @user.github_account?
+        dt= t('helpers.label.user.github_account')
+        dd= link_to @user.github_account, user_github_url(@user)
+      - if @user.twitter_url?
+        dt= t('helpers.label.user.twitter')
+        dd= link_to '@' + @user.twitter_id, 'https://twitter.com/' + @user.twitter_id
+      - if @user.facebook_url?
+        dt= t('helpers.label.user.facebook_url')
+        dd= link_to @user.facebook_url, @user.facebook_url
+      - if @user.blog_url?
+        dt= t('helpers.label.user.blog_url')
+        dd
+          = link_to @user.blog_url, @user.blog_url
+          - if @user.feed_url?
+            = link_to @user.feed_url do
+              i.icon-rss
+    h3= t('active_practices')
+    ul
+      - @user.active_practices.each do |practice|
+        li
+          .title= link_to practice.title, practice
+    h3= t('completed_practices')
+    .progress
+      .progress-bar.progress-bar-info aria-valuemax="100" aria-valuemin="0" aria-valuenow="#{@user.completed_percentage}" role="progressbar" style=("min-width: 2em; width: #{number_to_percentage @user.completed_percentage, precision: 0};") 
+        | #{number_to_percentage @user.completed_percentage, precision: 0}
+    ul
+      - @user.completed_practices.each do |practice|
+        li.title= link_to practice.title, practice
+
+      h3= t('reports')
+      - if @reports.any?
+          - @reports.each do |report|
+            .reports-item
+              = link_to report, itempro: "url", class: "reports-item__link" do
+                h3.creports-item__title(itemprop="name")= report.title
+              time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+                = l report.updated_at, format: :short
+                - if report.comments.any?
+                  = t('blank')
+                  = t('report_comments_any')
+                  = report.comments.count
+                  = t('comments_count')
+              .btn-group
+                = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
+                = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151024062526) do
+ActiveRecord::Schema.define(version: 20160223014430) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -21,6 +21,17 @@ ActiveRecord::Schema.define(version: 20151024062526) do
     t.integer  "position"
     t.text     "description"
   end
+
+  create_table "comments", force: true do |t|
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "report_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["report_id"], name: "index_comments_on_report_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -50,6 +61,14 @@ ActiveRecord::Schema.define(version: 20151024062526) do
   end
 
   add_index "practices", ["category_id"], name: "index_practices_on_category_id"
+
+  create_table "reports", force: true do |t|
+    t.integer  "user_id",     null: false
+    t.string   "title",       null: false
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "login_name",                                   null: false

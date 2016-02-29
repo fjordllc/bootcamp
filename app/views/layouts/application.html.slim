@@ -17,8 +17,10 @@ html lang="ja"
     - if head_last = yield(:head_last)
       = head_last
   body class="#{page_slug}"
-    = render 'header'
-    .container
+    .wrapper.js-open-drawer-wrapper
+      = render 'header'
       = render 'alert'
-      = yield
+      main.page
+        = yield
       = render 'footer'
+    = render 'mobile_global_nav'
