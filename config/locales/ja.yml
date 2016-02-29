@@ -380,6 +380,7 @@ ja:
   new_category: "カテゴリー追加"
   show: "表示"
   back: "戻る"
+  copy: "コピー"
   "bob's_practices": "%{name}のプラクティス"
   invalid_email_or_password: "ユーザー名かパスワードが違います。"
   status_for_all_practices: "全てのプラクティスの状態"

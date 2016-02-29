@@ -5,13 +5,15 @@
     = f.label :title
     - if @report_flag == true
       = f.text_field :title, size: '10', class: 'form-control js-warning-form', value: '日報/' << @report_date.strftime("%Y/%m/%d/") << @user_name << ':'
+    - elsif @report_copy_flag == true
+      = f.text_field :title, size: '10', class: 'form-control js-warning-form', value: @report_title
     - else
       = f.text_field :title, size: '10', class: 'form-control js-warning-form'
   .row.js-markdown-parent
     .col-sm-6
       .form-group
         = f.label :description
-        = f.text_area :description, size: '10x20', class: 'form-control js-warning-form js-markdown-input practices-edit__input'
+        = f.text_area :description, size: '10x20', class: 'form-control js-warning-form js-markdown-input practices-edit__input', value: @report_description
     .col-sm-6
       | プレビュー
       .js-markdown-preview.is-long-text-style.practices-edit__preview
