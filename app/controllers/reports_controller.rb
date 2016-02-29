@@ -23,7 +23,7 @@ class ReportsController < ApplicationController
       @report = Report.new
     else
       @report_flag = true
-      @report_date = Time.zone.today
+      @report_date = Time.current
       @user_name = current_user.login_name
     end
   end
