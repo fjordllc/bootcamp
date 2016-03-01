@@ -1,0 +1,51 @@
+comment_1:
+  id: 1
+  user_id: 2
+  report_id: 3
+  description: |-
+    **CSS** は奥が深いですね。
+
+comment_2:
+  id: 2
+  user_id: 1
+  report_id: 3
+  description: |-
+    どういう教材がいいんでしょうかね？
+
+comment_3:
+  id: 3
+  user_id: 2
+  report_id: 3
+  description: |-
+    https://github.com/fjordllc/csstutorial/tree/master とかですかねー。
+
+comment_4:
+  id: 4
+  user_id: 3
+  report_id: 4
+  description: |-
+    ```ruby:report_controller.rb
+    Comment.where(id: @report.id)
+    ```
+    上記を追加しました。ご確認下さい。
+
+comment_5:
+  id: 5
+  user_id: 1
+  report_id: 4
+  description: |-
+    `Comment.where(report_id: @report.id)` じゃないと動かなくないですか？
+
+comment_6:
+  id: 6
+  user_id: 3
+  report_id: 4
+  description: |-
+    失礼しました。 report_id を id と typo してました :sweat_drops:
+
+comment_7:
+  id: 7
+  user_id: 1
+  report_id: 4
+  description: |-
+    :thumbsup:

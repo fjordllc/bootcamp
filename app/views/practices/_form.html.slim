@@ -1,15 +1,31 @@
 = form_for practice do |f|
+  - if practice.errors.any?
+    = error_messages_for :practice
   .form-group
     = f.label :title
-    = f.text_field :title, size: '10', class: 'form-control'
-  .form-group
-    = f.label :description
-    = f.text_area :description, size: '10x20', class: 'form-control'
-  .form-group
-    = f.label :goal
-    = f.text_area :goal, size: '10x10', class: 'form-control'
+    = f.text_field :title, size: '10', class: 'form-control js-warning-form'
+  .row.js-markdown-parent
+    .col-sm-6
+      .form-group
+        = f.label :description
+        = f.text_area :description, size: '10x10', class: 'form-control js-warning-form js-markdown-input practices-edit__input'
+    .col-sm-6
+      | プレビュー
+      .js-markdown-preview.is-long-text-style.practices-edit__preview
+  .row.js-markdown-parent
+    .col-sm-6
+      .form-group
+        = f.label :goal
+        = f.text_area :goal, size: '10x10', class: 'form-control js-markdown-input practices-edit__input'
+    .col-sm-6
+      | プレビュー
+      .js-markdown-preview.is-long-text-style.practices-edit__input.practices-edit__preview
   .form-group
     = f.label :category_id
     = f.collection_select :category_id, Category.all, :id, :name, {}, class: 'form-control'
   .form-group
-    = f.submit nil, class: 'btn btn-primary'
+    = f.submit nil, class: 'btn btn-primary btn-sm'
+    - if params[:action] == 'new' || params[:action] == 'create'
+      = link_to "キャンセル", practices_path, class: "btn btn-secondary btn-sm"
+    - elsif params[:action] == 'edit' || params[:action] == 'update'
+      = link_to "キャンセル", practice_path, class: "btn btn-secondary btn-sm"

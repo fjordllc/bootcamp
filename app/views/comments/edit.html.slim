@@ -1,0 +1,8 @@
+header.page-header
+  .container
+    h2.page-header__title
+      = t('editing_comment')
+
+.page-body
+  .container
+    = render 'form', comment: @comment

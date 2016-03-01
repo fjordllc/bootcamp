@@ -1,3 +1,10 @@
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - 'node_modules/**/*'
+    - 'db/migrate/**/*'
+    - 'vender/assets/**/*'
+
 # tolerant of https://github.com/airbnb/ruby styles
 LineLength:
   Max: 128

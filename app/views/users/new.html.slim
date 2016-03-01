@@ -1,4 +1,11 @@
-.row
-  .col-xs-12.col-sm-6.col-sm-offset-3
-    h3= t('sign_up')
-    = render 'form', user: @user, companies: @companies
+header.page-header.is-margin-bottom-0
+  .container
+    h2.page-header__title
+      = t('sign_up')
+
+.page-body
+  .container
+    .row
+      .col-xs-12.col-sm-6.col-sm-offset-3
+        h3
+        = render 'form', user: @user, companies: @companies

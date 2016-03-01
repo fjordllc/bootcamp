@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   belongs_to :company
   has_many :learnings
+  has_many :comments
+  has_many :reports
 
   has_many :completed_learnings,
     -> { where(status_cd: 1) },

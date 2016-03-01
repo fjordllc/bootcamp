@@ -1,0 +1,13 @@
+nav.tab-nav
+  .container.is-xs-horizontal-padding-0
+    ul.tab-nav__items
+      li.tab-nav__item
+        = link_to t('all_user'), users_path(target: 'all'), class: "tab-nav__item-link #{@target == 'all' ? 'is-active': ''}"
+      li.tab-nav__item
+        = link_to t('learning_week'), users_path(target: 'learning'), class: "tab-nav__item-link #{@target == 'learning' ? 'is-active': ''}"
+      li.tab-nav__item
+        = link_to t('working_week'), users_path(target: 'working'), class: "tab-nav__item-link #{@target == 'working' ? 'is-active': ''}"
+      li.tab-nav__item
+        = link_to t('graduate'), users_path(target: 'graduate'), class: "tab-nav__item-link #{@target == 'graduate' ? 'is-active': ''}"
+      li.tab-nav__item
+        = link_to t('adviser'), users_path(target: 'adviser'), class: "tab-nav__item-link #{@target == 'adviser' ? 'is-active': ''}"

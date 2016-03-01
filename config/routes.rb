@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :feeds, only: %i(index)
   resources :users do
     resources :practices, only: %i(index), controller: 'users/practices'
+    resources :reports, only: %i(index), controller: 'users/reports'
   end
   resource :current_user, only: :update, controller: 'current_user'
   resources :user_sessions, only: %i(new create destroy)
@@ -17,6 +18,11 @@ Rails.application.routes.draw do
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
   end
+  resources :reports
+  resources :reports do
+    resources :comments
+  end
+
   resources :courses, only: :index
   resources :chat_notices, only: :create
   get 'login'  => 'user_sessions#new',     as: :login
