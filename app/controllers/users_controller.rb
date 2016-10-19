@@ -81,7 +81,7 @@ class UsersController < ApplicationController
         :password,
         :password_confirmation,
         :job,
-        :purpose,
+        :purpose_cd,
         :find_job_assist,
         :company_id,
         :nda
