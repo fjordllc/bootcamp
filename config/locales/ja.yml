@@ -430,7 +430,7 @@ ja:
   current_week_is_xxx: "今週は%{part}です"
   i_want_to_find_job_assist: "フィヨルドの就職支援を希望する"
   i_do_not_want_to_find_job_assist: "フィヨルドの就職支援を希望しない"
-  we_will_find_rails_job_by_our_best: "町田、駒形が知り合いのrailsを使った会社や知り合いの就職支援サイトなどを駆使して全力で就職先探しをサポートします"
+  we_will_find_rails_job_by_our_best: "町田、駒形が知り合いのrailsを使った会社や知り合いの就職支援サイトなどを駆使して全力で就職先探しをサポートします。"
   agree_nda: "秘密保持契約に同意する"
   active_users: "アクティブユーザー (%{count})"
   inactive_users: "最近活動の無いユーザー (%{count})"

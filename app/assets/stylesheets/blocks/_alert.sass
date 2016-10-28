@@ -1,0 +1,20 @@
+.alert
+  background-color: $danger
+  +padding(vertical, .75rem)
+  &.is-error
+    background-color: $danger
+  &.is-info
+    background-color: $info
+.alert__container
+  +relative
+.alert__message
+  +text-block(.875rem 1.45, center $reversal-text)
+.alert__close
+  +position(absolute, left 0, top 50%)
+  +size(3rem)
+  +text-block(1.5rem, $reversal-text center 600)
+  margin-top: -1.5rem
+  cursor: pointer
+  opacity: .7
+  &:hover
+    opacity: 1

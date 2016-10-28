@@ -1,6 +1,6 @@
-$global-nav-height: 44px
+$global-nav-height: 2.75rem
 .global-nav
-  background-color: #1565C0
+  background-color: $main-color
   height: $global-nav-height
 
 .global-nav__container
@@ -8,8 +8,8 @@ $global-nav-height: 44px
   justify-content: space-between
   width: 100%
 .global-nav__title
-  +text-block(1.2rem $global-nav-height, $reversal-text)
-  width: 140px
+  +text-block(1.125rem $global-nav-height, $reversal-text)
+  width: 8.75rem
   white-space: nowrap
 
 .global-nav-links
@@ -22,8 +22,8 @@ $global-nav-height: 44px
 
 .global-nav__open-drawer
   display: none
-  +size(44px)
-  +text-block(1.4rem 44px, center $reversal-text)
+  +size(2.75rem)
+  +text-block(1.375rem 2.75rem, center $reversal-text)
   +position(absolute, right 0, top 0)
   +media-breakpoint-down(sm)
     display: block
@@ -31,14 +31,14 @@ $global-nav-height: 44px
 .global-nav-links__link
   display: block
   white-space: nowrap
-  +padding(horizontal, 16px)
-  +text-block(.9rem $global-nav-height, $reversal-text)
+  +padding(horizontal, 1rem)
+  +text-block(.875rem $global-nav-height, $reversal-text)
   &.is-active
     background-color: #0D47A1
 
 .global-nav-dropdown__link
   display: block
-  +text-block(.8rem 1.4)
+  +text-block(.75rem 1.4)
   +padding(vertical, .5rem)
   +padding(horizontal, .5rem)
 
@@ -46,6 +46,6 @@ $global-nav-height: 44px
   display: block
 .global-nav-links__link-icon
   display: inline-block
-  margin-right: .4rem
+  margin-right: .375rem
   img
     border-radius: 50%
