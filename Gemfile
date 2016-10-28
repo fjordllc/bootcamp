@@ -28,10 +28,12 @@ gem "record_tag_helper", "~> 1.0"
 gem "sprockets", ">= 3.0.0"
 gem "sprockets-es6"
 gem "pg"
-gem "sassc-rails"
-gem "bootstrap", "~> 4.0.0.alpha3"
-gem "bourbon"
-gem "oulu", "0.12.25"
+
+# sass
+gem 'sassc-rails'
+gem 'bootstrap', '~> 4.0.0.alpha6'
+#gem 'oulu'
+gem 'oulu', path: '../oulu'
 
 group :production, :staging do
   gem "newrelic_rpm"

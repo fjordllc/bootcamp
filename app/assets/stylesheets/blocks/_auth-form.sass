@@ -1,0 +1,67 @@
+.auth-form
+  +margin(vertical, 6rem 4rem)
+  width: 22rem
+  background-color: $base-color
+  +margin(horizontal, auto)
+  padding: 2rem 1.25rem
+.auth-form__title
+  +text-block(1.25rem 1.45 1rem, center 600)
+.auth-form-items
+  margin-bottom: 1.25rem
+.auth-form-item
+  margin-bottom: 1rem
+  &:last-child
+    margin-bottom: 0
+.auth-form-item__label
+  +text-block(.8125rem 1.45 .25rem, block 600)
+.auth-form-item__text-input
+  +text-block(.8125rem 1.45, block 600)
+  width: 100%
+  padding: .5rem
+  background-color: shade($base-color, 3%)
+  border: solid .0625rem #c1c5b9
+  border-radius: .25rem
+  &:focus
+    background-color: $base-color
+.auth-form-item__help
+  margin-top: .375rem
+  p
+    +text-block(.75rem 1.45)
+.auth-form-item__help-link
+  +text-block(.75rem 1.45)
+  +hover-link-reversal
+.auth-form-action
+  text-align: center
+.auth-form-item__radio-buttons
+  &.is-half
+    display: flex
+    flex-wrap: wrap
+    +margin(horizontal, -.5rem)
+.auth-form-radio-button
+  &.is-half
+    flex: 0 0 50%
+    max-width: 50%
+    +padding(horizontal, .5rem)
+    margin-bottom: .5rem
+    &:nth-child(3),
+    &:nth-child(4)
+      margin-bottom: 0
+
+.auth-form-radio-button__label
+  +text-block(.8125rem 1.45, block)
+  border: solid .0625rem #c1c5b9
+  padding: .5rem .5rem .5rem .75rem
+  cursor: pointer
+  border-radius: .25rem
+  margin-bottom: .25rem
+  input
+    margin-right: .5rem
+.auth-form-checkbox__label
+  +text-block(.8125rem 1.45, block)
+  border: solid .0625rem #c1c5b9
+  padding: .5rem .5rem .5rem .75rem
+  cursor: pointer
+  border-radius: .25rem
+  margin-bottom: .25rem
+  input
+    margin-right: .5rem

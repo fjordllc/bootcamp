@@ -1,11 +1,6 @@
-header.page-header.is-margin-bottom-0
-  .container
-    h2.page-header__title
-      = t('sign_up')
+- content_for(:page_classes, 'no-header' 'no-footer')
 
-.page-body
-  .container
-    .row
-      .col-xs-12.col-sm-6.col-sm-offset-3
-        h3
-        = render 'form', user: @user, companies: @companies
+.auth-form
+  h1.auth-form__title
+    = t('sign_up')
+  = render 'form', user: @user, companies: @companies

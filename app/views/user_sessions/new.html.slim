@@ -1,7 +1,11 @@
-.row
-  .col-xs-12.col-sm-6.col-sm-offset-3
-    h3= t('sign_in')
-    = render 'form', user: @user
-    
-    h3= t('forgot_password')
-    = render 'forget_password_form'
+- content_for(:page_classes, 'no-header' 'no-footer')
+
+.auth-form
+  h1.auth-form__title
+    = t('sign_in')
+  = render 'form', user: @user
+
+.auth-form
+  h3.auth-form__title
+    = t('forgot_password')
+  = render 'forget_password_form'

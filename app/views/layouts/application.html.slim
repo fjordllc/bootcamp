@@ -15,11 +15,13 @@ html lang="ja"
     javascript:
     - if head_last = yield(:head_last)
       = head_last
-  body class="#{page_slug}"
+  body class="#{body_class} #{yield(:page_classes)}"
     .wrapper.js-open-drawer-wrapper
-      = render 'header'
+      - unless yield(:page_classes).include?('no-header')
+        = render 'header'
       = render 'alert'
       main.page
         = yield
-      = render 'footer'
+      - unless yield(:page_classes).include?('no-footer')
+        = render 'footer'
     = render 'mobile_global_nav'
