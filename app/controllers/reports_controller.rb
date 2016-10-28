@@ -1,4 +1,6 @@
 class ReportsController < ApplicationController
+  include Rails.application.routes.url_helpers
+  include Gravatarify::Helper
   before_action :require_login
   before_action :set_reports, only: %w(index show edit update destroy sort)
   before_action :set_report, only: %w(show edit update destroy sort)
@@ -35,6 +37,7 @@ class ReportsController < ApplicationController
     @report = Report.new(report_params)
     @report.user = current_user
     if @report.save
+      notify_to_slack(@report)
       redirect_to @report, notice: t('report_was_successfully_created')
     else
       render :new
@@ -81,5 +84,12 @@ class ReportsController < ApplicationController
 
   def set_comments
     @comments = Comment.where(report_id: @report.id).order(created_at: :asc)
+  end
+
+  def notify_to_slack(report)
+    text = "#{report.user.login_name} created <#{report_url(report)}|#{report.title}>"
+    notifier = Slack::Notifier.new ENV["SLACK_WEBHOOK_URL"]
+    notifier.username = "#{report.user.login_name} (#{report.user.full_name})"
+    notifier.ping text, icon_url: gravatar_url(report.user)
   end
 end
