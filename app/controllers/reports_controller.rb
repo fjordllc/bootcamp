@@ -87,9 +87,8 @@ class ReportsController < ApplicationController
   end
 
   def notify_to_slack(report)
-    text = "#{report.user.login_name} created <#{report_url(report)}|#{report.title}>"
-    notifier = Slack::Notifier.new ENV["SLACK_WEBHOOK_URL"]
-    notifier.username = "#{report.user.login_name} (#{report.user.full_name})"
-    notifier.ping text, icon_url: gravatar_url(report.user)
+    notify "#{report.user.login_name} created <#{report_url(report)}|#{report.title}>",
+      username: "#{report.user.login_name} (#{report.user.full_name})",
+      icon_url: gravatar_url(report.user)
   end
 end
