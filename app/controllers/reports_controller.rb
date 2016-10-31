@@ -89,6 +89,10 @@ class ReportsController < ApplicationController
   def notify_to_slack(report)
     notify "#{report.user.login_name} created <#{report_url(report)}|#{report.title}>",
       username: "#{report.user.login_name} (#{report.user.full_name})",
-      icon_url: gravatar_url(report.user)
+      icon_url: gravatar_url(report.user),
+      attachments: [{
+        fallback: "report body.",
+        text: report.description
+      }]
   end
 end
