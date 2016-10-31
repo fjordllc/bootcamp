@@ -10,4 +10,6 @@ nav.tab-nav
       li.tab-nav__item
         = link_to t('graduate'), users_path(target: 'graduate'), class: "tab-nav__item-link #{@target == 'graduate' ? 'is-active': ''}"
       li.tab-nav__item
+        = link_to "リタイア", users_path(target: 'retire'), class: "tab-nav__item-link #{@target == 'retire' ? 'is-active': ''}"
+      li.tab-nav__item
         = link_to t('adviser'), users_path(target: 'adviser'), class: "tab-nav__item-link #{@target == 'adviser' ? 'is-active': ''}"

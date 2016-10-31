@@ -8,6 +8,6 @@
               = link_to user.login_name, user, class: "users-item__name-link"
             .users-item__icon
               = link_to user do
-                = gravatar_tag user, html: {class: "users-item__icon-image"}
+                = gravatar_tag user, html: { class: "users-item__icon-image" }
         .card-block
           .description= simple_format truncate(user.description, length: 100)

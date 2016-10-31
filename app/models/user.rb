@@ -38,11 +38,10 @@ class User < ActiveRecord::Base
 
   scope :in_school, -> { where(graduation: false) }
   scope :graduated, -> { where(graduation: true) }
+  scope :retired, -> { where(retire: true) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
-  scope :student, -> { where(graduation: false, adviser: false) }
-  scope :slept, -> { where(sleep: true) }
-  scope :woke, -> { where(sleep: false) }
+  scope :student, -> { where(graduation: false, adviser: false, retire: false) }
   scope :active, -> { where("updated_at > ?", 2.weeks.ago) }
   scope :inactive, -> { where("updated_at <= ?", 2.weeks.ago) }
 
@@ -91,10 +90,6 @@ class User < ActiveRecord::Base
 
   def nexway?
     company.name == '株式会社ネクスウェイ'
-  end
-
-  def wake?
-    !sleep?
   end
 
   private

@@ -1,0 +1,13 @@
+- title "ユーザー一覧"
+header.page-header.is-margin-bottom-0
+  .container
+    h2.page-header__title ユーザー一覧
+.page-body
+  .container
+    table.table.users
+      - @users.each do |user|
+        tr
+          td
+            .icon= gravatar_tag user
+            .name= link_to "#{user.login_name} (#{user.full_name})", admin_user_path(user)
+            .edit= link_to "編集", edit_admin_user_path(user)

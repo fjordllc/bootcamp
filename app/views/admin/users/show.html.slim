@@ -1,0 +1,46 @@
+- title @user.login_name
+
+header.page-header
+  .container
+    h1.page-header__title= @user.login_name
+
+.page-body
+  .container
+    .icon= gravatar_tag @user, size: 100
+    dl
+      dt= t('helpers.label.user.login_name')
+      dd= @user.login_name
+      dt= t('helpers.label.user.full_name')
+      dd= @user.full_name
+      dt= t('helpers.label.user.company')
+      dd= @user.company.name
+      dt= t('helpers.label.user.description')
+      dd= simple_format @user.description
+      dt= t('helpers.label.user.created_at')
+      dd= l @user.created_at.to_date
+      dt= t('helpers.label.user.part')
+      dd= t(@user.part)
+      dt= t('helpers.label.user.purpose')
+      dd= t("activerecord.enums.user.purposes.#{@user.purpose}")
+      dt= t('helpers.label.user.find_job_assist')
+      dd= user_find_job_assist(@user)
+      dt= t('helpers.label.user.updated_at')
+      dd= l @user.updated_at, format: :long
+      - if @user.github_account?
+        dt= t('helpers.label.user.github_account')
+        dd= link_to @user.github_account, user_github_url(@user)
+      - if @user.twitter_url?
+        dt= t('helpers.label.user.twitter')
+        dd= link_to '@' + @user.twitter_id, 'https://twitter.com/' + @user.twitter_id
+      - if @user.facebook_url?
+        dt= t('helpers.label.user.facebook_url')
+        dd= link_to @user.facebook_url, @user.facebook_url
+      - if @user.blog_url?
+        dt= t('helpers.label.user.blog_url')
+        dd
+          = link_to @user.blog_url, @user.blog_url
+          - if @user.feed_url?
+            = link_to @user.feed_url do
+              i.icon-rss
+
+    .edit= link_to "編集", edit_admin_user_path(@user)

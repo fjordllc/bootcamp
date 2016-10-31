@@ -256,7 +256,8 @@ ja:
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
         feed_url: "ブログのフィードURL"
-        github_account: "Githubアカウント"
+        github_account: Githubアカウント
+        slack_account: Slackアカウント
         password: パスワード
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
@@ -272,6 +273,9 @@ ja:
         created_at: "インターン開始日時"
         updated_at: "最終活動日時"
         nda: 秘密保持契約
+        graduation: インターン卒業
+        adviser: アドバイザー
+        retire: リタイア
 
       practice:
         title: "タイトル"

@@ -1,0 +1,26 @@
+doctype html
+html lang="ja"
+  head
+    meta charset="utf-8" /
+    meta content="IE=edge" http-equiv="X-UA-Compatible" /
+    meta content="width=device-width, initial-scale=1" name="viewport" /
+    - page_title = yield :title
+    title #{page_title.present? ? page_title + ' - ' : ''}#{t('256interns')}
+    = favicon_link_tag
+    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', media: 'all'
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
+    = javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', integrity: 'sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==', crossorigin: 'anonymous'
+    = csrf_meta_tags
+    javascript:
+      var signed_in = #{current_user ? true : false}
+    - if head_last = yield(:head_last)
+      = head_last
+  body class="#{page_slug}"
+    .wrapper.js-open-drawer-wrapper
+      = render 'admin_header'
+      = render 'alert'
+      main.page
+        = yield
+      = render 'footer'
+    = render 'mobile_global_nav'
