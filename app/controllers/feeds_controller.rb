@@ -1,6 +1,4 @@
 class FeedsController < ApplicationController
-  respond_to :html, :atom
-
   def index
     urls = User.pluck(:feed_url).reject { |f| f.blank? }
     hydra = Typhoeus::Hydra.new

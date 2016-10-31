@@ -10,8 +10,10 @@ module PracticesHelper
     ).render(text).html_safe
   end
 
-  def qiita_markdown(markdown)
-    processor = Qiita::Markdown::Processor.new
-    processor.call(markdown)[:output].to_s.html_safe
+  def markdown(text)
+    render = Kowabana::Render.new(hard_wrap: true)
+    markdown_options = { autolink: true, no_intra_emphasis: true, tables: true }
+    markdown = Redcarpet::Markdown.new(render, markdown_options)
+    markdown.render(text).html_safe
   end
 end

@@ -9,14 +9,14 @@
       h2.practices-item__title= t('helpers.label.practice.description')
     .card-block
       .practice.js-target-blank.is-long-text-style
-        = qiita_markdown(@practice.description).html_safe
-      
+        = markdown @practice.description
+
   .card
     .card-header
       h2.practices-item__title= t('helpers.label.practice.goal')
     .card-block
       .goal.js-target-blank.is-long-text-style
-        = qiita_markdown(@practice.goal).html_safe
+        = markdown @practice.goal
   .card
     .card-header
       h2.practices-item__title= t('completed_users')

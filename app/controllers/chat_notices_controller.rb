@@ -1,6 +1,4 @@
 class ChatNoticesController < ApplicationController
-  respond_to :json
-
   def create
     notify(params[:text])
     head :ok

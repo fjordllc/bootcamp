@@ -16,7 +16,7 @@ header.page-header
         time.report__created-at(datetime="#{@report.created_at.to_datetime}" pubdate="pubdate")
           = l @report.updated_at, format: :short
       .report__body.js-target-blank.is-long-text-style
-        = qiita_markdown(@report.description).html_safe
+        = markdown @report.description
       footer.report__footer
         .btn-group
           = link_to t('edit'), edit_report_path(@report), class: 'btn btn-primary'
@@ -35,7 +35,7 @@ header.page-header
                 = gravatar_tag comment.user, size: 44, html: { class: "category-practices-item__user-icon"}
                 = t('blank')
                 = comment.user.login_name
-              = qiita_markdown(comment.description).html_safe
+              = markdown comment.description
             time.report__created-at(datetime='#{@report.created_at.to_datetime}' pubdate='pubdate')
               = l comment.updated_at, format: :short
               .btn-group

@@ -5,7 +5,6 @@ class ReportsController < ApplicationController
   before_action :set_comments, only: %w(show edit update destroy sort)
   before_action :set_comment, only: %w(show edit update destroy sort)
   before_action :set_user, only: :show
-  respond_to :html, :json
 
   def index
   end

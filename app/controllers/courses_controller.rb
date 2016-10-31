@@ -1,6 +1,4 @@
 class CoursesController < ApplicationController
-  respond_to :yaml
-
   def index
     output = ''
     Practice.order('position').each do |c|
