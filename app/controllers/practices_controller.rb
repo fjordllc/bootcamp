@@ -38,9 +38,10 @@ class PracticesController < ApplicationController
       notify "#{text}\n```#{diff}```",
         username: "#{current_user.login_name}@256interns.com",
         icon_url: gravatar_url(current_user)
-      flash[:notice] = t('practice_was_successfully_updated')
+      redirect_to @practice, notice: t('practice_was_successfully_updated')
+    else
+      render :edit
     end
-    respond_with @practice
   end
 
   def destroy
