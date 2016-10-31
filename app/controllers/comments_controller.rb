@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  include Rails.application.routes.url_helpers
+  include Gravatarify::Helper
   before_action :set_user, only: :show
 
   def create
@@ -8,6 +10,7 @@ class CommentsController < ApplicationController
     @comment.report = @report
 
     if @comment.save
+      notify_to_slack(@comment)
       redirect_to @report, notice: t('comment_was_successfully_created')
     else
       render :new
@@ -47,5 +50,18 @@ class CommentsController < ApplicationController
 
   def set_user
     @user = User.find_by(id: params[:user_id])
+  end
+
+  def notify_to_slack(comment)
+    name = "#{comment.user.login_name}"
+    link = "<#{report_url(comment.report)}#comment_#{comment.id}|#{comment.report.title}>"
+
+    notify "#{name} commented to #{link}",
+      username: "#{comment.user.login_name} (#{comment.user.full_name})",
+      icon_url: gravatar_url(comment.user),
+      attachments: [{
+        fallback: "comment body.",
+        text: comment.description
+      }]
   end
 end
