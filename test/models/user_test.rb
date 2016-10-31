@@ -14,9 +14,4 @@ class UserTest < ActiveSupport::TestCase
       assert_not users(:machida).active?
     end
   end
-
-  test 'awake?' do
-    assert users(:komagata).wake?
-    assert_not users(:sleeper).wake?
-  end
 end

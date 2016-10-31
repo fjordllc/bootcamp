@@ -6,7 +6,7 @@ komagata:
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
   salt: zW3kQ9ubsxQQtzzzs4ap
   updated_at: <%= Time.new(2014, 1, 10, 0, 0, 0) %>
-  sleep: false
+  retire: false
   nda: true
 
 machida:
@@ -19,12 +19,12 @@ machida:
   updated_at: <%= Time.new(2014, 1, 1, 0, 0, 0) %>
   nda: true
 
-sleeper:
-  login_name: sleeper
+retire:
+  login_name: retire
   first_name: Netarou
   last_name: Sannen
   email: netarou@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
   salt: zW3kQ9ubsxQQtzzzs4ap
-  sleep: true
+  retire: true
   nda: true
