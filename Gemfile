@@ -44,7 +44,6 @@ end
 group :development do
   gem 'sqlite3'
   gem 'quiet_assets'
-  gem 'heroku_san'
   gem 'spring'
   gem 'pry-remote'
   gem 'xray-rails'
