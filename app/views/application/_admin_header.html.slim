@@ -1,0 +1,33 @@
+nav.global-nav
+  .container
+    .global-nav__container
+      = link_to t('256interns'), root_path, class: 'global-nav__title'
+      .global-nav-links.is-contents-links
+        ul.global-nav-links__items
+          - if current_user.admin?
+            li.global-nav-links__item
+              = link_to "ユーザー", admin_users_path, class: "global-nav-links__link #{controller_name == 'users' ? 'is-active' : ''}"
+      .global-nav-links.is-auth-links
+        ul.global-nav-links__items
+          - if current_user
+            li.global-nav-links__item.dropdown
+              a.dropdown-toggle.global-nav-links__link(aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" )
+                span.global-nav-links__link-icon= gravatar_tag current_user, size: '32'
+                span.global-nav-links__link-login-name= current_user.login_name
+              ul.global-nav-dropdown.dropdown-menu
+                - if current_user.admin?
+                  li.global-nav-dropdown__item
+                    = link_to t('admin_index'), admin_root_path, class: "global-nav-dropdown__link"
+                  li.global-nav-dropdown__item
+                    = link_to t('categories'), admin_categories_path, class: "global-nav-dropdown__link"
+                li.global-nav-dropdown__item
+                  = link_to t('editing_user'), edit_user_path(current_user), class: "global-nav-dropdown__link"
+                li.global-nav-dropdown__item
+                  = link_to t('logout'), logout_path, class: "global-nav-dropdown__link"
+          - else
+            li.global-nav-links__item
+              = link_to t('sign_in'), login_path, class: "global-nav-links__link"
+            li.global-nav-links__item
+              = link_to t('sign_up'), new_user_path, class: "global-nav-links__link"
+      .global-nav__open-drawer.js-open-drawer-trigger
+        i.fa.fa-bars

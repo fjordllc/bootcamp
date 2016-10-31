@@ -63,3 +63,19 @@ mineo:
   description: "峰尾です。"
   created_at: <%= Date.today %>
   adviser: true
+
+yameo:
+  id: 5
+  login_name: yameo
+  email: yameo@example.com
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  first_name: 辞目夫
+  last_name: 辞目
+  twitter_url: http://twitter.com/yameo
+  facebook_url: http://www.facebook.com/yameo
+  blog_url: http://yameo.org
+  company_id: 1
+  description: "リタイアしました。"
+  retire: true
+  created_at: <%= Date.current.to_s(:db) %>

@@ -19,6 +19,8 @@ class UsersController < ApplicationController
         @users.student.select(&:working_week?)
       when "graduate"
         @users.graduated
+      when "retire"
+        @users.retired
       when "adviser"
         @users.advisers
       end

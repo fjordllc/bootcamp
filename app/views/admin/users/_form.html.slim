@@ -1,0 +1,77 @@
+= form_for [:admin, user] do |f|
+  - if user.errors.any?
+    = error_messages_for :user
+  .form-group
+    = f.label :login_name
+    = f.text_field :login_name, class: 'form-control'
+  .form-group
+    = f.label :email
+    = f.text_field :email, class: 'form-control'
+  .form-group
+    = f.label :first_name
+    = f.text_field :first_name, class: 'form-control'
+  .form-group
+    = f.label :last_name
+    = f.text_field :last_name, class: 'form-control'
+  .form-group
+    = f.label :description
+    = f.text_area :description, class: 'form-control', size: '10x10'
+  .form-group
+    = f.label :github_account
+    = f.text_field :github_account, class: 'form-control'
+  .form-group
+    = f.label :slack_account
+    = f.text_field :slack_account, class: 'form-control'
+  .form-group
+    = f.label :twitter_url
+    = f.text_field :twitter_url, class: 'form-control'
+  .form-group
+    = f.label :facebook_url
+    = f.text_field :facebook_url, class: 'form-control'
+  .form-group
+    = f.label :blog_url
+    = f.text_field :blog_url, class: 'form-control'
+  .form-group
+    = f.label :feed_url
+    = f.text_field :feed_url, class: 'form-control'
+  .form-group
+    = f.label :password
+    = f.password_field :password, class: 'form-control'
+  .form-group
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, class: 'form-control'
+  .form-group
+    = f.label :purpose, style: 'display: block'
+    = f.collection_radio_buttons :purpose_cd, User.purposes.map {|k,v| [v, t("activerecord.enums.user.purposes.#{k}")] }, :first, :last do |b|
+      = b.label class: 'radio-inline' do
+        = b.radio_button + b.text
+    end
+  .form-group
+    = f.label :find_job_assist, style: 'display: block'
+    .checkbox
+      label
+        = f.check_box :find_job_assist
+        = t('i_want_to_find_job_assist')
+  .form-group
+    = f.label :graduation, style: 'display: block'
+    .checkbox
+      label
+        = f.check_box :graduation
+        = User.human_attribute_name :graduation
+  .form-group
+    = f.label :adviser, style: 'display: block'
+    .checkbox
+      label
+        = f.check_box :adviser
+        = User.human_attribute_name :adviser
+  .form-group
+    = f.label :retire, style: 'display: block'
+    .checkbox
+      label
+        = f.check_box :retire
+        = User.human_attribute_name :retire
+  .form-group
+    = f.label :company
+    = f.collection_select :company_id, Company.all, :id, :name, {}, class: 'form-control'
+  .form-group
+    = f.submit nil, class: 'btn btn-primary'

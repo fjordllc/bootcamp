@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223014430) do
+ActiveRecord::Schema.define(version: 20161031084943) do
 
-  create_table "categories", force: true do |t|
+  create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
     t.datetime "created_at"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20160223014430) do
     t.text     "description"
   end
 
-  create_table "comments", force: true do |t|
+  create_table "comments", force: :cascade do |t|
     t.text     "description"
     t.integer  "user_id"
     t.integer  "report_id"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20160223014430) do
   add_index "comments", ["report_id"], name: "index_comments_on_report_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
-  create_table "companies", force: true do |t|
+  create_table "companies", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.string   "website"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20160223014430) do
     t.text     "tos"
   end
 
-  create_table "learnings", force: true do |t|
+  create_table "learnings", force: :cascade do |t|
     t.integer  "user_id",                 null: false
     t.integer  "practice_id",             null: false
     t.integer  "status_cd",   default: 0, null: false
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 20160223014430) do
     t.datetime "updated_at"
   end
 
-  create_table "practices", force: true do |t|
-    t.string   "title",       null: false
+  create_table "practices", force: :cascade do |t|
+    t.string   "title",       limit: 255, null: false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -62,15 +62,15 @@ ActiveRecord::Schema.define(version: 20160223014430) do
 
   add_index "practices", ["category_id"], name: "index_practices_on_category_id"
 
-  create_table "reports", force: true do |t|
-    t.integer  "user_id",     null: false
-    t.string   "title",       null: false
+  create_table "reports", force: :cascade do |t|
+    t.integer  "user_id",                 null: false
+    t.string   "title",       limit: 255, null: false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "login_name",                                   null: false
     t.string   "email"
     t.string   "crypted_password"
@@ -93,8 +93,9 @@ ActiveRecord::Schema.define(version: 20160223014430) do
     t.boolean  "graduation",                   default: false, null: false
     t.string   "github_account"
     t.boolean  "adviser",                      default: false, null: false
-    t.boolean  "sleep",                        default: false, null: false
+    t.boolean  "retire",                       default: false, null: false
     t.boolean  "nda",                          default: true,  null: false
+    t.string   "slack_account"
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"

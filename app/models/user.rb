@@ -38,9 +38,10 @@ class User < ActiveRecord::Base
 
   scope :in_school, -> { where(graduation: false) }
   scope :graduated, -> { where(graduation: true) }
+  scope :retired, -> { where(retire: true) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
-  scope :student, -> { where(graduation: false, adviser: false) }
+  scope :student, -> { where(graduation: false, adviser: false, retire: false) }
   scope :slept, -> { where(sleep: true) }
   scope :woke, -> { where(sleep: false) }
   scope :active, -> { where("updated_at > ?", 2.weeks.ago) }
