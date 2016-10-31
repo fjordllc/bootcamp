@@ -53,7 +53,10 @@ class CommentsController < ApplicationController
   end
 
   def notify_to_slack(comment)
-    notify "#{comment.user.login_name} commented to <#{report_url(comment.report)}#comment_#{comment.id}|#{comment.report.title}>",
+    name = "#{comment.user.login_name}"
+    link = "<#{report_url(comment.report)}#comment_#{comment.id}|#{comment.report.title}>"
+
+    notify "#{name} commented to #{link}",
       username: "#{comment.user.login_name} (#{comment.user.full_name})",
       icon_url: gravatar_url(comment.user),
       attachments: [{
