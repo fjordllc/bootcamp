@@ -13,7 +13,7 @@ $global-nav-height: 44px
   white-space: nowrap
 
 .global-nav-links
-  +screen-xs
+  +media-breakpoint-down(sm)
     display: none
 
 .global-nav-links__items
@@ -25,7 +25,7 @@ $global-nav-height: 44px
   +size(44px)
   +text-block(1.4rem 44px, center $reversal-text)
   +position(absolute, right 0, top 0)
-  +screen-xs
+  +media-breakpoint-down(sm)
     display: block
 
 .global-nav-links__link

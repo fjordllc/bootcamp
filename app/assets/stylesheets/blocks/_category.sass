@@ -23,37 +23,37 @@
   justify-content: space-between
   padding: 1.25rem
   border-top: 1px solid #ccc
-  +screen-xs
+  +media-breakpoint-down(sm)
     flex-wrap: wrap
 
 .category-practices-item__value
   flex: 1
   &.is-title
     flex: 2
-    +screen-xs
+    +media-breakpoint-down(sm)
       flex: auto
       width: 100%
       margin-bottom: .5rem
   &.is-started-users
-    +screen-xs
+    +media-breakpoint-down(sm)
       flex: auto
       width: 100%
       margin-bottom: .5rem
   &.is-status
     width: 180px
     text-align: center
-    +screen-xs
+    +media-breakpoint-down(sm)
       flex: auto
       width: 100%
   &.is-handle
     width: 180px
     text-align: center
-    +screen-xs
+    +media-breakpoint-down(sm)
       flex: auto
       width: 100%
       margin-top: .5rem
 .category-practices-item__user-icon
   border-radius: 50%
-  +screen-xs
+  +media-breakpoint-down(sm)
     margin-right: .5rem
     +size(24px)
