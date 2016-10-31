@@ -1,2 +1,6 @@
-h3= t('new_practice')
-= render 'form', practice: @practice
+.page-header
+  .container
+    h1.page-header__title
+      = t('new_practice')
+.container
+  = render 'form', practice: @practice
