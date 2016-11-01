@@ -9,7 +9,7 @@ $ ->
           return '<pre class="hljs"><code>' + hljs.highlight(lang, str, true).value + '</code></pre>'
         catch __
       '<pre class="hljs"><code>' + markdown.utils.escapeHtml(str) + '</code></pre>'
-  ).use(markdownitEmoji)
+  ).use(markdownitEmoji).use(markdownitCheckbox)
 
   $('.js-markdown-input').each (i) ->
     val = $(this).val()
