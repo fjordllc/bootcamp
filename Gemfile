@@ -23,6 +23,7 @@ gem 'slack-notifier'
 gem "typhoeus"
 gem "gemoji"
 gem "redcarpet"
+gem "markdown_checkboxes"
 
 gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'

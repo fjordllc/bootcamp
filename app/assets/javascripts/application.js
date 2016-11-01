@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require markdown-it/dist/markdown-it
 //= require markdown-it-emoji/dist/markdown-it-emoji
+//= require markdown-it-checkbox/dist/markdown-it-checkbox
 //= require highlight.min
 //= require autosize/dist/autosize
 //= require base

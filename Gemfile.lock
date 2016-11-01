@@ -112,6 +112,9 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    markdown_checkboxes (1.0.0)
+      actionpack (>= 2.0.0)
+      redcarpet (>= 3.0.0)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -265,6 +268,7 @@ DEPENDENCIES
   gravatarify
   jbuilder
   jquery-rails
+  markdown_checkboxes
   newrelic_rpm
   oulu
   pg
