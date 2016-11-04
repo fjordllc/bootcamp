@@ -1,31 +1,34 @@
 = form_for report do |f|
   - if report.errors.any?
     = error_messages_for :report
-  .form-group
+  .form-item
     = f.label :title
     - if @report_flag == true
-      = f.text_field :title, size: '10', class: 'form-control js-warning-form', value: '日報/' << @report_date.strftime("%Y/%m/%d/") << @user_name << ':'
+      = f.text_field :title, size: '10', class: 'form-item__text-input js-warning-form', value: '日報/' << @report_date.strftime("%Y/%m/%d/") << @user_name << ':'
     - elsif @report_copy_flag == true
-      = f.text_field :title, size: '10', class: 'form-control js-warning-form', value: @report_title
+      = f.text_field :title, size: '10', class: 'form-item__text-input js-warning-form', value: @report_title
     - else
-      = f.text_field :title, size: '10', class: 'form-control js-warning-form'
-  .form-group
+  .form-item
     = f.label :practice
     = f.select :practice_ids, options_from_collection_for_select(Practice.all, :id, :title), {}, {multiple: true, name: 'report[practice_ids][]', class: 'form-control js-warning-form'}
+      = f.text_field :title, size: '10', class: 'form-item__text-input js-warning-form'
   .row.js-markdown-parent
     .col-sm-6
-      .form-group
+      .form-item
         = f.label :description
         - if @report_copy_flag == true
-          = f.text_area :description, size: '10x20', class: 'form-control js-warning-form js-markdown-input practices-edit__input', value: @report_description
+          = f.text_area :description, size: '10x20', class: 'form-item__textarea js-warning-form js-markdown-input practices-edit__input', value: @report_description
         - else
-          = f.text_area :description, size: '10x20', class: 'form-control js-warning-form js-markdown-input practices-edit__input'
+          = f.text_area :description, size: '10x20', class: 'form-item__textarea js-warning-form js-markdown-input practices-edit__input'        
     .col-sm-6
       | プレビュー
       .js-markdown-preview.is-long-text-style.practices-edit__preview
-  .form-group
-    = f.submit nil, class: 'btn btn-primary btn-sm'
-    - if params[:action] == 'new' || params[:action] == 'create'
-      = link_to 'キャンセル', reports_path, class: 'btn btn-secondary btn-sm'
-    - elsif params[:action] == 'edit' || params[:action] == 'update'
-      = link_to 'キャンセル', report_path, class: 'btn btn-secondary btn-sm'
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item
+        = f.submit nil, class: 'is-button-flat-emboss-sm-warning'
+      li.form-actions__item
+      - if params[:action] == 'new' || params[:action] == 'create'
+        = link_to 'キャンセル', reports_path, class: 'is-button-flat-emboss-sm-warning'
+      - elsif params[:action] == 'edit' || params[:action] == 'update'
+        = link_to 'キャンセル', report_path, class: 'is-button-flat-emboss-sm-warning'

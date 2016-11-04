@@ -8,10 +8,26 @@
     +text-block(.875rem 1.8 1.2em)
   h3
     +text-block(1rem 1.45 .6em)
+.nda__actions-container
+  display: flex
+  justify-content: space-between
+  align-items: center
+  &::before
+    content: ''
 .nda__actions
-  max-width: 12.5rem
-  +margin(horizontal, auto)
+  min-width: 12.5rem
+  flex: 0 0  12.5rem
 
+body
+  .nda__action.is-checkbox
+    padding-left: 2.65rem
+.nda__close
+  +text-block(.875rem 2rem, 600)
+  +size(auto 2rem)
+  opacity: .5
+  cursor: pointer
+  &:hover
+    opacity: 1
 
 body
   .modal-header

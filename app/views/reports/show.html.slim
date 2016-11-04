@@ -9,8 +9,9 @@ header.page-header
   .container
     .report
       header.report__header
-        = link_to @report.user, itempro: "url", class: "report__author-link" do
-          = gravatar_tag @report.user, size: 120, html: { class: "report__author-icon"}
+        h1.report__title
+          = @report.title
+        .report__meta
           .report__author-name= @report.user.login_name
         time.report__created-at(datetime="#{@report.created_at.to_datetime}" pubdate="pubdate")
           = l @report.updated_at, format: :short
@@ -20,39 +21,69 @@ header.page-header
             li.report-practices__practice
               = link_to practice do
                 span=practice.title
+          time.report__created-at(datetime="#{@report.created_at.to_datetime}" pubdate="pubdate")
+            = l @report.updated_at, format: :short
       .report__body.js-target-blank.is-long-text-style
         = markdown @report.description
       footer.report__footer
-          .btn-group
-            = link_to t('back'), reports_path, class: 'btn btn-secondary'
-            - if @report.user_id == current_user.id
-              = link_to t('edit'), edit_report_path(@report), class: 'btn btn-primary'
-              = link_to t('copy'), new_report_path(@report), class: 'btn btn-success'
-              = link_to t('destroy'), report_path(@report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+        .report__footer-container
+          - if @report.user_id == current_user.id
+            .report__actions
+              ul.report__actions-items
+                li.report__actions-item
+                  = link_to edit_report_path(@report), class: 'report__actions-item-link is-success' do
+                    i.fa.fa-pencil
+                li.report__actions-item
+                  = link_to new_report_path(@report), class: 'report__actions-item-link is-success' do
+                    i.fa.fa-files-o
+                li.report__actions-item
+                  = link_to report_path(@report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'report__actions-item-link is-danger' do
+                    i.fa.fa-trash-o
+          = link_to reports_path, class: 'is-button-standard-xs-secondary' do
+            i.fa.fa-angle-left
+            = t('to_index_of_reports')
+      .report__author
+        = link_to @report.user, itempro: "url", class: "report__author-link" do
+          = gravatar_tag @report.user, size: 120, html: { class: "report__author-icon"}
+          
+    
+    .report-comments-container
       h2.comment__body
         = t('comments')
         - @comments.any?
           = @comments.count
           = t('comments_count')
-      - if @comments.any?
-          - @comments.each do |comment|
-            = div_for comment
-              .comment__description
-                = link_to comment.user, itempro: 'url', class: 'report__author-link' do
-                  = gravatar_tag comment.user, size: 44, html: { class: "category-practices-item__user-icon"}
-                  = t('blank')
-                  = comment.user.login_name
-                = markdown comment.description
-              time.report__created-at(datetime='#{@report.created_at.to_datetime}' pubdate='pubdate')
-                = l comment.updated_at, format: :short
-                - if comment.user == current_user
-                  .btn-group
-                    = link_to t('edit'), edit_report_comment_path(@report, comment), class: 'btn btn-primary'
-                    = link_to t('destroy'), report_comment_path(@report, comment), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+      .report-comments
+        - if @comments.any?
+            - @comments.each do |comment|
+              .report-comment
+                .report-comment__author
+                  = link_to comment.user, itempro: 'url', class: 'report__author-link' do
+                    = gravatar_tag comment.user, size: 200, html: { class: "report-comment__author-icon"}
+                .report-comment__body
+                  header.report-comment__body-header
+                    h1.report-comment__login-name
+                      = comment.user.login_name
+                    time.report-comment__created-at(datetime='#{@report.created_at.to_datetime}' pubdate='pubdate')
+                      = l comment.updated_at, format: :short
+                  .report-comments__description.js-target-blank.is-long-text-style
+                    = markdown comment.description
+                  - if comment.user == current_user
+                    .report-comment__actions
+                      ul.report-comment__actions-items
+                        li.report-comment__actions-item
+                          = link_to edit_report_comment_path(@report, comment), class: 'report-comment__actions-item-link' do
+                            i.fa.fa-pencil
+                        li.report-comment__actions__item
+                          = link_to  report_comment_path(@report, comment), data: { confirm: t('are_you_sure') }, method: :delete, class: 'report-comment__actions-item-link' do
+                            i.fa.fa-trash-o
 
-      .comment__form
-        = form_for ([@report, @comment]) do |f|
-          .form-group
-            = f.text_area :description, size: '5x5', required: true, class: 'form-control js-markdown-input practices-edit__input'
-          .form-group
-            = f.submit nil, class: 'btn btn-primary btn-sm'
+      .report-comment-form
+        .report-comment-form__author
+          = gravatar_tag current_user, size: 200, html: { class: "report-comment-form__author-icon"}
+        = form_for ([@report, @comment]), html: {class: 'report-comment-form__form'} do |f|
+          .form-items
+            .form-item
+              = f.text_area :description, size: '5x5', required: true, class: 'form-item__textarea report-comment-form__textarea js-markdown-input'
+          .report-comment-form__action
+            = f.submit t('post_comment'), class: 'is-button-standard-xs-primary'
