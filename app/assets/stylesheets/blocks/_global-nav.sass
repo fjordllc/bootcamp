@@ -1,51 +1,44 @@
-$global-nav-height: 2.75rem
-.global-nav
-  background-color: $main-color
-  height: $global-nav-height
+$global-nav-width: 5rem
 
-.global-nav__container
-  display: flex
-  justify-content: space-between
-  width: 100%
-.global-nav__title
-  +text-block(1.125rem $global-nav-height, $reversal-text)
-  width: 8.75rem
-  white-space: nowrap
+.global-nav
+  background-color: $size
+  +size($global-nav-width 100%)
+  +position(fixed, left 0, top 0, bottom 0, 2)
+
+.global-nav-current-user
+  +padding(vertical, .75rem)
+
+.global-nav-current-user__icon
+  img
+    +size(($global-nav-width - 1.5rem) auto)
+    display: block
+    +margin(horizontal, auto)
+    border-radius: 50%
+.global-nav-current-user__name
+  +text-block(.75rem 1.45, center $reversal-text)
 
 .global-nav-links
   +media-breakpoint-down(sm)
     display: none
 
-.global-nav-links__items
-  display: flex
-  flex-wrap: nowrap
-
-.global-nav__open-drawer
-  display: none
-  +size(2.75rem)
-  +text-block(1.375rem 2.75rem, center $reversal-text)
-  +position(absolute, right 0, top 0)
-  +media-breakpoint-down(sm)
-    display: block
-
 .global-nav-links__link
-  display: block
+  display: flex
+  flex-direction: column
   white-space: nowrap
-  +padding(horizontal, 1rem)
-  +text-block(.875rem $global-nav-height, $reversal-text)
+  +size(100% 4.5rem)
+  align-items: center
+  justify-content: center
+  border-top: solid .0625rem $side-border
+  &:hover
+    background-color: $side-tint
   &.is-active
-    background-color: #0D47A1
+    background-color: $side-shade
+  .global-nav-links__item:last-child &
+    border-bottom: solid .0625rem $side-border
 
-.global-nav-dropdown__link
-  display: block
-  +text-block(.75rem 1.4)
-  +padding(vertical, .5rem)
-  +padding(horizontal, .5rem)
 
-.global-nav-dropdown__item
-  display: block
 .global-nav-links__link-icon
-  display: inline-block
-  margin-right: .375rem
-  img
-    border-radius: 50%
+  +text-block(1.5rem 1 .375rem, center $reversal-text)
+
+.global-nav-links__link-label
+  +text-block(.625rem 1.45, center $reversal-text)

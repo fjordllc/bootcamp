@@ -1,3 +1,4 @@
+<<<<<<< f022f9303256d5b79d2e2dbcb3126223e46aa337
 - if @search_word.present?
   - title t('search_for', text: @search_word)
   header.page-header
@@ -14,6 +15,18 @@
         h2.page-header__title
           = t('reports')
         = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
+=======
+- title t('reports')
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title
+        = t('reports')
+      = link_to new_report_path, class: 'is-button-standard-sm-secondary' do
+        i.fa.fa-plus
+        = t('new_report')
+
+>>>>>>> wip
 .page-body
   .container
     - if @reports.nil? == false

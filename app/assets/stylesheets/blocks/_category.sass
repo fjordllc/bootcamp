@@ -1,5 +1,11 @@
-.categories__header
-  background-color: #1E88E5
+.categories-item
+  margin-bottom: 2rem
+  max-width: 62.5rem
+  +margin(horizontal, auto)
+.categories-item__header
+  background-color: $card-header
+  padding: .5rem 1rem
+  +border-radius(top, .25rem)
 .categories-item__title
   color: $reversal-text
 .categories__labels
@@ -12,48 +18,66 @@
   display: flex
   justify-content: space-between
   border-bottom: #ccc solid 1px
-  background-color: $base-color
   +padding(vertical, .5rem)
+.categories-item__body
+  padding: 1rem
+  background-color: $base-color
+  p
+    +text-block(.875rem 1.8 .6em)
+  *:last-child
+    margin-bottom: 0
 .categories__item-value
   flex: 1
   +padding(horizontal, 1rem)
 
+.category-practices
+  background-color: $base-color
+  +border-radius(bottom, .25rem)
+  overflow: hidden
 .category-practices-item
   display: flex
   justify-content: space-between
-  padding: 1.25rem
-  border-top: 1px solid #ccc
+  padding: .5rem 1rem
+  border-top: solid .0625rem $background-color
   +media-breakpoint-down(sm)
     flex-wrap: wrap
 
 .category-practices-item__value
-  flex: 1
   &.is-title
-    flex: 2
+    flex: 1
+    align-items: center
+    display: flex
     +media-breakpoint-down(sm)
       flex: auto
       width: 100%
       margin-bottom: .5rem
   &.is-started-users
+    flex: 1
     +media-breakpoint-down(sm)
       flex: auto
       width: 100%
       margin-bottom: .5rem
   &.is-status
-    width: 180px
     text-align: center
+    flex: 0 0 12.5rem
     +media-breakpoint-down(sm)
       flex: auto
       width: 100%
   &.is-handle
-    width: 180px
     text-align: center
+    flex: 0 0 7.5rem
     +media-breakpoint-down(sm)
       flex: auto
       width: 100%
       margin-top: .5rem
+.category-practices-item__title-link
+  +text-block(.875rem 1.45, 600 $default-text)
+  +hover-link
 .category-practices-item__user-icon
   border-radius: 50%
   +media-breakpoint-down(sm)
     margin-right: .5rem
     +size(1.5rem)
+
+.category-practices-item__button-group
+  white-space: nowrap

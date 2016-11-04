@@ -3,9 +3,20 @@
   width: 22rem
   background-color: $base-color
   +margin(horizontal, auto)
-  padding: 2rem 1.25rem
+  border-radius: .375rem
+  &.is-sign-up
+    width: 30rem
+.auth-form__header
+  border-bottom: solid .0625rem $background-color
+  padding: 1.25rem
+.auth-form__body
+  padding: 1.5rem 1.25rem
+.auth-form__footer
+  border-top: solid .0625rem $background-color
+  padding: 1rem 1.25rem
+
 .auth-form__title
-  +text-block(1.25rem 1.45 1rem, center 600)
+  +text-block(1.25rem 1.45, center 600)
 .auth-form-items
   margin-bottom: 1.25rem
 .auth-form-item
@@ -14,15 +25,27 @@
     margin-bottom: 0
 .auth-form-item__label
   +text-block(.8125rem 1.45 .25rem, block 600)
+  &.is-required
+    &::after
+      +fa('\f069')
+      +text-block(.3125rem, 400 $danger)
+      margin-left: .1875rem
+      +inline-block(top)
 .auth-form-item__text-input
-  +text-block(.8125rem 1.45, block 600)
+  +text-block(.8125rem 1.45, block)
   width: 100%
   padding: .5rem
-  background-color: shade($base-color, 3%)
+  background-color: #f7f7f7
   border: solid .0625rem #c1c5b9
   border-radius: .25rem
+  transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
+  .field_with_errors &
+    border-color: #e1a7b6
+    background-color: #fefafb
   &:focus
     background-color: $base-color
+    border-color: #c4c7bf
+    box-shadow: rgba(black, .1) 0 1px 2px inset
 .auth-form-item__help
   margin-top: .375rem
   p
@@ -50,18 +73,77 @@
 .auth-form-radio-button__label
   +text-block(.8125rem 1.45, block)
   border: solid .0625rem #c1c5b9
-  padding: .5rem .5rem .5rem .75rem
+  padding: .5rem .5rem .5rem 2rem
   cursor: pointer
   border-radius: .25rem
   margin-bottom: .25rem
+  transition: background-color .2s ease-in, border-color  .2s ease-in
+  +relative
+  &::before
+    content: ''
+    display: block
+    +size(.875rem)
+    border: solid .0625rem #bbbbbb
+    border-radius: 50%
+    +position(absolute, left .75rem, top 50%)
+    margin-top: -.4375rem
+    box-shadow: rgba(black, .1) 0 1px 2px inset
+    background-color: $base-color
+  &.is-checked
+    background-color: #fffadd
+    border-color: #d9c02a
+    font-weight: 600
+    &::after
+      content: ''
+      display: block
+      +size(.375rem)
+      border-radius: 50%
+      +position(absolute, left 1rem, top 50%)
+      margin-top: -.1875rem
+      box-shadow: rgba(black, .1) 0 1px 2px
+      background-color: #4193e9
   input
-    margin-right: .5rem
+    opacity: 0
+    +position(absolute)
 .auth-form-checkbox__label
   +text-block(.8125rem 1.45, block)
   border: solid .0625rem #c1c5b9
-  padding: .5rem .5rem .5rem .75rem
+  padding: .5rem .5rem .5rem 2rem
   cursor: pointer
   border-radius: .25rem
   margin-bottom: .25rem
+  +relative
+  transition: background-color .2s ease-in, border-color  .2s ease-in
+  &::before
+    content: ''
+    display: block
+    +size(.875rem)
+    border: solid .0625rem #bbbbbb
+    border-radius: .1875rem
+    +position(absolute, left .75rem, top 50%)
+    margin-top: -.4375rem
+    box-shadow: rgba(black, .1) 0 1px 2px inset
+    background-color: $base-color
+  &.is-checked
+    background-color: #fffadd
+    border-color: #d9c02a
+    font-weight: 600
+    &::after
+      +fa('\f00c')
+      +text-block(.75rem .875rem, center block #4193e9)
+      +size(.875rem)
+      +position(absolute, left .75rem, top 50%)
+      margin-top: -.4375rem
   input
-    margin-right: .5rem
+    opacity: 0
+    +position(absolute)
+
+.auth-form-nav
+  display: flex
+  justify-content: flex-end
+.auth-form-nav__items
+  display: flex
+  justify-content: space-between
+  width: 17rem
+.auth-form-nav__item-link
+  +text-block(.75rem 1.45)

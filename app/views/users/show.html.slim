@@ -1,59 +1,91 @@
 - title @user.login_name
 
-header.page-header
+header.page-header.has-user-data
   .container
-    h1.page-header__title= @user.login_name
+    .page-header__container
+      .user-data
+        .row
+          .col-md-3
+            .user-data__main
+              .user-data__icon= gravatar_tag @user, size: 100
+              .user-data__names
+                h1.user-data__login-name
+                  = @user.login_name
+                h2.user-data__full-name
+                  = @user.full_name
+                .user-data__company-name
+                  = @user.company.name
+              .user-data-sns
+                ul.user-data-sns__items
+                  - if @user.github_account?
+                    li.user-data-sns__item
+                      = link_to user_github_url(@user), class: 'user-data-sns__item-link' do
+                        i.fa.fa-github-alt
+                  - if @user.twitter_url?
+                    li.user-data-sns__item
+                      = link_to 'https://twitter.com/' + @user.twitter_id, class: 'user-data-sns__item-link' do
+                        i.fa.fa-twitter
+                  - if @user.facebook_url?
+                    li.user-data-sns__item
+                      = link_to @user.facebook_url, class: 'user-data-sns__item-link' do
+                        i.fa.fa-facebook
+                  - if @user.blog_url?
+                    li.user-data-sns__item
+                      = link_to @user.blog_url, class: 'user-data-sns__item-link' do
+                        i.fa.fa-home
+                  - if @user.feed_url?
+                    li.user-data-sns__item
+                      = link_to @user.feed_url, class: 'user-data-sns__item-link' do
+                        i.fa.fa-rss
+            .user-data__sub
+              .user-data__part(class= "is-#{@user.part}")
+                = t(@user.part)
+              //= t("activerecord.enums.user.purposes.#{@user.purpose}")
+              .user-data__created-at
+                .user-data__created-at-label
+                  = t('helpers.label.user.created_at')
+                .user-data__created-at-value
+                  = l @user.created_at.to_date
+              .user-activity__update-at
+                .user-activity__update-at-label
+                  = t('helpers.label.user.updated_at')
+                  | :
+                .user-activity__update-at-value
+                  = l @user.updated_at, format: :long
+              - if @user.active_practices.present?
+                .user-activity__update-at
+                  ul.user-activity__active-practices
+                    - @user.active_practices.each do |practice|
+                      li.user-activity__active-practice
+                        = link_to practice.title, practice
 
+
+
+          .col-md-9
+            .user-data__description
+              = simple_format @user.description
+          
 .page-body
+  //
+    - if current_user.admin? && @user.find_job_assist?
+      .user-find-job-assist
+        .container
+          .user-find-job-assist__value
+            | 就職支援希望者
+
   .container
-    .icon= gravatar_tag @user, size: 100
-    dl
-      dt= t('helpers.label.user.login_name')
-      dd= @user.login_name
-      dt= t('helpers.label.user.full_name')
-      dd= @user.full_name
-      dt= t('helpers.label.user.company')
-      dd= @user.company.name
-      dt= t('helpers.label.user.description')
-      dd= simple_format @user.description
-      dt= t('helpers.label.user.created_at')
-      dd= l @user.created_at.to_date
-      dt= t('helpers.label.user.part')
-      dd= t(@user.part)
-      dt= t('helpers.label.user.purpose')
-      dd= t("activerecord.enums.user.purposes.#{@user.purpose}")
-      dt= t('helpers.label.user.find_job_assist')
-      dd= user_find_job_assist(@user)
-      dt= t('helpers.label.user.updated_at')
-      dd= l @user.updated_at, format: :long
-      - if @user.github_account?
-        dt= t('helpers.label.user.github_account')
-        dd= link_to @user.github_account, user_github_url(@user)
-      - if @user.twitter_url?
-        dt= t('helpers.label.user.twitter')
-        dd= link_to '@' + @user.twitter_id, 'https://twitter.com/' + @user.twitter_id
-      - if @user.facebook_url?
-        dt= t('helpers.label.user.facebook_url')
-        dd= link_to @user.facebook_url, @user.facebook_url
-      - if @user.blog_url?
-        dt= t('helpers.label.user.blog_url')
-        dd
-          = link_to @user.blog_url, @user.blog_url
-          - if @user.feed_url?
-            = link_to @user.feed_url do
-              i.icon-rss
-    h3= t('active_practices')
-    ul
-      - @user.active_practices.each do |practice|
-        li
-          .title= link_to practice.title, practice
-    h3= t('completed_practices')
-    .progress
-      .progress-bar.progress-bar-info aria-valuemax="100" aria-valuemin="0" aria-valuenow="#{@user.completed_percentage}" role="progressbar" style=("min-width: 2em; width: #{number_to_percentage @user.completed_percentage, precision: 0};") 
-        | #{number_to_percentage @user.completed_percentage, precision: 0}
-    ul
-      - @user.completed_practices.each do |practice|
-        li.title= link_to practice.title, practice
+    .user
+      .row
+        .col-md-6
+          dl
+          h3= t('completed_practices')
+          .progress
+            .progress-bar.progress-bar-info aria-valuemax="100" aria-valuemin="0" aria-valuenow="#{@user.completed_percentage}" role="progressbar" style=("min-width: 2em; width: #{number_to_percentage @user.completed_percentage, precision: 0};") 
+              | #{number_to_percentage @user.completed_percentage, precision: 0}
+          ul
+            - @user.completed_practices.each do |practice|
+              li.title= link_to practice.title, practice
+
 
       h3= t('reports')
       - if @reports.any?
@@ -71,3 +103,21 @@ header.page-header
               .btn-group
                 = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
                 = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+
+        .col-md-6
+          h3= t('reports')
+          - if @reports.any?
+              - @reports.each do |report|
+                .reports-item
+                  = link_to report, itempro: "url", class: "reports-item__link" do
+                    h3.creports-item__title(itemprop="name")= report.title
+                  time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+                    = l report.updated_at, format: :short
+                    - if report.comments.any?
+                      = t('blank')
+                      = t('report_comments_any')
+                      = report.comments.count
+                      = t('comments_count')
+                  .btn-group
+                    = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
+                    = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'

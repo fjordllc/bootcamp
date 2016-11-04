@@ -159,7 +159,7 @@ ja:
         category_id: "カテゴリー"
 
       user:
-        login_name: "ユーザー名"
+        login_name: "インターン名"
         first_name: "名"
         last_name: "姓"
         full_name: "フルネーム"
@@ -179,7 +179,7 @@ ja:
         purpose: "インターンの目的"
         find_job_assist: "就職支援"
         company: "会社"
-        created_at: "インターン開始日"
+        created_at: "開始日"
         updated_at: "最終活動日時"
         part: "パート"
         nda: 秘密保持契約
@@ -227,7 +227,7 @@ ja:
 
   activerecord:
     models:
-      user: "ユーザー"
+      user: "インターン"
       practice: "プラクティス"
       company: "会社"
       comment: "コメント"
@@ -248,7 +248,7 @@ ja:
 
     attributes:
       user:
-        login_name: "ユーザー名"
+        login_name: "インターン名"
         first_name: "名"
         last_name: "姓"
         description: "自己紹介（動ける曜日・時間）"
@@ -349,7 +349,7 @@ ja:
   hide_completed: "完了済みプラクティスを隠す"
   show_completed: "完了済みプラクティスを表示"
   dashboard: "ダッシュボード"
-  new_user: "新規ユーザー"
+  new_user: "新規インターン"
   new_company: "新規会社"
   new_practice: "新規プラクティス"
   new_report: "日報の新規作成"
@@ -357,7 +357,7 @@ ja:
   updated_by: "updated by "
   comments: "コメント"
   256interns: "256 INTERNS"
-  users: "ユーザー"
+  users: "インターン"
   my_practices: "マイプラクティス"
   activities: "アクティビティ"
   practices: "プラクティス"
@@ -369,7 +369,7 @@ ja:
   programmer: "プログラマー"
   designer: "デザイナー"
   everyone: "共通"
-  listing_users: "ユーザー一覧"
+  listing_users: "インターン一覧"
   listing_courses: "コース一覧"
   listing_practices: "プラクティス一覧"
   reports: "日報"
@@ -391,12 +391,12 @@ ja:
   back: "戻る"
   copy: "コピー"
   "bob's_practices": "%{name}のプラクティス"
-  invalid_email_or_password: "ユーザー名かパスワードが違います。"
+  invalid_email_or_password: "インターン名かパスワードが違います。"
   status_for_all_practices: "全てのプラクティスの状態"
   sign_in_successful: "サインインしました。"
   sign_out: "サインアウトしました。"
   registration_successfull: "サインアップしました。"
-  user_was_successfully_updated: "ユーザーを更新しました。"
+  user_was_successfully_updated: "インターンを更新しました。"
   practice_was_successfully_created: "プラクティスを作成しました。"
   practice_was_successfully_updated: "プラクティスを更新しました。"
   practice_was_successfully_deleted: "プラクティスを削除しました。"
@@ -412,7 +412,7 @@ ja:
   category_was_successfully_created: "カテゴリーを作成しました。"
   category_was_successfully_updated: "カテゴリーを更新しました。"
   category_was_successfully_deleted: "カテゴリーを削除しました。"
-  learning_users: "学習中ユーザー"
+  learning_users: "学習中インターン"
   for: "%{target} 課題"
   for: "%{target} 課題"
   for_everyone: "共通"
@@ -420,7 +420,7 @@ ja:
   all_user: "全員"
   how_256interns_works: "256インターンとは"
   completed: "完了"
-  completed_users: "完了したユーザー"
+  completed_users: "完了したインターン"
   completed_practices: "完了したプラクティス"
   active_practices: "進行中のプラクティス"
   learning_week: "学習週"
@@ -432,10 +432,15 @@ ja:
   i_do_not_want_to_find_job_assist: "フィヨルドの就職支援を希望しない"
   we_will_find_rails_job_by_our_best: "町田、駒形が知り合いのrailsを使った会社や知り合いの就職支援サイトなどを駆使して全力で就職先探しをサポートします。"
   agree_nda: "秘密保持契約に同意する"
-  active_users: "アクティブユーザー (%{count})"
-  inactive_users: "最近活動の無いユーザー (%{count})"
+  active_users: "アクティブインターン (%{count})"
+  inactive_users: "最近活動の無いインターン (%{count})"
   action: 操作
   order: 並び順
   related-reports: 関連した日報
+<<<<<<< f022f9303256d5b79d2e2dbcb3126223e46aa337
   search_report: 日報検索
   search_for: "'%{text}' の検索結果"
+=======
+  to_index_of_reports: 日報一覧へ
+  post_comment: コメントを投稿
+>>>>>>> wip

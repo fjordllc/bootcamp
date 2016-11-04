@@ -1,13 +1,40 @@
+$report-header-author: 7rem
 .report
   background-color: $base-color
-  padding: 2rem 2rem 2rem 188px
   +position(relative)
   min-height: 20rem
+  max-width: 52rem
+  +margin(horizontal, auto)
+  border-radius: .25rem
+
 .report__header
+  padding-left: $report-header-author
+.report__title
+  +text-block(1.625rem 1.5 .5rem, 600)
+  padding-left: 1rem
+  +padding(vertical, 1rem)
+  border-bottom: solid .0625rem $background-color
+
+.report__meta
+  display: flex
+  justify-content: flex-end
+  align-items: center
+.report__author-name
+  +text-block(.75rem 1.4, $muted-text)
+  margin-right: .75rem
+.report__created-at
+  display: block
+  +text-block(.875rem 1.4, $muted-text)
+  padding-right: 1rem
+
+.report__body
+  padding: 1rem 1rem 1rem ($report-header-author + 1rem)
+
+.report__author
   +position(absolute, left 0, top 0)
-  +size(160px 100%)
-  padding: 1.6rem
-  border-right: #EEE solid 2px
+  +size($report-header-author 100%)
+  padding: 1rem
+  border-right: $background-color solid .0625rem
 .report__author-link
   +block-link
   margin-bottom: 1rem
@@ -15,16 +42,39 @@
   +size(100% auto)
   border-radius: 50%
   margin-bottom: .5rem
-.report__author-name
-  +text-block(1rem 1.4, $text center)
-.report__created-at
-  display: block
-  +text-block(.875rem 1.4, $text center)
-  +margin(horizontal, -1rem)
-.report__body
+
+.report__footer
   margin-bottom: 2rem
-  li
-    list-style-type: disc
+  padding-left: $report-header-author
+.report__footer-container
+  border-top: solid .0625rem $background-color
+  padding: .5rem 1rem
+  display: flex
+  justify-content: space-between
+  align-items: center
+.report__actions-items
+  display: flex
+  align-items: center
+.report__actions-item-link
+  +text-block(1.25rem 1, center flex $muted-text)
+  +size(2.375rem)
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  transition: color .2s ease-in, background-color .2s ease-in
+  &.is-success
+    &:hover
+      background-color: #e0eefe
+      color: $primary
+  &.is-danger
+    &:hover
+      background-color: #f5e6ea
+      color: $danger
+
+.report-comments-container
+  max-width: 52rem
+  +margin(horizontal, auto)
+
 .comment__body
   margin-top: 2rem
 .comment__description

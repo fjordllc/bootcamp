@@ -17,12 +17,14 @@ html lang="ja"
     - if head_last = yield(:head_last)
       = head_last
   body class="#{body_class} #{yield(:page_classes)}"
+    - unless yield(:page_classes).include?('no-global-nav')
+      = render 'global_nav'
     .wrapper.js-open-drawer-wrapper
       - unless yield(:page_classes).include?('no-header')
         = render 'header'
       = render 'alert'
       main.page
         = yield
-      - unless yield(:page_classes).include?('no-footer')
-        = render 'footer'
+    - unless yield(:page_classes).include?('no-recent-reports')
+      = render 'reports/recent_reports'
     = render 'mobile_global_nav'

@@ -1,7 +1,8 @@
 = content_tag_for :tr, practice do |practice|
   .category-practices-item.js-practice(id= "practice_#{practice.id}")
     .category-practices-item__value.is-title
-      = link_to emojify(practice.title), practice
+      = link_to practice, class: 'category-practices-item__title-link'
+        = emojify(practice.title)
     .category-practices-item__value.is-started-users
       - practice.started_users.student.each do |user|
         = link_to user, class: "category-practices-item__user-link" do
@@ -9,20 +10,26 @@
     - if current_user
       .category-practices-item__value.is-status
         - status = practice.status(current_user)
-        .btn-group
+        ul.is-button-group.category-practices-item__button-group
           - %i(not_complete started complete).each do |status|
             - if practice.status(current_user) == status
-              button.btn.btn-success.js-practice-state[class="#{status}" data-status="#{status}" disabled]= t(status)
+              li
+                button.btn.btn-success.js-practice-state.is-button-standard-xs-primary[class="#{status}" data-status="#{status}" disabled]= t(status)
             - else
-              button.btn.btn-secondary.js-practice-state[class="#{status}" data-status="#{status}"]= t(status)
+              li
+                button.btn.btn-secondary.js-practice-state.is-button-standard-xs-secondary[class="#{status}" data-status="#{status}"]= t(status)
       - if current_user.admin?
         .category-practices-item__value.is-handle
-          .btn-group
-            = link_to practice_position_path(practice, move: :top), method: :put, class: 'btn btn-secondary js-practice-state'
-              i.fa.fa-angle-double-up
-            = link_to practice_position_path(practice, move: :higher), method: :put, class: 'btn btn-secondary js-practice-state'
-              i.fa.fa-angle-up
-            = link_to practice_position_path(practice, move: :lower), method: :put, class: 'btn btn-secondary js-practice-state'
-              i.fa.fa-angle-down
-            = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'btn btn-secondary js-practice-state'
-              i.fa.fa-angle-double-down
+          ul.is-button-group
+            li
+              = link_to practice_position_path(practice, move: :top), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
+                i.fa.fa-angle-double-up
+            li
+              = link_to practice_position_path(practice, move: :higher), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
+                i.fa.fa-angle-up
+            li
+              = link_to practice_position_path(practice, move: :lower), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
+                i.fa.fa-angle-down
+            li
+              = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
+                i.fa.fa-angle-double-down
