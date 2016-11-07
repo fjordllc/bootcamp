@@ -6,11 +6,13 @@ nav.global-nav
         ul.global-nav-links__items
           - if current_user
             li.global-nav-links__item
-              = link_to t('practices'), practices_path, class: "global-nav-links__link #{controller_name == 'practices' ? 'is-active' : ''}"
+              = link_to "プラクティス", practices_path, class: "global-nav-links__link #{controller_name == 'practices' ? 'is-active' : ''}"
             li.global-nav-links__item
-              = link_to t('reports'), reports_path, class: "global-nav-links__link #{controller_name == 'reports' ? 'is-active' : ''}"
+              = link_to "日報", reports_path, class: "global-nav-links__link #{controller_name == 'reports' ? 'is-active' : ''}"
             li.global-nav-links__item
-              = link_to t('users'), users_path, class: "global-nav-links__link #{controller_name == 'users' ? 'is-active' : ''}"
+              = link_to "Wiki", "/pages", class: "global-nav-links__link #{controller_name == 'pages' ? 'is-active' : ''}"
+            li.global-nav-links__item
+              = link_to "ユーザー", users_path, class: "global-nav-links__link #{controller_name == 'users' ? 'is-active' : ''}"
             li.global-nav-links__item
               = link_to "みんなのブログ", feeds_path, class: "global-nav-links__link #{controller_name == 'feeds' ? 'is-active' : ''}"
       .global-nav-links.is-auth-links

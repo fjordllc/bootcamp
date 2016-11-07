@@ -297,6 +297,10 @@ ja:
         title: "タイトル"
         description: "内容"
 
+      page:
+        title: タイトル
+        body: 本文
+
     errors:
       template:
         header:

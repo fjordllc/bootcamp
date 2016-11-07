@@ -1,0 +1,10 @@
+= form_for page, url: url do |f|
+  - if page.errors.any?
+    = error_messages_for :page
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control'
+  .form-group
+    = f.label :body
+    = f.text_area :body, size: "10x10", class: 'form-control'
+  .actions = f.submit nil, class: 'btn btn-primary btn-sm'

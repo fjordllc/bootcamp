@@ -24,6 +24,15 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  get "pages", to: "pages#index", as: :pages
+  post "pages", to: "pages#create"
+  get "pages/:title", to: "pages#show", as: :page
+  patch "pages/:title", to: "pages#update"
+  put "pages/:title", to: "pages#update"
+  delete "pages/:title", to: "pages#destroy"
+  get "pages/new", to: "pages#new"
+  get "pages/:title/edit", to: "pages#edit"
+
   resources :courses, only: :index
   resources :chat_notices, only: :create
   get 'login'  => 'user_sessions#new',     as: :login
