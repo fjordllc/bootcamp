@@ -7,10 +7,10 @@ header.page-header
 .page-body
   .container
     .pages
-      - @pages.each do |page|
-        .page
-          h3.title= link_to page.title, "/pages/#{page.title}"
-          .body= markdown page.body
-          .btn-group
-            = link_to "編集", "/pages/#{page.title}/edit", class: 'btn btn-primary'
-            = link_to "削除", "/pages/#{page.title}", data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'btn btn-danger'
+      ul
+        - @pages.each do |page|
+          li
+            h3.title= link_to page.title, "/pages/#{page.title}"
+            .btn-group
+              = link_to "編集", "/pages/#{page.title}/edit", class: 'btn btn-primary'
+              = link_to "削除", "/pages/#{page.title}", data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'btn btn-danger'

@@ -1,4 +1,4 @@
-= form_for page, url: url do |f|
+= form_for page, url: url, html: { method: method } do |f|
   - if page.errors.any?
     = error_messages_for :page
   .form-group
