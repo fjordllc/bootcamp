@@ -1,0 +1,7 @@
+header.page-header
+  .container
+    h2.page-header__title ページ編集
+
+.page-body
+  .container
+    = render 'form', page: @page, url: "/pages/#{@page.title}"

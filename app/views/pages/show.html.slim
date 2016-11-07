@@ -1,0 +1,13 @@
+- title @page.title
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title
+        = @page.title
+.page-body
+  .container
+    .page
+      = markdown @page.body
+      .btn-group
+        = link_to "編集", "/pages/#{@page.title}/edit", class: 'btn btn-primary'
+        = link_to "削除", "/pages/#{@page.title}", data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'btn btn-danger'

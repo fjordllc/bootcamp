@@ -29,9 +29,6 @@
     "SLACK_WEBHOOK_URL":{
       "required":true
     },
-    "DEPLOY_TASKS":{
-      "required":true
-    },
     "TZ":{
       "required":true
     }
