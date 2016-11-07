@@ -1,15 +1,18 @@
 .page-header
-  background-color: #3198a7
-  +padding(vertical, 1rem)
+  background-color: $base-color
   margin-bottom: 1.5rem
+  box-shadow: rgba(black, .2) 0 .0625rem .0625rem
   &.has-user-data
     overflow: hidden
+  &.has-border-bottom-none
+    border-bottom: none
 .page-header__container
+  height: 3.5rem
   +position(relative)
   display: flex
   align-items: center
   justify-content: space-between
 .page-header__title
-  +text-block(1.5rem 1.4, white)
+  +text-block(1.5rem 1, $side)
   img
     +size(2.5rem auto)

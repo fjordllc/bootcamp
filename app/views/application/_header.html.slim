@@ -1,4 +1,5 @@
 header.header
+<<<<<<< 59343381b04a14b8035af1318351dc468c15dc80
   .container
 <<<<<<< f022f9303256d5b79d2e2dbcb3126223e46aa337
     .global-nav__container
@@ -47,6 +48,9 @@ header.header
       .global-nav__open-drawer.js-open-drawer-trigger
         i.fa.fa-bars
 =======
+=======
+  .container.has-no-right-padding
+>>>>>>> wip
     .header__container
       = link_to t('256interns'), root_path, class: 'header__title'
       - if current_user
@@ -58,6 +62,9 @@ header.header
               li.header-links__item
                 = link_to logout_path, class: "header-links__link" do
                   i.fa.fa-sign-out
+              li.header-links__item
+                = link_to '', class: "header-links__link" do
+                  i.fa.fa-bell-o
       - else
         .header-links.is-auth-links
           ul.header-links__items

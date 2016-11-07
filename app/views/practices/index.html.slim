@@ -4,7 +4,7 @@ header.page-header
     .page-header__container
       h2.page-header__title
         = t('practices')
-      = link_to new_practice_path, class: 'is-button-standard-sm-secondary' do
+      = link_to new_practice_path, class: 'is-button-standard-sm-secondary is-multi-lines' do
         i.fa.fa-plus
         = t('new_practice')
 
@@ -16,8 +16,11 @@ header.page-header
           header.categories-item__header
             h2.categories-item__title
               = category.name
+            - if current_user.admin?
+              .js-show-handle.categories-item__show-handle
+                i.fa.fa-cog
           .categories-item__body
-            .js-target-blank.is-long-text-style
+            .categories-item__description.js-target-blank.is-long-text-style
               = markdown emojify(category.description)
-          .category-practices.js-category-practices
-            = render category.practices
+            .category-practices.js-category-practices
+              = render category.practices

@@ -2,9 +2,12 @@
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title
-        = @report.title
-      = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
+      h1.page-header__title
+        = t('reports')
+      = link_to new_report_path, class: 'is-button-standard-sm-secondary' do
+        i.fa.fa-plus
+        = t('new_report')
+
 .page-body
   .container
     .report

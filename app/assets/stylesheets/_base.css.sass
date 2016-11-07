@@ -15,7 +15,7 @@
 
 body
   height: 100vh
-  +overflow(hidden auto)
+  +overflow(hidden scroll)
   .modal-open
     overflow: hidden
 
@@ -23,6 +23,8 @@ body
   max-width: 100%
   padding-left: 7rem
   padding-right: 15.5rem
+  &.has-no-right-padding
+    padding-right: 13rem
   body.no-global-nav &
     padding-left: 3rem
   body.no-recent-reports &

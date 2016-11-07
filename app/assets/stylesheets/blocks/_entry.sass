@@ -1,26 +1,26 @@
 .entry
-  max-width: 680px
+  max-width: 42.5rem
   +margin(horizontal, auto)
   margin-bottom: 3rem
   background-color: $base-color
+  border-radius: .25rem
+  box-shadow: rgba(black, .2) 0 .0625rem .125rem
 .entry-header
   margin-bottom: 1.5rem
-  background-color: #1E88E5
-  +padding(horizontal, 2rem)
-  +padding(vertical, 1.5rem)
+  +padding(horizontal, 1.25rem)
+  +padding(vertical, 1rem)
+  border-bottom: solid .0625rem $background-color
 .entry-header__title
-  +text-block(2rem 1.3 .7rem, $reversal-text)
+  +text-block(1.5rem 1.3 .25rem, $side)
 .entry-header__title-link
-  color: $reversal-text
+  color: $side
   display: block
 .entry-header__meta-items
   list-style: none
 .entry-header__meta-item
-  +text-block(.875rem 1.4 .25rem, $reversal-text)
-  &:last-child
-    margin-bottom: 0
+  +text-block(.8125rem 1.4, #b9b9b9)
+  +inline-block
 
 .entry-body
-  background-color: $base-color
-  +padding(horizontal, 2rem)
-  padding-bottom: 2rem
+  +padding(horizontal, 1.25rem)
+  padding-bottom: 1.5rem
