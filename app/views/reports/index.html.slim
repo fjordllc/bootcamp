@@ -1,4 +1,5 @@
-<<<<<<< f022f9303256d5b79d2e2dbcb3126223e46aa337
+- title t('reports')
+
 - if @search_word.present?
   - title t('search_for', text: @search_word)
   header.page-header
@@ -15,18 +16,17 @@
         h2.page-header__title
           = t('reports')
         = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
-=======
-- title t('reports')
+
+
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title
+      h1.page-header__title
         = t('reports')
       = link_to new_report_path, class: 'is-button-standard-sm-secondary' do
         i.fa.fa-plus
         = t('new_report')
 
->>>>>>> wip
 .page-body
   .container
     - if @reports.nil? == false
@@ -53,3 +53,31 @@ header.page-header
               .report__body
                 = highlight("#{sliced(report.description, @search_word)}", "#{@search_word}")
       = paginate @reports
+
+      .reports-list
+        - @reports.each do |report|
+          - if report.present?
+            .reports-list-item
+              .reports-list-item__inner
+                .reports-list-item__author
+                  = gravatar_tag report.user, size: 44, html: { class: "category-practices-item__user-icon"}
+                header.reports-list-item__header
+                  h2.reports-list-item__title(itemprop="name")
+                    = link_to report, itempro: "url", class: "reports-list-item__title-link" do
+                      = report.title
+                  - if report.user == current_user
+                    .reports-list-item__actions
+                      = link_to edit_report_path(report), class: 'reports-list-item__actions-link' do
+                        i.fa.fa-pencil
+                      = link_to new_report_path(report), class: 'reports-list-item__actions-link' do
+                        i.fa.fa-files-o
+                      = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'reports-list-item__actions-link' do
+                        i.fa.fa-trash-o
+                .reports-list-item-meta
+                  time.reports-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+                    = l report.updated_at, format: :short
+                  - if report.comments.any?
+                    .reports-list-item-meta__comments
+                      = t('report_comments_any')
+                      = report.comments.count
+                      = t('comments_count')

@@ -1,13 +1,15 @@
 .categories-item
-  margin-bottom: 2rem
+  margin-bottom: 3rem
   max-width: 62.5rem
   +margin(horizontal, auto)
 .categories-item__header
-  background-color: $card-header
-  padding: .5rem 1rem
-  +border-radius(top, .25rem)
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-bottom: .5rem
 .categories-item__title
-  color: $reversal-text
+  +text-block(1.5rem 1.45, $side)
+  padding-left: 1rem
 .categories__labels
   display: flex
   justify-content: space-between
@@ -20,8 +22,12 @@
   border-bottom: #ccc solid 1px
   +padding(vertical, .5rem)
 .categories-item__body
-  padding: 1rem
+  border-radius: .25rem
   background-color: $base-color
+  box-shadow: rgba(black, .2) 0 1px 4px
+  overflow: hidden
+.categories-item__description
+  padding: 1rem
   p
     +text-block(.875rem 1.8 .6em)
   *:last-child
@@ -30,15 +36,13 @@
   flex: 1
   +padding(horizontal, 1rem)
 
-.category-practices
-  background-color: $base-color
-  +border-radius(bottom, .25rem)
-  overflow: hidden
 .category-practices-item
   display: flex
   justify-content: space-between
-  padding: .5rem 1rem
+  padding: .75rem 1rem
   border-top: solid .0625rem $background-color
+  &:nth-child(odd)
+    background-color: #fafafa
   +media-breakpoint-down(sm)
     flex-wrap: wrap
 
@@ -71,7 +75,7 @@
       width: 100%
       margin-top: .5rem
 .category-practices-item__title-link
-  +text-block(.875rem 1.45, 600 $default-text)
+  +text-block(1rem 1.55, 600 $default-text)
   +hover-link
 .category-practices-item__user-icon
   border-radius: 50%

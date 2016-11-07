@@ -1,2 +1,28 @@
-.reports-item__link
-  background-color: white
+.reports-list
+  background-color: $base-color
+  border-radius: .25rem
+  box-shadow: rgba(black, .2) 0 .0625rem .125rem
+.reports-list-item
+  border-bottom: solid .0625rem $background-color
+  padding: .75rem 1rem
+.reports-list-item__inner
+  +relative
+  padding-left: 4rem
+.reports-list-item__author
+  +position(absolute, left 0, top 0)
+.reports-list-item__header
+  display: flex
+  align-items: center
+.reports-list-item__title-link
+  +text-block(1.375rem 1.5, 800 $side)
+.reports-list-item__actions
+  margin-left: .5rem
+  display: flex
+.reports-list-item__actions-link
+  +text-block(1rem 1, flex #b9b9b9)
+  align-items: center
+  justify-content: center
+  +size(1.75rem)
+.reports-list-item-meta
+  display: flex
+  +text-block(.875rem 1.45)

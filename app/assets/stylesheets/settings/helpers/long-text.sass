@@ -1,12 +1,12 @@
 .is-long-text-style
   h1
-    +text-block(2.2em 1.4 .6em)
+    +text-block(1.6em 1.4 .6em)
   h2
-    +text-block(1.8em 1.4 .6em)
-  h3
     +text-block(1.4em 1.4 .6em)
+  h3
+    +text-block(1.2em 1.4 .6em)
   p
-    +text-block(1em 2 1.4em)
+    +text-block(.9375rem 2 1.4em)
   p + h1,
   p + h2,
   p + h3,
@@ -23,9 +23,20 @@
     margin-bottom: 1.8em
     margin-left: 1.6em
   li
-    +text-block(1rem 1.6 .8em)
+    +text-block(.9375rem 1.6 .8em)
+  pre
+    margin-bottom: 2rem
+    code
+      +text-block(.8125rem 1.45)
+      padding: 1rem
+      background-color: $background-color
+      border-radius: .25rem
   .twitter-tweet
     +margin(horizontal, auto)
     margin-bottom: 2.5rem !important
+  iframe
+    +margin(horizontal, auto)
+    margin-bottom: 2rem
+    display: block
   *:last-child
     margin-bottom: 0

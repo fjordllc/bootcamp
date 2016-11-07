@@ -18,18 +18,19 @@
             - else
               li
                 button.btn.btn-secondary.js-practice-state.is-button-standard-xs-secondary[class="#{status}" data-status="#{status}"]= t(status)
-      - if current_user.admin?
-        .category-practices-item__value.is-handle
-          ul.is-button-group
-            li
-              = link_to practice_position_path(practice, move: :top), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
-                i.fa.fa-angle-double-up
-            li
-              = link_to practice_position_path(practice, move: :higher), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
-                i.fa.fa-angle-up
-            li
-              = link_to practice_position_path(practice, move: :lower), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
-                i.fa.fa-angle-down
-            li
-              = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
-                i.fa.fa-angle-double-down
+      //
+        - if current_user.admin?
+          .category-practices-item__value.is-handle
+            ul.is-button-group
+              li
+                = link_to practice_position_path(practice, move: :top), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
+                  i.fa.fa-angle-double-up
+              li
+                = link_to practice_position_path(practice, move: :higher), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
+                  i.fa.fa-angle-up
+              li
+                = link_to practice_position_path(practice, move: :lower), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
+                  i.fa.fa-angle-down
+              li
+                = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
+                  i.fa.fa-angle-double-down

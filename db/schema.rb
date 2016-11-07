@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20161216053008) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name"
-    t.string   "slug"
+    t.string   "name",        limit: 255
+    t.string   "slug",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
@@ -45,9 +45,9 @@ ActiveRecord::Schema.define(version: 20161216053008) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",        limit: 255
     t.text     "description"
-    t.string   "website"
+    t.string   "website",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "tos"
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 20161216053008) do
     t.string   "salt"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remember_me_token"
+    t.string   "remember_me_token",            limit: 255
     t.datetime "remember_me_token_expires_at"
     t.string   "first_name"
     t.string   "last_name"

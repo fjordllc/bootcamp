@@ -1,7 +1,7 @@
 $global-nav-width: 5rem
 
 .global-nav
-  background-color: $size
+  background-color: $side
   +size($global-nav-width 100%)
   +position(fixed, left 0, top 0, bottom 0, 2)
 
@@ -29,16 +29,19 @@ $global-nav-width: 5rem
   align-items: center
   justify-content: center
   border-top: solid .0625rem $side-border
+  color: $reversal-text
   &:hover
-    background-color: $side-tint
-  &.is-active
     background-color: $side-shade
+  &.is-active
+    background-color: $side-active
+    color: $side
+    +border-radius(left, .25rem)
   .global-nav-links__item:last-child &
     border-bottom: solid .0625rem $side-border
 
 
 .global-nav-links__link-icon
-  +text-block(1.5rem 1 .375rem, center $reversal-text)
+  +text-block(1.5rem 1 .375rem, center)
 
 .global-nav-links__link-label
-  +text-block(.625rem 1.45, center $reversal-text)
+  +text-block(.625rem 1.45, center)
