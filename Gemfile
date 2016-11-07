@@ -20,10 +20,11 @@ gem 'curb', '~> 0.8.8'
 gem 'jbuilder'
 gem 'diffy'
 gem 'slack-notifier'
-gem "typhoeus"
-gem "gemoji"
-gem "redcarpet"
-gem "markdown_checkboxes"
+gem 'typhoeus'
+gem 'gemoji'
+gem 'redcarpet'
+gem 'markdown_checkboxes'
+gem 'high_voltage'
 
 gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'
@@ -31,8 +32,7 @@ gem 'sprockets-es6'
 # sass
 gem 'sassc-rails'
 gem 'bootstrap', '~> 4.0.0.alpha3'
-#gem 'oulu'
-gem 'oulu', path: '../oulu'
+gem 'oulu'
 
 group :production, :staging do
   gem 'pg'

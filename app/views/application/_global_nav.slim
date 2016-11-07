@@ -37,7 +37,7 @@ nav.global-nav
             .global-nav-links__link-label
               | みんなのブログ
         li.global-nav-links__item
-          = link_to "Wiki", "/pages", class: "global-nav-links__link #{controller_name == 'pages' ? 'is-active' : ''}" do
+          = link_to "/pages", class: "global-nav-links__link #{controller_name == 'pages' ? 'is-active' : ''}" do
             .global-nav-links__link-icon
               i.fa.fa-rss
             .global-nav-links__link-label
