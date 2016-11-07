@@ -4,10 +4,12 @@ header.page-header
     .page-header__container
       h2.page-header__title
         = @page.title
-.page-body
-  .container
-    .page
+
+.card
+  .card-block
+    .js-target-blank.is-long-text-style
       = markdown @page.body
-      .btn-group
-        = link_to "編集", "/pages/#{@page.title}/edit", class: 'btn btn-primary'
-        = link_to "削除", "/pages/#{@page.title}", data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'btn btn-danger'
+
+.btn-group
+  = link_to "編集", "/pages/#{@page.title}/edit", class: 'btn btn-primary'
+  = link_to "削除", "/pages/#{@page.title}", data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'btn btn-danger'

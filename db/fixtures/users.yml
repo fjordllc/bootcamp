@@ -18,8 +18,8 @@ machida:
   id: 2
   login_name: machida
   email: machidanohimitsu@gmail.com
-  crypted_password: $2a$10$GHaT689CBGsIXTp48.jRx.Al0SlV3MOaqmflamt6BY6vDewjhkpFi
-  salt: x4mBSwvHsnuyGSwotzxx
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Teppei
   last_name: Machida
   twitter_url: http://twitter.com/machida

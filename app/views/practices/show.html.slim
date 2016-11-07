@@ -21,8 +21,8 @@
     .card-header
       h2.practices-item__title= t('completed_users')
     .card-block
-      - @practice.completed_users.each do |user|
-        ul.completed-users
+      ul.completed-users
+        - @practice.completed_users.each do |user|
           li.completed-users__user
             = link_to user, class: "completed-users__user-link" do
               span.completed-users__user-icon= gravatar_tag user, size: 64
