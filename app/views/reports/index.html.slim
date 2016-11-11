@@ -22,7 +22,7 @@ header.page-header
     .page-header__container
       h1.page-header__title
         = t('reports')
-      = link_to new_report_path, class: 'is-button-standard-sm-secondary' do
+      = link_to new_report_path, class: 'is-button-standard-sm-warning' do
         i.fa.fa-plus
         = t('new_report')
 
@@ -60,7 +60,7 @@ header.page-header
             .reports-list-item
               .reports-list-item__inner
                 .reports-list-item__author
-                  = gravatar_tag report.user, size: 44, html: { class: "category-practices-item__user-icon"}
+                  = gravatar_tag report.user, size: 44, html: { class: "reports-list-item__author-icon"}
                 header.reports-list-item__header
                   h2.reports-list-item__title(itemprop="name")
                     = link_to report, itempro: "url", class: "reports-list-item__title-link" do

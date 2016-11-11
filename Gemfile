@@ -24,7 +24,6 @@ gem 'typhoeus'
 gem 'gemoji'
 gem 'redcarpet'
 gem 'markdown_checkboxes'
-gem 'high_voltage'
 
 gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'

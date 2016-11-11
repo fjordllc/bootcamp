@@ -83,7 +83,7 @@
             = t('agree_nda')
       
   .auth-form-action.is-sign-up-action
-    = f.submit 'インターン参加する', class: 'is-button-flat-emboss-sm-warning js-sign-up-action'
+    = f.submit 'インターン参加する', class: 'is-button-standard-sm-warning js-sign-up-action'
 
   .modal.fade#myModal(tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true')
     .modal-dialog role="document" 
@@ -101,7 +101,7 @@
             .nda__actions
               ul.auth-form-item__checkboxes
                 li.auth-form-checkbox
-                  label.is-button-flat-emboss-xs-warning.is-checkbox.nda__action
+                  label.is-button-standard-xs-warning.is-checkbox.nda__action
                     = f.check_box :nda, checked: false
                     div= t('agree_nda')
           
