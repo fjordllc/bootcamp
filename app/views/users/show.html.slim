@@ -1,70 +1,13 @@
 - title @user.login_name
-
-header.page-header.has-user-data
+header.page-header
   .container
     .page-header__container
-      .user-data
-        .row
-          .col-md-3
-            .user-data__main
-              .user-data__icon= gravatar_tag @user, size: 100
-              .user-data__names
-                h1.user-data__login-name
-                  = @user.login_name
-                h2.user-data__full-name
-                  = @user.full_name
-                .user-data__company-name
-                  = @user.company.name
-              .user-data-sns
-                ul.user-data-sns__items
-                  - if @user.github_account?
-                    li.user-data-sns__item
-                      = link_to user_github_url(@user), class: 'user-data-sns__item-link' do
-                        i.fa.fa-github-alt
-                  - if @user.twitter_url?
-                    li.user-data-sns__item
-                      = link_to 'https://twitter.com/' + @user.twitter_id, class: 'user-data-sns__item-link' do
-                        i.fa.fa-twitter
-                  - if @user.facebook_url?
-                    li.user-data-sns__item
-                      = link_to @user.facebook_url, class: 'user-data-sns__item-link' do
-                        i.fa.fa-facebook
-                  - if @user.blog_url?
-                    li.user-data-sns__item
-                      = link_to @user.blog_url, class: 'user-data-sns__item-link' do
-                        i.fa.fa-home
-                  - if @user.feed_url?
-                    li.user-data-sns__item
-                      = link_to @user.feed_url, class: 'user-data-sns__item-link' do
-                        i.fa.fa-rss
-            .user-data__sub
-              .user-data__part(class= "is-#{@user.part}")
-                = t(@user.part)
-              //= t("activerecord.enums.user.purposes.#{@user.purpose}")
-              .user-data__created-at
-                .user-data__created-at-label
-                  = t('helpers.label.user.created_at')
-                .user-data__created-at-value
-                  = l @user.created_at.to_date
-              .user-activity__update-at
-                .user-activity__update-at-label
-                  = t('helpers.label.user.updated_at')
-                  | :
-                .user-activity__update-at-value
-                  = l @user.updated_at, format: :long
-              - if @user.active_practices.present?
-                .user-activity__update-at
-                  ul.user-activity__active-practices
-                    - @user.active_practices.each do |practice|
-                      li.user-activity__active-practice
-                        = link_to practice.title, practice
+      h2.page-header__title
+        = @user.login_name
+      = link_to new_report_path, class: 'is-button-standard-sm-secondary' do
+        i.fa.fa-angle-left
+        = t('interns')
 
-
-
-          .col-md-9
-            .user-data__description
-              = simple_format @user.description
-          
 .page-body
   //
     - if current_user.admin? && @user.find_job_assist?
@@ -86,21 +29,28 @@ header.page-header.has-user-data
             - @user.completed_practices.each do |practice|
               li.title= link_to practice.title, practice
 
-        .col-md-6
-          h3= t('reports')
-          - if @reports.any?
-              - @reports.each do |report|
-                .reports-item
-                  = link_to report, itempro: "url", class: "reports-item__link" do
-                    h3.creports-item__title(itemprop="name")= report.title
-                  time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
-                    = l report.updated_at, format: :short
-                    - if report.comments.any?
-                      = t('blank')
-                      = t('report_comments_any')
-                      = report.comments.count
-                      = t('comments_count')
-                  - if report.user == current_user
-                    .btn-group
-                      = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
-                      = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+    .row
+      .col-md-6
+        = render 'users/user_data', user: @user
+        - if @user.active_practices.present?
+          = render 'users/active_practices', user: @user
+        = render 'users/completed_practices', user: @user
+
+      .col-md-6
+        h3= t('reports')
+        - if @reports.any?
+            - @reports.each do |report|
+              .reports-item
+                = link_to report, itempro: "url", class: "reports-item__link" do
+                  h3.creports-item__title(itemprop="name")= report.title
+                time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+                  = l report.updated_at, format: :short
+                  - if report.comments.any?
+                    = t('blank')
+                    = t('report_comments_any')
+                    = report.comments.count
+                    = t('comments_count')
+                - if report.user == current_user
+                  .btn-group
+                    = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
+                    = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'

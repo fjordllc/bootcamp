@@ -1,0 +1,23 @@
+.user-data
+  padding: 1rem
+  background-color: $base-color
+  box-shadow: rgba(black, .2) 0 .0625rem .125rem
+  border-radius: .25rem
+  margin-bottom: 1rem
+  overflow: hidden
+  +position(relative)
+.user-data__part
+  background-color: #b04d4d
+  +inline-block
+  +padding(vertical, .25rem)
+  +text-block(.75rem 1.45, center $reversal-text 600)
+  transform: rotate(-45deg)
+  +position(absolute, left -1.625rem, top 1.25rem, 1)
+  width: 7.5rem
+.user-data__description
+  height: 100%
+  border-radius: .25rem
+  p
+    +text-block(.8125rem 1.8 .8em)
+    &:last-child
+      margin-bottom: 0

@@ -9,7 +9,6 @@
   margin-bottom: .5rem
 .categories-item__title
   +text-block(1.5rem 1.45, $side)
-  padding-left: 1rem
 .categories__labels
   display: flex
   justify-content: space-between
@@ -27,7 +26,7 @@
   box-shadow: rgba(black, .2) 0 1px 4px
   overflow: hidden
 .categories-item__description
-  padding: 1rem
+  margin-bottom: 1rem
   p
     +text-block(.875rem 1.8 .6em)
   *:last-child
@@ -36,34 +35,38 @@
   flex: 1
   +padding(horizontal, 1rem)
 
+
+
 .category-practices-item
-  display: flex
-  justify-content: space-between
   padding: .75rem 1rem
   border-top: solid .0625rem $background-color
+  &:first-child
+    border-top: none
   &:nth-child(odd)
     background-color: #fafafa
   +media-breakpoint-down(sm)
     flex-wrap: wrap
+.category-practices-item__inner
+  +position(relative)
 
 .category-practices-item__value
   &.is-title
-    flex: 1
-    align-items: center
-    display: flex
     +media-breakpoint-down(sm)
       flex: auto
       width: 100%
       margin-bottom: .5rem
   &.is-started-users
-    flex: 1
+    padding-top: .5rem
+    margin-top: .75rem
+    border-top: dotted 1px #e6e6e6
+    margin-bottom: -.25rem
     +media-breakpoint-down(sm)
       flex: auto
       width: 100%
       margin-bottom: .5rem
   &.is-status
     text-align: center
-    flex: 0 0 12.5rem
+    +position(absolute, right 0, top 0)
     +media-breakpoint-down(sm)
       flex: auto
       width: 100%
@@ -75,10 +78,14 @@
       width: 100%
       margin-top: .5rem
 .category-practices-item__title-link
-  +text-block(1rem 1.55, 600 $default-text)
+  +text-block(.875rem 1.55, $default-text flex)
   +hover-link
+  padding-right: 11.25rem
+  align-items: center
+  min-height: 1.875rem
 .category-practices-item__user-icon
   border-radius: 50%
+  +size(2rem)
   +media-breakpoint-down(sm)
     margin-right: .5rem
     +size(1.5rem)

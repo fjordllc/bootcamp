@@ -1,7 +1,7 @@
 .tab-nav
-  background-color: #7a7e8a
-  padding-top: 1rem
+  +padding(vertical, .75rem)
   margin-bottom: 1.5rem
+  border-bottom: solid .0625rem $background-color-shade
 .tab-nav__items
   display: flex
   overflow-x: auto
@@ -14,10 +14,11 @@
     margin-right: 0
 .tab-nav__item-link
   +block-link
-  +padding(horizontal, 1.25rem)
-  +border(top horizontal, .125rem solid $background-color)
-  +text-block(.875rem 2.4, $reversal-text)
+  +text-block(.75rem 2.3, $muted-text center)
   white-space: nowrap
+  background-color: $background-color-shade
+  border-radius: 20rem
+  width: 7rem
   &.is-active
-    background-color: $background-color
-    color: $default-text
+    background-color: $accent-color
+    color: $main-color

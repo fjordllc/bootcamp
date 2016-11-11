@@ -1,0 +1,11 @@
+.user-data
+  .user-data__part(class= "is-#{@user.part}")
+    = t(@user.part)          
+  .row
+    .col-md-6
+      = render 'users/user_profile', user: @user
+      //= t("activerecord.enums.user.purposes.#{@user.purpose}")
+      = render 'users/user_dates', user: @user
+    .col-md-6
+      .user-data__description
+        = simple_format @user.description
