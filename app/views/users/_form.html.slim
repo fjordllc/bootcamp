@@ -83,8 +83,17 @@
             = t('agree_nda')
       
   .auth-form-action.is-sign-up-action
-    = f.submit 'インターン参加する', class: 'is-button-standard-sm-warning js-sign-up-action'
-
+    ul.auth-form-action__items
+      - if params[:action] == 'new'
+        li.auth-form-action__item
+          = f.submit 'インターン参加する', class: 'is-button-standard-md-warning js-sign-up-action'
+      - else
+        li.auth-form-action__item
+          = link_to user_path, class: 'is-button-standard-xs-secondary' do
+            | キャンセル
+        li.auth-form-action__item
+          = f.submit '内容更新', class: 'is-button-standard-md-warning js-sign-up-action'
+      
   .modal.fade#myModal(tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true')
     .modal-dialog role="document" 
       .modal-content
@@ -101,8 +110,11 @@
             .nda__actions
               ul.auth-form-item__checkboxes
                 li.auth-form-checkbox
-                  label.is-button-standard-xs-warning.is-checkbox.nda__action
-                    = f.check_box :nda, checked: false
+                  label.is-button-standard-md-warning.is-checkbox.nda__action
+                    - if params[:action] == 'new'
+                      = f.check_box :nda, checked: false
+                    - else
+                      = f.check_box :nda, checked: true
                     div= t('agree_nda')
           
             .nda__close(aria-label="Close" data-dismiss="modal" type="button")

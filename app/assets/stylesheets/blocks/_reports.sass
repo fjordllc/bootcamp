@@ -2,6 +2,8 @@
   background-color: $base-color
   border-radius: .25rem
   box-shadow: rgba(black, .2) 0 .0625rem .125rem
+  max-width: 62.5rem
+  +margin(horizontal, auto)
 .reports-list-item
   border-bottom: solid .0625rem $background-color
   padding: .75rem 1rem
@@ -14,7 +16,7 @@
   display: flex
   align-items: center
 .reports-list-item__title-link
-  +text-block(1.375rem 1.5, 800 $side)
+  +text-block(1rem 1.5, 600 $side)
 .reports-list-item__actions
   margin-left: .5rem
   display: flex
@@ -26,3 +28,5 @@
 .reports-list-item-meta
   display: flex
   +text-block(.875rem 1.45)
+.reports-list-item__author-icon
+  border-radius: 50%

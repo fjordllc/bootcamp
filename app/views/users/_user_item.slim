@@ -1,0 +1,12 @@
+.users-item(class="#{user.active? ? 'active' : 'inactive'}")
+  .users-item__inner
+    header.users-item__header
+      .users-item__header-container
+        .users-item__name
+          = link_to user.login_name, user, class: "users-item__name-link"
+        .users-item__icon
+          = link_to user do
+            = gravatar_tag user, html: {class: "users-item__icon-image"}
+    .users-item__body
+      .users-item__description
+        p= truncate(user.description, length: 100)

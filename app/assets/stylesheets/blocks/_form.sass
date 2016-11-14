@@ -1,16 +1,40 @@
+.form
+  max-width: 87.5rem
+  +margin(horizontal, auto)
+.form-item
+  margin-bottom: 1rem
+  &:last-child
+    margin-bottom: 0
+.form-item__label
+  +text-block(14px 1.45 .5rem, block 600)
 .form-item__text-input
-  +text-block(.8125rem 1.45, block)
+  +text-block(.875rem 1.45, block)
   width: 100%
   padding: .5rem
   background-color: #f7f7f7
   border: solid .0625rem #c1c5b9
   border-radius: .25rem
   transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
+  &:focus
+    background-color: $base-color
+    box-shadow: rgba(black, .07) 0 .0625rem .0625rem inset
 .form-item__textarea
-  +text-block(.8125rem 1.45, block)
+  +text-block(.875rem 1.8, block)
   width: 100%
   padding: .5rem
   background-color: #f7f7f7
   border: solid .0625rem #c1c5b9
   border-radius: .25rem
   transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
+  &:focus
+    background-color: $base-color
+    box-shadow: rgba(black, .07) 0 .0625rem .0625rem inset
+
+.form-actions
+  margin-bottom: 2rem
+.form-actions__items
+  display: flex
+  align-items: flex-end
+  justify-content: center
+.form-actions__item
+  +padding(horizontal, .375rem)

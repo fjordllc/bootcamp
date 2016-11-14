@@ -28,13 +28,32 @@ $info: #7ac3d3
 $warning: #fabd17
 $danger: #dd6583
 
+=default-link
+  transition: color .2s ease-in
+  color: #4834ce
+  &:link
+    color: #4834ce
+  &:visited
+    color: #6f78b7
+  &:hover
+    color: #1c6ee2
+  &:active
+    color: #b3430b
+
+
 $luma-contrast-bright-color: $default-text
 $luma-contrast-dark-color: $reversal-text
 $button-checked-color: $danger
 $button-checked-icon-color: $reversal-text
 
-$button-xs-height-ratio: 2.4 !default
-$button-sm-height-ratio: 2.2 !default
-$button-md-height-ratio: 2.85 !default
-$button-lg-height-ratio: 2.85 !default
-$button-xl-height-ratio: 2.85 !default
+$xs-button-font-size: .75rem
+$sm-button-font-size: .875rem
+$md-button-font-size: .875rem
+$lg-button-font-size: 1.125rem
+$xl-button-font-size: 1.25rem
+
+$button-xs-height-ratio: 2.4
+$button-sm-height-ratio: 2.2
+$button-md-height-ratio: 2.7
+$button-lg-height-ratio: 2.85
+$button-xl-height-ratio: 2.85

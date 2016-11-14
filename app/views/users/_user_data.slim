@@ -1,6 +1,4 @@
 .user-data
-  .user-data__part(class= "is-#{@user.part}")
-    = t(@user.part)          
   .row
     .col-md-6
       = render 'users/user_profile', user: @user
@@ -9,3 +7,6 @@
     .col-md-6
       .user-data__description
         = simple_format @user.description
+  - if current_user == @user
+    = link_to edit_user_path, class: 'is-button-standard-md-warning' do
+      | 情報変更

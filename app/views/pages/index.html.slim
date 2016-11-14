@@ -2,8 +2,11 @@
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title ページ一覧
-      = link_to "新規ページ", "/pages/new", class: 'btn btn-primary btn-md page-header__button'
+      h1.page-header__title
+        | ページ一覧
+      = link_to "/pages/new", class: 'is-button-standard-md-warning' do
+        i.fa.fa-plus
+        | 新規ページ
 .page-body
   .container
     .pages

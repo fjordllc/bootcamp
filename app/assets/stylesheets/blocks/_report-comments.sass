@@ -1,4 +1,4 @@
-$report-header-author: 7rem
+$report-header-author: 3.5rem
 .report-comments
   +position(relative)
   max-width: 52rem
@@ -9,16 +9,17 @@ $report-header-author: 7rem
   +position(relative)
   border-radius: .25rem
   margin-bottom: 2rem
-  padding-left: $report-header-author
+  padding-left: $report-header-author + 1.25rem
 
 .report-comment__author
   +position(absolute, left 0, top 0)
   +size($report-header-author 100%)
-  padding-right: 2rem
   border-right: $background-color solid .0625rem
 .report-comment__author-icon
   +size(100% auto)
   border-radius: 50%
+.report-comment__login-name-link
+  color: $main-color
 .report-comment__body
   background-color: #d9d9d9
   +padding(horizontal, 1rem)

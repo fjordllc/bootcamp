@@ -1,26 +1,25 @@
 - title @user.login_name
+- if current_user.admin? && @user.find_job_assist?
+  .user-find-job-assist
+    .container
+      .user-find-job-assist__value
+        | 就職支援希望者
 header.page-header
   .container
     .page-header__container
       h2.page-header__title
+        label.user-part(class= "is-#{@user.part}")
+          = t(@user.part)  
         = @user.login_name
-      = link_to new_report_path, class: 'is-button-standard-sm-secondary' do
+      = link_to new_report_path, class: 'is-button-standard-md-secondary' do
         i.fa.fa-angle-left
         = t('interns')
 
 .page-body
-  //
-    - if current_user.admin? && @user.find_job_assist?
-      .user-find-job-assist
-        .container
-          .user-find-job-assist__value
-            | 就職支援希望者
-
   .container
     .user
       .row
         .col-md-6
-          dl
           h3= t('completed_practices')
           .progress
             .progress-bar.progress-bar-info aria-valuemax="100" aria-valuemin="0" aria-valuenow="#{@user.completed_percentage}" role="progressbar" style=("min-width: 2em; width: #{number_to_percentage @user.completed_percentage, precision: 0};") 
@@ -29,28 +28,13 @@ header.page-header
             - @user.completed_practices.each do |practice|
               li.title= link_to practice.title, practice
 
-    .row
+    .row.is-gutter-width-32
       .col-md-6
         = render 'users/user_data', user: @user
         - if @user.active_practices.present?
           = render 'users/active_practices', user: @user
         = render 'users/completed_practices', user: @user
 
-      .col-md-6
-        h3= t('reports')
-        - if @reports.any?
-            - @reports.each do |report|
-              .reports-item
-                = link_to report, itempro: "url", class: "reports-item__link" do
-                  h3.creports-item__title(itemprop="name")= report.title
-                time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
-                  = l report.updated_at, format: :short
-                  - if report.comments.any?
-                    = t('blank')
-                    = t('report_comments_any')
-                    = report.comments.count
-                    = t('comments_count')
-                - if report.user == current_user
-                  .btn-group
-                    = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
-                    = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+      - if @reports.any?
+        .col-md-6
+          = render 'users/user_reports', reports: @reports
