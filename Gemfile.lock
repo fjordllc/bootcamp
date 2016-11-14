@@ -1,3 +1,10 @@
+PATH
+  remote: ../oulu
+  specs:
+    oulu (0.12.22)
+      rake
+      thor (~> 0.19)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -131,9 +138,6 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (~> 1.2)
-    oulu (0.12.20)
-      rake
-      thor (~> 0.19)
     pg (0.18.4)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -268,7 +272,7 @@ DEPENDENCIES
   jquery-rails
   markdown_checkboxes
   newrelic_rpm
-  oulu
+  oulu!
   pg
   pry-byebug
   pry-remote

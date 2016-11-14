@@ -1,0 +1,26 @@
+.user-reports-item
+  +position(relative)
+  padding-right: 4rem
+  border-bottom: solid .0625rem $background-color-shade
+.user-reports-item__link
+  display: block
+  +padding(vertical, .5rem)
+  &:hover
+    .user-reports-item__title
+      text-decoration: underline
+.user-reports-item__title
+  +text-block(1rem 1.55, $main-color)
+.user-reports-item__updated-at
+  +text-block(.875rem 1.45, block $muted-text)
+
+.user-reports-item-actions
+  +position(absolute, right 0, top .25rem)
+
+.user-reports-item-actions__items
+  display: flex
+.user-reports-item-actions__item-link
+  +size(2rem)
+  display: flex
+  align-items: center
+  justify-content: center
+  +text-block(1.125rem, $muted-text)

@@ -4,7 +4,7 @@ header.page-header
     .page-header__container
       h1.page-header__title
         = t('reports')
-      = link_to new_report_path, class: 'is-button-standard-sm-secondary' do
+      = link_to new_report_path, class: 'is-button-standard-md-warning' do
         i.fa.fa-plus
         = t('new_report')
 
@@ -50,8 +50,10 @@ header.page-header
           = gravatar_tag @report.user, size: 120, html: { class: "report__author-icon"}
           
     
+    = render 'report', report: @report
+
     .report-comments-container
-      h2.comment__body
+      h2.report-comments-container__title
         = t('comments')
         - @comments.any?
           = @comments.count
@@ -59,34 +61,5 @@ header.page-header
       .report-comments
         - if @comments.any?
             - @comments.each do |comment|
-              .report-comment
-                .report-comment__author
-                  = link_to comment.user, itempro: 'url', class: 'report__author-link' do
-                    = gravatar_tag comment.user, size: 200, html: { class: "report-comment__author-icon"}
-                .report-comment__body
-                  header.report-comment__body-header
-                    h1.report-comment__login-name
-                      = comment.user.login_name
-                    time.report-comment__created-at(datetime='#{@report.created_at.to_datetime}' pubdate='pubdate')
-                      = l comment.updated_at, format: :short
-                  .report-comments__description.js-target-blank.is-long-text-style
-                    = markdown comment.description
-                  - if comment.user == current_user
-                    .report-comment__actions
-                      ul.report-comment__actions-items
-                        li.report-comment__actions-item
-                          = link_to edit_report_comment_path(@report, comment), class: 'report-comment__actions-item-link' do
-                            i.fa.fa-pencil
-                        li.report-comment__actions__item
-                          = link_to  report_comment_path(@report, comment), data: { confirm: t('are_you_sure') }, method: :delete, class: 'report-comment__actions-item-link' do
-                            i.fa.fa-trash-o
-
-      .report-comment-form
-        .report-comment-form__author
-          = gravatar_tag current_user, size: 200, html: { class: "report-comment-form__author-icon"}
-        = form_for ([@report, @comment]), html: {class: 'report-comment-form__form'} do |f|
-          .form-items
-            .form-item
-              = f.text_area :description, size: '5x5', required: true, class: 'form-item__textarea report-comment-form__textarea js-markdown-input'
-          .report-comment-form__action
-            = f.submit t('post_comment'), class: 'is-button-standard-xs-primary'
+              = render "report_comment", report: @report, comment: comment
+      = render "report_comment_form"

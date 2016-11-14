@@ -22,7 +22,7 @@ header.page-header
     .page-header__container
       h1.page-header__title
         = t('reports')
-      = link_to new_report_path, class: 'is-button-standard-sm-warning' do
+      = link_to new_report_path, class: 'is-button-standard-md-warning' do
         i.fa.fa-plus
         = t('new_report')
 
@@ -57,6 +57,7 @@ header.page-header
       .reports-list
         - @reports.each do |report|
           - if report.present?
+<<<<<<< e759b3c8a49538561d89719adf0c488c52383511
             .reports-list-item
               .reports-list-item__inner
                 .reports-list-item__author
@@ -81,4 +82,7 @@ header.page-header
                       = t('report_comments_any')
                       = report.comments.count
                       = t('comments_count')
+>>>>>>> wip
+=======
+            = render 'reports_list_item', report: report
 >>>>>>> wip

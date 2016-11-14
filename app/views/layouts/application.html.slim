@@ -1,5 +1,5 @@
 doctype html
-html lang="ja"
+html.is-application lang="ja"
   head
     meta charset="utf-8" /
     meta content="IE=edge" http-equiv="X-UA-Compatible" /
@@ -27,4 +27,3 @@ html lang="ja"
         = yield
     - unless yield(:page_classes).include?('no-recent-reports')
       = render 'reports/recent_reports'
-    = render 'mobile_global_nav'

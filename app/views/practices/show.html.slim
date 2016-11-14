@@ -1,21 +1,22 @@
 - title @practice.title
-.page-header
+header.page-header
   .container
-    h1.page-header__title
-      = emojify(@practice.title)
+    .page-header__container
+      h2.page-header__title
+        = emojify(@practice.title)
 .container
   .row
     .col-md-6
       .card
         .card-header
-          h2.practices-item__title= t('helpers.label.practice.description')
+          h2.card__title= t('helpers.label.practice.description')
         .card-block
           .practice.js-target-blank.is-long-text-style
             = markdown @practice.description
           
       .card
         .card-header
-          h2.practices-item__title= t('helpers.label.practice.goal')
+          h2.card__title= t('helpers.label.practice.goal')
         .card-block
           .goal.js-target-blank.is-long-text-style
             = markdown @practice.goal
@@ -43,12 +44,9 @@
                 = link_to report do
                   span=report.title
 
-      .card
-        .card-header
-          h2.practices-item__title= t('completed_users')
-        .card-block
-          - @practice.completed_users.each do |user|
-            ul.completed-users
-              li.completed-users__user
-                = link_to user, class: "completed-users__user-link" do
-                  span.completed-users__user-icon= gravatar_tag user, size: 64
+      h2.practices-item__title= t('completed_users')
+      - @practice.completed_users.each do |user|
+        ul.completed-users
+          li.completed-users__user
+            = link_to user, class: "completed-users__user-link" do
+              span.completed-users__user-icon= gravatar_tag user, size: 64

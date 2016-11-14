@@ -1,34 +1,42 @@
-= form_for report do |f|
+= form_for report, html: { class: 'form' } do |f|
   - if report.errors.any?
     = error_messages_for :report
   .form-item
-    = f.label :title
-    - if @report_flag == true
-      = f.text_field :title, size: '10', class: 'form-item__text-input js-warning-form', value: '日報/' << @report_date.strftime("%Y/%m/%d/") << @user_name << ':'
-    - elsif @report_copy_flag == true
-      = f.text_field :title, size: '10', class: 'form-item__text-input js-warning-form', value: @report_title
-    - else
-  .form-item
-    = f.label :practice
-    = f.select :practice_ids, options_from_collection_for_select(Practice.all, :id, :title), {}, {multiple: true, name: 'report[practice_ids][]', class: 'form-control js-warning-form'}
-      = f.text_field :title, size: '10', class: 'form-item__text-input js-warning-form'
-  .row.js-markdown-parent
-    .col-sm-6
-      .form-item
-        = f.label :description
-        - if @report_copy_flag == true
-          = f.text_area :description, size: '10x20', class: 'form-item__textarea js-warning-form js-markdown-input practices-edit__input', value: @report_description
+    .row
+      .col-sm-6
+        = f.label :title, class: 'form-item__label'
+        - if @report_flag == true
+          = f.text_field :title, class: 'form-item__text-input js-warning-form', value: '日報/' << @report_date.strftime("%Y/%m/%d/") << @user_name << ':'
+        - elsif @report_copy_flag == true
+          = f.text_field :title, class: 'form-item__text-input js-warning-form', value: @report_title
         - else
-          = f.text_area :description, size: '10x20', class: 'form-item__textarea js-warning-form js-markdown-input practices-edit__input'        
-    .col-sm-6
-      | プレビュー
-      .js-markdown-preview.is-long-text-style.practices-edit__preview
+          = f.text_field :title, class: 'form-item__text-input js-warning-form'
+        .form-item
+          = f.label :practice
+          = f.select :practice_ids, options_from_collection_for_select(Practice.all, :id, :title), {}, {multiple: true, name: 'report[practice_ids][]', class: 'form-control js-warning-form'}
+            = f.text_field :title, size: '10', class: 'form-item__text-input js-warning-form'
+  .form-item
+    .row.js-markdown-parent
+      .col-sm-6
+        = f.label :description, class: 'form-item__label'
+        - if @report_copy_flag == true
+          = f.text_area :description, class: 'form-item__textarea js-warning-form js-markdown-input practices-edit__input', value: @report_description
+        - else
+          = f.text_area :description, class: 'form-item__textarea js-warning-form js-markdown-input practices-edit__input'        
+      .col-sm-6
+        .form-item__label
+          | プレビュー
+        .js-markdown-preview.is-long-text-style.practices-edit__preview.practices-edit__input
   .form-actions
     ul.form-actions__items
       li.form-actions__item
-        = f.submit nil, class: 'is-button-standard-lg-warning'
+        = button_tag(class: 'is-button-standard-lg-warning') do
+          - if params[:action] == 'new' || params[:action] == 'create' || params[:action] == 'edit' || params[:action] == 'update'
+            | 内容を保存
+          - else
+            | 内容を投稿
       li.form-actions__item
       - if params[:action] == 'new' || params[:action] == 'create'
-        = link_to 'キャンセル', reports_path, class: 'is-button-standard-sm-secondary'
+        = link_to 'キャンセル', reports_path, class: 'is-button-standard-md-secondary'
       - elsif params[:action] == 'edit' || params[:action] == 'update'
-        = link_to 'キャンセル', report_path, class: 'is-button-standard-sm-secondary'
+        = link_to 'キャンセル', report_path, class: 'is-button-standard-md-secondary'

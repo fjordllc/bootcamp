@@ -31,7 +31,8 @@ gem 'sprockets-es6'
 # sass
 gem 'sassc-rails'
 gem 'bootstrap', '~> 4.0.0.alpha3'
-gem 'oulu'
+#gem 'oulu'
+gem 'oulu', path: '../oulu'
 
 group :production, :staging do
   gem 'pg'

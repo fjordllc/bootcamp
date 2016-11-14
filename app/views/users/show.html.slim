@@ -1,23 +1,23 @@
 - title @user.login_name
+- if current_user.admin? && @user.find_job_assist?
+  .user-find-job-assist
+    .container
+      .user-find-job-assist__value
+        | 就職支援希望者
 header.page-header
   .container
     .page-header__container
       h2.page-header__title
+        label.user-part(class= "is-#{@user.part}")
+          = t(@user.part)  
         = @user.login_name
-      = link_to new_report_path, class: 'is-button-standard-sm-secondary' do
+      = link_to new_report_path, class: 'is-button-standard-md-secondary' do
         i.fa.fa-angle-left
         = t('interns')
 
 .page-body
-  //
-    - if current_user.admin? && @user.find_job_assist?
-      .user-find-job-assist
-        .container
-          .user-find-job-assist__value
-            | 就職支援希望者
-
   .container
-    .row
+    .row.is-gutter-width-32
       .col-md-6
         = render 'users/user_data', user: @user
         - if @user.active_practices.present?
@@ -75,3 +75,7 @@ header.page-header
                 .btn-group
                   = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
                   = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+      - if @reports.any?
+        .col-md-6
+          = render 'users/user_reports', reports: @reports
+          

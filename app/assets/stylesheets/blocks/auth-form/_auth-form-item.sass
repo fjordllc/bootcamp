@@ -1,0 +1,39 @@
+.auth-form-item
+  margin-bottom: 1rem
+  &:last-child
+    margin-bottom: 0
+.auth-form-item__label
+  +text-block(.8125rem 1.45 .375rem, block 600)
+  &.is-required
+    &::after
+      +fa('\f069')
+      +text-block(.3125rem, 400 $danger)
+      margin-left: .1875rem
+      +inline-block(top)
+.auth-form-item__text-input
+  +text-block(.8125rem 1.45, block)
+  width: 100%
+  padding: .5rem
+  background-color: #f7f7f7
+  border: solid .0625rem #c1c5b9
+  border-radius: .25rem
+  transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
+  .field_with_errors &
+    border-color: #e1a7b6
+    background-color: #fefafb
+  &:focus
+    background-color: $base-color
+    border-color: #c4c7bf
+    box-shadow: rgba(black, .1) 0 1px 2px inset
+.auth-form-item__help
+  margin-top: .375rem
+  p
+    +text-block(.75rem 1.45)
+.auth-form-item__help-link
+  +text-block(.75rem 1.45)
+  +hover-link-reversal
+.auth-form-item__radio-buttons
+  &.is-half
+    display: flex
+    flex-wrap: wrap
+    +margin(horizontal, -.5rem)

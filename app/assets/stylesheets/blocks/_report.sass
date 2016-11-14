@@ -1,55 +1,51 @@
-$report-header-author: 7rem
+$report-header-author: 6rem
 .report
-  background-color: $base-color
   +position(relative)
-  min-height: 20rem
   max-width: 52rem
   +margin(horizontal, auto)
+  padding-left: 5rem
+
+.report__inner
+  background-color: $base-color
   border-radius: .25rem
   box-shadow: rgba(black, .2) 0 .0625rem .125rem
+  margin-bottom: 2rem
+  +position(relative)
+  +balloon-tail(left $base-color .625rem .75rem, false, top 2rem)
 
 .report__header
-  padding-left: $report-header-author
+  padding: 1rem 2rem
+  border-bottom: $background-color solid .0625rem
+.report__author-link
+  +position(absolute, left 0, top 0)
+  +block-link
+.report__author-icon
+  +size(3.4375rem auto)
+  border-radius: 50%
 .report__title
-  +text-block(1.625rem 1.5 .5rem, 600)
-  padding-left: 1rem
-  +padding(vertical, 1rem)
-  border-bottom: solid .0625rem $background-color
+  +text-block(1.5rem 1.5, 600)
 
 .report__meta
   display: flex
   justify-content: flex-end
   align-items: center
+  padding: .375rem 2rem
+  border-bottom: $background-color solid .0625rem
+  background-color: #fafafa
 .report__author-name
   +text-block(.75rem 1.4, $muted-text)
   margin-right: .75rem
 .report__created-at
   display: block
   +text-block(.875rem 1.4, $muted-text)
-  padding-right: 1rem
 
-.report__body
-  padding: 1rem 1rem 1rem ($report-header-author + 1rem)
+.report__description
+  padding: 1.25rem 2rem
 
-.report__author
-  +position(absolute, left 0, top 0)
-  +size($report-header-author 100%)
-  padding: 1rem
-  border-right: $background-color solid .0625rem
-.report__author-link
-  +block-link
-  margin-bottom: 1rem
-.report__author-icon
-  +size(100% auto)
-  border-radius: 50%
-  margin-bottom: .5rem
 
-.report__footer
-  margin-bottom: 2rem
-  padding-left: $report-header-author
-.report__footer-container
+.report__body-footer-container
   border-top: solid .0625rem $background-color
-  padding: .5rem 1rem
+  padding: .5rem 2rem
   display: flex
   justify-content: space-between
   align-items: center
@@ -75,6 +71,9 @@ $report-header-author: 7rem
 .report-comments-container
   max-width: 52rem
   +margin(horizontal, auto)
+
+.report-comments-container__title
+  +text-block(1.25rem 1.45 1rem)
 
 .comment__body
   margin-top: 2rem

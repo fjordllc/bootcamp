@@ -57,14 +57,14 @@ header.header
         .header-links.is-user-links
           ul.header-links__items
               li.header-links__item
+                = link_to '', class: "header-links__link" do
+                  i.fa.fa-bell-o
+              li.header-links__item
                 = link_to edit_user_path(current_user), class: "header-links__link" do
                   i.fa.fa-cog
               li.header-links__item
                 = link_to logout_path, class: "header-links__link" do
                   i.fa.fa-sign-out
-              li.header-links__item
-                = link_to '', class: "header-links__link" do
-                  i.fa.fa-bell-o
       - else
         .header-links.is-auth-links
           ul.header-links__items
