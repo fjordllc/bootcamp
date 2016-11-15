@@ -6,9 +6,11 @@ class ReportsController < ApplicationController
   before_action :set_report, only: %w(show edit update destroy sort)
   before_action :set_comments, only: %w(show edit update destroy sort)
   before_action :set_comment, only: %w(show edit update destroy sort)
-  before_action :set_user, only: :show
+  before_action :set_user, only: %w(index show sort)
+   require 'pry'
 
   def index
+      binding.pry
   end
 
   def show
