@@ -69,5 +69,4 @@ class CommentsController < ApplicationController
         text: comment.description
       }]
   end
-
 end
