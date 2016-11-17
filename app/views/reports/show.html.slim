@@ -18,11 +18,12 @@ header.page-header
       .report__body.js-target-blank.is-long-text-style
         = markdown @report.description
       footer.report__footer
-        .btn-group
-          = link_to t('edit'), edit_report_path(@report), class: 'btn btn-primary'
-          = link_to t('copy'), new_report_path(@report), class: 'btn btn-success'
-          = link_to t('destroy'), report_path(@report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
-          = link_to t('back'), reports_path, class: 'btn btn-secondary'
+          .btn-group
+            = link_to t('back'), reports_path, class: 'btn btn-secondary'
+            - if @report.user_id == current_user.id
+              = link_to t('edit'), edit_report_path(@report), class: 'btn btn-primary'
+              = link_to t('copy'), new_report_path(@report), class: 'btn btn-success'
+              = link_to t('destroy'), report_path(@report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
       h2.comment__body
         = t('comments')
         - @comments.any?

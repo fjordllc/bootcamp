@@ -2,15 +2,14 @@ class ReportsController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
   before_action :require_login
-  before_action :set_reports, only: %w(index show edit update destroy sort)
-  before_action :set_report, only: %w(show edit update destroy sort)
-  before_action :set_comments, only: %w(show edit update destroy sort)
-  before_action :set_comment, only: %w(show edit update destroy sort)
-  before_action :set_user, only: %w(index show sort)
-   require 'pry'
+  before_action :set_reports, only: %w(index show edit update destroy)
+  before_action :set_report, only: %w(show)
+  before_action :set_my_report, only: %i(edit update destroy)
+  before_action :set_comments, only: %w(show edit update destroy)
+  before_action :set_comment, only: %w(show edit update destroy)
+  before_action :set_user, only: :show
 
   def index
-      binding.pry
   end
 
   def show
@@ -74,6 +73,10 @@ class ReportsController < ApplicationController
 
   def set_report
     @report = Report.find(params[:id])
+  end
+
+  def set_my_report
+    @report = current_user.reports.find(params[:id])
   end
 
   def set_user
