@@ -39,9 +39,10 @@ header.page-header
                 = markdown comment.description
               time.report__created-at(datetime='#{@report.created_at.to_datetime}' pubdate='pubdate')
                 = l comment.updated_at, format: :short
-                .btn-group
-                  = link_to t('edit'), edit_report_comment_path(@report, comment), class: 'btn btn-primary'
-                  = link_to t('destroy'), report_comment_path(@report, comment), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+                - if comment.user_id == current_user.id
+                  .btn-group
+                    = link_to t('edit'), edit_report_comment_path(@report, comment), class: 'btn btn-primary'
+                    = link_to t('destroy'), report_comment_path(@report, comment), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
 
       .comment__form
         = form_for ([@report, @comment]) do |f|
