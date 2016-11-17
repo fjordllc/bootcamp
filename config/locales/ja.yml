@@ -391,6 +391,7 @@ ja:
   copy: "コピー"
   "bob's_practices": "%{name}のプラクティス"
   invalid_email_or_password: "ユーザー名かパスワードが違います。"
+  invalid_permission: "アクセス権限がありません"
   status_for_all_practices: "全てのプラクティスの状態"
   sign_in_successful: "サインインしました。"
   sign_out: "サインアウトしました。"
