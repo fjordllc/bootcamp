@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
   before_action :set_user, only: :show
+  before_action :set_my_comment, only: %i(edit update destroy)
 
   def create
     @report = Report.find(params[:report_id])
@@ -50,6 +51,10 @@ class CommentsController < ApplicationController
 
   def set_user
     @user = User.find_by(id: params[:user_id])
+  end
+
+  def set_my_comment
+    @comment = current_user.comments.find(params[:id])
   end
 
   def notify_to_slack(comment)
