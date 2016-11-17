@@ -21,9 +21,6 @@ class CommentsController < ApplicationController
   def edit
     @comment = Comment.find(params[:id])
     @report = Report.find_by(id: @comment.report_id)
-    unless current_user == @comment.user
-      redirect_to @report, notice: t('invalid_permission')
-    end
   end
 
   def update
@@ -40,12 +37,8 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @report = Report.find_by(id: @comment.report_id)
-    unless current_user == @comment.user
-      redirect_to @report, notice: t('invalid_permission')
-    else
-      @comment.destroy
-      redirect_to @report, notice: t('comment_was_successfully_deleted')
-    end
+    @comment.destroy
+    redirect_to @report, notice: t('comment_was_successfully_deleted')
   end
 
   private
