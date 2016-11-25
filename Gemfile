@@ -61,9 +61,13 @@ gem 'sassc-rails'
 gem 'bootstrap', '~> 4.0.0.alpha6'
 =======
 gem 'bootstrap', '~> 4.0.0.alpha3'
+<<<<<<< HEAD
 >>>>>>> wip
 #gem 'oulu'
 gem 'oulu', path: '../oulu'
+=======
+gem 'oulu'
+>>>>>>> Update oulu
 
 group :production, :staging do
   gem "newrelic_rpm"
