@@ -1,7 +1,7 @@
 PATH
   remote: ../oulu
   specs:
-    oulu (0.12.22)
+    oulu (0.12.23)
       rake
       thor (~> 0.19)
 

@@ -18,8 +18,9 @@
 .entry-header__meta-items
   list-style: none
 .entry-header__meta-item
-  +text-block(.8125rem 1.4, #b9b9b9)
-  +inline-block
+  +text-block(.8125rem 1.4, #b9b9b9 inline-block)
+  +media-breakpoint-down(sm)
+    display: block
 
 .entry-body
   +padding(horizontal, 1.25rem)

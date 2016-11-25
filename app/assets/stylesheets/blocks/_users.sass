@@ -11,8 +11,9 @@
   padding-left: 3.5rem
   border-bottom: solid .0625rem $background-color
 .users-item__name-link
-  +text-block(1rem 1.45, 600 $default-text block)
+  +text-block(1rem 1.45, 600 $main-color block)
   +padding(vertical, .5rem)
+  +hover-link
 .users-item__icon-image
   border-radius: 50%
   +position(absolute, left -1rem, top -.375rem)
@@ -20,7 +21,11 @@
   border: solid $base-color .25rem
   background-color: white
 .users-item__description
-  padding: .5rem 1rem 1rem
+  padding: .5rem 1rem .75rem
   padding-left: 3.5rem
   p
-    +text-block(.8125rem 1.8)
+    +text-block(.75rem 1.6)
+.users-item__edit
+  text-align: center
+  margin-top: -.25rem
+  padding-bottom: 1rem

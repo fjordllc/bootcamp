@@ -6,7 +6,7 @@ header.page-header
         = emojify(@practice.title)
 .container
   .row
-    .col-md-6
+    .col-md-6.col-xs-12
       .card
         .card-header
           h2.card__title= t('helpers.label.practice.description')
@@ -44,6 +44,7 @@ header.page-header
                 = link_to report do
                   span=report.title
 
+    .col-md-6.col-xs-12
       h2.practices-item__title= t('completed_users')
       - @practice.completed_users.each do |user|
         ul.completed-users

@@ -1,6 +1,6 @@
 .completed-practices-progress
   .completed-practices-progress__bar-container
     .completed-practices-progress__bar
-    .completed-practices-progress__percentage-bar(aria-valuemax="100" aria-valuemin="0" aria-valuenow="#{user.completed_percentage}" role="progressbar" style=("min-width: 2em; width: #{number_to_percentage user.completed_percentage, precision: 0};") )
+    .completed-practices-progress__percentage-bar(aria-valuemax="100" aria-valuemin="0" aria-valuenow="#{user.completed_percentage}" role="progressbar" style=("width: #{number_to_percentage user.completed_percentage, precision: 0};") )
   .completed-practices-progress__percentage-number
     = number_to_percentage user.completed_percentage, precision: 0

@@ -4,9 +4,10 @@ header.page-header
     .page-header__container
       h1.page-header__title
         = t('reports')
-      = link_to new_report_path, class: 'is-button-standard-md-warning' do
-        i.fa.fa-plus
-        = t('new_report')
+      .page-header__action
+        = link_to new_report_path, class: 'is-button-standard-md-warning' do
+          i.fa.fa-plus
+          = t('new_report')
 
 .page-body
   .container

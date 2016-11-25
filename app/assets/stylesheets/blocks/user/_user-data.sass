@@ -1,10 +1,13 @@
 .user-part
   background-color: #b04d4d
   +inline-block
-  padding: .125rem .5rem
-  +text-block(.75rem 1.45, center $reversal-text 600)
+  padding: .1875rem .5rem
+  +text-block(.625rem 1.45, center $reversal-text 600)
   margin-right: .5rem
   border-radius: .25rem
+  &.is-working_week
+    background-color: $accent-color
+    color: $default-text
 .user-data
   padding: 1rem
   background-color: $base-color
@@ -20,3 +23,6 @@
     +text-block(.8125rem 1.8 .8em)
     &:last-child
       margin-bottom: 0
+.user-data__edit
+  margin-top: .5rem
+  text-align: right

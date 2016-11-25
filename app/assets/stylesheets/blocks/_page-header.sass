@@ -10,8 +10,16 @@
   display: flex
   align-items: center
   justify-content: space-between
+  +media-breakpoint-down(sm)
+    height: auto
+    +padding(vertical, .75rem)
 
 .page-header__title
   +text-block(1.25rem 1, $side)
   img
     +size(2.5rem auto)
+  +media-breakpoint-down(sm)
+    +text-block(1rem 1.4, $side)
+.page-header__action
+  +media-breakpoint-down(sm)
+    display: none

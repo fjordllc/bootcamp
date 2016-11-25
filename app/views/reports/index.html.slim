@@ -23,69 +23,16 @@ header.page-header
     .page-header__container
       h1.page-header__title
         = t('reports')
-      = link_to new_report_path, class: 'is-button-standard-md-warning' do
-        i.fa.fa-plus
-        = t('new_report')
+      .page-header__action
+        = link_to new_report_path, class: 'is-button-standard-md-warning' do
+          i.fa.fa-plus
+          = t('new_report')
 
 .page-body
   .container
     - if @reports.nil? == false
-      - @reports.each do |report|
-        - if report.present?
-          .reports
-            .reports-item
-              = link_to report, itempro: "url", class: "reports-item__link" do
-                h3.reports-item__title(itemprop="name")= highlight("#{report.title}", "#{@search_word}")
-                = gravatar_tag report.user, size: 44, html: { class: "category-practices-item__user-icon"}
-              time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
-                = l report.updated_at, format: :short
-                - if report.comments.any?
-                  = t('blank')
-                  = t('report_comments_any')
-                  = report.comments.count
-                  = t('comments_count')
-              - if report.user == current_user
-                .btn-group
-                  = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
-                  = link_to t('copy'), new_report_path(report), class: 'btn btn-success'
-                  = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
-            - if @search_word.present?
-              .report__body
-                = highlight("#{sliced(report.description, @search_word)}", "#{@search_word}")
       = paginate @reports
-
-      .reports-list
+      .report-list
         - @reports.each do |report|
           - if report.present?
-<<<<<<< e759b3c8a49538561d89719adf0c488c52383511
-            .reports-list-item
-              .reports-list-item__inner
-                .reports-list-item__author
-                  = gravatar_tag report.user, size: 44, html: { class: "reports-list-item__author-icon"}
-                header.reports-list-item__header
-                  h2.reports-list-item__title(itemprop="name")
-                    = link_to report, itempro: "url", class: "reports-list-item__title-link" do
-                      = report.title
-                  - if report.user == current_user
-                    .reports-list-item__actions
-                      = link_to edit_report_path(report), class: 'reports-list-item__actions-link' do
-                        i.fa.fa-pencil
-                      = link_to new_report_path(report), class: 'reports-list-item__actions-link' do
-                        i.fa.fa-files-o
-                      = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'reports-list-item__actions-link' do
-                        i.fa.fa-trash-o
-                .reports-list-item-meta
-                  time.reports-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
-                    = l report.updated_at, format: :short
-                  - if report.comments.any?
-                    .reports-list-item-meta__comments
-                      = t('report_comments_any')
-                      = report.comments.count
-                      = t('comments_count')
-<<<<<<< HEAD
-=======
->>>>>>> wip
-=======
-            = render 'reports_list_item', report: report
->>>>>>> wip
->>>>>>> wip
+            = render 'report_list_item', report: report

@@ -4,16 +4,12 @@ header.page-header
     .page-header__container
       h1.page-header__title
         | ページ一覧
-      = link_to "/pages/new", class: 'is-button-standard-md-warning' do
-        i.fa.fa-plus
-        | 新規ページ
+      .page-header__action
+        = link_to "/pages/new", class: 'is-button-standard-md-warning' do
+          i.fa.fa-plus
+          | 新規ページ
 .page-body
   .container
-    .pages
-      ul
-        - @pages.each do |page|
-          li
-            h3.title= link_to page.title, "/pages/#{page.title}"
-            .btn-group
-              = link_to "編集", "/pages/#{page.title}/edit", class: 'btn btn-primary'
-              = link_to "削除", "/pages/#{page.title}", data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'btn btn-danger'
+    .page-list
+      - @pages.each do |page|
+        = render 'page_list_item', page: page

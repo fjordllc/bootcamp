@@ -69,9 +69,19 @@ header.header
                   i.fa.fa-sign-out
       - else
         .header-links.is-auth-links
+<<<<<<< 9276c304bc838e201cf83356fe96d0684f26eb37
           ul.header-links__items
               li.header-links__item
                 = link_to t('sign_in'), login_path, class: "header-links__link"
               li.header-links__item
                 = link_to t('sign_up'), new_user_path, class: "header-links__link"
+>>>>>>> wip
+=======
+          = link_to login_path, class: "is-button-standard-md-secondary" do
+            = t('sign_in')
+          //
+            = link_to new_user_path, class: "header-links__link" do
+              = t('sign_up')
+      .header-show-mobile-nav.js-show-mobile-nav
+        i.fa.fa-bars
 >>>>>>> wip

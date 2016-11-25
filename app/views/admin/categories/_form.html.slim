@@ -1,12 +1,27 @@
-= form_for([:admin, category]) do |f|
-  .form-group
-    = f.label :name
-    = f.text_field :name, class: 'form-control'
-  .form-group
-    = f.label :slug
-    = f.text_field :slug, class: 'form-control'
-  .form-group
-    = f.label :description
-    = f.text_area :description, size: '10x10', class: 'form-control'
-  .form-group
-    = f.submit nil, class: 'btn btn-primary'
+= form_for([:admin, category], html: { class: 'form' }) do |f|
+  .form__items
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :name, class: 'form-item__label'
+          = f.text_field :name, class: 'form-item__text-input js-warning-form'
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :slug, class: 'form-item__label'
+          = f.text_field :slug, class: 'form-item__text-input js-warning-form'
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :description, class: 'form-item__label'
+          = f.text_area :description, class: 'form-item__textarea js-warning-form js-markdown-input practices-edit__input'
+        .col-md-6.col-xs-12
+          .form-item__label
+            | プレビュー
+          .js-markdown-preview.is-long-text-style.practices-edit__input.practices-edit__preview
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item
+        = link_to "キャンセル", admin_categories_path, class: "is-button-standard-md-secondary"
+      li.form-actions__item
+        = f.submit nil, class: 'is-button-standard-lg-warning'
