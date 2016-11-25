@@ -2,6 +2,10 @@ nav.global-nav
   .container
     .global-nav__container
       = link_to t('256interns'), root_path, class: 'global-nav__title'
+      .global-nav-item__search-form
+        = form_tag reports_url, method: 'get', class: 'search-form' do
+          .search-form__text-field-wrapper
+            = text_field_tag 'word', @word, class: 'search__input-text form-text-field' , placeholder: t('search_report')
       .global-nav-links.is-contents-links
         ul.global-nav-links__items
           - if current_user
