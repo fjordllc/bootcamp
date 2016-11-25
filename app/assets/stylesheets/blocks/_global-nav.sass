@@ -4,6 +4,11 @@ $global-nav-width: 5rem
   background-color: $side
   +size($global-nav-width 100%)
   +position(fixed, left 0, top 0, bottom 0, 2)
+  +media-breakpoint-down(sm)
+    width: 12rem
+    display: none
+    &.is-active
+      display: block
 
 .global-nav-current-user
   +padding(vertical, .75rem)
@@ -17,10 +22,6 @@ $global-nav-width: 5rem
 .global-nav-current-user__name
   +text-block(.75rem 1.45, center $reversal-text)
 
-.global-nav-links
-  +media-breakpoint-down(sm)
-    display: none
-
 .global-nav-links__link
   display: flex
   flex-direction: column
@@ -31,6 +32,11 @@ $global-nav-width: 5rem
   border-top: solid .0625rem $side-border
   color: $reversal-text
   transition: color .2s ease-in, background-color .2s ease-in
+  +media-breakpoint-down(sm)
+    flex-direction: row
+    height: 2.75rem
+    +padding(horizontal, 1rem)
+    justify-content: flex-start
   &:hover
     background-color: $side-shade
   &.is-active
@@ -42,6 +48,11 @@ $global-nav-width: 5rem
 
 .global-nav-links__link-icon
   +text-block(1.5rem 1 .375rem, center)
+  +media-breakpoint-down(sm)
+    +text-block(1rem 1 0)
+    margin-right: .5rem
 
 .global-nav-links__link-label
   +text-block(.625rem 1.45, center)
+  +media-breakpoint-down(sm)
+    font-size: .875rem

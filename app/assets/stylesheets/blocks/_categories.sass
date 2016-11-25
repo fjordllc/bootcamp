@@ -3,25 +3,26 @@
   border-radius: .25rem
   width: 100%
 
-.categories__header
-  background-color: $background-color-shade
-  border: solid .0625rem #aaaaaa
-  +border-radius(top, .25rem)
-
-.categories__items
-  +border(horizontal, solid .0625rem $background-color-shade)
+.categories-items
+  max-width: 50rem
+  +margin(horizontal, auto)
 
 .categories-item__title
   +text-block(1.5rem 1.45, $side)
+
+.categories-item
+  margin-bottom: 3rem
 
 .categories__label
   +text-block(.75rem 2rem, $main-color center 600)
   border: solid .0625rem #aaaaaa
 
-.categories__item
-  background-color: $base-color
-  &:last-child
-    +border-radius(bottom, .25rem)
+.categories-item__header
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-bottom: .5rem
+
 .categories__item-value
   padding: .375rem .75rem
   border: solid .0625rem $background-color-shade
@@ -48,6 +49,7 @@
     background-color: #fafafa
   +media-breakpoint-down(sm)
     flex-wrap: wrap
+    padding: .5rem .75rem
 .category-practices-item__inner
   +position(relative)
 
@@ -72,6 +74,7 @@
     +media-breakpoint-down(sm)
       flex: auto
       width: 100%
+      position: static
   &.is-handle
     text-align: center
     flex: 0 0 7.5rem
@@ -85,6 +88,8 @@
   padding-right: 11.25rem
   align-items: center
   min-height: 1.875rem
+  +media-breakpoint-down(sm)
+    padding-right: 0
 .category-practices-item__user-icon
   border-radius: 50%
   +size(2rem)

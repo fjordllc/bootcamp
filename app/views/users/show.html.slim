@@ -11,14 +11,15 @@ header.page-header
         label.user-part(class= "is-#{@user.part}")
           = t(@user.part)  
         = @user.login_name
-      = link_to new_report_path, class: 'is-button-standard-md-secondary' do
-        i.fa.fa-angle-left
-        = t('interns')
+      .page-header__action
+        = link_to users_path, class: 'is-button-standard-md-secondary' do
+          i.fa.fa-angle-left
+          = t('interns')
 
 .page-body
   .container
     .row.is-gutter-width-32
-      .col-md-6
+      .col-md-6.col-xs-12
         = render 'users/user_data', user: @user
         - if @user.active_practices.present?
           = render 'users/active_practices', user: @user
@@ -76,6 +77,6 @@ header.page-header
                   = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
                   = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
       - if @reports.any?
-        .col-md-6
+        .col-md-6.col-xs-12
           = render 'users/user_reports', reports: @reports
           

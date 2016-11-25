@@ -4,23 +4,25 @@ header.page-header
     .page-header__container
       h2.page-header__title
         = t('practices')
-      = link_to new_practice_path, class: 'is-button-standard-md-warning' do
-        i.fa.fa-plus
-        = t('new_practice')
+      .page-header__action
+        = link_to new_practice_path, class: 'is-button-standard-md-warning' do
+          i.fa.fa-plus
+          = t('new_practice')
 
 .page-body
   .container
-    - @categories.each do |category|
-      - if category.practices.present?
-        .categories-item.practices
-          header.categories-item__header
-            h2.categories-item__title
-              = category.name
-            - if current_user.admin?
-              .js-show-handle.categories-item__show-handle
-                i.fa.fa-cog
-          .categories-item__description.js-target-blank.is-long-text-style
-            = markdown emojify(category.description)
-          .categories-item__body
-            .category-practices.js-category-practices
-              = render category.practices
+    .categories-items
+      - @categories.each do |category|
+        - if category.practices.present?
+          .categories-item.practices
+            header.categories-item__header
+              h2.categories-item__title
+                = category.name
+              - if current_user.admin?
+                .js-show-handle.categories-item__show-handle
+                  i.fa.fa-cog
+            .categories-item__description.js-target-blank.is-long-text-style
+              = markdown emojify(category.description)
+            .categories-item__body
+              .category-practices.js-category-practices
+                = render category.practices

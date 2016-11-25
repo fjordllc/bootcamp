@@ -3,8 +3,13 @@
   padding-left: 7.25rem
   min-height: 6.25rem
   margin-bottom: .5rem
+  +media-breakpoint-down(sm)
+    padding-left: 0
 .user-profile__icon
   +position(absolute, left 0, top 0)
+  +media-breakpoint-down(sm)
+    position: static
+    text-align: center
   img
     border-radius: .25rem
 .user-profile__login-name
