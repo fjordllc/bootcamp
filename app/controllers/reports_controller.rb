@@ -69,7 +69,12 @@ class ReportsController < ApplicationController
   end
 
   def set_reports
-    @reports = Report.order(updated_at: :desc, id: :desc)
+    if params.key?(:word)
+      @search_word = params[:word]
+      @reports = Report.where('description LIKE ?', "%#{@search_word}%").order(updated_at: :desc, id: :desc)
+    else
+      @reports = Report.order(updated_at: :desc, id: :desc)
+    end
   end
 
   def set_report
