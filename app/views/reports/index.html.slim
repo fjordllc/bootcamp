@@ -27,3 +27,6 @@ header.page-header
                   = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
                   = link_to t('copy'), new_report_path(report), class: 'btn btn-success'
                   = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+            - if @search_word.present?
+              .report__body
+                = highlight("#{report.description}", "#{@search_word}")
