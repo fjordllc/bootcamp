@@ -2,6 +2,7 @@ class ReportsController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
   before_action :require_login
+  before_action :set_search_word, only: :index
   before_action :set_reports, only: %w(index show edit update destroy)
   before_action :set_report, only: %w(show)
   before_action :set_my_report, only: %i(edit update destroy)
@@ -68,9 +69,12 @@ class ReportsController < ApplicationController
     )
   end
 
+  def set_search_word
+    @search_word = params[:word]
+  end
+
   def set_reports
-    if params.key?(:word)
-      @search_word = params[:word]
+    if params[:word].present?
       @reports = Report.where('description LIKE ?', "%#{@search_word}%").order(updated_at: :desc, id: :desc)
     else
       @reports = Report.order(updated_at: :desc, id: :desc)
