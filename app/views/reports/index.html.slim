@@ -1,10 +1,19 @@
-- title t('reports')
-header.page-header
-  .container
-    .page-header__container
-      h2.page-header__title
-        = t('reports')
-      = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
+- if @search_word.present?
+  - title t('search_for', text: @search_word)
+  header.page-header
+    .container
+      .page-header__container
+        h2.page-header__title
+          = t('search_for', text: @search_word)
+        = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
+- else
+  - title t('reports')
+  header.page-header
+    .container
+      .page-header__container
+        h2.page-header__title
+          = t('reports')
+        = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
 .page-body
   .container
     - if @reports.nil? == false
