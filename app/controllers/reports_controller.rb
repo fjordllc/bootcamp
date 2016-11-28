@@ -21,6 +21,7 @@ class ReportsController < ApplicationController
       @report_copy_flag = true
       @report = Report.find_by(id: params[:format])
       @report_title = @report.title
+      @report_practice_id = @report.practice_id
       @report_description = @report.description
       @report = Report.new
     else
@@ -37,6 +38,7 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(report_params)
     @report.user = current_user
+    binding.pry
     if @report.save
       notify_to_slack(@report)
       redirect_to @report, notice: t('report_was_successfully_created')

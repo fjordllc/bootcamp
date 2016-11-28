@@ -195,6 +195,7 @@ ja:
 
       report:
         title: "タイトル"
+        practice_id: "プラクティス"
         description: "内容"
 
   errors:
