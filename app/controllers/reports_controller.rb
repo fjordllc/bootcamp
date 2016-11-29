@@ -71,7 +71,11 @@ class ReportsController < ApplicationController
   end
 
   def set_reports
-    @reports = Report.order(updated_at: :desc, id: :desc)
+    if params.key?(:practice_id)
+      @reports = Report.where(practice_id: params[:practice_id]).order(updated_at: :desc, id: :desc)
+    else
+      @reports = Report.order(updated_at: :desc, id: :desc)
+    end
   end
 
   def set_report
