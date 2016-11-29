@@ -11,10 +11,7 @@
       = f.text_field :title, size: '10', class: 'form-control js-warning-form'
   .form-group
     = f.label :practice_id
-    - if @report_copy_flag == true
-      = f.text_field :practice_id, size: '10', class: 'form-control js-warning-form', value: @report_practice_id
-    - else
-      = f.text_field :practice_id, size: '10', class: 'form-control js-warning-form'
+    = f.collection_select :practice_id, Practice.all, :id, :title, {}, {class: 'form-control js-warning-form'}
   .row.js-markdown-parent
     .col-sm-6
       .form-group
