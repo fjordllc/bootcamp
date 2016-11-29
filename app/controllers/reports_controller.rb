@@ -38,7 +38,6 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(report_params)
     @report.user = current_user
-    binding.pry
     if @report.save
       notify_to_slack(@report)
       redirect_to @report, notice: t('report_was_successfully_created')
@@ -65,6 +64,7 @@ class ReportsController < ApplicationController
   def report_params
     params.require(:report).permit(
       :title,
+      :practice_id,
       :description
     )
   end
