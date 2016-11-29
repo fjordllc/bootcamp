@@ -1,5 +1,6 @@
 class Practice < ActiveRecord::Base
   has_many :learnings
+  has_many :reports
   has_many :started_learnings,
     -> { where(status_cd: 0) },
     class_name: 'Learning'
