@@ -7,9 +7,9 @@ header.page-header
       = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
 = form_for reports_url do |f|
 = form_tag reports_url, method: 'get' do
-  = label_tag :practice_id, 'プラクティス検索'
+  = label_tag :practice_id, t('search_by_practice')
   = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title), class: 'form-control'
-  = submit_tag '検索する', class: 'btn btn-primary btn-md'
+  = submit_tag t('search'), class: 'btn btn-primary btn-md'
 .page-body
   .container
     - if @reports.nil? == false
