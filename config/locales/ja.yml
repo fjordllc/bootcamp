@@ -436,3 +436,4 @@ ja:
   inactive_users: "最近活動の無いユーザー (%{count})"
   action: 操作
   order: 並び順
+  related-reports: 関連した日報
