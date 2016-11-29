@@ -8,6 +8,7 @@ class ReportsController < ApplicationController
   before_action :set_comments, only: %w(show edit update destroy)
   before_action :set_comment, only: %w(show edit update destroy)
   before_action :set_user, only: :show
+  before_action :set_practice, only: %w(show edit update destroy)
 
   def index
   end
@@ -91,6 +92,10 @@ class ReportsController < ApplicationController
 
   def set_comments
     @comments = Comment.where(report_id: @report.id).order(created_at: :asc)
+  end
+
+  def set_practice
+    @practice = Practice.find_by(id: @report.practice_id)
   end
 
   def notify_to_slack(report)

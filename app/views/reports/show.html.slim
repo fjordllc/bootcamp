@@ -15,6 +15,7 @@ header.page-header
           .report__author-name= @report.user.login_name
         time.report__created-at(datetime="#{@report.created_at.to_datetime}" pubdate="pubdate")
           = l @report.updated_at, format: :short
+      = @practice.title
       .report__body.js-target-blank.is-long-text-style
         = markdown @report.description
       footer.report__footer
