@@ -32,7 +32,6 @@
     .card-block
       ul.related-reports
         - @practice.reports.each do |report|
-        = binding.pry
           li.related-reports__report
             = link_to report do
               span=report.title
