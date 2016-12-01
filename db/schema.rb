@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(version: 20161201050949) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "practice_id"
   end
 
   create_table "users", force: :cascade do |t|

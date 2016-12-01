@@ -8,7 +8,6 @@ class ReportsController < ApplicationController
   before_action :set_comments, only: %w(show edit update destroy)
   before_action :set_comment, only: %w(show edit update destroy)
   before_action :set_user, only: :show
-  before_action :set_practice, only: %w(show edit update destroy)
 
   def index
   end
@@ -69,11 +68,7 @@ class ReportsController < ApplicationController
   end
 
   def set_reports
-    if params.key?(:practice_id)
-      @reports = Report.where(practice_id: params[:practice_id]).order(updated_at: :desc, id: :desc)
-    else
-      @reports = Report.order(updated_at: :desc, id: :desc)
-    end
+    @reports = Report.order(updated_at: :desc, id: :desc)
   end
 
   def set_report
@@ -94,10 +89,6 @@ class ReportsController < ApplicationController
 
   def set_comments
     @comments = Comment.where(report_id: @report.id).order(created_at: :asc)
-  end
-
-  def set_practice
-    @practice = Practice.find_by(id: @report.practice_id)
   end
 
   def notify_to_slack(report)
