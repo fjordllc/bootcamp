@@ -22,7 +22,6 @@ class ReportsController < ApplicationController
       @report_copy_flag = true
       @report = Report.find_by(id: params[:format])
       @report_title = @report.title
-      @report_practice_id = @report.practice_id
       @report_description = @report.description
       @report = Report.new
     else
@@ -65,7 +64,6 @@ class ReportsController < ApplicationController
   def report_params
     params.require(:report).permit(
       :title,
-      :practice_id,
       :description
     )
   end
