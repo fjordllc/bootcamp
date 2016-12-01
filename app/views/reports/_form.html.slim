@@ -9,6 +9,9 @@
       = f.text_field :title, size: '10', class: 'form-control js-warning-form', value: @report_title
     - else
       = f.text_field :title, size: '10', class: 'form-control js-warning-form'
+  .form-group
+    = f.label :practice
+    = f.select :practice_ids, options_from_collection_for_select(Practice.all, :id, :title), {}, {multiple: true, name: 'report[practice_ids][]', class: 'form-control js-warning-form'}
   .row.js-markdown-parent
     .col-sm-6
       .form-group

@@ -26,6 +26,16 @@
           li.completed-users__user
             = link_to user, class: "completed-users__user-link" do
               span.completed-users__user-icon= gravatar_tag user, size: 64
+  .card
+    .card-header
+      h2.practices-item__title= t('related-reports')
+    .card-block
+      ul.related-reports
+        - @practice.reports.each do |report|
+          li.related-reports__report
+            = link_to report do
+              span=report.title
+
   .buttons
     = link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
     = link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
