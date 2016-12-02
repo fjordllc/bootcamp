@@ -42,6 +42,7 @@ end
 
 group :development do
   gem 'sqlite3'
+  gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'pry-remote'
   gem 'xray-rails'

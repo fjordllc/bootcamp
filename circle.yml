@@ -7,8 +7,6 @@ machine:
 dependencies:
   pre:
     - gem install bundler
-  post:
-    - bundle exec rake assets:precompile
 
 database:
   override:
