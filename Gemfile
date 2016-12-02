@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby "2.4.0"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 gem "rails", "~> 5.0.1"
 gem "uglifier", ">= 1.3.0"
 gem "coffee-rails", "~> 4.2"
@@ -32,8 +33,11 @@ gem "pg"
 gem 'high_voltage'
 =======
 gem 'rails', '4.2.7.1'
+=======
+gem 'rails', '5.0.0.1'
+>>>>>>> update rails
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails',   '~> 4.0.0'
+gem 'coffee-rails', '~> 4.2'
 gem 'dynamic_form'
 gem 'gravatarify'
 gem 'slim-rails'
@@ -79,6 +83,11 @@ group :production, :staging do
 end
 
 group :development do
+<<<<<<< HEAD
+=======
+  gem 'sqlite3'
+  gem 'spring'
+>>>>>>> update rails
   gem 'pry-remote'
   gem 'xray-rails'
   gem 'web-console'
