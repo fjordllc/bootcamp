@@ -20,9 +20,16 @@ Rails.application.configure do
   }
 =======
   # Configure static asset server for tests with Cache-Control for performance.
+<<<<<<< HEAD
   config.serve_static_files  = true
   config.static_cache_control = 'public, max-age=3600'
 >>>>>>> test fixed
+=======
+  config.public_file_server.enabled = true
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=3600'
+  }
+>>>>>>> rails app update
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -33,6 +40,7 @@ Rails.application.configure do
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
+  config.action_mailer.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
@@ -43,8 +51,6 @@ Rails.application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
-
-  config.active_support.test_order = :random
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

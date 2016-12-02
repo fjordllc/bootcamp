@@ -13,8 +13,6 @@ module Interns
     config.time_zone = "Tokyo"
     config.i18n.default_locale = :ja
 
-    config.active_record.raise_in_transactional_callbacks = true
-
     #gemoji
     config.assets.paths << Emoji.images_path
     config.assets.precompile << "emoji/**/*.png"
