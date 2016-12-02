@@ -86,6 +86,7 @@ group :development do
 <<<<<<< HEAD
 =======
   gem 'sqlite3'
+  gem 'listen', '~> 3.0.5'
   gem 'spring'
 >>>>>>> update rails
   gem 'pry-remote'
