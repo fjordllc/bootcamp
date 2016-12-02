@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -28,10 +27,9 @@ ActiveRecord::Schema.define(version: 20161201050949) do
     t.integer  "report_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["report_id"], name: "index_comments_on_report_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
-
-  add_index "comments", ["report_id"], name: "index_comments_on_report_id"
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "companies", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -65,17 +63,15 @@ ActiveRecord::Schema.define(version: 20161201050949) do
     t.text     "goal"
     t.integer  "category_id"
     t.integer  "position"
+    t.index ["category_id"], name: "index_practices_on_category_id"
   end
-
-  add_index "practices", ["category_id"], name: "index_practices_on_category_id"
 
   create_table "practices_reports", id: false, force: :cascade do |t|
     t.integer "practice_id", null: false
     t.integer "report_id",   null: false
+    t.index ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id"
+    t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
   end
-
-  add_index "practices_reports", ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id"
-  add_index "practices_reports", ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
 
   create_table "reports", force: :cascade do |t|
     t.integer  "user_id",                 null: false
@@ -111,8 +107,7 @@ ActiveRecord::Schema.define(version: 20161201050949) do
     t.boolean  "retire",                                   default: false, null: false
     t.boolean  "nda",                                      default: true,  null: false
     t.string   "slack_account"
+    t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
   end
-
-  add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"
 
 end
