@@ -1,4 +1,4 @@
-class SorceryCore < ActiveRecord::Migration
+class SorceryCore < ActiveRecord::Migration[4.2]
   def self.up
     create_table :users do |t|
       t.string :login_name,       :null => false  # if you use another field as a username, for example email, you can safely remove this field.

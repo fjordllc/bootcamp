@@ -1,4 +1,4 @@
-class RemoveJobCdToUsers < ActiveRecord::Migration
+class RemoveJobCdToUsers < ActiveRecord::Migration[4.2]
   def change
     remove_column :users, :job_cd, :string
   end
