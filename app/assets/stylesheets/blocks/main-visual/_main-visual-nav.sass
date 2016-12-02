@@ -1,0 +1,14 @@
+.main-visual-nav
+  +position(absolute, left 0, top 0, right 0, 1)
+.main-visual-nav__container
+  +position(relative)
+.main-visual-nav__items
+  +position(absolute, right 0, top 1.25rem)
+  display: flex
+.main-visual-nav__item
+  &:not(:first-child)
+    margin-left: 1.75rem
+.main-visual-nav__item-link
+  +text-block(.875rem 1.45, block $reversal-text)
+  +padding(vertical, .25rem)
+  +hover-link

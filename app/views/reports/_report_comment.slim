@@ -1,6 +1,6 @@
 .report-comment
   .report-comment__author
-    = link_to comment.user, itempro: 'url', class: 'report__author-link' do
+    = link_to comment.user, itempro: 'url', class: 'report-comment__author-link' do
       = gravatar_tag comment.user, size: 200, html: { class: "report-comment__author-icon"}
   .report-comment__body
     header.report-comment__body-header

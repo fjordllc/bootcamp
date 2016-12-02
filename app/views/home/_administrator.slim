@@ -1,0 +1,121 @@
+section.welcome-section#administrator
+  .container
+    h2.welcome-section__title
+      = image_tag('question.svg', class: 'welcome-section__title-question-icon')
+      | どんな会社が運営してるの？
+    section.welcome-child-section
+      h3.welcome-child-section__title
+        | 合同会社フィヨルド
+      .welcome-child-section__description
+        p
+          | 東京の初台にある合同会社フィヨルドという会社です。フィヨルドはプログラマー1人、デザイナー1人、計2人のとても小さい会社です。自社で運営しているサービスを開発しながら、お客様からお金をいただいてお客様のシステムを開発する仕事（受託開発）をしています。
+      .welcome-small-sections
+        .row.is-gutter-width-32
+          .col-sm-12.col-md-6
+            section.welcome-small-section
+              .welcome-small-section__inner.is-work
+                .welcome-small-section__description
+                  .row.is-gutter-width-24
+                    .col-md-3
+                      .welcome-child-section__member-image-container
+                        = image_tag('komagata.jpg', class: 'welcome-child-section__member-image')
+                    .col-md-9
+                      h3.welcome-small-section__name
+                        | 駒形真幸
+                        span.welcome-small-section__job
+                          | プログラマー
+                      ul.welcome-small-section__sns
+                        li.welcome-small-section__sns-item
+                          = link_to '' do
+                            | GitHub
+                        li.welcome-small-section__sns-item
+                          = link_to '' do
+                            | Blog
+                        li.welcome-small-section__sns-item
+                          = link_to '' do
+                            | Twitter
+                        li.welcome-small-section__sns-item
+                          = link_to '' do
+                            | Facebook
+
+          .col-sm-12.col-md-6
+            section.welcome-small-section
+              .welcome-small-section__inner.is-work
+                .welcome-small-section__description
+                  .row.is-gutter-width-24
+                    .col-md-3
+                      .welcome-child-section__member-image-container
+                        = image_tag('machida.jpg', class: 'welcome-child-section__member-image')
+                    .col-md-9
+                      h3.welcome-small-section__name
+                        | 町田 哲平
+                        span.welcome-small-section__job
+                          | デザイナー
+                      ul.welcome-small-section__sns
+                        li.welcome-small-section__sns-item
+                          = link_to '' do
+                            | GitHub
+                        li.welcome-small-section__sns-item
+                          = link_to '' do
+                            | Blog
+                        li.welcome-small-section__sns-item
+                          = link_to '' do
+                            | Twitter
+                        li.welcome-small-section__sns-item
+                          = link_to '' do
+                            | Facebook
+
+    section.welcome-child-section
+      h3.welcome-child-section__title
+        | 運営サービス
+      .welcome-child-section__description.is-text-align-center
+        p
+          | 作業週にはこれらのサービスを手伝っていただきます。
+      .welcome-small-sections
+        .row.is-gutter-width-32
+          .col-sm-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner.is-dotted
+                h3.welcome-small-section__title
+                  | 怖話
+                .welcome-small-section__description
+                  p 怖い話の投稿数が20,000話を超える世界最大の怖い話投稿サイト。
+          .col-sm-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner.is-dotted
+                h3.welcome-small-section__title
+                  | kulku
+                .welcome-small-section__description
+                  p 外に出ずパソコンだけで写真と矢印を使った道案内が作れるサービス。
+          .col-sm-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner.is-dotted
+                h3.welcome-small-section__title
+                  | 256 interns
+                .welcome-small-section__description
+                  p インターンのためのオンライン学習システムです。学習内容、日報、質問が書けます。
+
+    section.welcome-child-section
+      h3.welcome-child-section__title
+        | 会社概要
+      .welcome-child-section__description.is-text-align-center
+        table
+          tbody
+            tr
+              th 会社名
+              td 合同会社フィヨルド
+            tr
+              th 所在地
+              td 〒151-0071 東京都渋谷区本町1-36-11 ドエルヤマト 203
+            tr
+              th 最寄り駅
+              td 初台（京王新線）
+            tr
+              th 設立
+              td 2007年12月7日
+            tr
+              th 資本金
+              td 50万円
+            tr
+              th URL
+              td http://fjord.jp

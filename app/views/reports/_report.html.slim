@@ -24,7 +24,7 @@
               li.report__actions-item
                 = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'report__actions-item-link is-danger' do
                   i.fa.fa-trash-o
-        = link_to reports_path, class: 'is-button-standard-md-secondary' do
+        = link_to reports_path, class: 'is-button-standard-sm-secondary' do
           i.fa.fa-angle-left
           = t('to_index_of_reports')
   = link_to report.user, itempro: "url", class: "report__author-link" do
