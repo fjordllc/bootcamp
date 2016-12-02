@@ -1,0 +1,118 @@
+.welcome-container
+  max-width: 60rem
+  +margin(horizontal, auto)
+
+.welcome-section
+  +padding(vertical, 3rem)
+  border-bottom: solid .0625rem #eee
+.welcome-section__title
+  +text-block(1.75rem 1.45 1.25rem, 600 center #ec4963)
+
+.welcome-section__title-question-icon
+  height: 2.25rem
+  position: relative
+  top: -1rem
+  margin-right: .625rem
+
+.welcome-child-section__title
+  +text-block(1.375rem 1.45 .6em, 600 center)
+
+.welcome-child-section__top-image
+  +margin(vertical, 1.25rem)
+
+.welcome-child-section__member-image-container
+  +margin(horizontal, .5rem)
+
+.welcome-child-section__member-image
+  border-radius: 50%
+
+.welcome-child-section__description
+  max-width: 40rem
+  +margin(horizontal, auto)
+  margin-bottom: 2rem
+  p
+    +text-block(.9375rem 1.8 1.2em)
+  table
+    width: 100%
+    margin-top: 1.5rem
+  th,
+  td
+    border: solid .0625rem #ccc
+    +text-block(.875rem 1.6)
+    padding: .5rem 1rem
+  th
+    background-color: #f5f5e6
+    text-align: right
+  td
+    text-align: left
+  *:last-child
+    margin-bottom: 0
+
+.welcome-child-section:not(:first-child)
+  margin-top: 3rem
+.welcome-section__title + .welcome-child-section
+  margin-top: 0
+.welcome-child-section__exchange
+  height: 100%
+  align-items: center
+  justify-content: center
+  display: flex
+  flex-direction: column
+.welcome-child-section__exchange-icon
+  +size(5rem auto)
+  margin-bottom: .625rem
+.welcome-child-section__exchange-description
+  +text-block(.875rem 1.45, center)
+
+.welcome-small-sections
+  margin-bottom: -1rem
+  .welcome-child-section__title + &
+    margin-top: 1.5rem
+.welcome-small-section
+  height: 100%
+  padding-bottom: 1rem
+.welcome-small-section__inner
+  background-color: #edf0f2
+  padding: 1.25rem 1.5rem
+  border-radius: .5rem
+  height: 100%
+  padding-bottom: 1rem
+  &.is-work
+    background-color: #eafaff
+  &.is-study
+    background-color: #f5f5e6
+  &.is-dotted
+    background-color: transparent
+    border: dotted .125rem #c8c8c8
+.welcome-small-section__icon
+  height: 5rem
+  display: block
+  +margin(horizontal, auto)
+  margin-bottom: 1rem
+.welcome-small-section__title
+  +text-block(1rem 1.45 .6em, 600 center)
+  &.is-sm
+    font-size: 1rem
+
+.welcome-small-section__name
+  +text-block(1rem 1.45 .6em, 600)
+
+.welcome-small-section__job
+  +text-block(.75rem 1.45, 400)
+  margin-left: .5rem
+
+.welcome-small-section__sns
+  display: flex
+
+.welcome-small-section__sns-item
+  padding-right: .75rem
+  +text-block(.875rem 1.6 .2em)
+
+.welcome-small-section__description
+  p
+    +text-block(.875rem 1.8 1.2em)
+  a
+    color: #0098f9
+    +hover-link-reversal
+  *:last-child
+    margin-bottom: 0

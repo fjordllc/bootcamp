@@ -5,30 +5,30 @@
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label :category_id, class: 'form-item__label'
+          = f.label :category_id, class: 'a-label'
           .is-button-standard-md-secondary.is-select.is-block
             = f.collection_select :category_id, Category.all, :id, :name, {}
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label :title, class: 'form-item__label'
-          = f.text_field :title, class: 'form-item__text-input js-warning-form'
+          = f.label :title, class: 'a-label'
+          = f.text_field :title, class: 'a-text-input js-warning-form'
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
-            = f.label :description, class: 'form-item__label'
-            = f.text_area :description, class: 'form-item__textarea js-warning-form js-markdown-input practices-edit__input'
+            = f.label :description, class: 'a-label'
+            = f.text_area :description, class: 'a-textarea js-warning-form js-markdown-input practices-edit__input'
         .col-md-6.col-xs-12
-          .form-item__label
+          .a-label
             | プレビュー
           .js-markdown-preview.is-long-text-style.practices-edit__input.practices-edit__preview
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
-          = f.label :goal, class: 'form-item__label'
-          = f.text_area :goal, class: 'form-item__textarea js-markdown-input js-warning-form practices-edit__input'
+          = f.label :goal, class: 'a-label'
+          = f.text_area :goal, class: 'a-textarea js-markdown-input js-warning-form practices-edit__input'
         .col-md-6.col-xs-12
-          .form-item__label
+          .a-label
             | プレビュー
           .js-markdown-preview.is-long-text-style.practices-edit__input.practices-edit__preview
   .form-actions

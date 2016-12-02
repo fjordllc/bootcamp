@@ -14,12 +14,12 @@ header.page-header
     .categories-items
       - @categories.each do |category|
         - if category.practices.present?
-          .categories-item.practices
+          .categories-item.practices.js-show-handle
             header.categories-item__header
               h2.categories-item__title
                 = category.name
               - if current_user.admin?
-                .js-show-handle.categories-item__show-handle
+                .categories-item__show-handle.js-show-handle__trigger
                   i.fa.fa-cog
             .categories-item__description.js-target-blank.is-long-text-style
               = markdown emojify(category.description)

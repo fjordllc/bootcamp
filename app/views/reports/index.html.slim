@@ -17,8 +17,7 @@
           = t('reports')
         = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
 
-
-header.page-header
+header.page-header.is-margin-bottom-0.has-border-bottom-none
   .container
     .page-header__container
       h1.page-header__title
@@ -27,6 +26,13 @@ header.page-header
         = link_to new_report_path, class: 'is-button-standard-md-warning' do
           i.fa.fa-plus
           = t('new_report')
+nav.sort-nav
+  .container
+    .sort-nav__inner
+      .sort-nav__label
+        | チュートリアルで絞り込む:
+      .is-button-standard-sm-secondary.is-select.sort-nav__select
+        select
 
 .page-body
   .container

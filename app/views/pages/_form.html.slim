@@ -4,15 +4,15 @@
   .form-item
     .row
       .col-md-6.col-xs-12
-        = f.label :title, class: 'form-item__label'
-        = f.text_field :title, class: 'form-item__text-input js-warning-form'
+        = f.label :title, class: 'a-label'
+        = f.text_field :title, class: 'a-text-input js-warning-form'
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label :body, class: 'form-item__label'
-        = f.text_area :body, class: 'form-item__textarea js-warning-form js-markdown-input practices-edit__input'
+        = f.label :body, class: 'a-label'
+        = f.text_area :body, class: 'a-textarea js-warning-form js-markdown-input practices-edit__input'
       .col-md-6.col-xs-12
-        .form-item__label
+        .a-label
           | プレビュー
         .js-markdown-preview.is-long-text-style.practices-edit__preview.practices-edit__input
   .form-actions

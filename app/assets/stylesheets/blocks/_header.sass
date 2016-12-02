@@ -2,11 +2,15 @@ $header-height: 3.125rem
 .header
   background-color: $base-color
   border-bottom: solid $background-color .0625rem
+  +position(relative)
 .header__container
   display: flex
   justify-content: space-between
   align-items: center
   height: $header-height
+
+.header__logo
+  height: 1.5rem
 
 .header-links
   height: 100%
@@ -27,6 +31,19 @@ $header-height: 3.125rem
   align-items: center
   justify-content: center
   +text-block(1.25rem 1, #b9b9b9)
+
+.header-search
+  display: flex
+  height: 100%
+  align-items: center
+  padding-right: .75rem
+.header-search__text-input
+  height: 2rem
+  +border-radius(right, 0)
+  border-right: none
+.is-icon.header-search__submit
+  +size(2rem)
+  +border-radius(left, 0)
 
 .header__title
   color: $default-text

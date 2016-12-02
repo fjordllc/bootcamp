@@ -4,8 +4,13 @@ header.page-header
     .page-header__container
       h2.page-header__title
         = emojify(@practice.title)
+      .page-header__action
+        = link_to practices_path, class: 'is-button-standard-md-secondary' do
+          i.fa.fa-angle-left
+          = t('practices')
+
 .container
-  .row
+  .row.is-gutter-width-32
     .col-md-6.col-xs-12
       .card
         .card-header
@@ -20,18 +25,27 @@ header.page-header
         .card-block
           .goal.js-target-blank.is-long-text-style
             = markdown @practice.goal
-      
-        .buttons
-          = link_to t('edit'), edit_practice_path(@practice), class: 'btn btn-primary'
-          = link_to t('destroy'), practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
-          = link_to t('back'), practices_path, class: 'btn btn-secondary'
-          button.im-stack.btn.btn-warning= '行き詰まった！'
-          javascript:
-            $(document).on('click', '.im-stack', function(){
-              var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
-              $.post('/chat_notices', {text: text});
-              console.log('it is test');
-            });
+
+      .page-actions
+        ul.page-actions__items
+          li.page-actions__item
+            = link_to edit_practice_path(@practice), class: 'is-button-standard-md-primary' do
+              i.fa.fa-pencil
+              = t('edit')
+          - if current_user.admin?
+            li.page-actions__item
+              = link_to practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'is-button-standard-md-danger' do
+                i.fa.fa-trash-o
+                = t('destroy')
+          li.page-actions__item
+            button.im-stack.is-button-standard-md-warning
+              = '行き詰まった！'
+            javascript:
+              $(document).on('click', '.im-stack', function(){
+                var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
+                $.post('/chat_notices', {text: text});
+                console.log('it is test');
+              });
 
     .col-md-6
       .card
@@ -45,9 +59,18 @@ header.page-header
                   span=report.title
 
     .col-md-6.col-xs-12
-      h2.practices-item__title= t('completed_users')
-      - @practice.completed_users.each do |user|
-        ul.completed-users
-          li.completed-users__user
-            = link_to user, class: "completed-users__user-link" do
-              span.completed-users__user-icon= gravatar_tag user, size: 64
+      // TODO 関連する質問を表示
+      = render 'temp_questions'
+
+      // TODO 関連する日報を表示
+      = render 'temp_user_reports'
+
+    .col-xs-12
+      .interns-icons
+        h2.user-reports__title
+          = t('completed_users')
+        - @practice.completed_users.each do |user|
+          ul.completed-users
+            li.completed-users__user
+              = link_to user, class: "completed-users__user-link" do
+                span.completed-users__user-icon= gravatar_tag user, size: 64
