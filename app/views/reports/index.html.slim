@@ -22,7 +22,7 @@
           .reports
             .reports-item
               = link_to report, itempro: "url", class: "reports-item__link" do
-                h3.creports-item__title(itemprop="name")= report.title
+                h3.creports-item__title(itemprop="name")= highlight("#{report.title}", "#{@search_word}")
                 = gravatar_tag report.user, size: 44, html: { class: "category-practices-item__user-icon"}
               time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
                 = l report.updated_at, format: :short
