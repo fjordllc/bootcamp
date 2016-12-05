@@ -17,5 +17,6 @@
 //= require markdown-it-checkbox/dist/markdown-it-checkbox
 //= require highlight.min
 //= require autosize/dist/autosize
+//= require smoothScroll
 //= require base
 //= require_tree .

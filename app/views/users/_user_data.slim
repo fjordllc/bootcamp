@@ -2,19 +2,8 @@
   .row
     .col-md-6.col-xs-12
       = render 'users/user_profile', user: @user
-      //= t("activerecord.enums.user.purposes.#{@user.purpose}")
       = render 'users/user_dates', user: @user
+      = render 'users/user_purpose', user: @user
     .col-md-6.col-xs-12
       .user-data__description
         = simple_format @user.description
-  - if current_user == @user || current_user.admin?
-    .user-data__edit
-      ul.is-button-group
-        - if current_user.admin?
-          li
-            = link_to edit_admin_user_path, class: 'is-button-standard-xs-secondary' do
-              | 管理者として情報変更
-        - if current_user == @user
-          li
-            = link_to edit_user_path, class: 'is-button-standard-xs-secondary' do
-              | 情報変更

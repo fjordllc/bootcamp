@@ -1,6 +1,5 @@
 .user-dates
-  +media-breakpoint-down(sm)
-    margin-bottom: 1rem
+  margin-bottom: .125rem
 .user-dates__created-at
   +text-block(.8125rem 1.45 .125rem)
 .user-dates__update-at
@@ -15,4 +14,12 @@
 .user-dates__active-practices
   +inline-block
 .user-dates__active-practice
+  +inline-block
+
+.user-purpose
+  +text-block(.8125rem 1.45)
+  +media-breakpoint-down(sm)
+    margin-bottom: 1rem
+.user-purpose__label,
+.user-purpose__value
   +inline-block

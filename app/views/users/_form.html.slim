@@ -77,7 +77,7 @@
         | 秘密保持契約
       ul.auth-form-item__checkboxes
         li.auth-form-checkbox
-          label.auth-form-checkbox__label.js-nda-action(data-target='#myModal' data-toggle='modal')
+          label.auth-form-checkbox__label.js-nda-action(data-target='#nda-modal' data-toggle='modal')
             = t('agree_nda')
       
   .auth-form-action.is-sign-up-action
@@ -92,28 +92,4 @@
         li.auth-form-action__item
           = f.submit '内容更新', class: 'is-button-standard-md-warning js-sign-up-action'
       
-  .modal.fade#myModal(tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true')
-    .modal-dialog role="document" 
-      .modal-content
-        .modal-header
-          h2.modal-title
-            | 秘密保持契約書
-          button.close(aria-label="Close" data-dismiss="modal" type="button")
-            span(aria-hidden="true")  &times;
-        .modal-body
-          .nda
-            = render 'nda'
-        .modal-footer.is-text-align-center
-          .nda__actions-container
-            .nda__actions
-              ul.auth-form-item__checkboxes
-                li.auth-form-checkbox
-                  label.is-button-standard-md-warning.is-checkbox.nda__action
-                    - if params[:action] == 'new'
-                      = f.check_box :nda, checked: false
-                    - else
-                      = f.check_box :nda, checked: true
-                    div= t('agree_nda')
-          
-            .nda__close(aria-label="Close" data-dismiss="modal" type="button")
-              | 閉じる
+  = render 'nda_modal'

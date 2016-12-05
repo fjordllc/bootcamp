@@ -1,9 +1,4 @@
 - title @user.login_name
-- if current_user.admin? && @user.find_job_assist?
-  .user-find-job-assist
-    .container
-      .user-find-job-assist__value
-        | 就職支援希望者
 header.page-header
   .container
     .page-header__container
@@ -11,10 +6,6 @@ header.page-header
         label.user-part(class= "is-#{@user.part}")
           = t(@user.part)  
         = @user.login_name
-      .page-header__action
-        = link_to users_path, class: 'is-button-standard-md-secondary' do
-          i.fa.fa-angle-left
-          = t('interns')
 
 .page-body
   .container
@@ -39,3 +30,34 @@ header.page-header
       - if @reports.any?
         .col-md-6.col-xs-12
           = render 'users/user_reports', reports: @reports
+
+
+
+
+    .user.is-margin-bottom-24
+      .row.is-gutter-width-32
+        .col-md-6.col-xs-12
+          = render 'users/user_data', user: @user
+          - if @user.active_practices.present?
+            = render 'users/active_practices', user: @user
+          = render 'users/completed_practices', user: @user
+
+        - if @reports.any?
+          .col-md-6.col-xs-12
+            = render 'users/user_reports', reports: @reports
+    
+    - if current_user == @user || current_user.admin?
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item
+            = link_to users_path, class: 'is-button-standard-md-secondary' do
+              = t('interns')
+          - if current_user.admin?
+            li.form-actions__item
+              = link_to edit_admin_user_path, class: 'is-button-standard-lg-secondary' do
+                | 管理者として情報変更
+          - if current_user == @user
+            li.form-actions__item
+              = link_to edit_user_path, class: 'is-button-standard-lg-warning' do
+                | 登録情報を変更する
+>>>>>>> wip

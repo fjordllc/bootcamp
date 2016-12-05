@@ -2,7 +2,7 @@ $header-height: 3.125rem
 .header
   background-color: $base-color
   border-bottom: solid $background-color .0625rem
-  +position(relative)
+  +position(relative, 1)
 .header__container
   display: flex
   justify-content: space-between
@@ -25,12 +25,28 @@ $header-height: 3.125rem
   display: flex
   height: 100%
   border-left: solid $background-color .0625rem
+  +position(relative)
+  transition: color .2s ease-in, background-color .2s ease-in
+  &.is-active
+    background-color: $accent-color
+    .header-links__link
+      color: $main-color
 .header-links__link
   +flex-link
   +size(3.5rem 100%)
   align-items: center
   justify-content: center
   +text-block(1.25rem 1, #b9b9b9)
+  +position(relative)
+
+.header-links__link-count
+  +size(1rem)
+  border-radius: 50%
+  background-color: $danger
+  +position(absolute, right .25rem, top .25rem)
+  +text-block(.625rem, $reversal-text flex)
+  align-items: center
+  justify-content: center
 
 .header-search
   display: flex
