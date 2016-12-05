@@ -47,23 +47,10 @@ header.page-header
                 console.log('it is test');
               });
 
-    .col-md-6
-      .card
-        .card-header
-          h2.practices-item__title= t('related-reports')
-        .card-block
-          ul.related-reports
-            - @practice.reports.each do |report|
-              li.related-reports__report
-                = link_to report do
-                  span=report.title
-
     .col-md-6.col-xs-12
       // TODO 関連する質問を表示
       = render 'temp_questions'
-
-      // TODO 関連する日報を表示
-      = render 'temp_user_reports'
+      = render 'reports'
 
     .col-xs-12
       .interns-icons
@@ -73,4 +60,5 @@ header.page-header
           ul.completed-users
             li.completed-users__user
               = link_to user, class: "completed-users__user-link" do
-                span.completed-users__user-icon= gravatar_tag user, size: 64
+                span.completed-users__user-icon
+                  = gravatar_tag user, size: 64

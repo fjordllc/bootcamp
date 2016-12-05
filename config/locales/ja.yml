@@ -437,11 +437,15 @@ ja:
   inactive_users: "最近活動の無いインターン (%{count})"
   action: 操作
   order: 並び順
+<<<<<<< cbec16c97dec17d448fb9f255b948cf1b8986801
   related-reports: 関連した日報
 <<<<<<< f022f9303256d5b79d2e2dbcb3126223e46aa337
   search_report: 日報検索
   search_for: "'%{text}' の検索結果"
 =======
+=======
+  related-reports: このチュートリアルに関する日報
+>>>>>>> wip
   to_index_of_reports: 日報一覧へ
   post_comment: コメントを投稿
 <<<<<<< b54ae0a5482b64be9a965973f9480997cfcd383f

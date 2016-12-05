@@ -1,0 +1,30 @@
+.user-reports
+  h2.user-reports__title
+    = t('related-reports')
+  .user-reports__items
+    - @practice.reports.each do |report|
+      .user-reports-item(class= "#{current_user.id == report.user_id ? 'is-mine' : ''}")
+        = link_to report, class: 'user-reports-item__link has-user-icon' do
+          = gravatar_tag report.user, size: 64, html: {class: 'user-reports-item__user-icon'}
+          h3.user-reports-item__title itemprop="name" 
+            = report.title
+          time.user-reports-item__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+            = l report.updated_at, format: :short
+          - if report.comments.any?
+            .user-reports-item__comments
+              = t('report_comments_any')
+              = report.comments.count
+              = t('comments_count')
+        .user-reports-item-actions
+          ul.user-reports-item-actions__items
+            li.user-reports-item-actions__item
+              = link_to edit_report_path(report), class: 'user-reports-item-actions__item-link' do
+                i.fa.fa-pencil
+            li.user-reports-item-actions__item
+              = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'user-reports-item-actions__item-link' do
+                i.fa.fa-trash-o
+  .page-actions
+    ul.page-actions__items
+      li.page-actions__item
+        = link_to edit_practice_path(@practice), class: 'is-button-standard-md-secondary' do
+          | 全てを見る
