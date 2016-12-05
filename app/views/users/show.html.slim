@@ -68,6 +68,7 @@ header.page-header
                   = t('report_comments_any')
                   = report.comments.count
                   = t('comments_count')
-              .btn-group
-                = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
-                = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+              - if report.user == current_user
+                .btn-group
+                  = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
+                  = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
