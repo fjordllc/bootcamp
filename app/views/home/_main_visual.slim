@@ -4,22 +4,22 @@
       .main-visual-nav__container
         ul.main-visual-nav__items
           li.main-visual-nav__item
-            = link_to "#fee", class: 'main-visual-nav__item-link' do
+            a.main-visual-nav__item-link(data-scroll href="#fee")
               | 学費無料
           li.main-visual-nav__item
-            = link_to "#eligibility", class: 'main-visual-nav__item-link' do
+            = link_to "#eligibility", class: 'main-visual-nav__item-link js-smooth-scroll' do
               | 参加資格
           li.main-visual-nav__item
-            = link_to "#tutorials", class: 'main-visual-nav__item-link' do
+            = link_to "#tutorials", class: 'main-visual-nav__item-link js-smooth-scroll' do
               | 学習内容
           li.main-visual-nav__item
-            = link_to "#finding-employment", class: 'main-visual-nav__item-link' do
+            = link_to "#finding-employment", class: 'main-visual-nav__item-link js-smooth-scroll' do
               | 就職支援
           li.main-visual-nav__item
-            = link_to "#administrator", class: 'main-visual-nav__item-link' do
+            = link_to "#administrator", class: 'main-visual-nav__item-link js-smooth-scroll' do
               | 運営会社
           li.main-visual-nav__item
-            = link_to "#other", class: 'main-visual-nav__item-link' do
+            = link_to "#other", class: 'main-visual-nav__item-link js-smooth-scroll' do
               | その他
           li.main-visual-nav__item
             = link_to "/login", class: 'main-visual-nav__item-link' do

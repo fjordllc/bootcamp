@@ -1,7 +1,9 @@
+
 nav.global-nav.js-show-mobile-nav__target
   .global-nav-current-user
-    .global-nav-current-user__icon
-      = gravatar_tag current_user, size: '320'
+    = link_to user_path(current_user), class: 'global-nav-current-user__link'
+      .global-nav-current-user__icon
+        = gravatar_tag current_user, size: '320'
   .global-nav-links.is-contents-links
     ul.global-nav-links__items
       li.global-nav-links__item

@@ -107,7 +107,11 @@
   justify-content: flex-end
 .auth-form-nav__items
   display: flex
-  justify-content: space-between
-  width: 17rem
+  justify-content: center
+  width: 100%
+.auth-form-nav__item
+  +margin(horizontal, .5rem)
 .auth-form-nav__item-link
-  +text-block(.75rem 1.45)
+  cursor: pointer
+  +text-block(.75rem 1.45, $main-color)
+  +hover-link

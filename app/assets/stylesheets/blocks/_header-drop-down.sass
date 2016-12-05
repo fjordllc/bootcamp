@@ -1,0 +1,30 @@
+.header-drop-down
+  +position(absolute, left 50%, top 3.5rem)
+  width: 14rem
+  margin-left: -7rem
+  display: none
+  .header-links__item.is-active &
+    display: block
+.header-drop-down__items
+  border: solid .0625rem #ccc
+  box-shadow: rgba(black, .1) 0 .0625rem .0625rem
+  background-color: $base-color
+  border-radius: .25rem
+  +position(relative, 1)
+.header-drop-down__item
+  cursor: pointer
+.header-drop-down__item:not(:last-child)
+  border-bottom: solid .0625rem $background-color
+.header-drop-down__item-link
+  +text-block(.875rem 1.6, block $main-color)
+  padding: .5rem .75rem
+  transition: color .2s ease-in, background-color .2s ease-in
+  .header-drop-down__item:first-child &
+    +border-radius(top, .25rem)
+  .header-drop-down__item:last-child &
+    +border-radius(bottom, .25rem)
+  &:hover
+    background-color: $gray-lightest
+
+.header-drop-down__overlay
+  +position(fixed, left 0, top 0, right 0, bottom 0)

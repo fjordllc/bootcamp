@@ -16,5 +16,5 @@
           = link_to login_path, class: 'auth-form-nav__item-link' do
             | サインイン
         li.auth-form-nav__item
-          = link_to login_path, class: 'auth-form-nav__item-link' do
-            | 秘密保持契約書
+           span.auth-form-nav__item-link(data-target='#nda-modal' data-toggle='modal')
+            | 秘密保持契約内容を確認

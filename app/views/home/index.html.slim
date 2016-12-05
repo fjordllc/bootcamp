@@ -12,7 +12,12 @@
       h2.welcome-section__title
         | インターンに申し込む
       section.welcome-child-section
-        .welcome-child-section__description
+        .form-actions.is-margin-bottom-0
+          ul.form-actions__items
+            li.form-actions__item
+              = link_to '', class: "is-button-standard-xl-warning is-block" do
+                i.fa.fa-envelope-o
+                | 申込みはこちらから
 
 footer.footer
   .container
