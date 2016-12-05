@@ -1,66 +1,16 @@
 header.header
-<<<<<<< 59343381b04a14b8035af1318351dc468c15dc80
-  .container
-<<<<<<< f022f9303256d5b79d2e2dbcb3126223e46aa337
-    .global-nav__container
-      = link_to t('256interns'), root_path, class: 'global-nav__title'
-      .global-nav-item__search-form
-        = form_tag reports_url, method: 'get', class: 'search-form' do
-          .search-form__text-field-wrapper
-            = text_field_tag 'word', @word, class: 'search__input-text form-control' , placeholder: t('search_report')
-            button.search__submit type= 'submit'
-              i.fa.fa-search
-      .global-nav-links.is-contents-links
-        ul.global-nav-links__items
-          - if current_user
-            li.global-nav-links__item
-              = link_to "プラクティス", practices_path, class: "global-nav-links__link #{controller_name == 'practices' ? 'is-active' : ''}"
-            li.global-nav-links__item
-              = link_to "日報", reports_path, class: "global-nav-links__link #{controller_name == 'reports' ? 'is-active' : ''}"
-            li.global-nav-links__item
-              = link_to "Wiki", "/pages", class: "global-nav-links__link #{controller_name == 'pages' ? 'is-active' : ''}"
-            li.global-nav-links__item
-              = link_to "ユーザー", users_path, class: "global-nav-links__link #{controller_name == 'users' ? 'is-active' : ''}"
-            li.global-nav-links__item
-              = link_to "みんなのブログ", feeds_path, class: "global-nav-links__link #{controller_name == 'feeds' ? 'is-active' : ''}"
-      .global-nav-links.is-auth-links
-        ul.global-nav-links__items
-          - if current_user
-            li.global-nav-links__item.dropdown
-              a.dropdown-toggle.global-nav-links__link(aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" )
-                span.global-nav-links__link-icon= gravatar_tag current_user, size: '32'
-                span.global-nav-links__link-login-name= current_user.login_name
-              ul.global-nav-dropdown.dropdown-menu
-                - if current_user.admin?
-                  li.global-nav-dropdown__item
-                    = link_to t('admin_index'), admin_root_path, class: "global-nav-dropdown__link"
-                  li.global-nav-dropdown__item
-                    = link_to t('categories'), admin_categories_path, class: "global-nav-dropdown__link"
-                li.global-nav-dropdown__item
-                  = link_to t('editing_user'), edit_user_path(current_user), class: "global-nav-dropdown__link"
-                li.global-nav-dropdown__item
-                  = link_to t('logout'), logout_path, class: "global-nav-dropdown__link"
-          - else
-            li.global-nav-links__item
-              = link_to t('sign_in'), login_path, class: "global-nav-links__link"
-            li.global-nav-links__item
-              = link_to t('sign_up'), new_user_path, class: "global-nav-links__link"
-      .global-nav__open-drawer.js-open-drawer-trigger
-        i.fa.fa-bars
-=======
-=======
   .container.has-no-right-padding
->>>>>>> wip
     .header__container
       = link_to root_path, class: 'header__title' do
         = image_tag('header-logo.svg', alt: "#{t('256interns')}", class: "header__logo")
       - if current_user
         .header-links.is-user-links
           ul.header-links__items
-              li.header-search
-                input.a-xs-text-input.header-search__text-input(type= 'text')
-                button.is-button-standard-sm-secondary.is-icon.header-search__submit
-                  i.fa.fa-search
+              li
+                = form_tag reports_url, method: 'get', class: 'header-search' do
+                  = text_field_tag 'word', @word, class: 'a-xs-text-input header-search__text-input' , placeholder: t('search_report')
+                  button.is-button-standard-sm-secondary.is-icon.header-search__submit(type= 'submit')
+                    i.fa.fa-search
               li.header-links__item
                 = link_to '', class: "header-links__link" do
                   i.fa.fa-bell-o
@@ -72,14 +22,11 @@ header.header
                   i.fa.fa-sign-out
       - else
         .header-links.is-auth-links
-<<<<<<< 9276c304bc838e201cf83356fe96d0684f26eb37
           ul.header-links__items
               li.header-links__item
                 = link_to t('sign_in'), login_path, class: "header-links__link"
               li.header-links__item
                 = link_to t('sign_up'), new_user_path, class: "header-links__link"
->>>>>>> wip
-=======
           = link_to login_path, class: "is-button-standard-md-secondary" do
             = t('sign_in')
           //
@@ -87,4 +34,3 @@ header.header
               = t('sign_up')
       .header-show-mobile-nav.js-show-mobile-nav
         i.fa.fa-bars
->>>>>>> wip
