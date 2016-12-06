@@ -60,7 +60,7 @@ header.page-header
           - @reports.each do |report|
             .reports-item
               = link_to report, itempro: "url", class: "reports-item__link" do
-                h3.creports-item__title(itemprop="name")= report.title
+                h3.reports-item__title(itemprop="name")= report.title
               time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
                 = l report.updated_at, format: :short
                 - if report.comments.any?

@@ -1,10 +1,19 @@
-- title t('reports')
-header.page-header
-  .container
-    .page-header__container
-      h2.page-header__title
-        = t('reports')
-      = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
+- if @search_word.present?
+  - title t('search_for', text: @search_word)
+  header.page-header
+    .container
+      .page-header__container
+        h2.page-header__title
+          = t('search_for', text: @search_word)
+        = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
+- else
+  - title t('reports')
+  header.page-header
+    .container
+      .page-header__container
+        h2.page-header__title
+          = t('reports')
+        = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
 .page-body
   .container
     - if @reports.nil? == false
@@ -13,7 +22,7 @@ header.page-header
           .reports
             .reports-item
               = link_to report, itempro: "url", class: "reports-item__link" do
-                h3.creports-item__title(itemprop="name")= report.title
+                h3.reports-item__title(itemprop="name")= highlight("#{report.title}", "#{@search_word}")
                 = gravatar_tag report.user, size: 44, html: { class: "category-practices-item__user-icon"}
               time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
                 = l report.updated_at, format: :short
@@ -27,3 +36,6 @@ header.page-header
                   = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
                   = link_to t('copy'), new_report_path(report), class: 'btn btn-success'
                   = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+            - if @search_word.present?
+              .report__body
+                = highlight("#{report.description}", "#{@search_word}")

@@ -437,3 +437,5 @@ ja:
   action: 操作
   order: 並び順
   related-reports: 関連した日報
+  search_report: 日報検索
+  search_for: "'%{text}' の検索結果"
