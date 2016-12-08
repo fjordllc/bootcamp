@@ -6,7 +6,7 @@ nav.global-nav
         .global-nav-item__search-form
           = form_tag reports_url, method: 'get', class: 'search-form' do
             .search-form__text-field-wrapper
-              = text_field_tag 'word', @word, class: 'search__input-text form-control' , placeholder: t('search_report')
+              = text_field_tag 'word', params[:word], class: 'search__input-text form-control' , placeholder: t('search_report')
               button.search__submit type= 'submit'
                 i.fa.fa-search
         .global-nav-links.is-contents-links
