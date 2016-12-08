@@ -39,3 +39,4 @@
             - if @search_word.present?
               .report__body
                 = highlight("#{report.description}", "#{@search_word}")
+      = paginate @reports
