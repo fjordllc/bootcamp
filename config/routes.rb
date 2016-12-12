@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
-  #TODO 仮のお問い合わせページURL（デザインのみシステム未実装、実装後削除）
-  get "/contact", to: "home#contact"
+  get "/contact/new", to: "contacts#new"
+  get "/contact", to: "contacts#index", as: :contacts
+  post "/contact", to: "contacts#create"
 end
