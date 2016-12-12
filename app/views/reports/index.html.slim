@@ -67,3 +67,30 @@
           - @reports.each do |report|
             - if report.present?
               = render 'report_list_item', report: report
+
+.page-body
+  .container
+    - if @reports.nil? == false
+      - @reports.each do |report|
+        - if report.present?
+          .reports
+            .reports-item
+              = link_to report, itempro: "url", class: "reports-item__link" do
+                h3.reports-item__title(itemprop="name")= highlight("#{report.title}", "#{@search_word}")
+                = gravatar_tag report.user, size: 44, html: { class: "category-practices-item__user-icon"}
+              time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+                = l report.updated_at, format: :short
+                - if report.comments.any?
+                  = t('blank')
+                  = t('report_comments_any')
+                  = report.comments.count
+                  = t('comments_count')
+              - if report.user == current_user
+                .btn-group
+                  = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
+                  = link_to t('copy'), new_report_path(report), class: 'btn btn-success'
+                  = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+            - if @search_word.present?
+              .report__body
+                = highlight("#{report.description}", "#{@search_word}")
+      = paginate @reports
