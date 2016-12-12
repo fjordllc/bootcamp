@@ -11,11 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201050949) do
+ActiveRecord::Schema.define(version: 20161212065808) do
+
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "ar_internal_metadata", ["key"], name: "sqlite_autoindex_ar_internal_metadata_1", unique: true
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "slug",        limit: 255
+    t.string   "name"
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
@@ -34,12 +42,33 @@ ActiveRecord::Schema.define(version: 20161201050949) do
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "companies", force: :cascade do |t|
-    t.string   "name",        limit: 255
+    t.string   "name"
     t.text     "description"
-    t.string   "website",     limit: 255
+    t.string   "website"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "tos"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name",                                   null: false
+    t.string   "name_phonetic",                          null: false
+    t.string   "email",                                  null: false
+    t.string   "occupation",                             null: false
+    t.string   "division"
+    t.string   "work_place",                             null: false
+    t.string   "has_mac",                                null: false
+    t.string   "work_time",                              null: false
+    t.string   "work_days",                              null: false
+    t.string   "programming_experience",                 null: false
+    t.string   "twitter_url"
+    t.string   "facebook_url"
+    t.string   "blog_url"
+    t.string   "github_account"
+    t.text     "application_reason",                     null: false
+    t.boolean  "user_policy_agreed",     default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "learnings", force: :cascade do |t|
@@ -86,30 +115,30 @@ ActiveRecord::Schema.define(version: 20161201050949) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "login_name",                   limit: 255,                 null: false
-    t.string   "email",                        limit: 255
-    t.string   "crypted_password",             limit: 255
-    t.string   "salt",                         limit: 255
+    t.string   "login_name",                                   null: false
+    t.string   "email"
+    t.string   "crypted_password"
+    t.string   "salt"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remember_me_token",            limit: 255
+    t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
-    t.string   "first_name",                   limit: 255
-    t.string   "last_name",                    limit: 255
-    t.string   "twitter_url",                  limit: 255
-    t.string   "facebook_url",                 limit: 255
-    t.string   "blog_url",                     limit: 255
-    t.integer  "company_id",                               default: 1
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "twitter_url"
+    t.string   "facebook_url"
+    t.string   "blog_url"
+    t.integer  "company_id",                   default: 1
     t.text     "description"
-    t.boolean  "find_job_assist",                          default: false, null: false
-    t.integer  "purpose_cd",                               default: 0,     null: false
-    t.string   "feed_url",                     limit: 255
+    t.boolean  "find_job_assist",              default: false, null: false
+    t.integer  "purpose_cd",                   default: 0,     null: false
+    t.string   "feed_url"
     t.datetime "accessed_at"
-    t.boolean  "graduation",                               default: false, null: false
-    t.string   "github_account",               limit: 255
-    t.boolean  "adviser",                                  default: false, null: false
-    t.boolean  "retire",                                   default: false, null: false
-    t.boolean  "nda",                                      default: true,  null: false
+    t.boolean  "graduation",                   default: false, null: false
+    t.string   "github_account"
+    t.boolean  "adviser",                      default: false, null: false
+    t.boolean  "retire",                       default: false, null: false
+    t.boolean  "nda",                          default: true,  null: false
     t.string   "slack_account"
   end
 
