@@ -16,4 +16,3 @@ $ ->
 
 $ ->
   smoothScroll.init()
-  console.log('aaaaaaaaa')

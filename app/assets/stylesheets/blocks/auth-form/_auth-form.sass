@@ -5,12 +5,16 @@
   margin-top: 4rem
 .auth-form
   +margin(vertical, 4rem 4rem)
-  width: 22rem
+  max-width: 22rem
   background-color: $base-color
   +margin(horizontal, auto)
   border-radius: .375rem
+  +media-breakpoint-down(sm)
+    +margin(horizontal, 1rem)
   &.is-sign-up
-    width: 30rem
+    max-width: 30rem
+  &.is-contact
+    max-width: 35rem
 .auth-form__header
   border-bottom: solid .0625rem $background-color
   padding: 1.25rem
@@ -30,9 +34,9 @@
     max-width: 50%
     +padding(horizontal, .5rem)
     margin-bottom: .5rem
-    &:nth-child(3),
-    &:nth-child(4)
-      margin-bottom: 0
+    +media-breakpoint-down(sm)
+      flex: 100%
+      max-width: 100%
 
 .auth-form-radio-button__label
   +text-block(.8125rem 1.45, block)
