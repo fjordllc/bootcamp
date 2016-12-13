@@ -75,9 +75,9 @@ class ReportsController < ApplicationController
 
   def set_reports
     if params[:word].present?
-      @reports = Report.where('title LIKE ? or description LIKE ?', "%#{@search_word}%", "%#{@search_word}%").order(updated_at: :desc, id: :desc)
+      @reports = Report.where('title LIKE ? or description LIKE ?', "%#{@search_word}%", "%#{@search_word}%").order(updated_at: :desc, id: :desc).page(params[:page]).per(15)
     else
-      @reports = Report.order(updated_at: :desc, id: :desc)
+      @reports = Report.order(updated_at: :desc, id: :desc).page(params[:page]).per(30)
     end
   end
 

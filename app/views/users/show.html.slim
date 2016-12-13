@@ -4,7 +4,7 @@ header.page-header
     .page-header__container
       h2.page-header__title
         label.user-part(class= "is-#{@user.part}")
-          = t(@user.part)  
+          = t(@user.part)
         = @user.login_name
 
 .page-body
@@ -20,7 +20,7 @@ header.page-header
         - if @reports.any?
           .col-md-6.col-xs-12
             = render 'users/user_reports', reports: @reports
-    
+
     - if current_user == @user || current_user.admin?
       .form-actions
         ul.form-actions__items
