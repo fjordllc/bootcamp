@@ -12,14 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20161212065808) do
 
-  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
-    t.string   "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "ar_internal_metadata", ["key"], name: "sqlite_autoindex_ar_internal_metadata_1", unique: true
-
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
@@ -49,22 +41,22 @@ ActiveRecord::Schema.define(version: 20161212065808) do
   end
 
   create_table "contacts", force: :cascade do |t|
-    t.string   "name",                                   null: false
-    t.string   "name_phonetic",                          null: false
-    t.string   "email",                                  null: false
-    t.string   "occupation",                             null: false
+    t.string   "name",                                      null: false
+    t.string   "name_phonetic",                             null: false
+    t.string   "email",                                     null: false
+    t.integer  "occupation_cd",             default: 0,     null: false
     t.string   "division"
-    t.string   "work_place",                             null: false
-    t.string   "has_mac",                                null: false
-    t.string   "work_time",                              null: false
-    t.string   "work_days",                              null: false
-    t.string   "programming_experience",                 null: false
+    t.integer  "location_cd",               default: 0,     null: false
+    t.integer  "has_mac_cd",                default: 0,     null: false
+    t.string   "work_time",                                 null: false
+    t.string   "work_days",                                 null: false
+    t.integer  "programming_experience_cd", default: 0,     null: false
     t.string   "twitter_url"
     t.string   "facebook_url"
     t.string   "blog_url"
     t.string   "github_account"
-    t.text     "application_reason",                     null: false
-    t.boolean  "user_policy_agreed",     default: false, null: false
+    t.text     "application_reason",                        null: false
+    t.boolean  "user_policy_agreed",        default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

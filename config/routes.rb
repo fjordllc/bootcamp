@@ -44,7 +44,6 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
-  get "/contact/new", to: "contacts#new"
-  get "/contact", to: "contacts#index", as: :contacts
-  post "/contact", to: "contacts#create"
+  get "contacts/new", to: "contacts#new"
+  post "contacts", to: "contacts#create"
 end

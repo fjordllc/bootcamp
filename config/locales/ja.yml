@@ -199,6 +199,24 @@ ja:
         practice: "プラクティス"
         description: "内容"
 
+      contact:
+        name: "名前"
+        name_phonetic: "名前（フリガナ）"
+        email: "メールアドレス"
+        occupation: "職業"
+        division: "所属"
+        location: "インターン実施場所"
+        has_mac: "Macの有無"
+        work_time: "希望時間帯"
+        work_days: "動ける日数"
+        programming_experience: "プログラミング経験"
+        twitter_url: "Twitter URL"
+        facebook_url: "Facebook URL"
+        blog_url: "ブログURL"
+        github_account: "Githubアカウント"
+        application_reason: "志望理由"
+        user_policy_agreed: "個人情報の取り扱いについて"
+
   errors:
     format: "%{attribute} %{message}"
 
@@ -233,8 +251,12 @@ ja:
       company: "会社"
       comment: "コメント"
       report: "日報"
+<<<<<<< HEAD
       page: "Wiki"
       question: "Q&A"
+=======
+      contact: "インターン申し込みフォーム"
+>>>>>>> complete form
 
     enums:
       user:
@@ -248,6 +270,23 @@ ja:
           everyone: "共通"
           programmer: "プログラマー向け"
           designer: "デザイナー向け"
+      contact:
+        occupations:
+          student: "学生"
+          working: "社会人"
+          part-timer: "フリーター"
+          unemployed: "無職"
+        locations:
+          local: "ローカル（フィヨルドオフィス）"
+          remote: "リモート（自宅）"
+        has_mac:
+          has: "持っている"
+          not_have: "これから購入する"
+        programming_experience:
+          none: "なし"
+          html_css: "HTMLとCSSはわかる"
+          something: "何らかのプログラミング経験有り"
+          rails: "Railsの経験有り"
 
     attributes:
       user:
@@ -305,12 +344,32 @@ ja:
         title: タイトル
         body: 本文
 
+<<<<<<< HEAD
       question:
         title: タイトル
         description: 詳細
 
       answer:
         description: 詳細
+=======
+      contact:
+        name: "名前"
+        name_phonetic: "名前（フリガナ）"
+        email: "メールアドレス"
+        occupation: "職業"
+        division: "所属"
+        location: "インターン実施場所"
+        has_mac: "Macの有無"
+        work_time: "希望時間帯"
+        work_days: "動ける日数"
+        programming_experience: "プログラミング経験"
+        twitter_url: "Twitter URL"
+        facebook_url: "Facebook URL"
+        blog_url: "ブログURL"
+        github_account: "Githubアカウント"
+        application_reason: "志望理由"
+        user_policy_agreed: "個人情報の取り扱いについて"
+>>>>>>> complete form
 
     errors:
       template:
@@ -436,6 +495,7 @@ ja:
   category_was_successfully_created: "カテゴリーを作成しました。"
   category_was_successfully_updated: "カテゴリーを更新しました。"
   category_was_successfully_deleted: "カテゴリーを削除しました。"
+  contact_was_successfully_created: "お申込みを受け付けました。"
   learning_users: "学習中インターン"
   for: "%{target} 課題"
   for: "%{target} 課題"
