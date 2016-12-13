@@ -1,3 +1,38 @@
-= content_tag_for :tr, report do |report|
-  td.title
-    = link_to report.title, report
+.report
+  .report__inner
+    header.report__header
+      h1.report__title
+        = report.title
+    .report__meta
+      .report__author-name
+        = report.user.login_name
+      time.report__created-at(datetime="#{report.created_at.to_datetime}" pubdate="pubdate")
+        = l report.updated_at, format: :date_long_with_time
+    - if @report.practices.present?
+      .report-practices
+        ul.report-practices__items
+          - report.practices.each do |practice|
+            li.report-practices__item
+              = link_to practice, class: 'report-practices__item-link' do
+                = practice.title
+    .report__description.js-target-blank.is-long-text-style
+      = emojify(markdown(report.description))
+    footer.report__body-footer
+      .report__body-footer-container
+        - if @report.user_id == current_user.id
+          .report__actions
+            ul.report__actions-items
+              li.report__actions-item
+                = link_to edit_report_path(report), class: 'report__actions-item-link is-success' do
+                  i.fa.fa-pencil
+              li.report__actions-item
+                = link_to new_report_path(report), class: 'report__actions-item-link is-success' do
+                  i.fa.fa-files-o
+              li.report__actions-item
+                = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'report__actions-item-link is-danger' do
+                  i.fa.fa-trash-o
+        = link_to reports_path, class: 'is-button-standard-sm-secondary' do
+          i.fa.fa-angle-left
+          = t('to_index_of_reports')
+  = link_to report.user, itempro: "url", class: "report__author-link" do
+    = gravatar_tag report.user, size: 120, html: { class: "report__author-icon"}

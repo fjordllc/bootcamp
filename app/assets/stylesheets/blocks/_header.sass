@@ -1,0 +1,75 @@
+$header-height: 3.125rem
+.header
+  background-color: $base-color
+  border-bottom: solid $background-color .0625rem
+  +position(relative, 1)
+.header__container
+  display: flex
+  justify-content: space-between
+  align-items: center
+  height: $header-height
+
+.header__logo
+  height: 1.5rem
+
+.header-links
+  height: 100%
+  display: flex
+  align-items: center
+  +media-breakpoint-down(sm)
+    display: none
+.header-links__items
+  display: flex
+  height: 100%
+.header-links__item
+  display: flex
+  height: 100%
+  border-left: solid $background-color .0625rem
+  +position(relative)
+  transition: color .2s ease-in, background-color .2s ease-in
+  &.is-active
+    background-color: $accent-color
+    .header-links__link
+      color: $main-color
+.header-links__link
+  +flex-link
+  +size(3.5rem 100%)
+  align-items: center
+  justify-content: center
+  +text-block(1.25rem 1, #b9b9b9)
+  +position(relative)
+
+.header-links__link-count
+  +size(1rem)
+  border-radius: 50%
+  background-color: $danger
+  +position(absolute, right .25rem, top .25rem)
+  +text-block(.625rem, $reversal-text flex)
+  align-items: center
+  justify-content: center
+
+.header-search
+  display: flex
+  height: 100%
+  align-items: center
+  padding-right: .75rem
+.header-search__text-input
+  height: 2rem
+  +border-radius(right, 0)
+  border-right: none
+.is-icon.header-search__submit
+  +size(2rem)
+  +border-radius(left, 0)
+
+.header__title
+  color: $default-text
+
+.header-show-mobile-nav
+  display: none
+  +media-breakpoint-down(sm)
+    display: flex
+    height: 100%
+    justify-content: center
+    align-items: center
+    width: 3rem
+    margin-right: -1rem

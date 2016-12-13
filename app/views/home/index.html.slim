@@ -1,67 +1,27 @@
-section
-  header.page-header
+- content_for(:page_classes, 'no-header' 'no-recent-reports' 'no-global-nav')
+= render('main_visual')
+.welcome-sections
+  = render('fee')
+  = render('eligibility')
+  = render('tutorials')
+  = render('finding_employment')
+  = render('administrator')
+  = render('other')
+  section.welcome-section
     .container
-      h2= t('how_256interns_works')
-  .lead-text
-    .container
-      p
-        = link_to 'インターンシップ', 'http://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%83%E3%83%97'
-        | とは、応募者は就業体験と職業訓練を得、企業は見込み社員と労働力を得る仕組みです。
-      p
-        | ２５６インターンではお金を払って行くスクールとお金を貰ってやるアルバイトの中間地点として、
-        br/
-        | １週間毎に学習と作業を交換することにより、誰もお金を払わないインターンシップを実現します。
-      = link_to 'インターンに申し込む', 'http://intern-fantasy.herokuapp.com/', target: '_blank', class: 'btn btn-success'
-section
+      h2.welcome-section__title
+        | インターンに申し込む
+      section.welcome-child-section
+        .form-actions.is-margin-bottom-0
+          ul.form-actions__items
+            li.form-actions__item
+              // TODO 仮URL
+              = link_to '/contacts/new', class: "is-button-standard-xl-warning is-block" do
+                i.fa.fa-envelope-o
+                | 申込みはこちらから
+
+footer.footer
   .container
-    .row
-      .col-xs-12.col-sm-4.leaning_week
-        = image_tag '256intern_11.png'
-        h3 学習週
-        p １週間自分のペースで学習する。
-      .col-xs-12.col-sm-4.working_week
-        = image_tag '256intern_13.png'
-        h3 作業週
-        p 次の１週間Webサービスを作る作業をする。
-      .col-xs-12.col-sm-4.exchange
-        = image_tag '256intern_15.png'
-        h3 学習と作業の交換
-        p 学習週と作業週を交互に繰り返す。
-section
-  header.page-header
-    .container
-      h2 ローカルとリモート
-  .container
-    = image_tag '256intern_21.png'
-  .container
-    p
-      | ２５６インターンではオフィスに行く一般的なインターンをローカルインターン。
-      br/
-      | インターネット経由でのみのリモートインターンの両方が可能です。
-      br/
-      | リモートであればオフィスに通えない場所に済む人や昼間学校や会社、子育てで忙しい人でも参加できます。
-section
-  header.page-header
-    .container
-      h2 参加企業
-  .container
-    .row
-      .col-xs-12.col-sm-4.fjord
-        = link_to 'http://fjord.jp' do
-          = image_tag '256intern_24.png'
-          .name FJORD, LLC
-      .col-xs-12.col-sm-4.root
-        = link_to 'http://ic-root.com/' do
-          = image_tag '256intern_26.png'
-          .name root inc.
-      .col-xs-12.col-sm-4.esm
-        = link_to 'http://www.esm.co.jp' do
-          = image_tag 'esm_logo.png'
-          .name 株式会社永和システムマネジメント
-section
-  .container
-    p
-      | ２５６インターンでは参加企業を募集しています。当サービスを使えば、プログラマーがいなくて教える事ができない企業や、
-      br/
-      | 手間がかかって既存のインターンシップが行えない企業様でもインターンシップの利点を活かせます。
-    = link_to 'お問い合わせはこちら', 'mailto:info@fjord.jp', class: 'btn btn-success'
+    small.footer__copyright
+      i.fa.fa-copyright
+      | FJORD,LLC.

@@ -1,9 +1,20 @@
-$main-color: #b9d5da
-$accent-color: blue
+$main-color: #2c2461
+$accent-color: #e4b125
 $base-color: white
-$background-color: #eee
+$background-color: #e6e6e6
+$background-color-shade: #cbcbcb
+
+$default-text: #464c4e
 $reversal-text: white
-$text: #272b2d
+$muted-text: #7b8386
+
+$side: $main-color
+$side-border: #3d4766
+$side-tint: #4e6165
+$side-shade: #091026
+$side-active: $accent-color
+
+$card-header: #819093
 
 $gray-dark: #373a3c
 $gray: #55595c
@@ -11,8 +22,38 @@ $gray-light: #818a91
 $gray-lighter: #eceeef
 $gray-lightest: #f7f7f9
 
-$brand-primary: #6b9bcd
-$brand-success: #98c96c
-$brand-info: #7ac3d3
-$brand-warning: #d1d353
-$brand-danger: #dd6583
+$primary: #304ca2
+$success: #98c96c
+$info: #7ac3d3
+$warning: #fabd17
+$danger: #dd6583
+
+=default-link
+  transition: color .2s ease-in
+  color: #4834ce
+  &:link
+    color: #4834ce
+  &:visited
+    color: #6f78b7
+  &:hover
+    color: #1c6ee2
+  &:active
+    color: #b3430b
+
+
+$luma-contrast-bright-color: $default-text
+$luma-contrast-dark-color: $reversal-text
+$button-checked-color: $danger
+$button-checked-icon-color: $reversal-text
+
+$xs-button-font-size: .75rem
+$sm-button-font-size: .875rem
+$md-button-font-size: .875rem
+$lg-button-font-size: 1.125rem
+$xl-button-font-size: 1.25rem
+
+$button-xs-height-ratio: 2.4
+$button-sm-height-ratio: 2.2
+$button-md-height-ratio: 2.7
+$button-lg-height-ratio: 2.85
+$button-xl-height-ratio: 2.85

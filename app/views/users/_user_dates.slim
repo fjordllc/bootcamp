@@ -1,0 +1,13 @@
+.user-dates
+  .user-dates__created-at
+    .user-dates__created-at-label
+      = t('helpers.label.user.created_at')
+      | :
+    .user-dates__created-at-value
+      = l user.created_at.to_date
+  .user-dates__update-at
+    .user-dates__update-at-label
+      = t('helpers.label.user.updated_at')
+      | :
+    .user-dates__update-at-value
+      = l user.updated_at, format: :long

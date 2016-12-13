@@ -1,0 +1,54 @@
+.user-reports
+  +media-breakpoint-down(sm)
+    &:first-child
+      margin-top: 2rem
+.user-reports:not(:last-child)
+  margin-bottom: 2rem
+.user-reports__items
+  margin-top: -.5rem
+.user-reports__title
+  +text-block(1rem 1.45 .75rem)
+.user-reports-item
+  +position(relative)
+  border-bottom: solid .0625rem $background-color-shade
+  &.is-mine
+    padding-right: 4rem
+    +media-breakpoint-down(sm)
+      padding-right: 0
+.user-reports-item__link
+  display: block
+  +padding(vertical, .5rem)
+  +position(relative)
+  &.has-user-icon
+    padding-left: 3.5rem
+  &:hover
+    .user-reports-item__title
+      text-decoration: underline
+.user-reports-item__user-icon
+  +position(absolute, left 0, top .5rem)
+  +size(2.75rem auto)
+  border-radius: 50%
+.user-reports-item__title
+  +text-block(1rem 1.55, $main-color)
+  +media-breakpoint-down(sm)
+    line-height: 1.4
+    margin-bottom: .5rem
+.user-reports-item__updated-at
+  +text-block(.875rem 1.45, block $muted-text)
+
+.user-reports-item-actions
+  +position(absolute, right 0, top .25rem)
+  +media-breakpoint-down(sm)
+    position: static
+
+.user-reports-item-actions__items
+  display: flex
+  +media-breakpoint-down(sm)
+    margin-top: -.5rem
+    justify-content: flex-end
+.user-reports-item-actions__item-link
+  +size(2rem)
+  display: flex
+  align-items: center
+  justify-content: center
+  +text-block(1.125rem, $muted-text)

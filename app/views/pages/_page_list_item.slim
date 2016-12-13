@@ -1,0 +1,10 @@
+.page-list-item
+  header.page-list-item__header
+    h2.page-list-item__title(itemprop="name")
+      = link_to "/pages/#{page.title}", itempro: "url", class: "page-list-item__title-link" do
+        = page.title
+    .page-list-item__actions
+      = link_to "/pages/#{page.title}/edit", class: 'page-list-item__actions-link' do
+        i.fa.fa-pencil
+      = link_to  "/pages/#{page.title}", data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'page-list-item__actions-link' do
+        i.fa.fa-trash-o

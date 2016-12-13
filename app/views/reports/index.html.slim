@@ -5,15 +5,69 @@
       .page-header__container
         h2.page-header__title
           = t('search_for', text: @search_word)
-        = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
+        = link_to t('new_report'), new_report_path, class: 'is-button-standard-md-warning'
+  .page-body
+    .container
+      - if @reports.nil? == false
+        .report-list
+          - @reports.each do |report|
+            - if report.present?
+              .report-list-item
+                .report-list-item__inner
+                  .report-list-item__author
+                    = gravatar_tag report.user, size: 44, html: { class: "report-list-item__author-icon"}
+                  header.report-list-item__header
+                    h2.report-list-item__title(itemprop="name")
+                      = link_to report, itempro: "url", class: "report-list-item__title-link" do
+                        = highlight("#{report.title}", "#{@search_word}")
+                    - if report.user == current_user
+                      .report-list-item__actions
+                        = link_to edit_report_path(report), class: 'report-list-item__actions-link' do
+                          i.fa.fa-pencil
+                        = link_to new_report_path(report), class: 'report-list-item__actions-link' do
+                          i.fa.fa-files-o
+                        = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'report-list-item__actions-link' do
+                          i.fa.fa-trash-o
+
+                    .report-list-item-meta
+                      time.report-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+                        = l report.updated_at, format: :short
+                      - if report.comments.any?
+                        .report-list-item-meta__comments
+                          = t('report_comments_any')
+                          = report.comments.count
+                          = t('comments_count')
+                  .report-list-item__body
+                    = highlight("#{report.description}", "#{@search_word}")
+
+
 - else
   - title t('reports')
-  header.page-header
+  header.page-header.is-margin-bottom-0.has-border-bottom-none
     .container
       .page-header__container
-        h2.page-header__title
+        h1.page-header__title
           = t('reports')
-        = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
+        .page-header__action
+          = link_to new_report_path, class: 'is-button-standard-md-warning' do
+            i.fa.fa-plus
+            = t('new_report')
+  nav.sort-nav
+    .container
+      .sort-nav__inner
+        .sort-nav__label
+          | プラクティスで絞り込む:
+        .is-button-standard-sm-secondary.is-select.sort-nav__select
+          select
+
+  .page-body
+    .container
+      - if @reports.nil? == false
+        .report-list
+          - @reports.each do |report|
+            - if report.present?
+              = render 'report_list_item', report: report
+
 .page-body
   .container
     - if @reports.nil? == false

@@ -7,22 +7,29 @@
 
 @import settings/variables/*
 @import oulu-variables
+
 // oulu-functions-after-variables (functions need variables)
 @import oulu-functions-after-variables
+
 //////////////////////////////
 // mixins
 //////////////////////////////
+
 @import oulu-mixins
 @import modules/web-fonts/font-awsome
 @import modules/buttons/buttons
+
 //////////////////////////////
 // initializers
 //////////////////////////////
+
 // oulu-initializers
 @import oulu-initializers
+
 //////////////////////////////
 // helpers
 //////////////////////////////
+
 @import oulu-helpers
 @import settings/helpers/**/*
 
@@ -30,11 +37,13 @@
 // style
 //////////////////////////////
 
-@import bootstrap-import
-
-@import settings/helpers/**/*
-@import settings/custom-bootstrap//**/*
 @import base
 @import node_modules/highlight.js/styles/github
 @import github
+@import atoms/**/*
 @import blocks/**/*
+
+@import bootstrap/variables
+@import bootstrap/mixins
+@import bootstrap/close
+@import bootstrap/modal

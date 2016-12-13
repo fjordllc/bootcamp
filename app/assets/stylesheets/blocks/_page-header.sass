@@ -1,0 +1,25 @@
+.page-header
+  background-color: $base-color
+  margin-bottom: 1.5rem
+  box-shadow: rgba(black, .2) 0 .0625rem .0625rem
+  &.has-border-bottom-none
+    border-bottom: none
+.page-header__container
+  height: 3.5rem
+  +position(relative)
+  display: flex
+  align-items: center
+  justify-content: space-between
+  +media-breakpoint-down(sm)
+    height: auto
+    +padding(vertical, .75rem)
+
+.page-header__title
+  +text-block(1.25rem 1, $side)
+  img
+    +size(2.5rem auto)
+  +media-breakpoint-down(sm)
+    +text-block(1rem 1.4, $side)
+.page-header__action
+  +media-breakpoint-down(sm)
+    display: none

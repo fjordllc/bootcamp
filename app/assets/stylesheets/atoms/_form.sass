@@ -1,0 +1,64 @@
+.a-textarea
+  +text-block(.875rem 1.8, block)
+  width: 100%
+  padding: .5rem
+  background-color: #f7f7f7
+  border: solid .0625rem #c1c5b9
+  border-radius: .25rem
+  transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
+  &:focus
+    background-color: $base-color
+    box-shadow: rgba(black, .07) 0 .0625rem .0625rem inset
+
+.a-label
+  +text-block(14px 1.45 .5rem, block 600)
+
+.a-text-input
+  +text-block(.875rem 1.45, block)
+  width: 100%
+  padding: .5rem
+  background-color: #f7f7f7
+  border: solid .0625rem #c1c5b9
+  border-radius: .25rem
+  transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
+  &:focus
+    background-color: $base-color
+    box-shadow: rgba(black, .07) 0 .0625rem .0625rem inset
+
+.a-sm-text-input
+  +text-block(.8125rem 1.45, block)
+  width: 100%
+  padding: .5rem
+  background-color: #f7f7f7
+  border: solid .0625rem #c1c5b9
+  border-radius: .25rem
+  transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
+  .field_with_errors &
+    border-color: #e1a7b6
+    background-color: #fefafb
+  &:focus
+    background-color: $base-color
+    border-color: #c4c7bf
+    box-shadow: rgba(black, .1) 0 1px 2px inset
+
+.a-sm-label
+  +text-block(.8125rem 1.45 .375rem, block 600)
+  &.is-required
+    &::after
+      +fa('\f069')
+      +text-block(.3125rem, 400 $danger)
+      margin-left: .1875rem
+      +inline-block(top)
+
+.a-xs-text-input
+  +text-block(.8125rem 1.45, block)
+  width: 100%
+  padding: .25rem .5rem
+  background-color: #f7f7f7
+  border: solid .0625rem #c1c5b9
+  border-radius: .25rem
+  transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
+  &:focus
+    background-color: $base-color
+    border-color: #c4c7bf
+    box-shadow: rgba(black, .1) 0 1px 2px inset

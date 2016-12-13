@@ -1,0 +1,43 @@
+.main-visual
+  nav.main-visual-nav
+    .container
+      .main-visual-nav__container
+        ul.main-visual-nav__items
+          li.main-visual-nav__item
+            a.main-visual-nav__item-link(data-scroll href= '#fee')
+              | 学費無料
+          li.main-visual-nav__item
+            a.main-visual-nav__item-link(data-scroll href= '#eligibility')
+              | 参加資格
+          li.main-visual-nav__item
+            a.main-visual-nav__item-link(data-scroll href= '#tutorials')
+              | 学習内容
+          li.main-visual-nav__item
+            a.main-visual-nav__item-link(data-scroll href= '#finding-employment')
+              | 就職支援
+          li.main-visual-nav__item
+            a.main-visual-nav__item-link(data-scroll href= '#administrator')
+              | 運営会社
+          li.main-visual-nav__item
+            a.main-visual-nav__item-link(data-scroll href= '#other')
+              | その他
+          li.main-visual-nav__item
+            = link_to "/login", class: 'main-visual-nav__item-link' do
+              | ログイン
+  .noise
+  .container.main-visual__container
+    .main-visual__main
+      = image_tag('logo.svg', class: 'main-visual__logo')
+      h1.main-visual__description
+        | インターンに参加して、学費を払わず
+        br
+        | 一人でWebサービスを作れるスキルを身につける
+      = link_to "http://www.remotework-labo.jp/2015/10/interview_09/", class: "main-visual__link", target: "_blank" do
+        .main-visual__link-label
+          | インタビュー記事
+        .main-visual__link-description
+          | インターンの新しいカタチ
+          br
+          | リモートワークで50人の
+          br
+          | インターンと共同開発

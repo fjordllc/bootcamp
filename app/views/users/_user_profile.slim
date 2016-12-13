@@ -1,0 +1,11 @@
+.user-profile
+  .user-profile__icon
+    = gravatar_tag user, size: 100
+  .user-profile__names
+    h1.user-profile__login-name
+      = user.login_name
+    h2.user-profile__full-name
+      = user.full_name
+    .user-profile__company-name
+      = user.company.name
+  = render 'users/user_sns', user: user

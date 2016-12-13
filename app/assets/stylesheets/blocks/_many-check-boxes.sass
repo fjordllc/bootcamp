@@ -1,0 +1,18 @@
+.many-check-boxes
+  max-height: 16rem
+  +overflow(hidden auto)
+  background-color: #f7f7f7
+  border: solid .0625rem #c1c5b9
+  border-radius: .25rem
+.many-check-boxes__item-label
+  +text-block(.8125rem 1.45, block)
+  padding: .5rem
+  border-bottom: solid .0625rem #ccc
+  cursor: pointer
+  &.is-checked
+    background-color: $accent-color
+    color: $main-color
+  .many-check-boxes__item:last-child &
+    border-bottom: none
+  input
+    margin-right: .75rem

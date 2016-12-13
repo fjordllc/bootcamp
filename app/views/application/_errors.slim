@@ -1,0 +1,9 @@
+- if object.errors.any?
+  .errors
+    h3.errors__title
+      | 登録内容にエラーがありました
+    .errors__body
+      ul.errors__items
+        - object.errors.full_messages.each do |msg|
+          li.errors__item
+            = msg
