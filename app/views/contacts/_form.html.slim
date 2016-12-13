@@ -3,122 +3,80 @@
     = error_messages_for :contact
   .auth-form-items
     .auth-form-item
+      = f.label :occupation, class: 'a-sm-label is-required'
       ul.auth-form-item__radio-buttons.is-half
-        li.auth-form-radio-button.is-half
-          = f.label :occupation_1, '', class: 'auth-form-radio-button__label is-checked is-clickable radio-label' do
-            = f.radio_button :occupation, '', class: ''
-            = '学生'
-        li.auth-form-radio-button.is-half
-          = f.label :occupation_2, '', class: 'auth-form-radio-button__label is-clickable radio-label' do
-            = f.radio_button :occupation, '', class: ''
-            = '社会人'
-        li.auth-form-radio-button.is-half
-          = f.label :occupation_3, '', class: 'auth-form-radio-button__label is-clickable radio-label' do
-            = f.radio_button :occupation, '', class: ''
-            = 'フリーター'
-        li.auth-form-radio-button.is-half
-          = f.label :occupation_4, '', class: 'auth-form-radio-button__label is-clickable radio-label' do
-            = f.radio_button :occupation, '', class: ''
-            = '無職'
+        = f.collection_radio_buttons :occupation_cd, Contact.occupations.map {|k,v| [v, t("activerecord.enums.contact.occupations.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+              = b.radio_button + b.text
+        end
     .auth-form-item
-      label.a-sm-label
-        | 所属
-      input.a-sm-text-input(type='text')
+      = f.label :division, class: 'a-sm-label'
+      = f.text_field :division, class: 'a-sm-text-input'
     .auth-form-item
-      label.a-sm-label.is-required
-        | インターン実施場所
+      = f.label :location, class: 'a-sm-label is-required'
       ul.auth-form-item__radio-buttons.is-half
-        li.auth-form-radio-button.is-half
-          label.auth-form-radio-button__label.is-checked.is-clickable.radio-label
-            input#user_purpose_cd_0 checked="checked" name="" type="radio" value="0"
-            | ローカル（フィヨルドオフィス）
-        li.auth-form-radio-button.is-half
-          label.auth-form-radio-button__label.is-clickable.radio-label
-            input#user_purpose_cd_1 name="" type="radio" value="1"
-            | リモート（自宅）
+        = f.collection_radio_buttons :location_cd, Contact.locations.map {|k,v| [v, t("activerecord.enums.contact.locations.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+              = b.radio_button + b.text
+        end
     .auth-form-item
-      label.a-sm-label.is-required
-        | Macの有無
+      = f.label :has_mac, class: 'a-sm-label is-required'
       ul.auth-form-item__radio-buttons.is-half
-        li.auth-form-radio-button.is-half
-          label.auth-form-radio-button__label.is-checked.is-clickable.radio-label
-            input#user_purpose_cd_0 checked="checked" name="" type="radio" value="0"
-            | 持っている
-        li.auth-form-radio-button.is-half
-          label.auth-form-radio-button__label.is-clickable.radio-label
-            input#user_purpose_cd_1 name="" type="radio" value="1"
-            | これから購入する
+        = f.collection_radio_buttons :has_mac_cd, Contact.has_macs.map {|k,v| [v, t("activerecord.enums.contact.has_mac.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+              = b.radio_button + b.text
+        end
     .auth-form-item
-      label.a-sm-label.is-required
-        | 希望時間帯
-      input.a-sm-text-input(type='text')
+      = f.label :work_time, class: 'a-sm-label is-required'
+      = f.text_field :work_time, class: 'a-sm-text-input'
     .auth-form-item
-      label.a-sm-label.is-required
-        | 動ける日数
-      input.a-sm-text-input(type='text')
+      = f.label :work_days, class: 'a-sm-label is-required'
+      = f.text_field :work_days, class: 'a-sm-text-input'
     .auth-form-item
-      label.a-sm-label.is-required
-        | プログラミング経験
+      = f.label :programming_experience, class: 'a-sm-label is-required'
       ul.auth-form-item__radio-buttons.is-half
-        li.auth-form-radio-button.is-half
-          label.auth-form-radio-button__label.is-checked.is-clickable.radio-label
-            input#user_purpose_cd_0 checked="checked" name="" type="radio" value="0"
-            | なし
-        li.auth-form-radio-button.is-half
-          label.auth-form-radio-button__label.is-clickable.radio-label
-            input#user_purpose_cd_1 name="" type="radio" value="1"
-            | HTMLとCSSはわかる
-        li.auth-form-radio-button.is-half
-          label.auth-form-radio-button__label.is-clickable.radio-label
-            input#user_purpose_cd_2 name="" type="radio" value="2"
-            | 何らかのプログラミング経験有り
-        li.auth-form-radio-button.is-half
-          label.auth-form-radio-button__label.is-clickable.radio-label
-            input#user_purpose_cd_3 name="" type="radio" value="3"
-            | Railsの経験有り
+        = f.collection_radio_buttons :programming_experience_cd, Contact.programming_experiences.map {|k,v| [v, t("activerecord.enums.contact.programming_experience.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+              = b.radio_button + b.text
+        end
     .auth-form-item
-      label.a-sm-label.is-required
-        | 名前
-      input.a-sm-text-input(type='text')
+      = f.label :name, class: 'a-sm-label is-required'
+      = f.text_field :name, class: 'a-sm-text-input'
     .auth-form-item
-      label.a-sm-label.is-required
-        | 名前（フリガナ）
-      input.a-sm-text-input(type='text')
+      = f.label :name_phonetic, class: 'a-sm-label is-required'
+      = f.text_field :name_phonetic, class: 'a-sm-text-input'
     .auth-form-item
-      label.a-sm-label.is-required
-        | メールアドレス
-      input.a-sm-text-input(type='text')
+      = f.label :email, class: 'a-sm-label is-required'
+      = f.text_field :email, class: 'a-sm-text-input'
     .auth-form-item
-      label.a-sm-label
-        | Twitterアカウント
-      input.a-sm-text-input(type='text')
+      = f.label :twitter_url, class: 'a-sm-label'
+      = f.text_field :twitter_url, class: 'a-sm-text-input'
     .auth-form-item
-      label.a-sm-label
-        | Facebook URL
-      input.a-sm-text-input(type='text')
+      = f.label :facebook_url, class: 'a-sm-label'
+      = f.text_field :facebook_url, class: 'a-sm-text-input'
     .auth-form-item
-      label.a-sm-label
-        | ブログのURL
-      input.a-sm-text-input(type='text')
+      = f.label :blog_url, class: 'a-sm-label'
+      = f.text_field :blog_url, class: 'a-sm-text-input'
     .auth-form-item
-      label.a-sm-label
-        | Githubアカウント
-      input.a-sm-text-input(type='text')
+      = f.label :github_account, class: 'a-sm-label'
+      = f.text_field :github_account, class: 'a-sm-text-input'
 
     .auth-form-item
-      label.a-sm-label.is-required
-        | 志望利用
-      textarea#user_description.a-sm-text-input
+      = f.label :application_reason, class: 'a-sm-label is-required'
+      = f.text_area :application_reason, class: 'a-sm-text-input'
 
     .auth-form-item
-      label.a-sm-label.is-required
-        | 個人情報の取り扱いについて
+      = f.label :user_policy_agreed, class: 'a-sm-label is-required'
       = render 'privacy'
       ul.auth-form-item__radio-buttons.is-half
         li.auth-form-radio-button.is-half
           label.auth-form-radio-button__label
-            input name="" type="checkbox" value="0"
-            | 同意する
+            = f.check_box :user_policy_agreed, class: 'auth-form-checkbox__input'
+            = '同意する'
 
   .auth-form-action.is-sign-up-action
     ul.auth-form-action__items
@@ -126,5 +84,4 @@
         = link_to root_path, class: 'is-button-standard-xs-secondary' do
           | キャンセル
       li.auth-form-action__item
-        submit.is-button-standard-md-warning
-          | 送信する
+        = f.submit '送信する', class: 'is-button-standard-md-warning'

@@ -38,7 +38,6 @@ Rails.application.routes.draw do
   get 'login'  => 'user_sessions#new',     as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
 
-  get "/contact/new", to: "contacts#new"
-  get "/contact", to: "contacts#index", as: :contacts
-  post "/contact", to: "contacts#create"
+  get "contacts/new", to: "contacts#new"
+  post "contacts", to: "contacts#create"
 end
