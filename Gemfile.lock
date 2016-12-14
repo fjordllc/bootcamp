@@ -77,6 +77,9 @@ GEM
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> update capybara
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
@@ -118,14 +121,20 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
 <<<<<<< HEAD
+<<<<<<< HEAD
     coderay (1.1.1)
     coffee-rails (4.2.1)
 =======
+=======
+<<<<<<< 2b895319791d14d38b7265045c4e847835af46c7
+>>>>>>> update capybara
     capybara-webkit (1.1.0)
       capybara (~> 2.0, >= 2.0.2)
       json
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
+=======
+>>>>>>> update capybara
     coderay (1.1.1)
 <<<<<<< HEAD
     coffee-rails (4.0.1)
@@ -194,6 +203,7 @@ GEM
       thor (>= 0.14, < 2.0)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     jwt (1.5.6)
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
@@ -214,6 +224,8 @@ GEM
 =======
     json (2.0.2)
 >>>>>>> update rails
+=======
+>>>>>>> update capybara
     jwt (1.5.6)
 <<<<<<< HEAD
 >>>>>>> bundle update
@@ -302,6 +314,9 @@ GEM
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> update capybara
     public_suffix (2.0.4)
     puma (3.6.2)
     rack (2.0.1)
@@ -394,7 +409,6 @@ GEM
       ffi (>= 0.5.0)
 >>>>>>> delete exception_notification
     redcarpet (3.3.4)
-    rubyzip (1.2.0)
     sass (3.4.22)
     sassc (1.10.1)
       bundler
@@ -408,10 +422,6 @@ GEM
       sprockets-rails
       tilt
     sax-machine (1.3.2)
-    selenium-webdriver (2.53.4)
-      childprocess (~> 0.5)
-      rubyzip (~> 1.0)
-      websocket (~> 1.0)
     simple_enum (2.3.0)
       activesupport (>= 4.0.0)
 <<<<<<< HEAD
@@ -496,12 +506,15 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.4)
       execjs (>= 0.3.0, < 3)
-    websocket (1.2.3)
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+<<<<<<< HEAD
     xpath (1.0.0)
 >>>>>>> bundle update
+=======
+    xpath (2.0.0)
+>>>>>>> update capybara
       nokogiri (~> 1.3)
     xray-rails (0.2.0)
       rails (>= 3.1.0)
@@ -519,11 +532,14 @@ DEPENDENCIES
 =======
   bootstrap (~> 4.0.0.alpha5)
   capybara (~> 2.8)
+<<<<<<< HEAD
   capybara-webkit
 <<<<<<< HEAD
   coffee-rails (~> 4.0.0)
 >>>>>>> Update bootstrap
 =======
+=======
+>>>>>>> update capybara
   coffee-rails (~> 4.2)
 >>>>>>> update rails
   curb (~> 0.8.8)

@@ -106,7 +106,6 @@ group :development, :test do
   gem "byebug", platform: :mri
 =======
   gem 'capybara', '~> 2.8'
-  gem 'capybara-webkit'
   gem 'pry-byebug'
 >>>>>>> test fixed
 end
