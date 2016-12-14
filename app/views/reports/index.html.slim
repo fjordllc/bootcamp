@@ -40,7 +40,7 @@
                   .report-list-item__body
                     = highlight("#{report.description}", "#{@search_word}")
 
-  
+
 - else
   - title t('reports')
   header.page-header.is-margin-bottom-0.has-border-bottom-none
@@ -59,6 +59,14 @@
           | プラクティスで絞り込む:
         .is-button-standard-sm-secondary.is-select.sort-nav__select
           select
+
+  nav.sort-nav
+    .container
+      .sort-nav__inner
+        = form_tag reports_url, method: 'get' do
+          = label_tag :practice_id, 'プラクティスで絞り込む:', class: 'sort-nav__label'
+          = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title), class: 'is-button-standard-sm-secondary is-select sort-nav__select'
+          = submit_tag '', class: 'is-button-standard-sm-secondary is-icon header-search__submit'
 
   .page-body
     .container
