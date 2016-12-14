@@ -51,7 +51,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'capybara', '~> 2.0.3'
-  gem 'capybara-webkit'
+  gem 'capybara', '~> 2.8'
   gem 'pry-byebug'
 end
