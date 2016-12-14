@@ -26,4 +26,9 @@ html.is-application lang="ja"
       main.page
         = yield
     - unless yield(:page_classes).include?('no-recent-reports')
-      = render 'reports/recent_reports'
+      - if @reports.nil? == false
+        .recent-reports
+          .recent-reports__items
+            - @reports.each do |report|
+              - if report.present?
+                = render 'reports/recent_reports', report: report
