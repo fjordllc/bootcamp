@@ -20,17 +20,18 @@ gem 'curb', '~> 0.8.8'
 gem 'jbuilder'
 gem 'diffy'
 gem 'slack-notifier'
-gem 'typhoeus'
-gem 'gemoji'
-gem 'redcarpet'
-gem 'markdown_checkboxes'
+gem "typhoeus"
+gem "gemoji"
+gem "redcarpet"
+gem "markdown_checkboxes"
+gem 'kaminari'
 
 gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'
 
 # sass
 gem 'sassc-rails'
-gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'bootstrap', '~> 4.0.0.alpha5'
 gem 'oulu'
 
 group :production, :staging do
@@ -48,7 +49,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'capybara', '~> 2.0.3'
+  gem 'capybara', '~> 2.8'
   gem 'capybara-webkit'
   gem 'pry-byebug'
 end

@@ -67,3 +67,4 @@
           - @reports.each do |report|
             - if report.present?
               = render 'report_list_item', report: report
+      = paginate @reports

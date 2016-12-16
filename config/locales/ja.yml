@@ -373,8 +373,8 @@ ja:
         format: "%{attribute}%{message}"
   views:
     pagination:
-      previous: "« 前ページ"
-      next: "次ページ »"
+      previous: "« 前のページ"
+      next: "次のページ »"
       truncate: ""
       last: "最後のページ"
       first: "最初のページ"
