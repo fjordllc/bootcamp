@@ -1,3 +1,5 @@
+require Rails.root.join('lib', 'interns', 'render')
+
 module MarkdownHelper
   def markdown(text)
     render = Interns::Render.new(hard_wrap: true)
