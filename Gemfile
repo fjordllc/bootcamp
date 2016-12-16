@@ -52,11 +52,23 @@ gem 'curb', '~> 0.8.8'
 gem 'jbuilder'
 gem 'diffy'
 gem 'slack-notifier'
+<<<<<<< HEAD
 gem 'typhoeus'
 gem 'gemoji'
 gem 'redcarpet'
 gem 'markdown_checkboxes'
 >>>>>>> wip
+=======
+gem "typhoeus"
+gem "gemoji"
+gem "redcarpet"
+gem "markdown_checkboxes"
+gem 'kaminari'
+
+gem 'sprockets', '>= 3.0.0'
+gem 'sprockets-es6'
+gem 'pg'
+>>>>>>> developmentもpostgresに変更のコンフリクト解消
 
 # sass
 gem 'sassc-rails'
