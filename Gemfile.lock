@@ -62,14 +62,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-<<<<<<< 2b895319791d14d38b7265045c4e847835af46c7
-    capybara-webkit (1.1.0)
-      capybara (~> 2.0, >= 2.0.2)
-      json
-    childprocess (0.5.9)
-      ffi (~> 1.0, >= 1.0.11)
-=======
->>>>>>> update capybara
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -109,6 +101,9 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     jwt (1.5.6)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -267,6 +262,7 @@ DEPENDENCIES
   gravatarify
   jbuilder
   jquery-rails
+  kaminari
   listen (~> 3.0.5)
   markdown_checkboxes
   newrelic_rpm
