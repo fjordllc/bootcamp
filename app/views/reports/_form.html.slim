@@ -1,31 +1,49 @@
 = form_for report do |f|
   - if report.errors.any?
     = error_messages_for :report
-  .form-group
-    = f.label :title
-    - if @report_flag == true
-      = f.text_field :title, size: '10', class: 'form-control js-warning-form', value: '日報/' << @report_date.strftime("%Y/%m/%d/") << @user_name << ':'
-    - elsif @report_copy_flag == true
-      = f.text_field :title, size: '10', class: 'form-control js-warning-form', value: @report_title
-    - else
-      = f.text_field :title, size: '10', class: 'form-control js-warning-form'
-  .form-group
-    = f.label :practice
-    = f.select :practice_ids, options_from_collection_for_select(Practice.all, :id, :title), {}, {multiple: true, name: 'report[practice_ids][]', class: 'form-control js-warning-form'}
-  .row.js-markdown-parent
-    .col-sm-6
-      .form-group
-        = f.label :description
-        - if @report_copy_flag == true
-          = f.text_area :description, size: '10x20', class: 'form-control js-warning-form js-markdown-input practices-edit__input', value: @report_description
-        - else
-          = f.text_area :description, size: '10x20', class: 'form-control js-warning-form js-markdown-input practices-edit__input'
-    .col-sm-6
-      | プレビュー
-      .js-markdown-preview.is-long-text-style.practices-edit__preview
-  .form-group
-    = f.submit nil, class: 'btn btn-primary btn-sm'
-    - if params[:action] == 'new' || params[:action] == 'create'
-      = link_to 'キャンセル', reports_path, class: 'btn btn-secondary btn-sm'
-    - elsif params[:action] == 'edit' || params[:action] == 'update'
-      = link_to 'キャンセル', report_path, class: 'btn btn-secondary btn-sm'
+
+  .form__items
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          .form-item
+            = f.label :practice, class: 'a-label'
+            
+            .select-practices
+              - Practice.all.each do |practice|
+                label.select-practices__label
+                  = check_box_tag "report[practice_ids][]", practice.id, @report.practices.include?(practice), id: "product_practice_ids_#{practice.id}", class: "select-practices__input"
+                  = practice.title
+                      
+          .form-item
+            = f.label :title, class: 'a-label'
+            - if @report_flag == true
+              = f.text_field :title, class: 'a-text-input js-warning-form', value: '日報/' << @report_date.strftime("%Y/%m/%d/") << @user_name << ':'
+            - elsif @report_copy_flag == true
+              = f.text_field :title, class: 'a-text-input js-warning-form', value: @report_title
+            - else
+              = f.text_field :title, class: 'a-text-input js-warning-form'
+
+    .form-item
+      .row.js-markdown-parent
+        .col-sm-6
+          = f.label :description, class: 'a-label'
+          - if @report_copy_flag == true
+            = f.text_area :description, class: 'a-textarea js-warning-form js-markdown-input practices-edit__input', value: @report_description
+          - else
+            = f.text_area :description, class: 'a-textarea js-warning-form js-markdown-input practices-edit__input'
+        .col-sm-6
+          .a-label
+            | プレビュー
+          .js-markdown-preview.is-long-text-style.practices-edit__input.practices-edit__preview
+
+  .form-actions
+    ul.form-actions__items
+      - if params[:action] == 'new' || params[:action] == 'create'
+        li.form-actions__item
+          = link_to 'キャンセル', reports_path, class: "is-button-standard-md-secondary"
+      - elsif params[:action] == 'edit' || params[:action] == 'update'
+        li.form-actions__item
+          = link_to 'キャンセル', report_path, class: "is-button-standard-md-secondary"
+      li.form-actions__item
+        = f.submit nil, class: 'is-button-standard-lg-warning'
