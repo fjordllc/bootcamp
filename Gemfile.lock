@@ -169,6 +169,7 @@ GEM
 =======
     concurrent-ruby (1.0.2)
     curb (0.8.8)
+    debug_inspector (0.0.2)
     diffy (3.1.0)
     dynamic_form (1.1.4)
     erubis (2.7.0)
@@ -408,12 +409,15 @@ GEM
       ffi (>= 0.5.0)
     record_tag_helper (1.0.0)
       actionview (~> 5.x)
+<<<<<<< HEAD
 =======
     rake (11.3.0)
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
 >>>>>>> delete exception_notification
+=======
+>>>>>>> gemのバージョンを揃えたでのコンフリクト解消
     redcarpet (3.3.4)
     sass (3.4.22)
     sassc (1.10.1)
@@ -451,11 +455,17 @@ GEM
     spring (2.0.0)
       activesupport (>= 4.2)
 <<<<<<< HEAD
+<<<<<<< HEAD
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
     sprockets (3.7.1)
 =======
+=======
+    spring-watcher-listen (2.0.1)
+      listen (>= 2.7, < 4.0)
+      spring (>= 1.2, < 3.0)
+>>>>>>> gemのバージョンを揃えたでのコンフリクト解消
     sprockets (3.7.0)
 >>>>>>> bundle update
       concurrent-ruby (~> 1.0)
@@ -476,6 +486,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.5)
     tilt (2.0.5)
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     turbolinks (5.0.1)
@@ -505,6 +516,11 @@ GEM
 =======
     typhoeus (1.1.0)
 =======
+=======
+    turbolinks (5.0.1)
+      turbolinks-source (~> 5)
+    turbolinks-source (5.0.0)
+>>>>>>> gemのバージョンを揃えたでのコンフリクト解消
     typhoeus (1.1.2)
 >>>>>>> delete exception_notification
       ethon (>= 0.9.0)
@@ -512,6 +528,11 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.4)
       execjs (>= 0.3.0, < 3)
+    web-console (3.4.0)
+      actionview (>= 5.0)
+      activemodel (>= 5.0)
+      debug_inspector
+      railties (>= 5.0)
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -537,6 +558,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
 =======
   bootstrap (~> 4.0.0.alpha5)
+  byebug
   capybara (~> 2.8)
 <<<<<<< HEAD
   capybara-webkit
@@ -555,7 +577,10 @@ DEPENDENCIES
   gemoji
   gravatarify
   jbuilder (~> 2.5)
+<<<<<<< HEAD
   high_voltage
+=======
+>>>>>>> gemのバージョンを揃えたでのコンフリクト解消
   jquery-rails
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -578,12 +603,17 @@ DEPENDENCIES
   pry-byebug
   pry-remote
 <<<<<<< HEAD
+<<<<<<< HEAD
   puma (~> 3.0)
   rails (~> 5.0.1)
 =======
   puma
   rails (= 5.0.0.1)
 >>>>>>> update rails
+=======
+  puma (~> 3.0)
+  rails (~> 5.0.0, >= 5.0.0.1)
+>>>>>>> gemのバージョンを揃えたでのコンフリクト解消
   rails_12factor
   record_tag_helper (~> 1.0)
   redcarpet
@@ -597,6 +627,10 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sprockets (>= 3.0.0)
   sprockets-es6
+<<<<<<< HEAD
+=======
+  sqlite3
+>>>>>>> gemのバージョンを揃えたでのコンフリクト解消
   turbolinks (~> 5)
   typhoeus
   tzinfo-data
