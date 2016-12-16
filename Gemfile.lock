@@ -162,7 +162,7 @@ GEM
     pry (0.10.4)
 =======
       rack (~> 1.2)
-    oulu (0.12.23)
+    oulu (0.12.24)
       rake
       thor (~> 0.19)
     pg (0.18.4)
@@ -301,10 +301,17 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_list
+<<<<<<< HEAD
   bootstrap (~> 4.0.0.alpha6)
   byebug
   capybara (~> 2.8)
   coffee-rails (~> 4.2)
+=======
+  bootstrap (~> 4.0.0.alpha5)
+  capybara (~> 2.0.3)
+  capybara-webkit
+  coffee-rails (~> 4.0.0)
+>>>>>>> Update bootstrap
   curb (~> 0.8.8)
   diffy
   dynamic_form

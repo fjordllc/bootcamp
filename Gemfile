@@ -58,6 +58,7 @@ gem 'markdown_checkboxes'
 # sass
 gem 'sassc-rails'
 <<<<<<< HEAD
+<<<<<<< HEAD
 gem 'bootstrap', '~> 4.0.0.alpha6'
 =======
 gem 'bootstrap', '~> 4.0.0.alpha3'
@@ -66,6 +67,9 @@ gem 'bootstrap', '~> 4.0.0.alpha3'
 #gem 'oulu'
 gem 'oulu', path: '../oulu'
 =======
+=======
+gem 'bootstrap', '~> 4.0.0.alpha5'
+>>>>>>> Update bootstrap
 gem 'oulu'
 >>>>>>> Update oulu
 
