@@ -1,4 +1,4 @@
-class RemoveRowOrderToPractices < ActiveRecord::Migration
+class RemoveRowOrderToPractices < ActiveRecord::Migration[4.2]
   def change
     remove_column :practices, :row_order
   end
