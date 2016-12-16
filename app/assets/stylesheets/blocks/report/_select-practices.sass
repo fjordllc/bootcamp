@@ -1,0 +1,23 @@
+.select-practices
+  max-height: 14rem
+  +overflow(hidden auto)
+  border: solid .0625rem $background-color-shade
+
+.select-practices__label
+  +text-block(.8125rem 1.6, block $muted-text)
+  cursor: pointer
+  padding: .5rem .75rem
+  border-bottom: solid .0625rem $background-color-shade
+  background-color: #f7f7f7
+  transition: color .2s ease-in, background-color .2s ease-in
+  &:last-child
+    border-bottom: none
+  &:hover
+    color: $default-text
+    background-color: $base-color
+  &.is-checked
+    color: $default-text
+    background-color: #fff4d5
+
+.select-practices__input
+  margin-right: .5rem
