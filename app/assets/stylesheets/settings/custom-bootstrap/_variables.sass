@@ -16,20 +16,21 @@
 // Fonts
 // Components
 
-=_assert-ascending($map, $map-name)
-  $prev-key: null
-  $prev-num: null
+//
+  =_assert-ascending($map, $map-name)
+    $prev-key: null
+    $prev-num: null
 
-  @each $key, $num in $map
-    @if $prev-num == null
-      // Do nothing
-    @else if not comparable($prev-num, $num)
-      @warn "Potentially invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} whose unit makes it incomparable to #{$prev-num}, the value of the previous key '#{$prev-key}' !"
-    @else if $prev-num >= $num
-      @warn "Invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} which isn't greater than #{$prev-num}, the value of the previous key '#{$prev-key}' !"
+    @each $key, $num in $map
+      @if $prev-num == null
+        // Do nothing
+      @else if not comparable($prev-num, $num)
+        @warn "Potentially invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} whose unit makes it incomparable to #{$prev-num}, the value of the previous key '#{$prev-key}' !"
+      @else if $prev-num >= $num
+        @warn "Invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} which isn't greater than #{$prev-num}, the value of the previous key '#{$prev-key}' !"
 
-    $prev-key: $key
-    $prev-num: $num
+      $prev-key: $key
+      $prev-num: $num
 
 // General variable structure
 //
@@ -107,9 +108,10 @@ $link-hover-decoration: underline !default
 //
 // Define the maximum width of `.container` for different screen sizes.
 
-$container-max-widths: (sm: 540px, md: 720px, lg: 960px, xl: 1140px) !default
+//
+  $container-max-widths: (sm: 540px, md: 720px, lg: 960px, xl: 1140px) !default
 
-+_assert-ascending($container-max-widths, "$container-max-widths")
+  +_assert-ascending($container-max-widths, "$container-max-widths")
 
 // Grid columns
 //
