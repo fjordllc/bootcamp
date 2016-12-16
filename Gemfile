@@ -90,10 +90,16 @@ group :development do
 end
 
 group :development, :test do
+<<<<<<< HEAD
   gem "capybara", "~> 2.8"
   gem "pry-byebug"
   gem "simple_seed"
   gem "byebug", platform: :mri
+=======
+  gem 'capybara', '~> 2.8'
+  gem 'capybara-webkit'
+  gem 'pry-byebug'
+>>>>>>> test fixed
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
