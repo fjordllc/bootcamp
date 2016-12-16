@@ -122,6 +122,7 @@ GEM
       xpath (~> 2.0)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     coderay (1.1.1)
     coffee-rails (4.2.1)
 =======
@@ -135,6 +136,8 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
 =======
 >>>>>>> update capybara
+=======
+>>>>>>> Gemfile.lock 更新
     coderay (1.1.1)
 <<<<<<< HEAD
     coffee-rails (4.0.1)
@@ -208,6 +211,7 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+<<<<<<< HEAD
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.4.1)
@@ -216,6 +220,8 @@ GEM
       actionmailer (>= 3.2)
       letter_opener (~> 1.0)
       railties (>= 3.2)
+=======
+>>>>>>> Gemfile.lock 更新
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -552,9 +558,13 @@ DEPENDENCIES
   high_voltage
   jquery-rails
 <<<<<<< HEAD
+<<<<<<< HEAD
   kaminari
   letter_opener
   letter_opener_web
+=======
+  kaminari
+>>>>>>> Gemfile.lock 更新
   listen (~> 3.0.5)
   letter_opener
   letter_opener_web
