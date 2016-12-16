@@ -1,0 +1,24 @@
+.page-nav
+  +position(absolute, right 0, top 0)
+  background-color: $base-color
+  width: 16rem
+  border: solid .0625rem #dadada
+  border-radius: .25rem
+  opacity: .8
+  transition: opacity .2s ease-in
+  &:hover
+    opacity: 1
+  +media-breakpoint-down(sm)
+    display: none
+.page-nav__item
+  border-bottom: solid .0625rem #e6e6e6
+  &:last-child
+    border-bottom: none
+.page-nav__item-link
+  padding: .375rem .75rem
+  +text-block(.8125rem 1.45, block $muted-text)
+  transition: color .2s ease-in, background-color .2s ease-in
+  background-color: transparent
+  &:hover
+    color: $main-color
+    background-color: #fff4d5
