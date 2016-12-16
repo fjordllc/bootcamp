@@ -49,7 +49,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'capybara', '~> 2.0.3'
+  gem 'capybara', '~> 2.8'
   gem 'capybara-webkit'
   gem 'pry-byebug'
 end
