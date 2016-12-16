@@ -2,6 +2,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_action :init_user
   before_action :allow_cross_domain_access
+  before_action :recent_comments
+
+  def recent_comments
+    @activities = PublicActivity::Activity.order(created_at: :desc).where(recipient_id: current_user.id)
+  end
 
   protected
 

@@ -148,6 +148,11 @@ GEM
     pry-remote (0.1.8)
       pry (~> 0.9)
       slop (~> 3.0)
+    public_activity (1.5.0)
+      actionpack (>= 3.0.0)
+      activerecord (>= 3.0)
+      i18n (>= 0.5.0)
+      railties (>= 3.0.0)
     public_suffix (2.0.4)
     puma (2.15.3)
     quiet_assets (1.1.0)
@@ -270,6 +275,7 @@ DEPENDENCIES
   pg
   pry-byebug
   pry-remote
+  public_activity (= 1.5.0)
   puma
   quiet_assets
   rails (= 4.2.7.1)
