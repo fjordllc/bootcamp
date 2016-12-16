@@ -1,0 +1,18 @@
+- title "質問一覧"
+header.page-header.is-margin-bottom-0
+  .container
+    .page-header__container
+      h2.page-header__title Q&A一覧
+      = link_to "新規質問", new_question_path, class: 'btn btn-primary btn-md page-header__button'
+
+.page-body
+  nav.tab-nav
+    .container.is-xs-horizontal-padding-0
+      ul.tab-nav__items
+        li.tab-nav__item
+          = link_to "未解決", questions_path, class: "tab-nav__item-link #{params[:solved].present? ? '': 'is-active'}"
+        li.tab-nav__item
+          = link_to "解決済み", questions_path(solved: 'true'), class: "tab-nav__item-link #{params[:solved].present? ? 'is-active' : ''}"
+
+  .container
+    .questions= render @questions

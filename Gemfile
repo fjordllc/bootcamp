@@ -10,7 +10,6 @@ gem 'gravatarify'
 gem 'slim-rails'
 gem 'jquery-rails'
 gem 'puma', require: false
-gem 'redcarpet'
 gem 'simple_enum'
 gem 'sorcery'
 gem 'acts_as_list'
@@ -32,7 +31,7 @@ gem 'sprockets-es6'
 gem 'sassc-rails'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'bourbon'
-gem 'oulu'
+gem 'oulu', '0.12.25'
 #gem 'oulu', path: '../oulu'
 
 
@@ -53,4 +52,5 @@ end
 group :development, :test do
   gem 'capybara', '~> 2.8'
   gem 'pry-byebug'
+  gem 'simple_seed'
 end

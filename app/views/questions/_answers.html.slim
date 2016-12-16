@@ -1,0 +1,7 @@
+h3 回答
+- if answers.present?
+  .answer-items
+    - answers.each do |answer|
+      = render 'answers/answer', answer: answer
+- else
+  p 回答がありません

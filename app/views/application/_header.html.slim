@@ -16,6 +16,8 @@ nav.global-nav
             li.global-nav-links__item
               = link_to "日報", reports_path, class: "global-nav-links__link #{controller_name == 'reports' ? 'is-active' : ''}"
             li.global-nav-links__item
+              = link_to "Q&A", questions_path, class: "global-nav-links__link #{controller_name == 'questions' ? 'is-active' : ''}"
+            li.global-nav-links__item
               = link_to "Wiki", "/pages", class: "global-nav-links__link #{controller_name == 'pages' ? 'is-active' : ''}"
             li.global-nav-links__item
               = link_to "ユーザー", users_path, class: "global-nav-links__link #{controller_name == 'users' ? 'is-active' : ''}"
