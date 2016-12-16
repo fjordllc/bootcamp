@@ -4,34 +4,58 @@
   box-shadow: rgba(black, .2) 0 .0625rem .125rem
   max-width: 62.5rem
   +margin(horizontal, auto)
+
 .report-list-item
   border-bottom: solid .0625rem $background-color
   padding: .75rem 1rem
+
 .report-list-item__inner
   +relative
   padding-left: 4rem
+
 .report-list-item__author
   +position(absolute, left 0, top 0)
+
 .report-list-item__author-icon
   border-radius: 50%
+
 .report-list-item__header
   display: flex
   align-items: center
   +media-breakpoint-down(sm)
     flex-direction: column
     align-items: flex-start
+
 .report-list-item__title-link
   +text-block(1rem 1.5, 600 $side)
+
 .report-list-item__actions
   margin-left: .5rem
   display: flex
+
 .report-list-item__actions-link
   +text-block(1rem 1, flex #b9b9b9)
   align-items: center
   justify-content: center
   +size(1.75rem)
+
 .report-list-item-meta
   display: flex
   +text-block(.875rem 1.45)
+
+.report-list-item-meta__updated-at
+  +text-block(.875rem 1.45, $muted-text)
+
+.report-list-item-meta__comment-count
+  +text-block(.875rem 1.45, block $muted-text inline-block)
+  margin-left: .75rem
+
+.report-list-item-meta__comment-count-label
+  +text-block(.875rem 1.45, block $muted-text inline-block)
+  margin-right: .25rem
+
+.report-list-item-meta__comment-count-value
+  +text-block(.875rem 1.45, block $muted-text inline-block)
+
 .report-list-item__body
   +text-block(.875rem 1.8)

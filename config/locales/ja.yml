@@ -26,7 +26,8 @@ ja:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
       short: "%y/%m/%d %H:%M"
-      long: "%Y年%m月%d日 %H時%M分%S秒"
+      long: "%Y年%m月%d日(%a) %H時%M分%S秒"
+      semi_long: "%Y年%m月%d日(%a) %H:%M"
       date_default: "%Y年%m月%d日"
       date_short: "%m/%d"
       date_long: "%Y年%m月%d日(%a)"
@@ -454,7 +455,6 @@ ja:
   reports: "日報"
   report_comments_any: "コメント"
   comments_count: "件"
-  blank: " "
   listing_companies: "会社一覧"
   listing_questions: "Q & A"
   companies: "会社"
