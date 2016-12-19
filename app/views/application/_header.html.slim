@@ -2,7 +2,7 @@ nav.global-nav
   .container
     .global-nav__container
       = link_to t('256interns'), root_path, class: 'global-nav__title'
-      - if current_user
+      - if logged_in?
         .global-nav-item__search-form
           = form_tag reports_url, method: 'get', class: 'search-form' do
             .search-form__text-field-wrapper
