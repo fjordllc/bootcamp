@@ -18,15 +18,12 @@ header.page-header
           .js-target-blank.is-long-text-style
             = markdown @page.body
 
-.btn-group
-  = link_to "編集", "/pages/#{@page.title}/edit", class: 'btn btn-primary'
-  = link_to "削除", "/pages/#{@page.title}", data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'btn btn-danger'
-
 .form-actions
-  ul.form-actions__items
-    li.form-actions__item
-      = link_to "一覧に戻る", "/pages/", class: 'is-button-standard-md-secondary'
-    li.form-actions__item
-      = link_to "削除", "/pages/#{@page.title}", data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'is-button-standard-md-danger'
-    li.form-actions__item
-      = link_to "内容変更", "/pages/#{@page.title}/edit", class: 'is-button-standard-lg-warning'
+  .container
+    ul.form-actions__items
+      li.form-actions__item
+        = link_to "一覧に戻る", "/pages/", class: 'is-button-standard-md-secondary'
+      li.form-actions__item
+        = link_to "削除", "/pages/#{@page.title}", data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'is-button-standard-md-danger'
+      li.form-actions__item
+        = link_to "内容変更", "/pages/#{@page.title}/edit", class: 'is-button-standard-lg-warning'
