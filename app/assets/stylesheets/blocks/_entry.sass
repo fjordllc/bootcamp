@@ -11,9 +11,14 @@
   +padding(horizontal, 1.25rem)
   +padding(vertical, 1rem)
   border-bottom: solid .0625rem $background-color
+  +media-breakpoint-down(sm)
+    +padding(horizontal, 1rem)
+    margin-bottom: 1rem
 
 .entry-header__title
   +text-block(1.5rem 1.3 .25rem, $side)
+  +media-breakpoint-down(sm)
+    font-size: 1.25rem
 
 .entry-header__title-link
   color: $side
@@ -30,3 +35,5 @@
 .entry-body
   +padding(horizontal, 1.25rem)
   padding-bottom: 1.5rem
+  +media-breakpoint-down(sm)
+    +padding(horizontal, 1rem)

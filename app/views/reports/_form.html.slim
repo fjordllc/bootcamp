@@ -26,13 +26,13 @@
 
     .form-item
       .row.js-markdown-parent
-        .col-sm-6
+        .col-md-6.col-xs-12
           = f.label :description, class: 'a-label'
           - if @report_copy_flag == true
             = f.text_area :description, class: 'a-textarea js-warning-form js-markdown-input practices-edit__input', value: @report_description
           - else
             = f.text_area :description, class: 'a-textarea js-warning-form js-markdown-input practices-edit__input'
-        .col-sm-6
+        .col-md-6.col-xs-12
           .a-label
             | プレビュー
           .js-markdown-preview.is-long-text-style.practices-edit__input.practices-edit__preview

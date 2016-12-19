@@ -1,5 +1,5 @@
 $ ->
-  if $('.js-to-top').lengthlength > 0
+  if $('.js-to-top').length > 0
     $(window).scroll ->
       if $(this).scrollTop() > 0
         $('.js-to-top').addClass('is-active')
