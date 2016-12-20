@@ -9,7 +9,7 @@ gem 'dynamic_form'
 gem 'gravatarify'
 gem 'slim-rails'
 gem 'jquery-rails'
-gem 'puma', require: false
+gem 'puma', '~> 3.0'
 gem 'simple_enum'
 gem 'sorcery'
 gem 'acts_as_list'
@@ -28,7 +28,6 @@ gem 'record_tag_helper', '~> 1.0'
 gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'
 gem 'pg'
-gem 'sqlite3'
 
 # sass
 gem 'sassc-rails'
