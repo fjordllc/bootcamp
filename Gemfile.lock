@@ -268,7 +268,6 @@ PLATFORMS
 DEPENDENCIES
   acts_as_list
   bootstrap (~> 4.0.0.alpha5)
-  byebug
   capybara (~> 2.8)
   coffee-rails (~> 4.2)
   curb (~> 0.8.8)
@@ -283,11 +282,11 @@ DEPENDENCIES
   listen (~> 3.0.5)
   markdown_checkboxes
   newrelic_rpm
-  oulu (= 0.12.25)
+  oulu
   pg
   pry-byebug
   pry-remote
-  puma (~> 3.0)
+  puma
   rails (~> 5.0.0, >= 5.0.0.1)
   rails_12factor
   record_tag_helper (~> 1.0)
