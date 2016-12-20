@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201050949) do
+ActiveRecord::Schema.define(version: 20161216053008) do
+
+  create_table "answers", force: :cascade do |t|
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id"
+  add_index "answers", ["user_id"], name: "index_answers_on_user_id"
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -27,8 +38,8 @@ ActiveRecord::Schema.define(version: 20161201050949) do
     t.integer  "report_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["report_id"], name: "index_comments_on_report_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
+    t.index ["report_id"], name: "index_comments_on_report_id", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
 
   create_table "companies", force: :cascade do |t|
@@ -63,15 +74,39 @@ ActiveRecord::Schema.define(version: 20161201050949) do
     t.text     "goal"
     t.integer  "category_id"
     t.integer  "position"
-    t.index ["category_id"], name: "index_practices_on_category_id"
+    t.index ["category_id"], name: "index_practices_on_category_id", using: :btree
   end
 
   create_table "practices_reports", id: false, force: :cascade do |t|
     t.integer "practice_id", null: false
     t.integer "report_id",   null: false
-    t.index ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id"
-    t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
+    t.index ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id", using: :btree
+    t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id", using: :btree
   end
+
+  create_table "questions", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "correct_answer_id"
+    t.index ["user_id"], name: "index_questions_on_user_id", using: :btree
+  end
+
+  add_index "practices_reports", ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id"
+  add_index "practices_reports", ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
+
+  create_table "questions", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "correct_answer_id"
+  end
+
+  add_index "questions", ["user_id"], name: "index_questions_on_user_id"
 
   create_table "reports", force: :cascade do |t|
     t.integer  "user_id",                 null: false
@@ -107,7 +142,7 @@ ActiveRecord::Schema.define(version: 20161201050949) do
     t.boolean  "retire",                                   default: false, null: false
     t.boolean  "nda",                                      default: true,  null: false
     t.string   "slack_account"
-    t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
+    t.index ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
   end
 
 end
