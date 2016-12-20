@@ -326,8 +326,12 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_list
+<<<<<<< HEAD
   bootstrap (~> 4.0.0.alpha6)
   byebug
+=======
+  bootstrap (~> 4.0.0.alpha5)
+>>>>>>> Gemfile.lock 更新
   capybara (~> 2.8)
   coffee-rails (~> 4.2)
   capybara-webkit
@@ -347,12 +351,17 @@ DEPENDENCIES
   listen (~> 3.0.5)
   markdown_checkboxes
   newrelic_rpm
-  oulu (= 0.12.25)
+  oulu
   pg
   pry-byebug
   pry-remote
+<<<<<<< HEAD
   puma (~> 3.0)
   rails (~> 5.0.1)
+=======
+  puma
+  rails (~> 5.0.0, >= 5.0.0.1)
+>>>>>>> Gemfile.lock 更新
   rails_12factor
   record_tag_helper (~> 1.0)
   redcarpet
