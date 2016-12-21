@@ -1,8 +1,6 @@
 module ReportsHelper
-
-	def slice_description(report)
-	  report.description.gsub!(/(\r\n|\r|\n)/, "")
-	  remained_count = report.description.length - params[:word].length - report.description.index(params[:word])
-	  report.description.slice(/#{params[:word]}.{#{remained_count}}/)
-	end
+  def sliced(description, word)
+    description.gsub!(/(\r\n|\r|\n)/, " ")
+    description.slice(/#{word}.{0,300}/)
+  end
 end
