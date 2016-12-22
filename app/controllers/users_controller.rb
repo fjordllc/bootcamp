@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def index
     @categories = Category.order("position")
-    @users = User.order(updated_at: :desc).page(params[:page]).per(15)
+    @users = User.order(updated_at: :desc)
     @target = params[:target] || "all"
     @users =
       case @target
