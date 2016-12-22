@@ -1,6 +1,7 @@
 class AnswersController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
+  before_action :require_login
   before_action :set_question
   before_action :set_answer, only: %i(show edit update destroy)
   before_action :set_return_to, only: %i(create update destroy)
