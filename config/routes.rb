@@ -39,6 +39,10 @@ Rails.application.routes.draw do
   end
   resources :courses, only: :index
   resources :chat_notices, only: :create
-  get "login"  => "user_sessions#new",     as: :login
-  get "logout" => "user_sessions#destroy", as: :logout
+  get 'login'  => 'user_sessions#new',     as: :login
+  get 'logout' => 'user_sessions#destroy', as: :logout
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end

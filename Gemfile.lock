@@ -294,6 +294,8 @@ DEPENDENCIES
   letter_opener
   letter_opener_web
   listen (~> 3.0.5)
+  letter_opener
+  letter_opener_web
   markdown_checkboxes
   newrelic_rpm
   oulu (= 0.12.25)
