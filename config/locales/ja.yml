@@ -407,16 +407,10 @@ ja:
   sign_in_successful: "サインインしました。"
   sign_out: "サインアウトしました。"
   registration_successfull: "サインアップしました。"
-<<<<<<< HEAD
-<<<<<<< HEAD
   user_was_successfully_updated: "インターンを更新しました。"
   practice_was_successfully_created: "プラクティスを作成しました。"
   practice_was_successfully_updated: "プラクティスを更新しました。"
   practice_was_successfully_deleted: "プラクティスを削除しました。"
-=======
->>>>>>> ce5acf3... Add Q&A
-=======
->>>>>>> 69391368797a3fef0cb8fd5c14fb6de44d4ead4f
   company_was_successfully_created: "会社を作成しました。"
   company_was_successfully_updated: "会社を更新しました。"
   company_was_successfully_deleted: "会社を削除しました。"
