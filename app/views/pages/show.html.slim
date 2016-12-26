@@ -11,12 +11,13 @@ header.page-header
 
 .page-body
   .container
-    .col-md-6
-      .card
-        = @page.title
-        .card-block
-          .js-target-blank.is-long-text-style
-            = markdown @page.body
+    article.entry
+      header.entry-header
+        h3.entry-header__title
+          = @page.title
+      .entry-body
+        .js-target-blank.is-long-text-style
+          = markdown @page.body
 
 .form-actions
   .container
