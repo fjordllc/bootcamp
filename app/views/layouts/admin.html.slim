@@ -27,8 +27,9 @@ html.is-admin lang="ja"
         = yield
         //= render 'active_users'
     - unless yield(:page_classes).include?('no-recent-reports')
-      - if @reports.nil? == false
-        .report-list
-          - @reports.each do |report|
-            - if report.present?
+      = recent_reports
+      - if @reports.present?
+        .recent-reports
+          .recent-reports__items
+            - @reports.each do |report|
               = render 'reports/recent_reports', report: report
