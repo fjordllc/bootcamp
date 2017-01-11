@@ -1,6 +1,5 @@
 $ ->
   if $('body.practices-index').length > 0
-    console.log("aaaaa")
     $('.js-category-practices').on 'click', '.js-practice-state', {}, ->
       console.log("ffff")
       status = $(this).data('status')

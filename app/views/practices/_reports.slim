@@ -9,12 +9,13 @@
           h3.user-reports-item__title itemprop="name" 
             = report.title
           time.user-reports-item__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
-            = l report.updated_at, format: :short
+            = l report.updated_at, format: :semi_long
           - if report.comments.any?
-            .user-reports-item__comments
-              = t('report_comments_any')
-              = report.comments.count
-              = t('comments_count')
+            .user-reports-item__comment-count
+              .user-reports-item__comment-count-label
+                i.fa.fa-comment-o
+              .user-reports-item__comment-count-value
+                = report.comments.count
         .user-reports-item-actions
           ul.user-reports-item-actions__items
             li.user-reports-item-actions__item

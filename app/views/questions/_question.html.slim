@@ -1,0 +1,15 @@
+.question-item
+  h3.question-item__title= link_to question.title, question
+  .question-item__content
+    .question-item__user
+      = link_to question.user do
+        .question-itme__icon= link_to gravatar_tag question.user, size: 44, html: { class: 'category-practices-item__user-icon' }
+        .question-item__name= link_to question.user.login_name, question.user
+    time.contents-list-meta__created_at(datetime="#{question.created_at.to_datetime}" pubdate="pubdate")
+      = l question.created_at, format: :short
+    - if question.answers.present?
+      .question-item__count 回答#{question.answers.count}個
+    - if current_user == question.user
+      .btn-group.question-item__actions
+        = link_to "編集", edit_question_path(question), class: 'btn btn-primary'
+        = link_to "削除", question_path(question), data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'btn btn-danger'
