@@ -2,11 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_action :init_user
   before_action :allow_cross_domain_access
-  before_action :recent_reports
-
-  def recent_reports
-    @reports = Report.limit(10).order(updated_at: :desc, id: :desc)
-  end
 
   protected
 
