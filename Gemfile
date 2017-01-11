@@ -28,6 +28,7 @@ gem 'record_tag_helper', '~> 1.0'
 gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'
 gem 'pg'
+gem 'public_activity', '1.5.0'
 
 # sass
 gem 'sassc-rails'

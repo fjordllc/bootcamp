@@ -1,0 +1,3 @@
+li.header-drop-down__item
+  a.header-drop-down__item-link href="/reports/#{activity.parameters[:report]}"
+    = "#{user_login_name(activity.owner_id)}が#{report_title(activity.parameters[:report])}にコメントしました"
