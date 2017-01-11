@@ -4,7 +4,6 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
-    UserMailer.reset_password_email.deliver_now
   end
 
   def create
