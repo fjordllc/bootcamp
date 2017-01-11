@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
-      redirect_to @user, notice: t('user_was_successfully_updated')
+      redirect_to @user, notice: "ユーザーを更新しました。"
     else
       render 'edit'
     end
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
 
   def destroy
     current_user.destroy
-    redirect_to users_url, notice: t('user_was_successfully_deleted')
+    redirect_to users_url, notice: "ユーザーを削除しました。"
   end
 
   private

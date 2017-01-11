@@ -14,7 +14,7 @@ header.page-header
     .categories-items
       - @categories.each do |category|
         - if category.practices.present?
-          .categories-item.practices.js-show-handle
+          .categories-item.practices.js-show-handle(id="category-#{category.id}")
             header.categories-item__header
               h2.categories-item__title
                 = category.name
@@ -26,3 +26,11 @@ header.page-header
             .categories-item__body
               .category-practices.js-category-practices
                 = render category.practices
+
+      nav.page-nav.js-page-nav
+        ul.page-nav__items
+        - @categories.each do |category|
+          - if category.practices.present?
+            .page-nav__item
+              a.page-nav__item-link(data-scroll href= "#category-#{category.id}")
+                = category.name
