@@ -395,6 +395,10 @@ ja:
         company: "企業一覧"
         category: "カテゴリー一覧"
 
+  user_mailer:
+    contact:
+      subject: "%{user}さんがインターンに応募しました"
+
   admin_index: "管理画面"
   sign_up: "サインアップ"
   sign_in: "サインイン"

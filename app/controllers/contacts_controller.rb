@@ -4,12 +4,14 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
+    UserMailer.reset_password_email.deliver_now
   end
 
   def create
     @contact = Contact.new(contact_params)
 
     if @contact.save
+      UserMailer.contact_email(@contact).deliver_later
       redirect_to root_path, notice: t('contact_was_successfully_created')
     else
       render :new

@@ -12,4 +12,10 @@ class UserMailer < ActionMailer::Base
     mail(to: user.email,
          subject: "[#{I18n.t("256interns")}] #{I18n.t("your_password_has_been_reset")}")
   end
+
+  def contact_email(contact)
+    @contact = contact
+    subject = t('user_mailer.contact.subject', user: @contact.name)
+    mail subject: subject, to: "hkame6926@gmail.com"
+  end
 end
