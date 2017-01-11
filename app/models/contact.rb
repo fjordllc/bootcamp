@@ -6,7 +6,7 @@ class Contact < ActiveRecord::Base
 
   validates :name,                      presence: true
   validates :name_phonetic,             presence: true
-  validates :email,                     presence: true, uniqueness: true
+  validates :email,                     presence: true
   validates :occupation_cd,             presence: true
   validates :location_cd,               presence: true
   validates :has_mac_cd,                presence: true

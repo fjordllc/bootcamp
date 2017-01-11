@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
   resources :questions
 
   root to: 'home#index'
@@ -41,6 +42,5 @@ Rails.application.routes.draw do
   get 'login'  => 'user_sessions#new',     as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
 
-  get "contacts/new", to: "contacts#new"
-  post "contacts", to: "contacts#create"
+  resource :contacts, only: %i(new create)
 end

@@ -11,4 +11,10 @@ class UserMailer < ActionMailer::Base
 
     mail to: "to@example.org"
   end
+
+  def contact_email(contact)
+    @contact = contact
+    subject = t('user_mailer.contact.subject', user: @contact.name)
+    mail subject: subject, to: "hkame6926@gmail.com"
+  end
 end
