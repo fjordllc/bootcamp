@@ -1,0 +1,33 @@
+question_1:
+  id: 1
+  title: どのエディターを使うのが良いでしょうか
+  description: |-
+    vi、emacs、atomと色々エディターがありますが、
+    どのエディターを使うのが一番良いでしょうか？
+  user_id: 2
+
+question_2:
+  id: 2
+  title: injectとreduce
+  description: |-
+    injectとreduceはどちらを使うのが一般的でしょうか？
+  user_id: 3
+
+question_3:
+  id: 3
+  title: テスト1
+  description: テスト1の内容です。
+  user_id: 1
+  correct_answer_id: 4
+
+question_4:
+  id: 4
+  title: テスト2
+  description: テスト2の内容です。
+  user_id: 1
+
+question_5:
+  id: 5
+  title: テスト3
+  description: テスト3の内容です。
+  user_id: 1

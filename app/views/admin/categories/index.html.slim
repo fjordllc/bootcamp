@@ -8,44 +8,45 @@ header.page-header
           i.fa.fa-plus
           = t('new_category')
 .page-body
-  .container
-    table.admin-table
-      thead.admin-table__header
-        tr.admin-table__labels
-          th.admin-table__label
-            = t('activerecord.attributes.category.name')
-          th.admin-table__label
-            = t('activerecord.attributes.category.slug')
-          th.admin-table__label.actions
-            = t('action')
-          th.admin-table__label.handle
-            = t('order')
-      tbody.admin-table__items
-        - @categories.each do |category|
-          tr.admin-table__item
-            td.admin-table__item-value
-              = category.name
-            td.admin-table__item-value
-              = category.slug
-            td.admin-table__item-value.is-text-align-center
-              ul.is-button-group
-                li
-                  = link_to edit_admin_category_path(category), class: 'is-button-standard-sm-primary is-icon' do
-                    i.fa.fa-pencil
-                li
-                  = link_to [:admin, category], data: { confirm: t('are_you_sure') }, method: :delete, class: 'is-button-standard-sm-danger is-icon' do
-                    i.fa.fa-trash-o
-            td.admin-table__item-value.is-text-align-center
-              ul.is-button-group
-                li
-                  = link_to admin_category_position_path(category, move: :top), method: :put, class: 'is-button-standard-sm-secondary is-icon'
-                    i.fa.fa-angle-double-up
-                li
-                  = link_to admin_category_position_path(category, move: :higher), method: :put, class: 'is-button-standard-sm-secondary is-icon'
-                    i.fa.fa-angle-up
-                li
-                  = link_to admin_category_position_path(category, move: :lower), method: :put, class: 'is-button-standard-sm-secondary is-icon'
-                    i.fa.fa-angle-down
-                li
-                  = link_to admin_category_position_path(category, move: :bottom), method: :put, class: 'is-button-standard-sm-secondary is-icon'
-                    i.fa.fa-angle-double-down
+  .container.is-padding-horizontal-0-sm-down
+    .admin-table
+      table.admin-table__table
+        thead.admin-table__header
+          tr.admin-table__labels
+            th.admin-table__label
+              = t('activerecord.attributes.category.name')
+            th.admin-table__label
+              = t('activerecord.attributes.category.slug')
+            th.admin-table__label.actions
+              = t('action')
+            th.admin-table__label.handle
+              = t('order')
+        tbody.admin-table__items
+          - @categories.each do |category|
+            tr.admin-table__item
+              td.admin-table__item-value
+                = category.name
+              td.admin-table__item-value
+                = category.slug
+              td.admin-table__item-value.is-text-align-center
+                ul.is-button-group
+                  li
+                    = link_to edit_admin_category_path(category), class: 'is-button-standard-sm-primary is-icon' do
+                      i.fa.fa-pencil
+                  li
+                    = link_to [:admin, category], data: { confirm: t('are_you_sure') }, method: :delete, class: 'is-button-standard-sm-danger is-icon' do
+                      i.fa.fa-trash-o
+              td.admin-table__item-value.is-text-align-center
+                ul.is-button-group
+                  li
+                    = link_to admin_category_position_path(category, move: :top), method: :put, class: 'is-button-standard-sm-secondary is-icon'
+                      i.fa.fa-angle-double-up
+                  li
+                    = link_to admin_category_position_path(category, move: :higher), method: :put, class: 'is-button-standard-sm-secondary is-icon'
+                      i.fa.fa-angle-up
+                  li
+                    = link_to admin_category_position_path(category, move: :lower), method: :put, class: 'is-button-standard-sm-secondary is-icon'
+                      i.fa.fa-angle-down
+                  li
+                    = link_to admin_category_position_path(category, move: :bottom), method: :put, class: 'is-button-standard-sm-secondary is-icon'
+                      i.fa.fa-angle-double-down

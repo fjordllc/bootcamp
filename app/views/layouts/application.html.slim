@@ -16,7 +16,7 @@ html.is-application lang="ja"
       var signed_in = #{current_user ? true : false}
     - if head_last = yield(:head_last)
       = head_last
-  body class="#{body_class} #{yield(:page_classes)}"
+  body(class="#{body_class} #{yield(:page_classes)}" id ="body")
     - unless yield(:page_classes).include?('no-global-nav')
       = render 'global_nav'
     .wrapper.js-open-drawer-wrapper
@@ -32,3 +32,8 @@ html.is-application lang="ja"
             - @reports.each do |report|
               - if report.present?
                 = render 'reports/recent_reports', report: report
+    .to-top.js-to-top
+      .container
+        .to-top__container
+          a.to-top__link(data-scroll href= "#body")
+            i.fa.fa-arrow-up

@@ -1,0 +1,15 @@
+machine:
+  timezone:
+    Asia/Tokyo
+  ruby:
+    version: 2.3.1
+
+dependencies:
+  pre:
+    - gem install bundler
+
+database:
+  override:
+    - bundle exec rake db:drop
+    - bundle exec rake db:create RAILS_ENV=test
+    - bundle exec rake db:migrate RAILS_ENV=test

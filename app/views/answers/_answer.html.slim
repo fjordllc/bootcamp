@@ -1,0 +1,18 @@
+.answer-item(class="#{answer == answer.question.correct_answer ? "is-correct_answer" : ""}")
+  .answer-item__description= markdown answer.description
+  .answer-item__content
+    = link_to answer.user, class: 'answer-item__user' do
+      .answer-item__user-icon= gravatar_tag answer.user, size: 44, html: { class: 'category-practices-item__user-icon' }
+      .answer-item__user-name= answer.user.login_name
+    time.contents-list-meta__created_at(datetime="#{answer.created_at.to_datetime}" pubdate="pubdate")
+      = l answer.created_at, format: :short
+    - if current_user == answer.user
+      .answer-item__actions.btn-group
+        = link_to "編集", edit_question_answer_path(answer.question, answer, return_to: question_url(answer.question)), class: 'btn btn-primary'
+        = link_to "削除", question_answer_path(answer.question, answer, return_to: question_url(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'btn btn-danger'
+    - if answer == answer.question.correct_answer
+      .answer-item__correct
+        .btn.btn-default 正解
+    - elsif current_user == answer.question.user
+        .answer-item__choice
+          = link_to "この回答を正解とする", question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: 'btn btn-danger'

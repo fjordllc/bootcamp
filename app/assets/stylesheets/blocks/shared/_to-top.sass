@@ -1,0 +1,24 @@
+.to-top
+  +position(fixed, left 0, bottom 1rem, right 0)
+  opacity: 0
+  transition: opacity .2s ease-in
+  &.is-active
+    opacity: 1
+
+.to-top__container
+  display: flex
+  justify-content: flex-end
+
+.to-top__link
+  background: rgba(black, .1)
+  display: block
+  +size(2.75rem)
+  display: flex
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  color: rgba($main-color, .5)
+  transition: color .2s ease-in, background-color .2s ease-in
+  &:hover
+    background-color: rgba(black, .2)
+    color: $main-color

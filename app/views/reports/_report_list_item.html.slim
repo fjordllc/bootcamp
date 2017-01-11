@@ -15,9 +15,10 @@
           i.fa.fa-trash-o
     .report-list-item-meta
       time.report-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
-        = l report.updated_at, format: :short
+        = l report.updated_at, format: :semi_long
       - if report.comments.any?
-        .report-list-item-meta__comments
-          = t('report_comments_any')
-          = report.comments.count
-          = t('comments_count')
+        .report-list-item-meta__comment-count
+          .report-list-item-meta__comment-count-label
+            i.fa.fa-comment-o
+          .report-list-item-meta__comment-count-value
+            = report.comments.count
