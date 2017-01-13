@@ -269,19 +269,19 @@ ja:
           programmer: "プログラマー向け"
           designer: "デザイナー向け"
       contact:
-        occupations:
+        occupation_cd:
           student: "学生"
           working: "社会人"
-          part-timer: "フリーター"
+          part_timer: "フリーター"
           unemployed: "無職"
-        locations:
+        location_cd:
           local: "ローカル（フィヨルドオフィス）"
           remote: "リモート（自宅）"
-        has_mac:
+        has_mac_cd:
           has: "持っている"
           not_have: "これから購入する"
-        programming_experience:
-          none: "なし"
+        programming_experience_cd:
+          nothing: "なし"
           html_css: "HTMLとCSSはわかる"
           something: "何らかのプログラミング経験有り"
           rails: "Railsの経験有り"
@@ -394,10 +394,6 @@ ja:
       index:
         company: "企業一覧"
         category: "カテゴリー一覧"
-
-  user_mailer:
-    contact:
-      subject: "%{user}さんがインターンに応募しました"
 
   admin_index: "管理画面"
   sign_up: "サインアップ"
