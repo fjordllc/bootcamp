@@ -10,7 +10,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new(contact_params)
 
     if @contact.save
-      UserMailer.contact_email(@contact).deliver_later
+      NoticeMailer.contact_email(@contact).deliver_later
       redirect_to root_path, notice: t('contact_was_successfully_created')
     else
       render :new

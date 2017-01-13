@@ -1,8 +1,8 @@
 class Contact < ActiveRecord::Base
-  as_enum :occupation, %i(student working  part-timer unemployed)
-  as_enum :location, %i(local remote)
-  as_enum :has_mac, %i(has not_have)
-  as_enum :programming_experience, %i(none html_css something rails)
+  enum occupation_cd: { student: 0, working: 1, part_timer: 2, unemployed: 3 }
+  enum location_cd: { local: 0, remote: 1 }
+  enum has_mac_cd: { has: 0, not_have: 1 }
+  enum programming_experience_cd: { nothing: 0, html_css: 1, something: 2, rails: 3 }
 
   validates :name,                      presence: true
   validates :name_phonetic,             presence: true
