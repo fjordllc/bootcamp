@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.3.1"
+ruby "2.4.0"
 
 gem "rails", "~> 5.0.1"
 gem "uglifier", ">= 1.3.0"
@@ -28,13 +28,10 @@ gem "record_tag_helper", "~> 1.0"
 gem "sprockets", ">= 3.0.0"
 gem "sprockets-es6"
 gem "pg"
-
-# sass
 gem "sassc-rails"
 gem "bootstrap", "~> 4.0.0.alpha3"
 gem "bourbon"
 gem "oulu", "0.12.25"
-#gem "oulu", path: "../oulu"
 
 group :production, :staging do
   gem "newrelic_rpm"
