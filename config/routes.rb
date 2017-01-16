@@ -1,21 +1,21 @@
 Rails.application.routes.draw do
   resources :questions
 
-  root to: 'home#index'
+  root to: "home#index"
   namespace :admin do
-    root to: 'home#index', as: :root
+    root to: "home#index", as: :root
     resources :companies
     resources :users
     resources :categories, except: %i(show) do
-      resource :position, only: %i(update), controller: 'categories/position'
+      resource :position, only: %i(update), controller: "categories/position"
     end
   end
   resources :feeds, only: %i(index)
   resources :users do
-    resources :practices, only: %i(index), controller: 'users/practices'
-    resources :reports, only: %i(index), controller: 'users/reports'
+    resources :practices, only: %i(index), controller: "users/practices"
+    resources :reports, only: %i(index), controller: "users/reports"
   end
-  resource :current_user, only: :update, controller: 'current_user'
+  resource :current_user, only: :update, controller: "current_user"
   resources :user_sessions, only: %i(new create destroy)
   resources :practices, shallow: true do
     resource :learning, only: %i(create update destroy)
@@ -38,6 +38,6 @@ Rails.application.routes.draw do
   end
   resources :courses, only: :index
   resources :chat_notices, only: :create
-  get 'login'  => 'user_sessions#new',     as: :login
-  get 'logout' => 'user_sessions#destroy', as: :logout
+  get "login"  => "user_sessions#new",     as: :login
+  get "logout" => "user_sessions#destroy", as: :logout
 end
