@@ -21,6 +21,9 @@ header.header
                     - @activities.each do |activity|
                       = render_activity(activity)
                   .header-drop-down__overlay.js-drop-down__trigger
+                span.unread-notification
+                  = @activities.count
+
             li.header-links__item
               = link_to edit_user_path(current_user), class: "header-links__link" do
                 i.fa.fa-cog

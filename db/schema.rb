@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111080756) do
+ActiveRecord::Schema.define(version: 20170127060902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20170111080756) do
     t.integer  "recipient_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "read_flag"
     t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
     t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
     t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
@@ -69,6 +70,27 @@ ActiveRecord::Schema.define(version: 20170111080756) do
     t.text     "tos"
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name",                                      null: false
+    t.string   "name_phonetic",                             null: false
+    t.string   "email",                                     null: false
+    t.integer  "occupation_cd",             default: 0,     null: false
+    t.string   "division"
+    t.integer  "location_cd",               default: 0,     null: false
+    t.integer  "has_mac_cd",                default: 0,     null: false
+    t.string   "work_time",                                 null: false
+    t.string   "work_days",                                 null: false
+    t.integer  "programming_experience_cd", default: 0,     null: false
+    t.string   "twitter_url"
+    t.string   "facebook_url"
+    t.string   "blog_url"
+    t.string   "github_account"
+    t.text     "application_reason",                        null: false
+    t.boolean  "user_policy_agreed",        default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "learnings", force: :cascade do |t|
     t.integer  "user_id",                 null: false
     t.integer  "practice_id",             null: false
@@ -110,6 +132,15 @@ ActiveRecord::Schema.define(version: 20170111080756) do
     t.datetime "updated_at"
     t.integer  "correct_answer_id"
     t.index ["user_id"], name: "index_questions_on_user_id", using: :btree
+  end
+
+  create_table "read_marks", force: :cascade do |t|
+    t.string   "readable_type", null: false
+    t.integer  "readable_id"
+    t.string   "reader_type",   null: false
+    t.integer  "reader_id"
+    t.datetime "timestamp"
+    t.index ["reader_id", "reader_type", "readable_type", "readable_id"], name: "read_marks_reader_readable_index", unique: true, using: :btree
   end
 
   create_table "reports", force: :cascade do |t|
