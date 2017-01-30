@@ -40,11 +40,5 @@ Rails.application.routes.draw do
   resources :chat_notices, only: :create
   get 'login'  => 'user_sessions#new',     as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
-
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
-  end
-  get "contacts/new", to: "contacts#new"
-  post "contacts", to: "contacts#create"
   resource :contacts, only: %i(new create)
 end
