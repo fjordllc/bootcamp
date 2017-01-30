@@ -40,6 +40,5 @@ Rails.application.routes.draw do
   resources :chat_notices, only: :create
   get 'login'  => 'user_sessions#new',     as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
-
   resource :contacts, only: %i(new create)
 end
