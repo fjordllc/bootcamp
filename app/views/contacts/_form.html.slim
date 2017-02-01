@@ -1,0 +1,87 @@
+= form_for contact do |f|
+  - if contact.errors.any?
+    = error_messages_for :contact
+  .auth-form-items
+    .auth-form-item
+      = f.label :occupation, class: 'a-sm-label is-required'
+      ul.auth-form-item__radio-buttons.is-half
+        = f.collection_radio_buttons :occupation_cd, Contact.occupation_cds.map {|k,v| [v, t("activerecord.enums.contact.occupation_cd.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+              = b.radio_button + b.text
+        end
+    .auth-form-item
+      = f.label :division, class: 'a-sm-label'
+      = f.text_field :division, class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :location, class: 'a-sm-label is-required'
+      ul.auth-form-item__radio-buttons.is-half
+        = f.collection_radio_buttons :location_cd, Contact.location_cds.map {|k,v| [v, t("activerecord.enums.contact.location_cd.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+              = b.radio_button + b.text
+        end
+    .auth-form-item
+      = f.label :has_mac, class: 'a-sm-label is-required'
+      ul.auth-form-item__radio-buttons.is-half
+        = f.collection_radio_buttons :has_mac_cd, Contact.has_mac_cds.map {|k,v| [v, t("activerecord.enums.contact.has_mac_cd.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+              = b.radio_button + b.text
+        end
+    .auth-form-item
+      = f.label :work_time, class: 'a-sm-label is-required'
+      = f.text_field :work_time, class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :work_days, class: 'a-sm-label is-required'
+      = f.text_field :work_days, class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :programming_experience, class: 'a-sm-label is-required'
+      ul.auth-form-item__radio-buttons.is-half
+        = f.collection_radio_buttons :programming_experience_cd, Contact.programming_experience_cds.map {|k,v| [v, t("activerecord.enums.contact.programming_experience_cd.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+              = b.radio_button + b.text
+        end
+    .auth-form-item
+      = f.label :name, class: 'a-sm-label is-required'
+      = f.text_field :name, class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :name_phonetic, class: 'a-sm-label is-required'
+      = f.text_field :name_phonetic, class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :email, class: 'a-sm-label is-required'
+      = f.text_field :email, class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :twitter_url, class: 'a-sm-label'
+      = f.text_field :twitter_url, class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :facebook_url, class: 'a-sm-label'
+      = f.text_field :facebook_url, class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :blog_url, class: 'a-sm-label'
+      = f.text_field :blog_url, class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :github_account, class: 'a-sm-label'
+      = f.text_field :github_account, class: 'a-sm-text-input'
+
+    .auth-form-item
+      = f.label :application_reason, class: 'a-sm-label is-required'
+      = f.text_area :application_reason, class: 'a-sm-text-input'
+
+    .auth-form-item
+      = f.label :user_policy_agreed, class: 'a-sm-label is-required'
+      = render 'privacy'
+      ul.auth-form-item__radio-buttons.is-half
+        li.auth-form-radio-button.is-half
+          label.auth-form-radio-button__label
+            = f.check_box :user_policy_agreed, class: 'auth-form-checkbox__input'
+            = '同意する'
+
+  .auth-form-action.is-sign-up-action
+    ul.auth-form-action__items
+      li.auth-form-action__item
+        = link_to root_path, class: 'is-button-standard-xs-secondary' do
+          | キャンセル
+      li.auth-form-action__item
+        = f.submit '送信する', class: 'is-button-standard-md-warning'
