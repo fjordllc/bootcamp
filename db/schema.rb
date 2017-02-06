@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20161216053008) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "login_name",                                   null: false
+    t.string   "login_name",                                      null: false
     t.string   "email"
     t.string   "crypted_password"
     t.string   "salt"
@@ -118,19 +118,23 @@ ActiveRecord::Schema.define(version: 20161216053008) do
     t.string   "twitter_url"
     t.string   "facebook_url"
     t.string   "blog_url"
-    t.integer  "company_id",                   default: 1
+    t.integer  "company_id",                      default: 1
     t.text     "description"
-    t.boolean  "find_job_assist",              default: false, null: false
-    t.integer  "purpose_cd",                   default: 0,     null: false
+    t.boolean  "find_job_assist",                 default: false, null: false
+    t.integer  "purpose_cd",                      default: 0,     null: false
     t.string   "feed_url"
     t.datetime "accessed_at"
-    t.boolean  "graduation",                   default: false, null: false
+    t.boolean  "graduation",                      default: false, null: false
     t.string   "github_account"
-    t.boolean  "adviser",                      default: false, null: false
-    t.boolean  "retire",                       default: false, null: false
-    t.boolean  "nda",                          default: true,  null: false
+    t.boolean  "adviser",                         default: false, null: false
+    t.boolean  "retire",                          default: false, null: false
+    t.boolean  "nda",                             default: true,  null: false
     t.string   "slack_account"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
+    t.datetime "reset_password_email_sent_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
   end
 
 end

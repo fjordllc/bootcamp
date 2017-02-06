@@ -39,12 +39,14 @@ group :production, :staging do
 end
 
 group :development do
-  gem "pry-remote"
-  gem "xray-rails"
-  gem "web-console"
-  gem "listen", "~> 3.0.5"
-  gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
+  gem 'pry-remote'
+  gem 'xray-rails'
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem "letter_opener"
+  gem "letter_opener_web"
 end
 
 group :development, :test do
