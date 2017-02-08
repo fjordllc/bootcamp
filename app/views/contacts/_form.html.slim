@@ -5,7 +5,7 @@
     .auth-form-item
       = f.label :occupation, class: 'a-sm-label is-required'
       ul.auth-form-item__radio-buttons.is-half
-        = f.collection_radio_buttons :occupation_cd, Contact.occupation_cds.map {|k,v| [v, t("activerecord.enums.contact.occupation_cd.#{k}")] }, :first, :last do |b|
+        = f.collection_radio_buttons :occupation_cd, Contact.occupation_cds.map {|k,v| [k, t("activerecord.enums.contact.occupation_cd.#{k}")] }, :first, :last do |b|
           li.auth-form-radio-button.is-half
             = b.label class: 'auth-form-radio-button__label' do
               = b.radio_button + b.text
@@ -16,7 +16,7 @@
     .auth-form-item
       = f.label :location, class: 'a-sm-label is-required'
       ul.auth-form-item__radio-buttons.is-half
-        = f.collection_radio_buttons :location_cd, Contact.location_cds.map {|k,v| [v, t("activerecord.enums.contact.location_cd.#{k}")] }, :first, :last do |b|
+        = f.collection_radio_buttons :location_cd, Contact.location_cds.map {|k,v| [k, t("activerecord.enums.contact.location_cd.#{k}")] }, :first, :last do |b|
           li.auth-form-radio-button.is-half
             = b.label class: 'auth-form-radio-button__label' do
               = b.radio_button + b.text
@@ -24,7 +24,7 @@
     .auth-form-item
       = f.label :has_mac, class: 'a-sm-label is-required'
       ul.auth-form-item__radio-buttons.is-half
-        = f.collection_radio_buttons :has_mac_cd, Contact.has_mac_cds.map {|k,v| [v, t("activerecord.enums.contact.has_mac_cd.#{k}")] }, :first, :last do |b|
+        = f.collection_radio_buttons :has_mac_cd, Contact.has_mac_cds.map {|k,v| [k, t("activerecord.enums.contact.has_mac_cd.#{k}")] }, :first, :last do |b|
           li.auth-form-radio-button.is-half
             = b.label class: 'auth-form-radio-button__label' do
               = b.radio_button + b.text
@@ -38,7 +38,7 @@
     .auth-form-item
       = f.label :programming_experience, class: 'a-sm-label is-required'
       ul.auth-form-item__radio-buttons.is-half
-        = f.collection_radio_buttons :programming_experience_cd, Contact.programming_experience_cds.map {|k,v| [v, t("activerecord.enums.contact.programming_experience_cd.#{k}")] }, :first, :last do |b|
+        = f.collection_radio_buttons :programming_experience_cd, Contact.programming_experience_cds.map {|k,v| [k, t("activerecord.enums.contact.programming_experience_cd.#{k}")] }, :first, :last do |b|
           li.auth-form-radio-button.is-half
             = b.label class: 'auth-form-radio-button__label' do
               = b.radio_button + b.text
