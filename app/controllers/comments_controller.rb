@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
     @comment.report = @report
 
     if @comment.save
+      @comment.create_activity :create, owner: current_user, recipient: @report.user
       notify_to_slack(@comment)
       redirect_to @report, notice: t('comment_was_successfully_created')
     else

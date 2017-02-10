@@ -5,6 +5,11 @@
 #  - Tsutomu Kuroda (t-kuroda@oiax.jp)
 
 ja:
+  activity:
+    comment:
+      create: 'Entry has been created'
+      update: 'Someone has edited the entry'
+      destroy: 'Some user removed an entry!'
   date:
     formats:
       default: "%Y年%m月%d日"
@@ -393,6 +398,12 @@ ja:
       index:
         company: "企業一覧"
         category: "カテゴリー一覧"
+
+  activity:
+    comment:
+      create: 'Entry has been created'
+      update: 'Someone has edited the entry'
+      destroy: 'Some user removed an entry!'
 
   admin_index: "管理画面"
   sign_up: "サインアップ"

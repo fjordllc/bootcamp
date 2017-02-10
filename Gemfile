@@ -24,6 +24,7 @@ gem "gemoji"
 gem "redcarpet"
 gem "markdown_checkboxes"
 gem 'kaminari'
+gem 'public_activity', '1.5.0'
 gem 'record_tag_helper', '~> 1.0'
 gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'
