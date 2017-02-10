@@ -25,6 +25,6 @@ module UsersHelper
   end
 
   def user_login_name(user_id)
-    login_name = User.find(user_id).login_name
+    User.find(user_id).login_name
   end
 end

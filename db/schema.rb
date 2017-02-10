@@ -134,15 +134,6 @@ ActiveRecord::Schema.define(version: 20170127060902) do
     t.index ["user_id"], name: "index_questions_on_user_id", using: :btree
   end
 
-  create_table "read_marks", force: :cascade do |t|
-    t.string   "readable_type", null: false
-    t.integer  "readable_id"
-    t.string   "reader_type",   null: false
-    t.integer  "reader_id"
-    t.datetime "timestamp"
-    t.index ["reader_id", "reader_type", "readable_type", "readable_id"], name: "read_marks_reader_readable_index", unique: true, using: :btree
-  end
-
   create_table "reports", force: :cascade do |t|
     t.integer  "user_id",                 null: false
     t.string   "title",       limit: 255, null: false
