@@ -40,7 +40,5 @@ Rails.application.routes.draw do
   resources :chat_notices, only: :create
   get 'login'  => 'user_sessions#new',     as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
-
-  #TODO 仮のお問い合わせページURL（デザインのみシステム未実装、実装後削除）
-  get "/contact", to: "home#contact"
+  resource :contacts, only: %i(new create)
 end
