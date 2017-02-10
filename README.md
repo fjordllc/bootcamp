@@ -10,7 +10,7 @@ Intern management and e-learning tool.
 
 ## Requirement
 
-ruby-2.1.2
+ruby-2.4.0
 
 ## Install
 
