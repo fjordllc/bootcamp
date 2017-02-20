@@ -1,6 +1,10 @@
 module ReportsHelper
   def recent_reports
-    @reports = Report.order(updated_at: :desc, id: :desc).limit(10)
+    if @_recent_reports
+      @_recent_reports
+    else
+      @_rrecent_reports = Report.order(updated_at: :desc, id: :desc).limit(10)
+    end
   end
 
   def report_title(report_id)
