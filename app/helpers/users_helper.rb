@@ -23,4 +23,8 @@ module UsersHelper
   def user_github_url(user)
     "https://github.com/#{user.github_account}"
   end
+
+  def user_login_name(user_id)
+    User.find(user_id).login_name
+  end
 end

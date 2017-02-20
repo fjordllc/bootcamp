@@ -9,6 +9,7 @@ class ReportsController < ApplicationController
   before_action :set_comments, only: %w(show edit update destroy)
   before_action :set_comment, only: %w(show edit update destroy)
   before_action :set_user, only: :show
+  before_action :update_read_flag, only: :show
 
   def index
   end
@@ -114,5 +115,15 @@ class ReportsController < ApplicationController
         fallback: "report body.",
         text: report.description
       }]
+  end
+
+  def update_read_flag
+    activities = PublicActivity::Activity.where(recipient_id: current_user.id, read_flag: 0)
+    activities.each do |activity|
+      if params[:id].to_i == activity.parameters[:report]
+        activity.read_flag = 1
+        activity.save!
+      end
+    end
   end
 end
