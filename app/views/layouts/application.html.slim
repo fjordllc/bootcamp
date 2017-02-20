@@ -26,7 +26,7 @@ html.is-application lang="ja"
       main.page
         = yield
     - unless yield(:page_classes).include?('no-recent-reports')
-      = recent_reports
+      - recent_reports
       - if @reports.present?
         .recent-reports
           .recent-reports__items

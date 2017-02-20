@@ -11,7 +11,7 @@ header.header
                 = text_field_tag 'word', @word, class: 'a-xs-text-input header-search__text-input' , placeholder: t('search_report')
                 button.is-button-standard-sm-secondary.is-icon.header-search__submit(type= 'submit')
                   i.fa.fa-search
-            = recent_comments
+            - recent_comments
             - if @activities.present?
               li.header-links__item.js-drop-down
                 .header-links__link.js-drop-down__trigger
@@ -23,7 +23,6 @@ header.header
                   .header-drop-down__overlay.js-drop-down__trigger
                 span.unread-notification
                   = @activities.count
-
             li.header-links__item
               = link_to edit_user_path(current_user), class: "header-links__link" do
                 i.fa.fa-cog
