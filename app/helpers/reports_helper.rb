@@ -3,7 +3,7 @@ module ReportsHelper
     if @_recent_reports
       @_recent_reports
     else
-      @_rrecent_reports = Report.order(updated_at: :desc, id: :desc).limit(10)
+      @_recent_reports = Report.order(updated_at: :desc, id: :desc).limit(10)
     end
   end
 
