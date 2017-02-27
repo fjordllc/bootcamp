@@ -15,7 +15,6 @@ Rails.application.routes.draw do
     resources :practices, only: %i(index), controller: "users/practices"
     resources :reports, only: %i(index), controller: "users/reports"
   end
-  resource :current_user, only: :update, controller: "current_user"
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
   resources :practices, shallow: true do
