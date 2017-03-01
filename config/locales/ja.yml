@@ -232,6 +232,8 @@ ja:
       company: "会社"
       comment: "コメント"
       report: "日報"
+      page: "Wiki"
+      question: "Q&A"
 
     enums:
       user:
