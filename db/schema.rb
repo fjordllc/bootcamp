@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216053008) do
+ActiveRecord::Schema.define(version: 20170307052924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.string   "trackable_type"
+    t.integer  "trackable_id"
+    t.string   "owner_type"
+    t.integer  "owner_id"
+    t.string   "key"
+    t.text     "parameters"
+    t.string   "recipient_type"
+    t.integer  "recipient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "read_flag"
+    t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+    t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+    t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
+  end
 
   create_table "answers", force: :cascade do |t|
     t.text     "description"
@@ -72,6 +89,8 @@ ActiveRecord::Schema.define(version: 20161216053008) do
     t.boolean  "user_policy_agreed",        default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "purpose_content",                           null: false
+    t.datetime "purpose_deadline",                          null: false
   end
 
   create_table "learnings", force: :cascade do |t|
@@ -126,7 +145,7 @@ ActiveRecord::Schema.define(version: 20161216053008) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "login_name",                                   null: false
+    t.string   "login_name",                                      null: false
     t.string   "email"
     t.string   "crypted_password"
     t.string   "salt"
@@ -139,19 +158,23 @@ ActiveRecord::Schema.define(version: 20161216053008) do
     t.string   "twitter_url"
     t.string   "facebook_url"
     t.string   "blog_url"
-    t.integer  "company_id",                   default: 1
+    t.integer  "company_id",                      default: 1
     t.text     "description"
-    t.boolean  "find_job_assist",              default: false, null: false
-    t.integer  "purpose_cd",                   default: 0,     null: false
+    t.boolean  "find_job_assist",                 default: false, null: false
+    t.integer  "purpose_cd",                      default: 0,     null: false
     t.string   "feed_url"
     t.datetime "accessed_at"
-    t.boolean  "graduation",                   default: false, null: false
+    t.boolean  "graduation",                      default: false, null: false
     t.string   "github_account"
-    t.boolean  "adviser",                      default: false, null: false
-    t.boolean  "retire",                       default: false, null: false
-    t.boolean  "nda",                          default: true,  null: false
+    t.boolean  "adviser",                         default: false, null: false
+    t.boolean  "retire",                          default: false, null: false
+    t.boolean  "nda",                             default: true,  null: false
     t.string   "slack_account"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
+    t.datetime "reset_password_email_sent_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
   end
 
 end

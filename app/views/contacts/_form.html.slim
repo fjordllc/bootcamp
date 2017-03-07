@@ -68,6 +68,10 @@
     .auth-form-item
       = f.label :application_reason, class: 'a-sm-label is-required'
       = f.text_area :application_reason, class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :purpose, class: 'a-sm-label is-required'
+      = raw sprintf(f.date_select(:purpose_deadline, use_month_numbers: true, discard_day: true, start_year: 2017, date_separator: '%s'),'年 ') + '月頃までに'
+      = f.text_area :purpose_content, placeholder: "例）転職したい。Webサービスを作って公開したい。", class: 'a-sm-text-input'
 
     .auth-form-item
       = f.label :user_policy_agreed, class: 'a-sm-label is-required'
