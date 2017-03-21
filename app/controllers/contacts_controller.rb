@@ -35,7 +35,8 @@ class ContactsController < ApplicationController
         :blog_url,
         :github_account,
         :application_reason,
-        :purpose_deadline,
+        :purpose_deadline_year,
+        :purpose_deadline_month,
         :purpose_content,
         :user_policy_agreed,
       )
