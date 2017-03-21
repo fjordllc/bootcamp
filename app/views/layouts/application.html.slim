@@ -7,7 +7,8 @@ html lang="ja"
     - page_title = yield :title
     title #{page_title.present? ? page_title + ' - ' : ''}#{t('256interns')}
     = favicon_link_tag
-    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', media: 'all'
+    = stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', media: 'all'
+    = stylesheet_link_tag '//fonts.googleapis.com/earlyaccess/notosansjapanese.css', media: 'all'
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
     = javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', integrity: 'sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==', crossorigin: 'anonymous'
@@ -18,6 +19,7 @@ html lang="ja"
   body class="#{page_slug}"
     .wrapper.js-open-drawer-wrapper
       = render 'header'
+      = render 'global_nav'
       = render 'alert'
       main.page
         = yield

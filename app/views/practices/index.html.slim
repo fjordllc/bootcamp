@@ -1,9 +1,10 @@
 - title t('practices')
 header.page-header
   .container
-    h2.page-header__title
-      = t('practices')
-
+    .page-header__container
+      h2.page-header__title
+        = t('practices')
+      = link_to t('new_practice'), new_practice_path, class: 'btn btn-primary page-header__button'
 .page-body
   .container
     - @categories.each do |category|
@@ -16,4 +17,3 @@ header.page-header
               = markdown emojify(category.description)
           .category-practices
             = render category.practices
-    = link_to t('new_practice'), new_practice_path, class: 'btn btn-primary'

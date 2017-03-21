@@ -1,0 +1,15 @@
+header.header
+  .container
+    .header__container
+      = link_to t('256interns'), root_path, class: 'header__logo'
+      - if current_user
+        nav.header-nav
+          ul.header-nav__items
+            li.header-nav__item
+              = link_to edit_user_path(current_user), class: "header-nav__item-link" do
+                .header-nav__item-link-inner
+                  i.fa.fa-cog
+            li.header-nav__item
+              = link_to logout_path, class: "header-nav__item-link" do
+                .header-nav__item-link-inner
+                  i.fa.fa-sign-out

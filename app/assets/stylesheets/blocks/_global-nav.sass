@@ -1,16 +1,7 @@
-$global-nav-height: 44px
 .global-nav
-  background-color: #1565C0
-  height: $global-nav-height
-
-.global-nav__container
-  display: flex
-  justify-content: space-between
-  width: 100%
-.global-nav__title
-  +text-block(1.2rem $global-nav-height, $reversal-text)
-  width: 140px
-  white-space: nowrap
+  background-color: #e8bf1c
+  width: $global-nav-width
+  +position(fixed, left 0, top 0, bottom 0)
 
 .global-nav-links
   +media-breakpoint-down(sm)
@@ -31,21 +22,32 @@ $global-nav-height: 44px
 .global-nav-links__link
   display: block
   white-space: nowrap
-  +padding(horizontal, 16px)
-  +text-block(.9rem $global-nav-height, $reversal-text)
+  padding: 1rem
+  +text-block(1rem 1.4, $reversal-text center)
+  border-bottom: #D0AC1F solid 1px
   &.is-active
-    background-color: #0D47A1
+    background-color: #D0AC1F
 
-.global-nav-dropdown__link
-  display: block
-  +text-block(.8rem 1.4)
-  +padding(vertical, .5rem)
-  +padding(horizontal, .5rem)
-
-.global-nav-dropdown__item
-  display: block
 .global-nav-links__link-icon
-  display: inline-block
-  margin-right: .4rem
+  +text-block(2.5rem 1)
+.global-nav-links__link-label
+  +text-block(.8rem 1.4, center $reversal-text)
+
+.global-nav-user
+  border-bottom: #D0AC1F solid 1px
+.global-nav-user__link
+  padding: 1rem
+  +block-link
+.global-nav-user__icon
   img
+    display: block
+    +margin(horizontal, auto)
     border-radius: 50%
+    margin-bottom: .5rem
+.global-nav-user__name
+  +text-block(.9rem 1.4, center $reversal-text)
+
+.global-nav__open-drawer
+  display: none
+  +screen-xs
+    display: block
