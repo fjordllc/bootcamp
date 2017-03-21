@@ -216,6 +216,7 @@ ja:
         blog_url: "ブログURL"
         github_account: "Githubアカウント"
         application_reason: "志望理由"
+        purpose: "目的"
         user_policy_agreed: "個人情報の取り扱いについて"
 
   errors:
@@ -363,6 +364,9 @@ ja:
         blog_url: "ブログURL"
         github_account: "Githubアカウント"
         application_reason: "志望理由"
+        purpose_content: "目的の内容"
+        purpose_deadline_year: "目的の期限（年）"
+        purpose_deadline_month: "目的の期限（月）"
         user_policy_agreed: "個人情報の取り扱いについて"
 
 

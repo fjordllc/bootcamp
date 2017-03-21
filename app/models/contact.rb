@@ -13,5 +13,8 @@ class Contact < ActiveRecord::Base
   validates :work_days,                 presence: true
   validates :programming_experience_cd, presence: true
   validates :application_reason,        presence: true
+  validates :purpose_content,           presence: true
+  validates :purpose_deadline_year,     presence: true
+  validates :purpose_deadline_month,    presence: true
   validates :user_policy_agreed,        presence: true
 end
