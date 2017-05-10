@@ -30,8 +30,7 @@ gem "sprockets-es6"
 gem "pg"
 gem "sassc-rails"
 gem "bootstrap", "= 4.0.0.alpha5"
-#gem "oulu", "0.12.25"
-gem 'oulu', path: '../oulu'
+gem "oulu"
 
 group :production, :staging do
   gem "newrelic_rpm"
