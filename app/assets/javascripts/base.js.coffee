@@ -1,6 +1,4 @@
 $ ->
-<<<<<<< HEAD
-=======
   if signed_in
     setInterval ->
       console.log "access"
@@ -11,7 +9,6 @@ $ ->
     , 1000 * 60 * 2
 
 $ ->
->>>>>>> wip
   autosize document.querySelector('textarea')
 
 $ ->

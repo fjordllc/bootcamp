@@ -12,24 +12,11 @@ Rails.application.configure do
   # preloads Rails for running tests, you may have to set it to true.
   config.eager_load = false
 
-<<<<<<< HEAD
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
     'Cache-Control' => 'public, max-age=3600'
   }
-=======
-  # Configure static asset server for tests with Cache-Control for performance.
-<<<<<<< HEAD
-  config.serve_static_files  = true
-  config.static_cache_control = 'public, max-age=3600'
->>>>>>> test fixed
-=======
-  config.public_file_server.enabled = true
-  config.public_file_server.headers = {
-    'Cache-Control' => 'public, max-age=3600'
-  }
->>>>>>> rails app update
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -54,7 +41,4 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  Rails.application.configure do
-    config.active_support.test_order = :random
-  end
 end

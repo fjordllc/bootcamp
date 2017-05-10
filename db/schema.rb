@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216053008) do
+ActiveRecord::Schema.define(version: 20170307052924) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
     t.text     "description"
@@ -18,10 +21,9 @@ ActiveRecord::Schema.define(version: 20161216053008) do
     t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["question_id"], name: "index_answers_on_question_id", using: :btree
+    t.index ["user_id"], name: "index_answers_on_user_id", using: :btree
   end
-
-  add_index "answers", ["question_id"], name: "index_answers_on_question_id"
-  add_index "answers", ["user_id"], name: "index_answers_on_user_id"
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -70,6 +72,8 @@ ActiveRecord::Schema.define(version: 20161216053008) do
     t.boolean  "user_policy_agreed",        default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "purpose_content",                           null: false
+    t.datetime "purpose_deadline",                          null: false
   end
 
   create_table "learnings", force: :cascade do |t|
@@ -115,20 +119,6 @@ ActiveRecord::Schema.define(version: 20161216053008) do
     t.index ["user_id"], name: "index_questions_on_user_id", using: :btree
   end
 
-  add_index "practices_reports", ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id"
-  add_index "practices_reports", ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
-
-  create_table "questions", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "correct_answer_id"
-  end
-
-  add_index "questions", ["user_id"], name: "index_questions_on_user_id"
-
   create_table "reports", force: :cascade do |t|
     t.integer  "user_id",                 null: false
     t.string   "title",       limit: 255, null: false
@@ -138,7 +128,7 @@ ActiveRecord::Schema.define(version: 20161216053008) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "login_name",                                   null: false
+    t.string   "login_name",                                      null: false
     t.string   "email"
     t.string   "crypted_password"
     t.string   "salt"
@@ -151,19 +141,23 @@ ActiveRecord::Schema.define(version: 20161216053008) do
     t.string   "twitter_url"
     t.string   "facebook_url"
     t.string   "blog_url"
-    t.integer  "company_id",                   default: 1
+    t.integer  "company_id",                      default: 1
     t.text     "description"
-    t.boolean  "find_job_assist",              default: false, null: false
-    t.integer  "purpose_cd",                   default: 0,     null: false
+    t.boolean  "find_job_assist",                 default: false, null: false
+    t.integer  "purpose_cd",                      default: 0,     null: false
     t.string   "feed_url"
     t.datetime "accessed_at"
-    t.boolean  "graduation",                   default: false, null: false
+    t.boolean  "graduation",                      default: false, null: false
     t.string   "github_account"
-    t.boolean  "adviser",                      default: false, null: false
-    t.boolean  "retire",                       default: false, null: false
-    t.boolean  "nda",                          default: true,  null: false
+    t.boolean  "adviser",                         default: false, null: false
+    t.boolean  "retire",                          default: false, null: false
+    t.boolean  "nda",                             default: true,  null: false
     t.string   "slack_account"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
+    t.datetime "reset_password_email_sent_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
   end
 
 end

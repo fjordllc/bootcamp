@@ -48,33 +48,6 @@
       .page-header__container
         h1.page-header__title
           = t('reports')
-        = link_to t('new_report'), new_report_path, class: 'btn btn-primary btn-md page-header__button'
-
-header.page-header.is-margin-bottom-0.has-border-bottom-none
-  .container
-    .page-header__container
-      h1.page-header__title
-        = t('reports')
-      .page-header__action
-        = link_to new_report_path, class: 'is-button-standard-md-warning' do
-          i.fa.fa-plus
-          = t('new_report')
-nav.sort-nav
-  .container
-    .sort-nav__inner
-      .sort-nav__label
-        | プラクティスで絞り込む:
-      .is-button-standard-sm-secondary.is-select.sort-nav__select
-        select
-
-.page-body
-  .container
-    - if @reports.nil? == false
-      = paginate @reports
-      .report-list
-        - @reports.each do |report|
-          - if report.present?
-            = render 'report_list_item', report: report
         .page-header__action
           = link_to new_report_path, class: 'is-button-standard-md-warning' do
             i.fa.fa-plus

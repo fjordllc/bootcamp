@@ -4,10 +4,6 @@ module ApplicationHelper
     page_title
   end
 
-  def page_slug
-    controller.class.to_s.underscore.
-      gsub(%r{/}, "-").
-      gsub(/_controller/, "_") + action_name
   def li_for(record, prefix = nil, options = nil, &block)
     content_tag_for(:li, record, prefix, options, &block)
   end
