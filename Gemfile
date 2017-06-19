@@ -53,6 +53,7 @@ group :development, :test do
   gem "pry-byebug"
   gem "simple_seed"
   gem "byebug", platform: :mri
+  gem 'minitest', '~> 5.10', '!= 5.10.2'
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
