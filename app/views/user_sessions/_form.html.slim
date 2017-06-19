@@ -6,6 +6,9 @@
     .auth-form-item
       = f.label :password, class: 'a-sm-label'
       = f.password_field :password, class: 'a-sm-text-input'
+    .auth-form-item
+      = check_box_tag :remember, params[:remember], true
+      = f.label :remember_me
       .auth-form-item__help.is-text-align-right
         = link_to '', class: 'auth-form-item__help-link' do
           | パスワードを忘れた
