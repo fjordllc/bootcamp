@@ -284,6 +284,14 @@ ja:
           html_css: "HTMLとCSSはわかる"
           something: "何らかのプログラミング経験有り"
           rails: "Railsの経験有り"
+        work_time_cd:
+          week_day_10_19: "平日の10〜19時"
+          week_day_19: "平日の19時〜"
+          holidays: "土日"
+        work_days_cd:
+          five_days: "週5日"
+          four_days: "週4日"
+          three_days: "週3日"
 
     attributes:
       user:
@@ -368,6 +376,8 @@ ja:
         purpose_deadline_year: "目的の期限（年）"
         purpose_deadline_month: "目的の期限（月）"
         user_policy_agreed: "個人情報の取り扱いについて"
+        wish_to_start_on: "希望開始日"
+        where_are_you_from: "何を見て募集を知りましたか？"
 
 
     errors:

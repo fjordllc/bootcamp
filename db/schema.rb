@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307052924) do
+ActiveRecord::Schema.define(version: 20170622065339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,14 +60,9 @@ ActiveRecord::Schema.define(version: 20170307052924) do
     t.integer  "occupation_cd",             default: 0,     null: false
     t.string   "division"
     t.integer  "location_cd",               default: 0,     null: false
-    t.integer  "has_mac_cd",                default: 0,     null: false
-    t.string   "work_time",                                 null: false
-    t.string   "work_days",                                 null: false
     t.integer  "programming_experience_cd", default: 0,     null: false
     t.string   "twitter_url"
     t.string   "facebook_url"
-    t.string   "blog_url"
-    t.string   "github_account"
     t.text     "application_reason",                        null: false
     t.boolean  "user_policy_agreed",        default: false, null: false
     t.datetime "created_at"
@@ -75,6 +70,10 @@ ActiveRecord::Schema.define(version: 20170307052924) do
     t.string   "purpose_content",                           null: false
     t.integer  "purpose_deadline_year",                     null: false
     t.integer  "purpose_deadline_month",                    null: false
+    t.integer  "work_time_cd"
+    t.integer  "work_days_cd"
+    t.date     "wish_to_start_on"
+    t.text     "where_are_you_from"
   end
 
   create_table "learnings", force: :cascade do |t|

@@ -3,47 +3,6 @@
     = error_messages_for :contact
   .auth-form-items
     .auth-form-item
-      = f.label :occupation, class: 'a-sm-label is-required'
-      ul.auth-form-item__radio-buttons.is-half
-        = f.collection_radio_buttons :occupation_cd, Contact.occupation_cds.map {|k,v| [k, t("activerecord.enums.contact.occupation_cd.#{k}")] }, :first, :last do |b|
-          li.auth-form-radio-button.is-half
-            = b.label class: 'auth-form-radio-button__label' do
-              = b.radio_button + b.text
-        end
-    .auth-form-item
-      = f.label :division, class: 'a-sm-label'
-      = f.text_field :division, class: 'a-sm-text-input'
-    .auth-form-item
-      = f.label :location, class: 'a-sm-label is-required'
-      ul.auth-form-item__radio-buttons.is-half
-        = f.collection_radio_buttons :location_cd, Contact.location_cds.map {|k,v| [k, t("activerecord.enums.contact.location_cd.#{k}")] }, :first, :last do |b|
-          li.auth-form-radio-button.is-half
-            = b.label class: 'auth-form-radio-button__label' do
-              = b.radio_button + b.text
-        end
-    .auth-form-item
-      = f.label :has_mac, class: 'a-sm-label is-required'
-      ul.auth-form-item__radio-buttons.is-half
-        = f.collection_radio_buttons :has_mac_cd, Contact.has_mac_cds.map {|k,v| [k, t("activerecord.enums.contact.has_mac_cd.#{k}")] }, :first, :last do |b|
-          li.auth-form-radio-button.is-half
-            = b.label class: 'auth-form-radio-button__label' do
-              = b.radio_button + b.text
-        end
-    .auth-form-item
-      = f.label :work_time, class: 'a-sm-label is-required'
-      = f.text_field :work_time, class: 'a-sm-text-input'
-    .auth-form-item
-      = f.label :work_days, class: 'a-sm-label is-required'
-      = f.text_field :work_days, class: 'a-sm-text-input'
-    .auth-form-item
-      = f.label :programming_experience, class: 'a-sm-label is-required'
-      ul.auth-form-item__radio-buttons.is-half
-        = f.collection_radio_buttons :programming_experience_cd, Contact.programming_experience_cds.map {|k,v| [k, t("activerecord.enums.contact.programming_experience_cd.#{k}")] }, :first, :last do |b|
-          li.auth-form-radio-button.is-half
-            = b.label class: 'auth-form-radio-button__label' do
-              = b.radio_button + b.text
-        end
-    .auth-form-item
       = f.label :name, class: 'a-sm-label is-required'
       = f.text_field :name, class: 'a-sm-text-input'
     .auth-form-item
@@ -54,26 +13,69 @@
       = f.text_field :email, class: 'a-sm-text-input'
     .auth-form-item
       = f.label :twitter_url, class: 'a-sm-label'
-      = f.text_field :twitter_url, class: 'a-sm-text-input'
+      = f.text_field :twitter_url, placeholder: "@username", class: 'a-sm-text-input'
     .auth-form-item
       = f.label :facebook_url, class: 'a-sm-label'
-      = f.text_field :facebook_url, class: 'a-sm-text-input'
+      = f.text_field :facebook_url,  placeholder: "https://www.facebook.com/xxxxxxxx", class: 'a-sm-text-input'
     .auth-form-item
-      = f.label :blog_url, class: 'a-sm-label'
-      = f.text_field :blog_url, class: 'a-sm-text-input'
+      = f.label :occupation, class: 'a-sm-label is-required'
+      ul.auth-form-item__radio-buttons.is-half
+        = f.collection_radio_buttons :occupation_cd, Contact.occupation_cds.map {|k,v| [k, t("activerecord.enums.contact.occupation_cd.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+              = b.radio_button + b.text
     .auth-form-item
-      = f.label :github_account, class: 'a-sm-label'
-      = f.text_field :github_account, class: 'a-sm-text-input'
-
+      = f.label :division, class: 'a-sm-label'
+      = f.text_field :division, placeholder: "会社・学校など", class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :location, class: 'a-sm-label is-required'
+      ul.auth-form-item__radio-buttons.is-half
+        = f.collection_radio_buttons :location_cd, Contact.location_cds.map {|k,v| [k, t("activerecord.enums.contact.location_cd.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+              = b.radio_button + b.text
+    .auth-form-item
+      = f.label :has_mac, class: 'a-sm-label is-required'
+      ul.auth-form-item__radio-buttons.is-half
+        li.auth-form-radio-button.is-half
+          label.auth-form-radio-button__label
+            = f.check_box :user_policy_agreed, class: 'auth-form-checkbox__input'
+            | Macを持っている
+    .auth-form-item
+      = f.label :programming_experience, class: 'a-sm-label is-required'
+      ul.auth-form-item__radio-buttons.is-half
+        = f.collection_radio_buttons :programming_experience_cd, Contact.programming_experience_cds.map {|k,v| [k, t("activerecord.enums.contact.programming_experience_cd.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+              = b.radio_button + b.text
+    .auth-form-item
+      = f.label :work_time, class: 'a-sm-label is-required'
+      ul.auth-form-item__radio-buttons.is-half
+        = f.collection_radio_buttons :work_time_cd, Contact.work_time_cds.map {|k,v| [k, t("activerecord.enums.contact.work_time_cd.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+                = b.radio_button + b.text
+    .auth-form-item
+      = f.label :work_days, class: 'a-sm-label is-required'
+      ul.auth-form-item__radio-buttons.is-half
+        = f.collection_radio_buttons :work_days_cd, Contact.work_days_cds.map {|k,v| [k, t("activerecord.enums.contact.work_days_cd.#{k}")] }, :first, :last do |b|
+          li.auth-form-radio-button.is-half
+            = b.label class: 'auth-form-radio-button__label' do
+                = b.radio_button + b.text
     .auth-form-item
       = f.label :application_reason, class: 'a-sm-label is-required'
-      = f.text_area :application_reason, class: 'a-sm-text-input'
+      = f.text_area :application_reason, size: "10x10", placeholder: "何故このインターンを選んだか。", class: 'a-sm-text-input'
     .auth-form-item
       = f.label :purpose, class: 'a-sm-label is-required'
       = raw sprintf(f.select :purpose_deadline_year, Date.today.year..Date.today.year+5) + "年"
       = raw sprintf(f.select :purpose_deadline_month, 1..12) + '月頃までに'
-      = f.text_area :purpose_content, placeholder: '例）転職したい。Webサービスを作って公開したい。', class: 'a-sm-text-input'
-
+      = f.text_area :purpose_content, placeholder: "転職したい。Webサービスを作って公開したい。", size: "10x10", class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :where_are_you_from, class: 'a-sm-label is-required'
+      = f.text_field :where_are_you_from, placeholder: "XXXの記事を見て。「Rails インターン」で検索してなど。", class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :wish_to_start_on, class: 'a-sm-label is-required'
+      == f.date_select :wish_to_start_on, use_month_numbers: true, date_separator: "", start_year: 1930, start_year: Time.current.year, include_blank: true
     .auth-form-item
       = f.label :user_policy_agreed, class: 'a-sm-label is-required'
       = render 'privacy'
@@ -81,8 +83,7 @@
         li.auth-form-radio-button.is-half
           label.auth-form-radio-button__label
             = f.check_box :user_policy_agreed, class: 'auth-form-checkbox__input'
-            = '同意する'
-
+            | 同意する
   .auth-form-action.is-sign-up-action
     ul.auth-form-action__items
       li.auth-form-action__item
