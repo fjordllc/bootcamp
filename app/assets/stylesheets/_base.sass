@@ -1,0 +1,44 @@
+.wrapper
+  transition: all .4s
+  right: 0
+  &.is-opened-drawer
+    overflow: hidden
+    right: 17.5rem
+
+body
+  min-height: 100vh
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+  overflow-y: scroll
+  .modal-open
+    overflow: hidden
+  &.home-index
+    background-color: $base-color
+  &.has-background
+    background-image: image_url('main-visual.jpg')
+    background-size: cover
+    background-position: center center
+    background-attachment: fixed
+
+.container
+  max-width: 100%
+  padding-left: 7rem
+  padding-right: 15.5rem
+  +media-breakpoint-down(sm)
+    +padding(horizontal, 1rem)
+  &.has-no-right-padding
+    padding-right: 14rem
+    +media-breakpoint-down(sm)
+      +padding(horizontal, 1rem)
+  body.no-global-nav &
+    padding-left: 3rem
+    +media-breakpoint-down(sm)
+      +padding(horizontal, 1rem)
+  body.no-recent-reports &
+    padding-right: 3rem
+    +media-breakpoint-down(sm)
+      +padding(horizontal, 1rem)
+
+.home-index
+  .container
+    max-width: 75rem
+    +padding(horizontal, 1rem)

@@ -1,6 +1,5 @@
 module ReportsHelper
-  def sliced(description, word)
-    description.gsub!(/(\r\n|\r|\n)/, " ")
-    description.slice(/#{word}.{0,300}/)
+  def recent_reports
+    @reports = Report.order(updated_at: :desc, id: :desc).limit(10)
   end
 end

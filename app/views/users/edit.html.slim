@@ -1,10 +1,14 @@
-header.page-header.is-margin-bottom-0
-  .container
-    h2.page-header__title
-      = t('editing_user')
+- content_for(:page_classes, 'no-header' 'no-footer' 'no-recent-reports')
 
-.page-body
-  .container
-    .row
-      .col-xs-12.col-sm-6.col-sm-offset-3
-        = render 'form', user: @user, companies: @companies
+.auth-form.is-sign-up
+  header.auth-form__header
+    h1.auth-form__title
+      = t('editing_user')
+  .auth-form__body
+    = render 'form', user: @user, companies: @companies
+  footer.auth-form__footer
+    nav.auth-form-nav
+      ul.auth-form-nav__items
+        li.auth-form-nav__item
+           span.auth-form-nav__item-link(data-target='#nda-modal' data-toggle='modal')
+            | 秘密保持契約内容を確認

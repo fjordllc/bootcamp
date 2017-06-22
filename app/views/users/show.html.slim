@@ -1,74 +1,47 @@
 - title @user.login_name
-
 header.page-header
   .container
-    h1.page-header__title= @user.login_name
+    .page-header__container
+      h2.page-header__title
+        label.user-part(class= "is-#{@user.part}")
+          = t(@user.part)  
+        = @user.login_name
 
 .page-body
   .container
-    .icon= gravatar_tag @user, size: 100
-    dl
-      dt= t('helpers.label.user.login_name')
-      dd= @user.login_name
-      dt= t('helpers.label.user.full_name')
-      dd= @user.full_name
-      dt= t('helpers.label.user.company')
-      dd= @user.company.name
-      dt= t('helpers.label.user.description')
-      dd= simple_format @user.description
-      dt= t('helpers.label.user.created_at')
-      dd= l @user.created_at.to_date
-      dt= t('helpers.label.user.part')
-      dd= t(@user.part)
-      dt= t('helpers.label.user.purpose')
-      dd= t("activerecord.enums.user.purposes.#{@user.purpose}")
-      dt= t('helpers.label.user.find_job_assist')
-      dd= user_find_job_assist(@user)
-      dt= t('helpers.label.user.updated_at')
-      dd= l @user.updated_at, format: :long
-      - if @user.github_account?
-        dt= t('helpers.label.user.github_account')
-        dd= link_to @user.github_account, user_github_url(@user)
-      - if @user.twitter_url?
-        dt= t('helpers.label.user.twitter')
-        dd= link_to '@' + @user.twitter_id, 'https://twitter.com/' + @user.twitter_id
-      - if @user.facebook_url?
-        dt= t('helpers.label.user.facebook_url')
-        dd= link_to @user.facebook_url, @user.facebook_url
-      - if @user.blog_url?
-        dt= t('helpers.label.user.blog_url')
-        dd
-          = link_to @user.blog_url, @user.blog_url
-          - if @user.feed_url?
-            = link_to @user.feed_url do
-              i.icon-rss
-    h3= t('active_practices')
-    ul
-      - @user.active_practices.each do |practice|
-        li
-          .title= link_to practice.title, practice
-    h3= t('completed_practices')
-    .progress
-      .progress-bar.progress-bar-info aria-valuemax="100" aria-valuemin="0" aria-valuenow="#{@user.completed_percentage}" role="progressbar" style=("min-width: 2em; width: #{number_to_percentage @user.completed_percentage, precision: 0};") 
-        | #{number_to_percentage @user.completed_percentage, precision: 0}
-    ul
-      - @user.completed_practices.each do |practice|
-        li.title= link_to practice.title, practice
+    .row.is-gutter-width-32
+      .col-md-6.col-xs-12
+        = render 'users/user_data', user: @user
+        - if @user.active_practices.present?
+          = render 'users/active_practices', user: @user
 
-      h3= t('reports')
       - if @reports.any?
-          - @reports.each do |report|
-            .reports-item
-              = link_to report, itempro: "url", class: "reports-item__link" do
-                h3.reports-item__title(itemprop="name")= report.title
-              time.contents-list-meta__updated_at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
-                = l report.updated_at, format: :short
-                - if report.comments.any?
-                  = t('blank')
-                  = t('report_comments_any')
-                  = report.comments.count
-                  = t('comments_count')
-              - if report.user == current_user
-                .btn-group
-                  = link_to t('edit'), edit_report_path(report), class: 'btn btn-primary'
-                  = link_to t('destroy'), report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+        .col-md-6.col-xs-12
+          = render 'users/user_reports', reports: @reports
+
+    .user.is-margin-bottom-24
+      .row.is-gutter-width-32
+        .col-md-6.col-xs-12
+          = render 'users/user_data', user: @user
+          - if @user.active_practices.present?
+            = render 'users/active_practices', user: @user
+          = render 'users/completed_practices', user: @user
+
+        - if @reports.any?
+          .col-md-6.col-xs-12
+            = render 'users/user_reports', reports: @reports
+    
+    - if current_user == @user || current_user.admin?
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item
+            = link_to users_path, class: 'is-button-standard-md-secondary' do
+              = t('interns')
+          - if current_user.admin?
+            li.form-actions__item
+              = link_to edit_admin_user_path, class: 'is-button-standard-lg-secondary' do
+                | 管理者として情報変更
+          - if current_user == @user
+            li.form-actions__item
+              = link_to edit_user_path, class: 'is-button-standard-lg-warning' do
+                | 登録情報を変更する

@@ -2,7 +2,8 @@
   = auto_discovery_link_tag :atom, feeds_url(format: 'atom'), title: 'みんなのブログ'
 header.page-header
   .container
-    h1.page-header__title みんなのブログ
+    .page-header__container
+      h1.page-header__title みんなのブログ
 
 .page-body
   .container
@@ -14,9 +15,11 @@ header.page-header
               = entry.title
             ul.entry-header__meta-items
               li.entry-header__meta-item.is-published
-                | published at #{entry.published}
+                = l entry.published, format: :semi_long
               - if entry.author
-                li.entry-header__meta-item.is-author posted by #{entry.author}
+                li.entry-header__meta-item.is-author
+                  | posted by #{entry.author}
+                  //= gravatar_tag entry.author, size: 44, html: { class: "report-list-item__author-icon"}
         .entry-body
           - if entry.content.nil?
             .is-long-text-style= raw entry.summary

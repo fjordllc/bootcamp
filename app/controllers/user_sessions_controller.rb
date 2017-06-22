@@ -3,7 +3,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user = login(params[:user][:login_name], params[:user][:password], true)
+    @user = login(params[:user][:login_name], params[:user][:password], params[:remember])
     if @user && !@user.retire?
       save_updated_at(@user)
       redirect_back_or_to :users, notice: t('sign_in_successful')

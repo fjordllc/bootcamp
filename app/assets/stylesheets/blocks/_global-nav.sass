@@ -1,51 +1,58 @@
-$global-nav-height: 44px
+$global-nav-width: 5rem
+
 .global-nav
-  background-color: #1565C0
-  height: $global-nav-height
-
-.global-nav__container
-  display: flex
-  justify-content: space-between
-  width: 100%
-.global-nav__title
-  +text-block(1.2rem $global-nav-height, $reversal-text)
-  width: 140px
-  white-space: nowrap
-
-.global-nav-links
+  background-color: $side
+  +size($global-nav-width 100%)
+  +position(fixed, left 0, top 0, bottom 0, 2)
   +media-breakpoint-down(sm)
+    width: 12rem
     display: none
+    &.is-active
+      display: block
 
-.global-nav-links__items
-  display: flex
-  flex-wrap: nowrap
+.global-nav-current-user
+  +padding(vertical, .75rem)
 
-.global-nav__open-drawer
-  display: none
-  +size(44px)
-  +text-block(1.4rem 44px, center $reversal-text)
-  +position(absolute, right 0, top 0)
-  +media-breakpoint-down(sm)
+.global-nav-current-user__icon
+  img
+    +size(($global-nav-width - 1.5rem) auto)
     display: block
+    +margin(horizontal, auto)
+    border-radius: 50%
+.global-nav-current-user__name
+  +text-block(.75rem 1.45, center $reversal-text)
 
 .global-nav-links__link
-  display: block
+  display: flex
+  flex-direction: column
   white-space: nowrap
-  +padding(horizontal, 16px)
-  +text-block(.9rem $global-nav-height, $reversal-text)
+  +size(100% 4.5rem)
+  align-items: center
+  justify-content: center
+  border-top: solid .0625rem $side-border
+  color: $reversal-text
+  transition: color .2s ease-in, background-color .2s ease-in
+  +media-breakpoint-down(sm)
+    flex-direction: row
+    height: 2.75rem
+    +padding(horizontal, 1rem)
+    justify-content: flex-start
+  &:hover
+    background-color: $side-shade
   &.is-active
-    background-color: #0D47A1
+    background-color: $side-active
+    color: $side
+  .global-nav-links__item:last-child &
+    border-bottom: solid .0625rem $side-border
 
-.global-nav-dropdown__link
-  display: block
-  +text-block(.8rem 1.4)
-  +padding(vertical, .5rem)
-  +padding(horizontal, .5rem)
 
-.global-nav-dropdown__item
-  display: block
 .global-nav-links__link-icon
-  display: inline-block
-  margin-right: .4rem
-  img
-    border-radius: 50%
+  +text-block(1.5rem 1 .375rem, center)
+  +media-breakpoint-down(sm)
+    +text-block(1rem 1 0)
+    margin-right: .5rem
+
+.global-nav-links__link-label
+  +text-block(.625rem 1.45, center)
+  +media-breakpoint-down(sm)
+    font-size: .875rem

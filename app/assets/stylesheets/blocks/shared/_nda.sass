@@ -1,0 +1,47 @@
+.nda
+  p
+    +text-block(14px 1.8 1.2em)
+  ul,
+  ol
+    margin-bottom: 1.2em
+  li
+    +text-block(.875rem 1.8 1.2em)
+  h3
+    +text-block(1rem 1.45 .6em)
+.nda__actions-container
+  display: flex
+  justify-content: space-between
+  align-items: center
+  &::before
+    content: ''
+.nda__actions
+  min-width: 16rem
+  flex: 0 0  12.5rem
+
+body
+  .nda__action.is-checkbox
+    padding-left: 2.65rem
+.nda__close
+  +text-block(.875rem 2rem, 600)
+  +size(auto 2rem)
+  opacity: .5
+  cursor: pointer
+  &:hover
+    opacity: 1
+
+body
+  .modal-header
+    padding: .5rem 1rem
+    display: flex
+    align-items: center
+    justify-content: space-between
+    &::after
+      content: none
+  .modal-body
+    max-height: 80vh
+    overflow: auto
+  .modal-title
+    font-size: 1.25rem
+    font-weight: 600
+  .close
+    float: none

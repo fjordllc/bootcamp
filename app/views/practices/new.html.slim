@@ -1,6 +1,7 @@
-.page-header
+header.page-header
   .container
-    h1.page-header__title
-      = t('new_practice')
+    .page-header__container
+      h2.page-header__title
+        = t('new_practice')
 .container
   = render 'form', practice: @practice

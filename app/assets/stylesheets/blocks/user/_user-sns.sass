@@ -1,0 +1,14 @@
+.user-data-sns__items
+  display: flex
+  +media-breakpoint-down(sm)
+    justify-content: center
+.user-data-sns__item
+  margin-right: .1875rem
+  &:last-child
+    margin-right: 0
+.user-data-sns__item-link
+  +block-link
+  +size(1.75rem)
+  +text-block(.875rem 1.75rem, center #506468)
+  background-color: rgba(white, .2)
+  border-radius: 50%

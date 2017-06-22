@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   resources :questions
 
-  root to: "home#index"
+  root to: 'home#index'
   namespace :admin do
-    root to: "home#index", as: :root
+    root to: 'home#index', as: :root
     resources :companies
     resources :users
     resources :categories, except: %i(show) do
@@ -40,8 +40,5 @@ Rails.application.routes.draw do
   resources :chat_notices, only: :create
   get 'login'  => 'user_sessions#new',     as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
-
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
-  end
+  resource :contacts, only: %i(new create)
 end

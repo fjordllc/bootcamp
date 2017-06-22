@@ -1,0 +1,43 @@
+.main-visual
+  +position(relative)
+  background-image: image_url('main-visual.jpg')
+  background-size: cover
+  background-position: center center
+  +media-breakpoint-down(xl)
+    height: 40rem
+  +media-breakpoint-down(lg)
+    height: 30rem
+.main-visual__container
+  height: 100%
+  +position(relative)
+.main-visual__main
+  height: 16rem
+  +position(absolute, left 0, top 50%, right 0)
+  margin-top: -8rem
+.noise
+  +position(absolute, left 0, top 0, right 0, bottom 0)
+  background-image: image_url('noise.png')
+  background-repeat: repeat
+  background-size: 3.125rem 3.125rem
+.main-visual__logo
+  +size(18rem auto)
+  display: block
+  +margin(horizontal, auto)
+.main-visual__description
+  +text-block(1.5rem 1.7, $reversal-text center 600)
+  +position(absolute, left 0, bottom 0, right 0)
+
+.main-visual__link
+  background-color: rgba(#ec4963, .7)
+  +size(13rem)
+  border-radius: 50%
+  +position(absolute, right 0, top 50%)
+  margin-top: -6.5rem
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-direction: column
+.main-visual__link-label
+  +text-block(1.25rem 1.45 .25rem, 800 $reversal-text center)
+.main-visual__link-description
+  +text-block(.625rem 1.45, $reversal-text center)

@@ -1,0 +1,78 @@
+$report-header-author: 3.5rem
+.report-comments
+  +position(relative)
+  max-width: 52rem
+  +margin(horizontal, auto)
+  border-radius: .25rem
+
+.report-comment
+  +position(relative)
+  border-radius: .25rem
+  margin-bottom: 2rem
+  padding-left: $report-header-author + 1.25rem
+  +media-breakpoint-down(sm)
+    padding-left: 0
+    margin-bottom: 1rem
+
+.report-comment__author
+  +position(absolute, left 0, top 0)
+  +size($report-header-author 100%)
+  +media-breakpoint-down(sm)
+    display: none
+.report-comment__author-icon
+  +size(100% auto)
+  border-radius: 50%
+.report-comment__login-name-link
+  color: $main-color
+.report-comment__body
+  background-color: $base-color
+  +padding(horizontal, 1rem)
+  border-radius: .25rem
+  +relative
+  +balloon-tail(left $base-color .75rem 1rem, false, top 1.5rem)
+  +media-breakpoint-down(sm)
+    &::before,
+    &::after
+      content: none
+
+.report-comments__description
+  +padding(vertical, 1rem)
+  +media-breakpoint-down(sm)
+    +padding(vertical, .5rem)
+    word-wrap: break-word
+
+.report-comment__body-header
+  display: flex
+  justify-content: space-between
+  align-items: center
+  border-bottom: solid .0625rem $background-color
+  +padding(vertical, .75rem)
+  +media-breakpoint-down(sm)
+    flex-direction: column
+    align-items: flex-start
+.report-comment__created-at
+  display: block
+  +text-block(.875rem 1.4, $muted-text)
+
+.report-comment__actions
+  +padding(vertical, .5rem)
+  +media-breakpoint-down(sm)
+    padding-top: 0
+.report-comment__actions-items
+  display: flex
+  align-items: center
+.report-comment__actions-item-link
+  +text-block(1.25rem 1, center flex $muted-text)
+  +size(2.375rem)
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  transition: color .2s ease-in, background-color .2s ease-in
+  &.is-success
+    &:hover
+      background-color: #e0eefe
+      color: $primary
+  &.is-danger
+    &:hover
+      background-color: #f5e6ea
+      color: $danger

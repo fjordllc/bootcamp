@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216053008) do
+ActiveRecord::Schema.define(version: 20170307052924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,29 @@ ActiveRecord::Schema.define(version: 20161216053008) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "tos"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name",                                      null: false
+    t.string   "name_phonetic",                             null: false
+    t.string   "email",                                     null: false
+    t.integer  "occupation_cd",             default: 0,     null: false
+    t.string   "division"
+    t.integer  "location_cd",               default: 0,     null: false
+    t.integer  "has_mac_cd",                default: 0,     null: false
+    t.string   "work_time",                                 null: false
+    t.string   "work_days",                                 null: false
+    t.integer  "programming_experience_cd", default: 0,     null: false
+    t.string   "twitter_url"
+    t.string   "facebook_url"
+    t.string   "blog_url"
+    t.string   "github_account"
+    t.text     "application_reason",                        null: false
+    t.boolean  "user_policy_agreed",        default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "purpose_content",                           null: false
+    t.datetime "purpose_deadline",                          null: false
   end
 
   create_table "learnings", force: :cascade do |t|

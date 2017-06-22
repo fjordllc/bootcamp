@@ -1,5 +1,5 @@
 doctype html
-html lang="ja"
+html.is-admin lang="ja"
   head
     meta charset="utf-8" /
     meta content="IE=edge" http-equiv="X-UA-Compatible" /
@@ -15,11 +15,20 @@ html lang="ja"
     javascript:
     - if head_last = yield(:head_last)
       = head_last
-  body class="#{page_slug}"
+  body class="#{body_class} #{yield(:page_classes)}"
+    - unless yield(:page_classes).include?('no-global-nav')
+      = render 'global_nav'
     .wrapper.js-open-drawer-wrapper
-      = render 'admin_header'
+      - unless yield(:page_classes).include?('no-header')
+        = render 'header'
       = render 'alert'
       main.page
         = yield
-      = render 'footer'
-    = render 'mobile_global_nav'
+        //= render 'active_users'
+    - unless yield(:page_classes).include?('no-recent-reports')
+      = recent_reports
+      - if @reports.present?
+        .recent-reports
+          .recent-reports__items
+            - @reports.each do |report|
+              = render 'reports/recent_reports', report: report

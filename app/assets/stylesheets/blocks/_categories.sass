@@ -1,0 +1,114 @@
+.categories
+  box-shadow: rgba(black, .2) 0 .0625rem .125rem
+  border-radius: .25rem
+  width: 100%
+
+.categories-items
+  max-width: 68rem
+  +margin(horizontal, auto)
+  padding-right: 18rem
+  +position(relative)
+  +media-breakpoint-down(sm)
+    padding-right: 0
+
+.categories-item
+  margin-bottom: 3rem
+
+.categories-item__title
+  +text-block(1.5rem 1.45, $side)
+
+.categories-item__show-handle
+  +size(2rem)
+  display: flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+
+.categories__label
+  +text-block(.75rem 2rem, $main-color center 600)
+  border: solid .0625rem #aaaaaa
+
+.categories-item__header
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-bottom: .5rem
+
+.categories__item-value
+  padding: .375rem .75rem
+  border: solid .0625rem $background-color-shade
+  +text-block(.875rem 1.45)
+
+.categories-item__body
+  border-radius: .25rem
+  background-color: $base-color
+  box-shadow: rgba(black, .2) 0 1px 4px
+  overflow: hidden
+.categories-item__description
+  margin-bottom: 1rem
+  p
+    +text-block(.875rem 1.8 .6em)
+  *:last-child
+    margin-bottom: 0
+
+.category-practices-item
+  padding: .75rem 1rem
+  border-top: solid .0625rem $background-color
+  +position(relative)
+  &:first-child
+    border-top: none
+  &:nth-child(odd)
+    background-color: #fafafa
+  +media-breakpoint-down(sm)
+    flex-wrap: wrap
+    padding: .5rem .75rem
+
+.category-practices-item__inner
+  +position(relative)
+
+.category-practices-item__value
+  &.is-title
+    +media-breakpoint-down(sm)
+      flex: auto
+      width: 100%
+      margin-bottom: .5rem
+  &.is-started-users
+    padding-top: .5rem
+    margin-top: .75rem
+    border-top: dotted 1px #e6e6e6
+    margin-bottom: -.25rem
+    +media-breakpoint-down(sm)
+      flex: auto
+      width: 100%
+      margin-bottom: .5rem
+  &.is-status
+    text-align: center
+    +position(absolute, right 0, top 0)
+    +media-breakpoint-down(sm)
+      flex: auto
+      width: 100%
+      position: static
+
+.category-practices-item__handle
+  +position(absolute, right 0, top 0)
+  display: none
+  background-color: $main-color
+  padding: 1rem
+
+.category-practices-item__title-link
+  +text-block(.875rem 1.55, $default-text flex)
+  +hover-link
+  padding-right: 11.25rem
+  align-items: center
+  min-height: 1.875rem
+  +media-breakpoint-down(sm)
+    padding-right: 0
+.category-practices-item__user-icon
+  border-radius: 50%
+  +size(2rem)
+  +media-breakpoint-down(sm)
+    margin-right: .5rem
+    +size(1.5rem)
+
+.category-practices-item__button-group
+  white-space: nowrap

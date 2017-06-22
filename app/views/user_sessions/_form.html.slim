@@ -1,9 +1,18 @@
-= form_for :user, url: user_sessions_path, html: { id: 'sign-in-form'}  do |f|
-  .form-group
-    = f.label :login_name
-    = f.text_field :login_name, class: 'form-control'
-  .form-group
-    = f.label :password
-    = f.password_field :password, class: 'form-control'
-  .form-group
-    = f.submit t('sign_in'), class: 'btn btn-primary'
+= form_for :user, url: user_sessions_path, html: {id: 'sign-in-form', class: 'auth-form__form'}  do |f|
+  .auth-form-items
+    .auth-form-item
+      = f.label :login_name, class: 'a-sm-label'
+      = f.text_field :login_name, class: 'a-sm-text-input'
+    .auth-form-item
+      = f.label :password, class: 'a-sm-label'
+      = f.password_field :password, class: 'a-sm-text-input'
+    .auth-form-item
+      = check_box_tag :remember, params[:remember], true
+      = f.label :remember_me
+      .auth-form-item__help.is-text-align-right
+        = link_to '', class: 'auth-form-item__help-link' do
+          | パスワードを忘れた
+  .auth-form-action
+    = button_tag(class: 'is-button-standard-md-warning') do
+      = content_tag :span, t('sign_in'), class: 'glyphicon glyphicon-star'
+= render 'users/nda_modal'

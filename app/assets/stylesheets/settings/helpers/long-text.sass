@@ -1,12 +1,25 @@
 .is-long-text-style
+  +media-breakpoint-down(sm)
+    word-break: break-all
   h1
-    +text-block(2.2em 1.4 .6em)
+    +text-block(1.6em 1.4 .6em)
+    +media-breakpoint-down(sm)
+      +text-block(1.25em 1.4 .6em)
   h2
-    +text-block(1.8em 1.4 .6em)
-  h3
     +text-block(1.4em 1.4 .6em)
+    +media-breakpoint-down(sm)
+      +text-block(1.125em 1.4 .6em)
+  h3
+    +text-block(1.2em 1.4 .6em)
+    +media-breakpoint-down(sm)
+      +text-block(1em 1.4 .6em)
   p
-    +text-block(1em 1.8 1.4em)
+    +text-block(.9375rem 2 1.4em)
+    +media-breakpoint-down(sm)
+      +text-block(.875rem 1.9 1em)
+  a
+    +default-link
+    +hover-link-reversal
   p + h1,
   p + h2,
   p + h3,
@@ -22,13 +35,30 @@
   ul
     margin-bottom: 1.8em
     margin-left: 1.6em
+    list-style: disc outside
   li
-    +text-block(1rem 1.6 .8em)
+    +text-block(.9375rem 1.6 .8em)
+    +media-breakpoint-down(sm)
+      +text-block(.875rem 1.6 .6em)
+  pre
+    margin-bottom: 2rem
+    code
+      +text-block(.8125rem 1.6)
+      padding: .5rem .75rem
+      border: solid .0625rem #d9d9d9
+  p
+    code
+      +text-block(.8125rem 1.6)
+      padding: .125rem .25rem
+      border: solid .0625rem #d9d9d9
+      background-color: #f8f8f8
   .twitter-tweet
     +margin(horizontal, auto)
     margin-bottom: 2.5rem !important
-  a
-    *:last-child
-      margin-bottom: 1.4em
+  iframe
+    +margin(horizontal, auto)
+    margin-bottom: 2rem
+    display: block
+    max-width: 100%
   *:last-child
     margin-bottom: 0

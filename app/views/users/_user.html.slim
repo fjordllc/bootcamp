@@ -1,13 +1,4 @@
-.row
+.row.is-gutter-width-32
   - users.each do |user|
-    .col-sm-4.col-xs-12
-      .card.users-item(class="#{user.active? ? 'active' : 'inactive'}")
-        header.card-header.users-item__header
-          .users-item__header-container
-            .users-item__name
-              = link_to user.login_name, user, class: "users-item__name-link"
-            .users-item__icon
-              = link_to user do
-                = gravatar_tag user, html: { class: "users-item__icon-image" }
-        .card-block
-          .description= simple_format truncate(user.description, length: 100)
+    .col-md-3.col-xs-12
+      = render 'user_item', user: user

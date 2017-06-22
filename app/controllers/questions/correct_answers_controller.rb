@@ -1,7 +1,6 @@
 class Questions::CorrectAnswersController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
-  before_action :require_login
 
   def create
     question = Question.find(params[:question_id])

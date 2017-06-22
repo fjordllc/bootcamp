@@ -1,19 +1,36 @@
 - title t('practices')
 header.page-header
   .container
-    h2.page-header__title
-      = t('practices')
+    .page-header__container
+      h2.page-header__title
+        = t('practices')
+      .page-header__action
+        = link_to new_practice_path, class: 'is-button-standard-md-warning' do
+          i.fa.fa-plus
+          = t('new_practice')
 
 .page-body
   .container
-    - @categories.each do |category|
-      - if category.practices.present?
-        .card.categories-item.practices
-          .card-header
-            h2.categories-item__title= category.name
-          .card-block
-            .js-target-blank.is-long-text-style
+    .categories-items
+      - @categories.each do |category|
+        - if category.practices.present?
+          .categories-item.practices.js-show-handle(id="category-#{category.id}")
+            header.categories-item__header
+              h2.categories-item__title
+                = category.name
+              - if current_user.admin?
+                .categories-item__show-handle.js-show-handle__trigger
+                  i.fa.fa-cog
+            .categories-item__description.js-target-blank.is-long-text-style
               = markdown emojify(category.description)
-          .category-practices
-            = render category.practices
-    = link_to t('new_practice'), new_practice_path, class: 'btn btn-primary'
+            .categories-item__body
+              .category-practices.js-category-practices
+                = render category.practices
+
+      nav.page-nav.js-page-nav
+        ul.page-nav__items
+        - @categories.each do |category|
+          - if category.practices.present?
+            .page-nav__item
+              a.page-nav__item-link(data-scroll href= "#category-#{category.id}")
+                = category.name

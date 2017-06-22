@@ -29,9 +29,8 @@ gem "sprockets", ">= 3.0.0"
 gem "sprockets-es6"
 gem "pg"
 gem "sassc-rails"
-gem "bootstrap", "~> 4.0.0.alpha3"
-gem "bourbon"
-gem "oulu", "0.12.25"
+gem "bootstrap", "= 4.0.0.alpha5"
+gem "oulu"
 
 group :production, :staging do
   gem "newrelic_rpm"
@@ -54,6 +53,7 @@ group :development, :test do
   gem "pry-byebug"
   gem "simple_seed"
   gem "byebug", platform: :mri
+  gem 'minitest', '~> 5.10', '!= 5.10.2'
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]

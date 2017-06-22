@@ -1,0 +1,84 @@
+.report-list
+  background-color: $base-color
+  border-radius: .25rem
+  box-shadow: rgba(black, .2) 0 .0625rem .125rem
+  max-width: 62.5rem
+  +margin(horizontal, auto)
+  +media-breakpoint-down(sm)
+    margin-bottom: 2rem
+
+.report-list-item
+  border-bottom: solid .0625rem $background-color
+  padding: .75rem 1rem
+  +media-breakpoint-down(sm)
+    padding: .75rem
+
+.report-list-item__inner
+  +relative
+  padding-left: 4rem
+  +media-breakpoint-down(sm)
+    padding-left: 3rem
+
+.report-list-item__author
+  +position(absolute, left 0, top 0)
+
+.report-list-item__author-icon
+  border-radius: 50%
+  +media-breakpoint-down(sm)
+    +size(2.5rem auto)
+
+.report-list-item__header
+  display: flex
+  align-items: center
+  +media-breakpoint-down(sm)
+    flex-direction: column
+    align-items: flex-start
+    min-height: 3.25rem
+
+.report-list-item__title-link
+  +text-block(1rem 1.5, 600 $side)
+  word-break: break-all
+
+.report-list-item__actions
+  margin-left: .5rem
+  display: flex
+  +media-breakpoint-down(sm)
+    margin-left: 0
+    margin-bottom: .25rem
+
+.report-list-item__actions-link
+  +text-block(1rem 1, flex #b9b9b9)
+  align-items: center
+  justify-content: center
+  +size(1.75rem)
+
+.report-list-item-meta
+  display: flex
+  +text-block(.875rem 1.45)
+  +media-breakpoint-down(sm)
+    margin-left: -3rem
+
+.report-list-item-meta__updated-at
+  +text-block(.875rem 1.45, $muted-text)
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+
+.report-list-item-meta__comment-count
+  +text-block(.875rem 1.45, block $muted-text inline-block)
+  margin-left: .75rem
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+
+.report-list-item-meta__comment-count-label
+  +text-block(.875rem 1.45, block $muted-text inline-block)
+  margin-right: .25rem
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+
+.report-list-item-meta__comment-count-value
+  +text-block(.875rem 1.45, block $muted-text inline-block)
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+
+.report-list-item__body
+  +text-block(.875rem 1.8)
