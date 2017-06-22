@@ -1,4 +1,25 @@
 report_1:
   user: komagata
-  title: 日報1
-  description: 今日の日報
+  title: "作業週1日目"
+  description: |-
+    今日はローカルで怖話を動かしてみました。
+    rbenv で ruby を動かすのは初めてだったので、色々手間取りました。
+
+report_2:
+  user: komagata
+  title: "作業週2日目"
+  description: |-
+    今日はローカルで 256 interens を動かしてみました。
+    ruby の指定バージョンが 2.2.3 だったので、 rbenv で ruby のバージョンを上げました。
+
+report_3:
+  user: komagata
+  title: "学習週1日目"
+  description: |-
+    今日は CSS の勉強をしました。デザイン難しい。。。
+
+report_4:
+  user: machida
+  title: "256interns で Bootstrap のバージョン更新"
+  description: |-
+    256interns で Bootstrap のバージョン更新を行った他、デザインの微調整を行いました。

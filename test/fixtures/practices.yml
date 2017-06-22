@@ -1,3 +1,364 @@
 practice_1:
-  title: タイトル1
-  description: 内容1
+  title: "OS X Mountain Lionをクリーンインストールする"
+  description: "description..."
+  goal: "OS X Mountain Lionをクリーンインストールする"
+  category: category_2
+  position: 1
+
+practice_2:
+  title: "Terminalの基礎を覚える"
+  description: "description..."
+  goal: "goal..."
+  category: category_4
+  position: 2
+
+practice_3:
+  title: "PC性能の見方を知る"
+  description: |-
+    - [CPUが分かる](http://homepage2.nifty.com/kamurai/CPU.htm)
+    - [メモリが分かる](http://homepage2.nifty.com/kamurai/MEMORY.htm)
+    - [HDDが分かる](http://homepage2.nifty.com/kamurai/HDD.htm)
+
+    # 参考
+
+    - [MacBook Pro モデルを識別する方法](http://support.apple.com/kb/HT4132?viewlocale=ja_JP)
+    - CPUとHDDがやりとりすると遅いのでメモリと、メモリとやりとりすると遅いのでキャッシュメモリと…という様になるが、どことやりとりされるかはPC側で自動的に判断されるので考える必要はない。
+
+  goal: |-
+    - CPUが何か説明できる。
+    - メモリが何か説明できる。
+    - HDDが何か説明できる。
+    - 自分のMacのOS、モデル番号、CPU、メモリ容量、HDD（SSD）容量をチャットに投稿して確認をもらう。
+
+    参照: [Macの型番調べ辛い - komagata](http://docs.komagata.org/4433)
+  category: category_2
+  position: 3
+
+practice_4:
+  title: "Debianをインストールする"
+  description: "description..."
+  goal: "goal..."
+  category: category_4
+  position: 4
+
+practice_5:
+  title: "Linuxのファイル操作の基礎を覚える"
+  description: "description..."
+  goal: "goal..."
+  category: category_4
+  position: 5
+
+practice_6:
+  title: "aptの基礎を覚える"
+  description: "description..."
+  goal: "goal..."
+  category: category_4
+  position: 6
+
+practice_7:
+  title: "viをインストールする"
+  description: "description..."
+  goal: "goal..."
+  category: category_8
+  position: 7
+
+practice_8:
+  title: "viのチュートリアルをやる"
+  description: "description..."
+  goal: "goal..."
+  category: category_8
+  position: 8
+
+practice_9:
+  title: "sudoをインストールする"
+  description: "description..."
+  goal: "goal..."
+  category: category_4
+  position: 9
+
+practice_10:
+  title: "sshdをインストールする"
+  description: "description..."
+  goal: "goal..."
+  category: category_4
+  position: 10
+
+practice_11:
+  title: "リモートのサーバーにsshで鍵を使ってログインする"
+  description: "description..."
+  goal: "goal..."
+  category: category_4
+  position: 11
+
+practice_12:
+  title: "sshdでパスワード認証を禁止にする"
+  description: "description..."
+  goal: "goal..."
+  category: category_4
+  position: 12
+
+practice_13:
+  title: "sshdでrootでのログインを禁止にする"
+  description: "description..."
+  goal: "goal..."
+  category: category_4
+  position: 13
+
+practice_14:
+  title: "telnetを使ってget, postを試し、HTTPの基礎を理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_16
+  position: 14
+
+practice_15:
+  title: "HTTPのrequestとresponse、headerとbodyを理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_16
+  position: 15
+
+practice_16:
+  title: "nginxをインストールする"
+  description: "description..."
+  goal: "goal..."
+  category: category_15
+  position: 16
+
+practice_17:
+  title: "nginxにネームベースのVirtualHostを使ってサイトを作る"
+  description: "description..."
+  goal: "goal..."
+  category: category_15
+  position: 17
+
+practice_18:
+  title: "sslの基礎を理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_16
+  position: 18
+
+practice_19:
+  title: "nginxで自己認証した証明書を使ったssl対応サイトを作る"
+  description: "description..."
+  goal: "goal..."
+  category: category_15
+  position: 19
+
+practice_20:
+  title: "sqlの基礎を理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_7
+  position: 20
+
+practice_21:
+  title: "mysqlをインストールする"
+  description: "description..."
+  goal: "goal..."
+  category: category_7
+  position: 21
+
+practice_22:
+  title: "mysql, mysqladminコマンドでユーザー、データベース、テーブルを作成する"
+  description: "description..."
+  goal: "goal..."
+  category: category_7
+  position: 22
+
+practice_23:
+  title: "rubyをインストールする"
+  description: "description..."
+  goal: "goal..."
+  category: category_5
+  position: 23
+
+practice_24:
+  title: "rbenvをインストールする"
+  description: "description..."
+  goal: "goal..."
+  category: category_5
+  position: 24
+
+practice_25:
+  title: "rbenvで複数バージョンのrubyを切り替えれるようにする"
+  description: "description..."
+  goal: "goal..."
+  category: category_5
+  position: 25
+
+practice_26:
+  title: "「プログラミング入門 - Rubyを使って」をやる"
+  description: "description..."
+  goal: "goal..."
+  category: category_5
+  position: 26
+
+practice_27:
+  title: "「プログラミング入門 - Rubyを使って」をgithubにpushする"
+  description: "description..."
+  goal: "goal..."
+  category: category_11
+  position: 27
+
+practice_28:
+  title: "「プログラミング入門 - Rubyを使って」のテストをtestunitで書く"
+  description: "description..."
+  goal: "goal..."
+  category: category_9
+  position: 28
+
+practice_29:
+  title: "rubygemsの基礎を理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_5
+  position: 29
+
+practice_30:
+  title: "gemコマンドを使ってgemのインストール、更新、削除をする"
+  description: "description..."
+  goal: "goal..."
+  category: category_5
+  position: 30
+
+practice_31:
+  title: "rakeの基礎を理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_5
+  position: 31
+
+practice_32:
+  title: "rakeでCプログラムをコンパイルするRakefileを書く"
+  description: "description..."
+  goal: "goal..."
+  category: category_5
+  position: 32
+
+practice_33:
+  title: "Getting Started with RailsにしたがってRailsアプリを作る"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 33
+
+practice_34:
+  title: "ActionControllerを理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 34
+
+practice_35:
+  title: "ActionViewを理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 35
+
+practice_36:
+  title: "ActiveRecordを理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 36
+
+practice_37:
+  title: "ActiveSupportを理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 37
+
+practice_38:
+  title: "Railsのroutesを理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 38
+
+practice_39:
+  title: "Railsのi18nの基礎を理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 39
+
+practice_40:
+  title: "deviseを使ってユーザー認証を作る"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 40
+
+practice_41:
+  title: "deviseを使ってTwitter認証を作る"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 41
+
+practice_42:
+  title: "exception_notificationを使ってエラーのメール通知機能を作る"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 42
+
+practice_43:
+  title: "paperclipを使って画像アップロード機能を作る"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 43
+
+practice_44:
+  title: "TDDの基礎を理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_9
+  position: 44
+
+practice_45:
+  title: "unittestの基礎を理解する"
+  description: "description..."
+  goal: "goal..."
+  category: category_9
+  position: 45
+
+practice_46:
+  title: "rspecを使ってRailsアプリのテストを書く"
+  description: "description..."
+  goal: "goal..."
+  category: category_9
+  position: 46
+
+practice_47:
+  title: "capybaraを使ってrequest specを書く"
+  description: "description..."
+  goal: "goal..."
+  category: category_9
+  position: 47
+
+practice_48:
+  title: "Try Gitをやる"
+  description: "description..."
+  goal: "goal..."
+  category: category_11
+  position: 48
+
+practice_49:
+  title: "unicornを使ってrailsアプリを動かす"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 49
+
+practice_50:
+  title: "capistranoを使ってrailsアプリをデプロイする"
+  description: "description..."
+  goal: "goal..."
+  category: category_6
+  position: 50

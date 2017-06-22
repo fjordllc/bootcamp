@@ -1,29 +1,24 @@
 answer_1:
-  id: 1
   description: atom一択です！
-  user_id: 1
-  question_id: 1
+  user: komagata
+  question: question_1
 
 answer_2:
-  id: 2
   description: vimしかないでしょう。常識的に考えて。
-  user_id: 3
-  question_id: 1
+  user: tanaka
+  question: question_1
 
 answer_3:
-  id: 3
   description: injectを使っては？
-  user_id: 1
-  question_id: 2
+  user: komagata
+  question: question_2
 
 answer_4:
-  id: 4
   description: test1
-  user_id: 1
-  question_id: 3
+  user: komagata
+  question: question_3
 
 answer_5:
-  id: 5
   description: test2
-  user_id: 1
-  question_id: 3
+  user: komagata
+  question: question_3
