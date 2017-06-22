@@ -2,3 +2,23 @@ learning_1:
   user: komagata
   practice: practice_1
   status_cd: 0
+
+learning_2:
+  user: komagata
+  practice: practice_2
+  status_cd: 1
+
+learning_3:
+  user: komagata
+  practice: practice_3
+  status_cd: 2
+
+learning_4:
+  user: machida
+  practice: practice_2
+  status_cd: 1
+
+learning_5:
+  user: tanaka
+  practice: practice_2
+  status_cd: 1

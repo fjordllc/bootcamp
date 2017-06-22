@@ -1,9 +1,1 @@
-import_fixture 'companies'
-import_fixture 'users'
-import_fixture 'practices'
-import_fixture 'categories'
-import_fixture 'learnings'
-import_fixture 'reports'
-import_fixture 'comments'
-import_fixture 'questions'
-import_fixture 'answers'
+Rake::Task["db:fixtures:load"].execute
