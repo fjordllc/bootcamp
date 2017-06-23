@@ -1,4 +1,6 @@
 class FeedsController < ApplicationController
+  before_action :require_login
+
   def index
     urls = User.pluck(:feed_url).reject { |f| f.blank? }
     hydra = Typhoeus::Hydra.new
