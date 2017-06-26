@@ -9,16 +9,6 @@ header.page-header
 
 .page-body
   .container
-    .row.is-gutter-width-32
-      .col-md-6.col-xs-12
-        = render 'users/user_data', user: @user
-        - if @user.active_practices.present?
-          = render 'users/active_practices', user: @user
-
-      - if @reports.any?
-        .col-md-6.col-xs-12
-          = render 'users/user_reports', reports: @reports
-
     .user.is-margin-bottom-24
       .row.is-gutter-width-32
         .col-md-6.col-xs-12
