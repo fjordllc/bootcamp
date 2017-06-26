@@ -1,6 +1,11 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
+  test "admin?" do
+    assert users(:komagata).admin?
+    assert users(:machida).admin?
+  end
+
   test "full_name" do
     assert_equal users(:komagata).full_name, "Komagata Masaki"
   end
