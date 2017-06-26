@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    %w(komagata@fjord.jp machidanohimitsu@gmail.com).include?(id)
+    %w(komagata@fjord.jp machidanohimitsu@gmail.com).include?(email)
   end
 
   def part(now = Time.now)
