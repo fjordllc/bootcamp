@@ -8,12 +8,6 @@ class RequireLoginTest < ActionDispatch::IntegrationTest
     assert_equal 'ログインしてください', flash[:alert]
   end
 
-  test 'feeds_path' do
-    get '/feeds'
-    assert_redirected_to '/login'
-    assert_equal 'ログインしてください', flash[:alert]
-  end
-
   test 'questions_path' do
     get '/questions'
     assert_redirected_to '/login'
