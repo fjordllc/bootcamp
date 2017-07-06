@@ -21,19 +21,19 @@ class SearchReportsTest < ActionDispatch::IntegrationTest
     fill_in 'word', with: '日'
     find(".is-button-standard-sm-secondary.is-icon.header-search__submit").click
 
-    assert page.has_content?("'日' の検索結果")
-    assert page.has_content? @report_1.description
-    assert page.has_content? @report_2.description
-    assert page.has_content? @report_3.description
-    assert_not page.has_content? @report_4.description
+    assert_text "'日' の検索結果"
+    assert_text @report_1.description
+    assert_text @report_2.description
+    assert_text @report_3.description
+    assert_no_text @report_4.description
 
     fill_in 'word', with: 'css デザイン'
     find(".is-button-standard-sm-secondary.is-icon.header-search__submit").click
 
-    assert page.has_content?("'css デザイン' の検索結果")
-    assert_not page.has_content? @report_1.description
-    assert_not page.has_content? @report_2.description
-    assert page.has_content? @report_3.description
-    assert page.has_content? @report_4.description
+    assert_text "'css デザイン' の検索結果"
+    assert_no_text @report_1.description
+    assert_no_text @report_2.description
+    assert_text @report_3.description
+    assert_text @report_4.description
   end
 end

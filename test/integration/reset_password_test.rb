@@ -29,7 +29,7 @@ class ResetPasswordTest < ActionDispatch::IntegrationTest
     assert_match /#{I18n.t("the_password_will_not_be_changed_until_you_access_the_link_above_and_set_a_new_password")}/, mail.body.to_s
 
     assert_equal current_path, "/login"
-    assert page.has_content?(I18n.t("instruction_have_been_sent"))
+    assert_text I18n.t("instruction_have_been_sent")
   end
 
   test "Returns an error for mail addresses that do not exist" do
@@ -43,6 +43,6 @@ class ResetPasswordTest < ActionDispatch::IntegrationTest
     end
 
     assert_equal current_path, "/login"
-    assert page.has_content?(I18n.t("invalid_email_or_password"))
+    assert_text I18n.t("invalid_email_or_password")
   end
 end
