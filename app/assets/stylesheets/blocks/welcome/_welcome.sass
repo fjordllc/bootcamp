@@ -5,31 +5,56 @@
 .welcome-section
   +padding(vertical, 3rem)
   border-bottom: solid .0625rem #eee
+  +media-breakpoint-down(sm)
+    +padding(vertical, 2rem)
+
 .welcome-section__title
   +text-block(1.75rem 1.45 1.25rem, 600 center #ec4963)
+  +media-breakpoint-down(sm)
+    +text-block(1.5rem 1.3 1rem)
+    +position(relative)
 
 .welcome-section__title-question-icon
   height: 2.25rem
-  position: relative
-  top: -1rem
+  +top(-1rem)
   margin-right: .625rem
+  +media-breakpoint-down(sm)
+    height: 2.25rem
+    display: block
+    +margin(horizontal, auto)
+    margin-bottom: .75rem
+    +top(0)
 
 .welcome-child-section__title
   +text-block(1.375rem 1.45 .6em, 600 center)
+  +media-breakpoint-down(sm)
+    font-size: 1.125rem
 
 .welcome-child-section__top-image
   +margin(vertical, 1.25rem)
+  +media-breakpoint-down(sm)
+    height: 5rem
+    display: block
+    margin: 0 auto 1rem
 
 .welcome-child-section__member-image-container
   +margin(horizontal, .5rem)
 
 .welcome-child-section__member-image
   border-radius: 50%
+  +media-breakpoint-down(sm)
+    max-width: 5rem
+    margin: 0 auto .75rem
+    display: block
 
 .welcome-child-section__description
   max-width: 40rem
   +margin(horizontal, auto)
   margin-bottom: 2rem
+  &.is-lead-tex
+    text-align: center
+    +media-breakpoint-down(sm)
+      text-align: left
   p
     +text-block(.9375rem 1.8 1.2em)
   table
@@ -43,6 +68,7 @@
   th
     background-color: #f5f5e6
     text-align: right
+    white-space: nowrap
   td
     text-align: left
   *:last-child
@@ -50,27 +76,43 @@
 
 .welcome-child-section:not(:first-child)
   margin-top: 3rem
+
 .welcome-section__title + .welcome-child-section
   margin-top: 0
+
 .welcome-child-section__exchange
   height: 100%
   align-items: center
   justify-content: center
   display: flex
   flex-direction: column
+
 .welcome-child-section__exchange-icon
   +size(5rem auto)
   margin-bottom: .625rem
+  +media-breakpoint-down(sm)
+    transform: rotate(90deg)
+
 .welcome-child-section__exchange-description
   +text-block(.875rem 1.45, center)
+  +media-breakpoint-down(sm)
+    +margin(vertical, .75rem)
 
 .welcome-small-sections
   margin-bottom: -1rem
   .welcome-child-section__title + &
     margin-top: 1.5rem
+
 .welcome-small-section
   height: 100%
   padding-bottom: 1rem
+
+.row.welcome-small-sections__row
+  +media-breakpoint-down(sm)
+    +margin(horizontal, -.5rem)
+    >*[class*=col-]
+      +padding(horizontal, .5rem)
+
 .welcome-small-section__inner
   background-color: #edf0f2
   padding: 1.25rem 1.5rem
@@ -84,11 +126,13 @@
   &.is-dotted
     background-color: transparent
     border: dotted .125rem #c8c8c8
+
 .welcome-small-section__icon
   height: 5rem
   display: block
   +margin(horizontal, auto)
   margin-bottom: 1rem
+
 .welcome-small-section__title
   +text-block(1rem 1.45 .6em, 600 center)
   &.is-sm
@@ -114,5 +158,5 @@
   a
     color: #0098f9
     +hover-link-reversal
-  *:last-child
+  p:last-child
     margin-bottom: 0

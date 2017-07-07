@@ -1,37 +1,41 @@
 .main-visual
-  nav.main-visual-nav
+  nav.main-visual-nav.js-open-main-visual-nav__target.js-close-main-visual-nav__target
     .container
       .main-visual-nav__container
         ul.main-visual-nav__items
           li.main-visual-nav__item
-            a.main-visual-nav__item-link(data-scroll href= '#fee')
+            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#fee')
               | 学費無料
           li.main-visual-nav__item
-            a.main-visual-nav__item-link(data-scroll href= '#eligibility')
+            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#eligibility')
               | 参加資格
           li.main-visual-nav__item
-            a.main-visual-nav__item-link(data-scroll href= '#tutorials')
+            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#tutorials')
               | 学習内容
           li.main-visual-nav__item
-            a.main-visual-nav__item-link(data-scroll href= '#finding-employment')
+            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#finding-employment')
               | 就職支援
           li.main-visual-nav__item
-            a.main-visual-nav__item-link(data-scroll href= '#administrator')
+            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#administrator')
               | 運営会社
           li.main-visual-nav__item
-            a.main-visual-nav__item-link(data-scroll href= '#other')
+            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#other')
               | その他
           li.main-visual-nav__item
-            = link_to "/login", class: 'main-visual-nav__item-link' do
+            = link_to "/login", class: 'main-visual-nav__item-link js-close-main-visual-nav' do
               | ログイン
   .noise
   .container.main-visual__container
     .main-visual__main
       = image_tag('logo.svg', class: 'main-visual__logo')
       h1.main-visual__description
-        | インターンに参加して、学費を払わず
-        br
-        | 一人でWebサービスを作れるスキルを身につける
+        | インターンに参加して、
+        br.is-hidden-md-up
+        | 学費を払わず
+        br.is-hidden-sm-down
+        | 一人でWebサービスを
+        br.is-hidden-md-up
+        | 作れるスキルを身につける
       = link_to "http://www.remotework-labo.jp/2015/10/interview_09/", class: "main-visual__link", target: "_blank" do
         .main-visual__link-label
           | インタビュー記事
@@ -41,3 +45,6 @@
           | リモートワークで50人の
           br
           | インターンと共同開発
+  .main-visual__open-nav.is-hidden-md-up.js-open-main-visual-nav
+    i.fa.fa-bars
+  .main-visual__screen.js-close-main-visual-nav.js-close-main-visual-nav__overlay
