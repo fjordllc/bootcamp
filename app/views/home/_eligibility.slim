@@ -6,14 +6,14 @@ section.welcome-section#eligibility
     section.welcome-child-section
       h3.welcome-child-section__title
         | 基本的に誰でも参加OK
-      .welcome-child-section__description
-        p.is-text-align-center
+      .welcome-child-section__description.is-lead-text
+        p
           | 基本的に誰でも参加OKですが、少しだけ条件があります。
           br
           | もちろん、国籍、性別、年齢、学歴、プログラム経験などの制限はありません。
       .welcome-small-sections
         .row.is-gutter-width-32
-          .col-sm-12.col-md-4
+          .col-xs-12.col-md-4
             section.welcome-small-section
               .welcome-small-section__inner
                 = image_tag('my-mac.svg', class: 'welcome-small-section__icon')
@@ -21,7 +21,7 @@ section.welcome-section#eligibility
                   | 自分のMacが必要
                 .welcome-small-section__description
                   p 用意しているカリキュラムはMacを使って学習することを前提に作られています。なので、最新のOSが動くMacを持っていることが必要です。もし、インターンを始めるにあたってMac購入を検討している場合は、どの機種を買うべきかアドバイスをしますので、相談をしてから購入してください。
-          .col-sm-12.col-md-4
+          .col-xs-12.col-md-4
             section.welcome-small-section
               .welcome-small-section__inner
                 = image_tag('nda.svg', class: 'welcome-small-section__icon')
@@ -29,7 +29,7 @@ section.welcome-section#eligibility
                   | NDAに同意
                 .welcome-small-section__description
                   p 作業週では弊社が運営しているサービスのコードに手を入れたり、ユーザーサポートなどもしていただくので、NDA（秘密保持契約）を結んでいただきます。NDA契約の際は免許証などの身分証明書をスマホなどで撮った写真を送っていただきます。
-          .col-sm-12.col-md-4
+          .col-xs-12.col-md-4
             section.welcome-small-section
               .welcome-small-section__inner
                 = image_tag('time.svg', class: 'welcome-small-section__icon')
@@ -41,66 +41,76 @@ section.welcome-section#eligibility
     section.welcome-child-section
       h3.welcome-child-section__title
         | 自宅からリモート参加もOK
-      .welcome-child-section__description.is-text-align-center
+      .welcome-child-section__description.is-lead-text
         p
           | オフィスに通う一般的なインターンだけでなく、
-          br
+          br.is-hidden-sm-down
           | インターネット経由で自宅からリモートで参加することも可能です。
       .welcome-small-sections
         .row.is-gutter-width-32
-          .col-sm-12.col-md-6
+          .col-xs-12.col-md-6
             section.welcome-small-section
               .welcome-small-section__inner.is-study
                 h3.welcome-small-section__title
                   | ローカルインターン
                 .welcome-small-section__description
                   .row.is-gutter-width-24
-                    .col-md-3
+                    .col-xs-12.col-md-3
                       = image_tag('local.svg', class: 'welcome-child-section__top-image')
-                    .col-md-9
+                    .col-xs-12.col-md-9
                       p 弊社は平日10:00〜19:00に営業をしていて、基本、僕らもこの時間にオフィスに出社しています。僕らと同じように平日10:00〜19:00にオフィスに出社してインターンをすることをローカルインターンと呼んでいます。ローカルインターンの場合、ちょっとした質問などがしやすく、毎日がっつり8時間インターンをするので、スキルが身につくのが早いです。席に限りがあるので、平日週5日出社できる方を優先しています。ローカルインターンの場合、インターン申込後に対面での面接があります。
-          .col-sm-12.col-md-6
+          .col-xs-12.col-md-6
             section.welcome-small-section
               .welcome-small-section__inner.is-work
                 h3.welcome-small-section__title
                   | リモートインターン
                 .welcome-small-section__description
                   .row.is-gutter-width-24
-                    .col-md-3
+                    .col-xs-12.col-md-3
                       = image_tag('remote.svg', class: 'welcome-child-section__top-image')
-                    .col-md-9
+                    .col-xs-12.col-md-9
                       p オフィスには出社せず、離れた場所からインターンをすることをリモートインターンと呼んでいます。自分の都合のいい時間に自宅やカフェなど、自分の好きな場所からインターンに参加できます。週の活動時間の合計が16時間を超えればいいので、一日8時間やる必要はありません。育児の合間や、仕事、学校からの帰宅後にインターンを行うことができます。自分の都合のいい時間にインターンができますが、活動する曜日と時間は決めていただく必要があります。仕事の都合などで、活動時間の変更があった場合は都度チャットで連絡をしていただきます。
 
     section.welcome-child-section
       h3.welcome-child-section__title
-        | 例えばこんなインターンの方がいます
+        | 例えばこんな
+        br.is-hidden-md-up
+        | インターンの方がいます
       .welcome-small-sections
         .row.is-gutter-width-32
-          .col-sm-12.col-md-6
+          .col-xs-12.col-md-6
             section.welcome-small-section
               .welcome-small-section__inner.is-dotted
                 h3.welcome-small-section__title.is-sm
-                  | プログラマーとして就職したい
+                  | プログラマーとして
+                  br.is-hidden-md-up
+                  | 就職したい
                 .welcome-small-section__description
                   p プログラマーとして就職できるスキルを身に着けたい！スキルだけじゃなく、開発のやり方や業界の情報、プログラマー友達も欲しい！
-          .col-sm-12.col-md-6
+          .col-xs-12.col-md-6
             section.welcome-small-section
               .welcome-small-section__inner.is-dotted
                 h3.welcome-small-section__title.is-sm
-                  | 転職したいけど、その前にスキルを付けたい
+                  | 転職したいけど、
+                  br.is-hidden-md-up
+                  | その前にスキルを付けたい
                 .welcome-small-section__description
                   p うちのやり方ってブログの記事や勉強会で聞いた話と比べて開発方法が古い...今の会社でプログラマーを続けていっていいのだろうか？...転職だ！
-          .col-sm-12.col-md-6
+          .col-xs-12.col-md-6
             section.welcome-small-section
               .welcome-small-section__inner.is-dotted
                 h3.welcome-small-section__title.is-sm
-                  | 育児が落ち着いたので仕事復帰したい
+                  | 育児が落ち着いたので
+                  br.is-hidden-md-up
+                  | 仕事復帰したい
                 .welcome-small-section__description
                   p 休暇中に色々時代は進んで今の流れを追えてない。仕事復帰の前にインターンをやって今のやり方を習得したり、勘を取り戻したり、仕事に慣れておきたい。
-          .col-sm-12.col-md-6
+          .col-xs-12.col-md-6
             section.welcome-small-section
               .welcome-small-section__inner.is-dotted
                 h3.welcome-small-section__title.is-sm
-                  | プログラムの知識が仕事で必要になった
+                  | プログラムの知識が
+                  br.is-hidden-md-up
+                  | 仕事で必要になった
                 .welcome-small-section__description
                   p 最近プログラマーと一緒に仕事することが増えたんだけど、全然話が噛み合わない...プログラムの知識を身に付けてもっと円滑に仕事を進めて成果出したい！
