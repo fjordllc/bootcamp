@@ -1,14 +1,40 @@
 .main-visual-nav
-  +position(absolute, left 0, top 0, right 0, 1)
+  +position(absolute, left 0, top 0, right 0, 3)
+  +media-breakpoint-down(sm)
+    +position(fixed, left auto, right 0, top 0, bottom 0)
+    background-color: #ec4963
+    width: 0
+    overflow: hidden
+    transition: all .2s ease-in
+    &.is-active
+      width: 14rem
+    .container
+      max-width: 100%
+      +padding(horizontal, 0)
+
 .main-visual-nav__container
   +position(relative)
+
 .main-visual-nav__items
   +position(absolute, right 0, top 1.25rem)
   display: flex
+  +media-breakpoint-down(sm)
+    display: block
+    position: static
+
 .main-visual-nav__item
   &:not(:first-child)
     margin-left: 1.75rem
+    +media-breakpoint-down(sm)
+      margin-left: 0
+
 .main-visual-nav__item-link
   +text-block(.875rem 1.45, block $reversal-text)
   +padding(vertical, .25rem)
   +hover-link
+  +media-breakpoint-down(sm)
+    height: 2.75rem
+    +padding(horizontal, .75rem)
+    display: flex
+    align-items: center
+    border-bottom: solid .0625rem rgba(black, .1)

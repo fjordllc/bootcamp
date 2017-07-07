@@ -2,7 +2,9 @@ section.welcome-section#fee
   .container
     h2.welcome-section__title
       = image_tag('question.svg', class: 'welcome-section__title-question-icon')
-      | なんで学費がいらないの？
+      | なんで学費が
+      br.is-hidden-md-up
+      | いらないの？
     section.welcome-child-section
       h3.welcome-child-section__title
         | スクールとアルバイトの中間
@@ -14,30 +16,30 @@ section.welcome-section#fee
           | に詳しく書いてあるので一読しておいてください。
       .welcome-small-sections
         .row
-          .col-sm-12.col-md-5
+          .col-xs-12.col-md-5
             section.welcome-small-section
               .welcome-small-section__inner.is-study
                 h3.welcome-small-section__title
                   | 学習週
                 .welcome-small-section__description
                   .row.is-gutter-width-24
-                    .col-md-3
+                    .col-md-3.col-xs-12
                       = image_tag('school.svg', class: 'welcome-child-section__top-image')
-                    .col-md-9
+                    .col-md-9.col-xs-12
                       p 256interns というオンラインの学習システムを用意しています。ここにあるカリキュラムを学習してもらいます。このカリキュラムを全て終わらせると、一人でWebサービスが作れるスキルが身につきます。
-          .col-sm-12.col-md-2
+          .col-xs-12.col-md-2
             .welcome-child-section__exchange
               = image_tag('arrows.svg', class: 'welcome-child-section__exchange-icon')
               .welcome-child-section__exchange-description
                 | 一週間ごと
-          .col-sm-12.col-md-5
+          .col-xs-12.col-md-5
             section.welcome-small-section
               .welcome-small-section__inner.is-work
                 h3.welcome-small-section__title
                   | 作業週
                 .welcome-small-section__description
                   .row.is-gutter-width-32
-                    .col-md-3
+                    .col-xs-12.col-md-3
                       = image_tag('work.svg', class: 'welcome-child-section__top-image')
-                    .col-md-9
+                    .col-xs-12.col-md-9
                       p 僕ら（合同会社フィヨルド）の運営するWebサービスの手伝いをしていただきます。初めはユーザーサポートなどのプログラミングの不要な作業をしていただき、学習が進みプログラミングスキルが付いたら、実際にコードを書くサービスの開発にも関わっていただきます。

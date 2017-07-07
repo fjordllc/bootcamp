@@ -19,7 +19,7 @@
                   header.report-list-item__header
                     h2.report-list-item__title(itemprop="name")
                       = link_to report, itempro: "url", class: "report-list-item__title-link" do
-                        = highlight("#{report.title}", "#{@search_word}")
+                        = highlight("#{report.title}",@search_word.split(/ |　/))
                     - if report.user == current_user
                       .report-list-item__actions
                         = link_to edit_report_path(report), class: 'report-list-item__actions-link' do
@@ -38,7 +38,7 @@
                           = report.comments.count
                           = t('comments_count')
                   .report-list-item__body
-                    = highlight("#{report.description}", "#{@search_word}")
+                    = highlight("#{report.description}", @search_word.split(/ |　/))
 
 
 - else
