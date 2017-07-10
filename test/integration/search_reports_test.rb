@@ -19,7 +19,7 @@ class SearchReportsTest < ActionDispatch::IntegrationTest
     assert_equal current_path, '/users'
 
     fill_in 'word', with: '日'
-    find(".is-button-standard-sm-secondary.is-icon.header-search__submit").click
+    find(".header-search__submit").click
 
     assert_text "'日' の検索結果"
     assert_text @report_1.description
@@ -28,7 +28,7 @@ class SearchReportsTest < ActionDispatch::IntegrationTest
     assert_no_text @report_4.description
 
     fill_in 'word', with: 'css デザイン'
-    find(".is-button-standard-sm-secondary.is-icon.header-search__submit").click
+    find(".header-search__submit").click
 
     assert_text "'css デザイン' の検索結果"
     assert_no_text @report_1.description

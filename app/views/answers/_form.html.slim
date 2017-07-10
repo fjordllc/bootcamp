@@ -1,9 +1,12 @@
-= form_for [question, answer] do |f|
-  - if answer.errors.any?
-    = error_messages_for :answer
-  .form-group
-    = f.label :description
-    = f.text_area :description, class: "form-control"
-  .actions
-    = hidden_field_tag :return_to, params[:return_to].presence
-    = f.submit '保存', class: "btn btn-primary btn-sm"
+.report-comment-form
+  .report-comment__author
+    = gravatar_tag current_user, size: 200, html: { class: "report-comment__author-icon"}
+  = form_for [question, answer], html: {class: 'report-comment-form__form'} do |f|
+    - if answer.errors.any?
+      = error_messages_for :answer
+    .form-items
+      .form-item
+        = f.text_area :description, class: 'a-textarea report-comment-form__textarea js-markdown-input'
+    .report-comment-form__action
+      = hidden_field_tag :return_to, params[:return_to].presence
+      = f.submit t('post_comment'), class: 'is-button-standard-md-primary'

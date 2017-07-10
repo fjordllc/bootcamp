@@ -19,11 +19,14 @@ $report-header-author: 3.5rem
   +size($report-header-author 100%)
   +media-breakpoint-down(sm)
     display: none
+
 .report-comment__author-icon
   +size(100% auto)
   border-radius: 50%
+
 .report-comment__login-name-link
   color: $main-color
+
 .report-comment__body
   background-color: $base-color
   +padding(horizontal, 1rem)
@@ -58,9 +61,11 @@ $report-header-author: 3.5rem
   +padding(vertical, .5rem)
   +media-breakpoint-down(sm)
     padding-top: 0
+
 .report-comment__actions-items
   display: flex
   align-items: center
+
 .report-comment__actions-item-link
   +text-block(1.25rem 1, center flex $muted-text)
   +size(2.375rem)

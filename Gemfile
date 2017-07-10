@@ -28,9 +28,9 @@ gem "record_tag_helper", "~> 1.0"
 gem "sprockets", ">= 3.0.0"
 gem "sprockets-es6"
 gem "pg"
-gem "sassc-rails"
-gem "bootstrap", "= 4.0.0.alpha5"
+gem "bootstrap", "= 4.0.0.alpha6"
 gem "oulu"
+gem "sassc-rails"
 gem "ransack"
 
 group :production, :staging do

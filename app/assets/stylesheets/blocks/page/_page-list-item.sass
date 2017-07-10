@@ -4,25 +4,31 @@
   box-shadow: rgba(black, .2) 0 .0625rem .125rem
   max-width: 62.5rem
   +margin(horizontal, auto)
+
 .page-list-item
   border-bottom: solid .0625rem $background-color
   padding: .75rem 1rem
+
 .page-list-item__inner
   +relative
   padding-left: 4rem
+
 .page-list-item__header
   display: flex
   align-items: center
   +media-breakpoint-down(sm)
     flex-direction: column
     align-items: flex-start
+
 .page-list-item__title-link
   +text-block(1rem 1.5, 600 $side)
+
 .page-list-item__actions
   margin-left: .5rem
   display: flex
   +media-breakpoint-down(sm)
     margin-left: 0
+
 .page-list-item__actions-link
   +text-block(1rem 1, flex #b9b9b9)
   align-items: center

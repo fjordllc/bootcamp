@@ -24,14 +24,6 @@
   + .card-link
     margin-left: $card-spacer-x
 
-@if $enable-rounded
-  .card
-    > .list-group:first-child
-      .list-group-item:first-child
-        border-radius: $card-border-radius $card-border-radius 0 0
-    > .list-group:last-child
-      .list-group-item:last-child
-        border-radius: 0 0 $card-border-radius $card-border-radius
 
 //
 // Optional textual caps
@@ -136,30 +128,16 @@
 // Card set
 //
 
-@if $enable-flex
-  +media-breakpoint-up(sm)
-    .card-deck
-      display: flex
-      flex-flow: row wrap
-      margin-right: -.625rem
-      margin-left: -.625rem
-      .card
-        flex: 1 0 0
-        margin-right: .625rem
-        margin-left: .625rem
-@else
-  +media-breakpoint-up(sm)
-    .card-deck
-      display: table
-      table-layout: fixed
-      border-spacing: 1.25rem 0
-      .card
-        display: table-cell
-        width: 1%
-        vertical-align: top
-    .card-deck-wrapper
-      margin-right: -1.25rem
-      margin-left: -1.25rem
++media-breakpoint-up(sm)
+  .card-deck
+    display: flex
+    flex-flow: row wrap
+    margin-right: -.625rem
+    margin-left: -.625rem
+    .card
+      flex: 1 0 0
+      margin-right: .625rem
+      margin-left: .625rem
 
 //
 // Card groups
@@ -167,41 +145,13 @@
 
 +media-breakpoint-up(sm)
   .card-group
-    @if $enable-flex
-      display: flex
-      flex-flow: row wrap
-    @else
-      display: table
-      width: 100%
-      table-layout: fixed
+    display: flex
+    flex-flow: row wrap
     .card
-      @if $enable-flex
-        flex: 1 0 0
-      @else
-        display: table-cell
-        vertical-align: top
+      flex: 1 0 0
       + .card
         margin-left: 0
         border-left: 0
-      // Handle rounded corners
-      @if $enable-rounded
-        &:first-child
-          +border-right-radius(0)
-          .card-img-top
-            border-top-right-radius: 0
-          .card-img-bottom
-            border-bottom-right-radius: 0
-        &:last-child
-          +border-left-radius(0)
-          .card-img-top
-            border-top-left-radius: 0
-          .card-img-bottom
-            border-bottom-left-radius: 0
-        &:not(:first-child):not(:last-child)
-          border-radius: 0
-          .card-img-top,
-          .card-img-bottom
-            border-radius: 0
 
 //
 // Card

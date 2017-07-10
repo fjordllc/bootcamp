@@ -5,20 +5,24 @@ $bar-height: .75rem
   height: 1rem
   +padding(vertical, .125rem)
   margin-bottom: .75rem
+
 .completed-practices-progress__bar-container
   border-radius: 20rem
   height: $bar-height
   overflow: hidden
   border-radius: 20rem
+
 .completed-practices-progress__bar
   +size(100% $bar-height)
   background-color: $background-color-shade
   box-shadow: rgba(black, .2) 0 .0625rem .0625rem inset
+
 .completed-practices-progress__percentage-bar
   height: $bar-height
   background-color: $danger
   +position(relative, top $bar-height * -1)
   box-shadow: rgba(black, .2) 0 .0625rem .0625rem
+
 .completed-practices-progress__percentage-number
   +position(absolute, right 0, top 0)
   +text-block(.875rem 1rem, right)

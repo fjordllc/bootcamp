@@ -5,9 +5,12 @@
       .page-header__container
         h2.page-header__title
           = t('search_for', text: @search_word)
-        = link_to t('new_report'), new_report_path, class: 'is-button-standard-md-warning'
+        = link_to new_report_path, class: 'is-button-standard-md-warning' do
+          i.fa.fa-plus
+          = t('new_report')
   .page-body
     .container
+      = paginate @reports, position: "top"
       - if @reports.nil? == false
         .report-list
           - @reports.each do |report|
@@ -39,7 +42,7 @@
                           = t('comments_count')
                   .report-list-item__body
                     = highlight("#{report.description}", @search_word.split(/ |　/))
-
+      = paginate @reports, position: "bottom"
 
 - else
   - title t('reports')
@@ -62,9 +65,10 @@
 
   .page-body
     .container
+      = paginate @reports, position: "top"
       - if @reports.nil? == false
         .report-list
           - @reports.each do |report|
             - if report.present?
               = render 'report_list_item', report: report
-      = paginate @reports
+      = paginate @reports, position: "bottom"
