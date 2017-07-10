@@ -1,11 +1,29 @@
 = form_for question do |f|
   - if question.errors.any?
     = error_messages_for :question
-  .form-group
-    = f.label :title
-    = f.text_field :title, class: 'form-control'
-  .form-group
-    = f.label :description
-    = f.text_area :description, size: '10x10', class: 'form-control'
-  .form-group
-    = f.submit nil, class: 'btn btn-primary'
+  .form__items
+    .form-item
+      .form-item
+        .row.js-markdown-parent
+          .col-md-6.col-xs-12
+            = f.label :title, class: 'a-label'
+            = f.text_field :title, class: 'a-text-input js-warning-form'
+      .form-item
+        .row.js-markdown-parent
+          .col-md-6.col-xs-12
+            = f.label :description, class: 'a-label'
+            = f.text_area :description, class: 'a-text-input js-warning-form js-markdown-input'
+          .col-md-6.col-xs-12
+            .a-label
+              | プレビュー
+            .js-markdown-preview.is-long-text-style.practices-edit__input.practices-edit__preview
+  .form-actions
+    ul.form-actions__items
+      - if params[:action] == 'new' || params[:action] == 'create'
+        li.form-actions__item
+          = link_to 'キャンセル', questions_path, class: "is-button-standard-md-secondary"
+      - elsif params[:action] == 'edit' || params[:action] == 'update'
+        li.form-actions__item
+          = link_to 'キャンセル', question_path, class: "is-button-standard-md-secondary"
+      li.form-actions__item
+        = f.submit nil, class: 'is-button-standard-lg-warning'

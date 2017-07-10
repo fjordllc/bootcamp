@@ -3,7 +3,9 @@ header.page-header.is-margin-bottom-0
   .container
     .page-header__container
       h2.page-header__title Q&A一覧
-      = link_to "新規質問", new_question_path, class: 'btn btn-primary btn-md page-header__button'
+      = link_to new_question_path, class: "is-button-standard-md-warning" do
+        i.fa.fa-plus
+        | 新規質問
 
 .page-body
   nav.tab-nav
@@ -15,4 +17,5 @@ header.page-header.is-margin-bottom-0
           = link_to "解決済み", questions_path(solved: 'true'), class: "tab-nav__item-link #{params[:solved].present? ? 'is-active' : ''}"
 
   .container
-    .questions= render @questions
+    .question-list
+      = render @questions

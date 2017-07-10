@@ -1,15 +1,19 @@
-.question-item
-  h3.question-item__title= link_to question.title, question
-  .question-item__content
-    .question-item__user
-      = link_to question.user do
-        .question-itme__icon= link_to gravatar_tag question.user, size: 44, html: { class: 'category-practices-item__user-icon' }
-        .question-item__name= link_to question.user.login_name, question.user
-    time.contents-list-meta__created_at(datetime="#{question.created_at.to_datetime}" pubdate="pubdate")
-      = l question.created_at, format: :short
-    - if question.answers.present?
-      .question-item__count 回答#{question.answers.count}個
-    - if current_user == question.user
-      .btn-group.question-item__actions
-        = link_to "編集", edit_question_path(question), class: 'btn btn-primary'
-        = link_to "削除", question_path(question), data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'btn btn-danger'
+.question-list-item
+  .question-list-item__inner
+    .question-list-item__author
+      = gravatar_tag question.user, size: 44, html: { class: "question-list-item__author-icon"}
+    header.question-list-item__header
+      h2.question-list-item__title(itemprop="name")
+        = link_to question, itempro: "url", class: "question-list-item__title-link" do
+          = question.title
+      .question-list-item__actions
+        - if current_user == question.user
+          = link_to edit_question_path(question), class: 'question-list-item__actions-link' do
+            i.fa.fa-pencil
+          = link_to question_path(question), data: { confirm: t('are_you_sure') }, method: :delete, class: 'question-list-item__actions-link' do
+            i.fa.fa-trash-o
+    .question-list-item-meta
+      time.question-list-item-meta__updated-at(datetime="#{question.updated_at.to_datetime}" pubdate="pubdate")
+        = l question.updated_at, format: :semi_long
+      - if question.answers.present?
+        .question-list-item__count 回答#{question.answers.count}個
