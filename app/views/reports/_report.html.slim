@@ -3,6 +3,8 @@
     header.report__header
       h1.report__title
         = report.title
+        - if @report.checks.any?
+          | チェック済み
     .report__meta
       .report__author-name
         = report.user.login_name
@@ -35,4 +37,4 @@
           i.fa.fa-angle-left
           = t('to_index_of_reports')
   = link_to report.user, itempro: "url", class: "report__author-link" do
-    = gravatar_tag report.user, size: 120, html: { class: "report__author-icon"}
+    = gravatar_tag report.user, size: 120, html: { class: "report__author-icon" }

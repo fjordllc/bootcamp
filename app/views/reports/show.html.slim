@@ -12,7 +12,8 @@ header.page-header
 .page-body
   .container    
     = render 'report', report: @report
-
+    - if @report.checks.any?
+      = render 'reports/report_check',report: @report
     .report-comments-container
       h2.report-comments-container__title
         = t('comments')

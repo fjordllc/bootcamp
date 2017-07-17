@@ -1,5 +1,6 @@
 class Report < ActiveRecord::Base
   has_many :comments
+  has_many :checks
   has_and_belongs_to_many :practices
   belongs_to :user
 
