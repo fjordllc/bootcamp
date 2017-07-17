@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include Gravatarify::Helper
-  before_action :require_login, only: %w[edit update destroy]
+  before_action :require_login
   before_action :set_user, only: %w[show]
   before_action :set_reports, only: %w[show]
   http_basic_authenticate_with name: "intern", password: ENV["INTERN_PASSWORD"] || "test", only: %i(new create)

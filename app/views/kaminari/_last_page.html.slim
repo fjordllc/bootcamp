@@ -1,2 +1,2 @@
-li.page-item
-  = link_to_unless current_page.last?, raw(t 'views.pagination.last'), url, { remote: remote, class: 'page-link' }
+li.pagination__item.is-last
+  = link_to_unless current_page.last?, raw("<i class='fa fa-angle-double-right'></i>"), url, { remote: remote, class: 'pagination__item-link is-last' }

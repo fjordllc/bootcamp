@@ -24,9 +24,8 @@ html.is-admin lang="ja"
       = render 'alert'
       main.page
         = yield
-        //= render 'active_users'
     - unless yield(:page_classes).include?('no-recent-reports')
-      = recent_reports
+      - recent_reports
       - if @reports.present?
         .recent-reports
           .recent-reports__items

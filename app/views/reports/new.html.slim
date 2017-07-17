@@ -3,6 +3,9 @@ header.page-header
     .page-header__container
       h2.page-header__title
         = t('new_report')
+      = link_to reports_path, class: 'is-button-standard-md-secondary' do
+        i.fa.fa-angle-left
+        = t('to_index_of_reports')
 
 .page-body
   .container

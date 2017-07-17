@@ -1,11 +1,13 @@
 .tab-nav
   margin-bottom: 1.5rem
   border-bottom: solid .0625rem $background-color-shade
+
 .tab-nav__items
   display: flex
   +padding(vertical, .75rem)
   overflow-x: auto
   overflow-y: hidden
+
 .tab-nav__item
   margin-right: .375rem
   +media-breakpoint-down(sm)
@@ -13,6 +15,7 @@
   &:last-child
     +media-breakpoint-up(md)
       margin-right: 0
+
 .tab-nav__item-link
   +block-link
   +text-block(.75rem 2.3, $muted-text center)

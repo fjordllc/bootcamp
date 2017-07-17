@@ -3,6 +3,7 @@
   display: block
   +margin(horizontal, auto)
   margin-top: 4rem
+
 .auth-form
   +margin(vertical, 4rem 4rem)
   max-width: 22rem
@@ -15,19 +16,25 @@
     max-width: 30rem
   &.is-contact
     max-width: 35rem
+
 .auth-form__header
   border-bottom: solid .0625rem $background-color
   padding: 1.25rem
+
 .auth-form__body
   padding: 1.5rem 1.25rem
+
 .auth-form__footer
   border-top: solid .0625rem $background-color
   padding: 1rem 1.25rem
 
+
 .auth-form__title
   +text-block(1.25rem 1.45, center 600)
+
 .auth-form-items
   margin-bottom: 1.25rem
+
 .auth-form-radio-button
   &.is-half
     flex: 0 0 50%
@@ -73,6 +80,7 @@
   input
     opacity: 0
     +position(absolute)
+
 .auth-form-checkbox__label
   +text-block(.8125rem 1.45, block)
   border: solid .0625rem #c1c5b9
@@ -105,17 +113,3 @@
   input
     opacity: 0
     +position(absolute)
-
-.auth-form-nav
-  display: flex
-  justify-content: flex-end
-.auth-form-nav__items
-  display: flex
-  justify-content: center
-  width: 100%
-.auth-form-nav__item
-  +margin(horizontal, .5rem)
-.auth-form-nav__item-link
-  cursor: pointer
-  +text-block(.75rem 1.45, $main-color)
-  +hover-link

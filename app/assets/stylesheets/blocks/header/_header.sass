@@ -3,6 +3,7 @@ $header-height: 3.125rem
   background-color: $base-color
   border-bottom: solid $background-color .0625rem
   +position(relative, 1)
+
 .header__container
   display: flex
   justify-content: space-between
@@ -20,9 +21,11 @@ $header-height: 3.125rem
   align-items: center
   +media-breakpoint-down(sm)
     display: none
+
 .header-links__items
   display: flex
   height: 100%
+
 .header-links__item
   display: flex
   height: 100%
@@ -33,6 +36,7 @@ $header-height: 3.125rem
     background-color: $accent-color
     .header-links__link
       color: $main-color
+
 .header-links__link
   +flex-link
   +size(3.5rem 100%)
@@ -55,10 +59,12 @@ $header-height: 3.125rem
   height: 100%
   align-items: center
   padding-right: .75rem
+
 .header-search__text-input
   height: 2rem
   +border-radius(right, 0)
   border-right: none
+
 .is-icon.header-search__submit
   +size(2rem)
   +border-radius(left, 0)

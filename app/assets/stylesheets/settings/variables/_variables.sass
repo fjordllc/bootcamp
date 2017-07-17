@@ -16,21 +16,6 @@
 // Fonts
 // Components
 
-//
-  =_assert-ascending($map, $map-name)
-    $prev-key: null
-    $prev-num: null
-
-    @each $key, $num in $map
-      @if $prev-num == null
-        // Do nothing
-      @else if not comparable($prev-num, $num)
-        @warn "Potentially invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} whose unit makes it incomparable to #{$prev-num}, the value of the previous key '#{$prev-key}' !"
-      @else if $prev-num >= $num
-        @warn "Invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} which isn't greater than #{$prev-num}, the value of the previous key '#{$prev-key}' !"
-
-      $prev-key: $key
-      $prev-num: $num
 
 // General variable structure
 //
@@ -108,10 +93,6 @@ $link-hover-decoration: underline !default
 //
 // Define the maximum width of `.container` for different screen sizes.
 
-//
-  $container-max-widths: (sm: 540px, md: 720px, lg: 960px, xl: 1140px) !default
-
-  +_assert-ascending($container-max-widths, "$container-max-widths")
 
 // Grid columns
 //
@@ -432,15 +413,15 @@ $dropdown-header-color: $gray-light !default
 // Warning: Avoid customizing these values. They're used for a bird's eye view
 // of components dependent on the z-axis and are designed to all work together.
 
-$zindex-dropdown-backdrop: 990 !default
+$zindex-dropdown-backdrop:  990 !default
 $zindex-navbar: 1000 !default
-$zindex-dropdown: 1000 !default
+$zindex-dropdown:  1000 !default
+$zindex-fixed: 1030 !default
+$zindex-sticky: 1030 !default
+$zindex-modal-backdrop: 1040 !default
+$zindex-modal: 1050 !default
 $zindex-popover: 1060 !default
 $zindex-tooltip: 1070 !default
-$zindex-navbar-fixed: 1030 !default
-$zindex-navbar-sticky: 1030 !default
-$zindex-modal-bg: 1040 !default
-$zindex-modal: 1050 !default
 
 // Navbar
 
@@ -647,10 +628,13 @@ $modal-header-border-color: #e5e5e5 !default
 $modal-footer-border-color: $modal-header-border-color !default
 $modal-header-border-width: $modal-content-border-width !default
 $modal-footer-border-width: $modal-header-border-width !default
+$modal-header-padding: 15px !default
 
 $modal-lg: 900px !default
 $modal-md: 600px !default
 $modal-sm: 300px !default
+
+$modal-transition: transform .3s ease-out !default
 
 // Alerts
 //
@@ -771,6 +755,7 @@ $carousel-icon-width: 20px !default
 
 // Close
 
+$close-font-size: $font-size-base * 1.5 !default
 $close-font-weight: bold !default
 $close-color: #000 !default
 $close-text-shadow: 0 1px 0 #fff !default
