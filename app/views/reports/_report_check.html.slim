@@ -1,6 +1,6 @@
 - @checks.each do |check|
   = link_to check.user, itempro: 'url', class: 'report-comment__author-link' do
-    = gravatar_tag check.user, size: 50, html: { class: "report-list-item__author-icon" }
-  time.report-list-item-meta__updated-at(datetime="#{check.updated_at.to_datetime}" pubdate="pubdate")
-  =<> l check.updated_at, format: :semi_long
+    = gravatar_tag check.user, size: 25, html: { class: "report-list-item__author-icon" }
+  time.report-list-item-meta__created-at(datetime="#{check.created_at.to_datetime}" pubdate="pubdate")
+  =<> l check.created_at, format: :semi_long
   |にチェックしました。
