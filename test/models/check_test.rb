@@ -3,8 +3,8 @@ require 'test_helper'
 class CheckTest < ActiveSupport::TestCase
 
   def setup
-    @checked_by_komagata = checks(:report_check_komagata)
-    @checked_by_machida  = checks(:report_check_machida)
+    @checked_by_komagata = checks(:report4_check_komagata)
+    @checked_by_machida  = checks(:report1_check_machida)
   end
 
   test 'Should be valid check' do
