@@ -1,7 +1,19 @@
-report_check_komagata:
+report4_check_komagata:
   user: komagata
-  report: report_1
+  report: report_4
 
-report_check_machida:
+report1_check_machida:
   user: machida
   report: report_1
+
+report3_check_machida:
+  user: machida
+  report: report_3
+
+report4_check_tanaka:
+  user: tanaka
+  report: report_3
+
+report4_check_mineo:
+  user: mineo
+  report: report_3
