@@ -22,3 +22,6 @@
             i.fa.fa-comment-o
           .report-list-item-meta__comment-count-value
             = report.comments.count
+      - if report.checks.any?
+        i.fa.fa-check-circle-o
+        = report.checks.count

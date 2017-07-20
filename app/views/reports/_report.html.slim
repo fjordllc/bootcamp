@@ -4,7 +4,7 @@
       h1.report__title
         = report.title
         - if @report.checks.any?
-          | チェック済み
+          i.fa.fa-check-circle-o
     .report__meta
       .report__author-name
         = report.user.login_name
