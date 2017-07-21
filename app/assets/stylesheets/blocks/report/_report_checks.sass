@@ -1,0 +1,26 @@
+$report-header-author: 3.5rem
+.report-checks
+  +position(relative)
+  max-width: 52rem
+  +margin(horizontal, auto)
+  border-radius: .25rem
+
+.report-check
+  +position(relative)
+  border-radius: .25rem
+  margin-bottom: 2rem
+  padding-left: $report-header-author + 1.25rem
+  +media-breakpoint-down(sm)
+    padding-left: 0
+    margin-bottom: 1rem
+
+.report-check__body
+  background-color: $base-color
+  +padding(horizontal, 1rem)
+  border-radius: .25rem
+  +relative
+  +media-breakpoint-down(sm)
+    &::before,
+    &::after
+      content: none
+
