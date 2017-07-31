@@ -1,5 +1,7 @@
-= link_to check.user, itempro: 'url', class: 'report-comment__author-link' do
-  = gravatar_tag check.user, size: 25, html: { class: "report-list-item__author-icon" }
-time.report-list-item-meta__created-at(datetime="#{check.created_at.to_datetime}" pubdate="pubdate")
-=<> l check.created_at, format: :semi_long
-|にチェックしました。
+.report__meta
+  = link_to check.user, itempro: 'url' do
+    = gravatar_tag check.user, size: 25, html: { class: "report-list-item__author-icon" }
+  .report__author-name
+    = check.user.login_name
+  time.report__created-at(datetime="#{check.created_at.to_datetime}" pubdate="pubdate")
+    =<> l check.created_at, format: :semi_long

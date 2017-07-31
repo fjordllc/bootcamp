@@ -12,20 +12,19 @@ header.page-header
 .page-body
   .container    
     = render 'report', report: @report
-    - unless current_user.checks.find_by(report_id: params[:id]) or current_user == @report.user
-      = render 'reports/report_check_form'
-    - if @checks.any?
-      .report-check-container
-        h2.report-check-container__title
-          = t('check')
-          = @checks.count
-          = t('check_count')
-        .report-checks
-          .report-check
-            .report-check__body
-              - if @checks.any?
-                - @checks.each do |check|
-                  = render 'reports/report_check', report: @report, check: check
+    .report-checks-container
+      - unless current_user.checks.find_by(report_id: params[:id]) or current_user == @report.user
+        .report-check-button
+          = render 'reports/report_check_form'
+      - if @checks.any?
+        .check__inner
+          header.check__header
+            h1.check__title
+              = t('check')
+              = @checks.count
+              = t('check_count')
+          - @checks.each do |check|
+            = render 'reports/report_check', report: @report, check: check
     .report-comments-container
       h2.report-comments-container__title
         = t('comments')
