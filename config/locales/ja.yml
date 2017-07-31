@@ -493,7 +493,7 @@ ja:
   category_was_successfully_updated: "カテゴリーを更新しました。"
   category_was_successfully_deleted: "カテゴリーを削除しました。"
   contact_was_successfully_created: "お申込みを受け付けました。"
-  report_was_successfully_check: "レポートをチェックしました。"
+  report_was_successfully_check: "この日報を確認しました。"
   learning_users: "学習中インターン"
   for: "%{target} 課題"
   for: "%{target} 課題"
@@ -529,7 +529,7 @@ ja:
   related-reports: このチュートリアルに関する日報
   to_index_of_reports: 日報一覧へ
   post_comment: コメントを投稿
-  check_report: このレポートをチェックする
+  check_report: 日報を確認する
   interns: インターン一覧
   admin_interns: インターン情報
   login_name_description: チャットやSNS（Twitter、Github、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。極力ユーザー名は統一するようにしてください。

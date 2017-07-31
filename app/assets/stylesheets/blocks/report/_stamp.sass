@@ -1,0 +1,39 @@
+.stamp
+  font-size: .1rem
+  border: 3px double #f00
+  border-radius: 20%
+  color: #f00
+  width: 4rem
+  height: 4rem
+  position: relative
+  display: flex
+  justify-content: flex-start
+  span
+    display: inline-block
+    width: 100%
+    text-align: center
+    &:first-child
+      line-height: 3.5rem
+      &::before
+        position: absolute
+        top: 0.3rem
+        left: 0
+        right: 0
+        margin: auto
+        width: 90%
+        border-bottom: 1px solid #f00
+        line-height: 1
+        padding-bottom: 0.2rem
+    &:last-child
+      position: absolute
+      top: 2.5rem
+      left: 0
+      right: 0
+      margin: auto
+      width: 90%
+      border-top: 1px solid #f00
+      padding-top: 2px
+      line-height: 1
+
+.stamp-approve span:first-child::before
+  content: "確認済"
