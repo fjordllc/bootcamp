@@ -13,10 +13,10 @@ class CheckReportTest < ActionDispatch::IntegrationTest
     click_link '日報'
     assert_text '作業週2日目'
     click_link '作業週2日目'
-    assert has_button? 'このレポートをチェックする'
-    click_button 'このレポートをチェックする'
-    assert_not has_button? 'このレポートをチェックする'
-    assert_text 'レポートをチェックしました。'
+    assert has_button? '日報を確認する'
+    click_button '日報を確認する'
+    assert_not has_button? '日報を確認する'
+    assert_text 'この日報を確認しました。'
   end
 
   test 'non button in current_user report' do
@@ -30,6 +30,6 @@ class CheckReportTest < ActionDispatch::IntegrationTest
     click_link '日報'
     assert_text '作業週2日目'
     click_link '作業週2日目'
-    assert_not has_button? 'このレポートをチェックする'
+    assert_not has_button? '日報を確認する'
   end
 end
