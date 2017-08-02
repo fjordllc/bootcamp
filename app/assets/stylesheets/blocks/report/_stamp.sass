@@ -1,14 +1,16 @@
 .stamp
-  font-size: .1rem
   border: 3px double #f00
   border-radius: 20%
   color: #f00
   width: 4rem
   height: 4rem
-  position: relative
-  display: flex
-  justify-content: flex-start
+  +position(absolute, left 92%, top 0)
+  justify-content: flex-end
+  transform: rotate(25deg)
+  +media-breakpoint-down(sm)
+    +position(absolute, left 80%, top 0)
   span
+    font-size: xx-small
     display: inline-block
     width: 100%
     text-align: center
