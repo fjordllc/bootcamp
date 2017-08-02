@@ -1,0 +1,21 @@
+.report-checks
+  display: flex
+
+.report-checks__title
+  +text-block(.875rem 2rem, 600 right)
+  flex: 0 0 4.75rem
+  padding-right: 1rem
+
+.report-checks__items
+  flex: 100
+  display: flex
+  +margin(horizontal, -.25rem)
+
+.report-checks-item
+  display: flex
+  align-items: center
+  +margin(horizontal, .25rem)
+
+.report-checks-item__checker-icon
+  +size(2rem)
+  border-radius: 50%

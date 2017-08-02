@@ -8,6 +8,8 @@ class ReportsController < ApplicationController
   before_action :set_my_report, only: %i(edit update destroy)
   before_action :set_comments, only: %w(show edit update destroy)
   before_action :set_comment, only: %w(show edit update destroy)
+  before_action :set_checks, only: %w(show)
+  before_action :set_check, only: %w(show)
   before_action :set_user, only: :show
 
   def index
@@ -95,6 +97,14 @@ class ReportsController < ApplicationController
 
   def set_user
     @user = User.find_by(id: params[:user_id])
+  end
+
+  def set_check
+    @check = Check.new
+  end
+
+  def set_checks
+    @checks = Check.where(report_id: @report.id).order(created_at: :desc)
   end
 
   def set_comment

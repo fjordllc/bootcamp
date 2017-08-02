@@ -3,10 +3,10 @@ header.page-header
   .container
     .page-header__container
       h2.page-header__title
-        | 質問
-      = link_to questions_path, class: 'is-button-standard-md-secondary' do
-        i.fa.fa-angle-left
-        = t('to_index_of_questions')
+        | Q&A
+      = link_to new_question_path, class: "is-button-standard-md-warning" do
+        i.fa.fa-plus
+        | 新規質問
 
 .page-body
   .report

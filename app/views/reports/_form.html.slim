@@ -29,13 +29,13 @@
         .col-md-6.col-xs-12
           = f.label :description, class: 'a-label'
           - if @report_copy_flag == true
-            = f.text_area :description, class: 'a-textarea js-warning-form js-markdown-input practices-edit__input', value: @report_description
+            = f.text_area :description, class: 'a-textarea js-warning-form js-markdown-input markdown-form__text-area', value: @report_description
           - else
-            = f.text_area :description, class: 'a-textarea js-warning-form js-markdown-input practices-edit__input'
+            = f.text_area :description, class: 'a-textarea js-warning-form js-markdown-input markdown-form__text-area'
         .col-md-6.col-xs-12
           .a-label
             | プレビュー
-          .js-markdown-preview.is-long-text-style.practices-edit__input.practices-edit__preview
+          .js-markdown-preview.is-long-text-style.markdown-form__preview
 
   .form-actions
     ul.form-actions__items

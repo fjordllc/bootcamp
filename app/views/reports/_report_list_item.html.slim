@@ -1,7 +1,7 @@
 .report-list-item
   .report-list-item__inner
     .report-list-item__author
-      = gravatar_tag report.user, size: 44, html: { class: "report-list-item__author-icon"}
+      = gravatar_tag report.user, size: 44, html: { class: "report-list-item__author-icon" }
     header.report-list-item__header
       h2.report-list-item__title(itemprop="name")
         = link_to report, itempro: "url", class: "report-list-item__title-link" do
@@ -22,3 +22,8 @@
             i.fa.fa-comment-o
           .report-list-item-meta__comment-count-value
             = report.comments.count
+      - if report.checks.any?
+        .report-list-item-meta__comment-count
+          .report-list-item-meta__comment-count-label
+            i.fa.fa-check-circle-o
+            = report.checks.count

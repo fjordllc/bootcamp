@@ -431,6 +431,8 @@ ja:
   created_by: "created by "
   updated_by: "updated by "
   comments: "コメント"
+  check: "確認者"
+  check_count: "名"
   256interns: "256 INTERNS"
   users: "インターン"
   my_practices: "マイプラクティス"
@@ -449,7 +451,6 @@ ja:
   listing_practices: "プラクティス一覧"
   reports: "日報"
   report_comments_any: "コメント"
-  comments_count: "件"
   listing_companies: "会社一覧"
   listing_questions: "Q & A"
   companies: "会社"
@@ -463,7 +464,7 @@ ja:
   editing_question: 質問編集
   editing_answer: 回答編集
   new_category: "カテゴリー追加"
-  new_question: "質問追加"
+  new_question: "みんなに聞いてみる"
   show: "表示"
   back: "戻る"
   copy: "コピー"
@@ -491,6 +492,7 @@ ja:
   category_was_successfully_updated: "カテゴリーを更新しました。"
   category_was_successfully_deleted: "カテゴリーを削除しました。"
   contact_was_successfully_created: "お申込みを受け付けました。"
+  report_was_successfully_check: "この日報を確認しました。"
   learning_users: "学習中インターン"
   for: "%{target} 課題"
   for: "%{target} 課題"
@@ -525,7 +527,9 @@ ja:
   unsolved: 未解決
   related-reports: このチュートリアルに関する日報
   to_index_of_reports: 日報一覧へ
+  to_index_of_questions: Q&A一覧へ
   post_comment: コメントを投稿
+  check_report: 日報を確認する
   interns: インターン一覧
   admin_interns: インターン情報
   login_name_description: チャットやSNS（Twitter、Github、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。極力ユーザー名は統一するようにしてください。
@@ -538,3 +542,5 @@ ja:
   order: 並び順
   solved: 解決済み
   unsolved: 未解決
+  we_checked: 見たよ
+  best_answer: ベストアンサー

@@ -28,6 +28,15 @@ $ ->
     $('pre code').each (i, block) ->
       hljs.highlightBlock block
 
+  $('.js-markdown-view').each (i) ->
+    val = $(this).html()
+    html = markdown.render(val)
+    console.log(val)
+    $(this).html html
+    $('pre code').each (i, block) ->
+      hljs.highlightBlock block
+
+
 $(document).ready ->
   $('pre code').each (i, block) ->
     hljs.highlightBlock block

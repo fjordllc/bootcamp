@@ -5,7 +5,7 @@ comment_1:
     **CSS** は奥が深いですね。
 
 comment_2:
-  user_id: 1
+  user: komagata
   report: report_3
   description: |-
     どういう教材がいいんでしょうかね？
@@ -26,7 +26,7 @@ comment_4:
     上記を追加しました。ご確認下さい。
 
 comment_5:
-  user_id: 1
+  user: komagata
   report: report_4
   description: |-
     `Comment.where(report_id: @report.id)` じゃないと動かなくないですか？
@@ -37,6 +37,6 @@ comment_6:
   description: "失礼しました。 report_id を id と typo してました :sweat_drops:"
 
 comment_7:
-  user_id: 1
+  user: komagata
   report: report_4
   description: ":thumbsup:"

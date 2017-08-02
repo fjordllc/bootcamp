@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resource :position, only: %i(update)
   end
   resources :reports do
+    resources :checks, only: %i(create)
     resources :comments
   end
   get "pages/new", to: "pages#new"

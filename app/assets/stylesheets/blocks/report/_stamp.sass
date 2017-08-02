@@ -1,0 +1,21 @@
+.stamp
+  border: double .1875rem $stamp-color
+  border-radius: .75rem
+  +size(4.25rem 4rem)
+  padding: .125rem
+  +position(absolute, left 92%, top 0)
+  transform: rotate(25deg)
+  +text-block(.625rem 1, block center $stamp-color)
+  +media-breakpoint-down(sm)
+    +position(absolute, left 80%, top 0)
+
+.stamp__content
+  display: flex
+  align-items: center
+  justify-content: center
+  &.is-title,
+  &.is-user-name
+    +size(100% 32%)
+  &.is-created-at
+    +size(100% 36%)
+    +border(vertical, solid .0625rem $stamp-color)

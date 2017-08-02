@@ -13,8 +13,10 @@
   display: flex
   justify-content: space-between
   align-items: center
+  width: 100%
   &::before
     content: ''
+    width: 3rem
 
 .nda__actions
   min-width: 16rem
@@ -25,7 +27,7 @@ body
     padding-left: 2.65rem
 .nda__close
   +text-block(.875rem 2rem, 600)
-  +size(auto 2rem)
+  +size(3rem 2rem)
   opacity: .5
   cursor: pointer
   &:hover

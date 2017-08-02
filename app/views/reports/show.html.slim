@@ -12,15 +12,21 @@ header.page-header
 .page-body
   .container    
     = render 'report', report: @report
-
     .report-comments-container
       h2.report-comments-container__title
         = t('comments')
         - @comments.any?
+        span.report-comments-container__title-count
           = @comments.count
-          = t('comments_count')
       .report-comments
         - if @comments.any?
-            - @comments.each do |comment|
-              = render "report_comment", report: @report, comment: comment
+          - @comments.each do |comment|
+            = render "report_comment", report: @report, comment: comment
       = render "report_comment_form"
+      - if @checks.any?
+        .report-checks
+          h3.report-checks__title
+            = t("we_checked")
+          ul.report-checks__items
+            - @checks.each do |check|
+              = render 'reports/report_check', report: @report, check: check

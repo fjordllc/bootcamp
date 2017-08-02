@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :learnings
   has_many :comments
   has_many :reports
+  has_many :checks
 
   has_many :completed_learnings,
     -> { where(status_cd: 1) },
