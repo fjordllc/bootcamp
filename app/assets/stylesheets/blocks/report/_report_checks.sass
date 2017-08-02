@@ -1,26 +1,21 @@
-$report-header-author: 3.5rem
+.report-checks
+  display: flex
 
-.check__inner
+.report-checks__title
+  +text-block(.875rem 2rem, 600 right)
+  flex: 0 0 4.75rem
+  padding-right: 1rem
 
-  margin-left: 5rem
-  background-color: $base-color
-  border-radius: .25rem
-  box-shadow: rgba(black, .2) 0 .0625rem .125rem
-  +position(relative)
-  +media-breakpoint-down(sm)
-    margin-left: 0
-    &::before,
-    &::after
-      content: none
+.report-checks__items
+  flex: 100
+  display: flex
+  +margin(horizontal, -.25rem)
 
-.check__header
-  padding: 1rem 2rem
-  border-bottom: $background-color solid .0625rem
-  +media-breakpoint-down(sm)
-    padding: 1rem 1rem 1rem
+.report-checks-item
+  display: flex
+  align-items: center
+  +margin(horizontal, .25rem)
 
-.check__title
-  +text-block(1.1rem, 600)
-  +media-breakpoint-down(sm)
-    font-size: 1rem
-
+.report-checks-item__checker-icon
+  +size(2rem)
+  border-radius: 50%

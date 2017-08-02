@@ -5,8 +5,12 @@
         = report.title
         - if @checks.any?
           .stamp.stamp-approve
-            span = @checks.last.created_at.strftime('%Y/%m/%d')
-            span = @checks.last.user.login_name
+            h2.stamp__content.is-title
+              | 確認済
+            time.stamp__content.is-created-at
+              = @checks.last.created_at.strftime('%Y/%m/%d')
+            .stamp__content.is-user-name
+              = @checks.last.user.login_name
     .report__meta
       .report__author-name
         = report.user.login_name
@@ -19,8 +23,8 @@
             li.report-practices__item
               = link_to practice, class: 'report-practices__item-link' do
                 = practice.title
-    .report__description.js-target-blank.is-long-text-style
-      = emojify(markdown(report.description))
+    .report__description.js-markdown-view.js-target-blank.is-long-text-style
+      = report.description
     footer.report__body-footer
       .report__body-footer-container
         - if @report.user_id == current_user.id
@@ -38,5 +42,8 @@
         = link_to reports_path, class: 'is-button-standard-sm-secondary' do
           i.fa.fa-angle-left
           = t('to_index_of_reports')
+        - unless current_user.checks.find_by(report_id: params[:id]) or current_user == @report.user
+          = render 'reports/report_check_form'
+
   = link_to report.user, itempro: "url", class: "report__author-link" do
     = gravatar_tag report.user, size: 120, html: { class: "report__author-icon" }

@@ -451,7 +451,6 @@ ja:
   listing_practices: "プラクティス一覧"
   reports: "日報"
   report_comments_any: "コメント"
-  comments_count: "件"
   listing_companies: "会社一覧"
   listing_questions: "Q & A"
   companies: "会社"
@@ -465,7 +464,7 @@ ja:
   editing_question: 質問編集
   editing_answer: 回答編集
   new_category: "カテゴリー追加"
-  new_question: "質問追加"
+  new_question: "みんなに聞いてみる"
   show: "表示"
   back: "戻る"
   copy: "コピー"
@@ -528,6 +527,7 @@ ja:
   unsolved: 未解決
   related-reports: このチュートリアルに関する日報
   to_index_of_reports: 日報一覧へ
+  to_index_of_questions: Q&A一覧へ
   post_comment: コメントを投稿
   check_report: 日報を確認する
   interns: インターン一覧
@@ -542,3 +542,5 @@ ja:
   order: 並び順
   solved: 解決済み
   unsolved: 未解決
+  we_checked: 見たよ
+  best_answer: ベストアンサー

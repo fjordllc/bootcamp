@@ -1,41 +1,21 @@
 .stamp
-  border: 3px double #f00
-  border-radius: 20%
-  color: #f00
-  width: 4rem
-  height: 4rem
+  border: double .1875rem $stamp-color
+  border-radius: .75rem
+  +size(4.25rem 4rem)
+  padding: .125rem
   +position(absolute, left 92%, top 0)
-  justify-content: flex-end
   transform: rotate(25deg)
+  +text-block(.625rem 1, block center $stamp-color)
   +media-breakpoint-down(sm)
     +position(absolute, left 80%, top 0)
-  span
-    font-size: xx-small
-    display: inline-block
-    width: 100%
-    text-align: center
-    &:first-child
-      line-height: 3.5rem
-      &::before
-        position: absolute
-        top: 0.3rem
-        left: 0
-        right: 0
-        margin: auto
-        width: 90%
-        border-bottom: 1px solid #f00
-        line-height: 1
-        padding-bottom: 0.2rem
-    &:last-child
-      position: absolute
-      top: 2.5rem
-      left: 0
-      right: 0
-      margin: auto
-      width: 90%
-      border-top: 1px solid #f00
-      padding-top: 2px
-      line-height: 1
 
-.stamp-approve span:first-child::before
-  content: "確認済"
+.stamp__content
+  display: flex
+  align-items: center
+  justify-content: center
+  &.is-title,
+  &.is-user-name
+    +size(100% 32%)
+  &.is-created-at
+    +size(100% 36%)
+    +border(vertical, solid .0625rem $stamp-color)

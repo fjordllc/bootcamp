@@ -97,10 +97,16 @@ $report-header-author: 6rem
   +margin(horizontal, auto)
 
 .report-comments-container__title
-  +text-block(1.25rem 1.45 1rem)
+  +text-block(1.25rem 1.45 1.5rem, flex)
+  align-items: center
   +media-breakpoint-down(sm)
     margin-bottom: 1rem
 
-.report-checks-container
-  max-width: 52rem
-  +margin(horizontal, auto)
+.report-comments-container__title-count
+  +text-block(.875rem 1, 600 flex)
+  align-items: center
+  +size(auto 1.25rem)
+  background-color: #bbbbbb
+  +padding(horizontal, .5rem)
+  border-radius: .5rem
+  margin-left: .25rem

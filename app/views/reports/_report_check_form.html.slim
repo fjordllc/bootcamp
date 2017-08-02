@@ -1,5 +1,3 @@
-.report-check-form
-  = form_for ([@report, @check]) do |f|
-    = hidden_field_tag :user_id, current_user.id
-    .report-check-form__action
-      = f.submit t('check_report'), class: 'is-button-standard-sm-danger'
+= form_for ([@report, @check]), html: {class: "report-check-form"} do |f|
+  = hidden_field_tag :user_id, current_user.id
+  = f.submit t('check_report'), class: 'report-check-form__action is-button-standard-sm-danger'

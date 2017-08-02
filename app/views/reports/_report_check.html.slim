@@ -1,7 +1,3 @@
-.report__meta
+.report-checks-item
   = link_to check.user, itempro: 'url' do
-    = gravatar_tag check.user, size: 25, html: { class: "report-list-item__author-icon" }
-  .report__author-name
-    = check.user.login_name
-  time.report__created-at(datetime="#{check.created_at.to_datetime}" pubdate="pubdate")
-    =<> l check.created_at, format: :semi_long
+    = gravatar_tag check.user, size: 32, html: { class: "report-checks-item__checker-icon" }

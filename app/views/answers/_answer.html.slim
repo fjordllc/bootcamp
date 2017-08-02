@@ -1,4 +1,10 @@
 .report-comment(class="#{answer == answer.question.correct_answer ? "is-correct_answer" : ""}")
+  - if answer == answer.question.correct_answer
+    .answer-badge
+      .answer-badge__icon
+        i.fa.fa-star
+      .answer-badge__label
+        = t("best_answer")
   .report-comment__author
     = link_to answer.user, itempro: 'url', class: 'report-comment__author-link' do
       = gravatar_tag answer.user, size: 200, html: { class: "report-comment__author-icon"}
@@ -11,10 +17,7 @@
         = l answer.updated_at, format: :date_long_with_time
     .report-comments__description.js-target-blank.is-long-text-style
       = emojify(markdown(answer.description))
-    - if answer == answer.question.correct_answer
-      .answer-item__correct
-        | 回答
-    - elsif current_user == answer.question.user
+    - if answer != answer.question.correct_answer && current_user == answer.question.user
         .answer-item__choice
           = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: 'is-button-standard-sm-warning' do
             | 解決にする
