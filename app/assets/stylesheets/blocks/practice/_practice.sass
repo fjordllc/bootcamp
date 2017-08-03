@@ -1,10 +1,27 @@
-.highlight
-  pre
-    display: block
-    overflow-x: auto
-    padding: .5em
-    color: #333
-    background: #f8f8f8
-.practice
-  li
-    list-style-type: disc
+.practice-content
+  position: relative
+  display: block
+  background-color: white
+  border-radius: .25rem
+  box-shadow: rgba(black, .2) 0 .0625rem .125rem
+  margin-bottom: 2rem
+  position: relative
+
+.practice-content__header
+  border-bottom: $background-color solid .0625rem
+  padding: 0.75rem 1.25rem
+  //border-bottom: $card-border-width solid $card-border-color
+  &:first-child
+    +border-radius(top, .25rem)
+
+.practice-content__title
+  +text-block(1rem 1.4, 600)
+
+.practice-content__body
+  padding: 1.25rem
+
+.practice-content__footer
+  padding: .75rem 1.25rem
+  border-top: $background-color solid .0625rem
+  &:last-child
+    +border-radius(bottom, .25rem)

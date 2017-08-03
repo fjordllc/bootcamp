@@ -12,19 +12,18 @@ header.page-header
 .container
   .row.is-gutter-width-32
     .col-md-6.col-xs-12
-      .card
-        .card-header
-          h2.card__title= t('helpers.label.practice.description')
-        .card-block
-          .practice.js-markdown-view.js-target-blank.is-long-text-style
-            = @practice.description
+
+      .practice-content
+        header.practice-content__header
+          h2.practice-content__title= t('helpers.label.practice.description')
+        .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text-style
+          = @practice.description
           
-      .card
-        .card-header
-          h2.card__title= t('helpers.label.practice.goal')
-        .card-block
-          .goal.js-markdown-view.js-target-blank.is-long-text-style
-            = @practice.goal
+      .practice-content
+        .practice-content__header
+          h2.practice-content__title= t('helpers.label.practice.goal')
+        .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text-style
+          = @practice.goal
 
       .page-actions
         ul.page-actions__items
@@ -50,7 +49,8 @@ header.page-header
     .col-md-6.col-xs-12
       // TODO 関連する質問を表示
       //= render 'temp_questions'
-      = render 'reports'
+      - if @practice.reports.any?
+        = render 'reports'
 
     .col-xs-12
       .interns-icons
@@ -61,4 +61,4 @@ header.page-header
             li.completed-users__user
               = link_to user, class: "completed-users__user-link" do
                 span.completed-users__user-icon
-                  = gravatar_tag user, size: 64
+                  = gravatar_tag user, size: 32
