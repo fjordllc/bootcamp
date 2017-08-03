@@ -1,5 +1,24 @@
 ## Changelog
 
+##### v.3.0.21 - 2016-05-19
+* Fixed bug with overflow detection which degraded performance of textareas that exceed their max-width. Fixes #333.
+
+##### v.3.0.20 - 2016-12-04
+* Fixed minor bug where the `resized` event would not fire under specific conditions when changing the overflow.
+
+##### v.3.0.19 - 2016-11-23
+* Bubble dispatched events. Merged #319.
+
+##### v.3.0.18 - 2016-10-26
+* Fixed Firefox issue where calling dispatchEvent on a detached element throws an error.  Fixes #317.
+
+##### v.3.0.17 - 2016-7-25
+* Fixed Chromium issue where getComputedStyle pixel value did not exactly match the style pixel value.  Fixes #306.
+* Removed undocumented argument, minor refactoring, more comments.
+
+##### v.3.0.16 - 2016-7-13
+* Fixed issue with overflowing parent elements. Fixes #298.
+
 ##### v.3.0.15 - 2016-1-26
 * Used newer Event constructor, when available. Fixes #280.
 

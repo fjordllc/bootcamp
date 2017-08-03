@@ -1,6 +1,7 @@
+'use strict';
 
-module.exports.Any = require('./properties/Any/regex');
-module.exports.Cc  = require('./categories/Cc/regex');
-module.exports.Cf  = require('./categories/Cf/regex');
-module.exports.P   = require('./categories/P/regex');
-module.exports.Z   = require('./categories/Z/regex');
+exports.Any = require('./properties/Any/regex');
+exports.Cc  = require('./categories/Cc/regex');
+exports.Cf  = require('./categories/Cf/regex');
+exports.P   = require('./categories/P/regex');
+exports.Z   = require('./categories/Z/regex');
