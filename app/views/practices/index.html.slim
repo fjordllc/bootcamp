@@ -21,8 +21,8 @@ header.page-header
               - if current_user.admin?
                 .categories-item__show-handle.js-show-handle__trigger
                   i.fa.fa-cog
-            .categories-item__description.js-target-blank.is-long-text-style
-              = markdown emojify(category.description)
+            .categories-item__description.js-markdown-view.js-target-blank.is-long-text-style
+              = category.description
             .categories-item__body
               .category-practices.js-category-practices
                 = render category.practices

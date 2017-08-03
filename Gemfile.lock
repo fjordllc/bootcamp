@@ -89,7 +89,6 @@ GEM
       loofah (~> 2.0)
       sax-machine (~> 1.0)
     ffi (1.9.18)
-    gemoji (3.0.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     gravatarify (3.1.1)
@@ -129,9 +128,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.5)
       mime-types (>= 1.16, < 4)
-    markdown_checkboxes (1.0.0)
-      actionpack (>= 2.0.0)
-      redcarpet (>= 3.0.0)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -213,7 +209,6 @@ GEM
       ffi (>= 0.5.0)
     record_tag_helper (1.0.0)
       actionview (~> 5.x)
-    redcarpet (3.4.0)
     sass (3.4.25)
     sassc (1.11.2)
       bundler
@@ -299,7 +294,6 @@ DEPENDENCIES
   diffy
   dynamic_form
   feedjira (= 2.0.0)
-  gemoji
   gravatarify
   jbuilder (~> 2.5)
   jquery-rails
@@ -307,7 +301,6 @@ DEPENDENCIES
   letter_opener
   letter_opener_web
   listen (~> 3.0.5)
-  markdown_checkboxes
   minitest (~> 5.10, != 5.10.2)
   newrelic_rpm
   oulu
@@ -319,7 +312,6 @@ DEPENDENCIES
   rails_12factor
   ransack
   record_tag_helper (~> 1.0)
-  redcarpet
   sassc-rails
   simple_enum
   simple_seed

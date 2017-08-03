@@ -2,7 +2,7 @@
   .category-practices-item__inner
     .category-practices-item__value.is-title
       = link_to practice, class: 'category-practices-item__title-link'
-        = emojify(practice.title)
+        = practice.title
       - if practice.started_users.student.exists?
         .category-practices-item__value.is-started-users
           - practice.started_users.student.each do |user|
