@@ -4,6 +4,6 @@
   = form_for ([@report, @comment]), html: {class: 'report-comment-form__form'} do |f|
     .form-items
       .form-item
-        = f.text_area :description, size: '5x5', required: true, class: 'a-textarea report-comment-form__textarea js-markdown-input'
+        = f.text_area :description, required: true, class: 'a-textarea report-comment-form__textarea js-markdown-input'
     .report-comment-form__action
       = f.submit t('post_comment'), class: 'is-button-standard-md-primary'

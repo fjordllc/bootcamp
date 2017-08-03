@@ -3,6 +3,7 @@ $ ->
     breaks: true
     langPrefix: 'language-'
     linkify: true
+    html: false
     highlight: (str, lang) ->
       if lang and hljs.getLanguage(lang)
         try
@@ -29,7 +30,7 @@ $ ->
       hljs.highlightBlock block
 
   $('.js-markdown-view').each (i) ->
-    val = $(this).html()
+    val = $(this).text()
     html = markdown.render(val)
     console.log(val)
     $(this).html html

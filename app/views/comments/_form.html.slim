@@ -3,11 +3,16 @@
     .row.js-markdown-parent
       .col-md-6.col-xs-12
         .form-group
-          | 内容
-          = f.text_area :description, size: '5x5', required: true, class: 'form-control js-warning-form js-markdown-input practices-edit__input'
+          label.a-label
+            | 内容
+          = f.text_area :description, required: true, class: 'a-textarea js-warning-form js-markdown-input markdown-form__text-area'
       .col-md-6.col-xs-12
-        | プレビュー
-        .js-markdown-preview.is-long-text-style.practices-edit__preview
-    .form-group
-      = f.submit nil, class: 'btn btn-primary btn-sm'
-      = link_to 'キャンセル', report_path(@report), class: 'btn btn-secondary btn-sm'
+        label.a-label
+          | プレビュー
+        .js-markdown-preview.is-long-text-style.markdown-form__preview
+    .form-actions
+      ul.form-actions__items
+        li.form-actions__item
+          = f.submit nil, class: 'is-button-standard-lg-warning'
+        li.form-actions__item
+          = link_to 'キャンセル', report_path(@report), class: "is-button-standard-md-secondary"
