@@ -25,5 +25,6 @@
       - if report.checks.any?
         .report-list-item-meta__comment-count
           .report-list-item-meta__comment-count-label
-            i.fa.fa-check-circle-o
+            i.fa.fa-check
+          .report-list-item-meta__comment-count-value
             = report.checks.count

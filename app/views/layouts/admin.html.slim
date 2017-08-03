@@ -31,3 +31,4 @@ html.is-admin lang="ja"
           .recent-reports__items
             - @reports.each do |report|
               = render 'reports/recent_reports', report: report
+    = render('to_top')
