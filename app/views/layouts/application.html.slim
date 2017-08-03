@@ -1,13 +1,13 @@
 doctype html
 html.is-application lang="ja"
   head
-    meta charset="utf-8" /
-    meta content="IE=edge" http-equiv="X-UA-Compatible" /
-    meta content="width=device-width, initial-scale=1" name="viewport" /
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
     - page_title = yield :title
     title #{page_title.present? ? page_title + ' - ' : ''}#{t('256interns')}
     = favicon_link_tag
-    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', media: 'all'
+    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', media: 'all'
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
     = javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', integrity: 'sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==', crossorigin: 'anonymous'
@@ -30,8 +30,4 @@ html.is-application lang="ja"
           .recent-reports__items
             - @reports.each do |report|
               = render 'reports/recent_reports', report: report
-    .to-top.js-to-top
-      .container
-        .to-top__container
-          a.to-top__link(data-scroll href= "#body")
-            i.fa.fa-arrow-up
+    = render('to_top')

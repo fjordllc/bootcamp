@@ -15,8 +15,8 @@
           = answer.user.login_name
       time.report-comment__created-at(datetime='#{answer.created_at.to_datetime}' pubdate='pubdate')
         = l answer.updated_at, format: :date_long_with_time
-    .report-comments__description.js-target-blank.is-long-text-style
-      = emojify(markdown(answer.description))
+    .report-comments__description.js-markdown-view.js-target-blank.is-long-text-style
+      = answer.description
     - if answer != answer.question.correct_answer && current_user == answer.question.user
         .answer-item__choice
           = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: 'is-button-standard-sm-warning' do
