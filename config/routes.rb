@@ -42,4 +42,6 @@ Rails.application.routes.draw do
   get 'login'  => 'user_sessions#new',     as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
   resource :contacts, only: %i(new create)
+
+  get "thanks", to: "static_pages#thanks"
 end

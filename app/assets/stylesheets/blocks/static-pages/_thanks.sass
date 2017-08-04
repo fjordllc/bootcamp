@@ -1,0 +1,29 @@
+.thanks
+  max-width: 26rem
+  +padding(horizontal, 1rem)
+  +margin(horizontal, auto)
+  margin-top: 6rem
+
+.thanks__logo-image
+  max-width: 12rem
+  display: block
+  +margin(horizontal, auto)
+  margin-bottom: 3rem
+
+.thanks__body
+  background-color: $base-color
+  padding: 1.5rem
+  border-radius: .25rem
+
+.thanks__icon
+  +text-block(4rem 1 .5rem, center $main-color)
+
+.thanks__title
+  +text-block(.875rem 1.4 .75rem, center 600)
+
+.thanks__message
+  p
+    +text-block(.75rem 1.6, center)
+  a
+    +default-link
+    +hover-link-reversal

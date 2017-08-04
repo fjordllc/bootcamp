@@ -3,6 +3,8 @@
   display: block
   +margin(horizontal, auto)
   margin-top: 4rem
+  +media-breakpoint-down(sm)
+    margin-top: 2rem
 
 .auth-form
   +margin(vertical, 4rem 4rem)
@@ -11,9 +13,13 @@
   +margin(horizontal, auto)
   border-radius: .375rem
   +media-breakpoint-down(sm)
+    margin-top: 2rem
     +margin(horizontal, 1rem)
   &.is-sign-up
     max-width: 30rem
+  &.is-home
+    max-width: 30rem
+    margin-top: 2.5rem
   &.is-contact
     max-width: 35rem
 
@@ -34,82 +40,3 @@
 
 .auth-form-items
   margin-bottom: 1.25rem
-
-.auth-form-radio-button
-  &.is-half
-    flex: 0 0 50%
-    max-width: 50%
-    +padding(horizontal, .5rem)
-    margin-bottom: .5rem
-    +media-breakpoint-down(sm)
-      flex: 100%
-      max-width: 100%
-
-.auth-form-radio-button__label
-  +text-block(.8125rem 1.45, block)
-  border: solid .0625rem #c1c5b9
-  padding: .5rem .5rem .5rem 2rem
-  cursor: pointer
-  border-radius: .25rem
-  margin-bottom: .25rem
-  transition: background-color .2s ease-in, border-color  .2s ease-in
-  +relative
-  &::before
-    content: ''
-    display: block
-    +size(.875rem)
-    border: solid .0625rem #bbbbbb
-    border-radius: 50%
-    +position(absolute, left .75rem, top 50%)
-    margin-top: -.4375rem
-    box-shadow: rgba(black, .1) 0 1px 2px inset
-    background-color: $base-color
-  &.is-checked
-    background-color: #fffadd
-    border-color: #d9c02a
-    font-weight: 600
-    &::after
-      content: ''
-      display: block
-      +size(.375rem)
-      border-radius: 50%
-      +position(absolute, left 1rem, top 50%)
-      margin-top: -.1875rem
-      box-shadow: rgba(black, .1) 0 1px 2px
-      background-color: #4193e9
-  input
-    opacity: 0
-    +position(absolute)
-
-.auth-form-checkbox__label
-  +text-block(.8125rem 1.45, block)
-  border: solid .0625rem #c1c5b9
-  padding: .5rem .5rem .5rem 2rem
-  cursor: pointer
-  border-radius: .25rem
-  margin-bottom: .25rem
-  +relative
-  transition: background-color .2s ease-in, border-color  .2s ease-in
-  &::before
-    content: ''
-    display: block
-    +size(.875rem)
-    border: solid .0625rem #bbbbbb
-    border-radius: .1875rem
-    +position(absolute, left .75rem, top 50%)
-    margin-top: -.4375rem
-    box-shadow: rgba(black, .1) 0 1px 2px inset
-    background-color: $base-color
-  &.is-checked
-    background-color: #fffadd
-    border-color: #d9c02a
-    font-weight: 600
-    &::after
-      +fa('\f00c')
-      +text-block(.75rem .875rem, center block #4193e9)
-      +size(.875rem)
-      +position(absolute, left .75rem, top 50%)
-      margin-top: -.4375rem
-  input
-    opacity: 0
-    +position(absolute)

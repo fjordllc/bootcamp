@@ -176,7 +176,7 @@ ja:
         password: "パスワード"
         password_confirmation: "パスワード（確認）"
         current_password: "現在のパスワード"
-        remember_me: "記憶する"
+        remember_me: "次回から自動的にログイン"
         job: "職種"
         purpose: "インターンの目的"
         find_job_assist: "就職支援"

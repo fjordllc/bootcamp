@@ -7,10 +7,11 @@
       = f.label :password, class: 'a-sm-label'
       = f.password_field :password, class: 'a-sm-text-input'
     .auth-form-item
-      = check_box_tag :remember, params[:remember], true
-      = f.label :remember_me
+      label.auth-form-item__remember-me
+        = check_box_tag :remember, params[:remember], true, class: "auth-form-item__remember-me-input"
+        = t("helpers.label.user.remember_me")
       .auth-form-item__help.is-text-align-right
-        = link_to '', class: 'auth-form-item__help-link' do
+        span.auth-form-item__help-link(data-target='#forgot-password-modal' data-toggle='modal')
           | パスワードを忘れた
   .auth-form-action
     = button_tag(class: 'is-button-standard-md-warning') do

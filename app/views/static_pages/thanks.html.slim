@@ -1,0 +1,14 @@
+.thanks
+  = link_to root_path, class: "" do
+    = image_tag('logo-colored.svg', class: 'thanks__logo-image')
+  .thanks__body
+    .thanks__icon
+      i.fa.fa-check-circle-o
+    h2.thanks__title
+      | 送信完了
+    .thanks__message
+      p
+        | インターン申し込みが送信されました。
+        br
+        = link_to "@komagata", "https://twitter.com/komagata", target: "_blank"      
+        | が折り返しメールします。

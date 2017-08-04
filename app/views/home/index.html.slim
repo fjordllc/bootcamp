@@ -1,4 +1,7 @@
 - content_for(:page_classes, 'no-header' 'no-recent-reports' 'no-global-nav')
+- content_for(:import_javascript) do
+  = javascript_include_tag "https://sdk.form.run/js/v2/formrun.js"
+
 = render('main_visual')
 .welcome-sections
   = render('fee')
@@ -7,18 +10,7 @@
   = render('finding_employment')
   = render('administrator')
   = render('other')
-  section.welcome-section
-    .container
-      h2.welcome-section__title
-        | インターンに申し込む
-      section.welcome-child-section
-        .form-actions.is-margin-bottom-0
-          ul.form-actions__items
-            li.form-actions__item
-              = link_to "https://form.run/@intern", class: "is-button-standard-xl-warning is-block" do
-                i.fa.fa-envelope-o
-                | 申込みはこちらから
-
+  = render('form')
 footer.footer
   .container
     small.footer__copyright
