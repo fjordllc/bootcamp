@@ -18,13 +18,7 @@
           = link_to new_user_path, class: 'auth-form-nav__item-link' do
             | サインアップ
         li.auth-form-nav__item
-          = link_to login_path, class: 'auth-form-nav__item-link' do
-            | 秘密保持契約書
+          span.auth-form-nav__item-link(data-target='#nda-modal' data-toggle='modal')
+            | 秘密保持契約
 
-.auth-form
-  header.auth-form__header
-    h1.auth-form__title
-      = t('forgot_password')
-  = render 'forget_password_form'
-  span.auth-form-nav__item-link(data-target='#nda-modal' data-toggle='modal')
-    | 秘密保持契約内容を確認
+= render "forgot_password_modal"
