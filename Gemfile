@@ -29,6 +29,7 @@ gem "bootstrap", "= 4.0.0.alpha6"
 gem "oulu"
 gem "sassc-rails"
 gem "ransack"
+gem "rack-user_agent"
 
 group :production, :staging do
   gem "newrelic_rpm"
