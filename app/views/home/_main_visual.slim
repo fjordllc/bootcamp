@@ -1,7 +1,9 @@
 .main-visual
-  nav.main-visual-nav.js-open-main-visual-nav__target.js-close-main-visual-nav__target
+  nav.main-visual-nav(class="#{request.from_iphone? || request.from_android? ? "js-open-main-visual-nav__target js-close-main-visual-nav__target" : "js-header"}")
     .container
       .main-visual-nav__container
+        a.main-visual-nav__logo-link(data-scroll href= '#body')
+          = image_tag("home-header-logo.svg", class: "main-visual-nav__logo-image")
         ul.main-visual-nav__items
           li.main-visual-nav__item
             a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#fee')
@@ -21,6 +23,9 @@
           li.main-visual-nav__item
             a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#other')
               | その他
+          li.main-visual-nav__item
+            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#form')
+              | 申し込み
           li.main-visual-nav__item
             = link_to "/login", class: 'main-visual-nav__item-link js-close-main-visual-nav' do
               | ログイン

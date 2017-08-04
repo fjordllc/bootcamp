@@ -3,12 +3,24 @@
   +margin(horizontal, auto)
 
 .welcome-section
-  +padding(vertical, 3rem)
+  +padding(vertical, 7rem 3rem)
+  margin-top: -4rem
   border-bottom: solid .0625rem #eee
   +media-breakpoint-down(sm)
     +padding(vertical, 2rem)
+    margin-top: 0
   &.is-auth-form
+    margin-top: 0
+    padding-top: 3rem
     background-color: $background-color
+    #form
+      margin-top: -6rem
+      padding-top: 6rem
+      +media-breakpoint-down(sm)
+        margin-top: 0
+        padding-top: 0
+    +media-breakpoint-down(sm)
+      +padding(vertical, 2rem)
 
 .welcome-section__title
   +text-block(1.75rem 1.45 1.25rem, 600 center #ec4963)
