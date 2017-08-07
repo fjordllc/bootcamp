@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170717172137) do
+ActiveRecord::Schema.define(version: 20170807075444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 20170717172137) do
   end
 
   create_table "checks", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "report_id"
+    t.integer "user_id", null: false
+    t.integer "report_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["report_id"], name: "index_checks_on_report_id"
@@ -82,6 +82,8 @@ ActiveRecord::Schema.define(version: 20170717172137) do
     t.boolean "user_policy_agreed", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "purpose_content", null: false
+    t.datetime "purpose_deadline", null: false
   end
 
   create_table "learnings", id: :serial, force: :cascade do |t|
@@ -111,8 +113,8 @@ ActiveRecord::Schema.define(version: 20170717172137) do
   end
 
   create_table "practices_reports", id: false, force: :cascade do |t|
-    t.bigint "practice_id", null: false
-    t.bigint "report_id", null: false
+    t.integer "practice_id", null: false
+    t.integer "report_id", null: false
     t.index ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id"
     t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
   end
