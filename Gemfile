@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "2.4.0"
 
-gem "rails", "~> 5.0.1"
+gem "rails", "~> 5.1.3"
 gem "uglifier", ">= 1.3.0"
 gem "coffee-rails", "~> 4.2"
 gem "dynamic_form"
@@ -54,5 +54,3 @@ group :development, :test do
   gem "byebug", platform: :mri
   gem 'minitest', '~> 5.10', '!= 5.10.2'
 end
-
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
