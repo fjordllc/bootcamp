@@ -42,7 +42,7 @@
         = link_to reports_path, class: 'is-button-standard-sm-secondary' do
           i.fa.fa-angle-left
           = t('to_index_of_reports')
-        - unless current_user.checks.find_by(report_id: params[:id]) or !current_user.admin? or current_user == @report.user
+        - if admin_can_check_it?
           = render 'reports/report_check_form'
 
   = link_to report.user, itempro: "url", class: "report__author-link" do
