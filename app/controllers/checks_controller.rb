@@ -1,6 +1,7 @@
 class ChecksController < ApplicationController
   include Gravatarify::Helper
-  before_action :set_report
+  before_action :set_report, only: [:create]
+  before_action :require_admin_login, only: [:create]
 
   def create
     @check        = Check.new
