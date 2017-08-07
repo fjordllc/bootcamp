@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-ruby "2.4.0"
+ruby "2.4.1"
 
-gem "rails", "~> 5.0.1"
+gem "rails", "~> 5.1.3"
 gem "uglifier", ">= 1.3.0"
 gem "coffee-rails", "~> 4.2"
 gem "dynamic_form"
@@ -37,12 +37,12 @@ group :production, :staging do
 end
 
 group :development do
-  gem 'pry-remote'
-  gem 'xray-rails'
-  gem 'web-console'
-  gem 'listen', '~> 3.0.5'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem "pry-remote"
+  gem "xray-rails"
+  gem "web-console"
+  gem "listen", "~> 3.0.5"
+  gem "spring"
+  gem "spring-watcher-listen", "~> 2.0.0"
   gem "letter_opener"
   gem "letter_opener_web"
 end
@@ -52,7 +52,5 @@ group :development, :test do
   gem "pry-byebug"
   gem "simple_seed"
   gem "byebug", platform: :mri
-  gem 'minitest', '~> 5.10', '!= 5.10.2'
+  gem "minitest", "~> 5.10", "!= 5.10.2"
 end
-
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
