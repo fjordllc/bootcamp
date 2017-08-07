@@ -1,8 +1,8 @@
 class ChecksController < ApplicationController
   include Gravatarify::Helper
+  before_action :set_report
 
   def create
-    @report       = Report.find(params[:report_id])
     @check        = Check.new
     @check.user   = current_user
     @check.report = @report
