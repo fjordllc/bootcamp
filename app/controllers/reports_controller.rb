@@ -67,7 +67,7 @@ class ReportsController < ApplicationController
       params.require(:report).permit(
         :title,
         :description,
-        :practice_ids => []
+        practice_ids: []
       )
     end
 

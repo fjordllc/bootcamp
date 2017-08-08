@@ -14,6 +14,6 @@ lesson_#{c.id}:
       EOS
     end
 
-    render :inline => output, :content_type => 'text/yaml'
+    render inline: output, content_type: 'text/yaml'
   end
 end
