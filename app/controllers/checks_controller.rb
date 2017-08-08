@@ -7,10 +7,10 @@ class ChecksController < ApplicationController
     @check.user   = current_user
     @check.report = @report
     if @check.save
-      redirect_to @report, notice: t('report_was_successfully_check')
+      redirect_to @report, notice: t("report_was_successfully_check")
       notify_to_slack(@check)
     else
-      render 'reports/report'
+      render "reports/report"
     end
   end
 

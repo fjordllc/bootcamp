@@ -42,7 +42,7 @@ class ReportsController < ApplicationController
     @report.user = current_user
     if @report.save
       notify_to_slack(@report)
-      redirect_to @report, notice: t('report_was_successfully_created')
+      redirect_to @report, notice: t("report_was_successfully_created")
     else
       render :new
     end
@@ -50,7 +50,7 @@ class ReportsController < ApplicationController
 
   def update
     if @report.update(report_params)
-      redirect_to @report, notice: t('report_was_successfully_updated')
+      redirect_to @report, notice: t("report_was_successfully_updated")
     else
       render :edit
     end
@@ -58,7 +58,7 @@ class ReportsController < ApplicationController
 
   def destroy
     @report.destroy
-    redirect_to reports_url, notice: t('report_was_successfully_deleted')
+    redirect_to reports_url, notice: t("report_was_successfully_deleted")
   end
 
   private

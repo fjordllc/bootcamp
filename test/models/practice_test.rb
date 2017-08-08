@@ -1,9 +1,9 @@
-require 'test_helper'
+require "test_helper"
 
 class PracticeTest < ActiveSupport::TestCase
   fixtures :learnings, :practices, :users
 
-  test 'status(user)' do
+  test "status(user)" do
     assert_equal \
       practices(:practice_1).status(users(:komagata)),
       :started
@@ -13,7 +13,7 @@ class PracticeTest < ActiveSupport::TestCase
       :not_complete
   end
 
-  test 'complete?(user)' do
+  test "complete?(user)" do
     assert practices(:practice_1).complete?(users(:komagata))
     assert_not practices(:practice_1).complete?(users(:machida))
   end

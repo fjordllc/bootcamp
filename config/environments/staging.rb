@@ -33,7 +33,7 @@ Interns::Application.configure do
   config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
-  config.assets.version = '1.0'
+  config.assets.version = "1.0"
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
@@ -81,12 +81,12 @@ Interns::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     authentication: :plain,
-    address:        'smtp.sendgrid.net',
+    address:        "smtp.sendgrid.net",
     port:           587,
-    domain:         'heroku.com',
-    user_name:      ENV['SENDGRID_USERNAME'],
-    password:       ENV['SENDGRID_PASSWORD']
+    domain:         "heroku.com",
+    user_name:      ENV["SENDGRID_USERNAME"],
+    password:       ENV["SENDGRID_PASSWORD"]
   }
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { host: 'interns-com-staging.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: "interns-com-staging.herokuapp.com" }
 end

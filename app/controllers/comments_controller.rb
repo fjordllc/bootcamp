@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
 
     if @comment.save
       notify_to_slack(@comment)
-      redirect_to @report, notice: t('comment_was_successfully_created')
+      redirect_to @report, notice: t("comment_was_successfully_created")
     else
       render :new
     end
@@ -28,7 +28,7 @@ class CommentsController < ApplicationController
     @report = Report.find_by(id: @comment.report_id)
 
     if @comment.update(comment_params)
-      redirect_to @report, notice: t('comment_was_successfully_updated')
+      redirect_to @report, notice: t("comment_was_successfully_updated")
     else
       render :edit
     end
@@ -38,7 +38,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @report = Report.find_by(id: @comment.report_id)
     @comment.destroy
-    redirect_to @report, notice: t('comment_was_successfully_deleted')
+    redirect_to @report, notice: t("comment_was_successfully_deleted")
   end
 
   private

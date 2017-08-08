@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   resources :questions
 
-  root to: 'home#index'
+  root to: "home#index"
   namespace :admin do
-    root to: 'home#index', as: :root
+    root to: "home#index", as: :root
     resources :companies
     resources :users
     resources :categories, except: %i(show) do
@@ -39,8 +39,8 @@ Rails.application.routes.draw do
   end
   resources :courses, only: :index
   resources :chat_notices, only: :create
-  get 'login'  => 'user_sessions#new',     as: :login
-  get 'logout' => 'user_sessions#destroy', as: :logout
+  get "login"  => "user_sessions#new",     as: :login
+  get "logout" => "user_sessions#destroy", as: :logout
   resource :contacts, only: %i(new create)
 
   get "thanks", to: "static_pages#thanks"

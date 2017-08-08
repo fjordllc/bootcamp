@@ -2,7 +2,7 @@ module Interns
   class Dumper
     class << self
       def dump_categories
-        Category.order('position').each do |c|
+        Category.order("position").each do |c|
           puts <<-EOS
 courses_#{c.id}:
   id: #{c.id}
@@ -16,7 +16,7 @@ courses_#{c.id}:
       end
 
       def dump_practices
-        Practice.order('position').each do |c|
+        Practice.order("position").each do |c|
           puts <<-EOS
 lesson_#{c.id}:
   id: #{c.id}

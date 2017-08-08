@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   has_many :completed_learnings,
     -> { where(status_cd: 1) },
-    class_name: 'Learning'
+    class_name: "Learning"
 
   has_many :completed_practices,
     through: :completed_learnings,
@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   has_many :active_learnings,
     -> { where(status_cd: 0) },
-    class_name: 'Learning'
+    class_name: "Learning"
 
   has_many :active_practices,
     through: :active_learnings,
@@ -61,9 +61,9 @@ class User < ActiveRecord::Base
   end
 
   def twitter_id
-    twitter_url.sub(/^https:\/\/twitter.com\//, '')
-               .sub(/^http:\/\/twitter.com\//, '')
-               .sub(/^@/, '')
+    twitter_url.sub(/^https:\/\/twitter.com\//, "")
+               .sub(/^http:\/\/twitter.com\//, "")
+               .sub(/^@/, "")
   end
 
   def admin?
@@ -72,11 +72,11 @@ class User < ActiveRecord::Base
 
   def part(now = Time.now)
     weeks = ((now.beginning_of_week - created_at.beginning_of_week) / 60 / 60 / 24 / 7).to_i
-    weeks.even? ? 'learning_week' : 'working_week'
+    weeks.even? ? "learning_week" : "working_week"
   end
 
   def learning_week?(now = Time.now)
-    part == 'learning_week'
+    part == "learning_week"
   end
 
   def working_week?(now = Time.now)
@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
   end
 
   def nexway?
-    company.name == '株式会社ネクスウェイ'
+    company.name == "株式会社ネクスウェイ"
   end
 
   private

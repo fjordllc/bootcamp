@@ -47,9 +47,9 @@ class UsersController < ApplicationController
         username: "#{@user.login_name}@256interns.com",
         icon_url: gravatar_url(@user)
       login(@user.login_name, params[:user][:password], true)
-      redirect_to :practices, notice: t('registration_successfull')
+      redirect_to :practices, notice: t("registration_successfull")
     else
-      render 'new'
+      render "new"
     end
   end
 
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to @user, notice: "ユーザーを更新しました。"
     else
-      render 'edit'
+      render "edit"
     end
   end
 
