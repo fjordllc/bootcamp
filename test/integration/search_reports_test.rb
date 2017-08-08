@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class SearchReportsTest < ActionDispatch::IntegrationTest
-
   def setup
     @report_1 = reports(:report_1)
     @report_2 = reports(:report_2)

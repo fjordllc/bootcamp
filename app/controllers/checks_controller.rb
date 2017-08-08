@@ -31,5 +31,4 @@ class ChecksController < ApplicationController
                            text:     "#{check.user.login_name}さんが#{check.report.title}を確認しました。"
                          }]
   end
-
 end

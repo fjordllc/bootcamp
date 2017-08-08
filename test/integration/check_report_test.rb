@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class CheckReportTest < ActionDispatch::IntegrationTest
-
   test 'Success Repost Checking' do
     visit '/login'
     within('#sign-in-form') do

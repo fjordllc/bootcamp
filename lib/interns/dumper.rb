@@ -38,7 +38,6 @@ user_#{c.id}:
           EOS
         end
       end
-
     end
   end
 end

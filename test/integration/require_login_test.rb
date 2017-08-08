@@ -1,7 +1,6 @@
 require "test_helper"
 
 class RequireLoginTest < ActionDispatch::IntegrationTest
-
   test 'users_path' do
     get '/users'
     assert_redirected_to '/login'
