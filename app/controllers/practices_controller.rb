@@ -54,15 +54,15 @@ class PracticesController < ApplicationController
 
   private
 
-  def practice_params
-    params.require(:practice).permit(
-      :title,
-      :description,
-      :goal,
-      :category_id,
-      :position
-    )
-  end
+    def practice_params
+      params.require(:practice).permit(
+        :title,
+        :description,
+        :goal,
+        :category_id,
+        :position
+      )
+    end
 
   def set_practice
     @practice = Practice.find(params[:id])

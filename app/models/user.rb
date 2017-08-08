@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
 
   private
 
-  def password_required?
-    new_record? || password.present?
-  end
+    def password_required?
+      new_record? || password.present?
+    end
 end

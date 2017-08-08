@@ -43,11 +43,11 @@ class CommentsController < ApplicationController
 
   private
 
-  def comment_params
-    params.require(:comment).permit(
-      :description
-    )
-  end
+    def comment_params
+      params.require(:comment).permit(
+        :description
+      )
+    end
 
   def set_user
     @user = User.find_by(id: params[:user_id])

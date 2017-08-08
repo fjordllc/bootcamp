@@ -16,9 +16,9 @@ class ChecksController < ApplicationController
 
   private
 
-  def set_report
-    @report = Report.find(params[:report_id])
-  end
+    def set_report
+      @report = Report.find(params[:report_id])
+    end
 
   def notify_to_slack(check)
     name = "#{check.user.login_name}"

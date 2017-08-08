@@ -5,9 +5,9 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def not_authenticated
-    redirect_to login_path, alert: t('please_sign_in_first')
-  end
+    def not_authenticated
+      redirect_to login_path, alert: t('please_sign_in_first')
+    end
 
   def admin_login?
     current_user && current_user.admin?
@@ -26,9 +26,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def init_user
-    @current_user = User.find(current_user.id) if current_user
-  end
+    def init_user
+      @current_user = User.find(current_user.id) if current_user
+    end
 
   def notify(text, options = {})
     if Rails.env.production?

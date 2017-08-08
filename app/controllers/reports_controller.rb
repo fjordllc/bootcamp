@@ -63,13 +63,13 @@ class ReportsController < ApplicationController
 
   private
 
-  def report_params
-    params.require(:report).permit(
-      :title,
-      :description,
-      :practice_ids => []
-    )
-  end
+    def report_params
+      params.require(:report).permit(
+        :title,
+        :description,
+        :practice_ids => []
+      )
+    end
 
   def set_search_word
     @search_word = params[:word]
