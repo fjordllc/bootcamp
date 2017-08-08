@@ -52,25 +52,25 @@ class QuestionsController < ApplicationController
       @question = Question.find(params[:id])
     end
 
-  def question_params
-    params.require(:question).permit(
-      :title,
-      :description,
-      :user_id,
-      :resolve
-    )
-  end
+    def question_params
+      params.require(:question).permit(
+        :title,
+        :description,
+        :user_id,
+        :resolve
+      )
+    end
 
-  def notify_to_slack(question)
-    name = "#{question.user.login_name}"
-    link = "<#{question_url(question)}|#{question.title}>"
+    def notify_to_slack(question)
+      name = "#{question.user.login_name}"
+      link = "<#{question_url(question)}|#{question.title}>"
 
-    notify "#{name}質問しました。#{link}",
-      username: "#{question.user.login_name} (#{question.user.full_name})",
-      icon_url: gravatar_url(question.user),
-      attachments: [{
-        fallback: "question body.",
-        text: question.description
-      }]
-  end
+      notify "#{name}質問しました。#{link}",
+        username: "#{question.user.login_name} (#{question.user.full_name})",
+        icon_url: gravatar_url(question.user),
+        attachments: [{
+          fallback: "question body.",
+          text: question.description
+        }]
+    end
 end

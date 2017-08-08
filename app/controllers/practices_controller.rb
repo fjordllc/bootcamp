@@ -64,7 +64,7 @@ class PracticesController < ApplicationController
       )
     end
 
-  def set_practice
-    @practice = Practice.find(params[:id])
-  end
+    def set_practice
+      @practice = Practice.find(params[:id])
+    end
 end

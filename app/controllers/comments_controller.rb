@@ -49,24 +49,24 @@ class CommentsController < ApplicationController
       )
     end
 
-  def set_user
-    @user = User.find_by(id: params[:user_id])
-  end
+    def set_user
+      @user = User.find_by(id: params[:user_id])
+    end
 
-  def set_my_comment
-    @comment = current_user.comments.find(params[:id])
-  end
+    def set_my_comment
+      @comment = current_user.comments.find(params[:id])
+    end
 
-  def notify_to_slack(comment)
-    name = "#{comment.user.login_name}"
-    link = "<#{report_url(comment.report)}#comment_#{comment.id}|#{comment.report.title}>"
+    def notify_to_slack(comment)
+      name = "#{comment.user.login_name}"
+      link = "<#{report_url(comment.report)}#comment_#{comment.id}|#{comment.report.title}>"
 
-    notify "#{name} commented to #{link}",
-      username: "#{comment.user.login_name} (#{comment.user.full_name})",
-      icon_url: gravatar_url(comment.user),
-      attachments: [{
-        fallback: "comment body.",
-        text: comment.description
-      }]
-  end
+      notify "#{name} commented to #{link}",
+        username: "#{comment.user.login_name} (#{comment.user.full_name})",
+        icon_url: gravatar_url(comment.user),
+        attachments: [{
+          fallback: "comment body.",
+          text: comment.description
+        }]
+    end
 end

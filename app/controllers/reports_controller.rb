@@ -71,60 +71,60 @@ class ReportsController < ApplicationController
       )
     end
 
-  def set_search_word
-    @search_word = params[:word]
-  end
-
-  def set_reports
-    if params[:word].present?
-      query_arr = @search_word.split(/[[:blank:]]+/)
-      @search = Report.ransack(title_or_description_cont_any: query_arr)
-      @reports = @search.result.order(updated_at: :desc, id: :desc).page(params[:page]).per(15)
-    elsif params[:practice_id].present?
-      @reports = Practice.find(params[:practice_id]).reports.page(params[:page]).per(15)
-    else
-      @reports = Report.order(updated_at: :desc, id: :desc).page(params[:page]).per(30)
+    def set_search_word
+      @search_word = params[:word]
     end
-  end
 
-  def set_report
-    @report = Report.find(params[:id])
-  end
+    def set_reports
+      if params[:word].present?
+        query_arr = @search_word.split(/[[:blank:]]+/)
+        @search = Report.ransack(title_or_description_cont_any: query_arr)
+        @reports = @search.result.order(updated_at: :desc, id: :desc).page(params[:page]).per(15)
+      elsif params[:practice_id].present?
+        @reports = Practice.find(params[:practice_id]).reports.page(params[:page]).per(15)
+      else
+        @reports = Report.order(updated_at: :desc, id: :desc).page(params[:page]).per(30)
+      end
+    end
 
-  def set_my_report
-    @report = current_user.reports.find(params[:id])
-  end
+    def set_report
+      @report = Report.find(params[:id])
+    end
 
-  def set_user
-    @user = User.find_by(id: params[:user_id])
-  end
+    def set_my_report
+      @report = current_user.reports.find(params[:id])
+    end
 
-  def set_check
-    @check = Check.new
-  end
+    def set_user
+      @user = User.find_by(id: params[:user_id])
+    end
 
-  def set_checks
-    @checks = Check.where(report_id: @report.id).order(created_at: :desc)
-  end
+    def set_check
+      @check = Check.new
+    end
 
-  def set_comment
-    @comment = Comment.new
-  end
+    def set_checks
+      @checks = Check.where(report_id: @report.id).order(created_at: :desc)
+    end
 
-  def set_comments
-    @comments = Comment.where(report_id: @report.id).order(created_at: :asc)
-  end
+    def set_comment
+      @comment = Comment.new
+    end
 
-  def notify_to_slack(report)
-    name = "#{report.user.login_name}"
-    link = "<#{report_url(report)}|#{report.title}>"
+    def set_comments
+      @comments = Comment.where(report_id: @report.id).order(created_at: :asc)
+    end
 
-    notify "#{name} created #{link}",
-      username: "#{report.user.login_name} (#{report.user.full_name})",
-      icon_url: gravatar_url(report.user),
-      attachments: [{
-        fallback: "report body.",
-        text: report.description
-      }]
-  end
+    def notify_to_slack(report)
+      name = "#{report.user.login_name}"
+      link = "<#{report_url(report)}|#{report.title}>"
+
+      notify "#{name} created #{link}",
+        username: "#{report.user.login_name} (#{report.user.full_name})",
+        icon_url: gravatar_url(report.user),
+        attachments: [{
+          fallback: "report body.",
+          text: report.description
+        }]
+    end
 end
