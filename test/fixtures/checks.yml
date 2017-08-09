@@ -10,10 +10,18 @@ report3_check_machida:
   user: machida
   report: report_3
 
-report4_check_tanaka:
-  user: tanaka
-  report: report_3
+report5_check_machida:
+  user: machida
+  report: report_5
 
-report4_check_mineo:
-  user: mineo
-  report: report_3
+report5_check_komagata:
+  user: komagata
+  report: report_5
+
+report6_check_komagata:
+  user: komagata
+  report: report_6
+
+report7_check_machida:
+  user: machida
+  report: report_7
