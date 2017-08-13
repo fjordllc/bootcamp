@@ -78,7 +78,7 @@ class ReportsController < ApplicationController
     def set_reports
       if params[:word].present?
         query_arr = @search_word.split(/[[:blank:]]+/)
-        @search = Report.ransack(title_or_description_cont_any: query_arr)
+        @search = Report.ransack(title_or_description_cont_all: query_arr)
         @reports = @search.result.order(updated_at: :desc, id: :desc).page(params[:page]).per(15)
       elsif params[:practice_id].present?
         @reports = Practice.find(params[:practice_id]).reports.page(params[:page]).per(15)
