@@ -3,10 +3,10 @@ class Practice < ActiveRecord::Base
   has_and_belongs_to_many :reports
   has_many :started_learnings,
     -> { where(status_cd: 0) },
-    class_name: 'Learning'
+    class_name: "Learning"
   has_many :completed_learnings,
     -> { where(status_cd: 1) },
-    class_name: 'Learning'
+    class_name: "Learning"
   has_many :started_users,
     through: :started_learnings,
     source: :user

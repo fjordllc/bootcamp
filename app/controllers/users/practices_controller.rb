@@ -3,7 +3,7 @@ class Users::PracticesController < ApplicationController
   before_action :set_user
 
   def index
-    @categories = Category.order('position')
+    @categories = Category.order("position")
   end
 
   private

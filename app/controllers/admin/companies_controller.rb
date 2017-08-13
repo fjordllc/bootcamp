@@ -19,23 +19,23 @@ class Admin::CompaniesController < AdminController
     @company = Company.new(company_params)
 
     if @company.save
-      redirect_to admin_companies_url, notice: t('company_was_successfully_created')
+      redirect_to admin_companies_url, notice: t("company_was_successfully_created")
     else
-      render 'new'
+      render "new"
     end
   end
 
   def update
     if @company.update(company_params)
-      redirect_to admin_companies_url, notice: t('company_was_successfully_updated')
+      redirect_to admin_companies_url, notice: t("company_was_successfully_updated")
     else
-      render 'edit'
+      render "edit"
     end
   end
 
   def destroy
     @company.destroy
-    redirect_to admin_companies_url, notice: t('company_was_successfully_destroyed')
+    redirect_to admin_companies_url, notice: t("company_was_successfully_destroyed")
   end
 
   private

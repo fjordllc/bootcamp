@@ -1,5 +1,5 @@
-atom_feed(language: 'ja-JP') do |feed|
-  feed.title 'みんなのブログ'
+atom_feed(language: "ja-JP") do |feed|
+  feed.title "みんなのブログ"
   feed.updated @entries.first.published
   @entries.each do |article|
     if article.updated
@@ -13,9 +13,9 @@ atom_feed(language: 'ja-JP') do |feed|
         item.title article.title
 
         if article.content.nil?
-          item.content(article.summary, type: 'html')
+          item.content(article.summary, type: "html")
         else
-          item.content(article.content, type: 'html')
+          item.content(article.content, type: "html")
         end
 
         if article.author
@@ -35,9 +35,9 @@ atom_feed(language: 'ja-JP') do |feed|
         item.title article.title
 
         if article.content.nil?
-          item.content(article.summary, type: 'html')
+          item.content(article.summary, type: "html")
         else
-          item.content(article.content, type: 'html')
+          item.content(article.content, type: "html")
         end
 
         if article.author

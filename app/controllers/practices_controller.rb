@@ -4,7 +4,7 @@ class PracticesController < ApplicationController
   before_action :set_practice, only: %w(show edit update destroy sort)
 
   def index
-    @categories = Category.order('position')
+    @categories = Category.order("position")
   end
 
   def show
@@ -54,17 +54,17 @@ class PracticesController < ApplicationController
 
   private
 
-  def practice_params
-    params.require(:practice).permit(
-      :title,
-      :description,
-      :goal,
-      :category_id,
-      :position
-    )
-  end
+    def practice_params
+      params.require(:practice).permit(
+        :title,
+        :description,
+        :goal,
+        :category_id,
+        :position
+      )
+    end
 
-  def set_practice
-    @practice = Practice.find(params[:id])
-  end
+    def set_practice
+      @practice = Practice.find(params[:id])
+    end
 end

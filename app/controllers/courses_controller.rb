@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   def index
-    output = ''
-    Practice.order('position').each do |c|
+    output = ""
+    Practice.order("position").each do |c|
       output += <<-EOS
 lesson_#{c.id}:
   id: #{c.id}
@@ -14,6 +14,6 @@ lesson_#{c.id}:
       EOS
     end
 
-    render :inline => output, :content_type => 'text/yaml'
+    render inline: output, content_type: "text/yaml"
   end
 end
