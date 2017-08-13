@@ -15,7 +15,7 @@ class UserMailer < ActionMailer::Base
 
   def contact_email(contact)
     @contact = contact
-    subject = t('user_mailer.contact.subject', user: @contact.name)
+    subject = t("user_mailer.contact.subject", user: @contact.name)
     mail subject: subject, to: "info@fjord.jp"
   end
 end

@@ -10,7 +10,7 @@ class PagesController < ApplicationController
   end
 
   def new
-    title = params[:title] || ''
+    title = params[:title] || ""
     @page = Page.new(title: title)
   end
 

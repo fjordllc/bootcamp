@@ -1,5 +1,5 @@
-require 'active_record/fixtures'
-require 'csv'
+require "active_record/fixtures"
+require "csv"
 
 module SeedHelper
   def import_fixture(name)

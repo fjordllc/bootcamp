@@ -22,7 +22,7 @@ class FeedsController < ApplicationController
             @entries << entry
           end
         else
-          raise 'Unknown feed format.'
+          raise "Unknown feed format."
         end
       rescue
         next
