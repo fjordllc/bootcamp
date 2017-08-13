@@ -4,10 +4,8 @@ module ReportsHelper
   end
 
   def admin_can_check_it?
-    current_user.admin? && (un_checked_report? and not_report_user?)
+    current_user.admin? && (un_checked_report? && not_report_user?)
   end
-
-  private
 
   def un_checked_report?
     !current_user.checks.find_by(report_id: params[:id])
@@ -16,5 +14,4 @@ module ReportsHelper
   def not_report_user?
     !(current_user == @report.user)
   end
-
 end
