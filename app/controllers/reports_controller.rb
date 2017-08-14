@@ -10,12 +10,18 @@ class ReportsController < ApplicationController
   before_action :set_comment, only: %w(show edit update destroy)
   before_action :set_checks, only: %w(show)
   before_action :set_check, only: %w(show)
+  before_action :set_footprints, only: %w(show)
+  before_action :set_footprint, only: %w(show)
   before_action :set_user, only: :show
 
   def index
   end
 
   def show
+    @footprint = Footprint.new
+    @footprint.user = current_user
+    @footprint.report = @report
+    @footprints.where(user: @footprint.user).first_or_create
   end
 
   def new
@@ -107,9 +113,17 @@ class ReportsController < ApplicationController
       @checks = Check.where(report_id: @report.id).order(created_at: :desc)
     end
 
-    def set_comment
-      @comment = Comment.new
-    end
+  def set_footprint
+    @footprint = Footprint.new
+  end
+
+  def set_footprints
+    @footprints = Footprint.where(report_id: @report.id).order(created_at: :desc)
+  end
+
+  def set_comment
+    @comment = Comment.new
+  end
 
     def set_comments
       @comments = Comment.where(report_id: @report.id).order(created_at: :asc)

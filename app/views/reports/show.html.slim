@@ -23,10 +23,10 @@ header.page-header
           - @comments.each do |comment|
             = render "report_comment", report: @report, comment: comment
       = render "report_comment_form"
-      - if @checks.any?
-        .report-checks
-          h3.report-checks__title
+      - if @footprints.any?
+        .footprints
+          h3.footprints__title
             = t("we_checked")
-          ul.report-checks__items
-            - @checks.each do |check|
+          ul.footprints__items
+            - @footprints.each do |check|
               = render 'reports/report_check', report: @report, check: check
