@@ -27,4 +27,5 @@
           .report-list-item-meta__comment-count-label
             i.fa.fa-check
           .report-list-item-meta__comment-count-value
-            = report.checks.count
+            - report.checks.each do |check|
+              = gravatar_tag check.user, size: 20, html: { class: "report-list-item__checked-author-icon" }
