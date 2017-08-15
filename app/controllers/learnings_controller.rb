@@ -25,7 +25,6 @@ class LearningsController < ApplicationController
         format.js { head :ok }
         format.html { redirect_to @practice ,notice: t("notice_completed_practice") }
       end
-
     else
       render json: learning.errors, status: :unprocessable_entity
     end
