@@ -32,6 +32,14 @@ class Practice < ActiveRecord::Base
     end
   end
 
+  def is_completed?(user)
+    learning = Learning.find_by(
+        user_id: user.id,
+        practice_id: id
+    )
+    true if learning.nil? || (learning.status != :complete)
+  end
+
   def complete?(user)
     Learning.where(
       user_id: user.id,
