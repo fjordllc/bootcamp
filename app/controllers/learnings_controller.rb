@@ -9,7 +9,11 @@ class LearningsController < ApplicationController
       user_id: current_user.id,
       practice_id: params[:practice_id]
     )
-    learning.status = params[:status].to_sym
+    if params[:status].nil?
+      learning.status = :complete
+    else
+      learning.status = params[:status].to_sym
+    end
 
     text = "<#{user_url(current_user)}|#{current_user.login_name}>が<#{practice_url(@practice)}|#{@practice.title}>を#{t learning.status}しました。"
     notify text,
@@ -17,7 +21,10 @@ class LearningsController < ApplicationController
       icon_url: gravatar_url(current_user)
 
     if learning.save
-      head :ok
+      respond_to do |format|
+        format.js { head :ok }
+        format.html { redirect_to @practice, notice: t("notice_completed_practice") }
+      end
     else
       render json: learning.errors, status: :unprocessable_entity
     end

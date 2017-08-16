@@ -13,8 +13,8 @@ class PracticeTest < ActiveSupport::TestCase
       :not_complete
   end
 
-  test "complete?(user)" do
-    assert practices(:practice_1).complete?(users(:komagata))
-    assert_not practices(:practice_1).complete?(users(:machida))
+  test "exists_learning?(user)" do
+    assert practices(:practice_1).exists_learning?(users(:komagata))
+    assert_not practices(:practice_1).exists_learning?(users(:machida))
   end
 end
