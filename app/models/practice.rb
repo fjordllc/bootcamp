@@ -32,7 +32,7 @@ class Practice < ActiveRecord::Base
     end
   end
 
-  def is_completed?(user)
+  def not_completed?(user)
     learning = Learning.find_by(
         user_id: user.id,
         practice_id: id
@@ -40,7 +40,7 @@ class Practice < ActiveRecord::Base
     true if learning.nil? || (learning.status != :complete)
   end
 
-  def complete?(user)
+  def started_or_completed?(user)
     Learning.where(
       user_id: user.id,
       practice_id: id

@@ -14,7 +14,7 @@ class PracticeTest < ActiveSupport::TestCase
   end
 
   test "complete?(user)" do
-    assert practices(:practice_1).complete?(users(:komagata))
-    assert_not practices(:practice_1).complete?(users(:machida))
+    assert practices(:practice_1).started_or_completed?(users(:komagata))
+    assert_not practices(:practice_1).started_or_completed?(users(:machida))
   end
 end
