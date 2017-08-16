@@ -28,7 +28,6 @@ class LearningsController < ApplicationController
     else
       render json: learning.errors, status: :unprocessable_entity
     end
-
   end
 
   private
