@@ -33,18 +33,20 @@ class Practice < ActiveRecord::Base
   end
 
   def not_completed?(user)
-    learning = Learning.find_by(
-        user_id: user.id,
-        practice_id: id
+    status_cds = Learning.statuses.values_at("complete")
+
+    !Learning.exists?(
+        user:        user,
+        practice_id: id,
+        status_cd:   status_cds
     )
-    true if learning.nil? || (learning.status != :complete)
   end
 
-  def started_or_completed?(user)
-    Learning.where(
-      user_id: user.id,
+  def exists_learning?(user)
+    Learning.exists?(
+      user:        user,
       practice_id: id
-    ).exists?
+    )
   end
 
   def all_text
