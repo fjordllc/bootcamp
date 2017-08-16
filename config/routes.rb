@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   end
   resources :reports do
     resources :checks, only: %i(create)
+    resources :footprints, only: %i(create)
     resources :comments
   end
   get "pages/new", to: "pages#new"

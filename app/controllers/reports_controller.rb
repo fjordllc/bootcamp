@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+  include ReportsHelper
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
   before_action :require_login
@@ -10,12 +11,17 @@ class ReportsController < ApplicationController
   before_action :set_comment, only: %w(show edit update destroy)
   before_action :set_checks, only: %w(show)
   before_action :set_check, only: %w(show)
+  before_action :set_footprints, only: %w(show)
+  before_action :set_footprint, only: %w(show)
   before_action :set_user, only: :show
 
   def index
   end
 
   def show
+    @footprint.user = current_user
+    @footprint.report = @report
+    @footprints.where(user: @footprint.user).first_or_create if not_report_user?
   end
 
   def new
@@ -105,6 +111,14 @@ class ReportsController < ApplicationController
 
     def set_checks
       @checks = Check.where(report_id: @report.id).order(created_at: :desc)
+    end
+
+    def set_footprint
+      @footprint = Footprint.new
+    end
+
+    def set_footprints
+      @footprints = Footprint.where(report_id: @report.id).order(created_at: :desc)
     end
 
     def set_comment
