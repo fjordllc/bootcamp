@@ -1,24 +1,16 @@
-[![Stories in Ready](https://badge.waffle.io/fjordllc/interns.png?label=ready&title=Ready)](https://waffle.io/fjordllc/interns)
 # 256 interns
 
-[![Build Status](https://api.travis-ci.org/fjordllc/interns.png?branch=master)](https://travis-ci.org/fjordllc/interns)
-[![Code Climate](https://codeclimate.com/github/fjordllc/interns.png)](https://codeclimate.com/github/fjordllc/interns)
-[![Coverage Status](https://coveralls.io/repos/fjordllc/interns/badge.png?branch=master)](https://coveralls.io/r/fjordllc/interns)
-[![Dependency Status](https://gemnasium.com/fjordllc/interns.png)](https://gemnasium.com/fjordllc/interns)
+[![CircleCI](https://circleci.com/gh/fjordllc/interns.svg?style=svg&circle-token=dcbfd5d67e9be5401ce486b74f585879bc58a692)](https://circleci.com/gh/fjordllc/interns)
 
 Intern management and e-learning tool.
 
-## Requirement
-
-ruby-2.4.0
-
 ## Install
 
-    $ bundle
+    $ bundle install
     $ rake db:setup
     $ rails s
 
 ### Heroku
 
     $ heroku config:set LANG=ja_JP.UTF-8 INTERN_PASSWORD=xxxxxxxx
-    $ heroku run rake db:migrate db:seed
+    $ heroku run rails db:setup
