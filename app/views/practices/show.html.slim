@@ -42,11 +42,10 @@ header.page-header
               $(document).on('click', '.im-stack', function(){
                 var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
                 $.post('/chat_notices', {text: text});
-                console.log('it is test');
               });
           - if @practice.is_completed?(current_user)
             li.page-actions__item
-              = link_to practice_learning_path(@practice),method: :put, class: 'is-button-standard-md-info' do
+              = link_to practice_learning_path(@practice), method: :put, class: 'is-button-standard-md-info' do
                 i.fa.fa-check-circle
                 = t('complete')
 

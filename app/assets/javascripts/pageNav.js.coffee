@@ -1,6 +1,5 @@
 $ ->
   if $('.js-page-nav').length > 0
-    console.log('aaaa')
     offsetTop = $('.js-page-nav').offset().top - 16
     top = $(this).scrollTop()
     $(window).scroll ->

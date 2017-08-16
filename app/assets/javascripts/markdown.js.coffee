@@ -32,7 +32,6 @@ $ ->
   $('.js-markdown-view').each (i) ->
     val = $(this).text()
     html = markdown.render(val)
-    console.log(val)
     $(this).html html
     $('pre code').each (i, block) ->
       hljs.highlightBlock block
