@@ -25,7 +25,7 @@
 .welcome-section__title
   +text-block(1.75rem 1.45 1.25rem, 600 center #ec4963)
   +media-breakpoint-down(sm)
-    +text-block(1.5rem 1.3 1rem)
+    +text-block(1.25rem 1.3 1rem)
     +position(relative)
 
 .welcome-section__title-question-icon
@@ -42,7 +42,7 @@
 .welcome-child-section__title
   +text-block(1.375rem 1.45 .6em, 600 center)
   +media-breakpoint-down(sm)
-    font-size: 1.125rem
+    font-size: 1rem
 
 .welcome-child-section__top-image
   +margin(vertical, 1.25rem)
@@ -71,6 +71,8 @@
       text-align: left
   p
     +text-block(.9375rem 1.8 1.2em)
+    +media-breakpoint-down(sm)
+      font-size: .875rem
   table
     width: 100%
     margin-top: 1.5rem
@@ -90,6 +92,8 @@
 
 .welcome-child-section:not(:first-child)
   margin-top: 3rem
+  +media-breakpoint-down(sm)
+    margin-top: 2rem
 
 .welcome-section__title + .welcome-child-section
   margin-top: 0
@@ -169,6 +173,8 @@
 .welcome-small-section__description
   p
     +text-block(.875rem 1.8 1.2em)
+    +media-breakpoint-down(sm)
+      font-size: .75rem
   a
     color: #0098f9
     +hover-link-reversal
