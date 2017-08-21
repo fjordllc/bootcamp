@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :questions
 
   root to: "home#index"
+  get "home", to: "home#index"
   namespace :admin do
     root to: "home#index", as: :root
     resources :companies

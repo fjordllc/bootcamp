@@ -42,7 +42,15 @@ section.welcome-section#finding-employment
     section.welcome-child-section
       h3.welcome-child-section__title
         | 卒業生の就職先
-      .welcome-child-section__description
+      .welcome-child-section__description.company-logos
+        ul.company-logos__items
+          li.company-logos__item
+            = link_to "http://agile.esm.co.jp/", class: "company-logos__item-link", target: "_blank" do
+              = image_tag("company-logos/esm.png", class: "company-logos__item-image")
+          li.company-logos__item
+            = link_to "https://corporate.uridoki.net/", class: "company-logos__item-link", target: "_blank" do
+              = image_tag("company-logos/uridokinet.png", class: "company-logos__item-image")
+
         p.is-text-align-center
-          | 僕らも驚くほどいい企業に就職しています（現在掲載許可申請中）。
+          | 他にもたくさん（現在掲載許可申請中）。
       .welcome-small-sections

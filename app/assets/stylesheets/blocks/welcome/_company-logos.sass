@@ -1,0 +1,30 @@
+.company-logos__items
+  display: flex
+  justify-content: center
+  align-items: center
+  margin-bottom: 2rem
+  +media-breakpoint-down(sm)
+    margin-bottom: 1rem
+
+.company-logos__item
+  +padding(horizontal, 1rem)
+  +media-breakpoint-down(sm)
+    flex: 0 0 50%
+    +padding(horizontal, 0)
+    display: flex
+    align-items: center
+    height: 3rem
+
+.company-logos__item-link
+  display: block
+  +media-breakpoint-down(sm)
+    display: flex
+    align-items: center
+    justify-content: center
+    height: 3rem
+    width: 100%
+
+.company-logos__item-image
+  +size(auto 4rem)
+  +media-breakpoint-down(sm)
+    +size(auto 3rem)
