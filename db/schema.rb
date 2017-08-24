@@ -82,6 +82,8 @@ ActiveRecord::Schema.define(version: 20170814161854) do
     t.boolean "user_policy_agreed", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "purpose_content", null: false
+    t.datetime "purpose_deadline", null: false
   end
 
   create_table "footprints", id: :serial, force: :cascade do |t|
@@ -121,8 +123,8 @@ ActiveRecord::Schema.define(version: 20170814161854) do
   end
 
   create_table "practices_reports", id: false, force: :cascade do |t|
-    t.bigint "practice_id", null: false
-    t.bigint "report_id", null: false
+    t.integer "practice_id", null: false
+    t.integer "report_id", null: false
     t.index ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id"
     t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
   end
