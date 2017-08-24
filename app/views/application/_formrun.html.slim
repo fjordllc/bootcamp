@@ -2,6 +2,22 @@
   form.formrun.auth-form__body(action="https://form.run/api/v1/r/ytz9C7xzNhhwhdpS4ZqF" method="post")
     .auth-form-items
       .auth-form-item
+        .auth-form-item.is-hidden
+          label.a-sm-label.is-required
+            | お名前
+          input.a-sm-text-input(data-formrun-required="true" name="お名前" type="text" placeholder="駒形 真幸")
+        label.a-sm-label.is-required
+          | このページの説明を全て読みましたか？
+        ul.auth-form-item__radio-buttons
+          li.auth-form-radio-button
+            label.auth-form-radio-button__label
+              input.auth-form-checkbox__input(data-formrun-required="true" name="このページの説明を全て読みましたか？" type="radio" value="読んだ")
+              span.option-text 読んだ
+        .auth-form-item__help
+          p このページの説明を全て読んでから、申し込み、質問をお送りください。
+        .auth-form-item__error(data-formrun-show-if-error="このページの説明を全て読みましたか？")
+          | このページの説明を全て読む必要があります
+      .auth-form-item
         label.a-sm-label.is-required
           | お名前
         input.a-sm-text-input(data-formrun-required="true" name="お名前" type="text" placeholder="駒形 真幸")
@@ -223,5 +239,5 @@
     .auth-form-action.is-sign-up-action
       ul.auth-form-action__items
         li.auth-form-action__item
-          button.is-button-standard-md-warning(data-formrun-default-text=("送信") data-formrun-error-text="未入力の項目があります" data-formrun-submitting-text="送信中..." type="submit") 
+          button.is-button-standard-md-warning(data-formrun-default-text=("送信") data-formrun-error-text="未入力の項目があります" data-formrun-submitting-text="送信中..." type="submit")
             | インターンに申込む
