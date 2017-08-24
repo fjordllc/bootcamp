@@ -2,6 +2,10 @@
   form.formrun.auth-form__body(action="https://form.run/api/v1/r/ytz9C7xzNhhwhdpS4ZqF" method="post")
     .auth-form-items
       .auth-form-item
+        .auth-form-item.is-hidden
+          label.a-sm-label.is-required
+            | お名前
+          input.a-sm-text-input(data-formrun-required="true" name="お名前" type="text" placeholder="駒形 真幸")
         label.a-sm-label.is-required
           | このページの説明を全て読みましたか？
         ul.auth-form-item__radio-buttons
