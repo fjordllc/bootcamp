@@ -33,6 +33,7 @@ practice_3:
     参照: [Macの型番調べ辛い - komagata](http://docs.komagata.org/4433)
   category: category_2
   position: 3
+  assignment: true
 
 practice_4:
   title: "Debianをインストールする"
@@ -58,9 +59,10 @@ practice_6:
 practice_7:
   title: "viをインストールする"
   description: "description..."
-  goal: "goal..."
+  goal: "viのバージョンのスクリーンショット画像を確認してもらう"
   category: category_8
   position: 7
+  assignment: true
 
 practice_8:
   title: "viのチュートリアルをやる"
@@ -86,9 +88,10 @@ practice_10:
 practice_11:
   title: "リモートのサーバーにsshで鍵を使ってログインする"
   description: "description..."
-  goal: "goal..."
+  goal: "sshを使ってログインしているターミナルのスクリーンショット画像を確認してもらう。"
   category: category_4
   position: 11
+  assignment: true
 
 practice_12:
   title: "sshdでパスワード認証を禁止にする"

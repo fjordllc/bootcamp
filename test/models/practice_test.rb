@@ -13,6 +13,15 @@ class PracticeTest < ActiveSupport::TestCase
       :not_complete
   end
 
+  test "assignment flag" do
+    assert practices(:practice_3).assignment?
+    assert practices(:practice_7).assignment?
+    assert practices(:practice_11).assignment?
+    assert_not practices(:practice_1).assignment?
+    assert_not practices(:practice_12).assignment?
+    assert_not practices(:practice_50).assignment?
+  end
+
   test "exists_learning?(user)" do
     assert practices(:practice_1).exists_learning?(users(:komagata))
     assert_not practices(:practice_1).exists_learning?(users(:machida))
