@@ -1,0 +1,29 @@
+task_request_1:
+  user: tanaka
+  practice: practice_3
+  content: "よろしくお願いします。"
+
+task_request_2:
+  user: tanaka
+  practice: practice_7
+  content: "よろしくお願いします。"
+
+task_request_3:
+  user: tanaka
+  practice: practice_11
+  content: "よろしくお願いします。"
+
+task_request_4:
+  user: mineo
+  practice: practice_3
+  content: "よろしくお願いします。"
+
+task_request_5:
+  user: mineo
+  practice: practice_7
+  content: "よろしくお願いします。"
+
+task_request_6:
+  user: mineo
+  practice: practice_11
+  content: "よろしくお願いします。"
