@@ -16,6 +16,10 @@ header.page-header
       .practice-content
         header.practice-content__header
           h2.practice-content__title= t('helpers.label.practice.description')
+          - unless @practice.not_completed?(current_user)
+            .completed_stamp
+              .completed_stamp__content.is-title
+                = t('completed_stamp')
         .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text-style.js-marked
           = @practice.description
       .practice-content
@@ -35,19 +39,24 @@ header.page-header
               = link_to practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'is-button-standard-md-danger' do
                 i.fa.fa-trash-o
                 = t('destroy')
-          li.page-actions__item
-            button.im-stack.is-button-standard-md-warning
-              = '行き詰まった！'
-            javascript:
-              $(document).on('click', '.im-stack', function(){
-                var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
-                $.post('/chat_notices', {text: text});
-              });
           - if @practice.not_completed?(current_user)
             li.page-actions__item
-              = link_to practice_learning_path(@practice), method: :put, class: 'is-button-standard-md-info' do
-                i.fa.fa-check-circle
-                = t('complete')
+              button.im-stack.is-button-standard-md-warning
+                = '行き詰まった！'
+              javascript:
+                  $(document).on('click', '.im-stack', function () {
+                      var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
+                      $.post('/chat_notices', {text: text});
+                  });
+            li.page-actions__item
+              - if @practice.assignment?
+                = link_to practice_learning_path(@practice), method: :put, class: 'is-button-standard-md-info' do
+                  i.fa.fa-check-circle
+                  = t('assignment_request_button')
+              - else
+                = link_to practice_learning_path(@practice), method: :put, class: 'is-button-standard-md-info' do
+                  i.fa.fa-check-circle
+                  = t('complete')
 
     .col-md-6.col-xs-12
       // TODO 関連する質問を表示

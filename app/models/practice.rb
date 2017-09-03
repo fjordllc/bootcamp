@@ -19,6 +19,7 @@ class Practice < ActiveRecord::Base
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true
+  validates :assignment, presence: true
 
   def status(user)
     learnings = Learning.where(

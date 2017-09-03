@@ -1,36 +1,40 @@
 .category-practices-item.js-practice(id= "practice_#{practice.id}")
   .category-practices-item__inner
     .category-practices-item__value.is-title
-      = link_to practice, class: 'category-practices-item__title-link'
+      = link_to practice, class: 'category-practices-item__title-link' do
         = practice.title
       - if practice.started_users.student.exists?
         .category-practices-item__value.is-started-users
           - practice.started_users.student.each do |user|
             = link_to user, class: "category-practices-item__user-link" do
-              = gravatar_tag user, size: 44, html: { class: "category-practices-item__user-icon #{user.active? ? 'active' : 'inactive'} "}
+              = gravatar_tag user, size: 44, html: { class: "category-practices-item__user-icon #{user.active? ? 'active' : 'inactive'} " }
     - if current_user
       .category-practices-item__value.is-status
-        - status = practice.status(current_user)
-        ul.is-button-group.category-practices-item__button-group
-          - %i(not_complete started complete).each do |status|
-            - if practice.status(current_user) == status
-              li
-                button.btn.btn-success.js-practice-state.is-button-standard-xs-primary[class="#{status}" data-status="#{status}" disabled]= t(status)
-            - else
-              li
-                button.btn.btn-secondary.js-practice-state.is-button-standard-xs-secondary[class="#{status}" data-status="#{status}"]= t(status)
+        - if practice.not_completed?(current_user)
+          ul.is-button-group.category-practices-item__button-group
+            - %i(not_complete started).each do |status|
+              - if practice.status(current_user) == status
+                li
+                  button.btn.btn-success.js-practice-state.is-button-standard-xs-primary[class="#{status}" data-status="#{status}" disabled]= t(status)
+              - else
+                li
+                  button.btn.btn-secondary.js-practice-state.is-button-standard-xs-secondary[class="#{status}" data-status="#{status}"]= t(status)
+        - else
+          .completed_stamp
+            h2.completed_stamp__content.is-title
+              = t('completed_stamp')
   - if current_user.admin?
     .category-practices-item__handle.js-show-handle__target
       ul.is-button-group
         li
           = link_to practice_position_path(practice, move: :top), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
-            i.fa.fa-angle-double-up
+          i.fa.fa-angle-double-up
         li
           = link_to practice_position_path(practice, move: :higher), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
-            i.fa.fa-angle-up
+          i.fa.fa-angle-up
         li
           = link_to practice_position_path(practice, move: :lower), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
-            i.fa.fa-angle-down
+          i.fa.fa-angle-down
         li
           = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
-            i.fa.fa-angle-double-down
+          i.fa.fa-angle-double-down
