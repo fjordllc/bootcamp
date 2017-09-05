@@ -1,4 +1,4 @@
-= form_for page, url: url, html: { method: method, class: 'form' } do |f|
+= form_for page, url: URI.encode(url), html: { method: method, class: 'form' } do |f|
   - if page.errors.any?
     = error_messages_for :page
   .form-item
