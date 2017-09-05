@@ -4,9 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :allow_cross_domain_access
 
   protected
-
     def not_authenticated
-      redirect_to login_path, alert: t("please_sign_in_first")
+      redirect_to welcome_path, alert: t("please_sign_in_first")
     end
 
     def admin_login?

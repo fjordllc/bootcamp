@@ -1,7 +1,9 @@
 class HomeController < ApplicationController
+  before_action :require_login, except: :welcome
+
   def index
-    if current_user.present?
-      redirect_to controller: :users, action: :index
-    end
+  end
+
+  def welcome
   end
 end
