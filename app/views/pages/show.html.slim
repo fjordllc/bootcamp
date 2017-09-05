@@ -2,8 +2,7 @@
 header.page-header
   .container
     .page-header__container
-      h1.page-header__title
-        | WIKI
+      h1.page-header__title= title
       .page-header__action
         = link_to "/pages/new", class: 'is-button-standard-md-warning' do
           i.fa.fa-plus

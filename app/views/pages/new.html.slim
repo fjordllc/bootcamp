@@ -1,8 +1,8 @@
+- title "ページ作成"
 header.page-header
   .container
     .page-header__container
-      h1.page-header__title
-        | 新規ページ作成
+      h1.page-header__title= title
 .page-body
   .container
     = render "form", page: @page, method: "POST", url: "/pages"

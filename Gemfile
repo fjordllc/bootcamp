@@ -30,6 +30,7 @@ gem "oulu"
 gem "sassc-rails"
 gem "ransack"
 gem "rack-user_agent"
+gem "meta-tags"
 
 group :production, :staging do
   gem "newrelic_rpm"
