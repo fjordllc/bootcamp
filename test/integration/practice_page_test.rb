@@ -1,14 +1,7 @@
 require "test_helper"
 
 class PracticePageTest < ActionDispatch::IntegrationTest
-  def setup
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login_name]", with: "tanaka")
-      fill_in("user[password]", with: "testtest")
-      click_button "サインイン"
-    end
-  end
+  setup { login_user "tanaka", "testtest" }
 
   test "existence complete button" do
     assert_equal current_path, "/users"

@@ -12,7 +12,7 @@
             h2.practice-task_request__login-name
               = link_to task_request.user, itempro: 'url', class: 'practice-task_request__login-name-link' do
                 = task_request.user.login_name
-            time.practice-task_request__created-at(datetime='#{practice.created_at.to_datetime}' pubdate='pubdate')
+            time.practice-task_request__created-at(datetime='#{task_request.created_at.to_datetime}' pubdate='pubdate')
               = l task_request.updated_at, format: :date_long_with_time
           .practice-task_requests__content.js-markdown-view.js-target-blank.is-long-text-style
             = task_request.content

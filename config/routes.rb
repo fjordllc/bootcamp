@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
     end
+    resources :task_requests, only: %i(index show) do
+      put :passed, on: :member
+    end
   end
   resources :feeds, only: %i(index)
   resources :users do

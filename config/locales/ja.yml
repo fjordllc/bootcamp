@@ -461,6 +461,7 @@ ja:
   listing_questions: "Q & A"
   companies: "会社"
   categories: "カテゴリー"
+  task_requests: "課題の確認依頼"
   editing_practice: "プラクティス編集"
   editing_company: "会社編集"
   editing_user: "アカウント情報編集"
@@ -537,6 +538,7 @@ ja:
   to_index_of_questions: Q&A一覧へ
   post_comment: コメントを投稿
   check_report: 日報を確認する
+  task_requested: 確認依頼の内容
   interns: インターン一覧
   admin_interns: インターン情報
   login_name_description: チャットやSNS（Twitter、Github、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。極力ユーザー名は統一するようにしてください。
