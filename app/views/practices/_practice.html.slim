@@ -27,14 +27,14 @@
     .category-practices-item__handle.js-show-handle__target
       ul.is-button-group
         li
-          = link_to practice_position_path(practice, move: :top), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
-          i.fa.fa-angle-double-up
+          = link_to practice_position_path(practice, move: :top), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action' do
+            i.fa.fa-angle-double-up
         li
-          = link_to practice_position_path(practice, move: :higher), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
-          i.fa.fa-angle-up
+          = link_to practice_position_path(practice, move: :higher), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action' do
+            i.fa.fa-angle-up
         li
-          = link_to practice_position_path(practice, move: :lower), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
-          i.fa.fa-angle-down
+          = link_to practice_position_path(practice, move: :lower), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action' do
+            i.fa.fa-angle-down
         li
-          = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action'
-          i.fa.fa-angle-double-down
+          = link_to practice_position_path(practice, move: :bottom), method: :put, class: 'is-button-standard-xs-secondary is-icon category-practices-item-handle-action' do
+            i.fa.fa-angle-double-down

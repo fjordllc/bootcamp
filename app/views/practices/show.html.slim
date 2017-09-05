@@ -48,15 +48,12 @@ header.page-header
                       var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
                       $.post('/chat_notices', {text: text});
                   });
-            li.page-actions__item
-              - if @practice.assignment?
-                = link_to practice_learning_path(@practice), method: :put, class: 'is-button-standard-md-info' do
-                  i.fa.fa-check-circle
-                  = t('assignment_request_button')
-              - else
-                = link_to practice_learning_path(@practice), method: :put, class: 'is-button-standard-md-info' do
-                  i.fa.fa-check-circle
-                  = t('complete')
+            = render 'practices/complete_button' unless @practice.assignment?
+        - if @practice.assignment?
+          - if task_request = @practice.task_requested?(current_user)
+            = render 'practices/task_request', task_request: task_request, practice: @practice
+          - else
+            = render 'practices/task_request_form', task_request: @task_request
 
     .col-md-6.col-xs-12
       // TODO 関連する質問を表示

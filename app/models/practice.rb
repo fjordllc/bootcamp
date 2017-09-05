@@ -15,11 +15,12 @@ class Practice < ActiveRecord::Base
     source: :user
   belongs_to :category
   acts_as_list scope: :category
+  has_many :task_requests
 
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true
-  validates :assignment, :inclusion => { :in => [true, false] }
+  validates :assignment, inclusion: { in: [true, false] }
 
   def status(user)
     learnings = Learning.where(
@@ -46,6 +47,13 @@ class Practice < ActiveRecord::Base
   def exists_learning?(user)
     Learning.exists?(
       user:        user,
+      practice_id: id
+    )
+  end
+
+  def task_requested?(user)
+    TaskRequest.find_by(
+      user_id: user.id,
       practice_id: id
     )
   end

@@ -1,0 +1,102 @@
+$practice-header-author: 3.5rem
+.practice-task-requests
+  +position(relative)
+  max-width: 52rem
+  +margin(horizontal, auto)
+  border-radius: .25rem
+
+.practice-task-request-container
+  max-width: 52rem
+  +margin(horizontal, auto)
+  margin-top: 2rem
+
+.practice-task-request-container__title
+  +text-block(1.25rem 1.45 1.5rem, flex)
+  align-items: center
+  +media-breakpoint-down(sm)
+    margin-bottom: 1rem
+
+.practice-task-request-body
+  +position(relative)
+  max-width: 52rem
+  +margin(horizontal, auto)
+  border-radius: .25rem
+
+.practice-task-request
+  +position(relative)
+  border-radius: .25rem
+  margin-bottom: 2rem
+  padding-left: $practice-header-author + 1.25rem
+  +media-breakpoint-down(sm)
+    padding-left: 0
+    margin-bottom: 1rem
+
+.practice-task-request__author
+  +position(absolute, left 0, top 0)
+  +size($practice-header-author 100%)
+  +media-breakpoint-down(sm)
+    display: none
+
+.practice-task-request__author-icon
+  +size(100% auto)
+  border-radius: 50%
+
+.practice-task-request__login-name-link
+  color: $main-color
+
+.practice-task-request__body
+  background-color: $base-color
+  +padding(horizontal, 1rem)
+  border-radius: .25rem
+  +relative
+  +balloon-tail(left $base-color .75rem 1rem, false, top 1.5rem)
+  +media-breakpoint-down(sm)
+    &::before,
+    &::after
+      content: none
+  .practice-task-request.is-correct_answer &
+    border: solid .125rem $accent-color
+
+.practice-task-requests__content
+  +padding(vertical, 1rem)
+  +media-breakpoint-down(sm)
+    +padding(vertical, .5rem)
+    word-wrap: break-word
+
+.practice-task-request__body-header
+  display: flex
+  justify-content: space-between
+  align-items: center
+  border-bottom: solid .0625rem $background-color
+  +padding(vertical, .75rem)
+  +media-breakpoint-down(sm)
+    flex-direction: column
+    align-items: flex-start
+.practice-task-request__created-at
+  display: block
+  +text-block(.875rem 1.4, $muted-text)
+
+.practice-task-request__actions
+  +padding(vertical, .5rem)
+  +media-breakpoint-down(sm)
+    padding-top: 0
+
+.practice-task-request__actions-items
+  display: flex
+  align-items: center
+
+.practice-task-request__actions-item-link
+  +text-block(1.25rem 1, center flex $muted-text)
+  +size(2.375rem)
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  transition: color .2s ease-in, background-color .2s ease-in
+  &.is-success
+    &:hover
+      background-color: #e0eefe
+      color: $primary
+  &.is-danger
+    &:hover
+      background-color: #f5e6ea
+      color: $danger

@@ -1,0 +1,11 @@
+.practice-task-request-form
+  .practice-task-request__author
+    = gravatar_tag current_user, size: 200, html: { class: "practice-task-request__author-icon" }
+  = form_for([@practice, task_request], html: { class: 'practice-task-request-form__form' }) do |f|
+    .form-items
+      .form-item
+        = f.label :content, t('task_request_message'), class: 'a-label'
+        = f.text_area :content, required: true, placeholder: t('task_request_placeholder_msg'),
+                class: 'a-textarea practice-task-request-form__textarea js-markdown-input'
+        .practice-task-request-form__action
+          = f.submit t('task_request_button'), class: 'is-button-standard-md-info'

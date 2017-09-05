@@ -8,6 +8,7 @@ class PracticesController < ApplicationController
   end
 
   def show
+    @task_request = TaskRequest.new
   end
 
   def new
