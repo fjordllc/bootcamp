@@ -421,6 +421,7 @@ ja:
   complete: "完了"
   started: "開始"
   completed_stamp: "完了済"
+  task_checking: "確認中"
   task_request_message: "確認依頼メッセージ(課題のURLなどはここに入力して下さい)"
   task_request_button: "課題の確認を依頼する"
   task_requested_notice: "課題の確認を依頼しました。"

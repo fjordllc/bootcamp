@@ -44,6 +44,30 @@ class Practice < ActiveRecord::Base
     )
   end
 
+  def completed?(user)
+    status_cds = Learning.statuses.values_at("complete")
+
+    Learning.exists?(
+        user:        user,
+        practice_id: id,
+        status_cd:   status_cds
+    )
+  end
+
+  def task_checking?(user)
+    status_cds = Learning.statuses.values_at("task_checking")
+
+    Learning.exists?(
+        user:        user,
+        practice_id: id,
+        status_cd:   status_cds
+    )
+  end
+
+  def not_complete_or_checking?(user)
+    !(self.completed?(user) || self.task_checking?(user))
+  end
+
   def exists_learning?(user)
     Learning.exists?(
       user:        user,

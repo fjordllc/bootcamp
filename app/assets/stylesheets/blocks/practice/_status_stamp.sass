@@ -1,0 +1,25 @@
+$status_complete: #e54a65
+$status_checking: #d6b441
+$status_stamp: white
+
+.status_stamp
+  &.complete
+    background-color: $status_complete
+  &.checking
+    background-color: $status_checking
+  +text-block(1rem, 1 block center $status_stamp)
+  border: double .1875rem $status_stamp
+  border-radius: .50rem
+  +size(4rem 2rem)
+  padding: .125rem
+  transform: rotate(25deg)
+  +position(absolute, right -.5rem, top 0)
+  +media-breakpoint-down(sm)
+    +position(absolute, right -.1, top .125rem)
+    transform: rotate(30deg)
+
+.status_stamp__content
+  align-items: center
+  padding-top: .125rem
+  &.is-title
+    +size(100% 32%)
