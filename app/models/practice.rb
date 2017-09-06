@@ -82,6 +82,14 @@ class Practice < ActiveRecord::Base
     )
   end
 
+  def with_task_checking(user)
+    learning = Learning.find_or_create_by(
+      user_id: user.id,
+      practice_id: id
+    )
+    learning.update!(status: :task_checking)
+  end
+
   def all_text
     [title, description, goal].join("\n")
   end

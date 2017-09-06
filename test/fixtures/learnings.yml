@@ -22,3 +22,23 @@ learning_5:
   user: tanaka
   practice: practice_2
   status_cd: 1
+
+learning_with_task_checking_1:
+  user: tanaka
+  practice: practice_3
+  status_cd: 3
+
+learning_with_task_checking_2:
+  user: mineo
+  practice: practice_3
+  status_cd: 3
+
+learning_with_task_checking_3:
+  user: mineo
+  practice: practice_7
+  status_cd: 3
+
+learning_with_task_checking_4:
+  user: mineo
+  practice: practice_11
+  status_cd: 3

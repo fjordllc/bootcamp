@@ -6,11 +6,7 @@ class TaskRequestsController < ApplicationController
     @task_request.user = current_user
 
     if @task_request.save
-      learning = Learning.find_or_create_by(
-        user_id: current_user.id,
-        practice_id: @practice.id
-      )
-      learning.update!(status: :task_checking)
+      @practice.with_task_checking(current_user)
 
       # slackの処理
 
