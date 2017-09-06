@@ -7,8 +7,8 @@ class TaskRequestsController < ApplicationController
 
     if @task_request.save
       learning = Learning.find_or_create_by(
-          user_id: current_user.id,
-          practice_id: @practice.id
+        user_id: current_user.id,
+        practice_id: @practice.id
       )
       learning.update!(status: :task_checking)
 

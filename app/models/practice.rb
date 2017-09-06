@@ -48,9 +48,9 @@ class Practice < ActiveRecord::Base
     status_cds = Learning.statuses.values_at("complete")
 
     Learning.exists?(
-        user:        user,
-        practice_id: id,
-        status_cd:   status_cds
+      user:        user,
+      practice_id: id,
+      status_cd:   status_cds
     )
   end
 
@@ -58,9 +58,9 @@ class Practice < ActiveRecord::Base
     status_cds = Learning.statuses.values_at("task_checking")
 
     Learning.exists?(
-        user:        user,
-        practice_id: id,
-        status_cd:   status_cds
+      user:        user,
+      practice_id: id,
+      status_cd:   status_cds
     )
   end
 
