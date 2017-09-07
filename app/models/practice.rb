@@ -90,6 +90,14 @@ class Practice < ActiveRecord::Base
     learning.update!(status: :task_checking)
   end
 
+  def with_complete(user)
+    learning = Learning.find_or_create_by(
+      user_id: user.id,
+      practice_id: id
+    )
+    learning.update!(status: :complete)
+  end
+
   def all_text
     [title, description, goal].join("\n")
   end
