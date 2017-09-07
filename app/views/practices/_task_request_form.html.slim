@@ -1,11 +1,16 @@
-.practice-task-request-form
-  .practice-task-request__author
-    = gravatar_tag current_user, size: 200, html: { class: "practice-task-request__author-icon" }
-  = form_for([@practice, task_request], html: { class: 'practice-task-request-form__form' }) do |f|
-    .form-items
-      .form-item
+.practice-task__form
+  = form_for ([@practice, task_request]) do |f|
+    .row.js-markdown-parent
+      .col-md-6.col-xs-12
+        .form-group
         = f.label :content, t('task_request_message'), class: 'a-label'
         = f.text_area :content, required: true, placeholder: t('task_request_placeholder_msg'),
                 class: 'a-textarea practice-task-request-form__textarea js-markdown-input'
-        .practice-task-request-form__action
+      .col-md-6.col-xs-12
+        label.a-label
+          | プレビュー
+        .js-markdown-preview.is-long-text-style.markdown-form__preview
+    .form-actions
+      ul.form-actions__items
+        li.form-actions__item
           = f.submit t('task_request_button'), class: 'is-button-standard-md-info'

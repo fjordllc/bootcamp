@@ -51,12 +51,15 @@ header.page-header
                       $.post('/chat_notices', {text: text});
                   });
             = render 'practices/complete_button' unless @practice.assignment?
-        - if @practice.assignment?
-          - if task_request = @practice.task_requested?(current_user)
-            = render 'practices/task_request', task_request: task_request, practice: @practice
-          - else
-            = render 'practices/task_request_form', task_request: @task_request
+  - if @practice.assignment?
+    - if task_request = @practice.task_requested?(current_user)
+      .row.is-gutter-width-32
+        .col-md-6.col-xs-12
+          = render 'practices/task_request', task_request: task_request, practice: @practice
+    - else
+      = render 'practices/task_request_form', task_request: @task_request
 
+  .row.is-gutter-width-32
     .col-md-6.col-xs-12
       // TODO 関連する質問を表示
       //= render 'temp_questions'
@@ -65,11 +68,11 @@ header.page-header
 
     .col-xs-12
       .interns-icons
-        h2.user-reports__title
-          = t('completed_users')
-        ul.completed-users
-          - @practice.completed_users.each do |user|
-            li.completed-users__user
-              = link_to user, class: "completed-users__user-link" do
-                span.completed-users__user-icon
-                  = gravatar_tag user, size: 32
+      h2.user-reports__title
+        = t('completed_users')
+      ul.completed-users
+        - @practice.completed_users.each do |user|
+          li.completed-users__user
+            = link_to user, class: "completed-users__user-link" do
+              span.completed-users__user-icon
+                = gravatar_tag user, size: 32
