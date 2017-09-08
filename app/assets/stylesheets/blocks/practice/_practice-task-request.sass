@@ -72,6 +72,7 @@ $practice-header-author: 3.5rem
   +media-breakpoint-down(sm)
     flex-direction: column
     align-items: flex-start
+
 .practice-task-request__created-at
   display: block
   +text-block(.875rem 1.4, $muted-text)
@@ -100,3 +101,25 @@ $practice-header-author: 3.5rem
     &:hover
       background-color: #f5e6ea
       color: $danger
+
+.task_requested_file__name
+  +text-block(.875rem 1, right flex-end $muted-text)
+
+.task_requested_file__size
+  +text-block(.875rem 1, right flex-end $muted-text)
+
+.zip_file_item
+  display: flex
+  justify-content: center
+
+.task_requested_zip_file
+  align-content: center
+  margin-top: 1.5rem
+  display: inline-block
+  +text-block(5rem 1.2, center flex-end $muted-text)
+
+.task_requested_zip_file__name
+  +text-block(.875rem 1, center flexs-start $muted-text)
+
+.task_requested_zip_file__size
+  +text-block(.875rem 1, center flex-end $muted-text)
