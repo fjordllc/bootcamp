@@ -20,7 +20,7 @@ class TaskRequestsController < ApplicationController
   private
 
     def task_request_params
-      params.require(:task_request).permit(:content)
+      params.require(:task_request).permit(:content, :task)
     end
 
     def set_practice

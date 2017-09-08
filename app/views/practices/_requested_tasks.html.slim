@@ -1,0 +1,8 @@
+- if task_request.task_is_image_file?
+  p = link_to(image_tag(task_request.task.url(:medium)),task_request.task.url, target: '_blank')
+  = task_request.task_file_name
+  = "(#{task_request.task_file_size / 1000}KB)"
+- elsif task_request.task_is_zip_file?
+  = task_request.task_file_name
+  = "(#{task_request.task_file_size / 1000}KB)"
+  p  = link_to t('task_zip_download'),task_request.task.url, action: :download

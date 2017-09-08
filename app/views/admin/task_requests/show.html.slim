@@ -28,6 +28,7 @@ header.page-header
                 = @task_request.practice.goal
             .practice-task_requests__content.js-markdown-view.js-target-blank.is-long-text-style
               = @task_request.content
+            = render 'practices/requested_tasks', task_request: @task_request
           .practice-task-request-form__action
             - if @task_request.practice.not_completed?(@task_request.user)
               = link_to passed_admin_task_request_path(@task_request), method: :put, class: 'is-button-standard-sm-info' do
