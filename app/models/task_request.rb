@@ -28,4 +28,8 @@ class TaskRequest < ApplicationRecord
   def task_is_zip_file?
     %w(application/zip application/x-zip).include?(self.task_content_type)
   end
+
+  def to_pass
+    self.update(passed: true)
+  end
 end

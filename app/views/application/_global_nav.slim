@@ -56,7 +56,7 @@ nav.global-nav.js-show-mobile-nav__target
             .global-nav-links__link-label
               = t('categories')
         li.global-nav-links__item
-          = link_to admin_task_requests_path, class: "global-nav-links__link #{current_link('/admin/task_requests')}" do
+          = link_to admin_task_requests_path(passed: false), class: "global-nav-links__link #{current_link('/admin/task_requests')}" do
             .global-nav-links__link-icon
               - if TaskRequest.non_passed.exists?
                 .global-nav-task_requests-count

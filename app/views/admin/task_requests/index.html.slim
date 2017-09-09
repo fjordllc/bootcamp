@@ -9,9 +9,11 @@ header.page-header
     .container.is-xs-horizontal-padding-0
       ul.tab-nav__items
         li.tab-nav__item
-          = link_to "未確認", admin_task_requests_path, class: "tab-nav__item-link #{params[:passed].present? ? '' : 'is-active'}"
+          = link_to "未確認", admin_task_requests_path(passed: false), class: "tab-nav__item-link #{not_passed_url? ? 'is-active' : ''}"
         li.tab-nav__item
-          = link_to "確認済", admin_task_requests_path(passed: 'true'), class: "tab-nav__item-link #{params[:passed].present? ? 'is-active' : ''}"
+          = link_to "確認済", admin_task_requests_path(passed: true), class: "tab-nav__item-link #{passed_url? ? 'is-active' : ''}"
+        li.tab-nav__item
+          = link_to "一覧", admin_task_requests_path, class: "tab-nav__item-link #{passed_url_nil? ? 'is-active' : ''}"
   .container.is-padding-horizontal-0-sm-down
     .admin-table
       table.admin-table__table
@@ -20,11 +22,11 @@ header.page-header
             th.admin-table__label
               | ユーザー名
             th.admin-table__label
+              | 課題の提出
+            th.admin-table__label
               | プラクティス
             th.admin-table__label
               | 依頼日
-            th.admin-table__label
-              | 詳細
         tbody.admin-table__items
           - @task_requests.each do |request|
             tr.admin-table__item
@@ -34,10 +36,10 @@ header.page-header
                   span.admin-table__user-login-name
                     = request.user.login_name
                     | （#{request.user.full_name}）
+              td.admin-table__item-value.is-text-align-center
+                = link_to t('task_requested') ,admin_task_request_path(request)
               td.admin-table__item-value
                 = request.practice.title
               td.admin-table__item-value
-                time.practice-task_request__created-at(datetime='#{request.created_at.to_datetime}' pubdate='pubdate')
+                time.practice-task_request__created-at(datetime='#{request.updated_at.to_datetime}' pubdate='pubdate')
                   = l request.updated_at, format: :date_long_with_time
-              td.admin-table__item-value.is-text-align-center
-                = link_to t('task_requested') ,admin_task_request_path(request)

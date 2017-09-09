@@ -15,7 +15,7 @@ class AdminCheckTaskRequestTest < ActionDispatch::IntegrationTest
 
     click_link "未確認"
     assert_text "viをインストールする"
-    page.all(".admin-table__item-value.is-text-align-center")[2].click_link("確認依頼の内容")
+    page.all(".admin-table__item-value.is-text-align-center")[2].click_link("提出課題")
     assert_text "viをインストールするの課題完了しました。"
     click_link "完了"
 
