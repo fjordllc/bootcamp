@@ -1,0 +1,15 @@
+- title t('task_request_edit')
+
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title
+        = t('task_request_edit')
+      .page-header__action
+        = link_to practices_path, class: 'is-button-standard-md-secondary' do
+          i.fa.fa-angle-left
+          = t('practices')
+
+.page-body
+  .container
+    = render 'task_requests/form', task_request: @task_request, title_button: t('task_request_edit')

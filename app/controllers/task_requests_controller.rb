@@ -1,7 +1,8 @@
 class TaskRequestsController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
-  before_action :set_practice, only: :create
+  before_action :set_practice, only: %i(create)
+  before_action :set_task_request, only: %i(edit update destroy)
 
   def create
     @task_request      = @practice.task_requests.build(task_request_params)
@@ -9,12 +10,28 @@ class TaskRequestsController < ApplicationController
 
     if @task_request.save
       @practice.with_task_checking(current_user)
-      notify_to_slack(@task_request)
-
+      notify_to_slack(@task_request, t("task_request_new_slack_message"))
       redirect_to @task_request.practice, notice: t("task_requested_notice")
     else
       redirect_to @task_request.practice, alert: @task_request.errors.full_messages
     end
+  end
+
+  def edit
+  end
+
+  def update
+    if @task_request.update_attributes(task_request_params)
+      notify_to_slack(@task_request, t("task_request_edit"))
+      redirect_back_or_to @task_request.practice, notice: t("task_request_was_successfully_updated")
+    else
+      redirect_to @task_request.practice, alert: @task_request.errors.full_messages
+    end
+  end
+
+  def destroy
+    @task_request.destroy
+    redirect_to @task_request.practice, notice: t("task_request_was_successfully_deleted")
   end
 
   private
@@ -27,11 +44,15 @@ class TaskRequestsController < ApplicationController
       @practice = Practice.find(params[:practice_id])
     end
 
-    def notify_to_slack(task_request)
+    def set_task_request
+      @task_request = TaskRequest.find(params[:id])
+    end
+
+    def notify_to_slack(task_request, subject)
       name = "#{task_request.user.login_name}"
       link = "<#{admin_task_request_url(task_request)}#task_request_#{task_request.id}|#{task_request.practice.title}>"
 
-      notify "#{name} さんから課題の確認依頼が届いています。 #{link}",
+      notify "#{name} さんから#{subject}が届いています。 #{link}",
              username:    "#{task_request.user.login_name} (#{task_request.user.full_name})",
              icon_url:    gravatar_url(task_request.user),
              attachments: [{

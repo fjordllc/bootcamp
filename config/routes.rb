@@ -29,9 +29,9 @@ Rails.application.routes.draw do
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
   resources :practices, shallow: true do
+    resources :task_requests, only: %i(create edit update destroy)
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
-    resource :task_requests, only: %i(create)
   end
   resources :reports do
     resources :checks, only: %i(create)

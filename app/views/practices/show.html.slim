@@ -57,7 +57,7 @@ header.page-header
         .col-md-6.col-xs-12
           = render 'practices/task_request', task_request: task_request, practice: @practice
     - else
-      = render 'practices/task_request_form', task_request: @task_request
+      = render 'task_requests/form', task_request: @task_request, title_button: t('task_request_new')
 
   .row.is-gutter-width-32
     .col-md-6.col-xs-12
