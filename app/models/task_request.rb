@@ -2,7 +2,7 @@ class TaskRequest < ApplicationRecord
   belongs_to :user
   belongs_to :practice
   has_attached_file :task,
-                    styles: { medium: "500x500>", thumb: "100x100>" }
+                    styles: { medium: "500x500>", thumb: "250x250>" }
   validates_attachment :task,
                        content_type: { content_type: ["image/jpeg", "image/gif", "image/png", "application/zip", "application/x-zip"] },
                        size:         { less_than: 1.megabytes }

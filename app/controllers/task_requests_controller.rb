@@ -13,7 +13,7 @@ class TaskRequestsController < ApplicationController
       notify_to_slack(@task_request, t("task_request_new_slack_message"))
       redirect_to @task_request.practice, notice: t("task_requested_notice")
     else
-      redirect_to @task_request.practice, alert: @task_request.errors.full_messages
+      render template: "practices/show"
     end
   end
 
@@ -25,7 +25,7 @@ class TaskRequestsController < ApplicationController
       notify_to_slack(@task_request, t("task_request_edit"))
       redirect_back_or_to @task_request.practice, notice: t("task_request_was_successfully_updated")
     else
-      redirect_to @task_request.practice, alert: @task_request.errors.full_messages
+      render :edit
     end
   end
 

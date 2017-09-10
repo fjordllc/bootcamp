@@ -1,4 +1,5 @@
 .practice-task__form
+  = render 'application/errors',object: task_request
   = form_for ([@practice, task_request]), html: { multipart: true } do |f|
     .row.js-markdown-parent
       .col-md-6.col-xs-12
@@ -9,6 +10,9 @@
         .form-group
           = f.label :task,t('task_field_label'), class: 'a-label'
           = f.file_field :task
+          - if task_request.task.exists?
+            .thumbnail
+              = render 'practices/task_preview', task_request: task_request
       .col-md-6.col-xs-12
         label.a-label
           | プレビュー
