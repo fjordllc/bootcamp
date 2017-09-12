@@ -1,0 +1,28 @@
+.practice-submission-container
+  h2.practice-submission-container__title
+    = t('submission_title')
+  .practice-submissions
+    .practice-submission-container
+      .practice-submission
+        .practice-submission__author
+          = link_to submission.user, itempro: 'url', class: 'practice-submission__author-link' do
+            = gravatar_tag submission.user, size: 200, html: { class: "practice-submission__author-icon" }
+        .practice-submission__body
+          header.practice-submission__body-header
+            h2.practice-submission__login-name
+              = link_to submission.user, itempro: 'url', class: 'practice-submission__login-name-link' do
+                = submission.user.login_name
+            time.practice-submission__created-at(datetime='#{submission.updated_at.to_datetime}' pubdate='pubdate')
+              = l submission.updated_at, format: :date_long_with_time
+          .practice-submissions__content.js-markdown-view.js-target-blank.is-long-text-style
+            = submission.content
+          = render 'practices/requested_tasks', submission: submission
+          - if submission.user == current_user
+            .practice-submission__actions
+              ul.practice-submission__actions-items
+                li.practice-submission__actions-item
+                  = link_to edit_submission_path(submission), class: 'practice-submission__actions-item-link' do
+                    i.fa.fa-pencil
+                li.practice-submission__actions-item
+                  = link_to submission_path(submission), data: { confirm: t('are_you_sure') }, method: :delete, class: 'practice-submission__actions-item-link' do
+                    i.fa.fa-trash-o

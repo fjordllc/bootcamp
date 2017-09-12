@@ -1,19 +1,19 @@
-task_request_1:
+submission_1:
   user: tanaka
   practice: practice_3
   content: "課題完了しました。ご確認宜しくお願い致します。 \n [課題](http://256interns.com/)"
 
-task_request_3:
+submission_3:
   user: mineo
   practice: practice_3
   content: "課題完了しました。ご確認宜しくお願い致します。 \n [課題](http://256interns.com/)"
 
-task_request_4:
+submission_4:
   user: mineo
   practice: practice_7
   content: "viをインストールするの課題完了しました。\n ご確認宜しくお願い致します。 \n [課題](http://256interns.com/)"
 
-task_request_5:
+submission_5:
   user: mineo
   practice: practice_11
   content: "課題完了しました。ご確認宜しくお願い致します。 \n [課題](http://256interns.com/)"

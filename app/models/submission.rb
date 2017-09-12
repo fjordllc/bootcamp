@@ -1,4 +1,4 @@
-class TaskRequest < ApplicationRecord
+class Submission < ApplicationRecord
   belongs_to :user
   belongs_to :practice
   has_attached_file :task,

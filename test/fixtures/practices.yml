@@ -33,7 +33,7 @@ practice_3:
     参照: [Macの型番調べ辛い - komagata](http://docs.komagata.org/4433)
   category: category_2
   position: 3
-  assignment: true
+  has_task: true
 
 practice_4:
   title: "Debianをインストールする"
@@ -62,7 +62,7 @@ practice_7:
   goal: "viのバージョンのスクリーンショット画像を確認してもらう"
   category: category_8
   position: 7
-  assignment: true
+  has_task: true
 
 practice_8:
   title: "viのチュートリアルをやる"
@@ -91,7 +91,7 @@ practice_11:
   goal: "sshを使ってログインしているターミナルのスクリーンショット画像を確認してもらう。"
   category: category_4
   position: 11
-  assignment: true
+  has_task: true
 
 practice_12:
   title: "sshdでパスワード認証を禁止にする"

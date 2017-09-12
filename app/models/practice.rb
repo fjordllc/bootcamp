@@ -15,12 +15,12 @@ class Practice < ActiveRecord::Base
     source: :user
   belongs_to :category
   acts_as_list scope: :category
-  has_many :task_requests
+  has_many :submissions
 
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true
-  validates :assignment, inclusion: { in: [true, false] }
+  validates :task, inclusion: { in: [true, false] }
 
   def status(user)
     learnings = Learning.where(
@@ -54,8 +54,8 @@ class Practice < ActiveRecord::Base
     )
   end
 
-  def task_checking?(user)
-    status_cds = Learning.statuses.values_at("task_checking")
+  def pending?(user)
+    status_cds = Learning.statuses.values_at("pending")
 
     Learning.exists?(
       user:        user,
@@ -64,8 +64,8 @@ class Practice < ActiveRecord::Base
     )
   end
 
-  def not_complete_or_checking?(user)
-    !(self.completed?(user) || self.task_checking?(user))
+  def not_completed_or_pending?(user)
+    !(self.completed?(user) || self.pending?(user))
   end
 
   def exists_learning?(user)
@@ -75,22 +75,22 @@ class Practice < ActiveRecord::Base
     )
   end
 
-  def task_requested?(user)
-    TaskRequest.find_by(
+  def find_submission(user)
+    Submission.find_by(
       user_id: user.id,
       practice_id: id
     )
   end
 
-  def with_task_checking(user)
+  def pending(user)
     learning = Learning.find_or_create_by(
       user_id: user.id,
       practice_id: id
     )
-    learning.update!(status: :task_checking)
+    learning.update!(status: :pending)
   end
 
-  def with_complete(user)
+  def complete(user)
     learning = Learning.find_or_create_by(
       user_id: user.id,
       practice_id: id

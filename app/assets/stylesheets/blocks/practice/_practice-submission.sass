@@ -1,28 +1,28 @@
 $practice-header-author: 3.5rem
-.practice-task-requests
+.practice-submissions
   +position(relative)
   max-width: 52rem
   +margin(horizontal, auto)
   border-radius: .25rem
 
-.practice-task-request-container
+.practice-submission-container
   max-width: 52rem
   +margin(horizontal, auto)
   margin-top: 2rem
 
-.practice-task-request-container__title
+.practice-submission-container__title
   +text-block(1.25rem 1.45 1.5rem, flex)
   align-items: center
   +media-breakpoint-down(sm)
     margin-bottom: 1rem
 
-.practice-task-request-body
+.practice-submission-body
   +position(relative)
   max-width: 52rem
   +margin(horizontal, auto)
   border-radius: .25rem
 
-.practice-task-request
+.practice-submission
   +position(relative)
   border-radius: .25rem
   margin-bottom: 2rem
@@ -31,20 +31,20 @@ $practice-header-author: 3.5rem
     padding-left: 0
     margin-bottom: 1rem
 
-.practice-task-request__author
+.practice-submission__author
   +position(absolute, left 0, top 0)
   +size($practice-header-author 100%)
   +media-breakpoint-down(sm)
     display: none
 
-.practice-task-request__author-icon
+.practice-submission__author-icon
   +size(100% auto)
   border-radius: 50%
 
-.practice-task-request__login-name-link
+.practice-submission__login-name-link
   color: $main-color
 
-.practice-task-request__body
+.practice-submission__body
   background-color: $base-color
   +padding(horizontal, 1rem)
   border-radius: .25rem
@@ -54,16 +54,16 @@ $practice-header-author: 3.5rem
     &::before,
     &::after
       content: none
-  .practice-task-request.is-correct_answer &
+  .practice-submission.is-correct_answer &
     border: solid .125rem $accent-color
 
-.practice-task-requests__content
+.practice-submissions__content
   +padding(vertical, 1rem)
   +media-breakpoint-down(sm)
     +padding(vertical, .5rem)
     word-wrap: break-word
 
-.practice-task-request__body-header
+.practice-submission__body-header
   display: flex
   justify-content: space-between
   align-items: center
@@ -73,21 +73,21 @@ $practice-header-author: 3.5rem
     flex-direction: column
     align-items: flex-start
 
-.practice-task-request__created-at
+.practice-submission__created-at
   display: block
   +text-block(.875rem 1.4, $muted-text)
 
-.practice-task-request__actions
+.practice-submission__actions
   +padding(vertical, .5rem)
   +media-breakpoint-down(sm)
     padding-top: 0
 
-.practice-task-request__actions-items
+.practice-submission__actions-items
   display: flex
   justify-content: flex-end
   align-items: center
 
-.practice-task-request__actions-item-link
+.practice-submission__actions-item-link
   +text-block(1.25rem 1, center flex $muted-text)
   +size(2.375rem)
   align-items: center
@@ -103,24 +103,24 @@ $practice-header-author: 3.5rem
       background-color: #f5e6ea
       color: $danger
 
-.task_requested_file__name
+.submission_file__name
   +text-block(.875rem 1, right flex-end $muted-text)
 
-.task_requested_file__size
+.submission_file__size
   +text-block(.875rem 1, right flex-end $muted-text)
 
 .zip_file_item
   display: flex
   justify-content: center
 
-.task_requested_zip_file
+.submission_zip_file
   align-content: center
   margin-top: 1.5rem
   display: inline-block
   +text-block(5rem 1.2, center flex-end $muted-text)
 
-.task_requested_zip_file__name
+.submission_zip_file__name
   +text-block(.875rem 1, center flexs-start $muted-text)
 
-.task_requested_zip_file__size
+.submission_zip_file__size
   +text-block(.875rem 1, center flex-end $muted-text)

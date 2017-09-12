@@ -20,7 +20,7 @@ class PracticePageTest < ActionDispatch::IntegrationTest
     click_link "viをインストールする"
     assert_not has_link? "完了"
     assert has_button? "課題の確認を依頼する"
-    fill_in("task_request_content", with: "課題が完了しました。宜しくお願い致します。")
+    fill_in("submission_content", with: "課題が完了しました。宜しくお願い致します。")
     click_button "課題の確認を依頼する"
     assert_not has_link? "課題の確認を依頼する"
     assert_text "提出した課題の内容"

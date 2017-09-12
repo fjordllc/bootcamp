@@ -8,7 +8,7 @@ class PracticesController < ApplicationController
   end
 
   def show
-    @task_request = TaskRequest.new
+    @submission = Submission.new
   end
 
   def new

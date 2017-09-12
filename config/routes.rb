@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
     end
-    resources :task_requests, only: %i(index show) do
+    resources :submissions, only: %i(index show) do
       put :passed, on: :member
     end
   end
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
   resources :practices, shallow: true do
-    resources :task_requests, only: %i(create edit update destroy)
+    resources :submissions, only: %i(create edit update destroy)
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
   end

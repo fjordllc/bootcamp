@@ -1,18 +1,18 @@
 .practice-task__form
-  = render 'application/errors',object: task_request
-  = form_for ([@practice, task_request]), html: { multipart: true } do |f|
+  = render 'application/errors', object: submission
+  = form_for ([@practice, submission]), html: { multipart: true } do |f|
     .row.js-markdown-parent
       .col-md-6.col-xs-12
         .form-group
-          = f.label :content, t('task_request_message'), class: 'a-label'
-          = f.text_area :content, required: true, placeholder: t('task_request_placeholder_msg'),
+          = f.label :content, t('submission_message'), class: 'a-label'
+          = f.text_area :content, required: true, placeholder: t('submission_placeholder_msg'),
                   class: 'a-textarea practice-task-request-form__textarea js-markdown-input'
         .form-group
           = f.label :task,t('task_field_label'), class: 'a-label'
           = f.file_field :task
-          - if task_request.task.exists?
+          - if submission.task.exists?
             .thumbnail
-              = render 'practices/task_preview', task_request: task_request
+              = render 'practices/task_preview', submission: submission
       .col-md-6.col-xs-12
         label.a-label
           | プレビュー

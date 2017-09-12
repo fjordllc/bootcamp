@@ -1,5 +1,5 @@
 class Learning < ActiveRecord::Base
-  as_enum :status, started: 0, complete: 1, not_complete: 2, task_checking: 3
+  as_enum :status, started: 0, complete: 1, not_complete: 2, pending: 3
   belongs_to :user, touch: true
   belongs_to :practice
 

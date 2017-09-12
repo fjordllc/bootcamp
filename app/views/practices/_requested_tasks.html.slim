@@ -1,15 +1,15 @@
-- if task_request.task_is_image_file?
-  = link_to(image_tag(task_request.task.url(:medium)),task_request.task.url, target: '_blank')
-  .task_requested_file__name
-    = task_request.task_file_name
-  .task_requested_file__size
-    = "(#{task_request.task_file_size / 1000}KB)"
-- elsif task_request.task_is_zip_file?
+- if submission.task_is_image_file?
+  = link_to(image_tag(submission.task.url(:medium)),submission.task.url, target: '_blank')
+  .submission_file__name
+    = submission.task_file_name
+  .submission_file__size
+    = "(#{submission.task_file_size / 1000}KB)"
+- elsif submission.task_is_zip_file?
   .zip_file_item
-    = link_to task_request.task.url, action: :download do
-      .task_requested_zip_file
+    = link_to submission.task.url, action: :download do
+      .submission_zip_file
         .fa.fa-file-archive-o
-        .task_requested_zip_file__name
-          = task_request.task_file_name
-        .task_requested_zip_file__size
-          = "(#{task_request.task_file_size / 1000}KB)"
+        .submission_zip_file__name
+          = submission.task_file_name
+        .submission_zip_file__size
+          = "(#{submission.task_file_size / 1000}KB)"

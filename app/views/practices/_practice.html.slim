@@ -10,7 +10,7 @@
               = gravatar_tag user, size: 44, html: { class: "category-practices-item__user-icon #{user.active? ? 'active' : 'inactive'} " }
     - if current_user
       .category-practices-item__value.is-status
-        - if practice.not_complete_or_checking?(current_user)
+        - if practice.not_completed_or_pending?(current_user)
           ul.is-button-group.category-practices-item__button-group
             - %i(not_complete started).each do |status|
               - if practice.status(current_user) == status

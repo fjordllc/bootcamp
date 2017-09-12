@@ -270,7 +270,7 @@ ja:
       page: "Wiki"
       question: "Q&A"
       contact: "インターン申し込みフォーム"
-      task_request: "課題の確認依頼"
+      submission: "課題の確認依頼"
 
     enums:
       user:
@@ -383,7 +383,7 @@ ja:
         application_reason: "志望理由"
         user_policy_agreed: "個人情報の取り扱いについて"
 
-      task_request:
+      submission:
         content: "課題の依頼メッセージ"
         task: "課題のファイル"
 
@@ -441,15 +441,15 @@ ja:
   complete: "完了"
   started: "開始"
   completed_stamp: "完了済"
-  task_checking: "確認中"
-  task_request_message: "確認依頼メッセージ(課題のURLなどはここに入力して下さい)"
-  task_request_new: "課題の確認を依頼する"
-  task_request_edit: "提出した課題の修正"
-  task_request_new_slack_message: "課題の確認の依頼"
-  task_requested_notice: "課題の確認を依頼しました。"
-  task_request_was_successfully_deleted: "課題の依頼を削除しました"
-  task_request_placeholder_msg: "（(例) \n **のプラクティスの課題を提出致します。よろしくお願いします。\n [**の課題](https://github.com)"
-  task_request_was_successfully_updated: "課題依頼の内容を更新しました。"
+  pending: "確認中"
+  submission_message: "確認依頼メッセージ(課題のURLなどはここに入力して下さい)"
+  submission_new: "課題の確認を依頼する"
+  submission_edit: "提出した課題の修正"
+  submission_new_slack_message: "課題の確認の依頼"
+  submission_notice: "課題の確認を依頼しました。"
+  submission_was_successfully_deleted: "課題の依頼を削除しました"
+  submission_placeholder_msg: "（(例) \n **のプラクティスの課題を提出致します。よろしくお願いします。\n [**の課題](https://github.com)"
+  submission_was_successfully_updated: "課題依頼の内容を更新しました。"
   task_field_label: "課題のファイル(ファイル提出がある場合)"
   practice_status_reset_confirmation: "未着手状態に戻しますがよろしいですか？"
   hide_completed: "完了済みプラクティスを隠す"
@@ -462,7 +462,7 @@ ja:
   created_by: "created by "
   updated_by: "updated by "
   comments: "コメント"
-  task_request_title: "提出した課題の内容"
+  submission_title: "提出した課題の内容"
   task_zip_download: "課題ファイルをダウンロード"
   check: "確認者"
   check_count: "名"
@@ -488,7 +488,7 @@ ja:
   listing_questions: "Q & A"
   companies: "会社"
   categories: "カテゴリー"
-  task_requests: "課題の確認依頼"
+  submissions: "課題の確認依頼"
   editing_practice: "プラクティス編集"
   editing_company: "会社編集"
   editing_user: "アカウント情報編集"
@@ -536,7 +536,7 @@ ja:
   how_256interns_works: "256インターンとは"
   completed: "完了"
   notice_completed_practice: "プラクティスを完了しました。"
-  task_request_pass_message: "依頼された課題の確認を完了しました。"
+  submission_pass_message: "依頼された課題の確認を完了しました。"
   completed_users: "完了したインターン"
   completed_practices: "完了したプラクティス"
   active_practices: "進行中のプラクティス"
@@ -566,7 +566,7 @@ ja:
   to_index_of_questions: Q&A一覧へ
   post_comment: コメントを投稿
   check_report: 日報を確認する
-  task_requested: 提出課題
+  submission: 提出課題
   interns: インターン一覧
   admin_interns: インターン情報
   login_name_description: チャットやSNS（Twitter、Github、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。極力ユーザー名は統一するようにしてください。

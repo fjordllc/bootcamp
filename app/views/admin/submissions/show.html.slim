@@ -1,0 +1,36 @@
+- title t('interns')
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title
+        = t('submission_title')
+.page-body
+  .container.is-padding-horizontal-0-sm-down
+    .admin-table
+      .practice-submission-container
+        .practice-submission
+          .practice-submission__author
+            = link_to @submission.user, itempro: 'url', class: 'practice-submission__author-link' do
+              = gravatar_tag @submission.user, size: 200, html: { class: "practice-submission__author-icon" }
+          .practice-submission__body
+            header.practice-submission__body-header
+              h2.practice-submission__login-name
+                = link_to @submission.user, itempro: 'url', class: 'practice-submission__login-name-link' do
+                  = @submission.user.login_name
+              time.practice-submission__created-at(datetime='#{@submission.created_at.to_datetime}' pubdate='pubdate')
+                = l @submission.updated_at, format: :date_long_with_time
+            h4.practice-submission__body-header
+              = link_to @submission.practice.title, @submission.practice
+            .practice-content
+              .practice-content__header
+                h2.practice-content__title= t('helpers.label.practice.goal')
+              .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text-style
+                = @submission.practice.goal
+            .practice-submissions__content.js-markdown-view.js-target-blank.is-long-text-style
+              = @submission.content
+            = render 'practices/requested_tasks', submission: @submission
+          .practice-submission-form__action
+            - if @submission.practice.not_completed?(@submission.user)
+              = link_to passed_admin_submission_path(@submission), method: :put, class: 'is-button-standard-sm-info' do
+                i.fa.fa-check-circle
+                = t('complete')

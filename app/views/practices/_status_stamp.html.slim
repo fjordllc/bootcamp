@@ -2,7 +2,7 @@
   .status_stamp.complete
     .status_stamp__content.is-title
       = t('completed_stamp')
-- elsif practice.task_checking?(current_user)
+- elsif practice.pending?(current_user)
   .status_stamp.checking
     .status_stamp__content.is-title
-      = t('task_checking')
+      = t('pending')

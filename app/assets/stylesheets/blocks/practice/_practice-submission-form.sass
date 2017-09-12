@@ -1,5 +1,5 @@
 $practice-header-author: 4.75rem
-.practice-task-request-form
+.practice-submission-form
   +position(relative)
   border-radius: .25rem
   margin-top: 2rem
@@ -11,17 +11,17 @@ $practice-header-author: 4.75rem
 .practice-task__form
   margin-top: 1rem
 
-.practice-task-request-form__author
+.practice-submission-form__author
   +position(absolute, left 0, top 0)
   +size($practice-header-author 100%)
   padding-right: 2rem
   border-right: $background-color solid .0625rem
 
-.practice-task-request-form__author-icon
+.practice-submission-form__author-icon
   +size(100% auto)
   border-radius: 50%
 
-.practice-task-request-form__form
+.practice-submission-form__form
   background-color: $base-color
   padding: 1rem
   border-radius: .25rem
@@ -32,10 +32,10 @@ $practice-header-author: 4.75rem
     &::after
       content: none
 
-.practice-task-request-form__textarea
+.practice-submission-form__textarea
   margin-bottom: .75rem
 
-.practice-task-request-form__action
+.practice-submission-form__action
   display: flex
   justify-content: flex-end
   margin-top: 2rem

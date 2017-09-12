@@ -1,4 +1,4 @@
-module TaskRequestsHelper
+module SubmissionsHelper
   # @task_requests = params[:passed].present? ? TaskRequest.passed : TaskRequest.non_passed
   def passed_url?
     params[:passed] == "true"
@@ -15,11 +15,11 @@ module TaskRequestsHelper
   def all_or_passed_status
     case params[:passed]
     when "true" then
-      TaskRequest.passed
+      Submission.passed
     when "false" then
-      TaskRequest.non_passed
+      Submission.non_passed
     when nil then
-      TaskRequest.all
+      Submission.all
     end
   end
 end

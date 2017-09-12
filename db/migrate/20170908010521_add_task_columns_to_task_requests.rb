@@ -1,9 +1,9 @@
 class AddTaskColumnsToTaskRequests < ActiveRecord::Migration[5.1]
   def self.up
-    add_attachment :task_requests, :task
+    add_attachment :submissions, :task
   end
 
   def self.down
-    remove_attachment :task_requests, :task
+    remove_attachment :submissions, :task
   end
 end

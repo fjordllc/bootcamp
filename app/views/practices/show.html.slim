@@ -50,14 +50,14 @@ header.page-header
                       var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
                       $.post('/chat_notices', {text: text});
                   });
-            = render 'practices/complete_button' unless @practice.assignment?
-  - if @practice.assignment?
-    - if task_request = @practice.task_requested?(current_user)
+            = render 'practices/complete_button' unless @practice.has_task?
+  - if @practice.has_task?
+    - if submission = @practice.find_submission(current_user)
       .row.is-gutter-width-32
         .col-md-6.col-xs-12
-          = render 'practices/task_request', task_request: task_request, practice: @practice
+          = render 'practices/submission', submission: submission, practice: @practice
     - else
-      = render 'task_requests/form', task_request: @task_request, title_button: t('task_request_new')
+      = render 'submissions/form', submission: @submission, title_button: t('submission_new')
 
   .row.is-gutter-width-32
     .col-md-6.col-xs-12
