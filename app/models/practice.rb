@@ -20,7 +20,7 @@ class Practice < ActiveRecord::Base
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true
-  validates :task, inclusion: { in: [true, false] }
+  validates :has_task, inclusion: { in: [true, false] }
 
   def status(user)
     learnings = Learning.where(
