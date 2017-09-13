@@ -1,12 +1,12 @@
-- if task_request.task_is_image_file?
+- if submission.task_is_image_file?
   .zip_file_item
-    = image_tag task_request.task.url(:thumb)
-- elsif task_request.task_is_zip_file?
+    = image_tag submission.task.url(:thumb)
+- elsif submission.task_is_zip_file?
   .zip_file_item
-    = link_to task_request.task.url, action: :download do
-      .task_requested_zip_file
+    = link_to submission.task.url, action: :download do
+      .submission_zip_file
         .fa.fa-file-archive-o
-        .task_requested_zip_file__name
-          = task_request.task_file_name
-        .task_requested_zip_file__size
-          = "(#{task_request.task_file_size / 1000}KB)"
+        .submission_zip_file__name
+          = submission.task_file_name
+        .submission_zip_file__size
+          = "(#{submission.task_file_size / 1000}KB)"

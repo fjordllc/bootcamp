@@ -30,7 +30,6 @@ header.page-header
               = @submission.content
             = render 'practices/requested_tasks', submission: @submission
           .practice-submission-form__action
-            - if @submission.practice.not_completed?(@submission.user)
-              = link_to passed_admin_submission_path(@submission), method: :put, class: 'is-button-standard-sm-info' do
-                i.fa.fa-check-circle
-                = t('complete')
+            = link_to admin_submissions_confirm_path(@submission), method: :put, class: 'is-button-standard-sm-info' do
+              i.fa.fa-check-circle
+              = t('complete')

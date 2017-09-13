@@ -17,8 +17,9 @@ Rails.application.routes.draw do
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
     end
-    resources :submissions, only: %i(index show) do
-      put :passed, on: :member
+    namespace :submissions do
+      resources :passes, only: %i(index show)
+      resources :confirms, only: %i(index show update)
     end
   end
   resources :feeds, only: %i(index)

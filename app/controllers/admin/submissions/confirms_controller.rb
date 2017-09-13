@@ -1,22 +1,21 @@
-class Admin::SubmissionsController < AdminController
+class Admin::Submissions::ConfirmsController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
-  include SubmissionsHelper
-  before_action :set_submission, only: %i(show passed)
+  before_action :set_submission, only: %i(show update)
 
   def index
-    @submissions = all_or_passed_status
+    @submissions = Submission.where(passed: false)
   end
 
   def show
   end
 
-  def passed
+  def update
     if @submission.practice.complete(@submission.user)
       @submission.to_pass
       notify_to_slack(@submission)
 
-      redirect_to admin_submissions_path(passed: false), notice: t("submission_pass_message")
+      redirect_to admin_submissions_confirms_path, notice: t("submission_pass_message")
     else
       render json: learning.errors, status: :unprocessable_entity
     end

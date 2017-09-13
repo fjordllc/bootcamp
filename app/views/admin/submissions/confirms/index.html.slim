@@ -1,0 +1,43 @@
+header.page-header
+  .container
+    .page-header__container
+      h1.page-header__title
+        = t('submissions')
+
+.page-body
+  nav.tab-nav
+    .container.is-xs-horizontal-padding-0
+      ul.tab-nav__items
+        li.tab-nav__item
+          = link_to "未確認", admin_submissions_confirms_path, class: "tab-nav__item-link is-active"
+        li.tab-nav__item
+          = link_to "確認済", admin_submissions_passes_path, class: "tab-nav__item-link"
+  .container.is-padding-horizontal-0-sm-down
+    .admin-table
+      table.admin-table__table
+        thead.admin-table__header
+          tr.admin-table__labels
+            th.admin-table__label
+              | ユーザー名
+            th.admin-table__label
+              | 課題の提出
+            th.admin-table__label
+              | プラクティス
+            th.admin-table__label
+              | 依頼日
+        tbody.admin-table__items
+          - @submissions.each do |submission|
+            tr.admin-table__item
+              td.admin-table__item-value
+                = link_to admin_user_path(submission.user), class: "admin-table__user" do
+                  = gravatar_tag submission.user, html: { class: "admin-table__user-icon" }
+                  span.admin-table__user-login-name
+                    = submission.user.login_name
+                    | （#{submission.user.full_name}）
+              td.admin-table__item-value.is-text-align-center
+                = link_to t('submission'), admin_submissions_confirm_path(submission)
+              td.admin-table__item-value
+                = submission.practice.title
+              td.admin-table__item-value
+                time.practice-submission__created-at(datetime='#{submission.updated_at.to_datetime}' pubdate='pubdate')
+                  = l submission.updated_at, format: :date_long_with_time

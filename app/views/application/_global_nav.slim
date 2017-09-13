@@ -56,7 +56,7 @@ nav.global-nav.js-show-mobile-nav__target
             .global-nav-links__link-label
               = t('categories')
         li.global-nav-links__item
-          = link_to admin_submissions_path(passed: false), class: "global-nav-links__link #{current_link('/admin/submissions')}" do
+          = link_to admin_submissions_confirms_path, class: "global-nav-links__link #{current_link('/admin/submissions')}" do
             .global-nav-links__link-icon
               - if Submission.non_passed.exists?
                 .global-nav-submissions-count
