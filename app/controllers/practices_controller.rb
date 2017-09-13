@@ -62,7 +62,7 @@ class PracticesController < ApplicationController
         :goal,
         :category_id,
         :position,
-        :assignment
+        :has_task
       )
     end
 

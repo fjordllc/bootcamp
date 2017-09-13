@@ -34,8 +34,8 @@
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label :assignment do
-            = f.check_box :assignment, {}, true
+          = f.label :has_task do
+            = f.check_box :has_task ,{},"true", "false"
             | このプラクティスに課題を付けます。
   .form-actions
     ul.form-actions__items
