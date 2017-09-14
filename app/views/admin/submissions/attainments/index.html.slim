@@ -9,9 +9,9 @@ header.page-header
     .container.is-xs-horizontal-padding-0
       ul.tab-nav__items
         li.tab-nav__item
-          = link_to "未確認", admin_submissions_confirms_path, class: "tab-nav__item-link"
+          = link_to "未確認", admin_submissions_confirmations_path, class: "tab-nav__item-link"
         li.tab-nav__item
-          = link_to "確認済", admin_submissions_passes_path, class: "tab-nav__item-link is-active"
+          = link_to "確認済", admin_submissions_attainments_path, class: "tab-nav__item-link is-active"
   .container.is-padding-horizontal-0-sm-down
     .admin-table
       table.admin-table__table
@@ -35,7 +35,7 @@ header.page-header
                     = submission.user.login_name
                     | （#{submission.user.full_name}）
               td.admin-table__item-value.is-text-align-center
-                = link_to t('submission'), admin_submissions_pass_path(submission)
+                = link_to t('submission'), admin_submissions_attainment_path(submission)
               td.admin-table__item-value
                 = submission.practice.title
               td.admin-table__item-value
