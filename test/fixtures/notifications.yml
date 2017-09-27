@@ -1,0 +1,7 @@
+notification_1:
+  kind: 0
+  user: tanaka
+  sender: komagata
+  message: komagataさんからコメントが届きました。
+  path: "/reports/1"
+  read: false
