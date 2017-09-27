@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :footprints, only: %i(create)
     resources :comments
   end
+  resources :notifications, only: %i(show)
   get "pages/new", to: "pages#new"
   get "pages", to: "pages#index", as: :pages
   post "pages", to: "pages#create"
@@ -45,7 +46,7 @@ Rails.application.routes.draw do
   end
   resources :courses, only: :index
   resources :chat_notices, only: :create
-  get "login"  => "user_sessions#new",     as: :login
+  get "login" => "user_sessions#new", as: :login
   get "logout" => "user_sessions#destroy", as: :logout
   resource :contacts, only: %i(new create)
 
