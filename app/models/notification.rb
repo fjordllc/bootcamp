@@ -10,12 +10,12 @@ class Notification < ApplicationRecord
 
   def self.came_comment(comment)
     Notification.create!(
-        kind:    0,
-        user:    comment.reciever,
-        sender:  comment.sender,
-        path:    Rails.application.routes.url_helpers.report_path(comment.report),
-        message: "#{comment.sender.login_name}さんからコメントが届きました。",
-        read:    false
+      kind:    0,
+      user:    comment.reciever,
+      sender:  comment.sender,
+      path:    Rails.application.routes.url_helpers.report_path(comment.report),
+      message: "#{comment.sender.login_name}さんからコメントが届きました。",
+      read:    false
     )
   end
 end

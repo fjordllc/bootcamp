@@ -16,24 +16,15 @@ header.header
         ul.header-links__items
           li
             = form_tag reports_url, method: 'get', class: 'header-search' do
-              = text_field_tag 'word', @word, class: 'a-xs-text-input header-search__text-input' , placeholder: t('search_report')
+              = text_field_tag 'word', @word, class: 'a-xs-text-input header-search__text-input', placeholder: t('search_report')
               button.is-button-standard-sm-secondary.is-icon.header-search__submit(type= 'submit')
                 i.fa.fa-search
           li.header-links__item.js-drop-down
             .header-links__link.js-drop-down__trigger
               i.fa.fa-bell-o
-            .header-drop-down.js-drop-down__target
-              ul.header-drop-down__items
-                li.header-drop-down__item
-                  a.header-drop-down__item-link href="#"
-                    | Action
-                li.header-drop-down__item
-                  a.header-drop-down__item-link href="#"
-                    | Another action
-                li.header-drop-down__item
-                  a.header-drop-down__item-link href="#"
-                    | Something else here
-              .header-drop-down__overlay.js-drop-down__trigger
+              - if current_user.notifications.unreads.count > 0
+                = current_user.notifications.unreads.count
+            = render 'application/notifications'
           li.header-links__item
             = link_to edit_user_path(current_user), class: "header-links__link" do
               i.fa.fa-cog
