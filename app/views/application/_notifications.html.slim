@@ -1,12 +1,13 @@
 .header-drop-down.js-drop-down__target
   ul.header-drop-down__items
-    li.header-drop-down__item
-      - current_user.notifications.unreads.each do |notification|
-        = link_to notification, class: ".header-drop-down__item-link" do
-          = gravatar_tag notification.sender, size: 35
-          .side-notifications-item__body
-            .side-notifications-item__message
+    - current_user.notifications.unreads.each do |notification|
+      li.header-drop-down__item
+        = link_to notification, class: "header-drop-down__item-link" do
+          = gravatar_tag notification.sender, size: 20, class: 'header-notifications-item__avatar-image'
+          .header-notifications-item__body
+            .header-notifications-item__message
               p
                 = notification.message
-            time.side-notifications-item_created-at
+            time.header-notifications-item_created-at
               = time_ago_in_words(notification.created_at) + "前"
+  .header-drop-down__overlay.js-drop-down__trigger
