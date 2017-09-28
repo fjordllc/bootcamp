@@ -83,3 +83,17 @@ $header-height: 3.125rem
   margin-right: -1rem
   +media-breakpoint-down(sm)
     display: flex
+
+.header-notification-icon
+  +text-block(1.5rem 1 .375rem, center)
+  +media-breakpoint-down(sm)
+    +text-block(1rem 1 0)
+    margin-right: .5rem
+
+.header-notification-count
+  background-color: $badge-color
+  color: $base-color
+  border-radius: 1rem
+  +text-block(.800rem 1.50, center)
+  +media-breakpoint-down(sm)
+    font-size: .625rem

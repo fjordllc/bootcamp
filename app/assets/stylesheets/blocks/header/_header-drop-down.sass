@@ -10,7 +10,7 @@
   border: solid .0625rem #ccc
   box-shadow: rgba(black, .1) 0 .0625rem .0625rem
   background-color: $base-color
-  border-radius: .25rem
+  border-radius: .45rem
   +position(relative, 1)
 
 .header-drop-down__item
@@ -32,3 +32,16 @@
 
 .header-drop-down__overlay
   +position(fixed, left 0, top 0, right 0, bottom 0)
+
+.header-notifications-item__body
+  flex: 100
+
+.header-notifications-item__message
+  +text-block(.8125rem 1.45 .25rem, $default-text)
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+
+.header-notifications-item_created-at
+  +text-block(.75rem 1, block right $default-text)
+  +media-breakpoint-down(sm)
+    font-size: .625rem
