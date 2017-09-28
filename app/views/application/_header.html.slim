@@ -21,10 +21,13 @@ header.header
                 i.fa.fa-search
           li.header-links__item.js-drop-down
             .header-links__link.js-drop-down__trigger
-              i.fa.fa-bell-o
-              - if current_user.notifications.unreads.count > 0
-                = current_user.notifications.unreads.count
-            = render 'application/notifications'
+              .header-notification-icon
+                - if current_user.notifications.unreads.count > 0
+                  .header-notification-count
+                    = current_user.notifications.unreads.count
+                i.fa.fa-bell-o
+            - if current_user.notifications.unreads.exists?
+              = render 'application/notifications'
           li.header-links__item
             = link_to edit_user_path(current_user), class: "header-links__link" do
               i.fa.fa-cog
