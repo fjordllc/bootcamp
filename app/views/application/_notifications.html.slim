@@ -1,7 +1,7 @@
 .header-drop-down.js-drop-down__target
   ul.header-drop-down__items
-    - current_user.notifications.unreads.each do |notification|
-      li.header-drop-down__item
+    li.header-drop-down__item
+      - current_user.notifications.unreads.each do |notification|
         = link_to notification, class: ".header-drop-down__item-link" do
           = gravatar_tag notification.sender, size: 35
           .side-notifications-item__body
