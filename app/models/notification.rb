@@ -4,7 +4,8 @@ class Notification < ApplicationRecord
 
   enum kind: {
       came_comment: 0,
-      checked:      1
+      checked:      1,
+      mentioned:    2
   }
 
   scope :unreads, -> { where(read: false).order(created_at: :desc) }
@@ -27,6 +28,17 @@ class Notification < ApplicationRecord
       sender:  check.sender,
       path:    Rails.application.routes.url_helpers.report_path(check.report),
       message: "#{check.sender.login_name}さんが#{check.report.title}を確認しました。",
+      read:    false
+    )
+  end
+
+  def self.mentioned(comment, reciever)
+    Notification.create!(
+      kind:    2,
+      user:    reciever,
+      sender:  comment.sender,
+      path:    Rails.application.routes.url_helpers.report_path(comment.report),
+      message: "#{comment.sender.login_name}さんからメンションがきました。",
       read:    false
     )
   end
