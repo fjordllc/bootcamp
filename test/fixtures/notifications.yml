@@ -1,7 +1,31 @@
-notification_1:
+notification_commented:
   kind: 0
   user: tanaka
   sender: komagata
   message: komagataさんからコメントが届きました。
-  path: "/reports/1"
+  path: "/reports/5"
   read: false
+
+notification_checked:
+  kind: 1
+  user: tanaka
+  sender: machida
+  message: machidaさんが学習週1日目を確認しました。
+  path: "/reports/5"
+  read: false
+
+notification_mention:
+  kind: 2
+  user: tanaka
+  sender: komagata
+  message: komagataさんからメンションがきました。
+  path: "/reports/5"
+  read: false
+
+notification_read:
+  kind: 0
+  user: tanaka
+  sender: machida
+  message: machidaさんからコメントが届きました。
+  path: "/reports/5"
+  read: true
