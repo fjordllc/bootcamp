@@ -3,9 +3,9 @@ class Notification < ApplicationRecord
   belongs_to :sender, class_name: "User"
 
   enum kind: {
-      came_comment: 0,
-      checked:      1,
-      mentioned:    2
+    came_comment: 0,
+    checked:      1,
+    mentioned:    2
   }
 
   scope :unreads, -> { where(read: false).order(created_at: :desc) }
