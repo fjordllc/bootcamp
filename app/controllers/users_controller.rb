@@ -7,9 +7,9 @@ class UsersController < ApplicationController
 
   def index
     @categories = Category.order("position")
-    @users = User.order(updated_at: :desc)
-    @target = params[:target] || "all"
-    @users =
+    @users      = User.order(updated_at: :desc)
+    @target     = params[:target] || "all"
+    @users      =
       case @target
       when "all"
         @users
@@ -30,12 +30,12 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    @user      = User.new
     @companies = Company.all
   end
 
   def edit
-    @user = current_user
+    @user      = current_user
     @companies = Company.all
   end
 
@@ -44,8 +44,8 @@ class UsersController < ApplicationController
 
     if @user.save
       notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間として256INTERNSにJOINしました。",
-        username: "#{@user.login_name}@256interns.com",
-        icon_url: gravatar_url(@user)
+             username: "#{@user.login_name}@256interns.com",
+             icon_url: gravatar_url(@user)
       login(@user.login_name, params[:user][:password], true)
       redirect_to :practices, notice: t("registration_successfull")
     else
@@ -95,6 +95,6 @@ class UsersController < ApplicationController
     end
 
     def set_reports
-      @reports = Report.where(user_id: @user.id).order(updated_at: :desc, id: :desc)
+      @reports = Report.where(user_id: @user.id).order(updated_at: :desc, id: :desc).includes(:comments)
     end
 end

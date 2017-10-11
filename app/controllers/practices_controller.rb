@@ -4,7 +4,7 @@ class PracticesController < ApplicationController
   before_action :set_practice, only: %w(show edit update destroy sort)
 
   def index
-    @categories = Category.order("position")
+    @categories = Category.order("position").includes(:practices)
   end
 
   def show

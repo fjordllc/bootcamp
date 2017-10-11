@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
   end
 
   def show
-    @footprint.user = current_user
+    @footprint.user   = current_user
     @footprint.report = @report
     @footprints.where(user: @footprint.user).first_or_create if not_report_user?
   end
@@ -27,15 +27,15 @@ class ReportsController < ApplicationController
   def new
     @report = Report.new
     if params[:format].present?
-      @report_copy_flag = true
-      @report = Report.find_by(id: params[:format])
-      @report_title = @report.title
+      @report_copy_flag   = true
+      @report             = Report.find_by(id: params[:format])
+      @report_title       = @report.title
       @report_description = @report.description
-      @report = Report.new
+      @report             = Report.new
     else
       @report_flag = true
       @report_date = Time.current
-      @user_name = current_user.login_name
+      @user_name   = current_user.login_name
     end
   end
 
@@ -44,7 +44,7 @@ class ReportsController < ApplicationController
   end
 
   def create
-    @report = Report.new(report_params)
+    @report      = Report.new(report_params)
     @report.user = current_user
     if @report.save
       notify_to_slack(@report)
@@ -84,12 +84,12 @@ class ReportsController < ApplicationController
     def set_reports
       if params[:word].present?
         query_arr = @search_word.split(/[[:blank:]]+/)
-        @search = Report.ransack(title_or_description_cont_all: query_arr)
-        @reports = @search.result.order(updated_at: :desc, id: :desc).page(params[:page]).per(15)
+        @search   = Report.ransack(title_or_description_cont_all: query_arr)
+        @reports  = @search.result.order(updated_at: :desc, id: :desc).page(params[:page]).per(15)
       elsif params[:practice_id].present?
         @reports = Practice.find(params[:practice_id]).reports.page(params[:page]).per(15)
       else
-        @reports = Report.order(updated_at: :desc, id: :desc).page(params[:page]).per(30)
+        @reports = Report.order(updated_at: :desc, id: :desc).includes(:user, :comments, checks: :user).page(params[:page]).per(30)
       end
     end
 
@@ -110,7 +110,7 @@ class ReportsController < ApplicationController
     end
 
     def set_checks
-      @checks = Check.where(report_id: @report.id).order(created_at: :desc)
+      @checks = Check.where(report_id: @report.id).order(created_at: :desc).includes(:user)
     end
 
     def set_footprint
@@ -118,7 +118,7 @@ class ReportsController < ApplicationController
     end
 
     def set_footprints
-      @footprints = Footprint.where(report_id: @report.id).order(created_at: :desc)
+      @footprints = Footprint.where(report_id: @report.id).order(created_at: :desc).includes(:user)
     end
 
     def set_comment
@@ -126,7 +126,7 @@ class ReportsController < ApplicationController
     end
 
     def set_comments
-      @comments = Comment.where(report_id: @report.id).order(created_at: :asc)
+      @comments = Comment.where(report_id: @report.id).order(created_at: :asc).includes(:user)
     end
 
     def notify_to_slack(report)
@@ -134,11 +134,11 @@ class ReportsController < ApplicationController
       link = "<#{report_url(report)}|#{report.title}>"
 
       notify "#{name} created #{link}",
-        username: "#{report.user.login_name} (#{report.user.full_name})",
-        icon_url: gravatar_url(report.user),
-        attachments: [{
-          fallback: "report body.",
-          text: report.description
-        }]
+             username:    "#{report.user.login_name} (#{report.user.full_name})",
+             icon_url:    gravatar_url(report.user),
+             attachments: [{
+                             fallback: "report body.",
+                             text:     report.description
+                           }]
     end
 end

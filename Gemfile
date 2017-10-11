@@ -41,6 +41,7 @@ group :production, :staging do
 end
 
 group :development do
+  gem "bullet"
   gem "pry-remote"
   gem "xray-rails"
   gem "web-console"
