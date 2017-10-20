@@ -15,7 +15,7 @@ class CheckReportTest < ActionDispatch::IntegrationTest
     assert_not has_button? "日報を確認する"
   end
 
-  test "Success Repost Checking" do
+  test "Success Report Checking" do
     visit "/login"
     within("#sign-in-form") do
       fill_in("user[login_name]", with: "machida")
@@ -30,6 +30,8 @@ class CheckReportTest < ActionDispatch::IntegrationTest
     click_button "日報を確認する"
     assert_not has_button? "日報を確認する"
     assert_text "この日報を確認しました。"
+    visit reports_path
+    assert_text "確認済"
   end
 
   test "non button in current_user report" do

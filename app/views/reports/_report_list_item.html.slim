@@ -29,3 +29,10 @@
           .report-list-item-meta__comment-count-value
             - report.checks.each do |check|
               = gravatar_tag check.user, size: 20, html: { class: "report-list-item__checked-author-icon" }
+        .stamp.stamp-approve
+          h2.stamp__content.is-title
+            | 確認済
+          time.stamp__content.is-created-at
+            = report.checks.last.created_at.strftime('%Y/%m/%d')
+          .stamp__content.is-user-name
+            = report.checks.last.user.login_name
