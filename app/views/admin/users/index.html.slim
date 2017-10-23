@@ -22,8 +22,15 @@ header.page-header
           - @users.each do |user|
             tr.admin-table__item
               td.admin-table__item-value
-                .user-part(class="is-#{user.part}")
-                  = t(user.part)
+                - unless user.graduation? || user.adviser?
+                  .user-part(class="is-#{user.part}")
+                    = t(user.part)
+                - if user.graduation
+                  .user-part(class="is-graduate")
+                    = t("graduate")
+                - if user.adviser
+                  .user-part(class="is-adviser")
+                    = t("adviser")
                 = link_to admin_user_path(user), class: "admin-table__user" do
                   = gravatar_tag user, html: { class: "admin-table__user-icon" }
                   span.admin-table__user-login-name

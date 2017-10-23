@@ -24,6 +24,10 @@ $report-header-author: 3.5rem
   +size(100% auto)
   border-radius: 50%
 
+.report-comment__login-name
+  +media-breakpoint-down(sm)
+    margin-bottom: .25rem
+
 .report-comment__login-name-link
   color: $main-color
 
@@ -43,7 +47,7 @@ $report-header-author: 3.5rem
 .report-comments__description
   +padding(vertical, 1rem)
   +media-breakpoint-down(sm)
-    +padding(vertical, .5rem)
+    +padding(vertical, .75rem)
     word-wrap: break-word
 
 .report-comment__body-header
@@ -55,9 +59,13 @@ $report-header-author: 3.5rem
   +media-breakpoint-down(sm)
     flex-direction: column
     align-items: flex-start
+    padding-bottom: .25rem
+
 .report-comment__created-at
   display: block
   +text-block(.875rem 1.4, $muted-text)
+  +media-breakpoint-down(sm)
+    font-size: .75rem
 
 .report-comment__actions
   +padding(vertical, .5rem)
