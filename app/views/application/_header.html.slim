@@ -3,6 +3,15 @@ header.header
     .header__container
       = link_to root_path, class: 'header__title' do
         = image_tag('header-logo.svg', alt: "#{t('256interns')}", class: "header__logo")
+        - unless current_user.graduation? || current_user.adviser?
+          .user-part.is-header(class="is-#{current_user.part}")
+            = t(current_user.part)
+        - if current_user.graduation
+          .user-part.is-header(class="is-graduate")
+            = t("graduate")
+        - if current_user.adviser
+          .user-part.is-header(class="is-adviser")
+            = t("adviser")
       .header-links.is-user-links
         ul.header-links__items
           li

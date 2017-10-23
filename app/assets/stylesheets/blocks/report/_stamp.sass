@@ -1,9 +1,9 @@
 .stamp
   border: double .1875rem $stamp-color
   border-radius: .75rem
-  +size(4.25rem 4rem)
+  +size(4rem 3.5rem)
   padding: .125rem
-  +position(absolute, left 92%, top 0)
+  +position(absolute, right 0, top -.125rem)
   transform: rotate(25deg)
   +text-block(.625rem 1, block center $stamp-color)
   +media-breakpoint-down(sm)
@@ -19,18 +19,3 @@
   &.is-created-at
     +size(100% 36%)
     +border(vertical, solid .0625rem $stamp-color)
-
-.stamp-small
-  border: double .1875rem $stamp-color
-  border-radius: .20rem
-  +size(3rem 1.3rem)
-  color: $stamp-color
-  font-size: .5%
-  font-weight: bold
-  font-style: normal
-  +position(absolute, right 3%)
-  &.stamp__content
-    display: flex
-    align-items: center
-    justify-content: center
-    +size(100% 32%)

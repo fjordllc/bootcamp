@@ -23,6 +23,9 @@
   background-color: $background-color-shade
   border-radius: 20rem
   width: 7rem
+  transition: background-color .2s ease-out
+  &:hover
+    background-color: shade($background-color-shade, 10%)
   &.is-active
     background-color: $accent-color
     color: $main-color

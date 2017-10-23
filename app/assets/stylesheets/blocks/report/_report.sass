@@ -24,16 +24,21 @@ $report-header-author: 6rem
   padding: 1rem 2rem
   border-bottom: $background-color solid .0625rem
   +media-breakpoint-down(sm)
-    padding: 2.5rem 1rem 1rem
+    padding: 2.5rem 1rem .5rem 1rem
+
 .report__author-link
   +position(absolute, left 0, top 0)
   +block-link
   +media-breakpoint-down(sm)
     +position(left 50%, top -1.75rem)
     margin-left: -1.75rem
+
 .report__author-icon
   +size(3.5rem auto)
   border-radius: 50%
+  +media-breakpoint-down(sm)
+    box-shadow: white 0 0 0 .375rem
+
 .report__title
   +text-block(1.5rem 1.5, 600)
   +media-breakpoint-down(sm)
@@ -53,6 +58,7 @@ $report-header-author: 6rem
 .report__author-name
   +text-block(.75rem 1.4, $muted-text)
   margin-right: .75rem
+
 .report__created-at
   display: block
   +text-block(.875rem 1.4, $muted-text)
