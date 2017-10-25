@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       resource :position, only: %i(update), controller: "categories/position"
     end
     namespace :submissions do
-      resources :attainments, only: %i(index show)
+      resources :passes, only: %i(index show)
       resources :confirmations, only: %i(index show update)
     end
   end

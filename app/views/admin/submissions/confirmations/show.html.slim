@@ -29,7 +29,7 @@ header.page-header
             .practice-submissions__content.js-markdown-view.js-target-blank.is-long-text-style
               = @submission.content
             = render 'practices/requested_tasks', submission: @submission
-          .practice-submission-form__action
-            = link_to admin_submissions_confirmation_path(@submission), method: :put, class: 'is-button-standard-sm-info' do
-              i.fa.fa-check-circle
-              = t('complete')
+            .practice-submission-form__action
+              = link_to admin_submissions_confirmation_path(@submission), method: :put, class: 'is-button-standard-sm-info' do
+                i.fa.fa-check-circle
+                = t('complete')

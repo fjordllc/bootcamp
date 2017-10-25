@@ -1,4 +1,4 @@
-class Admin::Submissions::AttainmentsController < ApplicationController
+class Admin::Submissions::PassesController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
   before_action :set_submission, only: %i(show)
