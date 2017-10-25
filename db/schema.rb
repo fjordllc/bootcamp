@@ -170,6 +170,16 @@ ActiveRecord::Schema.define(version: 20171107061439) do
     t.datetime "updated_at"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "submission_id", null: false
+    t.text "message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submission_id"], name: "index_reviews_on_submission_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "submissions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "practice_id", null: false
@@ -220,6 +230,8 @@ ActiveRecord::Schema.define(version: 20171107061439) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
+  add_foreign_key "reviews", "submissions"
+  add_foreign_key "reviews", "users"
   add_foreign_key "submissions", "practices"
   add_foreign_key "submissions", "users"
   add_foreign_key "images", "users"
