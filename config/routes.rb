@@ -30,14 +30,13 @@ Rails.application.routes.draw do
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
   resources :practices, shallow: true do
-    resources :submissions, only: %i(create edit update destroy)
+    resources :submissions, only: %i(create edit update destroy) do
+      resources :reviews , only: %i(create edit update destroy)
+    end
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
   end
 
-  resources :submissions, only: %i(create edit update destroy) do
-    resources :reviews
-  end
   resources :reports do
     resources :checks, only: %i(create)
     resources :footprints, only: %i(create)

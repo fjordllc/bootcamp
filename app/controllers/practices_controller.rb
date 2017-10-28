@@ -9,6 +9,7 @@ class PracticesController < ApplicationController
 
   def show
     @submission = Submission.new
+    @review     = @submission.reviews.build if @practice.has_task?
   end
 
   def new

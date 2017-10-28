@@ -12,7 +12,7 @@
           = f.file_field :task
           - if submission.task.exists?
             .thumbnail
-              = render 'practices/task_preview', submission: submission
+              = render 'submissions/task_preview', submission: submission
       .col-md-6.col-xs-12
         label.a-label
           | プレビュー

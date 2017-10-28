@@ -55,7 +55,7 @@ header.page-header
     - if submission = @practice.find_submission(current_user)
       .row.is-gutter-width-32
         .col-md-6.col-xs-12
-          = render 'practices/submission', submission: submission, practice: @practice
+          = render 'submissions/submission', submission: submission, practice: @practice
     - else
       = render 'submissions/form', submission: @submission, title_button: t('submission_new')
 

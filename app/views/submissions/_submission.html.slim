@@ -20,7 +20,7 @@
                   =< t("edited")
           .practice-submissions__content.js-markdown-view.js-target-blank.is-long-text-style
             = submission.content
-          = render 'practices/requested_tasks', submission: submission
+          = render 'submissions/requested_tasks', submission: submission
           - if submission.user == current_user
             .practice-submission__actions
               ul.practice-submission__actions-items
@@ -33,8 +33,5 @@
       .practice-submission-container
         h2.practice-submission-container__title
           = t('review_title')
-        /= form_for([submission, submission.reviews.build]) do |f|
-        /  = f.label :message
-        /  = f.text_field :message
-        /  = f.submit "送信", class: "btn btn-primary"
+        = render "reviews/form", submission: submission, review_btn_text: t('review_create')
         = render submission.reviews

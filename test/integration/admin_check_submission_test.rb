@@ -16,8 +16,8 @@ class AdminCheckSubmissionTest < ActionDispatch::IntegrationTest
     click_link "未確認"
     assert_text "viをインストールする"
     page.all(".admin-table__item-value.is-text-align-center")[2].click_link("提出課題")
-    assert_text "viをインストールするの課題完了しました。"
     click_link "完了"
+    assert_text "依頼された課題の確認を完了しました。"
 
     assert page.find(:css, ".global-nav-submissions-count", text: "3")
     assert_no_text "viをインストールする"

@@ -22,5 +22,7 @@ header.page-header
         = link_to admin_submissions_confirmation_path(@submission), method: :put, class: 'is-button-standard-sm-info' do
           i.fa.fa-check-circle
           = t('complete')
-    .practice-submissions__content.js-markdown-view.js-target-blank.is-long-text-style
-    = render "practices/submission", submission: @submission
+    .practice-submission-container
+      h2.practice-submission-container__title
+        = t('review_title')
+      = render @submission.reviews

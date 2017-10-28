@@ -1,12 +1,12 @@
 class Submission < ApplicationRecord
   belongs_to :user
   belongs_to :practice
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
   has_attached_file :task,
-                    styles: { medium: "500x500>", thumb: "250x250>" }
+    styles: { medium: "500x500>", thumb: "250x250>" }
   validates_attachment :task,
-                       content_type: { content_type: ["image/jpeg", "image/gif", "image/png", "application/zip", "application/x-zip"] },
-                       size:         { less_than: 1.megabytes }
+    content_type: { content_type: ["image/jpeg", "image/gif", "image/png", "application/zip", "application/x-zip"] },
+    size:         { less_than: 1.megabytes }
 
   validates :user_id, presence: true, uniqueness: { scope: :practice_id }
   validates :practice_id, presence: true, uniqueness: { scope: :user_id }

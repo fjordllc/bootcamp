@@ -5,6 +5,11 @@ class SubmissionTest < ActiveSupport::TestCase
     @tanaka_submission = submissions(:submission_1)
   end
 
+  test "associated review should be destroyed" do
+    assert_difference "Review.count", -2 do
+      @tanaka_submission.destroy
+    end
+  end
 
   test "Should be valid submission" do
     assert @tanaka_submission.valid?

@@ -1,0 +1,16 @@
+- title t('review_edit')
+
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title
+        = t('review_edit')
+      .page-header__action
+        = link_to practice_path(@submission.practice), class: 'is-button-standard-md-secondary' do
+          i.fa.fa-angle-left
+          = t('practices')
+
+.page-body
+  .container
+    .col-md-6.col-md-offset-3
+      = render 'form', submission: @submission, review_btn_text: t('review_edit')

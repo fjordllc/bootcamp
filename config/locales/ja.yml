@@ -387,6 +387,9 @@ ja:
         content: "課題の依頼メッセージ"
         task: "課題のファイル"
 
+      review:
+        message: "レビューメッセージ"
+
     errors:
       template:
         header:
@@ -465,6 +468,12 @@ ja:
   comments: "コメント"
   submission_title: "提出した課題の内容"
   review_title: "レビュー"
+  review_create: "レビューを投稿"
+  review_edit_title: "レビューの修正"
+  review_edit: "レビューを修正する"
+  review_was_successfully_created: "レビューを投稿しました。"
+  review_was_successfully_updated: "レビューの内容を更新しました。"
+  review_was_successfully_deleted: "レビューを削除しました。"
   task_zip_download: "課題ファイルをダウンロード"
   check: "確認者"
   check_count: "名"
@@ -567,6 +576,7 @@ ja:
   to_index_of_reports: 日報一覧へ
   to_index_of_questions: Q&A一覧へ
   post_comment: コメントを投稿
+  post_review: レビューを投稿
   check_report: 日報を確認する
   submission: 提出課題
   interns: インターン一覧
