@@ -12,8 +12,12 @@
             h2.practice-submission__login-name
               = link_to submission.user, itempro: 'url', class: 'practice-submission__login-name-link' do
                 = submission.user.login_name
-            time.practice-submission__created-at(datetime='#{submission.updated_at.to_datetime}' pubdate='pubdate')
-              = l submission.updated_at, format: :date_long_with_time
+              time.practice-submission__created-at(datetime='#{submission.created_at.to_datetime}' pubdate='pubdate')
+                = l submission.created_at, format: :date_long_with_time
+              - if submission.is_edited?
+                time.practice-submission__created-at(datetime='#{submission.updated_at.to_datetime}' pubdate='pubdate')
+                  = l submission.updated_at, format: :date_long_with_time
+                  =< t("edited")
           .practice-submissions__content.js-markdown-view.js-target-blank.is-long-text-style
             = submission.content
           = render 'practices/requested_tasks', submission: submission
@@ -26,3 +30,11 @@
                 li.practice-submission__actions-item
                   = link_to submission_path(submission), data: { confirm: t('are_you_sure') }, method: :delete, class: 'practice-submission__actions-item-link' do
                     i.fa.fa-trash-o
+      .practice-submission-container
+        h2.practice-submission-container__title
+          = t('review_title')
+        /= form_for([submission, submission.reviews.build]) do |f|
+        /  = f.label :message
+        /  = f.text_field :message
+        /  = f.submit "送信", class: "btn btn-primary"
+        = render submission.reviews

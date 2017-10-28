@@ -1,0 +1,4 @@
+= form_for([submission, submission.reviews.build]) do |f|
+  = f.label :message
+  = f.text_field :message
+  = f.submit "送信", class: "btn btn-primary"

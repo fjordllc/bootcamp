@@ -44,6 +44,18 @@ $practice-header-author: 3.5rem
 .practice-submission__login-name-link
   color: $main-color
 
+.practice-submission__body_non_tail
+  background-color: $base-color
+  +padding(horizontal, 1rem)
+  border-radius: .25rem
+  +relative
+  +media-breakpoint-down(sm)
+    &::before,
+    &::after
+      content: none
+  .practice-submission.is-correct_answer &
+    border: solid .125rem $accent-color
+
 .practice-submission__body
   background-color: $base-color
   +padding(horizontal, 1rem)

@@ -34,6 +34,10 @@ Rails.application.routes.draw do
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
   end
+
+  resources :submissions, only: %i(create edit update destroy) do
+    resources :reviews
+  end
   resources :reports do
     resources :checks, only: %i(create)
     resources :footprints, only: %i(create)

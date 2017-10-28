@@ -1,6 +1,7 @@
 class Submission < ApplicationRecord
   belongs_to :user
   belongs_to :practice
+  has_many :reviews
   has_attached_file :task,
                     styles: { medium: "500x500>", thumb: "250x250>" }
   validates_attachment :task,
@@ -31,5 +32,9 @@ class Submission < ApplicationRecord
 
   def to_pass
     self.update(passed: true)
+  end
+
+  def is_edited?
+    !(self.created_at == self.updated_at)
   end
 end
