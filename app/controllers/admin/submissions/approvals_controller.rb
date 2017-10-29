@@ -8,6 +8,7 @@ class Admin::Submissions::ApprovalsController < ApplicationController
   end
 
   def show
+    @review = Review.new
   end
 
   def update
@@ -15,7 +16,7 @@ class Admin::Submissions::ApprovalsController < ApplicationController
       @submission.to_pass
       notify_to_slack(@submission)
 
-      redirect_to admin_submissions_confirmations_path, notice: t("submission_pass_message")
+      redirect_to admin_submissions_approvals_path, notice: t("submission_pass_message")
     else
       render json: learning.errors, status: :unprocessable_entity
     end

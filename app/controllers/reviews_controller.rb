@@ -7,7 +7,8 @@ class ReviewsController < ApplicationController
     @review      = @submission.reviews.build(review_params)
     @review.user = current_user
     if @review.save
-      redirect_to @submission.practice, notice: t("review_was_successfully_created")
+      flash[:notice] = t("review_was_successfully_created")
+      redirect_back(fallback_location: @submission.practice)
     else
       render "practices/show"
     end
@@ -18,7 +19,8 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update_attributes(review_params)
-      redirect_back_or_to @review.submission.practice, notice: t("review_was_successfully_updated")
+      flash[:notice] = t("review_was_successfully_updated")
+      redirect_back(fallback_location: @review.submission.practice)
     else
       render :edit
     end
@@ -26,7 +28,8 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review.destroy
-    redirect_to @review.submission.practice, notice: t("review_was_successfully_deleted")
+    flash[:notice] = t("review_was_successfully_deleted")
+    redirect_back(fallback_location: @review.submission.practice)
   end
 
   private
