@@ -579,6 +579,8 @@ ja:
   post_review: レビューを投稿
   check_report: 日報を確認する
   submission: 提出課題
+  approval: 未確認の成果物
+  complete: 確認済の成果物
   interns: インターン一覧
   admin_interns: インターン情報
   login_name_description: チャットやSNS（Twitter、Github、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。極力ユーザー名は統一するようにしてください。

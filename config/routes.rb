@@ -18,8 +18,8 @@ Rails.application.routes.draw do
       resource :position, only: %i(update), controller: "categories/position"
     end
     namespace :submissions do
-      resources :passes, only: %i(index show)
-      resources :confirmations, only: %i(index show update)
+      resources :completes, only: %i(index show)
+      resources :approvals, only: %i(index show update)
     end
   end
   resources :feeds, only: %i(index)
