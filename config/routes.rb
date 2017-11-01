@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :companies
     namespace :users do
       resources :emails, only: :index
+      resources :in_actives, only: :index
     end
     resources :users
     resources :categories, except: %i(show) do

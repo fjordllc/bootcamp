@@ -1,7 +1,9 @@
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title
-        = t('admin_index')
+      h2.page-header__title 管理ページ
 .page-body
   .container
+    ul
+      li= link_to "忘年会メールアドレス", admin_users_emails_path
+      li= link_to "アクティブでないユーザー", admin_users_in_actives_path
