@@ -42,8 +42,8 @@ class User < ActiveRecord::Base
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
   scope :student, -> { where(graduation: false, adviser: false, retire: false) }
-  scope :active, -> { where("updated_at > ?", 2.weeks.ago) }
-  scope :inactive, -> { where("updated_at <= ?", 2.weeks.ago) }
+  scope :active, -> { where("updated_at > ?", 1.month.ago) }
+  scope :inactive, -> { where("updated_at <= ?", 1.month.ago) }
 
   def completed_percentage
     completed_practices.size.to_f / Practice.count.to_f * 100

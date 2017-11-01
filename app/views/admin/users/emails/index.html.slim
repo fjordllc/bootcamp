@@ -4,5 +4,5 @@ header.page-header
       h2.page-header__title 忘年会メールアドレス
 .page-body
   .container.is-padding-horizontal-0-sm-down
-    pre= @users.pluck(:email).join(",\n")
+    .party-emails= @users.pluck(:email).join(",")
 
