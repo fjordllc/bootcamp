@@ -1,6 +1,5 @@
+= render 'errors', object: user
 = form_for [:admin, user] do |f|
-  - if user.errors.any?
-    = error_messages_for :user
   .auth-form-items
     .auth-form-item
       = f.label :login_name, class: 'a-sm-label is-required'
