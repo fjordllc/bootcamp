@@ -1,9 +1,9 @@
 .user-data
-  .row
-    .col-md-6.col-xs-12
+  .user-data__inner
+    .user-data__main
       = render 'users/user_profile', user: @user
       = render 'users/user_dates', user: @user
       = render 'users/user_purpose', user: @user
-    .col-md-6.col-xs-12
+    .user-data__sub
       .user-data__description
         = simple_format @user.description

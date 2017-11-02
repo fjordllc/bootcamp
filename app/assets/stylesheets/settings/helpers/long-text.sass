@@ -12,6 +12,8 @@
       padding: .25rem .5rem
   h2
     +text-block(1.8em 1.4 .6em)
+    padding-bottom: .2em
+    border-bottom: solid .0625rem $background-color
   h3
     +text-block(1.6em 1.4 .6em)
   h4
@@ -48,22 +50,24 @@
   ol
     list-style: decimal outside
   li
-    +text-block(1em 1.6 .8em)
+    +text-block(1em 1.8 .8em)
     ol,
     ul
-      margin-top: 1.2em
+      margin-top: .8em
     input
       margin-right: .5em
   pre
     margin-bottom: 2rem
     code
-      +text-block(.9em 1.6)
+      +text-block(.8em 2)
   p
     code
       +text-block(.8em 1.6)
       padding: .125rem .25rem
       border: solid .0625rem #d9d9d9
       background-color: #f8f8f8
+      +margin(horizontal, .25rem)
+      border-radius: .25rem
   .twitter-tweet
     +margin(horizontal, auto)
     margin-bottom: 2.5rem !important
