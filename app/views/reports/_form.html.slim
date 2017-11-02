@@ -1,20 +1,18 @@
+= render 'errors', object: report
 = form_for report do |f|
-  - if report.errors.any?
-    = error_messages_for :report
-
   .form__items
     .form-item
       .row
         .col-md-6.col-xs-12
           .form-item
             = f.label :practice, class: 'a-label'
-            
+
             .select-practices
               - Practice.all.each do |practice|
                 label.select-practices__label
                   = check_box_tag "report[practice_ids][]", practice.id, @report.practices.include?(practice), id: "product_practice_ids_#{practice.id}", class: "select-practices__input"
                   = practice.title
-                      
+
           .form-item
             = f.label :title, class: 'a-label'
             - if @report_flag == true

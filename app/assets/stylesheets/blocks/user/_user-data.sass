@@ -25,6 +25,26 @@
   overflow: hidden
   +position(relative)
 
+.user-data__inner
+  display: flex
+  flex-wrap: wrap
+  @media (min-width: 1400px)
+    +margin(horizontal, -.5rem)
+
+.user-data__main
+  flex: 0 0 100%
+  margin-bottom: .75rem
+  @media (min-width: 1400px)
+    flex: 0 0 50%
+    margin-bottom: 0
+    +padding(horizontal, .5rem)
+
+.user-data__sub
+  flex: 0 0 100%
+  @media (min-width: 1400px)
+    flex: 0 0 50%
+    +padding(horizontal, .5rem)
+
 .user-data__description
   height: 100%
   border-radius: .25rem

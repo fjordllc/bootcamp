@@ -10,18 +10,18 @@ header.page-header
     - @entries.each do |entry|
       article.entry
         header.entry-header
-          = link_to entry.url, class: "entry__header-title-link" do
-            h3.entry-header__title
+          h3.entry-header__title
+            = link_to entry.url, class: "entry-header__title-link" do
               = entry.title
-            ul.entry-header__meta-items
-              li.entry-header__meta-item.is-published
-                = l entry.published, format: :semi_long
-              - if entry.author
-                li.entry-header__meta-item.is-author
-                  | posted by #{entry.author}
-                  //= gravatar_tag entry.author, size: 44, html: { class: "report-list-item__author-icon"}
+          ul.entry-header__meta-items
+            li.entry-header__meta-item.is-published
+              = l entry.published, format: :semi_long
+            - if entry.author
+              li.entry-header__meta-item.is-author
+                | posted by #{entry.author}
+                //= gravatar_tag entry.author, size: 44, html: { class: "report-list-item__author-icon"}
         .entry-body
           - if entry.content.nil?
             .is-long-text-style= raw entry.summary
           - else
-            .is-long-text-style= raw entry.content          
+            .is-long-text-style= raw entry.content
