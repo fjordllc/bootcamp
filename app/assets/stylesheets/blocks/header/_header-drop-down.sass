@@ -3,7 +3,11 @@
   width: 14rem
   margin-left: -7rem
   display: none
-  .header-links__item.is-active &
+  +media-breakpoint-down(sm)
+    margin-left: -10rem
+    top: 2.5rem
+  .header-links__item.is-active &,
+  .header-show-mobile-nav.is-active &
     display: block
 
 .header-drop-down__items
@@ -11,7 +15,10 @@
   box-shadow: rgba(black, .1) 0 .0625rem .0625rem
   background-color: $base-color
   border-radius: .45rem
-  +position(relative, 1)
+  +position(relative, 2)
+  +media-breakpoint-down(sm)
+    width: 14rem
+    top: .5rem
   &::before
     content: ""
     +size(0)
@@ -22,6 +29,8 @@
     border-bottom-color: #ccc
     +position(absolute, left 50%, top -20px)
     margin-left: -10px
+    +media-breakpoint-down(sm)
+      left: 71%
   &::after
     content: ""
     +size(0)
@@ -32,6 +41,8 @@
     border-bottom-color: $base-color
     +position(absolute, left 50%, top -18px)
     margin-left: -10px
+    +media-breakpoint-down(sm)
+      left: 71%
 
 .header-drop-down__item
   cursor: pointer
@@ -59,7 +70,7 @@
 
 
 .header-drop-down__overlay
-  +position(fixed, left 0, top 0, right 0, bottom 0)
+  +position(fixed, left 0, top 0, right 0, bottom 0, 1)
 
 .header-notifications-item__body
 

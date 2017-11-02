@@ -35,7 +35,14 @@ header.header
             = link_to logout_path, class: "header-links__link" do
               i.fa.fa-sign-out
       .header-show-mobile-nav-items
-        .header-show-mobile-nav.js-show-mobile-nav
-          i.fa.fa-bars
+        .header-show-mobile-nav(class="#{current_user.notifications.unreads.count > 0 ? "js-drop-down has-count" : "has-no-count"}")
+          .header-links__link.js-drop-down__trigger
+            .header-notification-icon
+              - if current_user.notifications.unreads.count > 0
+                .header-notification-count
+                  = current_user.notifications.unreads.count
+              i.fa.fa-bell-o
+          - if current_user.notifications.unreads.exists?
+            = render 'application/notifications'
         .header-show-mobile-nav.js-show-mobile-nav
           i.fa.fa-bars
