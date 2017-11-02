@@ -3,8 +3,8 @@
     - current_user.notifications.unreads.each do |notification|
       li.header-drop-down__item
         = link_to notification, class: "header-drop-down__item-link" do
-          = gravatar_tag notification.sender, size: 20, class: 'header-notifications-item__avatar-image'
           .header-notifications-item__body
+            = gravatar_tag notification.sender, size: 48, html: { class: "header-notifications-item__avatar-image" }
             .header-notifications-item__message
               p
                 = notification.message
