@@ -85,15 +85,15 @@ $header-height: 3.125rem
   justify-content: center
   align-items: center
   width: 3rem
-  margin-right: -1rem
-  +media-breakpoint-down(sm)
-    display: flex
+  +position(relative)
+  display: flex
 
 .header-notification-icon
   +text-block(1.5rem 1, center)
   +media-breakpoint-down(sm)
-    +text-block(1rem 1)
-    margin-right: .5rem
+    +text-block(1.125rem 1)
+    .has-count &
+      color: $default-text
 
 .header-notification-count
   background-color: $badge-color
@@ -104,9 +104,13 @@ $header-height: 3.125rem
   +size(1.25rem .875rem)
   border-radius: 1rem
   +media-breakpoint-down(sm)
-    font-size: .625rem
+    +size(1.125rem .75rem)
+    +position(absolute, right .125rem, top .375rem)
+
 
 .header-show-mobile-nav-items
   display: none
   +media-breakpoint-down(sm)
     display: flex
+    height: 100%
+    margin-right: -1rem
