@@ -32,10 +32,6 @@ $header-height: 3.125rem
   border-left: solid $background-color .0625rem
   +position(relative)
   transition: color .2s ease-in, background-color .2s ease-in
-  &.is-active
-    background-color: $accent-color
-    .header-links__link
-      color: $main-color
 
 .header-links__link
   +flex-link
@@ -44,6 +40,15 @@ $header-height: 3.125rem
   justify-content: center
   +text-block(1.25rem 1, #b9b9b9)
   +position(relative)
+  transition: all .2s ease-in
+  &:hover
+    background-color: #f8f8f8
+    color: $default-text
+  .header-links__item.has-no-count &
+    pointer-events: none
+  .header-links__item.has-count &
+    color: $default-text
+    cursor: pointer
 
 .header-links__link-count
   +size(1rem)
@@ -85,15 +90,18 @@ $header-height: 3.125rem
     display: flex
 
 .header-notification-icon
-  +text-block(1.5rem 1 .375rem, center)
+  +text-block(1.5rem 1, center)
   +media-breakpoint-down(sm)
-    +text-block(1rem 1 0)
+    +text-block(1rem 1)
     margin-right: .5rem
 
 .header-notification-count
   background-color: $badge-color
-  color: $base-color
+  +text-block(.625rem 1, center $reversal-text flex)
+  align-items: center
+  justify-content: center
+  +position(absolute, right .25rem, top .25rem)
+  +size(1.25rem .875rem)
   border-radius: 1rem
-  +text-block(.800rem 1.50, center)
   +media-breakpoint-down(sm)
     font-size: .625rem
