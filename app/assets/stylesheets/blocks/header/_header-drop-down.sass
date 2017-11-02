@@ -12,6 +12,26 @@
   background-color: $base-color
   border-radius: .45rem
   +position(relative, 1)
+  &::before
+    content: ""
+    +size(0)
+    display: block
+    border-style: solid
+    border-width: 10px 10px
+    border-color: transparent
+    border-bottom-color: #ccc
+    +position(absolute, left 50%, top -20px)
+    margin-left: -10px
+  &::after
+    content: ""
+    +size(0)
+    display: block
+    border-style: solid
+    border-width: 10px 10px
+    border-color: transparent
+    border-bottom-color: $base-color
+    +position(absolute, left 50%, top -18px)
+    margin-left: -10px
 
 .header-drop-down__item
   cursor: pointer
