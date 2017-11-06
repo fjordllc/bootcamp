@@ -1,0 +1,16 @@
+.answer-badge
+  border: double .1875rem $stamp-color
+  border-radius: .75rem
+  +size(4rem 3.5rem)
+  padding: .125rem
+  +position(absolute, right 0, top -.125rem)
+  transform: rotate(25deg)
+  +text-block(.625rem 1, flex center $stamp-color)
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  +media-breakpoint-down(sm)
+    +position(absolute, left 80%, top 0)
+
+.answer-badge__icon
+  font-size: 1.5rem
