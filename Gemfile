@@ -54,4 +54,5 @@ group :development, :test do
   gem "simple_seed"
   gem "byebug", platform: :mri
   gem "minitest", "~> 5.10", "!= 5.10.2"
+  gem 'selenium-webdriver'
 end
