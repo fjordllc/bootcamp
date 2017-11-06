@@ -42,7 +42,7 @@ Rails.application.routes.draw do
   get "pages/:title/edit", to: "pages#edit"
   resources :questions do
     resources :answers, only: %i(edit create update destroy)
-    resource :correct_answer, only: :create, controller: "questions/correct_answers"
+    resource :correct_answer, only: :create, controller: "questions/correct_answer"
   end
   resources :courses, only: :index
   resources :chat_notices, only: :create

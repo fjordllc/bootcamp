@@ -39,6 +39,6 @@ header.page-header
       = gravatar_tag @question.user, size: 120, html: { class: "report__author-icon"}
     h3.report-comments-container__title
       | 回答・コメント
-    = render @question.answers
+    = render partial: "answers/answer", collection: @question.answers, as: :answer
     .new_question
       = render 'answers/form', question: @question, answer: Answer.new

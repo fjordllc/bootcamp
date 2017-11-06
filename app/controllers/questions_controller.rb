@@ -7,9 +7,10 @@ class QuestionsController < ApplicationController
   def index
     @questions =
       if params[:solved].present?
-        Question.solved
+        Question.joins(:correct_answer)
       else
-        Question.unsolved
+        question_ids = CorrectAnswer.pluck(:question_id)
+        Question.where.not(id: question_ids)
       end
   end
 
