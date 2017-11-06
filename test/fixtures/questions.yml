@@ -12,17 +12,16 @@ question_2:
   user: tanaka
 
 question_3:
-  title: テスト1
+  title: テストの質問1
   description: テスト1の内容です。
   user: komagata
-  correct_answer: answer_4
 
 question_4:
-  title: テスト2
+  title: テストの質問2
   description: テスト2の内容です。
   user: komagata
 
 question_5:
-  title: テスト3
+  title: テストの質問3
   description: テスト3の内容です。
   user: komagata

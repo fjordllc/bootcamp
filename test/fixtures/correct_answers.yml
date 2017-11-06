@@ -1,0 +1,5 @@
+correct_answer_1:
+  description: テストの正解回答1です。
+  user: komagata
+  question: question_3
+  type: "CorrectAnswer"

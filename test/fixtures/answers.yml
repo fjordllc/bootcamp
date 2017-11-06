@@ -14,11 +14,6 @@ answer_3:
   question: question_2
 
 answer_4:
-  description: test1
-  user: komagata
-  question: question_3
-
-answer_5:
-  description: test2
+  description: テストの回答4です。
   user: komagata
   question: question_3

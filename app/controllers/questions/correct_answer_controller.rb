@@ -1,19 +1,23 @@
-class Questions::CorrectAnswersController < ApplicationController
+class Questions::CorrectAnswerController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
   before_action :require_login
+  before_action :set_question, only: :create
 
   def create
-    question = Question.find(params[:question_id])
-    answer = question.answers.find_by(id: params[:answer_id])
     return_to = params[:return_to] ? params[:return_to] : question_url(question)
-    question.correct_answer = answer
-    question.save!
-    notify_to_slack(question)
+    answer = @question.answers.find(params[:answer_id])
+    answer.type = "CorrectAnswer"
+    answer.save!
+    notify_to_slack(@question)
     redirect_to return_to, notice: "正解の解答を選択しました。"
   end
 
   private
+    def set_question
+      @question = Question.find(params[:question_id])
+    end
+
     def notify_to_slack(question)
       name = "#{question.user.login_name}"
       link = "<#{question_url(question)}|#{question.title}>"
