@@ -37,12 +37,12 @@ $report-header-author: 3.5rem
   border-radius: .25rem
   +relative
   +balloon-tail(left $base-color .75rem 1rem, false, top 1.5rem)
+  &::after
+    margin-left: -1.4375rem
   +media-breakpoint-down(sm)
     &::before,
     &::after
       content: none
-  .report-comment.is-correct_answer &
-    border: solid .125rem $accent-color
 
 .report-comments__description
   +padding(vertical, 1rem)

@@ -1,16 +1,16 @@
 - question = answer.question
 - correct_answer = question.correct_answer
 .report-comment(class="#{answer == answer.question.correct_answer ? "is-correct_answer" : ""}")
-  - if answer == correct_answer
-    .answer-badge
-      .answer-badge__icon
-        i.fa.fa-star
-      .answer-badge__label
-        = t("best_answer")
   .report-comment__author
     = link_to answer.user, itempro: 'url', class: 'report-comment__author-link' do
       = gravatar_tag answer.user, size: 200, html: { class: "report-comment__author-icon"}
   .report-comment__body
+    - if answer == correct_answer
+      .answer-badge
+        .answer-badge__icon
+          i.fa.fa-star
+        .answer-badge__label
+          = t("best_answer_html")
     header.report-comment__body-header
       h2.report-comment__login-name
         = link_to answer.user, itempro: 'url', class: 'report-comment__login-name-link' do
