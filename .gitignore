@@ -15,3 +15,12 @@
 /tmp
 
 vendor/bundle/
+
+/node_modules
+/yarn-error.log
+
+.byebug_history
+/public/packs
+/public/packs-test
+
+/public/system

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171106094531) do
+ActiveRecord::Schema.define(version: 20171107061439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,18 @@ ActiveRecord::Schema.define(version: 20171106094531) do
     t.index ["report_id"], name: "index_footprints_on_report_id"
     t.index ["user_id", "report_id"], name: "index_footprints_on_user_id_and_report_id", unique: true
     t.index ["user_id"], name: "index_footprints_on_user_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
+    t.bigint "user_id"
+    t.text "image_meta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_images_on_user_id"
   end
 
   create_table "learnings", id: :serial, force: :cascade do |t|
@@ -190,6 +202,7 @@ ActiveRecord::Schema.define(version: 20171106094531) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
+  add_foreign_key "images", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
 end
