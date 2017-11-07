@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     end
     namespace :submissions do
       resources :completes, only: %i(index show)
-      resources :approvals, only: %i(index show update)
+      resources :confirmations, only: %i(index show update)
     end
   end
   resources :feeds, only: %i(index)

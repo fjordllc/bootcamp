@@ -50,7 +50,7 @@ class SubmissionsController < ApplicationController
 
     def notify_to_slack(submission, subject)
       name = "#{submission.user.login_name}"
-      link = "<#{admin_submissions_approvals_url(submission)}#submission_#{submission.id}|#{submission.practice.title}>"
+      link = "<#{admin_submissions_confirmation_url(submission)}#submission_#{submission.id}|#{submission.practice.title}>"
 
       notify "#{name} さんから#{subject}が届いています。 #{link}",
              username:    "#{submission.user.login_name} (#{submission.user.full_name})",

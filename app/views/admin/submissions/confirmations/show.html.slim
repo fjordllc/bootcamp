@@ -19,10 +19,10 @@ header.page-header
                 = @submission.practice.goal
     .practice-submission-container
       .practice-submission-form__action
-        = link_to admin_submissions_approval_path(@submission), method: :put, class: 'is-button-standard-sm-info' do
+        = link_to admin_submissions_confirmation_path(@submission), method: :put, class: 'is-button-standard-sm-info' do
           i.fa.fa-check-circle
           = t('complete')
-      = render "admin/submissions/approvals/approval",submission: @submission
+      = render "admin/submissions/confirmations/confirmation",submission: @submission
       h2.practice-submission-container__title
         = t('review_title')
       = render "reviews/form",submission: @submission,review_btn_text: t("review_create")

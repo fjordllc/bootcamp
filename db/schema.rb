@@ -230,6 +230,8 @@ ActiveRecord::Schema.define(version: 20171107061439) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "reviews", "submissions"
   add_foreign_key "reviews", "users"
   add_foreign_key "submissions", "practices"
