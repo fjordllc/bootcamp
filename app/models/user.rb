@@ -46,6 +46,7 @@ class User < ActiveRecord::Base
   scope :student, -> { where(graduation: false, adviser: false, retire: false) }
   scope :active, -> { where("updated_at > ?", 1.month.ago) }
   scope :inactive, -> { where("updated_at <= ?", 1.month.ago) }
+  scope :admins, -> { where(email: %w(komagata@fjord.jp machidanohimitsu@gmail.com)) }
 
   def completed_percentage
     completed_practices.size.to_f / Practice.count.to_f * 100

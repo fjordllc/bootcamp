@@ -31,6 +31,5 @@ html.is-application lang="ja"
         - if @reports.present?
           .recent-reports
             .recent-reports__items
-              - @reports.each do |report|
-                = render 'reports/recent_reports', report: report
+              = render partial: "reports/recent_report", collection: @reports, as: "report"
     = render('to_top')

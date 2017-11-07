@@ -7,4 +7,8 @@ module LoginHelper
     end
     click_button "サインイン"
   end
+
+  def logout_user
+    page.first("i.fa.fa-sign-out").click
+  end
 end

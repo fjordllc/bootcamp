@@ -12,12 +12,7 @@ class SearchReportsTest < ActionDispatch::IntegrationTest
   end
 
   test "should be words search reports" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login_name]", with: "komagata")
-      fill_in("user[password]", with: "testtest")
-    end
-    click_button "サインイン"
+    login_user "komagata", "testtest"
     assert_equal current_path, "/users"
 
     fill_in "word", with: "作業 2"

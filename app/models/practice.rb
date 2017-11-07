@@ -15,10 +15,12 @@ class Practice < ActiveRecord::Base
     source: :user
   belongs_to :category
   acts_as_list scope: :category
+  has_many :submissions
 
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true
+  validates :has_task, inclusion: { in: [true, false] }
 
   def status(user)
     learnings = Learning.where(
@@ -42,11 +44,58 @@ class Practice < ActiveRecord::Base
     )
   end
 
+  def completed?(user)
+    status_cds = Learning.statuses.values_at("complete")
+
+    Learning.exists?(
+      user:        user,
+      practice_id: id,
+      status_cd:   status_cds
+    )
+  end
+
+  def pending?(user)
+    status_cds = Learning.statuses.values_at("pending")
+
+    Learning.exists?(
+      user:        user,
+      practice_id: id,
+      status_cd:   status_cds
+    )
+  end
+
+  def not_completed_or_pending?(user)
+    !(self.completed?(user) || self.pending?(user))
+  end
+
   def exists_learning?(user)
     Learning.exists?(
       user:        user,
       practice_id: id
     )
+  end
+
+  def find_submission(user)
+    Submission.find_by(
+      user_id: user.id,
+      practice_id: id
+    )
+  end
+
+  def pending(user)
+    learning = Learning.find_or_create_by(
+      user_id: user.id,
+      practice_id: id
+    )
+    learning.update!(status: :pending)
+  end
+
+  def complete(user)
+    learning = Learning.find_or_create_by(
+      user_id: user.id,
+      practice_id: id
+    )
+    learning.update!(status: :complete)
   end
 
   def all_text

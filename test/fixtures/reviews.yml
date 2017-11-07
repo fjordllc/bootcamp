@@ -1,0 +1,9 @@
+komagata_review:
+  user: komagata
+  submission: submission_1
+  message: URLが間違っているようです。
+
+tanaka_review:
+  user: tanaka
+  submission: submission_1
+  message: 間違いました。成果物のURLを修正しました。

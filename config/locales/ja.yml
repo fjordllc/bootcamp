@@ -244,6 +244,21 @@ ja:
       line_too_long: "は1行を%{count}文字以内で入力して下さい。"
       not_a_zenkaku: "は全角文字を一文字以上含めて下さい。"
       wrong_image: "はjpg、png、gifのいずれかにして下さい。"
+      in_between: "の容量は%{min}以上%{max}以下にしてください。"
+      spoofed_media_type: "の拡張子と内容が一致していません。"
+
+  number:
+      human:
+        storage_units:
+          format: "%n %u"
+          units:
+            byte:
+              one:   "Byte"
+              other: "Bytes"
+            kb: "KB"
+            mb: "MB"
+            gb: "GB"
+            tb: "TB"
 
   activerecord:
     models:
@@ -255,6 +270,7 @@ ja:
       page: "Wiki"
       question: "Q&A"
       contact: "インターン申し込みフォーム"
+      submission: "課題の確認依頼"
 
     enums:
       user:
@@ -367,6 +383,13 @@ ja:
         application_reason: "志望理由"
         user_policy_agreed: "個人情報の取り扱いについて"
 
+      submission:
+        content: "課題の依頼メッセージ"
+        task: "課題のファイル"
+
+      review:
+        message: "レビューメッセージ"
+
     errors:
       template:
         header:
@@ -414,12 +437,24 @@ ja:
   are_you_sure: "本当によろしいですか？"
   start: "スタート"
   edit: "編集"
+  edited: "編集済"
   destroy: "削除"
   save: "保存"
   not_complete: "未完"
   unstarted: "開始"
   complete: "完了"
   started: "開始"
+  completed_stamp: "完了済"
+  pending: "確認中"
+  submission_message: "確認依頼メッセージ(課題のURLなどはここに入力して下さい)"
+  submission_new: "課題の確認を依頼する"
+  submission_edit: "提出した課題の修正"
+  submission_new_slack_message: "課題の確認の依頼"
+  submission_notice: "課題の確認を依頼しました。"
+  submission_was_successfully_deleted: "課題の依頼を削除しました"
+  submission_placeholder_msg: "（(例) \n **のプラクティスの課題を提出致します。よろしくお願いします。\n [**の課題](https://github.com)"
+  submission_was_successfully_updated: "課題依頼の内容を更新しました。"
+  task_field_label: "課題のファイル(ファイル提出がある場合)"
   practice_status_reset_confirmation: "未着手状態に戻しますがよろしいですか？"
   hide_completed: "完了済みプラクティスを隠す"
   show_completed: "完了済みプラクティスを表示"
@@ -431,6 +466,15 @@ ja:
   created_by: "created by "
   updated_by: "updated by "
   comments: "コメント"
+  submission_title: "提出した課題の内容"
+  review_title: "レビュー"
+  review_create: "レビューを投稿"
+  review_edit_title: "レビューの修正"
+  review_edit: "レビューを修正する"
+  review_was_successfully_created: "レビューを投稿しました。"
+  review_was_successfully_updated: "レビューの内容を更新しました。"
+  review_was_successfully_deleted: "レビューを削除しました。"
+  task_zip_download: "課題ファイルをダウンロード"
   check: "確認者"
   check_count: "名"
   256interns: "256 INTERNS"
@@ -455,6 +499,7 @@ ja:
   listing_questions: "Q & A"
   companies: "会社"
   categories: "カテゴリー"
+  submissions: "課題の確認依頼"
   editing_practice: "プラクティス編集"
   editing_company: "会社編集"
   editing_user: "アカウント情報編集"
@@ -501,7 +546,8 @@ ja:
   all_user: "全員"
   how_256interns_works: "256インターンとは"
   completed: "完了"
-  notice_completed_practice: "このプラクティスを完了しました。"
+  notice_completed_practice: "プラクティスを完了しました。"
+  submission_pass_message: "依頼された課題の確認を完了しました。"
   completed_users: "完了したインターン"
   completed_practices: "完了したプラクティス"
   active_practices: "進行中のプラクティス"
@@ -530,7 +576,11 @@ ja:
   to_index_of_reports: 日報一覧へ
   to_index_of_questions: Q&A一覧へ
   post_comment: コメントを投稿
+  post_review: レビューを投稿
   check_report: 日報を確認する
+  submission: 提出課題
+  submission_approval: 未確認の成果物
+  submission_complete: 確認済の成果物
   interns: インターン一覧
   admin_interns: インターン情報
   login_name_description: チャットやSNS（Twitter、Github、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。極力ユーザー名は統一するようにしてください。

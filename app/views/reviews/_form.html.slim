@@ -1,0 +1,10 @@
+= render 'application/errors', object: @review
+.report-comment-form
+  .report-comment__author
+    = gravatar_tag current_user, size: 200, html: { class: "report-comment__author-icon" }
+  = form_for(shallow_args(submission, @review), html: { class: 'report-comment-form__form' })do |f|
+    .form-items
+      .form-item
+        = f.text_area :message, required: true, class: 'a-textarea report-comment-form__textarea js-markdown-input'
+    .report-comment-form__action
+      = f.submit review_btn_text, class: 'is-button-standard-md-primary'

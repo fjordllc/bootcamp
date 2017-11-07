@@ -1,13 +1,9 @@
 require "test_helper"
 
 class FootprintTest < ActionDispatch::IntegrationTest
+  setup { login_user "tanaka", "testtest" }
+
   test "should be create footprint" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login_name]", with: "tanaka")
-      fill_in("user[password]", with: "testtest")
-    end
-    click_button "サインイン"
     assert_equal current_path, "/users"
     click_link "日報"
     assert_text "作業週2日目"
@@ -17,12 +13,6 @@ class FootprintTest < ActionDispatch::IntegrationTest
   end
 
   test "should not footpoint with my report" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login_name]", with: "tanaka")
-      fill_in("user[password]", with: "testtest")
-    end
-    click_button "サインイン"
     assert_equal current_path, "/users"
     click_link "日報"
     assert_text "学習週3日目"

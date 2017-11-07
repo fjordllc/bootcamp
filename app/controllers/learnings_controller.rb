@@ -23,7 +23,7 @@ class LearningsController < ApplicationController
     if learning.save
       respond_to do |format|
         format.js { head :ok }
-        format.html { redirect_to @practice, notice: t("notice_completed_practice") }
+        format.html { redirect_to practices_path, notice: "「#{@practice.title}」" + t("notice_completed_practice") }
       end
     else
       render json: learning.errors, status: :unprocessable_entity

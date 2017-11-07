@@ -1,0 +1,23 @@
+.practice-task__form
+  = render 'application/errors', object: submission
+  = form_for ([@practice, submission]), html: { multipart: true } do |f|
+    .row.js-markdown-parent
+      .col-md-6.col-xs-12
+        .form-group
+          = f.label :content, t('submission_message'), class: 'a-label'
+          = f.text_area :content, required: true, placeholder: t('submission_placeholder_msg'),
+                  class: 'a-textarea practice-task-request-form__textarea js-markdown-input'
+        .form-group
+          = f.label :task,t('task_field_label'), class: 'a-label'
+          = f.file_field :task
+          - if submission.task.exists?
+            .thumbnail
+              = render 'submissions/task_preview', submission: submission
+      .col-md-6.col-xs-12
+        label.a-label
+          | プレビュー
+        .js-markdown-preview.is-long-text-style.markdown-form__preview
+    .form-actions
+      ul.form-actions__items
+        li.form-actions__item
+          = f.submit title_button, class: 'is-button-standard-md-info'

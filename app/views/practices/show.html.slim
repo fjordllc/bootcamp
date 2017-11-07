@@ -16,6 +16,12 @@ header.page-header
       .practice-content
         header.practice-content__header
           h2.practice-content__title= t('helpers.label.practice.description')
+          = render "practices/status_stamp", practice: @practice
+        .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text-style
+          - unless @practice.not_completed?(current_user)
+            .completed_stamp
+              .completed_stamp__content.is-title
+                = t('completed_stamp')
         .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text-style.js-marked
           = @practice.description
       .practice-content
@@ -35,20 +41,25 @@ header.page-header
               = link_to practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'is-button-standard-md-danger' do
                 i.fa.fa-trash-o
                 = t('destroy')
-          li.page-actions__item
-            button.im-stack.is-button-standard-md-warning
-              = '行き詰まった！'
-            javascript:
-              $(document).on('click', '.im-stack', function(){
-                var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
-                $.post('/chat_notices', {text: text});
-              });
           - if @practice.not_completed?(current_user)
             li.page-actions__item
-              = link_to practice_learning_path(@practice), method: :put, class: 'is-button-standard-md-info' do
-                i.fa.fa-check-circle
-                = t('complete')
+              button.im-stack.is-button-standard-md-warning
+                = '行き詰まった！'
+              javascript:
+                  $(document).on('click', '.im-stack', function () {
+                      var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
+                      $.post('/chat_notices', {text: text});
+                  });
+            = render 'practices/complete_button' unless @practice.has_task?
+  - if @practice.has_task?
+    - if submission = @practice.find_submission(current_user)
+      .row.is-gutter-width-32
+        .col-md-6.col-xs-12
+          = render 'submissions/submission', submission: submission, practice: @practice
+    - else
+      = render 'submissions/form', submission: @submission, title_button: t('submission_new')
 
+  .row.is-gutter-width-32
     .col-md-6.col-xs-12
       // TODO 関連する質問を表示
       //= render 'temp_questions'
@@ -57,11 +68,11 @@ header.page-header
 
     .col-xs-12
       .interns-icons
-        h2.user-reports__title
-          = t('completed_users')
-        ul.completed-users
-          - @practice.completed_users.each do |user|
-            li.completed-users__user
-              = link_to user, class: "completed-users__user-link" do
-                span.completed-users__user-icon
-                  = gravatar_tag user, size: 32
+      h2.user-reports__title
+        = t('completed_users')
+      ul.completed-users
+        - @practice.completed_users.each do |user|
+          li.completed-users__user
+            = link_to user, class: "completed-users__user-link" do
+              span.completed-users__user-icon
+                = gravatar_tag user, size: 32

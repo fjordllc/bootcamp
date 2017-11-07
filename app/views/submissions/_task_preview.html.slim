@@ -1,0 +1,12 @@
+- if submission.task_is_image_file?
+  .zip_file_item
+    = image_tag submission.task.url(:thumb)
+- elsif submission.task_is_zip_file?
+  .zip_file_item
+    = link_to submission.task.url, action: :download do
+      .submission_zip_file
+        .fa.fa-file-archive-o
+        .submission_zip_file__name
+          = submission.task_file_name
+        .submission_zip_file__size
+          = "(#{submission.task_file_size / 1000}KB)"

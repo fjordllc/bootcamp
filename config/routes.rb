@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
     end
+    namespace :submissions do
+      resources :completes, only: %i(index show)
+      resources :confirmations, only: %i(index show update)
+    end
   end
   resources :feeds, only: %i(index)
   resources :users do
@@ -26,9 +30,13 @@ Rails.application.routes.draw do
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
   resources :practices, shallow: true do
+    resources :submissions, only: %i(create edit update destroy) do
+      resources :reviews , only: %i(create edit update destroy)
+    end
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
   end
+
   resources :reports do
     resources :checks, only: %i(create)
     resources :footprints, only: %i(create)
