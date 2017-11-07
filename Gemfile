@@ -33,6 +33,7 @@ gem "meta-tags"
 gem "webpacker"
 gem "paperclip"
 gem "paperclip-meta"
+gem "fog"
 
 group :production, :staging do
   gem "newrelic_rpm"
