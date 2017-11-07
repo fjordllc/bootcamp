@@ -6,7 +6,7 @@
       = error_messages_for :answer
     .form-items
       .form-item
-        = f.text_area :description, class: 'a-textarea report-comment-form__textarea js-markdown-input'
+        = f.text_area :description, class: 'a-textarea report-comment-form__textarea js-markdown'
     .report-comment-form__action
       = hidden_field_tag :return_to, params[:return_to].presence
       = f.submit t('post_comment'), class: 'is-button-standard-md-primary'
