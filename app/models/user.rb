@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :checks
   has_many :footprints
   has_many :notifications
+  has_many :images
 
   has_many :completed_learnings,
     -> { where(status_cd: 1) },
