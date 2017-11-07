@@ -15,8 +15,11 @@ export default class MarkdownEditor {
   }
 
   paste(event) {
-    event.preventDefault();
-    this.uploadAll(event.clipboardData.files);
+    const files = event.clipboardData.files;
+    if (files.length > 0) {
+      event.preventDefault();
+      this.uploadAll(event.clipboardData.files);
+    }
   }
 
   csrfToken() {
