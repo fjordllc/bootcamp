@@ -3,9 +3,10 @@ class Notification < ApplicationRecord
   belongs_to :sender, class_name: "User"
 
   enum kind: {
-    came_comment: 0,
-    checked:      1,
-    mentioned:    2
+    came_comment:    0,
+    checked:         1,
+    mentioned:       2,
+    came_submission: 3
   }
 
   scope :unreads, -> { where(read: false).order(created_at: :desc) }
@@ -41,5 +42,18 @@ class Notification < ApplicationRecord
       message: "#{comment.sender.login_name}さんからメンションがきました。",
       read:    false
     )
+  end
+
+  def self.came_submission(submission)
+    User.admins.each do |admin_user|
+      Notification.create!(
+        kind:    3,
+        user:    admin_user,
+        sender:  submission.sender,
+        path:    Rails.application.routes.url_helpers.admin_submissions_confirmation_path(submission),
+        message: "#{submission.sender.login_name}さんから「#{submission.practice.title}」の課題確認依頼が来ています。",
+        read:    false
+      )
+    end
   end
 end

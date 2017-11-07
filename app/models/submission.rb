@@ -1,12 +1,13 @@
 class Submission < ApplicationRecord
   belongs_to :user
   belongs_to :practice
+  after_create SubmissionCallbacks.new
   has_many :reviews, dependent: :destroy
   has_attached_file :task,
-    styles: { medium: "500x500>", thumb: "250x250>" }
+                    styles: { medium: "500x500>", thumb: "250x250>" }
   validates_attachment :task,
-    content_type: { content_type: ["image/jpeg", "image/gif", "image/png", "application/zip", "application/x-zip"] },
-    size:         { less_than: 1.megabytes }
+                       content_type: { content_type: ["image/jpeg", "image/gif", "image/png", "application/zip", "application/x-zip"] },
+                       size:         { less_than: 1.megabytes }
 
   validates :user_id, presence: true, uniqueness: { scope: :practice_id }
   validates :practice_id, presence: true, uniqueness: { scope: :user_id }
@@ -15,6 +16,7 @@ class Submission < ApplicationRecord
 
   scope :passed, -> { where(passed: true,).order(created_at: :desc) }
   scope :non_passed, -> { where(passed: false,).order(created_at: :desc) }
+  alias_method :sender, :user
 
   before_task_post_process :skip_for_zip
 
@@ -37,4 +39,5 @@ class Submission < ApplicationRecord
   def is_edited?
     !(self.created_at == self.updated_at)
   end
+
 end

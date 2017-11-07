@@ -16,6 +16,13 @@ class SubmissionRequestTest < ActionDispatch::IntegrationTest
     assert_text "課題が完了しました。宜しくお願い致します。"
     assert_text "kowabana.png"
     assert_text "KB"
+    logout_user
+    login_user("komagata", "testtest")
+    visit "/"
+    first(".header-links__link.js-drop-down__trigger").click #通知を表示
+    assert_text "tanakaさんから「viをインストールする」の課題確認依頼が来ています。"
+    first(".header-drop-down__item-link").click #上記の通知をクリック
+    assert_text "viをインストールする"
   end
 
   test "should be success when upload ZIP file" do
