@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  resources :questions
-
   root to: "home#index"
   get "welcome", to: "home#welcome", as: "welcome"
+
+  namespace "api" do
+    resource :image, controller: "image", only: %i(create)
+  end
+
   namespace :admin do
     root to: "home#index", as: :root
     resources :companies

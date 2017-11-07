@@ -27,9 +27,9 @@
         .col-md-6.col-xs-12
           = f.label :description, class: 'a-label'
           - if @report_copy_flag == true
-            = f.text_area :description, class: 'a-textarea js-warning-form js-markdown-input markdown-form__text-area', value: @report_description
+            = f.text_area :description, class: 'a-textarea js-warning-form markdown-form__text-area js-markdown', value: @report_description
           - else
-            = f.text_area :description, class: 'a-textarea js-warning-form js-markdown-input markdown-form__text-area'
+            = f.text_area :description, class: 'a-textarea js-warning-form markdown-form__text-area js-markdown'
         .col-md-6.col-xs-12
           .a-label
             | プレビュー

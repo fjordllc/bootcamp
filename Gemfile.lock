@@ -63,6 +63,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    climate_control (0.1.0)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -134,6 +137,7 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
+    mimemagic (0.3.2)
     mini_portile2 (2.2.0)
     minitest (5.10.3)
     multi_json (1.12.1)
@@ -153,6 +157,14 @@ GEM
     oulu (0.15.5)
       rake
       thor (~> 0.19)
+    paperclip (5.1.0)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (~> 0.3.0)
+    paperclip-meta (3.0.0)
+      paperclip (~> 5.0)
     pg (0.20.0)
     polyamorous (1.3.1)
       activerecord (>= 3.0)
@@ -169,6 +181,8 @@ GEM
     public_suffix (2.0.5)
     puma (3.8.2)
     rack (2.0.3)
+    rack-proxy (0.6.2)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rack-user_agent (0.5.2)
@@ -264,9 +278,6 @@ GEM
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.7)
-    turbolinks (5.0.1)
-      turbolinks-source (~> 5)
-    turbolinks-source (5.0.3)
     typhoeus (1.1.2)
       ethon (>= 0.9.0)
     tzinfo (1.2.3)
@@ -278,6 +289,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webpacker (3.0.1)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -311,6 +326,8 @@ DEPENDENCIES
   minitest (~> 5.10, != 5.10.2)
   newrelic_rpm
   oulu
+  paperclip
+  paperclip-meta
   pg
   pry-byebug
   pry-remote
@@ -330,10 +347,10 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sprockets (>= 3.0.0)
   sprockets-es6
-  turbolinks (~> 5)
   typhoeus
   uglifier (>= 1.3.0)
   web-console
+  webpacker
   xray-rails
 
 RUBY VERSION
