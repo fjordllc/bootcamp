@@ -39,5 +39,4 @@ class Submission < ApplicationRecord
   def is_edited?
     !(self.created_at == self.updated_at)
   end
-
 end

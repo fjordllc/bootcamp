@@ -237,6 +237,4 @@ ActiveRecord::Schema.define(version: 20171107061439) do
   add_foreign_key "submissions", "practices"
   add_foreign_key "submissions", "users"
   add_foreign_key "images", "users"
-  add_foreign_key "notifications", "users"
-  add_foreign_key "notifications", "users", column: "sender_id"
 end
