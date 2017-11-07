@@ -12,8 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require highlight.min
-//= require autosize/dist/autosize
 //= require smoothScroll
 //= require base
 //= require_tree .

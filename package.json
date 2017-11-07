@@ -29,6 +29,7 @@
     "@rails/webpacker": "^3.0.2",
     "marked": "^0.3.6",
     "pug": "^2.0.0-rc.4",
+    "textarea-autosize": "^0.4.2",
     "vue": "^2.5.3",
     "vue-loader": "^13.4.0",
     "vue-template-compiler": "^2.5.3",
