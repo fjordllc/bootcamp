@@ -24,6 +24,19 @@ export default class MarkdownEditor {
     if (meta) { return meta.content; }
   }
 
+  triggerEvent(element, event) {
+    if (document.createEvent) {
+      // IE以外
+      var evt = document.createEvent("HTMLEvents");
+      evt.initEvent(event, true, true); // event type, bubbling, cancelable
+      return element.dispatchEvent(evt);
+    } else {
+      // IE
+      var evt = document.createEventObject();
+      return element.fireEvent("on" + event, evt)
+    }
+  }
+
   uploadAll(files) {
     for (let i = 0; i < files.length; i++) {
       this.upload(files[i]);
@@ -57,6 +70,7 @@ export default class MarkdownEditor {
         return response.json();
       }).then((json) => {
         this.textarea.value = this.textarea.value.replace(`![${file.name}をアップロード中...]()`, `![${file.name}](${json['url']})\n`);
+        this.triggerEvent(this.textarea, 'keyup')
       }).catch((ex) => {
         console.warn('parsing failed', ex)
       })
