@@ -8,3 +8,4 @@
 // layout file, like app/views/layouts/application.html.erb
 require('./markdown');
 require('./marked');
+require('./autosize');

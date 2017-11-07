@@ -2736,6 +2736,10 @@ javascript-natural-sort@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/javascript-natural-sort/-/javascript-natural-sort-0.7.1.tgz#f9e2303d4507f6d74355a73664d1440fb5a0ef59"
 
+jquery@>=1.8:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
+
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.3.2.tgz#a79a923666372b580f8e27f51845c6f7e8fbfbaf"
@@ -5231,6 +5235,12 @@ tar@^2.0.0, tar@^2.2.1:
     block-stream "*"
     fstream "^1.0.2"
     inherits "2"
+
+textarea-autosize@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/textarea-autosize/-/textarea-autosize-0.4.2.tgz#f2fb0263b27fb4e7cf67abfe6e51f3cd712720cf"
+  dependencies:
+    jquery ">=1.8"
 
 thunky@^0.1.0:
   version "0.1.0"
