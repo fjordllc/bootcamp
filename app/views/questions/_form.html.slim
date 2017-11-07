@@ -12,11 +12,11 @@
         .row.js-markdown-parent
           .col-md-6.col-xs-12
             = f.label :description, class: 'a-label'
-            = f.text_area :description, class: 'a-text-input markdown-form__text-area js-warning-form js-markdown-input'
+            = f.text_area :description, class: 'a-text-input markdown-form__text-area js-warning-form js-markdown', data: { "preview-id": "js-preview" }
           .col-md-6.col-xs-12
             .a-label
               | プレビュー
-            .js-markdown-preview.is-long-text-style.practices-edit__input.markdown-form__preview
+            #js-preview.is-long-text-style.practices-edit__input.markdown-form__preview
   .form-actions
     ul.form-actions__items
       - if params[:action] == 'new' || params[:action] == 'create'
