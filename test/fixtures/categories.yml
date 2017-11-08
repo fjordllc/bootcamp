@@ -8,88 +8,88 @@ category_2:
   name: "Mac OS X"
   slug: "mac-os-x"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 2
 
 category_3:
   name: "HTML & CSS"
   slug: "html-and-css"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 3
 
 category_4:
   name: "UNIX"
   slug: "unix"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 4
 
 category_5:
   name: "Ruby"
   slug: "ruby"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 5
 
 category_6:
   name: "Ruby on Rails"
   slug: "ruby-on-rails"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 6
 
 category_7:
   name: "SQL"
   slug: "sql"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 7
 
 category_8:
   name: "Vim"
   slug: "vim"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 8
 
 category_9:
   name: "自動テスト"
   slug: "testing"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 9
 
 category_10:
   name: "JavaScript"
   slug: "javascript"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 10
 
 category_11:
   name: "Git"
   slug: "git"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 11
 
 category_12:
   name: "開発手法"
   slug: "development"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 12
 
 category_13:
   name: "iOS"
   slug: "ios"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 13
 
 category_14:
   name: "Android"
   slug: "android"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 14
 
 category_15:
   name: "Nginx"
   slug: "nginx"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 15
 
 category_16:
   name: "HTTP"
   slug: "http"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-  position: 1
+  position: 16
