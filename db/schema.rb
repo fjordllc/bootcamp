@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108094810) do
+ActiveRecord::Schema.define(version: 20171108145332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20171108094810) do
     t.string "type"
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
+  end
+
+  create_table "artifacts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "practice_id", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["practice_id"], name: "index_artifacts_on_practice_id"
+    t.index ["user_id"], name: "index_artifacts_on_user_id"
   end
 
   create_table "categories", id: :serial, force: :cascade do |t|
@@ -203,6 +213,8 @@ ActiveRecord::Schema.define(version: 20171108094810) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
+  add_foreign_key "artifacts", "practices"
+  add_foreign_key "artifacts", "users"
   add_foreign_key "images", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
