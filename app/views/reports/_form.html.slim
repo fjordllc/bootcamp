@@ -8,10 +8,12 @@
             = f.label :practice, class: 'a-label'
 
             .select-practices
-              - Practice.all.each do |practice|
-                label.select-practices__label
-                  = check_box_tag "report[practice_ids][]", practice.id, @report.practices.include?(practice), id: "product_practice_ids_#{practice.id}", class: "select-practices__input"
-                  = practice.title
+              - categories.each do |category|
+                - if category.practices.present?
+                  - category.practices.each do |practice|
+                    label.select-practices__label
+                      = check_box_tag "report[practice_ids][]", practice.id, @report.practices.include?(practice), id: "product_practice_ids_#{practice.id}", class: "select-practices__input"
+                      = practice.title
 
           .form-item
             = f.label :title, class: 'a-label'

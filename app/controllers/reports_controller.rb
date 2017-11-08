@@ -14,6 +14,7 @@ class ReportsController < ApplicationController
   before_action :set_footprints, only: %w(show)
   before_action :set_footprint, only: %w(show)
   before_action :set_user, only: :show
+  before_action :set_categories, only: %w(new edit)
 
   def index
   end
@@ -127,6 +128,10 @@ class ReportsController < ApplicationController
 
     def set_comments
       @comments = Comment.where(report_id: @report.id).order(created_at: :asc)
+    end
+
+    def set_categories
+      @categories = Category.order('position')
     end
 
     def notify_to_slack(report)
