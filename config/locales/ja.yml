@@ -323,7 +323,7 @@ ja:
         description: "内容"
         goal: "終了条件"
         target: "ターゲット"
-
+        task: "課題有り"
       company:
         name: "名前"
         description: "詳細"
