@@ -5,11 +5,11 @@
         .form-group
           label.a-label
             | 内容
-          = f.text_area :description, required: true, class: 'a-textarea js-warning-form js-markdown markdown-form__text-area', data: { "preview-id": "js-preview" }
+          = f.text_area :description, required: true, class: 'a-textarea js-warning-form js-markdown markdown-form__text-area', data: { "preview": ".js-preview" }
       .col-md-6.col-xs-12
         label.a-label
           | プレビュー
-        #js-preview.is-long-text-style.markdown-form__preview
+        .js-preview.is-long-text-style.markdown-form__preview
     .form-actions
       ul.form-actions__items
         li.form-actions__item
