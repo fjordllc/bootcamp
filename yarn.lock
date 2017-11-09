@@ -5242,6 +5242,13 @@ textarea-autosize@^0.4.2:
   dependencies:
     jquery ">=1.8"
 
+textarea-markdown@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.0.0.tgz#e4ab8ff73705115c8458c5806b7530ed91612cfe"
+  dependencies:
+    marked "^0.3.6"
+    whatwg-fetch "^2.0.3"
+
 thunky@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-0.1.0.tgz#bf30146824e2b6e67b0f2d7a4ac8beb26908684e"

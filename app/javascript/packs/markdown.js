@@ -1,23 +1,16 @@
-import marked from "marked"
-import MarkdownEditor from '../markdown-editor'
+import TextareaMarkdown from 'textarea-markdown'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const textareas = document.querySelectorAll('.js-markdown');
-  if (textareas) {
-    for (let i = 0; i < textareas.length; i++) {
-      const textarea = textareas[i];
-      const previewId = textarea.getAttribute('data-preview-id');
-      new MarkdownEditor(textarea);
-      if (previewId) {
-        const preview = document.getElementById(previewId);
-        if (preview) {
-          preview.innerHTML = marked(textarea.value, { breaks: true });
+  const meta = document.querySelector("meta[name=\"csrf-token\"]");
+  const token = meta ? meta.content : '';
 
-          textarea.addEventListener('keyup', () => {
-            preview.innerHTML = marked(textarea.value, { breaks: true });
-          })
-        }
-      }
-    }
-  }
+  Array.from(document.querySelectorAll('.js-markdown'), (textarea) => {
+    new TextareaMarkdown(textarea, {
+      endPoint: '/api/image.json',
+      paramName: 'file',
+      responseKey: 'url',
+      csrfToken: token,
+      placeholder: '%filenameをアップロード中...'
+    })
+  });
 });
