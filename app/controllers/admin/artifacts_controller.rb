@@ -1,4 +1,5 @@
 class Admin::ArtifactsController < ApplicationController
+  before_action :require_admin_login
   before_action :set_artifact, only: %i(show)
   def index
     if params[:done]
