@@ -6,8 +6,9 @@ Intern management and e-learning tool.
 
 ## Install
 
-    $ bundle install
-    $ rake db:setup
+    $ brew install yarn
+    $ bin/setup
+    $ yarn install
     $ rails s
 
 ### Heroku
