@@ -21,7 +21,8 @@
                 li
                   button.btn.btn-secondary.js-practice-state.is-button-standard-xs-secondary[class="#{status}" data-status="#{status}"]= t(status)
         - else
-          | 完了済(←スタンプにしたい)
+          .practice-item__checked
+            i.fa.fa-check
   - if current_user.admin?
     .category-practices-item__handle.js-show-handle__target
       ul.is-button-group
