@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108145332) do
+ActiveRecord::Schema.define(version: 20171109035715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20171108145332) do
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "done", default: false, null: false
     t.index ["practice_id"], name: "index_artifacts_on_practice_id"
     t.index ["user_id"], name: "index_artifacts_on_user_id"
   end
