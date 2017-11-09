@@ -1,0 +1,26 @@
+- title t('artifact')
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title
+        = t('artifact')
+      .page-header__action
+        = link_to admin_artifacts_path, class: 'is-button-standard-md-secondary' do
+          i.fa.fa-angle-left
+          = t('artifacts')
+.page-body
+  .container
+    .row.is-gutter-width-32
+      .col-md-6.col-xs-12
+        h4.artifact-practice__body-header
+          = link_to @artifact.practice.title, @artifact.practice
+        .practice-content
+          .practice-content__header
+            h2.practice-content__title= t('helpers.label.practice.goal')
+          .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text-style.js-marked
+            = @artifact.practice.goal
+        = render "admin/artifacts/artifact", artifact: @artifact
+        - unless @artifact.done?
+          = link_to admin_artifact_path(@artifact), method: :put, class: 'is-button-standard-sm-info' do
+            i.fa.fa-check-circle
+            = t('complete')

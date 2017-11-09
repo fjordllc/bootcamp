@@ -1,0 +1,70 @@
+$header-author: 3.5rem
+
+.artifact-practice__body-header
+  border-bottom: solid .0625rem $background-color
+  a
+    color: $main-color
+  +padding(vertical, .75rem)
+  +media-breakpoint-down(sm)
+    flex-direction: column
+
+.artifact-practice-container__title
+  +text-block(1.25rem 1.45 1.5rem, flex)
+  align-items: center
+  +media-breakpoint-down(sm)
+    margin-bottom: 1rem
+
+.artifact
+  +position(relative)
+  border-radius: .25rem
+  margin-bottom: 2rem
+  padding-left: $header-author + 1.25rem
+  +media-breakpoint-down(sm)
+    padding-left: 0
+    margin-bottom: 1rem
+
+.artifact__title
+  +text-block(1.25rem 1.45 1.5rem, flex)
+  +media-breakpoint-down(sm)
+    margin-bottom: 1rem
+
+
+.artifact-container
+  max-width: 52rem
+  +margin(horizontal, auto)
+  margin-top: 2rem
+
+.artifact__author
+  +position(absolute, left 0, top 0)
+  +size($header-author 100%)
+  +media-breakpoint-down(sm)
+    display: none
+
+.artifact__body
+  background-color: $base-color
+  +padding(horizontal, 1rem)
+  border-radius: .25rem
+  +relative
+  +balloon-tail(left $base-color .75rem 1rem, false, top 1.5rem)
+  +media-breakpoint-down(sm)
+    &::before,
+    &::after
+      content: none
+
+.artifact__body-header
+  border-bottom: solid .0625rem $background-color
+  +padding(vertical, .75rem)
+  +media-breakpoint-down(sm)
+    flex-direction: column
+
+.artifact__author-icon
+  +size(100% auto)
+  border-radius: 50%
+
+.artifact__login-name-link
+  color: $main-color
+
+.artifact__created-at
+  display: block
+  +text-block(.875rem 1.4, $muted-text)
+
