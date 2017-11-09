@@ -17,5 +17,12 @@ module Interns
 
     config.time_zone = "Tokyo"
     config.i18n.default_locale = :ja
+
+    config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
+      allow do
+        origins "*"
+        resource "*", headers: :any, methods: [:get, :post, :delete]
+      end
+    end
   end
 end
