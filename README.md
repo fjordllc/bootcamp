@@ -11,6 +11,10 @@ Intern management and e-learning tool.
     $ yarn install
     $ rails s
 
+You can also launch a web server with [rack-mini-profiler](https://github.com/MiniProfiler/rack-mini-profiler).
+
+    $ RACK_PROFILER=1 rails s
+
 ### Heroku
 
     $ heroku config:set LANG=ja_JP.UTF-8 INTERN_PASSWORD=xxxxxxxx
