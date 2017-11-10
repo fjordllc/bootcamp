@@ -10,27 +10,20 @@ html.is-application lang="ja"
     = javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', integrity: 'sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==', crossorigin: 'anonymous'
     = javascript_pack_tag "application"
     = csrf_meta_tags
-    = yield(:import_javascript)
-    javascript:
-    - if head_last = yield(:head_last)
-      = head_last
-  body(class="#{body_class} #{yield(:page_classes)}" id ="body")
-    - if current_user
-      - unless yield(:page_classes).include?('no-global-nav')
-        = render 'global_nav'
+    = content_for(:import_javascript)
+    = content_for(:head_last) if content_for?(:head_last)
+  - page_classes = content_for(:page_classes).to_s
+  body#body class="#{body_class} #{page_classes}"
+    - if current_user && page_classes.exclude?("no-global-nav")
+        = render "global_nav"
     .wrapper.js-open-drawer-wrapper
-      - if current_user
-        - unless yield(:page_classes).include?('no-header')
-          = render 'header'
-      = render 'alert'
+      - if current_user && page_classes.exclude?("no-header")
+        = render "header"
+      = render "alert"
       main.page
         = yield
-    - if current_user.present?
-      - unless yield(:page_classes).include?('no-recent-reports')
-        - recent_reports
-        - if @reports.present?
-          .recent-reports
-            .recent-reports__items
-              - @reports.each do |report|
-                = render 'reports/recent_reports', report: report
-    = render('to_top')
+    - if current_user && page_classes.exclude?("no-recent-reports") && recent_reports.present?
+      .recent-reports
+        .recent-reports__items
+          = render partial: "reports/recent_reports", collection: recent_reports, as: :report
+    = render("to_top")
