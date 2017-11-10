@@ -50,6 +50,7 @@ group :development do
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "letter_opener"
   gem "letter_opener_web"
+  gem "rack-mini-profiler", require: false
 end
 
 group :development, :test do
