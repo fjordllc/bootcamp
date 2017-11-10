@@ -131,7 +131,7 @@ class ReportsController < ApplicationController
     end
 
     def set_categories
-      @categories = Category.order('position')
+      @categories = Category.order("position")
     end
 
     def notify_to_slack(report)

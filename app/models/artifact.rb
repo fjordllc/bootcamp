@@ -8,4 +8,8 @@ class Artifact < ApplicationRecord
 
   scope :completed, -> { where(done: true) }
   scope :confirmation, -> { where(done: false) }
+
+  def to_done
+    self.update(done: true)
+  end
 end
