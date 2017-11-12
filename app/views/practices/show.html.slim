@@ -55,9 +55,10 @@ header.page-header
       - if @practice.reports.any?
         = render 'reports'
 
-    .col-md-12.col-xs-12
-      h2.artifact__title = t('artifact_form')
-      = render 'artifacts/form', artifact: @artifact
+    - if @practice.task?
+      .col-md-12.col-xs-12
+        h2.artifact__title = t('artifact_form')
+        = render 'artifacts/form', artifact: @artifact
 
     .col-xs-12
       .interns-icons

@@ -12,6 +12,7 @@ class PracticePageCompleteButtonTest < ActionDispatch::IntegrationTest
     click_link "プラクティス"
     click_link "PC性能の見方を知る"
     assert_not has_link? "完了"
+    assert_text "課題の提出フォーム"
   end
 
   test "hasn't task should be existence complete button" do
@@ -25,5 +26,6 @@ class PracticePageCompleteButtonTest < ActionDispatch::IntegrationTest
     click_link "プラクティス"
     click_link "Debianをインストールする"
     assert has_link? "完了"
+    assert_no_text "課題の提出フォーム"
   end
 end

@@ -459,6 +459,7 @@ ja:
   artifact: "成果物"
   artifact_title: "提出した成果物"
   artifact_form: "課題の提出フォーム"
+  artifact_create_notice: "課題の成果物を提出しました。"
   editing_practice: "プラクティス編集"
   editing_company: "会社編集"
   editing_user: "アカウント情報編集"
