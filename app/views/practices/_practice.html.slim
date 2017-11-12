@@ -11,7 +11,7 @@
     - if current_user
       .category-practices-item__value.is-status
         - status = practice.status(current_user)
-        - if practice.not_completed?(current_user)
+        - if practice.not_completed?(current_user) && practice.not_pending?(current_user)
           ul.is-button-group.category-practices-item__button-group
             - %i(not_complete started).each do |status|
               - if practice.status(current_user) == status
@@ -20,6 +20,9 @@
               - else
                 li
                   button.btn.btn-secondary.js-practice-state.is-button-standard-xs-secondary[class="#{status}" data-status="#{status}"]= t(status)
+        - elsif practice.pending?(current_user)
+          .practice-item__pending
+            i.fa.fa-gavel
         - else
           .practice-item__checked
             i.fa.fa-check

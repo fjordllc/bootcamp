@@ -8,6 +8,7 @@ class PracticesController < ApplicationController
   end
 
   def show
+    @artifact = @practice.artifacts.build
   end
 
   def new

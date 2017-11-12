@@ -1,4 +1,5 @@
 class Practice < ActiveRecord::Base
+  has_many :artifacts
   has_many :learnings
   has_and_belongs_to_many :reports
   has_many :started_learnings,
@@ -42,6 +43,26 @@ class Practice < ActiveRecord::Base
     )
   end
 
+  def not_pending?(user)
+    status_cds = Learning.statuses.values_at("pending")
+
+    !Learning.exists?(
+      user:        user,
+      practice_id: id,
+      status_cd:   status_cds
+    )
+  end
+
+  def pending?(user)
+    status_cds = Learning.statuses.values_at("pending")
+
+    Learning.exists?(
+      user:        user,
+      practice_id: id,
+      status_cd:   status_cds
+    )
+  end
+
   def exists_learning?(user)
     Learning.exists?(
       user:        user,
@@ -53,12 +74,34 @@ class Practice < ActiveRecord::Base
     not_completed?(user) && !task?
   end
 
+  def exists_artifact?(user)
+    Artifact.exists?(
+      user_id:     user.id,
+      practice_id: id
+    )
+  end
+
+  def get_artifact(user)
+    Artifact.find_by(
+      user_id:     user.id,
+      practice_id: id
+    )
+  end
+
   def complete(user)
     learning = Learning.find_or_create_by(
       user_id:     user.id,
       practice_id: id
     )
     learning.update!(status: :complete)
+  end
+
+  def pending(user)
+    learning = Learning.find_or_create_by(
+      user_id:     user.id,
+      practice_id: id
+    )
+    learning.update!(status: :pending)
   end
 
   def all_text

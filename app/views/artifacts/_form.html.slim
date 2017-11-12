@@ -1,0 +1,16 @@
+h2.artifact__title = t('artifact_form')
+= render 'application/errors', object: artifact
+= form_for ([@practice, artifact]) do |f|
+  .row.js-markdown-parent
+    .col-md-6.col-xs-12
+      .form-group
+        = f.label :content, '成果物の内容', class: 'a-label'
+        = f.text_area :content, required: true, class: 'a-textarea js-warning-form js-markdown markdown-form__text-area', data: { "preview": ".js-preview" }
+    .col-md-6.col-xs-12
+      label.a-label
+        | プレビュー
+      .js-preview.is-long-text-style.markdown-form__preview
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item
+        = f.submit '提出する', class: 'is-button-standard-md-info'

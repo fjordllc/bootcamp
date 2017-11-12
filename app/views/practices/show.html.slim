@@ -55,6 +55,14 @@ header.page-header
       - if @practice.reports.any?
         = render 'reports'
 
+    - if @practice.task?
+      - if @practice.exists_artifact?(current_user)
+        .col-md-6.col-xs-12
+          = render 'artifacts/artifact', artifact: @practice.get_artifact(current_user)
+      - else
+        .col-md-12.col-xs-12
+          = render 'artifacts/form', artifact: @artifact
+
     .col-xs-12
       .interns-icons
         h2.user-reports__title
