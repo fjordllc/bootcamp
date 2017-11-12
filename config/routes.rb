@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "home#index", as: :root
     resources :companies
+    resources :artifacts, only: %i(index show update)
     namespace :users do
       resources :emails, only: :index
       resources :in_actives, only: :index

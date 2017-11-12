@@ -13,6 +13,12 @@
         .col-md-6.col-xs-12
           = f.label :title, class: 'a-label'
           = f.text_field :title, class: 'a-text-input js-warning-form'
+    - if current_user.admin?
+      .form-item
+        .row
+          .col-md-6.col-xs-12
+            = f.label :task, class: 'a-label'
+            = f.check_box :task, {}, true, false
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12

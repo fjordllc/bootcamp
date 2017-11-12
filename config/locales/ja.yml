@@ -323,7 +323,7 @@ ja:
         description: "内容"
         goal: "終了条件"
         target: "ターゲット"
-
+        task: "課題有り"
       company:
         name: "名前"
         description: "詳細"
@@ -455,6 +455,9 @@ ja:
   listing_questions: "Q & A"
   companies: "会社"
   categories: "カテゴリー"
+  artifacts: "成果物一覧"
+  artifact: "成果物"
+  artifact_title: "提出した成果物"
   editing_practice: "プラクティス編集"
   editing_company: "会社編集"
   editing_user: "アカウント情報編集"
@@ -501,6 +504,7 @@ ja:
   all_user: "全員"
   how_256interns_works: "256インターンとは"
   completed: "完了"
+  artifact_done_message: "依頼された課題の確認を完了しました。"
   notice_completed_practice: "このプラクティスを完了しました。"
   completed_users: "完了したインターン"
   completed_practices: "完了したプラクティス"

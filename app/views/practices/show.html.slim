@@ -43,7 +43,7 @@ header.page-header
                 var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
                 $.post('/chat_notices', {text: text});
               });
-          - if @practice.not_completed?(current_user)
+          - if @practice.not_has_task_and_not_done?(current_user)
             li.page-actions__item
               = link_to practice_learning_path(@practice), method: :put, class: 'is-button-standard-md-info' do
                 i.fa.fa-check-circle

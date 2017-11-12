@@ -9,10 +9,10 @@ class Practice < ActiveRecord::Base
     class_name: "Learning"
   has_many :started_users,
     through: :started_learnings,
-    source: :user
+    source:  :user
   has_many :completed_users,
     through: :completed_learnings,
-    source: :user
+    source:  :user
   belongs_to :category
   acts_as_list scope: :category
 
@@ -22,7 +22,7 @@ class Practice < ActiveRecord::Base
 
   def status(user)
     learnings = Learning.where(
-      user_id: user.id,
+      user_id:     user.id,
       practice_id: id
     )
     if learnings.blank?
@@ -47,6 +47,18 @@ class Practice < ActiveRecord::Base
       user:        user,
       practice_id: id
     )
+  end
+
+  def not_has_task_and_not_done?(user)
+    not_completed?(user) && !task?
+  end
+
+  def complete(user)
+    learning = Learning.find_or_create_by(
+      user_id:     user.id,
+      practice_id: id
+    )
+    learning.update!(status: :complete)
   end
 
   def all_text
