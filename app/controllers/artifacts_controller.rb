@@ -5,6 +5,7 @@ class ArtifactsController < ApplicationController
     @artifact      = @practice.artifacts.build(artifact_params)
     @artifact.user = current_user
     if @artifact.save
+      @practice.pending(current_user)
       redirect_to @artifact.practice, notice: t("artifact_create_notice")
     else
       render template: "practices/show"

@@ -1,0 +1,16 @@
+h2.artifact__title
+  = t('artifact_title')
+.artifact
+  .artifact-container
+    .artifact__author
+      = link_to artifact.user, itempro: 'url', class: 'artifact__author-link' do
+        = gravatar_tag artifact.user, size: 200, html: { class: "artifact__author-icon" }
+    .artifact__body
+      header.artifact__body-header
+        h2.artifact__login-name
+          = link_to artifact.user, itempro: 'url', class: 'artifact__login-name-link' do
+            = artifact.user.login_name
+          time.artifact__created-at(datetime='#{artifact.created_at.to_datetime}' pubdate='pubdate')
+            = l artifact.created_at, format: :date_long_with_time
+      .artifacts__content.js-markdown-view.js-target-blank.is-long-text-style.js-marked
+        = artifact.content
