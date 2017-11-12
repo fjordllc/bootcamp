@@ -1,4 +1,5 @@
 class Practice < ActiveRecord::Base
+  has_many :artifacts
   has_many :learnings
   has_and_belongs_to_many :reports
   has_many :started_learnings,

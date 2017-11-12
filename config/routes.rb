@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :practices, shallow: true do
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
+    resource :artifacts
   end
   resources :reports do
     resources :checks, only: %i(create)
