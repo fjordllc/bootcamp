@@ -14,7 +14,7 @@ class ReportsController < ApplicationController
   before_action :set_footprints, only: %w(show)
   before_action :set_footprint, only: %w(show)
   before_action :set_user, only: :show
-  before_action :set_categories, only: %w(new edit)
+  before_action :set_categories, only: %w(new create edit update)
 
   def index
   end
