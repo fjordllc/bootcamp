@@ -34,7 +34,7 @@
                 = link_to edit_report_path(report), class: 'report__actions-item-link is-success' do
                   i.fa.fa-pencil
               li.report__actions-item
-                = link_to new_report_path(report), class: 'report__actions-item-link is-success' do
+                = link_to new_report_path(id: report), class: 'report__actions-item-link is-success' do
                   i.fa.fa-files-o
               li.report__actions-item
                 = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'report__actions-item-link is-danger' do

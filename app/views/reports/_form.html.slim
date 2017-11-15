@@ -17,21 +17,13 @@
 
           .form-item
             = f.label :title, class: 'a-label'
-            - if @report_flag == true
-              = f.text_field :title, class: 'a-text-input js-warning-form', value: '日報/' << @report_date.strftime("%Y/%m/%d/") << @user_name << ':'
-            - elsif @report_copy_flag == true
-              = f.text_field :title, class: 'a-text-input js-warning-form', value: @report_title
-            - else
-              = f.text_field :title, class: 'a-text-input js-warning-form'
+            = f.text_field :title, class: 'a-text-input js-warning-form'
 
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
           = f.label :description, class: 'a-label'
-          - if @report_copy_flag == true
-            = f.text_area :description, class: "a-textarea js-warning-form markdown-form__text-area js-markdown", data: { "preview": ".js-preview" }, value: @report_description
-          - else
-            = f.text_area :description, class: "a-textarea js-warning-form markdown-form__text-area js-markdown", data: { "preview": ".js-preview" }
+          = f.text_area :description, class: "a-textarea js-warning-form markdown-form__text-area js-markdown", data: { "preview": ".js-preview" }
         .col-md-6.col-xs-12
           .a-label
             | プレビュー

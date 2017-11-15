@@ -26,17 +26,13 @@ class ReportsController < ApplicationController
   end
 
   def new
-    @report = Report.new
-    if params[:format].present?
-      @report_copy_flag = true
-      @report = Report.find_by(id: params[:format])
-      @report_title = @report.title
-      @report_description = @report.description
-      @report = Report.new
+    if params[:id].present?
+      report = current_user.reports.find(params[:id])
+      @report = report.dup
+      @report.practices = report.practices
     else
-      @report_flag = true
-      @report_date = Time.current
-      @user_name = current_user.login_name
+      title = "#{Report.model_name.human}/#{Time.current.strftime("%Y/%m/%d/")}#{current_user.login_name}:"
+      @report = current_user.reports.build(title: title)
     end
   end
 
