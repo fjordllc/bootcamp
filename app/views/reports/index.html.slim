@@ -1,74 +1,26 @@
-- if @search_word.present?
-  - title t('search_for', text: @search_word)
-  header.page-header
-    .container
-      .page-header__container
-        h2.page-header__title
-          = t('search_for', text: @search_word)
-        = link_to new_report_path, class: 'is-button-standard-md-warning' do
-          i.fa.fa-plus
-          = t('new_report')
-  .page-body
-    .container
-      = paginate @reports, position: "top"
-      - if @reports.nil? == false
-        .report-list
-          - @reports.each do |report|
-            - if report.present?
-              .report-list-item
-                .report-list-item__inner
-                  .report-list-item__author
-                    = gravatar_tag report.user, size: 44, html: { class: "report-list-item__author-icon"}
-                  header.report-list-item__header
-                    h2.report-list-item__title(itemprop="name")
-                      = link_to report, itempro: "url", class: "report-list-item__title-link" do
-                        = highlight("#{report.title}",@search_word.split(/ |　/))
-                    - if report.user == current_user
-                      .report-list-item__actions
-                        = link_to edit_report_path(report), class: 'report-list-item__actions-link' do
-                          i.fa.fa-pencil
-                        = link_to new_report_path(report), class: 'report-list-item__actions-link' do
-                          i.fa.fa-files-o
-                        = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'report-list-item__actions-link' do
-                          i.fa.fa-trash-o
+- title @search_words.present? ? t('search_for', text: @search_words.join(' ')) : t('reports')
 
-                    .report-list-item-meta
-                      time.report-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
-                        = l report.updated_at, format: :short
-                      - if report.comments.any?
-                        .report-list-item-meta__comments
-                          = t('report_comments_any')
-                          = report.comments.count
-                          = t('comments_count')
-                  .report-list-item__body
-                    = highlight("#{report.description}", @search_word.split(/ |　/))
-      = paginate @reports, position: "bottom"
+header.page-header.is-margin-bottom-0.has-border-bottom-none
+  .container
+    .page-header__container
+      h2.page-header__title= title
+      = link_to new_report_path, class: 'is-button-standard-md-warning' do
+        i.fa.fa-plus
+        = t('new_report')
 
-- else
-  - title t('reports')
-  header.page-header.is-margin-bottom-0.has-border-bottom-none
-    .container
-      .page-header__container
-        h1.page-header__title
-          = t('reports')
-        .page-header__action
-          = link_to new_report_path, class: 'is-button-standard-md-warning' do
-            i.fa.fa-plus
-            = t('new_report')
-  nav.sort-nav
-    .container
-      .sort-nav__inner
-        = form_tag reports_url, method: 'get' do
-          = label_tag :practice_id, 'プラクティスで絞り込む:', class: 'sort-nav__label'
-          .is-button-standard-sm-secondary.is-select.sort-nav__select
-            = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, { selected: params[:practice_id] }), include_blank: '全ての日報を表示', onchange: "this.form.submit()"
+nav.sort-nav
+  .container
+    .sort-nav__inner
+      = form_tag reports_url, method: 'get' do
+        = hidden_field_tag :word, @search_words
+        = label_tag :practice_id, 'プラクティスで絞り込む:', class: 'sort-nav__label'
+        .is-button-standard-sm-secondary.is-select.sort-nav__select
+          = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, { selected: params[:practice_id] }), include_blank: '全ての日報を表示', onchange: "this.form.submit()"
 
-  .page-body
-    .container
-      = paginate @reports, position: "top"
-      - if @reports.nil? == false
-        .report-list
-          - @reports.each do |report|
-            - if report.present?
-              = render 'report_list_item', report: report
-      = paginate @reports, position: "bottom"
+.page-body
+  .container
+    = paginate @reports, position: "top"
+    - if @reports.present?
+      .report-list
+        = render partial: 'reports/report_list_item', collection: @reports, as: :report, locals: { search_words: @search_words }
+    = paginate @reports, position: "bottom"

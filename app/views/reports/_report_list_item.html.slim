@@ -5,14 +5,15 @@
     header.report-list-item__header
       h2.report-list-item__title(itemprop="name")
         = link_to report, itempro: "url", class: "report-list-item__title-link" do
-          = report.title
-      .report-list-item__actions
-        = link_to edit_report_path(report), class: 'report-list-item__actions-link' do
-          i.fa.fa-pencil
-        = link_to new_report_path(report), class: 'report-list-item__actions-link' do
-          i.fa.fa-files-o
-        = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'report-list-item__actions-link' do
-          i.fa.fa-trash-o
+          = highlight(report.title, search_words)
+      - if current_user == report.user
+        .report-list-item__actions
+          = link_to edit_report_path(report), class: 'report-list-item__actions-link' do
+            i.fa.fa-pencil
+          = link_to new_report_path(id: report), class: 'report-list-item__actions-link' do
+            i.fa.fa-files-o
+          = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'report-list-item__actions-link' do
+            i.fa.fa-trash-o
     .report-list-item-meta
       time.report-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
         = l report.updated_at, format: :semi_long
@@ -21,7 +22,7 @@
           .report-list-item-meta__comment-count-label
             i.fa.fa-comment-o
           .report-list-item-meta__comment-count-value
-            = report.comments.count
+            = report.comments.size
       - if report.checks.any?
         .report-list-item-meta__comment-count
           .report-list-item-meta__comment-count-value
@@ -34,3 +35,6 @@
             = report.checks.last.created_at.strftime('%Y/%m/%d')
           .stamp__content.is-user-name
             = report.checks.last.user.login_name
+    - if search_words.present?
+     .report-list-item__body
+       = highlight(report.description, search_words)

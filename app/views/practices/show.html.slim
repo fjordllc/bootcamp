@@ -53,7 +53,7 @@ header.page-header
       // TODO 関連する質問を表示
       //= render 'temp_questions'
       - if @practice.reports.any?
-        = render 'reports'
+        = render 'reports', reports: @practice.reports.eager_load(:user, :comments).order(updated_at: :desc)
 
     .col-xs-12
       .interns-icons
