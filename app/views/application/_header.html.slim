@@ -16,7 +16,7 @@ header.header
         ul.header-links__items
           li
             = form_tag reports_url, method: 'get', class: 'header-search' do
-              = text_field_tag 'word', @word, class: 'a-xs-text-input header-search__text-input', placeholder: t('search_report')
+              = text_field_tag 'word', params[:word], class: 'a-xs-text-input header-search__text-input', placeholder: t('search_report')
               button.is-button-standard-sm-secondary.is-icon.header-search__submit(type= 'submit')
                 i.fa.fa-search
           li.header-links__item(class="#{current_user.notifications.unreads.count > 0 ? "js-drop-down has-count" : "has-no-count"}")
