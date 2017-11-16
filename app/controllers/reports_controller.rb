@@ -3,8 +3,6 @@ class ReportsController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
   before_action :require_login
-  before_action :set_search_word, only: :index
-  before_action :set_reports, only: %w(index show edit update destroy)
   before_action :set_report, only: %w(show)
   before_action :set_my_report, only: %i(edit update destroy)
   before_action :set_comments, only: %w(show edit update destroy)
@@ -17,6 +15,16 @@ class ReportsController < ApplicationController
   before_action :set_categories, only: %w(new create edit update)
 
   def index
+    @search_words = params[:word]&.squish&.split(/[[:blank:]]/)&.uniq
+    @reports = Report.eager_load(:user, :comments, checks: :user).order(updated_at: :desc, id: :desc).page(params[:page])
+
+    if params[:practice_id].present?
+      @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id]})
+    end
+
+    if @search_words.present?
+      @reports = @reports.ransack(title_or_description_cont_all: @search_words).result
+    end
   end
 
   def show
@@ -72,22 +80,6 @@ class ReportsController < ApplicationController
         :description,
         practice_ids: []
       )
-    end
-
-    def set_search_word
-      @search_word = params[:word]
-    end
-
-    def set_reports
-      if params[:word].present?
-        query_arr = @search_word.split(/[[:blank:]]+/)
-        @search = Report.ransack(title_or_description_cont_all: query_arr)
-        @reports = @search.result.order(updated_at: :desc, id: :desc).page(params[:page]).per(15)
-      elsif params[:practice_id].present?
-        @reports = Practice.find(params[:practice_id]).reports.page(params[:page]).per(15)
-      else
-        @reports = Report.order(updated_at: :desc, id: :desc).page(params[:page]).per(30)
-      end
     end
 
     def set_report
