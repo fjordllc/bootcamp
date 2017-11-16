@@ -11,7 +11,7 @@ class ReportsTest < ActionDispatch::IntegrationTest
 
     click_link '日報'
     click_link '日報の新規作成'
-    report_practices = page.all('.select-practices__label')
+    report_practices = page.all('.select-practices__label-title')
 
     report_practices.each_with_index do|practice, i|
       assert_equal practice.text, practices[i].find('.category-practices-item__title-link').text
@@ -24,7 +24,7 @@ class ReportsTest < ActionDispatch::IntegrationTest
 
     find('.global-nav-current-user__link').click
     page.all('.user-reports-item-actions__item-link').first.click
-    report_practices = page.all('.select-practices__label')
+    report_practices = page.all('.select-practices__label-title')
 
     report_practices.each_with_index do|practice, i|
       assert_equal practice.text, practices[i].find('.category-practices-item__title-link').text
