@@ -12,7 +12,8 @@
                 - category.practices.each do |practice|
                   label.select-practices__label
                     = check_box_tag "report[practice_ids][]", practice.id, @report.practices.include?(practice), id: "product_practice_ids_#{practice.id}", class: "select-practices__input"
-                    = practice.title
+                    => "[#{category.name}]"
+                    span.select-practices__label-title= practice.title
 
           .form-item
             = f.label :title, class: 'a-label'
