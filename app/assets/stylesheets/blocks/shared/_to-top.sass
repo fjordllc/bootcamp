@@ -11,6 +11,8 @@
   transition: color .2s ease-in, background-color .2s ease-in
   opacity: 0
   transition: opacity .2s ease-in
+  +media-breakpoint-down(sm)
+    right: 1rem
   &:hover
     background-color: rgba(black, .2)
     color: $main-color
