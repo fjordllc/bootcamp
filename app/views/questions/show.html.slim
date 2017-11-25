@@ -37,6 +37,7 @@ header.page-header
             = t('to_index_of_questions')
     = link_to @question.user, itempro: "url", class: "report__author-link" do
       = gravatar_tag @question.user, size: 120, html: { class: "report__author-icon"}
+  .report-comments-container
     h3.report-comments-container__title
       | 回答・コメント
     = render partial: "answers/answer", collection: @question.answers, as: :answer

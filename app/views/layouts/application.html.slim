@@ -12,6 +12,7 @@ html.is-application lang="ja"
     = csrf_meta_tags
     = content_for(:import_javascript)
     = content_for(:head_last) if content_for?(:head_last)
+    = render "import_prism"
   - page_classes = content_for(:page_classes).to_s
   body#body class="#{body_class} #{page_classes}"
     - if current_user && page_classes.exclude?("no-global-nav")
