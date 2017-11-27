@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     html: true,
     breaks: true,
     langPrefix: true,
-    linkify: true
+    linkify: true,
+    langPrefix: 'language-'
   });
 
   [].forEach.call(document.querySelectorAll('.js-markdown'), (e) => {
