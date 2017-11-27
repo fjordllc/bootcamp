@@ -18,7 +18,7 @@
   "homepage": "https://github.com/fjordllc/interns#readme",
   "devDependencies": {
     "autosize": "^3.0.15",
-    "markdown-it": "^5.1.0",
+    "markdown-it": "^8.4.0",
     "markdown-it-checkbox": "^1.1.0",
     "markdown-it-emoji": "^1.4.0",
     "pygments-css": "^1.0.0",
@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
-    "marked": "^0.3.6",
     "pug": "^2.0.0-rc.4",
     "textarea-autosize": "^0.4.2",
     "textarea-markdown": "^1.0.0",
