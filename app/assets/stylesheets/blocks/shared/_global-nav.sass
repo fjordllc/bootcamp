@@ -3,26 +3,27 @@ $global-nav-width: 5rem
 .global-nav
   display: inline
   +media-breakpoint-down(sm)
-    display: block
     +position(fixed, left 0, top 0, bottom 0, 100)
-    background-color: rgba(black, .4)
+    background-color: rgba(black, 0)
     width: 0
-    overflow: hidden
+    cursor: pointer
+    transition: background-color .4s ease-in
     &.is-active
+      background-color: rgba(black, .6)
+      opacity: 1
       width: 100%
-      right: 0
+      display: block
 
 .global-nav__inner
   background-color: $side
   +size($global-nav-width 100%)
   +position(fixed, left 0, top 0, bottom 0, 2)
   +media-breakpoint-down(sm)
-    width: 0
-    transition: width .2s ease-in
+    transition: left .2s ease-out
+    width: 12rem
     overflow: hidden
     left: -12rem
     .global-nav.is-active &
-      width: 12rem
       left: 0
       >*
         width: 12rem
