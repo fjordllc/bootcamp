@@ -17,7 +17,7 @@
           = answer.user.login_name
       time.report-comment__created-at(datetime='#{answer.created_at.to_datetime}' pubdate='pubdate')
         = l answer.updated_at, format: :date_long_with_time
-    .report-comments__description.js-markdown-view.js-target-blank.is-long-text-style.js-markdown
+    .report-comments__description.js-markdown-view.js-target-blank.is-long-text-style
       = raw answer.description
     .report-comment__actions
       ul.report-comment__actions-items
