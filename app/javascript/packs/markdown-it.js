@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     langPrefix: 'language-'
   });
 
-  [].forEach.call(document.querySelectorAll('.js-markdown'), (e) => {
+  [].forEach.call(document.querySelectorAll('.js-markdown-view'), (e) => {
     e.style.display = 'block';
     e.innerHTML =  md.render(e.innerHTML);
   });
