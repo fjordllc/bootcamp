@@ -1,7 +1,6 @@
 section.welcome-section#administrator
   .container
     h2.welcome-section__title
-      = image_tag('question.svg', class: 'welcome-section__title-question-icon')
       | どんな会社が運営してるの？
     section.welcome-child-section
       h3.welcome-child-section__title
@@ -65,39 +64,6 @@ section.welcome-section#administrator
                         li.welcome-small-section__sns-item
                           = link_to 'https://www.facebook.com/teppeimachida' do
                             | Facebook
-
-    section.welcome-child-section
-      h3.welcome-child-section__title
-        | 運営サービス
-      .welcome-child-section__description.is-lead-text
-        p.is-text-align-center-md-up
-          | 作業週にはこれらのサービスを手伝っていただきます。
-      .welcome-small-sections
-        .row.is-gutter-width-32
-          .col-sm-12.col-md-4
-            section.welcome-small-section
-              .welcome-small-section__inner.is-dotted
-                h3.welcome-small-section__title
-                  | 怖話
-                .welcome-small-section__description
-                  p= image_tag('kowabana.png')
-                  p 怖い話の投稿数が20,000話を超える世界最大の怖い話投稿サイト。
-          .col-sm-12.col-md-4
-            section.welcome-small-section
-              .welcome-small-section__inner.is-dotted
-                h3.welcome-small-section__title
-                  | kulku
-                .welcome-small-section__description
-                  p= image_tag('kulku.png')
-                  p 外に出ずパソコンだけで写真と矢印を使った道案内が作れるサービス。
-          .col-sm-12.col-md-4
-            section.welcome-small-section
-              .welcome-small-section__inner.is-dotted
-                h3.welcome-small-section__title
-                  | 256 interns
-                .welcome-small-section__description
-                  p= image_tag('interns.jpg')
-                  p エンジニアを目指す人のためのオンライン学習システムです。学習内容、日報、質問が書けます。
 
     section.welcome-child-section
       h3.welcome-child-section__title

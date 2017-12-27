@@ -1,56 +1,93 @@
 section.welcome-section#finding-employment
   .container
     h2.welcome-section__title
-      = image_tag('question.svg', class: 'welcome-section__title-question-icon')
-      | スキルを身に
-      br.is-hidden-md-up
-      | つけたら就職できる？
+      | どんな会社に就職できる？
+    .welcome-section__description
+      p
+        | 学費は就職する就職先企業に支払ってもらうという方法でこのサービスを運営しているので、就職時に学費を支払う契約を弊社と交わした企業であることが条件になりますが、
+        | 学費の話だけでなく、いいエンジニアがいる会社、今後もプログラマーとして成長できる会社、プログラマーに理解のある企業に就職して、
+        | 今後もプログラミングを好きでい続けてもらいたいと考えています。
+
     section.welcome-child-section
       h3.welcome-child-section__title
-        | ほとんどの人が就職しています
-      .welcome-child-section__description
-        p
-          | 256interns にあるプログラミングの教材を全て終わらせるのは簡単ではありません。全てを終えて、自分でWebサービスを作って公開をするまでのスキルを身につけられれば、スキルの面ではどこかの会社が必要としている人材になれます。僕らも知り合いに声をかけたり、就活のアドバイスをしたり、就活の手伝いに協力します。また、卒業後も転職の相談なども気軽にできます。
+        | 例えばこんな会社を紹介します。
       .welcome-small-sections
         .row.is-gutter-width-32
-          .col-sm-12.col-md-6
+          .col-xs-12.col-md-4
             section.welcome-small-section
-              .welcome-small-section__inner.is-study
+              .welcome-small-section__inner
+                = image_tag('my-mac.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
-                  | 紹介料はとってません
-                  br.is-hidden-md-up
-                  | （今のところ）
+                  | 勉強会を開催している
                 .welcome-small-section__description
-                  .row.is-gutter-width-24
-                    .col-xs-12.col-md-3
-                      = image_tag('money.svg', class: 'welcome-child-section__top-image')
-                    .col-xs-12.col-md-9
-                      p インターンの方を企業に紹介する際、今のところ紹介料などの金銭的なやりとりは行っておりません。やはり、僕らをずっと手伝ってくれた方にはお金をくれる会社よりも、いいエンジニアがいる会社、今後もプログラマーとして成長できる会社、プログラマーに理解のある会社に就職してもらいたいからです。
-          .col-sm-12.col-md-6
+                  p
+                    | 学費は就職する就職先企業に支払ってもらうので、プログラマーとして就職することを希望している方のみが参加することができます。
+          .col-xs-12.col-md-4
             section.welcome-small-section
-              .welcome-small-section__inner.is-study
+              .welcome-small-section__inner
+                = image_tag('time.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
-                  | プログラマーに向いてるかを
-                  br.is-hidden-md-up
-                  | 試すのもあり
+                  | リモート勤務可
                 .welcome-small-section__description
-                  .row.is-gutter-width-24
-                    .col-xs-12.col-md-3
-                      = image_tag('program.svg', class: 'welcome-child-section__top-image')
-                    .col-xs-12.col-md-9
-                      p ある程度のプログラムを書くことは学習をすれば誰でもできますが、プログラムをすることを仕事にすることは、誰でもできるものでもありません。自分がプログラムをすることを仕事にすることに向いてるかを試す場としてもインターンはおすすめです。
-    section.welcome-child-section
-      h3.welcome-child-section__title
-        | 卒業生の就職先
-      .welcome-child-section__description.company-logos
-        ul.company-logos__items
-          li.company-logos__item
-            = link_to "http://agile.esm.co.jp/", class: "company-logos__item-link", target: "_blank" do
-              = image_tag("company-logos/esm.png", class: "company-logos__item-image")
-          li.company-logos__item
-            = link_to "https://corporate.uridoki.net/", class: "company-logos__item-link", target: "_blank" do
-              = image_tag("company-logos/uridokinet.png", class: "company-logos__item-image")
+                  p
+                    | 学費は就職する就職先企業に支払ってもらうので、就職時に学費を支払う契約を弊社と交わした企業に就職することが条件になります。
+                    | 学費の話だけでなく、せっかくプログラマーとして就職するのだから、プログラマーに理解があり、今後もプログラミングを好きでい続けられる就職先を紹介します。
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner
+                = image_tag('nda.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | アジャイル開発
+                .welcome-small-section__description
+                  p
+                    | プログラミング初心者からプログラマーとして就職できるスキルを身につけるのは簡単ではありません。
+                    | そのため、一週間の合計が24時間以上活動ができることを条件としています。
+                    | ただし、事前に連絡をしていただければ、長期休暇を取ったり、しばらくの間活動休止ができます。
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner
+                = image_tag('time.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | 自分が使いたいPCを買ってもらえる
+                .welcome-small-section__description
+                  p
+                    | カリキュラムには、実際に多くの方が使っている弊社が運営するサービスのコードに手を入れる課題もあるのでNDA（秘密保持契約）を結んでいただきます。
+                    | NDA契約の際は免許証などの身分証明書をスマホなどで撮った写真を送っていただきます。
 
-        p.is-text-align-center
-          | 他にもたくさん（現在掲載許可申請中）。
-      .welcome-small-sections
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner
+                = image_tag('time.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | すごいプログラマーがいる
+                .welcome-small-section__description
+                  p
+                    | 用意しているカリキュラムはMacを使って学習することを前提に作られています。なので、最新のOSが動くMacを持っていることが必要です。
+                    | これからMacを購入をする場合は、どの機種を買うべきかアドバイスをしますので、相談をしてから購入してください。
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner
+                = image_tag('time.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | 勉強会の参加費支給
+                .welcome-small-section__description
+                  p
+                    | 無料で学習はできるのですが、学習した内容をより効率よく理解するために、書籍の購入をすすめることがあります。
+                    | 書籍代として、大体1万円くらいの費用がかかります。
+
+
+    //
+      section.welcome-child-section
+        h3.welcome-child-section__title
+          | 卒業生の就職先
+        .welcome-child-section__description.company-logos
+          ul.company-logos__items
+            li.company-logos__item
+              = link_to "http://agile.esm.co.jp/", class: "company-logos__item-link", target: "_blank" do
+                = image_tag("company-logos/esm.png", class: "company-logos__item-image")
+            li.company-logos__item
+              = link_to "https://corporate.uridoki.net/", class: "company-logos__item-link", target: "_blank" do
+                = image_tag("company-logos/uridokinet.png", class: "company-logos__item-image")
+
+          p.is-text-align-center
+            | 他にもたくさん（現在掲載許可申請中）。
