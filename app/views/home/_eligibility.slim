@@ -1,16 +1,10 @@
 section.welcome-section#eligibility
   .container
     h2.welcome-section__title
-      = image_tag('question.svg', class: 'welcome-section__title-question-icon')
       | 誰が参加できる？
     section.welcome-child-section
       h3.welcome-child-section__title
-        | 基本的に誰でも参加OK
-      .welcome-child-section__description.is-lead-text
-        p.is-text-align-center-md-up
-          | 基本的に誰でも参加OKですが、少しだけ条件があります。
-          br
-          | もちろん、国籍、性別、年齢、学歴、プログラム経験などの制限はありません。
+        | こういった制限はありません。
       .welcome-small-sections
         .row.is-gutter-width-32
           .col-xs-12.col-md-4
@@ -18,99 +12,134 @@ section.welcome-section#eligibility
               .welcome-small-section__inner
                 = image_tag('my-mac.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
-                  | 自分のMacが必要
+                  | どこから参加してもOK
                 .welcome-small-section__description
-                  p 用意しているカリキュラムはMacを使って学習することを前提に作られています。なので、最新のOSが動くMacを持っていることが必要です。もし、インターンを始めるにあたってMac購入を検討している場合は、どの機種を買うべきかアドバイスをしますので、相談をしてから購入してください。
+                  p
+                    | オンラインで参加ができるのでネット環境があればどこからでも参加ができます。
           .col-xs-12.col-md-4
             section.welcome-small-section
               .welcome-small-section__inner
                 = image_tag('nda.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
-                  | NDAに同意
+                  | 性別、国籍、学歴不問
                 .welcome-small-section__description
-                  p 作業週では弊社が運営しているサービスのコードに手を入れたり、ユーザーサポートなどもしていただくので、NDA（秘密保持契約）を結んでいただきます。NDA契約の際は免許証などの身分証明書をスマホなどで撮った写真を送っていただきます。
+                  p
+                    | 就職を希望するのであれば、基本的に誰でも参加できます。
           .col-xs-12.col-md-4
             section.welcome-small-section
               .welcome-small-section__inner
                 = image_tag('time.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
-                  | 週24時間以上
+                  | プログラミング経験不問
                 .welcome-small-section__description
-                  p 週三日以上の稼働で、一週間の合計が24時間以上インターンの活動ができることが条件です。ただし、事前に連絡をしていただければ、長期休暇を取ったり、しばらくの間活動休止ができます。
+                  p
+                    | プログラミング経験が全くない人を想定したカリキュラムを用意していますのでプログラミング初心者でもご安心ください。
 
     section.welcome-child-section
       h3.welcome-child-section__title
-        | 自宅からリモート参加もOK
-      .welcome-child-section__description.is-lead-text
-        p.is-text-align-center-md-up
-          | オフィスに通う一般的なインターンだけでなく、
-          br.is-hidden-sm-down
-          | インターネット経由で自宅からリモートで参加することも可能です。
+        | ただし、以下の条件があります。
+      .welcome-small-sections
+        .row.is-gutter-width-32
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner.is-danger
+                = image_tag('my-mac.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | プログラマーとして就職する<br>ことを希望している
+                .welcome-small-section__description
+                  p
+                    | 学費は就職する就職先企業に支払ってもらうので、プログラマーとして就職することを希望している方のみが参加することができます。
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner.is-danger
+                = image_tag('time.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | まだ就職先が<br>決まっていない
+                .welcome-small-section__description
+                  p
+                    | 学費は就職する就職先企業に支払ってもらうので、就職時に学費を支払う契約を弊社と交わした企業に就職することが条件になります。
+                    | 学費の話だけでなく、せっかくプログラマーとして就職するのだから、プログラマーに理解があり、今後もプログラミングを好きでい続けられる就職先を紹介します。
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner.is-danger
+                = image_tag('nda.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | 初心者の方は<br>週24時間以上学習ができる
+                .welcome-small-section__description
+                  p
+                    | プログラミング初心者からプログラマーとして就職できるスキルを身につけるのは簡単ではありません。
+                    | そのため、一週間の合計が24時間以上活動ができることを条件としています。
+                    | ただし、事前に連絡をしていただければ、長期休暇を取ったり、しばらくの間活動休止ができます。
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner.is-danger
+                = image_tag('time.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | NDAに<br>同意できる
+                .welcome-small-section__description
+                  p
+                    | カリキュラムには、実際に多くの方が使っている弊社が運営するサービスのコードに手を入れる課題もあるのでNDA（秘密保持契約）を結んでいただきます。
+                    | NDA契約の際は免許証などの身分証明書をスマホなどで撮った写真を送っていただきます。
+
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner.is-danger
+                = image_tag('time.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | 自分のMacを<br>用意できる
+                .welcome-small-section__description
+                  p
+                    | 用意しているカリキュラムはMacを使って学習することを前提に作られています。なので、最新のOSが動くMacを持っていることが必要です。
+                    | これからMacを購入をする場合は、どの機種を買うべきかアドバイスをしますので、相談をしてから購入してください。
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner.is-danger
+                = image_tag('time.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | 多少の教材費を<br>用意できる
+                .welcome-small-section__description
+                  p
+                    | 無料で学習はできるのですが、学習した内容をより効率よく理解するために、書籍の購入をすすめることがあります。
+                    | 書籍代として、大体1万円くらいの費用がかかります。
+
+    section.welcome-child-section
+      h3.welcome-child-section__title
+        | 例えばこんな方が参加しています
       .welcome-small-sections
         .row.is-gutter-width-32
           .col-xs-12.col-md-6
             section.welcome-small-section
-              .welcome-small-section__inner.is-study
+              .welcome-small-section__inner.is-primary
+                = image_tag('my-mac.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
-                  | ローカルインターン
+                  | プログラマーとして就職したい
                 .welcome-small-section__description
-                  .row.is-gutter-width-24
-                    .col-xs-12.col-md-3
-                      = image_tag('local.svg', class: 'welcome-child-section__top-image')
-                    .col-xs-12.col-md-9
-                      p 弊社は平日10:00〜19:00に営業をしていて、基本、僕らもこの時間にオフィスに出社しています。僕らと同じように平日10:00〜19:00にオフィスに出社してインターンをすることをローカルインターンと呼んでいます。ローカルインターンの場合、ちょっとした質問などがしやすく、毎日がっつり8時間インターンをするので、スキルが身につくのが早いです。席に限りがあるので、平日週5日出社できる方を優先しています。ローカルインターンの場合、インターン申込後に対面での面接があります。
+                  p
+                    | プログラマーとして就職できるスキルを身に着けたい！スキルだけじゃなく、開発のやり方や業界の情報、プログラマー友達も欲しい！
           .col-xs-12.col-md-6
             section.welcome-small-section
-              .welcome-small-section__inner.is-work
+              .welcome-small-section__inner.is-primary
+                = image_tag('time.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
-                  | リモートインターン
+                  | 転職したいけど、その前にスキルを付けたい
                 .welcome-small-section__description
-                  .row.is-gutter-width-24
-                    .col-xs-12.col-md-3
-                      = image_tag('remote.svg', class: 'welcome-child-section__top-image')
-                    .col-xs-12.col-md-9
-                      p オフィスには出社せず、離れた場所からインターンをすることをリモートインターンと呼んでいます。自分の都合のいい時間に自宅やカフェなど、自分の好きな場所からインターンに参加できます。週の活動時間の合計が24時間を超えればいいので、一日8時間やる必要はありません。育児の合間や、仕事、学校からの帰宅後にインターンを行うことができます。自分の都合のいい時間にインターンができますが、活動する曜日と時間は決めていただく必要があります。仕事の都合などで、活動時間の変更があった場合は都度チャットで連絡をしていただきます。
-
-    section.welcome-child-section
-      h3.welcome-child-section__title
-        | 例えばこんな
-        br.is-hidden-md-up
-        | インターンの方がいます
-      .welcome-small-sections
-        .row.is-gutter-width-32
+                  p
+                    | うちのやり方ってブログの記事や勉強会で聞いた話と比べて開発方法が古い...今の会社でプログラマーを続けていっていいのだろうか？...転職だ！
           .col-xs-12.col-md-6
             section.welcome-small-section
-              .welcome-small-section__inner.is-dotted
-                h3.welcome-small-section__title.is-sm
-                  | プログラマーとして
-                  br.is-hidden-md-up
-                  | 就職したい
+              .welcome-small-section__inner.is-primary
+                = image_tag('nda.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | 育児が落ち着いたので仕事復帰したい
                 .welcome-small-section__description
-                  p プログラマーとして就職できるスキルを身に着けたい！スキルだけじゃなく、開発のやり方や業界の情報、プログラマー友達も欲しい！
+                  p
+                    | 休暇中に時代は進んで今の流れを追えてない。今のやり方を習得したり、勘を取り戻して、再就職をしたい！
           .col-xs-12.col-md-6
             section.welcome-small-section
-              .welcome-small-section__inner.is-dotted
-                h3.welcome-small-section__title.is-sm
-                  | 転職したいけど、
-                  br.is-hidden-md-up
-                  | その前にスキルを付けたい
+              .welcome-small-section__inner.is-primary
+                = image_tag('time.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | プログラマーにジョブチェンジしたい
                 .welcome-small-section__description
-                  p うちのやり方ってブログの記事や勉強会で聞いた話と比べて開発方法が古い...今の会社でプログラマーを続けていっていいのだろうか？...転職だ！
-          .col-xs-12.col-md-6
-            section.welcome-small-section
-              .welcome-small-section__inner.is-dotted
-                h3.welcome-small-section__title.is-sm
-                  | 育児が落ち着いたので
-                  br.is-hidden-md-up
-                  | 仕事復帰したい
-                .welcome-small-section__description
-                  p 休暇中に色々時代は進んで今の流れを追えてない。仕事復帰の前にインターンをやって今のやり方を習得したり、勘を取り戻したり、仕事に慣れておきたい。
-          .col-xs-12.col-md-6
-            section.welcome-small-section
-              .welcome-small-section__inner.is-dotted
-                h3.welcome-small-section__title.is-sm
-                  | プログラムの知識が
-                  br.is-hidden-md-up
-                  | 仕事で必要になった
-                .welcome-small-section__description
-                  p 最近プログラマーと一緒に仕事することが増えたんだけど、全然話が噛み合わない...プログラムの知識を身に付けてもっと円滑に仕事を進めて成果出したい！
+                  p
+                    | プログラマーではなく、企画としてITに関わっていたけど、プログラマーの方が楽しそう！自分もコードを書いてサービスを開発したい！
