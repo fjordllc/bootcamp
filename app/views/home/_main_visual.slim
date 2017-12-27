@@ -3,7 +3,7 @@
     .container
       .main-visual-nav__container
         a.main-visual-nav__logo-link(data-scroll href= '#body')
-          = image_tag("home-header-logo.svg", class: "main-visual-nav__logo-image")
+          = image_tag("logo.svg", class: "main-visual-nav__logo-image")
         ul.main-visual-nav__items
           li.main-visual-nav__item
             a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#fee')
@@ -26,30 +26,22 @@
           li.main-visual-nav__item
             a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#form')
               | 申し込み
-          li.main-visual-nav__item
-            = link_to "/login", class: 'main-visual-nav__item-link js-close-main-visual-nav' do
-              | ログイン
-  .noise
+          - if current_user
+            li.main-visual-nav__item
+              = link_to "/login", class: 'main-visual-nav__item-link js-close-main-visual-nav' do
+                | ログイン
+          - else
+            li.main-visual-nav__item
+              = link_to user_path(current_user), class: 'main-visual-nav__item-link js-close-main-visual-nav' do
+                マイページ
+
   .container.main-visual__container
     .main-visual__main
+      .main-visual__description
+        | 学費は未来の就職先企業が支払う、だから無料で学べる
       = image_tag('logo.svg', class: 'main-visual__logo')
-      h1.main-visual__description
-        | インターンに参加して、
-        br.is-hidden-md-up
-        | 学費を払わず
-        br.is-hidden-sm-down
-        | 一人でWebサービスを
-        br.is-hidden-md-up
-        | 作れるスキルを身につける
-      = link_to "http://www.remotework-labo.jp/2015/10/interview_09/", class: "main-visual__link", target: "_blank" do
-        .main-visual__link-label
-          | インタビュー記事
-        .main-visual__link-description
-          | インターンの新しいカタチ
-          br
-          | リモートワークで50人の
-          br
-          | インターンと共同開発
+      h1.main-visual__title
+        | プログラマーとして就職するための就職支援
   .main-visual__open-nav.is-hidden-md-up.js-open-main-visual-nav
     i.fa.fa-bars
   .main-visual__screen.js-close-main-visual-nav.js-close-main-visual-nav__overlay
