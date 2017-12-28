@@ -4,10 +4,6 @@ nav.tab-nav
       li.tab-nav__item
         = link_to t('all_user'), users_path(target: 'all'), class: "tab-nav__item-link #{@target == 'all' ? 'is-active': ''}"
       li.tab-nav__item
-        = link_to t('learning_week'), users_path(target: 'learning'), class: "tab-nav__item-link #{@target == 'learning' ? 'is-active': ''}"
-      li.tab-nav__item
-        = link_to t('working_week'), users_path(target: 'working'), class: "tab-nav__item-link #{@target == 'working' ? 'is-active': ''}"
-      li.tab-nav__item
         = link_to t('graduate'), users_path(target: 'graduate'), class: "tab-nav__item-link #{@target == 'graduate' ? 'is-active': ''}"
       - if current_user && current_user.admin?
         li.tab-nav__item

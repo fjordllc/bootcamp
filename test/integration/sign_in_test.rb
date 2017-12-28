@@ -21,6 +21,6 @@ class SignInTest < ActionDispatch::IntegrationTest
     end
     click_button "サインイン"
     assert_equal current_path, "/user_sessions"
-    assert_text "インターン名かパスワードが違います。"
+    assert_text "ユーザー名かパスワードが違います。"
   end
 end

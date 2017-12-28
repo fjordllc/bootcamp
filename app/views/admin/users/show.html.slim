@@ -37,12 +37,10 @@ header.page-header
             thead.admin-table__header
               tr.admin-table__labels
                 th.admin-table__label
-                  | インターン情報
+                  | ユーザー情報
             tbody.admin-table__items
               tr.admin-table__item
                 td.admin-table__item-value.is-white-space-nowrap
-                  .user-part(class="is-#{@user.part}")
-                    = t(@user.part)
                   = @user.login_name
                   | （#{@user.full_name}）
                   = @user.company.name
@@ -62,13 +60,13 @@ header.page-header
                         = link_to @user.facebook_url, class: 'is-button-standard-sm-secondary is-icon' do
                           i.fa.fa-facebook
                     - if @user.blog_url?
-                      li                  
+                      li
                         = link_to @user.blog_url, class: 'is-button-standard-sm-secondary is-icon' do
                           i.fa.fa-home
                         - if @user.feed_url?
-                          li                  
+                          li
                             = link_to @user.feed_url, class: 'is-button-standard-sm-secondary is-icon' do
-                              i.fa.fa-rss            
+                              i.fa.fa-rss
               tr.admin-table__item
                 td.admin-table__item-value
                   = simple_format @user.description

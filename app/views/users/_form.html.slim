@@ -55,8 +55,7 @@
           li.auth-form-radio-button.is-half
             = b.label class: 'auth-form-radio-button__label' do
               = b.radio_button + b.text
-        end
-    
+
     .auth-form-item
       = f.label :find_job_assist, class: 'a-sm-label'
       ul.auth-form-item__checkboxes
@@ -67,7 +66,7 @@
       .auth-form-item__help
         p
           = t('we_will_find_rails_job_by_our_best')
-    
+
     .auth-form-item.is-display-none
       = f.label :company, class: 'a-sm-label'
       = f.collection_select :company_id, Company.all, :id, :name, {}, class: 'form-control'
@@ -79,12 +78,12 @@
         li.auth-form-checkbox
           label.auth-form-checkbox__label.js-nda-action(data-target='#nda-modal' data-toggle='modal')
             = t('agree_nda')
-      
+
   .auth-form-action.is-sign-up-action
     ul.auth-form-action__items
       - if params[:action] == 'new'
         li.auth-form-action__item
-          = f.submit 'インターン参加する', class: 'is-button-standard-md-warning js-sign-up-action'
+          = f.submit '参加する', class: 'is-button-standard-md-warning js-sign-up-action'
       - else
         li.auth-form-action__item
           = link_to user_path, class: 'is-button-standard-xs-secondary' do

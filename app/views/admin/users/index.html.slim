@@ -22,9 +22,6 @@ header.page-header
           - @users.each do |user|
             tr.admin-table__item
               td.admin-table__item-value
-                - unless user.graduation? || user.adviser?
-                  .user-part(class="is-#{user.part}")
-                    = t(user.part)
                 - if user.graduation
                   .user-part(class="is-graduate")
                     = t("graduate")

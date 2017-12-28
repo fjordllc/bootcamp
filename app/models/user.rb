@@ -73,19 +73,6 @@ class User < ActiveRecord::Base
     %w(komagata@fjord.jp machidanohimitsu@gmail.com).include?(email)
   end
 
-  def part(now = Time.now)
-    weeks = ((now.beginning_of_week - created_at.beginning_of_week) / 60 / 60 / 24 / 7).to_i
-    weeks.even? ? "learning_week" : "working_week"
-  end
-
-  def learning_week?(now = Time.now)
-    part == "learning_week"
-  end
-
-  def working_week?(now = Time.now)
-    !learning_week?(now)
-  end
-
   def active?
     updated_at > 2.weeks.ago
   end
