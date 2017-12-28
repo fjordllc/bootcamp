@@ -13,10 +13,6 @@ class UsersController < ApplicationController
       case @target
       when "all"
         @users
-      when "learning"
-        @users.student.select(&:learning_week?)
-      when "working"
-        @users.student.select(&:working_week?)
       when "graduate"
         @users.graduated
       when "retire"
