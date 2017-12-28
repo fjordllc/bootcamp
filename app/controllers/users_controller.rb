@@ -11,10 +11,8 @@ class UsersController < ApplicationController
     @target = params[:target] || "student"
     @users =
       case @target
-      when "student"
-        @users.student
-      when "mentor"
-        @users.mentor
+      when "all"
+        @users
       when "graduate"
         @users.graduated
       when "adviser"
