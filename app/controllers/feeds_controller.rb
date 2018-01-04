@@ -1,6 +1,6 @@
 class FeedsController < ApplicationController
   def index
-    urls = User.pluck(:feed_url).reject { |f| f.blank? }
+    urls = User.student.pluck(:feed_url).reject { |f| f.blank? }
     hydra = Typhoeus::Hydra.new
     requests = urls.map do |url|
       req = Typhoeus::Request.new(url, followlocation: true)
