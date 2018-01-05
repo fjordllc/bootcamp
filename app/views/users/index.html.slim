@@ -1,15 +1,14 @@
-- title t('listing_users')
+- title "ユーザー一覧"
 - content_for :head_last do
-  = auto_discovery_link_tag :atom, feeds_url(format: 'atom'), title: 'メンバー'
+  = auto_discovery_link_tag :atom, feeds_url(format: "atom"), title: "メンバー"
 
 header.page-header.is-margin-bottom-0.has-border-bottom-none
   .container
     .page-header__container
-      h2.page-header__title
-        = t('listing_users')
+      h2.page-header__title ユーザー一覧
 
 .page-body
-  = render 'users_local_nav'
+  = render "users_local_nav"
   .container
     .users
-      = render 'user', users: @users
+      = render "user", users: @users
