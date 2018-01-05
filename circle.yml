@@ -4,7 +4,7 @@ machine:
   node:
     version: 8.2.0
   ruby:
-    version: 2.4.1
+    version: 2.4.2
 
 dependencies:
   pre:

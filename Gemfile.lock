@@ -480,6 +480,7 @@ DEPENDENCIES
   meta-tags
   minitest (~> 5.10, != 5.10.2)
   newrelic_rpm
+  oauth2
   oulu
   paperclip
   paperclip-meta
@@ -511,7 +512,7 @@ DEPENDENCIES
   xray-rails
 
 RUBY VERSION
-   ruby 2.4.1p111
+   ruby 2.4.2p198
 
 BUNDLED WITH
    1.16.0
