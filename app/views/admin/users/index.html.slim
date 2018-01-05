@@ -1,23 +1,18 @@
-- title t('interns')
+- title "ユーザー一覧"
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title
-        = t('interns')
+      h2.page-header__title ユーザー一覧
 .page-body
   .container.is-padding-horizontal-0-sm-down
     .admin-table
       table.admin-table__table
         thead.admin-table__header
           tr.admin-table__labels
-            th.admin-table__label
-              | ユーザー名
-            th.admin-table__label
-              | SNS
-            th.admin-table__label
-              | 就職支援
-            th.admin-table__label
-              | 操作
+            th.admin-table__label ユーザー名
+            th.admin-table__label SNS
+            th.admin-table__label 就職支援
+            th.admin-table__label 操作
         tbody.admin-table__items
           - @users.each do |user|
             tr.admin-table__item

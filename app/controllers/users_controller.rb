@@ -17,8 +17,6 @@ class UsersController < ApplicationController
         @users.mentor
       when "graduate"
         @users.graduated
-      when "retire"
-        @users.retired
       when "adviser"
         @users.advisers
       when "all"

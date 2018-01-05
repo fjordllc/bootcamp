@@ -4,6 +4,3 @@ nav.tab-nav
       - %w(student mentor graduate adviser all).each do |target|
         li.tab-nav__item
           = link_to t("target.#{target}"), users_path(target: target), class: (@target == target ? ["is-active"] : []) << "tab-nav__item-link"
-      - if current_user && current_user.admin?
-        li.tab-nav__item
-          = link_to "リタイア", users_path(target: "retire"), class: (@target == "retire" ? ["is-active"] : []) << "tab-nav__item-link"
