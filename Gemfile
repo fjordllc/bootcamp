@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.4.1"
+ruby "2.4.2"
 
 gem "rails", "~> 5.1.3"
 gem "uglifier", ">= 1.3.0"
@@ -12,6 +12,7 @@ gem "jquery-rails"
 gem "puma", "~> 3.0"
 gem "simple_enum"
 gem "sorcery"
+gem "oauth2"
 gem "acts_as_list"
 gem "feedjira", "2.0.0"
 gem "curb", "~> 0.8.8"
