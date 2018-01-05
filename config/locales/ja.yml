@@ -394,6 +394,14 @@ ja:
         company: "企業一覧"
         category: "カテゴリー一覧"
 
+  target:
+    student: 現役生
+    mentor: メンター
+    graduate: 卒業生
+    adviser: アドバイザー
+    all: 全員
+    redire: リタイア
+
   admin_index: "管理画面"
   sign_up: "サインアップ"
   sign_in: "サインイン"
