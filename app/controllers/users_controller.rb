@@ -61,8 +61,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    current_user.destroy
-    redirect_to users_url, notice: "ユーザーを削除しました。"
+    UserDeleter.new(current_user).delete
+    redirect_to users_url, notice: "退会しました。"
   end
 
   private

@@ -12,3 +12,7 @@
         li.auth-form-nav__item
            span.auth-form-nav__item-link(data-target='#nda-modal' data-toggle='modal')
             | 秘密保持契約内容を確認
+
+
+  h2 退会
+  p= link_to "退会する", current_user, method: :delete, data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }
