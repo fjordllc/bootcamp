@@ -33,10 +33,7 @@ class User < ActiveRecord::Base
   validates :last_name,  presence: true
   validates :login_name, presence: true, uniqueness: true
   validates :nda, presence: true
-
-  validates :password,     length: { minimum: 4 },
-    confirmation: true,
-    if: :password_required?
+  validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
 
   scope :in_school, -> { where(graduation: false) }
   scope :graduated, -> { where(graduation: true) }

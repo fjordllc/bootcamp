@@ -2,11 +2,13 @@ nav.tab-nav
   .container.is-padding-horizontal-0-sm-down
     ul.tab-nav__items
       li.tab-nav__item
-        = link_to t('all_user'), users_path(target: 'all'), class: "tab-nav__item-link #{@target == 'all' ? 'is-active': ''}"
+        = link_to "現役生", users_path(target: "student"), class: (@target == "student" ? ["is-active"] : []) << "tab-nav__item-link"
       li.tab-nav__item
-        = link_to t('graduate'), users_path(target: 'graduate'), class: "tab-nav__item-link #{@target == 'graduate' ? 'is-active': ''}"
+        = link_to "卒業生", users_path(target: "graduate"), class: (@target == "graduate" ? ["is-active"] : []) << "tab-nav__item-link"
+      li.tab-nav__item
+        = link_to "アドバイザー", users_path(target: "adviser"), class: (@target == "adviser" ? ["is-active"] : []) << "tab-nav__item-link"
+      li.tab-nav__item
+        = link_to "全員", users_path(target: "all"), class: (@target == "all" ? ["is-active"] : []) << "tab-nav__item-link"
       - if current_user && current_user.admin?
         li.tab-nav__item
-          = link_to "リタイア", users_path(target: 'retire'), class: "tab-nav__item-link #{@target == 'retire' ? 'is-active': ''}"
-      li.tab-nav__item
-        = link_to t('adviser'), users_path(target: 'adviser'), class: "tab-nav__item-link #{@target == 'adviser' ? 'is-active': ''}"
+          = link_to "リタイア", users_path(target: "retire"), class: (@target == "retire" ? ["is-active"] : []) << "tab-nav__item-link"
