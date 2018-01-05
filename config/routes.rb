@@ -18,13 +18,16 @@ Rails.application.routes.draw do
       resource :position, only: %i(update), controller: "categories/position"
     end
   end
+
   resources :feeds, only: %i(index)
   resources :users do
     resources :practices, only: %i(index), controller: "users/practices"
     resources :reports, only: %i(index), controller: "users/reports"
   end
+
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
+
   resources :practices, shallow: true do
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
@@ -34,6 +37,7 @@ Rails.application.routes.draw do
     resources :footprints, only: %i(create)
     resources :comments
   end
+
   resources :notifications, only: %i(show)
   get "pages/new", to: "pages#new"
   get "pages", to: "pages#index", as: :pages
@@ -43,10 +47,12 @@ Rails.application.routes.draw do
   put "pages/:title", to: "pages#update"
   delete "pages/:title", to: "pages#destroy"
   get "pages/:title/edit", to: "pages#edit"
+
   resources :questions do
     resources :answers, only: %i(edit create update destroy)
     resource :correct_answer, only: :create, controller: "questions/correct_answer"
   end
+
   resources :courses, only: :index
   resources :chat_notices, only: :create
   get "login" => "user_sessions#new", as: :login
