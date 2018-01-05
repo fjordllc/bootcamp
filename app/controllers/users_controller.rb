@@ -13,6 +13,8 @@ class UsersController < ApplicationController
       case @target
       when "student"
         @users.student
+      when "mentor"
+        @users.mentor
       when "graduate"
         @users.graduated
       when "retire"
