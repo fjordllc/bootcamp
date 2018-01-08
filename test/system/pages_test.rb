@@ -1,6 +1,6 @@
-require "test_helper"
+require "application_system_test_case"
 
-class PagesTest < ActionDispatch::IntegrationTest
+class PagesTest < ApplicationSystemTestCase
   setup { login_user "komagata", "testtest" }
 
   test "GET /pages" do

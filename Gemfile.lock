@@ -64,6 +64,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    childprocess (0.8.0)
+      ffi (~> 1.0, >= 1.0.11)
     climate_control (0.1.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
@@ -264,10 +266,6 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.4.1)
       launchy (~> 2.2)
-    letter_opener_web (1.3.1)
-      actionmailer (>= 3.2)
-      letter_opener (~> 1.0)
-      railties (>= 3.2)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -319,15 +317,10 @@ GEM
     pry-byebug (3.4.2)
       byebug (~> 9.0)
       pry (~> 0.10)
-    pry-remote (0.1.8)
-      pry (~> 0.9)
-      slop (~> 3.0)
     public_suffix (2.0.5)
     puma (3.8.2)
     rack (2.0.3)
     rack-cors (1.0.2)
-    rack-mini-profiler (0.10.6)
-      rack (>= 1.2.0)
     rack-proxy (0.6.2)
       rack
     rack-test (0.6.3)
@@ -352,11 +345,6 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails_12factor (0.0.3)
-      rails_serve_static_assets
-      rails_stdout_logging
-    rails_serve_static_assets (0.0.5)
-    rails_stdout_logging (0.0.5)
     railties (5.1.3)
       actionpack (= 5.1.3)
       activesupport (= 5.1.3)
@@ -380,6 +368,7 @@ GEM
       trollop (~> 2.1)
     record_tag_helper (1.0.0)
       actionview (~> 5.x)
+    rubyzip (1.2.1)
     sass (3.4.25)
     sassc (1.11.2)
       bundler
@@ -393,6 +382,9 @@ GEM
       sprockets-rails
       tilt
     sax-machine (1.3.2)
+    selenium-webdriver (3.8.0)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.0)
     simple_enum (2.3.0)
       activesupport (>= 4.0.0)
     simple_seed (0.0.2)
@@ -463,7 +455,7 @@ DEPENDENCIES
   acts_as_list
   bootstrap (= 4.0.0.alpha6)
   byebug
-  capybara (~> 2.8)
+  capybara (~> 2.13)
   coffee-rails (~> 4.2)
   curb (~> 0.8.8)
   diffy
@@ -475,8 +467,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   letter_opener
-  letter_opener_web
-  listen (~> 3.0.5)
+  listen (>= 3.0.5, < 3.2)
   meta-tags
   minitest (~> 5.10, != 5.10.2)
   newrelic_rpm
@@ -486,16 +477,14 @@ DEPENDENCIES
   paperclip-meta
   pg
   pry-byebug
-  pry-remote
-  puma (~> 3.0)
+  puma (~> 3.7)
   rack-cors
-  rack-mini-profiler
   rack-user_agent
   rails (~> 5.1.3)
-  rails_12factor
   ransack
   record_tag_helper (~> 1.0)
   sassc-rails
+  selenium-webdriver
   simple_enum
   simple_seed
   slack-notifier
@@ -507,7 +496,7 @@ DEPENDENCIES
   sprockets-es6
   typhoeus
   uglifier (>= 1.3.0)
-  web-console
+  web-console (>= 3.3.0)
   webpacker
   xray-rails
 

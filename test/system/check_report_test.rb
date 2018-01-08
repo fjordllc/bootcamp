@@ -1,6 +1,6 @@
-require "test_helper"
+require "application_system_test_case"
 
-class CheckReportTest < ActionDispatch::IntegrationTest
+class CheckReportTest < ApplicationSystemTestCase
   test "non admin user is non botton" do
     visit "/login"
     within("#sign-in-form") do

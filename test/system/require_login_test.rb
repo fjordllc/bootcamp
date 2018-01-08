@@ -1,6 +1,6 @@
-require "test_helper"
+require "application_system_test_case"
 
-class RequireLoginTest < ActionDispatch::IntegrationTest
+class RequireLoginTest < ApplicationSystemTestCase
   test "users_path" do
     get "/users"
     assert_redirected_to "/welcome"

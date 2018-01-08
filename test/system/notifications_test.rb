@@ -1,6 +1,6 @@
-require "test_helper"
+require "application_system_test_case"
 
-class NotificationsTest < ActionDispatch::IntegrationTest
+class NotificationsTest < ApplicationSystemTestCase
   test "notifications" do
     login_user "tanaka", "testtest"
 
