@@ -1,14 +1,13 @@
 require "application_system_test_case"
 
 class ResetPasswordTest < ApplicationSystemTestCase
-  fixtures :users
-
   def setup
     ActionMailer::Base.deliveries.clear
   end
 
   test "send email to exist user" do
     visit "/login"
+    first(".auth-form-item__help-link").click
     within("#password_resets_form") do
       fill_in("email", with: users(:komagata).email)
     end
@@ -34,6 +33,7 @@ class ResetPasswordTest < ApplicationSystemTestCase
 
   test "Returns an error for mail addresses that do not exist" do
     visit "/login"
+    first(".auth-form-item__help-link").click
     within("#password_resets_form") do
       fill_in("email", with: "not_exist_user@email.address")
     end
