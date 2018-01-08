@@ -1,6 +1,6 @@
-require "test_helper"
+require "application_system_test_case"
 
-class ResetPasswordTest < ActionDispatch::IntegrationTest
+class ResetPasswordTest < ApplicationSystemTestCase
   fixtures :users
 
   def setup

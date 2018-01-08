@@ -1,6 +1,6 @@
-require "test_helper"
+require "application_system_test_case"
 
-class SearchReportsTest < ActionDispatch::IntegrationTest
+class SearchReportsTest < ApplicationSystemTestCase
   def setup
     @report_1 = reports(:report_1)
     @report_2 = reports(:report_2)

@@ -1,6 +1,6 @@
-require "test_helper"
+require "application_system_test_case"
 
-class PracticePageCompleteButtonTest < ActionDispatch::IntegrationTest
+class PracticePageCompleteButtonTest < ApplicationSystemTestCase
   test "existence complete button" do
     visit "/login"
     within("#sign-in-form") do

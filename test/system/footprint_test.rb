@@ -1,6 +1,6 @@
-require "test_helper"
+require "application_system_test_case"
 
-class FootprintTest < ActionDispatch::IntegrationTest
+class FootprintTest < ApplicationSystemTestCase
   test "should be create footprint" do
     visit "/login"
     within("#sign-in-form") do

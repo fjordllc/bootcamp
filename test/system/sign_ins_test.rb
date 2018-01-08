@@ -1,9 +1,9 @@
-require "test_helper"
+require "application_system_test_case"
 
-class SignInTest < ActionDispatch::IntegrationTest
+class SignInsTest < ApplicationSystemTestCase
   fixtures :users
 
-  test "success" do
+  test "sign in" do
     visit "/login"
     within("#sign-in-form") do
       fill_in("user[login_name]", with: "komagata")
@@ -13,7 +13,7 @@ class SignInTest < ActionDispatch::IntegrationTest
     assert_equal current_path, "/users"
   end
 
-  test "fail" do
+  test "sign in with wrong password" do
     visit "/login"
     within("#sign-in-form") do
       fill_in("user[login_name]", with: "komagata")
