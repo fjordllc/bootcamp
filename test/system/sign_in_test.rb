@@ -1,6 +1,6 @@
 require "application_system_test_case"
 
-class SignInsTest < ApplicationSystemTestCase
+class SignInTest < ApplicationSystemTestCase
   fixtures :users
 
   test "sign in" do
