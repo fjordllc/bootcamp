@@ -11,4 +11,5 @@ header.page-header.is-margin-bottom-0.has-border-bottom-none
   = render "nav"
   .container
     .users
-      = render "user", users: @users
+      .row.is-gutter-width-32
+        = render partial: "users/user", collection: @users, as: :user
