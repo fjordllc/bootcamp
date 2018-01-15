@@ -15,7 +15,7 @@ header.page-header
         h3.entry-header__title
           = @page.title
       .entry-body.js-markdown-view.js-target-blank.is-long-text-style
-        = raw @page.body
+        = @page.body.html_safe
 
 .form-actions
   .container

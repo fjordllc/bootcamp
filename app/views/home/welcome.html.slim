@@ -1,5 +1,5 @@
 - content_for(:page_classes, 'no-header no-recent-reports no-global-nav')
-- content_for(:import_javascript) do
+- content_for(:head_last) do
   = javascript_include_tag "https://sdk.form.run/js/v2/formrun.js"
 
 = render('main_visual')
