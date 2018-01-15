@@ -1,0 +1,65 @@
+section.welcome-section#faq
+  .container
+    h2.welcome-section__title
+      | よくある質問
+    .welcome-section__faqs
+      section.welcome-faq
+        h3.welcome-faq__title
+          = image_tag("question.svg", class: "welcome-faq__title-icon")
+          | 学習を終えるのにどれくらいの時間がかかりますか？
+        .welcome-faq__body
+          p
+            | かかる時間は人それぞれですが、プログラム経験が全くない方が平日週5日8時間学習をして、大体3ヶ月〜4ヶ月くらいで学習を終える方が多いです。
+      section.welcome-faq
+        h3.welcome-faq__title
+          = image_tag("question.svg", class: "welcome-faq__title-icon")
+          | 途中で辞めることは可能ですか？
+        .welcome-faq__body
+          p
+            | ある程度のプログラムを書くことは学習をすれば誰でもできますが、プログラムをすることを仕事にすることは、誰でもできるものでもありません。
+            | 自分がプログラムを書くことを仕事にすることに向いていないと気付くことも一つの価値だと考えています。
+            | 向いていないと気付いたときはいつでも辞めることができます。
+      section.welcome-faq
+        h3.welcome-faq__title
+          = image_tag("question.svg", class: "welcome-faq__title-icon")
+          | 今プログラマーとして働いていて、就職を考えています。
+          | 仕事をしながら学習をしたいので週3日計24時間以上の時間を作れないときもあります。
+          | それでも参加できますか？
+        .welcome-faq__body
+          p
+            | プログラマーとして仕事をしていた経験のある方の場合、週3日計24時間以上の条件は適用されません。
+            | お気軽に参加できるかお問い合わせください。
+      section.welcome-faq
+        h3.welcome-faq__title
+          = image_tag("question.svg", class: "welcome-faq__title-icon")
+          | 就職先が決まっているのですが、就職までの間学習をしたいです。その場合、参加は可能ですか？
+        .welcome-faq__body
+          p
+            | 学費を就職先企業が支払うことで成り立っているサービスですので、基本的に就職先が決まっている方の参加はできません。
+            | ただし、就職予定の会社が学費を支払う契約を交わした場合は参加可能です。就職予定の会社に交渉してみてください。
+      section.welcome-faq
+        h3.welcome-faq__title
+          = image_tag("question.svg", class: "welcome-faq__title-icon")
+          | 転職は考えていないのですが、スキルアップのためプログラミングの勉強がしたいです。その場合、参加は可能ですか？
+        .welcome-faq__body
+          p
+            | 学費を就職先企業が支払うことで成り立っているサービスですので、就職、転職を考えていない方のスキルアップ目的での参加はできません。
+      section.welcome-faq
+        h3.welcome-faq__title
+          = image_tag("question.svg", class: "welcome-faq__title-icon")
+          | 自宅からのリモートではなくオフィスに通って学習をしたいのですが可能ですか？
+        .welcome-faq__body
+          p
+            | 席に空きがある場合は可能です。希望者が多い場合は、通う日数の多い方が優先になります。
+      section.welcome-faq
+        h3.welcome-faq__title
+          = image_tag("question.svg", class: "welcome-faq__title-icon")
+          | 現在、大学に在学中なのですが、参加できますか？
+        .welcome-faq__body
+          p
+            | 在学中でも卒業後にプログラマーとして就職することを希望していましたら参加可能です。
+
+    .welcome-child-section
+      h2.welcome-child-section__title
+        | お気軽にお問い合わせください
+      = render('question_form')

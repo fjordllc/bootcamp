@@ -4,8 +4,50 @@ section.welcome-section#about
       | プログラミングが無料で学べます
     section.welcome-child-section
       h3.welcome-child-section__title
-        | Fjord BootCamp とは？
+        | Fjord Boot Camp とは？
       .welcome-section__description
         p
           | プログラマーとして就職を希望する方のための就職支援サービス。プログラマーとして就職するためのスキルを身につけるための学習支援と、就職支援を行います。
           | 教育費は就職時に就職する企業が支払うので無料でスキルを身につけられます。
+
+    .welcome-child-section
+      .welcome-small-sections.is-about
+        .row.is-gutter-width-64
+          .col-xs-12.col-md-3
+            section.welcome-small-section
+              .welcome-small-section__inner
+                = image_tag('learning.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | スキルを身につける
+                .welcome-small-section__description
+                  p
+                    | Fjord Boot Campオリジナルのオンライン学習システムを使って学習をして、就職に必要なスキルを身につけます。
+          .col-xs-12.col-md-3
+            section.welcome-small-section
+              .welcome-small-section__inner
+                = image_tag('chat.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | メンターに質問、相談
+                .welcome-small-section__description
+                  p
+                    | 現役プログラマーのメンターに日報やチャット、月に一回行われるミートアップでわからないことやもっと知りたいことについての質問、
+                    | 就職や学習方法についての相談ができます。
+          .col-xs-12.col-md-3
+            section.welcome-small-section
+              .welcome-small-section__inner
+                = image_tag('company.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | 提携企業に就職
+                .welcome-small-section__description
+                  p
+                    | 学習を終えたら就職活動に入ります。
+                    | 提携企業の中から就職先に求める条件やスキルに合った企業を紹介します。
+          .col-xs-12.col-md-3
+            section.welcome-small-section
+              .welcome-small-section__inner
+                = image_tag('money.svg', class: 'welcome-small-section__icon')
+                h3.welcome-small-section__title
+                  | 就職先が学費を支払う
+                .welcome-small-section__description
+                  p
+                    | 就職が決まったら、就職先企業があなたの学費、紹介料を支払います。

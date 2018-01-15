@@ -10,6 +10,7 @@
     height: 30rem
   +media-breakpoint-down(sm)
     height: auto
+    +padding(vertical, 2.5rem)
 
 .main-visual__container
   height: 100%
@@ -25,12 +26,19 @@
   display: block
   +margin(vertical, 3rem 2rem)
   +margin(horizontal, auto)
+  +media-breakpoint-down(sm)
+    max-width: 90%
+    +margin(vertical, 1rem 1rem)
 
 .main-visual__description
   +text-block(1.5rem 1.4, $reversal-text center 400)
+  +media-breakpoint-down(sm)
+    font-size: .875rem
 
 .main-visual__title
   +text-block(1.25rem 1.4, $reversal-text center 400)
+  +media-breakpoint-down(sm)
+    font-size: .875rem
 
 .main-visual__open-nav
   +position(fixed, right 0, top 0, 1)

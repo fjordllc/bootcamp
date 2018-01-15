@@ -11,6 +11,9 @@
   &.is-wide
     max-width: 55rem
     +margin(horizontal, auto)
+  .welcome-small-sections.is-about [class*=col-]:not(:last-child) &
+    +media-breakpoint-down(sm)
+      padding-bottom: 3rem
 
 .row.welcome-small-sections__row
   +media-breakpoint-down(sm)
@@ -24,11 +27,29 @@
   border-radius: .25rem
   height: 100%
   padding-bottom: 1rem
+  .welcome-small-sections.is-about &
+    +position(relative)
+  .welcome-small-sections.is-about [class*=col-]:not(:last-child) &::before
+    +fa("\f178")
+    +text-block(2rem 1, flex)
+    +size(2rem)
+    align-items: center
+    justify-content: center
+    +position(absolute, right -3rem, top 50%)
+    margin-top: -1rem
+    +media-breakpoint-down(sm)
+      +fa("\f175")
+      display: flex
+      +position(absolute, right 0, bottom -2.5rem, top auto)
+      width: 100%
+      margin-top: 0
+  .welcome-small-sections.is-about &,
   .welcome-small-sections.is-unlimited &
     padding: 0
     background-color: transparent
   .welcome-child-section.is-cases &,
-  .welcome-child-section.is-tutorials &
+  .welcome-child-section.is-tutorials &,
+  .welcome-child-section.is-companies &
     border: dashed 1px #ccc
     background-color: transparent
   &.is-danger
@@ -46,6 +67,8 @@
 
 .welcome-small-section__title
   +text-block(1rem 1.45 .7em, 600 center)
+  +media-breakpoint-down(sm)
+    font-size: .875rem
   &:last-child
     margin-bottom: 0
   &.is-sm
@@ -53,6 +76,8 @@
   .welcome-small-section.is-wide &
     text-align: left
     margin-bottom: .5em
+    +media-breakpoint-down(sm)
+      text-align: center
 
 .welcome-small-section__name
   +text-block(1rem 1.45 .6em, 600)
@@ -71,6 +96,8 @@
 .welcome-small-section__description
   p
     +text-block(.875rem 1.8 1.2em)
+    +media-breakpoint-down(sm)
+      font-size: .75rem
   a
     color: #0098f9
     +hover-link-reversal

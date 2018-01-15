@@ -1,0 +1,16 @@
+.welcome-faq
+  &:not(:last-child)
+    margin-bottom: 2rem
+
+.welcome-faq__title
+  +text-block(1rem 1.45 .5rem, 600 flex)
+  align-items: baseline
+  +media-breakpoint-down(sm)
+    font-size: .875rem
+
+.welcome-faq__title-icon
+  +size(2rem)
+  margin-right: .75rem
+
+.welcome-faq__body
+  +long-text-style(.875rem, .8125rem)
