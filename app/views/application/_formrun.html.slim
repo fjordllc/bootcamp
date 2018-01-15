@@ -107,23 +107,23 @@
               span.option-text 他のOS希望
         .auth-form-item__help
           p
-            | インターンの学習カリキュラムはMac用に作られています。その為、Macを所有していることが必須です。但し、プログラミングスキルが上級者の方のみ他のOSでも可とします。もし、これからMacを購入予定の場合は、どの機種を買うべきかの相談にも乗ります。
+            | 学習カリキュラムはMac用に作られています。その為、Macを所有していることが必須です。但し、プログラミングスキルが上級者の方のみ他のOSでも可とします。もし、これからMacを購入予定の場合は、どの機種を買うべきかの相談にも乗ります。
         .auth-form-item__error(data-formrun-show-if-error="Macの所有")
           | 必須項目です
 
       .auth-form-item
         label.a-sm-label.is-required
-          | インターンシップ実施場所の希望
+          | 研修実施場所の希望
         ul.auth-form-item__radio-buttons
           li.auth-form-radio-button
             label.auth-form-radio-button__label
-              input.auth-form-checkbox__input(data-formrun-required="true" name="インターンシップ実施場所の希望" type="radio" value="ローカル")
-              span.option-text フィヨルドオフィス（ローカルインターン）
+              input.auth-form-checkbox__input(data-formrun-required="true" name="研修実施場所の希望" type="radio" value="ローカル")
+              span.option-text フィヨルドオフィス
           li.auth-form-radio-button
             label.auth-form-radio-button__label
-              input.auth-form-checkbox__input(data-formrun-required="true" name="インターンシップ実施場所の希望" type="radio" value="リモート")
-              span.option-text 自宅（リモートインターン）
-        .auth-form-item__error(data-formrun-show-if-error="インターンシップ実施場所の希望")
+              input.auth-form-checkbox__input(data-formrun-required="true" name="研修実施場所の希望" type="radio" value="リモート")
+              span.option-text 自宅（リモート）
+        .auth-form-item__error(data-formrun-show-if-error="研修実施場所の希望")
           | 必須項目です
 
       .auth-form-item
@@ -150,7 +150,7 @@
 
       .auth-form-item
         label.a-sm-label.is-required
-          | 稼働可能な日数
+          | 学習可能な日数
         ul.auth-form-item__radio-buttons.is-half
           li.auth-form-radio-button.is-half
             label.auth-form-radio-button__label
@@ -198,26 +198,26 @@
 
       .auth-form-item
         label.a-sm-label.is-required
-          | インターンの応募目的
-        textarea.a-sm-text-input(data-formrun-required="true" name="応募目的" rows="4" type="text" )
+          | 応募動機、就職希望時期
+        textarea.a-sm-text-input(data-formrun-required="true" name="応募動機、就職希望時期" rows="4" type="text" )
         .auth-form-item__help
-          p プログラミングの勉強をする具体的な理由（目的とそれをいつまでに達成したいかの期間）を教えてください。
-        .auth-form-item__error(data-formrun-show-if-error="応募目的")
+          p 応募動機、就職希望時期、また就職に関して何かありましたら教えてください。
+        .auth-form-item__error(data-formrun-show-if-error="応募動機、就職希望時期")
           | 必須項目です
 
       .auth-form-item
         label.a-sm-label.is-required
-          | インターン開始希望日
-        input.a-sm-text-input(data-formrun-required="true" name="インターン開始希望日" type="text" placeholder="2017年12月1日より開始希望")
+          | 研修開始希望日
+        input.a-sm-text-input(data-formrun-required="true" name="研修開始希望日" type="text" placeholder="2017年12月1日より開始希望")
         .auth-form-item__help
           p 年月日を教えてください。
-        .auth-form-item__error(data-formrun-show-if-error="インターン開始希望日")
+        .auth-form-item__error(data-formrun-show-if-error="研修開始希望日")
           | 必須項目です
 
       .auth-form-item
         label.a-sm-label
           | その他伝えておきたいこと
-        textarea.a-sm-text-input(name="その他伝えておきたいこと" rows="4" type="text" )
+        textarea.a-sm-text-input(name="その他伝えておきたいこと" rows="4" type="text")
         .auth-form-item__help
           p 心配なこと、確認したいことなどがありましたらこちらに記入してください。
         .auth-form-item__error(data-formrun-show-if-error="その他伝えておきたいこと")
@@ -231,7 +231,7 @@
         ul.auth-form-item__radio-buttons
           li.auth-form-radio-button
             label.auth-form-radio-button__label
-              input.auth-form-checkbox__input(data-formrun-required="true" name="個人情報の取り扱いについて" type="radio" value="同意する")
+              input.auth-form-checkbox__input(data-formrun-required="true" name="個人情報の取り扱いについて" type="checkbox" value="同意する")
               span.option-text 同意する
         .auth-form-item__error(data-formrun-show-if-error="個人情報の取り扱いについて")
           | 同意する必要があります
