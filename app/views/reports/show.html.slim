@@ -2,8 +2,7 @@
 header.page-header
   .container
     .page-header__container
-      h1.page-header__title
-        = t('reports')
+      h1.page-header__title 日報
       .page-header__action
         = link_to new_report_path, class: 'is-button-standard-md-warning' do
           i.fa.fa-plus
@@ -11,10 +10,10 @@ header.page-header
 
 .page-body
   .container
-    = render 'report', report: @report
+    = render "report", report: @report
     .report-comments-container
       h2.report-comments-container__title
-        = t('comments')
+        | コメント
         span.report-comments-container__title-count
           = @comments.count
       .report-comments
