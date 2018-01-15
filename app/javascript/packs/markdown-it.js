@@ -11,6 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   [].forEach.call(document.querySelectorAll('.js-markdown-view'), (e) => {
     e.style.display = 'block';
-    e.innerHTML =  md.render(e.innerHTML);
+    e.innerHTML =  md.render(e.textContent);
   });
 });
