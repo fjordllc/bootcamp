@@ -19,6 +19,7 @@ html.is-application lang="ja"
     .wrapper.js-open-drawer-wrapper
       - if current_user && page_classes.exclude?("no-header")
         = render "header"
+        = render "faces"
       = render "alert"
       main.page
         = yield

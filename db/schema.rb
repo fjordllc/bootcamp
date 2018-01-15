@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180105093749) do
+ActiveRecord::Schema.define(version: 20180115064753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,6 +201,10 @@ ActiveRecord::Schema.define(version: 20180105093749) do
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
     t.boolean "mentor", default: false, null: false
+    t.string "face_file_name"
+    t.string "face_content_type"
+    t.integer "face_file_size"
+    t.datetime "face_updated_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end

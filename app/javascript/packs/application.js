@@ -9,3 +9,4 @@
 require('./markdown');
 require('./markdown-it');
 require('./autosize');
+require('../camera');
