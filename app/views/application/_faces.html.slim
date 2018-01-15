@@ -1,0 +1,9 @@
+.faces
+  .container
+    video#video(width="80" height="60" autoplay="1" style="display:none")
+    canvas#canvas(style="display:none")
+    .faces-items
+      - User.where(graduation: false, retire: false).each do |user|
+        .name= user.login_name
+        .faces-item
+          = image_tag user.face.url(:normal), size: "60x60"
