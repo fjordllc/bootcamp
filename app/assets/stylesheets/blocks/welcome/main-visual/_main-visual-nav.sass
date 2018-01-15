@@ -7,7 +7,7 @@
     transition: all .2s ease-in
     .container
       height: 100%
-  +media-breakpoint-down(sm)
+  +media-breakpoint-down(md)
     +position(fixed, left auto, right 0, top 0, bottom 0)
     background-color: #545758
     width: 0
@@ -16,8 +16,9 @@
     &.is-active
       width: 14rem
     .container
-      max-width: 100%
-      +padding(horizontal, 0)
+      body.no-recent-reports &
+        max-width: 100%
+        +padding(horizontal, 0)
 
 .main-visual-nav__container
   +position(relative)
@@ -38,11 +39,11 @@
     +size(auto 100%)
     height: 100%
     align-items: center
-  +media-breakpoint-down(sm)
+  +media-breakpoint-down(md)
     display: none
 
 .main-visual-nav__logo-image
-  +size(auto 1.75rem)
+  +size(auto 1.25rem)
   display: block
   +media-breakpoint-down(md)
     height: 1rem
@@ -52,23 +53,22 @@
   display: flex
   .main-visual-nav.is-fixed &
     position: relative
-  +media-breakpoint-down(sm)
+  +media-breakpoint-down(md)
     display: block
     position: static
 
 .main-visual-nav__item
   &:not(:first-child)
-    margin-left: 1.75rem
-    +media-breakpoint-down(sm)
+    margin-left: 1.25rem
+    +media-breakpoint-down(md)
       margin-left: 0
 
 .main-visual-nav__item-link
-  +text-block(.875rem 1.45, block $reversal-text)
+  +text-block(.8125rem 1.45, block $reversal-text)
   +padding(vertical, .25rem)
   +hover-link
   +media-breakpoint-down(md)
     font-size: .75rem
-  +media-breakpoint-down(sm)
     height: 2.75rem
     +padding(horizontal, .75rem)
     display: flex

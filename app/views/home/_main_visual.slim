@@ -1,19 +1,22 @@
 .main-visual
-  nav.main-visual-nav(class="#{request.from_iphone? || request.from_android? ? "js-open-main-visual-nav__target js-close-main-visual-nav__target" : "js-header"}")
+  nav.main-visual-nav(class="#{request.from_pc? ? "js-header" : "js-open-main-visual-nav__target js-close-main-visual-nav__target"}")
     .container
       .main-visual-nav__container
         a.main-visual-nav__logo-link(data-scroll href= '#body')
           = image_tag("logo.svg", class: "main-visual-nav__logo-image")
         ul.main-visual-nav__items
           li.main-visual-nav__item
-            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#fee')
+            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#about')
               | 学費無料
+          li.main-visual-nav__item
+            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#tutorials')
+              | 学習内容
           li.main-visual-nav__item
             a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#eligibility')
               | 参加資格
           li.main-visual-nav__item
-            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#tutorials')
-              | 学習内容
+            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#process')
+              | 就職までの流れ
           li.main-visual-nav__item
             a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#finding-employment')
               | 就職支援
@@ -22,7 +25,10 @@
               | 運営会社
           li.main-visual-nav__item
             a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#other')
-              | その他
+              | その他の特典
+          li.main-visual-nav__item
+            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#faq')
+              | よくある質問
           li.main-visual-nav__item
             a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#form')
               | 申し込み
@@ -30,18 +36,16 @@
             li.main-visual-nav__item
               = link_to "/login", class: 'main-visual-nav__item-link js-close-main-visual-nav' do
                 | ログイン
-          - else
-            li.main-visual-nav__item
-              = link_to user_path(current_user), class: 'main-visual-nav__item-link js-close-main-visual-nav' do
-                マイページ
 
   .container.main-visual__container
     .main-visual__main
       .main-visual__description
-        | 学費は未来の就職先企業が支払う、だから無料で学べる
+        | 学費は未来の就職先企業が支払う、
+        br.is-hidden-md-up
+        | だから無料で学べる
       = image_tag('logo.svg', class: 'main-visual__logo')
       h1.main-visual__title
         | プログラマーとして就職するための就職支援
-  .main-visual__open-nav.is-hidden-md-up.js-open-main-visual-nav
+  .main-visual__open-nav.is-hidden-lg-up.js-open-main-visual-nav
     i.fa.fa-bars
   .main-visual__screen.js-close-main-visual-nav.js-close-main-visual-nav__overlay

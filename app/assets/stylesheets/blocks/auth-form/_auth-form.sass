@@ -19,7 +19,11 @@
     max-width: 30rem
   &.is-home
     max-width: 30rem
-    margin-top: 2.5rem
+    margin-top: .5rem
+    +media-breakpoint-down(sm)
+      +margin(horizontal, 0)
+      .auth-form__body
+        +padding(horizontal, 0)
   &.is-contact
     max-width: 35rem
 

@@ -1,23 +1,23 @@
 section.welcome-section#administrator
   .container
     h2.welcome-section__title
-      | どんな会社が運営してるの？
+      | 運営会社
     section.welcome-child-section
       h3.welcome-child-section__title
         | 合同会社フィヨルド
       .welcome-child-section__description
         p
-          | 東京の初台にある合同会社フィヨルドという会社です。フィヨルドはプログラマー1人、デザイナー1人、計2人のとても小さい会社です。自社で運営しているサービスを開発しながら、お客様からお金をいただいてお客様のシステムを開発する仕事（受託開発）をしています。
+          | 東京の初台にある合同会社フィヨルドという会社です。自社で運営しているサービスを開発しながら、お客様からお金をいただいてお客様のシステムを開発する仕事（受託開発）をしています。
       .welcome-small-sections
         .row.is-gutter-width-32
-          .col-sm-12.col-md-6
+          .col-xs-12.col-md-6
             section.welcome-small-section
               .welcome-small-section__inner.is-work
                 .welcome-small-section__description
                   .row.is-gutter-width-24
                     .col-xs-12.col-md-3
                       .welcome-child-section__member-image-container
-                        = image_tag('komagata.jpg', class: 'welcome-child-section__member-image')
+                        = image_tag("komagata.jpg", class: "welcome-child-section__member-image")
                     .col-xs-12.col-md-9
                       h3.welcome-small-section__name
                         | 駒形真幸
@@ -25,26 +25,26 @@ section.welcome-section#administrator
                           | プログラマー
                       ul.welcome-small-section__sns
                         li.welcome-small-section__sns-item
-                          = link_to 'https://github.com/komagata' do
+                          = link_to "https://github.com/komagata" do
                             | GitHub
                         li.welcome-small-section__sns-item
-                          = link_to '' do
+                          = link_to "https://github.com/komagata" do
                             | Blog
                         li.welcome-small-section__sns-item
-                          = link_to 'https://twitter.com/komagata' do
+                          = link_to "https://twitter.com/komagata" do
                             | Twitter
                         li.welcome-small-section__sns-item
-                          = link_to 'https://www.facebook.com/komagata1111' do
+                          = link_to "https://www.facebook.com/komagata1111" do
                             | Facebook
 
-          .col-sm-12.col-md-6
+          .col-xs-12.col-md-6
             section.welcome-small-section
               .welcome-small-section__inner.is-work
                 .welcome-small-section__description
                   .row.is-gutter-width-24
                     .col-xs-12.col-md-3
                       .welcome-child-section__member-image-container
-                        = image_tag('machida.jpg', class: 'welcome-child-section__member-image')
+                        = image_tag("machida.jpg", class: "welcome-child-section__member-image")
                     .col-xs-12.col-md-9
                       h3.welcome-small-section__name
                         | 町田 哲平
@@ -52,17 +52,17 @@ section.welcome-section#administrator
                           | デザイナー
                       ul.welcome-small-section__sns
                         li.welcome-small-section__sns-item
-                          = link_to 'https://github.com/machida' do
+                          = link_to "https://github.com/machida" do
                             | GitHub
                         //
                           li.welcome-small-section__sns-item
-                            = link_to '' do
+                            = link_to ""   do
                               | Blog
                         li.welcome-small-section__sns-item
-                          = link_to 'https://twitter.com/machida' do
+                          = link_to "https://twitter.com/machida" do
                             | Twitter
                         li.welcome-small-section__sns-item
-                          = link_to 'https://www.facebook.com/teppeimachida' do
+                          = link_to "https://www.facebook.com/teppeimachida" do
                             | Facebook
 
     section.welcome-child-section
@@ -88,4 +88,4 @@ section.welcome-section#administrator
               td 50万円
             tr
               th URL
-              td http://fjord.jp
+              td = link_to "http://fjord.jp"
