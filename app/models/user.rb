@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
 
-  has_attached_file :face, styles: { small: "32x32>", normal: "60x60#" }
+  has_attached_file :face, styles: { small: "32x32>", normal: "64x64#" }
   validates_attachment_content_type :face, content_type: /\Aimage\/.*\z/
 
   scope :in_school, -> { where(graduation: false) }
@@ -49,6 +49,12 @@ class User < ActiveRecord::Base
   scope :active, -> { where("updated_at > ?", 1.month.ago) }
   scope :inactive, -> { where("updated_at <= ?", 1.month.ago) }
   scope :mentor, -> { where(mentor: true) }
+  scope :working, -> { active.where(graduation: false, retire: false).order(updated_at: :desc) }
+
+
+  def away?
+    self.updated_at <= 10.minutes.ago
+  end
 
   def completed_percentage
     completed_practices.size.to_f / Practice.count.to_f * 100
