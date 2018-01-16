@@ -9,7 +9,7 @@ report_2:
   user: komagata
   title: "作業週2日目"
   description: |-
-    今日はローカルで 256 interens を動かしてみました。
+    今日はローカルで Fjord Bootcamp を動かしてみました。
     ruby の指定バージョンが 2.2.3 だったので、 rbenv で ruby のバージョンを上げました。
 
 report_3:
@@ -20,9 +20,9 @@ report_3:
 
 report_4:
   user: machida
-  title: "256interns で Bootstrap のバージョン更新"
+  title: "Fjord Bootcamp で Bootstrap のバージョン更新"
   description: |-
-    256interns で Bootstrap のバージョン更新を行った他、デザインの微調整を行いました。
+    Fjord Bootcamp で Bootstrap のバージョン更新を行った他、デザインの微調整を行いました。
 
 report_5:
   user: tanaka

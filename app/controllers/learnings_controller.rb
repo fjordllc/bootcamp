@@ -17,7 +17,7 @@ class LearningsController < ApplicationController
 
     text = "<#{user_url(current_user)}|#{current_user.login_name}>が<#{practice_url(@practice)}|#{@practice.title}>を#{t learning.status}しました。"
     notify text,
-      username: "#{current_user.login_name}@256interns.com",
+      username: "#{current_user.login_name}@bootcamp.fjord.jp",
       icon_url: gravatar_url(current_user)
 
     if learning.save
