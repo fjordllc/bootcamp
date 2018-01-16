@@ -17,9 +17,9 @@ class ResetPasswordTest < ApplicationSystemTestCase
     end
 
     mail = ActionMailer::Base.deliveries.last
-    assert "[#{I18n.t("256interns")}] #{I18n.t("your_password_has_been_reset")}"
+    assert "[Fjord Bootcamp] #{I18n.t("your_password_has_been_reset")}"
     assert users(:komagata).email, mail.to
-    assert "from@256interns.com", mail.from
+    assert "from@bootcamp.fjord.jp", mail.from
     assert_match /#{I18n.t("greeting", recipient: "#{users(:komagata).last_name} #{users(:komagata).first_name}")}/, mail.body.to_s
     assert_match /#{I18n.t("someone_wanted_to_reset_the_password")}/, mail.body.to_s
     assert_match /#{I18n.t("if_you_did_not_wish_please_disregard_this_email")}/, mail.body.to_s

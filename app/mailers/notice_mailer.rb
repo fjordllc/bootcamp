@@ -1,5 +1,5 @@
 class NoticeMailer < ActionMailer::Base
-  default from: "noreply@interns.com"
+  default from: "noreply@bootcamp.fjord.jp"
 
   def contact_email(contact)
     @contact = contact

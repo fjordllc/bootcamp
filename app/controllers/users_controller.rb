@@ -11,8 +11,8 @@ class UsersController < ApplicationController
     @target = params[:target] || "student"
     @users =
       case @target
-      when "all"
-        @users
+      when "student"
+        @users.student
       when "graduate"
         @users.graduated
       when "adviser"
@@ -39,8 +39,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間として256INTERNSにJOINしました。",
-        username: "#{@user.login_name}@256interns.com",
+      notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
+        username: "#{@user.login_name}@bootcamp.fjord.jp",
         icon_url: gravatar_url(@user)
       login(@user.login_name, params[:user][:password], true)
       redirect_to :practices, notice: t("registration_successfull")

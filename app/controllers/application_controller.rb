@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       if Rails.env.production?
         icon_url = options[:icon_url] || "http://i.gyazo.com/a8afa9d690ff4bbd87459709bbfe8be9.png"
         attachments = options[:attachments] || [{}]
-        username = options[:username] || "256interns"
+        username = options[:username] || "Bootcamp"
 
         notifier = Slack::Notifier.new ENV["SLACK_WEBHOOK_URL"], username: username
         notifier.ping text, icon_url: icon_url, attachments: attachments
