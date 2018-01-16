@@ -18,7 +18,7 @@
       time.report-comment__created-at(datetime='#{answer.created_at.to_datetime}' pubdate='pubdate')
         = l answer.updated_at, format: :date_long_with_time
     .report-comments__description.js-markdown-view.js-target-blank.is-long-text-style
-      = answer.description.html_safe
+      = answer.description
     .report-comment__actions
       ul.report-comment__actions-items
         - if correct_answer.blank? && answer != correct_answer && current_user == question.user

@@ -21,7 +21,7 @@ header.page-header
           time.report__created-at(datetime="#{@question.created_at.to_datetime}" pubdate="pubdate")
             = l @question.updated_at, format: :date_long_with_time
         .report__description.js-markdown-view.js-target-blank.is-long-text-style.js-markdown
-          = @question.description.html_safe
+          = @question.description
         footer.report__body-footer
           .report__body-footer-container
             - if @question.user_id == current_user.id
