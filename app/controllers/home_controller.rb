@@ -1,7 +1,10 @@
 class HomeController < ApplicationController
-  before_action :require_login, except: :welcome
-
   def index
+    if current_user
+      render action: :index
+    else
+      render action: :welcome
+    end
   end
 
   def welcome
