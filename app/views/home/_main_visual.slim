@@ -32,10 +32,9 @@
           li.main-visual-nav__item
             a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#form')
               | 申し込み
-          - if current_user
+          - unless current_user
             li.main-visual-nav__item
-              = link_to "/login", class: 'main-visual-nav__item-link js-close-main-visual-nav' do
-                | ログイン
+              = link_to "ログイン", "/login", class: 'main-visual-nav__item-link js-close-main-visual-nav'
 
   .container.main-visual__container
     .main-visual__main
