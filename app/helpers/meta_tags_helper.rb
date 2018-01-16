@@ -9,17 +9,17 @@ module MetaTagsHelper
       og: {
         title: :title,
         type: "website",
-        site_name: "256interns",
+        site_name: "fjord bootcamp",
         description: :description,
-        image: "https://256interns.com/ogp/ogp.png",
-        url: "https://256interns.com",
+        image: "https://bootcamp.fjord.jp/ogp/ogp.png",
+        url: "https://bootcamp.fjord.jp",
       },
       twitter: {
         card: "summary",
-        site: "@256interns",
+        site: "@fjordbootcamp",
         description: :description,
-        image: "https://256interns.com/ogp/ogp.png",
-        domain: "https://256interns.com",
+        image: "https://bootcamp.fjord.jp/ogp/ogp.png",
+        domain: "https://bootcamp.fjord.jp",
       }
     }
   end
