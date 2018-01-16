@@ -3,6 +3,7 @@ class API::FaceController < API::BaseController
     current_user.update(face: params[:face])
 
     if current_user.save
+      current_user.touch
       render :show, status: :ok
     else
       render json: current_user.errors, status: :unprocessable_entity
