@@ -10,3 +10,4 @@ require('./markdown');
 require('./markdown-it');
 require('./autosize');
 require('../camera');
+require('../faces.js');
