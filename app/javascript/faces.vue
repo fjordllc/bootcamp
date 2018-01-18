@@ -1,8 +1,8 @@
 <template lang="pug">
-  .faces-items
+  .faces__items
     .faces-item(v-for="(face, index) in faces")
       .faces-item__image
-        img(:src="face.url" width="64" height="64")
+        img(:src="face.url" width="72" height="72")
       .faces-item__name {{ face.login_name }}
 </template>
 <script>

@@ -1,8 +1,10 @@
 $header-height: 3.125rem
 .header
   background-color: $base-color
-  border-bottom: solid $background-color .0625rem
   +position(relative, 1)
+  +media-breakpoint-down(md)
+    border-bottom: solid $background-color .0625rem
+
 
 .header__container
   display: flex
