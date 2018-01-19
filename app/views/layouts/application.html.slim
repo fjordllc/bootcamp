@@ -11,6 +11,7 @@ html.is-application lang="ja"
     = javascript_pack_tag "application"
     = csrf_meta_tags
     = render "import_prism"
+    = render "current_user"
     = content_for(:head_last) if content_for?(:head_last)
   - page_classes = content_for(:page_classes).to_s
   body#body class="#{body_class} #{page_classes}"
