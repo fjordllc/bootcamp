@@ -1,0 +1,5 @@
+<script>
+  var currentUser = <%= raw (current_user ? current_user : nil).to_json(only: [:id, :login_name], methods: [:full_name]) %>;
+  var currentUserID = <%= raw current_user ? current_user.id : 0 %>;
+  var signedIn = <%= current_user ? true : false %>;
+</script>
