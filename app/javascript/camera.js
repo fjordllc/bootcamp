@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'PUT',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
+          'Access-Control-Allow-Origin': '*',
           'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
         },
         credentials: 'same-origin',
