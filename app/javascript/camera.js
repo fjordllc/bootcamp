@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
         },
         credentials: 'same-origin',
+        redirect: 'manual',
         body: params
       }).then((response) => {
         return response.json();
