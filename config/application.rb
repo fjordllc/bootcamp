@@ -18,6 +18,8 @@ module Interns
     config.time_zone = "Tokyo"
     config.i18n.default_locale = :ja
 
+    config.paths.add "lib", eager_load: true
+
     config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
       allow do
         origins "*"
