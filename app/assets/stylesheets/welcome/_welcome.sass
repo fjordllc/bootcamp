@@ -1,0 +1,141 @@
+body.home-welcome
+  color: $welcome-default-text
+  +media-breakpoint-down(sm)
+    .row
+      +margin(horizontal, 0)
+      [class*=col-xs-12]
+        +padding(horizontal, 0)
+
+.welcome-container
+  max-width: 60rem
+  +margin(horizontal, auto)
+
+.welcome-section
+  +padding(vertical, 7rem 3rem)
+  margin-top: -4rem
+  +position(relative)
+  +media-breakpoint-down(md)
+    +padding(vertical, 2rem)
+    margin-top: 0
+  &.is-about
+    background-color: #f4e90f
+    +position(10)
+  &.is-tutorials
+    background-color: #4d9401
+    background-image: image_url('green-texture.png')
+    background-size: 12rem
+    background-repeat: repeat
+    background-position: center center
+    +position(9)
+  &.is-eligibility
+    background-color: #f8d9a6
+    background-image: image_url('wood.png')
+    background-size: 15rem
+    background-repeat: repeat
+    background-position: center center
+    +position(8)
+  &.is-process
+    background-color: #f8d9a6
+    background-image: image_url('space.jpg')
+    background-size: cover
+    background-repeat: no-repeat
+    background-position: center center
+    +position(7)
+  &.is-finding-employment
+    background-color: #f4e90f
+    +position(6)
+  &.is-administrator
+    background-color: #2d446e
+    background-image: image_url('birds-texture.png')
+    background-size: 16rem
+    background-repeat: repeat
+    background-position: center center
+    +position(5)
+  &.is-other
+    background-color: #4d9401
+    background-image: image_url('green-texture.png')
+    background-size: 12rem
+    background-repeat: repeat
+    background-position: center center
+    +position(4)
+  &.is-faq
+    background-color: #dddddd
+    background-image: image_url('dots.svg')
+    background-size: 2rem
+    background-repeat: repeat
+    background-position: center center
+    +position(3)
+  &.is-auth-form
+    background-color: $welcome-main-color
+    background-image: image_url('main-visual-bg.svg')
+    background-size: 1.75rem
+    background-repeat: repeat
+    background-position: center center
+    #form
+      margin-top: -6rem
+      padding-top: 6rem
+      +media-breakpoint-down(sm)
+        margin-top: 0
+        padding-top: 0
+    +media-breakpoint-down(sm)
+      +padding(vertical, 2rem)
+
+.welcome-section__title
+  +text-block(1.75rem 1.45 .3em, 400 center #515556)
+  +media-breakpoint-down(sm)
+    +text-block(1.125rem 1.3 1rem)
+    +position(relative)
+
+.welcome-section__sub-title
+  +text-block(1.25rem 1.45 .6em, 700 center #515556)
+  font-feature-settings: "palt"
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+  &.is-reversal
+    color: $reversal-text
+
+.welcome-section__title-image
+  max-width: 33rem
+  +media-breakpoint-down(sm)
+    +margin(horizontal, -1rem)
+
+.welcome-section__description
+  max-width: 40rem
+  +margin(horizontal, auto)
+  margin-bottom: 2rem
+  .welcome-section__title + &
+    margin-top: 1em
+  &.is-reversal
+    color: $reversal-text
+  p
+    +text-block(1rem 1.8 1.2em)
+    +media-breakpoint-down(sm)
+      font-size: .875rem
+  *:last-child
+    margin-bottom: 0
+
+.welcome-section__description-link
+  +hover-link-reversal
+  color: blue
+  cursor: pointer
+
+.welcome-section__side-image-sections-container
+  margin-top: 3.5rem
+  +media-breakpoint-down(sm)
+    margin-top: 0
+
+.welcome-section__faqs
+  max-width: 40rem
+  +margin(horizontal, auto)
+
+.welcome-section__action
+  +size(auto 4rem)
+  +text-block(1.125rem 1.45, flex 700)
+  max-width: 22rem
+  margin: 2rem auto 0
+  background: #f4e90f
+  align-items: center
+  justify-content: center
+  border: solid 4px
+  border-radius: 8px
+  cursor: pointer

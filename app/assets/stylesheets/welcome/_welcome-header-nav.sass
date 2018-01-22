@@ -1,0 +1,25 @@
+.welcome-header-nav
+  +position(absolute, right 0, top 0)
+  height: 100%
+
+.welcome-header-nav__items
+  height: 100%
+  display: flex
+  align-items: center
+  +margin(horizontal, -.25rem)
+
+.welcome-header-nav__item
+  +margin(horizontal, .25rem)
+
+.welcome-header-nav__item-link
+  +text-block(.75rem 1.45, flex #515556 700)
+  align-items: center
+  justify-content: center
+  +size(5.75rem 1.875rem)
+  background-color: red
+  border-radius: .375rem
+  border: solid 2px #515556
+  &.is-login
+    background-color: #f192aa
+  &.is-company
+    background-color: #f4e90f

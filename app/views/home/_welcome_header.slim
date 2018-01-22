@@ -1,0 +1,16 @@
+header.welcome-header
+  .container
+    .welcome-header__inner
+      nav.welcome-header-nav
+        ul.welcome-header-nav__items
+          li.welcome-header-nav__item
+            - if current_user
+              = link_to "/practices", class: "welcome-header-nav__item-link is-login" do
+                | プラクティス
+            - else
+              = link_to "/login", class: "welcome-header-nav__item-link is-login" do
+                | 研修生入り口
+          //
+            li.welcome-header-nav__item
+              = link_to "", class: "welcome-header-nav__item-link is-company" do
+                | 企業ページ

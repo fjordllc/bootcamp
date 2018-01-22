@@ -1,0 +1,145 @@
+.welcome-small-sections
+  margin-bottom: -2rem
+  .welcome-child-section__title + &
+    margin-top: 1.5rem
+  .welcome-section__title + &
+    margin-top: 2rem
+  .welcome-child-section.is-unlimited &
+    margin-bottom: 0
+    border: solid 2px #515556
+    border-radius: .5rem
+    padding: 3rem 1.5rem 1rem
+    margin-top: 3.5rem
+    +position(relative)
+    background-color: rgba($base-color, .8)
+  .welcome-section.is-process &
+    margin-bottom: 0
+    height: auto
+    padding-bottom: 0
+    max-width: 55rem
+    margin-top: 1.5rem
+    +margin(horizontal, auto)
+
+.welcome-small-sections__title
+  $height: 3.25rem
+  $width: 20rem
+  +text-block(1.5rem 1.45 1em, 700 center flex #515556)
+  align-items: center
+  justify-content: center
+  font-feature-settings: "palt"
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+  .welcome-child-section.is-unlimited &
+    font-size: 1.25rem
+    color: $reversal-text
+    background-color: $welcome-main-color
+    background-image: image_url('main-visual-bg.svg')
+    background-size: 1.75rem
+    background-repeat: repeat
+    background-position: center center
+    border: solid 2px #515556
+    margin-bottom: 0
+    +size($width $height)
+    margin-left: $width / -2
+    +position(absolute, left 50%, top $height / -2)
+    border-radius: .5rem
+    +media-breakpoint-down(sm)
+      $height: 2.75rem
+      $width: 14rem
+      font-size: 1.125rem
+      +size($width $height)
+      margin-left: $width / -2
+      +position(absolute, left 50%, top $height / -2)
+
+.welcome-small-sections__title-icon
+  +size(3rem)
+  margin-right: .75rem
+
+.welcome-small-section
+  height: 100%
+  padding-bottom: 2rem
+  &.is-wide
+    height: auto
+    padding-bottom: 0
+    max-width: 55rem
+    margin-top: 1.5rem
+    +margin(horizontal, auto)
+  .welcome-small-sections.is-about [class*=col-]:not(:last-child) &
+    +media-breakpoint-down(sm)
+      padding-bottom: 3rem
+  .welcome-child-section.is-unlimited &
+    padding-bottom: 0
+
+.row.welcome-small-sections__row
+  +media-breakpoint-down(sm)
+    +margin(horizontal, -.5rem)
+    >*[class*=col-]
+      +padding(horizontal, .5rem)
+
+.welcome-small-section__inner
+  background-color: rgba($base-color, .8)
+  padding: 1.25rem 1.5rem 1.5rem
+  border-radius: .25rem
+  height: 100%
+  padding-bottom: 1rem
+  .welcome-small-sections.is-about &
+    height: auto
+  .welcome-small-sections.is-unlimited &
+    padding: 0
+    background-color: transparent
+  .welcome-small-sections.is-conditions &
+    border: solid 2px #515556
+  .welcome-child-section.is-cases &,
+  .welcome-child-section.is-tutorials &,
+  .welcome-section.is-finding-employment &,
+  .welcome-section.is-other &
+    border: dashed 2px #515556
+  .welcome-small-sections.is-wide &
+    display: flex
+
+.welcome-small-section__inner
+  .welcome-small-sections.is-wide &
+    flex: 100
+    +media-breakpoint-down(sm)
+      display: block
+
+.welcome-small-section__icon
+  +size(7rem)
+  display: block
+  +margin(horizontal, auto)
+  margin-bottom: .75rem
+  .welcome-small-sections.is-unlimited &
+    +size(7rem)
+    margin-bottom: .75rem
+  .welcome-child-section.is-tutorials &
+    +size(6.5rem)
+    margin-bottom: .25rem
+  .welcome-small-sections.is-wide &
+    margin: 0 1.5rem 0 0
+    +media-breakpoint-down(sm)
+      margin: 0 auto .75rem
+
+.welcome-small-section__title
+  +text-block(1.125rem 1.45 .7em, 600 center)
+  font-feature-settings: "palt"
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+  &:last-child
+    margin-bottom: 0
+  .welcome-small-sections.is-wide &
+    text-align: left
+    margin-bottom: .5em
+    font-size: 1.125rem
+    +media-breakpoint-down(sm)
+      text-align: center
+
+.welcome-small-section__description
+  p
+    +text-block(.875rem 1.8 1.2em)
+    +media-breakpoint-down(sm)
+      font-size: .75rem
+  a
+    color: #0098f9
+    +hover-link-reversal
+  p:last-child
+    margin-bottom: 0

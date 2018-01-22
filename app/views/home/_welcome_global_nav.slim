@@ -1,0 +1,34 @@
+.page__welcome-global-nav-container
+  nav.welcome-global-nav(class="#{request.from_pc? ? "js-header" : "js-open-welcome-global-nav__target js-close-welcome-global-nav__target"}")
+    .container
+      .welcome-global-nav__container
+        ul.welcome-global-nav__items
+          li.welcome-global-nav__item
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#about')
+              | 学費無料
+          li.welcome-global-nav__item
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#tutorials')
+              | 学習内容
+          li.welcome-global-nav__item
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#eligibility')
+              | 参加資格
+          li.welcome-global-nav__item
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#process')
+              | 就職までの流れ
+          li.welcome-global-nav__item
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#finding-employment')
+              | 就職支援
+          li.welcome-global-nav__item
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#administrator')
+              | 運営会社
+          li.welcome-global-nav__item
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#other')
+              | その他の特典
+          li.welcome-global-nav__item
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#faq')
+              | よくある質問
+          li.welcome-global-nav__item
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#form')
+              | 申し込み
+    a.welcome-global-nav__to-top.js-to-top(data-scroll href= "#body")
+      i.fa.fa-arrow-up

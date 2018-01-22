@@ -1,7 +1,7 @@
-section.welcome-section#eligibility
+section.welcome-section.is-eligibility#eligibility
   .container
     h2.welcome-section__title
-      | 参加資格
+      = image_tag("eligibility-title.svg", alt: "参加資格と参加条件", class: "welcome-section__title-image")
     = render "unlimited"
     = render "conditions"
     = render "cases"

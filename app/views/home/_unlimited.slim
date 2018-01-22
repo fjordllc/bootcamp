@@ -1,14 +1,14 @@
-section.welcome-child-section
-  h3.welcome-child-section__title
-    | 以下の制限はありません。
+section.welcome-child-section.is-unlimited
   .welcome-small-sections.is-unlimited
-    .row.is-gutter-width-64
+    h3.welcome-small-sections__title
+      | 以下の制限はありません
+    .row.is-gutter-width-32
       .col-xs-12.col-md-4
         section.welcome-small-section
           .welcome-small-section__inner
             = image_tag('earth.svg', class: 'welcome-small-section__icon')
             h3.welcome-small-section__title
-              | 自宅からオンラインで参加OK
+              | 自宅から参加OK
               br
               | 住所の制限はありません
             .welcome-small-section__description
@@ -17,7 +17,7 @@ section.welcome-child-section
       .col-xs-12.col-md-4
         section.welcome-small-section
           .welcome-small-section__inner
-            = image_tag('passport.svg', class: 'welcome-small-section__icon')
+            = image_tag('alien.svg', class: 'welcome-small-section__icon')
             h3.welcome-small-section__title
               | 性別、国籍、学歴不問
               br
@@ -30,7 +30,7 @@ section.welcome-child-section
           .welcome-small-section__inner
             = image_tag('beginner.svg', class: 'welcome-small-section__icon')
             h3.welcome-small-section__title
-              | 初心者でも大歓迎
+              | 初心者も大歓迎
               br
               | プログラミング経験不問
             .welcome-small-section__description

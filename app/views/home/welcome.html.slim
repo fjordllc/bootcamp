@@ -1,8 +1,10 @@
-- content_for(:page_classes, 'no-header no-recent-reports no-global-nav')
+- content_for(:page_classes, 'welcome no-header no-recent-reports no-global-nav')
 - content_for(:head_last) do
   = javascript_include_tag "https://sdk.form.run/js/v2/formrun.js"
 
+= render('welcome_header')
 = render('main_visual')
+= render('welcome_global_nav')
 .welcome-sections
   = render('about')
   = render('tutorials')
@@ -13,9 +15,4 @@
   = render('other')
   = render('faq')
   = render('form')
-footer.footer
-  .container
-    small.footer__copyright
-      i.fa.fa-copyright
-      | FJORD,LLC.
-      = Date.today.year
+= render('welcome_footer')

@@ -1,16 +1,16 @@
-section.welcome-section#other
+section.welcome-section.is-other#other
   .container
     h2.welcome-section__title
-      | 参加特典
+      = image_tag("other-title.svg", alt: "参加特典", class: "welcome-section__title-image")
+    .welcome-section__description.is-reversal
+      p
+        | 特典って言うほどでもいいことではないかもしれないですが、年に一回の忘年会と、月に一回のミートアップに参加できます。また、空いていればオフィスも自由に使えます。
     section.welcome-child-section
-      .welcome-child-section__description
-        p
-          | 特典って言うほどでもないかもしれないですが、年に一回の忘年会と、月に一回のミートアップに参加できます。また、空いていればオフィスも自由に使えます。
       .welcome-small-sections
         .row.is-gutter-width-32
           .col-xs-12.col-md-4
             section.welcome-small-section
-              .welcome-small-section__inner.is-work
+              .welcome-small-section__inner
                 h3.welcome-small-section__title
                   | 忘年会
                 .welcome-small-section__description
@@ -19,7 +19,7 @@ section.welcome-section#other
                     | 毎年、忘年会と呼ぶには時期が早いのですが、11月の第一木曜日に新宿近辺の居酒屋で忘年会を行います。忘年会にはたくさんの卒業した方も集まります。飲食代は僕らが負担します。
           .col-xs-12.col-md-4
             section.welcome-small-section
-              .welcome-small-section__inner.is-work
+              .welcome-small-section__inner
                 h3.welcome-small-section__title
                   | ミートアップ
                 .welcome-small-section__description
@@ -29,7 +29,7 @@ section.welcome-section#other
                     | ビデオチャットを繋いでいるので、オンラインで参加をすることもできます。遅れて参加、途中退出は自由です。
           .col-xs-12.col-md-4
             section.welcome-small-section
-              .welcome-small-section__inner.is-work
+              .welcome-small-section__inner
                 h3.welcome-small-section__title
                   | フィヨルドオフィス
                 .welcome-small-section__description
