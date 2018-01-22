@@ -1,7 +1,15 @@
-section.welcome-section#faq
+section.welcome-section.is-faq#faq
   .container
     h2.welcome-section__title
-      | よくある質問
+      = image_tag("faq-title.svg", alt: "よくある質問", class: "welcome-section__title-image")
+    h3.welcome-section__sub-title
+      | お気軽にどうぞ。
+    .welcome-section__description
+      p
+        | わからないこと、気になることがありましたら、
+        span.welcome-section__description-link(data-target='#nda-modal' data-toggle='modal')
+          | こちら
+        | から質問してください。
     .welcome-section__faqs
       section.welcome-faq
         h3.welcome-faq__title
@@ -59,7 +67,20 @@ section.welcome-section#faq
           p
             | 在学中でも卒業後にプログラマーとして就職することを希望していましたら参加可能です。
 
-    .welcome-child-section
-      h2.welcome-child-section__title
-        | お気軽にお問い合わせください
-      = render('question_form')
+    .welcome-section__action(data-target='#nda-modal' data-toggle='modal')
+      | 質問はこちらから
+
+.modal#nda-modal(tabindex='-1' role='dialog' aria-labelledby='nda-modalLabel' aria-hidden='true')
+  .modal-dialog role="document"
+    .modal-content
+      .modal-header
+        h2.modal-title
+          | お気軽に質問してください。
+        button.close(aria-label="Close" data-dismiss="modal" type="button")
+          span(aria-hidden="true")  &times;
+      .modal-body
+        = render('question_form')
+      .modal-footer.is-text-align-center
+        .nda__actions-container
+          .nda__close(aria-label="Close" data-dismiss="modal" type="button")
+            | やっぱやめた

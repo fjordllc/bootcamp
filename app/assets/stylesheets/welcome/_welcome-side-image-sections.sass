@@ -1,0 +1,90 @@
+.welcome-side-image-sections
+  background-color: $base-color
+  border: solid 2px #515556
+  border-radius: .5rem
+  height: 100%
+  padding-bottom: 1rem
+  +position(relative)
+  +media-breakpoint-down(sm)
+    height: auto
+  [class*=col-]:first-child &
+    z-index: 1
+    +media-breakpoint-down(sm)
+      margin-bottom: 2rem
+    &::before
+      $size: 5.125rem
+      content: ""
+      display: block
+      +size($size)
+      background-image: image_url("pink-arrow.svg")
+      background-position: center
+      background-size: contain
+      background-repeat: no-repeat
+      +position(absolute, right ($size * -1) + (($size - 4rem) / 2) , top 50%)
+      margin-top: $size / -2
+      +media-breakpoint-down(sm)
+        $size: 4rem
+        +size($size)
+        margin-top: 0
+        margin-left: $size / -2
+        +position(left 50%, bottom ($size * -1) + (($size - 2.25rem) / 2), top auto)
+        transform: rotate(90deg)
+
+.welcome-side-image-sections__title
+  $size: 4rem
+  +size($size)
+  background: #aade2c
+  border: solid 3px #505556
+  border-radius: 50%
+  box-shadow: 0 0 0 .25rem #aade2c
+  display: flex
+  align-items: center
+  justify-content: center
+  font-size: 1.25rem
+  +position(absolute, left ($size / -2), top ($size / -2))
+  +media-breakpoint-down(sm)
+    $size: 3.25rem
+    +size($size)
+    +position(absolute, left .5rem, top .5rem)
+    font-size: 1rem
+
+.welcome-side-image-section__inner
+  display: flex
+  padding: 1rem 1.25rem 0
+  +media-breakpoint-down(sm)
+    display: block
+    padding: .5rem 1rem 0
+
+.welcome-side-image-section__icon
+  +size(auto 8rem)
+  +media-breakpoint-down(sm)
+    +margin(horizontal, auto)
+    display: block
+    margin-bottom: .5rem
+
+
+.welcome-side-image-section__text
+  padding-left: 1rem
+  +media-breakpoint-down(sm)
+    padding-left: 0
+
+.welcome-side-image-section__title
+  +text-block(1.125rem 1.45 .2em, 600)
+  +media-breakpoint-down(sm)
+    text-align: center
+    font-size: 1rem
+  &:last-child
+    margin-bottom: 0
+  &.is-sm
+    font-size: 1rem
+
+.welcome-side-image-section__description
+  p
+    +text-block(.875rem 1.6 1.2em)
+    +media-breakpoint-down(sm)
+      font-size: .75rem
+  a
+    color: #0098f9
+    +hover-link-reversal
+  p:last-child
+    margin-bottom: 0

@@ -1,78 +1,62 @@
-section.welcome-section#process
+section.welcome-section.is-process#process
   .container
     h2.welcome-section__title
-      | 申し込みから就職までの流れ
-    .welcome-small-sections
-      .row.is-gutter-width-32
-        .col-xs-12.col-md-12
-          section.welcome-small-section.is-wide
-            .welcome-small-section__inner.is-primary
-              .row
-                .col-xs-12.col-md-3
-                  = image_tag("mail.svg", class: "welcome-small-section__icon")
-                .col-xs-12.col-md-9
-                  h3.welcome-small-section__title
-                    | 申し込み
-                  .welcome-small-section__description
-                    p
-                      | まずはこのページをよく読み、ページの一番下にある申し込みフォームから申し込んでください。
-        .col-xs-12.col-md-12
-          section.welcome-small-section.is-wide
-            .welcome-small-section__inner.is-primary
-              .row
-                .col-xs-12.col-md-3
-                  = image_tag("chat.svg", class: "welcome-small-section__icon")
-                .col-xs-12.col-md-9
-                  h3.welcome-small-section__title
-                    | オンライン面接
-                  .welcome-small-section__description
-                    p
-                      | 申込後、面接の日時を決め面接を行います。申し込んだ方の現在の状況、将来の目標、プログラマーとして就職したい動機などをヒヤリングします。面接はオンラインビデオチャットで行いますので、弊社にお越しいただく必要はありません。
-        .col-xs-12.col-md-12
-          section.welcome-small-section.is-wide
-            .welcome-small-section__inner.is-primary
-              .row
-                .col-xs-12.col-md-3
-                  = image_tag("study.svg", class: "welcome-small-section__icon")
-                .col-xs-12.col-md-9
-                  h3.welcome-small-section__title
-                    | 学習開始
-                  .welcome-small-section__description
-                    p
-                      | Fjord Boot Camp の参加が決まったら早速学習を開始していただきます。この時点でミートアップ、忘年会の参加、弊社オフィスの利用も可能になります。
-        .col-xs-12.col-md-12
-          section.welcome-small-section.is-wide
-            .welcome-small-section__inner.is-primary
-              .row
-                .col-xs-12.col-md-3
-                  = image_tag("programming.svg", class: "welcome-small-section__icon")
-                .col-xs-12.col-md-9
-                  h3.welcome-small-section__title
-                    | 成果物完成
-                  .welcome-small-section__description
-                    p
-                      | 学習を進めると、最後の課題に「自分で考えたWebサービスを作る」、というものがあります。これをクリアしますと、Fjord Boot Camp の学習は終了になります。ここで作った成果物を自分のスキルを証明するものの一つとして、これを持って就職活動を開始します。
-        .col-xs-12.col-md-12
-          section.welcome-small-section.is-wide
-            .welcome-small-section__inner.is-primary
-              .row
-                .col-xs-12.col-md-3
-                  = image_tag("chat2.svg", class: "welcome-small-section__icon")
-                .col-xs-12.col-md-9
-                  h3.welcome-small-section__title
-                    | 就職カウンセリング
-                  .welcome-small-section__description
-                    p
-                      | 就職したい会社の条件などをヒヤリングし、希望に合った会社を提案します。また、逆にその会社にもヒヤリングして、その会社に入るためにさらに勉強しておいたほうがいいことなどのアドバイスをします。
-        .col-xs-12.col-md-12
-          section.welcome-small-section.is-wide
-            .welcome-small-section__inner.is-primary
-              .row
-                .col-xs-12.col-md-3
-                  = image_tag("tada.svg", class: "welcome-small-section__icon")
-                .col-xs-12.col-md-9
-                  h3.welcome-small-section__title
-                    | 就職
-                  .welcome-small-section__description
-                    p
-                      | 就職が決まったら Fjord Boot Camp も卒業です。プログラマーライフを楽しんでください。気が向いたらミートアップや忘年会にも参加したり、現役の参加者の方にアドバイスなどもお願いします。
+      = image_tag("process-title.svg", alt: "申し込みから就職までの流れ", class: "welcome-section__title-image")
+    h3.welcome-section__sub-title.is-reversal
+      | 申し込みから就職までの流れをざっくり説明。
+  .container.is-md
+    .welcome-small-sections.is-wide
+      section.welcome-small-section
+        .welcome-small-section__inner
+          = image_tag("mail.svg", class: "welcome-small-section__icon")
+          .welcome-small-section__inner-body
+            h3.welcome-small-section__title
+              | 申し込み
+            .welcome-small-section__description
+              p
+                | まずはこのページをよく読み、ページの一番下にある申し込みフォームから申し込んでください。
+      section.welcome-small-section
+        .welcome-small-section__inner
+          = image_tag("video-chat.svg", class: "welcome-small-section__icon")
+          .welcome-small-section__inner-body
+            h3.welcome-small-section__title
+              | オンライン面接
+            .welcome-small-section__description
+              p
+                | 申込後、面接の日時を決め面接を行います。申し込んだ方の現在の状況、将来の目標、プログラマーとして就職したい動機などをヒヤリングします。面接はオンラインビデオチャットで行いますので、弊社にお越しいただく必要はありません。
+      section.welcome-small-section
+        .welcome-small-section__inner
+          = image_tag("study.svg", class: "welcome-small-section__icon")
+          .welcome-small-section__inner-body
+            h3.welcome-small-section__title
+              | 学習開始
+            .welcome-small-section__description
+              p
+                | フィヨルドブートキャンプの参加が決まったら早速学習を開始していただきます。この時点でミートアップ、忘年会の参加、弊社オフィスの利用も可能になります。
+      section.welcome-small-section
+        .welcome-small-section__inner
+          = image_tag("web-service.svg", class: "welcome-small-section__icon")
+          .welcome-small-section__inner-body
+            h3.welcome-small-section__title
+              | 成果物完成
+            .welcome-small-section__description
+              p
+                | 学習を進めると、最後の課題に「自分で考えたWebサービスを作る」、というものがあります。これをクリアしますと、フィヨルドブートキャンプの学習は終了になります。ここで作った成果物を自分のスキルを証明するものの一つとして、これを持って就職活動を開始します。
+      section.welcome-small-section
+        .welcome-small-section__inner
+          = image_tag("chat2.svg", class: "welcome-small-section__icon")
+          .welcome-small-section__inner-body
+            h3.welcome-small-section__title
+              | 就職カウンセリング
+            .welcome-small-section__description
+              p
+                | 就職したい会社の条件などをヒヤリングし、希望に合った会社を提案します。また、逆にその会社にもヒヤリングして、その会社に入るためにさらに勉強しておいたほうがいいことなどのアドバイスをします。
+      section.welcome-small-section
+        .welcome-small-section__inner
+          = image_tag("tada.svg", class: "welcome-small-section__icon")
+          .welcome-small-section__inner-body
+            h3.welcome-small-section__title
+              | 就職
+            .welcome-small-section__description
+              p
+                | 就職が決まったらフィヨルドブートキャンプも卒業です。プログラマーライフを楽しんでください。気が向いたらミートアップや忘年会にも参加したり、現役の参加者の方にアドバイスなどもお願いします。

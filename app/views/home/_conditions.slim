@@ -1,12 +1,13 @@
-section.welcome-child-section
-  h3.welcome-child-section__title
-    | ただし、以下の条件があります。
-  .welcome-small-sections
+section.welcome-child-section.is-conditions
+  .welcome-small-sections.is-conditions
+    h3.welcome-small-sections__title
+      = image_tag("warning.svg", class: "welcome-small-sections__title-icon")
+      | ただし、以下の条件があります！！
     .row.is-gutter-width-32
       .col-xs-12.col-md-4
         section.welcome-small-section
           .welcome-small-section__inner
-            = image_tag('cogs.svg', class: 'welcome-small-section__icon')
+            = image_tag('salary.svg', class: 'welcome-small-section__icon')
             h3.welcome-small-section__title
               | プログラマーとして就職する<br>ことを希望している
             .welcome-small-section__description

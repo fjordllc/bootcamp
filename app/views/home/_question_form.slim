@@ -1,26 +1,26 @@
-.auth-form.is-home
+.auth-form
   form.formrun.auth-form__body(action="https://form.run/api/v1/r/hfgfbtlswb0v7zqbqmaeuk5a" method="post")
     .auth-form-items
       .auth-form-item
-        label.a-sm-label.is-required
+        label.auth-form-item__label.is-required
           | お名前
-        input.a-sm-text-input(data-formrun-required="" name="お名前" type="text")
+        input.auth-form-item__text-input(data-formrun-required="" name="お名前" type="text")
         .auth-form-item__error(data-formrun-show-if-error="お名前")
           | 必須項目です
       .auth-form-item
-        label.a-sm-label.is-required
+        label.auth-form-item__label.is-required
           | メールアドレス
-        input.a-sm-text-input(data-formrun-required="" data-formrun-type="email" name="メールアドレス" type="text")
+        input.auth-form-item__text-input(data-formrun-required="" data-formrun-type="email" name="メールアドレス" type="text")
         .auth-form-item__error(data-formrun-show-if-error="メールアドレス")
           | メールアドレスを正しく入力してください
       .auth-form-item
-        label.a-sm-label.is-required
+        label.auth-form-item__label.is-required
           | お問い合わせ内容
-        textarea.a-sm-text-input(data-formrun-required="" name="お問い合わせ" rows="4" type="text")
+        textarea.auth-form-item__text-input(data-formrun-required="" name="お問い合わせ" rows="4" type="text")
         .auth-form-item__error(data-formrun-show-if-error="お問い合わせ")
           | お問い合わせ入力してください
       .auth-form-item
-        label.a-sm-label
+        label.auth-form-item__label.is-required
           | 個人情報の取り扱いについて
         .auth-form-item__pp
           = render("pp")
@@ -31,9 +31,11 @@
               span.option-text 同意する
         .auth-form-item__error(data-formrun-show-if-error="個人情報利用同意")
           | 同意する必要があります
+        .auth-form-item__help
+          p 質問をするには個人情報の取り扱いについて同意が必要です。
 
-    .auth-form-action.is-sign-up-action
+    .auth-form-action
       ul.auth-form-action__items
         li.auth-form-action__item
-          button.is-button-standard-md-warning(data-formrun-default-text=("送信") data-formrun-error-text="未入力の項目があります" data-formrun-submitting-text="送信中..." type="submit")
+          button.auth-form-action__item-action(data-formrun-default-text=("送信") data-formrun-error-text="未入力の項目があります" data-formrun-submitting-text="送信中..." type="submit")
             | 問い合わせる

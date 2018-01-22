@@ -1,7 +1,10 @@
-section.welcome-section#finding-employment
+section.welcome-section.is-finding-employment#finding-employment
   .container
     h2.welcome-section__title
-      | どんな会社に就職できる？
+      = image_tag("finding-employment-title.svg", alt: "素敵な就職先企業を紹介", class: "welcome-section__title-image")
+    h2.welcome-section__sub-title
+      | プログラミングを好きでい続けられる会社を紹介。
+
     .welcome-section__description
       p
         | 就職する就職先企業に学費を支払ってもらうという方法でこのサービスを運営しているので、就職時に学費を支払う契約を弊社と交わした企業であることが条件になりますが、
@@ -9,7 +12,7 @@ section.welcome-section#finding-employment
 
     section.welcome-child-section.is-companies
       h3.welcome-child-section__title
-        | 例えばこのような会社
+        | 例えばこんな企業
       .welcome-small-sections
         .row.is-gutter-width-32
           .col-xs-12.col-md-6
@@ -52,11 +55,13 @@ section.welcome-section#finding-employment
                     | その会社でしか使えない、潰しの効かないエンジニアになるのを避けることができます。
 
 
-    //
-      section.welcome-child-section
-        h3.welcome-child-section__title
-          | 卒業生の就職先
-        .welcome-child-section__description.company-logos
+    section.welcome-child-section
+      h3.welcome-child-section__title
+        | 提携企業
+      .company-logos
+        p.is-text-align-center
+          | ここに素敵な企業のロゴが並ぶ予定です。
+        //
           ul.company-logos__items
             li.company-logos__item
               = link_to "http://agile.esm.co.jp/", class: "company-logos__item-link", target: "_blank" do
@@ -64,6 +69,3 @@ section.welcome-section#finding-employment
             li.company-logos__item
               = link_to "https://corporate.uridoki.net/", class: "company-logos__item-link", target: "_blank" do
                 = image_tag("company-logos/uridokinet.png", class: "company-logos__item-image")
-
-          p.is-text-align-center
-            | 他にもたくさん（現在掲載許可申請中）。
