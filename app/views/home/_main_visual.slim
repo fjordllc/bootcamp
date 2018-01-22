@@ -1,50 +1,20 @@
 .main-visual
-  nav.main-visual-nav(class="#{request.from_pc? ? "js-header" : "js-open-main-visual-nav__target js-close-main-visual-nav__target"}")
-    .container
-      .main-visual-nav__container
-        a.main-visual-nav__logo-link(data-scroll href= '#body')
-          = image_tag("logo.svg", class: "main-visual-nav__logo-image")
-        ul.main-visual-nav__items
-          li.main-visual-nav__item
-            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#about')
-              | 学費無料
-          li.main-visual-nav__item
-            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#tutorials')
-              | 学習内容
-          li.main-visual-nav__item
-            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#eligibility')
-              | 参加資格
-          li.main-visual-nav__item
-            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#process')
-              | 就職までの流れ
-          li.main-visual-nav__item
-            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#finding-employment')
-              | 就職支援
-          li.main-visual-nav__item
-            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#administrator')
-              | 運営会社
-          li.main-visual-nav__item
-            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#other')
-              | その他の特典
-          li.main-visual-nav__item
-            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#faq')
-              | よくある質問
-          li.main-visual-nav__item
-            a.main-visual-nav__item-link.js-close-main-visual-nav(data-scroll href= '#form')
-              | 申し込み
-          - unless current_user
-            li.main-visual-nav__item
-              = link_to "ログイン", "/login", class: 'main-visual-nav__item-link js-close-main-visual-nav'
-
   .container.main-visual__container
-    .main-visual__main
-      .main-visual__description
-        | 学費は未来の就職先企業が支払う、
-        br.is-hidden-md-up
-        | だから無料で学べる
-      = image_tag('logo.svg', class: 'main-visual__logo')
-      h1.main-visual__title
-        | プログラマーとして就職するための就職支援
-  .main-visual__open-nav.is-hidden-lg-up.js-open-main-visual-nav
-    i.fa.fa-bars
-  .main-visual__screen.js-close-main-visual-nav.js-close-main-visual-nav__overlay
+    .main-visual__inner
+      = image_tag("icicle.svg", class: "main-visual__icicle")
+      .main-visual__contents
+        .main-visual__image-container
+          = image_tag("pjord.svg", alt: "ピヨるど", class: "main-visual__pjord-image")
+        .main-visual__main
+          .main-visual__description
+            | 学費は未来の就職先企業が支払う、
+            br.is-hidden-md-up
+            | だから無料で学べる
+          = image_tag('logo-lg.svg', class: 'main-visual__logo')
+          h1.main-visual__title
+            | プログラマーとして就職するための就職支援
+        .main-visual__image-container
+          = image_tag("free.svg", alt: "無料", class: "main-visual__free-image")
+    .main-visual__open-nav.is-hidden-lg-up.js-open-welcome-global-nav
+      i.fa.fa-bars
+    .main-visual__screen.js-close-welcome-global-nav.js-close-welcome-global-nav__overlay

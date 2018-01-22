@@ -1,0 +1,54 @@
+.welcome-members
+  max-width: 50rem
+  +margin(horizontal, auto)
+
+.welcome-member
+  background-color: rgba($base-color, .8)
+  border: solid 2px #515556
+  padding: 1.25rem 1.5rem 1.5rem
+  border-radius: .25rem
+  height: 100%
+  padding-bottom: 1rem
+  +media-breakpoint-down(sm)
+    height: auto
+    [class*=col-]:not(:last-child) &
+      margin-bottom: 1rem
+
+.welcome-member__inner
+  display: flex
+  +media-breakpoint-down(sm)
+    display: block
+
+.welcome-member__image
+  +size(7rem)
+  border-radius: .25rem
+  margin-right: 1rem
+  +media-breakpoint-down(sm)
+    +size(5rem)
+    margin: 0 auto .75rem
+    display: block
+
+.welcome-member__name
+  +text-block(1.25rem 1.45 .6em, 600)
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+    display: flex
+    justify-content: center
+    align-items: baseline
+    margin-bottom: .125rem
+
+.welcome-member__job
+  +text-block(.75rem 1.45, 400)
+  margin-left: .5rem
+
+.welcome-member__sns
+  display: flex
+  +media-breakpoint-down(sm)
+    justify-content: center
+    align-items: baseline
+
+.welcome-member__sns-item
+  padding-right: .75rem
+
+.welcome-member__sns-item-link
+  +text-block(1.125rem 1.45, $default-text)

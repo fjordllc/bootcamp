@@ -1,0 +1,81 @@
+.auth-form-item
+  +position(relative)
+  &:not(:last-child)
+    padding-bottom: 1.25rem
+    margin-bottom: .5rem
+  &.is-hidden
+    display: none
+
+.auth-form-item__label
+  +text-block(1rem 1.45 .75rem, block 700)
+  &.is-required
+    &::after
+      +fa('\00203b 必須')
+      +text-block(.625rem, 600 $danger)
+      margin-left: .1875rem
+      +inline-block(top)
+
+.auth-form-item__text-input
+  +text-block(.875rem 1.45, block)
+  width: 100%
+  padding: .5rem
+  background-color: #f7f7f7
+  border: solid 1px #515556
+  border-radius: .25rem
+  transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
+  &.formrun-has-error
+    border-color: #ec829d
+    background-color: #fefafb
+  &:focus
+    background-color: $base-color
+    box-shadow: rgba(black, .1) 0 1px 2px inset
+    border-style: solid
+
+textarea.auth-form-item__text-input
+  min-height: 6rem
+  overflow: hidden
+
+.auth-form-item__twitter-input-container
+  position: relative
+  &::before
+    content: '@'
+    +text-block(1.25rem 1, flex 700)
+    align-items: center
+    justify-content: center
+    +size(3rem 100%)
+    +position(absolute, left 0, top 0)
+    background-color: $background-color
+    +border-radius(left, .25rem)
+    border: solid 2px #515556
+  .auth-form-item__text-input
+    padding-left: 3.5rem
+
+.auth-form-item__help
+  margin-top: .5rem
+  p
+    +text-block(.8125rem 1.5)
+
+.auth-form-item__help-link
+  +text-block(.75rem 1.5)
+  +hover-link-reversal
+  cursor: pointer
+  +default-link
+
+.auth-form-item__pp
+  border: solid 1px #515556
+  background-color: rgba($base-color, .8)
+  border-radius: .25rem
+  overflow: auto
+  max-height: 7rem
+  padding: 1rem
+  margin-bottom: 1rem
+  h3
+    +text-block(.75rem 1.4 .375rem, 600)
+  p
+    +text-block(.75rem 1.5 .75rem)
+
+.auth-form-item__error
+  +text-block(.75rem 1, $reversal-text inline-block)
+  background-color: $danger
+  padding: .25rem .5rem
+  +position(absolute, left 0, bottom 0)

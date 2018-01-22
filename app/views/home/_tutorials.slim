@@ -1,58 +1,61 @@
-section.welcome-section#tutorials
+section.welcome-section.is-tutorials#tutorials
   .container
     h2.welcome-section__title
-      | 学習内容
+      = image_tag("tutorials-title.svg", alt: "一人でWebサービスを作って公開できることをゴールとしたカリキュラムを用意しています。", class: "welcome-section__title-image")
+    h3.welcome-section__sub-title.is-reversal
+      | 一人でWebサービスを作って公開がゴール
+    .welcome-section__description.is-reversal
+      p
+        | 最終課題が「自分で考えたWebサービスを作って公開」。それに必要な、サーバの構築からバックエンド、フロントエンドも学べます。
+        | 成果物を自分のスキルの証明の一つとして持参して就職活動をしてもらいます。
     section.welcome-child-section.is-tutorials
-      .welcome-child-section__description.is-lead-text
-        p.is-text-align-center-md-up
-          | 一人でWebサービスを作って公開できることをゴールとしたカリキュラムを用意しています。
       .welcome-small-sections
         .row.is-gutter-width-24.welcome-small-sections__row
           .col-xs-6.col-md-3
             section.welcome-small-section
-              .welcome-small-section__inner.is-work
+              .welcome-small-section__inner
                 = image_tag('mac.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
                   | Macの基本
           .col-xs-6.col-md-3
             section.welcome-small-section
-              .welcome-small-section__inner.is-work
+              .welcome-small-section__inner
                 = image_tag('html.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
                   | HTML
           .col-xs-6.col-md-3
             section.welcome-small-section
-              .welcome-small-section__inner.is-work
+              .welcome-small-section__inner
                 = image_tag('css.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
                   | CSS
           .col-xs-6.col-md-3
             section.welcome-small-section
-              .welcome-small-section__inner.is-work
+              .welcome-small-section__inner
                 = image_tag('linux.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
                   | Linux
           .col-xs-6.col-md-3
             section.welcome-small-section
-              .welcome-small-section__inner.is-work
+              .welcome-small-section__inner
                 = image_tag('ruby.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
                   | Ruby
           .col-xs-6.col-md-3
             section.welcome-small-section
-              .welcome-small-section__inner.is-work
+              .welcome-small-section__inner
                 = image_tag('git.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
                   | Git
           .col-xs-6.col-md-3
             section.welcome-small-section
-              .welcome-small-section__inner.is-work
+              .welcome-small-section__inner
                 = image_tag('rails.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
                   | Ruby on Rails
           .col-xs-6.col-md-3
             section.welcome-small-section
-              .welcome-small-section__inner.is-work
+              .welcome-small-section__inner
                 = image_tag('js.svg', class: 'welcome-small-section__icon')
                 h3.welcome-small-section__title
                   | JavaScript

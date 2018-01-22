@@ -1,0 +1,30 @@
+.auth-form
+  +margin(vertical, 2rem)
+  max-width: 40rem
+  background: rgba($base-color, .8)
+  padding: 2rem
+  border: solid 2px #515556
+  border-radius: .25rem
+  +margin(horizontal, auto)
+  +media-breakpoint-down(sm)
+    +margin(horizontal, 0)
+    padding: 1rem
+    margin-top: 2rem
+    .auth-form__body
+      +padding(horizontal, 0)
+  .modal-body &
+    margin: 0
+    padding: 0
+    border: none
+    border-radius: 0
+
+.auth-form__header
+  border-bottom: solid 1px $background-color
+  padding: 1.25rem
+
+.auth-form__footer
+  border-top: solid 1px $background-color
+  padding: 1rem 1.25rem
+
+.auth-form__title
+  +text-block(1.25rem 1.45, center 600)
