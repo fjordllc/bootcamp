@@ -64,4 +64,4 @@ header.page-header
             li.completed-users__user
               = link_to user, class: "completed-users__user-link" do
                 span.completed-users__user-icon
-                  = gravatar_tag user, size: 32
+                  = gravatar_tag user, secure: true, size: 32

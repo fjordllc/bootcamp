@@ -1,7 +1,7 @@
 .question-list-item
   .question-list-item__inner
     .question-list-item__author
-      = gravatar_tag question.user, size: 44, html: { class: "question-list-item__author-icon"}
+      = gravatar_tag question.user, secure: true, size: 44, html: { class: "question-list-item__author-icon"}
     header.question-list-item__header
       h2.question-list-item__title(itemprop="name")
         = link_to question, itempro: "url", class: "question-list-item__title-link" do

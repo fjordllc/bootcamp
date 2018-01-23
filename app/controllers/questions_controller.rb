@@ -68,7 +68,7 @@ class QuestionsController < ApplicationController
 
       notify "#{name}質問しました。#{link}",
         username: "#{question.user.login_name} (#{question.user.full_name})",
-        icon_url: gravatar_url(question.user),
+        icon_url: gravatar_url(question.user, secure: true),
         attachments: [{
           fallback: "question body.",
           text: question.description

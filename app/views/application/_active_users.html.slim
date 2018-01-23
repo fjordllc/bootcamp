@@ -3,5 +3,5 @@ h4= t('learning_users')
 - active_users.each do |user|
   p
     = link_to user do
-      = gravatar_tag user, size: 45
+      = gravatar_tag user, secure: true, size: 45
       span[style="margin-left:5px"]= user.login_name

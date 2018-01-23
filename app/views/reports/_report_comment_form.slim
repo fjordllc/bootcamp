@@ -1,7 +1,7 @@
 .report-comment-form
   .report-comment__author
-    = gravatar_tag current_user, size: 200, html: { class: "report-comment__author-icon"}
-  = form_for ([@report, @comment]), html: {class: 'report-comment-form__form'} do |f|
+    = gravatar_tag current_user, secure: true, size: 200, html: { class: "report-comment__author-icon" }
+  = form_for ([@report, @comment]), html: { class: 'report-comment-form__form' } do |f|
     .form-items
       .form-item
         = f.text_area :description, required: true, class: 'a-textarea report-comment-form__textarea js-markdown'
