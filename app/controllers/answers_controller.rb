@@ -57,7 +57,7 @@ class AnswersController < ApplicationController
 
       notify "#{name}が回答しました。#{link}",
         username: "#{answer.user.login_name} (#{answer.user.full_name})",
-        icon_url: gravatar_url(answer.user),
+        icon_url: gravatar_url(answer.user, secure: true),
         attachments: [{
           fallback: "answer body.",
           text: answer.description

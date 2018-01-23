@@ -63,7 +63,7 @@ class CommentsController < ApplicationController
 
       notify "#{name} commented to #{link}",
         username: "#{comment.user.login_name} (#{comment.user.full_name})",
-        icon_url: gravatar_url(comment.user),
+        icon_url: gravatar_url(comment.user, secure: true),
         attachments: [{
           fallback: "comment body.",
           text: comment.description

@@ -7,7 +7,7 @@
         .category-practices-item__value.is-started-users
           - practice.started_users.student.each do |user|
             = link_to user, class: "category-practices-item__user-link" do
-              = gravatar_tag user, size: 44, html: { class: "category-practices-item__user-icon #{user.active? ? 'active' : 'inactive'} "}
+              = gravatar_tag user, secure: true, size: 44, html: { class: "category-practices-item__user-icon #{user.active? ? 'active' : 'inactive'} "}
     - if current_user
       .category-practices-item__value.is-status
         - status = practice.status(current_user)

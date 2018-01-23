@@ -1,7 +1,7 @@
 .report-list-item
   .report-list-item__inner
     .report-list-item__author
-      = gravatar_tag report.user, size: 44, html: { class: "report-list-item__author-icon" }
+      = gravatar_tag report.user, secure: true, size: 44, html: { class: "report-list-item__author-icon" }
     header.report-list-item__header
       h2.report-list-item__title(itemprop="name")
         = link_to report, itempro: "url", class: "report-list-item__title-link" do
@@ -27,7 +27,7 @@
         .report-list-item-meta__comment-count
           .report-list-item-meta__comment-count-value
             - report.checks.each do |check|
-              = gravatar_tag check.user, size: 20, html: { class: "report-list-item__checked-author-icon" }
+              = gravatar_tag check.user, secure: true, size: 20, html: { class: "report-list-item__checked-author-icon" }
         .stamp.stamp-approve
           h2.stamp__content.is-title
             | 確認済

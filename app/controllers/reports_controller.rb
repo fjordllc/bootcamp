@@ -128,7 +128,7 @@ class ReportsController < ApplicationController
 
       notify "#{name} created #{link}",
         username: "#{report.user.login_name} (#{report.user.full_name})",
-        icon_url: gravatar_url(report.user),
+        icon_url: gravatar_url(report.user, secure: true),
         attachments: [{
           fallback: "report body.",
           text: report.description

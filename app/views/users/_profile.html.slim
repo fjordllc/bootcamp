@@ -1,6 +1,6 @@
 .user-profile
   .user-profile__icon
-    = gravatar_tag user, size: 100
+    = gravatar_tag user, secure: true, size: 100
   .user-profile__names
     h1.user-profile__login-name
       = user.login_name

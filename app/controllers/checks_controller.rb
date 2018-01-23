@@ -27,7 +27,7 @@ class ChecksController < ApplicationController
 
       notify "#{name} check to #{link}",
              username:    "#{check.user.login_name} (#{check.user.full_name})",
-             icon_url:    gravatar_url(check.user),
+             icon_url:    gravatar_url(check.user, secure: true),
              attachments: [{ fallback: "check body.",
                              text:     "#{check.user.login_name}さんが#{check.report.title}を確認しました。"
                            }]

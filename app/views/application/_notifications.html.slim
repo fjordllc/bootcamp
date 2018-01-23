@@ -4,7 +4,7 @@
       li.header-drop-down__item
         = link_to notification, class: "header-drop-down__item-link" do
           .header-notifications-item__body
-            = gravatar_tag notification.sender, size: 48, html: { class: "header-notifications-item__avatar-image" }
+            = gravatar_tag notification.sender, secure: true, size: 48, html: { class: "header-notifications-item__avatar-image" }
             .header-notifications-item__message
               p
                 = notification.message
