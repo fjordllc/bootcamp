@@ -46,4 +46,4 @@
           = render 'reports/report_check_form'
 
   = link_to report.user, itempro: "url", class: "report__author-link" do
-    = gravatar_tag report.user, size: 120, html: { class: "report__author-icon" }
+    = gravatar_tag report.user, secure: true, size: 120, html: { class: "report__author-icon" }

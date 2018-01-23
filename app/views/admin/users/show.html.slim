@@ -20,7 +20,7 @@ header.page-header
     .admin-user
       .row
         .col-md-3.col-xs-12
-          = gravatar_tag @user, size: 500, html: { class: "is-user-icon-xl" }
+          = gravatar_tag @user, secure: true, size: 500, html: { class: "is-user-icon-xl" }
           .user-dates
             .user-dates__created-at
               .user-dates__created-at-label

@@ -22,7 +22,7 @@ header.page-header
                   .user-part(class="is-adviser")
                     = t("adviser")
                 = link_to admin_user_path(user), class: "admin-table__user" do
-                  = gravatar_tag user, html: { class: "admin-table__user-icon" }
+                  = gravatar_tag user, secure: true, html: { class: "admin-table__user-icon" }
                   span.admin-table__user-login-name
                     = user.login_name
                     | （#{user.full_name}）

@@ -3,7 +3,7 @@
 .report-comment(class="#{answer == answer.question.correct_answer ? "is-correct_answer" : ""}")
   .report-comment__author
     = link_to answer.user, itempro: 'url', class: 'report-comment__author-link' do
-      = gravatar_tag answer.user, size: 200, html: { class: "report-comment__author-icon"}
+      = gravatar_tag answer.user, secure: true, size: 200, html: { class: "report-comment__author-icon"}
   .report-comment__body
     - if answer == correct_answer
       .answer-badge

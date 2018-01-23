@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   protected
     def not_authenticated
-      redirect_to welcome_path, alert: t("please_sign_in_first")
+      redirect_to root_path, alert: t("please_sign_in_first")
     end
 
     def admin_login?
