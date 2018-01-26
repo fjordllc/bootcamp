@@ -9,13 +9,14 @@ html.is-application lang="ja"
     = javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', integrity: 'sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==', crossorigin: 'anonymous'
     = javascript_pack_tag "application"
     = csrf_meta_tags
-    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', media: 'all'
     - if page_classes.include?("welcome")
       = stylesheet_link_tag 'welcome', media: 'all'
+      = javascript_pack_tag "mojik"
     - else
       = render "current_user"
       = stylesheet_link_tag 'application', media: 'all'
       = render "import_prism"
+    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', media: 'all'
     = content_for(:head_last) if content_for?(:head_last)
   body#body class="#{body_class} #{page_classes}"
     - if current_user && page_classes.exclude?("no-global-nav")
