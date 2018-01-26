@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
+    "mojik": "^0.5.0",
     "pug": "^2.0.0-rc.4",
     "textarea-autosize": "^0.4.2",
     "textarea-markdown": "^1.0.0",
