@@ -6,21 +6,27 @@ html.is-admin lang="ja"
     meta content="width=device-width, initial-scale=1" name="viewport"
     - page_title = yield :title
     title #{page_title.present? ? page_title + ' - ' : ''}Fjord Bootcamp
-    = favicon_link_tag
+    = render "favicons"
     = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', media: 'all'
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
     = javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', integrity: 'sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==', crossorigin: 'anonymous'
+    = javascript_pack_tag "application"
     = csrf_meta_tags
+    = render "current_user"
     = content_for(:head_last) if content_for?(:head_last)
   - page_classes = content_for(:page_classes).to_s
   body class="#{body_class} #{page_classes}"
     - if page_classes.exclude?("no-global-nav")
       = render "global_nav"
     .wrapper.js-open-drawer-wrapper
-      - if page_classes.exclude?("no-header")
+      - if current_user && page_classes.exclude?("no-header")
         = render "header"
-      = render "alert"
+        = render "alert"
+        - if request.from_pc?
+          = render "faces"
+      - else
+        = render "alert"
       main.page
         = yield
     - if page_classes.exclude?("no-recent-reports") && recent_reports.present?
