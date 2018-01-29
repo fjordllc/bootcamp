@@ -2,7 +2,7 @@
   .faces__items
     .faces-item(v-for="(face, index) in faces")
       .faces-item__image
-        img(:src="face.url" width="72" height="72")
+        img(:src="face.face" width="72" height="72")
       .faces-item__name {{ face.login_name }}
 </template>
 <script>
