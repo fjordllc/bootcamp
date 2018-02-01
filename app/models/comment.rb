@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, touch: true
   belongs_to :report
   before_save CommentCallbacks.new
   after_create CommentCallbacks.new
