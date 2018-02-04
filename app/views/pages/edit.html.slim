@@ -6,4 +6,4 @@ header.page-header
 
 .page-body
   .container
-    = render 'form', page: @page, method: "PATCH", url: "/pages/#{@page.title}"
+    = render 'form', page: @page, method: "PATCH", url: "/pages/#{CGI.escape(@page.title)}"
