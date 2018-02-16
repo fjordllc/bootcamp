@@ -1,10 +1,12 @@
 .auth-form-logo-image
-  width: 24rem
+  max-width: 24rem
   +margin(horizontal, auto)
   display: block
   margin-top: 4rem
   +media-breakpoint-down(sm)
     margin-top: 2rem
+    max-width: 100%
+    +padding(horizontal, 2rem)
 
 .auth-form
   +margin(vertical, 2rem 4rem)
@@ -15,6 +17,7 @@
   +media-breakpoint-down(sm)
     margin-top: 2rem
     +margin(horizontal, 1rem)
+    max-width: 100%
   &.is-sign-up
     max-width: 30rem
   &.is-home

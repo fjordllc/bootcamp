@@ -1,0 +1,57 @@
+pre.code-toolbar {
+	position: relative;
+}
+
+pre.code-toolbar > .toolbar {
+	position: absolute;
+	top: calc(-1.5rem + 1px);
+	right: 0;
+	transition: opacity 0.3s ease-in-out;
+}
+
+pre.code-toolbar > .toolbar .toolbar-item {
+	display: inline-block;
+}
+
+pre.code-toolbar > .toolbar .toolbar-item:last-child * {
+	border-left: none;
+}
+
+pre.code-toolbar > .toolbar a {
+	cursor: pointer;
+}
+
+pre.code-toolbar > .toolbar button {
+	background: none;
+	border: 0;
+	color: inherit;
+	font: inherit;
+	line-height: normal;
+	overflow: visible;
+	padding: 0;
+	-webkit-user-select: none; /* for button */
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+pre.code-toolbar > .toolbar a,
+pre.code-toolbar > .toolbar button,
+pre.code-toolbar > .toolbar span {
+	font-size: .875rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	padding: 0 .5em;
+	background-color: #322931;
+  @include border-radius(top, .125rem)
+  text-decoration: none;
+}
+
+:not(pre) > code[class*="language-"] {
+    padding: .2em;
+    padding-top: 1px;
+		padding-bottom: 1px;
+    background: #f8f8f8;
+    border: 1px solid #dddddd;
+}
