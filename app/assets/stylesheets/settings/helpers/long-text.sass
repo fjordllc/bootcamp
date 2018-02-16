@@ -1,2 +1,16 @@
 .is-long-text-style
   +long-text-style(.875rem, .8125rem)
+  hr
+    height: 2px
+    background-color: #dadbdc
+    +margin(vertical, 2em)
+    &::before
+      content: none
+  code[class*="language-"],
+  pre[class*="language-"]
+    border: none
+    tab-size: 2
+
+  pre[class*="language-"]
+    padding: 0
+    +source-code-pro
