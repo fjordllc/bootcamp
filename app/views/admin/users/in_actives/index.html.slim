@@ -33,5 +33,5 @@ header.page-header
                   i.fa.fa-pencil
 
     h2 メールアドレス
-    .party-emails= @users.pluck(:email).join(",")
-
+    textarea.a-text-input
+      = @users.pluck(:email).join(",")

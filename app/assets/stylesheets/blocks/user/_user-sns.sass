@@ -1,16 +1,16 @@
 .user-data-sns__items
   display: flex
+  margin-left: -.25rem
   +media-breakpoint-down(sm)
     justify-content: center
 
-.user-data-sns__item
-  margin-right: .1875rem
-  &:last-child
-    margin-right: 0
-
 .user-data-sns__item-link
-  +block-link
+  +flex-link
+  align-items: center
+  justify-content: center
   +size(1.75rem)
-  +text-block(.875rem 1.75rem, center #506468)
+  +text-block(1rem 1, #506468)
   background-color: rgba(white, .2)
   border-radius: 50%
+  &:hover
+    color: $accent-color

@@ -14,6 +14,6 @@
         span.auth-form-item__help-link(data-target='#forgot-password-modal' data-toggle='modal')
           | パスワードを忘れた
   .auth-form-action
-    = button_tag(class: 'is-button-standard-md-warning') do
-      = content_tag :span, t('sign_in'), class: 'glyphicon glyphicon-star'
+    = button_tag(class: 'is-button-standard-md-warning is-block') do
+      = t('sign_in')
 = render 'users/nda_modal'
