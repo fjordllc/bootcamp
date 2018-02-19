@@ -3087,6 +3087,10 @@ markdown-it-emoji@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/markdown-it-emoji/-/markdown-it-emoji-1.4.0.tgz#9bee0e9a990a963ba96df6980c4fddb05dfb4dcc"
 
+markdown-it-plantuml@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/markdown-it-plantuml/-/markdown-it-plantuml-0.3.1.tgz#f338df4d691a5561364e65809b6812bcb3d8b047"
+
 markdown-it@^8.4.0:
   version "8.4.0"
   resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.4.0.tgz#e2400881bf171f7018ed1bd9da441dac8af6306d"
@@ -5239,10 +5243,11 @@ textarea-autosize@^0.4.2:
     jquery ">=1.8"
 
 textarea-markdown@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.1.0.tgz#5abe0637473d4e1e7595b43aa086aa10ce4957d9"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.2.1.tgz#8e690e0ebe5549d8debc6074767135306acb45f1"
   dependencies:
     markdown-it "^8.4.0"
+    markdown-it-plantuml "^0.3.1"
     whatwg-fetch "^2.0.3"
 
 thunky@^0.1.0:
