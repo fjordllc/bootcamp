@@ -334,8 +334,9 @@ ja:
         description: 詳細
 
       report:
-        title: "タイトル"
-        description: "内容"
+        title: タイトル
+        reported_at: 学習日
+        description: 内容
 
       page:
         title: タイトル

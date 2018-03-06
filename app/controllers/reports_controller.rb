@@ -34,13 +34,14 @@ class ReportsController < ApplicationController
   end
 
   def new
-    if params[:id].present?
+    @report = Report.new
+
+    if params[:id]
       report = current_user.reports.find(params[:id])
-      @report = report.dup
+      @report.title = report.title
+      @report.reported_at = report.reported_at
+      @report.description = report.description
       @report.practices = report.practices
-    else
-      title = "#{Report.model_name.human}/#{Time.current.strftime("%Y/%m/%d/")}#{current_user.login_name}:"
-      @report = current_user.reports.build(title: title)
     end
   end
 
@@ -77,6 +78,7 @@ class ReportsController < ApplicationController
     def report_params
       params.require(:report).permit(
         :title,
+        :reported_at,
         :description,
         practice_ids: []
       )
