@@ -18,6 +18,7 @@ html.is-application lang="ja"
     - else
       = render "current_user"
       = stylesheet_link_tag 'application', media: 'all'
+      = stylesheet_link_tag "//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
       = render "import_prism"
     = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', media: 'all'
     = content_for(:head_last) if content_for?(:head_last)

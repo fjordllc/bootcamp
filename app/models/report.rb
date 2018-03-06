@@ -8,4 +8,5 @@ class Report < ActiveRecord::Base
   validates :title, presence: true, uniqueness: true, length: { maximum: 255 }
   validates :description, presence: true
   validates :user, presence: true
+  validates :reported_at, presence: true, uniqueness: { scope: :user }
 end
