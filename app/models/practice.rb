@@ -13,6 +13,7 @@ class Practice < ActiveRecord::Base
   has_many :completed_users,
     through: :completed_learnings,
     source: :user
+  has_many :products
   belongs_to :category
   acts_as_list scope: :category
 
@@ -51,5 +52,9 @@ class Practice < ActiveRecord::Base
 
   def all_text
     [title, description, goal].join("\n")
+  end
+
+  def product(user)
+    products.find_by(user: user)
   end
 end

@@ -1,0 +1,59 @@
+header.page-header
+  .container
+    .page-header__container
+      h1.page-header__title 提出物
+.page-body
+  .container
+    .product
+      .product__inner
+        header.product__header
+          h1.product__title #{link_to @product.practice.title, @product.practice}の提出物
+        - if @product.checks.any?
+          .stamp.stamp-approve
+            h2.stamp__content.is-title
+              | 確認済
+            time.stamp__content.is-created-at
+              = @product.checks.last.created_at.strftime('%Y/%m/%d')
+            .stamp__content.is-user-name
+              = @product.checks.last.user.login_name
+        .product__meta
+          .product__author-name
+            = @product.user.login_name
+          time.product__created-at(datetime="#{@product.created_at.to_datetime}" pubdate="pubdate")
+            = l @product.updated_at, format: :date_long_with_time
+        .product__description.js-target-blank.is-long-text-style.js-markdown-view
+          = @product.body
+
+        footer.product__body-footer
+          .product__body-footer-container
+            - if @product.user == current_user
+              .product__actions
+                ul.product__actions-items
+                  li.product__actions-item
+                    = link_to edit_practice_product_path(@product.practice), class: "product__actions-item-link is-success" do
+                      i.fa.fa-pencil
+                  li.product__actions-item
+                    = link_to practice_product_path(@product.practice), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "product__actions-item-link is-danger" do
+                      i.fa.fa-trash-o
+            = link_to @product.practice, class: "is-button-standard-sm-secondary" do
+              i.fa.fa-angle-left
+              | プラクティスへ
+
+            - if admin_login? && @product.checks.blank?
+              = form_for ([@product.practice, @product, @product.checks.new]), html: { class: "product-check-form" } do |f|
+                = hidden_field_tag :user_id, current_user.id
+                = f.submit "提出物を確認", class: 'product-check-form__action is-button-standard-sm-danger'
+
+      = link_to @product.user, itempro: "url", class: "product__author-link" do
+        = gravatar_tag @product.user, secure: true, size: 120, html: { class: "product__author-icon" }
+
+    .product-comments-container
+      h2.product-comments-container__title
+        | コメント
+        span.product-comments-container__title-count
+          = @product.comments.count
+      .product-comments
+        - if @product.comments.any?
+          - @product.comments.each do |comment|
+            = render "products/comments/comment", product: @product, comment: comment
+      = render "products/comments/form", product: @product, comment: @product.comments.new

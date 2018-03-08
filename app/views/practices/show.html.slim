@@ -48,6 +48,27 @@ header.page-header
               = link_to practice_learning_path(@practice), method: :put, class: 'is-button-standard-md-info' do
                 i.fa.fa-check-circle
                 = t('complete')
+          - if @practice.product(current_user).present?
+            li.page-actions__item
+              = link_to [@practice, @practice.product(current_user)], class: 'is-button-standard-md-info' do
+                i.fa.fa-check-circle
+                | 提出物
+          - else
+            li.page-actions__item
+              = link_to new_practice_product_path(@practice), class: 'is-button-standard-md-info' do
+                i.fa.fa-check-circle
+                | 提出物を作る
+
+    - if admin_login?
+      .col-xs-12
+        .interns-icons
+          h2.user-reports__title 提出物
+          ul.completed-users
+            - @practice.products.each do |product|
+              li.completed-users__user
+                = link_to [product.practice, product], class: "completed-users__user-link" do
+                  span.completed-users__user-icon
+                    = gravatar_tag product.user, secure: true, size: 32
 
     .col-md-6.col-xs-12
       // TODO 関連する質問を表示

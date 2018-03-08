@@ -17,7 +17,7 @@ class CheckTest < ActiveSupport::TestCase
   end
 
   test "Invalid check report_id blank" do
-    @checked_by_komagata.report_id = ""
+    @checked_by_komagata.checkable_id = ""
     assert_not @checked_by_komagata.valid?
   end
 end
