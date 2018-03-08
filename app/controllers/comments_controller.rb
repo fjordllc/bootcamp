@@ -1,18 +1,17 @@
 class CommentsController < ApplicationController
   include Rails.application.routes.url_helpers
+  include CommentsHelper
   include Gravatarify::Helper
   before_action :set_user, only: :show
   before_action :set_my_comment, only: %i(edit update destroy)
 
   def create
-    @report = Report.find(params[:report_id])
     @comment = Comment.new(comment_params)
     @comment.user = current_user
-    @comment.report = @report
-
+    @comment.commentable = commentable
     if @comment.save
       notify_to_slack(@comment)
-      redirect_to @report, notice: t("comment_was_successfully_created")
+      redirect_to commentable_url(@comment), notice: t("comment_was_successfully_created")
     else
       render :new
     end
@@ -20,29 +19,25 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find(params[:id])
-    @report = Report.find_by(id: @comment.report_id)
   end
 
   def update
     @comment = Comment.find(params[:id])
-    @report = Report.find_by(id: @comment.report_id)
 
     if @comment.update(comment_params)
-      redirect_to @report, notice: t("comment_was_successfully_updated")
+      redirect_to commentable_url(@comment), notice: t("comment_was_successfully_updated")
     else
       render :edit
     end
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
-    @report = Report.find_by(id: @comment.report_id)
+    @comment = current_user.comments.find(params[:id])
     @comment.destroy
-    redirect_to @report, notice: t("comment_was_successfully_deleted")
+    redirect_to commentable_url(@comment), notice: t("comment_was_successfully_deleted")
   end
 
   private
-
     def comment_params
       params.require(:comment).permit(
         :description
@@ -57,9 +52,17 @@ class CommentsController < ApplicationController
       @comment = current_user.comments.find(params[:id])
     end
 
+    def commentable
+      if params[:report_id]
+        Report.find(params[:report_id])
+      elsif params[:product_id]
+        Product.find(params[:product_id])
+      end
+    end
+
     def notify_to_slack(comment)
       name = "#{comment.user.login_name}"
-      link = "<#{report_url(comment.report)}#comment_#{comment.id}|#{comment.report.title}>"
+      link = "<#{commentable_url(comment)}#comment_#{comment.id}|#{comment.commentable.title}>"
 
       notify "#{name} commented to #{link}",
         username: "#{comment.user.login_name} (#{comment.user.full_name})",

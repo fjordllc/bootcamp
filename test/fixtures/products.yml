@@ -1,0 +1,9 @@
+product_1:
+  practice: practice_1
+  user: yamada
+  body: テストの提出物1です。
+
+product_2:
+  practice: practice_1
+  user: kimura
+  body: テストの提出物2です。

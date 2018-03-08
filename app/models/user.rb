@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  ADMIN_EMAILS = %w(komagata@fjord.jp machidanohimitsu@gmail.com)
+
   as_enum :purpose, %i(get_job change_job start_venture skill_up)
   authenticates_with_sorcery!
 
@@ -51,6 +53,7 @@ class User < ActiveRecord::Base
   scope :mentor, -> { where(mentor: true) }
   scope :working, -> { active.where(graduation: false, retire: false).order(updated_at: :desc) }
 
+  scope :admin, -> { where(email: ADMIN_EMAILS) }
 
   def away?
     self.updated_at <= 10.minutes.ago
@@ -79,7 +82,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    %w(komagata@fjord.jp machidanohimitsu@gmail.com).include?(email)
+    ADMIN_EMAILS.include?(email)
   end
 
   def active?

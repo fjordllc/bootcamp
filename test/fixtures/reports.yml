@@ -48,3 +48,10 @@ report_7:
   description: |-
     今日は　RSpecの基礎 を学習しました。
   reported_at: "2017-01-03"
+
+report_8:
+  user: yamada
+  title: テストの日報
+  description: |-
+    いろいろやりました。
+  reported_at: "2017-01-01"

@@ -15,10 +15,10 @@ header.page-header
       h2.report-comments-container__title
         | コメント
         span.report-comments-container__title-count
-          = @comments.count
+          = @report.comments.count
       .report-comments
-        - if @comments.any?
-          - @comments.each do |comment|
+        - if @report.comments.any?
+          - @report.comments.each do |comment|
             = render "report_comment", report: @report, comment: comment
       = render "report_comment_form"
       - if @footprints.any?

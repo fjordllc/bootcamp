@@ -1,0 +1,17 @@
+= render "errors", object: product
+= form_for [product.practice, product]  do |f|
+  .form__items
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :body, class: 'a-label'
+          = f.text_area :body, class: "a-textarea js-warning-form js-markdown markdown-form__text-area", data: { "preview": ".js-preview" }
+        .col-md-6.col-xs-12
+          .a-label
+            | プレビュー
+          .js-preview.is-long-text-style.markdown-form__preview
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item
+        = f.submit nil, class: 'is-button-standard-lg-warning'
