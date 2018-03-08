@@ -1,5 +1,5 @@
 .comment__form
-  = form_for ([@report, @comment]) do |f|
+  = form_for comment_form_object(@comment) do |f|
     .row.js-markdown-parent
       .col-md-6.col-xs-12
         .form-group
@@ -15,4 +15,4 @@
         li.form-actions__item
           = f.submit nil, class: 'is-button-standard-lg-warning'
         li.form-actions__item
-          = link_to 'キャンセル', report_path(@report), class: "is-button-standard-md-secondary"
+          = link_to 'キャンセル', @comment.commentable.path, class: "is-button-standard-md-secondary"

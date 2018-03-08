@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_action :init_user
   before_action :allow_cross_domain_access
+  helper_method :admin_login?
 
   protected
     def not_authenticated

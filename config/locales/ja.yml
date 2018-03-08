@@ -323,6 +323,11 @@ ja:
         goal: "終了条件"
         target: "ターゲット"
 
+      product:
+        user: ユーザー
+        practice: プラクティス
+        body: 本文
+
       company:
         name: "名前"
         description: "詳細"
