@@ -1,9 +1,9 @@
-.product-comment-form
-  .product-comment__author
-    = gravatar_tag current_user, secure: true, size: 200, html: { class: "product-comment__author-icon" }
-  = form_for [product.practice, product, comment] , html: { class: 'product-comment-form__form' } do |f|
+.thread-comment-form
+  .thread-comment__author
+    = gravatar_tag current_user, secure: true, size: 200, html: { class: "thread-comment__author-icon" }
+  = form_for [product.practice, product, comment] , html: { class: 'thread-comment-form__form' } do |f|
     .form-items
       .form-item
-        = f.text_area :description, required: true, class: 'a-textarea product-comment-form__textarea js-markdown'
-    .product-comment-form__action
+        = f.text_area :description, required: true, class: 'a-textarea thread-comment-form__textarea js-markdown'
+    .thread-comment-form__action
       = f.submit t('post_comment'), class: 'is-button-standard-md-primary'

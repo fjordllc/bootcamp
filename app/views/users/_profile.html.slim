@@ -1,11 +1,12 @@
 .user-profile
   .user-profile__icon
-    = gravatar_tag user, secure: true, size: 100
+    = gravatar_tag user, secure: true, size: 88
   .user-profile__names
     h1.user-profile__login-name
       = user.login_name
     h2.user-profile__full-name
       = user.full_name
-    .user-profile__company-name
-      = user.company.name
+    - unless user.company.name == "FJORD, LLC"
+      .user-profile__company-name
+        = user.company.name
   = render "users/sns", user: user

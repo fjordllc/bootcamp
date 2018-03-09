@@ -4,7 +4,8 @@
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
-          = f.label :body, class: 'a-label'
+          label.a-label
+            | 提出物
           = f.text_area :body, class: "a-textarea js-warning-form js-markdown markdown-form__text-area", data: { "preview": ".js-preview" }
         .col-md-6.col-xs-12
           .a-label

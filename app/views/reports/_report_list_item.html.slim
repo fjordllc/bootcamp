@@ -1,33 +1,33 @@
-.report-list-item
-  .report-list-item__inner
-    .report-list-item__author
-      = gravatar_tag report.user, secure: true, size: 44, html: { class: "report-list-item__author-icon" }
-    header.report-list-item__header
-      h2.report-list-item__title(itemprop="name")
-        = link_to report, itempro: "url", class: "report-list-item__title-link" do
+.thread-list-item
+  .thread-list-item__inner
+    .thread-list-item__author
+      = gravatar_tag report.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon" }
+    header.thread-list-item__header
+      h2.thread-list-item__title(itemprop="name")
+        = link_to report, itempro: "url", class: "thread-list-item__title-link" do
           = highlight(report.title, search_words)
       - if current_user == report.user
-        .report-list-item__actions
-          = link_to edit_report_path(report), class: 'report-list-item__actions-link' do
+        .thread-list-item__actions
+          = link_to edit_report_path(report), class: 'thread-list-item__actions-link' do
             i.fa.fa-pencil
-          = link_to new_report_path(id: report), class: 'report-list-item__actions-link' do
+          = link_to new_report_path(id: report), class: 'thread-list-item__actions-link' do
             i.fa.fa-files-o
-          = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'report-list-item__actions-link' do
+          = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-list-item__actions-link' do
             i.fa.fa-trash-o
-    .report-list-item-meta
-      time.report-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+    .thread-list-item-meta
+      time.thread-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
         = l report.updated_at, format: :semi_long
       - if report.comments.any?
-        .report-list-item-meta__comment-count
-          .report-list-item-meta__comment-count-label
+        .thread-list-item-meta__comment-count
+          .thread-list-item-meta__comment-count-label
             i.fa.fa-comment-o
-          .report-list-item-meta__comment-count-value
+          .thread-list-item-meta__comment-count-value
             = report.comments.size
       - if report.checks.any?
-        .report-list-item-meta__comment-count
-          .report-list-item-meta__comment-count-value
+        .thread-list-item-meta__comment-count
+          .thread-list-item-meta__comment-count-value
             - report.checks.each do |check|
-              = gravatar_tag check.user, secure: true, size: 20, html: { class: "report-list-item__checked-author-icon" }
+              = gravatar_tag check.user, secure: true, size: 20, html: { class: "thread-list-item__checked-author-icon" }
         .stamp.stamp-approve
           h2.stamp__content.is-title
             | 確認済
@@ -36,5 +36,5 @@
           .stamp__content.is-user-name
             = report.checks.last.user.login_name
     - if search_words.present?
-     .report-list-item__body
+     .thread-list-item__body
        = highlight(report.description, search_words)

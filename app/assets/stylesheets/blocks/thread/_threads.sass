@@ -1,4 +1,4 @@
-.question-list
+.thread-list
   background-color: $base-color
   border-radius: .25rem
   box-shadow: rgba(black, .2) 0 .0625rem .125rem
@@ -7,27 +7,30 @@
   +media-breakpoint-down(sm)
     margin-bottom: 2rem
 
-.question-list-item
+.thread-list-item
   border-bottom: solid 1px $background-color
   padding: .75rem 1rem
   +media-breakpoint-down(sm)
     padding: .75rem
 
-.question-list-item__inner
+.thread-list-item__inner
   +relative
   padding-left: 4rem
   +media-breakpoint-down(sm)
     padding-left: 3rem
 
-.question-list-item__author
+.thread-list-item__author
   +position(absolute, left 0, top 0)
 
-.question-list-item__author-icon
+.thread-list-item__author-icon
   border-radius: 50%
   +media-breakpoint-down(sm)
     +size(2.5rem auto)
 
-.question-list-item__header
+.thread-list-item__checked-author-icon
+  border-radius: 50%
+
+.thread-list-item__header
   display: flex
   align-items: center
   +media-breakpoint-down(sm)
@@ -35,53 +38,45 @@
     align-items: flex-start
     min-height: 3.25rem
 
-.question-list-item__title-link
+.thread-list-item__title-link
   +text-block(1rem 1.5, 600 $side)
   word-break: break-all
 
-.question-list-item__actions
+.thread-list-item__actions
   margin-left: .5rem
   display: flex
   +media-breakpoint-down(sm)
     margin-left: 0
     margin-bottom: .25rem
 
-.question-list-item__actions-link
+.thread-list-item__actions-link
   +text-block(1rem 1, flex #b9b9b9)
   align-items: center
   justify-content: center
   +size(1.75rem)
 
-.question-list-item-meta
+.thread-list-item-meta
   display: flex
-  +text-block(.875rem 1.45)
+  +text-block(.75rem 1.4)
   +media-breakpoint-down(sm)
     margin-left: -3rem
 
-.question-list-item-meta__updated-at
-  +text-block(.875rem 1.45, $muted-text)
-  +media-breakpoint-down(sm)
-    font-size: .75rem
+.thread-list-item-meta__updated-at
+  +text-block(.75rem 1.4, $muted-text)
 
-.question-list-item-meta__comment-count
-  +text-block(.875rem 1.45, block $muted-text inline-block)
+.thread-list-item-meta__comment-count
+  +text-block(.75rem 1.4, block $muted-text inline-block)
   margin-left: .75rem
-  +media-breakpoint-down(sm)
-    font-size: .75rem
 
-.question-list-item-meta__comment-count-label
-  +text-block(.875rem 1.45, block $muted-text inline-block)
+.thread-list-item-meta__comment-count-label
+  +text-block(.75rem 1.4, block $muted-text inline-block)
   margin-right: .25rem
-  +media-breakpoint-down(sm)
-    font-size: .75rem
 
-.question-list-item-meta__comment-count-value
-  +text-block(.875rem 1.45, block $muted-text inline-block)
-  +media-breakpoint-down(sm)
-    font-size: .75rem
+.thread-list-item-meta__comment-count-value
+  +text-block(.75rem 1.4, block $muted-text inline-block)
 
-.question-list-item__body
+.thread-list-item__body
   +text-block(.875rem 1.8)
 
-.question-list-item__count
-  margin-left: 8px
+.thread-list-item-meta__created-at
+  +text-block(.75rem 1.4, $muted-text)
