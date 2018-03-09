@@ -17,5 +17,5 @@ header.page-header.is-margin-bottom-0
           = link_to "解決済み", questions_path(solved: 'true'), class: "tab-nav__item-link #{params[:solved].present? ? 'is-active' : ''}"
 
   .container
-    .question-list
+    .thread-list
       = render @questions

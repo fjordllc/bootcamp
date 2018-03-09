@@ -14,7 +14,6 @@ header.page-header
               .user-data__main
                 = render "users/profile", user: @user
                 = render "users/dates", user: @user
-                = render "users/purpose", user: @user
               .user-data__sub
                 .user-data__description
                   = simple_format @user.description

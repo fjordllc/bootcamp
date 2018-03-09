@@ -3,7 +3,7 @@
     = t('related-reports')
   .user-reports__items
     - reports.each do |report|
-      .user-reports-item(class= "#{current_user == report.user ? 'is-mine' : ''}")
+      .user-reports-item
         = link_to report, class: 'user-reports-item__link has-user-icon' do
           = gravatar_tag report.user, secure: true, size: 64, html: {class: 'user-reports-item__user-icon'}
           h3.user-reports-item__title itemprop="name"
@@ -16,12 +16,3 @@
                 i.fa.fa-comment-o
               .user-reports-item__comment-count-value
                 = report.comments.size
-        - if report.user == current_user
-          .user-reports-item-actions
-            ul.user-reports-item-actions__items
-              li.user-reports-item-actions__item
-                = link_to edit_report_path(report), class: 'user-reports-item-actions__item-link' do
-                  i.fa.fa-pencil
-              li.user-reports-item-actions__item
-                = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'user-reports-item-actions__item-link' do
-                  i.fa.fa-trash-o

@@ -10,19 +10,23 @@ header.page-header
 
 .page-body
   .container
-    article.entry
-      header.entry-header
-        h3.entry-header__title
-          = @page.title
-      .entry-body.js-markdown-view.js-target-blank.is-long-text-style
-        = @page.body
-
-.form-actions
-  .container
-    ul.form-actions__items
-      li.form-actions__item
-        = link_to "一覧に戻る", "/pages/", class: 'is-button-standard-md-secondary'
-      li.form-actions__item
-        = link_to "削除", "/pages/#{@page.title}", data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'is-button-standard-md-danger'
-      li.form-actions__item
-        = link_to "内容変更", "/pages/#{@page.title}/edit", class: 'is-button-standard-lg-warning'
+    article.thread.is-page
+      .thread__inner
+        header.thread__header
+          h1.thread__title
+            = @page.title
+        .thread__description.js-markdown-view.js-target-blank.is-long-text-style.js-markdown
+          = @page.body
+        footer.thread__body-footer
+          .thread__body-footer-container
+            .thread__actions
+              ul.thread__actions-items
+                li.thread__actions-item
+                  = link_to "/pages/#{@page.title}/edit", class: 'thread__actions-item-link is-success' do
+                    i.fa.fa-pencil
+                li.thread__actions-item
+                  = link_to "/pages/#{@page.title}", data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread__actions-item-link is-danger' do
+                    i.fa.fa-trash-o
+            = link_to "/pages/", class: 'is-button-standard-sm-secondary' do
+              i.fa.fa-angle-left
+              | 一覧に戻る

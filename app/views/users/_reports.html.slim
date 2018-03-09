@@ -12,11 +12,3 @@
                 i.fa.fa-comment-o
               .user-reports-item__comment-count-value
                 = report.comments.count
-        .user-reports-item-actions
-          ul.user-reports-item-actions__items
-            li.user-reports-item-actions__item
-              = link_to edit_report_path(report), class: 'user-reports-item-actions__item-link' do
-                i.fa.fa-pencil
-            li.user-reports-item-actions__item
-              = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'user-reports-item-actions__item-link' do
-                i.fa.fa-trash-o
