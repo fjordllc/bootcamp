@@ -6,19 +6,25 @@
 .user-reports:not(:last-child)
   margin-bottom: 2rem
 
-.user-reports__items
-  margin-top: -.5rem
-
 .user-reports__title
   +text-block(1rem 1.45 .75rem)
 
+.user-reports__items
+  margin-top: -.5rem
+  display: flex
+  flex-wrap: wrap
+  +media-breakpoint-down(md)
+    display: block
+
 .user-reports-item
   +position(relative)
+  flex: 0 0 50%
+  width: 50%
   border-bottom: solid 1px $background-color-shade
-  &.is-mine
-    padding-right: 4rem
-    +media-breakpoint-down(sm)
-      padding-right: 0
+  +padding(horizontal, .75rem)
+  +media-breakpoint-down(md)
+    +padding(horizontal, 0)
+    width: 100%
 
 .user-reports-item__link
   display: block
@@ -36,24 +42,26 @@
   border-radius: 50%
 
 .user-reports-item__title
-  +text-block(1rem 1.55, $main-color)
+  +text-block(.875rem 1.4, $main-color nowrap)
+  overflow: hidden
+  text-overflow: ellipsis
   +media-breakpoint-down(sm)
     line-height: 1.4
     margin-bottom: .5rem
 
 .user-reports-item__updated-at
-  +text-block(.875rem 1.45, block $muted-text inline-block)
+  +text-block(.75rem 1.4, block $muted-text inline-block)
 
 .user-reports-item__comment-count
-  +text-block(.875rem 1.45, block $muted-text inline-block)
+  +text-block(.75rem 1.4, block $muted-text inline-block)
   margin-left: .75rem
 
 .user-reports-item__comment-count-label
-  +text-block(.875rem 1.45, block $muted-text inline-block)
+  +text-block(.75rem 1.4, block $muted-text inline-block)
   margin-right: .25rem
 
 .user-reports-item__comment-count-value
-  +text-block(.875rem 1.45, block $muted-text inline-block)
+  +text-block(.75rem 1.4, block $muted-text inline-block)
 
 .user-reports-item-actions
   +position(absolute, right 0, top .25rem)

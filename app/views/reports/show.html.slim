@@ -11,12 +11,12 @@ header.page-header
 .page-body
   .container
     = render "report", report: @report
-    .report-comments-container
-      h2.report-comments-container__title
+    .thread-comments-container
+      h2.thread-comments-container__title
         | コメント
-        span.report-comments-container__title-count
+        span.thread-comments-container__title-count
           = @report.comments.count
-      .report-comments
+      .thread-comments
         - if @report.comments.any?
           - @report.comments.each do |comment|
             = render "report_comment", report: @report, comment: comment

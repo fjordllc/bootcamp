@@ -1,0 +1,18 @@
+.user-reports
+  h2.user-reports__title
+    | 提出物
+  .user-reports__items
+    - products.each do |product|
+      .user-reports-item
+        = link_to [product.practice, product], class: 'user-reports-item__link has-user-icon' do
+          = gravatar_tag product.user, secure: true, size: 64, html: {class: 'user-reports-item__user-icon'}
+          h3.user-reports-item__title itemprop="name"
+            = product.user.login_name
+          time.user-reports-item__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")
+            = l product.created_at, format: :semi_long
+          - if product.comments.any?
+            .user-reports-item__comment-count
+              .user-reports-item__comment-count-label
+                i.fa.fa-comment-o
+              .user-reports-item__comment-count-value
+                = product.comments.size

@@ -1,37 +1,37 @@
-$product-header-author: 3.5rem
-.product-comments
+$thread-header-author: 3.5rem
+.thread-comments
   +position(relative)
   max-width: 52rem
   +margin(horizontal, auto)
   border-radius: .25rem
 
-.product-comment
+.thread-comment
   +position(relative)
   border-radius: .25rem
   margin-bottom: 2rem
-  padding-left: $product-header-author + 1.25rem
+  padding-left: $thread-header-author + 1.25rem
   +media-breakpoint-down(sm)
     padding-left: 0
     margin-bottom: 1rem
 
-.product-comment__author
+.thread-comment__author
   +position(absolute, left 0, top 0)
-  +size($product-header-author 100%)
+  +size($thread-header-author 100%)
   +media-breakpoint-down(sm)
     display: none
 
-.product-comment__author-icon
+.thread-comment__author-icon
   +size(100% auto)
   border-radius: 50%
 
-.product-comment__login-name
+.thread-comment__login-name
   +media-breakpoint-down(sm)
     margin-bottom: .25rem
 
-.product-comment__login-name-link
+.thread-comment__login-name-link
   color: $main-color
 
-.product-comment__body
+.thread-comment__body
   background-color: $base-color
   +padding(horizontal, 1rem)
   border-radius: .25rem
@@ -45,13 +45,13 @@ $product-header-author: 3.5rem
     &::after
       content: none
 
-.product-comments__description
+.thread-comments__description
   +padding(vertical, 1rem)
   +media-breakpoint-down(sm)
     +padding(vertical, .75rem)
     word-wrap: break-word
 
-.product-comment__body-header
+.thread-comment__body-header
   display: flex
   justify-content: space-between
   align-items: center
@@ -62,22 +62,22 @@ $product-header-author: 3.5rem
     align-items: flex-start
     padding-bottom: .25rem
 
-.product-comment__created-at
+.thread-comment__created-at
   display: block
   +text-block(.875rem 1.4, $muted-text)
   +media-breakpoint-down(sm)
     font-size: .75rem
 
-.product-comment__actions
+.thread-comment__actions
   +padding(vertical, .5rem)
   +media-breakpoint-down(sm)
     padding-top: 0
 
-.product-comment__actions-items
+.thread-comment__actions-items
   display: flex
   align-items: center
 
-.product-comment__actions-item-link
+.thread-comment__actions-item-link
   +text-block(1.25rem 1, center flex $muted-text)
   +size(2.375rem)
   align-items: center

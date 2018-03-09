@@ -10,37 +10,40 @@ header.page-header
 
 .page-body
   .container
-    .report
-      .report__inner
-        header.report__header
-          h1.report__title
+    .thread
+      .thread__inner
+        header.thread__header
+          h1.thread__title
             = @question.title
-        .report__meta
-          .report__author-name
+        .thread__meta
+          .thread__author-name
             = @question.user.login_name
-          time.report__created-at(datetime="#{@question.created_at.to_datetime}" pubdate="pubdate")
+          time.thread__created-at(datetime="#{@question.created_at.to_datetime}" pubdate="pubdate")
             = l @question.updated_at, format: :date_long_with_time
-        .report__description.js-markdown-view.js-target-blank.is-long-text-style.js-markdown
+        .thread__description.js-markdown-view.js-target-blank.is-long-text-style.js-markdown
           = @question.description
-        footer.report__body-footer
-          .report__body-footer-container
+        footer.thread__body-footer
+          .thread__body-footer-container
             - if @question.user_id == current_user.id
-              .report__actions
-                ul.report__actions-items
-                  li.report__actions-item
-                    = link_to edit_question_path(@question), class: 'report__actions-item-link is-success' do
+              .thread__actions
+                ul.thread__actions-items
+                  li.thread__actions-item
+                    = link_to edit_question_path(@question), class: 'thread__actions-item-link is-success' do
                       i.fa.fa-pencil
-                  li.report__actions-item
-                    = link_to question_path(@question), data: { confirm: t('are_you_sure') }, method: :delete, class: 'report__actions-item-link is-danger' do
+                  li.thread__actions-item
+                    = link_to question_path(@question), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread__actions-item-link is-danger' do
                       i.fa.fa-trash-o
             = link_to questions_path, class: 'is-button-standard-sm-secondary' do
               i.fa.fa-angle-left
               = t('to_index_of_questions')
-      = link_to @question.user, itempro: "url", class: "report__author-link" do
-        = gravatar_tag @question.user, secure: true, size: 120, html: { class: "report__author-icon"}
-    .report-comments-container
-      h3.report-comments-container__title
+      = link_to @question.user, itempro: "url", class: "thread__author-link" do
+        = gravatar_tag @question.user, secure: true, size: 120, html: { class: "thread__author-icon"}
+    .thread-comments-container
+      h3.thread-comments-container__title
         | 回答・コメント
-      = render partial: "answers/answer", collection: @question.answers, as: :answer
-      .new_question
-        = render 'answers/form', question: @question, answer: Answer.new
+      - if @question.present?
+        = render partial: "answers/answer", collection: @question.answers, as: :answer
+      - else
+        p 回答がありません
+
+      = render 'answers/form', question: @question, answer: Answer.new
