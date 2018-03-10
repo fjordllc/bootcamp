@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180308103259) do
+=======
+ActiveRecord::Schema.define(version: 20180310160849) do
+>>>>>>> 日報のフォームに学習時間の項目を追加
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,8 +31,8 @@ ActiveRecord::Schema.define(version: 20180308103259) do
   end
 
   create_table "categories", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.string "slug"
+    t.string "name", limit: 255
+    t.string "slug", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "position"
@@ -58,9 +62,9 @@ ActiveRecord::Schema.define(version: 20180308103259) do
   end
 
   create_table "companies", id: :serial, force: :cascade do |t|
-    t.string "name"
+    t.string "name", limit: 255
     t.text "description"
-    t.string "website"
+    t.string "website", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "tos"
@@ -109,6 +113,13 @@ ActiveRecord::Schema.define(version: 20180308103259) do
     t.index ["user_id"], name: "index_images_on_user_id"
   end
 
+  create_table "learning_times", force: :cascade do |t|
+    t.bigint "report_id"
+    t.datetime "started_at", null: false
+    t.datetime "finished_at", null: false
+    t.index ["report_id"], name: "index_learning_times_on_report_id"
+  end
+
   create_table "learnings", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "practice_id", null: false
@@ -148,8 +159,8 @@ ActiveRecord::Schema.define(version: 20180308103259) do
   end
 
   create_table "practices_reports", id: false, force: :cascade do |t|
-    t.bigint "practice_id", null: false
-    t.bigint "report_id", null: false
+    t.integer "practice_id", null: false
+    t.integer "report_id", null: false
     t.index ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id"
     t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
   end
@@ -221,6 +232,7 @@ ActiveRecord::Schema.define(version: 20180308103259) do
   end
 
   add_foreign_key "images", "users"
+  add_foreign_key "learning_times", "reports"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "products", "practices"

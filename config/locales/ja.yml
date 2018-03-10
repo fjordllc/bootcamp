@@ -25,6 +25,7 @@ ja:
   time:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
+      time: "%H:%M"
       short: "%y/%m/%d %H:%M"
       long: "%Y年%m月%d日(%a) %H時%M分%S秒"
       semi_long: "%Y年%m月%d日(%a) %H:%M"
@@ -251,6 +252,7 @@ ja:
       company: "会社"
       comment: "コメント"
       report: "日報"
+      learning_time: 学習時間
       page: "Wiki"
       question: "Q&A"
       contact: "申し込みフォーム"
@@ -342,6 +344,10 @@ ja:
         title: タイトル
         reported_at: 学習日
         description: 内容
+
+      learning_time:
+        started_at: 開始時間
+        finished_at: 終了時間
 
       page:
         title: タイトル

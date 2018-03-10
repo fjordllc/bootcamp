@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require smoothScroll
 //= require base
+//= require cocoon
 //= require_tree .
