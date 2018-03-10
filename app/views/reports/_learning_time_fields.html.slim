@@ -1,0 +1,8 @@
+.nested-fields
+  .form-item
+    = f.label :started_at, class: "a-label"
+    = f.time_select :started_at
+  .form-item
+    = f.label :finished_at, class: "a-label"
+    = f.time_select :finished_at
+  = link_to_remove_association "学習時間削除", f, class: 'is-button-standard-lg-warning'

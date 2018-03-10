@@ -35,6 +35,7 @@ class ReportsController < ApplicationController
 
   def new
     @report = Report.new
+		@report.learning_times.build()
 
     if params[:id]
       report = current_user.reports.find(params[:id])
@@ -85,7 +86,8 @@ class ReportsController < ApplicationController
         :title,
         :reported_at,
         :description,
-        practice_ids: []
+        practice_ids: [],
+        learning_times_attributes: [:id, :started_at, :finished_at, :_destroy]
       )
     end
 
