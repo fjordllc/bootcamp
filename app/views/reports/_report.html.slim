@@ -16,6 +16,11 @@
         = report.user.login_name
       time.thread__created-at(datetime="#{report.created_at.to_datetime}" pubdate="pubdate")
         = l report.updated_at, format: :date_long_with_time
+      .report-learning_times
+        ul
+          - report.learning_times.each do |learning_time|
+            li #{l learning_time.started_at, format: :time} 〜 #{l learning_time.finished_at, format: :time}
+
     - if @report.practices.present?
       .report-practices
         ul.report-practices__items
