@@ -1,0 +1,23 @@
+.form-item__times
+  display: flex
+  align-items: flex-end
+  +media-breakpoint-down(sm)
+    display: block
+
+.form-selects
+  display: flex
+
+.form-item__time
+  margin-right: 1rem
+  +media-breakpoint-down(sm)
+    margin-right: 0
+    margin-bottom: 1rem
+
+.form-selects__item
+  display: flex
+  align-items: center
+  &:first-child
+    &::after
+      content: ":"
+      display: block
+      +padding(horizontal, .5rem)

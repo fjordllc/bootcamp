@@ -25,7 +25,7 @@
             = f.fields_for :learning_times do |learning_time|
               = render "learning_time_fields", f: learning_time
             .links
-              = link_to_add_association "学習時間追加", f, :learning_times, class: 'is-button-standard-lg-warning'
+              = link_to_add_association "学習時間追加", f, :learning_times, class: 'is-button-standard-md-warning'
 
     .form-item
       .row.js-markdown-parent
