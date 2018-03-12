@@ -1,0 +1,29 @@
+.learning-times
+  font-size: .875rem
+  +media-breakpoint-down(sm)
+    font-size: .8125rem
+
+.learning-times
+  +padding(vertical, 1.4em 0)
+  +margin(horizontal, 2rem)
+  +media-breakpoint-down(sm)
+    +padding(vertical, 1.4em 0)
+    +margin(horizontal, 1rem)
+
+.learning-times__title
+  +text-block(1.625em 1.4 .75rem, 700 flex)
+  padding-bottom: .25em
+  border-bottom: 0.0625rem solid #dadbdc
+
+.learning-times__total-time
+  display: block
+  margin-left: .25rem
+
+.learning-times__items
+  display: flex
+  flex-wrap: wrap
+
+.learning-times__item
+  +text-block(.8125rem 1.4)
+  &:not(:last-child)::after
+    content: "、"

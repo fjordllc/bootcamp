@@ -1,14 +1,14 @@
 - if notice
-  .alert.is-info
+  .alert.is-info.js-close-alert
     .container
       .alert__container
-        button.alert__close(type="button" class="close" data-dismiss="alert") &times;
+        button.js-close-alert__trigger.alert__close(type="button" class="close" data-dismiss="alert") &times;
         p.alert__message
           = notice
 - if alert
-  .alert.is-error
+  .alert.is-error.js-close-alert
     .container
       .alert__container
-        button.alert__close(type="button" class="close" data-dismiss="alert") &times;
+        button.js-close-alert__trigger.alert__close(type="button" class="close" data-dismiss="alert") &times;
         p.alert__message
           = alert
