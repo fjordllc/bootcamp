@@ -14,8 +14,9 @@ class Report < ActiveRecord::Base
   validates :reported_at, presence: true, uniqueness: { scope: :user }
 
   def total_time
-    learning_times.inject(0) do |sum, learning_time|
+    total = learning_times.inject(0) do |sum, learning_time|
       sum + learning_time.diff
-    end / 3600
+    end
+    (total / 3600).round(2)
   end
 end
