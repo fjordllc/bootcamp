@@ -21,14 +21,13 @@
     .thread__description.js-target-blank.is-long-text-style.js-markdown-view
       =  product.body
 
-    - if admin_login?
+    - if admin_login? && product.checks.blank?
       .thread-admin-tools
         ul.thread-admin-tools__items
-          - if product.checks.blank?
-            li.thread-admin-tools__item
-              = form_for ([product.practice, product, product.checks.new]), html: { class: "thread-check-form" } do |f|
-                = hidden_field_tag :user_id, current_user.id
-                = f.submit "提出物を確認", class: 'thread-check-form__action is-button-standard-sm-danger'
+          li.thread-admin-tools__item
+            = form_for ([product.practice, product, product.checks.new]), html: { class: "thread-check-form" } do |f|
+              = hidden_field_tag :user_id, current_user.id
+              = f.submit "提出物を確認", class: 'thread-check-form__action is-button-standard-sm-danger'
 
     footer.thread__body-footer
       .thread__body-footer-container
