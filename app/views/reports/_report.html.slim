@@ -28,11 +28,8 @@
     .learning-times
       h2.learning-times__title
         | 学習時間:
-        - learning_times = []
-        - report.learning_times.each do |learning_time|
-          - learning_times.push(learning_time.finished_at - learning_time.started_at)
         span.learning-times__total-time
-          | #{learning_times.sum / 3600}時間
+          | #{report.total_time}時間
 
       ul.learning-times__items
         - report.learning_times.each do |learning_time|
