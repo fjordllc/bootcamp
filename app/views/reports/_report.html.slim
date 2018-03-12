@@ -16,10 +16,6 @@
         = report.user.login_name
       time.thread__created-at(datetime="#{report.created_at.to_datetime}" pubdate="pubdate")
         = l report.updated_at, format: :date_long_with_time
-      .report-learning_times
-        ul
-          - report.learning_times.each do |learning_time|
-            li #{l learning_time.started_at, format: :time} 〜 #{l learning_time.finished_at, format: :time}
 
     - if @report.practices.present?
       .report-practices
@@ -28,6 +24,21 @@
             li.report-practices__item
               = link_to practice, class: 'report-practices__item-link' do
                 = practice.title
+
+    .learning-times
+      h2.learning-times__title
+        | 学習時間:
+        - learning_times = []
+        - report.learning_times.each do |learning_time|
+          - learning_times.push(learning_time.finished_at - learning_time.started_at)
+        span.learning-times__total-time
+          | #{learning_times.sum / 3600}時間
+
+      ul.learning-times__items
+        - report.learning_times.each do |learning_time|
+          li.learning-times__item
+            | #{l learning_time.started_at, format: :time} 〜 #{l learning_time.finished_at, format: :time}
+
     .thread__description.js-target-blank.is-long-text-style.js-markdown-view
       = report.description
     - if admin_login?
