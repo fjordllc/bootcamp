@@ -1,8 +1,18 @@
-.nested-fields
-  .form-item
-    = f.label :started_at, class: "a-label"
-    = f.time_select :started_at
-  .form-item
-    = f.label :finished_at, class: "a-label"
-    = f.time_select :finished_at
-  = link_to_remove_association "学習時間削除", f, class: 'is-button-standard-lg-warning'
+.form-item
+  .nested-fields
+    - tag = "</div></div><div class=\"form-selects__item\"><div class=\"is-button-standard-md-secondary is-select a-select is-block form-selects__item-select form-item__select\">"
+    .form-item__times
+      .form-item__time
+        = f.label :started_at, class: "a-label"
+        .form-selects
+          .form-selects__item
+            .is-button-standard-md-secondary.is-select.is-block
+              = f.time_select :started_at, time_separator: tag
+      .form-item__time
+        = f.label :finished_at, class: "a-label"
+        .form-selects
+          .form-selects__item
+            .is-button-standard-md-secondary.is-select.is-block
+              = f.time_select :finished_at, time_separator: tag
+      .form-item__times-action
+        = link_to_remove_association "削除", f, class: 'is-button-standard-md-secondary'
