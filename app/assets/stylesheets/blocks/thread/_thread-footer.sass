@@ -1,0 +1,29 @@
+.thread__body-footer-container
+  border-top: solid 1px $background-color
+  padding: .5rem 2rem
+  display: flex
+  justify-content: space-between
+  align-items: center
+  height: 3.75rem
+  +media-breakpoint-down(sm)
+    +padding(horizontal, 1rem)
+
+.thread__actions-items
+  display: flex
+  align-items: center
+
+.thread__actions-item-link
+  +text-block(1.25rem 1, center flex $muted-text)
+  +size(2.375rem)
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  transition: color .2s ease-in, background-color .2s ease-in
+  &.is-success
+    &:hover
+      background-color: #e0eefe
+      color: $primary
+  &.is-danger
+    &:hover
+      background-color: #f5e6ea
+      color: $danger

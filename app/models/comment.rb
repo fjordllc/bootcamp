@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
   belongs_to :user, touch: true
-  belongs_to :report
+  belongs_to :commentable, polymorphic: true
   before_save CommentCallbacks.new
   after_create CommentCallbacks.new
   alias_method :sender, :user
@@ -8,7 +8,7 @@ class Comment < ActiveRecord::Base
   validates :description, presence: true
 
   def reciever
-    report.user
+    commentable.user
   end
 
   def mentions

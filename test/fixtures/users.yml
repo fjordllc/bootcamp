@@ -93,3 +93,19 @@ yamada:
   company: company_1
   description: "山田です。"
   created_at: "2014-01-01 00:00:06"
+
+kimura:
+  login_name: kimura
+  email: kimura@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  first_name: Tadasi
+  last_name: Kimura
+  twitter_url: http://twitter.com/kimura
+  facebook_url: http://www.facebook.com/kimura
+  blog_url: http://kimura.org
+  feed_url: http://kimura.org/index.atom
+  company: company_1
+  description: "木村です。"
+  updated_at: "2014-01-01 00:00:07"
+  created_at: "2014-01-01 00:00:07"

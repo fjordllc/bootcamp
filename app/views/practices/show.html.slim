@@ -13,43 +13,68 @@ header.page-header
   .row.is-gutter-width-32
     .col-md-6.col-xs-12
 
-      .practice-content
+      section.practice-content
         header.practice-content__header
           h2.practice-content__title= t('helpers.label.practice.description')
         .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text-style
           = @practice.description
-      .practice-content
-        .practice-content__header
+        - if @practice.not_completed?(current_user)
+          footer.practice-content__footer
+            .practice-content-actions
+              ul.practice-content-actions__items
+                li.practice-content-actions__item
+                  = link_to new_question_path, class: 'is-button-standard-md-warning' do
+                    i.fa.fa-question-circle
+                    | 質問する
+                li.practice-content-actions__item
+                  button.im-stack.is-button-standard-md-warning
+                    i.fa.fa-exclamation-triangle
+                    = '行き詰まった！'
+                  javascript:
+                    $(document).on('click', '.im-stack', function(){
+                      var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
+                      $.post('/chat_notices', {text: text});
+                    });
+
+      section.practice-content
+        header.practice-content__header
           h2.practice-content__title= t('helpers.label.practice.goal')
         .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text-style
           = @practice.goal
+        footer.practice-content__footer
+          .practice-content-actions
+            ul.practice-content-actions__items
+              - if @practice.product(current_user).present?
+                li.practice-content-actions__item
+                  = link_to [@practice, @practice.product(current_user)], class: 'is-button-standard-md-info' do
+                    i.fa.fa-file
+                    | 提出物
+              - else
+                li.practice-content-actions__item
+                  = link_to new_practice_product_path(@practice), class: 'is-button-standard-md-info' do
+                    i.fa.fa-file
+                    | 提出物を作る
+              - if @practice.not_completed?(current_user)
+                li.practice-content-actions__item
+                  = link_to practice_learning_path(@practice), method: :put, class: 'is-button-standard-md-info' do
+                    i.fa.fa-check-circle
+                    = t('complete')
 
-      .page-actions
-        ul.page-actions__items
-          li.page-actions__item
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item
             = link_to edit_practice_path(@practice), class: 'is-button-standard-md-primary' do
               i.fa.fa-pencil
               = t('edit')
           - if current_user.admin?
-            li.page-actions__item
+            li.form-actions__item
               = link_to practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'is-button-standard-md-danger' do
                 i.fa.fa-trash-o
                 = t('destroy')
-          li.page-actions__item
-            button.im-stack.is-button-standard-md-warning
-              = '行き詰まった！'
-            javascript:
-              $(document).on('click', '.im-stack', function(){
-                var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
-                $.post('/chat_notices', {text: text});
-              });
-          - if @practice.not_completed?(current_user)
-            li.page-actions__item
-              = link_to practice_learning_path(@practice), method: :put, class: 'is-button-standard-md-info' do
-                i.fa.fa-check-circle
-                = t('complete')
 
     .col-md-6.col-xs-12
+      - if admin_login?
+        = render 'products', products: @practice.products.eager_load(:user, :comments).order(updated_at: :desc)
       // TODO 関連する質問を表示
       //= render 'temp_questions'
       - if @practice.reports.any?

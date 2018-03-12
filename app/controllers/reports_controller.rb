@@ -30,7 +30,7 @@ class ReportsController < ApplicationController
   def show
     @footprint.user = current_user
     @footprint.report = @report
-    @footprints.where(user: @footprint.user).first_or_create if not_report_user?
+    footprint!
   end
 
   def new
@@ -74,6 +74,11 @@ class ReportsController < ApplicationController
   end
 
   private
+    def footprint!
+      if @report.user != current_user
+        @footprints.where(user: @footprint.user).first_or_create
+      end
+    end
 
     def report_params
       params.require(:report).permit(
@@ -101,7 +106,7 @@ class ReportsController < ApplicationController
     end
 
     def set_checks
-      @checks = Check.where(report_id: @report.id).order(created_at: :desc)
+      @checks = @report.checks.order(created_at: :desc)
     end
 
     def set_footprint

@@ -1,42 +1,42 @@
 comment_1:
   user: machida
-  report: report_3
+  commentable: report_1 (Report)
   description: |-
     **CSS** は奥が深いですね。
 
 comment_2:
   user: komagata
-  report: report_3
+  commentable: report_3 (Report)
   description: |-
     どういう教材がいいんでしょうかね？
 
 comment_3:
   user: machida
-  report: report_3
+  commentable: report_3 (Report)
   description: |-
     https://github.com/fjordllc/csstutorial/tree/master とかですかねー。
 
 comment_4:
   user: tanaka
-  report: report_4
+  commentable: report_4 (Report)
   description: |-
-    ```ruby:report_controller.rb
-    Comment.where(id: @report.id)
+    ```ruby
+    Comment.where(id: @commentable.id)
     ```
     上記を追加しました。ご確認下さい。
 
 comment_5:
   user: komagata
-  report: report_4
+  commentable: report_4 (Report)
   description: |-
-    `Comment.where(report_id: @report.id)` じゃないと動かなくないですか？
+    `Comment.where(report_id: @commentable.id)` じゃないと動かなくないですか？
 
 comment_6:
   user: tanaka
-  report: report_4
+  commentable: report_4 (Report)
   description: "失礼しました。 report_id を id と typo してました :sweat_drops:"
 
 comment_7:
   user: komagata
-  report: report_4
+  commentable: report_4 (Report)
   description: ":thumbsup:"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306090856) do
+ActiveRecord::Schema.define(version: 20180308103259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,21 +37,23 @@ ActiveRecord::Schema.define(version: 20180306090856) do
 
   create_table "checks", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "report_id", null: false
+    t.integer "checkable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["report_id"], name: "index_checks_on_report_id"
-    t.index ["user_id", "report_id"], name: "index_checks_on_user_id_and_report_id", unique: true
+    t.string "checkable_type", default: "Report"
+    t.index ["checkable_id"], name: "index_checks_on_checkable_id"
+    t.index ["user_id", "checkable_id"], name: "index_checks_on_user_id_and_checkable_id", unique: true
     t.index ["user_id"], name: "index_checks_on_user_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "description"
     t.integer "user_id"
-    t.integer "report_id"
+    t.integer "commentable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["report_id"], name: "index_comments_on_report_id"
+    t.string "commentable_type"
+    t.index ["commentable_id"], name: "index_comments_on_commentable_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -152,6 +154,16 @@ ActiveRecord::Schema.define(version: 20180306090856) do
     t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.bigint "practice_id"
+    t.bigint "user_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["practice_id"], name: "index_products_on_practice_id"
+    t.index ["user_id"], name: "index_products_on_user_id"
+  end
+
   create_table "questions", id: :serial, force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -211,4 +223,6 @@ ActiveRecord::Schema.define(version: 20180306090856) do
   add_foreign_key "images", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
+  add_foreign_key "products", "practices"
+  add_foreign_key "products", "users"
 end

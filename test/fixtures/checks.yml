@@ -1,27 +1,27 @@
 report4_check_komagata:
   user: komagata
-  report: report_4
+  checkable: report_4 (Report)
 
 report1_check_machida:
   user: machida
-  report: report_1
+  checkable: report_1 (Report)
 
 report3_check_machida:
   user: machida
-  report: report_3
+  checkable: report_3 (Report)
 
 report5_check_machida:
   user: machida
-  report: report_5
+  checkable: report_5 (Report)
 
 report5_check_komagata:
   user: komagata
-  report: report_5
+  checkable: report_5 (Report)
 
 report6_check_komagata:
   user: komagata
-  report: report_6
+  checkable: report_6 (Report)
 
 report7_check_machida:
   user: machida
-  report: report_7
+  checkable: report_7 (Report)

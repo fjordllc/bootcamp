@@ -1,23 +1,23 @@
-$report-header-author: 4.75rem
-.report-comment-form
+$thread-header-author: 4.75rem
+.thread-comment-form
   +position(relative)
   border-radius: .25rem
   margin-bottom: 2rem
-  padding-left: $report-header-author
+  padding-left: $thread-header-author
   +media-breakpoint-down(sm)
     padding-left: 0
 
-.report-comment-form__author
+.thread-comment-form__author
   +position(absolute, left 0, top 0)
-  +size($report-header-author 100%)
+  +size($thread-header-author 100%)
   padding-right: 2rem
   border-right: $background-color solid 1px
 
-.report-comment-form__author-icon
+.thread-comment-form__author-icon
   +size(100% auto)
   border-radius: 50%
 
-.report-comment-form__form
+.thread-comment-form__form
   background-color: $base-color
   padding: 1rem
   border-radius: .25rem
@@ -28,11 +28,11 @@ $report-header-author: 4.75rem
     &::after
       content: none
 
-.report-comment-form__textarea
+.thread-comment-form__textarea
   margin-bottom: .75rem
   min-height: 9rem
-  overflow: hidden 
+  overflow: hidden
 
-.report-comment-form__action
+.thread-comment-form__action
   display: flex
   justify-content: flex-end
