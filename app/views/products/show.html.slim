@@ -7,7 +7,7 @@ header.page-header
     = render "product", product: @product
     .thread-comments-container
       h2.thread-comments-container__title
-        | コメント・再提出
+        | レビュー・コメント
         span.thread-comments-container__title-count
           = @product.comments.count
       .thread-comments
@@ -15,3 +15,8 @@ header.page-header
           - @product.comments.each do |comment|
             = render "products/comments/comment", product: @product, comment: comment
       = render "products/comments/form", product: @product, comment: @product.comments.new
+    .form-actions
+      ul.form-actions__items
+        li.form-actions__item
+          = link_to edit_practice_product_path(@product.practice), class: "form-actions__item-link is-button-standard-lg-warning" do
+            | 提出物の内容更新
