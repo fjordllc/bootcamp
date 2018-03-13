@@ -18,7 +18,7 @@ header.page-header
           = @report.comments.count
       .thread-comments
         - if @report.comments.any?
-          - @report.comments.each do |comment|
+          - @report.comments.order(:created_at).each do |comment|
             = render "report_comment", report: @report, comment: comment
       = render "report_comment_form"
       - if @footprints.any?

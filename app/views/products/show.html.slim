@@ -12,7 +12,7 @@ header.page-header
           = @product.comments.count
       .thread-comments
         - if @product.comments.any?
-          - @product.comments.each do |comment|
+          - @product.comments.order(:created_at).each do |comment|
             = render "products/comments/comment", product: @product, comment: comment
       = render "products/comments/form", product: @product, comment: @product.comments.new
     .form-actions
