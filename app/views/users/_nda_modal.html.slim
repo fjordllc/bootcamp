@@ -1,5 +1,5 @@
 .modal#nda-modal(tabindex='-1' role='dialog' aria-labelledby='nda-modalLabel' aria-hidden='true')
-  .modal-dialog role="document" 
+  .modal-dialog role="document"
     .modal-content
       .modal-header
         h2.modal-title
@@ -21,6 +21,6 @@
                     - else
                       = f.check_box :nda, checked: true
                     div= t('agree_nda')
-        
+
           .nda__close(aria-label="Close" data-dismiss="modal" type="button")
             | 閉じる

@@ -48,25 +48,6 @@
       .auth-form-item__help
         p
           | パスワードをもう一度入力
-    .auth-form-item
-      = f.label :purpose, class: 'a-sm-label is-required'
-      ul.auth-form-item__radio-buttons.is-half
-        = f.collection_radio_buttons :purpose_cd, User.purposes.map {|k,v| [v, t("activerecord.enums.user.purposes.#{k}")] }, :first, :last do |b|
-          li.auth-form-radio-button.is-half
-            = b.label class: 'auth-form-radio-button__label' do
-              = b.radio_button + b.text
-
-    .auth-form-item
-      = f.label :find_job_assist, class: 'a-sm-label'
-      ul.auth-form-item__checkboxes
-        li.auth-form-checkbox
-          label.auth-form-checkbox__label
-            = f.check_box :find_job_assist, class: 'auth-form-checkbox__input'
-            = t('i_want_to_find_job_assist')
-      .auth-form-item__help
-        p
-          = t('we_will_find_rails_job_by_our_best')
-
     .auth-form-item.is-display-none
       = f.label :company, class: 'a-sm-label'
       = f.collection_select :company_id, Company.all, :id, :name, {}, class: 'form-control'
@@ -81,7 +62,7 @@
 
   .auth-form-action.is-sign-up-action
     ul.auth-form-action__items
-      - if params[:action] == 'new'
+      - if %w(new create).include? params[:action]
         li.auth-form-action__item
           = f.submit '参加する', class: 'is-button-standard-md-warning js-sign-up-action'
       - else
