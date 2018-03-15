@@ -2,7 +2,8 @@ doctype html
 html.is-application lang="ja"
   - page_classes = content_for(:page_classes).to_s
   head
-    //= render "google_tag_manager_head"
+    - if Rails.env == 'production'
+      = render "google_tag_manager_head"
     meta content="IE=edge" http-equiv="X-UA-Compatible"
     = display_meta_tags default_meta_tags
     = javascript_include_tag 'application'
@@ -23,7 +24,8 @@ html.is-application lang="ja"
     = stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', media: 'all'
     = content_for(:head_last) if content_for?(:head_last)
   body#body class="#{body_class} #{page_classes}"
-    //= render "google_tag_manager_body"
+    - if Rails.env == 'production'
+      = render "google_tag_manager_body"
     - if current_user && page_classes.exclude?("no-global-nav")
         = render "global_nav"
     .wrapper.js-open-drawer-wrapper
