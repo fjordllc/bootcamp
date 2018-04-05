@@ -19,7 +19,7 @@
             = f.text_field :title, class: "a-text-input js-warning-form", placeholder: "主にやったことをタイトルにしよう"
           .form-item
             = f.label :reported_at, class: "a-label"
-            = f.text_field :reported_at, class: "datepicker a-text-input", value: Date.today.strftime("%Y-%m-%d")
+            = f.text_field :reported_at, class: "datepicker a-text-input"
 
           #tasks
             = f.fields_for :learning_times do |learning_time|

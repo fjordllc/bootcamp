@@ -34,7 +34,7 @@ class ReportsController < ApplicationController
   end
 
   def new
-    @report = Report.new
+    @report = Report.new(reported_at: Date.current)
 		@report.learning_times.build()
 
     if params[:id]
