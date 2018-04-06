@@ -42,6 +42,7 @@ gem "paperclip-meta"
 gem "fog"
 gem "rack-cors", require: "rack/cors"
 gem "cocoon"
+gem "active_decorator"
 
 group :production, :staging do
   gem "newrelic_rpm"
