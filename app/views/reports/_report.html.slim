@@ -30,7 +30,7 @@
         h2.learning-times__title
           | 学習時間:
           span.learning-times__total-time
-            | #{report.total_time}時間
+            = report.total_learning_time
 
         ul.learning-times__items
           - report.learning_times.each do |learning_time|
