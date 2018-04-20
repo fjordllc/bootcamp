@@ -33,18 +33,4 @@ class CheckReportTest < ApplicationSystemTestCase
     visit reports_path
     assert_text "確認済"
   end
-
-  test "non button in current_user report" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login_name]", with: "komagata")
-      fill_in("user[password]", with: "testtest")
-    end
-    click_button "サインイン"
-    assert_equal current_path, "/users"
-    click_link "日報"
-    assert_text "作業週2日目"
-    click_link "作業週2日目"
-    assert_not has_button? "日報を確認する"
-  end
 end
