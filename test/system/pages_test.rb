@@ -5,21 +5,21 @@ class PagesTest < ApplicationSystemTestCase
 
   test "GET /pages" do
     visit "/pages"
-    assert_equal "Wiki | 256 INTERNS", title
+    assert_equal "Wiki | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "GET /pages/test1" do
     visit "/pages/test1"
-    assert_equal "test1 | 256 INTERNS", title
+    assert_equal "test1 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "GET multibyte name" do
     visit URI.escape("/pages/テスト")
-    assert_equal "テスト | 256 INTERNS", title
+    assert_equal "テスト | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "GET multibyte name edit page" do
     visit URI.escape("/pages/テスト/edit")
-    assert_equal "ページ編集 | 256 INTERNS", title
+    assert_equal "ページ編集 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 end
