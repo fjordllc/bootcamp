@@ -1,5 +1,5 @@
 {
-  "name":"interns",
+  "name":"bootcamp-fjord-jp",
   "scripts":{
     "postdeploy": "rails db:migrate db:seed"
   },
@@ -11,10 +11,10 @@
     "GOOGLE_STORAGE_BUCKET_NAME": "256interns-review",
     "GOOGLE_STORAGE_ACCESS_KEY": { "required": true },
     "GOOGLE_STORAGE_SECRET": { "required": true },
-    "INTERN_PASSWORD":{ "required":true },
-    "ROOM_ID":{ "required":true },
-    "SECRET":{ "required":true },
-    "SLACK_WEBHOOK_URL":{ "required":true }
+    "BOOTCAMP_PASSWORD":{ "required":true },
+    "ROOM_ID":{ "required": true },
+    "SECRET":{ "required": true },
+    "SLACK_WEBHOOK_URL":{ "required": true }
   },
   "addons":[
     "sendgrid",
