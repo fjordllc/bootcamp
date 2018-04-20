@@ -25,7 +25,7 @@ class SearchReportsTest < ApplicationSystemTestCase
 
     assert_text "'作業 2' の検索結果"
     assert_no_text @report_1.description
-    assert_text @report_2.description
+    assert_text "今日はローカルで"
     assert_no_text @report_3.description
     assert_no_text @report_4.description
     assert_no_text @report_5.description
