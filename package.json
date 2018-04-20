@@ -1,21 +1,21 @@
 {
-  "name": "interns",
+  "name": "bootcamp",
   "version": "1.0.0",
-  "description": "[![Stories in Ready](https://badge.waffle.io/fjordllc/interns.png?label=ready&title=Ready)](https://waffle.io/fjordllc/interns) # 256 interns",
+  "description": "[![Stories in Ready](https://badge.waffle.io/fjordllc/bootcamp.png?label=ready&title=Ready)](https://waffle.io/fjordllc/bootcamp) # bootcamp",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fjordllc/interns.git"
+    "url": "git+https://github.com/fjordllc/bootcamp.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fjordllc/interns/issues"
+    "url": "https://github.com/fjordllc/bootcamp/issues"
   },
-  "homepage": "https://github.com/fjordllc/interns#readme",
+  "homepage": "https://github.com/fjordllc/bootcamp#readme",
   "devDependencies": {
     "autosize": "^3.0.15",
     "markdown-it": "^8.4.0",

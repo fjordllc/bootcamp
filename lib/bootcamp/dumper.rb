@@ -1,4 +1,4 @@
-module Interns
+module Bootcamp
   class Dumper
     class << self
       def dump_categories

@@ -1,8 +1,6 @@
-# 256 interns
+# Bootcamp
 
-[![CircleCI](https://circleci.com/gh/fjordllc/interns.svg?style=svg&circle-token=dcbfd5d67e9be5401ce486b74f585879bc58a692)](https://circleci.com/gh/fjordllc/interns)
-
-Intern management and e-learning tool.
+e-learning tool.
 
 ## Install
 
@@ -15,7 +13,16 @@ You can also launch a web server with [rack-mini-profiler](https://github.com/Mi
 
     $ RACK_PROFILER=1 rails s
 
-### Heroku
+## Test
 
-    $ heroku config:set LANG=ja_JP.UTF-8 INTERN_PASSWORD=xxxxxxxx
-    $ heroku run rails db:setup
+Test with headless browser.
+
+```
+$ ./bin/test
+```
+
+Test with real browser.
+
+```
+$ HEADED=1 ./bin/test
+```
