@@ -50,11 +50,8 @@ end
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
-  gem "capybara", "~> 2.13"
-  gem "selenium-webdriver"
 
   # not default
-  gem "minitest", "~> 5.10", "!= 5.10.2"
   gem "pry-byebug"
   gem "simple_seed"
 end
@@ -68,4 +65,13 @@ group :development do
   # not default
   gem "letter_opener"
   gem "xray-rails"
+end
+
+group :test do
+  gem 'capybara', '>= 2.15', '< 4.0'
+  gem "selenium-webdriver"
+  gem 'chromedriver-helper'
+
+  # not default
+  gem "minitest", "~> 5.10", "!= 5.10.2"
 end

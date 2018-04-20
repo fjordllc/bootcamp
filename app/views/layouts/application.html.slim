@@ -12,7 +12,6 @@ html.is-application lang="ja"
     = render "favicons"
     - if page_classes.include?("welcome")
       = stylesheet_link_tag 'welcome', media: 'all'
-      = javascript_pack_tag "mojik"
       - if page_classes.include?("welcome-home")
         link(rel="canonical" href="https://bootcamp.fjord.jp/")
     - else
