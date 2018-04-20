@@ -1,6 +1,6 @@
 require "#{Rails.root}/config/environment"
 
-namespace :intern do
+namespace :bootcamp do
   desc "Replace practices"
   task :replace_practice do
     include SeedHelper
