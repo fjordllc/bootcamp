@@ -40,7 +40,7 @@ class AnswersController < ApplicationController
     end
 
     def set_answer
-      @answer = @question.answers.find(params[:id]).order(created_at: :asc)
+      @answer = @question.answers.find(params[:id])
     end
 
     def answer_params
