@@ -5,7 +5,7 @@ module ReportDecorator
     end
 
     total_minute = total_time / 60
-    hour = (total_minute / 60).round
+    hour = (total_minute / 60).to_i
     minute = (total_minute % 60).round
 
     if minute == 0
