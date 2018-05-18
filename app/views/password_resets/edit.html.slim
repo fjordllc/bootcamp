@@ -1,25 +1,21 @@
-header.page-header.is-margin-bottom-0
-  .container
-    h2.page-header__title
+.auth-form.is-sign-up
+  header.auth-form__header
+    h1.auth-form__title
       = t("choose_a_new_password")
 
-.page-body
-  .container
-    .row
-      .col-xs-12.col-sm-6.col-sm-offset-3
-        h3
-        = form_for @user, url: password_reset_path(@token), htnl: { method: :put } do |f|
-          - if @user.errors.any?
-            = error_messages_for :user
-          .form-group
-            = f.label :email
-            .form-control
-              = @user.email
-          .form-group
-            = f.label :password
-            = f.password_field :password, class: 'form-control'
-          .form-group
-            = f.label :password_confirmation
-            = f.password_field :password_confirmation, class: 'form-control'
-          .form-group
-            = f.submit nil, class: 'btn btn-primary'
+  .auth-form__body
+    = form_for @user, url: password_reset_path(@token), htnl: { method: :put } do |f|
+      .auth-form-items
+        - if @user.errors.any?
+          = error_messages_for :user
+        .auth-form-item
+          = f.label :email, class: 'a-sm-label is-required'
+          = f.text_field :email, class: 'a-sm-text-input'
+        .auth-form-item
+          = f.label :password, class: 'a-sm-label'
+          = f.password_field :password, class: 'a-sm-text-input', autocomplete: :off
+        .auth-form-item
+          = f.label :password_confirmation, class: 'a-sm-label'
+          = f.password_field :password_confirmation, class: 'a-sm-text-input', autocomplete: :off
+        .auth-form-item
+          = f.submit nil, class: 'is-button-standard-md-warning'
