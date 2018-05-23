@@ -5,6 +5,9 @@ header.page-header
       h2.page-header__title
         = @practice.title
       .page-header__action
+        = link_to practice_reports_path(@practice), class: 'is-button-standard-md-secondary' do
+          i.fa.fa-angle-left
+          = t('このプラクティスに関する日報')
         = link_to practices_path, class: 'is-button-standard-md-secondary' do
           i.fa.fa-angle-left
           = t('practices')
@@ -71,14 +74,6 @@ header.page-header
               = link_to practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'is-button-standard-md-danger' do
                 i.fa.fa-trash-o
                 = t('destroy')
-
-    .col-md-6.col-xs-12
-      - if admin_login?
-        = render 'products', products: @practice.products.eager_load(:user, :comments).order(updated_at: :desc)
-      // TODO 関連する質問を表示
-      //= render 'temp_questions'
-      - if @practice.reports.any?
-        = render 'reports', reports: @practice.reports.eager_load(:user, :comments).order(updated_at: :desc)
 
     .col-xs-12
       .interns-icons
