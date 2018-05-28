@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   resources :practices, shallow: true do
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
-    resource :reports, only: %i(show), controller: "practice_reports"
+    resource :reports, only: %i(show), controller: "practices/reports"
   end
   resources :practices do
     resources :products do
