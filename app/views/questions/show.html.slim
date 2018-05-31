@@ -42,7 +42,7 @@ header.page-header
       h3.thread-comments-container__title
         | 回答・コメント
       - if @question.present?
-        = render partial: "answers/answer", collection: @question.answers, as: :answer
+        = render partial: "answers/answer", collection: @question.answers.order("updated_at"), as: :answer
       - else
         p 回答がありません
 
