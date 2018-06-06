@@ -229,13 +229,6 @@ ActiveRecord::Schema.define(version: 20180310160849) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
-  create_table "works", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "practice_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   add_foreign_key "images", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "notifications", "users"
