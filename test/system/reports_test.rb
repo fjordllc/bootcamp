@@ -121,4 +121,97 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "40分\n"
     assert_text "19:30 〜 20:10"
   end
+
+  test "regist learning_times 1h, and update learning_times 30min" do
+    visit "/reports/new"
+    fill_in "report_title", with: "テスト日報"
+    fill_in "report_description", with: "登録時：完了日付+1日 更新時：完了日付-1日のパターン"
+
+    selects = all("select")
+    select "23", from: selects[0]["id"]
+    select "00", from: selects[1]["id"]
+    select "00", from: selects[2]["id"]
+    select "00", from: selects[3]["id"]
+
+    click_button "登録する"
+
+    assert_text "1時間\n"
+    assert_text "23:00 〜 00:00"
+
+    all(".thread__actions-item")[0].click
+    selects = all("select")
+    select "23", from: selects[2]["id"]
+    select "30", from: selects[3]["id"]
+
+    click_button "更新する"
+
+    assert_text "30分\n"
+    assert_text "23:00 〜 23:30"
+  end
+
+  test "regist learning_times 2h, and update learning_times 9h" do
+    visit "/reports/new"
+    fill_in "report_title", with: "テスト日報"
+    fill_in "report_description", with: "登録時：完了日付+1日 更新時：完了日付変化なしのパターン"
+
+    selects = all("select")
+    select "22", from: selects[0]["id"]
+    select "00", from: selects[1]["id"]
+    select "00", from: selects[2]["id"]
+    select "00", from: selects[3]["id"]
+
+    click_button "登録する"
+
+    assert_text "2時間\n"
+    assert_text "22:00 〜 00:00"
+
+    all(".thread__actions-item")[0].click
+    selects = all("select")
+    select "07", from: selects[2]["id"]
+    select "00", from: selects[3]["id"]
+
+    click_button "更新する"
+
+    assert_text "9時間\n"
+    assert_text "22:00 〜 07:00"
+  end
+
+  test "regist learning_times 4h, and update learning_times 4h" do
+    visit "/reports/new"
+    fill_in "report_title", with: "テスト日報"
+    fill_in "report_description", with: "複数時間登録・更新のパターン"
+
+    selects = all("select")
+    select "22", from: selects[0]["id"]
+    select "00", from: selects[1]["id"]
+    select "00", from: selects[2]["id"]
+    select "00", from: selects[3]["id"]
+
+    click_link "学習時間追加"
+    selects = all("select")
+    select "00", from: selects[4]["id"]
+    select "30", from: selects[5]["id"]
+    select "02", from: selects[6]["id"]
+    select "30", from: selects[7]["id"]
+
+    click_button "登録する"
+
+    assert_text "4時間\n"
+    assert_text "22:00 〜 00:00"
+    assert_text "00:30 〜 02:30"
+
+    all(".thread__actions-item")[0].click
+    selects = all("select")
+    select "23", from: selects[2]["id"]
+    select "00", from: selects[3]["id"]
+
+    select "23", from: selects[4]["id"]
+    select "30", from: selects[5]["id"]
+
+    click_button "更新する"
+
+    assert_text "4時間\n"
+    assert_text "22:00 〜 23:00"
+    assert_text "23:30 〜 02:30"
+  end
 end
