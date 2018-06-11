@@ -47,14 +47,7 @@ Rails.application.routes.draw do
   end
 
   resources :notifications, only: %i(show)
-  get "pages/new", to: "pages#new"
-  get "pages", to: "pages#index", as: :pages
-  post "pages", to: "pages#create"
-  get "pages/:title", to: "pages#show", as: :page
-  patch "pages/:title", to: "pages#update"
-  put "pages/:title", to: "pages#update"
-  delete "pages/:title", to: "pages#destroy"
-  get "pages/:title/edit", to: "pages#edit"
+  resources :pages, param: :title
 
   resources :questions do
     resources :answers, only: %i(edit create update destroy)

@@ -1,4 +1,4 @@
-= form_for page, url: url, html: { method: method, class: "form" } do |f|
+= form_with model: page, local: true, class: "form" do |f|
   - if page.errors.any?
     = error_messages_for :page
   .form-item
@@ -19,9 +19,9 @@
     ul.form-actions__items
       li.form-actions__item
         - if params[:action] == 'new' || params[:action] == 'create'
-          = link_to 'キャンセル', pages_path, class: 'is-button-standard-md-secondary'
+          = link_to 'キャンセル', :pages, class: 'is-button-standard-md-secondary'
         - elsif params[:action] == 'edit' || params[:action] == 'update'
-          = link_to 'キャンセル', pages_path, class: 'is-button-standard-md-secondary'
+          = link_to 'キャンセル', :pages, class: 'is-button-standard-md-secondary'
       li.form-actions__item
         = button_tag(class: 'is-button-standard-lg-warning') do
           - if params[:action] == 'new' || params[:action] == 'create' || params[:action] == 'edit' || params[:action] == 'update'

@@ -38,7 +38,7 @@ nav.global-nav.js-show-mobile-nav__target.js-show-mobile-nav
             .global-nav-links__link-label
               | みんなのブログ
         li.global-nav-links__item
-          = link_to "/pages", class: "global-nav-links__link #{current_link('/pages')}" do
+          = link_to :pages, class: "global-nav-links__link #{current_link('/pages')}" do
             .global-nav-links__link-icon
               i.fa.fa-file-o
             .global-nav-links__link-label
