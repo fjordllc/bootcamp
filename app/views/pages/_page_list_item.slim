@@ -1,10 +1,10 @@
 .thread-list-item
   header.thread-list-item__header
     h2.thread-list-item__title(itemprop="name")
-      = link_to "/pages/#{page.title}", itempro: "url", class: "thread-list-item__title-link" do
+      = link_to page, itemprop: "url", class: "thread-list-item__title-link" do
         = page.title
     .thread-list-item__actions
-      = link_to "/pages/#{page.title}/edit", class: 'thread-list-item__actions-link' do
+      = link_to [:edit, page], class: 'thread-list-item__actions-link' do
         i.fa.fa-pencil
-      = link_to  "/pages/#{page.title}", data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'thread-list-item__actions-link' do
+      = link_to  page, data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'thread-list-item__actions-link' do
         i.fa.fa-trash-o
