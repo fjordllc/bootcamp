@@ -18,7 +18,8 @@ body
     background-position: center center
     background-attachment: fixed
   &.is-mobile-nav-active
-    overflow: hidden
+    +media-breakpoint-down(sm)
+      overflow: hidden
 
 .container
   max-width: 100%
