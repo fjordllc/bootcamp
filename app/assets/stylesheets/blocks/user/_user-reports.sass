@@ -63,6 +63,12 @@
 .user-reports-item__comment-count-value
   +text-block(.75rem 1.4, block $muted-text inline-block)
 
+.user-reports-item__checked
+  color: $accent-color
+  +position(absolute, left -.25rem, top 0)
+  font-size: 1.5rem
+  text-shadow: $main-color .0625rem .0625rem 0
+
 .user-reports-item-actions
   +position(absolute, right 0, top .25rem)
   +media-breakpoint-down(sm)
@@ -80,3 +86,4 @@
   align-items: center
   justify-content: center
   +text-block(1.125rem, $muted-text)
+

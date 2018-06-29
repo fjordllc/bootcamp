@@ -16,3 +16,7 @@
                 i.fa.fa-comment-o
               .user-reports-item__comment-count-value
                 = product.comments.size
+          - if product.checks.present?
+            .user-reports-item__checked
+              i.fa.fa-check
+
