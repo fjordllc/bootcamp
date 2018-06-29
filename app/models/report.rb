@@ -8,7 +8,7 @@ class Report < ActiveRecord::Base
   has_and_belongs_to_many :practices
   belongs_to :user, touch: true
 
-  validates :title, presence: true, uniqueness: true, length: { maximum: 255 }
+  validates :title, presence: true, length: { maximum: 255 }
   validates :description, presence: true
   validates :user, presence: true
   validates :reported_at, presence: true, uniqueness: { scope: :user }
