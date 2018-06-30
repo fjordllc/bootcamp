@@ -5,12 +5,19 @@ header.page-header
       h2.page-header__title
         = @practice.title
       .page-header__action
-        = link_to practice_reports_path(@practice), class: 'is-button-standard-md-secondary' do
-          i.fa.fa-angle-left
-          = t('このプラクティスに関する日報')
-        = link_to practices_path, class: 'is-button-standard-md-secondary' do
-          i.fa.fa-angle-left
-          = t('practices')
+        ul.practice-nav
+          li.is_active
+            = link_to practice_path(@practice), class: 'is-button-standard-md-secondary' do
+              i.fa.fa-angle-left
+              = t('内容')
+          li
+            = link_to practice_reports_path(@practice), class: 'is-button-standard-md-secondary' do
+              i.fa.fa-angle-left
+              = t('このプラクティスに関する日報')
+          li
+            = link_to practices_path, class: 'is-button-standard-md-secondary' do
+              i.fa.fa-angle-left
+              = t('practices')
 
 .container
   .row.is-gutter-width-32
