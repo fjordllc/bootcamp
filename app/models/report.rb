@@ -12,4 +12,13 @@ class Report < ActiveRecord::Base
   validates :description, presence: true
   validates :user, presence: true
   validates :reported_at, presence: true, uniqueness: { scope: :user }
+
+  def previous_report
+    Report.where("id < ?", self.id).order("id DESC").first
+  end
+
+  def next_report
+    Report.where("id > ?", self.id).order("id ASC").first
+  end
+  
 end
