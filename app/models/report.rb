@@ -14,11 +14,11 @@ class Report < ActiveRecord::Base
   validates :reported_at, presence: true, uniqueness: { scope: :user }
 
   def previous
-    Report.where("created_at < ?", self.created_at).order("created_at DESC").first
+    Report.order("created_at DESC").find_by("created_at < ?", self.created_at)
   end
 
   def next
-    Report.where("created_at > ?", self.created_at).order("created_at ASC").first
+    Report.order("created_at ASC").find_by("created_at < ?", self.created_at)
   end
   
 end
