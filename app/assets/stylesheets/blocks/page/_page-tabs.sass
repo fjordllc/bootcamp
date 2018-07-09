@@ -1,0 +1,34 @@
+.page-tabs
+  background-color: #cbcbcb
+  margin-bottom: 1.5rem
+  margin-top: -1.5rem
+  padding-top: .5rem
+  border-bottom: solid 1px #b9b9b9
+  +media-breakpoint-down(sm)
+    margin-top: -1rem
+    margin-bottom: 1rem
+
+.page-tabs__items
+  display: flex
+  +margin(horizontal, -.125rem)
+  +top(1px)
+
+.page-tabs__item
+  +padding(horizontal, .125rem)
+  min-width: 7.5rem
+
+.page-tabs__item-link
+  +flex-link
+  +text-block(.825rem 1, #7d8486 600)
+  align-items: center
+  justify-content: center
+  height: 2.75rem
+  background-color: rgba(white, .1)
+  +padding(horizontal, 1em)
+  +border-radius(top, .25rem)
+  border: solid 1px #b9b9b9
+  &.is-current
+    background-color: $background-color
+    border-color: #b9b9b9
+    border-bottom-color: $background-color
+    color: $default-text
