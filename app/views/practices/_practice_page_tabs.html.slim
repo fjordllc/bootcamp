@@ -1,0 +1,13 @@
+.page-tabs
+  .container
+    ul.page-tabs__items
+      li.page-tabs__item
+        = link_to practice_path(@practice), class: "page-tabs__item-link #{current == 1 ? 'is-current' : ''}" do
+          | プラクティス
+      li.page-tabs__item
+        = link_to practice_reports_path(@practice), class: "page-tabs__item-link #{current == 2 ? 'is-current' : ''}" do
+          | 日報
+      - if admin_login?
+        li.page-tabs__item
+          = link_to "", class: "page-tabs__item-link #{current == 3 ? 'is-current' : ''}" do
+            | 提出物
