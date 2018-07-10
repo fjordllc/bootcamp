@@ -164,14 +164,12 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "00:30 〜 02:30"
   end
 
-  # 日報のページに前後の日報へのリンクが有る
   test "Should have links to previous & next report" do
     visit "/reports/#{reports(:report_2).id}"
     assert_text "前"
     assert_text "次"
   end
 
-  # ユーザーの最初の日報のページには"次"はあるが”前”のリンクがない
   test "Should not have a link to previous report on the first report" do
     visit "/reports/#{reports(:report_1).id}"
     assert_no_text "前"
