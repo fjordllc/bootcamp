@@ -12,4 +12,4 @@ dependencies:
 
 test:
   override:
-    - ./bin/rails test
+    - ./bin/test
