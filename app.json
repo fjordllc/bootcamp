@@ -12,8 +12,6 @@
     "GOOGLE_STORAGE_ACCESS_KEY": { "required": true },
     "GOOGLE_STORAGE_SECRET": { "required": true },
     "BOOTCAMP_PASSWORD":{ "required":true },
-    "ROOM_ID":{ "required": true },
-    "SECRET":{ "required": true },
     "SLACK_WEBHOOK_URL":{ "required": true }
   },
   "addons":[
@@ -21,5 +19,31 @@
     "heroku-postgresql",
     "newrelic",
     "papertrail"
-  ]
+  ],
+  "environments": {
+    "test": {
+      "env": {
+        "RACK_ENV": "test",
+        "RAILS_ENV": "test",
+        "HEROKU_APP_NAME": "bootcamp-fjord-jp-test",
+        "HEROKU_PARENT_APP_NAME": "bootcamp-fjord-jp",
+        "GOOGLE_STORAGE_BUCKET_NAME": "dummy",
+        "GOOGLE_STORAGE_ACCESS_KEY": "dummy",
+        "GOOGLE_STORAGE_SECRET": "dummy",
+        "BOOTCAMP_PASSWORD": "dummy",
+        "SLACK_WEBHOOK_URL": "dummy"
+      },
+      "scripts": {
+        "test-setup": "gem install rubocop",
+        "test": "./bin/test"
+      },
+      "addons":[
+    		"heroku-postgresql"
+      ],
+      "buildpacks": [
+        { "url": "heroku/ruby" },
+        { "url": "https://github.com/heroku/heroku-buildpack-google-chrome" }
+      ]
+    }
+  }
 }
