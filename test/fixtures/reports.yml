@@ -1,4 +1,5 @@
 report_1:
+  id: 1
   user: komagata
   title: "作業週1日目"
   description: |-
@@ -8,6 +9,7 @@ report_1:
   created_at: "2017-01-01 00:00:00"
 
 report_2:
+  id: 3
   user: komagata
   title: "作業週2日目"
   description: |-
@@ -17,12 +19,13 @@ report_2:
   created_at: "2017-01-02 00:00:00"
 
 report_3:
+  id: 2
   user: komagata
   title: "学習週1日目"
   description: |-
     今日は CSS の勉強をしました。デザイン難しい。。。
   reported_at: "2017-01-03"
-  created_at: "2017-01-03 00:00:00"
+  created_at: "2017-01-02 00:00:00"
 
 report_4:
   user: machida
