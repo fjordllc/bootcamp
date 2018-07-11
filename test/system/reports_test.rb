@@ -176,7 +176,6 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "次"
   end
 
-  # ユーザーの最新の日報のページには”前”はあるが”次”のリンクがない
   test "Should not have a link to  next report in the newest report" do
     visit "/reports/#{reports(:report_3).id}"
     assert_text "前"
