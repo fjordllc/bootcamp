@@ -1,29 +1,82 @@
+.company-logos
+  margin-top: 1.5rem
+  +media-breakpoint-down(sm)
+    margin-top: 1rem
+
 .company-logos__items
   display: flex
   justify-content: center
   align-items: center
+  flex-wrap: wrap
+  +margin(horizontal, -1rem)
+  margin-bottom: -2rem
   +media-breakpoint-down(sm)
-    margin-bottom: 1rem
+    +margin(horizontal, -.75rem)
+    margin-bottom: -1.5rem
 
 .company-logos__item
   +padding(horizontal, 1rem)
+  margin-bottom: 2rem
   +media-breakpoint-down(sm)
-    flex: 0 0 50%
-    +padding(horizontal, 0)
-    display: flex
-    align-items: center
-    height: 3rem
+    +padding(horizontal, .75rem)
+    margin-bottom: 1.5rem
 
 .company-logos__item-link
   display: block
-  +media-breakpoint-down(sm)
-    display: flex
-    align-items: center
-    justify-content: center
-    height: 3rem
-    width: 100%
 
 .company-logos__item-image
-  +size(auto 4rem)
+  max-width: 300px
+  min-width: 200px
+  max-height: 2.5rem
   +media-breakpoint-down(sm)
-    +size(auto 3rem)
+    max-width: 240px
+    min-width: 140px
+    max-height: 2rem
+  &.is-lg
+    min-width: 170px
+    +media-breakpoint-down(sm)
+      min-width: 110px
+  &.is-md
+    min-width: 150px
+    max-height: 2.25rem
+    +media-breakpoint-down(sm)
+      max-height: 1.25rem
+      min-width: 80px
+
+.company-logos__more
+  +text-block(.875rem 1.4, flex)
+  justify-content: flex-end
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+    margin-top: 1rem
+
+.company-forkwell
+  margin-top: 1.5rem
+  display: flex
+  align-items: center
+  justify-content: center
+  +media-breakpoint-down(sm)
+    display: block
+    margin-top: 1rem
+    padding-top: 1rem
+    border-top: dashed 1px #ccc
+
+.company-forkwell__logo
+  min-width: 140px
+  margin-right: 1rem
+  +media-breakpoint-down(sm)
+    max-height: 1.25rem
+    min-width: 80px
+    margin-right: 0
+    margin-bottom: .5rem
+
+.company-forkwell__description
+  +text-block(.875rem 1.5)
+  +media-breakpoint-down(sm)
+    font-size: .8125rem
+    br
+      display: none
+  a
+    +hover-link-reversal
+    color: blue
+    cursor: pointer
