@@ -12,8 +12,6 @@
     "GOOGLE_STORAGE_ACCESS_KEY": { "required": true },
     "GOOGLE_STORAGE_SECRET": { "required": true },
     "BOOTCAMP_PASSWORD":{ "required":true },
-    "ROOM_ID":{ "required": true },
-    "SECRET":{ "required": true },
     "SLACK_WEBHOOK_URL":{ "required": true }
   },
   "addons":[
