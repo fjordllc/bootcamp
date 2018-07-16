@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  namespace :practices do
-    get 'products/show'
-  end
   root to: "home#index"
   get "welcome", to: "home#welcome", as: "welcome"
 
