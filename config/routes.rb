@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :practices do
+    get 'products/show'
+  end
   root to: "home#index"
   get "welcome", to: "home#welcome", as: "welcome"
 
@@ -34,6 +37,7 @@ Rails.application.routes.draw do
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
     resource :reports, only: %i(show), controller: "practices/reports"
+    resource :products, only: %i(show), controller: "practices/products"
   end
   resources :practices do
     resources :products do
