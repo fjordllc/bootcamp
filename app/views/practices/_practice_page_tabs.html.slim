@@ -9,5 +9,5 @@
           | 日報
       - if admin_login?
         li.page-tabs__item
-          = link_to "", class: "page-tabs__item-link #{current == 3 ? 'is-current' : ''}" do
+          = link_to practice_products_path(@practice), class: "page-tabs__item-link #{current == 3 ? 'is-current' : ''}" do
             | 提出物

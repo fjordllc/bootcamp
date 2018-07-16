@@ -9,9 +9,9 @@ header.page-header
           i.fa.fa-angle-left
           = t('practices')
 
-= render "practices/practice_page_tabs", current: 2
+= render "practices/practice_page_tabs", current: 3
 
 .container
   .col-md-6.col-xs-12
-    - if @practice.reports.any?
-      = render 'reports', reports: @practice.reports.eager_load(:user, :comments).order(updated_at: :desc)
+    - if admin_login?
+      = render 'products', products: @practice.products.eager_load(:user, :comments).order(updated_at: :desc)
