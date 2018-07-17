@@ -17,11 +17,11 @@ class CurrentLinkTest < ApplicationSystemTestCase
     assert_selector "a.global-nav-links__link.is-active[href='/practices']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    click_link "rubyをインストールする"
+    first(".category-practices-item__title-link").click
     assert_selector "a.global-nav-links__link.is-active[href='/practices']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    page.all('.page-tabs__item-link')[1].click
+    page.all(".page-tabs__item-link")[1].click
     assert_selector "a.global-nav-links__link.is-active[href='/reports']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
