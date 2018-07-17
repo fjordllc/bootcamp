@@ -21,11 +21,11 @@ class CurrentLinkTest < ApplicationSystemTestCase
     assert_selector "a.global-nav-links__link.is-active[href='/practices']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    click_link "このプラクティスに関する日報"
+    page.all('.page-tabs__item-link')[1].click
     assert_selector "a.global-nav-links__link.is-active[href='/reports']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    click_link "日報"
+    find("a[href='/reports']").click
     assert_equal current_path, "/reports"
     assert_selector "a.global-nav-links__link.is-active[href='/reports']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
