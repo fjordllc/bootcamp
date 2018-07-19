@@ -6,6 +6,7 @@ class PagesTest < ApplicationSystemTestCase
   test "GET /pages" do
     visit "/pages"
     assert_equal "Wiki | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_selector "nav.pagination", count: 2
   end
 
   test "GET /pages/test1" do
