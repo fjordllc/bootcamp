@@ -1,6 +1,20 @@
 require "#{Rails.root}/config/environment"
 
 namespace :bootcamp do
+  namespace :oneshot do
+    desc "Change format that twitter url change to twitter account"
+    task :change_twitter_format do
+      User.all.each do |user|
+        new_twitter_account = user.twitter_account.sub(/^https:\/\/twitter.com\//, "")
+                                                  .sub(/^http:\/\/twitter.com\//, "")
+        puts "old: #{user.twitter_account}, new: #{new_twitter_account}"
+        if user.twitter_account != new_twitter_account
+          user.update!(twitter_account: new_twitter_account)
+        end
+      end
+    end
+  end
+
   desc "Replace practices"
   task :replace_practice do
     include SeedHelper

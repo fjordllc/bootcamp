@@ -51,7 +51,7 @@ header.page-header
                       li
                         = link_to user_github_url(@user), class: 'is-button-standard-sm-secondary is-icon' do
                           i.fa.fa-github-alt
-                    - if @user.twitter_url?
+                    - if @user.twitter_account?
                       li
                         = link_to 'https://twitter.com/' + @user.twitter_id, class: 'is-button-standard-sm-secondary is-icon' do
                           i.fa.fa-twitter
