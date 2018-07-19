@@ -5,7 +5,7 @@ komagata:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Masaki
   last_name: Komagata
-  twitter_url: http://twitter.com/komagata
+  twitter_account: komagata
   facebook_url: http://www.facebook.com/komagata1111
   blog_url: http://komagata.org
   feed_url: http://docs.komagata.org/index.atom
@@ -22,7 +22,7 @@ machida:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Teppei
   last_name: Machida
-  twitter_url: http://twitter.com/machida
+  twitter_account: machida
   facebook_url:
   blog_url: http://machida.fjord.jp/
   feed_url: http://machida.fjord.jp/feed
@@ -39,7 +39,7 @@ tanaka:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Taro
   last_name: Tanaka
-  twitter_url: http://twitter.com/tanaka
+  twitter_account: tanaka
   facebook_url: http://www.facebook.com/tanaka
   blog_url: http://tanaka.com
   feed_url: http://tanaka.com/index.atom
@@ -55,7 +55,7 @@ mineo:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Jirou
   last_name: Mineo
-  twitter_url: http://twitter.com/mineo
+  twitter_account: mineo
   facebook_url: http://www.facebook.com/mineo
   blog_url: http://mineo.com
   feed_url: http://mineo.com/index.atom
@@ -71,7 +71,7 @@ yameo:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: 辞目夫
   last_name: 辞目
-  twitter_url: http://twitter.com/yameo
+  twitter_account: yameo
   facebook_url: http://www.facebook.com/yameo
   blog_url: http://yameo.org
   company: company_1
@@ -86,7 +86,7 @@ yamada:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Taro
   last_name: Yamada
-  twitter_url: http://twitter.com/yamada
+  twitter_account: yamada
   facebook_url: http://www.facebook.com/yamada
   blog_url: http://yamada.com
   feed_url: http://yamada.com/index.atom
@@ -101,7 +101,7 @@ kimura:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Tadasi
   last_name: Kimura
-  twitter_url: http://twitter.com/kimura
+  twitter_account: kimura
   facebook_url: http://www.facebook.com/kimura
   blog_url: http://kimura.org
   feed_url: http://kimura.org/index.atom

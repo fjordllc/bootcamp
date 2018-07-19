@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   validates :login_name, presence: true, uniqueness: true
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
+  validates :twitter_account, length: { maximum: 15 }, format: { with: /\A\w+\z/, message: I18n.t("errros.messages.only_alphanumeric_and_underscore")  }
 
   has_attached_file :face, styles: { small: "32x32>", normal: "72x72#" }
   validates_attachment_content_type :face, content_type: /\Aimage\/.*\z/
@@ -75,11 +76,11 @@ class User < ActiveRecord::Base
     "#{last_name} #{first_name}"
   end
 
-  def twitter_id
-    twitter_url.sub(/^https:\/\/twitter.com\//, "")
-               .sub(/^http:\/\/twitter.com\//, "")
-               .sub(/^@/, "")
-  end
+#  def twitter_id
+#    twitter_url.sub(/^https:\/\/twitter.com\//, "")
+#               .sub(/^http:\/\/twitter.com\//, "")
+#               .sub(/^@/, "")
+#  end
 
   def admin?
     ADMIN_EMAILS.include?(email)

@@ -4,9 +4,9 @@
       li.user-data-sns__item
         = link_to user_github_url(user), class: 'user-data-sns__item-link' do
           i.fa.fa-github-alt
-    - if user.twitter_url?
+    - if user.twitter_account?
       li.user-data-sns__item
-        = link_to 'https://twitter.com/' + user.twitter_id, class: 'user-data-sns__item-link' do
+        = link_to user.twitter_url, class: 'user-data-sns__item-link' do
           i.fa.fa-twitter
     - if user.facebook_url?
       li.user-data-sns__item

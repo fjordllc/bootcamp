@@ -36,6 +36,10 @@ ja:
     am: "午前"
     pm: "午後"
 
+  errors:
+    messages:
+      only_alphanumeric_and_underscore: "英文字と_（アンダースコア）のみが使用できます"
+
   support:
     array:
       sentence_connector: "と"
@@ -169,7 +173,7 @@ ja:
         description: "自己紹介（動ける曜日・時間）"
         email: "Email"
         twitter: "Twitter"
-        twitter_url: "Twitter URL"
+        twitter_account: "Twitterアカウント"
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
         feed_url: "ブログのフィードURL"
@@ -211,7 +215,7 @@ ja:
         work_time: "希望時間帯"
         work_days: "動ける日数"
         programming_experience: "プログラミング経験"
-        twitter_url: "Twitter URL"
+        twitter_account: "Twitterアカウント"
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
         github_account: "Githubアカウント"
@@ -294,7 +298,7 @@ ja:
         last_name: "姓"
         description: "自己紹介（動ける曜日・時間）"
         email: "Email"
-        twitter_url: "Twitter URL"
+        twitter_account: "Twitterアカウント"
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
         feed_url: "ブログのフィードURL"
@@ -371,7 +375,7 @@ ja:
         work_time: "希望時間帯"
         work_days: "動ける日数"
         programming_experience: "プログラミング経験"
-        twitter_url: "Twitter URL"
+        twitter_account: "Twitterアカウント"
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
         github_account: "Githubアカウント"
