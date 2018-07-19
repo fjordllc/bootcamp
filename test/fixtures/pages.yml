@@ -5,3 +5,9 @@ page_1:
 page_2:
   title: テスト
   body: "## テスト\nテスト"
+
+<% 60.times do |n| %>
+page_dummy_<%= n.to_s %>:
+  title: <%= "WikiPage" + n.to_s %>
+  body: "## テスト"
+<% end %>
