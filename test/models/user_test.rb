@@ -19,4 +19,20 @@ class UserTest < ActiveSupport::TestCase
       assert_not users(:machida).active?
     end
   end
+
+  test "twitter_account" do
+    user = users(:komagata)
+    user.twitter_account = ""
+    assert user.valid?
+    user.twitter_account = "azAz_09"
+    assert user.valid?
+    user.twitter_account = "-"
+    assert user.invalid?
+    user.twitter_account = "あ"
+    assert user.invalid?
+    user.twitter_account = ":"
+    assert user.invalid?
+    user.twitter_account = "A"*16
+    assert user.invalid?
+  end
 end
