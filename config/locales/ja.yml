@@ -36,10 +36,6 @@ ja:
     am: "午前"
     pm: "午後"
 
-  errors:
-    messages:
-      only_alphanumeric_and_underscore: "英文字と_（アンダースコア）のみが使用できます"
-
   support:
     array:
       sentence_connector: "と"
@@ -248,6 +244,7 @@ ja:
       line_too_long: "は1行を%{count}文字以内で入力して下さい。"
       not_a_zenkaku: "は全角文字を一文字以上含めて下さい。"
       wrong_image: "はjpg、png、gifのいずれかにして下さい。"
+      only_alphanumeric_and_underscore: "は英文字と_（アンダースコア）のみが使用できます"
 
   activerecord:
     models:

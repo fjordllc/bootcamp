@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   validates :login_name, presence: true, uniqueness: true
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
-  validates :twitter_account, length: { maximum: 15 }, format: { with: /\A\w+\z/, message: I18n.t("errros.messages.only_alphanumeric_and_underscore")  }
+  validates :twitter_account, length: { maximum: 15 }, format: { with: /\A\w+\z/, message: I18n.t("errors.messages.only_alphanumeric_and_underscore")  }
 
   has_attached_file :face, styles: { small: "32x32>", normal: "72x72#" }
   validates_attachment_content_type :face, content_type: /\Aimage\/.*\z/
