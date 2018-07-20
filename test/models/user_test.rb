@@ -24,7 +24,7 @@ class UserTest < ActiveSupport::TestCase
     user = users(:komagata)
     user.twitter_account = ""
     assert user.valid?
-    user.twitter_account = "azAz_09"
+    user.twitter_account = "azAZ_09"
     assert user.valid?
     user.twitter_account = "-"
     assert user.invalid?
