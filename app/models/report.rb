@@ -15,16 +15,13 @@ class Report < ActiveRecord::Base
 
   def previous
     Report
-      .where("user_id = ? AND created_at = ? AND id < ?", user_id, created_at, id)
-      .or(Report.where("user_id = ? AND created_at < ?", user_id, created_at))
-      .order("created_at DESC, id DESC")
-      .first
+      .where(["user_id = ? AND created_at <= ? AND id <> ?", user_id, created_at, id])
+      .order(created_at: :asc).first
   end
 
   def next
-    Report.where("user_id = ? AND created_at = ? AND id > ?", user_id, created_at, id)
-      .or(Report.where("user_id = ? AND created_at > ?", user_id, created_at))
-      .order("created_at ASC, id ASC")
-      .first
+    Report
+      .where(["user_id = ? AND created_at >= ? AND id <> ?", user_id, created_at, id])
+      .order(created_at: :asc).first
   end
 end
