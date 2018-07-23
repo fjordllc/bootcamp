@@ -35,7 +35,8 @@ class PagesTest < ApplicationSystemTestCase
 
 
   test "Show pagination" do
-    60.times do |n|
+    Page.delete_all
+    21.times do |n|
       Page.create( title: "test#{n}", body: "test#{n}")
     end
     visit "/pages"
