@@ -4,12 +4,15 @@ namespace :bootcamp do
   namespace :oneshot do
     desc "Change format that twitter url change to twitter account"
     task :change_twitter_format do
-      User.all.each do |user|
-        new_twitter_account = user.twitter_account.sub(/^https:\/\/twitter.com\//, "")
-                                                  .sub(/^http:\/\/twitter.com\//, "")
-        puts "old: #{user.twitter_account}, new: #{new_twitter_account}"
-        if user.twitter_account != new_twitter_account
-          user.update!(twitter_account: new_twitter_account)
+      User.transaction do
+        User.where.not(twitter_account: nil).find_each do |user|
+          new_twitter_account = user.twitter_account.sub(%r(\Ahttps://twitter.com/), "")
+                                                    .sub(%r(\Ahttp://twitter.com/), "")
+
+          puts "id: #{user.id}, old: #{user.twitter_account}, new: #{new_twitter_account}"
+          if user.twitter_account != new_twitter_account
+            user.update!(twitter_account: new_twitter_account)
+          end
         end
       end
     end
