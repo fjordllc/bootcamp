@@ -76,12 +76,6 @@ class User < ActiveRecord::Base
     "#{last_name} #{first_name}"
   end
 
-#  def twitter_id
-#    twitter_url.sub(/^https:\/\/twitter.com\//, "")
-#               .sub(/^http:\/\/twitter.com\//, "")
-#               .sub(/^@/, "")
-#  end
-
   def admin?
     ADMIN_EMAILS.include?(email)
   end
