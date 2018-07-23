@@ -5,6 +5,7 @@ report_1:
     今日はローカルで怖話を動かしてみました。
     rbenv で ruby を動かすのは初めてだったので、色々手間取りました。
   reported_at: "2017-01-01"
+  created_at: "2017-01-01"
 
 report_2:
   user: komagata
@@ -13,6 +14,7 @@ report_2:
     今日はローカルで Fjord Bootcamp を動かしてみました。
     ruby の指定バージョンが 2.2.3 だったので、 rbenv で ruby のバージョンを上げました。
   reported_at: "2017-01-02"
+  created_at: "2017-01-01"
 
 report_3:
   user: komagata
@@ -20,6 +22,7 @@ report_3:
   description: |-
     今日は CSS の勉強をしました。デザイン難しい。。。
   reported_at: "2017-01-03"
+  created_at: "2017-01-01"
 
 report_4:
   user: machida
@@ -27,6 +30,7 @@ report_4:
   description: |-
     Fjord Bootcamp で Bootstrap のバージョン更新を行った他、デザインの微調整を行いました。
   reported_at: "2017-01-01"
+  created_at: "2017-01-01"
 
 report_5:
   user: tanaka
@@ -34,6 +38,7 @@ report_5:
   description: |-
     今日は　Rubyの基礎 を学習しました。
   reported_at: "2017-01-01"
+  created_at: "2017-01-01"
 
 report_6:
   user: tanaka
@@ -41,6 +46,7 @@ report_6:
   description: |-
     今日は　Railsの基礎 を学習しました。
   reported_at: "2017-01-02"
+  created_at: "2017-01-01"
 
 report_7:
   user: tanaka
@@ -48,6 +54,7 @@ report_7:
   description: |-
     今日は　RSpecの基礎 を学習しました。
   reported_at: "2017-01-03"
+  created_at: "2017-01-01"
 
 report_8:
   user: yamada
@@ -55,3 +62,4 @@ report_8:
   description: |-
     いろいろやりました。
   reported_at: "2017-01-01"
+  created_at: "2017-01-01"
