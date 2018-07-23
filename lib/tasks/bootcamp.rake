@@ -6,8 +6,7 @@ namespace :bootcamp do
     task :change_twitter_format do
       User.transaction do
         User.where.not(twitter_account: nil).find_each do |user|
-          new_twitter_account = user.twitter_account.sub(%r(\Ahttps://twitter.com/), "")
-                                                    .sub(%r(\Ahttp://twitter.com/), "")
+          new_twitter_account = user.twitter_account.sub(%r(\Ahttp(s)?://twitter.com/), "")                              
 
           puts "id: #{user.id}, old: #{user.twitter_account}, new: #{new_twitter_account}"
           if user.twitter_account != new_twitter_account
