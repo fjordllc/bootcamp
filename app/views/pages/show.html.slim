@@ -4,7 +4,7 @@ header.page-header
     .page-header__container
       h1.page-header__title= title
       .page-header__action
-        = link_to "/pages/new", class: 'is-button-standard-md-warning' do
+        = link_to [:new, :page], class: 'is-button-standard-md-warning' do
           i.fa.fa-plus
           | 新規ページ
 
@@ -22,11 +22,11 @@ header.page-header
             .thread__actions
               ul.thread__actions-items
                 li.thread__actions-item
-                  = link_to "/pages/#{@page.title}/edit", class: 'thread__actions-item-link is-success' do
+                  = link_to [:edit, @page], class: 'thread__actions-item-link is-success' do
                     i.fa.fa-pencil
                 li.thread__actions-item
-                  = link_to "/pages/#{@page.title}", data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread__actions-item-link is-danger' do
+                  = link_to @page, data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread__actions-item-link is-danger' do
                     i.fa.fa-trash-o
-            = link_to "/pages/", class: 'is-button-standard-sm-secondary' do
+            = link_to :pages, class: 'is-button-standard-sm-secondary' do
               i.fa.fa-angle-left
               | 一覧に戻る

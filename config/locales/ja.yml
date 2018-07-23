@@ -256,6 +256,7 @@ ja:
       page: "Wiki"
       question: "Q&A"
       contact: "申し込みフォーム"
+      product: "提出物"
 
     enums:
       user:
@@ -511,7 +512,7 @@ ja:
   category_was_successfully_updated: "カテゴリーを更新しました。"
   category_was_successfully_deleted: "カテゴリーを削除しました。"
   contact_was_successfully_created: "お申込みを受け付けました。"
-  report_was_successfully_check: "この日報を確認しました。"
+  checkable_was_successfully_check: "この%{checkable}を確認しました。"
   learning_users: "学習中ユーザー"
   for: "%{target} 課題"
   for: "%{target} 課題"
