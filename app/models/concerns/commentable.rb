@@ -10,7 +10,7 @@ module Commentable
     when Report
       self[:title]
     when Product
-      self[:body][0, 50]
+      self.practice[:title]
     end
   end
 
