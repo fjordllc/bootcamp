@@ -10,6 +10,8 @@ header.page-header
           | 新規ページ
 .page-body
   .container
+    = paginate @pages, position: "top"
     .thread-list
       - @pages.each do |page|
         = render 'page_list_item', page: page
+    = paginate @pages, position: "bottom"
