@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   before_action :set_page, only: %i(show edit update destroy)
 
   def index
-    @pages = Page.all
+    @pages = Page.page(params[:page])
   end
 
   def show
