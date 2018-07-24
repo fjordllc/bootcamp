@@ -10,7 +10,7 @@ module Commentable
     when Report
       self[:title]
     when Product
-      self.practice[:title]
+      I18n.translate("practice's_product", practice: self.practice[:title])
     end
   end
 
