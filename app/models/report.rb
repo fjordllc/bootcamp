@@ -14,14 +14,10 @@ class Report < ActiveRecord::Base
   validates :reported_at, presence: true, uniqueness: { scope: :user }
 
   def previous
-    Report
-      .where(["user_id = ? AND created_at <= ? AND id <> ?", user_id, created_at, id])
-      .order(created_at: :asc).first
+    Report.where("user_id = ? AND created_at <= ? AND id <> ?", user_id, created_at, id).order(id: :DESC).first
   end
 
   def next
-    Report
-      .where(["user_id = ? AND created_at >= ? AND id <> ?", user_id, created_at, id])
-      .order(created_at: :asc).first
+    Report.where("user_id = ? AND created_at >= ? AND id <> ?", user_id, created_at, id).order(id: :ASC).first
   end
 end
