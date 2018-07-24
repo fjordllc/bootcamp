@@ -37,7 +37,7 @@ class PagesTest < ApplicationSystemTestCase
   test "Show pagination" do
     Page.delete_all
     21.times do |n|
-      Page.create( title: "test#{n}", body: "test#{n}")
+      Page.create(title: "test#{n}", body: "test#{n}")
     end
     visit "/pages"
     assert_selector "nav.pagination", count: 2
