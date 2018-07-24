@@ -32,7 +32,7 @@ class Admin::UsersController < AdminController
         :last_name,
         :password,
         :password_confirmation,
-        :twitter_url,
+        :twitter_account,
         :facebook_url,
         :github_account,
         :slack_account,
