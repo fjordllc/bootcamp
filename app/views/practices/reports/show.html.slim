@@ -14,4 +14,4 @@ header.page-header
 .container
   .col-md-6.col-xs-12
     - if @practice.reports.any?
-      = render 'reports', reports: @practice.reports.eager_load(:user, :comments).order(updated_at: :desc)
+      = render 'reports', reports: @reports
