@@ -38,6 +38,8 @@ class ApplicationController < ActionController::Base
 
         notifier = Slack::Notifier.new ENV["SLACK_WEBHOOK_URL"], username: username
         notifier.ping text, icon_url: icon_url, attachments: attachments
+      else
+        Rails.logger.info "Notify\ntext:#{text}\nparams:#{options}"
       end
     end
 end
