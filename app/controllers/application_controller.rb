@@ -25,26 +25,19 @@ class ApplicationController < ActionController::Base
     end
 
   private
-    class NoOpHTTPClient
-      def self.post uri, params={}
-        Rails.logger.info "Notify\nwebhook_uri:#{uri}\nparams:#{params.to_s}"
-      end
-    end
+
     def init_user
       @current_user = User.find(current_user.id) if current_user
     end
 
     def notify(text, options = {})
-
-      icon_url = options[:icon_url] || "http://i.gyazo.com/a8afa9d690ff4bbd87459709bbfe8be9.png"
-      attachments = options[:attachments] || [{}]
-      username = options[:username] || "Bootcamp"
       if Rails.env.production?
+        icon_url = options[:icon_url] || "http://i.gyazo.com/a8afa9d690ff4bbd87459709bbfe8be9.png"
+        attachments = options[:attachments] || [{}]
+        username = options[:username] || "Bootcamp"
+
         notifier = Slack::Notifier.new ENV["SLACK_WEBHOOK_URL"], username: username
-      else
-        notifier = Slack::Notifier.new ENV["SLACK_WEBHOOK_URL"], username: username, http_client: NoOpHTTPClient
-      end
         notifier.ping text, icon_url: icon_url, attachments: attachments
-    
+      end
     end
 end
