@@ -12,4 +12,13 @@ class Report < ActiveRecord::Base
   validates :description, presence: true
   validates :user, presence: true
   validates :reported_at, presence: true, uniqueness: { scope: :user }
+
+  def next
+    reports = Report.where(["user_id = ? AND created_at >= ?", user_id, created_at]).order(created_at: :desc, id: :desc).limit(2)
+    if reports.first == self
+      reports.last
+    else
+      reports.first
+    end
+  end
 end
