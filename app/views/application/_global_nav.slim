@@ -8,37 +8,37 @@ nav.global-nav.js-show-mobile-nav__target.js-show-mobile-nav
     .global-nav-links.is-contents-links
       ul.global-nav-links__items
         li.global-nav-links__item
-          = link_to practices_path, class: "global-nav-links__link #{current_link('/practices')}" do
+          = link_to practices_path, class: "global-nav-links__link #{current_link(['practices'])}" do
             .global-nav-links__link-icon
               i.fa.fa-book
             .global-nav-links__link-label
               = t('practices')
         li.global-nav-links__item
-          = link_to reports_path, class: "global-nav-links__link #{current_link('/reports')}" do
+          = link_to reports_path, class: "global-nav-links__link #{current_link(['reports', 'practices/reports'])}" do
             .global-nav-links__link-icon
               i.fa.fa-pencil
             .global-nav-links__link-label
               = t('reports')
         li.global-nav-links__item
-          = link_to questions_path, class: "global-nav-links__link #{current_link('/questions')}" do
+          = link_to questions_path, class: "global-nav-links__link #{current_link(['questions'])}" do
             .global-nav-links__link-icon
               i.fa.fa-question
             .global-nav-links__link-label
               = t('questions')
         li.global-nav-links__item
-          = link_to users_path, class: "global-nav-links__link #{current_link('/users')}" do
+          = link_to users_path, class: "global-nav-links__link #{current_link(['users'])}" do
             .global-nav-links__link-icon
               i.fa.fa-users
             .global-nav-links__link-label
               = t('users')
         li.global-nav-links__item
-          = link_to feeds_path, class: "global-nav-links__link #{current_link('/feeds')}" do
+          = link_to feeds_path, class: "global-nav-links__link #{current_link(['feeds'])}" do
             .global-nav-links__link-icon
               i.fa.fa-rss
             .global-nav-links__link-label
               | みんなのブログ
         li.global-nav-links__item
-          = link_to :pages, class: "global-nav-links__link #{current_link('/pages')}" do
+          = link_to "/pages", class: "global-nav-links__link #{current_link(['pages'])}" do
             .global-nav-links__link-icon
               i.fa.fa-file-o
             .global-nav-links__link-label
@@ -51,19 +51,19 @@ nav.global-nav.js-show-mobile-nav__target.js-show-mobile-nav
               | サインアウト
         - if current_user && current_user.admin?
           li.global-nav-links__item
-            = link_to admin_users_path, class: "global-nav-links__link #{current_link('/admin/users')}" do
+            = link_to admin_users_path, class: "global-nav-links__link #{current_link(['admin/users'])}" do
               .global-nav-links__link-icon
                 i.fa.fa-wrench
               .global-nav-links__link-label
                 = t('admin_interns')
           li.global-nav-links__item
-            = link_to admin_categories_path, class: "global-nav-links__link #{current_link('/admin/categories')}" do
+            = link_to admin_categories_path, class: "global-nav-links__link #{current_link(['admin/categories'])}" do
               .global-nav-links__link-icon
                 i.fa.fa-wrench
               .global-nav-links__link-label
                 = t('categories')
           li.global-nav-links__item
-            = link_to admin_root_path, class: "global-nav-links__link #{current_link('/admin')}" do
+            = link_to admin_root_path, class: "global-nav-links__link #{current_link(['admin/home'])}" do
               .global-nav-links__link-icon
                 i.fa.fa-key
               .global-nav-links__link-label 管理ページ
