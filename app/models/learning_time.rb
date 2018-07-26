@@ -4,6 +4,7 @@ class LearningTime < ApplicationRecord
   validates :finished_at, presence: true
 
   def diff
-    finished_at - started_at
+    default = finished_at - started_at
+    (default >= 0) ? default : (finished_at + 1.day) - started_at
   end
 end
