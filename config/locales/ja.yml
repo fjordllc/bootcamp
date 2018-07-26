@@ -490,6 +490,7 @@ ja:
   back: "戻る"
   copy: "コピー"
   "bob's_practices": "%{name}のプラクティス"
+  "practice's_product": "「%{practice}」の提出物"
   invalid_email_or_password: "ユーザー名かパスワードが違います。"
   status_for_all_practices: "全てのプラクティスの状態"
   sign_in_successful: "サインインしました。"
