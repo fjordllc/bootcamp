@@ -36,7 +36,7 @@ header.page-header
                         i.fa.fa-github-alt
                   - if user.twitter_account?
                     li
-                      = link_to 'https://twitter.com/' + user.twitter_id, class: 'is-button-standard-sm-secondary is-icon' do
+                      = link_to user.twitter_url, class: 'is-button-standard-sm-secondary is-icon' do
                         i.fa.fa-twitter
                   - if user.facebook_url?
                     li
