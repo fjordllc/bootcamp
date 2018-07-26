@@ -62,6 +62,10 @@
         = link_to reports_path, class: 'is-button-standard-sm-secondary' do
           i.fa.fa-angle-left
           = t('to_index_of_reports')
+        - if report.previous
+          = link_to '前', report.previous
+        - if report.next
+          = link_to '次', report.next
 
   = link_to report.user, itempro: "url", class: "thread__author-link" do
     = gravatar_tag report.user, secure: true, size: 120, html: { class: "thread__author-icon" }

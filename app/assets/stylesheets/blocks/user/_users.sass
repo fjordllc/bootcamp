@@ -6,7 +6,7 @@
   opacity: 0.5
 
 .users-item__inner
-  background-color: $base-color
+  background-color: $base
   border-radius: .25rem
   height: 100%
   box-shadow: rgba(black, .2) 0 .0625rem .125rem
@@ -27,12 +27,12 @@
   border-radius: 50%
   +position(absolute, left -1rem, top -.375rem)
   +size(4rem)
-  border: solid $base-color .25rem
+  border: solid $base .25rem
   background-color: white
   +media-breakpoint-down(sm)
     +size(3rem)
     +position(absolute, left -.5rem, top -.25rem)
-    border: solid $base-color .125rem
+    border: solid $base .125rem
 
 .users-item__description
   padding: .5rem 1rem .75rem

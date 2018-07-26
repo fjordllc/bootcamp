@@ -11,14 +11,15 @@ body
   .modal-open
     overflow: hidden
   &.welcome
-    background-color: $base-color
+    background-color: $base
   &.has-background
     background-image: image_url('main-visual.jpg')
     background-size: cover
     background-position: center center
     background-attachment: fixed
   &.is-mobile-nav-active
-    overflow: hidden
+    +media-breakpoint-down(sm)
+      overflow: hidden
 
 .container
   max-width: 100%

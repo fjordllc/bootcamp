@@ -169,7 +169,7 @@ ja:
         description: "自己紹介（動ける曜日・時間）"
         email: "Email"
         twitter: "Twitter"
-        twitter_url: "Twitter URL"
+        twitter_account: "Twitterアカウント"
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
         feed_url: "ブログのフィードURL"
@@ -211,7 +211,7 @@ ja:
         work_time: "希望時間帯"
         work_days: "動ける日数"
         programming_experience: "プログラミング経験"
-        twitter_url: "Twitter URL"
+        twitter_account: "Twitterアカウント"
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
         github_account: "Githubアカウント"
@@ -244,6 +244,7 @@ ja:
       line_too_long: "は1行を%{count}文字以内で入力して下さい。"
       not_a_zenkaku: "は全角文字を一文字以上含めて下さい。"
       wrong_image: "はjpg、png、gifのいずれかにして下さい。"
+      only_alphanumeric_and_underscore: "は英文字と_（アンダースコア）のみが使用できます"
 
   activerecord:
     models:
@@ -256,6 +257,7 @@ ja:
       page: "Wiki"
       question: "Q&A"
       contact: "申し込みフォーム"
+      product: "提出物"
 
     enums:
       user:
@@ -294,7 +296,7 @@ ja:
         last_name: "姓"
         description: "自己紹介（動ける曜日・時間）"
         email: "Email"
-        twitter_url: "Twitter URL"
+        twitter_account: "Twitterアカウント"
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
         feed_url: "ブログのフィードURL"
@@ -371,7 +373,7 @@ ja:
         work_time: "希望時間帯"
         work_days: "動ける日数"
         programming_experience: "プログラミング経験"
-        twitter_url: "Twitter URL"
+        twitter_account: "Twitterアカウント"
         facebook_url: "Facebook URL"
         blog_url: "ブログURL"
         github_account: "Githubアカウント"
@@ -488,6 +490,7 @@ ja:
   back: "戻る"
   copy: "コピー"
   "bob's_practices": "%{name}のプラクティス"
+  "practice's_product": "「%{practice}」の提出物"
   invalid_email_or_password: "ユーザー名かパスワードが違います。"
   status_for_all_practices: "全てのプラクティスの状態"
   sign_in_successful: "サインインしました。"
@@ -511,7 +514,7 @@ ja:
   category_was_successfully_updated: "カテゴリーを更新しました。"
   category_was_successfully_deleted: "カテゴリーを削除しました。"
   contact_was_successfully_created: "お申込みを受け付けました。"
-  report_was_successfully_check: "この日報を確認しました。"
+  checkable_was_successfully_check: "この%{checkable}を確認しました。"
   learning_users: "学習中ユーザー"
   for: "%{target} 課題"
   for: "%{target} 課題"

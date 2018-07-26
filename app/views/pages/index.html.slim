@@ -5,11 +5,13 @@ header.page-header
       h1.page-header__title
         = title
       .page-header__action
-        = link_to "/pages/new", class: 'is-button-standard-md-warning' do
+        = link_to [:new, :page], class: 'is-button-standard-md-warning' do
           i.fa.fa-plus
           | 新規ページ
 .page-body
   .container
+    = paginate @pages, position: "top"
     .thread-list
       - @pages.each do |page|
         = render 'page_list_item', page: page
+    = paginate @pages, position: "bottom"

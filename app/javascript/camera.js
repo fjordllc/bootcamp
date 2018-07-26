@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const startVideo = () => {
     navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
       video.srcObject = stream;
+      video.play();
 
       video.onloadedmetadata = (e) => {
         const width = video.videoWidth;

@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   resources :practices, shallow: true do
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
+    resource :reports, only: %i(show), controller: "practices/reports"
+    resource :products, only: %i(show), controller: "practices/products"
   end
   resources :practices do
     resources :products do
@@ -47,14 +49,7 @@ Rails.application.routes.draw do
   end
 
   resources :notifications, only: %i(show)
-  get "pages/new", to: "pages#new"
-  get "pages", to: "pages#index", as: :pages
-  post "pages", to: "pages#create"
-  get "pages/:title", to: "pages#show", as: :page
-  patch "pages/:title", to: "pages#update"
-  put "pages/:title", to: "pages#update"
-  delete "pages/:title", to: "pages#destroy"
-  get "pages/:title/edit", to: "pages#edit"
+  resources :pages, param: :title
 
   resources :questions do
     resources :answers, only: %i(edit create update destroy)

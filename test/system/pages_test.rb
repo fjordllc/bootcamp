@@ -6,6 +6,7 @@ class PagesTest < ApplicationSystemTestCase
   test "GET /pages" do
     visit "/pages"
     assert_equal "Wiki | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_no_selector "nav.pagination"
   end
 
   test "GET /pages/test1" do
@@ -21,5 +22,24 @@ class PagesTest < ApplicationSystemTestCase
   test "GET multibyte name edit page" do
     visit URI.escape("/pages/テスト/edit")
     assert_equal "ページ編集 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
+  test "title with half-width space" do
+    target_page = pages(:page_1)
+    visit edit_page_path(target_page)
+    assert_equal edit_page_path(target_page), current_path
+    fill_in "page[title]", with: "半角スペースを 含んでも 正常なページに 遷移する"
+    click_button "内容を保存"
+    assert_equal page_path(target_page.reload), current_path
+  end
+
+
+  test "Show pagination" do
+    Page.delete_all
+    21.times do |n|
+      Page.create(title: "test#{n}", body: "test#{n}")
+    end
+    visit "/pages"
+    assert_selector "nav.pagination", count: 2
   end
 end

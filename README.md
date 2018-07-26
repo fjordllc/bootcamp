@@ -1,8 +1,8 @@
 # Bootcamp
 
-e-learning tool.
+プログラマー向けEラーニングシステム。
 
-## Install
+## インストール
 
     $ brew install yarn
     $ bin/setup
@@ -13,7 +13,7 @@ You can also launch a web server with [rack-mini-profiler](https://github.com/Mi
 
     $ RACK_PROFILER=1 rails s
 
-## Test
+## テスト
 
 Test with headless browser.
 
