@@ -32,12 +32,12 @@ $thread-header-author: 3.5rem
   color: $main-color
 
 .thread-comment__body
-  background-color: $base-color
+  background-color: $base
   +padding(horizontal, 1rem)
   border-radius: .25rem
   min-height: 5rem
   +relative
-  +balloon-tail(left $base-color .75rem 1rem, false, top 1.5rem)
+  +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
   &::after
     margin-left: -1.4375rem
   +media-breakpoint-down(sm)

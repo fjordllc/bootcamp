@@ -1,8 +1,6 @@
 module CurrentLinkHelper
-  def current_link(path)
-    if !path.include?("admin") && request.fullpath.include?("admin")
-      false
-    elsif request.fullpath.include?(path)
+  def current_link(paths)
+    if paths.include?(controller_path)
       "is-active"
     end
   end
