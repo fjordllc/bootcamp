@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
       current_user && current_user.admin?
     end
 
+    def adviser_login?
+      current_user && current_user.adviser?
+    end
+
     def require_admin_login
       unless admin_login?
         redirect_to root_path, alert: t("please_sign_in_as_admin")

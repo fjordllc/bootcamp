@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :require_login, only: %i(index show edit update destroy)
   before_action :set_user, only: %w[show]
   before_action :set_reports, only: %w[show]
+  before_action :set_products, only: %w[show]
   http_basic_authenticate_with name: "intern", password: ENV["BOOTCAMP_PASSWORD"], only: %i(new create) if Rails.env.production? || Rails.env.staging?
 
   def index
@@ -92,5 +93,11 @@ class UsersController < ApplicationController
 
     def set_reports
       @reports = Report.where(user_id: @user.id).order(updated_at: :desc, id: :desc)
+    end
+
+    def set_products
+      if admin_login? || adviser_login?
+        @products = @user.products.order(created_at: :desc)
+      end
     end
 end
