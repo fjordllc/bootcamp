@@ -22,17 +22,17 @@ header.page-header
             = render "users/active_practices", user: @user
           = render "users/completed_practices", user: @user
 
-        - if @products.any?
-          .col-md-6.col-xs-12
-            h2 提出物
+        .col-md-6.col-xs-12
+          - if @products.any?
             .user-reports
+              h2.user-reports__title 提出物
               .user-reports__items
                 = render partial: "users/product", collection: @products, as: :product
 
-        - if @reports.any?
-          .col-md-6.col-xs-12
-            h2 日報
-            = render "users/reports", reports: @reports
+          - if @reports.any?
+            .user-reports
+              h2.user-reports__title 日報
+              = render "users/reports", reports: @reports
 
     - if current_user == @user || current_user.admin?
       .form-actions
