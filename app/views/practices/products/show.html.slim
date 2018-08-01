@@ -12,5 +12,6 @@ header.page-header
 = render "practices/page_tabs"
 
 .container
-  - if admin_login?
-    = render 'products', products: @practice.products.eager_load(:user, :comments).order(updated_at: :desc)
+  .col-md-6.col-xs-12
+    - if admin_login? || Product.find_by(user_id: current_user.id, practice_id: @practice.id).checks.any?
+      = render 'products', products: @practice.products.eager_load(:user, :comments).order(updated_at: :desc)
