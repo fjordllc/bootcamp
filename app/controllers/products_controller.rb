@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   before_action :set_my_product, only: %i(show edit update destroy)
 
   def show
+    @product = Product.find(params[:id])
   end
 
   def new
