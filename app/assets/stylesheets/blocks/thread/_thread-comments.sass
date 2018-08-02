@@ -33,6 +33,7 @@ $thread-header-author: 3.5rem
 
 .thread-comment__body
   background-color: $base
+  box-shadow: rgba(black, .2) 0 .0625rem .125rem
   +padding(horizontal, 1rem)
   border-radius: .25rem
   min-height: 5rem
@@ -69,9 +70,7 @@ $thread-header-author: 3.5rem
     font-size: .75rem
 
 .thread-comment__actions
-  +padding(vertical, .5rem)
-  +media-breakpoint-down(sm)
-    padding-top: 0
+  +padding(vertical, 0 1rem)
 
 .thread-comment__actions-items
   display: flex

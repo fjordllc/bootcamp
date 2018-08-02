@@ -1,18 +1,31 @@
-.user-reports
-  h2.user-reports__title
-    | 提出物
-  .user-reports__items
-    - products.each do |product|
-      .user-reports-item
-        = link_to [product.practice, product], class: 'user-reports-item__link has-user-icon' do
-          = gravatar_tag product.user, secure: true, size: 64, html: {class: 'user-reports-item__user-icon'}
-          h3.user-reports-item__title itemprop="name"
-            = product.user.login_name
-          time.user-reports-item__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")
-            = l product.created_at, format: :semi_long
+.thread-list
+  - products.each do |product|
+    .thread-list-item
+      .thread-list-item__inner
+        .thread-list-item__author
+          = gravatar_tag product.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon" }
+        header.thread-list-item__header
+          h2.thread-list-item__title(itemprop="name")
+            = link_to [product.practice, product], itempro: "url", class: "thread-list-item__title-link" do
+              = product.user.login_name
+        .thread-list-item-meta
+          time.thread-list-item-meta__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")
+            = l product.updated_at, format: :semi_long
           - if product.comments.any?
-            .user-reports-item__comment-count
-              .user-reports-item__comment-count-label
+            .thread-list-item-meta__comment-count
+              .thread-list-item-meta__comment-count-label
                 i.fa.fa-comment-o
-              .user-reports-item__comment-count-value
+              .thread-list-item-meta__comment-count-value
                 = product.comments.size
+          - if product.checks.any?
+            .thread-list-item-meta__comment-count
+              .thread-list-item-meta__comment-count-value
+                - product.checks.each do |check|
+                  = gravatar_tag check.user, secure: true, size: 20, html: { class: "thread-list-item__checked-author-icon" }
+            .stamp.stamp-approve
+              h2.stamp__content.is-title
+                | 確認済
+              time.stamp__content.is-created-at
+                = product.checks.last.created_at.strftime('%Y/%m/%d')
+              .stamp__content.is-user-name
+                = product.checks.last.user.login_name

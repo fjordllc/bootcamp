@@ -74,12 +74,12 @@
     ul.auth-form-action__items
       - if %w(new create).include? params[:action]
         li.auth-form-action__item
-          = f.submit '参加する', class: 'is-button-standard-md-warning js-sign-up-action'
+          = f.submit '参加する', class: 'is-button-simple-md-warning js-sign-up-action'
       - else
         li.auth-form-action__item
-          = link_to user_path, class: 'is-button-standard-xs-secondary' do
+          = link_to user_path, class: 'is-button-simple-xs-secondary' do
             | キャンセル
         li.auth-form-action__item
-          = f.submit '内容更新', class: 'is-button-standard-md-warning js-sign-up-action'
+          = f.submit '内容更新', class: 'is-button-simple-md-warning js-sign-up-action'
 
   = render 'nda_modal', f: f

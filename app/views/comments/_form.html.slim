@@ -1,18 +1,21 @@
 .comment__form
   = form_for comment_form_object(@comment) do |f|
-    .row.js-markdown-parent
-      .col-md-6.col-xs-12
-        .form-group
-          label.a-label
-            | 内容
-          = f.text_area :description, required: true, class: 'a-textarea js-warning-form markdown-form__text-area js-markdown', data: { "preview": ".js-preview" }
-      .col-md-6.col-xs-12
-        label.a-label
-          | プレビュー
-        .js-preview.is-long-text-style.markdown-form__preview
+    .form__items
+      .form-item
+        .row.js-markdown-parent
+          .col-md-6.col-xs-12
+            .form-group
+              label.a-label
+                | 内容
+              = f.text_area :description, required: true, class: 'a-textarea js-warning-form markdown-form__text-area js-markdown', data: { "preview": ".js-preview" }
+          .col-md-6.col-xs-12
+            label.a-label
+              | プレビュー
+            .js-preview.is-long-text-style.markdown-form__preview
+
     .form-actions
       ul.form-actions__items
         li.form-actions__item
-          = f.submit nil, class: 'is-button-standard-lg-warning'
+          = f.submit nil, class: 'is-button-simple-lg-warning'
         li.form-actions__item
-          = link_to 'キャンセル', @comment.commentable.path, class: "is-button-standard-md-secondary"
+          = link_to 'キャンセル', @comment.commentable.path, class: "is-button-simple-md-secondary"

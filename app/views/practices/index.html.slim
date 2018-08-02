@@ -5,9 +5,13 @@ header.page-header
       h2.page-header__title
         = t('practices')
       .page-header__action
-        = link_to new_practice_path, class: 'is-button-standard-md-warning' do
-          i.fa.fa-plus
-          = t('new_practice')
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to new_practice_path, class: 'is-button-simple-md-warning' do
+              i.fa.fa-plus
+              = t('new_practice')
+
 
 .page-body
   .container

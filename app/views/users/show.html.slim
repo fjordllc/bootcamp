@@ -3,6 +3,9 @@ header.page-header
   .container
     .page-header__container
       h2.page-header__title= @user.login_name
+      ul.page-header-actions__items
+        li.page-header-actions__item
+          = link_to "ユーザー一覧", users_path, class: "is-button-simple-md-secondary"
 
 .page-body
   .container
@@ -37,11 +40,9 @@ header.page-header
     - if current_user == @user || current_user.admin?
       .form-actions
         ul.form-actions__items
-          li.form-actions__item
-            = link_to "ユーザー一覧", users_path, class: "is-button-standard-md-secondary"
           - if current_user.admin?
             li.form-actions__item
-              = link_to "管理者として情報変更", edit_admin_user_path, class: "is-button-standard-lg-secondary"
+              = link_to "管理者として情報変更", edit_admin_user_path, class: "is-button-simple-lg-secondary"
           - if current_user == @user
             li.form-actions__item
-              = link_to "登録情報を変更する", edit_user_path, class: "is-button-standard-lg-warning"
+              = link_to "登録情報を変更する", edit_user_path, class: "is-button-simple-lg-warning"
