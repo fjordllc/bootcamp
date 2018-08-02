@@ -4,7 +4,6 @@ class ProductsController < ApplicationController
   before_action :set_my_product, only: %i(show edit update destroy)
 
   def show
-    @product = Product.find(params[:id])
   end
 
   def new
@@ -44,8 +43,15 @@ class ProductsController < ApplicationController
       @practice = Practice.find(params[:practice_id])
     end
 
+    def user_passed?
+      product = Product.find_by(user_id: current_user.id, practice_id: @practice.id)
+      if product
+        product.checks.any?
+      end
+    end
+
     def set_my_product
-      if admin_login? || adviser_login?
+      if admin_login? || adviser_login? || user_passed?
         @product = @practice.products.find_by(id: params[:id])
       else
         @product = @practice.products.find_by(id: params[:id], user: current_user)
