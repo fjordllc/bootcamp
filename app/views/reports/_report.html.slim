@@ -1,7 +1,9 @@
 .thread
   .thread__inner
-    header.thread__header
-      h1.thread__title
+    header.thread-header
+      .thread-header__reported-at
+        | #{l report.reported_at, format: :long} の日報
+      h1.thread-header__title
         = report.title
         - if @checks.any?
           .stamp.stamp-approve
@@ -11,11 +13,13 @@
               = @checks.last.created_at.strftime('%Y/%m/%d')
             .stamp__content.is-user-name
               = @checks.last.user.login_name
-    .thread__meta
-      .thread__author-name
-        = report.user.login_name
-      time.thread__created-at(datetime="#{report.created_at.to_datetime}" pubdate="pubdate")
-        = l report.updated_at, format: :date_long_with_time
+
+      .thread-meta
+        .thread-meta__author-name
+          = link_to report.user, class: "thread-meta__author-name-link" do
+            = report.user.login_name
+        time.thread-meta__created-at(datetime="#{report.created_at.to_datetime}" pubdate="pubdate")
+          | 書いた日 : #{l report.updated_at, format: :date_long_with_time}
 
     - if @report.practices.present?
       .report-practices
@@ -27,45 +31,54 @@
 
     - if report.learning_times.present?
       .learning-times
-        h2.learning-times__title
-          | 学習時間:
+        header.learning-times__header
+          h2.learning-times__title
+            | 学習時間:
           span.learning-times__total-time
             = report.total_learning_time
-
         ul.learning-times__items
           - report.learning_times.each do |learning_time|
             li.learning-times__item
               | #{l learning_time.started_at, format: :time} 〜 #{l learning_time.finished_at, format: :time}
 
-    .thread__description.js-target-blank.is-long-text-style.js-markdown-view
-      = report.description
+    .thread-body
+      .thread__description.js-target-blank.is-long-text-style.js-markdown-view
+        = report.description
+
+      - if @report.user_id == current_user.id
+        .thread-edit-tools
+          .thread-edit-tools__inner
+            ul.thread-edit-tools__items
+              li.thread-edit-tools__item
+                = link_to edit_report_path(report), class: 'thread-edit-tools__item-link is-success' do
+                  i.fa.fa-pencil
+              li.thread-edit-tools__item
+                = link_to new_report_path(id: report), class: 'thread-edit-tools__item-link is-success' do
+                  i.fa.fa-files-o
+              li.thread-edit-tools__item
+                = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-edit-tools__item-link is-danger' do
+                  i.fa.fa-trash-o
+
     - if admin_login? && @report.checks.blank?
       .thread-admin-tools
         ul.thread-admin-tools__items
           li.thread-admin-tools__item
             = render 'reports/report_check_form'
 
-    footer.thread__body-footer
-      .thread__body-footer-container
-        - if @report.user_id == current_user.id
-          .thread__actions
-            ul.thread__actions-items
-              li.thread__actions-item
-                = link_to edit_report_path(report), class: 'thread__actions-item-link is-success' do
-                  i.fa.fa-pencil
-              li.thread__actions-item
-                = link_to new_report_path(id: report), class: 'thread__actions-item-link is-success' do
-                  i.fa.fa-files-o
-              li.thread__actions-item
-                = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread__actions-item-link is-danger' do
-                  i.fa.fa-trash-o
-        = link_to reports_path, class: 'is-button-standard-sm-secondary' do
+  .thread-prev-next
+    .thread-prev-next__item
+      - if report.previous
+        = link_to report.previous, class: "thread-prev-next__item-link is-prev" do
           i.fa.fa-angle-left
-          = t('to_index_of_reports')
-        - if report.previous
-          = link_to '前', report.previous
-        - if report.next
-          = link_to '次', report.next
+          | 前の日報
+    .thread-prev-next__item
+      = link_to reports_path, class: "thread-prev-next__item-link is-index" do
+        | 日報一覧
+    .thread-prev-next__item
+      - if report.next
+        = link_to report.next, class: "thread-prev-next__item-link is-next" do
+          | 次の日報
+          i.fa.fa-angle-right
 
   = link_to report.user, itempro: "url", class: "thread__author-link" do
     = gravatar_tag report.user, secure: true, size: 120, html: { class: "thread__author-icon" }

@@ -25,7 +25,7 @@ class CurrentLinkTest < ApplicationSystemTestCase
     assert_selector "a.global-nav-links__link.is-active[href='/reports']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    find("a[href='/reports']").click
+    page.all("a[href='/reports']")[0].click
     assert_equal current_path, "/reports"
     assert_selector "a.global-nav-links__link.is-active[href='/reports']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1

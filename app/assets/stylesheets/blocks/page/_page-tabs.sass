@@ -7,15 +7,27 @@
   +media-breakpoint-down(sm)
     margin-top: -1rem
     margin-bottom: 1rem
+    >.container
+      +padding(horizontal, 0)
 
 .page-tabs__items
   display: flex
   +margin(horizontal, -.125rem)
   +top(1px)
+  +media-breakpoint-down(sm)
+    +margin(horizontal, 0)
+    +padding(horizontal, .5rem)
+    -webkit-overflow-scrolling: touch
+    overflow-x: scroll
+    overflow-y: visible
 
 .page-tabs__item
   +padding(horizontal, .125rem)
   min-width: 7.5rem
+  +media-breakpoint-down(sm)
+    +padding(horizontal, 0)
+    +margin(horizontal, .125rem)
+    min-width: 7rem
 
 .page-tabs__item-link
   +flex-link
@@ -27,6 +39,10 @@
   +padding(horizontal, 1em)
   +border-radius(top, .25rem)
   border: solid 1px #b9b9b9
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+  &:hover
+    color: $default-text
   &.is-current
     background-color: $background-color
     border-color: #b9b9b9
