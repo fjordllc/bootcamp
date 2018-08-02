@@ -1,0 +1,28 @@
+.thread-edit-tools
+  padding-bottom: 1rem
+
+.thread-edit-tools__inner
+  +padding(horizontal, 2rem)
+  +media-breakpoint-down(sm)
+    +padding(horizontal, 1rem)
+
+.thread-edit-tools__items
+  display: flex
+  align-items: center
+  justify-content: flex-end
+
+.thread-edit-tools__item-link
+  +text-block(1.25rem 1, center flex $muted-text)
+  +size(2.375rem)
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  transition: color .2s ease-in, background-color .2s ease-in
+  &.is-success
+    &:hover
+      background-color: #e0eefe
+      color: $primary
+  &.is-danger
+    &:hover
+      background-color: #f5e6ea
+      color: $danger

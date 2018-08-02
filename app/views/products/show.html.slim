@@ -3,6 +3,7 @@ header.page-header
   .container
     .page-header__container
       h1.page-header__title= title
+
 .page-body
   .container
     = render "product", product: @product
@@ -16,8 +17,10 @@ header.page-header
           - @product.comments.order(:created_at).each do |comment|
             = render "products/comments/comment", product: @product, comment: comment
       = render "products/comments/form", product: @product, comment: @product.comments.new
-    .form-actions
-      ul.form-actions__items
-        li.form-actions__item
-          = link_to edit_practice_product_path(@product.practice), class: "form-actions__item-link is-button-standard-lg-warning" do
-            | 提出物の内容更新
+
+    - if @product.user == current_user
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item
+            = link_to edit_practice_product_path(@product.practice), class: "form-actions__item-link is-button-simple-lg-warning" do
+              | 提出物の内容更新

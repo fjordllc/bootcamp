@@ -23,7 +23,7 @@
       ul.thread-comment__actions-items
         - if correct_answer.blank? && answer != correct_answer && current_user == question.user
           li.thread-comment__actions-item
-            = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: 'is-button-standard-sm-warning' do
+            = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: 'is-button-simple-sm-warning' do
               | 解決にする
         - if answer.user == current_user
           li.thread-comment__actions-item

@@ -1,18 +1,39 @@
-.user-reports
-  h2.user-reports__title
-    = t('related-reports')
-  .user-reports__items
-    - reports.each do |report|
-      .user-reports-item
-        = link_to report, class: 'user-reports-item__link has-user-icon' do
-          = gravatar_tag report.user, secure: true, size: 64, html: {class: 'user-reports-item__user-icon'}
-          h3.user-reports-item__title itemprop="name"
-            = report.title
-          time.user-reports-item__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+.thread-list
+  - reports.each do |report|
+    .thread-list-item
+      .thread-list-item__inner
+        .thread-list-item__author
+          = gravatar_tag report.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon" }
+        header.thread-list-item__header
+          h2.thread-list-item__title(itemprop="name")
+            = link_to report, itempro: "url", class: "thread-list-item__title-link" do
+              = report.title
+          - if current_user == report.user
+            .thread-list-item__actions
+              = link_to edit_report_path(report), class: 'thread-list-item__actions-link' do
+                i.fa.fa-pencil
+              = link_to new_report_path(id: report), class: 'thread-list-item__actions-link' do
+                i.fa.fa-files-o
+              = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-list-item__actions-link' do
+                i.fa.fa-trash-o
+        .thread-list-item-meta
+          time.thread-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
             = l report.updated_at, format: :semi_long
           - if report.comments.any?
-            .user-reports-item__comment-count
-              .user-reports-item__comment-count-label
+            .thread-list-item-meta__comment-count
+              .thread-list-item-meta__comment-count-label
                 i.fa.fa-comment-o
-              .user-reports-item__comment-count-value
+              .thread-list-item-meta__comment-count-value
                 = report.comments.size
+          - if report.checks.any?
+            .thread-list-item-meta__comment-count
+              .thread-list-item-meta__comment-count-value
+                - report.checks.each do |check|
+                  = gravatar_tag check.user, secure: true, size: 20, html: { class: "thread-list-item__checked-author-icon" }
+            .stamp.stamp-approve
+              h2.stamp__content.is-title
+                | 確認済
+              time.stamp__content.is-created-at
+                = report.checks.last.created_at.strftime('%Y/%m/%d')
+              .stamp__content.is-user-name
+                = report.checks.last.user.login_name
