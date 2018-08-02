@@ -1,8 +1,14 @@
 .thread
   .thread__inner
-    header.thread__header
-      h1.thread__title
-        | #{link_to product.practice.title, product.practice, class: "thread__title-link"}の提出物
+    header.thread-header
+      h1.thread-header__title
+        | #{link_to product.practice.title, product.practice, class: "thread-header__title-link"}の提出物
+      .thread-meta
+        .thread-meta__author-name
+          = link_to product.user, class: "thread-meta__author-name-link" do
+            = product.user.login_name
+        time.thread-meta__created-at(datetime="#{product.created_at.to_datetime}" pubdate="pubdate")
+          = l product.updated_at, format: :date_long_with_time
     - if product.checks.any?
       .stamp.stamp-approve
         h2.stamp__content.is-title
@@ -11,15 +17,20 @@
           = product.checks.last.created_at.strftime('%Y/%m/%d')
         .stamp__content.is-user-name
           = product.checks.last.user.login_name
-    .thread__meta
-      .thread__author-name
-        = product.user.login_name
-      time.thread__created-at(datetime="#{product.created_at.to_datetime}" pubdate="pubdate")
-        = l product.updated_at, format: :date_long_with_time
     .thread__description.js-target-blank.is-long-text-style.js-markdown-view
       =  product.practice.goal
     .thread__description.js-target-blank.is-long-text-style.js-markdown-view
       =  product.body
+    - if product.user == current_user
+      .thread-edit-tools
+        ul.thread-edit-tools__items
+          li.thread-edit-tools__item
+            = link_to edit_practice_product_path(product.practice), class: "thread-edit-tools__item-link is-success" do
+              i.fa.fa-pencil
+          li.thread-edit-tools-item
+            = link_to practice_product_path(product.practice), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread-edit-tools__item-link is-danger" do
+              i.fa.fa-trash-o
+
 
     - if admin_login? && product.checks.blank?
       .thread-admin-tools
@@ -27,22 +38,13 @@
           li.thread-admin-tools__item
             = form_for ([product.practice, product, product.checks.new]), class: "thread-check-form" do |f|
               = hidden_field_tag :user_id, current_user.id
-              = f.submit "提出物を確認", class: 'thread-check-form__action is-button-standard-sm-danger'
+              = f.submit "提出物を確認", class: 'thread-check-form__action is-button-simple-md-danger'
 
-    footer.thread__body-footer
-      .thread__body-footer-container
-        - if product.user == current_user
-          .thread__actions
-            ul.thread__actions-items
-              li.thread__actions-item
-                = link_to edit_practice_product_path(product.practice), class: "thread__actions-item-link is-success" do
-                  i.fa.fa-pencil
-              li.thread__actions-item
-                = link_to practice_product_path(product.practice), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread__actions-item-link is-danger" do
-                  i.fa.fa-trash-o
-        = link_to product.practice, class: "is-button-standard-sm-secondary" do
-          i.fa.fa-angle-left
-          | プラクティスへ
+  .thread-prev-next
+    .thread-prev-next__item
+      = link_to product.practice, class: 'thread-prev-next__item-link is-index' do
+        | プラクティスに戻る
+
 
   = link_to product.user, itempro: "url", class: "thread__author-link" do
     = gravatar_tag product.user, secure: true, size: 120, html: { class: "thread__author-icon" }

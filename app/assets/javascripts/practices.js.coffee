@@ -8,8 +8,8 @@ $ ->
         type: 'PUT'
         data: "status=#{status}"
       .done =>
-        $('.js-practice-state:disabled', tr).attr('disabled', false).removeClass('is-button-standard-xs-primary').addClass('is-button-standard-xs-secondary')
-        $(this).attr('disabled', true).addClass('is-button-standard-xs-primary')
+        $('.js-practice-state:disabled', tr).attr('disabled', false).removeClass('is-button-simple-xs-primary').addClass('is-button-simple-xs-secondary')
+        $(this).attr('disabled', true).addClass('is-button-simple-xs-primary')
 
   $(".js-target-blank a").click ->
     window.open @href, ""

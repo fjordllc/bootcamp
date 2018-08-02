@@ -8,7 +8,10 @@
     margin-bottom: 0
 
 .form-actions
+  margin-top: 1.5rem
   margin-bottom: 2rem
+  +media-breakpoint-down(sm)
+    margin-top: 1rem
 
 .form-actions__items
   display: flex
@@ -19,6 +22,8 @@
 
 .form-actions__item
   +padding(horizontal, .375rem)
+  &.is-main
+    width: 12rem
   +media-breakpoint-down(sm)
     width: 100%
     +padding(horizontal, 0)
