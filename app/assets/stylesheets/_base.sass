@@ -49,6 +49,16 @@ body.welcome
     max-width: 75rem
     +padding(horizontal, 1rem)
 
+[class*=is-button-simple-]
+  &[class*=-secondary]
+    border: solid 1px #c1c5b9
+  &[class*=-primary]:disabled
+    background-color: $main-color
+    cursor: default
+
+[class*=is-button-simple-]:not(input)
+  +padding(vertical, 0)
+
 .party-emails
   margin: auto
   background-color: white

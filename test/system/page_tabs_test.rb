@@ -18,13 +18,13 @@ class PageTabsTest < ApplicationSystemTestCase
 
     page.all(".page-tabs__item-link")[1].click
     expected_report_counts = Practice.find(practice_id).reports.size
-    actual_report_counts = page.all(".user-reports-item__link").size
+    actual_report_counts = page.all(".thread-list-item__title-link").size
     assert_equal actual_report_counts, expected_report_counts
 
     page.all(".page-tabs__item-link")[2].click
     assert_text "提出物"
     expected_products_counts = Practice.find(practice_id).products.size
-    actual_products_counts = page.all(".user-reports-item__link").size
+    actual_products_counts = page.all(".thread-list-item__title-link").size
     assert_equal actual_products_counts, expected_products_counts
   end
 end

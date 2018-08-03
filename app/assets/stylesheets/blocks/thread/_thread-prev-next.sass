@@ -1,0 +1,20 @@
+.thread-prev-next
+  display: flex
+  justify-content: space-between
+  margin-top: 1rem
+
+.thread-prev-next__item
+  width: 8rem
+  max-width: 33.33%
+
+.thread-prev-next__item-link
+  +text-block(.8125rem 1.4, block center $main-color)
+  +hover-link-reversal
+  &.is-prev
+    text-align: left
+  &.is-next
+    text-align: right
+  i:first-child
+    margin-right: .5rem
+  i:last-child
+    margin-left: .5rem

@@ -1,0 +1,22 @@
+.thread-header
+  padding: 1rem 2rem 0
+  border-bottom: $background-color solid 1px
+  +media-breakpoint-down(sm)
+    padding: 2.5rem 1rem 0
+    .thread.is-page &
+      padding-top: .75rem
+
+.thread-header__title
+  +text-block(1.5rem 1.4, 700)
+  +media-breakpoint-down(sm)
+    font-size: 1.25rem
+
+.thread-header__title-link
+  +hover-link
+  color: $default-text
+
+.thread-header__reported-at
+  +text-block(.8125rem 1 .75rem, $muted-text)
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+    margin-bottom: .25rem

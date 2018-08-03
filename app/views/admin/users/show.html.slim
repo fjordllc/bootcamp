@@ -11,7 +11,7 @@ header.page-header
         = @user.login_name
         |（#{t("activerecord.enums.user.purposes.#{@user.purpose}")}目的）
       .page-header__action
-        = link_to admin_users_path, class: "is-button-standard-md-secondary" do
+        = link_to admin_users_path, class: "is-button-simple-md-secondary" do
           i.fa.fa-angle-left
           | ユーザー一覧
 
@@ -49,23 +49,23 @@ header.page-header
                   ul.is-button-group
                     - if @user.github_account?
                       li
-                        = link_to user_github_url(@user), class: 'is-button-standard-sm-secondary is-icon' do
+                        = link_to user_github_url(@user), class: 'is-button-simple-sm-secondary is-icon' do
                           i.fa.fa-github-alt
                     - if @user.twitter_account?
                       li
-                        = link_to @user.twitter_url, class: 'is-button-standard-sm-secondary is-icon' do
+                        = link_to @user.twitter_url, class: 'is-button-simple-sm-secondary is-icon' do
                           i.fa.fa-twitter
                     - if @user.facebook_url?
                       li
-                        = link_to @user.facebook_url, class: 'is-button-standard-sm-secondary is-icon' do
+                        = link_to @user.facebook_url, class: 'is-button-simple-sm-secondary is-icon' do
                           i.fa.fa-facebook
                     - if @user.blog_url?
                       li
-                        = link_to @user.blog_url, class: 'is-button-standard-sm-secondary is-icon' do
+                        = link_to @user.blog_url, class: 'is-button-simple-sm-secondary is-icon' do
                           i.fa.fa-home
                         - if @user.feed_url?
                           li
-                            = link_to @user.feed_url, class: 'is-button-standard-sm-secondary is-icon' do
+                            = link_to @user.feed_url, class: 'is-button-simple-sm-secondary is-icon' do
                               i.fa.fa-rss
               tr.admin-table__item
                 td.admin-table__item-value
@@ -74,4 +74,4 @@ header.page-header
       .form-actions
         ul.form-actions__items
           li.form-actions__item
-            = link_to "編集", edit_admin_user_path(@user), class: 'is-button-standard-lg-warning'
+            = link_to "編集", edit_admin_user_path(@user), class: 'is-button-simple-lg-warning'
