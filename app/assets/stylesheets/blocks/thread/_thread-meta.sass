@@ -1,0 +1,28 @@
+.thread-meta
+  display: flex
+  align-items: center
+  flex-wrap: wrap
+  +padding(vertical, .5rem .75rem)
+  line-height: 1.4
+  +media-breakpoint-down(sm)
+    align-items: flex-start
+    padding-top: 0
+
+.thread-meta__label
+  +text-block(.75rem, $muted-text inline-flex)
+  &::after
+    content: ":"
+    display: inline-flex
+    +margin(horizontal, .25em)
+
+.thread-meta__author-name
+  +text-block(.75rem, $muted-text)
+  margin-right: .75rem
+
+.thread-meta__author-name-link
+  color: $muted-text
+  +hover-link-reversal
+
+.thread-meta__created-at
+  display: block
+  +text-block(.75rem, $muted-text)

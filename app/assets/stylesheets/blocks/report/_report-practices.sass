@@ -1,6 +1,6 @@
 .report-practices
-  padding: .75rem 2rem
-  border-bottom: dashed 1px $background-color
+  padding: .625rem 2rem
+  border-bottom: solid 1px $background-color
   +media-breakpoint-down(sm)
     padding: .5rem 1rem
 
@@ -8,17 +8,18 @@
   display: flex
   flex-wrap: wrap
   +margin(horizontal, -.25rem)
-  margin-bottom: -.75rem
+  margin-bottom: -.625rem
 
 .report-practices__item
   +margin(horizontal, .25rem)
-  margin-bottom: .75rem
+  margin-bottom: .625rem
 
 .report-practices__item-link
   +text-block(.6875rem 1.45, block $main-color)
-  background-color: $background-color
-  padding: .3125rem .75rem
+  background-color: transparent
+  border: solid 1px $main-color
+  padding: .1875rem .625rem
   border-radius: 2rem
   transition: color .2s ease-in, background-color .2s ease-in
   &:hover
-    background-color: $background-color-shade
+    background-color: rgba($main-color, .2)

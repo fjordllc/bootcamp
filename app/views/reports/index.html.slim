@@ -4,9 +4,12 @@ header.page-header.is-margin-bottom-0.has-border-bottom-none
   .container
     .page-header__container
       h2.page-header__title= title
-      = link_to new_report_path, class: 'is-button-standard-md-warning' do
-        i.fa.fa-plus
-        = t('new_report')
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to new_report_path, class: 'is-button-simple-md-warning' do
+              i.fa.fa-plus
+              = t('new_report')
 
 nav.sort-nav
   .container
@@ -14,7 +17,7 @@ nav.sort-nav
       = form_tag reports_url, method: 'get' do
         = hidden_field_tag :word, @search_words
         = label_tag :practice_id, 'プラクティスで絞り込む:', class: 'sort-nav__label'
-        .is-button-standard-sm-secondary.is-select.sort-nav__select
+        .is-button-simple-md-secondary.is-select.sort-nav__select
           = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, { selected: params[:practice_id] }), include_blank: '全ての日報を表示', onchange: "this.form.submit()"
 
 .page-body
