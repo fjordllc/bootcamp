@@ -7,7 +7,7 @@
       li.page-tabs__item
         = link_to practice_reports_path(@practice), class: "page-tabs__item-link #{request.fullpath.split('/').last == 'reports' ? 'is-current' : ''}" do
           | 日報
-      - if admin_login? || user_passed?
+      - if admin_login? || current_user.products.checked?(@practice)
         li.page-tabs__item
           = link_to practice_products_path(@practice), class: "page-tabs__item-link #{request.fullpath.split('/').last == 'products' ? 'is-current' : ''}" do
             | 提出物

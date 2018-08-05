@@ -43,15 +43,8 @@ class ProductsController < ApplicationController
       @practice = Practice.find(params[:practice_id])
     end
 
-    def user_passed?
-      product = Product.find_by(user_id: current_user.id, practice_id: @practice.id)
-      if product
-        product.checks.any?
-      end
-    end
-
     def set_my_product
-      if admin_login? || adviser_login? || user_passed?
+      if admin_login? || adviser_login? || current_user.products.checked?(@practice)
         @product = @practice.products.find_by(id: params[:id])
       else
         @product = @practice.products.find_by(id: params[:id], user: current_user)
