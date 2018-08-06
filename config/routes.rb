@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   end
 
   resources :notifications, only: %i(show)
-  resources :pages, param: :title
+  resources :pages
 
   resources :questions do
     resources :answers, only: %i(edit create update destroy)
