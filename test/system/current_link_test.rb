@@ -2,61 +2,57 @@ require "application_system_test_case"
 
 class CurrentLinkTest < ApplicationSystemTestCase
   test "is-activeが適切にcssでクラスに設定されるか確認" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login_name]", with: "machida")
-      fill_in("user[password]", with: "testtest")
-    end
-    click_button "サインイン"
-    assert_equal current_path, "/users"
+    login_user "machida", "testtest"
+
+    visit "/users"
     assert_selector "a.global-nav-links__link.is-active[href='/users']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    click_link "プラクティス"
-    assert_equal current_path, "/practices"
+    visit "/users/#{users(:komagata).id}"
+    assert_selector "a.global-nav-links__link.is-active[href='/users']", count: 1
+    assert_selector "a.global-nav-links__link.is-active", count: 1
+
+    visit "/practices"
     assert_selector "a.global-nav-links__link.is-active[href='/practices']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    first(".category-practices-item__title-link").click
+    visit "/practices/#{practices(:practice_1)}"
     assert_selector "a.global-nav-links__link.is-active[href='/practices']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    page.all(".page-tabs__item-link")[1].click
-    assert_selector "a.global-nav-links__link.is-active[href='/reports']", count: 1
+    visit "/practices/#{practices(:practice_1)}/reports"
+    assert_selector "a.global-nav-links__link.is-active[href='/practices']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    page.all("a[href='/reports']")[0].click
-    assert_equal current_path, "/reports"
-    assert_selector "a.global-nav-links__link.is-active[href='/reports']", count: 1
+    visit "/practices/#{practices(:practice_1)}/products"
+    assert_selector "a.global-nav-links__link.is-active[href='/practices']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    click_link "Q&A"
-    assert_equal current_path, "/questions"
+    visit "/questions"
     assert_selector "a.global-nav-links__link.is-active[href='/questions']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    click_link "みんなのブログ"
-    assert_equal current_path, "/feeds"
+    visit "/questions/#{questions(:question_1)}"
+    assert_selector "a.global-nav-links__link.is-active[href='/questions']", count: 1
+    assert_selector "a.global-nav-links__link.is-active", count: 1
+
+    visit "/feeds"
     assert_selector "a.global-nav-links__link.is-active[href='/feeds']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    click_link "wiki"
-    assert_equal current_path, "/pages"
+    visit "/pages"
     assert_selector "a.global-nav-links__link.is-active[href='/pages']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    click_link "ユーザー情報"
-    assert_equal current_path, "/admin/users"
+    visit "/admin/users"
     assert_selector "a.global-nav-links__link.is-active[href='/admin/users']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    click_link "カテゴリー"
-    assert_equal current_path, "/admin/categories"
+    visit "/admin/categories"
     assert_selector "a.global-nav-links__link.is-active[href='/admin/categories']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    click_link "管理ページ"
-    assert_equal current_path, "/admin"
+    visit "/admin"
     assert_selector "a.global-nav-links__link.is-active[href='/admin']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
   end

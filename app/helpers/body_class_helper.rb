@@ -1,4 +1,8 @@
 module BodyClassHelper
+  def qualified_controller_name
+    controller.controller_path.tr("/", "-")
+  end
+
   def body_class(options = {})
     extra_body_classes_symbol = options[:extra_body_classes_symbol] || :extra_body_classes
     qualified_controller_name = controller.controller_path.tr("/", "-")
