@@ -1,5 +1,5 @@
 class Practices::ProductsController < ApplicationController
-  def show
+  def index
     @practice = Practice.find(params[:practice_id])
   end
 end
