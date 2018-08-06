@@ -9,18 +9,15 @@ class PagesTest < ApplicationSystemTestCase
     assert_no_selector "nav.pagination"
   end
 
-  test "GET /pages/test1" do
-    visit "/pages/test1"
+  test "show page" do
+    id = pages(:page_1).id
+    visit "/pages/#{id}"
     assert_equal "test1 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
-  test "GET multibyte name" do
-    visit URI.escape("/pages/テスト")
-    assert_equal "テスト | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
-  end
-
-  test "GET multibyte name edit page" do
-    visit URI.escape("/pages/テスト/edit")
+  test "show edit page" do
+    id = pages(:page_2).id
+    visit URI.escape("/pages/#{id}/edit")
     assert_equal "ページ編集 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
