@@ -9,7 +9,7 @@ header.page-header
           i.fa.fa-angle-left
           = t('practices')
 
-= render "practices/page_tabs"
+= render "page_tabs", resource: @practice
 
 .container
   - if admin_login? || current_user.has_checked_product?(@practice)

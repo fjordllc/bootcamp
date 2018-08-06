@@ -1,0 +1,9 @@
+.page-tabs
+  .container
+    ul.page-tabs__items
+      - page_tab_members(resource).each do |member|
+        - if member[:admin_displayable]
+          - if admin_login?
+            = render "page_tab", member: member
+        - else
+          = render "page_tab", member: member
