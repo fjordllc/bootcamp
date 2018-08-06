@@ -1,0 +1,5 @@
+.completed-practices
+  h2.completed-practices__title
+    = t('completed_practices')
+  = render 'completed_practices_progress', user: @user
+  = render 'completed_practices_list', user: @user
