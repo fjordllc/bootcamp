@@ -3,6 +3,8 @@ module PageTabHelper
     case resource
     when Practice
       practices_tab_members(resource)
+    when User
+      users_tab_members(resource)
     end
   end
 
@@ -40,22 +42,37 @@ module PageTabHelper
       {
         practices: 'プラクティス',
         reports: '日報',
-        products: '提出物'
+        products: '提出物',
+        users: 'ユーザー'
       }
     end
 
     def reports_tab(resource)
       tab_name = :reports
-      page_tab_member(eval(tab_path(resource, tab_name)), tab_name)
+      page_tab_member(tab_path(resource, tab_name), tab_name)
     end
 
     def tab_path(resource, tab_name)
-      "#{resource.class.name.underscore}_#{tab_name.to_s}_path(resource)"
+      eval "#{resource.class.name.underscore}_#{tab_name.to_s}_path(resource)"
     end
 
     def products_tab(resource)
       tab_name = :products
-      page_tab_member(eval(tab_path(resource, tab_name)), tab_name, admin_displayable: true)
+      page_tab_member(tab_path(resource, tab_name), tab_name, admin_displayable: true)
+    end
+
+    def users_tab_members(resource)
+      [
+        root_tab(resource),
+        practices_tab(resource),
+        reports_tab(resource),
+        products_tab(resource)
+      ]
+    end
+
+    def practices_tab(resource)
+      tab_name = :practices
+      page_tab_member(tab_path(resource, tab_name), tab_name)
     end
 
     def current_page_tab?(target_name)
