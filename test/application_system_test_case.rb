@@ -1,5 +1,5 @@
 require "test_helper"
-require "helpers/login_helper"
+require "supports/login_helper"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
