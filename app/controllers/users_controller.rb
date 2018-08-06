@@ -18,6 +18,8 @@ class UsersController < ApplicationController
         @users.graduated
       when "adviser"
         @users.advisers
+      when "mentor"
+        @users.mentor
       when "all"
         @users
       end
