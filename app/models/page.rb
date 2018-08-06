@@ -3,7 +3,5 @@ class Page < ActiveRecord::Base
   validates :body, presence: true
   paginates_per 20
 
-  def to_param
-    title
-  end
+
 end

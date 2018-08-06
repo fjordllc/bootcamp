@@ -20,7 +20,7 @@ class PagesController < ApplicationController
   def create
     @page = Page.new(page_params)
     if @page.save
-      redirect_to "/pages/#{@page.title}", notice: "ページを作成しました。"
+      redirect_to "/pages/#{@page.id}", notice: "ページを作成しました。"
     else
       render :new
     end
@@ -28,7 +28,7 @@ class PagesController < ApplicationController
 
   def update
     if @page.update(page_params)
-      redirect_to "/pages/#{@page.title}", notice: "ページを更新しました。"
+      redirect_to "/pages/#{@page.id}", notice: "ページを更新しました。"
     else
       render :edit
     end
@@ -41,8 +41,8 @@ class PagesController < ApplicationController
 
   private
     def set_page
-      @page = Page.find_by(title: params[:title])
-      redirect_to "/pages/new?title=#{params[:title]}" unless @page
+      @page = Page.find_by(id: params[:id])
+      redirect_to "/pages/new?id=#{params[:id]}" unless @page
     end
 
     def page_params
