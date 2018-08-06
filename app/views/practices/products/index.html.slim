@@ -13,4 +13,4 @@ header.page-header
 
 .container
   - if admin_login? || current_user.has_checked_product?(@practice)
-    = render 'products', products: @practice.products.eager_load(:user, :comments).order(updated_at: :desc)
+    = render 'products/products', products: @products

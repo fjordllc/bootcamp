@@ -23,13 +23,6 @@ header.page-header
                 .user-data__description
                   = simple_format @user.description
 
-        .col-md-6.col-xs-12
-          - if @products.present?
-            .user-reports
-              h2.user-reports__title 提出物
-              .user-reports__items
-                = render partial: "users/product", collection: @products, as: :product
-
     - if current_user == @user || current_user.admin?
       .form-actions
         ul.form-actions__items
