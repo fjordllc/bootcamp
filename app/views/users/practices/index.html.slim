@@ -1,22 +1,19 @@
-- title t('practices')
-h1= t("bob's_practices", name: @user.login_name)
-- @categories.each do |category|
-  - if category.practices.present?
-    h2= category.name
-    p.description= simple_format category.description
+- title @user.login_name
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title= @user.login_name
+      ul.page-header-actions__items
+        li.page-header-actions__item
+          = link_to "ユーザー一覧", users_path, class: "is-button-simple-md-secondary"
 
-    .row
-      .span10
-        .progress
-          .bar style="width:#{@user.completed_percentage_by(category)}%"
-      .span2
-        b #{@user.completed_practices_size(category)} / #{category.practices.size} #{t('completed')}
+= render "page_tabs", resource: @user
 
-    table.table.table-striped.practices
-      tbody
-        = content_tag_for :tr, category.practices do |practice|
-          td.title= link_to practice.title, practice
-          - status = practice.status(@user)
-          td.status
-            label[class="#{status}"]= t(status)
-
+.page-body
+  .container
+    .user.is-margin-bottom-24
+      .row.is-gutter-width-32
+        .col-md-6.col-xs-12
+          - if @user.active_practices.present?
+            = render "active_practices", user: @user
+          = render "completed_practices", user: @user
