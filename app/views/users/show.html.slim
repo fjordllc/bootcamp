@@ -30,11 +30,6 @@ header.page-header
               .user-reports__items
                 = render partial: "users/product", collection: @products, as: :product
 
-          - if @reports.present?
-            .user-reports
-              h2.user-reports__title 日報
-              = render "users/reports", reports: @reports
-
     - if current_user == @user || current_user.admin?
       .form-actions
         ul.form-actions__items
