@@ -9,8 +9,7 @@ class Product < ApplicationRecord
   validates :body, presence: true
 
   def self.checked?(practice)
-    product = Product.find_by(practice_id: practice.id)
-    return false if product.nil?
-    product.checks.any?
+    product = Product.find_by(practice_id: practice.id) 
+    product ? product.checks.any? : false
   end
 end
