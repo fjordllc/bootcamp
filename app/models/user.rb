@@ -89,6 +89,10 @@ class User < ActiveRecord::Base
     company.name == "株式会社ネクスウェイ"
   end
 
+  def is_product_checked?(practice)
+    products.find_by(practice_id: practice.id)&.checked?
+  end
+
   private
 
     def password_required?
