@@ -5,7 +5,11 @@ class ProductsTest <  ActiveSupport::TestCase
     assert users(:tanaka).products.checked?(practices(:practice_2))
   end
 
-  test "return false when product isn't checked" do
+  test "returns false when product isn't checked" do
     assert_not users(:tanaka).products.checked?(practices(:practice_3))
+  end
+
+  test "returns false when no product" do
+    assert_not users(:tanaka).products.checked?(practices(:practice_4))
   end
 end
