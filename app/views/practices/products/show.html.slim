@@ -12,5 +12,5 @@ header.page-header
 = render "practices/page_tabs"
 
 .container
-  - if admin_login? || current_user.products.checked?(@practice)
+  - if admin_login? || current_user.is_product_checked?(@practice)
     = render 'products', products: @practice.products.eager_load(:user, :comments).order(updated_at: :desc)
