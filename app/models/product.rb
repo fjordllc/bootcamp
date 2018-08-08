@@ -8,8 +8,10 @@ class Product < ApplicationRecord
   validates :user, presence: true, uniqueness: { scope: :practice, message: "既に提出物があります。" }
   validates :body, presence: true
 
+  scope :of_practice, -> (practice){ where(practice_id: practice.id) }
+
   def self.checked?(practice)
-    product = Product.find_by(practice_id: practice.id) 
-    product ? product.checks.any? : false
+    products = Product.of_practice(practice)
+    products.present? ? products.first.checks.any? : false
   end
 end
