@@ -32,7 +32,7 @@
               i.fa.fa-trash-o
 
 
-    - if admin_login? && product.checks.blank?
+    - if ( admin_login? || adviser_login?) && product.checks.blank?
       .thread-admin-tools
         ul.thread-admin-tools__items
           li.thread-admin-tools__item

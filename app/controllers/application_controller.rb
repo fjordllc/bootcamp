@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_action :init_user
   before_action :allow_cross_domain_access
-  helper_method :admin_login?
+  helper_method :admin_login?, :adviser_login?
   helper_method :product_displayable?
 
   protected
