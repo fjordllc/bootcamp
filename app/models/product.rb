@@ -7,8 +7,4 @@ class Product < ApplicationRecord
   after_create ProductCallbacks.new
   validates :user, presence: true, uniqueness: { scope: :practice, message: "既に提出物があります。" }
   validates :body, presence: true
-
-  def checked?
-    checks.present?
-  end
 end
