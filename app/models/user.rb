@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
   end
 
   def has_checked_product?(practice)
-    products.find_by(practice_id: practice.id)&.checked?
+    !!products.find_by(practice_id: practice.id)&.checked?
   end
 
   private
