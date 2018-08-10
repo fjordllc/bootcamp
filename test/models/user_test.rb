@@ -35,4 +35,16 @@ class UserTest < ActiveSupport::TestCase
     user.twitter_account = "A"*16
     assert user.invalid?
   end
+
+  test "returns true when product is checked" do
+    assert users(:tanaka).has_checked_product?(practices(:practice_2))
+  end
+
+  test "returns false when product isn't checked" do
+    assert_not users(:tanaka).has_checked_product?(practices(:practice_3))
+  end
+
+  test "returns false when no product" do
+    assert_not users(:tanaka).has_checked_product?(practices(:practice_4))
+  end
 end
