@@ -389,6 +389,8 @@ GEM
       trollop (~> 2.1)
     record_tag_helper (1.0.0)
       actionview (~> 5.x)
+    rollbar (2.16.4)
+      multi_json
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.6)
@@ -514,6 +516,7 @@ DEPENDENCIES
   rails (~> 5.2.0)
   ransack
   record_tag_helper (~> 1.0)
+  rollbar
   sassc-rails
   selenium-webdriver
   simple_enum
