@@ -10,7 +10,7 @@ end
 gem "rails", "~> 5.2.0"
 gem "uglifier", ">= 1.3.0"
 gem "coffee-rails", "~> 4.2"
-gem 'bootsnap', '>= 1.1.0', require: false
+gem "bootsnap", ">= 1.1.0", require: false
 gem "dynamic_form"
 gem "gravatarify"
 gem "slim-rails"
@@ -44,6 +44,7 @@ gem "fog", "1.40.0"
 gem "rack-cors", require: "rack/cors"
 gem "cocoon"
 gem "active_decorator"
+gem "rollbar"
 
 group :production, :staging do
   gem "newrelic_rpm"
@@ -69,9 +70,9 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 2.15', '< 4.0'
+  gem "capybara", ">= 2.15", "< 4.0"
   gem "selenium-webdriver"
-  gem 'chromedriver-helper'
+  gem "chromedriver-helper"
 
   # not default
   gem "minitest", "~> 5.10", "!= 5.10.2"
