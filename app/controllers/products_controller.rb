@@ -44,7 +44,7 @@ class ProductsController < ApplicationController
     end
 
     def set_my_product
-      if admin_login? || adviser_login?
+      if admin_login? || adviser_login? || current_user.has_checked_product?(@practice)
         @product = @practice.products.find_by(id: params[:id])
       else
         @product = @practice.products.find_by(id: params[:id], user: current_user)

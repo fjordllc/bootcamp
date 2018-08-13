@@ -7,3 +7,43 @@ product_2:
   practice: practice_1
   user: kimura
   body: テストの提出物2です。
+
+product_3:
+  practice: practice_2
+  user: tanaka
+  body: 確認済みの提出物
+
+product_4:
+  practice: practice_2
+  user: yamada
+  body: テストの提出物4です。
+
+product_5:
+  practice: practice_2
+  user: kimura
+  body: テストの提出物5です。
+
+product_6:
+  practice: practice_3
+  user: tanaka
+  body: 確認待ちの提出物
+
+product_7:
+  practice: practice_3
+  user: yamada
+  body: テストの提出物7です。
+
+product_8:
+  practice: practice_3
+  user: kimura
+  body: テストの提出物8です。
+
+product_9:
+  practice: practice_4
+  user: yamada
+  body: テストの提出物9です。
+
+product_10:
+  practice: practice_4
+  user: kimura
+  body: テストの提出物10です。
