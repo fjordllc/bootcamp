@@ -422,6 +422,7 @@ ja:
   logout: "ログアウト"
   please_sign_in_first: "ログインしてください"
   please_sign_in_as_admin: "管理者としてログインしてください"
+  please_sign_in_as_admin_or_adviser: "管理者またはアドバイザーとしてログインしてください"
   greeting: "こんにちは、%{recipient}さん"
   forgot_password: "パスワードを忘れた方はこちら"
   reset_my_password: "パスワードをリセットする"

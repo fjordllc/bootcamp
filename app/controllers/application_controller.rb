@@ -24,7 +24,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-<<<<<<< HEAD
     def product_displayable?(practice: nil, user: nil)
       return true if admin_login? || adviser_login?
       if user
@@ -32,12 +31,13 @@ class ApplicationController < ActionController::Base
       else
         current_user.has_checked_product_of?(practice)
       end
-=======
-    def product_displayable?(practice: nil, user: current_user)
-      admin_login? || adviser_login? || user.has_checked_product?(practice: practice)
->>>>>>> アドバイザーが確認できるようchecks#createのコールバックを変更
     end
 
+    def require_admin_or_adviser_login
+      unless admin_login? || adviser_login?
+        redirect_to root_path, alert: t("please_sign_in_as_admin_or_adviser")
+      end
+    end
 
     def allow_cross_domain_access
       response.headers["Access-Control-Allow-Origin"] = "*"
