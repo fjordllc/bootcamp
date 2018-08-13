@@ -1,7 +1,7 @@
 class ChecksController < ApplicationController
   include ChecksHelper
   include Gravatarify::Helper
-  before_action :require_admin_login, only: [:create]
+  before_action :require_admin_or_adviser_login, only: [:create]
 
   def create
     @check = Check.new(
