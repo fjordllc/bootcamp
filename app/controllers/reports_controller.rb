@@ -53,6 +53,7 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(report_params)
     @report.user = current_user
+    set_wip
     if @report.save
       notify_to_slack(@report)
       redirect_to @report, notice: t("report_was_successfully_created")
@@ -62,6 +63,7 @@ class ReportsController < ApplicationController
   end
 
   def update
+    set_wip
     if @report.update(report_params)
       redirect_to @report, notice: t("report_was_successfully_updated")
     else
@@ -142,5 +144,9 @@ class ReportsController < ApplicationController
           fallback: "report body.",
           text: report.description
         }]
+    end
+
+    def set_wip
+      @report.wip = params[:commit] == "WIP"
     end
 end
