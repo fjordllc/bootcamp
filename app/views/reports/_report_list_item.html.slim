@@ -3,6 +3,8 @@
     .thread-list-item__author
       = gravatar_tag report.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon" }
     header.thread-list-item__header
+      - if report.wip?
+        p WIP
       h2.thread-list-item__title(itemprop="name")
         = link_to report, itempro: "url", class: "thread-list-item__title-link" do
           = highlight(report.title, search_words)

@@ -58,3 +58,11 @@ report_8:
   description: |-
     いろいろやりました。
   reported_at: "2017-01-01"
+
+report_9:
+  user: komagata
+  title: テストの日報9
+  wip: true
+  description: |-
+    勉強が辛い！
+  reported_at: "2017-01-04"
