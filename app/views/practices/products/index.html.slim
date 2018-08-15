@@ -13,4 +13,4 @@ header.page-header
 
 .container
   - if product_displayable?(practice: @practice)
-    = render 'products/products', products: @products
+    = render 'products/products', products: @products, resource: @practice
