@@ -46,9 +46,12 @@
         .form-actions__item-help
           | まだ書いてる途中
       li.form-actions__item.is-main.is-help
-        = f.submit nil, class: 'is-button-simple-lg-warning is-block', id: "js-shortcut-submit"
+        - if report.new_record? || report.wip?
+          = f.submit "提出", class: 'is-button-simple-lg-warning is-block', id: "js-shortcut-submit"
+        - else
+          = f.submit "内容変更", class: 'is-button-simple-lg-warning is-block', id: "js-shortcut-submit"
         .form-actions__item-help
-          | これで提出
+          | 日報完成
       li.form-actions__item
         - if params[:action] == 'new' || params[:action] == 'create'
           = link_to 'キャンセル', reports_path, class: "is-button-simple-md-secondary"
