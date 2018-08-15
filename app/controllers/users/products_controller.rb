@@ -11,6 +11,8 @@ class Users::ProductsController < ApplicationController
     end
 
     def set_products
-      @products = @user.products.eager_load(:user, :comments).order(updated_at: :desc)
+      if product_displayable?(user: @user)
+        @products = @user.products.eager_load(:user, :comments).order(updated_at: :desc)
+      end
     end
 end

@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :init_user
   before_action :allow_cross_domain_access
   helper_method :admin_login?
+  helper_method :product_displayable?
 
   protected
     def not_authenticated
@@ -21,6 +22,10 @@ class ApplicationController < ActionController::Base
       unless admin_login?
         redirect_to root_path, alert: t("please_sign_in_as_admin")
       end
+    end
+
+    def product_displayable?(practice: nil, user: current_user)
+      admin_login? || adviser_login? || user.has_checked_product?(practice: practice)
     end
 
     def allow_cross_domain_access
