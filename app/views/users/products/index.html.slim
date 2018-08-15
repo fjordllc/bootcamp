@@ -10,5 +10,5 @@ header.page-header
 = render "page_tabs", resource: @user
 
 .container
-  - if admin_login?
+  - if product_displayable?(user: @user)
     = render 'products/products', products: @products

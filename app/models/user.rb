@@ -89,8 +89,12 @@ class User < ActiveRecord::Base
     company.name == "株式会社ネクスウェイ"
   end
 
-  def has_checked_product?(practice)
-    !!products.find_by(practice_id: practice.id)&.checked?
+  def has_checked_product?(practice: nil)
+    if practice
+      !!products.find_by(practice_id: practice.id)&.checked?
+    else
+      products.any?(&:checked?)
+    end
   end
 
   private

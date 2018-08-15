@@ -25,12 +25,12 @@ module PageTabHelper
       page_tab_member(resource, resource.class.name.tableize.to_sym)
     end
 
-    def page_tab_member(path, tab_name, admin_displayable: false)
+    def page_tab_member(path, tab_name, is_products_tab: false)
       {
         path: path,
         target_name: tab_name.to_s,
         display_name: display_tab_name(tab_name),
-        admin_displayable: admin_displayable
+        is_products_tab: is_products_tab
       }
     end
 
@@ -58,7 +58,7 @@ module PageTabHelper
 
     def products_tab(resource)
       tab_name = :products
-      page_tab_member(tab_path(resource, tab_name), tab_name, admin_displayable: true)
+      page_tab_member(tab_path(resource, tab_name), tab_name, is_products_tab: true)
     end
 
     def users_tab_members(resource)
