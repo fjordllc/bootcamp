@@ -7,7 +7,7 @@
         header.thread-list-item__header
           h2.thread-list-item__title(itemprop="name")
             = link_to [product.practice, product], itempro: "url", class: "thread-list-item__title-link" do
-              = product.user.login_name
+              = product.practice.title
         .thread-list-item-meta
           time.thread-list-item-meta__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")
             = l product.updated_at, format: :semi_long

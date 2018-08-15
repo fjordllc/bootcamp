@@ -11,17 +11,15 @@ header.page-header
 
 .page-body
   .container
-    .user.is-margin-bottom-24
-      .row.is-gutter-width-32
-        .col-md-6.col-xs-12
-          .user-data
-            .user-data__inner
-              .user-data__main
-                = render "users/profile", user: @user
-                = render "users/dates", user: @user
-              .user-data__sub
-                .user-data__description
-                  = simple_format @user.description
+    .user
+      .user-data
+        .user-data__inner
+          .user-data__main
+            = render "users/profile", user: @user
+            = render "users/dates", user: @user
+          .user-data__sub
+            .user-data__description
+              = simple_format @user.description
 
     - if current_user == @user || current_user.admin?
       .form-actions
