@@ -41,10 +41,14 @@
 
   .form-actions
     ul.form-actions__items
-      li.form-actions__item.is-main
+      li.form-actions__item.is-main.is-help
         = f.submit "WIP", class: 'is-button-simple-lg-primary is-block', id: "js-shortcut-wip"
-      li.form-actions__item.is-main
+        .form-actions__item-help
+          | まだ書いてる途中
+      li.form-actions__item.is-main.is-help
         = f.submit nil, class: 'is-button-simple-lg-warning is-block', id: "js-shortcut-submit"
+        .form-actions__item-help
+          | これで提出
       li.form-actions__item
         - if params[:action] == 'new' || params[:action] == 'create'
           = link_to 'キャンセル', reports_path, class: "is-button-simple-md-secondary"
