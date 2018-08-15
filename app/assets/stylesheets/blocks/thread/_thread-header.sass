@@ -10,10 +10,22 @@
   +text-block(1.5rem 1.4, 700)
   +media-breakpoint-down(sm)
     font-size: 1.25rem
+  &.is-wip
+    color: $muted-text
 
 .thread-header__title-link
   +hover-link
   color: $default-text
+  .thread-header__title.is-wip &
+    color: $muted-text
+
+.thread-header__title-icon
+  +text-block(.75rem, inline-flex $muted-text)
+  background-color: #e9ebef
+  padding: .125rem .5rem
+  margin-right: .5rem
+  +position(relative, top -2px)
+  border-radius: .75rem
 
 .thread-header__reported-at
   +text-block(.8125rem 1 .75rem, $muted-text)

@@ -20,15 +20,29 @@
 .recent-reports-item__title
   +text-block(.875rem 1.45 .125rem, 600)
   word-break: break-all
+  .recent-reports-item.is-wip &
+    color: rgba(white, .6)
+
+.recent-reports-item__title-icon
+  +text-block(.625rem, inline-flex rgba(white, .6))
+  background-color: rgba(white, .2)
+  padding: .0625rem .375rem
+  margin-right: .5rem
+  +position(relative, top -2px)
+  border-radius: .75rem
 
 .recent-reports-item__date
   +text-block(.75rem 1.45, block right)
+  .recent-reports-item.is-wip &
+    color: rgba(white, .6)
 
 .recent-reports-item__user-icon
   +size(2.75rem auto)
   border-radius: 50%
   float: left
   margin-right: .75rem
+  .recent-reports-item.is-wip &
+    opacity: .6
 
 .recent-reports-item__checked
   color: $accent-color

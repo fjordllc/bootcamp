@@ -3,9 +3,10 @@
     header.thread-header
       .thread-header__reported-at
         | #{l report.reported_at, format: :long} の日報
-      h1.thread-header__title
+      h1.thread-header__title(class="#{report.wip? ? 'is-wip':''}")
         - if report.wip?
-          p WIP
+          span.thread-header__title-icon
+            | WIP
         = report.title
         - if @checks.any?
           .stamp.stamp-approve
