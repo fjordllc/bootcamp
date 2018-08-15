@@ -1,0 +1,23 @@
+.thread-comment
+  .thread-comment__author
+    = link_to report, itempro: 'url', class: 'thread-comment__author-link' do
+      = gravatar_tag comment.user, secure: true, size: 200, html: { class: "thread-comment__author-icon"}
+  .thread-comment__body
+    header.thread-comment__body-header
+      h2.thread-comment__login-name
+        = link_to report, itempro: 'url', class: 'thread-comment__login-name-link' do
+          = report.title
+        = gravatar_tag report.user, secure: true, size: 30, html: { class: "recent-reports-item__user-icon"}
+      time.thread-comment__created-at(datetime='#{report.created_at.to_datetime}' pubdate='pubdate')
+        = l comment.updated_at, format: :date_long_with_time
+    .thread-comments__description.js-markdown-view.js-target-blank.is-long-text-style
+      = comment.description
+    - if comment.user == current_user
+      .thread-comment__actions
+        ul.thread-comment__actions-items
+          li.thread-comment__actions-item
+            = link_to [:edit, report, comment], class: 'thread-comment__actions-item-link' do
+              i.fa.fa-pencil
+          li.thread-comment__actions__item
+            = link_to [report, comment], data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-comment__actions-item-link' do
+              i.fa.fa-trash-o

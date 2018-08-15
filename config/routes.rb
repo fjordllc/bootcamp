@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :practices, only: %i(index), controller: "users/practices"
     resources :reports, only: %i(index), controller: "users/reports"
+    resources :comments, only: %i(index), controller: "users/comments"
     resources :products, only: %i(index), controller: "users/products"
   end
 
