@@ -32,17 +32,23 @@ nav.global-nav.js-show-mobile-nav__target.js-show-mobile-nav
             .global-nav-links__link-label
               = t('users')
         li.global-nav-links__item
-          = link_to feeds_path, class: "global-nav-links__link #{current_link /^feeds/}" do
-            .global-nav-links__link-icon
-              i.fa.fa-rss
-            .global-nav-links__link-label
-              | みんなのブログ
-        li.global-nav-links__item
           = link_to "/pages", class: "global-nav-links__link #{current_link /^pages/}" do
             .global-nav-links__link-icon
               i.fa.fa-file-o
             .global-nav-links__link-label
               | wiki
+        li.global-nav-links__item
+          = link_to "https://docs.google.com/spreadsheets/d/1tRexM59inK1u5unRrNFNUNXXltiRQDNZZJf7X-M_G1E/edit#gid=2063800206", class: "global-nav-links__link", target: "_blank" do
+            .global-nav-links__link-icon
+              i.fa.fa-television
+            .global-nav-links__link-label
+              | 座席予約
+        li.global-nav-links__item
+          = link_to feeds_path, class: "global-nav-links__link #{current_link /^feeds/}" do
+            .global-nav-links__link-icon
+              i.fa.fa-rss
+            .global-nav-links__link-label
+              | みんなのブログ
         li.global-nav-links__item.is-hidden-md-up
           = link_to logout_path, class: "global-nav-links__link" do
             .global-nav-links__link-icon
