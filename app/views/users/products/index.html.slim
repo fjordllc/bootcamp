@@ -9,9 +9,6 @@ header.page-header
 
 = render "page_tabs", resource: @user
 
-.page-body
-  .container
-    .user
-      - if @user.active_practices.present?
-        = render "active_practices", user: @user
-      = render "completed_practices", user: @user
+.container
+  - if product_displayable?(user: @user)
+    = render 'products/products', products: @products, resource: @user

@@ -1,0 +1,3 @@
+li.page-tabs__item
+  = link_to member[:path], class: "page-tabs__item-link #{current_page_tab_or_not(member[:target_name])}" do
+    = member[:display_name]
