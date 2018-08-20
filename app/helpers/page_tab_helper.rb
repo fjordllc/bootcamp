@@ -53,7 +53,7 @@ module PageTabHelper
     end
 
     def tab_path(resource, tab_name)
-      eval "#{resource.class.name.underscore}_#{tab_name.to_s}_path(resource)"
+      [resource, tab_name]
     end
 
     def products_tab(resource)
