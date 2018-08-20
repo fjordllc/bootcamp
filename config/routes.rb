@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :practices, only: %i(index), controller: "users/practices"
     resources :reports, only: %i(index), controller: "users/reports"
+    resources :products, only: %i(index), controller: "users/products"
   end
 
   resources :user_sessions, only: %i(new create destroy)
@@ -33,8 +34,8 @@ Rails.application.routes.draw do
   resources :practices, shallow: true do
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
-    resource :reports, only: %i(show), controller: "practices/reports"
-    resource :products, only: %i(show), controller: "practices/products"
+    resources :reports, only: %i(index), controller: "practices/reports"
+    resources :products, only: %i(index), controller: "practices/products"
   end
   resources :practices do
     resources :products do

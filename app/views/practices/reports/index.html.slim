@@ -9,8 +9,8 @@ header.page-header
           i.fa.fa-angle-left
           = t('practices')
 
-= render "practices/page_tabs"
+= render "page_tabs", resource: @practice
 
 .container
   - if @practice.reports.any?
-    = render 'reports', reports: @reports
+    = render 'reports/reports', reports: @reports

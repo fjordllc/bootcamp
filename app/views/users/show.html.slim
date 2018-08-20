@@ -7,35 +7,19 @@ header.page-header
         li.page-header-actions__item
           = link_to "ユーザー一覧", users_path, class: "is-button-simple-md-secondary"
 
+= render "page_tabs", resource: @user
+
 .page-body
   .container
-    .user.is-margin-bottom-24
-      .row.is-gutter-width-32
-        .col-md-6.col-xs-12
-          .user-data
-            .user-data__inner
-              .user-data__main
-                = render "users/profile", user: @user
-                = render "users/dates", user: @user
-              .user-data__sub
-                .user-data__description
-                  = simple_format @user.description
-
-          - if @user.active_practices.present?
-            = render "users/active_practices", user: @user
-          = render "users/completed_practices", user: @user
-
-        .col-md-6.col-xs-12
-          - if @products.present?
-            .user-reports
-              h2.user-reports__title 提出物
-              .user-reports__items
-                = render partial: "users/product", collection: @products, as: :product
-
-          - if @reports.present?
-            .user-reports
-              h2.user-reports__title 日報
-              = render "users/reports", reports: @reports
+    .user
+      .user-data
+        .user-data__inner
+          .user-data__main
+            = render "users/profile", user: @user
+            = render "users/dates", user: @user
+          .user-data__sub
+            .user-data__description
+              = simple_format @user.description
 
     - if current_user == @user || current_user.admin?
       .form-actions

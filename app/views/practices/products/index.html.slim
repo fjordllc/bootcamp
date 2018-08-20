@@ -9,8 +9,8 @@ header.page-header
           i.fa.fa-angle-left
           = t('practices')
 
-= render "practices/page_tabs"
+= render "page_tabs", resource: @practice
 
 .container
-  - if admin_login? || current_user.has_checked_product?(@practice)
-    = render 'products', products: @practice.products.eager_load(:user, :comments).order(updated_at: :desc)
+  - if product_displayable?(practice: @practice)
+    = render 'products/products', products: @products, resource: @practice
