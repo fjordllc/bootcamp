@@ -264,15 +264,67 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal actual_products_counts, expected_products_counts
   end
 
-  test "when login user is student and target user has a checked product, users tab members are user and practices and reports and products" do
-    login_user "kimura", "testtest"
+  test "when login user is student and target user is current user, users tab members are user and practices and reports and products" do
+    login_user "hatsuno", "testtest"
 
     assert_text "ユーザー"
     click_link "ユーザー"
 
-    last_displayed_student = all(".users-item__name-link").last
-    assert_equal last_displayed_student.text, "yamada"
-    last_displayed_student.click
+    first_displayed_student = first(".users-item__name-link")
+    assert_equal first_displayed_student.text, "hatsuno"
+    first_displayed_student.click
+
+    assert_text "Hatsuno Shinji"
+    assert_equal all(".is-current").length, 1
+    assert_equal first(".is-current").text, "ユーザー"
+
+    page_tabs = all(".page-tabs__item-link")
+    assert_equal page_tabs.size, 4
+    assert_equal page_tabs[0].text, "ユーザー"
+    assert_equal page_tabs[1].text, "プラクティス"
+    assert_equal page_tabs[2].text, "日報"
+    assert_equal page_tabs[3].text, "提出物"
+
+    user_id = current_path.split("/").last.to_i
+
+    all(".page-tabs__item-link")[0].click
+
+    assert_text "Hatsuno Shinji"
+    assert_equal all(".is-current").length, 1
+    assert_equal first(".is-current").text, "ユーザー"
+
+    all(".page-tabs__item-link")[1].click
+
+    assert_equal all(".is-current").length, 1
+    assert_equal first(".is-current").text, "プラクティス"
+    assert_text "完了したプラクティス"
+
+    all(".page-tabs__item-link")[2].click
+
+    assert_equal all(".is-current").length, 1
+    assert_equal first(".is-current").text, "日報"
+    expected_report_counts = User.find(user_id).reports.size
+    actual_report_counts = all(".thread-list-item__title-link").size
+    assert_equal actual_report_counts, expected_report_counts
+
+    all(".page-tabs__item-link")[3].click
+
+    assert_equal all(".is-current").length, 1
+    assert_equal first(".is-current").text, "提出物"
+    expected_products_counts = User.find(user_id).products.select(&:checked?).size
+    actual_products_counts = all(".thread-list-item__title-link").size
+    assert_equal actual_products_counts, expected_products_counts
+  end
+
+  test "when login user is student and target user has a checked product and login user also has it, users tab members are user and practices and reports and products" do
+    login_user "tanaka", "testtest"
+
+    assert_text "ユーザー"
+    click_link "ユーザー"
+
+    first_displayed_student = first(".users-item__name-link")
+    assert_equal first_displayed_student.text, "yamada"
+    first_displayed_student.click
 
     assert_text "Yamada Taro"
     assert_equal all(".is-current").length, 1
@@ -311,9 +363,53 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_equal all(".is-current").length, 1
     assert_equal first(".is-current").text, "提出物"
-    expected_products_counts = User.find(user_id).products.map(&:checked?).size
-    actual_products_counts = all(".thread-list-item__title-link").size
-    assert_equal actual_products_counts, expected_products_counts
+    assert_equal all(".thread-list-item__title-link").size, 1
+  end
+
+  test "when login user is student and target user has a checked product but login user doesn't have it, users tab members are user and practices and reports" do
+    login_user "kimura", "testtest"
+
+    assert_text "ユーザー"
+    click_link "ユーザー"
+
+    assert_text "卒業生"
+    click_link "卒業生"
+
+    first_displayed_student = first(".users-item__name-link")
+    assert_equal first_displayed_student.text, "tanaka"
+    first_displayed_student.click
+
+    assert_text "Tanaka Taro"
+    assert_equal all(".is-current").length, 1
+    assert_equal first(".is-current").text, "ユーザー"
+
+    page_tabs = all(".page-tabs__item-link")
+    assert_equal page_tabs.size, 3
+    assert_equal page_tabs[0].text, "ユーザー"
+    assert_equal page_tabs[1].text, "プラクティス"
+    assert_equal page_tabs[2].text, "日報"
+
+    user_id = current_path.split("/").last.to_i
+
+    all(".page-tabs__item-link")[0].click
+
+    assert_text "Tanaka Taro"
+    assert_equal all(".is-current").length, 1
+    assert_equal first(".is-current").text, "ユーザー"
+
+    all(".page-tabs__item-link")[1].click
+
+    assert_equal all(".is-current").length, 1
+    assert_equal first(".is-current").text, "プラクティス"
+    assert_text "完了したプラクティス"
+
+    all(".page-tabs__item-link")[2].click
+
+    assert_equal all(".is-current").length, 1
+    assert_equal first(".is-current").text, "日報"
+    expected_report_counts = User.find(user_id).reports.size
+    actual_report_counts = all(".thread-list-item__title-link").size
+    assert_equal actual_report_counts, expected_report_counts
   end
 
   test "when login user is student and target user doesn't have a checked product, users tab members are user and practices and reports" do

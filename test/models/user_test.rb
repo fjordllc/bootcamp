@@ -37,26 +37,14 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "returns true when product of designated practice is checked" do
-    assert users(:tanaka).has_checked_product?(practice: practices(:practice_2))
+    assert users(:tanaka).has_checked_product?(practices(:practice_2))
   end
 
   test "returns false when product of designated practice isn't checked" do
-    assert_not users(:tanaka).has_checked_product?(practice: practices(:practice_3))
+    assert_not users(:tanaka).has_checked_product?(practices(:practice_3))
   end
 
   test "returns false when no product of designated practice" do
-    assert_not users(:tanaka).has_checked_product?(practice: practices(:practice_4))
-  end
-
-  test "returns true when user has any checked products" do
-    assert users(:tanaka).has_checked_product?
-  end
-
-  test "returns false when user doesn't have any checked products" do
-    assert_not users(:kimura).has_checked_product?
-  end
-
-  test "returns false when user doesn't have any products" do
-    assert_not users(:komagata).has_checked_product?
+    assert_not users(:tanaka).has_checked_product?(practices(:practice_4))
   end
 end
