@@ -47,7 +47,7 @@ class ReportsTest < ApplicationSystemTestCase
     select "20", from: selects[10]["id"]
     select "15", from: selects[11]["id"]
 
-    click_button "登録する"
+    click_button "提出"
 
     assert_text "2時間45分"
     assert_text "07:30 〜 08:30"
@@ -73,7 +73,7 @@ class ReportsTest < ApplicationSystemTestCase
     select "09", from: selects[6]["id"]
     select "30", from: selects[7]["id"]
 
-    click_button "登録する"
+    click_button "提出"
 
     assert_text "2時間\n"
     assert_text "07:30 〜 08:30"
@@ -98,7 +98,7 @@ class ReportsTest < ApplicationSystemTestCase
     select "20", from: selects[6]["id"]
     select "15", from: selects[7]["id"]
 
-    click_button "登録する"
+    click_button "提出"
 
     assert_text "1時間45分\n"
     assert_text "07:30 〜 08:30"
@@ -116,7 +116,7 @@ class ReportsTest < ApplicationSystemTestCase
     select "20", from: selects[2]["id"]
     select "15", from: selects[3]["id"]
 
-    click_button "登録する"
+    click_button "提出"
 
     assert_text "45分\n"
     assert_text "19:30 〜 20:15"
@@ -133,7 +133,7 @@ class ReportsTest < ApplicationSystemTestCase
     select "00", from: selects[2]["id"]
     select "00", from: selects[3]["id"]
 
-    click_button "登録する"
+    click_button "提出"
 
     assert_text "1時間\n"
     assert_text "23:00 〜 00:00"
@@ -157,7 +157,7 @@ class ReportsTest < ApplicationSystemTestCase
     select "02", from: selects[6]["id"]
     select "30", from: selects[7]["id"]
 
-    click_button "登録する"
+    click_button "提出"
 
     assert_text "4時間\n"
     assert_text "22:00 〜 00:00"
