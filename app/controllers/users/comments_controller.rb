@@ -15,7 +15,7 @@ class Users::CommentsController < ApplicationController
         Comment
           .preload(:commentable)
           .eager_load(:user)
-          .where(user_id: @user, commentable_type: 'Report')
+          .where(user_id: @user, commentable_type: "Report")
           .order(created_at: :desc)
     end
 end
