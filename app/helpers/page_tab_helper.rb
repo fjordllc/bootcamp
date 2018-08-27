@@ -9,7 +9,7 @@ module PageTabHelper
   end
 
   def current_page_tab_or_not(target_name)
-    current_page_tab?(target_name) ? 'is-current' : ''
+    current_page_tab?(target_name) ? "is-current" : ""
   end
 
   private
@@ -83,7 +83,7 @@ module PageTabHelper
     end
 
     def current_page_tab?(target_name)
-      paths = request.fullpath.split('/')
+      paths = request.fullpath.split("/")
       if paths[-2] == target_name
         true
       else
