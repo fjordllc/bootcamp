@@ -10,6 +10,8 @@ $thread-header-author: 3.5rem
   border-radius: .25rem
   margin-bottom: 2rem
   padding-left: $thread-header-author + 1.25rem
+  &.is-no-author-icon
+    padding-left: 0
   +media-breakpoint-down(sm)
     padding-left: 0
     margin-bottom: 1rem
@@ -24,12 +26,26 @@ $thread-header-author: 3.5rem
   +size(100% auto)
   border-radius: 50%
 
-.thread-comment__login-name
+.thread-comment__title
+  line-height: 1.4
   +media-breakpoint-down(sm)
     margin-bottom: .25rem
 
-.thread-comment__login-name-link
+.thread-comment__title-link
   color: $main-color
+
+.thread-comment__title-label
+  +text-block(.8125rem, $muted-text block 400)
+  margin-bottom: .125rem
+  i
+    margin-right: .1875rem
+
+.thread-comment__title-count
+  +text-block(.8125rem, inline-block $muted-text  400)
+  margin-left: .5rem
+  i
+    margin-right: .125rem
+    +top(-1px)
 
 .thread-comment__body
   background-color: $base
@@ -41,6 +57,9 @@ $thread-header-author: 3.5rem
   +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
   &::after
     margin-left: -1.4375rem
+  .thread-comment.is-no-author-icon &::before,
+  .thread-comment.is-no-author-icon &::after
+    content: none
   +media-breakpoint-down(sm)
     &::before,
     &::after
@@ -62,10 +81,27 @@ $thread-header-author: 3.5rem
     flex-direction: column
     align-items: flex-start
     padding-bottom: .25rem
+  &.is-icon
+    +position(relative)
+    padding-left: 3.5rem
+    min-height: 4.25rem
+    +media-breakpoint-down(sm)
+      padding-left: 0
+      min-height: 0
+    .thread-comment__created-at
+      align-self: flex-end
+
+.thread-comment__user-icon
+  +size(2.75rem auto)
+  border-radius: 50%
+  +position(absolute, left 0, top 0)
+  +margin(vertical, .75rem)
+  +media-breakpoint-down(sm)
+    display: none
 
 .thread-comment__created-at
   display: block
-  +text-block(.875rem 1.4, $muted-text)
+  +text-block(.875rem 1.4, $muted-text nowrap)
   +media-breakpoint-down(sm)
     font-size: .75rem
 

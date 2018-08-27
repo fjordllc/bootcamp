@@ -12,8 +12,8 @@
         .answer-badge__label
           = t("best_answer_html")
     header.thread-comment__body-header
-      h2.thread-comment__login-name
-        = link_to answer.user, itempro: 'url', class: 'thread-comment__login-name-link' do
+      h2.thread-comment__title
+        = link_to answer.user, itempro: 'url', class: 'thread-comment__title-link' do
           = answer.user.login_name
       time.thread-comment__created-at(datetime='#{answer.created_at.to_datetime}' pubdate='pubdate')
         = l answer.updated_at, format: :date_long_with_time
