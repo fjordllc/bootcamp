@@ -2632,6 +2632,10 @@ hosted-git-info@^2.1.4:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
 
+hotkeys-js@^3.3.5:
+  version "3.3.5"
+  resolved "https://registry.yarnpkg.com/hotkeys-js/-/hotkeys-js-3.3.5.tgz#6c40e81f3720ead83d808db49d010380bd72c6f1"
+
 hpack.js@^2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/hpack.js/-/hpack.js-2.1.6.tgz#87774c0949e513f42e84575b3c45681fade2a0b2"
@@ -5783,8 +5787,8 @@ textarea-autosize@^0.4.2:
     jquery ">=1.8"
 
 textarea-markdown@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.2.3.tgz#011008971fc1ba21f3f42264636b9f43074f4700"
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.2.4.tgz#d0e338dfab0d4276a69138f9a45711cab675b818"
   dependencies:
     markdown-it "^8.4.0"
     whatwg-fetch "^2.0.3"

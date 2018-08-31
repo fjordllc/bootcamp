@@ -22,8 +22,14 @@
 
 .form-actions__item
   +padding(horizontal, .375rem)
+  +position(relative)
+  &.is-help
+    +media-breakpoint-down(sm)
+      margin-bottom: 1.5rem
   &.is-main
     width: 12rem
+    +media-breakpoint-down(sm)
+      width: 100%
   +media-breakpoint-down(sm)
     width: 100%
     +padding(horizontal, 0)
@@ -32,3 +38,9 @@
       margin-top: .75rem
     > *
       width: 100%
+
+.form-actions__item-help
+  +text-block(.75rem 1, center)
+  height: 1.25rem
+  padding-top: .5rem
+  +position(absolute, left 0, bottom -1.25rem, right 0)

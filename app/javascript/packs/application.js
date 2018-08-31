@@ -12,3 +12,4 @@ require('./autosize');
 require('../camera');
 require('../faces.js');
 require('../datepicker');
+require('../shortcut');
