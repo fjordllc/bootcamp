@@ -27,6 +27,8 @@
   border-radius: 50%
   +media-breakpoint-down(sm)
     +size(2.5rem auto)
+  .thread-list-item.is-wip &
+    opacity: .6
 
 .thread-list-item__checked-author-icon
   border-radius: 50%
@@ -40,10 +42,20 @@
     align-items: flex-start
     min-height: 3.25rem
 
+.thread-list-item__header-icon
+  +text-block(.75rem, inline-flex $muted-text)
+  background-color: #e9ebef
+  padding: .125rem .5rem
+  margin-right: .5rem
+  border-radius: .75rem
+
+
 .thread-list-item__title-link
   +text-block(1rem 1.5, 600 $side)
   word-break: break-all
   +hover-link-reversal
+  .thread-list-item.is-wip &
+    color: $muted-text
 
 .thread-list-item__actions
   margin-left: .5rem

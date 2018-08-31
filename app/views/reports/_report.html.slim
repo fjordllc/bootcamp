@@ -3,7 +3,10 @@
     header.thread-header
       .thread-header__reported-at
         | #{l report.reported_at, format: :long} の日報
-      h1.thread-header__title
+      h1.thread-header__title(class="#{report.wip? ? 'is-wip':''}")
+        - if report.wip?
+          span.thread-header__title-icon
+            | WIP
         = report.title
         - if @checks.any?
           .stamp.stamp-approve
@@ -50,7 +53,7 @@
           .thread-edit-tools__inner
             ul.thread-edit-tools__items
               li.thread-edit-tools__item
-                = link_to edit_report_path(report), class: 'thread-edit-tools__item-link is-success' do
+                = link_to edit_report_path(report), class: 'thread-edit-tools__item-link is-success', id: "js-shortcut-edit" do
                   i.fa.fa-pencil
               li.thread-edit-tools__item
                 = link_to new_report_path(id: report), class: 'thread-edit-tools__item-link is-success' do
