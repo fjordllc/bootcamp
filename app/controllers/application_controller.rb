@@ -24,8 +24,13 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def product_displayable?(practice: nil, user: current_user)
-      admin_login? || adviser_login? || user.has_checked_product?(practice: practice)
+    def product_displayable?(practice: nil, user: nil)
+      return true if admin_login? || adviser_login?
+      if user
+        user == current_user || user.has_checked_product_of?(current_user.practices_with_checked_product)
+      else
+        current_user.has_checked_product_of?(practice)
+      end
     end
 
     def allow_cross_domain_access
