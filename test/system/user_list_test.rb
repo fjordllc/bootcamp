@@ -8,9 +8,10 @@ class UserListTest < ApplicationSystemTestCase
     click_link "ユーザー"
 
     assert_equal all(".tab-nav__item-link").length, 5
-    assert_equal all(".users-item__inner").length, 2
+    assert_equal all(".users-item__inner").length, 3
     assert_text "yamada"
     assert_text "kimura"
+    assert_text "hatsuno"
 
     assert_text "メンター"
     click_link "メンター"
@@ -30,7 +31,7 @@ class UserListTest < ApplicationSystemTestCase
 
     assert_text "全員"
     click_link "全員"
-    assert_equal all(".users-item__inner").length, 7
+    assert_equal all(".users-item__inner").length, 8
     assert_text "yameo"
   end
 end

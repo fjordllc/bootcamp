@@ -7,4 +7,7 @@ class Product < ApplicationRecord
   after_create ProductCallbacks.new
   validates :user, presence: true, uniqueness: { scope: :practice, message: "既に提出物があります。" }
   validates :body, presence: true
+
+  scope :ids_of_common_checked_with,
+    -> (user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
 end
