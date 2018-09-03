@@ -34,13 +34,8 @@ class CheckReportTest < ApplicationSystemTestCase
     assert_text "確認済"
   end
 
-    test "Success Adviser's Report Checking" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login_name]", with: "mineo")
-      fill_in("user[password]", with: "testtest")
-    end
-    click_button "サインイン"
+  test "Success Adviser's Report Checking" do
+    login_user "mineo", "testtest"
     assert_equal current_path, "/users"
     click_link "日報"
     assert_text "作業週2日目"
