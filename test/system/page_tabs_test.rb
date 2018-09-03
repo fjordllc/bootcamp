@@ -209,7 +209,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal all(".is-current").length, 1
     assert_equal first(".is-current").text, "コメント"
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
-    actual_comment_counts = all(".thread-comment__author").size
+    actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal actual_comment_counts, expected_comment_counts
 
     all(".page-tabs__item-link")[4].click
@@ -270,7 +270,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal all(".is-current").length, 1
     assert_equal first(".is-current").text, "コメント"
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
-    actual_comment_counts = all(".thread-comment__author").size
+    actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal actual_comment_counts, expected_comment_counts
 
     all(".page-tabs__item-link")[4].click
@@ -331,7 +331,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal all(".is-current").length, 1
     assert_equal first(".is-current").text, "コメント"
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
-    actual_comment_counts = all(".thread-comment__author").size
+    actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal actual_comment_counts, expected_comment_counts
 
     all(".page-tabs__item-link")[4].click
@@ -392,7 +392,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal all(".is-current").length, 1
     assert_equal first(".is-current").text, "コメント"
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
-    actual_comment_counts = all(".thread-comment__author").size
+    actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal actual_comment_counts, expected_comment_counts
 
     all(".page-tabs__item-link")[4].click
@@ -453,7 +453,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal all(".is-current").length, 1
     assert_equal first(".is-current").text, "コメント"
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
-    actual_comment_counts = all(".thread-comment__author").size
+    actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal actual_comment_counts, expected_comment_counts
   end
 
@@ -505,7 +505,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal all(".is-current").length, 1
     assert_equal first(".is-current").text, "コメント"
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
-    actual_comment_counts = all(".thread-comment__author").size
+    actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal actual_comment_counts, expected_comment_counts
   end
 end
