@@ -3,6 +3,8 @@ module Checkable
 
   included do
     has_many :checks, as: :checkable, dependent: :delete_all
+
+    scope :checked, -> { joins(:checks) }
   end
 
   def checked?

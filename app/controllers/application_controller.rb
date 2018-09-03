@@ -27,9 +27,9 @@ class ApplicationController < ActionController::Base
     def product_displayable?(practice: nil, user: nil)
       return true if admin_login? || adviser_login?
       if user
-        user == current_user || user.has_checked_product?(current_user.practices_with_checked_product)
+        user == current_user || user.has_checked_product_of?(current_user.practices_with_checked_product)
       else
-        current_user.has_checked_product?(practice)
+        current_user.has_checked_product_of?(practice)
       end
     end
 

@@ -8,5 +8,6 @@ class Product < ApplicationRecord
   validates :user, presence: true, uniqueness: { scope: :practice, message: "既に提出物があります。" }
   validates :body, presence: true
 
-  scope :checked_ids, -> (user) { where(practice: user.practices_with_checked_product).select(&:checked?).map(&:id) }
+  scope :ids_of_common_checked_with,
+    -> (user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
 end

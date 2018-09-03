@@ -89,12 +89,12 @@ class User < ActiveRecord::Base
     company.name == "株式会社ネクスウェイ"
   end
 
-  def has_checked_product?(*practices)
+  def has_checked_product_of?(*practices)
     products.where(practice: practices).any?(&:checked?)
   end
 
   def practices_with_checked_product
-    Practice.where(products: products.select(&:checked?))
+    Practice.where(products: products.checked)
   end
 
   private
