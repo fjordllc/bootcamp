@@ -8,7 +8,7 @@ class PracticePageCompleteButtonTest < ApplicationSystemTestCase
       fill_in("user[password]", with: "testtest")
     end
     click_button "サインイン"
-    assert_equal current_path, "/users"
+    assert_equal "/users", current_path
     click_link "プラクティス"
     click_link "PC性能の見方を知る"
     assert has_link? "完了"

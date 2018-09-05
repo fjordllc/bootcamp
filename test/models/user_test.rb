@@ -7,7 +7,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "full_name" do
-    assert_equal users(:komagata).full_name, "Komagata Masaki"
+    assert_equal "Komagata Masaki", users(:komagata).full_name
   end
 
   test "active?" do
