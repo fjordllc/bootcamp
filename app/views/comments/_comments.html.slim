@@ -1,0 +1,8 @@
+.thread-comments-container
+  h2.thread-comments-container__title
+    = "コメント"
+    span.thread-comments-container__title-count
+      = comments.count
+  .thread-comments
+    - comments.each do |comment|
+      = render "comments/comment", report: comment.commentable, comment: comment

@@ -8,7 +8,7 @@ class CheckReportTest < ApplicationSystemTestCase
       fill_in("user[password]", with: "testtest")
     end
     click_button "サインイン"
-    assert_equal current_path, "/users"
+    assert_equal "/users", current_path
     click_link "日報"
     assert_text "作業週2日目"
     click_link "作業週2日目"
@@ -22,7 +22,7 @@ class CheckReportTest < ApplicationSystemTestCase
       fill_in("user[password]", with: "testtest")
     end
     click_button "サインイン"
-    assert_equal current_path, "/users"
+    assert_equal "/users", current_path
     click_link "日報"
     assert_text "作業週2日目"
     click_link "作業週2日目"

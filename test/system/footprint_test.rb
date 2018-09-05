@@ -8,7 +8,7 @@ class FootprintTest < ApplicationSystemTestCase
       fill_in("user[password]", with: "testtest")
     end
     click_button "サインイン"
-    assert_equal current_path, "/users"
+    assert_equal "/users", current_path
     click_link "日報"
     assert_text "作業週2日目"
     click_link "作業週2日目"
@@ -23,7 +23,7 @@ class FootprintTest < ApplicationSystemTestCase
       fill_in("user[password]", with: "testtest")
     end
     click_button "サインイン"
-    assert_equal current_path, "/users"
+    assert_equal "/users", current_path
     click_link "日報"
     assert_text "学習週3日目"
     click_link "学習週3日目"
