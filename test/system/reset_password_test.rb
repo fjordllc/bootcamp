@@ -27,7 +27,7 @@ class ResetPasswordTest < ApplicationSystemTestCase
     assert_match /#{password_resets_url}/, mail.body.to_s
     assert_match /#{I18n.t("the_password_will_not_be_changed_until_you_access_the_link_above_and_set_a_new_password")}/, mail.body.to_s
 
-    assert_equal current_path, "/login"
+    assert_equal "/login", current_path
     assert_text I18n.t("instruction_have_been_sent")
   end
 
@@ -42,7 +42,7 @@ class ResetPasswordTest < ApplicationSystemTestCase
       click_button "パスワードをリセットする"
     end
 
-    assert_equal current_path, "/login"
+    assert_equal "/login", current_path
     assert_text I18n.t("invalid_email_or_password")
   end
 end

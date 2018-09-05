@@ -10,7 +10,7 @@ class SignInTest < ApplicationSystemTestCase
       fill_in("user[password]",   with: "testtest")
     end
     click_button "サインイン"
-    assert_equal current_path, "/users"
+    assert_equal "/users", current_path
   end
 
   test "sign in with wrong password" do
@@ -20,7 +20,7 @@ class SignInTest < ApplicationSystemTestCase
       fill_in("user[password]",   with: "xxxxxxxx")
     end
     click_button "サインイン"
-    assert_equal current_path, "/user_sessions"
+    assert_equal "/user_sessions", current_path
     assert_text "ユーザー名かパスワードが違います。"
   end
 end
