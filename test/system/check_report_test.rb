@@ -36,7 +36,7 @@ class CheckReportTest < ApplicationSystemTestCase
 
   test "Success Adviser's Report Checking" do
     login_user "mineo", "testtest"
-    assert_equal current_path, "/users"
+    assert_equal "/users", current_path
     click_link "日報"
     assert_text "作業週2日目"
     click_link "作業週2日目"
