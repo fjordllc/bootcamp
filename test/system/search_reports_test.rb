@@ -18,7 +18,7 @@ class SearchReportsTest < ApplicationSystemTestCase
       fill_in("user[password]", with: "testtest")
     end
     click_button "サインイン"
-    assert_equal current_path, "/users"
+    assert_equal "/users", current_path
 
     fill_in "word", with: "作業 2"
     find(".header-search__submit").click
