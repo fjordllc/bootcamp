@@ -15,7 +15,7 @@ class CheckReportTest < ApplicationSystemTestCase
     assert_not has_button? "日報を確認する"
   end
 
-  test "Success Report Checking" do
+  test "success report checking" do
     visit "/login"
     within("#sign-in-form") do
       fill_in("user[login_name]", with: "machida")
@@ -34,7 +34,7 @@ class CheckReportTest < ApplicationSystemTestCase
     assert_text "確認済"
   end
 
-  test "Success Adviser's Report Checking" do
+  test "success adviser's report checking" do
     login_user "mineo", "testtest"
     assert_equal "/users", current_path
     click_link "日報"

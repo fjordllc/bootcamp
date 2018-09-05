@@ -1,7 +1,7 @@
 require "application_system_test_case"
 
 class CheckProductTest < ApplicationSystemTestCase
-  test "Success Product Checking" do
+  test "success product checking" do
     login_user "machida", "testtest"
     click_link "プラクティス"
     assert_text "OS X Mountain Lionをクリーンインストールする"
@@ -18,7 +18,7 @@ class CheckProductTest < ApplicationSystemTestCase
     assert_text "確認済"
   end
 
-  test "Success Adviser's Product Checking" do
+  test "success adviser's product checking" do
     login_user "mineo", "testtest"
     click_link "プラクティス"
     assert_text "OS X Mountain Lionをクリーンインストールする"
