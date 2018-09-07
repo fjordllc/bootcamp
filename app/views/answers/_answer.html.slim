@@ -21,7 +21,7 @@
       = answer.description
     .thread-comment__actions
       ul.thread-comment__actions-items
-        - if correct_answer.blank? && answer != correct_answer && current_user == question.user
+        - if correct_answer.blank? && answer != correct_answer && current_user == question.user or admin_login?
           li.thread-comment__actions-item
             = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: 'is-button-simple-sm-warning' do
               | 解決にする
