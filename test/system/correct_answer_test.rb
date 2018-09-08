@@ -4,8 +4,7 @@ class CorrectAnswerTest < ApplicationSystemTestCase
 
   test "admin can resolve user's question" do
     login_user "komagata", "testtest"
-    click_link "Q&A"
-    click_link "injectとreduce"
+    visit "/questions/#{questions(:question_2).id}"
     assert_text "解決にする"
     accept_alert do
       click_link '解決にする'
