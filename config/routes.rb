@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
     resources :reports, only: %i(index), controller: "practices/reports"
+    resources :questions, only: %i(index), controller: "practices/questions"
     resources :products, only: %i(index), controller: "practices/products"
   end
   resources :practices do
