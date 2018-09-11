@@ -62,7 +62,7 @@
                 = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-edit-tools__item-link is-danger' do
                   i.fa.fa-trash-o
 
-    - if admin_login? && @report.checks.blank?
+    - if (admin_login? || adviser_login?) && @report.checks.blank?
       .thread-admin-tools
         ul.thread-admin-tools__items
           li.thread-admin-tools__item
