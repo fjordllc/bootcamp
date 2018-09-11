@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(version: 2018_11_07_022628) do
     t.string "face_content_type"
     t.integer "face_file_size"
     t.datetime "face_updated_at"
+    t.datetime "graduated_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
