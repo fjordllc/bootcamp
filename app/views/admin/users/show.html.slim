@@ -32,6 +32,12 @@ header.page-header
                 = t('helpers.label.user.updated_at')
               .user-dates__update-at-value
                 = l @user.updated_at, format: :long
+            - if @user.graduated_at.present?
+              .user-dates__graduated-at
+                .user-dates__graduated-at-label
+                  = t('helpers.label.user.graduated_at')
+                .user-dates__graduated-at-value
+                  = l @user.graduated_at, format: :long
         .col-md-9.col-xs-12
           table.admin-table
             thead.admin-table__header
