@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_action :init_user
   before_action :allow_cross_domain_access
-  helper_method :admin_login?
+  helper_method :admin_login?, :adviser_login?
   helper_method :product_displayable?
 
   protected
@@ -30,6 +30,12 @@ class ApplicationController < ActionController::Base
         user == current_user || user.has_checked_product_of?(current_user.practices_with_checked_product)
       else
         current_user.has_checked_product_of?(practice)
+      end
+    end
+
+    def require_admin_or_adviser_login
+      unless admin_login? || adviser_login?
+        redirect_to root_path, alert: t("please_sign_in_as_admin_or_adviser")
       end
     end
 
