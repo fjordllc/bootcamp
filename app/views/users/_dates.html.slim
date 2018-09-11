@@ -17,3 +17,10 @@
       | :
     .user-dates__update-at-value
       = user.slack_account
+  - if @user.graduated_at.present?
+    .user-dates__graduated-at
+      .user-dates__graduated-at-label
+        = t("helpers.label.user.graduated_at")
+        | :
+      .user-dates__graduated-at-value
+        = l @user.graduated_at, format: :long
