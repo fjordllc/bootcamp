@@ -11,13 +11,13 @@ class Notification < ApplicationRecord
 
   scope :unreads, -> { where(read: false).order(created_at: :desc) }
 
-  def self.came_comment(comment)
+  def self.came_comment(comment, reciever, message)
     Notification.create!(
       kind:    0,
-      user:    comment.reciever,
+      user:    reciever,
       sender:  comment.sender,
       path:    comment.commentable.path,
-      message: "#{comment.sender.login_name}さんからコメントが届きました。",
+      message: message,
       read:    false
     )
   end
@@ -44,13 +44,13 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.submitted(subject, reciever)
+  def self.submitted(subject, reciever, message)
     Notification.create!(
       kind:    3,
       user:    reciever,
       sender:  subject.user,
       path:    subject.path,
-      message: "#{subject.user.login_name}さんが提出しました。",
+      message: message,
       read:    false
     )
   end
