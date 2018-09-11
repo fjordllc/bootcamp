@@ -1,8 +1,8 @@
 require "application_system_test_case"
 
 class ProductsListTest < ApplicationSystemTestCase
-  setup { login_user "tanaka", "testtest"}
-  
+  setup { login_user "tanaka", "testtest" }
+
   test "show products list when user's product is checked" do
     visit "/practices/#{practices(:practice_2).id}/products"
     click_link "提出物"

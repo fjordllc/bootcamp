@@ -7,4 +7,8 @@ module LoginHelper
     end
     click_button "サインイン"
   end
+
+  def logout
+    visit "/logout"
+  end
 end
