@@ -56,7 +56,7 @@ class ReportsController < ApplicationController
     set_wip
     if @report.save
       notify_to_slack(@report)
-      redirect_to @report, notice: t("report_was_successfully_created")
+      redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :new
     end
@@ -65,7 +65,7 @@ class ReportsController < ApplicationController
   def update
     set_wip
     if @report.update(report_params)
-      redirect_to @report, notice: t("report_was_successfully_updated")
+      redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :edit
     end
@@ -73,7 +73,7 @@ class ReportsController < ApplicationController
 
   def destroy
     @report.destroy
-    redirect_to reports_url, notice: t("report_was_successfully_deleted")
+    redirect_to reports_url, notice: "日報を削除しました。"
   end
 
   private
@@ -148,5 +148,13 @@ class ReportsController < ApplicationController
 
     def set_wip
       @report.wip = params[:commit] == "WIP"
+    end
+
+    def redirect_url(report)
+      report.wip? ? edit_report_url(report) : report
+    end
+
+    def notice_message(report)
+      report.wip? ? "日報をWIPとして保存しました。" : "日報を保存しました。"
     end
 end

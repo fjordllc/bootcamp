@@ -10,6 +10,26 @@ class ReportsTest < ApplicationSystemTestCase
     all(".category-practices-item__value.is-title").map { |e| e.text }
   end
 
+  test "create a report" do
+    visit "/reports/new"
+    within("#new_report") do
+      fill_in("report[title]", with: "test title")
+      fill_in("report[description]",   with: "test")
+    end
+    click_button "WIP"
+    assert_text "日報をWIPとして保存しました。"
+  end
+
+  test "create report as WIP" do
+    visit "/reports/new"
+    within("#new_report") do
+      fill_in("report[title]", with: "test title")
+      fill_in("report[description]",   with: "test")
+    end
+    click_button "提出"
+    assert_text "日報を保存しました。"
+  end
+
   test "equal practices order in practices and new report" do
     visit "/reports/new"
     report_practices = page.all(".select-practices__label-title").map { |e| e.text }
