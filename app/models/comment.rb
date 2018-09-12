@@ -33,6 +33,6 @@ class Comment < ActiveRecord::Base
 
   private
     def extract_mentions(text)
-      text.scan(/@\w+/).map { |s| s.gsub(/@/, "") }
+      text.scan(/@\w+/).uniq.map { |s| s.gsub(/@/, "") }
     end
 end
