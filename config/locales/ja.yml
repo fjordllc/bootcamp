@@ -160,6 +160,7 @@ ja:
         goal: "終了条件"
         target: "ターゲット"
         category_id: "カテゴリー"
+        submission: "提出物"
 
       user:
         login_name: "ユーザー名"
@@ -564,3 +565,4 @@ ja:
   unsolved: 未解決
   we_checked: 見たよ
   best_answer_html: ベスト<br>アンサー
+  check_if_user_shold_submit_a_product: "提出物がある場合はチェック"
