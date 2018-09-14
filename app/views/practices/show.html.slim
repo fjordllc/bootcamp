@@ -50,16 +50,17 @@ header.page-header
       footer.practice-content__footer
         .practice-content-actions
           ul.practice-content-actions__items
-            - if @practice.product(current_user).present?
-              li.practice-content-actions__item
-                = link_to [@practice, @practice.product(current_user)], class: 'is-button-simple-md-info' do
-                  i.fa.fa-file
-                  | 提出物
-            - else
-              li.practice-content-actions__item
-                = link_to new_practice_product_path(@practice), class: 'is-button-simple-md-info' do
-                  i.fa.fa-file
-                  | 提出物を作る
+            - if @practice.submission
+              - if @practice.product(current_user).present?
+                li.practice-content-actions__item
+                  = link_to [@practice, @practice.product(current_user)], class: 'is-button-simple-md-info' do
+                    i.fa.fa-file
+                    | 提出物
+              - else
+                li.practice-content-actions__item
+                  = link_to new_practice_product_path(@practice), class: 'is-button-simple-md-info' do
+                    i.fa.fa-file
+                    | 提出物を作る
             - if @practice.not_completed?(current_user)
               li.practice-content-actions__item
                 = link_to practice_learning_path(@practice), method: :put, class: 'is-button-simple-md-info' do
