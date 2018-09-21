@@ -28,5 +28,9 @@ header.page-header.is-margin-bottom-0
             = link_to "解決済み", polymorphic_path(:questions, solved: "true", practice_id: params[:practice_id]), class: "tab-nav__item-link #{params[:solved].present? ? "is-active" : ""}"
 
   .container
-    .thread-list
-      = render @questions
+    - if @questions.present?
+      .thread-list
+        = render @questions
+    - else
+      .thread-list.is-empty
+        | 質問はまだありません。
