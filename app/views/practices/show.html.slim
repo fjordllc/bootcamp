@@ -49,6 +49,11 @@ header.page-header
         = @practice.goal
       footer.practice-content__footer
         .practice-content-actions
+          - unless @practice.submission
+            p.practice-content-actions__description
+              | このプラクティスに提出物は不要です。
+              br
+              | 終了条件をクリアしたら完了をクリック！
           ul.practice-content-actions__items
             - if @practice.submission
               - if @practice.product(current_user).present?
