@@ -33,8 +33,9 @@
           .js-goal-preview.is-long-text-style.markdown-form__preview
     .form-item
       = f.label :submission, class: 'a-label'
-      = f.check_box :submission
-      = t('check_if_user_shold_submit_a_product')
+      label
+        = f.check_box :submission
+        = t('check_if_user_shold_submit_a_product')
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
