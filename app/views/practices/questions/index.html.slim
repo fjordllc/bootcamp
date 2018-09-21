@@ -21,6 +21,10 @@ header.page-header
           = link_to "解決済み", polymorphic_path([@practice, :questions], solved: 'true'), class: "tab-nav__item-link #{params[:solved].present? ? 'is-active' : ''}"
 
   .container
-    .thread-list
-      - @questions.each do |question|
-        = render 'questions/question', question: question
+    - if @questions.present?
+      .thread-list
+        - @questions.each do |question|
+          = render 'questions/question', question: question
+    - else
+      .thread-list.is-empty
+        | 質問はまだありません。

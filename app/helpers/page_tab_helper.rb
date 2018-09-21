@@ -90,7 +90,7 @@ module PageTabHelper
     end
 
     def current_page_tab?(target_name)
-      paths = request.fullpath.split("/")
+      paths = url_for(only_path: false, overwrite_params: nil).split("/")
       if paths[-2] == target_name
         true
       else
