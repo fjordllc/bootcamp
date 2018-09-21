@@ -36,7 +36,7 @@ html.is-application lang="ja"
         = render "alert"
       main.page
         = yield
-    - if current_user && page_classes.exclude?("no-recent-reports") && recent_reports.present?
+    - if current_user && page_classes.exclude?("no-recent-reports") && (page_category == "index-page" ||  page_category == "show-page")  && recent_reports.present?
       .recent-reports
         .recent-reports__items
           = render partial: "reports/recent_reports", collection: recent_reports, as: :report
