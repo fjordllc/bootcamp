@@ -16,7 +16,7 @@ html.is-admin lang="ja"
     = render "current_user"
     = content_for(:head_last) if content_for?(:head_last)
   - page_classes = content_for(:page_classes).to_s
-  body class="#{body_class} #{page_classes}"
+  body.is-admin class="#{body_class} #{page_classes}"
     - if page_classes.exclude?("no-global-nav")
       = render "global_nav"
     .wrapper.js-open-drawer-wrapper
@@ -29,8 +29,4 @@ html.is-admin lang="ja"
         = render "alert"
       main.page
         = yield
-    - if page_classes.exclude?("no-recent-reports") && recent_reports.present?
-      .recent-reports
-        .recent-reports__items
-          = render partial: "reports/recent_reports", collection: recent_reports, as: :report
     = render("to_top")
