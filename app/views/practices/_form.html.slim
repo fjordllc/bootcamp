@@ -1,6 +1,5 @@
 = form_for practice, html: { class: 'form' } do |f|
-  - if practice.errors.any?
-    = error_messages_for :practice
+  = render 'errors', object: practice
   .form__items
     .form-item
       .row

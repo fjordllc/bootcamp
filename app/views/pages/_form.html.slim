@@ -1,6 +1,5 @@
 = form_with model: page, local: true, class: "form" do |f|
-  - if page.errors.any?
-    = error_messages_for :page
+  = render 'errors', object: page
   .form-item
     .row
       .col-md-6.col-xs-12
