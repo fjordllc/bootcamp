@@ -12,7 +12,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2018_10_02_051214) do
+=======
+ActiveRecord::Schema.define(version: 2018_09_27_095310) do
+>>>>>>> お知らせとユーザーの関連を追加
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
