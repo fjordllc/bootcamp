@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :images
   has_many :products
+  has_many :announcements
 
   has_many :send_notifications, class_name: "Notification", foreign_key: "sender_id"
 
