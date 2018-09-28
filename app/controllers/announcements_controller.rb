@@ -1,5 +1,5 @@
 class AnnouncementsController < ApplicationController
-  #show以外はadminのみ
+  before_action :require_admin_login, except: %i(index show)
 
   def index
     @announcements = Announcement.all.order(created_at: :desc)
