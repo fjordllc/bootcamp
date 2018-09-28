@@ -1,0 +1,33 @@
+.thread
+  .thread__inner
+    header.thread-header
+      h1.thread-header__title
+        = announcement.title
+
+      .thread-meta
+        .thread-meta__author-name
+          = link_to announcement.user, class: "thread-meta__author-name-link" do
+            = announcement.user.login_name
+        time.thread-meta__created-at(datetime="#{announcement.created_at.to_datetime}" pubdate="pubdate")
+          | 書いた日 : #{l announcement.updated_at, format: :date_long_with_time}
+
+    .thread-body
+      .thread__description.js-target-blank.is-long-text-style.js-markdown-view
+        = announcement.description
+
+      - if @announcement.user_id == current_user.id
+        .thread-edit-tools
+          .thread-edit-tools__inner
+            ul.thread-edit-tools__items
+              li.thread-edit-tools__item
+                = link_to edit_announcement_path(announcement), class: 'thread-edit-tools__item-link is-success', id: "js-shortcut-edit" do
+                  i.fa.fa-pencil
+              li.thread-edit-tools__item
+                = link_to new_announcement_path(id: announcement), class: 'thread-edit-tools__item-link is-success' do
+                  i.fa.fa-files-o
+              li.thread-edit-tools__item
+                = link_to announcement_path(announcement), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-edit-tools__item-link is-danger' do
+                  i.fa.fa-trash-o
+
+  = link_to announcement.user, itempro: "url", class: "thread__author-link" do
+    = gravatar_tag announcement.user, secure: true, size: 120, html: { class: "thread__author-icon" }

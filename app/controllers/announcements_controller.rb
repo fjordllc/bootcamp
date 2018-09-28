@@ -1,15 +1,38 @@
 class AnnouncementsController < ApplicationController
+  #show以外はadminのみ
+  
+  def index
+  end
+
+  def show
+    @announcement = Announcement.find(params[:id]) #set_announcementに書き換えたい
+  end
+
   def new
     @announcement = Announcement.new
+  end
+
+  def edit
+    @announcement = Announcement.find(params[:id])
+    @announcement.user = current_user
+  end
+
+  def update
+    @announcement = Announcement.find(params[:id])
+    if @announcement.update(announcement_params)
+      redirect_to @announcement, notice: t("report_was_successfully_updated")
+    else
+      render :edit
+    end
   end
 
   def create
     @announcement = Announcement.new(announcement_params)
     @announcement.user_id = current_user.id
     if @announcement.save
-      redirect_to announcements_path
+      redirect_to @announcement, notice: t("announcement_was_successfully_created")
     else
-      redirect_to new_announcement_path
+      render :edit
     end
   end
 
