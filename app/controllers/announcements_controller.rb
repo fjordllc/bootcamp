@@ -6,6 +6,10 @@ class AnnouncementsController < ApplicationController
     @announcements = Announcement.order(created_at: :desc).page(params[:page])
   end
 
+  def index
+    @announcements = Announcement.all.order(created_at: :desc)
+  end
+
   def show
   end
 
