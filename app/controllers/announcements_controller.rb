@@ -1,6 +1,10 @@
 class AnnouncementsController < ApplicationController
   #show以外はadminのみ
 
+  def index
+    @announcements = Announcement.all.order(created_at: :desc)
+  end
+
   def show
     @announcement = Announcement.find(params[:id]) #set_announcementに書き換えたい
   end

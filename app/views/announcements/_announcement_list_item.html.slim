@@ -1,0 +1,19 @@
+.thread-list-item
+  .thread-list-item__inner
+    .thread-list-item__author
+      = gravatar_tag announcement.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon" }
+    header.thread-list-item__header
+      h2.thread-list-item__title(itemprop="name")
+        = link_to announcement, itempro: "url", class: "thread-list-item__title-link" do
+          = announcement.title
+      - if current_user == announcement.user
+        .thread-list-item__actions
+          = link_to edit_announcement_path(announcement), class: 'thread-list-item__actions-link' do
+            i.fa.fa-pencil
+          = link_to new_announcement_path(id: announcement), class: 'thread-list-item__actions-link' do
+            i.fa.fa-files-o
+          = link_to announcement_path(announcement), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-list-item__actions-link' do
+            i.fa.fa-trash-o
+    .thread-list-item-meta
+      time.thread-list-item-meta__updated-at(datetime="#{announcement.updated_at.to_datetime}" pubdate="pubdate")
+        = l announcement.updated_at, format: :semi_long
