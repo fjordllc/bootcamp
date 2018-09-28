@@ -5,10 +5,11 @@ header.page-header
       h1.page-header__title お知らせ
       .page-header-actions
         ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to new_announcement_path, class: "page-header-actions__items-link is-button-simple-md-warning" do
-              i.fa.fa-plus
-              = t("new_announcement")
+          - if admin_login?
+            li.page-header-actions__item
+              = link_to new_announcement_path, class: "page-header-actions__items-link is-button-simple-md-warning" do
+                i.fa.fa-plus
+                = t("new_announcement")
           li.page-header-actions__item
             = link_to announcements_path, class: "page-header-actions__items-link is-button-simple-md-secondary" do
               = t("to_index_of_announcements")
