@@ -8,7 +8,7 @@ class UserSessionsController < ApplicationController
     @user = login(params[:user][:login_name], params[:user][:password], params[:remember])
     if @user && !@user.retire?
       save_updated_at(@user)
-      redirect_back_or_to :announcements, notice: t("sign_in_successful")
+      redirect_back_or_to root_url, notice: t("sign_in_successful")
     else
       flash.now[:alert] = t("invalid_email_or_password")
       render "new"
