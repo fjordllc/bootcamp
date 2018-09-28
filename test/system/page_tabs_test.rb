@@ -15,7 +15,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プラクティス", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 3, page_tabs.size
+    assert_equal 4, page_tabs.size
     assert_equal "プラクティス", page_tabs[0].text
     assert_equal "日報", page_tabs[1].text
     assert_equal "提出物", page_tabs[2].text
@@ -57,7 +57,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プラクティス", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 3, page_tabs.size
+    assert_equal 4, page_tabs.size
     assert_equal "プラクティス", page_tabs[0].text
     assert_equal "日報", page_tabs[1].text
     assert_equal "提出物", page_tabs[2].text
@@ -99,7 +99,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プラクティス", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 3, page_tabs.size
+    assert_equal 4, page_tabs.size
     assert_equal "プラクティス", page_tabs[0].text
     assert_equal "日報", page_tabs[1].text
     assert_equal "提出物", page_tabs[2].text
@@ -141,7 +141,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プラクティス", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 2, page_tabs.size
+    assert_equal 3, page_tabs.size
     assert_equal "プラクティス", page_tabs[0].text
     assert_equal "日報", page_tabs[1].text
 
