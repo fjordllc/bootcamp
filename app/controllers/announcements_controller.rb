@@ -32,6 +32,12 @@ class AnnouncementsController < ApplicationController
       render :edit
     end
   end
+  
+  def destroy
+    @announcement = Announcement.find(params[:id])
+    @announcement.destroy
+    redirect_to announcements_path, notice: "お知らせを削除しました"
+  end
 
   private
     def announcement_params
