@@ -1,8 +1,5 @@
 class AnnouncementsController < ApplicationController
   #show以外はadminのみ
-  
-  def index
-  end
 
   def show
     @announcement = Announcement.find(params[:id]) #set_announcementに書き換えたい
@@ -20,7 +17,7 @@ class AnnouncementsController < ApplicationController
   def update
     @announcement = Announcement.find(params[:id])
     if @announcement.update(announcement_params)
-      redirect_to @announcement, notice: t("report_was_successfully_updated")
+      redirect_to @announcement, notice: t("announcement_was_successfully_updated")
     else
       render :edit
     end
