@@ -3,7 +3,7 @@
 class HomeController < ApplicationController
   def index
     if current_user
-      render action: :index
+      redirect_to announcements_path
     else
       render action: :welcome
     end
