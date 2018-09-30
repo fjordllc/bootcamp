@@ -1,0 +1,11 @@
+announcement_1:
+  user: komagata
+  title: お知らせ1
+  description: お知らせ本文1
+  created_at: "2018-01-01"
+
+announcement_2:
+  user: machida
+  title: お知らせ2
+  description: お知らせ本文2
+  created_at: "2018-01-02"
