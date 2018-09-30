@@ -259,6 +259,7 @@ ja:
       question: "Q&A"
       contact: "申し込みフォーム"
       product: "提出物"
+      announcement: "お知らせ"
 
     enums:
       user:
@@ -381,6 +382,10 @@ ja:
         github_account: "GitHubアカウント"
         application_reason: "志望理由"
         user_policy_agreed: "個人情報の取り扱いについて"
+
+      announcement:
+         title: "タイトル"
+         description: "内容"
 
     errors:
       template:
@@ -566,4 +571,12 @@ ja:
   unsolved: 未解決
   we_checked: 見たよ
   best_answer_html: ベスト<br>アンサー
+<<<<<<< HEAD
   check_if_user_shold_submit_a_product: "提出物がある場合はチェック"
+=======
+  announcements: "お知らせ"
+  new_announcement: "お知らせの新規作成"
+  new_report: "日報の新規作成"
+  to_index_of_announcements: お知らせ一覧へ
+  editing_announcement: "お知らせ編集"
+>>>>>>> お知らせの日本語訳を追加
