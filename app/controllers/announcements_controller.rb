@@ -33,7 +33,7 @@ class AnnouncementsController < ApplicationController
     if @announcement.save
       redirect_to @announcement, notice: t("announcement_was_successfully_created")
     else
-      render :edit
+      render :new
     end
   end
   
