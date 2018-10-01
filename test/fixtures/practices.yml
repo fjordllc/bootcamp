@@ -4,6 +4,7 @@ practice_1:
   goal: "OS X Mountain Lionをクリーンインストールする"
   category: category_2
   position: 1
+  submission: true
 
 practice_2:
   title: "Terminalの基礎を覚える"
