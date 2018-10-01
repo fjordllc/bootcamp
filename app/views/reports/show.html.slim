@@ -16,20 +16,13 @@ header.page-header
 .page-body
   .container
     = render "report", report: @report
-    .thread-comments-container
-      h2.thread-comments-container__title
-        | コメント
-        span.thread-comments-container__title-count
-          = @report.comments.count
-      .thread-comments
-        - if @report.comments.any?
-          - @report.comments.order(:created_at).each do |comment|
-            = render "report_comment", report: @report, comment: comment
-      = render "report_comment_form"
-      - if @footprints.any?
-        .footprints
-          h3.footprints__title
-            = t("we_checked")
-          ul.footprints__items
-            - @footprints.each do |check|
-              = render "reports/report_check", report: @report, check: check
+
+    #vue-comments(data-commentable-id="#{@report.id}")
+
+    - if @footprints.any?
+      .footprints
+        h3.footprints__title
+          = t("we_checked")
+        ul.footprints__items
+          - @footprints.each do |check|
+            = render "reports/report_check", report: @report, check: check
