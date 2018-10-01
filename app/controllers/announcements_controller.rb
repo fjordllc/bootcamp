@@ -3,7 +3,7 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: %i(show edit update destroy)
 
   def index
-    @announcements = Announcement.all.order(created_at: :desc)
+    @announcements = Announcement.order(created_at: :desc)
   end
 
   def show
@@ -14,7 +14,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def edit
-    @announcement.user = current_user
+    @announcement.user_id = current_user.id
   end
 
   def update
@@ -42,7 +42,7 @@ class AnnouncementsController < ApplicationController
 
   private
     def announcement_params
-     params.require(:announcement).permit(:title, :description, :user_id)
+     params.require(:announcement).permit(:title, :description)
     end
 
     def set_announcement
