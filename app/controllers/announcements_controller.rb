@@ -1,16 +1,13 @@
 class AnnouncementsController < ApplicationController
   before_action :require_admin_login, except: %i(index show)
   before_action :set_announcement, only: %i(show edit update destroy)
-<<<<<<< HEAD
 
   def index
     @announcements = Announcement.order(created_at: :desc).page(params[:page])
   end
-=======
->>>>>>> announcementsコントローラーを書き換え
 
   def index
-    @announcements = Announcement.all.order(created_at: :desc)
+    @announcements = Announcement.order(created_at: :desc)
   end
 
   def show
@@ -22,10 +19,14 @@ class AnnouncementsController < ApplicationController
 
   def edit
 <<<<<<< HEAD
+<<<<<<< HEAD
     @announcement.user_id = current_user.id
 =======
     @announcement.user = current_user
 >>>>>>> announcementsコントローラーを書き換え
+=======
+    @announcement.user_id = current_user.id
+>>>>>>> announcementsコントローラーを修正
   end
 
   def update
