@@ -12,7 +12,7 @@ class SignInTest < ApplicationSystemTestCase
       fill_in("user[password]",   with: "testtest")
     end
     click_button "サインイン"
-    assert_equal "/announcements", current_path
+    assert_equal "/", current_path
   end
 
   test "sign in with wrong password" do
