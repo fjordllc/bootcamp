@@ -3,7 +3,8 @@
 class HomeController < ApplicationController
   def index
     if current_user
-      redirect_to announcements_path
+      @announcements = Announcement.order(created_at: :desc)
+      render aciton: :index
     else
       render action: :welcome
     end
