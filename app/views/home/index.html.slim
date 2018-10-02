@@ -1,0 +1,19 @@
+- title t('announcements')
+
+header.page-header.is-margin-bottom-0.has-border-bottom-none
+  .container
+    .page-header__container
+      h2.page-header__title= title
+      .page-header-actions
+        .page-header-actions__items
+          - if admin_login?
+            .page-header-actions__item
+              = link_to new_announcement_path, class: 'is-button-simple-md-warning' do
+                i.fa.fa-plus
+                = t('new_announcement')
+
+.page-body
+  .container
+    - if @announcements.present?
+    .thread-list
+      = render partial: 'announcements/announcement_list_item', collection: @announcements, as: :announcement
