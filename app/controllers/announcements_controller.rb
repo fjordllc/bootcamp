@@ -3,7 +3,7 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: %i(show edit update destroy)
 
   def index
-    @announcements = Announcement.order(created_at: :desc)
+    @announcements = Announcement.order(created_at: :desc).page(params[:page])
   end
 
   def show
