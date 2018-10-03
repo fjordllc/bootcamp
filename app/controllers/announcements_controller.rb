@@ -18,15 +18,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def edit
-<<<<<<< HEAD
-<<<<<<< HEAD
     @announcement.user_id = current_user.id
-=======
-    @announcement.user = current_user
->>>>>>> announcementsコントローラーを書き換え
-=======
-    @announcement.user_id = current_user.id
->>>>>>> announcementsコントローラーを修正
   end
 
   def update
