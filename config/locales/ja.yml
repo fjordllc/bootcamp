@@ -576,3 +576,5 @@ ja:
   new_report: "日報の新規作成"
   to_index_of_announcements: お知らせ一覧へ
   editing_announcement: "お知らせ編集"
+  announcement_was_successfully_created: "お知らせを作成しました"
+  announcement_was_successfully_updated: "お知らせを更新しました"
