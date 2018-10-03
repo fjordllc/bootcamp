@@ -3,7 +3,7 @@
 class HomeController < ApplicationController
   def index
     if current_user
-      @announcements = Announcement.order(created_at: :desc)
+      @announcements = Announcement.limit(5).order(created_at: :desc)
       render aciton: :index
     else
       render action: :welcome
