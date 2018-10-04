@@ -8,6 +8,12 @@ nav.global-nav.js-show-mobile-nav__target.js-show-mobile-nav
     .global-nav-links.is-contents-links
       ul.global-nav-links__items
         li.global-nav-links__item
+          = link_to announcements_path, class: "global-nav-links__link #{current_link /^announcements/}" do
+            .global-nav-links__link-icon
+              i.fa.fa-bullhorn
+            .global-nav-links__link-label
+              = t('announcements')
+        li.global-nav-links__item
           = link_to practices_path, class: "global-nav-links__link #{current_link /^practices/}" do
             .global-nav-links__link-icon
               i.fas.fa-book
