@@ -12,4 +12,14 @@ class AnnouncementsTest < ApplicationSystemTestCase
     visit "/announcements"
     assert_no_text "お知らせの新規作成"
   end
+
+  test "show pagination" do
+    user = users(:komagata)
+    Announcement.delete_all
+    26.times do |n|
+      Announcement.create(title: "test", description: "test", user: user)
+    end
+    visit "/announcements"
+    assert_selector "nav.pagination", count: 2
+  end
 end
