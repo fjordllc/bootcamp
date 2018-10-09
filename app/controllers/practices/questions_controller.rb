@@ -14,10 +14,9 @@ class Practices::QuestionsController < ApplicationController
       questions = @practice.questions.eager_load(:user, :answers)
       @questions =
         if params[:solved].present?
-          questions.joins(:correct_answer)
+          questions.solved
         else
-          question_ids = CorrectAnswer.pluck(:question_id)
-          questions.where.not(id: question_ids)
+          questions.not_solved
         end.order(updated_at: :desc, id: :desc)
     end
 end
