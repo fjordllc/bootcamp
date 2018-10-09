@@ -15,6 +15,7 @@ question_3:
   title: テストの質問1
   description: テスト1の内容です。
   user: komagata
+  practice: practice_1
 
 question_4:
   title: テストの質問2
@@ -25,3 +26,15 @@ question_5:
   title: テストの質問3
   description: テスト3の内容です。
   user: komagata
+
+question_6:
+  title: テストの質問4
+  description: テスト1の内容です。
+  user: komagata
+  practice: practice_1
+
+question_7:
+  title: テストの質問5
+  description: テスト1の内容です。
+  user: komagata
+  practice: practice_1
