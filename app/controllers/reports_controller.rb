@@ -13,7 +13,7 @@ class ReportsController < ApplicationController
   before_action :set_footprints, only: %i(show)
   before_action :set_footprint, only: %i(show)
   before_action :set_user, only: %i(show)
-  before_action :set_categories, only: %i(new create edit)
+  before_action :set_categories, only: %i(new create edit update)
 
   def index
     @search_words = params[:word]&.squish&.split(/[[:blank:]]/)&.uniq
