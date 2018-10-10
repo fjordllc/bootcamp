@@ -13,8 +13,13 @@ class Practices::ProductsController < ApplicationController
     end
 
     def set_products
-      if product_displayable?(practice: @practice)
-        @products = @practice.products.eager_load(:user, :comments).order(updated_at: :desc)
-      end
+      @products =
+        if product_displayable?(practice: practice)
+           practice.products.eager_load(:user, :comments).order(updated_at: :desc)
+        end
+    end
+
+    def practice
+      @practice ||= Practice.find(params[:practice_id])
     end
 end

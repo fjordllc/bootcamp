@@ -13,6 +13,10 @@ class Practices::ReportsController < ApplicationController
     end
 
     def set_reports
-      @reports = @practice.reports.eager_load(:user, :comments).order(updated_at: :desc, id: :desc)
+      @reports = practice.reports.eager_load(:user, :comments).order(updated_at: :desc, id: :desc)
+    end
+
+    def practice
+      @practice ||= Practice.find(params[:practice_id])
     end
 end

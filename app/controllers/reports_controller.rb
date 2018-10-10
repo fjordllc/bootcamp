@@ -110,8 +110,12 @@ class ReportsController < ApplicationController
       @check = Check.new
     end
 
+    def report
+      @report ||= Report.find(params[:id])
+    end
+
     def set_checks
-      @checks = @report.checks.order(created_at: :desc)
+      @checks = report.checks.order(created_at: :desc)
     end
 
     def set_footprint
@@ -119,7 +123,7 @@ class ReportsController < ApplicationController
     end
 
     def set_footprints
-      @footprints = Footprint.where(report_id: @report.id).order(created_at: :desc)
+      @footprints = Footprint.where(report_id: report.id).order(created_at: :desc)
     end
 
     def set_comment
