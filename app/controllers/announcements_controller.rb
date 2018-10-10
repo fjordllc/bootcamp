@@ -23,7 +23,7 @@ class AnnouncementsController < ApplicationController
 
   def update
     if @announcement.update(announcement_params)
-      redirect_to @announcement, notice: t("announcement_was_successfully_updated")
+      redirect_to @announcement, notice: "お知らせを更新しました"
     else
       render :edit
     end
@@ -33,7 +33,7 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.new(announcement_params)
     @announcement.user_id = current_user.id
     if @announcement.save
-      redirect_to @announcement, notice: t("announcement_was_successfully_created")
+      redirect_to @announcement, notice: "お知らせを作成しました" 
     else
       render :new
     end
