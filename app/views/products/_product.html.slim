@@ -26,10 +26,10 @@
         ul.thread-edit-tools__items
           li.thread-edit-tools__item
             = link_to edit_practice_product_path(product.practice), class: "thread-edit-tools__item-link is-success" do
-              i.fa.fa-pencil
+              i.fas.fa-pencil
           li.thread-edit-tools-item
             = link_to practice_product_path(product.practice), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread-edit-tools__item-link is-danger" do
-              i.fa.fa-trash-o
+              i.fas.fa-trash-alt
 
 
     - if (admin_login? || adviser_login?) && product.checks.blank?
