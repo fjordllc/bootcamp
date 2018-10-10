@@ -7,11 +7,11 @@ header.page-header
         ul.page-header-actions__items
           li.page-header-actions__item
             = link_to [:new, :page], class: 'is-button-simple-md-warning' do
-              i.fa.fa-plus
+              i.fas.fa-plus
               | 新規ページ
           li.page-header-actions__item
             = link_to :pages, class: 'is-button-simple-md-secondary' do
-              i.fa.fa-angle-left
+              i.fas.fa-angle-left
               | 一覧に戻る
 
 .page-body
@@ -34,10 +34,10 @@ header.page-header
               ul.thread-edit-tools__items
                 li.thread-edit-tools__item
                   = link_to [:edit, @page], class: 'thread-edit-tools__item-link is-success' do
-                    i.fa.fa-pencil
+                    i.fas.fa-pencil
                 li.thread-edit-tools__item
                   = link_to @page, data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-edit-tools__item-link is-danger' do
-                    i.fa.fa-trash-o
+                    i.fas.fa-trash-alt
       .thread-prev-next
         .thread-prev-next__item
           = link_to :pages, class: 'thread-prev-next__item-link is-index' do

@@ -3,20 +3,20 @@
     - if user.github_account?
       li.user-data-sns__item
         = link_to user_github_url(user), class: 'user-data-sns__item-link' do
-          i.fa.fa-github-alt
+          i.fas.fa-github-alt
     - if user.twitter_account?
       li.user-data-sns__item
         = link_to user.twitter_url, class: 'user-data-sns__item-link' do
-          i.fa.fa-twitter
+          i.fab.fa-twitter
     - if user.facebook_url?
       li.user-data-sns__item
         = link_to user.facebook_url, class: 'user-data-sns__item-link' do
-          i.fa.fa-facebook
+          i.fab.fa-facebook
     - if user.blog_url?
       li.user-data-sns__item
         = link_to user.blog_url, class: 'user-data-sns__item-link' do
-          i.fa.fa-file-text
+          i.fas.fa-file
     - if user.feed_url?
       li.user-data-sns__item
         = link_to user.feed_url, class: 'user-data-sns__item-link' do
-          i.fa.fa-rss
+          i.fas.fa-rss
