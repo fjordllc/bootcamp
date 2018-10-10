@@ -6,6 +6,8 @@ $thread-header-author: 4.75rem
   padding-left: $thread-header-author
   +media-breakpoint-down(sm)
     padding-left: 0
+  .thread-comment-form__form::after
+    border-right-color: $muted-text
 
 .thread-comment-form__author
   +position(absolute, left 0, top 0)
@@ -20,8 +22,8 @@ $thread-header-author: 4.75rem
 .thread-comment-form__form
   background-color: $base
   box-shadow: rgba(black, .2) 0 .0625rem .125rem
-  padding: 1rem
   border-radius: .25rem
+  padding-bottom: 1rem
   +relative
   +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
   +media-breakpoint-down(sm)
@@ -29,10 +31,50 @@ $thread-header-author: 4.75rem
     &::after
       content: none
 
+.thread-comment-form__tabs
+  display: flex
+  background-color: $muted-text
+  margin-bottom: 1rem
+  padding: .75rem 1rem 0
+  +border-radius(top, .25rem)
+
+.thread-comment-form__tab
+  +size(5.5rem 2.25rem)
+  +text-block(.8125rem 1, flex)
+  align-items: center
+  justify-content: center
+  border-bottom: none
+  cursor: pointer
+  +border-radius(top, .25rem)
+  color: $reversal-text
+  &.is-active
+    background-color: $base-color
+    color: $default-text
+
+.thread-comment-form__markdown-parent
+  +padding(horizontal, 1rem)
+
+.thread-comment-form__markdown
+  display: none
+  margin-bottom: 1rem
+  &.is-active
+    display: block
+
 .thread-comment-form__textarea
   margin-bottom: .75rem
   min-height: 9rem
   overflow: hidden
+  +media-breakpoint-down(sm)
+    margin-bottom: 1rem
+
+.thread-comment-form__preview
+  background-color: $base
+  +text-block(.875rem 1.8)
+  border-radius: .25rem
+  min-height: 9rem
+  +media-breakpoint-down(sm)
+    margin-bottom: 1rem
+
 
 .thread-comment-form__action
   display: flex
