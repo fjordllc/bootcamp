@@ -9,7 +9,7 @@
       .thread-list-item__actions
         - if current_user == question.user
           = link_to edit_question_path(question), class: 'thread-list-item__actions-link' do
-            i.fas.fa-pencil
+            i.fas.fa-pen
           = link_to question_path(question), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-list-item__actions-link' do
             i.fas.fa-trash-alt
     .thread-list-item-meta
