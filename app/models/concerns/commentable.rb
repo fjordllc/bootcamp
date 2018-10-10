@@ -25,10 +25,10 @@ module Commentable
 
   def path
     case self
-    when Report
-      Rails.application.routes.url_helpers.polymorphic_path(self)
     when Product
       Rails.application.routes.url_helpers.polymorphic_path([self.practice, self])
+    else
+      Rails.application.routes.url_helpers.polymorphic_path(self)
     end
   end
 end
