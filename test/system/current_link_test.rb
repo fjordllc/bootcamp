@@ -49,7 +49,7 @@ class CurrentLinkTest < ApplicationSystemTestCase
     assert_selector "a.page-tabs__item-link.is-active", count: 1
 
     visit "/admin/categories"
-    assert_selector "a.gpage-tabs__item-link.is-active[href='/admin/categories']", count: 1
+    assert_selector "a.page-tabs__item-link.is-active[href='/admin/categories']", count: 1
     assert_selector "a.page-tabs__item-link.is-active", count: 1
 
     visit "/admin"
