@@ -20,7 +20,7 @@
         ul.thread-comment__actions-items
           li.thread-comment__actions-item
             = link_to [:edit, report, comment], class: 'thread-comment__actions-item-link' do
-              i.fas.fa-pencil
+              i.fas.fa-pen
           li.thread-comment__actions__item
             = link_to [report, comment], data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-comment__actions-item-link' do
               i.fas.fa-trash-alt

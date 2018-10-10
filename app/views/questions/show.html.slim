@@ -36,7 +36,7 @@ header.page-header
                 ul.thread-edit-tools__items
                   li.thread-edit-tools__item
                     = link_to edit_question_path(@question), class: 'thread-edit-tools__item-link is-success' do
-                      i.fas.fa-pencil
+                      i.fas.fa-pen
                   li.thread-edit-tools__item
                     = link_to question_path(@question), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-edit-tools__item-link is-danger' do
                       i.fas.fa-trash-alt

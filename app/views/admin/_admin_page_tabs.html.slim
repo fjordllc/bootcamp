@@ -1,0 +1,18 @@
+.page-tabs
+  .container.is-padding-horizontal-0-sm-down
+    ul.page-tabs__items
+      li.page-tabs__item
+        = link_to admin_root_path, class: "page-tabs__item-link #{active == 0 ? 'is-current' : ''}" do
+          | 管理ページ
+      li.page-tabs__item
+        = link_to admin_users_path, class: "page-tabs__item-link #{active == 1 ? 'is-current' : ''}" do
+          | ユーザー一覧
+      li.page-tabs__item
+        = link_to admin_categories_path, class: "page-tabs__item-link #{active == 2 ? 'is-current' : ''}" do
+          | カテゴリー
+      li.page-tabs__item
+        = link_to admin_users_emails_path, class: "page-tabs__item-link #{active == 3 ? 'is-current' : ''}" do
+          | 全員のメアド
+      li.page-tabs__item
+        = link_to admin_users_in_actives_path, class: "page-tabs__item-link #{active == 4 ? 'is-current' : ''}" do
+          | 非アクティブ

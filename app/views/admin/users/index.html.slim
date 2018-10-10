@@ -3,6 +3,7 @@ header.page-header
   .container
     .page-header__container
       h2.page-header__title ユーザー一覧
+= render "/admin/admin_page_tabs", active: 1
 .page-body
   .container.is-padding-horizontal-0-sm-down
     .admin-table
@@ -57,4 +58,4 @@ header.page-header
                   i.fas.fa-times
               td.admin-table__item-value.is-text-align-center
                 = link_to edit_admin_user_path(user), class: 'is-button-simple-sm-warning is-icon' do
-                  i.fas.fa-pencil
+                  i.fas.fa-pen

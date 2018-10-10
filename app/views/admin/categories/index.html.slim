@@ -7,6 +7,7 @@ header.page-header
         = link_to new_admin_category_path, class: 'is-button-simple-md-warning' do
           i.fas.fa-plus
           = t('new_category')
+= render "/admin/admin_page_tabs", active: 2
 .page-body
   .container.is-padding-horizontal-0-sm-down
     .admin-table
@@ -32,7 +33,7 @@ header.page-header
                 ul.is-button-group
                   li
                     = link_to edit_admin_category_path(category), class: 'is-button-simple-sm-primary is-icon' do
-                      i.fas.fa-pencil
+                      i.fas.fa-pen
                   li
                     = link_to [:admin, category], data: { confirm: t('are_you_sure') }, method: :delete, class: 'is-button-simple-sm-danger is-icon' do
                       i.fas.fa-trash-alt

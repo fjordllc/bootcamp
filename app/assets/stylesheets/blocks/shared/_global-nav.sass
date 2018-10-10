@@ -37,8 +37,12 @@ $global-nav-width: 5rem
     display: block
     +margin(horizontal, auto)
     border-radius: 50%
+
 .global-nav-current-user__name
   +text-block(.75rem 1.45, center $reversal-text)
+
+.global-nav-links__items
+  border-bottom: solid 1px $side-border
 
 .global-nav-links__link
   display: flex
@@ -60,9 +64,6 @@ $global-nav-width: 5rem
   &.is-active
     background-color: $side-active
     color: $side
-  .global-nav-links__item:last-child &
-    border-bottom: solid 1px $side-border
-
 
 .global-nav-links__link-icon
   +text-block(1.5rem 1 .375rem, center)
