@@ -8,7 +8,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
     within("#new_comment") do
       fill_in("comment[description]", with: "@machida @machida test")
     end
-    click_button "コメントを投稿"
+    click_button "コメントする"
     assert_text "コメントを投稿しました。"
 
     logout
