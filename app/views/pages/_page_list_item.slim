@@ -5,6 +5,6 @@
         = page.title
     .thread-list-item__actions
       = link_to [:edit, page], class: 'thread-list-item__actions-link' do
-        i.fa.fa-pencil
+        i.fas.fa-pencil
       = link_to  page, data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'thread-list-item__actions-link' do
-        i.fa.fa-trash-o
+        i.fas.fa-trash-alt

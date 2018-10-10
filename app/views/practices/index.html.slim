@@ -9,7 +9,7 @@ header.page-header
         ul.page-header-actions__items
           li.page-header-actions__item
             = link_to new_practice_path, class: 'is-button-simple-md-warning' do
-              i.fa.fa-plus
+              i.fas.fa-plus
               = t('new_practice')
 
 
@@ -24,7 +24,7 @@ header.page-header
                 = category.name
               - if current_user.admin?
                 .categories-item__show-handle.js-show-handle__trigger
-                  i.fa.fa-cog
+                  i.fas.fa-cog
             .categories-item__description.js-markdown-view.js-target-blank.is-long-text-style
               = category.description
             .categories-item__body

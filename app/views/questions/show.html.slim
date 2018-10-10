@@ -8,11 +8,11 @@ header.page-header
         ul.page-header-actions__items
           li.page-header-actions__item
             = link_to new_question_path, class: "is-button-simple-md-warning" do
-              i.fa.fa-plus
+              i.fas.fa-plus
               | みんなに聞いてみる
           li.page-header-actions__item
             = link_to questions_path, class: 'is-button-simple-md-secondary' do
-              i.fa.fa-angle-left
+              i.fas.fa-angle-left
               = t('to_index_of_questions')
 
 .page-body
@@ -36,10 +36,10 @@ header.page-header
                 ul.thread-edit-tools__items
                   li.thread-edit-tools__item
                     = link_to edit_question_path(@question), class: 'thread-edit-tools__item-link is-success' do
-                      i.fa.fa-pencil
+                      i.fas.fa-pencil
                   li.thread-edit-tools__item
                     = link_to question_path(@question), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-edit-tools__item-link is-danger' do
-                      i.fa.fa-trash-o
+                      i.fas.fa-trash-alt
 
       = link_to @question.user, itempro: "url", class: "thread__author-link" do
         = gravatar_tag @question.user, secure: true, size: 120, html: { class: "thread__author-icon"}

@@ -10,66 +10,66 @@ nav.global-nav.js-show-mobile-nav__target.js-show-mobile-nav
         li.global-nav-links__item
           = link_to practices_path, class: "global-nav-links__link #{current_link /^practices/}" do
             .global-nav-links__link-icon
-              i.fa.fa-book
+              i.fas.fa-book
             .global-nav-links__link-label
               = t('practices')
         li.global-nav-links__item
           = link_to reports_path, class: "global-nav-links__link #{current_link /^reports/}" do
             .global-nav-links__link-icon
-              i.fa.fa-pencil
+              i.fas.fa-pen
             .global-nav-links__link-label
               = t('reports')
         li.global-nav-links__item
           = link_to questions_path, class: "global-nav-links__link #{current_link /^questions/}" do
             .global-nav-links__link-icon
-              i.fa.fa-question
+              i.fas.fa-question
             .global-nav-links__link-label
               = t('questions')
         li.global-nav-links__item
           = link_to users_path, class: "global-nav-links__link #{current_link /^users/}" do
             .global-nav-links__link-icon
-              i.fa.fa-users
+              i.fas.fa-users
             .global-nav-links__link-label
               = t('users')
         li.global-nav-links__item
           = link_to "/pages", class: "global-nav-links__link #{current_link /^pages/}" do
             .global-nav-links__link-icon
-              i.fa.fa-file-o
+              i.fas.fa-file
             .global-nav-links__link-label
               | wiki
         li.global-nav-links__item
           = link_to "https://docs.google.com/spreadsheets/d/1tRexM59inK1u5unRrNFNUNXXltiRQDNZZJf7X-M_G1E/edit#gid=2063800206", class: "global-nav-links__link", target: "_blank" do
             .global-nav-links__link-icon
-              i.fa.fa-television
+              i.fas.fa-desktop
             .global-nav-links__link-label
               | 座席予約
         li.global-nav-links__item
           = link_to feeds_path, class: "global-nav-links__link #{current_link /^feeds/}" do
             .global-nav-links__link-icon
-              i.fa.fa-rss
+              i.fas.fa-rss
             .global-nav-links__link-label
               | みんなのブログ
         li.global-nav-links__item.is-hidden-md-up
           = link_to logout_path, class: "global-nav-links__link" do
             .global-nav-links__link-icon
-              i.fa.fa-sign-out
+              i.fas.fa-sign-out
             .global-nav-links__link-label
               | サインアウト
         - if current_user && current_user.admin?
           li.global-nav-links__item
             = link_to admin_users_path, class: "global-nav-links__link #{current_link /^admin-users/}" do
               .global-nav-links__link-icon
-                i.fa.fa-wrench
+                i.fas.fa-wrench
               .global-nav-links__link-label
                 = t('admin_interns')
           li.global-nav-links__item
             = link_to admin_categories_path, class: "global-nav-links__link #{current_link /^admin-categories/}" do
               .global-nav-links__link-icon
-                i.fa.fa-wrench
+                i.fas.fa-wrench
               .global-nav-links__link-label
                 = t('categories')
           li.global-nav-links__item
             = link_to admin_root_path, class: "global-nav-links__link #{current_link /^admin-home/}" do
               .global-nav-links__link-icon
-                i.fa.fa-key
+                i.fas.fa-key
               .global-nav-links__link-label 管理ページ
