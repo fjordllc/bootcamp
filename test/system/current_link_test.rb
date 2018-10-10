@@ -45,15 +45,15 @@ class CurrentLinkTest < ApplicationSystemTestCase
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
     visit "/admin/users"
-    assert_selector "a.global-nav-links__link.is-active[href='/admin/users']", count: 1
-    assert_selector "a.global-nav-links__link.is-active", count: 1
+    assert_selector "a.page-tabs__item-link.is-active[href='/admin/users']", count: 1
+    assert_selector "a.page-tabs__item-link.is-active", count: 1
 
     visit "/admin/categories"
-    assert_selector "a.global-nav-links__link.is-active[href='/admin/categories']", count: 1
-    assert_selector "a.global-nav-links__link.is-active", count: 1
+    assert_selector "a.gpage-tabs__item-link.is-active[href='/admin/categories']", count: 1
+    assert_selector "a.page-tabs__item-link.is-active", count: 1
 
     visit "/admin"
-    assert_selector "a.global-nav-links__link.is-active[href='/admin']", count: 1
-    assert_selector "a.global-nav-links__link.is-active", count: 1
+    assert_selector "a.page-tabs__item-link.is-active[href='/admin']", count: 1
+    assert_selector "a.page-tabs__item-link.is-active", count: 1
   end
 end
