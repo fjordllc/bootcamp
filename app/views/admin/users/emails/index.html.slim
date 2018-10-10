@@ -2,7 +2,8 @@ header.page-header
   .container
     .page-header__container
       h2.page-header__title 忘年会メールアドレス
+= render "/admin/admin_page_tabs", active: 3
 .page-body
-  .container.is-padding-horizontal-0-sm-down
+  .container
     textarea.a-text-input
       = @users.pluck(:email).join(",")
