@@ -40,16 +40,14 @@ Rails.application.routes.draw do
   end
   resources :practices do
     resources :products do
-      resources :comments
       resources :checks, only: %i(create)
     end
   end
   resources :reports do
     resources :checks, only: %i(create)
     resources :footprints, only: %i(create)
-    resources :comments
   end
-
+  resources :comments
   resources :notifications, only: %i(show)
   resources :pages
 
