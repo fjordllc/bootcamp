@@ -249,6 +249,8 @@ GEM
     fog-xml (0.1.3)
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
+    font-awesome-sass (5.3.1)
+      sassc (>= 1.11)
     formatador (0.2.5)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -318,7 +320,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    oulu (0.18.1)
+    oulu (0.18.2)
       rake
       thor (~> 0.19)
     paperclip (6.1.0)
@@ -493,6 +495,7 @@ DEPENDENCIES
   dynamic_form
   feedjira (= 2.0.0)
   fog (= 1.40.0)
+  font-awesome-sass (~> 5.3.1)
   gravatarify
   jbuilder (~> 2.5)
   jquery-rails

@@ -8,7 +8,7 @@
     - if answer == correct_answer
       .answer-badge
         .answer-badge__icon
-          i.fa.fa-star
+          i.fas.fa-star
         .answer-badge__label
           = t("best_answer_html")
     header.thread-comment__body-header
@@ -28,7 +28,7 @@
         - if answer.user == current_user
           li.thread-comment__actions-item
             = link_to edit_question_answer_path(answer.question, answer, return_to: question_url(answer.question)), class: 'thread-comment__actions-item-link' do
-              i.fa.fa-pencil
+              i.fas.fa-pencil
           li.thread-comment__actions__item
             = link_to question_answer_path(answer.question, answer, return_to: question_url(answer.question)), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-comment__actions-item-link' do
-              i.fa.fa-trash-o
+              i.fas.fa-trash-alt

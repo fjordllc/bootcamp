@@ -33,28 +33,28 @@ header.page-header
                   - if user.github_account?
                     li
                       = link_to user_github_url(user), class: 'is-button-simple-sm-secondary is-icon' do
-                        i.fa.fa-github-alt
+                        i.fas.fa-github-alt
                   - if user.twitter_account?
                     li
                       = link_to user.twitter_url, class: 'is-button-simple-sm-secondary is-icon' do
-                        i.fa.fa-twitter
+                        i.fab.fa-twitter
                   - if user.facebook_url?
                     li
                       = link_to user.facebook_url, class: 'is-button-simple-sm-secondary is-icon' do
-                        i.fa.fa-facebook
+                        i.fab.fa-facebook
                   - if user.blog_url?
                     li
                       = link_to user.blog_url, class: 'is-button-simple-sm-secondary is-icon' do
-                        i.fa.fa-home
+                        i.fas.fa-home
                     - if user.feed_url?
                       li
                         = link_to user.feed_url, class: 'is-button-simple-sm-secondary is-icon' do
-                          i.fa.fa-rss
+                          i.fas.fa-rss
               td.admin-table__item-value.is-text-align-center
                 - if user.find_job_assist
-                  i.fa.fa-circle-o
+                  i.far.fa-circle
                 - else
-                  i.fa.fa-times
+                  i.fas.fa-times
               td.admin-table__item-value.is-text-align-center
                 = link_to edit_admin_user_path(user), class: 'is-button-simple-sm-warning is-icon' do
-                  i.fa.fa-pencil
+                  i.fas.fa-pencil
