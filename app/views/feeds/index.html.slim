@@ -1,6 +1,6 @@
 - title "みんなのブログ"
 - content_for :head_last do
-  = auto_discovery_link_tag :atom, feeds_url(format: 'atom'), title: 'みんなのブログ'
+  = auto_discovery_link_tag :atom, feeds_url(format: "atom"), title: "みんなのブログ"
 header.page-header
   .container
     .page-header__container
@@ -23,6 +23,6 @@ header.page-header
                 //= gravatar_tag entry.author, secure: true, size: 44, html: { class: "report-list-item__author-icon"}
         .entry-body
           - if entry.content.nil?
-            .is-long-text-style= raw entry.summary
+            .is-long-text-style = raw entry.summary
           - else
-            .is-long-text-style= raw entry.content
+            .is-long-text-style = raw entry.content

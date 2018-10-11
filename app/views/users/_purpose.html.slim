@@ -1,7 +1,7 @@
 .user-purpose
   .user-purpose__label
-    = t('helpers.label.user.purpose')
-    | : 
+    = t("helpers.label.user.purpose")
+    = ": "
   .user-purpose__value
     = t("activerecord.enums.user.purposes.#{@user.purpose}")
   - if current_user.admin? && @user.find_job_assist?

@@ -9,13 +9,13 @@
         - if @user.errors.any?
           = error_messages_for :user
         .auth-form-item
-          = f.label :email, class: 'a-sm-label is-required'
-          = f.text_field :email, class: 'a-sm-text-input'
+          = f.label :email, class: "a-sm-label is-required"
+          = f.text_field :email, class: "a-sm-text-input"
         .auth-form-item
-          = f.label :password, class: 'a-sm-label'
-          = f.password_field :password, class: 'a-sm-text-input', autocomplete: :off
+          = f.label :password, class: "a-sm-label"
+          = f.password_field :password, class: "a-sm-text-input", autocomplete: :off
         .auth-form-item
-          = f.label :password_confirmation, class: 'a-sm-label'
-          = f.password_field :password_confirmation, class: 'a-sm-text-input', autocomplete: :off
+          = f.label :password_confirmation, class: "a-sm-label"
+          = f.password_field :password_confirmation, class: "a-sm-text-input", autocomplete: :off
         .auth-form-item
-          = f.submit nil, class: 'is-button-simple-md-warning'
+          = f.submit nil, class: "is-button-simple-md-warning"

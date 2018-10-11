@@ -14,7 +14,7 @@
         h2.stamp__content.is-title
           | 確認済
         time.stamp__content.is-created-at
-          = product.checks.last.created_at.strftime('%Y/%m/%d')
+          = product.checks.last.created_at.strftime("%Y/%m/%d")
         .stamp__content.is-user-name
           = product.checks.last.user.login_name
     .thread__description.js-target-blank.is-long-text-style.js-markdown-view
@@ -31,20 +31,18 @@
             = link_to practice_product_path(product.practice), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread-edit-tools__item-link is-danger" do
               i.fas.fa-trash-alt
 
-
     - if (admin_login? || adviser_login?) && product.checks.blank?
       .thread-admin-tools
         ul.thread-admin-tools__items
           li.thread-admin-tools__item
             = form_for ([product.practice, product, product.checks.new]), class: "thread-check-form" do |f|
               = hidden_field_tag :user_id, current_user.id
-              = f.submit "提出物を確認", class: 'thread-check-form__action is-button-simple-md-danger'
+              = f.submit "提出物を確認", class: "thread-check-form__action is-button-simple-md-danger"
 
   .thread-prev-next
     .thread-prev-next__item
-      = link_to product.practice, class: 'thread-prev-next__item-link is-index' do
+      = link_to product.practice, class: "thread-prev-next__item-link is-index" do
         | プラクティスに戻る
-
 
   = link_to product.user, itempro: "url", class: "thread__author-link" do
     = gravatar_tag product.user, secure: true, size: 120, html: { class: "thread__author-icon" }

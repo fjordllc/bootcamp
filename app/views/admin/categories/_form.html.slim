@@ -1,20 +1,20 @@
-= form_for([:admin, category], html: { class: 'form' }) do |f|
+= form_for([:admin, category], html: { class: "form" }) do |f|
   .form__items
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label :name, class: 'a-label'
-          = f.text_field :name, class: 'a-text-input js-warning-form'
+          = f.label :name, class: "a-label"
+          = f.text_field :name, class: "a-text-input js-warning-form"
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label :slug, class: 'a-label'
-          = f.text_field :slug, class: 'a-text-input js-warning-form'
+          = f.label :slug, class: "a-label"
+          = f.text_field :slug, class: "a-text-input js-warning-form"
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
-          = f.label :description, class: 'a-label'
-          = f.text_area :description, class: 'a-textarea js-warning-form js-markdown practices-edit__input'
+          = f.label :description, class: "a-label"
+          = f.text_area :description, class: "a-textarea js-warning-form js-markdown practices-edit__input"
         .col-md-6.col-xs-12
           .a-label
             | プレビュー
@@ -24,4 +24,4 @@
       li.form-actions__item
         = link_to "キャンセル", admin_categories_path, class: "is-button-simple-md-secondary"
       li.form-actions__item
-        = f.submit nil, class: 'is-button-simple-lg-warning'
+        = f.submit nil, class: "is-button-simple-lg-warning"

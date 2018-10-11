@@ -1,12 +1,12 @@
 .thread-comment-form
   .thread-comment__author
-    = gravatar_tag current_user, secure: true, size: 200, html: { class: "thread-comment__author-icon"}
-  = form_for [question, answer], html: {class: 'thread-comment-form__form'} do |f|
+    = gravatar_tag current_user, secure: true, size: 200, html: { class: "thread-comment__author-icon" }
+  = form_for [question, answer], html: { class: "thread-comment-form__form" } do |f|
     - if answer.errors.any?
       = error_messages_for :answer
     .form-items
       .form-item
-        = f.text_area :description, class: 'a-textarea thread-comment-form__textarea js-markdown'
+        = f.text_area :description, class: "a-textarea thread-comment-form__textarea js-markdown"
     .thread-comment-form__action
       = hidden_field_tag :return_to, params[:return_to].presence
-      = f.submit t('post_comment'), class: 'is-button-simple-md-primary'
+      = f.submit t("post_comment"), class: "is-button-simple-md-primary"

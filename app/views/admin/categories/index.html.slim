@@ -2,12 +2,12 @@ header.page-header
   .container
     .page-header__container
       h1.page-header__title
-        = t('listing_categories')
+        = t("listing_categories")
       .page-header__action
-        = link_to new_admin_category_path, class: 'is-button-simple-md-warning' do
+        = link_to new_admin_category_path, class: "is-button-simple-md-warning" do
           i.fas.fa-plus
-          = t('new_category')
-= render "/admin/admin_page_tabs", active: 2
+          = t("new_category")
+= render "admin/admin_page_tabs", active: 2
 .page-body
   .container.is-padding-horizontal-0-sm-down
     .admin-table
@@ -15,13 +15,13 @@ header.page-header
         thead.admin-table__header
           tr.admin-table__labels
             th.admin-table__label
-              = t('activerecord.attributes.category.name')
+              = t("activerecord.attributes.category.name")
             th.admin-table__label
-              = t('activerecord.attributes.category.slug')
+              = t("activerecord.attributes.category.slug")
             th.admin-table__label.actions
-              = t('action')
+              = t("action")
             th.admin-table__label.handle
-              = t('order')
+              = t("order")
         tbody.admin-table__items
           - @categories.each do |category|
             tr.admin-table__item
@@ -32,22 +32,22 @@ header.page-header
               td.admin-table__item-value.is-text-align-center
                 ul.is-button-group
                   li
-                    = link_to edit_admin_category_path(category), class: 'is-button-simple-sm-primary is-icon' do
+                    = link_to edit_admin_category_path(category), class: "is-button-simple-sm-primary is-icon" do
                       i.fas.fa-pen
                   li
-                    = link_to [:admin, category], data: { confirm: t('are_you_sure') }, method: :delete, class: 'is-button-simple-sm-danger is-icon' do
+                    = link_to [:admin, category], data: { confirm: t("are_you_sure") }, method: :delete, class: "is-button-simple-sm-danger is-icon" do
                       i.fas.fa-trash-alt
               td.admin-table__item-value.is-text-align-center
                 ul.is-button-group
                   li
-                    = link_to admin_category_position_path(category, move: :top), method: :put, class: 'is-button-simple-sm-secondary is-icon'
+                    = link_to admin_category_position_path(category, move: :top), method: :put, class: "is-button-simple-sm-secondary is-icon"
                       i.fas.fa-angle-double-up
                   li
-                    = link_to admin_category_position_path(category, move: :higher), method: :put, class: 'is-button-simple-sm-secondary is-icon'
+                    = link_to admin_category_position_path(category, move: :higher), method: :put, class: "is-button-simple-sm-secondary is-icon"
                       i.fas.fa-angle-up
                   li
-                    = link_to admin_category_position_path(category, move: :lower), method: :put, class: 'is-button-simple-sm-secondary is-icon'
+                    = link_to admin_category_position_path(category, move: :lower), method: :put, class: "is-button-simple-sm-secondary is-icon"
                       i.fas.fa-angle-down
                   li
-                    = link_to admin_category_position_path(category, move: :bottom), method: :put, class: 'is-button-simple-sm-secondary is-icon'
+                    = link_to admin_category_position_path(category, move: :bottom), method: :put, class: "is-button-simple-sm-secondary is-icon"
                       i.fas.fa-angle-double-down
