@@ -24,12 +24,12 @@ header.page-header
           .user-dates
             .user-dates__created-at
               .user-dates__created-at-label
-                = t('helpers.label.user.created_at')
+                = t("helpers.label.user.created_at")
               .user-dates__created-at-value
                 = l @user.created_at.to_date
             .user-dates__update-at
               .user-dates__update-at-label
-                = t('helpers.label.user.updated_at')
+                = t("helpers.label.user.updated_at")
               .user-dates__update-at-value
                 = l @user.updated_at, format: :long
         .col-md-9.col-xs-12
@@ -49,23 +49,23 @@ header.page-header
                   ul.is-button-group
                     - if @user.github_account?
                       li
-                        = link_to user_github_url(@user), class: 'is-button-simple-sm-secondary is-icon' do
+                        = link_to user_github_url(@user), class: "is-button-simple-sm-secondary is-icon" do
                           i.fab.fa-github-alt
                     - if @user.twitter_account?
                       li
-                        = link_to @user.twitter_url, class: 'is-button-simple-sm-secondary is-icon' do
+                        = link_to @user.twitter_url, class: "is-button-simple-sm-secondary is-icon" do
                           i.fab.fa-twitter
                     - if @user.facebook_url?
                       li
-                        = link_to @user.facebook_url, class: 'is-button-simple-sm-secondary is-icon' do
+                        = link_to @user.facebook_url, class: "is-button-simple-sm-secondary is-icon" do
                           i.fab.fa-facebook
                     - if @user.blog_url?
                       li
-                        = link_to @user.blog_url, class: 'is-button-simple-sm-secondary is-icon' do
+                        = link_to @user.blog_url, class: "is-button-simple-sm-secondary is-icon" do
                           i.fas.fa-home
                         - if @user.feed_url?
                           li
-                            = link_to @user.feed_url, class: 'is-button-simple-sm-secondary is-icon' do
+                            = link_to @user.feed_url, class: "is-button-simple-sm-secondary is-icon" do
                               i.fas.fa-rss
               tr.admin-table__item
                 td.admin-table__item-value
@@ -74,4 +74,4 @@ header.page-header
       .form-actions
         ul.form-actions__items
           li.form-actions__item
-            = link_to "編集", edit_admin_user_path(@user), class: 'is-button-simple-lg-warning'
+            = link_to "編集", edit_admin_user_path(@user), class: "is-button-simple-lg-warning"

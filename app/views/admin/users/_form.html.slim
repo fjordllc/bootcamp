@@ -1,96 +1,96 @@
-= render 'errors', object: user
+= render "errors", object: user
 = form_for [:admin, user] do |f|
   .auth-form-items
     .auth-form-item
-      = f.label :login_name, class: 'a-sm-label is-required'
-      = f.text_field :login_name, class: 'a-sm-text-input', autocomplete: :off
+      = f.label :login_name, class: "a-sm-label is-required"
+      = f.text_field :login_name, class: "a-sm-text-input", autocomplete: :off
       .auth-form-item__help
-        p= t('login_name_description')
+        p = t("login_name_description")
     .auth-form-item
-      = f.label :email, class: 'a-sm-label is-required'
-      = f.text_field :email, class: 'a-sm-text-input'
+      = f.label :email, class: "a-sm-label is-required"
+      = f.text_field :email, class: "a-sm-text-input"
       .auth-form-item__help
-        p= t('email_description')
+        p = t("email_description")
     .auth-form-item
       .row
         .col-xs-6
           .auth-form-item
-            = f.label :last_name, class: 'a-sm-label is-required'
-            = f.text_field :last_name, class: 'a-sm-text-input'
+            = f.label :last_name, class: "a-sm-label is-required"
+            = f.text_field :last_name, class: "a-sm-text-input"
         .col-xs-6
           .auth-form-item
-            = f.label :first_name, class: 'a-sm-label is-required'
-            = f.text_field :first_name, class: 'a-sm-text-input'
+            = f.label :first_name, class: "a-sm-label is-required"
+            = f.text_field :first_name, class: "a-sm-text-input"
     .auth-form-item
-      = f.label :description, class: 'a-sm-label is-required'
-      = f.text_area :description, class: 'a-sm-text-input', size: '10x10'
+      = f.label :description, class: "a-sm-label is-required"
+      = f.text_area :description, class: "a-sm-text-input", size: "10x10"
     .auth-form-item
-      = f.label :github_account, class: 'a-sm-label'
-      = f.text_field :github_account, class: 'a-sm-text-input'
+      = f.label :github_account, class: "a-sm-label"
+      = f.text_field :github_account, class: "a-sm-text-input"
     .auth-form-item
-      = f.label :slack_account, class: 'a-sm-label'
-      = f.text_field :slack_account, class: 'a-sm-text-input'
+      = f.label :slack_account, class: "a-sm-label"
+      = f.text_field :slack_account, class: "a-sm-text-input"
     .auth-form-item
-      = f.label :twitter_account, class: 'a-sm-label'
-      = f.text_field :twitter_account, class: 'a-sm-text-input'
+      = f.label :twitter_account, class: "a-sm-label"
+      = f.text_field :twitter_account, class: "a-sm-text-input"
     .auth-form-item
-      = f.label :facebook_url, class: 'a-sm-label'
-      = f.text_field :facebook_url, class: 'a-sm-text-input'
+      = f.label :facebook_url, class: "a-sm-label"
+      = f.text_field :facebook_url, class: "a-sm-text-input"
     .auth-form-item
-      = f.label :blog_url, class: 'a-sm-label'
-      = f.text_field :blog_url, class: 'a-sm-text-input'
+      = f.label :blog_url, class: "a-sm-label"
+      = f.text_field :blog_url, class: "a-sm-text-input"
     .auth-form-item
-      = f.label :feed_url, class: 'a-sm-label'
-      = f.text_field :feed_url, class: 'a-sm-text-input'
+      = f.label :feed_url, class: "a-sm-label"
+      = f.text_field :feed_url, class: "a-sm-text-input"
     .auth-form-item
-      = f.label :password, class: 'a-sm-label'
-      = f.password_field :password, class: 'a-sm-text-input', autocomplete: :off
+      = f.label :password, class: "a-sm-label"
+      = f.password_field :password, class: "a-sm-text-input", autocomplete: :off
     .auth-form-item
-      = f.label :password_confirmation, class: 'a-sm-label'
-      = f.password_field :password_confirmation, class: 'a-sm-text-input', autocomplete: :off
+      = f.label :password_confirmation, class: "a-sm-label"
+      = f.password_field :password_confirmation, class: "a-sm-text-input", autocomplete: :off
     .auth-form-item
-      = f.label :purpose, class: 'a-sm-label is-required'
+      = f.label :purpose, class: "a-sm-label is-required"
       ul.auth-form-item__radio-buttons.is-half
-        = f.collection_radio_buttons :purpose_cd, User.purposes.map {|k,v| [v, t("activerecord.enums.user.purposes.#{k}")] }, :first, :last do |b|
+        = f.collection_radio_buttons :purpose_cd, User.purposes.map { |k, v| [v, t("activerecord.enums.user.purposes.#{k}")] }, :first, :last do |b|
           li.auth-form-radio-button.is-half
-            = b.label class: 'auth-form-radio-button__label' do
+            = b.label class: "auth-form-radio-button__label" do
               = b.radio_button + b.text
       end
     .auth-form-item
-      = f.label :find_job_assist, class: 'a-sm-label'
+      = f.label :find_job_assist, class: "a-sm-label"
       ul.auth-form-item__checkboxes
         li.auth-form-checkbox
           label.auth-form-checkbox__label
-            = f.check_box :find_job_assist, class: 'auth-form-checkbox__input'
-            = t('i_want_to_find_job_assist')
+            = f.check_box :find_job_assist, class: "auth-form-checkbox__input"
+            = t("i_want_to_find_job_assist")
       .auth-form-item__help
         p
-          = t('we_will_find_rails_job_by_our_best')
+          = t("we_will_find_rails_job_by_our_best")
     .auth-form-item
-      = f.label :graduation, class: 'a-sm-label'
+      = f.label :graduation, class: "a-sm-label"
       ul.auth-form-item__checkboxes
         li.auth-form-checkbox
           label.auth-form-checkbox__label
-            = f.check_box :graduation, class: 'auth-form-checkbox__input'
+            = f.check_box :graduation, class: "auth-form-checkbox__input"
             = User.human_attribute_name :graduation
     .auth-form-item
-      = f.label :adviser, class: 'a-sm-label'
+      = f.label :adviser, class: "a-sm-label"
       ul.auth-form-item__checkboxes
         li.auth-form-checkbox
           label.auth-form-checkbox__label
-            = f.check_box :adviser, class: 'auth-form-checkbox__input'
+            = f.check_box :adviser, class: "auth-form-checkbox__input"
             = User.human_attribute_name :adviser
     .auth-form-item
-      = f.label :retire, class: 'a-sm-label'
+      = f.label :retire, class: "a-sm-label"
       ul.auth-form-item__checkboxes
         li.auth-form-checkbox
           label.auth-form-checkbox__label
-            = f.check_box :retire, class: 'auth-form-checkbox__input'
+            = f.check_box :retire, class: "auth-form-checkbox__input"
             = User.human_attribute_name :retire
   .auth-form-action.is-sign-up-action
     ul.auth-form-action__items
       li.auth-form-action__item
-        = link_to admin_users_path, class: 'is-button-simple-xs-secondary' do
+        = link_to admin_users_path, class: "is-button-simple-xs-secondary" do
           | キャンセル
       li.auth-form-action__item
-        = f.submit nil, class: 'is-button-simple-md-warning'
+        = f.submit nil, class: "is-button-simple-md-warning"

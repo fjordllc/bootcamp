@@ -1,5 +1,5 @@
 .col-xl-3.col-lg-4.col-md-6.col-xs-12
-  .users-item(class="#{user.active? ? 'active' : 'inactive'}")
+  .users-item(class="#{user.active? ? "active" : "inactive"}")
     .users-item__inner
       header.users-item__header
         .users-item__header-container
@@ -11,8 +11,8 @@
         = render "users/sns", user: user
       .users-item__body
         .users-item__description
-          p= truncate(user.description, length: 100)
+          p = truncate(user.description, length: 100)
         - if current_user.admin?
           .users-item__edit
-            = link_to edit_admin_user_path(user), class: 'is-button-simple-xs-secondary' do
+            = link_to edit_admin_user_path(user), class: "is-button-simple-xs-secondary" do
               | 管理者として情報変更

@@ -1,11 +1,11 @@
-- content_for(:page_classes, 'no-recent-reports')
+- content_for(:page_classes, "no-recent-reports")
 
 header.page-header
   .container
     .page-header__container
       h2.page-header__title
-        = t('editing_report')
+        = t("editing_report")
 
 .page-body
   .container
-    = render 'form', report: @report, categories: @categories
+    = render "form", report: @report, categories: @categories

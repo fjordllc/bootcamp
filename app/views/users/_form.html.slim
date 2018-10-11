@@ -1,85 +1,85 @@
 = form_for user do |f|
-  = render 'errors', object: @user
+  = render "errors", object: @user
   .auth-form-items
     .auth-form-item
-      = f.label :login_name, class: 'a-sm-label is-required'
-      = f.text_field :login_name, class: 'a-sm-text-input', autocomplete: :off, placeholder: "komagata"
+      = f.label :login_name, class: "a-sm-label is-required"
+      = f.text_field :login_name, class: "a-sm-text-input", autocomplete: :off, placeholder: "komagata"
       .auth-form-item__help
-        p= t('login_name_description')
+        p = t("login_name_description")
     .auth-form-item
-      = f.label :email, class: 'a-sm-label is-required'
-      = f.text_field :email, class: 'a-sm-text-input', placeholder: "komagata@fjord.jp"
+      = f.label :email, class: "a-sm-label is-required"
+      = f.text_field :email, class: "a-sm-text-input", placeholder: "komagata@fjord.jp"
       .auth-form-item__help
-        p= t('email_description')
+        p = t("email_description")
     .auth-form-item
       .row
         .col-xs-6
           .auth-form-item
-            = f.label :last_name, class: 'a-sm-label is-required'
-            = f.text_field :last_name, class: 'a-sm-text-input', placeholder: "駒形"
+            = f.label :last_name, class: "a-sm-label is-required"
+            = f.text_field :last_name, class: "a-sm-text-input", placeholder: "駒形"
         .col-xs-6
           .auth-form-item
-            = f.label :first_name, class: 'a-sm-label is-required'
-            = f.text_field :first_name, class: 'a-sm-text-input', placeholder: "真幸"
+            = f.label :first_name, class: "a-sm-label is-required"
+            = f.text_field :first_name, class: "a-sm-text-input", placeholder: "真幸"
     .auth-form-item
-      = f.label :description, class: 'a-sm-label'
-      = f.text_area :description, class: 'a-sm-text-input', size: '10x10', placeholder: "月・水・金の 10:00 〜 19:00 に活動します。"
+      = f.label :description, class: "a-sm-label"
+      = f.text_area :description, class: "a-sm-text-input", size: "10x10", placeholder: "月・水・金の 10:00 〜 19:00 に活動します。"
     .auth-form-item
-      = f.label :github_account, class: 'a-sm-label'
-      = f.text_field :github_account, class: 'a-sm-text-input', placeholder: "komagata"
+      = f.label :github_account, class: "a-sm-label"
+      = f.text_field :github_account, class: "a-sm-text-input", placeholder: "komagata"
       .auth-form-item__help
         p URL ではなく ID を入力。
     .auth-form-item
-      = f.label :twitter_account, class: 'a-sm-label'
-      = f.text_field :twitter_account, class: 'a-sm-text-input', placeholder: "komagata"
+      = f.label :twitter_account, class: "a-sm-label"
+      = f.text_field :twitter_account, class: "a-sm-text-input", placeholder: "komagata"
       .auth-form-item__help
         p URL ではなく アカウント を入力。
     .auth-form-item
-      = f.label :facebook_url, class: 'a-sm-label'
-      = f.text_field :facebook_url, class: 'a-sm-text-input', placeholder: "https://www.facebook.com/komagata1111"
+      = f.label :facebook_url, class: "a-sm-label"
+      = f.text_field :facebook_url, class: "a-sm-text-input", placeholder: "https://www.facebook.com/komagata1111"
       .auth-form-item__help
         p ID ではなく URL を入力。
     .auth-form-item
-      = f.label :blog_url, class: 'a-sm-label'
-      = f.text_field :blog_url, class: 'a-sm-text-input', placeholder: "http://docs.komagata.org/"
+      = f.label :blog_url, class: "a-sm-label"
+      = f.text_field :blog_url, class: "a-sm-text-input", placeholder: "http://docs.komagata.org/"
       .auth-form-item__help
         p URL を入力。
     .auth-form-item
-      = f.label :feed_url, class: 'a-sm-label'
-      = f.text_field :feed_url, class: 'a-sm-text-input', placeholder: "http://docs.komagata.org/index.atom"
+      = f.label :feed_url, class: "a-sm-label"
+      = f.text_field :feed_url, class: "a-sm-text-input", placeholder: "http://docs.komagata.org/index.atom"
       .auth-form-item__help
         p URL を入力。
     .auth-form-item
-      = f.label :password, class: 'a-sm-label is-required'
-      = f.password_field :password, class: 'a-sm-text-input', autocomplete: :off
+      = f.label :password, class: "a-sm-label is-required"
+      = f.password_field :password, class: "a-sm-text-input", autocomplete: :off
     .auth-form-item
-      = f.label :password_confirmation, class: 'a-sm-label is-required'
-      = f.password_field :password_confirmation, class: 'a-sm-text-input', autocomplete: :off
+      = f.label :password_confirmation, class: "a-sm-label is-required"
+      = f.password_field :password_confirmation, class: "a-sm-text-input", autocomplete: :off
       .auth-form-item__help
         p
           | パスワードをもう一度入力
     .auth-form-item.is-display-none
-      = f.label :company, class: 'a-sm-label'
-      = f.collection_select :company_id, Company.all, :id, :name, {}, class: 'form-control'
+      = f.label :company, class: "a-sm-label"
+      = f.collection_select :company_id, Company.all, :id, :name, {}, { class: "form-control" }
 
     .auth-form-item
       label.a-sm-label
         | 秘密保持契約
       ul.auth-form-item__checkboxes
         li.auth-form-checkbox
-          label.auth-form-checkbox__label.js-nda-action(data-target='#nda-modal' data-toggle='modal')
-            = t('agree_nda')
+          label.auth-form-checkbox__label.js-nda-action(data-target="#nda-modal" data-toggle="modal")
+            = t("agree_nda")
 
   .auth-form-action.is-sign-up-action
     ul.auth-form-action__items
       - if %w(new create).include? params[:action]
         li.auth-form-action__item
-          = f.submit '参加する', class: 'is-button-simple-md-warning js-sign-up-action'
+          = f.submit "参加する", class: "is-button-simple-md-warning js-sign-up-action"
       - else
         li.auth-form-action__item
-          = link_to user_path, class: 'is-button-simple-xs-secondary' do
+          = link_to user_path, class: "is-button-simple-xs-secondary" do
             | キャンセル
         li.auth-form-action__item
-          = f.submit '内容更新', class: 'is-button-simple-md-warning js-sign-up-action'
+          = f.submit "内容更新", class: "is-button-simple-md-warning js-sign-up-action"
 
-  = render 'nda_modal', f: f
+  = render "nda_modal", f: f

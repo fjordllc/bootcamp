@@ -1,7 +1,7 @@
-h4= t('learning_users')
-- active_users = User.where('accessed_at > ?', 10.minutes.ago)
+h4 = t("learning_users")
+- active_users = User.where("accessed_at > ?", 10.minutes.ago)
 - active_users.each do |user|
   p
     = link_to user do
       = gravatar_tag user, secure: true, size: 45
-      span[style="margin-left:5px"]= user.login_name
+      span(style="margin-left:5px") = user.login_name

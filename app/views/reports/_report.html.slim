@@ -3,7 +3,7 @@
     header.thread-header
       .thread-header__reported-at
         | #{l report.reported_at, format: :long} の日報
-      h1.thread-header__title(class="#{report.wip? ? 'is-wip':''}")
+      h1.thread-header__title(class="#{report.wip? ? "is-wip" : ""}")
         - if report.wip?
           span.thread-header__title-icon
             | WIP
@@ -13,7 +13,7 @@
             h2.stamp__content.is-title
               | 確認済
             time.stamp__content.is-created-at
-              = @checks.last.created_at.strftime('%Y/%m/%d')
+              = @checks.last.created_at.strftime("%Y/%m/%d")
             .stamp__content.is-user-name
               = @checks.last.user.login_name
 
@@ -29,7 +29,7 @@
         ul.report-practices__items
           - report.practices.each do |practice|
             li.report-practices__item
-              = link_to practice, class: 'report-practices__item-link' do
+              = link_to practice, class: "report-practices__item-link" do
                 = practice.title
 
     - if report.learning_times.present?
@@ -53,20 +53,20 @@
           .thread-edit-tools__inner
             ul.thread-edit-tools__items
               li.thread-edit-tools__item
-                = link_to edit_report_path(report), class: 'thread-edit-tools__item-link is-success', id: "js-shortcut-edit" do
+                = link_to edit_report_path(report), class: "thread-edit-tools__item-link is-success", id: "js-shortcut-edit" do
                   i.fas.fa-pen
               li.thread-edit-tools__item
-                = link_to new_report_path(id: report), class: 'thread-edit-tools__item-link is-success' do
+                = link_to new_report_path(id: report), class: "thread-edit-tools__item-link is-success" do
                   i.fas.fa-copy
               li.thread-edit-tools__item
-                = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-edit-tools__item-link is-danger' do
+                = link_to report_path(report), data: { confirm: t("are_you_sure") }, method: :delete, class: "thread-edit-tools__item-link is-danger" do
                   i.fas.fa-trash-alt
 
     - if (admin_login? || adviser_login?) && @report.checks.blank?
       .thread-admin-tools
         ul.thread-admin-tools__items
           li.thread-admin-tools__item
-            = render 'reports/report_check_form'
+            = render "reports/report_check_form"
 
   .thread-prev-next
     .thread-prev-next__item

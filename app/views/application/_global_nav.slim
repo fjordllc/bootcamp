@@ -2,9 +2,9 @@ nav.global-nav.js-show-mobile-nav__target.js-show-mobile-nav
   .global-nav__inner
     - if current_user
       .global-nav-current-user
-        = link_to user_path(current_user), class: 'global-nav-current-user__link'
+        = link_to user_path(current_user), class: "global-nav-current-user__link"
           .global-nav-current-user__icon
-            = gravatar_tag current_user, secure: true, size: '320'
+            = gravatar_tag current_user, secure: true, size: "320"
     .global-nav-links.is-contents-links
       ul.global-nav-links__items
         li.global-nav-links__item
@@ -12,25 +12,25 @@ nav.global-nav.js-show-mobile-nav__target.js-show-mobile-nav
             .global-nav-links__link-icon
               i.fas.fa-book
             .global-nav-links__link-label
-              = t('practices')
+              = t("practices")
         li.global-nav-links__item
           = link_to reports_path, class: "global-nav-links__link #{current_link /^reports/}" do
             .global-nav-links__link-icon
               i.fas.fa-pen
             .global-nav-links__link-label
-              = t('reports')
+              = t("reports")
         li.global-nav-links__item
           = link_to questions_path, class: "global-nav-links__link #{current_link /^questions/}" do
             .global-nav-links__link-icon
               i.fas.fa-question
             .global-nav-links__link-label
-              = t('questions')
+              = t("questions")
         li.global-nav-links__item
           = link_to users_path, class: "global-nav-links__link #{current_link /^users/}" do
             .global-nav-links__link-icon
               i.fas.fa-users
             .global-nav-links__link-label
-              = t('users')
+              = t("users")
         li.global-nav-links__item
           = link_to "/pages", class: "global-nav-links__link #{current_link /^pages/}" do
             .global-nav-links__link-icon

@@ -2,4 +2,4 @@
   ul.completed-practices-list__items
     - @user.completed_practices.each do |practice|
       li.completed-practices-list-item
-        = link_to practice.title, practice, class: 'completed-practices-list-item__link'
+        = link_to practice.title, practice, class: "completed-practices-list-item__link"

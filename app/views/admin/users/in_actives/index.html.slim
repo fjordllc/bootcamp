@@ -2,7 +2,7 @@ header.page-header
   .container
     .page-header__container
       h2.page-header__title アクティブでないユーザー
-= render "/admin/admin_page_tabs", active: 4
+= render "admin/admin_page_tabs", active: 4
 .page-body
   .container.is-padding-horizontal-0-sm-down
     .admin-table
@@ -30,7 +30,7 @@ header.page-header
               td.admin-table__item-value.is-text-align-center
                 = l user.updated_at
               td.admin-table__item-value.is-text-align-center
-                = link_to edit_admin_user_path(user), class: 'is-button-simple-sm-warning is-icon' do
+                = link_to edit_admin_user_path(user), class: "is-button-simple-sm-warning is-icon" do
                   i.fas.fa-pen
 
     h2 メールアドレス
