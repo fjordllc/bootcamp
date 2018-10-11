@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rubocop -a
+slim-lint app/views -c config/slim_lint.yml
