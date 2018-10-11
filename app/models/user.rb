@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ActiveRecord::Base
   ADMIN_EMAILS = %w(komagata@fjord.jp machidanohimitsu@gmail.com)
 

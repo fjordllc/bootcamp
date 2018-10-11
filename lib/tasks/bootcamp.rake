@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "#{Rails.root}/config/environment"
 
 namespace :bootcamp do
@@ -7,7 +9,7 @@ namespace :bootcamp do
       User.transaction do
         User.where.not(twitter_account: nil).find_each do |user|
           new_twitter_account = user.twitter_account.sub(%r(\Ahttp(s)?://twitter.com/), "")
-                                                    .sub(%r(/\z),"")                         
+                                                    .sub(%r(/\z), "")
 
           puts "id: #{user.id}, old: #{user.twitter_account}, new: #{new_twitter_account}"
           if user.twitter_account != new_twitter_account

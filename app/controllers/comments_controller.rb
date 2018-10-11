@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   include Rails.application.routes.url_helpers
   include CommentsHelper

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChecksController < ApplicationController
   include ChecksHelper
   include Gravatarify::Helper

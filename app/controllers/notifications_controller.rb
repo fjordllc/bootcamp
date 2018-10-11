@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NotificationsController < ApplicationController
   before_action :require_login, only: %i(show)
   before_action :set_my_notification, only: %i(show)

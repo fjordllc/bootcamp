@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class QuestionsController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper

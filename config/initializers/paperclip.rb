@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if Rails.env.production? || Rails.env.staging? || Rails.env.review?
   storage = :fog
 else
