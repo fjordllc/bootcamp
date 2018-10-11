@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PracticesController < ApplicationController
   include Gravatarify::Helper
   before_action :require_login

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Practice < ActiveRecord::Base
   has_many :learnings
   has_and_belongs_to_many :reports

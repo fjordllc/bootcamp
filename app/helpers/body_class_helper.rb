@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BodyClassHelper
   def qualified_controller_name
     controller.controller_path.tr("/", "-")

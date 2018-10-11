@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CommentsHelper
   def commentable_url(comment)
     case comment.commentable

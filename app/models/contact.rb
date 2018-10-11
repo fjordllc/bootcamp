@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Contact < ActiveRecord::Base
   enum occupation_cd: { student: 0, working: 1, part_timer: 2, unemployed: 3 }
   enum location_cd: { local: 0, remote: 1 }

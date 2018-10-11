@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::Categories::PositionController < AdminController
   before_action :set_category
 

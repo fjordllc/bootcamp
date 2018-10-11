@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Question < ActiveRecord::Base
   belongs_to :user, touch: true
   has_many :answers

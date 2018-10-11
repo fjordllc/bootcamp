@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::UsersController < AdminController
   before_action :set_user, only: %i(show edit update)
 

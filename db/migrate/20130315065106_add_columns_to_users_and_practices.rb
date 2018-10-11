@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddColumnsToUsersAndPractices < ActiveRecord::Migration[4.2]
   def change
     add_column :practices, :target_cd, :integer, null: false, default: 0
