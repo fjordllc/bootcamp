@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "application_system_test_case"
 
 class PagesTest < ApplicationSystemTestCase
@@ -17,7 +19,7 @@ class PagesTest < ApplicationSystemTestCase
 
   test "show edit page" do
     id = pages(:page_2).id
-    visit URI.escape("/pages/#{id}/edit")
+    visit "/pages/#{id}/edit"
     assert_equal "ページ編集 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 

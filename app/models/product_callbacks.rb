@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductCallbacks
   def after_create(product)
     send_notification(product, "#{product.user.login_name}さんが提出しました。")

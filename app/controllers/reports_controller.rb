@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReportsController < ApplicationController
   include ReportsHelper
   include Rails.application.routes.url_helpers
@@ -19,7 +21,7 @@ class ReportsController < ApplicationController
     @reports = Report.eager_load(:user, :comments, checks: :user).order(updated_at: :desc, id: :desc).page(params[:page])
 
     if params[:practice_id].present?
-      @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id]})
+      @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] })
     end
 
     if @search_words.present?
@@ -35,7 +37,7 @@ class ReportsController < ApplicationController
 
   def new
     @report = Report.new(reported_at: Date.current)
-		@report.learning_times.build()
+    @report.learning_times.build()
 
     if params[:id]
       report = current_user.reports.find(params[:id])
@@ -130,7 +132,7 @@ class ReportsController < ApplicationController
     end
 
     def set_categories
-      @categories = Category.eager_load(:practices).where.not(practices: { id: nil }).order('categories.position ASC, practices.position ASC')
+      @categories = Category.eager_load(:practices).where.not(practices: { id: nil }).order("categories.position ASC, practices.position ASC")
     end
 
     def notify_to_slack(report)

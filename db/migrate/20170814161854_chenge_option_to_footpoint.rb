@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChengeOptionToFootpoint < ActiveRecord::Migration[5.1]
   def change
     change_column :footprints, :user_id, :integer, null: false

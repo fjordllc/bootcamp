@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
@@ -32,7 +34,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
     user.twitter_account = ":"
     assert user.invalid?
-    user.twitter_account = "A"*16
+    user.twitter_account = "A" * 16
     assert user.invalid?
   end
 

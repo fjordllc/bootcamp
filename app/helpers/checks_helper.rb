@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChecksHelper
   def checkable_url(check)
     case check.checkable

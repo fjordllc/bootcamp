@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLearningTimes < ActiveRecord::Migration[5.1]
   def change
     create_table :learning_times do |t|
