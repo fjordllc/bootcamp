@@ -7,13 +7,13 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to new_practice_path, class: 'is-button-simple-md-warning' do
+            = link_to new_practice_path, class: "is-button-simple-md-warning" do
               i.fas.fa-plus
-              = t('new_practice')
+              = t("new_practice")
           li.page-header-actions__item
-            = link_to practices_path, class: 'is-button-simple-md-secondary' do
+            = link_to practices_path, class: "is-button-simple-md-secondary" do
               i.fas.fa-angle-left
-              = t('practices')
+              = t("practices")
 
 = render "page_tabs", resource: @practice
 
@@ -21,7 +21,7 @@ header.page-header
   .practice-contents
     section.practice-content
       header.practice-content__header
-        h2.practice-content__title= t('helpers.label.practice.description')
+        h2.practice-content__title = t("helpers.label.practice.description")
       .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text-style
         = @practice.description
       - if @practice.not_completed?(current_user)
@@ -29,22 +29,22 @@ header.page-header
           .practice-content-actions
             ul.practice-content-actions__items
               li.practice-content-actions__item
-                = link_to new_question_path, class: 'is-button-simple-md-warning' do
+                = link_to new_question_path, class: "is-button-simple-md-warning" do
                   i.fas.fa-question-circle
                   | 質問する
               li.practice-content-actions__item
                 button.im-stack.is-button-simple-md-warning
                   i.fas.fa-exclamation-triangle
-                  = '行き詰まった！'
+                  = "行き詰まった！"
                 javascript:
-                  $(document).on('click', '.im-stack', function(){
+                  $(document).on("click", ".im-stack", function(){
                     var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
-                    $.post('/chat_notices', {text: text});
+                    $.post("/chat_notices", {text: text});
                   });
 
     section.practice-content
       header.practice-content__header
-        h2.practice-content__title= t('helpers.label.practice.goal')
+        h2.practice-content__title = t("helpers.label.practice.goal")
       .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text-style
         = @practice.goal
       footer.practice-content__footer
@@ -58,35 +58,35 @@ header.page-header
             - if @practice.submission
               - if @practice.product(current_user).present?
                 li.practice-content-actions__item
-                  = link_to [@practice, @practice.product(current_user)], class: 'is-button-simple-md-info' do
+                  = link_to [@practice, @practice.product(current_user)], class: "is-button-simple-md-info" do
                     i.fas.fa-file
                     | 提出物
               - else
                 li.practice-content-actions__item
-                  = link_to new_practice_product_path(@practice), class: 'is-button-simple-md-info' do
+                  = link_to new_practice_product_path(@practice), class: "is-button-simple-md-info" do
                     i.fas.fa-file
                     | 提出物を作る
             - if @practice.not_completed?(current_user)
               li.practice-content-actions__item
-                = link_to practice_learning_path(@practice), method: :put, class: 'is-button-simple-md-info' do
+                = link_to practice_learning_path(@practice), method: :put, class: "is-button-simple-md-info" do
                   i.fas.fa-check-circle
-                  = t('complete')
+                  = t("complete")
 
   .form-actions
     ul.form-actions__items
       li.form-actions__item
-        = link_to edit_practice_path(@practice), class: 'is-button-simple-md-primary' do
+        = link_to edit_practice_path(@practice), class: "is-button-simple-md-primary" do
           i.fas.fa-pen
-          = t('edit')
+          = t("edit")
       - if current_user.admin?
         li.form-actions__item
-          = link_to practice_path(@practice), data: { confirm: t('are_you_sure') }, method: :delete, class: 'is-button-simple-md-danger' do
+          = link_to practice_path(@practice), data: { confirm: t("are_you_sure") }, method: :delete, class: "is-button-simple-md-danger" do
             i.fas.fa-trash-alt
-            = t('destroy')
+            = t("destroy")
 
   .interns-icons
     h2.user-reports__title
-      = t('completed_users')
+      = t("completed_users")
     ul.completed-users
       - @practice.completed_users.each do |user|
         li.completed-users__user

@@ -1,18 +1,18 @@
-h1= t('listing_companies')
+h1 = t("listing_companies")
 table.table
   tr
-    th= t('helpers.label.company.name')
-    th= t('helpers.label.company.description')
-    th= t('helpers.label.company.website')
+    th = t("helpers.label.company.name")
+    th = t("helpers.label.company.description")
+    th = t("helpers.label.company.website")
     th
     th
     th
   - @companies.each do |company|
     tr
-      td= company.name
-      td= company.description
-      td= company.website
-      td= link_to t('show'), [:admin, company]
-      td= link_to t('edit'), edit_admin_company_path(company)
-      td= link_to t('destroy'), [:admin, company], data: { confirm: t('are_you_sure') }, method: :delete
-= link_to t('new_company'), new_admin_company_path, class: 'btn btn-primary'
+      td = company.name
+      td = company.description
+      td = company.website
+      td = link_to t("show"), [:admin, company]
+      td = link_to t("edit"), edit_admin_company_path(company)
+      td = link_to t("destroy"), [:admin, company], data: { confirm: t("are_you_sure") }, method: :delete
+= link_to t("new_company"), new_admin_company_path, class: "btn btn-primary"

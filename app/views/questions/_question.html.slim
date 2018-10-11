@@ -1,16 +1,16 @@
 .thread-list-item
   .thread-list-item__inner
     .thread-list-item__author
-      = gravatar_tag question.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon"}
+      = gravatar_tag question.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon" }
     header.thread-list-item__header
       h2.thread-list-item__title(itemprop="name")
         = link_to question, itempro: "url", class: "thread-list-item__title-link" do
           = question.title
       .thread-list-item__actions
         - if current_user == question.user
-          = link_to edit_question_path(question), class: 'thread-list-item__actions-link' do
+          = link_to edit_question_path(question), class: "thread-list-item__actions-link" do
             i.fas.fa-pen
-          = link_to question_path(question), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-list-item__actions-link' do
+          = link_to question_path(question), data: { confirm: t("are_you_sure") }, method: :delete, class: "thread-list-item__actions-link" do
             i.fas.fa-trash-alt
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{question.updated_at.to_datetime}" pubdate="pubdate")

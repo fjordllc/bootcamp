@@ -1,4 +1,4 @@
-.thread-list-item(class="#{report.wip? ? 'is-wip':''}")
+.thread-list-item(class="#{report.wip? ? "is-wip" : ""}")
   .thread-list-item__inner
     .thread-list-item__author
       = gravatar_tag report.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon" }
@@ -11,11 +11,11 @@
           = highlight(report.title, search_words)
       - if current_user == report.user
         .thread-list-item__actions
-          = link_to edit_report_path(report), class: 'thread-list-item__actions-link' do
+          = link_to edit_report_path(report), class: "thread-list-item__actions-link" do
             i.fas.fa-pen
-          = link_to new_report_path(id: report), class: 'thread-list-item__actions-link' do
+          = link_to new_report_path(id: report), class: "thread-list-item__actions-link" do
             i.fas.fa-copy
-          = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-list-item__actions-link' do
+          = link_to report_path(report), data: { confirm: t("are_you_sure") }, method: :delete, class: "thread-list-item__actions-link" do
             i.fas.fa-trash-alt
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
@@ -35,7 +35,7 @@
           h2.stamp__content.is-title
             | 確認済
           time.stamp__content.is-created-at
-            = report.checks.last.created_at.strftime('%Y/%m/%d')
+            = report.checks.last.created_at.strftime("%Y/%m/%d")
           .stamp__content.is-user-name
             = report.checks.last.user.login_name
     - if search_words.present?

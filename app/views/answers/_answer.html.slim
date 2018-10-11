@@ -2,8 +2,8 @@
 - correct_answer = question.correct_answer
 .thread-comment(class="#{answer == answer.question.correct_answer ? "is-correct_answer" : ""}")
   .thread-comment__author
-    = link_to answer.user, itempro: 'url', class: 'thread-comment__author-link' do
-      = gravatar_tag answer.user, secure: true, size: 200, html: { class: "thread-comment__author-icon"}
+    = link_to answer.user, itempro: "url", class: "thread-comment__author-link" do
+      = gravatar_tag answer.user, secure: true, size: 200, html: { class: "thread-comment__author-icon" }
   .thread-comment__body
     - if answer == correct_answer
       .answer-badge
@@ -13,22 +13,22 @@
           = t("best_answer_html")
     header.thread-comment__body-header
       h2.thread-comment__title
-        = link_to answer.user, itempro: 'url', class: 'thread-comment__title-link' do
+        = link_to answer.user, itempro: "url", class: "thread-comment__title-link" do
           = answer.user.login_name
-      time.thread-comment__created-at(datetime='#{answer.created_at.to_datetime}' pubdate='pubdate')
+      time.thread-comment__created-at(datetime="#{answer.created_at.to_datetime}" pubdate="pubdate")
         = l answer.updated_at, format: :date_long_with_time
     .thread-comments__description.js-markdown-view.js-target-blank.is-long-text-style
       = answer.description
     .thread-comment__actions
       ul.thread-comment__actions-items
-        - if correct_answer.blank? && answer != correct_answer && (current_user == question.user or admin_login?)
+        - if correct_answer.blank? && answer != correct_answer && (current_user == question.user || admin_login?)
           li.thread-comment__actions-item
-            = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: 'is-button-simple-sm-warning' do
+            = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: "is-button-simple-sm-warning" do
               | 解決にする
         - if answer.user == current_user
           li.thread-comment__actions-item
-            = link_to edit_question_answer_path(answer.question, answer, return_to: question_url(answer.question)), class: 'thread-comment__actions-item-link' do
+            = link_to edit_question_answer_path(answer.question, answer, return_to: question_url(answer.question)), class: "thread-comment__actions-item-link" do
               i.fas.fa-pen
           li.thread-comment__actions__item
-            = link_to question_answer_path(answer.question, answer, return_to: question_url(answer.question)), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-comment__actions-item-link' do
+            = link_to question_answer_path(answer.question, answer, return_to: question_url(answer.question)), data: { confirm: t("are_you_sure") }, method: :delete, class: "thread-comment__actions-item-link" do
               i.fas.fa-trash-alt
