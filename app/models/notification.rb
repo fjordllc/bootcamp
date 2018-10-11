@@ -6,7 +6,8 @@ class Notification < ApplicationRecord
     came_comment: 0,
     checked:      1,
     mentioned:    2,
-    submitted:    3
+    submitted:    3,
+    answered:     4
   }
 
   scope :unreads, -> { where(read: false).order(created_at: :desc) }
@@ -51,6 +52,17 @@ class Notification < ApplicationRecord
       sender:  subject.user,
       path:    subject.path,
       message: message,
+      read:    false
+    )
+  end
+
+  def self.came_answer(answer)
+    Notification.create!(
+      kind:    4,
+      user:    answer.reciever,
+      sender:  answer.sender,
+      path:    Rails.application.routes.url_helpers.polymorphic_path(answer.question),
+      message: "#{answer.user.login_name}さんから回答がありました。",
       read:    false
     )
   end
