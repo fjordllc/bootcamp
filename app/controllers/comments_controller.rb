@@ -40,7 +40,9 @@ class CommentsController < ApplicationController
   private
     def comment_params
       params.require(:comment).permit(
-        :description
+        :description,
+        :commentable_id,
+        :commentable_type
       )
     end
 
@@ -53,11 +55,8 @@ class CommentsController < ApplicationController
     end
 
     def commentable
-      if params[:report_id]
-        Report.find(params[:report_id])
-      elsif params[:product_id]
-        Product.find(params[:product_id])
-      end
+      klass = params[:comment][:commentable_type].constantize
+      klass.find(params[:comment][:commentable_id])
     end
 
     def notify_to_slack(comment)
