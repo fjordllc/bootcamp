@@ -3,7 +3,7 @@
     - if user.github_account?
       li.user-data-sns__item
         = link_to user_github_url(user), class: 'user-data-sns__item-link' do
-          i.fas.fa-github-alt
+          i.fab.fa-sign-out-alt
     - if user.twitter_account?
       li.user-data-sns__item
         = link_to user.twitter_url, class: 'user-data-sns__item-link' do
