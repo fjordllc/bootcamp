@@ -1,8 +1,7 @@
 .thread-comments-container
   h2.thread-comments-container__title
-    = "コメント"
-    span.thread-comments-container__title-count
-      = comments.count
+    | コメント
+    span.thread-comments-container__title-count = comments.count
   .thread-comments
-    - comments.each do |comment|
-      = render "comments/comment", report: comment.commentable, comment: comment
+    = render partial: "comments/comment", collection: comments.order(:created_at), as: :comment
+  = render "comments/form", comment: comments.new
