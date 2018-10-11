@@ -5,12 +5,12 @@ header.page-header
       h2.page-header__title
         = @practice.title
       .page-header__action
-        = link_to practices_path, class: 'is-button-simple-md-secondary' do
+        = link_to practices_path, class: "is-button-simple-md-secondary" do
           i.fas.fa-angle-left
-          = t('practices')
+          = t("practices")
 
 = render "page_tabs", resource: @practice
 
 .container
   - if product_displayable?(practice: @practice)
-    = render 'products/products', products: @products, resource: @practice
+    = render "products/products", products: @products, resource: @practice

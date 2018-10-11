@@ -26,6 +26,6 @@
               h2.stamp__content.is-title
                 | 確認済
               time.stamp__content.is-created-at
-                = product.checks.last.created_at.strftime('%Y/%m/%d')
+                = product.checks.last.created_at.strftime("%Y/%m/%d")
               .stamp__content.is-user-name
                 = product.checks.last.user.login_name

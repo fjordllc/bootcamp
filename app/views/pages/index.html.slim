@@ -5,7 +5,7 @@ header.page-header
       h1.page-header__title
         = title
       .page-header__action
-        = link_to [:new, :page], class: 'is-button-simple-md-warning' do
+        = link_to [:new, :page], class: "is-button-simple-md-warning" do
           i.fas.fa-plus
           | 新規ページ
 .page-body
@@ -13,5 +13,5 @@ header.page-header
     = paginate @pages, position: "top"
     .thread-list
       - @pages.each do |page|
-        = render 'page_list_item', page: page
+        = render "page_list_item", page: page
     = paginate @pages, position: "bottom"
