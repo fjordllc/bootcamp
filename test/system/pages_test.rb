@@ -19,7 +19,7 @@ class PagesTest < ApplicationSystemTestCase
 
   test "show edit page" do
     id = pages(:page_2).id
-    visit CGI.escape("/pages/#{id}/edit")
+    visit "/pages/#{id}/edit"
     assert_equal "ページ編集 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
