@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentCallbacks
   def before_save(comment)
     notify_mention(comment) if comment.new_mentions?

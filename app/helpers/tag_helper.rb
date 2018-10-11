@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module TagHelper
   def current_link(name)
-    if qualified_page_name =~ name
+    if qualified_page_name&.match?(name)
       "is-active"
     end
   end

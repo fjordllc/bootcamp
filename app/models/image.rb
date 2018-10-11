@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Image < ActiveRecord::Base
   belongs_to :user
   has_attached_file :image, styles: { normal: "736x736>" }

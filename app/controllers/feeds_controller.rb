@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FeedsController < ApplicationController
   def index
     urls = User.student.pluck(:feed_url).reject { |f| f.blank? }

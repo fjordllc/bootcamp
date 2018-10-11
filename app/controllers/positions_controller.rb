@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PositionsController < ApplicationController
   before_action :set_practice
 

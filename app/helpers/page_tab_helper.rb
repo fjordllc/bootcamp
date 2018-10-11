@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PageTabHelper
   def page_tab_members(resource)
     case resource

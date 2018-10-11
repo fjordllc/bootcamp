@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Report < ActiveRecord::Base
   include Commentable
   include Checkable

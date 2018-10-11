@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RequestRedirector
   OLD_DOMAIN = "256interns.com"
   NEW_DOMAIN = "bootcamp.fjord.jp"

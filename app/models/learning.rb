@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Learning < ActiveRecord::Base
   as_enum :status, started: 0, complete: 1, not_complete: 2
   belongs_to :user, touch: true

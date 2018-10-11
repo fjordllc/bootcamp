@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def li_for(record, prefix = nil, options = nil, &block)
     content_tag_for(:li, record, prefix, options, &block)
