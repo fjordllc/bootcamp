@@ -1,9 +1,15 @@
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title 忘年会メールアドレス
-= render "admin/admin_page_tabs", active: 3
+      h2.page-header__title 全員のメアド
+= render "/admin/admin_page_tabs", active: 3
 .page-body
   .container
-    textarea.a-text-input
-      = @users.pluck(:email).join(",")
+    .practice-contents
+      .practice-content
+        header.practice-content__header
+          h2.practice-content__title
+            | 全員のメアド
+        .practice-content__body
+          textarea.a-text-input
+            = @users.pluck(:email).join(",")
