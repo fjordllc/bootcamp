@@ -1,3 +1,11 @@
 {
-  "extends": "standard"
+  "extends": "standard",
+  "env": {
+    "jquery": true
+  },
+  "globals": {
+    "window": true,
+    "fetch": true,
+    "FormData": true
+  }
 }
