@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       resources :emails, only: :index
       resources :in_actives, only: :index
     end
-    resources :users
+    resources :users, except: %i(show)
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
     end
