@@ -1,5 +1,4 @@
 .page-body
   .container
-    - if @announcements.present?
     .thread-list
-      = render partial: 'announcement_list_item', collection: @announcements, as: :announcement
+      = render partial: 'announcements', collection: @announcements, as: :announcement
