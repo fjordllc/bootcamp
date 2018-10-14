@@ -2,7 +2,7 @@
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title= @user.login_name
+      h2.page-header__title = @user.login_name
       ul.page-header-actions__items
         li.page-header-actions__item
           = link_to "ユーザー一覧", users_path, class: "is-button-simple-md-secondary"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ReportDecorator
   def total_learning_time
     total_time = learning_times.inject(0) do |sum, learning_time|

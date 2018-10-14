@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
 ruby RUBY_VERSION
@@ -33,6 +35,7 @@ gem "sprockets-es6"
 gem "pg"
 gem "bootstrap", "= 4.0.0.alpha6"
 gem "oulu"
+gem "font-awesome-sass", "~> 5.3.1"
 gem "sassc-rails"
 gem "ransack"
 gem "rack-user_agent"

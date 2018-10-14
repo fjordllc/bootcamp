@@ -1,5 +1,5 @@
 = paginator.render do
-  nav.pagination(class="#{'is-' + position}")
+  nav.pagination(class="#{"is-" + position}")
     ul.pagination__items
       == first_page_tag unless current_page.first?
       == prev_page_tag unless current_page.first?

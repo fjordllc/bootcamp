@@ -2,21 +2,21 @@
   ul.user-data-sns__items
     - if user.github_account?
       li.user-data-sns__item
-        = link_to user_github_url(user), class: 'user-data-sns__item-link' do
-          i.fa.fa-github-alt
+        = link_to user_github_url(user), class: "user-data-sns__item-link" do
+          i.fab.fa-github-alt
     - if user.twitter_account?
       li.user-data-sns__item
-        = link_to user.twitter_url, class: 'user-data-sns__item-link' do
-          i.fa.fa-twitter
+        = link_to user.twitter_url, class: "user-data-sns__item-link" do
+          i.fab.fa-twitter
     - if user.facebook_url?
       li.user-data-sns__item
-        = link_to user.facebook_url, class: 'user-data-sns__item-link' do
-          i.fa.fa-facebook
+        = link_to user.facebook_url, class: "user-data-sns__item-link" do
+          i.fab.fa-facebook
     - if user.blog_url?
       li.user-data-sns__item
-        = link_to user.blog_url, class: 'user-data-sns__item-link' do
-          i.fa.fa-file-text
+        = link_to user.blog_url, class: "user-data-sns__item-link" do
+          i.fas.fa-file
     - if user.feed_url?
       li.user-data-sns__item
-        = link_to user.feed_url, class: 'user-data-sns__item-link' do
-          i.fa.fa-rss
+        = link_to user.feed_url, class: "user-data-sns__item-link" do
+          i.fas.fa-rss

@@ -3,12 +3,12 @@
     - reports.each do |report|
       .user-reports-item
         = link_to report, itempro: "url", class: "user-reports-item__link" do
-          h3.user-reports-item__title(itemprop="name")= report.title
+          h3.user-reports-item__title(itemprop="name") = report.title
           time.user-reports-item__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
             = l report.updated_at, format: :semi_long
           - if report.comments.any?
             .user-reports-item__comment-count
               .user-reports-item__comment-count-label
-                i.fa.fa-comment-o
+                i.fas.fa-comment
               .user-reports-item__comment-count-value
                 = report.comments.count

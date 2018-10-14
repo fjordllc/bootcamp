@@ -5,22 +5,21 @@ html.is-application lang="ja"
     = render "google_tag_manager_head"
     meta content="IE=edge" http-equiv="X-UA-Compatible"
     = display_meta_tags default_meta_tags
-    = javascript_include_tag 'application'
+    = javascript_include_tag "application"
     = javascript_include_tag "//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     = javascript_pack_tag "application"
     = csrf_meta_tags
     = render "favicons"
     - if page_classes.include?("welcome")
-      = stylesheet_link_tag 'welcome', media: 'all'
+      = stylesheet_link_tag "welcome", media: "all"
       - if page_classes.include?("welcome-home")
         link(rel="canonical" href="https://bootcamp.fjord.jp/")
     - else
       = render "current_user"
-      = stylesheet_link_tag 'application', media: 'all'
+      = stylesheet_link_tag "application", media: "all"
       = stylesheet_link_tag "//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
       = render "import_prism"
-    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', media: 'all'
-    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Roboto', media: 'all'
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto", media: "all"
     = content_for(:head_last) if content_for?(:head_last)
   body#body class="#{body_class} #{page_classes}"
     = render "google_tag_manager_body"
@@ -36,7 +35,7 @@ html.is-application lang="ja"
         = render "alert"
       main.page
         = yield
-    - if current_user && page_classes.exclude?("no-recent-reports") && (page_category == "index-page" ||  page_category == "show-page")  && recent_reports.present?
+    - if current_user && page_classes.exclude?("no-recent-reports") && (page_category == "index-page" || page_category == "show-page") && recent_reports.present?
       .recent-reports
         .recent-reports__items
           = render partial: "reports/recent_reports", collection: recent_reports, as: :report

@@ -1,10 +1,10 @@
 = form_for([:admin, company]) do |f|
   .form-inputs
     label 会社名
-    = f.text_field :name, class: 'input-block-level'
+    = f.text_field :name, class: "input-block-level"
     label 詳細
-    = f.text_area :description, size: '10x20', class: 'input-block-level'
+    = f.text_area :description, size: "10x20", class: "input-block-level"
     label ウェブサイトURL
-    = f.text_field :website, class: 'input-block-level'
+    = f.text_field :website, class: "input-block-level"
   .actions
-    = f.submit nil, class: 'btn btn-primary'
+    = f.submit nil, class: "btn btn-primary"

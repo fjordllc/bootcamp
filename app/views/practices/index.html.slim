@@ -1,17 +1,16 @@
-- title t('practices')
+- title t("practices")
 header.page-header
   .container
     .page-header__container
       h2.page-header__title
-        = t('practices')
+        = t("practices")
       .page-header__action
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to new_practice_path, class: 'is-button-simple-md-warning' do
-              i.fa.fa-plus
-              = t('new_practice')
-
+            = link_to new_practice_path, class: "is-button-simple-md-warning" do
+              i.fas.fa-plus
+              = t("new_practice")
 
 .page-body
   .container
@@ -24,7 +23,7 @@ header.page-header
                 = category.name
               - if current_user.admin?
                 .categories-item__show-handle.js-show-handle__trigger
-                  i.fa.fa-cog
+                  i.fas.fa-cog
             .categories-item__description.js-markdown-view.js-target-blank.is-long-text-style
               = category.description
             .categories-item__body
@@ -36,5 +35,5 @@ header.page-header
         - @categories.each do |category|
           - if category.practices.present?
             .page-nav__item
-              a.page-nav__item-link(data-scroll href= "#category-#{category.id}")
+              a.page-nav__item-link(data-scroll href="#category-#{category.id}")
                 = category.name

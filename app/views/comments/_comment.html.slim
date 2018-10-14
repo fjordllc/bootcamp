@@ -1,17 +1,14 @@
-.thread-comment.is-no-author-icon
+- commentable = comment.commentable
+.thread-comment
+  .thread-comment__author
+    = link_to comment.user, itempro: "url", class: "thread-comment__author-link" do
+      = gravatar_tag comment.user, secure: true, size: 200, html: { class: "thread-comment__author-icon" }
   .thread-comment__body
-    header.thread-comment__body-header.is-icon
-      = gravatar_tag report.user, secure: true, size: 88, html: { class: "thread-comment__user-icon"}
+    header.thread-comment__body-header
       h2.thread-comment__title
-        = link_to report, itempro: 'url', class: 'thread-comment__title-link' do
-          span.thread-comment__title-label
-            | #{report.user.login_name}さんの#{l report.created_at, format: :date_default}の日報
-          = report.title
-          .thread-comment__title-count
-            i.fa.fa-comment-o
-            = report.comments.size
-
-      time.thread-comment__created-at(datetime='#{report.created_at.to_datetime}' pubdate='pubdate')
+        = link_to comment.user, itempro: "url", class: "thread-comment__title-link" do
+          = comment.user.login_name
+      time.thread-comment__created-at(datetime="#{commentable.created_at.to_datetime}" pubdate="pubdate")
         = l comment.updated_at, format: :date_long_with_time
     .thread-comments__description.js-markdown-view.js-target-blank.is-long-text-style
       = comment.description
@@ -19,8 +16,8 @@
       .thread-comment__actions
         ul.thread-comment__actions-items
           li.thread-comment__actions-item
-            = link_to [:edit, report, comment], class: 'thread-comment__actions-item-link' do
-              i.fa.fa-pencil
+            = link_to edit_comment_path(comment), class: "thread-comment__actions-item-link" do
+              i.fas.fa-pen
           li.thread-comment__actions__item
-            = link_to [report, comment], data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-comment__actions-item-link' do
-              i.fa.fa-trash-o
+            = link_to comment, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread-comment__actions-item-link" do
+              i.fas.fa-trash-alt

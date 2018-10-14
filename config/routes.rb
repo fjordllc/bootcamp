@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   root to: "home#index"
   get "welcome", to: "home#welcome", as: "welcome"
@@ -15,7 +17,7 @@ Rails.application.routes.draw do
       resources :emails, only: :index
       resources :in_actives, only: :index
     end
-    resources :users
+    resources :users, except: %i(show)
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
     end
@@ -40,16 +42,14 @@ Rails.application.routes.draw do
   end
   resources :practices do
     resources :products do
-      resources :comments
       resources :checks, only: %i(create)
     end
   end
   resources :reports do
     resources :checks, only: %i(create)
     resources :footprints, only: %i(create)
-    resources :comments
   end
-
+  resources :comments
   resources :notifications, only: %i(show)
   resources :pages
 

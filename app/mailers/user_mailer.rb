@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserMailer < ActionMailer::Base
   default from: "noreply@bootcamp.fjord.jp"
 

@@ -1,0 +1,6 @@
+exclude:
+  - 'app/views/style_guide/**/*.slim'
+
+linters:
+  LineLength:
+    max: 250

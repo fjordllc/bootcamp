@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ActiveRecord::Base
   ADMIN_EMAILS = %w(komagata@fjord.jp machidanohimitsu@gmail.com)
 
@@ -53,7 +55,7 @@ class User < ActiveRecord::Base
   scope :active, -> { where("updated_at > ?", 1.month.ago) }
   scope :inactive, -> { where("updated_at <= ?", 1.month.ago) }
   scope :mentor, -> { where(mentor: true) }
-  scope :working, -> { active.where(graduation: false, retire: false).order(updated_at: :desc) }
+  scope :working, -> { active.where(adviser: false, graduation: false, retire: false).order(updated_at: :desc) }
 
   scope :admin, -> { where(email: ADMIN_EMAILS) }
 

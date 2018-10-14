@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 atom_feed(language: "ja-JP") do |feed|
   feed.title "みんなのブログ"
   feed.updated @entries.first.published

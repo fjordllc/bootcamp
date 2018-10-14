@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeCheckableIndex < ActiveRecord::Migration[5.2]
   def change
     remove_index :checks, name: "index_checks_on_user_id_and_checkable_id"

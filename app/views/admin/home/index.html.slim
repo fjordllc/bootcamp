@@ -2,8 +2,9 @@ header.page-header
   .container
     .page-header__container
       h2.page-header__title 管理ページ
+= render "admin/admin_page_tabs", active: 0
 .page-body
   .container
     ul
-      li= link_to "忘年会メールアドレス", admin_users_emails_path
-      li= link_to "アクティブでないユーザー", admin_users_in_actives_path
+      li = link_to "忘年会メールアドレス", admin_users_emails_path
+      li = link_to "アクティブでないユーザー", admin_users_in_actives_path

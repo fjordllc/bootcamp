@@ -3,7 +3,7 @@
     header.thread-header
       .thread-header__reported-at
         | #{l report.reported_at, format: :long} の日報
-      h1.thread-header__title(class="#{report.wip? ? 'is-wip':''}")
+      h1.thread-header__title(class="#{report.wip? ? "is-wip" : ""}")
         - if report.wip?
           span.thread-header__title-icon
             | WIP
@@ -13,7 +13,7 @@
             h2.stamp__content.is-title
               | 確認済
             time.stamp__content.is-created-at
-              = @checks.last.created_at.strftime('%Y/%m/%d')
+              = @checks.last.created_at.strftime("%Y/%m/%d")
             .stamp__content.is-user-name
               = @checks.last.user.login_name
 
@@ -29,7 +29,7 @@
         ul.report-practices__items
           - report.practices.each do |practice|
             li.report-practices__item
-              = link_to practice, class: 'report-practices__item-link' do
+              = link_to practice, class: "report-practices__item-link" do
                 = practice.title
 
     - if report.learning_times.present?
@@ -53,26 +53,26 @@
           .thread-edit-tools__inner
             ul.thread-edit-tools__items
               li.thread-edit-tools__item
-                = link_to edit_report_path(report), class: 'thread-edit-tools__item-link is-success', id: "js-shortcut-edit" do
-                  i.fa.fa-pencil
+                = link_to edit_report_path(report), class: "thread-edit-tools__item-link is-success", id: "js-shortcut-edit" do
+                  i.fas.fa-pen
               li.thread-edit-tools__item
-                = link_to new_report_path(id: report), class: 'thread-edit-tools__item-link is-success' do
-                  i.fa.fa-files-o
+                = link_to new_report_path(id: report), class: "thread-edit-tools__item-link is-success" do
+                  i.fas.fa-copy
               li.thread-edit-tools__item
-                = link_to report_path(report), data: { confirm: t('are_you_sure') }, method: :delete, class: 'thread-edit-tools__item-link is-danger' do
-                  i.fa.fa-trash-o
+                = link_to report_path(report), data: { confirm: t("are_you_sure") }, method: :delete, class: "thread-edit-tools__item-link is-danger" do
+                  i.fas.fa-trash-alt
 
     - if (admin_login? || adviser_login?) && @report.checks.blank?
       .thread-admin-tools
         ul.thread-admin-tools__items
           li.thread-admin-tools__item
-            = render 'reports/report_check_form'
+            = render "reports/report_check_form"
 
   .thread-prev-next
     .thread-prev-next__item
       - if report.previous
         = link_to report.previous, class: "thread-prev-next__item-link is-prev" do
-          i.fa.fa-angle-left
+          i.fas.fa-angle-left
           | 前の日報
     .thread-prev-next__item
       = link_to reports_path, class: "thread-prev-next__item-link is-index" do
@@ -81,7 +81,7 @@
       - if report.next
         = link_to report.next, class: "thread-prev-next__item-link is-next" do
           | 次の日報
-          i.fa.fa-angle-right
+          i.fas.fa-angle-right
 
   = link_to report.user, itempro: "url", class: "thread__author-link" do
     = gravatar_tag report.user, secure: true, size: 120, html: { class: "thread__author-icon" }

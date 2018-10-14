@@ -2,36 +2,15 @@ header.page-header
   .container
     .page-header__container
       h2.page-header__title アクティブでないユーザー
+= render "admin/admin_page_tabs", active: 4
 .page-body
   .container.is-padding-horizontal-0-sm-down
-    .admin-table
-      table.admin-table__table
-        thead.admin-table__header
-          tr.admin-table__labels
-            th.admin-table__label ユーザー名
-            th.admin-table__label 最終アクセス日時
-            th.admin-table__label 操作
-        tbody.admin-table__items
-          - @users.each do |user|
-            tr.admin-table__item
-              td.admin-table__item-value
-                - if user.graduation
-                  .user-part(class="is-graduate")
-                    = t("graduate")
-                - if user.adviser
-                  .user-part(class="is-adviser")
-                    = t("adviser")
-                = link_to admin_user_path(user), class: "admin-table__user" do
-                  = gravatar_tag user, secure: true, html: { class: "admin-table__user-icon" }
-                  span.admin-table__user-login-name
-                    = user.login_name
-                    | （#{user.full_name}）
-              td.admin-table__item-value.is-text-align-center
-                = l user.updated_at
-              td.admin-table__item-value.is-text-align-center
-                = link_to edit_admin_user_path(user), class: 'is-button-simple-sm-warning is-icon' do
-                  i.fa.fa-pencil
-
-    h2 メールアドレス
-    textarea.a-text-input
-      = @users.pluck(:email).join(",")
+    = render "/admin/users/admin_users_table", users: @users
+    .practice-contents
+      .practice-content
+        header.practice-content__header
+          h2.practice-content__title
+            | 非アクティブユーザーのメアド
+        .practice-content__body
+          textarea.a-text-input
+            = @users.pluck(:email).join(",")

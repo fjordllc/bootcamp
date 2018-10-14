@@ -4,7 +4,7 @@
       = link_to page, itemprop: "url", class: "thread-list-item__title-link" do
         = page.title
     .thread-list-item__actions
-      = link_to [:edit, page], class: 'thread-list-item__actions-link' do
-        i.fa.fa-pencil
-      = link_to  page, data: { confirm: "本当に宜しいですか？" }, method: :delete, class: 'thread-list-item__actions-link' do
-        i.fa.fa-trash-o
+      = link_to [:edit, page], class: "thread-list-item__actions-link" do
+        i.fas.fa-pen
+      = link_to page, data: { confirm: "本当に宜しいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
+        i.fas.fa-trash-alt
