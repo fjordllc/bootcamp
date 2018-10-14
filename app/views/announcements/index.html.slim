@@ -16,5 +16,5 @@ header.page-header.is-margin-bottom-0.has-border-bottom-none
   .container
     = paginate @announcements, position: "top"
     .thread-list
-      = render partial: 'announcements/announcement_list_item', collection: @announcements, as: :announcement
+      = render partial: "announcements", collection: @announcements, as: :announcement
     = paginate @announcements, position: "bottom"
