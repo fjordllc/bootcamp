@@ -1,5 +1,5 @@
 = render 'errors', object: announcement
-= form_for @announcement do |f|
+= form_with model: announcement, local: true do |f|
   .form__items
     .form-item
       .row
