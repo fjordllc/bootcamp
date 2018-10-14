@@ -9,7 +9,7 @@ class CheckReportTest < ApplicationSystemTestCase
     assert_not has_button? "日報を確認する"
   end
 
-  test "Success Report Checking" do
+  test "success report checking" do
     login_user "machida", "testtest"
     visit  "/reports/#{reports(:report_2).id}"
     assert has_button? "日報を確認する"
