@@ -8,10 +8,6 @@ class AnnouncementsController < ApplicationController
     @announcements = Announcement.order(created_at: :desc).page(params[:page])
   end
 
-  def index
-    @announcements = Announcement.order(created_at: :desc)
-  end
-
   def show
   end
 
@@ -49,10 +45,6 @@ class AnnouncementsController < ApplicationController
   private
     def announcement_params
       params.require(:announcement).permit(:title, :description)
-    end
-
-    def set_announcement
-      @announcement = Announcement.find(params[:id])
     end
 
     def set_announcement
