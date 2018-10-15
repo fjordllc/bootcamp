@@ -1,16 +1,16 @@
-- title t('new_announcement')
+- title t("new_announcement")
 header.page-header
   .container
     .page-header__container
       h2.page-header__title
-        = t('new_announcement')
+        = t("new_announcement")
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to announcements_path, class: 'is-button-simple-md-secondary' do
+            = link_to announcements_path, class: "is-button-simple-md-secondary" do
               i.fa.fa-angle-left
-              = t('to_index_of_announcements')
+              = t("to_index_of_announcements")
 
 .page-body
   .container
-    = render 'form', announcement: @announcement
+    = render "form", announcement: @announcement

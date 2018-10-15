@@ -1,4 +1,4 @@
-- title t('announcements')
+- title t("announcements")
 
 header.page-header.is-margin-bottom-0.has-border-bottom-none
   .container
@@ -8,9 +8,9 @@ header.page-header.is-margin-bottom-0.has-border-bottom-none
         .page-header-actions__items
           - if admin_login?
             .page-header-actions__item
-              = link_to new_announcement_path, class: 'is-button-simple-md-warning' do
+              = link_to new_announcement_path, class: "is-button-simple-md-warning" do
                 i.fa.fa-plus
-                = t('new_announcement')
+                = t("new_announcement")
 
 .page-body
   .container
