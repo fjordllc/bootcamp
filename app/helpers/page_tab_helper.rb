@@ -19,6 +19,7 @@ module PageTabHelper
       [
         root_tab(resource),
         reports_tab(resource),
+        questions_tab(resource),
         products_tab(resource)
       ]
     end
@@ -44,6 +45,7 @@ module PageTabHelper
       {
         practices: "プラクティス",
         reports: "日報",
+        questions: "質問",
         products: "提出物",
         users: "ユーザー",
         comments: "コメント"
@@ -57,6 +59,11 @@ module PageTabHelper
 
     def tab_path(resource, tab_name)
       [resource, tab_name]
+    end
+
+    def questions_tab(resource)
+      tab_name = :questions
+      page_tab_member(tab_path(resource, tab_name), tab_name)
     end
 
     def products_tab(resource)
