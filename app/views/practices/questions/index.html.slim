@@ -1,0 +1,26 @@
+- title @practice.title
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title
+        = @practice.title
+      .page-header__action
+        = link_to practices_path, class: "is-button-simple-md-secondary" do
+          i.fa.fa-angle-left
+          = t("practices")
+
+= render "page_tabs", resource: @practice
+
+.page-body
+  nav.tab-nav
+    .container.is-xs-horizontal-padding-0
+      ul.tab-nav__items
+        li.tab-nav__item
+          = link_to "未解決", [@practice, :questions], class: "tab-nav__item-link #{params[:solved].present? ? "": "is-active"}"
+        li.tab-nav__item
+          = link_to "解決済み", polymorphic_path([@practice, :questions], solved: "true"), class: "tab-nav__item-link #{params[:solved].present? ? "is-active" : ""}"
+
+  .container
+    .thread-list
+      - @questions.each do |question|
+        = render "questions/question", question: question
