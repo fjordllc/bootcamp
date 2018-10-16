@@ -8,13 +8,14 @@ class QuestionsController < ApplicationController
   before_action :set_categories, only: %i(new edit)
 
   def index
-    @questions =
+    questions =
       if params[:solved].present?
         Question.joins(:correct_answer)
       else
         question_ids = CorrectAnswer.pluck(:question_id)
         Question.where.not(id: question_ids)
-      end
+      end.order(updated_at: :desc, id: :desc)
+    @questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
   end
 
   def show
