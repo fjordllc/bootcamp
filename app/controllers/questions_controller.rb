@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   include Gravatarify::Helper
   before_action :require_login
   before_action :set_question, only: %i(show edit update destroy)
+  before_action :set_categories, only: %i(new edit)
 
   def index
     @questions =
@@ -55,12 +56,21 @@ class QuestionsController < ApplicationController
       @question = Question.find(params[:id])
     end
 
+    def set_categories
+      @categories =
+        Category
+          .eager_load(:practices)
+          .where.not(practices: { id: nil })
+          .order("categories.position ASC, practices.position ASC")
+    end
+
     def question_params
       params.require(:question).permit(
         :title,
         :description,
         :user_id,
-        :resolve
+        :resolve,
+        :practice_id
       )
     end
 
