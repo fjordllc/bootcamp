@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "application_system_test_case"
 
 class QuestionListTest < ApplicationSystemTestCase
@@ -81,5 +83,4 @@ class QuestionListTest < ApplicationSystemTestCase
 
     assert_equal target_practice.questions.solved.size, all(".thread-list-item__title-link").size
   end
-
 end
