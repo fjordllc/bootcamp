@@ -25,4 +25,18 @@ class SignInTest < ApplicationSystemTestCase
     assert_equal "/user_sessions", current_path
     assert_text "ユーザー名かパスワードが違います。"
   end
+
+  test "sign in with retire account" do
+    visit "/login"
+    within("#sign-in-form") do
+      fill_in("user[login_name]", with: "yameo")
+      fill_in("user[password]",   with: "yameo@example.com")
+    end
+    click_button "サインイン"
+    assert_equal "/user_sessions", current_path
+    assert_text "ユーザー名かパスワードが違います。"
+
+    visit "/users"
+    assert_equal root_path, current_path
+  end
 end
