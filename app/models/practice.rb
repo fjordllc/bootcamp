@@ -16,6 +16,7 @@ class Practice < ActiveRecord::Base
     through: :completed_learnings,
     source: :user
   has_many :products
+  has_many :questions
   belongs_to :category
   acts_as_list scope: :category
 
