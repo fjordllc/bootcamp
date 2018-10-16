@@ -15,7 +15,8 @@
                       label.select-practices__label
                         = radio_button_tag "question[practice_id]", practice.id, question.practice == practice, id: "question_practice_ids_#{practice.id}", class: "select-practices__input"
                         => "[#{category.name}]"
-                        span.select-practices__label-title= practice.title
+                        span.select-practices__label-title
+                          = practice.title
       .form-item
         .row.js-markdown-parent
           .col-md-6.col-xs-12

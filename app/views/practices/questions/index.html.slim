@@ -16,7 +16,7 @@ header.page-header
     .container.is-xs-horizontal-padding-0
       ul.tab-nav__items
         li.tab-nav__item
-          = link_to "未解決", [@practice, :questions], class: "tab-nav__item-link #{params[:solved].present? ? "": "is-active"}"
+          = link_to "未解決", [@practice, :questions], class: "tab-nav__item-link #{params[:solved].present? ? "" : "is-active"}"
         li.tab-nav__item
           = link_to "解決済み", polymorphic_path([@practice, :questions], solved: "true"), class: "tab-nav__item-link #{params[:solved].present? ? "is-active" : ""}"
 
