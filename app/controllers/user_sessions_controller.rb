@@ -6,13 +6,15 @@ class UserSessionsController < ApplicationController
 
   def create
     @user = login(params[:user][:login_name], params[:user][:password], params[:remember])
-    if @user && !@user.retire?
-      save_updated_at(@user)
-      redirect_back_or_to :users, notice: t("sign_in_successful")
-    else
+
+    unless active_user?(@user)
+      logout
       flash.now[:alert] = t("invalid_email_or_password")
-      render "new"
+      return render "new"
     end
+
+    save_updated_at(@user)
+    redirect_back_or_to :users, notice: t("sign_in_successful")
   end
 
   def destroy
@@ -22,6 +24,11 @@ class UserSessionsController < ApplicationController
   end
 
   private
+
+    def active_user?(user)
+      user.present? && !user.retire?
+    end
+
     def save_updated_at(user)
       user.updated_at = Time.current
       user.save!
