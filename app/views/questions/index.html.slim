@@ -18,12 +18,12 @@ header.page-header.is-margin-bottom-0
           = hidden_field_tag :solved, params[:solved]
           = label_tag :practice_id, "プラクティスで絞り込む:", class: "sort-nav__label"
           .is-button-simple-md-secondary.is-select.sort-nav__select
-            = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, { selected: params[:practice_id] }), include_blank: "全ての質問を表示", onchange: "this.form.submit()"
+            = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, selected: params[:practice_id]), include_blank: "全ての質問を表示", onchange: "this.form.submit()"
     nav.tab-nav.is-delete-margin-top
       .container.is-xs-horizontal-padding-0
         ul.tab-nav__items
           li.tab-nav__item
-            = link_to "未解決", polymorphic_path(:questions, practice_id: params[:practice_id]), class: "tab-nav__item-link #{params[:solved].present? ? "": "is-active"}"
+            = link_to "未解決", polymorphic_path(:questions, practice_id: params[:practice_id]), class: "tab-nav__item-link #{params[:solved].present? ? "" : "is-active"}"
           li.tab-nav__item
             = link_to "解決済み", polymorphic_path(:questions, solved: "true", practice_id: params[:practice_id]), class: "tab-nav__item-link #{params[:solved].present? ? "is-active" : ""}"
 
