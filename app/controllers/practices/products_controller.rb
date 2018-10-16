@@ -15,7 +15,7 @@ class Practices::ProductsController < ApplicationController
     def set_products
       @products =
         if product_displayable?(practice: practice)
-           practice.products.eager_load(:user, :comments).order(updated_at: :desc)
+          practice.products.eager_load(:user, :comments).order(updated_at: :desc)
         end
     end
 

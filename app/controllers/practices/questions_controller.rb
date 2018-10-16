@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Practices::QuestionsController < ApplicationController
   before_action :set_practice
   before_action :set_questions
