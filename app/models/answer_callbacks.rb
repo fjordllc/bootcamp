@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnswerCallbacks
   def after_create(answer)
     send_notification(answer)
