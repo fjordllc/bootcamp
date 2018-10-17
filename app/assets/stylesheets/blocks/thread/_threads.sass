@@ -6,6 +6,10 @@
   +margin(horizontal, auto)
   +media-breakpoint-down(sm)
     margin-bottom: 2rem
+  &.is-empty
+    background-color: transparent
+    box-shadow: none
+    +text-block(1rem 1.4, center)
 
 .thread-list-item
   padding: .75rem 1rem
@@ -19,6 +23,15 @@
   padding-left: 4rem
   +media-breakpoint-down(sm)
     padding-left: 3rem
+
+.thread-list-item__sub-title
+  +text-block(.75rem 1.4 .125rem, 400)
+  +media-breakpoint-down(sm)
+    margin-left: -3rem
+
+.thread-list-item__sub-title-link
+  +hover-link
+  color: $default-text
 
 .thread-list-item__author
   +position(absolute, left 0, top 0)

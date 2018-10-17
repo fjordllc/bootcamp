@@ -5,15 +5,16 @@ class QuestionsController < ApplicationController
   include Gravatarify::Helper
   before_action :require_login
   before_action :set_question, only: %i(show edit update destroy)
+  before_action :set_categories, only: %i(new create edit update)
 
   def index
-    @questions =
+    questions =
       if params[:solved].present?
-        Question.joins(:correct_answer)
+        Question.solved
       else
-        question_ids = CorrectAnswer.pluck(:question_id)
-        Question.where.not(id: question_ids)
-      end
+        Question.not_solved
+      end.order(updated_at: :desc, id: :desc)
+    @questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
   end
 
   def show
@@ -55,12 +56,21 @@ class QuestionsController < ApplicationController
       @question = Question.find(params[:id])
     end
 
+    def set_categories
+      @categories =
+        Category
+          .eager_load(:practices)
+          .where.not(practices: { id: nil })
+          .order("categories.position ASC, practices.position ASC")
+    end
+
     def question_params
       params.require(:question).permit(
         :title,
         :description,
         :user_id,
-        :resolve
+        :resolve,
+        :practice_id
       )
     end
 

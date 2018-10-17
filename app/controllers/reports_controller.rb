@@ -5,16 +5,15 @@ class ReportsController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
   before_action :require_login
-  before_action :set_report, only: %w(show)
+  before_action :set_report, only: %i(show)
   before_action :set_my_report, only: %i(edit update destroy)
-  before_action :set_comments, only: %w(show edit update destroy)
-  before_action :set_comment, only: %w(show edit update destroy)
-  before_action :set_checks, only: %w(show)
-  before_action :set_check, only: %w(show)
-  before_action :set_footprints, only: %w(show)
-  before_action :set_footprint, only: %w(show)
-  before_action :set_user, only: :show
-  before_action :set_categories, only: %w(new create edit update)
+  before_action :set_comment, only: %i(show)
+  before_action :set_checks, only: %i(show)
+  before_action :set_check, only: %i(show)
+  before_action :set_footprints, only: %i(show)
+  before_action :set_footprint, only: %i(show)
+  before_action :set_user, only: %i(show)
+  before_action :set_categories, only: %i(new create edit update)
 
   def index
     @search_words = params[:word]&.squish&.split(/[[:blank:]]/)&.uniq
@@ -111,8 +110,12 @@ class ReportsController < ApplicationController
       @check = Check.new
     end
 
+    def report
+      @report ||= Report.find(params[:id])
+    end
+
     def set_checks
-      @checks = @report.checks.order(created_at: :desc)
+      @checks = report.checks.order(created_at: :desc)
     end
 
     def set_footprint
@@ -120,15 +123,11 @@ class ReportsController < ApplicationController
     end
 
     def set_footprints
-      @footprints = Footprint.where(report_id: @report.id).order(created_at: :desc)
+      @footprints = Footprint.where(report_id: report.id).order(created_at: :desc)
     end
 
     def set_comment
       @comment = Comment.new
-    end
-
-    def set_comments
-      @comments = Comment.where(report_id: @report.id).order(created_at: :asc)
     end
 
     def set_categories
