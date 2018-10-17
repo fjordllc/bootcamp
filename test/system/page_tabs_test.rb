@@ -3,7 +3,7 @@
 require "application_system_test_case"
 
 class PageTabsTest < ApplicationSystemTestCase
-  test "when login user is admin, practice's tab members are practice and reports and products" do
+  test "when login user is admin, practice's tab members are practice and reports and questions and products" do
     login_user "machida", "testtest"
 
     assert_text "プラクティス"
@@ -15,10 +15,11 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プラクティス", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 3, page_tabs.size
+    assert_equal 4, page_tabs.size
     assert_equal "プラクティス", page_tabs[0].text
     assert_equal "日報", page_tabs[1].text
-    assert_equal "提出物", page_tabs[2].text
+    assert_equal "質問", page_tabs[2].text
+    assert_equal "提出物", page_tabs[3].text
 
     practice_id = current_path.split("/").last.to_i
 
@@ -39,13 +40,21 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[2].click
 
     assert_equal 1, all(".is-current").length
+    assert_equal "質問", first(".is-current").text
+    expected_question_counts = Practice.find(practice_id).questions.not_solved.size
+    actual_question_counts = all(".thread-list-item__title-link").size
+    assert_equal expected_question_counts, actual_question_counts
+
+    all(".page-tabs__item-link")[3].click
+
+    assert_equal 1, all(".is-current").length
     assert_equal "提出物", first(".is-current").text
     expected_product_counts = Practice.find(practice_id).products.size
     actual_product_counts = all(".thread-list-item__title-link").size
     assert_equal expected_product_counts, actual_product_counts
   end
 
-  test "when login user is adviser, practice's tab members are practice and reports and products" do
+  test "when login user is adviser, practice's tab members are practice and reports and questions and products" do
     login_user "mineo", "testtest"
 
     assert_text "プラクティス"
@@ -57,10 +66,11 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プラクティス", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 3, page_tabs.size
+    assert_equal 4, page_tabs.size
     assert_equal "プラクティス", page_tabs[0].text
     assert_equal "日報", page_tabs[1].text
-    assert_equal "提出物", page_tabs[2].text
+    assert_equal "質問", page_tabs[2].text
+    assert_equal "提出物", page_tabs[3].text
 
     practice_id = current_path.split("/").last.to_i
 
@@ -81,13 +91,21 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[2].click
 
     assert_equal 1, all(".is-current").length
+    assert_equal "質問", first(".is-current").text
+    expected_question_counts = Practice.find(practice_id).questions.not_solved.size
+    actual_question_counts = all(".thread-list-item__title-link").size
+    assert_equal expected_question_counts, actual_question_counts
+
+    all(".page-tabs__item-link")[3].click
+
+    assert_equal 1, all(".is-current").length
     assert_equal "提出物", first(".is-current").text
     expected_product_counts = Practice.find(practice_id).products.size
     actual_product_counts = all(".thread-list-item__title-link").size
     assert_equal expected_product_counts, actual_product_counts
   end
 
-  test "when login user is student and has a checked product, practice's tab members are practice and reports and products" do
+  test "when login user is student and has a checked product, practice's tab members are practice and reports and questions and products" do
     login_user "yamada", "testtest"
 
     assert_text "プラクティス"
@@ -99,10 +117,11 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プラクティス", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 3, page_tabs.size
+    assert_equal 4, page_tabs.size
     assert_equal "プラクティス", page_tabs[0].text
     assert_equal "日報", page_tabs[1].text
-    assert_equal "提出物", page_tabs[2].text
+    assert_equal "質問", page_tabs[2].text
+    assert_equal "提出物", page_tabs[3].text
 
     practice_id = current_path.split("/").last.to_i
 
@@ -123,13 +142,21 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[2].click
 
     assert_equal 1, all(".is-current").length
+    assert_equal "質問", first(".is-current").text
+    expected_question_counts = Practice.find(practice_id).questions.not_solved.size
+    actual_question_counts = all(".thread-list-item__title-link").size
+    assert_equal expected_question_counts, actual_question_counts
+
+    all(".page-tabs__item-link")[3].click
+
+    assert_equal 1, all(".is-current").length
     assert_equal "提出物", first(".is-current").text
     expected_product_counts = Practice.find(practice_id).products.size
     actual_product_counts = all(".thread-list-item__title-link").size
     assert_equal expected_product_counts, actual_product_counts
   end
 
-  test "when login user is student and doesn't have a checked product, practice's tab members are practice and reports" do
+  test "when login user is student and doesn't have a checked product, practice's tab members are practice and reports and questions" do
     login_user "kimura", "testtest"
 
     assert_text "プラクティス"
@@ -141,9 +168,10 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プラクティス", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 2, page_tabs.size
+    assert_equal 3, page_tabs.size
     assert_equal "プラクティス", page_tabs[0].text
     assert_equal "日報", page_tabs[1].text
+    assert_equal "質問", page_tabs[2].text
 
     practice_id = current_path.split("/").last.to_i
 
@@ -160,6 +188,14 @@ class PageTabsTest < ApplicationSystemTestCase
     expected_report_counts = Practice.find(practice_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
+
+    all(".page-tabs__item-link")[2].click
+
+    assert_equal 1, all(".is-current").length
+    assert_equal "質問", first(".is-current").text
+    expected_question_counts = Practice.find(practice_id).questions.not_solved.size
+    actual_question_counts = all(".thread-list-item__title-link").size
+    assert_equal expected_question_counts, actual_question_counts
   end
 
   test "when login user is admin, user's tab members are user and practices and reports and comments and products" do

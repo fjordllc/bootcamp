@@ -1,13 +1,13 @@
 .page-tabs
   .container
     ul.page-tabs__items
-      - page_tab_members(resource).each do |member|
-        - if member[:is_products_tab]
+      - page_tab_members(resource).each do |tab|
+        - if tab[:is_products_tab]
           - if resource.is_a?(User)
             - if product_displayable?(user: resource)
-              = render "page_tab", member: member
+              = render "page_tab", tab: tab
           - elsif resource.is_a?(Practice)
             - if product_displayable?(practice: resource)
-              = render "page_tab", member: member
+              = render "page_tab", tab: tab
         - else
-          = render "page_tab", member: member
+          = render "page_tab", tab: tab

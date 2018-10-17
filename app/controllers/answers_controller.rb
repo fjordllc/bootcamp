@@ -42,7 +42,11 @@ class AnswersController < ApplicationController
     end
 
     def set_answer
-      @answer = @question.answers.find(params[:id])
+      @answer = question.answers.find(params[:id])
+    end
+
+    def question
+      @question ||= Question.find(params[:question_id])
     end
 
     def answer_params
@@ -50,7 +54,7 @@ class AnswersController < ApplicationController
     end
 
     def set_return_to
-      @return_to = params[:return_to].present? ? params[:return_to] : question_url(@question)
+      @return_to = params[:return_to].present? ? params[:return_to] : question_url(question)
     end
 
     def notify_to_slack(answer)

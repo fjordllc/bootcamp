@@ -9,7 +9,7 @@ class CheckProductTest < ApplicationSystemTestCase
     assert_text "OS X Mountain Lionをクリーンインストールする"
     click_link "OS X Mountain Lionをクリーンインストールする"
 
-    page.all(".page-tabs__item-link")[2].click
+    page.all(".page-tabs__item-link")[3].click
     page.first(".thread-list-item__title-link").click
 
     assert has_button? "提出物を確認"
@@ -26,7 +26,7 @@ class CheckProductTest < ApplicationSystemTestCase
     assert_text "OS X Mountain Lionをクリーンインストールする"
     click_link "OS X Mountain Lionをクリーンインストールする"
 
-    page.all(".page-tabs__item-link")[2].click
+    page.all(".page-tabs__item-link")[3].click
     page.first(".thread-list-item__title-link").click
 
     assert has_button? "提出物を確認"
