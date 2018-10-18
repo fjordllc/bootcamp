@@ -11,101 +11,26 @@
     box-shadow: none
     +text-block(1rem 1.4, center)
 
-.thread-list-item
+.thread-list__header
+  border-bottom: solid 1px $background-color
   padding: .75rem 1rem
-  &:not(:last-child)
-    border-bottom: solid 1px $background-color
   +media-breakpoint-down(sm)
-    padding: .75rem
+    padding: .5rem 1rem
 
-.thread-list-item__inner
-  +relative
-  padding-left: 4rem
+.thread-list__title
+  +text-block(1rem 1.45)
   +media-breakpoint-down(sm)
-    padding-left: 3rem
+    font-size: .875rem
 
-.thread-list-item__sub-title
-  +text-block(.75rem 1.4 .125rem, 400)
-  +media-breakpoint-down(sm)
-    margin-left: -3rem
+.thread-list__footer
+  padding: .75rem 1rem
 
-.thread-list-item__sub-title-link
-  +hover-link
-  color: $default-text
-
-.thread-list-item__author
-  +position(absolute, left 0, top 0)
-
-.thread-list-item__author-icon
-  border-radius: 50%
-  +media-breakpoint-down(sm)
-    +size(2.5rem auto)
-  .thread-list-item.is-wip &
-    opacity: .6
-
-.thread-list-item__checked-author-icon
-  border-radius: 50%
-
-.thread-list-item__header
+.thread-list__footer-to-index
   display: flex
-  align-items: center
-  margin-bottom: .125rem
-  +media-breakpoint-down(sm)
-    flex-direction: column
-    align-items: flex-start
-    min-height: 3.25rem
+  justify-content: flex-end
 
-.thread-list-item__header-icon
-  +text-block(.75rem, inline-flex $muted-text)
-  background-color: #e9ebef
-  padding: .125rem .5rem
-  margin-right: .5rem
-  border-radius: .75rem
-
-.thread-list-item__title-link
-  +text-block(1rem 1.5, 600 $side)
-  word-break: break-all
+.thread-list__footer-text-link
+  +text-block(.875rem 1.4, $muted-text)
   +hover-link-reversal
-  .thread-list-item.is-wip &
-    color: $muted-text
-
-.thread-list-item__actions
-  margin-left: .5rem
-  display: flex
   +media-breakpoint-down(sm)
-    margin-left: 0
-    margin-bottom: .25rem
-  .thread-list-item__header:hover &
-    +position(relative, 1)
-
-.thread-list-item__actions-link
-  +text-block(1rem 1, flex #b9b9b9)
-  align-items: center
-  justify-content: center
-  +size(1.75rem)
-
-.thread-list-item-meta
-  display: flex
-  +text-block(.75rem 1.4)
-  +media-breakpoint-down(sm)
-    margin-left: -3rem
-
-.thread-list-item-meta__updated-at
-  +text-block(.75rem 1.4, $muted-text)
-
-.thread-list-item-meta__comment-count
-  +text-block(.75rem 1.4, block $muted-text inline-block)
-  margin-left: .75rem
-
-.thread-list-item-meta__comment-count-label
-  +text-block(.75rem 1.4, block $muted-text inline-block)
-  margin-right: .25rem
-
-.thread-list-item-meta__comment-count-value
-  +text-block(.75rem 1.4, block $muted-text inline-block)
-
-.thread-list-item__body
-  +text-block(.875rem 1.8)
-
-.thread-list-item-meta__created-at
-  +text-block(.75rem 1.4, $muted-text)
+    padding: .5rem 1rem
