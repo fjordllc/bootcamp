@@ -1,4 +1,14 @@
 .page-body
-  .container
-    .thread-list
-      = render partial: "announcements", collection: @announcements, as: :announcement
+  .top-page
+    .container
+      .row
+        .col-lg-6.col-xl-4.col-xs-12
+          .thread-list
+            header.thread-list__header
+              h2.thread-list__title
+                | 最新のお知らせ
+            = render partial: "announcements", collection: @announcements, as: :announcement
+            footer.thread-list__footer
+              .thread-list__footer-to-index
+                = link_to announcements_path, class: "thread-list__footer-text-link" do
+                  | 全てのお知らせ
