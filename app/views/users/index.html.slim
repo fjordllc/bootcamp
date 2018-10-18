@@ -1,11 +1,17 @@
 - title "ユーザー一覧"
 - content_for :head_last do
-  = auto_discovery_link_tag :atom, feeds_url(format: "atom"), title: "メンバー"
+  = auto_discovery_link_tag :atom, feeds_url(format: "atom"), title: "みんなのブログ"
 
 header.page-header.is-margin-bottom-0.has-border-bottom-none
   .container
     .page-header__container
       h2.page-header__title ユーザー一覧
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to feeds_url(format: "atom"), class: "is-button-simple-md-secondary", target: "_blank" do
+              i.fas.fa-rss
+              | みんなのブログを購読
 
 .page-body
   = render "nav"
