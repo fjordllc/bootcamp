@@ -68,6 +68,7 @@ jobs:
           command: |
             gem install slim_lint
             slim-lint app/views -c config/slim_lint.yml
+            bin/yarn eslint app/javascript
 
       - run:
           name: Test

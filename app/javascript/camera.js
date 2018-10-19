@@ -1,58 +1,70 @@
 import 'whatwg-fetch'
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (!document.getElementById('canvas')) { return null; }
+  if (!document.getElementById('canvas')) {
+    return null
+  }
 
-  let canvas = document.getElementById('canvas');
-  let ctx = canvas.getContext('2d');
-  let video = document.createElement('video');
-  const constraints = { audio: false, video: true };
+  let canvas = document.getElementById('canvas')
+  let ctx = canvas.getContext('2d')
+  let video = document.createElement('video')
+  const constraints = { audio: false, video: true }
 
   const postImage = () => {
-    ctx.drawImage(video, 0, 0);
+    ctx.drawImage(video, 0, 0)
 
-    canvas.toBlob((blob) => {
-      let params = new FormData();
-      params.append('face', blob, 'face.jpg');
+    canvas.toBlob(
+      blob => {
+        let params = new FormData()
+        params.append('face', blob, 'face.jpg')
 
-      fetch('/api/face', {
-        method: 'PUT',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Access-Control-Allow-Origin': '*',
-          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: params
-      }).then((response) => {
-        return response.json();
-      }).then((json) => {
-        const url = json['url'];
-      }).catch((error) => {
-        console.warn(error)
-      })
-    }, 'image/jpeg', 0.95);
+        fetch('/api/face', {
+          method: 'PUT',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Access-Control-Allow-Origin': '*',
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+          },
+          credentials: 'same-origin',
+          redirect: 'manual',
+          body: params
+        })
+          .then(response => {
+            return response.json()
+          })
+          .then(json => {
+            // const url = json['url']
+          })
+          .catch(error => {
+            console.warn(error)
+          })
+      },
+      'image/jpeg',
+      0.95
+    )
   }
 
   const startVideo = () => {
-    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-      video.srcObject = stream;
-      video.play();
+    navigator.mediaDevices
+      .getUserMedia(constraints)
+      .then(stream => {
+        video.srcObject = stream
+        video.play()
 
-      video.onloadedmetadata = (e) => {
-        const width = video.videoWidth;
-        const height = video.videoHeight;
-        canvas.setAttribute('width', width);
-        canvas.setAttribute('height', height);
+        video.onloadedmetadata = e => {
+          const width = video.videoWidth
+          const height = video.videoHeight
+          canvas.setAttribute('width', width)
+          canvas.setAttribute('height', height)
 
-        postImage();
-        setInterval(postImage, 60 * 1000);
-      };
-    }).catch(function(err) {
-      console.log(err);
-    });
+          postImage()
+          setInterval(postImage, 60 * 1000)
+        }
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
   }
 
-  startVideo();
-});
+  startVideo()
+})
