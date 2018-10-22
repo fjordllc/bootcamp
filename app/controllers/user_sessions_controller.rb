@@ -6,13 +6,18 @@ class UserSessionsController < ApplicationController
 
   def create
     @user = login(params[:user][:login_name], params[:user][:password], params[:remember])
-    if @user && !@user.retire?
-      save_updated_at(@user)
-      redirect_back_or_to root_url, notice: t("sign_in_successful")
+    if @user
+      if @user.retire?
+        logout
+        redirect_to retire_path
+      else
+        save_updated_at(@user)
+        redirect_back_or_to root_url, notice: t("sign_in_successful")
+      end
     else
       logout
       flash.now[:alert] = t("invalid_email_or_password")
-      render "new"
+      render "new", notice: t("sign_out")
     end
   end
 
