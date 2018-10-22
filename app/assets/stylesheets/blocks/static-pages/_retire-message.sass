@@ -1,0 +1,26 @@
+.retire-message
+  max-width: 40rem
+  +margin(horizontal, auto)
+  margin-top: 4rem
+  box-shadow: rgba(black, .2) 0 .0625rem .125rem
+
+.retire-message__header
+  border-bottom: solid 1px $background-color
+  +border-radius(top, .25rem)
+  background-color: $base-color
+  padding: .875rem 1rem
+
+.retire-message__title
+  +text-block(1.125rem 1.4, center)
+
+.retire-message__body
+  padding: .875rem 1rem
+  &:last-child
+    +border-radius(bottom, .25rem)
+    background-color: $base-color
+  p
+    +text-block(.875rem 1.6)
+  strong
+    font-weight: 800
+    display: inline-block
+    +margin(horizontal, .25em)

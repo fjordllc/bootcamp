@@ -67,4 +67,5 @@ Rails.application.routes.draw do
   resource :contacts, only: %i(new create)
 
   get "thanks", to: "static_pages#thanks"
+  get "retire", to: "static_pages#retire"
 end
