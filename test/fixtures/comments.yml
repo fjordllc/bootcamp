@@ -45,3 +45,10 @@ comment_8:
   user: komagata
   commentable: product_10 (Product)
   description: "提出物のコメントです。"
+
+<% 100.times do |i| %>
+paginate_comment_<%= i + 1 %>:
+  user: komagata
+  commentable: report_4 (Report)
+  description: <%= "コメント #{i + 1}" %>
+<% end %>
