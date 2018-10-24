@@ -9,7 +9,8 @@ class Notification < ApplicationRecord
     checked:      1,
     mentioned:    2,
     submitted:    3,
-    answered:     4
+    answered:     4,
+    announced:    5
   }
 
   scope :unreads, -> { where(read: false).order(created_at: :desc) }
@@ -65,6 +66,17 @@ class Notification < ApplicationRecord
       sender:  answer.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(answer.question),
       message: "#{answer.user.login_name}さんから回答がありました。",
+      read:    false
+    )
+  end
+
+  def self.post_announcement(announce, reciever)
+    Notification.create!(
+      kind:    5,
+      user:    reciever,
+      sender:  announce.sender,
+      path:    Rails.application.routes.url_helpers.polymorphic_path(announce),
+      message: "#{announce.user.login_name}さんからの お知らせ です！！",
       read:    false
     )
   end
