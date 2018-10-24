@@ -567,3 +567,13 @@ ja:
   we_checked: 見たよ
   best_answer_html: ベスト<br>アンサー
   check_if_user_shold_submit_a_product: "提出物がある場合はチェック"
+
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "%{entry_name} が存在しません。"
+          one: "<b>%{count}</b> 件"
+          other: "<b>%{count}</b> 件"
+      more_pages:
+        display_entries: "<b>%{total}</b> 件 <small>（<b>%{first}</b> 〜 <b>%{last}</b> 件を表示）</small>"
