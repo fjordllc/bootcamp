@@ -3,7 +3,7 @@
     | コメント
     span.thread-comments-container__title-count
       - if comments.respond_to? :total_count
-        = page_entries_info comments, entry_name: 'comment'
+        = page_entries_info comments, entry_name: "コメント"
       - else
         = comments.count
         |  件
