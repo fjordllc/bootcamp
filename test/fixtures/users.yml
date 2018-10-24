@@ -1,7 +1,7 @@
 komagata:
   login_name: komagata
   email: komagata@fjord.jp
-  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Masaki
   last_name: Komagata
@@ -18,7 +18,7 @@ komagata:
 machida:
   login_name: machida
   email: machidanohimitsu@gmail.com
-  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Teppei
   last_name: Machida
@@ -35,7 +35,7 @@ machida:
 tanaka:
   login_name: tanaka
   email: tanaka@fjord.jp
-  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Taro
   last_name: Tanaka
@@ -51,7 +51,7 @@ tanaka:
 mineo:
   login_name: mineo
   email: mineo@fjord.jp
-  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Jirou
   last_name: Mineo
@@ -67,7 +67,7 @@ mineo:
 yameo:
   login_name: yameo
   email: yameo@example.com
-  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: 辞目夫
   last_name: 辞目
@@ -82,7 +82,7 @@ yameo:
 yamada:
   login_name: yamada
   email: yamada@fjord.jp
-  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Taro
   last_name: Yamada
@@ -97,7 +97,7 @@ yamada:
 kimura:
   login_name: kimura
   email: kimura@fjord.jp
-  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Tadasi
   last_name: Kimura
@@ -113,7 +113,7 @@ kimura:
 hatsuno:
   login_name: hatsuno
   email: hatsuno@fjord.jp
-  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK.
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Shinji
   last_name: Hatsuno
