@@ -3,14 +3,7 @@
     | コメント
     span.thread-comments-container__title-count
       - if comments.respond_to? :total_count
-        = comments.total_count
-        |  件中
-        small
-          |（
-          = (comments.offset_value + 1)
-          | 〜
-          = (comments.offset_value + comments.length)
-          |  件を表示）
+        = page_entries_info comments, entry_name: 'comment'
       - else
         = comments.count
         |  件
