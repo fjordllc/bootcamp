@@ -10,6 +10,7 @@ class UserSessionsController < ApplicationController
       save_updated_at(@user)
       redirect_back_or_to :users, notice: t("sign_in_successful")
     else
+      logout
       flash.now[:alert] = t("invalid_email_or_password")
       render "new"
     end
