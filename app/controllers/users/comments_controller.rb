@@ -19,6 +19,7 @@ class Users::CommentsController < ApplicationController
           .eager_load(:user)
           .where(user_id: user, commentable_type: "Report")
           .order(created_at: :desc)
+          .page(params[:page])
     end
 
     def user

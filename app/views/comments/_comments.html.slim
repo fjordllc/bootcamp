@@ -1,7 +1,19 @@
 .thread-comments-container
   h2.thread-comments-container__title
     | コメント
-    span.thread-comments-container__title-count = comments.count
+    span.thread-comments-container__title-count
+      - if comments.respond_to? :total_count
+        = comments.total_count 
+        |  件
+        small
+          |（
+          = (comments.offset_value + 1)
+          |  〜 
+          = (comments.offset_value + comments.length)
+          |  件を表示中）
+      - else
+        = comments.count
+        |  件
   .thread-comments
     = render partial: "comments/comment", collection: comments.order(:created_at), as: :comment
   = render "comments/form", comment: comments.new
