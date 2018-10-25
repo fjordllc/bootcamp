@@ -10,4 +10,5 @@ header.page-header
 = render "page_tabs", resource: @user
 
 .container
+  = paginate @reports, position: "top"
   = render "reports/reports", reports: @reports
