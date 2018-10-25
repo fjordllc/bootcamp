@@ -6,7 +6,7 @@
     margin-top: 2rem
   .welcome-child-section.is-unlimited &
     margin-bottom: 0
-    border: solid 2px #515556
+    border: solid 2px $welcome-card-border
     border-radius: .5rem
     padding: 3rem 1.5rem 1rem
     margin-top: 3.5rem
@@ -23,7 +23,7 @@
 .welcome-small-sections__title
   $height: 3.25rem
   $width: 20rem
-  +text-block(1.5rem 1.45 1em, 700 center flex #515556)
+  +text-block(1.5rem 1.45 1em, 700 center flex $welcome-card-border)
   align-items: center
   justify-content: center
   font-feature-settings: "palt"
@@ -37,7 +37,7 @@
     background-size: 1.75rem
     background-repeat: repeat
     background-position: center center
-    border: solid 2px #515556
+    border: solid 2px $welcome-card-border
     margin-bottom: 0
     +size($width $height)
     margin-left: $width / -2
@@ -88,12 +88,12 @@
     padding: 0
     background-color: transparent
   .welcome-small-sections.is-conditions &
-    border: solid 2px #515556
+    border: solid 2px $welcome-card-border
   .welcome-child-section.is-cases &,
   .welcome-child-section.is-tutorials &,
   .welcome-section.is-finding-employment &,
   .welcome-section.is-other &
-    border: dashed 2px #515556
+    border: dashed 2px $welcome-card-border
   .welcome-small-sections.is-wide &
     display: flex
 
