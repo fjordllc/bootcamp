@@ -60,7 +60,4 @@ class PagesTest < ApplicationSystemTestCase
     visit user_comments_path([users(:komagata)], page: 3)
     assert_equal 25, users(:komagata).comments.page(3).size
   end
-
-  test "" do
-  end
 end
