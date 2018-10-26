@@ -18,5 +18,5 @@
           i.fas.fa-file
     - if user.feed_url?
       li.user-data-sns__item
-        = link_to user.feed_url, class: "user-data-sns__item-link" do
+        = link_to user.feed_url, class: "user-data-sns__item-link", target: "_blank" do
           i.fas.fa-rss
