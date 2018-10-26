@@ -38,10 +38,6 @@ class CurrentLinkTest < ApplicationSystemTestCase
     assert_selector "a.global-nav-links__link.is-active[href='/questions']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    visit "/feeds"
-    assert_selector "a.global-nav-links__link.is-active[href='/feeds']", count: 1
-    assert_selector "a.global-nav-links__link.is-active", count: 1
-
     visit "/pages"
     assert_selector "a.global-nav-links__link.is-active[href='/pages']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
