@@ -4,7 +4,7 @@ require "application_system_test_case"
 
 class Notification::AnnouncementsTest < ApplicationSystemTestCase
   setup do
-    @notice_text = "komagataさんからの お知らせ です！"
+    @notice_text = "komagataさんからお知らせです！"
     @notified_count = Notification.where(kind: 5).size
     @reciever_count = User.where(retire: false).size - 1 # 送信者は除くため-1
   end
