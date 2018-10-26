@@ -10,9 +10,9 @@ module ApplicationHelper
   end
 
   def page_slug
-    controller.class.to_s.underscore.
-    gsub(%r{/}, "-").
-    gsub(/_controller/, "_") + action_name
+    controller.class.to_s.underscore
+      .gsub(%r{/}, "-")
+      .gsub(/_controller/, "_") + action_name
   end
 
   def my_practice?(practice)
@@ -43,9 +43,7 @@ module ApplicationHelper
   #   display_page_count(not_paginated_rows)
   #     # => "100 件"
   #
-  def display_page_count(rows, entry_name = "")
-    (rows.respond_to? :total_count) ?
-      page_entries_info(rows, entry_name: entry_name) :
-      "#{rows.count} 件"
+  def paginate_count(rows, entry_name = "")
+    (rows.respond_to? :total_count) ? page_entries_info(rows, entry_name: entry_name) : "#{rows.count} 件"
   end
 end
