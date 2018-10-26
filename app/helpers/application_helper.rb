@@ -38,9 +38,9 @@ module ApplicationHelper
   # @return [String]
   #
   # @example
-  #   display_page_count(paginated_rows)
+  #   paginate_count(paginated_rows)
   #     # => "100 件（1 〜 25 件を表示）"
-  #   display_page_count(not_paginated_rows)
+  #   paginate_count(not_paginated_rows)
   #     # => "100 件"
   #
   def paginate_count(rows, entry_name = "")
