@@ -91,4 +91,5 @@ end
 
 # テストカバレッジを生成するライブラリ
 # テスト実行後、[project]/coverage/index/html を開くと現在のカバレッジを見ることができる
-gem "simplecov", require: false, group: :test
+# ローカルでカバレッジを出す場合、以下のコメントアウトを外す
+# gem "simplecov", require: false, group: :test
