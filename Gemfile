@@ -77,7 +77,7 @@ group :development do
   # -> https://chrome.google.com/webstore/detail/railspanel/gjpfobpafnhjhbajcjgccbbdofdckggg
   # 使い方：
   # -> https://chopschips.net/blog/2015/03/06/rails-panel/
-  gem "meta_request"
+  # gem "meta_request"
 end
 
 group :test do
