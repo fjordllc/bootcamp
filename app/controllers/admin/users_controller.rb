@@ -14,6 +14,7 @@ class Admin::UsersController < AdminController
   end
 
   def update
+    @user
     if @user.update(user_params)
       redirect_to admin_users_url, notice: "ユーザーを更新しました。"
     else
@@ -42,7 +43,6 @@ class Admin::UsersController < AdminController
         :company_id,
         :description,
         :find_job_assist,
-        :purpose_cd,
         :feed_url,
         :graduation,
         :adviser,
