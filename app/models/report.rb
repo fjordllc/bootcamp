@@ -19,7 +19,7 @@ class Report < ActiveRecord::Base
   def previous
     Report
       .where("user_id = ? AND created_at <= ? AND id <> ?", user_id, created_at, id)
-      .order(created_at: :desc, id: :desc)
+      .order(created_at: :desc, id: :asc)
       .first
   end
 
