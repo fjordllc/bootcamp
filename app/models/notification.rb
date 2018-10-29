@@ -76,7 +76,7 @@ class Notification < ApplicationRecord
       user:    reciever,
       sender:  announce.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(announce),
-      message: "#{announce.user.login_name}さんからお知らせです！",
+      message: "#{announce.user.login_name}さんからお知らせです。",
       read:    false
     )
   end
