@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# ローカルでカバレッジを出す場合、以下のコメントアウトを外す
+# ローカルでカバレッジを出さない場合、以下2行をコメントアウト
 require "simplecov"
 SimpleCov.start "rails"
 
