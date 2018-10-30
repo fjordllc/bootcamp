@@ -91,6 +91,6 @@ end
 
 # テストカバレッジを生成するライブラリ
 # テスト実行後、[project]/coverage/index/html を開くと現在のカバレッジを見ることができる
-# ローカルでカバレッジを出す場合、以下のコメントアウトを外す
-# 
+# ローカルでカバレッジを出さない場合、以下をコメントアウト
+# test/test_helpers.rb のコメントアウトも忘れない
 gem "simplecov", require: false, group: :test
