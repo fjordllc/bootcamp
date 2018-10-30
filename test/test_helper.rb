@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # ローカルでカバレッジを出す場合、以下のコメントアウトを外す
-# require "simplecov"
-# SimpleCov.start "rails"
+require "simplecov"
+SimpleCov.start "rails"
 
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
