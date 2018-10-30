@@ -70,7 +70,7 @@ class PagesTest < ApplicationSystemTestCase
 
   test "Show pagination in /users/:id/reports" do
     user = users(:komagata)
-    d    = Time.mktime(2015, 01, 01, 00, 00, 00)
+    d    = Time.mktime(2015, 1, 1, 0, 0, 0)
     user.reports.destroy_all
     100.times do |i|
       user.reports.create(title: "Report #{i + 1}", description: "description...", reported_at: d, created_at: d, updated_at: d)
