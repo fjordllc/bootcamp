@@ -77,7 +77,7 @@ group :development do
   # -> https://chrome.google.com/webstore/detail/railspanel/gjpfobpafnhjhbajcjgccbbdofdckggg
   # 使い方：
   # -> https://chopschips.net/blog/2015/03/06/rails-panel/
-  # gem "meta_request"
+  gem "meta_request"
 end
 
 group :test do
@@ -92,4 +92,5 @@ end
 # テストカバレッジを生成するライブラリ
 # テスト実行後、[project]/coverage/index/html を開くと現在のカバレッジを見ることができる
 # ローカルでカバレッジを出す場合、以下のコメントアウトを外す
-# gem "simplecov", require: false, group: :test
+# 
+gem "simplecov", require: false, group: :test
