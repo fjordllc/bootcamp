@@ -70,14 +70,6 @@ group :development do
   # not default
   gem "letter_opener"
   gem "xray-rails"
-
-  # Chromeから利用しているコントローラーやhttpレスポンスなどを確認できるようにする
-  # 別途プラグインを入れる必要あり
-  # プラグイン：
-  # -> https://chrome.google.com/webstore/detail/railspanel/gjpfobpafnhjhbajcjgccbbdofdckggg
-  # 使い方：
-  # -> https://chopschips.net/blog/2015/03/06/rails-panel/
-  gem "meta_request"
 end
 
 group :test do
@@ -88,9 +80,3 @@ group :test do
   # not default
   gem "minitest", "~> 5.10", "!= 5.10.2"
 end
-
-# テストカバレッジを生成するライブラリ
-# テスト実行後、[project]/coverage/index/html を開くと現在のカバレッジを見ることができる
-# ローカルでカバレッジを出さない場合、以下をコメントアウト
-# test/test_helpers.rb のコメントアウトも忘れない
-gem "simplecov", require: false, group: :test
