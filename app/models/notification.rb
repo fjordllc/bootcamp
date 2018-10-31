@@ -5,12 +5,13 @@ class Notification < ApplicationRecord
   belongs_to :sender, class_name: "User"
 
   enum kind: {
-    came_comment: 0,
-    checked:      1,
-    mentioned:    2,
-    submitted:    3,
-    answered:     4,
-    announced:    5
+    came_comment:  0,
+    checked:       1,
+    mentioned:     2,
+    submitted:     3,
+    answered:      4,
+    announced:     5,
+    came_question: 6
   }
 
   scope :unreads, -> { where(read: false).order(created_at: :desc) }
@@ -77,6 +78,17 @@ class Notification < ApplicationRecord
       sender:  announce.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(announce),
       message: "#{announce.user.login_name}さんからお知らせです。",
+      read:    false
+    )
+  end
+
+  def self.came_question(question, reciever)
+    Notification.create!(
+      kind:    6,
+      user:    reciever,
+      sender:  question.sender,
+      path:    Rails.application.routes.url_helpers.polymorphic_path(question),
+      message: "#{question.user.login_name}さんから質問がきました。",
       read:    false
     )
   end
