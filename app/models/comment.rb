@@ -33,6 +33,10 @@ class Comment < ActiveRecord::Base
     new_mentions.present?
   end
 
+  def self.pager(page, order = "asc")
+    (order == "desc") ? order(created_at: :desc).page(page) : order(created_at: :asc).page(page)
+  end
+
   private
     def extract_mentions(text)
       text.scan(/@\w+/).uniq.map { |s| s.gsub(/@/, "") }

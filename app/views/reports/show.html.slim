@@ -16,7 +16,7 @@ header.page-header
 .page-body
   .container
     = render "report", report: @report
-    = render "comments/comments", comments: @report.comments.order(:created_at)
+    = render "comments/comments", comments: @report.comments.pager(params[:page])
     - if @footprints.any?
       .footprints
         h3.footprints__title
