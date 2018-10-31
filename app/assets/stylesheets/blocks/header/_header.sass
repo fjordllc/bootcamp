@@ -5,7 +5,6 @@ $header-height: 3.125rem
   +media-breakpoint-down(md)
     border-bottom: solid $background-color .0625rem
 
-
 .header__container
   display: flex
   justify-content: space-between
@@ -37,6 +36,7 @@ $header-height: 3.125rem
 
 .header-links__link
   +flex-link
+  flex-direction: column
   +size(3.5rem 100%)
   align-items: center
   justify-content: center
@@ -54,6 +54,11 @@ $header-height: 3.125rem
   &.is-active
     background-color: $warning
     color: $main-color
+
+.header-links__link-label
+  +text-block(.625rem 1)
+  margin-top: .375rem
+  transform: scale(.9)
 
 .header-links__link-count
   +size(1rem)
