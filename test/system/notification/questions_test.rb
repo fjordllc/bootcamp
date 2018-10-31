@@ -4,7 +4,10 @@ require "application_system_test_case"
 
 class Notification::QuestionsTest < ApplicationSystemTestCase
   setup do
-    @notice_text = "tanakaさんが質問を投稿しました。"
+    @notice_text = "tanakaさんから質問がきました。"
+    @notice_kind = Notification.kinds["came_question"]
+    @notified_count = Notification.where(kind: @notice_kind).size
+    @mentor_count = User.mentor.size
   end
 
   test "mentor receives notification when question is posted" do
@@ -22,8 +25,10 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     first(".test-bell").click
     assert_text @notice_text
     logout
-    
+
     login_user "tanaka", "testtest"
     refute_text @notice_text
+
+    assert_equal @notified_count + @mentor_count, Notification.where(kind: @notice_kind).size
   end
 end
