@@ -6,7 +6,6 @@
         .col-lg-9.col-xs-12
           .form-item
             = f.label :practice, class: "a-label"
-
             .select-practices
               - categories.each do |category|
                 - category.practices.each do |practice|
