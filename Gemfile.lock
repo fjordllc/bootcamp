@@ -320,7 +320,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    oulu (0.18.2)
+    oulu (0.18.3)
       rake
       thor (~> 0.19)
     paperclip (6.1.0)
@@ -539,4 +539,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.3
+   1.16.6
