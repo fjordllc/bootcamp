@@ -1,0 +1,33 @@
+.retire-message
+  max-width: 40rem
+  +margin(horizontal, auto)
+  border: solid 2px $welcome-default-text
+
+.retire-message__header
+  border-bottom: solid 1px $background-color
+  +border-radius(top, .25rem)
+  background-color: $base-color
+  padding: .88em 1.33em
+  font-size: 1.125rem
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+
+.retire-message__title
+  +text-block(1em 1.4, center)
+
+.retire-message__body
+  padding: 1.25em 1.5em
+  font-size: 1rem
+  +media-breakpoint-down(sm)
+    font-size: .875rem
+  &:last-child
+    +border-radius(bottom, .25rem)
+    background-color: $base-color
+  p
+    +text-block(1em 1.6 1em)
+    &:last-child
+      margin-bottom: 0
+  strong
+    font-weight: 800
+    display: inline-block
+    +margin(horizontal, .25em)
