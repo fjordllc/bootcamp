@@ -9,6 +9,8 @@ class Comment < ActiveRecord::Base
 
   validates :description, presence: true
 
+  scope :paging_with_created_at, -> (page:, order_type: "asc") { order(created_at: order_type.to_sym, id: :asc).page(page) }
+
   def reciever
     commentable.user
   end
