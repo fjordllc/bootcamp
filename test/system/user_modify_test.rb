@@ -5,14 +5,14 @@ require "application_system_test_case"
 class UserModifyTest < ApplicationSystemTestCase
   setup { login_user "hatsuno", "testtest" }
 
-  test "本人以外がアクセスする" do
+  test "access by other users" do
     login_user "yamada", "testtest"
     user = users(:hatsuno)
     visit edit_admin_user_path(user.id)
     assert_text "管理者としてログインしてください"
   end
 
-  test "データの更新時にエラーがある" do
+  test "an error occurs when updating data" do
     user = users(:hatsuno)
     visit edit_user_path(user.id)
     fill_in "user_login_name", with: "komagata"
@@ -20,7 +20,7 @@ class UserModifyTest < ApplicationSystemTestCase
     assert_text "ユーザー名 はすでに存在します。"
   end
 
-  test "データを変更してユーザーの更新を行う" do
+  test "update data and update users" do
     user = users(:hatsuno)
     visit edit_user_path(user.id)
     fill_in "user_login_name", with: "hatsuno-1"
@@ -28,7 +28,7 @@ class UserModifyTest < ApplicationSystemTestCase
     assert_text "ユーザーを更新しました。"
   end
 
-  test "ユーザーが退会する" do
+  test "user is canceled" do
     user = users(:hatsuno)
     visit edit_user_path(user.id)
     click_on "退会する"
