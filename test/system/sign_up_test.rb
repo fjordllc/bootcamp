@@ -13,7 +13,7 @@ class SignUpTest < ApplicationSystemTestCase
     assert_text "サインアップしました。"
   end
 
-  test "faild to sign up" do
+  test "failed to sign up" do
     visit new_user_path
     within "#new_user" do
       filler
