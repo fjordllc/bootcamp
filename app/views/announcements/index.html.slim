@@ -1,0 +1,20 @@
+- title t("announcements")
+
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title = title
+      .page-header-actions
+        .page-header-actions__items
+          - if admin_login?
+            .page-header-actions__item
+              = link_to new_announcement_path, class: "is-button-simple-md-warning" do
+                i.fa.fa-plus
+                = t("new_announcement")
+
+.page-body
+  .container
+    = paginate @announcements, position: "top"
+    .thread-list
+      = render partial: "announcements", collection: @announcements, as: :announcement
+    = paginate @announcements, position: "bottom"
