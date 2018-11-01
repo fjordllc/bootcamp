@@ -6,10 +6,11 @@ header.page-header
         = @practice.title
       .page-header-actions
         ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to new_practice_path, class: "is-button-simple-md-warning" do
-              i.fas.fa-plus
-              = t("new_practice")
+          - if current_user.admin?
+            li.page-header-actions__item
+              = link_to new_practice_path, class: "is-button-simple-md-warning" do
+                i.fas.fa-plus
+                = t("new_practice")
           li.page-header-actions__item
             = link_to practices_path, class: "is-button-simple-md-secondary" do
               i.fas.fa-angle-left
