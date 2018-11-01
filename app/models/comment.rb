@@ -9,6 +9,8 @@ class Comment < ActiveRecord::Base
 
   validates :description, presence: true
 
+  scope :paging_with_created_at, -> (page:, order_type: "asc") { order(created_at: order_type.to_sym, id: :asc).page(page) }
+
   def reciever
     commentable.user
   end
@@ -31,10 +33,6 @@ class Comment < ActiveRecord::Base
 
   def new_mentions?
     new_mentions.present?
-  end
-
-  def self.pager(page, order = "asc")
-    (order == "desc") ? order(created_at: :desc).page(page) : order(created_at: :asc).page(page)
   end
 
   private

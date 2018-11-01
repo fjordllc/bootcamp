@@ -32,7 +32,7 @@ body
   html body &.has-no-right-padding
     padding-right: 14rem
     +media-breakpoint-down(md)
-      +padding(horizontal, 6rem 1rem)
+      +padding(horizontal, 6rem 0)
     +media-breakpoint-down(sm)
       +padding(horizontal, 1rem)
   html body.is-edit-page &.has-no-right-padding,
@@ -53,11 +53,6 @@ body
   body.is-edit-page &,
   body.is-admin &
     padding-right: 1rem
-  body.is-edit-page &.is-padding-horizontal-0-sm-down,
-  body.is-admin &.is-padding-horizontal-0-sm-down
-    padding-right: 0
-
-
 
 body.welcome
   .container
