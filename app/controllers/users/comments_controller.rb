@@ -18,8 +18,7 @@ class Users::CommentsController < ApplicationController
           .preload(:commentable)
           .eager_load(:user)
           .where(user_id: user, commentable_type: "Report")
-          .order(created_at: :desc)
-          .page(params[:page])
+          .paging_with_created_at(page: params[:page], order_type: "desc")
     end
 
     def user

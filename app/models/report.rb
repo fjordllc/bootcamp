@@ -16,6 +16,8 @@ class Report < ActiveRecord::Base
   validates :reported_at, presence: true, uniqueness: { scope: :user }
   paginates_per 10
 
+  scope :paging_with_created_at, -> (page:, order_type: "asc") { order(created_at: order_type.to_sym, id: :asc).page(page) }
+
   def previous
     Report
       .where("user_id = ? AND created_at <= ? AND id <> ?", user_id, created_at, id)
