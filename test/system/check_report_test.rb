@@ -4,30 +4,14 @@ require "application_system_test_case"
 
 class CheckReportTest < ApplicationSystemTestCase
   test "non admin user is non botton" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login_name]", with: "tanaka")
-      fill_in("user[password]", with: "testtest")
-    end
-    click_button "サインイン"
-    assert_equal "/users", current_path
-    click_link "日報"
-    assert_text "作業週2日目"
-    click_link "作業週2日目"
+    login_user "tanaka", "testtest"
+    visit "/reports/#{reports(:report_2).id}"
     assert_not has_button? "日報を確認する"
   end
 
   test "success report checking" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login_name]", with: "machida")
-      fill_in("user[password]", with: "testtest")
-    end
-    click_button "サインイン"
-    assert_equal "/users", current_path
-    click_link "日報"
-    assert_text "作業週2日目"
-    click_link "作業週2日目"
+    login_user "machida", "testtest"
+    visit  "/reports/#{reports(:report_2).id}"
     assert has_button? "日報を確認する"
     click_button "日報を確認する"
     assert_not has_button? "日報を確認する"
@@ -38,7 +22,7 @@ class CheckReportTest < ApplicationSystemTestCase
 
   test "success adviser's report checking" do
     login_user "mineo", "testtest"
-    assert_equal "/users", current_path
+    assert_equal "/", current_path
     click_link "日報"
     assert_text "作業週2日目"
     click_link "作業週2日目"

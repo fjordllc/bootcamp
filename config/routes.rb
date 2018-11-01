@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :announcements
   resources :feeds, only: %i(index)
   resources :users do
     resources :practices, only: %i(index), controller: "users/practices"
