@@ -70,7 +70,6 @@ group :development do
   # not default
   gem "letter_opener"
   gem "xray-rails"
-  # https://github.com/voormedia/rails-erd
   gem "rails-erd"
 end
 
