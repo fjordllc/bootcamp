@@ -41,9 +41,6 @@ $ ./bin/lint
 
 **`console`**
 ```bash
-# Gemを取ってくる
-$ bundle install
-
 # 先にローカル環境でGraphvizをインストールする
 $ brew install graphviz
 
