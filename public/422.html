@@ -1,26 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
+
 <head>
-  <title>The change you wanted was rejected (422)</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ページが表示できません</title>
   <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
+    * {
+      margin: 0;
+      padding: 0;
     }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
+
+    html {
+      box-sizing: border-box;
+      color: #35343c;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1;
+      font-size: 100%;
+    }
+
+    body {
+      padding-top: 4rem;
+      background-color: #4638a0;
+      background-image: url(/images/error-background-main-color.svg);
+      background-repeat: repeat;
+      background-size: 80px;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 47.9375em) {
+      body {
+        background-size: 72px;
+      }
+    }
+
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .error-message {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: white;
+      border: solid 4px #5a5f60;
+      border-radius: .25rem;
+    }
+
+    .error-message__header {
+      border-bottom: solid 1px #e6e6e6;
+      padding: .88em 1.33em;
+      font-size: 1.125rem;
+    }
+
+    .error-message__title {
+      font-size: 1em;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .error-message__body {
+      padding: 1.25em 1.5em;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 47.9375em) {
+      .error-message__body {
+        font-size: .875rem;
+      }
+    }
+
+    .error-message__body p {
+      font-size: 1em;
+      line-height: 1.6;
+      margin-bottom: 1em;
+    }
+
+    .error-message__body .error-message__number {
+      text-align: center;
+      font-size: 1.125em;
+      font-weight: 900;
+      margin-bottom: .875em;
+    }
+
+    .error-message__body p:last-child {
+      margin-bottom: 0;
+    }
   </style>
 </head>
 
 <body>
   <!-- This file lives in public/422.html -->
-  <div class="dialog">
-    <h1>The change you wanted was rejected.</h1>
-    <p>Maybe you tried to change something you didn't have access to.</p>
+  <div class="container">
+    <div class="error-message">
+      <header class="error-message__header">
+        <h1 class="error-message__title">ページが表示できません</h1>
+      </header>
+      <div class="error-message__body">
+        <p class="error-message__number">422: Unprocessable Entity</p>
+        <p>ご不便をおかけし申し訳ございません。正常にご覧いただけるよう、解決に取り組んでおります。</p>
+      </div>
+    </div>
   </div>
 </body>
+
 </html>
