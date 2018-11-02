@@ -14,7 +14,9 @@ class Users::ReportsController < ApplicationController
     end
 
     def set_reports
-      @reports = user.reports.eager_load(:user, :comments).order(updated_at: :desc)
+      @reports = user.reports
+        .eager_load(:user, :comments)
+        .paging_with_created_at(page: params[:page])
     end
 
     def user

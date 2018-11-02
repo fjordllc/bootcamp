@@ -12,9 +12,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_16_030635) do
+ActiveRecord::Schema.define(version: 2018_10_29_030938) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "announcements", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_announcements_on_user_id"
+  end
 
   create_table "answers", id: :serial, force: :cascade do |t|
     t.text "description"
@@ -86,6 +95,8 @@ ActiveRecord::Schema.define(version: 2018_10_16_030635) do
     t.boolean "user_policy_agreed", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "purpose_content", null: false
+    t.datetime "purpose_deadline", null: false
   end
 
   create_table "footprints", id: :serial, force: :cascade do |t|
@@ -101,7 +112,7 @@ ActiveRecord::Schema.define(version: 2018_10_16_030635) do
   create_table "images", force: :cascade do |t|
     t.string "image_file_name"
     t.string "image_content_type"
-    t.integer "image_file_size"
+    t.bigint "image_file_size"
     t.datetime "image_updated_at"
     t.bigint "user_id"
     t.text "image_meta"
@@ -211,7 +222,6 @@ ActiveRecord::Schema.define(version: 2018_10_16_030635) do
     t.integer "company_id", default: 1
     t.text "description"
     t.boolean "find_job_assist", default: false, null: false
-    t.integer "purpose_cd", default: 0, null: false
     t.string "feed_url"
     t.datetime "accessed_at"
     t.boolean "graduation", default: false, null: false
@@ -226,12 +236,13 @@ ActiveRecord::Schema.define(version: 2018_10_16_030635) do
     t.boolean "mentor", default: false, null: false
     t.string "face_file_name"
     t.string "face_content_type"
-    t.integer "face_file_size"
+    t.bigint "face_file_size"
     t.datetime "face_updated_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
+  add_foreign_key "announcements", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "notifications", "users"

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :announcements
   resources :feeds, only: %i(index)
   resources :users do
     resources :practices, only: %i(index), controller: "users/practices"
@@ -66,4 +67,5 @@ Rails.application.routes.draw do
   resource :contacts, only: %i(new create)
 
   get "thanks", to: "static_pages#thanks"
+  get "retire", to: "static_pages#retire"
 end

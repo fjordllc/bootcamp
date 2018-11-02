@@ -2,7 +2,7 @@
 
 class Question < ActiveRecord::Base
   belongs_to :user, touch: true
-  has_many :answers
+  has_many :answers, dependent: :destroy
   has_one :correct_answer
   belongs_to :practice, optional: true
 

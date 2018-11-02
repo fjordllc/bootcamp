@@ -12,6 +12,7 @@ body
     overflow: hidden
   &.welcome
     background-color: $base
+    color: $welcome-default-text
   &.has-background
     background-image: image_url('main-visual.jpg')
     background-size: cover
@@ -20,6 +21,15 @@ body
   &.is-mobile-nav-active
     +media-breakpoint-down(sm)
       overflow: hidden
+  &.is-error-page
+    padding-top: 4rem
+    background-color: $main-color
+    background-image: image_url('error-background-main-color.svg')
+    background-repeat: repeat
+    background-size: 80px
+    overflow-y: auto
+    +media-breakpoint-down(sm)
+      background-size: 72px
 
 .container
   max-width: 100%
@@ -56,11 +66,7 @@ body
   body.is-edit-page &.is-padding-horizontal-0-sm-down,
   body.is-admin &.is-padding-horizontal-0-sm-down
     padding-right: 0
-
-
-
-body.welcome
-  .container
+  body.welcome &
     max-width: 75rem
     +padding(horizontal, 1rem)
 
@@ -73,9 +79,3 @@ body.welcome
 
 [class*=is-button-simple-]:not(input)
   +padding(vertical, 0)
-
-.party-emails
-  margin: auto
-  background-color: white
-  border: 1px solid gray
-  padding: 10px

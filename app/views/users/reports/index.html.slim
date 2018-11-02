@@ -10,4 +10,10 @@ header.page-header
 = render "page_tabs", resource: @user
 
 .container
-  = render "reports/reports", reports: @reports
+  .thread-comments-container
+    = paginate @reports, position: "top"
+    h2.thread-comments-container__title
+      | 日報
+      span.thread-comments-container__title-count
+        = page_entries_info(@reports, entry_name: "日報")
+    = render "reports/reports", reports: @reports
