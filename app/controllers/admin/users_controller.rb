@@ -42,7 +42,6 @@ class Admin::UsersController < AdminController
         :company_id,
         :description,
         :find_job_assist,
-        :purpose_cd,
         :feed_url,
         :graduation,
         :adviser,
