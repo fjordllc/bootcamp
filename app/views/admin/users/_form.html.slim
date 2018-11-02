@@ -49,14 +49,6 @@
       = f.label :password_confirmation, class: "a-sm-label"
       = f.password_field :password_confirmation, class: "a-sm-text-input", autocomplete: :off
     .auth-form-item
-      = f.label :purpose, class: "a-sm-label is-required"
-      ul.auth-form-item__radio-buttons.is-half
-        = f.collection_radio_buttons :purpose_cd, User.purposes.map { |k, v| [v, t("activerecord.enums.user.purposes.#{k}")] }, :first, :last do |b|
-          li.auth-form-radio-button.is-half
-            = b.label class: "auth-form-radio-button__label" do
-              = b.radio_button + b.text
-      end
-    .auth-form-item
       = f.label :find_job_assist, class: "a-sm-label"
       ul.auth-form-item__checkboxes
         li.auth-form-checkbox

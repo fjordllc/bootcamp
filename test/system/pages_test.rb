@@ -67,4 +67,21 @@ class PagesTest < ApplicationSystemTestCase
     visit user_comments_path([users(:komagata)], page: 3)
     assert_equal 25, user.comments.page(3).size
   end
+
+  test "Show pagination in /users/:id/reports" do
+    user = users(:komagata)
+    d    = Time.mktime(2015, 1, 1, 0, 0, 0)
+    user.reports.destroy_all
+    100.times do |i|
+      user.reports.create(title: "Report #{i + 1}", description: "description...", reported_at: d, created_at: d, updated_at: d)
+      d = d + 1.day
+    end
+    visit user_reports_path([user], page: 1)
+    assert_selector "span.thread-comments-container__title-count", text: "（1 〜 10 件を表示）"
+    assert_selector "nav.pagination", count: 1
+    assert_equal 10, user.reports.page(1).size
+
+    visit user_reports_path([users(:komagata)], page: 3)
+    assert_equal 10, user.reports.page(3).size
+  end
 end

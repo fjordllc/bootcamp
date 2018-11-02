@@ -10,6 +10,7 @@
         th.admin-table__label 進捗
         th.admin-table__label SNS
         th.admin-table__label 操作
+        th.admin-table__label 削除
     tbody.admin-table__items
       - users.each do |user|
         tr.admin-table__item
@@ -61,5 +62,9 @@
                     = link_to user.feed_url, class: "is-button-simple-sm-secondary is-icon" do
                       i.fas.fa-rss
           td.admin-table__item-value.is-text-align-center
-            = link_to edit_admin_user_path(user), class: "is-button-simple-sm-warning is-icon" do
+            = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: "is-button-simple-sm-warning is-icon" do
               i.fas.fa-pen
+          td.admin-table__item-value.is-text-align-center
+            - if user.id != current_user.id
+              = link_to admin_user_path(user), method: :delete, id: "delete-#{user.id}", class: "is-button-simple-sm-danger is-icon", data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }
+                i.fas.fa-trash-alt

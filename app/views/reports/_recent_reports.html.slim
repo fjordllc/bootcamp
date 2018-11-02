@@ -1,0 +1,5 @@
+.recent-reports
+  .recent-reports__items
+    = render partial: "/reports/recent_report", collection: recent_reports, as: :report
+  = link_to reports_path, class: "recent-reports__to-index" do
+    | もっと見る

@@ -1,14 +1,8 @@
 .thread-comments-container
   h2.thread-comments-container__title
     | コメント
-    / 全ページ共通でページネーションを実装する場合、もっと簡略化できる
-    / https://github.com/fjordllc/bootcamp/issues/551
-    /
-    / @example
-    / span.thread-comments-container__title-count
-    /   = page_entries_info(comments, entry_name: "コメント")
     span.thread-comments-container__title-count
-      = paginate_count(comments, "")
+      = page_entries_info(comments, entry_name: "コメント")
   .thread-comments
     = render partial: "comments/comment", collection: comments.order(:created_at), as: :comment
   = render "comments/form", comment: comments.new
