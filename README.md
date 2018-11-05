@@ -34,3 +34,16 @@ rubocopとslim-lintを実行します。
 ```
 $ ./bin/lint
 ```
+
+## ER図
+お使いの環境がMacである場合、以下のコマンドでER図を生成することができます。  
+オプション指定でいろいろできるみたいなので、詳しくは https://github.com/voormedia/rails-erd をご覧ください。
+
+**`console`**
+```bash
+# 先にローカル環境でGraphvizをインストールする
+$ brew install graphviz
+
+# ER図生成（生成後はプロジェクト直下にerd.pdfファイルが生成される）
+$ bundle exec erd
+```
