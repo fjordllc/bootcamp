@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Announcement < ApplicationRecord
+  include Footprintable
+
   belongs_to :user
   alias_method :sender, :user
 
