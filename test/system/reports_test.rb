@@ -203,4 +203,12 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "前"
     assert_no_text "次"
   end
+
+  test "Reports can be copied" do
+    user   = users(:komagata)
+    report = user.reports.first
+    visit report_path(report)
+    click_on("copy")
+    assert_equal find_by_id("report_reported_at").value = Date.current
+  end
 end
