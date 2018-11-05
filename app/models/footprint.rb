@@ -2,7 +2,6 @@
 
 class Footprint < ApplicationRecord
   belongs_to :user
-  belongs_to :report
+  belongs_to :footprintable, polymorphic: true
   validates :user_id, presence: true
-  validates :report_id, presence: true
 end

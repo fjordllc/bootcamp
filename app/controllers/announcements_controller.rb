@@ -3,12 +3,14 @@
 class AnnouncementsController < ApplicationController
   before_action :require_admin_login, except: %i(index show)
   before_action :set_announcement, only: %i(show edit update destroy)
+  before_action :set_footprints, only: %i(show)
 
   def index
     @announcements = Announcement.order(created_at: :desc).page(params[:page])
   end
 
   def show
+    footprint!
   end
 
   def new
@@ -43,6 +45,14 @@ class AnnouncementsController < ApplicationController
   end
 
   private
+    def footprint!
+      @announcement.footprints.where(user: current_user).first_or_create if @announcement.user != current_user
+    end
+
+    def set_footprints
+      @footprints = @announcement.footprints.order(created_at: :desc)
+    end
+
     def announcement_params
       params.require(:announcement).permit(:title, :description)
     end

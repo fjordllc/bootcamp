@@ -3,8 +3,8 @@
 class Report < ActiveRecord::Base
   include Commentable
   include Checkable
+  include Footprintable
 
-  has_many :footprints
   has_many :learning_times, dependent: :destroy, inverse_of: :report
   accepts_nested_attributes_for :learning_times, reject_if: :all_blank, allow_destroy: true
   has_and_belongs_to_many :practices
