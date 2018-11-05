@@ -25,16 +25,9 @@ class Admin::UsersController < AdminController
     # 今後本人退会時に処理が増えることを想定し、自分自身は削除できないよう
     # 制限をかけておく
     redirect_to admin_users_url, alert: "自分自身を削除する場合、退会から処理を行ってください。" if current_user.id == params[:id]
-    begin
-      user = User.find(params[:id])
-      user.destroy
-      redirect_to admin_users_url, notice: "#{user.full_name} さんを削除しました。"
-    rescue => e
-      Rails.logger.error e.class
-      Rails.logger.error e.message
-      Rails.logger.error e.backtrace.join("\n")
-      redirect_to admin_users_url, alert: "ユーザー削除時にエラーが発生しました。"
-    end
+    user = User.find(params[:id])
+    user.destroy
+    redirect_to admin_users_url, notice: "#{user.full_name} さんを削除しました。"
   end
 
   private
