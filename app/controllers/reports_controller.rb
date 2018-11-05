@@ -31,8 +31,6 @@ class ReportsController < ApplicationController
   end
 
   def show
-    @footprint.user = current_user
-    @footprint.report = @report
     footprint!
   end
 
@@ -81,9 +79,7 @@ class ReportsController < ApplicationController
 
   private
     def footprint!
-      if @report.user != current_user
-        @footprints.where(user: @footprint.user).first_or_create
-      end
+      @report.footprints.where(user: current_user).first_or_create if @report.user != current_user
     end
 
     def report_params
@@ -125,7 +121,7 @@ class ReportsController < ApplicationController
     end
 
     def set_footprints
-      @footprints = Footprint.where(report_id: report.id).order(created_at: :desc)
+      @footprints = @report.footprints.order(created_at: :desc)
     end
 
     def set_comment

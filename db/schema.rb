@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_29_030938) do
+ActiveRecord::Schema.define(version: 2018_11_05_020951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -95,17 +95,16 @@ ActiveRecord::Schema.define(version: 2018_10_29_030938) do
     t.boolean "user_policy_agreed", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "purpose_content", null: false
-    t.datetime "purpose_deadline", null: false
   end
 
   create_table "footprints", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "report_id", null: false
+    t.integer "footprintable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["report_id"], name: "index_footprints_on_report_id"
-    t.index ["user_id", "report_id"], name: "index_footprints_on_user_id_and_report_id", unique: true
+    t.string "footprintable_type", default: "Report"
+    t.index ["footprintable_id"], name: "index_footprints_on_footprintable_id"
+    t.index ["user_id", "footprintable_id"], name: "index_footprints_on_user_id_and_footprintable_id", unique: true
     t.index ["user_id"], name: "index_footprints_on_user_id"
   end
 

@@ -17,3 +17,10 @@ header.page-header
 .page-body
   .container
     = render "announcement", announcement: @announcement
+    - if @footprints.any?
+      .footprints
+        h3.footprints__title
+          = t("we_checked")
+        ul.footprints__items
+          - @footprints.each do |check|
+            = render "reports/report_check", report: @announcement, check: check
