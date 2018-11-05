@@ -66,7 +66,6 @@ GEM
       sass (>= 3.4.19)
     builder (3.2.3)
     byebug (10.0.2)
-    callsite (0.0.11)
     capybara (3.8.2)
       addressable
       mini_mime (>= 0.1.3)
@@ -76,6 +75,7 @@ GEM
       xpath (~> 3.1)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
+    choice (0.2.0)
     chromedriver-helper (2.1.0)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
@@ -93,7 +93,6 @@ GEM
     crass (1.0.4)
     curb (0.8.8)
     diffy (3.2.1)
-    docile (1.3.1)
     dry-inflector (0.1.2)
     dynamic_form (1.1.4)
     erubi (1.7.1)
@@ -299,10 +298,6 @@ GEM
       mimemagic (~> 0.3.2)
     meta-tags (2.10.0)
       actionpack (>= 3.2.0, < 5.3)
-    meta_request (0.6.0)
-      callsite (~> 0.0, >= 0.0.11)
-      rack-contrib (>= 1.1, < 3)
-      railties (>= 3.0.0, < 6)
     method_source (0.9.0)
     mime-types (3.2.2)
       mime-types-data (~> 3.2015)
@@ -347,8 +342,6 @@ GEM
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.5)
-    rack-contrib (2.1.0)
-      rack (~> 2.0)
     rack-cors (1.0.2)
     rack-proxy (0.6.5)
       rack
@@ -373,6 +366,11 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
+    rails-erd (1.5.2)
+      activerecord (>= 3.2)
+      activesupport (>= 3.2)
+      choice (~> 0.2.0)
+      ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
     railties (5.2.1)
@@ -399,6 +397,7 @@ GEM
       actionview (~> 5.x)
     rollbar (2.18.0)
       multi_json
+    ruby-graphviz (1.2.3)
     ruby_dep (1.5.0)
     rubyzip (1.2.2)
     sass (3.6.0)
@@ -424,11 +423,6 @@ GEM
       activesupport (>= 4.0.0)
     simple_seed (0.0.2)
       activerecord (>= 4.0)
-    simplecov (0.16.1)
-      docile (~> 1.1)
-      json (>= 1.8, < 3)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.2)
     slack-notifier (2.3.2)
     slim (3.0.9)
       temple (>= 0.7.6, < 0.9)
@@ -516,7 +510,6 @@ DEPENDENCIES
   letter_opener
   listen (>= 3.0.5, < 3.2)
   meta-tags
-  meta_request
   minitest (~> 5.10, != 5.10.2)
   newrelic_rpm
   oauth2
@@ -529,6 +522,7 @@ DEPENDENCIES
   rack-cors
   rack-user_agent
   rails (~> 5.2.0)
+  rails-erd
   ransack
   record_tag_helper (~> 1.0)
   rollbar
@@ -536,7 +530,6 @@ DEPENDENCIES
   selenium-webdriver
   simple_enum
   simple_seed
-  simplecov
   slack-notifier
   slim-rails
   sorcery
