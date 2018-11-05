@@ -1,4 +1,8 @@
 = form_for user do |f|
+  -if params[:role] == "adviser"
+    | アドバイザー
+    = hidden_field_tag :role, "adviser"
+
   = render "errors", object: @user
   .auth-form-items
     .auth-form-item

@@ -40,6 +40,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.adviser = params[:role] == "adviser"
 
     if @user.save
       notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
@@ -85,7 +86,7 @@ class UsersController < ApplicationController
         :find_job_assist,
         :company_id,
         :nda
-      )
+        )
     end
 
     def set_user

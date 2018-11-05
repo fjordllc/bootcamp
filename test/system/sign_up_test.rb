@@ -24,6 +24,14 @@ class SignUpTest < ApplicationSystemTestCase
     assert_text "ユーザー名 はすでに存在します。"
   end
 
+  test "sign up as adviser" do
+    visit new_user_path(role: "adviser")
+    within "#new_user" do
+      filler
+    end
+    click_on "参加する"
+    assert has_css?(".user-part.is-adviser")
+  end
   private
     def filler
       fill_in "user[login_name]", with: "testuser"
