@@ -6,7 +6,12 @@ class PracticesController < ApplicationController
   before_action :set_practice, only: %w(show edit update destroy sort)
 
   def index
-    @categories = Category.order("position")
+    if current_user.retire?
+      logout
+      redirect_to retire_path
+    else
+      @categories = Category.order("position")
+    end
   end
 
   def show

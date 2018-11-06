@@ -208,6 +208,7 @@ class ReportsTest < ApplicationSystemTestCase
     user   = users(:komagata)
     report = user.reports.first
     visit report_path(report)
+    travel 5.day
     find("#copy").click
     assert_equal find("#report_reported_at").value, Date.current.strftime("%Y-%m-%d")
   end
