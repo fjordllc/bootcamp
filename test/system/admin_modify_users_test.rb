@@ -49,7 +49,7 @@ class AdminModifyUsersTest < ApplicationSystemTestCase
         "Announcement" => { "user_id" => [user.id] },
       }
 
-      visit admin_users_path
+      visit admin_users_path(target: "all")
       find("#delete-#{user.id}").click
       page.driver.browser.switch_to.alert.accept
       assert_text "#{user.full_name} さんを削除しました。"
