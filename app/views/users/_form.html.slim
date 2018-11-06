@@ -5,12 +5,14 @@
       = f.label :login_name, class: "a-sm-label is-required"
       = f.text_field :login_name, class: "a-sm-text-input", autocomplete: :off, placeholder: "komagata"
       .auth-form-item__help
-        p = t("login_name_description")
+        p
+          | チャットやSNS（Twitter、GitHub、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。極力ユーザー名は統一するようにしてください。
     .auth-form-item
       = f.label :email, class: "a-sm-label is-required"
       = f.text_field :email, class: "a-sm-text-input", placeholder: "komagata@fjord.jp"
       .auth-form-item__help
-        p = t("email_description")
+        p
+          | このメールアドレスは卒業後の連絡にも使うので、会社で提供されたなどの第三者によって提供されたメールアドレスではなく、転職後も使い続ける自分自身で取得したメールアドレスで登録してください。
     .auth-form-item
       .row
         .col-xs-6
@@ -21,6 +23,9 @@
           .auth-form-item
             = f.label :first_name, class: "a-sm-label is-required"
             = f.text_field :first_name, class: "a-sm-text-input", placeholder: "真幸"
+      .auth-form-item__help
+        p
+          | 本名を入力してください。
     .auth-form-item
       = f.label :description, class: "a-sm-label"
       = f.text_area :description, class: "a-sm-text-input", size: "10x10", placeholder: "月・水・金の 10:00 〜 19:00 に活動します。"
