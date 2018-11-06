@@ -3,6 +3,7 @@
 class Product < ApplicationRecord
   include Commentable
   include Checkable
+  include Footprintable
 
   belongs_to :practice
   belongs_to :user, touch: true

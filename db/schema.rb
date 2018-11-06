@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_29_030938) do
+ActiveRecord::Schema.define(version: 2018_11_06_041819) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,18 +101,19 @@ ActiveRecord::Schema.define(version: 2018_10_29_030938) do
 
   create_table "footprints", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "report_id", null: false
+    t.integer "footprintable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["report_id"], name: "index_footprints_on_report_id"
-    t.index ["user_id", "report_id"], name: "index_footprints_on_user_id_and_report_id", unique: true
+    t.string "footprintable_type", default: "Report"
+    t.index ["footprintable_id"], name: "index_footprints_on_footprintable_id"
+    t.index ["user_id", "footprintable_id", "footprintable_type"], name: "index_footprintable", unique: true
     t.index ["user_id"], name: "index_footprints_on_user_id"
   end
 
   create_table "images", force: :cascade do |t|
     t.string "image_file_name"
     t.string "image_content_type"
-    t.bigint "image_file_size"
+    t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.bigint "user_id"
     t.text "image_meta"
@@ -236,7 +237,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_030938) do
     t.boolean "mentor", default: false, null: false
     t.string "face_file_name"
     t.string "face_content_type"
-    t.bigint "face_file_size"
+    t.integer "face_file_size"
     t.datetime "face_updated_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"

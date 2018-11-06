@@ -14,3 +14,8 @@ header.page-header
           li.form-actions__item
             = link_to edit_practice_product_path(@product.practice), class: "form-actions__item-link is-button-simple-lg-warning" do
               | 提出物の内容更新
+    - if @footprints.any?
+      .footprints
+        h3.footprints__title = t("we_checked")
+        ul.footprints__items
+          = render @footprints
