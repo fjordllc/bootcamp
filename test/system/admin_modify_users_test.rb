@@ -49,7 +49,6 @@ class AdminModifyUsersTest < ApplicationSystemTestCase
         "Announcement" => { "user_id" => [user.id] },
       }
 
-      # ブラウザテスト
       visit admin_users_path
       find("#delete-#{user.id}").click
       page.driver.browser.switch_to.alert.accept
