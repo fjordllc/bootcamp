@@ -6,5 +6,5 @@ header.page-header
 .page-body
   .container
     ul
-      li = link_to "忘年会メールアドレス", admin_users_emails_path
-      li = link_to "アクティブでないユーザー", admin_users_in_actives_path
+      li = link_to "忘年会メールアドレス", admin_users_path(target: "year_end_party")
+      li = link_to "アクティブでないユーザー", admin_users_path(target: "inactive")
