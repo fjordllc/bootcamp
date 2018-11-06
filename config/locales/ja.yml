@@ -431,6 +431,9 @@ ja:
     adviser: アドバイザー
     all: 全員
     redire: リタイア
+    retired: リタイア
+    inactive: 非アクティブ
+    year_end_party: 忘年会
 
   admin_index: "管理画面"
   sign_up: "サインアップ"
