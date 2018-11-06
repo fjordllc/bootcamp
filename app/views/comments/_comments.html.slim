@@ -5,6 +5,5 @@
       = page_entries_info(comments, entry_name: "コメント")
   .thread-comments
     = render partial: "comments/comment", collection: comments.order(:created_at), as: :comment
-  / コントローラー側で@hidden_flagを立てたらコメントフォームが隠れる
-  -if @hidden_flag.nil? || !@hidden_flag
+  -if !(defined? hide_form) || !hide_form
     = render "comments/form", comment: comments.new

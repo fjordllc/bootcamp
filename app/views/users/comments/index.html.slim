@@ -12,4 +12,4 @@ header.page-header
 .page-body
   .container
     = paginate @comments, position: "top"
-    = render "comments/comments", comments: @comments
+    = render "comments/comments", { comments: @comments, hide_form: true }
