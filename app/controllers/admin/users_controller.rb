@@ -4,7 +4,27 @@ class Admin::UsersController < AdminController
   before_action :set_user, only: %i(show edit update)
 
   def index
-    @users = User.all
+    @users = User.order(updated_at: :desc)
+    @target = params[:target] || "student"
+    @users =
+      case @target
+      when "student"
+        @users.student
+      when "retired"
+        @users.retired
+      when "graduate"
+        @users.graduated
+      when "adviser"
+        @users.advisers
+      when "mentor"
+        @users.mentor
+      when "inactive"
+        @users.where(adviser: false, retire: false, graduation: false).inactive.order(:updated_at)
+      when "year_end_party"
+        @users.where(retire: false)
+      when "all"
+        @users
+      end
   end
 
   def show

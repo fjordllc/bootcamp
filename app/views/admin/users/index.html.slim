@@ -5,5 +5,6 @@ header.page-header
       h2.page-header__title ユーザー一覧
 = render "/admin/admin_page_tabs", active: 1
 .page-body
+  = render "nav"
   .container.is-padding-horizontal-0-sm-down
     = render "/admin/users/admin_users_table", users: @users
