@@ -8,7 +8,9 @@ class QuestionCallbacks
   private
     def send_notification(question)
       User.mentor.each do |user|
-        Notification.came_question(question, user)
+        if question.sender != user
+          Notification.came_question(question, user)
+        end
       end
     end
 end
