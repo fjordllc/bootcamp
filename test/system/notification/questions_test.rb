@@ -31,4 +31,29 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
 
     assert_equal @notified_count + @mentor_count, Notification.where(kind: @notice_kind).size
   end
+
+  test "There is no notification to the mentor who posted" do
+    login_user "komagata", "testtest"
+    visit "/questions/new"
+    within("#new_question") do
+      find("ul", match: :first).set(true)
+      fill_in("question[title]", with: "皆さんに質問！！")
+      fill_in("question[description]", with: "通知行ってますか？")
+    end
+    click_button "登録する"
+    logout
+
+    login_user users(:komagata).login_name, "testtest"
+    # 通知メッセージが非表示項目でassert_textでは取得できないため、findでvisible指定
+    # 存在時、findは複数取得してエラーになるためassert_raisesにて検証
+    assert_raises Capybara::ElementNotFound do
+      find("komagataさんから質問がきました。", visible: false)
+    end
+    logout
+
+    login_user users(:machida).login_name, "testtest"
+    first(".test-bell").click
+    assert_text "komagataさんから質問がきました。"
+    logout
+  end
 end
