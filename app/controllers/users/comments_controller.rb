@@ -5,6 +5,7 @@ class Users::CommentsController < ApplicationController
   before_action :set_comments
 
   def index
+    @hidden_flag = true
   end
 
   private
