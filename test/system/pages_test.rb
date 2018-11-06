@@ -93,4 +93,16 @@ class PagesTest < ApplicationSystemTestCase
 
     assert_no_text "ページ作成"
   end
+
+  test "Comment form not found in /users/:user_id/comments" do
+    user = users(:yamada)
+    visit user_comments_path(user)
+    assert_equal true, has_no_field?("comment[description]")
+  end
+
+  test "Comment form found in /reports/:report_id" do
+    user = users(:yamada)
+    visit report_path(user.reports.first)
+    assert_equal true, has_field?("comment[description]")
+  end
 end
