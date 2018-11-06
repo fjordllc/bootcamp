@@ -10,9 +10,3 @@
       li.page-tabs__item
         = link_to admin_categories_path, class: "page-tabs__item-link #{active == 2 ? "is-current" : ""}" do
           | カテゴリー
-      li.page-tabs__item
-        = link_to admin_users_emails_path, class: "page-tabs__item-link #{active == 3 ? "is-current" : ""}" do
-          | 全員のメアド
-      li.page-tabs__item
-        = link_to admin_users_in_actives_path, class: "page-tabs__item-link #{active == 4 ? "is-current" : ""}" do
-          | 非アクティブ
