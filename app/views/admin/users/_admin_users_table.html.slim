@@ -13,12 +13,14 @@
         th.admin-table__label 削除
     tbody.admin-table__items
       - users.each do |user|
-        tr.admin-table__item
+        tr.admin-table__item class="#{user.retire? ? "is-inactive" : "" }"
           td.admin-table__item-value.is-text-align-center
             - if user.admin?
               | 管理者
             - elsif user.adviser
               | アドバイザー
+            - elsif user.retire?
+              | リタイア
             - elsif user.graduation
               | 卒業生
             - elsif user.active?
@@ -68,3 +70,12 @@
             - if user.id != current_user.id
               = link_to admin_user_path(user), method: :delete, id: "delete-#{user.id}", class: "is-button-simple-sm-danger is-icon", data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }
                 i.fas.fa-trash-alt
+
+.practice-contents
+  .practice-content
+    header.practice-content__header
+      h2.practice-content__title
+        | 全員のメアド
+    .practice-content__body
+      textarea.a-text-input
+        = @users.pluck(:email).join(",")
