@@ -3,6 +3,8 @@
   border-bottom: solid 1px $background-color-shade
   &.is-delete-margin-top
     margin-top: -1.5rem
+  &.is-in-tab
+    margin-top: -1rem
 
 .tab-nav__items
   display: flex
@@ -28,6 +30,7 @@
   transition: background-color .2s ease-out
   &:hover
     background-color: shade($background-color-shade, 10%)
+    color: $main-color
   &.is-active
     background-color: $accent-color
     color: $main-color
