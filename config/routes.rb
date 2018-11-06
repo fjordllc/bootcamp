@@ -13,10 +13,6 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "home#index", as: :root
     resources :companies
-    namespace :users do
-      resources :emails, only: :index
-      resources :in_actives, only: :index
-    end
     resources :users, except: %i(show)
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
