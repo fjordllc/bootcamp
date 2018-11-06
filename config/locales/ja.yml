@@ -568,8 +568,6 @@ ja:
   check_report: 日報を確認する
   interns: ユーザー一覧
   admin_interns: ユーザー情報
-  login_name_description: チャットやSNS（Twitter、GitHub、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。極力ユーザー名は統一するようにしてください。
-  email_description: このメールアドレスは卒業後の連絡にも使うので、会社で提供されたなどの第三者によって提供されたメールアドレスではなく、転職後も使い続ける自分自身で取得したメールアドレスで登録してください。
   questions: Q&A
   search_report: 日報検索
   search_for: "'%{text}' の検索結果"
