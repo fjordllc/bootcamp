@@ -5,6 +5,5 @@
       = page_entries_info(comments, entry_name: "コメント")
   .thread-comments
     = render partial: "comments/comment", collection: comments.order(:created_at), as: :comment
-  -if defined?(form_invisible) && form_invisible
-  -else
+  - if form_visible
     = render "comments/form", comment: comments.new
