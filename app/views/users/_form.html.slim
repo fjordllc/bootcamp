@@ -25,10 +25,13 @@
             = f.text_field :first_name, class: "a-sm-text-input", placeholder: "真幸"
       .auth-form-item__help
         p
-          | 本名を入力してください。
+          | 就職希望先企業の採用担当者も使う情報になるので、姓・名は必ず本名を入力してください。
     .auth-form-item
       = f.label :description, class: "a-sm-label"
       = f.text_area :description, class: "a-sm-text-input", size: "10x10", placeholder: "月・水・金の 10:00 〜 19:00 に活動します。"
+    .auth-form-item
+      = f.label :slack_account, class: "a-sm-label"
+      = f.text_field :slack_account, class: "a-sm-text-input"
     .auth-form-item
       = f.label :github_account, class: "a-sm-label"
       = f.text_field :github_account, class: "a-sm-text-input", placeholder: "komagata"
