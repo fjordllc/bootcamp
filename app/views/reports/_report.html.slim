@@ -2,7 +2,7 @@
   .thread__inner
     header.thread-header
       .thread-header__reported-at
-        | #{l report.reported_at, format: :long} の日報
+        | #{l report.reported_on, format: :long} の日報
       h1.thread-header__title(class="#{report.wip? ? "is-wip" : ""}")
         - if report.wip?
           span.thread-header__title-icon
