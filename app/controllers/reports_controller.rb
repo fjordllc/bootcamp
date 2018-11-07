@@ -39,11 +39,11 @@ class ReportsController < ApplicationController
     @report.learning_times.build()
 
     if params[:id]
-      report = current_user.reports.find(params[:id])
-      @report.title = report.title
-      @report.reported_on = report.reported_on
+      report              = current_user.reports.find(params[:id])
+      @report.title       = report.title
+      @report.reported_on = Date.current
       @report.description = report.description
-      @report.practices = report.practices
+      @report.practices   = report.practices
     end
   end
 
