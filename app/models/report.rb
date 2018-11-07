@@ -13,7 +13,7 @@ class Report < ActiveRecord::Base
   validates :title, presence: true, uniqueness: { scope: :user_id }, length: { maximum: 255 }
   validates :description, presence: true
   validates :user, presence: true
-  validates :reported_at, presence: true, uniqueness: { scope: :user }
+  validates :reported_on, presence: true, uniqueness: { scope: :user }
   paginates_per 10
 
   scope :paging_with_created_at, -> (page:, order_type: "asc") { order(created_at: order_type.to_sym, id: :asc).page(page) }

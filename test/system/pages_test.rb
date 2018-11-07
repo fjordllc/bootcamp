@@ -73,7 +73,7 @@ class PagesTest < ApplicationSystemTestCase
     d    = Time.mktime(2015, 1, 1, 0, 0, 0)
     user.reports.destroy_all
     100.times do |i|
-      user.reports.create(title: "Report #{i + 1}", description: "description...", reported_at: d, created_at: d, updated_at: d)
+      user.reports.create(title: "Report #{i + 1}", description: "description...", reported_on: d, created_at: d, updated_at: d)
       d = d + 1.day
     end
     visit user_reports_path([user], page: 1)
