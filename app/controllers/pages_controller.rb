@@ -12,8 +12,7 @@ class PagesController < ApplicationController
   end
 
   def new
-    title = params[:title] || ""
-    @page = Page.new(title: title)
+    @page = Page.new
   end
 
   def edit
@@ -43,8 +42,7 @@ class PagesController < ApplicationController
 
   private
     def set_page
-      @page = Page.find_by(id: params[:id])
-      redirect_to new_page_path unless @page
+      @page = Page.find(params[:id])
     end
 
     def page_params
