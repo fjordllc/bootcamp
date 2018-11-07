@@ -11,3 +11,9 @@
       | :
     .user-dates__update-at-value
       = l user.updated_at, format: :long
+  .user-dates__update-at
+    .user-dates__update-at-label
+      | slackアカウント
+      | :
+    .user-dates__update-at-value
+      = user.slack_account

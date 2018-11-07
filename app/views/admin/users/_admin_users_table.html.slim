@@ -4,6 +4,7 @@
       tr.admin-table__labels
         th.admin-table__label ステータス
         th.admin-table__label ユーザー名
+        th.admin-table__label Slack
         th.admin-table__label 最終アクセス日時
         th.admin-table__label 日報
         th.admin-table__label コメント
@@ -32,6 +33,11 @@
               span.admin-table__user-login-name
                 = user.login_name
                 | （#{user.full_name}）
+          td.admin-table__item-value.is-text-align-center
+            - if user.slack_account.present?
+              = user.slack_account
+            - else
+              | -
           td.admin-table__item-value.is-text-align-center
             = l user.updated_at
           td.admin-table__item-value.is-text-align-center
