@@ -77,11 +77,11 @@ class PagesTest < ApplicationSystemTestCase
       d = d + 1.day
     end
     visit user_reports_path([user], page: 1)
-    assert_selector "span.thread-comments-container__title-count", text: "（1 〜 10 件を表示）"
+    assert_selector "span.thread-comments-container__title-count", text: "（1 〜 25 件を表示）"
     assert_selector "nav.pagination", count: 1
-    assert_equal 10, user.reports.page(1).size
+    assert_equal 25, user.reports.page(1).size
 
     visit user_reports_path([users(:komagata)], page: 3)
-    assert_equal 10, user.reports.page(3).size
+    assert_equal 25, user.reports.page(3).size
   end
 end
