@@ -35,13 +35,13 @@ class ReportsController < ApplicationController
   end
 
   def new
-    @report = Report.new(reported_at: Date.current)
+    @report = Report.new(reported_on: Date.current)
     @report.learning_times.build()
 
     if params[:id]
       report = current_user.reports.find(params[:id])
       @report.title = report.title
-      @report.reported_at = report.reported_at
+      @report.reported_on = report.reported_on
       @report.description = report.description
       @report.practices = report.practices
     end
@@ -85,7 +85,7 @@ class ReportsController < ApplicationController
     def report_params
       params.require(:report).permit(
         :title,
-        :reported_at,
+        :reported_on,
         :description,
         practice_ids: [],
         learning_times_attributes: [:id, :started_at, :finished_at, :_destroy]
