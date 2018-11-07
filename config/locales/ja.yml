@@ -148,9 +148,9 @@ ja:
     page_entries_info:
       one_page:
         display_entries:
-          zero: "%{entry_name} が存在しません。"
-          one: "<b>%{count}</b> 件"
-          other: "<b>%{count}</b> 件"
+          zero: "まだありません"
+          one: "<b>%{count}</b>"
+          other: "<b>%{count}</b>"
       more_pages:
         display_entries: "<b>%{total}</b> 件 <small>（<b>%{first}</b> 〜 <b>%{last}</b> 件を表示）</small>"
 
