@@ -8,32 +8,40 @@ class User < ActiveRecord::Base
 
   belongs_to :company
   has_many :learnings
-  has_many :comments, dependent: :destroy
-  has_many :reports, dependent: :destroy
-  has_many :checks
-  has_many :footprints, dependent: :destroy
+  has_many :comments,      dependent: :destroy
+  has_many :reports,       dependent: :destroy
+  has_many :checks,        dependent: :destroy
+  has_many :footprints,    dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :images
-  has_many :products
-  has_many :announcements
+  has_many :images,        dependent: :destroy
+  has_many :products,      dependent: :destroy
+  has_many :questions,     dependent: :destroy
+  has_many :announcements, dependent: :destroy
 
-  has_many :send_notifications, class_name: "Notification", foreign_key: "sender_id"
+  has_many :send_notifications,
+    class_name:  "Notification",
+    foreign_key: "sender_id",
+    dependent:   :destroy
 
   has_many :completed_learnings,
     -> { where(status_cd: 1) },
-    class_name: "Learning"
+    class_name: "Learning",
+    dependent:  :destroy
 
   has_many :completed_practices,
-    through: :completed_learnings,
-    source: :practice
+    through:   :completed_learnings,
+    source:    :practice,
+    dependent: :destroy
 
   has_many :active_learnings,
     -> { where(status_cd: 0) },
-    class_name: "Learning"
+    class_name: "Learning",
+    dependent:  :destroy
 
   has_many :active_practices,
-    through: :active_learnings,
-    source:  :practice
+    through:   :active_learnings,
+    source:    :practice,
+    dependent: :destroy
 
   validates :company_id, presence: true
   validates :email,      presence: true, uniqueness: true
