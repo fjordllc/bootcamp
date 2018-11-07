@@ -5,3 +5,7 @@ page_1:
 page_2:
   title: テスト
   body: "## テスト\nテスト"
+
+page_3:
+  title: Wikiページ
+  body: "## 存在しないWikiページ遷移テスト\n[存在しないページ](http://localhost:3000/pages/5555555)"

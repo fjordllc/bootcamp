@@ -84,4 +84,13 @@ class PagesTest < ApplicationSystemTestCase
     visit user_reports_path([users(:komagata)], page: 3)
     assert_equal 25, user.reports.page(3).size
   end
+
+  test "If you click the link of a nonexistent page, it will not transition to wiki create page" do
+    id = pages(:page_3).id
+    visit "/pages/#{id}"
+
+    click_link "存在しないページ"
+
+    assert_no_text "ページ作成"
+  end
 end
