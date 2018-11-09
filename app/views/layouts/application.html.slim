@@ -35,7 +35,7 @@ html.is-application lang="ja"
         = render "alert"
       main.page
         = yield
-    - if current_user && page_classes.exclude?("no-recent-reports") && recent_reports.present? || page_category != "edit-page"
+    - if current_user && page_classes.exclude?("no-recent-reports") && recent_reports.present?
       = render "/reports/recent_reports"
     - unless page_classes.include?("welcome")
       = render("to_top")
