@@ -8,7 +8,7 @@
             | {{ productLabel }}
       div(v-if="!complete")
         li.practice-content-actions__item
-          button.is-button-simple-md-warning(@click="pushComplete")
+          button.is-button-simple-md-warning#js-complete(@click="pushComplete")
             i.fas.fa-check
             | 完了
 </template>
