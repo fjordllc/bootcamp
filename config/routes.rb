@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resource :face, controller: "face", only: %i(update)
     resources :faces, only: %i(index)
     resources :practices, only: [] do
-      put "learning", on: :member, controller: "practices/learning", action: "update"
+      resource :learning, only: %i(show update), controller: "practices/learning"
     end
   end
 

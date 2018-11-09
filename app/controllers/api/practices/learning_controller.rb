@@ -4,6 +4,17 @@ class API::Practices::LearningController < API::BaseController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
 
+  def show
+    @learning = Learning.find_or_initialize_by(
+      user_id: current_user.id,
+      practice_id: params[:practice_id]
+    )
+
+    if @learning.new_record?
+      @learning.status = :not_complete
+    end
+  end
+
   def update
     learning = Learning.find_or_initialize_by(
       user_id: current_user.id,
@@ -19,6 +30,7 @@ class API::Practices::LearningController < API::BaseController
     status = learning.new_record? ? :created : :ok
 
     if learning.save
+      notify_learning(user: current_user, learning: learning)
       head status
     else
       render json: learning.errors, status: :unprocessable_entity
@@ -26,9 +38,9 @@ class API::Practices::LearningController < API::BaseController
   end
 
   private
-    def notify_learning
-      subject = "<#{user_url(current_user)}|#{current_user.login_name}>"
-      object = "<#{practice_url(@practice)}|#{@practice.title}>"
+    def notify_learning(user:, learning:)
+      subject = "<#{user_url(user)}|#{user.login_name}>"
+      object = "<#{practice_url(learning.practice)}|#{learning.practice.title}>"
       verb = "#{t learning.status}しました。"
       text = "#{subject}が#{object}を#{verb}"
       notify text,
