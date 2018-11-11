@@ -3,14 +3,15 @@
 require "application_system_test_case"
 
 class ProductsTest < ApplicationSystemTestCase
-  setup { login_user "yamada", "testtest" }
-
   test "show a product page" do
+    login_user "yamada", "testtest"
+
     visit "/practices/#{practices(:practice_1).id}/products/#{products(:product_1).id}"
     assert_equal "提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "create a product" do
+    login_user "yamada", "testtest"
     visit "/practices/#{practices(:practice_5).id}/products/new"
 
     within("#new_product") do
@@ -19,5 +20,29 @@ class ProductsTest < ApplicationSystemTestCase
     click_button "提出する"
 
     assert_text "提出物を作成しました。"
+  end
+
+  test "show products list when user's product is checked" do
+    login_user "tanaka", "testtest"
+
+    visit "/practices/#{practices(:practice_2).id}/products"
+    click_link "提出物"
+    assert_text "tanaka"
+    assert_text "yamada"
+    assert_text "kimura"
+  end
+
+  test "Don't show 提出物tab while user'product doesn't get checked yet" do
+    login_user "tanaka", "testtest"
+
+    visit "/practices/#{practices(:practice_3).id}/products"
+    assert_no_text "提出物"
+  end
+
+  test "Don't 提出物tab list when user don't upload product" do
+    login_user "tanaka", "testtest"
+
+    visit "/practices/#{practices(:practice_4).id}/products"
+    assert_no_text "提出物"
   end
 end

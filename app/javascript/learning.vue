@@ -17,9 +17,8 @@ import 'whatwg-fetch'
 
 export default {
   props: ['practiceId'],
-  data: () => {
+  data () {
     return {
-      toke: null,
       submission: false,
       complete: false,
       product: null,
@@ -27,16 +26,12 @@ export default {
       productLink: ''
     }
   },
-  mounted: function () {
-    this.token = document
-      .querySelector('meta[name="csrf-token"]')
-      .getAttribute('content')
-
+  mounted () {
     fetch(`/api/practices/${this.practiceId}/learning.json`, {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': this.token
+        'X-CSRF-Token': this.token()
       },
       credentials: 'same-origin'
     })
@@ -48,9 +43,7 @@ export default {
         this.complete = json['status'] == 'complete'
         this.product = json['practice']['product']
         if (this.product) {
-          this.productLink = `/practices/${this.practiceId}/products/${
-            this.product.id
-          }`
+          this.productLink = `/practices/${this.practiceId}/products/${this.product.id}`
           this.productLabel = '提出物'
         } else {
           this.productLink = `/practices/${this.practiceId}/products/new`
@@ -62,7 +55,15 @@ export default {
       })
   },
   methods: {
-    pushComplete: function () {
+    token () {
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      if (meta) {
+        return meta.getAttribute('content')
+      } else {
+        return ''
+      }
+    },
+    pushComplete () {
       let params = new FormData()
       params.append('status', 'complete')
 
@@ -70,7 +71,7 @@ export default {
         method: 'PATCH',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token
+          'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
         redirect: 'manual',
