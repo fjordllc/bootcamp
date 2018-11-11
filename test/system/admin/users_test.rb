@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class AdminModifyUsersTest < ApplicationSystemTestCase
+class Admin::UsersTest < ApplicationSystemTestCase
   setup { login_user "komagata", "testtest" }
 
   test "accessed by non-administrative users" do

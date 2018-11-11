@@ -8,6 +8,7 @@ AllCops:
     - '**/vendor/**/*'
     - 'actionpack/lib/action_dispatch/journey/parser.rb'
     - 'railties/test/fixtures/tmp/**/*'
+    - 'app/views/**/*'
     - 'node_modules/**/*'
 
 Performance:

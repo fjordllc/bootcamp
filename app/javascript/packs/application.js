@@ -6,10 +6,11 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
-require('./markdown')
-require('./markdown-it')
-require('./autosize')
-require('../camera')
+require('./markdown.js')
+require('./markdown-it.js')
+require('./autosize.js')
+require('../camera.js')
 require('../faces.js')
-require('../datepicker')
-require('../shortcut')
+require('../datepicker.js')
+require('../shortcut.js')
+require('../learning.js')

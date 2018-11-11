@@ -95,8 +95,6 @@ ActiveRecord::Schema.define(version: 2018_11_07_022628) do
     t.boolean "user_policy_agreed", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "purpose_content", null: false
-    t.datetime "purpose_deadline", null: false
   end
 
   create_table "footprints", id: :serial, force: :cascade do |t|

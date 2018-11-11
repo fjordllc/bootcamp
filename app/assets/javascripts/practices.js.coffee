@@ -4,9 +4,11 @@ $ ->
       status = $(this).data('status')
       tr = $(this).parents('.js-practice')
       [x, practice_id] = tr[0].id.split('_')
-      $.ajax "/practices/#{practice_id}/learning",
+      $.ajax "/api/practices/#{practice_id}/learning",
         type: 'PUT'
-        data: "status=#{status}"
+        data:
+          practice_id: practice_id
+          status: status
       .done =>
         $('.js-practice-state:disabled', tr).attr('disabled', false).removeClass('is-button-simple-xs-primary').addClass('is-button-simple-xs-secondary')
         $(this).attr('disabled', true).addClass('is-button-simple-xs-primary')
