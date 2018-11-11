@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     resource :image, controller: "image", only: %i(create)
     resource :face, controller: "face", only: %i(update)
     resources :faces, only: %i(index)
+    resources :practices, only: [] do
+      resource :learning, only: %i(show update), controller: "practices/learning"
+    end
   end
 
   namespace :admin do
@@ -32,7 +35,6 @@ Rails.application.routes.draw do
   resources :password_resets, only: %i(create edit update)
 
   resources :practices, shallow: true do
-    resource :learning, only: %i(create update destroy)
     resource :position, only: %i(update)
     resources :reports, only: %i(index), controller: "practices/reports"
     resources :questions, only: %i(index), controller: "practices/questions"

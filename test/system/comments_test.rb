@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class UserCommentListTest < ApplicationSystemTestCase
+class CommentsTest < ApplicationSystemTestCase
   test "show all comments for reports of the target user" do
     login_user "komagata", "testtest"
     visit polymorphic_path([users(:komagata), :comments])

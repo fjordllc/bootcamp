@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class CheckReportTest < ApplicationSystemTestCase
+class Check::ReportsTest < ApplicationSystemTestCase
   test "non admin user is non botton" do
     login_user "tanaka", "testtest"
     visit "/reports/#{reports(:report_2).id}"
