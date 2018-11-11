@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class CheckProductTest < ApplicationSystemTestCase
+class Check::ProductsTest < ApplicationSystemTestCase
   test "success product checking" do
     login_user "machida", "testtest"
     click_link "プラクティス"

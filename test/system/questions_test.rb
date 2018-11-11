@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class QuestionListTest < ApplicationSystemTestCase
+class QuestionsTest < ApplicationSystemTestCase
   test "question page show message when question does not exist" do
     Question.delete_all
     login_user "machida", "testtest"
