@@ -1,4 +1,6 @@
 = form_for user do |f|
+  -if params[:role] == "adviser"
+    = hidden_field_tag :role, "adviser"
   = render "errors", object: @user
   .auth-form-items
     .auth-form-item
@@ -10,9 +12,10 @@
     .auth-form-item
       = f.label :email, class: "a-sm-label is-required"
       = f.text_field :email, class: "a-sm-text-input", placeholder: "komagata@fjord.jp"
-      .auth-form-item__help
-        p
-          | このメールアドレスは卒業後の連絡にも使うので、会社で提供されたなどの第三者によって提供されたメールアドレスではなく、転職後も使い続ける自分自身で取得したメールアドレスで登録してください。
+      -if params[:role] != "adviser"
+        .auth-form-item__help
+          p
+            | このメールアドレスは卒業後の連絡にも使うので、会社で提供されたなどの第三者によって提供されたメールアドレスではなく、転職後も使い続ける自分自身で取得したメールアドレスで登録してください。
     .auth-form-item
       .row
         .col-xs-6
@@ -23,12 +26,18 @@
           .auth-form-item
             = f.label :first_name, class: "a-sm-label is-required"
             = f.text_field :first_name, class: "a-sm-text-input", placeholder: "真幸"
-      .auth-form-item__help
-        p
-          | 就職希望先企業の採用担当者も使う情報になるので、姓・名は必ず本名を入力してください。
-    .auth-form-item
-      = f.label :description, class: "a-sm-label"
-      = f.text_area :description, class: "a-sm-text-input", size: "10x10", placeholder: "月・水・金の 10:00 〜 19:00 に活動します。"
+      -if params[:role] != "adviser"
+        .auth-form-item__help
+          p
+            | 就職希望先企業の採用担当者も使う情報になるので、姓・名は必ず本名を入力してください。
+    -if params[:role] == "adviser"
+      .auth-form-item
+        = f.label :description, "自己紹介", class: "a-sm-label"
+        = f.text_area :description, class: "a-sm-text-input", placeholder: "株式会社XXXXの開発チームマネージャーのXXXXXです。"
+    -else
+      .auth-form-item
+        = f.label :description, class: "a-sm-label"
+        = f.text_area :description, class: "a-sm-text-input", placeholder: "月・水・金の 10:00 〜 19:00 に活動します。"
     .auth-form-item
       = f.label :slack_account, class: "a-sm-label"
       = f.text_field :slack_account, class: "a-sm-text-input"
@@ -82,7 +91,10 @@
     ul.auth-form-action__items
       - if %w(new create).include? params[:action]
         li.auth-form-action__item
-          = f.submit "参加する", class: "is-button-simple-md-warning js-sign-up-action"
+          -if params[:role] == "adviser"
+            = f.submit "アドバイザー登録", class: "is-button-simple-md-warning js-sign-up-action"
+          -else
+            = f.submit "参加する", class: "is-button-simple-md-warning js-sign-up-action"
       - else
         li.auth-form-action__item
           = link_to user_path, class: "is-button-simple-xs-secondary" do
