@@ -29,7 +29,7 @@ class SignUpTest < ApplicationSystemTestCase
     within "#new_user" do
       filler
     end
-    click_on "参加する"
+    click_on "アドバイザー登録"
     assert has_css?(".user-part.is-adviser")
   end
   private
