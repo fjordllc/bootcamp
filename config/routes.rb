@@ -34,14 +34,14 @@ Rails.application.routes.draw do
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
 
-  resources :practices, shallow: true do
-    resource :position, only: %i(update)
+  resources :practices, only: %i(index) do
+    resource :position, only: %i(update), controller: "practices/position"
     resources :reports, only: %i(index), controller: "practices/reports"
     resources :questions, only: %i(index), controller: "practices/questions"
     resources :products, only: %i(index), controller: "practices/products"
   end
-  resources :practices do
-    resources :products do
+  resources :practices, except: %i(index) do
+    resources :products, except: %i(index) do
       resources :checks, only: %i(create)
     end
   end
