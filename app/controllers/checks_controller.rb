@@ -10,13 +10,11 @@ class ChecksController < ApplicationController
       user: current_user,
       checkable: checkable
     )
-    if @check.save
-      redirect_to @check.checkable.path, notice: t("checkable_was_successfully_check",
-                                                 checkable: checkable.class.model_name.human)
-      notify_to_slack(@check)
-    else
-      render "reports/report"
-    end
+
+    @check.save!
+    notify_to_slack(@check)
+    redirect_back fallback_location: root_path,
+      notice: t("checkable_was_successfully_check", checkable: checkable.class.model_name.human)
   end
 
   private
