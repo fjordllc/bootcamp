@@ -25,22 +25,13 @@ header.page-header
         h2.practice-content__title = t("helpers.label.practice.description")
       .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text-style
         = @practice.description
-      - if @practice.not_completed?(current_user)
-        footer.practice-content__footer
-          .practice-content-actions
-            ul.practice-content-actions__items
-              li.practice-content-actions__item
-                = link_to new_question_path, class: "is-button-simple-md-primary" do
-                  i.fas.fa-question-circle
-                  | 質問する
-              li.practice-content-actions__item
-                button.im-stack.is-button-simple-md-warning
-                  = "行き詰まった！"
-                javascript:
-                  $(document).on("click", ".im-stack", function(){
-                    var text = "#{current_user.login_name}さんが#{@practice.title}で行き詰っています！わかる方は助けてあげてください！";
-                    $.post("/chat_notices", {text: text});
-                  });
+      footer.practice-content__footer
+        .practice-content-actions
+          ul.practice-content-actions__items
+            li.practice-content-actions__item
+              = link_to new_question_path, class: "is-button-simple-md-primary" do
+                i.fas.fa-question-circle
+                | 質問する
 
     section.practice-content
       header.practice-content__header
