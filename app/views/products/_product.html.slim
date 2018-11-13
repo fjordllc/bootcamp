@@ -35,8 +35,9 @@
       .thread-admin-tools
         ul.thread-admin-tools__items
           li.thread-admin-tools__item
-            = form_for ([product.practice, product, product.checks.new]), class: "thread-check-form" do |f|
+            = form_for product.checks.new, class: "thread-check-form" do |f|
               = hidden_field_tag :user_id, current_user.id
+              = hidden_field_tag :product_id, product.id
               = f.submit "提出物を確認", class: "thread-check-form__action is-button-simple-md-danger"
 
   .thread-prev-next

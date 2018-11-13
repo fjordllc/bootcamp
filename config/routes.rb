@@ -41,14 +41,12 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "practices/products"
   end
   resources :practices, except: %i(index) do
-    resources :products, except: %i(index) do
-      resources :checks, only: %i(create)
-    end
+    resources :products, except: %i(index)
   end
   resources :reports do
-    resources :checks, only: %i(create)
     resources :footprints, only: %i(create)
   end
+  resources :checks, only: %i(create)
   resources :comments
   resources :notifications, only: %i(show)
   resources :pages
