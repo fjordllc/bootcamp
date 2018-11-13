@@ -43,9 +43,7 @@ Rails.application.routes.draw do
   resources :practices, except: %i(index) do
     resources :products, except: %i(index)
   end
-  resources :reports do
-    resources :footprints, only: %i(create)
-  end
+  resources :reports
   resources :checks, only: %i(create)
   resources :comments
   resources :notifications, only: %i(show)
