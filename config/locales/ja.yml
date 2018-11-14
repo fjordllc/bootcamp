@@ -194,6 +194,7 @@ ja:
         company: "会社"
         created_at: "開始日"
         updated_at: "最終活動日時"
+        graduated_at: "卒業日時"
         nda: 秘密保持契約
 
       learning:

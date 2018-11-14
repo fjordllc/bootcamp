@@ -43,6 +43,8 @@ class User < ActiveRecord::Base
     source:    :practice,
     dependent: :destroy
 
+  before_update UserCallbacks.new
+
   validates :company_id, presence: true
   validates :email,      presence: true, uniqueness: true
   validates :first_name, presence: true
