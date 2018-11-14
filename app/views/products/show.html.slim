@@ -7,7 +7,7 @@ header.page-header
 .page-body
   .container
     = render "product", product: @product
-    = render "comments/comments", comments: @product.comments.paging_with_created_at(page: params[:page])
+    = render "comments/comments", comments: @product.comments.paging_with_created_at(page: params[:page]), form_visibility: true
     - if @product.user == current_user
       .form-actions
         ul.form-actions__items
