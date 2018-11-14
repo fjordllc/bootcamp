@@ -1,7 +1,10 @@
+- title "コメント投稿"
+- content_for(:page_classes, "no-recent-reports")
+
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title コメント投稿
+      h2.page-header__title = title
 .page-body
   .container
     = render "form", comment: @comment
