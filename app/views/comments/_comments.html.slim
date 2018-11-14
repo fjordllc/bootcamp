@@ -1,4 +1,3 @@
-- form_visible = true if form_visible.nil?
 .thread-comments-container
   h2.thread-comments-container__title
     | コメント
@@ -6,5 +5,5 @@
       = page_entries_info(comments, entry_name: "コメント")
   .thread-comments
     = render partial: "comments/comment", collection: comments.order(:created_at), as: :comment
-  - if form_visible
+  - if defined?(form_visibility) && form_visibility
     = render "comments/form", comment: comments.new
