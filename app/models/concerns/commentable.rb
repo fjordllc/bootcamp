@@ -24,13 +24,4 @@ module Commentable
       self[:body]
     end
   end
-
-  def path
-    case self
-    when Product
-      Rails.application.routes.url_helpers.polymorphic_path([self.practice, self])
-    else
-      Rails.application.routes.url_helpers.polymorphic_path(self)
-    end
-  end
 end

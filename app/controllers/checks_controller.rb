@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ChecksController < ApplicationController
-  include ChecksHelper
+  include Rails.application.routes.url_helpers
   include Gravatarify::Helper
   before_action :require_admin_or_adviser_login, only: [:create]
 
@@ -10,13 +10,11 @@ class ChecksController < ApplicationController
       user: current_user,
       checkable: checkable
     )
-    if @check.save
-      redirect_to @check.checkable.path, notice: t("checkable_was_successfully_check",
-                                                 checkable: checkable.class.model_name.human)
-      notify_to_slack(@check)
-    else
-      render "reports/report"
-    end
+
+    @check.save!
+    notify_to_slack(@check)
+    redirect_back fallback_location: root_path,
+      notice: t("checkable_was_successfully_check", checkable: checkable.class.model_name.human)
   end
 
   private
@@ -30,7 +28,7 @@ class ChecksController < ApplicationController
 
     def notify_to_slack(check)
       name = "#{check.user.login_name}"
-      link = "<#{checkable_url(check)}#check_#{check.id}|#{check.checkable.title}>"
+      link = "<#{polymorphic_path(check.checkable)}#check_#{check.id}|#{check.checkable.title}>"
 
       notify "#{name} check to #{link}",
              username: "#{check.user.login_name} (#{check.user.full_name})",

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PositionsController < ApplicationController
+class Practices::PositionController < ApplicationController
   before_action :set_practice
 
   def update
