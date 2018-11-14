@@ -2,7 +2,6 @@
 
 class CommentsController < ApplicationController
   include Rails.application.routes.url_helpers
-  include CommentsHelper
   include Gravatarify::Helper
   before_action :set_user, only: :show
   before_action :set_my_comment, only: %i(edit update destroy)
@@ -13,7 +12,7 @@ class CommentsController < ApplicationController
     @comment.commentable = commentable
     if @comment.save
       notify_to_slack(@comment)
-      redirect_to commentable_url(@comment), notice: t("comment_was_successfully_created")
+      redirect_to @comment.commentable, notice: t("comment_was_successfully_created")
     else
       render :new
     end
@@ -27,7 +26,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
 
     if @comment.update(comment_params)
-      redirect_to commentable_url(@comment), notice: t("comment_was_successfully_updated")
+      redirect_to @comment.commentable, notice: t("comment_was_successfully_updated")
     else
       render :edit
     end
@@ -36,7 +35,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = current_user.comments.find(params[:id])
     @comment.destroy
-    redirect_to commentable_url(@comment), notice: t("comment_was_successfully_deleted")
+    redirect_to @comment.commentable, notice: t("comment_was_successfully_deleted")
   end
 
   private
@@ -63,7 +62,7 @@ class CommentsController < ApplicationController
 
     def notify_to_slack(comment)
       name = "#{comment.user.login_name}"
-      link = "<#{commentable_url(comment)}#comment_#{comment.id}|#{comment.commentable.title}>"
+      link = "<#{polymorphic_url(comment.commentable)}#comment_#{comment.id}|#{comment.commentable.title}>"
 
       notify "#{name} commented to #{link}",
         username: "#{comment.user.login_name} (#{comment.user.full_name})",

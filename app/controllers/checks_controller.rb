@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ChecksController < ApplicationController
-  include ChecksHelper
+  include Rails.application.routes.url_helpers
   include Gravatarify::Helper
   before_action :require_admin_or_adviser_login, only: [:create]
 
@@ -28,7 +28,7 @@ class ChecksController < ApplicationController
 
     def notify_to_slack(check)
       name = "#{check.user.login_name}"
-      link = "<#{checkable_url(check)}#check_#{check.id}|#{check.checkable.title}>"
+      link = "<#{polymorphic_path(check.checkable)}#check_#{check.id}|#{check.checkable.title}>"
 
       notify "#{name} check to #{link}",
              username: "#{check.user.login_name} (#{check.user.full_name})",

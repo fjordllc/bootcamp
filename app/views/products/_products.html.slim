@@ -6,7 +6,7 @@
           = gravatar_tag product.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon" }
         header.thread-list-item__header
           h2.thread-list-item__title(itemprop="name")
-            = link_to [product.practice, product], itempro: "url", class: "thread-list-item__title-link" do
+            = link_to product, itempro: "url", class: "thread-list-item__title-link" do
               = product.list_title(resource)
         .thread-list-item-meta
           time.thread-list-item-meta__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")

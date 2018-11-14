@@ -21,7 +21,7 @@ class Notification < ApplicationRecord
       kind:    0,
       user:    reciever,
       sender:  comment.sender,
-      path:    comment.commentable.path,
+      path:    Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
       message: message,
       read:    false
     )
@@ -32,7 +32,7 @@ class Notification < ApplicationRecord
       kind:    1,
       user:    check.reciever,
       sender:  check.sender,
-      path:    check.checkable.path,
+      path:    Rails.application.routes.url_helpers.polymorphic_path(check.checkable),
       message: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
       read:    false
     )
@@ -43,7 +43,7 @@ class Notification < ApplicationRecord
       kind:    2,
       user:    reciever,
       sender:  comment.sender,
-      path:    comment.commentable.path,
+      path:    Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
       message: "#{comment.sender.login_name}さんからメンションがきました。",
       read:    false
     )
@@ -54,7 +54,7 @@ class Notification < ApplicationRecord
       kind:    3,
       user:    reciever,
       sender:  subject.user,
-      path:    subject.path,
+      path:    Rails.application.routes.url_helpers.polymorphic_path(subject),
       message: message,
       read:    false
     )

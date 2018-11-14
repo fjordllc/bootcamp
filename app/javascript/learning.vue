@@ -43,10 +43,10 @@ export default {
         this.complete = json['status'] == 'complete'
         this.product = json['practice']['product']
         if (this.product) {
-          this.productLink = `/practices/${this.practiceId}/products/${this.product.id}`
+          this.productLink = `/products/${this.product.id}`
           this.productLabel = '提出物'
         } else {
-          this.productLink = `/practices/${this.practiceId}/products/new`
+          this.productLink = `/products/new?practice_id=${this.practiceId}`
           this.productLabel = '提出物を作る'
         }
       })
