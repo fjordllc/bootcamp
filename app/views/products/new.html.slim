@@ -1,7 +1,10 @@
+- title "提出物作成"
+- content_for(:page_classes, "no-recent-reports")
+
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title 提出物を投稿する
+      h2.page-header__title = title
 .page-body
   .container
     .practice-contents
@@ -11,4 +14,4 @@ header.page-header
         .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text-style
           = @product.practice.goal
 
-    = render "form", product: @product
+    = render "form", practice: @practice, product: @product
