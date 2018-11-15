@@ -15,7 +15,7 @@ class Report < ActiveRecord::Base
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
 
-  scope :paging_with_created_at, -> (page:, order_type: "asc") { order(created_at: order_type.to_sym, id: :asc).page(page) }
+  scope :default_order, -> { order(reported_on: :desc, user_id: :desc) }
 
   def previous
     Report.where(user: user)
