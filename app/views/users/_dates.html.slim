@@ -23,4 +23,4 @@
         = t("helpers.label.user.graduated_at")
         | :
       .user-dates__graduated-at-value
-        = l @user.graduated_at, format: :long
+        = l @user.graduated_at.to_date
