@@ -75,7 +75,8 @@ class Admin::UsersController < AdminController
         :graduation,
         :adviser,
         :retire,
-        :nda
+        :nda,
+        :graduated_at
       )
     end
 end

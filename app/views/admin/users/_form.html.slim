@@ -71,6 +71,10 @@
             = f.check_box :graduation, class: "auth-form-checkbox__input"
             = User.human_attribute_name :graduation
     .auth-form-item
+      = f.label :graduated_at, class: "a-sm-label"
+      = f.text_field :graduated_at, class: "a-sm-text-input",
+                      placeholder: "1999-12-31"
+    .auth-form-item
       = f.label :adviser, class: "a-sm-label"
       ul.auth-form-item__checkboxes
         li.auth-form-checkbox
