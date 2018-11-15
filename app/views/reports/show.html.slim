@@ -16,7 +16,7 @@ header.page-header
 .page-body
   .container
     = render "report", report: @report
-    = render "comments/comments", comments: @report.comments.paging_with_created_at(page: params[:page]), form_visibility: true
+    = render "comments/comments", comments: @report.comments.default_order.page(params[:page]), form_visibility: true
     - if @footprints.any?
       .footprints
         h3.footprints__title = t("we_checked")
