@@ -186,24 +186,6 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "00:30 〜 02:30"
   end
 
-  test "Should not have a link to previous report on the first report" do
-    visit "/reports/#{reports(:report_1).id}"
-    assert_no_text "前"
-    assert_text "次"
-  end
-
-  test "Should have links to previous & next report" do
-    visit "/reports/#{reports(:report_2).id}"
-    assert_text "前"
-    assert_text "次"
-  end
-
-  test "Should not have a link to  next report in the newest report" do
-    visit "/reports/#{reports(:report_3).id}"
-    assert_text "前"
-    assert_no_text "次"
-  end
-
   test "Reports can be copied" do
     user   = users(:komagata)
     report = user.reports.first
@@ -212,5 +194,17 @@ class ReportsTest < ApplicationSystemTestCase
       find("#copy").click
       assert_equal find("#report_reported_on").value, Date.current.strftime("%Y-%m-%d")
     end
+  end
+
+  test "previous report" do
+    visit "/reports/#{reports(:report_2).id}"
+    click_link "前の日報"
+    assert_equal "/reports/#{reports(:report_1).id}", current_path
+  end
+
+  test "next report" do
+    visit "/reports/#{reports(:report_2).id}"
+    click_link "次の日報"
+    assert_equal "/reports/#{reports(:report_3).id}", current_path
   end
 end
