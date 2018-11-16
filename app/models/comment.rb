@@ -9,8 +9,6 @@ class Comment < ActiveRecord::Base
 
   validates :description, presence: true
 
-  scope :default_order, -> { order(created_at: :desc, id: :asc) }
-
   def reciever
     commentable.user
   end
