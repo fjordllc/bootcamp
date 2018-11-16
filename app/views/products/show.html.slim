@@ -7,7 +7,7 @@ header.page-header
 .page-body
   .container
     = render "product", product: @product
-    = render "comments/comments", comments: @product.comments.default_order.page(params[:page]), form_visibility: true
+    = render "comments/comments", comments: @product.comments.order(created_at: :desc).page(params[:page]), form_visibility: true
     - if @product.user == current_user
       .form-actions
         ul.form-actions__items
