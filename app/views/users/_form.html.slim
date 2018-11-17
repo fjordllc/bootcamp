@@ -26,15 +26,19 @@
           .auth-form-item
             = f.label :first_name, class: "a-sm-label is-required"
             = f.text_field :first_name, class: "a-sm-text-input", placeholder: "真幸"
-      -if params[:role] != "adviser"
+      - if params[:role] != "adviser"
         .auth-form-item__help
           p
             | 就職希望先企業の採用担当者も使う情報になるので、姓・名は必ず本名を入力してください。
-    -if params[:role] == "adviser"
+    .auth-form-item
+      = f.label :course_id, class: "a-sm-label is-required"
+      .is-button-simple-md-secondary.is-select.is-block
+        = f.collection_select :course_id, Course.order(:created_at), :id, :title, {}
+    - if params[:role] == "adviser"
       .auth-form-item
         = f.label :description, "自己紹介", class: "a-sm-label"
         = f.text_area :description, class: "a-sm-text-input", placeholder: "株式会社XXXXの開発チームマネージャーのXXXXXです。"
-    -else
+    - else
       .auth-form-item
         = f.label :description, class: "a-sm-label"
         = f.text_area :description, class: "a-sm-text-input", placeholder: "月・水・金の 10:00 〜 19:00 に活動します。"

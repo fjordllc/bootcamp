@@ -1,21 +1,48 @@
 # frozen_string_literal: true
 
 class CoursesController < ApplicationController
-  def index
-    output = ""
-    Practice.order("position").each do |c|
-      output += <<-EOS
-lesson_#{c.id}:
-  id: #{c.id}
-  title: "#{c.title}"
-  description: "#{c.description.encode("UTF-16BE", "UTF-8", invalid: :replace, undef: :replace, replace: '.').encode("UTF-8")}"
-  goal: "#{c.goal.encode("UTF-16BE", "UTF-8", invalid: :replace, undef: :replace, replace: '.').encode("UTF-8")}"
-  course_id: #{c.category_id}
-  position: #{c.position}
+  before_action :require_admin_login, except: %i(index)
+  before_action :set_course, only: %i(edit update destroy)
 
-      EOS
+  def index
+    @courses = Course.order(created_at: :desc)
+  end
+
+  def new
+    @course = Course.new
+  end
+
+  def edit
+  end
+
+  def create
+    @course = Course.new(course_params)
+    if @course.save
+      redirect_to courses_path, notice: "コースを作成しました。"
+    else
+      render :new
+    end
+  end
+
+  def update
+    if @course.update(course_params)
+      redirect_to courses_path, notice: "コースを更新しました。"
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @course.destroy
+    redirect_to courses_path, notice: "コースを削除しました。"
+  end
+
+  private
+    def set_course
+      @course = Course.find(params[:id])
     end
 
-    render inline: output, content_type: "text/yaml"
-  end
+    def course_params
+      params.require(:course).permit(:title, :description)
+    end
 end

@@ -34,13 +34,17 @@ Rails.application.routes.draw do
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
 
-  resources :practices, only: %i(index) do
-    resource :position, only: %i(update), controller: "practices/position"
+  resources :courses, only: %i(index) do
+    resources :practices, only: %i(index), controller: "courses/practices" do
+      resource :position, only: %i(update), controller: "courses/practices/position"
+    end
+  end
+  resources :courses, except: %i(index)
+  resources :practices, except: %i(index) do
     resources :reports, only: %i(index), controller: "practices/reports"
     resources :questions, only: %i(index), controller: "practices/questions"
     resources :products, only: %i(index), controller: "practices/products"
   end
-  resources :practices, except: %i(index)
   resources :products, except: %i(index)
   resources :reports
   resources :checks, only: %i(create)
