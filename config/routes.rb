@@ -46,6 +46,9 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "practices/products"
   end
   resources :products, except: %i(index)
+  namespace :reports do
+    resources :unchecked, only: %i(index)
+  end
   resources :reports
   resources :checks, only: %i(create)
   resources :comments
