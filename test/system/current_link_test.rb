@@ -14,27 +14,31 @@ class CurrentLinkTest < ApplicationSystemTestCase
     assert_selector "a.global-nav-links__link.is-active[href='/users']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    visit "/practices"
-    assert_selector "a.global-nav-links__link.is-active[href='/practices']", count: 1
+    visit "/courses"
+    assert_selector "a.global-nav-links__link.is-active[href='/courses']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    visit "/practices/#{practices(:practice_1)}"
-    assert_selector "a.global-nav-links__link.is-active[href='/practices']", count: 1
+    visit "/courses/#{courses(:course_1).id}/practices"
+    assert_selector "a.global-nav-links__link.is-active[href='/courses/#{courses(:course_1).id}/practices']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    visit "/practices/#{practices(:practice_1)}/reports"
-    assert_selector "a.global-nav-links__link.is-active[href='/practices']", count: 1
+    visit "/practices/#{practices(:practice_1).id}"
+    assert_selector "a.global-nav-links__link.is-active[href='/courses/#{courses(:course_1).id}/practices']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    visit "/practices/#{practices(:practice_1)}/products"
-    assert_selector "a.global-nav-links__link.is-active[href='/practices']", count: 1
+    visit "/practices/#{practices(:practice_1).id}/reports"
+    assert_selector "a.global-nav-links__link.is-active[href='/courses/#{courses(:course_1).id}/practices']", count: 1
+    assert_selector "a.global-nav-links__link.is-active", count: 1
+
+    visit "/practices/#{practices(:practice_1).id}/products"
+    assert_selector "a.global-nav-links__link.is-active[href='/courses/#{courses(:course_1).id}/practices']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
     visit "/questions"
     assert_selector "a.global-nav-links__link.is-active[href='/questions']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    visit "/questions/#{questions(:question_1)}"
+    visit "/questions/#{questions(:question_1).id}"
     assert_selector "a.global-nav-links__link.is-active[href='/questions']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 

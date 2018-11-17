@@ -1,0 +1,9 @@
+- content_for(:page_classes, "no-recent-reports")
+- title "コース編集"
+
+.page-header
+  .container
+    .page-header__container
+      h1.page-header__title = title
+.container
+  = render "form", course: @course

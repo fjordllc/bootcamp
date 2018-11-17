@@ -47,7 +47,7 @@ module PageTabHelper
         reports: "日報",
         questions: "質問",
         products: "提出物",
-        users: "ユーザー",
+        users: "プロフィール",
         comments: "コメント"
       }
     end

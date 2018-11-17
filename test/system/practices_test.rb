@@ -3,6 +3,12 @@
 require "application_system_test_case"
 
 class PracticesTest < ApplicationSystemTestCase
+  test "show practice" do
+    login_user "hatsuno", "testtest"
+    visit "/practices/#{practices(:practice_1).id}"
+    assert_equal "OS X Mountain Lionをクリーンインストールする | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
   test "finish a practice" do
     login_user "komagata", "testtest"
 

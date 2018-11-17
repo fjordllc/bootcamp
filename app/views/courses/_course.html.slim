@@ -1,0 +1,13 @@
+.courses-item(id="course_#{course.id}")
+  h3.courses-item__title = link_to course.title, [course, :practices]
+  .courses-item__description = course.description
+  - if admin_login?
+    ul.page-header-actions__items
+      li.page-header-actions__item
+        = link_to edit_course_path(course), class: "is-button-simple-md-primary" do
+          i.fas.fa-pen
+          | 編集
+      li.page-header-actions__item
+        = link_to course, method: :delete, class: "is-button-simple-md-danger js-delete", data: { confirm: "本当によろしいですか？" } do
+          i.fas.fa-trash-alt
+          | 削除

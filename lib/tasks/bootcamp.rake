@@ -82,4 +82,14 @@ namespace :bootcamp do
       puts "#{user.login_name}, R.I.P."
     end
   end
+
+  desc "Create a course and set all users."
+  task "create_a_course_and_set_all_users" do
+    Course.create!(
+      title: "Railsプログラマー",
+      description: "Linux, Web, Ruby, Railsなどを学んでWebプログラマーになろう。"
+    )
+
+    User.update_all(course: Course.first)
+  end
 end

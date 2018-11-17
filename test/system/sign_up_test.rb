@@ -32,6 +32,7 @@ class SignUpTest < ApplicationSystemTestCase
     click_on "アドバイザー登録"
     assert has_css?(".user-part.is-adviser")
   end
+
   private
     def filler
       fill_in "user[login_name]", with: "testuser"

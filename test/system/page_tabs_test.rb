@@ -210,11 +210,11 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_text "Kimura Tadasi"
     assert_equal 1, all(".is-current").length
-    assert_equal "ユーザー", first(".is-current").text
+    assert_equal "プロフィール", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 5, page_tabs.size
-    assert_equal "ユーザー", page_tabs[0].text
+    assert_equal "プロフィール", page_tabs[0].text
     assert_equal "プラクティス", page_tabs[1].text
     assert_equal "日報", page_tabs[2].text
     assert_equal "コメント", page_tabs[3].text
@@ -226,7 +226,7 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_text "Kimura Tadasi"
     assert_equal 1, all(".is-current").length
-    assert_equal "ユーザー", first(".is-current").text
+    assert_equal "プロフィール", first(".is-current").text
 
     all(".page-tabs__item-link")[1].click
 
@@ -271,11 +271,11 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_text "Kimura Tadasi"
     assert_equal 1, all(".is-current").length
-    assert_equal "ユーザー", first(".is-current").text
+    assert_equal "プロフィール", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 5, page_tabs.size
-    assert_equal "ユーザー", page_tabs[0].text
+    assert_equal "プロフィール", page_tabs[0].text
     assert_equal "プラクティス", page_tabs[1].text
     assert_equal "日報", page_tabs[2].text
     assert_equal "コメント", page_tabs[3].text
@@ -287,7 +287,7 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_text "Kimura Tadasi"
     assert_equal 1, all(".is-current").length
-    assert_equal "ユーザー", first(".is-current").text
+    assert_equal "プロフィール", first(".is-current").text
 
     all(".page-tabs__item-link")[1].click
 
@@ -332,11 +332,11 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_text "Hatsuno Shinji"
     assert_equal 1, all(".is-current").length
-    assert_equal "ユーザー", first(".is-current").text
+    assert_equal "プロフィール", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 5, page_tabs.size
-    assert_equal "ユーザー", page_tabs[0].text
+    assert_equal "プロフィール", page_tabs[0].text
     assert_equal "プラクティス", page_tabs[1].text
     assert_equal "日報", page_tabs[2].text
     assert_equal "コメント", page_tabs[3].text
@@ -348,7 +348,7 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_text "Hatsuno Shinji"
     assert_equal 1, all(".is-current").length
-    assert_equal "ユーザー", first(".is-current").text
+    assert_equal "プロフィール", first(".is-current").text
 
     all(".page-tabs__item-link")[1].click
 
@@ -376,7 +376,7 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_equal 1, all(".is-current").length
     assert_equal "提出物", first(".is-current").text
-    expected_product_counts = User.find(user_id).products.select(&:checked?).size
+    expected_product_counts = User.find(user_id).products.size
     actual_product_counts = all(".thread-list-item__title-link").size
     assert_equal expected_product_counts, actual_product_counts
   end
@@ -393,11 +393,11 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_text "Yamada Taro"
     assert_equal 1, all(".is-current").length
-    assert_equal "ユーザー", first(".is-current").text
+    assert_equal "プロフィール", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 5, page_tabs.size
-    assert_equal "ユーザー", page_tabs[0].text
+    assert_equal "プロフィール", page_tabs[0].text
     assert_equal "プラクティス", page_tabs[1].text
     assert_equal "日報", page_tabs[2].text
     assert_equal "コメント", page_tabs[3].text
@@ -409,7 +409,7 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_text "Yamada Taro"
     assert_equal 1, all(".is-current").length
-    assert_equal "ユーザー", first(".is-current").text
+    assert_equal "プロフィール", first(".is-current").text
 
     all(".page-tabs__item-link")[1].click
 
@@ -455,11 +455,11 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_text "Tanaka Taro"
     assert_equal 1, all(".is-current").length
-    assert_equal "ユーザー", first(".is-current").text
+    assert_equal "プロフィール", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 4, page_tabs.size
-    assert_equal "ユーザー", page_tabs[0].text
+    assert_equal "プロフィール", page_tabs[0].text
     assert_equal "プラクティス", page_tabs[1].text
     assert_equal "日報", page_tabs[2].text
     assert_equal "コメント", page_tabs[3].text
@@ -470,7 +470,7 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_text "Tanaka Taro"
     assert_equal 1, all(".is-current").length
-    assert_equal "ユーザー", first(".is-current").text
+    assert_equal "プロフィール", first(".is-current").text
 
     all(".page-tabs__item-link")[1].click
 
@@ -507,11 +507,11 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_text "Kimura Tadasi"
     assert_equal 1, all(".is-current").length
-    assert_equal "ユーザー", first(".is-current").text
+    assert_equal "プロフィール", first(".is-current").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 4, page_tabs.size
-    assert_equal "ユーザー", page_tabs[0].text
+    assert_equal "プロフィール", page_tabs[0].text
     assert_equal "プラクティス", page_tabs[1].text
     assert_equal "日報", page_tabs[2].text
     assert_equal "コメント", page_tabs[3].text
@@ -522,7 +522,7 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_text "Kimura Tadasi"
     assert_equal 1, all(".is-current").length
-    assert_equal "ユーザー", first(".is-current").text
+    assert_equal "プロフィール", first(".is-current").text
 
     all(".page-tabs__item-link")[1].click
 
