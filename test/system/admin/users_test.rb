@@ -87,12 +87,12 @@ class Admin::UsersTest < ApplicationSystemTestCase
     def fetch_count(model_name, params, need_model_name = false)
       begin
         model = model_name.constantize
-      rescue => e
+      rescue
         raise "#{model_name} is not found in models."
       end
 
-      params.each do |params|
-        model = set_where(model, params[0], params[1])
+      params.each do |param|
+        model = set_where(model, param[0], param[1])
       end
       (need_model_name) ? { model_name => model.count } : model.count
     end
