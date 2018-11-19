@@ -4,18 +4,17 @@ require "#{Rails.root}/config/environment"
 
 namespace :bootcamp do
   namespace :oneshot do
-    desc "Change format that twitter url change to twitter account"
-    task :change_twitter_format do
-      User.transaction do
-        User.where.not(twitter_account: nil).find_each do |user|
-          new_twitter_account = user.twitter_account.sub(%r(\Ahttp(s)?://twitter.com/), "")
-                                                    .sub(%r(/\z), "")
+    desc "Create a course and set all users."
+    task "create_a_course_and_set_all_users" do
+      Course.create!(
+        title: "Railsプログラマー",
+        description: "Linux, Web, Ruby, Railsなどを学んでWebプログラマーになろう。"
+      )
 
-          puts "id: #{user.id}, old: #{user.twitter_account}, new: #{new_twitter_account}"
-          if user.twitter_account != new_twitter_account
-            user.update!(twitter_account: new_twitter_account)
-          end
-        end
+      User.update_all(course: Course.first)
+
+      Category.all.each do |category|
+        category.courses << Course.first
       end
     end
   end
@@ -42,13 +41,6 @@ namespace :bootcamp do
     end
   end
 
-  desc "Import categories."
-  task "import_categories" do
-    require "active_record/fixtures"
-    ActiveRecord::FixtureSet.create_fixtures \
-      "#{Rails.root}/db/fixtures", "categories"
-  end
-
   desc "Reset practice position"
   task "reset_practice_position" do
     Practice.order("id").each do |practice|
@@ -65,13 +57,6 @@ namespace :bootcamp do
     end
   end
 
-  desc "Import reports."
-  task "import_reports" do
-    require "active_record/fixtures"
-    ActiveRecord::FixtureSet.create_fixtures \
-      "#{Rails.root}/db/fixtures", "reports"
-  end
-
   desc "Let sleep unactive users."
   task "sleep" do
     users = User.in_school.
@@ -81,15 +66,5 @@ namespace :bootcamp do
       user.update_attributes!(sleep: true)
       puts "#{user.login_name}, R.I.P."
     end
-  end
-
-  desc "Create a course and set all users."
-  task "create_a_course_and_set_all_users" do
-    Course.create!(
-      title: "Railsプログラマー",
-      description: "Linux, Web, Ruby, Railsなどを学んでWebプログラマーになろう。"
-    )
-
-    User.update_all(course: Course.first)
   end
 end
