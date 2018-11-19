@@ -4,6 +4,12 @@ header.page-header.is-margin-bottom-0.has-border-bottom-none
   .container
     .page-header__container
       h2.page-header__title = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to new_report_path, class: "is-button-simple-md-warning" do
+              i.fas.fa-plus
+              = t("new_report")
 
 = render "reports/tabs"
 
