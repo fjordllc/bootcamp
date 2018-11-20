@@ -1,0 +1,11 @@
+- title "'#{params[:word]}'の検索結果"
+
+header.page-header.is-margin-bottom-0.has-border-bottom-none
+  .container
+    .page-header__container
+      h2.page-header__title = title
+
+.page-body
+  .container
+    .thread-list
+      = render partial: "searchables/searchable", collection: @searchables, as: :searchable, locals: { words: "" }

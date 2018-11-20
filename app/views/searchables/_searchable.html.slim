@@ -1,0 +1,3 @@
+.searchable(class="#{searchable.class.to_s.tableize.singularize}")
+  .title = link_to searchable.title, searchable
+  .description = truncate searchable.description, length: 50

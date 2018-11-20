@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "users/products"
   end
 
+  resources :searchables, only: %i(index)
+
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
 

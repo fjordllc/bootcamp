@@ -12,9 +12,9 @@ header.header
       .header-links.is-user-links
         ul.header-links__items
           li
-            = form_tag reports_url, method: "get", class: "header-search" do
-              = text_field_tag "word", params[:word], class: "a-xs-text-input header-search__text-input", placeholder: "日報検索"
-              button.is-button-simple-sm-secondary.is-icon.header-search__submit(type="submit")
+            = form_tag searchables_url, method: "get", class: "header-search", name: "search" do
+              = text_field_tag "word", params[:word], class: "a-xs-text-input header-search__text-input", placeholder:  "日報検索"
+              button.is-button-simple-sm-secondary.is-icon.header-search__submit#test-search(type="submit")
                 i.fas.fa-search
           - if current_user.admin?
             li.header-links__item
