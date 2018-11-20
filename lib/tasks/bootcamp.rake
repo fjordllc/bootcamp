@@ -25,6 +25,14 @@ namespace :bootcamp do
         user.update!(graduated_on: "2000-01-01")
       end
     end
+
+    desc "Set all retired_on"
+    task "set_all_riteired_on" do
+      User.where(retire: true, retired_on: nil).order(:created_at).each do |user|
+        puts "Update retired_on: #{user.login_name}"
+        user.update!(retired_on: "2000-01-01")
+      end
+    end
   end
 
   desc "Replace practices"

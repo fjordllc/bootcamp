@@ -23,4 +23,11 @@
         = User.human_attribute_name :graduated_on
         | :
       .user-dates__graduated-at-value
-        = l @user.graduated_on.to_date
+        = l @user.graduated_on
+  - if @user.retired_on.present?
+    .user-dates__retired-on
+      .user-dates__retired-on-label
+        = User.human_attribute_name :retired_on
+        | :
+      .user-dates__retired-on-value
+        = l @user.retired_on

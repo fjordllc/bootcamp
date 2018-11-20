@@ -332,7 +332,7 @@ ja:
         nda: 秘密保持契約
         graduated_on: 卒業日
         adviser: アドバイザー
-        retire: リタイア
+        retired_on: リタイア日
 
       course:
         title: タイトル
