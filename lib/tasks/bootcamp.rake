@@ -17,6 +17,14 @@ namespace :bootcamp do
         category.courses << Course.first
       end
     end
+
+    desc "Set all graduated_on"
+    task "set_all_graduated_on" do
+      User.where(graduation: true, graduated_on: nil).order(:created_at).each do |user|
+        puts "Update graduated_on: #{user.login_name}"
+        user.update!(graduated_on: "2000-01-01")
+      end
+    end
   end
 
   desc "Replace practices"

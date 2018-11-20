@@ -44,8 +44,6 @@ class User < ActiveRecord::Base
     source:    :practice,
     dependent: :destroy
 
-  before_update UserCallbacks.new
-
   validates :company_id, presence: true
   validates :email,      presence: true, uniqueness: true
   validates :first_name, presence: true
@@ -58,16 +56,16 @@ class User < ActiveRecord::Base
   has_attached_file :face, styles: { small: "32x32>", normal: "72x72#" }
   validates_attachment_content_type :face, content_type: /\Aimage\/.*\z/
 
-  scope :in_school, -> { where(graduation: false) }
-  scope :graduated, -> { where(graduation: true) }
+  scope :in_school, -> { where(graduated_on: nil) }
+  scope :graduated, -> { where.not(graduated_on: nil) }
   scope :retired, -> { where(retire: true) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
-  scope :student, -> { where(mentor: false, graduation: false, adviser: false, retire: false) }
+  scope :student, -> { where(mentor: false, graduated_on: nil, adviser: false, retire: false) }
   scope :active, -> { where("updated_at > ?", 1.month.ago) }
   scope :inactive, -> { where("updated_at <= ?", 1.month.ago) }
   scope :mentor, -> { where(mentor: true) }
-  scope :working, -> { active.where(adviser: false, graduation: false, retire: false).order(updated_at: :desc) }
+  scope :working, -> { active.where(adviser: false, graduated_on: nil, retire: false).order(updated_at: :desc) }
 
   scope :admin, -> { where(email: ADMIN_EMAILS) }
 
