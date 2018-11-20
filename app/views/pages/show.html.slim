@@ -17,7 +17,7 @@ header.page-header
 .page-body
   .container
     article.thread.is-page
-      .thread__inner
+      .thread__inner.a-card
         header.thread-header
           h1.thread-header__title
             = @page.title
@@ -29,15 +29,17 @@ header.page-header
         .thread-body
           .thread__description.js-markdown-view.js-target-blank.is-long-text-style.js-markdown
             = @page.body
-          .thread-edit-tools
-            .thread-edit-tools__inner
-              ul.thread-edit-tools__items
-                li.thread-edit-tools__item
-                  = link_to [:edit, @page], class: "thread-edit-tools__item-link is-success" do
-                    i.fas.fa-pen
-                li.thread-edit-tools__item
-                  = link_to @page, data: { confirm: t("are_you_sure") }, method: :delete, class: "thread-edit-tools__item-link is-danger" do
-                    i.fas.fa-trash-alt
+        footer.card-footer
+          .card-footer-actions
+            ul.card-footer-actions__items
+              li.card-footer-actions__item
+                = link_to [:edit, @page], class: "card-footer-actions__action is-button-simple-md-warning is-block" do
+                  i.fas.fa-pen
+                  | 内容変更
+              li.card-footer-actions__item
+                = link_to @page, data: { confirm: t("are_you_sure") }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                  i.fas.fa-trash-alt
+                  | 削除
       .thread-prev-next
         .thread-prev-next__item
           = link_to :pages, class: "thread-prev-next__item-link is-index" do

@@ -18,7 +18,7 @@ header.page-header
 .page-body
   .container
     .thread
-      .thread__inner
+      .thread__inner.a-card
         header.thread-header
           h1.thread-header__title
             = @question.title
@@ -27,19 +27,27 @@ header.page-header
               = @question.user.login_name
             time.thread-meta__created-at(datetime="#{@question.created_at.to_datetime}" pubdate="pubdate")
               = l @question.updated_at, format: :date_long_with_time
+        - if @question.practice.present?
+          .report-practices
+            ul.report-practices__items
+              li.report-practices__item
+                = link_to @question.practice, class: "report-practices__item-link" do
+                  = @question.practice.title
         .thread-body
           .thread__description.js-markdown-view.js-target-blank.is-long-text-style.js-markdown
             = @question.description
-          - if @question.user_id == current_user.id
-            .thread-edit-tools
-              .thread-edit-tools__inner
-                ul.thread-edit-tools__items
-                  li.thread-edit-tools__item
-                    = link_to edit_question_path(@question), class: "thread-edit-tools__item-link is-success" do
-                      i.fas.fa-pen
-                  li.thread-edit-tools__item
-                    = link_to question_path(@question), data: { confirm: t("are_you_sure") }, method: :delete, class: "thread-edit-tools__item-link is-danger" do
-                      i.fas.fa-trash-alt
+        - if @question.user_id == current_user.id
+          .card-footer
+            .card-footer-actions
+              ul.card-footer-actions__items
+                li.card-footer-actions__item
+                  = link_to edit_question_path(@question), class: "card-footer-actions__action is-button-simple-md-primary is-block", id: "js-shortcut-edit" do
+                    i.fas.fa-pen#new
+                    | 内容修正
+                li.card-footer-actions__item
+                  = link_to question_path(@question), data: { confirm: t("are_you_sure") }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                    i.fas.fa-trash-alt#delete
+                    | 削除
 
       = link_to @question.user, itempro: "url", class: "thread__author-link" do
         = gravatar_tag @question.user, secure: true, size: 120, html: { class: "thread__author-icon" }

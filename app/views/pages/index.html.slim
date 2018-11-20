@@ -11,7 +11,7 @@ header.page-header
 .page-body
   .container
     = paginate @pages, position: "top"
-    .thread-list
+    .thread-list.a-card
       - @pages.each do |page|
         = render "page_list_item", page: page
     = paginate @pages, position: "bottom"

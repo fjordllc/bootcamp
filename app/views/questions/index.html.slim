@@ -29,7 +29,7 @@ header.page-header.is-margin-bottom-0
 
   .container
     - if @questions.present?
-      .thread-list
+      .thread-list.a-card
         = render @questions
     - else
       .thread-list.is-empty

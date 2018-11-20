@@ -14,8 +14,7 @@
             i.fas.fa-trash-alt
     - if question.practice
       h3.thread-list-item__sub-title
-        = link_to question.practice, class: "thread-list-item__sub-title-link" do
-          = question.practice.title
+        = question.practice.title
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{question.updated_at.to_datetime}" pubdate="pubdate")
         = l question.updated_at, format: :semi_long

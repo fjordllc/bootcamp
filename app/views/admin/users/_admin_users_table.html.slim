@@ -48,27 +48,7 @@
           td.admin-table__item-value.is-text-align-center
             = number_to_percentage user.completed_percentage, precision: 0
           td.admin-table__item-value.is-text-align-center
-            ul.is-button-group
-              - if user.github_account?
-                li
-                  = link_to user_github_url(user), class: "is-button-simple-sm-secondary is-icon" do
-                    i.fab.fa-github-alt
-              - if user.twitter_account?
-                li
-                  = link_to user.twitter_url, class: "is-button-simple-sm-secondary is-icon" do
-                    i.fab.fa-twitter
-              - if user.facebook_url?
-                li
-                  = link_to user.facebook_url, class: "is-button-simple-sm-secondary is-icon" do
-                    i.fab.fa-facebook
-              - if user.blog_url?
-                li
-                  = link_to user.blog_url, class: "is-button-simple-sm-secondary is-icon" do
-                    i.fas.fa-home
-                - if user.feed_url?
-                  li
-                    = link_to user.feed_url, class: "is-button-simple-sm-secondary is-icon" do
-                      i.fas.fa-rss
+            = render "users/sns", user: user
           td.admin-table__item-value.is-text-align-center
             = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: "is-button-simple-sm-warning is-icon" do
               i.fas.fa-pen
@@ -78,8 +58,8 @@
                 i.fas.fa-trash-alt
 
 .practice-contents
-  .practice-content
-    header.practice-content__header
+  .practice-content.a-card
+    header.practice-content__header.card-header
       h2.practice-content__title
         | 全員のメアド
     .practice-content__body

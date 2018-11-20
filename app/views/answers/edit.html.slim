@@ -1,3 +1,5 @@
+- content_for(:page_classes, "no-recent-reports")
+
 header.page-header
   .container
     .page-header__container
@@ -5,4 +7,5 @@ header.page-header
 
 .page-body
   .container
-    = render "form", question: @question, answer: @answer
+    .thread-comments-container
+      = render "form", question: @question, answer: @answer

@@ -1,6 +1,6 @@
 - content_for(:page_classes, "no-header no-footer no-recent-reports")
 
-.auth-form.is-sign-up
+.auth-form.is-sign-up.a-card
   header.auth-form__header
     h1.auth-form__title アカウント編集
   .auth-form__body
@@ -12,10 +12,11 @@
            span.auth-form-nav__item-link(data-target="#nda-modal" data-toggle="modal")
             | 秘密保持契約内容を確認
 
-.auth-form.is-sign-up
-  header.auth-form__header
+.auth-form.is-sign-up.a-card
+  header.card-header
     h1.auth-form__title 退会
-  .auth-form__body
-    ul.auth-form-action__items
-      li.auth-form-action__item
-        = link_to "退会する", current_user, method: :delete, class: "is-button-simple-md-warning", data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }
+  .card-footer
+    .card-footer-actions
+      ul.card-footer-actions__items
+        li.card-footer-actions__item
+          = link_to "退会する", current_user, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block", data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }
