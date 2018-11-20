@@ -1,4 +1,4 @@
-- title "#{@course.title}のプラクティス"
+- title "#{@course.title}コースのプラクティス"
 header.page-header
   .container
     .page-header__container
@@ -6,6 +6,9 @@ header.page-header
       .page-header__action
       .page-header-actions
         ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to courses_path, class: "is-button-simple-md-secondary" do
+              | コース一覧
           - if current_user.admin?
             li.page-header-actions__item
               = link_to new_practice_path(course_id: @course), class: "is-button-simple-md-warning" do

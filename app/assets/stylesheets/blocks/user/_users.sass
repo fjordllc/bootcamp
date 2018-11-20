@@ -6,21 +6,23 @@
   opacity: 0.5
 
 .users-item__inner
-  background-color: $base
-  border-radius: .25rem
   height: 100%
-  box-shadow: rgba(black, .2) 0 .0625rem .125rem
 
 .users-item__header
   +position(relative)
   padding-left: 3.5rem
   border-bottom: solid 1px $background-color
+  padding-bottom: .5rem
   +media-breakpoint-down(sm)
     padding-left: 3rem
 
-.users-item__name-link
+.users-item__name
   +text-block(1rem 1.45, 600 $main-color block)
-  padding-top: .5rem
+
+.users-item__name-link
+  color: $main-color
+  display: block
+  +padding(vertical, .5rem)
   +hover-link
 
 .users-item__icon-image
@@ -35,7 +37,7 @@
     border: solid $base .125rem
 
 .users-item__description
-  padding: .5rem 1rem .75rem
+  padding: .75rem 1rem
   padding-left: 3.5rem
   +media-breakpoint-down(sm)
     padding-left: 1rem

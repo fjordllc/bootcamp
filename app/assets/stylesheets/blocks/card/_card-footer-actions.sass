@@ -1,0 +1,23 @@
+.card-footer
+  padding: .75rem 1.25rem
+  border-top: $background-color solid 1px
+  &:last-child
+    +border-radius(bottom, .25rem)
+  .card-header + &
+    border-top: none
+
+.card-footer-actions__items
+  display: flex
+  justify-content: center
+  flex-wrap: wrap
+  +margin(horizontal, -.375rem)
+  margin-bottom: -.625rem
+
+.card-footer-actions__item
+  flex: 0 0 12rem
+  max-width: 50%
+  +padding(horizontal, .375rem)
+  margin-bottom: .625rem
+  +media-breakpoint-down(sm)
+    flex: 0 0 100%
+    max-width: 100%
