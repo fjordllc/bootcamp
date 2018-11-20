@@ -14,10 +14,6 @@ class CurrentLinkTest < ApplicationSystemTestCase
     assert_selector "a.global-nav-links__link.is-active[href='/users']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
 
-    visit "/courses"
-    assert_selector "a.global-nav-links__link.is-active[href='/courses']", count: 1
-    assert_selector "a.global-nav-links__link.is-active", count: 1
-
     visit "/courses/#{courses(:course_1).id}/practices"
     assert_selector "a.global-nav-links__link.is-active[href='/courses/#{courses(:course_1).id}/practices']", count: 1
     assert_selector "a.global-nav-links__link.is-active", count: 1
