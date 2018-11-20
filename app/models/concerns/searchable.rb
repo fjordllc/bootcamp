@@ -8,10 +8,10 @@ module Searchable
 
   def description
     case self
-    when Report
-      self[:description]
     when Page
       self[:body]
+    else
+      self[:description]
     end
   end
 end

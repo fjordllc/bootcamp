@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Question < ActiveRecord::Base
+  include Searchable
+
   belongs_to :user, touch: true
   has_many :answers, dependent: :destroy
   has_one :correct_answer
