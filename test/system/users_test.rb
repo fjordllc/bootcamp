@@ -53,6 +53,14 @@ class UsersTest < ApplicationSystemTestCase
     assert_text "卒業日"
   end
 
+  test "retired date is displayed" do
+    login_user "komagata", "testtest"
+    visit "/users/#{users(:yameo).id}"
+    assert_text "リタイア日"
+    visit "/users/#{users(:tanaka).id}"
+    assert_no_text "リタイア日"
+  end
+
   test "user list corresponding to selected status is displayed" do
     login_user "komagata", "testtest"
 
