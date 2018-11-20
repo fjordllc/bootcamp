@@ -7,6 +7,6 @@ class Course::PracticesTest < ApplicationSystemTestCase
 
   test "show listing practices" do
     visit "/courses/#{courses(:course_1).id}/practices"
-    assert_equal "Rails Webプログラマーのプラクティス | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "Rails Webプログラマーコースのプラクティス | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 end

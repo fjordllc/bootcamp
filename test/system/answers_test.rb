@@ -28,7 +28,7 @@ class AnswersTest < ApplicationSystemTestCase
 
     first(".thread-comment__actions-item-link").click
     post_comment "【更新】テストの回答0"
-    answers_after_update = page.all(".thread-comments__description").map(&:text)
+    answers_after_update = page.all(".is-button-simple-md-primary").map(&:text)
     assert_equal "【更新】テストの回答0", answers_after_update[0]
     assert_equal "テストの回答1", answers_after_update[1]
   end
