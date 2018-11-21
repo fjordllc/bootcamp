@@ -14,7 +14,10 @@ class Notification < ApplicationRecord
     came_question: 6
   }
 
-  scope :unreads, -> { where(read: false).order(created_at: :desc) }
+  scope :unreads, -> {
+    into_one = select(:path).group(:path).maximum(:created_at)
+    where(read: false, created_at: into_one.values).order(created_at: :desc)
+  }
 
   def self.came_comment(comment, reciever, message)
     Notification.create!(
