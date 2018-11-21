@@ -21,7 +21,7 @@ class Admin::UsersController < AdminController
       when "inactive"
         @users.where(adviser: false, retire: false, graduation: false).inactive.order(:updated_at)
       when "year_end_party"
-        @users.where(retire: false)
+        @users.where(retired_on: nil)
       when "all"
         @users
       end
@@ -73,9 +73,10 @@ class Admin::UsersController < AdminController
         :find_job_assist,
         :feed_url,
         :adviser,
-        :retire,
         :nda,
-        :graduated_on
+        :graduated_on,
+        :retired_on,
+        :nda
       )
     end
 end
