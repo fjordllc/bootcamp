@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_104304) do
+ActiveRecord::Schema.define(version: 2018_11_20_044954) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -249,7 +249,7 @@ ActiveRecord::Schema.define(version: 2018_11_12_104304) do
     t.string "face_content_type"
     t.bigint "face_file_size"
     t.datetime "face_updated_at"
-    t.datetime "graduated_at"
+    t.date "graduated_on"
     t.bigint "course_id"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"

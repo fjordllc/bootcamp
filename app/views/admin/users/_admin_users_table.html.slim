@@ -22,7 +22,7 @@
               | アドバイザー
             - elsif user.retire?
               | リタイア
-            - elsif user.graduation
+            - elsif user.graduated_on?
               | 卒業生
             - elsif user.active?
               | 現役生
