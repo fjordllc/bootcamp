@@ -1,7 +1,6 @@
 $thread-header-author: 4.75rem
 .thread-comment-form
   +position(relative)
-  border-radius: .25rem
   margin-bottom: 2rem
   padding-left: $thread-header-author
   +media-breakpoint-down(sm)
@@ -20,9 +19,6 @@ $thread-header-author: 4.75rem
   border-radius: 50%
 
 .thread-comment-form__form
-  background-color: $base
-  box-shadow: rgba(black, .2) 0 .0625rem .125rem
-  border-radius: .25rem
   padding-bottom: 1rem
   +relative
   +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)

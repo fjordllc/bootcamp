@@ -15,6 +15,6 @@ header.page-header
 .page-body
   .container
     = paginate @announcements, position: "top"
-    .thread-list
+    .thread-list.a-card
       = render partial: "announcements", collection: @announcements, as: :announcement
     = paginate @announcements, position: "bottom"

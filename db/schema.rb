@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_07_022628) do
+ActiveRecord::Schema.define(version: 2018_11_12_104304) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,6 +43,11 @@ ActiveRecord::Schema.define(version: 2018_11_07_022628) do
     t.datetime "updated_at"
     t.integer "position"
     t.text "description"
+  end
+
+  create_table "categories_courses", id: false, force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "category_id", null: false
   end
 
   create_table "checks", id: :serial, force: :cascade do |t|
@@ -95,6 +100,13 @@ ActiveRecord::Schema.define(version: 2018_11_07_022628) do
     t.boolean "user_policy_agreed", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "footprints", id: :serial, force: :cascade do |t|
@@ -238,6 +250,8 @@ ActiveRecord::Schema.define(version: 2018_11_07_022628) do
     t.bigint "face_file_size"
     t.datetime "face_updated_at"
     t.datetime "graduated_at"
+    t.bigint "course_id"
+    t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end

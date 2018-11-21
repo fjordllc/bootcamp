@@ -1,22 +1,37 @@
-.user-data-sns
-  ul.user-data-sns__items
-    - if user.github_account?
-      li.user-data-sns__item
-        = link_to user_github_url(user), class: "user-data-sns__item-link" do
+.sns-links
+  ul.sns-links__items.is-button-group
+    li.sns-links__item
+      - if user.github_account?
+        = link_to user_github_url(user), class: "sns-links__item-link is-button-simple-xs-secondary is-icon" do
           i.fab.fa-github-alt
-    - if user.twitter_account?
-      li.user-data-sns__item
-        = link_to user.twitter_url, class: "user-data-sns__item-link" do
+      - else
+        .sns-links__item-link.is-button-simple-xs-secondary.is-icon.is-disabled
+          i.fab.fa-github-alt
+    li.sns-links__item
+      - if user.twitter_account?
+        = link_to user.twitter_url, class: "sns-links__item-link is-button-simple-xs-secondary is-icon" do
           i.fab.fa-twitter
-    - if user.facebook_url?
-      li.user-data-sns__item
-        = link_to user.facebook_url, class: "user-data-sns__item-link" do
+      - else
+        .sns-links__item-link.is-button-simple-xs-secondary.is-icon.is-disabled
+          i.fab.fa-twitter
+    li.sns-links__item
+      - if user.facebook_url?
+        = link_to user.facebook_url, class: "sns-links__item-link is-button-simple-xs-secondary is-icon" do
           i.fab.fa-facebook
-    - if user.blog_url?
-      li.user-data-sns__item
-        = link_to user.blog_url, class: "user-data-sns__item-link" do
+      - else
+        .sns-links__item-link.is-button-simple-xs-secondary.is-icon.is-disabled
+          i.fab.fa-facebook
+    li.sns-links__item
+      - if user.blog_url?
+        = link_to user.blog_url, class: "sns-links__item-link is-button-simple-xs-secondary is-icon" do
           i.fas.fa-file
-    - if user.feed_url?
-      li.user-data-sns__item
-        = link_to user.feed_url, class: "user-data-sns__item-link", target: "_blank" do
+      - else
+        .sns-links__item-link.is-button-simple-xs-secondary.is-icon.is-disabled
+          i.fas.fa-file
+    li.sns-links__item
+      - if user.feed_url?
+        = link_to user.feed_url, class: "sns-links__item-link is-button-simple-xs-secondary is-icon", target: "_blank" do
+          i.fas.fa-rss
+      - else
+        .sns-links__item-link.is-button-simple-xs-secondary.is-icon.is-disabled
           i.fas.fa-rss

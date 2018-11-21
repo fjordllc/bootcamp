@@ -24,6 +24,6 @@ nav.sort-nav
   .container
     = paginate @reports, position: "top"
     - if @reports.present?
-      .thread-list
+      .thread-list.a-card
         = render partial: "reports/report_list_item", collection: @reports, as: :report, locals: { search_words: @search_words }
     = paginate @reports, position: "bottom"

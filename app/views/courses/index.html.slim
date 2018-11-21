@@ -1,0 +1,18 @@
+- title "コース"
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title = title
+      .page-header-actions
+        ul.page-header-actions__items
+          - if current_user.admin?
+            li.page-header-actions__item
+              = link_to new_course_path, class: "is-button-simple-md-warning" do
+                i.fas.fa-plus
+                | 新規コース
+
+.page-body
+  .container
+    .courses-items
+      .row
+        = render @courses.order(:created_at)

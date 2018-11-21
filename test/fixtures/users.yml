@@ -12,6 +12,7 @@ komagata:
   company: company_1
   description: "平日１０〜１９時勤務です。"
   mentor: true
+  course: course_1
   updated_at: "2014-01-01 00:00:01"
   created_at: "2014-01-01 00:00:01"
 
@@ -29,6 +30,7 @@ machida:
   company: company_1
   description: "月曜日と木曜日の午前中勤務です。"
   mentor: true
+  course: course_1
   updated_at: "2014-01-01 00:00:00"
   created_at: "2014-01-01 00:00:02"
 
@@ -46,6 +48,7 @@ tanaka:
   company: company_1
   description: "田中です。"
   graduation: true
+  course: course_1
   created_at: "2014-01-01 00:00:03"
 
 mineo:
@@ -62,6 +65,7 @@ mineo:
   company: company_1
   description: "峰尾です。"
   adviser: true
+  course: course_1
   created_at: "2014-01-01 00:00:04"
 
 yameo:
@@ -77,6 +81,7 @@ yameo:
   company: company_1
   description: "リタイアしました。"
   retire: true
+  course: course_1
   created_at: "2014-01-01 00:00:05"
 
 yamada:
@@ -92,6 +97,7 @@ yamada:
   feed_url: http://yamada.com/index.atom
   company: company_1
   description: "山田です。"
+  course: course_1
   created_at: "2014-01-01 00:00:06"
 
 kimura:
@@ -107,6 +113,7 @@ kimura:
   feed_url: http://kimura.org/index.atom
   company: company_1
   description: "木村です。"
+  course: course_1
   updated_at: "2014-01-01 00:00:07"
   created_at: "2014-01-01 00:00:07"
 
@@ -123,5 +130,6 @@ hatsuno:
   feed_url: http://hatsuno.org/index.atom
   company: company_1
   description: "初野です。"
+  course: course_1
   updated_at: "2014-01-01 00:00:08"
   created_at: "2014-01-01 00:00:08"

@@ -93,3 +93,33 @@ category_16:
   slug: "http"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
   position: 16
+
+category_17:
+  name: "Unity"
+  slug: "unity"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
+  position: 17
+
+category_18:
+  name: "C#"
+  slug: "csherp"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
+  position: 18
+
+category_19:
+  name: "ゲームのビルド"
+  slug: "game-build"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
+  position: 19
+
+category_20:
+  name: "Unity発展編"
+  slug: "unity-advance"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
+  position: 20
+
+category_21:
+  name: "ゲームのテスト"
+  slug: "game-test"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
+  position: 21

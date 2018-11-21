@@ -48,10 +48,6 @@ $thread-header-author: 3.5rem
     +top(-1px)
 
 .thread-comment__body
-  background-color: $base
-  box-shadow: rgba(black, .2) 0 .0625rem .125rem
-  +padding(horizontal, 1rem)
-  border-radius: .25rem
   min-height: 5rem
   +relative
   +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
@@ -67,6 +63,7 @@ $thread-header-author: 3.5rem
 
 .thread-comments__description
   +padding(vertical, 1rem)
+  +padding(horizontal, 1rem)
   +media-breakpoint-down(sm)
     +padding(vertical, .75rem)
     word-wrap: break-word
@@ -76,6 +73,7 @@ $thread-header-author: 3.5rem
   justify-content: space-between
   align-items: center
   border-bottom: solid 1px $background-color
+  +padding(horizontal, 1rem)
   +padding(vertical, .75rem)
   +media-breakpoint-down(sm)
     flex-direction: column

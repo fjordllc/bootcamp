@@ -5,6 +5,11 @@ require "application_system_test_case"
 class UsersTest < ApplicationSystemTestCase
   setup { login_user "hatsuno", "testtest" }
 
+  test "show profile" do
+    visit "/users/#{users(:hatsuno).id}"
+    assert_equal "hatsunoのプロフィール | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
   test "access by other users" do
     login_user "yamada", "testtest"
     user = users(:hatsuno)
