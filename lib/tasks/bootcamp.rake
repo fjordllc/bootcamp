@@ -4,35 +4,6 @@ require "#{Rails.root}/config/environment"
 
 namespace :bootcamp do
   namespace :oneshot do
-    desc "Create a course and set all users."
-    task "create_a_course_and_set_all_users" do
-      Course.create!(
-        title: "Railsプログラマー",
-        description: "Linux, Web, Ruby, Railsなどを学んでWebプログラマーになろう。"
-      )
-
-      User.update_all(course: Course.first)
-
-      Category.all.each do |category|
-        category.courses << Course.first
-      end
-    end
-
-    desc "Set all graduated_on"
-    task "set_all_graduated_on" do
-      User.where(graduation: true, graduated_on: nil).order(:created_at).each do |user|
-        puts "Update graduated_on: #{user.login_name}"
-        user.update!(graduated_on: "2000-01-01")
-      end
-    end
-
-    desc "Set all retired_on"
-    task "set_all_riteired_on" do
-      User.where(retire: true, retired_on: nil).order(:created_at).each do |user|
-        puts "Update retired_on: #{user.login_name}"
-        user.update!(retired_on: "2000-01-01")
-      end
-    end
   end
 
   desc "Replace practices"

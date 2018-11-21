@@ -3,7 +3,7 @@ header.header
     .header__container
       = link_to root_path, class: "header__title" do
         = image_tag("logo.svg", class: "header__title-image")
-        - if current_user.graduation
+        - if current_user.graduated_on?
           .user-part.is-header(class="is-graduate")
             = t("graduate")
         - if current_user.adviser

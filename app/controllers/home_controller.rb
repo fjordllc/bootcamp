@@ -3,7 +3,7 @@
 class HomeController < ApplicationController
   def index
     if current_user
-      if current_user.retire?
+      if current_user.retired_on?
         logout
         redirect_to retire_path
       else

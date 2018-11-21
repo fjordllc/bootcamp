@@ -10,6 +10,7 @@ AllCops:
     - 'railties/test/fixtures/tmp/**/*'
     - 'app/views/**/*'
     - 'node_modules/**/*'
+    - 'db/schema.rb'
 
 Performance:
   Exclude:

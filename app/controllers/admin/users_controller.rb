@@ -19,9 +19,9 @@ class Admin::UsersController < AdminController
       when "mentor"
         @users.mentor
       when "inactive"
-        @users.where(adviser: false, retire: false, graduation: false).inactive.order(:updated_at)
+        @users.inactive.order(:updated_at)
       when "year_end_party"
-        @users.where(retired_on: nil)
+        @users.year_end_party
       when "all"
         @users
       end
