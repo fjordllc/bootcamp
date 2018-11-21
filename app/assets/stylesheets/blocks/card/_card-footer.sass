@@ -3,3 +3,12 @@
   border-top: $background-color solid 1px
   &:last-child
     +border-radius(bottom, .25rem)
+
+.card-footer__description
+  +text-block(.75rem 1.4, center $muted-text)
+  margin-top: .5rem
+  +media-breakpoint-down(sm)
+    text-align: left
+    font-size: .625rem
+    br
+      display: none
