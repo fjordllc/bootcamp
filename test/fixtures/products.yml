@@ -47,3 +47,8 @@ product_10:
   practice: practice_4
   user: kimura
   body: テストの提出物10です。
+
+product_11:
+  practice: practice_2
+  user: hatsuno
+  body: テストの提出物11です。

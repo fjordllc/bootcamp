@@ -43,6 +43,10 @@ header.header
               i.fas.fa-cog
               .header-links__link-label 設定
           li.header-links__item
+            = link_to courses_path, class: "header-links__link" do
+              i.fas.fa-graduation-cap
+              .header-links__link-label コース
+          li.header-links__item
             = link_to logout_path, class: "header-links__link" do
               i.fas.fa-sign-out-alt
               .header-links__link-label ログアウト

@@ -1,16 +1,14 @@
 <template lang="pug">
-  .practice-content-actions
-    ul.practice-content-actions__items
-      div(v-if="submission")
-        li.practice-content-actions__item
-          a.is-button-simple-md-primary(:href="productLink")
-            i.fas.fa-file
-            | {{ productLabel }}
-      div(v-if="!complete")
-        li.practice-content-actions__item
-          button.is-button-simple-md-warning#js-complete(@click="pushComplete")
-            i.fas.fa-check
-            | 完了
+  .card-footer-actions
+    ul.card-footer-actions__items
+      li.card-footer-actions__item(v-if="submission")
+        a.is-button-simple-md-primary.is-block(:href="productLink")
+          i.fas.fa-file
+          | {{ productLabel }}
+      li.card-footer-actions__item(v-if="!complete")
+        button.is-button-simple-md-warning.is-block#js-complete(@click="pushComplete")
+          i.fas.fa-check
+          | 完了
 </template>
 <script>
 import 'whatwg-fetch'

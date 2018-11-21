@@ -1,5 +1,5 @@
 $ ->
-  if $('body.practices-index').length > 0
+  if $('body.courses-practices-index').length > 0
     $('.js-category-practices').on 'click', '.js-practice-state', {}, ->
       status = $(this).data('status')
       tr = $(this).parents('.js-practice')

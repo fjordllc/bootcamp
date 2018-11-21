@@ -1,22 +1,24 @@
-- title t("practices")
+- title "#{@course.title}コースのプラクティス"
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title
-        = t("practices")
+      h2.page-header__title = title
       .page-header__action
       .page-header-actions
         ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to courses_path, class: "is-button-simple-md-secondary" do
+              | コース一覧
           - if current_user.admin?
             li.page-header-actions__item
-              = link_to new_practice_path, class: "is-button-simple-md-warning" do
+              = link_to new_practice_path(course_id: @course), class: "is-button-simple-md-warning" do
                 i.fas.fa-plus
                 = t("new_practice")
 
 .page-body
   .container
     .categories-items
-      - @categories.each do |category|
+      - @course.categories.order(:position).each do |category|
         - if category.practices.present?
           .categories-item.practices.js-show-handle(id="category-#{category.id}")
             header.categories-item__header
@@ -29,11 +31,11 @@ header.page-header
               = category.description
             .categories-item__body
               .category-practices.js-category-practices
-                = render category.practices
+                = render partial: "practices/practice", collection: category.practices, as: :practice, locals: { course: @course }
 
       nav.page-nav.js-page-nav
         ul.page-nav__items
-        - @categories.each do |category|
+        - @course.categories.order(:position).each do |category|
           - if category.practices.present?
             .page-nav__item
               a.page-nav__item-link(data-scroll href="#category-#{category.id}")

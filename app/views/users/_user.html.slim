@@ -1,6 +1,6 @@
 .col-xl-3.col-lg-4.col-md-6.col-xs-12
   .users-item(class="#{user.active? ? "active" : "inactive"}")
-    .users-item__inner
+    .users-item__inner.a-card
       header.users-item__header
         .users-item__header-container
           .users-item__name
@@ -12,7 +12,10 @@
       .users-item__body
         .users-item__description
           p = truncate(user.description, length: 100)
-        - if current_user.admin?
-          .users-item__edit
-            = link_to edit_admin_user_path(user), class: "is-button-simple-xs-secondary" do
-              | 管理者として情報変更
+      - if current_user.admin?
+        footer.card-footer
+          .card-footer-actions
+            ul.card-footer-actions__items
+              .card-footer-actions__item
+                = link_to edit_admin_user_path(user), class: "card-footer-actions__action is-button-simple-xs-secondary" do
+                  | 管理者として情報変更

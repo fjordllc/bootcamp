@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Practices::PositionController < ApplicationController
+class Courses::Practices::PositionController < ApplicationController
   before_action :set_practice
 
   def update
@@ -15,7 +15,7 @@ class Practices::PositionController < ApplicationController
       @practice.move_to_bottom
     end
 
-    redirect_to practices_url
+    redirect_back fallback_location: root_path
   end
 
   private

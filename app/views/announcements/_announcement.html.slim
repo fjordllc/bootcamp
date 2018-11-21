@@ -1,5 +1,5 @@
 .thread
-  .thread__inner
+  .thread__inner.a-card
     header.thread-header
       h1.thread-header__title
         = announcement.title
@@ -16,18 +16,21 @@
         = announcement.description
 
       - if @announcement.user_id == current_user.id
-        .thread-edit-tools
-          .thread-edit-tools__inner
-            ul.thread-edit-tools__items
-              li.thread-edit-tools__item
-                = link_to edit_announcement_path(announcement), class: "thread-edit-tools__item-link is-success", id: "js-shortcut-edit" do
-                  i.fa.fa-pencil
-              li.thread-edit-tools__item
-                = link_to new_announcement_path(id: announcement), class: "thread-edit-tools__item-link is-success" do
-                  i.fa.fa-files-o
-              li.thread-edit-tools__item
-                = link_to announcement_path(announcement), data: { confirm: t("are_you_sure") }, method: :delete, class: "thread-edit-tools__item-link is-danger" do
-                  i.fa.fa-trash-o
+        .card-footer
+          .card-footer-actions
+            ul.card-footer-actions__items
+              li.card-footer-actions__item
+                = link_to edit_announcement_path(announcement), class: "card-footer-actions__action is-button-simple-md-primary is-block", id: "js-shortcut-edit" do
+                  i.fas.fa-pen#new
+                  | 内容修正
+              li.card-footer-actions__item
+                = link_to new_announcement_path(id: announcement), class: "card-footer-actions__action is-button-simple-md-warning is-block" do
+                  i.fas.fa-copy#copy
+                  | コピー
+              li.card-footer-actions__item
+                = link_to announcement_path(announcement), data: { confirm: t("are_you_sure") }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                  i.fas.fa-trash-alt#delete
+                  | 削除
 
   = link_to announcement.user, itempro: "url", class: "thread__author-link" do
     = gravatar_tag announcement.user, secure: true, size: 120, html: { class: "thread__author-icon" }

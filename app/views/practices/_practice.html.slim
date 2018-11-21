@@ -23,14 +23,22 @@
     .category-practices-item__handle.js-show-handle__target
       ul.is-button-group
         li
-          = link_to practice_position_path(practice, move: :top), method: :put, class: "is-button-simple-xs-secondary is-icon category-practices-item-handle-action"
+          = link_to course_practice_position_path(course, practice, move: :top),
+            method: :put,
+            class: "is-button-simple-xs-secondary is-icon category-practices-item-handle-action"
             i.fas.fa-angle-double-up
         li
-          = link_to practice_position_path(practice, move: :higher), method: :put, class: "is-button-simple-xs-secondary is-icon category-practices-item-handle-action"
+          = link_to course_practice_position_path(course, practice, move: :higher),
+            method: :put,
+            class: "is-button-simple-xs-secondary is-icon category-practices-item-handle-action"
             i.fas.fa-angle-up
         li
-          = link_to practice_position_path(practice, move: :lower), method: :put, class: "is-button-simple-xs-secondary is-icon category-practices-item-handle-action"
+          = link_to course_practice_position_path(course, practice, move: :lower),
+            method: :put,
+            class: "is-button-simple-xs-secondary is-icon category-practices-item-handle-action"
             i.fas.fa-angle-down
         li
-          = link_to practice_position_path(practice, move: :bottom), method: :put, class: "is-button-simple-xs-secondary is-icon category-practices-item-handle-action"
+          = link_to course_practice_position_path(course, practice, move: :bottom),
+            method: :put,
+            class: "is-button-simple-xs-secondary is-icon category-practices-item-handle-action"
             i.fas.fa-angle-double-down

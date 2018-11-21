@@ -1,0 +1,20 @@
+.col-xl-3.col-lg-4.col-md-6.col-xs-12
+  .courses-item(id="course_#{course.id}")
+    .courses-item__inner.a-card
+      header.courses-item__header
+        h3.courses-item__title
+          = link_to course.title, [course, :practices], class: "courses-item__title-link"
+      .courses-item__description
+        = simple_format(course.description)
+      - if admin_login?
+        footer.card-footer
+          .card-footer-actions
+            ul.card-footer-actions__items
+              li.card-footer-actions__item
+                = link_to edit_course_path(course), class: "is-button-simple-md-primary is-block" do
+                  i.fas.fa-pen
+                  | 編集
+              li.card-footer-actions__item
+                = link_to course, method: :delete, class: "is-button-simple-md-danger is-block js-delete", data: { confirm: "本当によろしいですか？" } do
+                  i.fas.fa-trash-alt
+                  | 削除

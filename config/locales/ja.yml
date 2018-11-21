@@ -260,6 +260,7 @@ ja:
   activerecord:
     models:
       user: "ユーザー"
+      course: コース
       practice: "プラクティス"
       company: "会社"
       comment: "コメント"
@@ -306,6 +307,7 @@ ja:
         login_name: "ユーザー名"
         first_name: "名"
         last_name: "姓"
+        course_id: コース
         description: "自己紹介（動ける曜日・時間）"
         email: "Email"
         twitter_account: "Twitterアカウント"
@@ -332,6 +334,12 @@ ja:
         graduation: 卒業
         adviser: アドバイザー
         retire: リタイア
+
+      course:
+        title: タイトル
+        description: 詳細
+        created_at: 作成日時
+        updated_at: 更新日時
 
       practice:
         title: "タイトル"

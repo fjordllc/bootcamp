@@ -3,16 +3,8 @@
 class PracticesController < ApplicationController
   include Gravatarify::Helper
   before_action :require_login
+  before_action :set_course, only: %i(new)
   before_action :set_practice, only: %w(show edit update destroy sort)
-
-  def index
-    if current_user.retire?
-      logout
-      redirect_to retire_path
-    else
-      @categories = Category.order("position")
-    end
-  end
 
   def show
   end
@@ -60,7 +52,6 @@ class PracticesController < ApplicationController
   end
 
   private
-
     def practice_params
       params.require(:practice).permit(
         :title,
@@ -74,5 +65,9 @@ class PracticesController < ApplicationController
 
     def set_practice
       @practice = Practice.find(params[:id])
+    end
+
+    def set_course
+      @course = Course.find(params[:course_id])
     end
 end

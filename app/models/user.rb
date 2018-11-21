@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
   belongs_to :company
+  belongs_to :course
   has_many :learnings
   has_many :comments,      dependent: :destroy
   has_many :reports,       dependent: :destroy
@@ -75,7 +76,7 @@ class User < ActiveRecord::Base
   end
 
   def completed_percentage
-    completed_practices.size.to_f / Practice.count.to_f * 100
+    completed_practices.size.to_f / course.practices.count.to_f * 100
   end
 
   def completed_practices_size(category)

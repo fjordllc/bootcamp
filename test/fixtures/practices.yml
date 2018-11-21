@@ -363,3 +363,45 @@ practice_50:
   goal: "goal..."
   category: category_6
   position: 50
+
+practice_51:
+  title: "iOSプログラミング入門"
+  description: "description..."
+  goal: "goal..."
+  category: category_13
+  position: 51
+
+practice_52:
+  title: "Unityのインストール"
+  description: "description..."
+  goal: "goal..."
+  category: category_17
+  position: 52
+
+practice_53:
+  title: "C#の基本"
+  description: "description..."
+  goal: "goal..."
+  category: category_18
+  position: 53
+
+practice_54:
+  title: "iOSへのビルドと固有の問題"
+  description: "description..."
+  goal: "goal..."
+  category: category_19
+  position: 54
+
+practice_55:
+  title: "サーバー連携"
+  description: "description..."
+  goal: "goal..."
+  category: category_20
+  position: 55
+
+practice_56:
+  title: "Unityでのテスト"
+  description: "description..."
+  goal: "goal..."
+  category: category_21
+  position: 56
