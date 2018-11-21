@@ -21,6 +21,9 @@
   justify-content: center
   +text-block(.75rem 1.3, center 600)
   padding: .25rem
+  +media-breakpoint-down(sm)
+    +size(2.25rem)
+    font-size: .625rem
   .thread-list-item.is-report &
     background-color: #7f6fb7
     color: $reversal-text
@@ -33,6 +36,10 @@
   .thread-list-item.is-page &
     background-color: #9fc593
     color: $reversal-text
+  .thread-list-item.is-announcement &
+    background-color: #f7cd5b
+    color: $default-text
+
 
 .thread-list-item__author
   +position(absolute, left 0, top 0)
@@ -54,7 +61,6 @@
   +media-breakpoint-down(sm)
     flex-direction: column
     align-items: flex-start
-    min-height: 3.25rem
 
 .thread-list-item__header-icon
   +text-block(.75rem, inline-flex $muted-text)
@@ -92,8 +98,6 @@
 .thread-list-item-meta
   display: flex
   +text-block(.75rem 1.4)
-  +media-breakpoint-down(sm)
-    margin-left: -3rem
 
 .thread-list-item-meta__updated-at
   +text-block(.75rem 1.4, $muted-text)
