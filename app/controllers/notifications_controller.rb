@@ -5,7 +5,8 @@ class NotificationsController < ApplicationController
   before_action :set_my_notification, only: %i(show)
 
   def show
-    @notification.update!(read: true)
+    @notifications = current_user.notifications.where(path: @notification.path)
+    @notifications.update_all(read: true)
     redirect_to @notification.path
   end
 
