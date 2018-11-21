@@ -8,12 +8,6 @@ header.page-header
   .container
     = render "product", product: @product
     = render "comments/comments", comments: @product.comments.order(:created_at).page(params[:page]), form_visibility: true
-    - if @product.user == current_user
-      .form-actions
-        ul.form-actions__items
-          li.form-actions__item
-            = link_to edit_product_path(@product), class: "form-actions__item-link is-button-simple-lg-warning" do
-              | 提出物の内容更新
     - if @footprints.any?
       .footprints
         h3.footprints__title = t("we_checked")
