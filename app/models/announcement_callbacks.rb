@@ -7,7 +7,7 @@ class AnnouncementCallbacks
 
   private
     def send_notification(announce)
-      reciever_list = User.where(retire: false)
+      reciever_list = User.where(retired_on: nil)
       reciever_list.each do |reciever|
         if announce.sender != reciever
           Notification.post_announcement(announce, reciever)

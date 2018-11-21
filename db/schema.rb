@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_20_054521) do
+ActiveRecord::Schema.define(version: 2018_11_21_110337) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -235,10 +234,8 @@ ActiveRecord::Schema.define(version: 2018_11_20_054521) do
     t.boolean "find_job_assist", default: false, null: false
     t.string "feed_url"
     t.datetime "accessed_at"
-    t.boolean "graduation", default: false, null: false
     t.string "github_account"
     t.boolean "adviser", default: false, null: false
-    t.boolean "retire", default: false, null: false
     t.boolean "nda", default: true, null: false
     t.string "slack_account"
     t.string "reset_password_token"

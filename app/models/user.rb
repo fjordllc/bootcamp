@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ActiveRecord::Base
-  ADMIN_EMAILS = %w(komagata@fjord.jp machidanohimitsu@gmail.com)
+  ADMIN_EMAILS = %w(komagata@fjord.jp machidanohimitsu@gmail.com togo@fjord.jp)
 
   as_enum :purpose, %i(get_job change_job start_venture skill_up)
   authenticates_with_sorcery!
@@ -61,12 +61,32 @@ class User < ActiveRecord::Base
   scope :retired, -> { where.not(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
-  scope :student, -> { where(mentor: false, graduated_on: nil, adviser: false, retired_on: nil) }
-  scope :active, -> { where("updated_at > ?", 1.month.ago) }
-  scope :inactive, -> { where("updated_at <= ?", 1.month.ago) }
+  scope :student, -> {
+    where(
+      mentor: false,
+      graduated_on: nil,
+      adviser: false,
+      retired_on: nil
+    )
+  }
+  scope :active, -> { where(updated_at: 1.month.ago..Float::INFINITY) }
+  scope :inactive, -> {
+    where(
+      updated_at: -Float::INFINITY..1.month.ago,
+      adviser: false,
+      retired_on: nil,
+      graduated_on: nil
+    )
+  }
+  scope :year_end_party, -> { where(retired_on: nil) }
   scope :mentor, -> { where(mentor: true) }
-  scope :working, -> { active.where(adviser: false, graduated_on: nil, retired_on: nil).order(updated_at: :desc) }
-
+  scope :working, -> {
+    active.where(
+      adviser: false,
+      graduated_on: nil,
+      retired_on: nil
+    ).order(updated_at: :desc)
+  }
   scope :admin, -> { where(email: ADMIN_EMAILS) }
 
   def away?

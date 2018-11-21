@@ -7,12 +7,11 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     @notice_text = "komagataさんからお知らせです。"
     @notice_kind = Notification.kinds["announced"]
     @notified_count = Notification.where(kind: @notice_kind).size
-    @reciever_count = User.where(retire: false).size - 1 # 送信者は除くため-1
+    @reciever_count = User.where(retired_on: nil).size - 1 # 送信者は除くため-1
   end
 
   test "all menber recieve a notification when announcement posted" do
     login_user "komagata", "testtest"
-    count = "nav.pagination"
     visit "/announcements"
     click_link "お知らせの新規作成"
 
