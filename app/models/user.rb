@@ -58,14 +58,14 @@ class User < ActiveRecord::Base
 
   scope :in_school, -> { where(graduated_on: nil) }
   scope :graduated, -> { where.not(graduated_on: nil) }
-  scope :retired, -> { where(retire: true) }
+  scope :retired, -> { where.not(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
-  scope :student, -> { where(mentor: false, graduated_on: nil, adviser: false, retire: false) }
+  scope :student, -> { where(mentor: false, graduated_on: nil, adviser: false, retired_on: nil) }
   scope :active, -> { where("updated_at > ?", 1.month.ago) }
   scope :inactive, -> { where("updated_at <= ?", 1.month.ago) }
   scope :mentor, -> { where(mentor: true) }
-  scope :working, -> { active.where(adviser: false, graduated_on: nil, retire: false).order(updated_at: :desc) }
+  scope :working, -> { active.where(adviser: false, graduated_on: nil, retired_on: nil).order(updated_at: :desc) }
 
   scope :admin, -> { where(email: ADMIN_EMAILS) }
 
