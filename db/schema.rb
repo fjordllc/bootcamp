@@ -249,9 +249,9 @@ ActiveRecord::Schema.define(version: 2018_11_20_044954) do
     t.string "face_content_type"
     t.bigint "face_file_size"
     t.datetime "face_updated_at"
+    t.date "graduated_on"
     t.bigint "course_id"
     t.index ["course_id"], name: "index_users_on_course_id"
-    t.date "graduated_on"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end

@@ -20,7 +20,7 @@
   - if @user.graduated_on.present?
     .user-dates__graduated-at
       .user-dates__graduated-at-label
-        = t("helpers.label.user.graduated_on")
+        = User.human_attribute_name :graduated_on
         | :
       .user-dates__graduated-at-value
         = l @user.graduated_on.to_date
