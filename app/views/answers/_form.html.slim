@@ -1,7 +1,7 @@
 .thread-comment-form
   .thread-comment__author
     = gravatar_tag current_user, secure: true, size: 200, html: { class: "thread-comment__author-icon" }
-  = form_for [question, answer], html: { class: "thread-comment-form__form" } do |f|
+  = form_for [question, answer], html: { class: "thread-comment-form__form", name: "answer" } do |f|
     - if answer.errors.any?
       = error_messages_for :answer
     .form-items
