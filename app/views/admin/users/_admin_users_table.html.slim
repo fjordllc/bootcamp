@@ -14,13 +14,13 @@
         th.admin-table__label 削除
     tbody.admin-table__items
       - users.each do |user|
-        tr.admin-table__item class="#{user.retire? ? "is-inactive" : "" }"
+        tr.admin-table__item class="#{user.retired_on? ? "is-inactive" : "" }"
           td.admin-table__item-value.is-text-align-center
             - if user.admin?
               | 管理者
             - elsif user.adviser
               | アドバイザー
-            - elsif user.retire?
+            - elsif user.retired_on?
               | リタイア
             - elsif user.graduated_on?
               | 卒業生
