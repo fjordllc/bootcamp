@@ -7,7 +7,7 @@ class Courses::PracticesController < ApplicationController
 
   def index
     # TODO: リタイアした人のセッションが切れたら外す
-    if current_user.retire?
+    if current_user.retired_on?
       logout
       redirect_to retire_path
     end
