@@ -72,10 +72,10 @@ class Admin::UsersController < AdminController
         :description,
         :find_job_assist,
         :feed_url,
-        :graduation,
         :adviser,
         :retire,
-        :nda
+        :nda,
+        :graduated_on
       )
     end
 end
