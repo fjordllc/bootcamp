@@ -13,7 +13,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
   test "all menber recieve a notification when announcement posted" do
     login_user "komagata", "testtest"
     visit "/announcements"
-    click_link "お知らせの新規作成"
+    click_link "お知らせ作成"
 
     find("input[name='announcement[title]']").set("お知らせです")
     find("textarea[name='announcement[description]']").set("お知らせ内容です")

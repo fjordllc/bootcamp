@@ -4,19 +4,16 @@ header.header
       = link_to root_path, class: "header__title" do
         = image_tag("logo.svg", class: "header__title-image")
         - if current_user.graduated_on?
-          .user-part.is-header(class="is-graduate")
-            = t("graduate")
+          .user-part.is-header(class="is-graduate") 卒業生
         - if current_user.adviser
-          .user-part.is-header(class="is-adviser")
-            = t("adviser")
+          .user-part.is-header(class="is-adviser") アドバイザー
         - if current_user.admin?
-          .user-part.is-header(class="is-admin")
-            | 管理者
+          .user-part.is-header(class="is-admin") 管理者
       .header-links.is-user-links
         ul.header-links__items
           li
             = form_tag reports_url, method: "get", class: "header-search" do
-              = text_field_tag "word", params[:word], class: "a-xs-text-input header-search__text-input", placeholder: t("search_report")
+              = text_field_tag "word", params[:word], class: "a-xs-text-input header-search__text-input", placeholder: "日報検索"
               button.is-button-simple-sm-secondary.is-icon.header-search__submit(type="submit")
                 i.fas.fa-search
           - if current_user.admin?

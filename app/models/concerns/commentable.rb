@@ -12,7 +12,7 @@ module Commentable
     when Report
       self[:title]
     when Product
-      I18n.translate("practice's_product", practice: self.practice[:title])
+      "「#{self.practice[:title]}」の提出物"
     end
   end
 

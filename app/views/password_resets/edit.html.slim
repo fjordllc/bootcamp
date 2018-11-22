@@ -1,7 +1,8 @@
+- title "パスワード変更"
+
 .auth-form.is-sign-up
   header.auth-form__header
-    h1.auth-form__title
-      = t("choose_a_new_password")
+    h1.auth-form__title = title
 
   .auth-form__body
     = form_for @user, url: password_reset_path(@token), htnl: { method: :put } do |f|

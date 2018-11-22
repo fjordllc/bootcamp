@@ -1,4 +1,5 @@
 - title "#{@course.title}コースのプラクティス"
+
 header.page-header
   .container
     .page-header__container
@@ -13,7 +14,7 @@ header.page-header
             li.page-header-actions__item
               = link_to new_practice_path(course_id: @course), class: "is-button-simple-md-warning" do
                 i.fas.fa-plus
-                = t("new_practice")
+                | プラクティス作成
 
 .page-body
   .container

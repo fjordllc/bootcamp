@@ -9,4 +9,4 @@
         = f.text_area :description, class: "a-textarea thread-comment-form__textarea js-markdown"
     .thread-comment-form__action
       = hidden_field_tag :return_to, params[:return_to].presence
-      = f.submit t("post_comment"), class: "is-button-simple-md-primary"
+      = f.submit "コメントを投稿", class: "is-button-simple-md-primary"

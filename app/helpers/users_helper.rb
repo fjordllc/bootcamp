@@ -2,7 +2,7 @@
 
 module UsersHelper
   def user_find_job_assist(user)
-    user.find_job_assist ? t("i_want_to_find_job_assist") : t("i_do_not_want_to_find_job_assist")
+    user.find_job_assist ? "フィヨルドの就職支援を希望する" : "フィヨルドの就職支援を希望しない"
   end
 
   def user_tab_attrs(name)

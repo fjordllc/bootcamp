@@ -1,11 +1,12 @@
+- title "質問編集"
+
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title
-        = t("editing_question")
+      h2.page-header__title = title
       = link_to questions_path, class: "is-button-simple-md-secondary" do
         i.fas.fa-angle-left
-        = t("to_index_of_questions")
+        | Q&A一覧へ
 .page-body
   .container
     = render "form", question: @question, categories: @categories

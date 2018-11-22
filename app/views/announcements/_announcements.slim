@@ -12,7 +12,7 @@
             i.fa.fa-pencil
           = link_to new_announcement_path(id: announcement), class: "thread-list-item__actions-link" do
             i.fa.fa-files-o
-          = link_to announcement_path(announcement), data: { confirm: t("are_you_sure") }, method: :delete, class: "thread-list-item__actions-link" do
+          = link_to announcement_path(announcement), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
             i.fa.fa-trash-o
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{announcement.updated_at.to_datetime}" pubdate="pubdate")

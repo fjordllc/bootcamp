@@ -59,10 +59,9 @@
         li.auth-form-checkbox
           label.auth-form-checkbox__label
             = f.check_box :find_job_assist, class: "auth-form-checkbox__input"
-            = t("i_want_to_find_job_assist")
+            | フィヨルドの就職支援を希望する
       .auth-form-item__help
-        p
-          = t("we_will_find_rails_job_by_our_best")
+        p 町田、駒形が知り合いのrailsを使った会社や知り合いの就職支援サイトなどを駆使して全力で就職先探しをサポートします。
     .auth-form-item
       = f.label :graduated_on, class: "a-sm-label"
       = f.text_field :graduated_on, class: "datepicker a-text-input"

@@ -14,7 +14,7 @@ class ChecksController < ApplicationController
     @check.save!
     notify_to_slack(@check)
     redirect_back fallback_location: root_path,
-      notice: t("checkable_was_successfully_check", checkable: checkable.class.model_name.human)
+      notice: "#{checkable.class.model_name.human}を確認しました。"
   end
 
   private
