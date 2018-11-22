@@ -1,4 +1,4 @@
-- title @search_words.present? ? t("search_for", text: @search_words.join(" ")) : t("reports")
+- title @search_words.present? ? "'#{@search_words.join(" ")}'の検索結果" : "日報"
 
 header.page-header.is-margin-bottom-0.has-border-bottom-none
   .container
@@ -9,7 +9,7 @@ header.page-header.is-margin-bottom-0.has-border-bottom-none
           .page-header-actions__item
             = link_to new_report_path, class: "is-button-simple-md-warning" do
               i.fas.fa-plus
-              = t("new_report")
+              | 日報作成
 
 nav.sort-nav
   .container

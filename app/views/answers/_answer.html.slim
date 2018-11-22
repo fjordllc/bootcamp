@@ -1,5 +1,6 @@
 - question = answer.question
 - correct_answer = question.correct_answer
+
 .thread-comment(class="#{answer == answer.question.correct_answer ? "is-correct_answer" : ""}")
   .thread-comment__author
     = link_to answer.user, itempro: "url", class: "thread-comment__author-link" do
@@ -9,8 +10,7 @@
       .answer-badge
         .answer-badge__icon
           i.fas.fa-star
-        .answer-badge__label
-          = t("best_answer_html")
+        .answer-badge__label ベストアンサー
     header.thread-comment__body-header
       h2.thread-comment__title
         = link_to answer.user, itempro: "url", class: "thread-comment__title-link" do
@@ -33,6 +33,6 @@
                 i.fas.fa-pen#new
                 | 内容修正
             li.card-footer-actions__item
-              = link_to question_answer_path(answer.question, answer, return_to: question_url(answer.question)), data: { confirm: t("are_you_sure") }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+              = link_to question_answer_path(answer.question, answer, return_to: question_url(answer.question)), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
                 i.fas.fa-trash-alt#delete
                 | 削除

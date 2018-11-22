@@ -4,14 +4,13 @@
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title
-        = t("new_report")
+      h2.page-header__title = title
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
             = link_to reports_path, class: "is-button-simple-md-secondary" do
               i.fas.fa-angle-left
-              = t("to_index_of_reports")
+              | 日報一覧へ
 
 .page-body
   .container

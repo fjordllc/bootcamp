@@ -1,7 +1,6 @@
 .completed-practices.a-card
   header.card-header
-    h2.completed-practices__title
-      = t("completed_practices")
+    h2.completed-practices__title 完了したプラクティス
   .completed-practices__body
     = render "completed_practices_progress", user: @user
     = render "completed_practices_list", user: @user

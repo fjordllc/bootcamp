@@ -1,24 +1,25 @@
 - title @announcement.title
+
 header.page-header
   .container
     .page-header__container
-      h1.page-header__title お知らせ
+      h1.page-header__title = title
       .page-header-actions
         ul.page-header-actions__items
           - if admin_login?
             li.page-header-actions__item
               = link_to new_announcement_path, class: "page-header-actions__items-link is-button-simple-md-warning" do
                 i.fa.fa-plus
-                = t("new_announcement")
+                | お知らせ作成
           li.page-header-actions__item
             = link_to announcements_path, class: "page-header-actions__items-link is-button-simple-md-secondary" do
-              = t("to_index_of_announcements")
+              | お知らせ一覧へ
 
 .page-body
   .container
     = render "announcement", announcement: @announcement
     - if @footprints.any?
       .footprints
-        h3.footprints__title = t("we_checked")
+        h3.footprints__title 見たよ
         ul.footprints__items
           = render @footprints

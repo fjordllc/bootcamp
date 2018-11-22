@@ -1,7 +1,8 @@
+- title "お知らせ編集"
+
 .page-header
   .container
     .page-header__container
-      h1.page-header__title
-        = t("editing_announcement")
+      h1.page-header__title = title
 .container
   = render "form", announcement: @announcement

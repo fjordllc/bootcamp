@@ -61,7 +61,7 @@
                   i.fas.fa-copy#copy
                   | コピー
               li.card-footer-actions__item
-                = link_to report_path(report), data: { confirm: t("are_you_sure") }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                = link_to report_path(report), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
                   i.fas.fa-trash-alt#delete
                   | 削除
 
@@ -72,7 +72,7 @@
             = form_for @check, html: { class: "report-check-form" } do |f|
               = hidden_field_tag :user_id, current_user.id
               = hidden_field_tag :report_id, @report.id
-              = f.submit t("check_report"), class: "report-check-form__action is-button-simple-md-danger"
+              = f.submit "日報を確認する", class: "report-check-form__action is-button-simple-md-danger"
 
   .thread-prev-next
     .thread-prev-next__item

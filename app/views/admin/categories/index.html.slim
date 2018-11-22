@@ -1,12 +1,11 @@
 header.page-header
   .container
     .page-header__container
-      h1.page-header__title
-        = t("listing_categories")
+      h1.page-header__title カテゴリー
       .page-header__action
         = link_to new_admin_category_path, class: "is-button-simple-md-warning" do
           i.fas.fa-plus
-          = t("new_category")
+          | カテゴリー作成
 = render "admin/admin_page_tabs", active: 2
 .page-body
   .container.is-padding-horizontal-0-sm-down
@@ -14,14 +13,10 @@ header.page-header
       table.admin-table__table
         thead.admin-table__header
           tr.admin-table__labels
-            th.admin-table__label
-              = t("activerecord.attributes.category.name")
-            th.admin-table__label
-              = t("activerecord.attributes.category.slug")
-            th.admin-table__label.actions
-              = t("action")
-            th.admin-table__label.handle
-              = t("order")
+            th.admin-table__label = Category.human_attribute_name :name
+            th.admin-table__label = Category.human_attribute_name :slug
+            th.admin-table__label.actions 操作
+            th.admin-table__label.handle 並び順
         tbody.admin-table__items
           - @categories.each do |category|
             tr.admin-table__item
@@ -35,7 +30,7 @@ header.page-header
                     = link_to edit_admin_category_path(category), class: "is-button-simple-sm-primary is-icon" do
                       i.fas.fa-pen
                   li
-                    = link_to [:admin, category], data: { confirm: t("are_you_sure") }, method: :delete, class: "is-button-simple-sm-danger is-icon" do
+                    = link_to [:admin, category], data: { confirm: "本当によろしいですか？" }, method: :delete, class: "is-button-simple-sm-danger is-icon" do
                       i.fas.fa-trash-alt
               td.admin-table__item-value.is-text-align-center
                 ul.is-button-group

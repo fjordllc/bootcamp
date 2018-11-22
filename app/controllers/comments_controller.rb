@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
     @comment.commentable = commentable
     if @comment.save
       notify_to_slack(@comment)
-      redirect_to @comment.commentable, notice: t("comment_was_successfully_created")
+      redirect_to @comment.commentable, notice: "コメントを投稿しました。"
     else
       render :new
     end
@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
 
     if @comment.update(comment_params)
-      redirect_to @comment.commentable, notice: t("comment_was_successfully_updated")
+      redirect_to @comment.commentable, notice: "コメントを更新しました。"
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = current_user.comments.find(params[:id])
     @comment.destroy
-    redirect_to @comment.commentable, notice: t("comment_was_successfully_deleted")
+    redirect_to @comment.commentable, notice: "コメントを削除しました。"
   end
 
   private
