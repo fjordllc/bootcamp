@@ -17,7 +17,11 @@
   .form-item
     .row
       .col-md-6.col-xs-12
-        = f.collection_check_boxes :category_ids, Category.all, :id, :name
+        .checkboxes
+          ul.checkboxes__items
+            = f.collection_check_boxes :category_ids, Category.all, :id, :name, { class: "label-checkbox" } do |b|
+              li.checkboxes__item
+                = b.label { b.check_box + b.text }
   .form-actions
     ul.form-actions__items
       li.form-actions__item

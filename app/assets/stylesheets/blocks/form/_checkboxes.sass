@@ -1,0 +1,53 @@
+$checkbox-size: .875rem
+
+.checkboxes__items
+  display: flex
+  flex-wrap: wrap
+  margin-bottom: -.625rem
+  +margin(horizontal, -.625rem)
+
+.checkboxes__item
+  +padding(horizontal, .625rem)
+  margin-bottom: .625rem
+  label
+    +text-block(.9375rem 1.4, block)
+    +position(relative)
+    +hover-link
+    cursor: pointer
+    padding-left: calc(#{$checkbox-size} * 1.4)
+    &::before
+      content: ""
+      +size($checkbox-size)
+      border: solid 1px $input-border
+      display: block
+      +position(absolute, left 0, top 50%)
+      transform: translate(0, -50%)
+      background-color: $base-color
+      border-radius: .1875rem
+      transition: all .2s ease-out
+    &::after
+      +fa(fas "\f00c")
+      +text-block(.75rem 1, $reversal-text)
+      +size($checkbox-size)
+      display: flex
+      align-items: center
+      justify-content: center
+      +position(absolute, left 0, top 50%)
+      transform: translate(0, -50%)
+      opacity: 0
+      text-decoration: none
+  label:hover::before
+    background-color: rgba($primary, .4)
+    border-color: $primary
+  label:hover::after
+    text-decoration: none
+  label.is-checked::before
+    background-color: rgba($primary, .8)
+    border-color: $primary
+  label.is-checked:hover::before
+    border-color: $primary
+  label.is-checked::after
+      opacity: 1
+  input
+    opacity: 0
+    +position(absolute, left 0, top 0)
