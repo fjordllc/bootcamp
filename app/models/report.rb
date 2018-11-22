@@ -17,6 +17,8 @@ class Report < ActiveRecord::Base
 
   scope :default_order, -> { order(reported_on: :desc, user_id: :desc) }
 
+  scope :unchecked, -> { where.not(id: Check.where(checkable_type: "Report").pluck(:checkable_id)) }
+
   def previous
     Report.where(user: user)
           .where("reported_on < ?", reported_on)
