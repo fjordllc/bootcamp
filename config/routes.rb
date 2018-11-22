@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resource :image, controller: "image", only: %i(create)
     resource :face, controller: "face", only: %i(update)
     resources :faces, only: %i(index)
+    resources :categories, only: %i(index)
     resources :practices, only: [] do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
