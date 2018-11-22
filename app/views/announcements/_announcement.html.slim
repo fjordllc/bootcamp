@@ -28,7 +28,7 @@
                   i.fas.fa-copy#copy
                   | コピー
               li.card-footer-actions__item
-                = link_to announcement_path(announcement), data: { confirm: t("are_you_sure") }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                = link_to announcement_path(announcement), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
                   i.fas.fa-trash-alt#delete
                   | 削除
 

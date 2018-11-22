@@ -1,17 +1,16 @@
-- title t("new_announcement")
+- title "お知らせ作成"
 - content_for(:page_classes, "no-recent-reports")
 
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title
-        = t("new_announcement")
+      h2.page-header__title = title
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
             = link_to announcements_path, class: "is-button-simple-md-secondary" do
               i.fa.fa-angle-left
-              = t("to_index_of_announcements")
+              | お知らせ一覧へ
 
 .page-body
   .container

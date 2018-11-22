@@ -1,6 +1,6 @@
 ul.nav.nav-tabs
   li(class="#{params["target"].blank? || params["target"] == "all" ? "active" : ""}")
-    = link_to t("all"), practices_path(target: "all")
+    = link_to "全て", practices_path(target: "all")
   - if current_user
     li(class="#{params["target"] == "me" ? "active" : ""}")
-      = link_to t("my_practices"), practices_path(target: "me")
+      = link_to "マイプラクティス", practices_path(target: "me")

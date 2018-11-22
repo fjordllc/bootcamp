@@ -37,7 +37,7 @@ header.page-header
                   i.fas.fa-pen
                   | 内容変更
               li.card-footer-actions__item
-                = link_to @page, data: { confirm: t("are_you_sure") }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                = link_to @page, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
                   i.fas.fa-trash-alt
                   | 削除
       .thread-prev-next

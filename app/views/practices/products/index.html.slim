@@ -1,4 +1,5 @@
 - title "#{@practice.title}の提出物"
+
 header.page-header
   .container
     .page-header__container
@@ -6,7 +7,7 @@ header.page-header
       .page-header__action
         = link_to practices_path, class: "is-button-simple-md-secondary" do
           i.fas.fa-angle-left
-          = t("practices")
+          | プラクティス
 
 = render "page_tabs", resource: @practice
 

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   protected
     def not_authenticated
-      redirect_to root_path, alert: t("please_sign_in_first")
+      redirect_to root_path, alert: "ログインしてください"
     end
 
     def admin_login?
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
     def require_admin_login
       unless admin_login?
-        redirect_to root_path, alert: t("please_sign_in_as_admin")
+        redirect_to root_path, alert: "管理者としてログインしてください"
       end
     end
 
@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
 
     def require_admin_or_adviser_login
       unless admin_login? || adviser_login?
-        redirect_to root_path, alert: t("please_sign_in_as_admin_or_adviser")
+        redirect_to root_path, alert: "管理者またはアドバイザーとしてログインしてください"
       end
     end
 
