@@ -38,9 +38,12 @@
           .js-goal-preview.is-long-text-style.markdown-form__preview
     .form-item
       = f.label :submission, class: "a-label"
-      label
-        = f.check_box :submission
-        | 提出物がある場合はチェック
+      .checkboxes
+        ul.checkboxes__items
+          li.checkboxes__item
+            label
+              = f.check_box :submission
+              | 提出物がある場合はチェック
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
