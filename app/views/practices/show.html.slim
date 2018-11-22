@@ -1,4 +1,5 @@
 - title @practice.title
+
 header.page-header
   .container
     .page-header__container
@@ -10,7 +11,7 @@ header.page-header
             li.page-header-actions__item
               = link_to new_practice_path, class: "is-button-simple-md-warning" do
                 i.fas.fa-plus
-                = t("new_practice")
+                | プラクティス作成
           li.page-header-actions__item
             = link_to course_practices_path(current_user.course), class: "is-button-simple-md-secondary" do
               i.fas.fa-angle-left
@@ -54,15 +55,14 @@ header.page-header
               li.card-footer-actions__item
                 = link_to edit_practice_path(@practice), class: "is-button-simple-md-primary is-block" do
                   i.fas.fa-pen
-                  = t("edit")
+                  | 編集
               li.card-footer-actions__item
-                = link_to practice_path(@practice), data: { confirm: t("are_you_sure") }, method: :delete, class: "is-button-simple-md-danger is-block" do
+                = link_to practice_path(@practice), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "is-button-simple-md-danger is-block" do
                   i.fas.fa-trash-alt
-                  = t("destroy")
+                  | 削除
 
   .interns-icons
-    h2.user-reports__title
-      = t("completed_users")
+    h2.user-reports__title 完了したユーザー
     ul.completed-users
       - @practice.completed_users.each do |user|
         li.completed-users__user

@@ -10,7 +10,7 @@
         - if current_user == question.user
           = link_to edit_question_path(question), class: "thread-list-item__actions-link" do
             i.fas.fa-pen
-          = link_to question_path(question), data: { confirm: t("are_you_sure") }, method: :delete, class: "thread-list-item__actions-link" do
+          = link_to question_path(question), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
             i.fas.fa-trash-alt
     - if question.practice
       h3.thread-list-item__sub-title

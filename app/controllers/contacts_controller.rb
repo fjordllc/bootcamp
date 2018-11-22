@@ -13,7 +13,7 @@ class ContactsController < ApplicationController
 
     if @contact.save
       NoticeMailer.contact_email(@contact).deliver_later
-      redirect_to root_path, notice: t("contact_was_successfully_created")
+      redirect_to root_path, notice: "申し込みを受け付けました。"
     else
       render :new
     end

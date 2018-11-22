@@ -1,9 +1,9 @@
+- title "プラクティス作成"
 - content_for(:page_classes, "no-recent-reports")
 
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title
-        = t("new_practice")
+      h2.page-header__title = title
 .container
   = render "form", practice: @practice

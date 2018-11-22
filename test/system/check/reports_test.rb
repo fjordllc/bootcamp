@@ -15,7 +15,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     assert has_button? "日報を確認する"
     click_button "日報を確認する"
     assert_not has_button? "日報を確認する"
-    assert_text "この日報を確認しました。"
+    assert_text "日報を確認しました。"
     visit reports_path
     assert_text "確認済"
   end
@@ -29,7 +29,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     assert has_button? "日報を確認する"
     click_button "日報を確認する"
     assert_not has_button? "日報を確認する"
-    assert_text "この日報を確認しました。"
+    assert_text "日報を確認しました。"
     visit reports_path
     assert_text "確認済"
   end

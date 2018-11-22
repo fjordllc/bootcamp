@@ -21,7 +21,7 @@ class Admin::CategoriesController < AdminController
     @category = Category.new(category_params)
 
     if @category.save
-      redirect_to admin_categories_url, notice: t("category_was_successfully_created")
+      redirect_to admin_categories_url, notice: "カテゴリーを作成しました。"
     else
       render action: "new"
     end
@@ -29,7 +29,7 @@ class Admin::CategoriesController < AdminController
 
   def update
     if @category.update(category_params)
-      redirect_to admin_categories_url, notice: t("category_was_successfully_updated")
+      redirect_to admin_categories_url, notice: "カテゴリーを更新しました。"
     else
       render action: "edit"
     end
@@ -37,7 +37,7 @@ class Admin::CategoriesController < AdminController
 
   def destroy
     @category.destroy
-    redirect_to admin_categories_url, notice: t("category_was_successfully_destroyed")
+    redirect_to admin_categories_url, notice: "カテゴリーを削除しました。"
   end
 
   private

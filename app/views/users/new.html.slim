@@ -3,10 +3,10 @@
 .auth-form.is-sign-up.a-card
   header.auth-form__header
     h1.auth-form__title
-      -if params[:role] == "adviser"
+      - if params[:role] == "adviser"
         | アドバイザー登録
-      -else
-        = t("sign_up")
+      - else
+        | サインアップ
   .auth-form__body
     = render "form", user: @user, companies: @companies
   footer.auth-form__footer

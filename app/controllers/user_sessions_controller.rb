@@ -12,19 +12,19 @@ class UserSessionsController < ApplicationController
         redirect_to retire_path
       else
         save_updated_at(@user)
-        redirect_back_or_to root_url, notice: t("sign_in_successful")
+        redirect_back_or_to root_url, notice: "サインインしました。"
       end
     else
       logout
-      flash.now[:alert] = t("invalid_email_or_password")
-      render "new", notice: t("sign_out")
+      flash.now[:alert] = "ユーザー名かパスワードが違います。"
+      render "new", notice: "サインアウトしました。"
     end
   end
 
   def destroy
     save_updated_at(current_user)
     logout
-    redirect_to root_url, notice: t("sign_out")
+    redirect_to root_url, notice: "サインアウトしました。"
   end
 
   private

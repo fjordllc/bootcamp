@@ -47,7 +47,7 @@ class UsersController < ApplicationController
         username: "#{@user.login_name}@bootcamp.fjord.jp",
         icon_url: gravatar_url(@user, secure: true)
       login(@user.login_name, params[:user][:password], true)
-      redirect_to root_url, notice: t("registration_successfull")
+      redirect_to root_url, notice: "サインアップしました。"
     else
       render "new"
     end
