@@ -13,11 +13,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "active?" do
-    travel_to Time.new(2014, 1, 10, 0, 0, 0) do
+    travel_to Time.new(2014, 1, 1, 0, 0, 0) do
       assert users(:komagata).active?
     end
 
-    travel_to Time.new(2014, 1, 20, 0, 0, 0) do
+    travel_to Time.new(2014, 2, 2, 0, 0, 0) do
       assert_not users(:machida).active?
     end
   end
