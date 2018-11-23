@@ -1,8 +1,10 @@
 - title "プラクティス編集"
+- content_for(:page_classes, "no-recent-reports")
 
 .page-header
   .container
     .page-header__container
-      h1.page-header__titla = title
+      h1.page-header__title
+        = title
 .container
   = render "form", practice: @practice
