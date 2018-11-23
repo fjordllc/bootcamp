@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_23_101305) do
+ActiveRecord::Schema.define(version: 2018_11_23_105150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -231,7 +231,6 @@ ActiveRecord::Schema.define(version: 2018_11_23_101305) do
     t.string "blog_url"
     t.integer "company_id", default: 1
     t.text "description"
-    t.boolean "find_job_assist", default: false, null: false
     t.string "feed_url"
     t.datetime "accessed_at"
     t.string "github_account"

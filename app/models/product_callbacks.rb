@@ -11,7 +11,7 @@ class ProductCallbacks
 
   private
     def send_notification(product, message)
-      User.admin.each do |user|
+      User.admins.each do |user|
         Notification.submitted(product, user, message)
       end
     end

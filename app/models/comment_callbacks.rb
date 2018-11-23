@@ -34,7 +34,7 @@ class CommentCallbacks
     def notify_admin(comment)
       return false if comment.commentable.class != Product
 
-      User.admin.where.not(id: comment.user.id).each do |user|
+      User.admins.where.not(id: comment.user.id).each do |user|
         Notification.came_comment(
           comment,
           user,
