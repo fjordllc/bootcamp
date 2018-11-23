@@ -9,3 +9,7 @@ page_2:
 page_3:
   title: Wikiページ
   body: "## 存在しないWikiページ遷移テスト\n[存在しないページ](http://localhost:3000/pages/5555555)"
+
+page_4:
+  title: Bootcmapの作業のページ
+  body: "## テスト\nテスト"
