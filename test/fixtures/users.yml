@@ -13,6 +13,7 @@ komagata:
   description: "平日１０〜１９時勤務です。"
   mentor: true
   course: course_1
+  admin: true
   updated_at: "2014-01-01 00:00:01"
   created_at: "2014-01-01 00:00:01"
 
@@ -31,6 +32,7 @@ machida:
   description: "月曜日と木曜日の午前中勤務です。"
   mentor: true
   course: course_1
+  admin: true
   updated_at: "2014-01-01 00:00:00"
   created_at: "2014-01-01 00:00:02"
 
