@@ -54,15 +54,6 @@
       = f.label :password_confirmation, class: "a-sm-label"
       = f.password_field :password_confirmation, class: "a-sm-text-input", autocomplete: :off
     .auth-form-item
-      = f.label :find_job_assist, class: "a-sm-label"
-      ul.auth-form-item__checkboxes
-        li.auth-form-checkbox
-          label.auth-form-checkbox__label
-            = f.check_box :find_job_assist, class: "auth-form-checkbox__input"
-            | フィヨルドの就職支援を希望する
-      .auth-form-item__help
-        p 町田、駒形が知り合いのrailsを使った会社や知り合いの就職支援サイトなどを駆使して全力で就職先探しをサポートします。
-    .auth-form-item
       = f.label :graduated_on, class: "a-sm-label"
       = f.text_field :graduated_on, class: "datepicker a-text-input"
     .auth-form-item

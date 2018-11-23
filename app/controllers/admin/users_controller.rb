@@ -70,7 +70,6 @@ class Admin::UsersController < AdminController
         :blog_url,
         :company_id,
         :description,
-        :find_job_assist,
         :feed_url,
         :adviser,
         :nda,

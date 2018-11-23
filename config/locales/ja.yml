@@ -189,7 +189,6 @@ ja:
         current_password: "現在のパスワード"
         remember_me: "次回から自動的にログイン"
         job: "職種"
-        find_job_assist: "就職支援"
         company: "会社"
         created_at: "開始日"
         updated_at: "最終活動日時"
@@ -322,7 +321,6 @@ ja:
         icon_content_type: 画像ファイルの種類
         notify_comment: コメント通知
         job: "職種"
-        find_job_assist: "就職支援"
         company: "会社"
         created_at: "開始日時"
         updated_at: "最終活動日時"
