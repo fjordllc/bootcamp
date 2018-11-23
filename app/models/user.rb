@@ -3,7 +3,6 @@
 class User < ActiveRecord::Base
   ADMIN_EMAILS = %w(komagata@fjord.jp machidanohimitsu@gmail.com togo@fjord.jp)
 
-  as_enum :purpose, %i(get_job change_job start_venture skill_up)
   authenticates_with_sorcery!
 
   belongs_to :company
