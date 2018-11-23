@@ -43,6 +43,11 @@ header.page-header
         = @practice.goal
       footer.card-footer
         #js-learning(data-practice-id="#{@practice.id}")
+        - unless @practice.submission
+         .card-footer__description
+            | このプラクティスに提出物のチェックは必要ありません。
+            br
+            | 終了条件をクリアしたら完了にしてください。
 
     - if current_user.admin?
       section.practice-content.a-card

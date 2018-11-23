@@ -2,6 +2,7 @@
 
 class Announcement < ApplicationRecord
   include Footprintable
+  include Searchable
 
   belongs_to :user
   alias_method :sender, :user

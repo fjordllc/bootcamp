@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Practice < ActiveRecord::Base
+  include Searchable
+
   has_many :learnings
   has_and_belongs_to_many :reports
   has_many :started_learnings,
