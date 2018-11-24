@@ -21,10 +21,12 @@
 .nda__actions
   min-width: 16rem
   flex: 0 0  12.5rem
+  +padding(vertical, .5rem)
 
 body
   .nda__action.is-checkbox
     padding-left: 2.65rem
+
 .nda__close
   +text-block(.875rem 2rem, 600)
   +size(3rem 2rem)
@@ -32,20 +34,3 @@ body
   cursor: pointer
   &:hover
     opacity: 1
-
-body
-  .modal-header
-    padding: .5rem 1rem
-    display: flex
-    align-items: center
-    justify-content: space-between
-    &::after
-      content: none
-  .modal-body
-    max-height: 80vh
-    overflow: auto
-  .modal-title
-    font-size: 1.25rem
-    font-weight: 600
-  .close
-    float: none

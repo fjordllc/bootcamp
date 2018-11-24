@@ -5,7 +5,7 @@ header.welcome-header
         ul.welcome-header-nav__items
           li.welcome-header-nav__item
             - if current_user
-              = link_to "/practices", class: "welcome-header-nav__item-link is-login" do
+              = link_to course_practices_path(current_user.course), class: "welcome-header-nav__item-link is-login" do
                 | プラクティス
             - else
               = link_to "/login", class: "welcome-header-nav__item-link is-login" do
