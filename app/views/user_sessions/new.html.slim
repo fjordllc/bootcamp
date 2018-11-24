@@ -17,7 +17,7 @@
           = link_to new_user_path, class: "auth-form-nav__item-link" do
             | サインアップ
         li.auth-form-nav__item
-          span.auth-form-nav__item-link(data-target="#nda-modal" data-toggle="modal")
+          span.auth-form-nav__item-link.js-modal(data-target="#nda-modal")
             | 秘密保持契約
 
 = render "forgot_password_modal"

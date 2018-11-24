@@ -7,7 +7,7 @@ section.welcome-section.is-faq#faq
     .welcome-section__description.js-mojik
       p
         | わからないこと、気になることがありましたら、
-        span.welcome-section__description-link(data-target="#nda-modal" data-toggle="modal")
+        span.welcome-section__description-link.js-modal(data-target="#nda-modal" data-toggle="modal")
           | こちら
         | から質問してください。
     .welcome-section__faqs
@@ -81,7 +81,7 @@ section.welcome-section.is-faq#faq
           p
             | カリキュラムが、最新のMacのOSを想定して作られています。多少古い場合はどうにかなるかもしれませんが、OSのせいで学習に詰まることが出てくるかもしれません。何かしら事情があってお手持ちのMacのバージョンが上げられない場合は、それとは別のMacを用意してから参加申し込みをお願いします。
 
-    .welcome-section__action(data-target="#nda-modal" data-toggle="modal")
+    .welcome-section__action.js-modal(data-target="#nda-modal" data-toggle="modal")
       | 質問はこちらから
 
 .modal#nda-modal(tabindex="-1" role="dialog" aria-labelledby="nda-modalLabel" aria-hidden="true")
@@ -90,11 +90,11 @@ section.welcome-section.is-faq#faq
       .modal-header
         h2.modal-title
           | お気軽に質問してください。
-        button.close(aria-label="Close" data-dismiss="modal" type="button")
+        button.modal-header__close.js-modal__close(aria-label="Close" data-dismiss="modal" type="button")
           span(aria-hidden="true")  &times;
       .modal-body
         = render("question_form")
       .modal-footer.is-text-align-center
         .nda__actions-container
-          .nda__close(aria-label="Close" data-dismiss="modal" type="button")
+          .nda__close.js-modal__close(aria-label="Close" data-dismiss="modal" type="button")
             | やっぱやめた
