@@ -11,7 +11,7 @@
         = check_box_tag :remember, params[:remember], true, class: "auth-form-item__remember-me-input"
         = t("helpers.label.user.remember_me")
       .auth-form-item__help.is-text-align-right
-        span.auth-form-item__help-link(data-target="#forgot-password-modal" data-toggle="modal")
+        span.auth-form-item__help-link.js-modal(data-target="#forgot-password-modal")
           | パスワードを忘れた
   .auth-form-action
     = button_tag(class: "is-button-simple-lg-warning is-block") do
