@@ -185,6 +185,22 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "00:30 〜 02:30"
   end
 
+  test "can't register learning_times 0h0m" do
+    visit "/reports/new"
+    fill_in "report_title", with: "テスト日報"
+    fill_in "report_description", with: "can't register learning_times 0h0m"
+
+    selects = all("select")
+    select "22", from: selects[0]["id"]
+    select "00", from: selects[1]["id"]
+    select "22", from: selects[2]["id"]
+    select "00", from: selects[3]["id"]
+
+    click_button "提出"
+
+    assert_text "学習時間0時間は登録できません"
+  end
+
   test "Reports can be copied" do
     user   = users(:komagata)
     report = user.reports.first
