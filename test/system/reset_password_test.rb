@@ -15,7 +15,7 @@ class ResetPasswordTest < ApplicationSystemTestCase
     end
 
     assert_difference "ActionMailer::Base.deliveries.count" do
-      click_button "パスワードをリセットする"
+      click_button "パスワード再設定"
     end
 
     mail = ActionMailer::Base.deliveries.last
@@ -41,7 +41,7 @@ class ResetPasswordTest < ApplicationSystemTestCase
     end
 
     assert_no_difference "ActionMailer::Base.deliveries.count" do
-      click_button "パスワードをリセットする"
+      click_button "パスワード再設定"
     end
 
     assert_equal "/login", current_path

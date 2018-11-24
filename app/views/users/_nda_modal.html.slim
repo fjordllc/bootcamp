@@ -1,10 +1,10 @@
-.modal#nda-modal(tabindex="-1" role="dialog" aria-labelledby="nda-modalLabel" aria-hidden="true")
+.modal#nda-modal(tabindex="-1" role="dialog" aria-labelledby="nda-modal Label" aria-hidden="true")
   .modal-dialog role="document"
     .modal-content
       .modal-header
         h2.modal-title
           | 秘密保持契約書
-        button.close(aria-label="Close" data-dismiss="modal" type="button")
+        button.modal-header__close.js-modal__close(aria-label="Close" type="button")
           span(aria-hidden="true")  &times;
       .modal-body
         .nda
@@ -22,5 +22,5 @@
                       = f.check_box :nda, checked: true
                     div 秘密保持契約に同意する
 
-          .nda__close(aria-label="Close" data-dismiss="modal" type="button")
+          .nda__close.js-modal__close(aria-label="Close" type="button")
             | 閉じる
