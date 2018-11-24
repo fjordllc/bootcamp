@@ -207,6 +207,7 @@ ja:
         title: "タイトル"
         practice: "プラクティス"
         description: "内容"
+        reported_on: "学習日"
 
       contact:
         name: "名前"
@@ -358,7 +359,7 @@ ja:
 
       report:
         title: タイトル
-        reported_at: 学習日
+        reported_on: 学習日
         description: 内容
 
       learning_time:
