@@ -11,8 +11,8 @@ class PageTabsTest < ApplicationSystemTestCase
     first(".category-practices-item__title-link").click
 
     assert_text "終了条件"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 4, page_tabs.size
@@ -26,29 +26,29 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[0].click
 
     assert_text "終了条件"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
 
     all(".page-tabs__item-link")[1].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "日報", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "日報", first(".is-active").text
     expected_report_counts = Practice.find(practice_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
     all(".page-tabs__item-link")[2].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "質問", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "質問", first(".is-active").text
     expected_question_counts = Practice.find(practice_id).questions.not_solved.size
     actual_question_counts = all(".thread-list-item__title-link").size
     assert_equal expected_question_counts, actual_question_counts
 
     all(".page-tabs__item-link")[3].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "提出物", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "提出物", first(".is-active").text
     expected_product_counts = Practice.find(practice_id).products.size
     actual_product_counts = all(".thread-list-item__title-link").size
     assert_equal expected_product_counts, actual_product_counts
@@ -62,8 +62,8 @@ class PageTabsTest < ApplicationSystemTestCase
     first(".category-practices-item__title-link").click
 
     assert_text "終了条件"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 4, page_tabs.size
@@ -77,29 +77,29 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[0].click
 
     assert_text "終了条件"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
 
     all(".page-tabs__item-link")[1].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "日報", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "日報", first(".is-active").text
     expected_report_counts = Practice.find(practice_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
     all(".page-tabs__item-link")[2].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "質問", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "質問", first(".is-active").text
     expected_question_counts = Practice.find(practice_id).questions.not_solved.size
     actual_question_counts = all(".thread-list-item__title-link").size
     assert_equal expected_question_counts, actual_question_counts
 
     all(".page-tabs__item-link")[3].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "提出物", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "提出物", first(".is-active").text
     expected_product_counts = Practice.find(practice_id).products.size
     actual_product_counts = all(".thread-list-item__title-link").size
     assert_equal expected_product_counts, actual_product_counts
@@ -113,8 +113,8 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".category-practices-item__title-link")[1].click
 
     assert_text "終了条件"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 4, page_tabs.size
@@ -128,29 +128,29 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[0].click
 
     assert_text "終了条件"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
 
     all(".page-tabs__item-link")[1].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "日報", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "日報", first(".is-active").text
     expected_report_counts = Practice.find(practice_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
     all(".page-tabs__item-link")[2].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "質問", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "質問", first(".is-active").text
     expected_question_counts = Practice.find(practice_id).questions.not_solved.size
     actual_question_counts = all(".thread-list-item__title-link").size
     assert_equal expected_question_counts, actual_question_counts
 
     all(".page-tabs__item-link")[3].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "提出物", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "提出物", first(".is-active").text
     expected_product_counts = Practice.find(practice_id).products.size
     actual_product_counts = all(".thread-list-item__title-link").size
     assert_equal expected_product_counts, actual_product_counts
@@ -164,8 +164,8 @@ class PageTabsTest < ApplicationSystemTestCase
     first(".category-practices-item__title-link").click
 
     assert_text "終了条件"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 3, page_tabs.size
@@ -178,21 +178,21 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[0].click
 
     assert_text "終了条件"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
 
     all(".page-tabs__item-link")[1].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "日報", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "日報", first(".is-active").text
     expected_report_counts = Practice.find(practice_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
     all(".page-tabs__item-link")[2].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "質問", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "質問", first(".is-active").text
     expected_question_counts = Practice.find(practice_id).questions.not_solved.size
     actual_question_counts = all(".thread-list-item__title-link").size
     assert_equal expected_question_counts, actual_question_counts
@@ -209,8 +209,8 @@ class PageTabsTest < ApplicationSystemTestCase
     last_displayed_student.click
 
     assert_text "Kimura Tadasi"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プロフィール", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プロフィール", first(".is-active").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 5, page_tabs.size
@@ -225,35 +225,35 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[0].click
 
     assert_text "Kimura Tadasi"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プロフィール", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プロフィール", first(".is-active").text
 
     all(".page-tabs__item-link")[1].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
     assert_text "完了したプラクティス"
 
     all(".page-tabs__item-link")[2].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "日報", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "日報", first(".is-active").text
     expected_report_counts = User.find(user_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
     all(".page-tabs__item-link")[3].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "コメント", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "コメント", first(".is-active").text
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
     actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal expected_comment_counts, actual_comment_counts
 
     all(".page-tabs__item-link")[4].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "提出物", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "提出物", first(".is-active").text
     expected_product_counts = User.find(user_id).products.size
     actual_product_counts = all(".thread-list-item__title-link").size
     assert_equal expected_product_counts, actual_product_counts
@@ -270,8 +270,8 @@ class PageTabsTest < ApplicationSystemTestCase
     last_displayed_student.click
 
     assert_text "Kimura Tadasi"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プロフィール", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プロフィール", first(".is-active").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 5, page_tabs.size
@@ -286,35 +286,35 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[0].click
 
     assert_text "Kimura Tadasi"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プロフィール", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プロフィール", first(".is-active").text
 
     all(".page-tabs__item-link")[1].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
     assert_text "完了したプラクティス"
 
     all(".page-tabs__item-link")[2].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "日報", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "日報", first(".is-active").text
     expected_report_counts = User.find(user_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
     all(".page-tabs__item-link")[3].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "コメント", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "コメント", first(".is-active").text
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
     actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal expected_comment_counts, actual_comment_counts
 
     all(".page-tabs__item-link")[4].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "提出物", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "提出物", first(".is-active").text
     expected_product_counts = User.find(user_id).products.size
     actual_product_counts = all(".thread-list-item__title-link").size
     assert_equal expected_product_counts, actual_product_counts
@@ -331,8 +331,8 @@ class PageTabsTest < ApplicationSystemTestCase
     first_displayed_student.click
 
     assert_text "Hatsuno Shinji"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プロフィール", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プロフィール", first(".is-active").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 5, page_tabs.size
@@ -347,35 +347,35 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[0].click
 
     assert_text "Hatsuno Shinji"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プロフィール", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プロフィール", first(".is-active").text
 
     all(".page-tabs__item-link")[1].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
     assert_text "完了したプラクティス"
 
     all(".page-tabs__item-link")[2].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "日報", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "日報", first(".is-active").text
     expected_report_counts = User.find(user_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
     all(".page-tabs__item-link")[3].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "コメント", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "コメント", first(".is-active").text
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
     actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal expected_comment_counts, actual_comment_counts
 
     all(".page-tabs__item-link")[4].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "提出物", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "提出物", first(".is-active").text
     expected_product_counts = User.find(user_id).products.size
     actual_product_counts = all(".thread-list-item__title-link").size
     assert_equal expected_product_counts, actual_product_counts
@@ -392,8 +392,8 @@ class PageTabsTest < ApplicationSystemTestCase
     first_displayed_student.click
 
     assert_text "Yamada Taro"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プロフィール", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プロフィール", first(".is-active").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 5, page_tabs.size
@@ -408,35 +408,35 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[0].click
 
     assert_text "Yamada Taro"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プロフィール", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プロフィール", first(".is-active").text
 
     all(".page-tabs__item-link")[1].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
     assert_text "完了したプラクティス"
 
     all(".page-tabs__item-link")[2].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "日報", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "日報", first(".is-active").text
     expected_report_counts = User.find(user_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
     all(".page-tabs__item-link")[3].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "コメント", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "コメント", first(".is-active").text
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
     actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal expected_comment_counts, actual_comment_counts
 
     all(".page-tabs__item-link")[4].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "提出物", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "提出物", first(".is-active").text
     assert_equal 1, all(".thread-list-item__title-link").size
   end
 
@@ -454,8 +454,8 @@ class PageTabsTest < ApplicationSystemTestCase
     first_displayed_student.click
 
     assert_text "Tanaka Taro"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プロフィール", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プロフィール", first(".is-active").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 4, page_tabs.size
@@ -469,27 +469,27 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[0].click
 
     assert_text "Tanaka Taro"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プロフィール", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プロフィール", first(".is-active").text
 
     all(".page-tabs__item-link")[1].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
     assert_text "完了したプラクティス"
 
     all(".page-tabs__item-link")[2].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "日報", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "日報", first(".is-active").text
     expected_report_counts = User.find(user_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
     all(".page-tabs__item-link")[3].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "コメント", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "コメント", first(".is-active").text
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
     actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal expected_comment_counts, actual_comment_counts
@@ -506,8 +506,8 @@ class PageTabsTest < ApplicationSystemTestCase
     last_displayed_student.click
 
     assert_text "Kimura Tadasi"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プロフィール", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プロフィール", first(".is-active").text
 
     page_tabs = all(".page-tabs__item-link")
     assert_equal 4, page_tabs.size
@@ -521,27 +521,27 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[0].click
 
     assert_text "Kimura Tadasi"
-    assert_equal 1, all(".is-current").length
-    assert_equal "プロフィール", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プロフィール", first(".is-active").text
 
     all(".page-tabs__item-link")[1].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "プラクティス", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "プラクティス", first(".is-active").text
     assert_text "完了したプラクティス"
 
     all(".page-tabs__item-link")[2].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "日報", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "日報", first(".is-active").text
     expected_report_counts = User.find(user_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
     all(".page-tabs__item-link")[3].click
 
-    assert_equal 1, all(".is-current").length
-    assert_equal "コメント", first(".is-current").text
+    assert_equal 1, all(".is-active").length
+    assert_equal "コメント", first(".is-active").text
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
     actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal expected_comment_counts, actual_comment_counts
