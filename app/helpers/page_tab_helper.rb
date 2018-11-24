@@ -11,7 +11,7 @@ module PageTabHelper
   end
 
   def current_page_tab_or_not(target_name)
-    current_page_tab?(target_name) ? "is-current" : ""
+    current_page_tab?(target_name) ? "is-active" : ""
   end
 
   private
