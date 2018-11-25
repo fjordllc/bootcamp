@@ -7,9 +7,9 @@ class LearningTime < ApplicationRecord
   validate :finished_at_be_greater_than_started_at
 
   def finished_at_be_greater_than_started_at
-    if diff <= 0
-      errors.add(:finished_at, ": 学習時間0時間は登録できません")
-    end
+    return if report.wip?
+    return if diff > 0
+    errors.add(:finished_at, ": 学習時間0時間は登録できません")
   end
 
   def diff
