@@ -27,6 +27,13 @@ class ReportsTest < ApplicationSystemTestCase
       fill_in("report[title]", with: "test title")
       fill_in("report[description]",   with: "test")
     end
+
+    selects = all("select")
+    select "07", from: selects[0]["id"]
+    select "30", from: selects[1]["id"]
+    select "08", from: selects[2]["id"]
+    select "30", from: selects[3]["id"]
+
     click_button "提出"
     assert_text "日報を保存しました。"
   end
