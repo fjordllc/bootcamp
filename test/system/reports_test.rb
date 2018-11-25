@@ -11,7 +11,7 @@ class ReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test "create a report" do
+  test "create report as WIP" do
     visit "/reports/new"
     within("#new_report") do
       fill_in("report[title]", with: "test title")
@@ -21,7 +21,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "日報をWIPとして保存しました。"
   end
 
-  test "create report as WIP" do
+  test "create a report" do
     visit "/reports/new"
     within("#new_report") do
       fill_in("report[title]", with: "test title")
