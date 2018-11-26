@@ -60,8 +60,7 @@ class PagesTest < ApplicationSystemTestCase
     end
 
     visit user_comments_path([user], page: 1)
-    assert_selector "span.thread-comments-container__title-count", text: "（1 〜 25 件を表示）"
-    assert_selector "nav.pagination", count: 1
+    assert_selector "nav.pagination", count: 2
     assert_equal 25, user.comments.page(1).size
 
     visit user_comments_path([users(:komagata)], page: 3)
@@ -77,8 +76,7 @@ class PagesTest < ApplicationSystemTestCase
       d = d + 1.day
     end
     visit user_reports_path([user], page: 1)
-    assert_selector "span.thread-comments-container__title-count", text: "（1 〜 25 件を表示）"
-    assert_selector "nav.pagination", count: 1
+    assert_selector "nav.pagination", count: 2
     assert_equal 25, user.reports.page(1).size
 
     visit user_reports_path([users(:komagata)], page: 3)
@@ -88,9 +86,7 @@ class PagesTest < ApplicationSystemTestCase
   test "If you click the link of a nonexistent page, it will not transition to wiki create page" do
     id = pages(:page_3).id
     visit "/pages/#{id}"
-
     click_link "存在しないページ"
-
     assert_no_text "ページ作成"
   end
 end

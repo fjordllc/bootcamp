@@ -1,93 +1,37 @@
-.thread
-  .thread__inner.a-card
-    header.thread-header
-      .thread-header__reported-at
-        | #{l report.reported_on, format: :long} の日報
-      h1.thread-header__title(class="#{report.wip? ? "is-wip" : ""}")
-        - if report.wip?
-          span.thread-header__title-icon
-            | WIP
-        = report.title
-        - if @checks.any?
-          .stamp.stamp-approve
-            h2.stamp__content.is-title
-              | 確認済
-            time.stamp__content.is-created-at
-              = @checks.last.created_at.strftime("%Y/%m/%d")
-            .stamp__content.is-user-name
-              = @checks.last.user.login_name
-
-      .thread-meta
-        .thread-meta__author-name
-          = link_to report.user, class: "thread-meta__author-name-link" do
-            = report.user.login_name
-        time.thread-meta__created-at(datetime="#{report.created_at.to_datetime}" pubdate="pubdate")
-          | 書いた日 : #{l report.updated_at, format: :date_long_with_time}
-
-    - if @report.practices.present?
-      .report-practices
-        ul.report-practices__items
-          - report.practices.each do |practice|
-            li.report-practices__item
-              = link_to practice, class: "report-practices__item-link" do
-                = practice.title
-
-    - if report.learning_times.present?
-      .learning-times
-        header.learning-times__header
-          h2.learning-times__title
-            | 学習時間:
-          span.learning-times__total-time
-            = report.total_learning_time
-        ul.learning-times__items
-          - report.learning_times.each do |learning_time|
-            li.learning-times__item
-              | #{l learning_time.started_at, format: :time} 〜 #{l learning_time.finished_at, format: :time}
-
-    .thread-body
-      .thread__description.js-target-blank.is-long-text-style.js-markdown-view
-        = report.description
-
-      - if @report.user_id == current_user.id
-        .card-footer
-          .card-footer-actions
-            ul.card-footer-actions__items
-              li.card-footer-actions__item
-                = link_to edit_report_path(report), class: "card-footer-actions__action is-button-simple-md-primary is-block", id: "js-shortcut-edit" do
-                  i.fas.fa-pen#new
-                  | 内容修正
-              li.card-footer-actions__item
-                = link_to new_report_path(id: report), class: "card-footer-actions__action is-button-simple-md-warning is-block" do
-                  i.fas.fa-copy#copy
-                  | コピー
-              li.card-footer-actions__item
-                = link_to report_path(report), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
-                  i.fas.fa-trash-alt#delete
-                  | 削除
-
-    - if (admin_login? || adviser_login?) && @report.checks.blank?
-      .thread-admin-tools
-        ul.thread-admin-tools__items
-          li.thread-admin-tools__item
-            = form_for @check, html: { class: "report-check-form" } do |f|
-              = hidden_field_tag :user_id, current_user.id
-              = hidden_field_tag :report_id, @report.id
-              = f.submit "日報を確認する", class: "report-check-form__action is-button-simple-md-danger"
-
-  .thread-prev-next
-    .thread-prev-next__item
-      - if report.previous
-        = link_to report.previous, class: "thread-prev-next__item-link is-prev" do
-          i.fas.fa-angle-left
-          | 前の日報
-    .thread-prev-next__item
-      = link_to reports_path, class: "thread-prev-next__item-link is-index" do
-        | 日報一覧
-    .thread-prev-next__item
-      - if report.next
-        = link_to report.next, class: "thread-prev-next__item-link is-next" do
-          | 次の日報
-          i.fas.fa-angle-right
-
-  = link_to report.user, itempro: "url", class: "thread__author-link" do
-    = gravatar_tag report.user, secure: true, size: 120, html: { class: "thread__author-icon" }
+.thread-list-item(class="#{report.wip? ? "is-wip" : ""}")
+  .thread-list-item__inner
+    .thread-list-item__author
+      = gravatar_tag report.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon" }
+    header.thread-list-item__header
+      - if report.wip?
+        .thread-list-item__header-icon WIP
+      h2.thread-list-item__title(itemprop="name")
+        = link_to report.title, report, itempro: "url", class: "thread-list-item__title-link"
+      - if current_user == report.user
+        .thread-list-item__actions
+          = link_to edit_report_path(report), class: "thread-list-item__actions-link" do
+            i.fas.fa-pen
+          = link_to new_report_path(id: report), class: "thread-list-item__actions-link" do
+            i.fas.fa-copy
+          = link_to report_path(report), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
+            i.fas.fa-trash-alt
+    .thread-list-item-meta
+      time.thread-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
+        = l report.updated_at, format: :semi_long
+      - if report.comments.any?
+        .thread-list-item-meta__comment-count
+          .thread-list-item-meta__comment-count-label
+            i.fas.fa-comment
+          .thread-list-item-meta__comment-count-value
+            = report.comments.size
+      - if report.checks.any?
+        .thread-list-item-meta__comment-count
+          .thread-list-item-meta__comment-count-value
+            - report.checks.each do |check|
+              = gravatar_tag check.user, secure: true, size: 20, html: { class: "thread-list-item__checked-author-icon" }
+        .stamp.stamp-approve
+          h2.stamp__content.is-title 確認済
+          time.stamp__content.is-created-at
+            = report.checks.last.created_at.strftime("%Y/%m/%d")
+          .stamp__content.is-user-name
+            = report.checks.last.user.login_name
