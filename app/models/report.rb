@@ -16,6 +16,7 @@ class Report < ActiveRecord::Base
   validates :description, presence: true
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
+  validate :learning_times_finished_at_be_greater_than_started_at
 
   scope :default_order, -> { order(reported_on: :desc, user_id: :desc) }
 
@@ -34,4 +35,11 @@ class Report < ActiveRecord::Base
           .order(:reported_on)
           .first
   end
+
+  private
+
+    def learning_times_finished_at_be_greater_than_started_at
+      return if wip? || learning_times.all? { |learning_time| learning_time.diff > 0 }
+      errors.add(:learning_times, ": 終了時間は開始時間より後にしてください")
+    end
 end

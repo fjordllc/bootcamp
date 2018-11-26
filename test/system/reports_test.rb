@@ -205,7 +205,7 @@ class ReportsTest < ApplicationSystemTestCase
 
     click_button "提出"
 
-    assert_text "終了時間 : 終了時間は開始時間より後にしてください。"
+    assert_text "学習時間 : 終了時間は開始時間より後にしてください"
   end
 
   test "Reports can be copied" do
