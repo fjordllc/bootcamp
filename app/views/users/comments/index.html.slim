@@ -13,3 +13,4 @@ header.page-header
   .container
     = paginate @comments, position: "top"
     = render "comments/comments", comments: @comments
+    = paginate @comments, position: "bottom"

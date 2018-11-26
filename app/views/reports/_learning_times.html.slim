@@ -1,0 +1,9 @@
+- if @report.learning_times.present?
+  .learning-times
+    header.learning-times__header
+      h2.learning-times__title 学習時間:
+      span.learning-times__total-time = @report.total_learning_time
+    ul.learning-times__items
+      - @report.learning_times.each do |learning_time|
+        li.learning-times__item
+          | #{l learning_time.started_at, format: :time} 〜 #{l learning_time.finished_at, format: :time}
