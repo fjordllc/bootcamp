@@ -8,7 +8,7 @@ class LearningTime < ApplicationRecord
 
   def finished_at_be_greater_than_started_at
     return if report.wip? || diff > 0
-    errors.add(:finished_at, ": 学習時間0時間は登録できません")
+    errors.add(:finished_at, ": 学習時間は0より大きい値にしてください")
   end
 
   def diff
