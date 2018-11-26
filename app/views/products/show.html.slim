@@ -8,8 +8,4 @@ header.page-header
   .container
     = render "product", product: @product
     = render "comments/comments", comments: @product.comments.order(:created_at).page(params[:page]), form_visibility: true
-    - if @footprints.any?
-      .footprints
-        h3.footprints__title 見たよ
-        ul.footprints__items
-          = render @footprints
+    = render "footprints/footprints", footprints: @footprints
