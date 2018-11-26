@@ -4,17 +4,14 @@ header.page-header
   .container
     .page-header__container
       h2.page-header__title = title
-      .page-header-actions
-        .page-header-actions__items
-          .page-header-actions__item
-            = link_to new_report_path, class: "is-button-simple-md-warning" do
-              i.fas.fa-plus
-              | 日報作成
+      = render "reports/new_report"
 
 = render "reports/tabs"
 
-.container
-  = paginate @reports, position: "top"
-  - if @reports.present?
-    = render "reports/reports", reports: @reports
-  = paginate @reports, position: "bottom"
+.page-body
+  .container
+    = paginate @reports, position: "top"
+    - if @reports.present?
+      .thread-list.a-card
+        = render partial: "reports/report", collection: @reports, as: :report
+    = paginate @reports, position: "bottom"
