@@ -368,6 +368,7 @@ ja:
         title: タイトル
         reported_on: 学習日
         description: 内容
+        learning_times: 学習時間
 
       learning_time:
         started_at: 開始時間
