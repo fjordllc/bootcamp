@@ -37,8 +37,13 @@ class Report < ActiveRecord::Base
 
   private
 
+    def learning_times_correct?
+      learning_times.all? { |learning_time| learning_time.diff > 0 }
+    end
+
     def learning_times_finished_at_be_greater_than_started_at
-      return if wip? || learning_times.all? { |learning_time| learning_time.diff > 0 }
-      errors.add(:learning_times, ": 終了時間は開始時間より後にしてください")
+      if !wip? && !learning_times_correct?
+        errors.add(:learning_times, ": 終了時間は開始時間より後にしてください")
+      end
     end
 end
