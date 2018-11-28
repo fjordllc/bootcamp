@@ -3,6 +3,35 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
+  #attribute :wanna_change_job, :boolean, default: false
+
+  enum job: {
+    student: 0,
+    office_worker: 2,
+    part_time_worker: 3,
+    vacation: 4,
+    unemployed: 5
+  }
+
+  enum os: {
+    windows: 0,
+    mac: 1,
+    linux: 3
+  }
+
+  enum study_place: {
+    local: 0,
+    remote: 1
+  }
+
+  enum experience: {
+    inexperienced: 0,
+    html_css: 1,
+    other_ruby: 2,
+    ruby: 3,
+    rails: 4
+  }
+
   belongs_to :company
   belongs_to :course
   has_many :learnings
@@ -55,6 +84,15 @@ class User < ActiveRecord::Base
       with: /\A\w+\z/,
       message: I18n.t("errors.messages.only_alphanumeric_and_underscore")
     }
+
+  with_options on: :create do |create|
+    create.validates :job, presence: true
+    create.validates :organization, presence: true
+    create.validates :os, presence: true
+    create.validates :study_place, presence: true
+    create.validates :experience, presence: true
+    create.validates :how_did_you_know, presence: true
+  end
 
   has_attached_file :face, styles: { small: "32x32>", normal: "72x72#" }
   validates_attachment_content_type :face, content_type: /\Aimage\/.*\z/

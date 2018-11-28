@@ -271,6 +271,26 @@ ja:
       announcement: "お知らせ"
 
     enums:
+      user:
+        job:
+          student: 学生
+          office_worker: 会社員
+          part_time_worker: フリーター
+          vacation: 休職中
+          unemployed: 働いていない
+        os:
+          windows: Windows
+          mac: Mac
+          linux: Linux
+        study_place:
+          local: フィヨルドブートキャンプオフィス
+          remote: 自宅
+        experience:
+          inexperienced: 未経験
+          html_css: HTML/CSS経験あり
+          other_ruby: Ruby以外の言語経験あり
+          ruby: Ruby経験あり
+          rails: Rails経験あり
       practice:
         targets:
           everyone: "共通"
@@ -321,14 +341,20 @@ ja:
         icon_file_size: 画像ファイルのサイズ
         icon_content_type: 画像ファイルの種類
         notify_comment: コメント通知
-        job: "職種"
-        company: "会社"
-        created_at: "開始日時"
-        updated_at: "最終活動日時"
+        job: 職業
+        os: OS
+        study_place: 学習場所
+        experience: プログラミング経験
+        how_did_you_know: どこで知ったか
+        company: 会社
+        wanna_change_job: プログラマーとして就職・転職を希望していますか？
         nda: 秘密保持契約
-        graduated_on: 卒業日
+        admin: 管理者
         adviser: アドバイザー
+        graduated_on: 卒業日
         retired_on: リタイア日
+        created_at: 開始日時
+        updated_at: 最終活動日時
 
       course:
         title: タイトル

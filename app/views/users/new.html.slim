@@ -1,3 +1,4 @@
+- title "サインアップ"
 - content_for(:page_classes, "no-header no-footer no-recent-reports no-global-nav is-auth-page")
 
 .auth-form.is-sign-up.a-card
@@ -6,18 +7,117 @@
       - if params[:role] == "adviser"
         | アドバイザー登録
       - else
-        | サインアップ
+        = title
   .auth-form__body
-    = render "form", user: @user, companies: @companies
+    = form_for @user do |f|
+      - if params[:role] == "adviser"
+        = hidden_field_tag :role, "adviser"
+      = render "errors", object: @user
+      .auth-form-items
+        .auth-form-item
+          = f.label :login_name, class: "a-sm-label is-required"
+          = f.text_field :login_name, class: "a-sm-text-input", autocomplete: :off, placeholder: "komagata"
+          .auth-form-item__help
+            p
+              | チャットやSNS（Twitter、GitHub、ブログ など）で
+              | ユーザー名が異なると個人を認識するのが困難になります。
+              | 極力ユーザー名は統一するようにしてください。
+          - if params[:role] != "adviser"
+            .auth-form-item__help
+              p
+                | このメールアドレスは卒業後の連絡にも使うので、
+                | 会社で提供されたなどの第三者によって提供されたメールアドレスではなく、
+                | 転職後も使い続ける自分自身で取得したメールアドレスで登録してください。
+        .auth-form-item
+          = f.label :job, class: "a-sm-label is-required"
+          .is-button-simple-md-secondary.is-select.is-block
+            - options = options_for_select(User.jobs.map { |k, v| [I18n.t("activerecord.enums.user.job.#{k}"), k] })
+            = f.select :job, options, include_blank: "- 選択してください -"
+        .auth-form-item
+          = f.label :os, "学習に使うOS", class: "a-sm-label is-required"
+          .is-button-simple-md-secondary.is-select.is-block
+            - options = options_for_select(User.os.map { |k, v| [I18n.t("activerecord.enums.user.os.#{k}"), k] })
+            = f.select :os, options, include_blank: "- 選択してください -"
+          .auth-form-item__help
+            p
+              | Mac向けのカリキュラムのみなのでMacを持ってない方は用意してください。
+              | Linux経験者であればLinuxで学習を行っても構いません。
+        .auth-form-item
+          = f.label :study_place, class: "a-sm-label is-required"
+          .is-button-simple-md-secondary.is-select.is-block
+            - options = options_for_select(User.study_places.map { |k, v| [I18n.t("activerecord.enums.user.study_place.#{k}"), k] })
+            = f.select :study_place, options, include_blank: "- 選択してください -"
+          .auth-form-item__help
+            p
+              | フィヨルドブートキャンプオフィスに通って学習することができます。
+              | 環境が整っており、気軽にメンターに質問できます。
+              | オフィスに通って勉強される方の方が卒業率は高くなります。
+        .auth-form-item
+          = f.label :experience, class: "a-sm-label is-required"
+          .is-button-simple-md-secondary.is-select.is-block
+            - options = options_for_select(User.experiences.map { |k, v| [I18n.t("activerecord.enums.user.experience.#{k}"), k] })
+            = f.select :experience, options, include_blank: "- 選択してください -"
+          .auth-form-item__help
+        .auth-form-item
+          .row
+            .col-xs-6
+              .auth-form-item
+                = f.label :last_name, class: "a-sm-label is-required"
+                = f.text_field :last_name, class: "a-sm-text-input", placeholder: "駒形"
+            .col-xs-6
+              .auth-form-item
+                = f.label :first_name, class: "a-sm-label is-required"
+                = f.text_field :first_name, class: "a-sm-text-input", placeholder: "真幸"
+          - if params[:role] != "adviser"
+            .auth-form-item__help
+              p 就職希望先企業の採用担当者も使う情報になるので、姓・名は必ず本名を入力してください。
+        - if params[:role] == "adviser"
+          .auth-form-item
+            = f.label :description, "自己紹介", class: "a-sm-label"
+            = f.text_area :description, class: "a-sm-text-input", placeholder: "株式会社XXXXの開発チームマネージャーのXXXXXです。"
+        - else
+          .auth-form-item
+            = f.label :description, class: "a-sm-label"
+            = f.text_area :description, class: "a-sm-text-input", placeholder: "月・水・金の 10:00 〜 19:00 に活動します。"
+        .auth-form-item
+          = f.label :how_did_you_know, "フィヨルドブートキャンプをどこで知りましたか？", class: "a-sm-label is-required"
+          = f.text_area :how_did_you_know, class: "a-sm-text-input", placeholder: "Googleで「プログラミングスクール」で検索した結果。"
+        .auth-form-item
+          = f.label :password, class: "a-sm-label is-required"
+          = f.password_field :password, class: "a-sm-text-input", autocomplete: :off
+        .auth-form-item
+          = f.label :password_confirmation, class: "a-sm-label is-required"
+          = f.password_field :password_confirmation, class: "a-sm-text-input", autocomplete: :off
+          .auth-form-item__help
+            p パスワードをもう一度入力
+        .auth-form-item
+          label.a-sm-label
+            | 秘密保持契約
+          ul.auth-form-item__checkboxes
+            li.auth-form-checkbox
+              label.auth-form-checkbox__label.js-nda-action(data-target="#nda-modal" data-toggle="modal")
+                | 秘密保持契約に同意する
+      .auth-form-action.is-sign-up-action
+        ul.auth-form-action__items
+          - if %w(new create).include? params[:action]
+            li.auth-form-action__item
+              - if params[:role] == "adviser"
+                = f.submit "アドバイザー登録", class: "is-button-simple-md-warning js-sign-up-action"
+              - else
+                = f.submit "参加する", class: "is-button-simple-md-warning js-sign-up-action"
+          - else
+            li.auth-form-action__item
+              = link_to "キャンセル", user_path, class: "is-button-simple-xs-secondary"
+            li.auth-form-action__item
+              = f.submit "更新する", class: "is-button-simple-md-warning js-sign-up-action"
+      = render "nda_modal", f: f
   footer.auth-form__footer
     nav.auth-form-nav
       ul.auth-form-nav__items
         li.auth-form-nav__item
-          = link_to root_path, class: "auth-form-nav__item-link" do
-            | トップページ
+          = link_to "トップページ", root_path, class: "auth-form-nav__item-link"
         li.auth-form-nav__item
-          = link_to login_path, class: "auth-form-nav__item-link" do
-            | サインイン
+          = link_to "サインイン", login_path, class: "auth-form-nav__item-link"
         li.auth-form-nav__item
            span.auth-form-nav__item-link.js-modal(data-target="#nda-modal")
             | 秘密保持契約内容を確認
