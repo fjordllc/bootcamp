@@ -8,7 +8,7 @@ class LearningTime < ApplicationRecord
 
   def diff
     default = finished_at - started_at
-    (default >= 0) ? default : (finished_at + 1.day) - started_at
+    default >= 0 ? default : finished_at + 1.day - started_at
   end
 
   def learning_times_finished_at_be_greater_than_started_at
