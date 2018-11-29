@@ -7,6 +7,7 @@ class Report < ActiveRecord::Base
   include Searchable
 
   has_many :learning_times, dependent: :destroy, inverse_of: :report
+  validates_associated :learning_times
   accepts_nested_attributes_for :learning_times, reject_if: :all_blank, allow_destroy: true
   has_and_belongs_to_many :practices
   belongs_to :user, touch: true
@@ -15,7 +16,6 @@ class Report < ActiveRecord::Base
   validates :description, presence: true
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
-  validate :learning_times_finished_at_be_greater_than_started_at
 
   scope :default_order, -> { order(reported_on: :desc, user_id: :desc) }
 
@@ -34,16 +34,4 @@ class Report < ActiveRecord::Base
           .order(:reported_on)
           .first
   end
-
-  private
-
-    def learning_times_correct?
-      learning_times.all? { |learning_time| learning_time.diff > 0 }
-    end
-
-    def learning_times_finished_at_be_greater_than_started_at
-      if !wip? && !learning_times_correct?
-        errors.add(:learning_times, ": 終了時間は開始時間より後にしてください")
-      end
-    end
 end
