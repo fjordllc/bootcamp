@@ -11,7 +11,7 @@ class ReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test "create a report" do
+  test "create report as WIP" do
     visit "/reports/new"
     within("#new_report") do
       fill_in("report[title]", with: "test title")
@@ -21,12 +21,19 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "日報をWIPとして保存しました。"
   end
 
-  test "create report as WIP" do
+  test "create a report" do
     visit "/reports/new"
     within("#new_report") do
       fill_in("report[title]", with: "test title")
       fill_in("report[description]",   with: "test")
     end
+
+    selects = all("select")
+    select "07", from: selects[0]["id"]
+    select "30", from: selects[1]["id"]
+    select "08", from: selects[2]["id"]
+    select "30", from: selects[3]["id"]
+
     click_button "提出"
     assert_text "日報を保存しました。"
   end
@@ -183,6 +190,22 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "4時間\n"
     assert_text "22:00 〜 00:00"
     assert_text "00:30 〜 02:30"
+  end
+
+  test "can't register learning_times 0h0m" do
+    visit "/reports/new"
+    fill_in "report_title", with: "テスト日報"
+    fill_in "report_description", with: "can't register learning_times 0h0m"
+
+    selects = all("select")
+    select "22", from: selects[0]["id"]
+    select "00", from: selects[1]["id"]
+    select "22", from: selects[2]["id"]
+    select "00", from: selects[3]["id"]
+
+    click_button "提出"
+
+    assert_text "終了時間 : 終了時間は開始時間より後にしてください。"
   end
 
   test "Reports can be copied" do
