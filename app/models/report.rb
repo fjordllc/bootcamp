@@ -7,6 +7,7 @@ class Report < ActiveRecord::Base
   include Searchable
 
   has_many :learning_times, dependent: :destroy, inverse_of: :report
+  validates_associated :learning_times
   accepts_nested_attributes_for :learning_times, reject_if: :all_blank, allow_destroy: true
   has_and_belongs_to_many :practices
   belongs_to :user, touch: true
