@@ -30,6 +30,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.adviser = params[:role] == "adviser"
     @companies = Company.all
   end
 
@@ -40,7 +41,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.adviser = params[:role] == "adviser"
+    @user.company = Company.first
+    @user.course = Course.first
 
     if @user.save
       notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
@@ -70,6 +72,7 @@ class UsersController < ApplicationController
   private
     def user_params
       params.require(:user).permit(
+        :adviser,
         :login_name,
         :first_name,
         :last_name,
@@ -85,6 +88,11 @@ class UsersController < ApplicationController
         :password,
         :password_confirmation,
         :job,
+        :organization,
+        :os,
+        :study_place,
+        :experience,
+        :how_did_you_know,
         :company_id,
         :nda
         )
