@@ -6,7 +6,7 @@ class NotificationsController < ApplicationController
 
   def show
     @notifications = current_user.notifications.where(path: @notification.path)
-    @notifications.update_all(read: true)
+    @notifications.update_all(read: true, updated_at: Time.current)
     redirect_to @notification.path
   end
 
