@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   before_action :set_page, only: %i(show edit update destroy)
 
   def index
-    @pages = Page.page(params[:page])
+    @pages = Page..order(created_at: :desc).page(params[:page])
   end
 
   def show
