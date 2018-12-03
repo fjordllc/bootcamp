@@ -96,5 +96,5 @@ header.page-header
       = link_to @report.user, itempro: "url", class: "thread__author-link" do
         = gravatar_tag @report.user, secure: true, size: 120, html: { class: "thread__author-icon" }
 
-    = render "comments/comments", comments: @report.comments.order(:created_at).page(params[:page]), form_visibility: true
+    = render "comments/comments", comments: @report.comments.order(:created_at), form_visibility: true
     = render "footprints/footprints", footprints: @footprints
