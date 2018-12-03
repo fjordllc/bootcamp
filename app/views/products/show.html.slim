@@ -7,5 +7,5 @@ header.page-header
 .page-body
   .container
     = render "product", product: @product
-    = render "comments/comments", comments: @product.comments.order(:created_at).page(params[:page]), form_visibility: true
+    = render "comments/comments", comments: @product.comments.order(:created_at), form_visibility: true
     = render "footprints/footprints", footprints: @footprints
