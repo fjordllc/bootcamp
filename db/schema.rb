@@ -250,6 +250,12 @@ ActiveRecord::Schema.define(version: 2018_12_05_065904) do
     t.bigint "course_id"
     t.date "retired_on"
     t.boolean "admin", default: false, null: false
+    t.integer "job"
+    t.string "organization"
+    t.integer "os"
+    t.integer "study_place"
+    t.integer "experience"
+    t.string "how_did_you_know"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
