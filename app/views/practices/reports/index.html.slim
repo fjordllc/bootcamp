@@ -11,6 +11,10 @@ header.page-header
 
 = render "page_tabs", resource: @practice
 
-.container
-  - if @practice.reports.any?
-    = render "reports/reports", reports: @reports
+.page-body
+  .container
+    = paginate @reports, position: "top"
+    - if @reports.present?
+      .thread-list.a-card
+        = render partial: "reports/report", collection: @reports, as: :report
+    = paginate @reports, position: "bottom"
