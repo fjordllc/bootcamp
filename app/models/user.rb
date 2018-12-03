@@ -3,6 +3,32 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
+  enum job: {
+    student: 0,
+    office_worker: 2,
+    part_time_worker: 3,
+    vacation: 4,
+    unemployed: 5
+  }
+
+  enum os: {
+    mac: 0,
+    linux: 1
+  }
+
+  enum study_place: {
+    local: 0,
+    remote: 1
+  }
+
+  enum experience: {
+    inexperienced: 0,
+    html_css: 1,
+    other_ruby: 2,
+    ruby: 3,
+    rails: 4
+  }
+
   belongs_to :company
   belongs_to :course
   has_many :learnings
@@ -41,7 +67,6 @@ class User < ActiveRecord::Base
     source:    :practice,
     dependent: :destroy
 
-  validates :company_id, presence: true
   validates :email,      presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name,  presence: true
@@ -56,6 +81,16 @@ class User < ActiveRecord::Base
       message: I18n.t("errors.messages.only_alphanumeric_and_underscore")
     }
 
+  with_options unless: :adviser? do
+    validates :description, presence: true
+    validates :job, presence: true
+    validates :organization, presence: true
+    validates :os, presence: true
+    validates :study_place, presence: true
+    validates :experience, presence: true
+    validates :how_did_you_know, presence: true
+  end
+
   has_attached_file :face, styles: { small: "32x32>", normal: "72x72#" }
   validates_attachment_content_type :face, content_type: /\Aimage\/.*\z/
 
@@ -66,9 +101,10 @@ class User < ActiveRecord::Base
   scope :not_advisers, -> { where(adviser: false) }
   scope :student, -> {
     where(
+      admin: false,
       mentor: false,
-      graduated_on: nil,
       adviser: false,
+      graduated_on: nil,
       retired_on: nil
     )
   }

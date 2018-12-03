@@ -1,7 +1,6 @@
 = form_for user do |f|
-  -if params[:role] == "adviser"
-    = hidden_field_tag :role, "adviser"
-  = render "errors", object: @user
+  = f.hidden_field :adviser
+  = render "errors", object: user
   .auth-form-items
     .auth-form-item
       = f.label :login_name, class: "a-sm-label is-required"
@@ -12,7 +11,7 @@
     .auth-form-item
       = f.label :email, class: "a-sm-label is-required"
       = f.text_field :email, class: "a-sm-text-input", placeholder: "komagata@fjord.jp"
-      -if params[:role] != "adviser"
+      - if user.adviser?
         .auth-form-item__help
           p
             | このメールアドレスは卒業後の連絡にも使うので、会社で提供されたなどの第三者によって提供されたメールアドレスではなく、転職後も使い続ける自分自身で取得したメールアドレスで登録してください。
@@ -26,55 +25,95 @@
           .auth-form-item
             = f.label :first_name, class: "a-sm-label is-required"
             = f.text_field :first_name, class: "a-sm-text-input", placeholder: "真幸"
-      - if params[:role] != "adviser"
+      - if user.adviser?
         .auth-form-item__help
           p
             | 就職希望先企業の採用担当者も使う情報になるので、姓・名は必ず本名を入力してください。
-    .auth-form-item
-      = f.label :course_id, class: "a-sm-label is-required"
-      .is-button-simple-md-secondary.is-select.is-block
-        = f.collection_select :course_id, Course.order(:created_at), :id, :title, {}
-      .auth-form-item__help
-        p
-          | コースの一覧は
-          = link_to "こちら", courses_path, trget: "_blank"
-
-    - if params[:role] == "adviser"
+    - unless user.adviser?
       .auth-form-item
-        = f.label :description, "自己紹介", class: "a-sm-label"
-        = f.text_area :description, class: "a-sm-text-input", placeholder: "株式会社XXXXの開発チームマネージャーのXXXXXです。"
-    - else
+        = f.label :course_id, class: "a-sm-label is-required"
+        .is-button-simple-md-secondary.is-select.is-block
+          = f.collection_select :course_id, Course.order(:created_at), :id, :title, {}
+        .auth-form-item__help
+          p
+            | コースの一覧は
+            = link_to "こちら", courses_path, trget: "_blank"
       .auth-form-item
-        = f.label :description, class: "a-sm-label"
-        = f.text_area :description, class: "a-sm-text-input", placeholder: "月・水・金の 10:00 〜 19:00 に活動します。"
+        = f.label :job, class: "a-sm-label is-required"
+        .is-button-simple-md-secondary.is-select.is-block
+          - options = options_for_select(User.jobs.map { |k, v| [t("activerecord.enums.user.job.#{k}"), k] }, selected: f.object.job)
+          = f.select :job, options, include_blank: "- 選択してください -"
+      .auth-form-item
+        = f.label :os, "学習に使うOS", class: "a-sm-label is-required"
+        .is-button-simple-md-secondary.is-select.is-block
+          - options = options_for_select(User.os.map { |k, v| [t("activerecord.enums.user.os.#{k}"), k] }, selected: f.object.os)
+          = f.select :os, options, include_blank: "- 選択してください -"
+        .auth-form-item__help
+          p
+            | Mac向けのカリキュラムのみなのでWindowsでは受講できません。
+            | Macを持ってない方は用意してください。
+            | Linux経験者であればLinuxで学習を行っても構いません。
+      .auth-form-item
+        = f.label :study_place, class: "a-sm-label is-required"
+        .is-button-simple-md-secondary.is-select.is-block
+          - options = options_for_select(User.study_places.map { |k, v| [t("activerecord.enums.user.study_place.#{k}"), k] }, selected: f.object.study_place)
+          = f.select :study_place, options, include_blank: "- 選択してください -"
+        .auth-form-item__help
+          p
+            | フィヨルドブートキャンプオフィスに通って学習することができます。
+            | 環境が整っており、気軽にメンターに質問できます。
+            | オフィスに通って勉強される方の方が卒業率は高くなります。
+      .auth-form-item
+        = f.label :experience, class: "a-sm-label is-required"
+        .is-button-simple-md-secondary.is-select.is-block
+          - options = options_for_select(User.experiences.map { |k, v| [t("activerecord.enums.user.experience.#{k}"), k] }, selected: f.object.experience)
+          = f.select :experience, options, include_blank: "- 選択してください -"
+      .auth-form-item
+        = f.label :organization, class: "a-sm-label is-required"
+        = f.text_field :organization, class: "a-sm-text-input", autocomplete: :off, placeholder: "XXX大学"
+        .auth-form-item__help
+          p 会社名・学校名など（働いていない場合は「なし」としてください）
+      .auth-form-item
+        = f.label :how_did_you_know, "フィヨルドブートキャンプをどこで知りましたか？", class: "a-sm-label is-required"
+        = f.text_area :how_did_you_know, class: "a-sm-text-input", placeholder: "Googleで「プログラミングスクール」で検索した結果。"
     .auth-form-item
-      = f.label :slack_account, class: "a-sm-label"
-      = f.text_field :slack_account, class: "a-sm-text-input", placeholder: "komagata"
-    .auth-form-item
-      = f.label :github_account, class: "a-sm-label"
-      = f.text_field :github_account, class: "a-sm-text-input", placeholder: "komagata"
-      .auth-form-item__help
-        p URL ではなく ID を入力。
-    .auth-form-item
-      = f.label :twitter_account, class: "a-sm-label"
-      = f.text_field :twitter_account, class: "a-sm-text-input", placeholder: "komagata"
-      .auth-form-item__help
-        p URL ではなく アカウント を入力。
-    .auth-form-item
-      = f.label :facebook_url, class: "a-sm-label"
-      = f.text_field :facebook_url, class: "a-sm-text-input", placeholder: "https://www.facebook.com/komagata1111"
-      .auth-form-item__help
-        p ID ではなく URL を入力。
-    .auth-form-item
-      = f.label :blog_url, class: "a-sm-label"
-      = f.text_field :blog_url, class: "a-sm-text-input", placeholder: "http://docs.komagata.org/"
-      .auth-form-item__help
-        p URL を入力。
-    .auth-form-item
-      = f.label :feed_url, class: "a-sm-label"
-      = f.text_field :feed_url, class: "a-sm-text-input", placeholder: "http://docs.komagata.org/index.atom"
-      .auth-form-item__help
-        p URL を入力。
+      - if user.adviser?
+        - placeholder = "株式会社XXXXの開発チームマネージャーのXXXXXです。"
+        - required_class = ""
+      - else
+        - placeholder = "月・水・金の 10:00 〜 19:00 に活動します。"
+        - required_class = "is-required"
+      = f.label :description, class: "a-sm-label #{required_class}"
+      = f.text_area :description, class: "a-sm-text-input", placeholder: placeholder
+    - if from == :edit
+      .auth-form-item
+        = f.label :slack_account, class: "a-sm-label"
+        = f.text_field :slack_account, class: "a-sm-text-input", placeholder: "komagata"
+      .auth-form-item
+        = f.label :github_account, class: "a-sm-label"
+        = f.text_field :github_account, class: "a-sm-text-input", placeholder: "komagata"
+        .auth-form-item__help
+          p URL ではなく ID を入力。
+      .auth-form-item
+        = f.label :twitter_account, class: "a-sm-label"
+        = f.text_field :twitter_account, class: "a-sm-text-input", placeholder: "komagata"
+        .auth-form-item__help
+          p URL ではなく アカウント を入力。
+      .auth-form-item
+        = f.label :facebook_url, class: "a-sm-label"
+        = f.text_field :facebook_url, class: "a-sm-text-input", placeholder: "https://www.facebook.com/komagata1111"
+        .auth-form-item__help
+          p ID ではなく URL を入力。
+      .auth-form-item
+        = f.label :blog_url, class: "a-sm-label"
+        = f.text_field :blog_url, class: "a-sm-text-input", placeholder: "http://docs.komagata.org/"
+        .auth-form-item__help
+          p URL を入力。
+      .auth-form-item
+        = f.label :feed_url, class: "a-sm-label"
+        = f.text_field :feed_url, class: "a-sm-text-input", placeholder: "http://docs.komagata.org/index.atom"
+        .auth-form-item__help
+          p URL を入力。
     .auth-form-item
       = f.label :password, class: "a-sm-label is-required"
       = f.password_field :password, class: "a-sm-text-input", autocomplete: :off
@@ -82,33 +121,21 @@
       = f.label :password_confirmation, class: "a-sm-label is-required"
       = f.password_field :password_confirmation, class: "a-sm-text-input", autocomplete: :off
       .auth-form-item__help
-        p
-          | パスワードをもう一度入力
-    .auth-form-item.is-display-none
-      = f.label :company, class: "a-sm-label"
-      = f.collection_select :company_id, Company.all, :id, :name, {}, { class: "form-control" }
-
-    .auth-form-item
-      label.a-sm-label
-        | 秘密保持契約
-      ul.auth-form-item__checkboxes
-        li.auth-form-checkbox
-          label.auth-form-checkbox__label.js-nda-action.js-modal(data-target="#nda-modal")
-            | 秘密保持契約に同意する
+        p パスワードをもう一度入力
+    - if from == :new
+      .auth-form-item
+        label.a-sm-label
+          | 秘密保持契約
+        ul.auth-form-item__checkboxes
+          li.auth-form-checkbox
+            label.auth-form-checkbox__label.js-nda-action.js-modal(data-target="#nda-modal")
+              | 秘密保持契約に同意する
 
   .auth-form-action.is-sign-up-action
     ul.auth-form-action__items
-      - if %w(new create).include? params[:action]
-        li.auth-form-action__item
-          -if params[:role] == "adviser"
-            = f.submit "アドバイザー登録", class: "is-button-simple-md-warning js-sign-up-action"
-          -else
-            = f.submit "参加する", class: "is-button-simple-md-warning js-sign-up-action"
-      - else
-        li.auth-form-action__item
-          = link_to user_path, class: "is-button-simple-xs-secondary" do
-            | キャンセル
-        li.auth-form-action__item
-          = f.submit "更新する", class: "is-button-simple-md-warning js-sign-up-action"
+      li.auth-form-action__item
+        = link_to "キャンセル", :back, class: "is-button-simple-xs-secondary"
+      li.auth-form-action__item
+        = f.submit user_submit_label(user, from), class: "is-button-simple-md-warning js-sign-up-action"
 
   = render "nda_modal", f: f
