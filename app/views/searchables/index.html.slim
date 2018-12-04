@@ -7,5 +7,7 @@ header.page-header
 
 .page-body
   .container
+    = paginate @searchables, position: "top"
     .thread-list.a-card
       = render partial: "searchables/searchable", collection: @searchables, as: :searchable, locals: { words: "" }
+    = paginate @searchables, position: "bottom"
