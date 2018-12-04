@@ -2,6 +2,6 @@
 
 class SearchablesController < ApplicationController
   def index
-    @searchables = Search.search(params[:word])
+    @searchables = Kaminari.paginate_array(Searcher.search(params[:word])).page(params[:page]).per(50)
   end
 end
