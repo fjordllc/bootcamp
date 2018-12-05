@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 2018_12_05_065904) do
   create_table "images", force: :cascade do |t|
     t.string "image_file_name"
     t.string "image_content_type"
-    t.integer "image_file_size"
+    t.bigint "image_file_size"
     t.datetime "image_updated_at"
     t.bigint "user_id"
     t.text "image_meta"
@@ -244,7 +244,7 @@ ActiveRecord::Schema.define(version: 2018_12_05_065904) do
     t.boolean "mentor", default: false, null: false
     t.string "face_file_name"
     t.string "face_content_type"
-    t.integer "face_file_size"
+    t.bigint "face_file_size"
     t.datetime "face_updated_at"
     t.date "graduated_on"
     t.bigint "course_id"
