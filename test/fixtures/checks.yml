@@ -26,6 +26,10 @@ report7_check_machida:
   user: machida
   checkable: report_7 (Report)
 
+procuct2_check_komagata:
+  user: komagata
+  checkable: product_2 (Product)
+
 procuct3_check_komagata:
   user: komagata
   checkable: product_3 (Product)

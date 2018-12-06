@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
       current_user && current_user.admin?
     end
 
+    def mentor_login?
+      current_user && current_user.mentor?
+    end
+
     def adviser_login?
       current_user && current_user.adviser?
     end
@@ -27,7 +31,7 @@ class ApplicationController < ActionController::Base
     end
 
     def product_displayable?(practice: nil, user: nil)
-      return true if admin_login? || adviser_login?
+      return true if admin_login? || mentor_login? || adviser_login?
       if user
         user == current_user || user.has_checked_product_of?(current_user.practices_with_checked_product)
       else
