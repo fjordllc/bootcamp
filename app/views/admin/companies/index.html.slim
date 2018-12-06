@@ -1,20 +1,43 @@
 - title "会社"
 
-h1 = title
-table.table
-  tr
-    th = t("helpers.label.company.name")
-    th = t("helpers.label.company.description")
-    th = t("helpers.label.company.website")
-    th
-    th
-    th
-  - @companies.each do |company|
-    tr
-      td = company.name
-      td = company.description
-      td = company.website
-      td = link_to "表示", [:admin, company]
-      td = link_to "編集", edit_admin_company_path(company)
-      td = link_to "削除", [:admin, company], data: { confirm: "本当によろしいですか？" }, method: :delete
-= link_to "会社作成", new_admin_company_path, class: "btn btn-primary"
+header.page-header
+  .container
+    .page-header__container
+      h1.page-header__title = title
+      .page-header__action
+        = link_to new_admin_company_path, class: "is-button-simple-md-warning" do
+          i.fas.fa-plus
+          | 会社作成
+
+= render "admin/admin_page_tabs"
+
+.page-body
+  .container.is-padding-horizontal-0-sm-down
+    .admin-table
+      table.admin-table__table
+        thead.admin-table__header
+          tr.admin-table__labels
+            th.admin-table__label = Company.human_attribute_name :name
+            th.admin-table__label = Company.human_attribute_name :description
+            th.admin-table__label = Company.human_attribute_name :website
+            th.admin-table__label.actions 操作
+        tbody.admin-table__items
+          - @companies.each do |company|
+            tr.admin-table__item(id="company_#{company.id}")
+              td.admin-table__item-value
+                = company.name
+              td.admin-table__item-value
+                = company.description
+              td.admin-table__item-value
+                = company.website
+              td.admin-table__item-value.is-text-align-center
+                ul.is-button-group
+                  li
+                    = link_to edit_admin_company_path(company), class: "is-button-simple-sm-primary is-icon" do
+                      i.fas.fa-pen
+                  li
+                    = link_to [:admin, company],
+                      data: { confirm: "本当によろしいですか？" },
+                      method: :delete,
+                      class: "is-button-simple-sm-danger is-icon js-delete" do
+                      i.fas.fa-trash-alt

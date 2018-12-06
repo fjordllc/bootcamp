@@ -1,10 +1,23 @@
-= form_for([:admin, company]) do |f|
-  .form-inputs
-    label 会社名
-    = f.text_field :name, class: "input-block-level"
-    label 詳細
-    = f.text_area :description, size: "10x20", class: "input-block-level"
-    label ウェブサイトURL
-    = f.text_field :website, class: "input-block-level"
-  .actions
-    = f.submit nil, class: "btn btn-primary"
+= form_for [:admin, company], html: { name: "company" } do |f|
+  .form__items
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :name, class: "a-label"
+          = f.text_field :name, class: "a-text-input"
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :description, class: "a-label"
+          = f.text_area :description, size: "10x20", class: "a-textarea"
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :website, class: "a-label"
+          = f.text_field :website, class: "a-text-input"
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item
+        = link_to "キャンセル", :back, class: "is-button-simple-md-secondary"
+      li.form-actions__item
+        = f.submit nil, class: "is-button-simple-lg-warning"
