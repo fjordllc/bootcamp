@@ -2,11 +2,18 @@
   .container.is-padding-horizontal-0-sm-down
     ul.page-tabs__items
       li.page-tabs__item
-        = link_to admin_root_path, class: "page-tabs__item-link #{active == 0 ? "is-active" : ""}" do
-          | 管理ページ
+        = link_to "管理ページ",
+          admin_root_path,
+          class: "page-tabs__item-link #{current_link /^admin-home/}"
       li.page-tabs__item
-        = link_to admin_users_path, class: "page-tabs__item-link #{active == 1 ? "is-active" : ""}" do
-          | ユーザー一覧
+        = link_to "ユーザー",
+          admin_users_path,
+          class: "page-tabs__item-link #{current_link /^admin-users/}"
       li.page-tabs__item
-        = link_to admin_categories_path, class: "page-tabs__item-link #{active == 2 ? "is-active" : ""}" do
-          | カテゴリー
+        = link_to "カテゴリー",
+          admin_categories_path,
+          class: "page-tabs__item-link #{current_link /^admin-categories/}"
+      li.page-tabs__item
+        = link_to "会社",
+          admin_companies_path,
+          class: "page-tabs__item-link #{current_link /^admin-companies/}"

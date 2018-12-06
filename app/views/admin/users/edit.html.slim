@@ -1,19 +1,17 @@
+- title "ユーザー編集"
 - content_for(:page_classes, "no-header no-footer no-recent-reports")
 
 .auth-form.is-sign-up.a-card
   header.auth-form__header
-    h1.auth-form__title ユーザー編集
+    h1.auth-form__title = title
   .auth-form__body
     = render "form", user: @user
   footer.auth-form__footer
     nav.auth-form-nav
       ul.auth-form-nav__items
         li.auth-form-nav__item
-          = link_to root_path, class: "auth-form-nav__item-link" do
-            | トップページ
+          = link_to "トップページ", root_path, class: "auth-form-nav__item-link"
         li.auth-form-nav__item
-          = link_to login_path, class: "auth-form-nav__item-link" do
-            | サインイン
+          = link_to "サインイン", login_path, class: "auth-form-nav__item-link"
         li.auth-form-nav__item
-          = link_to login_path, class: "auth-form-nav__item-link" do
-            | 秘密保持契約書
+          = link_to "秘密保持契約書", login_path, class: "auth-form-nav__item-link"
