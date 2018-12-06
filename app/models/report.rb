@@ -16,6 +16,7 @@ class Report < ActiveRecord::Base
   validates :description, presence: true
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
+  validates :learning_times, length: { minimum: 1, message: ": 学習時間を入力してください。" }
 
   scope :default_order, -> { order(reported_on: :desc, user_id: :desc) }
 
