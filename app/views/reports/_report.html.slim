@@ -17,7 +17,7 @@
             i.fas.fa-trash-alt
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
-        = l report.updated_at, format: :semi_long
+        = l report.updated_at
       - if report.comments.any?
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-label
@@ -32,6 +32,6 @@
         .stamp.stamp-approve
           h2.stamp__content.is-title 確認済
           time.stamp__content.is-created-at
-            = report.checks.last.created_at.strftime("%Y/%m/%d")
+            = l report.checks.last.created_at.to_date, format: :short
           .stamp__content.is-user-name
             = report.checks.last.user.login_name

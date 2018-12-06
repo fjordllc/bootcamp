@@ -65,6 +65,7 @@ Rails.application.routes.draw do
 
   resources :courses, only: :index
   get "login" => "user_sessions#new", as: :login
+  post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
 
   get "thanks", to: "static_pages#thanks"
