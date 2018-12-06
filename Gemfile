@@ -48,6 +48,7 @@ gem "rack-cors", require: "rack/cors"
 gem "cocoon"
 gem "active_decorator"
 gem "rollbar"
+gem "rails-i18n"
 
 group :production, :staging do
   gem "newrelic_rpm"
