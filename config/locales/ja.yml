@@ -45,9 +45,9 @@ ja:
         notify_comment: コメント通知
         job: 職業
         os: 利用OS
-        study_place: 学習場所
+        study_place: 主な学習場所
         experience: プログラミング経験
-        organization: 所属組織
+        organization: 現在の所属組織
         how_did_you_know: どこで知ったか
         company: 会社
         created_at: 開始日時

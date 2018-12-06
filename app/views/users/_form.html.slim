@@ -3,19 +3,24 @@
   = render "errors", object: user
   .auth-form-items
     .auth-form-item
+      // ユーザー名
       = f.label :login_name, class: "a-sm-label is-required"
       = f.text_field :login_name, class: "a-sm-text-input", autocomplete: :off, placeholder: "komagata"
       .auth-form-item__help
         p
           | チャットやSNS（Twitter、GitHub、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。極力ユーザー名は統一するようにしてください。
+
     .auth-form-item
+      // メールアドレス
       = f.label :email, class: "a-sm-label is-required"
       = f.text_field :email, class: "a-sm-text-input", placeholder: "komagata@fjord.jp"
-      - if user.adviser?
+      - unless user.adviser?
         .auth-form-item__help
           p
             | このメールアドレスは卒業後の連絡にも使うので、会社で提供されたなどの第三者によって提供されたメールアドレスではなく、転職後も使い続ける自分自身で取得したメールアドレスで登録してください。
+
     .auth-form-item
+      // 名前
       .row
         .col-xs-6
           .auth-form-item
@@ -25,12 +30,14 @@
           .auth-form-item
             = f.label :first_name, class: "a-sm-label is-required"
             = f.text_field :first_name, class: "a-sm-text-input", placeholder: "真幸"
-      - if user.adviser?
+      - unless user.adviser?
         .auth-form-item__help
           p
-            | 就職希望先企業の採用担当者も使う情報になるので、姓・名は必ず本名を入力してください。
+            | 就職希望先企業の採用担当者も使う情報になるので、姓・名は必ず本名を（漢字がある場合は漢字で）入力してください。
+
     - unless user.adviser?
-      .auth-form-item
+      .auth-form-item.is-hidden
+        // コース
         = f.label :course_id, class: "a-sm-label is-required"
         .is-button-simple-md-secondary.is-select.is-block
           = f.collection_select :course_id, Course.order(:created_at), :id, :title, {}
@@ -38,12 +45,32 @@
           p
             | コースの一覧は
             = link_to "こちら", courses_path, trget: "_blank"
+
       .auth-form-item
+        // 現在の職種
         = f.label :job, class: "a-sm-label is-required"
         .is-button-simple-md-secondary.is-select.is-block
           - options = options_for_select(User.jobs.map { |k, v| [t("activerecord.enums.user.job.#{k}"), k] }, selected: f.object.job)
           = f.select :job, options, include_blank: "- 選択してください -"
+        .auth-form-item__help
+          p
+            | 近いものを選択してください。
+
       .auth-form-item
+        // 現在の所属組織
+        = f.label :organization, class: "a-sm-label is-required"
+        ul
+          li
+
+        = f.text_field :organization, class: "a-sm-text-input", autocomplete: :off, placeholder: "XXX大学XXX学部XXX学科XXX専攻"
+        - unless user.adviser?
+          .auth-form-item__help
+            p 会社名・学校名などを入力してください（働いていない場合は「なし」としてください）。
+            p この情報は他のフィヨルドブートキャンプ参加者には公開されませんが、就職活動の際に利用する場合があります。
+
+
+      .auth-form-item
+        // 学習に使うOS
         = f.label :os, "学習に使うOS", class: "a-sm-label is-required"
         .is-button-simple-md-secondary.is-select.is-block
           - options = options_for_select(User.os.map { |k, v| [t("activerecord.enums.user.os.#{k}"), k] }, selected: f.object.os)
@@ -51,9 +78,12 @@
         .auth-form-item__help
           p
             | Mac向けのカリキュラムのみなのでWindowsでは受講できません。
-            | Macを持ってない方は用意してください。
+            | Macを持ってない方は用意する必要があります。
             | Linux経験者であればLinuxで学習を行っても構いません。
+            | 参加登録後にMacを購入する予定の場合は、メンターにどの機種を購入するべきかを相談をした上で購入することをおすすめします。
+
       .auth-form-item
+        // 主な学習場所
         = f.label :study_place, class: "a-sm-label is-required"
         .is-button-simple-md-secondary.is-select.is-block
           - options = options_for_select(User.study_places.map { |k, v| [t("activerecord.enums.user.study_place.#{k}"), k] }, selected: f.object.study_place)
@@ -63,28 +93,39 @@
             | フィヨルドブートキャンプオフィスに通って学習することができます。
             | 環境が整っており、気軽にメンターに質問できます。
             | オフィスに通って勉強される方の方が卒業率は高くなります。
+          p
+            | ここで自宅を選択したからと言って、オフィスの利用ができなくなる、ということはありません。
+            | 普段は自宅で学習をしていても、用があってオフィスの近くに来たときや。夏休みや正月休みなどの長期休暇の間はオフィスを利用することなども可能です。また、主な学習場所をあとで変更することもできます。
+
       .auth-form-item
+        // プログラミング経験
         = f.label :experience, class: "a-sm-label is-required"
         .is-button-simple-md-secondary.is-select.is-block
           - options = options_for_select(User.experiences.map { |k, v| [t("activerecord.enums.user.experience.#{k}"), k] }, selected: f.object.experience)
           = f.select :experience, options, include_blank: "- 選択してください -"
+
       .auth-form-item
-        = f.label :organization, class: "a-sm-label is-required"
-        = f.text_field :organization, class: "a-sm-text-input", autocomplete: :off, placeholder: "XXX大学"
-        .auth-form-item__help
-          p 会社名・学校名など（働いていない場合は「なし」としてください）
-      .auth-form-item
+        // フィヨルドブートキャンプをどこで知りましたか？
         = f.label :how_did_you_know, "フィヨルドブートキャンプをどこで知りましたか？", class: "a-sm-label is-required"
-        = f.text_area :how_did_you_know, class: "a-sm-text-input", placeholder: "Googleで「プログラミングスクール」で検索した結果。"
+        = f.text_area :how_did_you_know, class: "a-sm-text-input", placeholder: "大学時代の先輩である株式会社XXXXでプログラマをやっているXXXXさんから勧められて。"
+        .auth-form-item__help
+          p 自分で検索エンジンを使って見つけた場合は、そのときの検索キーワードなども覚えていたら入力してください。誰かに紹介してもらった場合、その誰かもお教えください。
+          p この情報は他のフィヨルドブートキャンプ参加者には公開されません。
+
     .auth-form-item
       - if user.adviser?
         - placeholder = "株式会社XXXXの開発チームマネージャーのXXXXXです。"
         - required_class = ""
+        - help_text = "この情報は他のフィヨルドブートキャンプ参加者に公開されます。"
       - else
-        - placeholder = "月・水・金の 10:00 〜 19:00 に活動します。"
+        - placeholder = "XXXXと申します。月・水・金の 10:00 〜 19:00 に活動します。XXXXと考えたため、プログラマーとして就職することを決意しました。今はXXXXで働いています。XXXXが好きでよくXXXXしています。XXXXが好きな方、仲良くしてください！！"
         - required_class = "is-required"
+        - help_text = "この情報は他のフィヨルドブートキャンプ参加者に公開されます。あとからでも内容を変更することができます。"
       = f.label :description, class: "a-sm-label #{required_class}"
       = f.text_area :description, class: "a-sm-text-input", placeholder: placeholder
+      .auth-form-item__help
+        p = help_text
+
     - if from == :edit
       .auth-form-item
         = f.label :slack_account, class: "a-sm-label"
