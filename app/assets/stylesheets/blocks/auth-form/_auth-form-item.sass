@@ -23,9 +23,11 @@
 .auth-form-item__help
   margin-top: .5rem
   p
-    +text-block(.75rem 1.5)
+    +text-block(.75rem 1.5 1em)
   a
     +hover-link-reversal
+  *:last-child
+    margin-bottom: 0
 
 .auth-form-item__help-link
   +text-block(.75rem 1.5)
