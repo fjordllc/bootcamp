@@ -4,8 +4,7 @@ html.is-admin lang="ja"
     meta charset="utf-8"
     meta content="IE=edge" http-equiv="X-UA-Compatible"
     meta content="width=device-width, initial-scale=1" name="viewport"
-    - page_title = yield :title
-    title #{page_title.present? ? page_title + " - " : ""}Fjord Bootcamp
+    = display_meta_tags default_meta_tags
     = render "favicons"
     = stylesheet_link_tag "application", media: "all"
     = stylesheet_link_tag "//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"

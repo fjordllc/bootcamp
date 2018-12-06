@@ -1,4 +1,16 @@
 - title "カテゴリー作成"
 
-h3 = title
-= render "form", category: @category
+header.page-header
+  .container
+    .page-header__container
+      h1.page-header__title = title
+      .page-header__action
+        = link_to new_admin_category_path, class: "is-button-simple-md-warning" do
+          i.fas.fa-plus
+          | カテゴリー作成
+
+= render "admin/admin_page_tabs"
+
+.page-body
+  .container.is-padding-horizontal-0-sm-down
+    = render "form", category: @category

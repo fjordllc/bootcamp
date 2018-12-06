@@ -30,6 +30,10 @@
       = f.label :description, class: "a-sm-label is-required"
       = f.text_area :description, class: "a-sm-text-input", size: "10x10"
     .auth-form-item
+      = f.label :company, class: "a-sm-label"
+      .is-button-simple-md-secondary.is-select.is-block
+        = f.collection_select :company_id, Company.order(:created_at), :id, :name, {}, { class: "form-control" }
+    .auth-form-item
       = f.label :slack_account, class: "a-sm-label"
       = f.text_field :slack_account, class: "a-sm-text-input"
     .auth-form-item
