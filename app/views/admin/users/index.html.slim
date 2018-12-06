@@ -1,9 +1,12 @@
 - title "ユーザー一覧"
+
 header.page-header
   .container
     .page-header__container
-      h2.page-header__title ユーザー一覧
-= render "admin/admin_page_tabs", active: 1
+      h2.page-header__title = title
+
+= render "admin/admin_page_tabs"
+
 .page-body
   = render "nav"
   .container.is-padding-horizontal-0-sm-down
