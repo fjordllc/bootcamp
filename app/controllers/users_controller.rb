@@ -45,6 +45,7 @@ class UsersController < ApplicationController
     @user.course = Course.first
 
     if @user.save
+      UserMailer.welcome(@user).deliver_now
       notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
         username: "#{@user.login_name}@bootcamp.fjord.jp",
         icon_url: gravatar_url(@user, secure: true)
