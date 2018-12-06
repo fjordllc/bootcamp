@@ -22,7 +22,7 @@ class UsersTest < ApplicationSystemTestCase
     visit edit_user_path(user.id)
     fill_in "user_login_name", with: "komagata"
     click_on "更新する"
-    assert_text "ユーザー名 はすでに存在します。"
+    assert_text "ユーザー名はすでに存在します"
   end
 
   test "update data and update users" do

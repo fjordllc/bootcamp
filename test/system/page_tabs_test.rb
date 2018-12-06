@@ -510,7 +510,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プロフィール", first(".page-tabs__item-link.is-active").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 4, page_tabs.size
+    assert_equal 5, page_tabs.size
     assert_equal "プロフィール", page_tabs[0].text
     assert_equal "プラクティス", page_tabs[1].text
     assert_equal "日報", page_tabs[2].text

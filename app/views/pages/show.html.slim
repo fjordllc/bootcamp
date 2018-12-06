@@ -25,7 +25,7 @@ header.page-header
             .thread-meta__label
               | 最終更新
             time.thread-meta__created-at(datetime="#{@page.updated_at.to_datetime}" pubdate="pubdate")
-              = l @page.updated_at, format: :date_long_with_time
+              = l @page.updated_at
         .thread-body
           .thread__description.js-markdown-view.js-target-blank.is-long-text-style.js-markdown
             = @page.body

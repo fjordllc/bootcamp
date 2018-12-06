@@ -10,7 +10,7 @@
               = product.list_title(resource)
         .thread-list-item-meta
           time.thread-list-item-meta__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")
-            = l product.updated_at, format: :semi_long
+            = l product.updated_at
           - if product.comments.any?
             .thread-list-item-meta__comment-count
               .thread-list-item-meta__comment-count-label
@@ -26,6 +26,6 @@
               h2.stamp__content.is-title
                 | 確認済
               time.stamp__content.is-created-at
-                = product.checks.last.created_at.strftime("%Y/%m/%d")
+                = l product.checks.last.created_at.to_date, format: :short
               .stamp__content.is-user-name
                 = product.checks.last.user.login_name

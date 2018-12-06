@@ -26,7 +26,7 @@ header.page-header
             .thread-meta__author-name
               = @question.user.login_name
             time.thread-meta__created-at(datetime="#{@question.created_at.to_datetime}" pubdate="pubdate")
-              = l @question.updated_at, format: :date_long_with_time
+              = l @question.updated_at
         - if @question.practice.present?
           .report-practices
             ul.report-practices__items

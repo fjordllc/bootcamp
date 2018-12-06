@@ -50,7 +50,7 @@ class SignUpTest < ApplicationSystemTestCase
     end
 
     click_on "参加する"
-    assert_text "ユーザー名 はすでに存在します。"
+    assert_text "ユーザー名はすでに存在します"
   end
 
   test "sign up as adviser" do
