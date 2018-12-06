@@ -2,6 +2,7 @@
 
 class PracticesController < ApplicationController
   include Gravatarify::Helper
+  before_action :require_admin_login, except: %i(show)
   before_action :require_login
   before_action :set_course, only: %i(new)
   before_action :set_practice, only: %w(show edit update destroy sort)
