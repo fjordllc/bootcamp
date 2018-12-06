@@ -373,6 +373,9 @@ GEM
       ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
+    rails-i18n (5.1.2)
+      i18n (>= 0.7, < 2)
+      railties (>= 5.0, < 6)
     railties (5.2.1)
       actionpack (= 5.2.1)
       activesupport (= 5.2.1)
@@ -523,6 +526,7 @@ DEPENDENCIES
   rack-user_agent
   rails (~> 5.2.0)
   rails-erd
+  rails-i18n
   ransack
   record_tag_helper (~> 1.0)
   rollbar
@@ -547,4 +551,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.6
+   1.17.1

@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
     format: {
       allow_blank: true,
       with: /\A\w+\z/,
-      message: I18n.t("errors.messages.only_alphanumeric_and_underscore")
+      message: "は英文字と_（アンダースコア）のみが使用できます"
     }
 
   with_options unless: :adviser? do

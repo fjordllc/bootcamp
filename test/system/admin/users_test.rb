@@ -14,21 +14,21 @@ class Admin::UsersTest < ApplicationSystemTestCase
 
   test "an error occurs when updating user-data" do
     user = users(:hatsuno)
-    visit edit_admin_user_path(user.id)
+    visit "/admin/users/#{user.id}/edit"
     fill_in "user_login_name", with: "komagata"
     click_on "更新する"
-    assert_text "ユーザー名 はすでに存在します。"
+    assert_text "ユーザー名はすでに存在します"
   end
 
-  test "update user-data and update users" do
+  test "update user" do
     user = users(:hatsuno)
-    visit edit_admin_user_path(user.id)
+    visit "/admin/users/#{user.id}/edit"
     fill_in "user_login_name", with: "hatsuno-1"
     click_on "更新する"
     assert_text "ユーザーを更新しました。"
   end
 
-  test "user can delete and all related data is deleted" do
+  test "delete user" do
     me    = users(:komagata)
     users = User.where.not("id = ?", me.id).all
 

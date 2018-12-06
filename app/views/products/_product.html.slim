@@ -8,13 +8,13 @@
           = link_to product.user, class: "thread-meta__author-name-link" do
             = product.user.login_name
         time.thread-meta__created-at(datetime="#{product.created_at.to_datetime}" pubdate="pubdate")
-          = l product.updated_at, format: :date_long_with_time
+          = l product.updated_at
     - if product.checks.any?
       .stamp.stamp-approve
         h2.stamp__content.is-title
           | 確認済
         time.stamp__content.is-created-at
-          = product.checks.last.created_at.strftime("%Y/%m/%d")
+          = l product.checks.last.created_at.to_date, format: :short
         .stamp__content.is-user-name
           = product.checks.last.user.login_name
     .thread__description.js-target-blank.is-long-text-style.js-markdown-view

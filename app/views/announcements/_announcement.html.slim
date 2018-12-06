@@ -9,7 +9,7 @@
           = link_to announcement.user, class: "thread-meta__author-name-link" do
             = announcement.user.login_name
         time.thread-meta__created-at(datetime="#{announcement.created_at.to_datetime}" pubdate="pubdate")
-          | 書いた日 : #{l announcement.updated_at, format: :date_long_with_time}
+          | 書いた日 : #{l announcement.updated_at}
 
     .thread-body
       .thread__description.js-target-blank.is-long-text-style.js-markdown-view

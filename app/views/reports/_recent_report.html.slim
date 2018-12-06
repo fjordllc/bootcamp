@@ -7,7 +7,7 @@
           | WIP
       = report.title
     time.recent-reports-item__date
-      = l report.updated_at, format: :date_default
+      = l report.updated_at.to_date
     - if report.checks.present?
       .recent-reports-item__checked
         i.fas.fa-check
