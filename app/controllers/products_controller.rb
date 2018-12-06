@@ -2,23 +2,28 @@
 
 class ProductsController < ApplicationController
   before_action :require_login
-  before_action :set_my_product, only: %i(show edit update destroy)
-  before_action :set_practice
-  before_action :set_footprints, only: %i(show)
+  before_action :check_permission!, only: %i(show)
 
   def show
+    @product = find_product
+    @practice = find_practice
+    @footprints = find_footprints
     footprint!
   end
 
   def new
+    @practice = find_practice
     @product = @practice.products.new(user: current_user)
   end
 
   def edit
+    @practice = find_practice
+    @product = find_product
   end
 
   def create
     @product = Product.new(product_params)
+    @practice = find_practice
     @product.practice = @practice
     @product.user = current_user
 
@@ -30,6 +35,7 @@ class ProductsController < ApplicationController
   end
 
   def update
+    @product = find_product
     if @product.update(product_params)
       redirect_to @product, notice: "提出物を更新しました。"
     else
@@ -38,38 +44,49 @@ class ProductsController < ApplicationController
   end
 
   def destroy
+    @product = find_product
     @product.destroy
     redirect_to @practice, notice: "提出物を削除しました。"
   end
 
   private
-    def set_practice
-      @practice =
-        if params[:practice_id]
-          Practice.find(params[:practice_id])
-        else
-          @product.practice
-        end
+    def find_product
+      Product.find_by(id: params[:id])
     end
 
-    def set_my_product
-      @product =
-        if product_displayable?(practice: @practice)
-          Product.find_by(id: params[:id])
-        else
-          Product.find_by(id: params[:id], user: current_user)
-        end
+    def find_practice
+      if params[:practice_id]
+        Practice.find(params[:practice_id])
+      else
+        find_product.practice
+      end
+    end
+
+    def find_footprints
+      find_product.footprints.order(created_at: :desc)
+    end
+
+    def footprint!
+      if find_product.user != current_user
+        find_product.footprints.where(user: current_user).first_or_create
+      end
+    end
+
+    def my_product?
+      find_product.user == current_user
+    end
+
+    def completed?
+      current_user.has_checked_product_of?(find_practice)
+    end
+
+    def check_permission!
+      unless admin_login? || mentor_login? || adviser_login? || my_product? || completed?
+        redirect_to root_path, alert: "プラクティスを完了するまで他の人の提出物は見れません。"
+      end
     end
 
     def product_params
       params.require(:product).permit(:body)
-    end
-
-    def footprint!
-      @product.footprints.where(user: current_user).first_or_create if @product.user != current_user
-    end
-
-    def set_footprints
-      @footprints = @product.footprints.order(created_at: :desc)
     end
 end
