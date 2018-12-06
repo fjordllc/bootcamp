@@ -208,6 +208,17 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "終了時間 : 終了時間は開始時間より後にしてください。"
   end
 
+  test "can't register no learning_times" do
+    visit "/reports/new"
+    fill_in "report_title", with: "テスト日報"
+    fill_in "report_description", with: "can't register no lerning_times"
+    click_on "削除"
+
+    click_button "提出"
+
+    assert_text "学習時間 : 学習時間を入力してください。"
+  end
+
   test "Reports can be copied" do
     user   = users(:komagata)
     report = user.reports.first
