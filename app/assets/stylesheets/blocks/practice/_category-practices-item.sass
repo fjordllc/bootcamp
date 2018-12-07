@@ -65,3 +65,15 @@
 
 .category-practices-item__button-group
   white-space: nowrap
+
+.category-practices-item__button:disabled
+  color: $reversal-text
+  pointer-events: none
+
+.category-practices-item__button
+  &:active
+    +top(0)
+  .category-practices-item__button-group-item.is-active &
+    border: none
+  .category-practices-item__button-group-item.is-active + .category-practices-item__button-group-item &
+    border-left: none
