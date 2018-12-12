@@ -28,11 +28,10 @@ class ReportsTest < ApplicationSystemTestCase
       fill_in("report[description]",   with: "test")
     end
 
-    selects = all("select")
-    select "07", from: selects[0]["id"]
-    select "30", from: selects[1]["id"]
-    select "08", from: selects[2]["id"]
-    select "30", from: selects[3]["id"]
+    find(".form-item__time:first-child .form-selects__item:first-child select").select("07")
+    find(".form-item__time:first-child .form-selects__item:nth-child(2) select").select("30")
+    find(".form-item__time:nth-child(2) .form-selects__item:first-child select").select("08")
+    find(".form-item__time:nth-child(2) .form-selects__item:nth-child(2) select").select("30")
 
     click_button "提出"
     assert_text "日報を保存しました。"
