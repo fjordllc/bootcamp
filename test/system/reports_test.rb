@@ -137,11 +137,10 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in "report_title", with: "テスト日報 成功"
     fill_in "report_description", with: "不具合再現の結合テストコード"
 
-    selects = all("select")
-    select "19", from: selects[0]["id"]
-    select "30", from: selects[1]["id"]
-    select "20", from: selects[2]["id"]
-    select "15", from: selects[3]["id"]
+    find(".form-item__time:first-child .form-selects__item:first-child select").select("19")
+    find(".form-item__time:first-child .form-selects__item:nth-child(2) select").select("30")
+    find(".form-item__time:nth-child(2) .form-selects__item:first-child select").select("20")
+    find(".form-item__time:nth-child(2) .form-selects__item:nth-child(2) select").select("15")
 
     click_button "提出"
 
@@ -149,16 +148,15 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "19:30 〜 20:15"
   end
 
-  test "regist learning_times 1h" do
+  test "register learning_times 1h" do
     visit "/reports/new"
     fill_in "report_title", with: "テスト日報"
     fill_in "report_description", with: "完了日時 - 開始日時 < 0のパターン"
 
-    selects = all("select")
-    select "23", from: selects[0]["id"]
-    select "00", from: selects[1]["id"]
-    select "00", from: selects[2]["id"]
-    select "00", from: selects[3]["id"]
+    find(".form-item__time:first-child .form-selects__item:first-child select").select("23")
+    find(".form-item__time:first-child .form-selects__item:nth-child(2) select").select("00")
+    find(".form-item__time:nth-child(2) .form-selects__item:first-child select").select("00")
+    find(".form-item__time:nth-child(2) .form-selects__item:nth-child(2) select").select("00")
 
     click_button "提出"
 
@@ -196,11 +194,10 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in "report_title", with: "テスト日報"
     fill_in "report_description", with: "can't register learning_times 0h0m"
 
-    selects = all("select")
-    select "22", from: selects[0]["id"]
-    select "00", from: selects[1]["id"]
-    select "22", from: selects[2]["id"]
-    select "00", from: selects[3]["id"]
+    find(".form-item__time:first-child .form-selects__item:first-child select").select("22")
+    find(".form-item__time:first-child .form-selects__item:nth-child(2) select").select("00")
+    find(".form-item__time:nth-child(2) .form-selects__item:first-child select").select("22")
+    find(".form-item__time:nth-child(2) .form-selects__item:nth-child(2) select").select("00")
 
     click_button "提出"
 
