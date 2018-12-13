@@ -59,6 +59,7 @@ ja:
         retired_on: リタイア日
         free: 無料ユーザー
         avatar: アイコン画像
+        retire_reason: 退会理由
       course:
         title: タイトル
         description: 詳細

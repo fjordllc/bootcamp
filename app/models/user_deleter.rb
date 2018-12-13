@@ -8,6 +8,5 @@ class UserDeleter
   def delete
     @user.notifications.destroy_all
     @user.send_notifications.destroy_all
-    @user.destroy
   end
 end

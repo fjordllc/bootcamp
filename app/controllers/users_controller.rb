@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :require_login, except: %i(new create)
-  before_action :set_user, only: %w(show)
+  before_action :set_user, only: %w(show retire)
 
   def index
     @categories = Category.order("position")
@@ -38,8 +38,18 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    UserDeleter.new(current_user).delete
-    redirect_to users_url, notice: "退会しました。"
+    @user = User.find(params[:id])
+    @user.assign_attributes(retire_reason_params)
+    @user.retired_on = Date.current
+    if @user.save(context: :retire_reason_presence)
+      UserDeleter.new(current_user).delete
+      redirect_to login_url, notice: "退会しました。"
+    else
+      render :retire
+    end
+  end
+
+  def retire
   end
 
   private
@@ -77,5 +87,9 @@ class UsersController < ApplicationController
 
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def retire_reason_params
+      params.require(:user).permit(:retire_reason)
     end
 end

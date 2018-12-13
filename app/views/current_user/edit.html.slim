@@ -19,4 +19,4 @@
     .card-footer-actions
       ul.card-footer-actions__items
         li.card-footer-actions__item
-          = link_to "退会する", current_user, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block", data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }
+          = link_to "退会ページヘ移動する", retire_user_path(@user), class: "card-footer-actions__action is-button-simple-md-danger is-block"
