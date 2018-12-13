@@ -57,6 +57,7 @@ ja:
         adviser: アドバイザー
         retired_on: リタイア日
         free: 無料ユーザー
+        retire_reason: 退会理由
       course:
         title: タイトル
         description: 詳細

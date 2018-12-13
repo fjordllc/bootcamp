@@ -1,0 +1,17 @@
+- content_for(:page_classes, "no-header no-footer no-recent-reports")
+
+.auth-form.is-sign-up.a-card
+  header.auth-form__header
+    h1.auth-form__title 退会
+  .auth-form__body
+    - if @user.errors.any?
+      = render "errors", object: @user
+    = form_for @user, method: :delete do |f|
+      .auth-form-item
+        = f.label :retire_reason, "退会理由", class: "a-sm-label"
+        = f.text_area :retire_reason, class: "a-sm-text-input", placeholder: "退会理由を記入して下さい"
+
+      .auth-form-action.is-sign-up-action
+        ul.auth-form-action__items
+          li.auth-form-action__item
+            = f.submit "退会する", class: "is-button-simple-md-danger", data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }

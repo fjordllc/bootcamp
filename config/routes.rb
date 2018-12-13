@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :announcements
   resources :feeds, only: %i(index)
   resources :users, only: %i(index show new create destroy) do
+    get :retire, on: :member
     resources :practices, only: %i(index), controller: "users/practices"
     resources :reports, only: %i(index), controller: "users/reports"
     resources :comments, only: %i(index), controller: "users/comments"
