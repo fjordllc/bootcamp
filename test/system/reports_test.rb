@@ -216,7 +216,7 @@ class ReportsTest < ApplicationSystemTestCase
 
     click_button "提出"
 
-    assert_text "学習時間 : 学習時間を入力してください。"
+    assert_text "学習時間を入力してください。"
   end
 
   test "Reports can be copied" do
