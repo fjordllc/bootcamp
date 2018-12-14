@@ -77,12 +77,9 @@ jobs:
             ./bin/test
 
       - store_test_results:
-          path: /tmp/test-results
+          path: tmp/test-results
       - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
-      - store_artifacts:
-          path: /tmp/screenshots
+          path: tmp/screenshots
           destination: screenshots
 
 workflows:
