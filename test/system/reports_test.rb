@@ -28,10 +28,10 @@ class ReportsTest < ApplicationSystemTestCase
       fill_in("report[description]",   with: "test")
     end
 
-    find(".form-item__time:first-child .form-selects__item:first-child select").select("07")
-    find(".form-item__time:first-child .form-selects__item:nth-child(2) select").select("30")
-    find(".form-item__time:nth-child(2) .form-selects__item:first-child select").select("08")
-    find(".form-item__time:nth-child(2) .form-selects__item:nth-child(2) select").select("30")
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
 
     click_button "提出"
     assert_text "日報を保存しました。"
@@ -54,25 +54,22 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in "report_title", with: "テスト日報"
     fill_in "report_description", with: "不具合再現の結合テストコード"
 
-    selects = all("select")
-    select "07", from: selects[0]["id"]
-    select "30", from: selects[1]["id"]
-    select "08", from: selects[2]["id"]
-    select "30", from: selects[3]["id"]
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
 
     click_link "学習時間追加"
-    selects = all("select")
-    select "08", from: selects[4]["id"]
-    select "30", from: selects[5]["id"]
-    select "09", from: selects[6]["id"]
-    select "30", from: selects[7]["id"]
+    all(".learning-time")[1].all(".learning-time__started-at select")[0].select("08")
+    all(".learning-time")[1].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[0].select("09")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[1].select("30")
 
     click_link "学習時間追加"
-    selects = all("select")
-    select "19", from: selects[8]["id"]
-    select "30", from: selects[9]["id"]
-    select "20", from: selects[10]["id"]
-    select "15", from: selects[11]["id"]
+    all(".learning-time")[2].all(".learning-time__started-at select")[0].select("19")
+    all(".learning-time")[2].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[2].all(".learning-time__finished-at select")[0].select("20")
+    all(".learning-time")[2].all(".learning-time__finished-at select")[1].select("15")
 
     click_button "提出"
 
@@ -87,18 +84,16 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in "report_title", with: "テスト日報 成功"
     fill_in "report_description", with: "不具合再現の結合テストコード"
 
-    selects = all("select")
-    select "07", from: selects[0]["id"]
-    select "30", from: selects[1]["id"]
-    select "08", from: selects[2]["id"]
-    select "30", from: selects[3]["id"]
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
 
     click_link "学習時間追加"
-    selects = all("select")
-    select "08", from: selects[4]["id"]
-    select "30", from: selects[5]["id"]
-    select "09", from: selects[6]["id"]
-    select "30", from: selects[7]["id"]
+    all(".learning-time")[1].all(".learning-time__started-at select")[0].select("08")
+    all(".learning-time")[1].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[0].select("09")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[1].select("30")
 
     click_button "提出"
 
@@ -112,18 +107,16 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in "report_title", with: "テスト日報 成功"
     fill_in "report_description", with: "不具合再現の結合テストコード"
 
-    selects = all("select")
-    select "07", from: selects[0]["id"]
-    select "30", from: selects[1]["id"]
-    select "08", from: selects[2]["id"]
-    select "30", from: selects[3]["id"]
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
 
     click_link "学習時間追加"
-    selects = all("select")
-    select "19", from: selects[4]["id"]
-    select "30", from: selects[5]["id"]
-    select "20", from: selects[6]["id"]
-    select "15", from: selects[7]["id"]
+    all(".learning-time")[1].all(".learning-time__started-at select")[0].select("19")
+    all(".learning-time")[1].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[0].select("20")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[1].select("15")
 
     click_button "提出"
 
@@ -137,10 +130,10 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in "report_title", with: "テスト日報 成功"
     fill_in "report_description", with: "不具合再現の結合テストコード"
 
-    find(".form-item__time:first-child .form-selects__item:first-child select").select("19")
-    find(".form-item__time:first-child .form-selects__item:nth-child(2) select").select("30")
-    find(".form-item__time:nth-child(2) .form-selects__item:first-child select").select("20")
-    find(".form-item__time:nth-child(2) .form-selects__item:nth-child(2) select").select("15")
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("19")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("20")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("15")
 
     click_button "提出"
 
@@ -153,10 +146,10 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in "report_title", with: "テスト日報"
     fill_in "report_description", with: "完了日時 - 開始日時 < 0のパターン"
 
-    find(".form-item__time:first-child .form-selects__item:first-child select").select("23")
-    find(".form-item__time:first-child .form-selects__item:nth-child(2) select").select("00")
-    find(".form-item__time:nth-child(2) .form-selects__item:first-child select").select("00")
-    find(".form-item__time:nth-child(2) .form-selects__item:nth-child(2) select").select("00")
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("23")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("00")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("00")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("00")
 
     click_button "提出"
 
@@ -169,18 +162,16 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in "report_title", with: "テスト日報"
     fill_in "report_description", with: "複数時間登録のパターン"
 
-    selects = all("select")
-    select "22", from: selects[0]["id"]
-    select "00", from: selects[1]["id"]
-    select "00", from: selects[2]["id"]
-    select "00", from: selects[3]["id"]
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("22")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("00")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("00")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("00")
 
     click_link "学習時間追加"
-    selects = all("select")
-    select "00", from: selects[4]["id"]
-    select "30", from: selects[5]["id"]
-    select "02", from: selects[6]["id"]
-    select "30", from: selects[7]["id"]
+    all(".learning-time")[1].all(".learning-time__started-at select")[0].select("00")
+    all(".learning-time")[1].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[0].select("02")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[1].select("30")
 
     click_button "提出"
 
@@ -194,10 +185,10 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in "report_title", with: "テスト日報"
     fill_in "report_description", with: "can't register learning_times 0h0m"
 
-    find(".form-item__time:first-child .form-selects__item:first-child select").select("22")
-    find(".form-item__time:first-child .form-selects__item:nth-child(2) select").select("00")
-    find(".form-item__time:nth-child(2) .form-selects__item:first-child select").select("22")
-    find(".form-item__time:nth-child(2) .form-selects__item:nth-child(2) select").select("00")
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("22")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("00")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("22")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("00")
 
     click_button "提出"
 
