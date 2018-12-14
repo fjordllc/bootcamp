@@ -70,6 +70,4 @@ Rails.application.routes.draw do
 
   get "thanks", to: "static_pages#thanks"
   get "retire", to: "static_pages#retire"
-
-  get "mails/welcome", to: "mails#welcome", as: "mails/welcome"
 end
