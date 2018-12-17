@@ -1,25 +1,35 @@
-$select2-height: 2.25rem
-$select2-font-size: .875rem
+$select2-height: 2.375rem
+$select2-font-size: .8125rem
 $select2-border-color: $background-color-shade
 $select2-option-border-color: $background-color
 $select2-highlighted-color: rgba($main-color, .8)
 $select2-results-height: calc(100vh - 380px)
+$select2-selection-choice-border: $main-color
+$select2-selection-choice-background: mix($main-color, $base-color, 10%)
 
 .select2-container
   display: inline-block
   position: relative
   vertical-align: middle
   max-width: 100%
+  .form-item &
+    width: 100% !important
 
 .select2-selection
   cursor: pointer
   display: block
+  min-height: $select2-height
 
 .select2-selection__rendered
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
-  +text-block($select2-font-size 1.4)
+  +text-block($select2-font-size 1)
+
+.select2-search
+  line-height: 28px
+  +media-breakpoint-down(sm)
+    flex: 0 0 100%
 
 // single
 
@@ -43,16 +53,12 @@ $select2-results-height: calc(100vh - 380px)
 // multiple
 
 .select2-selection--multiple
-  min-height: 2rem
   user-select: none
   -webkit-user-select: none
 
 .select2-selection--multiple .select2-selection__rendered
   display: inline-block
   padding-left: 8px
-
-.select2-search--inline
-  float: left
 
 .select2-search--inline .select2-search__field
   border: none
@@ -207,18 +213,15 @@ $select2-results-height: calc(100vh - 380px)
   cursor: text
 
 .select2-container--default .select2-selection--multiple .select2-selection__rendered
-  list-style: none
-  margin: 0
-  padding: 0 5px
+  padding: .25rem .5rem
   width: 100%
-
-.select2-container--default .select2-selection--multiple .select2-selection__rendered li
-  list-style: none
+  display: flex
+  flex-wrap: wrap
+  margin: 0 -.25rem
 
 .select2-container--default .select2-selection--multiple .select2-selection__placeholder
   color: #999
   margin-top: 5px
-  float: left
 
 .select2-container--default .select2-selection--multiple .select2-selection__clear
   cursor: pointer
@@ -228,24 +231,30 @@ $select2-results-height: calc(100vh - 380px)
   margin-right: 10px
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice
-  background-color: #e4e4e4
-  border: 1px solid $select2-border-color
+  background-color: $select2-selection-choice-background
+  border: 1px solid $select2-selection-choice-border
+  color: $select2-selection-choice-border
   border-radius: 4px
   cursor: default
-  float: left
-  margin-right: 5px
-  margin-top: 5px
-  padding: 0 5px
+  margin: .125rem .25rem
+  padding-right: .5rem
+  display: flex
+  align-items: center
+  height: 1.75rem
+  max-width: 100%
+  overflow: hidden
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove
-  color: #999
   cursor: pointer
-  display: inline-block
-  font-weight: bold
-  margin-right: 2px
-
-.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover
-  color: #333
+  align-items: center
+  justify-content: center
+  +size(1.5rem 100%)
+  flex: 0 0 1.5rem
+  margin-right: .5rem
+  +text-block(1.125rem, 800 flex $reversal-text)
+  background-color: $select2-selection-choice-border
+  &:hover
+    background-color: mix($select2-selection-choice-border, $base-color, 80%)
 
 .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice, .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__placeholder, .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-search--inline
   float: right
@@ -259,7 +268,6 @@ $select2-results-height: calc(100vh - 380px)
   margin-right: auto
 
 .select2-container--default.select2-container--focus .select2-selection--multiple
-  border: solid black 1px
   outline: 0
 
 .select2-container--default.select2-container--disabled .select2-selection--multiple

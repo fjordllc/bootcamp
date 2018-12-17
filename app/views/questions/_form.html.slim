@@ -5,11 +5,11 @@
     .form-item
       .form-item
         .row
-          .col-lg-9.col-xs-12
+          .col-lg-6.col-xs-12
             .form-item
               = f.label :practice, class: "a-label"
               .select-practices
-                = f.select(:practice_id, practice_options(categories))
+                = f.select(:practice_id, practice_options(categories), {}, class: "js-select2")
 
       .form-item
         .row.js-markdown-parent
