@@ -80,6 +80,7 @@ ja:
         description: 詳細
       report:
         title: タイトル
+        practice: プラクティス
         reported_on: 学習日
         description: 内容
         learning_times: 学習時間
