@@ -1,0 +1,18 @@
+.user-metas
+  +media-breakpoint-down(sm)
+    margin-bottom: .125rem
+
+.user-metas__item
+  display: flex
+  &:not(:last-child)
+    margin-bottom: .25rem
+
+.user-metas__item-label
+  +text-block(.8125rem 1.4, flex)
+  &::after
+    content: ":"
+    display: block
+    +padding(horizontal, .125rem)
+
+.user-metas__item-value
+  +text-block(.8125rem 1.4)

@@ -1,0 +1,35 @@
+.user-metas
+  .user-metas__items
+    .user-metas__item
+      .user-metas__item-label
+        = User.human_attribute_name :created_at
+      .user-metas__item-value
+        = l user.created_at.to_date
+    .user-metas__item
+      .user-metas__item-label
+        = User.human_attribute_name :updated_at
+      .user-metas__item-value
+        = l user.updated_at
+    .user-metas__item
+      .user-metas__item-label
+        | slackアカウント
+      .user-metas__item-value
+        = user.slack_account
+    - unless user.company.id == 1
+      .user-metas__item
+        .user-metas__item-label
+          | 所属企業
+        .user-metas__item-value
+          = user.company.name
+    - if user.graduated_on.present?
+      .user-metas__item
+        .user-metas__item-label
+          = User.human_attribute_name :graduated_on
+        .user-metas__item-value
+          = l user.graduated_on
+    - if user.retired_on.present?
+      .user-metas__item
+        .user-metas__item-label
+          = User.human_attribute_name :retired_on
+        .user-metas__item-value
+          = l user.retired_on

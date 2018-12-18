@@ -1,4 +1,5 @@
 company_1:
+  id: 1
   name: "FJORD, LLC"
   description: "合同会社フィヨルド"
   website: "http://fjord.jp"
