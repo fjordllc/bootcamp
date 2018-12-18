@@ -12,9 +12,32 @@
         = l user.updated_at
     .user-metas__item
       .user-metas__item-label
+        | コース
+      .user-metas__item-value
+        = user.course.title
+    .user-metas__item
+      .user-metas__item-label
+        | 日報
+      .user-metas__item-value
+        = user.reports.count
+    .user-metas__item
+      .user-metas__item-label
+        | コメント
+      .user-metas__item-value
+        = user.comments.count
+    .user-metas__item
+      .user-metas__item-label
+        | 完了プラクティス
+      .user-metas__item-value
+        = user.completed_practices.size
+    .user-metas__item
+      .user-metas__item-label
         | slackアカウント
       .user-metas__item-value
-        = user.slack_account
+        - if user.slack_account.present?
+          = user.slack_account
+        - else
+          | 未登録
     - unless user.company.id == 1
       .user-metas__item
         .user-metas__item-label
