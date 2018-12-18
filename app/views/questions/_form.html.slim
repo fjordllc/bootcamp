@@ -9,7 +9,7 @@
             .form-item
               = f.label :practice, class: "a-label"
               .select-practices
-                = f.select(:practice_id, practice_options(categories), {}, class: "js-select2")
+                = f.select(:practice_id, practice_options(categories), {}, { class: "js-select2" })
 
       .form-item
         .row.js-markdown-parent
