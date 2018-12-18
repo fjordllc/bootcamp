@@ -2,6 +2,7 @@
 
 class UserSessionsController < ApplicationController
   def new
+    @user = User.new
   end
 
   def create
@@ -16,6 +17,10 @@ class UserSessionsController < ApplicationController
       end
     else
       logout
+      @user = User.new(
+        login_name: params[:user][:login_name],
+        password: params[:user][:password]
+      )
       flash.now[:alert] = "ユーザー名かパスワードが違います。"
       render "new", notice: "サインアウトしました。"
     end

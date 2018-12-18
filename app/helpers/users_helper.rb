@@ -21,4 +21,16 @@ module UsersHelper
   def user_github_url(user)
     "https://github.com/#{user.github_account}"
   end
+
+  def user_submit_label(user, from)
+    if from == :new
+      if user.adviser?
+        "アドバイザー登録"
+      else
+        "参加する"
+      end
+    else
+      "更新する"
+    end
+  end
 end

@@ -8,4 +8,4 @@
           = announcement.title
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{announcement.updated_at.to_datetime}" pubdate="pubdate")
-        = l announcement.updated_at, format: :semi_long
+        = l announcement.updated_at

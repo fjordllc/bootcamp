@@ -1,23 +1,15 @@
-- content_for(:page_classes, "no-header no-footer no-recent-reports no-global-nav is-auth-page")
+- title @user.adviser? ? "アドバイザー登録" : "フィヨルドブートキャンプ参加登録"
+- content_for :page_classes, "no-header no-footer no-recent-reports no-global-nav is-auth-page"
 
 .auth-form.is-sign-up.a-card
   header.auth-form__header
-    h1.auth-form__title
-      - if params[:role] == "adviser"
-        | アドバイザー登録
-      - else
-        | サインアップ
+    h1.auth-form__title = title
   .auth-form__body
-    = render "form", user: @user, companies: @companies
+    = render "form", from: :new, user: @user
   footer.auth-form__footer
     nav.auth-form-nav
       ul.auth-form-nav__items
         li.auth-form-nav__item
-          = link_to root_path, class: "auth-form-nav__item-link" do
-            | トップページ
+          = link_to "トップページ", root_path, class: "auth-form-nav__item-link"
         li.auth-form-nav__item
-          = link_to login_path, class: "auth-form-nav__item-link" do
-            | サインイン
-        li.auth-form-nav__item
-           span.auth-form-nav__item-link.js-modal(data-target="#nda-modal")
-            | 秘密保持契約内容を確認
+           span.auth-form-nav__item-link.js-modal(data-target="#nda-modal") 秘密保持契約内容を確認

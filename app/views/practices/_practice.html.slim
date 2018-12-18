@@ -14,12 +14,12 @@
         ul.is-button-group.category-practices-item__button-group
           - %i(not_complete started complete).each do |status|
             - if practice.status(current_user) == status
-              li
-                button.btn.btn-success.js-practice-state.is-button-simple-xs-primary(class="#{status}" data-status="#{status}" disabled)
+              li.category-practices-item__button-group-item.is-active
+                button.category-practices-item__button.js-practice-state.is-button-simple-xs-primary(class="#{status}" data-status="#{status}" disabled)
                   = t("activerecord.enums.learning.status.#{status}")
             - else
-              li
-                button.btn.btn-secondary.js-practice-state.is-button-simple-xs-secondary(class="#{status}" data-status="#{status}")
+              li.category-practices-item__button-group-item
+                button.category-practices-item__button.js-practice-state.is-button-simple-xs-secondary(class="#{status}" data-status="#{status}")
                   = t("activerecord.enums.learning.status.#{status}")
   - if current_user.admin?
     .category-practices-item__handle.js-show-handle__target

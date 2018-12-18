@@ -17,7 +17,7 @@
         = question.practice.title
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{question.updated_at.to_datetime}" pubdate="pubdate")
-        = l question.updated_at, format: :semi_long
+        = l question.updated_at
       - if question.answers.present?
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-label

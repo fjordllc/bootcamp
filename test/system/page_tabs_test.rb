@@ -382,16 +382,16 @@ class PageTabsTest < ApplicationSystemTestCase
   end
 
   test "when login user is student and target user has a checked product and login user also has it, user's tab members are user and practices and reports and comments and products" do
-    login_user "tanaka", "testtest"
+    login_user "hatsuno", "testtest"
 
     assert_text "ユーザー"
     click_link "ユーザー"
 
     first_displayed_student = first(".users-item__name-link")
-    assert_equal "yamada", first_displayed_student.text
+    assert_equal "hatsuno", first_displayed_student.text
     first_displayed_student.click
 
-    assert_text "Yamada Taro"
+    assert_text "Hatsuno Shinji"
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "プロフィール", first(".page-tabs__item-link.is-active").text
 
@@ -407,7 +407,7 @@ class PageTabsTest < ApplicationSystemTestCase
 
     all(".page-tabs__item-link")[0].click
 
-    assert_text "Yamada Taro"
+    assert_text "Hatsuno Shinji"
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "プロフィール", first(".page-tabs__item-link.is-active").text
 
@@ -510,7 +510,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プロフィール", first(".page-tabs__item-link.is-active").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 4, page_tabs.size
+    assert_equal 5, page_tabs.size
     assert_equal "プロフィール", page_tabs[0].text
     assert_equal "プラクティス", page_tabs[1].text
     assert_equal "日報", page_tabs[2].text
