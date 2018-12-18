@@ -68,7 +68,6 @@
             p 会社名・学校名などを入力してください（働いていない場合は「なし」としてください）。
             p この情報は他のフィヨルドブートキャンプ参加者には公開されませんが、就職活動の際に利用する場合があります。
 
-
       .auth-form-item
         // 学習に使うOS
         = f.label :os, "学習に使うOS", class: "a-sm-label is-required"
@@ -113,14 +112,16 @@
           p この情報は他のフィヨルドブートキャンプ参加者には公開されません。
 
     .auth-form-item
-      - if user.adviser?
-        - placeholder = "株式会社XXXXの開発チームマネージャーのXXXXXです。"
-        - required_class = ""
-        - help_text = "この情報は他のフィヨルドブートキャンプ参加者に公開されます。"
-      - else
-        - placeholder = "XXXXと申します。月・水・金の 10:00 〜 19:00 に活動します。XXXXと考えたため、プログラマーとして就職することを決意しました。今はXXXXで働いています。XXXXが好きでよくXXXXしています。XXXXが好きな方、仲良くしてください！！"
-        - required_class = "is-required"
-        - help_text = "この情報は他のフィヨルドブートキャンプ参加者に公開されます。あとからでも内容を変更することができます。"
+      ruby:
+        if user.adviser?
+          placeholder = "株式会社XXXXの開発チームマネージャーのXXXXXです。"
+          required_class = ""
+          help_text = "この情報は他のフィヨルドブートキャンプ参加者に公開されます。"
+        else
+          placeholder = "XXXXと申します。月・水・金の 10:00 〜 19:00 に活動します。XXXXと考えたため、プログラマーとして就職することを決意しました。今はXXXXで働いています。XXXXが好きでよくXXXXしています。XXXXが好きな方、仲良くしてください！！"
+          required_class = "is-required"
+          help_text = "この情報は他のフィヨルドブートキャンプ参加者に公開されます。あとからでも内容を変更することができます。"
+        end
       = f.label :description, class: "a-sm-label #{required_class}"
       = f.text_area :description, class: "a-sm-text-input", placeholder: placeholder
       .auth-form-item__help
