@@ -1,7 +1,7 @@
 section.welcome-section.is-faq#faq
   .container
     h2.welcome-section__title
-      = image_tag("faq-title.svg", alt: "よくある質問", class: "welcome-section__title-image")
+      = image_tag "faq-title.svg", alt: "よくある質問", class: "welcome-section__title-image"
     h3.welcome-section__sub-title
       | お気軽にどうぞ。
     .welcome-section__description.js-mojik
@@ -81,20 +81,5 @@ section.welcome-section.is-faq#faq
           p
             | カリキュラムが、最新のMacのOSを想定して作られています。多少古い場合はどうにかなるかもしれませんが、OSのせいで学習に詰まることが出てくるかもしれません。何かしら事情があってお手持ちのMacのバージョンが上げられない場合は、それとは別のMacを用意してから参加申し込みをお願いします。
 
-    .welcome-section__action.js-modal(data-target="#nda-modal" data-toggle="modal")
-      | 質問はこちらから
-
-.modal#nda-modal(tabindex="-1" role="dialog" aria-labelledby="nda-modalLabel" aria-hidden="true")
-  .modal-dialog role="document"
-    .modal-content
-      .modal-header
-        h2.modal-title
-          | お気軽に質問してください。
-        button.modal-header__close.js-modal__close(aria-label="Close" data-dismiss="modal" type="button")
-          span(aria-hidden="true")  &times;
-      .modal-body
-        = render("question_form")
-      .modal-footer
-        .nda__actions-container
-          .nda__close.js-modal__close(aria-label="Close" data-dismiss="modal" type="button")
-            | やっぱやめた
+    .welcome-section__action
+      = link_to "質問はこちらから", new_inquiry_path

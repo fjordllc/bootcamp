@@ -1,0 +1,8 @@
+- title "お問い合わせ"
+
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title = title
+.container
+  = render "form", inquiry: @inquiry
