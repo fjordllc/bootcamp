@@ -68,6 +68,9 @@ Rails.application.routes.draw do
   end
 
   resources :courses, only: :index
+
+  resource :inquiry, only: %i(new create)
+
   get "login" => "user_sessions#new", as: :login
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
