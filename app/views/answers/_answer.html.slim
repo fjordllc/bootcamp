@@ -16,7 +16,7 @@
         = link_to answer.user, itempro: "url", class: "thread-comment__title-link" do
           = answer.user.login_name
       time.thread-comment__created-at(datetime="#{answer.created_at.to_datetime}" pubdate="pubdate")
-        = l answer.updated_at, format: :date_long_with_time
+        = l answer.updated_at
     .thread-comments__description.js-markdown-view.js-target-blank.is-long-text-style
       = answer.description
 

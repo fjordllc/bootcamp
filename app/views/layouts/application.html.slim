@@ -19,6 +19,7 @@ html.is-application lang="ja"
       = stylesheet_link_tag "//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
       = render "import_prism"
     = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto", media: "all"
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:900", media: "all"
     = content_for(:head_last) if content_for?(:head_last)
   body#body class="#{body_class} #{page_classes}"
     = render "google_tag_manager_body"
