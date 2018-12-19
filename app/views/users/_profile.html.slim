@@ -6,7 +6,4 @@
       = user.login_name
     h2.user-profile__full-name
       = user.full_name
-    - unless user.company.name == "FJORD, LLC"
-      .user-profile__company-name
-        = user.company.name
   = render "users/sns", user: user

@@ -1,0 +1,58 @@
+.user-metas
+  .user-metas__items
+    .user-metas__item
+      .user-metas__item-label
+        = User.human_attribute_name :created_at
+      .user-metas__item-value
+        = l user.created_at.to_date
+    .user-metas__item
+      .user-metas__item-label
+        = User.human_attribute_name :updated_at
+      .user-metas__item-value
+        = l user.updated_at
+    .user-metas__item
+      .user-metas__item-label
+        | コース
+      .user-metas__item-value
+        = user.course.title
+    .user-metas__item
+      .user-metas__item-label
+        | 日報
+      .user-metas__item-value
+        = user.reports.count
+    .user-metas__item
+      .user-metas__item-label
+        | コメント
+      .user-metas__item-value
+        = user.comments.count
+    .user-metas__item
+      .user-metas__item-label
+        | 完了プラクティス
+      .user-metas__item-value
+        = user.completed_practices.size
+    .user-metas__item
+      .user-metas__item-label
+        | slackアカウント
+      .user-metas__item-value
+        - if user.slack_account.present?
+          = user.slack_account
+        - else
+          | 未登録
+    - unless user.company.id == 1
+      .user-metas__item
+        .user-metas__item-label
+          | 所属企業
+        .user-metas__item-value
+          = user.company.name
+    - if user.graduated_on.present?
+      .user-metas__item
+        .user-metas__item-label
+          = User.human_attribute_name :graduated_on
+        .user-metas__item-value
+          = l user.graduated_on
+    - if user.retired_on.present?
+      .user-metas__item
+        .user-metas__item-label
+          = User.human_attribute_name :retired_on
+        .user-metas__item-value
+          = l user.retired_on
