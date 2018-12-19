@@ -1,10 +1,9 @@
 .user-part
   background-color: #b04d4d
-  +inline-block(middle)
-  padding: .25rem .5rem
-  +text-block(.625rem 1, center $reversal-text 600)
+  padding: .3125rem .75rem
+  +text-block(.625rem 1, center $reversal-text 700 inline-flex)
   margin-right: .5rem
-  border-radius: .25rem
+  border-radius: 1rem
   &.is-header
     margin-left: .5rem
     margin-right: 0
@@ -16,33 +15,34 @@
     background-color: $main-color
 
 .user-data__inner
-  padding: 1rem
+  padding: 1.5rem
   margin-bottom: 1rem
   +position(relative)
   display: flex
   flex-wrap: wrap
-  @media (min-width: 1400px)
-    +margin(horizontal, -.5rem)
 
 .user-data__main
-  flex: 0 0 100%
-  margin-bottom: .75rem
-  @media (min-width: 1400px)
-    flex: 0 0 50%
-    margin-bottom: 0
-    +padding(horizontal, .5rem)
+  flex: 0 0 50%
+  padding-right: .5rem
+  +media-breakpoint-down(sm)
+    flex: 0 0 100%
+    padding-right: 0
+    margin-bottom: .75rem
 
 .user-data__sub
-  flex: 0 0 100%
-  @media (min-width: 1400px)
-    flex: 0 0 50%
-    +padding(horizontal, .5rem)
+  flex: 0 0 50%
+  padding-left: .5rem
+  +media-breakpoint-down(sm)
+    flex: 0 0 100%
+    padding-left: 0
 
 .user-data__description
   height: 100%
   border-radius: .25rem
   p
-    +text-block(.8125rem 1.8 .8em)
+    +text-block(.875rem 1.8 .8em)
+    +media-breakpoint-down(sm)
+      font-size: .8125rem
     &:last-child
       margin-bottom: 0
 

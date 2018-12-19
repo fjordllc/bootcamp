@@ -1,0 +1,23 @@
+.user-metas
+  +media-breakpoint-down(sm)
+    margin-bottom: .75rem
+
+.user-metas__items
+  border: solid 1px $background-color-shade
+
+.user-metas__item
+  +text-block(.75rem 1.4, flex)
+  &:nth-child(odd)
+    background-color: #fafafa
+  &:not(:last-child)
+    border-bottom: solid 1px $background-color-shade
+
+.user-metas__item-label
+  text-align: right
+  border-right: dashed 1px $background-color-shade
+  flex: 0 0 8rem
+  padding: .375rem .5rem
+
+.user-metas__item-value
+  flex: 100
+  padding: .375rem .5rem
