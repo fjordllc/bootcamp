@@ -39,14 +39,20 @@ class ReportsTest < ApplicationSystemTestCase
 
   test "equal practices order in practices and new report" do
     visit "/reports/new"
-    report_practices = page.all(".select-practices__label-title").map { |e| e.text }
-    assert_equal @practice_titles, report_practices
+    first(".select2-selection--multiple").click
+    report_practices = page.all(".select2-results__option").map { |e| e.text }
+    assert_equal report_practices.count, Practice.count
+    assert_match /OS X Mountain Lionをクリーンインストールする$/, first(".select2-results__option").text
+    assert_match /Unityでのテスト$/, all(".select2-results__option").last.text
   end
 
   test "equal practices order in practices and edit report" do
     visit "/reports/#{reports(:report_1).id}/edit"
-    report_practices = page.all(".select-practices__label-title").map { |e| e.text }
-    assert_equal @practice_titles, report_practices
+    first(".select2-selection--multiple").click
+    report_practices = page.all(".select2-results__option").map { |e| e.text }
+    assert_equal report_practices.count, Practice.count
+    assert_match /OS X Mountain Lionをクリーンインストールする$/, first(".select2-results__option").text
+    assert_match /Unityでのテスト$/, all(".select2-results__option").last.text
   end
 
   test "issue #360 duplicate" do
