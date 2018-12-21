@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Announcement < ApplicationRecord
+  include Commentable
   include Footprintable
   include Searchable
 

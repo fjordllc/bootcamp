@@ -13,6 +13,8 @@ module Commentable
       self[:title]
     when Product
       "「#{self.practice[:title]}」の提出物"
+    when Announcement
+      self[:title]
     end
   end
 
@@ -22,6 +24,8 @@ module Commentable
       self[:description]
     when Product
       self[:body]
+    when Announcement
+      self[:description]
     end
   end
 end
