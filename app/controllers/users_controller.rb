@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   include Gravatarify::Helper
   before_action :require_login, only: %i(index show edit update destroy)
   before_action :set_user, only: %w[show]
-  http_basic_authenticate_with name: "intern", password: ENV["BOOTCAMP_PASSWORD"], only: %i(new create) if Rails.env.production? || Rails.env.staging?
 
   def index
     @categories = Category.order("position")
