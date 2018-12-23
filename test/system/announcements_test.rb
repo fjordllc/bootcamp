@@ -24,4 +24,10 @@ class AnnouncementsTest < ApplicationSystemTestCase
     visit "/announcements"
     assert_selector "nav.pagination", count: 2
   end
+
+  test "announcement has a comment form " do
+    login_user "yamada", "testtest"
+    visit "/announcements/#{announcements(:announcement_1).id}"
+    assert_selector ".thread-comment-form"
+  end
 end
