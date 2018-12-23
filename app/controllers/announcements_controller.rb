@@ -4,8 +4,6 @@ class AnnouncementsController < ApplicationController
   before_action :require_admin_login, except: %i(index show)
   before_action :set_announcement, only: %i(show edit update destroy)
   before_action :set_footprints, only: %i(show)
-  before_action :set_comment, only: %i(show)
-
 
   def index
     @announcements = Announcement.order(created_at: :desc).page(params[:page])
@@ -61,9 +59,5 @@ class AnnouncementsController < ApplicationController
 
     def set_announcement
       @announcement = Announcement.find(params[:id])
-    end
-
-    def set_comment
-      @comment = Comment.new
     end
 end
