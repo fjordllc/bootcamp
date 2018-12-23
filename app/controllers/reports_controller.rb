@@ -7,7 +7,6 @@ class ReportsController < ApplicationController
   before_action :require_login
   before_action :set_report, only: %i(show)
   before_action :set_my_report, only: %i(edit update destroy)
-  before_action :set_comment, only: %i(show)
   before_action :set_checks, only: %i(show)
   before_action :set_check, only: %i(show)
   before_action :set_footprints, only: %i(show)
@@ -120,10 +119,6 @@ class ReportsController < ApplicationController
 
     def set_footprints
       @footprints = @report.footprints.order(created_at: :desc)
-    end
-
-    def set_comment
-      @comment = Comment.new
     end
 
     def set_categories
