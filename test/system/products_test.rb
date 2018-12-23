@@ -54,4 +54,10 @@ class ProductsTest < ApplicationSystemTestCase
     click_button "提出する"
     assert_text "提出物を更新しました。"
   end
+
+  test "product has a comment form " do
+    login_user "yamada", "testtest"
+    visit "/products/#{products(:product_1).id}"
+    assert_selector ".thread-comment-form"
+  end
 end
