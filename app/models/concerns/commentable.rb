@@ -9,22 +9,18 @@ module Commentable
 
   def title
     case self
-    when Report
-      self[:title]
     when Product
       "「#{self.practice[:title]}」の提出物"
-    when Announcement
+    else
       self[:title]
     end
   end
 
   def body
     case self
-    when Report
-      self[:description]
     when Product
       self[:body]
-    when Announcement
+    else
       self[:description]
     end
   end
