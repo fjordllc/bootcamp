@@ -1,16 +1,16 @@
 .form-item
   .nested-fields
     - tag = "</div></div><div class=\"form-selects__item\"><div class=\"is-button-simple-md-secondary is-select a-select is-block form-selects__item-select form-item__select\">"
-    .form-item__times
+    .form-item__times.learning-time
       .form-item__time
         = f.label :started_at, class: "a-label"
-        .form-selects
+        .form-selects.learning-time__started-at
           .form-selects__item
             .is-button-simple-md-secondary.is-select.is-block
               = f.time_select :started_at, time_separator: tag, minute_step: 15
       .form-item__time
         = f.label :finished_at, class: "a-label"
-        .form-selects
+        .form-selects.learning-time__finished-at
           .form-selects__item
             .is-button-simple-md-secondary.is-select.is-block
               = f.time_select :finished_at, time_separator: tag, minute_step: 15
