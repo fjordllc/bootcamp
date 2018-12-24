@@ -8,6 +8,10 @@
           = link_to product.user, class: "thread-meta__author-name-link" do
             = product.user.login_name
         time.thread-meta__created-at(datetime="#{product.created_at.to_datetime}" pubdate="pubdate")
+          = l product.created_at
+        .thread-meta__label
+          | 最終更新
+        time.thread-meta__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")
           = l product.updated_at
     - if product.checks.any?
       .stamp.stamp-approve
