@@ -3,7 +3,7 @@
 class ChecksController < ApplicationController
   include Rails.application.routes.url_helpers
   include Gravatarify::Helper
-  before_action :require_admin_or_adviser_login, only: [:create]
+  before_action :require_admin_adviser_or_mentor_login, only: [:create]
 
   def create
     @check = Check.new(

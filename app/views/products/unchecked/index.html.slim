@@ -1,0 +1,15 @@
+- title "未チェックの提出物"
+
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title = title
+
+= render "products/tabs"
+
+.container
+  = paginate @products, position: "top"
+  - if @products.present?
+    .thread-list.a-card
+      = render partial: "products/product", collection: @products, as: :product
+  = paginate @products, position: "bottom"
