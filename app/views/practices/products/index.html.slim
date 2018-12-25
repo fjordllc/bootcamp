@@ -13,4 +13,5 @@ header.page-header
 
 .container
   - if product_displayable?(practice: @practice)
-    = render "products/products", products: @products, resource: @practice
+    .thread-list.a-card
+      = render partial: "products/product", collection: @products, as: :product

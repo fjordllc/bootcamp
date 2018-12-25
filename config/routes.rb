@@ -49,7 +49,10 @@ Rails.application.routes.draw do
     resources :questions, only: %i(index), controller: "practices/questions"
     resources :products, only: %i(index), controller: "practices/products"
   end
-  resources :products, except: %i(index)
+  namespace :products do
+    resources :unchecked, only: %i(index)
+  end
+  resources :products
   namespace :reports do
     resources :unchecked, only: %i(index)
   end
