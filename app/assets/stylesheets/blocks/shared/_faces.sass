@@ -1,20 +1,24 @@
 .faces
   background: $welcome-default-text
   height: 4.625rem
-  +media-breakpoint-down(sm)
-    display: none
-
-.faces__inner
+  overflow-y: hidden
   +padding(horizontal, 5rem 14rem)
   body.is-edit-page &,
   body.is-admin &
     padding-right: 0
+  +media-breakpoint-down(sm)
+    display: none
+
+.faces__inner
+  +position(relative)
+
+.faces__canvas-container
+  overflow-x: scroll
 
 .faces__items
   display: flex
   flex-wrap: nowrap
   justify-content: flex-start
-  overflow: auto
 
 .faces-item
   margin: 1px 1px 1px 0
@@ -22,6 +26,10 @@
   +position(relative)
   flex: 0 0 4.5rem
   +size(4.5rem)
+  flex: 0 0 4.5rem
+  img
+    +size(4.5rem)
+    object-fit: cover
 
 .faces-item__name
   +text-block(.625rem 1.45, 700 center nowrap $default-text)
