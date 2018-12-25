@@ -1,0 +1,7 @@
+.page-tabs
+  .container
+    ul.page-tabs__items
+      li.page-tabs__item
+        = link_to "全て", products_path, class: "page-tabs__item-link #{current_link /^products-index/}"
+      li.page-tabs__item
+        = link_to "未チェック", products_unchecked_index_path, class: "page-tabs__item-link #{current_link /^products-unchecked-index/}"

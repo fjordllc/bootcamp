@@ -1,56 +1,28 @@
-.thread
-  .thread__inner.a-card
-    header.thread-header
-      h1.thread-header__title
-        | #{link_to product.practice.title, product.practice, class: "thread-header__title-link"}の提出物
-      .thread-meta
-        .thread-meta__author-name
-          = link_to product.user, class: "thread-meta__author-name-link" do
-            = product.user.login_name
-        time.thread-meta__created-at(datetime="#{product.created_at.to_datetime}" pubdate="pubdate")
-          = l product.created_at
-        .thread-meta__label
-          | 最終更新
-        time.thread-meta__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")
-          = l product.updated_at
-    - if product.checks.any?
-      .stamp.stamp-approve
-        h2.stamp__content.is-title
-          | 確認済
-        time.stamp__content.is-created-at
-          = l product.checks.last.created_at.to_date, format: :short
-        .stamp__content.is-user-name
-          = product.checks.last.user.login_name
-    .thread__description.js-target-blank.is-long-text-style.js-markdown-view
-      =  product.practice.goal
-    .thread__description.js-target-blank.is-long-text-style.js-markdown-view
-      =  product.body
-    - if product.user == current_user
-      .card-footer
-        .card-footer-actions
-          ul.card-footer-actions__items
-            li.card-footer-actions__item
-              = link_to edit_product_path(product), class: "card-footer-actions_action is-button-simple-md-primary is-block" do
-                i.fas.fa-pen
-                | 内容修正
-            li.card-footer-actions__item
-              = link_to product, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
-                i.fas.fa-trash-alt
-                | 削除
-
-    - if (admin_login? || adviser_login?) && product.checks.blank?
-      .thread-admin-tools
-        ul.thread-admin-tools__items
-          li.thread-admin-tools__item
-            = form_for product.checks.new, class: "thread-check-form" do |f|
-              = hidden_field_tag :user_id, current_user.id
-              = hidden_field_tag :product_id, product.id
-              = f.submit "提出物を確認", class: "thread-check-form__action is-button-simple-md-danger"
-
-  .thread-prev-next
-    .thread-prev-next__item
-      = link_to product.practice, class: "thread-prev-next__item-link is-index" do
-        | プラクティスに戻る
-
-  = link_to product.user, itempro: "url", class: "thread__author-link" do
-    = gravatar_tag product.user, secure: true, size: 120, html: { class: "thread__author-icon" }
+.thread-list-item
+  .thread-list-item__inner
+    .thread-list-item__author
+      = gravatar_tag product.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon" }
+    header.thread-list-item__header
+      h2.thread-list-item__title(itemprop="name")
+        = link_to product, itempro: "url", class: "thread-list-item__title-link" do
+          | #{product.practice.title}の提出物
+    .thread-list-item-meta
+      time.thread-list-item-meta__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")
+        = l product.updated_at
+      - if product.comments.any?
+        .thread-list-item-meta__comment-count
+          .thread-list-item-meta__comment-count-label
+            i.fas.fa-comment
+          .thread-list-item-meta__comment-count-value
+            = product.comments.size
+      - if product.checks.any?
+        .thread-list-item-meta__comment-count
+          .thread-list-item-meta__comment-count-value
+            - product.checks.each do |check|
+              = gravatar_tag check.user, secure: true, size: 20, html: { class: "thread-list-item__checked-author-icon" }
+        .stamp.stamp-approve
+          h2.stamp__content.is-title 確認済
+          time.stamp__content.is-created-at
+            = l product.checks.last.created_at.to_date, format: :short
+          .stamp__content.is-user-name
+            = product.checks.last.user.login_name

@@ -22,6 +22,12 @@ nav.global-nav.js-show-mobile-nav__target.js-show-mobile-nav
             .global-nav-links__link-icon
               i.fas.fa-pen
             .global-nav-links__link-label 日報
+        - if admin_adviser_or_mento_login?
+          li.global-nav-links__item
+            = link_to products_path, class: "global-nav-links__link #{current_link /^products-index/}" do
+              .global-nav-links__link-icon
+                i.fas.fa-hand-paper
+              .global-nav-links__link-label 提出物
         li.global-nav-links__item
           = link_to questions_path, class: "global-nav-links__link #{current_link /^questions/}" do
             .global-nav-links__link-icon
