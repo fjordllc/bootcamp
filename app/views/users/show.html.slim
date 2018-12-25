@@ -30,3 +30,9 @@ header.page-header
               - if current_user == @user
                 li.card-footer-actions__item
                   = link_to "登録情報を変更する", edit_user_path, class: "card-footer-actions__action is-button-simple-md-warning is-block"
+
+    .user-grass.user.a-card
+      .user-grass__inner
+        .user-grass__header 学習時間
+        .user-grass__main
+          canvas#grass(width="650px" height="150px" data-user-id="#{@user.id}")

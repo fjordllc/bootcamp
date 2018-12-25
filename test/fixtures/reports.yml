@@ -58,3 +58,9 @@ report_8:
   description: |-
     いろいろやりました。
   reported_on: "2017-01-01"
+
+tanaka:
+  user: tanaka
+  title: テストの日報
+  description: いろいろやりました
+  reported_on: 2018-02-01
