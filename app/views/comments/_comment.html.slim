@@ -10,6 +10,9 @@
           = comment.user.login_name
       time.thread-comment__created-at(datetime="#{commentable.created_at.to_datetime}" pubdate="pubdate")
         = l comment.updated_at
+      - if current_page?(user_comments_path(current_user.id))
+        a.thread-comment__thread href="/reports/#{(comment.commentable_id)}"
+          = Report.find(comment.commentable_id).title
     .thread-comments__description.js-markdown-view.js-target-blank.is-long-text-style
       = comment.description
     - if comment.user == current_user
