@@ -1,12 +1,18 @@
 .user-part
   background-color: #b04d4d
-  padding: .3125rem .75rem
-  +text-block(.625rem 1, center $reversal-text 700 inline-flex)
+  padding: .375rem .75rem
+  +text-block(.625rem 1, center $reversal-text 700 flex)
+  align-items: center
+  white-space: nowrap
   margin-right: .5rem
   border-radius: 1rem
+  +media-breakpoint-down(sm)
+    transform: scale(.75, .75)
   &.is-header
     margin-left: .5rem
     margin-right: 0
+    +media-breakpoint-down(sm)
+      margin-left: .125rem
   &.is-adviser
     background-color: #3976c3
   &.is-graduate
@@ -16,7 +22,6 @@
 
 .user-data__inner
   padding: 1.5rem
-  margin-bottom: 1rem
   +position(relative)
   display: flex
   flex-wrap: wrap
@@ -36,9 +41,19 @@
     flex: 0 0 100%
     padding-left: 0
 
+.user-data__grass
+  flex: 0 0 100%
+  overflow-y: auto
+  margin-top: 1rem
+  text-align: center
+  +media-breakpoint-down(sm)
+    margin-top: .75rem
+
 .user-data__description
-  height: 100%
-  border-radius: .25rem
+  flex: 0 0 100%
+  margin-top: 1rem
+  +media-breakpoint-down(sm)
+    margin-top: .75rem
   p
     +text-block(.875rem 1.8 .8em)
     +media-breakpoint-down(sm)

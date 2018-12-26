@@ -1,7 +1,8 @@
 .sort-nav
   +padding(vertical, .75rem)
   margin-bottom: 1.5rem
-  border-bottom: solid 1px $background-color-shade
+  .page-tabs + &
+    +padding(vertical, 0)
 
 .sort-nav__inner
   display: flex
