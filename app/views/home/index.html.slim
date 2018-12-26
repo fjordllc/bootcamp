@@ -19,4 +19,5 @@ header.page-header
                 = link_to announcements_path, class: "thread-list__footer-text-link" do
                   | 全てのお知らせ
 
-      = render "users/grass", user: current_user
+        .col-lg-6.col-xl-8.col-xs-12
+          = render "users/grass", user: current_user

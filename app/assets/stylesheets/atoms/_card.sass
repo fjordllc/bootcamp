@@ -2,3 +2,8 @@
   background-color: $base
   border-radius: .25rem
   box-shadow: rgba(black, .2) 0 .0625rem .125rem
+  &.is-user
+    +margin(horizontal, auto)
+    max-width: 50rem
+  .a-card + &
+    margin-top: 1.5rem
