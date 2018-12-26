@@ -222,4 +222,10 @@ class ReportsTest < ApplicationSystemTestCase
     click_link "次の日報"
     assert_equal "/reports/#{reports(:report_3).id}", current_path
   end
+
+  test "report has a comment form " do
+    login_user "yamada", "testtest"
+    visit "/reports/#{reports(:report_1).id}"
+    assert_selector ".thread-comment-form"
+  end
 end

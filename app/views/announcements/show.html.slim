@@ -18,4 +18,5 @@ header.page-header
 .page-body
   .container
     = render "announcement", announcement: @announcement
+    = render "comments/comments", comments: @announcement.comments.order(:created_at), form_visibility: true
     = render "footprints/footprints", footprints: @footprints
