@@ -17,3 +17,9 @@
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{announcement.updated_at.to_datetime}" pubdate="pubdate")
         = l announcement.updated_at
+      - if announcement.comments.any?
+      .thread-list-item-meta__comment-count
+        .thread-list-item-meta__comment-count-label
+          i.fas.fa-comment
+        .thread-list-item-meta__comment-count-value
+          = announcement.comments.size
