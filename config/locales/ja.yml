@@ -66,6 +66,7 @@ ja:
         description: 内容
         goal: 終了条件
         target: ターゲット
+        submission: 提出物
       product:
         user: ユーザー
         practice: プラクティス
