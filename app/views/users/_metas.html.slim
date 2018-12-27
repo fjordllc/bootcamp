@@ -38,6 +38,11 @@
           = user.slack_account
         - else
           | 未登録
+    .user-metas__item
+      .user-metas__item-label
+        | 合計学習時間
+      .user-metas__item-value
+        = number_with_precision(user.total_learning_time, precision: 1) + "時間"
     - unless user.company.id == 1
       .user-metas__item
         .user-metas__item-label
