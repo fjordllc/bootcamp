@@ -3,20 +3,23 @@ header.page-header
   .container
     .page-header__container
       h2.page-header__title = title
-      ul.page-header-actions__items
-        li.page-header-actions__item
-          = link_to "ユーザー一覧", users_path, class: "is-button-simple-md-secondary"
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to "ユーザー一覧", users_path, class: "is-button-simple-md-secondary"
 
 = render "page_tabs", resource: @user
 
 .page-body
   .container
-    .user.a-card
+    .a-card.is-user
       .user-data__inner
         .user-data__main
           = render "users/profile", user: @user
         .user-data__sub
           = render "users/metas", user: @user
+        .user-data__grass
+          canvas.a-grass#grass(width="650px" height="130px" data-user-id="#{@user.id}")
         .user-data__description
           = simple_format @user.description
 

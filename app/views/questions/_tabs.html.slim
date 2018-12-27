@@ -1,0 +1,7 @@
+.page-tabs
+  .container
+    ul.page-tabs__items
+      li.page-tabs__item
+        = link_to "未解決", polymorphic_path(:questions, practice_id: params[:practice_id]), class: "page-tabs__item-link #{params[:solved].present? ? "" : "is-active"}"
+      li.page-tabs__item
+        = link_to "解決済み", polymorphic_path(:questions, solved: "true", practice_id: params[:practice_id]), class: "page-tabs__item-link #{params[:solved].present? ? "is-active" : ""}"
