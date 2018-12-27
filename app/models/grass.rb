@@ -26,10 +26,10 @@ WITH series AS (
 SELECT
   series.date AS date,
   CASE
-    WHEN summary.total_hour >= 8 THEN 4
-    WHEN 8 > summary.total_hour AND summary.total_hour >= 6 THEN 3
-    WHEN 6 > summary.total_hour AND summary.total_hour >= 4 THEN 2
-    WHEN 4 > summary.total_hour AND summary.total_hour >= 2 THEN 1
+    WHEN summary.total_hour > 6 THEN 4
+    WHEN 6 >= summary.total_hour AND summary.total_hour > 4 THEN 3
+    WHEN 4 >= summary.total_hour AND summary.total_hour > 2 THEN 2
+    WHEN 2 >= summary.total_hour AND summary.total_hour > 0 THEN 1
     ELSE 0
   END AS velocity
 FROM
