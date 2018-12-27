@@ -161,7 +161,7 @@ class User < ActiveRecord::Base
   end
 
   def total_learning_time
-		sql = <<-SQL
+    sql = <<-SQL
 SELECT
   SUM(
     CASE
@@ -171,15 +171,16 @@ SELECT
       ELSE
          EXTRACT(epoch from learning_times.finished_at - learning_times.started_at) / 60 / 60
     END
-  ) AS total 
+  ) AS total
 FROM
    learning_times JOIN reports ON learning_times.report_id = reports.id
 WHERE
    reports.user_id = :user_id
 		SQL
 
-    LearningTime.find_by_sql([sql, { user_id: id }]).first.total
-	end
+    learning_time = LearningTime.find_by_sql([sql, { user_id: id }])
+    learning_time.first.total || 0
+  end
 
   private
     def password_required?
