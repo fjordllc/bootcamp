@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.strokeStyle = 'rgb(132, 132, 132)'
 
     // render day of the week
-    const colors = ['rgb(235, 237, 240)', 'rgb(190, 229, 126)', 'rgb(93, 204, 99)', 'rgb(0, 157, 41)', 'rgb(0, 98, 30)']
+    const colors = ['#e2e5ec', '#98A5DA', '#5D72C4', '#223FAF', '#06063e']
     const dotw = ['日', '月', '火', '水', '木', '金', '土']
     for (let i = 0; i < dotw.length; i++) {
       ctx.strokeText(dotw[i], 0, startY + 8 + (height + spanY) * i)
