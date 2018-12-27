@@ -22,3 +22,9 @@ learning_5:
   user: tanaka
   practice: practice_2
   status_cd: 1
+
+learning_5:
+  user: kimura
+  practice: practice_1
+  status_cd: 1
+   
