@@ -78,6 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.fillRect(sampleStartX + (width + sampleSpanX) * i, sampleStartY, width, height)
     }
     ctx.strokeText('0 h', sampleStartX - 23, sampleStartY + 8.5)
-    ctx.strokeText('8 h', sampleStartX + 71, sampleStartY + 8.5)
+    ctx.strokeText('6 h', sampleStartX + 71, sampleStartY + 8.5)
   }
 })
