@@ -1,23 +1,8 @@
 .thread-list
-  max-width: 50rem
-  +margin(horizontal, auto)
-  +media-breakpoint-down(sm)
-    margin-bottom: 2rem
   &.is-empty
     background-color: transparent
     box-shadow: none
     +text-block(1rem 1.4, center)
-
-.thread-list__header
-  border-bottom: solid 1px $background-color
-  padding: .75rem 1rem
-  +media-breakpoint-down(sm)
-    padding: .5rem 1rem
-
-.thread-list__title
-  +text-block(1rem 1.45)
-  +media-breakpoint-down(sm)
-    font-size: .875rem
 
 .thread-list__footer
   padding: .75rem 1rem
