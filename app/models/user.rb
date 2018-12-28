@@ -67,6 +67,8 @@ class User < ActiveRecord::Base
     source:    :practice,
     dependent: :destroy
 
+  has_one_attached :face
+
   validates :email,      presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name,  presence: true
@@ -90,9 +92,6 @@ class User < ActiveRecord::Base
     validates :experience, presence: true
     validates :how_did_you_know, presence: true
   end
-
-  has_attached_file :face, styles: { small: "32x32>", normal: "72x72#" }
-  validates_attachment_content_type :face, content_type: /\Aimage\/.*\z/
 
   scope :in_school, -> { where(graduated_on: nil) }
   scope :graduated, -> { where.not(graduated_on: nil) }
