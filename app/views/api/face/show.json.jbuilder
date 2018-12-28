@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-json.url current_user.face.url(:normal)
+json.url rails_blob_url(current_user.face)

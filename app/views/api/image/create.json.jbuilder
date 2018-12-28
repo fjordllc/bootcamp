@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-json.url @image.image.url(:normal)
+json.url rails_blob_url(@image.image)
