@@ -20,6 +20,9 @@ header.page-header
           = render "users/metas", user: @user
         .user-data__grass
           canvas.a-grass#grass(width="650px" height="130px" data-user-id="#{@user.id}")
+        - if @user.github_account
+          .user-data__github-grass
+            = image_tag user_github_grass_url(@user)
         .user-data__description
           = simple_format @user.description
 

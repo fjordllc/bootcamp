@@ -33,4 +33,8 @@ module UsersHelper
       "更新する"
     end
   end
+
+  def user_github_grass_url(user)
+    "https://grass-graph.moshimo.works/images/#{user.github_account}.png"
+  end
 end
