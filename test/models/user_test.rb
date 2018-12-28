@@ -49,4 +49,14 @@ class UserTest < ActiveSupport::TestCase
   test "returns false when no product of designated practice" do
     assert_not users(:tanaka).has_checked_product_of?(practices(:practice_4))
   end
+
+  test "total_learnig_time" do
+    user = users(:hatsuno)
+    assert_equal 0, user.total_learning_time
+
+    report = Report.new(user_id: user.id, title: "test", reported_on: "2018-01-01", description: "test", wip: false)
+    report.learning_times << LearningTime.new(started_at: "2018-01-01 00:00:00", finished_at: "2018-01-01 02:00:00")
+    report.save!
+    assert_equal 2, user.total_learning_time
+  end
 end
