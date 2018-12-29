@@ -12,10 +12,8 @@ class QuestionCallbacks
           Notification.came_question(question, user)
         end
       end
-      question.practice.completed_learnings.each do |learning|
-        if learning.user != question.sender
-          Notification.came_question(question, learning.user)
-        end
+      question.practice.completed_learnings.where.not(user_id: question.sender).eager_load(:user).each do |learning|
+        Notification.came_question(question, learning.user)
       end
     end
 end
