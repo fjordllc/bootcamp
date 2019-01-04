@@ -4,6 +4,7 @@ require "application_system_test_case"
 
 class HomeTest < ApplicationSystemTestCase
   test "GET / without sign in" do
+    logout
     visit "/"
     assert_equal "FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end

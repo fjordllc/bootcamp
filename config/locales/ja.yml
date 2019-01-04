@@ -67,6 +67,7 @@ ja:
         goal: 終了条件
         target: ターゲット
         submission: 提出物
+        category_id: カテゴリー
       product:
         user: ユーザー
         practice: プラクティス

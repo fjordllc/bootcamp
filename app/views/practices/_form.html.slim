@@ -1,4 +1,5 @@
-= form_for practice, html: { class: "form" } do |f|
+= form_with model: practice, local: true, class: "form", html: { name: "practice" } do |f|
+  = f.hidden_field :category_id, id: "selected_category_id"
   = render "errors", object: practice
   .form__items
     .form-item
