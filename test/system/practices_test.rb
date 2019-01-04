@@ -37,4 +37,28 @@ class PracticesTest < ApplicationSystemTestCase
     visit "/practices/#{practices(:practice_1).id}/edit"
     assert_not_equal "プラクティス編集", title
   end
+
+  test "create practice" do
+    login_user "komagata", "testtest"
+    visit "/practices/new"
+    within "form[name=practice]" do
+      fill_in "practice[title]", with: "テストプラクティス"
+      fill_in "practice[description]", with: "テストの内容です"
+      fill_in "practice[goal]", with: "テストのゴールの内容です"
+      click_button "登録する"
+    end
+    assert_text "プラクティスを作成しました"
+  end
+
+  test "update practice" do
+    login_user "komagata", "testtest"
+    practice = practices(:practice_2)
+    visit "/practices/#{practice.id}/edit"
+    within "form[name=practice]" do
+      fill_in "practice[title]", with: "テストプラクティス"
+      click_button "更新する"
+    end
+    assert_text "プラクティスを更新しました"
+    assert_equal "UNIX", Practice.find(practice.id).category.name
+  end
 end
