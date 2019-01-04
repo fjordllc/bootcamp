@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @users =
       case @target
       when "student"
-        @users.student
+        @users.students
       when "graduate"
         @users.graduated
       when "adviser"

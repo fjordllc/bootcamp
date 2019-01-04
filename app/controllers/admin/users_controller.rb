@@ -9,7 +9,7 @@ class Admin::UsersController < AdminController
     @users =
       case @target
       when "student"
-        @users.student
+        @users.students
       when "retired"
         @users.retired
       when "graduate"
