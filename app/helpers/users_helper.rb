@@ -35,6 +35,6 @@ module UsersHelper
   end
 
   def user_github_grass_url(user)
-    "https://grass-graph.moshimo.works/images/#{user.github_account}.png"
+    "https://grass-graph.moshimo.works/images/#{user.github_account}.png?background=none"
   end
 end

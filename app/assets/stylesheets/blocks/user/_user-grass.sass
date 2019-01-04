@@ -1,3 +1,17 @@
 .user-grass
-  text-align: center
   padding: 1rem
+  +media-breakpoint-down(sm)
+    padding: .75rem
+
+.user-data-grass
+  margin-top: 1.5rem
+  border: dashed 1px $background-color-shade
+  padding: 1rem
+
+.user-data-grass__image-container
+  overflow-y: auto
+  display: flex
+  justify-content: center
+  margin-top: 1rem
+  +media-breakpoint-down(sm)
+    display: block

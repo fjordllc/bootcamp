@@ -6,17 +6,19 @@ header.page-header
       h2.page-header__title = title
 .page-body
   .container
-    .row
-      .col-xs-12.col-md-12.col-lg-12.col-xl-6.col-xxl-4
-        .thread-list.a-card
-          header.card-header
-            h2.card-header__title
-              | 最新のお知らせ
-          = render partial: "announcements", collection: @announcements, as: :announcement
-          footer.thread-list__footer
-            .thread-list__footer-to-index
-              = link_to announcements_path, class: "thread-list__footer-text-link" do
-                | 全てのお知らせ
+    .columns
+      .row
+        .col-xs-12.col-xl-6.col-xxl-6
+          .thread-list.a-card
+            header.card-header
+              h2.card-header__title
+                | 最新のお知らせ
+            = render partial: "announcements", collection: @announcements, as: :announcement
+            footer.thread-list__footer
+              .thread-list__footer-to-index
+                = link_to announcements_path, class: "thread-list__footer-text-link" do
+                  | 全てのお知らせ
 
-      .col-xs-12.col-md-12.col-lg-12.col-xl-6.col-xxl-4
-        = render "users/grass", user: current_user
+        .col-xs-12.col-xl-6.col-xxl-6
+          = render "users/grass", user: current_user
+          = render "users/github_grass", user: current_user
