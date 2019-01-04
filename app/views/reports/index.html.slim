@@ -1,23 +1,23 @@
 - title @search_words.present? ? "'#{@search_words.join(" ")}'の検索結果" : "日報"
 
-header.page-header
+header.page-header.is-margin-bottom-0
   .container
     .page-header__container
       h2.page-header__title = title
       = render "reports/new_report"
 
-= render "reports/tabs"
-
-nav.sort-nav
-  = form_tag reports_url, method: "get" do
-    .container
-      .sort-nav__inner
-        = hidden_field_tag :word, @search_words
-        = label_tag :practice_id, "プラクティスで絞り込む:", class: "sort-nav__label"
-        .sort-nav__select
-          = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, selected: params[:practice_id]), include_blank: "全ての日報を表示", onchange: "this.form.submit()", class: "js-select2"
-
 .page-body
+  nav.sort-nav
+    = form_tag reports_url, method: "get" do
+      .container
+        .sort-nav__inner
+          = hidden_field_tag :word, @search_words
+          = label_tag :practice_id, "プラクティスで絞り込む:", class: "sort-nav__label"
+          .sort-nav__select
+            = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, selected: params[:practice_id]), include_blank: "全ての日報を表示", onchange: "this.form.submit()", class: "js-select2"
+
+  = render "reports/tabs"
+
   .container
     = paginate @reports, position: "top"
     - if @reports.present?

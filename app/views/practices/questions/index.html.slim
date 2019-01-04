@@ -3,10 +3,12 @@ header.page-header
   .container
     .page-header__container
       h2.page-header__title = title
-      .page-header__action
-        = link_to practices_path, class: "is-button-simple-md-secondary" do
-          i.fa.fa-angle-left
-          | プラクティス
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to practices_path, class: "is-button-simple-md-secondary" do
+              i.fa.fa-angle-left
+              | プラクティス
 
 = render "page_tabs", resource: @practice
 
@@ -21,7 +23,7 @@ header.page-header
 
   .container
     - if @questions.present?
-      .thread-list
+      .thread-list.a-card
         - @questions.each do |question|
           = render "questions/question", question: question
     - else
