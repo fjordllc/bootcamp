@@ -27,8 +27,10 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    save_updated_at(current_user)
-    logout
+    if current_user
+      save_updated_at(current_user)
+      logout
+    end
     redirect_to root_url, notice: "サインアウトしました。"
   end
 
