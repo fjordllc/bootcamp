@@ -69,6 +69,6 @@ class PracticesController < ApplicationController
     end
 
     def set_course
-      @course = Course.find(params[:course_id])
+      @course = Course.find(params[:course_id]) if params[:course_id]
     end
 end

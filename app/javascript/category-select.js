@@ -1,8 +1,10 @@
 import 'whatwg-fetch'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const categorySelect = document.querySelector('select#practice_category_id')
-  const courseSelect = document.querySelector('select#course_id')
+  const categorySelect = document.querySelector("select[name='practice[category_id]']")
+  const courseSelect = document.querySelector("select[name='course']")
+  console.log(categorySelect)
+  console.log(courseSelect)
   if (!categorySelect || !courseSelect) {
     return null
   }
@@ -25,6 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
           option.value = category.id
           option.innerHTML = category.name
           categorySelect.appendChild(option)
+        }
+
+        const selectedCategoryId = document.querySelector('#selected_category_id').value
+        if (selectedCategoryId !== '') {
+          document.querySelector("select[name='practice[category_id]']").value = selectedCategoryId
         }
       })
       .catch(error => {
