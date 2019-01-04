@@ -16,10 +16,10 @@
               li.practice-status__buttons-item
                 button.practice-status__button.js-practice-state.is-button-simple-xs-secondary(class="#{status}" data-status="#{status}")
                   = t("activerecord.enums.learning.status.#{status}")
-  - if practice.started_users.student.exists?
+  - if practice.started_users.students.exists?
     .practice-started-users
       .practice-started-users__items
-        - practice.started_users.student.each do |user|
+        - practice.started_users.students.each do |user|
           .practice-started-users__item
             = link_to user, class: "practice-started-users__item-link" do
               = gravatar_tag user, secure: true, size: 44, html: { class: "practice-started-users__item-icon #{user.active? ? "active" : "inactive"}" }

@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
   scope :retired, -> { where.not(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
-  scope :student, -> {
+  scope :students, -> {
     where(
       admin: false,
       mentor: false,
@@ -110,7 +110,7 @@ class User < ActiveRecord::Base
   scope :active, -> { where(updated_at: 1.month.ago..Float::INFINITY) }
   scope :inactive, -> {
     where(
-      updated_at: -Float::INFINITY..1.month.ago,
+      updated_at: Date.new..1.month.ago,
       adviser: false,
       retired_on: nil,
       graduated_on: nil
