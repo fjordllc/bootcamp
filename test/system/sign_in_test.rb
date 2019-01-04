@@ -27,6 +27,7 @@ class SignInTest < ApplicationSystemTestCase
   end
 
   test "sign in with retire account" do
+    logout
     visit "/login"
     within("#sign-in-form") do
       fill_in("user[login_name]", with: "yameo")
