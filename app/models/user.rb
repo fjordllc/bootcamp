@@ -110,7 +110,7 @@ class User < ActiveRecord::Base
   scope :active, -> { where(updated_at: 1.month.ago..Float::INFINITY) }
   scope :inactive, -> {
     where(
-      updated_at: -Float::INFINITY..1.month.ago,
+      updated_at: Date.new..1.month.ago,
       adviser: false,
       retired_on: nil,
       graduated_on: nil
