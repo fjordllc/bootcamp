@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
   scope :retired, -> { where.not(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
-  scope :student, -> {
+  scope :students, -> {
     where(
       admin: false,
       mentor: false,
