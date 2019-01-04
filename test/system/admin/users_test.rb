@@ -5,6 +5,41 @@ require "application_system_test_case"
 class Admin::UsersTest < ApplicationSystemTestCase
   setup { login_user "komagata", "testtest" }
 
+  test "show listing users" do
+    visit "/admin/users?target=all"
+    assert_equal "ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
+  test "show listing students" do
+    visit "/admin/users"
+    assert_equal "ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
+  test "show listing inactive users" do
+    visit "/admin/users?target=inactive"
+    assert_equal "ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
+  test "show listing retired users" do
+    visit "/admin/users?target=retired"
+    assert_equal "ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
+  test "show listing graduated users" do
+    visit "/admin/users?target=graduate"
+    assert_equal "ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
+  test "show listing advisers" do
+    visit "/admin/users?target=adviser"
+    assert_equal "ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
+  test "show listing mentors" do
+    visit "/admin/users?target=mentor"
+    assert_equal "ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
   test "accessed by non-administrative users" do
     login_user "yamada", "testtest"
     user = users(:hatsuno)
