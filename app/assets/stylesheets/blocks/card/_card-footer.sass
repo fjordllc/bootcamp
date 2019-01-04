@@ -3,6 +3,8 @@
   border-top: $background-color solid 1px
   &:last-child
     +border-radius(bottom, .25rem)
+  .card-header + &
+    border-top: none
 
 .card-footer__description
   +text-block(.75rem 1.4, center $muted-text)
