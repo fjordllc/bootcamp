@@ -27,12 +27,26 @@ $thread-header-author: 3.5rem
   border-radius: 50%
 
 .thread-comment__title
-  line-height: 1.4
+  +text-block(1rem 1.4)
+  margin-right: .5rem
   +media-breakpoint-down(sm)
-    margin-bottom: .25rem
+    +text-block(.875rem 1.4 .25rem)
+    margin-right: 0
+  &
+    font-size: .9375rem
 
 .thread-comment__title-link
   color: $main-color
+  height: 100%
+  display: flex
+  align-items: center
+  .thread-comment__title.is-user-comments &
+    +hover-link
+
+.thread-comment__title-icon
+  +size(1.5rem)
+  border-radius: 50%
+  margin-right: .75rem
 
 .thread-comment__title-label
   +text-block(.8125rem, $muted-text block 400)
@@ -61,7 +75,7 @@ $thread-header-author: 3.5rem
     &::after
       content: none
 
-.thread-comments__description
+.thread-comment__description
   +padding(vertical, 1rem)
   +padding(horizontal, 1rem)
   +media-breakpoint-down(sm)

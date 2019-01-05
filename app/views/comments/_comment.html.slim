@@ -5,15 +5,18 @@
       = gravatar_tag comment.user, secure: true, size: 200, html: { class: "thread-comment__author-icon" }
   .thread-comment__body.a-card
     header.thread-comment__body-header
-      h2.thread-comment__title
-        = link_to comment.user, itempro: "url", class: "thread-comment__title-link" do
-          = comment.user.login_name
+      - if user_comments_page?
+        h2.thread-comment__title.is-user-comments
+          = link_to "/reports/#{(comment.commentable_id)}", class: "thread-comment__title-link" do
+            = gravatar_tag commentable.user, secure: true, size: 40, html: { class: "thread-comment__title-icon" }
+            = truncate(Report.find(comment.commentable_id).title, length: 50)
+      - else
+        h2.thread-comment__title
+          = link_to comment.user, itempro: "url", class: "thread-comment__title-link" do
+            = comment.user.login_name
       time.thread-comment__created-at(datetime="#{commentable.created_at.to_datetime}" pubdate="pubdate")
         = l comment.updated_at
-      - if controller_path == "users/comments" && action_name == "index"
-        a.thread-comment__thread href="/reports/#{(comment.commentable_id)}"
-          = Report.find(comment.commentable_id).title
-    .thread-comments__description.js-markdown-view.js-target-blank.is-long-text-style
+    .thread-comment__description.js-markdown-view.js-target-blank.is-long-text-style
       = comment.description
     - if comment.user == current_user
       footer.card-footer

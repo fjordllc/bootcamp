@@ -1,5 +1,6 @@
 .thread-comments-container
-  h2.thread-comments-container__title コメント
+  - unless user_comments_page?
+    h2.thread-comments-container__title コメント
   .thread-comments
     = render partial: "comments/comment", collection: comments.order(:created_at), as: :comment
   - if defined?(form_visibility) && form_visibility
