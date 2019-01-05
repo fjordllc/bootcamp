@@ -1,8 +1,13 @@
 - title "お問い合わせ"
+- content_for :page_classes, "no-header no-footer no-recent-reports no-global-nav is-auth-page is-piyo-background"
 
-header.page-header
-  .container
-    .page-header__container
-      h2.page-header__title = title
-.container
-  = render "form", inquiry: @inquiry
+.auth-form.is-sign-up.a-card.is-borderd
+  header.auth-form__header
+    h1.auth-form__title = title
+  .auth-form__body
+    = render "form", inquiry: @inquiry
+  footer.auth-form__footer
+    nav.auth-form-nav
+      ul.auth-form-nav__items
+        li.auth-form-nav__item
+          = link_to "トップページ", root_path, class: "auth-form-nav__item-link"
