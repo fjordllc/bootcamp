@@ -15,10 +15,6 @@ module BodyClassHelper
     end
   end
 
-  def user_comments_page?
-    controller_path == "users/comments" && action_name == "index"
-  end
-
   def body_class(options = {})
     extra_body_classes_symbol = options[:extra_body_classes_symbol] || :extra_body_classes
     qualified_controller_name = controller.controller_path.tr("/", "-")
