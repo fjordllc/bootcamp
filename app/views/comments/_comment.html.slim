@@ -7,9 +7,9 @@
     header.thread-comment__body-header
       - if user_comments_page?
         h2.thread-comment__title.is-user-comments
-          = link_to "/reports/#{(comment.commentable_id)}", class: "thread-comment__title-link" do
+          = link_to commentable, class: "thread-comment__title-link" do
             = gravatar_tag commentable.user, secure: true, size: 40, html: { class: "thread-comment__title-icon" }
-            = truncate(Report.find(comment.commentable_id).title, length: 50)
+            = truncate(comment_title(commentable), length: 50)
       - else
         h2.thread-comment__title
           = link_to comment.user, itempro: "url", class: "thread-comment__title-link" do
