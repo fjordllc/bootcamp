@@ -50,17 +50,21 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test "an error occurs when updating user-data" do
     user = users(:hatsuno)
     visit "/admin/users/#{user.id}/edit"
-    fill_in "user_login_name", with: "komagata"
-    click_on "更新する"
+    within "form[name=user]" do
+      fill_in "user[login_name]", with: "komagata"
+      click_on "更新する"
+    end
     assert_text "ユーザー名はすでに存在します"
   end
 
   test "update user" do
     user = users(:hatsuno)
     visit "/admin/users/#{user.id}/edit"
-    fill_in "user_login_name", with: "hatsuno-1"
-    click_on "更新する"
-    assert_text "ユーザーを更新しました。"
+    within "form[name=user]" do
+      fill_in "user[login_name]", with: "hatsuno-1"
+      click_on "更新する"
+    end
+    assert_text "ユーザー情報を更新しました。"
   end
 
   test "delete user" do

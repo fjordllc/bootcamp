@@ -36,7 +36,7 @@ header.header
             - if current_user.notifications.unreads.exists?
               = render "application/notifications"
           li.header-links__item
-            = link_to edit_user_path(current_user), class: "header-links__link" do
+            = link_to edit_current_user_path, class: "header-links__link" do
               i.fas.fa-cog
               .header-links__link-label 設定
           li.header-links__item

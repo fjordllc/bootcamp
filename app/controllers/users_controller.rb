@@ -2,8 +2,8 @@
 
 class UsersController < ApplicationController
   include Gravatarify::Helper
-  before_action :require_login, only: %i(index show edit update destroy)
-  before_action :set_user, only: %w[show]
+  before_action :require_login, except: %i(new create)
+  before_action :set_user, only: %w(show)
 
   def index
     @categories = Category.order("position")
@@ -33,11 +33,6 @@ class UsersController < ApplicationController
     @companies = Company.all
   end
 
-  def edit
-    @user = current_user
-    @companies = Company.all
-  end
-
   def create
     @user = User.new(user_params)
     @user.company = Company.first
@@ -52,15 +47,6 @@ class UsersController < ApplicationController
       redirect_to root_url, notice: "サインアップしました。"
     else
       render "new"
-    end
-  end
-
-  def update
-    @user = current_user
-    if @user.update(user_params)
-      redirect_to @user, notice: "ユーザーを更新しました。"
-    else
-      render "edit"
     end
   end
 
@@ -94,7 +80,9 @@ class UsersController < ApplicationController
         :experience,
         :how_did_you_know,
         :company_id,
-        :nda
+        :nda,
+        :graduated_on,
+        :retired_on
         )
     end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < AdminController
-  before_action :set_user, only: %i(show edit update)
+  before_action :set_user, only: %i(edit update)
 
   def index
     @users = User.order(updated_at: :desc)
@@ -27,15 +27,12 @@ class Admin::UsersController < AdminController
       end
   end
 
-  def show
-  end
-
   def edit
   end
 
   def update
     if @user.update(user_params)
-      redirect_to admin_users_url, notice: "ユーザーを更新しました。"
+      redirect_to admin_users_url, notice: "ユーザー情報を更新しました。"
     else
       render :edit
     end
@@ -57,25 +54,31 @@ class Admin::UsersController < AdminController
 
     def user_params
       params.require(:user).permit(
+        :adviser,
         :login_name,
-        :email,
         :first_name,
         :last_name,
-        :password,
-        :password_confirmation,
+        :email,
+        :course_id,
+        :description,
+        :slack_account,
+        :github_account,
         :twitter_account,
         :facebook_url,
-        :github_account,
-        :slack_account,
         :blog_url,
-        :company_id,
-        :description,
         :feed_url,
-        :adviser,
+        :password,
+        :password_confirmation,
+        :job,
+        :organization,
+        :os,
+        :study_place,
+        :experience,
+        :how_did_you_know,
+        :company_id,
         :nda,
         :graduated_on,
-        :retired_on,
-        :nda
+        :retired_on
       )
     end
 end
