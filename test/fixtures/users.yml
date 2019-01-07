@@ -177,3 +177,26 @@ hatsuno:
   organization: 明治大学
   updated_at: "2014-01-01 00:00:08"
   created_at: "2014-01-01 00:00:08"
+
+hajime:
+  login_name: hajime
+  email: hajime@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  first_name: Tayo
+  last_name: Hajime
+  twitter_account: hajime
+  facebook_url: http://www.facebook.com/hajime
+  blog_url: http://hajime.org
+  feed_url: http://hajime.org/index.atom
+  company: company_1
+  description: "始です。"
+  course: course_1
+  job: office_worker
+  os: mac
+  study_place: remote
+  experience: inexperienced
+  how_did_you_know: 友人に聞いて
+  organization: 始大学
+  updated_at: "2014-01-01 00:00:09"
+  created_at: "2014-01-01 00:00:09" 

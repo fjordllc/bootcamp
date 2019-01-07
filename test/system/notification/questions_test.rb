@@ -8,16 +8,19 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     @notice_kind = Notification.kinds["came_question"]
     @notified_count = Notification.where(kind: @notice_kind).size
     @mentor_count = User.mentor.size
+    practice = Practice.find_by(title: "OS X Mountain Lionをクリーンインストールする")
+    @completed_student_count = practice.completed_learnings.size
   end
 
-  test "mentor receives notification when question is posted" do
+  test "mentor and completed student receive notification when question is posted" do
     login_user "hatsuno", "testtest"
     visit "/questions/new"
     within("#new_question") do
-      find("ul", match: :first).set(true)
       fill_in("question[title]", with: "メンターに質問！！")
       fill_in("question[description]", with: "通知行ってますか？")
     end
+    first(".select2-selection--single").click
+    find("li", text: "[Mac OS X] OS X Mountain Lionをクリーンインストールする").click
     click_button "登録する"
     logout
 
@@ -27,19 +30,25 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     logout
 
     login_user "kimura", "testtest"
+    first(".test-bell").click
+    assert_text @notice_text
+    logout
+
+    login_user "hajime", "testtest"
     refute_text @notice_text
 
-    assert_equal @notified_count + @mentor_count, Notification.where(kind: @notice_kind).size
+    assert_equal @notified_count + @mentor_count + @completed_student_count, Notification.where(kind: @notice_kind).size
   end
 
   test "There is no notification to the mentor who posted" do
     login_user "yamada", "testtest"
     visit "/questions/new"
     within("#new_question") do
-      find("ul", match: :first).set(true)
       fill_in("question[title]", with: "皆さんに質問！！")
       fill_in("question[description]", with: "通知行ってますか？")
     end
+    first(".select2-selection--single").click
+    find("li", text: "[Mac OS X] OS X Mountain Lionをクリーンインストールする").click
     click_button "登録する"
     logout
 
