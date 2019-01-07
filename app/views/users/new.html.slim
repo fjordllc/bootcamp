@@ -5,7 +5,7 @@
   header.auth-form__header
     h1.auth-form__title = title
   .auth-form__body
-    = render "form", from: :new, user: @user
+    = render "form", from: :new, url: users_path, user: @user
   footer.auth-form__footer
     nav.auth-form-nav
       ul.auth-form-nav__items
