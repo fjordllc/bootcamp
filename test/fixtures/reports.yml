@@ -59,6 +59,14 @@ report_8:
     いろいろやりました。
   reported_on: "2017-01-01"
 
+report_9:
+  user: hasebe
+  title: WIPの日報
+  description: |-
+    WIP
+  reported_on: "2019-01-01"
+  wip: true
+
 tanaka:
   user: tanaka
   title: テストの日報
