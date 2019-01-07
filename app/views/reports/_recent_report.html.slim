@@ -5,7 +5,7 @@
       - if report.wip?
         span.recent-reports-item__title-icon
           | WIP
-      = report.title
+      = truncate(report.title, length: 46)
     time.recent-reports-item__date
       = l report.updated_at.to_date
     - if report.checks.present?
