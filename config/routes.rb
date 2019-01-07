@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "home#index", as: :root
     resources :companies, except: %i(show)
-    resources :users, except: %i(show)
+    resources :users, only: %i(index edit update destroy)
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
     end
@@ -26,15 +26,15 @@ Rails.application.routes.draw do
 
   resources :announcements
   resources :feeds, only: %i(index)
-  resources :users do
+  resources :users, only: %i(index show new create destroy) do
     resources :practices, only: %i(index), controller: "users/practices"
     resources :reports, only: %i(index), controller: "users/reports"
     resources :comments, only: %i(index), controller: "users/comments"
     resources :products, only: %i(index), controller: "users/products"
   end
 
+  resource :current_user, only: %i(edit update), controller: "current_user"
   resources :searchables, only: %i(index)
-
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
 
