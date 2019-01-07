@@ -22,6 +22,8 @@ class Report < ActiveRecord::Base
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: "Report").pluck(:checkable_id)) }
 
+  scope :not_wip, -> { where(wip: false) }
+
   def previous
     Report.where(user: user)
           .where("reported_on < ?", reported_on)
@@ -34,5 +36,9 @@ class Report < ActiveRecord::Base
           .where("reported_on > ?", reported_on)
           .order(:reported_on)
           .first
+  end
+
+  def self.unchecked_and_not_wip
+    Report.unchecked.not_wip
   end
 end
