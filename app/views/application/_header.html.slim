@@ -29,7 +29,7 @@ header.header
             .header-links__link.js-drop-down__trigger.test-bell
               .header-notification-icon
                 - if current_user.notifications.unreads.count > 0
-                  .header-notification-count
+                  .header-notification-count.a-notification-count
                     = current_user.notifications.unreads.count
                 i.fas.fa-bell
                 .header-links__link-label 通知
