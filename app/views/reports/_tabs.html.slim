@@ -4,5 +4,5 @@
       li.page-tabs__item
         = link_to "全て", reports_path, class: "page-tabs__item-link #{current_link /^reports-index/}"
       li.page-tabs__item
-        p #{Report.unchecked_and_not_wip.count}
+        p #{Report.unchecked.not_wip.count}
         = link_to "未チェック", reports_unchecked_index_path, class: "page-tabs__item-link #{current_link /^reports-unchecked-index/}"

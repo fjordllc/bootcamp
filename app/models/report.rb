@@ -37,8 +37,4 @@ class Report < ActiveRecord::Base
           .order(:reported_on)
           .first
   end
-
-  def self.unchecked_and_not_wip
-    Report.unchecked.not_wip
-  end
 end
