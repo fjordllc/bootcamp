@@ -16,28 +16,10 @@ class UsersTest < ApplicationSystemTestCase
     assert_text "管理者としてログインしてください"
   end
 
-  test "an error occurs when updating data" do
-    login_user "hatsuno", "testtest"
-    user = users(:hatsuno)
-    visit edit_user_path(user.id)
-    fill_in "user_login_name", with: "komagata"
-    click_on "更新する"
-    assert_text "ユーザー名はすでに存在します"
-  end
-
-  test "update data and update users" do
-    login_user "hatsuno", "testtest"
-    user = users(:hatsuno)
-    visit edit_user_path(user.id)
-    fill_in "user_login_name", with: "hatsuno-1"
-    click_on "更新する"
-    assert_text "ユーザーを更新しました。"
-  end
-
   test "user is canceled" do
     login_user "hatsuno", "testtest"
     user = users(:hatsuno)
-    visit edit_user_path(user.id)
+    visit edit_current_user_path
     click_on "退会する"
     page.driver.browser.switch_to.alert.accept
     assert_text "ログインしてください"

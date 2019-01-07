@@ -16,10 +16,7 @@
               ul.auth-form-item__checkboxes
                 li.auth-form-checkbox
                   label.is-button-simple-md-warning.is-checkbox.nda__action
-                    - if params[:action] == "new"
-                      = f.check_box :nda, checked: false
-                    - else
-                      = f.check_box :nda, checked: true
+                    = f.check_box :nda, checked: params[:action] != "new", id: "user_nda"
                     div 秘密保持契約に同意する
 
           .nda__close.js-modal__close(aria-label="Close" type="button")
