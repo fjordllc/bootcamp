@@ -103,6 +103,10 @@ ja:
       announcement:
         title: タイトル
         description: 内容
+      inquiry:
+        name: 名前
+        email: メールアドレス
+        body: 内容
     enums:
       user:
         job:

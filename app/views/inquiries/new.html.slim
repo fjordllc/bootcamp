@@ -1,15 +1,13 @@
-- title @user.adviser? ? "アドバイザー登録" : "フィヨルドブートキャンプ参加登録"
+- title "お問い合わせ"
 - content_for :page_classes, "no-header no-footer no-recent-reports no-global-nav is-auth-page is-piyo-background"
 
-.auth-form.is-sign-up.a-card
+.auth-form.is-sign-up.a-card.is-borderd
   header.auth-form__header
     h1.auth-form__title = title
   .auth-form__body
-    = render "form", from: :new, url: users_path, user: @user
+    = render "form", inquiry: @inquiry
   footer.auth-form__footer
     nav.auth-form-nav
       ul.auth-form-nav__items
         li.auth-form-nav__item
           = link_to "トップページ", root_path, class: "auth-form-nav__item-link"
-        li.auth-form-nav__item
-           span.auth-form-nav__item-link.js-modal(data-target="#nda-modal") 秘密保持契約内容を確認
