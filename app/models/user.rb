@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
     dependent: :destroy
 
   has_one_attached :face
+  has_one_attached :avatar
 
   validates :email,      presence: true, uniqueness: true
   validates :first_name, presence: true
