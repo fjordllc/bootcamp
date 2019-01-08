@@ -1,6 +1,7 @@
 .completed-practices.a-card
   header.card-header
     h2.completed-practices__title 完了したプラクティス
+    = "学習開始から#{@user.dates_from_start_fjord}日目"
   .completed-practices__body
     = render "completed_practices_progress", user: @user
     = render "completed_practices_list", user: @user
