@@ -4,10 +4,10 @@ require "test_helper"
 
 class ReportTest < ActiveSupport::TestCase
   test "previous" do
-    assert reports(:report_2).previous, reports(:report_1)
+    assert_equal reports(:report_1), reports(:report_2).previous
   end
 
   test "next" do
-    assert reports(:report_1).next, reports(:report_2)
+    assert_equal reports(:report_2), reports(:report_1).next
   end
 end
