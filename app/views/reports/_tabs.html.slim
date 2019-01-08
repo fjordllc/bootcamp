@@ -4,4 +4,7 @@
       li.page-tabs__item
         = link_to "全て", reports_path, class: "page-tabs__item-link #{current_link /^reports-index/}"
       li.page-tabs__item
-        = link_to "未チェック", reports_unchecked_index_path, class: "page-tabs__item-link #{current_link /^reports-unchecked-index/}"
+        = link_to reports_unchecked_index_path, class: "page-tabs__item-link #{current_link /^reports-unchecked-index/}" do
+          | 未チェック
+          .page-tabs__item-count.a-notification-count
+            = Report.unchecked.not_wip.count
