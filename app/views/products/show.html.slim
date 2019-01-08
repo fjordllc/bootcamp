@@ -4,6 +4,16 @@ header.page-header
   .container
     .page-header__container
       h1.page-header__title = title
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to @product.practice, class: "page-header-actions__items-link is-button-simple-md-secondary" do
+              | プラクティス
+          - if current_user.admin?
+            li.page-header-actions__item
+              = link_to products_unchecked_index_path, class: "page-header-actions__items-link is-button-simple-md-secondary" do
+                | 未チェック一覧
+
 
 .page-body
   .container

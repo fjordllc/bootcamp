@@ -5,8 +5,9 @@ header.page-header
     .page-header__container
       h2.page-header__title = title
 
-.page-tools
-  = render "products/tabs"
+- if current_user.admin?
+  .page-tools
+    = render "products/tabs"
 
 .page-body
   .container
