@@ -5,7 +5,8 @@
   max-width: 50rem
   +margin(horizontal, auto)
   +media-breakpoint-down(lg)
-    margin-bottom: 1rem
+    &:not(:last-child)
+      margin-bottom: 1rem
   .a-card + &
     margin-top: 1.5rem
     +media-breakpoint-down(lg)

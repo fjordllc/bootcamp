@@ -6,7 +6,7 @@ header.page-header.is-margin-bottom-0
       h2.page-header__title = title
       = render "reports/new_report"
 
-.page-body
+.page-tools
   nav.sort-nav
     = form_tag reports_url, method: "get" do
       .container
@@ -16,11 +16,13 @@ header.page-header.is-margin-bottom-0
           .sort-nav__select
             = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, selected: params[:practice_id]), include_blank: "全ての日報を表示", onchange: "this.form.submit()", class: "js-select2"
 
-  = render "reports/tabs"
+  - if current_user.admin?
+    = render "reports/tabs"
 
+.page-body
+  = paginate @reports, position: "top"
   .container
-    = paginate @reports, position: "top"
     - if @reports.present?
       .thread-list.a-card
         = render partial: "reports/report", collection: @reports, as: :report
-    = paginate @reports, position: "bottom"
+  = paginate @reports, position: "bottom"
