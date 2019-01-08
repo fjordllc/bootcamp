@@ -182,6 +182,10 @@ WHERE
     learning_time.first.total || 0
   end
 
+  def dates_from_start_fjord
+    (Date.today - self.created_at.to_date).to_i
+  end
+
   private
     def password_required?
       new_record? || password.present?
