@@ -10,8 +10,4 @@ class ReportTest < ActiveSupport::TestCase
   test "next" do
     assert reports(:report_1).next, reports(:report_2)
   end
-
-  test "unchecked/not_wip" do
-    assert_equal 3, Report.unchecked.not_wip.count
-  end
 end
