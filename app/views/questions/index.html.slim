@@ -27,4 +27,7 @@ header.page-header.is-margin-bottom-0
         = render @questions
     - else
       .thread-list.is-empty
-        | 質問はまだありません。
+        - if params[:solved] == "true"
+          | 解決済みの質問はまだありません。
+        - else
+          | 未解決の質問はまだありません。
