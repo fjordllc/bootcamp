@@ -4,17 +4,17 @@ header.page-header
   .container
     .page-header__container
       h2.page-header__title = title
-      .page-header-actions
-        .page-header-actions__items
-          - if admin_login?
+      - if admin_login?
+        .page-header-actions
+          .page-header-actions__items
             .page-header-actions__item
               = link_to new_announcement_path, class: "is-button-simple-md-warning" do
                 i.fa.fa-plus
                 | お知らせ作成
 
+= paginate @announcements, position: "top"
 .page-body
   .container
-    = paginate @announcements, position: "top"
     .thread-list.a-card
       = render partial: "announcements", collection: @announcements, as: :announcement
-    = paginate @announcements, position: "bottom"
+= paginate @announcements, position: "bottom"
