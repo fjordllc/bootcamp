@@ -4,6 +4,15 @@ require "#{Rails.root}/config/environment"
 
 namespace :bootcamp do
   namespace :oneshot do
+    desc "Migrate user icon."
+    task :migrate_user_icon do
+      include Gravatarify::Helper
+
+      User.order(:id).each do |user|
+        puts gravatar_url(user.email), "#{user.id}.jpg"
+        user.avatar.attach(io: open(gravatar_url(user.email)), filename: "#{user.id}.jpg")
+      end
+    end
   end
 
   desc "Replace practices"
