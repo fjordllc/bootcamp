@@ -8,9 +8,11 @@ header.page-header
           li.page-header-actions__item
             = link_to "ユーザー一覧", users_path, class: "is-button-simple-md-secondary"
 
-= render "page_tabs", resource: @user
+.page-tools
+  = render "page_tabs", resource: @user
 
-.container
-  - if product_displayable?(user: @user)
-    .thread-list.a-card
-      = render partial: "products/product", collection: @products, as: :product
+.page-body
+  .container
+    - if product_displayable?(user: @user)
+      .thread-list.a-card
+        = render partial: "products/product", collection: @products, as: :product

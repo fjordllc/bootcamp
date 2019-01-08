@@ -13,7 +13,8 @@ header.page-header
 
 = render "page_tabs", resource: @practice
 
-.container
-  - if product_displayable?(practice: @practice)
-    .thread-list.a-card
-      = render partial: "products/product", collection: @products, as: :product
+.page-body
+  .container
+    - if product_displayable?(practice: @practice)
+      .thread-list.a-card
+        = render partial: "products/product", collection: @products, as: :product

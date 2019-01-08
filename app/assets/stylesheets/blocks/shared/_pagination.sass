@@ -1,11 +1,15 @@
 .pagination
   +position(relative, 1)
-  max-width: 62.5rem
-  +margin(horizontal, auto)
   &.is-top
-    margin-bottom: 1.5rem
+    margin-top: -.5rem
+    margin-bottom: 1rem
+    +media-breakpoint-down(sm)
+      margin-bottom: .75rem
   &.is-bottom
-    margin-top: 1.5rem
+    margin-top: 1rem
+    margin-bottom: -.5rem
+    +media-breakpoint-down(sm)
+      margin-top: .75rem
 
 .pagination__items
   display: flex

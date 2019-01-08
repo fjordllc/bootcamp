@@ -12,15 +12,15 @@ header.page-header
 
 = render "page_tabs", resource: @practice
 
-.page-body
-  nav.tab-nav.is-delete-margin-top
-    .container.is-xs-horizontal-padding-0
-      ul.tab-nav__items
-        li.tab-nav__item
-          = link_to "未解決", [@practice, :questions], class: "tab-nav__item-link #{params[:solved].present? ? "" : "is-active"}"
-        li.tab-nav__item
-          = link_to "解決済み", polymorphic_path([@practice, :questions], solved: "true"), class: "tab-nav__item-link #{params[:solved].present? ? "is-active" : ""}"
+nav.tab-nav
+  .container.is-xs-horizontal-padding-0
+    ul.tab-nav__items
+      li.tab-nav__item
+        = link_to "未解決", [@practice, :questions], class: "tab-nav__item-link #{params[:solved].present? ? "" : "is-active"}"
+      li.tab-nav__item
+        = link_to "解決済み", polymorphic_path([@practice, :questions], solved: "true"), class: "tab-nav__item-link #{params[:solved].present? ? "is-active" : ""}"
 
+.page-body
   .container
     - if @questions.present?
       .thread-list.a-card

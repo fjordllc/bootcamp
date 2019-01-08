@@ -19,60 +19,61 @@ header.page-header
 
 = render "page_tabs", resource: @practice
 
-.container
-  .practice-contents
-    header.practice-contents__header
-      h1.practice-contents__title
-        = @practice.title
-    section.practice-content.a-card
-      header.practice-content__header.card-header
-        h2.practice-content__title
-          = Practice.human_attribute_name :description
-      .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text-style
-        = @practice.description
-      footer.card-footer
-        .card-footer-actions
-          ul.card-footer-actions__items
-            li.card-footer-actions__item
-              = link_to new_question_path, class: "is-button-simple-md-primary is-block" do
-                i.fas.fa-question-circle
-                | 質問する
-
-    section.practice-content.a-card
-      header.practice-content__header.card-header
-        h2.practice-content__title
-          = Practice.human_attribute_name :goal
-      .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text-style
-        = @practice.goal
-      footer.card-footer
-        #js-learning(data-practice-id="#{@practice.id}")
-        - unless @practice.submission
-         .card-footer__description
-            | このプラクティスに提出物のチェックは必要ありません。
-            br
-            | 終了条件をクリアしたら完了にしてください。
-
-    - if current_user.admin?
+.page-body
+  .container
+    .practice-contents
+      header.practice-contents__header
+        h1.practice-contents__title
+          = @practice.title
       section.practice-content.a-card
         header.practice-content__header.card-header
-          h2.practice-content__title 管理者メニュー
+          h2.practice-content__title
+            = Practice.human_attribute_name :description
+        .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text-style
+          = @practice.description
         footer.card-footer
           .card-footer-actions
             ul.card-footer-actions__items
               li.card-footer-actions__item
-                = link_to edit_practice_path(@practice), class: "is-button-simple-md-primary is-block" do
-                  i.fas.fa-pen
-                  | 編集
-              li.card-footer-actions__item
-                = link_to practice_path(@practice), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "is-button-simple-md-danger is-block" do
-                  i.fas.fa-trash-alt
-                  | 削除
+                = link_to new_question_path, class: "is-button-simple-md-primary is-block" do
+                  i.fas.fa-question-circle
+                  | 質問する
 
-  .interns-icons
-    h2.user-reports__title 完了したユーザー
-    ul.completed-users
-      - @practice.completed_users.each do |user|
-        li.completed-users__user
-          = link_to user, class: "completed-users__user-link" do
-            span.completed-users__user-icon
-              = gravatar_tag user, secure: true, size: 32
+      section.practice-content.a-card
+        header.practice-content__header.card-header
+          h2.practice-content__title
+            = Practice.human_attribute_name :goal
+        .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text-style
+          = @practice.goal
+        footer.card-footer
+          #js-learning(data-practice-id="#{@practice.id}")
+          - unless @practice.submission
+          .card-footer__description
+              | このプラクティスに提出物のチェックは必要ありません。
+              br
+              | 終了条件をクリアしたら完了にしてください。
+
+      - if current_user.admin?
+        section.practice-content.a-card
+          header.practice-content__header.card-header
+            h2.practice-content__title 管理者メニュー
+          footer.card-footer
+            .card-footer-actions
+              ul.card-footer-actions__items
+                li.card-footer-actions__item
+                  = link_to edit_practice_path(@practice), class: "is-button-simple-md-primary is-block" do
+                    i.fas.fa-pen
+                    | 編集
+                li.card-footer-actions__item
+                  = link_to practice_path(@practice), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "is-button-simple-md-danger is-block" do
+                    i.fas.fa-trash-alt
+                    | 削除
+
+    .interns-icons
+      h2.user-reports__title 完了したユーザー
+      ul.completed-users
+        - @practice.completed_users.each do |user|
+          li.completed-users__user
+            = link_to user, class: "completed-users__user-link" do
+              span.completed-users__user-icon
+                = gravatar_tag user, secure: true, size: 32
