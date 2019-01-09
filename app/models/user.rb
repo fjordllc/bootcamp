@@ -183,7 +183,7 @@ WHERE
   end
 
   def dates_from_start_fjord
-    (Date.today - self.created_at.to_date).to_i
+    (Date.current - self.created_at.to_date).to_i
   end
 
   private
