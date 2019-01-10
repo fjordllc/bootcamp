@@ -77,4 +77,16 @@ class UserTest < ActiveSupport::TestCase
     names = User.order_by_counts("comment", "asc").pluck(:login_name)
     assert_equal ["yameo", "hajime", "hatsuno", "kensyu", "kimura", "muryou", "yamada", "mineo", "machida", "tanaka", "komagata"], names
   end
+
+  test "invalid when blank to retire_reason column" do
+    user = users(:hatsuno)
+    assert user.retire_reason.blank?
+    assert_not user.save(context: :retire_reason_presence)
+  end
+
+  test "valid when more than 8 characters to retire_reason column" do
+    user = users(:hatsuno)
+    user.retire_reason = "辞" * 8
+    assert user.save(context: :retire_reason_presence)
+  end
 end

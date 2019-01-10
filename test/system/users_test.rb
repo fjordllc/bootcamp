@@ -23,11 +23,15 @@ class UsersTest < ApplicationSystemTestCase
     click_on "退会する"
     page.driver.browser.switch_to.alert.accept
     assert_text "退会理由を入力してください"
-    fill_in "user[retire_reason]", with: "退会します！"
+    fill_in "user[retire_reason]", with: "辞" * 7
+    assert_text "退会理由は8文字以上で入力してください"
+    fill_in "user[retire_reason]", with: "辞" * 8
     click_on "退会する"
     page.driver.browser.switch_to.alert.accept
     assert_text "退会しました。"
     assert_equal Date.current, user.reload.retired_on
+    login_user "hatsuno", "testtest"
+    assert_text "ログインができません"
   end
 
   test "graduation date is displayed" do
