@@ -127,6 +127,14 @@ ActiveRecord::Schema.define(version: 2019_01_04_064709) do
     t.index ["user_id"], name: "index_images_on_user_id"
   end
 
+  create_table "inquiries", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "learning_times", force: :cascade do |t|
     t.bigint "report_id"
     t.datetime "started_at", null: false
