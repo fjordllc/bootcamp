@@ -22,7 +22,7 @@
         - practice.started_users.students.each do |user|
           .practice-started-users__item
             = link_to user, class: "practice-started-users__item-link" do
-              = gravatar_tag user, secure: true, size: 44, html: { class: "practice-started-users__item-icon #{user.active? ? "active" : "inactive"}" }
+              = image_tag user.avatar.variant(resize: "44x44"), class: "practice-started-users__item-icon #{user.active? ? "active" : "inactive"}"
   - if current_user.admin?
     .category-practices-item__handle.js-show-handle__target
       ul.is-button-group

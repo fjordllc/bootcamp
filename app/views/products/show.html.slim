@@ -70,7 +70,7 @@ header.page-header
             | プラクティスに戻る
 
       = link_to @product.user, itempro: "url", class: "thread__author-link" do
-        = gravatar_tag @product.user, secure: true, size: 120, html: { class: "thread__author-icon" }
+        = image_tag @product.user.avatar.variant(resize: "120x120"), class: "thread__author-icon"
 
     = render "comments/comments", comments: @product.comments.order(:created_at), form_visibility: true
     = render "footprints/footprints", footprints: @footprints

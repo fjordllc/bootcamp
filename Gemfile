@@ -14,7 +14,6 @@ gem "uglifier", ">= 1.3.0"
 gem "coffee-rails", "~> 4.2"
 gem "bootsnap", ">= 1.1.0", require: false
 gem "dynamic_form"
-gem "gravatarify"
 gem "slim-rails"
 gem "jquery-rails"
 gem "puma", "~> 3.11"
@@ -49,6 +48,7 @@ gem "rollbar"
 gem "rails-i18n"
 gem "google-cloud-storage", "~> 1.3", require: false
 gem "mini_magick"
+gem "activestorage-validator"
 
 group :production, :staging do
   gem "newrelic_rpm"

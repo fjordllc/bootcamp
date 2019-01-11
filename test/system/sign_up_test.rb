@@ -12,6 +12,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in "user[email]", with: "testuser@example.com"
       fill_in "user[first_name]", with: "Jean"
       fill_in "user[last_name]", with: "Valjean"
+      attach_file "user[avatar]", Rails.root.join("test/fixtures/files/users/avatars/komagata.jpg")
       fill_in "user[description]", with: "I wanna be programmer."
       select "学生", from: "user[job]"
       select "Mac", from: "user[os]"
@@ -36,6 +37,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in "user[email]", with: "testuser@example.com"
       fill_in "user[first_name]", with: "Jean"
       fill_in "user[last_name]", with: "Valjean"
+      attach_file "user[avatar]", Rails.root.join("test/fixtures/files/users/avatars/komagata.jpg")
       fill_in "user[description]", with: "I wanna be programmer."
       select "学生", from: "user[job]"
       select "Mac", from: "user[os]"
@@ -61,6 +63,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in "user[first_name]", with: "Jean"
       fill_in "user[last_name]", with: "Valjean"
       fill_in "user[last_name]", with: "Valjean"
+      attach_file "user[avatar]", Rails.root.join("test/fixtures/files/users/avatars/komagata.jpg")
       first(".js-nda-action").click
       execute_script "document.querySelector('.nda__action').click();"
       execute_script "document.querySelector('.nda__close').click();"

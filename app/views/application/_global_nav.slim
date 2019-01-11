@@ -4,7 +4,7 @@ nav.global-nav.js-show-mobile-nav__target.js-show-mobile-nav
       .global-nav-current-user
         = link_to user_path(current_user), class: "global-nav-current-user__link"
           .global-nav-current-user__icon
-            = gravatar_tag current_user, secure: true, size: "320"
+            = image_tag current_user.avatar.variant(resize: "320x320")
     .global-nav-links.is-contents-links
       ul.global-nav-links__items
         li.global-nav-links__item
