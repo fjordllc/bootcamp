@@ -2,7 +2,6 @@
 
 class Questions::CorrectAnswerController < ApplicationController
   include Rails.application.routes.url_helpers
-  include Gravatarify::Helper
   before_action :require_login
   before_action :set_question, only: :create
 
@@ -26,7 +25,7 @@ class Questions::CorrectAnswerController < ApplicationController
 
       notify "#{name}が解答を選択しました。#{link}",
         username: "#{question.user.login_name} (#{question.user.full_name})",
-        icon_url: gravatar_url(question.user, secure: true),
+        icon_url: url_for(question.user.avatar),
         attachments: [{
           fallback: "question body.",
           text: question.description

@@ -1,7 +1,9 @@
 .thread-comment-form
   .thread-comment__author
-    = gravatar_tag current_user, secure: true, size: "200", html: { class: "thread-comment__author-icon" }
+    = image_tag current_user.avatar.variant(resize: "200x200"), class: "thread-comment__author-icon"
   = form_with model: [question, answer], local: true, html: { class: "thread-comment-form__form a-card", name: "answer" } do |f|
+    - if answer.errors.any?
+      = error_messages_for :answer
     .thread-comment-form__tabs.js-tabs
       .thread-comment-form__tab.js-tabs__tab.is-active
         | コメント
@@ -12,7 +14,6 @@
         = f.text_area :description, required: true, class: "a-textarea js-warning-form thread-comment-form__textarea js-markdown", data: { "preview": ".js-preview" }
       .thread-comment-form__markdown.js-tabs__content
         .js-preview.is-long-text-style.thread-comment-form__preview
-
     .thread-comment-form__action
       - comment_label = answer.persisted? ? "保存する" : "コメントする"
       = f.submit comment_label, class: "is-button-simple-lg-warning"

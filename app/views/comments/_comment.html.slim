@@ -2,13 +2,13 @@
 .thread-comment
   .thread-comment__author
     = link_to comment.user, itempro: "url", class: "thread-comment__author-link" do
-      = gravatar_tag comment.user, secure: true, size: 200, html: { class: "thread-comment__author-icon" }
+      = image_tag comment.user.avatar.variant(resize: "200x200"), class: "thread-comment__author-icon"
   .thread-comment__body.a-card
     header.thread-comment__body-header
       - if user_comments_page?
         h2.thread-comment__title.is-user-comments
           = link_to commentable, class: "thread-comment__title-link" do
-            = gravatar_tag commentable.user, secure: true, size: 40, html: { class: "thread-comment__title-icon" }
+            = image_tag commentable.user.avatar.variant(resize: "40x40"), class: "thread-comment__title-icon"
             = truncate(comment_title(commentable), length: 50)
       - else
         h2.thread-comment__title

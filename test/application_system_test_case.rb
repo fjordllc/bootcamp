@@ -16,4 +16,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   else
     driven_by :selenium, using: :chrome, options: { desired_capabilities: caps }
   end
+
+  setup do
+    Bootcamp::Setup.attachment
+  end
 end

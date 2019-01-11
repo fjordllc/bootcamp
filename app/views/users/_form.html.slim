@@ -35,6 +35,12 @@
           p
             | 就職希望先企業の採用担当者も使う情報になるので、姓・名は必ず本名を（漢字がある場合は漢字で）入力してください。
 
+    .auth-form-item
+      = f.label :avatar, class: "a-sm-label is-required"
+      = f.file_field :avatar, class: "a-sm-text-input"
+      - if f.object.avatar.attached?
+        p = image_tag f.object.avatar.variant(resize: "100x100")
+
     - unless user.adviser?
       .auth-form-item.is-hidden
         // コース

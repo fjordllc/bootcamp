@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CurrentUserController < ApplicationController
-  include Gravatarify::Helper
   before_action :require_login
   before_action :set_user
 
@@ -42,7 +41,8 @@ class CurrentUserController < ApplicationController
         :experience,
         :how_did_you_know,
         :company_id,
-        :nda
+        :nda,
+        :avatar
         )
     end
 

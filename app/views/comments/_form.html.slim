@@ -1,6 +1,6 @@
 .thread-comment-form
   .thread-comment__author
-    = gravatar_tag current_user, secure: true, size: "200", html: { class: "thread-comment__author-icon" }
+    = image_tag current_user.avatar.variant(resize: "200x200"), class: "thread-comment__author-icon"
   = form_with model: comment, local: true, html: { class: "thread-comment-form__form a-card" } do |f|
     = f.hidden_field :commentable_type
     = f.hidden_field :commentable_id

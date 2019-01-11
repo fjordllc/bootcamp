@@ -5,11 +5,11 @@ json.array! @users do |user|
   json.away user.updated_at <= 10.minutes.ago
   json.link user_url(user)
 
-  if user.away? || !user.face.attached?
-    json.url gravatar_url(user, secure: true)
-    json.face gravatar_url(user, secure: true)
+  if user.face.attached? && !user.away?
+    json.url url_for(user.face)
+    json.face url_for(user.face)
   else
-    json.url rails_blob_url(user.face)
-    json.face rails_blob_url(user.face)
+    json.url url_for(user.avatar)
+    json.face url_for(user.avatar)
   end
 end

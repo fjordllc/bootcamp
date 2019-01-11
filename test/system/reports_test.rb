@@ -163,7 +163,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "23:00 〜 00:00"
   end
 
-  test "regist learning_times 4h" do
+  test "register learning_times 4h" do
     visit "/reports/new"
     fill_in "report_title", with: "テスト日報"
     fill_in "report_description", with: "複数時間登録のパターン"
