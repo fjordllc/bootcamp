@@ -6,7 +6,7 @@
   .auth-form__body
     - if @user.errors.any?
       = render "errors", object: @user
-    = form_for @user, method: :delete do |f|
+    = form_with model: @user, local: true, method: :delete do |f|
       .auth-form-item
         = f.label :retire_reason, "退会理由", class: "a-sm-label"
         = f.text_area :retire_reason, class: "a-sm-text-input", placeholder: "退会理由を記入して下さい"
