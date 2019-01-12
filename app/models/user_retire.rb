@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class UserDeleter
+class UserRetire
   def initialize(user)
     @user = user
   end
 
-  def delete
+  def retire
     @user.notifications.destroy_all
     @user.send_notifications.destroy_all
   end
