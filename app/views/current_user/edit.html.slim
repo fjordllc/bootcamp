@@ -1,8 +1,10 @@
+- title "登録情報変更"
 - content_for(:page_classes, "no-header no-footer no-recent-reports")
 
-.auth-form.is-sign-up.a-card
+.auth-form.is-sign-up.a-card.is-in-app
   header.auth-form__header
-    h1.auth-form__title アカウント編集
+    h1.auth-form__title
+      = title
   .auth-form__body
     = render "users/form", from: :edit, url: current_user_path, user: @user
   footer.auth-form__footer
