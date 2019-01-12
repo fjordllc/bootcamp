@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
   include Gravatarify::Helper
   before_action :require_login, except: %i(new create)
-  before_action :set_user, only: %w(show retire)
+  before_action :set_user, only: %w(show)
 
   def index
     @categories = Category.order("position")
@@ -58,11 +58,8 @@ class UsersController < ApplicationController
       UserDeleter.new(current_user).delete
       redirect_to login_url, notice: "退会しました。"
     else
-      render :retire
+      render "users/retirements/index"
     end
-  end
-
-  def retire
   end
 
   private
