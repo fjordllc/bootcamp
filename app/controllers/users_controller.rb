@@ -42,7 +42,6 @@ class UsersController < ApplicationController
     @user.assign_attributes(retire_reason_params)
     @user.retired_on = Date.current
     if @user.save(context: :retire_reason_presence)
-      UserRetire.new(current_user).retire
       redirect_to login_url, notice: "退会しました。"
     else
       render "users/retirements/index"
