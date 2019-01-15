@@ -10,10 +10,10 @@ class Notification::AnswersTest < ApplicationSystemTestCase
   test "recieve a notification when I got my question's answer" do
     login_user "komagata", "testtest"
     visit "/questions/#{questions(:question_2).id}"
-    within("#new_answer") do
+    within(".thread-comment-form__form") do
       fill_in("answer[description]", with: "reduceも使ってみては？")
     end
-    click_button "コメントを投稿"
+    click_button "コメントする"
     logout
 
     login_user "tanaka", "testtest"

@@ -22,7 +22,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test "post new comment for report" do
     visit "/reports/#{reports(:report_1).id}"
-    within("#new_comment") do
+    within(".thread-comment-form__form") do
       fill_in("comment[description]", with: "test")
     end
     click_button "コメントする"
@@ -51,7 +51,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test "post new comment for product" do
     visit "/products/#{products(:product_1).id}"
-    within("#new_comment") do
+    within(".thread-comment-form__form") do
       fill_in("comment[description]", with: "test")
     end
     click_button "コメントする"
@@ -60,7 +60,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test "post new comment for announcement" do
     visit "/announcements/#{announcements(:announcement_1).id}"
-    within("#new_comment") do
+    within(".thread-comment-form__form") do
       fill_in("comment[description]", with: "test")
     end
     click_button "コメントする"

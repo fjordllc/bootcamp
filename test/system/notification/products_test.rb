@@ -40,7 +40,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     login_user "yamada", "testtest"
     visit "/products/#{products(:product_1).id}"
 
-    within("#new_comment") do
+    within(".thread-comment-form__form") do
       fill_in("comment[description]", with: "test")
     end
     click_button "コメントする"
