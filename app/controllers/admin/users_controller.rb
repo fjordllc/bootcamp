@@ -6,18 +6,18 @@ class Admin::UsersController < AdminController
 
   def index
     # return unless VALID_SORT_COLUMNS.include?(params[:sort])
-    @order_by = params[:order_by] || 'id'
+    @order_by = params[:order_by] || "id"
     @order_by = validate_order_by(@order_by)
 
-    @direction = params[:direction] || 'desc'
+    @direction = params[:direction] || "desc"
     @direction = validate_order_by(@direction)
 
-    if @order_by == 'report'
+    if @order_by == "report"
       @users = User.order_by_reports_count(@direction)
-    elsif @order_by == 'comment'
+    elsif @order_by == "comment"
       @users = User.order_by_comments_count(@direction)
     else
-      @users = User.order(@order_by + ' ' + @direction)
+      @users = User.order(@order_by + " " + @direction)
     end
 
     @target = params[:target] || "student"
