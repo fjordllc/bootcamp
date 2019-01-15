@@ -1,18 +1,6 @@
 .thread-comment-form
   .thread-comment__author
     = gravatar_tag current_user, secure: true, size: "200", html: { class: "thread-comment__author-icon" }
-  = form_for [question, answer], html: { class: "thread-comment-form__form a-card", name: "answer" } do |f|
-    .thread-comment-form__tabs.js-tabs
-      .thread-comment-form__tab.js-tabs__tab.is-active
-        | コメント
-      .thread-comment-form__tab.js-tabs__tab
-        | プレビュー
-    .thread-comment-form__markdown-parent.js-markdown-parent
-      .thread-comment-form__markdown.js-tabs__content.is-active
-        = f.text_area :description, required: true, class: "a-textarea js-warning-form thread-comment-form__textarea js-markdown", data: { "preview": ".js-preview" }
-      .thread-comment-form__markdown.js-tabs__content
-        .js-preview.is-long-text-style.thread-comment-form__preview
-
-    .thread-comment-form__action
-      - comment_label = resource.persisted? ? "保存する" : "コメントする"
-      = f.submit comment_label, class: "is-button-simple-lg-warning"
+  = form_with model: [question, answer], local: true, html: { class: "thread-comment-form__form a-card", name: "answer" } do |f|
+    = render "comment_form_description", f: f
+    = render "comment_form_action", f: f, resource: answer
