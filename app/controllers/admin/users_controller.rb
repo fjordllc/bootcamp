@@ -2,9 +2,24 @@
 
 class Admin::UsersController < AdminController
   before_action :set_user, only: %i(edit update)
+  VALID_SORT_COLUMNS = %w(login_name company_id updated_at report comment asc desc)
 
   def index
-    @users = User.order(updated_at: :desc)
+    # return unless VALID_SORT_COLUMNS.include?(params[:sort])
+    @order_by = params[:order_by] || 'id'
+    @order_by = validate_order_by(@order_by)
+
+    @direction = params[:direction] || 'desc'
+    @direction = validate_order_by(@direction)
+
+    if @order_by == 'report'
+      @users = User.order_by_reports_count(@direction)
+    elsif @order_by == 'comment'
+      @users = User.order_by_comments_count(@direction)
+    else
+      @users = User.order(@order_by + ' ' + @direction)
+    end
+
     @target = params[:target] || "student"
     @users = @users.users_role(@target)
   end
@@ -63,5 +78,13 @@ class Admin::UsersController < AdminController
         :graduated_on,
         :retired_on
       )
+    end
+
+    def validate_order_by(order_by)
+      unless order_by.in?(VALID_SORT_COLUMNS)
+        # 事前に定めた属性名以外はエラーとする（ SQLインジェクション対策 ）
+        raise ArgumentError, "Attribute not allowed: #{order_by}"
+      end
+      order_by
     end
 end

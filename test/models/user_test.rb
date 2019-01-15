@@ -69,4 +69,22 @@ class UserTest < ActiveSupport::TestCase
       assert_equal 365, user.dates_from_start_lerning
     end
   end
+
+  test "order_by_reports_count" do
+    @users = User.order_by_reports_count('desc')
+    @names = @users.pluck(:login_name)
+    assert @names == ["tanaka", "komagata", "machida", "yamada", "hajime", "yameo", "hatsuno", "kimura", "mineo"]
+    @users = User.order_by_reports_count('asc')
+    @names = @users.pluck(:login_name)
+    assert @names == ["hajime", "hatsuno", "kimura", "mineo", "yameo", "machida", "yamada", "komagata", "tanaka"]
+  end
+
+  test "order_by_comments_count" do
+    @users = User.order_by_comments_count('desc')
+    @names = @users.pluck(:login_name)
+    assert @names == ["komagata", "machida", "tanaka", "yamada", "mineo", "hajime", "yameo", "hatsuno", "kimura"]
+    @users = User.order_by_comments_count('asc')
+    @names = @users.pluck(:login_name)
+    assert @names == ["yameo", "hatsuno", "kimura", "yamada", "mineo", "hajime", "machida", "tanaka", "komagata"]
+  end
 end
