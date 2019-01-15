@@ -3,4 +3,9 @@
     h2.card-header__title
       | GitHub
   .user-grass
-     = image_tag user_github_grass_url(user), class: "a-grass"
+    - if user.github_account
+      = link_to "https://github.com/#{user.github_account}", class: "user-grass__image-link", target: "_blank" do
+        = image_tag user_github_grass_url(user), class: "a-grass"
+    - else
+      .user-grass__empty
+        | GitHubアカウントは未登録です。

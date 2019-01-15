@@ -1,5 +1,5 @@
-.completed-practices-list
-  ul.completed-practices-list__items
+.card-practices.is-completed
+  ul.card-practices__items
     - @user.completed_practices.each do |practice|
-      li.completed-practices-list-item
-        = link_to practice.title, practice, class: "completed-practices-list-item__link"
+      li.card-practices__item
+        = link_to practice.title, practice, class: "card-practices__item-link"
