@@ -211,6 +211,20 @@ WHERE
     end
   end
 
+  def self.order_by_reports_count(direction)
+    User
+      .joins("left join reports on users.id = reports.user_id")
+      .group("users.id")
+      .order(Arel.sql("count(reports.id) #{direction}"))
+  end
+
+  def self.order_by_comments_count(direction)
+    User
+      .joins("left join comments on users.id = comments.user_id")
+      .group("users.id")
+      .order(Arel.sql("count(comments.id) #{direction}"))
+  end
+
   private
     def password_required?
       new_record? || password.present?
