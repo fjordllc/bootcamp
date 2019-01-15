@@ -24,8 +24,7 @@ header.page-header
             | #{l @report.reported_on} の日報
           h1.thread-header__title(class="#{@report.wip? ? "is-wip" : ""}")
             - if @report.wip?
-              span.thread-header__title-icon
-                | WIP
+              span.thread-header__title-icon WIP
             = @report.title
             - if @checks.any?
               .stamp.stamp-approve

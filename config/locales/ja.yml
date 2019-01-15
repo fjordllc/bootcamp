@@ -7,7 +7,6 @@ ja:
     formats:
       default: "%Y年%m月%d日(%a) %H:%M"
       short: "%Y/%m/%d %H:%M"
-      time_only: "%H:%M"
   activerecord:
     models:
       user: ユーザー
