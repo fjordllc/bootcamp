@@ -59,4 +59,4 @@ header.page-header
       - else
         p 回答がありません
 
-      = render "answers/form", question: @question, answer: Answer.new
+      = render "answers/form", question: @question, answer: @question.answers.new
