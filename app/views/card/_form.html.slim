@@ -1,0 +1,8 @@
+- method = action == :new ? "post" : "put"
+script(src="https://js.stripe.com/v3/")
+= form_with url: card_path, method: method, local: true, id: "payment-form" do |f|
+  .form-row
+    label.a-label(for="card-element") カード番号
+    #card-element
+    #card-errors(role="alert")
+  button.is-button-simple-lg-warning 登録
