@@ -7,7 +7,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
     visit "/reports/#{reports(:report_1).id}"
 
-    within("#new_comment") do
+    within(".thread-comment-form__form") do
       fill_in("comment[description]", with: "@machida @machida test")
     end
     click_button "コメントする"
