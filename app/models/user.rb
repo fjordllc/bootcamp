@@ -182,13 +182,8 @@ WHERE
     learning_time.first.total || 0
   end
 
-<<<<<<< HEAD
-  def dates_from_start_fjord
-    (Date.current - self.created_at.to_date).to_i
-=======
   def dates_from_start_learning
-    (Date.today - self.created_at.to_date).to_i
->>>>>>> 376e11a200eaf066465d6c54f76ec4f75dcfa5c5
+    (Date.current - self.created_at.to_date).to_i
   end
 
   private
