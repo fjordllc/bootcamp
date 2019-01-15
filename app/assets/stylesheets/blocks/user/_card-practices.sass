@@ -1,17 +1,21 @@
-.completed-practices-list__items
+.card-practices__items
   margin-bottom: -.25rem
 
-.completed-practices-list-item:not(:last-child)
+.card-practices__item:not(:last-child)
   border-bottom: dotted .0625rem $background-color
 
-.completed-practices-list-item__link
+.card-practices__item-link
   +text-block(.875rem 1.55, block $main-color)
-  +padding(vertical, .25rem)
+  +padding(vertical, .5rem)
+  +padding(horizontal, 1rem)
   +hover-link
   &::before
-    +fa(fas '\f00c')
     +inline-block
     margin-right: .5rem
     color: $accent-color
+    .card-practices.is-completed &
+      +fa(fas '\f00c')
+    .card-practices.is-active &
+      +fa(fas '\f060')
   &:hover::before
     text-decoration: none

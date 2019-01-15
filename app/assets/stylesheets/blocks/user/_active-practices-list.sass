@@ -6,10 +6,13 @@
 
 .active-practices-list-item__link
   +text-block(.875rem 1.55, block $main-color)
-  +padding(vertical, .25rem)
+  +padding(vertical, .5rem)
+  +padding(horizontal, 1rem)
   +hover-link
   &::before
     +fa(fas '\f060')
     +inline-block
     margin-right: .5rem
     color: $accent-color
+  &:hover::before
+    text-decoration: none
