@@ -2,15 +2,7 @@
   header.card-header
     h2.card-header__title 完了したプラクティス
     .card-header__sub-title
-      - if @user.graduated_on.present?
-        | #{l @user.graduated_on} 卒業
-      - elsif @user.retired_on.present?
-        | #{l @user.retired_on} リタイア
-      - else
-        | 学習開始から
-        strong
-          = @user.dates_from_start_learning
-        | 日目
+      = render "users/user_learning_status", user: @user
   .completed-practices__body
     = render "completed_practices_progress", user: @user
     = render "completed_practices_list", user: @user
