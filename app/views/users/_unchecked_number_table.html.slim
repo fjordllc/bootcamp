@@ -1,0 +1,20 @@
+.admin-table
+  table.admin-table__table
+    thead.admin-table__header
+      tr.admin-table__labels
+        th.admin-table__label colspan=3 チェック
+
+    tbody.admin-table__items
+      tr.admin-table__labels
+        th.admin-table__label
+          | 日報
+          br
+          | #{Report.unchecked.count}
+        th.admin-table__label
+          | 提出物
+          br
+          | #{Product.unchecked.count}
+        th.admin-table__label
+          | Q&A
+          br
+          | #{Question.not_solved.count}
