@@ -1,0 +1,13 @@
+- content_for(:page_classes, "no-header no-footer no-recent-reports no-global-nav is-error-page is-piyo-background")
+
+.container
+  .error-message.a-card.is-borderd
+    header.retire-message__header
+      h1.retire-message__title
+        | 退会処理が完了しました
+    .retire-message__body
+      p
+        | フィヨルドブートキャンプのご利用ありがとうございました。
+      p
+        | 学習お疲れ様でした。
+      p = link_to "Fjord Boot Camp", welcome_path
