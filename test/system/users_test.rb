@@ -19,7 +19,7 @@ class UsersTest < ApplicationSystemTestCase
   test "user is canceled" do
     login_user "hatsuno", "testtest"
     visit edit_current_user_path
-    click_on "退会ページヘ移動する"
+    click_on "退会手続きへ進む"
     click_on "退会する"
     page.driver.browser.switch_to.alert.accept
     assert_text "退会理由を入力してください"
@@ -28,7 +28,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "user[retire_reason]", with: "辞" * 8
     click_on "退会する"
     page.driver.browser.switch_to.alert.accept
-    assert_text "退会しました。"
+    assert_text "退会処理が完了しました"
     assert_equal Date.current, user.reload.retired_on
     login_user "hatsuno", "testtest"
     assert_text "ログインができません"
