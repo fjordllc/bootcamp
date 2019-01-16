@@ -2,7 +2,7 @@
 
 class Admin::UsersController < AdminController
   before_action :set_user, only: %i(edit update)
-  VALID_SORT_COLUMNS = %w(login_name company_id updated_at report comment asc desc)
+  VALID_SORT_COLUMNS = %w(id login_name company_id updated_at report comment asc desc)
 
   def index
     # return unless VALID_SORT_COLUMNS.include?(params[:sort])
