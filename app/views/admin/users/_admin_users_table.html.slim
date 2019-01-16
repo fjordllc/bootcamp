@@ -4,31 +4,31 @@
       tr.admin-table__labels
         th.admin-table__label ステータス
         th.admin-table__label
-          - if params[:order_by] == 'login_name' && @direction == 'asc'
-            = link_to 'ユーザー名', admin_users_path(order_by: :login_name, direction: :desc, target: @target)
+          - if params[:order_by] == "login_name" && @direction == "asc"
+            = link_to "ユーザー名", admin_users_path(order_by: :login_name, direction: :desc, target: @target)
           - else
-            = link_to 'ユーザー名', admin_users_path(order_by: :login_name, direction: :asc, target: @target)
+            = link_to "ユーザー名", admin_users_path(order_by: :login_name, direction: :asc, target: @target)
         th.admin-table__label
-          - if params[:order_by] == 'company_id' && @direction == 'asc'
-            = link_to '会社', admin_users_path(order_by: :company_id, direction: :desc, target: @target)
+          - if params[:order_by] == "company_id" && @direction == "asc"
+            = link_to "会社", admin_users_path(order_by: :company_id, direction: :desc, target: @target)
           - else
-            = link_to '会社', admin_users_path(order_by: :company_id, direction: :asc, target: @target)
+            = link_to "会社", admin_users_path(order_by: :company_id, direction: :asc, target: @target)
         th.admin-table__label Slack
         th.admin-table__label
-          - if params[:order_by] == 'updated_at' && @direction == 'desc'
-            = link_to '最終アクセス日時', admin_users_path(order_by: :updated_at, direction: :asc, target: @target)
+          - if params[:order_by] == "updated_at" && @direction == "desc"
+            = link_to "最終アクセス日時", admin_users_path(order_by: :updated_at, direction: :asc, target: @target)
           - else
-            = link_to '最終アクセス日時', admin_users_path(order_by: :updated_at, direction: :desc, target: @target)
+            = link_to "最終アクセス日時", admin_users_path(order_by: :updated_at, direction: :desc, target: @target)
         th.admin-table__label
           - if params[:order_by] == "report" && @direction == "desc"
-            = link_to '日報', admin_users_path(order_by: :report, direction: :asc, target: @target)
+            = link_to "日報", admin_users_path(order_by: :report, direction: :asc, target: @target)
           - else
-            = link_to '日報', admin_users_path(order_by: :report, direction: :desc, target: @target)
+            = link_to "日報", admin_users_path(order_by: :report, direction: :desc, target: @target)
         th.admin-table__label
-          - if params[:order_by] == 'comment' && @direction == "desc"
-            = link_to 'コメント', admin_users_path(order_by: :comment, direction: :asc, target: @target)
+          - if params[:order_by] == "comment" && @direction == "desc"
+            = link_to "コメント", admin_users_path(order_by: :comment, direction: :asc, target: @target)
           - else
-            = link_to 'コメント', admin_users_path(order_by: :comment, direction: :desc, target: @target)
+            = link_to "コメント", admin_users_path(order_by: :comment, direction: :desc, target: @target)
         th.admin-table__label 進捗
         th.admin-table__label SNS
         th.admin-table__label 操作
