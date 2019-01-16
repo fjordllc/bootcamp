@@ -4,7 +4,7 @@
       li.page-tabs__item
         = link_to polymorphic_path(:questions, practice_id: params[:practice_id]), class: "page-tabs__item-link #{params[:solved].present? ? "" : "is-active"}" do
           | 未解決
-          - if Question.not_solved.count > 0
+          - if Question.not_solved.count > 0 && current_user.admin?
             .page-tabs__item-count.a-notification-count
               = Question.not_solved.count
       li.page-tabs__item
