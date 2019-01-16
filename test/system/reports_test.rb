@@ -11,20 +11,6 @@ class ReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test "comment form in reports/:id has comment tab and preview tab" do
-    visit "/reports/#{reports(:report_3).id}"
-    comment_form_tabs = all(".thread-comment-form__tab")
-    assert_equal "コメント", comment_form_tabs[0].text
-    assert_equal "プレビュー", comment_form_tabs[1].text
-  end
-
-  test "comment form in comments/:id/edit has comment tab and preview tab" do
-    visit "/comments/#{comments(:comment_2).id}/edit"
-    comment_form_tabs = all(".thread-comment-form__tab")
-    assert_equal "コメント", comment_form_tabs[0].text
-    assert_equal "プレビュー", comment_form_tabs[1].text
-  end
-
   test "create report as WIP" do
     visit "/reports/new"
     within("#new_report") do

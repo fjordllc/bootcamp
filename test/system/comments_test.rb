@@ -20,6 +20,22 @@ class CommentsTest < ApplicationSystemTestCase
     assert has_field?("comment[description]")
   end
 
+  test "comment form in reports/:id has comment tab and preview tab" do
+    visit "/reports/#{reports(:report_3).id}"
+    within(".thread-comment-form__tabs") do
+      assert_text "コメント"
+      assert_text "プレビュー"
+    end
+  end
+
+  test "comment form in comments/:id/edit has comment tab and preview tab" do
+    visit "/comments/#{comments(:comment_2).id}/edit"
+    within(".thread-comment-form__tabs") do
+      assert_text "コメント"
+      assert_text "プレビュー"
+    end
+  end
+
   test "post new comment for report" do
     visit "/reports/#{reports(:report_1).id}"
     within(".thread-comment-form__form") do
