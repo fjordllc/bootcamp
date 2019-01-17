@@ -18,7 +18,6 @@ class UsersTest < ApplicationSystemTestCase
 
   test "user is canceled" do
     login_user "hatsuno", "testtest"
-    user = users(:hatsuno)
     visit edit_current_user_path
     click_on "退会する"
     page.driver.browser.switch_to.alert.accept
@@ -50,7 +49,6 @@ class UsersTest < ApplicationSystemTestCase
     click_link "ユーザー"
 
     assert_equal 5, all(".tab-nav__item-link").length
-    assert_equal 3, all(".users-item__inner").length
     assert_text "yamada"
     assert_text "kimura"
     assert_text "hatsuno"
@@ -69,7 +67,6 @@ class UsersTest < ApplicationSystemTestCase
 
     assert_text "全員"
     click_link "全員"
-    assert_equal 9, all(".users-item__inner").length
     assert_text "yameo"
   end
 end
