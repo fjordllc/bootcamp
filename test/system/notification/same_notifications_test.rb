@@ -22,7 +22,7 @@ class NotificationsTest < ApplicationSystemTestCase
     click_link "日報"
     click_link "Rubyの基礎"
     click_button "日報を確認する"
-    fill_in "comment_description", with: "今日の日報を確認しました"
+    fill_in "comment[description]", with: "今日の日報を確認しました"
     click_button "コメントする"
     click_link "ログアウト"
     login_user "yamada", "testtest"
@@ -45,7 +45,7 @@ class NotificationsTest < ApplicationSystemTestCase
     # ユーザーからコメントが来た時(admin)
     click_link "日報"
     click_link "Rubyの基礎"
-    fill_in "comment_description", with: "@komagata ユーザーからのコメント"
+    fill_in "comment[description]", with: "@komagata ユーザーからのコメント"
     click_button "コメントする"
     click_link "ログアウト"
     login_user "komagata", "testtest"
@@ -58,8 +58,8 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user "yamada", "testtest"
     click_link "Q&A"
     click_link "テストの質問2"
-    fill_in "answer_description", with: "@komagata ユーザーの回答"
-    click_button "コメントを投稿"
+    fill_in "answer[description]", with: "@komagata ユーザーの回答"
+    click_button "コメントする"
     click_link "ログアウト"
     login_user "komagata", "testtest"
     assert_equal 2, @admin.notifications.size
