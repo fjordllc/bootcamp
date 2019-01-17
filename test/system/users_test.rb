@@ -69,4 +69,16 @@ class UsersTest < ApplicationSystemTestCase
     click_link "全員"
     assert_text "yameo"
   end
+
+  test "admin user can see unchecked number table" do
+    login_user "komagata", "testtest"
+    visit "/users/#{users(:komagata).id}"
+    assert_equal 1, all(".admin-table").length
+  end
+
+  test "nomal user can't see unchecked number table" do
+    login_user "hatsuno", "testtest"
+    visit "/users/#{users(:hatsuno).id}"
+    assert_equal 0, all(".admin-table").length
+  end
 end
