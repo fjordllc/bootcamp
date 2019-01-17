@@ -4,7 +4,7 @@ class Admin::CompaniesController < AdminController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
 
   def index
-    @companies = Company.all
+    @companies = Company.all.order(:id)
   end
 
   def show
@@ -49,7 +49,8 @@ class Admin::CompaniesController < AdminController
       params.require(:company).permit(
         :name,
         :description,
-        :website
+        :website,
+        :logo
       )
     end
 end

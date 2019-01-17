@@ -86,4 +86,17 @@ class UsersTest < ApplicationSystemTestCase
     visit "/users/#{users(:hatsuno).id}"
     assert_equal 0, all(".admin-table").length
   end
+
+  test "company logo is displayed" do
+    login_user "komagata", "testtest"
+
+    visit "/users/#{users(:komagata).id}"
+    assert_equal 0, all(".user-company__logo").length
+
+    user = User.find_by(login_name: "komagata")
+    user.company.logo.attach(io: File.open("app/assets/images/company.svg"), filename: "logo.jpg")
+
+    visit "/users/#{users(:komagata).id}"
+    assert_equal 1, all(".user-company__logo").length
+  end
 end
