@@ -22,6 +22,8 @@ class Admin::UsersController < AdminController
         @users.inactive.order(:updated_at)
       when "year_end_party"
         @users.year_end_party
+      when "trainee"
+        @users.trainee
       when "all"
         @users
       end
@@ -76,6 +78,7 @@ class Admin::UsersController < AdminController
         :experience,
         :how_did_you_know,
         :company_id,
+        :trainee,
         :nda,
         :graduated_on,
         :retired_on

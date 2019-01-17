@@ -40,6 +40,11 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_equal "ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
+  test "show listing trainee" do
+    visit "/admin/users?target=trainee"
+    assert_equal "ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
   test "accessed by non-administrative users" do
     login_user "yamada", "testtest"
     user = users(:hatsuno)
