@@ -18,7 +18,7 @@
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label 'ロゴ', class: "a-label"
+          = f.label "ロゴ", class: "a-label"
           = f.file_field :logo
           br
           - if current_user.company.logo.attached?
