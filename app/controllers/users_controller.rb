@@ -82,8 +82,9 @@ class UsersController < ApplicationController
         :company_id,
         :nda,
         :graduated_on,
-        :retired_on
-        )
+        :retired_on,
+        :free
+      )
     end
 
     def set_user
