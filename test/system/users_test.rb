@@ -18,6 +18,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test "user is canceled" do
     login_user "hatsuno", "testtest"
+    user = users(:hatsuno)
     visit edit_current_user_path
     click_on "退会手続きへ進む"
     click_on "退会する"
