@@ -48,7 +48,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_text "ユーザー"
     click_link "ユーザー"
 
-    assert_equal 5, all(".tab-nav__item-link").length
+    assert_equal 6, all(".tab-nav__item-link").length
     assert_text "yamada"
     assert_text "kimura"
     assert_text "hatsuno"

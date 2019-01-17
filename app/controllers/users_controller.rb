@@ -19,6 +19,8 @@ class UsersController < ApplicationController
         @users.advisers
       when "mentor"
         @users.mentor
+      when "trainee"
+        @users.trainee
       when "all"
         @users
       end
