@@ -56,6 +56,7 @@ ja:
         graduated_on: 卒業日
         adviser: アドバイザー
         retired_on: リタイア日
+        free: 無料ユーザー
       course:
         title: タイトル
         description: 詳細
