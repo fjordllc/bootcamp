@@ -42,9 +42,9 @@ class UsersController < ApplicationController
     @user.assign_attributes(retire_reason_params)
     @user.retired_on = Date.current
     if @user.save(context: :retire_reason_presence)
-      redirect_to new_user_retirement_url(@user)
+      redirect_to user_retirement_url(@user)
     else
-      render "users/retirements/index"
+      render "users/retirement/new"
     end
   end
 
