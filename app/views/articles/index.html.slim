@@ -25,7 +25,7 @@ header.page-header.is-margin-bottom-0
         section.practice-content.a-card
           .practice-content__body.is-article.js-markdown-view.js-target-blank.is-long-text-style
             = article.body.truncate(50)
-          = raw article.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')
+          = raw article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
           - if current_user.admin?
             footer.card-footer
               .card-footer-actions
