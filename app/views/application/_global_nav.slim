@@ -15,6 +15,11 @@ nav.global-nav
               i.fas.fa-bullhorn
             .global-nav-links__link-label お知らせ
         li.global-nav-links__item
+          = link_to articles_path, class: "global-nav-links__link #{current_link /^articles/}" do
+            .global-nav-links__link-icon
+              i.fas.fa-newspaper
+            .global-nav-links__link-label ブログ
+        li.global-nav-links__item
           = link_to course_practices_path(current_user.course), class: "global-nav-links__link #{current_link /^(courses-practices|practices)-/}" do
             .global-nav-links__link-icon
               i.fas.fa-book
