@@ -49,6 +49,7 @@ gem "rails-i18n"
 gem "google-cloud-storage", "~> 1.3", require: false
 gem "mini_magick"
 gem "activestorage-validator"
+gem "acts-as-taggable-on"
 
 group :production, :staging do
   gem "newrelic_rpm"
