@@ -49,6 +49,7 @@ gem "mini_magick"
 gem "activestorage-validator"
 gem "commonmarker"
 gem "stripe", "~> 4.5.0"
+gem "acts-as-taggable-on"
 
 group :production, :staging do
   gem "newrelic_rpm"
