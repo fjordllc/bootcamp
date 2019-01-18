@@ -21,6 +21,7 @@ ja:
       question: Q&A
       product: 提出物
       announcement: お知らせ
+      article: ブログ記事
     attributes:
       user:
         login_name: ユーザー名
@@ -110,6 +111,9 @@ ja:
         name: 名前
         email: メールアドレス
         body: 内容
+      article:
+        title: タイトル
+        body: 本文
     enums:
       user:
         job:
