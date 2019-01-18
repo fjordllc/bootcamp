@@ -1,0 +1,30 @@
+notice = @notice
+
+- title @article.title
+
+header.page-header
+  .container
+    .page-header__container
+      .page-header__title
+        = @article.title
+      .page-header-actions
+        ul.page-header-actions__items
+          - if current_user.admin?
+            li.page-header-actions__item
+              = link_to new_article_path, class: "is-button-simple-md-warning" do
+                i.fas.fa-plus
+                | ブログ作成
+          li.page-header-actions__item
+            = link_to articles_path, class: "is-button-simple-md-secondary" do
+              i.fas.fa-angle-left
+              | ブログ一覧
+
+.page-body
+  .container
+    .practice-contents
+      header.practice-contents__header
+        h1.practice-contents__title
+          = @article.title
+      section.practice-content.a-card
+        .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text-style
+          = @article.body

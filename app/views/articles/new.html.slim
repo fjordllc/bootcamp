@@ -1,0 +1,17 @@
+- title "ブログ記事作成"
+- content_for(:page_classes, "no-recent-reports")
+
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to articles_path, class: "is-button-simple-md-secondary" do
+              i.fas.fa-angle-left
+              | ブログ記事一覧へ
+
+.page-body
+  .container
+    = render "form", article: @article, categories: @articles
