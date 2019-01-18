@@ -1,0 +1,35 @@
+header.page-header.is-margin-bottom-0
+  .container
+    .page-header__container
+      h2.page-header__title = "ブログ記事一覧"
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to new_report_path, class: "is-button-simple-md-warning" do
+              i.fas.fa-plus
+              | ブログ記事作成
+
+.page-body
+  .container
+    .practice-contents
+      - @articles.each do |article|
+        header.practice-contents__header
+          h1.thread-list-item__title(itemprop="name")
+            = link_to article.title, article, itempro: "url", class: "thread-list-item__title-link"
+        section.practice-content.a-card
+          .practice-content__body.is-article.js-markdown-view.js-target-blank.is-long-text-style
+            = article.body.truncate(50)
+          - if current_user.admin?
+            footer.card-footer
+              .card-footer-actions
+                ul.card-footer-actions__items
+                  li.card-footer-actions__item
+                    = link_to edit_article_path(article), class: "card-footer-actions__action is-button-simple-md-primary is-block", id: "js-shortcut-edit" do
+                      i.fas.fa-pen#edit
+                      | 内容修正
+                  li.card-footer-actions__item
+                    = link_to article_path(article), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                      i.fas.fa-trash-alt#delete
+                      | 削除
+
+    = paginate @articles, position: "bottom"
