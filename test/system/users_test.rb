@@ -53,6 +53,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_text "kimura"
     assert_text "hatsuno"
     assert_text "hajime"
+    assert_text "kensyu"
 
 
     assert_text "卒業生"
@@ -68,6 +69,10 @@ class UsersTest < ApplicationSystemTestCase
     assert_text "全員"
     click_link "全員"
     assert_text "yameo"
+
+    assert_text "研修生"
+    click_link "研修生"
+    assert_text "kensyu"
   end
 
   test "admin user can see unchecked number table" do

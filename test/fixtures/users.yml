@@ -225,27 +225,27 @@ muryou:
   updated_at: "2014-01-01 00:00:10"
   created_at: "2014-01-01 00:00:10"
 
-sato:
-  login_name: sato
-  email: sato@fjord.jp
+kensyu:
+  login_name: kensyu
+  email: kensyu@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: Ken
-  last_name: Sato
-  github_account: sato
-  twitter_account: sato
-  facebook_url: http://www.facebook.com/sato
-  blog_url: http://sato.org
-  feed_url: http://sato.org/index.atom
+  first_name: Seiko
+  last_name: Kensyu
+  github_account: kensyu
+  twitter_account: kensyu
+  facebook_url: http://www.facebook.com/kensyu
+  blog_url: http://kensyu.org
+  feed_url: http://kensyu.org/index.atom
   company: company_2
-  description: "佐藤です。"
+  description: "研修聖子です。"
   course: course_1
   job: office_worker
   os: mac
   study_place: local
   experience: rails
   how_did_you_know: 研修生
-  organization: 佐藤大学
+  organization: 研修大学
   trainee: true
   updated_at: "2014-01-01 00:00:09"
   created_at: "2014-01-01 00:00:09"
