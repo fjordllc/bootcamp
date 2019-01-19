@@ -6,27 +6,7 @@ class Admin::UsersController < AdminController
   def index
     @users = User.order(updated_at: :desc)
     @target = params[:target] || "student"
-    @users =
-      case @target
-      when "student"
-        @users.students
-      when "retired"
-        @users.retired
-      when "graduate"
-        @users.graduated
-      when "adviser"
-        @users.advisers
-      when "mentor"
-        @users.mentor
-      when "inactive"
-        @users.inactive.order(:updated_at)
-      when "year_end_party"
-        @users.year_end_party
-      when "trainee"
-        @users.trainee
-      when "all"
-        @users
-      end
+    @users = User.users_role(@users, @target)
   end
 
   def edit

@@ -186,6 +186,30 @@ WHERE
   def dates_from_start_learning
     (Date.current - self.created_at.to_date).to_i
   end
+  
+  def self.users_role(users, target)
+    case target
+    when "student"
+      users.students
+    when "retired"
+      users.retired
+    when "graduate"
+      users.graduated
+    when "adviser"
+      users.advisers
+    when "mentor"
+      users.mentor
+    when "inactive"
+      users.inactive.order(:updated_at)
+    when "year_end_party"
+      users.year_end_party
+    when "trainee"
+      users.trainee
+    when "all"
+      users
+    end
+>>>>>>> コントローラの重複部分をモデルへクラスメソッドで定義した
+  end
 
   private
     def password_required?
