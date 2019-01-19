@@ -43,6 +43,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test "show listing trainee" do
     visit "/admin/users?target=trainee"
     assert_equal "ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_text "kensyu（Kensyu Seiko）"
   end
 
   test "accessed by non-administrative users" do
