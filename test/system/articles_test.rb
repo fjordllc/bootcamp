@@ -99,7 +99,6 @@ class ArticlesTest < ApplicationSystemTestCase
     click_on "ブログ記事一覧"
 
     assert_equal 2, all(".a-card").length
-    take_screenshot
 
     within(".tag_cloud") do
       click_on "tag"
