@@ -8,40 +8,103 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
+    login_user "komagata", "testtest"
     visit articles_url
-    assert_selector "h1", text: "Articles"
+    assert_selector ".page-header__title", text: "ブログ記事一覧"
   end
 
-  test "creating a Article" do
+  test "admin user can create article" do
+    login_user "komagata", "testtest"
     visit articles_url
-    click_on "New Article"
+    click_on "ブログ記事作成"
 
-    fill_in "Body", with: @article.body
-    fill_in "Title", with: @article.title
-    click_on "Create Article"
+    fill_in "article[title]", with: @article.title
+    fill_in "article[body]", with: @article.body
+    click_on "投稿"
 
-    assert_text "Article was successfully created"
-    click_on "Back"
+    assert_text "記事を作成しました"
   end
 
-  test "updating a Article" do
+  test "title & body not allow blank" do
+    login_user "komagata", "testtest"
     visit articles_url
-    click_on "Edit", match: :first
+    click_on "ブログ記事作成"
 
-    fill_in "Body", with: @article.body
-    fill_in "Title", with: @article.title
-    click_on "Update Article"
+    fill_in "article[title]", with: ''
+    fill_in "article[body]", with: ''
+    click_on "投稿"
 
-    assert_text "Article was successfully updated"
-    click_on "Back"
+    assert_text "タイトルを入力してください"
+    assert_text "本文を入力してください"
   end
 
-  test "destroying a Article" do
+  test "normal user can't create article" do
+    login_user "yamada", "testtest"
+    visit articles_url
+
+    assert_no_text "ブログ記事作成"
+
+    visit new_article_path
+    assert_text "管理者としてログインしてください"
+  end
+
+  test "admin user can edit article" do
+    login_user "komagata", "testtest"
+    visit articles_url
+    click_on "内容修正", match: :first
+
+    fill_in "article[title]", with: @article.title
+    fill_in "article[body]", with: @article.body
+    click_on "内容変更"
+
+    assert_text "記事を更新しました"
+  end
+
+  test "normal user can't edit article" do
+    login_user "yamada", "testtest"
+    visit articles_url
+
+    assert_no_text "内容修正"
+
+    visit edit_article_path(@article)
+    assert_text "管理者としてログインしてください"
+  end
+
+  test "admin user can delete article" do
+    login_user "komagata", "testtest"
     visit articles_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on "削除", match: :first
     end
 
-    assert_text "Article was successfully destroyed"
+    assert_text "記事を削除しました"
+  end
+
+  test "normal user can't delete article" do
+    login_user "yamada", "testtest"
+    visit articles_url
+
+    assert_no_text "削除"
+  end
+
+  test "searchable by tag" do
+    login_user "komagata", "testtest"
+    visit articles_url
+    click_on "内容修正", match: :first
+
+    fill_in "article[title]", with: "タイトル"
+    fill_in "article[body]", with: "内容"
+    fill_in "article[tag_list]", with: "tag"
+    click_on "内容変更"
+    click_on "ブログ記事一覧"
+
+    assert_equal 2, all(".a-card").length
+    take_screenshot
+
+    within('.tag_cloud') do
+      click_on "tag"
+    end
+
+    assert_equal 1, all(".a-card").length
   end
 end
