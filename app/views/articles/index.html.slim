@@ -8,9 +8,10 @@ header.page-header.is-margin-bottom-0
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to new_article_path, class: "is-button-simple-md-warning" do
-              i.fas.fa-plus
-              | ブログ記事作成
+            - if current_user.admin?
+              = link_to new_article_path, class: "is-button-simple-md-warning" do
+                i.fas.fa-plus
+                | ブログ記事作成
 
 .page-body
   .container
