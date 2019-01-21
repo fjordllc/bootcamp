@@ -1,9 +1,7 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+article_1:
+  title: タイトル１
+  body: 本文１
 
-one:
-  title: title_1
-  body: body_1
-
-two:
-  title: title_2
-  body: body_2
+article_2:
+  title: タイトル２
+  body: 本文２
