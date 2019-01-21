@@ -4,16 +4,16 @@ require "application_system_test_case"
 
 class ArticlesTest < ApplicationSystemTestCase
   setup do
-    @article = articles(:one)
+    @article = articles(:article_1)
   end
 
-  test "visiting the index" do
+  test "show listing articles" do
     login_user "komagata", "testtest"
     visit articles_url
     assert_selector ".page-header__title", text: "ブログ記事一覧"
   end
 
-  test "admin user can create article" do
+  test "create article" do
     login_user "komagata", "testtest"
     visit articles_url
     click_on "ブログ記事作成"
@@ -38,7 +38,7 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text "本文を入力してください"
   end
 
-  test "normal user can't create article" do
+  test "can't create article" do
     login_user "yamada", "testtest"
     visit articles_url
 
@@ -48,7 +48,7 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text "管理者としてログインしてください"
   end
 
-  test "admin user can edit article" do
+  test "update article" do
     login_user "komagata", "testtest"
     visit articles_url
     click_on "内容修正", match: :first
@@ -60,7 +60,7 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text "記事を更新しました"
   end
 
-  test "normal user can't edit article" do
+  test "can't update article" do
     login_user "yamada", "testtest"
     visit articles_url
 
@@ -70,7 +70,7 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text "管理者としてログインしてください"
   end
 
-  test "admin user can delete article" do
+  test "delete article" do
     login_user "komagata", "testtest"
     visit articles_url
     page.accept_confirm do
@@ -80,7 +80,7 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text "記事を削除しました"
   end
 
-  test "normal user can't delete article" do
+  test "can't delete article" do
     login_user "yamada", "testtest"
     visit articles_url
 
