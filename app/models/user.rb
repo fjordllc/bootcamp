@@ -128,6 +128,7 @@ class User < ActiveRecord::Base
   }
   scope :admins, -> { where(admin: true) }
   scope :trainee, -> { where(trainee: true) }
+  scope :users, -> { User.order(updated_at: :desc) }
 
   def away?
     self.updated_at <= 10.minutes.ago
@@ -186,29 +187,28 @@ WHERE
   def dates_from_start_learning
     (Date.current - self.created_at.to_date).to_i
   end
-  
-  def self.users_role(users, target)
+
+  def self.users_role(target)
     case target
     when "student"
-      users.students
+      self.students
     when "retired"
-      users.retired
+      self.retired
     when "graduate"
-      users.graduated
+      self.graduated
     when "adviser"
-      users.advisers
+      self.advisers
     when "mentor"
-      users.mentor
+      self.mentor
     when "inactive"
-      users.inactive.order(:updated_at)
+      self.inactive.order(:updated_at)
     when "year_end_party"
-      users.year_end_party
+      self.year_end_party
     when "trainee"
-      users.trainee
+      self.trainee
     when "all"
-      users
+      self.all
     end
->>>>>>> コントローラの重複部分をモデルへクラスメソッドで定義した
   end
 
   private
