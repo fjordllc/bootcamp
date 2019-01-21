@@ -5,8 +5,11 @@ class ArticlesController < ApplicationController
   before_action :require_admin_login, except: %i(index show)
 
   def index
-    @articles = Article.all.order(created_at: :desc).page(params[:page])
-    @articles = @articles.tagged_with(params[:tag]) if params[:tag]
+    if params[:tag]
+      @articles = Article.all.order(created_at: :desc).page(params[:page]).tagged_with(params[:tag])
+    else
+      @articles = Article.all.order(created_at: :desc).page(params[:page])
+    end
   end
 
   def show
