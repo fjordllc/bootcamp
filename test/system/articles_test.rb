@@ -30,8 +30,8 @@ class ArticlesTest < ApplicationSystemTestCase
     visit articles_url
     click_on "ブログ記事作成"
 
-    fill_in "article[title]", with: ''
-    fill_in "article[body]", with: ''
+    fill_in "article[title]", with: ""
+    fill_in "article[body]", with: ""
     click_on "投稿"
 
     assert_text "タイトルを入力してください"
@@ -101,7 +101,7 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_equal 2, all(".a-card").length
     take_screenshot
 
-    within('.tag_cloud') do
+    within(".tag_cloud") do
       click_on "tag"
     end
 
