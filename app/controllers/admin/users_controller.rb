@@ -5,7 +5,6 @@ class Admin::UsersController < AdminController
   VALID_SORT_COLUMNS = %w(id login_name company_id updated_at report comment asc desc)
 
   def index
-    # return unless VALID_SORT_COLUMNS.include?(params[:sort])
     @order_by = params[:order_by] || "id"
     @order_by = validate_order_by(@order_by)
 
