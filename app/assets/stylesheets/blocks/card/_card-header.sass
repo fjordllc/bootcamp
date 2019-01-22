@@ -1,8 +1,14 @@
 .card-header
   border-bottom: solid 1px $background-color
   padding: 0.75rem 1.25rem
+  display: flex
+  align-items: center
+  justify-content: space-between
   &:first-child
     +border-radius(top, .25rem)
 
 .card-header__title
-  +text-block(1rem 1.45, 800)
+  +text-block(1rem 1.4, 800)
+
+.card-header__sub-title
+  +text-block(.8125rem 1.4)

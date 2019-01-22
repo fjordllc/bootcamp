@@ -59,4 +59,12 @@ class UserTest < ActiveSupport::TestCase
     report.save!
     assert_equal 2, user.total_learning_time
   end
+
+  test "dates_from_start_lerning" do
+    user = users(:komagata)
+    user.created_at = Time.new(2019, 1, 1, 0, 0, 0)
+    travel_to Time.new(2020, 1, 1, 0, 0, 0) do
+      assert_equal 365, user.dates_from_start_lerning
+    end
+  end
 end
