@@ -9,7 +9,11 @@ module Bootcamp
         User.all.each do |user|
           filename = "#{user.login_name}.jpg"
           path = Rails.root.join("test", "fixtures", "files", "users", "avatars", filename)
-          user.avatar.attach(io: open(path), filename: filename) if File.exist?(path)
+          unless File.exist?(path)
+            filename = "default.jpg"
+            path = Rails.root.join("test", "fixtures", "files", "users", "avatars", filename)
+          end
+          user.avatar.attach(io: open(path), filename: filename)
         end
       end
     end
