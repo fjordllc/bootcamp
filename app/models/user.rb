@@ -218,6 +218,10 @@ WHERE
       .order(Arel.sql("count(#{order_by}s.id) #{direction}"))
   end
 
+  def dates_from_start_learning
+    (Date.current - self.created_at.to_date).to_i
+  end
+
   private
     def password_required?
       new_record? || password.present?
