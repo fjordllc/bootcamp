@@ -9,6 +9,9 @@ header.page-header
     .columns
       .row
         .col-xs-12.col-xl-6.col-xxl-6
+          - if admin_login?
+            .a-card
+              = render "users/unchecked"
           .thread-list.a-card
             header.card-header
               h2.card-header__title

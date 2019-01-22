@@ -1,20 +1,33 @@
-.admin-table
-  table.admin-table__table
-    thead.admin-table__header
-      tr.admin-table__labels
-        th.admin-table__label colspan=3 チェック
-
-    tbody.admin-table__items
-      tr.admin-table__labels
-        th.admin-table__label
-          | 日報
-          br
-          | #{Report.unchecked.count}
-        th.admin-table__label
-          | 提出物
-          br
-          | #{Product.unchecked.count}
-        th.admin-table__label
-          | Q&A
-          br
-          | #{Question.not_solved.count}
+.card-header
+  h2.card-header__title チェック
+.card-body
+  .admin-table.is-unchecked
+    table.admin-table__table
+      thead.admin-table__header
+        tr.admin-table__labels
+          th.admin-table__label 日報
+          th.admin-table__label 提出物
+          th.admin-table__label Q&A
+      tbody.admin-table__items
+        tr.admin-table__item
+          td.admin-table__item-value
+            - if Report.unchecked.count > 0
+              = link_to reports_unchecked_index_path, class: "admin-table__item-number" do
+                = Report.unchecked.count
+            - else
+              .admin-table__item-number
+                i.fas.fa-check
+          td.admin-table__item-value
+            - if Product.unchecked.count > 0
+              = link_to products_unchecked_index_path, class: "admin-table__item-number" do
+                = Product.unchecked.count
+            - else
+              .admin-table__item-number
+                i.fas.fa-check
+          td.admin-table__item-value
+            - if  Question.not_solved.count > 0
+              = link_to polymorphic_path(:questions, practice_id: params[:practice_id]), class: "admin-table__item-number" do
+                = Question.not_solved.count
+            - else
+              .admin-table__item-number
+               i.fas.fa-check

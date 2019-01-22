@@ -1,14 +1,27 @@
 .header-drop-down
-  +position(absolute, left 50%, top 3.5rem)
-  width: 14rem
-  margin-left: -7rem
   display: none
-  +media-breakpoint-down(sm)
-    margin-left: -10rem
-    top: 2.5rem
   .header-links__item.is-active &,
-  .header-show-mobile-nav.is-active &
+  .header-show-mobile-nav.is-active &,
+  .a-toggle-checkbox:checked + &
     display: block
+
+.header-drop-down__inner
+  +position(absolute, left 50%, top 3.5rem, 2)
+  transform: translate(-50%, 0)
+  +media-breakpoint-down(sm)
+    top: 2.5rem
+  .header-drop-down.is-notifications &
+    width: 14rem
+  .header-drop-down.is-menu &
+    width: 8rem
+  .header-links__item:nth-last-child(2) &
+    +position(left auto, right .25rem)
+    transform: translate(0, 0)
+  .header-links__item:nth-last-child(3) &
+    +position(left auto, right -3.25rem)
+    transform: translate(0, 0)
+    +media-breakpoint-down(sm)
+      right: -.625rem
 
 .header-drop-down__items
   border: solid 1px #ccc
@@ -19,30 +32,35 @@
   +media-breakpoint-down(sm)
     width: 14rem
     top: .5rem
-  &::before
-    content: ""
-    +size(0)
-    display: block
-    border-style: solid
-    border-width: 10px 10px
-    border-color: transparent
-    border-bottom-color: #ccc
-    +position(absolute, left 50%, top -20px)
-    margin-left: -10px
-    +media-breakpoint-down(sm)
-      left: 71%
+  &::before,
   &::after
     content: ""
     +size(0)
     display: block
     border-style: solid
-    border-width: 10px 10px
+    border-width: 10px
     border-color: transparent
+    +position(absolute, left 50%)
+  &::before
+    border-bottom-color: #ccc
+    +position(absolute, left 50%, top -20px)
+    margin-left: -10px
+    +media-breakpoint-down(sm)
+      left: 71%
+    .header-links__item:nth-last-child(2) &
+      margin-left: 30px
+    .header-links__item:nth-last-child(3) &
+      margin-left: 22px
+  &::after
     border-bottom-color: $base
     +position(absolute, left 50%, top -18px)
     margin-left: -10px
     +media-breakpoint-down(sm)
       left: 71%
+    .header-links__item:nth-last-child(2) &
+      margin-left: 30px
+    .header-links__item:nth-last-child(3) &
+      margin-left: 22px
 
 .header-drop-down__item
   cursor: pointer
@@ -70,10 +88,6 @@
 
 .header-drop-down__overlay
   +position(fixed, left 0, top 0, right 0, bottom 0, 1)
-
-.header-notifications-item__body
-
-.header-notifications-item__avatar-image
 
 .header-notifications-item__message
   +text-block(.8125rem 1.45 .25rem, $default-text)

@@ -4,15 +4,19 @@
   +media-breakpoint-down(sm)
     +overflow(auto hidden)
     margin-bottom: 1.5rem
+  &.is-unchecked
+    table-layout: fixed
 
 .admin-table__table
   box-shadow: rgba(black, .2) 0 .0625rem .125rem
   border-radius: .25rem
   width: 100%
+  .a-card &
+    box-shadow: none
 
 .admin-table__header
-  background-color: $background-color-shade
-  border: solid 1px #aaaaaa
+  background-color: $background-color
+  border: solid 1px $background-color-shade
   +border-radius(top, .25rem)
 
 .admin-table__items
@@ -22,8 +26,8 @@
   +text-block(1.5rem 1.45, $side)
 
 .admin-table__label
-  +text-block(.75rem 2rem, $main-color center 600)
-  border: solid 1px #aaaaaa
+  +text-block(.75rem 2rem, center 600)
+  border: solid 1px $background-color-shade
   white-space: nowrap
 
 .admin-table__item
@@ -32,6 +36,7 @@
     background-color: $background-color
   &:last-child
     +border-radius(bottom, .25rem)
+
 .admin-table__item-value
   padding: .375rem .75rem
   border: solid 1px $background-color-shade
@@ -42,6 +47,18 @@
   background-color: $base
   box-shadow: rgba(black, .2) 0 1px 4px
   overflow: hidden
+
+.admin-table__item-number
+  font-size: 1.5em
+  font-weight: 800
+  display: block
+  text-align: center
+  color: $muted-text
+
+a.admin-table__item-number
+  cursor: pointer
+  color: $danger
+  +hover-link-reversal
 
 .admin-table__user-icon
   +size(2.75rem auto)

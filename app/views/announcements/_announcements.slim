@@ -9,11 +9,11 @@
       - if current_user == announcement.user
         .thread-list-item__actions
           = link_to edit_announcement_path(announcement), class: "thread-list-item__actions-link" do
-            i.fa.fa-pencil
+            i.fas.fa-pencil-alt
           = link_to new_announcement_path(id: announcement), class: "thread-list-item__actions-link" do
-            i.fa.fa-files-o
+            i.fas.fa-copy
           = link_to announcement_path(announcement), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
-            i.fa.fa-trash-o
+            i.fas.fa-trash-alt
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{announcement.updated_at.to_datetime}" pubdate="pubdate")
         = l announcement.updated_at

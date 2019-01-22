@@ -1,13 +1,15 @@
-.header-drop-down.js-drop-down__target
-  ul.header-drop-down__items
-    - current_user.notifications.unreads.each do |notification|
-      li.header-drop-down__item
-        = link_to notification, class: "header-drop-down__item-link" do
-          .header-notifications-item__body
-            = gravatar_tag notification.sender, secure: true, size: 48, html: { class: "header-notifications-item__avatar-image" }
-            .header-notifications-item__message
-              p
-                = notification.message
-            time.header-notifications-item_created-at
-              = time_ago_in_words(notification.created_at) + "前"
-  .header-drop-down__overlay.js-drop-down__trigger
+input#show-notifications.a-toggle-checkbox(type= "checkbox")
+.header-drop-down.is-notifications
+  .header-drop-down__inner
+    ul.header-drop-down__items
+      - current_user.notifications.unreads.each do |notification|
+        li.header-drop-down__item
+          = link_to notification, class: "header-drop-down__item-link" do
+            .header-notifications-item__body
+              = gravatar_tag notification.sender, secure: true, size: 48, html: { class: "header-notifications-item__avatar-image" }
+              .header-notifications-item__message
+                p
+                  = notification.message
+              time.header-notifications-item_created-at
+                = time_ago_in_words(notification.created_at) + "前"
+  label.header-drop-down__overlay(for="show-notifications")
