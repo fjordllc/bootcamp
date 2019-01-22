@@ -5,6 +5,9 @@ require "application_system_test_case"
 class SignUpTest < ApplicationSystemTestCase
   test "sign up" do
     visit new_user_path
+
+    execute_script "document.querySelector('.a-file-input').className = ''"
+
     within "form[name=user]" do
       fill_in "user[login_name]", with: "testuser"
       fill_in "user[password]", with: "testtest"
@@ -30,6 +33,9 @@ class SignUpTest < ApplicationSystemTestCase
 
   test "failed to sign up" do
     visit new_user_path
+
+    execute_script "document.querySelector('.a-file-input').className = ''"
+
     within "form[name=user]" do
       fill_in "user[login_name]", with: "komagata"
       fill_in "user[password]", with: "testtest"
@@ -55,6 +61,9 @@ class SignUpTest < ApplicationSystemTestCase
 
   test "sign up as adviser" do
     visit new_user_path(role: "adviser")
+
+    execute_script "document.querySelector('.a-file-input').className = ''"
+
     within "form[name=user]" do
       fill_in "user[login_name]", with: "testuser"
       fill_in "user[password]", with: "testtest"
