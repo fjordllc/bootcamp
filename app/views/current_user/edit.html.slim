@@ -13,12 +13,5 @@
         li.auth-form-nav__item
            span.auth-form-nav__item-link.js-modal(data-target="#nda-modal")
             | 秘密保持契約内容を確認
-
-.auth-form.is-sign-up.a-card
-  header.card-header
-    h1.auth-form__title 退会
-  .card-footer
-    .card-footer-actions
-      ul.card-footer-actions__items
-        li.card-footer-actions__item
-          = link_to "退会手続きへ進む", new_user_retirement_path(@user), class: "card-footer-actions__action is-button-simple-md-danger is-block"
+        li.auth-form-nav__item
+           = link_to "退会手続きへ進む", new_user_retirement_path(@user), class: "auth-form-nav__item-link"
