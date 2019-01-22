@@ -62,7 +62,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 2, user.total_learning_time
   end
 
-  test "dates_from_start_lerning" do
+  test "dates_from_start_learning" do
     user = users(:komagata)
     user.created_at = Time.new(2019, 1, 1, 0, 0, 0)
     travel_to Time.new(2020, 1, 1, 0, 0, 0) do
@@ -70,20 +70,12 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test "order_by_reports_count" do
-    @users = User.order_by_reports_count("desc")
+  test "order_by_reports_or_comments_count" do
+    @users = User.order_by_reports_or_comments_count("report", "desc")
     @names = @users.pluck(:login_name)
     assert @names == ["tanaka", "komagata", "machida", "yamada", "hajime", "yameo", "hatsuno", "kimura", "mineo"]
-    @users = User.order_by_reports_count("asc")
-    @names = @users.pluck(:login_name)
-    assert @names == ["hajime", "hatsuno", "kimura", "mineo", "yameo", "machida", "yamada", "komagata", "tanaka"]
-  end
 
-  test "order_by_comments_count" do
-    @users = User.order_by_comments_count("desc")
-    @names = @users.pluck(:login_name)
-    assert @names == ["komagata", "machida", "tanaka", "yamada", "mineo", "hajime", "yameo", "hatsuno", "kimura"]
-    @users = User.order_by_comments_count("asc")
+    @users = User.order_by_reports_or_comments_count("comment", "asc")
     @names = @users.pluck(:login_name)
     assert @names == ["yameo", "hatsuno", "kimura", "yamada", "mineo", "hajime", "machida", "tanaka", "komagata"]
   end
