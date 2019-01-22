@@ -14,3 +14,6 @@
   &.is-borderd
     border: solid 4px $welcome-default-text
     box-shadow: none
+  [class*=col-] + [class*=col-] &:first-child
+    +media-breakpoint-down(md)
+      margin-top: 1rem
