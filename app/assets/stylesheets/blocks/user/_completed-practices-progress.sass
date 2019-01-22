@@ -1,12 +1,13 @@
 $bar-height: .75rem
 .completed-practices-progress
-  +position(relative)
-  padding-right: 2.5rem
-  height: 1rem
-  +padding(vertical, .125rem)
-  margin-bottom: .75rem
+  +padding(vertical, .75rem)
+  +padding(horizontal, 1rem)
+  display: flex
+  align-items: center
+  border-bottom: dotted .0625rem $background-color
 
 .completed-practices-progress__bar-container
+  flex: 100
   border-radius: 20rem
   height: $bar-height
   overflow: hidden
@@ -24,6 +25,5 @@ $bar-height: .75rem
   box-shadow: rgba(black, .2) 0 .0625rem .0625rem
 
 .completed-practices-progress__percentage-number
-  +position(absolute, right 0, top 0)
   +text-block(.875rem 1rem, right)
   +size(2.5rem 1rem)
