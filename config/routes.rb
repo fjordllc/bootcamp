@@ -72,7 +72,7 @@ Rails.application.routes.draw do
   resource :inquiry, only: %i(new create)
 
   resources :articles
-  get "tags/:tag", to: "articles#index", as: :tag
+  get "articles/tags/:tag", to: "articles#index", as: :tag
 
   get "login" => "user_sessions#new", as: :login
   post "user_sessions" => "user_sessions#create"
