@@ -22,7 +22,7 @@
           = f.file_field :logo
           br
           - if current_user.company.logo.attached?
-            = image_tag company.logo, width: 500
+            = image_tag company.logo.variant(resize: "500x500")
   .form-actions
     ul.form-actions__items
       li.form-actions__item
