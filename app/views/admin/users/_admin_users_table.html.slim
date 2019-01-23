@@ -21,6 +21,8 @@
               | 管理者
             - elsif user.adviser
               | アドバイザー
+            - elsif user.trainee
+              | 研修生
             - elsif user.retired_on?
               | リタイア
             - elsif user.graduated_on?

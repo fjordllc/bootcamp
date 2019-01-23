@@ -128,6 +128,7 @@ class User < ActiveRecord::Base
     ).order(updated_at: :desc)
   }
   scope :admins, -> { where(admin: true) }
+  scope :trainee, -> { where(trainee: true) }
 
   def away?
     self.updated_at <= 10.minutes.ago
@@ -185,6 +186,29 @@ WHERE
 
   def dates_from_start_learning
     (Date.current - self.created_at.to_date).to_i
+  end
+
+  def self.users_role(target)
+    case target
+    when "student"
+      self.students
+    when "retired"
+      self.retired
+    when "graduate"
+      self.graduated
+    when "adviser"
+      self.advisers
+    when "mentor"
+      self.mentor
+    when "inactive"
+      self.inactive.order(:updated_at)
+    when "year_end_party"
+      self.year_end_party
+    when "trainee"
+      self.trainee
+    when "all"
+      self.all
+    end
   end
 
   private
