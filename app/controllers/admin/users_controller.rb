@@ -4,8 +4,9 @@ class Admin::UsersController < AdminController
   before_action :set_user, only: %i(edit update)
 
   def index
+    @users = User.order(updated_at: :desc)
     @target = params[:target] || "student"
-    @users = User.users.users_role(@target)
+    @users = @users.users_role(@target)
   end
 
   def edit
