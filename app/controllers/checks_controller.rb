@@ -2,7 +2,6 @@
 
 class ChecksController < ApplicationController
   include Rails.application.routes.url_helpers
-  include Gravatarify::Helper
   before_action :require_admin_adviser_or_mentor_login
 
   def create
@@ -32,7 +31,7 @@ class ChecksController < ApplicationController
 
       notify "#{name} check to #{link}",
              username: "#{check.user.login_name} (#{check.user.full_name})",
-             icon_url: gravatar_url(check.user, secure: true),
+             icon_url: url_for(check.user.avatar),
              attachments: [{
                fallback: "check body.",
                text: "#{check.user.login_name}さんが#{check.checkable.title}を確認しました。"

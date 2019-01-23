@@ -21,4 +21,5 @@ header.page-header
 
         .col-xs-12.col-xl-6.col-xxl-6
           = render "users/grass", user: current_user
-          = render "users/github_grass", user: current_user
+          - if current_user.github_account
+            = render "users/github_grass", user: current_user

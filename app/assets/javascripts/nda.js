@@ -1,6 +1,5 @@
 $(function () {
   if (!document.querySelector('body.users-new,body.users-create')) {
-    console.log('null')
     return null
   }
 

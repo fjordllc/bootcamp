@@ -31,7 +31,7 @@
               | 非アクティブ
           td.admin-table__item-value
             = link_to user_path(user), class: "admin-table__user", target: "_blank" do
-              = gravatar_tag user, secure: true, html: { class: "admin-table__user-icon" }
+              = image_tag user.avatar, class: "admin-table__user-icon"
               span.admin-table__user-login-name
                 = user.login_name
                 | （#{user.full_name}）

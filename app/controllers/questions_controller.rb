@@ -2,7 +2,6 @@
 
 class QuestionsController < ApplicationController
   include Rails.application.routes.url_helpers
-  include Gravatarify::Helper
   before_action :require_login
   before_action :set_question, only: %i(show edit update destroy)
   before_action :set_categories, only: %i(new create edit update)
@@ -80,7 +79,7 @@ class QuestionsController < ApplicationController
 
       notify "#{name}質問しました。#{link}",
         username: "#{question.user.login_name} (#{question.user.full_name})",
-        icon_url: gravatar_url(question.user, secure: true),
+        icon_url: url_for(question.user.avatar),
         attachments: [{
           fallback: "question body.",
           text: question.description

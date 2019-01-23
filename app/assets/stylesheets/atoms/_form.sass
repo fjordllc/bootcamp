@@ -53,6 +53,16 @@ textarea.a-sm-text-input
   &.is-md
     min-height: 16rem
 
+.a-file-input
+  cursor: pointer
+  *
+    cursor: pointer
+  input
+    opacity: 0
+    +position(absolute, left -1px, top -1px)
+    +size(1px)
+    overflow: hidden
+
 .a-sm-label
   +text-block(.8125rem 1.45 .5rem, block 600)
   &.is-required
