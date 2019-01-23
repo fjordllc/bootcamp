@@ -128,7 +128,6 @@ class User < ActiveRecord::Base
   }
   scope :admins, -> { where(admin: true) }
   scope :trainee, -> { where(trainee: true) }
-  scope :users, -> { User.order(updated_at: :desc) }
 
   def away?
     self.updated_at <= 10.minutes.ago
