@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Courses::PracticesController < ApplicationController
-  include Gravatarify::Helper
   before_action :require_login
   before_action :set_course
 

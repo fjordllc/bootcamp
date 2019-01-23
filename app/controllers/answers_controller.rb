@@ -2,7 +2,6 @@
 
 class AnswersController < ApplicationController
   include Rails.application.routes.url_helpers
-  include Gravatarify::Helper
   before_action :require_login
   before_action :set_question
   before_action :set_answer, only: %i(show edit update destroy)
@@ -63,7 +62,7 @@ class AnswersController < ApplicationController
 
       notify "#{name}が回答しました。#{link}",
         username: "#{answer.user.login_name} (#{answer.user.full_name})",
-        icon_url: gravatar_url(answer.user, secure: true),
+        icon_url: url_for(answer.user.avatar),
         attachments: [{
           fallback: "answer body.",
           text: answer.description

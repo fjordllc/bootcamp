@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  include Gravatarify::Helper
   before_action :require_login, except: %i(new create)
   before_action :set_user, only: %w(show)
 
@@ -42,7 +41,7 @@ class UsersController < ApplicationController
       UserMailer.welcome(@user).deliver_now
       notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
         username: "#{@user.login_name}@bootcamp.fjord.jp",
-        icon_url: gravatar_url(@user, secure: true)
+        icon_url: url_for(@user.avatar)
       login(@user.login_name, params[:user][:password], true)
       redirect_to root_url, notice: "サインアップしました。"
     else
@@ -83,7 +82,8 @@ class UsersController < ApplicationController
         :nda,
         :graduated_on,
         :retired_on,
-        :free
+        :free,
+        :avatar
       )
     end
 

@@ -2,7 +2,6 @@
 
 class CommentsController < ApplicationController
   include Rails.application.routes.url_helpers
-  include Gravatarify::Helper
   before_action :set_user, only: :show
   before_action :set_my_comment, only: %i(edit update destroy)
 
@@ -66,7 +65,7 @@ class CommentsController < ApplicationController
 
       notify "#{name} commented to #{link}",
         username: "#{comment.user.login_name} (#{comment.user.full_name})",
-        icon_url: gravatar_url(comment.user, secure: true),
+        icon_url: url_for(comment.user.avatar),
         attachments: [{
           fallback: "comment body.",
           text: comment.description

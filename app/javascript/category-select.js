@@ -3,8 +3,6 @@ import 'whatwg-fetch'
 document.addEventListener('DOMContentLoaded', () => {
   const categorySelect = document.querySelector("select[name='practice[category_id]']")
   const courseSelect = document.querySelector("select[name='course']")
-  console.log(categorySelect)
-  console.log(courseSelect)
   if (!categorySelect || !courseSelect) {
     return null
   }

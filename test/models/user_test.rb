@@ -23,6 +23,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "twitter_account" do
+    Bootcamp::Setup.attachment
+
     user = users(:komagata)
     user.twitter_account = ""
     assert user.valid?

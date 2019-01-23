@@ -3,7 +3,6 @@
 class ReportsController < ApplicationController
   include ReportsHelper
   include Rails.application.routes.url_helpers
-  include Gravatarify::Helper
   before_action :require_login
   before_action :set_report, only: %i(show)
   before_action :set_my_report, only: %i(edit update destroy)
@@ -131,7 +130,7 @@ class ReportsController < ApplicationController
 
       notify "#{name} created #{link}",
         username: "#{report.user.login_name} (#{report.user.full_name})",
-        icon_url: gravatar_url(report.user, secure: true),
+        icon_url: url_for(report.user.avatar),
         attachments: [{
           fallback: "report body.",
           text: report.description

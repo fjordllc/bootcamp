@@ -2,7 +2,6 @@
 
 class API::Practices::LearningController < API::BaseController
   include Rails.application.routes.url_helpers
-  include Gravatarify::Helper
 
   def show
     @learning = Learning.find_or_initialize_by(
@@ -45,6 +44,6 @@ class API::Practices::LearningController < API::BaseController
       text = "#{subject}が#{object}を#{verb}"
       notify text,
         username: "#{current_user.login_name}@bootcamp.fjord.jp",
-        icon_url: gravatar_url(current_user, secure: true)
+        icon_url: url_for(current_user.avatar)
     end
 end

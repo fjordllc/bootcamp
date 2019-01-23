@@ -1,7 +1,7 @@
 .thread-list-item
   .thread-list-item__inner
     .thread-list-item__author
-      = gravatar_tag product.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon" }
+      = image_tag product.user.avatar.variant(resize: "44x44"), class: "thread-list-item__author-icon"
     header.thread-list-item__header
       h2.thread-list-item__title(itemprop="name")
         = link_to product, itempro: "url", class: "thread-list-item__title-link" do
@@ -19,7 +19,7 @@
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-value
             - product.checks.each do |check|
-              = gravatar_tag check.user, secure: true, size: 20, html: { class: "thread-list-item__checked-author-icon" }
+              = image_tag check.user.avatar.variant(resize: "20x20"), class: "thread-list-item__checked-author-icon"
         .stamp.stamp-approve
           h2.stamp__content.is-title 確認済
           time.stamp__content.is-created-at

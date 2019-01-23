@@ -1,7 +1,7 @@
 .thread-list-item
   .thread-list-item__inner
     .thread-list-item__author
-      = gravatar_tag question.user, secure: true, size: 44, html: { class: "thread-list-item__author-icon" }
+      = image_tag question.user.avatar.variant(resize: "44x44"), class: "thread-list-item__author-icon"
     header.thread-list-item__header
       h2.thread-list-item__title(itemprop="name")
         = link_to question, itempro: "url", class: "thread-list-item__title-link" do
