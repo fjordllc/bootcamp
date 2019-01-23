@@ -183,6 +183,13 @@
               = f.check_box :free, class: "auth-form-checkbox__input"
               = User.human_attribute_name :free
       .auth-form-item
+        = f.label :trainee, class: "a-sm-label"
+        ul.auth-form-item__checkboxes
+          li.auth-form-checkbox
+            label.auth-form-checkbox__label
+              = f.check_box :trainee, class: "auth-form-checkbox__input"
+              = User.human_attribute_name :trainee
+      .auth-form-item
         = f.label :retired_on, class: "a-sm-label"
         = f.text_field :retired_on, class: "datepicker a-text-input"
     - if from == :new
