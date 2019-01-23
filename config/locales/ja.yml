@@ -151,3 +151,7 @@ ja:
     inactive: 非アクティブ
     year_end_party: 忘年会
     trainee: 研修生
+  helpers:
+    submit:
+      create: 投稿する
+      update: 内容を変更する
