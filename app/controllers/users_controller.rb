@@ -8,19 +8,7 @@ class UsersController < ApplicationController
     @categories = Category.order("position")
     @users = User.order(updated_at: :desc)
     @target = params[:target] || "student"
-    @users =
-      case @target
-      when "student"
-        @users.students
-      when "graduate"
-        @users.graduated
-      when "adviser"
-        @users.advisers
-      when "mentor"
-        @users.mentor
-      when "all"
-        @users
-      end
+    @users = @users.users_role(@target)
   end
 
   def show
