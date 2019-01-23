@@ -26,12 +26,8 @@
 
   .form-actions
     ul.form-actions__items
-
-      li.form-actions__item.is-main.is-help
-        - if @article.new_record?
-          = f.submit "投稿", class: "is-button-simple-lg-warning is-block", id: "js-shortcut-submit"
-        - else
-          = f.submit "内容変更", class: "is-button-simple-lg-warning is-block", id: "js-shortcut-submit"
+      li.form-actions__item
+        = f.submit nil, class: "is-button-simple-md-secondary", id: "js-shortcut-submit"
       li.form-actions__item
         - if params[:action] == "new" || params[:action] == "create"
           = link_to "キャンセル", articles_path, class: "is-button-simple-md-secondary"
