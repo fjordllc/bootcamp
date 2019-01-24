@@ -38,15 +38,15 @@
     .auth-form-item
       = f.label :avatar, class: "a-sm-label is-required"
       .form-item-file-input.js-file-input.a-file-input.is-avatar
-        label.js-file-input__preview(for="avatar")
-          - if current_user.company.logo.attached?
-            = image_tag company.logo.variant(resize: "100x100")
+        label.js-file-input__preview
+          - if f.object.avatar.attached?
+            = image_tag f.object.avatar.variant(resize: "100x100")
             p
               | 画像を変更
           - else
             p
               | 画像を選択
-          = f.file_field :logo, id: "avatar"
+          = f.file_field :avatar
 
       - unless user.adviser?
         .auth-form-item__help
