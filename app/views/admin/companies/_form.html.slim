@@ -19,10 +19,16 @@
       .row
         .col-md-6.col-xs-12
           = f.label "ロゴ", class: "a-label"
-          = f.file_field :logo
-          br
-          - if current_user.company.logo.attached?
-            = image_tag company.logo.variant(resize: "500x500")
+          .form-item-file-input.js-file-input.a-file-input
+            label.js-file-input__preview(for="company_logo")
+              - if current_user.company.logo.attached?
+                = image_tag company.logo.variant(resize: "500x500")
+                p
+                  | 画像を変更
+              - else
+                p
+                  | 画像を選択
+              = f.file_field :logo
   .form-actions
     ul.form-actions__items
       li.form-actions__item

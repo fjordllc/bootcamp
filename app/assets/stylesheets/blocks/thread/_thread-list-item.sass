@@ -46,13 +46,18 @@
 
 .thread-list-item__author-icon
   border-radius: 50%
+  +size(2.75rem)
+  object-fit: cover
   +media-breakpoint-down(sm)
-    +size(2.5rem auto)
+    +size(2.5rem)
+    object-fit: cover
   .thread-list-item.is-wip &
     opacity: .6
 
 .thread-list-item__checked-author-icon
   border-radius: 50%
+  +size(1.8125rem)
+  object-fit: cover
 
 .thread-list-item__header
   display: flex
