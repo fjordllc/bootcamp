@@ -66,25 +66,17 @@ class UserTest < ActiveSupport::TestCase
     user = users(:komagata)
     user.created_at = Time.new(2019, 1, 1, 0, 0, 0)
     travel_to Time.new(2020, 1, 1, 0, 0, 0) do
-      assert_equal 365, user.dates_from_start_lerning
+      assert_equal 365, user.dates_from_start_learning
     end
   end
 
   test "order_by_reports_or_comments_count" do
     @users = User.order_by_reports_or_comments_count("report", "desc")
     @names = @users.pluck(:login_name)
-    assert @names == ["tanaka", "komagata", "machida", "yamada", "hajime", "yameo", "hatsuno", "kimura", "mineo"]
+    assert @names == ["tanaka", "komagata", "yamada", "machida", "kimura", "muryou", "yameo", "mineo", "hajime", "hatsuno", "kensyu"]
 
     @users = User.order_by_reports_or_comments_count("comment", "asc")
     @names = @users.pluck(:login_name)
-    assert @names == ["yameo", "hatsuno", "kimura", "yamada", "mineo", "hajime", "machida", "tanaka", "komagata"]
-  end
-
-  test "dates_from_start_lerning" do
-    user = users(:komagata)
-    user.created_at = Time.new(2019, 1, 1, 0, 0, 0)
-    travel_to Time.new(2020, 1, 1, 0, 0, 0) do
-      assert_equal 365, user.dates_from_start_lerning
-    end
+    assert @names == ["yameo", "hajime", "hatsuno", "kensyu", "kimura", "muryou", "yamada", "mineo", "machida", "tanaka", "komagata"]
   end
 end
