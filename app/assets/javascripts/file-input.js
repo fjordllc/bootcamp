@@ -6,7 +6,7 @@ $(function () {
       var dataUri = this.result;
       $('.js-file-input__preview img').remove();
       $('.js-file-input__preview p').text("画像を変更");
-      $('.js-file-input__preview').append('<img src=' + dataUri + '>');
+      $('.js-file-input__preview').append($('img').attr('src', dataUri));
     }
     fileReader.readAsDataURL(file);
   });
