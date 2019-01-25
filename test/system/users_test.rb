@@ -91,12 +91,12 @@ class UsersTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
 
     visit "/users/#{users(:komagata).id}"
-    assert_equal 0, all(".user-company__logo").length
+    assert_equal 0, all(".user-profile__company-logo").length
 
     user = User.find_by(login_name: "komagata")
     user.company.logo.attach(io: File.open("test/fixtures/file/companies/logos/company.svg"), filename: "company.svg")
 
     visit "/users/#{users(:komagata).id}"
-    assert_equal 1, all(".user-company__logo").length
+    assert_equal 1, all(".user-profile__company-logo").length
   end
 end
