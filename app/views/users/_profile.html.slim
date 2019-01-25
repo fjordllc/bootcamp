@@ -6,7 +6,6 @@
       = user.login_name
     h2.user-profile__full-name
       = user.full_name
-  .user-company__logo
-    - if user.company.logo.attached?
-      = image_tag user.company.logo, width: 500
   = render "users/sns", user: user
+  - if user.company.logo.attached?
+    = image_tag user.company.logo, class: "user-profile__company-logo"

@@ -3,6 +3,9 @@
   padding-left: 6.5rem
   min-height: 6.25rem
   margin-bottom: .5rem
+  padding-right: 10.5rem
+  +media-breakpoint-down(lg)
+    padding-right: 0
   +media-breakpoint-down(sm)
     padding-left: 0
     text-align: center
@@ -27,3 +30,14 @@
 
 .user-profile__company-name
   +text-block(.875rem 1.45, 400)
+
+.user-profile__company-logo
+  max-width: 10rem
+  +position(absolute, right 0, top 0)
+  +media-breakpoint-down(lg)
+    max-width: 100%
+    max-height: 1.875rem
+    position: static
+    margin-top: .5rem
+  +media-breakpoint-down(sm)
+    max-height: 2.25rem
