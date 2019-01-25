@@ -21,7 +21,7 @@
           = f.label "ロゴ", class: "a-label"
           .form-item-file-input.js-file-input.a-file-input
             label.js-file-input__preview(for="company_logo")
-              - if current_user.company.logo.attached?
+              - if company.logo.attached?
                 = image_tag company.logo.variant(resize: "500x500")
                 p
                   | 画像を変更
