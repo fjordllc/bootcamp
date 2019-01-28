@@ -5,13 +5,13 @@ class Admin::UsersController < AdminController
   VALID_SORT_COLUMNS = %w(id login_name company_id updated_at report comment asc desc)
 
   def index
-    @order_by = params[:order_by] || "id"
-    @order_by = validate_order_by(@order_by)
+    order_by = params[:order_by] || "id"
+    validate_order_by(order_by)
 
     @direction = params[:direction] || "desc"
-    @direction = validate_order_by(@direction)
+    validate_order_by(@direction)
 
-    @users = User.order_by_counts(@order_by, @direction)
+    @users = User.order_by_counts(order_by, @direction)
 
     @target = params[:target] || "student"
     @users = @users.users_role(@target)
@@ -78,6 +78,5 @@ class Admin::UsersController < AdminController
         # 事前に定めた属性名以外はエラーとする（ SQLインジェクション対策 ）
         raise ArgumentError, "Attribute not allowed: #{order_by}"
       end
-      order_by
     end
 end

@@ -5,20 +5,20 @@
         th.admin-table__label ステータス
         th.admin-table__label
           | ユーザー名
-          = render "admin_users", order_by: "login_name", direction: @direction, target: @target
+          = render "admin_users", order_by: "login_name", direction: direction, target: @target
         th.admin-table__label
           | 会社
-          = render "admin_users", order_by: "company_id", direction: @direction, target: @target
+          = render "admin_users", order_by: "company_id", direction: direction, target: @target
         th.admin-table__label Slack
         th.admin-table__label
           | 最終アクセス日時
-          = render "admin_users", order_by: "updated_at", direction: @direction, target: @target
+          = render "admin_users", order_by: "updated_at", direction: direction, target: @target
         th.admin-table__label
           | 日報
-          = render "admin_users", order_by: "report", direction: @direction, target: @target
+          = render "admin_users", order_by: "report", direction: direction, target: @target
         th.admin-table__label
           | コメント
-          = render "admin_users", order_by: "comment", direction: @direction, target: @target
+          = render "admin_users", order_by: "comment", direction: direction, target: @target
         th.admin-table__label 進捗
         th.admin-table__label SNS
         th.admin-table__label 操作
