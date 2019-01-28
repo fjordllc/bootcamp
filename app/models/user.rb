@@ -2,6 +2,7 @@
 
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
+  VALID_SORT_COLUMNS = %w(id login_name company_id updated_at report comment asc desc)
 
   enum job: {
     student: 0,
@@ -129,6 +130,24 @@ class User < ActiveRecord::Base
   }
   scope :admins, -> { where(admin: true) }
   scope :trainee, -> { where(trainee: true) }
+  scope :order_by_counts, -> (order_by, direction) {
+    if order_by.in?(VALID_SORT_COLUMNS)
+      if order_by == "report" && direction == "asc"
+        User.left_outer_joins(:reports).group("users.id").order(Arel.sql("count(reports.id) asc"))
+      elsif order_by == "report" && direction == "desc"
+        User.left_outer_joins(:reports).group("users.id").order(Arel.sql("count(reports.id) desc"))
+      elsif order_by == "comment" && direction == "asc"
+        User.left_outer_joins(:reports).group("users.id").order(Arel.sql("count(comments.id) asc"))
+      elsif order_by == "comment" && direction == "desc"
+        User.left_outer_joins(:reports).group("users.id").order(Arel.sql("count(comments.id) desc"))
+      else
+        User.order(order_by + " " + direction)
+      end
+    else
+      # 事前に定めた属性名以外はエラーとする（ SQLインジェクション対策 ）
+      raise ArgumentError, "Attribute not allowed: #{order_by}"
+    end
+  }
 
   def away?
     self.updated_at <= 10.minutes.ago
@@ -208,17 +227,6 @@ WHERE
       self.trainee
     when "all"
       self.all
-    end
-  end
-
-  def self.order_by_counts(order_by, direction)
-    if order_by == "report" || order_by == "comment"
-      User
-        .joins("left join #{order_by}s on users.id = #{order_by}s.user_id")
-        .group("users.id")
-        .order(Arel.sql("count(#{order_by}s.id) #{direction}"))
-    else
-      User.order(order_by + " " + direction)
     end
   end
 
