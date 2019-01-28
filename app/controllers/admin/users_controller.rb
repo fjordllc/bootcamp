@@ -11,11 +11,7 @@ class Admin::UsersController < AdminController
     @direction = params[:direction] || "desc"
     @direction = validate_order_by(@direction)
 
-    if @order_by == "report" || @order_by == "comment"
-      @users = User.order_by_reports_or_comments_count(@order_by, @direction)
-    else
-      @users = User.order(@order_by + " " + @direction)
-    end
+    @users = User.order_by_counts(@order_by, @direction)
 
     @target = params[:target] || "student"
     @users = @users.users_role(@target)
