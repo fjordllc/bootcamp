@@ -1,0 +1,21 @@
+doctype html
+html.is-application lang="ja"
+  - page_classes = content_for(:page_classes).to_s
+  head
+    = render "google_tag_manager_head"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    = display_meta_tags default_meta_tags
+    = javascript_include_tag "application"
+    = javascript_pack_tag "application"
+    = csrf_meta_tags
+    = render "favicons"
+    = stylesheet_link_tag "welcome", media: "all"
+    - if page_classes.include?("welcome-home")
+      link(rel="canonical" href="https://bootcamp.fjord.jp/")
+  body#body class="#{body_class} #{page_classes}"
+    = render "google_tag_manager_body"
+    .wrapper.js-open-drawer-wrapper
+      = render "alert"
+      main.page
+        = yield
+    = render("to_top")
