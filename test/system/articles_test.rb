@@ -87,7 +87,7 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_no_text "削除"
   end
 
-  test "searchable by tag" do
+  test "search by tag" do
     login_user "komagata", "testtest"
     visit articles_url
     click_on "内容修正", match: :first
