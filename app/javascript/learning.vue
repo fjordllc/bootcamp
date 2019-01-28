@@ -5,7 +5,11 @@
         a.is-button-simple-md-primary.is-block(:href="productLink")
           i.fas.fa-file
           | {{ productLabel }}
-      li.card-footer-actions__item(v-if="!complete")
+      li.card-footer-actions__item(v-if="complete")
+        button.is-button-simple-md-secondary.is-block.is-disabled
+          i.fas.fa-check
+          | 完了済
+      li.card-footer-actions__item(v-else)
         button.is-button-simple-md-warning.is-block#js-complete(@click="pushComplete")
           i.fas.fa-check
           | 完了
@@ -42,7 +46,7 @@ export default {
         this.product = json['practice']['product']
         if (this.product) {
           this.productLink = `/products/${this.product.id}`
-          this.productLabel = '提出物'
+          this.productLabel = '提出物へ'
         } else {
           this.productLink = `/products/new?practice_id=${this.practiceId}`
           this.productLabel = '提出物を作る'

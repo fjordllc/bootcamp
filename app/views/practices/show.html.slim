@@ -47,8 +47,13 @@ header.page-header
           = @practice.goal
         footer.card-footer
           #js-learning(data-practice-id="#{@practice.id}")
-          - unless @practice.submission
-          .card-footer__description
+          - if @practice.submission
+            .card-footer__description
+              | 提出物を作成し提出し、メンターから確認をもらったら
+              br
+              | このプラクティスを完了にしてください。
+          - else
+            .card-footer__description
               | このプラクティスに提出物のチェックは必要ありません。
               br
               | 終了条件をクリアしたら完了にしてください。
