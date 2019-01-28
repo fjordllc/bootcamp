@@ -137,9 +137,9 @@ class User < ActiveRecord::Base
       elsif order_by == "report" && direction == "desc"
         User.left_outer_joins(:reports).group("users.id").order(Arel.sql("count(reports.id) desc"))
       elsif order_by == "comment" && direction == "asc"
-        User.left_outer_joins(:reports).group("users.id").order(Arel.sql("count(comments.id) asc"))
+        User.left_outer_joins(:comments).group("users.id").order(Arel.sql("count(comments.id) asc"))
       elsif order_by == "comment" && direction == "desc"
-        User.left_outer_joins(:reports).group("users.id").order(Arel.sql("count(comments.id) desc"))
+        User.left_outer_joins(:comments).group("users.id").order(Arel.sql("count(comments.id) desc"))
       else
         User.order(order_by + " " + direction)
       end
