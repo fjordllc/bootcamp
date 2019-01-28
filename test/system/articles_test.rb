@@ -51,11 +51,11 @@ class ArticlesTest < ApplicationSystemTestCase
   test "update article" do
     login_user "komagata", "testtest"
     visit articles_url
-    click_on "更新する", match: :first
+    click_on "内容修正", match: :first
 
     fill_in "article[title]", with: @article.title
     fill_in "article[body]", with: @article.body
-    click_on "内容変更"
+    click_on "更新する"
 
     assert_text "記事を更新しました"
   end
@@ -64,7 +64,7 @@ class ArticlesTest < ApplicationSystemTestCase
     login_user "yamada", "testtest"
     visit articles_url
 
-    assert_no_text "更新する"
+    assert_no_text "内容修正"
 
     visit edit_article_path(@article)
     assert_text "管理者としてログインしてください"
@@ -90,12 +90,12 @@ class ArticlesTest < ApplicationSystemTestCase
   test "searchable by tag" do
     login_user "komagata", "testtest"
     visit articles_url
-    click_on "更新する", match: :first
+    click_on "内容修正", match: :first
 
     fill_in "article[title]", with: "タイトル"
     fill_in "article[body]", with: "内容"
     fill_in "article[tag_list]", with: "tag"
-    click_on "内容変更"
+    click_on "更新する"
     click_on "ブログ記事一覧"
 
     assert_equal 2, all(".a-card").length
