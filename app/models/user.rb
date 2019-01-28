@@ -134,6 +134,7 @@ class User < ActiveRecord::Base
     unless order_by.in?(VALID_SORT_COLUMNS)
       raise ArgumentError, "Attribute not allowed: #{order_by}"
     end
+
     if order_by == "report" && direction == "asc"
       User.left_outer_joins(:reports).group("users.id").order(Arel.sql("count(reports.id) asc"))
     elsif order_by == "report" && direction == "desc"
