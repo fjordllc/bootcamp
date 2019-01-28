@@ -153,5 +153,5 @@ ja:
     trainee: 研修生
   helpers:
     submit:
-      create: 投稿する
-      update: 内容を変更する
+      create: 登録する
+      update: 更新する
