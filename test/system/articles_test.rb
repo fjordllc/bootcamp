@@ -20,7 +20,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
     fill_in "article[title]", with: @article.title
     fill_in "article[body]", with: @article.body
-    click_on "投稿"
+    click_on "登録する"
 
     assert_text "記事を作成しました"
   end
@@ -32,7 +32,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
     fill_in "article[title]", with: ""
     fill_in "article[body]", with: ""
-    click_on "投稿"
+    click_on "登録する"
 
     assert_text "タイトルを入力してください"
     assert_text "本文を入力してください"
@@ -51,7 +51,7 @@ class ArticlesTest < ApplicationSystemTestCase
   test "update article" do
     login_user "komagata", "testtest"
     visit articles_url
-    click_on "内容修正", match: :first
+    click_on "更新する", match: :first
 
     fill_in "article[title]", with: @article.title
     fill_in "article[body]", with: @article.body
@@ -64,7 +64,7 @@ class ArticlesTest < ApplicationSystemTestCase
     login_user "yamada", "testtest"
     visit articles_url
 
-    assert_no_text "内容修正"
+    assert_no_text "更新する"
 
     visit edit_article_path(@article)
     assert_text "管理者としてログインしてください"
@@ -90,7 +90,7 @@ class ArticlesTest < ApplicationSystemTestCase
   test "searchable by tag" do
     login_user "komagata", "testtest"
     visit articles_url
-    click_on "内容修正", match: :first
+    click_on "更新する", match: :first
 
     fill_in "article[title]", with: "タイトル"
     fill_in "article[body]", with: "内容"
