@@ -211,11 +211,15 @@ WHERE
     end
   end
 
-  def self.order_by_reports_or_comments_count(order_by, direction)
-    User
-      .joins("left join #{order_by}s on users.id = #{order_by}s.user_id")
-      .group("users.id")
-      .order(Arel.sql("count(#{order_by}s.id) #{direction}"))
+  def self.order_by_counts(order_by, direction)
+    if order_by == "report" || order_by == "comment"
+      User
+        .joins("left join #{order_by}s on users.id = #{order_by}s.user_id")
+        .group("users.id")
+        .order(Arel.sql("count(#{order_by}s.id) #{direction}"))
+    else
+      User.order(order_by + " " + direction)
+    end
   end
 
   def dates_from_start_learning

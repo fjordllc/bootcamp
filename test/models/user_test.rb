@@ -70,13 +70,12 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test "order_by_reports_or_comments_count" do
-    @users = User.order_by_reports_or_comments_count("report", "desc")
+  test "order_by_counts" do
+    @users = User.order_by_counts("report", "desc")
     @names = @users.pluck(:login_name)
-    puts @names
     assert @names == ["tanaka", "komagata", "yamada", "machida", "kimura", "muryou", "yameo", "mineo", "hajime", "hatsuno", "kensyu"]
 
-    @users = User.order_by_reports_or_comments_count("comment", "asc")
+    @users = User.order_by_counts("comment", "asc")
     @names = @users.pluck(:login_name)
     assert @names == ["yameo", "hajime", "hatsuno", "kensyu", "kimura", "muryou", "yamada", "mineo", "machida", "tanaka", "komagata"]
   end
