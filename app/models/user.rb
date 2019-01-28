@@ -131,21 +131,19 @@ class User < ActiveRecord::Base
   scope :admins, -> { where(admin: true) }
   scope :trainee, -> { where(trainee: true) }
   scope :order_by_counts, -> (order_by, direction) {
-    if order_by.in?(VALID_SORT_COLUMNS)
-      if order_by == "report" && direction == "asc"
-        User.left_outer_joins(:reports).group("users.id").order(Arel.sql("count(reports.id) asc"))
-      elsif order_by == "report" && direction == "desc"
-        User.left_outer_joins(:reports).group("users.id").order(Arel.sql("count(reports.id) desc"))
-      elsif order_by == "comment" && direction == "asc"
-        User.left_outer_joins(:comments).group("users.id").order(Arel.sql("count(comments.id) asc"))
-      elsif order_by == "comment" && direction == "desc"
-        User.left_outer_joins(:comments).group("users.id").order(Arel.sql("count(comments.id) desc"))
-      else
-        User.order(order_by + " " + direction)
-      end
-    else
-      # 事前に定めた属性名以外はエラーとする（ SQLインジェクション対策 ）
+    unless order_by.in?(VALID_SORT_COLUMNS)
       raise ArgumentError, "Attribute not allowed: #{order_by}"
+    end
+    if order_by == "report" && direction == "asc"
+      User.left_outer_joins(:reports).group("users.id").order(Arel.sql("count(reports.id) asc"))
+    elsif order_by == "report" && direction == "desc"
+      User.left_outer_joins(:reports).group("users.id").order(Arel.sql("count(reports.id) desc"))
+    elsif order_by == "comment" && direction == "asc"
+      User.left_outer_joins(:comments).group("users.id").order(Arel.sql("count(comments.id) asc"))
+    elsif order_by == "comment" && direction == "desc"
+      User.left_outer_joins(:comments).group("users.id").order(Arel.sql("count(comments.id) desc"))
+    else
+      User.order(order_by + " " + direction)
     end
   }
 
