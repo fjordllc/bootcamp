@@ -72,9 +72,9 @@ class UserTest < ActiveSupport::TestCase
 
   test "order_by_counts" do
     names = User.order_by_counts("report", "desc").pluck(:login_name)
-    assert names == ["tanaka", "komagata", "yamada", "machida", "kimura", "muryou", "yameo", "mineo", "hajime", "hatsuno", "kensyu"]
+    assert_equal ["tanaka", "komagata", "yamada", "machida", "kimura", "muryou", "yameo", "mineo", "hajime", "hatsuno", "kensyu"], names
 
     names = User.order_by_counts("comment", "asc").pluck(:login_name)
-    assert names == ["yameo", "hajime", "hatsuno", "kensyu", "kimura", "muryou", "yamada", "mineo", "machida", "tanaka", "komagata"]
+    assert_equal ["yameo", "hajime", "hatsuno", "kensyu", "kimura", "muryou", "yamada", "mineo", "machida", "tanaka", "komagata"], names
   end
 end
