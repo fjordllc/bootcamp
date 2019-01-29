@@ -131,8 +131,8 @@ class User < ActiveRecord::Base
   scope :admins, -> { where(admin: true) }
   scope :trainee, -> { where(trainee: true) }
   scope :order_by_counts, -> (order_by, direction) {
-    unless order_by.in?(VALID_SORT_COLUMNS)
-      raise ArgumentError, "Attribute not allowed: #{order_by}"
+    unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
+      raise ArgumentError, "Invalid argument"
     end
 
     if order_by == "report" && direction == "asc"
