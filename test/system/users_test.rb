@@ -31,6 +31,8 @@ class UsersTest < ApplicationSystemTestCase
     page.driver.browser.switch_to.alert.accept
     assert_text "退会処理が完了しました"
     assert_equal Date.current, user.reload.retired_on
+    click_on "Fjord Boot Camp"
+    click_link "受講者入り口"
     login_user "hatsuno", "testtest"
     assert_text "ログインができません"
   end
