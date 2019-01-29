@@ -37,17 +37,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    @user = User.find(params[:id])
-    @user.assign_attributes(retire_reason_params)
-    @user.retired_on = Date.current
-    if @user.save(context: :retire_reason_presence)
-      redirect_to user_retirement_url(@user)
-    else
-      render "users/retirement/new"
-    end
-  end
-
   private
     def user_params
       params.require(:user).permit(
@@ -83,9 +72,5 @@ class UsersController < ApplicationController
 
     def set_user
       @user = User.find(params[:id])
-    end
-
-    def retire_reason_params
-      params.require(:user).permit(:retire_reason)
     end
 end
