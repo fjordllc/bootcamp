@@ -202,10 +202,6 @@ WHERE
     learning_time.first.total || 0
   end
 
-  def dates_from_start_learning
-    (Date.current - self.created_at.to_date).to_i
-  end
-
   def self.users_role(target)
     case target
     when "student"
