@@ -1,6 +1,4 @@
-- if params[:order_by] == order_by && direction == "asc"
-  = link_to admin_users_path(order_by: order_by, direction: :desc, target: target), class: "is-button-simple-xs-secondary is-icon" do
-    i.fas.fa-caret-up
-- else
-  = link_to admin_users_path(order_by: order_by, direction: :asc, target: target), class: "is-button-simple-xs-secondary is-icon" do
-    i.fas.fa-caret-down
+- params[:order_by] == order_by && direction == "asc" ? direction = "desc" : direction = "asc"
+
+= link_to admin_users_path(order_by: order_by, direction: direction, target: target), class: "is-button-simple-xs-secondary is-icon" do
+  i.fas.fa-caret-up
