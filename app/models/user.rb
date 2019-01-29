@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
     elsif order_by == "comment" && direction == "desc"
       left_outer_joins(:comments).group("users.id").order(Arel.sql("count(comments.id) desc"))
     else
-      order(order_by + " " + direction)
+      order("#{order_by} #{direction}")
     end
   }
 
