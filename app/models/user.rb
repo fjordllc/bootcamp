@@ -225,7 +225,7 @@ WHERE
     end
   end
 
-  def dates_from_start_learning
+  def elapsed_days
     (Date.current - self.created_at.to_date).to_i
   end
 
