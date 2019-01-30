@@ -12,9 +12,11 @@ class HomeController < ApplicationController
       end
     else
       render action: :welcome
+      render layout: "welcome"
     end
   end
 
   def welcome
+    render layout: "welcome"
   end
 end

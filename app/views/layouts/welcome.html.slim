@@ -12,10 +12,11 @@ html.is-application lang="ja"
     = stylesheet_link_tag "welcome", media: "all"
     - if page_classes.include?("welcome-home")
       link(rel="canonical" href="https://bootcamp.fjord.jp/")
-  body#body class="#{body_class} #{page_classes}"
+  body#body class="#{body_class} #{page_classes} is-welcome"
     = render "google_tag_manager_body"
     .wrapper.js-open-drawer-wrapper
+      = render "/welcome/welcome_header"
       = render "alert"
       main.page
         = yield
-    = render("to_top")
+      = render "/welcome/welcome_footer"

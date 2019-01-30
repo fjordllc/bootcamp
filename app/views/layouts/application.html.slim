@@ -9,15 +9,10 @@ html.is-application lang="ja"
     = javascript_pack_tag "application"
     = csrf_meta_tags
     = render "favicons"
-    - if page_classes.include?("welcome")
-      = stylesheet_link_tag "welcome", media: "all"
-      - if page_classes.include?("welcome-home")
-        link(rel="canonical" href="https://bootcamp.fjord.jp/")
-    - else
-      = render "current_user"
-      = stylesheet_link_tag "application", media: "all"
-      = stylesheet_link_tag "//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
-      = render "import_prism"
+    = render "current_user"
+    = stylesheet_link_tag "application", media: "all"
+    = stylesheet_link_tag "//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    = render "import_prism"
     = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto", media: "all"
     = stylesheet_link_tag "https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:900", media: "all"
     = content_for(:head_last) if content_for?(:head_last)
