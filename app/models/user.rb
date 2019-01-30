@@ -131,22 +131,18 @@ class User < ActiveRecord::Base
   scope :admins, -> { where(admin: true) }
   scope :trainee, -> { where(trainee: true) }
   scope :order_by_counts, -> (order_by, direction) {
-    unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
-      raise ArgumentError, "Invalid argument"
-    end
+        unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
+          raise ArgumentError, "Invalid argument"
+        end
 
-    if order_by == "report" && direction == "asc"
-      left_outer_joins(:reports).group("users.id").order(Arel.sql("count(reports.id) asc"))
-    elsif order_by == "report" && direction == "desc"
-      left_outer_joins(:reports).group("users.id").order(Arel.sql("count(reports.id) desc"))
-    elsif order_by == "comment" && direction == "asc"
-      left_outer_joins(:comments).group("users.id").order(Arel.sql("count(comments.id) asc"))
-    elsif order_by == "comment" && direction == "desc"
-      left_outer_joins(:comments).group("users.id").order(Arel.sql("count(comments.id) desc"))
-    else
-      order("#{order_by} #{direction}")
-    end
-  }
+        if order_by.in? ["report", "comment"]
+          left_outer_joins(order_by.pluralize.to_sym)
+            .group("users.id")
+            .order(Arel.sql("count(#{order_by.pluralize}.id) #{direction}"))
+        else
+          order(order_by.to_sym => direction.to_sym)
+        end
+      }
 
   def away?
     self.updated_at <= 10.minutes.ago
