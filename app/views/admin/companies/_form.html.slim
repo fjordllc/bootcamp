@@ -23,11 +23,9 @@
             label.js-file-input__preview(for="company_logo")
               - if company.logo.attached?
                 = image_tag company.logo.variant(resize: "500x500")
-                p
-                  | 画像を変更
+                p 画像を変更
               - else
-                p
-                  | 画像を選択
+                p 画像を選択
               = f.file_field :logo
   .form-actions
     ul.form-actions__items
