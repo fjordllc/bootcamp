@@ -23,16 +23,16 @@ class WatchesController < ApplicationController
   end
 
   private
-  def watch_params
-    params.require(:watch).permit(
-      :watchable_id,
-      :watchable_type
-    )
-  end
-
-  def watchable
-    if params[:report_id]
-      Report.find(params[:report_id])
+    def watch_params
+      params.require(:watch).permit(
+        :watchable_id,
+        :watchable_type
+      )
     end
-  end
+
+    def watchable
+      if params[:report_id]
+        Report.find(params[:report_id])
+      end
+    end
 end
