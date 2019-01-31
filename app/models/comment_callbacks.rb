@@ -58,7 +58,6 @@ class CommentCallbacks
         user: comment.user,
         watchable: Report.find(comment.commentable_id)
       )
-      @watch.watching = true
       @watch.save!
     end
 end

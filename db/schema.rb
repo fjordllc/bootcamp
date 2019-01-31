@@ -313,7 +313,6 @@ ActiveRecord::Schema.define(version: 2019_04_20_140857) do
   create_table "watches", force: :cascade do |t|
     t.string "watchable_type"
     t.bigint "watchable_id"
-    t.boolean "watching"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
