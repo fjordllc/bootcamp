@@ -41,11 +41,9 @@
         label.js-file-input__preview
           - if f.object.avatar.attached?
             = image_tag f.object.avatar.variant(resize: "100x100")
-            p
-              | 画像を変更
+            p 画像を変更
           - else
-            p
-              | 画像を選択
+            p 画像を選択
           = f.file_field :avatar
 
       - unless user.adviser?
@@ -59,8 +57,7 @@
         .is-button-simple-md-secondary.is-select.is-block
           = f.collection_select :course_id, Course.order(:created_at), :id, :title, {}
         .auth-form-item__help
-          p
-            | コースの一覧は
+          p コースの一覧は
             = link_to "こちら", courses_path, trget: "_blank"
 
       .auth-form-item
@@ -70,8 +67,7 @@
           - options = options_for_select(User.jobs.map { |k, v| [t("activerecord.enums.user.job.#{k}"), k] }, selected: f.object.job)
           = f.select :job, options, include_blank: "- 選択してください -"
         .auth-form-item__help
-          p
-            | 近いものを選択してください。
+          p 近いものを選択してください。
 
       .auth-form-item
         // 現在の所属組織
