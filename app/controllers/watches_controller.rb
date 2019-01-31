@@ -8,7 +8,6 @@ class WatchesController < ApplicationController
       user: current_user,
       watchable: watchable
     )
-    @watch.watching = true
 
     @watch.save!
     redirect_back fallback_location: root_path,
