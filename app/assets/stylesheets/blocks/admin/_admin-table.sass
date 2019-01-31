@@ -22,9 +22,19 @@
   +text-block(1.5rem 1.45, $side)
 
 .admin-table__label
-  +text-block(.75rem 2rem, $main-color center 600)
+  +text-block(.75rem 1.4, $main-color center 600)
   border: solid 1px #aaaaaa
   white-space: nowrap
+  height: 2rem
+  +padding(horizontal, .5rem)
+  [class*=is-button-].is-icon
+    min-height: 1.25rem
+    height: 1.25rem
+    font-size: .875rem
+    margin-left: .5rem
+    +padding(horizontal, .375rem)
+    background-color: #dedede
+    color: $main-color
 
 .admin-table__item
   background-color: $base
@@ -32,6 +42,7 @@
     background-color: $background-color
   &:last-child
     +border-radius(bottom, .25rem)
+
 .admin-table__item-value
   padding: .375rem .75rem
   border: solid 1px $background-color-shade

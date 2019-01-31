@@ -62,11 +62,19 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 2, user.total_learning_time
   end
 
-  test "dates_from_start_lerning" do
+  test "elapsed_days" do
     user = users(:komagata)
     user.created_at = Time.new(2019, 1, 1, 0, 0, 0)
     travel_to Time.new(2020, 1, 1, 0, 0, 0) do
-      assert_equal 365, user.dates_from_start_lerning
+      assert_equal 365, user.elapsed_days
     end
+  end
+
+  test "order_by_counts" do
+    names = User.order_by_counts("report", "desc").pluck(:login_name)
+    assert_equal ["tanaka", "komagata", "yamada", "machida", "kimura", "muryou", "yameo", "mineo", "hajime", "hatsuno", "kensyu"], names
+
+    names = User.order_by_counts("comment", "asc").pluck(:login_name)
+    assert_equal ["yameo", "hajime", "hatsuno", "kensyu", "kimura", "muryou", "yamada", "mineo", "machida", "tanaka", "komagata"], names
   end
 end

@@ -1,0 +1,4 @@
+- direction = params[:order_by] == order_by && direction == "asc" ? "desc" : "asc"
+
+= link_to admin_users_path(order_by: order_by, direction: direction, target: target), class: "is-button-simple-xs-secondary is-icon" do
+  i.fas.fa-caret-up

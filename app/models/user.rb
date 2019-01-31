@@ -2,6 +2,7 @@
 
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
+  VALID_SORT_COLUMNS = %w(id login_name company_id updated_at report comment asc desc)
 
   enum job: {
     student: 0,
@@ -129,6 +130,19 @@ class User < ActiveRecord::Base
   }
   scope :admins, -> { where(admin: true) }
   scope :trainee, -> { where(trainee: true) }
+  scope :order_by_counts, -> (order_by, direction) {
+    unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
+      raise ArgumentError, "Invalid argument"
+    end
+
+    if order_by.in? ["report", "comment"]
+      left_outer_joins(order_by.pluralize.to_sym)
+        .group("users.id")
+        .order(Arel.sql("count(#{order_by.pluralize}.id) #{direction}"))
+    else
+      order(order_by.to_sym => direction.to_sym)
+    end
+  }
 
   def away?
     self.updated_at <= 10.minutes.ago
@@ -184,10 +198,6 @@ WHERE
     learning_time.first.total || 0
   end
 
-  def dates_from_start_learning
-    (Date.current - self.created_at.to_date).to_i
-  end
-
   def self.users_role(target)
     case target
     when "student"
@@ -209,6 +219,10 @@ WHERE
     when "all"
       self.all
     end
+  end
+
+  def elapsed_days
+    (Date.current - self.created_at.to_date).to_i
   end
 
   private
