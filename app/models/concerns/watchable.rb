@@ -8,5 +8,4 @@ module Watchable
 
     scope :watched, -> { joins(:watches) }
   end
-
 end
