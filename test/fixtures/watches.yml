@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  watchable: one
+  watchable_type: Watchable
+  watching: false
+
+two:
+  watchable: two
+  watchable_type: Watchable
+  watching: false

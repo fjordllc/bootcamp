@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   resources :comments
   resources :notifications, only: %i(show)
   resources :pages
+  resources :watches
 
   resources :questions do
     resources :answers, only: %i(edit create update destroy)

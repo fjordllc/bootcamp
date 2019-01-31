@@ -88,6 +88,16 @@ header.page-header
                   = form_for @checks.last, url: check_path(@checks.last), method: :delete, html: { class: "report-check-form" } do |f|
                     = f.submit "日報の確認を取り消す", class: "thread-check-form__action is-text"
 
+        .thread-admin-tools
+          ul.thread-admin-tools__items
+            li.thread-admin-tools__item
+              = form_for @watch, html: { class: "report-check-form" } do |f|
+                = hidden_field_tag :user_id, current_user.id
+                = hidden_field_tag :report_id, @report.id
+                - if current_user.id.in?(@report.watches.pluck(:user_id))
+                  = link_to "ウォッチを止める", watch_path, method: :delete, class: "report-check-form__action is-button-simple-md-danger"
+                - else
+                  = f.submit "日報をウォッチする", class: "report-check-form__action is-button-simple-md-danger"
       .thread-prev-next
         .thread-prev-next__item
           - if @report.previous
