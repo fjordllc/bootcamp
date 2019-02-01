@@ -13,6 +13,7 @@ header.header
         ul.header-links__items
           li
             = form_tag searchables_url, method: "get", class: "header-search", name: "search" do
+              = select_tag "filter", options_for_select(Searcher::FILTERS, params[:filter])
               = text_field_tag "word", params[:word], class: "a-xs-text-input header-search__text-input", placeholder: "検索"
               button.is-button-simple-sm-secondary.is-icon.header-search__submit#test-search(type="submit")
                 i.fas.fa-search
