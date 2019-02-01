@@ -112,4 +112,26 @@ class UsersTest < ApplicationSystemTestCase
     visit "/users/#{users(:komagata).id}"
     assert_equal 1, all(".user-profile__company-logo").length
   end
+
+  test "show users role" do
+    login_user "komagata", "testtest"
+    visit "/users/#{users(:komagata).id}"
+    assert_text "管理者"
+
+    login_user "yamada", "testtest"
+    visit "/users/#{users(:yamada).id}"
+    assert_text "メンター"
+
+    login_user "mineo", "testest"
+    visit "/users/#{users(:mineo).id}"
+    assert_text "アドバイザー"
+
+    login_user "kensyu", "testtest"
+    visit "/users/#{users(:kensyu).id}"
+    assert_text "研修生"
+
+    login_user "tanaka", "testtest"
+    visit "/users/#{users(:tanaka)}"
+    assert_text "卒業生"
+  end
 end
