@@ -6,6 +6,7 @@
   "globals": {
     "window": true,
     "fetch": true,
+    "FileReader": true,
     "FormData": true
   }
 }

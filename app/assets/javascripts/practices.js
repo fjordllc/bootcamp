@@ -5,7 +5,6 @@ $(function() {
       status = $(this).data('status');
       tr = $(this).parents('.js-practice');
       ref = tr[0].id.split('_'), x = ref[0], practice_id = ref[1];
-      console.log(tr);
       tr.find('.is-active').removeClass('is-active');
       $(this).parent().addClass('is-active');
       return $.ajax("/api/practices/" + practice_id + "/learning", {
