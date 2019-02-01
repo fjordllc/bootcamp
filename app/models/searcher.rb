@@ -2,12 +2,12 @@
 
 class Searcher
   FILTERS = [
-    ['すべて', :all],
-    ['お知らせ', :announcements],
-    ['プラクティス', :practices],
-    ['日報', :reports],
-    ['Q&A', :questions],
-    ['Wiki', :pages]
+    ["すべて", :all],
+    ["お知らせ", :announcements],
+    ["プラクティス", :practices],
+    ["日報", :reports],
+    ["Q&A", :questions],
+    ["Wiki", :pages]
   ]
 
   AVAILABLE_TYPES = FILTERS.map(&:second) - [:all]
