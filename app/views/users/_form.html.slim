@@ -37,18 +37,18 @@
 
     .auth-form-item
       = f.label :avatar, class: "a-sm-label is-required"
-      .auth-form-item-avatar
-        - if f.object.avatar.attached?
-          = image_tag f.object.avatar.variant(resize: "100x100"), class: "auth-form-item-avatar__image"
-        label.a-file-input.is-button-simple-md-warning
+      .form-item-file-input.js-file-input.a-file-input.is-avatar
+        label.js-file-input__preview
           - if f.object.avatar.attached?
-            | 画像を変更
+            = image_tag f.object.avatar.variant(resize: "100x100")
+            p 画像を変更
           - else
-            | 画像を選択
+            p 画像を選択
           = f.file_field :avatar
+
       - unless user.adviser?
         .auth-form-item__help
-          p 著作権侵害にならない画像を使用してください。
+          p 著作権侵害にならない画像を使用してください。画像は正方形に切り抜かれます。
 
     - unless user.adviser?
       .auth-form-item.is-hidden
@@ -57,8 +57,7 @@
         .is-button-simple-md-secondary.is-select.is-block
           = f.collection_select :course_id, Course.order(:created_at), :id, :title, {}
         .auth-form-item__help
-          p
-            | コースの一覧は
+          p コースの一覧は
             = link_to "こちら", courses_path, trget: "_blank"
 
       .auth-form-item
@@ -68,8 +67,7 @@
           - options = options_for_select(User.jobs.map { |k, v| [t("activerecord.enums.user.job.#{k}"), k] }, selected: f.object.job)
           = f.select :job, options, include_blank: "- 選択してください -"
         .auth-form-item__help
-          p
-            | 近いものを選択してください。
+          p 近いものを選択してください。
 
       .auth-form-item
         // 現在の所属組織

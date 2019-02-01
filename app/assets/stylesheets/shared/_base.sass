@@ -69,7 +69,8 @@ body
     padding-right: 1rem
   body.is-edit-page &.is-padding-horizontal-0-sm-down,
   body.is-admin &.is-padding-horizontal-0-sm-down
-    padding-right: 0
+    +media-breakpoint-down(sm)
+      padding-right: 0
   body.welcome &
     max-width: 75rem
     +padding(horizontal, 1rem)
