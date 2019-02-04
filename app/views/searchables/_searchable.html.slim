@@ -1,7 +1,7 @@
 .thread-list-item(class="is-#{searchable.class.to_s.tableize.singularize}")
   .thread-list-item__inner
     .thread-list-item__label
-      = t(searchable.class.to_s.tableize.singularize)
+      = t("activerecord.models.#{searchable.class.to_s.tableize.singularize}")
     header.thread-list-item__header
       .thread-list-item__title
         = link_to searchable.title, searchable, class: "thread-list-item__title-link"
