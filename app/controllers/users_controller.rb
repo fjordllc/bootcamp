@@ -37,11 +37,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    UserDeleter.new(current_user).delete
-    redirect_to users_url, notice: "退会しました。"
-  end
-
   private
     def user_params
       params.require(:user).permit(
