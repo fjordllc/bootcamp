@@ -21,17 +21,26 @@ nav.global-nav.js-show-mobile-nav__target.js-show-mobile-nav
           = link_to reports_path, class: "global-nav-links__link #{current_link /^reports/}" do
             .global-nav-links__link-icon
               i.fas.fa-pen
+            -if Report.unchecked.not_wip.count > 0 && current_user.admin?
+              .gloval-nav__item-count.a-notification-count
+                = Report.unchecked.not_wip.count
             .global-nav-links__link-label 日報
         - if admin_adviser_or_mento_login?
           li.global-nav-links__item
             = link_to products_path, class: "global-nav-links__link #{current_link /^products-index/}" do
               .global-nav-links__link-icon
                 i.fas.fa-hand-paper
+              -if Product.unchecked.count > 0 && current_user.admin?
+                .gloval-nav__item-count.a-notification-count
+                  = Product.unchecked.count
               .global-nav-links__link-label 提出物
         li.global-nav-links__item
           = link_to questions_path, class: "global-nav-links__link #{current_link /^questions/}" do
             .global-nav-links__link-icon
               i.fas.fa-question
+            - if Question.not_solved.count > 0 && current_user.admin?
+              .groval-nav__item-count.a-notification-count
+                = Question.not_solved.count
             .global-nav-links__link-label Q&A
         li.global-nav-links__item
           = link_to users_path, class: "global-nav-links__link #{current_link /^users/}" do
