@@ -19,7 +19,7 @@ class NotificationsTest < ApplicationSystemTestCase
     click_button "提出"
     click_link "ログアウト"
     login_user "komagata", "testtest"
-    click_link "日報"
+    find(".global-nav").click_link("日報")
     click_link "Rubyの基礎"
     click_button "日報を確認する"
     fill_in "comment[description]", with: "今日の日報を確認しました"
