@@ -51,11 +51,11 @@
           | 所属企業
         .user-metas__item-value
           = user.company.name
-      .user-metas__item
-        .user-metas__item-label
-          | 区分
-        .user-metas__item-value
-          = t "target.#{user.role}"
+    .user-metas__item
+      .user-metas__item-label
+        | 区分
+      .user-metas__item-value
+        = t "target.#{user.role}"
     - if user.graduated_on.present?
       .user-metas__item
         .user-metas__item-label
