@@ -491,7 +491,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "コメント", first(".page-tabs__item-link.is-active").text
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
-    actual_comment_counts = all(".thread-comment__title-link").size
+    actual_comment_counts = all(".thread-list-item__title-link").size
     assert_equal expected_comment_counts, actual_comment_counts
   end
 
