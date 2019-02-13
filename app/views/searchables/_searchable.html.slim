@@ -6,4 +6,4 @@
       .thread-list-item__title
         = link_to searchable.title, searchable, class: "thread-list-item__title-link"
     .thread-list-item__body
-      p = truncate searchable.description, length: 50
+      = comment_summury(searchable.description, 90)

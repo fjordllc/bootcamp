@@ -1,0 +1,19 @@
+- commentable = comment.commentable
+.thread-list-item(class="is-#{commentable.class.to_s.tableize.singularize}")
+  .thread-list-item__inner
+    .thread-list-item__label
+      = t("activerecord.models.#{commentable.class.to_s.tableize.singularize}")
+    header.thread-list-item__header
+      - if user_comments_page?
+        h2.thread-list-item__title
+          = link_to commentable, class: "thread-list-item__title-link" do
+            = image_tag commentable.user.avatar.variant(resize: "40x40"), class: "thread-comment__title-icon"
+            = truncate(commentable.title, length: 50)
+      - else
+        h2.thread-list-item__title
+          = link_to comment.user, itempro: "url", class: "thread-list-item__title-link" do
+            = comment.user.login_name
+      time.thread-comment__created-at(datetime="#{commentable.created_at.to_datetime}" pubdate="pubdate")
+        = l comment.updated_at
+    .thread-list-item__body
+      = comment_summury(comment.description, 90)

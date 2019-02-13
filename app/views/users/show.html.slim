@@ -38,6 +38,3 @@ header.page-header
           - if @user.github_account
             .a-card
               = render "users/github_grass", user: @user
-          - if @user.admin?
-            .a-card
-              = render "users/unchecked"

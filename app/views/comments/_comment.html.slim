@@ -7,9 +7,10 @@
     header.thread-comment__body-header
       - if user_comments_page?
         h2.thread-comment__title.is-user-comments
+          = t("activerecord.models.#{commentable.class.to_s.tableize.singularize}")
           = link_to commentable, class: "thread-comment__title-link" do
             = image_tag commentable.user.avatar.variant(resize: "40x40"), class: "thread-comment__title-icon"
-            = truncate(comment_title(commentable), length: 50)
+            = truncate(commentable.title, length: 50)
       - else
         h2.thread-comment__title
           = link_to comment.user, itempro: "url", class: "thread-comment__title-link" do
