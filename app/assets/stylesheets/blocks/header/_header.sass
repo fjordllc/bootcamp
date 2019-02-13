@@ -75,9 +75,17 @@ $header-height: 3.125rem
   align-items: center
   padding-right: .75rem
 
+.header-search__select
+  &.is-select
+    height: 2rem
+    +border-radius(right, 0)
+    border-right: none
+    select
+      +padding(horizontal, .75rem 2rem)
+
 .header-search__text-input
   height: 2rem
-  +border-radius(right, 0)
+  border-radius: 0
   border-right: none
 
 .is-icon.header-search__submit
