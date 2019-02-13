@@ -1,0 +1,11 @@
+- title "クレジットカード"
+
+header.page-header
+  .container
+    .page-header__container
+      h2.page-header__title = title
+
+.page-body
+  .container
+    | #{@card["brand"]} **** **** **** #{@card["last4"]} #{sprintf("%02d", @card["exp_month"].to_i)}/#{@card["exp_year"]}
+    = link_to "編集", edit_card_path, class: "is-button-simple-lg-warning"
