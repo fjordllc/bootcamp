@@ -5,35 +5,29 @@ require "application_system_test_case"
 class SearchablesTest < ApplicationSystemTestCase
   setup { login_user "hatsuno", "testtest" }
 
-  test "search Report" do
+  test "search All " do
     within("form[name=search]") do
-      fill_in "word", with: "作業"
+      select "すべて"
+      fill_in "word", with: "テスト"
     end
     find("#test-search").click
-    assert_text "作業週1日目"
+    assert_text "テストの日報"
+    assert_text "Wikiページ"
+    assert_text "Unityでのテスト"
+    assert_text "テストの質問1"
+    assert_text "テストのお知らせ"
   end
 
-  test "search Announcement" do
+  test "search reports " do
     within("form[name=search]") do
-      fill_in "word", with: "お知らせ"
+      select "日報"
+      fill_in "word", with: "テスト"
     end
     find("#test-search").click
-    assert_text "お知らせ1"
-  end
-
-  test "search Practice" do
-    within("form[name=search]") do
-      fill_in "word", with: "Mountain"
-    end
-    find("#test-search").click
-    assert_text "OS X Mountain Lionをクリーンインストールする"
-  end
-
-  test "search Question " do
-    within("form[name=search]") do
-      fill_in "word", with: "エディター"
-    end
-    find("#test-search").click
-    assert_text "どのエディターを使うのが良いでしょうか"
+    assert_text "テストの日報"
+    assert_no_text "Wikiページ"
+    assert_no_text "Unityでのテスト"
+    assert_no_text "テストの質問1"
+    assert_no_text "テストのお知らせ"
   end
 end
