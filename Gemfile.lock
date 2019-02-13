@@ -86,6 +86,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    commonmarker (0.18.2)
+      ruby-enum (~> 0.5)
     concurrent-ruby (1.1.4)
     crass (1.0.4)
     curb (0.8.8)
@@ -274,6 +276,8 @@ GEM
     retriable (3.1.2)
     rollbar (2.18.0)
       multi_json
+    ruby-enum (0.7.2)
+      i18n
     ruby-graphviz (1.2.3)
     ruby_dep (1.5.0)
     rubyzip (1.2.2)
@@ -381,6 +385,7 @@ DEPENDENCIES
   chromedriver-helper
   cocoon
   coffee-rails (~> 4.2)
+  commonmarker
   curb (~> 0.8.8)
   diffy
   dynamic_form
