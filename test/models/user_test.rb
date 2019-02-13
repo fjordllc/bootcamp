@@ -69,6 +69,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "when retire_reason is blank" do
+    Bootcamp::Setup.attachment
+
     user = users(:hatsuno)
     assert user.retire_reason.blank?
     assert_not user.save(context: :retire_reason_presence)
