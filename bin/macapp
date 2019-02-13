@@ -1,0 +1,3 @@
+#!/bin/sh
+
+nativefier --icon public/favicons/android-chrome-512x512.png --name Bootcamp "https://bootcamp.fjord.jp"
