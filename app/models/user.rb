@@ -229,6 +229,20 @@ WHERE
     (Date.current - self.created_at.to_date).to_i
   end
 
+  def customer
+    if customer_id?
+      Stripe::Customer.retrieve(customer_id)
+    end
+  end
+
+  def card?
+    customer_id?
+  end
+
+  def card
+    customer.sources.data.first
+  end
+
   private
     def password_required?
       new_record? || password.present?
