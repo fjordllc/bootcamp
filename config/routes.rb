@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "users/products"
   end
 
-  resource :card, only: %i(new create edit update), controller: "card"
+  resource :card, only: %i(show new create edit update), controller: "card"
   resource :current_user, only: %i(edit update), controller: "current_user"
   resources :searchables, only: %i(index)
   resources :user_sessions, only: %i(new create destroy)
