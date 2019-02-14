@@ -72,10 +72,12 @@ class UserTest < ActiveSupport::TestCase
 
   test "order_by_counts" do
     names = User.order_by_counts("report", "desc").pluck(:login_name)
-    assert_equal ["tanaka", "komagata", "yamada", "machida", "kimura", "muryou", "yameo", "mineo", "hajime", "hatsuno", "kensyu"], names
+    expected = %w(tanaka komagata machida yamada mineo yameo kimura hatsuno hajime muryou kensyu)
+    assert_equal expected, names
 
     names = User.order_by_counts("comment", "asc").pluck(:login_name)
-    assert_equal ["yameo", "hajime", "hatsuno", "kensyu", "kimura", "muryou", "yamada", "mineo", "machida", "tanaka", "komagata"], names
+    expected = %w(mineo yameo yamada kimura hatsuno hajime muryou kensyu machida tanaka komagata)
+    assert_equal expected, names
   end
 
   test "when retire_reason is blank" do
@@ -85,6 +87,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "is valid with 8 or more characters" do
+    Bootcamp::Setup.attachment
     user = users(:hatsuno)
     user.retire_reason = "辞" * 8
     assert user.save(context: :retire_reason_presence)
