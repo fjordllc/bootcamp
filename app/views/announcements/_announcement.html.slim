@@ -33,4 +33,4 @@
                   | 削除
 
   = link_to announcement.user, itempro: "url", class: "thread__author-link" do
-    = image_tag announcement.user.avatar_image(120), class: "thread__author-icon"
+    = image_tag announcement.user.avatar_image(120), class: "thread__author-icon is-#{announcement.user.role}"
