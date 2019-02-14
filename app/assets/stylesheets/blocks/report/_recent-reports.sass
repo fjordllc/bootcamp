@@ -2,7 +2,8 @@
   +position(fixed, right 0, top 0, bottom 0, 1)
   +size(14rem 100%)
   background-color: $side
-  +overflow(hidden auto)
+  overflow: hidden
+  height: 100vh
   +media-breakpoint-down(lg)
     display: none
 
@@ -52,10 +53,12 @@
   text-shadow: $main-color .0625rem .0625rem 0
 
 .recent-reports__to-index
+  width: 100%
+  background-color: $side
   padding: 1rem .75rem
   border-bottom: solid 1px $side-border
   transition: color .2s ease-in, background-color .2s ease-in
-  +position(relative)
+  +position(absolute, bottom 0)
   +text-block(.8125rem 1, block $reversal-text center)
   &:hover
     background-color: $side-shade
