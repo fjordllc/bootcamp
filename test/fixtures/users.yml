@@ -44,7 +44,7 @@ machida:
   how_did_you_know: 自分で作ったので
   organization: 合同会社フィヨルド
   admin: true
-  updated_at: "2014-01-01 00:00:00"
+  updated_at: "2014-01-01 00:00:02"
   created_at: "2014-01-01 00:00:02"
 
 tanaka:
@@ -68,6 +68,7 @@ tanaka:
   how_did_you_know: Googleで「Rails スクール」で検索した結果
   organization: 株式会社田中
   graduated_on: "2015-01-01"
+  updated_at: "2014-01-01 00:00:03"
   created_at: "2014-01-01 00:00:03"
 
 mineo:
@@ -85,6 +86,7 @@ mineo:
   description: "峰尾です。アドバイザーです。"
   adviser: true
   course: course_1
+  updated_at: "2014-01-01 00:00:04"
   created_at: "2014-01-01 00:00:04"
 
 yameo:
@@ -107,6 +109,7 @@ yameo:
   how_did_you_know: 知人に聞いて
   organization: 株式会社ヤメオ
   retired_on: "2015-01-01"
+  updated_at: "2014-01-01 00:00:05"
   created_at: "2014-01-01 00:00:05"
 
 yamada:
@@ -130,6 +133,7 @@ yamada:
   how_did_you_know: 知人に聞いて
   organization: 木村大学
   mentor: true
+  updated_at: "2014-01-01 00:00:06"
   created_at: "2014-01-01 00:00:06"
 
 kimura:
@@ -247,5 +251,5 @@ kensyu:
   how_did_you_know: 研修生
   organization: 研修大学
   trainee: true
-  updated_at: "2014-01-01 00:00:09"
-  created_at: "2014-01-01 00:00:09"
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
