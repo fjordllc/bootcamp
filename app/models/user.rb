@@ -139,9 +139,9 @@ class User < ActiveRecord::Base
     if order_by.in? ["report", "comment"]
       left_outer_joins(order_by.pluralize.to_sym)
         .group("users.id")
-        .order(Arel.sql("count(#{order_by.pluralize}.id) #{direction}"))
+        .order(Arel.sql("count(#{order_by.pluralize}.id) #{direction}, users.created_at"))
     else
-      order(order_by.to_sym => direction.to_sym)
+      order(order_by.to_sym => direction.to_sym, created_at: :asc)
     end
   }
 
