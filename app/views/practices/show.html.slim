@@ -80,4 +80,4 @@ header.page-header
         - @practice.completed_users.each do |user|
           li.completed-users__user
             = link_to user, class: "completed-users__user-link" do
-              = image_tag user.avatar_image(32), class: "completed-users__user-image"
+              = image_tag user.avatar_image(32), class: "completed-users__user-image is-#{user.role}"
