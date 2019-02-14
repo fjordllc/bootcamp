@@ -6,9 +6,9 @@ class SearchablesController < ApplicationController
     @searchables = Kaminari.paginate_array(result).page(params[:page]).per(50)
   end
 
-private
+  private
 
-  def document_type_param
-    params[:document_type]&.to_sym || :all
-  end
+    def document_type_param
+      params[:document_type]&.to_sym || :all
+    end
 end
