@@ -1,7 +1,7 @@
 .thread-list-item
   .thread-list-item__inner
     .thread-list-item__author
-      = image_tag question.user.avatar_image(44), class: "thread-list-item__author-icon"
+      = image_tag question.user.avatar_image(44), class: "thread-list-item__author-icon is-#{question.user.role}"
     header.thread-list-item__header
       h2.thread-list-item__title(itemprop="name")
         = link_to question, itempro: "url", class: "thread-list-item__title-link" do
