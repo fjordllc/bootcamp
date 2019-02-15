@@ -4,7 +4,7 @@
       li.header-drop-down__item
         = link_to notification, class: "header-drop-down__item-link" do
           .header-notifications-item__body
-            = image_tag notification.sender.avatar.variant(resize: "48x48"), class: "header-notifications-item__avatar-image"
+            = image_tag notification.sender.avatar.variant(resize: "48x48>").processed, class: "header-notifications-item__avatar-image"
             .header-notifications-item__message
               p
                 = notification.message

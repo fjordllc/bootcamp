@@ -2,7 +2,7 @@
   .thread-list-item__inner
     .thread-list-item__author
       = link_to announcement.user do
-        = image_tag announcement.user.avatar.variant(resize: "44x44"), class: "thread-list-item__author-icon"
+        = image_tag announcement.user.avatar.variant(resize: "44x44>").processed, class: "thread-list-item__author-icon"
     header.thread-list-item__header
       h2.thread-list-item__title(itemprop="name")
         = link_to announcement, itempro: "url", class: "thread-list-item__title-link" do
