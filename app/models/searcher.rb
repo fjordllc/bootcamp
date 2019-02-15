@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Searcher
-  FILTERS = [
+  DOCUMENT_TYPES = [
     ["すべて", :all],
     ["お知らせ", :announcements],
     ["プラクティス", :practices],
@@ -10,13 +10,13 @@ class Searcher
     ["Wiki", :pages]
   ]
 
-  AVAILABLE_TYPES = FILTERS.map(&:second) - [:all]
+  AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - [:all]
 
-  def self.search(word, filter: :all)
-    if filter == :all
+  def self.search(word, document_type: :all)
+    if document_type == :all
       AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }
     else
-      result_for(filter, word)
+      result_for(document_type, word)
     end
   end
 
