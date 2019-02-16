@@ -18,6 +18,6 @@ module UserDecorator
   end
 
   def avatar_image(length)
-    avatar.variant(resize: "#{length}x#{length}")
+    url_for(avatar)
   end
 end
