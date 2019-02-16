@@ -68,7 +68,6 @@ class User < ActiveRecord::Base
     source:    :practice,
     dependent: :destroy
 
-  has_one_attached :face
   has_one_attached :avatar
 
   validates :email,      presence: true, uniqueness: true
