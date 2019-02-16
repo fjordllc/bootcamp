@@ -29,8 +29,6 @@ html.is-application lang="ja"
       - if current_user && page_classes.exclude?("no-header")
         = render "header"
         = render "alert"
-        - if request.from_pc?
-          = render "faces"
       - else
         = render "alert"
       main.page

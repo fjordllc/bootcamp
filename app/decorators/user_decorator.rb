@@ -24,12 +24,4 @@ module UserDecorator
       gravity: :center
     }).processed
   end
-
-  def face_image(length)
-    face.variant(combine_options: {
-      resize: "#{length}x#{length}^",
-      crop: "#{length}x#{length}+0+0",
-      gravity: :center
-    }).processed
-  end
 end
