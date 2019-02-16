@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 2019_01_17_050043) do
   end
 
   create_table "categories", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.string "slug"
+    t.string "name", limit: 255
+    t.string "slug", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "position"
@@ -89,13 +89,14 @@ ActiveRecord::Schema.define(version: 2019_01_17_050043) do
     t.datetime "updated_at"
     t.string "commentable_type", default: "Report"
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
+    t.index ["user_id"], name: "comment_user_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "companies", id: :serial, force: :cascade do |t|
-    t.string "name"
+    t.string "name", limit: 255
     t.text "description"
-    t.string "website"
+    t.string "website", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "tos"
@@ -218,27 +219,28 @@ ActiveRecord::Schema.define(version: 2019_01_17_050043) do
     t.datetime "updated_at"
     t.date "reported_on"
     t.boolean "wip", default: false, null: false
+    t.index ["user_id"], name: "reports_user_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
-    t.string "login_name", null: false
-    t.string "email"
-    t.string "crypted_password"
-    t.string "salt"
+    t.string "login_name", limit: 255, null: false
+    t.string "email", limit: 255
+    t.string "crypted_password", limit: 255
+    t.string "salt", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "remember_me_token"
+    t.string "remember_me_token", limit: 255
     t.datetime "remember_me_token_expires_at"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "twitter_account"
-    t.string "facebook_url"
-    t.string "blog_url"
+    t.string "first_name", limit: 255
+    t.string "last_name", limit: 255
+    t.string "twitter_account", limit: 255
+    t.string "facebook_url", limit: 255
+    t.string "blog_url", limit: 255
     t.integer "company_id", default: 1
     t.text "description"
-    t.string "feed_url"
+    t.string "feed_url", limit: 255
     t.datetime "accessed_at"
-    t.string "github_account"
+    t.string "github_account", limit: 255
     t.boolean "adviser", default: false, null: false
     t.boolean "nda", default: true, null: false
     t.string "slack_account"
