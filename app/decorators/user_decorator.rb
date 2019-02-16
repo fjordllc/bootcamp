@@ -18,10 +18,6 @@ module UserDecorator
   end
 
   def avatar_image(length)
-    avatar.variant(combine_options: {
-      resize: "#{length}x#{length}^",
-      crop: "#{length}x#{length}+0+0",
-      gravity: :center
-    }).processed
+    avatar.variant(resize: "#{length}x#{length}")
   end
 end
