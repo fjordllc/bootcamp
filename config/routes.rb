@@ -6,8 +6,6 @@ Rails.application.routes.draw do
 
   namespace "api" do
     resource :image, controller: "image", only: %i(create)
-    resource :face, controller: "face", only: %i(update)
-    resources :faces, only: %i(index)
     resources :grasses, only: %i(show)
     resources :categories, only: %i(index)
     resources :practices, only: [] do
