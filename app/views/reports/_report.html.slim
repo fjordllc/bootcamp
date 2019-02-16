@@ -1,7 +1,7 @@
 .thread-list-item(class="#{report.wip? ? "is-wip" : ""}")
   .thread-list-item__inner
     .thread-list-item__author
-      = image_tag report.user.avatar.variant(resize: "44x44>").processed, class: "thread-list-item__author-icon"
+      = image_tag report.user.avatar_image(44), class: "thread-list-item__author-icon"
     header.thread-list-item__header
       - if report.wip?
         .thread-list-item__header-icon WIP
@@ -28,7 +28,7 @@
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-value
             - report.checks.each do |check|
-              = image_tag check.user.avatar.variant(resize: "20x20>").processed, class: "thread-list-item__checked-author-icon"
+              = image_tag check.user.avatar_image(20), class: "thread-list-item__checked-author-icon"
         .stamp.stamp-approve
           h2.stamp__content.is-title 確認済
           time.stamp__content.is-created-at

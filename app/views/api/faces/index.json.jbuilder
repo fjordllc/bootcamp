@@ -6,10 +6,10 @@ json.array! @users do |user|
   json.link user_url(user)
 
   if user.face.attached? && !user.away?
-    json.url url_for(user.face)
-    json.face url_for(user.face)
+    json.url url_for(user.face_image(72))
+    json.face url_for(user.face_image(72))
   else
-    json.url url_for(user.avatar)
-    json.face url_for(user.avatar)
+    json.url url_for(user.avatar_image(72))
+    json.face url_for(user.avatar_image(72))
   end
 end
