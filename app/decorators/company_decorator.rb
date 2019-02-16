@@ -2,6 +2,6 @@
 
 module CompanyDecorator
   def logo_image(length)
-    logo.variant(resize: "#{length}x#{length}")
+    url_for(logo)
   end
 end
