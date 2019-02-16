@@ -1,6 +1,6 @@
 .recent-reports-item(class="#{report.wip? ? "is-wip" : ""}")
   = link_to report, class: "recent-reports-item__link" do
-    = image_tag report.user.avatar.variant(resize: "88x88>").processed, class: "recent-reports-item__user-icon"
+    = image_tag report.user.avatar_image(88), class: "recent-reports-item__user-icon"
     h3.recent-reports-item__title
       - if report.wip?
         span.recent-reports-item__title-icon

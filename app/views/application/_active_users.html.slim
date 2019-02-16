@@ -3,5 +3,5 @@ h4 学習中ユーザー
 - active_users.each do |user|
   p
     = link_to user do
-      = image_tag user.avatar.variant(resize: "45x45>").processed
+      = image_tag user.avatar_image(45)
       span(style="margin-left:5px") = user.login_name
