@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def index
     @categories = Category.order("position")
-    @users = User.with_attached_avatar.order(updated_at: :desc)
+    @users = User.order(updated_at: :desc)
     @target = params[:target] || "student"
     @users = @users.users_role(@target)
   end
