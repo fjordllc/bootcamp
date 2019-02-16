@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
   scope :year_end_party, -> { where(retired_on: nil) }
   scope :mentor, -> { where(mentor: true) }
   scope :working, -> {
-    active.with_attached_face.with_attached_avatar.where(
+    active.where(
       adviser: false,
       graduated_on: nil,
       retired_on: nil
