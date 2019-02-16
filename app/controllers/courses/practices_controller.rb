@@ -2,18 +2,14 @@
 
 class Courses::PracticesController < ApplicationController
   before_action :require_login
-  before_action :set_course
 
   def index
+    @course = Course.joins(categories: { practices: { learnings: :user } }).find(params[:course_id])
+
     # TODO: リタイアした人のセッションが切れたら外す
     if current_user.retired_on?
       logout
       redirect_to retire_path
     end
   end
-
-  private
-    def set_course
-      @course = Course.find(params[:course_id])
-    end
 end

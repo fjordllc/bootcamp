@@ -40,7 +40,7 @@
       .form-item-file-input.js-file-input.a-file-input.is-avatar
         label.js-file-input__preview
           - if f.object.avatar.attached?
-            = image_tag f.object.avatar.variant(resize: "100x100>").processed
+            = image_tag f.object.avatar_image(100)
             p 画像を変更
           - else
             p 画像を選択

@@ -16,4 +16,20 @@ module UserDecorator
     ]
     roles.detect { |v| v[:value] }[:role]
   end
+
+  def avatar_image(length)
+    avatar.variant(combine_options: {
+      resize: "#{length}x#{length}^",
+      crop: "#{length}x#{length}+0+0",
+      gravity: :center
+    }).processed
+  end
+
+  def face_image(length)
+    face.variant(combine_options: {
+      resize: "#{length}x#{length}^",
+      crop: "#{length}x#{length}+0+0",
+      gravity: :center
+    }).processed
+  end
 end
