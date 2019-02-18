@@ -18,6 +18,6 @@ module UserDecorator
   end
 
   def avatar_image(length)
-    url_for(avatar)
+    rails_blob_path(avatar)
   end
 end
