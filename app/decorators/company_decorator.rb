@@ -2,6 +2,6 @@
 
 module CompanyDecorator
   def logo_image(length)
-    url_for(logo)
+    rails_blob_path(logo)
   end
 end
