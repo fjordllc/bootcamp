@@ -3,13 +3,14 @@
   list-style: none
   flex-wrap: wrap
   margin-top: .75rem
-  +margin(horizontal, -.25rem)
+  +margin(horizontal, -.125rem)
 
-.completed-users__user-icon
-  img
-    object-fit: cover
-    +size(2rem)
-    display: block
-    border-radius: 50%
-    +margin(horizontal, .25rem)
-    margin-bottom: .25rem
+.completed-users__user
+  +padding(horizontal, .125rem)
+  margin-bottom: .25rem
+
+.completed-users__user-image
+  display: block
+  border-radius: 50%
+  +size(2rem)
+  object-fit: cover
