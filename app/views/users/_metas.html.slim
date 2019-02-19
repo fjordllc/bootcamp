@@ -5,6 +5,7 @@
         = User.human_attribute_name :created_at
       .user-metas__item-value
         = l user.created_at.to_date
+        | &nbsp;#{user.elapsed_days}日目
     .user-metas__item
       .user-metas__item-label
         = User.human_attribute_name :updated_at
