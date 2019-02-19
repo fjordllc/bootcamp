@@ -7,9 +7,13 @@
 
 .thread-list-item__inner
   +relative
-  padding-left: 4rem
+  padding-left: 3.5rem
   +media-breakpoint-down(sm)
-    padding-left: 3rem
+    padding-left: 3.25rem
+
+.thread-list-item__header-title-container
+  display: flex
+  align-items: flex-start
 
 .thread-list-item__label
   +position(absolute, left 0, top 0)
@@ -40,7 +44,6 @@
     background-color: #f7cd5b
     color: $default-text
 
-
 .thread-list-item__author
   +position(absolute, left 0, top 0)
 
@@ -54,11 +57,6 @@
   .thread-list-item.is-wip &
     opacity: .6
 
-.thread-list-item__checked-author-icon
-  border-radius: 50%
-  +size(1.8125rem)
-  object-fit: cover
-
 .thread-list-item__header
   display: flex
   align-items: center
@@ -70,6 +68,7 @@
 
 .thread-list-item__header-icon
   +text-block(.75rem, inline-flex $muted-text)
+  margin-top: .1875rem
   background-color: #e9ebef
   padding: .125rem .5rem
   margin-right: .5rem
@@ -103,6 +102,7 @@
 
 .thread-list-item-meta
   display: flex
+  align-items: center
   +text-block(.75rem 1.4)
 
 .thread-list-item-meta__updated-at
@@ -118,6 +118,18 @@
 
 .thread-list-item-meta__comment-count-value
   +text-block(.75rem 1.4, block $muted-text inline-block)
+
+.thread-list-item-meta__checkers
+  display: inline-block
+  margin-left: .75rem
+
+.thread-list-item__checked-author-icon
+  border-radius: 50%
+  +size(1.375rem)
+  object-fit: cover
+  &:not(:first-child)
+    margin-left: .25rem
+
 
 .thread-list-item__body
   +text-block(.875rem 1.6)
