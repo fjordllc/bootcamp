@@ -3,10 +3,11 @@
     .thread-list-item__author
       = image_tag report.user.avatar_image(44), class: "thread-list-item__author-icon"
     header.thread-list-item__header
-      - if report.wip?
-        .thread-list-item__header-icon WIP
-      h2.thread-list-item__title(itemprop="name")
-        = link_to report.title, report, itempro: "url", class: "thread-list-item__title-link"
+      .thread-list-item__header-title-container
+        - if report.wip?
+          .thread-list-item__header-icon WIP
+        h2.thread-list-item__title(itemprop="name")
+          = link_to report.title, report, itempro: "url", class: "thread-list-item__title-link"
       - if current_user == report.user
         .thread-list-item__actions
           = link_to edit_report_path(report), class: "thread-list-item__actions-link" do
@@ -25,10 +26,9 @@
           .thread-list-item-meta__comment-count-value
             = report.comments.size
       - if report.checks.any?
-        .thread-list-item-meta__comment-count
-          .thread-list-item-meta__comment-count-value
-            - report.checks.each do |check|
-              = image_tag check.user.avatar_image(20), class: "thread-list-item__checked-author-icon"
+        .thread-list-item-meta__checkers
+          - report.checks.each do |check|
+            = image_tag check.user.avatar_image(20), class: "thread-list-item__checked-author-icon"
         .stamp.stamp-approve
           h2.stamp__content.is-title 確認済
           time.stamp__content.is-created-at
