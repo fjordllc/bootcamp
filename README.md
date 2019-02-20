@@ -9,10 +9,6 @@
     $ yarn install
     $ rails s
 
-You can also launch a web server with [rack-mini-profiler](https://github.com/MiniProfiler/rack-mini-profiler).
-
-    $ RACK_PROFILER=1 rails s
-
 ## テスト
 
 Test with headless browser.
