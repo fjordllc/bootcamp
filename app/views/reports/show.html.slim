@@ -71,14 +71,18 @@ header.page-header
                       i.fas.fa-trash-alt#delete
                       | 削除
 
-        - if (admin_login? || adviser_login?) && @report.checks.blank?
+        - if admin_login? || adviser_login?
           .thread-admin-tools
             ul.thread-admin-tools__items
               li.thread-admin-tools__item
-                = form_for @check, html: { class: "report-check-form" } do |f|
-                  = hidden_field_tag :user_id, current_user.id
-                  = hidden_field_tag :report_id, @report.id
-                  = f.submit "日報を確認する", class: "report-check-form__action is-button-simple-md-danger"
+                - if @report.checks.blank?
+                  = form_for @check, html: { class: "report-check-form" } do |f|
+                    = hidden_field_tag :user_id, current_user.id
+                    = hidden_field_tag :report_id, @report.id
+                    = f.submit "日報を確認する", class: "report-check-form__action is-button-simple-md-danger"
+                - else
+                  = form_for @checks.last, url: check_path(@checks.last), method: :delete, html: { class: "report-check-form" } do |f|
+                    = f.submit "日報の確認を取り消す", class: "report-check-form__action is-button-simple-md-danger"
 
       .thread-prev-next
         .thread-prev-next__item

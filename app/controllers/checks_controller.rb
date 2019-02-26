@@ -16,6 +16,12 @@ class ChecksController < ApplicationController
       notice: "#{checkable.class.model_name.human}を確認しました。"
   end
 
+  def destroy
+    @check = Check.find(params[:id]).destroy
+    redirect_back fallback_location: root_path,
+      notice: "確認を取り消しました。"
+  end
+
   private
     def checkable
       if params[:report_id]
