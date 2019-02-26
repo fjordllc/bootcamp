@@ -56,7 +56,7 @@ Rails.application.routes.draw do
     resources :unchecked, only: %i(index)
   end
   resources :reports
-  resources :checks, only: %i(create)
+  resources :checks, only: %i(create destroy)
   resources :comments
   resources :notifications, only: %i(show)
   resources :pages

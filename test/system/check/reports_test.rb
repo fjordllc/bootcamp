@@ -33,4 +33,12 @@ class Check::ReportsTest < ApplicationSystemTestCase
     visit reports_path
     assert_text "確認済"
   end
+
+  test "success product checking cancel" do
+    login_user "machida", "testtest"
+    visit "/reports/#{reports(:report_2).id}"
+    click_button "日報を確認する"
+    click_button "日報の確認を取り消す"
+    assert_text "確認を取り消しました。"
+  end
 end

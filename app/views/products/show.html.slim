@@ -55,14 +55,18 @@ header.page-header
                     i.fas.fa-trash-alt
                     | 削除
 
-        - if (admin_login? || adviser_login?) && @product.checks.blank?
+        - if (admin_login? || adviser_login?)
           .thread-admin-tools
             ul.thread-admin-tools__items
               li.thread-admin-tools__item
-                = form_for @product.checks.new, class: "thread-check-form" do |f|
-                  = hidden_field_tag :user_id, current_user.id
-                  = hidden_field_tag :product_id, @product.id
-                  = f.submit "提出物を確認", class: "thread-check-form__action is-button-simple-md-danger"
+                - if @product.checks.blank?
+                  = form_for @product.checks.new, class: "thread-check-form" do |f|
+                    = hidden_field_tag :user_id, current_user.id
+                    = hidden_field_tag :product_id, @product.id
+                    = f.submit "提出物を確認", class: "thread-check-form__action is-button-simple-md-danger"
+                - else
+                  = form_for @product.checks.last, url: check_path(@product.checks.last), method: :delete, class: "thread-check-form" do |f|
+                    = f.submit "提出物の確認を取り消す", class: "thread-check-form__action is-button-simple-md-danger"
 
       .thread-prev-next
         .thread-prev-next__item
