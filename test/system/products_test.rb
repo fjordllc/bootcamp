@@ -55,6 +55,16 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text "提出物を更新しました。"
   end
 
+  test "delete product" do
+    login_user "yamada", "testtest"
+    product = products(:product_1)
+    visit "/products/#{product.id}"
+    accept_confirm do
+      click_link "削除"
+    end
+    assert_text "提出物を削除しました。"
+  end
+
   test "product has a comment form " do
     login_user "yamada", "testtest"
     visit "/products/#{products(:product_1).id}"
