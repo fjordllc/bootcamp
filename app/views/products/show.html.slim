@@ -55,7 +55,7 @@ header.page-header
                     i.fas.fa-trash-alt
                     | 削除
 
-        - if (admin_login? || adviser_login?)
+        - if admin_login? || adviser_login?
           .thread-admin-tools
             ul.thread-admin-tools__items
               li.thread-admin-tools__item
