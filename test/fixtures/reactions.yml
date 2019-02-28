@@ -1,0 +1,24 @@
+reaction_1:
+  user: machida
+  reactionable: report_1 (Report)
+  kind: smile
+
+reaction_2:
+  user: komagata
+  reactionable: report_1 (Report)
+  kind: thumbsup
+
+reaction_3:
+  user: machida
+  reactionable: comment_2 (Comment)
+  kind: heart
+
+reaction_4:
+  user: komagata
+  reactionable: comment_2 (Comment)
+  kind: heart
+
+reaction_5:
+  user: komagata
+  reactionable: comment_2 (Comment)
+  kind: thumbsup

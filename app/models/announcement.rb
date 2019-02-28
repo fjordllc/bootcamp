@@ -4,6 +4,7 @@ class Announcement < ApplicationRecord
   include Commentable
   include Footprintable
   include Searchable
+  include Reactionable
 
   belongs_to :user
   alias_method :sender, :user

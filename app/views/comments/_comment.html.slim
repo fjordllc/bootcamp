@@ -19,6 +19,7 @@
         = l comment.updated_at
     .thread-comment__description.js-markdown-view.js-target-blank.is-long-text-style
       = comment.description
+    = render "reactions/reactions", reactionable: comment
     - if comment.user == current_user
       footer.card-footer
         .card-footer-actions
