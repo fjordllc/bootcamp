@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Comment < ActiveRecord::Base
+  include Reactionable
+
   belongs_to :user, touch: true
   belongs_to :commentable, polymorphic: true
   before_save CommentCallbacks.new

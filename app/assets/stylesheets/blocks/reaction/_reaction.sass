@@ -1,0 +1,50 @@
+.reactions
+  display: flex
+  justify-content: space-between
+  border-top: 1px solid #e6e6e6
+  line-height: 2.4
+  position: relative
+  user-select: none
+  .reaction
+    display: inline-block
+    li
+      cursor: pointer
+      display: inline-block
+      padding: 0 9px 0 14px
+      border-right: 1px solid #e6e6e6
+      &.is-reacted
+        background: #f7f7f7
+      &:hover
+        background: #f2f2f2
+    .reaction-count
+      margin: 0 3px 0 5px
+      font-size: .95rem
+      vertical-align: top
+  .reaction-dropdown
+    .reaction-dropdown-toggle
+      cursor: pointer
+      display: inline-block
+      padding: 0 12px
+      color: $main-color
+      border-left: 1px solid #e6e6e6
+      border-right: 1px solid #e6e6e6
+      .fa-plus
+        font-size: .9rem
+        margin-right: 6px
+      &:hover
+        background: #f2f2f2
+    .reaction
+      position: absolute
+      right: 0
+      top: 38px
+      width: 181px
+      background: #fff
+      z-index: 1
+      border-top: 1px solid #e6e6e6
+      border-left: 1px solid #e6e6e6
+      border-bottom-left-radius: .4rem
+      border-bottom-right-radius: .4rem
+      li
+        border-right: 1px solid #e6e6e6
+        border-bottom: 1px solid #e6e6e6
+        width: 45px

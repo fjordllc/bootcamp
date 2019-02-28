@@ -5,6 +5,7 @@ class Report < ActiveRecord::Base
   include Checkable
   include Footprintable
   include Searchable
+  include Reactionable
 
   has_many :learning_times, dependent: :destroy, inverse_of: :report
   validates_associated :learning_times
