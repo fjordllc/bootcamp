@@ -1,0 +1,14 @@
+.reactions.js-reactions data-reaction-reactionable-id=dom_id(reactionable)
+  ul.reaction.js-reaction
+    - Reaction.emojis.each do |kind, emoji|
+      li[*reaction_attributes(kind, reactionable)]
+        span.reaction-emoji.js-reaction-emoji= emoji
+        span.reaction-count.js-reaction-count= reactionable.reacted_count(kind)
+  .reaction-dropdown.js-reaction-dropdown
+    .reaction-dropdown-toggle.js-reaction-dropdown-toggle
+      i.fas.fa-plus
+      i.fas.fa-smile
+    ul.reaction.js-reaction(hidden=true)
+      - Reaction.emojis.each do |kind, emoji|
+        li[*reaction_attributes_all(kind, reactionable)]
+          span.reaction-emoji.js-reaction-emoji= emoji
