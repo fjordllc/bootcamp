@@ -54,6 +54,7 @@ header.page-header
         .thread-body
           .thread__description.js-target-blank.is-long-text-style.js-markdown-view
             = @report.description
+          = render "reactions/reactions", reactionable: @report
           - if @report.user_id == current_user.id
             .card-footer
               .card-footer-actions

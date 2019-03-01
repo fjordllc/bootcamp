@@ -36,6 +36,7 @@ header.page-header
         .thread-body
           .thread__description.js-markdown-view.js-target-blank.is-long-text-style.js-markdown
             = @question.description
+          = render "reactions/reactions", reactionable: @question
         - if @question.user_id == current_user.id
           .card-footer
             .card-footer-actions

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_17_050043) do
+ActiveRecord::Schema.define(version: 2019_02_19_152131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,6 +211,17 @@ ActiveRecord::Schema.define(version: 2019_01_17_050043) do
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
+  create_table "reactions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "reactionable_type"
+    t.bigint "reactionable_id"
+    t.integer "kind", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
+    t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
+
   create_table "reports", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", limit: 255, null: false
@@ -274,4 +285,5 @@ ActiveRecord::Schema.define(version: 2019_01_17_050043) do
   add_foreign_key "products", "practices"
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
+  add_foreign_key "reactions", "users"
 end

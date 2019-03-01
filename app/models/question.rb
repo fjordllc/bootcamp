@@ -2,6 +2,7 @@
 
 class Question < ActiveRecord::Base
   include Searchable
+  include Reactionable
 
   belongs_to :user, touch: true
   has_many :answers, dependent: :destroy
