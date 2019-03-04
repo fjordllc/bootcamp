@@ -70,6 +70,8 @@ class User < ActiveRecord::Base
 
   has_one_attached :avatar
 
+  after_update UserCallbacks.new
+
   validates :email,      presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name,  presence: true
