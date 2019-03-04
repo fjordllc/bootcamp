@@ -1,5 +1,6 @@
 = form_with model: user, url: url, local: true, html: { name: "user" } do |f|
   = f.hidden_field :adviser
+  = hidden_field_tag :training, "true"
   = render "errors", object: user
   .auth-form-items
     .auth-form-item
