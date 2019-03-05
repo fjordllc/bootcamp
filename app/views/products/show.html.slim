@@ -66,7 +66,7 @@ header.page-header
                     = f.submit "提出物を確認", class: "thread-check-form__action is-button-simple-md-danger"
                 - else
                   = form_for @product.checks.last, url: check_path(@product.checks.last), method: :delete, class: "thread-check-form" do |f|
-                    = f.submit "提出物の確認を取り消す", class: "thread-check-form__action is-button-simple-md-danger"
+                    = f.submit "提出物の確認を取り消す", class: "thread-check-form__action is-text"
 
       .thread-prev-next
         .thread-prev-next__item

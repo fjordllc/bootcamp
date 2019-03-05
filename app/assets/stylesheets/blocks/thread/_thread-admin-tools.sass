@@ -7,3 +7,10 @@
 .thread-admin-tools__items
   display: flex
   justify-content: flex-end
+
+.thread-check-form__action
+  &.is-text
+    +hover-link-reversal
+    +text-block(.875rem 1.4, $muted-text)
+    cursor: pointer
+    +padding(vertical, .25rem)
