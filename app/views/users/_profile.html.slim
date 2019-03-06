@@ -1,6 +1,6 @@
 .user-profile
   .user-profile__icon
-    = image_tag user.avatar_image(88)
+    = image_tag user.avatar_image(88), class: "is-#{user.role}"
   .user-profile__names
     h1.user-profile__login-name
       = user.login_name

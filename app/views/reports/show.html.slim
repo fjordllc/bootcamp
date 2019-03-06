@@ -100,7 +100,7 @@ header.page-header
               | 次の日報
               i.fas.fa-angle-right
       = link_to @report.user, itempro: "url", class: "thread__author-link" do
-        = image_tag @report.user.avatar_image(120), class: "thread__author-icon"
+        = image_tag @report.user.avatar_image(120), class: "thread__author-icon is-#{@report.user.role}"
 
     = render "comments/comments", comments: @report.comments.order(:created_at), form_visibility: true
     = render "footprints/footprints", footprints: @footprints
