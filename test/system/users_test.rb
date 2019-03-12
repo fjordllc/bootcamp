@@ -105,10 +105,10 @@ class UsersTest < ApplicationSystemTestCase
     end
     click_button "提出する"
     assert_text "提出物を作成しました。"
+    visit edit_current_user_path
+    click_on "退会手続きへ進む"
+    fill_in "user[retire_reason]", with: "辞" * 8
     assert_difference "user.products.unchecked.count", -1 do
-      visit edit_current_user_path
-      click_on "退会手続きへ進む"
-      fill_in "user[retire_reason]", with: "辞" * 8
       click_on "退会する"
       page.driver.browser.switch_to.alert.accept
       assert_text "退会処理が完了しました"
