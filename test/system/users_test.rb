@@ -112,7 +112,6 @@ class UsersTest < ApplicationSystemTestCase
       click_on "退会する"
       page.driver.browser.switch_to.alert.accept
       assert_text "退会処理が完了しました"
-      user.reload
     end
   end
 end
