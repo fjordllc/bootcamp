@@ -74,6 +74,7 @@ group :development do
   gem "letter_opener"
   gem "xray-rails"
   gem "rails-erd"
+  gem "heavens_door"
 end
 
 group :test do
