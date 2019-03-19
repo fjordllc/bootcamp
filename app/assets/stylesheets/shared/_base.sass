@@ -1,13 +1,5 @@
-.wrapper
-  transition: all .4s
-  right: 0
-  &.is-opened-drawer
-    overflow: hidden
-    right: 17.5rem
-
 body
   min-height: 100vh
-  overflow-y: scroll
   &.is-shown-modal
     overflow: hidden
   &.welcome
@@ -35,42 +27,33 @@ body
     +media-breakpoint-down(sm)
       background-size: 72px
 
-.container
-  max-width: 100%
-  padding-left: 7rem
-  padding-right: 15.5rem
-  +media-breakpoint-down(lg)
-    +padding(horizontal, 6rem 1rem)
+.wrapper
+  +margin(horizontal, 5rem 14rem)
+  overflow-y: scroll
+  height: 100vh
+  +media-breakpoint-down(md)
+    +margin(horizontal, 5rem 0)
   +media-breakpoint-down(sm)
-    +padding(horizontal, 1rem)
-  html body &.has-no-right-padding
-    padding-right: 14rem
-    +media-breakpoint-down(lg)
-      +padding(horizontal, 6rem 0)
-    +media-breakpoint-down(sm)
-      +padding(horizontal, 1rem)
-  html body.is-edit-page &.has-no-right-padding,
-  html body.is-admin &.has-no-right-padding,
-    padding-right: 0
-    +media-breakpoint-down(lg)
-      +padding(horizontal, 6rem 0)
-    +media-breakpoint-down(sm)
-      +padding(horizontal, 1rem)
+    +margin(horizontal, 0)
+  body.is-edit-page &
+    margin-right: 0
+  body.welcome &
+    +margin(horizontal, 0)
   body.no-global-nav &
-    padding-left: 3rem
-    +media-breakpoint-down(sm)
-      +padding(horizontal, 1rem)
-  body.no-recent-reports &
-    padding-right: 3rem
-    +media-breakpoint-down(sm)
-      +padding(horizontal, 1rem)
-  body.is-edit-page &,
+    margin-left: 0
+  body.no-recent-reports &,
   body.is-admin &
-    padding-right: 1rem
-  body.is-edit-page &.is-padding-horizontal-0-sm-down,
-  body.is-admin &.is-padding-horizontal-0-sm-down
+    margin-right: 0
+
+.container
+  +padding(horizontal, 1.5rem)
+  max-width: 100%
+  body &.has-no-right-padding
+    padding-right: 0
     +media-breakpoint-down(sm)
-      padding-right: 0
+      padding-right: 1rem
+  +media-breakpoint-down(md)
+    +padding(horizontal, 1rem)
   body.welcome &
     max-width: 75rem
     +padding(horizontal, 1rem)

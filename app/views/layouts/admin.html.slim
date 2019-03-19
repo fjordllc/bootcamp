@@ -14,10 +14,10 @@ html.is-admin lang="ja"
     = render "current_user"
     = content_for(:head_last) if content_for?(:head_last)
   - page_classes = content_for(:page_classes).to_s
-  body.is-admin class="#{body_class} #{page_classes}"
+  body.is-admin#body class="#{body_class} #{page_classes}"
     - if page_classes.exclude?("no-global-nav")
       = render "global_nav"
-    .wrapper.js-open-drawer-wrapper
+    .wrapper
       - if current_user && page_classes.exclude?("no-header")
         = render "header"
         = render "alert"

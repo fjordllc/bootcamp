@@ -30,6 +30,7 @@ $global-nav-width: 5rem
   background-color: $side
   +size($global-nav-width 100%)
   +position(fixed, left 0, top 0, bottom 0, 2)
+  overflow-y: auto
   +media-breakpoint-down(sm)
     transition: left .2s ease-out
     width: 12rem
