@@ -25,6 +25,7 @@ class NotificationsTest < ApplicationSystemTestCase
     click_button "日報を確認する"
     fill_in "comment[description]", with: "今日の日報を確認しました"
     click_button "コメントする"
+    find(".test-show-menu").click
     click_link "ログアウト"
     login_user "yamada", "testtest"
     assert_equal 2, @user.notifications.size
@@ -48,11 +49,13 @@ class NotificationsTest < ApplicationSystemTestCase
     click_link "Rubyの基礎"
     fill_in "comment[description]", with: "@komagata ユーザーからのコメント"
     click_button "コメントする"
+    find(".test-show-menu").click
     click_link "ログアウト"
     login_user "komagata", "testtest"
     assert_equal 1, @admin.notifications.size
     # 通知ベルの右上に出る件数の表示
     assert_text 1, first("li.has-count .header-notification-count").text
+    find(".test-show-menu").click
     click_link "ログアウト"
 
     # QAに回答が付いた時(user)
@@ -61,6 +64,7 @@ class NotificationsTest < ApplicationSystemTestCase
     click_link "テストの質問2"
     fill_in "answer[description]", with: "@komagata ユーザーの回答"
     click_button "コメントする"
+    find(".test-show-menu").click
     click_link "ログアウト"
     login_user "komagata", "testtest"
     assert_equal 2, @admin.notifications.size
