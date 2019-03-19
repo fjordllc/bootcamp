@@ -25,7 +25,7 @@ html.is-application lang="ja"
     = render "google_tag_manager_body"
     - if current_user && page_classes.exclude?("no-global-nav")
         = render "global_nav"
-    .wrapper.js-open-drawer-wrapper
+    .wrapper
       - if current_user && page_classes.exclude?("no-header")
         = render "header"
         = render "alert"
