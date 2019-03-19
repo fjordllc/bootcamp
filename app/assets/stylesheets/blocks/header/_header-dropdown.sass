@@ -13,8 +13,11 @@
     width: 15rem
 
 .header-dropdown__item-link
-  +text-block(.875rem 1.4, flex)
+  +text-block(.875rem 1.4, flex $main-color)
   padding: .5rem .75rem
+  transition: all .2s ease-out
+  &:hover
+    background-color: #f8f8f8
   .header-dropdown__item:not(:last-child) &
     border-bottom: solid 1px $background-color-shade
 
