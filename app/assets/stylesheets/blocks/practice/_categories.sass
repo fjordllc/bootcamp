@@ -12,9 +12,10 @@
     padding-right: 0
 
 .categories-item
-  margin-bottom: 3rem
-  +media-breakpoint-down(sm)
-    margin-bottom: 2rem
+  &:not(:last-child)
+    margin-bottom: 3rem
+    +media-breakpoint-down(sm)
+      margin-bottom: 2rem
 
 .categories-item__title
   +text-block(1.5rem 1.45, $side)
