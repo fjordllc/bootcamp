@@ -17,6 +17,7 @@ class NotificationsTest < ApplicationSystemTestCase
     select "23", from: "report[learning_times_attributes][0][finished_at(4i)]"
     fill_in "内容", with: "今日やったこと"
     click_button "提出"
+    find(".js-show-menu").click
     click_link "ログアウト"
     login_user "komagata", "testtest"
     find(".global-nav").click_link("日報")

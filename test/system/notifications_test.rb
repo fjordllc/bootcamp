@@ -7,7 +7,7 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user "tanaka", "testtest"
 
     visit "/"
-    first(".header-links__link.js-drop-down__trigger").click
+    find(".test-show-notifications").click
     assert_text "komagataさんからコメントが届きました。"
     assert_text "machidaさんが学習週1日目を確認しました。"
     assert_text "komagataさんからメンションがきました。"
