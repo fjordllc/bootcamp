@@ -35,7 +35,7 @@ class NotificationsTest < ApplicationSystemTestCase
     # 同じURLの通知があった時、その中の1つが既読になったら同じURLの通知全てを既読にする
     # NotificationControllerでobjects.update_allを使っているのでupdated_atが更新されている事の確認
     @before_update_notification = Notification.find_by(id: @user.notifications.first)
-    first("li .header-links__link.js-drop-down__trigger.test-bell").click # 通知をクリック
+    find(".test-show-notifications").click # 通知をクリック
     click_link "komagataさんからコメントが届きました。"
     @notification = Notification.find_by(id: @user.notifications.first)
     @notifications = @user.notifications.where(path: @notification.path)
