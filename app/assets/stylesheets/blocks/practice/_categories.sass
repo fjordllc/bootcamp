@@ -4,12 +4,13 @@
   width: 100%
 
 .categories-items
-  max-width: 68rem
+  max-width: 58rem
+  flex: 100
   +margin(horizontal, auto)
-  padding-right: 14rem
   +position(relative)
-  +media-breakpoint-down(sm)
-    padding-right: 0
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
 
 .categories-item
   &:not(:last-child)

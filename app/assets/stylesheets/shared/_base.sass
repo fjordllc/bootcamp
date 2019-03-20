@@ -26,10 +26,19 @@ body
   +margin(horizontal, 5rem 14rem)
   overflow-y: scroll
   height: 100vh
+  scroll-behavior: smooth
+  -webkit-overflow-scrolling: touch
   +media-breakpoint-down(md)
     +margin(horizontal, 5rem 0)
+    height: auto
   +media-breakpoint-down(sm)
     +margin(horizontal, 0)
+  body.is-test &
+    height: auto
+    .test-fixed-top
+      +position(fixed, right 0, top 0)
+    .test-fixed-bottom
+      +position(fixed, right 0, bottom 0)
   body.is-edit-page &
     margin-right: 0
   body.welcome &
@@ -37,7 +46,7 @@ body
   body.no-global-nav &
     margin-left: 0
   body.no-recent-reports &,
-  body.is-admin &
+  body.is-admin-page &
     margin-right: 0
   body.is-error-page &
     padding-top: 4rem

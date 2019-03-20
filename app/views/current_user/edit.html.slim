@@ -1,5 +1,5 @@
 - title "登録情報変更"
-- content_for(:page_classes, "no-header no-footer no-recent-reports")
+- content_for(:extra_body_classes, "no-header no-footer no-recent-reports")
 
 .auth-form.is-sign-up.a-card.is-in-app
   header.auth-form__header
@@ -14,4 +14,4 @@
            span.auth-form-nav__item-link.js-modal(data-target="#nda-modal")
             | 秘密保持契約内容を確認
         li.auth-form-nav__item
-           = link_to "退会手続きへ進む", new_user_retirement_path(@user), class: "auth-form-nav__item-link"
+           = link_to "退会手続きへ進む", new_user_retirement_path(@user), class: "auth-form-nav__item-link test-fixed-bottom"

@@ -1,34 +1,34 @@
 .page__welcome-global-nav-container
-  nav.welcome-global-nav(class="#{request.from_pc? ? "js-header" : "js-open-welcome-global-nav__target js-close-welcome-global-nav__target"}")
+  nav.welcome-global-nav(class="#{request.from_pc? ? "" : "js-open-welcome-global-nav__target js-close-welcome-global-nav__target"}")
     .container
       .welcome-global-nav__container
         ul.welcome-global-nav__items
           li.welcome-global-nav__item
-            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#about')
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(href= '#about')
               | 学費無料
           li.welcome-global-nav__item
-            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#tutorials')
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(href= '#tutorials')
               | 学習内容
           li.welcome-global-nav__item
-            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#eligibility')
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(href= '#eligibility')
               | 参加資格
           li.welcome-global-nav__item
-            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#process')
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(href= '#process')
               | 就職までの流れ
           li.welcome-global-nav__item
-            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#finding-employment')
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(href= '#finding-employment')
               | 就職支援
           li.welcome-global-nav__item
-            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#administrator')
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(href= '#administrator')
               | 運営会社
           li.welcome-global-nav__item
-            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#other')
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(href= '#other')
               | その他の特典
           li.welcome-global-nav__item
-            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#faq')
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(href= '#faq')
               | よくある質問
           li.welcome-global-nav__item
-            a.welcome-global-nav__item-link.js-close-welcome-global-nav(data-scroll href= '#form')
+            a.welcome-global-nav__item-link.js-close-welcome-global-nav(href= '#form')
               | 申し込み
-    a.welcome-global-nav__to-top.js-to-top(data-scroll href= "#body")
+    a.welcome-global-nav__to-top.js-to-top(href= "#body")
       i.fas.fa-arrow-up

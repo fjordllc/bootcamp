@@ -208,7 +208,7 @@ GEM
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
     os (1.0.0)
-    oulu (0.18.3)
+    oulu (0.18.4)
       rake
       thor (~> 0.19)
     parallel (1.14.0)
