@@ -202,9 +202,6 @@ class PageTabsTest < ApplicationSystemTestCase
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "提出物", first(".page-tabs__item-link.is-active").text
-    expected_product_counts = User.find(user_id).products.size
-    actual_product_counts = all(".thread-list-item__title-link").size
-    assert_equal expected_product_counts, actual_product_counts
   end
 
   test "when login user is admin, user's tab members are user and practices and reports and comments and products" do
@@ -484,7 +481,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プロフィール", first(".page-tabs__item-link.is-active").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 3, page_tabs.size
+    assert_equal 4, page_tabs.size
     assert_equal "プロフィール", page_tabs[0].text
     assert_equal "日報", page_tabs[1].text
     assert_equal "コメント", page_tabs[2].text
