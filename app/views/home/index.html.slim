@@ -17,6 +17,8 @@ header.page-header
               .thread-list__footer-to-index
                 = link_to announcements_path, class: "thread-list__footer-text-link" do
                   | 全てのお知らせ
+          - if current_user.reports.wip.present?
+             = render "/users/reports/wip_reports", user: current_user
           - if current_user.active_practices.present?
             = render "/users/practices/active_practices", user: current_user
           = render "/users/practices/completed_practices", user: current_user
