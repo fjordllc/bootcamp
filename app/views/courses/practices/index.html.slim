@@ -35,7 +35,7 @@ header.page-header
                 .category-practices.js-category-practices
                   = render partial: "practices/practice", collection: category.practices, as: :practice, locals: { course: @course }
 
-      nav.page-nav.js-page-nav
+      nav.page-nav
         ul.page-nav__items
           - @course.categories.order(:position).each do |category|
             - if category.practices.present?
