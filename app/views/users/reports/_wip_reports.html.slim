@@ -1,0 +1,9 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | WIPの日報
+  .card-reports.is-wip
+    ul.card-reports__items
+      - user.reports.wip.each do |report|
+        li.card-reports__item
+          = link_to report.title, report, class: "card-reports__item-link"
