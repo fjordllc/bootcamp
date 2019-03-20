@@ -1,4 +1,4 @@
-= form_with model: user, url: url, local: true, html: { name: "user" } do |f|
+= form_with model: user, url: url, local: true, html: { name: "user", autocomplete: "new-password" } do |f|
   = f.hidden_field :adviser
   = hidden_field_tag :training, "true"
   = render "errors", object: user
@@ -180,9 +180,6 @@
         p パスワードをもう一度入力
     - if admin_login?
       .auth-form-item
-        = f.label :graduated_on, class: "a-sm-label"
-        = f.text_field :graduated_on, class: "datepicker a-text-input"
-      .auth-form-item
         = f.label :adviser, class: "a-sm-label"
         ul.auth-form-item__checkboxes
           li.auth-form-checkbox
@@ -206,6 +203,9 @@
       .auth-form-item
         = f.label :retired_on, class: "a-sm-label"
         = f.text_field :retired_on, class: "datepicker a-text-input"
+      .auth-form-item
+        = f.label :graduated_on, class: "a-sm-label"
+        = f.text_field :graduated_on, class: "datepicker a-text-input"
     - if from == :new
       .auth-form-item
         label.a-sm-label
@@ -220,6 +220,6 @@
       li.auth-form-action__item
         = link_to "キャンセル", :back, class: "is-button-simple-xs-secondary"
       li.auth-form-action__item
-        = f.submit user_submit_label(user, from), class: "is-button-simple-md-warning js-sign-up-action"
+        = f.submit user_submit_label(user, from), class: "is-button-simple-md-warning js-sign-up-action test-fixed-top"
 
   = render "users/nda_modal", f: f
