@@ -12,7 +12,7 @@ class SearchablesTest < ApplicationSystemTestCase
     end
     find("#test-search").click
     assert_text "テストの日報"
-    assert_text "Wikiページ"
+    assert_text "Docsページ"
     assert_text "Unityでのテスト"
     assert_text "テストの質問1"
     assert_text "テストのお知らせ"
@@ -25,7 +25,7 @@ class SearchablesTest < ApplicationSystemTestCase
     end
     find("#test-search").click
     assert_text "テストの日報"
-    assert_no_text "Wikiページ"
+    assert_no_text "Docsページ"
     assert_no_text "Unityでのテスト"
     assert_no_text "テストの質問1"
     assert_no_text "テストのお知らせ"
