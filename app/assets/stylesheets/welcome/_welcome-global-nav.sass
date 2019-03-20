@@ -2,6 +2,10 @@ $welcome-global-nav-height: 4rem
 
 .page__welcome-global-nav-container
   height: $welcome-global-nav-height
+  +media-breakpoint-up(md)
+    position: sticky
+    top: 0
+    z-index: 12
   +media-breakpoint-down(md)
     height: 0
 

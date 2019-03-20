@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_action :init_user
   before_action :allow_cross_domain_access
-  helper_method :admin_login?, :adviser_login?, :mentor_login?, :admin_adviser_or_mento_login?
+  helper_method :admin_login?, :adviser_login?, :mentor_login?, :admin_adviser_or_mentor_login?
   helper_method :product_displayable?
 
   protected
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
       current_user && current_user.mentor?
     end
 
-    def admin_adviser_or_mento_login?
+    def admin_adviser_or_mentor_login?
       admin_login? || adviser_login? || mentor_login?
     end
 
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
     end
 
     def require_admin_adviser_or_mentor_login
-      unless admin_adviser_or_mento_login?
+      unless admin_adviser_or_mentor_login?
         redirect_to root_path, alert: "管理者・アドバイザー・メンターとしてログインしてください"
       end
     end

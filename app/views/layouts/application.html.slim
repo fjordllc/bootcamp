@@ -1,6 +1,6 @@
 doctype html
 html.is-application lang="ja"
-  - page_classes = content_for(:page_classes).to_s
+  - page_classes = content_for(:extra_body_classes).to_s
   head
     = render "google_tag_manager_head"
     meta content="IE=edge" http-equiv="X-UA-Compatible"
@@ -21,19 +21,15 @@ html.is-application lang="ja"
     = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto", media: "all"
     = stylesheet_link_tag "https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:900", media: "all"
     = content_for(:head_last) if content_for?(:head_last)
-  body#body class="#{body_class} #{page_classes}"
+  body#body class="#{body_class}"
     = render "google_tag_manager_body"
-    - if current_user && page_classes.exclude?("no-global-nav")
+    - if display_global_nav?
         = render "global_nav"
     .wrapper
-      - if current_user && page_classes.exclude?("no-header")
+      - if display_header?
         = render "header"
-        = render "alert"
-      - else
-        = render "alert"
+      = render "alert"
       main.page
         = yield
-    - if current_user && page_classes.exclude?("no-recent-reports") && recent_reports.present?
+    - if display_recent_reports?
       = render "reports/recent_reports"
-    - unless page_classes.include?("welcome")
-      = render("to_top")
