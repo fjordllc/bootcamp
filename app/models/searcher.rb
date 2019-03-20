@@ -7,7 +7,7 @@ class Searcher
     ["プラクティス", :practices],
     ["日報", :reports],
     ["Q&A", :questions],
-    ["Wiki", :pages]
+    ["Docs", :pages]
   ]
 
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - [:all]
