@@ -13,11 +13,6 @@ body
   &.is-mobile-nav-active
     +media-breakpoint-down(sm)
       overflow: hidden
-  &.is-error-page
-    padding-top: 4rem
-    overflow-y: auto
-  &.is-auth-page
-    padding-top: 2rem
   &.is-piyo-background
     background-color: $main-color
     background-image: image_url('error-background-main-color.svg')
@@ -44,6 +39,12 @@ body
   body.no-recent-reports &,
   body.is-admin &
     margin-right: 0
+  body.is-error-page &
+    padding-top: 4rem
+    overflow-y: auto
+  body.is-auth-page &
+    padding-top: 2rem
+
 
 .container
   +padding(horizontal, 1.5rem)
