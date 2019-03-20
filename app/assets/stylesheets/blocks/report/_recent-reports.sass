@@ -1,9 +1,9 @@
 .recent-reports
-  +position(fixed, right 0, top 0, bottom 0, 1)
-  +size(14rem 100%)
+  +position(fixed, right 0, top 0, bottom 0, 3)
+  +size(14rem 100vh)
   background-color: $side
-  overflow: hidden
-  height: 100vh
+  overflow-y: auto
+  padding-bottom: 2.75rem
   +media-breakpoint-down(lg)
     display: none
 
@@ -53,11 +53,11 @@
   text-shadow: $main-color .0625rem .0625rem 0
 
 .recent-reports__to-index
-  width: 100%
+  width: 14rem
   background-color: #342c69
   padding: 1rem .75rem
   transition: color .2s ease-in, background-color .2s ease-in
-  +position(absolute, bottom 0)
+  +position(fixed, bottom 0)
   +text-block(.8125rem 1, block $reversal-text center)
   &:hover
     background-color: #262144

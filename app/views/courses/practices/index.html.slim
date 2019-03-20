@@ -19,20 +19,21 @@ header.page-header
 .page-body
   .container
     .categories-items
-      - @course.categories.order(:position).each do |category|
-        - if category.practices.present?
-          .categories-item.practices.js-show-handle(id="category-#{category.id}")
-            header.categories-item__header
-              h2.categories-item__title
-                = category.name
-              - if current_user.admin?
-                .categories-item__show-handle.js-show-handle__trigger
-                  i.fas.fa-cog
-            .categories-item__description.js-markdown-view.js-target-blank.is-long-text-style
-              = category.description
-            .categories-item__body
-              .category-practices.js-category-practices
-                = render partial: "practices/practice", collection: category.practices, as: :practice, locals: { course: @course }
+      .categories-items__inner
+        - @course.categories.order(:position).each do |category|
+          - if category.practices.present?
+            .categories-item.practices.js-show-handle(id="category-#{category.id}")
+              header.categories-item__header
+                h2.categories-item__title
+                  = category.name
+                - if current_user.admin?
+                  .categories-item__show-handle.js-show-handle__trigger
+                    i.fas.fa-cog
+              .categories-item__description.js-markdown-view.js-target-blank.is-long-text-style
+                = category.description
+              .categories-item__body
+                .category-practices.js-category-practices
+                  = render partial: "practices/practice", collection: category.practices, as: :practice, locals: { course: @course }
 
       nav.page-nav.js-page-nav
         ul.page-nav__items
