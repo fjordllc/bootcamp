@@ -43,7 +43,6 @@ module PageTabHelper
 
     def display_tab_names
       {
-        practices: "プラクティス",
         reports: "日報",
         questions: "質問",
         products: "提出物",
@@ -74,16 +73,10 @@ module PageTabHelper
     def users_tab_members(resource)
       [
         root_tab(resource),
-        practices_tab(resource),
         reports_tab(resource),
         comments_tab(resource),
         products_tab(resource)
       ]
-    end
-
-    def practices_tab(resource)
-      tab_name = :practices
-      page_tab_member(tab_path(resource, tab_name), tab_name)
     end
 
     def comments_tab(resource)
