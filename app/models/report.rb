@@ -23,6 +23,7 @@ class Report < ActiveRecord::Base
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: "Report").pluck(:checkable_id)) }
 
+  scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
 
   def previous
