@@ -29,7 +29,8 @@ $global-nav-width: 5rem
 .global-nav__inner
   background-color: $side
   +size($global-nav-width 100%)
-  +position(fixed, left 0, top 0, bottom 0, 2)
+  +position(fixed, left 0, top 0, bottom 0, 3)
+  overflow-y: auto
   +media-breakpoint-down(sm)
     transition: left .2s ease-out
     width: 12rem

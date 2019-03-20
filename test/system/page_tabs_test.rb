@@ -172,6 +172,7 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プラクティス", page_tabs[0].text
     assert_equal "日報", page_tabs[1].text
     assert_equal "質問", page_tabs[2].text
+    assert_equal "提出物", page_tabs[3].text
 
     practice_id = current_path.split("/").last.to_i
 
@@ -196,6 +197,11 @@ class PageTabsTest < ApplicationSystemTestCase
     expected_question_counts = Practice.find(practice_id).questions.not_solved.size
     actual_question_counts = all(".thread-list-item__title-link").size
     assert_equal expected_question_counts, actual_question_counts
+
+    all(".page-tabs__item-link")[3].click
+
+    assert_equal 1, all(".page-tabs__item-link.is-active").length
+    assert_equal "提出物", first(".page-tabs__item-link.is-active").text
   end
 
   test "when login user is admin, user's tab members are user and practices and reports and comments and products" do
@@ -213,12 +219,11 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プロフィール", first(".page-tabs__item-link.is-active").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 5, page_tabs.size
+    assert_equal 4, page_tabs.size
     assert_equal "プロフィール", page_tabs[0].text
-    assert_equal "プラクティス", page_tabs[1].text
-    assert_equal "日報", page_tabs[2].text
-    assert_equal "コメント", page_tabs[3].text
-    assert_equal "提出物", page_tabs[4].text
+    assert_equal "日報", page_tabs[1].text
+    assert_equal "コメント", page_tabs[2].text
+    assert_equal "提出物", page_tabs[3].text
 
     user_id = current_path.split("/").last.to_i
 
@@ -231,18 +236,12 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[1].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
-    assert_equal "プラクティス", first(".page-tabs__item-link.is-active").text
-    assert_text "完了したプラクティス"
-
-    all(".page-tabs__item-link")[2].click
-
-    assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "日報", first(".page-tabs__item-link.is-active").text
     expected_report_counts = User.find(user_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
-    all(".page-tabs__item-link")[3].click
+    all(".page-tabs__item-link")[2].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "コメント", first(".page-tabs__item-link.is-active").text
@@ -250,7 +249,7 @@ class PageTabsTest < ApplicationSystemTestCase
     actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal expected_comment_counts, actual_comment_counts
 
-    all(".page-tabs__item-link")[4].click
+    all(".page-tabs__item-link")[3].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "提出物", first(".page-tabs__item-link.is-active").text
@@ -274,12 +273,11 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プロフィール", first(".page-tabs__item-link.is-active").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 5, page_tabs.size
+    assert_equal 4, page_tabs.size
     assert_equal "プロフィール", page_tabs[0].text
-    assert_equal "プラクティス", page_tabs[1].text
-    assert_equal "日報", page_tabs[2].text
-    assert_equal "コメント", page_tabs[3].text
-    assert_equal "提出物", page_tabs[4].text
+    assert_equal "日報", page_tabs[1].text
+    assert_equal "コメント", page_tabs[2].text
+    assert_equal "提出物", page_tabs[3].text
 
     user_id = current_path.split("/").last.to_i
 
@@ -292,18 +290,12 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[1].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
-    assert_equal "プラクティス", first(".page-tabs__item-link.is-active").text
-    assert_text "完了したプラクティス"
-
-    all(".page-tabs__item-link")[2].click
-
-    assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "日報", first(".page-tabs__item-link.is-active").text
     expected_report_counts = User.find(user_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
-    all(".page-tabs__item-link")[3].click
+    all(".page-tabs__item-link")[2].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "コメント", first(".page-tabs__item-link.is-active").text
@@ -311,7 +303,7 @@ class PageTabsTest < ApplicationSystemTestCase
     actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal expected_comment_counts, actual_comment_counts
 
-    all(".page-tabs__item-link")[4].click
+    all(".page-tabs__item-link")[3].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "提出物", first(".page-tabs__item-link.is-active").text
@@ -335,12 +327,11 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プロフィール", first(".page-tabs__item-link.is-active").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 5, page_tabs.size
+    assert_equal 4, page_tabs.size
     assert_equal "プロフィール", page_tabs[0].text
-    assert_equal "プラクティス", page_tabs[1].text
-    assert_equal "日報", page_tabs[2].text
-    assert_equal "コメント", page_tabs[3].text
-    assert_equal "提出物", page_tabs[4].text
+    assert_equal "日報", page_tabs[1].text
+    assert_equal "コメント", page_tabs[2].text
+    assert_equal "提出物", page_tabs[3].text
 
     user_id = current_path.split("/").last.to_i
 
@@ -353,18 +344,12 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[1].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
-    assert_equal "プラクティス", first(".page-tabs__item-link.is-active").text
-    assert_text "完了したプラクティス"
-
-    all(".page-tabs__item-link")[2].click
-
-    assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "日報", first(".page-tabs__item-link.is-active").text
     expected_report_counts = User.find(user_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
-    all(".page-tabs__item-link")[3].click
+    all(".page-tabs__item-link")[2].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "コメント", first(".page-tabs__item-link.is-active").text
@@ -372,7 +357,7 @@ class PageTabsTest < ApplicationSystemTestCase
     actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal expected_comment_counts, actual_comment_counts
 
-    all(".page-tabs__item-link")[4].click
+    all(".page-tabs__item-link")[3].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "提出物", first(".page-tabs__item-link.is-active").text
@@ -396,12 +381,11 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プロフィール", first(".page-tabs__item-link.is-active").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 5, page_tabs.size
+    assert_equal 4, page_tabs.size
     assert_equal "プロフィール", page_tabs[0].text
-    assert_equal "プラクティス", page_tabs[1].text
-    assert_equal "日報", page_tabs[2].text
-    assert_equal "コメント", page_tabs[3].text
-    assert_equal "提出物", page_tabs[4].text
+    assert_equal "日報", page_tabs[1].text
+    assert_equal "コメント", page_tabs[2].text
+    assert_equal "提出物", page_tabs[3].text
 
     user_id = current_path.split("/").last.to_i
 
@@ -414,18 +398,12 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[1].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
-    assert_equal "プラクティス", first(".page-tabs__item-link.is-active").text
-    assert_text "完了したプラクティス"
-
-    all(".page-tabs__item-link")[2].click
-
-    assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "日報", first(".page-tabs__item-link.is-active").text
     expected_report_counts = User.find(user_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
-    all(".page-tabs__item-link")[3].click
+    all(".page-tabs__item-link")[2].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "コメント", first(".page-tabs__item-link.is-active").text
@@ -433,7 +411,7 @@ class PageTabsTest < ApplicationSystemTestCase
     actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal expected_comment_counts, actual_comment_counts
 
-    all(".page-tabs__item-link")[4].click
+    all(".page-tabs__item-link")[3].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "提出物", first(".page-tabs__item-link.is-active").text
@@ -458,11 +436,10 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プロフィール", first(".page-tabs__item-link.is-active").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 4, page_tabs.size
+    assert_equal 3, page_tabs.size
     assert_equal "プロフィール", page_tabs[0].text
-    assert_equal "プラクティス", page_tabs[1].text
-    assert_equal "日報", page_tabs[2].text
-    assert_equal "コメント", page_tabs[3].text
+    assert_equal "日報", page_tabs[1].text
+    assert_equal "コメント", page_tabs[2].text
 
     user_id = current_path.split("/").last.to_i
 
@@ -475,18 +452,12 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[1].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
-    assert_equal "プラクティス", first(".page-tabs__item-link.is-active").text
-    assert_text "完了したプラクティス"
-
-    all(".page-tabs__item-link")[2].click
-
-    assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "日報", first(".page-tabs__item-link.is-active").text
     expected_report_counts = User.find(user_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
-    all(".page-tabs__item-link")[3].click
+    all(".page-tabs__item-link")[2].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "コメント", first(".page-tabs__item-link.is-active").text
@@ -510,11 +481,11 @@ class PageTabsTest < ApplicationSystemTestCase
     assert_equal "プロフィール", first(".page-tabs__item-link.is-active").text
 
     page_tabs = all(".page-tabs__item-link")
-    assert_equal 5, page_tabs.size
+    assert_equal 4, page_tabs.size
     assert_equal "プロフィール", page_tabs[0].text
-    assert_equal "プラクティス", page_tabs[1].text
-    assert_equal "日報", page_tabs[2].text
-    assert_equal "コメント", page_tabs[3].text
+    assert_equal "日報", page_tabs[1].text
+    assert_equal "コメント", page_tabs[2].text
+    assert_equal "提出物", page_tabs[3].text
 
     user_id = current_path.split("/").last.to_i
 
@@ -527,23 +498,23 @@ class PageTabsTest < ApplicationSystemTestCase
     all(".page-tabs__item-link")[1].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
-    assert_equal "プラクティス", first(".page-tabs__item-link.is-active").text
-    assert_text "完了したプラクティス"
-
-    all(".page-tabs__item-link")[2].click
-
-    assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "日報", first(".page-tabs__item-link.is-active").text
     expected_report_counts = User.find(user_id).reports.size
     actual_report_counts = all(".thread-list-item__title-link").size
     assert_equal expected_report_counts, actual_report_counts
 
-    all(".page-tabs__item-link")[3].click
+    all(".page-tabs__item-link")[2].click
 
     assert_equal 1, all(".page-tabs__item-link.is-active").length
     assert_equal "コメント", first(".page-tabs__item-link.is-active").text
     expected_comment_counts = User.find(user_id).comments.where(commentable_type: "Report").size
     actual_comment_counts = all(".thread-comment__title-link").size
     assert_equal expected_comment_counts, actual_comment_counts
+
+    all(".page-tabs__item-link")[3].click
+
+    assert_text "提出物"
+    assert_equal 1, all(".page-tabs__item-link.is-active").length
+    assert_equal "提出物", first(".page-tabs__item-link.is-active").text
   end
 end

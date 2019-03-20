@@ -4,11 +4,17 @@
   display: flex
   align-items: center
   justify-content: space-between
+  &.is-sm
+    +padding(vertical, .625rem)
   &:first-child
     +border-radius(top, .25rem)
 
 .card-header__title
   +text-block(1rem 1.4, 800)
+  .card-header.is-sm &
+    font-size: .875rem
 
 .card-header__sub-title
   +text-block(.8125rem 1.4)
+  +media-breakpoint-down(sm)
+    font-size: .75rem
