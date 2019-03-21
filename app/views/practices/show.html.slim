@@ -73,11 +73,3 @@ header.page-header
                   = link_to practice_path(@practice), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "is-button-simple-md-danger is-block" do
                     i.fas.fa-trash-alt
                     | 削除
-
-    .interns-icons
-      h2.user-reports__title 完了したユーザー
-      ul.completed-users
-        - @practice.completed_users.each do |user|
-          li.completed-users__user
-            = link_to user, class: "completed-users__user-link" do
-              = image_tag user.avatar_image(32), class: "completed-users__user-image is-#{user.role}"
