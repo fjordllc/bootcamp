@@ -7,7 +7,7 @@ class PagesTest < ApplicationSystemTestCase
 
   test "GET /pages" do
     visit "/pages"
-    assert_equal "Wiki | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "Docs | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
     assert_no_selector "nav.pagination"
   end
 
@@ -90,7 +90,7 @@ class PagesTest < ApplicationSystemTestCase
     assert_equal 25, user.reports.page(3).size
   end
 
-  test "If you click the link of a nonexistent page, it will not transition to wiki create page" do
+  test "If you click the link of a nonexistent page, it will not transition to docs create page" do
     id = pages(:page_3).id
     visit "/pages/#{id}"
     click_link "存在しないページ"

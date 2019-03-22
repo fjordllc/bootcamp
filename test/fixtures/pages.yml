@@ -7,8 +7,8 @@ page_2:
   body: "## テスト\nテスト"
 
 page_3:
-  title: Wikiページ
-  body: "## 存在しないWikiページ遷移テスト\n[存在しないページ](http://localhost:3000/pages/5555555)"
+  title: Docsページ
+  body: "## 存在しないDocsページ遷移テスト\n[存在しないページ](http://localhost:3000/pages/5555555)"
 
 page_4:
   title: Bootcmapの作業のページ
