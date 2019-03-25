@@ -35,9 +35,10 @@ header.page-header
                         = link_to "管理者として情報変更", edit_admin_user_path, class: "card-footer-actions__action is-button-simple-md-secondary is-block"
         .col-xs-12.col-lg-7.col-xxl-6
           = render "users/grass", user: @user
-          - if @user.github_account
+          - if @user.github_account.present?
             .a-card
               = render "users/github_grass", user: @user
-          - if current_user.active_practices.present?
+          - if @user.active_practices.present?
             = render "/users/practices/active_practices", user: @user
-          = render "/users/practices/completed_practices", user: @user
+          - if @user.completed_practices.present?
+            = render "/users/practices/completed_practices", user: @user
