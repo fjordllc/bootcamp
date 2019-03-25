@@ -39,5 +39,5 @@ header.page-header
             .a-card
               = render "users/github_grass", user: @user
           - if current_user.active_practices.present?
-            = render "/users/practices/active_practices", user: current_user
-          = render "/users/practices/completed_practices", user: current_user
+            = render "/users/practices/active_practices", user: @user
+          = render "/users/practices/completed_practices", user: @user
