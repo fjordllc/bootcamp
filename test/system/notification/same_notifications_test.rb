@@ -14,7 +14,10 @@ class NotificationsTest < ApplicationSystemTestCase
     click_link "日報"
     click_link "日報作成"
     fill_in "タイトル", with: "Rubyの基礎"
-    select "23", from: "report[learning_times_attributes][0][finished_at(4i)]"
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
     fill_in "内容", with: "今日やったこと"
     click_button "提出"
     find(".test-show-menu").click
