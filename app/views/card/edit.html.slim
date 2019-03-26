@@ -1,4 +1,4 @@
-- title "カード編集"
+- title "クレジットカード変更"
 
 header.page-header
   .container
@@ -7,4 +7,9 @@ header.page-header
 
 .page-body
   .container
-    = render "form", action: :edit
+    .a-card.auth-form.is-sign-up.a-card.is-in-app
+      header.auth-form__header
+        h1.auth-form__title
+          | クレジットカード変更
+      .auth-form__body
+        = render "form", action: :edit
