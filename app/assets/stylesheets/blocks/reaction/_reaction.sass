@@ -7,12 +7,16 @@
   user-select: none
   body.is-test &
     display: block
+    &[hidden]
+      display: none
 
 .reaction
   display: inline-flex
   flex-wrap: wrap
   body.is-test &
     display: inline-block
+    &[hidden]
+      display: none
   &[hidden]
     display: none
   li
@@ -24,6 +28,8 @@
     border-right: 1px solid $background
     body.is-test &
       display: inline-block
+      &[hidden]
+        display: none
     &[hidden]
       display: none
     &.is-reacted
