@@ -13,7 +13,7 @@
     box-shadow: rgba(black, .07) 0 .0625rem .0625rem inset
 
 .a-label
-  +text-block(14px 1.45 .5rem, block 600)
+  +text-block(14px 1.45 0 .5rem, block 600)
 
 .a-text-input
   +text-block(.875rem 1.45, block)
@@ -54,13 +54,14 @@ textarea.a-sm-text-input
     min-height: 16rem
 
 .a-sm-label
-  +text-block(.8125rem 1.45 .5rem, block 600)
+  +text-block(.8125rem 1.45 0 .5rem, block 600)
   &.is-required
     &::after
       +fa(fas '\f069')
-      +text-block(.3125rem, $danger)
-      margin-left: .1875rem
-      +inline-block(top)
+      +text-block(.625rem, $danger inline-block)
+      margin-left: .125rem
+      vertical-align: top
+      transform: scale(.7)
 
 .a-xs-text-input
   +text-block(.8125rem 1.45, block)
@@ -69,7 +70,7 @@ textarea.a-sm-text-input
   background-color: #f7f7f7
   border: solid 1px $input-border
   border-radius: .25rem
-  transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
+  transition: all .2s ease-in
   +media-breakpoint-down(sm)
     font-size: 1rem
   &:focus

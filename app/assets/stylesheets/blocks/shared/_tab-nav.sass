@@ -1,5 +1,5 @@
 .tab-nav
-  border-bottom: solid 1px $background-color-shade
+  border-bottom: solid 1px $background-shade
   &:not(:last-child)
     margin-bottom: 1.5rem
 
@@ -19,15 +19,14 @@
 
 .tab-nav__item-link
   +block-link
-  +text-block(.75rem 2.3, $muted-text center)
-  white-space: nowrap
-  background-color: $background-color-shade
+  +text-block(.75rem 2.3, $muted-text center nowrap)
+  background-color: $background-shade
   border-radius: 20rem
   width: 7rem
-  transition: background-color .2s ease-out
+  transition: all.2s ease-out
   &:hover
-    background-color: shade($background-color-shade, 10%)
-    color: $main-color
+    background-color: shade($background-shade, 10%)
+    color: $main
   &.is-active
-    background-color: $accent-color
-    color: $main-color
+    background-color: $accent
+    color: $main

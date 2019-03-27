@@ -208,9 +208,6 @@ GEM
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
     os (1.0.0)
-    oulu (0.18.4)
-      rake
-      thor (~> 0.19)
     parallel (1.14.0)
     parser (2.6.0.0)
       ast (~> 2.4.0)
@@ -423,7 +420,6 @@ DEPENDENCIES
   minitest (~> 5.10, != 5.10.2)
   newrelic_rpm
   oauth2
-  oulu
   pg
   pry-byebug
   puma (~> 3.11)

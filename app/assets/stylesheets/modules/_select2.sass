@@ -1,11 +1,11 @@
 $select2-height: 2.375rem
 $select2-font-size: .8125rem
-$select2-border-color: $background-color-shade
-$select2-option-border-color: $background-color
-$select2-highlighted-color: rgba($main-color, .8)
+$select2-border-color: $background-shade
+$select2-option-border-color: $background
+$select2-highlighted-color: rgba($main, .8)
 $select2-results-height: calc(100vh - 380px)
-$select2-selection-choice-border: $main-color
-$select2-selection-choice-background: mix($main-color, $base-color, 10%)
+$select2-selection-choice-border: $main
+$select2-selection-choice-background: mix($main, $base, 10%)
 
 .select2-container
   display: inline-block
@@ -40,15 +40,13 @@ $select2-selection-choice-background: mix($main-color, $base-color, 10%)
 
 .select2-selection--single .select2-selection__rendered
   display: block
-  padding-left: 8px
-  padding-right: 20px
+  +padding(horizontal, 1em 2em)
 
 .select2-selection--single .select2-selection__clear
   position: relative
 
 .select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered
-  padding-right: 8px
-  padding-left: 20px
+  +padding(horizontal, 1em 2em)
 
 // multiple
 
@@ -171,22 +169,17 @@ $select2-selection-choice-background: mix($main-color, $base-color, 10%)
 
 .select2-container--default .select2-selection--single .select2-selection__arrow
   height: $select2-height
-  position: absolute
-  top: 1px
-  right: 1px
-  width: 20px
+  +position(absolute, right 1px, top 1px)
+  width: 2em
 
 .select2-container--default .select2-selection--single .select2-selection__arrow b
   border-color: #888 transparent transparent transparent
   border-style: solid
   border-width: 5px 4px 0 4px
-  height: 0
-  left: 50%
+  +size(0)
   margin-left: -4px
   margin-top: -2px
-  position: absolute
-  top: 50%
-  width: 0
+  +position(absolute, left 50%, top 50%)
 
 .select2-container--default[dir="rtl"] .select2-selection--single .select2-selection__clear
   float: left
@@ -254,7 +247,7 @@ $select2-selection-choice-background: mix($main-color, $base-color, 10%)
   +text-block(1.125rem, 800 flex $reversal-text)
   background-color: $select2-selection-choice-border
   &:hover
-    background-color: mix($select2-selection-choice-border, $base-color, 80%)
+    background-color: mix($select2-selection-choice-border, $base, 80%)
 
 .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice, .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__placeholder, .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-search--inline
   float: right
@@ -306,7 +299,7 @@ $select2-selection-choice-background: mix($main-color, $base-color, 10%)
   color: #999
 
 .select2-container--default .select2-results__option[aria-selected=true]
-  background-color: $background-color-shade
+  background-color: $background-shade
 
 .select2-container--default .select2-results__option .select2-results__option
   padding-left: 1em

@@ -1,0 +1,87 @@
+=size($sizes)
+  $width: nth($sizes, 1)
+  $height: $width
+  @if length($sizes) > 1
+    $height: nth($sizes, 2)
+  @if is-size($height)
+    height: $height
+  @else
+    @warn "`#{$height}` is not a valid length for the `$height` parameter in the `size` mixin."
+  @if is-size($width)
+    width: $width
+  @else
+    @warn "`#{$width}` is not a valid length for the `$width` parameter in the `size` mixin."
+
+=max-size($sizes)
+  $width: nth($sizes, 1)
+  $height: $width
+  @if length($sizes) > 1
+    $height: nth($sizes, 2)
+  @if is-size($height)
+    max-height: $height
+  @else
+    @warn "`#{$height}` is not a valid length for the `$height` parameter in the `size` mixin."
+  @if is-size($width)
+    max-width: $width
+  @else
+    @warn "`#{$width}` is not a valid length for the `$width` parameter in the `size` mixin."
+
+=min-size($sizes)
+  $width: nth($sizes, 1)
+  $height: $width
+  @if length($sizes) > 1
+    $height: nth($sizes, 2)
+  @if is-size($height)
+    min-height: $height
+  @else
+    @warn "`#{$height}` is not a valid length for the `$height` parameter in the `size` mixin."
+  @if is-size($width)
+    min-width: $width
+  @else
+    @warn "`#{$width}` is not a valid length for the `$width` parameter in the `size` mixin."
+
+=all-size($sizes)
+  $width: nth($sizes, 1)
+  $height: $width
+  @if length($sizes) > 1
+    $height: nth($sizes, 2)
+  @if is-size($height)
+    min-height: $height
+    max-height: $height
+    height: $height
+  @else
+    @warn "`#{$height}` is not a valid length for the `$height` parameter in the `size` mixin."
+  @if is-size($width)
+    min-width: $width
+    max-width: $width
+    width: $width
+  @else
+    @warn "`#{$width}` is not a valid length for the `$width` parameter in the `size` mixin."
+
+=ratio($value1: null, $value2: null)
+  @if nth($value2, 1) == 'horizontal'
+    @if $value1 == gold
+      $ratio: 1.618
+      +size(nth($value2, 2) calc(#{nth($value2, 2)} / #{$ratio}))
+    @else if $value1 == silver
+      $ratio: 1.414
+      +size(nth($value2, 2) calc(#{nth($value2, 2)} / #{$ratio}))
+    @else if $value1 == bronze
+      $ratio: 3.303
+      +size(nth($value2, 2) calc(#{nth($value2, 2)} / #{$ratio}))
+    @else
+      $ratio: $value1
+      +size(nth($value2, 2) calc(#{nth($value2, 2)} / #{$ratio}))
+  @else if nth($value2, 1) == 'vertical'
+    @if $value1 == gold
+      $ratio: 1.618
+      +size(calc(#{nth($value2, 2)} * #{$ratio}) nth($value2, 2))
+    @else if $value1 == silver
+      $ratio: 1.414
+      +size(calc(#{nth($value2, 2)} * #{$ratio}) nth($value2, 2))
+    @else if $value1 == bronze
+      $ratio: 3.303
+      +size(calc(#{nth($value2, 2)} * #{$ratio}) nth($value2, 2))
+    @else
+      $ratio: $value1
+      +size(calc(#{nth($value2, 2)} * #{$ratio}) nth($value2, 2))

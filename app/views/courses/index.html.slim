@@ -7,7 +7,7 @@ header.page-header
         ul.page-header-actions__items
           - if current_user && current_user.admin?
             li.page-header-actions__item
-              = link_to new_course_path, class: "is-button-simple-md-warning" do
+              = link_to new_course_path, class: "a-button is-md is-warning" do
                 i.fas.fa-plus
                 | 新規コース
 

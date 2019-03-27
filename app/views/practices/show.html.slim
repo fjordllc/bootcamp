@@ -9,11 +9,11 @@ header.page-header
         ul.page-header-actions__items
           - if current_user.admin?
             li.page-header-actions__item
-              = link_to new_practice_path, class: "is-button-simple-md-warning" do
+              = link_to new_practice_path, class: "a-button is-md is-warning" do
                 i.fas.fa-plus
                 | プラクティス作成
           li.page-header-actions__item
-            = link_to course_practices_path(current_user.course), class: "is-button-simple-md-secondary" do
+            = link_to course_practices_path(current_user.course), class: "a-button is-md is-secondary" do
               i.fas.fa-angle-left
               | プラクティス一覧
 
@@ -29,13 +29,13 @@ header.page-header
         header.practice-content__header.card-header
           h2.practice-content__title
             = Practice.human_attribute_name :description
-        .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text-style
+        .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text
           = @practice.description
         footer.card-footer
           .card-footer-actions
             ul.card-footer-actions__items
               li.card-footer-actions__item
-                = link_to new_question_path, class: "is-button-simple-md-primary is-block" do
+                = link_to new_question_path, class: "a-button is-md is-primary is-block" do
                   i.fas.fa-question-circle
                   | 質問する
 
@@ -43,7 +43,7 @@ header.page-header
         header.practice-content__header.card-header
           h2.practice-content__title
             = Practice.human_attribute_name :goal
-        .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text-style
+        .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text
           = @practice.goal
         footer.card-footer
           #js-learning(data-practice-id="#{@practice.id}")
@@ -66,10 +66,10 @@ header.page-header
             .card-footer-actions
               ul.card-footer-actions__items
                 li.card-footer-actions__item
-                  = link_to edit_practice_path(@practice), class: "is-button-simple-md-primary is-block" do
+                  = link_to edit_practice_path(@practice), class: "a-button is-md is-primary is-block" do
                     i.fas.fa-pen
                     | 編集
                 li.card-footer-actions__item
-                  = link_to practice_path(@practice), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "is-button-simple-md-danger is-block" do
+                  = link_to practice_path(@practice), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "a-button is-md is-danger is-block" do
                     i.fas.fa-trash-alt
                     | 削除

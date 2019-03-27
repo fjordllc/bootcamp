@@ -1,18 +1,18 @@
 .modal
   display: none
-  +fixed(left 0, top 0, right 0, bottom 0, 100)
+  +position(fixed, left 0, top 0, right 0, bottom 0, 100)
   padding: 1rem
   &.is-active
     display: block
 
 .modal__overlay
-  +fixed(left 0, top 0, right 0, bottom 0)
+  +position(fixed, left 0, top 0, right 0, bottom 0)
   background-color: rgba(black, .8)
 
 .modal-content
   +position(absolute, left 50%, top 50%, 1)
   transform: translate(-50%, -50%)
-  background-color: $base-color
+  background-color: $base
   border-radius: .25rem
   width: 40rem
   max-width: 100%
@@ -26,7 +26,7 @@
   display: flex
   align-items: center
   justify-content: space-between
-  border-bottom: solid 1px $background-color
+  border-bottom: solid 1px $background
 
 .modal-header__close
   +text-block(2rem 1, flex)
@@ -43,7 +43,7 @@
   max-height: calc(100vh - 11.5rem)
   overflow: auto
   padding: 1rem
-  border-bottom: solid 1px $background-color
+  border-bottom: solid 1px $background
 
 .modal-title
   font-size: 1.25rem

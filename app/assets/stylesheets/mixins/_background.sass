@@ -1,0 +1,20 @@
+=background-base
+  background-color: #fcfcfc
+  background-image: image_url("bg-pattern-01.svg")
+  background-size: .25rem
+  background-repeat: repeat
+
+=background-main
+  background-color: $main
+  +position(relative)
+  &::before
+    content: ""
+    display: block
+    position: absolute
+    left: 0
+    top: 0
+    right: 0
+    bottom: 0
+    background-image: image_url("bg-icons.png")
+    background-size: auto 606px
+    opacity: 0.07

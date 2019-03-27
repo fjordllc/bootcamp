@@ -1,0 +1,33 @@
+=all-link-state
+  @content
+  &:link,
+  &:hover,
+  &:active,
+  &:visited,
+  &:focus,
+  &:focus-within
+    @content
+
+=hover-link($modifire-class: null)
+  text-decoration: none
+  &:hover,
+  &:active
+    text-decoration: underline
+  @if $modifire-class
+    #{$modifire-class}: underline
+
+=hover-link-reversal($modifire-class: null)
+  text-decoration: underline
+  &:hover,
+  &:active
+    text-decoration: none
+  @if $modifire-class
+    #{$modifire-class}: none
+
+=flex-link
+  display: flex
+  text-decoration: none
+
+=block-link
+  display: block
+  text-decoration: none

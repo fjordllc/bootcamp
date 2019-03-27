@@ -14,6 +14,6 @@
       .auth-form-action.is-sign-up-action
         ul.auth-form-action__items
           li.auth-form-action__item
-            = link_to "キャンセル", :back, class: "is-button-simple-xs-secondary"
+            = link_to "キャンセル", :back, class: "a-button is-xs is-secondary"
           li.auth-form-action__item
-            = f.submit "退会する", class: "is-button-simple-md-danger", data: { confirm: "本当によろしいですか？" }
+            = f.submit "退会する", class: "a-button is-md is-danger", data: { confirm: "本当によろしいですか？" }

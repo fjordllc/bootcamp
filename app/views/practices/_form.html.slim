@@ -6,13 +6,13 @@
       .row
         .col-md-6.col-xs-12
           = label_tag "course", "コース", class: "a-label"
-          .is-button-simple-md-secondary.is-select.is-block
+          .a-button is-md is-secondary.is-select.is-block
             = select_tag "course", options_for_select(Course.order(:created_at).map { |c| [c.title, c.id] }), id: "course_id"
     .form-item
       .row
         .col-md-6.col-xs-12
           = f.label :category_id, class: "a-label"
-          .is-button-simple-md-secondary.is-select.is-block
+          .a-button is-md is-secondary.is-select.is-block
             = f.select :category_id, [], id: "category_id"
     .form-item
       .row
@@ -27,7 +27,7 @@
         .col-md-6.col-xs-12
           .a-label
             | プレビュー
-          .js-description-preview.is-long-text-style.markdown-form__preview
+          .js-description-preview.is-long-text.markdown-form__preview
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
@@ -36,7 +36,7 @@
         .col-md-6.col-xs-12
           .a-label
             | プレビュー
-          .js-goal-preview.is-long-text-style.markdown-form__preview
+          .js-goal-preview.is-long-text.markdown-form__preview
     .form-item
       = f.label :submission, class: "a-label"
       .checkboxes
@@ -48,6 +48,6 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit nil, class: "is-button-simple-lg-warning is-block"
+        = f.submit nil, class: "a-button is-lg is-warning is-block"
       li.form-actions__item
-        = link_to "キャンセル", :back, class: "is-button-simple-md-secondary"
+        = link_to "キャンセル", :back, class: "a-button is-md is-secondary"

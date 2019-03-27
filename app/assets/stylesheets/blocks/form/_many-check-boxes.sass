@@ -1,6 +1,6 @@
 .many-check-boxes
   max-height: 16rem
-  +overflow(hidden auto)
+  overflow-y: auto
   background-color: #f7f7f7
   border: solid 1px #c1c5b9
   border-radius: .25rem
@@ -11,8 +11,8 @@
   border-bottom: solid 1px #ccc
   cursor: pointer
   &.is-checked
-    background-color: $accent-color
-    color: $main-color
+    background-color: $accent
+    color: $main
   .many-check-boxes__item:last-child &
     border-bottom: none
   input

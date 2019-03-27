@@ -8,11 +8,11 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to courses_path, class: "is-button-simple-md-secondary" do
+            = link_to courses_path, class: "a-button is-md is-secondary" do
               | コース一覧
           - if current_user.admin?
             li.page-header-actions__item
-              = link_to new_practice_path(course_id: @course), class: "is-button-simple-md-warning" do
+              = link_to new_practice_path(course_id: @course), class: "a-button is-md is-warning" do
                 i.fas.fa-plus
                 | プラクティス作成
 
@@ -29,7 +29,7 @@ header.page-header
                 - if current_user.admin?
                   .categories-item__show-handle.js-show-handle__trigger
                     i.fas.fa-cog
-              .categories-item__description.js-markdown-view.js-target-blank.is-long-text-style
+              .categories-item__description.js-markdown-view.js-target-blank.is-long-text
                 = category.description
               .categories-item__body
                 .category-practices.js-category-practices
