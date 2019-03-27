@@ -12,7 +12,7 @@
           | 書いた日 : #{l announcement.updated_at}
 
     .thread-body
-      .thread__description.js-target-blank.is-long-text-style.js-markdown-view
+      .thread__description.js-target-blank.is-long-text.js-markdown-view
         = announcement.description
       = render "reactions/reactions", reactionable: @announcement
       - if @announcement.user_id == current_user.id
@@ -20,15 +20,15 @@
           .card-footer-actions
             ul.card-footer-actions__items
               li.card-footer-actions__item
-                = link_to edit_announcement_path(announcement), class: "card-footer-actions__action is-button-simple-md-primary is-block", id: "js-shortcut-edit" do
+                = link_to edit_announcement_path(announcement), class: "card-footer-actions__action a-button is-md is-primary is-block", id: "js-shortcut-edit" do
                   i.fas.fa-pen#new
                   | 内容修正
               li.card-footer-actions__item
-                = link_to new_announcement_path(id: announcement), class: "card-footer-actions__action is-button-simple-md-warning is-block" do
+                = link_to new_announcement_path(id: announcement), class: "card-footer-actions__action a-button is-md is-warning is-block" do
                   i.fas.fa-copy#copy
                   | コピー
               li.card-footer-actions__item
-                = link_to announcement_path(announcement), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                = link_to announcement_path(announcement), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
                   i.fas.fa-trash-alt#delete
                   | 削除
 

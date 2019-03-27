@@ -16,14 +16,13 @@
       max-width: 100%
 
 .auth-form-radio-button__label
-  +text-block(.8125rem 1.45, block)
+  +text-block(.8125rem 1.45 0 .5rem, block)
   border: solid 1px #c1c5b9
   padding: .5rem .5rem .5rem 2rem
   cursor: pointer
   border-radius: .25rem
-  margin-bottom: .5rem
-  transition: background-color .2s ease-in, border-color  .2s ease-in
-  +relative
+  transition: all .2s ease-in
+  +position(relative)
   .auth-form-radio-button.is-half &
     margin-bottom: .5rem
   &::before
@@ -54,13 +53,12 @@
     +position(absolute)
 
 .auth-form-checkbox__label
-  +text-block(.8125rem 1.45, block)
+  +text-block(.8125rem 1.45 0 .5rem, block)
   border: solid 1px #c1c5b9
   padding: .5rem .5rem .5rem 2rem
   cursor: pointer
   border-radius: .25rem
-  margin-bottom: .5rem
-  +relative
+  +position(relative)
   transition: background-color .2s ease-in, border-color  .2s ease-in
   &::before
     content: ''

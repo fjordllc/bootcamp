@@ -16,15 +16,14 @@
       max-width: 100%
 
 .auth-form-radio-button__label
-  +text-block(.875rem 1.45, block)
+  +text-block(.875rem 1.45 0 .5rem, block)
   border: dashed 1px $welcome-card-border
   padding: .625rem .625rem .625rem 2rem
   background-color: rgba($base, .6)
   cursor: pointer
   border-radius: .25rem
-  margin-bottom: .5rem
   transition: background-color .2s ease-in, border-color  .2s ease-in
-  +relative
+  +position(relative)
   .auth-form-radio-button.is-half &
     margin-bottom: .5rem
   &::before
@@ -62,8 +61,8 @@
   cursor: pointer
   border-radius: .25rem
   margin-bottom: .5rem
-  transition: background-color .2s ease-in, border-color  .2s ease-in
-  +relative
+  transition: all .2s ease-in
+  +position(relative)
   &::before
     content: ''
     display: block
@@ -80,10 +79,9 @@
     font-weight: 600
     &::after
       +fa(fas '\f00c')
-      +text-block(.75rem .875rem, center block #4193e9)
+      +text-block(.75rem .875rem -.4375rem, center block #4193e9)
       +size(.875rem)
       +position(absolute, left .75rem, top 50%)
-      margin-top: -.4375rem
   input
     opacity: 0
     +position(absolute)

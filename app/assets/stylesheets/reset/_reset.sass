@@ -1,0 +1,127 @@
+html
+  direction: ltr
+  height: 100%
+  -ms-touch-action: manipulation
+  touch-action: manipulation
+  font-size: 14px
+
+body
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif
+  color: $default-text
+
+*:focus
+  outline: 0 !important
+
+a
+  outline: none !important
+
+a.text-muted:hover, a.text-muted:focus
+  color: #748690
+
+hr
+  border-top: 1px solid #e4eaec
+
+[data-now]
+  display: inline-block
+
+.nav-pills + .tab-content
+  border: 0
+  padding: 0
+
+.btn
+  border-radius: 3px
+  font-size: 13px
+  -webkit-appearance: none
+  outline: none !important
+  transition: all 0.1s
+
+.btn.btn-link
+  box-shadow: none
+  border: 0
+
+.input-group .btn
+  font-size: 14px
+  border-color: #dde6e9
+
+.input-group .form-control-sm + .input-group-btn .btn
+  font-size: 0.8125rem
+  padding: 0.3125rem 0.625rem
+  margin-left: -1px
+  border-top-left-radius: 0
+  border-bottom-left-radius: 0
+
+.btn.btn-warning
+  color: #fff
+
+.btn.btn-outline-warning:hover, .btn.btn-outline-warning:focus, .btn.btn-outline-warning:active
+  color: #fff
+
+.btn-secondary, .calendar-app .fc-button
+  background-color: #fff
+  border-color: #eaeaea
+  color: #333
+
+.btn-secondary:hover, .calendar-app .fc-button:hover
+  background-color: #f5f5f5
+
+.btn-secondary:not(:disabled):not(.disabled):active, .calendar-app .fc-button:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .calendar-app .fc-button:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle, .calendar-app .show > .dropdown-toggle.fc-button
+  background-color: #f5f5f5
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+
+.btn-outline-secondary
+  border-color: #eaeaea !important
+  color: #333
+
+.btn-outline-secondary:hover
+  color: #333
+  background-color: #f5f5f5 !important
+
+.btn-outline-secondary:focus
+  box-shadow: 0 0 0 0.2rem rgba(234, 234, 234, 0.5)
+
+span.btn
+  -webkit-appearance: none !important
+
+.form-control
+  box-shadow: 0 0 0 #000 !important
+  font-size: 0.875rem
+
+.form-control:focus
+  border-color: #66afe9
+
+.form-control-sm,
+select.form-control-sm
+  font-size: .75rem
+  height: 31px
+
+.custom-select
+  -webkit-appearance: none
+
+.custom-control-label::before
+  top: 0.19rem
+  border: 1px solid #dde6e9
+
+fieldset
+  padding-bottom: 20px
+  border-bottom: 1px dashed #eee
+  margin-bottom: 20px
+
+fieldset.last-child, fieldset:last-child
+  border-bottom: 0
+
+fieldset .form-group
+  margin-bottom: 0
+
+.input-group-text
+  font-size: .875rem
+
+@media (max-width: 767.98px)
+  input[type="text"],
+  input[type="email"],
+  input[type="search"],
+  input[type="password"]
+    -webkit-appearance: none
+
+.nav.nav-pills .active > a
+  background-color: #5d9cec

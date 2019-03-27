@@ -1,17 +1,17 @@
 .nda
   p
-    +text-block(14px 1.8 1.2em)
+    +text-block(14px 1.8 0 1.2em)
   ul,
   ol
     margin-bottom: 1.2em
   li
-    +text-block(.875rem 1.8 1.2em)
+    +text-block(.875rem 1.8 0 1.2em)
   h3
-    +text-block(1rem 1.45 .6em)
+    +text-block(1rem 1.45 0 .6em)
 
 .nda__actions-container
   display: flex
-  justify-content: space-between
+  justify-content: center
   align-items: center
   width: 100%
   &::before
@@ -22,15 +22,3 @@
   min-width: 16rem
   flex: 0 0  12.5rem
   +padding(vertical, .5rem)
-
-body
-  .nda__action.is-checkbox
-    padding-left: 2.65rem
-
-.nda__close
-  +text-block(.875rem 2rem, 600)
-  height: 2rem
-  opacity: .5
-  cursor: pointer
-  &:hover
-    opacity: 1

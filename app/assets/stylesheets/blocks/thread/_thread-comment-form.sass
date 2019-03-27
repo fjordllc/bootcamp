@@ -12,7 +12,7 @@ $thread-header-author: 4.75rem
   +position(absolute, left 0, top 0)
   +size($thread-header-author 100%)
   padding-right: 2rem
-  border-right: $background-color solid 1px
+  border-right: $background solid 1px
 
 .thread-comment-form__author-icon
   +size(100% auto)
@@ -20,8 +20,8 @@ $thread-header-author: 4.75rem
 
 .thread-comment-form__form
   padding-bottom: 1rem
-  +relative
-  +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
+  +position(relative)
+  // +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
   +media-breakpoint-down(sm)
     &::before,
     &::after
@@ -29,22 +29,21 @@ $thread-header-author: 4.75rem
 
 .thread-comment-form__tabs
   display: flex
-  background-color: $muted-text
+  background-color: #b3bcbf
   margin-bottom: 1rem
   padding: .75rem 1rem 0
   +border-radius(top, .25rem)
 
 .thread-comment-form__tab
   +size(5.5rem 2.25rem)
-  +text-block(.8125rem 1, flex)
+  +text-block(.8125rem 1, flex $reversal-text)
   align-items: center
   justify-content: center
   border-bottom: none
   cursor: pointer
   +border-radius(top, .25rem)
-  color: $reversal-text
   &.is-active
-    background-color: $base-color
+    background-color: $base
     color: $default-text
 
 .thread-comment-form__markdown-parent

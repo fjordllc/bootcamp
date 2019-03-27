@@ -1,0 +1,35 @@
+/////////////////
+// grids
+////////////////
+
+$base-px: 16px !default
+$container-class-name: container !default
+
+=_assert-ascending($map, $map-name)
+  $prev-key: null
+  $prev-num: null
+  @each $key, $num in $map
+    @if $prev-num != null and $prev-num >= $num
+      @warn "Invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} which isn't greater than #{$prev-num}, the value of the previous key '#{$prev-key}' !"
+    $prev-key: $key
+    $prev-num: $num
+
+$grid-breakpoints: (xs: 0, sm: 34em, md: 48em, lg: 62em, xl: 75em, xxl: 120em)
++_assert-ascending($grid-breakpoints, "$grid-breakpoints")
+$container-max-width: 72.25rem !default
+
+// 横一列の最大カラム数
+$grid-columns: 12 !default
+// カラムとカラムの間のスペース
+$grid-gutter-width: 1rem
+
+/////////////////
+// layout
+////////////////
+
+$horizontal: left right !default
+$vertical: top bottom !default
+
+$header-height: 4rem
+$main-visual-height: 20rem
+$page-header-height: 6rem

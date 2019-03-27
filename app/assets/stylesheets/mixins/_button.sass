@@ -1,0 +1,118 @@
+=button-base
+  text-transform: none
+  display: inline-flex
+  border: solid 1px
+  border-radius: .25rem
+  font-family: system-ui, sans-serif
+  line-height: 1.4
+  white-space: nowrap
+  text-decoration: none
+  cursor: pointer
+  user-select: none
+  align-items: center
+  justify-content: center
+  transition: all .2s ease-out
+  &.is-block
+    display: flex
+    width: 100%
+  &:focus
+    outline: none
+  &:disabled
+    cursor: default
+    pointer-events: none
+  &.is-select
+    select
+      +size(100%)
+      cursor: pointer
+  i
+    margin-right: .45em
+    margin-top: .04em
+  &.is-icon
+    i
+      +text-block(1.3em 1)
+      margin-right: 0
+  &.is-checkbox
+    +position(relative)
+    &::before
+      content: ""
+      +size(.9375em)
+      border-radius: .1875em
+      display: block
+      border: solid 1px $background-shade
+      background-color: $base
+      +position(absolute, left 1em, top 50%)
+      transform: translate(0, -50%)
+    &::after
+      +fa(fas "\f00c")
+      +text-block(1em 1, flex $reversal-text)
+      align-items: center
+      justify-content: center
+      +size(.9375em)
+      +position(absolute, left 1em, top 50%)
+      transform: translate(0, -50%)
+      opacity: 0
+    &.is-checked::before
+      border-color: $primary
+      background-color: $primary
+    &.is-checked::after
+      opacity: 1
+    input
+      opacity: 0
+      +position(absolute, left 0, top 0)
+      +size(0)
+      overflow: hidden
+
+
+=input-button-base
+  display: inline-block
+  vertical-align: middle
+  &.is-block
+    width: 100%
+    display: block
+
+=button-color($color)
+  background-color: $color
+  $text-color: if(luma($color) > 50, $default-text, $reversal-text)
+  color: $text-color
+  border-color: if(luma($color) > 80, shade($color, 18%), $color)
+  &:focus,
+  &:active
+    box-shadow: 0 0 0 .1875rem rgba($color, .25)
+  &:hover,
+  &:focus,
+  &:active
+    $button-color: darken($color, 10%)
+    background-color: $button-color
+    border-color: if(luma($color) > 80, shade($color, 24%), $color)
+  &.is-disabled,
+  &:disabled
+    color: rgba($text-color, .4)
+    pointer-events: none
+    border-color: shade($color, 6%)
+
+
+=button-size($font-size: 1rem, $horizontal: .75, $vertical: .625)
+  font-size: $font-size
+  +padding(horizontal, #{strip_unit($horizontal * $font-size)}em)
+  @if unitless_number($vertical)
+    min-height: #{strip_unit(($font-size * 1.4) + (($vertical * $font-size) * 2))}em
+  @else
+    min-height: $vertical
+  &.is-icon
+    +padding(horizontal, #{strip_unit($horizontal * $font-size * 1.2)}em)
+  &.is-select
+    +padding(horizontal, 0)
+    +position(relative)
+    &::before
+      +fa(fas "\f0d7")
+      +size(2em 100%)
+      +position(absolute, right 0, top 0, bottom 0)
+      +text-block(1em 1, flex $muted-text)
+      align-items: center
+      justify-content: center
+    select
+      padding-left: 1em
+      padding-right: 2em
+      +position(relative, 1)
+  &.is-checkbox
+    padding-left: 2.75em

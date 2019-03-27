@@ -1,12 +1,12 @@
 .thread-list-item
   padding: .75rem 1rem
   &:not(:last-child)
-    border-bottom: solid 1px $background-color
+    border-bottom: solid 1px $background
   +media-breakpoint-down(sm)
     padding: .75rem
 
 .thread-list-item__inner
-  +relative
+  +position(relative)
   padding-left: 3.5rem
   +media-breakpoint-down(sm)
     padding-left: 3.25rem
@@ -19,7 +19,7 @@
   +position(absolute, left 0, top 0)
   +size(3rem)
   border-radius: 50%
-  background-color: $accent-color
+  background-color: $accent
   display: flex
   align-items: center
   justify-content: center
@@ -82,8 +82,7 @@
     color: $muted-text
 
 .thread-list-item__sub-title
-  +text-block(.75rem 1.4, $muted-text 400)
-  margin-bottom: .25rem
+  +text-block(.75rem 1.4 .25rem, $muted-text 400)
 
 .thread-list-item__actions
   margin-left: .5rem
@@ -95,10 +94,16 @@
     +position(relative, 1)
 
 .thread-list-item__actions-link
-  +text-block(1rem 1, flex #b9b9b9)
+  +text-block(1rem 1, $muted-text)
+  +flex-link
   align-items: center
   justify-content: center
   +size(1.75rem)
+  border-radius: .1875rem
+  transition: all .2s ease-out
+  &:hover
+    background-color: rgba($main, .2)
+    color: $main
 
 .thread-list-item-meta
   display: flex

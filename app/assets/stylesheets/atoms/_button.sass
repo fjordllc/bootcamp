@@ -1,0 +1,55 @@
+.a-button
+  +button-base
+
+  // color
+  &.is-primary
+    +button-color($primary)
+  &.is-secondary
+    +button-color($secondary)
+  &.is-info
+    +button-color($info)
+  &.is-success
+    +button-color($success)
+  &.is-warning
+    +button-color($warning)
+  &.is-danger
+    +button-color($danger)
+  &.is-disabled
+    +button-color($disabled)
+
+  //size
+  &.is-xs
+    +button-size(.75rem, 1, 1.8rem)
+    font-weight: 600
+  &.is-sm
+    +button-size(.75rem, 1, 1.625rem)
+    font-weight: 600
+  &.is-md
+    +button-size(.8125rem, 1.5, 33.8px)
+    font-weight: 600
+  &.is-lg
+    +button-size(.9375rem, 1, 45px)
+    font-weight: 800
+  &.is-xl
+    +button-size(1.25rem, 1, 57px)
+    font-weight: 900
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"]
+  &.a-button
+    +input-button-base
+
+.is-button-group
+  display: flex
+  >*:not(:last-child)
+    margin-right: -1px
+  li:first-child
+    .a-button
+      +border-radius(right, 0)
+  li:last-child
+    .a-button
+      +border-radius(left, 0)
+  li:not(:first-child):not(:last-child)
+    .a-button
+      border-radius: 0

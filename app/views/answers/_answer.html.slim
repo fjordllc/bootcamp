@@ -17,7 +17,7 @@
           = answer.user.login_name
       time.thread-comment__created-at(datetime="#{answer.created_at.to_datetime}" pubdate="pubdate")
         = l answer.updated_at
-    .thread-comment__description.js-markdown-view.js-target-blank.is-long-text-style
+    .thread-comment__description.js-markdown-view.js-target-blank.is-long-text
       = answer.description
     = render "reactions/reactions", reactionable: answer
     footer.card-footer
@@ -25,14 +25,14 @@
         ul.card-footer-actions__items
           - if correct_answer.blank? && answer != correct_answer && (current_user == question.user || admin_login?)
             li.card-footer-actions__item
-              = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: "is-button-simple-md-warning is-block" do
+              = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: "a-button is-md is-warning is-block" do
                 | 解決にする
           - if answer.user == current_user
             li.card-footer-actions__item
-              = link_to edit_question_answer_path(answer.question, answer, return_to: question_url(answer.question)), class: "card-footer-actions__action is-button-simple-md-primary is-block", id: "js-shortcut-edit" do
+              = link_to edit_question_answer_path(answer.question, answer, return_to: question_url(answer.question)), class: "card-footer-actions__action a-button is-md is-primary is-block", id: "js-shortcut-edit" do
                 i.fas.fa-pen#new
                 | 内容修正
             li.card-footer-actions__item
-              = link_to question_answer_path(answer.question, answer, return_to: question_url(answer.question)), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+              = link_to question_answer_path(answer.question, answer, return_to: question_url(answer.question)), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
                 i.fas.fa-trash-alt#delete
                 | 削除
