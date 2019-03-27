@@ -23,5 +23,7 @@ header.page-header
 
         .col-xs-12.col-xl-6.col-xxl-6
           = render "users/grass", user: current_user
+          - if current_user.role == :student
+            = render "alert_account_empty", user: current_user
           - if current_user.github_account.present?
             = render "users/github_grass", user: current_user
