@@ -17,11 +17,14 @@ header.page-header
               .thread-list__footer-to-index
                 = link_to announcements_path, class: "thread-list__footer-text-link" do
                   | 全てのお知らせ
+          - if current_user.reports.wip.present?
+             = render "/users/reports/wip_reports", user: current_user
           - if current_user.active_practices.present?
             = render "/users/practices/active_practices", user: current_user
           = render "/users/practices/completed_practices", user: current_user
 
         .col-xs-12.col-xl-6.col-xxl-6
-          = render "users/grass", user: current_user
+          - unless current_user.total_learning_time.zero?
+            = render "users/grass", user: current_user
           - if current_user.github_account.present?
             = render "users/github_grass", user: current_user
