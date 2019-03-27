@@ -1,10 +1,10 @@
-.card-practices__items
+.card-list__items
   margin-bottom: -.25rem
 
-.card-practices__item:not(:last-child)
+.card-list__item:not(:last-child)
   border-bottom: dotted .0625rem $background
 
-.card-practices__item-link
+.card-list__item-link
   +text-block(.875rem 1.55, block $main)
   padding: .5rem 1rem
   +hover-link
@@ -12,9 +12,10 @@
     display: inline-block
     margin-right: .5rem
     color: $accent
-    .card-practices.is-completed &
+    .card-list.is-completed &
       +fa(fas '\f00c')
-    .card-practices.is-active &
+    .card-list.is-active &,
+    .card-list.is-wip &
       +fa(fas '\f060')
   &:hover::before
     text-decoration: none
