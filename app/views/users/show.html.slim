@@ -34,7 +34,8 @@ header.page-header
                       li.card-footer-actions__item
                         = link_to "管理者として情報変更", edit_admin_user_path, class: "card-footer-actions__action a-button is-md is-secondary is-block"
         .col-xs-12.col-lg-7.col-xxl-6
-          = render "users/grass", user: @user
+          - unless @user.total_learning_time.zero?
+            = render "users/grass", user: @user
           - if @user.github_account.present?
             .a-card
               = render "users/github_grass", user: @user
