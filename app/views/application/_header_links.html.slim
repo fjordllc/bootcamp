@@ -1,11 +1,11 @@
 .header-links.is-user-links
   ul.header-links__items
-    li
+    li.header-links__search
       = form_tag searchables_url, method: "get", class: "header-search", name: "search" do
-        .header-search__select.is-button-simple-sm-secondary.is-select.is-block
+        .header-search__select.a-button.is-sm.is-secondary.is-select.is-block
           = select_tag "document_type", options_for_select(Searcher::DOCUMENT_TYPES, params[:document_type])
         = text_field_tag "word", params[:word], class: "a-xs-text-input header-search__text-input", placeholder: "検索"
-        button.is-button-simple-sm-secondary.is-icon.header-search__submit#test-search(type="submit")
+        button.a-button.is-sm.is-secondary.is-icon.header-search__submit#test-search(type="submit")
           i.fas.fa-search
     li.header-links__item
       label.header-links__link.test-show-menu(for="header-menu")
@@ -16,13 +16,6 @@
         label.header-dropdown__background(for="header-menu")
         .header-dropdown__inner
           ul.header-dropdown__items
-            - if current_user.admin?
-              li.header-dropdown__item
-                = link_to admin_root_path, class: "header-dropdown__item-link" do
-                  | 管理
-              li.header-dropdown__item
-                = link_to "https://github.com/fjordllc/bootcamp/projects/1", class: "header-dropdown__item-link" do
-                  | GitHub
             li.header-dropdown__item
               = link_to edit_current_user_path, class: "header-dropdown__item-link" do
                 | 登録情報変更
@@ -32,6 +25,19 @@
             li.header-dropdown__item
               = link_to courses_path, class: "header-dropdown__item-link" do
                 | コース
+            li.header-dropdown__item
+              = link_to "https://github.com/fjordllc/bootcamp/projects/1", class: "header-dropdown__item-link" do
+                | GitHub
+            - if current_user.admin?
+              li.header-dropdown__item
+                = link_to admin_root_path, class: "header-dropdown__item-link" do
+                  | 管理
+              li.header-dropdown__item
+                = link_to "https://fjord.slack.com/admin", class: "header-dropdown__item-link", target: "_blank" do
+                  | slack管理
+              li.header-dropdown__item
+                = link_to "https://github.com/fjordllc/fjord/wiki/FjordBootCamp", class: "header-dropdown__item-link", target: "_blank" do
+                  | 管理者用ドキュメント
             li.header-dropdown__item
               = link_to logout_path, class: "header-dropdown__item-link" do
                 | ログアウト

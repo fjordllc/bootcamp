@@ -1,0 +1,14 @@
+=short-text-style
+  >*:first-child
+    margin-top: 0
+  >*:last-child
+    margin-bottom: 0
+  p
+    +text-block(1em 1.6 0 1em)
+  li
+    +text-block(1em 1.6 0 .125em)
+  a
+    word-break: break-all
+    +hover-link-reversal
+    p &
+      word-break: break-all

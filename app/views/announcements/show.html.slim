@@ -8,11 +8,11 @@ header.page-header
         ul.page-header-actions__items
           - if admin_login?
             li.page-header-actions__item
-              = link_to new_announcement_path, class: "page-header-actions__items-link is-button-simple-md-warning" do
+              = link_to new_announcement_path, class: "page-header-actions__items-link a-button is-md is-warning" do
                 i.fa.fa-plus
                 | お知らせ作成
           li.page-header-actions__item
-            = link_to announcements_path, class: "page-header-actions__items-link is-button-simple-md-secondary" do
+            = link_to announcements_path, class: "page-header-actions__items-link a-button is-md is-secondary" do
               | お知らせ一覧へ
 
 .page-body

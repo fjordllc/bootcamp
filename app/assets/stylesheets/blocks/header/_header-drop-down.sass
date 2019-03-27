@@ -48,12 +48,12 @@
   cursor: pointer
 
 .header-drop-down__item:not(:last-child)
-  border-bottom: solid 1px $background-color
+  border-bottom: solid 1px $background
 
 .header-drop-down__item-link
-  +text-block(.875rem 1.6, block $main-color)
+  +text-block(.875rem 1.6, block $main)
   padding: .5rem .75rem
-  transition: color .2s ease-in, background-color .2s ease-in
+  transition: all .2s ease-in
   .header-drop-down__item:first-child &
     +border-radius(top, .25rem)
   .header-drop-down__item:last-child &
@@ -73,7 +73,7 @@
   +position(fixed, left 0, top 0, right 0, bottom 0, 1)
 
 .header-notifications-item__message
-  +text-block(.8125rem 1.45 .25rem, $default-text)
+  +text-block(.8125rem 1.45 0 .25rem, $default-text)
   +media-breakpoint-down(sm)
     font-size: .75rem
 

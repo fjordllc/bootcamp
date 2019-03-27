@@ -22,14 +22,13 @@ $checkbox-size: .875rem
       display: block
       +position(absolute, left 0, top 50%)
       transform: translate(0, -50%)
-      background-color: $base-color
+      background-color: $base
       border-radius: .1875rem
       transition: all .2s ease-out
     &::after
       +fa(fas "\f00c")
-      +text-block(.75rem 1, $reversal-text)
+      +text-block(.75rem 1, $reversal-text flex)
       +size($checkbox-size)
-      display: flex
       align-items: center
       justify-content: center
       +position(absolute, left 0, top 50%)

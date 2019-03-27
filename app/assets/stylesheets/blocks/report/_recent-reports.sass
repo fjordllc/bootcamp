@@ -9,7 +9,7 @@
 
 .recent-reports-item__link
   color: $reversal-text
-  display: block
+  +block-link
   padding: .5rem .75rem
   border-bottom: solid 1px $side-border
   transition: color .2s ease-in, background-color .2s ease-in
@@ -19,7 +19,7 @@
     background-color: $side-shade
 
 .recent-reports-item__title
-  +text-block(.875rem 1.45 .125rem, 600)
+  +text-block(.875rem 1.45 0 .125rem, 600)
   word-break: break-all
   .recent-reports-item.is-wip &
     color: rgba(white, .6)
@@ -47,17 +47,18 @@
     opacity: .6
 
 .recent-reports-item__checked
-  color: $accent-color
+  color: $accent
   +position(absolute, left .25rem, top .25rem)
   font-size: 1.5rem
-  text-shadow: $main-color .0625rem .0625rem 0
+  text-shadow: $main .0625rem .0625rem 0
 
 .recent-reports__to-index
   width: 14rem
   background-color: #342c69
   padding: 1rem .75rem
-  transition: color .2s ease-in, background-color .2s ease-in
+  transition: all .2s ease-in
   +position(fixed, bottom 0)
-  +text-block(.8125rem 1, block $reversal-text center)
+  +block-link
+  +text-block(.8125rem 1, $reversal-text center)
   &:hover
     background-color: #262144

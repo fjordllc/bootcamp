@@ -16,7 +16,7 @@ $thread-header-author: 6rem
 
 .thread__inner
   +position(relative)
-  +balloon-tail(left $base .625rem .75rem, false, top 2rem)
+  // +balloon-tail(left $base .625rem .75rem, false, top 2rem)
   +media-breakpoint-down(sm)
     &::before,
     &::after
@@ -45,4 +45,4 @@ $thread-header-author: 6rem
   +media-breakpoint-down(sm)
     padding: 1rem
   & + .thread__description
-    border-top: solid 1px $background-color
+    border-top: solid 1px $background

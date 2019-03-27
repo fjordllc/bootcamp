@@ -14,7 +14,7 @@
     justify-content: center
     +size(2rem 100%)
     +position(absolute, left 0, top 0)
-    background-color: $background-color
+    background-color: $background
     +border-radius(left, .25rem)
     border: solid 1px #c1c5b9
   .a-sm-text-input
@@ -23,7 +23,7 @@
 .auth-form-item__help
   margin-top: .5rem
   p
-    +text-block(.75rem 1.5 1em)
+    +text-block(.75rem 1.5 0 1em)
   a
     +hover-link-reversal
   *:last-child
@@ -49,7 +49,6 @@
     +text-block(.75rem 1.5 .75rem)
 
 .auth-form-item__error
-  +text-block(.75rem 1, $reversal-text inline-block)
+  +text-block(.75rem 1 .25rem, $reversal-text inline-block)
   background-color: $danger
   padding: .25rem .5rem
-  margin-top: .25rem

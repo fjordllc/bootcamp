@@ -1,14 +1,13 @@
 .card-footer
   padding: .75rem 1.25rem
-  border-top: $background-color solid 1px
+  border-top: $background solid 1px
   &:last-child
     +border-radius(bottom, .25rem)
   .card-header + &
     border-top: none
 
 .card-footer__description
-  +text-block(.75rem 1.4, center $muted-text)
-  margin-top: .5rem
+  +text-block(.75rem 1.4 .5rem, center $muted-text)
   +media-breakpoint-down(sm)
     text-align: left
     font-size: .625rem

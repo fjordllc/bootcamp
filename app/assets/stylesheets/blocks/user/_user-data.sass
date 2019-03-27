@@ -1,9 +1,8 @@
 .user-part
   background-color: #b04d4d
   padding: .375rem .75rem
-  +text-block(.625rem 1, center $reversal-text 700 flex)
+  +text-block(.625rem 1, center $reversal-text 700 flex nowrap)
   align-items: center
-  white-space: nowrap
   margin-right: .5rem
   border-radius: 1rem
   +media-breakpoint-down(sm)
@@ -18,7 +17,7 @@
   &.is-graduate
     background-color: #409c73
   &.is-admin
-    background-color: $main-color
+    background-color: $main
 
 .user-data__inner
   padding: 1.5rem
@@ -35,7 +34,7 @@
   +media-breakpoint-down(sm)
     margin-top: .75rem
   p
-    +text-block(.875rem 1.8 .8em)
+    +text-block(.875rem 1.8 0 .8em)
     +media-breakpoint-down(sm)
       font-size: .8125rem
     &:last-child

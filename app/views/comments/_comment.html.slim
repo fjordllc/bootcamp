@@ -17,7 +17,7 @@
             = comment.user.login_name
       time.thread-comment__created-at(datetime="#{commentable.created_at.to_datetime}" pubdate="pubdate")
         = l comment.updated_at
-    .thread-comment__description.js-markdown-view.js-target-blank.is-long-text-style
+    .thread-comment__description.js-markdown-view.js-target-blank.is-long-text
       = comment.description
     = render "reactions/reactions", reactionable: comment
     - if comment.user == current_user
@@ -25,10 +25,10 @@
         .card-footer-actions
           ul.card-footer-actions__items
             li.card-footer-actions__item
-              = link_to edit_comment_path(comment), class: "card-footer-actions__action is-button-simple-md-primary is-block" do
+              = link_to edit_comment_path(comment), class: "card-footer-actions__action a-button is-md is-primary is-block" do
                 i.fas.fa-pen
                 | 編集
             li.card-footer-actions__item
-              = link_to comment, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+              = link_to comment, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
                 i.fas.fa-trash-alt
                 | 削除

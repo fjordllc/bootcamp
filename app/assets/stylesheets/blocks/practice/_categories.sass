@@ -5,12 +5,14 @@
 
 .categories-items
   max-width: 58rem
-  flex: 100
   +margin(horizontal, auto)
   +position(relative)
   display: flex
   justify-content: space-between
   align-items: flex-start
+
+.categories-items__inner
+  flex: 100
 
 .categories-item
   &:not(:last-child)
@@ -29,9 +31,13 @@
   align-items: center
   justify-content: center
   cursor: pointer
+  +text-block(1rem 1, $muted-text)
+  transition: all .2s ease-out
+  &:hover
+    color: $main
 
 .categories__label
-  +text-block(.75rem 2rem, $main-color center 600)
+  +text-block(.75rem 2rem, $main center 600)
   border: solid 1px #aaaaaa
 
 .categories-item__header
@@ -42,7 +48,7 @@
 
 .categories__item-value
   padding: .375rem .75rem
-  border: solid 1px $background-color-shade
+  border: solid 1px $background-shade
   +text-block(.875rem 1.45)
 
 .categories-item__body
@@ -53,6 +59,6 @@
 .categories-item__description
   margin-bottom: 1rem
   p
-    +text-block(.875rem 1.8 .6em)
+    +text-block(.875rem 1.8 0 .6em)
   *:last-child
     margin-bottom: 0

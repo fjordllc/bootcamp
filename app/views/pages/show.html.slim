@@ -6,11 +6,11 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to [:new, :page], class: "is-button-simple-md-warning" do
+            = link_to [:new, :page], class: "a-button is-md is-warning" do
               i.fas.fa-plus
               | 新規ページ
           li.page-header-actions__item
-            = link_to :pages, class: "is-button-simple-md-secondary" do
+            = link_to :pages, class: "a-button is-md is-secondary" do
               i.fas.fa-angle-left
               | 一覧に戻る
 
@@ -27,17 +27,17 @@ header.page-header
             time.thread-meta__created-at(datetime="#{@page.updated_at.to_datetime}" pubdate="pubdate")
               = l @page.updated_at
         .thread-body
-          .thread__description.js-markdown-view.js-target-blank.is-long-text-style.js-markdown
+          .thread__description.js-markdown-view.js-target-blank.is-long-text.js-markdown
             = @page.body
         footer.card-footer
           .card-footer-actions
             ul.card-footer-actions__items
               li.card-footer-actions__item
-                = link_to [:edit, @page], class: "card-footer-actions__action is-button-simple-md-warning is-block" do
+                = link_to [:edit, @page], class: "card-footer-actions__action a-button is-md is-warning is-block" do
                   i.fas.fa-pen
                   | 内容変更
               li.card-footer-actions__item
-                = link_to @page, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                = link_to @page, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
                   i.fas.fa-trash-alt
                   | 削除
       .thread-prev-next

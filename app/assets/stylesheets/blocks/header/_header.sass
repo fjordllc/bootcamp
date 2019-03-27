@@ -3,7 +3,7 @@ $header-height: 3.125rem
 .header
   background-color: $base
   +position(relative, 2)
-  border-bottom: solid 1px $background-color
+  border-bottom: solid 1px $background
 
 .header__container
   display: flex
@@ -12,9 +12,11 @@ $header-height: 3.125rem
   height: $header-height
 
 .header__title
-  color: $default-text
   display: flex
   align-items: center
+  transition: all .2s ease-out
+  &:hover
+    opacity: .8
 
 .header__title-image
   height: 2rem

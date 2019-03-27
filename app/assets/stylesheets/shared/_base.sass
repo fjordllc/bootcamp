@@ -14,7 +14,7 @@ body
     +media-breakpoint-down(sm)
       overflow: hidden
   &.is-piyo-background
-    background-color: $main-color
+    background-color: $main
     background-image: image_url('error-background-main-color.svg')
     background-repeat: repeat
     background-size: 80px
@@ -67,17 +67,18 @@ body
   body.welcome &
     max-width: 75rem
     +padding(horizontal, 1rem)
+    +margin(horizontal, auto)
 
 .columns
   max-width: 75rem
   +margin(horizontal, auto)
 
-[class*=is-button-simple-]
+[class*=a-button]
   &[class*=-secondary]
     border: solid 1px #c1c5b9
   &[class*=-primary]:disabled
     background-color: $primary
     cursor: default
 
-[class*=is-button-simple-]:not(input)
+[class*=a-button]:not(input)
   +padding(vertical, 0)
