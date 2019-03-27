@@ -95,9 +95,9 @@
   font-size: $font-size
   +padding(horizontal, #{strip_unit($horizontal * $font-size)}em)
   @if unitless_number($vertical)
-    min-height: #{strip_unit(($font-size * 1.4) + (($vertical * $font-size) * 2))}em
+    height: #{strip_unit(($font-size * 1.4) + (($vertical * $font-size) * 2))}em
   @else
-    min-height: $vertical
+    height: $vertical
   &.is-icon
     +padding(horizontal, #{strip_unit($horizontal * $font-size * 1.2)}em)
   &.is-select

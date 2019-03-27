@@ -6,13 +6,13 @@
       .row
         .col-md-6.col-xs-12
           = label_tag "course", "コース", class: "a-label"
-          .a-button is-md is-secondary.is-select.is-block
+          .a-button.is-md.is-secondary.is-select.is-block
             = select_tag "course", options_for_select(Course.order(:created_at).map { |c| [c.title, c.id] }), id: "course_id"
     .form-item
       .row
         .col-md-6.col-xs-12
           = f.label :category_id, class: "a-label"
-          .a-button is-md is-secondary.is-select.is-block
+          .a-button.is-md.is-secondary.is-select.is-block
             = f.select :category_id, [], id: "category_id"
     .form-item
       .row
