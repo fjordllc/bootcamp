@@ -38,6 +38,9 @@
               li.header-dropdown__item
                 = link_to "https://github.com/fjordllc/fjord/wiki/FjordBootCamp", class: "header-dropdown__item-link", target: "_blank" do
                   | 管理者用ドキュメント
+              li.header-dropdown__item
+                = link_to welcome_path, class: "header-dropdown__item-link" do
+                  | トップページ確認
             li.header-dropdown__item
               = link_to logout_path, class: "header-dropdown__item-link" do
                 | ログアウト
