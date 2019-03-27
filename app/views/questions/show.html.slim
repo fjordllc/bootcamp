@@ -7,11 +7,11 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to new_question_path, class: "is-button-simple-md-warning" do
+            = link_to new_question_path, class: "a-button is-md is-warning" do
               i.fas.fa-plus
               | みんなに聞く
           li.page-header-actions__item
-            = link_to questions_path, class: "is-button-simple-md-secondary" do
+            = link_to questions_path, class: "a-button is-md is-secondary" do
               i.fas.fa-angle-left
               | Q&A一覧へ
 
@@ -34,7 +34,7 @@ header.page-header
                 = link_to @question.practice, class: "report-practices__item-link" do
                   = @question.practice.title
         .thread-body
-          .thread__description.js-markdown-view.js-target-blank.is-long-text-style.js-markdown
+          .thread__description.js-markdown-view.js-target-blank.is-long-text.js-markdown
             = @question.description
           = render "reactions/reactions", reactionable: @question
         - if @question.user_id == current_user.id
@@ -42,11 +42,11 @@ header.page-header
             .card-footer-actions
               ul.card-footer-actions__items
                 li.card-footer-actions__item
-                  = link_to edit_question_path(@question), class: "card-footer-actions__action is-button-simple-md-primary is-block", id: "js-shortcut-edit" do
+                  = link_to edit_question_path(@question), class: "card-footer-actions__action a-button is-md is-primary is-block", id: "js-shortcut-edit" do
                     i.fas.fa-pen#new
                     | 内容修正
                 li.card-footer-actions__item
-                  = link_to question_path(@question), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                  = link_to question_path(@question), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
                     i.fas.fa-trash-alt#delete
                     | 削除
 

@@ -84,13 +84,13 @@ body.home-welcome
       +padding(vertical, 2rem)
 
 .welcome-section__title
-  +text-block(1.75rem 1.45 .3em, 400 center $welcome-card-border)
+  +text-block(1.75rem 1.45 0 .3em, 400 center $welcome-card-border)
   +media-breakpoint-down(sm)
-    +text-block(1.125rem 1.3 1rem)
+    +text-block(1.125rem 1.3 0 1rem)
     +position(relative)
 
 .welcome-section__sub-title
-  +text-block(1.25rem 1.45 .6em, 700 center $welcome-card-border)
+  +text-block(1.25rem 1.45 0 .6em, 700 center $welcome-card-border)
   font-feature-settings: "palt"
   +media-breakpoint-down(sm)
     font-size: 1rem
@@ -111,7 +111,7 @@ body.home-welcome
   &.is-reversal
     color: $reversal-text
   p
-    +text-block(1rem 1.8 1.2em)
+    +text-block(1rem 1.8 0 1.2em)
     +media-breakpoint-down(sm)
       font-size: .875rem
   *:last-child
@@ -135,13 +135,13 @@ body.home-welcome
 
 .welcome-section__action
   +size(auto 4rem)
-  +text-block(1.125rem 1.45, flex 700)
+  +text-block(1.125rem 1.45, flex 700 $welcome-default-text)
   max-width: 22rem
   margin: 2rem auto 0
   background: #f4e90f
-  color: $welcome-default-text
   align-items: center
   justify-content: center
   border: solid 4px $welcome-default-text
   border-radius: 8px
   cursor: pointer
+  text-decoration: none

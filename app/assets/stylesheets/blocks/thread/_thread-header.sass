@@ -1,6 +1,6 @@
 .thread-header
   padding: 1rem 2rem 0
-  border-bottom: $background-color solid 1px
+  border-bottom: $background solid 1px
   +media-breakpoint-down(sm)
     padding: 2.5rem 1rem 0
     .thread.is-page &
@@ -28,7 +28,7 @@
   border-radius: .75rem
 
 .thread-header__reported-at
-  +text-block(.8125rem 1 .75rem, $muted-text)
+  +text-block(.8125rem 1 0 .75rem, $muted-text)
   +media-breakpoint-down(sm)
     font-size: .75rem
     margin-bottom: .25rem

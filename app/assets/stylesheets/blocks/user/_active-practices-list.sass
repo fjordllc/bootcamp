@@ -2,17 +2,17 @@
   margin-bottom: -.25rem
 
 .active-practices-list-item:not(:last-child)
-  border-bottom: dotted .0625rem $background-color
+  border-bottom: dotted .0625rem $background
 
 .active-practices-list-item__link
-  +text-block(.875rem 1.55, block $main-color)
+  +text-block(.875rem 1.55, block $main)
   +padding(vertical, .5rem)
   +padding(horizontal, 1rem)
   +hover-link
   &::before
     +fa(fas '\f060')
-    +inline-block
+    display: inline-block
     margin-right: .5rem
-    color: $accent-color
+    color: $accent
   &:hover::before
     text-decoration: none

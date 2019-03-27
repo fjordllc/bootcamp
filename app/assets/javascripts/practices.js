@@ -15,8 +15,8 @@ $(function() {
         }
       }).done((function(_this) {
         return function() {
-          $('.js-practice-state:disabled', tr).attr('disabled', false).removeClass('is-button-simple-xs-primary').addClass('is-button-simple-xs-secondary');
-          return $(_this).attr('disabled', true).addClass('is-button-simple-xs-primary');
+          $('.js-practice-state:disabled', tr).attr('disabled', false).removeClass('is-primary').addClass('is-secondary');
+          return $(_this).attr('disabled', true).addClass('is-primary');
         };
       })(this));
     });

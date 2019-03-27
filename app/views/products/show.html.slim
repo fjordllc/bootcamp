@@ -7,11 +7,11 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to @product.practice, class: "page-header-actions__items-link is-button-simple-md-secondary" do
+            = link_to @product.practice, class: "page-header-actions__items-link a-button is-md is-secondary" do
               | プラクティス
           - if current_user.admin?
             li.page-header-actions__item
-              = link_to products_unchecked_index_path, class: "page-header-actions__items-link is-button-simple-md-secondary" do
+              = link_to products_unchecked_index_path, class: "page-header-actions__items-link a-button is-md is-secondary" do
                 | 未チェック一覧
 .page-body
   .container
@@ -38,20 +38,20 @@ header.page-header
               = l @product.checks.last.created_at.to_date, format: :short
             .stamp__content.is-user-name
               = @product.checks.last.user.login_name
-        .thread__description.js-target-blank.is-long-text-style.js-markdown-view
+        .thread__description.js-target-blank.is-long-text.js-markdown-view
           =  @product.practice.goal
-        .thread__description.js-target-blank.is-long-text-style.js-markdown-view
+        .thread__description.js-target-blank.is-long-text.js-markdown-view
           =  @product.body
         - if @product.user == current_user
           .card-footer
             .card-footer-actions
               ul.card-footer-actions__items
                 li.card-footer-actions__item
-                  = link_to edit_product_path(@product), class: "card-footer-actions_action is-button-simple-md-primary is-block" do
+                  = link_to edit_product_path(@product), class: "card-footer-actions_action a-button is-md is-primary is-block" do
                     i.fas.fa-pen
                     | 内容修正
                 li.card-footer-actions__item
-                  = link_to @product, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                  = link_to @product, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
                     i.fas.fa-trash-alt
                     | 削除
 
@@ -63,7 +63,7 @@ header.page-header
                   = form_for @product.checks.new, class: "thread-check-form" do |f|
                     = hidden_field_tag :user_id, current_user.id
                     = hidden_field_tag :product_id, @product.id
-                    = f.submit "提出物を確認", class: "thread-check-form__action is-button-simple-md-danger"
+                    = f.submit "提出物を確認", class: "thread-check-form__action a-button is-md is-danger"
                 - else
                   = form_for @product.checks.last, url: check_path(@product.checks.last), method: :delete, class: "thread-check-form" do |f|
                     = f.submit "提出物の確認を取り消す", class: "thread-check-form__action is-text"

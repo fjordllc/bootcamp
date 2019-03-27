@@ -2,15 +2,15 @@
   .card-footer-actions
     ul.card-footer-actions__items
       li.card-footer-actions__item(v-if="submission")
-        a.is-button-simple-md-primary.is-block(:href="productLink")
+        a.a-button.is-md.is-primary.is-block(:href="productLink")
           i.fas.fa-file
           | {{ productLabel }}
       li.card-footer-actions__item(v-if="complete")
-        button.is-button-simple-md-secondary.is-block.is-disabled
+        button.a-button.is-md.is-secondary.is-block.is-disabled
           i.fas.fa-check
           | 完了済
       li.card-footer-actions__item(v-else)
-        button.is-button-simple-md-warning.is-block#js-complete(@click="pushComplete")
+        button.a-button.is-md.is-warning.is-block#js-complete(@click="pushComplete")
           i.fas.fa-check
           | 完了
 </template>

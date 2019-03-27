@@ -1,45 +1,68 @@
-// oulu-functions-before-variables
-@import oulu-functions-before-variables
+@charset "UTF-8"
 
-//////////////////////////////
+////////////
 // variables
-//////////////////////////////
+////////////
+@import "variables/colors"
+@import "variables/welcome-colors"
+@import "variables/layout"
+@import "variables/text-inputs-list"
 
-@import settings/variables/**/*
-@import oulu-variables
+////////////
+// functions
+////////////
+@import "functions/math"
+@import "functions/number"
+@import "functions/list"
+@import "functions/text"
+@import "functions/color"
+@import "functions/assign-inputs"
+@import "functions/position"
+@import "functions/border"
 
-// oulu-functions-after-variables (functions need variables)
-@import oulu-functions-after-variables
-
-//////////////////////////////
+////////////
 // mixins
-//////////////////////////////
+////////////
+@import "mixins/override"
+@import "mixins/size"
+@import "mixins/position"
+@import "mixins/text"
+@import "mixins/border-radius"
+@import "mixins/link"
+@import "mixins/margin-padding"
+@import "mixins/word-wrap"
+@import "mixins/grid/grid-framework"
+@import "mixins/grid/grid"
+@import "mixins/break-points"
+@import "mixins/grid"
+@import "mixins/border"
+@import "mixins/font-awsome"
 
-@import oulu-mixins
-@import modules/buttons/buttons
-@import modules/text-style/long-text-style
+@import "mixins/long-text-style"
+@import "mixins/short-text-style"
+@import "mixins/button"
+@import "mixins/badge"
 
-//////////////////////////////
+////////////
 // initializers
-//////////////////////////////
+////////////
+@import "initializers/ress"
+@import "initializers/reset"
 
-// oulu-initializers
-@import oulu-initializers
 
 //////////////////////////////
 // helpers
 //////////////////////////////
 
-@import oulu-helpers
-@import settings/helpers/**/*
-@import font-awesome-sprockets
-@import font-awesome
-@import modules/**/*
+@import "font-awesome-sprockets"
+@import "font-awesome"
+@import "modules/**/*"
+@import "helpers/**/*"
 
 //////////////////////////////
 // style
 //////////////////////////////
 
-@import shared/**/*
-@import github
-@import atoms/**/*
+@import "shared/**/*"
+@import "github"
+@import "atoms/**/*"

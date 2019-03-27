@@ -37,7 +37,7 @@ $thread-header-author: 3.5rem
     font-size: .9375rem
 
 .thread-comment__title-link
-  color: $main-color
+  color: $main
   height: 100%
   display: flex
   align-items: center
@@ -65,8 +65,8 @@ $thread-header-author: 3.5rem
 
 .thread-comment__body
   min-height: 5rem
-  +relative
-  +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
+  +position(relative)
+  // +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
   &::after
     margin-left: -1.4375rem
   .thread-comment.is-no-author-icon &::before,
@@ -88,7 +88,7 @@ $thread-header-author: 3.5rem
   display: flex
   justify-content: space-between
   align-items: center
-  border-bottom: solid 1px $background-color
+  border-bottom: solid 1px $background
   +padding(horizontal, 1rem)
   +padding(vertical, .75rem)
   +media-breakpoint-down(sm)

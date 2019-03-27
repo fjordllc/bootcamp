@@ -18,10 +18,10 @@
         .col-md-6.col-xs-12
           .a-label
             | プレビュー
-          .js-markdown-preview.is-long-text-style.practices-edit__input.practices-edit__preview
+          .js-markdown-preview.is-long-text.practices-edit__input.practices-edit__preview
   .form-actions
     ul.form-actions__items
       li.form-actions__item
-        = link_to "キャンセル", admin_categories_path, class: "is-button-simple-md-secondary"
+        = link_to "キャンセル", admin_categories_path, class: "a-button is-md is-secondary"
       li.form-actions__item
-        = f.submit nil, class: "is-button-simple-lg-warning"
+        = f.submit nil, class: "a-button is-lg is-warning"

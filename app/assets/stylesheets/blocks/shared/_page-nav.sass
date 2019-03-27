@@ -26,8 +26,9 @@
 .page-nav__item-link
   padding: .375rem .75rem
   +text-block(.8125rem 1.45, block $muted-text)
-  transition: color .2s ease-in, background-color .2s ease-in
+  +block-link
+  transition: all .2s ease-in
   background-color: transparent
   &:hover
-    color: $main-color
+    color: $main
     background-color: #fff4d5

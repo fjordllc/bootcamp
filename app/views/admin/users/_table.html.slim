@@ -65,11 +65,11 @@
           td.admin-table__item-value.is-text-align-center
             = render "users/sns", user: user
           td.admin-table__item-value.is-text-align-center
-            = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: "is-button-simple-sm-warning is-icon" do
+            = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: "a-button is-sm is-warning is-icon" do
               i.fas.fa-pen
           td.admin-table__item-value.is-text-align-center
             - if user.id != current_user.id
-              = link_to admin_user_path(user), method: :delete, id: "delete-#{user.id}", class: "is-button-simple-sm-danger is-icon", data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }
+              = link_to admin_user_path(user), method: :delete, id: "delete-#{user.id}", class: "a-button is-sm is-danger is-icon", data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }
                 i.fas.fa-trash-alt
 
 .practice-contents

@@ -14,16 +14,18 @@
 .users-item__header
   +position(relative)
   padding-left: 3.5rem
-  border-bottom: solid 1px $background-color
+  border-bottom: solid 1px $background
   padding-bottom: .5rem
   +media-breakpoint-down(sm)
     padding-left: 3rem
 
 .users-item__name
-  +text-block(1rem 1.45, 600 $main-color block)
+  +text-block(1.125rem 1.45, 600 $main block)
+  +media-breakpoint-down(sm)
+    font-size: 1rem
 
 .users-item__name-link
-  color: $main-color
+  color: $main
   display: block
   +padding(vertical, .5rem)
   +hover-link

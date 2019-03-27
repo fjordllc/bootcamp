@@ -2,7 +2,7 @@
   max-width: 87.5rem
   +margin(horizontal, auto)
   +media-breakpoint-down(sm)
-    +overflow(auto hidden)
+    overflow-x: auto
     margin-bottom: 1.5rem
 
 .admin-table__table
@@ -11,18 +11,18 @@
   width: 100%
 
 .admin-table__header
-  background-color: $background-color-shade
+  background-color: $background-shade
   border: solid 1px #aaaaaa
   +border-radius(top, .25rem)
 
 .admin-table__items
-  +border(horizontal, solid 1px $background-color-shade)
+  +border(horizontal, solid 1px $background-shade)
 
 .admin-table-item__title
   +text-block(1.5rem 1.45, $side)
 
 .admin-table__label
-  +text-block(.75rem 1.4, $main-color center 600)
+  +text-block(.75rem 1.4, $main center 600)
   border: solid 1px #aaaaaa
   white-space: nowrap
   height: 2rem
@@ -34,18 +34,18 @@
     margin-left: .5rem
     +padding(horizontal, .375rem)
     background-color: #dedede
-    color: $main-color
+    color: $main
 
 .admin-table__item
   background-color: $base
   &.is-inactive
-    background-color: $background-color
+    background-color: $background
   &:last-child
     +border-radius(bottom, .25rem)
 
 .admin-table__item-value
   padding: .375rem .75rem
-  border: solid 1px $background-color-shade
+  border: solid 1px $background-shade
   +text-block(.875rem 1.45)
 
 .admin-table-item__body
@@ -58,7 +58,7 @@
   +size(2.75rem)
   object-fit: cover
   border-radius: 50%
-  +inline-block
+  display: inline-block
   margin-right: .5rem
 
 .admin-table__user
@@ -66,7 +66,7 @@
     .admin-table__user-login-name
       text-decoration: underline
 .admin-table__user-login-name
-  color: $main-color
+  color: $main
 
 .is-user-icon-xl
   +size(100% auto)
