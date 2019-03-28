@@ -1,70 +1,62 @@
 .reactions
   display: flex
   justify-content: space-between
-  border-top: 1px solid $background
-  line-height: 2.4
+  border-top: 1px solid $border
   position: relative
   user-select: none
-  body.is-test &
-    display: block
-    &[hidden]
-      display: none
 
-.reaction
-  display: inline-flex
+.reactions__items
+  display: flex
   flex-wrap: wrap
-  body.is-test &
-    display: inline-block
-    &[hidden]
-      display: none
-  &[hidden]
-    display: none
-  li
-    cursor: pointer
-    display: inline-flex
-    align-items: center
-    justify-content: center
-    padding: 0 9px 0 14px
-    border-right: 1px solid $background
-    body.is-test &
-      display: inline-block
-      &[hidden]
-        display: none
-    &[hidden]
-      display: none
-    &.is-reacted
-      background-color: #f7f7f7
-    &:hover
-      background-color: #f2f2f2
-
-.reaction-count
-  margin: 0 3px 0 5px
-  font-size: .95rem
-  vertical-align: top
-
-.reaction-dropdown
-  .reaction-dropdown-toggle
-    +size(3rem 2.375rem)
-    +text-block(1.25rem 1, flex $main)
-    cursor: pointer
-    align-items: center
-    justify-content: center
-    border-left: 1px solid $background
-    border-bottom-right-radius: .25rem
-    .fa-plus
-      font-size: .4em
-      margin-right: .3em
-    &:hover
-      background: #f2f2f2
-
-  .reaction
+  .reactions__dropdown &
     +position(absolute, right  -1px, top 2.375rem, 1)
     width: 181px
-    background-color: $base
-    border-top: 1px solid #d7d7d7
-    border-left: 1px solid #d7d7d7
-    +border-radius(bottom, .25rem)
-    li
-      border-right: 1px solid #d7d7d7
-      border-bottom: 1px solid #d7d7d7
-      +size(45px)
+    border-top: 1px solid $border
+    border-left: 1px solid $border-shade
+
+.reactions__item
+  cursor: pointer
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  padding: 0 9px
+  background-color: $base
+  border-right: 1px solid $border-shade
+  transition: all .2s ease-out
+  &.is-reacted
+    background-color: #f7f7f7
+  &:hover
+    background-color: #f2f2f2
+  .reactions__dropdown &
+    border-right: 1px solid $border-shade
+    border-bottom: 1px solid $border-shade
+    +size(2.8125rem)
+    &:nth-child(5)
+      overflow: hidden
+      border-bottom-left-radius: .25rem
+    &:nth-child(8)
+      overflow: hidden
+      border-bottom-right-radius: .25rem
+
+.reactions__item-emoji
+  .reactions__dropdown &
+    margin-right: -.4em
+
+.reactions__item-count
+  margin-left: .125rem
+  +text-block(.75rem 1)
+  vertical-align: top
+
+.reactions__dropdown-toggle
+  +size(2.8125rem 2.375rem)
+  +text-block(1.25rem 1, flex $main)
+  cursor: pointer
+  align-items: center
+  justify-content: center
+  border-left: 1px solid $border-shade
+  &:hover
+    background: #f2f2f2
+
+.reactions__dropdown-toggle-plus
+  font-size: .4em
+  margin-right: .3em
