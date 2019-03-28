@@ -270,7 +270,7 @@ ActiveRecord::Schema.define(version: 2019_03_28_141321) do
     t.text "retire_reason"
     t.boolean "trainee", default: false, null: false
     t.boolean "free", default: false, null: false
-    t.boolean "job_seeker", default: false, null: false
+    t.boolean "job_seeking", default: false, null: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
