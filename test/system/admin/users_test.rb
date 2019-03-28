@@ -58,7 +58,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit "/admin/users/#{user.id}/edit"
     within "form[name=user]" do
       fill_in "user[login_name]", with: "komagata"
-      page.execute_script("window.scroll(0,10000);")
       click_on "更新する"
     end
     assert_text "ユーザー名はすでに存在します"
@@ -69,7 +68,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit "/admin/users/#{user.id}/edit"
     within "form[name=user]" do
       fill_in "user[login_name]", with: "hatsuno-1"
-      page.execute_script("window.scroll(0,10000);")
       click_on "更新する"
     end
     assert_text "ユーザー情報を更新しました。"
