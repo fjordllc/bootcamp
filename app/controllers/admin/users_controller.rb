@@ -17,6 +17,7 @@ class Admin::UsersController < AdminController
 
   def update
     if @user.update(user_params)
+      job_seeking_uncheck
       redirect_to admin_users_url, notice: "ユーザー情報を更新しました。"
     else
       render :edit
@@ -62,9 +63,16 @@ class Admin::UsersController < AdminController
         :how_did_you_know,
         :company_id,
         :trainee,
+        :job_seeking,
         :nda,
         :graduated_on,
         :retired_on
       )
+    end
+
+    def job_seeking_uncheck
+      if (@user.graduated_on || @user.retired_on) && @user.job_seeking
+        @user.update(job_seeking: false)
+      end
     end
 end
