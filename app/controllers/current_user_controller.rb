@@ -26,6 +26,7 @@ class CurrentUserController < ApplicationController
         :email,
         :course_id,
         :description,
+        :job_seeking,
         :slack_account,
         :github_account,
         :twitter_account,
