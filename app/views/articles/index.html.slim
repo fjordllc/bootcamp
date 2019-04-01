@@ -1,17 +1,12 @@
-header.page-header.is-margin-bottom-0
+- content_for :extra_body_classes, "welcome"
+
+.welcome-page-header
   .container
-    .page-header__container
+    h1.welcome-page-header__title
       - if params[:tag]
-        h2.page-header__title = "タグ: #{params[:tag]} のブログ記事一覧"
+        | タグ: #{params[:tag]} のブログ記事一覧
       - else
-        h2.page-header__title = "ブログ記事一覧"
-      .page-header-actions
-        .page-header-actions__items
-          .page-header-actions__item
-            - if current_user.admin?
-              = link_to new_article_path, class: "is-button-simple-md-warning" do
-                i.fas.fa-plus
-                | ブログ記事作成
+        | ブログ記事一覧
 
 .page-body
   .container
