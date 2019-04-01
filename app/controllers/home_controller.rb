@@ -11,10 +11,10 @@ class HomeController < ApplicationController
         render aciton: :index
       end
     else
-      render action: :welcome
+      render :template => "welcome/index"
     end
   end
 
-  def welcome
+  def pricing
   end
 end

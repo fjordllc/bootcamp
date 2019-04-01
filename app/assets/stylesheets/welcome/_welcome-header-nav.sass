@@ -6,21 +6,51 @@
   height: 100%
   display: flex
   align-items: center
-  +margin(horizontal, -.25rem)
+  +margin(horizontal, -.875rem)
 
 .welcome-header-nav__item
-  +margin(horizontal, .25rem)
+  +padding(horizontal, .125rem)
 
 .welcome-header-nav__item-link
-  +text-block(.75rem 1.45, flex $welcome-card-border 700)
-  align-items: center
-  justify-content: center
-  +size(5.75rem 1.875rem)
-  background-color: red
-  border-radius: .375rem
-  border: solid 2px $welcome-card-border
+  +text-block(.9375rem 1, $welcome-card-border 900 block)
+  +padding(horizontal, .875rem)
   text-decoration: none
-  &.is-login
-    background-color: #f192aa
-  &.is-company
-    background-color: #f4e90f
+  +padding(vertical, .375rem)
+  +position(relative)
+  transition: all .2s ease-out
+  &::before
+    transition: all .2s ease-out
+    content: ""
+    display: block
+    +size(0 100%)
+    background-color: rgba(#f8ed00, .4)
+    +position(absolute, left 50%, bottom 0, top 0, -1)
+    transform: translate(-50%, 0)
+    opacity: 0
+    border-radius: 2rem
+  &:hover
+    &::before
+      width: 100%
+      opacity: 1
+  &:active
+    &::before
+      width: 100%
+      opacity: 1
+      background-color: #f8ed00
+  &.is-active
+    color: $reversal-text
+    &::before
+      transition: all .2s ease-out
+      content: ""
+      display: block
+      +size(100%)
+      background-color: #ff5284
+      +position(absolute, left 50%, bottom 0, top 0, -1)
+      transform: translate(-50%, 0)
+      border-radius: 2rem
+      opacity: 1
+
+.welcome-header__home-link-image
+  transition: all .2s ease-out
+  .welcome-header__home-link:hover &
+    transform: scale(.95)

@@ -305,6 +305,7 @@ ActiveRecord::Schema.define(version: 2019_04_20_140857) do
     t.boolean "free", default: false, null: false
     t.string "customer_id"
     t.boolean "job_seeking", default: false, null: false
+    t.string "customer_id"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
