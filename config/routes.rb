@@ -2,7 +2,10 @@
 
 Rails.application.routes.draw do
   root to: "home#index"
-  get "welcome", to: "home#welcome", as: "welcome"
+
+  get "welcome", to: "welcome#index", as: "welcome"
+  get "pricing", to: "welcome#pricing", as: "pricing"
+  get "faq", to: "welcome#faq", as: "faq"
   get "tos", to: "home#tos", as: "tos"
 
   namespace "api" do

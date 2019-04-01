@@ -1,0 +1,27 @@
+doctype html
+html.is-application lang="ja"
+  - page_classes = content_for(:extra_body_classes).to_s
+  head
+    = render "google_tag_manager_head"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    = display_meta_tags default_meta_tags
+    = javascript_include_tag "application"
+    = javascript_pack_tag "application"
+    = csrf_meta_tags
+    = render "favicons"
+    = stylesheet_link_tag "welcome", media: "all"
+    - if page_classes.include?("welcome-home")
+      link(rel="canonical" href="https://bootcamp.fjord.jp/")
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:900", media: "all"
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Source+Code+Pro", media: "all"
+    = stylesheet_link_tag "https://cdn.jsdelivr.net/npm/yakuhanjp@3.2.0/dist/css/yakuhanjp-narrow.min.css", media: "all"
+    = content_for(:head_last) if content_for?(:head_last)
+  body#body class="#{body_class}"
+    = render "google_tag_manager_body"
+    .wrapper
+      = render "alert"
+      main.main
+        = render "welcome/welcome_header"
+        .welcome-page
+          = yield
+    = render "welcome/welcome_footer"

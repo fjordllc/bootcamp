@@ -1,5 +1,6 @@
 body.home-welcome
   color: $welcome-default-text
+  font-family: $basic-serif
   +media-breakpoint-down(sm)
     .row
       +margin(horizontal, 0)
@@ -11,77 +12,10 @@ body.home-welcome
   +margin(horizontal, auto)
 
 .welcome-section
-  +padding(vertical, 7rem 3rem)
-  margin-top: -4rem
+  +padding(vertical, 3rem)
   +position(relative)
   +media-breakpoint-down(md)
     +padding(vertical, 2rem)
-    margin-top: 0
-  &.is-about
-    background-color: #f4e90f
-    +position(11)
-  &.is-tutorials
-    background-color: #4d9401
-    background-image: image_url('green-texture.png')
-    background-size: 12rem
-    background-repeat: repeat
-    background-position: center center
-    +position(10)
-  &.is-eligibility
-    background-color: #f8d9a6
-    background-image: image_url('wood.png')
-    background-size: 15rem
-    background-repeat: repeat
-    background-position: center center
-    +position(9)
-  &.is-process
-    background-color: #f8d9a6
-    background-image: image_url('space.jpg')
-    background-size: cover
-    background-repeat: no-repeat
-    background-position: center center
-    +position(8)
-  &.is-finding-employment
-    background-color: #f4e90f
-    +position(7)
-  &.is-company-logos
-    background-color: #ffffff
-    +position(6)
-  &.is-administrator
-    background-color: #2d446e
-    background-image: image_url('birds-texture.png')
-    background-size: 16rem
-    background-repeat: repeat
-    background-position: center center
-    +position(5)
-  &.is-other
-    background-color: #4d9401
-    background-image: image_url('green-texture.png')
-    background-size: 12rem
-    background-repeat: repeat
-    background-position: center center
-    +position(4)
-  &.is-faq
-    background-color: #dddddd
-    background-image: image_url('dots.svg')
-    background-size: 2rem
-    background-repeat: repeat
-    background-position: center center
-    +position(3)
-  &.is-auth-form
-    background-color: $welcome-main-color
-    background-image: image_url('main-visual-bg.svg')
-    background-size: 1.75rem
-    background-repeat: repeat
-    background-position: center center
-    #form
-      margin-top: -6rem
-      padding-top: 6rem
-      +media-breakpoint-down(sm)
-        margin-top: 0
-        padding-top: 0
-    +media-breakpoint-down(sm)
-      +padding(vertical, 2rem)
 
 .welcome-section__title
   +text-block(1.75rem 1.45 0 .3em, 400 center $welcome-card-border)
@@ -90,7 +24,7 @@ body.home-welcome
     +position(relative)
 
 .welcome-section__sub-title
-  +text-block(1.25rem 1.45 0 .6em, 700 center $welcome-card-border)
+  +text-block(1.25rem 1.45 0 .8em, 700 center $welcome-card-border)
   font-feature-settings: "palt"
   +media-breakpoint-down(sm)
     font-size: 1rem
@@ -105,13 +39,14 @@ body.home-welcome
 .welcome-section__description
   max-width: 40rem
   +margin(horizontal, auto)
-  margin-bottom: 2rem
+  &:not(:last-child)
+    margin-bottom: 2rem
   .welcome-section__title + &
     margin-top: 1em
   &.is-reversal
     color: $reversal-text
   p
-    +text-block(1rem 1.8 0 1.2em)
+    +text-block(1rem 1.6 0 1.2em)
     +media-breakpoint-down(sm)
       font-size: .875rem
   *:last-child

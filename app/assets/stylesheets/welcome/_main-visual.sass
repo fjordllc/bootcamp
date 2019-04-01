@@ -1,12 +1,7 @@
 .main-visual
-  +position(relative, 11)
-  background-color: $welcome-main-color
-  background-image: image_url('main-visual-bg.svg')
-  background-size: 1.75rem
-  background-repeat: repeat
-  background-position: center center
+  background-color: #178bff
   +media-breakpoint-down(xxl)
-    height: 28rem
+    height: 22rem
   +media-breakpoint-down(md)
     height: 22rem
   +media-breakpoint-down(sm)
@@ -18,44 +13,26 @@
 .main-visual__inner
   height: 100%
   +position(relative)
+  display: flex
+  align-items: center
   +media-breakpoint-down(sm)
     +padding(vertical, 2.5rem)
 
-.main-visual__icicle
-  +position(absolute, left 0, top -.0625rem)
-  display: block
-  +size(33.33% auto)
-  +media-breakpoint-down(sm)
-    width: calc(33.33% + 1rem)
-    left: -1rem
-
 .main-visual__contents
-  display: flex
-  align-items: center
-  height: 100%
   max-width: 920px
   +margin(horizontal, auto)
 
 .main-visual__image-container
-  flex: 0 0 9rem
-  height: 100%
   display: flex
   justify-content: center
   align-items:  center
   +media-breakpoint-down(sm)
     display: none
 
-.main-visual__main
-  height: 100%
-  display: flex
-  flex: 100
-  flex-direction: column
-  justify-content: center
-
 .main-visual__logo
-  +size(36rem auto)
+  +size(38rem auto)
   display: block
-  +margin(vertical, 1.5rem)
+  margin-top: 1.125rem
   +margin(horizontal, auto)
   +media-breakpoint-down(sm)
     max-width: 90%
@@ -72,12 +49,6 @@
   font-feature-settings: "palt"
   +media-breakpoint-down(sm)
     font-size: .875rem
-
-.main-visual__pjord-image
-  +size(6rem auto)
-
-.main-visual__free-image
-  +size(9rem)
 
 .main-visual__open-nav
   +position(fixed, right 0, bottom 0, 11)
