@@ -2,25 +2,11 @@
 
 .welcome-page-header
   .container
-<<<<<<< HEAD
     h1.welcome-page-header__title
       - if params[:tag]
         | タグ: #{params[:tag]} のブログ記事一覧
       - else
         | ブログ記事一覧
-=======
-    .page-header__container
-      - if params[:tag]
-        h2.page-header__title = "タグ: #{params[:tag]} のブログ記事一覧"
-      - else
-        h2.page-header__title = "ブログ記事一覧"
-      .page-header-actions
-        .page-header-actions__items
-          .page-header-actions__item
-            = link_to new_article_path, class: "is-button-simple-md-warning" do
-              i.fas.fa-plus
-              | ブログ記事作成
->>>>>>> ブログ記事にタグを付けられて、タグ毎に検索できるようにした
 
 .page-body
   .container
