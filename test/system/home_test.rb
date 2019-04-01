@@ -16,7 +16,7 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test "GET / without github account " do
-    login_user "muryou", "testtest"
+    login_user "hajime", "testtest"
     visit "/"
     within(".alert_github_account") do
       assert_text "GitHubアカウントが未入力です"
@@ -24,8 +24,8 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test "GET / with github account" do
-    user = users(:muryou)
-    user.github_account = "muryou"
+    user = users(:hajime)
+    user.github_account = "hajime"
     login_user user, "testtest"
 
     visit "/"
@@ -33,7 +33,7 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test "GET / without slack account" do
-    login_user "muryou", "testtest"
+    login_user "hajime", "testtest"
     visit "/"
     within(".alert_slack_account") do
       assert_text "Slackアカウントが未入力です"
@@ -41,8 +41,8 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test "GET / with slack_account" do
-    user = users(:muryou)
-    user.slack_account = "muryou"
+    user = users(:hajime)
+    user.slack_account = "hajime"
     login_user user, "testtest"
 
     visit "/"
