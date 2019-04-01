@@ -1,5 +1,21 @@
+.welcome-header
+  $border-height: .625rem
+  +position(relative)
+  padding-bottom: calc(#{$border-height} * 3)
+  &::before
+    content: ""
+    +size(100% calc(#{$border-height} * 3))
+    background-color: #eda921
+    +position(absolute, left 0, bottom 0)
+    border-top: solid $border-height #f8ed00
+    border-bottom: solid $border-height #ef6085
+    box-shadow: rgba(black, .2) 0 2px 1px
+
 .welcome-header__inner
-  height: 3rem
+  height: 4rem
   +position(relative)
   display: flex
   align-items: center
+
+.welcome-header__home
+  +size(3.125rem)

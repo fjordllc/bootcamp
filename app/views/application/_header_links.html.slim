@@ -36,6 +36,9 @@
                 = link_to admin_root_path, class: "header-dropdown__item-link" do
                   | 管理
               li.header-dropdown__item
+                = link_to new_article_path, class: "header-dropdown__item-link" do
+                  | ブログ記事作成
+              li.header-dropdown__item
                 = link_to "https://fjord.slack.com/admin", class: "header-dropdown__item-link", target: "_blank" do
                   | Slack管理
               li.header-dropdown__item
