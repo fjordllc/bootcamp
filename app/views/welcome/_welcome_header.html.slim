@@ -20,15 +20,12 @@ header.welcome-header
               | よくある質問
           li.welcome-header-nav__item
             = link_to new_user_path, class: "welcome-header-nav__item-link" do
-              | 申し込み
+              | 参加登録
           li.welcome-header-nav__item
-            - if current_user
-              = link_to course_practices_path(current_user.course), class: "welcome-header-nav__item-link" do
-                | プラクティス
-            - else
-              = link_to "/login", class: "welcome-header-nav__item-link is-login" do
-                | 受講者入り口
-          //
-            li.welcome-header-nav__item
-              = link_to "", class: "welcome-header-nav__item-link is-company" do
-                | 企業ページ
+      .welcome-header__login
+        - if current_user
+          = link_to course_practices_path(current_user.course), class: "welcome-header__login-link" do
+            | プラクティス
+        - else
+          = link_to "/login", class: "welcome-header__login-link" do
+            | ログイン
