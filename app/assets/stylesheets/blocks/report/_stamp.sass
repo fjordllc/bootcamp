@@ -4,7 +4,9 @@
   +size(4rem 3.5rem)
   +position(absolute, right 0, top -.125rem)
   transform: rotate(25deg)
-  +text-block(.625rem 1, block center $stamp-color)
+  +text-block(.625rem 1, block center $stamp-color 400)
+  font-feature-settings: "palt"
+  letter-spacing: 0
   +media-breakpoint-down(sm)
     +position(absolute, left 80%, top 0)
 

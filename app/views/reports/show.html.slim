@@ -27,14 +27,14 @@ header.page-header
               span.thread-header__title-icon
                 | WIP
             = @report.title
-            - if @checks.any?
-              .stamp.stamp-approve
-                h2.stamp__content.is-title
-                  | 確認済
-                time.stamp__content.is-created-at
-                  = l @checks.last.created_at.to_date, format: :short
-                .stamp__content.is-user-name
-                  = @checks.last.user.login_name
+          - if @checks.any?
+            .stamp.stamp-approve
+              h2.stamp__content.is-title
+                | 確認済
+              time.stamp__content.is-created-at
+                = l @checks.last.created_at.to_date, format: :short
+              .stamp__content.is-user-name
+                = @checks.last.user.login_name
           .thread-meta
             .thread-meta__author-name
               = link_to @report.user, class: "thread-meta__author-name-link" do
