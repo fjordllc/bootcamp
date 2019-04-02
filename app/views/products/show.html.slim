@@ -68,6 +68,7 @@ header.page-header
                 - else
                   = form_for @product.checks.last, url: check_path(@product.checks.last), method: :delete, class: "thread-check-form" do |f|
                     = f.submit "提出物の確認を取り消す", class: "thread-check-form__action is-text"
+                = link_to "提出物を削除する", product_path(@product), method: :delete, data: { confirm: "本当によろしいですか？" }
 
       .thread-prev-next
         .thread-prev-next__item
