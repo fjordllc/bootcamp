@@ -4,6 +4,8 @@
   padding: 1.25rem 1rem 1rem 2.5rem
   border-radius: .25rem
   +position(relative)
+  height: 100%
+  padding-bottom: 2rem
   &:not(:last-child)
     margin-bottom: 2rem
 
@@ -22,4 +24,7 @@
   top: -1rem
 
 .faqs-item__body
-  +long-text-style(1rem, .8125rem)
+  p
+    +text-block(1rem 1.6 .5em)
+    &:last-child
+      margin-bottom: 0
