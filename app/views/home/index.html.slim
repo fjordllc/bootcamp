@@ -7,6 +7,9 @@ header.page-header
   .container
     .columns
       .row
+        .col-xs-12
+          - if current_user.role == :student
+            = render "incompleted_account_alert", user: current_user
         .col-xs-12.col-xl-6.col-xxl-6
           .thread-list.a-card
             header.card-header
@@ -26,7 +29,5 @@ header.page-header
         .col-xs-12.col-xl-6.col-xxl-6
           - unless current_user.total_learning_time.zero?
             = render "users/grass", user: current_user
-          - if current_user.role == :student
-            = render "incompleted_account_alert", user: current_user
           - if current_user.github_account.present?
             = render "users/github_grass", user: current_user

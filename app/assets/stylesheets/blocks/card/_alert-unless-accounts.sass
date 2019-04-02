@@ -1,0 +1,25 @@
+.alert-unless-accounts
+  padding: .75rem 1rem
+  background-color: tint($danger, 80%)
+  border: solid 1px $danger
+  margin-bottom: 1.25rem
+  +text-block(.875rem 1.4, center $danger)
+  +media-breakpoint-down(sm)
+    padding: .5rem .75rem
+    text-align: left
+    font-size: .75rem
+    margin-bottom: 0
+
+.alert-unless-accounts__item
+  &:not(:first-child)
+    &::before
+      content: " と "
+
+.alert-unless-accounts__sub
+  margin-top: .25rem
+  font-size: .75rem
+
+.alert-unless-accounts__practice-item
+  &:not(:first-child)
+    &::before
+      content: " 、 "
