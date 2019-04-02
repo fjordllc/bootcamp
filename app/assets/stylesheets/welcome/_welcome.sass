@@ -18,13 +18,13 @@ body.home-welcome
     +padding(vertical, 2rem)
 
 .welcome-section__title
-  +text-block(1.75rem 1.45 0 .3em, 400 center $welcome-card-border)
+  +text-block(1.75rem 1.45 0 .3em, 400 center $welcome-default-text)
   +media-breakpoint-down(sm)
     +text-block(1.125rem 1.3 0 1rem)
     +position(relative)
 
 .welcome-section__sub-title
-  +text-block(1.25rem 1.45 0 .8em, 700 center $welcome-card-border)
+  +text-block(1.25rem 1.45 0 .8em, 700 center $welcome-default-text)
   font-feature-settings: "palt"
   +media-breakpoint-down(sm)
     font-size: 1rem
@@ -63,20 +63,3 @@ body.home-welcome
     margin-top: 0
     .row.is-gutter-width-64
       +margin(horizontal, 0)
-
-.welcome-section__faqs
-  max-width: 40rem
-  +margin(horizontal, auto)
-
-.welcome-section__action
-  +size(auto 4rem)
-  +text-block(1.125rem 1.45, flex 700 $welcome-default-text)
-  max-width: 22rem
-  margin: 2rem auto 0
-  background: #f4e90f
-  align-items: center
-  justify-content: center
-  border: solid 4px $welcome-default-text
-  border-radius: 8px
-  cursor: pointer
-  text-decoration: none
