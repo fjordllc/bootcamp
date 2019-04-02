@@ -1,4 +1,4 @@
-.alert-unless-accounts
+.incompleted-account-alert
   padding: .75rem 1rem
   background-color: tint($danger, 80%)
   border: solid 1px $danger
@@ -10,16 +10,16 @@
     font-size: .75rem
     margin-bottom: 0
 
-.alert-unless-accounts__item
+.incompleted-account-alert__item
   &:not(:first-child)
     &::before
       content: " と "
 
-.alert-unless-accounts__sub
+.incompleted-account-alert__sub
   margin-top: .25rem
   font-size: .75rem
 
-.alert-unless-accounts__practice-item
+.incompleted-account-alert__practice-item
   &:not(:first-child)
     &::before
       content: " 、 "

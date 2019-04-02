@@ -1,21 +1,21 @@
 - unless user.slack_account? || user.github_account?
-  .alert-unless-accounts
+  .incompleted-account-alert
     - unless user.slack_account?
-      span.alert-unless-accounts__item
-        | slack
+      span.incompleted-account-alert__item.is-slack
+        | Slack
     - unless user.github_account?
-      span.alert-unless-accounts__item
+      span.incompleted-account-alert__item.is-github
         | GitHub
     | アカウントが未入力です。
     = link_to "こちら", edit_current_user_path
     | &nbsp;から入力をお願いします。
-    .alert-unless-accounts__sub
+    .incompleted-account-alert__sub
       | （プラクティス&nbsp;
-      span.alert-unless-accounts__practice-items
+      span.incompleted-account-alert__practice-items
         - unless user.slack_account?
-          span.alert-unless-accounts__practice-item
+          span.incompleted-account-alert__practice-item
             = link_to "チャットルームに入る", "/practices/129"
         - unless user.github_account?
-          span.alert-unless-accounts__practice-item
+          span.incompleted-account-alert__practice-item
             = link_to "SNSの登録", "/practices/137"
       | &nbsp;が終わっていない方はこの通知は無視してください。）

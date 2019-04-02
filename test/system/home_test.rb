@@ -18,7 +18,7 @@ class HomeTest < ApplicationSystemTestCase
   test "GET / without github account " do
     login_user "hajime", "testtest"
     visit "/"
-    within(".alert_github_account") do
+    within(".incompleted-account-alert__item.is-github") do
       assert_text "GitHubアカウントが未入力です"
     end
   end
@@ -29,13 +29,13 @@ class HomeTest < ApplicationSystemTestCase
     login_user user, "testtest"
 
     visit "/"
-    assert_no_selector ".alert_github_account"
+    assert_no_selector ".incompleted-account-alert__item.is-github"
   end
 
   test "GET / without slack account" do
     login_user "hajime", "testtest"
     visit "/"
-    within(".alert_slack_account") do
+    within(".incompleted-account-alert__item.is-slack") do
       assert_text "Slackアカウントが未入力です"
     end
   end
@@ -46,6 +46,6 @@ class HomeTest < ApplicationSystemTestCase
     login_user user, "testtest"
 
     visit "/"
-    assert_no_selector ".alert_slack_account"
+    assert_no_selector ".incompleted-account-alert__item.is-slack"
   end
 end
