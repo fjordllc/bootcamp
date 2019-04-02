@@ -1,0 +1,27 @@
+.welcome-actions
+  +padding(vertical, 2rem)
+  background-color: #d8d8d8
+
+.welcome-actions__items
+  display: flex
+  justify-content: center
+  +margin(horizontal, -.75rem)
+
+.welcome-actions__item
+  +padding(horizontal, .75rem)
+  width: 20rem
+
+.welcome-actions__item-action
+  +size(auto 4rem)
+  +text-block(1.125rem 1, flex 700 $welcome-default-text)
+  max-width: 22rem
+  margin: 0 auto
+  background: $welcome-yellow
+  align-items: center
+  justify-content: center
+  border: solid 4px $welcome-default-text
+  border-radius: 8px
+  cursor: pointer
+  text-decoration: none
+  &.is-signup
+    background-color: $welcome-orange

@@ -1,6 +1,6 @@
 .welcome-header-nav
-  +position(absolute, right 0, top 0)
   height: 100%
+  margin-left: 3rem
 
 .welcome-header-nav__items
   height: 100%
@@ -9,10 +9,10 @@
   +margin(horizontal, -.875rem)
 
 .welcome-header-nav__item
-  +padding(horizontal, .125rem)
+  +padding(horizontal, .0625rem)
 
 .welcome-header-nav__item-link
-  +text-block(.9375rem 1, $welcome-card-border 900 block)
+  +text-block(.875rem 1, $welcome-default-text 900 block)
   +padding(horizontal, .875rem)
   text-decoration: none
   +padding(vertical, .375rem)
@@ -23,7 +23,7 @@
     content: ""
     display: block
     +size(0 100%)
-    background-color: rgba(#f8ed00, .4)
+    background-color: rgba($welcome-yellow, .4)
     +position(absolute, left 50%, bottom 0, top 0, -1)
     transform: translate(-50%, 0)
     opacity: 0
@@ -36,7 +36,7 @@
     &::before
       width: 100%
       opacity: 1
-      background-color: #f8ed00
+      background-color: $welcome-yellow
   &.is-active
     color: $reversal-text
     &::before
@@ -44,7 +44,7 @@
       content: ""
       display: block
       +size(100%)
-      background-color: #ff5284
+      background-color: $welcome-pink
       +position(absolute, left 50%, bottom 0, top 0, -1)
       transform: translate(-50%, 0)
       border-radius: 2rem
