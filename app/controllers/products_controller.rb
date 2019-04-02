@@ -51,7 +51,11 @@ class ProductsController < ApplicationController
   def destroy
     @product = find_product
     @product.destroy
-    redirect_to @product.practice, notice: "提出物を削除しました。"
+    if current_user.admin?
+      redirect_to products_url, notice: "提出物を削除しました。"
+    else
+      redirect_to @product.practice, notice: "提出物を削除しました。"
+    end
   end
 
   private
