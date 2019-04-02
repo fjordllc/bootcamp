@@ -19,7 +19,7 @@ class HomeTest < ApplicationSystemTestCase
     login_user "hajime", "testtest"
     visit "/"
     within(".incompleted-account-alert__item.is-github") do
-      assert_text "GitHubアカウントが未入力です"
+      assert_text "GitHub"
     end
   end
 
@@ -36,7 +36,7 @@ class HomeTest < ApplicationSystemTestCase
     login_user "hajime", "testtest"
     visit "/"
     within(".incompleted-account-alert__item.is-slack") do
-      assert_text "Slackアカウントが未入力です"
+      assert_text "Slack"
     end
   end
 
