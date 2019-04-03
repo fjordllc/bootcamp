@@ -10,16 +10,10 @@
     font-size: .75rem
     margin-bottom: 0
 
-.incompleted-account-alert__item
-  &:not(:first-child)
-    &::before
-      content: " と "
-
 .incompleted-account-alert__sub
   margin-top: .25rem
   font-size: .75rem
 
-.incompleted-account-alert__practice-item
-  &:not(:first-child)
-    &::before
-      content: " 、 "
+.incompleted-account-alert__separator
+  display: inline-block
+  +padding(horizontal, .125em)

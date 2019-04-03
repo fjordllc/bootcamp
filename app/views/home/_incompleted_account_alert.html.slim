@@ -4,6 +4,9 @@
       span.incompleted-account-alert__item.is-slack
         | Slack
     - unless user.github_account?
+      - unless user.slack_account?
+        span.incompleted-account-alert__separator
+          | と
       span.incompleted-account-alert__item.is-github
         | GitHub
     | アカウントが未入力です。
@@ -16,6 +19,9 @@
           span.incompleted-account-alert__practice-item
             = link_to "チャットルームに入る", "/practices/129"
         - unless user.github_account?
+          - unless user.slack_account?
+            span.incompleted-account-alert__separator
+              | 、
           span.incompleted-account-alert__practice-item
             = link_to "SNSの登録", "/practices/137"
       | &nbsp;が終わっていない方はこの通知は無視してください。）
