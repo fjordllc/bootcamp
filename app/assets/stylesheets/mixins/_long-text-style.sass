@@ -85,6 +85,10 @@
     padding: 0
   p,
   li
+    *:first-child
+      margin-top: 0
+    *:last-child
+      margin-bottom: 0
     code
       +text-block(.875em 1.7, $default-text inline-flex)
       align-items: center
@@ -113,6 +117,8 @@
       max-width: 20em
     &.is-md
       max-width: 30em
+  br + img
+    +margin(vertical, 1em)
 
   +list
   ul,
