@@ -1,22 +1,33 @@
 # frozen_string_literal: true
 
 module ReactionsHelper
-  def reaction_attributes(kind, reactionable, only_reacted: true)
-    attributes = { data: { reaction: { kind: kind } } }
-    attributes[:hidden] = reactionable.reacted_count(kind).zero? if only_reacted
-    reacted_id = reactionable.reacted_id(current_user, kind)
+  def reactions_attributes(reactionable)
+    {
+      data: {
+        reaction: {
+          login_name: current_user.login_name,
+          reactionable_id: dom_id(reactionable)
+        }
+      }
+    }
+  end
 
-    if reacted_id
+  def reaction_attributes(reactionable, kind, only_reacted: true)
+    attributes = { data: { reaction: { kind: kind } } }
+    attributes[:hidden] = reactionable.reaction_count_by(kind).zero? if only_reacted
+    reaction_id = reactionable.find_reaction_id_by(kind, current_user.login_name)
+
+    if reaction_id
       attributes.deep_merge!(
         class: "is-reacted",
-        data: { reaction: { id: reacted_id } }
+        data: { reaction: { id: reaction_id } }
       )
     end
 
     attributes
   end
 
-  def reaction_attributes_all(kind, reactionable)
-    reaction_attributes(kind, reactionable, only_reacted: false)
+  def reaction_attributes_all(reactionable, kind)
+    reaction_attributes(reactionable, kind, only_reacted: false)
   end
 end

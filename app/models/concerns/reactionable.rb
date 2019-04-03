@@ -7,15 +7,24 @@ module Reactionable
     has_many :reactions, as: :reactionable, dependent: :delete_all
   end
 
-  def reacted_id(user, kind)
-    @_reacted_ids ||= Hash[*reactions.where(user: user).pluck(:kind, :id).flatten]
-    @_reacted_ids[kind]
+  def find_reaction_id_by(kind, login_name)
+    grouped_reactions[kind].find { |h| h[:login_name] == login_name }&.fetch(:id)
   end
 
-  def reacted_count(kind)
-    @_reacted_counts ||= reactions.pluck(:kind).each_with_object(Hash.new(0)) do |kind, hash|
-      hash[kind] += 1
-    end
-    @_reacted_counts[kind]
+  def reaction_count_by(kind)
+    grouped_reactions[kind].length
   end
+
+  def reaction_login_names_by(kind)
+    grouped_reactions[kind].map { |h| h[:login_name] }
+  end
+
+  private
+
+    def grouped_reactions
+      @_grouped_reactions ||= reactions.joins(:user).order(created_at: :asc).pluck(:id, :kind, :"users.login_name").each_with_object(Hash.new { |hash, key| hash[key] = [] }) do |array, hash|
+        id, kind, login_name = array
+        hash[kind] << { id: id, login_name: login_name }
+      end.with_indifferent_access
+    end
 end
