@@ -23,10 +23,14 @@
   background-color: $base
   border-right: 1px solid $border-shade
   transition: all .2s ease-out
+  position: relative
   &.is-reacted
     background-color: #f7f7f7
   &:hover
     background-color: #f2f2f2
+  @media (pointer: fine)
+    &:hover .reactions__item-login-names
+      display: block
   .reactions__dropdown &
     border-right: 1px solid $border-shade
     border-bottom: 1px solid $border-shade
@@ -46,6 +50,32 @@
   margin-left: .125rem
   +text-block(.75rem 1)
   vertical-align: top
+
+.reactions__item-login-names
+  display: none
+  position: absolute
+  top: 2.9rem
+  left: .1rem
+  font-size: .8rem
+  color: #fff
+  background: #444
+  text-shadow: 0 1px 0 #111
+  padding: 5px 11px 7px
+  border-radius: .2rem
+  pointer-events: none
+  white-space: nowrap
+  z-index: 1
+  &::after
+    content: " "
+    position: absolute
+    bottom: 100%
+    left: 1.5rem
+    margin-left: -5px
+    border-width: 5px
+    border-style: solid
+    border-color: transparent transparent #444 transparent
+  li
+    line-height: 1.4
 
 .reactions__dropdown-toggle
   +size(2.8125rem 2.375rem)
