@@ -23,8 +23,6 @@ Test with real browser.
 $ HEADED=1 ./bin/test
 ```
 
----
-
 ## Lint
 
 rubocopとslim-lintを実行します。
@@ -32,6 +30,8 @@ rubocopとslim-lintを実行します。
 ```
 $ ./bin/lint
 ```
+
+---
 
 ## ER図
 
