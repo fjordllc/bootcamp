@@ -3,5 +3,4 @@
     - user.completed_practices.each do |practice|
       li.card-list__item
         = link_to practice.title, practice, class: "card-list__item-link"
-      li
-        = l practice.learning(current_user).updated_at
+        = l practice.learning(current_user).updated_at.to_date
