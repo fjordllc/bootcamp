@@ -27,19 +27,19 @@
   white-space: nowrap
   height: 2rem
   +padding(horizontal, .5rem)
-  [class*=is-button-].is-icon
+  .a-button.is-icon
     min-height: 1.25rem
     height: 1.25rem
-    font-size: .875rem
+    font-size: .75rem
     margin-left: .5rem
     +padding(horizontal, .375rem)
     background-color: #dedede
-    color: $main
+    color: $default-text
 
 .admin-table__item
   background-color: $base
-  &.is-inactive
-    background-color: $background
+  .admin-table.is-all-user &.is-inactive
+    background-color: $background-tint
   &:last-child
     +border-radius(bottom, .25rem)
 
@@ -65,6 +65,7 @@
   &:hover
     .admin-table__user-login-name
       text-decoration: underline
+
 .admin-table__user-login-name
   color: $main
 

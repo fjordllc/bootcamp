@@ -1,9 +1,11 @@
 .card-header
   border-bottom: solid 1px $background
-  padding: 0.75rem 1.25rem
+  padding: .75rem 1.25rem
   display: flex
   align-items: center
   justify-content: space-between
+  +media-breakpoint-down(sm)
+    padding: .5rem .75rem
   &.is-sm
     +padding(vertical, .625rem)
   &:first-child

@@ -31,7 +31,10 @@ rubocopとslim-lintを実行します。
 $ ./bin/lint
 ```
 
+---
+
 ## ER図
+
 お使いの環境がMacである場合、以下のコマンドでER図を生成することができます。
 オプション指定でいろいろできるみたいなので、詳しくは https://github.com/voormedia/rails-erd をご覧ください。
 
@@ -78,3 +81,21 @@ add-zsh-hook chpwd chpwd_node_version
 ```bash
 nodebrew use $(cat .node-version)
 ```
+
+## Xray-rails
+
+ [Xray-rails](https://github.com/brentd/xray-rails) という Gem を使っています。Develop 環境で 3 つのキー `cmd` 、 `shift` 、 `x` を同時に押すと、
+
+![3つのキー `cmd` 、 `shift` 、 `x` を同時に押すと](https://i.gyazo.com/da31297bfbfa3a921ee9e0cead991b62.png)
+
+このように、赤い枠のブロックが表示されます。
+
+その状態で、右下の歯車のアイコンをクリックすると、Editor のテキスト入力フィールドが表示されます。
+
+![歯車のアイコンをクリック](https://i.gyazo.com/744609563aca458aa940aafa1f0d23a6.png)
+
+このテキスト入力フィールドにエディタへのパス（VS Codeの場合は `/usr/local/bin/code`）を入力し、`Save` ボタンをクリック。
+
+赤い枠のブロックが表示されている状態で 3 つのキー `cmd` 、 `shift` 、 `x` を同時に押すと、赤い枠のブロックは非表示になります。
+
+もう一度、3 つのキー `cmd` 、 `shift` 、 `x` を同時に押し、赤い枠のブロックを表示させたら、自分が編集したいブロックをクリックします。すると、その部分の view ファイルが先ほどパスを保存したエディタで開きます。

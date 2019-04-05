@@ -17,7 +17,6 @@
 
 =long-text-style($pc-font-size: 1rem, $mobile-font-size: .8125rem, $background: $base, $font: $default-text)
   font-size: $pc-font-size
-  text-align: justify
   +media-breakpoint-down(sm)
     font-size: $mobile-font-size
   >*:first-child
@@ -25,7 +24,7 @@
   >*:last-child
     margin-bottom: 0
   h1
-    +text-block(1.875rem 1.3 0 .75em, 700 $main)
+    +text-block(1.875em 1.3 0 .75em, 700 $main)
     padding-bottom: .25em
     border-bottom: 3px solid mix($font, $background, 20%)
   h2
@@ -53,7 +52,7 @@
   h6
     +text-block(1em 1.3 0 .625em, 700)
   p
-    +text-block(1em 2)
+    +text-block(1em 1.86)
     margin-bottom: 1.5em
   a
     word-break: break-all
