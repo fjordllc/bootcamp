@@ -14,6 +14,7 @@
   +text-block(1.375rem 1.4, 600 $side)
   +media-breakpoint-down(sm)
     font-size: 1rem
+    word-break: break-all
 
 .practice-content
   position: relative
@@ -25,6 +26,8 @@
 
 .practice-content__body
   padding: 1.25rem
+  +media-breakpoint-down(sm)
+    padding: .5rem .75rem
 
 .js-markdown-view
   display: none

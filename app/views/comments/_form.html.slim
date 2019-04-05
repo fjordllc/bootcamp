@@ -17,4 +17,4 @@
 
     .thread-comment-form__action
       - comment_label = comment.persisted? ? "保存する" : "コメントする"
-      = f.submit comment_label, class: "a-button is-lg is-warning"
+      = f.submit comment_label, class: "a-button is-lg is-warning is-block"

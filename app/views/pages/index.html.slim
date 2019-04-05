@@ -1,13 +1,15 @@
 - title "Docs"
 header.page-header
   .container
-    .page-header__container
+    .page-header__inner
       h1.page-header__title
         = title
-      .page-header__action
-        = link_to [:new, :page], class: "a-button is-md is-warning" do
-          i.fas.fa-plus
-          | 新規ページ
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to [:new, :page], class: "a-button is-md is-warning is-block" do
+              i.fas.fa-plus
+              | 新規ページ
 .page-body
   .container
     = paginate @pages, position: "top"

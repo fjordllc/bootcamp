@@ -1,16 +1,17 @@
 - title @page.title
 header.page-header
   .container
-    .page-header__container
-      h1.page-header__title = title
+    .page-header__inner
+      h1.page-header__title
+        = title
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to [:new, :page], class: "a-button is-md is-warning" do
+            = link_to [:new, :page], class: "a-button is-md is-warning is-block" do
               i.fas.fa-plus
               | 新規ページ
           li.page-header-actions__item
-            = link_to :pages, class: "a-button is-md is-secondary" do
+            = link_to :pages, class: "a-button is-md is-secondary is-block" do
               i.fas.fa-angle-left
               | 一覧に戻る
 

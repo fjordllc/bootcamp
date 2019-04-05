@@ -2,17 +2,17 @@
 
 header.page-header
   .container
-    .page-header__container
+    .page-header__inner
       h2.page-header__title = title
       .page-header__action
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to courses_path, class: "a-button is-md is-secondary" do
+            = link_to courses_path, class: "a-button is-md is-secondary is-block" do
               | コース一覧
           - if current_user.admin?
             li.page-header-actions__item
-              = link_to new_practice_path(course_id: @course), class: "a-button is-md is-warning" do
+              = link_to new_practice_path(course_id: @course), class: "a-button is-md is-warning is-block" do
                 i.fas.fa-plus
                 | プラクティス作成
 

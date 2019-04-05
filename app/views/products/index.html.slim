@@ -2,8 +2,9 @@
 
 header.page-header
   .container
-    .page-header__container
-      h2.page-header__title = title
+    .page-header__inner
+      h2.page-header__title
+        = title
 
 - if current_user.admin?
   .page-tools
