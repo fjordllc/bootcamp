@@ -7,6 +7,7 @@
   +media-breakpoint-down(sm)
     align-items: flex-start
     padding-top: 0
+    margin-bottom: -.25rem
 
 .thread-meta__label
   +text-block(.75rem, $muted-text inline-flex)
@@ -18,6 +19,8 @@
 .thread-meta__author-name
   +text-block(.75rem, $muted-text)
   margin-right: .75rem
+  +media-breakpoint-down(sm)
+    margin-bottom: .25rem
 
 .thread-meta__author-name-link
   color: $muted-text
@@ -27,7 +30,11 @@
   display: block
   +text-block(.75rem, $muted-text)
   margin-right: .75rem
+  +media-breakpoint-down(sm)
+    margin-bottom: .25rem
 
 .thread-meta__updated-at
   display: block
   +text-block(.75rem, $muted-text)
+  +media-breakpoint-down(sm)
+    margin-bottom: .25rem

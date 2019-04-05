@@ -1,7 +1,7 @@
 .page-header-actions
   +media-breakpoint-down(sm)
-    margin-top: .75rem
-    padding-top: .75rem
+    margin-top: .5rem
+    padding-top: .5rem
     +margin(horizontal, -1rem)
     +padding(horizontal, 1rem)
     border-top: solid 1px $background
@@ -13,12 +13,13 @@
 
 .page-header-actions__item
   +padding(horizontal, .25rem)
+  +media-breakpoint-up(md)
+    min-width: 10rem
   +media-breakpoint-down(sm)
     flex: 1
     max-width: 50%
     &:first-child:last-child
       max-width: 100%
-
-.page-header-actions__items-link.a-button
-  +media-breakpoint-up(md)
-    height: 2.125rem
+  .a-button
+    +media-breakpoint-up(md)
+      height: 2.125rem

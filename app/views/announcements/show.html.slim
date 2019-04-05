@@ -2,17 +2,17 @@
 
 header.page-header
   .container
-    .page-header__container
+    .page-header__inner
       h1.page-header__title = title
       .page-header-actions
         ul.page-header-actions__items
           - if admin_login?
             li.page-header-actions__item
-              = link_to new_announcement_path, class: "page-header-actions__items-link a-button is-md is-warning" do
+              = link_to new_announcement_path, class: "a-button is-md is-warning is-block" do
                 i.fa.fa-plus
                 | お知らせ作成
           li.page-header-actions__item
-            = link_to announcements_path, class: "page-header-actions__items-link a-button is-md is-secondary" do
+            = link_to announcements_path, class: "a-button is-md is-secondary is-block" do
               | お知らせ一覧へ
 
 .page-body

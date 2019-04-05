@@ -15,6 +15,9 @@
   &.is-block
     display: flex
     width: 100%
+    +media-breakpoint-up(md)
+      max-width: 18rem
+      +margin(horizontal, auto)
   &:focus
     outline: none
   &:disabled

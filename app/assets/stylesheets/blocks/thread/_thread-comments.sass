@@ -31,7 +31,7 @@ $thread-header-author: 3.5rem
   +text-block(1rem 1.4)
   margin-right: .5rem
   +media-breakpoint-down(sm)
-    +text-block(.875rem 1.4 .25rem)
+    +text-block(.875rem 1.4 0 .25rem)
     margin-right: 0
   &
     font-size: .9375rem
@@ -81,7 +81,7 @@ $thread-header-author: 3.5rem
   +padding(vertical, 1rem)
   +padding(horizontal, 1rem)
   +media-breakpoint-down(sm)
-    +padding(vertical, .75rem)
+    padding: .75rem
     word-wrap: break-word
 
 .thread-comment__body-header
@@ -94,7 +94,7 @@ $thread-header-author: 3.5rem
   +media-breakpoint-down(sm)
     flex-direction: column
     align-items: flex-start
-    padding-bottom: .25rem
+    +padding(vertical, .5rem)
   &.is-icon
     +position(relative)
     padding-left: 3.5rem

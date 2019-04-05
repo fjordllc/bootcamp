@@ -4,7 +4,7 @@
   &.is-border-bottom-none
     border-bottom: none
 
-.page-header__container
+.page-header__inner
   height: 3.125rem
   +position(relative)
   display: flex
@@ -13,12 +13,15 @@
   +media-breakpoint-down(sm)
     height: auto
     display: block
-    +padding(vertical, .75rem)
+    +padding(vertical, .5rem)
 
 .page-header__title
   +text-block(1.25rem 1, $main 600)
   font-feature-settings: "palt"
   letter-spacing: .02em
+  +media-breakpoint-down(sm)
+    font-size: 1.125rem
+    word-break: break-all
   img
     +size(2.5rem auto)
     margin-right: .5rem

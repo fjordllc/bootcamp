@@ -2,18 +2,18 @@
 
 header.page-header
   .container
-    .page-header__container
+    .page-header__inner
       .page-header__title
         = @practice.title
       .page-header-actions
         ul.page-header-actions__items
           - if current_user.admin?
             li.page-header-actions__item
-              = link_to new_practice_path, class: "a-button is-md is-warning" do
+              = link_to new_practice_path, class: "a-button is-md is-warning is-block" do
                 i.fas.fa-plus
                 | プラクティス作成
           li.page-header-actions__item
-            = link_to course_practices_path(current_user.course), class: "a-button is-md is-secondary" do
+            = link_to course_practices_path(current_user.course), class: "a-button is-md is-secondary is-block" do
               i.fas.fa-angle-left
               | プラクティス一覧
 
