@@ -1,12 +1,13 @@
 - title "#{@practice.title}の質問"
 header.page-header
   .container
-    .page-header__container
-      h2.page-header__title = title
+    .page-header__inner
+      h2.page-header__title
+        = title
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to practices_path, class: "a-button is-md is-secondary" do
+            = link_to practices_path, class: "a-button is-md is-secondary is-block" do
               i.fa.fa-angle-left
               | プラクティス
 

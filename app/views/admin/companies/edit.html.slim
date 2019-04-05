@@ -2,10 +2,10 @@
 
 header.page-header
   .container
-    .page-header__container
+    .page-header__inner
       h1.page-header__title = title
       .page-header__action
-        = link_to new_admin_company_path, class: "a-button is-md is-warning" do
+        = link_to new_admin_company_path, class: "a-button is-md is-warning is-block" do
           i.fas.fa-plus
           | 会社作成
 

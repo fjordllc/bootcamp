@@ -33,6 +33,8 @@ $thread-header-author: 4.75rem
   margin-bottom: 1rem
   padding: .75rem 1rem 0
   +border-radius(top, .25rem)
+  +media-breakpoint-down(sm)
+    +padding(horizontal, .75rem)
 
 .thread-comment-form__tab
   +size(5.5rem 2.25rem)
@@ -48,6 +50,8 @@ $thread-header-author: 4.75rem
 
 .thread-comment-form__markdown-parent
   +padding(horizontal, 1rem)
+  +media-breakpoint-down(sm)
+    +padding(horizontal, .75rem)
 
 .thread-comment-form__markdown
   display: none
@@ -74,3 +78,6 @@ $thread-header-author: 4.75rem
 .thread-comment-form__action
   display: flex
   justify-content: center
+  +padding(horizontal, 1rem)
+  +media-breakpoint-down(sm)
+    +padding(horizontal, .75rem)

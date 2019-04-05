@@ -4,14 +4,16 @@
 
 header.page-header.is-margin-bottom-0.is-border-bottom-none
   .container
-    .page-header__container
-      h2.page-header__title ユーザー一覧
+    .page-header__inner
+      h2.page-header__title
+        | ユーザー一覧
       .page-header-actions
         ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to feeds_url(format: "atom"), class: "a-button is-md is-secondary", target: "_blank" do
-              i.fas.fa-rss
-              | みんなのブログを購読
+          //
+            li.page-header-actions__item
+              = link_to feeds_url(format: "atom"), class: "a-button is-md is-secondary is-block", target: "_blank" do
+                i.fas.fa-rss
+                | みんなのブログ
 
 .page-tools
   = render "nav"

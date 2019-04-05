@@ -3,12 +3,12 @@
 
 header.page-header
   .container
-    .page-header__container
+    .page-header__inner
       h2.page-header__title = title
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to announcements_path, class: "a-button is-md is-secondary" do
+            = link_to announcements_path, class: "a-button is-md is-secondary is-block" do
               i.fa.fa-angle-left
               | お知らせ一覧へ
 
