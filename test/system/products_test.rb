@@ -77,7 +77,7 @@ class ProductsTest < ApplicationSystemTestCase
     product = products(:product_1)
     visit "/products/#{product.id}"
     accept_confirm do
-      click_link "提出物を削除する"
+      click_link "削除"
     end
     assert_text "提出物を削除しました。"
     assert_selector "h2", text: "提出物"
