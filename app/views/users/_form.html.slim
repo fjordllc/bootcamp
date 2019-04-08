@@ -142,6 +142,15 @@
         p = help_text
 
     - if from == :edit
+      - unless user.adviser?
+        .auth-form-item
+          // 就職活動中
+          = f.label :job_seeking, class: "a-sm-label"
+          ul.auth-form-item__checkboxes
+            li.auth-form-checkbox
+              label.auth-form-checkbox__label
+                = f.check_box :job_seeking, class: "auth-form-checkbox__input"
+                = User.human_attribute_name :job_seeking
       .auth-form-item
         = f.label :slack_account, class: "a-sm-label"
         = f.text_field :slack_account, class: "a-sm-text-input", placeholder: "komagata"
