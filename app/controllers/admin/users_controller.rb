@@ -62,6 +62,7 @@ class Admin::UsersController < AdminController
         :how_did_you_know,
         :company_id,
         :trainee,
+        :job_seeking,
         :nda,
         :graduated_on,
         :retired_on

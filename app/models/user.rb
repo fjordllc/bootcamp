@@ -133,6 +133,7 @@ class User < ActiveRecord::Base
   }
   scope :admins, -> { where(admin: true) }
   scope :trainee, -> { where(trainee: true) }
+  scope :job_seeking, -> { where(job_seeking: true) }
   scope :order_by_counts, -> (order_by, direction) {
     unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
       raise ArgumentError, "Invalid argument"
