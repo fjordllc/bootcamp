@@ -20,48 +20,68 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  const updateReaction = (element, count) => {
+  const updateReactionCount = (element, count) => {
     let reactionCount = element.querySelector('.js-reaction-count')
 
-    if (reactionCount) {
-      reactionCount.textContent = Number(reactionCount.textContent) + count
+    if (!reactionCount) { return }
 
-      switch (reactionCount.textContent) {
-        case '0':
-          element.hidden = true
-          break
-        case '1':
-          element.hidden = false
-          break
-      }
+    reactionCount.textContent = Number(reactionCount.textContent) + count
+    switch (reactionCount.textContent) {
+      case '0':
+        element.hidden = true
+        break
+      case '1':
+        element.hidden = false
+        break
     }
   }
 
-  const createReaction = (reaction, kind, reactionableId) => {
+  const updateReactionLoginNames = (element, loginName) => {
+    let reactionLoginNames = element.querySelector('.js-reaction-login-names')
+
+    if (!reactionLoginNames) { return }
+
+    let reactionLoginName = Array.from(reactionLoginNames.children).find(li => {
+      return li.textContent === loginName
+    })
+
+    if (reactionLoginName) {
+      reactionLoginNames.removeChild(reactionLoginName)
+    } else {
+      let li = document.createElement('li')
+      li.textContent = loginName
+      reactionLoginNames.appendChild(li)
+    }
+  }
+
+  const createReaction = (reaction, kind, loginName, reactionableId) => {
     const url = `/api/reactions?reactionable_id=${reactionableId}&kind=${kind}`
 
     requestReaction(url, 'POST', (json) => {
       Array.from(reaction.querySelectorAll(`[data-reaction-kind="${kind}"]`), element => {
         element.classList.add('is-reacted')
         element.dataset.reactionId = json.id
-        updateReaction(element, 1)
+        updateReactionCount(element, 1)
+        updateReactionLoginNames(element, loginName)
       })
     })
   }
 
-  const destroyReaction = (reaction, kind, reactionId) => {
+  const destroyReaction = (reaction, kind, loginName, reactionId) => {
     const url = `/api/reactions/${reactionId}`
 
     requestReaction(url, 'DELETE', (json) => {
       Array.from(reaction.querySelectorAll(`[data-reaction-kind="${kind}"]`), element => {
         element.classList.remove('is-reacted')
         delete (element.dataset.reactionId)
-        updateReaction(element, -1)
+        updateReactionCount(element, -1)
+        updateReactionLoginNames(element, loginName)
       })
     })
   }
 
   Array.from(reactions, reaction => {
+    const loginName = reaction.dataset.reactionLoginName
     const reactionableId = reaction.dataset.reactionReactionableId
 
     Array.from(reaction.querySelectorAll('li'), element => {
@@ -69,7 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const kind = e.currentTarget.dataset.reactionKind
         const reactionId = e.currentTarget.dataset.reactionId
 
-        if (reactionId) { destroyReaction(reaction, kind, reactionId) } else { createReaction(reaction, kind, reactionableId) }
+        if (reactionId) {
+          destroyReaction(reaction, kind, loginName, reactionId)
+        } else {
+          createReaction(reaction, kind, loginName, reactionableId)
+        }
       })
     })
   })
