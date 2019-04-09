@@ -1,14 +1,17 @@
-.reactions.test-block.js-reactions data-reaction-reactionable-id=dom_id(reactionable)
+.reactions.test-block.js-reactions[*reactions_attributes(reactionable)]
   ul.reactions__items.test-inline-block.js-reaction
     - Reaction.emojis.each do |kind, emoji|
-      li.reactions__item.test-inline-block[*reaction_attributes(kind, reactionable)]
+      li.reactions__item.test-inline-block[*reaction_attributes(reactionable, kind)]
         span.reactions__item-emoji.js-reaction-emoji = emoji
-        span.reactions__item-count.js-reaction-count = reactionable.reacted_count(kind)
+        span.reactions__item-count.js-reaction-count = reactionable.reaction_count_by(kind)
+        ul.reactions__item-login-names.js-reaction-login-names
+          - reactionable.reaction_login_names_by(kind).each do |login_name|
+            li = login_name
   .reactions__dropdown.js-reaction-dropdown
     .reactions__dropdown-toggle.js-reaction-dropdown-toggle
       i.fas.fa-plus.reactions__dropdown-toggle-plus
       i.fas.fa-smile
     ul.reactions__items.test-inline-block.js-reaction(hidden=true)
       - Reaction.emojis.each do |kind, emoji|
-        li.reactions__item.test-inline-block[*reaction_attributes_all(kind, reactionable)]
+        li.reactions__item.test-inline-block[*reaction_attributes_all(reactionable, kind)]
           span.reactions__item-emoji.js-reaction-emoji = emoji

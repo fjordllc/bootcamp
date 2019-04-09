@@ -231,7 +231,7 @@
   .auth-form-action.is-sign-up-action
     ul.auth-form-action__items
       li.auth-form-action__item
-        = f.submit user_submit_label(user, from), class: "a-button is-lg is-warning is-block js-sign-up-action test-fixed-top"
+        = f.submit user_submit_label(user, from), class: "a-button is-lg is-warning is-block js-sign-up-action"
       - unless user.adviser?
         li.auth-form-action__item
           = link_to "キャンセル", :back, class: "a-button is-xs is-secondary is-block"
