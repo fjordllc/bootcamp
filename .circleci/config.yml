@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-       - image: circleci/ruby:2.5.1-node-browsers
+       - image: circleci/ruby:2.6.2-node-browsers
          environment:
            DATABASE_URL: 'postgres://user@localhost:5432/user_test'
            RAILS_ENV: test
@@ -22,6 +22,8 @@ jobs:
             - v1-dependencies-
 
       - run: sudo apt-get install -y fonts-ipafont-gothic fonts-ipafont-mincho
+
+      - run: gem install bundler
 
       - run:
           name: install dependencies
