@@ -206,6 +206,8 @@ WHERE
     case target
     when "student"
       self.students
+    when "job_seeking"
+      self.job_seeking
     when "retired"
       self.retired
     when "graduate"

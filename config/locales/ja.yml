@@ -140,6 +140,7 @@ ja:
           not_complete: 未完
   target:
     student: 現役生
+    job_seeking: 就職活動中
     mentor: メンター
     graduate: 卒業生
     adviser: アドバイザー
