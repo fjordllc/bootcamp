@@ -2,7 +2,7 @@
   header.card-header.is-sm
     h2.card-header__title 完了したプラクティス
     .card-header__sub-title
-      = render "/users/learning_status", user: user
+      = render "users/learning_status", user: user
   .completed-practices__body
-    = render "/users/practices/completed_practices_progress", user: user
-    = render "/users/practices/completed_practices_list", user: user
+    = render "users/practices/completed_practices_progress", user: user
+    = render "users/practices/completed_practices_list", user: user
