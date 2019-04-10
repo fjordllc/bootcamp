@@ -55,6 +55,10 @@ class Practice < ActiveRecord::Base
     )
   end
 
+  def learning(user)
+    learnings.find_by(user: user)
+  end
+
   def all_text
     [title, description, goal].join("\n")
   end
