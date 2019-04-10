@@ -48,10 +48,9 @@ header.page-header
             .card-footer-actions
               ul.card-footer-actions__items
                 li.card-footer-actions__item
-                  - if @product.user == current_user
-                    = link_to edit_product_path(@product), class: "card-footer-actions_action a-button is-md is-primary is-block" do
-                      i.fas.fa-pen
-                      | 内容修正
+                  = link_to edit_product_path(@product), class: "card-footer-actions_action a-button is-md is-primary is-block" do
+                    i.fas.fa-pen
+                    | 内容修正
                 li.card-footer-actions__item
                   = link_to @product, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
                     i.fas.fa-trash-alt
