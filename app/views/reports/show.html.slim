@@ -92,7 +92,7 @@ header.page-header
               i.fas.fa-angle-left
               | 前の日報
         .thread-prev-next__item
-          = link_to reports_path, class: "thread-prev-next__item-link is-index" do
+          = link_to user_reports_path(@report.user_id), class: "thread-prev-next__item-link is-index" do
             | 日報一覧
         .thread-prev-next__item
           - if @report.next
