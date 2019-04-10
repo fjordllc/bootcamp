@@ -5,8 +5,8 @@ module ReactionsHelper
     {
       data: {
         reaction: {
-          login_name: current_user.login_name,
-          reactionable_id: dom_id(reactionable)
+          login: { name: current_user.login_name },
+          reactionable: { id: dom_id(reactionable) }
         }
       }
     }
