@@ -7,15 +7,36 @@
 .card-list__item-link
   +text-block(.875rem 1.55, block $main)
   padding: .5rem 1rem
-  +hover-link
+  text-decoration: none
+  transition: all .2s ease-out
+  &:hover
+    background-color: $background-more-tint
+
+.card-list__item-link-inner
+  +position(relative)
+  padding-left: 1.375rem
   &::before
-    display: inline-block
-    margin-right: .5rem
+    +size(1rem 1.375rem)
     color: $accent
+    +position(absolute, left 0, top 0)
     .card-list.is-completed &
       +fa(fas '\f00c')
+      display: flex
+      align-items: center
+      justify-content: center
     .card-list.is-active &,
     .card-list.is-wip &
       +fa(fas '\f060')
-  &:hover::before
-    text-decoration: none
+      display: flex
+      align-items: center
+      justify-content: center
+
+.card-list__item-link-date
+  font-size: .75rem
+  color: $muted-text
+
+.card-list__item-link-date-label
+  display: inline-block
+  margin-right: .25em
+  &::after
+    content: ":"
