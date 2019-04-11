@@ -71,4 +71,11 @@ sotugyou:
   user: sotugyou
   title: テストの日報
   description: いろいろやりました
-  reported_on: 2018-02-01
+  reported_on: "2018-02-01"
+
+reports_11:
+  user: hatsuno
+  title: hatsunoの日報
+  description: |-
+    初めての日報です。
+  reported_on: "2019-04-12"
