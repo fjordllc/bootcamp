@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(version: 2019_04_20_140857) do
     t.integer "category_id"
     t.integer "position"
     t.boolean "submission", default: false, null: false
+    t.boolean "open_product", default: false, null: false
     t.index ["category_id"], name: "index_practices_on_category_id"
   end
 
