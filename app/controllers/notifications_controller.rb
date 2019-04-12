@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class NotificationsController < ApplicationController
-  before_action :require_login, only: %i(show)
+class NotificationsController < MemberAreaController
   before_action :set_my_notification, only: %i(show)
 
   def show

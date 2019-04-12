@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Practices::QuestionsController < ApplicationController
+class Practices::QuestionsController < MemberAreaController
   before_action :set_practice
   before_action :set_questions
 

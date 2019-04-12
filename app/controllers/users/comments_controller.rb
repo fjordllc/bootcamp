@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::CommentsController < ApplicationController
+class Users::CommentsController < MemberAreaController
   before_action :set_user
   before_action :set_comments
 

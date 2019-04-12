@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class Courses::PracticesController < ApplicationController
-  before_action :require_login
-
+class Courses::PracticesController < MemberAreaController
   def index
     @course = Course.find(params[:course_id])
 

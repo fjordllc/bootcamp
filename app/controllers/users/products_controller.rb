@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::ProductsController < ApplicationController
+class Users::ProductsController < MemberAreaController
   before_action :set_user
   before_action :set_products
 

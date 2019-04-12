@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class ProductsController < ApplicationController
-  before_action :require_login
+class ProductsController < MemberAreaController
   before_action :check_permission!, only: %i(show)
   before_action :require_admin_adviser_or_mentor_login, only: :index
 

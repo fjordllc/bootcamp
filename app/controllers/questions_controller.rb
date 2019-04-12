@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-class QuestionsController < ApplicationController
+class QuestionsController < MemberAreaController
   include Rails.application.routes.url_helpers
-  before_action :require_login
   before_action :set_question, only: %i(show edit update destroy)
   before_action :set_categories, only: %i(new create edit update)
 

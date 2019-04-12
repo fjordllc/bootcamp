@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class PagesController < ApplicationController
-  before_action :require_login
+class PagesController < MemberAreaController
   before_action :set_page, only: %i(show edit update destroy)
 
   def index

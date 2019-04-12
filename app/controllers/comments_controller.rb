@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CommentsController < ApplicationController
+class CommentsController < MemberAreaController
   include Rails.application.routes.url_helpers
   before_action :set_user, only: :show
   before_action :set_my_comment, only: %i(edit update destroy)

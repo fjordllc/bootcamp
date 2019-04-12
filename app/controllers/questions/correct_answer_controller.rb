@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-class Questions::CorrectAnswerController < ApplicationController
+class Questions::CorrectAnswerController < MemberAreaController
   include Rails.application.routes.url_helpers
-  before_action :require_login
   before_action :set_question, only: :create
 
   def create
