@@ -38,6 +38,7 @@ class ReportsController < ApplicationController
       report              = current_user.reports.find(params[:id])
       @report.title       = report.title
       @report.reported_on = Date.current
+      @report.emoticon    = report.emoticon
       @report.description = report.description
       @report.practices   = report.practices
     end
@@ -82,6 +83,7 @@ class ReportsController < ApplicationController
       params.require(:report).permit(
         :title,
         :reported_on,
+        :emoticon,
         :description,
         practice_ids: [],
         learning_times_attributes: [:id, :started_at, :finished_at, :_destroy]

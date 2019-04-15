@@ -39,4 +39,14 @@ class Report < ActiveRecord::Base
           .order(:reported_on)
           .first
   end
+
+  enum emoticon: {
+    soso: 0,
+    sad: 1,
+    smile: 2
+  }
+
+  def self.faces
+    @_faces ||= emoticons.keys.zip(%w(🙂 😢 😄)).to_h.with_indifferent_access
+  end
 end
