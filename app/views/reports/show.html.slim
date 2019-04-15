@@ -52,6 +52,8 @@ header.page-header
         = render "reports/learning_times", report: @report
 
         .thread-body
+          - if @report.emoticon.present?
+            = Report.faces[@report.emoticon]
           .thread__description.js-target-blank.is-long-text.js-markdown-view
             = @report.description
           = render "reactions/reactions", reactionable: @report
