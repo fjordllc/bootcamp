@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# あとでreports_test.rbに結合する
-
 require "application_system_test_case"
 
 class EmoticonsTest < ApplicationSystemTestCase
