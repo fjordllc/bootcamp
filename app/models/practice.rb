@@ -38,14 +38,17 @@ class Practice < ActiveRecord::Base
     end
   end
 
-  def not_completed?(user)
+  def completed?(user)
     status_cds = Learning.statuses.values_at("complete")
-
-    !Learning.exists?(
+    Learning.exists?(
       user:        user,
       practice_id: id,
       status_cd:   status_cds
     )
+  end
+
+  def not_completed?(user)
+    !completed?(user)
   end
 
   def exists_learning?(user)
