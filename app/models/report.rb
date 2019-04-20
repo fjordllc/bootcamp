@@ -40,13 +40,13 @@ class Report < ActiveRecord::Base
           .first
   end
 
-  enum emoticon: {
+  enum emotion: {
     soso: 0,
     sad: 1,
     smile: 2
   }
 
   def self.faces
-    @_faces ||= emoticons.keys.zip(%w(🙂 😢 😄)).to_h.with_indifferent_access
+    @_faces ||= emotions.keys.zip(%w(🙂 😢 😄)).to_h.with_indifferent_access
   end
 end

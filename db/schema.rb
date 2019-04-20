@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_15_050041) do
+ActiveRecord::Schema.define(version: 2019_04_20_140857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -229,7 +229,7 @@ ActiveRecord::Schema.define(version: 2019_04_15_050041) do
     t.datetime "updated_at"
     t.date "reported_on"
     t.boolean "wip", default: false, null: false
-    t.integer "emoticon"
+    t.integer "emotion"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
