@@ -2,6 +2,7 @@
 
 class CommentsController < ApplicationController
   include Rails.application.routes.url_helpers
+  before_action :require_login
   before_action :set_user, only: :show
   before_action :set_my_comment, only: %i(edit update destroy)
 

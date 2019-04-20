@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require "stripe"
-
 class CardController < ApplicationController
   before_action :require_login
-  before_action :require_card, only: %i(show edit update)
+  before_action :require_paid_login, only: %i(show edit update)
   before_action :already_registered_card, only: %i(new)
 
   def show
@@ -62,7 +60,7 @@ class CardController < ApplicationController
 
   private
     def already_registered_card
-      if registered_card?
+      if current_user.card?
         redirect_to card_path, alert: "既にカード登録済みです"
       end
     end

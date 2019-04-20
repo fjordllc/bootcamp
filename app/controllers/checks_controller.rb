@@ -2,7 +2,7 @@
 
 class ChecksController < ApplicationController
   include Rails.application.routes.url_helpers
-  before_action :require_admin_adviser_or_mentor_login
+  before_action :require_staff_login
 
   def create
     @check = Check.new(
