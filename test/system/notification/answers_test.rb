@@ -16,7 +16,7 @@ class Notification::AnswersTest < ApplicationSystemTestCase
     click_button "コメントする"
     logout
 
-    login_user "tanaka", "testtest"
+    login_user "sotugyou", "testtest"
     first(".test-bell").click
     assert_text @notice_text
     logout

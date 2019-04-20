@@ -10,7 +10,7 @@ product_2:
 
 product_3:
   practice: practice_2
-  user: tanaka
+  user: sotugyou
   body: 確認済みの提出物
 
 product_4:
@@ -25,7 +25,7 @@ product_5:
 
 product_6:
   practice: practice_3
-  user: tanaka
+  user: sotugyou
   body: 確認待ちの提出物
 
 product_7:
