@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class AnnouncementsController < ApplicationController
-  before_action :require_admin_login, except: %i(index show)
   before_action :require_login
+  before_action :require_admin_login, except: %i(index show)
   before_action :set_announcement, only: %i(show edit update destroy)
   before_action :set_footprints, only: %i(show)
 

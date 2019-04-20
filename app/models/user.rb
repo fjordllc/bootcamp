@@ -239,8 +239,18 @@ WHERE
     customer_id?
   end
 
+  alias_method :paid?, :card?
+
   def card
     customer.sources.data.first
+  end
+
+  def staff?
+    admin? || mentor? || adviser?
+  end
+
+  def staff_or_paid?
+    staff? || paid?
   end
 
   private
