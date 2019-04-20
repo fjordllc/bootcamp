@@ -2,13 +2,13 @@
 - content_for :head_last do
   = javascript_include_tag "https://sdk.form.run/js/v2/formrun.js"
 
-= render "main_visual"
+= render "welcome/main_visual"
 .welcome-sections
-  = render "about"
-  = render "tutorials"
-  = render "eligibility"
-  = render "process"
-  = render "finding_employment"
-  = render "administrator"
-  = render "other"
-  = render "form"
+  = render "welcome/about"
+  = render "welcome/tutorials"
+  = render "welcome/eligibility"
+  = render "welcome/process"
+  = render "welcome/finding_employment"
+  = render "welcome/administrator"
+  = render "welcome/other"
+  = render "welcome/form"
