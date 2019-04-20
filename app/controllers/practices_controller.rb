@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class PracticesController < ApplicationController
-  before_action :require_admin_login, except: %i(show)
   before_action :require_login
+  before_action :require_admin_login, except: %i(show)
+  before_action :require_staff_or_paid_login, only: %i(show)
   before_action :set_course, only: %i(new)
   before_action :set_practice, only: %w(show edit update destroy sort)
 
