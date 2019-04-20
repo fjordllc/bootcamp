@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   root to: "home#index"
   get "welcome", to: "home#welcome", as: "welcome"
+  get "tos", to: "home#tos", as: "tos"
 
   namespace "api" do
     resource :image, controller: "image", only: %i(create)
