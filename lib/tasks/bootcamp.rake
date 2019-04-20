@@ -4,6 +4,13 @@ require "#{Rails.root}/config/environment"
 
 namespace :bootcamp do
   namespace :oneshot do
+    desc "Set free falg"
+    task :set_free_flag  do
+      User.where(admin: false, mentor: false, adviser: false, free: false).each do |user|
+        user.update!(free: true)
+        puts "make free: #{user.login_name}"
+      end
+    end
   end
 
   desc "Replace practices"
