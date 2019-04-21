@@ -16,5 +16,6 @@ header.page-header
 
 .page-body
   .container
-    .thread-list.a-card
-      = render partial: "products/product", collection: @products, as: :product
+    - if product_displayable?(practice: @practice)
+      .thread-list.a-card
+        = render partial: "products/product", collection: @products, as: :product

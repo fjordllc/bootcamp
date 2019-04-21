@@ -4,7 +4,7 @@ require "application_system_test_case"
 
 class NotificationsTest < ApplicationSystemTestCase
   test "notifications" do
-    login_user "sotugyou", "testtest"
+    login_user "tanaka", "testtest"
 
     visit "/"
     find(".test-show-notifications").click

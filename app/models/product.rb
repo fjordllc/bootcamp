@@ -19,8 +19,4 @@ class Product < ApplicationRecord
     -> (user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: "Product").pluck(:checkable_id)) }
-
-  def completed?(user)
-    checks.where(user: user).present?
-  end
 end
