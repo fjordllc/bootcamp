@@ -4,7 +4,7 @@ require "application_system_test_case"
 
 class Check::ReportsTest < ApplicationSystemTestCase
   test "non admin user is non botton" do
-    login_user "tanaka", "testtest"
+    login_user "sotugyou", "testtest"
     visit "/reports/#{reports(:report_2).id}"
     assert_not has_button? "日報を確認"
   end

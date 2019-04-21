@@ -14,6 +14,5 @@ header.page-header
 
 .page-body
   .container
-    - if product_displayable?(user: @user)
-      .thread-list.a-card
-        = render partial: "products/product", collection: @products, as: :product
+    .thread-list.a-card
+      = render partial: "products/product", collection: @products, as: :product

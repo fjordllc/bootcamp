@@ -131,7 +131,7 @@ class ReportsController < ApplicationController
       name = "#{report.user.login_name}"
       link = "<#{report_url(report)}|#{report.title}>"
 
-      notify "#{name} created #{link}",
+      SlackNotification.notify "#{name} created #{link}",
         username: "#{report.user.login_name} (#{report.user.full_name})",
         icon_url: url_for(report.user.avatar),
         attachments: [{

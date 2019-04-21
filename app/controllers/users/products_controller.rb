@@ -13,15 +13,7 @@ class Users::ProductsController < ApplicationController
     end
 
     def set_products
-      @products =
-        if admin_login? || adviser_login? || current_user == user
-          user.products.eager_load(:user, :comments, :practice).order(updated_at: :desc)
-        elsif user.has_checked_product_of?(current_user.practices_with_checked_product)
-          Product
-            .eager_load(:user, :comments, :practice)
-            .where(id: user.products.ids_of_common_checked_with(current_user))
-            .order(updated_at: :desc)
-        end
+      @products = user.products.eager_load(:user, :comments, :practice).order(updated_at: :desc)
     end
 
     def user
