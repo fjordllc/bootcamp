@@ -4,8 +4,10 @@
       - page_tab_members(resource).each do |tab|
         - if tab[:is_products_tab]
           - if resource.is_a?(User)
-            = render "page_tab", tab: tab
+            - if product_displayable?(user: resource)
+              = render "page_tab", tab: tab
           - elsif resource.is_a?(Practice)
-            = render "page_tab", tab: tab
+            - if product_displayable?(practice: resource)
+              = render "page_tab", tab: tab
         - else
           = render "page_tab", tab: tab
