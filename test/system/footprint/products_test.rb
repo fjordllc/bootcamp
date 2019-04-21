@@ -16,6 +16,6 @@ class Footprint::ProductsTest < ApplicationSystemTestCase
     product = users(:yamada).products.first
     visit product_path(product)
     assert_no_text "見たよ"
-    assert_not page.has_css?(".footprints-item__checker-icon.is-tanaka")
+    assert_not page.has_css?(".footprints-item__checker-icon.is-yamada")
   end
 end

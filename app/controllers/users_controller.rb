@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
     if @user.save
       UserMailer.welcome(@user).deliver_now
-      notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
+      SlackNotification.notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
         username: "#{@user.login_name}@bootcamp.fjord.jp",
         icon_url: url_for(@user.avatar)
       login(@user.login_name, params[:user][:password], true)
