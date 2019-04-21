@@ -32,21 +32,21 @@ report_4:
   reported_on: "2017-01-01"
 
 report_5:
-  user: sotugyou
+  user: tanaka
   title: "学習週1日目"
   description: |-
     今日は　Rubyの基礎 を学習しました。
   reported_on: "2017-01-01"
 
 report_6:
-  user: sotugyou
+  user: tanaka
   title: "学習週2日目"
   description: |-
     今日は　Railsの基礎 を学習しました。
   reported_on: "2017-01-02"
 
 report_7:
-  user: sotugyou
+  user: tanaka
   title: "学習週3日目"
   description: |-
     今日は　RSpecの基礎 を学習しました。
@@ -60,15 +60,15 @@ report_8:
   reported_on: "2017-01-01"
 
 report_9:
-  user: sotugyou
+  user: tanaka
   title: WIPの日報
   description: |-
     WIP
   reported_on: "2019-01-01"
   wip: true
 
-sotugyou:
-  user: sotugyou
+reports_10:
+  user: tanaka
   title: テストの日報
   description: いろいろやりました
   reported_on: "2018-02-01"
