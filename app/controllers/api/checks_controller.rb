@@ -37,12 +37,12 @@ class API::ChecksController < API::BaseController
       name = "#{check.user.login_name}"
       link = "<#{polymorphic_path(check.checkable)}#check_#{check.id}|#{check.checkable.title}>"
 
-      SlackNotification.notify "#{name} check to #{link}",
-        username: "#{check.user.login_name} (#{check.user.full_name})",
-        icon_url: url_for(check.user.avatar),
-        attachments: [{
-          fallback: "check body.",
-          text: "#{check.user.login_name}さんが#{check.checkable.title}を確認しました。"
-        }]
+      notify "#{name} check to #{link}",
+             username: "#{check.user.login_name} (#{check.user.full_name})",
+             icon_url: url_for(check.user.avatar),
+             attachments: [{
+               fallback: "check body.",
+               text: "#{check.user.login_name}さんが#{check.checkable.title}を確認しました。"
+             }]
     end
 end

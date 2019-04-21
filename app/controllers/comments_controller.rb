@@ -64,7 +64,7 @@ class CommentsController < ApplicationController
       name = "#{comment.user.login_name}"
       link = "<#{polymorphic_url(comment.commentable)}#comment_#{comment.id}|#{comment.commentable.title}>"
 
-      SlackNotification.notify "#{name} commented to #{link}",
+      notify "#{name} commented to #{link}",
         username: "#{comment.user.login_name} (#{comment.user.full_name})",
         icon_url: url_for(comment.user.avatar),
         attachments: [{

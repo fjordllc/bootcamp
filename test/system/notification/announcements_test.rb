@@ -20,7 +20,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     click_button "作成"
     logout
 
-    login_user "sotugyou", "testtest"
+    login_user "tanaka", "testtest"
     first(".test-bell").click
     assert_text @notice_text
     logout
