@@ -60,7 +60,7 @@ class AnswersController < ApplicationController
       name = "#{answer.user.login_name}"
       link = "<#{question_url(answer.question)}|#{answer.question.title}>"
 
-      SlackNotification.notify "#{name}が回答しました。#{link}",
+      notify "#{name}が回答しました。#{link}",
         username: "#{answer.user.login_name} (#{answer.user.full_name})",
         icon_url: url_for(answer.user.avatar),
         attachments: [{

@@ -43,7 +43,7 @@ class UsersTest < ApplicationSystemTestCase
     visit "/users/#{users(:yamada).id}"
     assert_no_text "卒業日"
 
-    visit "/users/#{users(:sotugyou).id}"
+    visit "/users/#{users(:tanaka).id}"
     assert_text "卒業日"
   end
 
@@ -51,7 +51,7 @@ class UsersTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
     visit "/users/#{users(:yameo).id}"
     assert_text "リタイア日"
-    visit "/users/#{users(:sotugyou).id}"
+    visit "/users/#{users(:tanaka).id}"
     assert_no_text "リタイア日"
   end
 
@@ -78,8 +78,8 @@ class UsersTest < ApplicationSystemTestCase
     visit "/users/#{users(:kensyu).id}"
     assert_text "研修生"
 
-    login_user "sotugyou", "testtest"
-    visit "/users/#{users(:sotugyou)}"
+    login_user "tanaka", "testtest"
+    visit "/users/#{users(:tanaka)}"
     assert_text "卒業生"
   end
 

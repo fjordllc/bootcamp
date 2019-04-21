@@ -42,7 +42,7 @@ class API::Practices::LearningController < API::BaseController
       object = "<#{practice_url(learning.practice)}|#{learning.practice.title}>"
       verb = "#{t("activerecord.enums.learning.status." + learning.status.to_s)}しました。"
       text = "#{subject}が#{object}を#{verb}"
-      SlackNotification.notify text,
+      notify text,
         username: "#{current_user.login_name}@bootcamp.fjord.jp",
         icon_url: url_for(current_user.avatar)
     end

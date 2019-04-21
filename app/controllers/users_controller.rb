@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     end
     if @user.save
       UserMailer.welcome(@user).deliver_now
-      SlackNotification.notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
+      notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
         username: "#{@user.login_name}@bootcamp.fjord.jp",
         icon_url: url_for(@user.avatar)
       redirect_to root_url, notice: "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
