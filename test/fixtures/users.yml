@@ -47,26 +47,26 @@ machida:
   updated_at: "2014-01-01 00:00:02"
   created_at: "2014-01-01 00:00:02"
 
-tanaka:
-  login_name: tanaka
-  email: tanaka@fjord.jp
+sotugyou:
+  login_name: sotugyou
+  email: sotugyou@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: Taro
-  last_name: Tanaka
-  twitter_account: tanaka
-  facebook_url: http://www.facebook.com/tanaka
-  blog_url: http://tanaka.com
-  feed_url: http://tanaka.com/index.atom
+  first_name: 太郎
+  last_name: 卒業
+  twitter_account: sotugyou
+  facebook_url: http://www.facebook.com/sotugyou
+  blog_url: http://sotugyou.example.com/
+  feed_url: http://sotugyou.example.com/index.atom
   company: company_1
-  description: "田中です。卒業しちゃいました。"
+  description: "卒業です。卒業しちゃいました。"
   course: course_1
   job: office_worker
   os: mac
   study_place: local
   experience: rails
   how_did_you_know: Googleで「Rails スクール」で検索した結果
-  organization: 株式会社田中
+  organization: 株式会社卒業
   graduated_on: "2015-01-01"
   updated_at: "2014-01-01 00:00:03"
   created_at: "2014-01-01 00:00:03"
