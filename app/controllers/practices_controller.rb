@@ -21,7 +21,7 @@ class PracticesController < ApplicationController
     @practice = Practice.new(practice_params)
 
     if @practice.save
-      notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を作成しました。",
+      SlackNotification.notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を作成しました。",
         username: "#{current_user.login_name}@bootcamp.fjord.jp",
         icon_url: url_for(current_user.avatar)
       redirect_to @practice, notice: "プラクティスを作成しました。"
@@ -35,7 +35,7 @@ class PracticesController < ApplicationController
     if @practice.update(practice_params)
       text = "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を編集しました。"
       diff = Diffy::Diff.new(old_practice.all_text + "\n", @practice.all_text + "\n", context: 1).to_s
-      notify "#{text}\n```#{diff}```",
+      SlackNotification.notify "#{text}\n```#{diff}```",
         username: "#{current_user.login_name}@bootcamp.fjord.jp",
         icon_url: url_for(current_user.avatar)
       redirect_to @practice, notice: "プラクティスを更新しました。"
@@ -46,7 +46,7 @@ class PracticesController < ApplicationController
 
   def destroy
     @practice.destroy
-    notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を削除しました。",
+    SlackNotification.notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を削除しました。",
       username: "#{current_user.login_name}@bootcamp.fjord.jp",
       icon_url: url_for(current_user.avatar)
     redirect_to practices_url, notice: "プラクティスを削除しました。"

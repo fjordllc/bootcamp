@@ -95,14 +95,6 @@ class ProductsController < ApplicationController
       end
     end
 
-    def my_product?
-      find_product.user == current_user
-    end
-
-    def completed?
-      current_user.has_checked_product_of?(find_practice)
-    end
-
     def check_permission!
       unless policy(find_product).show? || find_practice&.open_product?
         redirect_to root_path, alert: "プラクティスを完了するまで他の人の提出物は見れません。"
