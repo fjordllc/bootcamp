@@ -22,3 +22,14 @@ reaction_5:
   user: komagata
   reactionable: comment_2 (Comment)
   kind: thumbsup
+
+reaction_6:
+  user: machida
+  reactionable: product_12 (Product)
+  kind: tada
+
+reaction_7:
+  user: komagata
+  reactionable: product_12 (Product)
+  kind: eyes
+
