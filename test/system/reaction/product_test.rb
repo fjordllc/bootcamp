@@ -14,10 +14,10 @@ class Reaction::ProductsTest < ApplicationSystemTestCase
   test "reaction to product" do
     visit product_path(products(:product_12))
     first(".thread__inner .js-reaction-dropdown-toggle").click
-    first(".thread__inner .js-reaction-dropdown li[data-reaction-kind='smile']").click
+    first(".thread__inner .js-reaction-dropdown li[data-reaction-kind='eyes']").click
 
     using_wait_time 5 do
-      assert_text "😄1🎉1\n👀1"
+      assert_text "🎉1\n👀2"
     end
   end
 
