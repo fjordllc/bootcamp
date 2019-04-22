@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   include Checkable
   include Footprintable
   include Watchable
+  include Reactionable
 
   belongs_to :practice
   belongs_to :user, touch: true
