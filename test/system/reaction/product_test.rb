@@ -33,7 +33,7 @@ class Reaction::ProductsTest < ApplicationSystemTestCase
 
   test "delete reaction of product on fotter" do
     visit product_path(products(:product_12))
-    first(".thread-comment .js-reaction li[data-reaction-kind='tada']").click
+    first(".thread__inner .js-reaction li[data-reaction-kind='tada']").click
 
     using_wait_time 5 do
       assert_text "👀1"
