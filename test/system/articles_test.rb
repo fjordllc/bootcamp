@@ -10,13 +10,12 @@ class ArticlesTest < ApplicationSystemTestCase
   test "show listing articles" do
     login_user "komagata", "testtest"
     visit articles_url
-    assert_selector ".page-header__title", text: "ブログ記事一覧"
+    assert_text "ブログ記事一覧"
   end
 
   test "create article" do
     login_user "komagata", "testtest"
-    visit articles_url
-    click_on "ブログ記事作成"
+    visit new_article_url
 
     fill_in "article[title]", with: @article.title
     fill_in "article[body]", with: @article.body
@@ -27,8 +26,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
   test "title & body not allow blank" do
     login_user "komagata", "testtest"
-    visit articles_url
-    click_on "ブログ記事作成"
+    visit new_article_url
 
     fill_in "article[title]", with: ""
     fill_in "article[body]", with: ""
