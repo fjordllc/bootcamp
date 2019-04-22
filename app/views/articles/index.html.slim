@@ -22,7 +22,7 @@
           .practice-content__body.is-article.js-markdown-view.js-target-blank.is-long-text-style
             = truncate(article.body, length: 50)
           = raw article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
-          - if current_user.admin?
+          - if admin_login?
             footer.card-footer
               .card-footer-actions
                 ul.card-footer-actions__items
