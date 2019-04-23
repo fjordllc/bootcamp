@@ -8,6 +8,11 @@ section.welcome-section.is-about.is-yellow#about
       p
         | プログラマーとして就職を目指せるだけのスキルを身につけることを目標としたオンラインプログラミングスクールです。就職を目指せるスキルを弊社では「現場の人間にとって、戦力になるプログラマー」としています。具体的には、一人でWebサービスを作ることをゴールとした課題をやるのですが、それだけでなくチーム開発も経験できます。
 
+      .welcome-actions__items
+        .welcome-actions__item
+          = link_to "お問い合わせ・質問", new_user_path, class: "welcome-actions__item-action"
+
+
     .welcome-small-sections.is-conditions
       h3.welcome-small-sections__title
         = image_tag("pjord-face.svg", class: "welcome-small-sections__title-icon")
@@ -21,8 +26,7 @@ section.welcome-section.is-about.is-yellow#about
                 | 現役プログラマーの<br>メンター
               .welcome-small-section__description
                 p
-                  | カリキュラムには、実際に多くの方が使っている弊社が運営するサービスのコードに手を入れる課題もあるのでNDA（秘密保持契約）を結んでいただきます。
-                  | NDA契約の際は免許証などの身分証明書をスマホなどで撮った写真を送っていただきます。
+                  | メンターはアルバイトや講師を専門にしている人ではなく、実際にコードを書くことを仕事にしている現役のプログラマーです。現場目線でのカリキュラム、アドバイスを受けることができます。
 
         .col-xs-12.col-md-4
           section.welcome-small-section
@@ -32,10 +36,7 @@ section.welcome-section.is-about.is-yellow#about
                 | 仕事を想定したチーム開発など<br>現場目線のカリキュラム
               .welcome-small-section__description
                 p
-                  | 用意しているカリキュラムはMacを使って学習することを前提に作られています。なので、最新のOSが動くMacを持っていることが必要です。
-                  | これからMacを購入をする場合は、どの機種を買うべきかアドバイスをしますので、相談をしてから購入してください。
-                p
-                  | また、学習の課題の中でビデオチャットを使うものもあります。なので、カメラが付いてない Mac で参加をする場合は、外付けの Web カメラとマイクをご用意ください。
+                  | 仕事とほとんど同じ形式でのチーム開発や
         .col-xs-12.col-md-4
           section.welcome-small-section
             .welcome-small-section__inner
@@ -44,4 +45,4 @@ section.welcome-section.is-about.is-yellow#about
                 | 就活に使える<br>成果物
               .welcome-small-section__description
                 p
-                  | カリキュラムの中で書籍が必要なものがあります。書籍代として、大体1万5000円くらいの費用がかかります。
+                  | 学習の記録である日報、課題の提出物など、たくさんの成果物を得ることができます。それらの成果物は、履歴書や職務経歴書よりも確実なスキルの証明になり、就職に役立ちます。
