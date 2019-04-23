@@ -2,7 +2,7 @@ header.header
   .container.has-no-right-padding
     .header__container
       = link_to root_path, class: "header__title" do
-        = image_tag("logo.svg", class: "header__title-image")
+        = image_tag("pjord-face.svg", alt: "プログラミングスクール", class: "header__title-image")
         - if current_user.graduated_on?
           .user-part.is-header(class="is-graduate") 卒業生
         - if current_user.adviser

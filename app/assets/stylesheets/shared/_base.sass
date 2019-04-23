@@ -38,10 +38,14 @@ body
   body.is-edit-page &
     margin-right: 0
   body.welcome &
+    display: flex
+    flex-direction: column
     +margin(horizontal, 0)
     height: auto
     min-height: 100vh
     overflow-y: visible
+    .main
+      flex: 100
   body.no-global-nav &
     margin-left: 0
   body.no-recent-reports &,
