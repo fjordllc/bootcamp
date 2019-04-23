@@ -11,7 +11,7 @@ class HomeController < ApplicationController
         render aciton: :index
       end
     else
-      render :template => "welcome/index"
+      render :template => "welcome/index", :layout => "welcome"
     end
   end
 
