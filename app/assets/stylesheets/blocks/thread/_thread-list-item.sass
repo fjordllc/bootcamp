@@ -111,6 +111,13 @@
   align-items: center
   +text-block(.75rem 1.4)
 
+.thread-list-item-meta__items
+  display: flex
+  +margin(horizontal, -.5rem)
+
+.thread-list-item-meta__item
+  +padding(horizontal, .5rem)
+
 .thread-list-item-meta__updated-at
   +text-block(.75rem 1.4, $muted-text)
 
@@ -136,9 +143,11 @@
   &:not(:first-child)
     margin-left: .25rem
 
-
 .thread-list-item__body
   +text-block(.875rem 1.6)
 
 .thread-list-item-meta__created-at
   +text-block(.75rem 1.4, $muted-text)
+
+.thread-list-item__user-detail
+  margin-top: 1rem

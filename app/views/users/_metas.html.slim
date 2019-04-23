@@ -45,7 +45,7 @@
           | 合計学習時間
         .user-metas__item-value
           = number_with_precision(user.total_learning_time, precision: 1) + "時間 / "
-          = render "learning_status", user: user
+          = render "users/learning_status", user: user
     - unless user.company.id == 1
       .user-metas__item
         .user-metas__item-label

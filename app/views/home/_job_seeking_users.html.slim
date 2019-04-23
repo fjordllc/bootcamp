@@ -1,0 +1,28 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | 就職活動中のユーザー
+  - users.each do |user|
+    .thread-list-item
+      .thread-list-item__inner
+        .thread-list-item__author
+          = link_to user do
+            = image_tag user.avatar_image(44), class: "thread-list-item__author-icon is-#{user.role}"
+        header.thread-list-item__header
+          h2.thread-list-item__title(itemprop="name")
+            = link_to user, itempro: "url", class: "thread-list-item__title-link" do
+              | #{user.full_name}（#{user.login_name}）
+
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              = link_to "", class: "thread-list-item-meta__item-link" do
+                | 日報一覧
+            .thread-list-item-meta__item
+              = link_to "", class: "thread-list-item-meta__item-link" do
+                | 提出物一覧
+      input(id="show-user-detail-#{user.id}" type="checkbox")
+      .thread-list-item__user-detail
+        .thread-list-item__body
+          = simple_format user.description
+        = render "users/metas", user: user
