@@ -7,7 +7,7 @@ class ArticlesController < ApplicationController
   def index
     @articles = Article.all.order(created_at: :desc).page(params[:page])
     @articles = @articles.tagged_with(params[:tag]) if params[:tag]
-    render :layout => "welcome"
+    render layout: "welcome"
   end
 
   def show
