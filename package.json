@@ -9,7 +9,6 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "flatpickr": "^4.5.1",
     "hotkeys-js": "^3.3.5",
     "markdown-it": "^8.4.2",
     "markdown-it-plantuml": "^1.2.0",

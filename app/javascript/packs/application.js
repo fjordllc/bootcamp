@@ -9,7 +9,6 @@
 require('./markdown.js')
 require('./markdown-it.js')
 require('./autosize.js')
-require('../datepicker.js')
 require('../shortcut.js')
 require('../learning.js')
 require('../learning-status.js')
