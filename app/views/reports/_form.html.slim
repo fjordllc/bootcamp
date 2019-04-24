@@ -11,7 +11,7 @@
         = f.text_field :title, class: "a-text-input js-warning-form", placeholder: "主にやったことをタイトルにしよう"
       .form-item
         = f.label :reported_on, class: "a-label"
-        = f.text_field :reported_on, class: "datepicker a-text-input"
+        = f.date_field :reported_on, value: Time.current.strftime("%Y-%m-%d"), class: "a-text-input"
       .form-item
         = f.label :emotion, class: "a-label"
         .a-button.is-md.is-secondary.is-select.test-select-emotions

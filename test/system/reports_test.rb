@@ -201,6 +201,23 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "終了時間は開始時間より後にしてください"
   end
 
+  test "use browser datetime input" do
+    visit "/reports/new"
+    fill_in "report_title", with: "テスト日報"
+    fill_in "report_description", with: "ブラウザの日付入力を使う"
+    fill_in "report_reported_on", with: "2019-04-24"
+
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
+
+
+    click_button "提出"
+
+    assert_text "2019年04月24日"
+  end
+
   test "reports can be copied" do
     user   = users(:komagata)
     report = user.reports.first
