@@ -1,10 +1,18 @@
 .thread-header
   padding: 1rem 2rem 0
   border-bottom: $background solid 1px
+  +position(relative)
   +media-breakpoint-down(sm)
     padding: 2.5rem .75rem 0
     .thread.is-page &
       padding-top: .75rem
+
+.thread-header__emotion
+  +position(absolute, right 0, top 0)
+  +text-block(2rem 1, flex)
+  align-items: center
+  justify-content: center
+  +size(3rem)
 
 .thread-header__title
   +text-block(1.5rem 1.4, 700)

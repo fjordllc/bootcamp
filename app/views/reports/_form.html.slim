@@ -16,7 +16,7 @@
             = f.text_field :reported_on, class: "datepicker a-text-input"
           .form-item
             = f.label :emotion, class: "a-label"
-            .select-emotions
+            .a-button.is-md.is-secondary.is-select
               = f.select(:emotion, Report.faces.invert, prompt: "選択してください")
 
           #tasks
