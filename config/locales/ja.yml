@@ -91,7 +91,7 @@ ja:
         reported_on: 学習日
         description: 内容
         learning_times: 学習時間
-        emotion: ニコニコカレンダー
+        emotion: 今日の気分
       report/learning_times:
         finished_at: 終了時間
       learning_time:
