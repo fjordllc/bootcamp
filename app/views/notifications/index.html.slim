@@ -1,0 +1,15 @@
+- title "通知"
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+
+.page-body
+  .container
+    = paginate @notifications, position: "top"
+    - if @notifications.present?
+      .thread-list.a-card
+        = render partial: "notifications/notification", collection: @notifications, as: :notification
+    = paginate @notifications, position: "bottom"

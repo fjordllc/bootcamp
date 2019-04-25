@@ -1,0 +1,11 @@
+.thread-list-item(class="#{notification.read? ? "read-notification" : "unread-notification"}")
+  .thread-list-item__inner
+    .thread-list-item__author
+      = image_tag notification.sender.avatar_image(48), class: "thread-list-item__author-icon"
+    header.thread-list-item__header
+      h2.thread-list-item__title(itemprop="name")
+        = link_to notification, itempro: "url", class: "thread-list-item__title-link" do
+          = notification.message
+    .thread-list-item-meta
+      time.thread-list-item-meta__updated-at(datetime="#{notification.updated_at.to_datetime}" pubdate="pubdate")
+        = l notification.updated_at
