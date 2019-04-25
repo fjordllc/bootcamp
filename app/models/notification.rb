@@ -4,6 +4,8 @@ class Notification < ApplicationRecord
   belongs_to :user
   belongs_to :sender, class_name: "User"
 
+  paginates_per 20
+
   enum kind: {
     came_comment:  0,
     checked:       1,
