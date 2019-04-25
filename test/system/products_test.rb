@@ -63,7 +63,6 @@ class ProductsTest < ApplicationSystemTestCase
       click_link "削除"
     end
     assert_text "提出物を削除しました。"
-    assert_selector ".page-header__title", text: "#{product.practice.title}"
   end
 
   test "product has a comment form " do
@@ -80,6 +79,5 @@ class ProductsTest < ApplicationSystemTestCase
       click_link "削除"
     end
     assert_text "提出物を削除しました。"
-    assert_selector "h2", text: "提出物"
   end
 end
