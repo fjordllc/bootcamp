@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReportCallbacks
   def after_create(report)
     send_notification(report)
