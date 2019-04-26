@@ -51,11 +51,11 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     logout
 
     login_user "muryou", "testtest"
-    assert page.has_css?('.has-no-count')
+    assert page.has_css?(".has-no-count")
     logout
 
     login_user "yamada", "testtest"
-    assert page.has_css?('.has-no-count')
+    assert page.has_css?(".has-no-count")
     logout
   end
 end
