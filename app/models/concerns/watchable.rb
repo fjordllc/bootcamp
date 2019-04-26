@@ -8,4 +8,8 @@ module Watchable
 
     scope :watched, -> { joins(:watches) }
   end
+
+  def watched?
+    watches.present?
+  end
 end
