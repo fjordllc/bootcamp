@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   before_action :require_login
   before_action :set_question, only: %i(show edit update destroy)
   before_action :set_categories, only: %i(new create edit update)
+  before_action :set_watch, only: %i(show)
 
   def index
     questions =
@@ -84,5 +85,9 @@ class QuestionsController < ApplicationController
           fallback: "question body.",
           text: question.description
         }]
+    end
+
+    def set_watch
+      @watch = Watch.new
     end
 end

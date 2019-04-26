@@ -3,11 +3,13 @@
 class Question < ActiveRecord::Base
   include Searchable
   include Reactionable
+  include Watchable
 
-  belongs_to :user, touch: true
-  has_many :answers, dependent: :destroy
-  has_one :correct_answer
   belongs_to :practice, optional: true
+  belongs_to :user, touch: true
+  has_one :correct_answer
+  has_many :answers, dependent: :destroy
+  has_many :watches, as: :watchable
   alias_method :sender, :user
 
   after_create QuestionCallbacks.new
