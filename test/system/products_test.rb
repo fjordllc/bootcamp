@@ -70,4 +70,14 @@ class ProductsTest < ApplicationSystemTestCase
     visit "/products/#{products(:product_1).id}"
     assert_selector ".thread-comment-form"
   end
+
+  test "admin can delete a product" do
+    login_user "komagata", "testtest"
+    product = products(:product_1)
+    visit "/products/#{product.id}"
+    accept_confirm do
+      click_link "削除"
+    end
+    assert_text "提出物を削除しました。"
+  end
 end
