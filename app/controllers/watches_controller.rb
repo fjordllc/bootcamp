@@ -33,6 +33,8 @@ class WatchesController < ApplicationController
         Report.find(params[:report_id])
       elsif params[:product_id]
         Product.find(params[:product_id])
+      elsif params[:question_id]
+        Question.find(params[:question_id])
       end
     end
 end

@@ -50,6 +50,19 @@ header.page-header
                     i.fas.fa-trash-alt#delete
                     | 削除
 
+        .thread-watch
+          .thread-watch__item
+            - if current_user.id.in?(@question.watches.pluck(:user_id))
+              = form_for @watch, url: watch_path, method: :delete, html: { class: "question-watch-form" } do |f|
+                = hidden_field_tag :user_id, current_user.id
+                = hidden_field_tag :question_id, @question.id
+                = f.submit "Unwatch", class: "question-watch-form__action is-text"
+            - else
+              = form_for @watch, html: { class: "question-watch-form" } do |f|
+                = hidden_field_tag :user_id, current_user.id
+                = hidden_field_tag :question_id, @question.id
+                = f.submit "Watch", class: "question-watch-form__action is-text"
+
       = link_to @question.user, itempro: "url", class: "thread__author-link" do
         = image_tag @question.user.avatar_image(120), class: "thread__author-icon is-#{@question.user.role}"
     .thread-comments-container
