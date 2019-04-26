@@ -15,9 +15,7 @@ class WatchesController < ApplicationController
   end
 
   def destroy
-    report = Report.find_by(id: params[:id])
-    @watch = Watch.find_by(watchable_id: report.id, user_id: current_user.id)
-    # binding.pry
+    @watch = Watch.find_by(watchable_id: params[:id], user_id: current_user.id)
     @watch.destroy
     redirect_to @watch.watchable, notice: "ウォッチを止めました"
   end
@@ -33,6 +31,8 @@ class WatchesController < ApplicationController
     def watchable
       if params[:report_id]
         Report.find(params[:report_id])
+      elsif params[:product_id]
+        Product.find(params[:product_id])
       end
     end
 end

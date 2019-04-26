@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   before_action :require_login
   before_action :check_permission!, only: %i(show)
   before_action :require_staff_login, only: :index
+  before_action :set_watch, only: %i(show)
 
   def index
     @products = Product.order(created_at: :desc).page(params[:page])
@@ -85,5 +86,9 @@ class ProductsController < ApplicationController
 
     def product_params
       params.require(:product).permit(:body)
+    end
+
+    def set_watch
+      @watch = Watch.new
     end
 end
