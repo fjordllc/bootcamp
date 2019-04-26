@@ -31,4 +31,16 @@ class AnswersTest < ApplicationSystemTestCase
     assert_text "正解の解答を選択しました。"
     assert_no_text "解決にする"
   end
+
+  test "user can remove best answer" do
+    visit "/questions/#{questions(:question_2).id}"
+    accept_alert do
+      click_link "解決にする"
+    end
+    accept_alert do
+      click_link "ベストアンサーを取り消す"
+    end
+    assert_text "ベストアンサーを取り消しました。"
+    assert_text "解決にする"
+  end
 end

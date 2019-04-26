@@ -63,7 +63,7 @@ Rails.application.routes.draw do
 
   resources :questions do
     resources :answers, only: %i(edit create update destroy)
-    resource :correct_answer, only: :create, controller: "questions/correct_answer"
+    resource :correct_answer, only: %i(create update), controller: "questions/correct_answer"
   end
 
   resources :courses, only: :index
