@@ -55,7 +55,6 @@ header.page-header
                   = link_to @product, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
                     i.fas.fa-trash-alt
                     | 削除
-                        li.card-footer-actions__item
 
         - if admin_login? || adviser_login?
           .thread-admin-tools
