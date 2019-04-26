@@ -1,9 +1,7 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+report1_watch_kimura:
+  user: kimura
+  watchable: report_1 (Report)
 
-one:
-  watchable: one
-  watchable_type: Watchable
-
-two:
-  watchable: two
-  watchable_type: Watchable
+product1_watch_kimura:
+  user: kimura
+  watchable: product_1 (Product)
