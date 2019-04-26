@@ -16,7 +16,7 @@ class AnswersController < ApplicationController
 
     if @answer.save
       notify_to_slack(@answer)
-      redirect_to @return_to, notice: "解答を作成しました。"
+      redirect_to @return_to, notice: "回答を作成しました。"
     else
       render :new
     end
@@ -24,7 +24,7 @@ class AnswersController < ApplicationController
 
   def update
     if @answer.update(answer_params)
-      redirect_to @return_to, notice: "解答を編集しました。"
+      redirect_to @return_to, notice: "回答を編集しました。"
     else
       render :edit
     end
@@ -32,7 +32,7 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer.destroy
-    redirect_to @return_to, notice: "解答を削除しました。"
+    redirect_to @return_to, notice: "回答を削除しました。"
   end
 
   private
