@@ -9,8 +9,7 @@ class LearningTime < ApplicationRecord
   before_validation :canonicalize_finished_at
 
   def diff
-    default = finished_at - started_at
-    default >= 0 ? default : finished_at + 1.day - started_at
+    finished_at - started_at
   end
 
   def learning_times_finished_at_be_greater_than_started_at
