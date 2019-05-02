@@ -10,8 +10,8 @@
       label.auth-form-item__remember-me
         = check_box_tag :remember, params[:remember], true, class: "auth-form-item__remember-me-input"
         | 次回から自動的にログイン
-      .auth-form-item__help.is-text-align-right
-        span.auth-form-item__help-link.js-modal(data-target="#forgot-password-modal")
+      .a-form-help.is-text-align-right
+        span.a-form-help-link.js-modal(data-target="#forgot-password-modal")
           | パスワードを忘れた
   .auth-form-action
     = button_tag(class: "a-button is-lg is-warning is-block") do
