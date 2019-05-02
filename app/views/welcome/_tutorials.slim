@@ -3,11 +3,10 @@ section.welcome-section.is-tutorials.is-grass#tutorials
     h2.welcome-section__title
       = image_tag("tutorials-title.svg", alt: "一人でWebサービスを作って公開できることをゴールとしたカリキュラムを用意しています。", class: "welcome-section__title-image")
     h3.welcome-section__sub-title
-      | 一人でWebサービスを作って公開がゴール
+      | 現場でプラスの戦力になることが目標
     .welcome-section__description
       p
-        | 最終課題が「自分で考えたWebサービスを作って公開」。それに必要な、サーバの構築からバックエンド、フロントエンドも学べます。
-        | 成果物を自分のスキルの証明の一つとして持参して就職活動をしてもらいます。
+        | 最終課題が「自分で考えたWebサービスを作って公開」。それに必要な、サーバの構築からバックエンド、フロントエンドも学べます。それだけでなく、オンライン上での質問の仕方、チーム開発のやり方、ペアプログラミングのやり方、ユーザー目線に立った Web サービスの考え方など、コードを書くこと以外の実践に必要なことも学べます。
     section.welcome-child-section.is-tutorials
       .welcome-small-sections
         .row.is-gutter-width-24.welcome-small-sections__row
@@ -59,3 +58,7 @@ section.welcome-section.is-tutorials.is-grass#tutorials
                 = image_tag("js.svg", class: "welcome-small-section__icon")
                 h3.welcome-small-section__title
                   | JavaScript
+      .welcome-section__actions
+        .welcome-section__actions-items
+          .welcome-section__actions-item
+            = link_to "学習内容一覧", practices_path, class: "a-welcome-button is-md"

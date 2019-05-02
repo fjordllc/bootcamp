@@ -7,12 +7,12 @@ section.welcome-child-section.is-conditions
       .col-xs-12.col-md-4
         section.welcome-small-section
           .welcome-small-section__inner
-            = image_tag("book.svg", class: "welcome-small-section__icon")
+            = image_tag("card.svg", class: "welcome-small-section__icon")
             h3.welcome-small-section__title
-              | クレジットカードで<br>学費の支払いができる
+              | クレジットカードで<br>料金の支払いができる
             .welcome-small-section__description
               p
-                | 学費の支払いにはクレジットカードが必要です。なので、学費の支払いができるクレジットカードを持っていることが必須条件になります。クレジットカードは、Visa、Mastercard、American Express、Discover、Diners Club、JCB が使えます。
+                | 料金の支払いにはクレジットカードが必要です。なので、料金の支払いができるクレジットカードを持っていることが必須条件になります。クレジットカードは、Visa、Mastercard、American Express、Discover、Diners Club、JCB が使えます。
 
       .col-xs-12.col-md-4
         section.welcome-small-section
@@ -23,14 +23,15 @@ section.welcome-child-section.is-conditions
             .welcome-small-section__description
               p
                 | 用意しているカリキュラムはMacを使って学習することを前提に作られています。なので、最新のOSが動くMacを持っていることが必要です。これからMacを購入をする場合は、以下のリンク先を参考にしてください。
-            .welcome-actions__items
-              .welcome-actions__item
-                = link_to "http://docs.komagata.org/5535", class: "a-welcome-button is-sm", target: "_blank"  do
-                  | おすすめのMac
+            .welcome-small-section__actions
+              .welcome-small-section__actions-items
+                .welcome-small-section__actions-item
+                  = link_to "http://docs.komagata.org/5535", class: "a-welcome-button is-sm", target: "_blank"  do
+                    | おすすめのMac
       .col-xs-12.col-md-4
         section.welcome-small-section
           .welcome-small-section__inner
-            = image_tag("nda.svg", class: "welcome-small-section__icon")
+            = image_tag("book.svg", class: "welcome-small-section__icon")
             h3.welcome-small-section__title
               | 必要な教材・機材を<br>購入できる
             .welcome-small-section__description
