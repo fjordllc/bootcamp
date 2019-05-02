@@ -20,9 +20,9 @@ class LearningTime < ApplicationRecord
 
   private
 
-  def canonicalize_finished_at
-    if started_at > finished_at
-      self.finished_at = finished_at + 1.day
+    def canonicalize_finished_at
+      if started_at > finished_at
+        self.finished_at = finished_at + 1.day
+      end
     end
-  end
 end
