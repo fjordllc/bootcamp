@@ -16,7 +16,7 @@
   display: flex
   align-items: center
   +media-breakpoint-down(sm)
-    +padding(vertical, 2.5rem)
+    +padding(vertical, 1.5rem)
 
 .main-visual__contents
   max-width: 920px
@@ -26,8 +26,6 @@
   display: flex
   justify-content: center
   align-items:  center
-  +media-breakpoint-down(sm)
-    display: none
 
 .main-visual__logo
   +size(38rem auto)
@@ -36,7 +34,7 @@
   +margin(horizontal, auto)
   +media-breakpoint-down(sm)
     max-width: 90%
-    +margin(vertical, 1rem 1rem)
+    margin-top: .75rem
 
 .main-visual__description
   +text-block(1.5rem 1.4, $reversal-text center 700)
@@ -48,7 +46,7 @@
   +text-block(1.5rem 1.4, $reversal-text center 700)
   font-feature-settings: "palt"
   +media-breakpoint-down(sm)
-    font-size: .875rem
+    font-size: .9375rem
 
 .main-visual__open-nav
   +position(fixed, right 0, bottom 0, 11)

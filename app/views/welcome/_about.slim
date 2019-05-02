@@ -8,14 +8,15 @@ section.welcome-section.is-about.is-yellow#about
       p
         | プログラマーとして就職を目指せるだけのスキルを身につけることを目標としたオンラインプログラミングスクールです。就職を目指せるスキルを弊社では「現場の人間にとって、戦力になるプログラマー」としています。具体的には、一人でWebサービスを作ることをゴールとした課題をやるのですが、それだけでなくチーム開発も経験できます。
 
-      .welcome-actions__items
-        .welcome-actions__item
-          = link_to "私たちの考える戦力", new_user_path, class: "a-welcome-button is-md"
+      .welcome-section__actions
+        .welcome-section__actions-items
+          .welcome-section__actions-item
+            = link_to "私たちの考える戦力", new_user_path, class: "a-welcome-button is-md"
 
     .welcome-small-sections.is-conditions
       h3.welcome-small-sections__title
         = image_tag("pjord-face.svg", class: "welcome-small-sections__title-icon")
-        | 就職できるスキルを身につけるための工夫
+        | フィヨルドブートキャンプはここが違う！
       .row.is-gutter-width-32
         .col-xs-12.col-md-4
           section.welcome-small-section
