@@ -124,3 +124,26 @@ textarea.a-sm-text-input
   +position(absolute, left 0, top 0)
   opacity: 0
   overflow: hidden
+
+.a-form-help
+  font-size: .75rem
+  margin-top: .5em
+  &.is-text-align-right
+    text-align: right
+  p
+    +text-block(1em 1.5 0 1em)
+  a
+    +hover-link-reversal
+  *:last-child
+    margin-bottom: 0
+  a
+    +text-block(.75rem 1.5)
+    +hover-link-reversal
+    cursor: pointer
+    +default-link
+
+.a-form-help-link
+  +text-block(.75rem 1.5)
+  +hover-link-reversal
+  cursor: pointer
+  +default-link

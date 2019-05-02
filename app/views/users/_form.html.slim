@@ -7,7 +7,7 @@
       // ユーザー名
       = f.label :login_name, class: "a-sm-label is-required"
       = f.text_field :login_name, class: "a-sm-text-input", autocomplete: :nope, placeholder: "komagata"
-      .auth-form-item__help
+      .a-form-help
         p
           | チャットやSNS（Twitter、GitHub、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。極力ユーザー名は統一するようにしてください。サービスによっては半角英数しか使えないサービスが多いので、半角英数をおすすめします。
 
@@ -16,7 +16,7 @@
       = f.label :email, class: "a-sm-label is-required"
       = f.text_field :email, class: "a-sm-text-input", placeholder: "komagata@fjord.jp"
       - unless user.adviser?
-        .auth-form-item__help
+        .a-form-help
           p
             | このメールアドレスは卒業後の連絡にも使うので、会社で提供されたなどの第三者によって提供されたメールアドレスではなく、転職後も使い続ける自分自身で取得したメールアドレスで登録してください。
 
@@ -32,7 +32,7 @@
             = f.label :first_name, class: "a-sm-label is-required"
             = f.text_field :first_name, class: "a-sm-text-input", placeholder: "真幸"
       - unless user.adviser?
-        .auth-form-item__help
+        .a-form-help
           p
             | 就職希望先企業の採用担当者も使う情報になるので、姓・名は必ず本名を（漢字がある場合は漢字で）入力してください。
 
@@ -48,7 +48,7 @@
           = f.file_field :avatar
 
       - unless user.adviser?
-        .auth-form-item__help
+        .a-form-help
           p 著作権侵害にならない画像を使用してください。画像は正方形に切り抜かれます。
 
     - unless user.adviser?
@@ -57,7 +57,7 @@
         = f.label :course_id, class: "a-sm-label is-required"
         .a-button.is-md.is-secondary.is-select.is-block
           = f.collection_select :course_id, Course.order(:created_at), :id, :title, {}
-        .auth-form-item__help
+        .a-form-help
           p コースの一覧は
             = link_to "こちら", courses_path, trget: "_blank"
 
@@ -67,7 +67,7 @@
         .a-button.is-md.is-secondary.is-select.is-block
           - options = options_for_select(User.jobs.map { |k, v| [t("activerecord.enums.user.job.#{k}"), k] }, selected: f.object.job)
           = f.select :job, options, include_blank: "- 選択してください -"
-        .auth-form-item__help
+        .a-form-help
           p 近いものを選択してください。
 
       .auth-form-item
@@ -78,7 +78,7 @@
 
         = f.text_field :organization, class: "a-sm-text-input", autocomplete: :off, placeholder: "XXX大学XXX学部XXX学科XXX専攻"
         - unless user.adviser?
-          .auth-form-item__help
+          .a-form-help
             p 会社名・学校名などを入力してください（働いていない場合は「なし」としてください）。
             p この情報は他のフィヨルドブートキャンプ参加者には公開されませんが、就職活動の際に利用する場合があります。
 
@@ -88,7 +88,7 @@
         .a-button.is-md.is-secondary.is-select.is-block
           - options = options_for_select(User.os.map { |k, v| [t("activerecord.enums.user.os.#{k}"), k] }, selected: f.object.os)
           = f.select :os, options, include_blank: "- 選択してください -"
-        .auth-form-item__help
+        .a-form-help
           p
             | Mac向けのカリキュラムのみなのでWindowsでは受講できません。
             | Macを持ってない方は用意する必要があります。
@@ -101,7 +101,7 @@
         .a-button.is-md.is-secondary.is-select.is-block
           - options = options_for_select(User.study_places.map { |k, v| [t("activerecord.enums.user.study_place.#{k}"), k] }, selected: f.object.study_place)
           = f.select :study_place, options, include_blank: "- 選択してください -"
-        .auth-form-item__help
+        .a-form-help
           p
             | フィヨルドブートキャンプオフィスに通って学習することができます。
             | 環境が整っており、気軽にメンターに質問できます。
@@ -121,7 +121,7 @@
         // フィヨルドブートキャンプをどこで知りましたか？
         = f.label :how_did_you_know, "フィヨルドブートキャンプをどこで知りましたか？", class: "a-sm-label is-required"
         = f.text_area :how_did_you_know, class: "a-sm-text-input", placeholder: "大学時代の先輩である株式会社XXXXでプログラマをやっているXXXXさんから勧められて。"
-        .auth-form-item__help
+        .a-form-help
           p 自分で検索エンジンを使って見つけた場合は、そのときの検索キーワードなども覚えていたら入力してください。誰かに紹介してもらった場合、その誰かもお教えください。
           p この情報は他のフィヨルドブートキャンプ参加者には公開されません。
 
@@ -138,7 +138,7 @@
         end
       = f.label :description, class: "a-sm-label #{required_class}"
       = f.text_area :description, class: "a-sm-text-input", placeholder: placeholder
-      .auth-form-item__help
+      .a-form-help
         p = help_text
 
     - if from == :edit
@@ -157,27 +157,27 @@
       .auth-form-item
         = f.label :github_account, class: "a-sm-label"
         = f.text_field :github_account, class: "a-sm-text-input", placeholder: "komagata"
-        .auth-form-item__help
+        .a-form-help
           p URL ではなく ID を入力。
       .auth-form-item
         = f.label :twitter_account, class: "a-sm-label"
         = f.text_field :twitter_account, class: "a-sm-text-input", placeholder: "komagata"
-        .auth-form-item__help
+        .a-form-help
           p URL ではなく アカウント を入力。
       .auth-form-item
         = f.label :facebook_url, class: "a-sm-label"
         = f.text_field :facebook_url, class: "a-sm-text-input", placeholder: "https://www.facebook.com/komagata1111"
-        .auth-form-item__help
+        .a-form-help
           p ID ではなく URL を入力。
       .auth-form-item
         = f.label :blog_url, class: "a-sm-label"
         = f.text_field :blog_url, class: "a-sm-text-input", placeholder: "http://docs.komagata.org/"
-        .auth-form-item__help
+        .a-form-help
           p URL を入力。
       .auth-form-item
         = f.label :feed_url, class: "a-sm-label"
         = f.text_field :feed_url, class: "a-sm-text-input", placeholder: "http://docs.komagata.org/index.atom"
-        .auth-form-item__help
+        .a-form-help
           p URL を入力。
     .auth-form-item
       = f.label :password, class: "a-sm-label is-required"
@@ -185,7 +185,7 @@
     .auth-form-item
       = f.label :password_confirmation, class: "a-sm-label is-required"
       = f.password_field :password_confirmation, class: "a-sm-text-input", autocomplete: :nope
-      .auth-form-item__help
+      .a-form-help
         p パスワードをもう一度入力
     - if admin_login?
       .auth-form-item
