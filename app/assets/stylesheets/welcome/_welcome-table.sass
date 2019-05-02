@@ -1,0 +1,18 @@
+.welcome-table
+  width: 100%
+  background-color: $base
+  border: solid 2px $welcome-card-border
+  border-radius: .25rem
+  tr
+    &:not(:last-child)
+      border-bottom: solid 1px $welcome-card-border
+  th,
+  td
+    +text-block(.8125rem 1.5)
+    padding: .5rem 1rem
+  th
+    text-align: right
+    white-space: nowrap
+    font-weight: 400
+  td
+    text-align: left
