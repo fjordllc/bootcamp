@@ -10,17 +10,17 @@ class User < ActiveRecord::Base
     part_time_worker: 3,
     vacation: 4,
     unemployed: 5
-  }
+  }, _prefix: true
 
   enum os: {
     mac: 0,
     linux: 1
-  }
+  }, _prefix: true
 
   enum study_place: {
     local: 0,
     remote: 1
-  }
+  }, _prefix: true
 
   enum experience: {
     inexperienced: 0,
@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
     other_ruby: 2,
     ruby: 3,
     rails: 4
-  }
+  }, _prefix: true
 
   belongs_to :company
   belongs_to :course
