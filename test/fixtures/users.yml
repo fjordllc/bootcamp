@@ -171,7 +171,8 @@ hatsuno:
   blog_url: http://hatsuno.org
   feed_url: http://hatsuno.org/index.atom
   company: company_1
-  description: "初野です。"
+  description: "初野です。課金しています。"
+  customer_id: "cus_XXXXXXXX"
   course: course_1
   job: office_worker
   os: mac
