@@ -7,6 +7,10 @@ class HomeController < ApplicationController
         logout
         redirect_to retire_path
       else
+        if current_user.student? && !current_user.free? && !current_user.paid?
+          flash.now[:alert] = "クレジットカードを#{helpers.link_to "登録", new_card_path}してください。".html_safe
+        end
+
         @announcements = Announcement.limit(5).order(created_at: :desc)
         render aciton: :index
       end

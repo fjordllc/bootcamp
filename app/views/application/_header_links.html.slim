@@ -19,9 +19,9 @@
             li.header-dropdown__item
               = link_to edit_current_user_path, class: "header-dropdown__item-link" do
                 | 登録情報変更
-            li.header-dropdown__item
-              = link_to new_card_path, class: "header-dropdown__item-link" do
-                | クレジットカード
+            - if !current_user.adviser? && !current_user.mentor?
+              li.header-dropdown__item
+                = link_to "クレジットカード", new_card_path, class: "header-dropdown__item-link"
             li.header-dropdown__item
               = link_to "https://docs.google.com/spreadsheets/d/1tRexM59inK1u5unRrNFNUNXXltiRQDNZZJf7X-M_G1E/edit#gid=2063800206", class: "header-dropdown__item-link", target: "_blank" do
                 | 座席予約

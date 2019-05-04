@@ -3,8 +3,7 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        = title
+      h2.page-header__title = title
       = render "reports/new_report"
 .page-body
   .container
@@ -13,18 +12,17 @@ header.page-header
         .col-xs-12.col-xl-6.col-xxl-6
           .thread-list.a-card
             header.card-header
-              h2.card-header__title
-                | 最新のお知らせ
+              h2.card-header__title 最新のお知らせ
             = render partial: "announcements", collection: @announcements, as: :announcement
             footer.thread-list__footer
               .thread-list__footer-to-index
                 = link_to announcements_path, class: "thread-list__footer-text-link" do
                   | 全てのお知らせ
           - if current_user.reports.wip.present?
-             = render "/users/reports/wip_reports", user: current_user
+             = render "users/reports/wip_reports", user: current_user
           - if current_user.active_practices.present?
-            = render "/users/practices/active_practices", user: current_user
-          = render "/users/practices/completed_practices", user: current_user
+            = render "users/practices/active_practices", user: current_user
+          = render "users/practices/completed_practices", user: current_user
 
         .col-xs-12.col-xl-6.col-xxl-6
           - unless current_user.total_learning_time.zero?
