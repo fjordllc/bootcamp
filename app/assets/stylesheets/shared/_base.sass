@@ -57,7 +57,6 @@ body
   body.is-auth-page &
     padding-top: 2rem
 
-
 .container
   +padding(horizontal, 1.5rem)
   max-width: 100%
@@ -68,9 +67,11 @@ body
   +media-breakpoint-down(md)
     +padding(horizontal, 1rem)
   body.welcome &
-    max-width: 75rem
+    width: 75rem
     +padding(horizontal, 1rem)
     +margin(horizontal, auto)
+    &.is-md
+      width: 48rem
 
 .columns
   max-width: 75rem

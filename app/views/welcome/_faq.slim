@@ -3,12 +3,10 @@
     .container
       h2.welcome-section__title
         = image_tag "faq-title.svg", alt: "よくある質問", class: "welcome-section__title-image"
-      h3.welcome-section__sub-title
-        | お気軽にどうぞ。
       .welcome-section__description
         p
           | わからないこと、気になることがありましたら、
-          span.welcome-section__description-link.js-modal(data-target="#nda-modal" data-toggle="modal")
+          = link_to new_inquiry_path, class: "welcome-section__description-link" do
             | こちら
           | から質問してください。
       .welcome-section__faqs
@@ -30,7 +28,16 @@
                   | 途中で辞めることは可能ですか？
                 .faqs-item__body
                   p
-                    | いつでも退会ができます。退会をすると翌月からの請求は止まります。退会をしない限りは請求は止まらず、学習アプリにログインをしていなくても請求されてしまうので、学習をやめる場合は必ず退会を行ってください。
+                    | いつでも退会ができます。退会をすると翌月からの請求は止まります。退会をしない限りは請求は止まらず、オンライン学習アプリにログインをしていなくても請求されてしまうので、学習をやめる場合は必ず退会を行ってください。
+          .col-md-4
+            section.faqs-item
+              .faqs-item__inner
+                h3.faqs-item__title
+                  = image_tag("question.svg", class: "faqs-item__title-icon")
+                  | 退会した月は料金が日割りで請求されますか？
+                .faqs-item__body
+                  p
+                    | 退会した月も、日割りでの請求はなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
           .col-md-4
             section.faqs-item
               .faqs-item__inner

@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   get "practices", to: "welcome#practices", as: "practices"
   get "pricing", to: "welcome#pricing", as: "pricing"
   get "faq", to: "welcome#faq", as: "faq"
-  get "tos", to: "home#tos", as: "tos"
+  get "tos", to: "welcome#tos", as: "tos"
+  get "law", to: "welcome#law", as: "law"
 
   namespace "api" do
     resource :image, controller: "image", only: %i(create)

@@ -1,56 +1,95 @@
 .welcome-header-nav
-  height: 100%
-  margin-left: 3rem
+  +media-breakpoint-up(md)
+    height: 100%
+    margin-left: 3rem
   +media-breakpoint-down(sm)
     display: none
+    +position(fixed, left 0, top 0, bottom 0, 100)
+    +size(100vw 100vh)
+    input:checked + &
+      display: block
+
+.welcome-header__mobile-nav-trigger
+  +media-breakpoint-up(md)
+    display: none
+  +media-breakpoint-down(sm)
+    +size(2.75rem)
+    display: flex
+    align-items: center
+    justify-content: center
+    +position(absolute, right -.75rem, top 0)
 
 .welcome-header-nav__items
-  height: 100%
-  display: flex
-  align-items: center
-  +margin(horizontal, -.875rem)
+  +media-breakpoint-up(md)
+    display: flex
+    height: 100%
+    align-items: center
+    +margin(horizontal, -.875rem)
+  +media-breakpoint-down(sm)
+    width: 15rem
+    background-color: $base
+    +position(fixed, left 0, top 0, bottom 0, 2)
+
+.welcome-header-nav__overlay
+  +media-breakpoint-up(md)
+    display: none
+  +media-breakpoint-down(sm)
+    display: block
+    +size(100vw 100vh)
+    background-color: rgba(black, .4)
+    +position(fixed, left 0, top 0, bottom 0, 1)
+
 
 .welcome-header-nav__item
   +padding(horizontal, .0625rem)
 
 .welcome-header-nav__item-link
-  +text-block(.875rem 1, $welcome-default-text 900 block)
-  +padding(horizontal, .875rem)
-  text-decoration: none
-  +padding(vertical, .375rem)
-  +position(relative)
-  transition: all .2s ease-out
-  &::before
+  +media-breakpoint-up(md)
+    +text-block(.875rem 1, $welcome-default-text 900 block)
+    +padding(horizontal, .875rem)
+    text-decoration: none
+    +padding(vertical, .375rem)
+    +position(relative)
     transition: all .2s ease-out
-    content: ""
-    display: block
-    +size(0 100%)
-    background-color: rgba($welcome-yellow, .4)
-    +position(absolute, left 50%, bottom 0, top 0, -1)
-    transform: translate(-50%, 0)
-    opacity: 0
-    border-radius: 2rem
-  &:hover
-    &::before
-      width: 100%
-      opacity: 1
-  &:active
-    &::before
-      width: 100%
-      opacity: 1
-      background-color: $welcome-yellow
-  &.is-active
-    color: $reversal-text
     &::before
       transition: all .2s ease-out
       content: ""
       display: block
-      +size(100%)
-      background-color: $welcome-pink
+      +size(0 100%)
+      background-color: rgba($welcome-yellow, .4)
       +position(absolute, left 50%, bottom 0, top 0, -1)
       transform: translate(-50%, 0)
+      opacity: 0
       border-radius: 2rem
-      opacity: 1
+    &:hover
+      &::before
+        width: 100%
+        opacity: 1
+    &:active
+      &::before
+        width: 100%
+        opacity: 1
+        background-color: $welcome-yellow
+    &.is-active
+      color: $reversal-text
+      &::before
+        transition: all .2s ease-out
+        content: ""
+        display: block
+        +size(100%)
+        background-color: $welcome-pink
+        +position(absolute, left 50%, bottom 0, top 0, -1)
+        transform: translate(-50%, 0)
+        border-radius: 2rem
+        opacity: 1
+  +media-breakpoint-down(sm)
+    +text-block(.875rem 1, $welcome-default-text 900 flex)
+    +size(100% 2.75rem)
+    align-items: center
+    +padding(horizontal, 1rem)
+    text-decoration: none
+    border-bottom: solid 1px $border
+
 
 .welcome-header__home-link-image
   transition: all .2s ease-out
