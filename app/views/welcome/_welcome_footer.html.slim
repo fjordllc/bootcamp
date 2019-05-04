@@ -1,5 +1,16 @@
 footer.welcome-footer
   .container
+    nav.welcome-footer__nav
+      ul.welcome-footer__nav-items
+        li.welcome-footer__nav-item
+          = link_to tos_path, class: "welcome-footer__nav-item-link" do
+            | 利用規約
+        li.welcome-footer__nav-item
+          = link_to law_path, class: "welcome-footer__nav-item-link" do
+            | 特定商取引法に基づく表記
+        li.welcome-footer__nav-item
+          = link_to "http://fjord.jp", class: "welcome-footer__nav-item-link", target: "_blank" do
+            | 会社概要
     small.welcome-footer-copyright
       i.far.fa-copyright
       span.welcome-footer-copyright__author

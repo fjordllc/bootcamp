@@ -8,7 +8,11 @@
   li
     ul,
     ol
-      +margin(vertical, .5em)
+      +margin(vertical, .75em)
+      &:first-child
+        margin-top: .75em
+      &:last-child
+        margin-bottom .75em
     >ul
       list-style-type: circle
       >li
@@ -84,10 +88,17 @@
     padding: 0
   p,
   li
-    *:first-child
+    *:not(ol):not(ul):first-child
       margin-top: 0
-    *:last-child
+    *:not(ol):not(ul):last-child
       margin-bottom: 0
+    ul,
+    ol
+      +margin(vertical, .75em)
+      &:first-child
+        margin-top: .75em
+      &:last-child
+        margin-bottom .75em
     code
       +text-block(.875em 1.7, $default-text inline-flex)
       align-items: center
@@ -129,7 +140,7 @@
     margin-bottom: 1.5em
   li
     +text-block(1em 1.607)
-    +margin(vertical, .25em)
+    +margin(vertical, .5em)
     &:first-child
       margin-top: 0
     &:last-child

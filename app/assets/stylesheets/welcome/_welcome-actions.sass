@@ -5,7 +5,8 @@
 .welcome-actions__items
   display: flex
   justify-content: center
-  +margin(horizontal, -.75rem)
+  +media-breakpoint-up(md)
+    +margin(horizontal, -.75rem)
   +media-breakpoint-down(sm)
     display: block
 

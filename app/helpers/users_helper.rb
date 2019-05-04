@@ -27,7 +27,7 @@ module UsersHelper
       if user.adviser?
         "アドバイザー登録"
       else
-        "参加する"
+        "利用規約に同意して参加する"
       end
     else
       "更新する"

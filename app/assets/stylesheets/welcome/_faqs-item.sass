@@ -18,10 +18,15 @@
     font-size: .875rem
 
 .faqs-item__title-icon
-  +size(2.5rem)
   position: absolute
-  left: -1.5rem
-  top: -1.25rem
+  +media-breakpoint-up(md)
+    +size(2.5rem)
+    left: -1.5rem
+    top: -1.25rem
+  +media-breakpoint-down(sm)
+    +size(2.125rem)
+    left: -.75rem
+    top: -1.25rem
 
 .faqs-item__body
   p

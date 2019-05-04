@@ -4,7 +4,10 @@
   +media-breakpoint-down(md)
     +padding(vertical, 2rem)
   &.is-pricing
-    background-color: $welcome-pink
+    background-color: tint($welcome-pink, 40%)
+    +padding(vertical, 2.25rem)
+    +media-breakpoint-down(md)
+      +padding(vertical, 2rem)
 
 .welcome-section__title
   +text-block(1.75rem 1.45 0 .3em, 400 center $welcome-default-text)
@@ -20,10 +23,36 @@
   &.is-reversal
     color: $reversal-text
 
+.welcome-section__price
+  display: flex
+  justify-content: center
+  margin-top: .25em
+  &.is-index
+    +margin(vertical, .25em .75em)
+  +media-breakpoint-up(md)
+    font-size: 1.75rem
+  +media-breakpoint-down(sm)
+    font-size: 1.375rem
+
+.welcome-section__price-number
+  font-size: 2.5em
+  +margin(horizontal, .125em)
+  font-family: 'Lato', sans-serif
+
+.welcome-section__price-period
+  font-size: 1em
+  align-self: flex-start
+  margin-top: .25em
+
+.welcome-section__price-unit
+  font-size: 1em
+  align-self: flex-end
+  margin-bottom: .25em
+
 .welcome-section__title-image
   max-width: 33rem
   +media-breakpoint-down(sm)
-    +margin(horizontal, -.5rem)
+    +margin(horizontal, -.75rem)
 
 .welcome-section__description
   max-width: 40rem
@@ -60,7 +89,8 @@
 .welcome-section__actions-items
   display: flex
   justify-content: center
-  +margin(horizontal, -.75rem)
+  +media-breakpoint-up(md)
+    +margin(horizontal, -.75rem)
   +media-breakpoint-down(sm)
     display: block
 
