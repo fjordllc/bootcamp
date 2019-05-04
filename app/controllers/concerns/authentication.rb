@@ -28,6 +28,10 @@ module Authentication
     logged_in? && current_user.staff?
   end
 
+  def student_login?
+    logged_in? && current_user.student?
+  end
+
   def paid_login?
     logged_in? && current_user.paid?
   end
@@ -49,13 +53,13 @@ module Authentication
   end
 
   def require_paid_login
-    unless paid_login?
+    unless paid_login? || current_user.free?
       redirect_to new_card_path, alert: "クレジットカードを登録してください"
     end
   end
 
   def require_staff_or_paid_login
-    unless staff_or_paid_login?
+    unless staff_or_paid_login? || current_user.free?
       redirect_to new_card_path, alert: "クレジットカードを登録してください"
     end
   end

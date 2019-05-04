@@ -1,7 +1,6 @@
 .a-card
   .card-header.is-sm
-    h2.card-header__title
-      | GitHub
+    h2.card-header__title GitHub
   .user-grass
     - if user.github_account
       = link_to "https://github.com/#{user.github_account}", class: "user-grass__image-link", target: "_blank" do
