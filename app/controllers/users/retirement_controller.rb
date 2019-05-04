@@ -12,7 +12,13 @@ class Users::RetirementController < ApplicationController
     @user = User.find(params[:user_id])
     @user.assign_attributes(retire_reason_params)
     @user.retired_on = Date.current
+    @user.customer_id = nil
     if @user.save(context: :retire_reason_presence)
+      message = "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が退会しました。"
+      SlackNotification.notify message,
+        username: "#{@user.login_name}@bootcamp.fjord.jp",
+        icon_url: url_for(@user.avatar)
+
       logout
       redirect_to user_retirement_url(@user)
     else
