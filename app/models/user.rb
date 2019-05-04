@@ -247,12 +247,20 @@ WHERE
     customer.sources.data.first
   end
 
+  def student?
+    !admin? && !adviser? && !mentor?
+  end
+
   def staff?
     admin? || mentor? || adviser?
   end
 
   def staff_or_paid?
     staff? || paid?
+  end
+
+  def adviser_or_mentor?
+    adviser? || mentor?
   end
 
   private
