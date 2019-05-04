@@ -53,6 +53,9 @@
             li.header-dropdown__item
               = link_to logout_path, class: "header-dropdown__item-link" do
                 | ログアウト
+            li.header-dropdown__item
+              = link_to new_user_retirement_path(current_user), class: "header-dropdown__item-link" do
+                | 退会手続き
     li.header-links__item(class="#{current_user.notifications.unreads.count > 0 ? "has-count" : "has-no-count"}")
       - toggle_id = "header-notification-pc"
       label.header-links__link.test-show-notifications(for="#{toggle_id}")

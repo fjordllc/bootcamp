@@ -3,7 +3,7 @@
 
 header.page-header
   .container
-    .page-header__container
+    .page-header__inner
       .page-header__title = title
 
 .auth-form.is-sign-up.a-card.is-in-app
@@ -19,4 +19,4 @@ header.page-header
            span.auth-form-nav__item-link
             | 利用規約を確認
         li.auth-form-nav__item
-           = link_to "退会手続きへ進む", new_user_retirement_path(@user), class: "auth-form-nav__item-link test-fixed-bottom"
+           = link_to "退会手続きへ進む", new_user_retirement_path(current_user), class: "auth-form-nav__item-link test-fixed-bottom"
