@@ -32,7 +32,7 @@ class AnswersTest < ApplicationSystemTestCase
     assert_no_text "解決にする"
   end
 
-  test "user can remove best answer" do
+  test "delete best answer" do
     visit "/questions/#{questions(:question_2).id}"
     accept_alert do
       click_link "解決にする"
