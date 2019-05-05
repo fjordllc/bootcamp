@@ -20,6 +20,9 @@ header.page-header
     .thread
       .thread__inner.a-card
         header.thread-header
+          - if @report.emotion.present?
+            .thread-header__emotion
+              = Report.faces[@report.emotion]
           .thread-header__reported-at
             | #{l @report.reported_on} の日報
           h1.thread-header__title(class="#{@report.wip? ? "is-wip" : ""}")

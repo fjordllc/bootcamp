@@ -14,6 +14,10 @@
           .form-item
             = f.label :reported_on, class: "a-label"
             = f.text_field :reported_on, class: "datepicker a-text-input"
+          .form-item
+            = f.label :emotion, class: "a-label"
+            .a-button.is-md.is-secondary.is-select.test-select-emotions
+              = f.select(:emotion, Report.faces.invert, prompt: "選択してください")
 
           #tasks
             = f.fields_for :learning_times do |learning_time|
