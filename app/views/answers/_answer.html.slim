@@ -36,3 +36,7 @@
               = link_to question_answer_path(answer.question, answer, return_to: question_url(answer.question)), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
                 i.fas.fa-trash-alt#delete
                 | 削除
+          - if correct_answer.present? && answer == correct_answer && (current_user == question.user || admin_login?)
+            li.card-footer-actions__item
+              = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :patch do
+                | ベストアンサーを取り消す

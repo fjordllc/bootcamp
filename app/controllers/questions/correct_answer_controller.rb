@@ -3,7 +3,7 @@
 class Questions::CorrectAnswerController < ApplicationController
   include Rails.application.routes.url_helpers
   before_action :require_login
-  before_action :set_question, only: :create
+  before_action :set_question, only: %i(create update)
 
   def create
     return_to = params[:return_to] ? params[:return_to] : question_url(question)
@@ -12,6 +12,13 @@ class Questions::CorrectAnswerController < ApplicationController
     answer.save!
     notify_to_slack(@question)
     redirect_to return_to, notice: "正解の解答を選択しました。"
+  end
+
+  def update
+    return_to = params[:return_to] ? params[:return_to] : question_url(question)
+    answer = @question.answers.find(params[:answer_id])
+    answer.update!(type: "")
+    redirect_to return_to, notice: "ベストアンサーを取り消しました。"
   end
 
   private
