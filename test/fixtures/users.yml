@@ -71,19 +71,19 @@ sotugyou:
   updated_at: "2014-01-01 00:00:03"
   created_at: "2014-01-01 00:00:03"
 
-mineo:
-  login_name: mineo
-  email: mineo@fjord.jp
+advijirou:
+  login_name: advijirou
+  email: advijirou@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: Jirou
-  last_name: Mineo
-  twitter_account: mineo
-  facebook_url: http://www.facebook.com/mineo
-  blog_url: http://mineo.com
-  feed_url: http://mineo.com/index.atom
+  first_name: 次郎
+  last_name: アドバイ
+  twitter_account: advijirou
+  facebook_url: http://www.facebook.com/advijirou
+  blog_url: http://advijirou.example.com
+  feed_url: http://advijirou.example.com/index.atom
   company: company_1
-  description: "峰尾です。アドバイザーです。"
+  description: "アドバイ次郎です。アドバイザーです。"
   adviser: true
   course: course_1
   updated_at: "2014-01-01 00:00:04"

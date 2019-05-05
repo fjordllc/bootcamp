@@ -60,11 +60,11 @@ class UserTest < ActiveSupport::TestCase
 
   test "order_by_counts" do
     names = User.order_by_counts("report", "desc").pluck(:login_name)
-    expected = %w(sotugyou komagata machida yamada mineo yameo kimura hatsuno hajime muryou kensyu)
+    expected = %w(sotugyou komagata machida yamada advijirou yameo kimura hatsuno hajime muryou kensyu)
     assert_equal expected, names
 
     names = User.order_by_counts("comment", "asc").pluck(:login_name)
-    expected = %w(mineo yameo yamada kimura hatsuno hajime muryou kensyu machida sotugyou komagata)
+    expected = %w(advijirou yameo yamada kimura hatsuno hajime muryou kensyu machida sotugyou komagata)
     assert_equal expected, names
   end
 

@@ -16,7 +16,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test "adviser can see a product" do
-    login_user "mineo", "testtest"
+    login_user "advijirou", "testtest"
     visit "/products/#{products(:product_1).id}"
     assert_equal "提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
