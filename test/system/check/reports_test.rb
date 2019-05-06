@@ -21,7 +21,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
   end
 
   test "success adviser's report checking" do
-    login_user "mineo", "testtest"
+    login_user "advijirou", "testtest"
     assert_equal "/", current_path
     click_link "日報"
     assert_text "作業週2日目"
