@@ -31,6 +31,18 @@ header.page-header
               | 最終更新
             time.thread-meta__updated-at(datetime="#{@product.updated_at.to_datetime}" pubdate="pubdate")
               = l @product.updated_at
+            .thread-meta__watch
+              .thread-meta__watch__button
+                - if current_user.id.in?(@product.watches.pluck(:user_id))
+                  = form_for @watch, url: watch_path, method: :delete, html: { class: "thread-meta__watch__form" } do |f|
+                    = hidden_field_tag :user_id, current_user.id
+                    = hidden_field_tag :product_id, @product.id
+                    = f.submit "Unwatch", class: "thread-meta__watch__form__action"
+                - else
+                  = form_for @watch, html: { class: "thread-meta__watch__form" } do |f|
+                    = hidden_field_tag :user_id, current_user.id
+                    = hidden_field_tag :product_id, @product.id
+                    = f.submit "Watch", class: "thread-meta__watch__form__action"
         - if @product.checks.any?
           .stamp.stamp-approve
             h2.stamp__content.is-title
@@ -68,19 +80,6 @@ header.page-header
                 - else
                   = form_for @product.checks.last, url: check_path(@product.checks.last), method: :delete, class: "thread-check-form" do |f|
                     = f.submit "提出物の確認を取り消す", class: "thread-check-form__action is-text"
-
-        .thread-watch
-          .thread-watch__item
-            - if current_user.id.in?(@product.watches.pluck(:user_id))
-              = form_for @watch, url: watch_path, method: :delete, html: { class: "product-watch-form" } do |f|
-                = hidden_field_tag :user_id, current_user.id
-                = hidden_field_tag :product_id, @product.id
-                = f.submit "Unwatch", class: "product-watch-form__action is-text"
-            - else
-              = form_for @watch, html: { class: "product-watch-form" } do |f|
-                = hidden_field_tag :user_id, current_user.id
-                = hidden_field_tag :product_id, @product.id
-                = f.submit "Watch", class: "product-watch-form__action is-text"
 
       .thread-prev-next
         .thread-prev-next__item
