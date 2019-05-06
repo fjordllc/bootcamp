@@ -29,13 +29,13 @@ class ProductsTest < ApplicationSystemTestCase
 
   test "can see other user's product if it is permitted" do
     login_user "hatsuno", "testtest"
-    visit "/products/#{products(:product_1).id}"
+    visit "/products/#{products(:product_3).id}"
     assert_equal "提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "can not see other user's product if it isn't permitted" do
     login_user "hatsuno", "testtest"
-    visit "/products/#{products(:product_3).id}"
+    visit "/products/#{products(:product_1).id}"
     assert_not_equal "提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
     assert_text "プラクティスを完了するまで他の人の提出物は見れません。"
   end
