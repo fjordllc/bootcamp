@@ -83,8 +83,8 @@ class UsersTest < ApplicationSystemTestCase
     visit "/users/#{users(:yamada).id}"
     assert_text "メンター"
 
-    login_user "mineo", "testest"
-    visit "/users/#{users(:mineo).id}"
+    login_user "advijirou", "testest"
+    visit "/users/#{users(:advijirou).id}"
     assert_text "アドバイザー"
 
     login_user "kensyu", "testtest"

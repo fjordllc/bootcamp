@@ -11,7 +11,7 @@ class Check::ProductsTest < ApplicationSystemTestCase
   end
 
   test "success adviser's product checking" do
-    login_user "mineo", "testtest"
+    login_user "advijirou", "testtest"
     visit "/products/#{products(:product_1).id}"
     click_button "提出物を確認"
     assert_text "提出物を確認しました。"
