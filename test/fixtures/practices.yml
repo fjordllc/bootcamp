@@ -5,7 +5,7 @@ practice_1:
   category: category_2
   position: 1
   submission: true
-  open_product: true
+  open_product: false
 
 practice_2:
   title: "Terminalの基礎を覚える"
@@ -14,7 +14,7 @@ practice_2:
   category: category_4
   position: 2
   submission: true
-  open_product: false
+  open_product: true
 
 practice_3:
   title: "PC性能の見方を知る"
