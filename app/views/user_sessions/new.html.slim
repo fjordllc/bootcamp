@@ -16,6 +16,5 @@
         li.auth-form-nav__item
           = link_to "サインアップ", new_user_path, class: "auth-form-nav__item-link"
         li.auth-form-nav__item
-          span.auth-form-nav__item-link.js-modal(data-target="#nda-modal")
-            | 秘密保持契約
+          = link_to "利用規約", tos_path, class: "auth-form-nav__item-link", target: "_blank"
 = render "forgot_password_modal"

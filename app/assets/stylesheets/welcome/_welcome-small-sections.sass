@@ -23,7 +23,7 @@
 .welcome-small-sections__title
   $height: 3.25rem
   $width: 20rem
-  +text-block(1.5rem 1.45 0 1em, 700 center flex $welcome-card-border)
+  +text-block(1.5rem 1.4 0 1.25em, 700 center flex $welcome-default-text)
   align-items: center
   justify-content: center
   font-feature-settings: "palt"
@@ -31,12 +31,8 @@
     font-size: 1rem
   .welcome-child-section.is-unlimited &
     font-size: 1.25rem
-    color: $reversal-text
-    background-color: $welcome-main-color
-    background-image: image_url('main-visual-bg.svg')
+    background-color: $base
     background-size: 1.75rem
-    background-repeat: repeat
-    background-position: center center
     border: solid 2px $welcome-card-border
     margin-bottom: 0
     +size($width $height)
@@ -120,7 +116,7 @@
       margin: 0 auto .75rem
 
 .welcome-small-section__title
-  +text-block(1.125rem 1.45 0 .7em, 600 center)
+  +text-block(1.125rem 1.4 0 .7em, 600 center)
   font-feature-settings: "palt"
   +media-breakpoint-down(sm)
     font-size: 1rem
@@ -129,13 +125,27 @@
   .welcome-small-sections.is-wide &
     text-align: left
     margin-bottom: .5em
-    font-size: 1.125rem
+    font-size: 1.25rem
     +media-breakpoint-down(sm)
       text-align: center
 
+.welcome-small-section__title-number
+  +text-block(.9375rem 1, inline-flex 800)
+  font-family: 'Roboto Mono', monospace
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  +size(1.75rem)
+  background-color: $welcome-yellow
+  margin-right: .5rem
+  vertical-align: bottom
+  border: solid 2px $default-text
+
 .welcome-small-section__description
+  &:not(:last-child)
+    margin-bottom: 1rem
   p
-    +text-block(.875rem 1.8 0 1.2em)
+    +text-block(.875rem 1.6 0 1.2em)
     +media-breakpoint-down(sm)
       font-size: .75rem
   a
@@ -143,3 +153,18 @@
     +hover-link-reversal
   p:last-child
     margin-bottom: 0
+
+.welcome-small-section__actions-items
+  display: flex
+  justify-content: center
+  +margin(horizontal, -.75rem)
+  +media-breakpoint-down(sm)
+    display: block
+
+.welcome-small-section__actions-item
+  +media-breakpoint-up(md)
+    +padding(horizontal, .75rem)
+    width: 20rem
+  +media-breakpoint-down(sm)
+    &:not(:first-child)
+      margin-top: .75rem

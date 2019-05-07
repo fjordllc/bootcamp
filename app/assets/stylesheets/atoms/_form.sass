@@ -28,6 +28,10 @@
   &:focus
     background-color: $base
     box-shadow: rgba(black, .07) 0 .0625rem .0625rem inset, rgba($primary, .4) 0 0 1px 2px
+  &.is-inputed
+    border-style: dashed
+  &.is-align-center
+    text-align: center
 
 .a-sm-text-input
   +text-block(.875rem 1.45, block)
@@ -130,6 +134,8 @@ textarea.a-sm-text-input
   margin-top: .5em
   &.is-text-align-right
     text-align: right
+  [class*=a-button] + &
+    margin-top: 1em
   p
     +text-block(1em 1.5 0 1em)
   a

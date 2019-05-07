@@ -4,13 +4,7 @@
 header.page-header
   .container
     .page-header__inner
-      h1.page-header__title
-        = title
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to root_path, class: "a-button is-md is-secondary is-block" do
-              | ダッシュボードに戻る
+      .page-header__title = title
 
 .auth-form.is-sign-up.a-card.is-in-app
   header.auth-form__header
@@ -22,7 +16,7 @@ header.page-header
     nav.auth-form-nav
       ul.auth-form-nav__items
         li.auth-form-nav__item
-           span.auth-form-nav__item-link.js-modal(data-target="#nda-modal")
-            | 秘密保持契約内容を確認
+           span.auth-form-nav__item-link
+            | 利用規約を確認
         li.auth-form-nav__item
-           = link_to "退会手続きへ進む", new_user_retirement_path(@user), class: "auth-form-nav__item-link test-fixed-bottom"
+           = link_to "退会手続きへ進む", new_user_retirement_path(current_user), class: "auth-form-nav__item-link test-fixed-bottom"

@@ -1,7 +1,7 @@
 - title "お問い合わせ"
 - content_for :extra_body_classes, "no-header no-footer no-recent-reports no-global-nav is-auth-page is-piyo-background"
 
-.auth-form.is-sign-up.a-card.is-borderd
+.auth-form.is-sign-up.a-card
   header.auth-form__header
     h1.auth-form__title = title
   .auth-form__body
@@ -11,3 +11,5 @@
       ul.auth-form-nav__items
         li.auth-form-nav__item
           = link_to "トップページ", welcome_path, class: "auth-form-nav__item-link"
+        li.auth-form-nav__item
+          = link_to "FAQ", faq_path, class: "auth-form-nav__item-link"

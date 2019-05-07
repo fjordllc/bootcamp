@@ -9,7 +9,9 @@
       = f.text_field :login_name, class: "a-sm-text-input", autocomplete: :nope, placeholder: "komagata"
       .a-form-help
         p
-          | チャットやSNS（Twitter、GitHub、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。極力ユーザー名は統一するようにしてください。サービスによっては半角英数しか使えないサービスが多いので、半角英数をおすすめします。
+          | チャットやSNS（Twitter、GitHub、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。
+          | 極力ユーザー名は統一するのがおすすめです。
+          | サービスによっては半角英数しか使えないサービスが多いので、半角英数をおすすめします。
 
     .auth-form-item
       // メールアドレス
@@ -18,7 +20,9 @@
       - unless user.adviser?
         .a-form-help
           p
-            | このメールアドレスは卒業後の連絡にも使うので、会社で提供されたなどの第三者によって提供されたメールアドレスではなく、転職後も使い続ける自分自身で取得したメールアドレスで登録してください。
+            | このメールアドレスは卒業後の連絡にも使うので、
+            | 会社で提供されたなどの第三者によって提供されたメールアドレスではなく、
+            | 転職後も使い続ける自分自身で取得したメールアドレスで登録してください。
 
     .auth-form-item
       // 名前
@@ -34,7 +38,7 @@
       - unless user.adviser?
         .a-form-help
           p
-            | 就職希望先企業の採用担当者も使う情報になるので、姓・名は必ず本名を（漢字がある場合は漢字で）入力してください。
+            | 姓・名は必ず本名を（漢字がある場合は漢字で）入力してください。
 
     .auth-form-item
       = f.label :avatar, class: "a-sm-label is-required"
@@ -68,19 +72,22 @@
           - options = options_for_select(User.jobs.map { |k, v| [t("activerecord.enums.user.job.#{k}"), k] }, selected: f.object.job)
           = f.select :job, options, include_blank: "- 選択してください -"
         .a-form-help
-          p 近いものを選択してください。
+          p
+            | 近いものを選択してください。
+            br
+            | この情報は他のフィヨルドブートキャンプ参加者には公開されません。
 
       .auth-form-item
         // 現在の所属組織
         = f.label :organization, class: "a-sm-label is-required"
-        ul
-          li
 
         = f.text_field :organization, class: "a-sm-text-input", autocomplete: :off, placeholder: "XXX大学XXX学部XXX学科XXX専攻"
         - unless user.adviser?
           .a-form-help
-            p 会社名・学校名などを入力してください（働いていない場合は「なし」としてください）。
-            p この情報は他のフィヨルドブートキャンプ参加者には公開されませんが、就職活動の際に利用する場合があります。
+            p
+              | 会社名・学校名などを入力してください（働いていない場合は「なし」としてください）。
+              br
+              | この情報は他のフィヨルドブートキャンプ参加者には公開されません。
 
       .auth-form-item
         // 学習に使うOS
@@ -90,11 +97,7 @@
           = f.select :os, options, include_blank: "- 選択してください -"
         .a-form-help
           p
-            | Mac向けのカリキュラムのみなのでWindowsでは受講できません。
-            | Macを持ってない方は用意する必要があります。
-            | Linux経験者であればLinuxで学習を行っても構いません。
-            | 参加登録後にMacを購入する予定の場合は、メンターにどの機種を購入するべきかを相談をした上で購入することをおすすめします。
-
+            | カリキュラムはMac向けののみなのでWindowsでは受講できません。Macを持ってない方は用意する必要があります。Linux経験者であればLinuxで学習を行っても構いませんが、Linuxであるがために学習が進まなかった場合にサポートができない場合があります。
       .auth-form-item
         // 主な学習場所
         = f.label :study_place, class: "a-sm-label is-required"
@@ -104,11 +107,12 @@
         .a-form-help
           p
             | フィヨルドブートキャンプオフィスに通って学習することができます。
-            | 環境が整っており、気軽にメンターに質問できます。
-            | オフィスに通って勉強される方の方が卒業率は高くなります。
+            | 環境が整っており、気軽にメンターに質問できます。ただし、席は数に限りがあり予約順になります。
           p
-            | ここで自宅を選択したからと言って、オフィスの利用ができなくなる、ということはありません。
-            | 普段は自宅で学習をしていても、用があってオフィスの近くに来たときや。夏休みや正月休みなどの長期休暇の間はオフィスを利用することなども可能です。また、主な学習場所をあとで変更することもできます。
+            | ここで自宅を選択したからと言ってオフィスの利用ができなくなるということはありません。
+            | 普段は自宅で学習をしていても用があってオフィスの近くに来たときや。
+            | 夏休みや正月休みなどの長期休暇の間はオフィスを利用することなども可能です。
+            | また、主な学習場所をあとで変更することもできます。
 
       .auth-form-item
         // プログラミング経験
@@ -122,8 +126,12 @@
         = f.label :how_did_you_know, "フィヨルドブートキャンプをどこで知りましたか？", class: "a-sm-label is-required"
         = f.text_area :how_did_you_know, class: "a-sm-text-input", placeholder: "大学時代の先輩である株式会社XXXXでプログラマをやっているXXXXさんから勧められて。"
         .a-form-help
-          p 自分で検索エンジンを使って見つけた場合は、そのときの検索キーワードなども覚えていたら入力してください。誰かに紹介してもらった場合、その誰かもお教えください。
-          p この情報は他のフィヨルドブートキャンプ参加者には公開されません。
+          p
+            | 自分で検索エンジンを使って見つけた場合は、
+            | そのときの検索キーワードなども覚えていたら入力してください。
+            | 誰かに紹介してもらった場合、その誰かもお教えください。
+            br
+            | この情報は他のフィヨルドブートキャンプ参加者には公開されません。
 
     .auth-form-item
       ruby:
@@ -219,21 +227,11 @@
       .auth-form-item
         = f.label :graduated_on, class: "a-sm-label"
         = f.text_field :graduated_on, class: "datepicker a-text-input"
-    - if from == :new
-      .auth-form-item
-        label.a-sm-label
-          | 秘密保持契約
-        ul.auth-form-item__checkboxes
-          li.auth-form-checkbox
-            label.auth-form-checkbox__label.js-nda-action.js-modal(data-target="#nda-modal")
-              | 秘密保持契約に同意する
 
   .auth-form-action.is-sign-up-action
     ul.auth-form-action__items
       li.auth-form-action__item
-        = f.submit user_submit_label(user, from), class: "a-button is-lg is-warning is-block js-sign-up-action"
-      - unless user.adviser?
-        li.auth-form-action__item
-          = link_to "キャンセル", :back, class: "a-button is-xs is-secondary is-block"
-
-  = render "users/nda_modal", f: f
+        = f.submit user_submit_label(user, from), class: "a-button is-lg is-warning is-block"
+        - if from == :new
+          .a-form-help
+            = link_to "利用規約を確認（別タブで開きます）", tos_path, target: "_blank"

@@ -5,10 +5,7 @@
   header.auth-form__header
     h1.auth-form__title = title
   .auth-form__body
-    - if @user.adviser? || params[:training]
-      = render "form", from: :new, url: users_path, user: @user
-    - else
-      p 現在新規登録を停止しております。５月に再開予定です。
+    = render "form", from: :new, url: users_path, user: @user
   footer.auth-form__footer
     nav.auth-form-nav
       ul.auth-form-nav__items
@@ -16,4 +13,4 @@
           = link_to "トップページ", welcome_path, class: "auth-form-nav__item-link"
         - if @user.adviser? || params[:training]
           li.auth-form-nav__item
-             span.auth-form-nav__item-link.js-modal(data-target="#nda-modal") 秘密保持契約内容を確認
+             span.auth-form-nav__item-link 利用規約を確認

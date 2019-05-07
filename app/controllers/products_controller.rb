@@ -3,7 +3,7 @@
 class ProductsController < ApplicationController
   before_action :require_login
   before_action :check_permission!, only: %i(show)
-  before_action :require_admin_adviser_or_mentor_login, only: :index
+  before_action :require_staff_login, only: :index
 
   def index
     @products = Product.order(created_at: :desc).page(params[:page])

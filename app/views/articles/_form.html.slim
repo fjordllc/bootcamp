@@ -1,0 +1,35 @@
+= render "errors", object: @article
+= form_with(model: article, local: true) do |f|
+  .form__items
+    .form-item
+      .row
+        .col-lg-9.col-xs-12
+          .form-item
+            = f.label :title, class: "a-label"
+            = f.text_field :title, class: "a-text-input js-warning-form"
+
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :body, class: "a-label"
+          = f.text_area :body, class: "a-textarea js-warning-form js-markdown markdown-form__text-area", data: { "preview": ".js-preview" }
+        .col-md-6.col-xs-12
+          .a-label
+            | プレビュー
+          .js-preview.is-long-text-style.markdown-form__preview
+
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :tag_list, "タグを入力してください（カンマ区切り）", class: "a-label"
+          = f.text_field :tag_list, class: "a-text-input js-warning-form"
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item
+        = f.submit nil, class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
+      li.form-actions__item
+        - if params[:action] == "new" || params[:action] == "create"
+          = link_to "キャンセル", articles_path, class: "a-button is-md is-secondary is-block"
+        - elsif params[:action] == "edit" || params[:action] == "update"
+          = link_to "キャンセル", article_path, class: "a-button is-md is-secondary is-block"

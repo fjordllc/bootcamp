@@ -1,0 +1,35 @@
+.faqs-item
+  padding-top: .75rem
+  padding-bottom: 2rem
+  height: 100%
+
+.faqs-item__inner
+  border: solid 2px $welcome-card-border
+  background-color: $base
+  padding: 1rem 1.25rem
+  border-radius: .25rem
+  +position(relative)
+  height: 100%
+
+.faqs-item__title
+  +text-block(1rem 1.5 0 .5rem, 600 flex)
+  align-items: baseline
+  +media-breakpoint-down(sm)
+    font-size: .875rem
+
+.faqs-item__title-icon
+  position: absolute
+  +media-breakpoint-up(md)
+    +size(2.5rem)
+    left: -1.5rem
+    top: -1.25rem
+  +media-breakpoint-down(sm)
+    +size(2.125rem)
+    left: -.75rem
+    top: -1.25rem
+
+.faqs-item__body
+  p
+    +text-block(.875rem 1.6 .5em)
+    &:last-child
+      margin-bottom: 0

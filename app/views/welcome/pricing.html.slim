@@ -1,0 +1,42 @@
+- content_for :extra_body_classes, "welcome"
+
+.welcome-page-header
+  .container
+    h1.welcome-page-header__title
+      = image_tag("pricing-page-title", alt: "プログラミングスクールの料金", class: "welcome-page-header__title-image")
+
+.welcome-sections
+  section.welcome-section
+    .container.is-md
+      .welcome-small-section
+        .welcome-small-sections__title
+          h2.welcome-section__price
+            .welcome-section__price-period
+              | 月額
+            .welcome-section__price-number
+              | 29,800
+            .welcome-section__price-unit
+              | 円
+        .welcome-section__description
+          p
+            | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。お試し期間の間もクレジットカードの登録が必要になります。クレジットカードの登録が完了した時点でフィヨルドブートキャンプが利用できるようになります。
+          p
+            | お試し期間終了日の翌日から料金が発生し、お試し期間終了日の翌日の1ヶ月後にご利用料金をお支払い頂きます。退会した月も、日割りでの請求はなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
+
+      .welcome-small-section
+        h2.welcome-small-sections__title
+          = image_tag("pjord-face.svg", class: "welcome-small-sections__title-icon")
+          | 3日間のお試し期間
+        .welcome-section__description
+          p
+            | 月額29,800円は決して安い金額ではありません。なので、自分は本当にフィヨルドブートキャンプを使うべきかを判断するために3日間のお試し期間を用意しています。その3日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。お試し期間の間に退会をしないと料金が請求されてしまうので注意！
+
+      .welcome-small-section
+        h2.welcome-small-sections__title
+            = image_tag("warning.svg", alt: "注意！", class: "welcome-small-sections__title-icon")
+            | 料金引き落としのタイミング
+        .welcome-section__description
+          p
+            | お試し期間終了日の翌日の1ヶ月後にご利用料金をお支払い頂きます。例えば、7月20日にフィヨルドブートキャンプを利用開始したとします。すると、7月20日、7月21日、7月22日の3日間がお試し期間になり、7月23日がお試し期間終了日の翌日になります。その1ヶ月後、8月23日に料金が引き落とされます。
+          p
+            | お試し期間終了の7月22日中に退会をすれば請求はされませんが、7月23日以降に退会をしますと、1ヶ月分の請求がされてしまうのでご注意ください。

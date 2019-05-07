@@ -21,7 +21,7 @@ gem "simple_enum"
 gem "sorcery"
 gem "oauth2"
 gem "acts_as_list"
-gem "feedjira", "2.0.0"
+gem "feedjira", "~> 2.2.0"
 gem "curb", "~> 0.8.8"
 gem "jbuilder", "~> 2.5"
 gem "diffy"
@@ -48,6 +48,8 @@ gem "google-cloud-storage", "~> 1.3", require: false
 gem "mini_magick"
 gem "activestorage-validator"
 gem "commonmarker"
+gem "stripe", "~> 4.5.0"
+gem "acts-as-taggable-on"
 
 group :production, :staging do
   gem "newrelic_rpm"
