@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :categories, only: %i(index)
     resources :reactions, only: %i(create destroy)
     resources :checks, only: %i(index create destroy)
+    resources :users, only: :index
     resources :practices, only: [] do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
