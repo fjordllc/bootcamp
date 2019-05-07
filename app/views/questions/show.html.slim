@@ -36,7 +36,7 @@ header.page-header
                 = link_to @question.practice, class: "report-practices__item-link" do
                   = @question.practice.title
         .thread__body
-          .thread__description.js-markdown-view.js-target-blank.is-long-text.js-markdown
+          .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @question.description
           = render "reactions/reactions", reactionable: @question
         - if @question.user_id == current_user.id
