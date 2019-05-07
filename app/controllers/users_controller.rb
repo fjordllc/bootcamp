@@ -30,8 +30,7 @@ class UsersController < ApplicationController
       SlackNotification.notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
         username: "#{@user.login_name}@bootcamp.fjord.jp",
         icon_url: url_for(@user.avatar)
-      login(@user.login_name, params[:user][:password], true)
-      redirect_to root_url, notice: "サインアップしました。"
+      redirect_to root_url, notice: "サインアップメールをお送りしました。メールからサインアップを管理させてください。"
     else
       render "new"
     end
