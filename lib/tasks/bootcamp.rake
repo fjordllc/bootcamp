@@ -7,7 +7,8 @@ namespace :bootcamp do
     desc "Set free falg"
     task :set_free_flag  do
       User.where(admin: false, mentor: false, adviser: false, free: false).each do |user|
-        user.update!(free: true)
+        user.free = true
+        user.save(validate: false)
         puts "make free: #{user.login_name}"
       end
     end
