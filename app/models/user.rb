@@ -231,6 +231,38 @@ WHERE
     (Date.current - self.created_at.to_date).to_i
   end
 
+  def customer
+    if customer_id?
+      Stripe::Customer.retrieve(customer_id)
+    end
+  end
+
+  def card?
+    customer_id?
+  end
+
+  alias_method :paid?, :card?
+
+  def card
+    customer.sources.data.first
+  end
+
+  def student?
+    !admin? && !adviser? && !mentor?
+  end
+
+  def staff?
+    admin? || mentor? || adviser?
+  end
+
+  def staff_or_paid?
+    staff? || paid?
+  end
+
+  def adviser_or_mentor?
+    adviser? || mentor?
+  end
+
   private
     def password_required?
       new_record? || password.present?

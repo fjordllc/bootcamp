@@ -1,0 +1,16 @@
+- title "クレジットカード変更"
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title = title
+
+.page-body
+  .container
+    .a-card.auth-form.is-sign-up.a-card.is-in-app
+      header.auth-form__header
+        h1.auth-form__title
+          | クレジットカード変更
+      .auth-form__body
+        = render "form", action: :edit
+    = render "notice"

@@ -1,8 +1,13 @@
-- content_for(:extra_body_classes, "no-header no-footer no-recent-reports")
+- title "退会手続き"
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__title = title
 
 .auth-form.is-sign-up.a-card.is-in-app
   header.auth-form__header
-    h1.auth-form__title 退会
+    h1.auth-form__title 退会手続き
   .auth-form__body
     - if @user.errors.any?
       = render "errors", object: @user
@@ -14,6 +19,6 @@
       .auth-form-action.is-sign-up-action
         ul.auth-form-action__items
           li.auth-form-action__item
-            = link_to "キャンセル", :back, class: "a-button is-xs is-secondary"
+            = link_to "キャンセル", :back, class: "a-button is-xs is-secondary is-block"
           li.auth-form-action__item
-            = f.submit "退会する", class: "a-button is-md is-danger", data: { confirm: "本当によろしいですか？" }
+            = f.submit "退会する", class: "a-button is-md is-danger is-block", data: { confirm: "本当によろしいですか？" }

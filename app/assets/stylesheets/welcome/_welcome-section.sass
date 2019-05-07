@@ -1,0 +1,103 @@
+.welcome-section
+  +padding(vertical, 3rem)
+  +position(relative)
+  +media-breakpoint-down(md)
+    +padding(vertical, 2rem)
+  &.is-pricing
+    background-color: tint($welcome-pink, 40%)
+    +padding(vertical, 2.25rem)
+    +media-breakpoint-down(md)
+      +padding(vertical, 2rem)
+
+.welcome-section__title
+  +text-block(1.75rem 1.45 0 .3em, 400 center $welcome-default-text)
+  +media-breakpoint-down(sm)
+    +text-block(1.125rem 1.3 0 1rem)
+    +position(relative)
+
+.welcome-section__sub-title
+  +text-block(1.25rem 1.45 0 .8em, 700 center $welcome-default-text)
+  font-feature-settings: "palt"
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+  &.is-reversal
+    color: $reversal-text
+
+.welcome-section__price
+  display: flex
+  justify-content: center
+  margin-top: .25em
+  &.is-index
+    +margin(vertical, .25em .75em)
+  +media-breakpoint-up(md)
+    font-size: 1.75rem
+  +media-breakpoint-down(sm)
+    font-size: 1.375rem
+
+.welcome-section__price-number
+  font-size: 2.5em
+  +margin(horizontal, .125em)
+  font-family: 'Lato', sans-serif
+
+.welcome-section__price-period
+  font-size: 1em
+  align-self: flex-start
+  margin-top: .25em
+
+.welcome-section__price-unit
+  font-size: 1em
+  align-self: flex-end
+  margin-bottom: .25em
+
+.welcome-section__title-image
+  max-width: 33rem
+  +media-breakpoint-down(sm)
+    +margin(horizontal, -.75rem)
+
+.welcome-section__description
+  max-width: 40rem
+  +margin(horizontal, auto)
+  &:not(:last-child)
+    margin-bottom: 2rem
+  .welcome-section__title + &
+    margin-top: 1em
+  &.is-reversal
+    color: $reversal-text
+  p
+    +text-block(1rem 1.6 0 1.2em)
+    +media-breakpoint-down(sm)
+      font-size: .875rem
+  *:last-child
+    margin-bottom: 0
+
+.welcome-section__description-link
+  +hover-link-reversal
+  color: blue
+  cursor: pointer
+
+.welcome-section__side-image-sections-container
+  margin-top: 3.5rem
+  +media-breakpoint-down(sm)
+    margin-top: 0
+    .row.is-gutter-width-64
+      +margin(horizontal, 0)
+
+.welcome-section__actions
+  .welcome-small-sections + &
+    margin-top: 2rem
+
+.welcome-section__actions-items
+  display: flex
+  justify-content: center
+  +media-breakpoint-up(md)
+    +margin(horizontal, -.75rem)
+  +media-breakpoint-down(sm)
+    display: block
+
+.welcome-section__actions-item
+  +media-breakpoint-up(md)
+    +padding(horizontal, .75rem)
+    width: 20rem
+  +media-breakpoint-down(sm)
+    &:not(:first-child)
+      margin-top: .75rem

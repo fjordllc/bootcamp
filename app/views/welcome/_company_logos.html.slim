@@ -1,0 +1,55 @@
+section.welcome-section.is-company-logos.is-white#company-logos
+  .container
+    section.welcome-child-section
+      h3.welcome-child-section__title
+        | 紹介企業
+      .company-logos
+        ul.company-logos__items
+          // 永和様
+          li.company-logos__item
+            = link_to "http://agile.esm.co.jp/", class: "company-logos__item-link", target: "_blank" do
+              = image_tag("company-logos/esm.svg", class: "company-logos__item-image is-md")
+
+          // ペパボ様
+          li.company-logos__item
+            = link_to "https://pepabo.com/", class: "company-logos__item-link", target: "_blank" do
+              = image_tag("company-logos/pepabo.svg", class: "company-logos__item-image")
+
+          // マネーフォワード様
+          li.company-logos__item
+            = link_to "https://corp.moneyforward.com/", class: "company-logos__item-link", target: "_blank" do
+              = image_tag("company-logos/moneyforward.svg", class: "company-logos__item-image")
+
+          // Stores.jp様
+          li.company-logos__item
+            = link_to "https://about.stores.jp/", class: "company-logos__item-link", target: "_blank" do
+              = image_tag("company-logos/storesjp.svg", class: "company-logos__item-image is-lg")
+
+          // ネクスウェイ様
+          li.company-logos__item
+            = link_to "http://www.nexway.co.jp/", class: "company-logos__item-link", target: "_blank" do
+              = image_tag("company-logos/nexway.svg", class: "company-logos__item-image is-md")
+
+          // フィードフォース様
+          li.company-logos__item
+            = link_to "https://www.feedforce.jp/", class: "company-logos__item-link", target: "_blank" do
+              = image_tag("company-logos/feedforce.svg", class: "company-logos__item-image is-lg")
+
+          // ウリドキ様
+          li.company-logos__item
+            = link_to "https://corporate.uridoki.net/", class: "company-logos__item-link", target: "_blank" do
+              = image_tag("company-logos/uridoki.svg", class: "company-logos__item-image is-md")
+
+        .company-logos__more
+          | ...他にもたくさん
+
+        .company-forkwell
+          = link_to "https://corporate.uridoki.net/", class: "company-forkwell__logo-link", target: "_blank" do
+              = image_tag("company-logos/forkwell.svg", class: "company-forkwell__logo")
+          .company-forkwell__description
+            | FjordBootCampは株式会社groovesと就職面で提携しています。
+            br
+            | 株式会社groovesの運営するサービス
+            = link_to "https://jobs.forkwell.com/", target: "_blank" do
+              | Forkwell Jobs
+            | に掲載されている企業にも紹介することが可能です。

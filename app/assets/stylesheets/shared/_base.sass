@@ -38,7 +38,14 @@ body
   body.is-edit-page &
     margin-right: 0
   body.welcome &
+    display: flex
+    flex-direction: column
     +margin(horizontal, 0)
+    height: auto
+    min-height: 100vh
+    overflow-y: visible
+    .main
+      flex: 100
   body.no-global-nav &
     margin-left: 0
   body.no-recent-reports &,
@@ -50,7 +57,6 @@ body
   body.is-auth-page &
     padding-top: 2rem
 
-
 .container
   +padding(horizontal, 1.5rem)
   max-width: 100%
@@ -61,9 +67,11 @@ body
   +media-breakpoint-down(md)
     +padding(horizontal, 1rem)
   body.welcome &
-    max-width: 75rem
+    width: 75rem
     +padding(horizontal, 1rem)
     +margin(horizontal, auto)
+    &.is-md
+      width: 48rem
 
 .columns
   max-width: 75rem

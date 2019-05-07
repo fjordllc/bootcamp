@@ -1,0 +1,13 @@
+- content_for :extra_body_classes, "welcome welcome-home"
+- content_for :head_last do
+  = javascript_include_tag "https://sdk.form.run/js/v2/formrun.js"
+
+= render "welcome/main_visual"
+.welcome-sections
+  = render "welcome/about"
+  = render "welcome/pricing"
+  = render "welcome/tutorials"
+  = render "welcome/eligibility"
+  = render "welcome/process"
+  = render "welcome/administrator"
+  = render "welcome/other"

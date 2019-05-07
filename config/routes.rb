@@ -2,7 +2,13 @@
 
 Rails.application.routes.draw do
   root to: "home#index"
-  get "welcome", to: "home#welcome", as: "welcome"
+
+  get "welcome", to: "welcome#index", as: "welcome"
+  get "practices", to: "welcome#practices", as: "practices"
+  get "pricing", to: "welcome#pricing", as: "pricing"
+  get "faq", to: "welcome#faq", as: "faq"
+  get "tos", to: "welcome#tos", as: "tos"
+  get "law", to: "welcome#law", as: "law"
 
   namespace "api" do
     resource :image, controller: "image", only: %i(create)
@@ -32,6 +38,7 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "users/products"
   end
 
+  resource :card, only: %i(show new create edit update), controller: "card"
   resource :current_user, only: %i(edit update), controller: "current_user"
   resources :searchables, only: %i(index)
   resources :user_sessions, only: %i(new create destroy)
@@ -69,6 +76,9 @@ Rails.application.routes.draw do
   resources :courses, only: :index
 
   resource :inquiry, only: %i(new create)
+
+  resources :articles
+  get "articles/tags/:tag", to: "articles#index", as: :tag
 
   get "login" => "user_sessions#new", as: :login
   post "user_sessions" => "user_sessions#create"

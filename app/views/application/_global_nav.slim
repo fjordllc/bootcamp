@@ -14,6 +14,12 @@ nav.global-nav
             .global-nav-links__link-icon
               i.fas.fa-bullhorn
             .global-nav-links__link-label お知らせ
+        //
+          li.global-nav-links__item
+            = link_to articles_path, class: "global-nav-links__link #{current_link /^articles/}" do
+              .global-nav-links__link-icon
+                i.fas.fa-newspaper
+              .global-nav-links__link-label ブログ
         li.global-nav-links__item
           = link_to course_practices_path(current_user.course), class: "global-nav-links__link #{current_link /^(courses-practices|practices)-/}" do
             .global-nav-links__link-icon
@@ -27,7 +33,7 @@ nav.global-nav
               .global-nav__item-count.a-notification-count
                 = Report.unchecked.not_wip.count
             .global-nav-links__link-label 日報
-        - if admin_adviser_or_mentor_login?
+        - if staff_login?
           li.global-nav-links__item
             = link_to products_path, class: "global-nav-links__link #{current_link /^products-index/}" do
               .global-nav-links__link-icon
@@ -64,7 +70,18 @@ nav.global-nav
             .global-nav-links__link-icon
               i.fas.fa-graduation-cap
             .global-nav-links__link-label コース
-        - if current_user && current_user.admin?
+        li.global-nav-links__item.is-hidden-md-up
+          = link_to edit_current_user_path, class: "global-nav-links__link #{current_link /^current_user/}" do
+            .global-nav-links__link-icon
+              i.fas.fa-user
+            .global-nav-links__link-label 登録情報変更
+        - if !current_user.adviser? && !current_user.mentor?
+          li.global-nav-links__item.is-hidden-md-up
+            = link_to new_card_path, class: "global-nav-links__link #{current_link /^card/}" do
+              .global-nav-links__link-icon
+                i.fas.fa-credit-card
+              .global-nav-links__link-label クレジットカード
+        - if admin_login?
           li.global-nav-links__item.is-hidden-md-up
             = link_to admin_root_path, class: "global-nav-links__link" do
               .global-nav-links__link-icon
@@ -75,3 +92,8 @@ nav.global-nav
             .global-nav-links__link-icon
               i.fas.fa-sign-out-alt
             .global-nav-links__link-label サインアウト
+        li.global-nav-links__item.is-hidden-md-up
+          = link_to new_user_retirement_path(current_user), class: "global-nav-links__link" do
+            .global-nav-links__link-icon
+              i.fas.fa-sad-tear
+            .global-nav-links__link-label 退会手続き

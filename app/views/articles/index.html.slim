@@ -1,0 +1,38 @@
+- content_for :extra_body_classes, "welcome"
+
+.welcome-page-header
+  .container
+    h1.welcome-page-header__title
+      - if params[:tag]
+        | タグ: #{params[:tag]} のブログ記事一覧
+      - else
+        | ブログ記事一覧
+
+.page-body
+  .container
+    .tag_cloud
+      - tag_cloud Article.tag_counts, %w{s m l} do |tag, css_class|
+        = link_to tag.name, tag_path(tag.name)
+    .practice-contents
+      - @articles.each do |article|
+        header.practice-contents__header
+          h1.thread-list-item__title(itemprop="name")
+            = link_to article.title, article, itempro: "url", class: "thread-list-item__title-link"
+        section.practice-content.a-card
+          .practice-content__body.is-article.js-markdown-view.js-target-blank.is-long-text-style
+            = truncate(article.body, length: 50)
+          = raw article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
+          - if admin_login?
+            footer.card-footer
+              .card-footer-actions
+                ul.card-footer-actions__items
+                  li.card-footer-actions__item
+                    = link_to edit_article_path(article), class: "card-footer-actions__action is-button-simple-md-primary is-block", id: "js-shortcut-edit" do
+                      i.fas.fa-pen#edit
+                      | 内容修正
+                  li.card-footer-actions__item
+                    = link_to article_path(article), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                      i.fas.fa-trash-alt#delete
+                      | 削除
+
+    = paginate @articles, position: "bottom"

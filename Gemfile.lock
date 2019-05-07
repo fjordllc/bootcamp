@@ -45,7 +45,9 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    acts_as_list (0.9.19)
+    acts-as-taggable-on (6.0.0)
+      activerecord (~> 5.0)
+    acts_as_list (0.9.16)
       activerecord (>= 3.0)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
@@ -60,12 +62,12 @@ GEM
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
     bcrypt (3.1.12)
-    bindex (0.6.0)
-    bootsnap (1.4.2)
+    bindex (0.7.0)
+    bootsnap (1.4.3)
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (11.0.1)
-    capybara (3.16.1)
+    capybara (3.17.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -73,8 +75,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.2)
       xpath (~> 3.2)
-    childprocess (0.9.0)
-      ffi (~> 1.0, >= 1.0.11)
+    childprocess (1.0.1)
+      rake (< 13.0)
     choice (0.2.0)
     chromedriver-helper (2.1.1)
       archive-zip (~> 0.10)
@@ -88,9 +90,10 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    commonmarker (0.19.0)
+    commonmarker (0.20.0)
       ruby-enum (~> 0.5)
     concurrent-ruby (1.1.5)
+    connection_pool (2.2.2)
     crass (1.0.4)
     curb (0.8.8)
     declarative (0.0.10)
@@ -106,11 +109,11 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.13.1)
       faraday (>= 0.7.4, < 1.0)
-    feedjira (2.0.0)
-      faraday (~> 0.9)
-      faraday_middleware (~> 0.9)
-      loofah (~> 2.0)
-      sax-machine (~> 1.0)
+    feedjira (2.2.0)
+      faraday (>= 0.9)
+      faraday_middleware (>= 0.9)
+      loofah (>= 2.0)
+      sax-machine (>= 1.0)
     ffi (1.10.0)
     font-awesome-sass (5.6.1)
       sassc (>= 1.11)
@@ -128,7 +131,8 @@ GEM
       google-cloud-env (~> 1.0)
     google-cloud-env (1.0.5)
       faraday (~> 0.11)
-    google-cloud-storage (1.17.0)
+    google-cloud-storage (1.18.0)
+      addressable (~> 2.6.0)
       digest-crc (~> 0.4)
       google-api-client (~> 0.26)
       google-cloud-core (~> 1.2)
@@ -193,10 +197,12 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
-    msgpack (1.2.9)
+    msgpack (1.2.10)
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    net-http-persistent (3.0.0)
+      connection_pool (~> 2.2)
     newrelic_rpm (6.2.0.354)
     nio4r (2.3.1)
     nokogiri (1.10.2)
@@ -307,8 +313,8 @@ GEM
       sprockets-rails
       tilt
     sax-machine (1.3.2)
-    selenium-webdriver (3.141.0)
-      childprocess (~> 0.5)
+    selenium-webdriver (3.141.5926)
+      childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
     signet (0.11.0)
       addressable (~> 2.3)
@@ -347,6 +353,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stripe (4.5.0)
+      faraday (~> 0.13)
+      net-http-persistent (~> 3.0)
     temple (0.8.1)
     thor (0.20.3)
     thread_safe (0.3.6)
@@ -371,7 +380,7 @@ GEM
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
-    woothee (1.9.0)
+    woothee (1.10.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     xray-rails (0.3.2)
@@ -383,6 +392,7 @@ PLATFORMS
 DEPENDENCIES
   active_decorator
   activestorage-validator
+  acts-as-taggable-on
   acts_as_list
   autoprefixer-rails
   bootsnap (>= 1.1.0)
@@ -395,7 +405,7 @@ DEPENDENCIES
   curb (~> 0.8.8)
   diffy
   dynamic_form
-  feedjira (= 2.0.0)
+  feedjira (~> 2.2.0)
   font-awesome-sass (~> 5.6.1)
   google-cloud-storage (~> 1.3)
   heavens_door
@@ -432,6 +442,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sprockets (>= 3.0.0)
   sprockets-es6
+  stripe (~> 4.5.0)
   typhoeus
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)

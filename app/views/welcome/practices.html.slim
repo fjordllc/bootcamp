@@ -1,0 +1,305 @@
+.welcome-page-header
+  .container
+    h1.welcome-page-header__title
+      = image_tag("practices-page-title", class: "welcome-page-header__title-image", alt: "学習内容")
+
+section.welcome-section
+  .container
+    .welcome-small-sections
+      .row.is-gutter-widtd-32
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | 学習の準備
+            table.welcome-table
+              tr
+                td
+                  | フィヨルドブートキャンプへようこそ！
+              tr
+                td
+                  | チャットを使えるようになる
+              tr
+                td
+                  | 学習の進め方を知る
+              tr
+                td
+                  | 日報を書く
+              tr
+                td
+                  | ブログを作る
+              tr
+                td
+                  | SNSの登録
+
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | macOS X
+            table.welcome-table
+              tr
+                td
+                  | PC性能の見方を知る
+              tr
+                td
+                  | PC性能の見方を知る
+              tr
+                td
+                  | macOSをクリーンインストールする
+              tr
+                td
+                  | macOSをクリーンインストールする
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | HTML & CSS
+            table.welcome-table
+              tr
+                td
+                  | HTMLの基本を理解する
+              tr
+                td
+                  | Markdown を使って HTML を書く
+              tr
+                td
+                  | CSSの基本を理解する
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | Vi
+            table.welcome-table
+              tr
+                td
+                  | vi の基本を理解する
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | Linux
+            table.welcome-table
+              tr
+                td
+                  | Debianをインストールする
+              tr
+                td
+                  | Linux のファイル操作の基本を理解する
+              tr
+                td
+                  | 標準入出力・リダイレクション・パイプの基本を理解する
+              tr
+                td
+                  | apt の基本を理解する
+              tr
+                td
+                  | sudo をインストールする
+              tr
+                td
+                  | ssh の基本を理解する
+              tr
+                td
+                  | SSL/TLS の基本を理解する
+              tr
+                td
+                  | PostgreSQL の基本を理解する
+              tr
+                td
+                  | UNIX・Linux について知る
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | HTTP
+            table.welcome-table
+              tr
+                td
+                  | HTTP の基本について理解する
+              tr
+                td
+                  | Cookie について理解する
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | Nginx
+            table.welcome-table
+              tr
+                td
+                  | nginx の基本を理解する
+              tr
+                td
+                  | nginx で VirtualHost を使って複数のドメインのサイトを立ち上げる
+              tr
+                td
+                  | nginx で SSL 対応サイトを作る
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | Ruby
+            table.welcome-table
+              tr
+                td
+                  | rbenv で Ruby をインストール
+              tr
+                td
+                  | Ruby の基本を理解する
+              tr
+                td
+                  | rubocop の使い方を知る
+              tr
+                td
+                  | rubygems の基本を理解する
+              tr
+                td
+                  | rake の基本を理解する
+              tr
+                td
+                  | rubygemを作る
+              tr
+                td
+                  | Bundler の基本を理解する
+              tr
+                td
+                  | ls コマンドを作る
+              tr
+                td
+                  | wc コマンドを作る
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | Git & Gitdub
+            table.welcome-table
+              tr
+                td
+                  | Git の基本を理解する
+              tr
+                td
+                  | GitHub の基本を理解する
+              tr
+                td
+                  | Pull Request を行う
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | データベース
+            table.welcome-table
+              tr
+                td
+                  | SQL の基本を理解する
+              tr
+                td
+                  | データベース設計の基本を理解する
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | Webアプリケーション
+            table.welcome-table
+              tr
+                td
+                  | Sinatra を使ってWebアプリケーションの基本を理解する
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | Ruby on Rails
+            table.welcome-table
+              tr
+                td
+                  | Rails の基本を理解する
+              tr
+                td
+                  | Rails の i18n を理解する
+              tr
+                td
+                  | kaminari を使ってページング処理を実装する
+              tr
+                td
+                  | devise を使ってユーザー認証を実装する
+              tr
+                td
+                  | omniauth を使って GitHub 認証を実装する
+              tr
+                td
+                  | ActiveStorage で画像をアップロードを実装する
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | 自動テスト
+            table.welcome-table
+              tr
+                td
+                  | TDD の基本を理解する
+              tr
+                td
+                  | test-unit の基本を理解する
+              tr
+                td
+                  | RSpec の基本
+              tr
+                td
+                  | capybara を使って feature spec を書く
+              tr
+                td
+                  | RSpec を使って Rails アプリのテストを書く
+
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | Web アプリケーション設計
+            table.welcome-table
+              tr
+                td
+                  | REST の考え方を理解する
+              tr
+                td
+                  | オブジェクト指向設計と UML の基本を理解する
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | デプロイ
+            table.welcome-table
+              tr
+                td
+                  | Capistrano を使って Rails アプリをデプロイする
+              tr
+                td
+                  | puma を使って Rails アプリを動かす
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | JavaScript
+            table.welcome-table
+              tr
+                td
+                  | Javascript の基本を理解する
+              tr
+                td
+                  | jQuery の基本を理解する
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | システム開発
+            table.welcome-table
+              tr
+                td
+                  | アジャイル開発 ／スクラム を理解する
+              tr
+                td
+                  | 実際の開発に参加するための準備をする
+              tr
+                td
+                  | 実際の開発に参加して PR を送りマージする
+              tr
+                td
+                  | 実際にペアプログラミングを行いやり方を理解する
+        .col-xs-12.col-md-4
+          .welcome-small-section
+            h3.welcome-small-section__title
+              | Webサービスを作って公開
+            table.welcome-table
+              tr
+                td
+                  | どんなサービスを作るかを考える
+              tr
+                td
+                  | 自分で作る Web サービスのリポジトリを作る
+              tr
+                td
+                  | Web サービスを作って公開し、使ってもらう
+              tr
+                td
+                  | 自分で作った Web サービスのデザインレビューを受ける
