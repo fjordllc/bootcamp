@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Create a Stripe client.
-  var stripe = window.Stripe('pk_test_Je8A9BUHRC8oqsqx8wtfbKwg')
+  var stripe = window.Stripe(window.stripePublicKey)
 
   // Create an instance of Elements.
   var elements = stripe.elements()
