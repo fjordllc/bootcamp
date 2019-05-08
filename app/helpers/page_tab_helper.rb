@@ -48,7 +48,8 @@ module PageTabHelper
         questions: "質問",
         products: "提出物",
         users: "プロフィール",
-        comments: "コメント"
+        comments: "コメント",
+        portfolio: "ポートフォリオ"
       }
     end
 
@@ -76,12 +77,18 @@ module PageTabHelper
         root_tab(resource),
         reports_tab(resource),
         comments_tab(resource),
-        products_tab(resource)
+        products_tab(resource),
+        portfolio_tab(resource)
       ]
     end
 
     def comments_tab(resource)
       tab_name = :comments
+      page_tab_member(tab_path(resource, tab_name), tab_name)
+    end
+
+    def portfolio_tab(resource)
+      tab_name = :portfolio
       page_tab_member(tab_path(resource, tab_name), tab_name)
     end
 
