@@ -24,6 +24,8 @@ header.page-header
             .thread-header__emotion
               = Report.faces[@report.emotion]
           .thread-header__reported-at
+            = link_to @report.user, class: "thread-header__reported-at-author" do
+              = @report.user.login_name
             | #{l @report.reported_on} の日報
           h1.thread-header__title(class="#{@report.wip? ? "is-wip" : ""}")
             - if @report.wip?
@@ -39,23 +41,23 @@ header.page-header
               .stamp__content.is-user-name
                 = @checks.last.user.login_name
           .thread-meta
-            .thread-meta__author-name
-              = link_to @report.user, class: "thread-meta__author-name-link" do
-                = @report.user.login_name
             time.thread-meta__created-at(datetime="#{@report.created_at.to_datetime}" pubdate="pubdate")
               | 書いた日 : #{l @report.updated_at}
             .thread-meta__watch
-              .thread-meta__watch__button
                 - if current_user.id.in?(@report.watches.pluck(:user_id))
-                  = form_for @watch, url: watch_path, method: :delete, html: { class: "thread-meta__watch__form" } do |f|
-                    = hidden_field_tag :user_id, current_user.id
-                    = hidden_field_tag :report_id, @report.id
-                    = f.submit "Unwatch", class: "thread-meta__watch__form__action"
+                  .thread-meta__watch-button.is-active.a-button.is-sm.is-secondary.is-submit-input.is-left-icon
+                    = form_for @watch, url: watch_path, method: :delete, html: { class: "thread-meta__watch__form" } do |f|
+                      = hidden_field_tag :user_id, current_user.id
+                      = hidden_field_tag :report_id, @report.id
+                      i.fas.fa-eye
+                      = f.submit "Unwatch", class: "thread-meta__watch-action"
                 - else
-                  = form_for @watch, html: { class: "thread-meta__watch__form" } do |f|
-                    = hidden_field_tag :user_id, current_user.id
-                    = hidden_field_tag :report_id, @report.id
-                    = f.submit "Watch", class: "thread-meta__watch__form__action"
+                  .thread-meta__watch-button.is-inactive.a-button.is-sm.is-main.is-submit-input.is-left-icon
+                    = form_for @watch, html: { class: "thread-meta__watch__form" } do |f|
+                      = hidden_field_tag :user_id, current_user.id
+                      = hidden_field_tag :report_id, @report.id
+                      i.fas.fa-eye
+                      = f.submit "Watch", class: "thread-meta__watch__form__action"
         - if @report.practices.present?
           .report-practices
             ul.report-practices__items
