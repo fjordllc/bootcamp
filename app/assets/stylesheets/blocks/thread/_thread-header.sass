@@ -31,15 +31,26 @@
     color: $muted-text
 
 .thread-header__title-icon
-  +text-block(.75rem, inline-flex $muted-text)
+  +text-block(.75rem 1, inline-flex $muted-text)
+  align-items: center
+  padding-bottom: 2px
   background-color: #e9ebef
-  padding: .125rem .5rem
-  margin-right: .5rem
+  +padding(horizontal, .5rem)
+  margin-right: .375em
   +position(relative, top -2px)
   border-radius: .75rem
+  vertical-align: middle
+  height: 1rem
+  +media-breakpoint-down(sm)
+    height: 1rem
 
 .thread-header__reported-at
   +text-block(.8125rem 1 0 .75rem, $muted-text)
   +media-breakpoint-down(sm)
     font-size: .75rem
     margin-bottom: .25rem
+
+.thread-header__reported-at-author
+  color: $main
+  +hover-link-reversal
+  margin-right: .5rem

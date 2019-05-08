@@ -2,11 +2,11 @@
   display: flex
   align-items: center
   flex-wrap: wrap
-  +padding(vertical, .5rem .75rem)
+  +padding(vertical, .25rem .75rem)
   line-height: 1.4
   +media-breakpoint-down(sm)
     align-items: flex-start
-    padding-top: 0
+    padding-top: .125rem
     margin-bottom: -.25rem
 
 .thread-meta__label
@@ -18,12 +18,12 @@
 
 .thread-meta__author-name
   +text-block(.75rem, $muted-text)
-  margin-right: .75rem
+  margin-right: .5rem
   +media-breakpoint-down(sm)
     margin-bottom: .25rem
 
 .thread-meta__author-name-link
-  color: $muted-text
+  color: $main
   +hover-link-reversal
 
 .thread-meta__created-at
@@ -38,3 +38,14 @@
   +text-block(.75rem, $muted-text)
   +media-breakpoint-down(sm)
     margin-bottom: .25rem
+
+.thread-meta__watch-button
+  &.a-button
+    height: 1.375rem
+    width: 5.625rem
+  &.is-active
+    color: $main
+    border-color: $main
+    &:hover
+      color: $main
+      border-color: $main
