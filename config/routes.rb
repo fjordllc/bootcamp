@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     resources :reports, only: %i(index), controller: "users/reports"
     resources :comments, only: %i(index), controller: "users/comments"
     resources :products, only: %i(index), controller: "users/products"
+    get "portfolio" => "users/works#index", as: :portfolio
   end
 
   resource :card, only: %i(show new create edit update), controller: "card"
@@ -68,6 +69,7 @@ Rails.application.routes.draw do
   resources :notifications, only: %i(index show)
   resources :pages
   resources :watches
+  resources :works, except: %i(index)
 
   resources :questions do
     resources :answers, only: %i(edit create update destroy)
