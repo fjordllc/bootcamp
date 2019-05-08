@@ -1,0 +1,17 @@
+.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
+  .works-item
+    .works-item__inner.a-card
+      header.works-item__header
+        .works-item__icon
+            = link_to work do
+              - if work.thumbnail.present?
+                = image_tag work.thumbnail_image(40)
+              - else
+                = "No Image"
+              //= image_tag work.thumbnail_image(80), class: "works-item__icon-image" unless work.thumbnail.nil?
+        .works-item__header-container
+          .works-item__name
+            = link_to work.title, work, class: "works-item__name-link"
+      .works-item__body
+        .works-item__description
+          p = truncate(work.description, length: 200)
