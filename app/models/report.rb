@@ -12,6 +12,7 @@ class Report < ActiveRecord::Base
   accepts_nested_attributes_for :learning_times, reject_if: :all_blank, allow_destroy: true
   has_and_belongs_to_many :practices
   belongs_to :user, touch: true
+  alias_method :sender, :user
 
   validates :title, presence: true, uniqueness: { scope: :user_id }, length: { maximum: 255 }
   validates :description, presence: true
@@ -25,6 +26,8 @@ class Report < ActiveRecord::Base
 
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
+
+  after_create ReportCallbacks.new
 
   def previous
     Report.where(user: user)

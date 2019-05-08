@@ -11,7 +11,8 @@ class Notification < ApplicationRecord
     submitted:     3,
     answered:      4,
     announced:     5,
-    came_question: 6
+    came_question: 6,
+    first_report:  7
   }
 
   scope :unreads, -> {
@@ -92,6 +93,17 @@ class Notification < ApplicationRecord
       sender:  question.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(question),
       message: "#{question.user.login_name}さんから質問がきました。",
+      read:    false
+    )
+  end
+
+  def self.first_report(report, receiver)
+    Notification.create!(
+      kind:    7,
+      user:    receiver,
+      sender:  report.sender,
+      path:    Rails.application.routes.url_helpers.polymorphic_path(report),
+      message: "#{report.user.login_name}さんがはじめての日報を書きました！",
       read:    false
     )
   end
