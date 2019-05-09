@@ -60,7 +60,8 @@ class PracticesController < ApplicationController
         :goal,
         :category_id,
         :position,
-        :submission
+        :submission,
+        :open_product
       )
     end
 

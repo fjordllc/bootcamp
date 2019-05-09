@@ -71,4 +71,4 @@ sotugyou:
   user: sotugyou
   title: テストの日報
   description: いろいろやりました
-  reported_on: 2018-02-01
+  reported_on: "2018-02-01"
