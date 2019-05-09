@@ -44,13 +44,28 @@
   +media-breakpoint-down(sm)
     height: 1rem
 
-.thread-header__reported-at
-  +text-block(.8125rem 1 0 .75rem, $muted-text)
+.thread-header__header
+  +text-block(.8125rem 1 0 .75rem, $muted-text flex)
+  align-items: center
+  flex-wrap: wrap
   +media-breakpoint-down(sm)
     font-size: .75rem
-    margin-bottom: .25rem
+    margin-bottom: .5rem
 
-.thread-header__reported-at-author
+.thread-header__author
   color: $main
-  +hover-link-reversal
   margin-right: .5rem
+
+a.thread-header__author
+  +hover-link-reversal
+
+.thread-header__date
+  +text-block(.8125rem 1, $muted-text flex)
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+
+.thread-header__date-label
+  &::after
+    content: ":"
+    display: inline-flex
+    +margin(horizontal, .25em)
