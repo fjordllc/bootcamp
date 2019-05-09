@@ -6,9 +6,12 @@ header.page-header
     .page-header__inner
       h2.page-header__title
         | みんなに聞く
-      = link_to questions_path, class: "a-button is-md is-secondary is-block" do
-        i.fas.fa-angle-left
-        | Q&A一覧へ
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to questions_path, class: "a-button is-md is-secondary is-block" do
+              i.fas.fa-angle-left
+              | Q&A一覧へ
 .page-body
   .container
     = render "form", question: @question, categories: @categories
