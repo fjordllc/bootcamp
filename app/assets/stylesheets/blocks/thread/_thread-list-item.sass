@@ -12,8 +12,9 @@
     padding-left: 3.25rem
 
 .thread-list-item__header-title-container
-  display: flex
-  align-items: flex-start
+  +media-breakpoint-up(md)
+    display: flex
+    align-items: flex-start
 
 .thread-list-item__label
   +position(absolute, left 0, top 0)
@@ -67,18 +68,29 @@
     align-items: flex-start
 
 .thread-list-item__header-icon
-  +text-block(.75rem, inline-flex $muted-text)
-  margin-top: .1875rem
-  background-color: #e9ebef
-  padding: .125rem .5rem
+  +text-block(.75rem, inline-flex $muted-text nowrap)
+  margin-top: .25rem
+  +padding(horizontal, .5rem)
+  height: 1.125rem
   margin-right: .5rem
   border-radius: .75rem
+  align-items: center
+  justify-content: center
+  +media-breakpoint-down(sm)
+    float: left
+  &.is-wip
+    background-color: #e9ebef
+  &.is-unread
+    background-color: $danger
+    color: $reversal-text
+    font-size: .625rem
 
 .thread-list-item__title-link
   +text-block(1rem 1.5, 600 $side)
   word-break: break-all
   +hover-link-reversal
-  .thread-list-item.is-wip &
+  .thread-list-item.is-wip &,
+  .thread-list-item.is-unread &
     color: $muted-text
 
 .thread-list-item__sub-title
@@ -135,7 +147,6 @@
   object-fit: cover
   &:not(:first-child)
     margin-left: .25rem
-
 
 .thread-list-item__body
   +text-block(.875rem 1.6)
