@@ -84,7 +84,6 @@
 .thread-list-item__sub-title
   +text-block(.75rem 1.4 .25rem .25rem, $muted-text 400)
 
-
 .thread-list-item__actions
   margin-left: .5rem
   display: flex
@@ -118,6 +117,10 @@
 .thread-list-item-meta__item
   +padding(horizontal, .5rem)
 
+.thread-list-item-meta__item-link
+  +hover-link-reversal
+  color: $main
+
 .thread-list-item-meta__updated-at
   +text-block(.75rem 1.4, $muted-text)
 
@@ -149,5 +152,31 @@
 .thread-list-item-meta__created-at
   +text-block(.75rem 1.4, $muted-text)
 
+.thread-list-item__show-user-detail
+  +position(absolute, top 0)
+  +size(2.75rem)
+  display: flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  transition: all .2s ease-out
+  +media-breakpoint-up(md)
+    +position(right -1rem)
+  +media-breakpoint-down(sm)
+    +position(right -.75rem)
+  &:hover
+    opacity: .7
+
 .thread-list-item__user-detail
   margin-top: 1rem
+  display: none
+  input:checked + &
+    display: block
+
+.thread-list-item__close-user-detail
+  margin-top: 1rem
+  +text-block(.8125rem 1.4, flex $main)
+  align-items: center
+  justify-content: center
+  +hover-link-reversal
+  cursor: pointer
