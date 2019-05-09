@@ -45,6 +45,10 @@
             label
               = f.check_box :submission
               | 提出物がある場合はチェック
+          li.checkboxes__item
+            label
+              = f.check_box :open_product
+              | OKをもらっていない人も提出物を見られるようにする場合はチェック
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main

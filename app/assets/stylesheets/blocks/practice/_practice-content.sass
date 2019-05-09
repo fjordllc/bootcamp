@@ -29,5 +29,17 @@
   +media-breakpoint-down(sm)
     padding: .5rem .75rem
 
+.practice-content__body-alert
+  border: solid 2px $danger
+  margin-top: 1rem
+  background-color: rgba($danger, .1)
+  padding: .75rem .875rem
+  +media-breakpoint-down(sm)
+    padding: .375rem .625rem
+  p
+    +text-block(.875rem 1.5, $danger)
+    +media-breakpoint-down(sm)
+      font-size: .75rem
+
 .js-markdown-view
   display: none

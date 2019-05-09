@@ -29,8 +29,9 @@ header.page-header
         header.practice-content__header.card-header
           h2.practice-content__title
             = Practice.human_attribute_name :description
-        .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text
-          = @practice.description
+        .practice-content__body.is-practice
+          .js-markdown-view.js-target-blank.is-long-text
+            = @practice.description
         footer.card-footer
           .card-footer-actions
             ul.card-footer-actions__items
@@ -43,8 +44,16 @@ header.page-header
         header.practice-content__header.card-header
           h2.practice-content__title
             = Practice.human_attribute_name :goal
-        .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text
-          = @practice.goal
+        .practice-content__body.is-goal
+          .js-markdown-view.js-target-blank.is-long-text
+            = @practice.goal
+          - if !current_user.adviser? && @practice.open_product?
+            .practice-content__body-alert
+              p
+                | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
+                = link_to practice_products_path(@practice) do
+                  | 他の人の提出物
+                | も参考にしてください。
         footer.card-footer
           #js-learning(data-practice-id="#{@practice.id}")
           - if @practice.submission
