@@ -14,7 +14,7 @@
     "markdown-it": "^8.4.2",
     "markdown-it-plantuml": "^1.2.0",
     "pug": "^2.0.3",
-    "select2": "^4.0.6-rc.1",
+    "select2": "^4.0.7-rc.0",
     "textarea-autosize": "^0.4.2",
     "textarea-markdown": "^1.2.3",
     "vue": "^2.5.16",
