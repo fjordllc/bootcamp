@@ -12,6 +12,16 @@ namespace :bootcamp do
         puts "make free: #{user.login_name}"
       end
     end
+
+    desc "Migrate finished_at"
+    task :migrate_finished_at do
+      LearningTime.find_each do |learning_time|
+        if learning_time.started_at > learning_time.finished_at
+          puts "Update learing_times ##{learning_time.id}"
+          learning_time.update!(finished_at: learning_time.finished_at + 1.day)
+        end
+      end
+    end
   end
 
   desc "Replace practices"

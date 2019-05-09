@@ -13,9 +13,7 @@ WITH series AS (
   summary AS (
     SELECT
       reported_on AS date,
-      EXTRACT(epoch FROM
-        SUM((CASE WHEN finished_at < started_at THEN finished_at + '1 day' ELSE finished_at END) - started_at)
-      ) / 60 / 60 AS total_hour
+      EXTRACT(epoch FROM SUM(finished_at - started_at)) / 60 / 60 AS total_hour
     FROM
       learning_times JOIN reports ON learning_times.report_id = reports.id
     WHERE

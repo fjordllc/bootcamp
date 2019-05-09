@@ -183,20 +183,12 @@ class User < ActiveRecord::Base
   def total_learning_time
     sql = <<-SQL
 SELECT
-  SUM(
-    CASE
-      WHEN
-        EXTRACT(epoch from learning_times.finished_at - learning_times.started_at) < 0
-        THEN (EXTRACT(epoch FROM learning_times.finished_at - learning_times.started_at) + (60 * 60 * 24)) / 60 / 60
-      ELSE
-         EXTRACT(epoch from learning_times.finished_at - learning_times.started_at) / 60 / 60
-    END
-  ) AS total
+  SUM(EXTRACT(epoch from learning_times.finished_at - learning_times.started_at) / 60 / 60) AS total
 FROM
-   learning_times JOIN reports ON learning_times.report_id = reports.id
+  learning_times JOIN reports ON learning_times.report_id = reports.id
 WHERE
-   reports.user_id = :user_id
-		SQL
+  reports.user_id = :user_id
+SQL
 
     learning_time = LearningTime.find_by_sql([sql, { user_id: id }])
     learning_time.first.total || 0
