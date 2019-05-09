@@ -46,8 +46,9 @@ class UserTest < ActiveSupport::TestCase
 
     report = Report.new(user_id: user.id, title: "test", reported_on: "2018-01-01", description: "test", wip: false)
     report.learning_times << LearningTime.new(started_at: "2018-01-01 00:00:00", finished_at: "2018-01-01 02:00:00")
+    report.learning_times << LearningTime.new(started_at: "2018-01-01 23:00:00", finished_at: "2018-01-02 01:00:00")
     report.save!
-    assert_equal 2, user.total_learning_time
+    assert_equal 4, user.total_learning_time
   end
 
   test "elapsed_days" do
