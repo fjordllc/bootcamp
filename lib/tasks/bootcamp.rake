@@ -12,7 +12,7 @@ namespace :bootcamp do
         puts "make free: #{user.login_name}"
       end
     end
-    
+
     desc "Migrate finished_at"
     task :migrate_finished_at do
       LearningTime.find_each do |learning_time|
