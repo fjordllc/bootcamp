@@ -20,25 +20,16 @@ header.page-header
     .thread
       .thread__inner.a-card
         header.thread-header
+          .thread-header__header
+            = link_to @question.user, class: "thread-header__author" do
+              = @question.user.login_name
+            .thread-header__date
+              time.thread-header__date-value(datetime="#{@question.updated_at.to_datetime}" pubdate="pubdate")
+                = l @question.updated_at
           h1.thread-header__title
             = @question.title
           .thread-meta
-            .thread-meta__author-name
-              = @question.user.login_name
-            time.thread-meta__created-at(datetime="#{@question.created_at.to_datetime}" pubdate="pubdate")
-              = l @question.updated_at
-            .thread-meta__watch
-              .thread-meta__watch__button
-                - if current_user.id.in?(@question.watches.pluck(:user_id))
-                  = form_for @watch, url: watch_path, method: :delete, html: { class: "thread-meta__watch__form" } do |f|
-                    = hidden_field_tag :user_id, current_user.id
-                    = hidden_field_tag :question_id, @question.id
-                    = f.submit "Unwatch", class: "thread-meta__watch__form__action"
-                - else
-                  = form_for @watch, html: { class: "thread-meta__watch__form" } do |f|
-                    = hidden_field_tag :user_id, current_user.id
-                    = hidden_field_tag :question_id, @question.id
-                    = f.submit "Watch", class: "thread-meta__watch__form__action"
+            = render "thread/thread_watch", object: @question
         - if @question.practice.present?
           .report-practices
             ul.report-practices__items
