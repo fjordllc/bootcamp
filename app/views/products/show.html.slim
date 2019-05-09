@@ -28,7 +28,7 @@ header.page-header
           h1.thread-header__title
             | #{link_to @product.practice.title, @product.practice, class: "thread-header__title-link"}の提出物
           .thread-meta
-            = render "thread/thread_watch", object: @product
+            = render "thread/thread_watch", watchable: @product
         - if @product.checks.any?
           .stamp.stamp-approve
             h2.stamp__content.is-title

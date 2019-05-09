@@ -42,7 +42,7 @@ header.page-header
               .stamp__content.is-user-name
                 = @checks.last.user.login_name
           .thread-meta
-            = render "thread/thread_watch", object: @report
+            = render "thread/thread_watch", watchable: @report
         - if @report.practices.present?
           .report-practices
             ul.report-practices__items
