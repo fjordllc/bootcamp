@@ -29,7 +29,7 @@ header.page-header
           h1.thread-header__title
             = @question.title
           .thread-meta
-            = render "thread/thread_watch", object: @question
+            = render "thread/thread_watch", watchable: @question
         - if @question.practice.present?
           .report-practices
             ul.report-practices__items
