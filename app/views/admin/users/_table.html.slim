@@ -14,6 +14,11 @@
           | 最終アクセス日時
           = render "sort_column", order_by: "updated_at", direction: direction, target: @target
         th.admin-table__label
+          | 登録日時
+          = render "sort_column", order_by: "created_at", direction: direction, target: @target
+        th.admin-table__label
+          | カード登録
+        th.admin-table__label
           | 日報
           = render "sort_column", order_by: "report", direction: direction, target: @target
         th.admin-table__label
@@ -56,6 +61,10 @@
               | -
           td.admin-table__item-value.is-text-align-center
             = l user.updated_at
+          td.admin-table__item-value.is-text-align-center
+            = l user.created_at
+          td.admin-table__item-value.is-text-align-center
+            = user.card? ? "有り" : "無し"
           td.admin-table__item-value.is-text-align-center
             = user.reports.count
           td.admin-table__item-value.is-text-align-center
