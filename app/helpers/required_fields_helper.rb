@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RequiredFieldsHelper
   def required_fields
     return nil unless logged_in?
