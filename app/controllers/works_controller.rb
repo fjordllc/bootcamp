@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
 class WorksController < ApplicationController
+  before_action :require_login
+  before_action :set_work, only: %i(show)
+  before_action :set_my_work, only: %i(edit update destroy)
+
   def show
-    @work = Work.find(params[:id])
   end
 
   def new
-    @work = current_user.works.new
+    @work = Work.new
   end
 
   def edit
-    @work = current_user.works.find(params[:id])
   end
 
   def create
@@ -24,7 +26,6 @@ class WorksController < ApplicationController
   end
 
   def update
-    @work = current_user.works.find(params[:id])
     if @work.update(work_params)
       redirect_to user_portfolio_url(current_user), notice: "作品を更新しました。"
     else
@@ -33,7 +34,6 @@ class WorksController < ApplicationController
   end
 
   def destroy
-    @work = current_user.works.find(params[:id])
     @work.destroy
     redirect_to user_portfolio_url(current_user), notice: "ポートフォリオから作品を削除しました。"
   end
@@ -48,5 +48,13 @@ class WorksController < ApplicationController
         :repository,
         :thumbnail
       )
+    end
+
+    def set_work
+      @work = Work.find(params[:id])
+    end
+
+    def set_my_work
+      @work = current_user.works.find(params[:id])
     end
 end
