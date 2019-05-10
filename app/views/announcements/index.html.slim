@@ -13,8 +13,8 @@ header.page-header
                 i.fa.fa-plus
                 | お知らせ作成
 
-= paginate @announcements, position: "top"
 .page-body
+  = paginate @announcements, position: "top"
   .container
     .thread-list.a-card
       = render partial: "announcements", collection: @announcements, as: :announcement
