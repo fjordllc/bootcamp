@@ -2,7 +2,8 @@
 
 module RequiredFieldsHelper
   def required_fields
-    return nil unless logged_in?
+    return nil if !logged_in?
+    return nil if current_user.staff?
 
     messages = []
 
