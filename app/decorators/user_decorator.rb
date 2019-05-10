@@ -18,6 +18,10 @@ module UserDecorator
   end
 
   def avatar_image
-    avatar.service_url
+    if avatar.attached?
+      avatar.service_url
+    else
+      image_path("users/avatars/default.png")
+    end
   end
 end
