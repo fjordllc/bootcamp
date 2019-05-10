@@ -55,16 +55,17 @@
   overflow: hidden
 
 .admin-table__user-icon
-  +size(2.75rem)
+  +size(2.125rem)
   object-fit: cover
   border-radius: 50%
   display: inline-block
   margin-right: .5rem
 
-.admin-table__user
-  &:hover
-    .admin-table__user-login-name
-      text-decoration: underline
+.admin-table__user-login-name
+  overflow-wrap: break-word
+  word-wrap: break-word
+  .admin-table__user:hover &
+    text-decoration: underline
 
 .admin-table__user-login-name
   color: $main
