@@ -33,6 +33,19 @@
   &.is-align-center
     text-align: center
 
+input[type=date].a-text-input,
+input[type=month].a-text-input,
+input[type=week].a-text-input
+  &::-webkit-inner-spin-button,
+  &::-webkit-clear-button
+    -webkit-appearance: none
+  &::-webkit-calendar-picker-indicator
+    color: transparent
+    background-color: transparent
+    +position(absolute, left 0, right 0, top 0, bottom 0)
+    +size(100%)
+    cursor: pointer
+
 .a-sm-text-input
   +text-block(.875rem 1.45, block)
   width: 100%
