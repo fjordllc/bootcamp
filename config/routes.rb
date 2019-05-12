@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     resources :practices, only: [] do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
+    resources :reports, only: %i(show)
+    resources :watches, only: %i(create destroy)
   end
 
   namespace :admin do
@@ -69,8 +71,6 @@ Rails.application.routes.draw do
   resources :comments
   resources :notifications, only: %i(index show)
   resources :pages
-  resources :watches
-  resources :works, except: %i(index)
 
   resources :questions do
     resources :answers, only: %i(edit create update destroy)
