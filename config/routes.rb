@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
     resources :reports, only: %i(show)
+    resources :products, only: %i(show)
+    resources :questions, only: %i(show)
     resources :watches, only: %i(create destroy)
   end
 
