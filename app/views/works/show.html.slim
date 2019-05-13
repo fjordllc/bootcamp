@@ -33,7 +33,7 @@ header.page-header
           = link_to "リポジトリ", @work.repository
         .thread__description.js-target-blank.is-long-text.js-markdown-view
           p = @work.description
-        - if @work.user == current_user
+        - if @work.user == current_user || admin_login?
           .card-footer
             .card-footer-actions
               ul.card-footer-actions__items
