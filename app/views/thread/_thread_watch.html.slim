@@ -1,0 +1,15 @@
+.thread-meta__watch
+  - if current_user.id.in?(watchable.watches.pluck(:user_id))
+    .thread-meta__watch-button.is-active.a-button.is-sm.is-secondary.is-submit-input.is-left-icon
+      = form_for @watch, url: watch_path, method: :delete, html: { class: "thread-meta__watch-form" } do |f|
+        = hidden_field_tag :user_id, current_user.id
+        = hidden_field_tag watchable.class.to_s.tableize.singularize + "_id", watchable.id
+        i.fas.fa-eye
+        = f.submit "Unwatch", class: "thread-meta__watch-action"
+  - else
+    .thread-meta__watch-button.is-inactive.a-button.is-sm.is-main.is-submit-input.is-left-icon
+      = form_for @watch, html: { class: "thread-meta__watch-form" } do |f|
+        = hidden_field_tag :user_id, current_user.id
+        = hidden_field_tag watchable.class.to_s.tableize.singularize + "_id", watchable.id
+        i.fas.fa-eye
+        = f.submit "Watch", class: "thread-meta__watch__form__action"

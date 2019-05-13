@@ -306,9 +306,20 @@ ActiveRecord::Schema.define(version: 2019_04_20_140857) do
     t.boolean "free", default: false, null: false
     t.string "customer_id"
     t.boolean "job_seeking", default: false, null: false
+    t.boolean "trainee", default: false, null: false
+    t.boolean "free", default: false, null: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
+  end
+
+  create_table "watches", force: :cascade do |t|
+    t.string "watchable_type"
+    t.bigint "watchable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable_type_and_watchable_id"
   end
 
   add_foreign_key "announcements", "users"

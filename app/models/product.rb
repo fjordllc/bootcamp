@@ -4,9 +4,11 @@ class Product < ApplicationRecord
   include Commentable
   include Checkable
   include Footprintable
+  include Watchable
 
   belongs_to :practice
   belongs_to :user, touch: true
+  has_many :watches, as: :watchable
 
   after_create ProductCallbacks.new
   after_update ProductCallbacks.new
