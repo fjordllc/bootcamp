@@ -235,5 +235,5 @@
       li.form-actions__item.is-main
         = f.submit user_submit_label(user, from), class: "a-button is-lg is-warning is-block"
         - if from == :new
-          .a-form-help
+          .a-form-help.is-text-align-center
             = link_to "利用規約を確認（別タブで開きます）", tos_path, target: "_blank"
