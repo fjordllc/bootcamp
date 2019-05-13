@@ -34,7 +34,8 @@ header.page-header
                 | WIP
             = @report.title
           #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="report")
-          #js-watch(data-watchable-id="#{@report.id}", data-watchable-type="report")
+          .thread-header__lower-side
+            #js-watch(data-watchable-id="#{@report.id}", data-watchable-type="report")
         - if @report.practices.present?
           .report-practices
             ul.report-practices__items
