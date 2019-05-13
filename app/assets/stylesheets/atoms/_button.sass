@@ -16,23 +16,54 @@
     +button-color($danger)
   &.is-disabled
     +button-color($disabled)
+  &.is-main
+    +button-color($main)
 
   //size
-  &.is-xs
+  &.is-xs,
+  &.is-xs input[type="submit"]
     +button-size(.75rem, 1, 1.8rem)
     font-weight: 600
-  &.is-sm
+  &.is-sm,
+  &.is-sm input[type="submit"]
     +button-size(.75rem, 1, 1.625rem)
     font-weight: 600
-  &.is-md
+  &.is-md,
+  &.is-md input[type="submit"]
     +button-size(.8125rem, 1.5, 2.375rem)
     font-weight: 600
-  &.is-lg
+  &.is-lg,
+  &.is-lg input[type="submit"]
     +button-size(.9375rem, 1, 45px)
     font-weight: 800
-  &.is-xl
+  &.is-xl,
+  &.is-xl input[type="submit"]
     +button-size(1.25rem, 1, 57px)
     font-weight: 900
+  &.is-submit-input
+    padding: 0
+    &.is-left-icon,
+    &.is-right-icon
+      +position(relative)
+      i
+        +text-block(1.125em, flex)
+        align-items: center
+        justify-content: center
+        +position(absolute, top 0, bottom 0)
+    &.is-left-icon
+      i
+        +position(left 0)
+        margin-left: .45em
+      input[type="submit"]
+        padding-left: 2.25em
+    &.is-right-icon
+      +position(relative)
+      i
+        +position(right 0)
+        margin-right: .45em
+      input[type="submit"]
+        padding-right: 2.25em
+
 
 input[type="submit"],
 input[type="reset"],

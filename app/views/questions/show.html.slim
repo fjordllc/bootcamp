@@ -20,13 +20,16 @@ header.page-header
     .thread
       .thread__inner.a-card
         header.thread-header
+          .thread-header__header
+            = link_to @question.user, class: "thread-header__author" do
+              = @question.user.login_name
+            .thread-header__date
+              time.thread-header__date-value(datetime="#{@question.updated_at.to_datetime}" pubdate="pubdate")
+                = l @question.updated_at
           h1.thread-header__title
             = @question.title
           .thread-meta
-            .thread-meta__author-name
-              = @question.user.login_name
-            time.thread-meta__created-at(datetime="#{@question.created_at.to_datetime}" pubdate="pubdate")
-              = l @question.updated_at
+            = render "thread/thread_watch", watchable: @question
         - if @question.practice.present?
           .report-practices
             ul.report-practices__items

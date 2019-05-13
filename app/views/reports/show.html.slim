@@ -23,8 +23,11 @@ header.page-header
           - if @report.emotion.present?
             .thread-header__emotion
               = Report.faces[@report.emotion]
-          .thread-header__reported-at
-            | #{l @report.reported_on} の日報
+          .thread-header__header
+            = link_to @report.user, class: "thread-header__author" do
+              = @report.user.login_name
+            .thread-header__date
+              | #{l @report.reported_on} の日報
           h1.thread-header__title(class="#{@report.wip? ? "is-wip" : ""}")
             - if @report.wip?
               span.thread-header__title-icon
@@ -39,11 +42,7 @@ header.page-header
               .stamp__content.is-user-name
                 = @checks.last.user.login_name
           .thread-meta
-            .thread-meta__author-name
-              = link_to @report.user, class: "thread-meta__author-name-link" do
-                = @report.user.login_name
-            time.thread-meta__created-at(datetime="#{@report.created_at.to_datetime}" pubdate="pubdate")
-              | 書いた日 : #{l @report.updated_at}
+            = render "thread/thread_watch", watchable: @report
         - if @report.practices.present?
           .report-practices
             ul.report-practices__items

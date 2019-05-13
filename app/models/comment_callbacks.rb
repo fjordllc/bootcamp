@@ -8,6 +8,8 @@ class CommentCallbacks
   def after_create(comment)
     if comment.sender != comment.reciever
       notify_comment(comment)
+      notify_to_watching_user(comment)
+      create_watch(comment)
     end
 
     notify_admin(comment)
@@ -41,5 +43,24 @@ class CommentCallbacks
           "#{comment.sender.login_name}さんが提出物にコメントしました。"
         )
       end
+    end
+
+    def notify_to_watching_user(comment)
+      subject = comment.commentable
+
+      if subject.watched?
+        watcher_id = Watch.where(watchable_id: subject.id).pluck(:user_id)
+        User.where(id: watcher_id).each do |watcher|
+          Notification.watching_notification(subject, watcher) unless watcher.id == comment.sender.id
+        end
+      end
+    end
+
+    def create_watch(comment)
+      @watch = Watch.new(
+        user: comment.user,
+        watchable: comment.commentable
+      )
+      @watch.save!
     end
 end

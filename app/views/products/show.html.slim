@@ -19,18 +19,16 @@ header.page-header
     .thread
       .thread__inner.a-card
         header.thread-header
+          .thread-header__header
+            = link_to @product.user, class: "thread-header__author" do
+              = @product.user.login_name
+            .thread-header__date
+              time.thread-header__date-value(datetime="#{@product.updated_at.to_datetime}" pubdate="pubdate")
+                = l @product.updated_at
           h1.thread-header__title
             | #{link_to @product.practice.title, @product.practice, class: "thread-header__title-link"}の提出物
           .thread-meta
-            .thread-meta__author-name
-              = link_to @product.user, class: "thread-meta__author-name-link" do
-                = @product.user.login_name
-            time.thread-meta__created-at(datetime="#{@product.created_at.to_datetime}" pubdate="pubdate")
-              = l @product.created_at
-            .thread-meta__label
-              | 最終更新
-            time.thread-meta__updated-at(datetime="#{@product.updated_at.to_datetime}" pubdate="pubdate")
-              = l @product.updated_at
+            = render "thread/thread_watch", watchable: @product
         - if @product.checks.any?
           .stamp.stamp-approve
             h2.stamp__content.is-title
@@ -43,6 +41,7 @@ header.page-header
           =  @product.practice.goal
         .thread__description.js-target-blank.is-long-text.js-markdown-view
           =  @product.body
+
         - if @product.user == current_user || admin_login?
           .card-footer
             .card-footer-actions
