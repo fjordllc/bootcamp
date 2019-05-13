@@ -14,6 +14,13 @@
 
 .a-label
   +text-block(14px 1.45 0 .5rem, block 600)
+  &.is-required
+    &::after
+      +fa(fas '\f069')
+      +text-block(.625rem, $danger inline-block)
+      margin-left: .125rem
+      vertical-align: top
+      transform: scale(.7)
 
 .a-text-input
   +text-block(.875rem 1.45, block)
@@ -25,13 +32,36 @@
   transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
   +media-breakpoint-down(sm)
     font-size: 1rem
+  .field_with_errors &
+    border-color: #e1a7b6
+    background-color: #fefafb
   &:focus
     background-color: $base
+    border-color: tint($primary, 20%)
     box-shadow: rgba(black, .07) 0 .0625rem .0625rem inset, rgba($primary, .4) 0 0 1px 2px
   &.is-inputed
     border-style: dashed
   &.is-align-center
     text-align: center
+
+input[type=date].a-text-input,
+input[type=month].a-text-input,
+input[type=week].a-text-input
+  &::-webkit-inner-spin-button,
+  &::-webkit-clear-button
+    -webkit-appearance: none
+  &::-webkit-calendar-picker-indicator
+    color: transparent
+    background-color: transparent
+    +position(absolute, left 0, right 0, top 0, bottom 0)
+    +size(100%)
+    cursor: pointer
+
+textarea.a-text-input
+  min-height: 6rem
+  overflow: hidden
+  &.is-md
+    min-height: 16rem
 
 .a-sm-text-input
   +text-block(.875rem 1.45, block)
@@ -84,7 +114,8 @@ textarea.a-sm-text-input
 
 .a-file-input
   label
-    +size(27rem 10rem)
+    height: 10rem
+    width: 31.5rem
     max-width: 100%
     +margin(horizontal, auto)
     border: solid 1px $input-border
@@ -134,6 +165,8 @@ textarea.a-sm-text-input
   margin-top: .5em
   &.is-text-align-right
     text-align: right
+  &.is-text-align-center
+    text-align: center
   [class*=a-button] + &
     margin-top: 1em
   p
