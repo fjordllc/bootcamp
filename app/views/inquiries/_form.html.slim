@@ -1,18 +1,23 @@
 = form_with model: inquiry, url: inquiry_path, method: :post, local: true do |f|
   = render "errors", object: inquiry
-  .auth-form-items
-    .auth-form-item
+  .form__items
+    .form-item
       = f.label :name, class: "a-label is-required"
       = f.text_field :name, class: "a-text-input"
-    .auth-form-item
+    .form-item
       = f.label :email, class: "a-label is-required"
       = f.text_field :email, class: "a-text-input"
-    .auth-form-item
+    .form-item
       = f.label :body, class: "a-label is-required" do
         | お問い合わせ内容
       = f.text_area :body, class: "a-text-input is-md"
+    .form-item
+      .a-label
+        | 個人情報の取り扱いについて
+      .a-form-frame.form-item__pp
+        = render("pp")
 
-  .auth-form-action.is-sign-up-action
-    ul.auth-form-action__items
-      li.auth-form-action__item
-        = f.submit "送信する", class: "a-button is-lg is-warning is-block"
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit "上記内容に同意して送信", class: "a-button is-lg is-warning is-block"

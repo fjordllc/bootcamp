@@ -55,3 +55,39 @@
 .form-item__times-action
   #tasks .form-item:first-child &
     display: none
+
+.form-item__remember-me
+  +text-block(.875rem)
+  cursor: pointer
+
+.form-item__remember-me-input
+  margin-right: .25rem
+
+.form-item__pp
+  p
+    +text-block(.8125rem 1.8 0 1em)
+  h2
+    +text-block(.8125rem 1.8 0 .4em 600)
+  ul
+    margin-bottom: 1em
+    list-style: disc outside
+    margin-left: 1.5rem
+  li
+    +text-block(.8125rem 1.8 0 .4em)
+  *:last-child
+    margin-bottom: 0
+
+.form-item__twitter-input
+  position: relative
+  &::before
+    content: '@'
+    +text-block(1rem 1, flex)
+    align-items: center
+    justify-content: center
+    +size(2rem 100%)
+    +position(absolute, left 0, top 0)
+    background-color: $background
+    +border-radius(left, .25rem)
+    border: solid 1px #c1c5b9
+  input
+    padding-left: 2.5rem

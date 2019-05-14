@@ -5,18 +5,21 @@
     h1.auth-form__title = title
 
   .auth-form__body
-    = form_for @user, url: password_reset_path(@token), htnl: { method: :put } do |f|
-      .auth-form-items
+    = form_for @user, url: password_reset_path(@token), html: { method: :put, class: "form" } do |f|
+      .form__items
         - if @user.errors.any?
           = error_messages_for :user
-        .auth-form-item
+        .form-item
           = f.label :email, class: "a-sm-label is-required"
           = f.text_field :email, class: "a-sm-text-input"
-        .auth-form-item
+        .form-item
           = f.label :password, class: "a-sm-label"
           = f.password_field :password, class: "a-sm-text-input", autocomplete: :off
-        .auth-form-item
+        .form-item
           = f.label :password_confirmation, class: "a-sm-label"
           = f.password_field :password_confirmation, class: "a-sm-text-input", autocomplete: :off
-        .auth-form-item
-          = f.submit nil, class: "a-button is-md is-warning"
+
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item.is-main
+            = f.submit nil, class: "a-button is-md is-warning is-block"
