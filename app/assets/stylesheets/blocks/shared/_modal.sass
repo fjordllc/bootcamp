@@ -2,7 +2,7 @@
   display: none
   +position(fixed, left 0, top 0, right 0, bottom 0, 100)
   padding: 1rem
-  &.is-active
+  input:checked + &
     display: block
 
 .modal__overlay
@@ -29,15 +29,29 @@
   border-bottom: solid 1px $background
 
 .modal-header__close
-  +text-block(2rem 1, flex)
+  display: flex
   align-items: center
   justify-content: center
   +size(2.75rem)
   cursor: pointer
   margin-right: -.75rem
-  color: $muted-text
+  opacity: .7
+  transition: all .2s ease-out
+  position: relative
+  &::before,
+  &::after
+    content: ""
+    display: block
+    +size(50% 2px)
+    background-color: $default-text
+    +position(absolute, left 50%, top 50%)
+    border-radius: 2px
+  &::before
+    transform: translate(-50%, -50%) rotate(45deg)
+  &::after
+    transform: translate(-50%, -50%) rotate(-45deg)
   &:hover
-    color: $default-text
+    opacity: 1
 
 .modal-body
   max-height: calc(100vh - 11.5rem)
