@@ -11,14 +11,15 @@ header.page-header
   .auth-form__body
     - if @user.errors.any?
       = render "errors", object: @user
-    = form_with model: @user, local: true, url: user_retirement_path, method: :post do |f|
-      .auth-form-item
-        = f.label :retire_reason, "退会理由", class: "a-sm-label"
-        = f.text_area :retire_reason, class: "a-sm-text-input is-md", placeholder: "退会理由を記入して下さい"
+    = form_with model: @user, local: true, url: user_retirement_path, method: :post, class: "form" do |f|
+      .form__items
+        .form-item
+          = f.label :retire_reason, "退会理由", class: "a-label is-required"
+          = f.text_area :retire_reason, class: "a-text-input is-md", placeholder: "退会理由を記入して下さい"
 
-      .auth-form-action.is-sign-up-action
-        ul.auth-form-action__items
-          li.auth-form-action__item
-            = link_to "キャンセル", :back, class: "a-button is-xs is-secondary is-block"
-          li.auth-form-action__item
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item.is-main
+            = link_to "キャンセル", :back, class: "a-button is-md is-secondary is-block"
+          li.form-actions__item.is-main
             = f.submit "退会する", class: "a-button is-md is-danger is-block", data: { confirm: "本当によろしいですか？" }

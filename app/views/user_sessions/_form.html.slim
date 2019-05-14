@@ -1,19 +1,22 @@
-= form_for user, url: user_sessions_path, html: { id: "sign-in-form", class: "auth-form__form" }  do |f|
-  .auth-form-items
-    .auth-form-item
-      = f.label :login_name, class: "a-sm-label"
-      = f.text_field :login_name, class: "a-sm-text-input"
-    .auth-form-item
-      = f.label :password, class: "a-sm-label"
-      = f.password_field :password, class: "a-sm-text-input"
-    .auth-form-item
-      label.auth-form-item__remember-me
-        = check_box_tag :remember, params[:remember], true, class: "auth-form-item__remember-me-input"
+= form_for user, url: user_sessions_path, html: { id: "sign-in-form", class: "form" }  do |f|
+  .form__items
+    .form-item
+      = f.label :login_name, class: "a-label"
+      = f.text_field :login_name, class: "a-text-input"
+    .form-item
+      = f.label :password, class: "a-label"
+      = f.password_field :password, class: "a-text-input"
+    .form-item
+      label.form-item__remember-me.a-checkbox
+        = check_box_tag :remember, params[:remember], true, class: "form-item__remember-me-input"
         | 次回から自動的にログイン
       .a-form-help.is-text-align-right
-        span.a-form-help-link.js-modal(data-target="#forgot-password-modal")
+        label.a-form-help-link(for="forgot-password-modal")
           | パスワードを忘れた
-  .auth-form-action
-    = button_tag(class: "a-button is-lg is-warning is-block") do
-      | サインイン
-= render "users/nda_modal"
+  .form-actions
+    .form-actions__items
+      .form-actions__item.is-main
+        = button_tag(class: "a-button is-lg is-warning is-block") do
+          | サインイン
+
+= render "forgot_password_modal"

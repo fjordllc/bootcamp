@@ -13,7 +13,7 @@
     box-shadow: rgba(black, .07) 0 .0625rem .0625rem inset
 
 .a-label
-  +text-block(.875rem 1.4 0 .5rem, block 600)
+  +text-block(.875rem 1.5 0 .5rem, block 600)
   &.is-required
     &::after
       +fa(fas '\f069')
@@ -24,9 +24,9 @@
 
 .a-text-input
   +text-block(.875rem 1.45, block)
+  background-color: #f7f7f7
   width: 100%
   padding: .5rem
-  background-color: #f7f7f7
   border: solid 1px $input-border
   border-radius: .25rem
   transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
@@ -163,26 +163,37 @@ textarea.a-sm-text-input
 .a-form-help
   font-size: .75rem
   margin-top: .5em
+  color: $semi-muted-text
   &.is-text-align-right
     text-align: right
   &.is-text-align-center
     text-align: center
   [class*=a-button] + &
     margin-top: 1em
+  [class*=is-select] + &
+    margin-top: .5em
   p
-    +text-block(1em 1.5 0 1em)
+    +text-block(1em 1.6 0 .75em)
   a
     +hover-link-reversal
   *:last-child
     margin-bottom: 0
   a
-    +text-block(.75rem 1.5)
+    +text-block(.75rem 1.6)
     +hover-link-reversal
     cursor: pointer
     +default-link
 
 .a-form-help-link
-  +text-block(.75rem 1.5)
+  +text-block(.75rem 1.6)
   +hover-link-reversal
   cursor: pointer
   +default-link
+
+.a-form-frame
+  max-height: 10rem
+  overflow-y: auto
+  width: 100%
+  padding: .5rem
+  border: solid 1px $input-border
+  border-radius: .25rem
