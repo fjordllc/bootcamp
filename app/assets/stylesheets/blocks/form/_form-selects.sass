@@ -7,12 +7,6 @@
 .form-selects
   display: flex
 
-.form-item__time
-  margin-right: 1rem
-  +media-breakpoint-down(sm)
-    margin-right: 0
-    margin-bottom: 1rem
-
 .form-selects__item
   display: flex
   align-items: center
@@ -21,7 +15,5 @@
       content: ":"
       display: block
       +padding(horizontal, .5rem)
-
-.form-item__times-action
-  #tasks .form-item:first-child &
-    display: none
+      +media-breakpoint-down(sm)
+        +padding(horizontal, .375rem)

@@ -1,0 +1,16 @@
+- if notice
+  input.a-toggle-checkbox#hide-flash(type="checkbox")
+  .flash.is-notice
+    .container
+      .flash__container
+        label.flash__close(for="hide-flash")
+        p.flash__message
+          = notice
+- if alert
+  input.a-toggle-checkbox#hide-flash(type="checkbox")
+  .flash.is-alert
+    .container
+      .flash__container
+        label.flash__close(for="hide-flash")
+        p.flash__message
+          = alert
