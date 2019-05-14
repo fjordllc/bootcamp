@@ -28,11 +28,11 @@
       // 名前
       .row
         .col-xs-6
-          .auth-form-item
+          .form-item
             = f.label :last_name, class: "a-label is-required"
             = f.text_field :last_name, class: "a-text-input", placeholder: "駒形"
         .col-xs-6
-          .auth-form-item
+          .form-item
             = f.label :first_name, class: "a-label is-required"
             = f.text_field :first_name, class: "a-text-input", placeholder: "真幸"
       - unless user.adviser?
@@ -154,10 +154,10 @@
         .form-item
           // 就職活動中
           = f.label :job_seeking, class: "a-label"
-          ul.auth-form-item__checkboxes
-            li.auth-form-checkbox
-              label.auth-form-checkbox__label
-                = f.check_box :job_seeking, class: "auth-form-checkbox__input"
+          ul.form-item__checkboxes
+            li.form-checkbox
+              label.form-checkbox__label
+                = f.check_box :job_seeking, class: "form-checkbox__input"
                 = User.human_attribute_name :job_seeking
       .form-item
         = f.label :slack_account, class: "a-label"
@@ -169,7 +169,8 @@
           p URL ではなく ID を入力。
       .form-item
         = f.label :twitter_account, class: "a-label"
-        = f.text_field :twitter_account, class: "a-text-input", placeholder: "komagata"
+        .form-item__twitter-input
+          = f.text_field :twitter_account, class: "a-text-input", placeholder: "komagata"
         .a-form-help
           p URL ではなく アカウント を入力。
       .form-item
@@ -199,26 +200,26 @@
       .form-item
         // アドバイザー
         = f.label :adviser, class: "a-label"
-        ul.auth-form-item__checkboxes
-          li.auth-form-checkbox
-            label.auth-form-checkbox__label
-              = f.check_box :adviser, class: "auth-form-checkbox__input"
+        ul.form-item__checkboxes
+          li.form-checkbox
+            label.form-checkbox__label
+              = f.check_box :adviser, class: "form-checkbox__input"
               = User.human_attribute_name :adviser
       .form-item
         // 無料ユーザー
         = f.label :free, class: "a-label"
-        ul.auth-form-item__checkboxes
-          li.auth-form-checkbox
-            label.auth-form-checkbox__label
-              = f.check_box :free, class: "auth-form-checkbox__input"
+        ul.form-item__checkboxes
+          li.form-checkbox
+            label.form-checkbox__label
+              = f.check_box :free, class: "form-checkbox__input"
               = User.human_attribute_name :free
       .form-item
         // 研修生
         = f.label :trainee, class: "a-label"
-        ul.auth-form-item__checkboxes
-          li.auth-form-checkbox
-            label.auth-form-checkbox__label
-              = f.check_box :trainee, class: "auth-form-checkbox__input"
+        ul.form-item__checkboxes
+          li.form-checkbox
+            label.form-checkbox__label
+              = f.check_box :trainee, class: "form-checkbox__input"
               = User.human_attribute_name :trainee
       .form-item
         // リタイア

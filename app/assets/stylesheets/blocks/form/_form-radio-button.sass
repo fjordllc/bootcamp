@@ -1,4 +1,4 @@
-.auth-form-item__radio-buttons
+.form-item__radio-buttons
   margin-top: .5rem
   &.is-half
     margin-bottom: -.5rem
@@ -6,7 +6,7 @@
     flex-wrap: wrap
     +margin(horizontal, -.5rem)
 
-.auth-form-radio-button
+.form-radio-button
   &.is-half
     flex: 0 0 50%
     max-width: 50%
@@ -15,7 +15,7 @@
       flex: 100%
       max-width: 100%
 
-.auth-form-radio-button__label
+.form-radio-button__label
   +text-block(.8125rem 1.45 0 .5rem, block)
   border: solid 1px #c1c5b9
   padding: .5rem .5rem .5rem 2rem
@@ -23,7 +23,7 @@
   border-radius: .25rem
   transition: all .2s ease-in
   +position(relative)
-  .auth-form-radio-button.is-half &
+  .form-radio-button.is-half &
     margin-bottom: .5rem
   &::before
     content: ''
@@ -48,38 +48,6 @@
       margin-top: -.1875rem
       box-shadow: rgba(black, .1) 0 1px 2px
       background-color: #4193e9
-  input
-    opacity: 0
-    +position(absolute)
-
-.auth-form-checkbox__label
-  +text-block(.8125rem 1.45 0 .5rem, block)
-  border: solid 1px #c1c5b9
-  padding: .5rem .5rem .5rem 2rem
-  cursor: pointer
-  border-radius: .25rem
-  +position(relative)
-  transition: background-color .2s ease-in, border-color  .2s ease-in
-  &::before
-    content: ''
-    display: block
-    +size(.875rem)
-    border: solid 1px #bbbbbb
-    border-radius: .1875rem
-    +position(absolute, left .75rem, top 50%)
-    margin-top: -.4375rem
-    box-shadow: rgba(black, .1) 0 1px 2px inset
-    background-color: $base
-  &.is-checked
-    background-color: #fffadd
-    border-color: #d9c02a
-    font-weight: 600
-    &::after
-      +fa(fas '\f00c')
-      +text-block(.75rem .875rem, center block #4193e9)
-      +size(.875rem)
-      +position(absolute, left .75rem, top 50%)
-      margin-top: -.4375rem
   input
     opacity: 0
     +position(absolute)

@@ -1,12 +1,12 @@
 - method = action == :new ? "post" : "put"
 = javascript_include_tag "https://js.stripe.com/v3/"
 = form_with url: card_path, method: method, local: true, id: "payment-form" do |f|
-  .auth-form-items
-    .auth-form-item
+  .form__items
+    .form-item
       label.a-label(for="card-element") カード番号
       #card-element.a-text-input
       #card-errors(role="alert")
-  .auth-form-action
-    ul.auth-form-action__items
-      li.auth-form-action__item
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
         button.a-button.is-lg.is-warning.is-block カードを登録
