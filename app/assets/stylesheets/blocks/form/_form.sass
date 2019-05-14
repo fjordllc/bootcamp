@@ -5,10 +5,53 @@
 .form__items
   max-width: 82rem
   +margin(horizontal, auto)
+  .form__items + &
+    margin-top: 1.75rem
+
+.form__items-inner
+  width: 42.5rem
+  max-width: 100%
 
 .form-item
   margin-bottom: 1.75rem
   &:last-child
     margin-bottom: 0
   &.is-hidden
+    display: none
+
+.form-item__add-times
+  margin-top: 1rem
+  +media-breakpoint-down(sm)
+    margin-top: -1rem
+
+.form-item__times + .form-item__times
+  margin-top: 1rem
+
+.form-item__times-inner
+  +media-breakpoint-up(md)
+    display: flex
+    align-items: flex-end
+
+.form-item__times-items
+  display: flex
+
+.form-item__time
+  display: flex
+  flex-direction: column
+  margin-right: 1rem
+  +media-breakpoint-down(sm)
+    margin-right: 0
+    flex-basis: 50%
+
+.form-item__time-label
+  +text-block(.75rem 1.4 0 .5rem, block)
+
+.form-item__times-action
+  +media-breakpoint-down(sm)
+    margin-top: .75rem
+    display: flex
+    justify-content: flex-end
+
+.form-item__times-action
+  #tasks .form-item:first-child &
     display: none

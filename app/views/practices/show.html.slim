@@ -14,7 +14,6 @@ header.page-header
                 | プラクティス作成
           li.page-header-actions__item
             = link_to course_practices_path(current_user.course), class: "a-button is-md is-secondary is-block" do
-              i.fas.fa-angle-left
               | プラクティス一覧
 
 = render "page_tabs", resource: @practice
