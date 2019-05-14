@@ -30,7 +30,7 @@ html.is-application lang="ja"
     .wrapper
       - if display_header?
         = render "header"
-      = render "alert"
+      = render "flash"
       main.page
         = yield
     - if display_recent_reports?

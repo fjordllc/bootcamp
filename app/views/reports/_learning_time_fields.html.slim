@@ -1,18 +1,18 @@
-.form-item
-  .nested-fields
+.form-item__times
+  .nested-fields.form-item__times-inner
     - tag = "</div></div><div class=\"form-selects__item\"><div class=\"a-button is-md is-secondary is-select a-select is-block form-selects__item-select form-item__select\">"
-    .form-item__times.learning-time
+    .form-item__times-items.learning-time
       .form-item__time
-        = f.label :started_at, class: "a-label"
+        = f.label :started_at, class: "form-item__time-label"
         .form-selects.learning-time__started-at
           .form-selects__item
             .a-button.is-md.is-secondary.is-select.is-block
               = f.time_select :started_at, time_separator: tag, minute_step: 15
       .form-item__time
-        = f.label :finished_at, class: "a-label"
+        = f.label :finished_at, class: "form-item__time-label"
         .form-selects.learning-time__finished-at
           .form-selects__item
             .a-button.is-md.is-secondary.is-select.is-block
               = f.time_select :finished_at, time_separator: tag, minute_step: 15
-      .form-item__times-action
-        = link_to_remove_association "削除", f, class: "a-button is-md is-secondary"
+    .form-item__times-action
+      = link_to_remove_association "削除", f, class: "a-button is-md is-warning"

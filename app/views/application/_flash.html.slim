@@ -1,0 +1,15 @@
+input.a-toggle-checkbox#hide-flash(type="checkbox")
+- if notice
+  .flash.is-notice
+    .container
+      .flash__container
+        label.flash__close(for="hide-flash")
+        p.flash__message
+          = notice
+- if alert
+  .flash.is-alert
+    .container
+      .flash__container
+        label.flash__close(for="hide-flash")
+        p.flash__message
+          = alert
