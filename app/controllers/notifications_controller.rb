@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class NotificationsController < ApplicationController
-  before_action :require_login, only: %i(show)
+  before_action :require_login, only: %i(index show)
   before_action :set_my_notification, only: %i(show)
+
+  def index
+    @notifications = current_user.notifications.order(created_at: :desc).page(params[:page])
+  end
 
   def show
     @notifications = current_user.notifications.where(path: @notification.path)

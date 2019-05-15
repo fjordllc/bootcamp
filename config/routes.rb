@@ -65,7 +65,7 @@ Rails.application.routes.draw do
   resources :reports
   resources :checks, only: %i(create destroy)
   resources :comments
-  resources :notifications, only: %i(show)
+  resources :notifications, only: %i(index show)
   resources :pages
   resources :watches
 

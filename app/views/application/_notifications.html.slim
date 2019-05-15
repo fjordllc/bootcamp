@@ -13,3 +13,6 @@ input.a-toggle-checkbox(type="checkbox" id="#{toggle_id}")
                   = notification.message
               time.header-notifications-item_created-at
                 = time_ago_in_words(notification.created_at) + "前"
+    footer.header-dropdown__footer
+      = link_to notifications_path, class: "header-dropdown__footer-link" do
+        | 全ての通知
