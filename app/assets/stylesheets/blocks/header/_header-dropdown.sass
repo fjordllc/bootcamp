@@ -12,15 +12,35 @@
   &.is-notification
     width: 15rem
 
+.header-dropdown__items
+  .header-dropdown__inner.is-notification &
+    max-height: 80vh
+    overflow-y: auto
+
 .header-dropdown__item-link
   +text-block(.875rem 1.4, $main)
   +flex-link
   padding: .5rem .75rem
   transition: all .2s ease-out
   &:hover
-    background-color: #f8f8f8
+    background-color: $background-more-tint
   .header-dropdown__item:not(:last-child) &
     border-bottom: solid 1px $background-shade
+
+.header-dropdown__footer
+  border-top: solid 1px $background-shade
+  +border-radius(bottom, .25rem)
+  overflow: hidden
+
+.header-dropdown__footer-link
+  +text-block(.875rem 1.4, $main)
+  +flex-link
+  align-items: center
+  justify-content: center
+  +size(100% 2.75rem)
+  transition: all .2s ease-out
+  &:hover
+    background-color: $background-more-tint
 
 .header-dropdown__background
   +position(fixed, left 0, top 0, right 0, bottom 0, 2)
