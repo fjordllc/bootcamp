@@ -117,4 +117,10 @@ class UsersTest < ApplicationSystemTestCase
       assert_text "退会処理が完了しました"
     end
   end
+
+  test "show progress bar" do
+    login_user "hajime", "testtest"
+    visit "/users"
+    assert_selector ".completed-practices-progress"
+  end
 end
