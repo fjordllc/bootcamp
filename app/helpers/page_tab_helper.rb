@@ -47,9 +47,6 @@ module PageTabHelper
         reports: "日報",
         questions: "質問",
         products: "提出物",
-        users: "プロフィール",
-        comments: "コメント",
-        portfolio: "ポートフォリオ"
       }
     end
 
@@ -72,23 +69,8 @@ module PageTabHelper
       page_tab_member(tab_path(resource, tab_name), tab_name, is_products_tab: true)
     end
 
-    def users_tab_members(resource)
-      [
-        root_tab(resource),
-        reports_tab(resource),
-        comments_tab(resource),
-        products_tab(resource),
-        portfolio_tab(resource)
-      ]
-    end
-
     def comments_tab(resource)
       tab_name = :comments
-      page_tab_member(tab_path(resource, tab_name), tab_name)
-    end
-
-    def portfolio_tab(resource)
-      tab_name = :portfolio
       page_tab_member(tab_path(resource, tab_name), tab_name)
     end
 

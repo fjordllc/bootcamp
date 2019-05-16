@@ -15,15 +15,20 @@ header.page-header
                 | 作品を追加
 
 .page-tools
-  = render "page_tabs", resource: @user
+  = render "users/page_tabs", user: @user
 
 .page-body
   .container
-    .works
-      .row.is-gutter-width-32
-        = render partial: "works/work", collection: @works, as: :work
-      - if current_user == @user
-        li.page-header-actions__item
-          = link_to new_work_path, class: "a-button is-md is-warning is-block" do
+    - if @user.works.present?
+      .works
+        .row.is-gutter-width-32
+          = render partial: "works/work", collection: @works, as: :work
+    - else
+      .a-empty-message
+        | 作品はまだ登録されていません。
+    .page-body-actions
+      ul.page-body-actions__items
+        li.page-body-actions__item
+          = link_to new_work_path, class: "a-button is-lg is-warning is-block" do
             i.fas.fa-plus
             | 作品を追加

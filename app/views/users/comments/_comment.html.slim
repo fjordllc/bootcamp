@@ -15,5 +15,5 @@
             = comment.user.login_name
       time.thread-comment__created-at(datetime="#{commentable.created_at.to_datetime}" pubdate="pubdate")
         = l comment.updated_at
-    .thread-list-item__body
+    .thread-list-item__summury
       = md_summury(comment.description, 90)

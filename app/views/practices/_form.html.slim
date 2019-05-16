@@ -23,7 +23,7 @@
       .row.js-markdown-parent
         .col-md-6.col-xs-12
             = f.label :description, class: "a-label"
-            = f.text_area :description, class: "a-textarea js-warning-form markdown-form__text-area js-markdown", data: { "preview": ".js-description-preview" }
+            = f.text_area :description, class: "a-text-input js-warning-form markdown-form__text-area js-markdown", data: { "preview": ".js-description-preview" }
         .col-md-6.col-xs-12
           .a-label
             | プレビュー
@@ -32,7 +32,7 @@
       .row.js-markdown-parent
         .col-md-6.col-xs-12
           = f.label :goal, class: "a-label"
-          = f.text_area :goal, class: "a-textarea js-warning-form markdown-form__text-area js-markdown", data: { "preview": ".js-goal-preview" }
+          = f.text_area :goal, class: "a-text-input js-warning-form markdown-form__text-area js-markdown", data: { "preview": ".js-goal-preview" }
         .col-md-6.col-xs-12
           .a-label
             | プレビュー
