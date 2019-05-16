@@ -6,7 +6,7 @@
           - if work.thumbnail.present?
             = image_tag work.thumbnail_image(40), class: "works-item__image"
           - else
-            = "No Image"
+            = image_tag("work-blank.svg", class: "works-item__image")
           //= image_tag work.thumbnail_image(80), class: "works-item__icon-image" unless work.thumbnail.nil?
       .works-item__body
         h2.works-item__title
