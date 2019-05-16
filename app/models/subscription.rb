@@ -8,4 +8,8 @@ module Subscription
       items: [{ plan: Plan.standard_plan.id }],
     )
   end
+
+  def self.destroy(subscription_id)
+    Stripe::Subscription.update(subscription_id, cancel_at_period_end: true)
+  end
 end

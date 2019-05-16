@@ -16,7 +16,9 @@ class UsersTest < ApplicationSystemTestCase
     assert_text "管理者としてログインしてください"
   end
 
-  test "user is canceled" do
+  test "retire user" do
+    stub_subscription_destroy!
+
     login_user "hatsuno", "testtest"
     user = users(:hatsuno)
     visit edit_current_user_path
@@ -53,7 +55,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_text "リタイア日"
   end
 
-  test "nomal user can't see unchecked number table" do
+  test "normal user can't see unchecked number table" do
     login_user "hatsuno", "testtest"
     visit "/users/#{users(:hatsuno).id}"
     assert_equal 0, all(".admin-table").length
@@ -95,6 +97,8 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test "delete unchecked products when the user retired" do
+    stub_subscription_cancel!
+
     login_user "muryou", "testtest"
     user = users(:muryou)
     visit "/products/new?practice_id=#{practices(:practice_5).id}"

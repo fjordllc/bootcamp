@@ -61,11 +61,10 @@ jobs:
             - ~/.cache/yarn
           key: rails-yarn-{{ checksum "yarn.lock" }}
 
-      - run: gem install rubocop
       - run:
           name: rubocop
           command: |
-            rubocop -R -c .rubocop.yml
+            bundle exec rubocop -R -c .rubocop.yml
 
       - run:
           name: Lint
