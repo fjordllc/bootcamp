@@ -57,11 +57,12 @@ end
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
-  gem "rubocop"
 
   # not default
   gem "pry-byebug"
   gem "simple_seed"
+  gem "rubocop", require: false
+  gem "rubocop-performance"
 end
 
 group :development do
