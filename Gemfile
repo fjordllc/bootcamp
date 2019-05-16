@@ -57,11 +57,12 @@ end
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
-  gem "rubocop"
 
   # not default
   gem "pry-byebug"
   gem "simple_seed"
+  gem "rubocop", require: false
+  gem "rubocop-performance"
 end
 
 group :development do
@@ -80,8 +81,9 @@ end
 group :test do
   gem "capybara", ">= 2.15", "< 4.0"
   gem "selenium-webdriver"
-  gem "chromedriver-helper"
 
   # not default
   gem "minitest", "~> 5.10", "!= 5.10.2"
+  gem "webdrivers", "~> 3.0"
+  gem "webmock"
 end
