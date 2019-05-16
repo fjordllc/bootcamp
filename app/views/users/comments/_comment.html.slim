@@ -16,4 +16,4 @@
       time.thread-comment__created-at(datetime="#{commentable.created_at.to_datetime}" pubdate="pubdate")
         = l comment.updated_at
     .thread-list-item__body
-      = comment_summury(comment.description, 90)
+      = md_summury(comment.description, 90)

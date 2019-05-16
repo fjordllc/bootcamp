@@ -19,7 +19,7 @@ header.page-header
     .thread
       .thread__inner.a-card
         header.thread-header
-          .thread-header__header
+          .thread-header__upper-side
             = link_to @product.user, class: "thread-header__author" do
               = @product.user.login_name
             .thread-header__date
@@ -27,7 +27,7 @@ header.page-header
                 = l @product.updated_at
           h1.thread-header__title
             | #{link_to @product.practice.title, @product.practice, class: "thread-header__title-link"}の提出物
-          .thread-meta
+          .thread-header__lower-side
             = render "thread/thread_watch", watchable: @product
         #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type="product")
         .thread__description.js-target-blank.is-long-text.js-markdown-view

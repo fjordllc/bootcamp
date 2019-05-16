@@ -1,2 +1,52 @@
 .users
   margin-bottom: -1.5rem
+
+.users-item
+  padding-bottom: 1.5rem
+  height: 100%
+
+.users-item.inactive
+  opacity: .5
+
+.users-item__inner
+  height: 100%
+
+.users-item__header
+  +position(relative)
+  padding-left: 3.5rem
+  border-bottom: solid 1px $background
+  padding-bottom: .5rem
+  +media-breakpoint-down(sm)
+    padding-left: 3rem
+
+.users-item__name
+  +text-block(1.125rem 1.45, 600 $main block)
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+
+.users-item__name-link
+  color: $main
+  display: block
+  +padding(vertical, .5rem)
+  +hover-link
+
+.users-item__icon-image
+  border-radius: 50%
+  +position(absolute, left -1rem, top -.375rem)
+  +size(4rem)
+  border: solid $base .25rem
+  background-color: white
+  object-fit: cover
+  +media-breakpoint-down(sm)
+    +size(3rem)
+    +position(absolute, left -.5rem, top -.25rem)
+    border: solid $base .125rem
+
+.users-item__description
+  padding: .75rem 1rem
+  font-size: .75rem
+
+.users-item__edit
+  text-align: center
+  margin-top: -.25rem
+  padding-bottom: 1rem

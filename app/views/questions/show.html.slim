@@ -19,7 +19,7 @@ header.page-header
     .thread
       .thread__inner.a-card
         header.thread-header
-          .thread-header__header
+          .thread-header__upper-side
             = link_to @question.user, class: "thread-header__author" do
               = @question.user.login_name
             .thread-header__date
@@ -27,7 +27,7 @@ header.page-header
                 = l @question.updated_at
           h1.thread-header__title
             = @question.title
-          .thread-meta
+          .thread-header__lower-side
             = render "thread/thread_watch", watchable: @question
         - if @question.practice.present?
           .report-practices
@@ -35,7 +35,7 @@ header.page-header
               li.report-practices__item
                 = link_to @question.practice, class: "report-practices__item-link" do
                   = @question.practice.title
-        .thread-body
+        .thread__body
           .thread__description.js-markdown-view.js-target-blank.is-long-text.js-markdown
             = @question.description
           = render "reactions/reactions", reactionable: @question

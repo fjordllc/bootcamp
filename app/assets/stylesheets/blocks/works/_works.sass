@@ -1,0 +1,38 @@
+.works
+  margin-bottom: -1.5rem
+
+.works-item
+  margin-bottom: 1.5rem
+
+.works-item__header
+  +border-radius(top, .25rem)
+  overflow: hidden
+
+.works-item__image
+  object-fit: cover
+  +media-breakpoint-up(xxl)
+    +size(100% 8vw)
+  +media-breakpoint-down(xl)
+    +size(100% 10vw)
+  +media-breakpoint-down(lg)
+    +size(100% 16vw)
+  +media-breakpoint-down(md)
+    +size(100% 24vw)
+  +media-breakpoint-down(sm)
+    +size(100% 48vw)
+
+.works-item__body
+  padding: 1rem
+
+.works-item__title
+  +text-block(1rem 1.5)
+
+.works-item__title-link
+  +hover-link-reversal
+
+.works-item__description
+  margin-top: .75rem
+  +media-breakpoint-up(md)
+    font-size: .8125rem
+  +media-breakpoint-down(sm)
+    font-size: .75rem

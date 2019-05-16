@@ -8,9 +8,8 @@ header.page-header
         .page-header-actions__items
           .page-header-actions__item
             = link_to user_portfolio_path(current_user), class: "a-button is-md is-secondary is-block" do
-              i.fas.fa-angle-left
-              | ポートフォリオへ
+              | ポートフォリオ
 
 .page-body
-  .container
+  .container.is-md
     = render "form", work: @work

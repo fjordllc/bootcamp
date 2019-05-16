@@ -1,33 +1,28 @@
 = render "errors", object: work
-= form_for work do |f|
+= form_for work, class: "form" do |f|
   .form__items
     .form-item
-      .row
-        .col-lg-9.col-xs-12
-          .form-item
-            = f.label :title, class: "a-label"
-            = f.text_field :title, class: "a-text-input js-warning-form"
-          .form-item
-            = f.label :url, class: "a-label"
-            = f.text_field :url, class: "a-text-input"
-          .form-item
-            = f.label :repository, class: "a-label"
-            = f.text_field :repository, class: "a-text-input"
-          .form-item
-            = f.label :description, class: "a-label"
-            = f.text_area :description, class: "a-textarea js-warning-form"
+      = f.label :title, class: "a-label is-required"
+      = f.text_field :title, class: "a-text-input js-warning-form"
     .form-item
-      .row
-        .col-md-6.col-xs-12
-          = f.label :thumbnail, class: "a-label"
-          .form-item-file-input.js-file-input.a-file-input.is-work-thumbnail
-            label.js-file-input__preview
-              - if work.thumbnail.attached?
-                = image_tag work.thumbnail_image(500)
-                p 画像を変更
-              - else
-                p 画像を選択
-              = f.file_field :thumbnail
+      = f.label :url, class: "a-label"
+      = f.text_field :url, class: "a-text-input"
+    .form-item
+      = f.label :repository, class: "a-label is-required"
+      = f.text_field :repository, class: "a-text-input"
+    .form-item
+      = f.label :description, class: "a-label is-required"
+      = f.text_area :description, class: "a-text-input is-md js-warning-form"
+    .form-item
+      = f.label :thumbnail, class: "a-label"
+      .form-item-file-input.js-file-input.a-file-input.is-work-thumbnail
+        label.js-file-input__preview
+          - if work.thumbnail.attached?
+            = image_tag work.thumbnail_image(500)
+            p 画像を変更
+          - else
+            p 画像を選択
+          = f.file_field :thumbnail
 
   .form-actions
     ul.form-actions__items
