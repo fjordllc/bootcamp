@@ -6,10 +6,11 @@
   margin-bottom: -.625rem
 
 .card-footer-actions__item
-  flex: 0 0 12rem
-  max-width: 50%
   +padding(horizontal, .375rem)
   margin-bottom: .625rem
+  +media-breakpoint-up(md)
+    flex: 0 0 14rem
+    max-width: 50%
   +media-breakpoint-down(sm)
-    flex: 0 0 100%
+    flex-basis: 100%
     max-width: 100%
