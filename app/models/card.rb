@@ -2,11 +2,10 @@
 
 class Card
   def self.create(user, card_token)
-    customer = Stripe::Customer.create(
+    Stripe::Customer.create(
       email: user.email,
       source: card_token
     )
-    user.update(customer_id: customer["id"])
   end
 
   def self.update(customer_id, card_token)
