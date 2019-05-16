@@ -4,6 +4,7 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 require "capybara/rails"
+Webdrivers.cache_time = 86_400
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.

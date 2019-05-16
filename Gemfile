@@ -81,8 +81,8 @@ end
 group :test do
   gem "capybara", ">= 2.15", "< 4.0"
   gem "selenium-webdriver"
-  gem "chromedriver-helper"
 
   # not default
   gem "minitest", "~> 5.10", "!= 5.10.2"
+  gem "webdrivers", "~> 3.0"
 end
