@@ -85,4 +85,5 @@ group :test do
   # not default
   gem "minitest", "~> 5.10", "!= 5.10.2"
   gem "webdrivers", "~> 3.0"
+  gem "webmock"
 end
