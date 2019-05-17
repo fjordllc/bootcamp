@@ -205,7 +205,7 @@ class ReportsTest < ApplicationSystemTestCase
     visit "/reports/new"
     fill_in "report_title", with: "テスト日報"
     fill_in "report_description", with: "ブラウザの日付入力を使う"
-    fill_in "report_reported_on", with: "2019-04-24"
+    fill_in "report_reported_on", with: Time.current.strftime("%Y-%m-%d")
 
     all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
     all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
@@ -215,7 +215,7 @@ class ReportsTest < ApplicationSystemTestCase
 
     click_button "提出"
 
-    assert_text "2019年04月24日"
+    assert_text Time.current.strftime("%Y年%m月%d日")
   end
 
   test "reports can be copied" do
