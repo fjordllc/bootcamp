@@ -1,4 +1,17 @@
 .a-empty-message
-  +text-block(1rem 1.5, center)
+  +text-block(1rem 1.6, center)
+  width: 42.5rem
+  +margin(horizontal, auto)
+  max-width: 100%
   +media-breakpoint-down(sm)
     font-size: .875rem
+  &.is-info
+    border: solid 2px $info
+    padding: .75rem 1.25rem
+    border-radius: .25rem
+    background-color: #dde8e3
+    color: #1c5a3b
+    +media-breakpoint-down(sm)
+      padding: .75rem 1rem
+  p
+    +text-block(.875em 1.6, left)

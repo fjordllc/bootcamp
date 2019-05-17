@@ -123,7 +123,7 @@ ja:
         title: タイトル
         description: 説明
         url: URL
-        repository: リポジトリ
+        repository: リポジトリURL
         url_or_repository: URLまたはリポジトリ
         thumbnail: サムネイル画像
     enums:
