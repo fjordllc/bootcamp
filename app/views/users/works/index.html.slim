@@ -24,8 +24,11 @@ header.page-header
         .row.is-gutter-width-32
           = render partial: "works/work", collection: @works, as: :work
     - else
-      .a-empty-message
-        | 作品はまだ登録されていません。
+      .a-empty-message.is-info
+        p
+          | このページは、就職希望先のエンジニアや人事担当者が、#{@user.login_name}さんのスキルを手っ取り早く確認するための作品集ページ（ポートフォリオ）です。
+          br
+          | 自分の作ったGemや登壇した際の発表資料、自分で作ったWebサービス、自分が書いた書籍など、作品を登録していきましょう。
     .page-body-actions
       ul.page-body-actions__items
         li.page-body-actions__item

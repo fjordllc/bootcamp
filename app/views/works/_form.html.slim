@@ -6,13 +6,22 @@
       = f.text_field :title, class: "a-text-input js-warning-form"
     .form-item
       = f.label :url, class: "a-label"
-      = f.text_field :url, class: "a-text-input"
+      = f.text_field :url, class: "a-text-input", placeholder: "https://speakerdeck.com/machida/rails-developers-meetup-2018-day-3-extreme"
+      .a-form-help
+        p
+          | Webサービスの場合はそのサービスのURL、イベントで登壇した際のプレゼン資料の場合は、スライドのURLを入力してください。
     .form-item
-      = f.label :repository, class: "a-label is-required"
-      = f.text_field :repository, class: "a-text-input"
+      = f.label :repository, class: "a-label"
+      = f.text_field :repository, class: "a-text-input", placeholder: "https://github.com/fjordllc/bootcamp"
+      .a-form-help
+        p
+          | URLかリポジトリ、どちらかが入力されていることが必須です。
     .form-item
       = f.label :description, class: "a-label is-required"
       = f.text_area :description, class: "a-text-input is-md js-warning-form"
+      .a-form-help
+        p
+          | 作品の説明、使い方、作った背景、発表資料の場合はイベントの詳細もあるといいです。またそれを作ることで学んだこと、苦労したこと、身についたことなども。
     .form-item
       = f.label :thumbnail, class: "a-label"
       .form-item-file-input.js-file-input.a-file-input.is-work-thumbnail
@@ -23,6 +32,10 @@
           - else
             p 画像を選択
           = f.file_field :thumbnail
+      .a-form-help
+        p
+          | 作品のイメージ画像、キャプチャ画像、アイコン画像、スライドの表示などを設定してください。（画像の推奨サイズ: 幅1200 * 高 630px）。
+
 
   .form-actions
     ul.form-actions__items
