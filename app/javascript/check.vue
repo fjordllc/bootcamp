@@ -9,7 +9,6 @@
         button.thread-check-form__action.is-text(@click="pushUnCheck")
           i.fas.fa-check
           | {{checkableLabel}}の確認を取り消す
-      
 </template>
 <script>
 import 'whatwg-fetch'
@@ -57,7 +56,7 @@ export default {
       }
     },
     pushCheck () {
-      let params = new FormData()  
+      let params = new FormData()
       params.append(`${this.checkableType}_id`, this.checkableId)
 
       fetch(`/api/checks`, {
@@ -100,5 +99,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-</style>
