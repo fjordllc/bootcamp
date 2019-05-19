@@ -5,6 +5,7 @@
         .users-item__header-container
           .users-item__name
             = link_to user.login_name, user, class: "users-item__name-link"
+            = user.slack_account
           .users-item__icon
             = link_to user do
               = image_tag user.avatar_image(80), class: "users-item__icon-image is-#{user.role}"
