@@ -14,8 +14,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     visit  "/reports/#{reports(:report_2).id}"
     assert has_button? "日報を確認する"
     click_button "日報を確認する"
-    assert_not has_button? "日報を確認する"
-    assert_text "日報を確認しました。"
+    assert has_button? "日報の確認を取り消す"
     visit reports_path
     assert_text "確認済"
   end
@@ -28,8 +27,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     click_link "作業週2日目"
     assert has_button? "日報を確認する"
     click_button "日報を確認する"
-    assert_not has_button? "日報を確認する"
-    assert_text "日報を確認しました。"
+    assert has_button? "日報の確認を取り消す"
     visit reports_path
     assert_text "確認済"
   end
@@ -39,6 +37,6 @@ class Check::ReportsTest < ApplicationSystemTestCase
     visit "/reports/#{reports(:report_2).id}"
     click_button "日報を確認する"
     click_button "日報の確認を取り消す"
-    assert_text "確認を取り消しました。"
+    assert has_button? "日報を確認する"
   end
 end
