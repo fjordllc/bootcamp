@@ -3,9 +3,8 @@
     - user.completed_practices.each do |practice|
       li.card-list__item
         = link_to practice, class: "card-list__item-link" do
-          .card-list__item-link-inner
-            = practice.title
-            .card-list__item-link-date
-              .card-list__item-link-date-label
-                | 完了日
-              = l practice.learning(user).updated_at.to_date
+          = practice.title
+          .card-list__item-link-date
+            .card-list__item-link-date-label
+              | 完了日
+            = l practice.learning(user).updated_at.to_date
