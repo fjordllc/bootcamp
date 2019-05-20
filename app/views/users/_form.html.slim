@@ -148,7 +148,7 @@
         = f.text_area :description, class: "a-sm-text-input", placeholder: placeholder
         .a-form-help
           p = help_text
-      - unless user.adviser?
+      - if user.admin?
         .form-item
           // 就職活動中
           = f.label :job_seeking, class: "a-label"
@@ -159,15 +159,17 @@
                 = User.human_attribute_name :job_seeking
       .form-item
         = f.label :slack_account, class: "a-label"
-        = f.text_field :slack_account, class: "a-text-input", placeholder: "komagata"
+        .form-item__mention-input
+          = f.text_field :slack_account, class: "a-text-input", placeholder: "komagata"
       .form-item
         = f.label :github_account, class: "a-label"
-        = f.text_field :github_account, class: "a-text-input", placeholder: "komagata"
+        .form-item__mention-input
+          = f.text_field :github_account, class: "a-text-input", placeholder: "komagata"
         .a-form-help
           p URL ではなく ID を入力。
       .form-item
         = f.label :twitter_account, class: "a-label"
-        .form-item__twitter-input
+        .form-item__mention-input
           = f.text_field :twitter_account, class: "a-text-input", placeholder: "komagata"
         .a-form-help
           p URL ではなく アカウント を入力。
