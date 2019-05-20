@@ -9,7 +9,7 @@
   +position(relative)
   padding-left: 3.75rem
   +media-breakpoint-down(sm)
-    padding-left: 3.25rem
+    padding-left: 3rem
 
 .thread-list-item__header-title-container
   +media-breakpoint-up(md)
@@ -53,7 +53,7 @@
   +size(2.75rem)
   object-fit: cover
   +media-breakpoint-down(sm)
-    +size(2.5rem)
+    +size(2.25rem)
     object-fit: cover
   .thread-list-item.is-wip &
     opacity: .6
@@ -85,8 +85,11 @@
     color: $reversal-text
     font-size: .625rem
 
+.thread-list-item__title
+  width: 100%
+
 .thread-list-item__title-link
-  +text-block(1rem 1.5, 600 $side)
+  +text-block(.875rem 1.5, 600 $side block)
   word-break: break-all
   +hover-link-reversal
   .thread-list-item.is-wip &,

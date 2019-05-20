@@ -1,0 +1,3 @@
+- if current_user.student? && !current_user.free? && !current_user.paid?
+ = link_to new_card_path, class: "card-list__item-link" do
+  | クレジットカードをしてください。

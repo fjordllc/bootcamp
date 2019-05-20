@@ -7,24 +7,28 @@ module RequiredFieldsHelper
 
     messages = []
 
-    if current_user.student? && !current_user.free? && !current_user.paid?
-      messages << "クレジットカードを#{link_to "登録", new_card_path}してください。".html_safe
-    end
-
     if !current_user.avatar.attached?
-      messages << "プロフィール画像を#{link_to "登録", edit_current_user_path}してください。".html_safe
+      messages << "#{link_to "プロフィール画像を登録してください。", edit_current_user_path, class: "card-list__item-link"}".html_safe
     end
 
     if !current_user.description?
-      messages << "自己紹介を#{link_to "入力", edit_current_user_path}してください。".html_safe
+      messages << "#{link_to "自己紹介を入力してください。", edit_current_user_path, class: "card-list__item-link"}".html_safe
     end
 
     if !current_user.how_did_you_know?
-      messages << "弊社をどこで知ったかを#{link_to "入力", edit_current_user_path}してください。".html_safe
+      messages << "#{link_to "フィヨルドブートキャンプをどこで知ったかを入力してください。", edit_current_user_path, class: "card-list__item-link"}".html_safe
     end
 
     if !current_user.organization?
-      messages << "現在の所属組織を#{link_to "入力", edit_current_user_path}してください。".html_safe
+      messages << "#{link_to "現在の所属組織を入力してください。", edit_current_user_path, class: "card-list__item-link"}".html_safe
+    end
+
+    if current_user.student? && !current_user.github_account?
+      messages << "#{link_to "GitHubアカウントを登録してください。", new_card_path, class: "card-list__item-link"}".html_safe
+    end
+
+    if current_user.student? && !current_user.slack_account?
+      messages << "#{link_to "Slackアカウントを登録してください。", new_card_path, class: "card-list__item-link"}".html_safe
     end
 
     messages
