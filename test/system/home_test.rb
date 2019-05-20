@@ -19,7 +19,7 @@ class HomeTest < ApplicationSystemTestCase
     login_user "hajime", "testtest"
     visit "/"
     within(".card-list__item-link.is-github") do
-      assert_text "GitHubアカウントが未入力です"
+      assert_text "GitHubアカウントを登録してください。"
     end
   end
 
@@ -36,7 +36,7 @@ class HomeTest < ApplicationSystemTestCase
     login_user "hajime", "testtest"
     visit "/"
     within(".card-list__item-link.is-slack") do
-      assert_text "Slackアカウントが未入力です"
+      assert_text "Slackアカウントを登録してください。"
     end
   end
 
