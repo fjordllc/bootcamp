@@ -24,11 +24,11 @@ module RequiredFieldsHelper
     end
 
     if current_user.student? && !current_user.github_account?
-      messages << "#{link_to "GitHubアカウントを登録してください。", new_card_path, class: "card-list__item-link"}".html_safe
+      messages << "#{link_to "GitHubアカウントを登録してください。", new_card_path, class: "card-list__item-link is-github"}".html_safe
     end
 
     if current_user.student? && !current_user.slack_account?
-      messages << "#{link_to "Slackアカウントを登録してください。", new_card_path, class: "card-list__item-link"}".html_safe
+      messages << "#{link_to "Slackアカウントを登録してください。", new_card_path, class: "card-list__item-link is-slack"}".html_safe
     end
 
     messages
