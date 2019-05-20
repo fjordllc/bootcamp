@@ -3,9 +3,15 @@
     .users-item__inner.a-card
       header.users-item__header
         .users-item__header-container
-          .users-item__name
-            = link_to user.login_name, user, class: "users-item__name-link"
-            = user.slack_account
+          .users-item__names
+            .users-item__names-name
+              = link_to user.login_name, user, class: "users-item__name-link"
+            - if user.slack_account.present?
+              .users-item__names-slack
+                .users-item__names-slack-label
+                  i.fab.fa-slack
+                .users-item__names-slack-value
+                  = user.slack_account
           .users-item__icon
             = link_to user do
               = image_tag user.avatar_image(80), class: "users-item__icon-image is-#{user.role}"
