@@ -4,7 +4,7 @@
       li.thread-admin-tools__item(v-if="!checkId")
         button.thread-check-form__action.a-button.is-md.is-danger(@click="pushCheck")
           i.fas.fa-check
-          | {{checkButtonLabel()}}
+          | {{checkableLabel}}を確認
       li.thread-admin-tools__item(v-else)
         button.thread-check-form__action.is-text(@click="pushUnCheck")
           i.fas.fa-check
@@ -40,13 +40,6 @@ export default {
     })
   },
   methods: {
-    checkButtonLabel() {
-      if (this.checkableType == 'product') {
-        return '提出物を確認'
-      } else if (this.checkableType == 'report') {
-        return '日報を確認する'
-      }
-    },
     token () {
       const meta = document.querySelector('meta[name="csrf-token"]')
       if (meta) {
