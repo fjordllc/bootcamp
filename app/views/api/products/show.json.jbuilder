@@ -1,3 +1,4 @@
 json.id @product.id
-json.checks @product.checks.present?
-json.check_id @product.checks.ids[0]
+json.check_id @check&.id
+json.user_name @checked_user
+json.created_at @check_craeted_at

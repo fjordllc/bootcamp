@@ -11,7 +11,6 @@ class API::ChecksController < API::BaseController
 
     @check.save!
     notify_to_slack(@check)
-    render :show, status: :created, location: api_check_url(@check)
   end
 
   def destroy
