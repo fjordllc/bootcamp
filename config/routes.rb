@@ -20,10 +20,7 @@ Rails.application.routes.draw do
     resources :practices, only: [] do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
-    resources :reports, only: %i(show)
-    resources :products, only: %i(show)
-    resources :questions, only: %i(show)
-    resources :watches, only: %i(create destroy)
+    resources :watches, only: %i(index create destroy)
   end
 
   namespace :admin do

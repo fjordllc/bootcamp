@@ -3,6 +3,13 @@
 class API::WatchesController < API::BaseController
   include Rails.application.routes.url_helpers
 
+  def index
+    @watches = Watch.where(
+      user: current_user,
+      watchable: watchable
+    )
+  end
+
   def create
     @watch = Watch.new(
       user: current_user,
@@ -10,7 +17,7 @@ class API::WatchesController < API::BaseController
     )
 
     @watch.save!
-    render :show, status: :created, location: api_watch_url(@watch)
+    render :json => @watch
   end
 
   def destroy
@@ -22,11 +29,11 @@ class API::WatchesController < API::BaseController
   private
     def watchable
       if params[:report_id]
-        Report.find(params[:report_id])
+        Report.find_by(id: params[:report_id])
       elsif params[:product_id]
-        Product.find(params[:product_id])
+        Product.find_by(id: params[:product_id])
       elsif params[:question_id]
-        Question.find(params[:question_id])
+        Question.find_by(id: params[:question_id])
       end
     end
 end
