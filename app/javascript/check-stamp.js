@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       store,
       render: h => h(CheckStamp, { props: {
         checkableId: checkableId,
-        checkableType: checkableType,
+        checkableType: checkableType
       } })
     }).$mount('#js-check-stamp')
   }
