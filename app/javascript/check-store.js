@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     checkId: null,
     userName: null,
-    craetedAt: null,
+    craetedAt: null
   },
   getters: {
     checkId: state => state.checkId,
@@ -15,14 +15,14 @@ export default new Vuex.Store({
     createdAt: state => state.createdAt
   },
   mutations: {
-    setCheckable (state, {checkId, userName, createdAt}) {
+    setCheckable (state, { checkId, userName, createdAt }) {
       state.checkId = checkId
       state.userName = userName
       state.createdAt = createdAt
     }
   },
   actions: {
-    setCheckable ({ commit }, {checkableId, checkableType }) {
+    setCheckable ({ commit }, { checkableId, checkableType }) {
       const meta = document.querySelector('meta[name="csrf-token"]')
       fetch(`/api/${checkableType}s/${checkableId}.json`, {
         method: 'GET',
@@ -32,19 +32,19 @@ export default new Vuex.Store({
         },
         credentials: 'same-origin'
       })
-      .then(response => {
-        return response.json()
-      })
-      .then(json => {
-        commit('setCheckable', {
-          checkId: json['check_id'],
-          userName: json['user_name'],
-          createdAt: json['created_at']
-        });
-      })
-      .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
+        .then(response => {
+          return response.json()
+        })
+        .then(json => {
+          commit('setCheckable', {
+            checkId: json['check_id'],
+            userName: json['user_name'],
+            createdAt: json['created_at']
+          })
+        })
+        .catch(error => {
+          console.warn('Failed to parsing', error)
+        })
     }
   }
 })
