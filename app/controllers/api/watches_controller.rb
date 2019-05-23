@@ -17,7 +17,7 @@ class API::WatchesController < API::BaseController
     )
 
     @watch.save!
-    render :json => @watch
+    render json: @watch
   end
 
   def destroy
