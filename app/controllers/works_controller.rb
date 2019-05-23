@@ -2,10 +2,10 @@
 
 class WorksController < ApplicationController
   before_action :require_login
-  before_action :set_work, only: %i(show edit update destroy)
-  before_action :require_admin_or_my_work, only: %i(edit update destroy)
+  before_action :set_my_work, only: %i(edit update destroy)
 
   def show
+    @work = Work.find(params[:id])
   end
 
   def new
@@ -50,11 +50,11 @@ class WorksController < ApplicationController
       )
     end
 
-    def set_work
-      @work = Work.find(params[:id])
-    end
-
-    def require_admin_or_my_work
-      redirect_to root_url unless @work.user == current_user || admin_login?
+    def set_my_work
+      if admin_login?
+        @work = Work.find(params[:id])
+      else
+        @work = current_user.works.find(params[:id])
+      end
     end
 end
