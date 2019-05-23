@@ -42,11 +42,7 @@ export default {
   methods: {
     token () {
       const meta = document.querySelector('meta[name="csrf-token"]')
-      if (meta) {
-        return meta.getAttribute('content')
-      } else {
-        return ''
-      }
+      return meta ? meta.getAttribute('content') : ''
     },
     pushWatch () {
       let params = new FormData()
