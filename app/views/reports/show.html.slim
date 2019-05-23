@@ -33,14 +33,7 @@ header.page-header
               span.thread-header__title-icon
                 | WIP
             = @report.title
-          - if @checks.any?
-            .stamp.stamp-approve
-              h2.stamp__content.is-title
-                | 確認済
-              time.stamp__content.is-created-at
-                = l @checks.last.created_at.to_date, format: :short
-              .stamp__content.is-user-name
-                = @checks.last.user.login_name
+          #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="report")
           .thread-meta
             = render "thread/thread_watch", watchable: @report
         - if @report.practices.present?
@@ -75,7 +68,7 @@ header.page-header
                       | 削除
 
         - if admin_login? || adviser_login?
-          #js-check(data-checkable-id="#{@report.id}" data-checkable-type="report" data-checkable-label="#{Report.model_name.human}" data-check-id="#{@report.checks&.ids}")
+          #js-check(data-checkable-id="#{@report.id}" data-checkable-type="report" data-checkable-label="#{Report.model_name.human}")
 
       .thread-prev-next
         .thread-prev-next__item

@@ -29,14 +29,7 @@ header.page-header
             | #{link_to @product.practice.title, @product.practice, class: "thread-header__title-link"}の提出物
           .thread-meta
             = render "thread/thread_watch", watchable: @product
-        - if @product.checks.any?
-          .stamp.stamp-approve
-            h2.stamp__content.is-title
-              | 確認済
-            time.stamp__content.is-created-at
-              = l @product.checks.last.created_at.to_date, format: :short
-            .stamp__content.is-user-name
-              = @product.checks.last.user.login_name
+        #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type="product")
         .thread__description.js-target-blank.is-long-text.js-markdown-view
           =  @product.practice.goal
         .thread__description.js-target-blank.is-long-text.js-markdown-view
@@ -56,7 +49,7 @@ header.page-header
                     | 削除
 
         - if admin_login? || adviser_login?
-          #js-check(data-checkable-id="#{@product.id}" data-checkable-type="product" data-checkable-label="#{Product.model_name.human}" data-check-id="#{@product.checks&.ids}")
+          #js-check(data-checkable-id="#{@product.id}" data-checkable-type="product" data-checkable-label="#{Product.model_name.human}")
 
       .thread-prev-next
         .thread-prev-next__item

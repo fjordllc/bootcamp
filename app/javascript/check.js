@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Check from './check.vue'
+import store from './check-store.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const check = document.getElementById('js-check')
@@ -8,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkableType = check.getAttribute('data-checkable-type')
     const checkableLabel = check.getAttribute('data-checkable-label')
     new Vue({
+      store,
       render: h => h(Check, { props: {
         checkableId: checkableId,
         checkableType: checkableType,

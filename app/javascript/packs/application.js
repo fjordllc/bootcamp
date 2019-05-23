@@ -12,11 +12,9 @@ require('./autosize.js')
 require('../datepicker.js')
 require('../shortcut.js')
 require('../learning.js')
-<<<<<<< HEAD
 require('../learning-status.js')
-=======
 require('../check.js')
->>>>>>> 確認ボタンをVue.jsに変更
+require('../check-stamp.js')
 require('../category-select.js')
 require('../grass.js')
 require('../fileinput.js')
