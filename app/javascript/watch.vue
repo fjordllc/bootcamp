@@ -21,11 +21,11 @@ export default {
     }
   },
   mounted () {
-    fetch(`/api/${this.watchableType}s/${this.watchableId}.json`, {
+    fetch(`/api/watches.json?${this.watchableType}_id=${this.watchableId}`, {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': this.token()
+        'X-CSRF-Token': this.token(),
       },
       credentials: 'same-origin'
     })
@@ -33,7 +33,7 @@ export default {
       return response.json()
     })
     .then(json => {
-      this.watchId = json['watch_id']
+      this.watchId = json[0]['id']
     })
     .catch(error => {
       console.warn('Failed to parsing', error)
@@ -62,7 +62,7 @@ export default {
           return response.json()
         })
         .then(json => {
-          this.watchId = json['watch_id']
+          this.watchId = json['id']
         })
         .catch(error => {
           console.warn('Failed to parsing', error)
