@@ -3,6 +3,12 @@
 class API::ChecksController < API::BaseController
   before_action :require_staff_login
 
+  def index
+    @checks = Check.where(
+      checkable: checkable
+    )
+  end
+
   def create
     @check = Check.new(
       user: current_user,
