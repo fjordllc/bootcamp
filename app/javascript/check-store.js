@@ -24,7 +24,7 @@ export default new Vuex.Store({
   actions: {
     setCheckable ({ commit }, { checkableId, checkableType }) {
       const meta = document.querySelector('meta[name="csrf-token"]')
-      fetch(`/api/${checkableType}s/${checkableId}.json`, {
+      fetch(`/api/checks.json/?${checkableType}_id=${checkableId}.json`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -36,11 +36,19 @@ export default new Vuex.Store({
           return response.json()
         })
         .then(json => {
-          commit('setCheckable', {
-            checkId: json['check_id'],
-            userName: json['user_name'],
-            createdAt: json['created_at']
-          })
+          if (json[0]) {
+            commit('setCheckable', {
+              checkId: json[0]['id'],
+              createdAt: json[0]['created_at']['to_date'],
+              userName: json[0]['user']['login_name']
+            })
+          } else {
+            commit('setCheckable', {
+              checkId: null,
+              createdAt: null,
+              userName: null
+            })
+          }
         })
         .catch(error => {
           console.warn('Failed to parsing', error)
