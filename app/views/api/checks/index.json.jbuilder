@@ -4,6 +4,6 @@ json.array! @checks do |check|
     json.to_date I18n.l(check.created_at.to_date, format: :short)
   end
   json.user do
-    json.login_name check.user.login_name
+    json.(check.user, :id, :login_name)
   end
 end
