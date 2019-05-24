@@ -39,7 +39,7 @@ export default new Vuex.Store({
           if (json[0]) {
             commit('setCheckable', {
               checkId: json[0]['id'],
-              createdAt: json[0]['created_at']['to_date'],
+              createdAt: json[0]['created_at'],
               userName: json[0]['user']['login_name']
             })
           } else {
