@@ -1,13 +1,13 @@
 <template lang="pug">
   ul.is-button-group.practice-status__buttons
     li.practice-status__buttons-item
-      button.practice-status__button.js-practice-state.a-button.is-xs.js-not-complete(v-bind:disabled="statusName === 'not_complete'" v-bind:class="[statusName === 'not_complete' ? 'is-primary' : 'is-secondary']" @click="pushStatus('not_complete')")
+      button.practice-status__button.a-button.is-xs.js-not-complete(v-bind:disabled="statusName === 'not_complete'" v-bind:class="[statusName === 'not_complete' ? 'is-primary' : 'is-secondary']" @click="pushStatus('not_complete')")
         | 未完
     li.practice-status__buttons-item
-      button.practice-status__button.js-practice-state.a-button.is-xs.js-started(v-bind:disabled="statusName === 'started'" v-bind:class="[statusName === 'started' ? 'is-primary' : 'is-secondary']" @click="pushStatus('started')")
+      button.practice-status__button.a-button.is-xs.js-started(v-bind:disabled="statusName === 'started'" v-bind:class="[statusName === 'started' ? 'is-primary' : 'is-secondary']" @click="pushStatus('started')")
         | 開始
     li.practice-status__buttons-item
-      button.practice-status__button.js-practice-state.a-button.is-xs.js-complete(v-bind:disabled="statusName === 'complete'" v-bind:class="[statusName === 'complete' ? 'is-primary' : 'is-secondary']" @click="pushStatus('complete')")
+      button.practice-status__button.a-button.is-xs.js-complete(v-bind:disabled="statusName === 'complete'" v-bind:class="[statusName === 'complete' ? 'is-primary' : 'is-secondary']" @click="pushStatus('complete')")
         | 完了
 </template>
 <script>
