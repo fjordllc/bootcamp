@@ -61,8 +61,6 @@ group :development, :test do
   # not default
   gem "pry-byebug"
   gem "simple_seed"
-  gem "rubocop", require: false
-  gem "rubocop-performance"
 end
 
 group :development do
@@ -76,6 +74,9 @@ group :development do
   gem "xray-rails"
   gem "rails-erd"
   gem "heavens_door"
+  gem "rubocop", require: false
+  gem "rubocop-performance"
+  gem "slim_lint"
 end
 
 group :test do
