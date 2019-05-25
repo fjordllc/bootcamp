@@ -198,6 +198,11 @@
         p パスワードをもう一度入力
     - if admin_login?
       .form-item
+        = f.label :company, class: "a-label"
+        .a-button.is-md.is-secondary.is-select.is-block
+          = f.collection_select :company_id, Company.all, :id, :name, {}
+
+      .form-item
         // アドバイザー
         = f.label :adviser, class: "a-label"
         ul.form-item__checkboxes
