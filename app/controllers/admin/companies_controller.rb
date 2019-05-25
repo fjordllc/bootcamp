@@ -50,6 +50,7 @@ class Admin::CompaniesController < AdminController
         :name,
         :description,
         :website,
+        :slack_channel,
         :logo
       )
     end
