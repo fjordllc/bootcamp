@@ -6,16 +6,8 @@
     - if current_user
       .practice-status
         - status = practice.status(current_user)
-        ul.is-button-group.practice-status__buttons
-          - %i(not_complete started complete).each do |status|
-            - if practice.status(current_user) == status
-              li.practice-status__buttons-item.is-active
-                button.practice-status__button.js-practice-state.a-button.is-xs.is-primary(class="#{status}" data-status="#{status}" disabled)
-                  = t("activerecord.enums.learning.status.#{status}")
-            - else
-              li.practice-status__buttons-item
-                button.practice-status__button.js-practice-state.a-button.is-xs.is-secondary(class="#{status}" data-status="#{status}")
-                  = t("activerecord.enums.learning.status.#{status}")
+        .js-learning-status(data-practice-id="#{practice.id}" data-status="#{status}")
+
   - if practice.started_users.students.exists?
     .practice-started-users
       .practice-started-users__items
