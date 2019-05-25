@@ -138,6 +138,17 @@ class ReportsController < ApplicationController
           fallback: "report body.",
           text: report.description
         }]
+
+      if report.user.trainee? && report.user.company.slack_channel?
+        SlackNotification.notify "#{name} さんが日報を提出しました。 #{link}",
+         username: "#{report.user.login_name} (#{report.user.full_name})",
+         icon_url: url_for(report.user.avatar),
+         channel: report.user.company.slack_channel,
+         attachments: [{
+           fallback: "report body.",
+           text: report.description
+         }]
+      end
     end
 
     def set_wip
