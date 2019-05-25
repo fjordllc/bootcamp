@@ -82,6 +82,8 @@ ja:
         name: 名前
         description: 詳細
         website: ウェブサイト
+        logo: ロゴ
+        slack_channel: Slackチャンネル
       category:
         name: 名前
         slug: URLスラッグ

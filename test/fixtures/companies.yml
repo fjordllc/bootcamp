@@ -2,6 +2,7 @@ company_1:
   name: "FJORD, LLC"
   description: "合同会社フィヨルド"
   website: "http://fjord.jp"
+  slack_channel: "#fjord"
   tos: "秘密保持契約書 　　　__COMPANY_NAME__（以下「甲」という）と__USER_NAME__（以下「乙」という）とは、甲が業務を乙に委託し、乙がこれを実施する事に関連して、甲から乙に対しまたは乙から甲に対し開示される秘密情報、個人情報の取扱いに関し、次の通り契約を締結する。
 
   第１条（秘密情報）
@@ -47,13 +48,18 @@ company_1:
 
   第１１条（協議）
   本契約に定めのない事項に関しては、甲乙別途協議のうえ円満に解決を図るものとする。 "
+  created_at: 2000-01-01 00:00:01
 
 company_2:
   name: "root inc."
   description: "株式会社ルート"
   website: "http://ic-root.com/"
+  slack_channel: "#root"
+  created_at: 2000-01-01 00:00:02
 
 company_3:
   name: "esm inc."
   description: "株式会社永和システムマネジメント"
   website: "http://www.esm.co.jp/"
+  slack_channel: "#esm"
+  created_at: 2000-01-01 00:00:03
