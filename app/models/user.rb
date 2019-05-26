@@ -4,8 +4,6 @@ class User < ActiveRecord::Base
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w(id login_name company_id updated_at created_at report comment asc desc)
 
-  self.ignored_columns = %w(how_did_you_know)
-
   enum job: {
     student: 0,
     office_worker: 2,
