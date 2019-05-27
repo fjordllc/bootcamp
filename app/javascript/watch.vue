@@ -33,7 +33,9 @@ export default {
       return response.json()
     })
     .then(json => {
-      this.watchId = json[0]['id']
+      if (json) {
+        this.watchId = json['id']
+      }
     })
     .catch(error => {
       console.warn('Failed to parsing', error)
