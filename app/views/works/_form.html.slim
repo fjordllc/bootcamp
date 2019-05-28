@@ -18,7 +18,10 @@
           | URLかリポジトリ、どちらかが入力されていることが必須です。
     .form-item
       = f.label :description, class: "a-label is-required"
-      = f.text_area :description, class: "a-text-input is-md js-warning-form"
+      = f.text_area :description, class: "a-text-input is-md js-warning-form js-markdown", data: { "preview": ".js-preview" }
+      .a-label
+        | プレビュー
+      .js-preview.is-long-text.markdown-form__preview
       .a-form-help
         p
           | 作品の説明、使い方、作った背景、発表資料の場合はイベントの詳細もあるといいです。またそれを作ることで学んだこと、苦労したこと、身についたことなども。
