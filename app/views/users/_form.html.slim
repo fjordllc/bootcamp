@@ -226,6 +226,7 @@
             label.form-checkbox__label
               = f.check_box :trainee, class: "form-checkbox__input"
               = User.human_attribute_name :trainee
+        = f.hidden_field :training, value: params[:training]
       .form-item
         // リタイア
         = f.label :retired_on, class: "a-label"
