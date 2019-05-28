@@ -206,6 +206,7 @@ muryou:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Nosuke
   last_name: Muryou
+  slack_account: muryou
   twitter_account: muryou
   facebook_url: http://www.facebook.com/muryou
   blog_url: http://muryou.org
@@ -229,6 +230,7 @@ kensyu:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Seiko
   last_name: Kensyu
+  slack_account: kenshu
   github_account: kensyu
   twitter_account: kensyu
   facebook_url: http://www.facebook.com/kensyu

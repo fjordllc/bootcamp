@@ -19,8 +19,10 @@ header.page-header
         thead.admin-table__header
           tr.admin-table__labels
             th.admin-table__label = Company.human_attribute_name :name
+            th.admin-table__label = Company.human_attribute_name :logo
             th.admin-table__label = Company.human_attribute_name :description
             th.admin-table__label = Company.human_attribute_name :website
+            th.admin-table__label = Company.human_attribute_name :slack_channel
             th.admin-table__label.actions 操作
         tbody.admin-table__items
           - @companies.each do |company|
@@ -28,9 +30,14 @@ header.page-header
               td.admin-table__item-value
                 = company.name
               td.admin-table__item-value
+                - if company.logo.attached?
+                  = image_tag company.logo_image(500)
+              td.admin-table__item-value
                 = company.description
               td.admin-table__item-value
                 = company.website
+              td.admin-table__item-value
+                = company.slack_channel
               td.admin-table__item-value.is-text-align-center
                 ul.is-button-group
                   li

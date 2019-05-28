@@ -52,3 +52,9 @@ product_11:
   practice: practice_2
   user: hatsuno
   body: テストの提出物11です。
+
+product_12:
+  practice: practice_2
+  user: yamada
+  body: リアクションテスト
+

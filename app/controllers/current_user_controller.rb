@@ -17,6 +17,7 @@ class CurrentUserController < ApplicationController
   end
 
   private
+
     def user_params
       params.require(:user).permit(
         :adviser,
@@ -42,8 +43,9 @@ class CurrentUserController < ApplicationController
         :experience,
         :company_id,
         :nda,
-        :avatar
-        )
+        :avatar,
+        :trainee
+      )
     end
 
     def set_user

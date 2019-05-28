@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 2019_05_26_080701) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "tos"
+    t.string "slack_channel"
   end
 
   create_table "courses", force: :cascade do |t|

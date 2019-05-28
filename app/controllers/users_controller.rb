@@ -64,7 +64,8 @@ class UsersController < ApplicationController
         :graduated_on,
         :retired_on,
         :free,
-        :avatar
+        :avatar,
+        :trainee
       )
     end
 
