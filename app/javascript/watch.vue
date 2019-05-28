@@ -34,7 +34,7 @@ export default {
     })
     .then(json => {
       if (json) {
-        this.watchId = json['id']
+        this.watchId = json[0]['id']
       }
     })
     .catch(error => {
