@@ -18,6 +18,11 @@
     .form-item
       .row
         .col-md-6.col-xs-12
+          = f.label :slack_channel, class: "a-label"
+          = f.text_field :slack_channel, class: "a-text-input"
+    .form-item
+      .row
+        .col-md-6.col-xs-12
           = f.label "ロゴ", class: "a-label"
           .form-item-file-input.js-file-input.a-file-input
             label.js-file-input__preview(for="company_logo")
