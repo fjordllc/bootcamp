@@ -1,13 +1,9 @@
 <template lang="pug">
 .thread-meta
-  .thread-meta__watch(v-if="!watchId")
-    .thread-meta__watch-button.is-inactive.a-button.is-sm.is-main.is-submit-input.is-left-icon(@click="pushWatch")
+  .thread-meta__watch
+    .thread-meta__watch-button.a-button.is-sm.is-submit-input.is-left-icon(:class=" watchId ? 'is-active is-secondary' : 'is-inactive is-main' " @click="watch")
       i.fas.fa-eye
-      | Watch
-  .thread-meta__watch(v-else)
-    .thread-meta__watch-button.is-active.a-button.is-sm.is-secondary.is-submit-input.is-left-icon(@click="pushUnWatch")
-      i.fas.fa-eye
-      | Unwatch
+      | {{ watchLabel }}
 
 </template>
 <script>
@@ -17,7 +13,8 @@ export default {
   props: ['watchableId', 'watchableType'],
   data () {
     return {
-      watchId: null
+      watchId: null,
+      watchLabel: "Watch"
     }
   },
   mounted () {
@@ -33,25 +30,34 @@ export default {
       return response.json()
     })
     .then(json => {
-      if (json) {
+      if (json[0]) {
         this.watchId = json[0]['id']
+        this.watchLabel = 'Unwatch'
       }
     })
     .catch(error => {
       console.warn('Failed to parsing', error)
     })
   },
+  computed: {
+    url() {
+      return this.watchId ? `/api/watches/${this.watchId}` : `/api/watches`
+    },
+    method() {
+      return this.watchId ? 'DELETE' : 'POST'
+    }
+  },
   methods: {
     token () {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    pushWatch () {
+    watch () {
       let params = new FormData()
       params.append(`${this.watchableType}_id`, this.watchableId)
 
-      fetch(`/api/watches`, {
-        method: 'POST',
+      fetch(this.url, {
+        method: this.method,
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-Token': this.token()
@@ -61,27 +67,18 @@ export default {
         body: params
       })
         .then(response => {
-          return response.json()
+          if (this.method == 'DELETE') {
+            this.watchId = null
+            this.watchLabel = 'Watch'
+          } else {
+            return response.json()
+          }
         })
         .then(json => {
-          this.watchId = json['id']
-        })
-        .catch(error => {
-          console.warn('Failed to parsing', error)
-        })
-    },
-    pushUnWatch () {
-      fetch(`/api/watches/${this.watchId}`, {
-        method: 'DELETE',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-      })
-        .then(response => {
-          this.watchId = null
+          if (json) {
+            this.watchId = json['id']
+            this.watchLabel = 'Unwatch'
+          }
         })
         .catch(error => {
           console.warn('Failed to parsing', error)
