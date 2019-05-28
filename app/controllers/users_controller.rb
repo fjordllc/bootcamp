@@ -24,7 +24,12 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.company = Company.first
     @user.course = Course.first
-
+    @user = User.find(params[:id])
+    if params[:training] == "true"
+      @user.free = true
+      @user.trainee = true
+      @user.save
+    end
     if @user.save
       UserMailer.welcome(@user).deliver_now
       SlackNotification.notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
