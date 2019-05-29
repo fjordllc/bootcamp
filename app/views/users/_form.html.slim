@@ -121,18 +121,6 @@
           - options = options_for_select(User.experiences.map { |k, v| [t("activerecord.enums.user.experience.#{k}"), k] }, selected: f.object.experience)
           = f.select :experience, options, include_blank: "- 選択してください -"
 
-      .form-item
-        // フィヨルドブートキャンプをどこで知りましたか？
-        = f.label :how_did_you_know, "フィヨルドブートキャンプをどこで知りましたか？", class: "a-label is-required"
-        = f.text_area :how_did_you_know, class: "a-text-input", placeholder: "大学時代の先輩である株式会社XXXXでプログラマをやっているXXXXさんから勧められて。"
-        .a-form-help
-          p
-            | 自分で検索エンジンを使って見つけた場合は、
-            | そのときの検索キーワードなども覚えていたら入力してください。
-            | 誰かに紹介してもらった場合、その誰かもお教えください。
-            br
-            | この情報は他のフィヨルドブートキャンプ参加者には公開されません。
-
     .form-item
       ruby:
         if user.adviser?
