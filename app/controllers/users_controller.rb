@@ -64,7 +64,6 @@ class UsersController < ApplicationController
         :os,
         :study_place,
         :experience,
-        :how_did_you_know,
         :company_id,
         :nda,
         :graduated_on,

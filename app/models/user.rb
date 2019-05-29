@@ -96,7 +96,6 @@ class User < ActiveRecord::Base
     validates :os, presence: true
     validates :study_place, presence: true
     validates :experience, presence: true
-    validates :how_did_you_know, presence: true
   end
 
   scope :in_school, -> { where(graduated_on: nil) }
