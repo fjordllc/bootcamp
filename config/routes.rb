@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :grasses, only: %i(show)
     resources :categories, only: %i(index)
     resources :reactions, only: %i(create destroy)
+    resources :checks, only: %i(index create destroy)
     resources :practices, only: [] do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
@@ -63,7 +64,6 @@ Rails.application.routes.draw do
     resources :unchecked, only: %i(index)
   end
   resources :reports
-  resources :checks, only: %i(create destroy)
   resources :comments
   resources :notifications, only: %i(index show)
   resources :pages

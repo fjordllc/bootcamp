@@ -33,14 +33,7 @@ header.page-header
               span.thread-header__title-icon
                 | WIP
             = @report.title
-          - if @checks.any?
-            .stamp.stamp-approve
-              h2.stamp__content.is-title
-                | 確認済
-              time.stamp__content.is-created-at
-                = l @checks.last.created_at.to_date, format: :short
-              .stamp__content.is-user-name
-                = @checks.last.user.login_name
+          #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="report")
           .thread-meta
             = render "thread/thread_watch", watchable: @report
         - if @report.practices.present?
@@ -75,17 +68,7 @@ header.page-header
                       | 削除
 
         - if admin_login? || adviser_login?
-          .thread-admin-tools
-            ul.thread-admin-tools__items
-              li.thread-admin-tools__item
-                - if @report.checks.blank?
-                  = form_for @check, html: { class: "report-check-form" } do |f|
-                    = hidden_field_tag :user_id, current_user.id
-                    = hidden_field_tag :report_id, @report.id
-                    = f.submit "日報を確認する", class: "report-check-form__action a-button is-md is-danger"
-                - else
-                  = form_for @checks.last, url: check_path(@checks.last), method: :delete, html: { class: "report-check-form" } do |f|
-                    = f.submit "日報の確認を取り消す", class: "thread-check-form__action is-text"
+          #js-check(data-checkable-id="#{@report.id}" data-checkable-type="report" data-checkable-label="#{Report.model_name.human}")
 
       .thread-prev-next
         .thread-prev-next__item

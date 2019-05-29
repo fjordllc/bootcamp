@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
-class ChecksController < ApplicationController
-  include Rails.application.routes.url_helpers
+class API::ChecksController < API::BaseController
   before_action :require_staff_login
+
+  def index
+    @checks = Check.where(
+      checkable: checkable
+    )
+  end
 
   def create
     @check = Check.new(
@@ -12,14 +17,11 @@ class ChecksController < ApplicationController
 
     @check.save!
     notify_to_slack(@check)
-    redirect_back fallback_location: root_path,
-      notice: "#{checkable.class.model_name.human}を確認しました。"
   end
 
   def destroy
     @check = Check.find(params[:id]).destroy
-    redirect_back fallback_location: root_path,
-      notice: "確認を取り消しました。"
+    head :no_content
   end
 
   private
