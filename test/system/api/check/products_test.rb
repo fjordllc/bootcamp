@@ -7,14 +7,14 @@ class Check::ProductsTest < ApplicationSystemTestCase
     login_user "machida", "testtest"
     visit "/products/#{products(:product_1).id}"
     click_button "提出物を確認"
-    assert_text "提出物を確認しました。"
+    assert has_button? "提出物の確認を取り消す"
   end
 
   test "success adviser's product checking" do
     login_user "advijirou", "testtest"
     visit "/products/#{products(:product_1).id}"
     click_button "提出物を確認"
-    assert_text "提出物を確認しました。"
+    assert has_button? "提出物の確認を取り消す"
   end
 
   test "success product checking cancel" do
@@ -22,6 +22,6 @@ class Check::ProductsTest < ApplicationSystemTestCase
     visit "/products/#{products(:product_1).id}"
     click_button "提出物を確認"
     click_button "提出物の確認を取り消す"
-    assert_text "確認を取り消しました。"
+    assert has_button? "提出物を確認"
   end
 end
