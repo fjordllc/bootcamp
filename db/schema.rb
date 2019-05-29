@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_25_151501) do
+ActiveRecord::Schema.define(version: 2019_05_26_080701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -301,7 +301,6 @@ ActiveRecord::Schema.define(version: 2019_05_25_151501) do
     t.integer "os"
     t.integer "study_place"
     t.integer "experience"
-    t.string "how_did_you_know"
     t.text "retire_reason"
     t.boolean "trainee", default: false, null: false
     t.boolean "free", default: false, null: false
