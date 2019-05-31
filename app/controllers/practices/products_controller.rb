@@ -13,7 +13,7 @@ class Practices::ProductsController < ApplicationController
     end
 
     def set_products
-      @products = practice.products.eager_load(:user, :comments).order(updated_at: :desc)
+      @products = practice.products.eager_load(:user, :comments).order(updated_at: :desc).page(params[:page])
     end
 
     def practice
