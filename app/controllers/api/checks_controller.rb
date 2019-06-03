@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::ChecksController < API::BaseController
-  before_action :require_staff_login
+  before_action :require_staff_login, only: %i(create destroy)
 
   def index
     @checks = Check.where(
