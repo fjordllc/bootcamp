@@ -27,7 +27,6 @@ class UsersController < ApplicationController
     if params[:training] == "true"
       @user.free = true
       @user.trainee = true
-      @user.save
     end
     if @user.save
       UserMailer.welcome(@user).deliver_now
