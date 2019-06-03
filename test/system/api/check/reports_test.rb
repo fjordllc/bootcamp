@@ -9,6 +9,12 @@ class Check::ReportsTest < ApplicationSystemTestCase
     assert_not has_button? "日報を確認"
   end
 
+  test "user can see stamp" do
+    login_user "sotugyou", "testtest"
+    visit "/reports/#{reports(:report_1).id}"
+    assert_text "確認済"
+  end
+
   test "success report checking" do
     login_user "machida", "testtest"
     visit  "/reports/#{reports(:report_2).id}"
@@ -37,6 +43,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     visit "/reports/#{reports(:report_2).id}"
     click_button "日報を確認"
     click_button "日報の確認を取り消す"
+    assert_no_text "確認済"
     assert has_button? "日報を確認"
   end
 end
