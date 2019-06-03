@@ -18,6 +18,8 @@ class Product < ApplicationRecord
   validates :user, presence: true, uniqueness: { scope: :practice, message: "既に提出物があります。" }
   validates :body, presence: true
 
+  paginates_per 50
+
   scope :ids_of_common_checked_with,
     -> (user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
 
