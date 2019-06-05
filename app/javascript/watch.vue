@@ -1,7 +1,7 @@
 <template lang="pug">
 .thread-meta
   .thread-meta__watch
-    .thread-meta__watch-button.a-button.is-sm.is-submit-input.is-left-icon(:class=" watchId ? 'is-active is-secondary' : 'is-inactive is-main' " @click="push")
+    .thread-meta__watch-button.a-button.is-sm.is-left-icon(:class=" watchId ? 'is-active is-secondary' : 'is-inactive is-main' " @click="push")
       i.fas.fa-eye
       | {{ watchLabel }}
 
