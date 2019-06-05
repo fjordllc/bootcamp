@@ -21,7 +21,7 @@ header.page-header
   .container
     - if @user.works.present?
       .works
-        .row.is-gutter-width-32
+        .row
           = render partial: "works/work", collection: @works, as: :work
     - else
       .a-empty-message.is-info
