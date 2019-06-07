@@ -27,7 +27,7 @@ class NotificationsTest < ApplicationSystemTestCase
   test "notifications_allmarks" do
     login_user "sotugyou", "testtest"
     visit "/notifications"
-    click_link('全て既読にする')
+    click_link("全て既読にする")
     assert_text "全て既読にしました"
   end
 end
