@@ -7,6 +7,7 @@ header.page-header
         = title
 
 .page-body
+  = link_to "全て既読にする", notifications_allmarks_path, method: :post
   .container
     = paginate @notifications, position: "top"
     - if @notifications.present?
