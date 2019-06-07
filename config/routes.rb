@@ -68,6 +68,9 @@ Rails.application.routes.draw do
   resources :notifications, only: %i(index show)
   resources :pages
   resources :watches
+  namespace :notifications do
+    resources :allmarks, only: %i(create)
+  end
 
   resources :questions do
     resources :answers, only: %i(edit create update destroy)
