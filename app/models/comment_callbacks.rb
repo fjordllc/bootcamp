@@ -8,10 +8,10 @@ class CommentCallbacks
   def after_create(comment)
     if comment.sender != comment.reciever
       notify_comment(comment)
-      notify_to_watching_user(comment)
-      create_watch(comment)
     end
 
+    create_watch(comment)
+    notify_to_watching_user(comment)
     notify_admin(comment)
   end
 
@@ -49,9 +49,12 @@ class CommentCallbacks
       subject = comment.commentable
 
       if subject.try(:watched?)
-        watcher_id = Watch.where(watchable_id: subject.id).pluck(:user_id)
-        User.where(id: watcher_id).each do |watcher|
-          Notification.watching_notification(subject, watcher) unless watcher.id == comment.sender.id
+        watcher_ids = Watch.where(watchable: subject).pluck(:user_id)
+        watcher_ids.each do |watcher_id|
+          if watcher_id != comment.sender.id
+            watcher = User.find_by(id: watcher_id)
+            Notification.watching_notification(subject, watcher)
+          end
         end
       end
     end
