@@ -60,10 +60,12 @@ class CommentCallbacks
     end
 
     def create_watch(comment)
-      @watch = Watch.new(
-        user: comment.user,
-        watchable: comment.commentable
-      )
-      @watch.save!
+      unless comment.commentable.watches.pluck(:user_id).include?(comment.sender.id)
+        @watch = Watch.new(
+          user: comment.user,
+          watchable: comment.commentable
+        )
+        @watch.save!
+      end
     end
 end
