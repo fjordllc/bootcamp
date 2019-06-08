@@ -10,8 +10,11 @@ class CommentCallbacks
       notify_comment(comment)
     end
 
-    create_watch(comment)
-    notify_to_watching_user(comment)
+    if [Report, Product, Question].include?(comment.commentable.class)
+      create_watch(comment)
+      notify_to_watching_user(comment)
+    end
+
     notify_admin(comment)
   end
 
