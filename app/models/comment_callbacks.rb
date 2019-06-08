@@ -46,24 +46,26 @@ class CommentCallbacks
     end
 
     def notify_to_watching_user(comment)
-      subject = comment.commentable
+      watchable = comment.commentable
 
-      if subject.try(:watched?)
-        watcher_ids = Watch.where(watchable: subject).pluck(:user_id)
+      if watchable.try(:watched?)
+        watcher_ids = watchable.watches.pluck(:user_id)
         watcher_ids.each do |watcher_id|
           if watcher_id != comment.sender.id
             watcher = User.find_by(id: watcher_id)
-            Notification.watching_notification(subject, watcher)
+            Notification.watching_notification(watchable, watcher)
           end
         end
       end
     end
 
     def create_watch(comment)
-      unless comment.commentable.watches.pluck(:user_id).include?(comment.sender.id)
+      watchable = comment.commentable
+
+      unless watchable.watches.pluck(:user_id).include?(comment.sender.id)
         @watch = Watch.new(
-          user: comment.user,
-          watchable: comment.commentable
+          user: comment.sender,
+          watchable: watchable
         )
         @watch.save!
       end
