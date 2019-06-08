@@ -1,11 +1,3 @@
 report1_watch_kimura:
   user: kimura
   watchable: report_1 (Report)
-
-product1_watch_kimura:
-  user: kimura
-  watchable: product_1 (Product)
-
-question1_watch_kimura:
-  user: kimura
-  watchable: question_1 (Question)
