@@ -26,6 +26,7 @@ class ReportsTest < ApplicationSystemTestCase
     within("#new_report") do
       fill_in("report[title]", with: "test title")
       fill_in("report[description]",   with: "test")
+      fill_in("report[reported_on]", with: Time.current.strftime("%Y-%m-%d"))
     end
 
     all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
@@ -35,6 +36,7 @@ class ReportsTest < ApplicationSystemTestCase
 
     click_button "提出"
     assert_text "日報を保存しました。"
+    assert_text Time.current.strftime("%Y年%m月%d日")
   end
 
   test "equal practices order in practices and new report" do
