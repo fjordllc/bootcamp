@@ -9,9 +9,9 @@ class ReportCallbacks
     def send_notification(report)
       if report.user.reports.count == 1
         reciever_list = User.where(retired_on: nil)
-        reciever_list.each do |receiver|
-          if report.sender != receiver
-            Notification.first_report(report, receiver)
+        reciever_list.each do |reciever|
+          if report.sender != reciever
+            Notification.first_report(report, reciever)
           end
         end
       end

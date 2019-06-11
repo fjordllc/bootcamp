@@ -100,10 +100,10 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.first_report(report, receiver)
+  def self.first_report(report, reciever)
     Notification.create!(
       kind:    7,
-      user:    receiver,
+      user:    reciever,
       sender:  report.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(report),
       message: "#{report.user.login_name}さんがはじめての日報を書きました！",
