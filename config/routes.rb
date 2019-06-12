@@ -70,6 +70,7 @@ Rails.application.routes.draw do
   resources :comments
   resources :notifications, only: %i(index show)
   resources :pages
+  resources :works, except: %i(index)
 
   resources :questions do
     resources :answers, only: %i(edit create update destroy)
