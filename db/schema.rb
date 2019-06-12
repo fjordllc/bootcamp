@@ -321,6 +321,17 @@ ActiveRecord::Schema.define(version: 2019_05_26_080701) do
     t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable_type_and_watchable_id"
   end
 
+  create_table "works", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "url"
+    t.string "repository"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_works_on_user_id"
+  end
+
   add_foreign_key "announcements", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_times", "reports"
@@ -330,4 +341,5 @@ ActiveRecord::Schema.define(version: 2019_05_26_080701) do
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
   add_foreign_key "reactions", "users"
+  add_foreign_key "works", "users"
 end

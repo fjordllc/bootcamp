@@ -22,7 +22,8 @@
 
 .page-tabs__item
   +padding(horizontal, .125rem)
-  min-width: 7.5rem
+  +media-breakpoint-up(md)
+    min-width: 8.5rem
   +media-breakpoint-down(sm)
     +padding(horizontal, 0)
     +margin(horizontal, .125rem)

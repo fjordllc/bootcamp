@@ -7,10 +7,36 @@
         = text_field_tag "word", params[:word], class: "a-xs-text-input header-search__text-input", placeholder: "検索"
         button.a-button.is-sm.is-secondary.is-icon.header-search__submit#test-search(type="submit")
           i.fas.fa-search
+
+    - if current_user.admin?
+      li.header-links__item
+        label.header-links__link(for="header-admin-menu")
+          i.fas.fa-crown
+          .header-links__link-label Admin
+        input.a-toggle-checkbox#header-admin-menu(type="checkbox")
+        .header-dropdown
+          label.header-dropdown__background(for="header-admin-menu")
+          .header-dropdown__inner
+            ul.header-dropdown__items
+              li.header-dropdown__item
+                = link_to admin_root_path, class: "header-dropdown__item-link" do
+                  | 管理ページ
+              li.header-dropdown__item
+                = link_to new_article_path, class: "header-dropdown__item-link" do
+                  | ブログ記事作成
+              li.header-dropdown__item
+                = link_to "https://fjord.slack.com/admin", class: "header-dropdown__item-link", target: "_blank" do
+                  | Slack管理
+              li.header-dropdown__item
+                = link_to "https://github.com/fjordllc/fjord/wiki/FjordBootCamp", class: "header-dropdown__item-link", target: "_blank" do
+                  | 管理者用ドキュメント
+              li.header-dropdown__item
+                = link_to welcome_path, class: "header-dropdown__item-link" do
+                  | トップページ確認
     li.header-links__item
       label.header-links__link.test-show-menu(for="header-menu")
         i.fas.fa-bars
-        .header-links__link-label MENU
+        .header-links__link-label Menu
       input.a-toggle-checkbox#header-menu(type="checkbox")
       .header-dropdown
         label.header-dropdown__background(for="header-menu")
@@ -31,22 +57,6 @@
             li.header-dropdown__item
               = link_to "https://github.com/fjordllc/bootcamp/projects/1", class: "header-dropdown__item-link", target: "_blank" do
                 | GitHub
-            - if current_user.admin?
-              li.header-dropdown__item
-                = link_to admin_root_path, class: "header-dropdown__item-link" do
-                  | 管理
-              li.header-dropdown__item
-                = link_to new_article_path, class: "header-dropdown__item-link" do
-                  | ブログ記事作成
-              li.header-dropdown__item
-                = link_to "https://fjord.slack.com/admin", class: "header-dropdown__item-link", target: "_blank" do
-                  | Slack管理
-              li.header-dropdown__item
-                = link_to "https://github.com/fjordllc/fjord/wiki/FjordBootCamp", class: "header-dropdown__item-link", target: "_blank" do
-                  | 管理者用ドキュメント
-              li.header-dropdown__item
-                = link_to welcome_path, class: "header-dropdown__item-link" do
-                  | トップページ確認
             li.header-dropdown__item
               = link_to "https://suzuri.jp/FjordBootCamp", class: "header-dropdown__item-link", target: "_blank" do
                 | Goodies

@@ -1,11 +1,34 @@
 .thread-header
-  padding: 1rem 2rem 0
-  border-bottom: $background solid 1px
   +position(relative)
+  +media-breakpoint-up(md)
+    padding: 1rem 2rem
+    .thread.is-header-author &
+      padding-top: 3.5rem
   +media-breakpoint-down(sm)
-    padding: 2.5rem .75rem 0
+    padding: 2.5rem .75rem .75rem
     .thread.is-page &
       padding-top: .75rem
+
+.thread-header__author-link
+  +position(absolute, left 50%)
+  transform: translate(-50%, 0)
+  +block-link
+  +media-breakpoint-up(md)
+    +position(top -2.75rem)
+  +media-breakpoint-down(sm)
+    +position(top -1.75rem)
+
+.thread-header__author-icon
+  object-fit: cover
+  border-radius: 50%
+  background-color: $base
+  +media-breakpoint-up(md)
+    +size(5.5rem)
+    box-shadow: white 0 0 0 .5rem
+  +media-breakpoint-down(sm)
+    +size(3.5rem)
+    box-shadow: white 0 0 0 .375rem
+
 
 .thread-header__emotion
   +position(absolute, right 0, top 0)
@@ -44,7 +67,7 @@
   +media-breakpoint-down(sm)
     height: 1rem
 
-.thread-header__header
+.thread-header__upper-side
   +text-block(.8125rem 1 0 .75rem, $muted-text flex)
   align-items: center
   flex-wrap: wrap
@@ -69,3 +92,28 @@ a.thread-header__author
     content: ":"
     display: inline-flex
     +margin(horizontal, .25em)
+
+.thread-header__lower-side
+  font-size: .75rem
+  display: flex
+  align-items: center
+  +media-breakpoint-up(md)
+    margin-top: .5rem
+  +media-breakpoint-down(sm)
+    margin-top: .375rem
+
+.thread-header__lower-side-author-name
+  margin-right: .5rem
+
+.thread-header__lower-side-author-name-link
+  +hover-link-reversal
+  color: $main
+
+.thread-header__lower-side-date
+  display: flex
+  color: $muted-text
+
+.thread-header__lower-side-label
+  &::after
+    content: ":"
+    margin-right: .25em

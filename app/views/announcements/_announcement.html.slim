@@ -4,14 +4,14 @@
       h1.thread-header__title
         = announcement.title
 
-      .thread-meta
-        .thread-meta__author-name
-          = link_to announcement.user, class: "thread-meta__author-name-link" do
+      .thread-header__lower-side
+        .thread-header__lower-side-author-name
+          = link_to announcement.user, class: "thread-header__lower-side-author-name-link" do
             = announcement.user.login_name
-        time.thread-meta__created-at(datetime="#{announcement.created_at.to_datetime}" pubdate="pubdate")
+        time.thread-header__lower-side-created-at(datetime="#{announcement.created_at.to_datetime}" pubdate="pubdate")
           | 書いた日 : #{l announcement.updated_at}
 
-    .thread-body
+    .thread__body
       .thread__description.js-target-blank.is-long-text.js-markdown-view
         = announcement.description
       = render "reactions/reactions", reactionable: @announcement

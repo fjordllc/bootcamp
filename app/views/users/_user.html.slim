@@ -17,7 +17,7 @@
               = image_tag user.avatar_image(80), class: "users-item__icon-image is-#{user.role}"
         = render "users/sns", user: user
       .users-item__body
-        .users-item__description
+        .users-item__description.a-short-text
           p = truncate(user.description, length: 200)
       = render "users/practices/completed_practices_progress", user: user
       - if current_user.admin?

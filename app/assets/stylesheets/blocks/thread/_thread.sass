@@ -1,18 +1,27 @@
 $thread-header-author: 6rem
 .thread
   +position(relative)
-  max-width: 52rem
   +margin(horizontal, auto)
-  padding-left: 5rem
-  margin-bottom: 2rem
+  +media-breakpoint-up(md)
+    max-width: 52rem
+    padding-left: 5rem
+    margin-bottom: 2rem
+    &.is-header-author
+      margin-top: 3rem
   +media-breakpoint-down(sm)
-    padding-left: 0
     margin-top: 1.5rem
     margin-bottom: 1rem
     &.is-page
       margin-top: 1rem
       padding-left: 0
       max-width: 47rem
+
+.thread__work-image
+  +size(100% auto)
+  object-fit: cover
+
+.thread__body
+  border-top: $background solid 1px
 
 .thread__inner
   +position(relative)
@@ -31,7 +40,7 @@ $thread-header-author: 6rem
   +block-link
   +media-breakpoint-down(sm)
     +position(left 50%, top -1.75rem)
-    margin-left: -1.75rem
+    transform: translate(-50%, 0)
 
 .thread__author-icon
   +size(3.5rem)
@@ -45,5 +54,6 @@ $thread-header-author: 6rem
   padding: 1.25rem 2rem
   +media-breakpoint-down(sm)
     padding: .75rem
-  & + .thread__description
+  & + .thread__description,
+  .thread-header + &
     border-top: solid 1px $background

@@ -22,6 +22,7 @@ ja:
       product: 提出物
       announcement: お知らせ
       article: ブログ記事
+      work: 作品
     attributes:
       user:
         login_name: ユーザー名
@@ -118,6 +119,13 @@ ja:
       article:
         title: タイトル
         body: 本文
+      work:
+        title: タイトル
+        description: 説明
+        url: URL
+        repository: リポジトリURL
+        url_or_repository: URLまたはリポジトリ
+        thumbnail: サムネイル画像
     enums:
       user:
         job:

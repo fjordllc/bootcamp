@@ -9,7 +9,7 @@ header.page-header
           li.page-header-actions__item
             = link_to "ユーザー一覧", users_path, class: "a-button is-md is-secondary is-block"
 
-= render "page_tabs", resource: @user
+= render "users/page_tabs", user: @user
 
 .page-body
   .container
