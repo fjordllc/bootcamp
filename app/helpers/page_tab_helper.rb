@@ -47,8 +47,6 @@ module PageTabHelper
         reports: "日報",
         questions: "質問",
         products: "提出物",
-        users: "プロフィール",
-        comments: "コメント"
       }
     end
 
@@ -69,15 +67,6 @@ module PageTabHelper
     def products_tab(resource)
       tab_name = :products
       page_tab_member(tab_path(resource, tab_name), tab_name, is_products_tab: true)
-    end
-
-    def users_tab_members(resource)
-      [
-        root_tab(resource),
-        reports_tab(resource),
-        comments_tab(resource),
-        products_tab(resource)
-      ]
     end
 
     def comments_tab(resource)

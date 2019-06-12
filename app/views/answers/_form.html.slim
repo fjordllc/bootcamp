@@ -11,7 +11,7 @@
         | プレビュー
     .thread-comment-form__markdown-parent.js-markdown-parent
       .thread-comment-form__markdown.js-tabs__content.is-active
-        = f.text_area :description, required: true, class: "a-textarea js-warning-form thread-comment-form__textarea js-markdown", data: { "preview": ".js-preview" }
+        = f.text_area :description, required: true, class: "a-text-input js-warning-form thread-comment-form__textarea js-markdown", data: { "preview": ".js-preview" }
       .thread-comment-form__markdown.js-tabs__content
         .js-preview.is-long-text.thread-comment-form__preview
     .thread-comment-form__action

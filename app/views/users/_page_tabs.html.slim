@@ -1,0 +1,19 @@
+.page-tabs
+  .container
+    ul.page-tabs__items
+      li.page-tabs__item
+        = link_to user, class: "page-tabs__item-link #{current_page_tab_or_not("users")}" do
+          | プロフィール
+      - if user.works.present? || user == current_user
+        li.page-tabs__item
+          = link_to user_portfolio_path(user), class: "page-tabs__item-link #{current_page_tab_or_not("portfolio")}" do
+            | ポートフォリオ
+      li.page-tabs__item
+        = link_to user_reports_path(user), class: "page-tabs__item-link #{current_page_tab_or_not("reports")}" do
+          | 日報
+      li.page-tabs__item
+        = link_to user_comments_path(user), class: "page-tabs__item-link #{current_page_tab_or_not("comments")}" do
+          | コメント
+      li.page-tabs__item
+        = link_to user_products_path(user), class: "page-tabs__item-link #{current_page_tab_or_not("products")}" do
+          | 提出物

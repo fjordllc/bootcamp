@@ -10,14 +10,14 @@
         - if @user.errors.any?
           = error_messages_for :user
         .form-item
-          = f.label :email, class: "a-sm-label is-required"
-          = f.text_field :email, class: "a-sm-text-input"
+          = f.label :email, class: "a-label is-required"
+          = f.text_field :email, class: "a-text-input"
         .form-item
-          = f.label :password, class: "a-sm-label"
-          = f.password_field :password, class: "a-sm-text-input", autocomplete: :off
+          = f.label :password, class: "a-label"
+          = f.password_field :password, class: "a-text-input", autocomplete: :off
         .form-item
-          = f.label :password_confirmation, class: "a-sm-label"
-          = f.password_field :password_confirmation, class: "a-sm-text-input", autocomplete: :off
+          = f.label :password_confirmation, class: "a-label"
+          = f.password_field :password_confirmation, class: "a-text-input", autocomplete: :off
 
       .form-actions
         ul.form-actions__items

@@ -23,7 +23,7 @@ header.page-header
           - if @report.emotion.present?
             .thread-header__emotion
               = Report.faces[@report.emotion]
-          .thread-header__header
+          .thread-header__upper-side
             = link_to @report.user, class: "thread-header__author" do
               = @report.user.login_name
             .thread-header__date
@@ -34,7 +34,7 @@ header.page-header
                 | WIP
             = @report.title
           #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="report")
-          .thread-meta
+          .thread-header__lower-side
             = render "thread/thread_watch", watchable: @report
         - if @report.practices.present?
           .report-practices
@@ -46,7 +46,7 @@ header.page-header
 
         = render "reports/learning_times", report: @report
 
-        .thread-body
+        .thread__body
           .thread__description.js-target-blank.is-long-text.js-markdown-view
             = @report.description
           = render "reactions/reactions", reactionable: @report

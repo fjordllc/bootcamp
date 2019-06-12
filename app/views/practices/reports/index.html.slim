@@ -22,5 +22,5 @@ header.page-header
         = render partial: "reports/report", collection: @reports, as: :report
       = paginate @reports, position: "bottom"
     - else
-      .thread-list.is-empty
+      .a-empty-message
         | 日報はまだありません。

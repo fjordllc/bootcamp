@@ -19,7 +19,7 @@
           h1.thread-list-item__title(itemprop="name")
             = link_to article.title, article, itempro: "url", class: "thread-list-item__title-link"
         section.practice-content.a-card
-          .practice-content__body.is-article.js-markdown-view.js-target-blank.is-long-text-style
+          .practice-content__body.is-article.js-markdown-view.js-target-blank.is-long-text
             = truncate(article.body, length: 50)
           = raw article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
           - if admin_login?
