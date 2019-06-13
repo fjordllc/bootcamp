@@ -25,6 +25,7 @@ class API::ChecksController < API::BaseController
   end
 
   private
+    # TODO: commentableと同じ書き方に変えたい
     def checkable
       if params[:report_id]
         Report.find(params[:report_id])
