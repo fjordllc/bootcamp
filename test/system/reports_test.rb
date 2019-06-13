@@ -5,10 +5,6 @@ require "application_system_test_case"
 class ReportsTest < ApplicationSystemTestCase
   def setup
     login_user "komagata", "testtest"
-
-    @practice_titles = Category.all.order(:position).inject([]) do |sum, category|
-      sum + category.practices.pluck(:title)
-    end
   end
 
   test "create report as WIP" do
@@ -26,7 +22,7 @@ class ReportsTest < ApplicationSystemTestCase
     within("#new_report") do
       fill_in("report[title]", with: "test title")
       fill_in("report[description]",   with: "test")
-      fill_in("report[reported_on]", with: Time.current.strftime("%Y-%m-%d"))
+      fill_in("report[reported_on]", with: Time.current)
     end
 
     all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")

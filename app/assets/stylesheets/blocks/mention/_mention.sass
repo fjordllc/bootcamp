@@ -1,0 +1,34 @@
+.tribute-container
+  position: absolute
+  top: 0
+  left: 0
+  margin-top: .5rem
+  height: auto
+  max-height: 176px
+  max-width: 500px
+  overflow: auto
+  display: block
+  z-index: 999
+  border: 1px solid #c1c5b9
+  border-radius: 3px
+  background: #fff
+  ul
+    margin: 0
+    list-style: none
+    li
+      font-size: .875rem
+      border-bottom: 1px solid #c1c5b9
+      padding: 10px 11px
+      cursor: pointer
+      &:last-child
+        border-bottom: none
+      &.highlight
+        background-color: $main
+        color: #fff
+        box-shadow: inset 0 0 3px darken($main, 10%)
+      span
+        font-weight: bold
+        &.mention
+          padding-right: 9px
+        &.emoji
+          padding-left: 4px

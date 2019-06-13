@@ -3,7 +3,8 @@ import TextareaMarkdown from 'textarea-markdown'
 document.addEventListener('DOMContentLoaded', () => {
   const meta = document.querySelector('meta[name="csrf-token"]')
   const token = meta ? meta.content : ''
-  ;[].forEach.call(document.querySelectorAll('.js-markdown'), textarea => {
+
+  Array.from(document.querySelectorAll('.js-markdown'), textarea => {
     return new TextareaMarkdown(textarea, {
       endPoint: '/api/image.json',
       paramName: 'file',
