@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
     resources :categories, only: %i(index)
+    resources :comments, only: %i(index)
     resources :reactions, only: %i(create destroy)
     resources :checks, only: %i(index create destroy)
     resources :users, only: :index
