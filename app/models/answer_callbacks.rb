@@ -18,7 +18,7 @@ class AnswerCallbacks
     def notify_to_watching_user(answer)
       question = Question.find(answer.question_id)
 
-      if question.watched?
+      if question.try(:watched?)
         watcher_ids = Watch.where(watchable_id: question.id).pluck(:user_id)
         watcher_ids.each do |watcher_id|
           if watcher_id != answer.sender.id
