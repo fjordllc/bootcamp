@@ -33,9 +33,11 @@
 input[type=date].a-text-input,
 input[type=month].a-text-input,
 input[type=week].a-text-input
-  &::-webkit-inner-spin-button,
-  &::-webkit-clear-button
+  position: relative
+  &::-webkit-inner-spin-button
     -webkit-appearance: none
+  &::-webkit-clear-button
+    +position(relative, 1)
   &::-webkit-calendar-picker-indicator
     color: transparent
     background-color: transparent
