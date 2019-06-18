@@ -14,8 +14,6 @@ class CommentCallbacks
       create_watch(comment)
       notify_to_watching_user(comment)
     end
-
-    notify_admin(comment)
   end
 
   private
@@ -34,18 +32,6 @@ class CommentCallbacks
         comment.reciever,
         "#{comment.sender.login_name}さんからコメントが届きました。"
       )
-    end
-
-    def notify_admin(comment)
-      return false if comment.commentable.class != Product
-
-      User.admins.where.not(id: comment.user.id).each do |user|
-        Notification.came_comment(
-          comment,
-          user,
-          "#{comment.sender.login_name}さんが提出物にコメントしました。"
-        )
-      end
     end
 
     def notify_to_watching_user(comment)
