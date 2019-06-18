@@ -35,7 +35,7 @@ header.page-header
             = @report.title
           #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="report")
           .thread-header__lower-side
-            = render "thread/thread_watch", watchable: @report
+            #js-watch(data-watchable-id="#{@report.id}", data-watchable-type="report")
         - if @report.practices.present?
           .report-practices
             ul.report-practices__items

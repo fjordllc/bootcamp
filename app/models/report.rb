@@ -14,7 +14,7 @@ class Report < ActiveRecord::Base
   has_and_belongs_to_many :practices
   belongs_to :user, touch: true
   alias_method :sender, :user
-  has_many :watches, as: :watchable
+  has_many :watches, as: :watchable, dependent: :destroy
 
   validates :title, presence: true, uniqueness: { scope: :user_id }, length: { maximum: 255 }
   validates :description, presence: true

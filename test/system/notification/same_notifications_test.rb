@@ -55,7 +55,7 @@ class NotificationsTest < ApplicationSystemTestCase
     find(".test-show-menu").click
     click_link "ログアウト"
     login_user "komagata", "testtest"
-    assert_equal 1, @admin.notifications.size
+    assert_equal 2, @admin.notifications.size # メンション通知, ウォッチ通知
     # 通知ベルの右上に出る件数の表示
     assert_text 1, first("li.has-count .header-notification-count").text
     find(".test-show-menu").click
@@ -70,8 +70,8 @@ class NotificationsTest < ApplicationSystemTestCase
     find(".test-show-menu").click
     click_link "ログアウト"
     login_user "komagata", "testtest"
-    assert_equal 2, @admin.notifications.size
+    assert_equal 3, @admin.notifications.size # 回答通知, メンション通知, ウォッチ通知
     # 通知ベルの右上に出る件数の表示
-    assert_text 2, first("li.has-count .header-notification-count").text
+    assert_text 2, first("li.has-count .header-notification-count").text # 回答通知, ウォッチ通知
   end
 end
