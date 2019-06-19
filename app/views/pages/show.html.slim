@@ -28,7 +28,7 @@ header.page-header
               time.thread-header__lower-side-value(datetime="#{@page.updated_at.to_datetime}" pubdate="pubdate")
                 = l @page.updated_at
         .thread__body
-          .thread__description.js-markdown-view.js-target-blank.is-long-text.js-markdown
+          .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @page.body
         footer.card-footer
           .card-footer-actions
