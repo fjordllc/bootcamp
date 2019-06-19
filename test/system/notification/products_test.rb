@@ -18,6 +18,10 @@ class Notification::ProductsTest < ApplicationSystemTestCase
 
     first(".test-bell").click
     assert_text "yamadaさんが提出しました。"
+
+    # 提出物を作成したとき、管理者からウォッチがつく
+    click_link  "yamadaさんが提出しました。"
+    assert_text "Unwatch"
   end
 
   test "recieve a notification when product is updated" do
@@ -34,22 +38,5 @@ class Notification::ProductsTest < ApplicationSystemTestCase
 
     first(".test-bell").click
     assert_text "yamadaさんが提出物を更新しました。"
-  end
-
-  test "recieve a notification when posted a comment to product" do
-    login_user "yamada", "testtest"
-    visit "/products/#{products(:product_1).id}"
-
-    within(".thread-comment-form__form") do
-      fill_in("comment[description]", with: "test")
-    end
-    click_button "コメントする"
-    assert_text "コメントを投稿しました。"
-
-    logout
-    login_user "komagata", "testtest"
-
-    first(".test-bell").click
-    assert_text "yamadaさんが提出物にコメントしました。"
   end
 end
