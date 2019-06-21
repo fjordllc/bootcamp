@@ -42,44 +42,44 @@ class CommentsTest < ApplicationSystemTestCase
       fill_in("comment[description]", with: "test")
     end
     click_button "コメントする"
-    assert_text "コメントを投稿しました。"
+    assert_text "test"
   end
 
   test "post new comment with mention for report" do
     visit "/reports/#{reports(:report_1).id}"
     find(".js-markdown").set("login_nameの補完テスト: @koma\n")
     click_button "コメントする"
-    assert_text "コメントを投稿しました。"
     assert_text "login_nameの補完テスト: @komagata"
-    assert_selector :css, "a[href='/users/komagata']"
+    # assert_selector :css, "a[href='/users/komagata']"
   end
 
   test "post new comment with emoji for report" do
     visit "/reports/#{reports(:report_1).id}"
     find(".js-markdown").set("絵文字の補完テスト: :bow: :cat\n")
     click_button "コメントする"
-    assert_text "コメントを投稿しました。"
     assert_text "絵文字の補完テスト: 🙇 😺"
   end
 
   test "edit the comment for report" do
     visit "/reports/#{reports(:report_3).id}"
-    click_link "編集"
-    within(:css, ".thread-comment-form__form") do
-      fill_in("comment[description]", with: "edit test")
+    within(".thread-comment:first-child") do
+      click_button "編集"
+      within(:css, ".thread-comment-form__form") do
+        fill_in("comment[description]", with: "edit test")
+      end
+      click_button "保存する"
     end
-    click_button "保存する"
-    assert_text "コメントを更新しました。"
+    assert_text "edit test"
   end
 
   test "destroy the comment for report" do
     visit "/reports/#{reports(:report_3).id}"
-    within(:css, ".thread-comment:first-child") do
+    within(".thread-comment:first-child") do
       accept_alert do
-        click_link("削除")
+        click_button("削除")
       end
     end
-    assert_text "コメントを削除しました。"
+    assert_no_text "どういう教材がいいんでしょうかね？"
   end
 
   test "post new comment for product" do
@@ -88,7 +88,7 @@ class CommentsTest < ApplicationSystemTestCase
       fill_in("comment[description]", with: "test")
     end
     click_button "コメントする"
-    assert_text "コメントを投稿しました。"
+    assert_text "test"
   end
 
   test "post new comment for announcement" do
@@ -97,6 +97,6 @@ class CommentsTest < ApplicationSystemTestCase
       fill_in("comment[description]", with: "test")
     end
     click_button "コメントする"
-    assert_text "コメントを投稿しました。"
+    assert_text "test"
   end
 end
