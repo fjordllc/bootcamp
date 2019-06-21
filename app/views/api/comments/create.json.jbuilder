@@ -1,0 +1,1 @@
+json.partial! "api/comments/comment", comment: @comment, available_emojis: @available_emojis

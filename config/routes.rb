@@ -14,10 +14,11 @@ Rails.application.routes.draw do
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
     resources :categories, only: %i(index)
-    resources :comments, only: %i(index)
+    resources :comments, only: %i(index create update destroy)
+    resources :available_emojis, only: %i(index)
     resources :reactions, only: %i(create destroy)
     resources :checks, only: %i(index create destroy)
-    resources :users, only: :index
+    resources :users, only: %i(index show)
     resources :practices, only: [] do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
