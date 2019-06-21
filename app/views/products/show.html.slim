@@ -62,5 +62,5 @@ header.page-header
       = link_to @product.user, itempro: "url", class: "thread__author-link" do
         = image_tag @product.user.avatar_image, class: "thread__author-icon is-#{@product.user.role}"
 
-    = render "comments/comments", comments: @product.comments.order(:created_at), form_visibility: true
+    #js-comments(data-commentable-id="#{@product.id}" data-commentable-type="Product" data-current-user-id="#{current_user.id}")
     = render "footprints/footprints", footprints: @footprints

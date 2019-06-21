@@ -41,37 +41,37 @@ class CommentsController < ApplicationController
 
   private
 
-  def comment_params
-    params.require(:comment).permit(
-      :description,
-      :commentable_id,
-      :commentable_type
-    )
-  end
+    def comment_params
+      params.require(:comment).permit(
+        :description,
+        :commentable_id,
+        :commentable_type
+      )
+    end
 
-  def commentable
-    klass = params[:comment][:commentable_type].constantize
-    klass.find(params[:comment][:commentable_id])
-  end
+    def commentable
+      klass = params[:comment][:commentable_type].constantize
+      klass.find(params[:comment][:commentable_id])
+    end
 
-  def set_user
-    @user = User.find_by(id: params[:user_id])
-  end
+    def set_user
+      @user = User.find_by(id: params[:user_id])
+    end
 
-  def set_my_comment
-    @comment = current_user.comments.find(params[:id])
-  end
+    def set_my_comment
+      @comment = current_user.comments.find(params[:id])
+    end
 
-  def notify_to_slack(comment)
-    name = "#{comment.user.login_name}"
-    link = "<#{polymorphic_url(comment.commentable)}#comment_#{comment.id}|#{comment.commentable.title}>"
+    def notify_to_slack(comment)
+      name = "#{comment.user.login_name}"
+      link = "<#{polymorphic_url(comment.commentable)}#comment_#{comment.id}|#{comment.commentable.title}>"
 
-    SlackNotification.notify "#{name} commented to #{link}",
-      username: "#{comment.user.login_name} (#{comment.user.full_name})",
-      icon_url: url_for(comment.user.avatar),
-      attachments: [{
-        fallback: "comment body.",
-        text: comment.description
-      }]
-  end
+      SlackNotification.notify "#{name} commented to #{link}",
+        username: "#{comment.user.login_name} (#{comment.user.full_name})",
+        icon_url: url_for(comment.user.avatar),
+        attachments: [{
+          fallback: "comment body.",
+          text: comment.description
+        }]
+    end
 end
