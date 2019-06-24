@@ -28,9 +28,10 @@ class CommentsTest < ApplicationSystemTestCase
     end
   end
 
-  test "comment form in comments/:id/edit has comment tab and preview tab" do
-    visit "/comments/#{comments(:comment_2).id}/edit"
-    within(".thread-comment-form__tabs") do
+  test "edit comment form has comment tab and preview tab" do
+    visit "/reports/#{reports(:report_3).id}"
+    within(".thread-comment:first-child") do
+      click_button "編集"
       assert_text "コメント"
       assert_text "プレビュー"
     end
