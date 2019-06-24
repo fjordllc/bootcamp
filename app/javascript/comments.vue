@@ -30,6 +30,8 @@
   import Comment from "./comment.vue"
   import MarkdownTextarea from "./markdown-textarea.vue"
   import MarkdownIt from 'markdown-it'
+  import MarkdownItEmoji from 'markdown-it-emoji'
+  import MarkdownItMention from './packs/markdown-it-mention'
 
   export default {
     props: ["commentableId", "commentableType", "currentUserId"],
@@ -166,12 +168,13 @@
     },
     computed: {
       markdownDescription: function() {
-        let md = new MarkdownIt({
+        const md = new MarkdownIt({
           html: true,
           breaks: true,
-          langPrefix: true,
-          linkify: true
+          linkify: true,
+          langPrefix: 'language-'
         });
+        md.use(MarkdownItEmoji).use(MarkdownItMention)
         return md.render(this.description);
       }
     }
