@@ -50,7 +50,7 @@ class CommentsTest < ApplicationSystemTestCase
     find(".js-markdown").set("login_nameの補完テスト: @koma\n")
     click_button "コメントする"
     assert_text "login_nameの補完テスト: @komagata"
-    # assert_selector :css, "a[href='/users/komagata']"
+    assert_selector :css, "a[href='/users/komagata']"
   end
 
   test "post new comment with emoji for report" do

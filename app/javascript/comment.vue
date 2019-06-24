@@ -2,7 +2,7 @@
   .thread-comment
     .thread-comment__author
       a.thread-comment__author-link(:href="comment.user.url" itempro="url")
-        img.thread-comment__author-icon(:src="comment.user.avatar_image" v-bind:class="userRole(comment.user)")
+        img.thread-comment__author-icon(:src="comment.user.avatar_image" v-bind:class="userRole")
     .thread-comment__body.a-card(v-if="!editing")
       header.thread-comment__body-header
         h2.thread-comment__title
@@ -25,7 +25,7 @@
               button.card-footer-actions__action.a-button.is-md.is-danger.is-block(@click="deleteComment")
                 i.fas.fa-trash-alt
                 | 削除
-    .thread-comment-form__form.a-card(v-if="editing")
+    .thread-comment-form__form.a-card(v-show="editing")
       .thread-comment-form__tabs.js-tabs
         .thread-comment-form__tab.js-tabs__tab(v-bind:class="{'is-active': isActive('comment')}" @click="changeActiveTab('comment')")
           | コメント
@@ -34,7 +34,7 @@
       .thread-comment-form__markdown-parent.js-markdown-parent
         .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('comment')}")
           .thread-comments-form__error(v-if="error" v-text="errorMessage")
-          markdown-textarea(v-model="description" class="a-text-input js-warning-form thread-comment-form__textarea js-markdown" required="required" name="comment[description]")
+          markdown-textarea(v-model="description" :class="classCommentId" class="a-text-input js-warning-form thread-comment-form__textarea js-comment-markdown" name="comment[description]")
         .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('preview')}")
           .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
       .thread-comment-form__action
@@ -48,6 +48,13 @@
   import MarkdownTextarea from "./markdown-textarea.vue"
   import moment from "moment"
   import MarkdownIt from 'markdown-it'
+  import MarkdownItEmoji from 'markdown-it-emoji'
+  import MarkdownItMention from './packs/markdown-it-mention'
+
+  import Tribute from 'tributejs'
+  import TextareaAutocomplteEmoji from 'classes/textarea-autocomplte-emoji'
+  import TextareaAutocomplteMention from 'classes/textarea-autocomplte-mention'
+
   moment.locale("ja");
 
   export default {
@@ -70,6 +77,16 @@
     },
     mounted: function() {
       $("textarea").textareaAutoSize();
+      const textareas = document.querySelectorAll(`.comment-id-${this.comment.id}`)
+      const emoji = new TextareaAutocomplteEmoji()
+      const mention = new TextareaAutocomplteMention()
+
+      mention.fetchValues(json => {
+        mention.values = json
+        const collection = [emoji.params(), mention.params()]
+        const tribute = new Tribute({ collection: collection })
+        tribute.attach(textareas)
+      })
     },
     methods: {
       token () {
@@ -81,9 +98,6 @@
       },
       changeActiveTab: function(tab) {
         this.tab = tab
-      },
-      userRole: function(user){
-        return `is-${user.role}`
       },
       cancel: function() {
         this.description = this.comment.description;
@@ -130,12 +144,13 @@
     },
     computed: {
       markdownDescription: function() {
-        let md = new MarkdownIt({
+        const md = new MarkdownIt({
           html: true,
           breaks: true,
-          langPrefix: true,
-          linkify: true
+          linkify: true,
+          langPrefix: 'language-'
         });
+        md.use(MarkdownItEmoji).use(MarkdownItMention)
         return md.render(this.description);
       },
       commentableCreatedAt: function() {
@@ -143,7 +158,13 @@
       },
       updatedAt: function() {
         return moment(this.comment.updated_at).format("YYYY年MM月DD日(dd) HH:mm")
-      }
+      },
+      userRole: function(){
+        return `is-${this.comment.user.role}`
+      },
+      classCommentId: function() {
+        return `comment-id-${this.comment.id}`
+      },
     }
   }
 </script>
