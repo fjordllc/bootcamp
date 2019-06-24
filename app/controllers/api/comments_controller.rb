@@ -2,6 +2,8 @@
 
 class API::CommentsController < API::BaseController
   include CommentableController
+  before_action :require_login
+  before_action :set_my_comment, only: %i(update destroy)
 
   def index
     @comments = commentable.comments.order(created_at: :asc)
@@ -22,8 +24,6 @@ class API::CommentsController < API::BaseController
   end
 
   def update
-    @comment = Comment.find(params[:id])
-
     if @comment.update(comment_params)
       head :ok
     else
@@ -32,7 +32,6 @@ class API::CommentsController < API::BaseController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
     @comment.destroy!
   end
 
@@ -48,6 +47,10 @@ class API::CommentsController < API::BaseController
 
     def commentable
       params[:commentable_type].constantize.find(params[:commentable_id])
+    end
+
+    def set_my_comment
+      @comment = current_user.comments.find(params[:id])
     end
 
     def notify_to_slack(comment)
