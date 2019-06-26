@@ -7,9 +7,9 @@ class ProductTest < ActiveSupport::TestCase
     user = users(:kimura)
     practice = practices(:practice_5)
     product = Product.create!(practice: practice, user: user, body: "test")
-    assert Notification.where(path: "/products/#{product.id}").exists?
+    assert InnerNotification.where(path: "/products/#{product.id}").exists?
     product.destroy
-    assert_not Notification.where(path: "/products/#{product.id}").exists?
+    assert_not InnerNotification.where(path: "/products/#{product.id}").exists?
   end
 
   test "adviser watches trainee product when trainee create product" do

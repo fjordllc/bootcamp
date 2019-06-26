@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NotificationsController < ApplicationController
+class InnerNotificationsController < ApplicationController
   before_action :require_login, only: %i(index show)
   before_action :set_my_notification, only: %i(show)
 

@@ -67,6 +67,13 @@ report_9:
   reported_on: "2019-01-01"
   wip: true
 
+report_10:
+  user: hajime
+  title: 初日報です
+  description:
+    学習の準備をしました。
+  reported_on: "2019-01-01"
+
 sotugyou:
   user: sotugyou
   title: テストの日報

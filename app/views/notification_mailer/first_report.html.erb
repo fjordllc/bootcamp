@@ -1,0 +1,3 @@
+<%= "#{@report.user.login_name}さんがはじめての日報を書きました！" %>
+<%= link_to "#{@report.title}", inner_notification_url(@notification) %>
+<%= @report.description %>

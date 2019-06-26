@@ -16,5 +16,5 @@ header.page-header
     = paginate @notifications, position: "top"
     - if @notifications.present?
       .thread-list.a-card
-        = render partial: "notifications/notification", collection: @notifications, as: :notification
+        = render partial: "inner_notifications/notification", collection: @notifications, as: :notification
     = paginate @notifications, position: "bottom"
