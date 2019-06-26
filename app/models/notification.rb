@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+<<<<<<< HEAD
 class Notification < ApplicationRecord
   belongs_to :user
   belongs_to :sender, class_name: "User"
@@ -25,103 +26,52 @@ class Notification < ApplicationRecord
   }
   scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
 
+=======
+class Notification
+>>>>>>> 通知をメールでも飛ぶように変更
   def self.came_comment(comment, reciever, message)
-    Notification.create!(
-      kind:    0,
-      user:    reciever,
-      sender:  comment.sender,
-      path:    Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
-      message: message,
-      read:    false
-    )
+    InnerNotification.came_comment(comment, reciever, message)
+    NotificationMailer.came_comment(comment, reciever, message).deliver_now
   end
 
   def self.checked(check)
-    Notification.create!(
-      kind:    1,
-      user:    check.reciever,
-      sender:  check.sender,
-      path:    Rails.application.routes.url_helpers.polymorphic_path(check.checkable),
-      message: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
-      read:    false
-    )
+    InnerNotification.checked(check)
+    NotificationMailer.checked(check).deliver_now
   end
 
   def self.mentioned(comment, reciever)
-    Notification.create!(
-      kind:    2,
-      user:    reciever,
-      sender:  comment.sender,
-      path:    Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
-      message: "#{comment.sender.login_name}さんからメンションがきました。",
-      read:    false
-    )
+    InnerNotification.mentioned(comment, reciever)
+    NotificationMailer.mentioned(comment, reciever).deliver_now
   end
 
   def self.submitted(subject, reciever, message)
-    Notification.create!(
-      kind:    3,
-      user:    reciever,
-      sender:  subject.user,
-      path:    Rails.application.routes.url_helpers.polymorphic_path(subject),
-      message: message,
-      read:    false
-    )
+    InnerNotification.submitted(subject, reciever, message)
+    NotificationMailer.submitted(subject, reciever, message).deliver_now
   end
 
   def self.came_answer(answer)
-    Notification.create!(
-      kind:    4,
-      user:    answer.reciever,
-      sender:  answer.sender,
-      path:    Rails.application.routes.url_helpers.polymorphic_path(answer.question),
-      message: "#{answer.user.login_name}さんから回答がありました。",
-      read:    false
-    )
+    InnerNotification.came_answer(answer)
+    NotificationMailer.came_answer(answer).deliver_now
   end
 
   def self.post_announcement(announce, reciever)
-    Notification.create!(
-      kind:    5,
-      user:    reciever,
-      sender:  announce.sender,
-      path:    Rails.application.routes.url_helpers.polymorphic_path(announce),
-      message: "#{announce.user.login_name}さんからお知らせです。",
-      read:    false
-    )
+    InnerNotification.post_announcement(announce, reciever)
+    NotificationMailer.post_announcement(announce, reciever).deliver_now
   end
 
   def self.came_question(question, reciever)
-    Notification.create!(
-      kind:    6,
-      user:    reciever,
-      sender:  question.sender,
-      path:    Rails.application.routes.url_helpers.polymorphic_path(question),
-      message: "#{question.user.login_name}さんから質問がきました。",
-      read:    false
-    )
+    InnerNotification.came_question(question, reciever)
+    NotificationMailer.came_question(question, reciever).deliver_now
   end
 
-  def self.report_submitted(report, reciever, message)
-    Notification.create!(
-      kind:    7,
-      user:    reciever,
-      sender:  report.sender,
-      path:    Rails.application.routes.url_helpers.polymorphic_path(report),
-      message: message,
-      read:    false
-    )
+  def self.first_report(report, reciever)
+    InnerNotification.first_report(report, reciever)
+    NotificationMailer.first_report(report, reciever).deliver_now
   end
 
   def self.watching_notification(watchable, reciever)
-    Notification.create!(
-      kind:    8,
-      user:    reciever,
-      sender:  watchable.user,
-      path:    Rails.application.routes.url_helpers.polymorphic_path(watchable),
-      message: "あなたがウォッチしている【 #{watchable.title} 】にコメントが投稿されました。",
-      read:    false
-    )
+    InnerNotification.watching_notification(watchable, reciever)
+    NotificationMailer.watching_notification(watchable, reciever).deliver_now
   end
 
   def self.retired(sender, reciever)

@@ -51,6 +51,6 @@ class ProductCallbacks
     end
 
     def delete_notification(product)
-      Notification.where(path: "/products/#{product.id}").destroy_all
+      InnerNotification.where(path: "/products/#{product.id}").destroy_all
     end
 end

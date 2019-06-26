@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class NotificationsTest < ApplicationSystemTestCase
+class InnerNotificationsTest < ApplicationSystemTestCase
   test "notifications" do
     login_user "sotugyou", "testtest"
 
@@ -14,10 +14,10 @@ class NotificationsTest < ApplicationSystemTestCase
     assert_no_text "machidaさんからコメントが届きました。"
   end
 
-  test "GET /notifications" do
+  test "GET /inner_notifications" do
     login_user "sotugyou", "testtest"
 
-    visit "/notifications"
+    visit "/inner_notifications"
     assert_text "komagataさんからコメントが届きました。"
     assert_text "machidaさんが学習週1日目を確認しました。"
     assert_text "komagataさんからメンションがきました。"

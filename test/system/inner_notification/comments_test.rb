@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class Notification::CommentsTest < ApplicationSystemTestCase
+class InnerNotification::CommentsTest < ApplicationSystemTestCase
   test "recieve only one notificaiton if you send two mentions in one comment" do
     login_user "komagata", "testtest"
     visit "/reports/#{reports(:report_1).id}"

@@ -65,10 +65,16 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "order_by_counts" do
+<<<<<<< HEAD
     ordered_users = User.order_by_counts("report", "desc")
     more_report_user = users(:sotugyou)
     less_report_user = users(:yamada)
     assert ordered_users.index(more_report_user) < ordered_users.index(less_report_user)
+=======
+    names = User.order_by_counts("report", "desc").pluck(:login_name)
+    expected = %w(sotugyou komagata machida yamada hajime advijirou yameo kimura hatsuno muryou kensyu)
+    assert_equal expected, names
+>>>>>>> 通知をメールでも飛ぶように変更
 
     ordered_users = User.order_by_counts("comment", "asc")
     more_comment_user = users(:komagata)

@@ -45,3 +45,8 @@ comment_8:
   user: komagata
   commentable: product_10 (Product)
   description: "提出物のコメントです。"
+
+comment_9:
+  user: komagata
+  commentable: report_5 (Report)
+  description: "@sotugyou 🎉🎉🎉🎉"
