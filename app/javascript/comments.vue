@@ -164,7 +164,7 @@
       } else if (this.commentIsActive == false && tab == 'comment') {
         this.commentIsActive = true
       }
-    }
+      }
     },
     computed: {
       markdownDescription: function() {
