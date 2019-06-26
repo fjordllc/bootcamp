@@ -1,7 +1,7 @@
 .thread-list-item(class="#{notification.read? ? "is-read" : "is-unread"}")
   .thread-list-item__inner
     .thread-list-item__author
-      = image_tag notification.sender.avatar_image(48), class: "thread-list-item__author-icon"
+      = image_tag notification.sender.avatar_image, class: "thread-list-item__author-icon"
     header.thread-list-item__header
       .thread-list-item__header-title-container
         - unless notification.read?
