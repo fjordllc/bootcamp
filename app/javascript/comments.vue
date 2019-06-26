@@ -18,12 +18,11 @@
               | プレビュー
           .thread-comment-form__markdown-parent.js-markdown-parent
             .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('comment')}")
-              .thread-comments-form__error(v-if="error" v-text="errorMessage")
               markdown-textarea(v-model="description" id="js-new-comment" class="a-text-input js-warning-form thread-comment-form__textarea js-markdown" name="comment[description]")
             .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('preview')}")
               .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
           .thread-comment-form__action
-            button.a-button.is-lg.is-warning.is-block(@click="createComment")
+            button.a-button.is-lg.is-warning.is-block(@click="createComment" v-bind:disabled="!validation")
               | コメントする
 </template>
 <script>
@@ -44,12 +43,9 @@
         currentUser: {},
         comments: [],
         description: "",
-        error: false,
-        errorMessage: "コメントを入力してください。",
         tab: "comment"
       }
     },
-
     created: function() {
       fetch(`/api/users/${this.currentUserId}.json`, {
         method: 'GET',
@@ -89,7 +85,6 @@
           console.warn('Failed to parsing', error)
         })
     },
-
     mounted: function() {
       $("textarea").textareaAutoSize();
     },
@@ -105,18 +100,16 @@
         this.tab = tab
       },
       createComment: function(event) {
-        if (this.description.length <= 1) {
-          this.error = true;
-          return null;
-        } else {
-          this.error = false;
-        }
-        let params = {"comment": {"description": this.description,
+        if (this.description.length < 1) {　return null　}
+        let params = {
+          "comment": {
+            "description": this.description,
+            "commentable_type": this.commentableType,
+            "commentable_id": this.commentableId
+            },
           "commentable_type": this.commentableType,
           "commentable_id": this.commentableId
-          },"commentable_type": this.commentableType,
-          "commentable_id": this.commentableId}
-
+        }
         fetch(`/api/comments`, {
           method: 'POST',
           headers: {
@@ -157,13 +150,6 @@
           .catch(error => {
             console.warn('Failed to parsing', error)
           })
-      },
-      changeActiveTab: function(tab) {
-      if (this.commentIsActive == true && tab == 'preview') {
-        this.commentIsActive = false
-      } else if (this.commentIsActive == false && tab == 'comment') {
-        this.commentIsActive = true
-      }
       }
     },
     computed: {
@@ -176,6 +162,9 @@
         });
         md.use(MarkdownItEmoji).use(MarkdownItMention)
         return md.render(this.description);
+      },
+      validation: function() {
+        return this.description.length > 0
       }
     }
   }
