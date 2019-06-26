@@ -33,12 +33,11 @@
           | プレビュー
       .thread-comment-form__markdown-parent.js-markdown-parent
         .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('comment')}")
-          .thread-comments-form__error(v-if="error" v-text="errorMessage")
           markdown-textarea(v-model="description" :class="classCommentId" class="a-text-input js-warning-form thread-comment-form__textarea js-comment-markdown" name="comment[description]")
         .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('preview')}")
           .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
       .thread-comment-form__action
-        button.a-button.is-lg.is-warning.is-block(@click="updateComment")
+        button.a-button.is-lg.is-warning.is-block(@click="updateComment" v-bind:disabled="!validation")
           | 保存する
         button.a-button.is-block(@click="cancel")
           | キャンセル
@@ -46,14 +45,14 @@
 <script>
   import Reaction from "./reaction.vue"
   import MarkdownTextarea from "./markdown-textarea.vue"
-  import moment from "moment"
+
   import MarkdownIt from 'markdown-it'
   import MarkdownItEmoji from 'markdown-it-emoji'
   import MarkdownItMention from './packs/markdown-it-mention'
-
   import Tribute from 'tributejs'
   import TextareaAutocomplteEmoji from 'classes/textarea-autocomplte-emoji'
   import TextareaAutocomplteMention from 'classes/textarea-autocomplte-mention'
+  import moment from "moment"
 
   moment.locale("ja");
 
@@ -67,8 +66,6 @@
       return {
         description: "",
         editing: false,
-        error: false,
-        errorMessage: "コメントを入力してください。",
         tab: "comment"
       }
     },
@@ -107,13 +104,7 @@
         this.editing = true;
       },
       updateComment: function() {
-        if (this.description.length < 1) {
-          this.error = true;
-          return null;
-        } else {
-          this.error = false;
-        }
-
+        if (this.description.length < 1) {　return null　}
         let params = {"comment": {"description": this.description,
           "commentable_type": this.comment.commentable_type,
           "commentable_id": this.comment.commentable_id}}
@@ -137,7 +128,6 @@
       },
       deleteComment: function() {
         if (window.confirm("削除してよろしいですか？")) {
-          this.loading = true;
           this.$emit("delete", this.comment.id);
         }
       }
@@ -165,6 +155,9 @@
       classCommentId: function() {
         return `comment-id-${this.comment.id}`
       },
+      validation: function() {
+        return this.description.length > 0
+      }
     }
   }
 </script>
