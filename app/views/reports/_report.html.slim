@@ -1,7 +1,7 @@
 .thread-list-item(class="#{report.wip? ? "is-wip" : ""}")
   .thread-list-item__inner
     .thread-list-item__author
-      = image_tag report.user.avatar_image(44), class: "thread-list-item__author-icon is-#{report.user.role}"
+      = image_tag report.user.avatar_image, class: "thread-list-item__author-icon is-#{report.user.role}"
     header.thread-list-item__header
       .thread-list-item__header-title-container
         - if report.wip?
@@ -28,7 +28,7 @@
       - if report.checks.any?
         .thread-list-item-meta__checkers
           - report.checks.each do |check|
-            = image_tag check.user.avatar_image(20), class: "thread-list-item__checked-author-icon is-#{check.user.role}"
+            = image_tag check.user.avatar_image, class: "thread-list-item__checked-author-icon is-#{check.user.role}"
         .stamp.stamp-approve
           h2.stamp__content.is-title 確認済
           time.stamp__content.is-created-at

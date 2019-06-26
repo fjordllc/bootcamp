@@ -9,7 +9,7 @@
           i.fas.fa-angle-down
         .thread-list-item__author
           = link_to user do
-            = image_tag user.avatar_image(44), class: "thread-list-item__author-icon is-#{user.role}"
+            = image_tag user.avatar_image, class: "thread-list-item__author-icon is-#{user.role}"
         header.thread-list-item__header
           h2.thread-list-item__title(itemprop="name")
             = link_to user, itempro: "url", class: "thread-list-item__title-link" do
