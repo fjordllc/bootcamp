@@ -1,7 +1,7 @@
 .thread-list-item
   .thread-list-item__inner
     .thread-list-item__author
-      = image_tag product.user.avatar_image(44), class: "thread-list-item__author-icon"
+      = image_tag product.user.avatar_image, class: "thread-list-item__author-icon"
     header.thread-list-item__header
       h2.thread-list-item__title(itemprop="name")
         = link_to product, itempro: "url", class: "thread-list-item__title-link" do
@@ -19,7 +19,7 @@
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-value
             - product.checks.each do |check|
-              = image_tag check.user.avatar_image(20), class: "thread-list-item__checked-author-icon is-#{check.user.role}"
+              = image_tag check.user.avatar_image, class: "thread-list-item__checked-author-icon is-#{check.user.role}"
         .stamp.stamp-approve
           h2.stamp__content.is-title 確認済
           time.stamp__content.is-created-at

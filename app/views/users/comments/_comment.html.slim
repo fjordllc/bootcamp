@@ -7,7 +7,7 @@
       - if user_comments_page?
         h2.thread-list-item__title
           = link_to commentable, class: "thread-list-item__title-link" do
-            = image_tag commentable.user.avatar_image(40), class: "thread-comment__title-icon"
+            = image_tag commentable.user.avatar_image, class: "thread-comment__title-icon"
             = truncate(commentable.title, length: 50)
       - else
         h2.thread-list-item__title

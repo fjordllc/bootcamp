@@ -17,7 +17,7 @@ header.page-header
       .thread__inner.a-card
         header.thread-header
           = link_to user_portfolio_path(@work.user), itempro: "url", class: "thread-header__author-link" do
-            = image_tag @work.user.avatar_image(120), class: "thread-header__author-icon is-#{@work.user.role}"
+            = image_tag @work.user.avatar_image, class: "thread-header__author-icon is-#{@work.user.role}"
           h2.thread-header__title
             = @work.title
           .thread-header__lower-side

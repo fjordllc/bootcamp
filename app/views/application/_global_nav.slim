@@ -6,7 +6,7 @@ nav.global-nav
       .global-nav-current-user
         = link_to user_path(current_user), class: "global-nav-current-user__link"
           .global-nav-current-user__icon
-            = image_tag current_user.avatar_image(320), class: "is-#{current_user.role}"
+            = image_tag current_user.avatar_image, class: "is-#{current_user.role}"
     .global-nav-links.is-contents-links
       ul.global-nav-links__items
         li.global-nav-links__item

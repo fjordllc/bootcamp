@@ -1,6 +1,6 @@
 .thread-comment-form
   .thread-comment__author
-    = image_tag current_user.avatar_image(200), class: "thread-comment__author-icon is-#{current_user.role}"
+    = image_tag current_user.avatar_image, class: "thread-comment__author-icon is-#{current_user.role}"
   = form_with model: comment, local: true, html: { class: "thread-comment-form__form a-card" } do |f|
     = f.hidden_field :commentable_type
     = f.hidden_field :commentable_id
