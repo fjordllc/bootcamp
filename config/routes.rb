@@ -69,7 +69,6 @@ Rails.application.routes.draw do
     resources :unchecked, only: %i(index)
   end
   resources :reports
-  resources :comments
   resources :notifications, only: %i(index show)
   resources :pages
   resources :works, except: %i(index)
