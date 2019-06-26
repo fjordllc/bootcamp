@@ -1,6 +1,6 @@
 .thread-comment-form
   .thread-comment__author
-    = image_tag current_user.avatar_image(200), class: "thread-comment__author-icon is-#{current_user.role}"
+    = image_tag current_user.avatar_image, class: "thread-comment__author-icon is-#{current_user.role}"
   = form_with model: [question, answer], local: true, html: { class: "thread-comment-form__form a-card", name: "answer" } do |f|
     - if answer.errors.any?
       = error_messages_for :answer

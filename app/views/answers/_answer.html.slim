@@ -4,7 +4,7 @@
 .thread-comment(class="#{answer == answer.question.correct_answer ? "is-correct_answer" : ""}")
   .thread-comment__author
     = link_to answer.user, itempro: "url", class: "thread-comment__author-link" do
-      = image_tag answer.user.avatar_image(200), class: "thread-comment__author-icon is-#{answer.user.role}"
+      = image_tag answer.user.avatar_image, class: "thread-comment__author-icon is-#{answer.user.role}"
   .thread-comment__body.a-card
     - if answer == correct_answer
       .answer-badge
