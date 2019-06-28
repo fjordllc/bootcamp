@@ -1,7 +1,7 @@
 ja:
   date:
     formats:
-      default: "%Y年%m月%d日(%a)"
+      default: "%Y年%m月%d日"
       short: "%Y/%m/%d"
   time:
     formats:
