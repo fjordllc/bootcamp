@@ -1,11 +1,14 @@
-.thread-list-item
+.thread-list-item(class="#{product.wip? ? "is-wip" : ""}")
   .thread-list-item__inner
     .thread-list-item__author
       = image_tag product.user.avatar_image(44), class: "thread-list-item__author-icon"
     header.thread-list-item__header
-      h2.thread-list-item__title(itemprop="name")
-        = link_to product, itempro: "url", class: "thread-list-item__title-link" do
-          | #{product.practice.title}の提出物
+      .thread-list-item__header-title-container
+        - if product.wip?
+          .thread-list-item__header-icon.is-wip WIP
+        h2.thread-list-item__title(itemprop="name")
+          = link_to product, itempro: "url", class: "thread-list-item__title-link" do
+            | #{product.practice.title}の提出物
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")
         = l product.updated_at
