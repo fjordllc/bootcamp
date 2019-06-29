@@ -115,6 +115,6 @@ class ProductsController < ApplicationController
     end
 
     def notice_message(product)
-      @product.wip? ? "提出物をWIPとして保存しました。" : "提出物を保存しました。"
+      @product.wip? ? "提出物をWIPとして保存しました。" : "提出物を作成しました。"
     end
 end
