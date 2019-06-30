@@ -96,4 +96,15 @@ class ProductsTest < ApplicationSystemTestCase
     click_button "WIP"
     assert_text "提出物をWIPとして保存しました。"
   end
+
+  test "update product as WIP" do
+    login_user "yamada", "testtest"
+    product = products(:product_1)
+    visit "/products/#{product.id}/edit"
+    within("form[name=product]") do
+      fill_in("product[body]", with: "test")
+    end
+    click_button "WIP"
+    assert_text "提出物をWIPとして保存しました。"
+  end
 end
