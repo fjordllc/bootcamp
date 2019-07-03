@@ -1,15 +1,11 @@
 .thread
   .thread__inner.a-card
     header.thread-header
-      h1.thread-header__title
-        = announcement.title
-
-      .thread-meta
-        .thread-meta__author-name
-          = link_to announcement.user, class: "thread-meta__author-name-link" do
-            = announcement.user.login_name
-        time.thread-meta__created-at(datetime="#{announcement.created_at.to_datetime}" pubdate="pubdate")
-          | 書いた日 : #{l announcement.updated_at}
+      .thread-header__header
+        = link_to announcement.user, class: "thread-header__author" do
+          = announcement.user.login_name
+        .thread-header__date
+          | #{l announcement.updated_at} のお知らせ
 
     .thread-body
       .thread__description.js-target-blank.is-long-text.js-markdown-view

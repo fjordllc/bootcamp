@@ -61,7 +61,7 @@
       label.header-links__link.test-show-notifications(for="#{toggle_id}")
         .header-links__link.test-bell
           .header-notification-icon
-            - if current_user.notifications.unreads.count > 0
+            - if current_user.notifications.unreads.exists?
               .header-notification-count.a-notification-count
                 = current_user.notifications.unreads.count
             i.fas.fa-bell
