@@ -21,9 +21,10 @@
               markdown-textarea(v-model="description" id="js-new-comment" class="a-text-input js-warning-form thread-comment-form__textarea js-markdown" name="comment[description]")
             .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('preview')}")
               .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
-          .thread-comment-form__action
-            button.a-button.is-lg.is-warning.is-block(@click="createComment" v-bind:disabled="!validation")
-              | コメントする
+          .thread-comment-form__actions
+            .thread-comment-form__action
+              button.a-button.is-lg.is-warning.is-block(@click="createComment" v-bind:disabled="!validation")
+                | コメントする
 </template>
 <script>
   import Comment from "./comment.vue"
@@ -66,7 +67,7 @@
         .catch(error => {
           console.warn('Failed to parsing', error)
         })
-      
+
       fetch(`/api/comments.json?commentable_type=${this.commentableType}&commentable_id=${this.commentableId}`, {
         method: 'GET',
         headers: {

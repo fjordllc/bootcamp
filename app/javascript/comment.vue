@@ -36,11 +36,13 @@
           markdown-textarea(v-model="description" :class="classCommentId" class="a-text-input js-warning-form thread-comment-form__textarea js-comment-markdown" name="comment[description]")
         .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('preview')}")
           .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
-      .thread-comment-form__action
-        button.a-button.is-lg.is-warning.is-block(@click="updateComment" v-bind:disabled="!validation")
-          | 保存する
-        button.a-button.is-block(@click="cancel")
-          | キャンセル
+      .thread-comment-form__actions
+        .thread-comment-form__action
+          button.a-button.is-md.is-warning.is-block(@click="updateComment" v-bind:disabled="!validation")
+            | 保存する
+        .thread-comment-form__action
+          button.a-button.is-md.is-secondary.is-block(@click="cancel")
+            | キャンセル
 </template>
 <script>
   import Reaction from "./reaction.vue"
