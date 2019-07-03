@@ -8,7 +8,7 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to notifications_allmarks_path, method: :post, class: "a-button is-md is-warning is-block #{current_user.notifications.unreads.empty?  ? "is-disabled" : ""}" do
+            = link_to notifications_allmarks_path, method: :post, class: "a-button is-md is-warning is-block #{current_user.notifications.unreads.empty? ? "is-disabled" : ""}" do
               | 全て既読にする
 
 .page-body
