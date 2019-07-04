@@ -17,7 +17,7 @@ module UserDecorator
     roles.detect { |v| v[:value] }[:role]
   end
 
-  def avatar_image(length)
-    rails_blob_path(avatar)
+  def avatar_image
+    avatar.service_url
   end
 end

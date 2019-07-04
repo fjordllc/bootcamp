@@ -10,6 +10,24 @@ header.page-header
 
 .page-body
   .container
-    ul
-      li = link_to "忘年会メールアドレス", admin_users_path(target: "year_end_party")
-      li = link_to "アクティブでないユーザー", admin_users_path(target: "inactive")
+    .columns
+      .row
+        .col-xs-12.col-xl-6.col-xxl-6
+          .thread-list.a-card
+            header.card-header.is-sm
+              h2.card-header__title
+                | 管理者メニュー
+            .card-list
+              ul.card-list__items
+                li.card-list__item
+                  = link_to new_article_path, class: "card-list__item-link" do
+                    | ブログ記事作成
+                li.card-list__item
+                  = link_to "https://fjord.slack.com/admin", class: "card-list__item-link", target: "_blank" do
+                    | Slack管理
+                li.card-list__item
+                  = link_to "https://github.com/fjordllc/fjord/wiki/FjordBootCamp", class: "card-list__item-link", target: "_blank" do
+                    | 管理者用ドキュメント
+                li.card-list__item
+                  = link_to welcome_path, class: "card-list__item-link" do
+                    | トップページ確認

@@ -1,16 +1,18 @@
 import MarkdownIt from 'markdown-it'
-import MarkdownItPlantUML from 'markdown-it-plantuml'
+import MarkdownItEmoji from 'markdown-it-emoji'
+import MarkdownItMention from './markdown-it-mention'
 
 document.addEventListener('DOMContentLoaded', () => {
-  let md = new MarkdownIt({
+  const md = new MarkdownIt({
     html: true,
     breaks: true,
     linkify: true,
     langPrefix: 'language-'
   })
 
-  md.use(MarkdownItPlantUML)
-  ;[].forEach.call(document.querySelectorAll('.js-markdown-view'), e => {
+  md.use(MarkdownItEmoji).use(MarkdownItMention)
+
+  Array.from(document.querySelectorAll('.js-markdown-view'), e => {
     e.style.display = 'block'
     e.innerHTML = md.render(e.textContent)
   })

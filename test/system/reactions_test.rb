@@ -7,8 +7,8 @@ class ReactionsTest < ApplicationSystemTestCase
 
   test "post new reaction for report" do
     visit report_path(reports(:report_1))
-    first(".thread-body .js-reaction-dropdown-toggle").click
-    first(".thread-body .js-reaction-dropdown li[data-reaction-kind='smile']").click
+    first(".thread__body .js-reaction-dropdown-toggle").click
+    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='smile']").click
     using_wait_time 5 do
       assert_text "😄2"
     end
@@ -16,8 +16,8 @@ class ReactionsTest < ApplicationSystemTestCase
 
   test "destroy reaction for report from dropdown" do
     visit report_path(reports(:report_1))
-    first(".thread-body .js-reaction-dropdown-toggle").click
-    first(".thread-body .js-reaction-dropdown li[data-reaction-kind='thumbsup']").click
+    first(".thread__body .js-reaction-dropdown-toggle").click
+    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='thumbsup']").click
     using_wait_time 5 do
       refute_text "👍1"
     end
@@ -25,7 +25,7 @@ class ReactionsTest < ApplicationSystemTestCase
 
   test "destroy reaction for report from footer" do
     visit report_path(reports(:report_1))
-    first(".thread-body .js-reaction li.is-reacted").click
+    first(".thread__body .js-reaction li.is-reacted").click
     using_wait_time 5 do
       refute_text "👍1"
     end

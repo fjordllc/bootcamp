@@ -1,3 +1,3 @@
 li.footprints-item
   = link_to footprint.user, itempro: "url" do
-    = image_tag footprint.user.avatar_image(32), class: "footprints-item__checker-icon is-#{footprint.user.login_name} is-#{footprint.user.role}", alt: footprint.user.login_name
+    = image_tag footprint.user.avatar_image, class: "footprints-item__checker-icon is-#{footprint.user.login_name} is-#{footprint.user.role}", alt: footprint.user.login_name

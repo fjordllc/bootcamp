@@ -19,7 +19,7 @@ header.page-header
     .thread
       .thread__inner.a-card
         header.thread-header
-          .thread-header__header
+          .thread-header__upper-side
             = link_to @product.user, class: "thread-header__author" do
               = @product.user.login_name
             .thread-header__date
@@ -27,8 +27,8 @@ header.page-header
                 = l @product.updated_at
           h1.thread-header__title
             | #{link_to @product.practice.title, @product.practice, class: "thread-header__title-link"}の提出物
-          .thread-meta
-            = render "thread/thread_watch", watchable: @product
+          .thread-header__lower-side
+            #js-watch(data-watchable-id="#{@product.id}", data-watchable-type="product")
         #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type="product")
         .thread__description.js-target-blank.is-long-text.js-markdown-view
           =  @product.practice.goal
@@ -57,7 +57,7 @@ header.page-header
             | プラクティスに戻る
 
       = link_to @product.user, itempro: "url", class: "thread__author-link" do
-        = image_tag @product.user.avatar_image(120), class: "thread__author-icon is-#{@product.user.role}"
+        = image_tag @product.user.avatar_image, class: "thread__author-icon is-#{@product.user.role}"
 
     = render "comments/comments", comments: @product.comments.order(:created_at), form_visibility: true
     = render "footprints/footprints", footprints: @footprints

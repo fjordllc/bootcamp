@@ -19,7 +19,7 @@ header.page-header
     .thread
       .thread__inner.a-card
         header.thread-header
-          .thread-header__header
+          .thread-header__upper-side
             = link_to @question.user, class: "thread-header__author" do
               = @question.user.login_name
             .thread-header__date
@@ -27,16 +27,16 @@ header.page-header
                 = l @question.updated_at
           h1.thread-header__title
             = @question.title
-          .thread-meta
-            = render "thread/thread_watch", watchable: @question
+          .thread-header__lower-side
+            #js-watch(data-watchable-id="#{@question.id}", data-watchable-type="question")
         - if @question.practice.present?
           .report-practices
             ul.report-practices__items
               li.report-practices__item
                 = link_to @question.practice, class: "report-practices__item-link" do
                   = @question.practice.title
-        .thread-body
-          .thread__description.js-markdown-view.js-target-blank.is-long-text.js-markdown
+        .thread__body
+          .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @question.description
           = render "reactions/reactions", reactionable: @question
         - if @question.user_id == current_user.id
@@ -53,7 +53,7 @@ header.page-header
                     | 削除
 
       = link_to @question.user, itempro: "url", class: "thread__author-link" do
-        = image_tag @question.user.avatar_image(120), class: "thread__author-icon is-#{@question.user.role}"
+        = image_tag @question.user.avatar_image, class: "thread__author-icon is-#{@question.user.role}"
     .thread-comments-container
       h3.thread-comments-container__title
         | 回答・コメント

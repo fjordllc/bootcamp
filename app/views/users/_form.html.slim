@@ -1,6 +1,7 @@
 = form_with model: user, url: url, local: true, html: { name: "user", autocomplete: "new-password" } do |f|
   = f.hidden_field :adviser
-  = hidden_field_tag :training, "true"
+  - if params[:training]
+    = hidden_field_tag :training, "true"
   = render "errors", object: user
   .form__items
     .form-item
@@ -45,7 +46,7 @@
       .form-item-file-input.js-file-input.a-file-input.is-avatar
         label.js-file-input__preview
           - if f.object.avatar.attached?
-            = image_tag f.object.avatar_image(100)
+            = image_tag f.object.avatar_image
             p 画像を変更
           - else
             p 画像を選択
@@ -214,16 +215,16 @@
             label.form-checkbox__label
               = f.check_box :trainee, class: "form-checkbox__input"
               = User.human_attribute_name :trainee
-        = f.hidden_field :training, value: params[:training]
+
       .form-item
         // リタイア
-        = f.label :retired_on, class: "a-label"
-        = f.text_field :retired_on, class: "a-text-input"
+        = f.label :retired_on, class: "a-sm-label"
+        = f.date_field :retired_on, class: "a-text-input"
 
       .form-item
         // 卒業
         = f.label :graduated_on, class: "a-label"
-        = f.text_field :graduated_on, class: "a-text-input"
+        = f.date_field :graduated_on, class: "a-text-input"
 
   .form-actions
     ul.form-actions__items

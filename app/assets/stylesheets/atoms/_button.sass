@@ -34,7 +34,7 @@
     font-weight: 600
   &.is-lg,
   &.is-lg input[type="submit"]
-    +button-size(.9375rem, 1, 45px)
+    +button-size(1rem, 1, 2.75rem)
     font-weight: 800
   &.is-xl,
   &.is-xl input[type="submit"]
@@ -73,6 +73,8 @@ input[type="button"]
 
 .is-button-group
   display: flex
+  .is-text-align-center &
+    justify-content: center
   >*:not(:last-child)
     margin-right: -1px
   li:first-child

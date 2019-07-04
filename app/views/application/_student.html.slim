@@ -1,3 +1,3 @@
 .practice-started-users__item
   = link_to user, class: "practice-started-users__item-link" do
-    = image_tag user.avatar_image(44), class: "practice-started-users__item-icon #{user.active? ? "active" : "inactive"} is-#{user.role}"
+    = image_tag user.avatar_image, class: "practice-started-users__item-icon #{user.active? ? "active" : "inactive"} is-#{user.role}"

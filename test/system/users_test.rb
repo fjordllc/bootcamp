@@ -104,4 +104,27 @@ class UsersTest < ApplicationSystemTestCase
       assert_text "退会処理が完了しました"
     end
   end
+
+  test "delete WIP reports when the user retired" do
+    stub_subscription_cancel!
+
+    login_user "muryou", "testtest"
+    user = users(:muryou)
+    visit "/reports/new"
+    within("#new_report") do
+      fill_in("report[title]", with: "test title")
+      fill_in("report[description]",   with: "test")
+    end
+    click_button "WIP"
+    assert_text "日報をWIPとして保存しました。"
+    visit edit_current_user_path
+    click_on "退会手続きへ進む"
+    fill_in "user[retire_reason]", with: "辞" * 8
+    assert_difference "user.reports.wip.count", -1 do
+      page.accept_confirm "本当によろしいですか？" do
+        click_on "退会する"
+      end
+      assert_text "退会処理が完了しました"
+    end
+  end
 end

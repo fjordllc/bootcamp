@@ -1,13 +1,17 @@
 .thread
   .thread__inner.a-card
     header.thread-header
-      .thread-header__header
-        = link_to announcement.user, class: "thread-header__author" do
-          = announcement.user.login_name
-        .thread-header__date
-          | #{l announcement.updated_at} のお知らせ
+      h1.thread-header__title
+        = announcement.title
 
-    .thread-body
+      .thread-header__lower-side
+        .thread-header__lower-side-author-name
+          = link_to announcement.user, class: "thread-header__lower-side-author-name-link" do
+            = announcement.user.login_name
+        time.thread-header__lower-side-created-at(datetime="#{announcement.created_at.to_datetime}" pubdate="pubdate")
+          | 書いた日 : #{l announcement.updated_at}
+
+    .thread__body
       .thread__description.js-target-blank.is-long-text.js-markdown-view
         = announcement.description
       = render "reactions/reactions", reactionable: @announcement
@@ -29,4 +33,4 @@
                   | 削除
 
   = link_to announcement.user, itempro: "url", class: "thread__author-link" do
-    = image_tag announcement.user.avatar_image(120), class: "thread__author-icon is-#{announcement.user.role}"
+    = image_tag announcement.user.avatar_image, class: "thread__author-icon is-#{announcement.user.role}"

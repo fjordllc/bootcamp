@@ -16,9 +16,11 @@ Rails.application.routes.draw do
     resources :categories, only: %i(index)
     resources :reactions, only: %i(create destroy)
     resources :checks, only: %i(index create destroy)
+    resources :users, only: :index
     resources :practices, only: [] do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
+    resources :watches, only: %i(index create destroy)
   end
 
   namespace :admin do
@@ -37,6 +39,7 @@ Rails.application.routes.draw do
     resources :reports, only: %i(index), controller: "users/reports"
     resources :comments, only: %i(index), controller: "users/comments"
     resources :products, only: %i(index), controller: "users/products"
+    get "portfolio" => "users/works#index", as: :portfolio
   end
 
   resource :card, only: %i(show new create edit update), controller: "card"
@@ -71,6 +74,7 @@ Rails.application.routes.draw do
   namespace :notifications do
     resources :allmarks, only: %i(create)
   end
+  resources :works, except: %i(index)
 
   resources :questions do
     resources :answers, only: %i(edit create update destroy)
