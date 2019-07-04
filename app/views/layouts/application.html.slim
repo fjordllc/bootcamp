@@ -27,6 +27,7 @@ html.is-application lang="ja"
     - if display_global_nav?
         = render "global_nav"
     .wrapper
+      = render "application/card_alert"
       - if display_header?
         = render "header"
       = render "flash"

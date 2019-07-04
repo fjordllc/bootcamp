@@ -1,0 +1,17 @@
+- fields = required_fields
+- if fields.present?
+  .a-card
+    header.card-header.is-sm
+      h2.card-header__title
+        | 未入力の項目
+    .card-list.is-reauired
+      .card-list__deacription
+        .card-list__notice
+          p
+            | プラクティス
+            = link_to "学習の準備", "https://bootcamp.fjord.jp/courses/1/practices#category-1"
+            | が終わりましたら、以下の項目を埋めてください。
+      ul.card-list__items
+        - fields.each do |field|
+          li.card-list__item
+            = field
