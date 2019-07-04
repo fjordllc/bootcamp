@@ -4,35 +4,58 @@
     overflow-y: auto
     -webkit-overflow-scrolling: touch
 
+.card-list__deacription
+  padding: .75rem 1rem
+  p
+    +text-block(.8125rem 1.6)
+    +media-breakpoint-down(sm)
+      font-size: .75rem
+
+.card-list__notice
+  border: solid 2px $success
+  background-color: rgba($success, .1)
+  padding: .75rem 1rem
+  color: #396115
+  +media-breakpoint-down(sm)
+    padding: .5rem .75rem
+  a
+    color: #396115
+    +hover-link-reversal
+
+.card-list__items
+  .card-list__deacription + &
+    border-top: dotted .0625rem $background
+
 .card-list__item:not(:last-child)
   border-bottom: dotted .0625rem $background
 
 .card-list__item-link
-  +text-block(.875rem 1.55, block $main)
+  +text-block(.8125rem 1.6, block $main)
   padding: .5rem 1rem
   text-decoration: none
   transition: all .2s ease-out
   &:hover
     background-color: $background-more-tint
-
-.card-list__item-link-inner
-  +position(relative)
-  padding-left: 1.375rem
+  .card-list.is-completed &::before
+    +fa(fas '\f00c')
+  .card-list.is-active &::before,
+  .card-list.is-wip &::before
+    +fa(fas '\f060')
+  .card-list.is-reauired &::before
+    +fa(fas '\f12a')
+  .card-list.is-completed &,
+  .card-list.is-active &,
+  .card-list.is-wip &,
+  .card-list.is-reauired &
+    +position(relative)
+    padding-left: 2.25rem
   &::before
-    +size(1rem 1.375rem)
+    +size(1em)
     color: $accent
-    +position(absolute, left 0, top 0)
-    .card-list.is-completed &
-      +fa(fas '\f00c')
-      display: flex
-      align-items: center
-      justify-content: center
-    .card-list.is-active &,
-    .card-list.is-wip &
-      +fa(fas '\f060')
-      display: flex
-      align-items: center
-      justify-content: center
+    +position(absolute, left 1rem, top .75rem)
+    display: flex
+    align-items: center
+    justify-content: center
 
 .card-list__item-link-date
   font-size: .75rem

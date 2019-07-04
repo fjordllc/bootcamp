@@ -32,6 +32,6 @@ header.page-header
           - unless current_user.total_learning_time.zero?
             = render "users/grass", user: current_user
           - if current_user.role == :student
-            = render "incompleted_account_alert", user: current_user
+            = render "required_field", user: current_user
           - if current_user.github_account.present?
             = render "users/github_grass", user: current_user

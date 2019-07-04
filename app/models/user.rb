@@ -87,13 +87,10 @@ class User < ActiveRecord::Base
       with: /\A\w+\z/,
       message: "は英文字と_（アンダースコア）のみが使用できます"
     }
-  validates :avatar, presence: true, blob: { content_type: :image, size_range: 0..10.megabytes }
   validates :retire_reason, presence: true, length: { minimum: 8 }, on: :retire_reason_presence
 
   with_options unless: :adviser? do
-    validates :description, presence: true
     validates :job, presence: true
-    validates :organization, presence: true
     validates :os, presence: true
     validates :study_place, presence: true
     validates :experience, presence: true
