@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
     set_wip
     if @product.save
       notify_to_slack(@product)
-      redirect_to @product, notice: notice_message(@product)
+      redirect_to @product, notice: notice_message(@product, :create)
     else
       render :new
     end
@@ -45,7 +45,7 @@ class ProductsController < ApplicationController
     @product = find_product
     set_wip
     if @product.update(product_params)
-      redirect_to @product, notice: notice_update_message(@product)
+      redirect_to @product, notice: notice_message(@product, :update)
     else
       render :edit
     end
@@ -114,11 +114,13 @@ class ProductsController < ApplicationController
       @product.wip = params[:commit] == "WIP"
     end
 
-    def notice_message(product)
-      product.wip? ? "提出物をWIPとして保存しました。" : "提出物を作成しました。"
-    end
-
-    def notice_update_message(product)
-      product.wip? ? "提出物をWIPとして保存しました。" : "提出物を更新しました。"
+    def notice_message(product, action_name)
+      return "提出物をWIPとして保存しました。" if product.wip?
+      case action_name
+      when :create
+        "提出物を作成しました。"
+      when :update
+        "提出物を更新しました。"
+      end
     end
 end
