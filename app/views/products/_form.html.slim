@@ -15,5 +15,9 @@
 
   .form-actions
     ul.form-actions__items
+      li.form-actions__item.is-main.is-help
+        = f.submit "WIP", class: "a-button is-lg is-primary is-block", id: "js-shortcut-wip"
+        .form-actions__item-help
+          | まだ書いてる途中
       li.form-actions__item.is-main
         = f.submit "提出する", class: "a-button is-lg is-warning is-block"

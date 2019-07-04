@@ -86,4 +86,25 @@ class ProductsTest < ApplicationSystemTestCase
     end
     assert_text "提出物を削除しました。"
   end
+
+  test "create product as WIP" do
+    login_user "yamada", "testtest"
+    visit "/products/new?practice_id=#{practices(:practice_5).id}"
+    within("#new_product") do
+      fill_in("product[body]", with: "test")
+    end
+    click_button "WIP"
+    assert_text "提出物をWIPとして保存しました。"
+  end
+
+  test "update product as WIP" do
+    login_user "yamada", "testtest"
+    product = products(:product_1)
+    visit "/products/#{product.id}/edit"
+    within("form[name=product]") do
+      fill_in("product[body]", with: "test")
+    end
+    click_button "WIP"
+    assert_text "提出物をWIPとして保存しました。"
+  end
 end

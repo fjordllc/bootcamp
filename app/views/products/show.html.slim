@@ -25,7 +25,10 @@ header.page-header
             .thread-header__date
               time.thread-header__date-value(datetime="#{@product.updated_at.to_datetime}" pubdate="pubdate")
                 = l @product.updated_at
-          h1.thread-header__title
+          h1.thread-header__title(class="#{@product.wip? ? "is-wip" : ""}")
+            - if @product.wip?
+              span.thread-header__title-icon
+                | WIP
             | #{link_to @product.practice.title, @product.practice, class: "thread-header__title-link"}の提出物
           .thread-header__lower-side
             #js-watch(data-watchable-id="#{@product.id}", data-watchable-type="product")
