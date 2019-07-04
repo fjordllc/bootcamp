@@ -6,4 +6,5 @@
       .thread-list-item__title
         = link_to searchable.title, searchable, class: "thread-list-item__title-link"
     .thread-list-item__body
-      = comment_summury(searchable.description, 90)
+      .thread-list-item__summury
+        = md_summury(searchable.description, 90)

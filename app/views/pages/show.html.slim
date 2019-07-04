@@ -21,13 +21,14 @@ header.page-header
         header.thread-header
           h1.thread-header__title
             = @page.title
-          .thread-meta
-            .thread-meta__label
-              | 最終更新
-            time.thread-meta__created-at(datetime="#{@page.updated_at.to_datetime}" pubdate="pubdate")
-              = l @page.updated_at
-        .thread-body
-          .thread__description.js-markdown-view.js-target-blank.is-long-text.js-markdown
+          .thread-header__lower-side
+            .thread-header__lower-side-date
+              .thread-header__lower-side-label
+                | 最終更新
+              time.thread-header__lower-side-value(datetime="#{@page.updated_at.to_datetime}" pubdate="pubdate")
+                = l @page.updated_at
+        .thread__body
+          .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @page.body
         footer.card-footer
           .card-footer-actions

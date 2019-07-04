@@ -5,27 +5,28 @@
 
 .header-dropdown__inner
   +position(absolute, right 0, top 100%, 2)
-  width: 11.5rem
+  width: 12rem
   background-color: $base
   border: solid 1px $background-shade
   border-radius: .25rem
+  box-shadow: rgba(black, .15) 0 0 .375rem
   &.is-notification
     width: 15rem
 
 .header-dropdown__items
   .header-dropdown__inner.is-notification &
-    max-height: 80vh
+    max-height: 70vh
     overflow-y: auto
 
 .header-dropdown__item-link
   +text-block(.875rem 1.4, $main)
   +flex-link
-  padding: .5rem .75rem
+  padding: .75rem
   transition: all .2s ease-out
   &:hover
     background-color: $background-more-tint
   .header-dropdown__item:not(:last-child) &
-    border-bottom: solid 1px $background-shade
+    border-bottom: solid 1px $background
 
 .header-dropdown__footer
   border-top: solid 1px $background-shade

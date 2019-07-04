@@ -1,0 +1,14 @@
+work_1:
+  title: kimura's app
+  description: "木村がつくったアプリです"
+  url: https://kimurasapp.com
+  repository: https://kimurasapp.repository.com
+  user: kimura
+
+work_2:
+  title: hatsuno's app
+  description: "初野がつくったアプリです"
+  url: https://hatsunosapp.com
+  repository: https://hatsunosapp.repository.com
+  user: hatsuno
+

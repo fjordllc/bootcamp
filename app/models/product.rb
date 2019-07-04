@@ -9,7 +9,7 @@ class Product < ApplicationRecord
 
   belongs_to :practice
   belongs_to :user, touch: true
-  has_many :watches, as: :watchable
+  has_many :watches, as: :watchable, dependent: :destroy
 
   after_create ProductCallbacks.new
   after_update ProductCallbacks.new

@@ -16,6 +16,6 @@ header.page-header
       .thread-list.a-card
         = render partial: "products/product", collection: @products, as: :product
     - else
-      .thread-list.is-empty
+      .a-empty-message
         | 未チェックの提出物はありません
     = paginate @products, position: "bottom"
