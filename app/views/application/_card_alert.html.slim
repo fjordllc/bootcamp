@@ -1,4 +1,4 @@
-- if current_user &&  current_user.student? && !current_user.free? && !current_user.paid? && body_class.exclude?("card")
+- if current_user && current_user.student? && !current_user.free? && !current_user.paid? && body_class.exclude?("card")
   .flash.is-alert
     .flash__container
       .flash__message
