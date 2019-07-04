@@ -32,10 +32,10 @@ class ProductsController < ApplicationController
     @practice = find_practice
     @product.practice = @practice
     @product.user = current_user
-
+    set_wip
     if @product.save
       notify_to_slack(@product)
-      redirect_to @product, notice: "提出物を作成しました。"
+      redirect_to @product, notice: notice_message(@product, :create)
     else
       render :new
     end
@@ -43,8 +43,9 @@ class ProductsController < ApplicationController
 
   def update
     @product = find_product
+    set_wip
     if @product.update(product_params)
-      redirect_to @product, notice: "提出物を更新しました。"
+      redirect_to @product, notice: notice_message(@product, :update)
     else
       render :edit
     end
@@ -107,5 +108,19 @@ class ProductsController < ApplicationController
 
     def set_watch
       @watch = Watch.new
+    end
+
+    def set_wip
+      @product.wip = params[:commit] == "WIP"
+    end
+
+    def notice_message(product, action_name)
+      return "提出物をWIPとして保存しました。" if product.wip?
+      case action_name
+      when :create
+        "提出物を作成しました。"
+      when :update
+        "提出物を更新しました。"
+      end
     end
 end
