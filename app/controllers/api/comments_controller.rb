@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class API::CommentsController < API::BaseController
-  include CommentableController
   before_action :require_login
   before_action :set_my_comment, only: %i(update destroy)
 
