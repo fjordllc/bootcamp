@@ -27,24 +27,24 @@
                 | コメントする
 </template>
 <script>
-  import Comment from "./comment.vue"
-  import MarkdownTextarea from "./markdown-textarea.vue"
+  import Comment from './comment.vue'
+  import MarkdownTextarea from './markdown-textarea.vue'
   import MarkdownIt from 'markdown-it'
   import MarkdownItEmoji from 'markdown-it-emoji'
   import MarkdownItMention from './packs/markdown-it-mention'
 
   export default {
-    props: ["commentableId", "commentableType", "currentUserId"],
+    props: ['commentableId', 'commentableType', 'currentUserId'],
     components: {
-      "comment": Comment,
-      "markdown-textarea": MarkdownTextarea
+      'comment': Comment,
+      'markdown-textarea': MarkdownTextarea
     },
     data: () => {
       return {
         currentUser: {},
         comments: [],
-        description: "",
-        tab: "comment"
+        description: '',
+        tab: 'comment'
       }
     },
     created: function() {
@@ -103,14 +103,14 @@
       createComment: function(event) {
         if (this.description.length < 1) {　return null　}
         let params = {
-          "comment": { "description": this.description },
-          "commentable_type": this.commentableType,
-          "commentable_id": this.commentableId
+          'comment': { 'description': this.description },
+          'commentable_type': this.commentableType,
+          'commentable_id': this.commentableId
         }
         fetch(`/api/comments`, {
           method: 'POST',
           headers: {
-            "Content-Type": "application/json; charset=utf-8",
+            'Content-Type': 'application/json; charset=utf-8',
             'X-Requested-With': 'XMLHttpRequest',
             'X-CSRF-Token': this.token()
           },
@@ -123,7 +123,7 @@
           })
           .then(json=> {
             this.comments.push(json);
-            this.description = "";
+            this.description = '';
           })
           .catch(error => {
             console.warn('Failed to parsing', error)
