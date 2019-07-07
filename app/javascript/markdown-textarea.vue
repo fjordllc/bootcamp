@@ -1,5 +1,5 @@
 <template lang="pug">
-  textarea(ref="textarea" v-bind:value="value" v-on:keyup="update($event.target.value)" v-on:change="update($event.target.value)" v-on:drop="drop" v-on:paste="paste")
+  textarea(ref="textarea" :value="value" @keyup="update($event.target.value)" @change="update($event.target.value)" @drop="drop" @paste="paste")
 </template>
 <script>
 import 'textarea-autosize/dist/jquery.textarea_autosize.min'
