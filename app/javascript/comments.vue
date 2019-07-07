@@ -3,27 +3,27 @@
     h2.thread-comments-container__title コメント
     .thread-comments
       comment(v-for="(comment, index) in comments"
-        v-bind:key="comment.id"
-        v-bind:comment="comment",
-        v-bind:currentUser="currentUser",
-        v-on:delete="deleteComment")
+        :key="comment.id"
+        :comment="comment",
+        :currentUser="currentUser",
+        @delete="deleteComment")
       .thread-comment-form
         .thread-comment__author
           img.thread-comment__author-icon(:src="currentUser.avatar_image")
         .thread-comment-form__form.a-card
           .thread-comment-form__tabs.js-tabs
-            .thread-comment-form__tab.js-tabs__tab(v-bind:class="{'is-active': isActive('comment')}" @click="changeActiveTab('comment')")
+            .thread-comment-form__tab.js-tabs__tab(:class="{'is-active': isActive('comment')}" @click="changeActiveTab('comment')")
               | コメント
-            .thread-comment-form__tab.js-tabs__tab(v-bind:class="{'is-active': isActive('preview')}" @click="changeActiveTab('preview')")
+            .thread-comment-form__tab.js-tabs__tab(:class="{'is-active': isActive('preview')}" @click="changeActiveTab('preview')")
               | プレビュー
           .thread-comment-form__markdown-parent.js-markdown-parent
-            .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('comment')}")
+            .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('comment')}")
               markdown-textarea(v-model="description" id="js-new-comment" class="a-text-input js-warning-form thread-comment-form__textarea js-markdown" name="comment[description]")
-            .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('preview')}")
+            .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('preview')}")
               .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
           .thread-comment-form__actions
             .thread-comment-form__action
-              button.a-button.is-lg.is-warning.is-block(@click="createComment" v-bind:disabled="!validation")
+              button.a-button.is-lg.is-warning.is-block(@click="createComment" :disabled="!validation")
                 | コメントする
 </template>
 <script>
