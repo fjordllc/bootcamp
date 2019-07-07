@@ -25,13 +25,8 @@ class API::ChecksController < API::BaseController
   end
 
   private
-    # TODO: commentableと同じ書き方に変えたい
     def checkable
-      if params[:report_id]
-        Report.find(params[:report_id])
-      elsif params[:product_id]
-        Product.find(params[:product_id])
-      end
+      params[:checkable_type].constantize.find(params[:checkable_id])
     end
 
     def notify_to_slack(check)
