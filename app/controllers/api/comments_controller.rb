@@ -37,11 +37,7 @@ class API::CommentsController < API::BaseController
   private
 
     def comment_params
-      params.require(:comment).permit(
-        :description,
-        :commentable_id,
-        :commentable_type
-      )
+      params.require(:comment).permit(:description)
     end
 
     def commentable

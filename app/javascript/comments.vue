@@ -103,11 +103,7 @@
       createComment: function(event) {
         if (this.description.length < 1) {　return null　}
         let params = {
-          "comment": {
-            "description": this.description,
-            "commentable_type": this.commentableType,
-            "commentable_id": this.commentableId
-            },
+          "comment": { "description": this.description },
           "commentable_type": this.commentableType,
           "commentable_id": this.commentableId
         }
