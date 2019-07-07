@@ -107,9 +107,9 @@
       },
       updateComment: function() {
         if (this.description.length < 1) {　return null　}
-        let params = {"comment": {"description": this.description,
-          "commentable_type": this.comment.commentable_type,
-          "commentable_id": this.comment.commentable_id}}
+        let params = {
+          "comment": { "description": this.description }
+        }
         fetch(`/api/comments/${this.comment.id}`, {
           method: 'PUT',
           headers: {
