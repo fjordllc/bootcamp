@@ -45,8 +45,8 @@
             | キャンセル
 </template>
 <script>
-  import Reaction from "./reaction.vue"
-  import MarkdownTextarea from "./markdown-textarea.vue"
+  import Reaction from './reaction.vue'
+  import MarkdownTextarea from './markdown-textarea.vue'
 
   import MarkdownIt from 'markdown-it'
   import MarkdownItEmoji from 'markdown-it-emoji'
@@ -54,28 +54,28 @@
   import Tribute from 'tributejs'
   import TextareaAutocomplteEmoji from 'classes/textarea-autocomplte-emoji'
   import TextareaAutocomplteMention from 'classes/textarea-autocomplte-mention'
-  import moment from "moment"
+  import moment from 'moment'
 
-  moment.locale("ja");
+  moment.locale('ja');
 
   export default {
-    props: ["comment", "currentUser", "availableEmojis"],
+    props: ['comment', 'currentUser', 'availableEmojis'],
     components: {
-      "reaction": Reaction,
-      "markdown-textarea": MarkdownTextarea
+      'reaction': Reaction,
+      'markdown-textarea': MarkdownTextarea
     },
     data: () => {
       return {
-        description: "",
+        description: '',
         editing: false,
-        tab: "comment"
+        tab: 'comment'
       }
     },
     created: function() {
       this.description = this.comment.description;
     },
     mounted: function() {
-      $("textarea").textareaAutoSize();
+      $('textarea').textareaAutoSize();
       const textareas = document.querySelectorAll(`.comment-id-${this.comment.id}`)
       const emoji = new TextareaAutocomplteEmoji()
       const mention = new TextareaAutocomplteMention()
@@ -108,12 +108,12 @@
       updateComment: function() {
         if (this.description.length < 1) {　return null　}
         let params = {
-          "comment": { "description": this.description }
+          'comment': { 'description': this.description }
         }
         fetch(`/api/comments/${this.comment.id}`, {
           method: 'PUT',
           headers: {
-            "Content-Type": "application/json; charset=utf-8",
+            'Content-Type': 'application/json; charset=utf-8',
             'X-Requested-With': 'XMLHttpRequest',
             'X-CSRF-Token': this.token()
           },
@@ -129,8 +129,8 @@
           })
       },
       deleteComment: function() {
-        if (window.confirm("削除してよろしいですか？")) {
-          this.$emit("delete", this.comment.id);
+        if (window.confirm('削除してよろしいですか？')) {
+          this.$emit('delete', this.comment.id);
         }
       }
     },
@@ -149,7 +149,7 @@
         return moment(this.comment.commentable.created_at).format()
       },
       updatedAt: function() {
-        return moment(this.comment.updated_at).format("YYYY年MM月DD日(dd) HH:mm")
+        return moment(this.comment.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
       },
       userRole: function(){
         return `is-${this.comment.user.role}`

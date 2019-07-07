@@ -5,7 +5,7 @@
 import 'textarea-autosize/dist/jquery.textarea_autosize.min'
 
   export default {
-    props: ["value"],
+    props: ['value'],
     created: function() {
       let meta = document.querySelector('meta[name="csrf-token"]')
     },
@@ -15,7 +15,7 @@ import 'textarea-autosize/dist/jquery.textarea_autosize.min'
         return meta ? meta.getAttribute('content') : ''
       },
       update: function(value) {
-        this.$emit("input", value);
+        this.$emit('input', value);
       },
       drop: function(event) {
         event.preventDefault();
@@ -44,9 +44,9 @@ import 'textarea-autosize/dist/jquery.textarea_autosize.min'
           const beforeText = textarea.value.substring(0, beforeRange);
           const afterText = textarea.value.substring(beforeRange, textarea.value.length);
           textarea.value = beforeText + text + afterText;
-          this.$emit("input", textarea.value);
+          this.$emit('input', textarea.value);
           let params = new FormData();
-          params.append("file", file);
+          params.append('file', file);
 
           fetch(`/api/image.json`, {
             method: 'POST',
@@ -64,7 +64,7 @@ import 'textarea-autosize/dist/jquery.textarea_autosize.min'
             .then(json => {
               const path = json.url
               textarea.value = textarea.value.replace(`![${file.name}をアップロード中]()`, `![${file.name}](${path})\n`);
-              this.$emit("input", textarea.value);
+              this.$emit('input', textarea.value);
             })
             .catch(error => {
               console.warn('Failed to parsing', error)
