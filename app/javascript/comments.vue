@@ -27,144 +27,142 @@
                 | コメントする
 </template>
 <script>
-  import Comment from './comment.vue'
-  import MarkdownTextarea from './markdown-textarea.vue'
-  import MarkdownIt from 'markdown-it'
-  import MarkdownItEmoji from 'markdown-it-emoji'
-  import MarkdownItMention from './packs/markdown-it-mention'
+import Comment from './comment.vue'
+import MarkdownTextarea from './markdown-textarea.vue'
+import MarkdownIt from 'markdown-it'
+import MarkdownItEmoji from 'markdown-it-emoji'
+import MarkdownItMention from './packs/markdown-it-mention'
 
-  export default {
-    props: ['commentableId', 'commentableType', 'currentUserId'],
-    components: {
-      'comment': Comment,
-      'markdown-textarea': MarkdownTextarea
-    },
-    data: () => {
-      return {
-        currentUser: {},
-        comments: [],
-        description: '',
-        tab: 'comment'
-      }
-    },
-    created: function() {
-      fetch(`/api/users/${this.currentUserId}.json`, {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
+export default {
+  props: ['commentableId', 'commentableType', 'currentUserId'],
+  components: {
+    'comment': Comment,
+    'markdown-textarea': MarkdownTextarea
+  },
+  data: () => {
+    return {
+      currentUser: {},
+      comments: [],
+      description: '',
+      tab: 'comment'
+    }
+  },
+  created: function() {
+    fetch(`/api/users/${this.currentUserId}.json`, {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      credentials: 'same-origin',
+      redirect: 'manual'
+    })
+      .then(response => {
+        return response.json()
       })
-        .then(response => {
-          return response.json()
-        })
-        .then(json => {
-          for(var key in json){
-            this.$set(this.currentUser, key, json[key])
-          }
-        })
-        .catch(error => {
-          console.warn('Failed to parsing', error)
-        })
-
-      fetch(`/api/comments.json?commentable_type=${this.commentableType}&commentable_id=${this.commentableId}`, {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      })
-        .then(response => {
-          return response.json()
-        })
-        .then(json => {
-          json.forEach(c => { this.comments.push(c) });
-        })
-        .catch(error => {
-          console.warn('Failed to parsing', error)
-        })
-    },
-    mounted: function() {
-      $("textarea").textareaAutoSize();
-    },
-    methods: {
-      token () {
-        const meta = document.querySelector('meta[name="csrf-token"]')
-        return meta ? meta.getAttribute('content') : ''
-      },
-      isActive: function(tab) {
-        return this.tab == tab
-      },
-      changeActiveTab: function(tab) {
-        this.tab = tab
-      },
-      createComment: function(event) {
-        if (this.description.length < 1) {　return null　}
-        let params = {
-          'comment': { 'description': this.description },
-          'commentable_type': this.commentableType,
-          'commentable_id': this.commentableId
+      .then(json => {
+        for(var key in json){
+          this.$set(this.currentUser, key, json[key])
         }
-        fetch(`/api/comments`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': this.token()
-          },
-          credentials: 'same-origin',
-          redirect: 'manual',
-          body: JSON.stringify(params)
-        })
-          .then(response => {
-            return response.json()
-          })
-          .then(json=> {
-            this.comments.push(json);
-            this.description = '';
-          })
-          .catch(error => {
-            console.warn('Failed to parsing', error)
-          })
+      })
+      .catch(error => {
+        console.warn('Failed to parsing', error)
+      })
+
+    fetch(`/api/comments.json?commentable_type=${this.commentableType}&commentable_id=${this.commentableId}`, {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
       },
-      deleteComment: function(id) {
-        fetch(`/api/comments/${id}.json`, {
-          method: 'DELETE',
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': this.token()
-          },
-          credentials: 'same-origin',
-          redirect: 'manual'
-        })
-          .then(response => {
-            this.comments.forEach((comment, i) => {
-              if (comment.id == id) { this.comments.splice(i, 1); }
-            });
-          })
-          .catch(error => {
-            console.warn('Failed to parsing', error)
-          })
-      }
+      credentials: 'same-origin',
+      redirect: 'manual'
+    })
+      .then(response => {
+        return response.json()
+      })
+      .then(json => {
+        json.forEach(c => { this.comments.push(c) });
+      })
+      .catch(error => {
+        console.warn('Failed to parsing', error)
+      })
+  },
+  mounted: function() {
+    $("textarea").textareaAutoSize();
+  },
+  methods: {
+    token () {
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      return meta ? meta.getAttribute('content') : ''
     },
-    computed: {
-      markdownDescription: function() {
-        const md = new MarkdownIt({
-          html: true,
-          breaks: true,
-          linkify: true,
-          langPrefix: 'language-'
-        });
-        md.use(MarkdownItEmoji).use(MarkdownItMention)
-        return md.render(this.description);
-      },
-      validation: function() {
-        return this.description.length > 0
+    isActive: function(tab) {
+      return this.tab == tab
+    },
+    changeActiveTab: function(tab) {
+      this.tab = tab
+    },
+    createComment: function(event) {
+      if (this.description.length < 1) {　return null　}
+      let params = {
+        'comment': { 'description': this.description },
+        'commentable_type': this.commentableType,
+        'commentable_id': this.commentableId
       }
+      fetch(`/api/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+        body: JSON.stringify(params)
+      })
+        .then(response => {
+          return response.json()
+        })
+        .then(json=> {
+          this.comments.push(json);
+          this.description = '';
+        })
+        .catch(error => {
+          console.warn('Failed to parsing', error)
+        })
+    },
+    deleteComment: function(id) {
+      fetch(`/api/comments/${id}.json`, {
+        method: 'DELETE',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual'
+      })
+        .then(response => {
+          this.comments.forEach((comment, i) => {
+            if (comment.id == id) { this.comments.splice(i, 1); }
+          });
+        })
+        .catch(error => {
+          console.warn('Failed to parsing', error)
+        })
+    }
+  },
+  computed: {
+    markdownDescription: function() {
+      const md = new MarkdownIt({
+        html: true,
+        breaks: true,
+        linkify: true,
+        langPrefix: 'language-'
+      });
+      md.use(MarkdownItEmoji).use(MarkdownItMention)
+      return md.render(this.description);
+    },
+    validation: function() {
+      return this.description.length > 0
     }
   }
+}
 </script>
-<style scoped>
-</style>
