@@ -23,4 +23,20 @@ class NotificationsTest < ApplicationSystemTestCase
     assert_text "komagataさんからメンションがきました。"
     assert_text "machidaさんからコメントが届きました。"
   end
+
+  test "notifications_allmarks" do
+    login_user "komagata", "testtest"
+    visit "/announcements"
+    click_link "お知らせ作成"
+
+    find("input[name='announcement[title]']").set("お知らせです")
+    find("textarea[name='announcement[description]']").set("お知らせ内容です")
+    click_button "作成"
+    logout
+
+    login_user "kimura", "testtest"
+    visit "/notifications"
+    click_link("全て既読にする")
+    assert_text "全て既読にしました"
+  end
 end
