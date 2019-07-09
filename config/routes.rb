@@ -70,6 +70,10 @@ Rails.application.routes.draw do
   resources :comments
   resources :notifications, only: %i(index show)
   resources :pages
+  resources :watches
+  namespace :notifications do
+    resources :allmarks, only: %i(create)
+  end
   resources :works, except: %i(index)
 
   resources :questions do
