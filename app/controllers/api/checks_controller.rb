@@ -26,11 +26,7 @@ class API::ChecksController < API::BaseController
 
   private
     def checkable
-      if params[:report_id]
-        Report.find(params[:report_id])
-      elsif params[:product_id]
-        Product.find(params[:product_id])
-      end
+      params[:checkable_type].constantize.find(params[:checkable_id])
     end
 
     def notify_to_slack(check)

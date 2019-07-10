@@ -14,6 +14,7 @@
         = f.text_area :description, required: true, class: "a-text-input js-warning-form thread-comment-form__textarea js-markdown", data: { "preview": ".js-preview" }
       .thread-comment-form__markdown.js-tabs__content
         .js-preview.is-long-text.thread-comment-form__preview
-    .thread-comment-form__action
-      - comment_label = answer.persisted? ? "保存する" : "コメントする"
-      = f.submit comment_label, class: "a-button is-lg is-warning is-block"
+    .thread-comment-form__actions
+      .thread-comment-form__action
+        - comment_label = answer.persisted? ? "保存する" : "コメントする"
+        = f.submit comment_label, class: "a-button is-md is-warning is-block"

@@ -33,9 +33,9 @@ header.page-header
               span.thread-header__title-icon
                 | WIP
             = @report.title
-          #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="report")
+          #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="Report")
           .thread-header__lower-side
-            #js-watch(data-watchable-id="#{@report.id}", data-watchable-type="report")
+            #js-watch(data-watchable-id="#{@report.id}", data-watchable-type="Report")
         - if @report.practices.present?
           .report-practices
             ul.report-practices__items
@@ -68,7 +68,7 @@ header.page-header
                       | 削除
 
         - if admin_login? || adviser_login?
-          #js-check(data-checkable-id="#{@report.id}" data-checkable-type="report" data-checkable-label="#{Report.model_name.human}")
+          #js-check(data-checkable-id="#{@report.id}" data-checkable-type="Report" data-checkable-label="#{Report.model_name.human}")
 
       .thread-prev-next
         .thread-prev-next__item
@@ -86,6 +86,5 @@ header.page-header
               i.fas.fa-angle-right
       = link_to @report.user, itempro: "url", class: "thread__author-link" do
         = image_tag @report.user.avatar_image, class: "thread__author-icon is-#{@report.user.role}"
-
-    = render "comments/comments", comments: @report.comments.order(:created_at), form_visibility: true
+    #js-comments(data-commentable-id="#{@report.id}" data-commentable-type="Report" data-current-user-id="#{current_user.id}")
     = render "footprints/footprints", footprints: @footprints

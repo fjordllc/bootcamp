@@ -18,7 +18,7 @@ export default {
     }
   },
   mounted () {
-    fetch(`/api/watches.json?${this.watchableType}_id=${this.watchableId}`, {
+    fetch(`/api/watches.json?watchable_type=${this.watchableType}&watchable_id=${this.watchableId}`, {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -52,18 +52,21 @@ export default {
       }
     },
     watch () {
-      let params = new FormData()
-      params.append(`${this.watchableType}_id`, this.watchableId)
+      let params = {
+        'watchable_type': this.watchableType,
+        'watchable_id': this.watchableId
+      }
 
       fetch(`/api/watches`, {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
         redirect: 'manual',
-        body: params
+        body: JSON.stringify(params)
       })
         .then(response => {
           return response.json()
@@ -83,6 +86,7 @@ export default {
       fetch(`/api/watches/${this.watchId}`, {
         method: 'DELETE',
         headers: {
+          "Content-Type": "application/json; charset=utf-8",
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-Token': this.token()
         },
