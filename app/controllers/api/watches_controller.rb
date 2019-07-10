@@ -28,12 +28,6 @@ class API::WatchesController < API::BaseController
 
   private
     def watchable
-      if params[:report_id]
-        Report.find_by(id: params[:report_id])
-      elsif params[:product_id]
-        Product.find_by(id: params[:product_id])
-      elsif params[:question_id]
-        Question.find_by(id: params[:question_id])
-      end
+      params[:watchable_type].constantize.find(params[:watchable_id])
     end
 end

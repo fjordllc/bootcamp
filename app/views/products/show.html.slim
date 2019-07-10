@@ -31,8 +31,8 @@ header.page-header
                 | WIP
             | #{link_to @product.practice.title, @product.practice, class: "thread-header__title-link"}の提出物
           .thread-header__lower-side
-            #js-watch(data-watchable-id="#{@product.id}", data-watchable-type="product")
-        #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type="product")
+            #js-watch(data-watchable-id="#{@product.id}", data-watchable-type="Product")
+        #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type="Product")
         .thread__description.js-target-blank.is-long-text.js-markdown-view
           =  @product.practice.goal
         .thread__description.js-target-blank.is-long-text.js-markdown-view
@@ -52,7 +52,7 @@ header.page-header
                     | 削除
 
         - if admin_login? || adviser_login?
-          #js-check(data-checkable-id="#{@product.id}" data-checkable-type="product" data-checkable-label="#{Product.model_name.human}")
+          #js-check(data-checkable-id="#{@product.id}" data-checkable-type="Product" data-checkable-label="#{Product.model_name.human}")
 
       .thread-prev-next
         .thread-prev-next__item
@@ -62,5 +62,5 @@ header.page-header
       = link_to @product.user, itempro: "url", class: "thread__author-link" do
         = image_tag @product.user.avatar_image, class: "thread__author-icon is-#{@product.user.role}"
 
-    = render "comments/comments", comments: @product.comments.order(:created_at), form_visibility: true
+    #js-comments(data-commentable-id="#{@product.id}" data-commentable-type="Product" data-current-user-id="#{current_user.id}")
     = render "footprints/footprints", footprints: @footprints

@@ -24,4 +24,8 @@ module UserDecorator
       image_path("users/avatars/default.png")
     end
   end
+
+  def url
+    user_url(self)
+  end
 end

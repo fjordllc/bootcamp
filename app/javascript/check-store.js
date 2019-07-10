@@ -24,7 +24,7 @@ export default new Vuex.Store({
   actions: {
     setCheckable ({ commit }, { checkableId, checkableType }) {
       const meta = document.querySelector('meta[name="csrf-token"]')
-      fetch(`/api/checks.json/?${checkableType}_id=${checkableId}.json`, {
+      fetch(`/api/checks.json/?checkable_type=${checkableType}&checkable_id=${checkableId}`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',

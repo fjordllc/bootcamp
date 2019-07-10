@@ -28,7 +28,7 @@ header.page-header
           h1.thread-header__title
             = @question.title
           .thread-header__lower-side
-            #js-watch(data-watchable-id="#{@question.id}", data-watchable-type="question")
+            #js-watch(data-watchable-id="#{@question.id}", data-watchable-type="Question")
         - if @question.practice.present?
           .report-practices
             ul.report-practices__items

@@ -7,4 +7,8 @@ class API::UsersController < API::BaseController
       .as_json(except: :id)
     render json: users
   end
+
+  def show
+    @user = User.find(params[:id])
+  end
 end

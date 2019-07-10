@@ -31,18 +31,21 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     check() {
-      let params = new FormData()
-      params.append(`${this.checkableType}_id`, this.checkableId)
-      
+      let params = {
+        "checkable_type": this.checkableType,
+        "checkable_id": this.checkableId
+      }
+
       fetch(this.url, {
         method: this.method,
         headers: {
+          'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
         redirect: 'manual',
-        body: params
+        body: JSON.stringify(params)
       })
         .then(response => {
           this.$store.dispatch('setCheckable', {

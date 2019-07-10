@@ -18,5 +18,5 @@ header.page-header
 .page-body
   .container
     = render "announcement", announcement: @announcement
-    = render "comments/comments", comments: @announcement.comments.order(:created_at), form_visibility: true
+    #js-comments(data-commentable-id="#{@announcement.id}" data-commentable-type="Announcement" data-current-user-id="#{current_user.id}")
     = render "footprints/footprints", footprints: @footprints
