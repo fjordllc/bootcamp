@@ -6,10 +6,10 @@ class Practice < ActiveRecord::Base
   has_many :learnings
   has_and_belongs_to_many :reports
   has_many :started_learnings,
-    -> { where(status_cd: 0) },
+    -> { where(status: "started") },
     class_name: "Learning"
   has_many :completed_learnings,
-    -> { where(status_cd: 1) },
+    -> { where(status: "complete") },
     class_name: "Learning"
   has_many :started_users,
     through: :started_learnings,
@@ -32,18 +32,17 @@ class Practice < ActiveRecord::Base
       practice_id: id
     )
     if learnings.blank?
-      :not_complete
+      "not_complete"
     else
       learnings.first.status
     end
   end
 
   def completed?(user)
-    status_cds = Learning.statuses.values_at("complete")
     Learning.exists?(
       user:        user,
       practice_id: id,
-      status_cd:   status_cds
+      status:      Learning.statuses[:complete]
     )
   end
 

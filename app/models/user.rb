@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
     dependent:   :destroy
 
   has_many :completed_learnings,
-    -> { where(status_cd: 1) },
+    -> { where(status: "complete") },
     class_name: "Learning",
     dependent:  :destroy
 
@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
     dependent: :destroy
 
   has_many :active_learnings,
-    -> { where(status_cd: 0) },
+    -> { where(status: "started") },
     class_name: "Learning",
     dependent:  :destroy
 

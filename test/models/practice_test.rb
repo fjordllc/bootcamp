@@ -8,11 +8,11 @@ class PracticeTest < ActiveSupport::TestCase
   test "status(user)" do
     assert_equal \
       practices(:practice_1).status(users(:komagata)),
-      :started
+      "started"
 
     assert_equal \
       practices(:practice_1).status(users(:machida)),
-      :not_complete
+      "not_complete"
   end
 
   test "exists_learning?(user)" do
