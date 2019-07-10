@@ -7,13 +7,10 @@ module Authentication
     helper_method :admin_login?,
       :adviser_login?,
       :mentor_login?,
-<<<<<<< HEAD
       :staff_login?,
       :paid_login?,
-      :staff_or_paid_login?
-=======
+      :staff_or_paid_login?,
       :admin_adviser_or_mentor_login?
->>>>>>> Revert "Revert "Merge branch 'master' into issue#860""
   end
 
   def admin_login?
@@ -28,7 +25,6 @@ module Authentication
     logged_in? && current_user.mentor?
   end
 
-<<<<<<< HEAD
   def staff_login?
     logged_in? && current_user.staff?
   end
@@ -43,10 +39,10 @@ module Authentication
 
   def staff_or_paid_login?
     logged_in? && current_user.staff_or_paid?
-=======
+  end
+
   def admin_adviser_or_mentor_login?
     admin_login? || adviser_login? || mentor_login?
->>>>>>> Revert "Revert "Merge branch 'master' into issue#860""
   end
 
   def require_admin_login
@@ -55,18 +51,16 @@ module Authentication
     end
   end
 
-<<<<<<< HEAD
   def require_staff_login
     unless staff_login?
-=======
+  end
+
   def require_admin_adviser_or_mentor_login
     unless admin_adviser_or_mentor_login?
->>>>>>> Revert "Revert "Merge branch 'master' into issue#860""
       redirect_to root_path, alert: "管理者・アドバイザー・メンターとしてログインしてください"
     end
   end
 
-<<<<<<< HEAD
   def require_paid_login
     unless paid_login? || current_user.free?
       redirect_to new_card_path, alert: "クレジットカードを登録してください"
@@ -79,10 +73,9 @@ module Authentication
     end
   end
 
-=======
->>>>>>> Revert "Revert "Merge branch 'master' into issue#860""
   protected
     def not_authenticated
       redirect_to root_path, alert: "ログインしてください"
     end
+  end
 end

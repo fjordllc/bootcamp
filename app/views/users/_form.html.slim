@@ -1,4 +1,5 @@
-= form_with model: user, url: url, local: true, html: { name: "user", autocomplete: "new-password" } do |f|
+= javascript_include_tag "https://js.stripe.com/v3/"
+= form_with model: user, url: url, local: true, id: "payment-form", html: { name: "user", autocomplete: "new-password" } do |f|
   = f.hidden_field :adviser
   - if params[:training]
     = hidden_field_tag :training, "true"
@@ -42,6 +43,11 @@
             | 姓・名は必ず本名を（漢字がある場合は漢字で）入力してください。
 
     - unless user.adviser?
+      .form-item
+        label.a-label(for="card-element") カード番号
+        #card-element.a-text-input
+        #card-errors(role="alert")
+
       .form-item.is-hidden
         // コース
         = f.label :course_id, class: "a-label is-required"

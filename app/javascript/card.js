@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  if (!document.querySelector('body.card-new,body.card-edit')) {
+  if (!document.querySelector('body.users-new,body.card-new,body.card-edit')) {
     return null
   }
 

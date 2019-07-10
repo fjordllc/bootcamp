@@ -18,11 +18,8 @@ class CardController < ApplicationController
   def create
     begin
       customer = Card.create(current_user, params[:stripeToken])
-      subscription = Subscription.create(customer["id"])
-      current_user.update!(
-        customer_id: customer["id"],
-        subscription_id: subscription["id"]
-      )
+      curernt_user.update(customer_id: customer["id"])
+      Subscription.create(current_user.customer_id)
 
       flash[:notice] = "カードを登録しました。"
       logger.info "[Payment] カードを登録しました。"

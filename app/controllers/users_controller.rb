@@ -21,18 +21,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    @user.company = Company.first
-    @user.course = Course.first
-    if params[:training] == "true"
-      @user.free = true
-      @user.trainee = true
-    end
-    if @user.save
+    user_register = UserRegister.new(User.new)
+    @user = user_register.create(user_params)
+    if @user.errors.present?
       UserMailer.welcome(@user).deliver_now
-      SlackNotification.notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
-        username: "#{@user.login_name}@bootcamp.fjord.jp",
-        icon_url: @user.avatar_image
+      notify_to_slack
       redirect_to root_url, notice: "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
     else
       render "new"
@@ -40,6 +33,12 @@ class UsersController < ApplicationController
   end
 
   private
+    def notify_to_slack
+      SlackNotification.notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
+        username: "#{@user.login_name}@bootcamp.fjord.jp",
+        icon_url: url_for(@user.avatar)
+    end
+
     def user_params
       params.require(:user).permit(
         :adviser,
