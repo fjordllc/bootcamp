@@ -153,7 +153,7 @@ ActiveRecord::Schema.define(version: 2019_06_25_092312) do
   create_table "learnings", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "practice_id", null: false
-    t.integer "status_cd", default: 0, null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -324,9 +324,9 @@ ActiveRecord::Schema.define(version: 2019_06_25_092312) do
 
   create_table "works", force: :cascade do |t|
     t.string "title"
-    t.text "description"
     t.string "url"
     t.string "repository"
+    t.text "description"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
