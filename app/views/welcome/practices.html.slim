@@ -7,7 +7,7 @@ section.welcome-section
   .container
     .welcome-small-sections
       .row.is-gutter-widtd-32
-        - @categories.each do |category|
+        - @categories.order(:position).each do |category|
           .col-xs-12.col-md-4
             .welcome-small-section
               h3.welcome-small-section__title = category.name
