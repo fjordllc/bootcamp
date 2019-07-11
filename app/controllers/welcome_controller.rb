@@ -11,4 +11,8 @@ class WelcomeController < ApplicationController
 
   def faq
   end
+
+  def practices
+    @categories = Course.first.categories
+  end
 end
