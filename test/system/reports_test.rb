@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "application_system_test_case"
-require 'minitest/mock'
+require "minitest/mock"
 
 class ReportsTest < ApplicationSystemTestCase
   def setup
@@ -300,8 +300,13 @@ class ReportsTest < ApplicationSystemTestCase
     all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
     all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
 
+<<<<<<< d9bac289f419e7f79dfa2d4b9224d4c839b2971f
     mock_log = []
     stub_info = Proc.new { |i| mock_log << i }
+=======
+    @mock_log = []
+    stub_info = Proc.new { |i| @mock_log << i }
+>>>>>>> fixed rubocop
 
     Rails.logger.stub(:info, stub_info) do
       click_button "提出"
