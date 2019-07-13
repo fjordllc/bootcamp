@@ -1,5 +1,5 @@
 class AddPublishedAtToReports < ActiveRecord::Migration[5.2]
   def change
-    add_column :reports, :publised_at, :datetime
+    add_column :reports, :published_at, :datetime
   end
 end
