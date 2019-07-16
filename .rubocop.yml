@@ -13,6 +13,8 @@ AllCops:
     - 'app/views/**/*'
     - 'node_modules/**/*'
     - 'db/schema.rb'
+    - 'storage/**/*'
+    - 'tmp/**/*'
 
 Performance:
   Exclude:
