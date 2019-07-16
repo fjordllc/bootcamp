@@ -92,7 +92,6 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
-    curb (0.8.8)
     declarative (0.0.10)
     declarative-option (0.1.0)
     diffy (3.3.0)
@@ -413,7 +412,6 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.2)
   commonmarker
-  curb (~> 0.8.8)
   diffy
   dynamic_form
   feedjira (~> 2.2.0)
