@@ -52,7 +52,7 @@ class NotificationMailer < ApplicationMailer
     @question = question
     @user = reciever
     @notification = @user.notifications.find_by(path: "/questions/#{@question.id}")
-    mail to: @user.email, subject: "[bootcamp] #{@question.user.login_name}さんから質問がきました。"
+    mail to: @user.email, subject: "[bootcamp] #{@question.user.login_name}さんから質問がありました。"
   end
 
   def first_report(report, reciever)

@@ -4,7 +4,7 @@ require "application_system_test_case"
 
 class InnerNotification::QuestionsTest < ApplicationSystemTestCase
   setup do
-    @notice_text = "hatsunoさんから質問がきました。"
+    @notice_text = "hatsunoさんから質問がありました。"
     @notice_kind = InnerNotification.kinds["came_question"]
     @notified_count = InnerNotification.where(kind: @notice_kind).size
     @mentor_count = User.mentor.size
@@ -56,7 +56,7 @@ class InnerNotification::QuestionsTest < ApplicationSystemTestCase
     # 通知メッセージが非表示項目でassert_textでは取得できないため、findでvisible指定
     # 存在時、findは複数取得してエラーになるためassert_raisesにて検証
     assert_raises Capybara::ElementNotFound do
-      find("yamadaさんから質問がきました。", visible: false)
+      find("yamadaさんから質問がありました。", visible: false)
     end
     logout
   end

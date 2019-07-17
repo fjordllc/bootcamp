@@ -58,7 +58,7 @@ notification_questioned:
   kind: 6
   user: komagata
   sender: sotugyou
-  message: sotugyouさんから質問がきました。
+  message: sotugyouさんから質問がありました。
   path: "/questions/<%= ActiveRecord::FixtureSet.identify(:question_2) %>"
   read: false
 
