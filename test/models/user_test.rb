@@ -69,14 +69,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal expected, names
   end
 
-  test "when retire_reason is blank" do
-    Bootcamp::Setup.attachment
-
-    user = users(:hatsuno)
-    assert user.retire_reason.blank?
-    assert_not user.save(context: :retire_reason_presence)
-  end
-
   test "is valid with 8 or more characters" do
     Bootcamp::Setup.attachment
     user = users(:hatsuno)

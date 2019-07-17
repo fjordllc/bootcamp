@@ -87,7 +87,6 @@ class User < ActiveRecord::Base
       with: /\A\w+\z/,
       message: "は英文字と_（アンダースコア）のみが使用できます"
     }
-  validates :retire_reason, presence: true, length: { minimum: 8 }, on: :retire_reason_presence
 
   with_options unless: :adviser? do
     validates :job, presence: true

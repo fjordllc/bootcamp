@@ -14,8 +14,11 @@ header.page-header
     = form_with model: @user, local: true, url: user_retirement_path, method: :post, class: "form" do |f|
       .form__items
         .form-item
-          = f.label :retire_reason, "退会理由", class: "a-label is-required"
-          = f.text_area :retire_reason, class: "a-text-input is-md", placeholder: "退会理由を記入して下さい"
+          = f.label :retire_reason, "退会理由", class: "a-label"
+          = f.text_area :retire_reason, class: "a-text-input is-md", placeholder: "退会理由"
+          .a-form-help
+            p
+              | 差し支えなければ退会理由を教えてください。
 
       .form-actions
         ul.form-actions__items

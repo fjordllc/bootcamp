@@ -21,14 +21,7 @@ class UsersTest < ApplicationSystemTestCase
 
     login_user "hatsuno", "testtest"
     user = users(:hatsuno)
-    visit edit_current_user_path
-    click_on "退会手続きへ進む"
-    click_on "退会する"
-    page.driver.browser.switch_to.alert.accept
-    assert_text "退会理由を入力してください"
-    fill_in "user[retire_reason]", with: "辞" * 7
-    assert_text "退会理由は8文字以上で入力してください"
-    fill_in "user[retire_reason]", with: "辞" * 8
+    visit new_user_retirement_path(user_id: user.id)
     click_on "退会する"
     page.driver.browser.switch_to.alert.accept
     assert_text "退会処理が完了しました"
