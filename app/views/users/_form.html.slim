@@ -25,6 +25,17 @@
             | 会社で提供されたなどの第三者によって提供されたメールアドレスではなく、
             | 転職後も使い続ける自分自身で取得したメールアドレスで登録してください。
 
+    - if from == :edit
+      // TODO この機能はまだ未実装！
+      .form-item#mail-notification
+        // メール通知
+        label.a-label メール通知
+        label.a-on-off-checkbox
+          input(type="checkbox")
+          span
+        .a-form-help
+          p あなた宛のお知らせをメールで受け取るか否かの設定です。メールを受け取りたくない場合はオフにしてください。
+
     .form-item
       // 名前
       .row
@@ -40,6 +51,38 @@
         .a-form-help
           p
             | 姓・名は必ず本名を（漢字がある場合は漢字で）入力してください。
+
+    .form-item
+      // アバター
+      = f.label :avatar, class: "a-label is-required"
+      .form-item-file-input.js-file-input.a-file-input.is-avatar
+        label.js-file-input__preview
+          - if f.object.avatar.attached?
+            = image_tag f.object.avatar_image(100)
+            p 画像を変更
+          - else
+            p 画像を選択
+          = f.file_field :avatar
+      - unless user.adviser?
+        .a-form-help
+          p 著作権侵害にならない画像を使用してください。画像は正方形に切り抜かれます。
+
+    .form-item
+      // 自己紹介
+      ruby:
+        if user.adviser?
+          placeholder = "株式会社XXXXの開発チームマネージャーのXXXXXです。"
+          required_class = ""
+          help_text = "この情報は他のフィヨルドブートキャンプ参加者に公開されます。"
+        else
+          placeholder = "XXXXと申します。月・水・金の 10:00 〜 19:00 に活動します。XXXXと考えたため、プログラマーとして就職することを決意しました。今はXXXXで働いています。XXXXが好きでよくXXXXしています。XXXXが好きな方、仲良くしてください！！"
+          required_class = "is-required"
+          help_text = "この情報は他のフィヨルドブートキャンプ参加者に公開されます。あとからでも内容を変更することができます。"
+        end
+      = f.label :description, class: "a-label #{required_class}"
+      = f.text_area :description, class: "a-text-input is-sm", placeholder: placeholder
+      .a-form-help
+        p = help_text
 
     - unless user.adviser?
       .form-item.is-hidden
@@ -95,89 +138,55 @@
         .a-button.is-md.is-secondary.is-select.is-block
           - options = options_for_select(User.experiences.map { |k, v| [t("activerecord.enums.user.experience.#{k}"), k] }, selected: f.object.experience)
           = f.select :experience, options, include_blank: "- 選択してください -"
-
-    - if from == :edit
-      .form-item
-        = f.label :avatar, class: "a-label"
-        .form-item-file-input.js-file-input.a-file-input.is-avatar
-          label.js-file-input__preview
-            - if f.object.avatar.attached?
-              = image_tag f.object.avatar_image
-              p 画像を変更
-            - else
-              p 画像を選択
-            = f.file_field :avatar
-
-        - unless user.adviser?
-          .a-form-help
-            p 著作権侵害にならない画像を使用してください。画像は正方形に切り抜かれます。
-
-      .form-item
-        // 現在の所属組織
-        = f.label :organization, class: "a-label"
-
-        = f.text_field :organization, class: "a-text-input", autocomplete: :off, placeholder: "XXX大学XXX学部XXX学科XXX専攻"
-        - unless user.adviser?
-          .a-form-help
-            p
-              | 会社名・学校名などを入力してください（働いていない場合は「なし」としてください）。
-              br
-              | この情報は他のフィヨルドブートキャンプ参加者には公開されません。
-
-      .form-item
-        ruby:
-          if user.adviser?
-            placeholder = "株式会社XXXXの開発チームマネージャーのXXXXXです。"
-            help_text = "この情報は他のフィヨルドブートキャンプ参加者に公開されます。"
-          else
-            placeholder = "XXXXと申します。月・水・金の 10:00 〜 19:00 に活動します。XXXXと考えたため、プログラマーとして就職することを決意しました。今はXXXXで働いています。XXXXが好きでよくXXXXしています。XXXXが好きな方、仲良くしてください！！"
-            help_text = "この情報は他のフィヨルドブートキャンプ参加者に公開されます。あとからでも内容を変更することができます。"
-          end
-        = f.label :description, class: "a-label"
-        = f.text_area :description, class: "a-text-input", placeholder: placeholder
         .a-form-help
-          p = help_text
+          p この情報は他のフィヨルドブートキャンプ参加者には公開されません。
 
-      - if user.admin?
-        .form-item
-          // 就職活動中
-          = f.label :job_seeking, class: "a-label"
-          ul.form-item__checkboxes
-            li.form-checkbox
-              label.form-checkbox__label
-                = f.check_box :job_seeking, class: "form-checkbox__input"
-                = User.human_attribute_name :job_seeking
+  - if from == :edit
+    .form__items
+      h3.form__items-title
+        | SNSアカウント
       .form-item
+        // Slackアカウント
         = f.label :slack_account, class: "a-label"
         .form-item__mention-input
           = f.text_field :slack_account, class: "a-text-input", placeholder: "komagata"
       .form-item
+        // GitHubアカウント
         = f.label :github_account, class: "a-label"
         .form-item__mention-input
           = f.text_field :github_account, class: "a-text-input", placeholder: "komagata"
         .a-form-help
           p URL ではなく ID を入力。
+
       .form-item
+        // Twitterアカウント
         = f.label :twitter_account, class: "a-label"
         .form-item__mention-input
           = f.text_field :twitter_account, class: "a-text-input", placeholder: "komagata"
         .a-form-help
           p URL ではなく アカウント を入力。
+
       .form-item
+        // Facebook URL
         = f.label :facebook_url, class: "a-label"
         = f.text_field :facebook_url, class: "a-text-input", placeholder: "https://www.facebook.com/komagata1111"
         .a-form-help
           p ID ではなく URL を入力。
+
       .form-item
+        // ブログURL
         = f.label :blog_url, class: "a-label"
         = f.text_field :blog_url, class: "a-text-input", placeholder: "http://docs.komagata.org/"
         .a-form-help
           p URL を入力。
+
       .form-item
+        // ブログ Feed URL
         = f.label :feed_url, class: "a-label"
         = f.text_field :feed_url, class: "a-text-input", placeholder: "http://docs.komagata.org/index.atom"
         .a-form-help
           p URL を入力。
+<<<<<<< HEAD
     .form-item
       = f.label :password, class: "a-label is-required"
       = f.password_field :password, class: "a-text-input", autocomplete: :nope
@@ -188,10 +197,39 @@
         p パスワードをもう一度入力
 
     - if admin_login?
+=======
+
+  - else
+    .form__items
+      = render "form_password", f: f
+
+  - if from == :edit
+    .form__items
+      h3.form__items-title
+        | 以下パスワードを変更する場合のみ入力
+      = render "users/form_password", f: f
+
+  - if admin_login?
+    .form__items
+      h3.form__items-title
+        | 以下管理者のみ操作ができます
+>>>>>>> フォームのデザイン修正とメール通知のデザイン
       .form-item
+        // 就職活動中
+        = f.label :job_seeking, class: "a-label"
+        ul.form-item__checkboxes
+          li.form-checkbox
+            label.form-checkbox__label
+              = f.check_box :job_seeking, class: "form-checkbox__input"
+              = User.human_attribute_name :job_seeking
+
+      .form-item
+        // 所属企業
         = f.label :company, class: "a-label"
         .a-button.is-md.is-secondary.is-select.is-block
           = f.collection_select :company_id, Company.all, :id, :name, {}
+        .a-form-help
+          p アドバイザー、研修生、就職した卒業生は登録。
 
       .form-item
         // アドバイザー
@@ -201,14 +239,7 @@
             label.form-checkbox__label
               = f.check_box :adviser, class: "form-checkbox__input"
               = User.human_attribute_name :adviser
-      .form-item
-        // 無料ユーザー
-        = f.label :free, class: "a-label"
-        ul.form-item__checkboxes
-          li.form-checkbox
-            label.form-checkbox__label
-              = f.check_box :free, class: "form-checkbox__input"
-              = User.human_attribute_name :free
+
       .form-item
         // 研修生
         = f.label :trainee, class: "a-label"
@@ -217,6 +248,15 @@
             label.form-checkbox__label
               = f.check_box :trainee, class: "form-checkbox__input"
               = User.human_attribute_name :trainee
+
+      .form-item
+        // 無料ユーザー
+        = f.label :free, class: "a-label"
+        ul.form-item__checkboxes
+          li.form-checkbox
+            label.form-checkbox__label
+              = f.check_box :free, class: "form-checkbox__input"
+              = User.human_attribute_name :free
 
       .form-item
         // リタイア
