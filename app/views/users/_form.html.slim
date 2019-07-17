@@ -58,7 +58,7 @@
       .form-item-file-input.js-file-input.a-file-input.is-avatar
         label.js-file-input__preview
           - if f.object.avatar.attached?
-            = image_tag f.object.avatar_image(100)
+            = image_tag f.object.avatar_image
             p 画像を変更
           - else
             p 画像を選択
@@ -76,7 +76,7 @@
           help_text = "この情報は他のフィヨルドブートキャンプ参加者に公開されます。"
         else
           placeholder = "XXXXと申します。月・水・金の 10:00 〜 19:00 に活動します。XXXXと考えたため、プログラマーとして就職することを決意しました。今はXXXXで働いています。XXXXが好きでよくXXXXしています。XXXXが好きな方、仲良くしてください！！"
-          required_class = "is-required"
+          required_class = ""
           help_text = "この情報は他のフィヨルドブートキャンプ参加者に公開されます。あとからでも内容を変更することができます。"
         end
       = f.label :description, class: "a-label #{required_class}"
@@ -186,18 +186,6 @@
         = f.text_field :feed_url, class: "a-text-input", placeholder: "http://docs.komagata.org/index.atom"
         .a-form-help
           p URL を入力。
-<<<<<<< HEAD
-    .form-item
-      = f.label :password, class: "a-label is-required"
-      = f.password_field :password, class: "a-text-input", autocomplete: :nope
-    .form-item
-      = f.label :password_confirmation, class: "a-label is-required"
-      = f.password_field :password_confirmation, class: "a-text-input", autocomplete: :nope
-      .a-form-help
-        p パスワードをもう一度入力
-
-    - if admin_login?
-=======
 
   - else
     .form__items
@@ -213,7 +201,6 @@
     .form__items
       h3.form__items-title
         | 以下管理者のみ操作ができます
->>>>>>> フォームのデザイン修正とメール通知のデザイン
       .form-item
         // 就職活動中
         = f.label :job_seeking, class: "a-label"

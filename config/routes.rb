@@ -69,12 +69,8 @@ Rails.application.routes.draw do
     resources :unchecked, only: %i(index)
   end
   resources :reports
-<<<<<<< HEAD
-  resources :notifications, only: %i(index show)
-=======
   resources :comments
   resources :inner_notifications, only: %i(index show)
->>>>>>> 通知をメールでも飛ぶように変更
   resources :pages
   resources :watches
   namespace :notifications do
