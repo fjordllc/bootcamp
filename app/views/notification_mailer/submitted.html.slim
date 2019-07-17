@@ -1,0 +1,2 @@
+= render "notification_mailer_template", title: "#{@product.title}を#{@message}", link_url: inner_notification_url(@notification), link_text: "提出物へ" do
+  = simple_format(@product.body)

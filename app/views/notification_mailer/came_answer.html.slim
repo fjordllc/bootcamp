@@ -1,0 +1,2 @@
+= render "notification_mailer_template", title: "質問「#{@answer.question.title}」に#{@answer.user.login_name}さんが回答しました。", link_url: inner_notification_url(@notification), link_text: "質問へ" do
+  = simple_format(@answer.description)

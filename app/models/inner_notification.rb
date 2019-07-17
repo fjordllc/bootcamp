@@ -97,7 +97,7 @@ class InnerNotification < ApplicationRecord
       user:    reciever,
       sender:  question.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(question),
-      message: "#{question.user.login_name}さんから質問がきました。",
+      message: "#{question.user.login_name}さんから質問がありました。",
       read:    false
     )
   end

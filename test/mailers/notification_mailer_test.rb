@@ -98,7 +98,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_not ActionMailer::Base.deliveries.empty?
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["komagata@fjord.jp"], email.to
-    assert_equal "[bootcamp] sotugyouさんから質問がきました。", email.subject
+    assert_equal "[bootcamp] sotugyouさんから質問がありました。", email.subject
     assert_match %r{質問}, email.body.to_s
   end
 
