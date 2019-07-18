@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/config/environment"
+require "#{Rails.root.join('config', 'environment')}"
 
 namespace :bootcamp do
   namespace :oneshot do
@@ -68,7 +68,7 @@ namespace :bootcamp do
                  not_advisers.
                  where("accessed_at < ?", 3.months.ago)
     users.each do |user|
-      user.update_attributes!(sleep: true)
+      user.update!(sleep: true)
       puts "#{user.login_name}, R.I.P."
     end
   end

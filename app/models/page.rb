@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Page < ActiveRecord::Base
+class Page < ApplicationRecord
   include Searchable
 
   validates :title, presence: true

@@ -6,7 +6,7 @@ require "csv"
 module SeedHelper
   def import_fixture(name)
     ActiveRecord::Fixtures.create_fixtures(
-      "#{Rails.root}/db/fixtures",
+      "#{Rails.root.join('db', 'fixtures')}",
       name
     )
   end

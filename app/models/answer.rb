@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Answer < ActiveRecord::Base
+class Answer < ApplicationRecord
   include Reactionable
 
   belongs_to :user, touch: true

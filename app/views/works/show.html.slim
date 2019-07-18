@@ -37,12 +37,12 @@ header.page-header
           ul.card-footer-actions__items
             - if @work.url.present?
               li.card-footer-actions__item
-                = link_to @work.url, target: "_blank", class: "card-footer-actions_action a-button is-lg is-main is-block" do
+                = link_to @work.url, target: "_blank", rel: "noopener", class: "card-footer-actions_action a-button is-lg is-main is-block" do
                   i.fas.fa-globe
                   | URL
             - if @work.repository.present?
               li.card-footer-actions__item
-                = link_to @work.repository, target: "_blank", class: "card-footer-actions__action a-button is-lg is-main is-block" do
+                = link_to @work.repository, target: "_blank", rel: "noopener", class: "card-footer-actions__action a-button is-lg is-main is-block" do
                   i.fab.fa-github-alt
                   | Repository
         - if @work.user == current_user || admin_login?

@@ -10,6 +10,9 @@ class PracticesController < ApplicationController
   def show
   end
 
+  def sort
+  end
+
   def new
     @practice = Practice.new
   end

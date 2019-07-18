@@ -47,7 +47,7 @@
             - elsif not user.active?
               | 非アクティブ
           td.admin-table__item-value
-            = link_to user_path(user), class: "admin-table__user", target: "_blank" do
+            = link_to user_path(user), class: "admin-table__user", target: "_blank", rel: "noopener" do
               = image_tag user.avatar, class: "admin-table__user-icon"
               span.admin-table__user-login-name
                 = user.login_name
@@ -55,10 +55,7 @@
           td.admin-table__item-value.is-text-align-center
             = user.company.name
           td.admin-table__item-value.is-text-align-center
-            - if user.slack_account.present?
-              = user.slack_account
-            - else
-              | -
+            = user.slack_account.presence || ""
           td.admin-table__item-value.is-text-align-center
             = l user.updated_at
           td.admin-table__item-value.is-text-align-center

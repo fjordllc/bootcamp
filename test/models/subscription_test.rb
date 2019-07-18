@@ -6,7 +6,7 @@ class SubscriptionTest < ActiveSupport::TestCase
   test "create" do
     stub_subscription_create!
 
-    subscription = travel_to Time.parse("2000-01-01 00:00:00") do
+    subscription = travel_to Time.zone.parse("2000-01-01 00:00:00") do
       Subscription.create("cus_12345678")
     end
 

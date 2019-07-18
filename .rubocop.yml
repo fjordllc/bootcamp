@@ -1,7 +1,9 @@
-require: rubocop-performance
+require:
+  - rubocop-performance
+  - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.5.1
+  TargetRubyVersion: 2.6.3
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
   DisabledByDefault: true
@@ -90,7 +92,7 @@ Style/HashSyntax:
 # extra level of indentation.
 Layout/IndentationConsistency:
   Enabled: true
-  EnforcedStyle: rails
+  EnforcedStyle: indented_internal_methods
 
 # Two spaces, no tabs (for indentation).
 Layout/IndentationWidth:
@@ -225,3 +227,33 @@ Performance/RegexpMatch:
 
 Performance/UnfreezeString:
   Enabled: true
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/Output:
+  Enabled: false
+
+Rails/BulkChangeTable:
+  Enabled: false
+
+Rails/ReversibleMigration:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Rails/CreateTableWithTimestamps:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
+
+Rails/InverseOf:
+  Enabled: false
+
+Rails/HelperInstanceVariable:
+  Enabled: false

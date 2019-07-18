@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w(id login_name company_id updated_at created_at report comment asc desc)
 

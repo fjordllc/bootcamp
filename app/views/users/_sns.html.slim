@@ -30,7 +30,7 @@
           i.fas.fa-file
     li.sns-links__item
       - if user.feed_url?
-        = link_to user.feed_url, class: "sns-links__item-link a-button is-xs is-secondary is-icon", target: "_blank" do
+        = link_to user.feed_url, class: "sns-links__item-link a-button is-xs is-secondary is-icon", target: "_blank", rel: "noopener" do
           i.fas.fa-rss
       - else
         .sns-links__item-link.a-button.is-xs.is-disabled.is-icon

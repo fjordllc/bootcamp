@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
   include Reactionable
 
   belongs_to :user, touch: true

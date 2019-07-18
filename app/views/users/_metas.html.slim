@@ -35,10 +35,7 @@
       .user-metas__item-label
         | Slackアカウント
       .user-metas__item-value
-        - if user.slack_account.present?
-          = user.slack_account
-        - else
-          | 未登録
+        = user.slack_account.presence || "未登録"
     - unless user.admin? || user.adviser?
       .user-metas__item
         .user-metas__item-label

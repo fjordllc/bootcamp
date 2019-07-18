@@ -7,6 +7,9 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: %i(show edit update destroy)
   before_action :set_return_to, only: %i(create update destroy)
 
+  def show
+  end
+
   def edit
   end
 
@@ -53,7 +56,7 @@ class AnswersController < ApplicationController
     end
 
     def set_return_to
-      @return_to = params[:return_to].present? ? params[:return_to] : question_url(question)
+      @return_to = params[:return_to].presence || question_url(question)
     end
 
     def notify_to_slack(answer)

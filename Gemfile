@@ -74,6 +74,7 @@ group :development do
   gem "heavens_door"
   gem "rubocop", require: false
   gem "rubocop-performance"
+  gem "rubocop-rails"
   gem "slim_lint"
 end
 
