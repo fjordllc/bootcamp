@@ -6,6 +6,7 @@ class LearningTime < ApplicationRecord
   validates :finished_at, presence: true
   validate :learning_times_finished_at_be_greater_than_started_at
 
+  before_validation :replace_date_with_reported_on
   before_validation :canonicalize_finished_at
 
   def diff
@@ -19,6 +20,12 @@ class LearningTime < ApplicationRecord
   end
 
   private
+
+    def replace_date_with_reported_on
+      report_date = report.reported_on
+      self.started_at = started_at.change(year: report_date.year, month: report_date.month, day: report_date.day)
+      self.finished_at = finished_at.change(year: report_date.year, month: report_date.month, day: report_date.day)
+    end
 
     def canonicalize_finished_at
       if started_at > finished_at
