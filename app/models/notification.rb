@@ -123,14 +123,14 @@ class Notification < ApplicationRecord
     )
   end
 
-   def self.retired(sender, reciever)
-     Notification.create!(
-       kind:    9,
-       user:    reciever,
-       sender:  sender,
-       path:    Rails.application.routes.url_helpers.polymorphic_path(sender),
-       message: "#{sender.login_name}さんが退会しました。",
-       read:    false
-     )
-   end
+  def self.retired(sender, reciever)
+    Notification.create!(
+      kind:    9,
+      user:    reciever,
+      sender:  sender,
+      path:    Rails.application.routes.url_helpers.polymorphic_path(sender),
+      message: "#{sender.login_name}さんが退会しました。",
+      read:    false
+    )
+  end
 end
