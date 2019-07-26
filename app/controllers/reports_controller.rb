@@ -64,8 +64,9 @@ class ReportsController < ApplicationController
 
   def update
     set_wip
+    @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
-    if @report.update(report_params)
+    if @report.save
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :edit
@@ -171,11 +172,12 @@ class ReportsController < ApplicationController
 
     def canonicalize_learning_times(report)
       report.learning_times.each do |learning_time|
-        learning_time.started_at = learning_time.started_at.change(year: report.reported_on.year, month: report.reported_on.month, day: report.reported_on.day)
-        learning_time.finished_at = learning_time.finished_at.change(year: report.reported_on.year, month: report.reported_on.month, day: report.reported_on.day)
-        if learning_time.started_at > learning_time.finished_at
-          learning_time.finished_at += learning_time.finished_at + 1.day
+        new_started_at = learning_time.started_at.change(year: report.reported_on.year, month: report.reported_on.month, day: report.reported_on.day)
+        new_finished_at = learning_time.finished_at.change(year: report.reported_on.year, month: report.reported_on.month, day: report.reported_on.day)
+        if new_started_at > new_finished_at
+          new_finished_at += 1.day
         end
+        learning_time.assign_attributes(started_at: new_started_at, finished_at: new_finished_at)
       end
     end
 end
