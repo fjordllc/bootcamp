@@ -12,6 +12,11 @@ class RetirementController < ApplicationController
     current_user.retired_on = Date.current
     if current_user.save
       Subscription.destroy(current_user.subscription_id) if current_user.subscription_id
+
+      User.admins.each do |admin_user|
+        Notification.retired(current_user, admin_user)
+      end
+
       message = "<#{url_for(current_user)}|#{current_user.full_name} (#{current_user.login_name})>が退会しました。"
       SlackNotification.notify message,
         username: "#{current_user.login_name}@bootcamp.fjord.jp",

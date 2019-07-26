@@ -15,7 +15,8 @@ class Notification < ApplicationRecord
     announced:     5,
     came_question: 6,
     first_report:  7,
-    watching:      8
+    watching:      8,
+    retired:       9
   }
 
   scope :unreads, -> {
@@ -121,4 +122,15 @@ class Notification < ApplicationRecord
       read:    false
     )
   end
+
+   def self.retired(sender, reciever)
+     Notification.create!(
+       kind:    9,
+       user:    reciever,
+       sender:  sender,
+       path:    Rails.application.routes.url_helpers.polymorphic_path(sender),
+       message: "#{sender.login_name}さんが退会しました。",
+       read:    false
+     )
+   end
 end
