@@ -36,8 +36,8 @@ Rails.application.routes.draw do
 
   resources :announcements
   resources :feeds, only: %i(index)
+  resource :retirement, only: %i(show new create), controller: "retirement"
   resources :users, only: %i(index show new create) do
-    resource :retirement, only: %i(show new create), controller: "users/retirement"
     resources :reports, only: %i(index), controller: "users/reports"
     resources :comments, only: %i(index), controller: "users/comments"
     resources :products, only: %i(index), controller: "users/products"
