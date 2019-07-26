@@ -5,6 +5,7 @@ require "supports/login_helper"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
+  include ActiveSupport::Testing::TimeHelpers
 
   chrome_bin = ENV.fetch("GOOGLE_CHROME_SHIM", nil)
   chrome_opts = { chromeOptions: { args: %w(--headless) } }

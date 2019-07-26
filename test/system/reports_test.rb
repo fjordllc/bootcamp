@@ -199,6 +199,52 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "終了時間は開始時間より後にしてください"
   end
 
+  test "learning times order" do
+    visit "/reports/new"
+    fill_in "report_title", with: "テスト日報"
+    fill_in "report_description", with: "学習時間の順番"
+
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("19")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("20")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("15")
+
+    click_link "学習時間追加"
+    all(".learning-time")[1].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[1].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[1].select("30")
+
+    click_button "提出"
+    assert_selector("ul.learning-times__items li.learning-times__item:nth-child(1)", text: "07:30 〜 08:30")
+    assert_selector("ul.learning-times__items li.learning-times__item:nth-child(2)", text: "19:30 〜 20:15")
+  end
+
+  test "add learning times next day" do
+    visit "/reports/new"
+    fill_in "report_title", with: "テスト日報"
+    fill_in "report_description", with: "学習時間の順番"
+
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("19")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("20")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("15")
+    click_button "提出"
+
+    travel 1.day
+
+    click_link "内容修正"
+    click_link "学習時間追加"
+    all(".learning-time")[1].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[1].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[1].select("30")
+    click_button "内容変更"
+
+    assert_selector("ul.learning-times__items li.learning-times__item:nth-child(1)", text: "07:30 〜 08:30")
+    assert_selector("ul.learning-times__items li.learning-times__item:nth-child(2)", text: "19:30 〜 20:15")
+  end
+
   test "reports can be copied" do
     user   = users(:komagata)
     report = user.reports.first
