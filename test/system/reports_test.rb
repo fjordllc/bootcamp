@@ -220,7 +220,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector("ul.learning-times__items li.learning-times__item:nth-child(2)", text: "19:30 〜 20:15")
   end
 
-  test "add learning times next day" do
+  test "add learning times the next day" do
     visit "/reports/new"
     fill_in "report_title", with: "テスト日報"
     fill_in "report_description", with: "学習時間の順番"
