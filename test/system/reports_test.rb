@@ -238,11 +238,11 @@ class ReportsTest < ApplicationSystemTestCase
     all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
     click_button "提出"
     assert_text "Watch"
-    find('div.thread-meta__watch-button', text: "Watch").click
+    find("div.thread-meta__watch-button", text: "Watch").click
     assert_text "Unwatch"
     visit current_path
     assert_text "Unwatch"
-    find('div.thread-meta__watch-button', text: "Unwatch").click
+    find("div.thread-meta__watch-button", text: "Unwatch").click
     visit current_path
     assert_text "Watch"
   end
