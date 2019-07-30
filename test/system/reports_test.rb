@@ -240,7 +240,10 @@ class ReportsTest < ApplicationSystemTestCase
     all(".learning-time")[1].all(".learning-time__finished-at select")[0].select("08")
     all(".learning-time")[1].all(".learning-time__finished-at select")[1].select("30")
     click_button "内容変更"
+
+    # Watchの非同期処理ための待ち時間
     sleep 0.5
+
     assert_selector("ul.learning-times__items li.learning-times__item:nth-child(1)", text: "07:30 〜 08:30")
     assert_selector("ul.learning-times__items li.learning-times__item:nth-child(2)", text: "19:30 〜 20:15")
   end
