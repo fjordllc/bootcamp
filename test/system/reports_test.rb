@@ -228,7 +228,6 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test "reload watch" do
-    login_user "kimuta", "testtest"
     visit "/reports/new"
     fill_in "report_title", with: "テスト日報"
     fill_in "report_description", with: "ウォッチの再読み込み"
