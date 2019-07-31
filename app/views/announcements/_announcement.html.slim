@@ -15,7 +15,7 @@
       .thread__description.js-target-blank.is-long-text.js-markdown-view
         = announcement.description
       = render "reactions/reactions", reactionable: @announcement
-      - if @announcement.user_id == current_user.id
+      - if admin_login? || @announcement.user_id == current_user.id
         .card-footer
           .card-footer-actions
             ul.card-footer-actions__items
