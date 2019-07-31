@@ -36,7 +36,7 @@ FROM
   series
 LEFT JOIN
   summary ON series.date = summary.date
-		SQL
+    SQL
 
     LearningTime.find_by_sql([sql, { start_date: start_date, end_date: end_date, user_id: user.id }])
   end

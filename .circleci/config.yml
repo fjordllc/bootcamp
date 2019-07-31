@@ -64,7 +64,7 @@ jobs:
       - run:
           name: rubocop
           command: |
-            bundle exec rubocop -R -c .rubocop.yml
+            bundle exec rubocop -c .rubocop.yml
 
       - run:
           name: Lint
