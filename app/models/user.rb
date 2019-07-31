@@ -101,6 +101,7 @@ class User < ActiveRecord::Base
   scope :in_school, -> { where(graduated_on: nil) }
   scope :graduated, -> { where.not(graduated_on: nil) }
   scope :retired, -> { where.not(retired_on: nil) }
+  scope :except_retired, -> { where(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
   scope :students, -> {
@@ -215,6 +216,8 @@ SQL
       self.trainee
     when "all"
       self.all
+    when "except_retired"
+      self.except_retired
     end
   end
 

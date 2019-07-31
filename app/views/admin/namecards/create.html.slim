@@ -1,0 +1,23 @@
+- title "ネームカード"
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title = title
+.page-tools
+  = render "admin/admin_page_tabs"
+
+.page-body
+  .container.is-padding-horizontal-0-sm-down
+    table.admin-table__table
+      tbody.admin-table__items
+        - @users.each do |user|
+          tr.admin-table__item
+            td.admin-table__item-value
+              = image_tag user.avatar, class: "admin-table__user-icon"
+            td.admin-table__item-value
+              = user.login_name
+            td.admin-table__item-value
+              = user.full_name
+            td.admin-table__item-value
+              = user.description
