@@ -227,22 +227,12 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector ".thread-comment-form"
   end
 
-  test "reload watch" do
-    visit "/reports/new"
-    fill_in "report_title", with: "テスト日報"
-    fill_in "report_description", with: "ウォッチの再読み込み"
-    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
-    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
-    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
-    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
-    click_button "提出"
-    assert_text "Watch"
-    find("div.thread-meta__watch-button", text: "Watch").click
-    assert_text "Unwatch"
-    visit current_path
-    assert_text "Unwatch"
-    find("div.thread-meta__watch-button", text: "Unwatch").click
-    visit current_path
-    assert_text "Watch"
+  test "switch from watch to unwatch" do
+    login_user "kimura", "testtest"
+    visit report_path(reports(:report_1))
+    assert_difference("Watch.count", -1) do
+      find("div.thread-meta__watch-button", text: "Unwatch").click
+      sleep 0.5
+    end
   end
 end
