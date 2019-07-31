@@ -2,7 +2,7 @@
   .thread-admin-tools
     ul.thread-admin-tools__items
       li.thread-admin-tools__item
-        button.thread-check-form__action(:class=" checkId ? 'is-text' : 'a-button is-md is-danger' " @click="check")
+        button#js-shortcut-check.thread-check-form__action(:class=" checkId ? 'is-text' : 'a-button is-md is-danger' " @click="check")
           i.fas.fa-check
           | {{ buttonLabel }}
 </template>

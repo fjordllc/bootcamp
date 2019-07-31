@@ -26,7 +26,7 @@ hotkeys(`${ctrl}+s`, 'input', function (event, handler) {
 hotkeys(`${ctrl}+enter`, 'input', function (event, handler) {
   console.log(handler.key)
   event.preventDefault()
-  const button = document.querySelector('#js-shortcut-submit')
+  const button = document.querySelector('#js-shortcut-submit,#js-shortcut-post-comment')
   if (button) {
     button.click()
   }
@@ -36,6 +36,15 @@ hotkeys(`${ctrl}+e`, 'all', function (event, handler) {
   console.log(handler.key)
   event.preventDefault()
   const button = document.querySelector('#js-shortcut-edit')
+  if (button) {
+    button.click()
+  }
+})
+
+hotkeys(`${ctrl}+b`, 'all', function (event, handler) {
+  console.log(handler.key)
+  event.preventDefault()
+  const button = document.querySelector('#js-shortcut-check')
   if (button) {
     button.click()
   }
