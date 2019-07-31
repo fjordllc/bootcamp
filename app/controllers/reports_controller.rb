@@ -53,6 +53,7 @@ class ReportsController < ApplicationController
     @report = Report.new(report_params)
     @report.user = current_user
     set_wip
+    canonicalize_learning_times(@report)
     if @report.save
       notify_to_slack(@report)
       redirect_to redirect_url(@report), notice: notice_message(@report)
@@ -63,7 +64,9 @@ class ReportsController < ApplicationController
 
   def update
     set_wip
-    if @report.update(report_params)
+    @report.assign_attributes(report_params)
+    canonicalize_learning_times(@report)
+    if @report.save
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :edit
@@ -165,5 +168,24 @@ class ReportsController < ApplicationController
 
     def set_watch
       @watch = Watch.new
+    end
+
+    def canonicalize_learning_times(report)
+      report.learning_times.each do |learning_time|
+        new_started_at = learning_time.started_at.change(
+          year: report.reported_on.year,
+          month: report.reported_on.month,
+          day: report.reported_on.day
+        )
+        new_finished_at = learning_time.finished_at.change(
+          year: report.reported_on.year,
+          month: report.reported_on.month,
+          day: report.reported_on.day
+        )
+        if new_started_at > new_finished_at
+          new_finished_at += 1.day
+        end
+        learning_time.assign_attributes(started_at: new_started_at, finished_at: new_finished_at)
+      end
     end
 end
