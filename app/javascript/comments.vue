@@ -23,7 +23,7 @@
               .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
           .thread-comment-form__actions
             .thread-comment-form__action
-              button.a-button.is-lg.is-warning.is-block(@click="createComment" :disabled="!validation")
+              button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createComment" :disabled="!validation")
                 | コメントする
 </template>
 <script>
