@@ -172,8 +172,16 @@ class ReportsController < ApplicationController
 
     def canonicalize_learning_times(report)
       report.learning_times.each do |learning_time|
-        new_started_at = learning_time.started_at.change(year: report.reported_on.year, month: report.reported_on.month, day: report.reported_on.day)
-        new_finished_at = learning_time.finished_at.change(year: report.reported_on.year, month: report.reported_on.month, day: report.reported_on.day)
+        new_started_at = learning_time.started_at.change(
+          year: report.reported_on.year,
+          month: report.reported_on.month,
+          day: report.reported_on.day
+        )
+        new_finished_at = learning_time.finished_at.change(
+          year: report.reported_on.year,
+          month: report.reported_on.month,
+          day: report.reported_on.day
+        )
         if new_started_at > new_finished_at
           new_finished_at += 1.day
         end
