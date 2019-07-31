@@ -34,6 +34,7 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.new(announcement_params)
     @announcement.user_id = current_user.id
     if @announcement.save
+      notify_to_slack(@announcement)
       redirect_to @announcement, notice: "お知らせを作成しました"
     else
       render :new
@@ -46,6 +47,19 @@ class AnnouncementsController < ApplicationController
   end
 
   private
+    def notify_to_slack(announcement)
+      link = "<#{url_for(announcement)}|#{announcement.title}>"
+
+      SlackNotification.notify "#{link}",
+        username: "#{announcement.user.login_name} (#{announcement.user.full_name})",
+        icon_url: url_for(announcement.user.avatar),
+        channel: "#general",
+        attachments: [{
+          fallback: "announcement description.",
+          text: announcement.description
+        }]
+    end
+
     def footprint!
       @announcement.footprints.where(user: current_user).first_or_create if @announcement.user != current_user
     end
