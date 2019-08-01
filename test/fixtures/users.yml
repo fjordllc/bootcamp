@@ -247,3 +247,26 @@ kensyu:
   trainee: true
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
+
+senpai:
+  login_name: senpai
+  email: senpai@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  first_name: Ichiro
+  last_name: Senpai
+  slack_account: senpai
+  github_account: senpai
+  twitter_account: senpai
+  facebook_url: http://www.facebook.com/senpai
+  blog_url: http://senpai.org
+  feed_url: http://senpai.org/index.atom
+  company: company_2
+  description: "研修聖子の会社の先輩エンジニアです。アドバイザーです。"
+  course: course_1
+  job: office_worker
+  os: mac
+  experience: rails
+  adviser: true
+  updated_at: "2014-01-01 00:00:12"
+  created_at: "2014-01-01 00:00:12"
