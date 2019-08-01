@@ -51,6 +51,20 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_text "リタイア日"
   end
 
+  test "retire reason is displayed when login user is admin" do
+    login_user "komagata", "testtest"
+    visit "/users/#{users(:yameo).id}"
+    assert_text "退会理由"
+    visit "/users/#{users(:sotugyou).id}"
+    assert_no_text "退会理由"
+  end
+
+  test "retire reason isn't displayed when login user isn't admin" do
+    login_user "kimura", "testtest"
+    visit "/users/#{users(:yameo).id}"
+    assert_no_text "退会理由"
+  end
+
   test "normal user can't see unchecked number table" do
     login_user "hatsuno", "testtest"
     visit "/users/#{users(:hatsuno).id}"
