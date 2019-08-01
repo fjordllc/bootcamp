@@ -15,5 +15,12 @@ class ReportCallbacks
           end
         end
       end
+
+      if report.user.trainee?
+        receiver_list = User.where(company: report.user.company).where(adviser: true)
+        receiver_list.each do |receiver|
+          Notification.trainee_report(report, receiver)
+        end
+      end
     end
 end
