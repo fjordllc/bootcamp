@@ -26,6 +26,8 @@ class Practice < ActiveRecord::Base
   validates :description, presence: true
   validates :goal, presence: true
 
+  scope :category_order, -> { includes(:category).order("categories.position").order(:position) }
+
   def status(user)
     learnings = Learning.where(
       user_id: user.id,
