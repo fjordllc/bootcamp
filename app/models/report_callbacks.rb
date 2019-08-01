@@ -2,25 +2,22 @@
 
 class ReportCallbacks
   def after_create(report)
-    send_notification(report)
+    send_first_report_notification(report) if report.user.reports.count == 1
+    send_trainee_report_notification(report) if report.user.trainee?
   end
 
   private
-    def send_notification(report)
-      if report.user.reports.count == 1
-        reciever_list = User.where(retired_on: nil)
-        reciever_list.each do |reciever|
-          if report.sender != reciever
-            Notification.first_report(report, reciever)
-          end
-        end
+    def send_first_report_notification(report)
+      recievers = User.where(retired_on: nil).where.not(id: report.sender.id)
+      recievers.each do |reciever|
+        Notification.first_report(report, reciever)
       end
+    end
 
-      if report.user.trainee?
-        receiver_list = User.where(company: report.user.company).where(adviser: true)
-        receiver_list.each do |receiver|
-          Notification.trainee_report(report, receiver)
-        end
+    def send_trainee_report_notification(report)
+      receivers = User.advisers.where(company: report.user.company)
+      receivers.each do |receiver|
+        Notification.trainee_report(report, receiver)
       end
     end
 end
