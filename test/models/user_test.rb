@@ -8,6 +8,11 @@ class UserTest < ActiveSupport::TestCase
     assert users(:machida).admin?
   end
 
+  test "retired?" do
+    assert users(:yameo).retired?
+    assert_not users(:komagata).retired?
+  end
+
   test "full_name" do
     assert_equal "Komagata Masaki", users(:komagata).full_name
   end
