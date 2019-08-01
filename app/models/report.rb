@@ -28,6 +28,7 @@ class Report < ActiveRecord::Base
 
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
+  scope :with_avatar, -> { preload(user: { avatar_attachment: :blob }) }
 
   after_create ReportCallbacks.new
 
