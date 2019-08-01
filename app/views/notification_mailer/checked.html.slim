@@ -1,2 +1,2 @@
-= render "notification_mailer_template", title: "#{@check.checkable.title}が確認されました", link_url: inner_notification_url(@notification), link_text: t(@check.checkable.class.to_s) do
-  p #{link_to "#{@check.checkable.title}", inner_notification_url(@notification)} が#{@check.user.login_name}さんに確認されました。
+= render "notification_mailer_template", title: "#{@check.checkable.title}が確認されました", link_url: notification_url(@notification), link_text: t(@check.checkable.class.to_s) do
+  p #{link_to "#{@check.checkable.title}", notification_url(@notification)} が#{@check.user.login_name}さんに確認されました。

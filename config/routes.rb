@@ -70,11 +70,12 @@ Rails.application.routes.draw do
   end
   resources :reports
   resources :comments
-  resources :inner_notifications, only: %i(index show)
   resources :pages
   resources :watches
-  namespace :notifications do
-    resources :allmarks, only: %i(create)
+  resources :notifications, only: %i(index show) do
+    collection do
+      resources :allmarks, only: %i(create), controller: "notifications/allmarks"
+    end
   end
   resources :works, except: %i(index)
 

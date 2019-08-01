@@ -8,7 +8,7 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to notifications_allmarks_path, method: :post, class: "a-button is-md is-warning is-block #{current_user.notifications.unreads.empty? ? "is-disabled" : ""}" do
+            = link_to allmarks_path, method: :post, class: "a-button is-md is-warning is-block #{current_user.notifications.unreads.empty? ? "is-disabled" : ""}" do
               | 全て既読にする
 
 .page-body
@@ -16,5 +16,5 @@ header.page-header
     = paginate @notifications, position: "top"
     - if @notifications.present?
       .thread-list.a-card
-        = render partial: "inner_notifications/notification", collection: @notifications, as: :notification
+        = render partial: "notifications/notification", collection: @notifications, as: :notification
     = paginate @notifications, position: "bottom"

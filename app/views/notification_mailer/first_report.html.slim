@@ -1,4 +1,4 @@
-= render "notification_mailer_template", title: "#{@report.user.login_name}さんのはじめての日報です！", link_url: inner_notification_url(@notification), link_text: "この日報へ" do
+= render "notification_mailer_template", title: "#{@report.user.login_name}さんのはじめての日報です！", link_url: notification_url(@notification), link_text: "この日報へ" do
   p #{@report.user.login_name}さんのはじめての日報です。歓迎のコメントを投稿しよう！！
   div(style="border-top: solid 1px #ccc; height: 0;")
   = simple_format(@report.description)

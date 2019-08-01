@@ -5,7 +5,7 @@ input.a-toggle-checkbox(type="checkbox" id="#{toggle_id}")
     ul.header-dropdown__items
       - current_user.notifications.unreads.limit(99).each do |notification|
         li.header-dropdown__item
-          = link_to notification, class: "header-dropdown__item-link" do
+          = link_to notification_path(notification), class: "header-dropdown__item-link" do
             .header-notifications-item__body
               = render "notification_sender", sender: notification.sender
               .header-notifications-item__message
@@ -14,5 +14,5 @@ input.a-toggle-checkbox(type="checkbox" id="#{toggle_id}")
               time.header-notifications-item_created-at
                 = time_ago_in_words(notification.created_at) + "前"
     footer.header-dropdown__footer
-      = link_to inner_notifications_path, class: "header-dropdown__footer-link" do
+      = link_to notifications_path, class: "header-dropdown__footer-link" do
         | 全ての通知
