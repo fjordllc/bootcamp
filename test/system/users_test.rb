@@ -26,6 +26,9 @@ class UsersTest < ApplicationSystemTestCase
     page.driver.browser.switch_to.alert.accept
     assert_text "退会処理が完了しました"
     assert_equal Date.current, user.reload.retired_on
+    assert_equal "hatsunoさんが退会しました。", users(:komagata).notifications.last.message
+    assert_equal "hatsunoさんが退会しました。", users(:machida).notifications.last.message
+
     login_user "hatsuno", "testtest"
     assert_text "ログインができません"
   end
