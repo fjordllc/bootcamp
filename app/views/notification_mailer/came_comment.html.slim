@@ -1,2 +1,2 @@
-= render "notification_mailer_template", title: "#{@message}", link_url: inner_notification_url(@notification), link_text: "コメントへ" do
+= render "notification_mailer_template", title: "#{@message}", link_url: notification_url(@notification), link_text: "コメントへ" do
   = simple_format(@comment.description)

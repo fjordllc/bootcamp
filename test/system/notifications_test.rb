@@ -14,10 +14,10 @@ class InnerNotificationsTest < ApplicationSystemTestCase
     assert_no_text "machidaさんからコメントが届きました。"
   end
 
-  test "GET /inner_notifications" do
+  test "GET /notifications" do
     login_user "sotugyou", "testtest"
 
-    visit "/inner_notifications"
+    visit "/notifications"
     assert_text "komagataさんからコメントが届きました。"
     assert_text "machidaさんが学習週1日目を確認しました。"
     assert_text "komagataさんからメンションがきました。"
