@@ -77,6 +77,6 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     login_user "senpai", "testtest"
     first(".test-bell").click
-    assert_text "kensyuさんが日報「test title」を書きました！"
+    assert_text "kensyuさんが日報【 test title 】を書きました！"
   end
 end
