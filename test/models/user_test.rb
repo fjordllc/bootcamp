@@ -60,13 +60,15 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "order_by_counts" do
-    names = User.order_by_counts("report", "desc").pluck(:login_name)
-    expected = %w(sotugyou komagata machida yamada advijirou yameo kimura hatsuno hajime muryou kensyu)
-    assert_equal expected, names
+    ordered_users = User.order_by_counts("report", "desc")
+    more_report_user = users(:sotugyou)
+    less_report_user = users(:yamada)
+    assert ordered_users.index(more_report_user) < ordered_users.index(less_report_user)
 
-    names = User.order_by_counts("comment", "asc").pluck(:login_name)
-    expected = %w(advijirou yameo yamada kimura hatsuno hajime muryou kensyu machida sotugyou komagata)
-    assert_equal expected, names
+    ordered_users = User.order_by_counts("comment", "asc")
+    more_comment_user = users(:komagata)
+    less_comment_user = users(:sotugyou)
+    assert ordered_users.index(less_comment_user) < ordered_users.index(more_comment_user)
   end
 
   test "is valid with 8 or more characters" do
