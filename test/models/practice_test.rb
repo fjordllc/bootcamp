@@ -19,4 +19,13 @@ class PracticeTest < ActiveSupport::TestCase
     assert practices(:practice_1).exists_learning?(users(:komagata))
     assert_not practices(:practice_1).exists_learning?(users(:machida))
   end
+
+  test "category_order" do
+    ordered_practices = Practice.category_order
+    earlier = practices(:practice_23)
+    middle = practices(:practice_20)
+    later = practices(:practice_14)
+    assert ordered_practices.index(earlier) < ordered_practices.index(middle)
+    assert ordered_practices.index(middle) < ordered_practices.index(later)
+  end
 end

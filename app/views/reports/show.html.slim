@@ -39,7 +39,7 @@ header.page-header
         - if @report.practices.present?
           .report-practices
             ul.report-practices__items
-              - @report.practices.each do |practice|
+              - @report.practices.category_order.each do |practice|
                 li.report-practices__item
                   = link_to practice, class: "report-practices__item-link" do
                     = practice.title
