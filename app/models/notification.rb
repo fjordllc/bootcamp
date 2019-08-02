@@ -14,9 +14,8 @@ class Notification < ApplicationRecord
     answered:      4,
     announced:     5,
     came_question: 6,
-    first_report:  7,
-    watching:      8,
-    trainee_report: 9
+    report_submitted:  7,
+    watching:      8
   }
 
   scope :unreads, -> {
@@ -101,13 +100,13 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.first_report(report, reciever)
+  def self.report_submitted(report, reciever, message)
     Notification.create!(
       kind:    7,
       user:    reciever,
       sender:  report.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(report),
-      message: "#{report.user.login_name}さんがはじめての日報を書きました！",
+      message: message,
       read:    false
     )
   end
@@ -119,17 +118,6 @@ class Notification < ApplicationRecord
       sender:  watchable.user,
       path:    Rails.application.routes.url_helpers.polymorphic_path(watchable),
       message: "あなたがウォッチしている【 #{watchable.title} 】にコメントが投稿されました。",
-      read:    false
-    )
-  end
-
-  def self.trainee_report(report, reciever)
-    Notification.create!(
-      kind:    9,
-      user:    reciever,
-      sender:  report.sender,
-      path:    Rails.application.routes.url_helpers.polymorphic_path(report),
-      message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
       read:    false
     )
   end
