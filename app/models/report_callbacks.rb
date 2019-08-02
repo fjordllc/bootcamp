@@ -8,16 +8,16 @@ class ReportCallbacks
 
   private
     def send_first_report_notification(report)
-      recievers = User.where(retired_on: nil).where.not(id: report.sender.id)
-      recievers.each do |reciever|
-        Notification.first_report(report, reciever)
+      message = "#{report.user.login_name}さんがはじめての日報を書きました！"
+      User.where(retired_on: nil).where.not(id: report.sender.id).each do |reciever|
+        Notification.report_submitted(report, reciever, message)
       end
     end
 
     def send_trainee_report_notification(report)
-      receivers = User.advisers(report.user.company)
-      receivers.each do |receiver|
-        Notification.trainee_report(report, receiver)
+      message = "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！"
+      User.advisers(report.user.company).each do |receiver|
+        Notification.report_submitted(report, receiver, message)
       end
     end
 end
