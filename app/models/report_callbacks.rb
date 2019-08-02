@@ -15,7 +15,7 @@ class ReportCallbacks
     end
 
     def send_trainee_report_notification(report)
-      receivers = User.advisers.where(company: report.user.company)
+      receivers = User.advisers(report.user.company)
       receivers.each do |receiver|
         Notification.trainee_report(report, receiver)
       end

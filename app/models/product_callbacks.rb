@@ -23,8 +23,7 @@ class ProductCallbacks
     end
 
     def send_trainee_submit_notification(product, message)
-      recievers = User.advisers.where(company: product.user.company)
-      recievers.each do |reciever|
+      User.advisers(product.user.company).each do |reciever|
         Notification.submitted(product, reciever, message)
       end
     end
