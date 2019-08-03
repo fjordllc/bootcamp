@@ -2,8 +2,7 @@
 
 class Admin::NamecardsController < AdminController
   def new
-    @target = params[:target] || "except_retired"
-    @users = User.users_role(@target)
+    @users = User.users_role("except_retired")
   end
 
   def create
@@ -13,5 +12,6 @@ class Admin::NamecardsController < AdminController
     end
     user_ids = arr.select { |i| i =~ /submission/ }.map { |i| i.gsub(/submission/, "") }
     @users = User.where(id: user_ids)
+    render layout: "namecards"
   end
 end
