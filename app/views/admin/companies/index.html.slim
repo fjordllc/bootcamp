@@ -33,7 +33,7 @@ header.page-header
                 = company.name
               td.admin-table__item-value
                 - if company.logo.attached?
-                  = image_tag company.logo_image(500)
+                  = image_tag company.logo_image(100), class: "admin-table__item-logo-image"
               td.admin-table__item-value
                 = company.description
               td.admin-table__item-value
