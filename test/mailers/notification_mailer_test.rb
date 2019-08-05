@@ -131,4 +131,19 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal "[bootcamp] あなたがウォッチしている【 作業週1日目 】にコメントが投稿されました。", email.subject
     assert_match %r{ウォッチ}, email.body.to_s
   end
+
+  test "retired" do
+    user = users(:yameo)
+    admin = users(:komagata)
+    email = NotificationMailer.retired(
+      user,
+      admin
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    assert_equal ["info@fjord.jp"], email.from
+    assert_equal ["komagata@fjord.jp"], email.to
+    assert_equal "[bootcamp] yameoさんが退会しました。", email.subject
+    assert_match %r{退会}, email.body.to_s
+  end
 end

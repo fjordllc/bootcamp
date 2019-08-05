@@ -68,4 +68,11 @@ class NotificationMailer < ApplicationMailer
     @notification = @user.notifications.find_by(path: "/#{@watchable.class.name.downcase.pluralize}/#{@watchable.id}")
     mail to: @user.email, subject: "[bootcamp] あなたがウォッチしている【 #{@watchable.title} 】にコメントが投稿されました。"
   end
+
+  def retired(sender, reciever)
+    @sender = sender
+    @user = reciever
+    @notification = @user.notifications.find_by(path: "/users/#{@sender.id}")
+    mail to: @user.email, subject: "[bootcamp] #{@sender.login_name}さんが退会しました。"
+  end
 end

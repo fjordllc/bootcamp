@@ -77,3 +77,11 @@ notification_watching:
   message: あなたがウォッチしている【 作業週1日目 】にコメントが投稿されました。
   path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_1) %>"
   read: false
+
+notification_retired:
+  kind: 9
+  user: komagata
+  sender: yameo
+  message: yameoさんが退会しました。
+  path: "/users/<%= ActiveRecord::FixtureSet.identify(:yameo) %>"
+  read: false
