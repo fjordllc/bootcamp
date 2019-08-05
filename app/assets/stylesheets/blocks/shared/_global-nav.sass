@@ -45,12 +45,12 @@ $global-nav-width: 5rem
   +padding(vertical, .75rem)
 
 .global-nav-current-user__icon
-  img
-    +size(($global-nav-width - 1.5rem))
-    display: block
-    object-fit: cover
-    +margin(horizontal, auto)
-    border-radius: 50%
+  +size(($global-nav-width - 1.5rem))
+  display: block
+  object-fit: cover
+  +margin(horizontal, auto)
+  border-radius: 50%
+  +icon-role-style
 
 .global-nav-current-user__name
   +text-block(.75rem 1.45, center $reversal-text)
