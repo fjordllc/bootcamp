@@ -15,6 +15,15 @@ class PracticeTest < ActiveSupport::TestCase
       "not_complete"
   end
 
+  test "status_by_learnings(learnings)" do
+    learnings = users(:komagata).learnings
+
+    assert_equal practices(:practice_1).status_by_learnings(learnings), "started"
+    assert_equal practices(:practice_2).status_by_learnings(learnings), "complete"
+    assert_equal practices(:practice_3).status_by_learnings(learnings), "not_complete"
+    assert_equal practices(:practice_4).status_by_learnings(learnings), "not_complete"
+  end
+
   test "exists_learning?(user)" do
     assert practices(:practice_1).exists_learning?(users(:komagata))
     assert_not practices(:practice_1).exists_learning?(users(:machida))

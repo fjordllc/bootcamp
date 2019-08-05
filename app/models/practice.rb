@@ -44,6 +44,11 @@ class Practice < ActiveRecord::Base
     end
   end
 
+  def status_by_learnings(learnings)
+    learning = learnings.find { |lerning| id == lerning.practice_id }
+    learning&.status || "not_complete"
+  end
+
   def completed?(user)
     Learning.exists?(
       user:        user,
