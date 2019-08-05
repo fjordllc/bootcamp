@@ -75,13 +75,7 @@ class Notification
   end
 
   def self.retired(sender, reciever)
-    Notification.create!(
-      kind:    9,
-      user:    reciever,
-      sender:  sender,
-      path:    Rails.application.routes.url_helpers.polymorphic_path(sender),
-      message: "#{sender.login_name}さんが退会しました。",
-      read:    false
-    )
+    InnerNotification.retired(sender, reciever)
+    NotificationMailer.retired(sender, reciever).deliver_now
   end
 end

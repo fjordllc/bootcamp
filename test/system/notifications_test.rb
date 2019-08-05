@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class InnerNotificationsTest < ApplicationSystemTestCase
+class NotificationsTest < ApplicationSystemTestCase
   test "notifications" do
     login_user "sotugyou", "testtest"
 
