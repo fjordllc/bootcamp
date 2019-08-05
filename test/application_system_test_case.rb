@@ -12,9 +12,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   caps = Selenium::WebDriver::Remote::Capabilities.chrome(chrome_opts)
 
   if ENV["HEADED"]
-    driven_by :selenium, using: :chrome
+    driven_by :selenium, using: :headless_chrome
   else
-    driven_by :selenium, using: :chrome, options: { desired_capabilities: caps }
+    driven_by :selenium, using: :headless_chrome, options: { desired_capabilities: caps }
   end
 
   setup do
