@@ -5,6 +5,9 @@ class Courses::PracticesController < ApplicationController
 
   def index
     @course = Course.find(params[:course_id])
+    @categories = @course.categories
+                         .preload(practices: { started_students: { avatar_attachment: :blob } })
+                         .order(:position)
 
     # TODO: リタイアした人のセッションが切れたら外す
     if current_user.retired_on?
