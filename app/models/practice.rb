@@ -17,6 +17,10 @@ class Practice < ActiveRecord::Base
   has_many :completed_users,
     through: :completed_learnings,
     source: :user
+  has_many :started_students,
+    -> { students },
+    through: :started_learnings,
+    source: :user
   has_many :products
   has_many :questions
   belongs_to :category
