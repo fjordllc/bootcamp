@@ -227,7 +227,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector ".thread-comment-form"
   end
 
-  test "switch from watch to unwatch" do
+  test "unwatch" do
     login_user "kimura", "testtest"
     visit report_path(reports(:report_1))
     assert_difference("Watch.count", -1) do
