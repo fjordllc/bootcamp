@@ -13,6 +13,7 @@ class ProductCallbacks
       message: "#{product.user.login_name}さんが提出しました。"
     )
     create_admin_watch(product)
+    create_adviser_watch(product) if product.user.trainee?
   end
 
   def after_update(product)
@@ -41,6 +42,12 @@ class ProductCallbacks
           watchable: product
         )
         @watch.save!
+      end
+    end
+
+    def create_adviser_watch(product)
+      User.advisers.where(company: product.user.company).each do |adviser|
+        Watch.create(user: adviser, watchable: product)
       end
     end
 
