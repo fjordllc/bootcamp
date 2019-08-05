@@ -87,7 +87,7 @@ class ProductsController < ApplicationController
     end
 
     def find_footprints
-      find_product.footprints.order(created_at: :desc)
+      find_product.footprints.with_avatar.order(created_at: :desc)
     end
 
     def footprint!
