@@ -5,7 +5,10 @@ class NotificationsController < ApplicationController
   before_action :set_my_notification, only: %i(show)
 
   def index
-    @notifications = current_user.notifications.order(created_at: :desc).page(params[:page])
+    @notifications = current_user.notifications
+                                 .with_avatar
+                                 .order(created_at: :desc)
+                                 .page(params[:page])
   end
 
   def show
