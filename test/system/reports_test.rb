@@ -280,7 +280,7 @@ class ReportsTest < ApplicationSystemTestCase
     login_user "kimura", "testtest"
     visit report_path(reports(:report_1))
     assert_difference("Watch.count", -1) do
-      find("div.thread-meta__watch-button", text: "Unwatch").click
+      find("div.thread-meta__watch-button", text: "Watch中").click
       sleep 0.5
     end
   end
