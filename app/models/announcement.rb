@@ -5,6 +5,7 @@ class Announcement < ApplicationRecord
   include Footprintable
   include Searchable
   include Reactionable
+  include WithAvatar
 
   belongs_to :user
   alias_method :sender, :user
@@ -13,6 +14,4 @@ class Announcement < ApplicationRecord
 
   validates :title, presence: true
   validates :description, presence: true
-
-  scope :with_avatar, -> { preload(user: { avatar_attachment: :blob }) }
 end
