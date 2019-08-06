@@ -9,7 +9,7 @@ class ProductCallbacks
     )
     send_notification(
       product: product,
-      recievers: User.advisers(product.user.company),
+      recievers: product.user.company.advisers,
       message: "#{product.user.login_name}さんが提出しました。"
     )
     create_admin_watch(product)
