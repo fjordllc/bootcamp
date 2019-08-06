@@ -14,7 +14,7 @@ class Notification < ApplicationRecord
     answered:      4,
     announced:     5,
     came_question: 6,
-    first_report:  7,
+    report_submitted:  7,
     watching:      8,
     retired:       9
   }
@@ -101,13 +101,13 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.first_report(report, reciever)
+  def self.report_submitted(report, reciever, message)
     Notification.create!(
       kind:    7,
       user:    reciever,
       sender:  report.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(report),
-      message: "#{report.user.login_name}さんがはじめての日報を書きました！",
+      message: message,
       read:    false
     )
   end

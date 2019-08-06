@@ -2,12 +2,25 @@
 
 class ProductCallbacks
   def after_create(product)
-    send_notification(product, "#{product.user.login_name}さんが提出しました。")
+    send_notification(
+      product: product,
+      recievers: User.admins,
+      message: "#{product.user.login_name}さんが提出しました。"
+    )
+    send_notification(
+      product: product,
+      recievers: product.user.company.advisers,
+      message: "#{product.user.login_name}さんが提出しました。"
+    )
     create_admin_watch(product)
   end
 
   def after_update(product)
-    send_notification(product, "#{product.user.login_name}さんが提出物を更新しました。")
+    send_notification(
+      product: product,
+      recievers: User.admins,
+      message: "#{product.user.login_name}さんが提出物を更新しました。"
+    )
   end
 
   def after_destroy(product)
@@ -15,9 +28,9 @@ class ProductCallbacks
   end
 
   private
-    def send_notification(product, message)
-      User.admins.each do |user|
-        Notification.submitted(product, user, message)
+    def send_notification(product:, recievers:, message:)
+      recievers.each do |reciever|
+        Notification.submitted(product, reciever, message)
       end
     end
 
