@@ -13,4 +13,6 @@ class Announcement < ApplicationRecord
 
   validates :title, presence: true
   validates :description, presence: true
+
+  scope :with_avatar, -> { preload(user: { avatar_attachment: :blob }) }
 end
