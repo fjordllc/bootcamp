@@ -13,7 +13,7 @@ class ReportCallbacks
     if report.user.trainee?
       send_notification(
         report: report,
-        recievers: User.advisers(report.user.company),
+        recievers: report.user.company.advisers,
         message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！"
       )
     end
