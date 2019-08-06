@@ -58,4 +58,25 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     assert page.has_css?(".has-no-count")
     logout
   end
+
+  test "研修生が日報を提出したら企業のアドバイザーに通知が飛ぶ" do
+    login_user "kensyu", "testtest"
+    visit "/reports/new"
+    within("#new_report") do
+      fill_in("report[title]", with: "test title")
+      fill_in("report[description]",   with: "test")
+    end
+
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
+    click_button "提出"
+
+    logout
+
+    login_user "senpai", "testtest"
+    first(".test-bell").click
+    assert_text "kensyuさんが日報【 test title 】を書きました！"
+  end
 end
