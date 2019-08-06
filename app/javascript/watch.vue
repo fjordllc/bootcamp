@@ -80,9 +80,6 @@ export default {
         })
     },
     unwatch () {
-      let params = new FormData()
-      params.append(`${this.watchableType}_id`, this.watchableId)
-
       fetch(`/api/watches/${this.watchId}`, {
         method: 'DELETE',
         headers: {
@@ -91,8 +88,7 @@ export default {
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
-        redirect: 'manual',
-        body: params
+        redirect: 'manual'
       })
         .then(response => {
           this.watchId = null

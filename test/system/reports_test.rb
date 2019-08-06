@@ -275,4 +275,13 @@ class ReportsTest < ApplicationSystemTestCase
     visit "/reports/#{reports(:report_1).id}"
     assert_selector ".thread-comment-form"
   end
+
+  test "unwatch" do
+    login_user "kimura", "testtest"
+    visit report_path(reports(:report_1))
+    assert_difference("Watch.count", -1) do
+      find("div.thread-meta__watch-button", text: "Unwatch").click
+      sleep 0.5
+    end
+  end
 end
