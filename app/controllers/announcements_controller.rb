@@ -7,7 +7,10 @@ class AnnouncementsController < ApplicationController
   before_action :set_footprints, only: %i(show)
 
   def index
-    @announcements = Announcement.order(created_at: :desc).page(params[:page])
+    @announcements = Announcement.with_avatar
+                                 .preload(:comments)
+                                 .order(created_at: :desc)
+                                 .page(params[:page])
   end
 
   def show
