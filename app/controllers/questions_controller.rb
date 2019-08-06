@@ -15,6 +15,7 @@ class QuestionsController < ApplicationController
         Question.not_solved
       end.order(updated_at: :desc, id: :desc)
     @questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
+    @questions = @questions.preload(%i[practice answers]).with_avatar
   end
 
   def show
