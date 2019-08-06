@@ -16,8 +16,8 @@ class ReportCallbacks
         recievers: report.user.company.advisers,
         message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！"
       )
+      create_advisers_watch(report)
     end
-    create_davisers_watch(report) if report.user.trainee?
   end
 
   private
@@ -27,9 +27,9 @@ class ReportCallbacks
       end
     end
 
-    def create_davisers_watch(report)
-      User.advisers.where(company: report.user.company).each do |adviser|
-        Watch.create(user: adviser, watchable: report)
+    def create_advisers_watch(report)
+      report.user.company.advisers.each do |adviser|
+        Watch.create!(user: adviser, watchable: report)
       end
     end
 end
