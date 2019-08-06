@@ -5,13 +5,13 @@
         = practice.title
     - if current_user
       .practice-status
-        - status = practice.status(current_user)
+        - status = practice.status_by_learnings(@learnings)
         .js-learning-status(data-practice-id="#{practice.id}" data-status="#{status}")
 
-  - if practice.started_users.students.exists?
+  - if practice.started_students.any?
     .practice-started-users
       .practice-started-users__items
-        = render partial: "student", collection: practice.started_users.students, as: :user
+        = render partial: "student", collection: practice.started_students, as: :user
   - if current_user.admin?
     .category-practices-item__handle.js-show-handle__target
       ul.is-button-group

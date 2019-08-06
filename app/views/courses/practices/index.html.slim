@@ -20,7 +20,7 @@ header.page-header
   .container
     .categories-items
       .categories-items__inner
-        - @course.categories.order(:position).each do |category|
+        - @categories.each do |category|
           - if category.practices.present?
             .categories-item.practices.js-show-handle(id="category-#{category.id}")
               header.categories-item__header
@@ -37,7 +37,7 @@ header.page-header
 
       nav.page-nav
         ul.page-nav__items
-          - @course.categories.order(:position).each do |category|
+          - @categories.each do |category|
             - if category.practices.present?
               li.page-nav__item
                 a.page-nav__item-link(data-scroll href="#category-#{category.id}")
