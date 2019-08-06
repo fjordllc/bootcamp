@@ -65,7 +65,7 @@ class AnnouncementsController < ApplicationController
     end
 
     def set_footprints
-      @footprints = @announcement.footprints.order(created_at: :desc)
+      @footprints = @announcement.footprints.with_avatar.order(created_at: :desc)
     end
 
     def announcement_params

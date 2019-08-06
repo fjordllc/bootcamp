@@ -22,6 +22,12 @@
 .users-item__names-name
   +text-block(1.125rem 1.4, 600 $main block)
   margin-bottom: .125rem
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+  i
+    color: $danger
+    margin-left: .25em
+    font-size: .75em
 
 .users-item__name-link
   color: $main
@@ -44,6 +50,7 @@
   border: solid $base .25rem
   background-color: white
   object-fit: cover
+  +icon-role-style
   +media-breakpoint-down(sm)
     +size(3rem)
     +position(absolute, left -.5rem, top -.25rem)

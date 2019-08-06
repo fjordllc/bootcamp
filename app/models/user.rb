@@ -251,6 +251,10 @@ SQL
     adviser? || mentor?
   end
 
+  def retired?
+    retired_on?
+  end
+
   private
     def password_required?
       new_record? || password.present?

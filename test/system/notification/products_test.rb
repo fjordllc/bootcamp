@@ -21,7 +21,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
 
     # 提出物を作成したとき、管理者からウォッチがつく
     click_link  "yamadaさんが提出しました。"
-    assert_text "Unwatch"
+    assert_text "Watch中"
   end
 
   test "recieve a notification when product is updated" do
