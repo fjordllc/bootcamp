@@ -7,6 +7,7 @@ class Report < ActiveRecord::Base
   include Searchable
   include Reactionable
   include Watchable
+  include WithAvatar
 
   has_many :learning_times, -> { order(:started_at) }, dependent: :destroy, inverse_of: :report
   validates_associated :learning_times
@@ -28,7 +29,6 @@ class Report < ActiveRecord::Base
 
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
-  scope :with_avatar, -> { preload(user: { avatar_attachment: :blob }) }
 
   after_create ReportCallbacks.new
 
