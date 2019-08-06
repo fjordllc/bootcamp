@@ -5,7 +5,10 @@
         .users-item__header-container
           .users-item__names
             .users-item__names-name
-              = link_to user.login_name, user, class: "users-item__name-link"
+              = link_to user, class: "users-item__name-link" do
+                = user.login_name
+                - if current_user.admin? && user.card?
+                 i.fas.fa-yen-sign
             - if user.slack_account.present?
               .users-item__names-slack
                 .users-item__names-slack-label

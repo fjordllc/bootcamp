@@ -26,6 +26,9 @@ class UsersTest < ApplicationSystemTestCase
     page.driver.browser.switch_to.alert.accept
     assert_text "退会処理が完了しました"
     assert_equal Date.current, user.reload.retired_on
+    assert_equal "hatsunoさんが退会しました。", users(:komagata).notifications.last.message
+    assert_equal "hatsunoさんが退会しました。", users(:machida).notifications.last.message
+
     login_user "hatsuno", "testtest"
     assert_text "ログインができません"
   end
@@ -46,6 +49,20 @@ class UsersTest < ApplicationSystemTestCase
     assert_text "リタイア日"
     visit "/users/#{users(:sotugyou).id}"
     assert_no_text "リタイア日"
+  end
+
+  test "retire reason is displayed when login user is admin" do
+    login_user "komagata", "testtest"
+    visit "/users/#{users(:yameo).id}"
+    assert_text "退会理由"
+    visit "/users/#{users(:sotugyou).id}"
+    assert_no_text "退会理由"
+  end
+
+  test "retire reason isn't displayed when login user isn't admin" do
+    login_user "kimura", "testtest"
+    visit "/users/#{users(:yameo).id}"
+    assert_no_text "退会理由"
   end
 
   test "normal user can't see unchecked number table" do

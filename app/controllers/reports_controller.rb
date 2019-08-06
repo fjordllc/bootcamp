@@ -123,7 +123,7 @@ class ReportsController < ApplicationController
     end
 
     def set_footprints
-      @footprints = @report.footprints.order(created_at: :desc)
+      @footprints = @report.footprints.with_avatar.order(created_at: :desc)
     end
 
     def set_categories

@@ -14,7 +14,7 @@ export default {
   data () {
     return {
       watchId: null,
-      watchLabel: "Watch"
+      watchLabel: "Watchする"
     }
   },
   mounted () {
@@ -32,7 +32,7 @@ export default {
     .then(json => {
       if (json[0]) {
         this.watchId = json[0]['id']
-        this.watchLabel = 'Unwatch'
+        this.watchLabel = 'Watch中'
       }
     })
     .catch(error => {
@@ -73,7 +73,7 @@ export default {
         })
         .then(json => {
           this.watchId = json['id']
-          this.watchLabel = 'Unwatch'
+          this.watchLabel = 'Watch中'
         })
         .catch(error => {
           console.warn('Failed to parsing', error)
@@ -96,7 +96,7 @@ export default {
       })
         .then(response => {
           this.watchId = null
-          this.watchLabel = 'Watch'
+          this.watchLabel = 'Watchする'
         })
         .catch(error => {
           console.warn('Failed to parsing', error)
