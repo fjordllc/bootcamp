@@ -7,7 +7,9 @@ class HomeController < ApplicationController
         logout
         redirect_to retire_path
       else
-        @announcements = Announcement.limit(5).order(created_at: :desc)
+        @announcements = Announcement.with_avatar
+                                     .limit(5)
+                                     .order(created_at: :desc)
         render aciton: :index
       end
     else
