@@ -24,6 +24,7 @@ class Notification < ApplicationRecord
     where(read: false, created_at: into_one.values).order(created_at: :desc)
   }
   scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
+  scope :unreads_with_avatar, -> { unreads.with_avatar.limit(99) }
 
   def self.came_comment(comment, reciever, message)
     Notification.create!(
