@@ -13,6 +13,6 @@ class WelcomeController < ApplicationController
   end
 
   def practices
-    @categories = Course.first.categories
+    @categories = Course.first.categories.preload(:practices).order(:position)
   end
 end

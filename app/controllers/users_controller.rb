@@ -5,10 +5,11 @@ class UsersController < ApplicationController
   before_action :set_user, only: %w(show)
 
   def index
-    @categories = Category.order("position")
-    @users = User.order(updated_at: :desc)
     @target = params[:target] || "student"
-    @users = @users.users_role(@target)
+    @users = User.with_attached_avatar
+                 .preload(:course)
+                 .order(updated_at: :desc)
+                 .users_role(@target)
   end
 
   def show

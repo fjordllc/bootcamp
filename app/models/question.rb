@@ -4,6 +4,7 @@ class Question < ActiveRecord::Base
   include Searchable
   include Reactionable
   include Watchable
+  include WithAvatar
 
   belongs_to :practice, optional: true
   belongs_to :user, touch: true
