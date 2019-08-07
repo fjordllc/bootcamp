@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
   before_action :set_watch, only: %i(show)
 
   def index
-    @products = Product.order(created_at: :desc).page(params[:page])
+    @products = Product.list.page(params[:page])
   end
 
   def show
