@@ -66,15 +66,15 @@
             li.header-dropdown__item
               = link_to new_retirement_path, class: "header-dropdown__item-link" do
                 | 退会手続き
-    li.header-links__item(class="#{current_user.notifications.unreads.count > 0 ? "has-count" : "has-no-count"}")
+    li.header-links__item(class="#{current_user.unread_notifications_exists? ? "has-count" : "has-no-count"}")
       - toggle_id = "header-notification-pc"
       label.header-links__link.test-show-notifications(for="#{toggle_id}")
         .header-links__link.test-bell
           .header-notification-icon
-            - if current_user.notifications.unreads.exists?
+            - if current_user.unread_notifications_exists?
               .header-notification-count.a-notification-count
                 = notification_unreads_count_badge
             i.fas.fa-bell
             .header-links__link-label 通知
-      - if current_user.notifications.unreads.exists?
+      - if current_user.unread_notifications_exists?
         = render "application/notifications", toggle_id: toggle_id
