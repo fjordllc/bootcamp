@@ -73,7 +73,7 @@
           .header-notification-icon
             - if current_user.notifications.unreads.exists?
               .header-notification-count.a-notification-count
-                = current_user.notifications.unreads.count
+                = notification_unreads_count_badge
             i.fas.fa-bell
             .header-links__link-label 通知
       - if current_user.notifications.unreads.exists?
