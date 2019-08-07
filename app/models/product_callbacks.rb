@@ -7,12 +7,22 @@ class ProductCallbacks
       recievers: User.admins,
       message: "#{product.user.login_name}さんが提出しました。"
     )
-    send_notification(
-      product: product,
-      recievers: product.user.company.advisers,
-      message: "#{product.user.login_name}さんが提出しました。"
+    create_watch(
+      watchers: User.admins,
+      watchable: product
     )
-    create_admin_watch(product)
+
+    if product.user.trainee?
+      send_notification(
+        product: product,
+        recievers: product.user.company.advisers,
+        message: "#{product.user.login_name}さんが提出しました。"
+      )
+      create_watch(
+        watchers: product.user.company.advisers,
+        watchable: product,
+      )
+    end
   end
 
   def after_update(product)
@@ -34,13 +44,9 @@ class ProductCallbacks
       end
     end
 
-    def create_admin_watch(product)
-      User.admins.each do |admin|
-        @watch = Watch.new(
-          user: admin,
-          watchable: product
-        )
-        @watch.save!
+    def create_watch(watchers:, watchable:)
+      watchers.each do |watcher|
+        Watch.create!(user: watcher, watchable: watchable)
       end
     end
 
