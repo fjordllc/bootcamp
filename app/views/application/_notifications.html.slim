@@ -3,7 +3,7 @@ input.a-toggle-checkbox(type="checkbox" id="#{toggle_id}")
   label.header-dropdown__background(for="#{toggle_id}")
   .header-dropdown__inner.is-notification
     ul.header-dropdown__items
-      - current_user.notifications.unreads.each do |notification|
+      - current_user.notifications.unreads.limit(99).each do |notification|
         li.header-dropdown__item
           = link_to notification, class: "header-dropdown__item-link" do
             .header-notifications-item__body
