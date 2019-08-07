@@ -255,6 +255,14 @@ SQL
     retired_on?
   end
 
+  def unread_notifications_count
+    @unread_notifications_count ||= notifications.unreads.count
+  end
+
+  def unread_notifications_exists?
+    unread_notifications_count > 0
+  end
+
   private
     def password_required?
       new_record? || password.present?
