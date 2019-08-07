@@ -16,3 +16,5 @@ input.a-toggle-checkbox(type="checkbox" id="#{toggle_id}")
     footer.header-dropdown__footer
       = link_to notifications_path, class: "header-dropdown__footer-link" do
         | 全ての通知
+      = link_to allmarks_path, method: :post, class: "header-dropdown__footer-link" do
+        | 全て既読にする
