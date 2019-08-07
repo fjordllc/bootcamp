@@ -23,6 +23,7 @@ class Notification < ApplicationRecord
     into_one = select(:path).group(:path).maximum(:created_at)
     where(read: false, created_at: into_one.values).order(created_at: :desc)
   }
+  scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
 
   def self.came_comment(comment, reciever, message)
     Notification.create!(

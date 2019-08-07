@@ -5,6 +5,7 @@ class Announcement < ApplicationRecord
   include Footprintable
   include Searchable
   include Reactionable
+  include WithAvatar
 
   belongs_to :user
   alias_method :sender, :user
