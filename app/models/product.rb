@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   include Footprintable
   include Watchable
   include Reactionable
+  include WithAvatar
 
   belongs_to :practice
   belongs_to :user, touch: true
@@ -24,6 +25,11 @@ class Product < ApplicationRecord
     -> (user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: "Product").pluck(:checkable_id)) }
+  scope :list, -> {
+    with_avatar
+      .preload([:practice, :comments, { checks: { user: { avatar_attachment: :blob } } }])
+      .order(created_at: :desc)
+  }
 
   def completed?(user)
     checks.where(user: user).present?
