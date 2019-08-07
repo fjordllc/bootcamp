@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
 
   def index
     @search_words = params[:word]&.squish&.split(/[[:blank:]]/)&.uniq
-    @reports = Report.eager_load(:user, :comments, checks: :user).default_order.page(params[:page])
+    @reports = Report.list.page(params[:page])
 
     if params[:practice_id].present?
       @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] })
