@@ -4,7 +4,7 @@ class Admin::CompaniesController < AdminController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
 
   def index
-    @companies = Company.all.order(:id)
+    @companies = Company.with_attached_logo.order(:id)
   end
 
   def show
