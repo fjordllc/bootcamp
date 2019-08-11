@@ -74,6 +74,13 @@ report_10:
     学習の準備をしました。
   reported_on: "2019-01-01"
 
+report_11:
+  user: kensyu
+  title: 研修の日報
+  description:
+    研修を行いました。
+  reported_on: "2019-01-01"
+
 sotugyou:
   user: sotugyou
   title: テストの日報

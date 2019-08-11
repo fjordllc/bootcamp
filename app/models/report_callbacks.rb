@@ -3,33 +3,32 @@
 class ReportCallbacks
   def after_create(report)
     if report.user.reports.count == 1
-      send_notification(
-        report: report,
-        recievers: User.where(retired_on: nil).where.not(id: report.sender.id),
-        message: "#{report.user.login_name}さんがはじめての日報を書きました！"
-      )
+      send_first_report_notification(report)
     end
 
     if report.user.trainee?
-      send_notification(
-        report: report,
-        recievers: report.user.company.advisers,
-        message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！"
-      )
-      create_advisers_watch(report)
+      report.user.company.advisers.each do |adviser|
+        send_trainee_report_notification(report, adviser)
+        create_advisers_watch(report, adviser)
+      end
     end
   end
 
   private
-    def send_notification(report:, recievers:, message:)
-      recievers.each do |reciever|
-        Notification.report_submitted(report, reciever, message)
+    def send_first_report_notification(report)
+      reciever_list = User.where(retired_on: nil)
+      reciever_list.each do |reciever|
+        if report.sender != reciever
+          Notification.first_report(report, reciever)
+        end
       end
     end
 
-    def create_advisers_watch(report)
-      report.user.company.advisers.each do |adviser|
-        Watch.create!(user: adviser, watchable: report)
-      end
+    def send_trainee_report_notification(report, reciever)
+      Notification.trainee_report(report, reciever)
+    end
+
+    def create_advisers_watch(report, adviser)
+      Watch.create!(user: adviser, watchable: report)
     end
 end

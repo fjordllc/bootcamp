@@ -146,4 +146,19 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal "[bootcamp] yameoさんが退会しました。", email.subject
     assert_match %r{退会}, email.body.to_s
   end
+
+  test "trainee_report" do
+    report = reports(:report_11)
+    trainee_report = inner_notifications(:notification_trainee_report)
+    email = NotificationMailer.trainee_report(
+      report,
+      trainee_report.user
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    assert_equal ["info@fjord.jp"], email.from
+    assert_equal ["senpai@fjord.jp"], email.to
+    assert_equal "[bootcamp] kensyuさんが日報【 研修の日報 】を書きました！", email.subject
+    assert_match %r{日報}, email.body.to_s
+  end
 end
