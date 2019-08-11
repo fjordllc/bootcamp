@@ -7,16 +7,17 @@ class InnerNotification < ApplicationRecord
   paginates_per 20
 
   enum kind: {
-    came_comment:  0,
-    checked:       1,
-    mentioned:     2,
-    submitted:     3,
-    answered:      4,
-    announced:     5,
-    came_question: 6,
-    first_report:  7,
-    watching:      8,
-    retired:       9
+    came_comment:    0,
+    checked:         1,
+    mentioned:       2,
+    submitted:       3,
+    answered:        4,
+    announced:       5,
+    came_question:   6,
+    first_report:    7,
+    watching:        8,
+    retired:         9,
+    trainee_report: 10
   }
 
   scope :unreads, -> {
@@ -132,6 +133,17 @@ class InnerNotification < ApplicationRecord
       sender:  sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(sender),
       message: "#{sender.login_name}さんが退会しました。",
+      read:    false
+    )
+  end
+
+  def self.trainee_report(report, reciever)
+    InnerNotification.create!(
+      kind:    10,
+      user:    reciever,
+      sender:  report.sender,
+      path:    Rails.application.routes.url_helpers.polymorphic_path(report),
+      message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
       read:    false
     )
   end

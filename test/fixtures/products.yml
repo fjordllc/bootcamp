@@ -57,3 +57,8 @@ product_12:
   practice: practice_2
   user: yamada
   body: リアクションテスト
+
+product_13:
+  practice: practice_1
+  user: kensyu
+  body: 研修の提出物です。

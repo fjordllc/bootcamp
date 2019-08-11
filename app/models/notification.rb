@@ -1,34 +1,6 @@
 # frozen_string_literal: true
 
-<<<<<<< HEAD
-class Notification < ApplicationRecord
-  belongs_to :user
-  belongs_to :sender, class_name: "User"
-
-  paginates_per 20
-
-  enum kind: {
-    came_comment:  0,
-    checked:       1,
-    mentioned:     2,
-    submitted:     3,
-    answered:      4,
-    announced:     5,
-    came_question: 6,
-    report_submitted:  7,
-    watching:      8,
-    retired:       9
-  }
-
-  scope :unreads, -> {
-    into_one = select(:path).group(:path).maximum(:created_at)
-    where(read: false, created_at: into_one.values).order(created_at: :desc)
-  }
-  scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
-
-=======
 class Notification
->>>>>>> 通知をメールでも飛ぶように変更
   def self.came_comment(comment, reciever, message)
     InnerNotification.came_comment(comment, reciever, message)
     NotificationMailer.came_comment(comment, reciever, message).deliver_now
@@ -77,5 +49,10 @@ class Notification
   def self.retired(sender, reciever)
     InnerNotification.retired(sender, reciever)
     NotificationMailer.retired(sender, reciever).deliver_now
+  end
+
+  def self.trainee_report(report, reciever)
+    InnerNotification.trainee_report(report, reciever)
+    NotificationMailer.trainee_report(report, reciever).deliver_now
   end
 end

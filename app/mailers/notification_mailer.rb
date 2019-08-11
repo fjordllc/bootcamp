@@ -75,4 +75,11 @@ class NotificationMailer < ApplicationMailer
     @notification = @user.notifications.find_by(path: "/users/#{@sender.id}")
     mail to: @user.email, subject: "[bootcamp] #{@sender.login_name}さんが退会しました。"
   end
+
+  def trainee_report(report, reciever)
+    @report = report
+    @user = reciever
+    @notification = @user.notifications.find_by(path: "/reports/#{@report.id}")
+    mail to: @user.email, subject: "[bootcamp] #{report.user.login_name}さんが日報【 #{report.title} 】を書きました！"
+  end
 end

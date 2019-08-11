@@ -85,3 +85,11 @@ notification_retired:
   message: yameoさんが退会しました。
   path: "/users/<%= ActiveRecord::FixtureSet.identify(:yameo) %>"
   read: false
+
+notification_trainee_report:
+  kind: 10
+  user: senpai
+  sender: kensyu
+  message: kensyuさんが日報【 研修の日報 】を書きました！
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_11) %>"
+  read: false
