@@ -13,7 +13,7 @@ class Users::ProductsController < ApplicationController
     end
 
     def set_products
-      @products = user.products.eager_load(:user, :comments, :practice).order(updated_at: :desc)
+      @products = user.products.list
     end
 
     def user
