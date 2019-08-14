@@ -51,20 +51,20 @@ nav.global-nav
                 = Question.not_solved.count
             .global-nav-links__link-label Q&A
         li.global-nav-links__item
-          = link_to users_path, class: "global-nav-links__link #{current_link /^users/}" do
-            .global-nav-links__link-icon
-              i.fas.fa-users
-            .global-nav-links__link-label ユーザー
-        li.global-nav-links__item
           = link_to "/pages", class: "global-nav-links__link #{current_link /^pages/}" do
             .global-nav-links__link-icon
               i.fas.fa-file
             .global-nav-links__link-label Docs
-        li.global-nav-links__item.is-hidden-md-up
+        li.global-nav-links__item
           = link_to "https://docs.google.com/spreadsheets/d/1tRexM59inK1u5unRrNFNUNXXltiRQDNZZJf7X-M_G1E/edit#gid=2063800206", class: "global-nav-links__link", target: "_blank" do
             .global-nav-links__link-icon
-              i.fas.fa-desktop
+              i.fas.fa-chair
             .global-nav-links__link-label 席予約
+        li.global-nav-links__item
+          = link_to users_path, class: "global-nav-links__link #{current_link /^users/}" do
+            .global-nav-links__link-icon
+              i.fas.fa-users
+            .global-nav-links__link-label ユーザー
         li.global-nav-links__item.is-hidden-md-up
           = link_to courses_path, class: "global-nav-links__link #{current_link /^courses-index/}" do
             .global-nav-links__link-icon
