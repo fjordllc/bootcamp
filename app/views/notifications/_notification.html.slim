@@ -8,7 +8,7 @@
           .thread-list-item__header-icon.is-unread
             | 未読
         h2.thread-list-item__title(itemprop="name")
-          = link_to notification, itempro: "url", class: "thread-list-item__title-link" do
+          = link_to notification_path(notification), itempro: "url", class: "thread-list-item__title-link" do
             span.thread-list-item__title-link-label
               = notification.message
     .thread-list-item-meta
