@@ -23,8 +23,8 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @practice = find_practice
-    @product = find_product
+    @product = find_my_product
+    @practice = @product.practice
   end
 
   def create
@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product = find_product
+    @product = find_my_product
     set_wip
     if @product.update(product_params)
       redirect_to @product, notice: notice_message(@product, :update)
@@ -52,7 +52,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = find_product
+    @product = find_my_product
     @product.destroy
     redirect_to @product.practice, notice: "提出物を削除しました。"
   end
@@ -83,6 +83,14 @@ class ProductsController < ApplicationController
         Practice.find(params[:practice_id])
       else
         find_product.practice
+      end
+    end
+
+    def find_my_product
+      if admin_login?
+        Product.find(params[:id])
+      else
+        current_user.products.find(params[:id])
       end
     end
 
