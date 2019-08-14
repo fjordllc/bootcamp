@@ -28,10 +28,9 @@
     - if from == :edit
       // TODO この機能はまだ未実装！
       .form-item#mail-notification
-        // メール通知
-        label.a-label メール通知
+        = f.label :mail_notification, class: "a-label"
         label.a-on-off-checkbox
-          input(type="checkbox")
+          = f.check_box :mail_notification
           span
         .a-form-help
           p あなた宛のお知らせをメールで受け取るか否かの設定です。メールを受け取りたくない場合はオフにしてください。

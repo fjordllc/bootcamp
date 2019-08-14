@@ -1,4 +1,4 @@
-= render "notification_mailer_template", title: "#{@watchable.title}にコメントが投稿されました。", link_url: notification_url(@notification), link_text: t(@watchable.class.to_s) do
+= render "notification_mailer_template", title: "#{@watchable.title}にコメントが投稿されました。", link_url: notification_url(@notification), link_text: @watchable.class.model_name.human do
   p
     | ウォッチしている【
     = link_to @watchable.title, notification_url(@notification)
