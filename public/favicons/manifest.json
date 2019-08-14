@@ -1,5 +1,6 @@
 {
-    "name": "",
+    "name": "プログラミングスクール FjordBootCamp",
+    "short_name": "FjordBootCamp",
     "icons": [
         {
             "src": "/favicons/android-chrome-192x192.png",
