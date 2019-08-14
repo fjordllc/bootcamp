@@ -1,0 +1,95 @@
+notification_commented:
+  kind: 0
+  user: sotugyou
+  sender: komagata
+  message: komagataさんからコメントが届きました。
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_5) %>"
+  read: false
+
+notification_checked:
+  kind: 1
+  user: sotugyou
+  sender: machida
+  message: machidaさんが学習週1日目を確認しました。
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_5) %>"
+  read: false
+
+notification_mentioned:
+  kind: 2
+  user: sotugyou
+  sender: komagata
+  message: komagataさんからメンションがきました。
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_5) %>"
+  read: false
+
+notification_read:
+  kind: 0
+  user: sotugyou
+  sender: machida
+  message: machidaさんからコメントが届きました。
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_5) %>"
+  read: true
+
+notification_submitted:
+  kind: 3
+  user: komagata
+  sender: sotugyou
+  message: sogugyouさんが提出しました。
+  path: "/products/<%= ActiveRecord::FixtureSet.identify(:product_3) %>"
+  read: false
+
+notification_answered:
+  kind: 4
+  user: sotugyou
+  sender: komagata
+  message: komagataさんから回答がありました。
+  path: "/questions/<%= ActiveRecord::FixtureSet.identify(:question_2) %>"
+  read: false
+
+notification_announced:
+  kind: 5
+  user: sotugyou
+  sender: komagata
+  message: komagataさんからお知らせです。
+  path: "/announcements/<%= ActiveRecord::FixtureSet.identify(:announcement_1) %>"
+  read: false
+
+notification_questioned:
+  kind: 6
+  user: komagata
+  sender: sotugyou
+  message: sotugyouさんから質問がありました。
+  path: "/questions/<%= ActiveRecord::FixtureSet.identify(:question_2) %>"
+  read: false
+
+notification_first_report:
+  kind: 7
+  user: komagata
+  sender: hajime
+  message: hajimeさんがはじめての日報を書きました！
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_10) %>"
+  read: false
+
+notification_watching:
+  kind: 8
+  user: kimura
+  sender: komagata
+  message: あなたがウォッチしている【 作業週1日目 】にコメントが投稿されました。
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_1) %>"
+  read: false
+
+notification_retired:
+  kind: 9
+  user: komagata
+  sender: yameo
+  message: yameoさんが退会しました。
+  path: "/users/<%= ActiveRecord::FixtureSet.identify(:yameo) %>"
+  read: false
+
+notification_trainee_report:
+  kind: 10
+  user: senpai
+  sender: kensyu
+  message: kensyuさんが日報【 研修の日報 】を書きました！
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_11) %>"
+  read: false

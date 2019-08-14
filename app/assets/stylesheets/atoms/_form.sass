@@ -49,6 +49,8 @@ textarea.a-text-input
   line-height: 1.5
   min-height: 6rem
   overflow: hidden
+  &.is-sm
+    min-height: 10rem
   &.is-md
     min-height: 16rem
 
@@ -110,9 +112,60 @@ textarea.a-text-input
 .a-toggle-checkbox
   +size(0)
   display: block
-  +position(absolute, left 0, top 0)
+  +position(fixed, left 0)
   opacity: 0
   overflow: hidden
+  visibility: hidden
+
+.a-on-off-checkbox
+  $border-width: 1px
+  $height: 1.5rem
+  $width: 5rem
+  +position(relative)
+  display: block
+  cursor: pointer
+  input
+    opacity: 0
+    +position(absolute, left -1rem, top 0)
+    +size(0)
+    display: block
+    overflow: hidden
+  span
+    display: block
+    background-color: $background
+    +size($width calc(#{$height} + #{$border-width} * 2))
+    border-radius: 1.0625rem
+    border: solid $border-width $input-border
+    +position(relative)
+    transition: all .2s ease-out
+    &::before
+      content: ""
+      display: block
+      +size($height)
+      border-radius: 50%
+      border: solid 1px $border
+      background-color: $base
+      +position(absolute, left 0, top 0)
+      border: solid 1px $input-border
+    &::after
+      content: "OFF"
+      +text-block(.875rem 1, flex center 600)
+      align-items: center
+      justify-content: center
+      +size(100% calc(100% - #{$border-width} * 2))
+      +padding(horizontal, $height 1em)
+  input:checked + span
+    background-color: $danger
+    border-color: $danger
+    &::before
+      +position(absolute, left auto, right 0)
+    &::after
+      content: "ON"
+      color: $reversal-text
+      +padding(horizontal, 1em $height)
+
+
+
 
 .a-form-help
   font-size: .75rem

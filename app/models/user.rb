@@ -37,7 +37,6 @@ class User < ActiveRecord::Base
   has_many :reports,       dependent: :destroy
   has_many :checks,        dependent: :destroy
   has_many :footprints,    dependent: :destroy
-  has_many :notifications, dependent: :destroy
   has_many :images,        dependent: :destroy
   has_many :products,      dependent: :destroy
   has_many :questions,     dependent: :destroy
@@ -45,8 +44,12 @@ class User < ActiveRecord::Base
   has_many :reactions,     dependent: :destroy
   has_many :works,         dependent: :destroy
 
+  has_many :notifications,
+    class_name: "InnerNotification",
+    dependent: :destroy
+
   has_many :send_notifications,
-    class_name:  "Notification",
+    class_name:  "InnerNotification",
     foreign_key: "sender_id",
     dependent:   :destroy
 

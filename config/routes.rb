@@ -69,11 +69,13 @@ Rails.application.routes.draw do
     resources :unchecked, only: %i(index)
   end
   resources :reports
-  resources :notifications, only: %i(index show)
+  resources :comments
   resources :pages
   resources :watches
-  namespace :notifications do
-    resources :allmarks, only: %i(create)
+  resources :notifications, only: %i(index show) do
+    collection do
+      resources :allmarks, only: %i(create), controller: "notifications/allmarks"
+    end
   end
   resources :works, except: %i(index)
 

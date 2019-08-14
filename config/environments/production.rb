@@ -98,6 +98,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: "bootcamp.fjord.jp" }
   config.action_mailer.asset_host = "https://bootcamp.fjord.jp"
+  config.action_controller.asset_host = "https://bootcamp.fjord.jp"
 
   ActionMailer::Base.smtp_settings = {
     address: "smtp.sendgrid.net",
