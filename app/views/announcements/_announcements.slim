@@ -6,7 +6,7 @@
       h2.thread-list-item__title(itemprop="name")
         = link_to announcement, itempro: "url", class: "thread-list-item__title-link" do
           = announcement.title
-      - if current_user == announcement.user
+      - if admin_login? || current_user == announcement.user
         .thread-list-item__actions
           = link_to edit_announcement_path(announcement), class: "thread-list-item__actions-link" do
             i.fas.fa-pen
