@@ -1,7 +1,12 @@
 {
-  "name": "プログラミングスクール FjordBootCamp",
-  "short_name": "FjordBootCamp",
+  "name": "FBC",
+  "short_name": "FBC",
   "icons": [
+    {
+      "src": "/favicons/pwa.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }, {
     {
       "src": "/favicons/apple-touch-icon.png",
       "sizes": "180x180",
