@@ -2,11 +2,11 @@
 
 require "application_system_test_case"
 
-class InnerNotification::QuestionsTest < ApplicationSystemTestCase
+class Notification::QuestionsTest < ApplicationSystemTestCase
   setup do
     @notice_text = "hatsunoさんから質問がありました。"
-    @notice_kind = InnerNotification.kinds["came_question"]
-    @notified_count = InnerNotification.where(kind: @notice_kind).size
+    @notice_kind = Notification.kinds["came_question"]
+    @notified_count = Notification.where(kind: @notice_kind).size
     @mentor_count = User.mentor.size
     practice = Practice.find_by(title: "OS X Mountain Lionをクリーンインストールする")
     @completed_student_count = practice.completed_learnings.size
@@ -37,7 +37,7 @@ class InnerNotification::QuestionsTest < ApplicationSystemTestCase
     login_user "hajime", "testtest"
     refute_text @notice_text
 
-    assert_equal @notified_count + @mentor_count + @completed_student_count, InnerNotification.where(kind: @notice_kind).size
+    assert_equal @notified_count + @mentor_count + @completed_student_count, Notification.where(kind: @notice_kind).size
   end
 
   test "There is no notification to the mentor who posted" do

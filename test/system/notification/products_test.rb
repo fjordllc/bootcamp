@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class InnerNotification::ProductsTest < ApplicationSystemTestCase
+class Notification::ProductsTest < ApplicationSystemTestCase
   test "recieve a notification when product is created" do
     login_user "yamada", "testtest"
     visit "/products/new?practice_id=#{practices(:practice_5).id}"

@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class InnerNotification::AnswersTest < ApplicationSystemTestCase
+class Notification::AnswersTest < ApplicationSystemTestCase
   setup do
     @notice_text = "komagataさんから回答がありました。"
   end

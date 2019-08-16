@@ -12,7 +12,7 @@ class AnswerCallbacks
 
   private
     def notify_answer(answer)
-      Notification.came_answer(answer)
+      NotificationFacade.came_answer(answer)
     end
 
     def notify_to_watching_user(answer)
@@ -23,7 +23,7 @@ class AnswerCallbacks
         watcher_ids.each do |watcher_id|
           if watcher_id != answer.sender.id
             watcher = User.find_by(id: watcher_id)
-            Notification.watching_notification(question, watcher)
+            NotificationFacade.watching_notification(question, watcher)
           end
         end
       end
