@@ -2,11 +2,11 @@
 
 require "application_system_test_case"
 
-class InnerNotification::AnnouncementsTest < ApplicationSystemTestCase
+class Notification::AnnouncementsTest < ApplicationSystemTestCase
   setup do
     @notice_text = "komagataさんからお知らせです。"
-    @notice_kind = InnerNotification.kinds["announced"]
-    @notified_count = InnerNotification.where(kind: @notice_kind).size
+    @notice_kind = Notification.kinds["announced"]
+    @notified_count = Notification.where(kind: @notice_kind).size
     @reciever_count = User.where(retired_on: nil).size - 1 # 送信者は除くため-1
   end
 
@@ -28,6 +28,6 @@ class InnerNotification::AnnouncementsTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
     refute_text @notice_text
 
-    assert_equal(@notified_count + @reciever_count, InnerNotification.where(kind: @notice_kind).size)
+    assert_equal(@notified_count + @reciever_count, Notification.where(kind: @notice_kind).size)
   end
 end

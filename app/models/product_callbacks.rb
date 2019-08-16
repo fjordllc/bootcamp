@@ -40,7 +40,7 @@ class ProductCallbacks
   private
     def send_notification(product:, recievers:, message:)
       recievers.each do |reciever|
-        Notification.submitted(product, reciever, message)
+        NotificationFacade.submitted(product, reciever, message)
       end
     end
 
@@ -51,6 +51,6 @@ class ProductCallbacks
     end
 
     def delete_notification(product)
-      InnerNotification.where(path: "/products/#{product.id}").destroy_all
+      Notification.where(path: "/products/#{product.id}").destroy_all
     end
 end
