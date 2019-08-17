@@ -373,4 +373,13 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text Time.current.strftime("%Y年%m月%d日")
     assert_no_match "kensyu さんが日報を提出しました", mock_log.to_s
   end
+
+  test "unwatch" do
+    login_user "kimura", "testtest"
+    visit report_path(reports(:report_1))
+    assert_difference("Watch.count", -1) do
+      find("div.thread-meta__watch-button", text: "Watch中").click
+      sleep 0.5
+    end
+  end
 end
