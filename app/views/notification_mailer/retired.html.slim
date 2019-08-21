@@ -1,0 +1,2 @@
+= render "notification_mailer_template", title: "#{@sender.login_name}さんが退会しました。", link_url: notification_url(@notification), link_text: "#{@sender.login_name}さんのページへ" do
+  = simple_format(@sender.retire_reason)

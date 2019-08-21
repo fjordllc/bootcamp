@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class NotificationsTest < ApplicationSystemTestCase
+class InnerNotificationsTest < ApplicationSystemTestCase
   setup do
     @user = User.find_by(login_name: "yamada")
     @admin = User.find_by(login_name: "komagata")
@@ -37,10 +37,10 @@ class NotificationsTest < ApplicationSystemTestCase
 
     # 同じURLの通知があった時、その中の1つが既読になったら同じURLの通知全てを既読にする
     # NotificationControllerでobjects.update_allを使っているのでupdated_atが更新されている事の確認
-    @before_update_notification = Notification.find_by(id: @user.notifications.first)
+    @before_update_notification = InnerNotification.find_by(id: @user.notifications.first)
     find(".test-show-notifications").click # 通知をクリック
     click_link "komagataさんからコメントが届きました。"
-    @notification = Notification.find_by(id: @user.notifications.first)
+    @notification = InnerNotification.find_by(id: @user.notifications.first)
     @notifications = @user.notifications.where(path: @notification.path)
     @notifications.each do |notification|
       assert_equal true, notification.read
@@ -55,7 +55,7 @@ class NotificationsTest < ApplicationSystemTestCase
     find(".test-show-menu").click
     click_link "ログアウト"
     login_user "komagata", "testtest"
-    assert_equal 2, @admin.notifications.size # メンション通知, ウォッチ通知
+    assert_equal 6, @admin.notifications.size # メンション通知, ウォッチ通知
     # 通知ベルの右上に出る件数の表示
     assert_text 1, first("li.has-count .header-notification-count").text
     find(".test-show-menu").click
@@ -70,7 +70,7 @@ class NotificationsTest < ApplicationSystemTestCase
     find(".test-show-menu").click
     click_link "ログアウト"
     login_user "komagata", "testtest"
-    assert_equal 3, @admin.notifications.size # 回答通知, メンション通知, ウォッチ通知
+    assert_equal 7, @admin.notifications.size # 回答通知, メンション通知, ウォッチ通知
     # 通知ベルの右上に出る件数の表示
     assert_text 2, first("li.has-count .header-notification-count").text # 回答通知, ウォッチ通知
   end

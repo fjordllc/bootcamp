@@ -1,0 +1,2 @@
+= render "notification_mailer_template", title: @announce.title, link_url: notification_url(@notification), link_text: "このお知らせへ" do
+  = simple_format(@announce.description)
