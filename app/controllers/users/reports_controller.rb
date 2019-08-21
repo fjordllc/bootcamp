@@ -14,7 +14,7 @@ class Users::ReportsController < ApplicationController
     end
 
     def set_reports
-      @reports = user.reports.eager_load(:user, :comments).default_order.page(params[:page])
+      @reports = user.reports.list.page(params[:page])
     end
 
     def user
