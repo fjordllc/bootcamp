@@ -10,6 +10,7 @@ question_2:
   description: |-
     injectとreduceはどちらを使うのが一般的でしょうか？
   user: sotugyou
+  practice: practice_26
 
 question_3:
   title: テストの質問1

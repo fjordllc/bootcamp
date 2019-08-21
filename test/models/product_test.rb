@@ -7,15 +7,16 @@ class ProductTest < ActiveSupport::TestCase
     user = users(:kimura)
     practice = practices(:practice_5)
     product = Product.create!(practice: practice, user: user, body: "test")
-    assert Notification.where(path: "/products/#{product.id}").exists?
+    assert InnerNotification.where(path: "/products/#{product.id}").exists?
     product.destroy
-    assert_not Notification.where(path: "/products/#{product.id}").exists?
+    assert_not InnerNotification.where(path: "/products/#{product.id}").exists?
   end
 
   test "adviser watches trainee product when trainee create product" do
     trainee = users(:kensyu)
     adviser = users(:senpai)
-    product = Product.new(user: trainee)
+    practice = practices(:practice_1)
+    product = Product.new(user: trainee, practice: practice)
     product.save(validate: false)
     assert_not_nil Watch.find_by(user: adviser, watchable: product)
   end
