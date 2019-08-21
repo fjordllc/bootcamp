@@ -2,6 +2,6 @@
 
 class Reports::UncheckedController < ApplicationController
   def index
-    @reports = Report.unchecked.eager_load(:user, :comments, checks: :user).default_order.page(params[:page])
+    @reports = Report.unchecked.list.page(params[:page])
   end
 end

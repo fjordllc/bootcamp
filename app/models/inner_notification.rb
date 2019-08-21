@@ -26,6 +26,7 @@ class InnerNotification < ApplicationRecord
   }
 
   scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
+  scope :unreads_with_avatar, -> { unreads.with_avatar.limit(99) }
 
   def self.came_comment(comment, reciever, message)
     InnerNotification.create!(
