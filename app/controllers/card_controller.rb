@@ -3,7 +3,7 @@
 class CardController < ApplicationController
   before_action :require_login
   before_action :require_paid_login, only: %i(show edit update)
-  before_action :already_registered_card, only: %i(new)
+  before_action :already_registered_card, only: %i(new create)
 
   def show
     @card = current_user.card
@@ -17,12 +17,21 @@ class CardController < ApplicationController
 
   def create
     begin
-      customer = Card.create(current_user, params[:stripeToken])
-      subscription = Subscription.create(customer["id"])
-      current_user.update!(
-        customer_id: customer["id"],
-        subscription_id: subscription["id"]
-      )
+      current_user.with_lock do
+        customer = Card.create(current_user, params[:stripeToken])
+        subscription = Subscription.create(customer["id"])
+
+        if current_user.card?
+          flash[:alert] = "既にカード登録済みです。"
+          logger.warn "既にカード登録済みです。"
+          raise "既にカード登録済みです。"
+        else
+          current_user.update!(
+            customer_id: customer["id"],
+            subscription_id: subscription["id"]
+          )
+        end
+      end
 
       flash[:notice] = "カードを登録しました。"
       logger.info "[Payment] カードを登録しました。"
@@ -69,7 +78,7 @@ class CardController < ApplicationController
   private
     def already_registered_card
       if current_user.card?
-        redirect_to card_path, alert: "既にカード登録済みです"
+        redirect_to card_path, alert: "既にカード登録済みです。"
       end
     end
 end
