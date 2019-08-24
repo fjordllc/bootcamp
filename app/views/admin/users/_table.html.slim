@@ -1,85 +1,95 @@
 .admin-table(class="#{params[:target] == "all" ? "is-all-user" : ""}")
-  table.admin-table__table
-    thead.admin-table__header
-      tr.admin-table__labels
-        th.admin-table__label ステータス
-        th.admin-table__label
-          | ユーザー名
-          = render "sort_column", order_by: "login_name", direction: direction, target: @target
-        th.admin-table__label
-          | 会社
-          = render "sort_column", order_by: "company_id", direction: direction, target: @target
-        th.admin-table__label Slack
-        th.admin-table__label
-          | 最終アクセス日時
-          = render "sort_column", order_by: "updated_at", direction: direction, target: @target
-        th.admin-table__label
-          | 登録日時
-          = render "sort_column", order_by: "created_at", direction: direction, target: @target
-        th.admin-table__label
-          | カード登録
-        th.admin-table__label
-          | 日報
-          = render "sort_column", order_by: "report", direction: direction, target: @target
-        th.admin-table__label
-          | コメント
-          = render "sort_column", order_by: "comment", direction: direction, target: @target
-        th.admin-table__label 進捗
-        th.admin-table__label SNS
-        th.admin-table__label 操作
-        th.admin-table__label 削除
-    tbody.admin-table__items
-      - users.each do |user|
-        tr.admin-table__item class="#{user.retired_on? ? "is-inactive" : "" }"
-          td.admin-table__item-value.is-text-align-center
-            - if user.admin?
-              | 管理者
-            - elsif user.adviser
-              | アドバイザー
-            - elsif user.trainee
-              | 研修生
-            - elsif user.retired_on?
-              | リタイア
-            - elsif user.graduated_on?
-              | 卒業生
-            - elsif user.active?
-              | 現役生
-            - elsif not user.active?
-              | 非アクティブ
-          td.admin-table__item-value
-            = link_to user_path(user), class: "admin-table__user", target: "_blank" do
-              = image_tag user.avatar_image, class: "admin-table__user-icon"
-              span.admin-table__user-login-name
-                = user.login_name
-                | （#{user.full_name}）
-          td.admin-table__item-value.is-text-align-center
-            = user.company.name
-          td.admin-table__item-value.is-text-align-center
-            - if user.slack_account.present?
-              = user.slack_account
-            - else
-              | -
-          td.admin-table__item-value.is-text-align-center
-            = l user.updated_at
-          td.admin-table__item-value.is-text-align-center
-            = l user.created_at
-          td.admin-table__item-value.is-text-align-center
-            = user.card? ? "有り" : "無し"
-          td.admin-table__item-value.is-text-align-center
-            = user.reports.count
-          td.admin-table__item-value.is-text-align-center
-            = user.comments.count
-          td.admin-table__item-value.is-text-align-center
-            = number_to_percentage user.completed_percentage, precision: 0
-          td.admin-table__item-value.is-text-align-center
-            = render "users/sns", user: user
-          td.admin-table__item-value.is-text-align-center
-            = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: "a-button is-sm is-warning is-icon" do
-              i.fas.fa-pen
-          td.admin-table__item-value.is-text-align-center
-            - if user.id != current_user.id
-              = link_to admin_user_path(user), method: :delete, id: "delete-#{user.id}", class: "a-button is-sm is-danger is-icon", data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }
-                i.fas.fa-trash-alt
+  = form_with url: admin_namecards_path, local: true do |f|
+    table.admin-table__table
+      thead.admin-table__header
+        tr.admin-table__labels
+          th.admin-table__label 選択
+          th.admin-table__label ステータス
+          th.admin-table__label
+            | ユーザー名
+            = render "sort_column", order_by: "login_name", direction: direction, target: @target
+          th.admin-table__label
+            | 会社
+            = render "sort_column", order_by: "company_id", direction: direction, target: @target
+          th.admin-table__label Slack
+          th.admin-table__label
+            | 最終アクセス日時
+            = render "sort_column", order_by: "updated_at", direction: direction, target: @target
+          th.admin-table__label
+            | 登録日時
+            = render "sort_column", order_by: "created_at", direction: direction, target: @target
+          th.admin-table__label
+            | カード登録
+          th.admin-table__label
+            | 日報
+            = render "sort_column", order_by: "report", direction: direction, target: @target
+          th.admin-table__label
+            | コメント
+            = render "sort_column", order_by: "comment", direction: direction, target: @target
+          th.admin-table__label 進捗
+          th.admin-table__label SNS
+          th.admin-table__label 操作
+          th.admin-table__label 削除
+      tbody.admin-table__items
+        - users.each do |user|
+          tr.admin-table__item class="#{user.retired_on? ? "is-inactive" : "" }"
+            td.admin-table__item-value
+              .checkboxes__item
+                label
+                  = f.check_box "submission#{user.id}"
+            td.admin-table__item-value.is-text-align-center
+              - if user.admin?
+                | 管理者
+              - elsif user.adviser
+                | アドバイザー
+              - elsif user.trainee
+                | 研修生
+              - elsif user.retired_on?
+                | リタイア
+              - elsif user.graduated_on?
+                | 卒業生
+              - elsif user.active?
+                | 現役生
+              - elsif not user.active?
+                | 非アクティブ
+            td.admin-table__item-value
+              = link_to user_path(user), class: "admin-table__user", target: "_blank" do
+                = image_tag user.avatar_image, class: "admin-table__user-icon"
+                span.admin-table__user-login-name
+                  = user.login_name
+                  | （#{user.full_name}）
+            td.admin-table__item-value.is-text-align-center
+              = user.company.name
+            td.admin-table__item-value.is-text-align-center
+              - if user.slack_account.present?
+                = user.slack_account
+              - else
+                | -
+            td.admin-table__item-value.is-text-align-center
+              = l user.updated_at
+            td.admin-table__item-value.is-text-align-center
+              = l user.created_at
+            td.admin-table__item-value.is-text-align-center
+              = user.card? ? "有り" : "無し"
+            td.admin-table__item-value.is-text-align-center
+              = user.reports.count
+            td.admin-table__item-value.is-text-align-center
+              = user.comments.count
+            td.admin-table__item-value.is-text-align-center
+              = number_to_percentage user.completed_percentage, precision: 0
+            td.admin-table__item-value.is-text-align-center
+              = render "users/sns", user: user
+            td.admin-table__item-value.is-text-align-center
+              = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: "a-button is-sm is-warning is-icon" do
+                i.fas.fa-pen
+            td.admin-table__item-value.is-text-align-center
+              - if user.id != current_user.id
+                = link_to admin_user_path(user), method: :delete, id: "delete-#{user.id}", class: "a-button is-sm is-danger is-icon", data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }
+                  i.fas.fa-trash-alt
+    .form-actions
+        ul.form-actions__items
+          li.form-actions__item
+            = f.submit "ネームカードを作成する", class: "a-button is-lg is-warning is-block"
 
 .practice-contents
   .practice-content.a-card
