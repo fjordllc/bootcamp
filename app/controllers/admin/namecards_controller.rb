@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class Admin::NamecardsController < AdminController
-  def new
-    @users = User.users_role("except_retired")
-  end
-
   def create
     arr = []
     params.each do |k, v|
