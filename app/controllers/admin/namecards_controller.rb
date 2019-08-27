@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::NamecardsController < AdminController
-  def create
+  def index
     arr = []
     params.each do |k, v|
       arr << k if v == "1"
