@@ -374,7 +374,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_no_match "kensyu さんが日報を提出しました", mock_log.to_s
   end
 
-  test "unwatch" do
+  test "click unwatch" do
     login_user "kimura", "testtest"
     visit report_path(reports(:report_1))
     assert_difference("Watch.count", -1) do
