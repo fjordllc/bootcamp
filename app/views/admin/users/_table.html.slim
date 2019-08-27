@@ -1,5 +1,5 @@
 .admin-table(class="#{params[:target] == "all" ? "is-all-user" : ""}")
-  = form_with url: admin_namecards_path, local: true do |f|
+  = form_with url: admin_namecards_path, method: :get, local: true do |f|
     table.admin-table__table
       thead.admin-table__header
         tr.admin-table__labels
