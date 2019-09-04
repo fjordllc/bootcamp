@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_25_092312) do
+ActiveRecord::Schema.define(version: 2019_07_06_023755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -240,6 +240,7 @@ ActiveRecord::Schema.define(version: 2019_06_25_092312) do
     t.date "reported_on"
     t.boolean "wip", default: false, null: false
     t.integer "emotion"
+    t.datetime "published_at"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
