@@ -23,6 +23,7 @@ ja:
       announcement: お知らせ
       article: ブログ記事
       work: 作品
+      book: 書籍
     attributes:
       user:
         login_name: ユーザー名
@@ -126,6 +127,10 @@ ja:
         repository: リポジトリURL
         url_or_repository: URLまたはリポジトリ
         thumbnail: サムネイル画像
+      book:
+        id: ID
+        title: タイトル
+        isbn: ISBN-13
     enums:
       user:
         job:

@@ -1,0 +1,43 @@
+.admin-table
+  table.admin-table__table
+    thead.admin-table__header
+      tr.admin-table__labels
+        th.admin-table__label = Book.human_attribute_name :id
+        th.admin-table__label = Book.human_attribute_name :title
+        th.admin-table__label = Book.human_attribute_name :isbn
+        th.admin-table__label 借りてる人
+        th.admin-table__label 借りてる日数
+        th.admin-table__label 印刷ページ
+        th.admin-table__label.actions 操作
+    tbody.admin-table__items
+      - books.each do |book|
+        tr.admin-table__item(id="book_#{book.id}")
+          td.admin-table__item-value
+            = book.id
+          td.admin-table__item-value
+            = link_to admin_book_path(book), target: "_blank", rel: "noopener" do
+              = book.title
+          td.admin-table__item-value.is-text-align-center
+            = book.isbn
+          td.admin-table__item-value
+            - if book.borrowed
+              = image_tag book.borrowing_user_avatar, class: "admin-table__user-icon"
+              = link_to user_path(book.users.first), target: "_blank", rel: "noopener" do
+                = book.borrowing_user_name
+          td.admin-table__item-value.is-text-align-center
+            - if book.borrowed
+              = "#{book.borrowing_days}日"
+          td.admin-table__item-value.is-text-align-center
+            = link_to admin_book_qrcode_path(book), class: "a-button is-sm is-secondary is-icon", target: "_blank", rel: "noopener" do
+              i.fas.fa-print
+          td.admin-table__item-value.is-text-align-center
+            ul.is-button-group
+              li
+                = link_to edit_admin_book_path(book), class: "a-button is-sm is-primary is-icon" do
+                  i.fas.fa-pen
+              li
+                = link_to [:admin, book],
+                  data: { confirm: "本当によろしいですか？" },
+                  method: :delete,
+                  class: "a-button is-sm is-danger is-icon js-delete" do
+                  i.fas.fa-trash-alt

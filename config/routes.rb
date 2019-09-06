@@ -33,6 +33,9 @@ Rails.application.routes.draw do
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
     end
+    resources :books do
+      resource :qrcode, only: %i(show), controller: "books/qrcode"
+    end
   end
 
   resources :announcements
@@ -79,6 +82,9 @@ Rails.application.routes.draw do
     end
   end
   resources :works, except: %i(index)
+  resources :books, only: %i(show) do
+    resources :borrowings, only: %i(create destroy)
+  end
 
   resources :questions do
     resources :answers, only: %i(edit create update destroy)

@@ -46,3 +46,5 @@ header.page-header
             = render "/users/practices/active_practices", user: @user
           - if @user.completed_practices.present?
             = render "/users/practices/completed_practices", user: @user
+          - if @user.books.present?
+            = render "/users/borrowing_books", user: @user
