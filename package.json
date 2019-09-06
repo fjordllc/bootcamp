@@ -18,6 +18,7 @@
     "moment": "^2.24.0",
     "pug": "^2.0.3",
     "select2": "^4.0.7-rc.0",
+    "set-value": "^2.0.1",
     "textarea-autosize": "^0.4.2",
     "textarea-markdown": "^1.2.3",
     "tributejs": "^3.6.0",
