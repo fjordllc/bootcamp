@@ -35,3 +35,5 @@ header.page-header
             = render "required_field", user: current_user
           - if current_user.github_account.present?
             = render "users/github_grass", user: current_user
+          - if current_user.books.present?
+            = render "users/borrowing_books", user: current_user

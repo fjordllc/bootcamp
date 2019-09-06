@@ -1,0 +1,9 @@
+- if current_user.borrowing?(book)
+  = form_with url: book_borrowing_path(book), method: :delete, local: true do |f|
+    = f.submit "返却する", class: "a-button is-md is-danger is-block"
+- elsif book.borrowed
+  span.a-button.is-md.is-danger.is-block
+    | 貸出中
+- else
+  = form_with url: book_borrowings_path(book), local: true do |f|
+    = f.submit "借りる", class: "a-button is-md is-warning is-block"

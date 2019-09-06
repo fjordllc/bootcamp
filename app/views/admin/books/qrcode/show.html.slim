@@ -1,0 +1,7 @@
+h1 QRコード
+
+p
+  = "書籍ID: #{@book.id}"
+
+.qrcode
+  = qrcode_tag request.url
