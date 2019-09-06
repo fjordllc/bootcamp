@@ -19,13 +19,13 @@ class ReportCallbacks
       reciever_list = User.where(retired_on: nil)
       reciever_list.each do |reciever|
         if report.sender != reciever
-          Notification.first_report(report, reciever)
+          NotificationFacade.first_report(report, reciever)
         end
       end
     end
 
     def send_trainee_report_notification(report, reciever)
-      Notification.trainee_report(report, reciever)
+      NotificationFacade.trainee_report(report, reciever)
     end
 
     def create_advisers_watch(report, adviser)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_06_023755) do
+ActiveRecord::Schema.define(version: 2019_08_16_100249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,18 +135,6 @@ ActiveRecord::Schema.define(version: 2019_07_06_023755) do
     t.index ["user_id"], name: "index_images_on_user_id"
   end
 
-  create_table "inner_notifications", force: :cascade do |t|
-    t.integer "kind", default: 0, null: false
-    t.bigint "user_id"
-    t.integer "sender_id", null: false
-    t.string "message"
-    t.string "path"
-    t.boolean "read", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_inner_notifications_on_user_id"
-  end
-
   create_table "inquiries", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -168,6 +156,18 @@ ActiveRecord::Schema.define(version: 2019_07_06_023755) do
     t.integer "status", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "kind", default: 0, null: false
+    t.bigint "user_id"
+    t.integer "sender_id", null: false
+    t.string "message"
+    t.string "path"
+    t.boolean "read", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "pages", id: :serial, force: :cascade do |t|
@@ -336,9 +336,9 @@ ActiveRecord::Schema.define(version: 2019_07_06_023755) do
 
   add_foreign_key "announcements", "users"
   add_foreign_key "images", "users"
-  add_foreign_key "inner_notifications", "users"
-  add_foreign_key "inner_notifications", "users", column: "sender_id"
   add_foreign_key "learning_times", "reports"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "products", "practices"
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"

@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class InnerNotification::WatchesTest < ApplicationSystemTestCase
+class Notification::WatchesTest < ApplicationSystemTestCase
   test "日報作成者がコメントをした際、ウォッチ通知が飛ばないバグの再現" do
     watches(:report1_watch_kimura)
     # コメントを投稿しても自動的にウォッチがONになる
