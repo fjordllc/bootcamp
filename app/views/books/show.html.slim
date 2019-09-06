@@ -1,0 +1,29 @@
+- if current_user.borrowing?(@book)
+  - title "書籍の返却"
+- elsif @book.borrowed
+  - title "貸出中"
+- else
+  - title "書籍を借りる"
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title
+        = title
+
+.page-body
+  .container
+    article.thread.is-page
+      .thread__inner.a-card
+        header.thread-header
+          h1.thread-header__title
+            = @book.title
+          .thread-header__lower-side
+            .thread-header__lower-side-date
+              .thread-header__lower-side-label
+                | 登録日
+              time.thread-header__lower-side-value(datetime="#{@book.created_at.to_datetime}" pubdate="pubdate")
+                = l @book.created_at
+        footer.card-footer
+          .card-footer-actions
+            = render "form", book: @book

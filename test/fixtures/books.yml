@@ -1,0 +1,19 @@
+book_1:
+  title: ゼロからわかる Ruby 超入門
+  isbn: 978-4297101237
+  borrowed: true
+
+book_2:
+  title: ゼロからわかる Ruby 超入門
+  isbn: 978-4297101237
+  borrowed: false
+
+book_3:
+  title: 現場で使える Ruby on Rails 5速習実践ガイド
+  isbn: 978-4839962227
+  borrowed: true
+
+book_4:
+  title: 現場で使える Ruby on Rails 5速習実践ガイド
+  isbn: 978-4839962227
+  borrowed: false

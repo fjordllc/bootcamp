@@ -63,6 +63,23 @@ ActiveRecord::Schema.define(version: 2019_08_16_100249) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "books", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "isbn", null: false
+    t.boolean "borrowed", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "borrowings", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_borrowings_on_book_id"
+    t.index ["user_id"], name: "index_borrowings_on_user_id"
+  end
+
   create_table "categories", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "slug"
@@ -335,6 +352,8 @@ ActiveRecord::Schema.define(version: 2019_08_16_100249) do
   end
 
   add_foreign_key "announcements", "users"
+  add_foreign_key "borrowings", "books"
+  add_foreign_key "borrowings", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "notifications", "users"

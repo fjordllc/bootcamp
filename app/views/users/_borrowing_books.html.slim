@@ -1,0 +1,10 @@
+.a-card
+  .card-header.is-sm
+    h2.card-header__title
+      | 借りている書籍
+  .card-list
+    ul.card-list__items
+      - user.books.each do |book|
+        li.card-list__item
+          .card-list__item-link
+            = "「#{book.title}」を#{book.borrowing_days}日間借りています。"
