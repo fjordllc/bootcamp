@@ -13,6 +13,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "hotkeys-js": "^3.3.5",
     "lodash": "^4.17.13",
+    "lodash.template": "^4.5.0",
     "markdown-it": "^8.4.2",
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-regexp": "^0.4.0",
