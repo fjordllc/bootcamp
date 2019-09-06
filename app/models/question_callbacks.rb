@@ -10,14 +10,14 @@ class QuestionCallbacks
     def send_notification_to_mentors(question)
       User.mentor.each do |user|
         if question.sender != user
-          Notification.came_question(question, user)
+          NotificationFacade.came_question(question, user)
         end
       end
     end
 
     def send_notification_to_completed_students(question)
       question.practice.completed_learnings.where.not(user_id: question.sender).eager_load(:user).each do |learning|
-        Notification.came_question(question, learning.user)
+        NotificationFacade.came_question(question, learning.user)
       end
     end
 end

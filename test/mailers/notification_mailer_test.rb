@@ -5,7 +5,7 @@ require "test_helper"
 class NotificationMailerTest < ActionMailer::TestCase
   test "came_comment" do
     comment = comments(:comment_9)
-    came_comment = inner_notifications(:notification_commented)
+    came_comment = notifications(:notification_commented)
     email = NotificationMailer.came_comment(
       comment,
       came_comment.user,
@@ -32,7 +32,7 @@ class NotificationMailerTest < ActionMailer::TestCase
 
   test "mentioned" do
     mention = comments(:comment_9)
-    mentioned = inner_notifications(:notification_mentioned)
+    mentioned = notifications(:notification_mentioned)
     email = NotificationMailer.mentioned(
       mention,
       mentioned.user
@@ -47,7 +47,7 @@ class NotificationMailerTest < ActionMailer::TestCase
 
   test "submitted" do
     product = products(:product_3)
-    submitted = inner_notifications(:notification_submitted)
+    submitted = notifications(:notification_submitted)
     email = NotificationMailer.submitted(
       product,
       submitted.user,
@@ -74,7 +74,7 @@ class NotificationMailerTest < ActionMailer::TestCase
 
   test "post_announcement" do
     announce = announcements(:announcement_1)
-    announced = inner_notifications(:notification_announced)
+    announced = notifications(:notification_announced)
     email = NotificationMailer.post_announcement(
       announce,
       announced.user
@@ -89,7 +89,7 @@ class NotificationMailerTest < ActionMailer::TestCase
 
   test "came_question" do
     question = questions(:question_2)
-    questioned = inner_notifications(:notification_questioned)
+    questioned = notifications(:notification_questioned)
     email = NotificationMailer.came_question(
       question,
       questioned.user
@@ -104,7 +104,7 @@ class NotificationMailerTest < ActionMailer::TestCase
 
   test "first_report" do
     report = reports(:report_10)
-    first_report = inner_notifications(:notification_first_report)
+    first_report = notifications(:notification_first_report)
     email = NotificationMailer.first_report(
       report,
       first_report.user
@@ -119,7 +119,7 @@ class NotificationMailerTest < ActionMailer::TestCase
 
   test "watching_notification" do
     watch = watches(:report1_watch_kimura)
-    watching = inner_notifications(:notification_watching)
+    watching = notifications(:notification_watching)
     email = NotificationMailer.watching_notification(
       watch.watchable,
       watching.user
@@ -149,7 +149,7 @@ class NotificationMailerTest < ActionMailer::TestCase
 
   test "trainee_report" do
     report = reports(:report_11)
-    trainee_report = inner_notifications(:notification_trainee_report)
+    trainee_report = notifications(:notification_trainee_report)
     email = NotificationMailer.trainee_report(
       report,
       trainee_report.user

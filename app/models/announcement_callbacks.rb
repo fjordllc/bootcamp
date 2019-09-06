@@ -10,7 +10,7 @@ class AnnouncementCallbacks
       reciever_list = User.where(retired_on: nil)
       reciever_list.each do |reciever|
         if announce.sender != reciever
-          Notification.post_announcement(announce, reciever)
+          NotificationFacade.post_announcement(announce, reciever)
         end
       end
     end

@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class InnerNotificationsTest < ApplicationSystemTestCase
+class NotificationsTest < ApplicationSystemTestCase
   setup do
     @user = User.find_by(login_name: "yamada")
     @admin = User.find_by(login_name: "komagata")
@@ -37,10 +37,10 @@ class InnerNotificationsTest < ApplicationSystemTestCase
 
     # 同じURLの通知があった時、その中の1つが既読になったら同じURLの通知全てを既読にする
     # NotificationControllerでobjects.update_allを使っているのでupdated_atが更新されている事の確認
-    @before_update_notification = InnerNotification.find_by(id: @user.notifications.first)
+    @before_update_notification = Notification.find_by(id: @user.notifications.first)
     find(".test-show-notifications").click # 通知をクリック
     click_link "komagataさんからコメントが届きました。"
-    @notification = InnerNotification.find_by(id: @user.notifications.first)
+    @notification = Notification.find_by(id: @user.notifications.first)
     @notifications = @user.notifications.where(path: @notification.path)
     @notifications.each do |notification|
       assert_equal true, notification.read

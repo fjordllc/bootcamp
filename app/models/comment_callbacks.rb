@@ -21,13 +21,13 @@ class CommentCallbacks
       comment.new_mentions.each do |mention|
         reciever = User.find_by(login_name: mention)
         if reciever && comment.sender != reciever
-          Notification.mentioned(comment, reciever)
+          NotificationFacade.mentioned(comment, reciever)
         end
       end
     end
 
     def notify_comment(comment)
-      Notification.came_comment(
+      NotificationFacade.came_comment(
         comment,
         comment.reciever,
         "#{comment.sender.login_name}さんからコメントが届きました。"
@@ -42,7 +42,7 @@ class CommentCallbacks
         watcher_ids.each do |watcher_id|
           if watcher_id != comment.sender.id
             watcher = User.find_by(id: watcher_id)
-            Notification.watching_notification(watchable, watcher)
+            NotificationFacade.watching_notification(watchable, watcher)
           end
         end
       end

@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class InnerNotification::ReportsTest < ApplicationSystemTestCase
+class Notification::ReportsTest < ApplicationSystemTestCase
   test "はじめての日報が投稿されたときに全員が通知を受け取る" do
     login_user "muryou", "testtest"
     visit "/reports"

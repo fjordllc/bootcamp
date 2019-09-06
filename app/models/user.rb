@@ -43,13 +43,10 @@ class User < ActiveRecord::Base
   has_many :announcements, dependent: :destroy
   has_many :reactions,     dependent: :destroy
   has_many :works,         dependent: :destroy
-
-  has_many :notifications,
-    class_name: "InnerNotification",
-    dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   has_many :send_notifications,
-    class_name:  "InnerNotification",
+    class_name:  "Notification",
     foreign_key: "sender_id",
     dependent:   :destroy
 
