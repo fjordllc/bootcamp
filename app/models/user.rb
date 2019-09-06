@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   belongs_to :company
   belongs_to :course
   has_many :learnings
+  has_many :borrowings
   has_many :comments,      dependent: :destroy
   has_many :reports,       dependent: :destroy
   has_many :checks,        dependent: :destroy
@@ -69,6 +70,9 @@ class User < ActiveRecord::Base
     through:   :active_learnings,
     source:    :practice,
     dependent: :destroy
+
+  has_many :books,
+    through: :borrowings
 
   has_one_attached :avatar
 
@@ -261,6 +265,20 @@ SQL
 
   def unread_notifications_exists?
     unread_notifications_count > 0
+  end
+
+  def borrow(book)
+    book.update(borrowed: true)
+    borrowings.create(book_id: book.id)
+  end
+
+  def give_back(book)
+    book.update(borrowed: false)
+    borrowings.find_by(book_id: book.id).destroy
+  end
+
+  def borrowing?(book)
+    borrowings.exists?(book_id: book.id)
   end
 
   private

@@ -1,0 +1,9 @@
+borrowing_1:
+  user: hajime
+  book: book_1
+  created_at: <%= Time.current.ago(3.days).strftime("%Y-%m-%d") %>
+
+borrowing_2:
+  user: yamada
+  book: book_3
+  created_at: <%= Time.current.ago(7.days).strftime("%Y-%m-%d") %>
