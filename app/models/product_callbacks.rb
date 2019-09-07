@@ -4,7 +4,7 @@ class ProductCallbacks
   def after_create(product)
     send_notification(
       product: product,
-      recievers: User.admins,
+      receivers: User.admins,
       message: "#{product.user.login_name}さんが提出しました。"
     )
     create_watch(
@@ -15,7 +15,7 @@ class ProductCallbacks
     if product.user.trainee?
       send_notification(
         product: product,
-        recievers: product.user.company.advisers,
+        receivers: product.user.company.advisers,
         message: "#{product.user.login_name}さんが提出しました。"
       )
       create_watch(
@@ -28,7 +28,7 @@ class ProductCallbacks
   def after_update(product)
     send_notification(
       product: product,
-      recievers: User.admins,
+      receivers: User.admins,
       message: "#{product.user.login_name}さんが提出物を更新しました。"
     )
   end
@@ -38,9 +38,9 @@ class ProductCallbacks
   end
 
   private
-    def send_notification(product:, recievers:, message:)
-      recievers.each do |reciever|
-        NotificationFacade.submitted(product, reciever, message)
+    def send_notification(product:, receivers:, message:)
+      receivers.each do |receiver|
+        NotificationFacade.submitted(product, receiver, message)
       end
     end
 

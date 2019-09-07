@@ -2,7 +2,7 @@
 
 class AnswerCallbacks
   def after_create(answer)
-    if answer.sender != answer.reciever
+    if answer.sender != answer.receiver
       notify_answer(answer)
     end
 

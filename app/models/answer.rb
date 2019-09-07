@@ -12,7 +12,7 @@ class Answer < ActiveRecord::Base
   validates :description, presence: true
   validates :user, presence: true
 
-  def reciever
+  def receiver
     self.question.user
   end
 end

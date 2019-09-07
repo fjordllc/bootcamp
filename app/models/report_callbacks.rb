@@ -16,16 +16,16 @@ class ReportCallbacks
 
   private
     def send_first_report_notification(report)
-      reciever_list = User.where(retired_on: nil)
-      reciever_list.each do |reciever|
-        if report.sender != reciever
-          NotificationFacade.first_report(report, reciever)
+      receiver_list = User.where(retired_on: nil)
+      receiver_list.each do |receiver|
+        if report.sender != receiver
+          NotificationFacade.first_report(report, receiver)
         end
       end
     end
 
-    def send_trainee_report_notification(report, reciever)
-      NotificationFacade.trainee_report(report, reciever)
+    def send_trainee_report_notification(report, receiver)
+      NotificationFacade.trainee_report(report, receiver)
     end
 
     def create_advisers_watch(report, adviser)

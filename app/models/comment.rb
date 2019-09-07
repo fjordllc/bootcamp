@@ -11,7 +11,7 @@ class Comment < ActiveRecord::Base
 
   validates :description, presence: true
 
-  def reciever
+  def receiver
     commentable.user
   end
 
