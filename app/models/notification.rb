@@ -28,10 +28,10 @@ class Notification < ApplicationRecord
   scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
   scope :unreads_with_avatar, -> { unreads.with_avatar.limit(99) }
 
-  def self.came_comment(comment, reciever, message)
+  def self.came_comment(comment, receiver, message)
     Notification.create!(
       kind:    0,
-      user:    reciever,
+      user:    receiver,
       sender:  comment.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
       message: message,
@@ -42,7 +42,7 @@ class Notification < ApplicationRecord
   def self.checked(check)
     Notification.create!(
       kind:    1,
-      user:    check.reciever,
+      user:    check.receiver,
       sender:  check.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(check.checkable),
       message: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
@@ -50,10 +50,10 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.mentioned(comment, reciever)
+  def self.mentioned(comment, receiver)
     Notification.create!(
       kind:    2,
-      user:    reciever,
+      user:    receiver,
       sender:  comment.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
       message: "#{comment.sender.login_name}さんからメンションがきました。",
@@ -61,10 +61,10 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.submitted(subject, reciever, message)
+  def self.submitted(subject, receiver, message)
     Notification.create!(
       kind:    3,
-      user:    reciever,
+      user:    receiver,
       sender:  subject.user,
       path:    Rails.application.routes.url_helpers.polymorphic_path(subject),
       message: message,
@@ -75,7 +75,7 @@ class Notification < ApplicationRecord
   def self.came_answer(answer)
     Notification.create!(
       kind:    4,
-      user:    answer.reciever,
+      user:    answer.receiver,
       sender:  answer.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(answer.question),
       message: "#{answer.user.login_name}さんから回答がありました。",
@@ -83,10 +83,10 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.post_announcement(announce, reciever)
+  def self.post_announcement(announce, receiver)
     Notification.create!(
       kind:    5,
-      user:    reciever,
+      user:    receiver,
       sender:  announce.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(announce),
       message: "#{announce.user.login_name}さんからお知らせです。",
@@ -94,10 +94,10 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.came_question(question, reciever)
+  def self.came_question(question, receiver)
     Notification.create!(
       kind:    6,
-      user:    reciever,
+      user:    receiver,
       sender:  question.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(question),
       message: "#{question.user.login_name}さんから質問がありました。",
@@ -105,10 +105,10 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.first_report(report, reciever)
+  def self.first_report(report, receiver)
     Notification.create!(
       kind:    7,
-      user:    reciever,
+      user:    receiver,
       sender:  report.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(report),
       message: "#{report.user.login_name}さんがはじめての日報を書きました！",
@@ -116,10 +116,10 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.watching_notification(watchable, reciever)
+  def self.watching_notification(watchable, receiver)
     Notification.create!(
       kind:    8,
-      user:    reciever,
+      user:    receiver,
       sender:  watchable.user,
       path:    Rails.application.routes.url_helpers.polymorphic_path(watchable),
       message: "あなたがウォッチしている【 #{watchable.title} 】にコメントが投稿されました。",
@@ -127,10 +127,10 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.retired(sender, reciever)
+  def self.retired(sender, receiver)
     Notification.create!(
       kind:    9,
-      user:    reciever,
+      user:    receiver,
       sender:  sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(sender),
       message: "#{sender.login_name}さんが退会しました。",
@@ -138,10 +138,10 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.trainee_report(report, reciever)
+  def self.trainee_report(report, receiver)
     Notification.create!(
       kind:    10,
-      user:    reciever,
+      user:    receiver,
       sender:  report.sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(report),
       message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",

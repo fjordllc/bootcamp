@@ -6,7 +6,7 @@ class CommentCallbacks
   end
 
   def after_create(comment)
-    if comment.sender != comment.reciever
+    if comment.sender != comment.receiver
       notify_comment(comment)
     end
 
@@ -19,9 +19,9 @@ class CommentCallbacks
   private
     def notify_mention(comment)
       comment.new_mentions.each do |mention|
-        reciever = User.find_by(login_name: mention)
-        if reciever && comment.sender != reciever
-          NotificationFacade.mentioned(comment, reciever)
+        receiver = User.find_by(login_name: mention)
+        if receiver && comment.sender != receiver
+          NotificationFacade.mentioned(comment, receiver)
         end
       end
     end
@@ -29,7 +29,7 @@ class CommentCallbacks
     def notify_comment(comment)
       NotificationFacade.came_comment(
         comment,
-        comment.reciever,
+        comment.receiver,
         "#{comment.sender.login_name}さんからコメントが届きました。"
       )
     end

@@ -7,7 +7,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     @notice_text = "komagataさんからお知らせです。"
     @notice_kind = Notification.kinds["announced"]
     @notified_count = Notification.where(kind: @notice_kind).size
-    @reciever_count = User.where(retired_on: nil).size - 1 # 送信者は除くため-1
+    @receiver_count = User.where(retired_on: nil).size - 1 # 送信者は除くため-1
   end
 
   test "all menber recieve a notification when announcement posted" do
@@ -28,6 +28,6 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
     refute_text @notice_text
 
-    assert_equal(@notified_count + @reciever_count, Notification.where(kind: @notice_kind).size)
+    assert_equal(@notified_count + @receiver_count, Notification.where(kind: @notice_kind).size)
   end
 end

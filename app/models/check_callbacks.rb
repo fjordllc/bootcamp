@@ -2,7 +2,7 @@
 
 class CheckCallbacks
   def after_create(check)
-    if check.sender != check.reciever
+    if check.sender != check.receiver
       NotificationFacade.checked(check)
     end
   end
