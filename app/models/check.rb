@@ -6,7 +6,7 @@ class Check < ApplicationRecord
   after_create CheckCallbacks.new
   alias_method :sender, :user
 
-  def reciever
+  def receiver
     checkable.user
   end
 end
