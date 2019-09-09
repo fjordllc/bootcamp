@@ -18,11 +18,11 @@ class NotificationMailer < ApplicationMailer
     mail to: @user.email, subject: "[bootcamp] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
   end
 
-  def mentioned(mention, receiver)
-    @mention = mention
+  def mentioned(comment, receiver)
+    @comment = comment
     @user = receiver
-    @notification = @user.notifications.find_by(path: "/#{@mention.commentable_type.downcase.pluralize}/#{@mention.commentable.id}")
-    mail to: @user.email, subject: "[bootcamp] #{@mention.sender.login_name}さんからメンションがきました。"
+    @notification = @user.notifications.find_by(path: "/#{@comment.commentable_type.downcase.pluralize}/#{@comment.commentable.id}")
+    mail to: @user.email, subject: "[bootcamp] #{@comment.sender.login_name}さんからメンションがきました。"
   end
 
   def submitted(product, receiver, message)
@@ -40,11 +40,11 @@ class NotificationMailer < ApplicationMailer
     mail to: @user.email, subject: "[bootcamp] #{@answer.user.login_name}さんから回答がありました。"
   end
 
-  def post_announcement(announce, receiver)
-    @announce = announce
+  def post_announcement(announcement, receiver)
+    @announcement = announcement
     @user = receiver
-    @notification = @user.notifications.find_by(path: "/announcements/#{@announce.id}")
-    mail to: @user.email, subject: "[bootcamp] #{@announce.user.login_name}さんからお知らせです。"
+    @notification = @user.notifications.find_by(path: "/announcements/#{@announcement.id}")
+    mail to: @user.email, subject: "[bootcamp] #{@announcement.user.login_name}さんからお知らせです。"
   end
 
   def came_question(question, receiver)
