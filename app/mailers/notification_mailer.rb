@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class NotificationMailer < ApplicationMailer
-  default from: "info@fjord.jp"
   add_template_helper(ApplicationHelper)
 
   def came_comment(comment, receiver, message)
