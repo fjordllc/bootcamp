@@ -91,6 +91,7 @@ class User < ActiveRecord::Base
       with: /\A\w+\z/,
       message: "は英文字と_（アンダースコア）のみが使用できます"
     }
+  validates :mail_notification, inclusion: { in: [true, false] }
 
   with_options unless: :adviser? do
     validates :job, presence: true
