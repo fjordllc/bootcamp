@@ -35,7 +35,7 @@
         <tbody>
           <tr>
             <td style="border:0px solid #000;cursor:auto;padding:12px 32px;"align="center" valign="middle">
-              <a href="https://bootcamp.fjord.jp/current_user/edit#mail-notification" style="color:#4638a0; font-family: sans-serif; font-size:14px; font-weight:bold;line-height:140%; text-transform:none; margin:0px;" target="_blank">メールでの通知オフはこちらから</a></td>
+              <%= link_to "メールでの通知オフはこちらから", edit_current_user_url(anchor: "mail-notification"), style: "color:#4638a0; font-family: sans-serif; font-size:14px; font-weight:bold;line-height:140%; text-transform:none; margin:0px;", target: "_blank" %>
           </tr>
         </tbody>
       </table>
