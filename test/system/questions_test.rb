@@ -5,7 +5,7 @@ require "application_system_test_case"
 class QuestionsTest < ApplicationSystemTestCase
   test "question page show message when question does not exist" do
     Question.delete_all
-    login_user "machida", "testtest"
+    login_user "kimura", "testtest"
     visit questions_path
 
     assert_equal 0, all(".thread-list-item__title-link").size
@@ -18,7 +18,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test "question page show all of not solved questions or all of solved questions" do
-    login_user "machida", "testtest"
+    login_user "kimura", "testtest"
     visit questions_path
 
     assert_equal Question.not_solved.size, all(".thread-list-item__title-link").size
@@ -29,7 +29,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test "question page show message when target practice does not have solved questions or not solved question" do
-    login_user "machida", "testtest"
+    login_user "kimura", "testtest"
     visit questions_path
 
     select "Terminalの基礎を覚える"
@@ -44,7 +44,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test "question page show all of solved questions or all of solved questions with target practice" do
-    login_user "machida", "testtest"
+    login_user "kimura", "testtest"
     visit questions_path
 
     select "OS X Mountain Lionをクリーンインストールする"
