@@ -20,14 +20,6 @@
             = render "sort_column", order_by: "created_at", direction: direction, target: @target
           th.admin-table__label
             | カード登録
-          th.admin-table__label
-            | 日報
-            = render "sort_column", order_by: "report", direction: direction, target: @target
-          th.admin-table__label
-            | コメント
-            = render "sort_column", order_by: "comment", direction: direction, target: @target
-          th.admin-table__label 進捗
-          th.admin-table__label SNS
           th.admin-table__label 卒業証書
           th.admin-table__label 操作
           th.admin-table__label 削除
@@ -72,14 +64,6 @@
               = l user.created_at
             td.admin-table__item-value.is-text-align-center
               = user.card? ? "有り" : "無し"
-            td.admin-table__item-value.is-text-align-center
-              = user.reports.count
-            td.admin-table__item-value.is-text-align-center
-              = user.comments.count
-            td.admin-table__item-value.is-text-align-center
-              = number_to_percentage user.completed_percentage, precision: 0
-            td.admin-table__item-value.is-text-align-center
-              = render "users/sns", user: user
             td.admin-table__item-value.is-text-align-center
               = link_to "卒業証書", admin_diploma_path(user_id: user.id)
             td.admin-table__item-value.is-text-align-center
