@@ -1,0 +1,8 @@
+doctype html
+html lang="ja"
+  head
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    title #{@user.full_name}の卒業証書
+    = stylesheet_link_tag "diploma", media: "all"
+  body#body class="#{body_class}"
+    = yield

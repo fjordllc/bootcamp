@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :companies, except: %i(show)
     resources :users, only: %i(index edit update destroy)
     resources :namecards, only: %i(index)
+    resource :diploma, only: :show, controller: "diploma"
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
     end
