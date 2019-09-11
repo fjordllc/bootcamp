@@ -28,6 +28,7 @@
             = render "sort_column", order_by: "comment", direction: direction, target: @target
           th.admin-table__label 進捗
           th.admin-table__label SNS
+          th.admin-table__label 卒業証書
           th.admin-table__label 操作
           th.admin-table__label 削除
       tbody.admin-table__items
@@ -79,6 +80,8 @@
               = number_to_percentage user.completed_percentage, precision: 0
             td.admin-table__item-value.is-text-align-center
               = render "users/sns", user: user
+            td.admin-table__item-value.is-text-align-center
+              = link_to "卒業証書", admin_diploma_path(user_id: user.id)
             td.admin-table__item-value.is-text-align-center
               = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: "a-button is-sm is-warning is-icon" do
                 i.fas.fa-pen

@@ -1,0 +1,23 @@
+h1 修了証明書
+
+.full_name
+  = @user.full_name
+
+.description あなたはフィヨルドブートキャンプの#{@user.course.title}コースを修了したことをここに証明します。そして、存分の活躍をされますよう心から期待しております。
+
+.day
+  = l Date.current
+
+p komagata
+
+p FJORD, LLC
+
+p Programmer
+
+p machida
+
+p FJORD, LLC
+
+p Designer
+
+.serial_number No.#{@user.id}
