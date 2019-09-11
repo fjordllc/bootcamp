@@ -7,10 +7,9 @@ module TagHelper
     end
   end
 
-  def qrcode_tag(url)
-    borrowing_url = url.sub(/\/admin/, "").sub(/\/qrcode/, "")
-    qrcode = RQRCode::QRCode.new(borrowing_url)
-    qrcode.as_svg(module_size: 3).html_safe
+  def qrcode_tag(url, size: 1.8)
+    RQRCode::QRCode.new(url)
+      .as_svg(module_size: size).html_safe
   end
 
   private
