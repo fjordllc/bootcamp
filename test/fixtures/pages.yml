@@ -3,13 +3,13 @@ page_1:
   body: "## test\ntest"
 
 page_2:
-  title: テスト
+  title: フィヨルドオフィス/使い方
   body: "## テスト\nテスト"
 
 page_3:
-  title: Docsページ
+  title: フィヨルドオフィス/使い方/コーヒーメーカー
   body: "## 存在しないDocsページ遷移テスト\n[存在しないページ](http://localhost:3000/pages/5555555)"
 
 page_4:
-  title: Bootcmapの作業のページ
+  title: フィヨルドオフィス/使い方/Nintendo Switch
   body: "## テスト\nテスト"
