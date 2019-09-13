@@ -9,11 +9,9 @@ module Bootcamp
         User.all.each do |user|
           filename = "#{user.login_name}.jpg"
           path = Rails.root.join("test", "fixtures", "files", "users", "avatars", filename)
-          unless File.exist?(path)
-            filename = "default.jpg"
-            path = Rails.root.join("test", "fixtures", "files", "users", "avatars", filename)
+          if File.exist?(path)
+            user.avatar.attach(io: open(path), filename: filename)
           end
-          user.avatar.attach(io: open(path), filename: filename)
         end
 
         Company.order(:created_at).each_with_index do |company, i|

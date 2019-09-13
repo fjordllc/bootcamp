@@ -39,3 +39,9 @@ question_7:
   description: テスト1の内容です。
   user: komagata
   practice: practice_1
+
+question_8:
+  title: テストの質問
+  description: テストの内容です。
+  user: kimura
+  practice: practice_1

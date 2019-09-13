@@ -17,14 +17,6 @@ module UserDecorator
     roles.detect { |v| v[:value] }[:role]
   end
 
-  def avatar_image
-    if avatar.attached?
-      avatar.service_url
-    else
-      image_path("users/avatars/default.png")
-    end
-  end
-
   def url
     user_url(self)
   end

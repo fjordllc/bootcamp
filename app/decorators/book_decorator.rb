@@ -6,7 +6,7 @@ module BookDecorator
   end
 
   def borrowing_user_avatar
-    users.first.avatar_image
+    users.first.avatar_url
   end
 
   def borrowing_days

@@ -65,7 +65,7 @@ class ProductsController < ApplicationController
       if product.user.trainee? && product.user.company.slack_channel?
         SlackNotification.notify "#{name} さんが提出物を提出しました。 #{link}",
           username: "#{product.user.login_name} (#{product.user.full_name})",
-          icon_url: url_for(product.user.avatar),
+          icon_url: product.user.avatar_url,
           channel: product.user.company.slack_channel,
           attachments: [{
             fallback: "product body.",

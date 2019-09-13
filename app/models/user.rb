@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ActiveRecord::Base
+  include ActionView::Helpers::AssetUrlHelper
+
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w(id login_name company_id updated_at created_at report comment asc desc)
 
@@ -280,6 +282,14 @@ SQL
 
   def borrowing?(book)
     borrowings.exists?(book_id: book.id)
+  end
+
+  def avatar_url
+    if avatar.attached?
+      avatar.service_url
+    else
+      image_url("/images/users/default.png")
+    end
   end
 
   private
