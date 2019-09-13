@@ -54,7 +54,7 @@ class API::CommentsController < API::BaseController
 
       SlackNotification.notify "#{name} commented to #{link}",
         username: "#{comment.user.login_name} (#{comment.user.full_name})",
-        icon_url: url_for(comment.user.avatar),
+        icon_url: comment.user.avatar_url,
         attachments: [{
           fallback: "comment body.",
           text: comment.description

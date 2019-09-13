@@ -35,7 +35,7 @@ class API::ChecksController < API::BaseController
 
       SlackNotification.notify "#{name} check to #{link}",
         username: "#{check.user.login_name} (#{check.user.full_name})",
-        icon_url: url_for(check.user.avatar),
+        icon_url: check.user.avatar_url,
         attachments: [{
           fallback: "check body.",
           text: "#{check.user.login_name}さんが#{check.checkable.title}を確認しました。"

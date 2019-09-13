@@ -82,4 +82,9 @@ class UserTest < ActiveSupport::TestCase
     user.retire_reason = "辞" * 8
     assert user.save(context: :retire_reason_presence)
   end
+
+  test "avatar_url" do
+    user = users(:kimura)
+    assert_equal "/images/users/default.png", user.avatar_url
+  end
 end

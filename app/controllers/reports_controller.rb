@@ -139,7 +139,7 @@ class ReportsController < ApplicationController
 
       SlackNotification.notify "#{name} created #{link}",
         username: "#{report.user.login_name} (#{report.user.full_name})",
-        icon_url: url_for(report.user.avatar),
+        icon_url: report.user.avatar_url,
         attachments: [{
           fallback: "report body.",
           text: report.description
@@ -148,7 +148,7 @@ class ReportsController < ApplicationController
       if report.user.trainee? && report.user.company.slack_channel?
         SlackNotification.notify "#{name} さんが日報を提出しました。 #{link}",
          username: "#{report.user.login_name} (#{report.user.full_name})",
-         icon_url: url_for(report.user.avatar),
+         icon_url: report.user.avatar_url,
          channel: report.user.company.slack_channel,
          attachments: [{
            fallback: "report body.",

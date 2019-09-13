@@ -32,7 +32,7 @@ class Questions::CorrectAnswerController < ApplicationController
 
       SlackNotification.notify "#{name}が解答を選択しました。#{link}",
         username: "#{question.user.login_name} (#{question.user.full_name})",
-        icon_url: url_for(question.user.avatar),
+        icon_url: question.user.avatar_url,
         attachments: [{
           fallback: "question body.",
           text: question.description

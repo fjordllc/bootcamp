@@ -48,12 +48,12 @@ header.page-header
                     i.fas.fa-pen#new
                     | 内容修正
                 li.card-footer-actions__item
-                  = link_to question_path(@question), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
+                  = link_to question_path(@question), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "js-delete card-footer-actions__action a-button is-md is-danger is-block" do
                     i.fas.fa-trash-alt#delete
                     | 削除
 
       = link_to @question.user, itempro: "url", class: "thread__author-link" do
-        = image_tag @question.user.avatar_image, class: "thread__author-icon is-#{@question.user.role}"
+        = image_tag @question.user.avatar_url, class: "thread__author-icon is-#{@question.user.role}"
     .thread-comments-container
       h3.thread-comments-container__title
         | 回答・コメント
