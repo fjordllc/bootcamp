@@ -44,6 +44,6 @@ class API::Practices::LearningController < API::BaseController
       text = "#{subject}が#{object}を#{verb}"
       SlackNotification.notify text,
         username: "#{current_user.login_name}@bootcamp.fjord.jp",
-        icon_url: url_for(current_user.avatar)
+        icon_url: current_user.avatar_url
     end
 end

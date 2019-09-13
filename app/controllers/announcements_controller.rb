@@ -55,7 +55,7 @@ class AnnouncementsController < ApplicationController
 
       SlackNotification.notify "#{link}",
         username: "#{announcement.user.login_name} (#{announcement.user.full_name})",
-        icon_url: url_for(announcement.user.avatar),
+        icon_url: announcement.user.avatar_url,
         channel: "#general",
         attachments: [{
           fallback: "announcement description.",

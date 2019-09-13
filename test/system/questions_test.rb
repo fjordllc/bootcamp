@@ -3,84 +3,53 @@
 require "application_system_test_case"
 
 class QuestionsTest < ApplicationSystemTestCase
-  test "question page show message when question does not exist" do
-    Question.delete_all
+  setup do
     login_user "kimura", "testtest"
+  end
+
+  test "show listing unsolved questions" do
     visit questions_path
-
-    assert_equal 0, all(".thread-list-item__title-link").size
-    assert_text "質問はまだありません。"
-
-    click_link "解決済み"
-
-    assert_equal 0, all(".thread-list-item__title-link").size
-    assert_text "質問はまだありません。"
+    assert_equal "未解決の質問一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
-  test "question page show all of not solved questions or all of solved questions" do
-    login_user "kimura", "testtest"
-    visit questions_path
-
-    assert_equal Question.not_solved.size, all(".thread-list-item__title-link").size
-
-    click_link "解決済み"
-
-    assert_equal Question.solved.size, all(".thread-list-item__title-link").size
+  test "show listing solved questions" do
+    visit questions_path(solved: "true")
+    assert_equal "解決済みの質問一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
-  test "question page show message when target practice does not have solved questions or not solved question" do
-    login_user "kimura", "testtest"
-    visit questions_path
-
-    select "Terminalの基礎を覚える"
-
-    assert_equal 0, all(".thread-list-item__title-link").size
-    assert_text "質問はまだありません。"
-
-    click_link "解決済み"
-
-    assert_equal 0, all(".thread-list-item__title-link").size
-    assert_text "質問はまだありません。"
+  test "show a question" do
+    question = questions(:question_8)
+    visit question_path(question)
+    assert_equal "テストの質問 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
-  test "question page show all of solved questions or all of solved questions with target practice" do
-    login_user "kimura", "testtest"
-    visit questions_path
-
-    select "OS X Mountain Lionをクリーンインストールする"
-
-    target_practice = practices(:practice_1)
-
-    assert_equal target_practice.questions.not_solved.size, all(".thread-list-item__title-link").size
-
-    click_link "解決済み"
-
-    assert_equal target_practice.questions.solved.size, all(".thread-list-item__title-link").size
+  test "create a question" do
+    visit new_question_path
+    within "form[name=question]" do
+      fill_in "question[title]", with: "テストの質問"
+      fill_in "question[description]", with: "テストの質問です。"
+      click_button "登録する"
+    end
+    assert_text "質問を作成しました。"
   end
 
-  test "practice's question page show message when target practice does not have solved questions or not solved question" do
-    login_user "machida", "testtest"
-    target_practice = practices(:practice_2)
-    visit polymorphic_path([target_practice, :questions])
-
-    assert_equal 0, all(".thread-list-item__title-link").size
-    assert_text "質問はまだありません。"
-
-    click_link "解決済み"
-
-    assert_equal 0, all(".thread-list-item__title-link").size
-    assert_text "質問はまだありません。"
+  test "update a question" do
+    question = questions(:question_8)
+    visit edit_question_path(question)
+    within "form[name=question]" do
+      fill_in "question[title]", with: "テストの質問（修正）"
+      fill_in "question[description]", with: "テストの質問です。（修正）"
+      click_button "更新する"
+    end
+    assert_text "質問を更新しました。"
   end
 
-  test "practice's question page show all of solved questions or all of solved questions with target practice" do
-    login_user "machida", "testtest"
-    target_practice = practices(:practice_1)
-    visit polymorphic_path([target_practice, :questions])
-
-    assert_equal target_practice.questions.not_solved.size, all(".thread-list-item__title-link").size
-
-    click_link "解決済み"
-
-    assert_equal target_practice.questions.solved.size, all(".thread-list-item__title-link").size
+  test "delete a question" do
+    question = questions(:question_8)
+    visit question_path(question)
+    accept_confirm do
+      find(".js-delete").click
+    end
+    assert_text "質問を削除しました。"
   end
 end
