@@ -40,6 +40,6 @@ class RetirementController < ApplicationController
       message = "<#{url_for(current_user)}|#{current_user.full_name} (#{current_user.login_name})>が退会しました。"
       SlackNotification.notify message,
         username: "#{current_user.login_name}@bootcamp.fjord.jp",
-        icon_url: url_for(current_user.avatar)
+        icon_url: current_user.avatar_url
     end
 end
