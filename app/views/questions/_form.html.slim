@@ -1,6 +1,5 @@
+= render "errors", object: question
 = form_with model: question, local: true, class: "form", html: { name: "question" } do |f|
-  - if question.errors.any?
-    = error_messages_for :question
   .form__items
     .form-item
       .form-item
