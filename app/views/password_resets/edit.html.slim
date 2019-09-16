@@ -3,22 +3,16 @@
 .auth-form.is-sign-up
   header.auth-form__header
     h1.auth-form__title = title
-
   .auth-form__body
-    = form_for @user, url: password_reset_path(@token), html: { method: :put, class: "form" } do |f|
+    = render "errors", object: @user
+    = form_for @user, url: password_reset_path(@token), html: { method: :put, class: "form", name: "password_reset", autocomplete: :nope } do |f|
       .form__items
-        - if @user.errors.any?
-          = error_messages_for :user
         .form-item
-          = f.label :email, class: "a-label is-required"
-          = f.text_field :email, class: "a-text-input"
+          = f.label :password, class: "a-label is-required"
+          = f.password_field :password, class: "a-text-input"
         .form-item
-          = f.label :password, class: "a-label"
-          = f.password_field :password, class: "a-text-input", autocomplete: :off
-        .form-item
-          = f.label :password_confirmation, class: "a-label"
-          = f.password_field :password_confirmation, class: "a-text-input", autocomplete: :off
-
+          = f.label :password_confirmation, class: "a-label is-required"
+          = f.password_field :password_confirmation, class: "a-text-input"
       .form-actions
         ul.form-actions__items
           li.form-actions__item.is-main

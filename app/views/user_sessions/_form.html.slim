@@ -1,4 +1,4 @@
-= form_for user, url: user_sessions_path, html: { id: "sign-in-form", class: "form" }  do |f|
+= form_for user, url: user_sessions_path, html: { id: "sign-in-form", class: "form", name: "user_session" }  do |f|
   .form__items
     .form-item
       = f.label :login_name, class: "a-label"

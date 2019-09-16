@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
     }
   validates :mail_notification, inclusion: { in: [true, false] }
 
-  with_options unless: :adviser? do
+  with_options if: -> { !adviser? || validation_context != :reset_password } do
     validates :job, presence: true
     validates :os, presence: true
     validates :study_place, presence: true
