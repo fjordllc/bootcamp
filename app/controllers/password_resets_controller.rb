@@ -32,13 +32,23 @@ class PasswordResetsController < ApplicationController
       return
     end
 
-    # the next line makes the password confirmation validation work
+    @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
-    # the next line clears the temporary token and updates the password
-    if @user.change_password!(params[:user][:password])
+
+    if @user.save(context: :reset_password)
+      clear_password_token!
       redirect_to login_path, notice: "パスワードが変更されました。"
     else
       render action: "edit"
     end
   end
+
+  private
+
+    def clear_password_token!
+      @user.update(
+        reset_password_token: nil,
+        reset_password_token_expires_at: nil
+      )
+    end
 end
