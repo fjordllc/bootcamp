@@ -1,0 +1,7 @@
+.form-item#mail-notification
+  = f.label :mail_notification, class: "a-label"
+  label.a-on-off-checkbox
+    = f.check_box :mail_notification
+    span
+  .a-form-help
+    p あなた宛のお知らせをメールで受け取るか否かの設定です。メールを受け取りたくない場合はオフにしてください。

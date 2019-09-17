@@ -1,0 +1,9 @@
+.form-item
+  = f.label :email, class: "a-label is-required"
+  = f.text_field :email, class: "a-text-input", placeholder: "komagata@fjord.jp"
+  - unless user.adviser?
+    .a-form-help
+      p
+        | このメールアドレスは卒業後の連絡にも使うので、
+        | 会社で提供されたなどの第三者によって提供されたメールアドレスではなく、
+        | 転職後も使い続ける自分自身で取得したメールアドレスで登録してください。
