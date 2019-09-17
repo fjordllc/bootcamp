@@ -1,0 +1,10 @@
+.form-item
+  = f.label :job, class: "a-label is-required"
+  .a-button.is-md.is-secondary.is-select.is-block
+    - options = options_for_select(User.jobs.map { |k, v| [t("activerecord.enums.user.job.#{k}"), k] }, selected: f.object.job)
+    = f.select :job, options, include_blank: "- 選択してください -"
+  .a-form-help
+    p
+      | 近いものを選択してください。
+      br
+      | この情報は他のフィヨルドブートキャンプ参加者には公開されません。
