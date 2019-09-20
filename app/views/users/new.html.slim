@@ -11,6 +11,6 @@
       ul.auth-form-nav__items
         li.auth-form-nav__item
           = link_to "トップページ", welcome_path, class: "auth-form-nav__item-link"
-        - if @user.adviser? || params[:training]
+        - if @user.adviser? || @user.trainee?
           li.auth-form-nav__item
              span.auth-form-nav__item-link 利用規約を確認

@@ -1,7 +1,6 @@
 = form_with model: user, url: url, local: true, html: { name: "user", autocomplete: "address-line3" } do |f|
   = f.hidden_field :adviser
-  - if params[:training]
-    = hidden_field_tag :training, "true"
+  = f.hidden_field :trainee
   = render "errors", object: user
   .form__items
     = render "users/form/login_name", f: f

@@ -7,9 +7,9 @@ class UsersController < ApplicationController
   def index
     @target = params[:target] || "student"
     @users = User.with_attached_avatar
-                 .preload(:course)
-                 .order(updated_at: :desc)
-                 .users_role(@target)
+      .preload(:course)
+      .order(updated_at: :desc)
+      .users_role(@target)
   end
 
   def show
@@ -17,33 +17,43 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @user.adviser = params[:role] == "adviser"
-    @companies = Company.all
+
+    case params[:role]
+    when "adviser"
+      @user.adviser = true
+    when "trainee"
+      @user.trainee = true
+    end
   end
 
   def create
     @user = User.new(user_params)
     @user.company = Company.first
     @user.course = Course.first
-    if params[:training] == "true"
+
+    if @user.trainee?
       @user.free = true
-      @user.trainee = true
     end
+
     if @user.save
       UserMailer.welcome(@user).deliver_now
-      SlackNotification.notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
-        username: "#{@user.login_name}@bootcamp.fjord.jp",
-        icon_url: @user.avatar_url
-      redirect_to root_url, notice: "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
+      notify_to_slack!
     else
       render "new"
     end
   end
 
   private
+
+    def notify_to_slack!
+      SlackNotification.notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
+        username: "#{@user.login_name}@bootcamp.fjord.jp",
+        icon_url: @user.avatar_url
+      redirect_to root_url, notice: "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
+    end
+
     def user_params
       params.require(:user).permit(
-        :adviser,
         :login_name,
         :first_name,
         :last_name,
@@ -65,11 +75,9 @@ class UsersController < ApplicationController
         :experience,
         :company_id,
         :nda,
-        :graduated_on,
-        :retired_on,
-        :free,
         :avatar,
-        :trainee
+        :trainee,
+        :adviser
       )
     end
 
