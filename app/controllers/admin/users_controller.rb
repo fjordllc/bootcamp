@@ -64,7 +64,8 @@ class Admin::UsersController < AdminController
         :job_seeking,
         :nda,
         :graduated_on,
-        :retired_on
+        :retired_on,
+        :free
       )
     end
 end
