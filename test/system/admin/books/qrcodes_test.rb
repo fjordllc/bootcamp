@@ -2,12 +2,12 @@
 
 require "application_system_test_case"
 
-class Admin::Books::QrcodeTest < ApplicationSystemTestCase
+class Admin::Books::QrcodesTest < ApplicationSystemTestCase
   setup { login_user "komagata", "testtest" }
 
-  test "show qrcode" do
+  test "show qrcodes" do
     book = books(:book_1)
-    visit "/admin/books/#{book.id}/qrcode"
+    visit "/admin/books/qrcodes"
     assert_text "#{book.id}"
   end
 end
