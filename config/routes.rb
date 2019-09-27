@@ -34,9 +34,11 @@ Rails.application.routes.draw do
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
     end
-    resources :books do
-      resource :qrcode, only: %i(show), controller: "books/qrcode"
+
+    namespace :books do
+      resources :qrcodes, only: %i(index)
     end
+    resources :books
   end
 
   resources :announcements
