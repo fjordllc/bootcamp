@@ -1,7 +1,7 @@
 company_1:
   name: "FJORD, LLC"
   description: "合同会社フィヨルド"
-  website: "http://fjord.jp"
+  website: "https://fjord.jp"
   slack_channel: "#fjord"
   tos: "秘密保持契約書 　　　__COMPANY_NAME__（以下「甲」という）と__USER_NAME__（以下「乙」という）とは、甲が業務を乙に委託し、乙がこれを実施する事に関連して、甲から乙に対しまたは乙から甲に対し開示される秘密情報、個人情報の取扱いに関し、次の通り契約を締結する。
 
