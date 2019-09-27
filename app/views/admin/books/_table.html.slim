@@ -7,7 +7,6 @@
         th.admin-table__label = Book.human_attribute_name :isbn
         th.admin-table__label 借りてる人
         th.admin-table__label 借りてる日数
-        th.admin-table__label 印刷ページ
         th.admin-table__label.actions 操作
     tbody.admin-table__items
       - books.each do |book|
@@ -27,9 +26,6 @@
           td.admin-table__item-value.is-text-align-center
             - if book.borrowed
               = "#{book.borrowing_days}日"
-          td.admin-table__item-value.is-text-align-center
-            = link_to admin_book_qrcode_path(book), class: "a-button is-sm is-secondary is-icon", target: "_blank", rel: "noopener" do
-              i.fas.fa-print
           td.admin-table__item-value.is-text-align-center
             ul.is-button-group
               li
