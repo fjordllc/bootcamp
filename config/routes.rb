@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     end
 
     namespace :books do
-      resources :qrcodes, only: %i(index)
+      resources :qrcodes, only: %i(index show)
     end
     resources :books
   end
