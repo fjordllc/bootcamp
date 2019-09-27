@@ -1,0 +1,15 @@
+- @books.each_slice(Admin::Books::QrcodesController::DESPLAY_NUM) do |slice_book|
+  section class="sheet"
+    .book-stickers
+      - slice_book.each_with_index do |book, i|
+        .book-sticker
+          .book-sticker__logo
+            = image_tag "pijord-book-logo.png"
+          .container
+            .book-sticker__qrcode
+              = qrcode_tag book_url(book)
+            .book_-sticker__id
+              .book-sticker__id-label BOOK ID
+              .book-sticker__id-body #{book.id}
+          .book-sticker__text
+            | オフィスから持ち出す場合はこのQRコードから貸出手続きしてください。
