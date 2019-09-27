@@ -5,7 +5,6 @@ class Admin::Books::QrcodesController < AdminController
   DESPLAY_NUM = 12
 
   def index
-    # @books = Book.order(:title)
     @books = Book.all
   end
 end
