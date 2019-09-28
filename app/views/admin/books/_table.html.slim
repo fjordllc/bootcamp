@@ -28,7 +28,7 @@
             - if book.borrowed
               = "#{book.borrowing_days}日"
           td.admin-table__item-value.is-text-align-center
-            = link_to admin_book_qrcode_path(book), class: "a-button is-sm is-secondary is-icon", target: "_blank", rel: "noopener" do
+            = link_to admin_books_qrcode_path(book), class: "a-button is-sm is-secondary is-icon", target: "_blank", rel: "noopener" do
               i.fas.fa-print
           td.admin-table__item-value.is-text-align-center
             ul.is-button-group
