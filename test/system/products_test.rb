@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "application_system_test_case"
+require "minitest/mock"
 
 class ProductsTest < ApplicationSystemTestCase
   test "see my product" do
@@ -105,6 +106,106 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in("product[body]", with: "test")
     end
     click_button "WIP"
+    assert_text "提出物をWIPとして保存しました。"
+  end
+
+  test "Don't notify if create product as WIP" do
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    click_link "全て既読にする"
+
+    login_user "kensyu", "testtest"
+    visit "/products/new?practice_id=#{practices(:practice_3).id}"
+    within("#new_product") do
+      fill_in("product[body]", with: "test")
+    end
+    click_button "WIP"
+    assert_text "提出物をWIPとして保存しました。"
+
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    assert_no_text "kensyuさんが提出しました。"
+  end
+
+  test "Notify if the update product" do
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    click_link "全て既読にする"
+
+    login_user "kensyu", "testtest"
+    visit "/products/new?practice_id=#{practices(:practice_3).id}"
+    within("#new_product") do
+      fill_in("product[body]", with: "test")
+    end
+    click_button "WIP"
+    assert_text "提出物をWIPとして保存しました。"
+
+
+    click_link "内容修正"
+    fill_in("product[body]", with: "test update")
+    click_button "提出する"
+    assert_text "提出物を更新しました。"
+
+
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    assert_text "kensyuさんが提出物を更新しました。"
+  end
+
+  test "Don't notify if update product as WIP" do
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    click_link "全て既読にする"
+
+    login_user "kensyu", "testtest"
+    visit "/products/new?practice_id=#{practices(:practice_3).id}"
+    within("#new_product") do
+      fill_in("product[body]", with: "test")
+    end
+    click_button "WIP"
+    assert_text "提出物をWIPとして保存しました。"
+
+
+    click_link "内容修正"
+    fill_in("product[body]", with: "test update")
+    click_button "WIP"
+    assert_text "提出物をWIPとして保存しました。"
+
+
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    assert_no_text "kensyuさんが提出しました。"
+  end
+
+  test "Slack notify if the create product" do
+    login_user "kensyu", "testtest"
+    visit "/products/new?practice_id=#{practices(:practice_3).id}"
+    within("#new_product") do
+      fill_in("product[body]", with: "test")
+    end
+    mock_log = []
+    stub_info = Proc.new { |i| mock_log << i }
+
+    Rails.logger.stub(:info, stub_info) do
+      click_button "提出する"
+      assert_match "kensyu さんが提出物を提出しました", mock_log.to_s
+    end
+    assert_text "提出物を作成しました。"
+  end
+
+  test "Slack notify if the create product as WIP" do
+    login_user "kensyu", "testtest"
+    visit "/products/new?practice_id=#{practices(:practice_3).id}"
+    within("#new_product") do
+      fill_in("product[body]", with: "test")
+    end
+    mock_log = []
+    stub_info = Proc.new { |i| mock_log << i }
+
+    Rails.logger.stub(:info, stub_info) do
+      click_button "WIP"
+      assert_no_match "kensyu さんが提出物を提出しました", mock_log.to_s
+    end
     assert_text "提出物をWIPとして保存しました。"
   end
 end
