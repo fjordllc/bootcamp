@@ -33,9 +33,8 @@ class ProductsController < ApplicationController
     @product.practice = @practice
     @product.user = current_user
     set_wip
-    check_noticeable
     if @product.save
-      notify_to_slack(@product) if @noticeable
+      notify_to_slack(@product) unless @product.wip
       redirect_to @product, notice: notice_message(@product, :create)
     else
       render :new
@@ -121,10 +120,6 @@ class ProductsController < ApplicationController
 
     def set_wip
       @product.wip = params[:commit] == "WIP"
-    end
-
-    def check_noticeable
-      @noticeable = true if @product.wip == false
     end
 
     def notice_message(product, action_name)
