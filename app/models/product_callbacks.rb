@@ -2,8 +2,7 @@
 
 class ProductCallbacks
   def after_create(product)
-    check_noticeable(product)
-    if @noticeable
+    unless product.wip
       send_notification(
         product: product,
         receivers: User.admins,
@@ -29,8 +28,7 @@ class ProductCallbacks
   end
 
   def after_update(product)
-    check_noticeable(product)
-    if @noticeable
+    unless product.wip
       send_notification(
         product: product,
         receivers: User.admins,
@@ -58,12 +56,5 @@ class ProductCallbacks
 
     def delete_notification(product)
       Notification.where(path: "/products/#{product.id}").destroy_all
-    end
-
-    def check_noticeable(product)
-      @noticeable = false
-      if product.wip == false
-        @noticeable = true
-      end
     end
 end
