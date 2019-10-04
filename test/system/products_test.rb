@@ -140,12 +140,10 @@ class ProductsTest < ApplicationSystemTestCase
     click_button "WIP"
     assert_text "提出物をWIPとして保存しました。"
 
-
     click_link "内容修正"
     fill_in("product[body]", with: "test update")
     click_button "提出する"
     assert_text "提出物を更新しました。"
-
 
     login_user "komagata", "testtest"
     visit "/notifications"
@@ -165,12 +163,10 @@ class ProductsTest < ApplicationSystemTestCase
     click_button "WIP"
     assert_text "提出物をWIPとして保存しました。"
 
-
     click_link "内容修正"
     fill_in("product[body]", with: "test update")
     click_button "WIP"
     assert_text "提出物をWIPとして保存しました。"
-
 
     login_user "komagata", "testtest"
     visit "/notifications"
