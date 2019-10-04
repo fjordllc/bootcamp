@@ -6,7 +6,7 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = current_user.notifications
-                                 .with_avatar
+                                 .reads_with_avatar
                                  .order(created_at: :desc)
                                  .page(params[:page])
   end
