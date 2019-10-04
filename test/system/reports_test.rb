@@ -382,4 +382,67 @@ class ReportsTest < ApplicationSystemTestCase
       sleep 0.5
     end
   end
+
+  test "don't notify when first report is WIP" do
+    Report.all.each do |r|
+      r.destroy
+    end
+
+    login_user "kensyu", "testtest"
+    visit "/reports/new"
+    within("#new_report") do
+      fill_in("report[title]", with: "test title")
+      fill_in("report[description]",   with: "test")
+      fill_in("report[reported_on]", with: Time.current)
+    end
+
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
+
+    click_button "WIP"
+    assert_text "日報をWIPとして保存しました。"
+
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    assert_no_text "kensyuさんがはじめての日報を書きました！"
+  end
+
+  test "notify when WIP report submitted" do
+    Report.all.each do |r|
+      r.destroy
+    end
+
+    login_user "kensyu", "testtest"
+    visit "/reports/new"
+    within("#new_report") do
+      fill_in("report[title]", with: "test title")
+      fill_in("report[description]",   with: "test")
+      fill_in("report[reported_on]", with: Time.current)
+    end
+
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
+
+    click_button "WIP"
+    assert_text "日報をWIPとして保存しました。"
+
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    assert_no_text "kensyuさんがはじめての日報を書きました！"
+
+    login_user "kensyu", "testtest"
+    visit "/users/#{users(:kensyu).id}/reports"
+    click_link "test title"
+    click_link "内容修正"
+    click_button "提出"
+    assert_text "日報を保存しました。"
+
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    assert_text "kensyuさんがはじめての日報を書きました！"
+  end
 end
