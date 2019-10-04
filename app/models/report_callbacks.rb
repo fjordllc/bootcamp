@@ -2,14 +2,24 @@
 
 class ReportCallbacks
   def after_create(report)
-    if report.user.reports.count == 1
-      send_first_report_notification(report)
+    unless report.wip
+      if report.user.reports.count == 1
+        send_first_report_notification(report)
+      end
     end
 
     if report.user.trainee?
       report.user.company.advisers.each do |adviser|
         send_trainee_report_notification(report, adviser)
         create_advisers_watch(report, adviser)
+      end
+    end
+  end
+
+  def after_update(report)
+    unless report.wip
+      if report.user.reports.count == 1
+        send_first_report_notification(report)
       end
     end
   end
