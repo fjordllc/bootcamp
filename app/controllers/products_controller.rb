@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
     @product.user = current_user
     set_wip
     if @product.save
-      notify_to_slack(@product) unless @product.wip
+      notify_to_slack(@product) unless @product.wip?
       redirect_to @product, notice: notice_message(@product, :create)
     else
       render :new

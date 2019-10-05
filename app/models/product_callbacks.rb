@@ -2,7 +2,7 @@
 
 class ProductCallbacks
   def after_create(product)
-    unless product.wip
+    unless product.wip?
       send_notification(
         product: product,
         receivers: User.admins,
@@ -28,7 +28,7 @@ class ProductCallbacks
   end
 
   def after_update(product)
-    unless product.wip
+    unless product.wip?
       send_notification(
         product: product,
         receivers: User.admins,
