@@ -2,35 +2,39 @@
 
 class ProductCallbacks
   def after_create(product)
-    send_notification(
-      product: product,
-      receivers: User.admins,
-      message: "#{product.user.login_name}さんが提出しました。"
-    )
-    create_watch(
-      watchers: User.admins,
-      watchable: product
-    )
-
-    if product.user.trainee?
+    unless product.wip?
       send_notification(
         product: product,
-        receivers: product.user.company.advisers,
+        receivers: User.admins,
         message: "#{product.user.login_name}さんが提出しました。"
       )
       create_watch(
-        watchers: product.user.company.advisers,
-        watchable: product,
+        watchers: User.admins,
+        watchable: product
       )
+
+      if product.user.trainee?
+        send_notification(
+          product: product,
+          receivers: product.user.company.advisers,
+          message: "#{product.user.login_name}さんが提出しました。"
+        )
+        create_watch(
+          watchers: product.user.company.advisers,
+          watchable: product,
+        )
+      end
     end
   end
 
   def after_update(product)
-    send_notification(
-      product: product,
-      receivers: User.admins,
+    unless product.wip?
+      send_notification(
+        product: product,
+        receivers: User.admins,
       message: "#{product.user.login_name}さんが提出物を更新しました。"
-    )
+      )
+    end
   end
 
   def after_destroy(product)
