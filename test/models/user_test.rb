@@ -140,4 +140,34 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 6, User.new(created_at: "2014-04-10 00:00:00").generation
     assert_equal 29, User.new(created_at: "2020-01-10 00:00:00").generation
   end
+
+  test "is valid username" do
+    Bootcamp::Setup.attachment
+
+    user = users(:komagata)
+    user.login_name = "abcdABCD1234"
+    assert user.valid?
+    user.login_name = "azAZ-09"
+    assert user.valid?
+    user.login_name = "-abcd1234"
+    assert user.invalid?
+    user.login_name = "abcd1234-"
+    assert user.invalid?
+    user.login_name = "abcd--1234"
+    assert user.invalid?
+    user.login_name = "abcd_1234"
+    assert user.invalid?
+    user.login_name = "abcd!1234"
+    assert user.invalid?
+    user.login_name = "abcd;1234"
+    assert user.invalid?
+    user.login_name = "abcd:1234"
+    assert user.invalid?
+    user.login_name = "あいうえお"
+    assert user.invalid?
+    user.login_name = "アイウエオ"
+    assert user.invalid?
+    user.login_name = "１２３４５"
+    assert user.invalid?
+  end
 end
