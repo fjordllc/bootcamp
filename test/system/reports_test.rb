@@ -392,14 +392,17 @@ class ReportsTest < ApplicationSystemTestCase
     visit "/reports/new"
     within("#new_report") do
       fill_in("report[title]", with: "test title")
-      fill_in("report[description]",   with: "test")
+      fill_in("report[description]", with: "test")
       fill_in("report[reported_on]", with: Time.current)
     end
-
-    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
-    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
-    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
-    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
+    within(".learning-time__started-at") do
+      select "07"
+      select "30"
+    end
+    within(".learning-time__finished-at") do
+      select "08"
+      select "30"
+    end
 
     click_button "WIP"
     assert_text "日報をWIPとして保存しました。"
@@ -421,11 +424,14 @@ class ReportsTest < ApplicationSystemTestCase
       fill_in("report[description]",   with: "test")
       fill_in("report[reported_on]", with: Time.current)
     end
-
-    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
-    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
-    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
-    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
+    within(".learning-time__started-at") do
+      select "07"
+      select "30"
+    end
+    within(".learning-time__finished-at") do
+      select "08"
+      select "30"
+    end
 
     click_button "WIP"
     assert_text "日報をWIPとして保存しました。"
