@@ -26,10 +26,14 @@ class NotificationsTest < ApplicationSystemTestCase
     visit "/reports/new"
     fill_in "report_title", with: "テスト日報"
     fill_in "report_description", with: "none"
-    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("23")
-    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("00")
-    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("00")
-    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("00")
+    within(".learning-time__started-at") do
+      select "23"
+      select "30"
+    end
+    within(".learning-time__finished-at") do
+      select "01"
+      select "30"
+    end
     click_button "提出"
 
     find(".js-markdown").set("login_nameの補完テスト: @komagata\n")
