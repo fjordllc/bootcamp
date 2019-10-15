@@ -31,4 +31,31 @@ class AnnouncementsTest < ApplicationSystemTestCase
     visit "/announcements/#{announcements(:announcement_1).id}"
     assert_selector ".thread-comment-form"
   end
+
+  test "delete announcement with notification" do
+    login_user "komagata", "testtest"
+    visit "/announcements"
+    click_link "お知らせ作成"
+    fill_in "announcement[title]", with: "タイトルtest"
+    fill_in "announcement[description]", with: "内容test"
+
+    click_button "作成"
+    assert_text "お知らせを作成しました"
+
+    login_user "hatsuno", "testtest"
+    visit "/notifications"
+    assert_text "komagataさんからお知らせです。"
+
+    login_user "komagata", "testtest"
+    visit "/announcements"
+    click_on "タイトルtest"
+    accept_confirm do
+      click_link "削除"
+    end
+    assert_text "お知らせを削除しました"
+
+    login_user "hatsuno", "testtest"
+    visit "/notifications"
+    assert_no_text "komagataさんからお知らせです。"
+  end
 end
