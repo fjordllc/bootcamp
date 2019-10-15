@@ -56,7 +56,6 @@ sotugyou:
   facebook_url: http://www.facebook.com/sotugyou
   blog_url: http://sotugyou.example.com/
   feed_url: http://sotugyou.example.com/index.atom
-  company: company_1
   description: "卒業です。卒業しちゃいました。"
   course: course_1
   job: office_worker
@@ -79,7 +78,6 @@ advijirou:
   facebook_url: http://www.facebook.com/advijirou
   blog_url: http://advijirou.example.com
   feed_url: http://advijirou.example.com/index.atom
-  company: company_1
   description: "アドバイ次郎です。アドバイザーです。"
   adviser: true
   course: course_1
@@ -96,7 +94,6 @@ yameo:
   twitter_account: yameo
   facebook_url: http://www.facebook.com/yameo
   blog_url: http://yameo.org
-  company: company_1
   description: "リタイアしました。"
   course: course_1
   job: office_worker
@@ -119,7 +116,6 @@ yamada:
   facebook_url: http://www.facebook.com/yamada
   blog_url: http://yamada.com
   feed_url: http://yamada.com/index.atom
-  company: company_1
   description: "山田です。メンターです。"
   course: course_1
   job: office_worker
@@ -142,7 +138,6 @@ kimura:
   facebook_url: http://www.facebook.com/kimura
   blog_url: http://kimura.org
   feed_url: http://kimura.org/index.atom
-  company: company_1
   description: "木村です。"
   course: course_1
   job: office_worker
@@ -164,7 +159,6 @@ hatsuno:
   facebook_url: http://www.facebook.com/hatsuno
   blog_url: http://hatsuno.org
   feed_url: http://hatsuno.org/index.atom
-  company: company_1
   description: "初野です。課金しています。"
   customer_id: "cus_12345678"
   subscription_id: "sub_12345678"
@@ -188,7 +182,6 @@ hajime:
   facebook_url: http://www.facebook.com/hajime
   blog_url: http://hajime.org
   feed_url: http://hajime.org/index.atom
-  company: company_1
   description: "始です。"
   course: course_1
   job: office_worker
@@ -212,7 +205,6 @@ muryou:
   facebook_url: http://www.facebook.com/muryou
   blog_url: http://muryou.org
   feed_url: http://muryou.org/index.atom
-  company: company_1
   description: "無料の助です。趣味は野良犬剣法です。"
   course: course_1
   job: office_worker
@@ -246,7 +238,6 @@ kensyu:
   experience: rails
   organization: 研修大学
   trainee: true
-  free: true
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
 

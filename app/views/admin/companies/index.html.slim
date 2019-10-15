@@ -30,7 +30,10 @@ header.page-header
           - @companies.each do |company|
             tr.admin-table__item(id="company_#{company.id}")
               td.admin-table__item-value
-                = company.name
+                - unless company.nil?
+                  = company.name
+                - else
+                | -
               td.admin-table__item-value
                 - if company.logo.attached?
                   = image_tag company.logo_image(100), class: "admin-table__item-logo-image"
