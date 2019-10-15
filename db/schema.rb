@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_16_100249) do
+ActiveRecord::Schema.define(version: 2019_10_13_112837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -299,7 +299,7 @@ ActiveRecord::Schema.define(version: 2019_08_16_100249) do
     t.string "twitter_account"
     t.string "facebook_url"
     t.string "blog_url"
-    t.integer "company_id", default: 1
+    t.integer "company_id"
     t.text "description"
     t.string "feed_url"
     t.datetime "accessed_at"

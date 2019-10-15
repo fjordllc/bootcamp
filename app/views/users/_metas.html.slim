@@ -46,12 +46,14 @@
         .user-metas__item-value
           = number_with_precision(user.total_learning_time, precision: 1) + "時間 / "
           = render "users/learning_status", user: user
-    - unless user.company.id == 1
+    - unless user.company.nil?
       .user-metas__item
         .user-metas__item-label
           | 所属企業
         .user-metas__item-value
-          = user.company.name
+            = user.company.name
+    - else
+      | -
     .user-metas__item
       .user-metas__item-label
         | 区分
