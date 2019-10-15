@@ -52,7 +52,7 @@
                   = user.login_name
                   | （#{user.full_name}）
             td.admin-table__item-value.is-text-align-center
-              - unless user.company.nil?
+              - if user.company.present?
                 = user.company.name
               - else
                 | -

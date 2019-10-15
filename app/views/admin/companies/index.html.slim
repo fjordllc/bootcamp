@@ -30,7 +30,7 @@ header.page-header
           - @companies.each do |company|
             tr.admin-table__item(id="company_#{company.id}")
               td.admin-table__item-value
-                - unless company.nil?
+                - if company.present?
                   = company.name
                 - else
                 | -
