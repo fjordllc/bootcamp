@@ -52,7 +52,10 @@
                   = user.login_name
                   | （#{user.full_name}）
             td.admin-table__item-value.is-text-align-center
-              = user.company.name
+              - if user.company.present?
+                = user.company.name
+              - else
+                | -
             td.admin-table__item-value.is-text-align-center
               - if user.slack_account.present?
                 = user.slack_account
