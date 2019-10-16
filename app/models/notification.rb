@@ -20,12 +20,16 @@ class Notification < ApplicationRecord
     trainee_report: 10
   }
 
+  scope :reads, -> {
+    where(created_at: into_one.values).order(created_at: :desc)
+  }
+
   scope :unreads, -> {
-    into_one = select(:path).group(:path).maximum(:created_at)
     where(read: false, created_at: into_one.values).order(created_at: :desc)
   }
 
   scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
+  scope :reads_with_avatar, -> { reads.with_avatar }
   scope :unreads_with_avatar, -> { unreads.with_avatar.limit(99) }
 
   def self.came_comment(comment, receiver, message)
@@ -148,4 +152,9 @@ class Notification < ApplicationRecord
       read:    false
     )
   end
+
+  private
+    def self.into_one
+      select(:path).group(:path).maximum(:created_at)
+    end
 end
