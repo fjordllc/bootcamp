@@ -51,13 +51,13 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = NotificationMailer.submitted(
       product,
       submitted.user,
-      "#{product.user.login_name}さんが提出しました。"
+      "#{product.user.login_name}さんが「#{product.title}」を提出しました。"
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["komagata@fjord.jp"], email.to
-    assert_equal "[bootcamp] sotugyouさんが提出しました。", email.subject
+    assert_equal "[bootcamp] sotugyouさんが「#{product.title}」を提出しました。", email.subject
     assert_match %r{提出}, email.body.to_s
   end
 
