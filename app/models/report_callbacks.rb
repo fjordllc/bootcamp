@@ -15,10 +15,8 @@ class ReportCallbacks
   end
 
   def after_update(report)
-    unless report.wip
-      if report.user.reports.count == 1
-        send_first_report_notification(report)
-      end
+    if report.wip == false && report.user.reports.count == 1
+      send_first_report_notification(report)
     end
   end
 
