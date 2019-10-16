@@ -12,13 +12,13 @@
     = render "users/form/name", f: f, user: user
     = render "users/form/avatar", f: f, user: user
     = render "users/form/description", f: f, user: user
-
     - unless user.adviser?
       = render "users/form/course", f: f
       = render "users/form/job", f: f
       = render "users/form/os", f: f
       = render "users/form/study_place", f: f
       = render "users/form/experience", f: f
+      = render "users/form/prefecture", f: f
 
   - if from == :edit
     .form__items

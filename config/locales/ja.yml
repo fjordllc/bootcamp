@@ -50,6 +50,7 @@ ja:
         os: 利用OS
         study_place: 主な学習場所
         experience: プログラミング経験
+        prefecture: 都道府県
         organization: 現在の所属組織
         company: 会社
         created_at: 開始日
