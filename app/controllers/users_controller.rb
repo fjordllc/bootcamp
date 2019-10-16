@@ -72,6 +72,7 @@ class UsersController < ApplicationController
         :os,
         :study_place,
         :experience,
+        :prefecture,
         :company_id,
         :nda,
         :avatar,

@@ -1,0 +1,8 @@
+.form-item
+  = f.label :prefecture, class: "a-label"
+  .a-button.is-md.is-secondary.is-select.is-block
+    = f.collection_select :prefecture, JpPrefecture::Prefecture.all, :code, :name, include_blank: "都道府県を選択してください"
+  .a-form-help
+    p
+      | 都道府県を選択すると就職活動時に企業紹介の目安となります。
+      | 現在のお住まいと就職活動をする地域が異なる場合はお知らせください。
