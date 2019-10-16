@@ -17,10 +17,10 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
 
     first(".test-bell").click
-    assert_text "yamadaさんが提出しました。"
+    assert_text "yamadaさんが「#{practices(:practice_5).title}」の提出物を提出しました。"
 
     # 提出物を作成したとき、管理者からウォッチがつく
-    click_link  "yamadaさんが提出しました。"
+    click_link  "yamadaさんが「#{practices(:practice_5).title}」の提出物を提出しました。"
     assert_text "Watch中"
   end
 
@@ -37,7 +37,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
 
     first(".test-bell").click
-    assert_text "yamadaさんが提出物を更新しました。"
+    assert_text "yamadaさんが#{products(:product_1).title}を更新しました。"
   end
 
   test "send adviser a notification when trainee create product" do
@@ -54,6 +54,6 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     login_user "senpai", "testtest"
 
     first(".test-bell").click
-    assert_text "kensyuさんが提出しました。"
+    assert_text "kensyuさんが「#{practices(:practice_5).title}」の提出物を提出しました。"
   end
 end
