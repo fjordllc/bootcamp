@@ -384,9 +384,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test "don't notify when first report is WIP" do
-    Report.all.each do |r|
-      r.destroy
-    end
+    Report.destroy_all
 
     login_user "kensyu", "testtest"
     visit "/reports/new"
