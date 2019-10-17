@@ -17,13 +17,14 @@ class CurrentUserController < ApplicationController
   end
 
   private
-
     def user_params
       params.require(:user).permit(
         :adviser,
         :login_name,
         :first_name,
         :last_name,
+        :kana_first_name,
+        :kana_last_name,
         :email,
         :course_id,
         :description,

@@ -43,7 +43,6 @@ class UsersController < ApplicationController
   end
 
   private
-
     def notify_to_slack!
       SlackNotification.notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
         username: "#{@user.login_name}@bootcamp.fjord.jp",
@@ -56,6 +55,8 @@ class UsersController < ApplicationController
         :login_name,
         :first_name,
         :last_name,
+        :kana_first_name,
+        :kana_last_name,
         :email,
         :course_id,
         :description,
