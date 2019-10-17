@@ -83,6 +83,16 @@ class User < ActiveRecord::Base
   validates :email,      presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name,  presence: true
+  validates :kana_first_name,  presence: true,
+    format: {
+      with: /\A^[あ-ん゛゜ぁ-ぉゃ-ょー「」、]+\z/,
+      message: "はひらがなのみが使用できます"
+    }
+  validates :kana_last_name,  presence: true,
+    format: {
+      with: /\A^[あ-ん゛゜ぁ-ぉゃ-ょー「」、]+\z/,
+      message: "はひらがなのみが使用できます"
+    }
   validates :login_name, presence: true, uniqueness: true
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
