@@ -222,6 +222,15 @@ SQL
     end
   end
 
+  def prefecture_name
+    if prefecture.nil?
+      "未登録"
+    else
+      pref = JpPrefecture::Prefecture.find prefecture
+      pref.name
+    end
+  end
+
   def elapsed_days
     (Date.current - self.created_at.to_date).to_i
   end
