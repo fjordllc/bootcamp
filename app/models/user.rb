@@ -181,6 +181,10 @@ class User < ActiveRecord::Base
     "#{last_name} #{first_name}"
   end
 
+  def kana_full_name
+    "#{kana_last_name} #{kana_first_name}"
+  end
+
   def active?
     updated_at > 1.month.ago
   end
