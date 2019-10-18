@@ -17,6 +17,10 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "Komagata Masaki", users(:komagata).full_name
   end
 
+  test "kana_full_name" do
+    assert_equal "こまがた まさき", users(:komagata).kana_full_name
+  end
+
   test "is valid kana_last_name" do
     Bootcamp::Setup.attachment
 
