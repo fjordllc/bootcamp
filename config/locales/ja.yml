@@ -28,9 +28,9 @@ ja:
       user:
         login_name: ユーザー名
         first_name: 名
-        kana_first_name: ふりがな（名）
+        kana_first_name: フリガナ（名）
         last_name: 姓
-        kana_last_name: ふりがな（姓）
+        kana_last_name: フリガナ（姓）
         course_id: コース
         description: 自己紹介
         email: Email

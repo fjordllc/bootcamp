@@ -18,18 +18,18 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "kana_full_name" do
-    assert_equal "こまがた まさき", users(:komagata).kana_full_name
+    assert_equal "コマガタ マサキ", users(:komagata).kana_full_name
   end
 
   test "is valid kana_last_name" do
     Bootcamp::Setup.attachment
 
     user = users(:komagata)
-    user.kana_last_name = "こまがた"
+    user.kana_last_name = "コマガタ"
     assert user.valid?
     user.kana_last_name = "駒形"
     assert user.invalid?
-    user.kana_last_name = "コマガタ"
+    user.kana_last_name = "こまがた"
     assert user.invalid?
     user.kana_last_name = "komagata"
     assert user.invalid?
@@ -43,11 +43,11 @@ class UserTest < ActiveSupport::TestCase
     Bootcamp::Setup.attachment
 
     user = users(:komagata)
-    user.kana_first_name = "まさき"
+    user.kana_first_name = "マサキ"
     assert user.valid?
     user.kana_first_name = "真幸"
     assert user.invalid?
-    user.kana_first_name = "マサキ"
+    user.kana_first_name = "まさき"
     assert user.invalid?
     user.kana_first_name = "masaki"
     assert user.invalid?

@@ -5,8 +5,8 @@ komagata:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Masaki
   last_name: Komagata
-  kana_first_name: まさき
-  kana_last_name: こまがた
+  kana_first_name: マサキ
+  kana_last_name: コマガタ
   twitter_account: komagata
   facebook_url: http://www.facebook.com/komagata1111
   github_account: komagata
@@ -31,8 +31,8 @@ machida:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Teppei
   last_name: Machida
-  kana_first_name: てっぺい
-  kana_last_name: まちだ
+  kana_first_name: テッペイ
+  kana_last_name: マチダ
   twitter_account: machida
   facebook_url:
   blog_url: http://machida.fjord.jp/
@@ -56,8 +56,8 @@ sotugyou:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: 太郎
   last_name: 卒業
-  kana_first_name: たろう
-  kana_last_name: そつぎょう
+  kana_first_name: タロウ
+  kana_last_name: ソツギョウ
   twitter_account: sotugyou
   facebook_url: http://www.facebook.com/sotugyou
   blog_url: http://sotugyou.example.com/
@@ -80,8 +80,8 @@ advijirou:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: 次郎
   last_name: アドバイ
-  kana_first_name: じろう
-  kana_last_name: あどばい
+  kana_first_name: ジロウ
+  kana_last_name: アドバイ
   twitter_account: advijirou
   facebook_url: http://www.facebook.com/advijirou
   blog_url: http://advijirou.example.com
@@ -99,8 +99,8 @@ yameo:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: 辞目夫
   last_name: 辞目
-  kana_first_name: やめお
-  kana_last_name: やめ
+  kana_first_name: ヤメオ
+  kana_last_name: ヤメ
   twitter_account: yameo
   facebook_url: http://www.facebook.com/yameo
   blog_url: http://yameo.org
@@ -122,8 +122,8 @@ yamada:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Taro
   last_name: Yamada
-  kana_first_name: たろう
-  kana_last_name: やまだ
+  kana_first_name: タロウ
+  kana_last_name: ヤマダ
   twitter_account: yamada
   facebook_url: http://www.facebook.com/yamada
   blog_url: http://yamada.com
@@ -146,8 +146,8 @@ kimura:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Tadasi
   last_name: Kimura
-  kana_first_name: ただし
-  kana_last_name: きむら
+  kana_first_name: タダシ
+  kana_last_name: キムラ
   twitter_account: kimura
   facebook_url: http://www.facebook.com/kimura
   blog_url: http://kimura.org
@@ -169,8 +169,8 @@ hatsuno:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Shinji
   last_name: Hatsuno
-  kana_first_name: しんじ
-  kana_last_name: はつの
+  kana_first_name: シンジ
+  kana_last_name: ハツノ
   twitter_account: hatsuno
   facebook_url: http://www.facebook.com/hatsuno
   blog_url: http://hatsuno.org
@@ -194,8 +194,8 @@ hajime:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Tayo
   last_name: Hajime
-  kana_first_name: たよ
-  kana_last_name: はじめ
+  kana_first_name: タヨ
+  kana_last_name: ハジメ
   twitter_account: hajime
   facebook_url: http://www.facebook.com/hajime
   blog_url: http://hajime.org
@@ -218,8 +218,8 @@ muryou:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Nosuke
   last_name: Muryou
-  kana_first_name: のすけ
-  kana_last_name: むりょう
+  kana_first_name: ノスケ
+  kana_last_name: ムリョウ
   slack_account: muryou
   twitter_account: muryou
   facebook_url: http://www.facebook.com/muryou
@@ -243,8 +243,8 @@ kensyu:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Seiko
   last_name: Kensyu
-  kana_first_name: せいこ
-  kana_last_name: けんしゅう
+  kana_first_name: セイコ
+  kana_last_name: ケンシュウ
   slack_account: kensyu
   github_account: kensyu
   twitter_account: kensyu
@@ -271,8 +271,8 @@ senpai:
   salt: zW3kQ9ubsxQQtzzzs4ap
   first_name: Ichiro
   last_name: Senpai
-  kana_first_name: いちろう
-  kana_last_name: せんぱい
+  kana_first_name: イチロウ
+  kana_last_name: センパイ
   slack_account: senpai
   github_account: senpai
   twitter_account: senpai
