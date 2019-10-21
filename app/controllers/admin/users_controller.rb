@@ -59,7 +59,7 @@ class Admin::UsersController < AdminController
         :os,
         :study_place,
         :experience,
-        :prefecture,
+        :prefecture_code,
         :company_id,
         :trainee,
         :job_seeking,
