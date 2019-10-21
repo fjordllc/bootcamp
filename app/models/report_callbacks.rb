@@ -2,7 +2,7 @@
 
 class ReportCallbacks
   def after_create(report)
-    if report.user.reports.count == 1
+    if report.user.reports.count == 1 && !report.wip?
       send_first_report_notification(report)
     end
 
@@ -11,6 +11,12 @@ class ReportCallbacks
         send_trainee_report_notification(report, adviser)
         create_advisers_watch(report, adviser)
       end
+    end
+  end
+
+  def after_update(report)
+    if report.wip == false && report.user.reports.count == 1
+      send_first_report_notification(report)
     end
   end
 
