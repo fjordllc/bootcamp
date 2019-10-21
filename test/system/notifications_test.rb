@@ -62,7 +62,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
     login_user "komagata", "testtest"
     visit "/notifications"
-    assert_no_text "kensyuさんが提出しました。"
+    assert_no_text "kensyuさんが「#{practices(:practice_3).title}」を提出しました。"
     assert_no_text "kensyuさんからメンションがきました。"
     assert_text "あなたがウォッチしている【 「PC性能の見方を知る」の提出物 】にコメントが投稿されました。"
   end

@@ -6,7 +6,7 @@ class ProductCallbacks
       send_notification(
         product: product,
         receivers: User.admins,
-        message: "#{product.user.login_name}さんが提出しました。"
+        message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
       )
       create_watch(
         watchers: User.admins,
@@ -17,7 +17,7 @@ class ProductCallbacks
         send_notification(
           product: product,
           receivers: product.user.company.advisers,
-          message: "#{product.user.login_name}さんが提出しました。"
+          message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
         )
         create_watch(
           watchers: product.user.company.advisers,
@@ -32,7 +32,7 @@ class ProductCallbacks
       send_notification(
         product: product,
         receivers: User.admins,
-      message: "#{product.user.login_name}さんが提出物を更新しました。"
+      message: "#{product.user.login_name}さんが#{product.title}を更新しました。"
       )
     end
   end
