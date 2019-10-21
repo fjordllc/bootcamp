@@ -1,7 +1,7 @@
 .form-item
-  = f.label :prefecture, class: "a-label"
+  = f.label :prefecture_code, class: "a-label"
   .a-button.is-md.is-secondary.is-select.is-block
-    = f.collection_select :prefecture, JpPrefecture::Prefecture.all, :code, :name, include_blank: "都道府県を選択してください"
+    = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, include_blank: "都道府県を選択してください"
   .a-form-help
     p
       | 就職先企業の紹介やテック系イベントの紹介時の参考にします。
