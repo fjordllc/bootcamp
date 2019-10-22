@@ -32,8 +32,6 @@ header.page-header
               td.admin-table__item-value
                 - if company.present?
                   = company.name
-                - else
-                | -
               td.admin-table__item-value
                 - if company.logo.attached?
                   = image_tag company.logo_image(100), class: "admin-table__item-logo-image"
