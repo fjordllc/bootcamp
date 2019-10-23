@@ -49,6 +49,7 @@ gem "commonmarker"
 gem "stripe", "~> 4.5.0"
 gem "acts-as-taggable-on"
 gem "rqrcode"
+gem "jp_prefecture"
 
 group :production, :staging do
   gem "newrelic_rpm"
