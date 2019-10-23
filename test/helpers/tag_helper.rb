@@ -42,12 +42,6 @@ class TagHelperTest < ActionView::TestCase
     assert_equal "is-active", current_link(/^users/)
 
     def controller_path
-      "feeds"
-    end
-
-    assert_equal "is-active", current_link(/^feeds/)
-
-    def controller_path
       "pages"
     end
 
