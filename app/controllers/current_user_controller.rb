@@ -17,7 +17,6 @@ class CurrentUserController < ApplicationController
   end
 
   private
-
     def user_params
       params.require(:user).permit(
         :adviser,
@@ -41,6 +40,7 @@ class CurrentUserController < ApplicationController
         :os,
         :study_place,
         :experience,
+        :prefecture_code,
         :company_id,
         :nda,
         :avatar,
