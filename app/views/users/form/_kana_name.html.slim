@@ -3,11 +3,11 @@
     .col-xs-6
       .form-item
         = f.label :kana_last_name, class: "a-label is-required"
-        = f.text_field :kana_last_name, class: "a-text-input", placeholder: "こまがた"
+        = f.text_field :kana_last_name, class: "a-text-input", placeholder: "コマガタ"
     .col-xs-6
       .form-item
         = f.label :kana_first_name, class: "a-label is-required"
-        = f.text_field :kana_first_name, class: "a-text-input", placeholder: "まさき"
+        = f.text_field :kana_first_name, class: "a-text-input", placeholder: "マサキ"
   - unless user.adviser?
     .a-form-help
       p
