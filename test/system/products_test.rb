@@ -124,7 +124,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     login_user "komagata", "testtest"
     visit "/notifications"
-    assert_no_text "kensyuさんが提出しました。"
+    assert_no_text "kensyuさんが「#{practices(:practice_3).id}」の提出物を提出しました。"
   end
 
   test "Notify if the update product" do
@@ -147,7 +147,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     login_user "komagata", "testtest"
     visit "/notifications"
-    assert_text "kensyuさんが提出物を更新しました。"
+    assert_text "kensyuさんが「#{practices(:practice_3).title}」の提出物を更新しました。"
   end
 
   test "Don't notify if update product as WIP" do
@@ -170,7 +170,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     login_user "komagata", "testtest"
     visit "/notifications"
-    assert_no_text "kensyuさんが提出しました。"
+    assert_no_text "kensyuさんが「#{practices(:practice_3).title}」の提出物を提出しました。"
   end
 
   test "Slack notify if the create product" do
@@ -184,7 +184,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     Rails.logger.stub(:info, stub_info) do
       click_button "提出する"
-      assert_match "kensyu さんが提出物を提出しました", mock_log.to_s
+      assert_match "kensyu さんが「#{practices(:practice_3).title}」の提出物を提出しました。", mock_log.to_s
     end
     assert_text "提出物を作成しました。"
   end
@@ -200,7 +200,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     Rails.logger.stub(:info, stub_info) do
       click_button "WIP"
-      assert_no_match "kensyu さんが提出物を提出しました", mock_log.to_s
+      assert_no_match "kensyu さんが「#{practices(:practice_3).title}」の提出物を提出しました。", mock_log.to_s
     end
     assert_text "提出物をWIPとして保存しました。"
   end
