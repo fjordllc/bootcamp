@@ -63,7 +63,7 @@ class ProductsController < ApplicationController
       link = "<#{url_for(product)}|#{product.title}>"
 
       if product.user.trainee? && product.user.company.slack_channel?
-        SlackNotification.notify "#{name} さんが提出物を提出しました。 #{link}",
+        SlackNotification.notify "#{name} さんが#{product.title}を提出しました。 #{link}",
           username: "#{product.user.login_name} (#{product.user.full_name})",
           icon_url: product.user.avatar_url,
           channel: product.user.company.slack_channel,

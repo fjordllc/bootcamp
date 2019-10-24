@@ -42,6 +42,7 @@ class CurrentUserController < ApplicationController
         :os,
         :study_place,
         :experience,
+        :prefecture_code,
         :company_id,
         :nda,
         :avatar,

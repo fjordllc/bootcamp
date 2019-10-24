@@ -3,7 +3,7 @@
 = form_with url: card_path, method: method, local: true, id: "payment-form" do |f|
   .form__items
     .form-item
-      label.a-label(for="card-element") カード番号
+      label.a-label(for="card-element") カード番号 (対応カードブランド：Visa、Master、Diners、Amex)
       #card-element.a-text-input
       #card-errors(role="alert")
   .form-actions

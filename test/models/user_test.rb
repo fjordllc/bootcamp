@@ -67,6 +67,12 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "prefecture_name" do
+    assert_equal "未登録", users(:komagata).prefecture_name
+    assert_equal "東京都", users(:kimura).prefecture_name
+    assert_equal "宮城県", users(:hatsuno).prefecture_name
+  end
+
   test "twitter_account" do
     Bootcamp::Setup.attachment
 
