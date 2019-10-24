@@ -502,4 +502,22 @@ class ReportsTest < ApplicationSystemTestCase
       assert page.text.index(precede) < page.text.index(succeed)
     end
   end
+
+  test "reports can be checked as plain markdown" do
+    visit "/reports/new"
+    within("#new_report") do
+      fill_in("report[title]", with: "check plain markdown")
+      fill_in("report[description]",   with: "## this is heading2")
+      fill_in("report[reported_on]", with: Time.current)
+    end
+
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
+
+    click_button "提出"
+    click_link "Raw"
+    assert_text "## this is heading2"
+  end
 end

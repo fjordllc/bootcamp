@@ -36,6 +36,7 @@ header.page-header
           #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="Report")
           .thread-header__lower-side
             #js-watch(data-watchable-id="#{@report.id}", data-watchable-type="Report")
+            = link_to "Raw", report_path(format: :md)
         - if @report.practices.present?
           .report-practices
             ul.report-practices__items
