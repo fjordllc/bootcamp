@@ -30,8 +30,7 @@ class AnnouncementCallbacks
       when "active_users"
         User.where(admin: true)
         .or(
-          User.where(retired_on: nil).where(graduated_on: nil)
-              .where(adviser: false).where(mentor: false).where(trainee: false)
+          User.where(retired_on: nil, graduated_on: nil, adviser: false, mentor: false, trainee: false)
         )
       else
         nil
