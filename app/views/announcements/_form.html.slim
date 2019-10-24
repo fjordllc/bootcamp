@@ -16,13 +16,15 @@
           .a-label
             | プレビュー
           .js-preview.is-long-text.markdown-form__preview
-    .form-item
-      ul.form-radio-buttons
-        li
+    .form-item.is-sm
+      label.a-label
+        | 通知ターゲット
+      ul.form-item__radio-buttons.is-half
+        li.form-radio-button.is-half
           = f.label :receive_user_code, class: "form-radio-button__label is-checked"
             | 全員にお知らせ
             = f.radio_button :receive_user_code, "all", checked: true
-        li
+        li.form-radio-button.is-half
           = f.label :receive_user_code, class: "form-radio-button__label"
             | 現役生にのみお知らせ
             = f.radio_button :receive_user_code, "active_users"
