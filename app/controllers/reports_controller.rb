@@ -29,6 +29,10 @@ class ReportsController < ApplicationController
 
   def show
     footprint!
+    respond_to do |format|
+      format.html
+      format.md
+    end
   end
 
   def new
