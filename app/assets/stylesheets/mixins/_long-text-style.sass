@@ -66,6 +66,18 @@
     &:hover
       img
         border-color: mix($font, $background, 16%)
+  dl
+    margin-bottom: 1.5em
+    border: 1px solid mix($font, $background, 20%)
+    padding: 1em
+    border-radius: .25rem
+  dt
+    +text-block(1em 1.6, 600)
+    margin-bottom: .25em
+  dd
+    +text-block(1em 1.6)
+    &:not(:last-child)
+      margin-bottom: 1em
   code
     font-family: 'Source Code Pro', monospace
     tab-size: 2
