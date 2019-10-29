@@ -4,6 +4,7 @@ table class="table table-bordered"
       th 席名
       - @seats.each do |seat|
         th #{seat.name}
+      th メモ
   tbody
     - (@this_month..@this_month.end_of_month).each do |one_day|
       - if HolidayJp.holiday?(one_day) || one_day.sunday? || one_day.saturday?
@@ -30,3 +31,7 @@ table class="table table-bordered"
                   = f.hidden_field "reservation[date(3i)]", value: one_day.day
                   = f.hidden_field "reservation[seat_id]", value: seat.id
                 = f.submit "", class: "actions a-button is-md is-block"
+        td
+          - @memos.select{|k| k.date == one_day}.each do |memo|
+            = memo.body
+            br
