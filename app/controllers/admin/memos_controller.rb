@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::MemosController < AdminController
   before_action :set_memo, only: [:edit, :update, :destroy]
 
@@ -16,7 +18,7 @@ class Admin::MemosController < AdminController
     @memo = Memo.new(memo_params)
 
     if @memo.save
-      redirect_to admin_memos_path, notice: 'メモを作成しました。'
+      redirect_to admin_memos_path, notice: "メモを作成しました。"
     else
       render :new
     end
@@ -24,7 +26,7 @@ class Admin::MemosController < AdminController
 
   def update
     if @memo.update(memo_params)
-      redirect_to admin_memos_path, notice: 'メモを更新しました。'
+      redirect_to admin_memos_path, notice: "メモを更新しました。"
     else
       render :edit
     end
@@ -32,7 +34,7 @@ class Admin::MemosController < AdminController
 
   def destroy
     @memo.destroy
-    redirect_to admin_memos_path, notice: 'メモを削除しました。'
+    redirect_to admin_memos_path, notice: "メモを削除しました。"
   end
 
   private
