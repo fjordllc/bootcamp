@@ -34,11 +34,13 @@ class ReservationsTest < ApplicationSystemTestCase
 
     click_on "来月"
 
-    if Date.today == Date.today.end_of_month
+    reservation_date = Date.current.next_month.tomorrow
+
+    if (Date.current.month + 2) <= reservation_date.month
       click_on "来月"
     end
 
-    within("#reservation-#{Date.tomorrow.next_month}-#{seats(:seat_2).id}") do
+    within("#reservation-#{reservation_date}-#{seats(:seat_2).id}") do
       click_button
     end
     assert_text "日付は一ヶ月先までしか予約できません"
