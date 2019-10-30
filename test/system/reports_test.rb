@@ -518,6 +518,6 @@ class ReportsTest < ApplicationSystemTestCase
 
     click_button "提出"
     click_link "Raw"
-    assert_text "## this is heading2"
+    assert_text "## this is heading2", exact: true
   end
 end
