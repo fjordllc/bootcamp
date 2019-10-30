@@ -19,6 +19,7 @@ komagata:
   experience: rails
   organization: 合同会社フィヨルド
   admin: true
+  mentor: true
   updated_at: "2014-01-01 00:00:01"
   created_at: "2014-01-01 00:00:01"
 
@@ -42,6 +43,7 @@ machida:
   experience: rails
   organization: 合同会社フィヨルド
   admin: true
+  mentor: true
   updated_at: "2014-01-01 00:00:02"
   created_at: "2014-01-01 00:00:02"
 
