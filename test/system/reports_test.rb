@@ -449,4 +449,41 @@ class ReportsTest < ApplicationSystemTestCase
     visit "/notifications"
     assert_text "kensyuさんがはじめての日報を書きました！"
   end
+
+  test "delete report with notification" do
+    login_user "kimura", "testtest"
+    visit "/reports/new"
+    within("#new_report") do
+      fill_in("report[title]", with: "test title")
+      fill_in("report[description]",   with: "test")
+      fill_in("report[reported_on]", with: Time.current)
+    end
+    within(".learning-time__started-at") do
+      select "07"
+      select "30"
+    end
+    within(".learning-time__finished-at") do
+      select "08"
+      select "30"
+    end
+
+    click_button "提出"
+    assert_text "日報を保存しました。"
+
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    assert_text "kimuraさんがはじめての日報を書きました！"
+
+    login_user "kimura", "testtest"
+    visit "/reports"
+    click_on "test title"
+    accept_confirm do
+      click_link "削除"
+    end
+    assert_text "日報を削除しました。"
+
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    assert_no_text "kimuraさんがはじめての日報を書きました！"
+  end
 end
