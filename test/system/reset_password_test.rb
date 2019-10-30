@@ -33,6 +33,25 @@ class ResetPasswordTest < ApplicationSystemTestCase
     assert_text "パスワードの再設定について"
   end
 
+  test "user who does not have kana column can reset password" do
+    visit "/login"
+    first(".a-form-help-link").click
+    within("#password_resets_form") do
+      fill_in("email", with: users(:kananashi).email)
+    end
+
+    assert_difference "ActionMailer::Base.deliveries.count" do
+      click_button "パスワード再設定"
+    end
+
+    reset_password_token = edit_password_reset_path(User.find_by(email: users(:kananashi).email).reset_password_token)
+    visit reset_password_token
+    fill_in("user[password]", with: "ABC123!!")
+    fill_in("user[password_confirmation]", with: "ABC123!!")
+    click_button "更新する"
+    assert_text "パスワードが変更されました。"
+  end
+
   test "Returns an error for mail addresses that do not exist" do
     visit "/login"
     first(".a-form-help-link").click
