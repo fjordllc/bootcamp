@@ -52,4 +52,31 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text "質問を削除しました。"
   end
+
+  test "delete question with notification" do
+    login_user "kimura", "testtest"
+    visit "/questions"
+    click_link "質問する"
+    fill_in "question[title]", with: "タイトルtest"
+    fill_in "question[description]", with: "内容test"
+
+    click_button "登録する"
+    assert_text "質問を作成しました。"
+
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    assert_text "kimuraさんから質問がありました。"
+
+    login_user "kimura", "testtest"
+    visit "/questions"
+    click_on "タイトルtest"
+    accept_confirm do
+      click_link "削除"
+    end
+    assert_text "質問を削除しました。"
+
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    assert_no_text "kimuraさんから質問がありました。"
+  end
 end
