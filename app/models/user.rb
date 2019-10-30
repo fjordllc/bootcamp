@@ -83,16 +83,6 @@ class User < ActiveRecord::Base
   validates :email,      presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name,  presence: true
-  validates :kana_first_name,  presence: true,
-    format: {
-      with: /\A^[ア-ン゛゜ァ-ォャ-ョー]+\z/,
-      message: "はカタカナのみが使用できます"
-    }
-  validates :kana_last_name,  presence: true,
-  format: {
-    with: /\A^[ア-ン゛゜ァ-ォャ-ョー]+\z/,
-    message: "はカタカナのみが使用できます"
-  }
   validates :login_name, presence: true, uniqueness: true
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
@@ -104,6 +94,19 @@ class User < ActiveRecord::Base
       message: "は英文字と_（アンダースコア）のみが使用できます"
     }
   validates :mail_notification, inclusion: { in: [true, false] }
+
+  with_options if: -> { validation_context != :reset_password } do
+    validates :kana_first_name,  presence: true,
+    format: {
+      with: /\A^[ア-ン゛゜ァ-ォャ-ョー]+\z/,
+      message: "はカタカナのみが使用できます"
+    }
+    validates :kana_last_name,  presence: true,
+    format: {
+      with: /\A^[ア-ン゛゜ァ-ォャ-ョー]+\z/,
+      message: "はカタカナのみが使用できます"
+    }
+  end
 
   with_options if: -> { !adviser? && validation_context != :reset_password } do
     validates :job, presence: true

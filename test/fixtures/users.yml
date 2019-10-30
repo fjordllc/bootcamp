@@ -290,3 +290,24 @@ senpai:
   adviser: true
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
+
+kananashi: #kana_first_nameとkana_last_nameを持たないユーザー
+  login_name: kananashi
+  email: kananashi@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  first_name: 読み方のカナが無い
+  last_name: ユーザーです
+  slack_account: kananashi
+  github_account: kananashi
+  twitter_account: kananashi
+  facebook_url: http://www.facebook.com/kananashi
+  blog_url: http://kananashi.org
+  feed_url: http://kananashi.org/index.atom
+  description: "読み方のカナが無いユーザーです"
+  course: course_1
+  job: office_worker
+  os: mac
+  experience: rails
+  updated_at: "2014-01-01 00:00:12"
+  created_at: "2014-01-01 00:00:12"
