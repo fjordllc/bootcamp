@@ -1,0 +1,19 @@
+- title "メモ一覧"
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to new_admin_memo_path, class: "a-button is-md is-warning is-block" do
+              i.fas.fa-plus
+              | メモ追加
+
+.page-tools
+  = render "admin/admin_page_tabs"
+
+.page-body
+  .container.is-padding-horizontal-0-sm-down
+    .a-card
+      = render "table", memos: @memos

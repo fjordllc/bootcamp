@@ -2,6 +2,9 @@ ja:
   date:
     formats:
       default: "%Y年%m月%d日"
+      ym_jp: "%Y年%m月"
+      ym: "%Y%m"
+      da_jp: "%e日(%a)"
       short: "%Y/%m/%d"
   time:
     formats:
@@ -24,6 +27,9 @@ ja:
       article: ブログ記事
       work: 作品
       book: 書籍
+      reservation: 席予約
+      seat: 席
+      memo: メモ
     attributes:
       user:
         login_name: ユーザー名
@@ -97,6 +103,15 @@ ja:
         description: 内容
         learning_times: 学習時間
         emotion: 今日の気分
+      reservation:
+        date: 日付
+        user_id: ユーザー
+        seat_id: 席
+      seat:
+        name: 名前
+      memo:
+        body: 内容
+        date: 日付
       report/learning_times:
         finished_at: 終了時間
       learning_time:

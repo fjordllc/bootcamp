@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
   has_many :reactions,     dependent: :destroy
   has_many :works,         dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :reservations, dependent: :destroy
 
   has_many :send_notifications,
     class_name:  "Notification",
