@@ -1,0 +1,37 @@
+table class="table table-bordered"
+  thead
+    tr
+      th 席名
+      - @seats.each do |seat|
+        th #{seat.name}
+      th メモ
+  tbody
+    - (@this_month..@this_month.end_of_month).each do |one_day|
+      - if HolidayJp.holiday?(one_day) || one_day.sunday? || one_day.saturday?
+        - isHoliday = ".is-holiday"
+      tr class="#{isHoliday}"
+        th = l(one_day, format: :da_jp)
+        - @seats.each do |seat|
+          - reservation = @reservations.find{|k| k.date == one_day && k.seat_id == seat.id }
+          td
+            - if reservation != nil
+              - if reservation.user.login_name == current_user.login_name
+                = link_to reservation_path(reservation),
+                  id: "reservation-#{one_day}-#{seat.id}",
+                  data: { confirm: "予約を削除してよろしいですか？" },
+                  method: :delete
+                  = reservation.user.login_name
+              - else
+                = reservation.user.login_name
+            - else
+              = form_with url: reservations_path, local: true, id: "reservation-#{one_day}-#{seat.id}" do |f|
+                .field
+                  = f.hidden_field "reservation[date(1i)]", value: one_day.year
+                  = f.hidden_field "reservation[date(2i)]", value: one_day.month
+                  = f.hidden_field "reservation[date(3i)]", value: one_day.day
+                  = f.hidden_field "reservation[seat_id]", value: seat.id
+                = f.submit "", class: "actions a-button is-md is-block"
+        td
+          - @memos.select{|k| k.date == one_day}.each do |memo|
+            = memo.body
+            br
