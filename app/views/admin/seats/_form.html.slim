@@ -1,0 +1,14 @@
+= render "errors", object: @seat
+= form_for([:admin, @seat], html: { name: "seat", class: "form" }) do |f|
+  .form__items
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :name, class: "a-label"
+          = f.text_field :name, class: "a-text-input js-warning-form"
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item
+        = link_to "キャンセル", admin_seats_path, class: "a-button is-md is-secondary"
+      li.form-actions__item
+        = f.submit nil, class: "a-button is-lg is-warning"
