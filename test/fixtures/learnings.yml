@@ -23,7 +23,12 @@ learning_5:
   practice: practice_2
   status: "complete"
 
-learning_5:
+learning_6:
   user: kimura
   practice: practice_1
   status: "complete"
+
+learning_7:
+  user: komagata
+  practice: practice_4
+  status: "submitted"

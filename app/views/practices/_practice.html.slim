@@ -5,8 +5,7 @@
         = practice.title
     - if current_user
       .practice-status
-        - status = practice.status_by_learnings(@learnings)
-        = display_status_name(status)
+        = practice.display_status_by_learnings(@learnings)
 
   - if practice.started_students.any?
     .practice-started-users
