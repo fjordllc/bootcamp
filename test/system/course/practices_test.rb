@@ -9,12 +9,4 @@ class Course::PracticesTest < ApplicationSystemTestCase
     visit "/courses/#{courses(:course_1).id}/practices"
     assert_equal "Rails Webプログラマーコースのプラクティス | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
-
-  test "change status" do
-    practice = practices(:practice_1)
-    visit "/courses/#{courses(:course_1).id}/practices"
-    first("#practice_#{practice.id} .js-started").click
-    sleep 5
-    assert_equal "started", practice.status(users(:hatsuno))
-  end
 end
