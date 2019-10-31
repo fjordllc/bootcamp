@@ -89,4 +89,13 @@ class PracticesTest < ApplicationSystemTestCase
     visit "/practices/new"
     assert_text "進捗の計算"
   end
+
+  test "change status" do
+    login_user "hatsuno", "testtest"
+    practice = practices(:practice_1)
+    visit "/practices/#{practice.id}"
+    first(".js-started").click
+    sleep 5
+    assert_equal "started", practice.status(users(:hatsuno))
+  end
 end
