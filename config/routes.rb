@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :users, only: %i(index edit update destroy)
     resources :namecards, only: %i(index)
     resource :diploma, only: :show, controller: "diploma"
+    resources :memos, only: %i(index new create edit update destroy)
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
     end
@@ -94,6 +95,9 @@ Rails.application.routes.draw do
     resources :answers, only: %i(edit create update destroy)
     resource :correct_answer, only: %i(create update), controller: "questions/correct_answer"
   end
+
+  resources :reservations, only: %i(create destroy)
+  resources :reservation_calenders, only: %i(index show)
 
   resources :courses, only: :index
 
