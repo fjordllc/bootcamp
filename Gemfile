@@ -49,6 +49,7 @@ gem "stripe", "~> 4.5.0"
 gem "acts-as-taggable-on"
 gem "rqrcode"
 gem "jp_prefecture"
+gem "holiday_jp"
 
 group :production, :staging do
   gem "newrelic_rpm"
