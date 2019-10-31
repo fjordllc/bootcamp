@@ -54,6 +54,19 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text "提出物を作成しました。"
   end
 
+  test "create product change status submitted" do
+    login_user "yamada", "testtest"
+    visit "/products/new?practice_id=#{practices(:practice_5).id}"
+    within("#new_product") do
+      fill_in("product[body]", with: "test")
+    end
+    click_button "提出する"
+    assert_text "提出物を作成しました。"
+
+    visit "/practices/#{practices(:practice_5).id}"
+    assert_equal first(".is-primary").text, "提出"
+  end
+
   test "update product" do
     login_user "yamada", "testtest"
     product = products(:product_1)

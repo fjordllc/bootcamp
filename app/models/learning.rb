@@ -9,4 +9,10 @@ class Learning < ActiveRecord::Base
   validates :practice_id,
     presence: true,
     uniqueness: { scope: :user_id }
+
+  def status_to_submitted
+    if self.status != "complete"
+      self.update(status: "submitted")
+    end
+  end
 end
