@@ -47,7 +47,7 @@ class ProductCallbacks
     def change_learning_status_to_submitted(product)
       learning = Learning.find_by(user_id: product.user.id, practice_id: product.practice.id)
       if learning
-        learning.status_to_submitted
+        learning.product_submitted
       else
         Learning.create(user_id: product.user.id, practice_id: product.practice.id, status: "submitted")
       end

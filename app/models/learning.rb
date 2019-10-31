@@ -10,9 +10,13 @@ class Learning < ActiveRecord::Base
     presence: true,
     uniqueness: { scope: :user_id }
 
-  def status_to_submitted
+  def product_submitted
     if self.status != "complete"
       self.update(status: "submitted")
     end
+  end
+
+  def product_confirmed
+    self.update(status: "complete")
   end
 end

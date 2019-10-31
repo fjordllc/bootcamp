@@ -66,4 +66,13 @@ ORDER BY unchecked_products.created_at DESC
   def completed?(user)
     checks.where(user: user).present?
   end
+
+  def product_checked
+    learning = Learning.find_by(user_id: self.user.id, practice_id: self.practice.id)
+    if learning
+      learning.product_confirmed
+    else
+      Learning.create(user_id: self.user.id, practice_id: self.practice.id, status: "complete")
+    end
+  end
 end
