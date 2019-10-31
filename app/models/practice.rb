@@ -49,6 +49,19 @@ class Practice < ActiveRecord::Base
     learning&.status || "not_complete"
   end
 
+  def display_status_by_learnings(learnings)
+    case status_by_learnings(learnings)
+    when "not_complete"
+      "未着手"
+    when "started"
+      "着手"
+    when "submitted"
+      "提出"
+    when "complete"
+      "完了"
+    end
+  end
+
   def completed?(user)
     Learning.exists?(
       user:        user,

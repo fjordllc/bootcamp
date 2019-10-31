@@ -2,10 +2,13 @@
   ul.is-button-group.practice-status__buttons
     li.practice-status__buttons-item
       button.practice-status__button.a-button.is-xs.js-not-complete(v-bind:disabled="statusName === 'not_complete'" v-bind:class="[statusName === 'not_complete' ? 'is-primary' : 'is-secondary']" @click="pushStatus('not_complete')")
-        | 未完
+        | 未着手
     li.practice-status__buttons-item
       button.practice-status__button.a-button.is-xs.js-started(v-bind:disabled="statusName === 'started'" v-bind:class="[statusName === 'started' ? 'is-primary' : 'is-secondary']" @click="pushStatus('started')")
-        | 開始
+        | 着手
+    li.practice-status__buttons-item
+      button.practice-status__button.a-button.is-xs.js-submitted(v-bind:disabled="statusName === 'submitted'" v-bind:class="[statusName === 'submitted' ? 'is-primary' : 'is-secondary']" @click="pushStatus('submitted')")
+        | 提出
     li.practice-status__buttons-item
       button.practice-status__button.a-button.is-xs.js-complete(v-bind:disabled="statusName === 'complete'" v-bind:class="[statusName === 'complete' ? 'is-primary' : 'is-secondary']" @click="pushStatus('complete')")
         | 完了
