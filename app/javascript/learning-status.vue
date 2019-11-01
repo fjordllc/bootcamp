@@ -46,7 +46,14 @@ export default {
         body: params
       })
         .then(response => {
-          this.statusName = name
+          if(response.ok) {
+            this.statusName = name
+            return this
+          }else{
+            response.json().then(data => {
+              alert(data.error)
+            });
+          }
         })
         .catch(error => {
           console.warn('Failed to parsing', error)

@@ -9,6 +9,7 @@ class Learning < ActiveRecord::Base
   validates :practice_id,
     presence: true,
     uniqueness: { scope: :user_id }
+  validate :startable_practice
 
   def product_submitted
     if self.status != "complete"
@@ -19,4 +20,11 @@ class Learning < ActiveRecord::Base
   def product_confirmed
     self.update(status: "complete")
   end
+
+  private
+    def startable_practice
+      unless Learning.find_by(user_id: self.user_id, status: "started").nil? || self.status != "started"
+        errors.add(:error, "すでに着手しているプラクティスがあります。\n提出物を提出するか完了すると新しいプラクティスを開始できます。")
+      end
+    end
 end

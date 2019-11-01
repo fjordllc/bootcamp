@@ -18,4 +18,12 @@ class LearningTest < ActiveSupport::TestCase
     learning.product_confirmed
     assert_equal learning.status, "complete"
   end
+
+  test "valid is_startable_practice" do
+    learning = learnings(:learning_3)
+    assert learning.valid?
+
+    learning.status = "started"
+    assert_not learning.valid?
+  end
 end
