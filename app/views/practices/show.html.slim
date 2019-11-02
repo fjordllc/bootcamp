@@ -15,6 +15,9 @@ header.page-header
           li.page-header-actions__item
             = link_to course_practices_path(current_user.course), class: "a-button is-md is-secondary is-block" do
               | プラクティス一覧
+          li.page-header-actions__item
+            = link_to course_practices_path(current_user.course, anchor: "category-#{@practice.category.id}"), class: "a-button is-md is-secondary is-block" do
+              | カテゴリー
 
 = render "page_tabs", resource: @practice
 
