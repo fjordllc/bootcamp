@@ -7,7 +7,7 @@ class Announcement < ApplicationRecord
   include Reactionable
   include WithAvatar
 
-  enum receive_user_code: {
+  enum target: {
     all: 0,
     active_users: 1
   }, _prefix: true
@@ -20,5 +20,5 @@ class Announcement < ApplicationRecord
 
   validates :title, presence: true
   validates :description, presence: true
-  validates :receive_user_code, presence: true
+  validates :target, presence: true
 end
