@@ -7,33 +7,32 @@ class ProductsTest < ApplicationSystemTestCase
   test "see my product" do
     login_user "yamada", "testtest"
     visit "/products/#{products(:product_1).id}"
-    assert_equal "yamadaの提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "admin can see a product" do
     login_user "komagata", "testtest"
     visit "/products/#{products(:product_1).id}"
-    assert_equal "yamadaの提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "adviser can see a product" do
     login_user "advijirou", "testtest"
     visit "/products/#{products(:product_1).id}"
-    assert_equal "yamadaの提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "user who completed the practice can see the other user's product" do
     login_user "kimura", "testtest"
     visit "/products/#{products(:product_1).id}"
-    assert_equal "yamadaの提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "can see other user's product if it is permitted" do
     login_user "hatsuno", "testtest"
     visit "/products/#{products(:product_3).id}"
-    assert_equal "sotugyouの提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "#{products(:product_3).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
-
   test "can not see other user's product if it isn't permitted" do
     login_user "hatsuno", "testtest"
     visit "/products/#{products(:product_1).id}"
