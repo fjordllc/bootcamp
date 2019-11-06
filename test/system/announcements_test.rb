@@ -58,4 +58,44 @@ class AnnouncementsTest < ApplicationSystemTestCase
     visit "/notifications"
     assert_no_text "komagataさんからお知らせです。"
   end
+
+  test "announcement notification receive only active users" do
+    login_user "machida", "testtest"
+    visit "/announcements"
+    click_link "お知らせ作成"
+    fill_in "announcement[title]", with: "現役生にのみお知らせtest"
+    fill_in "announcement[description]", with: "内容test"
+    choose "現役生にのみお知らせ", visible: false
+
+    click_button "作成"
+    assert_text "お知らせを作成しました"
+
+    login_user "komagata", "testtest"
+    visit "/notifications"
+    assert_text "machidaさんからお知らせです。"
+
+    login_user "kimura", "testtest"
+    visit "/notifications"
+    assert_text "machidaさんからお知らせです。"
+
+    login_user "sotugyou", "testtest"
+    visit "/notifications"
+    assert_no_text "machidaさんからお知らせです。"
+
+    login_user "advijirou", "testtest"
+    visit "/notifications"
+    assert_no_text "machidaさんからお知らせです。"
+
+    login_user "yameo", "testtest"
+    visit "/notifications"
+    assert_no_text "machidaさんからお知らせです。"
+
+    login_user "yamada", "testtest"
+    visit "/notifications"
+    assert_no_text "machidaさんからお知らせです。"
+
+    login_user "kensyu", "testtest"
+    visit "/notifications"
+    assert_no_text "machidaさんからお知らせです。"
+  end
 end
