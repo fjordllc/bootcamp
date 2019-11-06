@@ -66,6 +66,7 @@ group :development do
   gem "rubocop-rails"
   gem "slim_lint"
   gem "bullet"
+  gem "any_login"
 end
 
 group :test do
