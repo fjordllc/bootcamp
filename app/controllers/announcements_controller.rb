@@ -72,7 +72,7 @@ class AnnouncementsController < ApplicationController
     end
 
     def announcement_params
-      params.require(:announcement).permit(:title, :description, :receive_user_code)
+      params.require(:announcement).permit(:title, :description, :target)
     end
 
     def set_announcement

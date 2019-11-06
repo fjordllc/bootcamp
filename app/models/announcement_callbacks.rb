@@ -11,10 +11,10 @@ class AnnouncementCallbacks
 
   private
     def send_notification(announce)
-      receiver_list = receiver_list(announce.receive_user_code)
-      receiver_list.each do |receiver|
-        if announce.sender != receiver
-          NotificationFacade.post_announcement(announce, receiver)
+      target_users = target_users(announce.target)
+      target_users.each do |target|
+        if announce.sender != target
+          NotificationFacade.post_announcement(announce, target)
         end
       end
     end
@@ -23,8 +23,8 @@ class AnnouncementCallbacks
       Notification.where(path: "/announcements/#{announce.id}").destroy_all
     end
 
-    def receiver_list(receive_user_code)
-      case receive_user_code
+    def target_users(target)
+      case target
       when "all"
         User.where(retired_on: nil)
       when "active_users"
