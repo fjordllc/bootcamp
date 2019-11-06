@@ -25,7 +25,7 @@ class PracticeTest < ActiveSupport::TestCase
     assert_equal practices(:practice_5).status_by_learnings(learnings), "not_complete"
   end
 
-  test "display_status_by_learnings(learnings)" do
+  test "#display_status_by_learnings(learnings)" do
     learnings = users(:komagata).learnings
 
     assert_equal practices(:practice_1).display_status_by_learnings(learnings), "着手"
