@@ -33,7 +33,7 @@ class AnnouncementCallbacks
           User.where(retired_on: nil, graduated_on: nil, adviser: false, mentor: false, trainee: false)
         )
       else
-        nil
+        User.none
       end
     end
 end
