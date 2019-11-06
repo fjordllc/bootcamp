@@ -5,7 +5,8 @@
         = practice.title
     - if current_user
       .practice-status
-        = practice.display_status_by_learnings(@learnings)
+        - status = practice.status_by_learnings(@learnings)
+        = t(status, scope: [:activerecord, :enums, :learning, :status])
 
   - if practice.started_students.any?
     .practice-started-users
