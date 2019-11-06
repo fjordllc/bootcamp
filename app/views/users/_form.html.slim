@@ -10,6 +10,7 @@
       = render "users/form/mail_notification", f: f
 
     = render "users/form/name", f: f, user: user
+    = render "users/form/kana_name", f: f, user: user
     = render "users/form/avatar", f: f, user: user
     = render "users/form/description", f: f, user: user
     - unless user.adviser?

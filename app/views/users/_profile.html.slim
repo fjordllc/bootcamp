@@ -6,6 +6,8 @@
       = user.login_name
     h2.user-profile__full-name
       = user.full_name
+      span.user-profile__kana-full-name
+        = user.kana_full_name
   = render "users/sns", user: user
   - if user.company.present? && user.company.logo.attached?
     = image_tag user.company.logo, class: "user-profile__company-logo"
