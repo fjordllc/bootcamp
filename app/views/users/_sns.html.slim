@@ -28,10 +28,3 @@
       - else
         .sns-links__item-link.a-button.is-xs.is-disabled.is-icon
           i.fas.fa-file
-    li.sns-links__item
-      - if user.feed_url?
-        = link_to user.feed_url, class: "sns-links__item-link a-button is-xs is-secondary is-icon", target: "_blank" do
-          i.fas.fa-rss
-      - else
-        .sns-links__item-link.a-button.is-xs.is-disabled.is-icon
-          i.fas.fa-rss
