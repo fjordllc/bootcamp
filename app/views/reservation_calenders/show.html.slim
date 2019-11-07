@@ -21,4 +21,4 @@ header.page-header
             li.card-header-actions__item
               = link_to reservation_calender_path(l(@next_month, format: :ym)), class: "a-button is-md is-warning is-block" do
                 | 来月
-      = render "table"
+      #js-reservations(data-reservations-beggining-of-this-month="#{@this_month}" data-reservations-end-of-this-month="#{@this_month.end_of_month}" )

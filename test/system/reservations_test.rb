@@ -8,17 +8,17 @@ class ReservationsTest < ApplicationSystemTestCase
   end
 
   test "create reservation" do
-    visit "/reservation_calenders/201910"
+    visit "/reservation_calenders/201911"
     assert_equal "席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
 
-    within("#reservation-2019-10-02-#{seats(:seat_2).id}") do
+    within("#reservation-2019-11-02-#{seats(:seat_2).id}") do
       click_button
     end
     assert_text "予約しました"
   end
 
   test "delete reservation" do
-    visit "/reservation_calenders/201910"
+    visit "/reservation_calenders/201911"
     assert_equal "席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
 
     accept_confirm do

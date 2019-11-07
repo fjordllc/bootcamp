@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     resources :reactions, only: %i(create destroy)
     resources :checks, only: %i(index create destroy)
     resources :users, only: %i(index show)
+    resources :reservations
+    resources :seats
+
     resources :practices, only: [] do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
@@ -95,7 +98,6 @@ Rails.application.routes.draw do
     resource :correct_answer, only: %i(create update), controller: "questions/correct_answer"
   end
 
-  resources :reservations, only: %i(create destroy)
   resources :reservation_calenders, only: %i(index show)
 
   resources :courses, only: :index
