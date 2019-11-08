@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
     }
   validates :mail_notification, inclusion: { in: [true, false] }
 
-  with_options if: -> { validation_context != :reset_password } do
+  with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
     validates :kana_first_name,  presence: true,
     format: {
       with: /\A^[ア-ン゛゜ァ-ォャ-ョー]+\z/,

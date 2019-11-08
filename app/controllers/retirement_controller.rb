@@ -10,7 +10,7 @@ class RetirementController < ApplicationController
   def create
     current_user.assign_attributes(retire_reason_params)
     current_user.retired_on = Date.current
-    if current_user.save
+    if current_user.save(context: :retirement)
       destroy_subscription
       notify_to_admins
       notify_to_slack
