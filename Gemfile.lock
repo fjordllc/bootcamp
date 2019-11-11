@@ -272,8 +272,6 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    record_tag_helper (1.0.0)
-      actionview (~> 5.x)
     regexp_parser (1.6.0)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -434,7 +432,6 @@ DEPENDENCIES
   rails-erd
   rails-i18n
   ransack
-  record_tag_helper (~> 1.0)
   rollbar
   rqrcode
   rubocop
