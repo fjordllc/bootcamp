@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       resources :qrcodes, only: %i(index show)
     end
     resources :books
+    resources :seats
   end
 
   resources :announcements
