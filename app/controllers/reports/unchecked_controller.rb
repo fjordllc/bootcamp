@@ -2,6 +2,6 @@
 
 class Reports::UncheckedController < ApplicationController
   def index
-    @reports = Report.unchecked.list.page(params[:page])
+    @reports = Report.unchecked.not_wip.list.page(params[:page])
   end
 end
