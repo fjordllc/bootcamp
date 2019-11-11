@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       resources :qrcodes, only: %i(index show)
     end
     resources :books
-
+    resources :seats
     namespace :metric do
       resource :check, only: %i[show], controller: "check"
     end

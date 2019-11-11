@@ -1,0 +1,22 @@
+.admin-table
+  table.admin-table__table
+    thead.admin-table__header
+      tr.admin-table__labels
+        th.admin-table__label = Seat.human_attribute_name :name
+        th.admin-table__label.actions 操作
+    tbody.admin-table__items
+      - seats.each do |seat|
+        tr.admin-table__item(id="seat_#{seat.id}")
+          td.admin-table__item-value
+            = seat.name
+          td.admin-table__item-value.is-text-align-center
+            ul.is-button-group
+              li
+                = link_to edit_admin_seat_path(seat), class: "a-button is-sm is-primary is-icon" do
+                  i.fas.fa-pen
+              li
+                = link_to [:admin, seat],
+                  data: { confirm: "本当によろしいですか？" },
+                  method: :delete,
+                  class: "a-button is-sm is-danger is-icon js-delete" do
+                  i.fas.fa-trash-alt
