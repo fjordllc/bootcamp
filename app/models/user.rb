@@ -51,7 +51,6 @@ class User < ActiveRecord::Base
   has_many :events,        dependent: :destroy
   has_many :participations, dependent: :destroy
   has_many :reservations, dependent: :destroy
-  has_many :memos, dependent: :destroy
 
   has_many :participate_events,
     through: :participations,
