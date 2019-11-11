@@ -1,0 +1,25 @@
+.admin-table
+  table.admin-table__table
+    thead.admin-table__header
+      tr.admin-table__labels
+        th.admin-table__label = Memo.human_attribute_name :body
+        th.admin-table__label = Memo.human_attribute_name :date
+        th.admin-table__label.actions 操作
+    tbody.admin-table__items
+      - @memos.each do |memo|
+        tr.admin-table__item(id="memo_#{memo.id}")
+          td.admin-table__item-value
+            = memo.body
+          td.admin-table__item-value
+            = memo.date
+          td.admin-table__item-value.is-text-align-center
+            ul.is-button-group
+              li
+                = link_to edit_admin_memo_path(memo), class: "a-button is-sm is-primary is-icon" do
+                  i.fas.fa-pen
+              li
+                = link_to [:admin, memo],
+                  data: { confirm: "本当によろしいですか？" },
+                  method: :delete,
+                  class: "a-button is-sm is-danger is-icon js-delete" do
+                  i.fas.fa-trash-alt
