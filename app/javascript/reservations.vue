@@ -69,25 +69,6 @@ export default {
         console.warn('Failed to parsing', error)
       })
 
-    // fetch(`/api/seats.json`, {
-    //   method: 'GET',
-    //   headers: {
-    //     'X-Requested-With': 'XMLHttpRequest',
-    //   },
-    //   credentials: 'same-origin',
-    //   redirect: 'manual'
-    // })
-    //   .then(response => {
-    //     return response.json()
-    //   })
-    //   .then(json => {
-    //     json.forEach(c => { 
-    //       this.seats.push(c)
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.warn('Failed to parsing', error)
-    //   })
     this.this_months = this.getDates(
       new Date(this.reservationsBegginingOfThisMonth),
       new Date(this.reservationsEndOfThisMonth)
