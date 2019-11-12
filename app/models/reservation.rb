@@ -3,7 +3,6 @@
 class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :seat
-  validates :user_id, uniqueness: { scope: :date, message: "は1人につき同じ日に1席のみ予約できます" }
 
   validate :after_a_month
 
