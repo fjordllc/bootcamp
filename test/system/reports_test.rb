@@ -486,7 +486,7 @@ class ReportsTest < ApplicationSystemTestCase
     visit "/notifications"
     assert_no_text "kimuraさんがはじめての日報を書きました！"
   end
-  
+
   test "reports are ordered in descending of reported_on" do
     visit reports_path
     precede, succeed = reports(:report_2).title, reports(:report_1).title
