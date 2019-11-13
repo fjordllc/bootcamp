@@ -449,4 +449,20 @@ class ReportsTest < ApplicationSystemTestCase
     visit "/notifications"
     assert_text "kensyuさんがはじめての日報を書きました！"
   end
+
+  test "reports are ordered in descending of reported_on" do
+    visit reports_path
+    precede, succeed = reports(:report_2).title, reports(:report_1).title
+    within ".thread-list" do
+      assert page.text.index(precede) < page.text.index(succeed)
+    end
+  end
+
+  test "reports are ordered in descending of created_at if reported_on is same" do
+    visit reports_path
+    precede, succeed = reports(:report_5).title, reports(:report_1).title
+    within ".thread-list" do
+      assert page.text.index(precede) < page.text.index(succeed)
+    end
+  end
 end
