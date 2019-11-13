@@ -20,6 +20,10 @@ class ReportCallbacks
     end
   end
 
+  def after_destroy(report)
+    delete_notification(report)
+  end
+
   private
     def send_first_report_notification(report)
       receiver_list = User.where(retired_on: nil)
@@ -36,5 +40,9 @@ class ReportCallbacks
 
     def create_advisers_watch(report, adviser)
       Watch.create!(user: adviser, watchable: report)
+    end
+
+    def delete_notification(report)
+      Notification.where(path: "/reports/#{report.id}").destroy_all
     end
 end
