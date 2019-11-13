@@ -17,6 +17,46 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "Komagata Masaki", users(:komagata).full_name
   end
 
+  test "kana_full_name" do
+    assert_equal "コマガタ マサキ", users(:komagata).kana_full_name
+  end
+
+  test "is valid kana_last_name" do
+    Bootcamp::Setup.attachment
+
+    user = users(:komagata)
+    user.kana_last_name = "コマガタ"
+    assert user.valid?
+    user.kana_last_name = "駒形"
+    assert user.invalid?
+    user.kana_last_name = "こまがた"
+    assert user.invalid?
+    user.kana_last_name = "komagata"
+    assert user.invalid?
+    user.kana_last_name = "-"
+    assert user.invalid?
+    user.kana_last_name = ""
+    assert user.invalid?
+  end
+
+  test "is valid kana_first_name" do
+    Bootcamp::Setup.attachment
+
+    user = users(:komagata)
+    user.kana_first_name = "マサキ"
+    assert user.valid?
+    user.kana_first_name = "真幸"
+    assert user.invalid?
+    user.kana_first_name = "まさき"
+    assert user.invalid?
+    user.kana_first_name = "masaki"
+    assert user.invalid?
+    user.kana_first_name = "-"
+    assert user.invalid?
+    user.kana_first_name = ""
+    assert user.invalid?
+  end
+
   test "active?" do
     travel_to Time.new(2014, 1, 1, 0, 0, 0) do
       assert users(:komagata).active?

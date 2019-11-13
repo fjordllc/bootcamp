@@ -15,10 +15,6 @@ module RequiredFieldsHelper
       messages << "#{link_to "自己紹介を入力してください。", edit_current_user_path, class: "card-list__item-link"}".html_safe
     end
 
-    if !current_user.organization?
-      messages << "#{link_to "現在の所属組織を入力してください。", edit_current_user_path, class: "card-list__item-link"}".html_safe
-    end
-
     if current_user.student?
       if !current_user.github_account?
         messages << "#{link_to "GitHubアカウントを登録してください。", edit_current_user_path, class: "card-list__item-link is-github"}".html_safe

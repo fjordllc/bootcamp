@@ -7,6 +7,11 @@ class Announcement < ApplicationRecord
   include Reactionable
   include WithAvatar
 
+  enum target: {
+    all: 0,
+    active_users: 1
+  }, _prefix: true
+
   belongs_to :user
   alias_method :sender, :user
 
@@ -15,4 +20,5 @@ class Announcement < ApplicationRecord
 
   validates :title, presence: true
   validates :description, presence: true
+  validates :target, presence: true
 end

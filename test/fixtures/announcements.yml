@@ -3,15 +3,25 @@ announcement_1:
   title: お知らせ1
   description: お知らせ本文1
   created_at: "2018-01-01"
+  target: 0
 
 announcement_2:
   user: machida
   title: お知らせ2
   description: お知らせ本文2
   created_at: "2018-01-02"
+  target: 0
 
 announcement_3:
   user: machida
   title: テストのお知らせ
   description: テストのお知らせ本文
   created_at: "2018-01-03"
+  target: 0
+
+announcement_notification_active_user:
+  user: machida
+  title: 現役生にのみ通知するお知らせ
+  description: 現役生にのみ通知するお知らせの本文
+  created_at: "2018-01-04"
+  target: 1
