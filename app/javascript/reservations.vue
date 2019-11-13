@@ -111,7 +111,7 @@ export default {
           return response.json();
         })
         .then(json => {
-          if (json["status"] == 409) {
+          if (json["status"] == 400) {
             alert(json["message"]);
           }else{
             this.$set(this.reservations, `${json.date}-${json.seat_id}`, json);
