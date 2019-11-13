@@ -28,6 +28,12 @@
 .user-profile__full-name
   +text-block(.875rem 1.45 0 .625rem, 400)
 
+.user-profile__kana-full-name
+  color: $muted-text
+  font-size: .8125em
+  margin-left: .5em
+
+
 .user-profile__company-name
   +text-block(.875rem 1.45, 400)
 
@@ -42,4 +48,6 @@
     position: static
     margin-top: .5rem
   +media-breakpoint-down(sm)
-    max-height: 2.25rem
+    max-height: 3.5rem
+    +position(absolute, right -1.25rem, top -2rem)
+    border-radius: 50%

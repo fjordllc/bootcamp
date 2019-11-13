@@ -39,9 +39,6 @@ header.page-header
         .col-xs-12.col-lg-7.col-xxl-6
           - unless @user.total_learning_time.zero?
             = render "users/grass", user: @user
-          - if @user.github_account.present?
-            .a-card
-              = render "users/github_grass", user: @user
           - if @user.active_practices.present?
             = render "/users/practices/active_practices", user: @user
           - if @user.completed_practices.present?

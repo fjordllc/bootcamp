@@ -16,6 +16,19 @@
           .a-label
             | プレビュー
           .js-preview.is-long-text.markdown-form__preview
+    .form-item.is-sm
+      label.a-label
+        | 通知ターゲット
+      ul.form-item__radio-buttons.is-half
+        li.form-radio-button.is-half
+          = f.label :target, class: "form-radio-button__label"
+            | 全員にお知らせ
+            = f.radio_button :target, "all", checked: true
+        li.form-radio-button.is-half
+          = f.label :target, class: "form-radio-button__label"
+            | 現役生にのみお知らせ
+            = f.radio_button :target, "active_users"
+
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main.is-help
