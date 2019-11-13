@@ -37,6 +37,7 @@ class Report < ActiveRecord::Base
 
   after_create ReportCallbacks.new
   after_update ReportCallbacks.new
+  after_destroy ReportCallbacks.new
 
   def previous
     Report.where(user: user)
