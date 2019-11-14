@@ -9,6 +9,16 @@ class PracticesTest < ApplicationSystemTestCase
     assert_equal "OS X Mountain Lionをクリーンインストールする | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
+  test "show link to all practices with same category" do
+    login_user "hatsuno", "testtest"
+    practice = practices(:practice_1)
+    category = practice.category
+    visit "/practices/#{practice.id}"
+    category.practices.each do |practice|
+      assert has_link? practice.title
+    end
+  end
+
   test "finish a practice" do
     login_user "komagata", "testtest"
 
