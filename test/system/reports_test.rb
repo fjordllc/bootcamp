@@ -518,6 +518,7 @@ class ReportsTest < ApplicationSystemTestCase
 
     click_button "提出"
     click_link "Raw"
+    switch_to_window windows.last
     assert_text "## this is heading2", exact: true
   end
 end
