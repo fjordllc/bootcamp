@@ -507,7 +507,7 @@ class ReportsTest < ApplicationSystemTestCase
     visit "/reports/new"
     within("#new_report") do
       fill_in("report[title]", with: "check plain markdown")
-      fill_in("report[description]",   with: "## this is heading2")
+      fill_in("report[description]", with: "## this is heading2")
       fill_in("report[reported_on]", with: Time.current)
     end
 
