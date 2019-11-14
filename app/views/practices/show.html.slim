@@ -69,6 +69,13 @@ header.page-header
               br
               | 終了条件をクリアしたら完了にしてください。
 
+      section.practice-content.a-card
+        = @category.name
+        ul
+          - @category.practices.each do |practice|
+            li
+              = link_to practice.title, practice_path(practice), class: "#{@practice == practice ? "is-current" : ""}"
+
       - if current_user.admin?
         section.practice-content.a-card
           header.practice-content__header.card-header

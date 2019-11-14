@@ -8,6 +8,7 @@ class PracticesController < ApplicationController
   before_action :set_practice, only: %w(show edit update destroy sort)
 
   def show
+    @category = @practice.category
   end
 
   def new
