@@ -269,7 +269,7 @@ SQL
   end
 
   def student?
-    !admin? && !adviser? && !mentor?
+    !admin? && !adviser? && !mentor? && !trainee?
   end
 
   def staff?

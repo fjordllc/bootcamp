@@ -1,0 +1,11 @@
+.form-item
+  label.a-label(for="card-element") カード番号（対応カードブランド：Visa、Master、Diners、Amex）
+  #card-element.a-text-input
+  #card-errors(role="alert")
+.form-notice
+  p クレジットカード登録日を含む3日間はお試し期間です。お試し期間の間に退会をすれば課金されることはありません。
+  p クレジットカードに関して問題がありましたら #{mail_to "info@fjord.jp"} までお問い合わせください。
+  p
+    | クレジットカード情報は当社のサーバーには保存せず、
+    = link_to "Stripe.com", "https://stripe.com/docs/security/stripe", target: "_blank"
+    | を使用して安全に取り扱っています。

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  if (!document.querySelector('body.card-new,body.card-edit')) {
+  if (!document.querySelector('body.users-new,body.users-create,body.card-new,body.card-edit')) {
     return null
   }
 
@@ -34,9 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Add an instance of the card Element into the `card-element` <div>.
   card.mount('#card-element')
 
+  var submitButton = document.getElementById("user_submit");
+
   // Handle real-time validation errors from the card Element.
   card.addEventListener('change', function (event) {
     var displayError = document.getElementById('card-errors')
+    submitButton.disabled = false;
     if (event.error) {
       displayError.textContent = event.error.message
     } else {
