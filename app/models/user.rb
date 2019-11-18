@@ -108,7 +108,7 @@ class User < ActiveRecord::Base
     }
   end
 
-  with_options if: -> { !adviser? && validation_context != :reset_password } do
+  with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
     validates :job, presence: true
     validates :os, presence: true
     validates :study_place, presence: true
