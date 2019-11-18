@@ -281,7 +281,7 @@ class ReportsTest < ApplicationSystemTestCase
     login_user "kimura", "testtest"
     visit report_path(reports(:report_1))
     assert_difference("Watch.count", -1) do
-      find("div.thread-meta__watch-button", text: "Watch中").click
+      find("div.thread-header__watch-button", text: "Watch中").click
       sleep 0.5
     end
   end
@@ -378,7 +378,7 @@ class ReportsTest < ApplicationSystemTestCase
     login_user "kimura", "testtest"
     visit report_path(reports(:report_1))
     assert_difference("Watch.count", -1) do
-      find("div.thread-meta__watch-button", text: "Watch中").click
+      find("div.thread-header__watch-button", text: "Watch中").click
       sleep 0.5
     end
   end
@@ -501,5 +501,24 @@ class ReportsTest < ApplicationSystemTestCase
     within ".thread-list" do
       assert page.text.index(precede) < page.text.index(succeed)
     end
+  end
+
+  test "reports can be checked as plain markdown" do
+    visit "/reports/new"
+    within("#new_report") do
+      fill_in("report[title]", with: "check plain markdown")
+      fill_in("report[description]", with: "## this is heading2")
+      fill_in("report[reported_on]", with: Time.current)
+    end
+
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
+
+    click_button "提出"
+    click_link "Raw"
+    switch_to_window windows.last
+    assert_text "## this is heading2", exact: true
   end
 end

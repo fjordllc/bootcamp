@@ -1,9 +1,8 @@
 <template lang="pug">
-.thread-meta
-  .thread-meta__watch
-    .thread-meta__watch-button.a-button.is-sm.is-left-icon(:class=" watchId ? 'is-active is-secondary' : 'is-inactive is-main' " @click="push")
-      i.fas.fa-eye
-      | {{ watchLabel }}
+.thread-header__watch
+  .thread-header__watch-button.a-button.is-sm.is-left-icon(:class=" watchId ? 'is-active is-secondary' : 'is-inactive is-main' " @click="push")
+    i.fas.fa-eye
+    | {{ watchLabel }}
 
 </template>
 <script>
