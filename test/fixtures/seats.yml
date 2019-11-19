@@ -18,3 +18,30 @@ seat_6:
 
 seat_7:
   name: G
+
+seat_8:
+  name: H
+
+seat_9:
+  name: I
+
+seat_10:
+  name: J
+
+seat_11:
+  name: K
+
+seat_12:
+  name: L
+
+seat_13:
+  name: ソファ1
+
+seat_14:
+  name: ソファ2
+
+seat_15:
+  name: ソファ3
+
+seat_16:
+  name: ソファ4
