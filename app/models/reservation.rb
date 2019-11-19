@@ -4,6 +4,7 @@ class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :seat
 
+  validates :seat_id, uniqueness: { scope: :date }
   validate :after_a_month
 
   private
