@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
     resources :watches, only: %i(index create destroy)
+    resources :memos, only: %i(create update destroy)
   end
 
   namespace :admin do
@@ -33,7 +34,6 @@ Rails.application.routes.draw do
     resources :users, only: %i(index show edit update destroy)
     resources :namecards, only: %i(index)
     resource :diploma, only: :show, controller: "diploma"
-    resources :memos, only: %i(index new create edit update destroy)
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
     end

@@ -13,13 +13,19 @@
         td(v-for="seat in seats" :key="seat.id" v-bind:id="reservation_hash_id(one_day['ymd'],(seat.id))")
           button(v-if="reservations[`${one_day['ymd']}-${seat.id}`] === undefined" @click="createReservation(one_day['ymd'], seat.id)").a-button.is-md.is-block.is-secondary
             | 
-          reservation(v-else :parentSeatId="seat.id", :parentDate="one_day['ymd']", :currentUserId="currentUserId", :parentReservation="reservations[`${one_day['ymd']}-${seat.id}`]", @delete="deleteReservation")
-        td.memo
-          | {{ memos[one_day['ymd']] }}
+          reservation(v-else :currentUserId="currentUserId", :parentReservation="reservations[`${one_day['ymd']}-${seat.id}`]", @delete="deleteReservation")
+        td(v-if="admin_login == 1" v-bind:id="memoId(one_day['ymd'])").memo
+          memo(:memo="memos[one_day['ymd']]" :date="one_day['ymd']")
+        td(v-else v-bind:id="memoId(one_day['ymd'])").memo
+          template(v-if="memos[one_day['ymd']] === undefined")
+            | 
+          template(v-else)
+            | {{ memoBody(one_day) }}
 </template>
 <script>
 
 import Reservation from './reservation.vue'
+import Memo from './memo.vue'
 import moment from 'moment'
 
 moment.locale('ja');
@@ -31,7 +37,8 @@ export default {
     currentUserId: String
   },
   components: {
-    'reservation': Reservation
+    'reservation': Reservation,
+    'memo': Memo
   },
   data: () => {
     return {
@@ -41,13 +48,17 @@ export default {
       seats: {},
       reservationsHolidayJps: {},
       memos: {},
-      name: "",
+      admin_login: ''
     }
   },
   created: function() {
     this.reservationsHolidayJps = JSON.parse(document.querySelector('#js-reservations-data-holiday-jps').innerText);
     this.memos = JSON.parse(document.querySelector('#js-memos-data').innerText);
     this.seats = JSON.parse(document.querySelector('#js-seats-data').innerText);
+
+    if (!(document.querySelector('#js-admin-login') == null)) {
+      this.admin_login = document.querySelector('#js-admin-login').innerText;
+    }
 
     fetch(`/api/reservations.json?beggining_of_this_month=${this.reservationsBegginingOfThisMonth}&end_of_this_month=${this.reservationsEndOfThisMonth}`, {
       method: 'GET',
@@ -150,6 +161,12 @@ export default {
     reservation_hash_id (date, seatId) {
       return `reservation-${date}-${seatId}`;
     },
+    memoBody (one_day) {
+      return this.memos[one_day['ymd']].body;
+    },
+    memoId (one_day) {
+      return `memo-${one_day}`;
+    }
   }
 }
 </script>
