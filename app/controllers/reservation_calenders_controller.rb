@@ -44,10 +44,14 @@ class ReservationCalendersController < ApplicationController
     end
 
     def set_memos(beggining_of_this_month)
-      memos2 = Memo.where(date: beggining_of_this_month..beggining_of_this_month.end_of_month)
+      memos = Memo.where(date: beggining_of_this_month..beggining_of_this_month.end_of_month)
       @memos = {}
-      memos2.each do |memo|
-        @memos[l(memo[:date], format: :ymd_hy)] = memo[:body]
+      memos.each do |memo|
+        return_memo = {
+          body: memo[:body],
+          id: memo[:id]
+        }
+        @memos[l(memo[:date], format: :ymd_hy)] = return_memo
       end
       @memos = JSON(@memos)
     end
