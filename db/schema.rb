@@ -327,9 +327,9 @@ ActiveRecord::Schema.define(version: 2019_11_07_072118) do
     t.boolean "job_seeking", default: false, null: false
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
+    t.integer "prefecture_code"
     t.string "kana_first_name", default: "", null: false
     t.string "kana_last_name", default: "", null: false
-    t.integer "prefecture_code"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"

@@ -317,7 +317,6 @@ osnashi: #osを持たないユーザー
   twitter_account: osnashi
   facebook_url: http://www.facebook.com/osnashi
   blog_url: http://osnashi.org
-  feed_url: http://osnashi.org/index.atom
   description: "OSが無いユーザーです"
   course: course_1
   job: office_worker
