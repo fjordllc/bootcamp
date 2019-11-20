@@ -19,17 +19,30 @@ class UsersTest < ApplicationSystemTestCase
   test "retire user" do
     stub_subscription_destroy!
 
-    login_user "hatsuno", "testtest"
-    user = users(:hatsuno)
+    login_user "kananashi", "testtest"
+    user = users(:kananashi)
     visit new_retirement_path
     click_on "退会する"
     page.driver.browser.switch_to.alert.accept
     assert_text "退会処理が完了しました"
     assert_equal Date.current, user.reload.retired_on
-    assert_equal "hatsunoさんが退会しました。", users(:komagata).notifications.last.message
-    assert_equal "hatsunoさんが退会しました。", users(:machida).notifications.last.message
+    assert_equal "kananashiさんが退会しました。", users(:komagata).notifications.last.message
+    assert_equal "kananashiさんが退会しました。", users(:machida).notifications.last.message
 
-    login_user "hatsuno", "testtest"
+    login_user "kananashi", "testtest"
+    assert_text "ログインができません"
+
+    login_user "osnashi", "testtest"
+    user = users(:osnashi)
+    visit new_retirement_path
+    click_on "退会する"
+    page.driver.browser.switch_to.alert.accept
+    assert_text "退会処理が完了しました"
+    assert_equal Date.current, user.reload.retired_on
+    assert_equal "osnashiさんが退会しました。", users(:komagata).notifications.last.message
+    assert_equal "osnashiさんが退会しました。", users(:machida).notifications.last.message
+
+    login_user "osnashi", "testtest"
     assert_text "ログインができません"
   end
 
