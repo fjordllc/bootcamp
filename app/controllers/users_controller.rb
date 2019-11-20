@@ -40,8 +40,10 @@ class UsersController < ApplicationController
         return false
       end
 
-      customer = Card.create(@user, params[:stripeToken], params[:authenticity_token])
-      subscription = Subscription.create(customer["id"], params[:authenticity_token] + "-subscription")
+      token = params[:authenticity_token] || SecureRandom.uuid
+
+      customer = Card.create(@user, params[:stripeToken], token)
+      subscription = Subscription.create(customer["id"], "#{token}-subscription")
 
       @user.customer_id = customer["id"]
       @user.subscription_id = subscription["id"]

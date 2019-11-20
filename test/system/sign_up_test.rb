@@ -4,6 +4,8 @@ require "application_system_test_case"
 
 class SignUpTest < ApplicationSystemTestCase
   test "sign up" do
+    WebMock.allow_net_connect!
+
     visit "/users/new"
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
@@ -19,7 +21,11 @@ class SignUpTest < ApplicationSystemTestCase
       select "自宅", from: "user[study_place]"
       select "未経験", from: "user[experience]"
     end
+
+    fill_stripe_element("4242 4242 4242 4242", "12 / 21", "111", "11122")
+
     click_button "利用規約に同意して参加する"
+    sleep 1
     assert_text "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
   end
 
