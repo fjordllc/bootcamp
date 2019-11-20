@@ -34,11 +34,26 @@ class UsersController < ApplicationController
       @user.free = true
     end
 
-    if @user.save
-      UserMailer.welcome(@user).deliver_now
-      notify_to_slack!
-    else
-      render "new"
+    @user.with_lock do
+      if !@user.validate
+        render "new"
+        return false
+      end
+
+      token = params[:authenticity_token] || SecureRandom.uuid
+
+      customer = Card.create(@user, params[:stripeToken], token)
+      subscription = Subscription.create(customer["id"], "#{token}-subscription")
+
+      @user.customer_id = customer["id"]
+      @user.subscription_id = subscription["id"]
+
+      if @user.save
+        UserMailer.welcome(@user).deliver_now
+        notify_to_slack!
+      else
+        render "new"
+      end
     end
   end
 

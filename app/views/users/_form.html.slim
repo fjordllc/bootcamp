@@ -1,8 +1,11 @@
-= form_with model: user, url: url, local: true, html: { name: "user", autocomplete: "address-line3" } do |f|
+- if from == :new
+  = javascript_include_tag "https://js.stripe.com/v3/"
+= form_with model: user, url: url, local: true, id: "payment-form", html: { name: "user", autocomplete: "address-line3" } do |f|
   = f.hidden_field :adviser
   = f.hidden_field :trainee
   = render "errors", object: user
   .form__items
+
     = render "users/form/login_name", f: f
     = render "users/form/email", f: f, user: user
 
@@ -35,6 +38,9 @@
       h3.form__items-title 以下パスワードを変更する場合のみ入力
       = render "users/form/password", f: f
 
+  - if from == :new && user.student?
+    = render "users/form/card"
+
   - if admin_login?
     .form__items
       h3.form__items-title 以下管理者のみ操作ができます
@@ -49,7 +55,7 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit user_submit_label(user, from), class: "a-button is-lg is-warning is-block"
+        = f.submit user_submit_label(user, from), id: "user_submit", class: "a-button is-lg is-warning is-block"
         - if from == :new
           .a-form-help.is-text-align-center
             = link_to "利用規約を確認（別タブで開きます）", tos_path, target: "_blank"
