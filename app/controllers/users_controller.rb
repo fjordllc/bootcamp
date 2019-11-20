@@ -17,7 +17,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-
     case params[:role]
     when "adviser"
       @user.adviser = true
@@ -34,20 +33,15 @@ class UsersController < ApplicationController
       @user.free = true
     end
 
-    @user.with_lock do
-      if !@user.validate
-        render "new"
-        return false
-      end
+    if @user.staff? || @user.trainee?
+      create_free_user!
+    else
+      create_user!
+    end
+  end
 
-      token = params[:authenticity_token] || SecureRandom.uuid
-
-      customer = Card.create(@user, params[:stripeToken], token)
-      subscription = Subscription.create(customer["id"], "#{token}-subscription")
-
-      @user.customer_id = customer["id"]
-      @user.subscription_id = subscription["id"]
-
+  private
+    def create_free_user!
       if @user.save
         UserMailer.welcome(@user).deliver_now
         notify_to_slack!
@@ -55,9 +49,30 @@ class UsersController < ApplicationController
         render "new"
       end
     end
-  end
 
-  private
+    def create_user!
+      @user.with_lock do
+        if !@user.validate
+          render "new"
+          return false
+        end
+
+        token = params[:idempotency_token]
+        customer = Card.create(@user, params[:stripeToken], token)
+        subscription = Subscription.create(customer["id"], "#{token}-subscription")
+
+        @user.customer_id = customer["id"]
+        @user.subscription_id = subscription["id"]
+
+        if @user.save
+          UserMailer.welcome(@user).deliver_now
+          notify_to_slack!
+        else
+          render "new"
+        end
+      end
+    end
+
     def notify_to_slack!
       SlackNotification.notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
         username: "#{@user.login_name}@bootcamp.fjord.jp",

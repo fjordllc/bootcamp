@@ -27,6 +27,11 @@ class SignUpTest < ApplicationSystemTestCase
     click_button "利用規約に同意して参加する"
     sleep 1
     assert_text "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
+
+    WebMock.disable_net_connect!(
+      allow_localhost: true,
+      allow: "chromedriver.storage.googleapis.com"
+    )
   end
 
   test "sign up as adviser" do
