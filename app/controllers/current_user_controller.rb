@@ -34,7 +34,6 @@ class CurrentUserController < ApplicationController
         :twitter_account,
         :facebook_url,
         :blog_url,
-        :feed_url,
         :password,
         :password_confirmation,
         :job,
