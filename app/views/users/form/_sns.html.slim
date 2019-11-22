@@ -5,9 +5,10 @@
 .form-item
   = f.label :github_account, class: "a-label"
   .form-item__mention-input
-    = f.text_field :github_account, class: "a-text-input", placeholder: "komagata"
-  .a-form-help
-    p URL ではなく ID を入力。
+    = f.text_field :github_account, class: "a-text-input", placeholder: "komagata", disabled: true
+  // TODO: デザイン
+  a.a-button href="/auth/github"
+    | GutHubと連携する
 .form-item
   = f.label :twitter_account, class: "a-label"
   .form-item__mention-input
