@@ -32,12 +32,12 @@
 
   - else
     .form__items
-      = render "users/form/password", f: f
+      = render "users/form/password", f: f, is_register: true
 
   - if from == :edit
     .form__items
       h3.form__items-title 以下パスワードを変更する場合のみ入力
-      = render "users/form/password", f: f
+      = render "users/form/password", f: f, is_register: false
 
   - if from == :new && user.student?
     = render "users/form/card"
