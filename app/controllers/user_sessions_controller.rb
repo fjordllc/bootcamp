@@ -34,6 +34,14 @@ class UserSessionsController < ApplicationController
     redirect_to root_url, notice: "ログアウトしました。"
   end
 
+  def callback
+    # auth = request.env['omniauth.auth']
+    # github_token = auth[:credentials][:token]
+    # user = find_or_register_github_token(github_token)
+    binding.pry
+    redirect_to root_path
+  end
+
   private
     def save_updated_at(user)
       user.updated_at = Time.current

@@ -408,6 +408,12 @@ SQL
     company && company.name == "DAIMYO Engineer College"
   end
 
+  def self.register_github_token(token)
+    # TODO: トークンを登録
+    # user.github_token = token
+    # user.save
+  end
+
   private
     def password_required?
       new_record? || password.present?
