@@ -48,6 +48,8 @@ gem "groupdate"
 gem "chartkick"
 gem "holiday_jp"
 gem "mentionable", "~> 0.2"
+gem "omniauth"
+gem "omniauth-github"
 
 group :production, :staging do
   gem "newrelic_rpm"
