@@ -408,9 +408,8 @@ SQL
     company && company.name == "DAIMYO Engineer College"
   end
 
-  def register_github_token(token, account)
+  def register_github_account(account)
     self.github_account = account
-    self.github_token = token
     self.save
   end
 

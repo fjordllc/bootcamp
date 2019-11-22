@@ -37,10 +37,15 @@ class UserSessionsController < ApplicationController
   def callback
     auth = request.env['omniauth.auth']
     github_account = auth[:info][:nickname]
-    github_token = auth[:credentials][:token]
-    saved_token = current_user.github_token
-    current_user.register_github_token(github_token, github_account) if saved_token.blank?
-    # TODO: フラッシュメッセージ入れる
+    if current_user.blank?
+        user = User.find_by_github_account(github_account)
+        session[:id] = user.id
+        # TODO: フラッシュメッセージ入れる
+    else
+        saved_account = current_user.github_account
+        current_user.register_github_account(github_account) if saved_account.blank?
+        # TODO: フラッシュメッセージ入れる
+    end
     redirect_to root_path
   end
 
