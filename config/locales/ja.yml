@@ -66,6 +66,7 @@ ja:
         avatar: プロフィール画像
         retire_reason: 退会理由
         mail_notification: メール通知
+        job_seeker: 就職を希望する
       course:
         title: タイトル
         description: 詳細

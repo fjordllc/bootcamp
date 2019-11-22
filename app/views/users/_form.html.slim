@@ -24,6 +24,8 @@
       = render "users/form/study_place", f: f
       = render "users/form/prefecture", f: f
       = render "users/form/experience", f: f
+    - if user.student?
+      = render "users/form/job_seeker", f: f
 
   - if from == :edit
     .form__items

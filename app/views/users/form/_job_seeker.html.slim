@@ -1,0 +1,11 @@
+.form-item
+  = f.label :job_seeker, class: "a-label"
+  ul.form-item__checkboxes
+    li.form-checkbox
+      label.form-checkbox__label
+        = f.check_box :job_seeker, class: "form-checkbox__input"
+        = User.human_attribute_name :job_seeker
+  .a-form-help
+    p
+      / TODO 項目の説明を正式な説明文に修正する
+      | 項目の説明
