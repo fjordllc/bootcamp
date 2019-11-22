@@ -47,7 +47,8 @@ class CurrentUserController < ApplicationController
         :nda,
         :avatar,
         :trainee,
-        :mail_notification
+        :mail_notification,
+        :job_seeker
       )
     end
 
