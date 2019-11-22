@@ -46,7 +46,7 @@ class UserSessionsController < ApplicationController
     else
         saved_account = current_user.github_account
         current_user.register_github_account(github_account) if saved_account.blank?
-        # TODO: フラッシュメッセージ入れる
+        flash[:notice] = "GitHubと連携しました。"
         redirect_to root_path and return
     end
   end
