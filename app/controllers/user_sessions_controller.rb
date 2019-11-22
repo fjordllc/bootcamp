@@ -39,7 +39,10 @@ class UserSessionsController < ApplicationController
     github_account = auth[:info][:nickname]
     if current_user.blank?
         user = User.find_by_github_account(github_account)
-        # TODO: ログインできなかったときのエラーハンドリング
+        if user.blank?
+            flash[:notice] = "ログインに失敗しました。先にアカウントを作成後、GitHub連携を行ってください。"
+            redirect_to root_url and return
+        end
         session[:user_id] = user.id
         save_updated_at(user)
         redirect_back_or_to root_url, notice: "サインインしました。" and return
