@@ -39,14 +39,16 @@ class UserSessionsController < ApplicationController
     github_account = auth[:info][:nickname]
     if current_user.blank?
         user = User.find_by_github_account(github_account)
-        session[:id] = user.id
-        # TODO: フラッシュメッセージ入れる
+        # TODO: ログインできなかったときのエラーハンドリング
+        session[:user_id] = user.id
+        save_updated_at(user)
+        redirect_back_or_to root_url, notice: "サインインしました。" and return
     else
         saved_account = current_user.github_account
         current_user.register_github_account(github_account) if saved_account.blank?
         # TODO: フラッシュメッセージ入れる
+        redirect_to root_path and return
     end
-    redirect_to root_path
   end
 
   private
