@@ -318,9 +318,8 @@ SQL
     end
   end
 
-  def register_github_token(token, account)
+  def register_github_account(account)
     self.github_account = account
-    self.github_token = token
     self.save
   end
 
