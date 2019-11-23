@@ -103,6 +103,7 @@ class User < ApplicationRecord
       message: "は英文字と_（アンダースコア）のみが使用できます"
     }
   validates :mail_notification, inclusion: { in: [true, false] }
+  validates :github_id, uniqueness: true
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
