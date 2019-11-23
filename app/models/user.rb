@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
       message: "は英文字と_（アンダースコア）のみが使用できます"
     }
   validates :mail_notification, inclusion: { in: [true, false] }
-  validates :github_id, uniqueness: true
+  validates :github_id, uniqueness: true, allow_nil: true
 
   with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
     validates :kana_first_name,  presence: true,
