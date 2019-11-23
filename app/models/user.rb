@@ -409,8 +409,9 @@ SQL
     company && company.name == "DAIMYO Engineer College"
   end
 
-  def register_github_account(account)
-    self.github_account = account
+  def register_github_account(id, account_name)
+    self.github_account = account_name
+    self.github_id = id
     self.save
   end
 
