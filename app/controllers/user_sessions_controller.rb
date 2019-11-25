@@ -40,12 +40,12 @@ class UserSessionsController < ApplicationController
     if current_user.blank?
       user = User.find_by_github_id(github_id)
       if user.blank?
-        flash[:notice] = "ログインに失敗しました。先にアカウントを作成後、GitHub連携を行ってください。"
+        flash[:alert] = "ログインに失敗しました。先にアカウントを作成後、GitHub連携を行ってください。"
         redirect_to(root_url) && (return)
       end
       if user.retired_on?
         logout
-        redirect_to retire_path && return
+        redirect_to(retire_path) && (return)
       end
       session[:user_id] = user.id
       save_updated_at(user)
@@ -56,6 +56,10 @@ class UserSessionsController < ApplicationController
       flash[:notice] = "GitHubと連携しました。"
       redirect_to(root_path) && (return)
     end
+  rescue => e
+    logger.warn "[GitHub Login] ログインに失敗しました。：#{e.message}"
+    flash[:alert] = "GitHubログインに失敗しました。数回試しても続く場合、管理者に連絡してください。"
+    redirect_to(root_path) && (return)
   end
 
   private
