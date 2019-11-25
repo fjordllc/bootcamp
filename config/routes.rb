@@ -101,7 +101,7 @@ Rails.application.routes.draw do
   get "articles/tags/:tag", to: "articles#index", as: :tag
 
   get "login" => "user_sessions#new", as: :login
-  get "/auth/github/callback" => "user_sessions#callback"
+  get "auth/github/callback" => "user_sessions#callback"
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
 
