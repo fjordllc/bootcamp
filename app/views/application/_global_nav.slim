@@ -77,7 +77,7 @@ nav.global-nav
             .global-nav-links__link-label 登録情報変更
         - if !current_user.adviser? && !current_user.mentor?
           li.global-nav-links__item.is-hidden-md-up
-            = link_to new_card_path, class: "global-nav-links__link #{current_link /^card/}" do
+            = link_to edit_card_path, class: "global-nav-links__link #{current_link /^card/}" do
               .global-nav-links__link-icon
                 i.fas.fa-credit-card
               .global-nav-links__link-label クレジットカード
