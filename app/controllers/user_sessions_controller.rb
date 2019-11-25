@@ -36,7 +36,6 @@ class UserSessionsController < ApplicationController
 
   def callback
     auth = request.env["omniauth.auth"]
-    github_account = auth[:info][:nickname]
     github_id = auth[:uid]
     if current_user.blank?
       user = User.find_by_github_id(github_id)
@@ -44,12 +43,16 @@ class UserSessionsController < ApplicationController
         flash[:notice] = "ログインに失敗しました。先にアカウントを作成後、GitHub連携を行ってください。"
         redirect_to(root_url) && (return)
       end
+      if user.retired_on?
+        logout
+        redirect_to retire_path && return
+      end
       session[:user_id] = user.id
       save_updated_at(user)
       redirect_back_or_to(root_url, notice: "サインインしました。") && (return)
     else
-      saved_id = current_user.github_id
-      current_user.register_github_account(github_id, github_account) if saved_id.blank?
+      github_account = auth[:info][:nickname]
+      current_user.register_github_account(github_id, github_account) if current_user.github_id.blank?
       flash[:notice] = "GitHubと連携しました。"
       redirect_to(root_path) && (return)
     end
