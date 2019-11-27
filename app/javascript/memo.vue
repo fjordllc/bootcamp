@@ -57,6 +57,8 @@ export default {
           if (json["status"] === 201) {
             this.id = json["id"];
             this.body = json["body"];
+          }else{
+            alert(json["message"]);
           }
         })
         .catch(error => {
