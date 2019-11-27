@@ -42,12 +42,12 @@ gem "rollbar"
 gem "rails-i18n"
 gem "google-cloud-storage", "~> 1.3", require: false
 gem "mini_magick"
-gem "activestorage-validator"
 gem "commonmarker"
 gem "stripe", "~> 4.5.0"
 gem "acts-as-taggable-on"
 gem "rqrcode"
 gem "jp_prefecture"
+gem "active_storage_validations"
 
 group :production, :staging do
   gem "newrelic_rpm"
