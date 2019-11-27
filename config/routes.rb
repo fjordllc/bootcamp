@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "faq", to: "welcome#faq", as: "faq"
   get "tos", to: "welcome#tos", as: "tos"
   get "law", to: "welcome#law", as: "law"
+  get "coc", to: "welcome#coc", as: "coc"
 
   namespace "api" do
     resource :image, controller: "image", only: %i(create)

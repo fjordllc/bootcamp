@@ -15,4 +15,7 @@ class WelcomeController < ApplicationController
   def practices
     @categories = Course.first.categories.preload(:practices).order(:position)
   end
+
+  def coc
+  end
 end
