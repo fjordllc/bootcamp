@@ -24,13 +24,6 @@ namespace :bootcamp do
     end
   end
 
-  desc "Replace practices"
-  task :replace_practice do
-    include SeedHelper
-    Practice.delete_all
-    import "practices"
-  end
-
   desc "Dump practices"
   task :dump_practice do
     Practice.all.each do |practice|

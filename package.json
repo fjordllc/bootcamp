@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "dependencies": {
-    "@rails/webpacker": "3.5",
+    "@rails/webpacker": "^4.2.0",
     "autosize": "^4.0.2",
     "escape-html": "^1.0.3",
     "escape-string-regexp": "^2.0.0",
@@ -20,18 +20,19 @@
     "markdown-it-regexp": "^0.4.0",
     "mem": "^4.0.0",
     "moment": "^2.24.0",
-    "pug": "^2.0.3",
+    "pug": "^2.0.4",
+    "pug-plain-loader": "^1.0.0",
     "select2": "^4.0.7-rc.0",
     "set-value": "^2.0.1",
     "textarea-autosize": "^0.4.2",
     "textarea-markdown": "^1.2.3",
     "tributejs": "^3.6.0",
-    "vue": "^2.5.16",
-    "vue-loader": "14.2.2",
-    "vue-template-compiler": "^2.5.16",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.2",
+    "vue-template-compiler": "^2.6.10",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.1.11"
+    "webpack-dev-server": "^3.9.0"
   }
 }
