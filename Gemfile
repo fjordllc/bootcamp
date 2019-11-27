@@ -69,7 +69,6 @@ group :development do
 
   # not default
   gem "letter_opener"
-  gem "xray-rails"
   gem "rails-erd"
   gem "heavens_door"
   gem "rubocop", require: false
