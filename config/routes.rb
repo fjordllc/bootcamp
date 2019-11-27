@@ -50,7 +50,7 @@ Rails.application.routes.draw do
     get "portfolio" => "users/works#index", as: :portfolio
   end
 
-  resource :card, only: %i(show new create edit update), controller: "card"
+  resource :card, only: %i(show edit update), controller: "card"
   resource :current_user, only: %i(edit update), controller: "current_user"
   resources :searchables, only: %i(index)
   resources :user_sessions, only: %i(new create destroy)
