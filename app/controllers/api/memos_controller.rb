@@ -9,7 +9,7 @@ class API::MemosController < API::BaseController
       if memo.save
         render json: { status: 201,  id: memo.id, body: memo.body }, status: :created
       else
-        head :bad_request
+        render status: :unprocessable_entity, json: { status: 422, message: memo.errors.full_messages }
       end
     end
   end
@@ -19,7 +19,7 @@ class API::MemosController < API::BaseController
       if @memo.update(memo_params)
         render json: { status: 200,  id: @memo.id, body: @memo.body }, status: :ok
       else
-        head :bad_request
+        render status: :unprocessable_entity, json: { status: 422, message: memo.errors.full_messages }
       end
     end
   end
