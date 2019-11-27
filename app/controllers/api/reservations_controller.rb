@@ -16,7 +16,7 @@ class API::ReservationsController < API::BaseController
     if @reservation.save
       render :create, status: :created
     else
-      render status: :bad_request, json: { status: 400, message: @reservation.errors.full_messages }
+      render status: :bad_request, json: { status: 422, message: @reservation.errors.full_messages }
     end
   end
 
