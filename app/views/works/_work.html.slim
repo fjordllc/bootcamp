@@ -3,7 +3,7 @@
     .works-item__inner.a-card
       header.works-item__header
         = link_to work, class: "works-item__image-link" do
-          - if work.thumbnail.present?
+          - if work.thumbnail.attached?
             = image_tag work.thumbnail_image(40), class: "works-item__image"
           - else
             = image_tag("work-blank.svg", class: "works-item__image")
