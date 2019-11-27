@@ -54,7 +54,6 @@ group :development, :test do
 
   # not default
   gem "pry-byebug"
-  gem "simple_seed"
 end
 
 group :development do
@@ -65,8 +64,6 @@ group :development do
 
   # not default
   gem "letter_opener"
-  gem "rails-erd"
-  gem "heavens_door"
   gem "rubocop", require: false
   gem "rubocop-performance"
   gem "rubocop-rails"
