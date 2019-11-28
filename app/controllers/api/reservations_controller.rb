@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class API::ReservationsController < API::BaseController
-  before_action :require_login
   before_action :set_reservation, only: %i(destroy)
 
   def index
