@@ -322,7 +322,7 @@ SQL
   def register_github_account(id, account_name)
     self.github_account = account_name
     self.github_id = id
-    self.save
+    self.save!
   end
 
   private
