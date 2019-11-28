@@ -50,7 +50,7 @@
                 | 登録情報変更
             - if !current_user.adviser? && !current_user.mentor?
               li.header-dropdown__item
-                = link_to "クレジットカード", new_card_path, class: "header-dropdown__item-link"
+                = link_to "クレジットカード", edit_card_path, class: "header-dropdown__item-link"
             li.header-dropdown__item
               = link_to courses_path, class: "header-dropdown__item-link" do
                 | コース
@@ -64,14 +64,16 @@
               = link_to "https://suzuri.jp/FjordBootCamp", class: "header-dropdown__item-link", target: "_blank" do
                 | グッズ購入
             li.header-dropdown__item
+              = link_to coc_path, class: "header-dropdown__item-link", target: "_blank" do
+                | アンチハラスメントポリシー
+            li.header-dropdown__item
               = link_to logout_path, class: "header-dropdown__item-link" do
                 | ログアウト
             li.header-dropdown__item
               = link_to new_retirement_path, class: "header-dropdown__item-link" do
                 | 退会手続き
     li.header-links__item(class="#{current_user.unread_notifications_exists? ? "has-count" : "has-no-count"}")
-      - toggle_id = "header-notification-pc"
-      label.header-links__link.test-show-notifications(for="#{toggle_id}")
+      label.header-links__link.test-show-notifications(for="header-notification-pc")
         .header-links__link.test-bell
           .header-notification-icon
             - if current_user.unread_notifications_exists?
@@ -80,4 +82,4 @@
             i.fas.fa-bell
             .header-links__link-label 通知
       - if current_user.unread_notifications_exists?
-        = render "application/notifications", toggle_id: toggle_id
+        = render "application/notifications", toggle_id: "header-notification-pc"

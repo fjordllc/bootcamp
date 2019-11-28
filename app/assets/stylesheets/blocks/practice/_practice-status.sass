@@ -20,3 +20,9 @@
     pointer-events: none
   .practice-status__buttons-item.is-active + .practice-status__buttons-item &
     border-left: none
+
+.practice-status__buttons-item
+  +media-breakpoint-down(sm)
+    width: 33.33%
+    .a-button
+      width: 100%

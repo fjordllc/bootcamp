@@ -8,7 +8,9 @@ class Work < ApplicationRecord
   validates :title, presence: true, uniqueness: { scope: :user_id }, length: { maximum: 255 }
   validates :description, presence: true
   validates :url_or_repository, presence: true
-  validates :thumbnail, blob: { content_type: :image, size_range: 0..10.megabytes }
+  validates :thumbnail,
+    content_type: %w(image/png image/jpg image/jpeg),
+    size: { less_than: 10.megabytes }
 
   private
 

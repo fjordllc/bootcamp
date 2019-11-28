@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "faq", to: "welcome#faq", as: "faq"
   get "tos", to: "welcome#tos", as: "tos"
   get "law", to: "welcome#law", as: "law"
+  get "coc", to: "welcome#coc", as: "coc"
 
   namespace "api" do
     resource :image, controller: "image", only: %i(create)
@@ -50,7 +51,7 @@ Rails.application.routes.draw do
     get "portfolio" => "users/works#index", as: :portfolio
   end
 
-  resource :card, only: %i(show new create edit update), controller: "card"
+  resource :card, only: %i(show edit update), controller: "card"
   resource :current_user, only: %i(edit update), controller: "current_user"
   resources :searchables, only: %i(index)
   resources :user_sessions, only: %i(new create destroy)

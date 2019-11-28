@@ -52,18 +52,6 @@ module Authentication
     end
   end
 
-  def require_paid_login
-    unless paid_login? || current_user.free?
-      redirect_to new_card_path, alert: "クレジットカードを登録してください"
-    end
-  end
-
-  def require_staff_or_paid_login
-    unless staff_or_paid_login? || current_user.free?
-      redirect_to new_card_path, alert: "クレジットカードを登録してください"
-    end
-  end
-
   protected
     def not_authenticated
       redirect_to root_path, alert: "ログインしてください"

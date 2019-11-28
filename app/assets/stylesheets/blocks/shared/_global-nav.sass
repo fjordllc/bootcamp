@@ -1,4 +1,5 @@
 $global-nav-width: 5rem
+$global-nav-width-sm: 13rem
 
 .global-nav
   display: inline
@@ -33,13 +34,13 @@ $global-nav-width: 5rem
   overflow-y: auto
   +media-breakpoint-down(sm)
     transition: left .2s ease-out
-    width: 12rem
+    width: $global-nav-width-sm
     overflow-y: auto
-    left: -12rem
+    left: $global-nav-width-sm * -1
     input:checked + .global-nav &
       left: 0
       >*
-        width: 12rem
+        width: $global-nav-width-sm
 
 .global-nav-current-user
   +padding(vertical, .75rem)
@@ -90,6 +91,8 @@ $global-nav-width: 5rem
   +text-block(.625rem 1.45, center)
   +media-breakpoint-down(sm)
     font-size: .875rem
+  &.is-sm
+    font-size: .75rem
 
 .global-nav__item-count
   +position(right .25rem, top .25rem)
