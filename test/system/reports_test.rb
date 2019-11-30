@@ -36,6 +36,36 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text Time.current.strftime("%Y年%m月%d日")
   end
 
+  test "create and update learning times in a report" do
+    visit "/reports/new"
+    within("#new_report") do
+      fill_in("report[title]", with: "test title")
+      fill_in("report[description]",   with: "test")
+      fill_in("report[reported_on]", with: Time.current)
+    end
+
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
+
+    assert_difference "LearningTime.count", 1 do
+      click_button "提出"
+    end
+
+    click_link "内容修正"
+    click_link "学習時間追加"
+
+    all(".learning-time")[1].all(".learning-time__started-at select")[0].select("09")
+    all(".learning-time")[1].all(".learning-time__started-at select")[1].select("30")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[0].select("10")
+    all(".learning-time")[1].all(".learning-time__finished-at select")[1].select("30")
+
+    assert_difference "LearningTime.count", 1 do
+      click_button "内容変更"
+    end
+  end
+
   test "equal practices order in practices and new report" do
     visit "/reports/new"
     first(".select2-selection--multiple").click
@@ -146,11 +176,11 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "19:30 〜 20:15"
   end
 
-  test "register learning_times 1h" do
+  test "canonicalize learning times when create and update a report" do
     visit "/reports/new"
+
     fill_in "report_title", with: "テスト日報"
     fill_in "report_description", with: "完了日時 - 開始日時 < 0のパターン"
-
     all(".learning-time")[0].all(".learning-time__started-at select")[0].select("23")
     all(".learning-time")[0].all(".learning-time__started-at select")[1].select("00")
     all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("00")
@@ -158,8 +188,24 @@ class ReportsTest < ApplicationSystemTestCase
 
     click_button "提出"
 
-    assert_text "1時間\n"
+    within ".learning-times__total-time" do
+      assert_text "1時間", exact: true
+    end
     assert_text "23:00 〜 00:00"
+
+    click_link "内容修正"
+
+    all(".learning-time")[0].all(".learning-time__started-at select")[0].select("23")
+    all(".learning-time")[0].all(".learning-time__started-at select")[1].select("00")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("23")
+    all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("45")
+
+    click_button "内容変更"
+
+    within ".learning-times__total-time" do
+      assert_text "0時間45分", exact: true
+    end
+    assert_text "23:00 〜 23:45"
   end
 
   test "register learning_times 4h" do
