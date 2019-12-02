@@ -46,6 +46,7 @@ gem "sucker_punch", "~> 2.0"
 gem "stripe-i18n"
 gem "groupdate"
 gem "chartkick"
+gem "holiday_jp"
 
 group :production, :staging do
   gem "newrelic_rpm"
