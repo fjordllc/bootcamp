@@ -12,24 +12,24 @@ export default {
   props: ['parentReservation', 'currentUserId'],
   methods: {
     deleteReservation: function() {
-      if (window.confirm('予約を削除しますか？')) {
+      if (confirm('予約を削除しますか？')) {
         this.$emit('delete', this.id);
       }
     }
   },
   computed: {
     id: function() {
-      if(!(this.parentReservation === undefined)){
+      if(typeof this.parentReservation !== null){
         return this.parentReservation.id
       }
     },
     userId: function() {
-      if(!(this.parentReservation === undefined)){
+      if(typeof this.parentReservation !== null){
         return this.parentReservation.user_id
       }
     },
     loginName: function() {
-      if(!(this.parentReservation === undefined)){
+      if(typeof this.parentReservation !== null){
         return this.parentReservation.login_name
       }
     }
