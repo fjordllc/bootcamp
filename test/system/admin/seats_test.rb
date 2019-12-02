@@ -3,7 +3,7 @@
 require "application_system_test_case"
 
 class Admin::SeatsTest < ApplicationSystemTestCase
-  def setup
+  setup do
     login_user "komagata", "testtest"
   end
 
