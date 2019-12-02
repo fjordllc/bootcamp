@@ -4,9 +4,9 @@ class API::ReservationsController < API::BaseController
   before_action :set_reservation, only: %i(destroy)
 
   def index
-    beggining_of_this_month = params[:beggining_of_this_month]
-    end_of_this_month = params[:end_of_this_month]
-    @reservations = Reservation.where(date: beggining_of_this_month..end_of_this_month).includes(:user)
+    @reservations = Reservation.where(
+      date: params[:beggining_of_this_month]..params[:end_of_this_month]
+    ).includes(:user)
   end
 
   def create
