@@ -3,7 +3,7 @@
     table
       tr
         th
-          | 
+          |
         th.seat(v-for="seat in seats" :key="seat.id")
           | {{ seat.name }}
         th.memo
@@ -12,13 +12,13 @@
         td {{ one_day['d_jp'] }}
         td(v-for="seat in seats" :key="seat.id" v-bind:id="reservation_hash_id(one_day['ymd'],(seat.id))")
           button(v-if="reservations[`${one_day['ymd']}-${seat.id}`] === undefined" @click="createReservation(one_day['ymd'], seat.id)").a-button.is-md.is-block.is-secondary
-            | 
+            |
           reservation(v-else :currentUserId="currentUserId", :parentReservation="reservations[`${one_day['ymd']}-${seat.id}`]", @delete="deleteReservation")
         td(v-if="admin_login == 1" v-bind:id="memoId(one_day['ymd'])").memo
           memo(:memo="memos[one_day['ymd']]" :date="one_day['ymd']")
         td(v-else v-bind:id="memoId(one_day['ymd'])").memo
           template(v-if="memos[one_day['ymd']] === undefined")
-            | 
+            |
           template(v-else)
             | {{ memoBody(one_day) }}
 </template>
