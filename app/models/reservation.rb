@@ -9,7 +9,7 @@ class Reservation < ApplicationRecord
 
   private
     def after_a_month
-      if date > Date.today.next_month
+      if date > (Date.today.next_month)
         errors.add(:date, "は一ヶ月先までしか予約できません")
       end
     end
