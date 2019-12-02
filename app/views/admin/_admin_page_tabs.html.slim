@@ -21,3 +21,11 @@
         = link_to "書籍",
           admin_books_path,
           class: "page-tabs__item-link #{current_link /^admin-books/}"
+      li.page-tabs__item
+        = link_to "席",
+          admin_seats_path,
+          class: "page-tabs__item-link #{current_link /^admin-seats/}"
+      li.page-tabs__item
+        = link_to "カレンダーメモ",
+          admin_memos_path,
+          class: "page-tabs__item-link #{current_link /^admin-memos/}"

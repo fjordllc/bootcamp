@@ -191,6 +191,13 @@ ActiveRecord::Schema.define(version: 2019_12_11_061812) do
     t.datetime "updated_at"
   end
 
+  create_table "memos", force: :cascade do |t|
+    t.date "date"
+    t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer "kind", default: 0, null: false
     t.bigint "user_id"
@@ -284,6 +291,20 @@ ActiveRecord::Schema.define(version: 2019_12_11_061812) do
     t.boolean "wip", default: false, null: false
     t.integer "emotion"
     t.datetime "published_at"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.date "date"
+    t.integer "user_id", null: false
+    t.integer "seat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|

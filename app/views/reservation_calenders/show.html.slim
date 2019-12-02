@@ -1,0 +1,30 @@
+- title "席予約一覧"
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+
+.page-body
+  .container
+    .a-card
+      header.card-header.is-sm
+        h2.card-header__title
+          = l(@this_month, format: :ym_jp)
+      .card-header
+        .card-header-actions
+          ul.card-header-actions__items
+            li.card-header-actions__item
+              = link_to reservation_calender_path(l(@prev_month, format: :ym)), class: "a-button is-md is-warning is-block" do
+                | 前月
+            li.card-header-actions__item
+              = link_to reservation_calender_path(l(@next_month, format: :ym)), class: "a-button is-md is-warning is-block" do
+                | 来月
+      #js-reservations(data-reservations-beggining-of-this-month="#{@this_month}" data-reservations-end-of-this-month="#{@this_month.end_of_month}" data-current-user-id="#{current_user.id}")
+        #js-reservations-data-holiday-jps
+          = @holiday_jps
+        #js-memos-data
+          = @memos
+        #js-seats-data
+          = @seats

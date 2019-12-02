@@ -1,0 +1,19 @@
+reservation_1:
+  date: 2019-11-21
+  seat: seat_1
+  user: komagata
+
+reservation_2:
+  date: 2019-11-09
+  seat: seat_2
+  user: machida
+
+reservation_3:
+  date: 2019-11-10
+  seat: seat_3
+  user: machida
+
+reservation_4:
+  date: 2019-11-03
+  seat: seat_4
+  user: hatsuno
