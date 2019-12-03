@@ -41,6 +41,7 @@ gem "acts-as-taggable-on", "~> 6.5"
 gem "rqrcode"
 gem "jp_prefecture"
 gem "active_storage_validations"
+gem "any_login"
 
 group :production, :staging do
   gem "newrelic_rpm"
@@ -66,7 +67,6 @@ group :development do
   gem "rubocop-rails"
   gem "slim_lint"
   gem "bullet"
-  gem "any_login"
 end
 
 group :test do
