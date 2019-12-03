@@ -25,7 +25,7 @@ header.page-header
         #js-reservations-data-holiday-jps
           = @holiday_jps
         #js-memos-data
-          = @memos
+          = @memos.to_json
         #js-seats-data
           = @seats
         - if admin_login? || adviser_login?
