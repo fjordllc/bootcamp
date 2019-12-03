@@ -122,10 +122,10 @@ export default {
           return response.json();
         })
         .then(json => {
-          if (json["status"] === 422) {
-            alert(json["message"]);
-          }else{
+          if (json["message"] == undefined) {
             this.$set(this.reservations, `${json.date}-${json.seat_id}`, json);
+          }else{
+            alert(json["message"]);
           }
         })
         .catch(error => {
