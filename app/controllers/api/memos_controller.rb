@@ -7,9 +7,9 @@ class API::MemosController < API::BaseController
     if current_user.admin?
       memo = Memo.new(memo_params)
       if memo.save
-        render status: :created, json: { status: :created,  id: memo.id, body: memo.body }
+        render status: :created, json: { id: memo.id, body: memo.body }
       else
-        render status: :unprocessable_entity, json: { status: :unprocessable_entity, message: memo.errors.full_messages }
+        render status: :unprocessable_entity, json: { message: memo.errors.full_messages }
       end
     end
   end
@@ -17,9 +17,9 @@ class API::MemosController < API::BaseController
   def update
     if current_user.admin?
       if @memo.update(memo_params)
-        render status: :ok, json: { status: :ok,  id: @memo.id, body: @memo.body }
+        render status: :ok, json: { id: @memo.id, body: @memo.body }
       else
-        render status: :unprocessable_entity, json: { status: :unprocessable_entity, message: memo.errors.full_messages }
+        render status: :unprocessable_entity, json: { message: memo.errors.full_messages }
       end
     end
   end
@@ -27,7 +27,7 @@ class API::MemosController < API::BaseController
   def destroy
     if current_user.admin?
       @memo.destroy
-      render status: :ok, json: { status: :ok, id: @memo.id }
+      render status: :ok, json: { id: @memo.id }
     end
   end
 

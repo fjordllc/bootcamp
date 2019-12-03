@@ -54,7 +54,7 @@ export default {
           return response.json();
         })
         .then(json => {
-          if (json["status"] === 201) {
+          if (json["message"] == undefined) {
             this.id = json["id"];
             this.body = json["body"];
           }else{
@@ -88,9 +88,11 @@ export default {
           return response.json();
         })
         .then(json => {
-          if (json["status"] === 200) {
+          if (json["message"] == undefined) {
             this.id = json["id"];
             this.body = json["body"];
+          }else{
+            alert(json["message"]);
           }
         })
         .catch(error => {
@@ -111,9 +113,11 @@ export default {
           return response.json();
         })
         .then(json => {
-          if (json["status"] === 200) {
+          if (json["message"] == undefined) {
             this.id = json["id"];
             this.body = '';
+          }else{
+            alert(json["message"]);
           }
         })
         .catch(error => {
