@@ -10,10 +10,11 @@ class ReservationCalendersController < ApplicationController
   end
 
   def show
-    @reservations = Reservation.where(date: @beggining_of_this_month..@beggining_of_this_month.end_of_month).includes(:user)
+    days_of_this_month = @beggining_of_this_month..@beggining_of_this_month.end_of_month
+    @reservations = Reservation.where(date: days_of_this_month).includes(:user)
 
-    set_memos(@beggining_of_this_month)
-    set_holiday_jps(@beggining_of_this_month)
+    @memos = Memo.set_one_month_memos(@beggining_of_this_month)
+    set_holiday_jps
 
     @this_month = @beggining_of_this_month
     @prev_month = @beggining_of_this_month.prev_month
@@ -28,6 +29,7 @@ class ReservationCalendersController < ApplicationController
         @beggining_of_this_month = Date.current.beginning_of_month
       end
     end
+
     def is_year_and_month(params_id)
       /^\d{4}(0[1-9]|1[0-2])$/.match?(params_id)
     end
@@ -35,30 +37,15 @@ class ReservationCalendersController < ApplicationController
     def set_seats
       seats = []
       Seat.all.order(:name).each do |seat|
-        se = {}
-        se["id"] = seat["id"]
-        se["name"] = seat["name"]
-        seats.push(se)
+        seats.push(id: seat["id"], name: seat["name"])
       end
       @seats = JSON(seats)
     end
 
-    def set_memos(beggining_of_this_month)
-      memos = Memo.where(date: beggining_of_this_month..beggining_of_this_month.end_of_month)
-      @memos = {}
-      memos.each do |memo|
-        return_memo = {
-          body: memo[:body],
-          id: memo[:id]
-        }
-        @memos[l(memo[:date], format: :ymd_hy)] = return_memo
-      end
-      @memos = JSON(@memos)
-    end
-
-    def set_holiday_jps(beggining_of_this_month)
+    def set_holiday_jps
       holiday_jps = {}
-      (beggining_of_this_month..beggining_of_this_month.end_of_month).each do |one_day|
+      days_of_this_month = @beggining_of_this_month..@beggining_of_this_month.end_of_month
+      days_of_this_month.each do |one_day|
         if HolidayJp.holiday?(one_day) || one_day.sunday? || one_day.saturday?
           holiday_jps[l(one_day, format: :ymd_hy)] = 1
         end
