@@ -19,7 +19,6 @@ class PasswordResetsController < ApplicationController
 
     if @user.blank?
       not_authenticated
-      return
     end
   end
 
