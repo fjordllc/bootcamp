@@ -14,7 +14,7 @@ class ReservationCalendersController < ApplicationController
     @reservations = Reservation.where(date: days_of_this_month).includes(:user)
 
     @memos = Memo.set_one_month_memos(@beggining_of_this_month)
-    set_holiday_jps
+    @holidays = HolidayRepository.set_one_month_holidays(@beggining_of_this_month)
 
     @this_month = @beggining_of_this_month
     @prev_month = @beggining_of_this_month.prev_month
@@ -38,18 +38,8 @@ class ReservationCalendersController < ApplicationController
       seats = []
       Seat.all.order(:name).each do |seat|
         seats.push(id: seat["id"], name: seat["name"])
-      end
-      @seats = JSON(seats)
-    end
+      @seats = seats
 
-    def set_holiday_jps
-      holiday_jps = {}
-      days_of_this_month = @beggining_of_this_month..@beggining_of_this_month.end_of_month
-      days_of_this_month.each do |one_day|
-        if HolidayJp.holiday?(one_day) || one_day.sunday? || one_day.saturday?
-          holiday_jps[l(one_day, format: :ymd_hy)] = 1
-        end
       end
-      @holiday_jps = JSON(holiday_jps)
     end
 end
