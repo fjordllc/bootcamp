@@ -27,7 +27,7 @@ header.page-header
         #js-memos-data
           = @memos.to_json
         #js-seats-data
-          = @seats
+          = @seats.to_json
         - if admin_login? || adviser_login?
           #js-admin-login
             = "1"
