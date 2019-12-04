@@ -23,7 +23,7 @@ header.page-header
                 | 来月
       #js-reservations(data-reservations-beggining-of-this-month="#{@this_month}" data-reservations-end-of-this-month="#{@this_month.end_of_month}" data-current-user-id="#{current_user.id}")
         #js-reservations-data-holiday-jps
-          = @holiday_jps
+          = @holidays.to_json
         #js-memos-data
           = @memos.to_json
         #js-seats-data
