@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < AdminController
-  before_action :set_user, only: %i(edit update)
+  before_action :set_user, only: %i(show edit update)
 
   def index
     @direction = params[:direction] || "desc"
@@ -10,6 +10,10 @@ class Admin::UsersController < AdminController
                  .preload(%i[company course])
                  .order_by_counts(params[:order_by] || "id", @direction)
                  .users_role(@target)
+  end
+
+  def show
+    render action: :show, layout: nil
   end
 
   def edit
