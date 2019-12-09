@@ -13,7 +13,6 @@ class Product < ApplicationRecord
   has_many :watches, as: :watchable, dependent: :destroy
 
   after_create ProductCallbacks.new
-  after_update ProductCallbacks.new
   after_destroy ProductCallbacks.new
 
   validates :user, presence: true, uniqueness: { scope: :practice, message: "既に提出物があります。" }
