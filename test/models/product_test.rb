@@ -7,7 +7,6 @@ class ProductTest < ActiveSupport::TestCase
     user = users(:kimura)
     practice = practices(:practice_5)
     product = Product.create!(practice: practice, user: user, body: "test")
-    assert Notification.where(path: "/products/#{product.id}").exists?
     product.destroy
     assert_not Notification.where(path: "/products/#{product.id}").exists?
   end
