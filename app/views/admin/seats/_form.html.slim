@@ -1,5 +1,5 @@
 = render "errors", object: @seat
-= form_for([:admin, @seat], html: { name: "seat", class: "form" }) do |f|
+= form_with model: [:admin, @seat], html: { name: "seat", class: "form" }, local: true do |f|
   .form__items
     .form-item
       .row
