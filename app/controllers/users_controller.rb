@@ -43,6 +43,7 @@ class UsersController < ApplicationController
   private
     def create_free_user!
       if @user.save
+        @user.resize_avatar!
         UserMailer.welcome(@user).deliver_now
         notify_to_slack!
       else
@@ -65,6 +66,7 @@ class UsersController < ApplicationController
         @user.subscription_id = subscription["id"]
 
         if @user.save
+          @user.resize_avatar!
           UserMailer.welcome(@user).deliver_now
           notify_to_slack!
         else
