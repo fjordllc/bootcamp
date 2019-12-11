@@ -42,6 +42,7 @@ gem "rqrcode"
 gem "jp_prefecture"
 gem "active_storage_validations"
 gem "any_login"
+gem "sucker_punch", "~> 2.0"
 
 group :production, :staging do
   gem "newrelic_rpm"
