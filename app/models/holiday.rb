@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class HolidayRepository
+class Holiday
   def self.set_one_month_holidays(beggining_of_this_month)
     holidays = {}
     days_of_this_month = beggining_of_this_month..beggining_of_this_month.end_of_month
