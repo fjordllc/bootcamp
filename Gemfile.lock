@@ -359,6 +359,8 @@ GEM
     stripe (4.5.0)
       faraday (~> 0.13)
       net-http-persistent (~> 3.0)
+    sucker_punch (2.1.2)
+      concurrent-ruby (~> 1.0)
     sysexits (1.2.0)
     temple (0.8.2)
     thor (0.20.3)
@@ -446,6 +448,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   stripe (~> 4.5.0)
+  sucker_punch (~> 2.0)
   web-console (>= 3.3.0)
   webdrivers
   webmock
