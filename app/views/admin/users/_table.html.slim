@@ -47,10 +47,7 @@
                 | 非アクティブ
             td.admin-table__item-value
               = link_to user_path(user), class: "admin-table__user", target: "_blank" do
-                - if user.avatar.attached?
-                  = image_tag user.avatar_url, class: "admin-table__user-icon"
-                - else
-                  = image_tag "/images/users/default.png", class: "admin-table__user-icon"
+                = image_tag user.avatar_url, class: "admin-table__user-icon"
                 span.admin-table__user-login-name
                   = user.login_name
                   | （#{user.full_name}）
