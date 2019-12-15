@@ -1,0 +1,25 @@
+.thread-list-item
+  .thread-list-item__inner
+    .thread-list-item__author
+      = image_tag event.user.avatar_url, class: "thread-list-item__author-icon "
+    header.thread-list-item__header
+      h2.thread-list-item__title(itemprop="name")
+        = link_to event, itempro: "url", class: "thread-list-item__title-link" do
+          = event.title
+      - if admin_login? || current_user == event.user
+        .thread-list-item__actions
+          = link_to edit_event_path(event), class: "thread-list-item__actions-link" do
+            i.fas.fa-pen
+          = link_to new_event_path(id: event), class: "thread-list-item__actions-link" do
+            i.fas.fa-copy
+          = link_to event_path(event), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
+            i.fas.fa-trash-alt
+    .thread-list-item-meta
+      time.thread-list-item-meta__updated-at(datetime="#{event.updated_at.to_datetime}" pubdate="pubdate")
+        = l event.updated_at
+      - if event.comments.any?
+        .thread-list-item-meta__comment-count
+          .thread-list-item-meta__comment-count-label
+            i.fas.fa-comment
+          .thread-list-item-meta__comment-count-value
+            = event.comments.size

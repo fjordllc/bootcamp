@@ -1,0 +1,13 @@
+- if event.is_opening?
+  - if current_user.participating?(event)
+    = link_to event_participation_path(event_id: event), method: :delete, data: { confirm: "イベントの参加をキャンセルします。よろしいですか?" } do
+      | キャンセル
+  - else
+    = link_to event_participations_path(event_id: event), method: :post, data: { confirm: "イベント参加申込をします。よろしいですか?" } do
+      | 参加申込
+- elsif event.before_opening?
+  | 募集開始までお待ち下さい
+- elsif event.is_closing?
+  | 募集受付は終了しました。
+- else
+  | 本イベントは終了しました。
