@@ -312,14 +312,10 @@ SQL
 
   def avatar_url
     if avatar.attached?
-      avatar.variant(resize: "88x88>").service_url
+      avatar.service_url
     else
       image_url("/images/users/default.png")
     end
-  end
-
-  def resize_avatar!
-    avatar.variant(resize: "88x88>").processed if avatar.attached?
   end
 
   private
