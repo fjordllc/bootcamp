@@ -75,7 +75,7 @@ class ProductsController < ApplicationController
     end
 
     def find_product
-      Product.find_by(id: params[:id])
+      Product.find(params[:id])
     end
 
     def find_practice
