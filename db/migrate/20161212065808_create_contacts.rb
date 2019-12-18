@@ -19,8 +19,6 @@ class CreateContacts < ActiveRecord::Migration[4.2]
       t.string :github_account
       t.text :application_reason,           null: false
       t.boolean :user_policy_agreed,        default: false, null: false
-      t.datetime :created_at
-      t.datetime :updated_at
 
       t.timestamps
     end
