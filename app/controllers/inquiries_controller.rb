@@ -9,7 +9,7 @@ class InquiriesController < ApplicationController
     @inquiry = Inquiry.new(inquiry_params)
 
     if @inquiry.save
-      InquiryMailer.incoming(@inquiry).deliver_now
+      InquiryMailer.incoming(@inquiry).deliver_later
       redirect_to new_inquiry_url, notice: "お問い合わせを送信しました。"
     else
       render :new
