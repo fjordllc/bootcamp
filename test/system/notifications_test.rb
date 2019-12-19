@@ -42,28 +42,4 @@ class NotificationsTest < ApplicationSystemTestCase
     assert_no_text "kensyuさんがはじめての日報を書きました！"
     assert_text "kensyuさんからメンションがきました。"
   end
-
-  test "don't notify the same product" do
-    login_user "komagata", "testtest"
-    visit "/notifications"
-    click_link "全て既読にする"
-
-    login_user "kensyu", "testtest"
-    visit "/products/new?practice_id=#{practices(:practice_3).id}"
-    within("#new_product") do
-      fill_in("product[body]", with: "test")
-    end
-    click_button "提出する"
-    assert_text "提出物を作成しました。"
-
-    fill_in("js-new-comment", with: "test @komagata")
-    click_button "コメントする"
-    assert_text "test @komagata"
-
-    login_user "komagata", "testtest"
-    visit "/notifications"
-    assert_no_text "kensyuさんが「#{practices(:practice_3).title}」を提出しました。"
-    assert_no_text "kensyuさんからメンションがきました。"
-    assert_text "あなたがウォッチしている【 「PC性能の見方を知る」の提出物 】にコメントが投稿されました。"
-  end
 end

@@ -6,13 +6,18 @@ class NotificationMailerTest < ActionMailer::TestCase
   test "came_comment" do
     comment = comments(:comment_9)
     came_comment = notifications(:notification_commented)
-    email = NotificationMailer.came_comment(
-      comment,
-      came_comment.user,
-      "#{comment.user.login_name}さんからコメントが届きました。"
-    ).deliver_now
+    mailer = NotificationMailer.with(
+      comment: comment,
+      receiver: came_comment.user,
+      message: "#{comment.user.login_name}さんからコメントが届きました。"
+    ).came_comment
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
 
     assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["sotugyou@example.com"], email.to
     assert_equal "[bootcamp] komagataさんからコメントが届きました。", email.subject
@@ -21,9 +26,14 @@ class NotificationMailerTest < ActionMailer::TestCase
 
   test "checked" do
     check = checks(:report5_check_machida)
-    email = NotificationMailer.checked(check).deliver_now
+    mailer = NotificationMailer.with(check: check).checked
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
 
     assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["sotugyou@example.com"], email.to
     assert_equal "[bootcamp] sotugyouさんの学習週1日目を確認しました。", email.subject
@@ -33,12 +43,17 @@ class NotificationMailerTest < ActionMailer::TestCase
   test "mentioned" do
     mention = comments(:comment_9)
     mentioned = notifications(:notification_mentioned)
-    email = NotificationMailer.mentioned(
-      mention,
-      mentioned.user
-    ).deliver_now
+    mailer = NotificationMailer.with(
+      comment: mention,
+      receiver: mentioned.user
+    ).mentioned
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
 
     assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["sotugyou@example.com"], email.to
     assert_equal "[bootcamp] komagataさんからメンションがきました。", email.subject
@@ -48,13 +63,18 @@ class NotificationMailerTest < ActionMailer::TestCase
   test "submitted" do
     product = products(:product_3)
     submitted = notifications(:notification_submitted)
-    email = NotificationMailer.submitted(
-      product,
-      submitted.user,
-      "#{product.user.login_name}さんが「#{product.title}」を提出しました。"
-    ).deliver_now
+    mailer = NotificationMailer.with(
+      product: product,
+      receiver: submitted.user,
+      message: "#{product.user.login_name}さんが「#{product.title}」を提出しました。"
+    ).submitted
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
 
     assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["komagata@fjord.jp"], email.to
     assert_equal "[bootcamp] sotugyouさんが「#{product.title}」を提出しました。", email.subject
@@ -63,9 +83,14 @@ class NotificationMailerTest < ActionMailer::TestCase
 
   test "came_answer" do
     answer = answers(:answer_3)
-    email = NotificationMailer.came_answer(answer).deliver_now
+    mailer = NotificationMailer.with(answer: answer).came_answer
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
 
     assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["sotugyou@example.com"], email.to
     assert_equal "[bootcamp] komagataさんから回答がありました。", email.subject
@@ -75,12 +100,17 @@ class NotificationMailerTest < ActionMailer::TestCase
   test "post_announcement" do
     announce = announcements(:announcement_1)
     announced = notifications(:notification_announced)
-    email = NotificationMailer.post_announcement(
-      announce,
-      announced.user
-    ).deliver_now
+    mailer = NotificationMailer.with(
+      announcement: announce,
+      receiver: announced.user
+    ).post_announcement
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
 
     assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["sotugyou@example.com"], email.to
     assert_equal "[bootcamp] komagataさんからお知らせです。", email.subject
@@ -90,12 +120,17 @@ class NotificationMailerTest < ActionMailer::TestCase
   test "came_question" do
     question = questions(:question_2)
     questioned = notifications(:notification_questioned)
-    email = NotificationMailer.came_question(
-      question,
-      questioned.user
-    ).deliver_now
+    mailer = NotificationMailer.with(
+      question: question,
+      receiver: questioned.user
+    ).came_question
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
 
     assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["komagata@fjord.jp"], email.to
     assert_equal "[bootcamp] sotugyouさんから質問がありました。", email.subject
@@ -105,12 +140,17 @@ class NotificationMailerTest < ActionMailer::TestCase
   test "first_report" do
     report = reports(:report_10)
     first_report = notifications(:notification_first_report)
-    email = NotificationMailer.first_report(
-      report,
-      first_report.user
-    ).deliver_now
+    mailer = NotificationMailer.with(
+      report: report,
+      receiver: first_report.user
+    ).first_report
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
 
     assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["komagata@fjord.jp"], email.to
     assert_equal "[bootcamp] hajimeさんがはじめての日報を書きました！", email.subject
@@ -120,12 +160,17 @@ class NotificationMailerTest < ActionMailer::TestCase
   test "watching_notification" do
     watch = watches(:report1_watch_kimura)
     watching = notifications(:notification_watching)
-    email = NotificationMailer.watching_notification(
-      watch.watchable,
-      watching.user
-    ).deliver_now
+    mailer = NotificationMailer.with(
+      watchable: watch.watchable,
+      receiver: watching.user
+    ).watching_notification
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
 
     assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["kimura@fjord.jp"], email.to
     assert_equal "[bootcamp] あなたがウォッチしている【 作業週1日目 】にコメントが投稿されました。", email.subject
@@ -135,12 +180,17 @@ class NotificationMailerTest < ActionMailer::TestCase
   test "retired" do
     user = users(:yameo)
     admin = users(:komagata)
-    email = NotificationMailer.retired(
-      user,
-      admin
-    ).deliver_now
+    mailer = NotificationMailer.with(
+      sender: user,
+      receiver: admin
+    ).retired
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
 
     assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["komagata@fjord.jp"], email.to
     assert_equal "[bootcamp] yameoさんが退会しました。", email.subject
@@ -150,12 +200,17 @@ class NotificationMailerTest < ActionMailer::TestCase
   test "trainee_report" do
     report = reports(:report_11)
     trainee_report = notifications(:notification_trainee_report)
-    email = NotificationMailer.trainee_report(
-      report,
-      trainee_report.user
-    ).deliver_now
+    mailer = NotificationMailer.with(
+      report: report,
+      receiver: trainee_report.user
+    ).trainee_report
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
 
     assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["senpai@fjord.jp"], email.to
     assert_equal "[bootcamp] kensyuさんが日報【 研修の日報 】を書きました！", email.subject
