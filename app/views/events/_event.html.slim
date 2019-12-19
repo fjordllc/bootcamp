@@ -23,6 +23,7 @@
           | 募集期間 : #{l event.open_start_at} 〜 #{l event.open_end_at}
       .thread__description.js-target-blank.is-long-text.js-markdown-view
         = event.description
+      = render "events/participation", event: event
       = render "reactions/reactions", reactionable: event
       - if admin_login? || event.user_id == current_user.id
         .card-footer
@@ -40,6 +41,20 @@
                 = link_to event_path(event), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
                   i.fas.fa-trash-alt#delete
                   | 削除
+    .participants
+      | 参加者
+      ul.footprints__items
+        - event.participants.each do |participant|
+          li.footprints-item
+            = link_to participant do
+              = image_tag participant.avatar_url, class: "footprints-item__checker-icon is-#{participant.login_name} is-#{participant.role}", alt: participant.login_name
+    .waitlist
+      | 補欠者
+      ul.footprints__items
+        - event.waitlist.each do |wait_user|
+          li.footprints-item
+            = link_to wait_user do
+              = image_tag wait_user.avatar_url, class: "footprints-item__checker-icon is-#{wait_user.login_name} is-#{wait_user.role}", alt: wait_user.login_name
 
   = link_to event.user, itempro: "url", class: "thread__author-link" do
     = image_tag event.user.avatar_url, class: "thread__author-icon is-#{event.user.role}"
