@@ -141,33 +141,26 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test "user can participate in an event" do
-    event = events(:event_1)
+    event = events(:event_2)
     login_user "kimura", "testtest"
     visit event_path(event)
-    travel_to Time.zone.local(2019, 12, 10, 9, 00) do
-      accept_confirm do
-        click_link "参加申込"
-      end
-      assert_difference "event.users.count", 1 do
-        assert_text "出席登録が完了しました。"
-      end
+    accept_confirm do
+      click_link "参加申込"
+    end
+    assert_difference "event.users.count", 1 do
+      assert_text "出席登録が完了しました。"
     end
   end
 
   test "user can cancel event" do
-    event = events(:event_1)
-    login_user "kimura", "testtest"
+    event = events(:event_2)
+    login_user "hatsuno", "testtest"
     visit event_path(event)
-    travel_to Time.zone.local(2019, 12, 11, 9, 00) do
-      accept_confirm do
-        click_link "参加申込"
-      end
-      accept_confirm do
-        click_link "キャンセル"
-      end
-      assert_difference "event.users.count", -1 do
-        assert_text "出席をキャンセルしました。"
-      end
+    accept_confirm do
+      click_link "キャンセル"
+    end
+    assert_difference "event.users.count", -1 do
+      assert_text "出席をキャンセルしました。"
     end
   end
 
