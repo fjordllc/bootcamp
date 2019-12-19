@@ -16,10 +16,10 @@ event_2:
   description: "募集期間中のイベントです。参加申込ができます。補欠者はまだいません。"
   location: "FJORDオフィス"
   capacity: 40
-  start_at: <%= Time.current.beginning_of_minute.next_year - 1.day %>
-  end_at: <%= Time.current.beginning_of_minute.next_year %>
-  open_start_at: <%= Time.current.beginning_of_minute%>
-  open_end_at: <%= Time.current.beginning_of_minute.next_year %>
+  start_at: <%= Time.current.next_year - 1.day %>
+  end_at: <%= Time.current.next_year %>
+  open_start_at: <%= Time.current %>
+  open_end_at: <%= Time.current.next_year %>
   user: komagata
 
 event_3:
@@ -27,10 +27,10 @@ event_3:
   description: "募集期間中のイベントです。参加申込ができます。補欠者がいます。"
   location: "FJORDオフィス"
   capacity: 1
-  start_at: <%= Time.current.beginning_of_minute.next_year - 1.day %>
-  end_at: <%= Time.current.beginning_of_minute.next_year %>
-  open_start_at: <%= Time.current.beginning_of_minute%>
-  open_end_at: <%= Time.current.beginning_of_minute.next_year %>
+  start_at: <%= Time.current.next_year - 1.day %>
+  end_at: <%= Time.current.next_year %>
+  open_start_at: <%= Time.current %>
+  open_end_at: <%= Time.current.next_year %>
   user: komagata
 
 event_4:
@@ -38,10 +38,10 @@ event_4:
   description: "募集期間前のイベントです。"
   location: "FJORDオフィス"
   capacity: 10
-  start_at: <%= Time.current.beginning_of_minute.next_year - 1.hour %>
-  end_at: <%= Time.current.beginning_of_minute.next_year %>
-  open_start_at: <%= Time.current.beginning_of_minute.next_year - 1.day %>
-  open_end_at: <%= Time.current.beginning_of_minute.next_year %>
+  start_at: <%= Time.current.next_year - 1.hour %>
+  end_at: <%= Time.current.next_year %>
+  open_start_at: <%= Time.current.next_year - 1.day %>
+  open_end_at: <%= Time.current.next_year %>
   user: komagata
 
 event_5:
@@ -49,10 +49,10 @@ event_5:
   description: "募集が終了したイベントです。"
   location: "FJORDオフィス"
   capacity: 10
-  start_at: <%= Time.current.beginning_of_minute.next_year - 1.hour %>
-  end_at: <%= Time.current.beginning_of_minute.next_year %>
-  open_start_at: <%= Time.current.beginning_of_minute.yesterday %>
-  open_end_at: <%= Time.current.beginning_of_minute.yesterday + 1.hour %>
+  start_at: <%= Time.current.next_year - 1.hour %>
+  end_at: <%= Time.current.next_year %>
+  open_start_at: <%= Time.current.yesterday %>
+  open_end_at: <%= Time.current.yesterday + 1.hour %>
   user: komagata
 
 event_6:
