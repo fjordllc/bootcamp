@@ -6,7 +6,10 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i(show edit update destroy)
   before_action :set_footprints, only: %i(show)
   def index
-    @events = Event.with_avatar.order(created_at: :desc).page(params[:page])
+    @events = Event.with_avatar
+                   .preload(:comments)
+                   .order(created_at: :desc)
+                   .page(params[:page])
   end
 
   def show
