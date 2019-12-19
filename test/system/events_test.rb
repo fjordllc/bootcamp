@@ -178,10 +178,10 @@ class EventsTest < ApplicationSystemTestCase
     fill_in "event_description", with: "イベントの説明文"
     fill_in "event_capacity", with: 20
     fill_in "event_location", with: "FJORDオフィス"
-    fill_in "event_start_at", with: Time.current.beginning_of_minute.next_day
-    fill_in "event_end_at", with: Time.current.beginning_of_minute.next_day + 2.hour
-    fill_in "event_open_start_at", with: Time.current.beginning_of_minute
-    fill_in "event_open_end_at", with: Time.current.beginning_of_minute + 2.hour
+    fill_in "event_start_at", with: Time.current.next_day
+    fill_in "event_end_at", with: Time.current.next_day + 2.hour
+    fill_in "event_open_start_at", with: Time.current
+    fill_in "event_open_end_at", with: Time.current + 2.hour
     click_button "作成"
     accept_confirm do
       click_link "参加申込"
@@ -205,10 +205,10 @@ class EventsTest < ApplicationSystemTestCase
     fill_in "event_description", with: "イベントの説明文"
     fill_in "event_capacity", with: 1
     fill_in "event_location", with: "FJORDオフィス"
-    fill_in "event_start_at", with: Time.current.beginning_of_minute.next_day
-    fill_in "event_end_at", with: Time.current.beginning_of_minute.next_day + 2.hour
-    fill_in "event_open_start_at", with: Time.current.beginning_of_minute
-    fill_in "event_open_end_at", with: Time.current.beginning_of_minute + 2.hour
+    fill_in "event_start_at", with: Time.current.next_day
+    fill_in "event_end_at", with: Time.current.next_day + 2.hour
+    fill_in "event_open_start_at", with: Time.current
+    fill_in "event_open_end_at", with: Time.current + 2.hour
     click_button "作成"
     accept_confirm do
       click_link "参加申込"
@@ -232,10 +232,10 @@ class EventsTest < ApplicationSystemTestCase
     fill_in "event_description", with: "イベントの説明文"
     fill_in "event_capacity", with: 1
     fill_in "event_location", with: "FJORDオフィス"
-    fill_in "event_start_at", with: Time.current.beginning_of_minute.next_day
-    fill_in "event_end_at", with: Time.current.beginning_of_minute.next_day + 2.hour
-    fill_in "event_open_start_at", with: Time.current.beginning_of_minute
-    fill_in "event_open_end_at", with: Time.current.beginning_of_minute + 2.hour
+    fill_in "event_start_at", with: Time.current.next_day
+    fill_in "event_end_at", with: Time.current.next_day + 2.hour
+    fill_in "event_open_start_at", with: Time.current
+    fill_in "event_open_end_at", with: Time.current + 2.hour
     click_button "作成"
     accept_confirm do
       click_link "参加申込"
