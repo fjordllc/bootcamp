@@ -115,4 +115,150 @@ class EventsTest < ApplicationSystemTestCase
     click_button "作成"
     assert_text "募集終了日時は終了日時よりも前の日時にしてください。"
   end
+
+  test "does not open when open_start_at > current time" do
+    login_user "kimura", "testtest"
+    visit event_path(events(:event_4))
+    assert_text "募集開始までお待ち下さい"
+  end
+
+  test "show participation link during opening" do
+    login_user "kimura", "testtest"
+    visit event_path(events(:event_2))
+    assert_link "参加申込"
+  end
+
+  test "are closed when current time > open_end_at" do
+    login_user "kimura", "testtest"
+    visit event_path(events(:event_5))
+    assert_text "募集受付は終了しました。"
+  end
+
+  test "show message about ending event after event end" do
+    login_user "kimura", "testtest"
+    visit event_path(events(:event_6))
+    assert_text "本イベントは終了しました。"
+  end
+
+  test "user can participate in an event" do
+    event = events(:event_1)
+    login_user "kimura", "testtest"
+    visit event_path(event)
+    travel_to Time.zone.local(2019, 12, 10, 9, 00) do
+      accept_confirm do
+        click_link "参加申込"
+      end
+      assert_difference "event.users.count", 1 do
+        assert_text "出席登録が完了しました。"
+      end
+    end
+  end
+
+  test "user can cancel event" do
+    event = events(:event_1)
+    login_user "kimura", "testtest"
+    visit event_path(event)
+    travel_to Time.zone.local(2019, 12, 11, 9, 00) do
+      accept_confirm do
+        click_link "参加申込"
+      end
+      accept_confirm do
+        click_link "キャンセル"
+      end
+      assert_difference "event.users.count", -1 do
+        assert_text "出席をキャンセルしました。"
+      end
+    end
+  end
+
+  test "participating is first-come-first-served" do
+    login_user "komagata", "testtest"
+    visit new_event_path
+    fill_in "event_title", with: "先着順のイベント"
+    fill_in "event_description", with: "イベントの説明文"
+    fill_in "event_capacity", with: 20
+    fill_in "event_location", with: "FJORDオフィス"
+    fill_in "event_start_at", with: Time.current.beginning_of_minute.next_day
+    fill_in "event_end_at", with: Time.current.beginning_of_minute.next_day + 2.hour
+    fill_in "event_open_start_at", with: Time.current.beginning_of_minute
+    fill_in "event_open_end_at", with: Time.current.beginning_of_minute + 2.hour
+    click_button "作成"
+    accept_confirm do
+      click_link "参加申込"
+    end
+    login_user "kimura", "testtest"
+    visit events_path
+    click_link "先着順のイベント"
+    accept_confirm do
+      click_link "参加申込"
+    end
+    within ".participants" do
+      participants = all("img").map { |img| img["alt"] }
+      assert_equal %w(komagata kimura), participants
+    end
+  end
+
+  test "display user to waitlist when event participants are fulled" do
+    login_user "komagata", "testtest"
+    visit new_event_path
+    fill_in "event_title", with: "補欠者のいるイベント"
+    fill_in "event_description", with: "イベントの説明文"
+    fill_in "event_capacity", with: 1
+    fill_in "event_location", with: "FJORDオフィス"
+    fill_in "event_start_at", with: Time.current.beginning_of_minute.next_day
+    fill_in "event_end_at", with: Time.current.beginning_of_minute.next_day + 2.hour
+    fill_in "event_open_start_at", with: Time.current.beginning_of_minute
+    fill_in "event_open_end_at", with: Time.current.beginning_of_minute + 2.hour
+    click_button "作成"
+    accept_confirm do
+      click_link "参加申込"
+    end
+    login_user "kimura", "testtest"
+    visit events_path
+    click_link "補欠者のいるイベント"
+    accept_confirm do
+      click_link "参加申込"
+    end
+    within ".waitlist" do
+      wait_user = all("img").map { |img| img["alt"] }
+      assert_equal %w(kimura), wait_user
+    end
+  end
+
+  test "waiting user moves up when participant cancels event" do
+    login_user "komagata", "testtest"
+    visit new_event_path
+    fill_in "event_title", with: "補欠者が繰り上がるイベント"
+    fill_in "event_description", with: "イベントの説明文"
+    fill_in "event_capacity", with: 1
+    fill_in "event_location", with: "FJORDオフィス"
+    fill_in "event_start_at", with: Time.current.beginning_of_minute.next_day
+    fill_in "event_end_at", with: Time.current.beginning_of_minute.next_day + 2.hour
+    fill_in "event_open_start_at", with: Time.current.beginning_of_minute
+    fill_in "event_open_end_at", with: Time.current.beginning_of_minute + 2.hour
+    click_button "作成"
+    accept_confirm do
+      click_link "参加申込"
+    end
+    login_user "kimura", "testtest"
+    visit events_path
+    click_link "補欠者が繰り上がるイベント"
+    accept_confirm do
+      click_link "参加申込"
+    end
+    within ".participants" do
+      participants = all("img").map { |img| img["alt"] }
+      assert_equal %w(komagata), participants
+    end
+    login_user "komagata", "testtest"
+    visit events_path
+    click_link "補欠者が繰り上がるイベント"
+    accept_confirm do
+      click_link "キャンセル"
+    end
+    within ".participants" do
+      participants = all("img").map { |img| img["alt"] }
+      assert_equal %w(kimura), participants
+    end
+  end
 end

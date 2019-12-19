@@ -35,7 +35,6 @@ class User < ActiveRecord::Base
 
   belongs_to :company, required: false
   belongs_to :course
-  has_many :events,        dependent: :destroy
   has_many :learnings
   has_many :borrowings
   has_many :comments,      dependent: :destroy
@@ -49,6 +48,12 @@ class User < ActiveRecord::Base
   has_many :reactions,     dependent: :destroy
   has_many :works,         dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :events,        dependent: :destroy
+  has_many :participations, dependent: :destroy
+
+  has_many :participate_events,
+    through: :participations,
+    source: :event
 
   has_many :send_notifications,
     class_name:  "Notification",
@@ -328,6 +333,10 @@ SQL
 
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
+  end
+
+  def participating?(event)
+    participate_events.include?(event)
   end
 
   private

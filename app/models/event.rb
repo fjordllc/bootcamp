@@ -47,8 +47,12 @@ class Event < ApplicationRecord
     Time.current > open_end_at && Time.current < end_at
   end
 
-  def has_open_period?
-    open_start_at? && open_end_at?
+  def participants
+    fcfs.limit(capacity)
+  end
+
+  def waitlist
+    fcfs - participants
   end
 
   private
@@ -78,5 +82,9 @@ class Event < ApplicationRecord
       if diff < 0
         errors.add(:open_end_at, ": 募集終了日時は終了日時よりも前の日時にしてください。")
       end
+    end
+
+    def fcfs
+      users.order("participations.created_at asc")
     end
 end

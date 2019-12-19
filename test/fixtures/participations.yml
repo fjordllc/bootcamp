@@ -1,9 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+participation_1:
+  user: hatsuno
+  event: event_2
 
-#one:
-#  user: one
-#  event: one
+participation_2:
+  user: hatsuno
+  event: event_3
 
-#two:
-#  user: two
-#  event: two
+participation_3:
+  user: komagata
+  event: event_3
