@@ -131,6 +131,6 @@ class UserTest < ActiveSupport::TestCase
 
   test "avatar_url" do
     user = users(:kimura)
-    assert_equal "/images/users/default.png", user.avatar_url
+    assert_equal "/images/users/avatars/default.png", user.avatar_url
   end
 end

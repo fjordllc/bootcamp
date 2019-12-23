@@ -34,7 +34,7 @@ gem "cocoon"
 gem "active_decorator"
 gem "rollbar"
 gem "rails-i18n"
-gem "google-cloud-storage", "~> 1.3", require: false
+gem "google-cloud-storage", "~> 1.25", require: false
 gem "commonmarker"
 gem "stripe", "~> 4.5.0"
 gem "acts-as-taggable-on", "~> 6.5"
