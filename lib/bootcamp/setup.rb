@@ -11,6 +11,7 @@ module Bootcamp
           path = Rails.root.join("test", "fixtures", "files", "users", "avatars", filename)
           if File.exist?(path)
             user.avatar.attach(io: open(path), filename: filename)
+            user.resize_avatar!
           end
         end
 
@@ -23,6 +24,7 @@ module Bootcamp
             path = "#{dir}/#{filename}"
           end
           company.logo.attach(io: open(path), filename: filename)
+          company.resize_logo!
         end
       end
     end

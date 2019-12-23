@@ -8,7 +8,7 @@
               = link_to user, class: "users-item__name-link" do
                 = user.login_name
                 - if current_user.admin? && user.card?
-                 i.fas.fa-yen-sign
+                  i.fas.fa-yen-sign
             - if user.slack_account.present?
               .users-item__names-slack
                 .users-item__names-slack-label
