@@ -30,7 +30,7 @@ header.page-header
               time.thread-header__lower-side-value(datetime="#{@work.created_at.to_datetime}" pubdate="pubdate")
                 = l @work.created_at
         - if @work.thumbnail.attached?
-          = image_tag @work.thumbnail_image(40), class: "thread__work-image"
+          = image_tag @work.thumbnail_url, class: "thread__work-image"
         .thread__description.js-target-blank.is-long-text.js-markdown-view
           p = @work.description
         .card-footer
