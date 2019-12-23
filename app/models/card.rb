@@ -15,4 +15,13 @@ class Card
     customer.source = card_token
     customer.save
   end
+
+  def self.search(email:)
+    result = Stripe::Customer.list(email: email, limit: 1)
+    if result.data.size > 0
+      result.data.first
+    else
+      nil
+    end
+  end
 end
