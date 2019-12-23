@@ -21,6 +21,11 @@ module StubHelper
       to_return(status: 200, body: { id: "cus_12345678" }.to_json)
   end
 
+  def stub_search_card!
+    stub_request(:get, "https://api.stripe.com/v1/customers?email=foo@example.com&limit=1").
+      to_return(status: 200, body: { data: [{ email: "foo@example.com" }] }.to_json)
+  end
+
   def stub_subscription_create!
     stub_request(:get, "https://api.stripe.com/v1/plans").
       to_return(status: 200, body: { "data": [{ "id": "plan_12345678", "nickname": "スタンダードプラン" }] }.to_json)

@@ -16,4 +16,11 @@ class CardTest < ActiveSupport::TestCase
     customer = Card.update("cus_12345678", "tok_visa")
     assert customer["id"].present?
   end
+
+  test "search" do
+    stub_search_card!
+
+    customer = Card.search(email: "foo@example.com")
+    assert_equal "foo@example.com", customer["email"]
+  end
 end
