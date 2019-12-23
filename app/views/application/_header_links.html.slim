@@ -49,8 +49,12 @@
               = link_to edit_current_user_path, class: "header-dropdown__item-link" do
                 | 登録情報変更
             - if !current_user.adviser? && !current_user.mentor?
-              li.header-dropdown__item
-                = link_to "クレジットカード", edit_card_path, class: "header-dropdown__item-link"
+              - if current_user.card?
+                li.header-dropdown__item
+                  = link_to "クレジットカード変更", edit_card_path, class: "header-dropdown__item-link"
+              - else
+                li.header-dropdown__item
+                  = link_to "クレジットカード登録", new_card_path, class: "header-dropdown__item-link"
             li.header-dropdown__item
               = link_to courses_path, class: "header-dropdown__item-link" do
                 | コース

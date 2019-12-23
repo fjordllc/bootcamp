@@ -9,7 +9,7 @@ class SignUpTest < ApplicationSystemTestCase
     visit "/users/new"
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
-      fill_in "user[email]", with: "foo@example.com"
+      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
       fill_in "user[first_name]", with: "太郎"
       fill_in "user[last_name]", with: "テスト"
       fill_in "user[kana_first_name]", with: "タロウ"
@@ -36,9 +36,12 @@ class SignUpTest < ApplicationSystemTestCase
 
   test "sign up as adviser" do
     visit "/users/new?role=adviser"
+
+    email = "test-#{SecureRandom.hex(16)}@example.com"
+
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
-      fill_in "user[email]", with: "foo@example.com"
+      fill_in "user[email]", with: email
       fill_in "user[first_name]", with: "太郎"
       fill_in "user[last_name]", with: "テスト"
       fill_in "user[kana_first_name]", with: "タロウ"
@@ -48,14 +51,17 @@ class SignUpTest < ApplicationSystemTestCase
     end
     click_button "アドバイザー登録"
     assert_text "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
-    assert User.find_by(email: "foo@example.com").adviser?
+    assert User.find_by(email: email).adviser?
   end
 
   test "sign up as trainee" do
     visit "/users/new?role=trainee"
+
+    email = "test-#{SecureRandom.hex(16)}@example.com"
+
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
-      fill_in "user[email]", with: "foo@example.com"
+      fill_in "user[email]", with: email
       fill_in "user[first_name]", with: "太郎"
       fill_in "user[last_name]", with: "テスト"
       fill_in "user[kana_first_name]", with: "タロウ"
@@ -69,6 +75,6 @@ class SignUpTest < ApplicationSystemTestCase
     end
     click_button "利用規約に同意して参加する"
     assert_text "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
-    assert User.find_by(email: "foo@example.com").trainee?
+    assert User.find_by(email: email).trainee?
   end
 end
