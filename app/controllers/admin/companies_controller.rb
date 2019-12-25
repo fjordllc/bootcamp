@@ -21,6 +21,7 @@ class Admin::CompaniesController < AdminController
     @company = Company.new(company_params)
 
     if @company.save
+      @company.resize_logo!
       redirect_to admin_companies_url, notice: "会社を作成しました。"
     else
       render "new"
@@ -29,6 +30,7 @@ class Admin::CompaniesController < AdminController
 
   def update
     if @company.update(company_params)
+      @company.resize_logo!
       redirect_to admin_companies_url, notice: "会社を更新しました。"
     else
       render "edit"
