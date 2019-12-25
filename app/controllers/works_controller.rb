@@ -19,6 +19,7 @@ class WorksController < ApplicationController
     @work = Work.new(work_params)
     @work.user = current_user
     if @work.save
+      @work.resize_thumbnail!
       redirect_to @work, notice: "ポートフォリオに作品を追加しました。"
     else
       render :new
@@ -27,6 +28,7 @@ class WorksController < ApplicationController
 
   def update
     if @work.update(work_params)
+      @work.resize_thumbnail!
       redirect_to @work, notice: "作品を更新しました。"
     else
       render :edit

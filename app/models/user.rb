@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w(id login_name company_id updated_at created_at report comment asc desc)
+  AVATAR_SIZE = "88x88>"
 
   enum job: {
     student: 0,
@@ -320,7 +321,7 @@ SQL
 
   def resize_avatar!
     if avatar.attached?
-      avatar.variant(resize: "88x88>").processed
+      avatar.variant(resize: AVATAR_SIZE).processed
     end
   end
 
