@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Company < ActiveRecord::Base
+  LOGO_SIZE = "88x88>"
   has_many :users
   validates :name, presence: true
   has_one_attached :logo
@@ -11,13 +12,13 @@ class Company < ActiveRecord::Base
 
   def resize_logo!
     if logo.attached?
-      logo.variant(resize: "88x88>").processed
+      logo.variant(resize: LOGO_SIZE).processed
     end
   end
 
   def logo_url
     if logo.attached?
-      logo.service_url
+      logo.variant(resize: LOGO_SIZE).service_url
     else
       image_url("/images/companies/logos/default.png")
     end
