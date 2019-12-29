@@ -66,6 +66,7 @@ group :development do
   gem "rubocop", require: false
   gem "rubocop-performance"
   gem "rubocop-rails"
+  gem "rubocop-minitest"
   gem "slim_lint"
   gem "bullet"
 end
