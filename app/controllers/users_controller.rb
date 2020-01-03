@@ -38,6 +38,10 @@ class UsersController < ApplicationController
     else
       create_user!
     end
+
+    if @user.errors.empty?
+      @user.resize_avatar!
+    end
   end
 
   private
