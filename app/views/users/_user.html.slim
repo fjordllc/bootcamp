@@ -9,6 +9,7 @@
                 = user.login_name
                 - if current_user.admin? && user.card?
                   i.fas.fa-yen-sign
+              = user.full_name
             - if user.slack_account.present?
               .users-item__names-slack
                 .users-item__names-slack-label
