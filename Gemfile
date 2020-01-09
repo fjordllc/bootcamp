@@ -69,7 +69,6 @@ group :development do
   gem "rubocop-minitest"
   gem "slim_lint"
   gem "bullet"
-  gem "xray-rails", github: "brentd/xray-rails", branch: "master"
 end
 
 group :test do
