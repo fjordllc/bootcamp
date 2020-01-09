@@ -31,5 +31,5 @@ header.page-header
             p
               = "書籍ID: #{@book.id}"
             p
-              = link_to admin_book_qrcode_path(@book), target: "_blank", rel: "noopener" do
+              = link_to admin_books_qrcode_path(@book), target: "_blank", rel: "noopener" do
                 | QRコードの印刷ページへ
