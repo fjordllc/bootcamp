@@ -1,10 +1,10 @@
 .book-sticker
   .book-sticker__logo
-    = image_tag "pijord-book-logo.png"
-  .container
+    = image_tag "pijord-book-logo.svg", class: "book-sticker__logo-image"
+  .book-sticker__inner
     .book-sticker__qrcode
       = qrcode_tag book_url(@book)
-    .book_-sticker__id
+    .book-sticker__id
       .book-sticker__id-label BOOK ID
       .book-sticker__id-body #{@book.id}
   .book-sticker__text
