@@ -325,6 +325,10 @@ SQL
     end
   end
 
+  def generation
+    (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
+  end
+
   private
     def password_required?
       new_record? || password.present?
