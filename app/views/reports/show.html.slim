@@ -32,7 +32,7 @@ header.page-header
             - if @report.wip?
               span.thread-header__title-icon
                 | WIP
-            = @report.title
+            | #{@report.count_report} #{@report.title}
           #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="Report")
           .thread-header__lower-side
             #js-watch(data-watchable-id="#{@report.id}", data-watchable-type="Report")
