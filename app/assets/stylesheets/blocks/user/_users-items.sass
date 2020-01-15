@@ -2,8 +2,12 @@
   padding-bottom: 1.5rem
   height: 100%
 
-.users-item.inactive
-  opacity: .5
+.users-item.inactive .a-card
+  background-color: $gray-lightest
+  .users-item__name,
+  .users-item__description,
+  .users-item__icon-image
+    opacity: .6
 
 .users-item__inner
   height: 100%
@@ -16,10 +20,7 @@
   +media-breakpoint-down(sm)
     padding-left: 3rem
 
-.users-item__names
-  margin-bottom: .5rem
-
-.users-item__names-name
+.users-item__name
   +text-block(1.125rem 1.4, 600 $main block)
   margin-bottom: .125rem
   +media-breakpoint-down(sm)
@@ -34,14 +35,6 @@
   display: block
   padding-top: .5rem
   +hover-link
-
-.users-item__names-slack
-  +text-block(.75rem 1.4, flex $semi-muted-text)
-  align-items: center
-
-.users-item__names-slack-label
-  font-size: 1.125em
-  margin-right: .25em
 
 .users-item__icon-image
   border-radius: 50%
