@@ -126,29 +126,6 @@ class ProductsTest < ApplicationSystemTestCase
     assert_no_text "kensyuさんが「#{practices(:practice_3).id}」の提出物を提出しました。"
   end
 
-  test "Notify if the update product" do
-    login_user "komagata", "testtest"
-    visit "/notifications"
-    click_link "全て既読にする"
-
-    login_user "kensyu", "testtest"
-    visit "/products/new?practice_id=#{practices(:practice_3).id}"
-    within("#new_product") do
-      fill_in("product[body]", with: "test")
-    end
-    click_button "WIP"
-    assert_text "提出物をWIPとして保存しました。"
-
-    click_link "内容修正"
-    fill_in("product[body]", with: "test update")
-    click_button "提出する"
-    assert_text "提出物を更新しました。"
-
-    login_user "komagata", "testtest"
-    visit "/notifications"
-    assert_text "kensyuさんが「#{practices(:practice_3).title}」の提出物を更新しました。"
-  end
-
   test "Don't notify if update product as WIP" do
     login_user "komagata", "testtest"
     visit "/notifications"

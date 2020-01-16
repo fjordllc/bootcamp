@@ -38,12 +38,16 @@ class UsersController < ApplicationController
     else
       create_user!
     end
+
+    if @user.errors.empty?
+      @user.resize_avatar!
+    end
   end
 
   private
     def create_free_user!
       if @user.save
-        UserMailer.welcome(@user).deliver_now
+        UserMailer.welcome(@user).deliver_later
         notify_to_slack!
       else
         render "new"
@@ -57,6 +61,13 @@ class UsersController < ApplicationController
           return false
         end
 
+        if Card.search(email: @user.email)
+          flash[:alert] = "同じメールアドレスの顧客が既に登録済みです。"
+          logger.warn "[Payment] 同じメールアドレスの顧客が既に登録済みです。"
+          render "new"
+          return false
+        end
+
         token = params[:idempotency_token]
         customer = Card.create(@user, params[:stripeToken], token)
         subscription = Subscription.create(customer["id"], "#{token}-subscription")
@@ -65,7 +76,7 @@ class UsersController < ApplicationController
         @user.subscription_id = subscription["id"]
 
         if @user.save
-          UserMailer.welcome(@user).deliver_now
+          UserMailer.welcome(@user).deliver_later
           notify_to_slack!
         else
           render "new"

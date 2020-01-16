@@ -5,7 +5,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user, touch: true
   belongs_to :commentable, polymorphic: true
-  before_save CommentCallbacks.new
+  after_save CommentCallbacks.new
   after_create CommentCallbacks.new
   alias_method :sender, :user
 
@@ -24,7 +24,7 @@ class Comment < ActiveRecord::Base
   end
 
   def mentions_were
-    extract_mentions(description_was || "")
+    extract_mentions(description_before_last_save || "")
   end
 
   def new_mentions

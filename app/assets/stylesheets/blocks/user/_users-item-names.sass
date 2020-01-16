@@ -1,0 +1,18 @@
+.users-item-names
+  margin-bottom: .5rem
+  display: flex
+  flex-wrap: wrap
+
+.users-item-names__item
+  +text-block(.75rem 1.4, flex $semi-muted-text)
+  align-items: center
+  &:not(:first-child)
+    &::before
+      content: "、"
+
+.users-item-names__slack
+  display: flex
+
+.users-item-names__slack-label
+  font-size: 1.125em
+  margin-right: .125em

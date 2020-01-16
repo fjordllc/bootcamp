@@ -26,7 +26,8 @@ nav.global-nav
               i.fas.fa-book
             .global-nav-links__link-label プラクティス
         li.global-nav-links__item
-          = link_to reports_path, class: "global-nav-links__link #{current_link /^reports/}" do
+          - report_link = mentor_login? ? reports_unchecked_index_path : reports_path
+          = link_to report_link, class: "global-nav-links__link #{current_link /^reports/}" do
             .global-nav-links__link-icon
               i.fas.fa-pen
             - if current_user.admin? && Report.unchecked.not_wip.count > 0
@@ -35,7 +36,7 @@ nav.global-nav
             .global-nav-links__link-label 日報
         - if staff_login?
           li.global-nav-links__item
-            = link_to products_path, class: "global-nav-links__link #{current_link /^products-index/}" do
+            = link_to products_unchecked_index_path, class: "global-nav-links__link #{current_link /^products-index/}" do
               .global-nav-links__link-icon
                 i.fas.fa-hand-paper
               - if current_user.admin? && Product.unchecked.count > 0

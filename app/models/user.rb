@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w(id login_name company_id updated_at created_at report comment asc desc)
+  AVATAR_SIZE = "88x88>"
 
   enum job: {
     student: 0,
@@ -313,9 +314,9 @@ SQL
 
   def avatar_url
     if avatar.attached?
-      avatar.service_url
+      avatar.variant(resize: AVATAR_SIZE).service_url
     else
-      image_url("/images/users/default.png")
+      image_url("/images/users/avatars/default.png")
     end
   end
 
@@ -323,6 +324,16 @@ SQL
     self.github_account = account_name
     self.github_id = id
     self.save!
+  end
+
+  def resize_avatar!
+    if avatar.attached?
+      avatar.variant(resize: AVATAR_SIZE).processed
+    end
+  end
+
+  def generation
+    (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end
 
   private

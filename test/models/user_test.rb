@@ -131,6 +131,13 @@ class UserTest < ActiveSupport::TestCase
 
   test "avatar_url" do
     user = users(:kimura)
-    assert_equal "/images/users/default.png", user.avatar_url
+    assert_equal "/images/users/avatars/default.png", user.avatar_url
+  end
+
+  test "generation" do
+    assert_equal 1, User.new(created_at: "2013-03-25 00:00:00").generation
+    assert_equal 2, User.new(created_at: "2013-05-05 00:00:00").generation
+    assert_equal 6, User.new(created_at: "2014-04-10 00:00:00").generation
+    assert_equal 29, User.new(created_at: "2020-01-10 00:00:00").generation
   end
 end

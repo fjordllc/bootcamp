@@ -3,11 +3,6 @@
 class ProductCallbacks
   def after_create(product)
     unless product.wip?
-      send_notification(
-        product: product,
-        receivers: User.admins,
-        message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
-      )
       create_watch(
         watchers: User.admins,
         watchable: product
@@ -24,16 +19,6 @@ class ProductCallbacks
           watchable: product,
         )
       end
-    end
-  end
-
-  def after_update(product)
-    unless product.wip?
-      send_notification(
-        product: product,
-        receivers: User.admins,
-      message: "#{product.user.login_name}さんが#{product.title}を更新しました。"
-      )
     end
   end
 

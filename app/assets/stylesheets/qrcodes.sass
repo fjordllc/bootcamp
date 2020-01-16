@@ -1,3 +1,16 @@
+html
+  font-size: 100%
+  line-height: 1
+  color: black
+
+body
+  margin: 0
+  padding: 16px
+  font-family: 'Hiragino Kaku Gothic Pro W3','Hiragino Kaku Gothic ProN',Meiryo,sans-serif
+
+*
+  box-sizing: border-box
+
 .sheet
   display: block
   break-after: page
@@ -8,35 +21,47 @@
   align-content: flex-start
 
 .book-sticker
-  border: 1px solid gray
+  border: 1px solid #ccc
   font-size: 12px
-  width: 200px
-  padding: 10px
-  margin: 0px
+  flex-basis: 220px
+  width: 220px
+  max-width: 220px
+  min-width: 220px
+  padding: 12px 10px
   text-align: center
+  margin-right: -1px
+  margin-bottom: -1px
 
-  .container
-    display: flex
-    align-items: center
-    margin: 8px 0
+.book-sticker__inner
+  display: flex
+  align-items: center
+  margin: 8px 0
 
-.book-sticker__logo img
-  width: 190px
+.book-sticker__logo
+  padding: 0 8px
+
+.book-sticker__logo-image
+  width: 100%
 
 .book-sticker__qrcode
-  flex-grow: 1
+  flex: 1
+  padding: 0 16px 0 0
 
-.book_-sticker__id
-  flex-grow: 2
+.book-sticker__id
+  flex: 2
 
 .book-sticker__id-label
-  font-size: 8px
+  font-size: 10px
   font-weight: bold
+  margin-bottom: 3px
 
 .book-sticker__id-body
   text-align: center
-  border: 1px solid gray
+  border: 1px solid black
+  padding: 3px
+  border-radius: 2px
 
 .book-sticker__text
   font-size: 10px
+  line-height: 1.4
   text-align: left

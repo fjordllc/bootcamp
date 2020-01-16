@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby RUBY_VERSION
 
 gem "rails", "~> 6.0.1"
-gem "puma", "~> 4.1"
+gem "puma", "~> 4.3"
 gem "sass-rails", ">= 6"
 gem "webpacker", "~> 4.0"
 gem "jbuilder", "~> 2.7"
@@ -34,7 +34,7 @@ gem "cocoon"
 gem "active_decorator"
 gem "rollbar"
 gem "rails-i18n"
-gem "google-cloud-storage", "~> 1.3", require: false
+gem "google-cloud-storage", "~> 1.25", require: false
 gem "commonmarker"
 gem "stripe", "~> 4.5.0"
 gem "acts-as-taggable-on", "~> 6.5"
@@ -44,6 +44,7 @@ gem "omniauth"
 gem "omniauth-github"
 gem "active_storage_validations"
 gem "any_login"
+gem "sucker_punch", "~> 2.0"
 
 group :production, :staging do
   gem "newrelic_rpm"
@@ -67,6 +68,7 @@ group :development do
   gem "rubocop", require: false
   gem "rubocop-performance"
   gem "rubocop-rails"
+  gem "rubocop-minitest"
   gem "slim_lint"
   gem "bullet"
 end
