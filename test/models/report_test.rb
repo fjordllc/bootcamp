@@ -19,10 +19,10 @@ class ReportTest < ActiveSupport::TestCase
     assert_not_nil Watch.find_by(user: adviser, watchable: report)
   end
 
-  test "count_report" do
+  test "serial_number" do
     report1 = reports(:report_1)
     report2 = reports(:report_2)
-    assert_equal report1.count_report, 1
-    assert_equal report2.count_report, 2
+    assert_equal report1.serial_number, 1
+    assert_equal report2.serial_number, 2
   end
 end
