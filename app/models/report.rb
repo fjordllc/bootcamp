@@ -63,9 +63,9 @@ class Report < ActiveRecord::Base
     @_faces ||= emotions.keys.zip(%w(🙂 😢 😄)).to_h.with_indifferent_access
   end
 
-  def count_report
-    Report.where(user: user)
-          .order(:created_at)
+  def serial_number
+    Report.select(:id)
+          .where(user: user)
           .index(self) + 1
   end
 end
