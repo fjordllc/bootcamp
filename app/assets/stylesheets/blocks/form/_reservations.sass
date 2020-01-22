@@ -1,0 +1,41 @@
+.reservations__calender
+  min-width: 100%
+  table-layout: fixed
+  background-color: $base
+  thead
+    background-color: $gray-lighter
+    th
+      padding: .25rem
+      border: solid 1px #d6d6d6
+      +text-block(.75rem, nowrap)
+    .day
+      width: 1%
+    .seat
+      width: 2%
+      min-width: 2rem
+    .memo
+      width: 8%
+      min-width: 8rem
+
+.reservations__day-item
+  &.is-holiday
+    background-color: tint($danger, 98%)
+  td
+    border: solid 1px $border
+
+.reservation
+  display: inline
+
+
+.reservations__seat-action
+  +size(100% 2.25rem)
+  cursor: pointer
+  +text-block(.75rem 1.4, flex)
+  align-items: center
+  justify-content: center
+
+.reservations__day
+  +text-block(.8125rem, right nowrap)
+  +padding(horizontal, .5rem)
+  .reservations__day-item.is-holiday &
+    color: $danger

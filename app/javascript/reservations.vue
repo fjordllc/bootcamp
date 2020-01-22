@@ -1,26 +1,28 @@
 <template lang="pug">
   .reservations
-    table
-      tr
-        th
-          |
-        th.seat(v-for="seat in seats" :key="seat.id")
-          | {{ seat.name }}
-        th.memo
-          | メモ
-      tr.date(v-for="one_day in this_months" v-bind:class="is_holiday(reservationsHolidayJps[one_day['ymd']])")
-        td {{ one_day['d_jp'] }}
-        td(v-for="seat in seats" :key="seat.id" v-bind:id="reservation_hash_id(one_day['ymd'],(seat.id))")
-          button(v-if="reservations[`${one_day['ymd']}-${seat.id}`] === undefined" @click="createReservation(one_day['ymd'], seat.id)").a-button.is-md.is-block.is-secondary
+    table.reservations__calender
+      thead
+        tr
+          th.day
             |
-          reservation(v-else :currentUserId="currentUserId", :parentReservation="reservations[`${one_day['ymd']}-${seat.id}`]", @delete="deleteReservation")
-        td(v-if="admin_login == 1" v-bind:id="memoId(one_day['ymd'])").memo
-          memo(:memo="memos[one_day['ymd']]" :date="one_day['ymd']")
-        td(v-else v-bind:id="memoId(one_day['ymd'])").memo
-          template(v-if="memos[one_day['ymd']] === undefined")
-            |
-          template(v-else)
-            | {{ memoBody(one_day) }}
+          th.seat(v-for="seat in seats" :key="seat.id")
+            | {{ seat.name }}
+          th.memo
+            | メモ
+      tbody.reservations__day-items
+        tr.reservations__day-item.date(v-for="one_day in this_months" v-bind:class="is_holiday(reservationsHolidayJps[one_day['ymd']])")
+          td.reservations__day {{ one_day['d_jp'] }}
+          td.reservations__seat(v-for="seat in seats" :key="seat.id" v-bind:id="reservation_hash_id(one_day['ymd'],(seat.id))")
+            .reservations__seat-action(v-if="reservations[`${one_day['ymd']}-${seat.id}`] === undefined" @click="createReservation(one_day['ymd'], seat.id)")
+              |
+            reservation(v-else :currentUserId="currentUserId", :parentReservation="reservations[`${one_day['ymd']}-${seat.id}`]", @delete="deleteReservation")
+          td(v-if="admin_login == 1" v-bind:id="memoId(one_day['ymd'])").memo
+            memo(:memo="memos[one_day['ymd']]" :date="one_day['ymd']")
+          td(v-else v-bind:id="memoId(one_day['ymd'])").memo
+            template(v-if="memos[one_day['ymd']] === undefined")
+              |
+            template(v-else)
+              | {{ memoBody(one_day) }}
 </template>
 <script>
 

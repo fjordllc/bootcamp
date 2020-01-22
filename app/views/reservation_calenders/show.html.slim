@@ -1,4 +1,5 @@
 - title "席予約一覧"
+- content_for(:extra_body_classes, "no-recent-reports")
 
 header.page-header
   .container
@@ -8,26 +9,25 @@ header.page-header
 
 .page-body
   .container
-    .a-card
-      header.card-header.is-sm
+    .calender
+      header.calender__header
         h2.card-header__title
           = l(@this_month, format: :ym_jp)
-      .card-header
-        .card-header-actions
-          ul.card-header-actions__items
-            li.card-header-actions__item
-              = link_to reservation_calender_path(l(@prev_month, format: :ym)), class: "a-button is-md is-warning is-block" do
-                | 前月
-            li.card-header-actions__item
-              = link_to reservation_calender_path(l(@next_month, format: :ym)), class: "a-button is-md is-warning is-block" do
-                | 来月
-      #js-reservations(data-reservations-beggining-of-this-month="#{@this_month}" data-reservations-end-of-this-month="#{@this_month.end_of_month}" data-current-user-id="#{current_user.id}")
-        #js-reservations-data-holiday-jps
-          = @holidays.to_json
-        #js-memos-data
-          = @memos.to_json
-        #js-seats-data
-          = @seats.to_json
-        - if admin_login? || adviser_login?
-          #js-admin-login
-            = "1"
+        ul.card-header-actions__items
+          li.card-header-actions__item
+            = link_to reservation_calender_path(l(@prev_month, format: :ym)), class: "a-button is-md is-warning is-block" do
+              | 前月
+          li.card-header-actions__item
+            = link_to reservation_calender_path(l(@next_month, format: :ym)), class: "a-button is-md is-warning is-block" do
+              | 来月
+      .calender__body
+        #js-reservations(data-reservations-beggining-of-this-month="#{@this_month}" data-reservations-end-of-this-month="#{@this_month.end_of_month}" data-current-user-id="#{current_user.id}")
+          #js-reservations-data-holiday-jps
+            = @holidays.to_json
+          #js-memos-data
+            = @memos.to_json
+          #js-seats-data
+            = @seats.to_json
+          - if admin_login? || adviser_login?
+            #js-admin-login
+              = "1"
