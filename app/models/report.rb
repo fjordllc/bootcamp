@@ -66,6 +66,7 @@ class Report < ActiveRecord::Base
   def serial_number
     Report.select(:id)
           .where(user: user)
+          .order(:created_at)
           .index(self) + 1
   end
 end
