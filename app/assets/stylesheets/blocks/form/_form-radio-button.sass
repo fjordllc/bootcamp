@@ -5,15 +5,23 @@
     display: flex
     flex-wrap: wrap
     +margin(horizontal, -.5rem)
+  &.is-inline
+    margin-bottom: -.5rem
+    display: flex
+    flex-wrap: wrap
+    +margin(horizontal, -.5rem)
 
 .form-radio-button
-  &.is-half
+  .form-item__radio-buttons.is-half &
     flex: 0 0 50%
     max-width: 50%
     +padding(horizontal, .5rem)
     +media-breakpoint-down(sm)
       flex: 100%
       max-width: 100%
+  .form-item__radio-buttons.is-inline &
+    +padding(horizontal, .5rem)
+
 
 .form-radio-button__label
   +text-block(.8125rem 1.45 0 .5rem, block)
@@ -23,7 +31,9 @@
   border-radius: .25rem
   transition: all .2s ease-in
   +position(relative)
-  .form-radio-button.is-half &
+  &.is-lg
+    font-size: 1.5rem
+  .form-item__radio-buttons.is-half &
     margin-bottom: .5rem
   &::before
     content: ''
