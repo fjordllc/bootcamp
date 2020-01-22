@@ -1,41 +1,77 @@
+=calender-size
+  &.is-day
+    flex-basis: 4.5rem
+    width: 4.5rem
+    min-width: 4.5rem
+    max-width: 4.5rem
+  &.is-seat
+    flex-basis: 5rem
+    width: 5rem
+    min-width: 5rem
+    max-width: 5rem
+  &.is-memo
+    flex: 100
+
 .reservations__calender
   min-width: 100%
   table-layout: fixed
   background-color: $base
-  thead
-    background-color: $gray-lighter
-    th
-      padding: .25rem
-      border: solid 1px #d6d6d6
-      +text-block(.75rem, nowrap)
-    .day
-      width: 1%
-    .seat
-      width: 2%
-      min-width: 2rem
-    .memo
-      width: 8%
-      min-width: 8rem
 
-.reservations__day-item
-  &.is-holiday
-    background-color: tint($danger, 98%)
-  td
-    border: solid 1px $border
+.reservations__calender-header
+  background-color: $gray-lighter
+  display: flex
 
-.reservation
-  display: inline
-
-
-.reservations__seat-action
-  +size(100% 2.25rem)
-  cursor: pointer
-  +text-block(.75rem 1.4, flex)
+.reservations__calender-header-label
+  padding: .25rem
+  border: solid 1px #d6d6d6
+  +text-block(.75rem, nowrap flex)
   align-items: center
   justify-content: center
+  +calender-size
+  &:not(:last-child)
+    border-right: none
+
+.reservations__day-item
+  display: flex
+  &.is-holiday
+    background-color: tint($danger, 98%)
+  .reservations__day-item-value
+    border: solid 1px #d6d6d6
+    +calender-size
+    border-top: none
+    display: flex
+    align-items: center
+    justify-content: center
+    &:not(:last-child)
+      border-right: none
+    &.is-memo
+      justify-content: flex-start
+      padding: .375rem
+      +text-block(.75rem 1.2)
+  &:hover
+    background-color: tint($warning, 94%)
+
+.reservation
+  +size(100%)
+
+.reservations__seat-action
+  +size(100%)
+  min-height: 2rem
+  +padding(horizontal, .375rem)
+  cursor: pointer
+  +text-block(.75rem 1.1, flex)
+  align-items: center
+  justify-content: center
+  word-break: break-all
+  &:hover
+    box-shadow: inset rgba($primary, .5) 0 0 0 1px
+  &.is-reserved.is-me
+    background-color: rgba($main, .1)
+    box-shadow: inset rgba($main, 1) 0 0 0 1px
+    color: $main
 
 .reservations__day
-  +text-block(.8125rem, right nowrap)
+  +text-block(.75rem, right nowrap)
   +padding(horizontal, .5rem)
   .reservations__day-item.is-holiday &
     color: $danger
