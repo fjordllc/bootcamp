@@ -82,6 +82,7 @@ Rails.application.routes.draw do
   resources :notifications, only: %i(index show) do
     collection do
       resources :allmarks, only: %i(create), controller: "notifications/allmarks"
+      resources :unread, only: %i(index), controller: "notifications/unread", path: :unread
     end
   end
   resources :works, except: %i(index)
