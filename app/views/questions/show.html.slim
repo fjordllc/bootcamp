@@ -29,6 +29,8 @@ header.page-header
             = @question.title
           .thread-header__lower-side
             #js-watch(data-watchable-id="#{@question.id}", data-watchable-type="Question")
+            .thread-header__raw
+              = link_to "Raw", question_path(format: :md), class: "a-button is-sm is-secondary", target: "_blank"
         - if @question.practice.present?
           .report-practices
             ul.report-practices__items

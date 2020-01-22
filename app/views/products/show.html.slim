@@ -32,6 +32,8 @@ header.page-header
             | #{link_to @product.practice.title, @product.practice, class: "thread-header__title-link"}の提出物
           .thread-header__lower-side
             #js-watch(data-watchable-id="#{@product.id}", data-watchable-type="Product")
+            .thread-header__raw
+              = link_to "Raw", product_path(format: :md), class: "a-button is-sm is-secondary", target: "_blank"
         #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type="Product")
         .thread__description.js-target-blank.is-long-text.js-markdown-view
           =  @product.practice.goal
