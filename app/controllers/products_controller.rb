@@ -15,6 +15,10 @@ class ProductsController < ApplicationController
     @practice = find_practice
     @footprints = find_footprints
     footprint!
+    respond_to do |format|
+      format.html
+      format.md
+    end
   end
 
   def new
