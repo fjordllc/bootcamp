@@ -1,9 +1,15 @@
 .practice-contents
-  max-width: 100%
-  width: 50rem
+  max-width: 58rem
   +margin(horizontal, auto)
+  +position(relative)
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
   &:not(:first-child)
     margin-top: 2rem
+
+.practice-contents__inner
+  flex: 100
 
 .practice-contents__header
   border-bottom: solid 1px $background-shade
