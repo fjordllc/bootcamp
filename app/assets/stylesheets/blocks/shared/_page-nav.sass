@@ -6,29 +6,46 @@
   width: 12rem
   border: solid 1px #dadada
   border-radius: .25rem
-  opacity: .8
   transition: opacity .2s ease-in
   margin-left: 1.5rem
-  &:hover
-    opacity: 1
   +media-breakpoint-down(sm)
     display: none
+
+.page-nav__header
+  border-bottom: solid 1px $border
+
+.page-nav__title
+  +text-block(.875rem 1.4, 600)
+
+.page-nav__title-link
+  justify-content: center
+  align-items: center
+  height: 2rem
+  +flex-link
+  color: $default-text
 
 .page-nav__items
   max-height: calc(100vh - .25rem)
   overflow-y: auto
 
 .page-nav__item
-  border-bottom: solid 1px #e6e6e6
+  border-bottom: solid 1px $border
   &:last-child
     border-bottom: none
 
 .page-nav__item-link
   padding: .375rem .75rem
-  +text-block(.8125rem 1.45, block $muted-text)
+  +text-block(.8125rem 1.5, block $muted-text)
   +block-link
-  transition: all .2s ease-in
+  transition: all .1s ease-in
   background-color: transparent
+  .page-nav__item:last-child &
+    +border-radius(bottom, .25rem)
   &:hover
     color: $main
-    background-color: #fff4d5
+    text-decoration: underline
+  &.is-current
+    pointer-events: none
+    font-weight: 600
+    background-color: $main
+    color: $reversal-text
