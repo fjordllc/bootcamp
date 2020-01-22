@@ -1,15 +1,19 @@
-body
-  .is-hidden
-    display: none
-
-  .is-hidden-md-up
-    +media-breakpoint-up(md)
+html
+  body
+    .is-hidden
       display: none
 
-  .is-hidden-lg-up
-    +media-breakpoint-up(lg)
-      display: none
+    .is-hidden-md-up
+      +media-breakpoint-up(md)
+        display: none
 
-  *[hidden],
-  .is-hidden
-    display: none !important
+    .is-hidden-lg-up
+      +media-breakpoint-up(lg)
+        display: none
+
+    *[hidden],
+    .is-hidden
+      display: none !important
+
+    .is-mw-100
+      max-width: 100%
