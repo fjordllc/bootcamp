@@ -87,6 +87,9 @@ Rails.application.routes.draw do
   resources :works, except: %i(index)
   resources :books, only: %i(index show) do
     resources :borrowings, only: %i(create destroy)
+    collection do
+      resources :search_results, only: %i(index), controller: "books/search_results"
+    end
   end
 
   resources :questions do

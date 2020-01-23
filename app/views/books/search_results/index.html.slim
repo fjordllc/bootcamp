@@ -1,4 +1,4 @@
-- title "書籍一覧"
+- title "'#{params[:word]}'の検索結果"
 
 header.page-header
   .container
@@ -9,13 +9,11 @@ header.page-header
           .page-header-actions__item
 
 .page-body
-  .js-markdown-view.js-target-blank.is-long-text
-  | フィヨルドオフィスにて以下の書籍を借りることができます。
   = form_tag search_results_path, method: "get", class: "header-search", name: "book_search" do
     = text_field_tag "word", params[:word], class: "a-xs-text-input header-search__text-input", placeholder: "書籍タイトルで検索"
     button.a-button.is-sm.is-secondary.is-icon.header-search__submit#book-search(type="submit")
       i.fas.fa-search
   .container.is-padding-horizontal-0-sm-down
-    = paginate @books, position: "top"
-    = render "table", books: @books
-    = paginate @books, position: "bottom"
+    = paginate @search_results, position: "top"
+    = render "books/table", books: @search_results if @search_results.any?
+    = paginate @search_results, position: "bottom"
