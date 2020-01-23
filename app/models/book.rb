@@ -8,4 +8,8 @@ class Book < ApplicationRecord
   validates :isbn, presence: true
   validates :borrowed, inclusion: { in: [true, false] }
   paginates_per 20
+
+  def self.search(word)
+    Book.ransack(title_cont: word).result
+  end
 end

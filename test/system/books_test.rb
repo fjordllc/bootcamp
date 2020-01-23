@@ -3,12 +3,19 @@
 require "application_system_test_case"
 
 class BooksTest < ApplicationSystemTestCase
-  def setup
-    login_user "komagata", "testtest"
-  end
+  setup { login_user "hatsuno", "testtest" }
 
-  test "check book list" do
+  test "show listing books" do
     visit books_path
     assert_text "書籍一覧"
+  end
+
+  test "search books" do
+    visit books_path
+    within("form[name=book_search]") do
+      fill_in "word", with: "現場"
+    end
+    find("#book-search").click
+    assert_text "'現場'の検索結果"
   end
 end
