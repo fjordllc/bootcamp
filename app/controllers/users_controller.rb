@@ -118,7 +118,8 @@ class UsersController < ApplicationController
         :nda,
         :avatar,
         :trainee,
-        :adviser
+        :adviser,
+        :job_seeker
       )
     end
 

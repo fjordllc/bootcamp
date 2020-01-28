@@ -1,0 +1,10 @@
+.form-item
+  = f.label :job_seeker, class: "a-label"
+  ul.form-item__checkboxes
+    li.form-checkbox
+      label.form-checkbox__label
+        = f.check_box :job_seeker, class: "form-checkbox__input"
+        = User.human_attribute_name :job_seeker
+  .a-form-help
+    p
+      | 就職を希望する場合は、就職相談や就職先企業の紹介を行います（フィヨルドブートキャンプが紹介する企業に就職することが必須ではありません）。状況に合わせていつでも変更できます。この情報は他のフィヨルドブートキャンプ参加者には公開されません。

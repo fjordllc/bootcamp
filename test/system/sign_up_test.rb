@@ -77,4 +77,13 @@ class SignUpTest < ApplicationSystemTestCase
     assert_text "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
     assert User.find_by(email: email).trainee?
   end
+
+  test "form item about job seek is only displayed to students" do
+    visit "/users/new"
+    assert has_field? "user[job_seeker]", visible: :all
+    visit "/users/new?role=adviser"
+    assert has_no_field? "user[job_seeker]", visible: :all
+    visit "/users/new?role=trainee"
+    assert has_no_field? "user[job_seeker]", visible: :all
+  end
 end

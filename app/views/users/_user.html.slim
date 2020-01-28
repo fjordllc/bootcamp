@@ -6,8 +6,6 @@
           .users-item__name
             = link_to user, class: "users-item__name-link" do
               = user.login_name
-              - if current_user.admin? && user.card?
-                i.fas.fa-yen-sign
           ul.users-item-names
             li.users-item-names__item
               .users-item-names__ful-name
@@ -19,6 +17,7 @@
                     i.fab.fa-slack
                   .users-item-names__slack-value
                     = user.slack_account
+          = render "users/user_secret_attributes", user: user
           .users-item__icon
             = link_to user do
               = image_tag user.avatar_url, class: "users-item__icon-image is-#{user.role}"
