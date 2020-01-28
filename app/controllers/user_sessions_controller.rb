@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
         redirect_to retire_path
       else
         save_updated_at(@user)
-        redirect_back_or_to root_url, notice: "サインインしました。"
+        redirect_back_or_to root_url, notice: "ログインしました。"
       end
     else
       logout
