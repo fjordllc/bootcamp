@@ -8,11 +8,9 @@ header.page-header
         .page-header-actions__items
           .page-header-actions__item
 
+= render "books/search_bar"
+
 .page-body
-  = form_tag search_results_path, method: "get", class: "header-search", name: "book_search" do
-    = text_field_tag "word", params[:word], class: "a-xs-text-input header-search__text-input", placeholder: "書籍タイトルで検索"
-    button.a-button.is-sm.is-secondary.is-icon.header-search__submit#book-search(type="submit")
-      i.fas.fa-search
   .container.is-padding-horizontal-0-sm-down
     = paginate @search_results, position: "top"
     = render "books/table", books: @search_results if @search_results.any?
