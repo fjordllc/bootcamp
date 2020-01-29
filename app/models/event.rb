@@ -48,11 +48,11 @@ class Event < ApplicationRecord
   end
 
   def participants
-    fcfs.limit(capacity)
+    first_come_first_served.limit(capacity)
   end
 
   def waitlist
-    fcfs - participants
+    first_come_first_served - participants
   end
 
   private
@@ -84,7 +84,7 @@ class Event < ApplicationRecord
       end
     end
 
-    def fcfs
+    def first_come_first_served
       users.order("participations.created_at asc")
     end
 end
