@@ -48,7 +48,7 @@
             li.header-dropdown__item
               = link_to edit_current_user_path, class: "header-dropdown__item-link" do
                 | 登録情報変更
-            - if !current_user.adviser? && !current_user.mentor?
+            - if !current_user.adviser? && !current_user.mentor? && !current_user.trainee?
               - if current_user.card?
                 li.header-dropdown__item
                   = link_to "クレジットカード変更", edit_card_path, class: "header-dropdown__item-link"
