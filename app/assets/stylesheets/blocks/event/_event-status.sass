@@ -1,0 +1,10 @@
+.event-status
+  background-color: $danger
+  +text-block(1.4, 600 $reversal-text center)
+  +padding(vertical, .75em)
+  +media-breakpoint-up(md)
+    font-size: .875rem
+  +media-breakpoint-down(sm)
+    font-size: .8125rem
+  & + .thread__body
+    border-top: none
