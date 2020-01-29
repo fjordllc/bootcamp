@@ -11,16 +11,39 @@
         time.thread-header__lower-side-created-at(datetime="#{event.created_at.to_datetime}" pubdate="pubdate")
           | 書いた日 : #{l event.updated_at}
 
+    - unless event.is_opening?
+      .event-status
+        - if event.before_opening?
+          | 募集開始までお待ち下さい
+        - elsif event.is_closing?
+          | 募集受付は終了しました。
+        - else
+          | 本イベントは終了しました。
+
     .thread__body
-      ul
-        li
-          | 会場 :  #{event.location}
-        li
-          | 定員 : #{event.capacity}名
-        li
-          | 開催日時 : #{event.period}
-        li
-          | 募集期間 : #{l event.open_start_at} 〜 #{l event.open_end_at}
+      .event-meta
+        .event-meta__inner
+          dl.event-meta__items
+            .event-meta__item
+              dt.event-meta__item-label
+                | 会場
+              dd.event-meta__item-value
+                = event.location
+            .event-meta__item
+              dt.event-meta__item-label
+                | 定員
+              dd.event-meta__item-value
+                | #{event.capacity}名
+            .event-meta__item
+              dt.event-meta__item-label
+                | 開催日時
+              dd.event-meta__item-value
+                = event.period
+            .event-meta__item
+              dt.event-meta__item-label
+                | 募集期間
+              dd.event-meta__item-value
+                | #{l event.open_start_at} 〜 #{l event.open_end_at}
       .thread__description.js-target-blank.is-long-text.js-markdown-view
         = event.description
       = render "events/participation", event: event
@@ -41,20 +64,30 @@
                 = link_to event_path(event), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
                   i.fas.fa-trash-alt#delete
                   | 削除
-    .participants
-      | 参加者
-      ul.footprints__items
-        - event.participants.each do |participant|
-          li.footprints-item
-            = link_to participant do
-              = image_tag participant.avatar_url, class: "footprints-item__checker-icon is-#{participant.login_name} is-#{participant.role}", alt: participant.login_name
-    .waitlist
-      | 補欠者
-      ul.footprints__items
-        - event.waitlist.each do |wait_user|
-          li.footprints-item
-            = link_to wait_user do
-              = image_tag wait_user.avatar_url, class: "footprints-item__checker-icon is-#{wait_user.login_name} is-#{wait_user.role}", alt: wait_user.login_name
 
   = link_to event.user, itempro: "url", class: "thread__author-link" do
     = image_tag event.user.avatar_url, class: "thread__author-icon is-#{event.user.role}"
+
+.thread.participants
+  .thread__inner.a-card
+    header.thread-header
+      h1.thread-header__title
+        | 参加者
+  .thread__body
+    ul.footprints__items
+      - event.participants.each do |participant|
+        li.footprints-item
+          = link_to participant do
+            = image_tag participant.avatar_url, class: "footprints-item__checker-icon is-#{participant.login_name} is-#{participant.role}", alt: participant.login_name
+
+.thread.waitlist
+  .thread__inner.a-card
+    header.thread-header
+      h1.thread-header__title
+        | 補欠者
+  .thread__body
+    ul.footprints__items
+      - event.waitlist.each do |wait_user|
+        li.footprints-item
+          = link_to wait_user do
+            = image_tag wait_user.avatar_url, class: "footprints-item__checker-icon is-#{wait_user.login_name} is-#{wait_user.role}", alt: wait_user.login_name
