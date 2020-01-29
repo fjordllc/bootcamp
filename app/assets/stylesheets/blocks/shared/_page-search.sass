@@ -1,0 +1,23 @@
+.page-search
+  +padding(vertical, .75rem)
+  border-bottom: solid 1px $background-shade
+  .page-tabs + &
+    +padding(vertical, 0)
+
+.page-search__form
+  width: 30rem
+  max-width: 100%
+  +margin(horizontal, auto)
+  display: flex
+  height: 100%
+  align-items: center
+  padding-right: .75rem
+
+.page-search__text-input
+  height: 2rem
+  +border-radius(right, 0)
+  border-right: none
+
+.is-icon.page-search__submit
+  height: 2rem
+  +border-radius(left, 0)
