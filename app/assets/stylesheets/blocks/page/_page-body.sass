@@ -2,3 +2,12 @@
   +padding(vertical, 1.5rem)
   +media-breakpoint-down(sm)
     +padding(vertical, 1.125rem)
+
+.page-body__description
+  +short-text-style
+  +media-breakpoint-up(md)
+    font-size: .875rem
+  +media-breakpoint-down(sm)
+    font-size: .8125rem
+  &:not(:last-child)
+    margin-bottom: 1.5em
