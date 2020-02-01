@@ -3,7 +3,7 @@
 require "application_system_test_case"
 
 class Notification::UnreadTest < ApplicationSystemTestCase
-  setup { login_user "sotugyou", "testtest" }
+  setup { login_user "komagata", "testtest" }
 
   test "show listing unread notification" do
     visit "/notifications/unread"
