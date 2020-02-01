@@ -124,7 +124,6 @@ export default {
         .then(json=> {
           this.comments.push(json);
           this.description = '';
-          this.tab = 'comment';
         })
         .catch(error => {
           console.warn('Failed to parsing', error)

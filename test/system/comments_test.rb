@@ -100,17 +100,4 @@ class CommentsTest < ApplicationSystemTestCase
     click_button "コメントする"
     assert_text "test"
   end
-
-  test "comment tab is active after a comment has been posted" do
-    visit "/reports/#{reports(:report_3).id}"
-    assert_equal "コメント", find(".thread-comment-form__tab.is-active").text
-    within(".thread-comment-form__form") do
-      fill_in("comment[description]", with: "test")
-    end
-    find(".thread-comment-form__tab", text: "プレビュー").click
-    assert_equal "プレビュー", find(".thread-comment-form__tab.is-active").text
-    click_button "コメントする"
-    assert_text "test"
-    assert_equal "コメント", find(".thread-comment-form__tab.is-active").text
-  end
 end
