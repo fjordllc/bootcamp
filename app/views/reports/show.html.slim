@@ -27,12 +27,15 @@ header.page-header
             = link_to @report.user, class: "thread-header__author", title: @report.user.full_name do
               = @report.user.login_name
             .thread-header__date
-              | #{l @report.reported_on} の日報
+              | #{l @report.reported_on}(
+              span.thread-header__count(class="#{@report.serial_number < 6 ? "is-important" : ""}")
+                | #{@report.serial_number}
+              | )の日報
           h1.thread-header__title(class="#{@report.wip? ? "is-wip" : ""}")
             - if @report.wip?
               span.thread-header__title-icon
                 | WIP
-            = @report.title
+            | #{@report.title}
           #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="Report")
           .thread-header__lower-side
             #js-watch(data-watchable-id="#{@report.id}", data-watchable-type="Report")
