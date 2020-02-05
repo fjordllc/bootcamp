@@ -11,7 +11,7 @@ class SignInTest < ApplicationSystemTestCase
       fill_in("user[login_name]", with: "komagata")
       fill_in("user[password]",   with: "testtest")
     end
-    click_button "サインイン"
+    click_button "ログイン"
     assert_equal "/", current_path
   end
 
@@ -21,7 +21,7 @@ class SignInTest < ApplicationSystemTestCase
       fill_in("user[login_name]", with: "komagata")
       fill_in("user[password]",   with: "xxxxxxxx")
     end
-    click_button "サインイン"
+    click_button "ログイン"
     assert_equal "/user_sessions", current_path
     assert_text "ユーザー名かパスワードが違います。"
   end
@@ -33,7 +33,7 @@ class SignInTest < ApplicationSystemTestCase
       fill_in("user[login_name]", with: "yameo")
       fill_in("user[password]",   with: "yameo@example.com")
     end
-    click_button "サインイン"
+    click_button "ログイン"
     assert_equal "/user_sessions", current_path
     assert_text "ユーザー名かパスワードが違います。"
 

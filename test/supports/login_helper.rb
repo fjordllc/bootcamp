@@ -7,7 +7,7 @@ module LoginHelper
       fill_in("user[login_name]", with: login_name)
       fill_in("user[password]", with: password)
     end
-    click_button "サインイン"
+    click_button "ログイン"
   end
 
   def logout

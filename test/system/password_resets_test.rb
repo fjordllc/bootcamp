@@ -18,8 +18,8 @@ class PasswordResetTest < ApplicationSystemTestCase
     within "form[name=user_session]" do
       fill_in "user[login_name]", with: user.login_name
       fill_in "user[password]", with: "testpassword"
-      click_button "サインイン"
+      click_button "ログイン"
     end
-    assert_text "サインインしました"
+    assert_text "ログインしました"
   end
 end
