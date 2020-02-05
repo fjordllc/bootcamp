@@ -1,0 +1,26 @@
+.admin-table
+  table.admin-table__table
+    thead.admin-table__header
+      tr.admin-table__labels
+        th.admin-table__label = Book.human_attribute_name :id
+        th.admin-table__label = Book.human_attribute_name :title
+        th.admin-table__label = Book.human_attribute_name :isbn
+        th.admin-table__label 借りてる人
+        th.admin-table__label 借りてる日数
+    tbody.admin-table__items
+      - books.each do |book|
+        tr.admin-table__item(id="book_#{book.id}")
+          td.admin-table__item-value
+            = book.id
+          td.admin-table__item-value
+            = book.title
+          td.admin-table__item-value.is-text-align-center
+            = book.isbn
+          td.admin-table__item-value
+            - if book.borrowed
+              = image_tag book.borrowing_user_avatar, class: "admin-table__user-icon"
+              = link_to user_path(book.users.first), target: "_blank", rel: "noopener" do
+                = book.borrowing_user_name
+          td.admin-table__item-value.is-text-align-center
+            - if book.borrowed
+              = "#{book.borrowing_days}日"

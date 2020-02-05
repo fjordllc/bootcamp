@@ -1,0 +1,17 @@
+- title "'#{params[:word]}'の検索結果"
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+
+= render "books/search_bar"
+
+.page-body
+  .container.is-padding-horizontal-0-sm-down
+    = paginate @search_results, position: "top"
+    = render "books/table", books: @search_results if @search_results.any?
+    = paginate @search_results, position: "bottom"
