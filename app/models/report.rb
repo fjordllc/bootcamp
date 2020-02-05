@@ -62,4 +62,11 @@ class Report < ActiveRecord::Base
   def self.faces
     @_faces ||= emotions.keys.zip(%w(🙂 😢 😄)).to_h.with_indifferent_access
   end
+
+  def serial_number
+    Report.select(:id)
+          .where(user: user)
+          .order(:created_at)
+          .index(self) + 1
+  end
 end
