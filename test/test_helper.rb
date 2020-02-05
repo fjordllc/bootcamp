@@ -4,7 +4,7 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 require "capybara/rails"
-require "webmock/minitest"
+#require "webmock/minitest"
 require "supports/stub_helper"
 
 WebMock.allow_net_connect!
