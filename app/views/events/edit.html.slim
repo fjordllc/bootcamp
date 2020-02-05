@@ -1,0 +1,11 @@
+- title "イベント編集"
+- content_for(:extra_body_classes, "no-recent-reports")
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title = title
+
+.page-body
+  .container
+    = render "form", event: @event

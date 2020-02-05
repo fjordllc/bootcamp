@@ -1,0 +1,21 @@
+- title "イベント"
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+      - if admin_login?
+        .page-header-actions
+          .page-header-actions__items
+            .page-header-actions__item
+              = link_to new_event_path, class: "a-button is-md is-warning is-block" do
+                i.fa.fa-plus
+                | イベント作成
+
+.page-body
+  = paginate @events, position: "top"
+  .container
+    .thread-list.a-card
+      = render partial: "events", collection: @events, as: :event
+= paginate @events, position: "bottom"

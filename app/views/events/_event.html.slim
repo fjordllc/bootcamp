@@ -1,0 +1,60 @@
+.thread
+  .thread__inner.a-card
+    header.thread-header
+      h1.thread-header__title
+        = event.title
+
+      .thread-header__lower-side
+        .thread-header__lower-side-author-name
+          = link_to event.user, class: "thread-header__lower-side-author-name-link" do
+            = event.user.login_name
+        time.thread-header__lower-side-created-at(datetime="#{event.created_at.to_datetime}" pubdate="pubdate")
+          | 書いた日 : #{l event.updated_at}
+
+    .thread__body
+      ul
+        li
+          | 会場 :  #{event.location}
+        li
+          | 定員 : #{event.capacity}名
+        li
+          | 開催日時 : #{event.period}
+        li
+          | 募集期間 : #{l event.open_start_at} 〜 #{l event.open_end_at}
+      .thread__description.js-target-blank.is-long-text.js-markdown-view
+        = event.description
+      = render "events/participation", event: event
+      = render "reactions/reactions", reactionable: event
+      - if admin_login? || event.user_id == current_user.id
+        .card-footer
+          .card-footer-actions
+            ul.card-footer-actions__items
+              li.card-footer-actions__item
+                = link_to edit_event_path(event), class: "card-footer-actions__action a-button is-md is-primary is-block", id: "js-shortcut-edit" do
+                  i.fas.fa-pen#new
+                  | 内容修正
+              li.card-footer-actions__item
+                = link_to new_event_path(id: event), class: "card-footer-actions__action a-button is-md is-warning is-block" do
+                  i.fas.fa-copy#copy
+                  | コピー
+              li.card-footer-actions__item
+                = link_to event_path(event), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
+                  i.fas.fa-trash-alt#delete
+                  | 削除
+    .participants
+      | 参加者
+      ul.footprints__items
+        - event.participants.each do |participant|
+          li.footprints-item
+            = link_to participant do
+              = image_tag participant.avatar_url, class: "footprints-item__checker-icon is-#{participant.login_name} is-#{participant.role}", alt: participant.login_name
+    .waitlist
+      | 補欠者
+      ul.footprints__items
+        - event.waitlist.each do |wait_user|
+          li.footprints-item
+            = link_to wait_user do
+              = image_tag wait_user.avatar_url, class: "footprints-item__checker-icon is-#{wait_user.login_name} is-#{wait_user.role}", alt: wait_user.login_name
+
+  = link_to event.user, itempro: "url", class: "thread__author-link" do
+    = image_tag event.user.avatar_url, class: "thread__author-icon is-#{event.user.role}"
