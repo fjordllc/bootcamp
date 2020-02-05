@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
         redirect_to retire_path
       else
         save_updated_at(@user)
-        redirect_back_or_to root_url, notice: "サインインしました。"
+        redirect_back_or_to root_url, notice: "ログインしました。"
       end
     else
       logout
@@ -22,7 +22,7 @@ class UserSessionsController < ApplicationController
         password: params[:user][:password]
       )
       flash.now[:alert] = "ユーザー名かパスワードが違います。"
-      render "new", notice: "サインアウトしました。"
+      render "new", notice: "ログアウトしました。"
     end
   end
 
@@ -31,7 +31,7 @@ class UserSessionsController < ApplicationController
       save_updated_at(current_user)
       logout
     end
-    redirect_to root_url, notice: "サインアウトしました。"
+    redirect_to root_url, notice: "ログアウトしました。"
   end
 
   private
