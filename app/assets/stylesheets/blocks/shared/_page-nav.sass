@@ -18,11 +18,13 @@
   +text-block(.875rem 1.4, 600)
 
 .page-nav__title-link
-  justify-content: center
-  align-items: center
-  height: 2rem
-  +flex-link
+  +block-link
+  text-align: center
+  padding: .5rem .75rem
   color: $default-text
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
 
 .page-nav__items
   max-height: calc(100vh - .25rem)
