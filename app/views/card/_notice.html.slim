@@ -1,10 +1,8 @@
 .form-notice
-  - unless current_user.card?
-    p クレジットカード登録後、すぐにフィヨルドブートキャンプ利用開始になります。
   p
-    | クレジットカード登録日を含む3日間はお試し期間です。お試し期間の間に退会をすれば課金されることはありません（
-    = link_to "退会はこちらから", new_retirement_path
-    | ）。
+    | クレジットカード登録日を含む3日間はお試し期間です。お試し期間の間に退会をすれば課金されることはありません
+    - if current_user
+      | （#{link_to "退会はこちらから", new_retirement_path}）。
   p
     | クレジットカードに関して問題がありましたら #{mail_to "info@fjord.jp"} までお問い合わせください。
   p
