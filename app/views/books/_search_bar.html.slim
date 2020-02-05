@@ -1,0 +1,7 @@
+.page-tools
+  nav.page-search
+    .container
+      = form_tag search_results_path, method: "get", class: "page-search__form", name: "book_search" do
+        = text_field_tag "word", params[:word], class: "a-xs-text-input page-search__text-input", placeholder: "書籍タイトルで検索"
+        button.a-button.is-sm.is-secondary.is-icon.page-search__submit#book-search(type="submit")
+          i.fas.fa-search
