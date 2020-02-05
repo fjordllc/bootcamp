@@ -2,20 +2,23 @@ require "open-uri"
 require "nokogiri"
 
 class GithubGrass
-  attr_reader :cache_key
+  SELECTOR = "svg.js-calendar-graph-svg"
 
-  def initialize(user)
-    @user_github_url = "https://github.com/#{user.github_account}"
-    @cache_key = "github_grass/" + @user.id.to_s
+  def initialize(name)
+    @name = name
   end
 
-  def take_svg
-    charset = nil
-    html = open(@user_github_url, "r:utf-8") do |f|
-      charset = f.charset
-      f.read
-    end
-    github_page = Nokogiri::HTML.parse(html, nil, charset)
-    @github_grass = github_page.css("svg.js-calendar-graph-svg")[0]
+  def fetch
+    extract_svg open(github_url(@name)) { |f| f.read }
+  rescue OpenURI::HTTPError
+    ""
+  end
+
+  def extract_svg(html)
+     Nokogiri::HTML(html).css(SELECTOR).to_s
+  end
+
+  def github_url(name)
+    "https://github.com/#{name}"
   end
 end
