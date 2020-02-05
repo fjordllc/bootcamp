@@ -1,0 +1,69 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+event_1:
+  title: "ミートアップ"
+  description: "ミートアップを開催します。"
+  location: "FJORDオフィス"
+  capacity: 40
+  start_at: 2019-12-20 10:00
+  end_at: 2019-12-20 12:30
+  open_start_at: 2019-12-10 09:00
+  open_end_at: 2019-12-19 9:00
+  user: komagata
+
+event_2:
+  title: "募集期間中のイベント(補欠者なし)"
+  description: "募集期間中のイベントです。参加申込ができます。補欠者はまだいません。"
+  location: "FJORDオフィス"
+  capacity: 40
+  start_at: <%= Time.current.next_year - 1.day %>
+  end_at: <%= Time.current.next_year %>
+  open_start_at: <%= Time.current %>
+  open_end_at: <%= Time.current.next_year %>
+  user: komagata
+
+event_3:
+  title: "募集期間中のイベント(補欠者あり)"
+  description: "募集期間中のイベントです。参加申込ができます。補欠者がいます。"
+  location: "FJORDオフィス"
+  capacity: 1
+  start_at: <%= Time.current.next_year - 1.day %>
+  end_at: <%= Time.current.next_year %>
+  open_start_at: <%= Time.current %>
+  open_end_at: <%= Time.current.next_year %>
+  user: komagata
+
+event_4:
+  title: "募集期間前のイベント"
+  description: "募集期間前のイベントです。"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: <%= Time.current.next_year - 1.hour %>
+  end_at: <%= Time.current.next_year %>
+  open_start_at: <%= Time.current.next_year - 1.day %>
+  open_end_at: <%= Time.current.next_year %>
+  user: komagata
+
+event_5:
+  title: "募集期間後のイベント"
+  description: "募集が終了したイベントです。"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: <%= Time.current.next_year - 1.hour %>
+  end_at: <%= Time.current.next_year %>
+  open_start_at: <%= Time.current.yesterday %>
+  open_end_at: <%= Time.current.yesterday + 1.hour %>
+  user: komagata
+
+event_6:
+  title: "終了したイベント"
+  description: "終了したイベントです。"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: 2019-12-17 10:00:00
+  end_at: 2019-12-17 12:00:00
+  open_start_at: 2019-12-10 9:00
+  open_end_at: 2019-12-16 9:00
+  user: komagata
+
+

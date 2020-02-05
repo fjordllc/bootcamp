@@ -1,0 +1,23 @@
+- title @event.title
+- content_for(:extra_body_classes, "no-recent-reports")
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title = title
+      .page-header-actions
+        ul.page-header-actions__items
+          - if admin_login?
+            li.page-header-actions__item
+              = link_to new_event_path, class: "a-button is-md is-warning is-block" do
+                i.fa.fa-plus
+                | イベント作成
+          li.page-header-actions__item
+            = link_to events_path, class: "a-button is-md is-secondary is-block" do
+              | イベント一覧へ
+
+.page-body
+  .container
+    = render "event", event: @event
+    #js-comments(data-commentable-id="#{@event.id}" data-commentable-type="Event" data-current-user-id="#{current_user.id}")
+    = render "footprints/footprints", footprints: @footprints

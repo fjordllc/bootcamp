@@ -24,6 +24,7 @@ ja:
       article: ブログ記事
       work: 作品
       book: 書籍
+      event: イベント
     attributes:
       user:
         login_name: ユーザー名
@@ -135,6 +136,15 @@ ja:
         id: ID
         title: タイトル
         isbn: ISBN-13
+      event:
+        title: タイトル
+        description: 詳細
+        location: 会場
+        capacity: 定員
+        start_at: 開始日時
+        end_at: 終了日時
+        open_start_at: 募集開始日時
+        open_end_at: 募集終了日時
     enums:
       user:
         job:
