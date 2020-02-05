@@ -8,7 +8,7 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           - if current_user.admin?
-            li.page-header-actions__item
+            li.page-header-actions__item.is-hidden-sm-down
               = link_to new_practice_path, class: "a-button is-md is-warning is-block" do
                 i.fas.fa-plus
                 | プラクティス作成
