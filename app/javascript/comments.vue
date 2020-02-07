@@ -102,6 +102,9 @@ export default {
     },
     createComment: function(event) {
       if (this.description.length < 1) {　return null　}
+      const obj = document.getElementById('js-shortcut-post-comment')
+      obj.disabled = true;
+
       let params = {
         'comment': { 'description': this.description },
         'commentable_type': this.commentableType,
