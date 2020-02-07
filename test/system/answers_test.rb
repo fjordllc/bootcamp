@@ -22,6 +22,15 @@ class AnswersTest < ApplicationSystemTestCase
     end
   end
 
+  test "admin can edit and delete any questions" do
+    visit "/questions/#{questions(:question_1).id}"
+    answer_by_user = page.all(".thread-comment")[1]
+    within answer_by_user do
+      assert_text "内容修正"
+      assert_text "削除"
+    end
+  end
+
   test "admin can resolve user's question" do
     visit "/questions/#{questions(:question_2).id}"
     assert_text "解決にする"
