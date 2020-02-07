@@ -79,4 +79,14 @@ class QuestionsTest < ApplicationSystemTestCase
     visit "/notifications"
     assert_no_text "kimuraさんから質問がありました。"
   end
+
+  test "admin can update and delete any questions" do
+    login_user "komagata", "testtest"
+    question = questions(:question_8)
+    visit question_path(question)
+    within ".thread__inner" do
+      assert_text "内容修正"
+      assert_text "削除"
+    end
+  end
 end
