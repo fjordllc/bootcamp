@@ -20,6 +20,7 @@
             = render "sort_column", order_by: "created_at", direction: direction, target: @target
           th.admin-table__label
             | カード登録
+          th.admin-table__label 卒業
           th.admin-table__label 卒業証書
           th.admin-table__label 操作
           th.admin-table__label 削除
@@ -67,6 +68,11 @@
               = l user.created_at
             td.admin-table__item-value.is-text-align-center
               = user.card? ? "有り" : "無し"
+            td.admin-table__item-value.is-text-align-center
+              - if user.graduated_on?
+                | 卒業済み
+              - else
+                = link_to "卒業", user_graduation_path(user), method: :patch, data: { confirm: "本当によろしいですか？" }, class: "a-button is-sm is-primary"
             td.admin-table__item-value.is-text-align-center
               = link_to "卒業証書", admin_diploma_path(user_id: user.id)
             td.admin-table__item-value.is-text-align-center
