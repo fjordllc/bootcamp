@@ -79,12 +79,13 @@ class NotificationFacade
     end
   end
 
-  def self.watching_notification(watchable, receiver)
-    Notification.watching_notification(watchable, receiver)
+  def self.watching_notification(watchable, receiver, comment)
+    Notification.watching_notification(watchable, receiver, comment)
     if receiver.mail_notification? && !receiver.retired_on?
       NotificationMailer.with(
         watchable: watchable,
-        receiver: receiver
+        receiver: receiver,
+        comment: comment
       ).watching_notification.deliver_later
     end
   end
