@@ -81,10 +81,11 @@ class NotificationMailer < ApplicationMailer
 
   # required params: watchable, receiver
   def watching_notification
+    @sender = @watchable.user
     @user = @receiver
     path = "/#{@watchable.class.name.downcase.pluralize}/#{@watchable.id}"
     @notification = @user.notifications.find_by(path: path)
-    subject = "[bootcamp] あなたがウォッチしている【 #{@watchable.title} 】にコメントが投稿されました。"
+    subject = "[bootcamp] #{@sender.login_name}さんの【 #{@watchable.title} 】にコメントが投稿されました。"
     mail to: @user.email, subject: subject
   end
 

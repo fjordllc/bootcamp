@@ -24,11 +24,11 @@ class Notification::WatchesTest < ApplicationSystemTestCase
 
     login_user "kimura", "testtest"
     first(".test-bell").click
-    assert_text "あなたがウォッチしている【 #{reports(:report_1).title} 】にコメントが投稿されました。"
+    assert_text "【 #{reports(:report_1).title} 】にコメントが投稿されました。"
 
     login_user "machida", "testtest"
     first(".test-bell").click
-    assert_text "あなたがウォッチしている【 #{reports(:report_1).title} 】にコメントが投稿されました。"
+    assert_text "【 #{reports(:report_1).title} 】にコメントが投稿されました。"
   end
 
   test "質問作成者がコメントをした際、ウォッチ通知が飛ばないバグの再現" do
@@ -52,10 +52,10 @@ class Notification::WatchesTest < ApplicationSystemTestCase
 
     login_user "kimura", "testtest"
     first(".test-bell").click
-    assert_text "あなたがウォッチしている【 #{questions(:question_1).title} 】にコメントが投稿されました。"
+    assert_text "【 #{questions(:question_1).title} 】にコメントが投稿されました。"
 
     login_user "komagata", "testtest"
     first(".test-bell").click
-    assert_text "あなたがウォッチしている【 #{questions(:question_1).title} 】にコメントが投稿されました。"
+    assert_text "【 #{questions(:question_1).title} 】にコメントが投稿されました。"
   end
 end
