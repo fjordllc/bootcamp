@@ -162,7 +162,8 @@ class NotificationMailerTest < ActionMailer::TestCase
     watching = notifications(:notification_watching)
     mailer = NotificationMailer.with(
       watchable: watch.watchable,
-      receiver: watching.user
+      receiver: watching.user,
+      comment: comments(:comment_1)
     ).watching_notification
 
     perform_enqueued_jobs do
@@ -173,8 +174,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["kimura@fjord.jp"], email.to
-    assert_equal "[bootcamp] あなたがウォッチしている【 作業週1日目 】にコメントが投稿されました。", email.subject
-    assert_match %r{ウォッチ}, email.body.to_s
+    assert_equal "[bootcamp] komagataさんの【 作業週1日目 】にコメントが投稿されました。", email.subject
   end
 
   test "retired" do
