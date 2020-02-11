@@ -1,0 +1,6 @@
+company_1:
+  name: "FJORD, LLC"
+  description: "合同会社フィヨルド"
+  website: "https://fjord.jp"
+  slack_channel: "#fjord"
+  created_at: 2000-01-01 00:00:01
