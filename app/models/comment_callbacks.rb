@@ -42,7 +42,7 @@ class CommentCallbacks
         watcher_ids.each do |watcher_id|
           if watcher_id != comment.sender.id
             watcher = User.find_by(id: watcher_id)
-            NotificationFacade.watching_notification(watchable, watcher)
+            NotificationFacade.watching_notification(watchable, watcher, comment)
           end
         end
       end
