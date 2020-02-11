@@ -23,7 +23,7 @@
               .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
           .thread-comment-form__actions
             .thread-comment-form__action
-              button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createComment" :disabled="!validation")
+              button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createComment(); preventDoubleSubmit()" :disabled="!validation || bePushed")
                 | コメントする
 </template>
 <script>
@@ -44,7 +44,8 @@ export default {
       currentUser: {},
       comments: [],
       description: '',
-      tab: 'comment'
+      tab: 'comment',
+      bePushed: false
     }
   },
   created: function() {
@@ -102,8 +103,6 @@ export default {
     },
     createComment: function(event) {
       if (this.description.length < 1) {　return null　}
-      const obj = document.getElementById('js-shortcut-post-comment')
-      obj.disabled = true;
 
       let params = {
         'comment': { 'description': this.description },
@@ -128,6 +127,7 @@ export default {
           this.comments.push(json);
           this.description = '';
           this.tab = 'comment';
+          this.bePushed = false
         })
         .catch(error => {
           console.warn('Failed to parsing', error)
@@ -151,6 +151,9 @@ export default {
         .catch(error => {
           console.warn('Failed to parsing', error)
         })
+    },
+    preventDoubleSubmit: function() {
+      this.bePushed = true;
     }
   },
   computed: {
