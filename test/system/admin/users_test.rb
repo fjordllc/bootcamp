@@ -67,7 +67,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     user = users(:hatsuno)
     visit "/admin/users/#{user.id}/edit"
     within "form[name=user]" do
-      fill_in "user[login_name]", with: "hatsuno-1"
+      fill_in "user[login_name]", with: "hatsuno1"
       click_on "更新する"
     end
     assert_text "ユーザー情報を更新しました。"
