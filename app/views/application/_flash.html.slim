@@ -14,3 +14,11 @@
         label.flash__close(for="hide-flash")
         p.flash__message
           = alert
+- if logged_in? && !/\A[0-9a-zA-Z]+\z/.match?(current_user.login_name)
+  input.a-toggle-checkbox#hide-flash(type="checkbox")
+  .flash.is-alert
+    .container
+      .flash__container
+        label.flash__close(for="hide-flash")
+        p.flash__message
+          = link_to "ユーザー名を半角英数字に変更してください。", edit_current_user_path
