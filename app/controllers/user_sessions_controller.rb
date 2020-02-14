@@ -13,7 +13,11 @@ class UserSessionsController < ApplicationController
         redirect_to retire_path
       else
         save_updated_at(@user)
-        redirect_back_or_to root_url, notice: "ログインしました。"
+        if /\A[0-9a-zA-Z]+\z/.match?(@user.login_name)
+          redirect_back_or_to root_url, notice: "ログインしました。"
+        else
+          redirect_to edit_current_user_path
+        end
       end
     else
       logout
