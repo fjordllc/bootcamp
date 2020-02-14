@@ -8,7 +8,7 @@ class SignInTest < ApplicationSystemTestCase
   test "sign in" do
     visit "/login"
     within("#sign-in-form") do
-      fill_in("user[login_name]", with: "komagata")
+      fill_in("user[login]", with: "komagata")
       fill_in("user[password]",   with: "testtest")
     end
     click_button "ログイン"
@@ -18,7 +18,7 @@ class SignInTest < ApplicationSystemTestCase
   test "sign in with wrong password" do
     visit "/login"
     within("#sign-in-form") do
-      fill_in("user[login_name]", with: "komagata")
+      fill_in("user[login]", with: "komagata")
       fill_in("user[password]",   with: "xxxxxxxx")
     end
     click_button "ログイン"
@@ -30,7 +30,7 @@ class SignInTest < ApplicationSystemTestCase
     logout
     visit "/login"
     within("#sign-in-form") do
-      fill_in("user[login_name]", with: "yameo")
+      fill_in("user[login]", with: "yameo")
       fill_in("user[password]",   with: "yameo@example.com")
     end
     click_button "ログイン"

@@ -73,6 +73,22 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "宮城県", users(:hatsuno).prefecture_name
   end
 
+  test "login_name" do
+    Bootcamp::Setup.attachment
+
+    user = users(:komagata)
+    user.login_name = "azAZ09"
+    assert user.valid?
+    user.login_name = "_@-"
+    assert user.invalid?
+    user.login_name = "あ"
+    assert user.invalid?
+    user.login_name = "ａｚＡＺ０９"
+    assert user.invalid?
+    user.login_name = users(:machida).login_name
+    assert user.invalid?
+  end
+
   test "twitter_account" do
     Bootcamp::Setup.attachment
 

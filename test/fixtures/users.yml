@@ -324,3 +324,25 @@ osnashi: #osを持たないユーザー
   experience: rails
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
+
+nihongo:
+  login_name: 日本語
+  email: nihongo@example.com
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  first_name: 日本語
+  last_name: 日本
+  kana_first_name: ニホンゴ
+  kana_last_name: ニホン
+  twitter_account: nihongo
+  facebook_url: http://www.facebook.com/nihongo
+  blog_url: http://nihongo.org
+  description: "ユーザー名が日本語のユーザーです"
+  course: course_1
+  job: office_worker
+  os: mac
+  study_place: remote
+  experience: ruby
+  organization: 日本語大学
+  updated_at: "2014-01-01 00:00:12"
+  created_at: "2014-01-01 00:00:12"

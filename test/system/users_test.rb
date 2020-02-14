@@ -16,6 +16,14 @@ class UsersTest < ApplicationSystemTestCase
     assert_text "管理者としてログインしてください"
   end
 
+  test "ask user to change login_name when login_name is japanese" do
+    login_user "nihongo@example.com", "testtest"
+    assert_text "ユーザー名を半角英数字に変更してください"
+
+    visit root_path
+    assert_text "ユーザー名を半角英数字に変更してください"
+  end
+
   test "retire user" do
     stub_subscription_destroy!
 
