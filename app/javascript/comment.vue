@@ -2,7 +2,7 @@
   .thread-comment
     .thread-comment__author
       a.thread-comment__author-link(:href="comment.user.url" itempro="url")
-        img.thread-comment__author-icon.a-user-icon(:src="comment.user.avatar_url" v-bind:class="userRole")
+        img.thread-comment__author-icon.a-user-icon(:src="comment.user.avatar_url" :title="comment.user.icon_title"  v-bind:class="userRole")
     .thread-comment__body.a-card(v-if="!editing")
       header.thread-comment__body-header
         h2.thread-comment__title

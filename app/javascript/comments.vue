@@ -9,7 +9,7 @@
         @delete="deleteComment")
       .thread-comment-form
         .thread-comment__author
-          img.thread-comment__author-icon.a-user-icon(:src="currentUser.avatar_url")
+          img.thread-comment__author-icon.a-user-icon(:src="currentUser.avatar_url" :title="currentUser.icon_title")
         .thread-comment-form__form.a-card
           .thread-comment-form__tabs.js-tabs
             .thread-comment-form__tab.js-tabs__tab(:class="{'is-active': isActive('comment')}" @click="changeActiveTab('comment')")
