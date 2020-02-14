@@ -103,6 +103,9 @@ export default {
     },
     editComment: function() {
       this.editing = true;
+      setTimeout(function() {
+       $('textarea').trigger('input');
+    },0);
     },
     updateComment: function() {
       if (this.description.length < 1) {　return null　}
