@@ -1,8 +1,8 @@
 = form_for user, url: user_sessions_path, html: { id: "sign-in-form", class: "form", name: "user_session" }  do |f|
   .form__items
     .form-item
-      = f.label :login_name, class: "a-label"
-      = f.text_field :login_name, class: "a-text-input"
+      = f.label :login, "ユーザー名orメールアドレス", class: "a-label"
+      = f.text_field :login, class: "a-text-input"
     .form-item
       = f.label :password, class: "a-label"
       = f.password_field :password, class: "a-text-input"

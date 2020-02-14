@@ -87,10 +87,18 @@ class User < ActiveRecord::Base
 
   after_update UserCallbacks.new
 
+  attr_accessor :login
+
   validates :email,      presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name,  presence: true
-  validates :login_name, presence: true, uniqueness: true
+  validates :login_name,
+    presence: true,
+    uniqueness: true,
+    format: {
+    with: /\A[0-9a-zA-Z]+\z/,
+    message: "は半角英数字のみが使用できます"
+  }
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :twitter_account,
