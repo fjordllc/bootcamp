@@ -1,3 +1,5 @@
-.form-item
+.form-item.js-date-input-toggler
   = f.label :graduated_on, class: "a-label"
+  = check_box_tag :graduation_checkbox
+  = User.human_attribute_name :graduated_on
   = f.date_field :graduated_on, class: "a-text-input"
