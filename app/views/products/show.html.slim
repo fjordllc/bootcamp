@@ -14,6 +14,9 @@ header.page-header
             li.page-header-actions__item
               = link_to products_unchecked_index_path, class: "a-button is-md is-secondary is-block" do
                 | 未チェック一覧
+
+= render "page_tabs", resource: @product.practice
+
 .page-body
   .container
     .thread
