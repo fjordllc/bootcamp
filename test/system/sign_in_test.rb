@@ -5,10 +5,20 @@ require "application_system_test_case"
 class SignInTest < ApplicationSystemTestCase
   fixtures :users
 
-  test "sign in" do
+  test "sign in with login_name" do
     visit "/login"
     within("#sign-in-form") do
       fill_in("user[login]", with: "komagata")
+      fill_in("user[password]",   with: "testtest")
+    end
+    click_button "ログイン"
+    assert_equal "/", current_path
+  end
+
+  test "sign in with email" do
+    visit "/login"
+    within("#sign-in-form") do
+      fill_in("user[login]", with: "komagata@fjord.jp")
       fill_in("user[password]",   with: "testtest")
     end
     click_button "ログイン"

@@ -87,8 +87,6 @@ class User < ActiveRecord::Base
 
   after_update UserCallbacks.new
 
-  attr_accessor :login
-
   validates :email,      presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name,  presence: true
