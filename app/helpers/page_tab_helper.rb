@@ -76,7 +76,9 @@ module PageTabHelper
 
     def current_page_tab?(target_name)
       paths = url_for(only_path: false).split("/")
-      if paths[-2] == target_name
+      if paths[-2] == "products"
+        false
+      elsif paths[-2] == target_name
         true
       else
         paths.last == target_name
