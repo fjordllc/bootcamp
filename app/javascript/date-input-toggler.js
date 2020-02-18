@@ -3,18 +3,19 @@ document.addEventListener('DOMContentLoaded', () => {
   for (let element of elements) {
     const checkbox = element.querySelector('input.js-date-input-toggler-checkbox')
     const dateInput = element.querySelector('input.js-date-input-toggler-date')
+    const dateInputArea = element.querySelector('.js-date-input-toggler-date-area')
 
     if (dateInput.value === '') {
-      dateInput.style.display = 'none'
+      dateInputArea.style.display = 'none'
     } else {
       checkbox.checked = true
     }
     checkbox.addEventListener('change', () => {
       if (checkbox.checked === true) {
-        dateInput.style.display = 'block'
+        dateInputArea.style.display = 'flex'
       } else {
         dateInput.value = ''
-        dateInput.style.display = 'none'
+        dateInputArea.style.display = 'none'
       }
     })
   }
