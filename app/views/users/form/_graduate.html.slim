@@ -4,5 +4,5 @@
     = f.label :graduated_on, class: "a-label", for: "graduation_checkbox" do
       | 卒業
   .form-item__inline-form-item.js-date-input-toggler-date-area
-    .a-label= User.human_attribute_name :graduated_on
+    .a-label = User.human_attribute_name :graduated_on
     = f.date_field :graduated_on, class: "a-text-input js-date-input-toggler-date"
