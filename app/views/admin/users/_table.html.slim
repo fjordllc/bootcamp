@@ -70,11 +70,13 @@
               = user.card? ? "有り" : "無し"
             td.admin-table__item-value.is-text-align-center
               - if user.graduated_on?
-                | 卒業済み
+                .a-button.is-sm.is-disabled
+                  | 卒業済
               - else
                 = link_to "卒業", user_graduation_path(user), method: :patch, data: { confirm: "本当によろしいですか？" }, class: "a-button is-sm is-primary"
             td.admin-table__item-value.is-text-align-center
-              = link_to "卒業証書", admin_diploma_path(user_id: user.id)
+              = link_to admin_diploma_path(user_id: user.id), class: "a-button is-sm is-primary is-icon" do
+                i.fas.fa-file
             td.admin-table__item-value.is-text-align-center
               = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: "a-button is-sm is-warning is-icon" do
                 i.fas.fa-pen
@@ -82,16 +84,16 @@
               - if user.id != current_user.id
                 = link_to admin_user_path(user), method: :delete, id: "delete-#{user.id}", class: "a-button is-sm is-danger is-icon", data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }
                   i.fas.fa-trash-alt
-    .form-actions
-        ul.form-actions__items
-          li.form-actions__item
-            = f.submit "ネームカードを作成する", class: "a-button is-lg is-warning is-block"
+    //
+      .form-actions
+          ul.form-actions__items
+            li.form-actions__item
+              = f.submit "ネームカードを作成する", class: "a-button is-lg is-warning is-block"
 
-.practice-contents
-  .practice-content.a-card
-    header.practice-content__header.card-header
-      h2.practice-content__title
-        | 全員のメアド
-    .practice-content__body
-      textarea.a-text-input
-        = @users.pluck(:email).join(",")
+.a-card.is-max-width-100
+  header.card-header
+    h2.card-header__title
+      | 全員のメアド
+  .card-body
+    textarea.a-text-input
+      = @users.pluck(:email).join(",")
