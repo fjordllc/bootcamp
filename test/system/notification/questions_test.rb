@@ -9,10 +9,9 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     @notified_count = Notification.where(kind: @notice_kind).size
     @mentor_count = User.mentor.size
     practice = Practice.find_by(title: "OS X Mountain Lionをクリーンインストールする")
-    @completed_student_count = practice.completed_learnings.size
   end
 
-  test "mentor and completed student receive notification when question is posted" do
+  test "mentor receive notification when question is posted" do
     login_user "hatsuno", "testtest"
     visit "/questions/new"
     within "form[name=question]" do
@@ -29,15 +28,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text @notice_text
     logout
 
-    login_user "kimura", "testtest"
-    first(".test-bell").click
-    assert_text @notice_text
-    logout
-
-    login_user "hajime", "testtest"
-    refute_text @notice_text
-
-    assert_equal @notified_count + @mentor_count + @completed_student_count, Notification.where(kind: @notice_kind).size
+    assert_equal @notified_count + @mentor_count, Notification.where(kind: @notice_kind).size
   end
 
   test "There is no notification to the mentor who posted" do
