@@ -4,7 +4,7 @@
   .user-grass
     - if user.github_account
       - cache "#{user.github_account}-grass", expires_in: 12.hours do
-        = link_to github_grass(user.github_account), user_github_url(user), target: "_blank"
+        = link_to github_grass(user.github_account), user_github_url(user), target: "_blank", class: "user-grass__link"
 
     - else
       .user-grass__empty
