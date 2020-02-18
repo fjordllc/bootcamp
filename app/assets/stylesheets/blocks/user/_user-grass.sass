@@ -2,6 +2,30 @@
   padding: 1rem
   +media-breakpoint-down(sm)
     padding: .75rem
+  a
+    display: block
+    +position(relative)
+    +media-breakpoint-down(sm)
+      height: 2.25rem
+    +media-breakpoint-up(md)
+      height: 4rem
+    +media-breakpoint-up(lg)
+      height: 4rem
+    +media-breakpoint-up(xl)
+      height: 6rem
+  svg
+    +position(absolute, left 0, top -.375rem)
+    font-size: .625rem
+    transform-origin: 0 0
+    max-width: 110%
+    +media-breakpoint-down(sm)
+      transform: scale(.375)
+    +media-breakpoint-up(md)
+      transform: scale(.69)
+    +media-breakpoint-up(lg)
+      transform: scale(0.69)
+    +media-breakpoint-up(xl)
+      transform: scale(.9)
 
 .user-data-grass
   margin-top: 1.5rem
