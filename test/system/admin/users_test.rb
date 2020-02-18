@@ -80,4 +80,32 @@ class Admin::UsersTest < ApplicationSystemTestCase
     page.driver.browser.switch_to.alert.accept
     assert_text "#{user.full_name} さんを削除しました。"
   end
+
+  test "hide #user_graduated_on when checkbox is unchecked" do
+    user = users(:hatsuno)
+    visit "/admin/users/#{user.id}/edit"
+    assert_no_selector "#user_graduated_on"
+  end
+
+  test "show #user_graduated_on when checkbox is checked" do
+    user = users(:hatsuno)
+    visit "/admin/users/#{user.id}/edit"
+    check ("graduation_checkbox")
+    assert_selector "#user_graduated_on"
+  end
+
+  test "show #user_graduated_on if user is graudated" do
+    user = users(:sotugyou)
+    visit "/admin/users/#{user.id}/edit"
+    assert find(:css, "#graduation_checkbox").checked?
+    assert_equal user.graduated_on.to_s, find("#user_graduated_on").value
+  end
+
+  test "reset value of #user_graduated_on when checkbox is unchecked" do
+    user = users(:sotugyou)
+    visit "/admin/users/#{user.id}/edit"
+    uncheck ("graduation_checkbox")
+    check ("graduation_checkbox")
+    assert_equal "", find("#user_graduated_on").value
+  end
 end
