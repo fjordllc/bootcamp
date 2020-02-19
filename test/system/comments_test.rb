@@ -113,4 +113,28 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text "test"
     assert_equal "コメント", find(".thread-comment-form__tab.is-active").text
   end
+
+  test "prevent double submit" do
+    visit report_path(users(:komagata).reports.first)
+    within(".thread-comment-form__form") do
+      fill_in("comment[description]", with: "test")
+    end
+    assert_raises Selenium::WebDriver::Error::ElementClickInterceptedError do
+      find("#js-shortcut-post-comment", text: "コメントする").click.click
+    end
+  end
+
+  test "submit_button is enabled after a post is done" do
+    visit report_path(users(:komagata).reports.first)
+    within(".thread-comment-form__form") do
+      fill_in("comment[description]", with: "test")
+    end
+    click_button "コメントする"
+    assert_text "test"
+    within(".thread-comment-form__form") do
+      fill_in("comment[description]", with: "testtest")
+    end
+    click_button "コメントする"
+    assert_text "testtest"
+  end
 end
