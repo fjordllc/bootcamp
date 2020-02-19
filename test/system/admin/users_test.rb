@@ -90,22 +90,23 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test "show #user_graduated_on when checkbox is checked" do
     user = users(:hatsuno)
     visit "/admin/users/#{user.id}/edit"
-    check ("graduation_checkbox")
+    find("label[for='graduation_checkbox']").click
     assert_selector "#user_graduated_on"
   end
 
   test "show #user_graduated_on if user is graudated" do
     user = users(:sotugyou)
     visit "/admin/users/#{user.id}/edit"
-    assert find(:css, "#graduation_checkbox").checked?
+    assert find(:css, "#graduation_checkbox", visible: false).checked?
     assert_equal user.graduated_on.to_s, find("#user_graduated_on").value
   end
 
   test "reset value of #user_graduated_on when checkbox is unchecked" do
     user = users(:sotugyou)
     visit "/admin/users/#{user.id}/edit"
-    uncheck ("graduation_checkbox")
-    check ("graduation_checkbox")
+    find("label[for='graduation_checkbox']").click
+    assert_not find(:css, "#graduation_checkbox", visible: false).checked?
+    find("label[for='graduation_checkbox']").click
     assert_equal "", find("#user_graduated_on").value
   end
 end
