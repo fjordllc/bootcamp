@@ -10,16 +10,16 @@ header.page-header
 .page-body
   .container
     .calender
-      header.calender__header
-        h2.card-header__title
-          = l(@this_month, format: :ym_jp)
-        ul.card-header-actions__items
-          li.card-header-actions__item
-            = link_to reservation_calender_path(l(@prev_month, format: :ym)), class: "a-button is-md is-warning is-block" do
-              | 前月
-          li.card-header-actions__item
-            = link_to reservation_calender_path(l(@next_month, format: :ym)), class: "a-button is-md is-warning is-block" do
-              | 来月
+      header.calender-header
+        .calender-header__inner
+          .calender-header__nav
+            = link_to reservation_calender_path(l(@prev_month, format: :ym)), class: "a-button is-md is-secondary is-icon is-block" do
+              i.fas.fa-angle-left
+          h2.calender-header__title
+            = l(@this_month, format: :ym_jp)
+          .calender-header__nav
+            = link_to reservation_calender_path(l(@next_month, format: :ym)), class: "a-button is-md is-secondary is-icon is-block" do
+              i.fas.fa-angle-right
       .calender__body
         #js-reservations(data-reservations-beggining-of-this-month="#{@this_month}" data-reservations-end-of-this-month="#{@this_month.end_of_month}" data-current-user-id="#{current_user.id}")
           #js-reservations-data-holiday-jps

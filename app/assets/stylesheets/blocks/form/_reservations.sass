@@ -11,6 +11,12 @@
     max-width: 5rem
   &.is-memo
     flex: 100
+    +media-breakpoint-down(sm)
+      min-width: 15rem
+
+.reservations__outer
+  overflow-x: auto
+  background-color: $base
 
 .reservations__calender
   min-width: 100%
@@ -23,7 +29,8 @@
 
 .reservations__calender-header-label
   padding: .25rem
-  border: solid 1px #d6d6d6
+  background-color: $gray-lighter
+  border: solid 1px $border-shade
   +text-block(.75rem, nowrap flex)
   align-items: center
   justify-content: center
@@ -36,7 +43,7 @@
   &.is-holiday
     background-color: tint($danger, 98%)
   .reservations__day-item-value
-    border: solid 1px #d6d6d6
+    border: solid 1px $border-shade
     +calender-size
     border-top: none
     display: flex
@@ -48,6 +55,7 @@
       justify-content: flex-start
       padding: .375rem
       +text-block(.75rem 1.2)
+      +position(relative)
   &:hover
     background-color: tint($warning, 94%)
 
@@ -65,10 +73,11 @@
   word-break: break-all
   &:hover
     box-shadow: inset rgba($primary, .5) 0 0 0 1px
+  &.is-reserved.is-not-me
+    background-color: rgba(black, .05)
   &.is-reserved.is-me
-    background-color: rgba($main, .1)
-    box-shadow: inset rgba($main, 1) 0 0 0 1px
-    color: $main
+    background-color: $danger
+    color: $reversal-text
 
 .reservations__day
   +text-block(.75rem, right nowrap)
