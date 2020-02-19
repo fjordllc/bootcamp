@@ -6,7 +6,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user = login(params[:user][:login_name], params[:user][:password], params[:remember])
+    @user = login(params[:user][:login], params[:user][:password], params[:remember])
     if @user
       if @user.retired_on?
         logout
