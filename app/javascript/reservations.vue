@@ -1,27 +1,28 @@
 <template lang="pug">
-  .reservations
-    .reservations__calender
-      .reservations__calender-header
-        .reservations__calender-header-label.is-day
-          |
-        .reservations__calender-header-label.is-seat(v-for="seat in seats" :key="seat.id")
-          | {{ seat.name }}
-        .reservations__calender-header-label.is-memo
-          | メモ
-      .reservations__day-items
-        .reservations__day-item.date(v-for="one_day in this_months" v-bind:class="is_holiday(reservationsHolidayJps[one_day['ymd']])")
-          .reservations__day-item-value.reservations__day.is-day {{ one_day['d_jp'] }}
-          .reservations__day-item-value.reservations__seat.is-seat(v-for="seat in seats" :key="seat.id" v-bind:id="reservation_hash_id(one_day['ymd'],(seat.id))")
-            .reservations__seat-action(v-if="reservations[`${one_day['ymd']}-${seat.id}`] === undefined" @click="createReservation(one_day['ymd'], seat.id)")
-              |
-            reservation(v-else :currentUserId="currentUserId", :parentReservation="reservations[`${one_day['ymd']}-${seat.id}`]", @delete="deleteReservation")
-          .reservations__day-item-value(v-if="admin_login == 1" v-bind:id="memoId(one_day['ymd'])").memo
-            memo(:memo="memos[one_day['ymd']]" :date="one_day['ymd']")
-          .reservations__day-item-value(v-else v-bind:id="memoId(one_day['ymd'])").is-memo
-            template(v-if="memos[one_day['ymd']] === undefined")
-              |
-            template(v-else)
-              | {{ memoBody(one_day) }}
+  .reservations__outer
+    .reservations
+      .reservations__calender
+        .reservations__calender-header
+          .reservations__calender-header-label.is-day
+            |
+          .reservations__calender-header-label.is-seat(v-for="seat in seats" :key="seat.id")
+            | {{ seat.name }}
+          .reservations__calender-header-label.is-memo
+            | メモ
+        .reservations__day-items
+          .reservations__day-item.date(v-for="one_day in this_months" v-bind:class="is_holiday(reservationsHolidayJps[one_day['ymd']])")
+            .reservations__day-item-value.reservations__day.is-day {{ one_day['d_jp'] }}
+            .reservations__day-item-value.reservations__seat.is-seat(v-for="seat in seats" :key="seat.id" v-bind:id="reservation_hash_id(one_day['ymd'],(seat.id))")
+              .reservations__seat-action(v-if="reservations[`${one_day['ymd']}-${seat.id}`] === undefined" @click="createReservation(one_day['ymd'], seat.id)")
+                |
+              reservation(v-else :currentUserId="currentUserId", :parentReservation="reservations[`${one_day['ymd']}-${seat.id}`]", @delete="deleteReservation")
+            .reservations__day-item-value(v-if="admin_login == 1" v-bind:id="memoId(one_day['ymd'])").is-memo
+              memo(:memo="memos[one_day['ymd']]" :date="one_day['ymd']")
+            .reservations__day-item-value(v-else v-bind:id="memoId(one_day['ymd'])").is-memo
+              template(v-if="memos[one_day['ymd']] === undefined")
+                |
+              template(v-else)
+                | {{ memoBody(one_day) }}
 </template>
 <script>
 

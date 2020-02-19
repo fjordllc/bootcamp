@@ -4,7 +4,7 @@
       .reservations__seat-action.is-reserved.is-me(@click="deleteReservation")
         | {{ this.loginName }}
     template(v-else)
-      .reservations__seat-action.is-reserved
+      .reservations__seat-action.is-reserved.is-not-me
         | {{ this.loginName }}
 </template>
 <script>
