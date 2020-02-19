@@ -14,7 +14,7 @@
       reaction(
         v-bind:reactionable="comment",
         v-bind:currentUser="currentUser")
-      footer.card-footer(v-if="comment.user.id == currentUser.id")
+      footer.card-footer(v-if="comment.user.id == currentUser.id || currentUser.role == 'admin'")
         .card-footer-actions
           ul.card-footer-actions__items
             li.card-footer-actions__item
