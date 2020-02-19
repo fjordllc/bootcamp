@@ -2,7 +2,7 @@
   .memo
     .memo-form
       label.memo-form__show-modal(v-bind:for="date")
-      input.memo-form__toggle-checkbox(type="checkbox" v-bind:id="date")
+      input.memo-form__toggle-checkbox(type="checkbox" v-bind:id="date" v-model="checked")
       .memo-form-modal
         .memo-form-modal__inner.a-card
           .card-header
@@ -27,7 +27,20 @@ export default {
     return {
       sendBody: '',
       id: '',
-      body: ''
+      body: '',
+      checked: false,
+    }
+  },
+  watch: {
+    body: function() {
+      this.checked = false;
+    },
+    checked: function() {
+      if (this.checked == false) {
+        this.sendBody = '';
+      } else {
+        this.sendBody = this.body;
+      }
     }
   },
   created: function() {
