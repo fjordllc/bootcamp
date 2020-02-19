@@ -16,7 +16,7 @@ class PasswordResetTest < ApplicationSystemTestCase
 
     visit login_url
     within "form[name=user_session]" do
-      fill_in "user[login_name]", with: user.login_name
+      fill_in "user[login]", with: user.login_name
       fill_in "user[password]", with: "testpassword"
       click_button "ログイン"
     end
