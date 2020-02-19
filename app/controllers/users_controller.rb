@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   private
     def create_free_user!
       if @user.save
-        UserMailer.welcome(@user).deliver_later
+        UserMailer.welcome(@user).deliver_now
         notify_to_slack!
       else
         render "new"
@@ -76,7 +76,7 @@ class UsersController < ApplicationController
         @user.subscription_id = subscription["id"]
 
         if @user.save
-          UserMailer.welcome(@user).deliver_later
+          UserMailer.welcome(@user).deliver_now
           notify_to_slack!
         else
           render "new"
