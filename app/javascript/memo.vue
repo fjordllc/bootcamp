@@ -10,9 +10,9 @@
               | メモ
           .card-body
             textarea.a-text-input(ref="sendBody" v-model="sendBody" name="memo[body]")
-            button.a-button.is-md.is-primary.is-block(@click="createMemo")
+            button.a-button.is-md.is-primary.is-block(v-if="!body" @click="createMemo")
               | 作成
-            button.a-button.is-md.is-warning.is-block(@click="updateMemo")
+            button.a-button.is-md.is-warning.is-block(v-else @click="updateMemo")
               | 更新
             button.a-button.is-md.is-danger.is-block(@click="deleteMemo")
               | 削除
