@@ -4,8 +4,8 @@
       = link_to practice, class: "category-practices-item__title-link"
         = practice.title
     - if current_user
-      .practice-status
-        - status = practice.status_by_learnings(@learnings)
+      - status = practice.status_by_learnings(@learnings)
+      .practice-status.category-practices-item__status(class="is-#{status}")
         = t(status, scope: [:activerecord, :enums, :learning, :status])
 
   - if practice.started_students.any?
