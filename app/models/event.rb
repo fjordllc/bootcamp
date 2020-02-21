@@ -31,6 +31,8 @@ class Event < ApplicationRecord
     validate :open_end_at_be_less_than_end_at
   end
 
+  after_update EventCallbacks.new
+
   belongs_to :user
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
@@ -55,12 +57,8 @@ class Event < ApplicationRecord
     first_come_first_served - participants
   end
 
-  def participants_full?
-    if first_come_first_served.count >= capacity
-      true
-    else
-      false
-    end
+  def can_participate?
+    first_come_first_served.count <= capacity
   end
 
   private
