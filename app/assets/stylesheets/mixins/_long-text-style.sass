@@ -126,8 +126,11 @@
     display: block
     +margin(horizontal, auto)
     border: 1px solid mix($font, $background, 10%)
+    +media-breakpoint-up(md)
+      max-height: 32rem
     +media-breakpoint-down(sm)
       max-width: 100% !important
+      max-height: 24rem
     &.is-xs
       max-width: 10em
     &.is-sm
@@ -191,18 +194,17 @@
   details
     +text-block(.875rem 1.8 0 1.5em)
     border: solid 1px mix($font, $background, 20%)
+    padding: .5em 1em
     border-radius: .25rem
     summary
       +text-block(1em 1.8 0 0)
       cursor: pointer
-      padding: .5em 1em
       outline: none
-      & + div
-        padding: .5em 1em
-        *:last-child
-          margin-bottom: 0
+      +hover-link
     &[open] summary
       border-bottom: solid 1px mix($font, $background, 20%)
+      padding-bottom: .5em
+      margin-bottom: .5em
 
   iframe
     display: block
