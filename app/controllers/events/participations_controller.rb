@@ -4,9 +4,12 @@ class Events::ParticipationsController < ApplicationController
   before_action :set_event
 
   def create
-    if @event.participations.create(user: current_user)
-      redirect_to event_path(@event), notice: "出席登録が完了しました。"
+    if @event.participants_full?
+      @event.participations.create(user: current_user, enable: false)
+    else
+      @event.participations.create(user: current_user, enable: true)
     end
+    redirect_to event_path(@event), notice: "出席登録が完了しました。"
   end
 
   def destroy
