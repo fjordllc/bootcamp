@@ -12,7 +12,7 @@ class ArticlesController < ApplicationController
 
   def show
     if !@article.wip? || admin_or_mentor_login?
-      render layout: 'article'
+      render layout: "welcome"
     else
       redirect_to root_path, alert: '管理者・メンターとしてログインしてください'
     end

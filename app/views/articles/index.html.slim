@@ -1,33 +1,59 @@
 - title 'ブログ記事一覧'
 
-.articles
-  header.articles__header
+.welcome-page-header
+  .container
+    .welcome-page-header__title
+      - if params[:tag]
+        | タグ: #{params[:tag]} の記事一覧
+      - else
+        | Blog
+
+    //
+      .tag_cloud
+        - tag_cloud Article.tag_counts, %w{s m l} do |tag, css_class|
+          = link_to tag.name, tag_path(tag.name)
+
+.welcome-sections
+  .welcome-section
     .container.is-md
-      .articles__header-inner
-        h1.articles__title
-          = title
-  .articles__body
-    .container.is-md
-      .a-card
+      .articles
         .articles__items
           - @articles.each do |article|
-              div class=(article.wip? ? 'articles__item is-wip' : 'articles__item')
-                = link_to article, class: 'articles__item-link' do
-                  h2.articles__item-title
+            .articles__item class=(article.wip? ? ' is-wip' : '')
+              section.articles-article
+                header.articles-article__header
+                  h1.articles-article__title(itemprop="name")
                     - if article.wip?
                       span.article__title-label.is-wip
                         | WIP
                     = article.title
-                  .articles__item-metas
-                    .articles__item-meta
-                      .articles__item-author
-                        = image_tag article.user.avatar_url
-                        = article.user.login_name
-                    .articles__item-meta
-                      .articles__item-published-at
-                        - if article.wip?
-                          = '執筆中'
-                        - elsif article.published_at.nil?
-                          = l(article.created_at)
-                        - else
-                          = l(article.published_at)
+                    = link_to article.title, article, itempro: "url", class: "articles-article__title-link"
+                  - # rubocop:disable Rails/OutputSafety
+                  - # = raw article.tag_list.map { |t| link_to t, tag_path(t) }.join(',')
+                  - # rubocop:enable Rails/OutputSafety
+                .articles__item-metas
+                  .articles__item-meta
+                    .articles__item-author
+                      = image_tag article.user.avatar_url
+                      = article.user.login_name
+                  .articles__item-meta
+                    .articles__item-published-at
+                      - if article.wip?
+                        = '執筆中'
+                      - elsif article.published_at.nil?
+                        = l(article.created_at)
+                      - else
+                        = l(article.published_at)
+                - if admin_or_mentor_login?
+                  footer.articles-article__footer
+                    .card-footer-actions
+                      ul.card-footer-actions__items
+                        li.card-footer-actions__item
+                          = link_to edit_article_path(article), class: "card-footer-actions__action is-button-simple-md-primary is-block", id: "js-shortcut-edit" do
+                            i.fas.fa-pen#edit
+                            | 内容修正
+                        li.card-footer-actions__item.is-sub
+                          = link_to article_path(article), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__delete" do
+                            #delete
+                            | 削除する
+    = paginate @articles, position: 'bottom'

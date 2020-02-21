@@ -1,9 +1,21 @@
+- content_for :extra_body_classes, "welcome"
+
+notice = @notice
 - title @article.title
 
-.article
-  .container.is-md
-    .a-card
-      .article__inner
+.welcome-page-header
+  .container
+    .welcome-page-header__inner
+      .welcome-page-header__title
+        | Blog
+      .welcome-page-header__nav
+        = link_to articles_path, class: "a-button is-md is-secondary is-block" do
+          | ブログ記事一覧
+
+.welcome-sections
+  .welcome-section
+    .container.is-md
+      article.article
         header.article__header
           h1.article__title(class="#{@article.wip? ? 'is-wip' : ''}")
             - if @article.wip?
@@ -24,14 +36,5 @@
                 - else
                   = l(@article.published_at)
         .article__body
-          .js-markdown-view.is-long-text
+          .js-markdown-view.js-target-blank.is-long-text
             = @article.body
-          - if admin_login?
-            .article__actions
-              ul
-                li
-                  = link_to edit_article_path(@article), class: 'a-button is-secondary is-md is-block' do
-                    | 内容修正
-                li
-                  = link_to article_path(@article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'a-button is-secondary is-md is-block' do
-                    | 削除
