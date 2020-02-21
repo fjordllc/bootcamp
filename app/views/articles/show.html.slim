@@ -1,35 +1,26 @@
-notice = @notice
+- content_for :extra_body_classes, "welcome"
 
+notice = @notice
 - title @article.title
 
-header.page-header
+.welcome-page-header
   .container
-    .page-header__inner
-      .page-header__title
-        = @article.title
-      .page-header-actions
-        ul.page-header-actions__items
-          - if current_user.admin?
-            li.page-header-actions__item
-              = link_to new_article_path, class: 'is-button-simple-md-warning' do
-                i.fas.fa-plus
-                | ブログ記事作成
-          li.page-header-actions__item
-            = link_to articles_path, class: 'is-button-simple-md-secondary' do
-              i.fas.fa-angle-left
-              | ブログ記事一覧
+    .welcome-page-header__inner
+      .welcome-page-header__title
+        | Blog
+      .welcome-page-header__nav
+        = link_to articles_path, class: "a-button is-md is-secondary is-block" do
+          | ブログ記事一覧
 
-.page-body
-  .container
-    .practice-contents
-      header.practice-contents__header
-        h1.practice-contents__title
-          = @article.title
-          br
-          - # rubocop:disable Rails/OutputSafety
-          = raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(',')
-          - # rubocop:enable Rails/OutputSafety
-      section.practice-content.a-card
-        .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text
-          = @article.body
-      section.practice-content.a-card
+.welcome-sections
+  .welcome-section
+    .container.is-md
+      article.article
+        header.article__header
+          h1.article__title
+            = @article.title
+            br
+            = raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
+        .article__body
+          .js-markdown-view.js-target-blank.is-long-text
+            = @article.body

@@ -10,7 +10,9 @@ class ArticlesController < ApplicationController
     render layout: 'welcome'
   end
 
-  def show; end
+  def show
+    render layout: "welcome"
+  end
 
   def new
     @article = Article.new
