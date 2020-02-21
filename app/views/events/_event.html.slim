@@ -11,11 +11,11 @@
         time.thread-header__lower-side-created-at(datetime="#{event.created_at.to_datetime}" pubdate="pubdate")
           | 書いた日 : #{l event.updated_at}
 
-    - unless event.is_opening?
+    - unless event.opening?
       .event-status
         - if event.before_opening?
           | 募集開始までお待ち下さい
-        - elsif event.is_closing?
+        - elsif event.closing?
           | 募集受付は終了しました。
         - else
           | イベントは終了しました。
