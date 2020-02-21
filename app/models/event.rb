@@ -35,7 +35,7 @@ class Event < ApplicationRecord
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
 
-  def is_opening?
+  def opening?
     Time.current.between?(open_start_at, open_end_at)
   end
 
@@ -43,7 +43,7 @@ class Event < ApplicationRecord
     Time.current < open_start_at
   end
 
-  def is_closing?
+  def closing?
     Time.current > open_end_at && Time.current < end_at
   end
 
@@ -53,6 +53,14 @@ class Event < ApplicationRecord
 
   def waitlist
     first_come_first_served - participants
+  end
+
+  def participants_full?
+    if first_come_first_served.count >= capacity
+      true
+    else
+      false
+    end
   end
 
   private

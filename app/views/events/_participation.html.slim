@@ -1,4 +1,4 @@
-- if event.is_opening?
+- if event.opening?
   - if current_user.participating?(event)
     .event-main-actions.is-participationed
       .event-main-actions__description
@@ -31,7 +31,7 @@
   .event-status
     - if event.before_opening?
       | 募集開始までお待ち下さい
-    - elsif event.is_closing?
+    - elsif event.closing?
       | 募集受付は終了しました。
     - else
       | 本イベントは終了しました。
