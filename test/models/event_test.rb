@@ -3,9 +3,13 @@
 require "test_helper"
 
 class EventTest < ActiveSupport::TestCase
-  test "#is_opening?" do
+  test "should be valid" do
+    assert events(:event_2).valid?
+  end
+
+  test "opening?" do
     event = events(:event_2)
-    assert event.is_opening?
+    assert event.opening?
   end
 
   test "#before_opening?" do
@@ -13,9 +17,9 @@ class EventTest < ActiveSupport::TestCase
     assert event.before_opening?
   end
 
-  test "#is_closing?" do
+  test "closing?" do
     event = events(:event_5)
-    assert event.is_closing?
+    assert event.closing?
   end
 
   test "#participants" do
