@@ -4,12 +4,9 @@ class Events::ParticipationsController < ApplicationController
   before_action :set_event
 
   def create
-    if @event.participants_full?
-      @event.participations.create(user: current_user, enable: false)
-    else
-      @event.participations.create(user: current_user, enable: true)
+    if @event.participations.create(user: current_user)
+      redirect_to event_path(@event), notice: "出席登録が完了しました。"
     end
-    redirect_to event_path(@event), notice: "出席登録が完了しました。"
   end
 
   def destroy
@@ -20,5 +17,9 @@ class Events::ParticipationsController < ApplicationController
   private
     def set_event
       @event = Event.find(params[:event_id])
+    end
+
+    def send_notification(event, receiver)
+      NotificationFacade.event_substitute_move_up(event, receiver)
     end
 end
