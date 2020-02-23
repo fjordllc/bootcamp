@@ -1,0 +1,7 @@
+.form-item
+  = f.label :slack_participation, class: "a-label"
+  ul.form-item__checkboxes
+    li.form-checkbox
+      label.form-checkbox__label
+        = f.check_box :slack_participation, class: "form-checkbox__input"
+        = User.human_attribute_name :slack_participation
