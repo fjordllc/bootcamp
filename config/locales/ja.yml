@@ -68,6 +68,9 @@ ja:
         retire_reason: 退会理由
         mail_notification: メール通知
         job_seeker: 就職を希望する
+        slack_participation: Slack参加
+        github_collaborator: Githubコラボレーター
+        officekey_permission: オフィス鍵の所有
       course:
         title: タイトル
         description: 詳細
