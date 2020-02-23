@@ -72,7 +72,10 @@ class Admin::UsersController < AdminController
         :graduated_on,
         :retired_on,
         :free,
-        :job_seeker
+        :job_seeker,
+        :slack_participation,
+        :github_collaborator,
+        :officekey_permission
       )
     end
 end

@@ -22,6 +22,12 @@
             | カード登録
           th.admin-table__label 卒業
           th.admin-table__label 卒業証書
+          th.admin-table__label
+            = User.human_attribute_name :slack_participation
+          th.admin-table__label
+            = User.human_attribute_name :github_collaborator
+          th.admin-table__label
+            = User.human_attribute_name :officekey_permission
           th.admin-table__label 操作
           th.admin-table__label 削除
       tbody.admin-table__items
@@ -77,6 +83,12 @@
             td.admin-table__item-value.is-text-align-center
               = link_to admin_diploma_path(user_id: user.id), class: "a-button is-sm is-primary is-icon" do
                 i.fas.fa-file
+            td.admin-table__item-value.is-text-align-center
+              = user.slack_participation? ? "○" : "-"
+            td.admin-table__item-value.is-text-align-center
+              = user.github_collaborator? ? "○" : "-"
+            td.admin-table__item-value.is-text-align-center
+              = user.officekey_permission? ? "○" : "-"
             td.admin-table__item-value.is-text-align-center
               = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: "a-button is-sm is-warning is-icon" do
                 i.fas.fa-pen

@@ -1,0 +1,7 @@
+.form-item
+  = f.label :officekey_permission, class: "a-label"
+  ul.form-item__checkboxes
+    li.form-checkbox
+      label.form-checkbox__label
+        = f.check_box :officekey_permission, class: "form-checkbox__input"
+        = User.human_attribute_name :officekey_permission
