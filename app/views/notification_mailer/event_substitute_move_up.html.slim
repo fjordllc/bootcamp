@@ -1,0 +1,2 @@
+= render "notification_mailer_template", title: "#{@event.title}に参加できます", link_url: notification_url(@notification), link_text: "イベント詳細へ" do
+  = simple_format(@event.description)
