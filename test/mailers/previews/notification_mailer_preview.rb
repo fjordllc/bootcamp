@@ -100,4 +100,14 @@ class NotificationMailerPreview < ActionMailer::Preview
 
     NotificationMailer.with(report: report, receiver: receiver).trainee_report
   end
+
+  def moved_up_event_waiting_user
+    event = Event.find(ActiveRecord::FixtureSet.identify(:event_3))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
+
+    NotificationMailer.with(
+      event: event,
+      receiver: receiver
+    ).moved_up_event_waiting_user
+  end
 end
