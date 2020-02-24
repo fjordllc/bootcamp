@@ -52,12 +52,9 @@
   +position(absolute, left 0, top 0)
 
 .thread-list-item__author-icon
-  border-radius: 50%
   +size(2.75rem)
-  object-fit: cover
   +media-breakpoint-down(sm)
     +size(2.25rem)
-    object-fit: cover
   .thread-list-item.is-wip &
     opacity: .6
   +icon-role-style
@@ -161,9 +158,7 @@
   margin-left: .75rem
 
 .thread-list-item__checked-author-icon
-  border-radius: 50%
   +size(1.25rem)
-  object-fit: cover
   &:not(:first-child)
     margin-left: .25rem
 
