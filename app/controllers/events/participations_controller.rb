@@ -18,8 +18,4 @@ class Events::ParticipationsController < ApplicationController
     def set_event
       @event = Event.find(params[:event_id])
     end
-
-    def send_notification(event, receiver)
-      NotificationFacade.event_substitute_move_up(event, receiver)
-    end
 end
