@@ -21,7 +21,7 @@
             = book.isbn
           td.admin-table__item-value
             - if book.borrowed
-              = image_tag book.borrowing_user_avatar, class: "admin-table__user-icon"
+              = image_tag book.borrowing_user_avatar, class: "admin-table__user-icon a-user-icon"
               = link_to user_path(book.users.first), target: "_blank", rel: "noopener" do
                 = book.borrowing_user_name
           td.admin-table__item-value.is-text-align-center
