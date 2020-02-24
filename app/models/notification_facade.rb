@@ -109,4 +109,14 @@ class NotificationFacade
       ).trainee_report.deliver_later
     end
   end
+
+  def self.moved_up_event_waiting_user(event, receiver)
+    Notification.moved_up_event_waiting_user(event, receiver)
+    if receiver.mail_notification? && !receiver.retired_on?
+      NotificationMailer.with(
+        event: event,
+        receiver: receiver
+      ).moved_up_event_waiting_user.deliver_later
+    end
+  end
 end
