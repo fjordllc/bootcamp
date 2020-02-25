@@ -35,9 +35,9 @@ class EventTest < ActiveSupport::TestCase
     assert_includes event.waitlist, waiting_user
   end
 
-  test "participants_full?" do
+  test "can_participate?" do
     event = events(:event_3)
-    assert_equal event.participants_full?, true
+    assert_equal false, event.can_participate?
   end
 
   test "should be invalid when start_at >= end_at" do

@@ -110,7 +110,7 @@ class NotificationMailer < ApplicationMailer
   def moved_up_event_waiting_user
     @user = @receiver
     @notification = @user.notifications.find_by(path: "/events/#{@event.id}")
-    subject = "[bootcamp] #{@event.title}に参加することができます"
+    subject = "[bootcamp] #{@event.title}で、補欠から参加に繰り上がりました。"
     mail to: @user.email, subject: subject
   end
 end

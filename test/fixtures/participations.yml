@@ -1,11 +1,16 @@
 participation_1:
   user: hatsuno
   event: event_2
+  enable: true
 
 participation_2:
   user: hatsuno
   event: event_3
+  created_at: <%= Time.current + 1.hour %>
+  enable: false
 
 participation_3:
   user: komagata
   event: event_3
+  created_at: <%= Time.current %>
+  enable: true
