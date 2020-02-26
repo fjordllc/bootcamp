@@ -84,11 +84,6 @@
               - if user.id != current_user.id
                 = link_to admin_user_path(user), method: :delete, id: "delete-#{user.id}", class: "a-button is-sm is-danger is-icon", data: { confirm: "本当によろしいですか？この操作はデータを削除するため元に戻すことができません。" }
                   i.fas.fa-trash-alt
-    //
-      .form-actions
-          ul.form-actions__items
-            li.form-actions__item
-              = f.submit "ネームカードを作成する", class: "a-button is-lg is-warning is-block"
 
 .a-card.is-max-width-100
   header.card-header
