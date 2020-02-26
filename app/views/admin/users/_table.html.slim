@@ -48,7 +48,7 @@
                 | 非アクティブ
             td.admin-table__item-value
               = link_to user_path(user), class: "admin-table__user", target: "_blank" do
-                = image_tag user.avatar_url, class: "admin-table__user-icon a-user-icon"
+                = image_tag user.avatar_url, title: "#{user.icon_title}", class: "admin-table__user-icon a-user-icon"
                 span.admin-table__user-login-name
                   = user.login_name
                   | （#{user.full_name}）

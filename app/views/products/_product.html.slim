@@ -1,7 +1,7 @@
 .thread-list-item(class="#{product.wip? ? "is-wip" : ""}")
   .thread-list-item__inner
     .thread-list-item__author
-      = image_tag product.user.avatar_url, class: "thread-list-item__author-icon a-user-icon"
+      = image_tag product.user.avatar_url, title: "#{product.user.icon_title}", class: "thread-list-item__author-icon a-user-icon"
     header.thread-list-item__header
       .thread-list-item__header-title-container
         - if product.wip?
@@ -22,7 +22,7 @@
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-value
             - product.checks.each do |check|
-              = image_tag check.user.avatar_url, class: "thread-list-item__checked-author-icon a-user-icon is-#{check.user.role}"
+              = image_tag check.user.avatar_url, title: "#{check.user.icon_title}", class: "thread-list-item__checked-author-icon a-user-icon is-#{check.user.role}"
         .stamp.stamp-approve
           h2.stamp__content.is-title 確認済
           time.stamp__content.is-created-at
