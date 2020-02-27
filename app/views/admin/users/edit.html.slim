@@ -5,6 +5,10 @@
   header.auth-form__header
     h1.auth-form__title
       = title
+  - if admin_login? && @user.retired_on? && (@user.slack_participation? || @user.github_collaborator? || @user.officekey_permission?)
+    .auth-form__alert
+      = link_to "#external-services" do
+        | 外部サービスの設定を変更してください。
   .auth-form__body
     = render "users/form", from: :edit, url: [:admin, @user], user: @user
   footer.auth-form__footer

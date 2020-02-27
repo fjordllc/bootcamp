@@ -18,6 +18,10 @@ header.page-header
       .row
         .col-xs-12.col-lg-5.col-xxl-6
           .a-card.is-user
+            - if admin_login? && @user.retired_on? && (@user.slack_participation? || @user.github_collaborator? || @user.officekey_permission?)
+              .a-card__alert
+                = link_to edit_admin_user_path(anchor: "external-services") do
+                  | 外部サービスの設定を変更してください。
             .user-data__inner
               header.user-data__header
                 .user-data__main

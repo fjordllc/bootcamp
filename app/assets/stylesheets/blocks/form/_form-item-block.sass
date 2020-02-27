@@ -1,0 +1,34 @@
+.form-item-block
+  &:not(:last-child)
+    margin-bottom: 1.75rem
+  .form-checkbox__label
+    margin-bottom: 0
+    border-radius: 0
+    border: none
+    color: $muted-text
+    +padding(vertical, .625rem)
+    background-color: $background-more-tint
+    transition: all .2s ease-out
+    &:hover
+      color: $default-text
+      background-color: $background-tint
+    &.is-checked
+      background-color: #fff7e0
+      color: $default-text
+
+.form-item-block__inner
+  border: solid $border-shade 1px
+  border-radius: .25rem
+  overflow: hidden
+
+.form-item-block__header
+  padding: .5rem .75rem
+  border-bottom: solid 1px $border-shade
+  background-color: $base
+
+.form-item-block__title
+  +text-block(.8125rem 1.5, block 600)
+
+.form-item-block__item
+  &:not(:last-child)
+    border-bottom: solid 1px $border

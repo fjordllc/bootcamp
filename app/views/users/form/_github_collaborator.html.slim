@@ -1,7 +1,8 @@
 .form-item
-  = f.label :github_collaborator, class: "a-label"
-  ul.form-item__checkboxes
-    li.form-checkbox
-      label.form-checkbox__label
-        = f.check_box :github_collaborator, class: "form-checkbox__input"
-        = User.human_attribute_name :github_collaborator
+  //= f.label :github_collaborator, class: "a-label"
+  .form-checkbox
+    label.form-checkbox__label
+      = f.check_box :github_collaborator, class: "form-checkbox__input"
+      = User.human_attribute_name :github_collaborator
+      span.form-checkbox__label-account
+        | (@#{user.github_account})

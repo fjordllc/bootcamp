@@ -1,7 +1,6 @@
 .form-item
-  = f.label :adviser, class: "a-label"
-  ul.form-item__checkboxes
-    li.form-checkbox
-      label.form-checkbox__label
-        = f.check_box :adviser, class: "form-checkbox__input"
-        = User.human_attribute_name :adviser
+  // = f.label :adviser, class: "a-label"
+  .form-checkbox
+    label.form-checkbox__label
+      = f.check_box :adviser, class: "form-checkbox__input"
+      = User.human_attribute_name :adviser
