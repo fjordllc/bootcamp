@@ -49,14 +49,42 @@
       h3.form__items-title 以下管理者のみ操作ができます
       = render "users/form/job_seeking", f: f
       = render "users/form/company", f: f
-      = render "users/form/adviser", f: f
-      = render "users/form/trainee", f: f
-      = render "users/form/free", f: f
-      = render "users/form/slack_participation", f: f
-      = render "users/form/github_collaborator", f: f
-      = render "users/form/officekey_permission", f: f
       = render "users/form/retire", f: f
       = render "users/form/graduate", f: f
+
+      .form-item-block
+        .form-item-block__inner
+          header.form-item-block__header
+            .form-item-block__title
+              | 特殊ユーザー属性
+          .form-item-block__items
+            .form-item-block__item
+              = render "users/form/adviser", f: f
+            .form-item-block__item
+              = render "users/form/trainee", f: f
+            .form-item-block__item
+              = render "users/form/free", f: f
+
+      .form-item-block#external-services
+        .form-item-block__inner
+          header.form-item-block__header
+            .form-item-block__title
+              | 外部サービス
+          .form-item-block__items
+            .form-item-block__item
+              = render "users/form/slack_participation", f: f, user: user
+            .form-item-block__item
+              = render "users/form/github_collaborator", f: f, user: user
+            .form-item-block__item
+              = render "users/form/officekey_permission", f: f
+        .a-form-help
+          ul
+            li
+              = link_to "https://fjord.slack.com/admin", target: "_blank" do
+                | Slack設定
+            li
+              = link_to "https://github.com/orgs/fjordllc/people", target: "_blank" do
+                | GitHub設定
 
   .form-actions
     ul.form-actions__items

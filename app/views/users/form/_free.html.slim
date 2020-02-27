@@ -1,7 +1,6 @@
 .form-item
-  = f.label :free, class: "a-label"
-  ul.form-item__checkboxes
-    li.form-checkbox
-      label.form-checkbox__label
-        = f.check_box :free, class: "form-checkbox__input"
-        = User.human_attribute_name :free
+  //= f.label :free, class: "a-label"
+  .form-checkbox
+    label.form-checkbox__label
+      = f.check_box :free, class: "form-checkbox__input"
+      = User.human_attribute_name :free

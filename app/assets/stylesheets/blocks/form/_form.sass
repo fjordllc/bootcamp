@@ -19,9 +19,8 @@
   max-width: 100%
 
 .form-item
-  margin-bottom: 1.75rem
-  &:last-child
-    margin-bottom: 0
+  &:not(:last-child)
+    margin-bottom: 1.75rem
   &.is-hidden
     display: none
   &.is-sm

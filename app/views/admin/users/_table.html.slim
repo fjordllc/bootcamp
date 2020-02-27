@@ -3,8 +3,10 @@
     table.admin-table__table
       thead.admin-table__header
         tr.admin-table__labels
-          th.admin-table__label 選択
-          th.admin-table__label ステータス
+          th.admin-table__label
+            | 選択
+          th.admin-table__label
+            | ステータス
           th.admin-table__label
             | ユーザー名
             = render "sort_column", order_by: "login_name", direction: direction, target: @target
@@ -13,21 +15,19 @@
             = render "sort_column", order_by: "company_id", direction: direction, target: @target
           th.admin-table__label Slack
           th.admin-table__label
-            | 最終アクセス日時
+            | 最終アクセス
             = render "sort_column", order_by: "updated_at", direction: direction, target: @target
           th.admin-table__label
             | 登録日時
             = render "sort_column", order_by: "created_at", direction: direction, target: @target
           th.admin-table__label
             | カード登録
-          th.admin-table__label 卒業
-          th.admin-table__label 卒業証書
           th.admin-table__label
-            = User.human_attribute_name :slack_participation
+            | 卒業
           th.admin-table__label
-            = User.human_attribute_name :github_collaborator
+            | 卒業証書
           th.admin-table__label
-            = User.human_attribute_name :officekey_permission
+            | 外部サービス
           th.admin-table__label 操作
           th.admin-table__label 削除
       tbody.admin-table__items
@@ -84,11 +84,28 @@
               = link_to admin_diploma_path(user_id: user.id), class: "a-button is-sm is-primary is-icon" do
                 i.fas.fa-file
             td.admin-table__item-value.is-text-align-center
-              = user.slack_participation? ? "○" : "-"
-            td.admin-table__item-value.is-text-align-center
-              = user.github_collaborator? ? "○" : "-"
-            td.admin-table__item-value.is-text-align-center
-              = user.officekey_permission? ? "○" : "-"
+              - if user.slack_participation?
+                = link_to "https://fjord.slack.com/admin", class: "a-button is-sm is-warning is-icon", target: "_blank" do
+                  i.fab.fa-slack
+              - else
+                .a-button.is-sm.is-disabled.is-icon
+                  i.fab.fa-slack
+              - if user.github_collaborator?
+                = link_to "https://github.com/orgs/fjordllc/people", class: "a-button is-sm is-warning is-icon", target: "_blank" do
+                  i.fab.fa-github-alt
+              - else
+                .a-button.is-sm.is-disabled.is-icon
+                  i.fab.fa-github-alt
+              - if user.officekey_permission?
+                = link_to "https://play.google.com/store/apps/details?id=co.candyhouse.sesame&hl=ja", class: "a-button is-sm is-warning is-icon", target: "_blank" do
+                  i.fas.fa-key
+              - else
+                .a-button.is-sm.is-disabled.is-icon
+                  i.fas.fa-key
+              - if user.retired_on? && (user.slack_participation? || user.github_collaborator? || user.officekey_permission?)
+                .admin-table__item-block-link-container
+                  = link_to edit_admin_user_path(user, anchor: "external-services") do
+                    | 外部サービス設定変更
             td.admin-table__item-value.is-text-align-center
               = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: "a-button is-sm is-warning is-icon" do
                 i.fas.fa-pen
