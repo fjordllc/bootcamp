@@ -101,7 +101,7 @@ GEM
     coffee-script-source (1.12.2)
     commonmarker (0.20.1)
       ruby-enum (~> 0.5)
-    concurrent-ruby (1.1.5)
+    concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -230,7 +230,7 @@ GEM
     public_suffix (4.0.1)
     puma (4.3.1)
       nio4r (~> 2.0)
-    rack (2.0.8)
+    rack (2.2.2)
     rack-cors (1.1.0)
       rack (>= 2.0.0)
     rack-proxy (0.6.5)
@@ -461,4 +461,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   2.0.2
+   2.1.4
