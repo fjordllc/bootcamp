@@ -63,7 +63,7 @@ class EventsTest < ApplicationSystemTestCase
   test "cannot create a new event when start_at > end_at" do
     login_user "komagata", "testtest"
     visit new_event_path
-    fill_in "event_title", with: "開始日時 > 終了日時のイベント"
+    fill_in "event_title", with: "イベント開始日時 > イベント終了日時のイベント"
     fill_in "event_description", with: "エラーになる"
     fill_in "event_capacity", with: 20
     fill_in "event_location", with: "FJORDオフィス"
@@ -72,7 +72,7 @@ class EventsTest < ApplicationSystemTestCase
     fill_in "event_open_start_at", with: Time.zone.parse("2019-12-05 10:00")
     fill_in "event_open_end_at", with: Time.zone.parse("2019-12-09 23:59")
     click_button "作成"
-    assert_text "終了日時は開始日時よりも後の日時にしてください。"
+    assert_text "イベント終了日時はイベント開始日時よりも後の日時にしてください。"
   end
 
   test "cannot create a new event when open_start_at > open_end_at" do
@@ -93,7 +93,7 @@ class EventsTest < ApplicationSystemTestCase
   test "cannot create a new event when open_start_at > start_at" do
     login_user "komagata", "testtest"
     visit new_event_path
-    fill_in "event_title", with: "募集開始日時 > 開始日時のイベント"
+    fill_in "event_title", with: "募集開始日時 > イベント開始日時のイベント"
     fill_in "event_description", with: "エラーになる"
     fill_in "event_capacity", with: 20
     fill_in "event_location", with: "FJORDオフィス"
@@ -102,7 +102,7 @@ class EventsTest < ApplicationSystemTestCase
     fill_in "event_open_start_at", with: Time.zone.parse("2019-12-10 10:30")
     fill_in "event_open_end_at", with: Time.zone.parse("2019-12-10 11:30")
     click_button "作成"
-    assert_text "募集開始日時は開始日時よりも前の日時にしてください。"
+    assert_text "募集開始日時はイベント開始日時よりも前の日時にしてください。"
   end
 
   test "cannot create a new event when open_end_at > end_at" do
@@ -141,7 +141,7 @@ class EventsTest < ApplicationSystemTestCase
   test "show message about ending event after event end" do
     login_user "kimura", "testtest"
     visit event_path(events(:event_6))
-    assert_text "本イベントは終了しました。"
+    assert_text "イベントは終了しました。"
   end
 
   test "user can participate in an event" do
