@@ -104,7 +104,7 @@ export default {
     editComment: function() {
       this.editing = true;
       this.$nextTick(function() {
-        $('textarea').trigger('input');
+        $(`.comment-id-${this.comment.id}`).trigger('input');
       })
     },
     updateComment: function() {
