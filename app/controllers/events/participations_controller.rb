@@ -11,7 +11,7 @@ class Events::ParticipationsController < ApplicationController
 
   def destroy
     @event.participations.find_by(user_id: current_user.id).destroy
-    redirect_to event_path(@event), notice: "出席をキャンセルしました。"
+    redirect_to event_path(@event), notice: "参加を取り消しました。"
   end
 
   private

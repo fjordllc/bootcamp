@@ -1,0 +1,23 @@
+.event-meta
+  .event-meta__inner
+    dl.event-meta__items
+      .event-meta__item
+        dt.event-meta__item-label
+          | 会場
+        dd.event-meta__item-value
+          = event.location
+      .event-meta__item
+        dt.event-meta__item-label
+          | 定員
+        dd.event-meta__item-value
+          | #{event.capacity}名
+      .event-meta__item
+        dt.event-meta__item-label
+          | 開催日時
+        dd.event-meta__item-value
+          = event.period
+      .event-meta__item
+        dt.event-meta__item-label
+          | 募集期間
+        dd.event-meta__item-value
+          | #{l event.open_start_at} 〜 #{l event.open_end_at}
