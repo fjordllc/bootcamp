@@ -32,7 +32,7 @@ header.page-header
               .categories-item__description
                 - if current_user.admin?
                   .categories-item__edit
-                    = link_to edit_admin_category_path(category), class: "categories-item__edit-link" do
+                    = link_to edit_admin_category_path(category, course_id: @course.id), class: "categories-item__edit-link" do
                       i.fas.fa-pen
                 .js-markdown-view.js-target-blank.is-long-text
                   = category.description

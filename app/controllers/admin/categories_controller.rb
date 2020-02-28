@@ -29,7 +29,7 @@ class Admin::CategoriesController < AdminController
 
   def update
     if @category.update(category_params)
-      redirect_to admin_categories_url, notice: "カテゴリーを更新しました。"
+      redirect_to return_to, notice: "カテゴリーを更新しました。"
     else
       render action: "edit"
     end
@@ -51,5 +51,10 @@ class Admin::CategoriesController < AdminController
         :slug,
         :description
       )
+    end
+
+    def return_to
+      course_id = params[:category][:course_id]
+      course_id.present? ? course_practices_url(course_id) : admin_categories_url
     end
 end
