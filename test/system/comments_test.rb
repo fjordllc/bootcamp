@@ -66,7 +66,7 @@ class CommentsTest < ApplicationSystemTestCase
     within(".thread-comment:first-child") do
       click_button "編集"
       within(:css, ".thread-comment-form__form") do
-        fill_in("comment[description]", with: "edit test")
+        find("textarea.thread-comment-form__textarea").set "edit test"
       end
       click_button "保存する"
     end
