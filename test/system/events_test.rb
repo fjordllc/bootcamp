@@ -237,7 +237,7 @@ class EventsTest < ApplicationSystemTestCase
     visit events_path
     click_link "補欠者が繰り上がるイベント"
     accept_confirm do
-      click_link "参加申込"
+      click_link "補欠登録"
     end
     within ".participants" do
       participants = all("img").map { |img| img["alt"] }
