@@ -33,7 +33,7 @@
           | プレビュー
       .thread-comment-form__markdown-parent.js-markdown-parent
         .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('comment')}")
-          markdown-textarea(v-model="description" :class="classCommentId" class="a-text-input js-warning-form thread-comment-form__textarea js-comment-markdown" name="comment[description]")
+          markdown-textarea(v-model="description" :class="classCommentId" class="a-text-input js-warning-form thread-comment-form__textarea js-comment-markdown")
         .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('preview')}")
           .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
       .thread-comment-form__actions
