@@ -1,4 +1,5 @@
 = form_for([:admin, category], html: { name: "category", class: "form" }) do |f|
+  = f.hidden_field :course_id, value: params[:course_id]
   .form__items
     .form-item
       .row
