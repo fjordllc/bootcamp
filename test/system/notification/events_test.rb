@@ -8,7 +8,7 @@ class Notification::EventsTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
     visit event_path(event)
     accept_confirm do
-      click_link "キャンセル"
+      click_link "参加を取り消す"
     end
     logout
 
