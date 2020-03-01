@@ -17,11 +17,15 @@ notice = @notice
     .container.is-md
       article.article
         header.article__header
-          h1.article__title(class="#{@article.wip? ? 'is-wip' : ''}")
+          - if @article.thumbnail.attached?
+            = image_tag @article.thumbnail_url
+          h1.article__title
             - if @article.wip?
               span.article__title-label
                 | WIP
-            = title
+            = @article.title
+            br
+            = raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
           .article__metas
             .article__meta
               .article__author

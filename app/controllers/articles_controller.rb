@@ -29,6 +29,7 @@ class ArticlesController < ApplicationController
     @article.user = current_user
     set_wip_or_published_time
     if @article.save
+      @article.resize_thumbnail!
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :new
@@ -38,6 +39,7 @@ class ArticlesController < ApplicationController
   def update
     set_wip_or_published_time
     if @article.update(article_params)
+      @article.resize_thumbnail!
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :edit
@@ -64,7 +66,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :body, :tag_list)
+    params.require(:article).permit(:title, :body, :tag_list, :thumbnail)
   end
 
   def redirect_url(article)

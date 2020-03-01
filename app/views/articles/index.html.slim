@@ -22,6 +22,11 @@
             .articles__item class=(article.wip? ? ' is-wip' : '')
               section.articles-article
                 header.articles-article__header
+                  = link_to article
+                    - if article.thumbnail.attached?
+                      = image_tag article.thumbnail_url
+                    - else
+                      = image_tag("work-blank.svg")
                   h1.articles-article__title(itemprop="name")
                     - if article.wip?
                       span.article__title-label.is-wip
