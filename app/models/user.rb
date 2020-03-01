@@ -157,12 +157,12 @@ class User < ActiveRecord::Base
   scope :admins, -> { where(admin: true) }
   scope :trainee, -> { where(trainee: true) }
   scope :job_seeking, -> { where(job_seeking: true) }
-  scope :order_by_counts, -> (order_by, direction) {
+  scope :order_by_counts, ->(order_by, direction) {
     unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
       raise ArgumentError, "Invalid argument"
     end
 
-    if order_by.in? ["report", "comment"]
+    if order_by.in? %w[report comment]
       left_outer_joins(order_by.pluralize.to_sym)
         .group("users.id")
         .order(Arel.sql("count(#{order_by.pluralize}.id) #{direction}, users.created_at"))
@@ -215,7 +215,7 @@ FROM
   learning_times JOIN reports ON learning_times.report_id = reports.id
 WHERE
   reports.user_id = :user_id
-SQL
+    SQL
 
     learning_time = LearningTime.find_by_sql([sql, { user_id: id }])
     learning_time.first.total || 0

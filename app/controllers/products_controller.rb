@@ -128,6 +128,7 @@ class ProductsController < ApplicationController
 
     def notice_message(product, action_name)
       return "提出物をWIPとして保存しました。" if product.wip?
+
       case action_name
       when :create
         "提出物を作成しました。"
