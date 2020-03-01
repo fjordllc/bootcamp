@@ -23,6 +23,11 @@
             .articles__item
               section.articles-article
                 header.articles-article__header
+                  = link_to article
+                    - if article.thumbnail.attached?
+                      = image_tag article.thumbnail_url
+                    - else
+                      = image_tag("work-blank.svg")
                   h1.articles-article__title(itemprop="name")
                     = link_to article.title, article, itempro: "url", class: "articles-article__title-link"
                   //= raw article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
