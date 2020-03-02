@@ -9,3 +9,9 @@
           - if Product.unchecked.count > 0
             .page-tabs__item-count.a-notification-count
               = Product.unchecked.count
+      li.page-tabs__item
+        = link_to products_not_responded_index_path, class: "page-tabs__item-link #{current_link /^products-not_responded-index/}" do
+          | 未返信
+          - if Product.not_responded_products.count > 0
+            .page-tabs__item-count.a-notification-count
+              = Product.not_responded_products.count
