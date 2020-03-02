@@ -7,5 +7,4 @@ class Participation < ApplicationRecord
   scope :disabled, -> { where(enable: false) }
 
   after_create ParticipationCallbacks.new
-  after_destroy ParticipationCallbacks.new
 end

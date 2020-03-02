@@ -61,6 +61,26 @@ class Event < ApplicationRecord
     first_come_first_served.count <= capacity
   end
 
+  def cancel_participation!(event:, user:)
+    participation = Participation.find_by(event_id: event.id, user_id: user.id)
+    participation.destroy
+
+    unless participation.enable
+      return
+    else
+      waiting_participation = participation.event
+                                           .participations
+                                           .disabled
+                                           .order(created_at: :asc)
+                                           .first
+
+      if waiting_participation
+        waiting_participation.update!(enable: true)
+        send_notification(waiting_participation.event, waiting_participation.user)
+      end
+    end
+  end
+
   private
     def end_at_be_greater_than_start_at
       diff = end_at - start_at
@@ -92,5 +112,9 @@ class Event < ApplicationRecord
 
     def first_come_first_served
       users.order("participations.created_at asc")
+    end
+
+    def send_notification(event, receiver)
+      NotificationFacade.moved_up_event_waiting_user(event, receiver)
     end
 end
