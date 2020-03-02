@@ -71,6 +71,7 @@ Rails.application.routes.draw do
   end
   namespace :products do
     resources :unchecked, only: %i(index)
+    resources :not_responded, only: %i(index)
   end
   resources :products
   namespace :reports do
