@@ -40,6 +40,35 @@ class EventTest < ActiveSupport::TestCase
     assert_equal false, event.can_participate?
   end
 
+  test "don't move up when waiting user canceled" do
+    event = events(:event_3)
+    waiting_participation = participations(:participation_2)
+
+    event.cancel_participation!(event: event, user: waiting_participation.user)
+
+    assert_includes event.participations.disabled, participations(:participation_4)
+  end
+
+  test "waiting user move up when participant cancel" do
+    event = events(:event_3)
+    participant = participations(:participation_3).user
+    first_waiting_participation = participations(:participation_2)
+
+    event.cancel_participation!(event: event, user: participant)
+
+    assert_not_includes event.participations.disabled, first_waiting_participation
+  end
+
+  test "don't move up when there is not waiting user" do
+    event = events(:event_2)
+    participant_1 = participations(:participation_1)
+    participant_2 = participations(:participation_5)
+
+    event.cancel_participation!(event: event, user: participant_1.user)
+
+    assert_equal [participant_2], event.participations
+  end
+
   test "should be invalid when start_at >= end_at" do
     event = events(:event_1)
     event.end_at = event.start_at - 1.hour
