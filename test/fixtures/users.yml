@@ -106,13 +106,14 @@ yameo:
   twitter_account: yameo
   facebook_url: http://www.facebook.com/yameo
   blog_url: http://yameo.org
-  description: "リタイアしました。"
+  description: "リタイアしました。就職希望はしてました"
   course: course_1
   job: office_worker
   os: mac
   study_place: remote
   experience: ruby
   organization: 株式会社ヤメオ
+  job_seeker: true
   retired_on: "2015-01-01"
   updated_at: "2014-01-01 00:00:05"
   created_at: "2014-01-01 00:00:05"
@@ -328,3 +329,50 @@ osnashi: #osを持たないユーザー
   experience: rails
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
+
+jobseeker: #現役で就活希望するユーザー
+  login_name: jobseeker
+  email: jobseeker@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  first_name: のぞむ
+  last_name: 就活
+  kana_first_name: ノゾム
+  kana_last_name: シュウカツ
+  slack_account: jobseeker
+  github_account: jobseeker
+  twitter_account: jobseeker
+  facebook_url: http://www.facebook.com/exmaple
+  blog_url: http://example.org
+  description: "フィヨルドからの就職希望してます！"
+  course: course_1
+  job: office_worker
+  study_place: remote
+  experience: rails
+  job_seeker: true
+  updated_at: "2020-01-01 00:00:12"
+  created_at: "2020-01-01 00:00:12"
+
+madajobseeker: #卒業しても就活希望するユーザー
+  login_name: madajobseeker
+  email: madajobseeker@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  first_name: 就活中
+  last_name: 卒業
+  kana_first_name: シュウカツチュウ
+  kana_last_name: ソツギョウ
+  slack_account: madajobseeker
+  github_account: madajobseeker
+  twitter_account: madajobseeker
+  facebook_url: http://www.facebook.com/example
+  blog_url: http://exapmle.org
+  description: "卒業しましたが、フィヨルドからの就職まだ希望してます！"
+  course: course_1
+  job: unemployed
+  study_place: remote
+  experience: rails
+  job_seeker: true
+  graduated_on: "2020-02-25"
+  updated_at: "2020-01-01 00:00:12"
+  created_at: "2020-01-01 00:00:12"
