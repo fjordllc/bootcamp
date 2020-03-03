@@ -62,22 +62,16 @@ class Event < ApplicationRecord
   end
 
   def cancel_participation!(event:, user:)
-    participation = Participation.find_by(event_id: event.id, user_id: user.id)
+    participation = event.participations.find_by(user_id: user.id)
     participation.destroy
 
-    unless participation.enable
-      nil
-    else
-      waiting_participation = participation.event
-                                           .participations
-                                           .disabled
-                                           .order(created_at: :asc)
-                                           .first
+    return unless participation.enable
 
-      if waiting_participation
-        waiting_participation.update!(enable: true)
-        send_notification(waiting_participation.event, waiting_participation.user)
-      end
+    first_waiting_participation = first_waiting_participation(event)
+
+    if first_waiting_participation
+      first_waiting_participation.update!(enable: true)
+      send_notification(event, first_waiting_participation.user)
     end
   end
 
@@ -112,6 +106,13 @@ class Event < ApplicationRecord
 
     def first_come_first_served
       users.order("participations.created_at asc")
+    end
+
+    def first_waiting_participation(event)
+      event.participations
+           .disabled
+           .order(created_at: :asc)
+           .first
     end
 
     def send_notification(event, receiver)

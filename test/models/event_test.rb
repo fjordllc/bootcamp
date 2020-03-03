@@ -52,11 +52,11 @@ class EventTest < ActiveSupport::TestCase
   test "waiting user move up when participant cancel" do
     event = events(:event_3)
     participant = participations(:participation_3).user
-    first_waiting_participation = participations(:participation_2)
+    waiting_participation = participations(:participation_2)
 
     event.cancel_participation!(event: event, user: participant)
 
-    assert_not_includes event.participations.disabled, first_waiting_participation
+    assert_not_includes event.participations.disabled, waiting_participation
   end
 
   test "don't move up when there is not waiting user" do
