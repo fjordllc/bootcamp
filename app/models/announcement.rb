@@ -9,7 +9,8 @@ class Announcement < ApplicationRecord
 
   enum target: {
     all: 0,
-    active_users: 1
+    active_users: 1,
+    job_seeker: 2
   }, _prefix: true
 
   belongs_to :user
