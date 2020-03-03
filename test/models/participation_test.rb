@@ -18,13 +18,4 @@ class ParticipationTest < ActiveSupport::TestCase
     participation = event.participations.create(user: user)
     assert_equal true, participation.enable
   end
-
-  test "waiting user's participation enable become true when event participants cancel" do
-    event = events(:event_3)
-    participations = event.participations
-    participant = participations.where(enable: true).first
-
-    participant.destroy
-    assert_equal true, participations.first.enable
-  end
 end
