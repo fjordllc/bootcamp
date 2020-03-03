@@ -14,3 +14,14 @@ participation_3:
   event: event_3
   created_at: <%= Time.current %>
   enable: true
+
+participation_4:
+  user: sotugyou
+  event: event_3
+  created_at: <%= Time.current + 2.hour %>
+  enable: false
+
+participation_5:
+  user: sotugyou
+  event: event_2
+  enable: true
