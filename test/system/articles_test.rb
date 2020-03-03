@@ -10,7 +10,7 @@ class ArticlesTest < ApplicationSystemTestCase
   test "show listing articles" do
     login_user "komagata", "testtest"
     visit articles_url
-    assert_text "ブログ記事一覧"
+    assert_selector ".articles"
   end
 
   test "create article" do
@@ -94,14 +94,8 @@ class ArticlesTest < ApplicationSystemTestCase
     fill_in "article[body]", with: "内容"
     fill_in "article[tag_list]", with: "tag"
     click_on "更新する"
-    click_on "ブログ記事一覧"
+    click_on "tag"
 
-    assert_equal 2, all(".a-card").length
-
-    within(".tag_cloud") do
-      click_on "tag"
-    end
-
-    assert_equal 1, all(".a-card").length
+    assert_equal 1, all(".articles__item").length
   end
 end
