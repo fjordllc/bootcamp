@@ -32,6 +32,11 @@ class AnnouncementCallbacks
         .or(
           User.where(retired_on: nil, graduated_on: nil, adviser: false, mentor: false, trainee: false)
         )
+      when "job_seeker"
+        User.admins
+        .or(
+          User.where(retired_on: nil, adviser: false, mentor: false, trainee: false, job_seeker: true)
+        )
       else
         User.none
       end

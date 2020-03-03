@@ -28,6 +28,10 @@
           label.form-radio-button__label
             | 現役生にのみお知らせ
             = f.radio_button :target, "active_users"
+        li.form-radio-button.is-half
+          label.form-radio-button__label
+            | 就職希望者のみお知らせ
+            = f.radio_button :target, "job_seeker"
 
   .form-actions
     ul.form-actions__items
