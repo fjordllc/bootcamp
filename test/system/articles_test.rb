@@ -11,6 +11,7 @@ class ArticlesTest < ApplicationSystemTestCase
   test 'show listing articles' do
     visit_with_auth articles_url, 'komagata'
     assert_text 'ブログ記事一覧'
+    assert_selector ".articles"
   end
 
   test 'create article' do
@@ -50,6 +51,7 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text '管理者・メンターとしてログインしてください'
   end
 
+<<<<<<< HEAD
   test 'save article with WIP' do
     visit_with_auth new_article_path, 'komagata'
 
@@ -101,6 +103,7 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text @article3.body
   end
 
+<<<<<<< HEAD
   test 'mentor can create article' do
     visit_with_auth new_article_url, 'mentormentaro'
 
@@ -225,5 +228,33 @@ class ArticlesTest < ApplicationSystemTestCase
 
     assert_text '記事を更新しました'
     assert_text 'mentormentaro'
+=======
+  test 'delete article' do
+    visit_with_auth articles_url, 'komagata'
+    page.accept_confirm do
+      click_on '削除', match: :first
+    end
+
+    assert_text '記事を削除しました'
+  end
+
+  test "can't delete article" do
+    visit_with_auth articles_url, 'kimura'
+    assert_no_text '削除'
+  end
+
+  test 'search by tag' do
+    login_user 'komagata', 'testtest'
+    visit articles_url
+    click_on '内容修正', match: :first
+
+    fill_in "article[title]", with: "タイトル"
+    fill_in "article[body]", with: "内容"
+    fill_in "article[tag_list]", with: "tag"
+    click_on "更新する"
+    click_on "tag"
+
+    assert_equal 1, all(".articles__item").length
+>>>>>>> 5145af415 (サムネイル画像のURLを返すメソッドのテストを追加・既存のテストの修正)
   end
 end
