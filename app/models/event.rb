@@ -66,7 +66,7 @@ class Event < ApplicationRecord
     participation.destroy
 
     unless participation.enable
-      return
+      nil
     else
       waiting_participation = participation.event
                                            .participations
