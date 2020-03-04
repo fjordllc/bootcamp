@@ -3,7 +3,6 @@
 class API::CommentsController < API::BaseController
   before_action :require_login
   before_action :set_my_comment, only: %i(update destroy)
-  before_action :admin_set_comment, only: %i(update destroy)
 
   def index
     @comments = commentable.comments.order(created_at: :asc)
@@ -47,9 +46,6 @@ class API::CommentsController < API::BaseController
 
     def set_my_comment
       @comment = current_user.comments.find_by(id: params[:id])
-    end
-
-    def admin_set_comment
       @comment ||= Comment.find(params[:id]) if current_user.admin?
     end
 
