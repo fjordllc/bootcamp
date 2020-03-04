@@ -24,11 +24,42 @@ class Product < ApplicationRecord
     -> (user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: "Product").pluck(:checkable_id)) }
+
   scope :list, -> {
     with_avatar
       .preload([:practice, :comments, { checks: { user: { avatar_attachment: :blob } } }])
       .order(created_at: :desc)
   }
+
+  def self.not_responded_products
+    sql = <<-SQL
+WITH last_comments AS (
+  SELECT *
+  FROM comments AS parent
+  WHERE commentable_type = 'Product' AND id = (
+    SELECT id
+    FROM comments AS child
+    WHERE parent.commentable_id = child.commentable_id
+      AND commentable_type = 'Product'
+    ORDER BY created_at DESC LIMIT 1
+  )
+),
+unchecked_products AS (
+  SELECT products.*
+  FROM products
+  LEFT JOIN checks ON products.id = checks.checkable_id AND checks.checkable_type = 'Product'
+  WHERE checks.id IS NULL
+)
+SELECT unchecked_products.id
+FROM unchecked_products
+LEFT JOIN last_comments ON unchecked_products.id = last_comments.commentable_id
+WHERE last_comments.id IS NULL
+OR unchecked_products.user_id = last_comments.user_id
+ORDER BY unchecked_products.created_at DESC
+    SQL
+    product_ids = Product.find_by_sql(sql).map(&:id)
+    Product.where(id: product_ids).order(created_at: :desc)
+  end
 
   def completed?(user)
     checks.where(user: user).present?

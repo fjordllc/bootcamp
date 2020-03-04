@@ -50,3 +50,8 @@ comment_9:
   user: komagata
   commentable: report_5 (Report)
   description: "@sotugyou 🎉🎉🎉🎉"
+
+comment_10:
+  user: yamada
+  commentable: product_1 (Product)
+  description: "提出物へのコメント"
