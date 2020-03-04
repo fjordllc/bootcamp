@@ -1,10 +1,10 @@
 <template lang="pug">
   .reservation
     template(v-if="this.currentUserId == this.userId")
-      .reservations__seat-action.is-reserved.is-me(@click="deleteReservation")
+      #cancel-reservation.reservations__seat-action.is-reserved.is-me(@click="deleteReservation")
         | {{ this.loginName }}
     template(v-else)
-      .reservations__seat-action.is-reserved.is-not-me
+      #cancel-reservation.reservations__seat-action.is-reserved.is-not-me
         | {{ this.loginName }}
 </template>
 <script>
