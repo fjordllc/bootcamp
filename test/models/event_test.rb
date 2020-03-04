@@ -44,7 +44,7 @@ class EventTest < ActiveSupport::TestCase
     event = events(:event_3)
     waiting_participation = participations(:participation_2)
 
-    event.cancel_participation!(event: event, user: waiting_participation.user)
+    event.cancel_participation!(user: waiting_participation.user)
 
     assert_includes event.participations.disabled, participations(:participation_4)
   end
@@ -54,7 +54,7 @@ class EventTest < ActiveSupport::TestCase
     participant = participations(:participation_3).user
     waiting_participation = participations(:participation_2)
 
-    event.cancel_participation!(event: event, user: participant)
+    event.cancel_participation!(user: participant)
 
     assert_not_includes event.participations.disabled, waiting_participation
   end
@@ -64,7 +64,7 @@ class EventTest < ActiveSupport::TestCase
     participant_1 = participations(:participation_1)
     participant_2 = participations(:participation_5)
 
-    event.cancel_participation!(event: event, user: participant_1.user)
+    event.cancel_participation!(user: participant_1.user)
 
     assert_equal [participant_2], event.participations
   end
