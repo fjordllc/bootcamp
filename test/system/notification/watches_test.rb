@@ -9,7 +9,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     login_user "machida", "testtest"
     visit "/reports/#{reports(:report_1).id}"
     within(".thread-comment-form__form") do
-      fill_in("comment[description]", with: "いい日報ですね。")
+      fill_in("new_comment[description]", with: "いい日報ですね。")
     end
     click_button "コメントする"
     logout
@@ -17,7 +17,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
     visit "/reports/#{reports(:report_1).id}"
     within(".thread-comment-form__form") do
-      fill_in("comment[description]", with: "コメントありがとうございます。")
+      fill_in("new_comment[description]", with: "コメントありがとうございます。")
     end
     click_button "コメントする"
     logout
