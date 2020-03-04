@@ -48,7 +48,7 @@ unchecked_products AS (
   SELECT products.*
   FROM products
   LEFT JOIN checks ON products.id = checks.checkable_id AND checks.checkable_type = 'Product'
-  WHERE checks.id IS NULL
+  WHERE checks.id IS NULL AND wip = false
 )
 SELECT unchecked_products.id
 FROM unchecked_products
