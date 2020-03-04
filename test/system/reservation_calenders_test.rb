@@ -14,7 +14,7 @@ class ReservationCalendersTest < ApplicationSystemTestCase
 
   test "show next month of 2019/10 reservation calender" do
     visit "/reservation_calenders/201910"
-    click_on "来月"
+    click_link "next-month"
     assert_text "2019年11月"
   end
 end

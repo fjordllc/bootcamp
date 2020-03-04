@@ -12,6 +12,7 @@ class API::MemosTest < ApplicationSystemTestCase
     assert_equal "席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
 
     within("#memo-2019-11-01") do
+      find('label[for="2019-11-01"]').click
       fill_in "memo[body]", with: "イベント：潮干狩り"
       click_button "作成"
     end
@@ -25,6 +26,7 @@ class API::MemosTest < ApplicationSystemTestCase
     assert_equal "席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
 
     within("#memo-2019-11-01") do
+      find('label[for="2019-11-01"]').click
       fill_in "memo[body]", with: "イベント：潮干狩り"
       click_button "作成"
     end
@@ -38,6 +40,7 @@ class API::MemosTest < ApplicationSystemTestCase
     assert_equal "席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
 
     within("#memo-#{memos(:memo_1).date}") do
+      find('label[for="' + "#{memos(:memo_1).date}" + '"]').click
       fill_in "memo[body]", with: "イベント：潮干狩り"
       click_button "更新"
     end
@@ -51,6 +54,7 @@ class API::MemosTest < ApplicationSystemTestCase
     assert_equal "席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
 
     within("#memo-#{memos(:memo_1).date}") do
+      find('label[for="' + "#{memos(:memo_1).date}" + '"]').click
       click_button "削除"
     end
     within("#memo-#{memos(:memo_1).date}") do
@@ -64,7 +68,7 @@ class API::MemosTest < ApplicationSystemTestCase
     assert_equal "席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
 
     within("#memo-#{memos(:memo_1).date}") do
-      assert_no_text "削除"
+      assert_no_selector("#memo")
     end
   end
 end
