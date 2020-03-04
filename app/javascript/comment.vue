@@ -103,6 +103,9 @@ export default {
     },
     editComment: function() {
       this.editing = true;
+      this.$nextTick(function() {
+        $(`.comment-id-${this.comment.id}`).trigger('input');
+      })
     },
     updateComment: function() {
       if (this.description.length < 1) {　return null　}
