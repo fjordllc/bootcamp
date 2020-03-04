@@ -56,9 +56,26 @@
   background-color: $base
   box-shadow: rgba(black, .2) 0 1px 4px
   overflow: hidden
+
 .categories-item__description
+  +position(relative)
   margin-bottom: 1rem
   p
     +text-block(.875rem 1.6 0 .6em)
   *:last-child
     margin-bottom: 0
+
+.categories-item__edit
+  float: right
+  margin-left: .5rem
+  +position(relative, top -.25rem)
+
+.categories-item__edit-link
+  +size(2rem)
+  +flex-link
+  align-items: center
+  justify-content: center
+  +text-block(1rem 1, $muted-text)
+  transition: all .2s ease-out
+  &:hover
+    color: $main
