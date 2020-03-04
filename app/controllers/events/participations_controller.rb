@@ -11,7 +11,7 @@ class Events::ParticipationsController < ApplicationController
 
   def destroy
     @event.with_lock do
-      @event.cancel_participation!(event: @event, user: current_user)
+      @event.cancel_participation!(user: current_user)
     end
     redirect_to event_path(@event), notice: "参加を取り消しました。"
   end

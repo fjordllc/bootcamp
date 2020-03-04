@@ -61,12 +61,13 @@ class Event < ApplicationRecord
     first_come_first_served.count <= capacity
   end
 
-  def cancel_participation!(event:, user:)
-    participation = event.participations.find_by(user_id: user.id)
+  def cancel_participation!(user:)
+    participation = self.participations.find_by(user_id: user.id)
     participation.destroy
 
     return unless participation.enable
 
+    event = self
     first_waiting_participation = first_waiting_participation(event)
 
     if first_waiting_participation
