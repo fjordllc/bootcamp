@@ -7,6 +7,6 @@ class Practice::QuestionsTest < ApplicationSystemTestCase
 
   test "show listing questions" do
     visit "/practices/#{practices(:practice_1).id}/questions"
-    assert_equal "OS X Mountain Lionをクリーンインストールするの質問 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "OS X Mountain Lionをクリーンインストールする | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 end
