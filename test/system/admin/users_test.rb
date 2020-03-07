@@ -81,27 +81,27 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text "#{user.full_name} さんを削除しました。"
   end
 
-  test "hide #user_graduated_on when checkbox is unchecked" do
+  test "hide input for graduation date when unchecked" do
     user = users(:hatsuno)
     visit "/admin/users/#{user.id}/edit"
     assert_no_selector "#user_graduated_on"
   end
 
-  test "show #user_graduated_on when checkbox is checked" do
+  test "show input for graduation date when checked" do
     user = users(:hatsuno)
     visit "/admin/users/#{user.id}/edit"
     find("label[for='graduation_checkbox']").click
     assert_selector "#user_graduated_on"
   end
 
-  test "show #user_graduated_on if user is graudated" do
+  test "show input for graduation date if user is graudated" do
     user = users(:sotugyou)
     visit "/admin/users/#{user.id}/edit"
     assert find(:css, "#graduation_checkbox", visible: false).checked?
     assert_equal user.graduated_on.to_s, find("#user_graduated_on").value
   end
 
-  test "reset value of #user_graduated_on when checkbox is unchecked" do
+  test "reset value of graduation date when unchecked" do
     user = users(:sotugyou)
     visit "/admin/users/#{user.id}/edit"
     find("label[for='graduation_checkbox']").click
