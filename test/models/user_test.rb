@@ -185,4 +185,30 @@ class UserTest < ActiveSupport::TestCase
     user = users(:hajime)
     assert_equal [report: nil, date: Date.today, emotion: nil], user.reports_date_and_emotion(0)
   end
+
+  test "announcment for all" do
+    target = User.announcement("all")
+    assert_includes(target, users(:kimura))
+    assert_not_includes(target, users(:yameo))
+  end
+
+  test "announcment for active_users " do
+    target = User.announcement("active_users")
+    assert_includes(target, users(:kimura))
+    assert_includes(target, users(:komagata))
+    assert_not_includes(target, users(:yameo))
+    assert_not_includes(target, users(:sotugyou))
+    assert_not_includes(target, users(:yamada))
+    assert_not_includes(target, users(:advijirou))
+    assert_not_includes(target, users(:kensyu))
+  end
+
+  test "announcment for job_seekers" do
+    target = User.announcement("job_seeker")
+    assert_includes(target, users(:jobseeker))
+    assert_includes(target, users(:madajobseeker))
+    assert_includes(target, users(:komagata))
+    assert_not_includes(target, users(:kimura))
+    assert_not_includes(target, users(:yameo))
+  end
 end
