@@ -204,7 +204,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "announcment for job_seekers" do
-    target = User.announcement("job_seeker")
+    target = User.announcement("job_seekers")
     assert_includes(target, users(:jobseeker))
     assert_includes(target, users(:madajobseeker))
     assert_includes(target, users(:komagata))

@@ -397,7 +397,7 @@ SQL
       User.unretired
     when "active_users"
       User.admins.or(User.active_fjord_students)
-    when "job_seeker"
+    when "job_seekers"
       User.admins.or(User.job_seekers)
     else
       User.none
