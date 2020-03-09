@@ -7,6 +7,6 @@ class Practice::ReportsTest < ApplicationSystemTestCase
 
   test "show listing reports" do
     visit "/practices/#{practices(:practice_1).id}/reports"
-    assert_equal "OS X Mountain Lionをクリーンインストールするの日報 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "OS X Mountain Lionをクリーンインストールする | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 end
