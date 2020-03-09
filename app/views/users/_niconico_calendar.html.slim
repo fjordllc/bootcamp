@@ -1,0 +1,34 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | ニコニコカレンダー
+  .card-body
+    table.niconico-calendar
+      thead.niconico-calendar__header
+        tr
+          th
+            | 日
+          th
+            | 月
+          th
+            | 火
+          th
+            | 水
+          th
+            | 木
+          th
+            | 金
+          th
+            | 土
+      tbody.niconico-calendar__body
+        - user.niconico_calendar(30).each do |week|
+          tr.niconico-calendar__week
+            - week.each do |set|
+              td.niconico-calendar__day(class="is-#{set[:emotion]}")
+                - if set[:date]
+                  = l(set[:date], format: :md)
+                - else
+                  = set[:date]
+                br
+                  - if set[:emotion]
+                    = link_to Report.faces[set[:emotion]], report_path(user.reports.find_by(reported_on: set[:date]))

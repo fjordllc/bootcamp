@@ -46,6 +46,7 @@ header.page-header
             = render "users/grass", user: @user
           - if @user.active_practices.present?
             = render "/users/practices/active_practices", user: @user
+          = render "/users/niconico_calendar", user: @user
           - if @user.completed_practices.present?
             = render "/users/practices/completed_practices", user: @user
           - if @user.books.present?
