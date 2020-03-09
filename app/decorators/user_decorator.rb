@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module UserDecorator
+  DAYS_IN_WEEK = 7
+
   def twitter_url
     "https://twitter.com/#{twitter_account}"
   end
@@ -35,5 +37,18 @@ module UserDecorator
 
   def url
     user_url(self)
+  end
+
+  def niconico_calendar(term)
+    emotions_and_date = self.set_emotions_and_dates(term)
+    last_wday = emotions_and_date.first[:date].wday
+
+    blanks = []
+    last_wday.times do
+      blanks << { date: nil, emotion: nil }
+    end
+
+    [ *blanks, *emotions_and_date ].each_slice(DAYS_IN_WEEK)
+                                   .to_a
   end
 end
