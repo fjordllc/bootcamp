@@ -113,7 +113,6 @@ yameo:
   study_place: remote
   experience: ruby
   organization: 株式会社ヤメオ
-  slack_participation: false
   retired_on: "2015-01-01"
   updated_at: "2014-01-01 00:00:05"
   created_at: "2014-01-01 00:00:05"
