@@ -78,7 +78,7 @@ class PracticesTest < ApplicationSystemTestCase
     user = users(:komagata)
     visit "/practices/#{practice.id}/"
     within ".page-header-actions" do
-      click_link "カテゴリー"
+      click_link "プラクティス一覧"
     end
     assert_current_path course_practices_path(user.course)
     assert_equal "category-#{practice.category.id}", URI.parse(current_url).fragment
