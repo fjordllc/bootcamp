@@ -14,3 +14,12 @@ Rails.application.config.assets.paths << Rails.root.join("node_modules")
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 Rails.application.config.assets.precompile += %w( application.css welcome.css namecards.css qrcodes.css diploma.css )
+
+# Rubyが落ちるエラーがあり、原因としてSprocketsの関係で、assetsが並列でコンパイルされていることが考えられる。
+# ソースは以下。
+# https://github.com/rails/sprockets/issues/581
+# https://www.tmp1024.com/articles/fix-rails-6-segmentation-error
+# そのため、assetsの並列コンパイルをやめる設定を記述した。
+Rails.application.config.assets.configure do |env|
+  env.export_concurrent = false
+end
