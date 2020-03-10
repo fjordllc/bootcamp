@@ -113,14 +113,16 @@ report_14:
 
 report_15:
   user: advijirou
-  title: emotionのテスト_1
+  title: "emotionのテスト_1"
   emotion: 2
-  description: 頑張りました
+  description: |-
+    頑張りました
   reported_on: <%= Time.now - 1.day %>
 
 report_16:
   user: advijirou
-  title: emotionのテスト_2
+  title: "emotionのテスト_2"
   emotion: 1
-  description: 頑張れませんでした
+  description: |-
+    頑張れませんでした
   reported_on: <%= Time.now - 2.day %>
