@@ -180,4 +180,10 @@ class UserTest < ActiveSupport::TestCase
     user.completed_practices << practices(:practice_53)
     assert_equal old_percentage, user.completed_percentage
   end
+
+  test "set_emotions_and_dates" do
+    user = users(:advijirou)
+
+    assert_equal [date: Date.today, emotion: nil], user.set_emotions_and_dates(0)
+  end
 end
