@@ -45,7 +45,8 @@ class API::CommentsController < API::BaseController
     end
 
     def set_my_comment
-      @comment = current_user.comments.find(params[:id])
+      @comment = current_user.comments.find_by(id: params[:id])
+      @comment ||= Comment.find(params[:id]) if current_user.admin?
     end
 
     def notify_to_slack(comment)
