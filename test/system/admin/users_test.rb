@@ -76,8 +76,38 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test "delete user" do
     user = users(:kimura)
     visit admin_users_path(target: "student")
-    find("#delete-#{user.id}").click
+    click_on "delete-#{user.id}"
     page.driver.browser.switch_to.alert.accept
     assert_text "#{user.full_name} さんを削除しました。"
+  end
+
+  test "hide input for graduation date when unchecked" do
+    user = users(:hatsuno)
+    visit "/admin/users/#{user.id}/edit"
+    assert has_unchecked_field?("graduation_checkbox", visible: false)
+    assert_no_selector "#user_graduated_on"
+  end
+
+  test "show input for graduation date when checked" do
+    user = users(:hatsuno)
+    visit "/admin/users/#{user.id}/edit"
+    check "graduation_checkbox", allow_label_click: true
+    assert_selector "#user_graduated_on"
+  end
+
+  test "show input for graduation date if user is graudated" do
+    user = users(:sotugyou)
+    visit "/admin/users/#{user.id}/edit"
+    assert has_checked_field?("graduation_checkbox", visible: false)
+    assert has_field?("user_graduated_on", with: user.graduated_on.to_s)
+  end
+
+  test "reset value of graduation date when unchecked" do
+    user = users(:sotugyou)
+    visit "/admin/users/#{user.id}/edit"
+    uncheck "graduation_checkbox", allow_label_click: true
+    assert has_unchecked_field?("graduation_checkbox", visible: false)
+    check "graduation_checkbox", allow_label_click: true
+    assert has_field?("user_graduated_on", with: "")
   end
 end
