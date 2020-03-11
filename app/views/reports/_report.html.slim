@@ -27,10 +27,15 @@
             i.fas.fa-comment
           .thread-list-item-meta__comment-count-value
             = report.comments.size
+        .thread-list-item__user-icons
+          - report.comments.recent_unique_users.each do |user|
+            .thread-list-item__user-icon
+              = link_to user_path(user) do
+                = image_tag user.avatar_url, title: "#{user.icon_title}", class: "thread-list-item__checked-author-icon a-user-icon is-#{user.role}"
+        time.thread-list-item-meta__updated-at(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate="pubdate")
+          = "最終コメント:#{l report .comments.last.updated_at}"
+
       - if report.checks.any?
-        .thread-list-item-meta__checkers
-          - report.checks.each do |check|
-            = image_tag check.user.avatar_url, title: "#{check.user.icon_title}", class: "thread-list-item__checked-author-icon a-user-icon is-#{check.user.role}"
         .stamp.stamp-approve
           h2.stamp__content.is-title 確認済
           time.stamp__content.is-created-at
