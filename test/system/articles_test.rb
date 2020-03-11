@@ -125,10 +125,10 @@ class ArticlesTest < ApplicationSystemTestCase
 
     fill_in "article[title]", with: "タイトル"
     fill_in "article[body]", with: "内容"
-    fill_in "article[tag_list]", with: "tag"
+    fill_in "article[tag_list]", with: "FJORD"
     click_on "更新する"
-    click_on "tag"
+    click_on "FJORD"
 
-    assert_equal 1, all(".articles__item").length
+    assert_equal 2, all(".articles__item").length
   end
 end
