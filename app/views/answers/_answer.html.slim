@@ -4,7 +4,7 @@
 .thread-comment(class="#{answer == answer.question.correct_answer ? "is-correct_answer" : ""}")
   .thread-comment__author
     = link_to answer.user, itempro: "url", class: "thread-comment__author-link" do
-      = image_tag answer.user.avatar_url, class: "thread-comment__author-icon a-user-icon is-#{answer.user.role}"
+      = image_tag answer.user.avatar_url, title: "#{answer.user.icon_title}", class: "thread-comment__author-icon a-user-icon is-#{answer.user.role}"
   .thread-comment__body.a-card
     - if answer == correct_answer
       .answer-badge
@@ -27,7 +27,7 @@
             li.card-footer-actions__item
               = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: "a-button is-md is-warning is-block" do
                 | 解決にする
-          - if answer.user == current_user
+          - if answer.user == current_user || admin_login?
             li.card-footer-actions__item
               = link_to edit_question_answer_path(answer.question, answer, return_to: question_url(answer.question)), class: "card-footer-actions__action a-button is-md is-primary is-block", id: "js-shortcut-edit" do
                 i.fas.fa-pen#new

@@ -12,12 +12,12 @@ class CommentsTest < ApplicationSystemTestCase
 
   test "comment form not found in /users/:user_id/comments" do
     visit user_comments_path(users(:komagata))
-    assert has_no_field?("comment[description]")
+    assert has_no_field?("new_comment[description]")
   end
 
   test "comment form found in /reports/:report_id" do
     visit report_path(users(:komagata).reports.first)
-    assert has_field?("comment[description]")
+    assert has_field?("new_comment[description]")
   end
 
   test "comment form in reports/:id has comment tab and preview tab" do
@@ -40,7 +40,7 @@ class CommentsTest < ApplicationSystemTestCase
   test "post new comment for report" do
     visit "/reports/#{reports(:report_1).id}"
     within(".thread-comment-form__form") do
-      fill_in("comment[description]", with: "test")
+      fill_in("new_comment[description]", with: "test")
     end
     click_button "コメントする"
     assert_text "test"
@@ -86,7 +86,7 @@ class CommentsTest < ApplicationSystemTestCase
   test "post new comment for product" do
     visit "/products/#{products(:product_1).id}"
     within(".thread-comment-form__form") do
-      fill_in("comment[description]", with: "test")
+      fill_in("new_comment[description]", with: "test")
     end
     click_button "コメントする"
     assert_text "test"
@@ -95,7 +95,7 @@ class CommentsTest < ApplicationSystemTestCase
   test "post new comment for announcement" do
     visit "/announcements/#{announcements(:announcement_1).id}"
     within(".thread-comment-form__form") do
-      fill_in("comment[description]", with: "test")
+      fill_in("new_comment[description]", with: "test")
     end
     click_button "コメントする"
     assert_text "test"
@@ -105,7 +105,7 @@ class CommentsTest < ApplicationSystemTestCase
     visit "/reports/#{reports(:report_3).id}"
     assert_equal "コメント", find(".thread-comment-form__tab.is-active").text
     within(".thread-comment-form__form") do
-      fill_in("comment[description]", with: "test")
+      fill_in("new_comment[description]", with: "test")
     end
     find(".thread-comment-form__tab", text: "プレビュー").click
     assert_equal "プレビュー", find(".thread-comment-form__tab.is-active").text
@@ -117,7 +117,7 @@ class CommentsTest < ApplicationSystemTestCase
   test "prevent double submit" do
     visit report_path(users(:komagata).reports.first)
     within(".thread-comment-form__form") do
-      fill_in("comment[description]", with: "test")
+      fill_in("new_comment[description]", with: "test")
     end
     assert_raises Selenium::WebDriver::Error::ElementClickInterceptedError do
       find("#js-shortcut-post-comment", text: "コメントする").click.click
@@ -127,12 +127,12 @@ class CommentsTest < ApplicationSystemTestCase
   test "submit_button is enabled after a post is done" do
     visit report_path(users(:komagata).reports.first)
     within(".thread-comment-form__form") do
-      fill_in("comment[description]", with: "test")
+      fill_in("new_comment[description]", with: "test")
     end
     click_button "コメントする"
     assert_text "test"
     within(".thread-comment-form__form") do
-      fill_in("comment[description]", with: "testtest")
+      fill_in("new_comment[description]", with: "testtest")
     end
     click_button "コメントする"
     assert_text "testtest"

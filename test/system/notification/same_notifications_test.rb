@@ -26,7 +26,7 @@ class NotificationsTest < ApplicationSystemTestCase
     find(".global-nav").click_link("日報")
     click_link "Rubyの基礎"
     click_button "日報を確認"
-    fill_in "comment[description]", with: "今日の日報を確認しました"
+    fill_in "new_comment[description]", with: "今日の日報を確認しました"
     click_button "コメントする"
     find(".test-show-menu").click
     click_link "ログアウト"
@@ -50,7 +50,7 @@ class NotificationsTest < ApplicationSystemTestCase
     # ユーザーからコメントが来た時(admin)
     click_link "日報"
     click_link "Rubyの基礎"
-    fill_in "comment[description]", with: "@komagata ユーザーからのコメント"
+    fill_in "new_comment[description]", with: "@komagata ユーザーからのコメント"
     click_button "コメントする"
     find(".test-show-menu").click
     click_link "ログアウト"

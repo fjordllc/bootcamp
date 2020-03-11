@@ -30,3 +30,4 @@ html.is-application lang="ja"
           = yield
       = render "welcome/form"
       = render "welcome/welcome_footer"
+    = any_login_here if defined?(AnyLogin)
