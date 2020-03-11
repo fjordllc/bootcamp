@@ -6,7 +6,7 @@ class Reservation < ApplicationRecord
 
   validates :seat_id, uniqueness: { scope: :date }
   validate :after_a_month
-  validate :limit_reservations_to_five, unless: :admin_or_trainee?
+  validate :maximum_reservations, unless: :admin_or_trainee?
 
   private
     def after_a_month
@@ -15,9 +15,9 @@ class Reservation < ApplicationRecord
       end
     end
 
-    def limit_reservations_to_five
-      if date > Date.today && already_five_reservations?
-        errors.add(:base, "明日以降の座席は最大５つまでしか予約できません")
+    def maximum_reservations(threshold = 5)
+      if date > Date.today && count_reservations >= threshold
+        errors.add(:base, "明日以降の座席は最大#{threshold}つまでしか予約できません")
       end
     end
 
@@ -25,7 +25,7 @@ class Reservation < ApplicationRecord
       user.admin? || user.trainee?
     end
 
-    def already_five_reservations?
-      user.reservations.count { |reservation| reservation.date > Date.today } >= 5
+    def count_reservations
+      user.reservations.count { |reservation| reservation.date > Date.today }
     end
 end
