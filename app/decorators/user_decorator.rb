@@ -17,6 +17,22 @@ module UserDecorator
     roles.detect { |v| v[:value] }[:role]
   end
 
+  def staff_roles
+    staff_roles = [
+      { role: "管理者", value: admin },
+      { role: "メンター", value: mentor },
+      { role: "アドバイザー", value: adviser }
+    ]
+    staff_roles.find_all { |v| v[:value] }
+               .map { |v| v[:role] }
+               .join("、")
+  end
+
+  def icon_title
+    [self.login_name, self.staff_roles].reject(&:blank?)
+                                       .join(": ")
+  end
+
   def url
     user_url(self)
   end

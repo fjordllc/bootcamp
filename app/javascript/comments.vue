@@ -9,7 +9,7 @@
         @delete="deleteComment")
       .thread-comment-form
         .thread-comment__author
-          img.thread-comment__author-icon.a-user-icon(:src="currentUser.avatar_url")
+          img.thread-comment__author-icon.a-user-icon(:src="currentUser.avatar_url" :title="currentUser.icon_title")
         .thread-comment-form__form.a-card
           .thread-comment-form__tabs.js-tabs
             .thread-comment-form__tab.js-tabs__tab(:class="{'is-active': isActive('comment')}" @click="changeActiveTab('comment')")
@@ -18,7 +18,7 @@
               | プレビュー
           .thread-comment-form__markdown-parent.js-markdown-parent
             .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('comment')}")
-              markdown-textarea(v-model="description" id="js-new-comment" class="a-text-input js-warning-form thread-comment-form__textarea js-markdown" name="comment[description]")
+              markdown-textarea(v-model="description" id="js-new-comment" class="a-text-input js-warning-form thread-comment-form__textarea js-markdown" name="new_comment[description]")
             .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('preview')}")
               .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
           .thread-comment-form__actions

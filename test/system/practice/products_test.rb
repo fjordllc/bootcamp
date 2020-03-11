@@ -6,6 +6,6 @@ class Practice::ProductsTest < ApplicationSystemTestCase
   test "show listing products" do
     login_user "komagata", "testtest"
     visit "/practices/#{practices(:practice_1).id}/products"
-    assert_equal "OS X Mountain Lionをクリーンインストールするの提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "OS X Mountain Lionをクリーンインストールする | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 end

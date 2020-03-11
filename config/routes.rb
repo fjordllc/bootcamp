@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     resources :comments, only: %i(index), controller: "users/comments"
     resources :products, only: %i(index), controller: "users/products"
     get "portfolio" => "users/works#index", as: :portfolio
+    patch "graduation", to: "graduation#update", as: :graduation
   end
 
   resource :card, only: %i(show new create edit update), controller: "card"
@@ -70,6 +71,7 @@ Rails.application.routes.draw do
   end
   namespace :products do
     resources :unchecked, only: %i(index)
+    resources :not_responded, only: %i(index)
   end
   resources :products
   namespace :reports do
