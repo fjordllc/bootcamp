@@ -114,19 +114,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     visit "/notifications"
     assert_text "machidaさんからお知らせです。"
 
-    login_user "jobseeker", "testtest"
-    visit "/notifications"
-    assert_text "machidaさんからお知らせです。"
-
-    login_user "madajobseeker", "testtest"
-    visit "/notifications"
-    assert_text "machidaさんからお知らせです。"
-
     login_user "kimura", "testtest"
-    visit "/notifications"
-    assert_no_text "machidaさんからお知らせです。"
-
-    login_user "yameo", "testtest"
     visit "/notifications"
     assert_no_text "machidaさんからお知らせです。"
   end

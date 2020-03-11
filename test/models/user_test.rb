@@ -206,8 +206,8 @@ class UserTest < ActiveSupport::TestCase
   test "announcment for job_seekers" do
     target = User.announcement("job_seekers")
     assert_includes(target, users(:jobseeker))
-    assert_includes(target, users(:madajobseeker))
     assert_includes(target, users(:komagata))
+    assert_not_includes(target, users(:sotugyou))
     assert_not_includes(target, users(:kimura))
     assert_not_includes(target, users(:yameo))
   end

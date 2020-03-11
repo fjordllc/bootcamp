@@ -144,16 +144,12 @@ class User < ActiveRecord::Base
       retired_on: nil
     )
   }
-  scope :fjord_students, -> {
+  scope :active_fjord_students, -> {
     where(
       admin: false,
       mentor: false,
       adviser: false,
-      trainee:  false
-    )
-  }
-  scope :active_fjord_students, -> {
-    fjord_students.where(
+      trainee:  false,
       retired_on: nil,
       graduated_on: nil
     )
@@ -180,8 +176,7 @@ class User < ActiveRecord::Base
   scope :trainee, -> { where(trainee: true) }
   scope :job_seeking, -> { where(job_seeking: true) }
   scope :job_seekers, -> {
-    fjord_students.where(
-      retired_on: nil,
+    active_fjord_students.where(
       job_seeker: true
     )
   }
