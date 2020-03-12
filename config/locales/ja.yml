@@ -27,7 +27,7 @@ ja:
       event: イベント
     attributes:
       user:
-        login_name: ユーザー名
+        login_name: アカウント
         first_name: 名
         kana_first_name: フリガナ（名）
         last_name: 姓
