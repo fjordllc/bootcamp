@@ -46,9 +46,11 @@
 .admin-table__item-value
   padding: .375rem .75rem
   border: solid 1px $background-shade
-  +text-block(.875rem 1.45)
+  +text-block(.8125rem 1.45)
   &.is-text-align-center
     text-align: center
+  .a-button
+    +margin(horizontal, .1875rem)
 
 .admin-table__item-logo-image
   border: solid 1px $border
@@ -79,3 +81,10 @@
   +size(100% auto)
   +margin(horizontal, auto)
   border-radius: .25rem
+
+.admin-table__item-block-link-container
+  padding-top: .25em
+  font-size: .75rem
+  a
+    +hover-link-reversal
+    color: $danger

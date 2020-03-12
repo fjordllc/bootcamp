@@ -19,7 +19,18 @@
       margin-top: 1rem
   &.is-max-width-100
     max-width: 110rem
+
 .a-card-notice
   p
     font-size: 1rem
     line-height: 1.5rem
+
+.a-card__alert
+  padding: .5rem 1.25rem
+  background-color: $danger
+  text-align: center
+  +text-block(.875rem 1.4, $reversal-text)
+  +border-radius(top, .25rem)
+  a
+    +hover-link-reversal
+    color: $reversal-text
