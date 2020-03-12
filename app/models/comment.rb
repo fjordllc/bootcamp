@@ -45,7 +45,7 @@ class Comment < ActiveRecord::Base
   end
 
   def self.recent_unique_users
-    group_by_user.map(&:user).reverse
+    group_by_user.map(&:user)
   end
 
   private
