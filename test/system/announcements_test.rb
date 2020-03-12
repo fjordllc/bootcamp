@@ -105,7 +105,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     click_link "お知らせ作成"
     fill_in "announcement[title]", with: "就活希望者のみお知らせします"
     fill_in "announcement[description]", with: "合同説明会をやるのでぜひいらしてください！"
-    choose "就職希望者のみお知らせ", visible: false
+    choose "就職希望者にのみお知らせ", visible: false
 
     click_button "作成"
     assert_text "お知らせを作成しました"
