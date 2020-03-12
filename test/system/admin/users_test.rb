@@ -60,7 +60,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
       fill_in "user[login_name]", with: "komagata"
       click_on "更新する"
     end
-    assert_text "ユーザー名はすでに存在します"
+    assert_text "アカウントはすでに存在します"
   end
 
   test "update user" do
