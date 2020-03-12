@@ -164,9 +164,6 @@ textarea.a-text-input
       color: $reversal-text
       +padding(horizontal, 1em $height)
 
-
-
-
 .a-form-help
   font-size: .75rem
   margin-top: .5em
@@ -179,6 +176,8 @@ textarea.a-text-input
     margin-top: 1em
   [class*=is-select] + &
     margin-top: .5em
+  .form-item-block &
+    margin-top: .75em
   p
     +text-block(1em 1.6 0 .75em)
   a
@@ -190,6 +189,14 @@ textarea.a-text-input
     +hover-link-reversal
     cursor: pointer
     +default-link
+  ul
+    list-style-type: disc
+    list-style-position: outside
+    margin-left: 1.5em
+  li
+    line-height: 1.6
+    &:not(:first-child)
+      margin-top: .125em
 
 .a-form-help-link
   +text-block(.75rem 1.6)

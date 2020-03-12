@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_061812) do
+ActiveRecord::Schema.define(version: 2020_02_20_093305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -356,6 +356,9 @@ ActiveRecord::Schema.define(version: 2019_12_11_061812) do
     t.string "kana_first_name", default: "", null: false
     t.string "kana_last_name", default: "", null: false
     t.boolean "job_seeker", default: false, null: false
+    t.boolean "slack_participation", default: true, null: false
+    t.boolean "github_collaborator", default: false, null: false
+    t.boolean "officekey_permission", default: false, null: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
