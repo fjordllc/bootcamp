@@ -27,11 +27,7 @@
             i.fas.fa-comment
           .thread-list-item-meta__comment-count-value
             = report.comments.size
-        .thread-list-item__user-icons
-          - report.comments.recent_unique_users.each do |user|
-            .thread-list-item__user-icon
-              = link_to user_path(user) do
-                = image_tag user.avatar_url, title: "#{user.icon_title}", class: "thread-list-item__checked-author-icon a-user-icon is-#{user.role}"
+        = render "comments/user_icons", comments: report.comments
         time.thread-list-item-meta__updated-at(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate="pubdate")
           = "最終コメント:#{l report .comments.last.updated_at}"
 
