@@ -6,6 +6,7 @@
         :key="comment.id"
         :comment="comment",
         :currentUser="currentUser",
+        :id="index",
         @delete="deleteComment")
       .thread-comment-form
         .thread-comment__author
