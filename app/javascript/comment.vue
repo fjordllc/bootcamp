@@ -8,7 +8,7 @@
         h2.thread-comment__title
           a.thread-comment__title-link(:href="comment.user.url" itempro="url")
             | {{ comment.user.login_name }}
-        time.thread-comment__created-at(:datetime="commentableCreatedAt" pubdate="pubdate")
+        time.thread-comment__created-at(:datetime="commentableCreatedAt" pubdate="pubdate" @click="copyCommentURLToClipboard(comment.id)")
           | {{ updatedAt }}
       .thread-comment__description.js-target-blank.is-long-text(v-html="markdownDescription")
       reaction(
@@ -134,6 +134,16 @@ export default {
       if (window.confirm('削除してよろしいですか？')) {
         this.$emit('delete', this.comment.id);
       }
+    },
+    copyCommentURLToClipboard(commentId) {
+      const commentURL　= location.href.split("#")[0] + "#comment_" + commentId;
+      const textBox = document.createElement("textarea");
+      textBox.setAttribute("type", "hidden");
+      textBox.textContent = commentURL;
+      document.body.appendChild(textBox);
+      textBox.select();
+      document.execCommand('copy');
+      document.body.removeChild(textBox);
     }
   },
   computed: {
