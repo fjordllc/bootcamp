@@ -85,6 +85,11 @@ export default {
       const tribute = new Tribute({ collection: collection })
       tribute.attach(textareas)
     })
+
+    this.$nextTick( () => {
+      const commentAnchor = location.hash;
+      commentAnchor ? location.href = location.href : null;
+    })
   },
   methods: {
     token () {

@@ -90,13 +90,6 @@ export default {
   },
   mounted: function() {
     $("textarea").textareaAutoSize();
-    // issue#1462: mount直後だとページ内リンクが動作しないようなので１秒遅延を入れています
-    const commentAnchor = location.href.split("#")[1]
-    if(commentAnchor){
-      setTimeout(() => {
-        location.href = location.href;
-        }, 1000) 
-    }
   },
   methods: {
     token () {
