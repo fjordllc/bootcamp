@@ -10,6 +10,8 @@
           = link_to product, itempro: "url", class: "thread-list-item__title-link" do
             | #{product.practice.title}の提出物
     .thread-list-item-meta
+      = link_to product.user, class: "thread-header__author" do
+        = product.user.login_name
       time.thread-list-item-meta__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")
         = l product.updated_at
       - if product.comments.any?
