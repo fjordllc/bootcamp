@@ -86,10 +86,12 @@ export default {
       tribute.attach(textareas)
     })
 
-    this.$nextTick( () => {
-      const commentAnchor = location.hash;
-      commentAnchor ? location.href = location.href : null;
-    })
+    const commentAnchor = location.hash;
+    if(commentAnchor) {
+      this.$nextTick( () => {
+        location.href = location.href;
+      })
+    }
   },
   methods: {
     token () {
