@@ -81,6 +81,36 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text "#{user.full_name} さんを削除しました。"
   end
 
+  test "hide input for retire date when unchecked" do
+    user = users(:hatsuno)
+    visit "/admin/users/#{user.id}/edit"
+    assert has_unchecked_field?("retire_checkbox", visible: false)
+    assert_no_selector "#user_retired_on"
+  end
+
+  test "show input for retire date when checked" do
+    user = users(:hatsuno)
+    visit "/admin/users/#{user.id}/edit"
+    check "retire_checkbox", allow_label_click: true
+    assert_selector "#user_retired_on"
+  end
+
+  test "show input for retire date if user is retired" do
+    user = users(:yameo)
+    visit "/admin/users/#{user.id}/edit"
+    assert has_checked_field?("retire_checkbox", visible: false)
+    assert has_field?("user_retired_on", with: user.retired_on.to_s)
+  end
+
+  test "reset value of retire date when unchecked" do
+    user = users(:yameo)
+    visit "/admin/users/#{user.id}/edit"
+    uncheck "retire_checkbox", allow_label_click: true
+    assert has_unchecked_field?("retire_checkbox", visible: false)
+    check "retire_checkbox", allow_label_click: true
+    assert has_field?("user_retired_on", with: "")
+  end
+
   test "hide input for graduation date when unchecked" do
     user = users(:hatsuno)
     visit "/admin/users/#{user.id}/edit"
