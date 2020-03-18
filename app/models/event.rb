@@ -31,8 +31,6 @@ class Event < ApplicationRecord
     validate :open_end_at_be_less_than_end_at
   end
 
-  after_update EventCallbacks.new
-
   belongs_to :user
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
@@ -58,22 +56,36 @@ class Event < ApplicationRecord
   end
 
   def can_participate?
-    first_come_first_served.count <= capacity
+    first_come_first_served.count < capacity
   end
 
-  def cancel_participation!(user:)
+  def cancel_participation!(user)
     participation = self.participations.find_by(user_id: user.id)
     participation.destroy
 
     return unless participation.enable
 
-    event = self
-    first_waiting_participation = first_waiting_participation(event)
+    move_up_participation = waiting_particpations.first
 
-    if first_waiting_participation
-      first_waiting_participation.update!(enable: true)
-      send_notification(event, first_waiting_participation.user)
+    if move_up_participation
+      move_up_participation.update!(enable: true)
+      self.send_notification(move_up_participation.user)
     end
+  end
+
+  def update_participations
+    first_come_participations.each.with_index(1) do |participation, i|
+      if i <= self.capacity
+        participation.update(enable: true)
+        self.send_notification(participation.user) if participation.waited?
+      else
+        participation.update(enable: false)
+      end
+    end
+  end
+
+  def send_notification(receiver)
+    NotificationFacade.moved_up_event_waiting_user(self, receiver)
   end
 
   private
@@ -109,14 +121,12 @@ class Event < ApplicationRecord
       users.order("participations.created_at asc")
     end
 
-    def first_waiting_participation(event)
-      event.participations
-           .disabled
-           .order(created_at: :asc)
-           .first
+    def first_come_participations
+      participations.order(created_at: :asc)
     end
 
-    def send_notification(event, receiver)
-      NotificationFacade.moved_up_event_waiting_user(event, receiver)
+    def waiting_particpations
+      participations.disabled
+                    .order(created_at: :asc)
     end
 end
