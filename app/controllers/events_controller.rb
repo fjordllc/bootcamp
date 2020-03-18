@@ -35,6 +35,7 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
+      @event.update_participations if @event.saved_change_to_attribute?("capacity")
       redirect_to @event, notice: "イベントを更新しました。"
     else
       render :edit
