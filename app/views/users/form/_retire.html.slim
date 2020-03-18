@@ -1,3 +1,8 @@
-.form-item
-  = f.label :retired_on, class: "a-label"
-  = f.date_field :retired_on, class: "a-text-input"
+.form-item.js-date-input-toggler
+  .form-item__label-checkbox
+    = check_box_tag :retire_checkbox, 1, false, class: "js-date-input-toggler-checkbox"
+    = f.label :retired_on, class: "a-label", for: "retire_checkbox" do
+      | リタイア
+  .form-item__inline-form-item.js-date-input-toggler-date-area
+    .a-label = User.human_attribute_name :retired_on
+    = f.date_field :retired_on, class: "a-text-input js-date-input-toggler-date"
