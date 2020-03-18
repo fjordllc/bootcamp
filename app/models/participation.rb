@@ -6,5 +6,7 @@ class Participation < ApplicationRecord
 
   scope :disabled, -> { where(enable: false) }
 
-  after_create ParticipationCallbacks.new
+  def waited?
+    self.saved_change_to_attribute?("enable", from: false, to: true)
+  end
 end
