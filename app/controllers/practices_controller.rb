@@ -61,7 +61,8 @@ class PracticesController < ApplicationController
         :category_id,
         :position,
         :submission,
-        :open_product
+        :open_product,
+        :include_progress
       )
     end
 
