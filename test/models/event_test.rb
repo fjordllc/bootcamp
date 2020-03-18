@@ -37,36 +37,37 @@ class EventTest < ActiveSupport::TestCase
 
   test "can_participate?" do
     event = events(:event_3)
-    assert_equal false, event.can_participate?
+    assert_not event.can_participate?
   end
 
-  test "don't move up when waiting user canceled" do
-    event = events(:event_3)
-    waiting_participation = participations(:participation_2)
-
-    event.cancel_participation!(user: waiting_participation.user)
-
-    assert_includes event.participations.disabled, participations(:participation_4)
-  end
-
-  test "waiting user move up when participant cancel" do
+  test "cancel_participation" do
     event = events(:event_3)
     participant = participations(:participation_3).user
     waiting_participation = participations(:participation_2)
+    move_up_participation = participations(:participation_4)
 
-    event.cancel_participation!(user: participant)
+    event.cancel_participation!(waiting_participation.user)
+    assert_includes event.participations.disabled, move_up_participation
 
-    assert_not_includes event.participations.disabled, waiting_participation
+    event.cancel_participation!(participant)
+    assert_not_includes event.participations.disabled, move_up_participation
   end
 
-  test "don't move up when there is not waiting user" do
-    event = events(:event_2)
-    participant_1 = participations(:participation_1)
-    participant_2 = participations(:participation_5)
+  test "update_participations" do
+    event = events(:event_3)
+    move_up_participation = participations(:participation_2)
 
-    event.cancel_participation!(user: participant_1.user)
+    event.update(capacity: 2)
+    event.update_participations
 
-    assert_equal [participant_2], event.participations
+    assert_not_includes event.participations.disabled, move_up_participation
+  end
+
+  test "send_notification" do
+    event = events(:event_3)
+    user = users(:hatsuno)
+    event.send_notification(user)
+    assert Notification.where(user: user, path: "/events/#{event.id}").exists?
   end
 
   test "should be invalid when start_at >= end_at" do
