@@ -49,6 +49,10 @@
             label
               = f.check_box :open_product
               | OKをもらっていない人も提出物を見られるようにする場合はチェック
+    .form-item
+      = f.label :progress, class: "a-label"
+      .checkboxes
+        ul.checkboxes__items
           li.checkboxes__item
             label
               = f.check_box :include_progress, { checked: "checked" }
