@@ -170,4 +170,14 @@ class UserTest < ActiveSupport::TestCase
     user.login_name = "１２３４５"
     assert user.invalid?
   end
+
+  test "is correct completed practicies percentage" do
+    user = users(:komagata)
+    old_percentage = user.completed_percentage
+    user.completed_practices << practices(:practice_4)
+    assert_not_equal old_percentage, user.completed_percentage
+    old_percentage = user.completed_percentage
+    user.completed_practices << practices(:practice_53)
+    assert_equal old_percentage, user.completed_percentage
+  end
 end

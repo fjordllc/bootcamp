@@ -83,4 +83,10 @@ class PracticesTest < ApplicationSystemTestCase
     assert_current_path course_practices_path(user.course)
     assert_equal "category-#{practice.category.id}", URI.parse(current_url).fragment
   end
+
+  test "show setting for completed percentage" do
+    login_user "komagata", "testtest"
+    visit "/practices/new"
+    assert find(:label, "進捗の計算")
+  end
 end
