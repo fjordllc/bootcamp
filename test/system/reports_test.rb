@@ -8,6 +8,10 @@ class ReportsTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
   end
 
+  def teardown
+    wait_for_vuejs
+  end
+
   test "create report as WIP" do
     visit "/reports/new"
     within("#new_report") do
