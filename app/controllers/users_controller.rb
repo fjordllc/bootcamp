@@ -70,7 +70,7 @@ class UsersController < ApplicationController
 
         token = params[:idempotency_token]
         customer = Card.create(@user, params[:stripeToken], token)
-        subscription = Subscription.create(customer["id"], "#{token}-subscription")
+        subscription = Subscription.new.create(customer["id"], "#{token}-subscription")
 
         @user.customer_id = customer["id"]
         @user.subscription_id = subscription["id"]

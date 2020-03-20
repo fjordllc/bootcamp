@@ -268,7 +268,7 @@ SQL
 
   def customer
     if customer_id?
-      Stripe::Customer.retrieve(customer_id)
+      Customer.new.retrieve(customer_id)
     end
   end
 
@@ -280,6 +280,16 @@ SQL
 
   def card
     customer.sources.data.first
+  end
+
+  def subscription?
+    subscription_id?
+  end
+
+  def subscription
+    if subscription?
+      Subscription.new.retrieve(subscription_id)
+    end
   end
 
   def student?
