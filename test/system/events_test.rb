@@ -3,6 +3,10 @@
 require "application_system_test_case"
 
 class EventsTest < ApplicationSystemTestCase
+  teardown do
+    wait_for_vuejs
+  end
+
   test "show link to create new event when user is admin" do
     login_user "komagata", "testtest"
     visit events_path

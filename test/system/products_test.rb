@@ -4,6 +4,10 @@ require "application_system_test_case"
 require "minitest/mock"
 
 class ProductsTest < ApplicationSystemTestCase
+  teardown do
+    wait_for_vuejs
+  end
+
   test "see my product" do
     login_user "yamada", "testtest"
     visit "/products/#{products(:product_1).id}"
