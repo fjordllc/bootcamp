@@ -16,8 +16,7 @@
       h3.thread-list-item__sub-title
         = question.practice.title
     .thread-list-item-meta
-      = link_to question.user, class: "thread-header__author" do
-        = question.user.login_name
+      = link_to question.user.login_name, question.user, class: "thread-header__author"
       time.thread-list-item-meta__updated-at(datetime="#{question.updated_at.to_datetime}" pubdate="pubdate")
         = l question.updated_at
       - if question.answers.present?
