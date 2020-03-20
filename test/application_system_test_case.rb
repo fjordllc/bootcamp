@@ -8,6 +8,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
   include StripeHelper
 
+  VUEJS_WAIT_SECOND = (ENV['VUEJS_WAIT_SECOND'] || 2).to_i
+
   if ENV["HEADED"]
     driven_by :selenium, using: :chrome
   else
@@ -16,5 +18,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   setup do
     Bootcamp::Setup.attachment
+  end
+
+  def wait_for_vuejs
+    # https://bootcamp.fjord.jp/questions/468 に書いた理由により、やむを得ずsleepする
+    sleep VUEJS_WAIT_SECOND
   end
 end
