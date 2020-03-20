@@ -8,7 +8,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
   include StripeHelper
 
-  VUEJS_WAIT_SECOND = (ENV['VUEJS_WAIT_SECOND'] || 2).to_i
+  VUEJS_WAIT_SECOND = (ENV["VUEJS_WAIT_SECOND"] || 2).to_i
 
   if ENV["HEADED"]
     driven_by :selenium, using: :chrome
