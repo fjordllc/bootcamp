@@ -2,6 +2,8 @@
 
 class CardController < ApplicationController
   before_action :require_login
+  before_action :require_card, only: :show
+  before_action :require_subscription, only: :show
 
   def show
     @card = current_user.card
@@ -14,7 +16,7 @@ class CardController < ApplicationController
     begin
       token = params[:idempotency_token]
       customer = Card.create(current_user, params[:stripeToken], token)
-      subscription = Subscription.create(customer["id"], "#{token}-subscription")
+      subscription = Subscription.new.create(customer["id"], "#{token}-subscription")
       current_user.customer_id = customer["id"]
       current_user.save(validate: false)
 

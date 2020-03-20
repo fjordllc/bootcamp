@@ -24,4 +24,12 @@ class ApplicationController < ActionController::Base
         ActiveStorage::Current.host = request.base_url
       end
     end
+
+    def require_card
+      redirect_to root_path, notice: "カード登録が必要です。" unless current_user&.card?
+    end
+
+    def require_subscription
+      redirect_to root_path, notice: "サブスクリプション登録が必要です。" unless current_user&.subscription?
+    end
 end
