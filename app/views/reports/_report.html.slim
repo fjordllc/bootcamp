@@ -17,6 +17,7 @@
           = link_to report_path(report), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
             i.fas.fa-trash-alt
     .thread-list-item-meta
+      = link_to report.user.login_name, report.user, class: "thread-header__author"
       time.thread-list-item-meta__updated-at(datetime="#{report.updated_at.to_datetime}" pubdate="pubdate")
         = l report.updated_at
       - if report.comments.any?
