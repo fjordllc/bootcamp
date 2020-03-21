@@ -27,7 +27,7 @@ class RetirementController < ApplicationController
     end
 
     def destroy_subscription
-      Subscription.destroy(current_user.subscription_id) if current_user.subscription_id
+      Subscription.new.destroy(current_user.subscription_id) if current_user.subscription_id
     end
 
     def notify_to_admins

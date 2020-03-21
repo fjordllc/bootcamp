@@ -2,6 +2,8 @@
 
 class CardController < ApplicationController
   before_action :require_login
+  before_action :require_card, only: :show
+  before_action :require_subscription, only: :show
 
   def show
     @card = current_user.card
@@ -13,8 +15,8 @@ class CardController < ApplicationController
   def create
     begin
       token = params[:idempotency_token]
-      customer = Card.create(current_user, params[:stripeToken], token)
-      subscription = Subscription.create(customer["id"], "#{token}-subscription")
+      customer = Card.new.create(current_user, params[:stripeToken], token)
+      subscription = Subscription.new.create(customer["id"], "#{token}-subscription")
       current_user.customer_id = customer["id"]
       current_user.save(validate: false)
 
@@ -44,7 +46,7 @@ class CardController < ApplicationController
 
   def update
     begin
-      Card.update(current_user.customer_id, params[:stripeToken])
+      Card.new.update(current_user.customer_id, params[:stripeToken])
 
       flash[:notice] = "カードを編集しました。"
       logger.info "[Payment] カードを編集しました。"

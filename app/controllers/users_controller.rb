@@ -61,7 +61,7 @@ class UsersController < ApplicationController
           return false
         end
 
-        if Card.search(email: @user.email)
+        if Card.new.search(email: @user.email)
           flash[:alert] = "同じメールアドレスの顧客が既に登録済みです。"
           logger.warn "[Payment] 同じメールアドレスの顧客が既に登録済みです。"
           render "new"
@@ -69,8 +69,8 @@ class UsersController < ApplicationController
         end
 
         token = params[:idempotency_token]
-        customer = Card.create(@user, params[:stripeToken], token)
-        subscription = Subscription.create(customer["id"], "#{token}-subscription")
+        customer = Card.new.create(@user, params[:stripeToken], token)
+        subscription = Subscription.new.create(customer["id"], "#{token}-subscription")
 
         @user.customer_id = customer["id"]
         @user.subscription_id = subscription["id"]
