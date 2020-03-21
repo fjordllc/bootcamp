@@ -43,6 +43,7 @@ gem "jp_prefecture"
 gem "active_storage_validations"
 gem "any_login"
 gem "sucker_punch", "~> 2.0"
+gem "webmock"
 
 group :production, :staging do
   gem "newrelic_rpm"
@@ -53,7 +54,6 @@ group :development, :test do
 
   # not default
   gem "pry-byebug"
-  gem "webmock"
 end
 
 group :development do
