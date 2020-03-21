@@ -53,6 +53,7 @@ group :development, :test do
 
   # not default
   gem "pry-byebug"
+  gem "webmock"
 end
 
 group :development do
@@ -76,7 +77,4 @@ group :test do
   gem "capybara", ">= 2.15"
   gem "selenium-webdriver"
   gem "webdrivers"
-
-  # not default
-  gem "webmock"
 end
