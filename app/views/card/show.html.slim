@@ -18,4 +18,7 @@ header.page-header
       ul.form-actions__items
         li.form-actions__item.is-main
           = link_to "カード変更", edit_card_path, class: "a-button is-lg is-warning is-block"
+
+    h2 次回決済日時
+    p = l Time.at(current_user.subscription["current_period_end"])
 = render "notice"
