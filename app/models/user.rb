@@ -51,6 +51,7 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :events,        dependent: :destroy
   has_many :participations, dependent: :destroy
+  has_many :timelines,     dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :answers,      dependent: :destroy
 
