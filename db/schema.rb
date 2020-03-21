@@ -335,6 +335,14 @@ ActiveRecord::Schema.define(version: 2020_05_24_022514) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "timelines", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_timelines_on_user_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "login_name", null: false
     t.string "email"
@@ -422,5 +430,6 @@ ActiveRecord::Schema.define(version: 2020_05_24_022514) do
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
   add_foreign_key "reactions", "users"
+  add_foreign_key "timelines", "users"
   add_foreign_key "works", "users"
 end
