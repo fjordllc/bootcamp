@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   include Authentication
   include PolicyHelper
-  protect_from_forgery
+  protect_from_forgery with: :exception
   before_action :init_user
   before_action :allow_cross_domain_access
   before_action :set_host_for_disk_storage
