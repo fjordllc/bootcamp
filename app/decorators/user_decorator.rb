@@ -43,10 +43,7 @@ module UserDecorator
     emotions_and_date = self.set_emotions_and_dates(term)
     last_wday = emotions_and_date.first[:date].wday
 
-    blanks = []
-    last_wday.times do
-      blanks << { date: nil, emotion: nil }
-    end
+    blanks = last_wday.times.map { { date: nil, emotion: nil } }
 
     [ *blanks, *emotions_and_date ].each_slice(DAYS_IN_WEEK)
                                    .to_a
