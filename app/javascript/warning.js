@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const warningForm = document.querySelector('.js-warning-form')
   if (!warningForm) { return null }
 

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   document.querySelectorAll('input').forEach((e) => {
     if (e.checked === true) {
       e.parentNode.classList.add('is-checked')

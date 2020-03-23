@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Comments from './comments.vue'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const comments = document.getElementById('js-comments')
   if (comments) {
     const commentableId = comments.getAttribute('data-commentable-id')

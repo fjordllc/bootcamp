@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   if (!document.querySelector('body.users-new,body.users-create,body.card-new,body.card-edit')) {
     return null
   }
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // Submit the form with the token ID.
-  function stripeTokenHandler (token) {
+  function stripeTokenHandler(token) {
     // Insert the token ID into the form so it gets submitted to the server
     var form = document.getElementById('payment-form')
     var hiddenInput = document.createElement('input')

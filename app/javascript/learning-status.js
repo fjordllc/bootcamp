@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import LearningStatus from './learning-status.vue'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const learningStatuses = document.querySelectorAll('.js-learning-status')
   if (learningStatuses) {
     for (let i = 0; i < learningStatuses.length; i++) {

@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const canvas = document.getElementById('grass')
   if (!canvas) {
     return false

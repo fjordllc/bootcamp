@@ -2,7 +2,7 @@ import Tribute from 'tributejs'
 import TextareaAutocomplteEmoji from 'classes/textarea-autocomplte-emoji'
 import TextareaAutocomplteMention from 'classes/textarea-autocomplte-mention'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const textareas = document.querySelectorAll('.js-markdown')
 
   if (textareas.length === 0) { return }

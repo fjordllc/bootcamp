@@ -3,7 +3,7 @@ import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItMention from './markdown-it-mention'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const md = new MarkdownIt({
     html: true,
     breaks: true,

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const trigger = document.querySelectorAll('.js-show-handle__trigger')
 
   return trigger.forEach(value => {

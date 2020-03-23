@@ -1,5 +1,5 @@
 import 'textarea-autosize/dist/jquery.textarea_autosize.min'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   $('textarea').textareaAutoSize()
 })

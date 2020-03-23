@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Learning from './learning.vue'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const learning = document.getElementById('js-learning')
   if (learning) {
     const practiceId = learning.getAttribute('data-practice-id')

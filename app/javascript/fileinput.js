@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const inputs = document.querySelectorAll('.js-file-input input')
   if (inputs) {
     for (let i = 0; i < inputs.length; i++) {

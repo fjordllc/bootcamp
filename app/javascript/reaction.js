@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const reactions = document.querySelectorAll('.js-reactions')
 
   if (reactions.length === 0) { return }

@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const categorySelect = document.querySelector("select[name='practice[category_id]']")
   const courseSelect = document.querySelector("select[name='course']")
   if (!categorySelect || !courseSelect) {

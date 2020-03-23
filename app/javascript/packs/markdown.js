@@ -1,6 +1,6 @@
 import TextareaMarkdown from 'textarea-markdown'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const meta = document.querySelector('meta[name="csrf-token"]')
   const token = meta ? meta.content : ''
 
