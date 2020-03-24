@@ -24,12 +24,4 @@ module ReportDecorator
       "#{serial_number}"
     end
   end
-
-  # def first_report?
-  #   serial_number == 1
-  # end
-
-  # def important?
-  #   serial_number < 6 ? "is-important" : ""
-  # end
 end
