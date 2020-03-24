@@ -171,7 +171,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
-  test "is correct completed practicies percentage" do
+  test "is correct progress" do
     user = users(:komagata)
     old_percentage = user.completed_percentage
     user.completed_practices << practices(:practice_4)
