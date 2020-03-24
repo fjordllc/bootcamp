@@ -53,6 +53,10 @@ class Report < ActiveRecord::Base
           .first
   end
 
+  def first?
+    serial_number == 1
+  end
+
   enum emotion: {
     soso: 0,
     sad: 1,

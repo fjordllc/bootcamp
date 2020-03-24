@@ -16,4 +16,20 @@ module ReportDecorator
       "#{hour}時間#{minute}分"
     end
   end
+
+  def decide_which_report
+    if serial_number == 1
+      "初日報"
+    else
+      "#{serial_number}"
+    end
+  end
+
+  # def first_report?
+  #   serial_number == 1
+  # end
+
+  # def important?
+  #   serial_number < 6 ? "is-important" : ""
+  # end
 end
