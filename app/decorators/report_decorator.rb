@@ -17,7 +17,7 @@ module ReportDecorator
     end
   end
 
-  def decide_which_report
+  def number
     if serial_number == 1
       "初日報"
     else
