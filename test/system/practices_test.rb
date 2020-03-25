@@ -87,6 +87,6 @@ class PracticesTest < ApplicationSystemTestCase
   test "show setting for completed percentage" do
     login_user "komagata", "testtest"
     visit "/practices/new"
-    assert find(:label, "進捗の計算")
+    assert_text "進捗の計算"
   end
 end
