@@ -31,7 +31,7 @@ header.page-header
               span.thread-header__count(class="#{@report.serial_number < 6 ? "is-important" : ""}")
                 = @report.decide_which_report
               |)
-              = "の日報" unless @report.first? 
+              = "の日報" unless @report.first?
           h1.thread-header__title(class="#{@report.wip? ? "is-wip" : ""}")
             - if @report.wip?
               span.thread-header__title-icon
