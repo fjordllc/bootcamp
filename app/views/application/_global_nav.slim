@@ -36,17 +36,12 @@ nav.global-nav
             .global-nav-links__link-label 日報
         - if staff_login?
           li.global-nav-links__item
-        - if current_user.admin? && Product.unchecked.exists?
-          = link_to products_unchecked_index_path, class: "global-nav-links__link is-active #{current_link /^products-index/}" do
+          = link_to products_unchecked_index_path, class: "global-nav-links__link #{'is-active' if current_user.admin? && Product.unchecked.exists?}  #{current_link /^products-index/}" do
             .global-nav-links__link-icon
               i.fas.fa-hand-paper
-              .global-nav__item-count.a-notification-count
+            - if current_user.admin? && Product.unchecked.exists?
+              .global-nav__item-count.a-notification-count 
                 = Product.unchecked.count
-            .global-nav-links__link-label 提出物
-        - else
-          = link_to products_unchecked_index_path, class: "global-nav-links__link #{current_link /^products-index/}" do
-            .global-nav-links__link-icon
-              i.fas.fa-hand-paper
             .global-nav-links__link-label 提出物
         li.global-nav-links__item
           = link_to questions_path, class: "global-nav-links__link #{current_link /^questions/}" do
