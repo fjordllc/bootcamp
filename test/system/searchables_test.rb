@@ -38,6 +38,6 @@ class SearchablesTest < ApplicationSystemTestCase
     end
     find("#test-search").click
     assert_text "yamada"
-    assert (has_css? ".thread-list-item-meta__created-at")
+    assert_css ".thread-list-item-meta__created-at"
   end
 end
