@@ -27,7 +27,7 @@ header.page-header
             = link_to @report.user, class: "thread-header__author", title: @report.user.full_name do
               = @report.user.login_name
             .thread-header__date
-              = l @report.reported_on 
+              = l @report.reported_on
               |(
               span.thread-header__count(class="#{@report.serial_number < 6 ? "is-important" : ""}")
                 = @report.number
