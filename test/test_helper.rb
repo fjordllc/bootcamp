@@ -7,10 +7,7 @@ require "capybara/rails"
 require "webmock/minitest"
 require "supports/stub_helper"
 
-WebMock.disable_net_connect!(
-  allow_localhost: true,
-  allow: "chromedriver.storage.googleapis.com"
-)
+WebMock.allow_net_connect!
 Webdrivers.cache_time = 86_400
 
 class ActiveSupport::TestCase
