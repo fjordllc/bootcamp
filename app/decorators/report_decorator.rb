@@ -21,7 +21,7 @@ module ReportDecorator
     if serial_number == 1
       "初日報"
     else
-      "#{serial_number}"
+      serial_number.to_i
     end
   end
 end
