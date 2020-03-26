@@ -1,7 +1,8 @@
 .thread-list-item(class="#{report.wip? ? "is-wip" : ""}")
   .thread-list-item__inner
     .thread-list-item__author
-      = image_tag report.user.avatar_url, title: "#{report.user.icon_title}", class: "thread-list-item__author-icon a-user-icon is-#{report.user.role}"
+      = link_to report.user, class: "thread-header__author" do
+        = image_tag report.user.avatar_url, title: "#{report.user.icon_title}", class: "thread-list-item__author-icon a-user-icon is-#{report.user.role}"
     header.thread-list-item__header
       .thread-list-item__header-title-container
         - if report.wip?
