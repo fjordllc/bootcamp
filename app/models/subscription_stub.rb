@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SubscriptionStub
-  WebMock.enable!
+  WebMock.allow_net_connect!
 
   def retrieve(id)
     json = File.read("#{Rails.root}/test/fixtures/files/mock_bodies/subscription.json")
