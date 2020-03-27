@@ -135,7 +135,7 @@ class User < ActiveRecord::Base
   scope :unretired, -> { where(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
-  scope :students, -> {
+  scope :students_and_trainees, -> {
     where(
       admin: false,
       mentor: false,
@@ -246,8 +246,8 @@ SQL
 
   def self.users_role(target)
     case target
-    when "student"
-      self.students
+    when "student_and_trainee"
+      self.students_and_trainees
     when "job_seeking"
       self.job_seeking
     when "retired"
