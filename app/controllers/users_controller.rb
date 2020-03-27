@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %w(show)
 
   def index
-    @target = params[:target] || "student"
+    @target = params[:target] || "student_and_trainee"
     @users = User.with_attached_avatar
       .preload(:course)
       .order(updated_at: :desc)
