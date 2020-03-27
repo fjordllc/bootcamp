@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
       retired_on: nil
     )
   }
-  scope :active_fjord_students, -> {
+  scope :students, -> {
     where(
       admin: false,
       mentor: false,
@@ -176,7 +176,7 @@ class User < ActiveRecord::Base
   scope :trainee, -> { where(trainee: true) }
   scope :job_seeking, -> { where(job_seeking: true) }
   scope :job_seekers, -> {
-    active_fjord_students.where(
+    students.where(
       job_seeker: true
     )
   }
@@ -391,7 +391,7 @@ SQL
     when "all"
       User.unretired
     when "active_users"
-      User.admins.or(User.active_fjord_students)
+      User.admins.or(User.students)
     when "job_seekers"
       User.admins.or(User.job_seekers)
     else
