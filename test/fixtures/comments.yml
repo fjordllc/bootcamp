@@ -55,3 +55,24 @@ comment_10:
   user: yamada
   commentable: product_1 (Product)
   description: "提出物へのコメント"
+
+comment_11:
+  user: yamada
+  commentable: report_1 (Report)
+  description: "テスト用 report_1へのコメント"
+
+comment_12:
+  user: yamada
+  commentable: announcement_1 (Announcement)
+  description: "テスト用 announcement_1へのコメント"
+
+comment_13:
+  user: yamada
+  commentable: product_1 (Product)
+  description: "テスト用 product_1へのコメント"
+
+comment_14:
+  user: yamada
+  commentable: product_3 (Product)
+  description: "テスト用 product_3へのコメント"
+
