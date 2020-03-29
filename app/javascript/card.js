@@ -65,7 +65,7 @@ document.addEventListener('turbolinks:load', () => {
   })
 
   // Submit the form with the token ID.
-  function stripeTokenHandler(token) {
+  function stripeTokenHandler (token) {
     // Insert the token ID into the form so it gets submitted to the server
     var form = document.getElementById('payment-form')
     var hiddenInput = document.createElement('input')
