@@ -95,13 +95,11 @@ class ArticlesTest < ApplicationSystemTestCase
     fill_in "article[tag_list]", with: "tag"
     click_on "更新する"
     click_on "ブログ記事一覧"
-
-    assert_equal 2, all(".a-card").length
+    assert has_selector?(:css, ".a-card", count: 2)
 
     within(".tag_cloud") do
       click_on "tag"
     end
-
-    assert_equal 1, all(".a-card").length
+    assert has_selector?(:css, ".a-card", count: 1)
   end
 end

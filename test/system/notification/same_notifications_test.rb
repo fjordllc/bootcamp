@@ -40,6 +40,7 @@ class NotificationsTest < ApplicationSystemTestCase
     @before_update_notification = Notification.find_by(id: @user.notifications.first)
     find(".test-show-notifications").click # 通知をクリック
     click_link "komagataさんからコメントが届きました。"
+    has_css?("reports-show")
     @notification = Notification.find_by(id: @user.notifications.first)
     @notifications = @user.notifications.where(path: @notification.path)
     @notifications.each do |notification|
@@ -49,6 +50,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
     # ユーザーからコメントが来た時(admin)
     click_link "日報"
+    has_css?("reports-index")
     click_link "Rubyの基礎"
     fill_in "new_comment[description]", with: "@komagata ユーザーからのコメント"
     click_button "コメントする"
