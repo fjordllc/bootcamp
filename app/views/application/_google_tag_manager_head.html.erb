@@ -15,5 +15,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   gtag('js', new Date());
 
   gtag('config', 'UA-2927688-17');
+
+  document.addEventListener('turbolinks:load', function(event){
+    if(typeof(gtag) == 'function'){
+      gtag('config', 'UA-2927688-17', {
+        'page_title': event.target.title,
+        'page_path': event.data.url.replace(window.location.protocol + "//" + window.location.hostname, "")
+      });
+    }
+  })
 </script>
 <% end %>
