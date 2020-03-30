@@ -1,30 +1,17 @@
-- if searchable.class == Comment
-  - comment = searchable
-  - commentable = comment.commentable_type.constantize.find(comment.commentable_id)
-  .thread-list-item(class="is-#{comment.commentable_type.tableize.singularize}")
-    .thread-list-item__inner
-      .thread-list-item__label
-        = t("activerecord.models.#{comment.commentable_type.tableize.singularize}")
-      header.thread-list-item__header
-        .thread-list-item__title
-          = link_to commentable.title, "#{polymorphic_url(comment.commentable)}#comment_#{comment.id}", class: "thread-list-item__title-link"
-      .thread-list-item__body
-        .thread-list-item__summury
-          - if commentable.class.to_s == "Product"
-            - if policy(commentable).show? || commentable.practice.open_product?
-              = md_summury(comment.description, 90)
-            -else
-              = "該当プラクティスを完了するまで他の人の提出物へのコメントは見れません。"
-          - else
-            = md_summury(comment.description, 90)
-- else
-  .thread-list-item(class="is-#{searchable.class.to_s.tableize.singularize}")
-    .thread-list-item__inner
-      .thread-list-item__label
-        = t("activerecord.models.#{searchable.class.to_s.tableize.singularize}")
-      header.thread-list-item__header
-        .thread-list-item__title
-          = link_to searchable.title, searchable, class: "thread-list-item__title-link"
-      .thread-list-item__body
-        .thread-list-item__summury
-          = md_summury(searchable.description, 90)
+- document = matched_document(searchable)
+.thread-list-item(class="is-#{document.class.to_s.tableize.singularize}")
+  .thread-list-item__inner
+    .thread-list-item__label
+      = t("activerecord.models.#{document.class.to_s.tableize.singularize}")
+    header.thread-list-item__header
+      .thread-list-item__title
+        = link_to document.title, searchable_url(searchable), class: "thread-list-item__title-link"
+    .thread-list-item__body
+      .thread-list-item__summury
+        = md_summury(filtered_message(searchable), 90)
+      .thread-list-item-meta
+        .thread-list-item-meta__user
+          - if searchable.class != Practice && searchable.class != Page
+            = link_to searchable.user.login_name, searchable.user, class: "thread-header__author"
+        time.thread-list-item-meta__created-at(datetime="#{searchable.created_at.to_datetime}" pubdate="pubdate")
+          = l searchable.updated_at
