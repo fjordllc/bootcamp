@@ -183,7 +183,7 @@ class User < ActiveRecord::Base
   end
 
   def completed_percentage
-    completed_practices.size.to_f / course.practices.count.to_f * 100
+    completed_practices.where(include_progress: true).size.to_f / course.practices.where(include_progress: true).count.to_f * 100
   end
 
   def completed_practices_size(category)
