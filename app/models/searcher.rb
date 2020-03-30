@@ -14,9 +14,9 @@ class Searcher
 
   def self.search(word, document_type: :all)
     if document_type == :all
-      AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }
+      AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by { |result| result.created_at }.reverse
     else
-      result_for(document_type, word)
+      result_for(document_type, word).sort_by { |result| result.created_at }.reverse
     end
   end
 
