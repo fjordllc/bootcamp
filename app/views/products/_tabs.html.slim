@@ -15,3 +15,9 @@
           - if Product.not_responded_products.count > 0
             .page-tabs__item-count.a-notification-count
               = Product.not_responded_products.count
+      li.page-tabs__item
+        = link_to products_wip_index_path, class: "page-tabs__item-link #{current_link /^products-wip-index/}" do
+          | WIP
+          - if Product.wip.count > 0
+            .page-tabs__item-count.a-notification-count
+              = Product.wip.count
