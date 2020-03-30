@@ -9,7 +9,7 @@ class Announcement < ApplicationRecord
 
   enum target: {
     all: 0,
-    active_users: 1,
+    students: 1,
     job_seekers: 2
   }, _prefix: true
 

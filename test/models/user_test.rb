@@ -192,8 +192,8 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes(target, users(:yameo))
   end
 
-  test "announcment for active_users " do
-    target = User.announcement("active_users")
+  test "announcment for students" do
+    target = User.announcement("students")
     assert_includes(target, users(:kimura))
     assert_includes(target, users(:komagata))
     assert_not_includes(target, users(:yameo))
