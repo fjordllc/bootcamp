@@ -173,7 +173,7 @@ class User < ActiveRecord::Base
     ).order(updated_at: :desc)
   }
   scope :admins, -> { where(admin: true) }
-  scope :trainee, -> { where(trainee: true) }
+  scope :trainees, -> { where(trainee: true) }
   scope :job_seeking, -> { where(job_seeking: true) }
   scope :job_seekers, -> {
     students.where(
@@ -263,7 +263,7 @@ SQL
     when "year_end_party"
       self.year_end_party
     when "trainee"
-      self.trainee
+      self.trainees
     when "all"
       self.all
     end
