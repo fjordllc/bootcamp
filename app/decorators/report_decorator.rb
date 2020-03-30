@@ -18,10 +18,6 @@ module ReportDecorator
   end
 
   def number
-    if serial_number == 1
-      "初日報"
-    else
-      serial_number.to_i
-    end
+    serial_number == 1 ? "初日報" : serial_number.to_i
   end
 end
