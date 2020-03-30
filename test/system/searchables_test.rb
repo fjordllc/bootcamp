@@ -30,4 +30,14 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_no_text "テストの質問1"
     assert_no_text "テストのお知らせ"
   end
+
+  test "show user name and created time" do
+    within("form[name=search]") do
+      select "日報"
+      fill_in "word", with: "テストの日報"
+    end
+    find("#test-search").click
+    assert_text "yamada"
+    assert_css ".thread-list-item-meta__created-at"
+  end
 end

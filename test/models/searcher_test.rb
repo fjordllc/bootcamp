@@ -65,4 +65,9 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Question)
     assert_includes(result, Announcement)
   end
+
+  test "sort search results in descending order of creation date" do
+    result = Searcher.search("検索結果確認用", document_type: :reports)
+    assert_equal [reports(:report_12), reports(:report_14), reports(:report_13)], result
+  end
 end
