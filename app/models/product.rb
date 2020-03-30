@@ -25,6 +25,8 @@ class Product < ApplicationRecord
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: "Product").pluck(:checkable_id)) }
 
+  scope :wip, -> { where(wip: true) }
+  scope :not_wip, -> { where(wip: false) }
   scope :list, -> {
     with_avatar
       .preload([:practice, :comments, { checks: { user: { avatar_attachment: :blob } } }])
