@@ -386,7 +386,7 @@ SQL
          .flatten
   end
 
-  def self.announcement(target)
+  def self.announcement_receiver(target)
     case target
     when "all"
       User.unretired
