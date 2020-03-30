@@ -390,7 +390,7 @@ SQL
     case target
     when "all"
       User.unretired
-    when "active_users"
+    when "students"
       User.admins.or(User.students)
     when "job_seekers"
       User.admins.or(User.job_seekers)
