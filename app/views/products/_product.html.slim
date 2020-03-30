@@ -2,7 +2,7 @@
   .thread-list-item__inner
     .thread-list-item__author
       = link_to product.user, class: "thread-header__author" do
-        = image_tag product.user.avatar_url, title: "#{product.user.icon_title}", class: "thread-list-item__author-icon a-user-icon"
+        = image_tag product.user.avatar_url, title: product.user.icon_title, class: "thread-list-item__author-icon a-user-icon"
     header.thread-list-item__header
       .thread-list-item__header-title-container
         - if product.wip?
