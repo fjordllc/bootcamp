@@ -40,7 +40,8 @@ class Comment < ActiveRecord::Base
       id: self
         .select("DISTINCT ON (user_id) id")
         .order(:user_id, created_at: :desc)
-      )
+    )
+      .order(created_at: :asc)
       .map(&:user)
   end
 
