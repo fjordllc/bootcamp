@@ -1,0 +1,45 @@
+.niconico-calendar
+  width: 100%
+  table-layout: fixed
+  th,
+  td
+    border: solid 1px $border-shade
+
+.niconico-calendar__header
+  background-color: $background-tint
+
+.niconico-calendar__header-day
+  width: calc(100% / 7)
+  +text-block(.75rem 1, center)
+  +padding(vertical, .25em)
+  &.is-sunday
+    color: $danger
+  &.is-saturday
+    color: $main
+
+.niconico-calendar__day-inner
+  +block-link
+  +padding(vertical, .25rem .125rem)
+  +size(100%)
+  .niconico-calendar__day.is-blank &
+    background-color: $background-more-tint
+
+a.niconico-calendar__day-inner
+  transition: all .2s ease-out
+  &:hover
+    background-color: rgba($warning, .1)
+
+.niconico-calendar__day-label
+  +text-block(.625rem 1, center $default-text)
+  margin-bottom: .125rem
+  .niconico-calendar__day.is-blank &
+    color: $muted-text
+
+.niconico-calendar__day-value
+  +text-block(1.75rem 1, center flex)
+  align-items: center
+  justify-content: center
+  +size(100% 1.875rem)
+  .niconico-calendar__day.is-blank &
+    color: $muted-text
+    font-size: 1.25rem

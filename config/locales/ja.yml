@@ -4,6 +4,7 @@ ja:
       default: "%Y年%m月%d日"
       short: "%Y/%m/%d"
       md: "%m月%d日"
+      sm: "%m/%d"
   time:
     formats:
       default: "%Y年%m月%d日(%a) %H:%M"
