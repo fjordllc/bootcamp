@@ -18,6 +18,7 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_text "テストのお知らせ"
     assert_text "テスト用 report_1へのコメント"
     assert_text "テスト用 announcement_1へのコメント"
+    assert_text "テストの回答"
   end
 
   test "search reports " do
@@ -85,5 +86,6 @@ class SearchablesTest < ApplicationSystemTestCase
     find("#test-search").click
     assert_text "yamada"
     assert_css ".thread-list-item-meta__created-at"
+    assert_no_text "テストの回答"
   end
 end

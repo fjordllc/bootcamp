@@ -11,6 +11,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, Question)
     assert_includes(result, Announcement)
     assert_includes(result, Comment)
+    assert_includes(result, Answer)
   end
 
   test "returns all types when document_type argument is :all" do
@@ -21,6 +22,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, Question)
     assert_includes(result, Announcement)
     assert_includes(result, Comment)
+    assert_includes(result, Answer)
   end
 
   test "returns only report type when document_type argument is :reports" do
@@ -31,6 +33,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Question)
     assert_not_includes(result, Announcement)
     assert_includes(result, Comment)
+    assert_not_includes(result, Answer)
   end
 
   test "returns only page type when document_type argument is :pages" do
@@ -41,6 +44,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Question)
     assert_not_includes(result, Announcement)
     assert_not_includes(result, Comment)
+    assert_not_includes(result, Answer)
   end
 
   test "returns only practice type when document_type argument is :practices" do
@@ -51,6 +55,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Question)
     assert_not_includes(result, Announcement)
     assert_not_includes(result, Comment)
+    assert_not_includes(result, Answer)
   end
 
   test "returns only question type when document_type argument is :questions" do
@@ -61,6 +66,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, Question)
     assert_not_includes(result, Announcement)
     assert_not_includes(result, Comment)
+    assert_includes(result, Answer)
   end
 
   test "returns only announcement type when document_type argument is :announcements" do
@@ -76,5 +82,6 @@ class SearchableTest < ActiveSupport::TestCase
   test "sort search results in descending order of creation date" do
     result = Searcher.search("検索結果確認用", document_type: :reports)
     assert_equal [reports(:report_12), reports(:report_14), reports(:report_13)], result
+    assert_not_includes(result, Answer)
   end
 end
