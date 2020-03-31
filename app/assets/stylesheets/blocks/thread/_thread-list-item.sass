@@ -15,9 +15,10 @@
   +media-breakpoint-up(md)
     display: flex
     align-items: flex-start
+    &:first-child:last-child
+      width: 100%
   +media-breakpoint-down(sm)
     width: 100%
-
 
 .thread-list-item__label
   +position(absolute, left 0, top 0)
@@ -62,7 +63,7 @@
 .thread-list-item__header
   display: flex
   align-items: center
-  margin-bottom: .125rem
+  margin-bottom: .25rem
   justify-content: space-between
   +media-breakpoint-down(sm)
     flex-direction: column
@@ -88,6 +89,7 @@
 
 .thread-list-item__title
   width: 100%
+  flex-basis: 100%
 
 .thread-list-item__title-link
   +text-block(.875rem 1.5, 600 $side block)
@@ -122,41 +124,6 @@
     background-color: rgba($main, .2)
     color: $main
 
-.thread-list-item-meta
-  display: flex
-  height: 1.25rem
-  align-items: center
-  +text-block(.75rem 1.4)
-
-.thread-list-item-meta__items
-  display: flex
-  +margin(horizontal, -.5rem)
-
-.thread-list-item-meta__item
-  +padding(horizontal, .5rem)
-
-.thread-list-item-meta__item-link
-  +hover-link-reversal
-  color: $main
-
-.thread-list-item-meta__updated-at
-  +text-block(.75rem 1.4, $muted-text)
-
-.thread-list-item-meta__comment-count
-  +text-block(.75rem 1.4, block $muted-text inline-block)
-  margin-left: .75rem
-
-.thread-list-item-meta__comment-count-label
-  +text-block(.75rem 1.4, block $muted-text inline-block)
-  margin-right: .25rem
-
-.thread-list-item-meta__comment-count-value
-  +text-block(.75rem 1.4, block $muted-text inline-block)
-
-.thread-list-item-meta__checkers
-  display: inline-block
-  margin-left: .75rem
-
 .thread-list-item__checked-author-icon
   +size(1.25rem)
   &:not(:first-child)
@@ -164,9 +131,6 @@
 
 .thread-list-item__body
   +text-block(.875rem 1.6)
-
-.thread-list-item-meta__created-at
-  +text-block(.75rem 1.4, $muted-text)
 
 .thread-list-item__show-user-detail
   +position(absolute, top 0)
@@ -206,3 +170,11 @@
   color: $muted-text
   p
     +text-block(.75rem 1.5)
+
+.thread-list-item__user-icons
+  display: flex
+  margin-left: .25rem
+
+.thread-list-item__user-icon
+  margin-left: 0.125rem
+  margin-right: 0.125rem
