@@ -4,6 +4,8 @@ module SearchHelper
   def matched_document(searchable)
     if searchable.class == Comment
       document = searchable.commentable_type.constantize.find(searchable.commentable_id)
+    elsif searchable.class == Answer || searchable.class == CorrectAnswer
+      document = searchable.question
     else
       document = searchable
     end
@@ -13,6 +15,9 @@ module SearchHelper
     if searchable.class == Comment
       document = searchable.commentable_type.constantize.find(searchable.commentable_id)
       "#{polymorphic_url(document)}#comment_#{searchable.id}"
+    elsif searchable.class == Answer || searchable.class == CorrectAnswer
+      document = searchable.question
+      "#{polymorphic_url(document)}"
     else
       polymorphic_url(searchable)
     end
