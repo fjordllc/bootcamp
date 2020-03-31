@@ -1,5 +1,5 @@
 .thread-list-item__user-icons
-  - comments.recent_unique_users.reverse.each do |user|
+  - comments.grouped_users.each do |user|
     .thread-list-item__user-icon
       = link_to user_path(user) do
         = image_tag user.avatar_url, title: "#{user.icon_title}", class: "thread-list-item__checked-author-icon a-user-icon is-#{user.role}"
