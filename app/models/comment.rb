@@ -2,6 +2,7 @@
 
 class Comment < ActiveRecord::Base
   include Reactionable
+  include WithAvatar
 
   belongs_to :user, touch: true
   belongs_to :commentable, polymorphic: true
@@ -42,6 +43,8 @@ class Comment < ActiveRecord::Base
         .order(:user_id, created_at: :desc)
     )
       .order(created_at: :asc)
+      .includes(:user)
+      .with_avatar
       .map(&:user)
   end
 
