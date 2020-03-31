@@ -21,7 +21,7 @@
           th.niconico-calendar__header-day.is-saturday
             | 土
       tbody.niconico-calendar__body
-        - user.niconico_calendar(30).each do |week|
+        - user.niconico_calendar.each do |week|
           tr.niconico-calendar__week
             - week.each do |set|
               td.niconico-calendar__day(class="is-#{set[:emotion].present? ? set[:emotion] : "blank"}")

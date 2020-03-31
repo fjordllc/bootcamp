@@ -2,6 +2,7 @@
 
 module UserDecorator
   DAYS_IN_WEEK = 7
+  CALENDAR_TERM = 30
 
   def twitter_url
     "https://twitter.com/#{twitter_account}"
@@ -39,8 +40,8 @@ module UserDecorator
     user_url(self)
   end
 
-  def niconico_calendar(term)
-    emotions_and_date = self.set_emotions_and_dates(term)
+  def niconico_calendar
+    emotions_and_date = self.set_emotions_and_dates(CALENDAR_TERM)
     last_wday = emotions_and_date.first[:date].wday
 
     blanks = last_wday.times.map { { date: nil, emotion: nil } }

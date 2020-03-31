@@ -19,8 +19,7 @@ class UserDecoratorTest < ActiveSupport::TestCase
   end
 
   test "niconico_calendar" do
-    blanks = [ { date: nil, emotion: nil } ] * Date.today.wday
-    expected_result = [[ *blanks, { date: Date.today, emotion: nil }]]
-    assert_equal expected_result, @user2.niconico_calendar(0)
+    days_in_weeks = 7
+    assert_equal days_in_weeks, @user2.niconico_calendar.first.count
   end
 end
