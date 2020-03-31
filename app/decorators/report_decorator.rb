@@ -18,6 +18,6 @@ module ReportDecorator
   end
 
   def number
-    serial_number == 1 ? "初日報" : serial_number.to_i
+    serial_number == 1 ? "初日報" : serial_number
   end
 end
