@@ -113,8 +113,23 @@ $thread-header-author: 3.5rem
 .thread-comment__created-at
   display: block
   +text-block(.8125rem 1.4, $muted-text nowrap)
+  +hover-link-reversal
+  cursor: pointer
+  +position(relative)
   +media-breakpoint-down(sm)
     font-size: .75rem
+  &:active,
+  &:focus,
+  &.is-active
+    color: $danger
+    &::after
+      content: "Copied!"
+      display: block
+      background-color: rgba(black, .4)
+      border-radius: .125rem
+      padding: .25rem
+      +text-block(.625rem 1, $reversal-text)
+      +position(absolute, left 0, top 100%)
 
 .thread-comment__actions
   +padding(vertical, 0 1rem)

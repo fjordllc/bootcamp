@@ -67,7 +67,8 @@ export default {
     return {
       description: '',
       editing: false,
-      tab: 'comment'
+      isCopied: false,
+      tab: 'comment',
     }
   },
   created: function() {
@@ -115,7 +116,7 @@ export default {
       })
     },
     updateComment: function() {
-      if (this.description.length < 1) {　return null　}
+      if (this.description.length < 1) { return null }
       let params = {
         'comment': { 'description': this.description }
       }
@@ -143,7 +144,7 @@ export default {
       }
     },
     copyCommentURLToClipboard(commentId) {
-      const commentURL　= location.href.split("#")[0] + "#comment_" + commentId;
+      const commentURL = location.href.split("#")[0] + "#comment_" + commentId;
       const textBox = document.createElement("textarea");
       textBox.setAttribute("type", "hidden");
       textBox.textContent = commentURL;
