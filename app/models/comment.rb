@@ -35,17 +35,13 @@ class Comment < ActiveRecord::Base
     new_mentions.present?
   end
 
-  def self.group_by_user
+  def self.grouped_users
     where(
       id: self
         .select("DISTINCT ON (user_id) id")
         .order(:user_id, created_at: :desc)
       )
-    .order(created_at: :desc)
-  end
-
-  def self.recent_unique_users
-    group_by_user.map(&:user)
+      .map(&:user)
   end
 
   private
