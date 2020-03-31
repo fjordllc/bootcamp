@@ -112,16 +112,16 @@ report_14:
   created_at: "2000-01-01 00:00:00"
 
 report_15:
-  user: advijirou
-  title: "emotionのテスト_1"
+  user: hajime
+  title: "今日は頑張りました"
   emotion: 2
   description: |-
     頑張りました
   reported_on: <%= Time.now - 1.day %>
 
 report_16:
-  user: advijirou
-  title: "emotionのテスト_2"
+  user: hajime
+  title: "今日は頑張れませんでした"
   emotion: 1
   description: |-
     頑張れませんでした

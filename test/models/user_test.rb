@@ -182,8 +182,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "set_emotions_and_dates" do
-    user = users(:advijirou)
-
+    user = users(:hajime)
     assert_equal [date: Date.today, emotion: nil], user.set_emotions_and_dates(0)
   end
 end
