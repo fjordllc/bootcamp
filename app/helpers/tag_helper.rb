@@ -8,11 +8,7 @@ module TagHelper
   end
 
   def active_link(name)
-    if qualified_page_name&.match?(name)
-      "is-active"
-    elsif current_user.admin? && Product.unchecked.exists?
-      "is-active"
-    end
+    current_user.admin? && Product.unchecked.exists? ? "is-active" : current_link(name)
   end
 
   def qrcode_tag(url, size: 1.8)
