@@ -1,0 +1,45 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | ニコニコカレンダー
+  .card-body
+    table.niconico-calendar
+      thead.niconico-calendar__header
+        tr
+          th.niconico-calendar__header-day.is-sunday
+            | 日
+          th.niconico-calendar__header-day
+            | 月
+          th.niconico-calendar__header-day
+            | 火
+          th.niconico-calendar__header-day
+            | 水
+          th.niconico-calendar__header-day
+            | 木
+          th.niconico-calendar__header-day
+            | 金
+          th.niconico-calendar__header-day.is-saturday
+            | 土
+      tbody.niconico-calendar__body
+        - user.niconico_calendar.each do |week|
+          tr.niconico-calendar__week
+            - week.each do |set|
+              td.niconico-calendar__day(class="is-#{set[:emotion].present? ? set[:emotion] : "blank"}")
+                - if set[:emotion].present?
+                  = link_to report_path(set[:report]), class: "niconico-calendar__day-inner" do
+                    .niconico-calendar__day-label
+                      - if set[:date]
+                        = l(set[:date], format: :sm)
+                      - else
+                        = set[:date]
+                    .niconico-calendar__day-value
+                      = Report.faces[set[:emotion]]
+                - else
+                  .niconico-calendar__day-inner
+                    .niconico-calendar__day-label
+                      - if set[:date]
+                        = l(set[:date], format: :sm)
+                      - else
+                        = set[:date]
+                    .niconico-calendar__day-value
+                      i.fas.fa-times
