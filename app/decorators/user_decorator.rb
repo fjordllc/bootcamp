@@ -41,12 +41,12 @@ module UserDecorator
   end
 
   def niconico_calendar
-    emotions_and_date = self.set_emotions_and_dates(CALENDAR_TERM)
-    last_wday = emotions_and_date.first[:date].wday
+    reports_date_and_emotion = self.reports_date_and_emotion(CALENDAR_TERM)
+    last_wday = reports_date_and_emotion.first[:date].wday
 
-    blanks = last_wday.times.map { { date: nil, emotion: nil } }
+    blanks = last_wday.times.map { { report: nil, date: nil, emotion: nil } }
 
-    [ *blanks, *emotions_and_date ].each_slice(DAYS_IN_WEEK)
-                                   .to_a
+    [ *blanks, *reports_date_and_emotion].each_slice(DAYS_IN_WEEK)
+                                         .to_a
   end
 end

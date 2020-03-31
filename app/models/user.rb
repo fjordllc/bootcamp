@@ -356,17 +356,17 @@ SQL
     participate_events.include?(event)
   end
 
-  def set_emotions_and_dates(term)
+  def reports_date_and_emotion(term)
     search_term = (Date.today - term.day)..Date.today
     reports = self.reports.where(reported_on: search_term)
 
-    emotions = reports.map { |report| [report.reported_on, report.emotion] }.to_h
+    emotions = reports.map { |report| [report.reported_on, report] }.to_h
 
     dates = search_term.map { |day| [day, nil] }.to_h
 
     dates.merge(emotions)
          .to_a
-         .map { |set| [date: set[0], emotion: set[1]] }
+         .map { |set| [report: set[1], date: set[0], emotion: set[1]&.emotion] }
          .flatten
   end
 

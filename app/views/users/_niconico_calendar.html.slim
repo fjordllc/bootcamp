@@ -26,7 +26,7 @@
             - week.each do |set|
               td.niconico-calendar__day(class="is-#{set[:emotion].present? ? set[:emotion] : "blank"}")
                 - if set[:emotion].present?
-                  = link_to report_path(user.reports.find_by(reported_on: set[:date])), class: "niconico-calendar__day-inner" do
+                  = link_to report_path(set[:report]), class: "niconico-calendar__day-inner" do
                     .niconico-calendar__day-label
                       - if set[:date]
                         = l(set[:date], format: :sm)
