@@ -6,7 +6,6 @@ class UserDecoratorTest < ActiveSupport::TestCase
   def setup
     @user1 = ActiveDecorator::Decorator.instance.decorate(users(:komagata))
     @user2 = ActiveDecorator::Decorator.instance.decorate(users(:hajime))
-    @user3 = ActiveDecorator::Decorator.instance.decorate(users(:advijirou))
   end
 
   test "staff_roles" do
@@ -22,7 +21,6 @@ class UserDecoratorTest < ActiveSupport::TestCase
   test "niconico_calendar" do
     blanks = [ { date: nil, emotion: nil } ] * Date.today.wday
     expected_result = [[ *blanks, { date: Date.today, emotion: nil }]]
-
-    assert_equal expected_result, @user3.niconico_calendar(0)
+    assert_equal expected_result, @user2.niconico_calendar(0)
   end
 end
