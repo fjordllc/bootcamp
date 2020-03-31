@@ -181,8 +181,8 @@ class UserTest < ActiveSupport::TestCase
     assert_equal old_percentage, user.completed_percentage
   end
 
-  test "set_emotions_and_dates" do
+  test "dates_emotion_and_reports" do
     user = users(:hajime)
-    assert_equal [date: Date.today, emotion: nil], user.set_emotions_and_dates(0)
+    assert_equal [report: nil, date: Date.today, emotion: nil], user.reports_date_and_emotion(0)
   end
 end
