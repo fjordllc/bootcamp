@@ -6,9 +6,9 @@
       li.page-tabs__item
         = link_to products_unchecked_index_path, class: "page-tabs__item-link #{current_link /^products-unchecked-index/}" do
           | 未チェック
-          - if Product.unchecked.count > 0
+          - if Product.unchecked.not_wip.count > 0
             .page-tabs__item-count.a-notification-count
-              = Product.unchecked.count
+              = Product.unchecked.not_wip.count
       li.page-tabs__item
         = link_to products_not_responded_index_path, class: "page-tabs__item-link #{current_link /^products-not_responded-index/}" do
           | 未返信
