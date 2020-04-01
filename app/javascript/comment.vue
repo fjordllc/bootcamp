@@ -8,7 +8,7 @@
         h2.thread-comment__title
           a.thread-comment__title-link(:href="comment.user.url" itempro="url")
             | {{ comment.user.login_name }}
-        time.thread-comment__created-at(:datetime="commentableCreatedAt" pubdate="pubdate")
+        time.thread-comment__created-at(:datetime="commentableCreatedAt" pubdate="pubdate" @click="copyCommentURLToClipboard(comment.id)")
           | {{ updatedAt }}
       .thread-comment__description.js-target-blank.is-long-text(v-html="markdownDescription")
       reaction(
@@ -67,7 +67,8 @@ export default {
     return {
       description: '',
       editing: false,
-      tab: 'comment'
+      isCopied: false,
+      tab: 'comment',
     }
   },
   created: function() {
@@ -85,6 +86,13 @@ export default {
       const tribute = new Tribute({ collection: collection })
       tribute.attach(textareas)
     })
+
+    const commentAnchor = location.hash;
+    if(commentAnchor) {
+      this.$nextTick( () => {
+        location.href = location.href;
+      })
+    }
   },
   methods: {
     token () {
@@ -108,7 +116,7 @@ export default {
       })
     },
     updateComment: function() {
-      if (this.description.length < 1) {　return null　}
+      if (this.description.length < 1) { return null }
       let params = {
         'comment': { 'description': this.description }
       }
@@ -134,6 +142,16 @@ export default {
       if (window.confirm('削除してよろしいですか？')) {
         this.$emit('delete', this.comment.id);
       }
+    },
+    copyCommentURLToClipboard(commentId) {
+      const commentURL = location.href.split("#")[0] + "#comment_" + commentId;
+      const textBox = document.createElement("textarea");
+      textBox.setAttribute("type", "hidden");
+      textBox.textContent = commentURL;
+      document.body.appendChild(textBox);
+      textBox.select();
+      document.execCommand('copy');
+      document.body.removeChild(textBox);
     }
   },
   computed: {

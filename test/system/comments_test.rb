@@ -137,4 +137,12 @@ class CommentsTest < ApplicationSystemTestCase
     click_button "コメントする"
     assert_text "testtest"
   end
+
+  test "comment url is copied when click its updated_time" do
+    page.driver.browser.execute_cdp("Browser.grantPermissions", origin: page.server_url, permissions: ["clipboardRead", "clipboardWrite"])
+    visit "/reports/#{reports(:report_1).id}"
+    first(:css, ".thread-comment__created-at").click
+    clip_text = page.evaluate_async_script("navigator.clipboard.readText().then(arguments[0])")
+    assert_equal current_url + "#comment_#{comments(:comment_1).id}", clip_text
+  end
 end
