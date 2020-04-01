@@ -16,4 +16,8 @@ module ReportDecorator
       "#{hour}時間#{minute}分"
     end
   end
+
+  def number
+    serial_number == 1 ? "初日報" : serial_number
+  end
 end

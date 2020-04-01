@@ -27,10 +27,12 @@ header.page-header
             = link_to @report.user, class: "thread-header__author", title: @report.user.full_name do
               = @report.user.login_name
             .thread-header__date
-              | #{l @report.reported_on}(
+              = l @report.reported_on
+              |(
               span.thread-header__count(class="#{@report.serial_number < 6 ? "is-important" : ""}")
-                | #{@report.serial_number}
-              | )の日報
+                = @report.number
+              |)
+              = "の日報" unless @report.first?
           h1.thread-header__title(class="#{@report.wip? ? "is-wip" : ""}")
             - if @report.wip?
               span.thread-header__title-icon
