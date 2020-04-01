@@ -10,6 +10,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, Practice)
     assert_includes(result, Question)
     assert_includes(result, Announcement)
+    assert_includes(result, Comment)
   end
 
   test "returns all types when document_type argument is :all" do
@@ -19,6 +20,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, Practice)
     assert_includes(result, Question)
     assert_includes(result, Announcement)
+    assert_includes(result, Comment)
   end
 
   test "returns only report type when document_type argument is :reports" do
@@ -28,6 +30,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Practice)
     assert_not_includes(result, Question)
     assert_not_includes(result, Announcement)
+    assert_includes(result, Comment)
   end
 
   test "returns only page type when document_type argument is :pages" do
@@ -37,6 +40,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Practice)
     assert_not_includes(result, Question)
     assert_not_includes(result, Announcement)
+    assert_not_includes(result, Comment)
   end
 
   test "returns only practice type when document_type argument is :practices" do
@@ -46,6 +50,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, Practice)
     assert_not_includes(result, Question)
     assert_not_includes(result, Announcement)
+    assert_not_includes(result, Comment)
   end
 
   test "returns only question type when document_type argument is :questions" do
@@ -55,6 +60,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Practice)
     assert_includes(result, Question)
     assert_not_includes(result, Announcement)
+    assert_not_includes(result, Comment)
   end
 
   test "returns only announcement type when document_type argument is :announcements" do
@@ -64,6 +70,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Practice)
     assert_not_includes(result, Question)
     assert_includes(result, Announcement)
+    assert_includes(result, Comment)
   end
 
   test "sort search results in descending order of creation date" do

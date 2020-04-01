@@ -1,13 +1,14 @@
-.thread-list-item(class="is-#{searchable.class.to_s.tableize.singularize}")
+- document = matched_document(searchable)
+.thread-list-item(class="is-#{document.class.to_s.tableize.singularize}")
   .thread-list-item__inner
     .thread-list-item__label
-      = t("activerecord.models.#{searchable.class.to_s.tableize.singularize}")
+      = t("activerecord.models.#{document.class.to_s.tableize.singularize}")
     header.thread-list-item__header
       .thread-list-item__title
-        = link_to searchable.title, searchable, class: "thread-list-item__title-link"
+        = link_to document.title, searchable_url(searchable), class: "thread-list-item__title-link"
     .thread-list-item__body
       .thread-list-item__summury
-        = md_summury(searchable.description, 90)
+        = md_summury(filtered_message(searchable), 90)
       .thread-list-item-meta
         .thread-list-item-meta__user
           - if searchable.class != Practice && searchable.class != Page
