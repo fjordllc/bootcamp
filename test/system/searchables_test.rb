@@ -16,6 +16,8 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_text "Unityでのテスト"
     assert_text "テストの質問1"
     assert_text "テストのお知らせ"
+    assert_text "テスト用 report_1へのコメント"
+    assert_text "テスト用 announcement_1へのコメント"
   end
 
   test "search reports " do
@@ -29,6 +31,50 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_no_text "Unityでのテスト"
     assert_no_text "テストの質問1"
     assert_no_text "テストのお知らせ"
+    assert_text "テスト用 report_1へのコメント"
+    assert_no_text "テスト用 announcement_1へのコメント"
+  end
+
+  test "admin can see comment description" do
+    login_user "komagata", "testtest"
+    within("form[name=search]") do
+      select "すべて"
+      fill_in "word", with: "テスト"
+    end
+    find("#test-search").click
+    assert_text "テスト用 product_1へのコメント"
+  end
+
+  test "advisor can see comment description" do
+    login_user "advijirou", "testtest"
+    within("form[name=search]") do
+      select "すべて"
+      fill_in "word", with: "テスト"
+    end
+    find("#test-search").click
+    assert_text "テスト用 product_1へのコメント"
+  end
+
+  test "can see comment description if it is permitted" do
+    login_user "kimura", "testtest"
+    within("form[name=search]") do
+      select "すべて"
+      fill_in "word", with: "テスト"
+    end
+    find("#test-search").click
+    assert_text "テスト用 product_1へのコメント"
+    assert_text "テスト用 product_3へのコメント"
+  end
+
+  test "can not see comment description if it isn't permitted" do
+    within("form[name=search]") do
+      select "すべて"
+      fill_in "word", with: "テスト"
+    end
+    find("#test-search").click
+    assert_no_text "テスト用 product_1へのコメント"
+    assert_text "テスト用 product_3へのコメント"
+    assert_text "該当プラクティスを完了するまで他の人の提出物へのコメントは見れません。"
   end
 
   test "show user name and created time" do
