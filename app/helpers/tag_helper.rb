@@ -7,10 +7,6 @@ module TagHelper
     end
   end
 
-  def product_link(name)
-    current_user.admin? && Product.unchecked.exists? ? "is-active" : current_link(name)
-  end
-
   def qrcode_tag(url, size: 1.8)
     RQRCode::QRCode.new(url)
       .as_svg(module_size: size).html_safe
