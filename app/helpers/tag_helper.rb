@@ -7,7 +7,7 @@ module TagHelper
     end
   end
 
-  def active_link(name)
+  def product_link(name)
     current_user.admin? && Product.unchecked.exists? ? "is-active" : current_link(name)
   end
 
