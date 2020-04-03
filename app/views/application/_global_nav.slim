@@ -36,7 +36,7 @@ nav.global-nav
             .global-nav-links__link-label 日報
         - if staff_login?
           li.global-nav-links__item
-            = link_to products_unchecked_index_path, class: "global-nav-links__link #{active_link /^products/ }" do
+            = link_to products_unchecked_index_path, class: "global-nav-links__link #{product_link /^products/ }" do
               .global-nav-links__link-icon
                 i.fas.fa-hand-paper
               - if current_user.admin? && Product.unchecked.exists?
