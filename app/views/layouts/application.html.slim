@@ -15,6 +15,7 @@ html.is-application lang="ja"
       - if page_classes.include?("welcome-home")
         link(rel="canonical" href="https://bootcamp.fjord.jp/")
     - else
+      = turbolinks_reload_control_meta_tag
       = render "current_user"
       = render "stripe"
       = stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload"

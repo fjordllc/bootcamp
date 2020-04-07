@@ -32,4 +32,8 @@ class ApplicationController < ActionController::Base
     def require_subscription
       redirect_to root_path, notice: "サブスクリプション登録が必要です。" unless current_user&.subscription?
     end
+
+    def ensure_page_reload
+      session[:reload_page] = true
+    end
 end

@@ -4,6 +4,8 @@ class CardController < ApplicationController
   before_action :require_login
   before_action :require_card, only: :show
   before_action :require_subscription, only: :show
+  before_action :ensure_page_reload, only: [:new, :edit]
+  after_action :ensure_page_reload, only: [:new, :edit]
 
   def show
     @card = current_user.card
