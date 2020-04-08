@@ -27,19 +27,19 @@ class Searcher
   def self.result_for(type, word, commentable_type: nil)
     case type
     when :reports
-      Report.ransack(title_or_description_cont_all: word).result
+      Report.ransack(groupings: word.split(/[[:blank:]]/).map { |w| { title_or_description_cont_all: w } }).result
     when :pages
-      Page.ransack(title_or_body_cont_all: word).result
+      Page.ransack(groupings: word.split(/[[:blank:]]/).map { |w| { title_or_body_cont_all: w } }).result
     when :practices
-      Practice.ransack(title_or_description_or_goal_cont_all: word).result
+      Practice.ransack(groupings: word.split(/[[:blank:]]/).map { |w| { title_or_description_or_goal_cont_all: w } }).result
     when :questions
-      Question.ransack(title_or_description_cont_all: word).result
+      Question.ransack(groupings: word.split(/[[:blank:]]/).map { |w| { title_or_description_cont_all: w } }).result
     when :answers
-      Answer.ransack(description_cont_all: word).result
+      Answer.ransack(groupings: word.split(/[[:blank:]]/).map { |w| { description_cont_all: w } }).result
     when :announcements
-      Announcement.ransack(title_or_description_cont_all: word).result
+      Announcement.ransack(groupings: word.split(/[[:blank:]]/).map { |w| { title_or_description_cont_all: w } }).result
     when :comments
-      Comment.ransack(commentable_type_eq: commentable_type, description_cont_all: word).result
+      Comment.ransack(commentable_type_eq: commentable_type, groupings: word.split(/[[:blank:]]/).map { |w| { description_cont_all: w } }).result
     else
       []
     end
