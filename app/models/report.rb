@@ -39,6 +39,22 @@ class Report < ActiveRecord::Base
   after_update ReportCallbacks.new
   after_destroy ReportCallbacks.new
 
+  concerning :KeywordSearch do
+    class_methods do
+      private
+
+        def params_for_keyword_search(searched_values = {})
+          { groupings: groupings(split_keyword_by_blank(searched_values[:word])) }
+        end
+
+        def groupings(words)
+          words.map do |word|
+            { title_or_description_cont_all: word }
+          end
+        end
+    end
+  end
+
   def previous
     Report.where(user: user)
           .where("reported_on < ?", reported_on)

@@ -32,6 +32,22 @@ class Practice < ActiveRecord::Base
 
   scope :category_order, -> { includes(:category).order("categories.position").order(:position) }
 
+  concerning :KeywordSearch do
+    class_methods do
+      private
+
+        def params_for_keyword_search(searched_values = {})
+          { groupings: groupings(split_keyword_by_blank(searched_values[:word])) }
+        end
+
+        def groupings(words)
+          words.map do |word|
+            { title_or_description_or_goal_cont_all: word }
+          end
+        end
+    end
+  end
+
   def status(user)
     learnings = Learning.where(
       user_id: user.id,

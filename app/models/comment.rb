@@ -2,6 +2,7 @@
 
 class Comment < ActiveRecord::Base
   include Reactionable
+  include Searchable
 
   belongs_to :user, touch: true
   belongs_to :commentable, polymorphic: true
@@ -10,6 +11,22 @@ class Comment < ActiveRecord::Base
   alias_method :sender, :user
 
   validates :description, presence: true
+
+  concerning :KeywordSearch do
+    class_methods do
+      private
+
+        def params_for_keyword_search(searched_values = {})
+          { commentable_type_eq: searched_values[:commentable_type], groupings: groupings(split_keyword_by_blank(searched_values[:word])) }
+        end
+
+        def groupings(words)
+          words.map do |word|
+            { description_cont_all: word }
+          end
+        end
+    end
+  end
 
   def receiver
     commentable.user
