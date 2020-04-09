@@ -139,10 +139,12 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test "comment url is copied when click its updated_time" do
-    page.driver.browser.execute_cdp("Browser.grantPermissions", origin: page.server_url, permissions: ["clipboardRead", "clipboardWrite"])
     visit "/reports/#{reports(:report_1).id}"
     first(:css, ".thread-comment__created-at").click
-    clip_text = page.evaluate_async_script("navigator.clipboard.readText().then(arguments[0])")
+    # Google Chromeのバージョンが上がり従来のテストではエラーが発生したため、以下のように修正
+    # 詳細:https://gitmemory.com/issue/marp-team/marp-cli/190/564376272
+    find("#js-new-comment").send_keys [:shift, :insert]
+    clip_text = find("#js-new-comment").value
     assert_equal current_url + "#comment_#{comments(:comment_1).id}", clip_text
   end
 end
