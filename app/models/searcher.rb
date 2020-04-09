@@ -10,15 +10,16 @@ class Searcher
     ["Docs", :pages]
   ]
 
-  AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - [:all] + [:comments] + [:answers]
+  AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 
   class << self
     def search(word, document_type: :all)
-      if document_type == :all
+      case document_type
+      when all?
         AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by { |result| result.created_at }.reverse
-      elsif model(document_type).include?(Commentable)
+      when commentable?
         [document_type, :comments].flat_map { |type| result_for(type, word, commentable_type: model_name(document_type)) }.sort_by { |result| result.created_at }.reverse
-      elsif document_type == :questions
+      when question?
         [document_type, :answers].flat_map { |type| result_for(type, word) }
       else
         result_for(document_type, word).sort_by { |result| result.created_at }.reverse
@@ -34,6 +35,18 @@ class Searcher
 
       def available_type?(type)
         AVAILABLE_TYPES.find { |available_type| available_type == type }.present?
+      end
+
+      def all?
+        -> (document_type) { document_type == :all }
+      end
+
+      def commentable?
+        -> (document_type) { model(document_type).include?(Commentable) }
+      end
+
+      def question?
+        -> (document_type) { document_type == :questions }
       end
 
       def model(type)
