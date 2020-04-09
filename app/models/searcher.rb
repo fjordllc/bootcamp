@@ -16,8 +16,8 @@ class Searcher
     def search(word, document_type: :all)
       if document_type == :all
         AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by { |result| result.created_at }.reverse
-      elsif document_type.to_s.capitalize.singularize.constantize.include?(Commentable)
-        [document_type, :comments].flat_map { |type| result_for(type, word, commentable_type: document_type.to_s.capitalize.singularize) }.sort_by { |result| result.created_at }.reverse
+      elsif model(document_type).include?(Commentable)
+        [document_type, :comments].flat_map { |type| result_for(type, word, commentable_type: model_name(document_type)) }.sort_by { |result| result.created_at }.reverse
       elsif document_type == :questions
         [document_type, :answers].flat_map { |type| result_for(type, word) }
       else
@@ -34,6 +34,14 @@ class Searcher
 
       def available_type?(type)
         AVAILABLE_TYPES.find { |available_type| available_type == type }.present?
+      end
+
+      def model(type)
+        model_name(type).constantize
+      end
+
+      def model_name(type)
+        type.to_s.capitalize.singularize
       end
   end
 end
