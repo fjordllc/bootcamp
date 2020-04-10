@@ -139,10 +139,13 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test "comment url is copied when click its updated_time" do
-    page.driver.browser.execute_cdp("Browser.grantPermissions", origin: page.server_url, permissions: ["clipboardRead", "clipboardWrite"])
     visit "/reports/#{reports(:report_1).id}"
     first(:css, ".thread-comment__created-at").click
-    clip_text = page.evaluate_async_script("navigator.clipboard.readText().then(arguments[0])")
+    # クリップボードを直接読み取る方法がないので、未入力のテキストエリアを経由してクリップボードの値を読み取っている
+    # また、Ctrl-Vではペーストできなかったので、かわりにShift-Insertをショートカットキーとして使っている
+    # 参考 https://stackoverflow.com/a/57955123/1058763
+    find("#js-new-comment").send_keys [:shift, :insert]
+    clip_text = find("#js-new-comment").value
     assert_equal current_url + "#comment_#{comments(:comment_1).id}", clip_text
   end
 end
