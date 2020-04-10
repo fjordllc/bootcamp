@@ -141,8 +141,9 @@ class CommentsTest < ApplicationSystemTestCase
   test "comment url is copied when click its updated_time" do
     visit "/reports/#{reports(:report_1).id}"
     first(:css, ".thread-comment__created-at").click
-    # Google Chromeのバージョンが上がり従来のテストではエラーが発生したため、以下のように修正
-    # 詳細:https://gitmemory.com/issue/marp-team/marp-cli/190/564376272
+    # クリップボードを直接読み取る方法がないので、未入力のテキストエリアを経由してクリップボードの値を読み取っている
+    # また、Ctrl-Vではペーストできなかったので、かわりにShift-Insertをショートカットキーとして使っている
+    # 参考 https://stackoverflow.com/a/57955123/1058763
     find("#js-new-comment").send_keys [:shift, :insert]
     clip_text = find("#js-new-comment").value
     assert_equal current_url + "#comment_#{comments(:comment_1).id}", clip_text
