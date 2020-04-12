@@ -3,32 +3,28 @@
 require "test_helper"
 
 class EventTest < ActiveSupport::TestCase
-  test "should be valid" do
-    assert events(:event_2).valid?
-  end
-
-  test "is_opening?" do
+  test "#is_opening?" do
     event = events(:event_2)
     assert event.is_opening?
   end
 
-  test "before_opening?" do
+  test "#before_opening?" do
     event = events(:event_4)
     assert event.before_opening?
   end
 
-  test "is_closing?" do
+  test "#is_closing?" do
     event = events(:event_5)
     assert event.is_closing?
   end
 
-  test "participants" do
+  test "#participants" do
     event = events(:event_2)
     participants = users(:hatsuno)
     assert_includes event.participants, participants
   end
 
-  test "waitlist" do
+  test "#waitlist" do
     event = events(:event_3)
     waiting_user = users(:kimura)
     event.participations.create(user: waiting_user)
