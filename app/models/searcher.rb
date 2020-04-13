@@ -15,11 +15,11 @@ class Searcher
   class << self
     def search(word, document_type: :all)
       case document_type
-      when all?
+      when :all
         AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by { |result| result.created_at }.reverse
       when commentable?
         [document_type, :comments].flat_map { |type| result_for(type, word, commentable_type: model_name(document_type)) }.sort_by { |result| result.created_at }.reverse
-      when question?
+      when :questions
         [document_type, :answers].flat_map { |type| result_for(type, word) }
       else
         result_for(document_type, word).sort_by { |result| result.created_at }.reverse
@@ -33,16 +33,8 @@ class Searcher
         type.to_s.capitalize.singularize.constantize.search_by_keywords(word: word, commentable_type: commentable_type)
       end
 
-      def all?
-        -> (document_type) { document_type == :all }
-      end
-
       def commentable?
         -> (document_type) { model(document_type).include?(Commentable) }
-      end
-
-      def question?
-        -> (document_type) { document_type == :questions }
       end
 
       def model(type)
