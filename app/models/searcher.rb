@@ -29,12 +29,8 @@ class Searcher
     private
 
       def result_for(type, word, commentable_type: nil)
-        return [] unless available_type?(type)
+        return [] unless type.in?(AVAILABLE_TYPES)
         type.to_s.capitalize.singularize.constantize.search_by_keywords(word: word, commentable_type: commentable_type)
-      end
-
-      def available_type?(type)
-        AVAILABLE_TYPES.find { |available_type| available_type == type }.present?
       end
 
       def all?
