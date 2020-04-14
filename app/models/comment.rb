@@ -12,19 +12,12 @@ class Comment < ActiveRecord::Base
 
   validates :description, presence: true
 
-  concerning :KeywordSearch do
-    class_methods do
-      private
+  target_column_of_keyword :description
 
-        def params_for_keyword_search(searched_values = {})
-          { commentable_type_eq: searched_values[:commentable_type], groupings: groupings(split_keyword_by_blank(searched_values[:word])) }
-        end
-
-        def groupings(words)
-          words.map do |word|
-            { description_cont_all: word }
-          end
-        end
+  class << self
+    private def params_for_keyword_search(searched_values = {})
+      groupings = super
+      { commentable_type_in: searched_values[:commentable_type] }.merge(groupings)
     end
   end
 
