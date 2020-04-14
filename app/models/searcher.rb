@@ -30,7 +30,7 @@ class Searcher
 
       def result_for(type, word, commentable_type: nil)
         return [] unless type.in?(AVAILABLE_TYPES)
-        type.to_s.capitalize.singularize.constantize.search_by_keywords(word: word, commentable_type: commentable_type)
+        model(type).search_by_keywords(word: word, commentable_type: commentable_type)
       end
 
       def commentable?
