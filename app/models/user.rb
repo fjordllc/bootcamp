@@ -132,15 +132,26 @@ class User < ActiveRecord::Base
   scope :in_school, -> { where(graduated_on: nil) }
   scope :graduated, -> { where.not(graduated_on: nil) }
   scope :retired, -> { where.not(retired_on: nil) }
+  scope :unretired, -> { where(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
-  scope :students, -> {
+  scope :students_and_trainees, -> {
     where(
       admin: false,
       mentor: false,
       adviser: false,
       graduated_on: nil,
       retired_on: nil
+    )
+  }
+  scope :students, -> {
+    where(
+      admin: false,
+      mentor: false,
+      adviser: false,
+      trainee:  false,
+      retired_on: nil,
+      graduated_on: nil
     )
   }
   scope :active, -> { where(updated_at: 1.month.ago..Float::INFINITY) }
@@ -162,8 +173,13 @@ class User < ActiveRecord::Base
     ).order(updated_at: :desc)
   }
   scope :admins, -> { where(admin: true) }
-  scope :trainee, -> { where(trainee: true) }
+  scope :trainees, -> { where(trainee: true) }
   scope :job_seeking, -> { where(job_seeking: true) }
+  scope :job_seekers, -> {
+    students.where(
+      job_seeker: true
+    )
+  }
   scope :order_by_counts, -> (order_by, direction) {
     unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
       raise ArgumentError, "Invalid argument"
@@ -230,8 +246,8 @@ SQL
 
   def self.users_role(target)
     case target
-    when "student"
-      self.students
+    when "student_and_trainee"
+      self.students_and_trainees
     when "job_seeking"
       self.job_seeking
     when "retired"
@@ -247,7 +263,7 @@ SQL
     when "year_end_party"
       self.year_end_party
     when "trainee"
-      self.trainee
+      self.trainees
     when "all"
       self.all
     end
@@ -368,6 +384,19 @@ SQL
          .to_a
          .map { |set| [report: set[1], date: set[0], emotion: set[1]&.emotion] }
          .flatten
+  end
+
+  def self.announcement_receiver(target)
+    case target
+    when "all"
+      User.unretired
+    when "students"
+      User.admins.or(User.students)
+    when "job_seekers"
+      User.admins.or(User.job_seekers)
+    else
+      User.none
+    end
   end
 
   private

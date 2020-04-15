@@ -5,7 +5,7 @@ class Admin::UsersController < AdminController
 
   def index
     @direction = params[:direction] || "desc"
-    @target = params[:target] || "student"
+    @target = params[:target] || "student_and_trainee"
     @users = User.with_attached_avatar
                  .preload(%i[company course])
                  .order_by_counts(params[:order_by] || "id", @direction)
