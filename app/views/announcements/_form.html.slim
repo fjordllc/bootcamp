@@ -16,18 +16,22 @@
           .a-label
             | プレビュー
           .js-preview.is-long-text.markdown-form__preview
-    .form-item.is-sm
+    .form-item.is-md
       label.a-label
         | 通知ターゲット
-      ul.form-item__radio-buttons.is-half
-        li.form-radio-button.is-half
+      ul.form-item__radio-buttons.is-inline
+        li.form-radio-button
           label.form-radio-button__label
             | 全員にお知らせ
             = f.radio_button :target, "all", checked: true
-        li.form-radio-button.is-half
+        li.form-radio-button
           label.form-radio-button__label
             | 現役生にのみお知らせ
-            = f.radio_button :target, "active_users"
+            = f.radio_button :target, "students"
+        li.form-radio-button
+          label.form-radio-button__label
+            | 就職希望者にのみお知らせ
+            = f.radio_button :target, "job_seekers"
 
   .form-actions
     ul.form-actions__items

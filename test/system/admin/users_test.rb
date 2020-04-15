@@ -75,7 +75,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
 
   test "delete user" do
     user = users(:kimura)
-    visit admin_users_path(target: "student")
+    visit admin_users_path(target: "student_and_trainee")
     click_on "delete-#{user.id}"
     page.driver.browser.switch_to.alert.accept
     assert_text "#{user.full_name} さんを削除しました。"

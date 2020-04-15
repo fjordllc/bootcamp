@@ -18,7 +18,7 @@ class Practice < ActiveRecord::Base
     through: :completed_learnings,
     source: :user
   has_many :started_students,
-    -> { students },
+    -> { students_and_trainees },
     through: :started_learnings,
     source: :user
   has_many :products
