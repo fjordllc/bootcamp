@@ -21,7 +21,7 @@
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-value
             | （#{product.comments.size}）
-        = render "comments/user_icons", users: product.comments.users_who_commented
+        = render partial: "comments/user_icons", collection: product.comments.users_who_commented, as: :user
         time.thread-list-item-meta__updated-at(datetime="#{product.comments.last.updated_at.to_datetime}" pubdate="pubdate")
           | 〜 #{l product.comments.last.updated_at, format: :date_and_time}
     - if product.checks.any?
