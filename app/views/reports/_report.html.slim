@@ -28,7 +28,7 @@
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-value
             | （#{report.comments.size}）
-        = render "comments/user_icons", comments: report.comments
+        = render "comments/user_icons", users: report.comments.users_who_commented
         time.thread-list-item-meta__updated-at(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate="pubdate")
           | 〜 #{l report .comments.last.updated_at, format: :date_and_time}
 
