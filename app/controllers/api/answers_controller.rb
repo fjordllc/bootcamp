@@ -3,13 +3,14 @@
 class API::AnswersController < API::BaseController
   include Rails.application.routes.url_helpers
   before_action :require_login
-  before_action :set_question
-  before_action :set_answer, only: %i(show edit update destroy)
-  before_action :set_return_to, only: %i(create update destroy)
+  before_action :set_answer, only: %i(update destroy)
+  before_action :set_question, only: %i(create)
+  # before_action :set_return_to, only: %i(create)
 
   # def index
   #   @answers = question.answers.order(created_at: :asc)
   #   @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
+  #   # render :json
   # end
 
   def edit
@@ -18,13 +19,12 @@ class API::AnswersController < API::BaseController
   def create
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
-    # @answer.question = question
-    # @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
+    @answer.question = question
+    @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
     if @answer.save
       notify_to_slack(@answer)
       render :create, status: :created
     else
-      # render :new
       head :bad_request
     end
   end
@@ -46,11 +46,17 @@ class API::AnswersController < API::BaseController
   # end
 
   def destroy
+    # p "-params--------------------------------------------------"
+    # pp params
+    # p "---------------------------------------------------"
+    # # pp @answer
+    # p "---------------------------------------------------"
     @answer.destroy
     # redirect_to @return_to, notice: "回答を削除しました。"
   end
 
   private
+
     def set_question
       @question = Question.find(params[:question_id])
     end

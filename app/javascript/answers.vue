@@ -7,7 +7,7 @@
         :answer="answer",
         :currentUser="currentUser",
         :id="'answer_' + answer.id",
-        @delete="deleteComment")
+        @delete="deleteAnswer")
       .thread-comment-form
         .thread-comment__author
           img.thread-comment__author-icon.a-user-icon(:src="currentUser.avatar_url" :title="currentUser.icon_title")
@@ -24,7 +24,7 @@
               .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
           .thread-comment-form__actions
             .thread-comment-form__action
-              button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createComment" :disabled="!validation || buttonDisabled")
+              button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createAnswer" :disabled="!validation || buttonDisabled")
                 | コメントする
 </template>
 <script>
@@ -35,7 +35,7 @@ import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItMention from './packs/markdown-it-mention'
 
 export default {
-  props: ['answerableId', 'answerableType', 'currentUserId'],
+  props: ['questionId', 'type', 'currentUserId'],
   components: {
     'answer': Answer,
     'markdown-textarea': MarkdownTextarea
@@ -69,8 +69,9 @@ export default {
       .catch(error => {
         console.warn('Failed to parsing', error)
       })
-
-    fetch(`/api/answers.json?answerable_type=${this.answerableType}&answerable_id=${this.answerableId}`, {
+    
+    // fetch(`/api/answers.json?type=${this.type}&question_id=${this.questionId}`, {
+    fetch(`/api/answers.json?question_id=${this.questionId}`, {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -102,13 +103,13 @@ export default {
     changeActiveTab: function(tab) {
       this.tab = tab
     },
-    createComment: function(event) {
+    createAnswer: function(event) {
       if (this.description.length < 1) {　return null　}
       this.buttonDisabled = true
       let params = {
         'answer': { 'description': this.description },
-        'answerable_type': this.answerableType,
-        'answerable_id': this.answerableId
+        'type': this.type,
+        'question_id': this.questionId
       }
       fetch(`/api/answers`, {
         method: 'POST',
@@ -125,6 +126,7 @@ export default {
           return response.json()
         })
         .then(json=> {
+          // console.log(json);
           this.answers.push(json);
           this.description = '';
           this.tab = 'comment';
@@ -134,7 +136,7 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
-    deleteComment: function(id) {
+    deleteAnswer: function(id) {
       fetch(`/api/answers/${id}.json`, {
         method: 'DELETE',
         headers: {
