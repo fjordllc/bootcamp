@@ -1,10 +1,11 @@
 <template lang="pug">
-  .thread-comment
+  .thread-comment(:class=" answer1 ? 'is-correct_answer' : '' ")
     .thread-comment__author
       a.thread-comment__author-link(:href="answer.user.url" itempro="url")
         img.thread-comment__author-icon.a-user-icon(:src="answer.user.avatar_url" :title="answer.user.icon_title"  v-bind:class="userRole")
     .thread-comment__body.a-card(v-if="!editing")
-      .answer-badge(v-if="answer == correct_answer")
+      //- .answer-badge(v-if="answer == correctAnswer")
+      .answer-badge(v-if="correctAnswer")
         .answer-badge__icon
           i.fas.fa-star
         .answer-badge__label ベストアンサー
@@ -21,28 +22,30 @@
       footer.card-footer(v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
         .card-footer-actions
           ul.card-footer-actions__items
-            li.card-footer-actions__item(v-if="correct_answer.length == 0 && answer != correct_answer")
-              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="sloveAnswer")
-                | 解決にする
-            li.card-footer-actions__item
+            //- li.card-footer-actions__item(v-show="answer != correctAnswer && (currentUser.role == question.user || 'admin')")
+            li.card-footer-actions__item(v-if="!correctAnswer && answer != correctAnswer && (currentUser.role == question.user || 'admin')")
+              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="sloveAnswer") 
+                | 解決にする      
+            li.card-footer-actions__item(v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
               button.card-footer-actions__action.a-button.is-md.is-primary.is-block(@click="editAnswer")
                 i.fas.fa-pen
                   | 内容修正
-            li.card-footer-actions__item
+            li.card-footer-actions__item(v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
               button.card-footer-actions__action.a-button.is-md.is-danger.is-block(@click="deleteAnswer")
                 i.fas.fa-trash-alt
                   | 削除
-            li.card-footer-actions__item(v-if="typeof correct_answer !== 'undefined' && answer == correct_answer")
+            //- li.card-footer-actions__item(v-if="typeof correctAnswer !== 'undefined' && answer == correctAnswer")
+            li.card-footer-actions__item(v-if="correctAnswer")
               button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="unsloveAnswer")
                 | ベストアンサーを取り消す
     .thread-comment-form__form.a-card(v-show="editing")
       .thread-comment-form__tabs.js-tabs
-        .thread-comment-form__tab.js-tabs__tab(v-bind:class="{'is-active': isActive('comment')}" @click="changeActiveTab('comment')")
+        .thread-comment-form__tab.js-tabs__tab(v-bind:class="{'is-active': isActive('answer')}" @click="changeActiveTab('answer')")
           | コメント
         .thread-comment-form__tab.js-tabs__tab(v-bind:class="{'is-active': isActive('preview')}" @click="changeActiveTab('preview')")
           | プレビュー
       .thread-comment-form__markdown-parent.js-markdown-parent
-        .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('comment')}")
+        .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('answer')}")
           markdown-textarea(v-model="description" :class="classAnswerId" class="a-text-input js-warning-form thread-comment-form__textarea js-comment-markdown" name="answer[description]")
         .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('preview')}")
           .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
@@ -55,7 +58,7 @@
             | キャンセル
 </template>
 <script>
-import Reaction from './reaction.vue'
+import Reaction from './answer-reaction.vue'
 import MarkdownTextarea from './markdown-textarea.vue'
 import MarkdownIt from 'markdown-it'
 import MarkdownItEmoji from 'markdown-it-emoji'
@@ -79,11 +82,19 @@ export default {
       editing: false,
       isCopied: false,
       tab: 'answer',
-      correct_answer: '',
+      question: '',
+      correctAnswer: false
+      // correctAnswer: null
     }
   },
   created: function() {
     this.description = this.answer.description;
+    this.question = this.answer.question;
+    this.correctAnswer = this.question.correctAnswer
+    console.log(this.answer);
+    // console.log(this.question);
+    // console.log(this.correctAnswer);
+    // そもそもanswerにcorrectAnswerが入っていない
   },
   mounted: function() {
     $('textarea').textareaAutoSize();
@@ -98,8 +109,8 @@ export default {
       tribute.attach(textareas)
     })
 
-    const commentAnchor = location.hash;
-    if(commentAnchor) {
+    const answerAnchor = location.hash;
+    if(answerAnchor) {
       this.$nextTick( () => {
         location.href = location.href;
       })
@@ -126,15 +137,34 @@ export default {
         $(`.answer-id-${this.answer.id}`).trigger('input');
       })
     },
+    // editComment: function() {
+    //   this.editing = true;
+    //   this.$nextTick(function() {
+    //     $(`.comment-id-${this.comment.id}`).trigger('input');
+    //   })
+    // },
     sloveAnswer: function() {
-      if (window.confirm('本当に宜しいですか？')) {
-        this.$emit('post', this.answer.id);
-      }
+      // this.correctAnswer = this.answer;
+      this.correctAnswer = true;
+      this.$nextTick(function() {
+        if (window.confirm('本当に宜しいですか？')) {
+          this.$emit('post', this.answer.id);
+        }
+      })
+      
+      // let params = {
+      //   'answer'
+      // }
+      // = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: "a-button is-md is-warning is-block" do
+                
     },
     unsloveAnswer: function() {
-      if (window.confirm('本当に宜しいですか？')) {
-        this.$emit('patch', this.answer.id);
-      }
+      this.correctAnswer = null;
+      this.$nextTick(function() {
+        if (window.confirm('本当に宜しいですか？')) {
+          this.$emit('patch', this.answer.id);
+        }
+      })
     },
     updateAnswer: function() {
       if (this.description.length < 1) { return null }
@@ -192,9 +222,22 @@ export default {
     updatedAt: function() {
       return moment(this.answer.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
-    userRole: function(){
+    userRole: function() {
       return `is-${this.answer.user.role}`
     },
+    answer1() {
+      return this.answer.question.correctAnswer
+    },
+    test() {
+      // これは機能している
+      return this.correctAnswer && this.answer != this.correctAnswer && this.currentUser.role == this.question.user || 'admin'
+    },
+    // checkId() {
+    //   return this.$store.getters.checkId
+    // },
+    // buttonLabel() {
+    //   return this.checkableLabel + (this.checkId ? 'の確認を取り消す' : 'を確認')
+    // },
     classAnswerId: function() {
       return `answer-id-${this.answer.id}`
     },

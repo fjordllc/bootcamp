@@ -13,12 +13,12 @@
           img.thread-comment__author-icon.a-user-icon(:src="currentUser.avatar_url" :title="currentUser.icon_title")
         .thread-comment-form__form.a-card
           .thread-comment-form__tabs.js-tabs
-            .thread-comment-form__tab.js-tabs__tab(:class="{'is-active': isActive('comment')}" @click="changeActiveTab('comment')")
+            .thread-comment-form__tab.js-tabs__tab(:class="{'is-active': isActive('answer')}" @click="changeActiveTab('answer')")
               | コメント
             .thread-comment-form__tab.js-tabs__tab(:class="{'is-active': isActive('preview')}" @click="changeActiveTab('preview')")
               | プレビュー
           .thread-comment-form__markdown-parent.js-markdown-parent
-            .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('comment')}")
+            .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('answer')}")
               markdown-textarea(v-model="description" id="js-new-comment" class="a-text-input js-warning-form thread-comment-form__textarea js-markdown" name="new_comment[description]")
             .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('preview')}")
               .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
@@ -34,6 +34,9 @@ import MarkdownIt from 'markdown-it'
 import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItMention from './packs/markdown-it-mention'
 
+// :question="answer.question",
+// :correctAnswer="question.correctAnswer",
+
 export default {
   props: ['questionId', 'type', 'currentUserId'],
   components: {
@@ -45,8 +48,10 @@ export default {
       currentUser: {},
       answers: [],
       description: '',
-      tab: 'comment',
-      buttonDisabled: false
+      tab: 'answer',
+      buttonDisabled: false,
+      // question: '',
+      // correctAnswer: null
     }
   },
   created: function() {
@@ -70,8 +75,8 @@ export default {
         console.warn('Failed to parsing', error)
       })
     
-    // fetch(`/api/answers.json?type=${this.type}&question_id=${this.questionId}`, {
-    fetch(`/api/answers.json?question_id=${this.questionId}`, {
+    fetch(`/api/answers.json?type=${this.type}&question_id=${this.questionId}`, {
+    // fetch(`/api/answers.json?question_id=${this.questionId}`, {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -84,6 +89,7 @@ export default {
       })
       .then(json => {
         json.forEach(c => { this.answers.push(c) });
+        // console.log(json);
       })
       .catch(error => {
         console.warn('Failed to parsing', error)
@@ -127,10 +133,16 @@ export default {
         })
         .then(json=> {
           // console.log(json);
+          // correctAnswerもAPIに含める(APIレスポンスの中に)
+          // Answersのなかにはjsonで取ってきたデータが入っている
+          // correctAnswerもjsonでデータを取ってくる
+          // 以下のanswersが元のやつ
           this.answers.push(json);
           this.description = '';
-          this.tab = 'comment';
-          this.buttonDisabled = false
+          this.tab = 'answer';
+          this.buttonDisabled = false;
+          // this.question = '';
+          // this.correctAnswer = null;
         })
         .catch(error => {
           console.warn('Failed to parsing', error)

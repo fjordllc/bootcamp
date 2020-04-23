@@ -7,14 +7,13 @@ class API::AnswersController < API::BaseController
   before_action :set_question, only: %i(create)
   # before_action :set_return_to, only: %i(create)
 
-  # def index
-  #   @answers = question.answers.order(created_at: :asc)
-  #   @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
-  #   # render :json
-  # end
-
-  def edit
+  def index
+    @answers = question.answers.order(created_at: :asc)
+    @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
   end
+
+  # def edit
+  # end
 
   def create
     @answer = @question.answers.new(answer_params)
