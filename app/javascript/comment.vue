@@ -50,6 +50,7 @@ import MarkdownTextarea from './markdown-textarea.vue'
 import MarkdownIt from 'markdown-it'
 import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItMention from './packs/markdown-it-mention'
+import hljs from 'highlight.js'
 import Tribute from 'tributejs'
 import TextareaAutocomplteEmoji from 'classes/textarea-autocomplte-emoji'
 import TextareaAutocomplteMention from 'classes/textarea-autocomplte-mention'
@@ -160,7 +161,16 @@ export default {
         html: true,
         breaks: true,
         linkify: true,
-        langPrefix: 'language-'
+        langPrefix: 'lng-',
+        highlight: (str, lang) => {
+          if (lang && hljs.getLanguage(lang)) {
+            try {
+              return hljs.highlight(lang, str).value;
+            } catch (__) {}
+          }
+
+          return '';
+        }
       });
       md.use(MarkdownItEmoji).use(MarkdownItMention)
       return md.render(this.description);

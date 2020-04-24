@@ -2,13 +2,23 @@ import MarkdownIt from 'markdown-it'
 import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItMention from './markdown-it-mention'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
+import hljs from 'highlight.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const md = new MarkdownIt({
     html: true,
     breaks: true,
     linkify: true,
-    langPrefix: 'language-'
+    langPrefix: 'lng-',
+    highlight: (str, lang) => {
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return hljs.highlight(lang, str).value
+        } catch (__) {}
+      }
+
+      return ''
+    }
   })
 
   md.use(MarkdownItEmoji).use(MarkdownItMention).use(MarkdownItTaskLists)
