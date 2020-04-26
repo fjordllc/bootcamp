@@ -211,11 +211,4 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes(target, users(:kimura))
     assert_not_includes(target, users(:yameo))
   end
-
-  test ".order_by_ids" do
-    users = [users(:machida), users(:komagata),  users(:kimura)]
-    ids = users.map(&:id)
-    order_result = User.where(id: ids).order_by_ids(ids)
-    assert_equal ids, order_result.map(&:id)
-  end
 end
