@@ -399,15 +399,6 @@ SQL
     end
   end
 
-  def self.order_by_ids(ids)
-    order_by = ["case"]
-    ids.each_with_index.map do |id, index|
-      order_by << "WHEN id='#{id}' THEN #{index}"
-    end
-    order_by << "end"
-    order(Arel.sql(order_by.join(" ")))
-  end
-
   private
     def password_required?
       new_record? || password.present?

@@ -35,18 +35,11 @@ class Comment < ActiveRecord::Base
     new_mentions.present?
   end
 
-  def self.users_who_commented
-    ids = self.collect_latest_for_each_user.map(&:user_id)
-    User.with_attached_avatar.where(id: ids).order_by_ids(ids)
-  end
-
-  def self.collect_latest_for_each_user
-    where(
-      id: self
-        .select("DISTINCT ON (user_id) id")
-        .order(:user_id, created_at: :desc)
-    )
-      .order(created_at: :asc)
+  def self.commented_users
+    User.with_attached_avatar
+      .joins(:comments)
+      .where("comments.id": self.select("DISTINCT ON (user_id) id").order(:user_id, created_at: :desc))
+      .order("comments.created_at")
   end
 
   private
