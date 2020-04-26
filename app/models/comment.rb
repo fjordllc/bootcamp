@@ -38,7 +38,7 @@ class Comment < ActiveRecord::Base
   def self.commented_users
     User.with_attached_avatar
       .joins(:comments)
-      .where("comments.id": self.select("DISTINCT ON (user_id) id").order(:user_id, created_at: :desc))
+      .where(comments: { id: self.select("DISTINCT ON (user_id) id").order(:user_id, created_at: :desc) })
       .order("comments.created_at")
   end
 
