@@ -34,6 +34,99 @@ class SignUpTest < ApplicationSystemTestCase
     )
   end
 
+  test "sign up with expired card" do
+    WebMock.allow_net_connect!
+
+    visit "/users/new"
+    within "form[name=user]" do
+      fill_in "user[login_name]", with: "foo"
+      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
+      fill_in "user[first_name]", with: "太郎"
+      fill_in "user[last_name]", with: "テスト"
+      fill_in "user[kana_first_name]", with: "タロウ"
+      fill_in "user[kana_last_name]", with: "テスト"
+      fill_in "user[password]", with: "testtest"
+      fill_in "user[password_confirmation]", with: "testtest"
+      select "学生", from: "user[job]"
+      select "Mac", from: "user[os]"
+      select "自宅", from: "user[study_place]"
+      select "未経験", from: "user[experience]"
+    end
+
+    fill_stripe_element("4000 0000 0000 0069", "12 / 21", "111", "11122")
+
+    click_button "利用規約に同意して参加する"
+    sleep 1
+    assert_text "クレジットカードが有効期限切れです。"
+
+    WebMock.disable_net_connect!(
+      allow_localhost: true,
+      allow: "chromedriver.storage.googleapis.com"
+    )
+  end
+
+  test "sign up with incorrect cvc card" do
+    WebMock.allow_net_connect!
+
+    visit "/users/new"
+    within "form[name=user]" do
+      fill_in "user[login_name]", with: "foo"
+      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
+      fill_in "user[first_name]", with: "太郎"
+      fill_in "user[last_name]", with: "テスト"
+      fill_in "user[kana_first_name]", with: "タロウ"
+      fill_in "user[kana_last_name]", with: "テスト"
+      fill_in "user[password]", with: "testtest"
+      fill_in "user[password_confirmation]", with: "testtest"
+      select "学生", from: "user[job]"
+      select "Mac", from: "user[os]"
+      select "自宅", from: "user[study_place]"
+      select "未経験", from: "user[experience]"
+    end
+
+    fill_stripe_element("4000 0000 0000 0127", "12 / 21", "111", "11122")
+
+    click_button "利用規約に同意して参加する"
+    sleep 1
+    assert_text "クレジットカードセキュリティコードが正しくありません。"
+
+    WebMock.disable_net_connect!(
+      allow_localhost: true,
+      allow: "chromedriver.storage.googleapis.com"
+    )
+  end
+
+  test "sign up with declined card" do
+    WebMock.allow_net_connect!
+
+    visit "/users/new"
+    within "form[name=user]" do
+      fill_in "user[login_name]", with: "foo"
+      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
+      fill_in "user[first_name]", with: "太郎"
+      fill_in "user[last_name]", with: "テスト"
+      fill_in "user[kana_first_name]", with: "タロウ"
+      fill_in "user[kana_last_name]", with: "テスト"
+      fill_in "user[password]", with: "testtest"
+      fill_in "user[password_confirmation]", with: "testtest"
+      select "学生", from: "user[job]"
+      select "Mac", from: "user[os]"
+      select "自宅", from: "user[study_place]"
+      select "未経験", from: "user[experience]"
+    end
+
+    fill_stripe_element("4000 0000 0000 0002", "12 / 21", "111", "11122")
+
+    click_button "利用規約に同意して参加する"
+    sleep 1
+    assert_text "クレジットカードへの請求が拒否されました。"
+
+    WebMock.disable_net_connect!(
+      allow_localhost: true,
+      allow: "chromedriver.storage.googleapis.com"
+    )
+  end
+
   test "sign up as adviser" do
     visit "/users/new?role=adviser"
 
