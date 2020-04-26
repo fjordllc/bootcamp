@@ -50,11 +50,13 @@ import MarkdownTextarea from './markdown-textarea.vue'
 import MarkdownIt from 'markdown-it'
 import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItMention from './packs/markdown-it-mention'
+import Prism from 'prismjs'
 import Tribute from 'tributejs'
 import TextareaAutocomplteEmoji from 'classes/textarea-autocomplte-emoji'
 import TextareaAutocomplteMention from 'classes/textarea-autocomplte-mention'
 import moment from 'moment'
 
+import "prism_languages"
 moment.locale('ja');
 
 export default {
@@ -160,7 +162,16 @@ export default {
         html: true,
         breaks: true,
         linkify: true,
-        langPrefix: 'language-'
+        langPrefix: 'language-',
+        highlight: (str, lang) => {
+          if (lang && Prism.languages[lang]) {
+            try {
+              return Prism.highlight(str, Prism.languages[lang], lang);
+            } catch (__) {}
+          }
+
+          return '';
+        }
       });
       md.use(MarkdownItEmoji).use(MarkdownItMention)
       return md.render(this.description);
