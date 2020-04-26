@@ -62,15 +62,23 @@ class UsersController < ApplicationController
         end
 
         if Card.new.search(email: @user.email)
-          flash[:alert] = "同じメールアドレスの顧客が既に登録済みです。"
-          logger.warn "[Payment] 同じメールアドレスの顧客が既に登録済みです。"
+          logger.error "[Payment] 同じメールアドレスの顧客が既に登録済みです。"
+          @user.errors.add :base, "同じメールアドレスの顧客が既に登録済みです。"
           render "new"
           return false
         end
 
         token = params[:idempotency_token]
-        customer = Card.new.create(@user, params[:stripeToken], token)
-        subscription = Subscription.new.create(customer["id"], "#{token}-subscription")
+
+        begin
+          customer = Card.new.create(@user, params[:stripeToken], token)
+          subscription = Subscription.new.create(customer["id"], "#{token}-subscription")
+        rescue Stripe::CardError => e
+          logger.error "[Payment] customerの作成時にエラーが発生しました: #{e.message}"
+          @user.errors.add :base, I18n.translate("stripe.errors.#{e.code}")
+          render "new"
+          return false
+        end
 
         @user.customer_id = customer["id"]
         @user.subscription_id = subscription["id"]
