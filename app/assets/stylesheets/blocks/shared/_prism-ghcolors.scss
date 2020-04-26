@@ -7,20 +7,20 @@
  * This work is licensed under the Creative Commons CC0 1.0 Universal License
  */
 
-code[class*="lng-"],
-pre[class*="lng-"] {
+code[class*="language-"],
+pre[class*="language-"] {
   background: #322931;
   color: #ffffff;
 }
 
-.hljs-comment,
-.hljs-prolog,
-.hljs-doctype,
-.hljs-cdata {
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
   color: #919191;
 }
 
-.hljs-punctuation {
+.token.punctuation {
   color: #d7d7d7;
 }
 
@@ -28,59 +28,59 @@ pre[class*="lng-"] {
   opacity: .7;
 }
 
-.hljs-null,
-.hljs-operator,
-.hljs-boolean,
-.hljs-number {
+.token.null,
+.token.operator,
+.token.boolean,
+.token.number {
   color: #fd8b19;
 }
-.hljs-property {
+.token.property {
   color: #fdcc59;
 }
-.hljs-tag {
+.token.tag {
   color: #1290bf;
 }
-.hljs-string {
+.token.string {
   color: #1fcdc2;
 }
-.hljs-selector {
+.token.selector {
   color: #ea8aa4;
 }
-.hljs-attr-name {
+.token.attr-name {
   color: #fd8b19;
 }
-.hljs-entity,
-.hljs-url,
-.language-css .hljs-string,
-.style .hljs-string {
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
   color: #149b93;
 }
 
-.hljs-attr-value,
-.hljs-keyword,
-.hljs-control,
-.hljs-directive,
-.hljs-unit {
+.token.attr-value,
+.token.keyword,
+.token.control,
+.token.directive,
+.token.unit {
   color: #a8d958;
 }
 
-.hljs-statement,
-.hljs-regex,
-.hljs-atrule {
+.token.statement,
+.token.regex,
+.token.atrule {
   color: #149b93;
 }
 
-.hljs-placeholder,
-.hljs-variable {
+.token.placeholder,
+.token.variable {
   color: #37b3e1;
 }
 
-.hljs-important {
+.token.important {
   color: #dd464c;
   font-weight: bold;
 }
 
-.hljs-entity {
+.token.entity {
   cursor: help;
 }
 
