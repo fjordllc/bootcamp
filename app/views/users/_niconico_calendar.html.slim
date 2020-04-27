@@ -42,4 +42,5 @@
                       - else
                         = set[:date]
                     .niconico-calendar__day-value
-                      i.fas.fa-times
+                      - if set[:date]
+                        i.fas.fa-minus

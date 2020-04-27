@@ -17,12 +17,20 @@
   &.is-saturday
     color: $main
 
+.niconico-calendar__day
+  &.is-blank
+    background-color: $background-more-tint
+  &.is-smile
+    background-color: #caeada
+  &.is-sad
+    background-color: #ffcabe
+  &.is-soso
+    background-color: #ffebb4
+
 .niconico-calendar__day-inner
   +block-link
   +padding(vertical, .25rem .125rem)
   +size(100%)
-  .niconico-calendar__day.is-blank &
-    background-color: $background-more-tint
 
 a.niconico-calendar__day-inner
   transition: all .2s ease-out
