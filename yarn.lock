@@ -3397,6 +3397,11 @@ fsevents@^1.2.7:
     bindings "^1.5.0"
     nan "^2.12.1"
 
+fsevents@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.1.3.tgz#fb738703ae8d2f9fe900c33836ddebee8b97f23e"
+  integrity sha512-Auw9a4AxqWpa9GUfj370BMPzzyncfBABW8Mab7BGWBYDj4Isgq+cDKtx0i6u9jcX9pQDnswsaaOTgTmA5pEjuQ==
+
 fstream@^1.0.0, fstream@^1.0.12:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/fstream/-/fstream-1.0.12.tgz#4e8ba8ee2d48be4f7d0de505455548eae5932045"
@@ -7750,11 +7755,12 @@ textarea-autosize@^0.4.2:
   dependencies:
     jquery ">=1.8"
 
-textarea-markdown@^1.2.3:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.2.4.tgz#d0e338dfab0d4276a69138f9a45711cab675b818"
-  integrity sha512-ojnBdwkCFR5ixI+fLOk/kITcyDo4I9FPPzazsXfKjJNPJbWqEfPc6EQcHCcWbBwx1rAuPbzMgOOu/MqT6s/RrA==
+textarea-markdown@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.2.5.tgz#90032c6894db5e873010367a7af019accaf67d9e"
+  integrity sha512-uzZTbVZ95qJ7OtHLJgt6/G9v758qB0nXONc26dUw5+KRzaFdVgnNGZYFfm0t5KMNqFbQtOQVcLpsmUYMM5Ry6g==
   dependencies:
+    fsevents "^2.1.3"
     markdown-it "^8.4.0"
     whatwg-fetch "^2.0.3"
 
