@@ -15,10 +15,12 @@ class Comment < ActiveRecord::Base
   target_column_of_keyword :description
 
   class << self
-    private def params_for_keyword_search(searched_values = {})
-      groupings = super
-      { commentable_type_in: searched_values[:commentable_type] }.merge(groupings)
-    end
+    private
+
+      def params_for_keyword_search(searched_values = {})
+        groupings = super
+        { commentable_type_in: searched_values[:commentable_type] }.merge(groupings)
+      end
   end
 
   def receiver
