@@ -36,6 +36,9 @@
               li.header-dropdown__item
                 = link_to welcome_path, class: "header-dropdown__item-link" do
                   | トップページ確認
+              li.header-dropdown__item
+                = link_to admin_metric_check_path, class: "header-dropdown__item-link" do
+                  | 確認数の集計
     li.header-links__item
       label.header-links__link.test-show-menu(for="header-menu")
         i.fas.fa-bars

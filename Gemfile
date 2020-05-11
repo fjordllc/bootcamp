@@ -44,6 +44,8 @@ gem "active_storage_validations"
 gem "any_login"
 gem "sucker_punch", "~> 2.0"
 gem "stripe-i18n"
+gem "groupdate"
+gem "chartkick"
 
 group :production, :staging do
   gem "newrelic_rpm"

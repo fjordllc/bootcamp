@@ -1,0 +1,13 @@
+- title "確認数の集計"
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title = title
+.page-body
+  .container.is-padding-horizontal-0-sm-down
+    - @users.each do |user|
+      .graph
+        h2.graph__login_name = user.login_name
+        .graph__count 合計: #{Metric.check_count(user.id)}
+        = column_chart Metric.check(user.id), ytitle: "確認数", stacked: true
