@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const warningForm = document.querySelector('.js-warning-form')
-  if (!warningForm) { return null }
+  const warningForms = document.querySelectorAll('.js-warning-form')
+  if (warningForms.length <= 0) { return null }
 
   let submitting = false
   const commentForm = document.querySelector('#js-new-comment')
@@ -12,8 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   }
-  warningForm.addEventListener('keyup', onUnload, false)
-  warningForm.addEventListener('change', onUnload, false)
+  for (let warningForm of warningForms) {
+    warningForm.addEventListener('keyup', onUnload, false)
+    warningForm.addEventListener('change', onUnload, false)
+  }
   window.addEventListener('submit', () => {
     window.removeEventListener('beforeunload', onUnload, false)
     submitting = true
