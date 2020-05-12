@@ -1,0 +1,4 @@
+.thread-list-item__user-icons
+  .thread-list-item__user-icon
+    = link_to user_path(user) do
+      = image_tag user.avatar_url, title: "#{user.icon_title}", class: "thread-list-item__checked-author-icon a-user-icon is-#{user.role}"
