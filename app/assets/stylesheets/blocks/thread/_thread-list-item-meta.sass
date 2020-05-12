@@ -1,0 +1,49 @@
+.thread-list-item-meta
+  display: flex
+  align-items: center
+  +text-block(.75rem 1.4)
+  .thread-list-item-meta + &
+    margin-top: .375rem
+    padding-top: .375rem
+    margin-bottom: -.25rem
+    border-top: dashed 1px $border
+
+.thread-list-item-meta__label
+  +text-block(.75rem 1.4, $muted-text)
+
+.thread-list-item-meta__items
+  display: flex
+  +margin(horizontal, -.5rem)
+
+.thread-list-item-meta__item
+  +padding(horizontal, .5rem)
+
+.thread-list-item-meta__item-link
+  +hover-link-reversal
+  color: $main
+
+.thread-list-item-meta__updated-at
+  +text-block(.75rem 1.4, $muted-text)
+  .thread-list-item__user-icons + &
+    margin-left: .25rem
+
+.thread-list-item-meta__comment-count
+  +text-block(.75rem 1.4, block $muted-text inline-block)
+  &:not(:first-child)
+    margin-left: .75rem
+  .thread-list-item-meta__label + &
+    margin-left: 0
+
+.thread-list-item-meta__comment-count-label
+  +text-block(.75rem 1.4, block $muted-text inline-block)
+  margin-right: .25rem
+
+.thread-list-item-meta__comment-count-value
+  +text-block(.75rem 1.4, block $muted-text inline-block)
+
+.thread-list-item-meta__checkers
+  display: inline-block
+  margin-left: .75rem
+
+.thread-list-item-meta__created-at
+  +text-block(.75rem 1.4, $muted-text)

@@ -10,6 +10,8 @@ ja:
       default: "%Y年%m月%d日(%a) %H:%M"
       short: "%Y/%m/%d %H:%M"
       time_only: "%H:%M"
+      date_only: "%m月%d日"
+      date_and_time: "%m月%d日%H:%M"
   activerecord:
     models:
       user: ユーザー

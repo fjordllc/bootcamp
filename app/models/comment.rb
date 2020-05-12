@@ -35,6 +35,13 @@ class Comment < ActiveRecord::Base
     new_mentions.present?
   end
 
+  def self.commented_users
+    User.with_attached_avatar
+      .joins(:comments)
+      .where(comments: { id: self.select("DISTINCT ON (user_id) id").order(:user_id, created_at: :desc) })
+      .order("comments.created_at")
+  end
+
   private
     def extract_mentions(text)
       text.scan(/@\w+/).uniq.map { |s| s.gsub(/@/, "") }
