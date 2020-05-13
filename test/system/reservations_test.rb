@@ -3,8 +3,8 @@
 require "application_system_test_case"
 
 class ReservationsTest < ApplicationSystemTestCase
-  def setup
-    login_user "komagata", "testtest"
+  setup do
+    login_user "hatsuno", "testtest"
   end
 
   test "create reservation" do
@@ -15,7 +15,7 @@ class ReservationsTest < ApplicationSystemTestCase
       find("#reserve-seat").click
     end
     within("#reservation-2019-11-02-#{seats(:seat_2).id}") do
-      assert_text "komagata"
+      assert_text "hatsuno"
     end
   end
 
@@ -24,12 +24,12 @@ class ReservationsTest < ApplicationSystemTestCase
     assert_equal "席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
 
     accept_confirm do
-      within("#reservation-#{reservations(:reservation_1).date}-#{reservations(:reservation_1).seat.id}") do
+      within("#reservation-#{reservations(:reservation_4).date}-#{reservations(:reservation_4).seat.id}") do
         find("#cancel-reservation").click
       end
     end
-    within("#reservation-#{reservations(:reservation_1).date}-#{reservations(:reservation_1).seat.id}") do
-      assert_no_text "komagata"
+    within("#reservation-#{reservations(:reservation_4).date}-#{reservations(:reservation_4).seat.id}") do
+      assert_no_text "hatsuno"
     end
   end
 
@@ -50,7 +50,7 @@ class ReservationsTest < ApplicationSystemTestCase
     end
 
     within("#reservation-#{reservation_date}-#{seats(:seat_2).id}") do
-      assert_no_text "komagata"
+      assert_no_text "hatsuno"
     end
   end
 end
