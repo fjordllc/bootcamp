@@ -7,7 +7,7 @@ class EventTest < ActiveSupport::TestCase
     assert events(:event_2).valid?
   end
 
-  test "opening?" do
+  test "#opening?" do
     event = events(:event_2)
     assert event.opening?
   end
@@ -17,7 +17,7 @@ class EventTest < ActiveSupport::TestCase
     assert event.before_opening?
   end
 
-  test "closing?" do
+  test "#closing?" do
     event = events(:event_5)
     assert event.closing?
   end
@@ -35,12 +35,12 @@ class EventTest < ActiveSupport::TestCase
     assert_includes event.waitlist, waiting_user
   end
 
-  test "can_participate?" do
+  test "#can_participate?" do
     event = events(:event_3)
     assert_not event.can_participate?
   end
 
-  test "cancel_participation" do
+  test "#cancel_participation" do
     event = events(:event_3)
     participant = participations(:participation_3).user
     waiting_participation = participations(:participation_2)
@@ -53,7 +53,7 @@ class EventTest < ActiveSupport::TestCase
     assert_not_includes event.participations.disabled, move_up_participation
   end
 
-  test "update_participations" do
+  test "#update_participations" do
     event = events(:event_3)
     move_up_participation = participations(:participation_2)
 
@@ -63,7 +63,7 @@ class EventTest < ActiveSupport::TestCase
     assert_not_includes event.participations.disabled, move_up_participation
   end
 
-  test "send_notification" do
+  test "#send_notification" do
     event = events(:event_3)
     user = users(:hatsuno)
     event.send_notification(user)
