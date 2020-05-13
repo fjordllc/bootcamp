@@ -2,10 +2,10 @@
   .reservation
     template(v-if="this.currentUserId == this.userId")
       #cancel-reservation.reservations__seat-action.is-reserved.is-me(@click="deleteReservation")
-        | {{ this.loginName }}
+        | {{ this.label }}
     template(v-else)
       #cancel-reservation.reservations__seat-action.is-reserved.is-not-me
-        | {{ this.loginName }}
+        | {{ this.label }}
 </template>
 <script>
 export default {
@@ -19,18 +19,18 @@ export default {
   },
   computed: {
     id: function() {
-      if(typeof this.parentReservation !== null){
+      if (typeof this.parentReservation !== null) {
         return this.parentReservation.id
       }
     },
     userId: function() {
-      if(typeof this.parentReservation !== null){
+      if (typeof this.parentReservation !== null) {
         return this.parentReservation.user_id
       }
     },
-    loginName: function() {
-      if(typeof this.parentReservation !== null){
-        return this.parentReservation.login_name
+    label: function() {
+      if (typeof this.parentReservation !== null) {
+        return this.parentReservation.admin ? 'X' : this.parentReservation.login_name
       }
     }
   }
