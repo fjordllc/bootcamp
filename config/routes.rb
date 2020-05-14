@@ -20,10 +20,12 @@ Rails.application.routes.draw do
     resources :reactions, only: %i(create destroy)
     resources :checks, only: %i(index create destroy)
     resources :users, only: %i(index show)
+    resources :reservations, only: %i(index create destroy)
     resources :practices, only: [] do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
     resources :watches, only: %i(index create destroy)
+    resources :memos, only: %i(create update destroy)
   end
 
   namespace :admin do
@@ -40,7 +42,7 @@ Rails.application.routes.draw do
       resources :qrcodes, only: %i(index show)
     end
     resources :books
-
+    resources :seats
     namespace :metric do
       resource :check, only: %i[show], controller: "check"
     end
@@ -104,6 +106,7 @@ Rails.application.routes.draw do
     resource :correct_answer, only: %i(create update), controller: "questions/correct_answer"
   end
 
+  resources :reservation_calenders, only: %i(index show)
   resources :courses, only: :index
 
   resource :inquiry, only: %i(new create)

@@ -1,0 +1,29 @@
+.memo-form
+
+.memo-form__show-modal
+  display: block
+  +size(100%)
+  +position(absolute, left 0, top 0, right 0, bottom 0)
+  cursor: pointer
+  transition: all .2s ease-out
+  &:hover
+    box-shadow: inset rgba($primary, .5) 0 0 0 1px
+
+.memo-form__toggle-checkbox
+  visibility: hidden
+  opacity: 0
+  +position(absolute, left 0, top 0)
+
+.memo-form-modal
+  display: none
+  input:checked + &
+    display: block
+
+.memo-form-modal__inner
+  width: 30rem
+  +position(fixed, left 50%, top 50%, 11)
+  transform: translate(-50%, -50%)
+
+.memo-form-modal__overlay
+  +position(fixed, left 0, top 0, right 0, bottom 0, 10)
+  background-color: rgba(black, .7)
