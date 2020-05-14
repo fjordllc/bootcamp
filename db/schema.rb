@@ -223,6 +223,7 @@ ActiveRecord::Schema.define(version: 2020_03_18_025842) do
     t.bigint "event_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "enable", default: false, null: false
     t.index ["event_id"], name: "index_participations_on_event_id"
     t.index ["user_id", "event_id"], name: "index_participations_on_user_id_and_event_id", unique: true
     t.index ["user_id"], name: "index_participations_on_user_id"

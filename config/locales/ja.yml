@@ -165,8 +165,8 @@ ja:
         description: 詳細
         location: 会場
         capacity: 定員
-        start_at: 開始日時
-        end_at: 終了日時
+        start_at: イベント開始日時
+        end_at: イベント終了日時
         open_start_at: 募集開始日時
         open_end_at: 募集終了日時
     enums:
