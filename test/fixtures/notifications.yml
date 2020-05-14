@@ -93,3 +93,11 @@ notification_trainee_report:
   message: kensyuさんが日報【 研修の日報 】を書きました！
   path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_11) %>"
   read: false
+
+notification_moved_up_event_waiting_user:
+  kind: 11
+  user: hajime
+  sender: komagata
+  message: 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。
+  path: "/events/<%= ActiveRecord::FixtureSet.identify(:event_3) %>"
+  read: false

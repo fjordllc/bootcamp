@@ -1,0 +1,38 @@
+.event-meta
+  +media-breakpoint-up(md)
+    font-size: .875rem
+  +media-breakpoint-down(sm)
+    font-size: .8125rem
+  padding: 1.25rem 2rem
+  +media-breakpoint-down(sm)
+    padding: .75rem
+  &:not(:last-child)
+    padding-bottom: 0
+
+.event-meta__inner
+  padding: .75em 1em
+  background-color: #f8fff2
+  border: solid $success 1px
+
+.event-meta__item
+  line-height: 1.5
+  +media-breakpoint-up(md)
+    display: flex
+  &:not(:first-child)
+    margin-top: .5em
+    padding-top: .5em
+    border-top: dashed rgba($success, .7) 1px
+
+.event-meta__item-label
+  flex-basis: 5em
+  margin-right: .5em
+  white-space: nowrap
+  font-weight: 600
+  color: #4e732e
+  +media-breakpoint-up(md)
+    text-align: right
+  +media-breakpoint-down(sm)
+    font-size: .875em
+
+.event-meta__item-value
+  flex: 100

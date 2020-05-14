@@ -15,6 +15,7 @@ class NotificationMailer < ApplicationMailer
     @report = params[:report]
     @watchable = params[:watchable]
     @sender = params[:sender]
+    @event = params[:event]
   end
 
   # required params: comment, receiver, message
@@ -102,6 +103,14 @@ class NotificationMailer < ApplicationMailer
     @user = @receiver
     @notification = @user.notifications.find_by(path: "/reports/#{@report.id}")
     subject = "[bootcamp] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
+    mail to: @user.email, subject: subject
+  end
+
+  # required params: event, receiver
+  def moved_up_event_waiting_user
+    @user = @receiver
+    @notification = @user.notifications.find_by(path: "/events/#{@event.id}")
+    subject = "[bootcamp] #{@event.title}で、補欠から参加に繰り上がりました。"
     mail to: @user.email, subject: subject
   end
 end

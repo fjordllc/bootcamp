@@ -17,7 +17,8 @@ class Notification < ApplicationRecord
     first_report:    7,
     watching:        8,
     retired:         9,
-    trainee_report: 10
+    trainee_report: 10,
+    moved_up_event_waiting_user: 11
   }
 
   scope :reads, -> {
@@ -151,6 +152,17 @@ class Notification < ApplicationRecord
       path:    Rails.application.routes.url_helpers.polymorphic_path(report),
       message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
       read:    false
+    )
+  end
+
+  def self.moved_up_event_waiting_user(event, receiver)
+    Notification.create!(
+      kind:     11,
+      user:     receiver,
+      sender:   event.user,
+      path:     Rails.application.routes.url_helpers.polymorphic_path(event),
+      message:  "#{event.title}で、補欠から参加に繰り上がりました。",
+      read:     false
     )
   end
 

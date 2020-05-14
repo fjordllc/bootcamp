@@ -3,9 +3,9 @@
 require "test_helper"
 
 class EventTest < ActiveSupport::TestCase
-  test "#is_opening?" do
+  test "#opening?" do
     event = events(:event_2)
-    assert event.is_opening?
+    assert event.opening?
   end
 
   test "#before_opening?" do
@@ -13,9 +13,9 @@ class EventTest < ActiveSupport::TestCase
     assert event.before_opening?
   end
 
-  test "#is_closing?" do
+  test "#closing?" do
     event = events(:event_5)
-    assert event.is_closing?
+    assert event.closing?
   end
 
   test "#participants" do
@@ -29,6 +29,41 @@ class EventTest < ActiveSupport::TestCase
     waiting_user = users(:kimura)
     event.participations.create(user: waiting_user)
     assert_includes event.waitlist, waiting_user
+  end
+
+  test "#can_participate?" do
+    event = events(:event_3)
+    assert_not event.can_participate?
+  end
+
+  test "#cancel_participation" do
+    event = events(:event_3)
+    participant = participations(:participation_3).user
+    waiting_participation = participations(:participation_2)
+    move_up_participation = participations(:participation_4)
+
+    event.cancel_participation!(waiting_participation.user)
+    assert_includes event.participations.disabled, move_up_participation
+
+    event.cancel_participation!(participant)
+    assert_not_includes event.participations.disabled, move_up_participation
+  end
+
+  test "#update_participations" do
+    event = events(:event_3)
+    move_up_participation = participations(:participation_2)
+
+    event.update(capacity: 2)
+    event.update_participations
+
+    assert_not_includes event.participations.disabled, move_up_participation
+  end
+
+  test "#send_notification" do
+    event = events(:event_3)
+    user = users(:hatsuno)
+    event.send_notification(user)
+    assert Notification.where(user: user, path: "/events/#{event.id}").exists?
   end
 
   test "should be invalid when start_at >= end_at" do

@@ -66,6 +66,11 @@ nav.global-nav
             .global-nav-links__link-icon
               i.fas.fa-users
             .global-nav-links__link-label ユーザー
+        li.global-nav-links__item
+          = link_to events_path, class: "global-nav-links__link #{current_link /^events/}" do
+            .global-nav-links__link-icon
+              i.fas.fa-beer
+            .global-nav-links__link-label イベント
         li.global-nav-links__item.is-hidden-md-up
           = link_to courses_path, class: "global-nav-links__link #{current_link /^courses-index/}" do
             .global-nav-links__link-icon

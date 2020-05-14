@@ -11,16 +11,17 @@
         time.thread-header__lower-side-created-at(datetime="#{event.created_at.to_datetime}" pubdate="pubdate")
           | 書いた日 : #{l event.updated_at}
 
+    - unless event.opening?
+      .event-status
+        - if event.before_opening?
+          | 募集開始までお待ち下さい
+        - elsif event.closing?
+          | 募集受付は終了しました。
+        - else
+          | イベントは終了しました。
+
     .thread__body
-      ul
-        li
-          | 会場 :  #{event.location}
-        li
-          | 定員 : #{event.capacity}名
-        li
-          | 開催日時 : #{event.period}
-        li
-          | 募集期間 : #{l event.open_start_at} 〜 #{l event.open_end_at}
+      = render("event_meta", event: event)
       .thread__description.js-target-blank.is-long-text.js-markdown-view
         = event.description
       = render "events/participation", event: event
@@ -41,20 +42,30 @@
                 = link_to event_path(event), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
                   i.fas.fa-trash-alt#delete
                   | 削除
-    .participants
-      | 参加者
+
+  = link_to event.user, itempro: "url", class: "thread__author-link" do
+    = image_tag event.user.avatar_url, title: "#{event.user.icon_title}", class: "thread__author-icon a-user-icon is-#{event.user.role}"
+
+.thread.participants
+  .thread__inner.a-card
+    header.card-header
+      h1.card-header__title
+        | 参加者（#{event.participants.count}名/#{event.capacity}名）
+    .card-body
       ul.footprints__items
         - event.participants.each do |participant|
           li.footprints-item
             = link_to participant do
               = image_tag participant.avatar_url, title: "#{participant.icon_title}", class: "footprints-item__checker-icon a-user-icon is-#{participant.login_name} is-#{participant.role}", alt: participant.login_name
-    .waitlist
-      | 補欠者
+
+.thread.waitlist
+  .thread__inner.a-card
+    header.card-header
+      h1.card-header__title
+        | 補欠者（#{event.waitlist.count}名）
+    .card-body
       ul.footprints__items
         - event.waitlist.each do |wait_user|
           li.footprints-item
             = link_to wait_user do
               = image_tag wait_user.avatar_url, title: "#{wait_user.icon_title}", class: "footprints-item__checker-icon a-user-icon is-#{wait_user.login_name} is-#{wait_user.role}", alt: wait_user.login_name
-
-  = link_to event.user, itempro: "url", class: "thread__author-link" do
-    = image_tag event.user.avatar_url, title: "#{event.user.icon_title}", class: "thread__author-icon a-user-icon is-#{event.user.role}"
