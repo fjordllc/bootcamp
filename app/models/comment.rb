@@ -12,7 +12,7 @@ class Comment < ActiveRecord::Base
 
   validates :description, presence: true
 
-  target_column_of_keyword :description
+  columns_for_keyword_search :description
 
   class << self
     private

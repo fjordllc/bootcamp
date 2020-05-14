@@ -39,7 +39,7 @@ class Report < ActiveRecord::Base
   after_update ReportCallbacks.new
   after_destroy ReportCallbacks.new
 
-  target_column_of_keyword :title, :description
+  columns_for_keyword_search :title, :description
 
   def previous
     Report.where(user: user)

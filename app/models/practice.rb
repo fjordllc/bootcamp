@@ -32,7 +32,7 @@ class Practice < ActiveRecord::Base
 
   scope :category_order, -> { includes(:category).order("categories.position").order(:position) }
 
-  target_column_of_keyword :title, :description, :goal
+  columns_for_keyword_search :title, :description, :goal
 
   def status(user)
     learnings = Learning.where(
