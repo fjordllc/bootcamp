@@ -3,10 +3,6 @@
 require "test_helper"
 
 class EventTest < ActiveSupport::TestCase
-  test "should be valid" do
-    assert events(:event_2).valid?
-  end
-
   test "#opening?" do
     event = events(:event_2)
     assert event.opening?
