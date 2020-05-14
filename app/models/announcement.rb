@@ -22,5 +22,5 @@ class Announcement < ApplicationRecord
   validates :description, presence: true
   validates :target, presence: true
 
-  target_column_of_keyword :title, :description
+  columns_for_keyword_search :title, :description
 end

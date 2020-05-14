@@ -8,7 +8,7 @@ module Searchable
       ransack(**params_for_keyword_search(searched_values)).result
     end
 
-    def target_column_of_keyword(*key_names)
+    def columns_for_keyword_search(*key_names)
       define_singleton_method(:_grouping_condition) { "#{key_names.map(&:to_s).join("_or_")}_cont_all".to_sym }
     end
 

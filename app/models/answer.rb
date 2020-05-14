@@ -13,7 +13,7 @@ class Answer < ActiveRecord::Base
   validates :description, presence: true
   validates :user, presence: true
 
-  target_column_of_keyword :description
+  columns_for_keyword_search :description
 
   def receiver
     self.question.user

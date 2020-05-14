@@ -7,5 +7,5 @@ class Page < ActiveRecord::Base
   validates :body, presence: true
   paginates_per 20
 
-  target_column_of_keyword :title, :body
+  columns_for_keyword_search :title, :body
 end
