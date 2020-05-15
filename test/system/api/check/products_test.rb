@@ -34,7 +34,7 @@ class Check::ProductsTest < ApplicationSystemTestCase
 
     login_user "yamada", "testtest"
     visit "/practices/#{products(:product_1).practice.id}"
-    assert_equal first(".is-primary").text, "完了"
+    assert_equal first(".test-completed").text, "完了済"
   end
 
   test "success product checking cancel" do

@@ -2,11 +2,11 @@
   .card-footer-actions
     ul.card-footer-actions__items
       li.card-footer-actions__item(v-if="submission")
-        a.a-button.is-md.is-primary.is-block(:href="productLink")
+        a.a-button.is-md.is-primary.is-block.test-product(:href="productLink")
           i.fas.fa-file
           | {{ productLabel }}
       li.card-footer-actions__item(v-if="complete")
-        button.a-button.is-md.is-secondary.is-block.is-disabled
+        button.a-button.is-md.is-secondary.is-block.is-disabled.test-completed
           i.fas.fa-check
           | 完了済
       li.card-footer-actions__item(v-else)
