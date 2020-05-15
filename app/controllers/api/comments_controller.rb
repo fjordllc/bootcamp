@@ -31,6 +31,9 @@ class API::CommentsController < API::BaseController
   end
 
   def destroy
+    # p "-params--------------------------------------------------"
+    # pp params
+    # p "---------------------------------------------------"
     @comment.destroy!
   end
 

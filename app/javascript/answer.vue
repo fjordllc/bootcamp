@@ -23,9 +23,10 @@
         .card-footer-actions
           ul.card-footer-actions__items
             //- li.card-footer-actions__item(v-show="answer != correctAnswer && (currentUser.role == question.user || 'admin')")
+            //- answer.type != correctAnswerかも
             li.card-footer-actions__item(v-if="!correctAnswer && answer != correctAnswer && (currentUser.role == question.user || 'admin')")
-              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="sloveAnswer") 
-                | 解決にする      
+              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="solveAnswer")
+                | 解決にする
             li.card-footer-actions__item(v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
               button.card-footer-actions__action.a-button.is-md.is-primary.is-block(@click="editAnswer")
                 i.fas.fa-pen
@@ -35,8 +36,9 @@
                 i.fas.fa-trash-alt
                   | 削除
             //- li.card-footer-actions__item(v-if="typeof correctAnswer !== 'undefined' && answer == correctAnswer")
-            li.card-footer-actions__item(v-if="correctAnswer")
-              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="unsloveAnswer")
+            //- answer.type == correctAnswerかも
+            li.card-footer-actions__item(v-if="correctAnswer && answer == correctAnswer && (currentUser.role == question.user || 'admin')")
+              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="unsolveAnswer")
                 | ベストアンサーを取り消す
     .thread-comment-form__form.a-card(v-show="editing")
       .thread-comment-form__tabs.js-tabs
@@ -58,74 +60,76 @@
             | キャンセル
 </template>
 <script>
-import Reaction from './answer-reaction.vue'
-import MarkdownTextarea from './markdown-textarea.vue'
-import MarkdownIt from 'markdown-it'
-import MarkdownItEmoji from 'markdown-it-emoji'
-import MarkdownItMention from './packs/markdown-it-mention'
-import Tribute from 'tributejs'
-import TextareaAutocomplteEmoji from 'classes/textarea-autocomplte-emoji'
-import TextareaAutocomplteMention from 'classes/textarea-autocomplte-mention'
-import moment from 'moment'
+import Reaction from "./answer-reaction.vue";
+import MarkdownTextarea from "./markdown-textarea.vue";
+import MarkdownIt from "markdown-it";
+import MarkdownItEmoji from "markdown-it-emoji";
+import MarkdownItMention from "./packs/markdown-it-mention";
+import Tribute from "tributejs";
+import TextareaAutocomplteEmoji from "classes/textarea-autocomplte-emoji";
+import TextareaAutocomplteMention from "classes/textarea-autocomplte-mention";
+import moment from "moment";
 
-moment.locale('ja');
+moment.locale("ja");
 
 export default {
-  props: ['answer', 'currentUser', 'availableEmojis'],
+  props: ["answer", "currentUser", "availableEmojis", "correctAnswer"],
   components: {
-    'reaction': Reaction,
-    'markdown-textarea': MarkdownTextarea
+    reaction: Reaction,
+    "markdown-textarea": MarkdownTextarea
   },
   data: () => {
     return {
-      description: '',
+      description: "",
       editing: false,
       isCopied: false,
-      tab: 'answer',
-      question: '',
-      correctAnswer: false
+      tab: "answer",
+      question: ""
+      // correctAnswer: this.correctAnswer
+      // correctAnswer: false
       // correctAnswer: null
-    }
+    };
   },
   created: function() {
     this.description = this.answer.description;
     this.question = this.answer.question;
-    this.correctAnswer = this.question.correctAnswer
+    this.correctAnswer = this.question.correctAnswer;
     console.log(this.answer);
     // console.log(this.question);
     // console.log(this.correctAnswer);
     // そもそもanswerにcorrectAnswerが入っていない
   },
   mounted: function() {
-    $('textarea').textareaAutoSize();
-    const textareas = document.querySelectorAll(`.answer-id-${this.answer.id}`)
-    const emoji = new TextareaAutocomplteEmoji()
-    const mention = new TextareaAutocomplteMention()
+    this.correctAnswer = this.question.correctAnswer;
+    $("textarea").textareaAutoSize();
+    const textareas = document.querySelectorAll(`.answer-id-${this.answer.id}`);
+    const emoji = new TextareaAutocomplteEmoji();
+    const mention = new TextareaAutocomplteMention();
 
     mention.fetchValues(json => {
-      mention.values = json
-      const collection = [emoji.params(), mention.params()]
-      const tribute = new Tribute({ collection: collection })
-      tribute.attach(textareas)
-    })
+      mention.values = json;
+      const collection = [emoji.params(), mention.params()];
+      const tribute = new Tribute({ collection: collection });
+      tribute.attach(textareas);
+    });
 
     const answerAnchor = location.hash;
-    if(answerAnchor) {
-      this.$nextTick( () => {
+    if (answerAnchor) {
+      this.$nextTick(() => {
         location.href = location.href;
-      })
+      });
     }
   },
   methods: {
-    token () {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
+    token() {
+      const meta = document.querySelector('meta[name="csrf-token"]');
+      return meta ? meta.getAttribute("content") : "";
     },
     isActive: function(tab) {
-      return this.tab == tab
+      return this.tab == tab;
     },
     changeActiveTab: function(tab) {
-      this.tab = tab
+      this.tab = tab;
     },
     cancel: function() {
       this.description = this.answer.description;
@@ -134,8 +138,8 @@ export default {
     editAnswer: function() {
       this.editing = true;
       this.$nextTick(function() {
-        $(`.answer-id-${this.answer.id}`).trigger('input');
-      })
+        $(`.answer-id-${this.answer.id}`).trigger("input");
+      });
     },
     // editComment: function() {
     //   this.editing = true;
@@ -143,55 +147,62 @@ export default {
     //     $(`.comment-id-${this.comment.id}`).trigger('input');
     //   })
     // },
-    sloveAnswer: function() {
+    solveAnswer: function() {
       // this.correctAnswer = this.answer;
-      this.correctAnswer = true;
-      this.$nextTick(function() {
-        if (window.confirm('本当に宜しいですか？')) {
-          this.$emit('post', this.answer.id);
-        }
-      })
       
-      // let params = {
-      //   'answer'
-      // }
-      // = link_to question_correct_answer_path(answer.question, answer_id: answer.id, return_to: question_path(answer.question)), data: { confirm: "本当に宜しいですか？" }, method: :post, class: "a-button is-md is-warning is-block" do
-                
+      // this.correctAnswer = true;
+
+      // this.$nextTick(function() {
+      //   if (window.confirm("本当に宜しいですか？")) {
+      //     this.$emit("post", this.answer.id);
+      //   }
+      // });
+      if (window.confirm("本当に宜しいですか？")) {
+        this.correctAnswer = this.answer;
+        this.$emit("post", this.answer.id);
+      }
     },
-    unsloveAnswer: function() {
-      this.correctAnswer = null;
-      this.$nextTick(function() {
-        if (window.confirm('本当に宜しいですか？')) {
-          this.$emit('patch', this.answer.id);
-        }
-      })
+    unsolveAnswer: function() {
+      // 先に
+      // this.correctAnswer = null;
+      // this.$nextTick(function() {
+      //   if (window.confirm("本当に宜しいですか？")) {
+      //     this.$emit("patch", this.answer.id);
+      //   }
+      // });
+      if (window.confirm("本当に宜しいですか？")) {
+        this.correctAnswer = null;
+        this.$emit("patch", this.answer.id);
+      }
     },
     updateAnswer: function() {
-      if (this.description.length < 1) { return null }
-      let params = {
-        'answer': { 'description': this.description }
+      if (this.description.length < 1) {
+        return null;
       }
+      let params = {
+        answer: { description: this.description }
+      };
       fetch(`/api/answers/${this.answer.id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          "Content-Type": "application/json; charset=utf-8",
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRF-Token": this.token()
         },
-        credentials: 'same-origin',
-        redirect: 'manual',
+        credentials: "same-origin",
+        redirect: "manual",
         body: JSON.stringify(params)
       })
         .then(response => {
           this.editing = false;
         })
         .catch(error => {
-          console.warn('Failed to parsing', error)
-        })
+          console.warn("Failed to parsing", error);
+        });
     },
     deleteAnswer: function() {
-      if (window.confirm('削除してよろしいですか？')) {
-        this.$emit('delete', this.answer.id);
+      if (window.confirm("削除してよろしいですか？")) {
+        this.$emit("delete", this.answer.id);
       }
     },
     copyAnswerURLToClipboard(answerId) {
@@ -201,7 +212,7 @@ export default {
       textBox.textContent = answerURL;
       document.body.appendChild(textBox);
       textBox.select();
-      document.execCommand('copy');
+      document.execCommand("copy");
       document.body.removeChild(textBox);
     }
   },
@@ -211,26 +222,31 @@ export default {
         html: true,
         breaks: true,
         linkify: true,
-        langPrefix: 'language-'
+        langPrefix: "language-"
       });
-      md.use(MarkdownItEmoji).use(MarkdownItMention)
+      md.use(MarkdownItEmoji).use(MarkdownItMention);
       return md.render(this.description);
     },
     answerCreatedAt: function() {
-      return moment(this.answer.question.created_at).format()
+      return moment(this.answer.question.created_at).format();
     },
     updatedAt: function() {
-      return moment(this.answer.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+      return moment(this.answer.updated_at).format("YYYY年MM月DD日(dd) HH:mm");
     },
     userRole: function() {
-      return `is-${this.answer.user.role}`
+      return `is-${this.answer.user.role}`;
     },
     answer1() {
-      return this.answer.question.correctAnswer
+      return this.answer.question.correctAnswer;
     },
     test() {
       // これは機能している
-      return this.correctAnswer && this.answer != this.correctAnswer && this.currentUser.role == this.question.user || 'admin'
+      return (
+        (this.correctAnswer &&
+          this.answer != this.correctAnswer &&
+          this.currentUser.role == this.question.user) ||
+        "admin"
+      );
     },
     // checkId() {
     //   return this.$store.getters.checkId
@@ -239,11 +255,11 @@ export default {
     //   return this.checkableLabel + (this.checkId ? 'の確認を取り消す' : 'を確認')
     // },
     classAnswerId: function() {
-      return `answer-id-${this.answer.id}`
+      return `answer-id-${this.answer.id}`;
     },
     validation: function() {
-      return this.description.length > 0
+      return this.description.length > 0;
     }
   }
-}
+};
 </script>

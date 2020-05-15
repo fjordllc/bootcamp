@@ -2,12 +2,22 @@
   .thread-comments-container
     h2.thread-comments-container__title 回答・コメント
     .thread-comments
+      //- 以下のForループでスレッド内の全ての回答にデータを渡してる
+      //- 解決にするボタンを押したら他の回答のデータも変えて他の回答の解決にするボタンを表示しないようにする（他の回答もanswerにすると他の回答にもベストアンサーバッジがついてしまうかも。他の回答はnullとかにしてもいいかも）
+      //- @soloveAnswer="answer",
+      //- v-bindをv-modelに変える:answerの箇所
+      //- :answer="answer"
+      //- v-model="answer"
       answer(v-for="(answer, index) in answers"
-        :key="answer.id"
+        :key="answer.id",
         :answer="answer",
         :currentUser="currentUser",
         :id="'answer_' + answer.id",
-        @delete="deleteAnswer")
+        :question="answer.question",
+        :correctAnswer="question.correctAnswer",
+        @delete="deleteAnswer",
+        @post="solveAnswer",
+        @patch="unsolveAnswer")
       .thread-comment-form
         .thread-comment__author
           img.thread-comment__author-icon.a-user-icon(:src="currentUser.avatar_url" :title="currentUser.icon_title")
@@ -50,10 +60,12 @@ export default {
       description: '',
       tab: 'answer',
       buttonDisabled: false,
-      // question: '',
+      correctAnswer: null,
+      question: ''
       // correctAnswer: null
     }
   },
+  // ベストアンサーを選んだときに、correctAnswerにanswerオブジェクトが入る
   created: function() {
     fetch(`/api/users/${this.currentUserId}.json`, {
       method: 'GET',
@@ -74,8 +86,10 @@ export default {
       .catch(error => {
         console.warn('Failed to parsing', error)
       })
-    
-    fetch(`/api/answers.json?type=${this.type}&question_id=${this.questionId}`, {
+
+    //どうして、クエリでtype=Questionを指定してやらないといけないのか？？？
+    // fetch(`/api/answers.json?type=${this.type}&question_id=${this.questionId}`, {
+    fetch(`/api/answers.json?type=Question&question_id=${this.questionId}`, {
     // fetch(`/api/answers.json?question_id=${this.questionId}`, {
       method: 'GET',
       headers: {
@@ -114,7 +128,7 @@ export default {
       this.buttonDisabled = true
       let params = {
         'answer': { 'description': this.description },
-        'type': this.type,
+        // 'type': this.type,
         'question_id': this.questionId
       }
       fetch(`/api/answers`, {
@@ -141,8 +155,8 @@ export default {
           this.description = '';
           this.tab = 'answer';
           this.buttonDisabled = false;
-          // this.question = '';
-          // this.correctAnswer = null;
+          this.question = '';
+          // this.correctAnswer = null;をするとリロードした時にベストアンサーが消える
         })
         .catch(error => {
           console.warn('Failed to parsing', error)
@@ -159,8 +173,53 @@ export default {
         redirect: 'manual'
       })
         .then(response => {
+          //以下のforEachでスレッド全部の回答のデータを取ってきてる
           this.answers.forEach((answer, i) => {
             if (answer.id == id) { this.answers.splice(i, 1); }
+          });
+        })
+        .catch(error => {
+          console.warn('Failed to parsing', error)
+        })
+    },
+    solveAnswer: function(id) {
+　　　//fetch の使い方を調べる
+　　　//求められているパラメーターが渡されていないのが原因かも
+      // fetch(`/api/answers/${id}/question/id`, {
+      fetch(`/api/answers/${id}/correct_answer`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual'
+      })
+        .then(response => {
+          console.log("これが呼び出されてないってこと？？")
+          this.answers.forEach((answer, i) => {
+            if (answer.id == id) { this.answer = this.correctAnswer; }
+          });
+        })
+        .catch(error => {
+          console.warn('Failed to parsing', error)
+        })
+    },
+    unsolveAnswer: function(id) {
+      fetch(`/api/answers/${id}.json/correct_answer`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual'
+      })
+        .then(response => {
+          this.answers.forEach((answer, i) => {
+            if (answer.id == id) { this.correctAnswer = null; }
           });
         })
         .catch(error => {

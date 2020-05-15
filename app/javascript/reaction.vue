@@ -68,8 +68,13 @@ export default {
     createReaction: function(kind) {
       let params = {
         "reactionable_id": `Comment_${this.reactionable.id}`,
+        // "reactionable_id": `Answer_${this.reactionable.id}`,
         "kind": kind
         }
+      // let answerParams = {
+        
+      //   "kind": kind
+      //   }
 
     fetch(`/api/reactions`, {
       method: 'POST',
