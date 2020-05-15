@@ -12,7 +12,7 @@ class PracticeTest < ActiveSupport::TestCase
 
     assert_equal \
       practices(:practice_1).status(users(:machida)),
-      "not_complete"
+      "unstarted"
   end
 
   test "#status_by_learnings(learnings)" do
@@ -20,19 +20,9 @@ class PracticeTest < ActiveSupport::TestCase
 
     assert_equal practices(:practice_1).status_by_learnings(learnings), "started"
     assert_equal practices(:practice_2).status_by_learnings(learnings), "complete"
-    assert_equal practices(:practice_3).status_by_learnings(learnings), "not_complete"
+    assert_equal practices(:practice_3).status_by_learnings(learnings), "unstarted"
     assert_equal practices(:practice_4).status_by_learnings(learnings), "submitted"
-    assert_equal practices(:practice_5).status_by_learnings(learnings), "not_complete"
-  end
-
-  test "#display_status_by_learnings(learnings)" do
-    learnings = users(:komagata).learnings
-
-    assert_equal practices(:practice_1).display_status_by_learnings(learnings), "着手"
-    assert_equal practices(:practice_2).display_status_by_learnings(learnings), "完了"
-    assert_equal practices(:practice_3).display_status_by_learnings(learnings), "未着手"
-    assert_equal practices(:practice_4).display_status_by_learnings(learnings), "提出"
-    assert_equal practices(:practice_5).display_status_by_learnings(learnings), "未着手"
+    assert_equal practices(:practice_5).status_by_learnings(learnings), "unstarted"
   end
 
   test "#exists_learning?(user)" do

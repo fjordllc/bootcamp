@@ -2,7 +2,7 @@
   .practice-status-buttons
     ul.practice-status-buttons__items.is-button-group
       li.practice-status-buttons__item
-        button.practice-status-buttons__button.a-button.is-md.is-block.is-not_complete.js-not-complete(v-bind:disabled="statusName === 'not_complete'" v-bind:class="[statusName === 'not_complete' ? 'is-active' : 'is-inactive']" @click="pushStatus('not_complete')")
+        button.practice-status-buttons__button.a-button.is-md.is-block.is-unstarted.js-not-complete(v-bind:disabled="statusName === 'unstarted'" v-bind:class="[statusName === 'unstarted' ? 'is-active' : 'is-inactive']" @click="pushStatus('unstarted')")
           | 未着手
       li.practice-status-buttons__item
         button.practice-status-buttons__button.a-button.is-md.is-block.is-started.js-started(v-bind:disabled="statusName === 'started'" v-bind:class="[statusName === 'started' ? 'is-active' : 'is-inactive']" @click="pushStatus('started')")

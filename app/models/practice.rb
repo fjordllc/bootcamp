@@ -38,7 +38,7 @@ class Practice < ActiveRecord::Base
       practice_id: id
     )
     if learnings.blank?
-      "not_complete"
+      "unstarted"
     else
       learnings.first.status
     end
@@ -46,7 +46,7 @@ class Practice < ActiveRecord::Base
 
   def status_by_learnings(learnings)
     learning = learnings.detect { |lerning| id == lerning.practice_id }
-    learning&.status || "not_complete"
+    learning&.status || "unstarted"
   end
 
   def completed?(user)
@@ -55,10 +55,6 @@ class Practice < ActiveRecord::Base
       practice_id: id,
       status:      Learning.statuses[:complete]
     )
-  end
-
-  def not_completed?(user)
-    !completed?(user)
   end
 
   def exists_learning?(user)

@@ -10,7 +10,7 @@ namespace :fix_learning_status do
       when 1 then
         learning.update!(status: "complete")
       when 2 then
-        learning.update!(status: "not_complete")
+        learning.update!(status: "unstarted")
       end
     end
   end

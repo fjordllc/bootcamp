@@ -19,7 +19,8 @@ class ProductCallbacks
           watchable: product,
         )
       end
-      change_learning_status_to_submitted(product)
+
+      product.change_learning_status(:submitted)
     end
   end
 
@@ -42,14 +43,5 @@ class ProductCallbacks
 
     def delete_notification(product)
       Notification.where(path: "/products/#{product.id}").destroy_all
-    end
-
-    def change_learning_status_to_submitted(product)
-      learning = Learning.find_by(user_id: product.user.id, practice_id: product.practice.id)
-      if learning
-        learning.product_submitted
-      else
-        Learning.create(user_id: product.user.id, practice_id: product.practice.id, status: "submitted")
-      end
     end
 end

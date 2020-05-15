@@ -71,7 +71,7 @@ class UserTest < ActiveSupport::TestCase
   test "#completed_percentage" do
     user = users(:komagata)
     old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice_4)
+    user.completed_practices << practices(:practice_5)
     assert_not_equal old_percentage, user.completed_percentage
     old_percentage = user.completed_percentage
     user.completed_practices << practices(:practice_53)

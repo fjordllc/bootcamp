@@ -64,7 +64,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text "提出物を作成しました。"
 
     visit "/practices/#{practices(:practice_5).id}"
-    assert_equal first(".is-primary").text, "提出"
+    assert_equal first(".test-product").text, "提出物へ"
   end
 
   test "update product" do
