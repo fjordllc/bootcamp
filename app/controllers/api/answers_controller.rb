@@ -8,7 +8,11 @@ class API::AnswersController < API::BaseController
   # before_action :set_return_to, only: %i(create)
 
   def index
-    @answers = question.answers.order(created_at: :asc)
+    pp "*" * 1000
+    @answers = question.answers.order(created_at: :asc).tap(&method(:pp))
+
+    # missing a template
+    # render "/app/views/api/answers/index.json.jbuilder" local
     @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
   end
 
@@ -45,6 +49,7 @@ class API::AnswersController < API::BaseController
   # end
 
   def destroy
+    # byebug
     # p "-params--------------------------------------------------"
     # pp params
     # p "---------------------------------------------------"
@@ -57,6 +62,7 @@ class API::AnswersController < API::BaseController
   private
 
     def set_question
+      # binding.pry
       @question = Question.find(params[:question_id])
     end
 
@@ -67,7 +73,9 @@ class API::AnswersController < API::BaseController
 
     def question
       # @question ||= Question.find(params[:question_id])
-      params[:type].constantize.find(params[:question_id])
+      # params[:type].constantize.find(params[:question_id])
+      # typeは必要ない
+      Question.find(params[:question_id])
     end
 
     def answer_params
