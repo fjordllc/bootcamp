@@ -9,7 +9,7 @@ module Searchable
     end
 
     def columns_for_keyword_search(*key_names)
-      define_singleton_method(:_grouping_condition) { "#{key_names.map(&:to_s).join("_or_")}_cont_all".to_sym }
+      define_singleton_method(:_grouping_condition) { "#{key_names.join("_or_")}_cont_all" }
     end
 
     private
