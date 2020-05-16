@@ -182,4 +182,20 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, comments(:comment_6))
     assert_not_includes(result, comments(:comment_5))
   end
+
+  test "returns only comments associated to specified document_type" do
+    result = Searcher.search("コメント", document_type: :reports)
+    assert_equal [comments(:comment_11)], result
+  end
+
+  test "returns all comments when document_type is not specified" do
+    result = Searcher.search("コメント")
+    assert_includes(result, comments(:comment_8))
+    assert_includes(result, comments(:comment_10))
+    assert_includes(result, comments(:comment_11))
+    assert_includes(result, comments(:comment_12))
+    assert_includes(result, comments(:comment_13))
+    assert_includes(result, comments(:comment_14))
+    assert_equal(6, result.size)
+  end
 end

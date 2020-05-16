@@ -13,21 +13,7 @@ class Answer < ActiveRecord::Base
   validates :description, presence: true
   validates :user, presence: true
 
-  concerning :KeywordSearch do
-    class_methods do
-      private
-
-        def params_for_keyword_search(searched_values = {})
-          { groupings: groupings(split_keyword_by_blank(searched_values[:word])) }
-        end
-
-        def groupings(words)
-          words.map do |word|
-            { description_cont_all: word }
-          end
-        end
-    end
-  end
+  columns_for_keyword_search :description
 
   def receiver
     self.question.user
