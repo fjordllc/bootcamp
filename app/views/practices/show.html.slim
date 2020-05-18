@@ -22,7 +22,7 @@ header.page-header
   .container
     .practice-contents
       .practice-contents__inner
-        header.practice-contents__header
+        header.practice-contents__header#learning-status
           h1.practice-contents__title
             = @practice.title
         - status = @practice.status_by_learnings(current_user.learnings)
