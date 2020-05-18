@@ -1,14 +1,15 @@
 .form-notice
-  background-color: #f8fff2
-  border: solid $success 2px
-  max-width: 100%
   width: 34rem
   +margin(horizontal, auto)
-  padding: .75rem
+  border: solid $success 2px
+  padding: 1em 1.25em
+  background-color: #f8fff2
   margin-top: 1em
   +short-text-style
-  font-size: .8125rem
+  font-size: .875rem
   +media-breakpoint-up(md)
     margin-bottom: 2rem
+    max-width: 100%
   +media-breakpoint-down(sm)
     margin-bottom: 1.5rem
+    max-width: calc(100% - 2rem)
