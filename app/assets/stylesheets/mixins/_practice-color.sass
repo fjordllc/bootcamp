@@ -20,6 +20,9 @@
   &.is-complete
     +practice-button($success, $border)
     color: $reversal-text
+  &.is-unstarted
+    +practice-button(#dcdcdc, $border)
+    color: $muted-text
   @if $border == true
     border: solid 1px
 
