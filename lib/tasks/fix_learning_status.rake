@@ -3,7 +3,7 @@
 namespace :fix_learning_status do
   desc "Learningのstatusに提出済みを追加するのに伴い、既存のstatusを数字順に修正"
   task :fix_learning_status do
-    Leaning.transaction do
+    Learning.transaction do
       Learning.all.each do |learning|
         case learning.read_attribute_before_type_cast(:status)
         when 0 then
