@@ -10,7 +10,7 @@ class API::Practices::LearningController < API::BaseController
     )
 
     if @learning.new_record?
-      @learning.status = :not_complete
+      @learning.status = :unstarted
     end
   end
 

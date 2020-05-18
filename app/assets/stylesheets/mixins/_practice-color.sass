@@ -1,0 +1,38 @@
+=practice-button($color: $background, $border: false, $border-color: false, $text-color: false)
+  background-color: $color
+  @if $border == true
+    border-color: shade($color, 24%)
+  @if $border-color
+    border-color: $border-color
+  @if $text-color
+    color: $text-color
+
+=practice-color($border: false)
+  &.is-not_complete
+    +practice-button($background, $border)
+    color: $muted-text
+  &.is-started
+    +practice-button($danger, $border)
+    color: $reversal-text
+  &.is-submitted
+    +practice-button($warning, $border)
+    color: $default-text
+  &.is-complete
+    +practice-button($success, $border)
+    color: $reversal-text
+  @if $border == true
+    border: solid 1px
+
+=practice-hover-color($border: false)
+  +position(relative, 2)
+  $border-status: $border
+  @if $border == true
+    border: solid 1px
+  &.is-not_complete
+    +practice-button($background, $border-status, shade($background, 24%), $default-text)
+  &.is-started
+    +practice-button(tint($danger, 90%), $border-status, $danger, shade($danger, 20%))
+  &.is-submitted
+    +practice-button(tint($warning, 90%), $border-status, shade($warning, 20%), shade($warning, 20%))
+  &.is-complete
+    +practice-button(tint($success, 90%), $border-status, $success, shade($success, 20%))

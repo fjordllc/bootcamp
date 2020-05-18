@@ -89,4 +89,29 @@ class PracticesTest < ApplicationSystemTestCase
     visit "/practices/new"
     assert_text "進捗の計算"
   end
+
+  test "change status" do
+    login_user "hatsuno", "testtest"
+    practice = practices(:practice_1)
+    visit "/practices/#{practice.id}"
+    first(".js-started").click
+    sleep 5
+    assert_equal "started", practice.status(users(:hatsuno))
+  end
+
+  test "valid is_startable_practice" do
+    login_user "hatsuno", "testtest"
+    practice = practices(:practice_1)
+    visit "/practices/#{practice.id}"
+    first(".js-started").click
+    sleep 5
+    assert_equal "started", practice.status(users(:hatsuno))
+
+    practice = practices(:practice_2)
+    visit "/practices/#{practice.id}"
+    first(".js-started").click
+    sleep 5
+    assert_equal page.driver.browser.switch_to.alert.text, "すでに着手しているプラクティスがあります。\n提出物を提出するか完了すると新しいプラクティスを開始できます。"
+    page.driver.browser.switch_to.alert.accept
+  end
 end
