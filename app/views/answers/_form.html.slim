@@ -6,8 +6,6 @@
     .thread-comment-form__tabs.js-tabs
       .thread-comment-form__tab.js-tabs__tab.is-active
         | コメント
-      .thread-comment-form__tab.js-tabs__tab
-        | プレビュー
     .thread-comment-form__markdown-parent.js-markdown-parent
       .thread-comment-form__markdown.js-tabs__content.is-active
         = f.text_area :description, required: true, class: "a-text-input js-warning-form thread-comment-form__textarea js-markdown", data: { "preview": ".js-preview" }
