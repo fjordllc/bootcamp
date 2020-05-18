@@ -66,4 +66,12 @@ ORDER BY unchecked_products.created_at DESC
   def completed?(user)
     checks.where(user: user).present?
   end
+
+  def change_learning_status(status)
+    Learning.find_or_initialize_by(
+      user_id: user.id,
+      practice_id: practice.id,
+      status: status
+    ).save
+  end
 end

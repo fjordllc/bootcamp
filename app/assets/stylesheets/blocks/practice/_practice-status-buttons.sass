@@ -1,0 +1,31 @@
+.practice-status-buttons
+  text-align: center
+  margin-bottom: 1.5rem
+  border-radius: .375rem
+  width: 100%
+
+.practice-status-buttons__items
+  white-space: nowrap
+
+.practice-status-buttons__item
+  flex: 1
+
+.practice-status-buttons__button
+  &.is-inactive
+    $color: $base
+    color: $muted-text
+    background-color: $color
+    border-color: $background-shade
+    transition: all .2s ease-out
+    &:hover
+      +practice-hover-color(true)
+  &.is-active
+    pointer-events: none
+    +practice-color(true)
+    +position(relative, 1)
+
+.practice-status__buttons-item
+  +media-breakpoint-down(sm)
+    width: 33.33%
+    .a-button
+      width: 100%

@@ -19,6 +19,8 @@ class ProductCallbacks
           watchable: product,
         )
       end
+
+      product.change_learning_status(:submitted)
     end
   end
 

@@ -51,6 +51,7 @@ practice_5:
   goal: "goal..."
   category: category_4
   position: 5
+  submission: true
 
 practice_6:
   title: "aptの基礎を覚える"
