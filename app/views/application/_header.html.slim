@@ -14,13 +14,16 @@ header.header
       .header-show-mobile-nav-items
         .header-show-mobile-nav(class="#{current_user.unread_notifications_exists? ? "has-count" : "has-no-count"}")
           - toggle_id = "header-notification-mobile"
-          label.header-links__link(for="#{toggle_id}")
-            .header-notification-icon
-              - if current_user.unread_notifications_exists?
+          - if current_user.unread_notifications_exists?
+            label.header-links__link(for="#{toggle_id}")
+              .header-notification-icon
                 .header-notification-count
                   = current_user.unread_notifications_count
-              i.fas.fa-bell
-          - if current_user.unread_notifications_exists?
+                i.fas.fa-bell
             = render "application/notifications", toggle_id: toggle_id
+          - else
+            = link_to notifications_path, class: "header-links__link" do
+              .header-notification-icon
+                i.fas.fa-bell
         label.header-show-mobile-nav(for="mobile-nav")
           i.fas.fa-bars

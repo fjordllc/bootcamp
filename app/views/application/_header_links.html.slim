@@ -83,13 +83,18 @@
               = link_to new_retirement_path, class: "header-dropdown__item-link" do
                 | 退会手続き
     li.header-links__item(class="#{current_user.unread_notifications_exists? ? "has-count" : "has-no-count"}")
-      label.header-links__link.test-show-notifications(for="header-notification-pc")
-        .header-links__link.test-bell
-          .header-notification-icon
-            - if current_user.unread_notifications_exists?
+      - if current_user.unread_notifications_exists?
+        label.header-links__link.test-show-notifications(for="header-notification-pc")
+          .header-links__link.test-bell
+            .header-notification-icon
               .header-notification-count.a-notification-count
                 = notification_unreads_count_badge
-            i.fas.fa-bell
-            .header-links__link-label 通知
-      - if current_user.unread_notifications_exists?
+              i.fas.fa-bell
+              .header-links__link-label 通知
         = render "application/notifications", toggle_id: "header-notification-pc"
+      - else
+        = link_to notifications_path, class: "header-links__link test-show-notifications"
+          .header-links__link.test-bell
+            .header-notification-icon
+              i.fas.fa-bell
+              .header-links__link-label 通知
