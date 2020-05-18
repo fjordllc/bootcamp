@@ -6,11 +6,14 @@ namespace :fix_learning_status do
     Learning.all.each do |learning|
       case learning.read_attribute_before_type_cast(:status)
       when 0 then
-        learning.update!(status: "started")
+        learning.status = "started"
+        learning.save(validate: false)
       when 1 then
-        learning.update!(status: "complete")
+        learning.status = "complete"
+        learning.save(validate: false)
       when 2 then
-        learning.update!(status: "unstarted")
+        learning.status = "unstarted"
+        learning.save(validate: false)
       end
     end
   end
