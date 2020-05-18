@@ -3,9 +3,20 @@
   margin-bottom: 1.5rem
   border-radius: .375rem
   width: 100%
+  display: flex
+  align-items: center
+
+.practice-status-buttons__label
+  +text-block(.875rem, 600)
+  margin-right: 1em
+  +media-breakpoint-down(sm)
+    display: none
 
 .practice-status-buttons__items
   white-space: nowrap
+  flex: 100
+  +media-breakpoint-up(md)
+    max-width: 25rem
 
 .practice-status-buttons__item
   flex: 1
