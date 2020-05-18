@@ -1,5 +1,7 @@
 <template lang="pug">
   .practice-status-buttons
+    .practice-status-buttons__label
+      | ステータス変更
     ul.practice-status-buttons__items.is-button-group
       li.practice-status-buttons__item
         button.practice-status-buttons__button.a-button.is-md.is-block.is-unstarted.js-not-complete(v-bind:disabled="statusName === 'unstarted'" v-bind:class="[statusName === 'unstarted' ? 'is-active' : 'is-inactive']" @click="pushStatus('unstarted')")

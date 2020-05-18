@@ -5,8 +5,8 @@
         = practice.title
     - if current_user
       - status = practice.status_by_learnings(@learnings)
-      .practice-status.category-practices-item__status(class="is-#{status}")
-        = t(status, scope: [:activerecord, :enums, :learning, :status])
+      = link_to practice_path(practice.id, anchor: "learning-status"), class: "practice-status category-practices-item__status is-#{status}" do
+          = t(status, scope: [:activerecord, :enums, :learning, :status])
 
   - if practice.started_students.any?
     .practice-started-users
