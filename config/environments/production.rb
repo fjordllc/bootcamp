@@ -128,6 +128,9 @@ Rails.application.configure do
    config.action_mailer.delivery_method = :postmark
    config.action_mailer.postmark_settings = { api_token: ENV["POSTMARK_API_TOKEN"] }
 
+   config.action_cable.url = "https://bootcamp.fjord.jp/cable"
+   config.action_cable.allowed_request_origins = ["https://bootcamp.fjord.jp"]
+
    config.hosts << ENV["CLOUD_RUN_HOST_NAME"] if ENV["CLOUD_RUN_HOST_NAME"]
    config.hosts << ENV["APP_HOST_NAME"] if ENV["APP_HOST_NAME"]
 

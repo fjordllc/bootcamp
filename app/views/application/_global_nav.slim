@@ -48,6 +48,11 @@ nav.global-nav
               i.fas.fa-fw.fa-file
             .global-nav-links__link-label Docs
         li.global-nav-links__item
+          = link_to timelines_path, class: "global-nav-links__link #{current_link /^timelines/}" do
+            .global-nav-links__link-icon
+              i.fas
+            .global-nav-links__link-label 分報
+        li.global-nav-links__item
           = link_to users_path, class: "global-nav-links__link #{current_link(/^users/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-users
