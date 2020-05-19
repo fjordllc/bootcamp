@@ -1,0 +1,5 @@
+timeline_1:
+  user: hajime
+  description: |-
+    今は勉強中です
+  created_at: <%= Time.now %>
