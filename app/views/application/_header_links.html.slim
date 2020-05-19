@@ -54,6 +54,8 @@
             - if !current_user.adviser? && !current_user.mentor? && !current_user.trainee?
               - if current_user.card?
                 li.header-dropdown__item
+                  = link_to "クレジットカード情報", card_path, class: "header-dropdown__item-link"
+                li.header-dropdown__item
                   = link_to "クレジットカード変更", edit_card_path, class: "header-dropdown__item-link"
               - else
                 li.header-dropdown__item
