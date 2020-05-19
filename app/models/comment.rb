@@ -2,6 +2,7 @@
 
 class Comment < ActiveRecord::Base
   include Reactionable
+  include Searchable
 
   belongs_to :user, touch: true
   belongs_to :commentable, polymorphic: true
@@ -10,6 +11,17 @@ class Comment < ActiveRecord::Base
   alias_method :sender, :user
 
   validates :description, presence: true
+
+  columns_for_keyword_search :description
+
+  class << self
+    private
+
+      def params_for_keyword_search(searched_values = {})
+        groupings = super
+        { commentable_type_in: searched_values[:commentable_type] }.merge(groupings)
+      end
+  end
 
   def receiver
     commentable.user

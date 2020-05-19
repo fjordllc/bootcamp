@@ -10,38 +10,39 @@ class Searcher
     ["Docs", :pages]
   ]
 
-  AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - [:all] + [:comments] + [:answers]
+  AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 
-  def self.search(word, document_type: :all)
-    if document_type == :all
-      AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by { |result| result.created_at }.reverse
-    elsif document_type.to_s.capitalize.singularize.constantize.include?(Commentable)
-      [document_type, :comments].flat_map { |type| result_for(type, word, commentable_type: document_type.to_s.capitalize.singularize) }.sort_by { |result| result.created_at }.reverse
-    elsif document_type == :questions
-      [document_type, :answers].flat_map { |type| result_for(type, word) }
-    else
-      result_for(document_type, word).sort_by { |result| result.created_at }.reverse
+  class << self
+    def search(word, document_type: :all)
+      case document_type
+      when :all
+        AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by { |result| result.created_at }.reverse
+      when commentable?
+        [document_type, :comments].flat_map { |type| result_for(type, word, commentable_type: model_name(document_type)) }.sort_by { |result| result.created_at }.reverse
+      when :questions
+        [document_type, :answers].flat_map { |type| result_for(type, word) }
+      else
+        result_for(document_type, word).sort_by { |result| result.created_at }.reverse
+      end
     end
-  end
 
-  def self.result_for(type, word, commentable_type: nil)
-    case type
-    when :reports
-      Report.ransack(title_or_description_cont_all: word).result
-    when :pages
-      Page.ransack(title_or_body_cont_all: word).result
-    when :practices
-      Practice.ransack(title_or_description_or_goal_cont_all: word).result
-    when :questions
-      Question.ransack(title_or_description_cont_all: word).result
-    when :answers
-      Answer.ransack(description_cont_all: word).result
-    when :announcements
-      Announcement.ransack(title_or_description_cont_all: word).result
-    when :comments
-      Comment.ransack(commentable_type_eq: commentable_type, description_cont_all: word).result
-    else
-      []
-    end
+    private
+
+      def result_for(type, word, commentable_type: nil)
+        raise ArgumentError.new("#{type} is not available type") unless type.in?(AVAILABLE_TYPES)
+        model(type).search_by_keywords(word: word, commentable_type: commentable_type)
+      end
+
+      def commentable?
+        -> (document_type) { model(document_type).include?(Commentable) }
+      end
+
+      def model(type)
+        model_name(type).constantize
+      end
+
+      def model_name(type)
+        type.to_s.capitalize.singularize
+      end
   end
 end

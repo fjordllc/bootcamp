@@ -22,4 +22,6 @@ class Question < ActiveRecord::Base
 
   scope :solved, -> { joins(:correct_answer) }
   scope :not_solved, -> { where.not(id: CorrectAnswer.pluck(:question_id)) }
+
+  columns_for_keyword_search :title, :description
 end
