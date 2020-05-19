@@ -192,6 +192,9 @@ Style/ColonMethodCall:
 Style/TrivialAccessors:
   Enabled: true
 
+Style/AccessModifierDeclarations:
+  Enabled: true
+
 Performance/FlatMap:
   Enabled: true
 

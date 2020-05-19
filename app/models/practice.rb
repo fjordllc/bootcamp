@@ -32,6 +32,8 @@ class Practice < ActiveRecord::Base
 
   scope :category_order, -> { includes(:category).order("categories.position").order(:position) }
 
+  columns_for_keyword_search :title, :description, :goal
+
   def status(user)
     learnings = Learning.where(
       user_id: user.id,
