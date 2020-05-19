@@ -21,4 +21,9 @@ class UserDecoratorTest < ActiveSupport::TestCase
   test 'long_name' do
     assert_equal 'hajime (Hajime Tayo)', @user2.long_name
   end
+
+  test "#format_user_to_channel" do
+    expected = %i(id login_name path role icon_title avatar_url)
+    assert_equal expected, @user1.format_to_channel.keys
+  end
 end
