@@ -2,6 +2,7 @@
   "license": "MIT",
   "dependencies": {
     "@rails/webpacker": "^4.2.0",
+    "actioncable": "^5.2.4-2",
     "autosize": "^4.0.2",
     "chart.js": "^2.9.3",
     "chartkick": "^3.2.0",
