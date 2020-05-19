@@ -22,4 +22,9 @@ class UserDecoratorTest < ActiveSupport::TestCase
     days_in_weeks = 7
     assert_equal days_in_weeks, @user2.niconico_calendar.first.count
   end
+
+  test "#format_user_to_channel" do
+    expected = %i(id login_name path role icon_title avatar_url)
+    assert_equal expected, @user1.format_to_channel.keys
+  end
 end
