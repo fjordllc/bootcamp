@@ -48,4 +48,12 @@ module StubHelper
       with(body: { cancel_at_period_end: "true" }).
       to_return(status: 200, body: {}.to_json)
   end
+
+  def stub_github!
+    names = %w[komagata hatsuno kensyu senpai jobseeker kananashi osnashi]
+    names.each do |name|
+      stub_request(:get, "https://github.com/#{name}").
+        to_return(status: 200, body: "")
+    end
+  end
 end
