@@ -18,6 +18,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   setup do
     Bootcamp::Setup.attachment
+    stub_github!
   end
 
   def wait_for_vuejs

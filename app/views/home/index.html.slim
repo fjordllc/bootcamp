@@ -32,6 +32,7 @@ header.page-header
               = render "job_seeking_users", users: User.all.job_seeking
           - unless current_user.total_learning_time.zero?
             = render "users/grass", user: current_user
+          = render "users/github_grass", user: current_user
           - if current_user.role == :student
             = render "required_field", user: current_user
           - if current_user.books.present?
