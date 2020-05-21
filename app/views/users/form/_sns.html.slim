@@ -6,9 +6,10 @@
   = f.label :github_account, class: "a-label"
   .form-item__mention-input
     = f.text_field :github_account, class: "a-text-input", placeholder: "komagata", disabled: true
-  // TODO: デザイン
-  a.a-button href="/auth/github"
-    | GutHubと連携する
+  - if f.object.github_id?
+    = link_to " GutHubとの連携を解除する", connection_git_hub_path, method: :delete
+  - else
+    = link_to " GutHubと連携する", "/auth/github"
 .form-item
   = f.label :twitter_account, class: "a-label"
   .form-item__mention-input
@@ -21,7 +22,6 @@
   .a-form-help
     p ID ではなく URL を入力。
 .form-item
-  // ブログURL
   = f.label :blog_url, class: "a-label"
   = f.text_field :blog_url, class: "a-text-input", placeholder: "http://docs.komagata.org/"
   .a-form-help
