@@ -70,6 +70,11 @@ Rails.application.routes.draw do
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
 
+
+  namespace :connection do
+    resource :git_hub, only: %i(destroy), controller: "git_hub"
+  end
+
   resources :courses, only: %i(index) do
     resources :practices, only: %i(index), controller: "courses/practices" do
       resource :position, only: %i(update), controller: "courses/practices/position"
