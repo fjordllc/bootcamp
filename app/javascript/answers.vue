@@ -183,10 +183,15 @@ export default {
         })
     },
     solveAnswer: function(id) {
+      // クエリパラメータに含める
+      let params = {
+        'question_id': this.questionId
+      }
 　　　//fetch の使い方を調べる
 　　　//求められているパラメーターが渡されていないのが原因かも
       // fetch(`/api/answers/${id}/question/id`, {
       fetch(`/api/answers/${id}/correct_answer`, {
+      // fetch(`/api/questions/${id}/answers/${id}/correct_answer`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -194,10 +199,11 @@ export default {
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
-        redirect: 'manual'
+        redirect: 'manual',
+        body: JSON.stringify(params)
       })
         .then(response => {
-          console.log("これが呼び出されてないってこと？？")
+          // console.log("これが呼び出されてないってこと？？")
           this.answers.forEach((answer, i) => {
             if (answer.id == id) { this.answer = this.correctAnswer; }
           });
@@ -207,7 +213,10 @@ export default {
         })
     },
     unsolveAnswer: function(id) {
-      fetch(`/api/answers/${id}.json/correct_answer`, {
+      let params = {
+        'question_id': this.questionId
+      }
+      fetch(`/api/answers/${id}/correct_answer`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -215,7 +224,8 @@ export default {
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
-        redirect: 'manual'
+        redirect: 'manual',
+        body: JSON.stringify(params)
       })
         .then(response => {
           this.answers.forEach((answer, i) => {
