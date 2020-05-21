@@ -16,6 +16,11 @@ Rails.application.routes.draw do
     resources :grasses, only: %i(show)
     resources :categories, only: %i(index)
     resources :comments, only: %i(index create update destroy)
+    # resources :questions do
+    #   resources :answers, only: %i(index create update destroy) do
+    #     resource :correct_answer, only: %i(create update)
+    #   end
+    # end
     resources :answers, only: %i(index create update destroy) do
       resource :correct_answer, only: %i(create update)
     end
