@@ -11,7 +11,7 @@ class WelcomeController < ApplicationController
       Date.current.strftime("%m/%d"),
       Date.current.since(1.day).strftime("%m/%d"),
       Date.current.since(2.day).strftime("%m/%d"),
-      Date.current.since(3.day).since(1.month).strftime("%m/%d"),
+      Date.current.since(3.day).strftime("%m/%d"),
     ]
   end
 
