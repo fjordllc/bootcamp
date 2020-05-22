@@ -16,6 +16,9 @@
         | 個人情報の取り扱いについて
       .a-form-frame.form-item__pp
         = render("pp")
+    .form-item
+      = f.check_box :privacy_policy
+      | 個人情報の取り扱いに同意する
 
   .form-actions
     ul.form-actions__items
