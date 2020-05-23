@@ -10,6 +10,7 @@ class Notification::EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link "参加を取り消す"
     end
+    sleep 1
     logout
 
     login_user "hatsuno", "testtest"
