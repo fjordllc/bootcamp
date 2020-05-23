@@ -14,13 +14,14 @@
     .form-item
       .a-label
         | 個人情報の取り扱いについて
+      label.form-item__one-checkbox.a-checkbox
+        = f.check_box :privacy_policy
+        span
+          | 下記の個人情報の取り扱いに同意する
       .a-form-frame.form-item__pp
         = render("pp")
-    .form-item
-      = f.check_box :privacy_policy
-      | 個人情報の取り扱いに同意する
 
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit "上記内容に同意して送信", class: "a-button is-lg is-warning is-block"
+        = f.submit "送信", class: "a-button is-lg is-warning is-block"
