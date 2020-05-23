@@ -183,6 +183,8 @@ class EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link "参加申込"
     end
+    sleep 1
+
     login_user "kimura", "testtest"
     visit events_path
     click_link "先着順のイベント"
@@ -210,6 +212,8 @@ class EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link "参加申込"
     end
+    sleep 1
+
     login_user "kimura", "testtest"
     visit events_path
     click_link "補欠者のいるイベント"
@@ -237,6 +241,8 @@ class EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link "参加申込"
     end
+    sleep 1
+
     login_user "kimura", "testtest"
     visit events_path
     click_link "補欠者が繰り上がるイベント"
@@ -247,6 +253,7 @@ class EventsTest < ApplicationSystemTestCase
       participants = all("img").map { |img| img["alt"] }
       assert_equal %w(komagata), participants
     end
+
     login_user "komagata", "testtest"
     visit events_path
     click_link "補欠者が繰り上がるイベント"
