@@ -62,7 +62,8 @@ class PracticesController < ApplicationController
         :position,
         :submission,
         :open_product,
-        :include_progress
+        :include_progress,
+        :memo
       )
     end
 
