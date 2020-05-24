@@ -211,3 +211,38 @@ textarea.a-text-input
   padding: .5rem
   border: solid 1px $input-border
   border-radius: .25rem
+
+.a-checkbox
+  +position(relative)
+  input[type="checkbox"]
+    +position(absolute, left 0, top 0)
+    visibility: hidden
+    opacity: 0
+  span
+    +position(relative)
+    display: inline-block
+    margin-bottom: 0
+    padding-left: 1.5em
+    cursor: pointer
+    &::before
+      content: ''
+      display: block
+      +size(.875rem)
+      border: solid 1px #bbbbbb
+      border-radius: .1875rem
+      +position(absolute, left 0, top 50%)
+      margin-top: -.4375rem
+      box-shadow: rgba(black, .1) 0 1px 2px inset
+      background-color: $base
+  input:checked + span::after
+    +fa(fas '\f00c')
+    +text-block(.75rem .875rem, center block #4193e9)
+    +size(.875rem)
+    +position(absolute, left 0, top 50%)
+    margin-top: -.4375rem
+  &:hover
+    span
+      text-decoration: underline
+      &::before,
+      &::after
+        text-decoration: none
