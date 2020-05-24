@@ -7,11 +7,33 @@ class API::CorrectAnswersController < API::BaseController
 
   def create
     # return_to = params[:return_to] ? params[:return_to] : question_url(question)
-    answer = @question.answers.find(params[:answer_id])
-    answer.type = "CorrectAnswer"
-    answer.save!
+
+    # if @answer.save
+    #   notify_to_slack(@question)
+    #   render :create, status: :created
+    # else
+    #   head :bad_request
+    # end
+
+    # jsonとかで確認する
+
+    @answer = @question.answers.find(params[:answer_id])
+    @answer.type = "CorrectAnswer"
+    @answer.save!
+
+    # ActiveRecord::Base.transaction do
+    #   # binding.pry
+    #   @answer = @question.answers.find(params[:answer_id])
+    #   @question.correct_answer = @answer.id
+    #   @answer.type = "CorrectAnswer"
+    #   @answer.save!
+    #   @question.save!
+    # end
     notify_to_slack(@question)
+
     # redirect_to return_to, notice: "正解の解答を選択しました。"　　　　vue.jsでやるべき
+    pp "0" * 1000
+    render(json: @answer).tap(&method(:pp))
   end
 
   def update
@@ -21,10 +43,12 @@ class API::CorrectAnswersController < API::BaseController
     # redirect_to return_to, notice: "ベストアンサーを取り消しました。"　　　　vue.jsでやるべき
   end
 
-#ベストアンサーを取り消すのはdeleteかも
+  # ベストアンサーを取り消すのはdeleteかも
   # def delete
 
   # end
+
+  # { id: answer_id }
 
   private
     def set_question

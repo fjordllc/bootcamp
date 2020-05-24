@@ -271,7 +271,6 @@ ActiveRecord::Schema.define(version: 2020_05_29_082025) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.bigint "practice_id"
-    t.integer "best_answer"
     t.index ["practice_id"], name: "index_questions_on_practice_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end

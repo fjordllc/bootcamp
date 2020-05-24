@@ -2,7 +2,7 @@
 
 class AnswerCallbacks
   # def after_save(answer)
-    
+
   # end
 
 
