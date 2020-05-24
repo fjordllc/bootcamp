@@ -4,8 +4,8 @@
       a.thread-comment__author-link(:href="answer.user.url" itempro="url")
         img.thread-comment__author-icon.a-user-icon(:src="answer.user.avatar_url" :title="answer.user.icon_title"  v-bind:class="userRole")
     .thread-comment__body.a-card(v-if="!editing")
-      //- .answer-badge(v-if="answer == correctAnswer")
-      .answer-badge(v-if="correctAnswer")
+      //- .answer-badge(v-if="correctAnswer")
+      .answer-badge(v-if="answer == correctAnswer")
         .answer-badge__icon
           i.fas.fa-star
         .answer-badge__label ベストアンサー
@@ -92,15 +92,16 @@ export default {
   },
   created: function() {
     this.description = this.answer.description;
-    this.question = this.answer.question;
-    this.correctAnswer = this.question.correctAnswer;
-    console.log(this.answer);
+    // this.question = this.answer.question;
+    // this.correctAnswer = this.question.correctAnswer;
+    
+    // console.log(this.answer);
     // console.log(this.question);
     // console.log(this.correctAnswer);
     // そもそもanswerにcorrectAnswerが入っていない
   },
   mounted: function() {
-    this.correctAnswer = this.question.correctAnswer;
+    // this.correctAnswer = this.question.correctAnswer;
     $("textarea").textareaAutoSize();
     const textareas = document.querySelectorAll(`.answer-id-${this.answer.id}`);
     const emoji = new TextareaAutocomplteEmoji();
@@ -149,7 +150,7 @@ export default {
     // },
     solveAnswer: function() {
       // this.correctAnswer = this.answer;
-      
+
       // this.correctAnswer = true;
 
       // this.$nextTick(function() {
@@ -158,8 +159,10 @@ export default {
       //   }
       // });
       if (window.confirm("本当に宜しいですか？")) {
-        this.correctAnswer = this.answer;
-        this.$emit("post", this.answer.id);
+        // this.correctAnswer = this.answer;
+        console.log(this.correctAnswer);
+        console.log(this.answer);
+        this.$emit("bestAnswer", this.answer.id);
       }
     },
     unsolveAnswer: function() {
@@ -171,8 +174,8 @@ export default {
       //   }
       // });
       if (window.confirm("本当に宜しいですか？")) {
-        this.correctAnswer = null;
-        this.$emit("patch", this.answer.id);
+        // this.correctAnswer = null;
+        this.$emit("cancelBestAnswer", this.answer.id);
       }
     },
     updateAnswer: function() {

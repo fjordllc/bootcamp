@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resources :answers, only: %i(index create update destroy) do
       resource :correct_answer, only: %i(create update)
     end
-      # resource :best_answer, only: %i(create update)
+    # resource :best_answer, only: %i(create update)
     resources :available_emojis, only: %i(index)
     resources :reactions, only: %i(create destroy)
     resources :checks, only: %i(index create destroy)

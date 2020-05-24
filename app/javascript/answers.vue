@@ -16,8 +16,8 @@
         :question="answer.question",
         :correctAnswer="question.correctAnswer",
         @delete="deleteAnswer",
-        @post="solveAnswer",
-        @patch="unsolveAnswer")
+        @bestAnswer="solveAnswer",
+        @cancelBestAnswer="unsolveAnswer")
       .thread-comment-form
         .thread-comment__author
           img.thread-comment__author-icon.a-user-icon(:src="currentUser.avatar_url" :title="currentUser.icon_title")
@@ -38,203 +38,228 @@
                 | コメントする
 </template>
 <script>
-import Answer from './answer.vue'
-import MarkdownTextarea from './markdown-textarea.vue'
-import MarkdownIt from 'markdown-it'
-import MarkdownItEmoji from 'markdown-it-emoji'
-import MarkdownItMention from './packs/markdown-it-mention'
+import Answer from "./answer.vue";
+import MarkdownTextarea from "./markdown-textarea.vue";
+import MarkdownIt from "markdown-it";
+import MarkdownItEmoji from "markdown-it-emoji";
+import MarkdownItMention from "./packs/markdown-it-mention";
 
 // :question="answer.question",
 // :correctAnswer="question.correctAnswer",
 
 export default {
-  props: ['questionId', 'type', 'currentUserId'],
+  props: ["questionId", "type", "currentUserId"],
   components: {
-    'answer': Answer,
-    'markdown-textarea': MarkdownTextarea
+    answer: Answer,
+    "markdown-textarea": MarkdownTextarea
   },
   data: () => {
     return {
       currentUser: {},
       answers: [],
-      description: '',
-      tab: 'answer',
+      description: "",
+      tab: "answer",
       buttonDisabled: false,
-      correctAnswer: null,
-      question: ''
-      // correctAnswer: null
-    }
+      question: { correctAnswer: null }
+      // correctAnswer: false,
+
+      // correctAnswer: null,
+      // question: []
+    };
   },
   // ベストアンサーを選んだときに、correctAnswerにanswerオブジェクトが入る
   created: function() {
     fetch(`/api/users/${this.currentUserId}.json`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'X-Requested-With': 'XMLHttpRequest',
+        "X-Requested-With": "XMLHttpRequest"
       },
-      credentials: 'same-origin',
-      redirect: 'manual'
+      credentials: "same-origin",
+      redirect: "manual"
     })
       .then(response => {
-        return response.json()
+        return response.json();
       })
       .then(json => {
-        for(var key in json){
-          this.$set(this.currentUser, key, json[key])
+        for (var key in json) {
+          this.$set(this.currentUser, key, json[key]);
         }
       })
       .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
+        console.warn("Failed to parsing", error);
+      });
 
-    //どうして、クエリでtype=Questionを指定してやらないといけないのか？？？
+    //どうして、クエリでtype=Questionを指定してやらないといけないのか？？？　クエリでtype=Questionを指定する必要はないかも
     // fetch(`/api/answers.json?type=${this.type}&question_id=${this.questionId}`, {
-    fetch(`/api/answers.json?type=Question&question_id=${this.questionId}`, {
-    // fetch(`/api/answers.json?question_id=${this.questionId}`, {
-      method: 'GET',
+
+    // fetch(`/api/answers.json?type=Question&question_id=${this.questionId}`, {
+    fetch(`/api/answers.json?question_id=${this.questionId}`, {
+      method: "GET",
       headers: {
-        'X-Requested-With': 'XMLHttpRequest',
+        "X-Requested-With": "XMLHttpRequest"
       },
-      credentials: 'same-origin',
-      redirect: 'manual'
+      credentials: "same-origin",
+      redirect: "manual"
     })
       .then(response => {
-        return response.json()
+        return response.json();
       })
       .then(json => {
-        json.forEach(c => { this.answers.push(c) });
+        json.forEach(c => {
+          this.answers.push(c);
+        });
         // console.log(json);
       })
       .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
+        console.warn("Failed to parsing", error);
+      });
   },
   mounted: function() {
     $("textarea").textareaAutoSize();
   },
   methods: {
-    token () {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
+    token() {
+      const meta = document.querySelector('meta[name="csrf-token"]');
+      return meta ? meta.getAttribute("content") : "";
     },
     isActive: function(tab) {
-      return this.tab == tab
+      return this.tab == tab;
     },
     changeActiveTab: function(tab) {
-      this.tab = tab
+      this.tab = tab;
     },
     createAnswer: function(event) {
-      if (this.description.length < 1) {　return null　}
-      this.buttonDisabled = true
-      let params = {
-        'answer': { 'description': this.description },
-        // 'type': this.type,
-        'question_id': this.questionId
+      if (this.description.length < 1) {
+        return null;
       }
+      this.buttonDisabled = true;
+      let params = {
+        answer: { description: this.description },
+        // 'type': this.type,
+        question_id: this.questionId
+      };
       fetch(`/api/answers`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          "Content-Type": "application/json; charset=utf-8",
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRF-Token": this.token()
         },
-        credentials: 'same-origin',
-        redirect: 'manual',
+        credentials: "same-origin",
+        redirect: "manual",
         body: JSON.stringify(params)
       })
         .then(response => {
-          return response.json()
+          return response.json();
         })
-        .then(json=> {
+        .then(json => {
           // console.log(json);
           // correctAnswerもAPIに含める(APIレスポンスの中に)
           // Answersのなかにはjsonで取ってきたデータが入っている
           // correctAnswerもjsonでデータを取ってくる
           // 以下のanswersが元のやつ
           this.answers.push(json);
-          this.description = '';
-          this.tab = 'answer';
+          this.description = "";
+          this.tab = "answer";
           this.buttonDisabled = false;
-          this.question = '';
+          this.question = [];
           // this.correctAnswer = null;をするとリロードした時にベストアンサーが消える
         })
         .catch(error => {
-          console.warn('Failed to parsing', error)
-        })
+          console.warn("Failed to parsing", error);
+        });
     },
     deleteAnswer: function(id) {
       fetch(`/api/answers/${id}.json`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRF-Token": this.token()
         },
-        credentials: 'same-origin',
-        redirect: 'manual'
+        credentials: "same-origin",
+        redirect: "manual"
       })
         .then(response => {
           //以下のforEachでスレッド全部の回答のデータを取ってきてる
           this.answers.forEach((answer, i) => {
-            if (answer.id == id) { this.answers.splice(i, 1); }
+            if (answer.id == id) {
+              this.answers.splice(i, 1);
+            }
           });
         })
         .catch(error => {
-          console.warn('Failed to parsing', error)
-        })
+          console.warn("Failed to parsing", error);
+        });
     },
     solveAnswer: function(id) {
       // クエリパラメータに含める
       let params = {
-        'question_id': this.questionId
-      }
-　　　//fetch の使い方を調べる
-　　　//求められているパラメーターが渡されていないのが原因かも
+        question_id: this.questionId
+      }; 
+      //fetch の使い方を調べる //求められているパラメーターが渡されていないのが原因かも
       // fetch(`/api/answers/${id}/question/id`, {
       fetch(`/api/answers/${id}/correct_answer`, {
-      // fetch(`/api/questions/${id}/answers/${id}/correct_answer`, {
-        method: 'POST',
+        // fetch(`/api/questions/${id}/answers/${id}/correct_answer`, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          "Content-Type": "application/json; charset=utf-8",
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRF-Token": this.token()
         },
-        credentials: 'same-origin',
-        redirect: 'manual',
+        credentials: "same-origin",
+        redirect: "manual",
         body: JSON.stringify(params)
       })
         .then(response => {
-          // console.log("これが呼び出されてないってこと？？")
+          // console.log({ response: response.json() });
+          return response.json();
+        })
+        //２つ目のthenの中にも入れている
+        .then(json => {
+          console.log({ json });
+          console.log(json["created_at"]);
+          // this.correctAnswer = this.answer;
+          // console.log(this.question)
           this.answers.forEach((answer, i) => {
-            if (answer.id == id) { this.answer = this.correctAnswer; }
+            if (answer.id == json.id) {
+              // console.log("機能してる？？")
+              this.question.correctAnswer = answer;
+              console.log(this.question)
+            }
           });
         })
         .catch(error => {
-          console.warn('Failed to parsing', error)
-        })
+          console.warn("Failed to parsing", error);
+        });
     },
     unsolveAnswer: function(id) {
       let params = {
-        'question_id': this.questionId
-      }
+        question_id: this.questionId
+      };
       fetch(`/api/answers/${id}/correct_answer`, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          "Content-Type": "application/json; charset=utf-8",
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRF-Token": this.token()
         },
-        credentials: 'same-origin',
-        redirect: 'manual',
+        credentials: "same-origin",
+        redirect: "manual",
         body: JSON.stringify(params)
       })
+        // .then(response => {
+        //   return response.json();
+        // })
         .then(response => {
           this.answers.forEach((answer, i) => {
-            if (answer.id == id) { this.correctAnswer = null; }
+            if (answer.id == id) {
+              this.question.correctAnswer = null;
+            }
           });
         })
         .catch(error => {
-          console.warn('Failed to parsing', error)
-        })
+          console.warn("Failed to parsing", error);
+        });
     }
   },
   computed: {
@@ -243,14 +268,14 @@ export default {
         html: true,
         breaks: true,
         linkify: true,
-        langPrefix: 'language-'
+        langPrefix: "language-"
       });
-      md.use(MarkdownItEmoji).use(MarkdownItMention)
+      md.use(MarkdownItEmoji).use(MarkdownItMention);
       return md.render(this.description);
     },
     validation: function() {
-      return this.description.length > 0
+      return this.description.length > 0;
     }
   }
-}
+};
 </script>
