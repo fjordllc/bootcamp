@@ -1,9 +1,13 @@
 .a-card
   header.card-header.is-sm
     h2.card-header__title
-      | 未提出の日報
+      | 未提出
   .card-list.is-wip
     ul.card-list__items
       - user.reports.wip.each do |report|
         li.card-list__item
           = link_to report.title, report, class: "card-list__item-link"
+    ul.card-list__items
+      - user.products.wip.each do |product|
+        li.card-list__item
+          = link_to product.title, product, class: "card-list__item-link"
