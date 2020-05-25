@@ -47,3 +47,18 @@
             | 例えば7月20日10時10分10秒にフィヨルドブートキャンプを利用開始したとすると、
             | そこから3日後の7月23日10時10分9秒がお試し期間終了のタイミングになります。
             | その後7月23日10時10分10秒に最初の1ヶ月分の料金が引き落とされます。
+          table.welcome-trial-period-table
+            tr
+              - @days.each_with_index do |day, i|
+                - if i != 2
+                  th = day
+                - else
+                  th.trial_end = day
+            tr
+              td お試し期間
+              td お試し期間
+              td.trial_end
+                | お試し期間終了時刻
+                br
+                | 無料退会期限
+              td 初回引き落とし
