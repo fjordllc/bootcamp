@@ -34,28 +34,28 @@ learning_7:
   status: "submitted"
 
 learning_8:
-  user: komagata
+  user: machida
   practice: practice_5
   status: "complete"
   created_at: "2020-04-12 14:05:53.782503"
   updated_at: "2020-04-12 14:05:53.782503"
 
 learning_9:
-  user: komagata
+  user: machida
   practice: practice_6
   status: "complete"
   created_at: "2020-04-10 14:05:53.782503"
   updated_at: "2020-04-10 14:05:53.782503"
 
 learning_10:
-  user: komagata
+  user: machida
   practice: practice_7
   status: "complete"
   created_at: "2020-04-19 14:05:53.782503"
   updated_at: "2020-04-19 14:05:53.782503"
 
 learning_11:
-  user: komagata
+  user: machida
   practice: practice_8
   status: "complete"
   created_at: "2020-04-22 14:05:53.782503"
