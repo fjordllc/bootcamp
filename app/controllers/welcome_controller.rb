@@ -8,10 +8,10 @@ class WelcomeController < ApplicationController
 
   def pricing
     @days = [
-      Date.current.strftime("%m/%d"),
-      Date.current.since(1.day).strftime("%m/%d"),
-      Date.current.since(2.day).strftime("%m/%d"),
-      Date.current.since(3.day).strftime("%m/%d"),
+      Time.current.strftime("%m/%d %H:%M:%S"),
+      Time.current.since(1.day).strftime("%m/%d"),
+      Time.current.since(2.day).strftime("%m/%d %H:%M:%S"),
+      Time.current.since(2.day).since(1.second).strftime("%m/%d %H:%M:%S"),
     ]
   end
 
