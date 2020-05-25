@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby RUBY_VERSION
 
-gem "rails", "~> 6.0.2.1"
+gem "rails", "~> 6.0.3.1"
 gem "puma", "~> 4.3"
 gem "sass-rails", ">= 6"
 gem "webpacker", "~> 4.0"
@@ -62,7 +62,7 @@ end
 
 group :development do
   gem "web-console", ">= 3.3.0"
-  gem "listen", ">= 3.0.5", "< 3.2"
+  gem "listen", "~> 3.2"
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
 
