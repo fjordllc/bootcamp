@@ -6,13 +6,14 @@
     .form-item
       = f.label :password, class: "a-label"
       = f.password_field :password, class: "a-text-input"
-    .form-item
-      label.form-item__remember-me.a-checkbox
-        = check_box_tag :remember, params[:remember], true, class: "form-item__remember-me-input"
-        | 次回から自動的にログイン
       .a-form-help.is-text-align-right
         label.a-form-help-link(for="forgot-password-modal")
           | パスワードを忘れた
+    .form-item
+      label.form-item__one-checkbox.a-checkbox
+        = check_box_tag :remember, params[:remember], true, class: "form-item__remember-me-input"
+        span
+          | 次回から自動的にログイン
   .form-actions
     .form-actions__items
       .form-actions__item.is-main

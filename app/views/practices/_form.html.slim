@@ -38,6 +38,15 @@
             | プレビュー
           .js-goal-preview.is-long-text.markdown-form__preview
     .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :memo, class: "a-label"
+          = f.text_area :memo, class: "a-text-input js-warning-form markdown-form__text-area js-markdown", data: { "preview": ".js-memo-preview" }
+        .col-md-6.col-xs-12
+          .a-label
+            | プレビュー
+          .js-memo-preview.is-long-text.markdown-form__preview
+    .form-item
       = f.label :submission, class: "a-label"
       .checkboxes
         ul.checkboxes__items

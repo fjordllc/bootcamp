@@ -9,4 +9,5 @@ class Inquiry < ApplicationRecord
       message: "Emailに使える文字のみ入力してください"
     }
   validates :body, presence: true
+  validates :privacy_policy, acceptance: { message: "に同意してください" }
 end

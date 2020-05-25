@@ -95,6 +95,7 @@ ja:
         submission: 提出物
         progress: 進捗の計算
         category_id: カテゴリー
+        memo: メンター向けメモ
       product:
         user: ユーザー
         practice: プラクティス
@@ -146,6 +147,7 @@ ja:
         name: 名前
         email: メールアドレス
         body: 内容
+        privacy_policy: 個人情報の取り扱い
       article:
         title: タイトル
         body: 本文
