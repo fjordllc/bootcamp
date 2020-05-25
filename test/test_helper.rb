@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ENV["RAILS_ENV"] ||= "test"
-require File.expand_path("../../config/environment", __FILE__)
+require_relative "../config/environment"
 require "rails/test_help"
 require "capybara/rails"
 require "webmock/minitest"
@@ -11,6 +11,9 @@ WebMock.allow_net_connect!
 Webdrivers.cache_time = 86_400
 
 class ActiveSupport::TestCase
+  # Run tests in parallel with specified workers
+  # parallelize(workers: :number_of_processors)
+
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
