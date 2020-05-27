@@ -6,7 +6,7 @@ class Questions::CorrectAnswerController < ApplicationController
   before_action :set_question, only: %i(create update)
 
   def create
-    return_to = params[:return_to] ? params[:return_to] : question_url(question)
+    return_to = params[:return_to] ? params[:return_to] : question_url(@question)
     answer = @question.answers.find(params[:answer_id])
     answer.type = "CorrectAnswer"
     answer.save!
@@ -15,7 +15,7 @@ class Questions::CorrectAnswerController < ApplicationController
   end
 
   def update
-    return_to = params[:return_to] ? params[:return_to] : question_url(question)
+    return_to = params[:return_to] ? params[:return_to] : question_url(@question)
     answer = @question.answers.find(params[:answer_id])
     answer.update!(type: "")
     redirect_to return_to, notice: "ベストアンサーを取り消しました。"
