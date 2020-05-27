@@ -64,5 +64,6 @@ header.page-header
       - else
         p 回答がありません
 
-      #js-answers(data-question-id="#{@question.id}" data-type="Question" data-current-user-id="#{current_user.id}")
+      / #js-answers(data-question-id="#{@question.id}" data-type="Question" data-current-user-id="#{current_user.id}")
+      #js-answers(data-question-id="#{@question.id}" data-current-user-id="#{current_user.id}")
       / = render "answers/form", question: @question, answer: @question.answers.new
