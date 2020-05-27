@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @completed_learnings = current_user.learnings.where(status: 3).order(updated_at: :desc)
   end
 
   def new
