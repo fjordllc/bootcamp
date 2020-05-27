@@ -9,7 +9,7 @@
       li.practice-status-buttons__item
         button.practice-status-buttons__button.a-button.is-md.is-block.is-started.js-started(v-bind:disabled="statusName === 'started'" v-bind:class="[statusName === 'started' ? 'is-active' : 'is-inactive']" @click="pushStatus('started')")
           | 着手
-      li.practice-status-buttons__item
+      li.practice-status-buttons__item(v-if="submission === 'true'")
         button.practice-status-buttons__button.a-button.is-md.is-block.is-submitted.js-submitted(v-bind:disabled="statusName === 'submitted'" v-bind:class="[statusName === 'submitted' ? 'is-active' : 'is-inactive']" @click="pushStatus('submitted')")
           | 提出
       li.practice-status-buttons__item
@@ -20,7 +20,7 @@
 import 'whatwg-fetch'
 
 export default {
-  props: ['practiceId', 'status'],
+  props: ['practiceId', 'status', 'submission'],
   data () {
     return {
       statusName: null
