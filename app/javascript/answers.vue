@@ -162,8 +162,10 @@ export default {
           this.description = "";
           this.tab = "answer";
           this.buttonDisabled = false;
-          this.question = [];
+          // this.question = [];
+          
           // this.correctAnswer = null;をするとリロードした時にベストアンサーが消える
+          // this.question.correctAnswer.push(json);
         })
         .catch(error => {
           console.warn("Failed to parsing", error);

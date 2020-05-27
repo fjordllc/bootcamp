@@ -8,7 +8,7 @@ class Question < ActiveRecord::Base
 
   belongs_to :practice, optional: true
   belongs_to :user, touch: true
-  # has_one :correct_answer
+  has_one :correct_answer
 
   # has_one :best_answer
   # has_one :best_answer, className: "Answer"

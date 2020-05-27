@@ -31,6 +31,7 @@ class API::CorrectAnswersController < API::BaseController
     # end
     notify_to_slack(@question)
 
+    # binding.pry
     # redirect_to return_to, notice: "正解の解答を選択しました。"　　　　vue.jsでやるべき
     pp "0" * 1000
     render(json: @answer).tap(&method(:pp))
