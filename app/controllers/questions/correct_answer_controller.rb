@@ -6,19 +6,17 @@ class Questions::CorrectAnswerController < ApplicationController
   before_action :set_question, only: %i(create update)
 
   def create
-    return_to = params[:return_to] ? params[:return_to] : question_url(@question)
     answer = @question.answers.find(params[:answer_id])
     answer.type = "CorrectAnswer"
     answer.save!
     notify_to_slack(@question)
-    redirect_to return_to, notice: "正解の解答を選択しました。"
+    redirect_to @question, notice: "正解の解答を選択しました。"
   end
 
   def update
-    return_to = params[:return_to] ? params[:return_to] : question_url(@question)
     answer = @question.answers.find(params[:answer_id])
     answer.update!(type: "")
-    redirect_to return_to, notice: "ベストアンサーを取り消しました。"
+    redirect_to @question, notice: "ベストアンサーを取り消しました。"
   end
 
   private
