@@ -70,7 +70,7 @@ Rails.application.routes.draw do
     end
   end
   resources :courses, except: %i(index)
-  resources :practices, except: %i(index) do
+  resources :practices, except: %i(index destroy) do
     resources :reports, only: %i(index), controller: "practices/reports"
     resources :questions, only: %i(index), controller: "practices/questions"
     resources :products, only: %i(index), controller: "practices/products"
