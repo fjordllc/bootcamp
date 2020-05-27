@@ -19,7 +19,7 @@
             i.fas.fa-trash-alt
     .thread-list-item-meta
       = link_to report.user.login_name, report.user, class: "thread-header__author"
-      time.thread-list-item-meta__updated-at(datetime="#{report.reported_on.to_datetime}" pubdate="pubdate")
+      time.thread-list-item-meta__updated-at(datetime="#{report.reported_on.to_datetime}")
         = l report.reported_on
         = "の日報"
     - if report.comments.any?
