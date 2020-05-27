@@ -10,6 +10,7 @@ class HomeController < ApplicationController
         @announcements = Announcement.with_avatar
                                      .limit(5)
                                      .order(created_at: :desc)
+        @completed_learnings = current_user.learnings.where(status: 3).order(updated_at: :desc)
         render aciton: :index
       end
     else

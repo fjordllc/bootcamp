@@ -5,4 +5,4 @@
       = render "users/learning_status", user: user
   .completed-practices__body
     = render "users/practices/completed_practices_progress", user: user
-    = render "users/practices/completed_practices_list", user: user
+    = render "users/practices/completed_practices_list", user: user, completed_learnings: completed_learnings
