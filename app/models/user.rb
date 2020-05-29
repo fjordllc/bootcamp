@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   belongs_to :course
   has_many :learnings
   has_many :borrowings
+  has_many :pages,         dependent: :destroy
   has_many :comments,      dependent: :destroy
   has_many :reports,       dependent: :destroy
   has_many :checks,        dependent: :destroy
