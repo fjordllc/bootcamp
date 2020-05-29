@@ -1,4 +1,7 @@
 .thread-list-item
+  .thread-list-item__inner
+    .thread-list-item__author
+      = image_tag page.user.avatar_url, title: "#{page.user.icon_title}", class: "thread-list-item__author-icon a-user-icon is-#{page.user.role}"
   header.thread-list-item__header
     h2.thread-list-item__title(itemprop="name")
       = link_to page, itemprop: "url", class: "thread-list-item__title-link" do
