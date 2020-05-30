@@ -17,7 +17,6 @@ namespace :docs do
     require "uri"
     nest_url_array = BODY_ARRAY.map { |body| URI.extract(body) }
     URL_ARRAY = nest_url_array.flatten
-    p URL_ARRAY
   end
 
   task "modify_url" => "get_url" do
@@ -34,8 +33,6 @@ namespace :docs do
     require "net/http"
     ERROR_URL_ARRAY = MODIFIED_URL_ARRAY.map do |url|
       response = Net::HTTP.get_response(URI.parse(url))
-      p url
-      p response.code
       url unless response.code == "200"
     end
     ERROR_URL_ARRAY.compact!
@@ -47,3 +44,4 @@ namespace :docs do
     end
   end
 end
+
