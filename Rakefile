@@ -18,7 +18,7 @@ namespace :check_url do
     PRACTICE_CONTENTS << Practice.all.map(&:goal)
   end
 
-  task "put_contents_together"  => ["get_docs_contents", "get_practice_contents"] do
+  task "put_contents_together" => ["get_docs_contents", "get_practice_contents"] do
     CONTENT_ARRAY = DOCS_CONTENTS << PRACTICE_CONTENTS
     CONTENT_ARRAY.flatten!
   end
