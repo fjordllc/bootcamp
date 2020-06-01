@@ -20,6 +20,7 @@ class PagesController < ApplicationController
 
   def create
     @page = Page.new(page_params)
+    @page.user_id = current_user.id
     if @page.save
       redirect_to @page, notice: "ページを作成しました。"
     else
