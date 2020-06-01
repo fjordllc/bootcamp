@@ -1,11 +1,16 @@
 <template lang="pug">
-  .thread-comment(:class=" answer1 ? 'is-correct_answer' : '' ")
+  //- v-bind:hasCorrectAnswer="hasCorrectAnswer"
+  //- .thread-comment(:class=" answer == answer.question.correct_answer ? 'is-correct_answer' : '' ")
+  .thread-comment
     .thread-comment__author
       a.thread-comment__author-link(:href="answer.user.url" itempro="url")
         img.thread-comment__author-icon.a-user-icon(:src="answer.user.avatar_url" :title="answer.user.icon_title"  v-bind:class="userRole")
+    //- answer(
+    //-   v-bind:hasCorrectAnswer="hasCorrectAnswer")
     .thread-comment__body.a-card(v-if="!editing")
       //- .answer-badge(v-if="correctAnswer")
-      .answer-badge(v-if="answer == correctAnswer")
+      //- .answer-badge(v-if="answer.type == 'CorrectAnswer'")
+      .answer-badge(v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer'")
         .answer-badge__icon
           i.fas.fa-star
         .answer-badge__label ベストアンサー
@@ -21,10 +26,13 @@
         v-bind:currentUser="currentUser")
       footer.card-footer(v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
         .card-footer-actions
+          //- ul.card-footer-actions__items(v-bind:hasCorrectAnswer="hasCorrectAnswer")
           ul.card-footer-actions__items
             //- li.card-footer-actions__item(v-show="answer != correctAnswer && (currentUser.role == question.user || 'admin')")
             //- answer.type != correctAnswerかも
-            li.card-footer-actions__item(v-if="!correctAnswer && answer != correctAnswer && (currentUser.role == question.user || 'admin')")
+            //- - if correct_answer.blank? && answer != correct_answer && (current_user == question.user || admin_login?)
+            //- li.card-footer-actions__item(v-if="answer.type != 'CorrectAnswer' && (currentUser.role == question.user || 'admin')")
+            li.card-footer-actions__item(v-if="!hasCorrectAnswer && answer.type != 'CorrectAnswer' && (currentUser.role == question.user || 'admin')")
               button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="solveAnswer")
                 | 解決にする
             li.card-footer-actions__item(v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
@@ -37,7 +45,8 @@
                   | 削除
             //- li.card-footer-actions__item(v-if="typeof correctAnswer !== 'undefined' && answer == correctAnswer")
             //- answer.type == correctAnswerかも
-            li.card-footer-actions__item(v-if="correctAnswer && answer == correctAnswer && (currentUser.role == question.user || 'admin')")
+            //- li.card-footer-actions__item(v-if="answer.type == 'CorrectAnswer' && (currentUser.role == question.user || 'admin')")
+            li.card-footer-actions__item(v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer' && (currentUser.role == question.user || 'admin')")
               button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="unsolveAnswer")
                 | ベストアンサーを取り消す
     .thread-comment-form__form.a-card(v-show="editing")
@@ -73,7 +82,7 @@ import moment from "moment";
 moment.locale("ja");
 
 export default {
-  props: ["answer", "currentUser", "availableEmojis", "correctAnswer"],
+  props: ["answer", "currentUser", "availableEmojis", "correctAnswer", "hasCorrectAnswer"],
   components: {
     reaction: Reaction,
     "markdown-textarea": MarkdownTextarea
@@ -84,7 +93,9 @@ export default {
       editing: false,
       isCopied: false,
       tab: "answer",
-      question: ""
+      // question: { correctAnswer: null },
+      question: [],
+      // question: ""
       // correctAnswer: this.correctAnswer
       // correctAnswer: false
       // correctAnswer: null
@@ -162,6 +173,8 @@ export default {
         // this.correctAnswer = this.answer;
         console.log(this.correctAnswer);
         console.log(this.answer);
+        console.log(this.answers); // undefined
+        console.log(this.hasCorrectAnswer);
         this.$emit("bestAnswer", this.answer.id);
       }
     },
@@ -175,7 +188,9 @@ export default {
       // });
       if (window.confirm("本当に宜しいですか？")) {
         // this.correctAnswer = null;
+        console.log(this.hasCorrectAnswer);
         this.$emit("cancelBestAnswer", this.answer.id);
+        // console.log(this.answers.some(answer => (answer.type = "CorrectAnswer")));　　　　TypeError: Cannot read property 'some' of undefined
       }
     },
     updateAnswer: function() {
@@ -239,18 +254,23 @@ export default {
     userRole: function() {
       return `is-${this.answer.user.role}`;
     },
-    answer1() {
-      return this.answer.question.correctAnswer;
-    },
-    test() {
-      // これは機能している
-      return (
-        (this.correctAnswer &&
-          this.answer != this.correctAnswer &&
-          this.currentUser.role == this.question.user) ||
-        "admin"
-      );
-    },
+    // answer1() {
+    //   return this.answer.question.correctAnswer;
+    // },
+    // hasCorrectAnswer: function() {
+    //   console.log(this.answers.some(answer => (answer.type = "CorrectAnswer")));
+    //   return this.answers.some(answer => (answer.type = "CorrectAnswer"));
+    // },
+    // test() {
+    //   // これは機能している
+    //   return (
+    //     (this.correctAnswer &&
+    //       this.answer != this.correctAnswer &&
+    //       this.currentUser.role == this.question.user) ||
+    //     "admin"
+    //   );
+    // },
+
     // checkId() {
     //   return this.$store.getters.checkId
     // },

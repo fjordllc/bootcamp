@@ -8,13 +8,15 @@
       //- v-bindをv-modelに変える:answerの箇所
       //- :answer="answer"
       //- v-model="answer"
+      //- :question="answer.question",
+      //- answer(:hasCorrectAnswer="hasCorrectAnswer")
       answer(v-for="(answer, index) in answers"
         :key="answer.id",
         :answer="answer",
         :currentUser="currentUser",
         :id="'answer_' + answer.id",
-        :question="answer.question",
         :correctAnswer="question.correctAnswer",
+        :hasCorrectAnswer="hasCorrectAnswer",
         @delete="deleteAnswer",
         @bestAnswer="solveAnswer",
         @cancelBestAnswer="unsolveAnswer")
@@ -61,6 +63,8 @@ export default {
       tab: "answer",
       buttonDisabled: false,
       question: { correctAnswer: null }
+      // question: { correctAnswer: false }
+      // question: { correctAnswer: "" }
       // correctAnswer: false,
 
       // correctAnswer: null,
@@ -108,7 +112,8 @@ export default {
         json.forEach(c => {
           this.answers.push(c);
         });
-        // console.log(json);
+        // console.log(json); それぞれの回答のデータが入っている
+        console.log(this.answers); // それぞれの回答のデータが入っている
       })
       .catch(error => {
         console.warn("Failed to parsing", error);
@@ -163,7 +168,9 @@ export default {
           this.tab = "answer";
           this.buttonDisabled = false;
           // this.question = [];
-          
+          // this.answer.type = "";
+          // this.question.correctAnswer.push(json);
+
           // this.correctAnswer = null;をするとリロードした時にベストアンサーが消える
           // this.question.correctAnswer.push(json);
         })
@@ -226,7 +233,12 @@ export default {
             if (answer.id == json.id) {
               // console.log("機能してる？？")
               this.question.correctAnswer = answer;
+              answer.type = "CorrectAnswer";
+              // this.answers.some(answer => (answer.type = "CorrectAnswer"));
+              // this.question.correctAnswer = true;
+              // this.question.correctAnswer = "CorrectAnswer";
               console.log(this.question)
+              // console.log(answer)
             }
           });
         })
@@ -256,6 +268,9 @@ export default {
           this.answers.forEach((answer, i) => {
             if (answer.id == id) {
               this.question.correctAnswer = null;
+              answer.type = "";
+              // this.question.correctAnswer = false;
+              // this.question.correctAnswer = "";
             }
           });
         })
@@ -277,6 +292,9 @@ export default {
     },
     validation: function() {
       return this.description.length > 0;
+    },
+    hasCorrectAnswer: function() {
+      return this.answers.some(answer => (answer.type == "CorrectAnswer"));
     }
   }
 };
