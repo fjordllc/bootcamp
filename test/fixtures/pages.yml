@@ -15,17 +15,13 @@ page_4:
   body: "## テスト\nテスト"
 
 page_5:
-  title: urlのチェック
+  title: urlのチェック用データ
   body: "## テスト\nテスト[学習内容](https://bootcamp.fjord.jp/practices)"
 
 page_6:
-  title: urlのチェック2
-  body: "## テスト\nテスト\n[リンク切れ](https://suumo.jp/404)"
+  title: urlのチェック用データ2
+  body: "## テスト\nテスト\n[リンク切れ](https://suumo.jp/404)\nテスト[学習内容](https://bootcamp.fjord.jp/practices)\n[リンク切れ](https://www.post.japanpost.jp/404)"
 
 page_7:
-  title: urlのチェック3
-  body: "## テスト\nテスト\n[リンク切れ](https://www.amazon.com/404)"
-
-page_8:
-  title: urlのチェック4
-  body: "## テスト\nテスト\n[リンク切れ](https://www.post.japanpost.jp/404)"
+  title: urlのチェック用データ3
+  body: "## テスト\nテスト\n[リンク切れ](https://www.amazon.com/404)\nテスト[学習内容](https://bootcamp.fjord.jp/practices)\nテスト[テスト](https://bootcamp.fjord.jp/)"
