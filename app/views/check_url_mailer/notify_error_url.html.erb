@@ -10,11 +10,11 @@
     <td style="word-wrap:break-word;font-size:0px;padding:16px 24px 16px 24px;" align="left">
       <div style="cursor:auto;font-family:sans-serif; font-size:14px; line-height:1.8; text-align:left;">
         <% @docs_error_url.each do |value| %>
-          <p><a href="http://localhost:3000/pages/<%= value[:id] %>">このページ</a>に記載されている下記URLのリンクが切れています</p>
+          <p><a href="https://bootcamp.fjord.jp/pages/<%= value[:id] %>">このページ</a>に記載されている下記URLのリンクが切れています</p>
           <p><a href="<%= value[:url] %>"><%= value[:url] %></a></p>
         <% end %>
         <% @practice_error_url.each do |value| %>
-          <p><a href="http://localhost:3000/practices/<%= value[:id] %>">このページ</a>に記載されている下記URLのリンクが切れています</p>
+          <p><a href="https://bootcamp.fjord.jp/practices/<%= value[:id] %>">このページ</a>に記載されている下記URLのリンクが切れています</p>
           <p><a href="<%= value[:url] %>"><%= value[:url] %></a></p>
         <% end %>
       </div>
