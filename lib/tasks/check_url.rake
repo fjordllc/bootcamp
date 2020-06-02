@@ -78,7 +78,7 @@ namespace :check_url do
   desc "リンク切れURLをメールで通知"
   task send_email: :check_url do
     if PAGE_ERROR_URL.size != 0 || PRACTICE_ERROR_URL.size != 0
-      BrokenLinkMailer.notify_error_url(PAGE_ERROR_URL, PRACTICE_ERROR_URL).deliver_now
+      CheckUrlMailer.notify_error_url(PAGE_ERROR_URL, PRACTICE_ERROR_URL).deliver_now
     end
   end
 end
