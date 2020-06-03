@@ -13,15 +13,3 @@ page_3:
 page_4:
   title: Bootcampの作業のページ
   body: "## テスト\nテスト"
-
-page_5:
-  title: urlのチェック用データ
-  body: "## テスト\nテスト[学習内容](https://bootcamp.fjord.jp/practices)"
-
-page_6:
-  title: urlのチェック用データ2
-  body: "## テスト\nテスト\n[リンク切れ](https://suumo.jp/404)\nテスト[学習内容](https://bootcamp.fjord.jp/practices)\n[リンク切れ](https://www.post.japanpost.jp/404)"
-
-page_7:
-  title: urlのチェック用データ3
-  body: "## テスト\nテスト\n[リンク切れ](https://www.amazon.com/404)\nテスト[学習内容](https://bootcamp.fjord.jp/practices)\nテスト[テスト](https://bootcamp.fjord.jp/)"
