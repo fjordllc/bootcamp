@@ -469,7 +469,7 @@ practice_56:
   title: "Unityでのテスト"
   description: "description..."
   goal: "goal..."
-  memo: "memo for mentors..."
+  memo:
   category: category_21
   position: 56
   include_progress: false
