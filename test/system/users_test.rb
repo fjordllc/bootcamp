@@ -75,4 +75,11 @@ class UsersTest < ApplicationSystemTestCase
     visit "/users/#{users(:sotugyou)}"
     assert_text "卒業生"
   end
+
+  test "show completed practices" do
+    login_user "machida", "testtest"
+    visit "/users/#{users(:kimura).id}"
+    assert_text "OS X Mountain Lionをクリーンインストールする"
+    assert_no_text "Terminalの基礎を覚える"
+  end
 end
