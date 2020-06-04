@@ -32,7 +32,7 @@ header.page-header
           - if current_user.admin? || current_user.adviser?
             - if User.all.job_seeking.present?
               = render "job_seeking_users", users: User.all.job_seeking
-          - unless current_user.total_learning_time.zero?
+          - unless current_user.total_learning_time.zero? || current_user.mentor?
             = render "users/grass", user: current_user
           = render "users/github_grass", user: current_user
           - if current_user.role == :student
