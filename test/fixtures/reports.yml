@@ -126,3 +126,11 @@ report_16:
   description: |-
     頑張れませんでした
   reported_on: <%= Time.now - 2.day %>
+
+report_17:
+  user: yamada
+  title: 1時間だけ学習
+  description: |-
+    yamadaです、メンターです。
+    今日は1時間学習しました。
+  reported_on: "2020-06-01"
