@@ -5,19 +5,11 @@ class API::AnswersController < API::BaseController
   before_action :require_login
   before_action :set_answer, only: %i(update destroy)
   before_action :set_question, only: %i(create)
-  # before_action :set_return_to, only: %i(create)
 
   def index
-    pp "*" * 1000
-    @answers = question.answers.order(created_at: :asc).tap(&method(:pp))
-
-    # missing a template
-    # render "/app/views/api/answers/index.json.jbuilder" local
+    @answers = question.answers.order(created_at: :asc)
     @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
   end
-
-  # def edit
-  # end
 
   def create
     @answer = @question.answers.new(answer_params)
@@ -40,41 +32,21 @@ class API::AnswersController < API::BaseController
     end
   end
 
-  # def update
-  #   if @answer.update(answer_params)
-  #     redirect_to @return_to, notice: "回答を編集しました。"
-  #   else
-  #     render :edit
-  #   end
-  # end
-
   def destroy
-    # byebug
-    # p "-params--------------------------------------------------"
-    # pp params
-    # p "---------------------------------------------------"
-    # # pp @answer
-    # p "---------------------------------------------------"
     @answer.destroy
-    # redirect_to @return_to, notice: "回答を削除しました。"
   end
 
   private
 
     def set_question
-      # binding.pry
       @question = Question.find(params[:question_id])
     end
 
     def set_answer
-      # @answer = question.answers.find(params[:id])
       @answer = current_user.admin? ? Answer.find(params[:id]) : current_user.answers.find(params[:id])
     end
 
     def question
-      # @question ||= Question.find(params[:question_id])
-      # params[:type].constantize.find(params[:question_id])
-      # typeは必要ない
       Question.find(params[:question_id])
     end
 

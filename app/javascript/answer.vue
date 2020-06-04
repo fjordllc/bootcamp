@@ -1,15 +1,9 @@
 <template lang="pug">
-  //- v-bind:hasCorrectAnswer="hasCorrectAnswer"
-  //- .thread-comment(:class=" answer == answer.question.correct_answer ? 'is-correct_answer' : '' ")
   .thread-comment
     .thread-comment__author
       a.thread-comment__author-link(:href="answer.user.url" itempro="url")
         img.thread-comment__author-icon.a-user-icon(:src="answer.user.avatar_url" :title="answer.user.icon_title"  v-bind:class="userRole")
-    //- answer(
-    //-   v-bind:hasCorrectAnswer="hasCorrectAnswer")
     .thread-comment__body.a-card(v-if="!editing")
-      //- .answer-badge(v-if="correctAnswer")
-      //- .answer-badge(v-if="answer.type == 'CorrectAnswer'")
       .answer-badge(v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer'")
         .answer-badge__icon
           i.fas.fa-star
@@ -23,18 +17,14 @@
       .thread-comment__description.js-target-blank.is-long-text(v-html="markdownDescription")
       reaction(
         v-bind:reactionable="answer",
-        v-bind:currentUser="currentUser")
+        v-bind:currentUser="currentUser",
+        v-bind:reactionableId="reactionableId")
       footer.card-footer(v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
         .card-footer-actions
-          //- ul.card-footer-actions__items(v-bind:hasCorrectAnswer="hasCorrectAnswer")
           ul.card-footer-actions__items
-            //- li.card-footer-actions__item(v-show="answer != correctAnswer && (currentUser.role == question.user || 'admin')")
-            //- answer.type != correctAnswerかも
-            //- - if correct_answer.blank? && answer != correct_answer && (current_user == question.user || admin_login?)
-            //- li.card-footer-actions__item(v-if="answer.type != 'CorrectAnswer' && (currentUser.role == question.user || 'admin')")
             li.card-footer-actions__item(v-if="!hasCorrectAnswer && answer.type != 'CorrectAnswer' && (currentUser.role == question.user || 'admin')")
               button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="solveAnswer")
-                | 解決にする
+                | ベストアンサーにする
             li.card-footer-actions__item(v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
               button.card-footer-actions__action.a-button.is-md.is-primary.is-block(@click="editAnswer")
                 i.fas.fa-pen
@@ -43,9 +33,6 @@
               button.card-footer-actions__action.a-button.is-md.is-danger.is-block(@click="deleteAnswer")
                 i.fas.fa-trash-alt
                   | 削除
-            //- li.card-footer-actions__item(v-if="typeof correctAnswer !== 'undefined' && answer == correctAnswer")
-            //- answer.type == correctAnswerかも
-            //- li.card-footer-actions__item(v-if="answer.type == 'CorrectAnswer' && (currentUser.role == question.user || 'admin')")
             li.card-footer-actions__item(v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer' && (currentUser.role == question.user || 'admin')")
               button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="unsolveAnswer")
                 | ベストアンサーを取り消す
@@ -69,7 +56,7 @@
             | キャンセル
 </template>
 <script>
-import Reaction from "./answer-reaction.vue";
+import Reaction from "./reaction.vue";
 import MarkdownTextarea from "./markdown-textarea.vue";
 import MarkdownIt from "markdown-it";
 import MarkdownItEmoji from "markdown-it-emoji";
@@ -93,26 +80,13 @@ export default {
       editing: false,
       isCopied: false,
       tab: "answer",
-      // question: { correctAnswer: null },
       question: [],
-      // question: ""
-      // correctAnswer: this.correctAnswer
-      // correctAnswer: false
-      // correctAnswer: null
     };
   },
   created: function() {
     this.description = this.answer.description;
-    // this.question = this.answer.question;
-    // this.correctAnswer = this.question.correctAnswer;
-    
-    // console.log(this.answer);
-    // console.log(this.question);
-    // console.log(this.correctAnswer);
-    // そもそもanswerにcorrectAnswerが入っていない
   },
   mounted: function() {
-    // this.correctAnswer = this.question.correctAnswer;
     $("textarea").textareaAutoSize();
     const textareas = document.querySelectorAll(`.answer-id-${this.answer.id}`);
     const emoji = new TextareaAutocomplteEmoji();
@@ -153,44 +127,14 @@ export default {
         $(`.answer-id-${this.answer.id}`).trigger("input");
       });
     },
-    // editComment: function() {
-    //   this.editing = true;
-    //   this.$nextTick(function() {
-    //     $(`.comment-id-${this.comment.id}`).trigger('input');
-    //   })
-    // },
     solveAnswer: function() {
-      // this.correctAnswer = this.answer;
-
-      // this.correctAnswer = true;
-
-      // this.$nextTick(function() {
-      //   if (window.confirm("本当に宜しいですか？")) {
-      //     this.$emit("post", this.answer.id);
-      //   }
-      // });
       if (window.confirm("本当に宜しいですか？")) {
-        // this.correctAnswer = this.answer;
-        console.log(this.correctAnswer);
-        console.log(this.answer);
-        console.log(this.answers); // undefined
-        console.log(this.hasCorrectAnswer);
         this.$emit("bestAnswer", this.answer.id);
       }
     },
     unsolveAnswer: function() {
-      // 先に
-      // this.correctAnswer = null;
-      // this.$nextTick(function() {
-      //   if (window.confirm("本当に宜しいですか？")) {
-      //     this.$emit("patch", this.answer.id);
-      //   }
-      // });
       if (window.confirm("本当に宜しいですか？")) {
-        // this.correctAnswer = null;
-        console.log(this.hasCorrectAnswer);
         this.$emit("cancelBestAnswer", this.answer.id);
-        // console.log(this.answers.some(answer => (answer.type = "CorrectAnswer")));　　　　TypeError: Cannot read property 'some' of undefined
       }
     },
     updateAnswer: function() {
@@ -254,34 +198,14 @@ export default {
     userRole: function() {
       return `is-${this.answer.user.role}`;
     },
-    // answer1() {
-    //   return this.answer.question.correctAnswer;
-    // },
-    // hasCorrectAnswer: function() {
-    //   console.log(this.answers.some(answer => (answer.type = "CorrectAnswer")));
-    //   return this.answers.some(answer => (answer.type = "CorrectAnswer"));
-    // },
-    // test() {
-    //   // これは機能している
-    //   return (
-    //     (this.correctAnswer &&
-    //       this.answer != this.correctAnswer &&
-    //       this.currentUser.role == this.question.user) ||
-    //     "admin"
-    //   );
-    // },
-
-    // checkId() {
-    //   return this.$store.getters.checkId
-    // },
-    // buttonLabel() {
-    //   return this.checkableLabel + (this.checkId ? 'の確認を取り消す' : 'を確認')
-    // },
     classAnswerId: function() {
       return `answer-id-${this.answer.id}`;
     },
     validation: function() {
       return this.description.length > 0;
+    },
+    reactionableId: function() {
+      return `Answer_${this.answer.id}`;
     }
   }
 };

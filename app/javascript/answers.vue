@@ -2,14 +2,6 @@
   .thread-comments-container
     h2.thread-comments-container__title 回答・コメント
     .thread-comments
-      //- 以下のForループでスレッド内の全ての回答にデータを渡してる
-      //- 解決にするボタンを押したら他の回答のデータも変えて他の回答の解決にするボタンを表示しないようにする（他の回答もanswerにすると他の回答にもベストアンサーバッジがついてしまうかも。他の回答はnullとかにしてもいいかも）
-      //- @soloveAnswer="answer",
-      //- v-bindをv-modelに変える:answerの箇所
-      //- :answer="answer"
-      //- v-model="answer"
-      //- :question="answer.question",
-      //- answer(:hasCorrectAnswer="hasCorrectAnswer")
       answer(v-for="(answer, index) in answers"
         :key="answer.id",
         :answer="answer",
@@ -31,7 +23,7 @@
               | プレビュー
           .thread-comment-form__markdown-parent.js-markdown-parent
             .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('answer')}")
-              markdown-textarea(v-model="description" id="js-new-comment" class="a-text-input js-warning-form thread-comment-form__textarea js-markdown" name="new_comment[description]")
+              markdown-textarea(v-model="description" id="js-new-comment" class="a-text-input js-warning-form thread-comment-form__textarea js-markdown" name="answer[description]")
             .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('preview')}")
               .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
           .thread-comment-form__actions
@@ -45,9 +37,6 @@ import MarkdownTextarea from "./markdown-textarea.vue";
 import MarkdownIt from "markdown-it";
 import MarkdownItEmoji from "markdown-it-emoji";
 import MarkdownItMention from "./packs/markdown-it-mention";
-
-// :question="answer.question",
-// :correctAnswer="question.correctAnswer",
 
 export default {
   props: ["questionId", "type", "currentUserId"],
@@ -63,15 +52,8 @@ export default {
       tab: "answer",
       buttonDisabled: false,
       question: { correctAnswer: null }
-      // question: { correctAnswer: false }
-      // question: { correctAnswer: "" }
-      // correctAnswer: false,
-
-      // correctAnswer: null,
-      // question: []
     };
   },
-  // ベストアンサーを選んだときに、correctAnswerにanswerオブジェクトが入る
   created: function() {
     fetch(`/api/users/${this.currentUserId}.json`, {
       method: "GET",
@@ -92,11 +74,6 @@ export default {
       .catch(error => {
         console.warn("Failed to parsing", error);
       });
-
-    //どうして、クエリでtype=Questionを指定してやらないといけないのか？？？　クエリでtype=Questionを指定する必要はないかも
-    // fetch(`/api/answers.json?type=${this.type}&question_id=${this.questionId}`, {
-
-    // fetch(`/api/answers.json?type=Question&question_id=${this.questionId}`, {
     fetch(`/api/answers.json?question_id=${this.questionId}`, {
       method: "GET",
       headers: {
@@ -112,8 +89,6 @@ export default {
         json.forEach(c => {
           this.answers.push(c);
         });
-        // console.log(json); それぞれの回答のデータが入っている
-        console.log(this.answers); // それぞれの回答のデータが入っている
       })
       .catch(error => {
         console.warn("Failed to parsing", error);
@@ -140,7 +115,6 @@ export default {
       this.buttonDisabled = true;
       let params = {
         answer: { description: this.description },
-        // 'type': this.type,
         question_id: this.questionId
       };
       fetch(`/api/answers`, {
@@ -158,21 +132,10 @@ export default {
           return response.json();
         })
         .then(json => {
-          // console.log(json);
-          // correctAnswerもAPIに含める(APIレスポンスの中に)
-          // Answersのなかにはjsonで取ってきたデータが入っている
-          // correctAnswerもjsonでデータを取ってくる
-          // 以下のanswersが元のやつ
           this.answers.push(json);
           this.description = "";
           this.tab = "answer";
           this.buttonDisabled = false;
-          // this.question = [];
-          // this.answer.type = "";
-          // this.question.correctAnswer.push(json);
-
-          // this.correctAnswer = null;をするとリロードした時にベストアンサーが消える
-          // this.question.correctAnswer.push(json);
         })
         .catch(error => {
           console.warn("Failed to parsing", error);
@@ -189,7 +152,6 @@ export default {
         redirect: "manual"
       })
         .then(response => {
-          //以下のforEachでスレッド全部の回答のデータを取ってきてる
           this.answers.forEach((answer, i) => {
             if (answer.id == id) {
               this.answers.splice(i, 1);
@@ -201,14 +163,10 @@ export default {
         });
     },
     solveAnswer: function(id) {
-      // クエリパラメータに含める
       let params = {
         question_id: this.questionId
       }; 
-      //fetch の使い方を調べる //求められているパラメーターが渡されていないのが原因かも
-      // fetch(`/api/answers/${id}/question/id`, {
       fetch(`/api/answers/${id}/correct_answer`, {
-        // fetch(`/api/questions/${id}/answers/${id}/correct_answer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
@@ -220,25 +178,12 @@ export default {
         body: JSON.stringify(params)
       })
         .then(response => {
-          // console.log({ response: response.json() });
           return response.json();
         })
-        //２つ目のthenの中にも入れている
         .then(json => {
-          console.log({ json });
-          console.log(json["created_at"]);
-          // this.correctAnswer = this.answer;
-          // console.log(this.question)
           this.answers.forEach((answer, i) => {
             if (answer.id == json.id) {
-              // console.log("機能してる？？")
-              this.question.correctAnswer = answer;
               answer.type = "CorrectAnswer";
-              // this.answers.some(answer => (answer.type = "CorrectAnswer"));
-              // this.question.correctAnswer = true;
-              // this.question.correctAnswer = "CorrectAnswer";
-              console.log(this.question)
-              // console.log(answer)
             }
           });
         })
@@ -261,16 +206,10 @@ export default {
         redirect: "manual",
         body: JSON.stringify(params)
       })
-        // .then(response => {
-        //   return response.json();
-        // })
         .then(response => {
           this.answers.forEach((answer, i) => {
             if (answer.id == id) {
-              this.question.correctAnswer = null;
               answer.type = "";
-              // this.question.correctAnswer = false;
-              // this.question.correctAnswer = "";
             }
           });
         })
@@ -294,7 +233,7 @@ export default {
       return this.description.length > 0;
     },
     hasCorrectAnswer: function() {
-      return this.answers.some(answer => (answer.type == "CorrectAnswer"));
+      return this.answers.some(answer => (answer.type === "CorrectAnswer"));
     }
   }
 };

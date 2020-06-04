@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 class AnswerCallbacks
-  # def after_save(answer)
-
-  # end
-
-
   def after_create(answer)
     if answer.sender != answer.receiver
       notify_answer(answer)
@@ -14,21 +9,6 @@ class AnswerCallbacks
     create_watch(answer)
     notify_to_watching_user(answer)
   end
-
-  # def after_save(comment)
-  #   notify_mention(comment) if comment.new_mentions?
-  # end
-
-  # def after_create(comment)
-  #   if comment.sender != comment.receiver
-  #     notify_comment(comment)
-  #   end
-
-  #   if [Report, Product].include?(comment.commentable.class)
-  #     create_watch(comment)
-  #     notify_to_watching_user(comment)
-  #   end
-  # end
 
   private
     def notify_answer(answer)
