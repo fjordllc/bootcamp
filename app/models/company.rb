@@ -6,6 +6,10 @@ class Company < ActiveRecord::Base
   validates :name, presence: true
   has_one_attached :logo
 
+  def self.all_with_empty
+    Company.all.to_a.unshift(Company.new(name: "所属なし"))
+  end
+
   def advisers
     users.advisers
   end
