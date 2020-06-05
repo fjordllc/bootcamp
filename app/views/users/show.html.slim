@@ -17,6 +17,13 @@ header.page-header
     .columns
       .row
         .col-xs-12.col-lg-5.col-xxl-6
+          - if @my_seat_today
+            .a-card
+              .card-header.is-sm
+                h2.card-header__title
+                  | 今日は
+                  = @my_seat_today
+                  | 席を予約しています
           .a-card.is-user
             - if admin_login? && @user.retired_on? && (@user.slack_participation? || @user.github_collaborator? || @user.officekey_permission?)
               .a-card__alert
