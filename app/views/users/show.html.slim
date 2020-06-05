@@ -17,7 +17,7 @@ header.page-header
     .columns
       .row
         .col-xs-12.col-lg-5.col-xxl-6
-          - if @my_seat_today
+          - if @my_seat_today && current_user.id == @user_id
             .a-card
               .card-header.is-sm
                 h2.card-header__title
