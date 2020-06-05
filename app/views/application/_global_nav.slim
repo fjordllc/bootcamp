@@ -35,14 +35,24 @@ nav.global-nav
                 = Report.unchecked.not_wip.count
             .global-nav-links__link-label 日報
         - if staff_login?
-          li.global-nav-links__item
-            = link_to products_unchecked_index_path, class: "global-nav-links__link #{current_link /^products/ }" do
-              .global-nav-links__link-icon
-                i.fas.fa-hand-paper
-              - if current_user.admin? && Product.not_responded_products.count > 0
-                .global-nav__item-count.a-notification-count
-                  = Product.not_responded_products.count
-              .global-nav-links__link-label 提出物
+          - if current_user.mentor?
+            li.global-nav-links__item
+              = link_to products_not_responded_index_path, class: "global-nav-links__link #{current_link /^products/ }" do
+                .global-nav-links__link-icon
+                  i.fas.fa-hand-paper
+                - if current_user.admin? && Product.not_responded_products.count > 0
+                  .global-nav__item-count.a-notification-count
+                    = Product.not_responded_products.count
+                .global-nav-links__link-label 提出物
+          - else
+            li.global-nav-links__item
+              = link_to products_unchecked_index_path, class: "global-nav-links__link #{current_link /^products/ }" do
+                .global-nav-links__link-icon
+                  i.fas.fa-hand-paper
+                - if current_user.admin? && Product.not_responded_products.count > 0
+                  .global-nav__item-count.a-notification-count
+                    = Product.not_responded_products.count
+                .global-nav-links__link-label 提出物
         li.global-nav-links__item
           = link_to questions_path, class: "global-nav-links__link #{current_link /^questions/}" do
             .global-nav-links__link-icon
