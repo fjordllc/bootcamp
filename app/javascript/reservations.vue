@@ -5,13 +5,13 @@
         .reservations__calender-header
           .reservations__calender-header-label.is-day
             |
-          .reservations__calender-header-label.is-seat(v-for="seat in seats" :key="seat.id")
+          .reservations__calender-header-label.is-seat(v-for="seat in seats" :key="seat.id" @click="createReservationForOneMonth(seat.id)")
             | {{ seat.name }}
           .reservations__calender-header-label.is-memo
             | メモ
         .reservations__day-items
           .reservations__day-item.date(v-for="one_day in this_months" v-bind:class="is_holiday(reservationsHolidayJps[one_day['ymd']])")
-            .reservations__day-item-value.reservations__day.is-day {{ one_day['d_jp'] }}
+            .reservations__day-item-value.reservations__day.is-day(@click="createReservationForOneDay(one_day['ymd'])") {{ one_day['d_jp'] }}
             .reservations__day-item-value.reservations__seat.is-seat(v-for="seat in seats" :key="seat.id" v-bind:id="reservation_hash_id(one_day['ymd'],(seat.id))")
               #reserve-seat.reservations__seat-action(v-if="reservations[`${one_day['ymd']}-${seat.id}`] === undefined" @click="createReservation(one_day['ymd'], seat.id)")
                 |
@@ -168,6 +168,16 @@ export default {
     },
     memoId (one_day) {
       return `memo-${one_day}`;
+    },
+    createReservationForOneMonth (seat_id) {
+      this.this_months.forEach(one_day => {
+        this.createReservation(one_day['ymd'], seat_id)
+      })
+    },
+    createReservationForOneDay (one_day) {
+      this.seats.forEach(seat => {
+        this.createReservation(one_day, seat.id)
+      })
     }
   }
 }
