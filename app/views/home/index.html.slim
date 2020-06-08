@@ -11,12 +11,7 @@ header.page-header
       .row
         .col-xs-12.col-xl-6.col-xxl-6
           - if @my_seat_today
-            .a-card
-              .card-header.is-sm
-                h2.card-header__title
-                  | 今日は
-                  = @my_seat_today
-                  | 席を予約しています
+            = render "my_seat_today", my_seat_today: @my_seat_today
           .thread-list.a-card
             header.card-header.is-sm
               h2.card-header__title
