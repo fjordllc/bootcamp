@@ -14,8 +14,6 @@ class UsersController < ApplicationController
 
   def show
     @completed_learnings = @user.learnings.where(status: 3).order(updated_at: :desc)
-    @my_seat_today = @user.reservations.find_by(date: Date.today)&.seat&.name
-    @user_id = params[:id].to_i
   end
 
   def new
