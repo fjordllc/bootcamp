@@ -88,11 +88,9 @@ class UsersTest < ApplicationSystemTestCase
     visit "/"
     assert_text "今日はF席を予約しています"
 
-    visit "/users/#{users(:hajime).id}"
-    assert_text "今日はF席を予約しています"
-
-    visit "/users/#{users(:kimura).id}"
-    assert_no_text "予約しています"
+    login_user "kimura", "testtest"
+    visit "/"
+    assert_text "今日はE席を予約しています"
 
     login_user "kensyu", "testtest"
     visit "/"
