@@ -170,14 +170,18 @@ export default {
       return `memo-${one_day}`;
     },
     createReservationForOneMonth (seat_id) {
-      this.this_months.forEach(one_day => {
-        this.createReservation(one_day['ymd'], seat_id)
-      })
+      if(this.admin_login == 1) {
+        this.this_months.forEach(one_day => {
+          this.createReservation(one_day['ymd'], seat_id)
+        })
+      }
     },
     createReservationForOneDay (one_day) {
-      this.seats.forEach(seat => {
-        this.createReservation(one_day, seat.id)
-      })
+      if(this.admin_login == 1) {
+        this.seats.forEach(seat => {
+          this.createReservation(one_day, seat.id)
+        })
+      }
     }
   }
 }
