@@ -1,0 +1,19 @@
+= form_with model: user, url: url, local: true, html: { name: "password_change" } do |f|
+  = render "errors", object: user
+
+  .form__items
+    .form-item
+      = f.label :password, class: "a-label"
+      = f.password_field :password, class: "a-text-input", autocomplete: "address-line3"
+      .a-form-help
+        p パスワードを入力してください。
+    .form-item
+      = f.label :password_confirmation, class: "a-label"
+      = f.password_field :password_confirmation, class: "a-text-input", autocomplete: "address-line3"
+      .a-form-help
+        p パスワードをもう一度入力してください。
+
+  .form-actions
+      ul.form-actions__items
+        li.form-actions__item.is-main
+          = f.submit id: "user_submit", class: "a-button is-lg is-warning is-block"

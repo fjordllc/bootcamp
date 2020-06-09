@@ -1,0 +1,34 @@
+= form_with model: user, url: url, local: true, html: { name: "user", autocomplete: "address-line3" } do |f|
+  = render "errors", object: user
+
+  .form__items
+    = render "users/form/login_name", f: f
+    = render "users/form/email", f: f, user: user
+    = render "users/form/mail_notification", f: f
+    = render "users/form/name", f: f, user: user
+    = render "users/form/kana_name", f: f, user: user
+    = render "users/form/avatar", f: f, user: user
+    = render "users/form/description", f: f, user: user
+
+    - unless user.adviser?
+      = render "users/form/course", f: f
+      = render "users/form/job", f: f
+      = render "users/form/os", f: f
+      = render "users/form/study_place", f: f
+      = render "users/form/prefecture", f: f
+      = render "users/form/experience", f: f
+
+    - if user.student?
+      = render "users/form/job_seeker", f: f
+
+    .form__items
+      h3.form__items-title SNSアカウント
+      = render "users/form/sns", f: f
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit id: "user_submit", class: "a-button is-lg is-warning is-block"
+
+  .a-form-help.is-text-align-center
+    = link_to "パスワード変更はこちらから", edit_current_user_password_path
