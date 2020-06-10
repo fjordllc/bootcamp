@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   before_action :set_page, only: %i(show edit update destroy)
 
   def index
-    @pages = Page.with_avatar.order(updated_at: :desc).page(params[:page])
+    @pages = Page.order(updated_at: :desc).page(params[:page])
   end
 
   def show
@@ -20,7 +20,6 @@ class PagesController < ApplicationController
 
   def create
     @page = Page.new(page_params)
-    @page.user_id = current_user.id
     if @page.save
       redirect_to @page, notice: "ページを作成しました。"
     else
