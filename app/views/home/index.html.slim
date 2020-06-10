@@ -5,13 +5,13 @@ header.page-header
     .page-header__inner
       h2.page-header__title = title
       = render "reports/new_report"
+- if @my_seat_today
+  = render "my_seat_today", my_seat_today: @my_seat_today
 .page-body
   .container
     .columns
       .row
         .col-xs-12.col-xl-6.col-xxl-6
-          - if @my_seat_today
-            = render "my_seat_today", my_seat_today: @my_seat_today
           .thread-list.a-card
             header.card-header.is-sm
               h2.card-header__title
