@@ -2,7 +2,7 @@
   textarea(ref="textarea" :value="value" @keyup="update($event.target.value)" @change="update($event.target.value)" @drop="drop" @paste="paste")
 </template>
 <script>
-import 'textarea-autosize/dist/jquery.textarea_autosize.min'
+import autosize from 'autosize/dist/autosize.min.js'
 
 export default {
   props: ['value'],
@@ -47,7 +47,7 @@ export default {
         this.$emit('input', textarea.value);
         let params = new FormData();
         params.append('file', file);
-
+        autosize(textarea);
         fetch(`/api/image.json`, {
           method: 'POST',
           headers: {
@@ -58,17 +58,17 @@ export default {
           redirect: 'manual',
           body: params
         })
-          .then(response => {
-            return response.json()
-          })
-          .then(json => {
-            const path = json.url
-            textarea.value = textarea.value.replace(`![${file.name}をアップロード中]()`, `![${file.name}](${path})\n`);
-            this.$emit('input', textarea.value);
-          })
-          .catch(error => {
-            console.warn('Failed to parsing', error)
-          })
+        .then(response => {
+          return response.json()
+        })
+        .then(json => {
+          const path = json.url
+          textarea.value = textarea.value.replace(`![${file.name}をアップロード中]()`, `![${file.name}](${path})\n`);
+          this.$emit('input', textarea.value);
+        })
+        .catch(error => {
+          console.warn('Failed to parsing', error)
+        })
       }
     }
   }

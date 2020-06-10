@@ -1,5 +1,5 @@
-import 'textarea-autosize/dist/jquery.textarea_autosize.min'
+import autosize from 'autosize/dist/autosize.min.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  $('textarea').textareaAutoSize()
+  autosize(document.querySelectorAll('textarea'));
 })
