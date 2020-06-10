@@ -1,13 +1,17 @@
 .practice-status-buttons
+  +media-breakpoint-up(md)
+    margin-bottom: 1.5rem
+  +media-breakpoint-down(sm)
+    margin-bottom: 1rem
+
+.practice-status-buttons__start
   text-align: center
-  margin-bottom: 1.5rem
-  border-radius: .375rem
   width: 100%
   display: flex
   align-items: center
 
 .practice-status-buttons__label
-  +text-block(.875rem, 600)
+  +text-block(.875rem, 600 nowrap)
   margin-right: 1em
   +media-breakpoint-down(sm)
     display: none
@@ -40,3 +44,9 @@
     width: 33.33%
     .a-button
       width: 100%
+
+.practice-status-buttons__note
+  +text-block(.75rem 1.4, $muted-text left)
+  margin-top: .5em
+  +media-breakpoint-up(md)
+    padding-left: 110px
