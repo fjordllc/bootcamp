@@ -14,12 +14,19 @@
         = check_box_tag :remember, params[:remember], true, class: "form-item__remember-me-input"
         span
           | 次回から自動的にログイン
-    // TODO: デザイン
-    a href="/auth/github" GitHubアカウントでログイン
   .form-actions
     .form-actions__items
       .form-actions__item.is-main
         = button_tag(class: "a-button is-lg is-warning is-block") do
           | ログイン
+
+  .form-actions
+    .form-actions__items
+      .form-actions__item.is-main
+        a.a-button.is-lg.is-secondary.is-block.is-sm-text.is-left-icon.is-lg-icon href="/auth/github"
+          i.fab.fa-github-square
+          span
+            | GitHubアカウントでログイン
+
 
 = render "forgot_password_modal"
