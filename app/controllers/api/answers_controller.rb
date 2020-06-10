@@ -8,14 +8,14 @@ class API::AnswersController < API::BaseController
 
   def index
     @answers = question.answers.order(created_at: :asc)
-    @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
+    @available_emojis = reaction
   end
 
   def create
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
     @answer.question = question
-    @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
+    @available_emojis = reaction
     if @answer.save
       notify_to_slack(@answer)
       render :create, status: :created
@@ -54,8 +54,8 @@ class API::AnswersController < API::BaseController
       params.require(:answer).permit(:description)
     end
 
-    def set_return_to
-      @return_to = params[:return_to].present? ? params[:return_to] : question_url(question)
+    def reaction
+      Reaction.emojis.map { |key, value| { kind: key, value: value } }
     end
 
     def notify_to_slack(answer)
