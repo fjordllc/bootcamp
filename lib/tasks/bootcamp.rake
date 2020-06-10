@@ -28,5 +28,19 @@ namespace :bootcamp do
         work.resize_thumbnail! if work.thumbnail.attached?
       end
     end
+
+    desc "insert userid into pages."
+    task :insert_userid_into_pages do
+      jnchito_id = 676
+      komagata_id = 1
+      Page.order(created_at: :asc).each do |page|
+        case page.id
+        when 194, 227, 240
+          page.update(user_id: jnchito_id)
+        else
+          page.update(user_id: komagata_id)
+        end
+      end
+    end
   end
 end
