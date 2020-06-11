@@ -1,15 +1,19 @@
 page_1:
   title: test1
   body: "## test\ntest"
+  user: komagata
 
 page_2:
   title: テスト
   body: "## テスト\nテスト"
+  user: komagata
 
 page_3:
   title: Docsページ
   body: "## 存在しないDocsページ遷移テスト\n[存在しないページ](http://localhost:3000/pages/5555555)"
+  user: komagata
 
 page_4:
   title: Bootcampの作業のページ
   body: "## テスト\nテスト"
+  user: komagata
