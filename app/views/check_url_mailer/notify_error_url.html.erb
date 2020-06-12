@@ -9,34 +9,34 @@
   <tr>
     <td style="word-wrap:break-word; font-size:0px; padding: 16px 24px 16px 24px;" align="left">
       <div style="cursor:auto;font-family:sans-serif; font-size: 14px; line-height:1.8; text-align:left;">
-        <% @page_error_url.each do |value| %>
+        <% @page_error_url.each do |hash| %>
           <table style="margin-bottom: 16px;" width="100%">
             <tr>
               <td style="word-wrap: break-word; font-size:0px; padding: 10px 12px; border: solid 1px #ccc; border-bottom-style: dashed; background-color: #f8f8f8;" align="left">
                 <h3 style="font-family: sans-serif; font-size: 14px; line-height: 1.4; margin: 0; font-weight: bold">
-                  <a href="https://bootcamp.fjord.jp/pages/<%= value[:id] %>" style="color: inherit;">https://bootcamp.fjord.jp/pages/<%= value[:id] %></a>
+                  <a href="https://bootcamp.fjord.jp/pages/<%= hash[:id] %>" style="color: inherit;">https://bootcamp.fjord.jp/pages/<%= hash[:id] %></a>
                 </h3>
               </td>
             </tr>
             <tr>
               <td style="word-wrap:break-word; padding: 10px 12px; border: solid 1px #ccc; border-top: none;" align="left">
-                <p style="margin: 0; line-height: 1.4; font-size: 14px; color: #666666;">リンク切れURL: <a href="<%= value[:url] %>" style="color: inherit;"><%= value[:url] %></a></p>
+                <p style="margin: 0; line-height: 1.4; font-size: 14px; color: #666666;">リンク切れURL: <a href="<%= hash[:url] %>" style="color: inherit;"><%= hash[:url] %></a></p>
               </td>
             </tr>
           </table>
         <% end %>
-        <% @practice_error_url.each do |value| %>
+        <% @practice_error_url.each do |hash| %>
           <table style="margin-bottom: 16px;" width="100%">
             <tr>
               <td style="word-wrap: break-word; font-size:0px; padding: 10px 12px; border: solid 1px #ccc; border-bottom-style: dashed; background-color: #f8f8f8;" align="left">
                 <h3 style="font-family: sans-serif; font-size: 14px; line-height: 1.4; margin: 0; font-weight: bold">
-                  <a href="https://bootcamp.fjord.jp/pages/<%= value[:id] %>" style="color: inherit;">https://bootcamp.fjord.jp/pages/<%= value[:id] %></a>
+                  <a href="https://bootcamp.fjord.jp/practices/<%= hash[:id] %>" style="color: inherit;">https://bootcamp.fjord.jp/practices/<%= hash[:id] %></a>
                 </h3>
               </td>
             </tr>
             <tr>
               <td style="word-wrap:break-word; padding: 10px 12px; border: solid 1px #ccc; border-top: none;" align="left">
-                <p style="margin: 0; line-height: 1.4; font-size: 14px; color: #666666;">リンク切れURL: <a href="<%= value[:url] %>" style="color: inherit;"><%= value[:url] %></a></p>
+                <p style="margin: 0; line-height: 1.4; font-size: 14px; color: #666666;">リンク切れURL: <a href="<%= hash[:url] %>" style="color: inherit;"><%= hash[:url] %></a></p>
               </td>
             </tr>
           </table>
