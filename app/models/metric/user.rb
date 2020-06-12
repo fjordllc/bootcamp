@@ -48,6 +48,19 @@ module Metric
         end.to_h
       end
 
+      def students_by_day
+        count = ::User.students.count
+        Metric::User.series_by_day.reverse_each.map do |day|
+          key = day.strftime("%m/%d")
+          registered = registered_by_day[key]
+          retired = retired_by_day[key]
+          graduated = graduated_by_day[key]
+          value = count - registered + retired + graduated
+          count = value
+          [day, value]
+        end.to_h
+      end
+
       def registered_by_month
         count = ::User.
           where(
@@ -79,6 +92,19 @@ module Metric
         @@_graduated_by_month ||= Metric::User.series_by_month.map do |s|
           key = s.strftime("%Y/%m")
           [key, count[key] || 0]
+        end.to_h
+      end
+
+      def students_by_month
+        count = ::User.students.count
+        Metric::User.series_by_month.reverse_each.map do |day|
+          key = day.strftime("%Y/%m")
+          registered = registered_by_month[key]
+          retired = retired_by_month[key]
+          graduated = graduated_by_month[key]
+          value = count - registered + retired + graduated
+          count = value
+          [day, value]
         end.to_h
       end
 
