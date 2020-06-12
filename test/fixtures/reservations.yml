@@ -19,11 +19,11 @@ reservation_4:
   user: hatsuno
 
 reservation_5:
-  date: <%= Date.today %>
+  date: <%= Date.current %>
   seat: seat_5
   user: kimura
 
 reservation_6:
-  date: <%= Date.today %>
+  date: <%= Date.current %>
   seat: seat_6
   user: hajime
