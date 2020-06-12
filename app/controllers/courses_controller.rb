@@ -3,10 +3,16 @@
 class CoursesController < ApplicationController
   before_action :require_login
   before_action :require_admin_login, except: %i(index)
-  before_action :set_course, only: %i(edit update destroy)
+  before_action :set_course, only: %i(show edit update destroy)
 
   def index
     @courses = Course.order(created_at: :desc)
+  end
+
+  def show
+    @categories = @course.categories
+                         .preload(practices: { started_students: { avatar_attachment: :blob } })
+                         .order(:position)
   end
 
   def new

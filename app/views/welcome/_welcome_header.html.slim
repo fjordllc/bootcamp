@@ -27,7 +27,7 @@ header.welcome-header
               | 参加登録
           li.welcome-header-nav__item.is-hidden-md-up
             - if current_user
-              = link_to course_practices_path(current_user.course), class: "welcome-header-nav__item-link" do
+              = link_to current_user.course, class: "welcome-header-nav__item-link" do
                 | プラクティス
             - else
               = link_to "/login", class: "welcome-header-nav__item-link" do
@@ -36,7 +36,7 @@ header.welcome-header
         label.welcome-header-nav__overlay(for="welcome-mobile-nav")
       .welcome-header__login
         - if current_user
-          = link_to course_practices_path(current_user.course), class: "welcome-header__login-link" do
+          = link_to current_user.course, class: "welcome-header__login-link" do
             | プラクティス
         - else
           = link_to "/login", class: "welcome-header__login-link" do

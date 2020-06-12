@@ -15,7 +15,7 @@ class RequireLoginTest < ApplicationSystemTestCase
   end
 
   test "practices_path" do
-    visit "/courses/#{courses(:course_1).id}/practices"
+    visit "/courses/#{courses(:course_1).id}"
     assert_text "ログインしてください"
   end
 

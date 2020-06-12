@@ -21,7 +21,7 @@ nav.global-nav
                 i.fas.fa-newspaper
               .global-nav-links__link-label ブログ
         li.global-nav-links__item
-          = link_to course_practices_path(current_user.course), class: "global-nav-links__link #{current_link /^(courses-practices|practices)-/}" do
+          = link_to current_user.course, class: "global-nav-links__link #{current_link /^courses/}" do
             .global-nav-links__link-icon
               i.fas.fa-book
             .global-nav-links__link-label プラクティス

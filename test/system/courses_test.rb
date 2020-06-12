@@ -3,8 +3,14 @@
 require "application_system_test_case"
 
 class CoursesTest < ApplicationSystemTestCase
+  test "show listing practices" do
+    login_user "kimura", "testtest"
+    visit "/courses/#{courses(:course_1).id}"
+    assert_equal "Rails Webプログラマーコースのプラクティス | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
   test "show listing courses" do
-    login_user "yamada", "testtest"
+    login_user "kimura", "testtest"
     visit "/courses"
     assert_equal "コース | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end

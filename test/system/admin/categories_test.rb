@@ -21,20 +21,7 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
     assert_text "カテゴリーを作成しました。"
   end
 
-  test "update category from course page" do
-    visit course_practices_path(courses(:course_1))
-    first(".categories-item__edit").click
-    within "form[name=category]" do
-      fill_in "category[name]", with: "テストカテゴリー"
-      fill_in "category[slug]", with: "test-category"
-      fill_in "category[description]", with: "テストのカテゴリーです。"
-      click_button "更新する"
-    end
-    assert_text "カテゴリーを更新しました。"
-    assert_current_path course_practices_path(courses(:course_1))
-  end
-
-  test "update category from admin categories" do
+  test "update category" do
     visit  admin_categories_path
     first(".a-button.is-sm.is-primary.is-icon").click
     within "form[name=category]" do

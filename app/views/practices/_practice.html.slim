@@ -4,7 +4,7 @@
       = link_to practice, class: "category-practices-item__title-link"
         = practice.title
     - if current_user
-      - status = practice.status_by_learnings(@learnings)
+      - status = practice.status_by_learnings(learnings)
       = link_to practice_path(practice.id, anchor: "learning-status"), class: "practice-status category-practices-item__status is-#{status}" do
           = t(status, scope: [:activerecord, :enums, :learning, :status])
 
