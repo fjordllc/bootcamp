@@ -47,4 +47,4 @@ header.page-header
             | 一覧に戻る
 
         = link_to @page.user, itempro: "url", class: "thread__author-link" do
-          = image_tag @page.user.avatar_url, title: "#{@page.user.icon_title}", class: "thread__author-icon a-user-icon is-#{@page.user.role}"
+          = image_tag @page.user.avatar_url, title: @page.user.icon_title, class: "thread__author-icon a-user-icon is-#{@page.user.role}"
