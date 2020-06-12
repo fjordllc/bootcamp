@@ -1,5 +1,4 @@
 - title "Docs"
-
 header.page-header
   .container
     .page-header__inner
@@ -11,7 +10,6 @@ header.page-header
             = link_to [:new, :page], class: "a-button is-md is-warning is-block" do
               i.fas.fa-plus
               | 新規ページ
-
 .page-body
   .container
     = paginate @pages, position: "top"
