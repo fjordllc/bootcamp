@@ -157,7 +157,7 @@ export default {
       document.execCommand('copy');
       document.body.removeChild(textBox);
       this.activating = true;
-      setTimeout(() => {this.activating = false, 4000});
+      setTimeout(() => {this.activating = false}, 4000);
     }
   },
   computed: {
