@@ -124,10 +124,16 @@ export default {
           return response.json();
         })
         .then(json => {
-          if (json["message"] == undefined) {
-            this.$set(this.reservations, `${json.date}-${json.seat_id}`, json);
+          if (Array.isArray(json)) {
+            json.forEach(c => {
+              this.$set(this.reservations, `${c.date}-${c.seat_id}`, c);
+            });
           }else{
-            alert(json["message"]);
+            if (json["message"] == undefined) {
+              this.$set(this.reservations, `${json.date}-${json.seat_id}`, json);
+            }else{
+              alert(json["message"]);
+            }
           }
         })
         .catch(error => {
