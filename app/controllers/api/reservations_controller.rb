@@ -10,18 +10,23 @@ class API::ReservationsController < API::BaseController
   end
 
   def create
+    @reservations = []
     if reservation_params[:seat_id].class == Array && reservation_params[:date].class == String
-      reservation_params[:seat_id].each_with_index do |seat_id, index|
+      reservation_params[:seat_id].each do |seat_id|
         @reservation = Reservation.new(seat_id: seat_id, date: reservation_params[:date])
         @reservation.user = current_user
         @reservation.save
+        @reservations << @reservation
       end
+      render :index, status: :created
     elsif reservation_params[:seat_id].class == Integer && reservation_params[:date].class == Array
-      reservation_params[:date].each_with_index do |date, index|
+      reservation_params[:date].each do |date|
         @reservation = Reservation.new(seat_id: reservation_params[:seat_id], date: date)
         @reservation.user = current_user
         @reservation.save
+        @reservations << @reservation
       end
+      render :index, status: :created
     else
       @reservation = Reservation.new(reservation_params)
       @reservation.user = current_user
