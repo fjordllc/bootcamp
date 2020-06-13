@@ -59,9 +59,8 @@ Rails.application.routes.draw do
   end
 
   resource :card, only: %i(show new create edit update), controller: "card"
-  resource :current_user, only: %i(edit update), controller: "current_user"
-  namespace :current_user do
-    resource :password, only: %i[edit update], controller: "password"
+  resource :current_user, only: %i(edit update), controller: "current_user" do
+    resource :password, only: %i(edit update), controller: "current_user/password"
   end
   resources :searchables, only: %i(index)
   resources :user_sessions, only: %i(new create destroy)
