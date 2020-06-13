@@ -23,6 +23,7 @@ class Practice < ActiveRecord::Base
     source: :user
   has_many :products
   has_many :questions
+  has_many :reference_books, dependent: :destroy
   belongs_to :category
   acts_as_list scope: :category
 
