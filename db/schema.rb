@@ -337,6 +337,17 @@ ActiveRecord::Schema.define(version: 2021_03_30_052132) do
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
+  create_table "reference_books", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "asin", null: false
+    t.bigint "practice_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "page_url", null: false
+    t.string "image_url", null: false
+    t.index ["practice_id"], name: "index_reference_books_on_practice_id"
+  end
+
   create_table "reports", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", limit: 255, null: false
@@ -502,5 +513,6 @@ ActiveRecord::Schema.define(version: 2021_03_30_052132) do
   add_foreign_key "questions", "practices"
   add_foreign_key "reactions", "users"
   add_foreign_key "timelines", "users"
+  add_foreign_key "reference_books", "practices"
   add_foreign_key "works", "users"
 end
