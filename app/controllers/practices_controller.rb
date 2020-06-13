@@ -18,7 +18,6 @@ class PracticesController < ApplicationController
 
   def create
     @practice = Practice.new(practice_params)
-
     if @practice.save
       ChatNotifier.message("プラクティス：「#{@practice.title}」を作成しました。\r#{url_for(@practice)}")
       redirect_to @practice, notice: 'プラクティスを作成しました。'
@@ -48,7 +47,8 @@ class PracticesController < ApplicationController
       :open_product,
       :include_progress,
       :memo,
-      category_ids: []
+      category_ids: [],
+      reference_books_attributes: %i[id title asin _destroy]
     )
   end
 

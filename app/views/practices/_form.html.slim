@@ -10,6 +10,45 @@
     .checkboxes
       ul.checkboxes__items
         = f.collection_check_boxes :category_ids, Category.all, :id, :name, class: 'label-checkbox' do |b|
+  .form__items
+    .form-item#reference_books
+      label.a-label
+        | 参考書籍
+      = f.fields_for :reference_books do |book|
+        = render "reference_book_fields", f: book
+      .form-item
+        = link_to_add_association "追加", f, :reference_books
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+            = f.label :description, class: "a-label"
+            = f.text_area :description, class: "a-text-input js-warning-form markdown-form__text-area js-markdown", data: { "preview": ".js-description-preview" }
+        .col-md-6.col-xs-12
+          .a-label
+            | プレビュー
+          .js-description-preview.is-long-text.markdown-form__preview
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :goal, class: "a-label"
+          = f.text_area :goal, class: "a-text-input js-warning-form markdown-form__text-area js-markdown", data: { "preview": ".js-goal-preview" }
+        .col-md-6.col-xs-12
+          .a-label
+            | プレビュー
+          .js-goal-preview.is-long-text.markdown-form__preview
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :memo, class: "a-label"
+          = f.text_area :memo, class: "a-text-input js-warning-form markdown-form__text-area js-markdown", data: { "preview": ".js-memo-preview" }
+        .col-md-6.col-xs-12
+          .a-label
+            | プレビュー
+          .js-memo-preview.is-long-text.markdown-form__preview
+    .form-item
+      = f.label :submission, class: "a-label"
+      .checkboxes
+        ul.checkboxes__items
           li.checkboxes__item
                 = b.label { b.check_box + b.text }
   .form-item
@@ -67,4 +106,4 @@
       li.form-actions__item.is-main
         = f.submit nil, class: 'a-button is-lg is-warning is-block'
       li.form-actions__item
-        = link_to 'キャンセル', :back, class: 'a-button is-md is-secondary'
+        = link_to "キャンセル", :back, class: "a-button is-md is-secondary"

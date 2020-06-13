@@ -31,6 +31,8 @@ class Practice < ApplicationRecord
 
   has_many :categories_practices, dependent: :destroy
   has_many :categories, through: :categories_practices
+  has_many :reference_books, inverse_of: :practice, dependent: :destroy
+  accepts_nested_attributes_for :reference_books, reject_if: :all_blank, allow_destroy: true
 
   validates :title, presence: true
   validates :description, presence: true

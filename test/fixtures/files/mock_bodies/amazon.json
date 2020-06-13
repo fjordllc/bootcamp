@@ -1,0 +1,26 @@
+{
+  "ItemsResult": {
+    "Items": [
+      {
+        "ASIN": "B07JHQ9B5T",
+        "DetailPageURL": "https://www.amazon.co.jp/dp/B07JHQ9B5T?tag=mock_partner_tag&linkCode=ogi&th=1&psc=1",
+        "Images": {
+          "Primary": {
+            "Small": {
+              "Height": 75,
+              "URL": "https://m.media-amazon.com/images/I/51EJg7Gnr0L._SL75_.jpg",
+              "Width": 58
+            }
+          }
+        },
+        "ItemInfo": {
+          "Title": {
+            "DisplayValue": "現場で使える Ruby on Rails 5速習実践ガイド",
+            "Label": "Title",
+            "Locale": "ja_JP"
+          }
+        }
+      }
+    ]
+  }
+}
