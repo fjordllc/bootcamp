@@ -10,7 +10,7 @@ class API::CorrectAnswersController < API::BaseController
     @answer.type = "CorrectAnswer"
     @answer.save!
     notify_to_slack(@question)
-    render(json: @answer)
+    render json: @answer
   end
 
   def update

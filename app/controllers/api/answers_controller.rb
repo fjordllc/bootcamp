@@ -12,7 +12,7 @@ class API::AnswersController < API::BaseController
   end
 
   def create
-    @answer = @question.answers.new(answer_params)
+    @answer = question.answers.new(answer_params)
     @answer.user = current_user
     @answer.question = question
     if @answer.save
@@ -38,7 +38,7 @@ class API::AnswersController < API::BaseController
   private
 
     def set_question
-      @question = Question.find(params[:question_id])
+      question = Question.find(params[:question_id])
     end
 
     def set_answer
