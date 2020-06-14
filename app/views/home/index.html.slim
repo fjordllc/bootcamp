@@ -5,6 +5,8 @@ header.page-header
     .page-header__inner
       h2.page-header__title = title
       = render "reports/new_report"
+- if @my_seat_today
+  = render "my_seat_today", my_seat_today: @my_seat_today
 .page-body
   .container
     .columns
