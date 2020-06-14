@@ -36,11 +36,6 @@
     .form__items
       = render "users/form/password", f: f, from: from
 
-  - if from == :edit
-    .form__items
-      h3.form__items-title 以下パスワードを変更する場合のみ入力
-      = render "users/form/password", f: f, from: from
-
   - if from == :new && user.student?
     = render "users/form/card"
 
@@ -93,3 +88,6 @@
         - if from == :new
           .a-form-help.is-text-align-center
             = link_to "利用規約を確認（別タブで開きます）", tos_path, target: "_blank"
+        - if from == :edit
+          .a-form-help.is-text-align-center
+            = link_to "パスワード変更はこちらから", edit_admin_user_password_path(@user)

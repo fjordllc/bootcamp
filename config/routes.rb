@@ -31,7 +31,9 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "home#index", as: :root
     resources :companies, except: %i(show)
-    resources :users, only: %i(index show edit update destroy)
+    resources :users, only: %i(index show edit update destroy) do
+      resource :password, only: %i(edit update), controller: "users/password"
+    end
     resources :namecards, only: %i(index)
     resource :diploma, only: :show, controller: "diploma"
     resources :categories, except: %i(show) do
