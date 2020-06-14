@@ -82,4 +82,18 @@ class UsersTest < ApplicationSystemTestCase
     assert_text "OS X Mountain Lionをクリーンインストールする"
     assert_no_text "Terminalの基礎を覚える"
   end
+
+  test "show my seat today" do
+    login_user "hajime", "testtest"
+    visit "/"
+    assert_text "今日はF席を予約しています"
+
+    login_user "kimura", "testtest"
+    visit "/"
+    assert_text "今日はE席を予約しています"
+
+    login_user "kensyu", "testtest"
+    visit "/"
+    assert_no_text "予約しています"
+  end
 end
