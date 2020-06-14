@@ -9,7 +9,9 @@ class CurrentUser::PasswordTest < ApplicationSystemTestCase
   end
 
   test "update password" do
-    visit edit_current_user_password_path
+    visit edit_current_user_path
+    click_on "パスワード変更はこちらから"
+
     within "form[name=password_change]" do
       fill_in "user[password]", with: "newpassword"
       fill_in "user[password_confirmation]", with: "newpassword"
