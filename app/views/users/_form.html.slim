@@ -90,4 +90,7 @@
             = link_to "利用規約を確認（別タブで開きます）", tos_path, target: "_blank"
         - if from == :edit
           .a-form-help.is-text-align-center
-            = link_to "パスワード変更はこちらから", edit_admin_user_password_path(@user)
+            - if admin_login? && (url != current_user_path)
+              = link_to "パスワード変更はこちらから", edit_admin_user_password_path(@user)
+            - else
+              = link_to "パスワード変更はこちらから", edit_current_user_password_path
