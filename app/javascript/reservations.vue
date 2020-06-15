@@ -5,13 +5,13 @@
         .reservations__calender-header
           .reservations__calender-header-label.is-day
             |
-          .reservations__calender-header-label.is-seat(v-for="seat in seats" :key="seat.id")
+          .reservations__calender-header-label.is-seat(v-for="seat in seats" :key="seat.id" @click="createReservationForOneMonth(seat.id)")
             | {{ seat.name }}
           .reservations__calender-header-label.is-memo
             | メモ
         .reservations__day-items
           .reservations__day-item.date(v-for="one_day in this_months" v-bind:class="is_holiday(reservationsHolidayJps[one_day['ymd']])")
-            .reservations__day-item-value.reservations__day.is-day {{ one_day['d_jp'] }}
+            .reservations__day-item-value.reservations__day.is-day(@click="createReservationForOneDay(one_day['ymd'])") {{ one_day['d_jp'] }}
             .reservations__day-item-value.reservations__seat.is-seat(v-for="seat in seats" :key="seat.id" v-bind:id="reservation_hash_id(one_day['ymd'],(seat.id))")
               #reserve-seat.reservations__seat-action(v-if="reservations[`${one_day['ymd']}-${seat.id}`] === undefined" @click="createReservation(one_day['ymd'], seat.id)")
                 |
@@ -124,10 +124,16 @@ export default {
           return response.json();
         })
         .then(json => {
-          if (json["message"] == undefined) {
-            this.$set(this.reservations, `${json.date}-${json.seat_id}`, json);
+          if (Array.isArray(json)) {
+            json.forEach(c => {
+              this.$set(this.reservations, `${c.date}-${c.seat_id}`, c);
+            });
           }else{
-            alert(json["message"]);
+            if (json["message"] == undefined) {
+              this.$set(this.reservations, `${json.date}-${json.seat_id}`, json);
+            }else{
+              alert(json["message"]);
+            }
           }
         })
         .catch(error => {
@@ -168,6 +174,24 @@ export default {
     },
     memoId (one_day) {
       return `memo-${one_day}`;
+    },
+    createReservationForOneMonth (seatId) {
+      let multipleDays = []
+      if(this.admin_login == 1) {
+        this.this_months.forEach(one_day => {
+          multipleDays.push(one_day['ymd'])
+        })
+        this.createReservation(multipleDays, seatId)
+      }
+    },
+    createReservationForOneDay (oneDay) {
+      let seatIds = []
+      if(this.admin_login == 1) {
+        this.seats.forEach(seat => {
+          seatIds.push(seat.id)
+        })
+        this.createReservation(oneDay, seatIds)
+      }
     }
   }
 }
