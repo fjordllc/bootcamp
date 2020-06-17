@@ -30,7 +30,7 @@ header.page-header
                   = render "users/user_secret_attributes", user: @user
                   = render "users/metas", user: @user
               .user-data__description
-                = simple_format @user.description
+                = simple_format h @user.description
 
             - if current_user == @user || current_user.admin?
               footer.card-footer
