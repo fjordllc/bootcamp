@@ -13,8 +13,7 @@
       .thread-comment__description.js-target-blank.is-long-text(v-html="markdownDescription")
       reaction(
         v-bind:reactionable="comment",
-        v-bind:currentUser="currentUser",
-        v-bind:reactionableId="reactionableId")
+        v-bind:currentUser="currentUser")
       footer.card-footer(v-if="comment.user.id == currentUser.id || currentUser.role == 'admin'")
         .card-footer-actions
           ul.card-footer-actions__items
@@ -191,9 +190,6 @@ export default {
     },
     validation: function() {
       return this.description.length > 0
-    },
-    reactionableId: function() {
-      return `Comment_${this.comment.id}`;
     }
   }
 }

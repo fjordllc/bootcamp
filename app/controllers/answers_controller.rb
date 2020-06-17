@@ -1,56 +1,59 @@
 # frozen_string_literal: true
 
-class API::AnswersController < API::BaseController
+class AnswersController < ApplicationController
   include Rails.application.routes.url_helpers
   before_action :require_login
-  before_action :set_answer, only: %i(update destroy)
-  before_action :set_question, only: %i(create)
-  before_action :set_available_emojis, only: %i(index create)
+  before_action :set_question
+  before_action :set_answer, only: %i(show edit update destroy)
+  before_action :set_return_to, only: %i(create update destroy)
 
-  def index
-    @answers = question.answers.order(created_at: :asc)
+  def edit
   end
 
   def create
-    @answer = question.answers.new(answer_params)
+    @answer = @question.answers.new(answer_params)
     @answer.user = current_user
-    @answer.question = question
+
     if @answer.save
       notify_to_slack(@answer)
-      render :create, status: :created
+      redirect_to @return_to, notice: "回答を作成しました。"
     else
-      head :bad_request
+      render :new
     end
   end
 
   def update
     if @answer.update(answer_params)
-      head :ok
+      redirect_to @return_to, notice: "回答を編集しました。"
     else
-      head :bad_request
+      render :edit
     end
   end
 
   def destroy
     @answer.destroy
+    redirect_to @return_to, notice: "回答を削除しました。"
   end
 
   private
-
     def set_question
-      question = Question.find(params[:question_id])
+      @question = Question.find(params[:question_id])
     end
 
     def set_answer
-      @answer = current_user.admin? ? Answer.find(params[:id]) : current_user.answers.find(params[:id])
+      @answer = question.answers.find(params[:id])
     end
 
     def question
-      Question.find(params[:question_id])
+      @question ||= Question.find(params[:question_id])
     end
 
     def answer_params
       params.require(:answer).permit(:description)
+    end
+
+    def set_return_to
+      @return_to = params[:return_to].present? ? params[:return_to] : question_url(question)
     end
 
     def notify_to_slack(answer)

@@ -32,7 +32,7 @@ import MarkdownIt from 'markdown-it'
 moment.locale("ja");
 
 export default {
-  props: ['reactionable', 'currentUser', "reactionableId"],
+  props: ['reactionable', 'currentUser'],
   components: {
   },
   data: () => {
@@ -67,7 +67,7 @@ export default {
     },
     createReaction: function(kind) {
       let params = {
-        "reactionable_id": this.reactionableId,
+        "reactionable_id": `Comment_${this.reactionable.id}`,
         "kind": kind
         }
 
