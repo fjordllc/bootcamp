@@ -7,6 +7,7 @@
         :answer="answer",
         :currentUser="currentUser",
         :id="'answer_' + answer.id",
+        :questionUser="questionUser",
         :correctAnswer="question.correctAnswer",
         :hasCorrectAnswer="hasCorrectAnswer",
         @delete="deleteAnswer",
@@ -51,7 +52,8 @@ export default {
       description: "",
       tab: "answer",
       buttonDisabled: false,
-      question: { correctAnswer: null }
+      question: { correctAnswer: null },
+      questionUser: {}
     };
   },
   created: function() {
@@ -86,6 +88,9 @@ export default {
         return response.json();
       })
       .then(json => {
+        for (var key in json) {
+          this.$set(this.questionUser, key, json[key]);
+        }
         json.forEach(c => {
           this.answers.push(c);
         });
