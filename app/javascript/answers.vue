@@ -40,7 +40,7 @@ import MarkdownItEmoji from "markdown-it-emoji";
 import MarkdownItMention from "./packs/markdown-it-mention";
 
 export default {
-  props: ["questionId", "type", "currentUserId"],
+  props: ["questionId", "type", "currentUserId", "questionUserId"],
   components: {
     answer: Answer,
     "markdown-textarea": MarkdownTextarea
@@ -57,6 +57,25 @@ export default {
     };
   },
   created: function() {
+    fetch(`/api/users/${this.questionUserId}.json`, {
+      method: "GET",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      credentials: "same-origin",
+      redirect: "manual"
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        for (var key in json) {
+          this.$set(this.questionUser, key, json[key]);
+        }
+      })
+      .catch(error => {
+        console.warn("Failed to parsing", error);
+      });
     fetch(`/api/users/${this.currentUserId}.json`, {
       method: "GET",
       headers: {
@@ -88,9 +107,9 @@ export default {
         return response.json();
       })
       .then(json => {
-        for (var key in json) {
-          this.$set(this.questionUser, key, json[key]);
-        }
+        // for (var key in json) {
+        //   this.$set(this.questionUser, key, json[key]);
+        // }
         json.forEach(c => {
           this.answers.push(c);
         });
