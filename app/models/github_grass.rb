@@ -18,7 +18,7 @@ class GithubGrass
 
   def fetch
     localize(extract_svg(fetch_page)).to_s
-  rescue
+  rescue OpenURI::HTTPError
     ""
   end
 
