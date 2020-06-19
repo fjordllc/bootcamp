@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
       @current_user = User.find(current_user.id) if current_user
     end
 
+    def set_available_emojis
+      @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
+    end
+
     def set_host_for_disk_storage
       if %i(local test).include? Rails.application.config.active_storage.service
         ActiveStorage::Current.host = request.base_url
