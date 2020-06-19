@@ -57,5 +57,5 @@ header.page-header
       = link_to @question.user, itempro: "url", class: "thread__author-link" do
         = image_tag @question.user.avatar_url, title: "#{@question.user.icon_title}", class: "thread__author-icon a-user-icon is-#{@question.user.role}"
     .thread-comments-container
-    
+
     #js-answers(data-question-id="#{@question.id}" data-current-user-id="#{current_user.id}" data-question-user-id="#{@question.user.id}")
