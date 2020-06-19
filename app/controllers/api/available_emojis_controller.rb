@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class API::AvailableEmojisController < API::BaseController
-  before_action :set_available_emojis, only: %i(index create)
-
   def index
+    @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
   end
 end
