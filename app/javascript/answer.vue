@@ -18,11 +18,12 @@
       reaction(
         v-bind:reactionable="answer",
         v-bind:currentUser="currentUser",
+        v-bind:questionUser="questionUser",
         v-bind:reactionableId="reactionableId")
-      footer.card-footer(v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
+      footer.card-footer
         .card-footer-actions
           ul.card-footer-actions__items
-            li.card-footer-actions__item(v-if="!hasCorrectAnswer && answer.type != 'CorrectAnswer' && (currentUser.role == question.user || 'admin')")
+            li.card-footer-actions__item(v-if="!hasCorrectAnswer && answer.type != 'CorrectAnswer' && (currentUser.id === questionUser.id || currentUser.role === 'admin')")
               button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="solveAnswer")
                 | ベストアンサーにする
             li.card-footer-actions__item(v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
@@ -33,7 +34,7 @@
               button.card-footer-actions__action.a-button.is-md.is-danger.is-block(@click="deleteAnswer")
                 i.fas.fa-trash-alt
                   | 削除
-            li.card-footer-actions__item(v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer' && (currentUser.role == question.user || 'admin')")
+            li.card-footer-actions__item(v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer' && (currentUser.id === questionUser.id || currentUser.role === 'admin')")
               button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="unsolveAnswer")
                 | ベストアンサーを取り消す
     .thread-comment-form__form.a-card(v-show="editing")
@@ -71,7 +72,7 @@ import "prism_languages";
 moment.locale("ja");
 
 export default {
-  props: ["answer", "currentUser", "availableEmojis", "correctAnswer", "hasCorrectAnswer"],
+  props: ["answer", "currentUser", "availableEmojis", "correctAnswer", "hasCorrectAnswer", "questionUser"],
   components: {
     reaction: Reaction,
     "markdown-textarea": MarkdownTextarea

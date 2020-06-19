@@ -7,6 +7,7 @@
         :answer="answer",
         :currentUser="currentUser",
         :id="'answer_' + answer.id",
+        :questionUser="questionUser",
         :correctAnswer="question.correctAnswer",
         :hasCorrectAnswer="hasCorrectAnswer",
         @delete="deleteAnswer",
@@ -39,7 +40,7 @@ import MarkdownItEmoji from "markdown-it-emoji";
 import MarkdownItMention from "./packs/markdown-it-mention";
 
 export default {
-  props: ["questionId", "type", "currentUserId"],
+  props: ["questionId", "type", "currentUserId", "questionUserId"],
   components: {
     answer: Answer,
     "markdown-textarea": MarkdownTextarea
@@ -51,7 +52,8 @@ export default {
       description: "",
       tab: "answer",
       buttonDisabled: false,
-      question: { correctAnswer: null }
+      question: { correctAnswer: null },
+      questionUser: {}
     };
   },
   created: function() {
@@ -69,6 +71,25 @@ export default {
       .then(json => {
         for (var key in json) {
           this.$set(this.currentUser, key, json[key]);
+        }
+      })
+      .catch(error => {
+        console.warn("Failed to parsing", error);
+      });
+    fetch(`/api/users/${this.questionUserId}.json`, {
+      method: "GET",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      credentials: "same-origin",
+      redirect: "manual"
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        for (var key in json) {
+          this.$set(this.questionUser, key, json[key]);
         }
       })
       .catch(error => {
