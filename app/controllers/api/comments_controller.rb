@@ -3,16 +3,17 @@
 class API::CommentsController < API::BaseController
   before_action :require_login
   before_action :set_my_comment, only: %i(update destroy)
-  before_action :set_available_emojis, only: %i(index create)
 
   def index
     @comments = commentable.comments.order(created_at: :asc)
+    @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
   end
 
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
     @comment.commentable = commentable
+    @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
     if @comment.save
       notify_to_slack(@comment)
       render :create, status: :created
