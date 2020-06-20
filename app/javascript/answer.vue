@@ -12,7 +12,7 @@
         h2.thread-comment__title
           a.thread-comment__title-link(:href="answer.user.url" itempro="url")
             | {{ answer.user.login_name }}
-        time.thread-comment__created-at(:datetime="answerCreatedAt" pubdate="pubdate" @click="copyAnswerURLToClipboard(answer.id)")
+        time.thread-comment__created-at(:class="{'is-active': activating}" :datetime="answerCreatedAt" pubdate="pubdate" @click="copyAnswerURLToClipboard(answer.id)")
           | {{ updatedAt }}
       .thread-comment__description.js-target-blank.is-long-text(v-html="markdownDescription")
       reaction(
@@ -84,6 +84,7 @@ export default {
       isCopied: false,
       tab: "answer",
       question: [],
+      activating: false
     };
   },
   created: function() {
@@ -179,6 +180,8 @@ export default {
       textBox.select();
       document.execCommand("copy");
       document.body.removeChild(textBox);
+      this.activating = true;
+      setTimeout(() => {this.activating = false}, 4000);
     }
   },
   computed: {
