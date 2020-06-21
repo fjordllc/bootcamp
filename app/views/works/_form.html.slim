@@ -30,6 +30,11 @@
         .a-form-help
           p
             | 作品のイメージ画像、キャプチャ画像、アイコン画像、スライドの表示などを設定してください。（画像の推奨サイズ: 幅1200 * 高 630px）。
+      .form-item
+        .form-item__label-checkbox
+          = f.check_box :graduation_work, class: "form-checkbox__input"
+          = f.label :graduation_work, class: "a-label"
+            | 卒業制作
 
   .form__items
     .form-item
