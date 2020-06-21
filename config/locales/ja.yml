@@ -162,6 +162,7 @@ ja:
         repository: リポジトリURL
         url_or_repository: URLまたはリポジトリ
         thumbnail: サムネイル画像
+        graduation_work: 卒業制作
       book:
         id: ID
         title: タイトル

@@ -47,7 +47,8 @@ class WorksController < ApplicationController
       :description,
       :url,
       :repository,
-      :thumbnail
+      :thumbnail,
+      :graduation_work
     )
   end
 

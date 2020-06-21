@@ -460,6 +460,7 @@ ActiveRecord::Schema.define(version: 2021_01_18_071628) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "title"], name: "index_works_on_user_id_and_title", unique: true
+    t.boolean "graduation_work", default: false, null: false
     t.index ["user_id"], name: "index_works_on_user_id"
   end
 
