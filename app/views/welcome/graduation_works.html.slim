@@ -1,0 +1,17 @@
+- content_for :extra_body_classes, "welcome"
+- title "卒業制作"
+
+.welcome-page-header
+  .container
+    h1.welcome-page-header__title
+      = image_tag "",
+        alt: "卒業制作",
+        class: "welcome-page-header__title-image"
+
+.page-body
+  .container
+    .works
+      .row
+        = render partial: "welcome/application", collection: @applications, as: :work
+
+    = paginate @applications, position: "bottom"

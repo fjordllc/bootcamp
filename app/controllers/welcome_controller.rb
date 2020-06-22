@@ -3,9 +3,6 @@
 class WelcomeController < ApplicationController
   layout "welcome"
 
-  def index
-  end
-
   def pricing
   end
 
@@ -17,5 +14,13 @@ class WelcomeController < ApplicationController
   end
 
   def coc
+  end
+
+  def graduation_works
+    @applications = Work.graduation_works.order(created_at: :desc).page(params[:page])
+  end
+
+  def graduation_works_show
+    @work = Work.graduation_works.find(params[:id])
   end
 end
