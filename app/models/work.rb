@@ -4,6 +4,7 @@ class Work < ApplicationRecord
   THUMBNAIL_SIZE = '1200x630>'
   belongs_to :user
   has_one_attached :thumbnail
+  scope :graduation_works, -> { where(graduation_work: true) }
 
   validates :user, presence: true
   validates :title, presence: true, uniqueness: { scope: :user_id }, length: { maximum: 255 }

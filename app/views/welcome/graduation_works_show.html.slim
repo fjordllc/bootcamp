@@ -1,0 +1,44 @@
+- content_for :extra_body_classes, "welcome"
+- title "卒業制作"
+
+.welcome-page-header
+  .container
+    h1.welcome-page-header__title
+      = image_tag "",
+        alt: "卒業制作",
+        class: "welcome-page-header__title-image"
+
+.page-body
+  .container
+    .thread.is-header-author
+      .thread__inner.a-card
+        header.thread-header
+          = link_to user_portfolio_path(@work.user), itempro: "url", class: "thread-header__author-link" do
+            = image_tag @work.user.avatar_url, title: "#{@work.user.icon_title}", class: "thread-header__author-icon a-user-icon is-#{@work.user.role}"
+          h2.thread-header__title
+            = @work.title
+          .thread-header__lower-side
+            .thread-header__lower-side-author-name
+              = link_to @work.title, class: "thread-header__lower-side-author-name-link" do
+                = @work.user.login_name
+            .thread-header__lower-side-date
+              .thread-header__lower-side-label
+                | 登録日
+              time.thread-header__lower-side-value(datetime="#{@work.created_at.to_datetime}" pubdate="pubdate")
+                = l @work.created_at
+        - if @work.thumbnail.attached?
+          = image_tag @work.thumbnail_url, class: "thread__work-image"
+        .thread__description.js-target-blank.is-long-text.js-markdown-view
+          p = @work.description
+        .card-footer
+          ul.card-footer-actions__items
+            - if @work.url.present?
+              li.card-footer-actions__item
+                = link_to @work.url, target: "_blank", class: "card-footer-actions_action a-button is-lg is-main is-block" do
+                  i.fas.fa-globe
+                  | URL
+            - if @work.repository.present?
+              li.card-footer-actions__item
+                = link_to @work.repository, target: "_blank", class: "card-footer-actions__action a-button is-lg is-main is-block" do
+                  i.fab.fa-github-alt
+                  | Repository/ 
