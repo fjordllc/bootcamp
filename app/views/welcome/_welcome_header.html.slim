@@ -28,6 +28,9 @@ header.welcome-header
           li.welcome-header-nav__item
             = link_to new_user_path, class: 'welcome-header-nav__item-link' do
               | 参加登録
+          li.welcome-header-nav__item
+            = link_to graduation_works_path, class: "welcome-header-nav__item-link" do
+              | 卒業制作
           li.welcome-header-nav__item.is-hidden-md-up
             - if current_user
               = link_to course_practices_path(current_user.course), class: 'welcome-header-nav__item-link' do
