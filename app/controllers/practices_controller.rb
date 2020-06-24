@@ -55,7 +55,8 @@ class PracticesController < ApplicationController
         :submission,
         :open_product,
         :include_progress,
-        :memo
+        :memo,
+        reference_books_attributes: [:id, :title, :asin, :_destroy]
       )
     end
 
