@@ -72,3 +72,15 @@
         = f.submit nil, class: "a-button is-lg is-warning is-block"
       li.form-actions__item
         = link_to "キャンセル", :back, class: "a-button is-md is-secondary"
+
+/ h2 参考書籍
+/ table
+/   thead
+/     tr
+/       th Title
+/       th ASIN
+/   tbody
+/       - practice.reference_books.each do |book|
+/         tr
+/           td = book.title
+/           td = book.asin
