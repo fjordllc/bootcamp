@@ -2,15 +2,16 @@
   .thread-list-item__inner
     .thread-list-item__author
       = image_tag page.user.avatar_url, title: "#{page.user.icon_title}", class: "thread-list-item__author-icon a-user-icon is-#{page.user.role}"
-  header.thread-list-item__header
-    h2.thread-list-item__title(itemprop="name")
-      = link_to page, itemprop: "url", class: "thread-list-item__title-link" do
-        = page.title
+    header.thread-list-item__header
+      h2.thread-list-item__title(itemprop="name")
+        = link_to page, itemprop: "url", class: "thread-list-item__title-link" do
+          = page.title
+      - if admin_login? || current_user == page.user
+        .thread-list-item__actions
+          = link_to [:edit, page], class: "thread-list-item__actions-link" do
+            i.fas.fa-pen
+          = link_to page, data: { confirm: "本当に宜しいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
+            i.fas.fa-trash-alt
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{page.updated_at.to_datetime}" pubdate="pubdate")
         = l page.updated_at
-    .thread-list-item__actions
-      = link_to [:edit, page], class: "thread-list-item__actions-link" do
-        i.fas.fa-pen
-      = link_to page, data: { confirm: "本当に宜しいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
-        i.fas.fa-trash-alt
