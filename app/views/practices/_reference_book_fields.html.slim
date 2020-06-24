@@ -1,0 +1,8 @@
+.nested-fields
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :asin
+    = f.text_field :asin
+  = link_to_remove_association "削除", f

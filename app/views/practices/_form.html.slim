@@ -19,6 +19,13 @@
         .col-md-6.col-xs-12
           = f.label :title, class: "a-label"
           = f.text_field :title, class: "a-text-input js-warning-form"
+    .form-item#reference_books
+      label.a-label
+        | 参考書籍
+      = f.fields_for :reference_books do |book|
+        = render "reference_book_fields", f: book
+      .form-item
+        = link_to_add_association "追加", f, :reference_books
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
@@ -72,15 +79,3 @@
         = f.submit nil, class: "a-button is-lg is-warning is-block"
       li.form-actions__item
         = link_to "キャンセル", :back, class: "a-button is-md is-secondary"
-
-/ h2 参考書籍
-/ table
-/   thead
-/     tr
-/       th Title
-/       th ASIN
-/   tbody
-/       - practice.reference_books.each do |book|
-/         tr
-/           td = book.title
-/           td = book.asin
