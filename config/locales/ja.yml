@@ -172,7 +172,7 @@ ja:
         open_start_at: 募集開始日時
         open_end_at: 募集終了日時
       reference_book:
-        title: 参考書籍
+        title: タイトル
         asin: ASIN
     enums:
       user:
