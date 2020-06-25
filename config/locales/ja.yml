@@ -36,6 +36,7 @@ ja:
       reservation: 席予約
       seat: 席
       memo: メモ
+      reference_book: 参考書籍
     attributes:
       user:
         login_name: アカウント
@@ -96,6 +97,9 @@ ja:
         progress: 進捗の計算
         category_id: カテゴリー
         memo: メンター向けメモ
+      practice/reference_books:
+        title: 参考書籍のタイトル
+        asin: ASIN
       product:
         user: ユーザー
         practice: プラクティス
