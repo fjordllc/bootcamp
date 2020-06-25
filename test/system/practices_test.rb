@@ -54,6 +54,11 @@ class PracticesTest < ApplicationSystemTestCase
     within "form[name=practice]" do
       fill_in "practice[title]", with: "テストプラクティス"
       fill_in "practice[description]", with: "テストの内容です"
+      within "#reference_books" do
+        click_link "追加"
+        fill_in "タイトル", with: "プロを目指す人のためのRuby入門"
+        fill_in "ASIN", with: "B077Q8BXHC"
+      end
       fill_in "practice[goal]", with: "テストのゴールの内容です"
       fill_in "practice[memo]", with: "テストのメンター向けメモの内容です"
       click_button "登録する"
@@ -67,6 +72,11 @@ class PracticesTest < ApplicationSystemTestCase
     visit "/practices/#{practice.id}/edit"
     within "form[name=practice]" do
       fill_in "practice[title]", with: "テストプラクティス"
+      within "#reference_books" do
+        click_link "追加"
+        fill_in "タイトル", with: "プロを目指す人のためのRuby入門"
+        fill_in "ASIN", with: "B077Q8BXHC"
+      end
       click_button "更新する"
     end
     assert_text "プラクティスを更新しました"
