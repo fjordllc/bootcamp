@@ -43,24 +43,25 @@ header.page-header
                     i.fas.fa-question-circle
                     | 質問する
 
-        section.practice-content.a-card
-          header.practice-content__header.card-header
-            h2.practice-content__title
-              | 参考書籍
-          table
-            thead
-              tr
-                th
-                  = ReferenceBook.human_attribute_name :title
-                th
-                  = ReferenceBook.human_attribute_name :asin
-            tbody
-              - @practice.reference_books.each do |book|
+        - if @practice.reference_books.exists?
+          section.practice-content.a-card
+            header.practice-content__header.card-header
+              h2.practice-content__title
+                | 参考書籍
+            table
+              thead
                 tr
-                  td
-                    = book.title
-                  td
-                    = book.asin
+                  th
+                    = ReferenceBook.human_attribute_name :title
+                  th
+                    = ReferenceBook.human_attribute_name :asin
+              tbody
+                - @practice.reference_books.each do |book|
+                  tr
+                    td
+                      = book.title
+                    td
+                      = book.asin
         section.practice-content.a-card
           header.practice-content__header.card-header
             h2.practice-content__title
