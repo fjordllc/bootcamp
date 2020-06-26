@@ -3,6 +3,11 @@
 require "#{Rails.root}/config/environment"
 
 namespace :bootcamp do
+  desc "Find broken links in practices, pages."
+  task :find_broken_link do
+    LinkChecker.new.notify_error_url
+  end
+
   namespace :oneshot do
     desc "Resize works."
     task :resize_all_works do
