@@ -3,7 +3,7 @@
 require "uri"
 require "net/http"
 
-class CheckUrl
+class LinkChecker
   def notify_error_url
     error_url_on_page = check_url(page_contents)
     error_url_on_practice = check_url(practice_contents)
