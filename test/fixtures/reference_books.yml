@@ -1,9 +1,9 @@
 reference_book1:
-  title: プロを目指す人のためのRuby入門
-  asin: B077Q8BXHC
-  practice: 577419917
+  title: テスト参考書1
+  asin: テストASIN1
+  practice: practice_1
 
 reference_book2:
-  title: ゼロからわかる Ruby 超入門 はじめてのIT技術講座
-  asin: B07KQXFF6D
-  practice: 580090091
+  title: テスト参考書2
+  asin: テストASIN2
+  practice: practice_2
