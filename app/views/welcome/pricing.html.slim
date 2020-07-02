@@ -49,13 +49,10 @@
             | その後7月23日10時10分10秒に最初の1ヶ月分の料金が引き落とされます。
           table.welcome-trial-period-table
             tr
-              - @days.each_with_index do |day, i|
-                - if i != 2
-                  th = day
-                - else
-                  th.trial_end = day
+              th 7月20日10時10分10秒
+              th.trial_end 7月23日10時10分9秒
+              th 7月23日10時10分10秒
             tr
-              td お試し期間
               td お試し期間
               td.trial_end
                 | お試し期間終了時刻
