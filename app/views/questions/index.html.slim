@@ -22,6 +22,7 @@ header.page-header.is-margin-bottom-0
 
 .page-body
   .container
+    = paginate @questions, position: "top"
     - if @questions.present?
       .thread-list.a-card
         = render @questions
@@ -31,3 +32,4 @@ header.page-header.is-margin-bottom-0
           | 解決済みの質問はまだありません。
         - else
           | 未解決の質問はまだありません。
+    = paginate @questions, position: "bottom"
