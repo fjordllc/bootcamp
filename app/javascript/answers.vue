@@ -53,7 +53,8 @@ export default {
       tab: "answer",
       buttonDisabled: false,
       question: { correctAnswer: null },
-      questionUser: {}
+      questionUser: {},
+      defaultTextareaSize: null
     };
   },
   created: function() {
@@ -117,6 +118,7 @@ export default {
   },
   mounted: function() {
     $("textarea").textareaAutoSize();
+    this.setDefaultTextareaSize()
   },
   methods: {
     token() {
@@ -157,6 +159,7 @@ export default {
           this.description = "";
           this.tab = "answer";
           this.buttonDisabled = false;
+          this.resizeTextarea()
         })
         .catch(error => {
           console.warn("Failed to parsing", error);
@@ -237,6 +240,14 @@ export default {
         .catch(error => {
           console.warn("Failed to parsing", error);
         });
+    },
+    setDefaultTextareaSize: function () {
+      const textarea = document.getElementById('js-new-comment')
+      this.defaultTextareaSize = textarea.scrollHeight
+    },
+    resizeTextarea: function () {
+      const textarea = document.getElementById('js-new-comment')
+      textarea.style.height = `${this.defaultTextareaSize}px`
     }
   },
   computed: {
