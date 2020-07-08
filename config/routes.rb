@@ -58,6 +58,7 @@ Rails.application.routes.draw do
     resources :reports, only: %i(index), controller: "users/reports"
     resources :comments, only: %i(index), controller: "users/comments"
     resources :products, only: %i(index), controller: "users/products"
+    resources :timelines, only: %i(index), controller: "users/timelines"
     get "portfolio" => "users/works#index", as: :portfolio
     patch "graduation", to: "graduation#update", as: :graduation
   end
