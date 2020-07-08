@@ -1,6 +1,6 @@
 <template lang="pug">
   .thread-timeline-container
-    .thread-timeline-form.a-card
+    .thread-timeline-form.a-card(v-show="currentUrl === '/timelines' || userId === currentUser.id")
       .thread-timeline__author
         img.thread-timeline__author-icon.a-user-icon(:src="currentUser.avatar_url" :title="currentUser.icon_title")
       .thread-timeline-form__form.a-card
@@ -37,7 +37,7 @@
       }
     },
     created () {
-      this.timelinesChannel = this.$cable.subscriptions.create("TimelinesChannel", {
+      this.timelinesChannel = this.$cable.subscriptions.create({channel: this.selectChannel(), user_id: this.userId}, {
         connected: () => {
           console.log('connected successfully');
         },
@@ -100,11 +100,24 @@
       },
       deleteTimeline: function (data) {
         this.timelinesChannel.perform('delete_timeline', data);
+      },
+      selectChannel: function () {
+        if (location.pathname === '/timelines') {
+          return 'TimelinesChannel'
+        } else {
+          return 'Users::TimelinesChannel'
+        }
       }
     },
     computed: {
       validation: function () {
         return this.description.length > 0
+      },
+      currentUrl: function () {
+        return location.pathname
+      },
+      userId: function () {
+        return parseInt(location.pathname.match(/[0-9]+/))
       }
     }
   }

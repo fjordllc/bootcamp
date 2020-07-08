@@ -19,8 +19,10 @@ class TimelinesChannel < ApplicationCable::Channel
     @timeline.user_id = current_user.id
     if @timeline.save
       broadcast_to_timelines_channel("create_timeline", @timeline)
+      broadcast_to_user_timelines_channel("create_timeline", @timeline)
     else
       broadcast_to_timelines_channel("failed_to_create_timeline", nil)
+      broadcast_to_user_timelines_channel("failed_to_create_timeline", nil)
     end
   end
 
@@ -29,8 +31,10 @@ class TimelinesChannel < ApplicationCable::Channel
     @timeline = Timeline.find_by(id: data["id"])
     if @timeline.update(permitted(data))
       broadcast_to_timelines_channel("update_timeline", @timeline)
+      broadcast_to_user_timelines_channel("update_timeline", @timeline)
     else
       broadcast_to_timelines_channel("failed_to_update_timeline", nil)
+      broadcast_to_user_timelines_channel("failed_to_update_timeline", nil)
     end
   end
 
@@ -39,8 +43,10 @@ class TimelinesChannel < ApplicationCable::Channel
     @timeline = Timeline.find_by(id: data["id"])
     if @timeline.destroy
       broadcast_to_timelines_channel("delete_timeline", @timeline)
+      broadcast_to_user_timelines_channel("delete_timeline", @timeline)
     else
       broadcast_to_timelines_channel("failed_to_delete_timeline", nil)
+      broadcast_to_user_timelines_channel("failed_to_delete_timeline", nil)
     end
   end
 
@@ -53,6 +59,10 @@ class TimelinesChannel < ApplicationCable::Channel
 
     def broadcast_to_timelines_channel(event, timeline)
       ActionCable.server.broadcast "timelines_channel", { event: event, timeline: decorated(timeline).format_to_channel }
+    end
+
+    def broadcast_to_user_timelines_channel(event, timeline)
+      ActionCable.server.broadcast "user_#{current_user.id}_timelines_channel", { event: event, timeline: decorated(timeline).format_to_channel }
     end
 
     def decorated(obj)
