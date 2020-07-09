@@ -4,7 +4,7 @@
       #cancel-reservation.reservations__seat-action.is-reserved.is-me(@click="deleteReservation")
         | {{ this.label }}
     template(v-else)
-      #cancel-reservation.reservations__seat-action.is-reserved.is-not-me
+      #cancel-reservation.reservations__seat-action.is-reserved.is-not-me(@click="linkToUser")
         | {{ this.label }}
 </template>
 <script>
@@ -15,6 +15,9 @@ export default {
       if (confirm('予約を削除しますか？')) {
         this.$emit('delete', this.id);
       }
+    },
+    linkToUser: function() {
+      location.href=`/users/${this.parentReservation.user_id}`
     }
   },
   computed: {
