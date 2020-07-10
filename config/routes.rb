@@ -37,7 +37,6 @@ Rails.application.routes.draw do
     resources :users, only: %i(index show edit update destroy) do
       resource :password, only: %i(edit update), controller: "users/password"
     end
-    resources :namecards, only: %i(index)
     resource :diploma, only: :show, controller: "diploma"
     resources :categories, except: %i(show) do
       resource :position, only: %i(update), controller: "categories/position"
