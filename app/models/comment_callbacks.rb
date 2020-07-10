@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class CommentCallbacks
-  def after_save(comment)
-    notify_mention(comment) if comment.new_mentions?
-  end
-
   def after_create(comment)
     if comment.sender != comment.receiver
       notify_comment(comment)
@@ -17,15 +13,6 @@ class CommentCallbacks
   end
 
   private
-    def notify_mention(comment)
-      comment.new_mentions.each do |mention|
-        receiver = User.find_by(login_name: mention)
-        if receiver && comment.sender != receiver
-          NotificationFacade.mentioned(comment, receiver)
-        end
-      end
-    end
-
     def notify_comment(comment)
       NotificationFacade.came_comment(
         comment,
