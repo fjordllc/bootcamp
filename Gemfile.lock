@@ -198,6 +198,9 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     memoist (0.16.2)
+    mentionable (0.2.0)
+      activerecord
+      railties
     meta-tags (2.13.0)
       actionpack (>= 3.2.0, < 6.1)
     method_source (1.0.0)
@@ -461,6 +464,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   listen (~> 3.2)
+  mentionable (~> 0.2)
   meta-tags
   newrelic_rpm
   oauth2
