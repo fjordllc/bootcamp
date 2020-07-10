@@ -47,6 +47,7 @@ gem "stripe-i18n"
 gem "groupdate"
 gem "chartkick"
 gem "holiday_jp"
+gem "mentionable", "~> 0.2"
 
 group :production, :staging do
   gem "newrelic_rpm"
