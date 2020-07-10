@@ -6,6 +6,7 @@
           - if resource.is_a?(User)
             = render "page_tab", tab: tab
           - elsif resource.is_a?(Practice)
-            = render "page_tab", tab: tab
+            - if @practice.submission
+              = render "page_tab", tab: tab
         - else
           = render "page_tab", tab: tab
