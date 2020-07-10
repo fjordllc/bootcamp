@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Report < ActiveRecord::Base
+class Report < ApplicationRecord
   include Commentable
   include Checkable
   include Footprintable
