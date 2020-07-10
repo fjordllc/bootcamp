@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Practice < ActiveRecord::Base
+class Practice < ApplicationRecord
   include Searchable
 
   has_many :learnings
