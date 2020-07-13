@@ -1,0 +1,18 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | 本日席を予約しているユーザー
+  - reservations.each do |reservation|
+    .thread-list-item
+      .thread-list-item__inner
+        .thread-list-item__author
+          = link_to reservation.user do
+            = image_tag reservation.user.avatar_url, class: "thread-list-item__author-icon a-user-icon is-#{reservation.user.role}"
+        header.thread-list-item__header
+          h2.thread-list-item__title(itemprop="name")
+            = link_to reservation.user, itempro: "url", class: "thread-list-item__title-link" do
+              | #{reservation.user.full_name}（#{reservation.user.login_name}）
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              | #{reservation.seat.name}席
