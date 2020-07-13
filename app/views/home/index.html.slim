@@ -7,6 +7,7 @@ header.page-header
       = render "reports/new_report"
 - if @my_seat_today
   = render "my_seat_today", my_seat_today: @my_seat_today
+
 .page-body
   .container
     .columns
@@ -34,6 +35,9 @@ header.page-header
           - if current_user.admin? || current_user.adviser?
             - if User.all.job_seeking.present?
               = render "job_seeking_users", users: User.all.job_seeking
+          - if current_user.admin? || current_user.adviser?
+            - if Reservation.where(date: Date.current).present?
+              = render "reserved_seats_today", reservations: Reservation.where(date: Date.current)
           - unless current_user.total_learning_time.zero? || current_user.mentor?
             = render "users/grass", user: current_user
           = render "users/github_grass", user: current_user
