@@ -15,4 +15,15 @@ module ReportsHelper
       end
     end
   end
+
+  def convert_to_hour_minute(time)
+    hour = (time / 60).to_i
+    minute = (time % 60).round
+
+    if minute == 0
+      "#{hour}時間"
+    else
+      "#{hour}時間#{minute}分"
+    end
+  end
 end
