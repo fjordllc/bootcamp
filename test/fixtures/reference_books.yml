@@ -1,9 +1,9 @@
-reference_book1:
+reference_book_1:
   title: テスト参考書1
   asin: テストASIN1
   practice: practice_1
 
-reference_book2:
+reference_book_2:
   title: テスト参考書2
   asin: テストASIN2
   practice: practice_2
