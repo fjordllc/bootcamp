@@ -1,5 +1,19 @@
 .category-practices-item.js-practice(id="practice_#{practice.id}")
   header.category-practices-item__header
+    - if current_user.admin?
+      - learning_minute_list = practice.reports.not_wip.map { |r| r.total_learning_minute }.sort
+      - if learning_minute_list.sum > 0
+        .category-practices-item__learning-times
+          .category-practices-item__learning-time
+            - average_learning_minute = learning_minute_list.sum.fdiv(learning_minute_list.size)
+            ' avg: #{convert_to_hour_minute(average_learning_minute)}
+          .category-practices-item__learning-time
+            - center_index = ((learning_minute_list.size - 1) / 2).floor
+            - if learning_minute_list.size.even?
+              - median_learning_minute = (learning_minute_list[center_index] + learning_minute_list[center_index + 1]) / 2
+            - else
+              - median_learning_minute = (learning_minute_list[center_index])
+            ' med: #{convert_to_hour_minute(median_learning_minute)}
     .category-practices-item__title
       = link_to practice, class: "category-practices-item__title-link"
         = practice.title
