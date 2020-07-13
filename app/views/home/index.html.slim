@@ -35,8 +35,9 @@ header.page-header
             - if User.all.job_seeking.present?
               = render "job_seeking_users", users: User.all.job_seeking
           - if current_user.admin? || current_user.adviser?
-            - if Reservation.where(date: Date.current).present?
-              = render "reserved_seats_today", reservations: Reservation.where(date: Date.current)
+            - reservation_today = Reservation.where(date: Date.current)
+            - if reservation_today.exists?
+              = render "reserved_seats_today", reservations: reservation_today
           - unless current_user.total_learning_time.zero? || current_user.mentor?
             = render "users/grass", user: current_user
           = render "users/github_grass", user: current_user
