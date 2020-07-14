@@ -13,7 +13,7 @@ header.page-header
                 i.fas.fa-plus
                 | プラクティス作成
           li.page-header-actions__item
-            = link_to course_practices_path(current_user.course, anchor: "category-#{@practice.category.id}"), class: "a-button is-md is-secondary is-block" do
+            = link_to current_user.course, class: "a-button is-md is-secondary is-block" do
               | プラクティス一覧
 
 = render "page_tabs", resource: @practice
@@ -92,7 +92,7 @@ header.page-header
       nav.page-nav
         header.page-nav__header
           h2.page-nav__title
-            = link_to course_practices_path(current_user.course, anchor: "category-#{@category.id}"), class: "page-nav__title-link" do
+            = link_to current_user.course, class: "page-nav__title-link" do
               = @category.name
         ul.page-nav__items
           - @category.practices.each do |practice|

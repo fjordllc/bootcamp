@@ -1,0 +1,8 @@
+- title @category.name
+
+h2 = title
+
+ul
+  - @category.practices.each do |practice|
+    li
+      h3 = link_to practice.title, practice

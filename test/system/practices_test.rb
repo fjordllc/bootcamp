@@ -73,18 +73,6 @@ class PracticesTest < ApplicationSystemTestCase
     assert_equal "UNIX", Practice.find(practice.id).category.name
   end
 
-  test "category button link to courses/practices#index with category fragment" do
-    login_user "komagata", "testtest"
-    practice = practices(:practice_1)
-    user = users(:komagata)
-    visit "/practices/#{practice.id}/"
-    within ".page-header-actions" do
-      click_link "プラクティス一覧"
-    end
-    assert_current_path course_practices_path(user.course)
-    assert_equal "category-#{practice.category.id}", URI.parse(current_url).fragment
-  end
-
   test "show setting for completed percentage" do
     login_user "komagata", "testtest"
     visit "/practices/new"

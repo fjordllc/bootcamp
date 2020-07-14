@@ -3,7 +3,7 @@
     .courses-item__inner.a-card
       header.courses-item__header
         h3.courses-item__title
-          = link_to course.title, [course, :practices], class: "courses-item__title-link"
+          = link_to course.title, course, class: "courses-item__title-link"
       .courses-item__description
         = simple_format(course.description)
       - if admin_login?

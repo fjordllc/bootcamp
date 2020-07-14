@@ -1,0 +1,19 @@
+- title "#{@course.title}コースのプラクティス"
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title = title
+      .page-header__action
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to courses_path, class: "a-button is-md is-secondary is-block" do
+              | コース一覧
+
+.page-body
+  .container
+    .categories-items
+      .categories-items__inner
+        - @categories.each do |category|
+          h2.categories-item__title = link_to category.name, category

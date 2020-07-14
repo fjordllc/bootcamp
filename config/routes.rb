@@ -71,10 +71,11 @@ Rails.application.routes.draw do
   resources :password_resets, only: %i(create edit update)
 
   resources :courses, only: %i(index) do
-    resources :practices, only: %i(index), controller: "courses/practices" do
+    resources :practices, only: [] do
       resource :position, only: %i(update), controller: "courses/practices/position"
     end
   end
+  resources :categories, only: %i(show)
   resources :courses, except: %i(index)
   resources :practices, except: %i(index destroy) do
     resources :reports, only: %i(index), controller: "practices/reports"
