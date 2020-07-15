@@ -55,13 +55,13 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.mentioned(comment, receiver)
+  def self.mentioned(mentionable, receiver)
     Notification.create!(
       kind:    2,
       user:    receiver,
-      sender:  comment.sender,
-      path:    Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
-      message: "#{comment.sender.login_name}さんからメンションがきました。",
+      sender:  mentionable.sender,
+      path:    mentionable.path,
+      message: "#{mentionable.sender.login_name}さんからメンションがきました。",
       read:    false
     )
   end

@@ -19,7 +19,7 @@ notification_mentioned:
   user: sotugyou
   sender: komagata
   message: komagataさんからメンションがきました。
-  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_5) %>"
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_5) %>#comment_<%= ActiveRecord::FixtureSet.identify(:comment_9)%>"
   read: false
 
 notification_read:

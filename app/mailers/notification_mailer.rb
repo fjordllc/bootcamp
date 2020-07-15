@@ -4,6 +4,7 @@ class NotificationMailer < ApplicationMailer
   add_template_helper(ApplicationHelper)
 
   before_action do
+    @mentionable = params[:mentionable]
     @comment = params[:comment]
     @receiver = params[:receiver]
     @message = params[:message]
@@ -35,12 +36,11 @@ class NotificationMailer < ApplicationMailer
     mail to: @user.email, subject: subject
   end
 
-  # required params: comment, receiver
+  # required params: mentionable, receiver
   def mentioned
     @user = @receiver
-    path = "/#{@comment.commentable_type.downcase.pluralize}/#{@comment.commentable.id}"
-    @notification = @user.notifications.find_by(path: path)
-    subject = "[bootcamp] #{@comment.sender.login_name}さんからメンションがきました。"
+    @notification = @user.notifications.find_by(path: @mentionable.path)
+    subject = "[bootcamp] #{@mentionable.sender.login_name}さんからメンションがきました。"
     mail to: @user.email, subject: subject
   end
 
