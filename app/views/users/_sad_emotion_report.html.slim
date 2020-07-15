@@ -1,0 +1,10 @@
+.a-card
+  header.card-header
+    h2.card-header__title
+      | 3日連続😢のユーザー
+  .card-list
+    ul.card-list__items
+      - users.each do |user|
+        - if user.is_depressed?
+          li.card-list__item
+            = render partial: "reports/report", collection: user.latest_reports(days: 1), as: :report

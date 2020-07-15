@@ -415,6 +415,15 @@ SQL
     self.save!
   end
 
+  def is_depressed?
+    three_days_emotions = latest_reports(days: 3).map { |report| report.emotion }
+    !three_days_emotions.empty? && three_days_emotions.all? { |emotion| emotion == "sad" }
+  end
+
+  def latest_reports(days:)
+    self.reports.order(reported_on: :desc).limit(days)
+  end
+
   private
     def password_required?
       new_record? || password.present?
