@@ -20,13 +20,13 @@ class NotificationFacade
     end
   end
 
-  def self.mentioned(comment, receiver)
-    Notification.mentioned(comment, receiver)
+  def self.mentioned(mentionable, receiver)
+    Notification.mentioned(mentionable, receiver)
     if receiver.mail_notification? && !receiver.retired_on?
       NotificationMailer.with(
-        comment: comment,
+        mentionable: mentionable,
         receiver: receiver
-      ).mentioned.deliver_later
+      ).mentioned.deliver_now
     end
   end
 

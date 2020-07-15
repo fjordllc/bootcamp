@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Question < ActiveRecord::Base
+class Question < ApplicationRecord
   include Searchable
   include Reactionable
   include Watchable

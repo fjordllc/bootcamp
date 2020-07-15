@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Company < ActiveRecord::Base
+class Company < ApplicationRecord
   LOGO_SIZE = "88x88>"
   has_many :users
   validates :name, presence: true
