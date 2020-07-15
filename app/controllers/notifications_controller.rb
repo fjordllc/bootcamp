@@ -12,9 +12,10 @@ class NotificationsController < ApplicationController
   end
 
   def show
-    @notifications = current_user.notifications.where(path: @notification.path)
+    path = @notification.read_attribute :path
+    @notifications = current_user.notifications.where(path: path)
     @notifications.update_all(read: true, updated_at: Time.current)
-    redirect_to @notification.path
+    redirect_to path
   end
 
   private

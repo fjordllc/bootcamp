@@ -41,10 +41,10 @@ class NotificationMailerTest < ActionMailer::TestCase
   end
 
   test "mentioned" do
-    mention = comments(:comment_9)
+    mentionable = comments(:comment_9)
     mentioned = notifications(:notification_mentioned)
     mailer = NotificationMailer.with(
-      comment: mention,
+      mentionable: mentionable,
       receiver: mentioned.user
     ).mentioned
 

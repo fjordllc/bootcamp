@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
 
   authenticates_with_sorcery!

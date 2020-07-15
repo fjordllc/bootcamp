@@ -18,4 +18,8 @@ class Answer < ApplicationRecord
   def receiver
     self.question.user
   end
+
+  def path
+    Rails.application.routes.url_helpers.polymorphic_path(question, anchor: anchor)
+  end
 end

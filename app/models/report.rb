@@ -9,6 +9,12 @@ class Report < ApplicationRecord
   include Watchable
   include WithAvatar
 
+  enum emotion: {
+    soso: 0,
+    sad: 1,
+    smile: 2
+  }
+
   has_many :learning_times, -> { order(:started_at) }, dependent: :destroy, inverse_of: :report
   validates_associated :learning_times
   accepts_nested_attributes_for :learning_times, reject_if: :all_blank, allow_destroy: true
@@ -23,23 +29,40 @@ class Report < ApplicationRecord
   validates :reported_on, presence: true, uniqueness: { scope: :user }
   validates :learning_times, length: { minimum: 1, message: ": 学習時間を入力してください。" }
 
+  after_create ReportCallbacks.new
+  after_update ReportCallbacks.new
+  after_destroy ReportCallbacks.new
+
+  columns_for_keyword_search :title, :description
+
+  mentionable_as :description
+
   scope :default_order, -> { order(reported_on: :desc, created_at: :desc) }
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: "Report").pluck(:checkable_id)) }
 
   scope :wip, -> { where(wip: true) }
+
   scope :not_wip, -> { where(wip: false) }
+
   scope :list, -> {
     with_avatar
       .preload([:comments, { checks: { user: { avatar_attachment: :blob } } }])
       .default_order
   }
 
-  after_create ReportCallbacks.new
-  after_update ReportCallbacks.new
-  after_destroy ReportCallbacks.new
+  def self.faces
+    @_faces ||= emotions.keys.zip(%w(🙂 😢 😄)).to_h.with_indifferent_access
+  end
 
-  columns_for_keyword_search :title, :description
+  def after_save_mention(mentions)
+    mentions.map { |s| s.gsub(/@/, "") }.each do |mention|
+      receiver = User.find_by(login_name: mention)
+      if receiver && sender != receiver
+        NotificationFacade.mentioned(self, receiver)
+      end
+    end
+  end
 
   def previous
     Report.where(user: user)
@@ -57,16 +80,6 @@ class Report < ApplicationRecord
 
   def first?
     serial_number == 1
-  end
-
-  enum emotion: {
-    soso: 0,
-    sad: 1,
-    smile: 2
-  }
-
-  def self.faces
-    @_faces ||= emotions.keys.zip(%w(🙂 😢 😄)).to_h.with_indifferent_access
   end
 
   def serial_number
