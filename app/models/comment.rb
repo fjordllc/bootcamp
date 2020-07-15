@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
   include Reactionable
   include Searchable
 
@@ -15,6 +15,22 @@ class Comment < ActiveRecord::Base
 
   mentionable_as :description
 
+  class << self
+    def commented_users
+      User.with_attached_avatar
+        .joins(:comments)
+        .where(comments: { id: self.select("DISTINCT ON (user_id) id").order(:user_id, created_at: :desc) })
+        .order("comments.created_at")
+    end
+
+    private
+
+      def params_for_keyword_search(searched_values = {})
+        groupings = super
+        { commentable_type_in: searched_values[:commentable_type] }.merge(groupings)
+      end
+  end
+
   def after_save_mention(mentions)
     mentions.map { |s| s.gsub(/@/, "") }.each do |mention|
       receiver = User.find_by(login_name: mention)
@@ -24,23 +40,11 @@ class Comment < ActiveRecord::Base
     end
   end
 
-  class << self
-    private
-
-      def params_for_keyword_search(searched_values = {})
-        groupings = super
-        { commentable_type_in: searched_values[:commentable_type] }.merge(groupings)
-      end
-  end
-
   def receiver
     commentable.user
   end
 
-  def self.commented_users
-    User.with_attached_avatar
-      .joins(:comments)
-      .where(comments: { id: self.select("DISTINCT ON (user_id) id").order(:user_id, created_at: :desc) })
-      .order("comments.created_at")
+  def path
+    Rails.application.routes.url_helpers.polymorphic_path(commentable, anchor: anchor)
   end
 end

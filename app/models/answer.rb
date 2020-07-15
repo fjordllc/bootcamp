@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Answer < ActiveRecord::Base
+class Answer < ApplicationRecord
   include Reactionable
   include Searchable
 
@@ -17,5 +17,9 @@ class Answer < ActiveRecord::Base
 
   def receiver
     self.question.user
+  end
+
+  def path
+    Rails.application.routes.url_helpers.polymorphic_path(question, anchor: anchor)
   end
 end

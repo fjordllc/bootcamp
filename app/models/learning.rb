@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Learning < ActiveRecord::Base
+class Learning < ApplicationRecord
   enum status: { unstarted: 0, started: 1, submitted: 2, complete: 3 }
   belongs_to :user, touch: true
   belongs_to :practice
