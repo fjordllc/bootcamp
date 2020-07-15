@@ -39,6 +39,8 @@ header.page-header
           - unless current_user.total_learning_time.zero? || current_user.mentor?
             = render "users/grass", user: current_user
           = render "users/github_grass", user: current_user
+          - if current_user.mentor?
+            = render "users/sad_emotion_report", users: User.students_and_trainees
           - if current_user.role == :student
             = render "required_field", user: current_user
           - if current_user.books.present?
