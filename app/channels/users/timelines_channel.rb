@@ -10,8 +10,22 @@ class Users::TimelinesChannel < TimelinesChannel
     end
   end
 
+  def send_timelines(data)
+    set_host_for_disk_storage
+
+    transmit({ event: "send_timelines",
+              timelines: Timeline
+                           .where("created_at <= ?", ajusted_timeline_created_at(Timeline.find(data["id"])))
+                           .where("id != ?", data["id"])
+                           .where(user_id: params[:user_id])
+                           .order(created_at: :desc)
+                           .limit(20)
+                           .map { |timeline| decorated(timeline).format_to_channel }
+    })
+  end
+
   private
     def formatted_timelines
-      Timeline.where(user_id: params[:user_id]).order(created_at: :asc).map { |timeline| decorated(timeline).format_to_channel }
+      Timeline.where(user_id: params[:user_id]).order(created_at: :desc).limit(20).map { |timeline| decorated(timeline).format_to_channel }
     end
 end

@@ -33,8 +33,12 @@
         description: '',
         timelines: [],
         timelinesChannel: null,
-        buttonDisabled: false
+        buttonDisabled: false,
+        timeoutID: null
       }
+    },
+    mounted () {
+      window.addEventListener('scroll', this.handleScroll, true)
     },
     created () {
       this.timelinesChannel = this.$cable.subscriptions.create({channel: this.selectChannel(), user_id: this.userId}, {
@@ -48,7 +52,7 @@
               this.currentUser = data.current_user
               this.timelines = []
               data.timelines.forEach((timeline) => {
-                this.timelines.unshift(timeline)
+                this.timelines.push(timeline)
               });
               break
             case 'failed_to_subscribe':
@@ -81,6 +85,18 @@
             case 'failed_to_delete_timeline':
               console.warn('Failed to delete timeline');
               break
+            case 'send_timelines':
+              if (data.timelines.length === 0) {
+                window.removeEventListener('scroll', this.handleScroll, true)
+              } else {
+                data.timelines.forEach((timeline) => {
+                  this.timelines.push(timeline)
+                })
+              }
+              break
+            case 'failed_to_send_timelines':
+              console.warn('Failed_to_send_timelines')
+              break
           }
         }
       })
@@ -107,6 +123,24 @@
         } else {
           return 'Users::TimelinesChannel'
         }
+      },
+      handleScroll: function () {
+        if (this.timeoutID) return
+
+        this.timeoutID = setTimeout(() => {
+          this.timeoutID = null
+          let wrapper = document.querySelector(".wrapper")
+
+          /*
+            「次の等価式は、要素がスクロールの終点にあると true になり、それ以外は false になります。
+            element.scrollHeight - element.scrollTop === element.clientHeight」
+
+            Element.scrollHeight - Web API | MDN (https://developer.mozilla.org/ja/docs/Web/API/Element/scrollHeight)
+          */
+          if (wrapper.scrollHeight - wrapper.scrollTop === wrapper.clientHeight) {
+            this.timelinesChannel.perform('send_timelines', this.timelines.slice(-1)[0])
+          }
+        }, 400)
       }
     },
     computed: {
