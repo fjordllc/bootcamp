@@ -94,7 +94,7 @@
         return `is-${this.timeline.user.role}`
       },
       createdAt: function() {
-        return moment(this.timeline.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+        return moment(this.timeline.created_at).format('YYYY年MM月DD日(dd) HH:mm')
       },
       validation: function () {
         return this.description.length > 0
