@@ -45,4 +45,12 @@ class Users::TimelinesChannelTest < ActionCable::Channel::TestCase
 
     assert_broadcasts("timelines_channel", 1)
   end
+
+  test "#send_timelines" do
+    subscribe channel: "user_#{@user.id}_timelines_channel", user_id: @user.id
+
+    perform :send_timelines, { id: @timeline.id }
+
+    assert_equal "send_timelines", transmissions.last["event"]
+  end
 end
