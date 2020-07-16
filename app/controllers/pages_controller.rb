@@ -6,6 +6,7 @@ class PagesController < ApplicationController
 
   def index
     @pages = Page.with_avatar.order(updated_at: :desc).page(params[:page])
+    @pages = @pages.tagged_with(params[:tag]) if params[:tag]
   end
 
   def show
@@ -50,7 +51,7 @@ class PagesController < ApplicationController
     end
 
     def page_params
-      params.require(:page).permit(:title, :body)
+      params.require(:page).permit(:title, :body, :tag_list)
     end
 
     def set_wip

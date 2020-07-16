@@ -123,6 +123,7 @@ Rails.application.routes.draw do
     resources :participations, only: %i(create destroy), controller: "events/participations"
   end
   get "articles/tags/:tag", to: "articles#index", as: :tag
+  get "pages/tags/:tag", to: "pages#index", as: :pages_tag
 
   get "login" => "user_sessions#new", as: :login
   post "user_sessions" => "user_sessions#create"
