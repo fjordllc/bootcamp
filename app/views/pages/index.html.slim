@@ -13,7 +13,17 @@ header.page-header
 .page-body
   .container
     = paginate @pages, position: "top"
-    .thread-list.a-card
-      - @pages.each do |page|
-        = render "page_list_item", page: page
+    .pages-items
+      .pages-items__inner
+        h1
+          = params[:tag]
+        .thread-list.a-card
+          - @pages.each do |page|
+            = render "page_list_item", page: page
+      nav.page-nav
+        ul.page-nav__items
+          - @pages.all_tags.each do |tag|
+            - if tag.present?
+              li.page-nav__item
+                = link_to tag, pages_tag_path(tag.to_s)
     = paginate @pages, position: "bottom"

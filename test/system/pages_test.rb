@@ -42,6 +42,7 @@ class PagesTest < ApplicationSystemTestCase
     assert_text "ページを作成しました"
   end
 
+<<<<<<< HEAD
   test "create page as WIP" do
     login_user "yamada", "testtest"
     visit new_page_path
@@ -63,5 +64,22 @@ class PagesTest < ApplicationSystemTestCase
     end
     click_button "WIP"
     assert_text "ページをWIPとして保存しました。"
+=======
+  test "search pages by tag" do
+    visit pages_url
+    click_on "新規ページ"
+
+    fill_in "page[title]", with: "tagのテスト"
+    fill_in "page[body]", with: "tagをつけます。空白とカンマはタグには使えません。"
+    fill_in "page[tag_list]", with: "tag1,tag2"
+    click_on "内容を保存"
+    click_on "Docs", match: :first
+    assert_text "tag1"
+    assert_text "tag2"
+
+    click_on "tag1", match: :first
+    assert_text "tagのテスト"
+    assert_no_text "Bootcampの作業のページ"
+>>>>>>> 4d0b7159... Docs(page)にタグを追加
   end
 end
