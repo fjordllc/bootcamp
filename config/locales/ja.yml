@@ -134,6 +134,7 @@ ja:
       page:
         title: タイトル
         body: 本文
+        tag_list: タグ
       question:
         practice: プラクティス
         title: タイトル

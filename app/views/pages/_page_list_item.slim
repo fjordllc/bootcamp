@@ -15,3 +15,5 @@
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{page.updated_at.to_datetime}" pubdate="pubdate")
         = l page.updated_at
+    - if page.tag_list.present?
+      = raw page.tag_list.map { |t| link_to t, pages_tag_path(t) }.join(", ")

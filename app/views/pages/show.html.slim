@@ -27,6 +27,8 @@ header.page-header
                 | 最終更新
               time.thread-header__lower-side-value(datetime="#{@page.updated_at.to_datetime}" pubdate="pubdate")
                 = l @page.updated_at
+          - if @page.tag_list.present?
+            = raw @page.tag_list.map { |t| link_to t, pages_tag_path(t) }.join(", ")
         .thread__body
           .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @page.body
