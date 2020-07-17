@@ -14,9 +14,13 @@ class ProductTest < ActiveSupport::TestCase
   test "adviser watches trainee product when trainee create product" do
     trainee = users(:kensyu)
     adviser = users(:senpai)
-    practice = practices(:practice_1)
-    product = Product.new(user: trainee, practice: practice)
-    product.save(validate: false)
+    practice = practices(:practice_2)
+    product = Product.new(
+      body: "test",
+      user: trainee,
+      practice: practice
+    )
+    product.save!
     assert_not_nil Watch.find_by(user: adviser, watchable: product)
   end
 end

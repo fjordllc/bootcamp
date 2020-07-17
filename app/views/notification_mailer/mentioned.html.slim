@@ -1,2 +1,2 @@
 = render "notification_mailer_template", title: "#{@mentionable.user.login_name}からメンションがありました", link_url: notification_url(@notification), link_text: "このメンションへ" do
-  = simple_format(@mentionable.description)
+  = simple_format(@mentionable.body)
