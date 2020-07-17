@@ -8,6 +8,7 @@ class Report < ApplicationRecord
   include Reactionable
   include Watchable
   include WithAvatar
+  include Mentioner
 
   enum emotion: {
     soso: 0,
@@ -53,15 +54,6 @@ class Report < ApplicationRecord
 
   def self.faces
     @_faces ||= emotions.keys.zip(%w(🙂 😢 😄)).to_h.with_indifferent_access
-  end
-
-  def after_save_mention(mentions)
-    mentions.map { |s| s.gsub(/@/, "") }.each do |mention|
-      receiver = User.find_by(login_name: mention)
-      if receiver && sender != receiver
-        NotificationFacade.mentioned(self, receiver)
-      end
-    end
   end
 
   def previous
