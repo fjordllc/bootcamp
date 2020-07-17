@@ -7,10 +7,12 @@ class Product < ApplicationRecord
   include Watchable
   include Reactionable
   include WithAvatar
+  include Mentioner
 
   belongs_to :practice
   belongs_to :user, touch: true
   has_many :watches, as: :watchable, dependent: :destroy
+  alias_method :sender, :user
 
   after_create ProductCallbacks.new
   after_destroy ProductCallbacks.new
@@ -19,6 +21,8 @@ class Product < ApplicationRecord
   validates :body, presence: true
 
   paginates_per 50
+
+  mentionable_as :body
 
   scope :ids_of_common_checked_with,
     -> (user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
