@@ -34,7 +34,7 @@
         timelines: [],
         timelinesChannel: null,
         buttonDisabled: false,
-        timeoutID: null
+        loading: false
       }
     },
     mounted () {
@@ -93,6 +93,9 @@
                   this.timelines.push(timeline)
                 })
               }
+              this.$nextTick(() => {
+                this.loading = false
+              })
               break
             case 'failed_to_send_timelines':
               console.warn('Failed_to_send_timelines')
@@ -125,10 +128,7 @@
         }
       },
       handleScroll: function () {
-        if (this.timeoutID) return
-
-        this.timeoutID = setTimeout(() => {
-          this.timeoutID = null
+        if (!this.loading) {
           let wrapper = document.querySelector(".wrapper")
 
           /*
@@ -138,9 +138,10 @@
             Element.scrollHeight - Web API | MDN (https://developer.mozilla.org/ja/docs/Web/API/Element/scrollHeight)
           */
           if (wrapper.scrollHeight - wrapper.scrollTop === wrapper.clientHeight) {
+            this.loading = true
             this.timelinesChannel.perform('send_timelines', this.timelines.slice(-1)[0])
           }
-        }, 400)
+        }
       }
     },
     computed: {
