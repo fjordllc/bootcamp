@@ -9,4 +9,12 @@ module Mentioner
       end
     end
   end
+
+  def body
+    if respond_to? :body
+      self[:body]
+    else
+      self[:description]
+    end
+  end
 end
