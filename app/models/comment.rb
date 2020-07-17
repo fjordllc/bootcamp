@@ -3,6 +3,7 @@
 class Comment < ApplicationRecord
   include Reactionable
   include Searchable
+  include Mentioner
 
   belongs_to :user, touch: true
   belongs_to :commentable, polymorphic: true
@@ -29,15 +30,6 @@ class Comment < ApplicationRecord
         groupings = super
         { commentable_type_in: searched_values[:commentable_type] }.merge(groupings)
       end
-  end
-
-  def after_save_mention(mentions)
-    mentions.map { |s| s.gsub(/@/, "") }.each do |mention|
-      receiver = User.find_by(login_name: mention)
-      if receiver && sender != receiver
-        NotificationFacade.mentioned(self, receiver)
-      end
-    end
   end
 
   def receiver
