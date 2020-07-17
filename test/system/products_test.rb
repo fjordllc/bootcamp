@@ -44,6 +44,30 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text "プラクティスを完了するまで他の人の提出物は見れません。"
   end
 
+  test "non-mentor can not see a button to open all unchecked products" do
+    login_user "hatsuno", "testtest"
+    visit "/products/unchecked"
+    assert_no_button "未チェックの提出物を一括で開く"
+  end
+
+  test "mentor can see a button to open to open all unchecked products" do
+    login_user "komagata", "testtest"
+    visit "/products/unchecked"
+    assert_button "未チェックの提出物を一括で開く"
+  end
+
+  test "non-mentor can not see a button to open all not-responded products" do
+    login_user "hatsuno", "testtest"
+    visit "/products/not_responded"
+    assert_no_button "未返信の提出物を一括で開く"
+  end
+
+  test "mentor can see a button to open to open all not-responded products" do
+    login_user "komagata", "testtest"
+    visit "/products/not_responded"
+    assert_button "未返信の提出物を一括で開く"
+  end
+
   test "create product" do
     login_user "yamada", "testtest"
     visit "/products/new?practice_id=#{practices(:practice_5).id}"
