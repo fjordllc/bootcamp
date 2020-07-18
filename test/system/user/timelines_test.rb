@@ -146,12 +146,15 @@ class User::TimelinesTest < ApplicationSystemTestCase
   test "when visit user timelines page, 20 timelines are loaded. furthermore, when scroll to bottom, past 20 timelines are loaded." do
     visit "/users/#{users(:hajime).id}/timelines"
 
+    # 分報が読み込まれるのを待つために1秒間sleep
+    sleep 1
+
     assert_equal(20, all(:css, ".thread-timeline").size)
 
     # bottomまでスクロール
-    page.execute_script "window.scrollTo(0,100000)"
+    page.execute_script "window.scrollTo(0, document.body.scrollHeight)"
 
-    # 過去の分報を読み込む(のを待つ)ために1秒間sleep
+    # 過去の分報が読み込まれるのを待つために1秒間sleep
     sleep 1
 
     assert_equal(40, all(:css, ".thread-timeline").size)
