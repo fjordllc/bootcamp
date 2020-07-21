@@ -97,9 +97,6 @@
                 this.loading = false
               })
               break
-            case 'failed_to_send_past_timelines':
-              console.warn('Failed_to_send_past_timelines')
-              break
           }
         }
       })
