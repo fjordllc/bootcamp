@@ -139,7 +139,8 @@
           */
           if (wrapper.scrollHeight - wrapper.scrollTop === wrapper.clientHeight) {
             this.loading = true
-            this.timelinesChannel.perform('send_timelines', this.timelines.slice(-1)[0])
+            let oldest_timeline_on_timelines_page = { id: this.timelines.slice(-1)[0].id }
+            this.timelinesChannel.perform('send_timelines', oldest_timeline_on_timelines_page)
           }
         }
       }
