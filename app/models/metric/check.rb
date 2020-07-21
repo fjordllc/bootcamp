@@ -20,6 +20,15 @@ module Metric
           { name: type.constantize.model_name.human, data: data }
         end
       end
+
+      def max
+        ::User.mentor.map do |user|
+          ::Check.where(
+            user_id: user.id,
+            created_at: 1.month.ago..Float::INFINITY
+          ).group_by_day(:created_at, format: "%m/%d").count.values.max
+        end.max
+      end
     end
   end
 end
