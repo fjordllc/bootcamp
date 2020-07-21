@@ -23,11 +23,12 @@ class CommentCallbacks
 
     def notify_to_watching_user(comment)
       watchable = comment.commentable
+      mention_user_ids = comment.new_mention_users.ids
 
       if watchable.try(:watched?)
         watcher_ids = watchable.watches.pluck(:user_id)
         watcher_ids.each do |watcher_id|
-          if watcher_id != comment.sender.id
+          if watcher_id != comment.sender.id && !mention_user_ids.include?(watcher_id)
             watcher = User.find_by(id: watcher_id)
             NotificationFacade.watching_notification(watchable, watcher, comment)
           end

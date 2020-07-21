@@ -2,12 +2,16 @@
 
 module Mentioner
   def after_save_mention(mentions)
-    mentions.map { |s| s.gsub(/@/, "") }.each do |mention|
-      receiver = User.find_by(login_name: mention)
+    new_mention_users.each do |receiver|
       if receiver && sender != receiver
         NotificationFacade.mentioned(self, receiver)
       end
     end
+  end
+
+  def new_mention_users
+    names = new_mentions.map { |s| s.gsub(/@/, "") }
+    User.where(login_name: names)
   end
 
   def body
