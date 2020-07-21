@@ -10,10 +10,10 @@ class Users::TimelinesChannel < TimelinesChannel
     end
   end
 
-  def send_timelines(oldest_timeline_on_timelines_page)
+  def send_past_timelines(oldest_timeline_on_timelines_page)
     set_host_for_disk_storage
 
-    transmit({ event: "send_timelines",
+    transmit({ event: "send_past_timelines",
               timelines: Timeline
                            .where("created_at <= ?", ajusted_timeline_created_at(Timeline.find(oldest_timeline_on_timelines_page["id"])))
                            .where("id != ?", oldest_timeline_on_timelines_page["id"])

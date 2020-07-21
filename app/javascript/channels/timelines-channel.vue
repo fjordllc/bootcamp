@@ -85,7 +85,7 @@
             case 'failed_to_delete_timeline':
               console.warn('Failed to delete timeline');
               break
-            case 'send_timelines':
+            case 'send_past_timelines':
               if (data.timelines.length === 0) {
                 window.removeEventListener('scroll', this.handleScroll, true)
               } else {
@@ -97,8 +97,8 @@
                 this.loading = false
               })
               break
-            case 'failed_to_send_timelines':
-              console.warn('Failed_to_send_timelines')
+            case 'failed_to_send_past_timelines':
+              console.warn('Failed_to_send_past_timelines')
               break
           }
         }
@@ -140,7 +140,7 @@
           if (wrapper.scrollHeight - wrapper.scrollTop === wrapper.clientHeight) {
             this.loading = true
             let oldest_timeline_on_timelines_page = { id: this.timelines.slice(-1)[0].id }
-            this.timelinesChannel.perform('send_timelines', oldest_timeline_on_timelines_page)
+            this.timelinesChannel.perform('send_past_timelines', oldest_timeline_on_timelines_page)
           }
         }
       }
