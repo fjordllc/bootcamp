@@ -10,13 +10,13 @@ class Users::TimelinesChannel < TimelinesChannel
     end
   end
 
-  def send_timelines(data)
+  def send_timelines(oldest_timeline_on_timelines_page)
     set_host_for_disk_storage
 
     transmit({ event: "send_timelines",
               timelines: Timeline
-                           .where("created_at <= ?", ajusted_timeline_created_at(Timeline.find(data["id"])))
-                           .where("id != ?", data["id"])
+                           .where("created_at <= ?", ajusted_timeline_created_at(Timeline.find(oldest_timeline_on_timelines_page["id"])))
+                           .where("id != ?", oldest_timeline_on_timelines_page["id"])
                            .where(user_id: params[:user_id])
                            .order(created_at: :desc)
                            .limit(20)
