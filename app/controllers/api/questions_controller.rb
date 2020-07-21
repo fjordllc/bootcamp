@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
 class API::QuestionsController < API::BaseController
-  before_action :set_question, only: %i[update]
+  include Rails.application.routes.url_helpers
+  before_action :set_question, only: %i[show update destroy]
+  before_action :set_available_emojis, only: %i[index show]
+
+  def index
+    @questions = Question.all
+  end
+
+  def show; end
 
   def update
     if @question.update(question_params)
@@ -9,6 +17,10 @@ class API::QuestionsController < API::BaseController
     else
       head :bad_request
     end
+  end
+
+  def destroy
+    @question.destroy!
   end
 
   private
@@ -23,6 +35,6 @@ class API::QuestionsController < API::BaseController
   end
 
   def question_params
-    params.require(:question).permit(:tag_list)
+    params.require(:question).permit(:title, :description, :practice_id, :tag_list)
   end
 end

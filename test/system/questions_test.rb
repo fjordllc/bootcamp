@@ -49,13 +49,15 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'update a question' do
     question = questions(:question8)
-    visit edit_question_path(question)
+    visit question_path(question)
+    click_button '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'テストの質問（修正）'
       fill_in 'question[description]', with: 'テストの質問です。（修正）'
       click_button '更新する'
     end
-    assert_text '質問を更新しました。'
+    assert_text 'テストの質問（修正）'
+    assert_text 'テストの質問です。（修正）'
   end
 
   test 'delete a question' do
@@ -64,7 +66,7 @@ class QuestionsTest < ApplicationSystemTestCase
     accept_confirm do
       find('.js-delete').click
     end
-    assert_text '質問を削除しました。'
+    assert_no_text 'kimura'
   end
 
   test 'delete question with notification' do
@@ -85,9 +87,9 @@ class QuestionsTest < ApplicationSystemTestCase
     visit '/questions'
     click_on 'タイトルtest'
     accept_confirm do
-      click_link '削除'
+      click_button '削除'
     end
-    assert_text '質問を削除しました。'
+    assert_no_text 'タイトルtest'
 
     login_user 'komagata', 'testtest'
     visit '/notifications'
