@@ -19,6 +19,8 @@ header.page-header
     .thread
       .thread__inner.a-card
         header.thread-header
+        - if @question.correct_answer.present?
+          | 解決済み
           .thread-header__upper-side
             = link_to @question.user, class: "thread-header__author" do
               = @question.user.login_name
