@@ -50,13 +50,14 @@ class TimelinesChannel < ApplicationCable::Channel
     end
   end
 
-  def send_past_timelines(oldest_timeline_on_timelines_page)
+  # 引数timelineには分報ページ上の最も古い分報が渡されることが期待される
+  def send_past_timelines(timeline)
     set_host_for_disk_storage
 
     transmit({ event: "send_past_timelines",
               timelines: Timeline
-                           .where("created_at <= ?", ajusted_timeline_created_at(Timeline.find(oldest_timeline_on_timelines_page["id"])))
-                           .where("id != ?", oldest_timeline_on_timelines_page["id"])
+                           .where("created_at <= ?", ajusted_timeline_created_at(Timeline.find(timeline["id"])))
+                           .where("id != ?", timeline["id"])
                            .order(created_at: :desc)
                            .limit(20)
                            .map { |timeline| decorated(timeline).format_to_channel }
@@ -95,7 +96,7 @@ class TimelinesChannel < ApplicationCable::Channel
 
     def ajusted_timeline_created_at(timeline)
       # timelines-channel.vueからtimelineのcreated_atを渡しても、"2020-07-10T04:04:33.879+09:00"というようなフォーマットの文字列になっており、
-      # それを例えば、Time.parse(oldest_timeline_on_timelines_page["created_at"])としても、
+      # それを例えば、Time.parse(timeline["created_at"])としても、
       # usecやsubsecが"879000"となってしまい、小数点第四位から第六位が取得できない。
       # そのままだと、"2020-07-09 19:04:33.879137"のようなPostgreSQLで保存されているフォーマットとのずれが生じる、
       # そのため、Timelineオブジェクトを取り出し、それをTimeオブジェクトに変換をし、調整を加えている。
