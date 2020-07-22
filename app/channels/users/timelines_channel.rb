@@ -10,13 +10,14 @@ class Users::TimelinesChannel < TimelinesChannel
     end
   end
 
-  def send_past_timelines(oldest_timeline_on_timelines_page)
+  # 引数timelineには分報ページ上の最も古い分報が渡されることが期待される
+  def send_past_timelines(timeline)
     set_host_for_disk_storage
 
     transmit({ event: "send_past_timelines",
               timelines: Timeline
-                           .where("created_at <= ?", ajusted_timeline_created_at(Timeline.find(oldest_timeline_on_timelines_page["id"])))
-                           .where("id != ?", oldest_timeline_on_timelines_page["id"])
+                           .where("created_at <= ?", ajusted_timeline_created_at(Timeline.find(timeline["id"])))
+                           .where("id != ?", timeline["id"])
                            .where(user_id: params[:user_id])
                            .order(created_at: :desc)
                            .limit(20)
