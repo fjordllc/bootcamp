@@ -10,6 +10,7 @@
             = event.user.login_name
         time.thread-header__lower-side-created-at(datetime="#{event.created_at.to_datetime}" pubdate="pubdate")
           | 書いた日 : #{l event.updated_at}
+      #js-watch(data-watchable-id="#{@event.id}", data-watchable-type="Event")
 
     - unless event.opening?
       .event-status
