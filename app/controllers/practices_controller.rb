@@ -73,9 +73,9 @@ class PracticesController < ApplicationController
 
     def book_search(asin)
       request = Vacuum.new(marketplace: "JP",
-        access_key: "AKIAJM4IHXPFQ67OSZCA",
-        secret_key: "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",
-        partner_tag: "twitter0f1-22")
+        access_key: "",
+        secret_key: "",
+        partner_tag: "")
 
       response = request.get_items(
         item_ids: [asin],
