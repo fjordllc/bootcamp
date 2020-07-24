@@ -72,22 +72,22 @@ class PracticesController < ApplicationController
     end
 
     def book_search(asin)
-      request = Vacuum.new(marketplace: 'JP',
-        access_key: 'AKIAJM4IHXPFQ67OSZCA',
-        secret_key: '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',
-        partner_tag: 'twitter0f1-22')
+      request = Vacuum.new(marketplace: "JP",
+        access_key: "AKIAJM4IHXPFQ67OSZCA",
+        secret_key: "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",
+        partner_tag: "twitter0f1-22")
 
       response = request.get_items(
-      item_ids: [asin],
-      resources: ['Images.Primary.Small', 'ItemInfo.Title', 'ItemInfo.Features', 'Offers.Summaries.HighestPrice', 'ParentASIN']
+        item_ids: [asin],
+        resources: ["Images.Primary.Small", "ItemInfo.Title", "ItemInfo.Features", "Offers.Summaries.HighestPrice", "ParentASIN"]
       )
     end
 
     def save_ref_books(practice)
       practice.reference_books.each do |book|
         res = book_search(book.asin)
-        book.page_url = res.dig('ItemsResult', 'Items')[0]['DetailPageURL']
-        book.image_url = res.dig('ItemsResult', 'Items')[0]['Images']['Primary']['Small']['URL']
+        book.page_url = res.dig("ItemsResult", "Items")[0]["DetailPageURL"]
+        book.image_url = res.dig("ItemsResult", "Items")[0]["Images"]["Primary"]["Small"]["URL"]
         book.save
       end
     end

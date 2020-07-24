@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddColumnsToReferenceBooks < ActiveRecord::Migration[6.0]
   def change
     add_column :reference_books, :page_url, :string
