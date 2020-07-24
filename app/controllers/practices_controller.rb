@@ -32,12 +32,21 @@ class PracticesController < ApplicationController
 
   def update
     old_practice = @practice.dup
+
     if @practice.update(practice_params)
       text = "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を編集しました。"
       diff = Diffy::Diff.new(old_practice.all_text + "\n", @practice.all_text + "\n", context: 1).to_s
       SlackNotification.notify "#{text}\n```#{diff}```",
         username: "#{current_user.login_name}@bootcamp.fjord.jp",
         icon_url: current_user.avatar_url
+
+      @practice.reference_books.each do |book|
+        res = book_search(book.asin)
+        book.page_url = res.dig('ItemsResult', 'Items')[0]['DetailPageURL']
+        book.image_url = res.dig('ItemsResult', 'Items')[0]['Images']['Primary']['Small']['URL']
+        book.save
+      end
+
       redirect_to @practice, notice: "プラクティスを更新しました。"
     else
       render :edit
@@ -66,5 +75,17 @@ class PracticesController < ApplicationController
 
     def set_course
       @course = Course.find(params[:course_id]) if params[:course_id]
+    end
+
+    def book_search(asin)
+      request = Vacuum.new(marketplace: 'JP',
+        access_key: 'AKIAJM4IHXPFQ67OSZCA',
+        secret_key: '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',
+        partner_tag: 'twitter0f1-22')
+
+      response = request.get_items(
+      item_ids: [asin],
+      resources: ['Images.Primary.Small', 'ItemInfo.Title', 'ItemInfo.Features', 'Offers.Summaries.HighestPrice', 'ParentASIN']
+      )
     end
 end

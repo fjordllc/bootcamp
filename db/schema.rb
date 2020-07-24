@@ -292,8 +292,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_020653) do
     t.bigint "practice_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "page_url", null: false
-    t.string "image_url", null: false
+    t.string "page_url"
+    t.string "image_url"
     t.index ["practice_id"], name: "index_reference_books_on_practice_id"
   end
 

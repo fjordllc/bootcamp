@@ -48,6 +48,7 @@ gem "groupdate"
 gem "chartkick"
 gem "holiday_jp"
 gem "mentionable", "~> 0.2"
+gem "vacuum"
 
 group :production, :staging do
   gem "newrelic_rpm"
