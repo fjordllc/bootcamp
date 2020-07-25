@@ -21,3 +21,8 @@
           | 募集期間
         dd.event-meta__item-value
           | #{l event.open_start_at} 〜 #{l event.open_end_at}
+
+  a href="http://www.google.com/calendar/render?action=TEMPLATE
+          &text=#{event.title}
+          &dates=#{event.start_at.strftime("%Y%m%dT%H%M%S")}/#{event.end_at.strftime("%Y%m%dT%H%M%S")}
+          &details=https://bootcamp.fjord.jp/events/#{event.id}" Googleカレンダーに追加
