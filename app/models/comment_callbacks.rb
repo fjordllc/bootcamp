@@ -6,7 +6,7 @@ class CommentCallbacks
       notify_comment(comment)
     end
 
-    if [Report, Product].include?(comment.commentable.class)
+    if [Report, Product, Event].include?(comment.commentable.class)
       create_watch(comment)
       notify_to_watching_user(comment)
     end
