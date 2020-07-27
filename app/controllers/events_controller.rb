@@ -5,7 +5,6 @@ class EventsController < ApplicationController
   before_action :require_admin_login, except: %i(index show)
   before_action :set_event, only: %i(show edit update destroy)
   before_action :set_footprints, only: %i(show)
-  before_action :set_watch, only: %i(show)
 
   def index
     @events = Event.with_avatar
@@ -65,10 +64,6 @@ class EventsController < ApplicationController
 
     def set_event
       @event = Event.find(params[:id])
-    end
-
-    def set_watch
-      @watch = Watch.new
     end
 
     def set_footprints
