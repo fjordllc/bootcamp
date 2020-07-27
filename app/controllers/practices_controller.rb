@@ -19,12 +19,11 @@ class PracticesController < ApplicationController
 
   def create
     @practice = Practice.new(practice_params)
-
     if @practice.save
       SlackNotification.notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を作成しました。",
-        username: "#{current_user.login_name}@bootcamp.fjord.jp",
-        icon_url: current_user.avatar_url
-      save_ref_books(@practice)
+      username: "#{current_user.login_name}@bootcamp.fjord.jp",
+      icon_url: current_user.avatar_url
+      Amazon.fetch_api(@practice)
       redirect_to @practice, notice: "プラクティスを作成しました。"
     else
       render :new
@@ -40,7 +39,7 @@ class PracticesController < ApplicationController
       SlackNotification.notify "#{text}\n```#{diff}```",
         username: "#{current_user.login_name}@bootcamp.fjord.jp",
         icon_url: current_user.avatar_url
-      save_ref_books(@practice)
+      Amazon.fetch_api(@practice)
       redirect_to @practice, notice: "プラクティスを更新しました。"
     else
       render :edit
@@ -69,26 +68,5 @@ class PracticesController < ApplicationController
 
     def set_course
       @course = Course.find(params[:course_id]) if params[:course_id]
-    end
-
-    def book_search(asin)
-      request = Vacuum.new(marketplace: "JP",
-        access_key: "",
-        secret_key: "",
-        partner_tag: "")
-
-      response = request.get_items(
-        item_ids: [asin],
-        resources: ["Images.Primary.Small", "ItemInfo.Title", "ItemInfo.Features", "Offers.Summaries.HighestPrice", "ParentASIN"]
-      )
-    end
-
-    def save_ref_books(practice)
-      practice.reference_books.each do |book|
-        res = book_search(book.asin)
-        book.page_url = res.dig("ItemsResult", "Items")[0]["DetailPageURL"]
-        book.image_url = res.dig("ItemsResult", "Items")[0]["Images"]["Primary"]["Small"]["URL"]
-        book.save
-      end
     end
 end
