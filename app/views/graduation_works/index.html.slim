@@ -12,6 +12,6 @@
   .container
     .works
       .row
-        = render partial: "welcome/application", collection: @applications, as: :work
+        = render partial: "graduation_works/graduation_work", collection: @graduation_works, as: :work
 
-    = paginate @applications, position: "bottom"
+    = paginate @graduation_works, position: "bottom"
