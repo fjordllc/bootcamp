@@ -25,6 +25,7 @@ class Practice < ApplicationRecord
   has_many :questions
   belongs_to :category
   acts_as_list scope: :category
+  has_one :learning_minute_statistic
 
   validates :title, presence: true
   validates :description, presence: true
