@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_29_082025) do
+ActiveRecord::Schema.define(version: 2020_07_17_061810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,6 +174,15 @@ ActiveRecord::Schema.define(version: 2020_05_29_082025) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "learning_minute_statistics", force: :cascade do |t|
+    t.bigint "practice_id"
+    t.integer "average", null: false
+    t.integer "median", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["practice_id"], name: "index_learning_minute_statistics_on_practice_id"
   end
 
   create_table "learning_times", force: :cascade do |t|
@@ -415,6 +424,7 @@ ActiveRecord::Schema.define(version: 2020_05_29_082025) do
   add_foreign_key "borrowings", "books"
   add_foreign_key "borrowings", "users"
   add_foreign_key "images", "users"
+  add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
