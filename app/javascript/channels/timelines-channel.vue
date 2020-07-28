@@ -126,15 +126,13 @@
       },
       handleScroll: function () {
         if (!this.loading) {
-          let wrapper = document.querySelector(".wrapper")
-
           /*
             「次の等価式は、要素がスクロールの終点にあると true になり、それ以外は false になります。
             element.scrollHeight - element.scrollTop === element.clientHeight」
 
             Element.scrollHeight - Web API | MDN (https://developer.mozilla.org/ja/docs/Web/API/Element/scrollHeight)
           */
-          if (wrapper.scrollHeight - wrapper.scrollTop === wrapper.clientHeight) {
+          if (document.documentElement.scrollHeight - document.documentElement.scrollTop === document.documentElement.clientHeight) {
             this.loading = true
             let oldest_timeline_on_timelines_page = { id: this.timelines.slice(-1)[0].id }
             this.timelinesChannel.perform('send_past_timelines', oldest_timeline_on_timelines_page)
