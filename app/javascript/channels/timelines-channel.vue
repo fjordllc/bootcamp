@@ -34,7 +34,8 @@
         timelines: [],
         timelinesChannel: null,
         buttonDisabled: false,
-        loading: false
+        loading: false,
+        subscribed: false
       }
     },
     mounted () {
@@ -54,6 +55,7 @@
               data.timelines.forEach((timeline) => {
                 this.timelines.push(timeline)
               });
+              this.subscribed = true
               break
             case 'failed_to_subscribe':
               console.warn('Failed to subscribe');
@@ -125,7 +127,7 @@
         }
       },
       handleScroll: function () {
-        if (!this.loading) {
+        if (!this.loading && this.subscribed) {
           /*
             「次の等価式は、要素がスクロールの終点にあると true になり、それ以外は false になります。
             element.scrollHeight - element.scrollTop === element.clientHeight」
