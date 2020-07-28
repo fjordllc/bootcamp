@@ -63,12 +63,6 @@ class TimelinesTest < ApplicationSystemTestCase
     assert_no_text "勉強中です"
   end
 
-  test "other user cannot edit and destroy timeline" do
-    visit "/timelines"
-    assert_no_selector "button", text: "編集"
-    assert_no_selector "button", text: "削除"
-  end
-
   test "submit_button is enabled after a post is done" do
     visit "/timelines"
     fill_in("new_timeline[description]", with: "Action Cableについて勉強中です")
