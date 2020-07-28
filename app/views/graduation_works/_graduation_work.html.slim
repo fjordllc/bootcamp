@@ -2,13 +2,13 @@
   .works-item
     .works-item__inner.a-card
       header.works-item__header
-        = link_to [graduation_works_path, work.id].join("/"), class: "works-item__image-link" do
+        = link_to graduation_work, class: "works-item__image-link" do
           - if work.thumbnail.attached?
             = image_tag work.thumbnail_url, class: "works-item__image"
           - else
             = image_tag("work-blank.svg", class: "works-item__image")
       .works-item__body
         h2.works-item__title
-          = link_to work.title, [graduation_works_path, work.id].join("/"), class: "works-item__title-link"
+          = link_to work.title, graduation_work, class: "works-item__title-link"
         .works-item__description.a-short-text
           = md_summury(work.description, 140)

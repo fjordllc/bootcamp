@@ -18,12 +18,4 @@ class WelcomeController < ApplicationController
 
   def coc
   end
-
-  def graduation_works
-    @applications = Work.graduation_works.order(created_at: :desc).page(params[:page])
-  end
-
-  def graduation_works_show
-    @work = Work.graduation_works.find(params[:id])
-  end
 end
