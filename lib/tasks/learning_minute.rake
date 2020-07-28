@@ -2,7 +2,6 @@
 
 namespace :learning_minute do
   desc "学習時間の統計をDB保存する"
-  # task :task_model => :environment do
   task :statistics do
     practices = Practice.all
     practices.each do |practice|
