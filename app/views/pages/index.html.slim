@@ -10,20 +10,31 @@ header.page-header
             = link_to [:new, :page], class: "a-button is-md is-warning is-block" do
               i.fas.fa-plus
               | 新規ページ
+
+- if params[:tag]
+  .page-optional-header
+    .container
+      .page-optional-header__inner
+        h2.page-optional-header__title
+          | タグ 「#{params[:tag]}」
+          = link_to pages_path, class: "page-body__optional-title-cancel" do
+            i.fas.fa-times.fa-fw
 .page-body
   .container
     = paginate @pages, position: "top"
     .pages-items
       .pages-items__inner
-        h1
-          = params[:tag]
         .thread-list.a-card
           - @pages.each do |page|
             = render "page_list_item", page: page
-      nav.page-nav
-        ul.page-nav__items
-          - @pages.all_tags.each do |tag|
-            - if tag.present?
-              li.page-nav__item
-                = link_to tag, pages_tag_path(tag.to_s)
+      nav.page-tags-nav
+        header.page-tags-nav__header
+          h2.page-tags-nav__title
+            | Tags
+        .page-tags-nav__body
+          ul.page-tags-nav__items
+            - @pages.all_tags.each do |tag|
+              - if tag.present?
+                li.page-tags-nav__item
+                  = link_to tag, pages_tag_path(tag.to_s), class: "page-tags-nav__item-link"
     = paginate @pages, position: "bottom"
