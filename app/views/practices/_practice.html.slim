@@ -1,7 +1,7 @@
 .category-practices-item.js-practice(id="practice_#{practice.id}")
   header.category-practices-item__header
     - if current_user.admin?
-      - learning_minute_statistic = LearningMinuteStatistic.find_by(practice_id: practice.id)
+      - learning_minute_statistic = practice.learning_minute_statistic
       - if learning_minute_statistic
         .category-practices-item__learning-times
           .category-practices-item__learning-time
