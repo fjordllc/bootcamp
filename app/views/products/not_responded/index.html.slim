@@ -15,6 +15,8 @@ header.page-header
     - if @products.present?
       .thread-list.a-card
         = render partial: "products/product", collection: @products, as: :product
+        - if mentor_login?
+          = render partial: "unconfirmed_links_open", locals: { label: "未返信の提出物を一括で開く" }
     - else
       .a-empty-message
         | 未返信の提出物はありません
