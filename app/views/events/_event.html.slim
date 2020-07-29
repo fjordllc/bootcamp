@@ -1,15 +1,18 @@
 .thread
   .thread__inner.a-card
     header.thread-header
+      .thread-header__upper-side
+        .thread-header__author
+          = link_to event.user, class: "thread-header__lower-side-author-name-link" do
+            = event.user.login_name
+        .thread-header__date
+          time.thread-header__date-value(datetime="#{event.created_at.to_datetime}" pubdate="pubdate")
+            = l event.updated_at
+
       h1.thread-header__title
         = event.title
 
       .thread-header__lower-side
-        .thread-header__lower-side-author-name
-          = link_to event.user, class: "thread-header__lower-side-author-name-link" do
-            = event.user.login_name
-        time.thread-header__lower-side-created-at(datetime="#{event.created_at.to_datetime}" pubdate="pubdate")
-          | 書いた日 : #{l event.updated_at}
       #js-watch(data-watchable-id="#{@event.id}", data-watchable-type="Event")
 
     - unless event.opening?
