@@ -60,9 +60,14 @@
   +position(relative, top -2px)
   border-radius: .75rem
   vertical-align: middle
-  height: 1rem
-  +media-breakpoint-down(sm)
-    height: 1rem
+  height: 1.125rem
+  &.is-solved
+    color: $reversal-text
+    padding: 0 .625rem
+    &.is-success
+      background-color: $success
+    &.is-danger
+      background-color: $danger
 
 .thread-header__upper-side
   +text-block(.8125rem 1 0 .75rem, $muted-text flex)
