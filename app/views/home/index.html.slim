@@ -35,7 +35,7 @@ header.page-header
             - if User.all.job_seeking.present?
               = render "job_seeking_users", users: User.all.job_seeking
           - if current_user.admin? || current_user.adviser?
-            - if @reservations_today.exists?
+            - if @reservations_today
               = render "reserved_seats_today", reservations: @reservations_today
           - unless current_user.total_learning_time.zero? || current_user.mentor?
             = render "users/grass", user: current_user
