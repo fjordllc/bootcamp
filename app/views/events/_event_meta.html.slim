@@ -17,7 +17,7 @@
         dd.event-meta__item-value
           span.event-meta__item-value-main
             = event.period
-          = link_to google_calendar_link(event), class: "a-button is-sm is-primary" do
+          = link_to google_calendar_url(event), class: "a-button is-sm is-primary" do
             | Googleカレンダーに追加
       .event-meta__item
         dt.event-meta__item-label

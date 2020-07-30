@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module EventsHelper
-  def google_calendar_link(event)
+  def google_calendar_url(event)
     event_query_string=
     {
       :action => "TEMPLATE", 
