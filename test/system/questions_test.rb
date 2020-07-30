@@ -20,7 +20,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test "show a resolved qestion" do
     question = questions(:question_3)
     visit question_path(question)
-    assert_text "解決済み"
+    assert_text "解決済"
   end
 
   test "show a question" do
