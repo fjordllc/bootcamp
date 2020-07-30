@@ -26,6 +26,12 @@ header.page-header
               time.thread-header__date-value(datetime="#{@question.updated_at.to_datetime}" pubdate="pubdate")
                 = l @question.updated_at
           h1.thread-header__title
+            - if @question.correct_answer.present?
+              span.thread-header__title-icon.is-solved.is-success
+                | 解決済
+            - else
+              span.thread-header__title-icon.is-solved.is-danger
+                | 未解決
             = @question.title
           .thread-header__lower-side
             #js-watch(data-watchable-id="#{@question.id}", data-watchable-type="Question")
