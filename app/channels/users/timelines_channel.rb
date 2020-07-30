@@ -20,13 +20,13 @@ class Users::TimelinesChannel < TimelinesChannel
                            .where("id != ?", timeline["id"])
                            .where(user_id: params[:user_id])
                            .order(created_at: :desc)
-                           .limit(20)
+                           .limit(SEND_TIMELINES_LIMIT_NUM)
                            .map { |timeline| decorated(timeline).format_to_channel }
     })
   end
 
   private
     def formatted_timelines
-      Timeline.where(user_id: params[:user_id]).order(created_at: :desc).limit(20).map { |timeline| decorated(timeline).format_to_channel }
+      Timeline.where(user_id: params[:user_id]).order(created_at: :desc).limit(SEND_TIMELINES_LIMIT_NUM).map { |timeline| decorated(timeline).format_to_channel }
     end
 end
