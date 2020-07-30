@@ -10,18 +10,16 @@ class Amazon
   end
 
   def image_url
-    response = search()
     response.dig('ItemsResult', 'Items')[0]['Images']['Primary']['Small']['URL']
   end
 
   def page_url
-    response = search()
     response.dig('ItemsResult', 'Items')[0]['DetailPageURL']
   end
 
   private
 
-    def request()
+    def request
       Vacuum.new(marketplace: 'JP',
         access_key: ACCESS_KEY,
         secret_key: SECRET_KEY,
@@ -29,8 +27,7 @@ class Amazon
       )
     end
 
-    def search()
-      request = request()
+    def response
       request.get_items(
         item_ids: [@asin],
         resources: ['Images.Primary.Small', 'ItemInfo.Title', 'ItemInfo.Features', 'Offers.Summaries.HighestPrice', 'ParentASIN']
