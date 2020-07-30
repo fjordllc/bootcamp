@@ -26,3 +26,7 @@
             i.fas.fa-comment
           .thread-list-item-meta__comment-count-value
             = question.answers.size
+    - if question.correct_answer.present?
+      .stamp.is-circle.is-solved
+        .stamp__content.is-icon 解
+        .stamp__content.is-icon 決
