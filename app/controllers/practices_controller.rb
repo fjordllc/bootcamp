@@ -25,7 +25,7 @@ class PracticesController < ApplicationController
       icon_url: current_user.avatar_url
 
       @practice.reference_books.each do |book|
-        amazon_api = AmazonAPI.new(book.asin)
+        amazon_api = Amazon.new(book.asin)
         book.image_url = amazon_api.image_url
         book.page_url = amazon_api.page_url
         book.save
@@ -48,10 +48,10 @@ class PracticesController < ApplicationController
         icon_url: current_user.avatar_url
 
       @practice.reference_books.each do |book|
-          amazon_api = AmazonAPI.new(book.asin)
-          book.image_url = amazon_api.image_url
-          book.page_url = amazon_api.page_url
-          book.save
+        amazon_api = Amazon.new(book.asin)
+        book.image_url = amazon_api.image_url
+        book.page_url = amazon_api.page_url
+        book.save
       end
 
       redirect_to @practice, notice: "プラクティスを更新しました。"
