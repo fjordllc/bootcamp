@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
+require "uri"
 module EventsHelper
   def google_calendar_url(event)
-    event_query_string =
-    {
-      action: "TEMPLATE",
-      text: event.title,
-      dates: "#{event.start_at.strftime("%Y%m%dT%H%M%S")}/#{event.end_at.strftime("%Y%m%dT%H%M%S")}",
-      details: "https://bootcamp.fjord.jp/events/#{event.id}"
-    }.to_query
-    "http://www.google.com/calendar/render?#{event_query_string}"
+    uri = URI("http://www.google.com/calendar/render")
+    uri.query =
+      {
+        action: "TEMPLATE",
+        text: event.title,
+        dates: "#{event.start_at.strftime("%Y%m%dT%H%M%S")}/#{event.end_at.strftime("%Y%m%dT%H%M%S")}",
+        details: "https://bootcamp.fjord.jp/events/#{event.id}"
+      }.to_param
+    uri.to_s
   end
 end
