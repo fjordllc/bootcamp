@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class AmazonTest < ActiveSupport::TestCase
+  PARTNER_TAG = ENV['AMAZON_PARTNER_TAG']
+
   def setup
     @amazon = Amazon.new("B07JHQ9B5T")
   end
@@ -10,6 +12,6 @@ class AmazonTest < ActiveSupport::TestCase
   end
 
   def test_page_url
-    assert_equal @amazon.page_url, "https://www.amazon.co.jp/dp/B07JHQ9B5T?tag=twitter0f1-22&linkCode=ogi&th=1&psc=1"
+    assert_equal @amazon.page_url, "https://www.amazon.co.jp/dp/B07JHQ9B5T?tag=#{PARTNER_TAG}&linkCode=ogi&th=1&psc=1"
   end
 end
