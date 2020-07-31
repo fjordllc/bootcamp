@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "uri"
 module EventsHelper
   def google_calendar_url(event)
     uri = URI("http://www.google.com/calendar/render")
