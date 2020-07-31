@@ -1,4 +1,4 @@
-= form_with model: page, local: true, class: "form" do |f|
+= form_with model: page, local: true, class: "form", html: { name: "page" } do |f|
   = render "errors", object: page
   .form-item
     .row
