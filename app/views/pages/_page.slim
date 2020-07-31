@@ -21,8 +21,4 @@
           | タグ
         ul.thread-list-item-tags__items
           li.thread-list-item-tags__item
-            = raw page.tag_list.map {|t| link_to t, pages_tag_path(t), class: "thread-list-item-tags__item-link"}.join("</li><li class='thread-list-item-tags__item'>")
-
-      //= raw page.tag_list.map {
-          |t| link_to t, pages_tag_path(t)
-        }.join(", ")
+            = page.tag_list_links("</li><li class='thread-list-item-tags__item'>")
