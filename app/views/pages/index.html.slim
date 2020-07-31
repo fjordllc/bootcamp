@@ -25,8 +25,7 @@ header.page-header
     .pages-items
       .pages-items__inner
         .thread-list.a-card
-          - @pages.each do |page|
-            = render "page_list_item", page: page
+          = render partial: "pages/page", collection: @pages, as: :page
       nav.page-tags-nav
         header.page-tags-nav__header
           h2.page-tags-nav__title
