@@ -3,7 +3,7 @@
 class TimelinesChannel < ApplicationCable::Channel
   before_subscribe :set_host_for_disk_storage
 
-  SEND_TIMELINES_LIMIT_NUM = 20
+  TIMELINES_LIMIT = 20
 
   def subscribed
     stream_from "timelines_channel"
@@ -61,7 +61,7 @@ class TimelinesChannel < ApplicationCable::Channel
                            .where("created_at <= ?", ajusted_timeline_created_at(Timeline.find(timeline["id"])))
                            .where("id != ?", timeline["id"])
                            .order(created_at: :desc)
-                           .limit(SEND_TIMELINES_LIMIT_NUM)
+                           .limit(TIMELINES_LIMIT)
                            .map { |timeline| decorated(timeline).format_to_channel }
     })
   end
@@ -86,7 +86,7 @@ class TimelinesChannel < ApplicationCable::Channel
     end
 
     def formatted_timelines
-      Timeline.order(created_at: :desc).limit(SEND_TIMELINES_LIMIT_NUM).map { |timeline| decorated(timeline).format_to_channel }
+      Timeline.order(created_at: :desc).limit(TIMELINES_LIMIT).map { |timeline| decorated(timeline).format_to_channel }
     end
 
     # local・test環境でActiveStorage::Current.hostが定義されずユーザーアイコンのservice_urlを取得することができなかったため、以下のように定義
