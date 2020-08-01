@@ -48,7 +48,11 @@ class PagesTest < ApplicationSystemTestCase
     within "form[name=page]" do
       fill_in "page[title]", with: "tagのテスト"
       fill_in "page[body]", with: "tagをつけます。空白とカンマはタグには使えません。"
-      fill_in "page[tag_list]", with: "tag1,tag2"
+      tagInput = find(".tagify__input")
+      tagInput.set "tag1"
+      tagInput.native.send_keys :return
+      tagInput.set "tag2"
+      tagInput.native.send_keys :return
       click_on "内容を保存"
     end
     click_on "Docs", match: :first
