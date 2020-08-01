@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
             currentUserId: currentUserId,
             questionUserId: questionUserId,
             questionId: questionId,
-            adminLogin: adminLogin,
-          },
-        }),
+            adminLogin: adminLogin
+          }
+        })
     }).$mount('#js-question')
   }
 })
