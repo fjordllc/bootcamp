@@ -219,23 +219,6 @@ export default {
         })
     },
     async setPractices() {
-      await fetch('/api/categories.json', {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token(),
-        },
-        credentials: 'same-origin',
-      })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          this.categories = json
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
       await fetch('/api/practices.json', {
         method: 'GET',
         headers: {
@@ -247,18 +230,8 @@ export default {
         .then((response) => {
           return response.json()
         })
-        .then((practices) => {
-          this.practices = practices.map((practice) => {
-            var targets = {}
-            targets.id = practice.id
-            targets.title = practice.title
-            this.categories.forEach((category) => {
-              if (category.id === practice.category_id) {
-                targets.option = `[${category.name}] ${practice.title}`
-              }
-            })
-            return targets
-          })
+        .then((json) => {
+          this.practices = json
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
