@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const questionId = questionElement.getAttribute('data-question-id')
     var adminLogin = questionElement.getAttribute('data-admin-login')
     adminLogin = adminLogin === 'true'
+    var present = questionElement.getAttribute('data-present')
+    present = present === 'true'
 
     new Vue({
       render: (h) =>
@@ -17,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
             currentUserId: currentUserId,
             questionUserId: questionUserId,
             questionId: questionId,
-            adminLogin: adminLogin
+            adminLogin: adminLogin,
+            present: present
           }
         })
     }).$mount('#js-question')

@@ -7,6 +7,10 @@
         .thread-header__date
           | {{ createdAt }}
       h1.thread-header__title
+        span.thread-header__title-icon.is-solved.is-success(v-if="present")
+          | 解決済
+        span.thread-header__title-icon.is-solved.is-danger(v-else)
+          | 未解決
         | {{ question.title }}
       .thread-header__lower-side
         #js-watch(:data-watchable-id="questionId", data-watchable-type="Question")
@@ -101,6 +105,7 @@ export default {
     questionUserId: { type: String, required: true },
     questionId: { type: String, required: true },
     adminLogin: { type: Boolean, required: true },
+    present: { type: Boolean, required: true },
   },
   data: () => {
     return {
