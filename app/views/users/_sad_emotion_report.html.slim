@@ -5,6 +5,6 @@
   .card-list
     ul.card-list__items
       - users.each do |user|
-        - if user.is_depressed?
+        - if user.depressed?
           li.card-list__item
-            = render partial: "reports/report", collection: user.latest_reports(days: 1), as: :report
+            = render partial: "reports/report", collection: user.latest_reports(1), as: :report

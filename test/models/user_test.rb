@@ -83,7 +83,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal [report: nil, date: Date.today, emotion: nil], user.reports_date_and_emotion(0)
   end
 
-  test "#is_depressed?" do
+  test "#depressed?" do
     user = users(:hatsuno)
     3.times do |i|
       report = Report.new(
@@ -95,12 +95,12 @@ class UserTest < ActiveSupport::TestCase
       )
       report.save!
     end
-    assert user.is_depressed?
+    assert user.depressed?
 
     report = user.reports.find_by(reported_on: Date.today)
     report.emotion = "smile"
     report.save!
-    assert_not user.is_depressed?
+    assert_not user.depressed?
   end
 
   test ".order_by_counts" do
