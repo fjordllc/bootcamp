@@ -1,49 +1,31 @@
-<template>
-  <div>
-    <Tags v-bind:settings="tagifySettings" initialValue="a,b,c" :onChange="onTagsChange"/>
-  </div>
+<template lang="pug">
+  div
+    Tags.a-xs-text-input(:initialValue="initialTagList" :onChange="onTagsChange")
+    input(type="hidden" :value="tagListValues" name="page[tag_list]")
 </template>
 
 <script>
 import Tags from "@yaireo/tagify/dist/tagify.vue";
 
-
 export default {
-  name: "App",
+  props: ['initialTagList'],
   components: { Tags },
   data() {
     return {
-      tagifySettings: {
-        whitelist: [],
-        callbacks: {
-          add(e) {
-            console.log("tag added:", e.detail);
-          }
-        }
-      },
-      suggestions: []
+      tagListValues: ''
     };
   },
   methods: {
     onTagsChange(e) {
-      console.log("tags changed:", e.target.value);
+      const changedValue = e.target.value
+      this.tagListValues = changedValue !== '' ? this.parseTagListJSON(changedValue) : ''
+    },
+    parseTagListJSON(value) {
+      return JSON.parse(value).map(tag => tag.value).join(',') 
     }
   },
   mounted() {
-    // simulate fetchign async data and updating the sugegstions list
-    // do not create a new Array, but use the SAME ONE
-    setTimeout(() => {
-      this.suggestions = [
-        { value: "ironman", code: "im" },
-        { value: "antman", code: "am" },
-        { value: "captain america", code: "ca" },
-        { value: "thor", code: "th" },
-        { value: "spiderman", code: "sm" }
-      ];
-
-      this.tagifySettings.whitelist.length = 0;
-      this.tagifySettings.whitelist.push(...this.suggestions);
-    }, 1000);
+    this.tagListValues = this.initialTagList
   }
 };
 </script>
