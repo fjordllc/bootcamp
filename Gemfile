@@ -60,6 +60,7 @@ group :development, :test do
   # not default
   gem "pry-byebug"
   gem "webmock"
+  gem "vcr"
 end
 
 group :development do
