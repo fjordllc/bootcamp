@@ -23,7 +23,7 @@ class PagesController < ApplicationController
     @page.user = current_user
     set_wip
     if @page.save
-      redirect_to @page, notice: "ページを作成しました。"
+      redirect_to @page, notice: notice_message(@page, :create)
     else
       render :new
     end
@@ -32,7 +32,7 @@ class PagesController < ApplicationController
   def update
     set_wip
     if @page.update(page_params)
-      redirect_to @page, notice: "ページを更新しました。"
+      redirect_to @page, notice: notice_message(@page, :update)
     else
       render :edit
     end
