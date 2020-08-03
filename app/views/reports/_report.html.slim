@@ -8,6 +8,8 @@
         - if report.wip?
           .thread-list-item__header-icon.is-wip WIP
         h2.thread-list-item__title(itemprop="name")
+          - if report.user.role == "daimyo"
+            | ★
           = link_to report.title, report, itempro: "url", class: "thread-list-item__title-link js-unconfirmed-link"
       - if current_user == report.user
         .thread-list-item__actions

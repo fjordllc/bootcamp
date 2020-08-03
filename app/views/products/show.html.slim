@@ -32,6 +32,8 @@ header.page-header
             - if @product.wip?
               span.thread-header__title-icon
                 | WIP
+            - if @product.user.role == "daimyo"
+              | ★
             | #{link_to @product.practice.title, @product.practice, class: "thread-header__title-link"}の提出物
           .thread-header__lower-side
             #js-watch(data-watchable-id="#{@product.id}", data-watchable-type="Product")

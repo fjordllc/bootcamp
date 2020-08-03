@@ -3,6 +3,8 @@
     = image_tag user.avatar_url, title: "#{user.icon_title}", class: "user-profile__user-icon-image a-user-icon is-#{user.role}"
   .user-profile__names
     h1.user-profile__login-name
+      - if user.role == "daimyo"
+        | ★
       = user.login_name
     h2.user-profile__full-name
       = user.full_name
