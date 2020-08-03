@@ -1,14 +1,16 @@
 import Vue from 'vue'
-import DocsTaggingUI from './docs-tagging-ui.vue'
+import TagsInput from './tags-input.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const docsTagging = document.getElementById('js-docs-tagging')
-  if (docsTagging) {
-    const tagList = docsTagging.getAttribute('data-tag-list')
+  const tagsInputElm = document.getElementById('js-tags-input')
+  if (tagsInputElm) {
+    const tagsInitialValue = tagsInputElm.getAttribute('data-tags-initial-value')
+    const tagsParamName = tagsInputElm.getAttribute('data-tags-param-name')
     new Vue({
-      render: h => h(DocsTaggingUI, { props: {
-        initialTagList: tagList
+      render: h => h(TagsInput, { props: {
+        tagsInitialValue: tagsInitialValue,
+        tagsParamName: tagsParamName
       } })
-    }).$mount('#js-docs-tagging')
+    }).$mount('#js-tags-input')
   }
 })
