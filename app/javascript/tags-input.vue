@@ -1,31 +1,31 @@
 <template lang="pug">
   div
-    Tags.a-xs-text-input(:initialValue="initialTagList" :onChange="onTagsChange")
-    input(type="hidden" :value="tagListValues" name="page[tag_list]")
+    Tags.a-xs-text-input(:initialValue="tagsInitialValue" :onChange="onTagsChange")
+    input(type="hidden" :value="tagsValue" :name="tagsParamName")
 </template>
 
 <script>
 import Tags from "@yaireo/tagify/dist/tagify.vue";
 
 export default {
-  props: ['initialTagList'],
+  props: ['tagsInitialValue', 'tagsParamName'],
   components: { Tags },
   data() {
     return {
-      tagListValues: ''
+      tagsValue: ''
     };
   },
   methods: {
     onTagsChange(e) {
       const changedValue = e.target.value
-      this.tagListValues = changedValue !== '' ? this.parseTagListJSON(changedValue) : ''
+      this.tagsValue = changedValue !== '' ? this.parseTagsJSON(changedValue) : ''
     },
-    parseTagListJSON(value) {
+    parseTagsJSON(value) {
       return JSON.parse(value).map(tag => tag.value).join(',') 
     }
   },
   mounted() {
-    this.tagListValues = this.initialTagList
+    this.tagsValue = this.tagsInitialValue
   }
 };
 </script>
