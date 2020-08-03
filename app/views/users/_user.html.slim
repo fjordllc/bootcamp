@@ -5,6 +5,8 @@
         .users-item__header-container
           .users-item__name
             = link_to user, class: "users-item__name-link" do
+              - if user.role == "daimyo"
+                | ★
               = user.login_name
           ul.users-item-names
             li.users-item-names__item

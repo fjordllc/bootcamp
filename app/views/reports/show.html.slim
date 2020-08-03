@@ -37,6 +37,8 @@ header.page-header
             - if @report.wip?
               span.thread-header__title-icon
                 | WIP
+            - if @report.user.role == "daimyo"
+              | ★
             | #{@report.title}
           #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="Report")
           .thread-header__lower-side
