@@ -197,6 +197,46 @@ class User < ApplicationRecord
     end
   }
 
+  class << self
+    def announcement_receiver(target)
+      case target
+      when "all"
+        User.unretired
+      when "students"
+        User.admins.or(User.students)
+      when "job_seekers"
+        User.admins.or(User.job_seekers)
+      else
+        User.none
+      end
+    end
+
+    def users_role(target)
+      case target
+      when "student_and_trainee"
+        self.students_and_trainees
+      when "job_seeking"
+        self.job_seeking
+      when "retired"
+        self.retired
+      when "graduate"
+        self.graduated
+      when "adviser"
+        self.advisers
+      when "mentor"
+        self.mentor
+      when "inactive"
+        self.inactive.order(:updated_at)
+      when "year_end_party"
+        self.year_end_party
+      when "trainee"
+        self.trainees
+      when "all"
+        self.all
+      end
+    end
+  end
+
   def away?
     self.updated_at <= 10.minutes.ago
   end
@@ -245,31 +285,6 @@ SQL
 
     learning_time = LearningTime.find_by_sql([sql, { user_id: id }])
     learning_time.first.total || 0
-  end
-
-  def self.users_role(target)
-    case target
-    when "student_and_trainee"
-      self.students_and_trainees
-    when "job_seeking"
-      self.job_seeking
-    when "retired"
-      self.retired
-    when "graduate"
-      self.graduated
-    when "adviser"
-      self.advisers
-    when "mentor"
-      self.mentor
-    when "inactive"
-      self.inactive.order(:updated_at)
-    when "year_end_party"
-      self.year_end_party
-    when "trainee"
-      self.trainees
-    when "all"
-      self.all
-    end
   end
 
   def prefecture_name
@@ -387,19 +402,6 @@ SQL
          .to_a
          .map { |set| [report: set[1], date: set[0], emotion: set[1]&.emotion] }
          .flatten
-  end
-
-  def self.announcement_receiver(target)
-    case target
-    when "all"
-      User.unretired
-    when "students"
-      User.admins.or(User.students)
-    when "job_seekers"
-      User.admins.or(User.job_seekers)
-    else
-      User.none
-    end
   end
 
   private
