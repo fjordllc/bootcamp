@@ -1,0 +1,13 @@
+ruby:
+  link_options = {}
+  link_options[:class] = link_class if defined? link_class
+  link_options[:target] = target if defined? target
+
+  image_options = {
+    title: user.icon_title,
+    alt: user.icon_title,
+    class: user.icon_classes(image_class)
+  }
+
+= link_to user, link_options do
+  = image_tag user.avatar_url, image_options

@@ -5,7 +5,7 @@
         .users-item__header-container
           .users-item__name
             = link_to user, class: "users-item__name-link" do
-              - if user.role == "daimyo"
+              - if user.daimyo?
                 | ★
               = user.login_name
           ul.users-item-names
@@ -21,8 +21,9 @@
                     = user.slack_account
           = render "users/user_secret_attributes", user: user
           .users-item__icon
-            = link_to user do
-              = image_tag user.avatar_url, title: "#{user.icon_title}", class: "users-item__user-icon-image a-user-icon is-#{user.role}"
+            = render "users/icon",
+              user: user,
+              image_class: "users-item__user-icon-image"
         = render "users/sns", user: user
       .users-item__body
         .users-item__description.a-short-text

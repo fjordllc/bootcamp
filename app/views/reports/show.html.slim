@@ -37,7 +37,7 @@ header.page-header
             - if @report.wip?
               span.thread-header__title-icon
                 | WIP
-            - if @report.user.role == "daimyo"
+            - if @report.user.daimyo?
               | ★
             | #{@report.title}
           #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="Report")
@@ -93,7 +93,6 @@ header.page-header
             = link_to @report.next, class: "thread-prev-next__item-link is-next" do
               | 次の日報
               i.fas.fa-angle-right
-      = link_to @report.user, itempro: "url", class: "thread__author-link" do
-        = image_tag @report.user.avatar_url, title: "#{@report.user.icon_title}", class: "thread__author-icon a-user-icon is-#{@report.user.role}"
+      = render "users/icon", user: @report.user, link_class: "thread__author-link", image_class: "thread__author-icon"
     #js-comments(data-commentable-id="#{@report.id}" data-commentable-type="Report" data-current-user-id="#{current_user.id}")
     = render "footprints/footprints", footprints: @footprints
