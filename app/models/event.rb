@@ -5,6 +5,7 @@ class Event < ApplicationRecord
   include Commentable
   include Footprintable
   include Reactionable
+  include Watchable
 
   validates :title, presence: true
   validates :description, presence: true
@@ -34,6 +35,7 @@ class Event < ApplicationRecord
   belongs_to :user
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
+  has_many :watches, as: :watchable, dependent: :destroy
 
   def opening?
     Time.current.between?(open_start_at, open_end_at)
