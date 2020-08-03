@@ -416,7 +416,7 @@ SQL
   end
 
   def depressed?
-    three_days_emotions = latest_reports(3).map { |report| report.emotion }
+    three_days_emotions = latest_reports(3).pluck(:emotion)
     !three_days_emotions.empty? && three_days_emotions.all? { |emotion| emotion == "sad" }
   end
 
