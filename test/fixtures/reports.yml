@@ -134,3 +134,10 @@ report_17:
     yamadaです、メンターです。
     今日は1時間学習しました。
   reported_on: "2020-06-01"
+
+report_18:
+  user: daimyo
+  title: テストのnippou
+  description: |-
+    今日は1時間学習しました。
+  reported_on: "2020-06-01"

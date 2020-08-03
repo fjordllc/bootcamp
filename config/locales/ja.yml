@@ -75,7 +75,6 @@ ja:
         job_seeking: 就職活動中
         retired_on: リタイア日
         free: 無料ユーザー
-        daimyo: DAIMYO Engineer College ユーザー
         avatar: プロフィール画像
         retire_reason: 退会理由
         mail_notification: メール通知
@@ -213,7 +212,6 @@ ja:
     year_end_party: 忘年会
     trainee: 研修生
     admin: 管理者
-    daimyo: DAIMYO Engineer College
   helpers:
     submit:
       create: 登録する

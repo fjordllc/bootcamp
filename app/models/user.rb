@@ -404,6 +404,10 @@ SQL
          .flatten
   end
 
+  def daimyo?
+    company && company.name == "DAIMYO Engineer College"
+  end
+
   private
     def password_required?
       new_record? || password.present?
