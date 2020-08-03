@@ -201,6 +201,7 @@ ja:
           complete: 完了
   target:
     student_and_trainee: 現役生
+    student: 現役生
     job_seeking: 就職活動中
     mentor: メンター
     graduate: 卒業生
@@ -212,6 +213,7 @@ ja:
     year_end_party: 忘年会
     trainee: 研修生
     admin: 管理者
+    daimyo: DAIMYO Engineer College
   helpers:
     submit:
       create: 登録する
