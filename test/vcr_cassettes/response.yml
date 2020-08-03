@@ -5,17 +5,17 @@ http_interactions:
     uri: https://webservices.amazon.co.jp/paapi5/getitems
     body:
       encoding: UTF-8
-      string: '{"PartnerTag":"twitter0f1-22","PartnerType":"Associates","Resources":["Images.Primary.Small","ItemInfo.Title","ItemInfo.Features","Offers.Summaries.HighestPrice","ParentASIN"],"ItemIds":["B07JHQ9B5T"]}'
+      string: '{"PartnerTag":"twitter0f1-22","PartnerType":"Associates","Resources":["Images.Primary.Small","ItemInfo.Title","ItemInfo.Features","Offers.Summaries.HighestPrice","ParentASIN"],"ItemIds":["B077Q8BXHC"]}'
     headers:
       Host:
       - webservices.amazon.co.jp
       X-Amz-Date:
-      - 20200802T061736Z
+      - 20200802T071122Z
       X-Amz-Content-Sha256:
-      - a73d735c2a09fb426b8959be33c4a92eaa51b62413f09b5050eb8904e3ccfc70
+      - d1688efdc30d29fa06ec4b367064929e18886d7c0669c656466aa74ee18366e0
       Authorization:
       - AWS4-HMAC-SHA256 Credential=AKIAJM4IHXPFQ67OSZCA/20200802/us-west-2/ProductAdvertisingAPI/aws4_request,
-        SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=77e55fdca31be88452f3958130f80456193cf04d68e47db52d6c264f17384722
+        SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=01bc6635252c20730553179cb34282930e5a30e15dc4ec3e3cb94faf6d4a96f0
       X-Amz-Target:
       - com.amazon.paapi5.v1.ProductAdvertisingAPIv1.GetItems
       Content-Encoding:
@@ -34,22 +34,126 @@ http_interactions:
       Server:
       - Server
       Date:
-      - Sun, 02 Aug 2020 06:17:37 GMT
+      - Sun, 02 Aug 2020 07:11:23 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '532'
+      - '608'
       Connection:
       - close
       X-Amz-Rid:
-      - V3PEKYEW5NVVZX3MEGPF
+      - 8CJPBPS7DSBY3F5AB2R8
       X-Amzn-Requestid:
-      - baeec350-0e1e-44ff-a7d5-3752c4ffb38b
+      - afe5284d-1a6d-4c3a-a8e4-3401fa7651bd
       Vary:
       - Content-Type,Accept-Encoding,X-Amzn-CDN-Cache,X-Amzn-AX-Treatment,User-Agent
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJJdGVtc1Jlc3VsdCI6eyJJdGVtcyI6W3siQVNJTiI6IkIwN0pIUTlCNVQiLCJEZXRhaWxQYWdlVVJMIjoiaHR0cHM6Ly93d3cuYW1hem9uLmNvLmpwL2RwL0IwN0pIUTlCNVQ/dGFnPXR3aXR0ZXIwZjEtMjImbGlua0NvZGU9b2dpJnRoPTEmcHNjPTEiLCJJbWFnZXMiOnsiUHJpbWFyeSI6eyJTbWFsbCI6eyJIZWlnaHQiOjc1LCJVUkwiOiJodHRwczovL20ubWVkaWEtYW1hem9uLmNvbS9pbWFnZXMvSS81MUVKZzdHbnIwTC5fU0w3NV8uanBnIiwiV2lkdGgiOjU4fX19LCJJdGVtSW5mbyI6eyJUaXRsZSI6eyJEaXNwbGF5VmFsdWUiOiLnj77loLTjgafkvb/jgYjjgosgUnVieSBvbiBSYWlscyA16YCf57+S5a6f6Le144Ks44Kk44OJIiwiTGFiZWwiOiJUaXRsZSIsIkxvY2FsZSI6ImphX0pQIn19LCJPZmZlcnMiOnsiU3VtbWFyaWVzIjpbeyJDb25kaXRpb24iOnsiVmFsdWUiOiJOZXcifSwiSGlnaGVzdFByaWNlIjp7IkFtb3VudCI6MzYzNy4wLCJDdXJyZW5jeSI6IkpQWSIsIkRpc3BsYXlBbW91bnQiOiLvv6UzLDYzNyJ9fV19fV19fQ==
-  recorded_at: Sun, 02 Aug 2020 06:17:37 GMT
+        eyJJdGVtc1Jlc3VsdCI6eyJJdGVtcyI6W3siQVNJTiI6IkIwNzdROEJYSEMiLCJEZXRhaWxQYWdlVVJMIjoiaHR0cHM6Ly93d3cuYW1hem9uLmNvLmpwL2RwL0IwNzdROEJYSEM/dGFnPXR3aXR0ZXIwZjEtMjImbGlua0NvZGU9b2dpJnRoPTEmcHNjPTEiLCJJbWFnZXMiOnsiUHJpbWFyeSI6eyJTbWFsbCI6eyJIZWlnaHQiOjc1LCJVUkwiOiJodHRwczovL20ubWVkaWEtYW1hem9uLmNvbS9pbWFnZXMvSS81MXR5T1ZhTTJITC5fU0w3NV8uanBnIiwiV2lkdGgiOjU5fX19LCJJdGVtSW5mbyI6eyJUaXRsZSI6eyJEaXNwbGF5VmFsdWUiOiLjg5fjg63jgpLnm67mjIfjgZnkurrjga7jgZ/jgoHjga5SdWJ55YWl6ZaAIOiogOiqnuS7leanmOOBi+OCieODhuOCueODiOmnhuWLlemWi+eZuuODu+ODh+ODkOODg+OCsOaKgOazleOBvuOBpyBTb2Z0d2FyZSBEZXNpZ24gcGx1cyIsIkxhYmVsIjoiVGl0bGUiLCJMb2NhbGUiOiJqYV9KUCJ9fSwiT2ZmZXJzIjp7IlN1bW1hcmllcyI6W3siQ29uZGl0aW9uIjp7IlZhbHVlIjoiTmV3In0sIkhpZ2hlc3RQcmljZSI6eyJBbW91bnQiOjMyNzguMCwiQ3VycmVuY3kiOiJKUFkiLCJEaXNwbGF5QW1vdW50Ijoi77+lMywyNzgifX1dfX1dfX0=
+  recorded_at: Sun, 02 Aug 2020 07:11:23 GMT
+- request:
+    method: post
+    uri: https://webservices.amazon.co.jp/paapi5/getitems
+    body:
+      encoding: UTF-8
+      string: '{"PartnerTag":"twitter0f1-22","PartnerType":"Associates","Resources":["Images.Primary.Small","ItemInfo.Title","ItemInfo.Features","Offers.Summaries.HighestPrice","ParentASIN"],"ItemIds":["テストの参考書籍ASIN2"]}'
+    headers:
+      Host:
+      - webservices.amazon.co.jp
+      X-Amz-Date:
+      - 20200802T071914Z
+      X-Amz-Content-Sha256:
+      - 70ff631c7da5b47e78a4a710c0b5dffdd8f55c670d378028a0feb8a74d15ae8e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJM4IHXPFQ67OSZCA/20200802/us-west-2/ProductAdvertisingAPI/aws4_request,
+        SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=55a4069e76e56ad1dc03744748cc1658e5587ecd8a0b4cded80e06f71c64bcac
+      X-Amz-Target:
+      - com.amazon.paapi5.v1.ProductAdvertisingAPIv1.GetItems
+      Content-Encoding:
+      - amz-1.0
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - close
+      User-Agent:
+      - http.rb/4.4.1
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - Server
+      Date:
+      - Sun, 02 Aug 2020 07:19:15 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '196'
+      Connection:
+      - close
+      X-Amz-Rid:
+      - VMMX0V0ARZMHRTSB7BH7
+      X-Amzn-Requestid:
+      - 2f756c7e-2c84-4275-9a3f-c8ddec94b626
+      Vary:
+      - Content-Type,Accept-Encoding,X-Amzn-CDN-Cache,X-Amzn-AX-Treatment,User-Agent
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJfX3R5cGUiOiJjb20uYW1hem9uLnBhYXBpNSNWYWxpZGF0aW9uRXhjZXB0aW9uIiwiRXJyb3JzIjpbeyJDb2RlIjoiSW52YWxpZFBhcmFtZXRlclZhbHVlIiwiTWVzc2FnZSI6IlRoZSB2YWx1ZSBb44OG44K544OI44Gu5Y+C6ICD5pu457GNQVNJTjJdIHByb3ZpZGVkIGluIHRoZSByZXF1ZXN0IGZvciBJdGVtSWRzIGlzIGludmFsaWQuIn1dfQ==
+  recorded_at: Sun, 02 Aug 2020 07:19:15 GMT
+- request:
+    method: post
+    uri: https://webservices.amazon.co.jp/paapi5/getitems
+    body:
+      encoding: UTF-8
+      string: '{"PartnerTag":"twitter0f1-22","PartnerType":"Associates","Resources":["Images.Primary.Small","ItemInfo.Title","ItemInfo.Features","Offers.Summaries.HighestPrice","ParentASIN"],"ItemIds":["B077Q8BXHC"]}'
+    headers:
+      Host:
+      - webservices.amazon.co.jp
+      X-Amz-Date:
+      - 20200802T072600Z
+      X-Amz-Content-Sha256:
+      - d1688efdc30d29fa06ec4b367064929e18886d7c0669c656466aa74ee18366e0
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJM4IHXPFQ67OSZCA/20200802/us-west-2/ProductAdvertisingAPI/aws4_request,
+        SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=217df122deb38b0fb76649c0bc2846745d2b562e6b7342bed2575e854c9efdb8
+      X-Amz-Target:
+      - com.amazon.paapi5.v1.ProductAdvertisingAPIv1.GetItems
+      Content-Encoding:
+      - amz-1.0
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - close
+      User-Agent:
+      - http.rb/4.4.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Server
+      Date:
+      - Sun, 02 Aug 2020 07:26:01 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '608'
+      Connection:
+      - close
+      X-Amz-Rid:
+      - YQJ14GQYD1DJH8CZNFTC
+      X-Amzn-Requestid:
+      - '08711731-c820-43e3-bb46-3453af6b3ca5'
+      Vary:
+      - Content-Type,Accept-Encoding,X-Amzn-CDN-Cache,X-Amzn-AX-Treatment,User-Agent
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJJdGVtc1Jlc3VsdCI6eyJJdGVtcyI6W3siQVNJTiI6IkIwNzdROEJYSEMiLCJEZXRhaWxQYWdlVVJMIjoiaHR0cHM6Ly93d3cuYW1hem9uLmNvLmpwL2RwL0IwNzdROEJYSEM/dGFnPXR3aXR0ZXIwZjEtMjImbGlua0NvZGU9b2dpJnRoPTEmcHNjPTEiLCJJbWFnZXMiOnsiUHJpbWFyeSI6eyJTbWFsbCI6eyJIZWlnaHQiOjc1LCJVUkwiOiJodHRwczovL20ubWVkaWEtYW1hem9uLmNvbS9pbWFnZXMvSS81MXR5T1ZhTTJITC5fU0w3NV8uanBnIiwiV2lkdGgiOjU5fX19LCJJdGVtSW5mbyI6eyJUaXRsZSI6eyJEaXNwbGF5VmFsdWUiOiLjg5fjg63jgpLnm67mjIfjgZnkurrjga7jgZ/jgoHjga5SdWJ55YWl6ZaAIOiogOiqnuS7leanmOOBi+OCieODhuOCueODiOmnhuWLlemWi+eZuuODu+ODh+ODkOODg+OCsOaKgOazleOBvuOBpyBTb2Z0d2FyZSBEZXNpZ24gcGx1cyIsIkxhYmVsIjoiVGl0bGUiLCJMb2NhbGUiOiJqYV9KUCJ9fSwiT2ZmZXJzIjp7IlN1bW1hcmllcyI6W3siQ29uZGl0aW9uIjp7IlZhbHVlIjoiTmV3In0sIkhpZ2hlc3RQcmljZSI6eyJBbW91bnQiOjMyNzguMCwiQ3VycmVuY3kiOiJKUFkiLCJEaXNwbGF5QW1vdW50Ijoi77+lMywyNzgifX1dfX1dfX0=
+  recorded_at: Sun, 02 Aug 2020 07:26:01 GMT
 recorded_with: VCR 6.0.0

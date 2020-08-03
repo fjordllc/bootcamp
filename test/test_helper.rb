@@ -6,7 +6,7 @@ require "rails/test_help"
 require "capybara/rails"
 require "webmock/minitest"
 require "supports/stub_helper"
-require 'vcr'
+require "vcr"
 
 WebMock.allow_net_connect!
 Webdrivers.cache_time = 86_400

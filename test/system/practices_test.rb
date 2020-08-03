@@ -49,25 +49,27 @@ class PracticesTest < ApplicationSystemTestCase
   end
 
   test "create practice" do
-    login_user "komagata", "testtest"
-    visit "/practices/new"
-    within "form[name=practice]" do
-      fill_in "practice[title]", with: "テストプラクティス"
-      fill_in "practice[description]", with: "テストの内容です"
-      within "#reference_books" do
-        click_link "追加"
-        fill_in "タイトル", with: "テストの参考書籍タイトル"
-        fill_in "ASIN", with: "テストの参考書籍ASIN"
-        click_link "削除"
-        click_link "追加"
-        fill_in "タイトル", with: "テストの参考書籍タイトル2"
-        fill_in "ASIN", with: "テストの参考書籍ASIN2"
+    VCR.use_cassette("response") do
+      login_user "komagata", "testtest"
+      visit "/practices/new"
+      within "form[name=practice]" do
+        fill_in "practice[title]", with: "テストプラクティス"
+        fill_in "practice[description]", with: "テストの内容です"
+        within "#reference_books" do
+          click_link "追加"
+          fill_in "タイトル", with: "プロを目指す人のRuby入門"
+          fill_in "ASIN", with: "B077Q8BXHC"
+          click_link "削除"
+          click_link "追加"
+          fill_in "タイトル", with: "プロを目指す人のRuby入門"
+          fill_in "ASIN", with: "B077Q8BXHC"
+        end
+        fill_in "practice[goal]", with: "テストのゴールの内容です"
+        fill_in "practice[memo]", with: "テストのメンター向けメモの内容です"
+        click_button "登録する"
       end
-      fill_in "practice[goal]", with: "テストのゴールの内容です"
-      fill_in "practice[memo]", with: "テストのメンター向けメモの内容です"
-      click_button "登録する"
+      assert_text "プラクティスを作成しました"
     end
-    assert_text "プラクティスを作成しました"
   end
 
   test "update practice" do
@@ -83,26 +85,30 @@ class PracticesTest < ApplicationSystemTestCase
   end
 
   test "add a reference book" do
-    login_user "komagata", "testtest"
-    practice = practices(:practice_2)
-    visit "/practices/#{practice.id}/edit"
-    within "#reference_books" do
-      click_link "追加"
-      fill_in "タイトル", with: "テストの参考書籍タイトル", match: :prefer_exact
-      fill_in "ASIN", with: "テストの参考書籍ASIN", match: :prefer_exact
+    VCR.use_cassette("response") do
+      login_user "komagata", "testtest"
+      practice = practices(:practice_2)
+      visit "/practices/#{practice.id}/edit"
+      within "#reference_books" do
+        click_link "追加"
+        fill_in "タイトル", with: "プロを目指す人のRuby入門", match: :prefer_exact
+        fill_in "ASIN", with: "B077Q8BXHC", match: :prefer_exact
+      end
+      click_button "更新する"
     end
-    click_button "更新する"
   end
 
   test "update a reference book" do
-    login_user "komagata", "testtest"
-    practice = practices(:practice_2)
-    visit "/practices/#{practice.id}/edit"
-    within "#reference_books" do
-      fill_in "タイトル", with: "テストの参考書籍タイトル"
-      fill_in "ASIN", with: "テストの参考書籍ASIN"
+    VCR.use_cassette("response") do
+      login_user "komagata", "testtest"
+      practice = practices(:practice_2)
+      visit "/practices/#{practice.id}/edit"
+      within "#reference_books" do
+        fill_in "タイトル", with: "プロを目指す人のRuby入門"
+        fill_in "ASIN", with: "B077Q8BXHC"
+      end
+      click_button "更新する"
     end
-    click_button "更新する"
   end
 
   test "category button link to courses/practices#index with category fragment" do
