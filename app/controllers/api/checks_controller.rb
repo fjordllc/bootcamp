@@ -26,7 +26,7 @@ class API::ChecksController < API::BaseController
 
   private
     def checkable
-      params[:checkable_type].constantize.find(params[:checkable_id])
+      params[:checkable_type].constantize.find_by(id: params[:checkable_id])
     end
 
     def notify_to_slack(check)
