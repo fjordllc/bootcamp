@@ -95,4 +95,7 @@ header.page-header
               i.fas.fa-angle-right
       = render "users/icon", user: @report.user, link_class: "thread__author-link", image_class: "thread__author-icon"
     #js-comments(data-commentable-id="#{@report.id}" data-commentable-type="Report" data-current-user-id="#{current_user.id}")
+      - if admin_login? || adviser_login?
+        #js-admin-login
+          = "1"
     = render "footprints/footprints", footprints: @footprints

@@ -68,4 +68,7 @@ header.page-header
 
       = render "users/icon", user: @product.user, link_class: "thread__author-link", image_class: "thread__author-icon"
     #js-comments(data-commentable-id="#{@product.id}" data-commentable-type="Product" data-current-user-id="#{current_user.id}")
+      - if admin_login? || adviser_login?
+        #js-admin-login
+          = "1"
     = render "footprints/footprints", footprints: @footprints
