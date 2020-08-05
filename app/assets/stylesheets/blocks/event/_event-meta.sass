@@ -18,6 +18,7 @@
   line-height: 1.5
   +media-breakpoint-up(md)
     display: flex
+    align-items: center
   &:not(:first-child)
     margin-top: .5em
     padding-top: .5em
@@ -36,3 +37,13 @@
 
 .event-meta__item-value
   flex: 100
+  +media-breakpoint-up(md)
+    display: flex
+    align-items: center
+
+.event-meta__item-value-main
+  display: block
+  +media-breakpoint-up(md)
+    margin-right: .5rem
+  +media-breakpoint-down(sm)
+    margin-bottom: .25rem
