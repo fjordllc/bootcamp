@@ -26,6 +26,9 @@
             .thread-comment-form__action
               button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createComment" :disabled="!validation || buttonDisabled")
                 | コメントする
+            .thread-comment-form__action(v-if="admin_login == 1 && commentType && !checkId")
+              button.a-button.is-lg.is-success.is-block(@click="screeningCommentType" :disabled="!validation || buttonDisabled")
+                | 確認OKにする
 </template>
 <script>
 import Comment from './comment.vue'
@@ -47,10 +50,14 @@ export default {
       description: '',
       tab: 'comment',
       buttonDisabled: false,
-      defaultTextareaSize: null
+      defaultTextareaSize: null,
+      admin_login: ''
     }
   },
   created: function() {
+    if (!(document.querySelector('#js-admin-login') == null)) {
+      this.admin_login = document.querySelector('#js-admin-login').innerText;
+    }
     fetch(`/api/users/${this.currentUserId}.json`, {
       method: 'GET',
       headers: {
@@ -163,6 +170,20 @@ export default {
     resizeTextarea: function () {
       const textarea = document.getElementById('js-new-comment')
       textarea.style.height = `${this.defaultTextareaSize}px`
+    },
+    screeningCommentType() {
+      if (this.commentableType === "Product") {
+        if (window.confirm('提出物を確認済にしますか？')) {
+          this.comment_and_check()
+        }
+      } else {
+        this.comment_and_check()
+      }
+    },
+    comment_and_check() {
+      const check = document.getElementById("js-shortcut-check")
+      this.createComment()
+      check.click()
     }
   },
   computed: {
@@ -178,6 +199,14 @@ export default {
     },
     validation: function() {
       return this.description.length > 0
+    },
+    commentType() {
+      if (this.commentableType === "Report" || this.commentableType === "Product") {
+        return true
+      }
+    },
+    checkId() {
+      return this.$store.getters.checkId
     }
   }
 }
