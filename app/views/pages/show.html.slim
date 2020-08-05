@@ -19,8 +19,11 @@ header.page-header
     article.thread.is-page
       .thread__inner.a-card
         header.thread-header
-          h1.thread-header__title
-            = @page.title
+          h1.thread-header__title(class="#{@page.wip? ? "is-wip" : ""}")
+            - if @page.wip?
+              span.thread-header__title-icon
+                | WIP
+            | #{@page.title}
           .thread-header__lower-side
             .thread-header__lower-side-date
               .thread-header__lower-side-label
