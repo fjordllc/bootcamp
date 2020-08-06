@@ -3,6 +3,8 @@
 require "application_system_test_case"
 
 class PracticesTest < ApplicationSystemTestCase
+  WebMock.allow_net_connect!
+  
   test "show practice" do
     login_user "hatsuno", "testtest"
     visit "/practices/#{practices(:practice_1).id}"
