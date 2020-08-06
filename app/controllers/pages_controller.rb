@@ -21,16 +21,18 @@ class PagesController < ApplicationController
   def create
     @page = Page.new(page_params)
     @page.user = current_user
+    set_wip
     if @page.save
-      redirect_to @page, notice: "ページを作成しました。"
+      redirect_to @page, notice: notice_message(@page, :create)
     else
       render :new
     end
   end
 
   def update
+    set_wip
     if @page.update(page_params)
-      redirect_to @page, notice: "ページを更新しました。"
+      redirect_to @page, notice: notice_message(@page, :update)
     else
       render :edit
     end
@@ -48,5 +50,19 @@ class PagesController < ApplicationController
 
     def page_params
       params.require(:page).permit(:title, :body)
+    end
+
+    def set_wip
+      @page.wip = params[:commit] == "WIP"
+    end
+
+    def notice_message(page, action_name)
+      return "ページをWIPとして保存しました。" if page.wip?
+      case action_name
+      when :create
+        "ページを作成しました。"
+      when :update
+        "ページを更新しました。"
+      end
     end
 end

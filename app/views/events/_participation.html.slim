@@ -27,11 +27,3 @@
           - else
             = link_to event_participations_path(event_id: event), method: :post, data: { confirm: "補欠としてイベント参加申込をします。よろしいですか?" }, class: "a-button is-warning is-lg is-block" do
               | 補欠登録
-- else
-  .event-status
-    - if event.before_opening?
-      | 募集開始までお待ち下さい
-    - elsif event.closing?
-      | 募集受付は終了しました。
-    - else
-      | 本イベントは終了しました。

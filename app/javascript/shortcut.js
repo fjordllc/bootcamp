@@ -48,4 +48,9 @@ hotkeys(`${ctrl}+b`, 'all', function (event, handler) {
   if (button) {
     button.click()
   }
+
+  const allOpenButton = document.querySelector('#js-shortcut-unconfirmed-links-open')
+  if (allOpenButton) {
+    allOpenButton.click()
+  }
 })

@@ -1,8 +1,11 @@
 .thread-list-item
   .thread-list-item__inner
     .thread-list-item__author
-      = link_to question.user, class: "thread-header__author" do
-        = image_tag question.user.avatar_url, title: question.user.icon_title, class: "thread-list-item__author-icon a-user-icon is-#{question.user.role}"
+      = render "users/icon",
+        user: question.user,
+        link_class: "thread-header__author",
+        image_class: "thread-list-item__author-icon"
+
     header.thread-list-item__header
       h2.thread-list-item__title(itemprop="name")
         = link_to question, itempro: "url", class: "thread-list-item__title-link" do
@@ -26,3 +29,7 @@
             i.fas.fa-comment
           .thread-list-item-meta__comment-count-value
             = question.answers.size
+    - if question.correct_answer.present?
+      .stamp.is-circle.is-solved
+        .stamp__content.is-icon 解
+        .stamp__content.is-icon 決

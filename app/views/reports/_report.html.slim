@@ -1,14 +1,15 @@
 .thread-list-item(class="#{report.wip? ? "is-wip" : ""}")
   .thread-list-item__inner
     .thread-list-item__author
-      = link_to report.user, class: "thread-header__author" do
-        = image_tag report.user.avatar_url, title: report.user.icon_title, class: "thread-list-item__author-icon a-user-icon is-#{report.user.role}"
+      = render "users/icon", user: report.user, link_class: "thread-header__author", image_class: "thread-list-item__author-icon"
     header.thread-list-item__header
       .thread-list-item__header-title-container
         - if report.wip?
           .thread-list-item__header-icon.is-wip WIP
         h2.thread-list-item__title(itemprop="name")
-          = link_to report.title, report, itempro: "url", class: "thread-list-item__title-link"
+          - if report.user.daimyo?
+            | ★
+          = link_to report.title, report, itempro: "url", class: "thread-list-item__title-link js-unconfirmed-link"
       - if current_user == report.user
         .thread-list-item__actions
           = link_to edit_report_path(report), class: "thread-list-item__actions-link" do

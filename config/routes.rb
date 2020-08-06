@@ -103,6 +103,7 @@ Rails.application.routes.draw do
   resources :books, only: %i(index show) do
     resources :borrowings, only: %i(create destroy)
     collection do
+      resources :borrowed, only: %i(index), controller: "books/borrowed", path: :borrowed
       resources :search_results, only: %i(index), controller: "books/search_results"
     end
   end

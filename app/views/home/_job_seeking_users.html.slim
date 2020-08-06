@@ -8,8 +8,7 @@
         label.thread-list-item__show-user-detail(for="show-user-detail-#{user.id}")
           i.fas.fa-angle-down
         .thread-list-item__author
-          = link_to user do
-            = image_tag user.avatar_url, class: "thread-list-item__author-icon a-user-icon is-#{user.role}"
+          = render "users/icon", user: user, image_class: "thread-list-item__author-icon"
         header.thread-list-item__header
           h2.thread-list-item__title(itemprop="name")
             = link_to user, itempro: "url", class: "thread-list-item__title-link" do
