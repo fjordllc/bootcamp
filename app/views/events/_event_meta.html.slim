@@ -15,7 +15,10 @@
         dt.event-meta__item-label
           | 開催日時
         dd.event-meta__item-value
-          = event.period
+          span.event-meta__item-value-main
+            = event.period
+          = link_to google_calendar_url(event), class: "a-button is-sm is-primary" do
+            | Googleカレンダーに追加
       .event-meta__item
         dt.event-meta__item-label
           | 募集期間

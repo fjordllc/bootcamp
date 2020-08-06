@@ -41,4 +41,27 @@ class PagesTest < ApplicationSystemTestCase
     click_button "内容を保存"
     assert_text "ページを作成しました"
   end
+
+  test "create page as WIP" do
+    login_user "yamada", "testtest"
+    visit new_page_path
+    within(".form") do
+      fill_in("page[title]", with: "test")
+      fill_in("page[body]", with: "test")
+    end
+    click_button "WIP"
+    assert_text "ページをWIPとして保存しました。"
+  end
+
+  test "update page as WIP" do
+    login_user "yamada", "testtest"
+    page = pages(:page_1)
+    visit "/pages/#{page.id}/edit"
+    within(".form") do
+      fill_in("page[title]", with: "test")
+      fill_in("page[body]", with: "test")
+    end
+    click_button "WIP"
+    assert_text "ページをWIPとして保存しました。"
+  end
 end

@@ -9,6 +9,8 @@ class Book < ApplicationRecord
   validates :borrowed, inclusion: { in: [true, false] }
   paginates_per 20
 
+  scope :borrowed, -> { where(borrowed: true) }
+
   def self.search(word)
     Book.ransack(title_cont: word).result
   end

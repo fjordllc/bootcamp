@@ -200,6 +200,7 @@ ja:
           complete: 完了
   target:
     student_and_trainee: 現役生
+    student: 現役生
     job_seeking: 就職活動中
     mentor: メンター
     graduate: 卒業生

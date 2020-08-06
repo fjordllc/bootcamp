@@ -8,9 +8,9 @@
           .thread-list-item__header-icon.is-unread
             | 未読
         h2.thread-list-item__title(itemprop="name")
-          = link_to notification_path(notification), itempro: "url", class: "thread-list-item__title-link" do
+          = link_to notification_path(notification), itempro: "url", class: "thread-list-item__title-link js-unconfirmed-link" do
             span.thread-list-item__title-link-label
               = notification.message
     .thread-list-item-meta
-      time.thread-list-item-meta__updated-at(datetime="#{notification.updated_at.to_datetime}" pubdate="pubdate")
-        = l notification.updated_at
+      time.thread-list-item-meta__created-at(datetime="#{notification.created_at.to_datetime}" pubdate="pubdate")
+        = l notification.created_at
