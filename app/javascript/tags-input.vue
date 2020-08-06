@@ -80,28 +80,55 @@ export default {
 
   .vue-tags-input {
     max-width: 100% !important;
+    background-color: transparent !important;
   }
 
   .vue-tags-input .ti-input {
     padding: 4px 10px;
+    background-color: #f7f7f7;
+    border: solid 1px #c1c5b9;
+    border-radius: .25rem;
     transition: border-bottom 200ms ease;
+  }
+
+  .vue-tags-input .ti-autocomplete {
+    z-index: 1;
+    margin-top: -4px;
+    padding-top: 3px;
+    border: solid 1px #c1c5b9;
+    border-top: none;
+    border-radius: .25rem;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    background-color: #f7f7f7;
+    line-height: 1.5;
   }
 
   .vue-tags-input .ti-item {
     padding: 4px 6px;
   }
 
+  .vue-tags-input .ti-item:first-child {
+    border-top: solid 1px #c1c5b9;
+  }
+
+  .vue-tags-input .ti-item:not(:last-child) {
+    border-bottom: dashed 1px #eaeaea;
+  }
+
   .vue-tags-input .ti-item.ti-selected-item {
     background: #4638a0;
+    opacity: 0.8;
     color: #ffffff;
     padding: 4px 6px;
   }
 
   .vue-tags-input .ti-tag {
     position: relative;
-    background: #dfdfdf;
-    color: #000000;
+    background: #edebf6;
+    color: #4638a0;     
     padding: 6px 10px;
+    border: 1px solid #4638a0;
   }
 
   .vue-tags-input .ti-tag:after {
@@ -114,6 +141,10 @@ export default {
     top: calc(50% - 1px);
     background-color: #000;
     transform: scaleX(0);
+  }
+
+  .vue-tags-input .ti-deletion-mark {
+    background: #edebf6 !important;
   }
 
   .vue-tags-input .ti-deletion-mark:after {
