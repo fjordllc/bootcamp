@@ -6,10 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (tagsInputElm) {
     const tagsInitialValue = tagsInputElm.getAttribute('data-tags-initial-value')
     const tagsParamName = tagsInputElm.getAttribute('data-tags-param-name')
+    const taggableType = tagsInputElm.getAttribute('data-taggable-type')
     new Vue({
       render: h => h(TagsInput, { props: {
         tagsInitialValue: tagsInitialValue,
-        tagsParamName: tagsParamName
+        tagsParamName: tagsParamName,
+        taggableType: taggableType
       } })
     }).$mount('#js-tags-input')
   }
