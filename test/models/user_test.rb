@@ -88,7 +88,7 @@ class UserTest < ActiveSupport::TestCase
     3.times do |i|
       report = Report.new(
         user_id: user.id, title: "test #{i}", description: "test",
-        wip: false, emotion: "sad", reported_on: Date.today - i
+        wip: false, emotion: "sad", reported_on: Date.current - i
       )
       report.learning_times << LearningTime.new(
         started_at: "2018-01-01 00:00:00", finished_at: "2018-01-01 02:00:00"
@@ -97,7 +97,7 @@ class UserTest < ActiveSupport::TestCase
     end
     assert user.depressed?
 
-    report = user.reports.find_by(reported_on: Date.today)
+    report = user.reports.find_by(reported_on: Date.current)
     report.emotion = "smile"
     report.save!
     assert_not user.depressed?
