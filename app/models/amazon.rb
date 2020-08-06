@@ -1,13 +1,16 @@
 # frozen_string_literal: true
+ACCESS_KEY = ENV["AMAZON_ACCESS_KEY"]
+SECRET_KEY = ENV["AMAZON_SECRET_KEY"]
+PARTNER_TAG = ENV["AMAZON_PARTNER_TAG"]
 
 class Amazon
-  ACCESS_KEY = ENV["AMAZON_ACCESS_KEY"]
-  SECRET_KEY = ENV["AMAZON_SECRET_KEY"]
-  PARTNER_TAG = ENV["AMAZON_PARTNER_TAG"]
 
-  def initialize(asin)
+  def initialize(asin, access_key:, secret_key:, partner_tag:)
     @asin = asin
     @response = response(@asin)
+    @access_key = access_key
+    @secret_key = secret_key
+    @partner_tag = partner_tag
   end
 
   def image_url
