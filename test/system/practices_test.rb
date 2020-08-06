@@ -3,8 +3,15 @@
 require "application_system_test_case"
 
 class PracticesTest < ApplicationSystemTestCase
-  WebMock.allow_net_connect!
-  
+  setup do
+    json = File.read("#{Rails.root}/test/fixtures/files/mock_bodies/amazon.json")
+    stub_request(:post, "https://webservices.amazon.co.jp/paapi5/getitems")
+      .to_return(
+        status: 200,
+        body: json,
+      )
+  end
+
   test "show practice" do
     login_user "hatsuno", "testtest"
     visit "/practices/#{practices(:practice_1).id}"
@@ -51,27 +58,25 @@ class PracticesTest < ApplicationSystemTestCase
   end
 
   test "create practice" do
-    VCR.use_cassette("response") do
-      login_user "komagata", "testtest"
-      visit "/practices/new"
-      within "form[name=practice]" do
-        fill_in "practice[title]", with: "テストプラクティス"
-        fill_in "practice[description]", with: "テストの内容です"
-        within "#reference_books" do
-          click_link "追加"
-          fill_in "タイトル", with: "プロを目指す人のRuby入門"
-          fill_in "ASIN", with: "B077Q8BXHC"
-          click_link "削除"
-          click_link "追加"
-          fill_in "タイトル", with: "プロを目指す人のRuby入門"
-          fill_in "ASIN", with: "B077Q8BXHC"
-        end
-        fill_in "practice[goal]", with: "テストのゴールの内容です"
-        fill_in "practice[memo]", with: "テストのメンター向けメモの内容です"
-        click_button "登録する"
+    login_user "komagata", "testtest"
+    visit "/practices/new"
+    within "form[name=practice]" do
+      fill_in "practice[title]", with: "テストプラクティス"
+      fill_in "practice[description]", with: "テストの内容です"
+      within "#reference_books" do
+        click_link "追加"
+        fill_in "タイトル", with: "プロを目指す人のRuby入門"
+        fill_in "ASIN", with: "B077Q8BXHC"
+        click_link "削除"
+        click_link "追加"
+        fill_in "タイトル", with: "プロを目指す人のRuby入門"
+        fill_in "ASIN", with: "B077Q8BXHC"
       end
-      assert_text "プラクティスを作成しました"
+      fill_in "practice[goal]", with: "テストのゴールの内容です"
+      fill_in "practice[memo]", with: "テストのメンター向けメモの内容です"
+      click_button "登録する"
     end
+    assert_text "プラクティスを作成しました"
   end
 
   test "update practice" do
@@ -87,30 +92,26 @@ class PracticesTest < ApplicationSystemTestCase
   end
 
   test "add a reference book" do
-    VCR.use_cassette("response") do
-      login_user "komagata", "testtest"
-      practice = practices(:practice_2)
-      visit "/practices/#{practice.id}/edit"
-      within "#reference_books" do
-        click_link "追加"
-        fill_in "タイトル", with: "プロを目指す人のRuby入門", match: :prefer_exact
-        fill_in "ASIN", with: "B077Q8BXHC", match: :prefer_exact
-      end
-      click_button "更新する"
+    login_user "komagata", "testtest"
+    practice = practices(:practice_2)
+    visit "/practices/#{practice.id}/edit"
+    within "#reference_books" do
+      click_link "追加"
+      fill_in "タイトル", with: "プロを目指す人のRuby入門", match: :prefer_exact
+      fill_in "ASIN", with: "B077Q8BXHC", match: :prefer_exact
     end
+    click_button "更新する"
   end
 
   test "update a reference book" do
-    VCR.use_cassette("response") do
-      login_user "komagata", "testtest"
-      practice = practices(:practice_2)
-      visit "/practices/#{practice.id}/edit"
-      within "#reference_books" do
-        fill_in "タイトル", with: "プロを目指す人のRuby入門"
-        fill_in "ASIN", with: "B077Q8BXHC"
-      end
-      click_button "更新する"
+    login_user "komagata", "testtest"
+    practice = practices(:practice_2)
+    visit "/practices/#{practice.id}/edit"
+    within "#reference_books" do
+      fill_in "タイトル", with: "プロを目指す人のRuby入門"
+      fill_in "ASIN", with: "B077Q8BXHC"
     end
+    click_button "更新する"
   end
 
   test "category button link to courses/practices#index with category fragment" do
