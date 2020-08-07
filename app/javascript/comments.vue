@@ -27,7 +27,7 @@
               button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createComment" :disabled="!validation || buttonDisabled")
                 | コメントする
             .thread-comment-form__action(v-if="admin_login == 1 && commentType && !checkId")
-              button.a-button.is-lg.is-success.is-block(@click="screeningCommentType" :disabled="!validation || buttonDisabled")
+              button.a-button.is-lg.is-success.is-block(@click="comment_and_check" :disabled="!validation || buttonDisabled")
                 | 確認OKにする
 </template>
 <script>
@@ -170,15 +170,6 @@ export default {
     resizeTextarea: function () {
       const textarea = document.getElementById('js-new-comment')
       textarea.style.height = `${this.defaultTextareaSize}px`
-    },
-    screeningCommentType() {
-      if (this.commentableType === "Product") {
-        if (window.confirm('提出物を確認済にしますか？')) {
-          this.comment_and_check()
-        }
-      } else {
-        this.comment_and_check()
-      }
     },
     comment_and_check() {
       const check = document.getElementById("js-shortcut-check")

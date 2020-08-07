@@ -46,4 +46,12 @@ class Check::ReportsTest < ApplicationSystemTestCase
     assert_no_text "確認済"
     assert has_button? "日報を確認"
   end
+
+  test "comment and check report" do
+    login_user "machida", "testtest"
+    visit "/reports/#{reports(:report_2).id}"
+    fill_in "new_comment[description]", with: "日報でcomment+確認OKにするtest"
+    click_button "確認OKにする"
+    assert_text "確認済"
+  end
 end
