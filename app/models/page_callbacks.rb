@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PageCallbacks
   def after_create(page)
     if !page.wip?

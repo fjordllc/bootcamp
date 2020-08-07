@@ -78,5 +78,4 @@ class PagesController < ApplicationController
           text: page.body
         }]
     end
-
 end
