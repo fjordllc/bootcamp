@@ -17,10 +17,11 @@
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{page.updated_at.to_datetime}" pubdate="pubdate")
         = l page.updated_at
-    - if page.tag_list.present?
+    - if page.tags.present?
       .thread-list-item-tags
         .thread-list-item-tags__label
           | タグ
         ul.thread-list-item-tags__items
-          li.thread-list-item-tags__item
-            = page.tag_list_links("</li><li class='thread-list-item-tags__item'>")
+          - page.tags.each do |tag|
+            li.thread-list-item-tags__item
+              = link_to tag.name, pages_tag_path(tag.name)
