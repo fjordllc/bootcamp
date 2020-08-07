@@ -45,4 +45,12 @@ class Check::ProductsTest < ApplicationSystemTestCase
     assert_no_text "確認済"
     assert has_button? "提出物を確認"
   end
+
+  test "comment and check product" do
+    login_user "komagata", "testtest"
+    visit "/products/#{products(:product_1).id}"
+    fill_in "new_comment[description]", with: "提出物でcomment+確認OKにするtest"
+    click_button "確認OKにする"
+    assert_text "確認済"
+  end
 end
