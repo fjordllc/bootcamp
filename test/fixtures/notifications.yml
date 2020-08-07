@@ -101,3 +101,11 @@ notification_moved_up_event_waiting_user:
   message: 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。
   path: "/events/<%= ActiveRecord::FixtureSet.identify(:event_3) %>"
   read: false
+
+notification_create_page:
+  kind: 12
+  user: hatsuno
+  sender: komagata
+  message: "komagataさんがDocsにBootcampの作業のページを投稿しました。"
+  path: "/pages/<%= ActiveRecord::FixtureSet.identify(:page_4) %>"
+  read: false

@@ -1,0 +1,2 @@
+= render "notification_mailer_template", title: "#{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。", link_url: notification_url(@notification), link_text: "このDocsへ" do
+  = simple_format(@page.body)
