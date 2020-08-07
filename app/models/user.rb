@@ -416,12 +416,8 @@ SQL
   end
 
   def depressed?
-    three_days_emotions = latest_reports(3).pluck(:emotion)
-    !three_days_emotions.empty? && three_days_emotions.all? { |emotion| emotion == "sad" }
-  end
-
-  def latest_reports(days)
-    self.reports.order(reported_on: :desc).limit(days)
+    three_days_emotions = self.reports.order(reported_on: :desc).limit(3).pluck(:emotion)
+    !three_days_emotions.empty? && three_days_emotions.all?("sad")
   end
 
   private

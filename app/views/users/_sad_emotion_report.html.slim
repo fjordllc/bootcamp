@@ -8,4 +8,4 @@
         - users.each do |user|
           - if user.depressed?
             li.card-list__item
-              = render partial: "reports/report", collection: user.latest_reports(1), as: :report
+              = render partial: "reports/report", collection: user.reports.order(reported_on: :desc).limit(1), as: :report
