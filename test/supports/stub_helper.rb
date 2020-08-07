@@ -56,4 +56,10 @@ module StubHelper
         to_return(status: 200, body: "")
     end
   end
+
+  def stub_amazon!
+    json = File.read("#{Rails.root}/test/fixtures/files/mock_bodies/amazon.json")
+    stub_request(:post, "https://webservices.amazon.co.jp/paapi5/getitems")
+      .to_return(status: 200, body: json)
+  end
 end
