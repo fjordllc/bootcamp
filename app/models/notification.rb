@@ -173,7 +173,7 @@ class Notification < ApplicationRecord
       user: reciever,
       sender: page.sender,
       path: Rails.application.routes.url_helpers.polymorphic_path(page),
-      message: "#{page.user.login_name}がDocsに#{page.title}を投稿しました",
+      message: "#{page.user.login_name}さんがDocsに#{page.title}を投稿しました。",
       read:    false
     )
   end
