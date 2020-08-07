@@ -19,7 +19,7 @@ class Notification < ApplicationRecord
     retired:         9,
     trainee_report: 10,
     moved_up_event_waiting_user: 11,
-    pages:          12
+    create_pages:   12
   }
 
   scope :reads, -> {

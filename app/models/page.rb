@@ -10,6 +10,7 @@ class Page < ApplicationRecord
   paginates_per 20
   alias_method :sender, :user
   after_create PageCallbacks.new
+  after_update PageCallbacks.new
 
   columns_for_keyword_search :title, :body
 

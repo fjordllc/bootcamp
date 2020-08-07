@@ -1,15 +1,21 @@
 class PageCallbacks
   def after_create(page)
-    send_notification(page)
+    if !page.wip?
+      send_notification(page)
+    end
+  end
+
+  def after_update(page)
+    if page.wip == false
+      send_notification(page)
+    end
   end
 
   private
     def send_notification(page)
-      reciever_list = User.all
-      reciever_list.each do |reciever|
-        if page.sender != reciever
-          Notification.create_page(page, reciever)
-        end
+      receiver_list = User.where(retired_on: nil)
+      receiver_list.each do |reciever|
+        Notification.create_page(page, reciever)
       end
     end
 end
