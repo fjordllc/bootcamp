@@ -84,7 +84,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "#depressed?" do
-    user = users(:hatsuno)
+    user = users(:kimura)
     4.times do |i|
       report = Report.new(
         user_id: user.id, title: "test #{i}", description: "test",
