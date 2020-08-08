@@ -143,26 +143,25 @@ report_18:
   reported_on: "2020-06-01"
 
 report_19:
-  user: kensyu
+  user: hatsuno
   title: "1日目 できなかった"
   emotion: 1
   description: |-
     あまりできませんでした
   reported_on: <%= Time.current - 2.day %>
 
-report_19:
-  user: kensyu
+report_20:
+  user: hatsuno
   title: "2日目 昨日よりできなかった"
   emotion: 1
   description: |-
     昨日よりできませんでした
   reported_on: <%= Time.current - 1.day %>
 
-report_20:
-  user: kensyu
+report_21:
+  user: hatsuno
   title: "3日目 もう駄目です"
   emotion: 1
   description: |-
     全然できませんでした
   reported_on: <%= Time.current %>
->>>>>>> 8c8907f8... ３連続悲しいレポートをseedに追加
