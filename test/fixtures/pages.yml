@@ -17,3 +17,8 @@ page_4:
   title: Bootcampの作業のページ
   body: "## テスト\nテスト"
   user: komagata
+
+page_5:
+  title: WIPのテスト
+  body: WIP
+  user: komagata
