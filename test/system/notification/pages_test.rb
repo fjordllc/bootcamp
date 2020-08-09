@@ -46,4 +46,18 @@ class Notification::PagesTest < ApplicationSystemTestCase
     visit "/notifications"
     assert_no_text "komagataさんがDocsにDocsTestを投稿しました。"
   end
+
+  test "Notify Docs updated from WIP" do
+    page = pages(:page_5)
+    login_user "komagata", "testtest"
+    visit page_path(page)
+
+    click_link "内容変更"
+    click_button "内容を保存"
+
+    logout
+    login_user "machida", "testtest"
+    first(".test-bell").click
+    assert_text "komagataさんがDocsにWIPのテストを投稿しました。"
+  end
 end
