@@ -12,7 +12,7 @@
             = image_tag user.avatar_url, class: "thread-list-item__author-icon a-user-icon is-#{user.role}"
         header.thread-list-item__header
           h2.thread-list-item__title(itemprop="name")
-            = link_to user, itempro: "url", class: "thread-list-item__title-link" do
+            = link_to user, itemprop: "url", class: "thread-list-item__title-link" do
               | #{user.full_name}（#{user.login_name}）
 
         .thread-list-item-meta

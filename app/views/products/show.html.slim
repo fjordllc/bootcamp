@@ -64,7 +64,7 @@ header.page-header
           = link_to @product.practice, class: "thread-prev-next__item-link is-index" do
             | プラクティスに戻る
 
-      = link_to @product.user, itempro: "url", class: "thread__author-link" do
+      = link_to @product.user, itemprop: "url", class: "thread__author-link" do
         = image_tag @product.user.avatar_url, title: "#{@product.user.icon_title}", class: "thread__author-icon a-user-icon is-#{@product.user.role}"
 
     #js-comments(data-commentable-id="#{@product.id}" data-commentable-type="Product" data-current-user-id="#{current_user.id}")

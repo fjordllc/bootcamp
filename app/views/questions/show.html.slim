@@ -54,7 +54,7 @@ header.page-header
                     i.fas.fa-trash-alt#delete
                     | 削除
 
-      = link_to @question.user, itempro: "url", class: "thread__author-link" do
+      = link_to @question.user, itemprop: "url", class: "thread__author-link" do
         = image_tag @question.user.avatar_url, title: "#{@question.user.icon_title}", class: "thread__author-icon a-user-icon is-#{@question.user.role}"
     .thread-comments-container
 

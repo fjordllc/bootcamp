@@ -43,7 +43,7 @@
                   i.fas.fa-trash-alt#delete
                   | 削除
 
-  = link_to event.user, itempro: "url", class: "thread__author-link" do
+  = link_to event.user, itemprop: "url", class: "thread__author-link" do
     = image_tag event.user.avatar_url, title: "#{event.user.icon_title}", class: "thread__author-icon a-user-icon is-#{event.user.role}"
 
 .thread.participants

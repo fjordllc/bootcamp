@@ -4,7 +4,7 @@
       = image_tag event.user.avatar_url, class: "thread-list-item__author-icon a-user-icon is-#{event.user.role}"
     header.thread-list-item__header
       h2.thread-list-item__title(itemprop="name")
-        = link_to event, itempro: "url", class: "thread-list-item__title-link" do
+        = link_to event, itemprop: "url", class: "thread-list-item__title-link" do
           = event.title
       - if admin_login? || current_user == event.user
         .thread-list-item__actions

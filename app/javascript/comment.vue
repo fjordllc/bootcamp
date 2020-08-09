@@ -1,12 +1,12 @@
 <template lang="pug">
   .thread-comment
     .thread-comment__author
-      a.thread-comment__author-link(:href="comment.user.url" itempro="url")
+      a.thread-comment__author-link(:href="comment.user.url" itemprop="url")
         img.thread-comment__author-icon.a-user-icon(:src="comment.user.avatar_url" :title="comment.user.icon_title"  v-bind:class="userRole")
     .thread-comment__body.a-card(v-if="!editing")
       header.thread-comment__body-header
         h2.thread-comment__title
-          a.thread-comment__title-link(:href="comment.user.url" itempro="url")
+          a.thread-comment__title-link(:href="comment.user.url" itemprop="url")
             | {{ comment.user.login_name }}
         time.thread-comment__created-at(:class="{'is-active': activating}" :datetime="commentableCreatedAt" pubdate="pubdate" @click="copyCommentURLToClipboard(comment.id)")
           | {{ updatedAt }}

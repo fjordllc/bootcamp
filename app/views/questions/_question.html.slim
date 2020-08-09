@@ -5,7 +5,7 @@
         = image_tag question.user.avatar_url, title: question.user.icon_title, class: "thread-list-item__author-icon a-user-icon is-#{question.user.role}"
     header.thread-list-item__header
       h2.thread-list-item__title(itemprop="name")
-        = link_to question, itempro: "url", class: "thread-list-item__title-link" do
+        = link_to question, itemprop: "url", class: "thread-list-item__title-link" do
           = question.title
       .thread-list-item__actions
         - if current_user == question.user
