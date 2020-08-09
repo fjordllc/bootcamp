@@ -17,6 +17,7 @@ class NotificationMailer < ApplicationMailer
     @watchable = params[:watchable]
     @sender = params[:sender]
     @event = params[:event]
+    @page = params[:page]
   end
 
   # required params: comment, receiver, message
@@ -111,6 +112,14 @@ class NotificationMailer < ApplicationMailer
     @user = @receiver
     @notification = @user.notifications.find_by(path: "/events/#{@event.id}")
     subject = "[bootcamp] #{@event.title}で、補欠から参加に繰り上がりました。"
+    mail to: @user.email, subject: subject
+  end
+
+  # required params: page, receiver
+  def create_page
+    @user = @receiver
+    @notification = @user.notifications.find_by(path: "/pages/#{@page.id}")
+    subject = "[bootcamp] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
     mail to: @user.email, subject: subject
   end
 end
