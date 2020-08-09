@@ -4,12 +4,16 @@ class PageCallbacks
   def after_create(page)
     if !page.wip?
       send_notification(page)
+      page.published_at = Date.current
+      page.save
     end
   end
 
   def after_update(page)
-    if page.wip == false
+    if page.wip == false && page.published_at.nil?
       send_notification(page)
+      page.published_at = Date.current
+      page.save
     end
   end
 
