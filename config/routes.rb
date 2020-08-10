@@ -70,6 +70,11 @@ Rails.application.routes.draw do
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
 
+
+  namespace :connection do
+    resource :git_hub, only: %i(destroy), controller: "git_hub"
+  end
+
   resources :courses, only: %i(index) do
     resources :practices, only: %i(index), controller: "courses/practices" do
       resource :position, only: %i(update), controller: "courses/practices/position"
@@ -125,6 +130,7 @@ Rails.application.routes.draw do
   get "articles/tags/:tag", to: "articles#index", as: :tag
 
   get "login" => "user_sessions#new", as: :login
+  get "auth/github/callback" => "user_sessions#callback"
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
 
