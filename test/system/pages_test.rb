@@ -42,7 +42,6 @@ class PagesTest < ApplicationSystemTestCase
     assert_text "ページを作成しました"
   end
 
-<<<<<<< HEAD
   test "create page as WIP" do
     login_user "yamada", "testtest"
     visit new_page_path
@@ -64,7 +63,8 @@ class PagesTest < ApplicationSystemTestCase
     end
     click_button "WIP"
     assert_text "ページをWIPとして保存しました。"
-=======
+  end
+
   test "search pages by tag" do
     visit pages_url
     click_on "新規ページ"
@@ -85,6 +85,5 @@ class PagesTest < ApplicationSystemTestCase
     click_on "tag1", match: :first
     assert_text "tagのテスト"
     assert_no_text "Bootcampの作業のページ"
->>>>>>> 4d0b7159... Docs(page)にタグを追加
   end
 end
