@@ -30,8 +30,13 @@ header.page-header
                 | 最終更新
               time.thread-header__lower-side-value(datetime="#{@page.updated_at.to_datetime}" pubdate="pubdate")
                 = l @page.updated_at
-          - if @page.tag_list.present?
-            = raw @page.tag_list.map { |t| link_to t, pages_tag_path(t) }.join(", ")
+          - if @page.tags.present?
+            .thread-list-item-tags
+              .thread-list-item-tags__label タグ
+              ul.thread-list-item-tags__items
+                - @page.tags.each do |tag|
+                  li.thread-list-item-tags__item
+                    = link_to tag.name, pages_tag_path(tag.name)
         .thread__body
           .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @page.body
