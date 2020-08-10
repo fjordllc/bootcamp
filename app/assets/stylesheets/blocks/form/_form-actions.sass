@@ -5,6 +5,14 @@
   &.is-report
     +media-breakpoint-up(md)
       padding-bottom: 1.5rem
+  .form-actions + &
+    border-top: dashed 1px $border
+    +media-breakpoint-up(md)
+      margin-top: 1rem
+      padding-top: 1rem
+    +media-breakpoint-down(sm)
+      padding-top: 1rem
+
 
 .form-actions__items
   display: flex

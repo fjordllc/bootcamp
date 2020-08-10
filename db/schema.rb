@@ -387,6 +387,7 @@ ActiveRecord::Schema.define(version: 2020_08_09_022128) do
     t.boolean "slack_participation", default: true, null: false
     t.boolean "github_collaborator", default: false, null: false
     t.boolean "officekey_permission", default: false, null: false
+    t.string "github_id"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
