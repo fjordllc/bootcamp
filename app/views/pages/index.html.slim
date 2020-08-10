@@ -26,14 +26,15 @@ header.page-header
       .pages-items__inner
         .thread-list.a-card
           = render partial: "pages/page", collection: @pages, as: :page
-      nav.page-tags-nav
-        header.page-tags-nav__header
-          h2.page-tags-nav__title
-            | Tags
-        .page-tags-nav__body
-          ul.page-tags-nav__items
-            - @pages.all_tags.each do |tag|
-              - if tag.present?
-                li.page-tags-nav__item
-                  = link_to tag, pages_tag_path(tag.to_s), class: "page-tags-nav__item-link"
+      - if @pages.all_tags.any?
+        nav.page-tags-nav
+          header.page-tags-nav__header
+            h2.page-tags-nav__title
+              | Tags
+          .page-tags-nav__body
+            ul.page-tags-nav__items
+              - @pages.all_tags.each do |tag|
+                - if tag.present?
+                  li.page-tags-nav__item
+                    = link_to tag.name, pages_tag_path(tag.name), class: "page-tags-nav__item-link"
     = paginate @pages, position: "bottom"
