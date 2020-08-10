@@ -5,17 +5,7 @@
 .form-item
   = f.label :github_account, class: "a-label"
   .form-item__mention-input
-    = f.text_field :github_account, class: "a-text-input", placeholder: "komagata", disabled: true
-  .a-form-help
-    - if f.object.github_id?
-      = link_to connection_git_hub_path, method: :delete, class: "a-form-help-link is-muted-text" do
-        | GitHubとの連携を解除する
-    - else
-      = link_to "/auth/github", class: "a-form-help-link is-danger" do
-        | GitHubと連携する
-  .a-form-help
-    p
-      | GitHubと連携をすると、GitHubアカウントでログインができるようになります。
+    = f.text_field :github_account, class: "a-text-input", placeholder: "komagata"
 .form-item
   = f.label :twitter_account, class: "a-label"
   .form-item__mention-input
