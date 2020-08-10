@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-ACCESS_KEY = ENV["AMAZON_ACCESS_KEY"]
-SECRET_KEY = ENV["AMAZON_SECRET_KEY"]
-PARTNER_TAG = ENV["AMAZON_PARTNER_TAG"]
-
 class PracticesController < ApplicationController
   before_action :require_login
   before_action :require_admin_login, except: %i(show)
@@ -29,7 +25,7 @@ class PracticesController < ApplicationController
       icon_url: current_user.avatar_url
 
       @practice.reference_books.each do |book|
-        amazon_api = Amazon.new(book.asin, access_key: ACCESS_KEY, secret_key: SECRET_KEY, partner_tag: PARTNER_TAG)
+        amazon_api = Amazon.new(book.asin, access_key: "mock_access_key", secret_key: "mock_secret_key", partner_tag: "mock_partner_tag")
         book.image_url = amazon_api.image_url
         book.page_url = amazon_api.page_url
         book.save
@@ -52,7 +48,7 @@ class PracticesController < ApplicationController
         icon_url: current_user.avatar_url
 
       @practice.reference_books.each do |book|
-        amazon_api = Amazon.new(book.asin, access_key: ACCESS_KEY, secret_key: SECRET_KEY, partner_tag: PARTNER_TAG)
+        amazon_api = Amazon.new(book.asin, access_key: "mock_access_key", secret_key: "mock_secret_key", partner_tag: "mock_partner_tag")
         book.image_url = amazon_api.image_url
         book.page_url = amazon_api.page_url
         book.save
