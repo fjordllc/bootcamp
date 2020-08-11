@@ -1,0 +1,24 @@
+body
+  #any_login
+    background: black
+    opacity: 1
+    form
+      padding: .75rem 1rem
+      height: 3rem
+      display: flex
+      align-items: center
+    #selected_id,
+    #any_login_id_input
+      background-color: $base
+      +margin(horizontal, .5em)
+      height: 2rem
+      +padding(horizontal, .75em)
+    #selected_id
+      cursor: pointer
+    #any_login_id_input
+      width: 4em
+    input[type="submit"]
+      background-color: $danger
+      +margin(horizontal, .5em)
+      height: 2rem
+      +padding(horizontal, .75em)
