@@ -4,7 +4,7 @@ module Watchable
   extend ActiveSupport::Concern
 
   included do
-    has_many :watches, as: :watchable, dependent: :delete_all
+    has_many :watches, as: :watchable, dependent: :destroy
 
     scope :watched, -> { joins(:watches) }
   end
