@@ -2,7 +2,6 @@
 
 class API::CorrectAnswersController < API::BaseController
   include Rails.application.routes.url_helpers
-  before_action :require_login
   before_action :set_question, only: %i(create update)
 
   def create
