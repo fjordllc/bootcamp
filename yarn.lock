@@ -7884,9 +7884,9 @@ textarea-autosize@^0.4.2:
     jquery ">=1.8"
 
 textarea-markdown@^1.2.9:
-  version "1.2.9"
-  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.2.9.tgz#c5015385ed0f234d0d173c7c3cc1c93b8b9c915e"
-  integrity sha512-TyVL06PVx6a1sGwxh7BhLZ4CKKp3ZWBUzrevL0a1HKm5ox2aZHdqkO/Tko/m8VssaxDHNTbCQyp43Qs8BqeP+w==
+  version "1.2.10"
+  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.2.10.tgz#e453a5f1d5325706d544dedbe980e395c6584b43"
+  integrity sha512-Qu4AXaZ0qseT3I6XtwkDHzPj1NXyaY8huAPdZQ7E+sPuJw/9gfwFZQiJ8ejpWoJGhkd+X3pGmmy5QWFFrJpO+w==
   dependencies:
     markdown-it "^8.4.0"
     whatwg-fetch "^2.0.3"
