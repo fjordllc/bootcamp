@@ -100,17 +100,6 @@ export default {
   },
   mounted: function() {
     TextareaInitializer.initialize(`#js-comment-${this.answer.id}`)
-    $("textarea").textareaAutoSize();
-    const textareas = document.querySelectorAll(`.answer-id-${this.answer.id}`);
-    const emoji = new TextareaAutocomplteEmoji();
-    const mention = new TextareaAutocomplteMention();
-
-    mention.fetchValues(json => {
-      mention.values = json;
-      const collection = [emoji.params(), mention.params()];
-      const tribute = new Tribute({ collection: collection });
-      tribute.attach(textareas);
-    });
 
     const answerAnchor = location.hash;
     if (answerAnchor) {

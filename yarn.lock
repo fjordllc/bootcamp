@@ -4422,11 +4422,6 @@ jest-worker@^25.4.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jquery@>=1.8:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
-  integrity sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==
-
 js-base64@^2.1.8:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.2.tgz#313b6274dda718f714d00b3330bbae6e38e90209"
@@ -7876,17 +7871,10 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-textarea-autosize@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/textarea-autosize/-/textarea-autosize-0.4.2.tgz#f2fb0263b27fb4e7cf67abfe6e51f3cd712720cf"
-  integrity sha1-8vsCY7J/tOfPZ6v+blHzzXEnIM8=
-  dependencies:
-    jquery ">=1.8"
-
 textarea-markdown@^1.2.9:
-  version "1.2.10"
-  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.2.10.tgz#e453a5f1d5325706d544dedbe980e395c6584b43"
-  integrity sha512-Qu4AXaZ0qseT3I6XtwkDHzPj1NXyaY8huAPdZQ7E+sPuJw/9gfwFZQiJ8ejpWoJGhkd+X3pGmmy5QWFFrJpO+w==
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.2.11.tgz#8d4ab2c231a73c2a3578c1634651e22180129914"
+  integrity sha512-7KYDQ1OARNnSnjx4C8ZfeWNlhGXcuMtXLYPURgr67fHSfUGhK9z6DCgeRP8lpaUgnMKNlP1UyBAojwtrAF1FpQ==
   dependencies:
     markdown-it "^8.4.0"
     whatwg-fetch "^2.0.3"
@@ -7998,10 +7986,10 @@ tough-cookie@~2.5.0:
     psl "^1.1.28"
     punycode "^2.1.1"
 
-tributejs@^3.6.0:
-  version "3.7.3"
-  resolved "https://registry.yarnpkg.com/tributejs/-/tributejs-3.7.3.tgz#24f0405aff6383db5e1dc76b9dc1e503e71db9b9"
-  integrity sha512-0al6SLgRjSEvdy4/DCz44Zgq6PzXFsOoYuwyg9obuUnneu5xDfASw2xU0Ww4KKCWH1Fb25gVGQz+B6VZmaNcEQ==
+tributejs@^5.1.3:
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/tributejs/-/tributejs-5.1.3.tgz#980600fc72865be5868893078b4bfde721129eae"
+  integrity sha512-B5CXihaVzXw+1UHhNFyAwUTMDk1EfoLP5Tj1VhD9yybZ1I8DZJEv8tZ1l0RJo0t0tk9ZhR8eG5tEsaCvRigmdQ==
 
 trim-newlines@^1.0.0:
   version "1.0.0"

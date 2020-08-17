@@ -92,7 +92,6 @@ export default {
   },
   mounted: function() {
     TextareaInitializer.initialize(`#js-comment-${this.comment.id}`)
-    $('textarea').textareaAutoSize();
 
     const commentAnchor = location.hash;
     if(commentAnchor) {
