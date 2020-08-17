@@ -12,13 +12,9 @@ require('./markdown.js')
 require('./markdown-it.js')
 require('./autosize.js')
 require('../shortcut.js')
-require('../learning.js')
-require('../learning-status.js')
 require('../check.js')
 require('../check-stamp.js')
 require('../unconfirmed-links-open.js')
-require('../comments.js')
-require('../answers.js')
 require('../category-select.js')
 require('../grass.js')
 require('../fileinput.js')
@@ -33,3 +29,26 @@ require('../learningTime.js')
 require('../showHandle.js')
 require('../warning.js')
 require('../date-input-toggler')
+require('../answers.js')
+
+import comments from "../comments.vue"
+import answers from "../answers.vue"
+import memo from "../memo.vue"
+import learning from '../learning.vue'
+import learningStatus from '../learning-status.vue'
+import Vue from 'vue/dist/vue.esm';
+
+console.log(learning)
+document.addEventListener('DOMContentLoaded', () => {
+var app = new Vue({
+    el: '.page-body',
+    components: {
+        comments,
+        answers,
+        memo,
+        learning,
+        learningStatus
+    }
+
+  })
+})

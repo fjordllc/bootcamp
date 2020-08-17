@@ -23,6 +23,8 @@ header.page-header
                 = link_to edit_admin_user_path(anchor: "external-services") do
                   | 外部サービスの設定を変更してください。
             .user-data__inner
+              memo(:memo="{id:1, body: 'hoge'}" date="2020/08/17")
+              learning(:practice-id="577419917")
               header.user-data__header
                 .user-data__main
                   = render "users/profile", user: @user
