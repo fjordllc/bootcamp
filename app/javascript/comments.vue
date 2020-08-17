@@ -19,9 +19,14 @@
               | プレビュー
           .thread-comment-form__markdown-parent.js-markdown-parent
             .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('comment')}")
-              markdown-textarea(v-model="description" id="js-new-comment" class="a-text-input js-warning-form thread-comment-form__textarea js-markdown" name="new_comment[description]")
+              textarea(
+                v-model="description"
+                id="js-new-comment"
+                class="a-text-input js-warning-form thread-comment-form__textarea js-markdown"
+                name="new_comment[description]"
+                data-preview="#new-comment-preview")
             .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('preview')}")
-              .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
+              #new-comment-preview.is-long-text.thread-comment-form__preview
           .thread-comment-form__actions
             .thread-comment-form__action
               button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createComment" :disabled="!validation || buttonDisabled")
@@ -29,16 +34,12 @@
 </template>
 <script>
 import Comment from './comment.vue'
-import MarkdownTextarea from './markdown-textarea.vue'
-import MarkdownIt from 'markdown-it'
-import MarkdownItEmoji from 'markdown-it-emoji'
-import MarkdownItMention from './packs/markdown-it-mention'
+import TextareaInitializer from './textarea-initializer'
 
 export default {
   props: ['commentableId', 'commentableType', 'currentUserId'],
   components: {
-    'comment': Comment,
-    'markdown-textarea': MarkdownTextarea
+    'comment': Comment
   },
   data: () => {
     return {
@@ -90,6 +91,8 @@ export default {
       })
   },
   mounted: function() {
+    TextareaInitializer.initialize('#js-new-comment')
+
     $("textarea").textareaAutoSize();
     this.setDefaultTextareaSize()
   },
@@ -105,7 +108,7 @@ export default {
       this.tab = tab
     },
     createComment: function(event) {
-      if (this.description.length < 1) {　return null　}
+      if (this.description.length < 1) { return null }
       this.buttonDisabled = true
       let params = {
         'comment': { 'description': this.description },
@@ -166,16 +169,6 @@ export default {
     }
   },
   computed: {
-    markdownDescription: function() {
-      const md = new MarkdownIt({
-        html: true,
-        breaks: true,
-        linkify: true,
-        langPrefix: 'language-'
-      });
-      md.use(MarkdownItEmoji).use(MarkdownItMention)
-      return md.render(this.description);
-    },
     validation: function() {
       return this.description.length > 0
     }
