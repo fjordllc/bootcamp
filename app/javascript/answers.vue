@@ -27,7 +27,6 @@
               textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
                 v-model="description"
                 id="js-new-comment"
-                class="js-markdown"
                 name="answer[description]"
                 data-preview="#new-comment-preview")
             .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('preview')}")
@@ -119,8 +118,6 @@ export default {
   },
   mounted: function() {
     TextareaInitializer.initialize('#js-new-comment')
-
-    $("textarea").textareaAutoSize();
     this.setDefaultTextareaSize()
   },
   methods: {
