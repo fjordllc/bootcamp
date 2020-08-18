@@ -40,7 +40,7 @@ class API::CommentsController < API::BaseController
     end
 
     def commentable
-      params[:commentable_type].constantize.find(params[:commentable_id])
+      params[:commentable_type].constantize.find_by(id: params[:commentable_id])
     end
 
     def set_my_comment
