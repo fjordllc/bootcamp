@@ -28,7 +28,7 @@ export default {
     },
     parseTags(value) {
       if (value === '') return [];
-      
+
       return value.split(',').map(value => {
         return {
           text: value,
@@ -53,9 +53,9 @@ export default {
         return response.json()
       })
       .then(json => {
-        const suggestions = json.map(tag => { 
+        const suggestions = json.map(tag => {
           return {
-            text: tag.value 
+            text: tag.value
           }
         })
 
@@ -84,7 +84,7 @@ export default {
   }
 
   .vue-tags-input .ti-input {
-    padding: 4px 10px;
+    padding: .25rem .375rem;
     background-color: #f7f7f7;
     border: solid 1px #c1c5b9;
     border-radius: .25rem;
@@ -93,8 +93,8 @@ export default {
 
   .vue-tags-input .ti-autocomplete {
     z-index: 1;
-    margin-top: -4px;
-    padding-top: 3px;
+    margin-top: -.25rem;
+    padding-top: .1875rem;
     border: solid 1px #c1c5b9;
     border-top: none;
     border-radius: .25rem;
@@ -105,7 +105,7 @@ export default {
   }
 
   .vue-tags-input .ti-item {
-    padding: 4px 6px;
+    padding: .25rem .375rem;
   }
 
   .vue-tags-input .ti-item:first-child {
@@ -120,22 +120,32 @@ export default {
     background: #4638a0;
     opacity: 0.8;
     color: #ffffff;
-    padding: 4px 6px;
+    padding: .25rem .375rem;
   }
 
   .vue-tags-input .ti-tag {
     position: relative;
     background: #edebf6;
-    color: #4638a0;     
-    padding: 6px 10px;
+    color: #4638a0;
+    padding: .375rem .375rem .375rem .625rem;
     border: 1px solid #4638a0;
+    border-radius: .25rem;
+    font-size: .875rem;
+  }
+
+  .vue-tags-input .ti-new-tag-input {
+    font-size: 1rem;
+  }
+
+  .vue-tags-input .ti-invalid {
+    color: red;
   }
 
   .vue-tags-input .ti-tag:after {
     transition: transform .2s;
     position: absolute;
     content: '';
-    height: 2px;
+    height: .125rem;
     width: 108%;
     left: -4%;
     top: calc(50% - 1px);

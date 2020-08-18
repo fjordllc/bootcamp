@@ -22,8 +22,8 @@ header.page-header
 .page-body
   .container
     = paginate @pages, position: "top"
-    .pages-items
-      .pages-items__inner
+    .docs
+      .docs__inner
         .thread-list.a-card
           = render partial: "pages/page", collection: @pages, as: :page
       - if @pages.all_tags.any?
