@@ -49,6 +49,7 @@ gem "holiday_jp"
 gem "mentionable", "~> 0.2"
 gem "omniauth"
 gem "omniauth-github"
+gem "skylight"
 
 group :production, :staging do
   gem "newrelic_rpm"
