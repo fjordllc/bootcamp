@@ -32,7 +32,7 @@ class NotificationsTest < ApplicationSystemTestCase
     select "00", from: :report_learning_times_attributes_0_finished_at_5i
     click_button "提出"
 
-    find(".js-markdown").set("login_nameの補完テスト: @komagata\n")
+    find("#js-new-comment").set("login_nameの補完テスト: @komagata\n")
     click_button "コメントする"
     assert_text "login_nameの補完テスト: @komagata"
     assert_selector :css, "a[href='/users/komagata']"
