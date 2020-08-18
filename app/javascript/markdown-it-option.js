@@ -1,3 +1,4 @@
+import MarkdownIt from 'markdown-it'
 import Prism from 'prismjs'
 import './prism-languages'
 
@@ -17,6 +18,7 @@ export default {
         )
       } catch (_) { }
     }
-    return `<pre class="language-${lang}"><code>` + md.utils.escapeHtml(str) + "</code></pre>"
+    const m = new MarkdownIt()
+    return `<pre class="language-${lang}"><code>` + m.utils.escapeHtml(str) + '</code></pre>'
   }
 }
