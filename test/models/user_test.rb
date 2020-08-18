@@ -83,6 +83,26 @@ class UserTest < ActiveSupport::TestCase
     assert_equal [report: nil, date: Date.today, emotion: nil], user.reports_date_and_emotion(0)
   end
 
+  test "#depressed?" do
+    user = users(:kimura)
+    4.times do |i|
+      report = Report.new(
+        user_id: user.id, title: "test #{i}", description: "test",
+        wip: false, emotion: "sad", reported_on: Date.current - i.days
+      )
+      report.learning_times << LearningTime.new(
+        started_at: "2018-01-01 00:00:00", finished_at: "2018-01-01 02:00:00"
+      )
+      report.save!
+    end
+    assert user.depressed?
+
+    report = user.reports.find_by(reported_on: Date.current)
+    report.emotion = "smile"
+    report.save!
+    assert_not user.depressed?
+  end
+
   test ".order_by_counts" do
     ordered_users = User.order_by_counts("report", "desc")
     more_report_user = users(:sotugyou)

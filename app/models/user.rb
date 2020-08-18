@@ -415,6 +415,11 @@ SQL
     self.save!
   end
 
+  def depressed?
+    three_days_emotions = self.reports.order(reported_on: :desc).limit(3).pluck(:emotion)
+    !three_days_emotions.empty? && three_days_emotions.all?("sad")
+  end
+
   private
     def password_required?
       new_record? || password.present?
