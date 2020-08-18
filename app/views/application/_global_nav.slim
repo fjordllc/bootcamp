@@ -32,7 +32,7 @@ nav.global-nav
               i.fas.fa-pen
             - if current_user.admin? && Report.unchecked.not_wip.exists?
               .global-nav__item-count.a-notification-count
-                = Report.unchecked.not_wip.count
+                = unchecked_report_count
             .global-nav-links__link-label 日報
         - if staff_login?
           - if current_user.mentor?
