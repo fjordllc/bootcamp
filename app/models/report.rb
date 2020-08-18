@@ -40,7 +40,9 @@ class Report < ApplicationRecord
 
   scope :default_order, -> { order(reported_on: :desc, created_at: :desc) }
 
-  scope :unchecked, -> { where.not(id: Check.where(checkable_type: "Report").pluck(:checkable_id)) }
+  scope :unchecked, -> {
+    left_joins(:checks).where(checks: { id: nil }, wip: false)
+  }
 
   scope :wip, -> { where(wip: true) }
 
