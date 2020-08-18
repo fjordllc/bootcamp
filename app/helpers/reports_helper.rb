@@ -26,4 +26,8 @@ module ReportsHelper
       "#{hour}時間#{minute}分"
     end
   end
+
+  def unchecked_report_count
+    @_unchecked_report_count ||= Report.unchecked.not_wip.count
+  end
 end
