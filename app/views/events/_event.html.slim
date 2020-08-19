@@ -1,15 +1,19 @@
 .thread
   .thread__inner.a-card
     header.thread-header
+      .thread-header__upper-side
+        .thread-header__author
+          = link_to event.user, class: "thread-header__lower-side-author-name-link" do
+            = event.user.login_name
+        .thread-header__date
+          time.thread-header__date-value(datetime="#{event.created_at.to_datetime}" pubdate="pubdate")
+            = l event.updated_at
+
       h1.thread-header__title
         = event.title
 
       .thread-header__lower-side
-        .thread-header__lower-side-author-name
-          = link_to event.user, class: "thread-header__lower-side-author-name-link" do
-            = event.user.login_name
-        time.thread-header__lower-side-created-at(datetime="#{event.created_at.to_datetime}" pubdate="pubdate")
-          | 書いた日 : #{l event.updated_at}
+      #js-watch(data-watchable-id="#{@event.id}", data-watchable-type="Event")
 
     - unless event.opening?
       .event-status
@@ -43,8 +47,10 @@
                   i.fas.fa-trash-alt#delete
                   | 削除
 
-  = link_to event.user, itemprop: "url", class: "thread__author-link" do
-    = image_tag event.user.avatar_url, title: "#{event.user.icon_title}", class: "thread__author-icon a-user-icon is-#{event.user.role}"
+  = render "users/icon",
+    user: event.user,
+    link_class: "thread__author-link",
+    image_class: "thread__author-icon"
 
 .thread.participants
   .thread__inner.a-card
@@ -67,5 +73,6 @@
       ul.footprints__items
         - event.waitlist.each do |wait_user|
           li.footprints-item
-            = link_to wait_user do
-              = image_tag wait_user.avatar_url, title: "#{wait_user.icon_title}", class: "footprints-item__checker-icon a-user-icon is-#{wait_user.login_name} is-#{wait_user.role}", alt: wait_user.login_name
+            = render "users/icon",
+              user: wait_user,
+              image_class: "footprints-item__checker-icon"

@@ -1,7 +1,10 @@
 .thread-list-item
   .thread-list-item__inner
     .thread-list-item__author
-      = image_tag event.user.avatar_url, class: "thread-list-item__author-icon a-user-icon is-#{event.user.role}"
+      = render "users/icon",
+        user: event.user,
+        link_class: "thread-header__author",
+        image_class: "thread-list-item__author-icon"
     header.thread-list-item__header
       h2.thread-list-item__title(itemprop="name")
         = link_to event, itemprop: "url", class: "thread-list-item__title-link" do

@@ -19,8 +19,11 @@ header.page-header
     article.thread.is-page
       .thread__inner.a-card
         header.thread-header
-          h1.thread-header__title
-            = @page.title
+          h1.thread-header__title(class="#{@page.wip? ? "is-wip" : ""}")
+            - if @page.wip?
+              span.thread-header__title-icon
+                | WIP
+            | #{@page.title}
           .thread-header__lower-side
             .thread-header__lower-side-date
               .thread-header__lower-side-label
@@ -47,5 +50,7 @@ header.page-header
           = link_to :pages, class: "thread-prev-next__item-link is-index" do
             | 一覧に戻る
 
-        = link_to @page.user, itemprop: "url", class: "thread__author-link" do
-          = image_tag @page.user.avatar_url, title: @page.user.icon_title, class: "thread__author-icon a-user-icon is-#{@page.user.role}"
+        = render "users/icon",
+          user: @page.user,
+          link_class: "thread__author-link",
+          image_class: "thread__author-icon"

@@ -32,5 +32,7 @@
                   i.fas.fa-trash-alt#delete
                   | 削除
 
-  = link_to announcement.user, itemprop: "url", class: "thread__author-link" do
-    = image_tag announcement.user.avatar_url, title: "#{announcement.user.icon_title}", class: "thread__author-icon a-user-icon is-#{announcement.user.role}"
+  = render "users/icon",
+    user: announcement.user,
+    link_class: "thread__author-link",
+    image_class: "thread__author-icon"

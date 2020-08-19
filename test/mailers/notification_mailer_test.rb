@@ -157,6 +157,26 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match %r{はじめて}, email.body.to_s
   end
 
+  test "create_page" do
+    page = pages(:page_4)
+    create_page = notifications(:notification_create_page)
+    mailer = NotificationMailer.with(
+      page: page,
+      receiver: create_page.user
+    ).create_page
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ["info@fjord.jp"], email.from
+    assert_equal ["hatsuno@fjord.jp"], email.to
+    assert_equal "[bootcamp] komagataさんがDocsにBootcampの作業のページを投稿しました。", email.subject
+    assert_match %r{Bootcamp}, email.body.to_s
+  end
+
   test "watching_notification" do
     watch = watches(:report1_watch_kimura)
     watching = notifications(:notification_watching)

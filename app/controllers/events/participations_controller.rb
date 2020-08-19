@@ -5,6 +5,7 @@ class Events::ParticipationsController < ApplicationController
 
   def create
     if @event.participations.create(user: current_user, enable: @event.can_participate?)
+      create_watch
       redirect_to event_path(@event), notice: "出席登録が完了しました。"
     end
   end
@@ -19,5 +20,13 @@ class Events::ParticipationsController < ApplicationController
   private
     def set_event
       @event = Event.find(params[:event_id])
+    end
+
+    def create_watch
+      watch = Watch.new(
+        user: current_user,
+        watchable: @event
+      )
+      watch.save!
     end
 end

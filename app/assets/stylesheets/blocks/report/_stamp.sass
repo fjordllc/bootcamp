@@ -9,6 +9,16 @@
   letter-spacing: 0
   +media-breakpoint-down(sm)
     +position(absolute, left 80%, top 0)
+  &.is-circle
+    +size(3.5rem)
+    border-radius: 50%
+  &.is-solved
+    display: flex
+    flex-direction: column
+    font-size: 1.5rem
+    font-weight: 800
+    font-family: serif
+    justify-content: center
 
 .stamp__content
   display: flex

@@ -6,7 +6,7 @@ nav.global-nav
       .global-nav-current-user
         = link_to user_path(current_user), class: "global-nav-current-user__link"
           .global-nav-current-user__icon
-            = image_tag current_user.avatar_url, title: "#{current_user.icon_title}", class: "global-nav-current-user__icon a-user-icon is-#{current_user.role}"
+            = image_tag current_user.avatar_url, title: current_user.icon_title, class: "global-nav-current-user__icon a-user-icon is-#{current_user.role}"
     .global-nav-links.is-contents-links
       ul.global-nav-links__items
         li.global-nav-links__item
@@ -32,7 +32,7 @@ nav.global-nav
               i.fas.fa-pen
             - if current_user.admin? && Report.unchecked.not_wip.exists?
               .global-nav__item-count.a-notification-count
-                = Report.unchecked.not_wip.count
+                = unchecked_report_count
             .global-nav-links__link-label 日報
         - if staff_login?
           - if current_user.mentor?

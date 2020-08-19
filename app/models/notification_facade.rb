@@ -119,4 +119,14 @@ class NotificationFacade
       ).moved_up_event_waiting_user.deliver_later
     end
   end
+
+  def self.create_page(page, receiver)
+    Notification.create_page(page, receiver)
+    if receiver.mail_notification? && !receiver.retired_on?
+      NotificationMailer.with(
+        page: page,
+        receiver: receiver
+      ).create_page.deliver_later
+    end
+  end
 end
