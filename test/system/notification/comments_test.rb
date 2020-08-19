@@ -16,8 +16,9 @@ class Notification::CommentsTest < ApplicationSystemTestCase
     logout
     login_user "machida", "testtest"
 
-    first(".test-bell").click
-    assert_text "komagataさんからメンションがきました。"
+    open_notification
+    assert_equal "komagataさんからメンションがきました。",
+      notification_message
     assert_selector ".header-notification-count", text: "1"
   end
 end

@@ -21,8 +21,8 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     logout
 
     login_user "sotugyou", "testtest"
-    first(".test-bell").click
-    assert_text @notice_text
+    open_notification
+    assert_equal @notice_text, notification_message
     logout
 
     login_user "komagata", "testtest"
