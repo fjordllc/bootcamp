@@ -10,8 +10,8 @@ export default class {
     if (elements.length === 0) { return null }
 
     Array.from(elements).forEach((element) => {
-      element.innerHTML = this.render(element.innerText)
       element.style.display = 'block'
+      element.innerHTML = this.render(element.textContent)
     })
   }
 
