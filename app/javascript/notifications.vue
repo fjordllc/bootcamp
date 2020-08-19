@@ -3,7 +3,7 @@
     label.header-links__link.test-show-notifications(for="header-notification-pc")
       .header-links__link.test-bell
         .header-notification-icon
-          .header-notification-count.a-notification-count(v-show="notificationExist") {{ this.notificationCount }}
+          .header-notification-count.a-notification-count.test-notification-count(v-show="notificationExist") {{ this.notificationCount }}
           i.fas.fa-bell
           .header-links__link-label 通知
     input.a-toggle-checkbox(v-if="notificationExist" type="checkbox" id="header-notification-pc")
@@ -16,7 +16,7 @@
               .header-notifications-item__body
                 img.header-notifications-item__user-icon.a-user-icon(:src="notification.avatar_url")
                 .header-notifications-item__message
-                  p {{ notification.message }}
+                  p.test-notification-message {{ notification.message }}
                 time.header-notifications-item_created-at {{ notification.created_at }}
         footer.header-dropdown__footer
           a.header-dropdown__footer-link(href="/notifications/unread") 全ての未読通知
