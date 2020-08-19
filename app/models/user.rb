@@ -371,7 +371,9 @@ SQL
 
   def avatar_url
     if avatar.attached?
-      avatar.variant(resize: AVATAR_SIZE).service_url
+      Rails.cache.fetch("/model/user/#{id}/avatar_url") do
+        avatar.variant(resize: AVATAR_SIZE).service_url
+      end
     else
       image_url("/images/users/avatars/default.png")
     end
