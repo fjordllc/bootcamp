@@ -49,4 +49,11 @@ module UserDecorator
     [ *blanks, *reports_date_and_emotion].each_slice(DAYS_IN_WEEK)
                                          .to_a
   end
+
+  def icon_classes(*classes)
+    classes << "a-user-icon"
+    classes << "is-#{role}"
+    classes << "is-daimyo" if daimyo?
+    classes.join(" ")
+  end
 end

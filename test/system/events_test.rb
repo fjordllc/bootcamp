@@ -265,4 +265,14 @@ class EventsTest < ApplicationSystemTestCase
       assert_equal %w(kimura), participants
     end
   end
+
+  test "turn on the watch when attend an event" do
+    event = events(:event_2)
+    login_user "kimura", "testtest"
+    visit event_path(event)
+    accept_confirm do
+      click_link "参加申込"
+    end
+    assert_text "Watch中"
+  end
 end

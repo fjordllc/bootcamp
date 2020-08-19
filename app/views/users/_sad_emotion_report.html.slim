@@ -1,0 +1,11 @@
+- if users.any? { |user| user.depressed? }
+  .a-card
+    header.card-header
+      h2.card-header__title
+        | 3日連続😢のユーザー
+    .card-list
+      ul.card-list__items
+        - users.each do |user|
+          - if user.depressed?
+            li.card-list__item
+              = render partial: "reports/report", collection: user.reports.order(reported_on: :desc).limit(1), as: :report

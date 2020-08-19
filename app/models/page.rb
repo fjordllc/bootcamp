@@ -8,6 +8,11 @@ class Page < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
   paginates_per 20
+  alias_method :sender, :user
+  after_create PageCallbacks.new
+  after_update PageCallbacks.new
 
   columns_for_keyword_search :title, :body
+
+  scope :wip, -> { where(wip: true) }
 end

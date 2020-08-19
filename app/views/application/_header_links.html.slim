@@ -7,7 +7,6 @@
         = text_field_tag "word", params[:word], class: "a-xs-text-input header-search__text-input", placeholder: "検索"
         button.a-button.is-sm.is-secondary.is-icon.header-search__submit#test-search(type="submit")
           i.fas.fa-search
-
     - if current_user.admin?
       li.header-links__item
         label.header-links__link(for="header-admin-menu")
@@ -93,19 +92,4 @@
             li.header-dropdown__item
               = link_to new_retirement_path, class: "header-dropdown__item-link" do
                 | 退会手続き
-    li.header-links__item(class="#{current_user.unread_notifications_exists? ? "has-count" : "has-no-count"}")
-      - if current_user.unread_notifications_exists?
-        label.header-links__link.test-show-notifications(for="header-notification-pc")
-          .header-links__link.test-bell
-            .header-notification-icon
-              .header-notification-count.a-notification-count
-                = notification_unreads_count_badge
-              i.fas.fa-bell
-              .header-links__link-label 通知
-        = render "application/notifications", toggle_id: "header-notification-pc"
-      - else
-        = link_to notifications_path, class: "header-links__link test-show-notifications"
-          .header-links__link.test-bell
-            .header-notification-icon
-              i.fas.fa-bell
-              .header-links__link-label 通知
+    #js-notifications

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
     resources :categories, only: %i(index)
+    resources :notifications, only: %i(index)
     resources :comments, only: %i(index create update destroy)
     resources :answers, only: %i(index create update destroy) do
       resource :correct_answer, only: %i(create update)
@@ -69,6 +70,11 @@ Rails.application.routes.draw do
   resources :searchables, only: %i(index)
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
+
+
+  namespace :connection do
+    resource :git_hub, only: %i(destroy), controller: "git_hub"
+  end
 
   resources :courses, only: %i(index) do
     resources :practices, only: %i(index), controller: "courses/practices" do
@@ -125,6 +131,7 @@ Rails.application.routes.draw do
   get "articles/tags/:tag", to: "articles#index", as: :tag
 
   get "login" => "user_sessions#new", as: :login
+  get "auth/github/callback" => "user_sessions#callback"
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
 

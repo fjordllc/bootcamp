@@ -26,6 +26,12 @@ header.page-header
               time.thread-header__date-value(datetime="#{@question.updated_at.to_datetime}" pubdate="pubdate")
                 = l @question.updated_at
           h1.thread-header__title
+            - if @question.correct_answer.present?
+              span.thread-header__title-icon.is-solved.is-success
+                | 解決済
+            - else
+              span.thread-header__title-icon.is-solved.is-danger
+                | 未解決
             = @question.title
           .thread-header__lower-side
             #js-watch(data-watchable-id="#{@question.id}", data-watchable-type="Question")
@@ -54,8 +60,11 @@ header.page-header
                     i.fas.fa-trash-alt#delete
                     | 削除
 
-      = link_to @question.user, itemprop: "url", class: "thread__author-link" do
-        = image_tag @question.user.avatar_url, title: "#{@question.user.icon_title}", class: "thread__author-icon a-user-icon is-#{@question.user.role}"
+      = render "users/icon",
+        user: @question.user,
+        link_class: "thread__author-link",
+        image_class: "thread__author-icon"
+
     .thread-comments-container
 
     #js-answers(data-question-id="#{@question.id}" data-current-user-id="#{current_user.id}" data-question-user-id="#{@question.user.id}")

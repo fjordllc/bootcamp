@@ -12,5 +12,5 @@
             span.thread-list-item__title-link-label
               = notification.message
     .thread-list-item-meta
-      time.thread-list-item-meta__updated-at(datetime="#{notification.updated_at.to_datetime}" pubdate="pubdate")
-        = l notification.updated_at
+      time.thread-list-item-meta__created-at(datetime="#{notification.created_at.to_datetime}" pubdate="pubdate")
+        = l notification.created_at
