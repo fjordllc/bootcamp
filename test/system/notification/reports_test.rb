@@ -22,13 +22,15 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     logout
 
     login_user "komagata", "testtest"
-    first(".test-bell").click
-    assert_text "muryouさんがはじめての日報を書きました！"
+    open_notification
+    assert_equal "muryouさんがはじめての日報を書きました！",
+      notification_message
     logout
 
     login_user "yamada", "testtest"
-    first(".test-bell").click
-    assert_text "muryouさんがはじめての日報を書きました！"
+    open_notification
+    assert_equal "muryouさんがはじめての日報を書きました！",
+      notification_message
     logout
   end
 
@@ -76,7 +78,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     logout
 
     login_user "senpai", "testtest"
-    first(".test-bell").click
-    assert_text "kensyuさんが日報【 test title 】を書きました！"
+    open_notification
+    assert_equal "kensyuさんが日報【 test title 】を書きました！",
+      notification_message
   end
 end
