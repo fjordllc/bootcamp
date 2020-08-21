@@ -26,7 +26,7 @@
             .thread-comment-form__action
               button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createComment" :disabled="!validation || buttonDisabled")
                 | コメントする
-            .thread-comment-form__action(v-if="admin_login == 1 && commentType && !checkId")
+            .thread-comment-form__action(v-if="(currentUser.role == 'admin' || currentUser.role == 'adviser') && commentType && !checkId")
               button.a-button.is-lg.is-success.is-block(@click="comment_and_check" :disabled="!validation || buttonDisabled")
                 | 確認OKにする
 </template>
@@ -50,14 +50,10 @@ export default {
       description: '',
       tab: 'comment',
       buttonDisabled: false,
-      defaultTextareaSize: null,
-      admin_login: ''
+      defaultTextareaSize: null
     }
   },
   created: function() {
-    if (!(document.querySelector('#js-admin-login') == null)) {
-      this.admin_login = document.querySelector('#js-admin-login').innerText;
-    }
     fetch(`/api/users/${this.currentUserId}.json`, {
       method: 'GET',
       headers: {
