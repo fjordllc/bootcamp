@@ -20,11 +20,12 @@
         .thread-list-item-meta__label
           | コメント
         .thread-list-item-meta__comment-count
-          .thread-list-item-meta__comment-count-value
-            | （#{product.comments.size}）
-        = render partial: "comments/user_icons", collection: product.comments.commented_users, as: :user
+          .thread-list-item-meta__comment-count-value （#{product.comments.size}）
+        .thread-list-item__user-icons
+          .thread-list-item__user-icon
+            = render "users/icon", user: product.last_commented_user, image_class: "thread-list-item__checked-author-icon"
         time.thread-list-item-meta__updated-at(datetime="#{product.comments.last.updated_at.to_datetime}")
-          | 〜 #{l product.comments.last.updated_at, format: :date_and_time}
+          = l product.comments.last.updated_at, format: :date_and_time
     - if product.checks.any?
       .stamp.stamp-approve
         h2.stamp__content.is-title 確認済
