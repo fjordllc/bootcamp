@@ -10,6 +10,16 @@ class CommentCallbacks
       create_watch(comment)
       notify_to_watching_user(comment)
     end
+
+    if comment.commentable.class == Product
+      delete_product_cache(comment.commentable.id)
+    end
+  end
+
+  def after_destroy(comment)
+    if comment.commentable.class == Product
+      delete_product_cache(comment.commentable.id)
+    end
   end
 
   private
@@ -46,5 +56,9 @@ class CommentCallbacks
         )
         @watch.save!
       end
+    end
+
+    def delete_product_cache(product_id)
+      Rails.cache.delete "/model/product/#{product_id}/last_commented_user"
     end
 end

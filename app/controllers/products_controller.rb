@@ -7,7 +7,14 @@ class ProductsController < ApplicationController
   before_action :set_watch, only: %i(show)
 
   def index
-    @products = Product.list.page(params[:page])
+    @products = Product
+      .includes(
+        :practice,
+        { comments: { user: :avatar_attachment } },
+        { user: [{ avatar_attachment: :blob }, :company] },
+        { checks: { user: [:company] } })
+      .order(created_at: :desc)
+      .page(params[:page])
   end
 
   def show
