@@ -78,4 +78,10 @@ ORDER BY unchecked_products.created_at DESC
       status: status
     ).save
   end
+
+  def last_commented_user
+    Rails.cache.fetch "/model/product/#{id}/last_commented_user" do
+      commented_users.last
+    end
+  end
 end
