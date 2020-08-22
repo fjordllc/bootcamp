@@ -71,6 +71,7 @@ import Reaction from './reaction.vue'
 import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
 import moment from 'moment'
+import autosize from 'autosize'
 moment.locale('ja');
 
 export default {
@@ -118,6 +119,8 @@ export default {
     editComment: function() {
       this.editing = true;
       this.$nextTick(function() {
+        const textarea = document.querySelector(`#js-comment-${this.comment.id}`)
+        autosize.update(textarea)
         $(`.comment-id-${this.comment.id}`).trigger('input');
       })
     },
