@@ -1,7 +1,7 @@
 <template lang="pug">
   .thread-comment
     .thread-comment__author
-      a.thread-comment__author-link(:href="comment.user.url" itempro="url")
+      a.thread-comment__author-link(:href="comment.user.url")
         img.thread-comment__author-icon.a-user-icon(
           :src="comment.user.avatar_url"
           :title="comment.user.icon_title"
@@ -9,12 +9,11 @@
     .thread-comment__body.a-card(v-if="!editing")
       header.thread-comment__body-header
         h2.thread-comment__title
-          a.thread-comment__title-link(:href="comment.user.url" itempro="url")
+          a.thread-comment__title-link(:href="comment.user.url")
             | {{ comment.user.login_name }}
         time.thread-comment__created-at(
           :class="{'is-active': activating}"
           :datetime="commentableCreatedAt"
-          pubdate="pubdate"
           @click="copyCommentURLToClipboard(comment.id)")
           | {{ updatedAt }}
       .thread-comment__description.js-target-blank.is-long-text(
@@ -23,7 +22,7 @@
         v-bind:reactionable="comment",
         v-bind:currentUser="currentUser",
         v-bind:reactionableId="reactionableId")
-      footer.card-footer(v-if="comment.user.id == currentUser.id || currentUser.role == 'admin'")
+      footer.card-footer(v-if="comment.user.id === currentUser.id || currentUser.role === 'admin'")
         .card-footer-actions
           ul.card-footer-actions__items
             li.card-footer-actions__item
@@ -107,7 +106,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     isActive: function(tab) {
-      return this.tab == tab
+      return this.tab === tab
     },
     changeActiveTab: function(tab) {
       this.tab = tab
