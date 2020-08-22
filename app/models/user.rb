@@ -408,7 +408,7 @@ SQL
   end
 
   def daimyo?
-    company && company.name == "DAIMYO Engineer College"
+    company&.name == "DAIMYO Engineer College"
   end
 
   def register_github_account(id, account_name)
