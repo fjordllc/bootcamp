@@ -41,6 +41,12 @@ export default class {
         placeholder: '%filenameをアップロード中...',
         afterPreview: () => {
           autosize.update(textarea)
+
+          const event = new Event('input', {
+            bubbles: true,
+            cancelable: true
+          })
+          textarea.dispatchEvent(event)
         },
         plugins: [MarkdownItEmoji, MarkdownItMention, MarkdownItTaskLists],
         markdownOptions: MarkdownOption
