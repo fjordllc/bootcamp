@@ -87,7 +87,7 @@ class NotificationMailer < ApplicationMailer
     @user = @receiver
     path = "/#{@watchable.class.name.downcase.pluralize}/#{@watchable.id}"
     @notification = @user.notifications.find_by(path: path)
-    subject = "[bootcamp] #{@sender.login_name}さんの【 #{@watchable.title} 】にコメントが投稿されました。"
+    subject = "[bootcamp] #{@sender.login_name}さんの【 #{@watchable.notification_title} 】に#{@comment.user.login_name}さんがコメントしました。"
     mail to: @user.email, subject: subject
   end
 

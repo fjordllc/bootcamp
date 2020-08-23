@@ -123,13 +123,14 @@ class Notification < ApplicationRecord
   end
 
   def self.watching_notification(watchable, receiver, comment)
-    sender = watchable.user
+    watchable_user = watchable.user
+    sender = comment.user
     Notification.create!(
       kind:    8,
       user:    receiver,
       sender:  sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(watchable),
-      message: "#{sender.login_name}さんの【 #{watchable.title} 】にコメントが投稿されました。",
+      message: "#{watchable_user.login_name}さんの【 #{watchable.notification_title} 】に#{comment.user.login_name}さんがコメントしました。",
       read:    false
     )
   end
