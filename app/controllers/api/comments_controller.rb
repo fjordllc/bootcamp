@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class API::CommentsController < API::BaseController
-  before_action :require_login
   before_action :set_my_comment, only: %i(update destroy)
   before_action :set_available_emojis, only: %i(index create)
 
