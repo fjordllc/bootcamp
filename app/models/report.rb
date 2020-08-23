@@ -41,7 +41,7 @@ class Report < ApplicationRecord
   scope :default_order, -> { order(reported_on: :desc, created_at: :desc) }
 
   scope :unchecked, -> {
-    left_joins(:checks).where(checks: { id: nil }, wip: false)
+    includes(:checks).where(checks: { id: nil })
   }
 
   scope :wip, -> { where(wip: true) }

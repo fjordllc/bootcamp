@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     resources :practices, only: [] do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
+    namespace "reports" do
+      resources :recents, only: %i(index)
+    end
     resources :watches, only: %i(index create destroy)
     resources :memos, only: %i(create update destroy)
   end

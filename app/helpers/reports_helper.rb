@@ -1,13 +1,6 @@
 # frozen_string_literal: true
 
 module ReportsHelper
-  def recent_reports
-    @recent_reports ||= Report.with_avatar
-                              .preload(:checks)
-                              .order(updated_at: :desc, id: :desc)
-                              .limit(15)
-  end
-
   def practice_options(categories)
     categories.flat_map do |category|
       category.practices.map do |practice|
@@ -25,9 +18,5 @@ module ReportsHelper
     else
       "#{hour}時間#{minute}分"
     end
-  end
-
-  def unchecked_report_count
-    @_unchecked_report_count ||= Report.unchecked.not_wip.count
   end
 end
