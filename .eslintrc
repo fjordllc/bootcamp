@@ -7,6 +7,7 @@
     "window": true,
     "fetch": true,
     "FileReader": true,
+    "Event": true,
     "FormData": true
   }
 }
