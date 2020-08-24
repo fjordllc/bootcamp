@@ -1,7 +1,7 @@
 <template lang="pug">
   .thread-comment
     .thread-comment__author
-      a.thread-comment__author-link(:href="answer.user.url" itempro="url")
+      a.thread-comment__author-link(:href="answer.user.url" itemprop="url")
         img.thread-comment__author-icon.a-user-icon(:src="answer.user.avatar_url" :title="answer.user.icon_title"  v-bind:class="userRole")
     .thread-comment__body.a-card(v-if="!editing")
       .answer-badge(v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer'")
@@ -10,7 +10,7 @@
         .answer-badge__label ベストアンサー
       header.thread-comment__body-header
         h2.thread-comment__title
-          a.thread-comment__title-link(:href="answer.user.url" itempro="url")
+          a.thread-comment__title-link(:href="answer.user.url" itemprop="url")
             | {{ answer.user.login_name }}
         time.thread-comment__created-at(:class="{'is-active': activating}" :datetime="answerCreatedAt" pubdate="pubdate" @click="copyAnswerURLToClipboard(answer.id)")
           | {{ updatedAt }}
