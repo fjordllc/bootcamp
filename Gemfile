@@ -51,10 +51,6 @@ gem "omniauth"
 gem "omniauth-github"
 gem "skylight"
 
-group :production, :staging do
-  gem "newrelic_rpm"
-end
-
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 
@@ -78,6 +74,7 @@ group :development do
   gem "slim_lint"
   gem "bullet"
   gem "bundle_outdated_formatter"
+  gem "rack-mini-profiler", require: false
 end
 
 group :test do

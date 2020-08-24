@@ -22,4 +22,7 @@ class HomeController < ApplicationController
 
   def pricing
   end
+
+  def test
+  end
 end

@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   root to: "home#index"
 
+  get "test", to: "home#test", as: "test"
   get "welcome", to: "welcome#index", as: "welcome"
   get "practices", to: "welcome#practices", as: "practices"
   get "pricing", to: "welcome#pricing", as: "pricing"
@@ -27,6 +28,9 @@ Rails.application.routes.draw do
     resources :reservations, only: %i(index create destroy)
     resources :practices, only: [] do
       resource :learning, only: %i(show update), controller: "practices/learning"
+    end
+    namespace "reports" do
+      resources :recents, only: %i(index)
     end
     resources :watches, only: %i(index create destroy)
     resources :memos, only: %i(create update destroy)

@@ -24,8 +24,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     logout
 
     login_user "yamada", "testtest"
-    first(".test-bell").click
-    assert_text @notice_text
+    open_notification
+    assert_equal @notice_text, notification_message
     logout
 
     assert_equal @notified_count + @mentor_count, Notification.where(kind: @notice_kind).size

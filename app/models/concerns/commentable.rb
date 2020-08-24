@@ -5,6 +5,10 @@ module Commentable
 
   included do
     has_many :comments, as: :commentable, dependent: :delete_all
+    has_many :commented_users,
+      -> { order("comments.created_at") },
+      through: :comments,
+      source: :user
   end
 
   def title

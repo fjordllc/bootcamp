@@ -35,5 +35,5 @@ html.is-application lang="ja"
       main.page
         = yield
     - if display_recent_reports?
-      = render "reports/recent_reports"
+      #js-recent-reports
     = any_login_here if defined?(AnyLogin)

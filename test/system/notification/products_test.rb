@@ -16,7 +16,8 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     logout
     login_user "senpai", "testtest"
 
-    first(".test-bell").click
-    assert_text "kensyuさんが「#{practices(:practice_5).title}」の提出物を提出しました。"
+    open_notification
+    assert_equal "kensyuさんが「#{practices(:practice_5).title}」の提出物を提出しました。",
+      notification_message
   end
 end
