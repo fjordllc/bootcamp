@@ -2,7 +2,7 @@
   .recent-reports
     .recent-reports__items
       .recent-reports-item(v-for="report in reports")
-        a.recent-reports-item__link(:href="report.user.url")
+        a.recent-reports-item__link(:href="report.url")
           img.recent-reports-item__user-icon.a-user-icon(:src="report.user.avatar_url")
           h3.recent-reports-item__title {{ report.title }}
           time.recent-reports-item__date {{ report.reported_on }}
