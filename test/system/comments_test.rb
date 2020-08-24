@@ -48,6 +48,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test "post new comment with mention for report" do
     visit "/reports/#{reports(:report_1).id}"
+    sleep 1
     find("#js-new-comment").set("login_nameの補完テスト: @koma\n")
     click_button "コメントする"
 
@@ -57,6 +58,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test "post new comment with emoji for report" do
     visit "/reports/#{reports(:report_1).id}"
+    sleep 1
     find("#js-new-comment").set("絵文字の補完テスト: :cat\n")
     click_button "コメントする"
 

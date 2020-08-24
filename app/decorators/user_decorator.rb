@@ -56,4 +56,10 @@ module UserDecorator
     classes << "is-daimyo" if daimyo?
     classes.join(" ")
   end
+
+  def cached_completed_percentage
+    Rails.cache.fetch "/model/user/#{id}/completed_percentage" do
+      completed_percentage
+    end
+  end
 end

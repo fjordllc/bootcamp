@@ -31,12 +31,12 @@
               v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
               button.card-footer-actions__action.a-button.is-md.is-primary.is-block(@click="editAnswer")
                 i.fas.fa-pen
-                  | 内容修正
+                | 内容修正
             li.card-footer-actions__item(
               v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
               button.card-footer-actions__action.a-button.is-md.is-danger.is-block(@click="deleteAnswer")
                 i.fas.fa-trash-alt
-                  | 削除
+                | 削除
             li.card-footer-actions__item(
               v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer' && (currentUser.id === questionUser.id || currentUser.role === 'admin')")
               button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="unsolveAnswer")

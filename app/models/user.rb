@@ -371,7 +371,9 @@ SQL
 
   def avatar_url
     if avatar.attached?
-      avatar.variant(resize: AVATAR_SIZE).service_url
+      Rails.cache.fetch("/model/user/#{id}/avatar_url", expires_in: 1.day) do
+        avatar.variant(resize: AVATAR_SIZE).service_url
+      end
     else
       image_url("/images/users/avatars/default.png")
     end
@@ -406,7 +408,7 @@ SQL
   end
 
   def daimyo?
-    company && company.name == "DAIMYO Engineer College"
+    company&.name == "DAIMYO Engineer College"
   end
 
   def register_github_account(id, account_name)

@@ -10,6 +10,6 @@ module LayoutHelper
   end
 
   def display_recent_reports?
-    current_user && body_class.exclude?("no-recent-reports") && !admin_page? && body_class.exclude?("is-edit-page")
+    logged_in? && body_class.exclude?("no-recent-reports") && !admin_page? && body_class.exclude?("is-edit-page")
   end
 end

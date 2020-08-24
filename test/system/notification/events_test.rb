@@ -14,8 +14,9 @@ class Notification::EventsTest < ApplicationSystemTestCase
     logout
 
     login_user "hatsuno", "testtest"
-    first(".test-bell").click
-    assert_text "#{event.title}で、補欠から参加に繰り上がりました。"
+    open_notification
+    assert_equal "#{event.title}で、補欠から参加に繰り上がりました。",
+      notification_message
   end
 
   test "waiting user receive notification when the event capacity is increased" do
@@ -29,7 +30,8 @@ class Notification::EventsTest < ApplicationSystemTestCase
     logout
 
     login_user "hatsuno", "testtest"
-    first(".test-bell").click
-    assert_text "#{event.title}で、補欠から参加に繰り上がりました。"
+    open_notification
+    assert_equal "#{event.title}で、補欠から参加に繰り上がりました。",
+      notification_message
   end
 end

@@ -6,6 +6,6 @@
       li.page-tabs__item
         = link_to reports_unchecked_index_path, class: "page-tabs__item-link #{current_link /^reports-unchecked-index/}" do
           | 未チェック
-          -  if unchecked_report_count > 0
+          -  if Report.unchecked.not_wip.count > 0
             .page-tabs__item-count.a-notification-count
-              = unchecked_report_count
+              = Report.unchecked.not_wip.count

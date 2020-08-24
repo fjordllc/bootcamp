@@ -16,13 +16,15 @@ class Notification::PagesTest < ApplicationSystemTestCase
 
     logout
     login_user "hatsuno", "testtest"
-    first(".test-bell").click
-    assert_text "komagataさんがDocsにDocsTestを投稿しました。"
+    open_notification
+    assert_equal "komagataさんがDocsにDocsTestを投稿しました。",
+      notification_message
 
     logout
     login_user "machida", "testtest"
-    first(".test-bell").click
-    assert_text "komagataさんがDocsにDocsTestを投稿しました。"
+    open_notification
+    assert_equal "komagataさんがDocsにDocsTestを投稿しました。",
+      notification_message
 
     logout
     login_user "yameo", "testtest"
@@ -57,7 +59,8 @@ class Notification::PagesTest < ApplicationSystemTestCase
 
     logout
     login_user "machida", "testtest"
-    first(".test-bell").click
-    assert_text "komagataさんがDocsにWIPのテストを投稿しました。"
+    open_notification
+    assert_equal "komagataさんがDocsにWIPのテストを投稿しました。",
+      notification_message
   end
 end

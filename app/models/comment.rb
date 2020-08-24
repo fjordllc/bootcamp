@@ -8,6 +8,7 @@ class Comment < ApplicationRecord
   belongs_to :user, touch: true
   belongs_to :commentable, polymorphic: true
   after_create CommentCallbacks.new
+  after_destroy CommentCallbacks.new
   alias_method :sender, :user
 
   validates :description, presence: true
