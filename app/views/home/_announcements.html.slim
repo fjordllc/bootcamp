@@ -4,7 +4,7 @@
       = render "users/icon", user: announcement.user, link_class: "thread-header__author", image_class: "thread-list-item__author-icon"
     header.thread-list-item__header
       h2.thread-list-item__title(itemprop="name")
-        = link_to announcement, itempro: "url", class: "thread-list-item__title-link" do
+        = link_to announcement, itemprop: "url", class: "thread-list-item__title-link" do
           = announcement.title
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{announcement.updated_at.to_datetime}" pubdate="pubdate")
