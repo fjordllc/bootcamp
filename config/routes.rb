@@ -57,6 +57,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace "partial" do
+    resource :git_hub_grass, only: %i(show), controller: "git_hub_grass"
+  end
+
   resources :announcements
   resource :retirement, only: %i(show new create), controller: "retirement"
   resources :users, only: %i(index show new create) do
