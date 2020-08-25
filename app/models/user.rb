@@ -382,6 +382,7 @@ SQL
   def resize_avatar!
     if avatar.attached?
       avatar.variant(resize: AVATAR_SIZE).processed
+      Rails.cache.delete "/model/user/#{id}/avatar_url"
     end
   end
 
