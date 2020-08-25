@@ -23,8 +23,6 @@ module Watchable
       "「#{self[:title]}」のQ&A"
     when Event
       "「#{self[:title]}」のイベント"
-    else
-      self[:title]
     end
   end
 end
