@@ -50,6 +50,7 @@ header.page-header
           - if @user.student? && @user.graduated_on.blank?
             = render "/users/niconico_calendar", user: @user
           - if @user.completed_practices.present?
-            = render "/users/practices/completed_practices", user: @user, completed_learnings: @completed_learnings
+            - cache [@user, @completed_learnings] do
+              = render "/users/practices/completed_practices", user: @user, completed_learnings: @completed_learnings
           - if @user.books.present?
             = render "/users/borrowing_books", user: @user
