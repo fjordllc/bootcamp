@@ -24,13 +24,13 @@ class Notification::WatchesTest < ApplicationSystemTestCase
 
     login_user "kimura", "testtest"
     open_notification
-    assert_equal "komagataさんの【 #{reports(:report_1).title} 】にコメントが投稿されました。",
+    assert_equal "komagataさんの【 「#{reports(:report_1).title}」の日報 】にkomagataさんがコメントしました。",
       notification_message
 
     login_user "machida", "testtest"
     open_notification
 
-    assert_equal "komagataさんの【 #{reports(:report_1).title} 】にコメントが投稿されました。",
+    assert_equal "komagataさんの【 「#{reports(:report_1).title}」の日報 】にkomagataさんがコメントしました。",
       notification_message
   end
 
@@ -55,12 +55,12 @@ class Notification::WatchesTest < ApplicationSystemTestCase
 
     login_user "kimura", "testtest"
     open_notification
-    assert_equal "machidaさんの【 #{questions(:question_1).title} 】にコメントが投稿されました。",
+    assert_equal "machidaさんの【 「#{questions(:question_1).title}」のQ&A 】にmachidaさんがコメントしました。",
       notification_message
 
     login_user "komagata", "testtest"
     open_notification
-    assert_equal "machidaさんの【 #{questions(:question_1).title} 】にコメントが投稿されました。",
+    assert_equal "machidaさんの【 「#{questions(:question_1).title}」のQ&A 】にmachidaさんがコメントしました。",
       notification_message
   end
 end

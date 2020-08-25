@@ -12,4 +12,17 @@ module Watchable
   def watched?
     watches.present?
   end
+
+  def notification_title
+    case self
+    when Product
+      "「#{self.practice[:title]}」の提出物"
+    when Report
+      "「#{self[:title]}」の日報"
+    when Question
+      "「#{self[:title]}」のQ&A"
+    when Event
+      "「#{self[:title]}」のイベント"
+    end
+  end
 end

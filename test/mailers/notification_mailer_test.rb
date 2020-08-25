@@ -194,7 +194,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ["info@fjord.jp"], email.from
     assert_equal ["kimura@fjord.jp"], email.to
-    assert_equal "[bootcamp] komagataさんの【 作業週1日目 】にコメントが投稿されました。", email.subject
+    assert_equal "[bootcamp] komagataさんの【 「作業週1日目」の日報 】にmachidaさんがコメントしました。", email.subject
   end
 
   test "retired" do
