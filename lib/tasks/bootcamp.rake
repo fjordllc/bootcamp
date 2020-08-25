@@ -48,4 +48,21 @@ namespace :bootcamp do
       end
     end
   end
+
+  namespace :statistics do
+    desc "save learning minute statistics"
+    task :save_learning_minute_statistics do
+      practices = Practice.all
+      practices.each do |practice|
+        practice_id = practice.id
+        learning_minute_list = practice.learning_minute_per_user
+
+        if learning_minute_list.sum > 0
+          average_learning_minute = practice.average_learning_minute(learning_minute_list)
+          median_learning_minute = practice.median_learning_minute(learning_minute_list)
+          practice.save_statistic(practice_id, average_learning_minute, median_learning_minute)
+        end
+      end
+    end
+  end
 end
