@@ -4,6 +4,8 @@ $header-height: 3.125rem
   background-color: $base
   +position(relative, 2)
   border-bottom: solid 1px $background
+  +media-breakpoint-up(md)
+    +position(sticky, top 0)
 
 .header__container
   display: flex
