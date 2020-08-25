@@ -74,7 +74,7 @@ notification_watching:
   kind: 8
   user: kimura
   sender: komagata
-  message: komagataさんの【 作業週1日目 】にコメントが投稿されました。
+  message: komagataさんの【 「作業週1日目」の日報 】にmachidaさんがコメントしました。
   path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_1) %>"
   read: false
 
