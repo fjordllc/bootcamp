@@ -176,6 +176,15 @@ ActiveRecord::Schema.define(version: 2020_08_09_022128) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "learning_minute_statistics", force: :cascade do |t|
+    t.bigint "practice_id"
+    t.integer "average", null: false
+    t.integer "median", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["practice_id"], name: "index_learning_minute_statistics_on_practice_id"
+  end
+
   create_table "learning_times", force: :cascade do |t|
     t.bigint "report_id"
     t.datetime "started_at", null: false
@@ -418,6 +427,7 @@ ActiveRecord::Schema.define(version: 2020_08_09_022128) do
   add_foreign_key "borrowings", "books"
   add_foreign_key "borrowings", "users"
   add_foreign_key "images", "users"
+  add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
