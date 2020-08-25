@@ -27,7 +27,7 @@
               button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createComment" :disabled="!validation || buttonDisabled")
                 | コメントする
             .thread-comment-form__action(v-if="(currentUser.role == 'admin' || currentUser.role == 'adviser') && commentType && !checkId")
-              button.a-button.is-lg.is-success.is-block(@click="comment_and_check" :disabled="!validation || buttonDisabled")
+              button.a-button.is-lg.is-success.is-block(@click="commentAndCheck" :disabled="!validation || buttonDisabled")
                 | 確認OKにする
 </template>
 <script>
@@ -167,7 +167,7 @@ export default {
       const textarea = document.getElementById('js-new-comment')
       textarea.style.height = `${this.defaultTextareaSize}px`
     },
-    comment_and_check() {
+    commentAndCheck() {
       const check = document.getElementById("js-shortcut-check")
       this.createComment()
       check.click()
