@@ -30,14 +30,6 @@ header.page-header
 
         section.practice-content.a-card
           header.practice-content__header.card-header
-            h2.practice-content__title 困った時は…
-          .practice-content__body.is-practice
-            .is-long-text
-              p 質問・雑談ルームを利用しよう！
-              p = link_to "質問・雑談ルームとは？", "https://bootcamp.fjord.jp/pages/242"
-
-        section.practice-content.a-card
-          header.practice-content__header.card-header
             h2.practice-content__title
               = Practice.human_attribute_name :description
           .practice-content__body.is-practice
@@ -107,3 +99,8 @@ header.page-header
           - @category.practices.each do |practice|
             li.page-nav__item
               = link_to practice.title, practice_path(practice), class: "page-nav__item-link #{@practice == practice ? "is-current" : ""}"
+
+.sticky-message
+  p
+    | 困ったときは、質問・雑談ルームを利用しよう！
+    = link_to "くわしくはこちら", "https://bootcamp.fjord.jp/pages/242", target: "_blank"
