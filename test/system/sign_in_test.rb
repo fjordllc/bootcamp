@@ -6,6 +6,11 @@ class SignInTest < ApplicationSystemTestCase
   fixtures :users
 
   test "sign in with login_name" do
+    puts ENV.to_h
+    puts '*' * 20
+    puts 'RAILS_ENV', ENV['RAILS_ENV']
+    puts 'CI', ENV['CI']
+    puts 'CIRCLECI', ENV['CIRCLECI']
     visit "/login"
     within("#sign-in-form") do
       fill_in("user[login]", with: "komagata")

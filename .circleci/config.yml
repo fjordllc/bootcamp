@@ -76,8 +76,8 @@ jobs:
           name: Test
           command: |
             bundle exec rake db:schema:load
-            bundle exec rails test
-            bundle exec rails test:system
+            bundle exec rails test test/system/sign_in_test.rb:8
+
 
       - store_test_results:
           path: tmp/test-results
