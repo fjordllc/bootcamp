@@ -50,10 +50,11 @@ module StubHelper
   end
 
   def stub_github!
+    html = File.read(Rails.root.join("test", "fixtures", "files", "mock_bodies", "github.html"))
     names = %w[komagata hatsuno kensyu senpai jobseeker kananashi osnashi]
     names.each do |name|
       stub_request(:get, "https://github.com/#{name}").
-        to_return(status: 200, body: "")
+        to_return(status: 200, body: html)
     end
   end
 end
