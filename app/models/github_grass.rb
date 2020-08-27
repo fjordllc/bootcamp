@@ -17,7 +17,12 @@ class GithubGrass
   end
 
   def fetch
-    localize(extract_svg(fetch_page)).to_s
+    if Rails.env.test?
+      ""
+    else
+      localize(extract_svg(fetch_page)).to_s
+    end
+
   rescue
     ""
   end
