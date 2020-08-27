@@ -64,15 +64,16 @@
             = link_to participant do
               = image_tag participant.avatar_url, title: "#{participant.icon_title}", class: "footprints-item__checker-icon a-user-icon is-#{participant.login_name} is-#{participant.role}", alt: participant.login_name
 
-.thread.waitlist
-  .thread__inner.a-card
-    header.card-header
-      h1.card-header__title
-        | 補欠者（#{event.waitlist.count}名）
-    .card-body
-      ul.footprints__items
-        - event.waitlist.each do |wait_user|
-          li.footprints-item
-            = render "users/icon",
-              user: wait_user,
-              image_class: "footprints-item__checker-icon"
+- if event.waitlist.count > 0
+  .thread.waitlist
+    .thread__inner.a-card
+      header.card-header
+        h1.card-header__title
+          | 補欠者（#{event.waitlist.count}名）
+      .card-body
+        ul.footprints__items
+          - event.waitlist.each do |wait_user|
+            li.footprints-item
+              = render "users/icon",
+                user: wait_user,
+                image_class: "footprints-item__checker-icon"
