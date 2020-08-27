@@ -124,7 +124,7 @@ Rails.application.configure do
     authentication: :plain,
     user_name: ENV["SENDGRID_USERNAME"],
     password: ENV["SENDGRID_PASSWORD"],
-    domain: "bootcamp.fjord.jp",
+    domain: ENV["SENDGRID_DOMAIN"],
     enable_starttls_auto: true
   }
 
