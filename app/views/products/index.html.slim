@@ -15,5 +15,8 @@ header.page-header
     = paginate @products, position: "top"
     - if @products.present?
       .thread-list.a-card
-        = render partial: "products/product", collection: @products, as: :product
+        = render partial: "products/product",
+          collection: @products,
+          as: :product,
+          cached: true
     = paginate @products, position: "bottom"
