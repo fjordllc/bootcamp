@@ -9,5 +9,6 @@ ruby:
     class: user.icon_classes(image_class)
   }
 
-= link_to user, link_options do
-  = image_tag user.avatar_url, image_options
+- cache [link_options, image_options, user] do
+  = link_to user, link_options do
+    = image_tag user.avatar_url, image_options
