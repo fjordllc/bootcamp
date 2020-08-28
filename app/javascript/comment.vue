@@ -5,7 +5,7 @@
         img.thread-comment__author-icon.a-user-icon(
           :src="comment.user.avatar_url"
           :title="comment.user.icon_title"
-          v-bind:class="userRole")
+          :class="[roleClass, daimyoClass]")
     .thread-comment__body.a-card(v-if="!editing")
       header.thread-comment__body-header
         h2.thread-comment__title
@@ -87,10 +87,10 @@ export default {
       activating: false
     }
   },
-  created: function() {
+  created() {
     this.description = this.comment.description;
   },
-  mounted: function() {
+  mounted() {
     TextareaInitializer.initialize(`#js-comment-${this.comment.id}`)
 
     const commentAnchor = location.hash;
@@ -101,21 +101,21 @@ export default {
     }
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    isActive: function(tab) {
+    isActive(tab) {
       return this.tab === tab
     },
-    changeActiveTab: function(tab) {
+    changeActiveTab(tab) {
       this.tab = tab
     },
-    cancel: function() {
+    cancel() {
       this.description = this.comment.description;
       this.editing = false;
     },
-    editComment: function() {
+    editComment() {
       this.editing = true;
       this.$nextTick(function() {
         const textarea = document.querySelector(`#js-comment-${this.comment.id}`)
@@ -123,7 +123,7 @@ export default {
         $(`.comment-id-${this.comment.id}`).trigger('input');
       })
     },
-    updateComment: function() {
+    updateComment() {
       if (this.description.length < 1) { return null }
       let params = {
         'comment': { 'description': this.description }
@@ -146,7 +146,7 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
-    deleteComment: function() {
+    deleteComment() {
       if (window.confirm('削除してよろしいですか？')) {
         this.$emit('delete', this.comment.id);
       }
@@ -165,23 +165,26 @@ export default {
     }
   },
   computed: {
-    commentableCreatedAt: function() {
+    commentableCreatedAt() {
       return moment(this.comment.commentable.created_at).format()
     },
-    markdownDescription: function() {
+    markdownDescription() {
       const markdownInitializer = new MarkdownInitializer()
       return markdownInitializer.render(this.description)
     },
-    updatedAt: function() {
+    updatedAt() {
       return moment(this.comment.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
-    userRole: function(){
+    roleClass() {
       return `is-${this.comment.user.role}`
     },
-    validation: function() {
+    daimyoClass() {
+      return { 'is-daimyo': this.comment.user.daimyo }
+    },
+    validation() {
       return this.description.length > 0
     },
-    reactionableId: function() {
+    reactionableId() {
       return `Comment_${this.comment.id}`;
     }
   }
