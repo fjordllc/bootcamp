@@ -1,17 +1,18 @@
 <template lang="pug">
   .recent-reports
     .recent-reports__items
-      .recent-reports-item(v-for="report in reports")
-        a.recent-reports-item__link(:href="report.url")
-          img.recent-reports-item__user-icon.a-user-icon(:src="report.user.avatar_url")
-          h3.recent-reports-item__title {{ report.title }}
-          time.recent-reports-item__date {{ report.reported_on }}
-        .recent-reports-item__checked(v-if="report.check == 'true'")
-          i.fas.fa-check
+      recent-report(v-for="(report, index) in reports"
+        :key="report.id"
+        :report="report")
     a.recent-reports__to-index(href="/reports") もっとみる
 </template>
 <script>
+import RecentReport from './recent_report.vue'
+
 export default {
+  components: {
+    'recent-report': RecentReport
+  },
   data: () => {
     return {
       reports: []
