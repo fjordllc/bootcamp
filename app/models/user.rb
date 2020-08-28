@@ -371,9 +371,7 @@ SQL
 
   def avatar_url
     if avatar.attached?
-      Rails.cache.fetch("/model/user/#{id}/avatar_url", expires_in: 1.day) do
-        avatar.variant(resize: AVATAR_SIZE).service_url
-      end
+      avatar.variant(resize: AVATAR_SIZE).service_url
     else
       image_url("/images/users/avatars/default.png")
     end
@@ -382,7 +380,6 @@ SQL
   def resize_avatar!
     if avatar.attached?
       avatar.variant(resize: AVATAR_SIZE).processed
-      Rails.cache.delete "/model/user/#{id}/avatar_url"
     end
   end
 
