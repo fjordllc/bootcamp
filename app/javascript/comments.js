@@ -7,8 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const commentableId = comments.getAttribute('data-commentable-id')
     const commentableType = comments.getAttribute('data-commentable-type')
     const currentUserId = comments.getAttribute('data-current-user-id')
+    const currentUser = window.currentUser
     new Vue({
-      render: h => h(Comments, { props: { commentableId: commentableId, commentableType: commentableType, currentUserId: currentUserId } })
+      render: h => h(Comments, { props: { commentableId: commentableId, commentableType: commentableType, currentUserId: currentUserId, currentUser: currentUser } })
     }).$mount('#js-comments')
   }
 })
