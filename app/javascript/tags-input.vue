@@ -84,7 +84,6 @@ export default {
 </script>
 
 <style>
-
   .vue-tags-input {
     max-width: 100% !important;
     background-color: transparent !important;
