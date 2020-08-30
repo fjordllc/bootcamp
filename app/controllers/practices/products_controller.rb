@@ -10,6 +10,7 @@ class Practices::ProductsController < ApplicationController
         :checks,
         user: [:company, { avatar_attachment: :blob }])
       .where(practice: @practice)
+      .order(created_at: :desc)
       .page(params[:page])
   end
 end
