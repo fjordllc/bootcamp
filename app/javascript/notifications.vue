@@ -1,6 +1,6 @@
 <template lang="pug">
   li.header-links__item(v-bind:class="hasCountClass")
-    label.header-links__link.test-show-notifications(for="header-notification-pc")
+    label.header-links__link.test-show-notifications(for="header-notification-pc" @click="clickBell")
       .header-links__link.test-bell
         .header-notification-icon
           .header-notification-count.a-notification-count.test-notification-count(v-show="notificationExist") {{ this.notificationCount }}
@@ -48,6 +48,13 @@ export default {
       .catch(error => {
         console.warn('Failed to parsing', error)
       })
+  },
+  methods: {
+    clickBell() {
+      if (!this.notificationExist) {
+        location.href = '/notifications'
+      }
+    }
   },
   computed: {
     notificationCount() {
