@@ -52,9 +52,6 @@ Rails.application.routes.draw do
     end
     resources :books
     resources :seats
-    namespace :metric do
-      resource :check, only: %i[show], controller: "check"
-    end
   end
 
   namespace "partial" do
