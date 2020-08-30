@@ -3,6 +3,7 @@
 class Page < ApplicationRecord
   include Searchable
   include WithAvatar
+  include Taggable
 
   belongs_to :user
   validates :title, presence: true

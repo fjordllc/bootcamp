@@ -1,0 +1,51 @@
+.page-tags-nav
+  +position(right 0, top 0)
+  flex: 0 0 16rem
+  position: sticky
+  background-color: $base
+  width: 16rem
+  border: solid 1px #dadada
+  border-radius: .25rem
+  transition: opacity .2s ease-in
+  margin-left: 1.5rem
+  +media-breakpoint-down(sm)
+    display: none
+
+.page-tags-nav__header
+  border-bottom: solid 1px $border
+
+.page-tags-nav__title
+  +text-block(.875rem 1.4, 600)
+  text-align: center
+  padding: .5rem .75rem
+  color: $default-text
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+.page-tags-nav__body
+  max-height: calc(100vh - .25rem)
+  padding: .5rem .75rem
+  overflow-y: auto
+
+.page-tags-nav__items
+  display: flex
+  flex-wrap: wrap
+  +margin(horizontal, -.25rem)
+  margin-bottom: -.5rem
+
+.page-tags-nav__item
+  +padding(horizontal, .25rem)
+  padding-bottom: .5rem
+
+.page-tags-nav__item-link
+  padding: .3125rem .75rem
+  border-radius: 1.5em
+  +text-block(.75rem 1.4, $primary)
+  border: solid 1px $primary
+  +block-link
+  transition: all .1s ease-in
+  background-color: $base
+  &:hover
+    background-color: $primary
+    color: $reversal-text
