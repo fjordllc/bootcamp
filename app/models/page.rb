@@ -3,7 +3,7 @@
 class Page < ApplicationRecord
   include Searchable
   include WithAvatar
-  include TagValidatable
+  include Taggable
 
   belongs_to :user
   validates :title, presence: true
@@ -16,7 +16,4 @@ class Page < ApplicationRecord
   columns_for_keyword_search :title, :body
 
   scope :wip, -> { where(wip: true) }
-
-  acts_as_taggable
-  validate :tag_list_validation
 end
