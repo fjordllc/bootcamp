@@ -52,7 +52,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     visit "/reports/#{reports(:report_2).id}"
     fill_in "new_comment[description]", with: "日報でcomment+確認OKにするtest"
     click_button "確認OKにする"
-    assert_text "確認済"
+    assert_text wait_for_ajax("確認済")
     assert_text "日報でcomment+確認OKにするtest"
   end
 end
