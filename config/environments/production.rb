@@ -118,15 +118,8 @@ Rails.application.configure do
   config.action_mailer.asset_host = "https://bootcamp.fjord.jp"
   config.action_controller.asset_host = "https://bootcamp.fjord.jp"
 
-  ActionMailer::Base.smtp_settings = {
-    address: "smtp.sendgrid.net",
-    port: "587",
-    authentication: :plain,
-    user_name: ENV["SENDGRID_USERNAME"],
-    password: ENV["SENDGRID_PASSWORD"],
-    domain: ENV["SENDGRID_DOMAIN"],
-    enable_starttls_auto: true
-  }
+  config.action_mailer.delivery_method = :postmark
+  config.action_mailer.postmark_settings = { api_token: ENV["POSTMARK_API_TOKEN"] }
 
   config.middleware.use RequestRedirector
 end
