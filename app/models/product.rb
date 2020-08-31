@@ -14,6 +14,7 @@ class Product < ApplicationRecord
   alias_method :sender, :user
 
   after_create ProductCallbacks.new
+  after_save ProductCallbacks.new
   after_destroy ProductCallbacks.new
 
   validates :user, presence: true, uniqueness: { scope: :practice, message: "既に提出物があります。" }
