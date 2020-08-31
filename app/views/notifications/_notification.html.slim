@@ -1,7 +1,9 @@
 .thread-list-item(class="#{notification.read? ? "is-read" : "is-unread"}")
   .thread-list-item__inner
     .thread-list-item__author
-      = image_tag notification.sender.avatar_url, title: "#{notification.sender.icon_title}", class: "thread-list-item__author-icon a-user-icon is-#{notification.sender.role}"
+      = image_tag notification.sender.avatar_url,
+        title: notification.sender.icon_title,
+        class: "thread-list-item__author-icon a-user-icon is-#{notification.sender.role} #{notification.sender.daimyo? ? "is-daimyo" : ""}"
     header.thread-list-item__header
       .thread-list-item__header-title-container
         - unless notification.read?
@@ -12,5 +14,5 @@
             span.thread-list-item__title-link-label
               = notification.message
     .thread-list-item-meta
-      time.thread-list-item-meta__created-at(datetime="#{notification.created_at.to_datetime}" pubdate="pubdate")
+      time.thread-list-item-meta__created-at(datetime="#{notification.created_at.to_datetime}")
         = l notification.created_at
