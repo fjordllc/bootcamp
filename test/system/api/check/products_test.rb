@@ -52,6 +52,6 @@ class Check::ProductsTest < ApplicationSystemTestCase
     fill_in "new_comment[description]", with: "提出物でcomment+確認OKにするtest"
     click_button "確認OKにする"
     assert_text wait_for_ajax("確認済")
-    assert_text "提出物でcomment+確認OKにするtest"
+    assert_text wait_for_ajax("提出物でcomment+確認OKにするtest")
   end
 end
