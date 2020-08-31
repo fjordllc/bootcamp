@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cache
   class << self
     def unchecked_report_count
@@ -28,6 +30,16 @@ class Cache
 
     def delete_not_responded_product_count
       Rails.cache.delete "not_responded_product_count"
+    end
+
+    def not_solved_question_count
+      Rails.cache.fetch "not_solved_question_count" do
+        Question.not_solved.count
+      end
+    end
+
+    def delete_not_solved_question_count
+      Rails.cache.delete "not_solved_question_count"
     end
   end
 end
