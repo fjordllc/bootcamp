@@ -168,6 +168,24 @@ class EventsTest < ApplicationSystemTestCase
     end
   end
 
+  test "autolink location when url is included" do
+    url = "https://bootcamp.fjord.jp/"
+    login_user "komagata", "testtest"
+    visit new_event_path
+    fill_in "event_title", with: "会場にURLを含むイベント"
+    fill_in "event_description", with: "イベントの説明文"
+    fill_in "event_capacity", with: 20
+    fill_in "event_location", with: "FJORDオフィス（#{url}）"
+    fill_in "event_start_at", with: Time.current.next_day
+    fill_in "event_end_at", with: Time.current.next_day + 2.hour
+    fill_in "event_open_start_at", with: Time.current
+    fill_in "event_open_end_at", with: Time.current + 2.hour
+    click_button "作成"
+    within ".location" do
+      assert_link url, href: url
+    end
+  end
+
   test "participating is first-come-first-served" do
     login_user "komagata", "testtest"
     visit new_event_path

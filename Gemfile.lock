@@ -295,6 +295,8 @@ GEM
     rails-i18n (6.0.0)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 7)
+    rails_autolink (1.1.6)
+      rails (> 3.1)
     railties (6.0.3.2)
       actionpack (= 6.0.3.2)
       activesupport (= 6.0.3.2)
@@ -496,6 +498,7 @@ DEPENDENCIES
   rack-user_agent
   rails (~> 6.0.3.2)
   rails-i18n
+  rails_autolink
   ransack
   rollbar
   rqrcode
