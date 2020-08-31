@@ -50,6 +50,7 @@ gem "omniauth"
 gem "omniauth-github"
 gem "skylight"
 gem "postmark-rails"
+gem "rails_autolink"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
