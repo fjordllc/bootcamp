@@ -103,6 +103,7 @@ class User < ApplicationRecord
       message: "は英文字と_（アンダースコア）のみが使用できます"
     }
   validates :mail_notification, inclusion: { in: [true, false] }
+  validates :github_id, uniqueness: true, allow_nil: true
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
@@ -405,7 +406,18 @@ SQL
   end
 
   def daimyo?
-    company && company.name == "DAIMYO Engineer College"
+    company&.name == "DAIMYO Engineer College"
+  end
+
+  def register_github_account(id, account_name)
+    self.github_account = account_name
+    self.github_id = id
+    self.save!
+  end
+
+  def depressed?
+    three_days_emotions = self.reports.order(reported_on: :desc).limit(3).pluck(:emotion)
+    !three_days_emotions.empty? && three_days_emotions.all?("sad")
   end
 
   private

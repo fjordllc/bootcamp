@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby RUBY_VERSION
 
-gem "rails", "~> 6.0.3.1"
+gem "rails", "~> 6.0.3.2"
 gem "puma", "~> 4.3"
 gem "sass-rails", ">= 6"
 gem "webpacker", "~> 4.0"
@@ -24,7 +24,6 @@ gem "acts_as_list"
 gem "diffy"
 gem "slack-notifier"
 gem "kaminari"
-gem "font-awesome-sass", "~> 5.6.1"
 gem "autoprefixer-rails"
 gem "ransack"
 gem "rack-user_agent"
@@ -48,10 +47,9 @@ gem "groupdate"
 gem "chartkick"
 gem "holiday_jp"
 gem "mentionable", "~> 0.2"
-
-group :production, :staging do
-  gem "newrelic_rpm"
-end
+gem "omniauth"
+gem "omniauth-github"
+gem "skylight"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
@@ -76,6 +74,7 @@ group :development do
   gem "slim_lint"
   gem "bullet"
   gem "bundle_outdated_formatter"
+  gem "rack-mini-profiler", require: false
 end
 
 group :test do

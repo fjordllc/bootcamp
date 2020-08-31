@@ -18,7 +18,8 @@ class Notification < ApplicationRecord
     watching:        8,
     retired:         9,
     trainee_report: 10,
-    moved_up_event_waiting_user: 11
+    moved_up_event_waiting_user: 11,
+    create_pages:   12
   }
 
   scope :reads, -> {
@@ -122,13 +123,14 @@ class Notification < ApplicationRecord
   end
 
   def self.watching_notification(watchable, receiver, comment)
-    sender = watchable.user
+    watchable_user = watchable.user
+    sender = comment.user
     Notification.create!(
       kind:    8,
       user:    receiver,
       sender:  sender,
       path:    Rails.application.routes.url_helpers.polymorphic_path(watchable),
-      message: "#{sender.login_name}さんの【 #{watchable.title} 】にコメントが投稿されました。",
+      message: "#{watchable_user.login_name}さんの【 #{watchable.notification_title} 】に#{comment.user.login_name}さんがコメントしました。",
       read:    false
     )
   end
@@ -163,6 +165,17 @@ class Notification < ApplicationRecord
       path:     Rails.application.routes.url_helpers.polymorphic_path(event),
       message:  "#{event.title}で、補欠から参加に繰り上がりました。",
       read:     false
+    )
+  end
+
+  def self.create_page(page, reciever)
+    Notification.create!(
+      kind: 12,
+      user: reciever,
+      sender: page.sender,
+      path: Rails.application.routes.url_helpers.polymorphic_path(page),
+      message: "#{page.user.login_name}さんがDocsに#{page.title}を投稿しました。",
+      read:    false
     )
   end
 

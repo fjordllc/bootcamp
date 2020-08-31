@@ -22,10 +22,14 @@ class ProductCallbacks
 
       product.change_learning_status(:submitted)
     end
+
+    delete_product_cache
   end
 
   def after_destroy(product)
     delete_notification(product)
+
+    delete_product_cache if product.checked?
   end
 
   private
@@ -43,5 +47,9 @@ class ProductCallbacks
 
     def delete_notification(product)
       Notification.where(path: "/products/#{product.id}").destroy_all
+    end
+
+    def delete_product_cache
+      Rails.cache.delete "not_responded_product_count"
     end
 end

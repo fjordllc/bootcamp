@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class API::CommentsController < API::BaseController
-  before_action :require_login
   before_action :set_my_comment, only: %i(update destroy)
   before_action :set_available_emojis, only: %i(index create)
 
@@ -40,7 +39,7 @@ class API::CommentsController < API::BaseController
     end
 
     def commentable
-      params[:commentable_type].constantize.find(params[:commentable_id])
+      params[:commentable_type].constantize.find_by(id: params[:commentable_id])
     end
 
     def set_my_comment

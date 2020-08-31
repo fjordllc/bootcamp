@@ -6,6 +6,7 @@ class PagesController < ApplicationController
 
   def index
     @pages = Page.with_avatar.order(updated_at: :desc).page(params[:page])
+    @pages = @pages.tagged_with(params[:tag]) if params[:tag]
   end
 
   def show
@@ -23,6 +24,7 @@ class PagesController < ApplicationController
     @page.user = current_user
     set_wip
     if @page.save
+      notify_to_slack(@page)
       redirect_to @page, notice: notice_message(@page, :create)
     else
       render :new
@@ -49,7 +51,7 @@ class PagesController < ApplicationController
     end
 
     def page_params
-      params.require(:page).permit(:title, :body)
+      params.require(:page).permit(:title, :body, :tag_list)
     end
 
     def set_wip
@@ -64,5 +66,17 @@ class PagesController < ApplicationController
       when :update
         "ページを更新しました。"
       end
+    end
+
+    def notify_to_slack(page)
+      link = "<#{url_for(page)}|#{page.title}>"
+      SlackNotification.notify "#{link}",
+        username: "#{page.user.login_name} (#{page.user.full_name})",
+        icon_url: page.user.avatar_url,
+        channel: "#general",
+        attachments: [{
+          fallback: "page body.",
+          text: page.body
+        }]
     end
 end

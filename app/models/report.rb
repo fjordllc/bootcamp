@@ -22,7 +22,6 @@ class Report < ApplicationRecord
   has_and_belongs_to_many :practices
   belongs_to :user, touch: true
   alias_method :sender, :user
-  has_many :watches, as: :watchable, dependent: :destroy
 
   validates :title, presence: true, uniqueness: { scope: :user_id }, length: { maximum: 255 }
   validates :description, presence: true
@@ -40,7 +39,9 @@ class Report < ApplicationRecord
 
   scope :default_order, -> { order(reported_on: :desc, created_at: :desc) }
 
-  scope :unchecked, -> { where.not(id: Check.where(checkable_type: "Report").pluck(:checkable_id)) }
+  scope :unchecked, -> {
+    includes(:checks).where(checks: { id: nil })
+  }
 
   scope :wip, -> { where(wip: true) }
 

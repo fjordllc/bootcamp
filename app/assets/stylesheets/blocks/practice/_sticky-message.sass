@@ -1,0 +1,12 @@
+.sticky-message
+  +media-breakpoint-up(md)
+    background-color: $info
+    width: 100%
+    +position(fixed, left 0, bottom 0)
+    +padding(vertical, .5rem)
+    +text-block(1rem 1.4, center $reversal-text)
+    a
+      +hover-link-reversal
+      color: $reversal-text
+  +media-breakpoint-down(sm)
+    display: none

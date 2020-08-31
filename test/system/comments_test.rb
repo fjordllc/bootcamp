@@ -48,17 +48,21 @@ class CommentsTest < ApplicationSystemTestCase
 
   test "post new comment with mention for report" do
     visit "/reports/#{reports(:report_1).id}"
-    find(".js-markdown").set("login_nameの補完テスト: @koma\n")
+    sleep 1
+    find("#js-new-comment").set("login_nameの補完テスト: @koma\n")
     click_button "コメントする"
+
     assert_text "login_nameの補完テスト: @komagata"
     assert_selector :css, "a[href='/users/komagata']"
   end
 
   test "post new comment with emoji for report" do
     visit "/reports/#{reports(:report_1).id}"
-    find(".js-markdown").set("絵文字の補完テスト: :bow: :cat\n")
+    sleep 1
+    find("#js-new-comment").set("絵文字の補完テスト: :cat\n")
     click_button "コメントする"
-    assert_text "絵文字の補完テスト: 🙇 😺"
+
+    assert_text "絵文字の補完テスト: 😺"
   end
 
   test "edit the comment for report" do

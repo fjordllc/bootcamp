@@ -7,24 +7,29 @@
         - if product.wip?
           .thread-list-item__header-icon.is-wip WIP
         h2.thread-list-item__title(itemprop="name")
-          = link_to product, itempro: "url", class: "thread-list-item__title-link js-unconfirmed-link" do
+          = link_to product, itemprop: "url", class: "thread-list-item__title-link js-unconfirmed-link" do
             - if product.user.daimyo?
               | ★
             | #{product.practice.title}の提出物
     .thread-list-item-meta
       = link_to product.user.login_name, product.user, class: "thread-header__author"
-      time.thread-list-item-meta__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")
+      time.thread-list-item-meta__updated-at(datetime="#{product.updated_at.to_datetime}")
         = l product.updated_at
     - if product.comments.any?
       .thread-list-item-meta
         .thread-list-item-meta__label
           | コメント
         .thread-list-item-meta__comment-count
-          .thread-list-item-meta__comment-count-value
-            | （#{product.comments.size}）
-        = render partial: "comments/user_icons", collection: product.comments.commented_users, as: :user
-        time.thread-list-item-meta__updated-at(datetime="#{product.comments.last.updated_at.to_datetime}" pubdate="pubdate")
-          | 〜 #{l product.comments.last.updated_at, format: :date_and_time}
+          .thread-list-item-meta__comment-count-value （#{product.comments.size}）
+        .thread-list-item__user-icons
+          .thread-list-item__user-icon
+            = render partial: "users/icon",
+              collection: product.commented_users.distinct,
+              locals: { image_class: "thread-list-item__checked-author-icon" },
+              as: :user,
+              cached: true
+        time.thread-list-item-meta__updated-at(datetime="#{product.commented_users.last.updated_at.to_datetime}")
+          = l product.comments.last.updated_at, format: :date_and_time
     - if product.checks.any?
       .stamp.stamp-approve
         h2.stamp__content.is-title 確認済

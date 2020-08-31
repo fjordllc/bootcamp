@@ -36,9 +36,14 @@ header.page-header
           - if current_user.admin? || current_user.adviser?
             - if User.all.job_seeking.present?
               = render "job_seeking_users", users: User.all.job_seeking
+          - if current_user.admin? || current_user.adviser?
+            - if @reservations_for_today.present?
+              = render "reserved_seats_today", reservations: @reservations_for_today
           - unless current_user.total_learning_time.zero? || current_user.mentor?
             = render "users/grass", user: current_user
           = render "users/github_grass", user: current_user
+          - if current_user.mentor?
+            = render "users/sad_emotion_report", users: User.students_and_trainees
           - if current_user.role == :student
             = render "required_field", user: current_user
           - if current_user.books.present?

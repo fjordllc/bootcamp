@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   root to: "home#index"
 
+  get "test", to: "home#test", as: "test"
   get "welcome", to: "welcome#index", as: "welcome"
   get "practices", to: "welcome#practices", as: "practices"
   get "pricing", to: "welcome#pricing", as: "pricing"
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
     resources :categories, only: %i(index)
+    resources :notifications, only: %i(index)
     resources :comments, only: %i(index create update destroy)
     resources :answers, only: %i(index create update destroy) do
       resource :correct_answer, only: %i(create update)
@@ -27,8 +29,12 @@ Rails.application.routes.draw do
     resources :practices, only: [] do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
+    namespace "reports" do
+      resources :recents, only: %i(index)
+    end
     resources :watches, only: %i(index create destroy)
     resources :memos, only: %i(create update destroy)
+    resources :tags, only: %i(index)
   end
 
   namespace :admin do
@@ -47,9 +53,10 @@ Rails.application.routes.draw do
     end
     resources :books
     resources :seats
-    namespace :metric do
-      resource :check, only: %i[show], controller: "check"
-    end
+  end
+
+  namespace "partial" do
+    resource :git_hub_grass, only: %i(show), controller: "git_hub_grass"
   end
 
   resources :announcements
@@ -69,6 +76,11 @@ Rails.application.routes.draw do
   resources :searchables, only: %i(index)
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
+
+
+  namespace :connection do
+    resource :git_hub, only: %i(destroy), controller: "git_hub"
+  end
 
   resources :courses, only: %i(index) do
     resources :practices, only: %i(index), controller: "courses/practices" do
@@ -123,8 +135,10 @@ Rails.application.routes.draw do
     resources :participations, only: %i(create destroy), controller: "events/participations"
   end
   get "articles/tags/:tag", to: "articles#index", as: :tag
+  get "pages/tags/:tag", to: "pages#index", as: :pages_tag
 
   get "login" => "user_sessions#new", as: :login
+  get "auth/github/callback" => "user_sessions#callback"
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
 
