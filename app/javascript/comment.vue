@@ -1,21 +1,28 @@
 <template lang="pug">
   .thread-comment
     .thread-comment__author
-      a.thread-comment__author-link(:href="comment.user.url" itempro="url")
-        img.thread-comment__author-icon.a-user-icon(:src="comment.user.avatar_url" :title="comment.user.icon_title"  v-bind:class="userRole")
+      a.thread-comment__author-link(:href="comment.user.url")
+        img.thread-comment__author-icon.a-user-icon(
+          :src="comment.user.avatar_url"
+          :title="comment.user.icon_title"
+          :class="[roleClass, daimyoClass]")
     .thread-comment__body.a-card(v-if="!editing")
       header.thread-comment__body-header
         h2.thread-comment__title
-          a.thread-comment__title-link(:href="comment.user.url" itempro="url")
+          a.thread-comment__title-link(:href="comment.user.url")
             | {{ comment.user.login_name }}
-        time.thread-comment__created-at(:class="{'is-active': activating}" :datetime="commentableCreatedAt" pubdate="pubdate" @click="copyCommentURLToClipboard(comment.id)")
+        time.thread-comment__created-at(
+          :class="{'is-active': activating}"
+          :datetime="commentableCreatedAt"
+          @click="copyCommentURLToClipboard(comment.id)")
           | {{ updatedAt }}
-      .thread-comment__description.js-target-blank.is-long-text(v-html="markdownDescription")
+      .thread-comment__description.js-target-blank.is-long-text(
+        v-html="markdownDescription")
       reaction(
         v-bind:reactionable="comment",
         v-bind:currentUser="currentUser",
         v-bind:reactionableId="reactionableId")
-      footer.card-footer(v-if="comment.user.id == currentUser.id || currentUser.role == 'admin'")
+      footer.card-footer(v-if="comment.user.id === currentUser.id || currentUser.role === 'admin'")
         .card-footer-actions
           ul.card-footer-actions__items
             li.card-footer-actions__item
@@ -28,18 +35,31 @@
                 | 削除
     .thread-comment-form__form.a-card(v-show="editing")
       .thread-comment-form__tabs.js-tabs
-        .thread-comment-form__tab.js-tabs__tab(v-bind:class="{'is-active': isActive('comment')}" @click="changeActiveTab('comment')")
+        .thread-comment-form__tab.js-tabs__tab(
+          v-bind:class="{'is-active': isActive('comment')}"
+          @click="changeActiveTab('comment')")
           | コメント
-        .thread-comment-form__tab.js-tabs__tab(v-bind:class="{'is-active': isActive('preview')}" @click="changeActiveTab('preview')")
+        .thread-comment-form__tab.js-tabs__tab(
+          v-bind:class="{'is-active': isActive('preview')}"
+          @click="changeActiveTab('preview')")
           | プレビュー
       .thread-comment-form__markdown-parent.js-markdown-parent
-        .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('comment')}")
-          markdown-textarea(v-model="description" :class="classCommentId" class="a-text-input js-warning-form thread-comment-form__textarea js-comment-markdown" name="comment[description]")
-        .thread-comment-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('preview')}")
-          .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
+        .thread-comment-form__markdown.js-tabs__content(
+          v-bind:class="{'is-active': isActive('comment')}")
+          textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
+            :id="`js-comment-${this.comment.id}`"
+            :data-preview="`#js-comment-preview-${this.comment.id}`"
+            v-model="description"
+            name="comment[description]")
+        .thread-comment-form__markdown.js-tabs__content(
+          v-bind:class="{'is-active': isActive('preview')}")
+          .is-long-text.thread-comment-form__preview(
+            :id="`js-comment-preview-${this.comment.id}`")
       .thread-comment-form__actions
         .thread-comment-form__action
-          button.a-button.is-md.is-warning.is-block(@click="updateComment" v-bind:disabled="!validation")
+          button.a-button.is-md.is-warning.is-block(
+            @click="updateComment"
+            v-bind:disabled="!validation")
             | 保存する
         .thread-comment-form__action
           button.a-button.is-md.is-secondary.is-block(@click="cancel")
@@ -47,24 +67,16 @@
 </template>
 <script>
 import Reaction from './reaction.vue'
-import MarkdownTextarea from './markdown-textarea.vue'
-import MarkdownIt from 'markdown-it'
-import MarkdownItEmoji from 'markdown-it-emoji'
-import MarkdownItMention from './packs/markdown-it-mention'
-import Prism from 'prismjs/components/prism-core'
-import Tribute from 'tributejs'
-import TextareaAutocomplteEmoji from 'classes/textarea-autocomplte-emoji'
-import TextareaAutocomplteMention from 'classes/textarea-autocomplte-mention'
+import MarkdownInitializer from './markdown-initializer'
+import TextareaInitializer from './textarea-initializer'
 import moment from 'moment'
-
-import "prism_languages"
+import autosize from 'autosize'
 moment.locale('ja');
 
 export default {
   props: ['comment', 'currentUser', 'availableEmojis'],
   components: {
-    'reaction': Reaction,
-    'markdown-textarea': MarkdownTextarea
+    'reaction': Reaction
   },
   data: () => {
     return {
@@ -75,21 +87,11 @@ export default {
       activating: false
     }
   },
-  created: function() {
+  created() {
     this.description = this.comment.description;
   },
-  mounted: function() {
-    $('textarea').textareaAutoSize();
-    const textareas = document.querySelectorAll(`.comment-id-${this.comment.id}`)
-    const emoji = new TextareaAutocomplteEmoji()
-    const mention = new TextareaAutocomplteMention()
-
-    mention.fetchValues(json => {
-      mention.values = json
-      const collection = [emoji.params(), mention.params()]
-      const tribute = new Tribute({ collection: collection })
-      tribute.attach(textareas)
-    })
+  mounted() {
+    TextareaInitializer.initialize(`#js-comment-${this.comment.id}`)
 
     const commentAnchor = location.hash;
     if(commentAnchor) {
@@ -99,27 +101,29 @@ export default {
     }
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    isActive: function(tab) {
-      return this.tab == tab
+    isActive(tab) {
+      return this.tab === tab
     },
-    changeActiveTab: function(tab) {
+    changeActiveTab(tab) {
       this.tab = tab
     },
-    cancel: function() {
+    cancel() {
       this.description = this.comment.description;
       this.editing = false;
     },
-    editComment: function() {
+    editComment() {
       this.editing = true;
       this.$nextTick(function() {
+        const textarea = document.querySelector(`#js-comment-${this.comment.id}`)
+        autosize.update(textarea)
         $(`.comment-id-${this.comment.id}`).trigger('input');
       })
     },
-    updateComment: function() {
+    updateComment() {
       if (this.description.length < 1) { return null }
       let params = {
         'comment': { 'description': this.description }
@@ -142,7 +146,7 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
-    deleteComment: function() {
+    deleteComment() {
       if (window.confirm('削除してよろしいですか？')) {
         this.$emit('delete', this.comment.id);
       }
@@ -161,41 +165,26 @@ export default {
     }
   },
   computed: {
-    markdownDescription: function() {
-      const md = new MarkdownIt({
-        html: true,
-        breaks: true,
-        linkify: true,
-        langPrefix: 'language-',
-        highlight: (str, lang) => {
-          if (lang && Prism.languages[lang]) {
-            try {
-              return Prism.highlight(str, Prism.languages[lang], lang);
-            } catch (__) {}
-          }
-
-          return '';
-        }
-      });
-      md.use(MarkdownItEmoji).use(MarkdownItMention)
-      return md.render(this.description);
-    },
-    commentableCreatedAt: function() {
+    commentableCreatedAt() {
       return moment(this.comment.commentable.created_at).format()
     },
-    updatedAt: function() {
+    markdownDescription() {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.description)
+    },
+    updatedAt() {
       return moment(this.comment.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
-    userRole: function(){
+    roleClass() {
       return `is-${this.comment.user.role}`
     },
-    classCommentId: function() {
-      return `comment-id-${this.comment.id}`
+    daimyoClass() {
+      return { 'is-daimyo': this.comment.user.daimyo }
     },
-    validation: function() {
+    validation() {
       return this.description.length > 0
     },
-    reactionableId: function() {
+    reactionableId() {
       return `Comment_${this.comment.id}`;
     }
   }

@@ -11,7 +11,7 @@
             = truncate(commentable.title, length: 50)
       - else
         h2.thread-list-item__title
-          = link_to comment.user, itempro: "url", class: "thread-list-item__title-link" do
+          = link_to comment.user, itemprop: "url", class: "thread-list-item__title-link" do
             = comment.user.login_name
       time.thread-comment__created-at(datetime="#{commentable.created_at.to_datetime}" pubdate="pubdate")
         = l comment.updated_at

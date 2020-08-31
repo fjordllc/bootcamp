@@ -12,6 +12,7 @@ class HomeController < ApplicationController
                                      .order(created_at: :desc)
         @completed_learnings = current_user.learnings.where(status: 3).order(updated_at: :desc)
         @my_seat_today = current_user.reservations.find_by(date: Date.current)&.seat&.name
+        @reservations_for_today = Reservation.where(date: Date.current).to_a
         render aciton: :index
       end
     else
@@ -20,5 +21,8 @@ class HomeController < ApplicationController
   end
 
   def pricing
+  end
+
+  def test
   end
 end

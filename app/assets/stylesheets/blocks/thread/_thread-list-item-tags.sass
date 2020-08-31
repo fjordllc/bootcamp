@@ -1,0 +1,31 @@
+.thread-list-item-tags
+  font-size: .75rem
+  margin-top: .5em
+  display: flex
+
+.thread-list-item-tags__label
+  display: block
+  font-weight: 600
+  color: $muted-text
+  margin-right: .25rem
+  white-space: nowrap
+  &::after
+    content: ":"
+    margin-left: .25rem
+
+.thread-list-item-tags__items
+  display: flex
+  flex-wrap: wrap
+  +margin(horizontal, -.25em)
+  margin-bottom: -.5em
+
+.thread-list-item-tags__item
+  +padding(horizontal, .25em)
+  margin-bottom: .5em
+
+.thread-list-item-tags__item-link
+  +hover-link
+  color: $muted-text
+  transition: all .2s ease-out
+  &:hover
+    color: $primary

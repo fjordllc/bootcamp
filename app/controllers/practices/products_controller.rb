@@ -1,22 +1,16 @@
 # frozen_string_literal: true
 
 class Practices::ProductsController < ApplicationController
-  before_action :set_practice
-  before_action :set_products
-
   def index
+    @practice = Practice.find(params[:practice_id])
+    @products = Product
+      .includes(
+        :practice,
+        :comments,
+        :checks,
+        user: [:company, { avatar_attachment: :blob }])
+      .where(practice: @practice)
+      .order(created_at: :desc)
+      .page(params[:page])
   end
-
-  private
-    def set_practice
-      @practice = Practice.find(params[:practice_id])
-    end
-
-    def set_products
-      @products = practice.products.list.page(params[:page])
-    end
-
-    def practice
-      @practice ||= Practice.find(params[:practice_id])
-    end
 end

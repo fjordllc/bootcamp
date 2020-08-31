@@ -1,4 +1,4 @@
-= form_with model: page, local: true, class: "form" do |f|
+= form_with model: page, local: true, class: "form", html: { name: "page" } do |f|
   = render "errors", object: page
   .form-item
     .row
@@ -14,6 +14,11 @@
         .a-label
           | プレビュー
         .js-preview.is-long-text.markdown-form__preview
+  .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label :tag_list, "タグを入力してください", class: "a-label"
+        = page.tags_input_tag
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main

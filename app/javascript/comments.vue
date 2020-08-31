@@ -10,21 +10,36 @@
         @delete="deleteComment")
       .thread-comment-form
         .thread-comment__author
-          img.thread-comment__author-icon.a-user-icon(:src="currentUser.avatar_url" :title="currentUser.icon_title")
+          img.thread-comment__author-icon.a-user-icon(
+            :src="currentUser.avatar_url"
+            :class="[roleClass, daimyoClass]"
+            :title="currentUser.icon_title")
         .thread-comment-form__form.a-card
           .thread-comment-form__tabs.js-tabs
-            .thread-comment-form__tab.js-tabs__tab(:class="{'is-active': isActive('comment')}" @click="changeActiveTab('comment')")
+            .thread-comment-form__tab.js-tabs__tab(
+              :class="{'is-active': isActive('comment')}"
+              @click="changeActiveTab('comment')")
               | コメント
-            .thread-comment-form__tab.js-tabs__tab(:class="{'is-active': isActive('preview')}" @click="changeActiveTab('preview')")
+            .thread-comment-form__tab.js-tabs__tab(
+              :class="{'is-active': isActive('preview')}"
+              @click="changeActiveTab('preview')")
               | プレビュー
           .thread-comment-form__markdown-parent.js-markdown-parent
-            .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('comment')}")
-              markdown-textarea(v-model="description" id="js-new-comment" class="a-text-input js-warning-form thread-comment-form__textarea js-markdown" name="new_comment[description]")
-            .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('preview')}")
-              .js-preview.is-long-text.thread-comment-form__preview(v-html="markdownDescription")
+            .thread-comment-form__markdown.js-tabs__content(
+              :class="{'is-active': isActive('comment')}")
+              textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
+                v-model="description"
+                id="js-new-comment"
+                name="new_comment[description]"
+                data-preview="#new-comment-preview")
+            .thread-comment-form__markdown.js-tabs__content(
+              :class="{'is-active': isActive('preview')}")
+              #new-comment-preview.is-long-text.thread-comment-form__preview
           .thread-comment-form__actions
             .thread-comment-form__action
-              button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createComment" :disabled="!validation || buttonDisabled")
+              button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(
+                @click="createComment"
+                :disabled="!validation || buttonDisabled")
                 | コメントする
             .thread-comment-form__action(v-if="(currentUser.role == 'admin' || currentUser.role == 'adviser') && commentType && !checkId")
               button.a-button.is-lg.is-success.is-block(@click="commentAndCheck" :disabled="!validation || buttonDisabled")
@@ -32,20 +47,15 @@
 </template>
 <script>
 import Comment from './comment.vue'
-import MarkdownTextarea from './markdown-textarea.vue'
-import MarkdownIt from 'markdown-it'
-import MarkdownItEmoji from 'markdown-it-emoji'
-import MarkdownItMention from './packs/markdown-it-mention'
+import TextareaInitializer from './textarea-initializer'
 
 export default {
-  props: ['commentableId', 'commentableType', 'currentUserId'],
+  props: ['commentableId', 'commentableType', 'currentUserId', 'currentUser'],
   components: {
-    'comment': Comment,
-    'markdown-textarea': MarkdownTextarea
+    'comment': Comment
   },
   data: () => {
     return {
-      currentUser: {},
       comments: [],
       description: '',
       tab: 'comment',
@@ -53,27 +63,7 @@ export default {
       defaultTextareaSize: null
     }
   },
-  created: function() {
-    fetch(`/api/users/${this.currentUserId}.json`, {
-      method: 'GET',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-      },
-      credentials: 'same-origin',
-      redirect: 'manual'
-    })
-      .then(response => {
-        return response.json()
-      })
-      .then(json => {
-        for(var key in json){
-          this.$set(this.currentUser, key, json[key])
-        }
-      })
-      .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
-
+  created() {
     fetch(`/api/comments.json?commentable_type=${this.commentableType}&commentable_id=${this.commentableId}`, {
       method: 'GET',
       headers: {
@@ -92,8 +82,8 @@ export default {
         console.warn('Failed to parsing', error)
       })
   },
-  mounted: function() {
-    $("textarea").textareaAutoSize();
+  mounted() {
+    TextareaInitializer.initialize('#js-new-comment')
     this.setDefaultTextareaSize()
   },
   methods: {
@@ -101,14 +91,14 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    isActive: function(tab) {
-      return this.tab == tab
+    isActive(tab) {
+      return this.tab === tab
     },
-    changeActiveTab: function(tab) {
+    changeActiveTab(tab) {
       this.tab = tab
     },
-    createComment: function(event) {
-      if (this.description.length < 1) {　return null　}
+    createComment(event) {
+      if (this.description.length < 1) { return null }
       this.buttonDisabled = true
       let params = {
         'comment': { 'description': this.description },
@@ -140,7 +130,7 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
-    deleteComment: function(id) {
+    deleteComment(id) {
       fetch(`/api/comments/${id}.json`, {
         method: 'DELETE',
         headers: {
@@ -152,18 +142,18 @@ export default {
       })
         .then(response => {
           this.comments.forEach((comment, i) => {
-            if (comment.id == id) { this.comments.splice(i, 1); }
+            if (comment.id === id) { this.comments.splice(i, 1); }
           });
         })
         .catch(error => {
           console.warn('Failed to parsing', error)
         })
     },
-    setDefaultTextareaSize: function () {
+    setDefaultTextareaSize() {
       const textarea = document.getElementById('js-new-comment')
       this.defaultTextareaSize = textarea.scrollHeight
     },
-    resizeTextarea: function () {
+    resizeTextarea() {
       const textarea = document.getElementById('js-new-comment')
       textarea.style.height = `${this.defaultTextareaSize}px`
     },
@@ -174,17 +164,7 @@ export default {
     }
   },
   computed: {
-    markdownDescription: function() {
-      const md = new MarkdownIt({
-        html: true,
-        breaks: true,
-        linkify: true,
-        langPrefix: 'language-'
-      });
-      md.use(MarkdownItEmoji).use(MarkdownItMention)
-      return md.render(this.description);
-    },
-    validation: function() {
+    validation() {
       return this.description.length > 0
     },
     commentType() {
@@ -194,6 +174,12 @@ export default {
     },
     checkId() {
       return this.$store.getters.checkId
+    },
+    roleClass() {
+      return `is-${this.currentUser.role}`
+    },
+    daimyoClass() {
+      return { 'is-daimyo': this.currentUser.daimyo }
     }
   }
 }

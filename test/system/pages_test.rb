@@ -64,4 +64,26 @@ class PagesTest < ApplicationSystemTestCase
     click_button "WIP"
     assert_text "ページをWIPとして保存しました。"
   end
+
+  test "search pages by tag" do
+    visit pages_url
+    click_on "新規ページ"
+    within "form[name=page]" do
+      fill_in "page[title]", with: "tagのテスト"
+      fill_in "page[body]", with: "tagをつけます。空白とカンマはタグには使えません。"
+      tagInput = find(".ti-new-tag-input ")
+      tagInput.set "tag1"
+      tagInput.native.send_keys :return
+      tagInput.set "tag2"
+      tagInput.native.send_keys :return
+      click_on "内容を保存"
+    end
+    click_on "Docs", match: :first
+    assert_text "tag1"
+    assert_text "tag2"
+
+    click_on "tag1", match: :first
+    assert_text "tagのテスト"
+    assert_no_text "Bootcampの作業のページ"
+  end
 end
