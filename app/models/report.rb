@@ -31,6 +31,7 @@ class Report < ApplicationRecord
 
   after_create ReportCallbacks.new
   after_update ReportCallbacks.new
+  after_save ReportCallbacks.new
   after_destroy ReportCallbacks.new
 
   columns_for_keyword_search :title, :description

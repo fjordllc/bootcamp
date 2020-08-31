@@ -60,6 +60,6 @@ class CommentCallbacks
 
     def delete_product_cache(product_id)
       Rails.cache.delete "/model/product/#{product_id}/last_commented_user"
-      Rails.cache.delete "not_responded_product_count"
+      Cache.delete_not_responded_product_count
     end
 end

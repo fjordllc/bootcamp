@@ -24,18 +24,18 @@ nav.global-nav
           = link_to report_link, class: "global-nav-links__link #{current_link /^reports/}" do
             .global-nav-links__link-icon
               i.fas.fa-pen
-            - if admin_login? && Report.unchecked.not_wip.count > 0
+            - if admin_login? && Cache.unchecked_report_count > 0
               .global-nav__item-count.a-notification-count
-                = Report.unchecked.not_wip.count
+                = Cache.unchecked_report_count
             .global-nav-links__link-label 日報
         - if staff_login?
           li.global-nav-links__item
             = link_to products_not_responded_index_path, class: "global-nav-links__link #{current_link /^products/ }" do
               .global-nav-links__link-icon
                 i.fas.fa-hand-paper
-              - if admin_login? && not_responded_product_count > 0
+              - if admin_login? && Cache.not_responded_product_count > 0
                 .global-nav__item-count.a-notification-count
-                  = not_responded_product_count
+                  = Cache.not_responded_product_count
               .global-nav-links__link-label 提出物
         li.global-nav-links__item
           = link_to questions_path, class: "global-nav-links__link #{current_link /^questions/}" do

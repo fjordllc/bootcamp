@@ -20,7 +20,12 @@ class ReportCallbacks
     end
   end
 
+  def after_save(report)
+    Cache.delete_unchecked_report_count
+  end
+
   def after_destroy(report)
+    Cache.delete_unchecked_report_count
     delete_notification(report)
   end
 
