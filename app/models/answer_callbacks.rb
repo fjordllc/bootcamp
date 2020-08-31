@@ -10,6 +10,14 @@ class AnswerCallbacks
     notify_to_watching_user(answer)
   end
 
+  def after_save(answer)
+    Cache.delete_not_solved_question_count
+  end
+
+  def after_destroy(answer)
+    Cache.delete_not_solved_question_count
+  end
+
   private
     def notify_answer(answer)
       NotificationFacade.came_answer(answer)
