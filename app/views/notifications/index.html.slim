@@ -11,12 +11,15 @@ header.page-header
             = link_to allmarks_path, method: :post, class: "a-button is-md is-warning is-block #{current_user.notifications.unreads.empty? ? "is-disabled" : ""}" do
               | 全て既読にする
 
-= render "notifications/tabs", collection: @notifications, as: :notification
+= render "notifications/tabs"
 
 .page-body
   .container
     = paginate @notifications, position: "top"
     - if @notifications.present?
       .thread-list.a-card
-        = render partial: "notifications/notification", collection: @notifications, as: :notification
+        = render partial: "notifications/notification",
+          collection: @notifications,
+          as: :notification,
+          cached: true
     = paginate @notifications, position: "bottom"
