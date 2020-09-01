@@ -1,5 +1,5 @@
 = render "errors", object: event
-= form_with model: event, local: true do |f|
+= form_with model: event, local: true, html: { name: "event" } do |f|
   .form__items
     .form__items-inner
       .form-item
