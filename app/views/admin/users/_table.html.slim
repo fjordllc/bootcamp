@@ -2,8 +2,7 @@
   table.admin-table__table
     thead.admin-table__header
       tr.admin-table__labels
-        th.admin-table__label
-          | ステータス
+        th.admin-table__label ステータス
         th.admin-table__label
           | ユーザー名
           = render "sort_column", order_by: "login_name", direction: direction, target: @target
@@ -17,14 +16,9 @@
         th.admin-table__label
           | 登録日時
           = render "sort_column", order_by: "created_at", direction: direction, target: @target
-        th.admin-table__label
-          | カード登録
-        th.admin-table__label
-          | 卒業
-        th.admin-table__label
-          | 卒業証書
-        th.admin-table__label
-          | 外部サービス
+        th.admin-table__label カード登録
+        th.admin-table__label 卒業
+        th.admin-table__label 外部サービス
         th.admin-table__label 操作
         th.admin-table__label 削除
     tbody.admin-table__items
@@ -74,9 +68,6 @@
                 | 卒業済
             - else
               = link_to "卒業", user_graduation_path(user), method: :patch, data: { confirm: "本当によろしいですか？" }, class: "a-button is-sm is-primary"
-          td.admin-table__item-value.is-text-align-center
-            = link_to admin_diploma_path(user_id: user.id), class: "a-button is-sm is-primary is-icon" do
-              i.fas.fa-file
           td.admin-table__item-value.is-text-align-center
             - if user.slack_participation?
               = link_to "https://fjord.slack.com/admin", class: "a-button is-sm is-warning is-icon", target: "_blank" do
