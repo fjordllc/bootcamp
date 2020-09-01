@@ -69,8 +69,6 @@ GEM
     any_login (1.4.3)
       rails (>= 4.2.7)
     ast (2.4.1)
-    autoprefixer-rails (9.8.6.3)
-      execjs
     bcrypt (3.1.15)
     bindex (0.8.1)
     bootsnap (1.4.8)
@@ -464,7 +462,6 @@ DEPENDENCIES
   acts-as-taggable-on (~> 6.5)
   acts_as_list
   any_login
-  autoprefixer-rails
   bootsnap (>= 1.4.2)
   bullet
   bundle_outdated_formatter
