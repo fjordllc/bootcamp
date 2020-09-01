@@ -19,4 +19,9 @@ module ReportsHelper
       "#{hour}時間#{minute}分"
     end
   end
+
+  def convert_to_ceiled_hour(time)
+    ceiled_hour = (time / 60.0).ceil.to_i
+    "#{ceiled_hour}時間"
+  end
 end
