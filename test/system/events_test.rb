@@ -283,7 +283,7 @@ class EventsTest < ApplicationSystemTestCase
     end
     sleep 1
 
-    assert_no_selector "div.waitlist"
+    assert_no_selector ".waitlist"
   end
 
   test "turn on the watch when attend an event" do
