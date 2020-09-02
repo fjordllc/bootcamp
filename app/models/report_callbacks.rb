@@ -12,15 +12,15 @@ class ReportCallbacks
         create_advisers_watch(report, adviser)
       end
     end
+
+    Cache.delete_unchecked_report_count
   end
 
   def after_update(report)
     if report.wip == false && report.user.reports.count == 1
       send_first_report_notification(report)
     end
-  end
 
-  def after_save(report)
     Cache.delete_unchecked_report_count
   end
 
