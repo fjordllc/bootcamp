@@ -4,8 +4,8 @@
       .event-meta__item
         dt.event-meta__item-label
           | 会場
-        dd.event-meta__item-value
-          = event.location
+        dd.event-meta__item-value.location
+          = auto_link(event.location)
       .event-meta__item
         dt.event-meta__item-label
           | 定員

@@ -22,16 +22,18 @@ class EventsTest < ApplicationSystemTestCase
   test "create a new event" do
     login_user "komagata", "testtest"
     visit new_event_path
-    fill_in "event_title", with: "新しいイベント"
-    fill_in "event_description", with: "イベントの説明文"
-    fill_in "event_capacity", with: 20
-    fill_in "event_location", with: "FJORDオフィス"
-    fill_in "event_start_at", with: Time.zone.parse("2019-12-10 10:00")
-    fill_in "event_end_at", with: Time.zone.parse("2019-12-10 12:00")
-    fill_in "event_open_start_at", with: Time.zone.parse("2019-12-05 10:00")
-    fill_in "event_open_end_at", with: Time.zone.parse("2019-12-09 23:59")
-    assert_difference "Event.count", 1 do
-      click_button "作成"
+    within "form[name=event]" do
+      fill_in "event[title]", with: "新しいイベント"
+      fill_in "event[description]", with: "イベントの説明文"
+      fill_in "event[capacity]", with: 20
+      fill_in "event[location]", with: "FJORDオフィス"
+      fill_in "event[start_at]", with: Time.zone.parse("2019-12-10 10:00")
+      fill_in "event[end_at]", with: Time.zone.parse("2019-12-10 12:00")
+      fill_in "event[open_start_at]", with: Time.zone.parse("2019-12-05 10:00")
+      fill_in "event[open_end_at]", with: Time.zone.parse("2019-12-09 23:59")
+      assert_difference "Event.count", 1 do
+        click_button "作成"
+      end
     end
     assert_text "イベントを作成しました。"
   end
@@ -39,15 +41,17 @@ class EventsTest < ApplicationSystemTestCase
   test "update event" do
     login_user "komagata", "testtest"
     visit edit_event_path(events(:event_1))
-    fill_in "event_title", with: "ミートアップ(修正)"
-    fill_in "event_description", with: "ミートアップを開催します(修正)"
-    fill_in "event_capacity", with: 30
-    fill_in "event_location", with: "FJORDオフィス"
-    fill_in "event_start_at", with: Time.zone.parse("2019-12-21 19:00")
-    fill_in "event_end_at", with: Time.zone.parse("2019-12-21 22:30")
-    fill_in "event_open_start_at", with: Time.zone.parse("2019-12-11 9:00")
-    fill_in "event_open_end_at", with: Time.zone.parse("2019-12-20 23:59")
-    click_button "内容変更"
+    within "form[name=event]" do
+      fill_in "event[title]", with: "ミートアップ(修正)"
+      fill_in "event[description]", with: "ミートアップを開催します(修正)"
+      fill_in "event[capacity]", with: 30
+      fill_in "event[location]", with: "FJORDオフィス"
+      fill_in "event[start_at]", with: Time.zone.parse("2019-12-21 19:00")
+      fill_in "event[end_at]", with: Time.zone.parse("2019-12-21 22:30")
+      fill_in "event[open_start_at]", with: Time.zone.parse("2019-12-11 9:00")
+      fill_in "event[open_end_at]", with: Time.zone.parse("2019-12-20 23:59")
+      click_button "内容変更"
+    end
     assert_text "イベントを更新しました。"
   end
 
@@ -63,60 +67,68 @@ class EventsTest < ApplicationSystemTestCase
   test "cannot create a new event when start_at > end_at" do
     login_user "komagata", "testtest"
     visit new_event_path
-    fill_in "event_title", with: "イベント開始日時 > イベント終了日時のイベント"
-    fill_in "event_description", with: "エラーになる"
-    fill_in "event_capacity", with: 20
-    fill_in "event_location", with: "FJORDオフィス"
-    fill_in "event_start_at", with: Time.zone.parse("2019-12-10 12:00")
-    fill_in "event_end_at", with: Time.zone.parse("2019-12-10 10:00")
-    fill_in "event_open_start_at", with: Time.zone.parse("2019-12-05 10:00")
-    fill_in "event_open_end_at", with: Time.zone.parse("2019-12-09 23:59")
-    click_button "作成"
+    within "form[name=event]" do
+      fill_in "event[title]", with: "イベント開始日時 > イベント終了日時のイベント"
+      fill_in "event[description]", with: "エラーになる"
+      fill_in "event[capacity]", with: 20
+      fill_in "event[location]", with: "FJORDオフィス"
+      fill_in "event[start_at]", with: Time.zone.parse("2019-12-10 12:00")
+      fill_in "event[end_at]", with: Time.zone.parse("2019-12-10 10:00")
+      fill_in "event[open_start_at]", with: Time.zone.parse("2019-12-05 10:00")
+      fill_in "event[open_end_at]", with: Time.zone.parse("2019-12-09 23:59")
+      click_button "作成"
+    end
     assert_text "イベント終了日時はイベント開始日時よりも後の日時にしてください。"
   end
 
   test "cannot create a new event when open_start_at > open_end_at" do
     login_user "komagata", "testtest"
     visit new_event_path
-    fill_in "event_title", with: "募集開始日時 > 募集終了日時のイベント"
-    fill_in "event_description", with: "エラーになる"
-    fill_in "event_capacity", with: 20
-    fill_in "event_location", with: "FJORDオフィス"
-    fill_in "event_start_at", with: Time.zone.parse("2019-12-10 10:00")
-    fill_in "event_end_at", with: Time.zone.parse("2019-12-10 12:00")
-    fill_in "event_open_start_at", with: Time.zone.parse("2019-12-09 10:00")
-    fill_in "event_open_end_at", with: Time.zone.parse("2019-12-07 10:00")
-    click_button "作成"
+    within "form[name=event]" do
+      fill_in "event[title]", with: "募集開始日時 > 募集終了日時のイベント"
+      fill_in "event[description]", with: "エラーになる"
+      fill_in "event[capacity]", with: 20
+      fill_in "event[location]", with: "FJORDオフィス"
+      fill_in "event[start_at]", with: Time.zone.parse("2019-12-10 10:00")
+      fill_in "event[end_at]", with: Time.zone.parse("2019-12-10 12:00")
+      fill_in "event[open_start_at]", with: Time.zone.parse("2019-12-09 10:00")
+      fill_in "event[open_end_at]", with: Time.zone.parse("2019-12-07 10:00")
+      click_button "作成"
+    end
     assert_text "募集終了日時は募集開始日時よりも後の日時にしてください。"
   end
 
   test "cannot create a new event when open_start_at > start_at" do
     login_user "komagata", "testtest"
     visit new_event_path
-    fill_in "event_title", with: "募集開始日時 > イベント開始日時のイベント"
-    fill_in "event_description", with: "エラーになる"
-    fill_in "event_capacity", with: 20
-    fill_in "event_location", with: "FJORDオフィス"
-    fill_in "event_start_at", with: Time.zone.parse("2019-12-10 10:00")
-    fill_in "event_end_at", with: Time.zone.parse("2019-12-10 12:00")
-    fill_in "event_open_start_at", with: Time.zone.parse("2019-12-10 10:30")
-    fill_in "event_open_end_at", with: Time.zone.parse("2019-12-10 11:30")
-    click_button "作成"
+    within "form[name=event]" do
+      fill_in "event[title]", with: "募集開始日時 > イベント開始日時のイベント"
+      fill_in "event[description]", with: "エラーになる"
+      fill_in "event[capacity]", with: 20
+      fill_in "event[location]", with: "FJORDオフィス"
+      fill_in "event[start_at]", with: Time.zone.parse("2019-12-10 10:00")
+      fill_in "event[end_at]", with: Time.zone.parse("2019-12-10 12:00")
+      fill_in "event[open_start_at]", with: Time.zone.parse("2019-12-10 10:30")
+      fill_in "event[open_end_at]", with: Time.zone.parse("2019-12-10 11:30")
+      click_button "作成"
+    end
     assert_text "募集開始日時はイベント開始日時よりも前の日時にしてください。"
   end
 
   test "cannot create a new event when open_end_at > end_at" do
     login_user "komagata", "testtest"
     visit new_event_path
-    fill_in "event_title", with: "募集終了日時 > イベント終了日時のイベント"
-    fill_in "event_description", with: "エラーになる"
-    fill_in "event_capacity", with: 20
-    fill_in "event_location", with: "FJORDオフィス"
-    fill_in "event_start_at", with: Time.zone.parse("2019-12-10 10:00")
-    fill_in "event_end_at", with: Time.zone.parse("2019-12-10 12:00")
-    fill_in "event_open_start_at", with: Time.zone.parse("2019-12-05 10:00")
-    fill_in "event_open_end_at", with: Time.zone.parse("2019-12-11 12:00")
-    click_button "作成"
+    within "form[name=event]" do
+      fill_in "event[title]", with: "募集終了日時 > イベント終了日時のイベント"
+      fill_in "event[description]", with: "エラーになる"
+      fill_in "event[capacity]", with: 20
+      fill_in "event[location]", with: "FJORDオフィス"
+      fill_in "event[start_at]", with: Time.zone.parse("2019-12-10 10:00")
+      fill_in "event[end_at]", with: Time.zone.parse("2019-12-10 12:00")
+      fill_in "event[open_start_at]", with: Time.zone.parse("2019-12-05 10:00")
+      fill_in "event[open_end_at]", with: Time.zone.parse("2019-12-11 12:00")
+      click_button "作成"
+    end
     assert_text "募集終了日時はイベント終了日時よりも前の日時にしてください。"
   end
 
@@ -168,18 +180,40 @@ class EventsTest < ApplicationSystemTestCase
     end
   end
 
+  test "autolink location when url is included" do
+    url = "https://bootcamp.fjord.jp/"
+    login_user "komagata", "testtest"
+    visit new_event_path
+    within "form[name=event]" do
+      fill_in "event[title]", with: "会場にURLを含むイベント"
+      fill_in "event[description]", with: "イベントの説明文"
+      fill_in "event[capacity]", with: 20
+      fill_in "event[location]", with: "FJORDオフィス（#{url}）"
+      fill_in "event[start_at]", with: Time.current.next_day
+      fill_in "event[end_at]", with: Time.current.next_day + 2.hour
+      fill_in "event[open_start_at]", with: Time.current
+      fill_in "event[open_end_at]", with: Time.current + 2.hour
+      click_button "作成"
+    end
+    within ".location" do
+      assert_link url, href: url
+    end
+  end
+
   test "participating is first-come-first-served" do
     login_user "komagata", "testtest"
     visit new_event_path
-    fill_in "event_title", with: "先着順のイベント"
-    fill_in "event_description", with: "イベントの説明文"
-    fill_in "event_capacity", with: 20
-    fill_in "event_location", with: "FJORDオフィス"
-    fill_in "event_start_at", with: Time.current.next_day
-    fill_in "event_end_at", with: Time.current.next_day + 2.hour
-    fill_in "event_open_start_at", with: Time.current
-    fill_in "event_open_end_at", with: Time.current + 2.hour
-    click_button "作成"
+    within "form[name=event]" do
+      fill_in "event[title]", with: "先着順のイベント"
+      fill_in "event[description]", with: "イベントの説明文"
+      fill_in "event[capacity]", with: 20
+      fill_in "event[location]", with: "FJORDオフィス"
+      fill_in "event[start_at]", with: Time.current.next_day
+      fill_in "event[end_at]", with: Time.current.next_day + 2.hour
+      fill_in "event[open_start_at]", with: Time.current
+      fill_in "event[open_end_at]", with: Time.current + 2.hour
+      click_button "作成"
+    end
     accept_confirm do
       click_link "参加申込"
     end
@@ -200,15 +234,17 @@ class EventsTest < ApplicationSystemTestCase
   test "display user to waitlist when event participants are fulled" do
     login_user "komagata", "testtest"
     visit new_event_path
-    fill_in "event_title", with: "補欠者のいるイベント"
-    fill_in "event_description", with: "イベントの説明文"
-    fill_in "event_capacity", with: 1
-    fill_in "event_location", with: "FJORDオフィス"
-    fill_in "event_start_at", with: Time.current.next_day
-    fill_in "event_end_at", with: Time.current.next_day + 2.hour
-    fill_in "event_open_start_at", with: Time.current
-    fill_in "event_open_end_at", with: Time.current + 2.hour
-    click_button "作成"
+    within "form[name=event]" do
+      fill_in "event[title]", with: "補欠者のいるイベント"
+      fill_in "event[description]", with: "イベントの説明文"
+      fill_in "event[capacity]", with: 1
+      fill_in "event[location]", with: "FJORDオフィス"
+      fill_in "event[start_at]", with: Time.current.next_day
+      fill_in "event[end_at]", with: Time.current.next_day + 2.hour
+      fill_in "event[open_start_at]", with: Time.current
+      fill_in "event[open_end_at]", with: Time.current + 2.hour
+      click_button "作成"
+    end
     accept_confirm do
       click_link "参加申込"
     end
@@ -229,15 +265,17 @@ class EventsTest < ApplicationSystemTestCase
   test "waiting user moves up when participant cancels event" do
     login_user "komagata", "testtest"
     visit new_event_path
-    fill_in "event_title", with: "補欠者が繰り上がるイベント"
-    fill_in "event_description", with: "イベントの説明文"
-    fill_in "event_capacity", with: 1
-    fill_in "event_location", with: "FJORDオフィス"
-    fill_in "event_start_at", with: Time.current.next_day
-    fill_in "event_end_at", with: Time.current.next_day + 2.hour
-    fill_in "event_open_start_at", with: Time.current
-    fill_in "event_open_end_at", with: Time.current + 2.hour
-    click_button "作成"
+    within "form[name=event]" do
+      fill_in "event[title]", with: "補欠者が繰り上がるイベント"
+      fill_in "event[description]", with: "イベントの説明文"
+      fill_in "event[capacity]", with: 1
+      fill_in "event[location]", with: "FJORDオフィス"
+      fill_in "event[start_at]", with: Time.current.next_day
+      fill_in "event[end_at]", with: Time.current.next_day + 2.hour
+      fill_in "event[open_start_at]", with: Time.current
+      fill_in "event[open_end_at]", with: Time.current + 2.hour
+      click_button "作成"
+    end
     accept_confirm do
       click_link "参加申込"
     end
