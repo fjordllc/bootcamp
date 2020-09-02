@@ -10,32 +10,3 @@ header.page-header
 
 .page-body
   .container
-    .columns
-      .row
-        .col-xs-12.col-xl-6.col-xxl-6
-          .thread-list.a-card
-            header.card-header.is-sm
-              h2.card-header__title 日別
-            .chart
-              = line_chart Metric::User.by_day, ytitle: "人数"
-
-        .col-xs-12.col-xl-6.col-xxl-6
-          .thread-list.a-card
-            header.card-header.is-sm
-              h2.card-header__title 日別
-            .chart
-              = line_chart Metric::User.students_by_day, ytitle: "人数"
-
-        .col-xs-12.col-xl-6.col-xxl-6
-          .thread-list.a-card
-            header.card-header.is-sm
-              h2.card-header__title 月別
-            .chart
-              = line_chart Metric::User.students_by_month, ytitle: "人数"
-
-        .col-xs-12.col-xl-6.col-xxl-6
-          .thread-list.a-card
-            header.card-header.is-sm
-              h2.card-header__title 月別
-            .chart
-              = line_chart Metric::User.by_month, ytitle: "人数"

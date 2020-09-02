@@ -6,8 +6,6 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
-require('chartkick')
-require('chart.js')
 require('../textarea.js')
 require('../markdown.js')
 require('../shortcut.js')
