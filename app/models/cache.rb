@@ -9,7 +9,7 @@ class Cache
     end
 
     def delete_unchecked_report_count
-      Rails.cache.fetch "unchecked_report_count"
+      Rails.cache.delete "unchecked_report_count"
     end
 
     def unchecked_product_count
