@@ -27,13 +27,4 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     # https://bootcamp.fjord.jp/questions/468 に書いた理由により、やむを得ずsleepする
     sleep VUEJS_WAIT_SECOND
   end
-
-  def wait_for_ajax(text)
-    Timeout.timeout(Capybara.default_max_wait_time) do
-      until
-        has_text?(text)
-      end
-    end
-    text
-  end
 end
