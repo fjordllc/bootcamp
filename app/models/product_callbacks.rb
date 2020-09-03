@@ -3,11 +3,6 @@
 class ProductCallbacks
   def after_create(product)
     unless product.wip?
-      create_watch(
-        watchers: User.admins,
-        watchable: product
-      )
-
       if product.user.trainee?
         send_notification(
           product: product,
