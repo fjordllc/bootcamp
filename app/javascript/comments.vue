@@ -41,6 +41,9 @@
                 @click="createComment"
                 :disabled="!validation || buttonDisabled")
                 | コメントする
+            .thread-comment-form__action(v-if="(currentUser.role == 'admin' || currentUser.role == 'adviser') && commentType && !checkId")
+              button.a-button.is-lg.is-success.is-block(@click="commentAndCheck" :disabled="!validation || buttonDisabled")
+                | 確認OKにする
 </template>
 <script>
 import Comment from './comment.vue'
@@ -153,11 +156,24 @@ export default {
     resizeTextarea() {
       const textarea = document.getElementById('js-new-comment')
       textarea.style.height = `${this.defaultTextareaSize}px`
+    },
+    commentAndCheck() {
+      const check = document.getElementById("js-shortcut-check")
+      this.createComment()
+      check.click()
     }
   },
   computed: {
     validation() {
       return this.description.length > 0
+    },
+    commentType() {
+      if (this.commentableType === "Report" || this.commentableType === "Product") {
+        return true
+      }
+    },
+    checkId() {
+      return this.$store.getters.checkId
     },
     roleClass() {
       return `is-${this.currentUser.role}`
