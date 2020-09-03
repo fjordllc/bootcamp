@@ -57,6 +57,14 @@ class Event < ApplicationRecord
     first_come_first_served - participants
   end
 
+  def participants_count
+    users.size > capacity ? capacity : users.size
+  end
+
+  def waitlist_count
+    users.size > capacity ? users.size - capacity : 0
+  end
+
   def can_participate?
     first_come_first_served.count < capacity
   end
