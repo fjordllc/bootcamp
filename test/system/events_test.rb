@@ -304,6 +304,28 @@ class EventsTest < ApplicationSystemTestCase
     end
   end
 
+  test "does not display waitlist card when no users waiting" do
+    login_user "komagata", "testtest"
+    visit new_event_path
+    within "form[name=event]" do
+      fill_in "event[title]", with: "補欠者リストが表示されないイベント"
+      fill_in "event[description]", with: "イベントの説明文"
+      fill_in "event[capacity]", with: 1
+      fill_in "event[location]", with: "FJORDオフィス"
+      fill_in "event[start_at]", with: Time.current.next_day
+      fill_in "event[end_at]", with: Time.current.next_day + 2.hour
+      fill_in "event[open_start_at]", with: Time.current
+      fill_in "event[open_end_at]", with: Time.current + 2.hour
+      click_button "作成"
+    end
+    accept_confirm do
+      click_link "参加申込"
+    end
+    sleep 1
+
+    assert_no_selector ".waitlist"
+  end
+
   test "turn on the watch when attend an event" do
     event = events(:event_2)
     login_user "kimura", "testtest"
