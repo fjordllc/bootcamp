@@ -1,0 +1,17 @@
+- title "#{@company.name}所属ユーザーの日報"
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+
+.page-tools
+  = render "companies/page_tabs", company: @company
+
+.page-body
+  .container
+    = paginate @reports, position: "top"
+    - if @reports.present?
+      .thread-list.a-card
+        = render partial: "reports/report", collection: @reports, as: :report
+    = paginate @reports, position: "bottom"
