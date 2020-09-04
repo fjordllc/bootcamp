@@ -133,6 +133,12 @@ Rails.application.routes.draw do
   resources :events do
     resources :participations, only: %i(create destroy), controller: "events/participations"
   end
+
+  resources :companies, only: %i(show) do
+    resources :users, only: %i(index), controller: "companies/users"
+    resources :reports, only: %i(index), controller: "companies/reports"
+    resources :products, only: %i(index), controller: "companies/products"
+  end
   get "articles/tags/:tag", to: "articles#index", as: :tag
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag
 
