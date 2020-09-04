@@ -1,0 +1,17 @@
+- title "#{@company.name}所属ユーザーの提出物"
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+
+.page-tools
+  = render "companies/page_tabs", company: @company
+
+.page-body
+  .container
+    = paginate @products, position: "top"
+    - if @products.present?
+      .thread-list.a-card
+        = render partial: "products/product", collection: @products, as: :product
+    = paginate @products, position: "bottom"

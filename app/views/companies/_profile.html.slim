@@ -1,0 +1,10 @@
+<p>
+= image_tag company.logo_url, title: company.name
+</p>
+<p>
+= company.description
+</p>
+<p>
+- if company.website.present?
+  = link_to "#{company.name}ウェブサイト", company.website
+</p>
