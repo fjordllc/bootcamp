@@ -26,3 +26,10 @@
             i.fas.fa-comment
           .thread-list-item-meta__comment-count-value
             = event.comments.size
+      .thread-list-item-meta__comment-count
+        .thread-list-item-meta__comment-count-value
+          | 参加者(#{event.participants_count}名/#{event.capacity}名)
+      - if event.waitlist_count > 0
+        .thread-list-item-meta__comment-count
+          .thread-list-item-meta__comment-count-value
+            | 補欠者(#{event.waitlist_count}名)
