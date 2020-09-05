@@ -8,7 +8,7 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.with_avatar
-                   .preload(:comments)
+                   .includes(:comments, :users)
                    .order(created_at: :desc)
                    .page(params[:page])
   end

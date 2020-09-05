@@ -31,6 +31,20 @@ class EventTest < ActiveSupport::TestCase
     assert_includes event.waitlist, waiting_user
   end
 
+  test "#participants_count" do
+    waited_event = events(:event_3)
+    assert_equal waited_event.participants_count, 1
+    not_waited_event = events(:event_2)
+    assert_equal not_waited_event.participants_count, 2
+  end
+
+  test "#waitlist_count" do
+    waited_event = events(:event_3)
+    assert_equal waited_event.waitlist_count, 2
+    not_waited_event = events(:event_2)
+    assert_equal not_waited_event.waitlist_count, 0
+  end
+
   test "#can_participate?" do
     event = events(:event_3)
     assert_not event.can_participate?
