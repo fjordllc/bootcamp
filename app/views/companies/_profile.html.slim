@@ -6,5 +6,6 @@
 </p>
 <p>
 - if company.website.present?
-  = link_to "#{company.name}ウェブサイト", company.website
+  .company_website
+    = link_to "#{company.name}ウェブサイト", company.website
 </p>
