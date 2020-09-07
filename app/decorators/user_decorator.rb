@@ -62,4 +62,12 @@ module UserDecorator
       completed_percentage
     end
   end
+
+  def customer_url
+    "https://dashboard.stripe.com/customers/#{customer_id}"
+  end
+
+  def subscription_url
+    "https://dashboard.stripe.com/subscriptions/#{subscription_id}"
+  end
 end

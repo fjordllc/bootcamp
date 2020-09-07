@@ -17,6 +17,7 @@
           | 登録日時
           = render "sort_column", order_by: "created_at", direction: direction, target: @target
         th.admin-table__label カード登録
+        th.admin-table__label サブスク
         th.admin-table__label 卒業
         th.admin-table__label 外部サービス
         th.admin-table__label 操作
@@ -45,7 +46,6 @@
               span.admin-table__user-login-name
                 = user.login_name
                 | （#{user.full_name}）
-
           td.admin-table__item-value.is-text-align-center
             - if user.company.present?
               = user.company.name
@@ -61,7 +61,25 @@
           td.admin-table__item-value.is-text-align-center
             = l user.created_at
           td.admin-table__item-value.is-text-align-center
-            = user.card? ? "有り" : "無し"
+            - if user.card?
+              = link_to user.customer_url,
+                class: "a-button is-sm is-success is-icon",
+                target: "_blank" do
+                i.fas.fa-credit-card
+            - else
+              | -
+          td.admin-table__item-value.is-text-align-center
+            - if @subscription_ids.include? user.subscription_id
+              ruby:
+                sub = @subscriptions.find { |s| s["id"] == user.subscription_id }
+                status = sub["status"]
+                status_class = Subscription::STATUS_CLASS_MAP[status.to_sym]
+              = link_to user.subscription_url,
+                class: "a-button is-sm #{status_class}",
+                target: "_blank" do
+                = t "enums.subscription_status.#{status}"
+            - else
+              | -
           td.admin-table__item-value.is-text-align-center
             - if user.graduated_on?
               .a-button.is-sm.is-disabled

@@ -49,6 +49,11 @@ module StubHelper
       to_return(status: 200, body: {}.to_json)
   end
 
+  def stub_subscription_all!
+    stub_request(:get, "https://api.stripe.com/v1/subscriptions?status=all").
+      to_return(status: 200, body: { "has_more": false, "data": [{ "id": "sub_xxxxxxxx", "status": "canceled" }] }.to_json)
+  end
+
   def stub_github!
     names = %w[komagata hatsuno kensyu senpai jobseeker kananashi osnashi]
     names.each do |name|
