@@ -10,6 +10,8 @@ class Admin::UsersController < AdminController
                  .preload(%i[company course])
                  .order_by_counts(params[:order_by] || "id", @direction)
                  .users_role(@target)
+    @subscriptions = Subscription.new.all
+    @subscription_ids = @subscriptions.map { |s| s["id"] }
   end
 
   def show
