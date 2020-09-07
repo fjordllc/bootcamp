@@ -217,3 +217,9 @@ ja:
     submit:
       create: 登録する
       update: 更新する
+  enums:
+    subscription_status:
+      active: 有効
+      canceled: キャンセル
+      past_due: 期日経過
+      trialing: お試し中
