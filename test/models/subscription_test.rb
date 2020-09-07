@@ -19,4 +19,11 @@ class SubscriptionTest < ActiveSupport::TestCase
     subscription = Subscription.new.destroy("sub_12345678")
     assert subscription["id"].present?
   end
+
+  test "#all" do
+    stub_subscription_all!
+
+    subscriptions = Subscription.new.all
+    assert_equal "sub_xxxxxxxx", subscriptions.first["id"]
+  end
 end

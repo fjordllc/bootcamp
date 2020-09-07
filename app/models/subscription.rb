@@ -3,6 +3,13 @@
 class Subscription
   prepend SubscriptionStub if Rails.env.development?
 
+  STATUS_CLASS_MAP = {
+    "trialing": "is-primary",
+    "active": "is-success",
+    "canceled": "is-danger",
+    "past_due": "is-warning"
+  }.freeze
+
   def retrieve(id)
     Stripe::Subscription.retrieve(id)
   end
@@ -19,5 +26,9 @@ class Subscription
 
   def destroy(subscription_id)
     Stripe::Subscription.update(subscription_id, cancel_at_period_end: true)
+  end
+
+  def all
+    Stripe::Subscription.list({ status: "all" }).auto_paging_each.map { |sub| sub }
   end
 end
