@@ -1,11 +1,5 @@
-<p>
-= image_tag company.logo_url, title: company.name
-</p>
-<p>
-= company.description
-</p>
-<p>
+p = image_tag company.logo_url, title: company.name
+p = company.description
 - if company.website.present?
   .company_website
-    = link_to "#{company.name}ウェブサイト", company.website
-</p>
+    p = link_to "#{company.name}ウェブサイト", company.website
