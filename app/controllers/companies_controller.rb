@@ -2,13 +2,8 @@
 
 class CompaniesController < ApplicationController
   before_action :require_login
-  before_action :set_company
 
   def show
+    @company = Company.find(params[:id])
   end
-
-  private
-    def set_company
-      @company = Company.find(params[:id])
-    end
 end
