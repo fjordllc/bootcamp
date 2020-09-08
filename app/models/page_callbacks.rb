@@ -33,7 +33,6 @@ class PageCallbacks
       path = Rails.application.routes.url_helpers.polymorphic_path(page)
       url = "https://bootcamp.fjord.jp#{path}"
       link = "<#{url}|#{page.title}>"
-      binding.pry
       SlackNotification.notify "#{link}",
         username: "#{page.user.login_name} (#{page.user.full_name})",
         icon_url: page.user.avatar_url,
