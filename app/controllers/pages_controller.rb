@@ -23,7 +23,6 @@ class PagesController < ApplicationController
     @page.user = current_user
     set_wip
     if @page.save
-      notify_to_slack(@page)
       redirect_to @page, notice: notice_message(@page, :create)
     else
       render :new
@@ -65,17 +64,5 @@ class PagesController < ApplicationController
       when :update
         "ページを更新しました。"
       end
-    end
-
-    def notify_to_slack(page)
-      link = "<#{url_for(page)}|#{page.title}>"
-      SlackNotification.notify "#{link}",
-        username: "#{page.user.login_name} (#{page.user.full_name})",
-        icon_url: page.user.avatar_url,
-        channel: "#general",
-        attachments: [{
-          fallback: "page body.",
-          text: page.body
-        }]
     end
 end
