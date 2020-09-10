@@ -169,9 +169,9 @@ report_21:
   reported_on: "2020-08-01"
 
 report_22:
-  user: kensyu
-  title: 研修の日報
+  user: sotugyou
+  title: 卒業生による日報
   description:
-    研修を行いました。
+    卒業しました。
   practices: practice_2
   reported_on: "2020-09-10"
