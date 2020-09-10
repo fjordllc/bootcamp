@@ -4,6 +4,7 @@ report_1:
   description: |-
     今日はローカルで怖話を動かしてみました。
     rbenv で ruby を動かすのは初めてだったので、色々手間取りました。
+  practices: practice_1
   reported_on: "2017-01-01"
   created_at: "2017-01-01 00:00:00"
 
@@ -133,6 +134,7 @@ report_17:
   description: |-
     yamadaです、メンターです。
     今日は1時間学習しました。
+  practices: practice_1
   reported_on: "2020-06-01"
 
 report_18:
@@ -164,4 +166,13 @@ report_21:
   emotion: 1
   description: |-
     全然できませんでした
+  practices: practice_2
   reported_on: <%= Time.current %>
+
+report_22:
+  user: sotugyou
+  title: "学習週4日目"
+  description: |-
+    今日は　Vueの基礎 を学習しました。
+  practices: practice_1
+  reported_on: "2020-08-01"
