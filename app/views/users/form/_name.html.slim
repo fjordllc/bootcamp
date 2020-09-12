@@ -2,12 +2,8 @@
   .row
     .col-xs-6
       .form-item
-        = f.label :last_name, class: "a-label is-required"
-        = f.text_field :last_name, class: "a-text-input", placeholder: "駒形"
-    .col-xs-6
-      .form-item
-        = f.label :first_name, class: "a-label is-required"
-        = f.text_field :first_name, class: "a-text-input", placeholder: "真幸"
+        = f.label :name, class: "a-label is-required"
+        = f.text_field :name, class: "a-text-input", placeholder: "駒形 真幸"
   - unless user.adviser?
     .a-form-help
       p

@@ -15,11 +15,11 @@ export default class {
         this._filterValues(text, callback)
       },
       lookup: (person, _mentionText) => {
-        return person.login_name + person.last_name + person.first_name
+        return person.login_name + person.name
       },
       menuItemTemplate: (item) => {
         return `<span class='mention'>${escapeHtml(item.original.login_name)}</span>` +
-          `${escapeHtml(item.original.last_name)} ${escapeHtml(item.original.first_name)}`
+          `${escapeHtml(item.original.name)}`
       }
     }
   }
@@ -47,7 +47,7 @@ export default class {
     const regex = new RegExp(escapeStringRegexp(text), 'i')
 
     this.values.every(value => {
-      if ((value.login_name + value.first_name + value.last_name).match(regex)) {
+      if ((value.login_name + value.name).match(regex)) {
         filteredValues.push(value)
       }
       return filteredValues.length < this.menuItemsSize
