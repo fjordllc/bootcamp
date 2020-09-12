@@ -47,10 +47,8 @@ class Admin::UsersController < AdminController
       params.require(:user).permit(
         :adviser,
         :login_name,
-        :first_name,
-        :last_name,
-        :kana_first_name,
-        :kana_last_name,
+        :name,
+        :name_kana,
         :email,
         :course_id,
         :description,

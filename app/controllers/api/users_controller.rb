@@ -2,7 +2,7 @@
 
 class API::UsersController < API::BaseController
   def index
-    users = User.select(:login_name, :first_name, :last_name)
+    users = User.select(:login_name, :name)
       .order(updated_at: :desc)
       .as_json(except: :id)
     render json: users

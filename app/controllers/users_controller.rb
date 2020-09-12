@@ -103,10 +103,8 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(
         :login_name,
-        :first_name,
-        :last_name,
-        :kana_first_name,
-        :kana_last_name,
+        :name,
+        :name_kana,
         :email,
         :course_id,
         :description,
