@@ -7,9 +7,9 @@
         | ★
       = user.login_name
     h2.user-profile__full-name
-      = user.full_name
+      = user.name
       span.user-profile__kana-full-name
-        = user.kana_full_name
+        = user.name_kana
   = render "users/sns", user: user
   - if user.company.present? && user.company.logo.attached?
     = link_to company_path(user.company) do
