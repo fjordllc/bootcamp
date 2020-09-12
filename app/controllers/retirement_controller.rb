@@ -37,7 +37,7 @@ class RetirementController < ApplicationController
     end
 
     def notify_to_slack
-      message = "<#{url_for(current_user)}|#{current_user.full_name} (#{current_user.login_name})>が退会しました。"
+      message = "<#{url_for(current_user)}|#{current_user.name} (#{current_user.login_name})>が退会しました。"
       SlackNotification.notify message,
         username: "#{current_user.login_name}@bootcamp.fjord.jp",
         icon_url: current_user.avatar_url
