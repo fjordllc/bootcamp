@@ -78,7 +78,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit admin_users_path(target: "student_and_trainee")
     click_on "delete-#{user.id}"
     page.driver.browser.switch_to.alert.accept
-    assert_text "#{user.full_name} さんを削除しました。"
+    assert_text "#{user.name} さんを削除しました。"
   end
 
   test "hide input for retire date when unchecked" do

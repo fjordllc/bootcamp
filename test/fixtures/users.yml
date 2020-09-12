@@ -3,10 +3,8 @@ komagata:
   email: komagata@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: Masaki
-  last_name: Komagata
-  kana_first_name: マサキ
-  kana_last_name: コマガタ
+  name: Komagata Masaki
+  name_kana: コマガタ マサキ
   twitter_account: komagata
   facebook_url: http://www.facebook.com/komagata1111
   github_account: komagata
@@ -31,10 +29,8 @@ machida:
   email: machidanohimitsu@gmail.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: Teppei
-  last_name: Machida
-  kana_first_name: テッペイ
-  kana_last_name: マチダ
+  name: Machida Teppei
+  name_kana: マチダ テッペイ
   twitter_account: machida
   facebook_url:
   blog_url: http://machida.fjord.jp/
@@ -58,10 +54,8 @@ sotugyou:
   email: sotugyou@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: 太郎
-  last_name: 卒業
-  kana_first_name: タロウ
-  kana_last_name: ソツギョウ
+  name: 卒業 太郎
+  name_kana: ソツギョウ タロウ
   twitter_account: sotugyou
   facebook_url: http://www.facebook.com/sotugyou
   blog_url: http://sotugyou.example.com/
@@ -82,10 +76,8 @@ advijirou:
   email: advijirou@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: 次郎
-  last_name: アドバイ
-  kana_first_name: ジロウ
-  kana_last_name: アドバイ
+  name: アドバイ 次郎
+  name_kana: アドバイ ジロウ
   twitter_account: advijirou
   facebook_url: http://www.facebook.com/advijirou
   blog_url: http://advijirou.example.com
@@ -100,10 +92,8 @@ yameo:
   email: yameo@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: 辞目夫
-  last_name: 辞目
-  kana_first_name: ヤメオ
-  kana_last_name: ヤメ
+  name: 辞目 辞目夫
+  name_kana: ヤメ ヤメオ
   twitter_account: yameo
   facebook_url: http://www.facebook.com/yameo
   blog_url: http://yameo.org
@@ -124,10 +114,8 @@ yamada:
   email: yamada@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: Taro
-  last_name: Yamada
-  kana_first_name: タロウ
-  kana_last_name: ヤマダ
+  name: Yamada Taro
+  name_kana: ヤマダ タロウ
   twitter_account: yamada
   facebook_url: http://www.facebook.com/yamada
   blog_url: http://yamada.com
@@ -147,10 +135,8 @@ kimura:
   email: kimura@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: Tadasi
-  last_name: Kimura
-  kana_first_name: タダシ
-  kana_last_name: キムラ
+  name: Kimura Tadasi
+  name_kana: キムラ タダシ
   twitter_account: kimura
   facebook_url: http://www.facebook.com/kimura
   blog_url: http://kimura.org
@@ -170,10 +156,8 @@ hatsuno:
   email: hatsuno@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: Shinji
-  last_name: Hatsuno
-  kana_first_name: シンジ
-  kana_last_name: ハツノ
+  name: Hatsuno Shinji
+  name_kana: ハツノ シンジ
   twitter_account: hatsuno
   facebook_url: http://www.facebook.com/hatsuno
   blog_url: http://hatsuno.org
@@ -196,10 +180,8 @@ hajime:
   email: hajime@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: Tayo
-  last_name: Hajime
-  kana_first_name: タヨ
-  kana_last_name: ハジメ
+  name: Hajime Tayo
+  name_kana: ハジメ タヨ
   twitter_account: hajime
   facebook_url: http://www.facebook.com/hajime
   blog_url: http://hajime.org
@@ -219,10 +201,8 @@ muryou:
   email: muryou@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: Nosuke
-  last_name: Muryou
-  kana_first_name: ノスケ
-  kana_last_name: ムリョウ
+  name: Muryou Nosuke
+  name_kana: ムリョウ ノスケ
   slack_account: muryou
   twitter_account: muryou
   facebook_url: http://www.facebook.com/muryou
@@ -243,10 +223,8 @@ kensyu:
   email: kensyu@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: Seiko
-  last_name: Kensyu
-  kana_first_name: セイコ
-  kana_last_name: ケンシュウ
+  name: Kensyu Seiko
+  name_kana: ケンシュウ セイコ
   slack_account: kensyu
   github_account: kensyu
   twitter_account: kensyu
@@ -270,10 +248,8 @@ senpai:
   email: senpai@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: Ichiro
-  last_name: Senpai
-  kana_first_name: イチロウ
-  kana_last_name: センパイ
+  name: Senpai Ichiro
+  name_kana: センパイ イチロウ
   slack_account: senpai
   github_account: senpai
   twitter_account: senpai
@@ -289,13 +265,12 @@ senpai:
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
 
-kananashi: #kana_first_nameとkana_last_nameを持たないユーザー
+kananashi: #name_kanaを持たないユーザー
   login_name: kananashi
   email: kananashi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: 読み方のカナが無い
-  last_name: ユーザーです
+  name: ユーザーです 読み方のカナが無い
   slack_account: kananashi
   github_account: kananashi
   twitter_account: kananashi
@@ -315,10 +290,8 @@ osnashi: #osを持たないユーザー
   email: osnashi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: OSが無い
-  last_name: ユーザーです
-  kana_first_name: オーエス
-  kana_last_name: ナシ
+  name: ユーザーです OSが無い
+  name_kana: ナシ オーエス
   slack_account: osnashi
   github_account: osnashi
   twitter_account: osnashi
@@ -337,10 +310,8 @@ jobseeker: #就活希望するユーザー
   email: jobseeker@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: のぞむ
-  last_name: 就活
-  kana_first_name: ノゾム
-  kana_last_name: シュウカツ
+  name: 就活 のぞむ
+  name_kana: シュウカツ ノゾム
   slack_account: jobseeker
   github_account: jobseeker
   twitter_account: jobseeker
@@ -360,10 +331,8 @@ daimyo: # 大名エンジニアカレッジに通うユーザー
   email: daimyo@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  first_name: 太郎
-  last_name: 大名
-  kana_first_name: タロウ
-  kana_last_name: ダイミョウ
+  name: 大名 太郎
+  name_kana: ダイミョウ タロウ
   slack_account: daimyo
   github_account: daimyo
   twitter_account: daimyo
