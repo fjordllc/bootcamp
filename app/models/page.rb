@@ -4,6 +4,7 @@ class Page < ApplicationRecord
   include Searchable
   include WithAvatar
   include Taggable
+  include Reactionable
 
   belongs_to :user
   validates :title, presence: true
