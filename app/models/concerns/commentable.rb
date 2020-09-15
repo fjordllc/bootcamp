@@ -21,7 +21,7 @@ module Commentable
 
   def body
     case self
-    when Product
+    when Product, Page
       self[:body]
     else
       self[:description]

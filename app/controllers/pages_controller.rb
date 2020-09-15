@@ -5,7 +5,10 @@ class PagesController < ApplicationController
   before_action :set_page, only: %i(show edit update destroy)
 
   def index
-    @pages = Page.with_avatar.order(updated_at: :desc).page(params[:page])
+    @pages = Page.with_avatar
+                 .includes(:comments)
+                 .order(updated_at: :desc)
+                 .page(params[:page])
     @pages = @pages.tagged_with(params[:tag]) if params[:tag]
   end
 
