@@ -23,6 +23,12 @@ class PagesTest < ApplicationSystemTestCase
     assert_equal "ページ編集 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
+  test "page has a comment form " do
+    id = pages(:page_1).id
+    visit "/pages/#{id}"
+    assert_selector ".thread-comment-form"
+  end
+
   test "title with half-width space" do
     target_page = pages(:page_1)
     visit edit_page_path(target_page)
