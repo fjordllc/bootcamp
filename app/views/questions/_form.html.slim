@@ -1,4 +1,5 @@
 = render "errors", object: question
+= link_to  "このドキュメントを参考にして質問をしてみよう！", "https://bootcamp.fjord.jp/pages/240", target: "_blank", class: "a-label"
 = form_with model: question, local: true, class: "form", html: { name: "question" } do |f|
   .form__items
     .form-item
