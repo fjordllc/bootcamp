@@ -51,10 +51,9 @@
     justify-content: center
     align-items: center
 
-.category-practices-item__learning-times
-  margin-right: 1rem
-
 .category-practices-item__learning-time
-  font-size: .75rem
-  line-height: 1.4
-  color: $muted-text
+  +text-block(.75rem 1.4, $muted-text)
+  +media-breakpoint-up(md)
+    margin-top: -.25rem
+  +media-breakpoint-down(sm)
+    margin-top: .5rem
