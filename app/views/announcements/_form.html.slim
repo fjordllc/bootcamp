@@ -23,11 +23,11 @@
         li.form-radio-button
           label.form-radio-button__label
             | 全員にお知らせ
-            = f.radio_button :target, "all", checked: true
+            = f.radio_button :target, "all"
         li.form-radio-button
           label.form-radio-button__label
             | 現役生にのみお知らせ
-            = f.radio_button :target, "students"
+            = f.radio_button :target, "students", checked: true
         li.form-radio-button
           label.form-radio-button__label
             | 就職希望者にのみお知らせ
