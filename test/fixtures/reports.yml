@@ -146,7 +146,7 @@ report_18:
 
 report_19:
   user: hatsuno
-  title: "1日目 できなかった"
+  title: "<s>1日目</s> できなかった"
   emotion: 1
   description: |-
     あまりできませんでした
