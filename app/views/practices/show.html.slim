@@ -23,6 +23,14 @@ header.page-header
     .practice-contents
       .practice-contents__inner
         header.practice-contents__header#learning-status
+          - learning_minute_statistic = @practice.learning_minute_statistic
+          - if learning_minute_statistic
+            .practice-contents__time
+              | 所要時間: #{convert_to_ceiled_hour(learning_minute_statistic.median)}
+              .annotation
+                i.fal.fa-info-circle.annotation__icon
+                  p 過去に完了した人の中央値を表示しています
+            #js-annotation-modal
           h1.practice-contents__title
             = @practice.title
         - status = @practice.status_by_learnings(current_user.learnings)
