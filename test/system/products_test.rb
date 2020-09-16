@@ -75,7 +75,7 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in("product[body]", with: "test")
     end
     click_button "提出する"
-    assert_text "提出物を作成しました。"
+    assert_text "提出物を作成しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。"
   end
 
   test "create product change status submitted" do
@@ -85,7 +85,7 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in("product[body]", with: "test")
     end
     click_button "提出する"
-    assert_text "提出物を作成しました。"
+    assert_text "提出物を作成しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。"
 
     visit "/practices/#{practices(:practice_5).id}"
     assert_equal first(".test-product").text, "提出物へ"
@@ -203,7 +203,7 @@ class ProductsTest < ApplicationSystemTestCase
       click_button "提出する"
       assert_match "kensyu さんが「#{practices(:practice_3).title}」の提出物を提出しました。", mock_log.to_s
     end
-    assert_text "提出物を作成しました。"
+    assert_text "提出物を作成しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。"
   end
 
   test "Slack notify if the create product as WIP" do
