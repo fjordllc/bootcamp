@@ -5,7 +5,7 @@
       .flash__container
         label.flash__close(for="hide-flash")
         p.flash__message
-          = notice
+          = notice.html_safe
 - if alert
   input.a-toggle-checkbox#hide-flash(type="checkbox")
   .flash.is-alert
