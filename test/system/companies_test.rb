@@ -13,7 +13,7 @@ class CompaniesTest < ApplicationSystemTestCase
   test "show link to website if company has" do
     visit "/companies/#{companies(:company_1).id}"
     within ".company_website" do
-      assert_link "FJORD, LLCウェブサイト", href: "https://fjord.jp"
+      assert_link "FJORD, LLC", href: "https://fjord.jp"
     end
   end
 end
