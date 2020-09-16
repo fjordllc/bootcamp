@@ -11,7 +11,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
       fill_in("product[body]", with: "test")
     end
     click_button "提出する"
-    assert_text "提出物を作成しました。"
+    assert_text "提出物を作成しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。"
 
     logout
     login_user "senpai", "testtest"
