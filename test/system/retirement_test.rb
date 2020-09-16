@@ -43,7 +43,7 @@ class RetirementTest < ApplicationSystemTestCase
       fill_in("product[body]", with: "test")
     end
     click_button "提出する"
-    assert_text "提出物を作成しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。"
+    assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
     visit edit_current_user_path
     click_on "退会手続きへ進む"
     fill_in "user[retire_reason]", with: "辞" * 8
