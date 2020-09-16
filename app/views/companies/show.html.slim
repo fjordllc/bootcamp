@@ -11,4 +11,7 @@ header.page-header
 
 .page-body
   .container
-    = render "companies/profile", company: @company
+    .columns
+      .row
+        .col-xs-12.col-lg-5.col-xxl-6
+          = render "companies/profile", company: @company
