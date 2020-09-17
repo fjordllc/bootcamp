@@ -1,13 +1,5 @@
 .category-practices-item.js-practice(id="practice_#{practice.id}")
   header.category-practices-item__header
-    - if current_user.admin?
-      - learning_minute_statistic = practice.learning_minute_statistic
-      - if learning_minute_statistic
-        .category-practices-item__learning-times
-          .category-practices-item__learning-time
-            ' avg: #{convert_to_hour_minute(learning_minute_statistic.average)}
-          .category-practices-item__learning-time
-            ' med: #{convert_to_hour_minute(learning_minute_statistic.median)}
     .category-practices-item__title
       = link_to practice, class: "category-practices-item__title-link"
         = practice.title
@@ -15,6 +7,12 @@
       - status = practice.status_by_learnings(@learnings)
       = link_to practice_path(practice.id, anchor: "learning-status"), class: "practice-status category-practices-item__status is-#{status}" do
           = t(status, scope: [:activerecord, :enums, :learning, :status])
+
+  - learning_minute_statistic = practice.learning_minute_statistic
+  - if learning_minute_statistic
+    .category-practices-item__learning-time
+      | 所要時間の目安: #{convert_to_hour_minute(learning_minute_statistic.median)}
+      | （平均: #{convert_to_hour_minute(learning_minute_statistic.average)}）
 
   - if practice.started_students.any?
     .practice-started-users

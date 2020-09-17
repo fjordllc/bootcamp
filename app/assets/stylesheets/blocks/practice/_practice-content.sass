@@ -30,6 +30,19 @@
 .practice-content__title
   +text-block(1rem 1.4, 600)
 
+.practice-contents__time
+  +text-block(.875rem 1.4, inline-block)
+  margin-bottom: .25em
+  i
+    color: $main
+  i:not(:first-child)
+    margin-left: .125em
+    font-size: 1.125em
+  &.has-info
+    +hover-link
+    cursor: pointer
+
+
 .practice-content__body
   padding: 1.25rem
   +media-breakpoint-down(sm)
