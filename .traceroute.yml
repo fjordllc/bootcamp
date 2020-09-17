@@ -1,0 +1,21 @@
+ignore_unused_routes:
+  - rails\/conductor\/action_mailbox\/inbound_emails#.*
+  - static_pages#thanks
+  - static_pages#retire
+ignore_unreachable_actions:
+  - rails\/conductor\/action_mailbox\/inbound_emails#.*
+  - .*#admin_login\?
+  - .*#adviser_login\?
+  - .*#mentor_login\?
+  - .*#staff_login\?
+  - .*#paid_login\?
+  - .*#staff_or_paid_login\?
+  - .*#student_login\?
+  - .*#policy
+  - .*#require_staff_login
+  - .*#require_admin_login
+  - mails#welcome
+  - reports#convert_to_hour_minute
+  - reports#convert_to_ceiled_hour
+  - reports#practice_options
+  - home#pricing
