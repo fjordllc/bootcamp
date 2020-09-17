@@ -413,6 +413,8 @@ GEM
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
+    traceroute (0.8.1)
+      rails (>= 3.0.0)
     tty-color (0.5.2)
     tty-screen (0.8.1)
     tty-table (0.11.0)
@@ -513,6 +515,7 @@ DEPENDENCIES
   stripe (~> 4.5.0)
   stripe-i18n
   sucker_punch (~> 2.0)
+  traceroute
   web-console (>= 3.3.0)
   webdrivers
   webmock
