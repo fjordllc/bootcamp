@@ -1,9 +1,9 @@
 ignore_unused_routes:
-  - rails\/conductor\/action_mailbox\/inbound_emails#.*
+  - rails\/.*
   - static_pages#thanks
   - static_pages#retire
 ignore_unreachable_actions:
-  - rails\/conductor\/action_mailbox\/inbound_emails#.*
+  - rails\/.*
   - .*#admin_login\?
   - .*#adviser_login\?
   - .*#mentor_login\?
