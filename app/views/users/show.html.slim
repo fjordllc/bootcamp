@@ -44,7 +44,7 @@ header.page-header
         .col-xs-12.col-lg-7.col-xxl-6
           - unless @user.total_learning_time.zero? || @user.mentor?
             = render "users/grass", user: @user
-          - unless @user.github_account.nil?
+          - if @user.github_account.present?
             = render "users/github_grass", user: @user
           - if @user.active_practices.present?
             = render "/users/practices/active_practices", user: @user

@@ -41,7 +41,7 @@ header.page-header
               = render "reserved_seats_today", reservations: @reservations_for_today
           - unless current_user.total_learning_time.zero? || current_user.mentor?
             = render "users/grass", user: current_user
-          - unless current_user.github_account.nil?
+          - if current_user.github_account.present?
             = render "users/github_grass", user: current_user
           - if current_user.mentor?
             = render "users/sad_emotion_report", users: User.students_and_trainees
