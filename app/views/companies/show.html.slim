@@ -1,0 +1,17 @@
+- title "#{@company.name}の会社情報"
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+
+.page-tools
+  = render "companies/tabs", company: @company
+
+.page-body
+  .container
+    .columns
+      .row
+        .col-xs-12.col-lg-5.col-xxl-6
+          = render "companies/profile", company: @company

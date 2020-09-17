@@ -1,0 +1,17 @@
+- title "#{@company.name}所属ユーザー"
+header.page-header.is-margin-bottom-0.is-border-bottom-none
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = "#{title}一覧（#{@users.size}）"
+      .page-header-actions
+        ul.page-header-actions__items
+
+.page-tools
+  = render "companies/tabs", company: @company
+
+.page-body
+  .container
+    .users
+      .row.is-gutter-width-32
+        = render partial: "users/user", collection: @users, as: :user
