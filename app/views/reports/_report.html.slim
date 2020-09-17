@@ -7,9 +7,10 @@
         - if report.wip?
           .thread-list-item__header-icon.is-wip WIP
         h2.thread-list-item__title(itemprop="name")
-          - if report.user.daimyo?
-            | ★
-          = link_to report.title, report, itemprop: "url", class: "thread-list-item__title-link js-unconfirmed-link"
+          = link_to report, itemprop: "url", class: "thread-list-item__title-link js-unconfirmed-link" do
+            - if report.user.daimyo?
+              | ★
+            = report.title
       - if current_user == report.user
         .thread-list-item__actions
           = link_to edit_report_path(report), class: "thread-list-item__actions-link" do
