@@ -16,6 +16,12 @@ class WelcomeController < ApplicationController
     @categories = Course.first.categories.preload(:practices).order(:position)
   end
 
+  def tos
+  end
+
+  def law
+  end
+
   def coc
   end
 end
