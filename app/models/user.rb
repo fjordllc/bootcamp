@@ -33,6 +33,14 @@ class User < ApplicationRecord
     rails: 4
   }, _prefix: true
 
+  enum satisfaction: {
+    very_poor: 0,
+    poor: 1,
+    average: 2,
+    good: 3,
+    excellent: 4
+  }, _prefix: true
+
   belongs_to :company, required: false
   belongs_to :course
   has_many :learnings
