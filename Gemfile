@@ -56,6 +56,7 @@ group :development, :test do
   # not default
   gem "pry-byebug"
   gem "webmock"
+  gem "traceroute"
 end
 
 group :development do
