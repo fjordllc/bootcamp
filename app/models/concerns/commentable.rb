@@ -21,10 +21,10 @@ module Commentable
 
   def body
     case self
-    when Product
-      self[:body]
-    else
+    when Announcement, Event, Report
       self[:description]
+    else
+      self[:body]
     end
   end
 end
