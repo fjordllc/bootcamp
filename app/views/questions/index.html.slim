@@ -33,3 +33,13 @@ header.page-header.is-margin-bottom-0
         - else
           | 未解決の質問はまだありません。
     = paginate @questions, position: "bottom"
+- if @questions.all_tags.any?
+  nav
+    header
+      h2
+        | タグ一覧
+    ul
+      - @questions.all_tags.each do |tag|
+        - if tag.present?
+          li
+            = link_to tag.name, questions_tag_path(tag.name, solved: "true")
