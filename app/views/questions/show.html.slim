@@ -49,7 +49,7 @@ header.page-header
               ul.thread-list-item-tags__items
                 - @question.tags.each do |tag|
                   li.thread-list-item-tags__item
-                    = link_to tag.name, questions_tag_path(tag.name, solved: "true")
+                    = link_to tag.name, questions_tag_path(tag.name, all: "true")
         .thread__body
           .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @question.description

@@ -11,6 +11,8 @@ class QuestionsController < ApplicationController
     questions =
       if params[:solved].present?
         Question.solved
+      elsif params[:all].present?
+        Question.all
       else
         Question.not_solved
       end.order(updated_at: :desc, id: :desc)
