@@ -7,9 +7,6 @@ class Admin::CompaniesController < AdminController
     @companies = Company.with_attached_logo.order(:id)
   end
 
-  def show
-  end
-
   def new
     @company = Company.new
   end

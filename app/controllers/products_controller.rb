@@ -137,7 +137,7 @@ class ProductsController < ApplicationController
       return "提出物をWIPとして保存しました。" if product.wip?
       case action_name
       when :create
-        "提出物を作成しました。"
+        "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。<br>7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
       when :update
         "提出物を更新しました。"
       end
