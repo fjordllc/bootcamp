@@ -1,4 +1,4 @@
-= render "notification_mailer_template", title: "#{@mentionable.user.login_name}からメンションがありました", link_url: notification_url(@notification), link_text: "このメンションへ" do
+= render "notification_mailer_template", title: "#{@mentionable.user.login_name}さんからメンションがありました", link_url: notification_url(@notification), link_text: "このメンションへ" do
   -if @mentionable.body
     = simple_format(@mentionable.body)
   -else
