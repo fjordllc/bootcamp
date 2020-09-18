@@ -2,8 +2,5 @@
   .card-header.is-sm
     h2.card-header__title GitHub
   .user-grass
-    - if user.github_account
-      = link_to user_github_url(user), target: "_blank", class: "user-grass__link" do
-        .js-github-grass(data-name="#{user.github_account}")
-    - else
-      .user-grass__empty GitHubアカウントは未登録です。
+    = link_to user_github_url(user), target: "_blank", class: "user-grass__link" do
+      .js-github-grass(data-name="#{user.github_account}")
