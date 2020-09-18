@@ -24,7 +24,7 @@
           @click="dropdownReaction(emoji.kind)")
           span.reactions__item-emoji.js-reaction-emoji
             | {{ emoji.value }}
-</template> 
+</template>
 <script>
 import moment from 'moment'
 import MarkdownIt from 'markdown-it'
@@ -42,23 +42,7 @@ export default {
     }
   },
   created: function() {
-    fetch(`/api/available_emojis.json`, {
-      method: 'GET',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-      },
-      credentials: 'same-origin',
-      redirect: 'manual'
-    })
-      .then(response => {
-        return response.json()
-      })
-      .then(json => {
-        json.forEach(e => { this.availableEmojis.push(e) });
-      })
-      .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
+    this.availableEmojis = window.availableEmojis
   },
   methods: {
     token () {
