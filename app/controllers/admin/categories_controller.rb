@@ -7,9 +7,6 @@ class Admin::CategoriesController < AdminController
     @categories = Category.order("position")
   end
 
-  def show
-  end
-
   def new
     @category = Category.new
   end

@@ -51,7 +51,7 @@ Rails.application.routes.draw do
       resources :qrcodes, only: %i(index show)
     end
     resources :books
-    resources :seats
+    resources :seats, except: %i(show)
   end
 
   namespace "partial" do
@@ -86,7 +86,7 @@ Rails.application.routes.draw do
       resource :position, only: %i(update), controller: "courses/practices/position"
     end
   end
-  resources :courses, except: %i(index)
+  resources :courses, except: %i(index show)
   resources :practices, except: %i(index destroy) do
     resources :reports, only: %i(index), controller: "practices/reports"
     resources :questions, only: %i(index), controller: "practices/questions"
@@ -101,9 +101,7 @@ Rails.application.routes.draw do
     resources :unchecked, only: %i(index)
   end
   resources :reports
-  resources :comments
   resources :pages
-  resources :watches
   resources :notifications, only: %i(index show) do
     collection do
       resources :allmarks, only: %i(create), controller: "notifications/allmarks"
@@ -119,11 +117,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :questions do
-    resources :answers, only: %i(edit create update destroy)
-    resource :correct_answer, only: %i(create update), controller: "questions/correct_answer"
-  end
-
+  resources :questions
   resources :reservation_calenders, only: %i(index show)
   resources :courses, only: :index
 
