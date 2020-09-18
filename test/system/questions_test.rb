@@ -109,11 +109,12 @@ class QuestionsTest < ApplicationSystemTestCase
       tagInput.native.send_keys :return
       click_button "登録する"
     end
-    visit questions_url
+    click_on "Q&A", match: :first
     assert_text "tag1"
     assert_text "tag2"
 
-    click_on "tag1"
+    click_on "tag1", match: :first
     assert_text "tagテストの質問"
+    assert_no_text "どのエディターを使うのが良いでしょうか"
   end
 end
