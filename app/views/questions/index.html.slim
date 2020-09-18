@@ -39,7 +39,7 @@ header.page-header.is-margin-bottom-0
       h2
         | タグ一覧
     ul
-      - @questions.all_tags.each do |tag|
+      - Question.all.all_tags.each do |tag|
         - if tag.present?
           li
-            = link_to tag.name, questions_tag_path(tag.name, solved: "true")
+            = link_to tag.name, questions_tag_path(tag.name, all: "true")
