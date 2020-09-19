@@ -15,7 +15,8 @@ module Mentioner
   end
 
   def body
-    if respond_to? :body
+    case self
+    when Product
       self[:body]
     else
       self[:description]
