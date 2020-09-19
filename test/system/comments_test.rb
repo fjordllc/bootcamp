@@ -105,6 +105,15 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text "test"
   end
 
+  test "post new comment for page" do
+    visit "/pages/#{pages(:page_1).id}"
+    within(".thread-comment-form__form") do
+      fill_in("new_comment[description]", with: "test")
+    end
+    click_button "コメントする"
+    assert_text "test"
+  end
+
   test "comment tab is active after a comment has been posted" do
     visit "/reports/#{reports(:report_3).id}"
     assert_equal "コメント", find(".thread-comment-form__tab.is-active").text
