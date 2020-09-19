@@ -40,6 +40,7 @@ header.page-header
         .thread__body
           .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @page.body
+          = render "reactions/reactions", reactionable: @page
         - if admin_login? || current_user == @page.user
           footer.card-footer
             .card-footer-actions
@@ -61,3 +62,4 @@ header.page-header
           user: @page.user,
           link_class: "thread__author-link",
           image_class: "thread__author-icon"
+    #js-comments(data-commentable-id="#{@page.id}" data-commentable-type="Page" data-current-user-id="#{current_user.id}")

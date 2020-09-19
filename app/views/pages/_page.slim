@@ -17,6 +17,12 @@
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{page.updated_at.to_datetime}" pubdate="pubdate")
         = l page.updated_at
+      - if page.comments.any?
+        .thread-list-item-meta__comment-count
+          .thread-list-item-meta__comment-count-label
+            i.fas.fa-comment
+          .thread-list-item-meta__comment-count-value
+            = page.comments.size
     - if page.tags.present?
       .thread-list-item-tags
         .thread-list-item-tags__label

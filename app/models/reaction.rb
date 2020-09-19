@@ -24,4 +24,8 @@ class Reaction < ApplicationRecord
   def self.emojis
     @_emojis ||= kinds.keys.zip(%w(👍 👎 😄 😕 🎉 ❤️ 🚀 👀 💯 💪 🙆‍♀️ 😭)).to_h.with_indifferent_access
   end
+
+  def self.available_emojis
+    self.emojis.map { |key, value| { kind: key, value: value } }
+  end
 end
