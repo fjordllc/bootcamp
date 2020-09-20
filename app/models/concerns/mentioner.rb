@@ -21,7 +21,6 @@ module Mentioner
     when Report
       "#{self.user.login_name}さんの「#{self[:title]}」の日報"
     when Comment
-
       "#{self.commentable.user.login_name}さんの#{self.commentable.title}のコメント"
     end
   end
