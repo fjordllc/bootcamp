@@ -41,7 +41,7 @@ class NotificationMailer < ApplicationMailer
   def mentioned
     @user = @receiver
     @notification = @user.notifications.find_by(path: @mentionable.path)
-    subject = "[bootcamp] #{@mentionable.sender.login_name}さんからメンションがきました。"
+    subject = "[bootcamp] #{@mentionable.where_mention}で#{@mentionable.sender.login_name}さんからメンションがありました。"
     mail to: @user.email, subject: subject
   end
 

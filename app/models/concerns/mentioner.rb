@@ -14,12 +14,19 @@ module Mentioner
     User.where(login_name: names)
   end
 
-  def body
+  def where_mention
     case self
     when Product
-      self[:body]
-    else
-      self[:description]
+      "#{self.user.login_name}さんの「#{self.practice[:title]}」の提出物"
+    when Report
+      "#{self.user.login_name}さんの「#{self[:title]}」の日報"
+    when Comment
+
+      "#{self.commentable.user.login_name}さんの#{self.commentable.title}のコメント"
     end
+  end
+
+  def body
+    self[:body] || self[:description]
   end
 end
