@@ -43,6 +43,10 @@ header.page-header
               label.form-radio-button__label
                 | とても良い
                 = f.radio_button :satisfaction, "excellent"
+      .form__items
+        .form-item
+          = f.label :opinion, "ご意見や改善すべきと感じた点がございましたらご自由にご記載ください", class: "a-label"
+          = f.text_area :opinion, class: "a-text-input is-md", placeholder: "ご意見や改善すべきと感じた点がございましたらご自由にご記載ください"
 
       .form-actions
         ul.form-actions__items
