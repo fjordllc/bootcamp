@@ -23,7 +23,7 @@ class RetirementController < ApplicationController
 
   private
     def retire_reason_params
-      params.require(:user).permit(:retire_reason)
+      params.require(:user).permit(:retire_reason, :satisfaction)
     end
 
     def destroy_subscription
