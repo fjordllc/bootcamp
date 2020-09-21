@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_18_055838) do
+ActiveRecord::Schema.define(version: 2020_09_21_173352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -398,6 +398,7 @@ ActiveRecord::Schema.define(version: 2020_09_18_055838) do
     t.boolean "officekey_permission", default: false, null: false
     t.string "github_id"
     t.integer "satisfaction"
+    t.text "opinion"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
