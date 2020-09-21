@@ -21,7 +21,7 @@ module Mentioner
     when Report
       "#{self.user.login_name}さんの日報「#{self[:title]}」"
     when Comment
-      select_message(self.commentable.class, self.commentable) + "へのコメント"
+      target_of_comment(self.commentable.class, self.commentable) + "へのコメント"
     end
   end
 
@@ -31,10 +31,10 @@ module Mentioner
 
   private
 
-    def select_message(commentable_class, commentable)
+    def target_of_comment(commentable_class, commentable)
       {
-        Report: "#{commentable.user.login_name}さんの日報「#{self.commentable.title}」",
-        Product: "#{commentable.user.login_name}さんの#{self.commentable.title}",
+        Report: "#{commentable.user.login_name}さんの日報「#{commentable.title}」",
+        Product: "#{commentable.user.login_name}さんの#{commentable.title}",
         Event: "イベント「#{commentable.title}」",
         Page: "Docs「#{commentable.title}」",
         Announcement: "お知らせ「#{commentable.title}」"
