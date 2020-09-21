@@ -145,6 +145,19 @@ class User < ApplicationRecord
     validates :satisfaction, presence: true
   end
 
+  flag :retire_reasons, [
+    :done,
+    :necessity,
+    :other_school,
+    :time,
+    :motivation,
+    :curriculum,
+    :support,
+    :environment,
+    :cost,
+    :job_change
+  ]
+
   scope :in_school, -> { where(graduated_on: nil) }
   scope :graduated, -> { where.not(graduated_on: nil) }
   scope :retired, -> { where.not(retired_on: nil) }
