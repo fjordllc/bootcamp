@@ -18,7 +18,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def new
-    @announcement = Announcement.new
+    @announcement = Announcement.new(target: "students")
   end
 
   def edit
