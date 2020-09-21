@@ -19,6 +19,30 @@ header.page-header
           .a-form-help
             p
               | 差し支えなければ退会理由を教えてください。
+      .form__items
+        .form-item
+          = f.label :satisfaction, "全体の満足度を教えてください", class: "a-label is-required"
+          ul.form-item__radio-buttons.is-inline
+            li.form-radio-button
+              label.form-radio-button__label
+                | とても悪い
+                = f.radio_button :satisfaction, "very_poor"
+            li.form-radio-button
+              label.form-radio-button__label
+                | 悪い
+                = f.radio_button :satisfaction, "poor"
+            li.form-radio-button
+              label.form-radio-button__label
+                | どちらでもない
+                = f.radio_button :satisfaction, "average"
+            li.form-radio-button
+              label.form-radio-button__label
+                | 良い
+                = f.radio_button :satisfaction, "good"
+            li.form-radio-button
+              label.form-radio-button__label
+                | とても良い
+                = f.radio_button :satisfaction, "excellent"
 
       .form-actions
         ul.form-actions__items

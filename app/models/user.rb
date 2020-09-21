@@ -141,6 +141,10 @@ class User < ApplicationRecord
     validates :experience, presence: true
   end
 
+  with_options if: -> { validation_context == :retirement } do
+    validates :satisfaction, presence: true
+  end
+
   scope :in_school, -> { where(graduated_on: nil) }
   scope :graduated, -> { where.not(graduated_on: nil) }
   scope :retired, -> { where.not(retired_on: nil) }
