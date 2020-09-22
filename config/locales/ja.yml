@@ -225,3 +225,16 @@ ja:
       canceled: キャンセル
       past_due: 期日経過
       trialing: お試し中
+  active_flag:
+    user:
+      retire_reasons:
+        done: 受講したいカリキュラムを全て受講したから
+        necessity: 学ぶ必要がなくなったから
+        other_school: 他のスクールに通うことにしたから
+        time: 学習時間を取ることが難しくなったから
+        motivation: 学ぶ意欲が落ちたから
+        curriculum: カリキュラムに満足できなかったから
+        support: スタッフのサポートに満足できなかったから
+        environment: 学ぶ環境に満足できなかったから
+        cost: 受講料が高いから
+        job_change: 転職や引っ越しなど環境の変化によって学びが継続できなくなったから
