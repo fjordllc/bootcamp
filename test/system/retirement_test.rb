@@ -9,6 +9,7 @@ class RetirementTest < ApplicationSystemTestCase
     login_user "kananashi", "testtest"
     user = users(:kananashi)
     visit new_retirement_path
+    choose "良い", visible: false
     click_on "退会する"
     page.driver.browser.switch_to.alert.accept
     assert_text "退会処理が完了しました"
@@ -22,6 +23,7 @@ class RetirementTest < ApplicationSystemTestCase
     login_user "osnashi", "testtest"
     user = users(:osnashi)
     visit new_retirement_path
+    choose "良い", visible: false
     click_on "退会する"
     page.driver.browser.switch_to.alert.accept
     assert_text "退会処理が完了しました"
@@ -46,7 +48,10 @@ class RetirementTest < ApplicationSystemTestCase
     assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
     visit edit_current_user_path
     click_on "退会手続きへ進む"
+    check "受講したいカリキュラムを全て受講したから", allow_label_click: true
     fill_in "user[retire_reason]", with: "辞" * 8
+    choose "良い", visible: false
+    fill_in "user[opinion]", with: "ご意見"
     assert_difference "user.products.unchecked.count", -1 do
       page.accept_confirm "本当によろしいですか？" do
         click_on "退会する"
@@ -69,7 +74,10 @@ class RetirementTest < ApplicationSystemTestCase
     assert_text "日報をWIPとして保存しました。"
     visit edit_current_user_path
     click_on "退会手続きへ進む"
+    check "受講したいカリキュラムを全て受講したから", allow_label_click: true
     fill_in "user[retire_reason]", with: "辞" * 8
+    choose "良い", visible: false
+    fill_in "user[opinion]", with: "ご意見"
     assert_difference "user.reports.wip.count", -1 do
       page.accept_confirm "本当によろしいですか？" do
         click_on "退会する"
