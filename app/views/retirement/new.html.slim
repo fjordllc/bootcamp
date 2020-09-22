@@ -20,35 +20,17 @@ header.page-header
               = f.collection_check_boxes :retire_reasons, User.retire_reasons.pairs, :second, :first, class: "label-checkbox" do |b|
                 li.checkboxes__item
                   = b.label { b.check_box + b.text }
-      .form__items
         .form-item
           = f.label :retire_reason, "上記を選んだ理由を教えてください。複数選んだ方は最も大きな理由を教えてください", class: "a-label"
           = f.text_area :retire_reason, class: "a-text-input is-md", placeholder: "上記を選んだ理由を教えてください。複数選んだ方は最も大きな理由を教えてください"
-      .form__items
         .form-item
           = f.label :satisfaction, "全体の満足度を教えてください", class: "a-label is-required"
-          ul.form-item__radio-buttons.is-inline
-            li.form-radio-button
-              label.form-radio-button__label
-                | とても悪い
-                = f.radio_button :satisfaction, "very_poor"
-            li.form-radio-button
-              label.form-radio-button__label
-                | 悪い
-                = f.radio_button :satisfaction, "poor"
-            li.form-radio-button
-              label.form-radio-button__label
-                | どちらでもない
-                = f.radio_button :satisfaction, "average"
-            li.form-radio-button
-              label.form-radio-button__label
-                | 良い
-                = f.radio_button :satisfaction, "good"
-            li.form-radio-button
-              label.form-radio-button__label
-                | とても良い
-                = f.radio_button :satisfaction, "excellent"
-      .form__items
+          ul.form-item__radio-buttons
+            = f.collection_radio_buttons :satisfaction, User.satisfactions, :first, :first do |b|
+              li.form-radio-button
+                label.form-radio-button__label
+                  = t("activerecord.enums.user.satisfaction.#{b.text}")
+                  = b.radio_button
         .form-item
           = f.label :opinion, "ご意見や改善すべきと感じた点がございましたらご自由にご記載ください", class: "a-label"
           = f.text_area :opinion, class: "a-text-input is-md", placeholder: "ご意見や改善すべきと感じた点がございましたらご自由にご記載ください"
