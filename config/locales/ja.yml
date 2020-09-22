@@ -196,11 +196,11 @@ ja:
           ruby: Ruby経験あり
           rails: Rails経験あり
         satisfaction:
-          very_poor: とても悪い
-          poor: 悪い
-          average: どちらでもない
-          good: 良い
           excellent: とても良い
+          good: 良い
+          average: どちらでもない
+          poor: 悪い
+          very_poor: とても悪い
       learning:
         status:
           unstarted: 未着手
