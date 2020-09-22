@@ -34,11 +34,11 @@ class User < ApplicationRecord
   }, _prefix: true
 
   enum satisfaction: {
-    very_poor: 0,
-    poor: 1,
+    excellent: 0,
+    good: 1,
     average: 2,
-    good: 3,
-    excellent: 4
+    poor: 3,
+    very_poor: 4
   }, _prefix: true
 
   belongs_to :company, required: false
