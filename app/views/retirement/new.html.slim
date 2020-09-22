@@ -22,11 +22,8 @@ header.page-header
                   = b.label { b.check_box + b.text }
       .form__items
         .form-item
-          = f.label :retire_reason, "退会理由", class: "a-label"
-          = f.text_area :retire_reason, class: "a-text-input is-md", placeholder: "退会理由"
-          .a-form-help
-            p
-              | 差し支えなければ退会理由を教えてください。
+          = f.label :retire_reason, "上記を選んだ理由を教えてください。複数選んだ方は最も大きな理由を教えてください", class: "a-label"
+          = f.text_area :retire_reason, class: "a-text-input is-md", placeholder: "上記を選んだ理由を教えてください。複数選んだ方は最も大きな理由を教えてください"
       .form__items
         .form-item
           = f.label :satisfaction, "全体の満足度を教えてください", class: "a-label is-required"
