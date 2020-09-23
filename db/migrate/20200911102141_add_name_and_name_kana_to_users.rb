@@ -2,7 +2,9 @@
 
 class AddNameAndNameKanaToUsers < ActiveRecord::Migration[6.0]
   def change
-    add_column :users, :name, :string, null: false, default: ""
-    add_column :users, :name_kana, :string, null: false, default: ""
+    change_table :users, bulk: true do |t|
+      t.string :name, null: false, default: ""
+      t.string :name_kana, null: false, default: ""
+    end
   end
 end
