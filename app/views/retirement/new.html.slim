@@ -14,11 +14,26 @@ header.page-header
     = form_with model: current_user, local: true, url: retirement_path, method: :post, class: "form" do |f|
       .form__items
         .form-item
-          = f.label :retire_reason, "退会理由", class: "a-label"
-          = f.text_area :retire_reason, class: "a-text-input is-md", placeholder: "退会理由"
-          .a-form-help
-            p
-              | 差し支えなければ退会理由を教えてください。
+          = f.label :retire_reasons, "退会の理由を教えてください（複数選択可）", class: "a-label"
+          .checkboxes
+            ul.checkboxes__items
+              = f.collection_check_boxes :retire_reasons, User.retire_reasons.pairs, :second, :first, class: "label-checkbox" do |b|
+                li.checkboxes__item
+                  = b.label { b.check_box + b.text }
+        .form-item
+          = f.label :retire_reason, "上記を選んだ理由を教えてください。複数選んだ方は最も大きな理由を教えてください", class: "a-label"
+          = f.text_area :retire_reason, class: "a-text-input is-md", placeholder: "上記を選んだ理由を教えてください。複数選んだ方は最も大きな理由を教えてください"
+        .form-item
+          = f.label :satisfaction, "全体の満足度を教えてください", class: "a-label is-required"
+          ul.form-item__radio-buttons
+            = f.collection_radio_buttons :satisfaction, User.satisfactions, :first, :first do |b|
+              li.form-radio-button
+                label.form-radio-button__label
+                  = t("activerecord.enums.user.satisfaction.#{b.text}")
+                  = b.radio_button
+        .form-item
+          = f.label :opinion, "ご意見や改善すべきと感じた点がございましたらご自由にご記載ください", class: "a-label"
+          = f.text_area :opinion, class: "a-text-input is-md", placeholder: "ご意見や改善すべきと感じた点がございましたらご自由にご記載ください"
 
       .form-actions
         ul.form-actions__items

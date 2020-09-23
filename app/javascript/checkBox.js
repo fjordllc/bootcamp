@@ -19,7 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (t === 'radio') {
         if (chk === true) {
           document.querySelectorAll('ul, input').forEach(function (value) {
-            value.parentNode.classList.remove('is-checked')
+            if (value.type === 'radio') {
+              value.parentNode.classList.remove('is-checked')
+            }
           })
           value.parentNode.classList.add('is-checked')
         }
