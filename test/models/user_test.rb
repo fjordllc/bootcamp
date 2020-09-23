@@ -231,4 +231,9 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes(target, users(:kimura))
     assert_not_includes(target, users(:yameo))
   end
+
+  test "#active_practice" do
+    assert_equal(users(:komagata).active_practice, practices(:practice_1).id)
+    assert_nil(users(:machida).active_practice)
+  end
 end
