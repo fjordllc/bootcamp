@@ -12,6 +12,13 @@ header.page-header
             = link_to questions_path, class: "a-button is-md is-secondary is-block" do
               i.fas.fa-angle-left
               | Q&A一覧へ
+
+.page-notice
+  .container
+    .page-notice__inner
+      p
+        = link_to "/pages/240", target: "_blank", class: "page-notice__link" do
+          | このドキュメントを参考にして質問をしてみよう！
 .page-body
   .container
     = render "form", question: @question, categories: @categories
