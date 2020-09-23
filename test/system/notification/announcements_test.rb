@@ -17,6 +17,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
 
     find("input[name='announcement[title]']").set("お知らせです")
     find("textarea[name='announcement[description]']").set("お知らせ内容です")
+    find("input[value='all']", { visible: false }).set(true)
     click_button "作成"
     logout
 
