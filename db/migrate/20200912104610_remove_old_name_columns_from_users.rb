@@ -2,9 +2,11 @@
 
 class RemoveOldNameColumnsFromUsers < ActiveRecord::Migration[6.0]
   def change
-    remove_column :users, :first_name, :string
-    remove_column :users, :last_name, :string
-    remove_column :users, :kana_first_name, :string, null: false, default: ""
-    remove_column :users, :kana_last_name, :string, null: false, default: ""
+    change_table :users, bulk: true do |t|
+      t.remove :first_name
+      t.remove :last_name
+      t.remove :kana_first_name, null: false, default: ""
+      t.remove :kana_last_name, null: false, default: ""
+    end
   end
 end
