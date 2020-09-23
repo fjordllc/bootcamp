@@ -33,6 +33,14 @@ class User < ApplicationRecord
     rails: 4
   }, _prefix: true
 
+  enum satisfaction: {
+    excellent: 0,
+    good: 1,
+    average: 2,
+    poor: 3,
+    very_poor: 4
+  }, _prefix: true
+
   belongs_to :company, required: false
   belongs_to :course
   has_many :learnings
@@ -132,6 +140,23 @@ class User < ApplicationRecord
     validates :study_place, presence: true
     validates :experience, presence: true
   end
+
+  with_options if: -> { validation_context == :retirement } do
+    validates :satisfaction, presence: true
+  end
+
+  flag :retire_reasons, [
+    :done,
+    :necessity,
+    :other_school,
+    :time,
+    :motivation,
+    :curriculum,
+    :support,
+    :environment,
+    :cost,
+    :job_change
+  ]
 
   scope :in_school, -> { where(graduated_on: nil) }
   scope :graduated, -> { where.not(graduated_on: nil) }
