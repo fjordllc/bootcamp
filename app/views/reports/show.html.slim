@@ -24,7 +24,7 @@ header.page-header
             .thread-header__emotion
               = Report.faces[@report.emotion]
           .thread-header__upper-side
-            = link_to @report.user, class: "thread-header__author", title: @report.user.full_name do
+            = link_to @report.user, class: "thread-header__author", title: @report.user.name do
               = @report.user.login_name
             .thread-header__date
               = l @report.reported_on

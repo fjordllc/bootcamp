@@ -84,7 +84,7 @@ class QuestionsController < ApplicationController
       link = "<#{question_url(question)}|#{question.title}>"
 
       SlackNotification.notify "#{name}質問しました。#{link}",
-        username: "#{question.user.login_name} (#{question.user.full_name})",
+        username: "#{question.user.login_name} (#{question.user.name})",
         icon_url: question.user.avatar_url,
         attachments: [{
           fallback: "question body.",

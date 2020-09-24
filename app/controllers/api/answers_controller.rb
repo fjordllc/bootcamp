@@ -57,7 +57,7 @@ class API::AnswersController < API::BaseController
       link = "<#{question_url(answer.question)}|#{answer.question.title}>"
 
       SlackNotification.notify "#{name}が回答しました。#{link}",
-        username: "#{answer.user.login_name} (#{answer.user.full_name})",
+        username: "#{answer.user.login_name} (#{answer.user.name})",
         icon_url: answer.user.avatar_url,
         attachments: [{
           fallback: "answer body.",
