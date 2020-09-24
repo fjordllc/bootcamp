@@ -26,6 +26,21 @@
     +size(3.5rem)
     box-shadow: white 0 0 0 .375rem
 
+.thread-header__user-icon-link
+  display: inline-block
+  vertical-align: middle
+  +margin(horizontal, .5rem .25rem)
+
+.thread-header__user-icon
+  +icon-role-style
+  +media-breakpoint-up(md)
+    +size(1rem)
+  +media-breakpoint-down(sm)
+    +size(1rem)
+
+.thread-header__user-link
+  +hover-link-reversal
+  color: $main
 
 .thread-header__emotion
   +position(absolute, right 0, top 0)
