@@ -96,4 +96,20 @@ class UsersTest < ApplicationSystemTestCase
     visit "/"
     assert_no_text "予約しています"
   end
+
+  test "show last active date only to mentors" do
+    login_user "komagata", "testtest"
+
+    visit "/users/#{users(:kimura).id}"
+    assert_text "最終ログイン日時"
+    assert_selector "div.user-metas__item-value.is-important"
+
+    visit "/users/#{users(:komagata).id}"
+    assert_text "最終ログイン日時"
+    assert_no_selector "div.user-metas__item-value.is-important"
+
+    login_user "hatsuno", "testtest"
+    visit "/users/#{users(:hatsuno).id}"
+    assert_no_text "最終ログイン日時"
+  end
 end
