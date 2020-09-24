@@ -98,6 +98,10 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test "show last active date only to mentors" do
+    travel_to Time.new(2014, 1, 1, 0, 0, 0) do
+      login_user "kimura", "testtest"
+    end
+
     login_user "komagata", "testtest"
 
     visit "/users/#{users(:kimura).id}"
@@ -111,5 +115,21 @@ class UsersTest < ApplicationSystemTestCase
     login_user "hatsuno", "testtest"
     visit "/users/#{users(:hatsuno).id}"
     assert_no_text "最終ログイン日時"
+  end
+
+  test "show inactive message on users page" do
+    travel_to Time.new(2014, 1, 1, 0, 0, 0) do
+      login_user "kimura", "testtest"
+    end
+
+    login_user "komagata", "testtest"
+    visit "/users"
+    assert_no_selector "div.users-item.inactive"
+    assert_text "1ヶ月ログインがありません"
+
+    login_user "hatsuno", "testtest"
+    visit "/users"
+    assert_no_selector "div.users-item.inactive"
+    assert_no_text "1ヶ月ログインがありません"
   end
 end
