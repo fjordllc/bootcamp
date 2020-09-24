@@ -7,6 +7,14 @@ module Mentioner
         NotificationFacade.mentioned(self, receiver)
       end
     end
+
+    if mentions.include? "@mentor"
+      User.mentor.each do |receiver|
+        if sender != receiver
+          NotificationFacade.mentioned(self, receiver)
+        end
+      end
+    end
   end
 
   def new_mention_users
