@@ -1,8 +1,11 @@
 .col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
-  .users-item(class="#{user.active? ? "active" : "inactive"}")
+  .users-item(class="#{"active" if user.active?}")
     .users-item__inner.a-card
       header.users-item__header
         .users-item__header-container
+          - if current_user.mentor? && !user.active?
+            .users-item__active-message
+              | 1ヶ月ログインがありません
           .users-item__name
             = link_to user, class: "users-item__name-link" do
               - if user.daimyo?
