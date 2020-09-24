@@ -34,11 +34,13 @@ class LinkChecker
     end
 
     def access_url(url_array)
+      puts "extracted_url:"
+      puts url_array
       url_array.map do |hash|
         hash[:url].map do |url|
           begin
             response = Net::HTTP.get_response(URI.parse(url))
-          rescue SocketError
+          rescue SocketError, Net::OpenTimeout
             next { id: hash[:id], url: url }
           end
           { id: hash[:id], url: url } unless response.code == "200" || response.code == "301"
