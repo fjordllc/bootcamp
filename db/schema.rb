@@ -357,8 +357,6 @@ ActiveRecord::Schema.define(version: 2020_09_21_182111) do
     t.datetime "updated_at"
     t.string "remember_me_token"
     t.datetime "remember_me_token_expires_at"
-    t.string "first_name"
-    t.string "last_name"
     t.string "twitter_account"
     t.string "facebook_url"
     t.string "blog_url"
@@ -390,8 +388,6 @@ ActiveRecord::Schema.define(version: 2020_09_21_182111) do
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
     t.integer "prefecture_code"
-    t.string "kana_first_name", default: "", null: false
-    t.string "kana_last_name", default: "", null: false
     t.boolean "job_seeker", default: false, null: false
     t.boolean "slack_participation", default: true, null: false
     t.boolean "github_collaborator", default: false, null: false

@@ -10,10 +10,8 @@ class SignUpTest < ApplicationSystemTestCase
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
       fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
-      fill_in "user[first_name]", with: "太郎"
-      fill_in "user[last_name]", with: "テスト"
-      fill_in "user[kana_first_name]", with: "タロウ"
-      fill_in "user[kana_last_name]", with: "テスト"
+      fill_in "user[name]", with: "テスト 太郎"
+      fill_in "user[name_kana]", with: "テスト タロウ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
@@ -41,10 +39,8 @@ class SignUpTest < ApplicationSystemTestCase
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
       fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
-      fill_in "user[first_name]", with: "太郎"
-      fill_in "user[last_name]", with: "テスト"
-      fill_in "user[kana_first_name]", with: "タロウ"
-      fill_in "user[kana_last_name]", with: "テスト"
+      fill_in "user[name]", with: "テスト 太郎"
+      fill_in "user[name_kana]", with: "テスト タロウ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
@@ -72,10 +68,8 @@ class SignUpTest < ApplicationSystemTestCase
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
       fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
-      fill_in "user[first_name]", with: "太郎"
-      fill_in "user[last_name]", with: "テスト"
-      fill_in "user[kana_first_name]", with: "タロウ"
-      fill_in "user[kana_last_name]", with: "テスト"
+      fill_in "user[name]", with: "テスト 太郎"
+      fill_in "user[name_kana]", with: "テスト タロウ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
@@ -103,10 +97,8 @@ class SignUpTest < ApplicationSystemTestCase
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
       fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
-      fill_in "user[first_name]", with: "太郎"
-      fill_in "user[last_name]", with: "テスト"
-      fill_in "user[kana_first_name]", with: "タロウ"
-      fill_in "user[kana_last_name]", with: "テスト"
+      fill_in "user[name]", with: "テスト 太郎"
+      fill_in "user[name_kana]", with: "テスト タロウ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
@@ -135,10 +127,8 @@ class SignUpTest < ApplicationSystemTestCase
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
       fill_in "user[email]", with: email
-      fill_in "user[first_name]", with: "太郎"
-      fill_in "user[last_name]", with: "テスト"
-      fill_in "user[kana_first_name]", with: "タロウ"
-      fill_in "user[kana_last_name]", with: "テスト"
+      fill_in "user[name]", with: "テスト 太郎"
+      fill_in "user[name_kana]", with: "テスト タロウ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
     end
@@ -155,10 +145,8 @@ class SignUpTest < ApplicationSystemTestCase
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
       fill_in "user[email]", with: email
-      fill_in "user[first_name]", with: "太郎"
-      fill_in "user[last_name]", with: "テスト"
-      fill_in "user[kana_first_name]", with: "タロウ"
-      fill_in "user[kana_last_name]", with: "テスト"
+      fill_in "user[name]", with: "テスト 太郎"
+      fill_in "user[name_kana]", with: "テスト タロウ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"

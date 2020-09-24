@@ -99,8 +99,7 @@ class User < ApplicationRecord
   after_update UserCallbacks.new
 
   validates :email,      presence: true, uniqueness: true
-  validates :first_name, presence: true
-  validates :last_name,  presence: true
+  validates :name,  presence: true
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :twitter_account,
@@ -122,15 +121,10 @@ class User < ApplicationRecord
   end
 
   with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
-    validates :kana_first_name,  presence: true,
+    validates :name_kana,  presence: true,
     format: {
-      with: /\A^[ア-ン゛゜ァ-ォャ-ョー]+\z/,
-      message: "はカタカナのみが使用できます"
-    }
-    validates :kana_last_name,  presence: true,
-    format: {
-      with: /\A^[ア-ン゛゜ァ-ォャ-ョー]+\z/,
-      message: "はカタカナのみが使用できます"
+      with: /\A^[ 　ア-ン゛゜ァ-ォャ-ョー]+\z/,
+      message: "はスペースとカタカナのみが使用できます"
     }
   end
 
@@ -277,14 +271,6 @@ class User < ApplicationRecord
 
   def completed_percentage_by(category)
     completed_practices_size(category).to_f / category.practices.size.to_f * 100
-  end
-
-  def full_name
-    "#{last_name} #{first_name}"
-  end
-
-  def kana_full_name
-    "#{kana_last_name} #{kana_first_name}"
   end
 
   def active?

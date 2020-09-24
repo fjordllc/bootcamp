@@ -45,7 +45,7 @@
               = image_tag user.avatar_url, title: user.icon_title, class: "admin-table__user-icon a-user-icon #{user.role} #{user.daimyo? ? "is-daimyo" : ""}"
               span.admin-table__user-login-name
                 = user.login_name
-                | （#{user.full_name}）
+                | （#{user.name}）
           td.admin-table__item-value.is-text-align-center
             - if user.company.present?
               = user.company.name

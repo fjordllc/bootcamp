@@ -13,14 +13,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not users(:komagata).retired?
   end
 
-  test "#full_name" do
-    assert_equal "Komagata Masaki", users(:komagata).full_name
-  end
-
-  test "#kana_full_name" do
-    assert_equal "コマガタ マサキ", users(:komagata).kana_full_name
-  end
-
   test "#active?" do
     travel_to Time.new(2014, 1, 1, 0, 0, 0) do
       assert users(:komagata).active?
@@ -170,39 +162,23 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
-  test "is valid kana_last_name" do
+  test "is valid name_kana" do
     Bootcamp::Setup.attachment
 
     user = users(:komagata)
-    user.kana_last_name = "コマガタ"
+    user.name_kana = "コマガタ マサキ"
     assert user.valid?
-    user.kana_last_name = "駒形"
-    assert user.invalid?
-    user.kana_last_name = "こまがた"
-    assert user.invalid?
-    user.kana_last_name = "komagata"
-    assert user.invalid?
-    user.kana_last_name = "-"
-    assert user.invalid?
-    user.kana_last_name = ""
-    assert user.invalid?
-  end
-
-  test "is valid kana_first_name" do
-    Bootcamp::Setup.attachment
-
-    user = users(:komagata)
-    user.kana_first_name = "マサキ"
+    user.name_kana = "コマガタ　マサキ"
     assert user.valid?
-    user.kana_first_name = "真幸"
+    user.name_kana = "駒形 真幸"
     assert user.invalid?
-    user.kana_first_name = "まさき"
+    user.name_kana = "こまがた まさき"
     assert user.invalid?
-    user.kana_first_name = "masaki"
+    user.name_kana = "komagata masaki"
     assert user.invalid?
-    user.kana_first_name = "-"
+    user.name_kana = "-"
     assert user.invalid?
-    user.kana_first_name = ""
+    user.name_kana = ""
     assert user.invalid?
   end
 
