@@ -29,9 +29,14 @@ header.page-header
               .thread-header__lower-side-label
                 | 最終更新
               time.thread-header__lower-side-value(datetime="#{@page.updated_at.to_datetime}" pubdate="pubdate")
-                = l @page.updated_at
                 - if @page.last_updated_user.present?
-                  |  by #{@page.last_updated_user.login_name}
+                  | #{l @page.updated_at} by
+                  = render "users/icon",
+                    user: @page.last_updated_user,
+                    link_class: "thread-header__user-icon-link",
+                    image_class: "thread-header__user-icon"
+                  = link_to @page.last_updated_user, class: "thread-header__user-link" do
+                    | #{@page.last_updated_user.login_name}
           - if @page.tags.present?
             .thread-list-item-tags
               .thread-list-item-tags__label タグ
