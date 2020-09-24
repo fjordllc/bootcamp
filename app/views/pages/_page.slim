@@ -11,8 +11,6 @@
       .thread-list-item__actions
         = link_to [:edit, page], class: "thread-list-item__actions-link" do
           i.fas.fa-pen
-        = link_to page, data: { confirm: "本当に宜しいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
-            i.fas.fa-trash-alt
     .thread-list-item-meta
       - if admin_login? || current_user == page.user
       time.thread-list-item-meta__updated-at(datetime="#{page.updated_at.to_datetime}" pubdate="pubdate")
