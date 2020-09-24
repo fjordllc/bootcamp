@@ -30,7 +30,8 @@ header.page-header
                 | 最終更新
               time.thread-header__lower-side-value(datetime="#{@page.updated_at.to_datetime}" pubdate="pubdate")
                 = l @page.updated_at
-                |  by #{@page.last_updated_user&.login_name}
+                - if @page.last_updated_user.present?
+                  |  by #{@page.last_updated_user&.login_name}
           - if @page.tags.present?
             .thread-list-item-tags
               .thread-list-item-tags__label タグ
