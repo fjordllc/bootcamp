@@ -25,6 +25,7 @@ class PagesController < ApplicationController
   def create
     @page = Page.new(page_params)
     @page.user = current_user
+    @page.last_updated_user = current_user
     set_wip
     if @page.save
       redirect_to @page, notice: notice_message(@page, :create)
@@ -35,6 +36,7 @@ class PagesController < ApplicationController
 
   def update
     set_wip
+    @page.last_updated_user = current_user
     if @page.update(page_params)
       redirect_to @page, notice: notice_message(@page, :update)
     else
