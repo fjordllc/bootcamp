@@ -445,6 +445,12 @@ SQL
     !three_days_emotions.empty? && three_days_emotions.all?("sad")
   end
 
+  def active_practice
+    if self.active_practices.first
+      self.active_practices.first.id
+    end
+  end
+
   private
     def password_required?
       new_record? || password.present?
