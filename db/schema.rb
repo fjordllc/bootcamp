@@ -400,6 +400,8 @@ ActiveRecord::Schema.define(version: 2020_09_21_182111) do
     t.integer "satisfaction"
     t.text "opinion"
     t.bigint "retire_reasons", default: 0, null: false
+    t.string "name", default: "", null: false
+    t.string "name_kana", default: "", null: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
