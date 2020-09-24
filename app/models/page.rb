@@ -8,6 +8,7 @@ class Page < ApplicationRecord
   include Commentable
 
   belongs_to :user
+  belongs_to :last_updated_user, class_name: "User"
   validates :title, presence: true
   validates :body, presence: true
   paginates_per 20
