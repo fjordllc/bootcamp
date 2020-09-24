@@ -12,7 +12,6 @@
         = link_to [:edit, page], class: "thread-list-item__actions-link" do
           i.fas.fa-pen
     .thread-list-item-meta
-      - if admin_login? || current_user == page.user
       time.thread-list-item-meta__updated-at(datetime="#{page.updated_at.to_datetime}" pubdate="pubdate")
         = l page.updated_at
       - if page.comments.any?
