@@ -132,4 +132,34 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_selector "div.users-item.inactive"
     assert_no_text "1ヶ月ログインがありません"
   end
+
+  test "show inactive users only to mentors" do
+    travel_to Date.current do
+      login_user "kimura", "testtest"
+      login_user "hatsuno", "testtest"
+      login_user "hajime", "testtest"
+      login_user "muryou", "testtest"
+      login_user "kensyu", "testtest"
+      login_user "kananashi", "testtest"
+      login_user "osnashi", "testtest"
+      login_user "jobseeker", "testtest"
+      login_user "daimyo", "testtest"
+    end
+
+    login_user "komagata", "testtest"
+    visit "/"
+    assert_no_text "1ヶ月以上ログインのないユーザー"
+
+    travel_to Time.new(2020, 1, 1, 0, 0, 0) do
+      login_user "kimura", "testtest"
+    end
+
+    login_user "komagata", "testtest"
+    visit "/"
+    assert_text "1ヶ月以上ログインのないユーザー"
+
+    login_user "hatsuno", "testtest"
+    visit "/"
+    assert_no_text "1ヶ月以上ログインのないユーザー"
+  end
 end
