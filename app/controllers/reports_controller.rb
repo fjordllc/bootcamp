@@ -87,7 +87,7 @@ class ReportsController < ApplicationController
 
   private
     def footprint!
-      @report.footprints.where(user: current_user).first_or_create if @report.user != current_user
+      @report.footprints.create_or_find_by(user: current_user) if @report.user != current_user
     end
 
     def report_params
