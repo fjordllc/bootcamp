@@ -6,7 +6,7 @@ class Courses::PracticesController < ApplicationController
   def index
     @course = Course.find(params[:course_id])
     @categories = @course.categories
-                         .preload(practices: { started_students: { avatar_attachment: :blob } })
+                         .includes(practices: [{ started_students: { avatar_attachment: :blob } }, :learning_minute_statistic])
                          .order(:position)
     @learnings = current_user.learnings
 
