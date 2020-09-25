@@ -5,13 +5,13 @@ class ReportsController < ApplicationController
   include Rails.application.routes.url_helpers
   before_action :require_login
   before_action :set_report, only: %i(show)
-  before_action :set_my_report, only: %i(edit update destroy copy)
+  before_action :set_my_report, only: %i(edit update destroy)
   before_action :set_checks, only: %i(show)
   before_action :set_check, only: %i(show)
   before_action :set_footprints, only: %i(show)
   before_action :set_footprint, only: %i(show)
   before_action :set_user, only: %i(show)
-  before_action :set_categories, only: %i(new create edit update copy)
+  before_action :set_categories, only: %i(new create edit update)
   before_action :set_watch, only: %i(show)
 
   def index
@@ -50,8 +50,7 @@ class ReportsController < ApplicationController
   end
 
   def copy
-    flash[:notice] = "日報をコピーしました"
-    redirect_to new_report_path(id: params[:id])
+    redirect_to new_report_path(id: params[:id]), notice: "日報をコピーしました。"
   end
 
   def edit
