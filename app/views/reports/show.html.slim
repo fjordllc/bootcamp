@@ -68,7 +68,7 @@ header.page-header
                       i.fas.fa-pen#new
                       | 内容修正
                   li.card-footer-actions__item
-                    = link_to new_report_path(id: @report), class: "card-footer-actions__action a-button is-md is-warning is-block" do
+                    = link_to copy_report_path(@report), class: "card-footer-actions__action a-button is-md is-warning is-block" do
                       i.fas.fa-copy#copy
                       | コピー
                   li.card-footer-actions__item
