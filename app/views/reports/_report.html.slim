@@ -15,7 +15,7 @@
         .thread-list-item__actions
           = link_to edit_report_path(report), class: "thread-list-item__actions-link" do
             i.fas.fa-pen
-          = link_to new_report_path(id: report), class: "thread-list-item__actions-link" do
+          = link_to copy_report_path(report), class: "thread-list-item__actions-link" do
             i.fas.fa-copy
           = link_to report_path(report), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
             i.fas.fa-trash-alt
