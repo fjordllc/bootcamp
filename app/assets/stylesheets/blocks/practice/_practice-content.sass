@@ -7,9 +7,13 @@
   align-items: flex-start
   &:not(:first-child)
     margin-top: 2rem
+  &.is-admin
+    max-width: 100%
 
 .practice-contents__inner
   flex: 100
+  .practice-contents.is-admin &
+    max-width: 50rem
 
 .practice-contents__header
   border-bottom: solid 1px $background-shade
@@ -26,6 +30,10 @@
   position: relative
   display: block
   margin-bottom: 2rem
+  &.is-memo
+    height: calc(100vh - 4.25rem)
+    +position(sticky, top 3.5rem)
+    margin-bottom: 0
 
 .practice-content__title
   +text-block(1rem 1.4, 600)
@@ -42,11 +50,14 @@
     +hover-link
     cursor: pointer
 
-
 .practice-content__body
   padding: 1.25rem
   +media-breakpoint-down(sm)
     padding: .5rem .75rem
+  .practice-content.is-memo &
+    max-height: calc(100% - 2.75rem)
+    overflow-y: auto
+    padding: 1rem 1.25rem
 
 .practice-content__body-alert
   border: solid 2px $danger

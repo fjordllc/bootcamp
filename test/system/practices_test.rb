@@ -64,13 +64,17 @@ class PracticesTest < ApplicationSystemTestCase
   test "update practice" do
     login_user "komagata", "testtest"
     practice = practices(:practice_2)
+    product = products(:product_3)
     visit "/practices/#{practice.id}/edit"
     within "form[name=practice]" do
       fill_in "practice[title]", with: "テストプラクティス"
+      fill_in "practice[memo]", with: "メンター向けのメモの内容です"
       click_button "更新する"
     end
     assert_text "プラクティスを更新しました"
     assert_equal "UNIX", Practice.find(practice.id).category.name
+    visit "/products/#{product.id}"
+    assert_text "メンター向けのメモの内容です"
   end
 
   test "category button link to courses/practices#index with category fragment" do
