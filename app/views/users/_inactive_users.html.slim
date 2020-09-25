@@ -18,6 +18,5 @@
                         = user.full_name
                     .thread-list-item__header-title-container
                   .thread-list-item-meta
-                    .thread-list-item-meta__items
-                      .thread-list-item-meta__item
-                        = l user.updated_at
+                    time.thread-list-item-meta__updated-at
+                      = l user.updated_at
