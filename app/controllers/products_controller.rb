@@ -111,7 +111,7 @@ class ProductsController < ApplicationController
 
     def footprint!
       if find_product.user != current_user
-        find_product.footprints.where(user: current_user).first_or_create
+        find_product.footprints.create_or_find_by(user: current_user)
       end
     end
 

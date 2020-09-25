@@ -64,7 +64,7 @@ class AnnouncementsController < ApplicationController
     end
 
     def footprint!
-      @announcement.footprints.where(user: current_user).first_or_create if @announcement.user != current_user
+      @announcement.footprints.create_or_find_by(user: current_user) if @announcement.user != current_user
     end
 
     def set_footprints
