@@ -26,17 +26,28 @@ header.page-header
             | #{@page.title}
           .thread-header__lower-side
             .thread-header__lower-side-date
-              .thread-header__lower-side-label
-                | 最終更新
-              time.thread-header__lower-side-value(datetime="#{@page.updated_at.to_datetime}" pubdate="pubdate")
-                - if @page.last_updated_user.present?
-                  | #{l @page.updated_at} by
-                  = render "users/icon",
-                    user: @page.last_updated_user,
-                    link_class: "thread-header__user-icon-link",
-                    image_class: "thread-header__user-icon"
-                  = link_to @page.last_updated_user, class: "thread-header__user-link" do
-                    | #{@page.last_updated_user.login_name}
+              - if @page.last_updated_user.present?
+                .thread-header__lower-side-label
+                  | 最終更新
+                time.thread-header__lower-side-value(datetime="#{@page.updated_at.to_datetime}" pubdate="pubdate")
+                    | #{l @page.updated_at} by
+                    = render "users/icon",
+                      user: @page.last_updated_user,
+                      link_class: "thread-header__user-icon-link",
+                      image_class: "thread-header__user-icon"
+                    = link_to @page.last_updated_user, class: "thread-header__user-link" do
+                      | #{@page.last_updated_user.login_name}
+              - else
+                .thread-header__lower-side-label
+                  | 新規作成
+                time.thread-header__lower-side-value(datetime="#{@page.created_at.to_datetime}" pubdate="pubdate")
+                    | #{l @page.created_at} by
+                    = render "users/icon",
+                      user: @page.user,
+                      link_class: "thread-header__user-icon-link",
+                      image_class: "thread-header__user-icon"
+                    = link_to @page.user, class: "thread-header__user-link" do
+                      | #{@page.user.login_name}
           - if @page.tags.present?
             .thread-list-item-tags
               .thread-list-item-tags__label タグ
@@ -55,10 +66,11 @@ header.page-header
                 = link_to [:edit, @page], class: "card-footer-actions__action a-button is-md is-warning is-block" do
                   i.fas.fa-pen
                   | 内容変更
-              li.card-footer-actions__item
-                = link_to @page, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
-                    i.fas.fa-trash-alt
-                    | 削除
+              - if admin_login? || current_user == @page.user
+                li.card-footer-actions__item
+                  = link_to @page, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
+                      i.fas.fa-trash-alt
+                      | 削除
       .thread-prev-next
         .thread-prev-next__item
           = link_to :pages, class: "thread-prev-next__item-link is-index" do
