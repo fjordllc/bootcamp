@@ -71,6 +71,6 @@ class EventsController < ApplicationController
     end
 
     def footprint!
-      @event.footprints.where(user: current_user).first_or_create if @event.user != current_user
+      @event.footprints.create_or_find_by(user: current_user) if @event.user != current_user
     end
 end
