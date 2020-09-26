@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   private
     def init_user
-      @current_user = User.find(current_user.id) if current_user
+      @current_user = current_user
     end
 
     def set_available_emojis
