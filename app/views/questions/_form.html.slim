@@ -28,7 +28,7 @@
         .row
           .col-md-6.col-xs-12
             = f.label :tag_list, "タグを入力してください", class: "a-label"
-            = render partial: "tags_input", locals: { taggable_model: @question }
+            = render partial: "taggable", locals: { taggable_model: @question }
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
