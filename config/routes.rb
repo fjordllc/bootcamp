@@ -100,9 +100,7 @@ Rails.application.routes.draw do
   namespace :reports do
     resources :unchecked, only: %i(index)
   end
-  resources :reports do
-    get :copy, on: :member
-  end
+  resources :reports
   resources :pages
   resources :notifications, only: %i(index show) do
     collection do
