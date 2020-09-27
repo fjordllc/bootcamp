@@ -227,7 +227,7 @@ ActiveRecord::Schema.define(version: 2020_09_24_020027) do
     t.bigint "user_id"
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
-    t.bigint "last_updated_user_id"
+    t.integer "last_updated_user_id"
     t.index ["updated_at"], name: "index_pages_on_updated_at"
     t.index ["user_id"], name: "index_pages_on_user_id"
   end
