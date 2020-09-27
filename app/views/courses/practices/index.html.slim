@@ -22,7 +22,8 @@ header.page-header
       .categories-items__inner
         - @categories.each do |category|
           - if category.practices.present?
-            .categories-item.practices.js-show-handle(id="category-#{category.id}")
+            .categories-item.practices.js-show-handle
+              a.categories-item__anchor(id="category-#{category.id}")
               header.categories-item__header
                 h2.categories-item__title
                   = category.name
