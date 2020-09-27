@@ -368,10 +368,6 @@ GEM
       faraday (>= 0.17.3, < 2.0)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
-    skylight (4.3.1)
-      skylight-core (= 4.3.1)
-    skylight-core (4.3.1)
-      activesupport (>= 4.2.0)
     slack-notifier (2.3.2)
     slim (4.1.0)
       temple (>= 0.7.6, < 0.9)
@@ -508,7 +504,6 @@ DEPENDENCIES
   rubocop-rails
   sass-rails (>= 6)
   selenium-webdriver
-  skylight
   slack-notifier
   slim-rails
   slim_lint
