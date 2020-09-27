@@ -19,4 +19,11 @@ header.page-header
           collection: @products,
           as: :product,
           cached: true
+    - else
+      .o-empty-massage
+        .o-empty-massage__icon
+          i.far.fa-smile
+        p.o-empty-massage__text
+          = title
+          | はありません
     = paginate @products, position: "bottom"
