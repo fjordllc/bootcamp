@@ -39,10 +39,8 @@ ja:
     attributes:
       user:
         login_name: アカウント
-        first_name: 名
-        kana_first_name: フリガナ（名）
-        last_name: 姓
-        kana_last_name: フリガナ（姓）
+        name: 名前（ニックネームも可）
+        name_kana: 名前（カナ）
         course_id: コース
         description: 自己紹介
         email: Email

@@ -87,7 +87,7 @@ class ReportsController < ApplicationController
 
   private
     def footprint!
-      @report.footprints.where(user: current_user).first_or_create if @report.user != current_user
+      @report.footprints.create_or_find_by(user: current_user) if @report.user != current_user
     end
 
     def report_params
@@ -142,7 +142,7 @@ class ReportsController < ApplicationController
       link = "<#{report_url(report)}|#{report.title}>"
 
       SlackNotification.notify "#{name} created #{link}",
-        username: "#{report.user.login_name} (#{report.user.full_name})",
+        username: "#{report.user.login_name} (#{report.user.name})",
         icon_url: report.user.avatar_url,
         attachments: [{
           fallback: "report body.",
@@ -151,7 +151,7 @@ class ReportsController < ApplicationController
 
       if report.user.trainee? && report.user.company.slack_channel?
         SlackNotification.notify "#{name} さんが日報を提出しました。 #{link}",
-         username: "#{report.user.login_name} (#{report.user.full_name})",
+         username: "#{report.user.login_name} (#{report.user.name})",
          icon_url: report.user.avatar_url,
          channel: report.user.company.slack_channel,
          attachments: [{

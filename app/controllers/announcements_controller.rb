@@ -54,7 +54,7 @@ class AnnouncementsController < ApplicationController
       link = "<#{url_for(announcement)}|#{announcement.title}>"
 
       SlackNotification.notify "#{link}",
-        username: "#{announcement.user.login_name} (#{announcement.user.full_name})",
+        username: "#{announcement.user.login_name} (#{announcement.user.name})",
         icon_url: announcement.user.avatar_url,
         channel: "#general",
         attachments: [{
@@ -64,7 +64,7 @@ class AnnouncementsController < ApplicationController
     end
 
     def footprint!
-      @announcement.footprints.where(user: current_user).first_or_create if @announcement.user != current_user
+      @announcement.footprints.create_or_find_by(user: current_user) if @announcement.user != current_user
     end
 
     def set_footprints

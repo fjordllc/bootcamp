@@ -94,7 +94,7 @@ class UsersController < ApplicationController
     end
 
     def notify_to_slack!
-      SlackNotification.notify "<#{url_for(@user)}|#{@user.full_name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
+      SlackNotification.notify "<#{url_for(@user)}|#{@user.name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
         username: "#{@user.login_name}@bootcamp.fjord.jp",
         icon_url: @user.avatar_url
       redirect_to root_url, notice: "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
@@ -103,10 +103,8 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(
         :login_name,
-        :first_name,
-        :last_name,
-        :kana_first_name,
-        :kana_last_name,
+        :name,
+        :name_kana,
         :email,
         :course_id,
         :description,
