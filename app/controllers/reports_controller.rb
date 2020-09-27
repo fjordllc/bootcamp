@@ -46,11 +46,8 @@ class ReportsController < ApplicationController
       @report.emotion = report.emotion
       @report.description = report.description
       @report.practices   = report.practices
+      flash.now[:notice] = "日報をコピーしました。"
     end
-  end
-
-  def copy
-    redirect_to new_report_path(id: params[:id]), notice: "日報をコピーしました。"
   end
 
   def edit
