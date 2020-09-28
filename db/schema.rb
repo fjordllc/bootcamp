@@ -257,6 +257,7 @@ ActiveRecord::Schema.define(version: 2020_09_30_121031) do
     t.boolean "open_product", default: false, null: false
     t.boolean "include_progress", default: true, null: false
     t.text "memo"
+    t.integer "last_updated_user_id"
     t.index ["category_id"], name: "index_practices_on_category_id"
   end
 
