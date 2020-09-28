@@ -18,6 +18,11 @@ header.page-header
 
 = render "page_tabs", resource: @practice
 
+- if @practice.last_updated_user.present?
+  | 最終更新:
+  = l @practice.updated_at
+  | by #{@practice.last_updated_user.login_name}
+
 .page-body
   .container
     .practice-contents
