@@ -72,11 +72,11 @@ ORDER BY unchecked_products.created_at DESC
   end
 
   def change_learning_status(status)
-    Learning.find_or_initialize_by(
+    learning = Learning.find_or_initialize_by(
       user_id: user.id,
       practice_id: practice.id,
-      status: status
-    ).save
+    )
+    learning.update(status: status)
   end
 
   def last_commented_user
