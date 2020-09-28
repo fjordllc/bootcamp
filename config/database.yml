@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  database: bootcamp_production
-  username: bootcamp
-  password: <%= ENV['BOOTCAMP_DATABASE_PASSWORD'] %>
+  host:     <%= ENV["DB_HOST"] %>
+  database: <%= ENV["DB_NAME"] %>
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASS'] %>
