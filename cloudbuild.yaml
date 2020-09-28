@@ -1,0 +1,75 @@
+steps:
+  - id: Build
+    name: gcr.io/cloud-builders/docker
+    args: ['build', '--no-cache', '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA', '.', '-f', 'Dockerfile']
+  - id: Push
+    name: gcr.io/cloud-builders/docker
+    args: ['push', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
+  - id: SqlProxy
+    name: "gcr.io/cloudsql-docker/gce-proxy:1.16"
+    waitFor: ["-"]
+    volumes:
+      - name: db
+        path: "/cloudsql"
+    args: ["/cloud_sql_proxy", "-dir=/cloudsql", "-instances=$_CLOUD_SQL_HOST"]
+  - id: DB_Migrate
+    name: "asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA"
+    waitFor: ["Build"]
+    volumes:
+      - name: db
+        path: "/cloudsql"
+    args: ['bin/rails', 'db:create', 'db:migrate']
+    env:
+      - 'RAILS_ENV=production'
+      - 'DB_HOST=/cloudsql/$_CLOUD_SQL_HOST'
+      - 'DB_NAME=$_DB_NAME'
+      - 'DB_PASS=$_DB_PASS'
+      - 'DB_USER=$_DB_USER'
+      - 'RAILS_MASTER_KEY=$_RAILS_MASTER_KEY'
+  - id: Kill_SqlProxy
+    name: "gcr.io/cloud-builders/docker"
+    waitFor: ["DB_Migrate"]
+    entrypoint: "sh"
+    args: ["-c", 'docker kill -s TERM $(docker ps -q --filter "volume=db")']
+  - id: Deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - $_SERVICE_NAME
+      - '--platform=managed'
+      - '--region=asia-northeast1'
+      - '--quiet'
+      - '--image=asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+      - '--allow-unauthenticated'
+      - '--add-cloudsql-instances'
+      - '$_CLOUD_SQL_HOST'
+      - '--memory'
+      - '$_MEMORY'
+      - >-
+        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
+      - >-
+        --set-env-vars=LANG=ja_JP.UTF-8,TZ=Asia/Tokyo,RAILS_LOG_TO_STDOUT=true,RAILS_ENV=production,RACK_ENV=production,APP_HOST_NAME=$_APP_HOST_NAME,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,DB_NAME=$_DB_NAME,DB_USER=$_DB_USER,DB_PASS=$_DB_PASS,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,GOOGLE_CREDENTIALS=$_GOOGLE_CREDENTIALS,$_ENVS
+images:
+  - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+options:
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _MEMORY: 512M
+  _SERVICE_NAME: _
+  _LABELS: _
+  _ENVS: _
+  _TRIGGER_ID: _
+  _CLOUD_SQL_HOST: _
+  _RAILS_MASTER_KEY: _
+  _APP_HOST_NAME: _
+  _DB_NAME: _
+  _DB_USER: _
+  _DB_PASS: _
+  _GOOGLE_CREDENTIALS: _
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed
+  - bootcamp
+timeout: 1200s
