@@ -46,6 +46,7 @@ class ReportsController < ApplicationController
       @report.emotion = report.emotion
       @report.description = report.description
       @report.practices   = report.practices
+      flash.now[:notice] = "日報をコピーしました。"
     end
   end
 
