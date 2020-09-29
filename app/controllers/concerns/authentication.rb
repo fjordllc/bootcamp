@@ -46,6 +46,12 @@ module Authentication
     end
   end
 
+  def requiure_mentor_login
+    unless mentor_login?
+      redirect_to root_path, alert: "メンターとしてログインしてください"
+    end
+  end
+
   def require_staff_login
     unless staff_login?
       redirect_to root_path, alert: "管理者・アドバイザー・メンターとしてログインしてください"

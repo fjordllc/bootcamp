@@ -75,10 +75,4 @@ header.page-header
 
       div(class="#{current_user.mentor? || current_user.admin? ? "col-md-5 col-xs-12 is-hidden-sm-down" : ""}")
         - if current_user.mentor? || current_user.admin?
-          section.practice-content.is-memo.a-card
-            header.practice-content__header.card-header
-              h2.practice-content__title
-                = Practice.human_attribute_name :memo
-            .practice-content__body
-              .js-markdown-view.js-target-blank.is-long-text
-                = @product.practice.memo
+          #js-mentor-memo(data-practice-id="#{@product.practice_id}")
