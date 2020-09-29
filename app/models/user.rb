@@ -46,6 +46,7 @@ class User < ApplicationRecord
   has_many :learnings
   has_many :borrowings
   has_many :pages,         dependent: :destroy
+  has_many :last_updated_pages, class_name: "Page"
   has_many :comments,      dependent: :destroy
   has_many :reports,       dependent: :destroy
   has_many :checks,        dependent: :destroy

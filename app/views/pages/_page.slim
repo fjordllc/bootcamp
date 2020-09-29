@@ -8,12 +8,9 @@
       h2.thread-list-item__title(itemprop="name")
         = link_to page, itemprop: "url", class: "thread-list-item__title-link" do
           = page.title
-      - if admin_login? || current_user == page.user
-        .thread-list-item__actions
-          = link_to [:edit, page], class: "thread-list-item__actions-link" do
-            i.fas.fa-pen
-          = link_to page, data: { confirm: "本当に宜しいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
-            i.fas.fa-trash-alt
+      .thread-list-item__actions
+        = link_to [:edit, page], class: "thread-list-item__actions-link" do
+          i.fas.fa-pen
     .thread-list-item-meta
       time.thread-list-item-meta__updated-at(datetime="#{page.updated_at.to_datetime}" pubdate="pubdate")
         = l page.updated_at
