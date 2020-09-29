@@ -116,7 +116,6 @@ class ProductsController < ApplicationController
     end
 
     def check_permission!
-      return if current_user.graduated_on?
       unless policy(find_product).show? || find_practice&.open_product?
         redirect_to root_path, alert: "プラクティスを完了するまで他の人の提出物は見れません。"
       end
