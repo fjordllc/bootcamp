@@ -23,4 +23,19 @@ class ProductTest < ActiveSupport::TestCase
     product.save!
     assert_not_nil Watch.find_by(user: adviser, watchable: product)
   end
+
+  test "#change_learning_status" do
+    user = users(:kimura)
+    practice = practices(:practice_5)
+    product = Product.create!(
+      body: "test",
+      user: user,
+      practice: practice
+    )
+    assert Learning.find_by(user: user, practice: practice, status: :submitted)
+
+    status = :complete
+    product.change_learning_status(status)
+    assert Learning.find_by(user: user, practice: practice, status: :complete)
+  end
 end
