@@ -2,7 +2,12 @@
 
 class ProductCallbacks
   def after_create(product)
-    unless product.wip?
+    Cache.delete_unchecked_product_count
+    Cache.delete_not_responded_product_count
+  end
+
+  def after_save(product)
+    if !product.wip? && product.published_at.nil?
       if product.user.trainee?
         send_notification(
           product: product,
@@ -14,15 +19,10 @@ class ProductCallbacks
           watchable: product,
         )
       end
-
+      product.published_at = Time.current
       product.change_learning_status(:submitted)
     end
 
-    Cache.delete_unchecked_product_count
-    Cache.delete_not_responded_product_count
-  end
-
-  def after_save(product)
     Cache.delete_unchecked_product_count
   end
 
