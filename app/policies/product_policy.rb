@@ -13,6 +13,7 @@ class ProductPolicy < ApplicationPolicy
       user.mentor? ||
       user.adviser? ||
       user == product.user ||
+      user.graduated_on? ||
       product.practice.completed?(user) ||
       product.completed?(user)
   end
