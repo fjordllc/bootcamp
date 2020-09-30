@@ -221,13 +221,4 @@ class ProductsTest < ApplicationSystemTestCase
     end
     assert_text "提出物をWIPとして保存しました。"
   end
-
-  test "mentor can update mentor memo without page transitions" do
-    login_user "komagata", "testtest"
-    visit "/products/#{products(:product_2).id}"
-    click_button "編集"
-    fill_in "practice[memo]", with: "メンター向けメモをページ遷移せず編集"
-    click_button "保存する"
-    assert_text "メンター向けメモをページ遷移せず編集"
-  end
 end
