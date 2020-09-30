@@ -55,6 +55,7 @@ class ReportsController < ApplicationController
   end
 
   def create
+    binding.pry
     @report = Report.new(report_params)
     @report.user = current_user
     set_wip
