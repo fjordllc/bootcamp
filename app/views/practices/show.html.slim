@@ -43,9 +43,17 @@ header.page-header
         .js-learning-status(data-practice-id="#{@practice.id}" data-status="#{status}" data-submission="#{@practice.submission}")
 
         - if @practice.last_updated_user.present?
-          | 最終更新:
-          = l @practice.updated_at
-          | by #{@practice.last_updated_user.login_name}
+          .pub-date
+            .pub-date__label
+              | 最終更新
+            .pub-date__value
+              | #{l @practice.updated_at} by
+              = render "users/icon",
+                user: @practice.last_updated_user,
+                link_class: "thread-header__user-icon-link",
+                image_class: "thread-header__user-icon"
+              = link_to @practice.last_updated_user, class: "thread-header__user-link" do
+                = @practice.last_updated_user.login_name
 
 
         section.practice-content.a-card
