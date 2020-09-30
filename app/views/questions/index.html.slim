@@ -32,6 +32,8 @@ header.page-header.is-margin-bottom-0
           .a-empty-message
             - if params[:solved] == "true"
               | 解決済みの質問はまだありません。
+            - elsif params[:all] == "true"
+              | 質問はまだありません。
             - else
               | 未解決の質問はまだありません。
       - if @questions.all_tags.any?
