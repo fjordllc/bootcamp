@@ -23,23 +23,26 @@ header.page-header.is-margin-bottom-0
 .page-body
   .container
     = paginate @questions, position: "top"
-    - if @questions.present?
-      .thread-list.a-card
-        = render @questions
-    - else
-      .a-empty-message
-        - if params[:solved] == "true"
-          | 解決済みの質問はまだありません。
+    .two-columns
+      .two-columns__inner
+        - if @questions.present?
+          .thread-list.a-card
+            = render @questions
         - else
-          | 未解決の質問はまだありません。
+          .a-empty-message
+            - if params[:solved] == "true"
+              | 解決済みの質問はまだありません。
+            - else
+              | 未解決の質問はまだありません。
+      - if @questions.all_tags.any?
+        nav.page-tags-nav
+          header.page-tags-nav__header
+            h2.page-tags-nav__title
+              | タグ一覧
+          .page-tags-nav__body
+            ul.page-tags-nav__items
+              - Question.all.all_tags.each do |tag|
+                - if tag.present?
+                  li.page-tags-nav__item
+                    = link_to tag.name, questions_tag_path(tag.name, all: "true"), class: "page-tags-nav__item-link"
     = paginate @questions, position: "bottom"
-- if @questions.all_tags.any?
-  nav
-    header
-      h2
-        | タグ一覧
-    ul
-      - Question.all.all_tags.each do |tag|
-        - if tag.present?
-          li
-            = link_to tag.name, questions_tag_path(tag.name, all: "true")
