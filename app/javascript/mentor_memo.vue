@@ -1,14 +1,16 @@
 <template lang="pug">
-  section.practice-content.is-memo.a-card
-    .practice-content__body(v-if="!editing")
+  .practice-content.is-memo
+    section.a-card(v-if="!editing")
       header.practice-content__header.card-header
         h2.practice-content__title メンター向けメモ
-      .thread-comment__description.js-target-blank.is-long-text(
-        v-html="markdownMemo")
-      footer.card-footer-actions
-        button.card-footer-actions__action.a-button.is-md.is-primary.is-block(@click="editMemo")
-          i.fas.fa-pen
-          | 編集
+      .practice-content__body
+        .js-target-blank.is-long-text(
+          v-html="markdownMemo")
+      footer.card-footer
+        .card-footer-actions
+          button.card-footer-actions__action.a-button.is-md.is-primary.is-block(@click="editMemo")
+            i.fas.fa-pen
+            | 編集
     .thread-comment-form__form.a-card(v-show="editing")
       .thread-comment-form__tabs.js-tabs
         .thread-comment-form__tab.js-tabs__tab(
@@ -20,7 +22,7 @@
           @click="changeActiveTab('preview')")
           | プレビュー
       .thread-comment-form__markdown-parent.js-markdown-parent
-        .thread-comment-form__markdown.js-tabs__content(
+        .thread-comment-form__markdown.is-editor.js-tabs__content(
           :class="{'is-active': isActive('memo')}")
           textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
             :id="`js-practice-memo`"
@@ -28,16 +30,17 @@
             v-model="memo"
             name="practice[memo]"
             )
-        .thread-comment-form__markdown.js-tabs__content(
+        .thread-comment-form__markdown.is-preview.js-tabs__content(
           :class="{'is-active': isActive('preview')}")
           .is-long-text.thread-comment-form__preview(v-html="markdownMemo")
-      .thread-comment-form__actions
-        .thread-comment-form__action
-          button.a-button.is-lg.is-warning.is-block(@click="updateMemo")
-            | 保存する
-        .thread-comment-form__action
-          button.a-button.is-md.is-secondary.is-block(@click="cancel")
-            | キャンセル
+      .card-footer
+        .thread-comment-form__actions
+          .thread-comment-form__action
+            button.a-button.is-md.is-warning.is-block(@click="updateMemo")
+              | 保存する
+          .thread-comment-form__action
+            button.a-button.is-md.is-secondary.is-block(@click="cancel")
+              | キャンセル
 </template>
 <script>
 import TextareaInitializer from './textarea-initializer'
