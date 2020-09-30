@@ -39,6 +39,7 @@
       li.form-actions__item.is-main.is-help
         - if event.new_record?
           = f.submit "作成", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
+          = f.submit "WIP", class: "a-button is-lg is-primary is-block", id: "js-shortcut-wip"
         - else
           = f.submit "内容変更", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
       li.form-actions__item
