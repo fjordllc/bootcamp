@@ -18,11 +18,6 @@ header.page-header
 
 = render "page_tabs", resource: @practice
 
-- if @practice.last_updated_user.present?
-  | 最終更新:
-  = l @practice.updated_at
-  | by #{@practice.last_updated_user.login_name}
-
 .page-body
   .container
     .practice-contents
@@ -41,12 +36,17 @@ header.page-header
                     | 所要時間の目安は、過去にこのプラクティスを完了した人の、完了までかかった時間の中央値を表示しています。完了までにかかった時間は、日報に記録された学習時間から算出しています。
                   p
                     | さらに深いところまで学習をして時間をかけたり、すでに学習した経験があってすぐに完了することができたりなど、人によっては時間のかかり方は様々です。この数字はあくまで一つの目安として捉えてください。
-
             #js-annotation-modal
           h1.practice-contents__title
             = @practice.title
         - status = @practice.status_by_learnings(current_user.learnings)
         .js-learning-status(data-practice-id="#{@practice.id}" data-status="#{status}" data-submission="#{@practice.submission}")
+
+        - if @practice.last_updated_user.present?
+          | 最終更新:
+          = l @practice.updated_at
+          | by #{@practice.last_updated_user.login_name}
+
 
         section.practice-content.a-card
           header.practice-content__header.card-header
