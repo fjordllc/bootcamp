@@ -46,7 +46,7 @@ module Authentication
     end
   end
 
-  def requiure_mentor_login
+  def require_mentor_login
     unless mentor_login?
       redirect_to root_path, alert: "メンターとしてログインしてください"
     end
