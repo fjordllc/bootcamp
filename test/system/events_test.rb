@@ -13,12 +13,6 @@ class EventsTest < ApplicationSystemTestCase
     assert_link "イベント作成"
   end
 
-  test "cannot create a new event when user is not admin" do
-    login_user "kimura", "testtest"
-    visit new_event_path
-    assert_text "管理者としてログインしてください"
-  end
-
   test "create a new event" do
     login_user "komagata", "testtest"
     visit new_event_path
