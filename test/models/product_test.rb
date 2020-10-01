@@ -24,6 +24,26 @@ class ProductTest < ActiveSupport::TestCase
     assert_not_nil Watch.find_by(user: adviser, watchable: product)
   end
 
+  test "adviser watches trainee product when trainee remove wip of product" do
+    trainee = users(:kensyu)
+    adviser = users(:senpai)
+    practice = practices(:practice_2)
+    product = Product.new(
+      body: "test",
+      user: trainee,
+      practice: practice,
+      wip: true
+    )
+    product.save!
+    assert_nil product.published_at
+
+    product.wip = false
+    product.save!
+
+    assert_not_nil Watch.find_by(user: adviser, watchable: product)
+    assert_not_nil product.published_at
+  end
+
   test "#change_learning_status" do
     user = users(:kimura)
     practice = practices(:practice_5)
