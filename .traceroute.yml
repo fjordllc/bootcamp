@@ -14,6 +14,7 @@ ignore_unreachable_actions:
   - .*#policy
   - .*#require_staff_login
   - .*#require_admin_login
+  - .*#require_mentor_login
   - mails#welcome
   - reports#convert_to_hour_minute
   - reports#convert_to_ceiled_hour

@@ -2,6 +2,7 @@
 
 class API::PracticesController < API::BaseController
   before_action :set_practice, only: %i(show update)
+  before_action :require_mentor_login, only: %i(show update)
 
   def show
   end
