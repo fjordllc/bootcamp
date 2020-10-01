@@ -14,6 +14,7 @@ class Notification::AnswersTest < ApplicationSystemTestCase
       fill_in("answer[description]", with: "reduceも使ってみては？")
     end
     click_button "コメントする"
+    wait_for_vuejs
     logout
 
     login_user "sotugyou", "testtest"
