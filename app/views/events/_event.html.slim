@@ -21,9 +21,11 @@
     - if event.wip?
       .event-status
         | 公開されるまでお待ちください。
-    - unless event.opening?
+    - elsif !event.opening?
       .event-status
-        - if event.before_opening?
+        - if event.wip?
+          | 公開されるまでお待ちください。
+        - elsif event.before_opening?
           | 募集開始までお待ち下さい。
         - elsif event.closing?
           | 募集受付は終了しました。
