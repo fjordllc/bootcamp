@@ -14,6 +14,7 @@ module Mention
         fill_in("new_comment[description]", with: "@hatsuno test")
       end
       click_button "コメントする"
+      wait_for_vuejs
 
       login_user "hatsuno", "testtest"
       visit "/notifications"
