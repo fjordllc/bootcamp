@@ -10,6 +10,9 @@
             = l event.updated_at
 
       h1.thread-header__title
+        - if event.wip?
+          span.thread-header__title-icon
+            | WIP
         = event.title
 
       .thread-header__lower-side
