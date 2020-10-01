@@ -274,6 +274,7 @@ ActiveRecord::Schema.define(version: 2020_09_30_121031) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "wip", default: false, null: false
+    t.datetime "published_at"
     t.index ["practice_id"], name: "index_products_on_practice_id"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
