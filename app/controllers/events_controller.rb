@@ -24,8 +24,9 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.user_id = current_user.id
+    set_wip
     if @event.save
-      redirect_to @event, notice: "イベントを作成しました。"
+      redirect_to @event, notice: notice_message(@event)
     else
       render :new
     end
@@ -35,9 +36,10 @@ class EventsController < ApplicationController
   end
 
   def update
+    set_wip
     if @event.update(event_params)
       @event.update_participations if @event.saved_change_to_attribute?("capacity")
-      redirect_to @event, notice: "イベントを更新しました。"
+      redirect_to @event, notice: notice_message(@event)
     else
       render :edit
     end
@@ -72,5 +74,24 @@ class EventsController < ApplicationController
 
     def footprint!
       @event.footprints.create_or_find_by(user: current_user) if @event.user != current_user
+    end
+
+    def set_wip
+      @event.wip = (params[:commit] == "WIP")
+    end
+
+    def check_noticeable
+      if @event.published_at.nil? && @event.wip == false
+        @event.published_at = Date.current
+        @noticeable = true
+      end
+    end
+
+    def notice_message(event)
+      if params[:action] == "create"
+        event.wip? ? "イベントをWIPとして保存しました。" : "イベントを作成しました。"
+      elsif params[:action] == "update"
+        event.wip? ? "イベントをWIPとして保存しました。" : "イベントを更新しました。"
+      end
     end
 end
