@@ -2,7 +2,6 @@
 
 class EventsController < ApplicationController
   before_action :require_login
-  # before_action :require_admin_login, except: %i(index show )
   before_action :set_event, only: %i(show edit update destroy)
   before_action :set_footprints, only: %i(show)
 
@@ -23,7 +22,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    @event.user_id = current_user.id
+    @event.user = current_user
     set_wip
     if @event.save
       redirect_to @event, notice: notice_message(@event)
@@ -78,13 +77,6 @@ class EventsController < ApplicationController
 
     def set_wip
       @event.wip = (params[:commit] == "WIP")
-    end
-
-    def check_noticeable
-      if @event.published_at.nil? && @event.wip == false
-        @event.published_at = Date.current
-        @noticeable = true
-      end
     end
 
     def notice_message(event)
