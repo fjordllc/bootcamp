@@ -38,7 +38,8 @@
     ul.form-actions__items
       li.form-actions__item.is-main.is-help
         = f.submit "WIP", class: "a-button is-lg is-primary is-block", id: "js-shortcut-wip"
-        - if admin_login?
+      - if admin_login?
+        li.form-actions__item.is-main.is-help
           - if event.new_record?
             = f.submit "作成", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
           - else

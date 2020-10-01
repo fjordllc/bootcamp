@@ -146,7 +146,6 @@ ActiveRecord::Schema.define(version: 2020_09_30_121031) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "published_at"
     t.boolean "wip", default: false, null: false
     t.index ["user_id"], name: "index_events_on_user_id"
   end
