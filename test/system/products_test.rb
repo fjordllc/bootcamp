@@ -26,6 +26,12 @@ class ProductsTest < ApplicationSystemTestCase
     assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
+  test "graduate can see a product" do
+    login_user "sotugyou", "testtest"
+    visit "/products/#{products(:product_1).id}"
+    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
   test "user who completed the practice can see the other user's product" do
     login_user "kimura", "testtest"
     visit "/products/#{products(:product_1).id}"
@@ -37,6 +43,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit "/products/#{products(:product_3).id}"
     assert_equal "#{products(:product_3).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
+
   test "can not see other user's product if it isn't permitted" do
     login_user "hatsuno", "testtest"
     visit "/products/#{products(:product_1).id}"
