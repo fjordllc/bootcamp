@@ -7,10 +7,36 @@ class EventsTest < ApplicationSystemTestCase
     wait_for_vuejs
   end
 
-  test "show link to create new event when user is admin" do
+  test "show link to create new event" do
     login_user "komagata", "testtest"
     visit events_path
     assert_link "イベント作成"
+  end
+
+  test "users except admin cannot publish a event" do
+    login_user "kimura", "testtest"
+    visit new_event_path
+    page.assert_no_selector("input[value='作成']")
+  end
+
+  test "create a new event as wip" do
+    login_user "kimura", "testtest"
+    visit new_event_path
+    within "form[name=event]" do
+      fill_in "event[title]", with: "仮のイベント"
+      fill_in "event[description]", with: "まだWIPです。"
+      fill_in "event[capacity]", with: 20
+      fill_in "event[location]", with: "FJORDオフィス"
+      fill_in "event[start_at]", with: Time.zone.parse("2020-10-10 10:00")
+      fill_in "event[end_at]", with: Time.zone.parse("2020-10-10 12:00")
+      fill_in "event[open_start_at]", with: Time.zone.parse("2020-10-05 10:00")
+      fill_in "event[open_end_at]", with: Time.zone.parse("2020-10-09 23:59")
+      assert_difference "Event.count", 1 do
+        click_button "WIP"
+      end
+    end
+    assert_text "イベントをWIPとして保存しました。"
+    assert_text "公開されるまでお待ちください。"
   end
 
   test "create a new event" do
