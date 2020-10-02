@@ -10,6 +10,7 @@ class NotificationsTest < ApplicationSystemTestCase
       fill_in("new_comment[description]", with: "test")
     end
     click_button "コメントする"
+    wait_for_vuejs
 
     if ActionMailer::Base.deliveries.present?
       last_mail = ActionMailer::Base.deliveries.last
@@ -34,6 +35,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
     find("#js-new-comment").set("login_nameの補完テスト: @komagata\n")
     click_button "コメントする"
+    wait_for_vuejs
     assert_text "login_nameの補完テスト: @komagata"
     assert_selector :css, "a[href='/users/komagata']"
 

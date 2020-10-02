@@ -12,6 +12,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
       fill_in("new_comment[description]", with: "いい日報ですね。")
     end
     click_button "コメントする"
+    wait_for_vuejs
     logout
 
     login_user "komagata", "testtest"
@@ -20,6 +21,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
       fill_in("new_comment[description]", with: "コメントありがとうございます。")
     end
     click_button "コメントする"
+    wait_for_vuejs
     logout
 
     login_user "kimura", "testtest"
@@ -43,6 +45,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
       fill_in("answer[description]", with: "Vimチュートリアルがおすすめです。")
     end
     click_button "コメントする"
+    wait_for_vuejs
     logout
 
     login_user "machida", "testtest"
@@ -51,6 +54,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
       fill_in("answer[description]", with: "質問へのご回答ありがとうございます。")
     end
     click_button "コメントする"
+    wait_for_vuejs
     logout
 
     login_user "kimura", "testtest"
