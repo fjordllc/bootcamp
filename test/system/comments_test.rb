@@ -43,6 +43,7 @@ class CommentsTest < ApplicationSystemTestCase
       fill_in("new_comment[description]", with: "test")
     end
     click_button "コメントする"
+    wait_for_vuejs
     assert_text "test"
   end
 
@@ -51,7 +52,7 @@ class CommentsTest < ApplicationSystemTestCase
     sleep 1
     find("#js-new-comment").set("login_nameの補完テスト: @koma\n")
     click_button "コメントする"
-
+    wait_for_vuejs
     assert_text "login_nameの補完テスト: @komagata"
     assert_selector :css, "a[href='/users/komagata']"
   end
@@ -61,7 +62,7 @@ class CommentsTest < ApplicationSystemTestCase
     sleep 1
     find("#js-new-comment").set("絵文字の補完テスト: :cat\n")
     click_button "コメントする"
-
+    wait_for_vuejs
     assert_text "絵文字の補完テスト: 😺"
   end
 
@@ -93,6 +94,7 @@ class CommentsTest < ApplicationSystemTestCase
       fill_in("new_comment[description]", with: "test")
     end
     click_button "コメントする"
+    wait_for_vuejs
     assert_text "test"
   end
 
@@ -102,6 +104,7 @@ class CommentsTest < ApplicationSystemTestCase
       fill_in("new_comment[description]", with: "test")
     end
     click_button "コメントする"
+    wait_for_vuejs
     assert_text "test"
   end
 
@@ -111,6 +114,7 @@ class CommentsTest < ApplicationSystemTestCase
       fill_in("new_comment[description]", with: "test")
     end
     click_button "コメントする"
+    wait_for_vuejs
     assert_text "test"
   end
 
@@ -123,6 +127,7 @@ class CommentsTest < ApplicationSystemTestCase
     find(".thread-comment-form__tab", text: "プレビュー").click
     assert_equal "プレビュー", find(".thread-comment-form__tab.is-active").text
     click_button "コメントする"
+    wait_for_vuejs
     assert_text "test"
     assert_equal "コメント", find(".thread-comment-form__tab.is-active").text
   end
@@ -143,11 +148,13 @@ class CommentsTest < ApplicationSystemTestCase
       fill_in("new_comment[description]", with: "test")
     end
     click_button "コメントする"
+    wait_for_vuejs
     assert_text "test"
     within(".thread-comment-form__form") do
       fill_in("new_comment[description]", with: "testtest")
     end
     click_button "コメントする"
+    wait_for_vuejs
     assert_text "testtest"
   end
 
