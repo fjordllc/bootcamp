@@ -40,6 +40,12 @@ module Authentication
     logged_in? && current_user.staff_or_paid?
   end
 
+  def require_mentor_login
+    unless mentor_login?
+      redirect_to root_path, alert: "メンターとしてログインしてください"
+    end
+  end
+
   def require_admin_login
     unless admin_login?
       redirect_to root_path, alert: "管理者としてログインしてください"

@@ -34,6 +34,17 @@
     height: calc(100vh - 4.25rem)
     +position(sticky, top 3.5rem)
     margin-bottom: 0
+    .a-card
+      height: 100%
+    .thread-comment-form__markdown-parent
+      height: calc(100% - 7rem)
+    .thread-comment-form__markdown
+      height: 100%
+      margin-bottom: 0
+    .thread-comment-form__markdown.is-preview
+      overflow: auto
+    .thread-comment-form__textarea
+      height: calc(100% - 1rem) !important
 
 .practice-content__title
   +text-block(1rem 1.4, 600)
@@ -55,7 +66,8 @@
   +media-breakpoint-down(sm)
     padding: .5rem .75rem
   .practice-content.is-memo &
-    max-height: calc(100% - 2.75rem)
+    height: 100%
+    max-height: calc(100% - 6.75rem)
     overflow-y: auto
     padding: 1rem 1.25rem
 
