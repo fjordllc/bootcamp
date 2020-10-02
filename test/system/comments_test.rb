@@ -161,4 +161,10 @@ class CommentsTest < ApplicationSystemTestCase
     clip_text = find("#js-new-comment").value
     assert_equal current_url + "#comment_#{comments(:comment_1).id}", clip_text
   end
+
+  test "suggest mention to mentor" do
+    visit "/reports/#{reports(:report_1).id}"
+    find("#js-new-comment").set("@")
+    assert_selector "span.mention", text: "mentor"
+  end
 end
