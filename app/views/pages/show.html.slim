@@ -48,13 +48,7 @@ header.page-header
                       image_class: "thread-header__user-icon"
                     = link_to @page.user, class: "thread-header__user-link" do
                       | #{@page.user.login_name}
-          - if @page.tags.present?
-            .thread-list-item-tags
-              .thread-list-item-tags__label タグ
-              ul.thread-list-item-tags__items
-                - @page.tags.each do |tag|
-                  li.thread-list-item-tags__item
-                    = link_to tag.name, pages_tag_path(tag.name)
+          #js-tags-input(data-tags-initial-value="#{@page.tag_list.join(",")}" data-tags-param-name="page[tag_list]" data-taggable-type="Page" data-taggable-id="#{@page.id}" data-taggable-path="pages")
         .thread__body
           .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @page.body

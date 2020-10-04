@@ -1,14 +1,32 @@
 <template lang="pug">
-  div
-    vue-tags-input(v-model="inputTag" :tags="tags" :autocomplete-items="filteredTags" @tags-changed="update" placeholder="" @before-adding-tag="checkTag")
-    input(type="hidden" :value="tagsValue" :name="tagsParamName")
+  .thread-list-item-tags
+    .thread-list-item-tags__label タグ
+    ul.thread-list-item-tags__items(v-if="!editing")
+      li.thread-list-item-tags__item(v-for="tag in tags")
+        a(:href="`/${taggablePath}/tags/${tag.text}`")
+          | {{ tag.text }}
+      button.a-button(@click="editTag")
+        | タグ編集
+    div(v-show="editing")
+      vue-tags-input(
+        v-model="inputTag"
+        :tags="tags"
+        :autocomplete-items="filteredTags"
+        @tags-changed="update"
+        placeholder=""
+        @before-adding-tag="checkTag")
+      input(type="hidden" :value="tagsValue" :name="tagsParamName")
+      button.a-button(@click="updateTag")
+        | 保存する
+      button.a-button(@click="cancel")
+        | キャンセル
 </template>
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
 
 export default {
-  props: ['tagsInitialValue', 'tagsParamName', 'taggableType'],
+  props: ['tagsInitialValue', 'taggableId', 'tagsParamName', 'taggableType', 'taggablePath'],
   components: { VueTagsInput },
   data() {
     return {
@@ -16,9 +34,14 @@ export default {
       tags: [],
       tagsValue: '',
       autocompleteTags: [],
+      editing: false,
     };
   },
   methods: {
+    token () {
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      return meta ? meta.getAttribute('content') : ''
+    },
     update(newTags) {
       this.tags = newTags
       this.tagsValue = this.joinTags(newTags)
@@ -34,7 +57,7 @@ export default {
           text: value,
           tiClasses: ["ti-valid"]
         }
-     })
+      })
     },
     checkTag(obj) {
       if (obj.tag.text.includes(' ')) {
@@ -43,6 +66,38 @@ export default {
         obj.addTag()
       }
     },
+    editTag() {
+      this.editing = true;
+    },
+    updateTag () {
+      let params = {
+        page: {
+          tag_list: this.tagsValue
+        }
+      }
+      fetch(`/api/${this.taggablePath}/${this.taggableId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+        body: JSON.stringify(params)
+      })
+        .then(response => {
+          this.editing = false;
+        })
+        .catch(error => {
+          console.warn('Failed to parsing', error)
+        })
+    },
+    cancel() {
+      this.tagsValue = this.tagsInitialValue
+      this.tags = this.parseTags(this.tagsInitialValue)
+      this.editing = false;
+    }
   },
   mounted() {
     this.tagsValue = this.tagsInitialValue
@@ -65,7 +120,6 @@ export default {
             text: tag.value
           }
         })
-
         this.autocompleteTags.length = 0;
         this.autocompleteTags.push(...suggestions);
       })
