@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     resources :watches, only: %i(index create destroy)
     resources :memos, only: %i(create update destroy)
     resources :tags, only: %i(index)
+    resources :pages, only: %i(update)
   end
 
   namespace :admin do
