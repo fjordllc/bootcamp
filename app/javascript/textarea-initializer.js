@@ -23,6 +23,7 @@ export default class {
 
     mention.fetchValues(json => {
       mention.values = json
+      mention.values.unshift({ 'login_name': 'mentor', 'name': 'メンター' })
       const collection = [emoji.params(), mention.params()]
       const tribute = new Tribute({
         collection: collection
