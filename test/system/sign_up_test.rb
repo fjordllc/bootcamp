@@ -167,4 +167,32 @@ class SignUpTest < ApplicationSystemTestCase
     visit "/users/new?role=trainee"
     assert has_no_field? "user[job_seeker]", visible: :all
   end
+
+  test "sign up with reserved login name" do
+    WebMock.allow_net_connect!
+
+    visit "/users/new"
+    within "form[name=user]" do
+      fill_in "user[login_name]", with: "mentor"
+      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
+      fill_in "user[name]", with: "テスト 太郎"
+      fill_in "user[name_kana]", with: "テスト タロウ"
+      fill_in "user[password]", with: "testtest"
+      fill_in "user[password_confirmation]", with: "testtest"
+      select "学生", from: "user[job]"
+      select "Mac", from: "user[os]"
+      select "自宅", from: "user[study_place]"
+      select "未経験", from: "user[experience]"
+    end
+
+    fill_stripe_element("4242 4242 4242 4242", "12 / 21", "111", "11122")
+
+    click_button "利用規約に同意して参加する"
+    assert_text "に使用できない文字列が含まれています"
+
+    WebMock.disable_net_connect!(
+      allow_localhost: true,
+      allow: "chromedriver.storage.googleapis.com"
+    )
+  end
 end
