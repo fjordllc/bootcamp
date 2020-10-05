@@ -26,7 +26,13 @@
 import VueTagsInput from '@johmun/vue-tags-input'
 
 export default {
-  props: ['tagsInitialValue', 'taggableId', 'tagsParamName', 'taggableType', 'taggablePath'],
+  props: [
+    'tagsInitialValue',
+    'taggableId',
+    'tagsParamName',
+    'taggableType',
+    'taggablePath'
+  ],
   components: { VueTagsInput },
   data() {
     return {
