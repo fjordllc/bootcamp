@@ -103,7 +103,7 @@ export default {
     this.tagsValue = this.tagsInitialValue
     this.tags = this.parseTags(this.tagsInitialValue)
 
-    fetch(`/api/tags.json?taggable_type=Page`, {
+    fetch('/api/tags.json?taggable_type=Page', {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
