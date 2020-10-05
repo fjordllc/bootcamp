@@ -135,6 +135,7 @@ Rails.application.routes.draw do
   end
   get "articles/tags/:tag", to: "articles#index", as: :tag
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag
+  get "questions/tags/:tag", to: "questions#index", as: :questions_tag
 
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"
