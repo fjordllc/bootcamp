@@ -27,6 +27,14 @@
             i.fas.fa-comment
           .thread-list-item-meta__comment-count-value
             = question.answers.size
+    - if question.tags.present?
+      .thread-list-item-tags
+        .thread-list-item-tags__label
+          | タグ
+        ul.thread-list-item-tags__items
+          - question.tags.each do |tag|
+            li.thread-list-item-tags__item
+              = link_to tag.name, questions_tag_path(tag.name, all: "true")
     - if question.correct_answer.present?
       .stamp.is-circle.is-solved
         .stamp__content.is-icon 解

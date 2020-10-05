@@ -43,6 +43,13 @@ header.page-header
               li.report-practices__item
                 = link_to @question.practice, class: "report-practices__item-link" do
                   = @question.practice.title
+        - if @question.tags.present?
+            .thread-list-item-tags
+              .thread-list-item-tags__label タグ
+              ul.thread-list-item-tags__items
+                - @question.tags.each do |tag|
+                  li.thread-list-item-tags__item
+                    = link_to tag.name, questions_tag_path(tag.name, all: "true")
         .thread__body
           .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @question.description

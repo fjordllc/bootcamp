@@ -5,6 +5,7 @@ class Question < ApplicationRecord
   include Reactionable
   include Watchable
   include WithAvatar
+  include Taggable
 
   belongs_to :practice, optional: true
   belongs_to :user, touch: true

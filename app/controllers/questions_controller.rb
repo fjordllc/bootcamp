@@ -11,11 +11,14 @@ class QuestionsController < ApplicationController
     questions =
       if params[:solved].present?
         Question.solved
+      elsif params[:all].present?
+        Question.all
       else
         Question.not_solved
       end.order(updated_at: :desc, id: :desc)
     @questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
     @questions = @questions.preload(%i[practice answers]).with_avatar.page(params[:page])
+    @questions = @questions.tagged_with(params[:tag]) if params[:tag]
   end
 
   def show
@@ -75,7 +78,8 @@ class QuestionsController < ApplicationController
         :description,
         :user_id,
         :resolve,
-        :practice_id
+        :practice_id,
+        :tag_list
       )
     end
 

@@ -95,4 +95,26 @@ class QuestionsTest < ApplicationSystemTestCase
       assert_text "削除"
     end
   end
+
+  test "search questions by tag" do
+    visit questions_url
+    click_on "質問する"
+    within "form[name=question]" do
+      fill_in "question[title]", with: "tagテストの質問"
+      fill_in "question[description]", with: "tagテストの質問です。"
+      tagInput = find(".ti-new-tag-input")
+      tagInput.set "tag1"
+      tagInput.native.send_keys :return
+      tagInput.set "tag2"
+      tagInput.native.send_keys :return
+      click_button "登録する"
+    end
+    click_on "Q&A", match: :first
+    assert_text "tag1"
+    assert_text "tag2"
+
+    click_on "tag1", match: :first
+    assert_text "tagテストの質問"
+    assert_no_text "どのエディターを使うのが良いでしょうか"
+  end
 end
