@@ -10,15 +10,23 @@
             = l event.updated_at
 
       h1.thread-header__title
+        - if event.wip?
+          span.thread-header__title-icon
+            | WIP
         = event.title
 
       .thread-header__lower-side
       #js-watch(data-watchable-id="#{@event.id}", data-watchable-type="Event")
 
-    - unless event.opening?
+    - if event.wip?
       .event-status
-        - if event.before_opening?
-          | 募集開始までお待ち下さい
+        | 公開されるまでお待ちください。
+    - elsif !event.opening?
+      .event-status
+        - if event.wip?
+          | 公開されるまでお待ちください。
+        - elsif event.before_opening?
+          | 募集開始までお待ち下さい。
         - elsif event.closing?
           | 募集受付は終了しました。
         - else
@@ -28,7 +36,8 @@
       = render("event_meta", event: event)
       .thread__description.js-target-blank.is-long-text.js-markdown-view
         = event.description
-      = render "events/participation", event: event
+      - unless event.wip?
+        = render "events/participation", event: event
       = render "reactions/reactions", reactionable: event
       - if admin_login? || event.user_id == current_user.id
         .card-footer
@@ -52,17 +61,18 @@
     link_class: "thread__author-link",
     image_class: "thread__author-icon"
 
-.thread.participants
-  .thread__inner.a-card
-    header.card-header
-      h1.card-header__title
-        | 参加者（#{event.participants.count}名/#{event.capacity}名）
-    .card-body
-      ul.footprints__items
-        - event.participants.each do |participant|
-          li.footprints-item
-            = link_to participant do
-              = image_tag participant.avatar_url, title: "#{participant.icon_title}", class: "footprints-item__checker-icon a-user-icon is-#{participant.login_name} is-#{participant.role}", alt: participant.login_name
+- unless event.wip?
+  .thread.participants
+    .thread__inner.a-card
+      header.card-header
+        h1.card-header__title
+          | 参加者（#{event.participants.count}名/#{event.capacity}名）
+      .card-body
+        ul.footprints__items
+          - event.participants.each do |participant|
+            li.footprints-item
+              = link_to participant do
+                = image_tag participant.avatar_url, title: "#{participant.icon_title}", class: "footprints-item__checker-icon a-user-icon is-#{participant.login_name} is-#{participant.role}", alt: participant.login_name
 
 - if event.waitlist.count > 0
   .thread.waitlist
