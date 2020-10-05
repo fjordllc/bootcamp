@@ -1,4 +1,4 @@
-.thread-list-item
+.thread-list-item(class="#{event.wip? ? "is-wip" : ""}")
   .thread-list-item__inner
     .thread-list-item__author
       = render "users/icon",
@@ -6,6 +6,8 @@
         link_class: "thread-header__author",
         image_class: "thread-list-item__author-icon"
     header.thread-list-item__header
+      - if event.wip?
+        .thread-list-item__header-icon.is-wip WIP
       h2.thread-list-item__title(itemprop="name")
         = link_to event, itemprop: "url", class: "thread-list-item__title-link" do
           = event.title

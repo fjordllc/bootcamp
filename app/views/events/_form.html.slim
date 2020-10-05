@@ -37,10 +37,13 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main.is-help
-        - if event.new_record?
-          = f.submit "作成", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
-        - else
-          = f.submit "内容変更", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
+        = f.submit "WIP", class: "a-button is-lg is-primary is-block", id: "js-shortcut-wip"
+      - if admin_login?
+        li.form-actions__item.is-main.is-help
+          - if event.new_record?
+            = f.submit "作成", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
+          - else
+            = f.submit "内容変更", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
       li.form-actions__item
         - if params[:action] == "new" || params[:action] == "create"
           = link_to "キャンセル", events_path, class: "a-button is-md is-secondary"
