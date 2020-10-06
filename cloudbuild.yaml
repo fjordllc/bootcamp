@@ -1,16 +1,12 @@
 steps:
   - id: Build
     name: gcr.io/cloud-builders/docker
-    args:
-      - 'build'
-      - '--no-cache'
-      - '-t'
-      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-      - '-t'
-      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
-      - '.'
-      - '-f'
-      - 'Dockerfile'
+    args: ['build',
+           '--no-cache',
+           '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA',
+           '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest',
+           '.',
+           '-f', 'Dockerfile']
   - id: Push
     name: gcr.io/cloud-builders/docker
     args: ['push', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
