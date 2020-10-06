@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const questionId = questionTagsElm.getAttribute('data-question-id')
     const questionUserId = questionTagsElm.getAttribute('data-question-user-id')
     const currentUserId = questionTagsElm.getAttribute('data-current-user-id')
-    var adminLogin = questionTagsElm.getAttribute('data-admin-login')
+    const adminLogin = questionTagsElm.getAttribute('data-admin-login')
 
     new Vue({
       render: h => h(QuestionTags, {
