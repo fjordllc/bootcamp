@@ -1,7 +1,16 @@
 steps:
   - id: Build
     name: gcr.io/cloud-builders/docker
-    args: ['build', '--no-cache', '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA', '.', '-f', 'Dockerfile']
+    args:
+      - 'build'
+      - '--no-cache'
+      - '-t'
+      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+      - '-t'
+      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
+      - '.'
+      - '-f'
+      - 'Dockerfile'
   - id: Push
     name: gcr.io/cloud-builders/docker
     args: ['push', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
@@ -52,7 +61,7 @@ steps:
       - >-
         --set-env-vars=LANG=ja_JP.UTF-8,TZ=Asia/Tokyo,RAILS_LOG_TO_STDOUT=true,RAILS_ENV=production,RACK_ENV=production,APP_HOST_NAME=$_APP_HOST_NAME,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,DB_NAME=$_DB_NAME,DB_USER=$_DB_USER,DB_PASS=$_DB_PASS,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,GOOGLE_CREDENTIALS=$_GOOGLE_CREDENTIALS,$_ENVS
 images:
-  - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+  - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
 options:
   substitutionOption: ALLOW_LOOSE
 substitutions:
