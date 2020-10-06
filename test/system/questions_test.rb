@@ -122,4 +122,16 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text "tagテストの質問"
     assert_no_text "どのエディターを使うのが良いでしょうか"
   end
+
+  test "update tags without page transitions" do
+    login_user "komagata", "testtest"
+    visit question_path(questions(:question_2))
+    click_button "タグ編集"
+    tagInput = find(".ti-new-tag-input ")
+    tagInput.set "追加タグ"
+    tagInput.native.send_keys :return
+    click_on "保存"
+    wait_for_vuejs
+    assert_text "追加タグ"
+  end
 end
