@@ -57,6 +57,13 @@ namespace :bootcamp do
         user.save! validate: false
       end
     end
+
+    desc "Cloud Build Task"
+    task :cloudbuild do
+      puts "== START Cloud Build Task =="
+      puts "#{User.count}件"
+      puts "== END   Cloud Build Task =="
+    end
   end
 
   namespace :statistics do
