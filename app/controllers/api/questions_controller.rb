@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class API::QuestionsController < API::BaseController
+  before_action :require_login
   before_action :set_question, only: %i(update)
 
   def update
