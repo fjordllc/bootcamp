@@ -43,13 +43,13 @@ header.page-header
               li.report-practices__item
                 = link_to @question.practice, class: "report-practices__item-link" do
                   = @question.practice.title
-        - if @question.tags.present?
-            .thread-list-item-tags
-              .thread-list-item-tags__label タグ
-              ul.thread-list-item-tags__items
-                - @question.tags.each do |tag|
-                  li.thread-list-item-tags__item
-                    = link_to tag.name, questions_tag_path(tag.name, all: "true")
+        #js-question-tags(
+          data-tags-initial-value="#{@question.tag_list.join(",")}"
+          data-tags-param-name="question[tag_list]"
+          data-question-id="#{@question.id}"
+          data-question-user-id="#{@question.user_id}"
+          data-current-user-id="#{current_user.id}"
+          data-admin-login="#{current_user.mentor? || current_user.admin?}")
         .thread__body
           .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @question.description
