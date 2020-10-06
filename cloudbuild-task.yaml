@@ -1,0 +1,51 @@
+steps:
+  - id: Build
+    name: gcr.io/cloud-builders/docker
+    args:
+      - 'build'
+      - '--cache-from'
+      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
+      - '-t'
+      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+      - '.'
+      - '-f'
+      - 'Dockerfile'
+  - id: SqlProxy
+    name: "gcr.io/cloudsql-docker/gce-proxy:1.16"
+    waitFor: ["-"]
+    volumes:
+      - name: db
+        path: "/cloudsql"
+    args: ["/cloud_sql_proxy", "-dir=/cloudsql", "-instances=$_CLOUD_SQL_HOST"]
+  - id: Task
+    name: "asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA"
+    waitFor: ["Build"]
+    volumes:
+      - name: db
+        path: "/cloudsql"
+    args: ['bin/rails', 'bootcamp:oneshot:cloudbuild']
+    env:
+      - 'RAILS_ENV=production'
+      - 'RAILS_MASTER_KEY=$_RAILS_MASTER_KEY'
+      - 'DB_HOST=/cloudsql/$_CLOUD_SQL_HOST'
+      - 'DB_NAME=$_DB_NAME'
+      - 'DB_PASS=$_DB_PASS'
+      - 'DB_USER=$_DB_USER'
+  - id: Kill_SqlProxy
+    name: "gcr.io/cloud-builders/docker"
+    waitFor: ["Task"]
+    entrypoint: "sh"
+    args: ["-c", 'docker kill -s TERM $(docker ps -q --filter "volume=db")']
+images: ['asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
+options:
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _CLOUD_SQL_HOST: _
+  _DB_NAME: _
+  _DB_PASS: _
+  _DB_USER: _
+  _RAILS_MASTER_KEY: _
+tags:
+  - gcp-cloud-build-task
+  - bootcamp
+timeout: 1200s
