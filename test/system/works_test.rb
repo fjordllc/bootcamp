@@ -15,6 +15,12 @@ class WorksTest < ApplicationSystemTestCase
     assert_text "hatsuno's app"
   end
 
+  test "show user's profile link" do
+    login_user "kimura", "testtest"
+    visit work_path(works(:work_1))
+    assert_link "kimura", href: "/users/991528156"
+  end
+
   test "create a work" do
     login_user "kimura", "testtest"
     visit new_work_path
