@@ -5,9 +5,10 @@
       li.thread-list-item-tags__item(v-for="tag in tags")
         a(:href="`/pages/tags/${tag.text}`")
           | {{ tag.text }}
-      button.a-button(@click="editTag")
-        | タグ編集
-    div(v-show="editing")
+      li.thread-list-item-tags__item
+        .thread-list-item-tags__item-edit(@click="editTag")
+          | タグ編集
+    .thread-list-item-tags-edit(v-show="editing")
       vue-tags-input(
         v-model="inputTag"
         :tags="tags"
@@ -16,10 +17,13 @@
         placeholder=""
         @before-adding-tag="checkTag")
       input(type="hidden" :value="tagsValue" :name="tagsParamName")
-      button.a-button(@click="updateTag")
-        | 保存する
-      button.a-button(@click="cancel")
-        | キャンセル
+      .thread-list-item-tags-edit__actions
+        .thread-list-item-tags-edit__actions-item
+          button.a-button.is-sm.is-warning(@click="updateTag")
+            | 保存する
+        .thread-list-item-tags-edit__actions-item
+          button.a-button.is-sm.is-secondary(@click="cancel")
+            | キャンセル
 </template>
 
 <script>
