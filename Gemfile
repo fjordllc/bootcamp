@@ -49,6 +49,8 @@ gem "omniauth-github"
 gem "postmark-rails"
 gem "rails_autolink"
 gem "active_flag"
+gem "redis"
+gem "hiredis"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
