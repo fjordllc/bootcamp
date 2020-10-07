@@ -96,6 +96,8 @@ class User < ApplicationRecord
   has_many :books,
     through: :borrowings
 
+  has_many :last_updated_practices, class_name: "Practice"
+
   has_one_attached :avatar
 
   after_update UserCallbacks.new
