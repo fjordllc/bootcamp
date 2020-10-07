@@ -22,7 +22,7 @@ header.page-header
             = @work.title
           .thread-header__lower-side
             .thread-header__lower-side-author-name
-              = link_to @work.title, class: "thread-header__lower-side-author-name-link" do
+              = link_to @work.user, class: "thread-header__lower-side-author-name-link" do
                 = @work.user.login_name
             .thread-header__lower-side-date
               .thread-header__lower-side-label
