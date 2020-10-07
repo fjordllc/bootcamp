@@ -186,6 +186,16 @@ class User < ApplicationRecord
       graduated_on: nil
     )
   }
+  scope :inactive_students_and_trainees, -> {
+    where(
+      updated_at: Date.new..1.month.ago,
+      admin: false,
+      mentor: false,
+      adviser: false,
+      retired_on: nil,
+      graduated_on: nil
+    )
+  }
   scope :year_end_party, -> { where(retired_on: nil) }
   scope :mentor, -> { where(mentor: true) }
   scope :working, -> {
