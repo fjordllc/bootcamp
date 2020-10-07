@@ -32,6 +32,7 @@ class PracticesController < ApplicationController
 
   def update
     old_practice = @practice.dup
+    @practice.last_updated_user = current_user
     if @practice.update(practice_params)
       text = "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を編集しました。"
       diff = Diffy::Diff.new(old_practice.all_text + "\n", @practice.all_text + "\n", context: 1).to_s

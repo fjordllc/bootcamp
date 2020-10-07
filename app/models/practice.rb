@@ -26,6 +26,7 @@ class Practice < ApplicationRecord
   belongs_to :category
   acts_as_list scope: :category
   has_one :learning_minute_statistic
+  belongs_to :last_updated_user, class_name: "User", optional: true
 
   validates :title, presence: true
   validates :description, presence: true
