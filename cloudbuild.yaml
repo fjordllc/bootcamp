@@ -47,7 +47,7 @@ steps:
       - '--region=asia-northeast1'
       - '--quiet'
       - '--image=asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-      - '--vpc-connector bootcamp'
+      - '--vpc-connector=bootcamp'
       - '--allow-unauthenticated'
       - '--add-cloudsql-instances'
       - '$_CLOUD_SQL_HOST'
