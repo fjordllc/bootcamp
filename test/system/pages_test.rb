@@ -72,20 +72,36 @@ class PagesTest < ApplicationSystemTestCase
   end
 
   test "search pages by tag" do
-    visit "/pages/#{pages(:page_1).id}"
-    click_on "タグ編集"
-    tagInput = find(".ti-new-tag-input ")
-    tagInput.set "tag1"
-    tagInput.native.send_keys :return
-    tagInput.set "tag2"
-    tagInput.native.send_keys :return
-    click_on "保存"
+    visit pages_url
+    click_on "新規ページ"
+    within "form[name=page]" do
+      fill_in "page[title]", with: "tagのテスト"
+      fill_in "page[body]", with: "tagをつけます。空白とカンマはタグには使えません。"
+      tagInput = find(".ti-new-tag-input ")
+      tagInput.set "tag1"
+      tagInput.native.send_keys :return
+      tagInput.set "tag2"
+      tagInput.native.send_keys :return
+      click_on "内容を保存"
+    end
     click_on "Docs", match: :first
     assert_text "tag1"
     assert_text "tag2"
 
     click_on "tag1", match: :first
-    assert_text "test1"
-    assert_no_text "## test\ntest"
+    assert_text "tagのテスト"
+    assert_no_text "Bootcampの作業のページ"
+  end
+
+  test "update tags without page transitions" do
+    login_user "komagata", "testtest"
+    visit "/pages/#{pages(:page_1).id}"
+    find(".thread-list-item-tags__item-edit").click
+    tagInput = find(".ti-new-tag-input ")
+    tagInput.set "追加タグ"
+    tagInput.native.send_keys :return
+    click_on "保存"
+    wait_for_vuejs
+    assert_text "追加タグ"
   end
 end
