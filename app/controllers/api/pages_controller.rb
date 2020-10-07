@@ -2,6 +2,7 @@
 
 class API::PagesController < API::BaseController
   before_action :set_page, only: %i(update)
+  before_action :require_login
 
   def update
     if @page.update(page_params)
