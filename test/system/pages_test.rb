@@ -92,4 +92,16 @@ class PagesTest < ApplicationSystemTestCase
     assert_text "tagのテスト"
     assert_no_text "Bootcampの作業のページ"
   end
+
+  test "update tags without page transitions" do
+    login_user "komagata", "testtest"
+    visit "/pages/#{pages(:page_1).id}"
+    find(".thread-list-item-tags__item-edit").click
+    tagInput = find(".ti-new-tag-input ")
+    tagInput.set "追加タグ"
+    tagInput.native.send_keys :return
+    click_on "保存"
+    wait_for_vuejs
+    assert_text "追加タグ"
+  end
 end
