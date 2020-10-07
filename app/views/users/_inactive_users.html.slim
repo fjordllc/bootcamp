@@ -1,4 +1,4 @@
-- if users.any? { |user| !user.active? }
+- if users.present?
   .a-card
     header.card-header
       h2.card-header__title
@@ -6,17 +6,16 @@
     .card-list
       ul.card-list__items
         - users.each do |user|
-          - unless user.active?
-            li.card-list__item
-              .thread-list-item
-                .thread-list-item__inner
-                  .thread-list-item__author
-                    = render "users/icon", user: user, link_class: "thread-header__author", image_class: "thread-list-item__author-icon"
-                  header.thread-list-item__header
-                    h2.thread-list-item__title(itemprop="name")
-                      = link_to user, itemprop: "url", class: "thread-list-item__title-link" do
-                        = user.name
-                    .thread-list-item__header-title-container
-                  .thread-list-item-meta
-                    time.thread-list-item-meta__updated-at
-                      = l user.updated_at
+          li.card-list__item
+            .thread-list-item
+              .thread-list-item__inner
+                .thread-list-item__author
+                  = render "users/icon", user: user, link_class: "thread-header__author", image_class: "thread-list-item__author-icon"
+                header.thread-list-item__header
+                  h2.thread-list-item__title(itemprop="name")
+                    = link_to user, itemprop: "url", class: "thread-list-item__title-link" do
+                      = user.name
+                  .thread-list-item__header-title-container
+                .thread-list-item-meta
+                  time.thread-list-item-meta__updated-at
+                    = l user.updated_at
