@@ -56,7 +56,7 @@ steps:
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
       - >-
-        --set-env-vars=LANG=ja_JP.UTF-8,TZ=Asia/Tokyo,RAILS_LOG_TO_STDOUT=true,RAILS_ENV=production,RACK_ENV=production,APP_HOST_NAME=$_APP_HOST_NAME,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,DB_NAME=$_DB_NAME,DB_USER=$_DB_USER,DB_PASS=$_DB_PASS,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,GOOGLE_CREDENTIALS=$_GOOGLE_CREDENTIALS,$_ENVS
+        --set-env-vars=LANG=ja_JP.UTF-8,TZ=Asia/Tokyo,RAILS_LOG_TO_STDOUT=true,RAILS_ENV=production,RACK_ENV=production,APP_HOST_NAME=$_APP_HOST_NAME,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,DB_NAME=$_DB_NAME,DB_USER=$_DB_USER,DB_PASS=$_DB_PASS,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,GOOGLE_CREDENTIALS=$_GOOGLE_CREDENTIALS,REDIS_URL=$_REDIS_URL,$_ENVS
 images:
   - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
 options:
@@ -74,6 +74,7 @@ substitutions:
   _DB_USER: _
   _DB_PASS: _
   _GOOGLE_CREDENTIALS: _
+  _REDIS_URL: _
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
