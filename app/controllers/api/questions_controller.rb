@@ -15,7 +15,12 @@ class API::QuestionsController < API::BaseController
   private
 
     def set_question
-      @question = Question.find(params[:id])
+      @question =
+      if current_user.admin? || current_user.mentor?
+        Question.find(params[:id])
+      else
+        current_user.questions.find(params[:id])
+      end
     end
 
     def question_params

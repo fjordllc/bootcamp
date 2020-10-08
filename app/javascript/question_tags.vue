@@ -142,7 +142,7 @@ export default {
     },
     adminOrQuestionUser () {
       return (
-        this.questionUserId === this.currentUserId || this.adminLogin
+        this.questionUserId === this.currentUserId || this.adminLogin === true
       )
     },
   },
