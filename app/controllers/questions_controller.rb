@@ -7,6 +7,8 @@ class QuestionsController < ApplicationController
   before_action :set_categories, only: %i(new create edit update)
   before_action :set_watch, only: %i(show)
 
+  QuestionsProperty = Struct.new(:title, :empty_message)
+
   def index
     questions =
       if params[:solved].present?
@@ -19,6 +21,7 @@ class QuestionsController < ApplicationController
     @questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
     @questions = @questions.preload(%i[practice answers]).with_avatar.page(params[:page])
     @questions = @questions.tagged_with(params[:tag]) if params[:tag]
+    @questions_property = questions_property
   end
 
   def show
@@ -98,5 +101,15 @@ class QuestionsController < ApplicationController
 
     def set_watch
       @watch = Watch.new
+    end
+
+    def questions_property
+      if params[:all] == "true"
+        QuestionsProperty.new("全ての質問", "質問はまだありません。")
+      elsif params[:solved] == "true"
+        QuestionsProperty.new("解決済みの質問一覧", "解決済みの質問はまだありません。")
+      else
+        QuestionsProperty.new("未解決の質問一覧", "未解決の質問はまだありません。")
+      end
     end
 end

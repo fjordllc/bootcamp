@@ -1,4 +1,4 @@
-- title params[:solved] == "true" ? "解決済みの質問一覧" : "未解決の質問一覧"
+- title @questions_property.title
 header.page-header.is-margin-bottom-0
   .container
     .page-header__inner
@@ -30,12 +30,7 @@ header.page-header.is-margin-bottom-0
             = render @questions
         - else
           .a-empty-message
-            - if params[:solved] == "true"
-              | 解決済みの質問はまだありません。
-            - elsif params[:all] == "true"
-              | 質問はまだありません。
-            - else
-              | 未解決の質問はまだありません。
+            = @questions_property.empty_message
       - if @questions.all_tags.any?
         nav.page-tags-nav
           header.page-tags-nav__header
