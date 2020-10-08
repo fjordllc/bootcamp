@@ -17,6 +17,11 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_equal "解決済みの質問一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
+  test "show listing all questions" do
+    visit questions_path(all: "true")
+    assert_equal "全ての質問 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  end
+
   test "show a resolved qestion" do
     question = questions(:question_3)
     visit question_path(question)
