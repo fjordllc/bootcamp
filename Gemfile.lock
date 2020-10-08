@@ -154,7 +154,6 @@ GEM
       signet (~> 0.14)
     hashdiff (1.0.1)
     hashie (4.1.0)
-    hiredis (0.6.3)
     holiday_jp (0.7.1)
     httpclient (2.8.3)
     i18n (0.9.5)
@@ -474,7 +473,6 @@ DEPENDENCIES
   commonmarker
   diffy
   google-cloud-storage (~> 1.25)
-  hiredis
   holiday_jp
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
