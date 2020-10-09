@@ -53,10 +53,26 @@ steps:
       - '$_CLOUD_SQL_HOST'
       - '--memory'
       - '$_MEMORY'
-      - >-
-        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
-      - >-
-        --set-env-vars=LANG=ja_JP.UTF-8,TZ=Asia/Tokyo,RAILS_LOG_TO_STDOUT=true,RAILS_ENV=production,RACK_ENV=production,APP_HOST_NAME=$_APP_HOST_NAME,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,DB_NAME=$_DB_NAME,DB_USER=$_DB_USER,DB_PASS=$_DB_PASS,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,GOOGLE_CREDENTIALS=$_GOOGLE_CREDENTIALS,GCS_BUCKET=$_GCS_BUCKET,REDIS_URL=$_REDIS_URL,$_ENVS
+      - '--labels=managed-by=gcp-cloud-build-deploy-cloud-run'
+      - '--labels=commit-sha=$COMMIT_SHA'
+      - '--labels=gcb-build-id=$BUILD_ID'
+      - '--labels=gcb-trigger-id=$_TRIGGER_ID'
+      - '--labels=$_LABELS'
+      - '--set-env-vars=LANG=ja_JP.UTF-8'
+      - '--set-env-vars=TZ=Asia/Tokyo'
+      - '--set-env-vars=RAILS_LOG_TO_STDOUT=true'
+      - '--set-env-vars=RAILS_ENV=production'
+      - '--set-env-vars=RACK_ENV=production'
+      - '--set-env-vars=APP_HOST_NAME=$_APP_HOST_NAME'
+      - '--set-env-vars=RAILS_MASTER_KEY=$_RAILS_MASTER_KEY'
+      - '--set-env-vars=DB_NAME=$_DB_NAME'
+      - '--set-env-vars=DB_USER=$_DB_USER'
+      - '--set-env-vars=DB_PASS=$_DB_PASS'
+      - '--set-env-vars=DB_HOST=/cloudsql/$_CLOUD_SQL_HOST'
+      - '--set-env-vars=GOOGLE_CREDENTIALS=$_GOOGLE_CREDENTIALS'
+      - '--set-env-vars=GCS_BUCKET=$_GCS_BUCKET'
+      - '--set-env-vars=REDIS_URL=$_REDIS_URL'
+      - '--set-env-vars=$_ENVS'
 images:
   - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
 options:
