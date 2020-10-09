@@ -13,6 +13,11 @@ class ReportCallbacks
       end
     end
 
+    report.user.followers.each do |follower|
+      send_following_report_notification(report, follower)
+      create_following_watch(report, follower)
+    end
+
     Cache.delete_unchecked_report_count
   end
 
@@ -43,8 +48,16 @@ class ReportCallbacks
       NotificationFacade.trainee_report(report, receiver)
     end
 
+    def send_following_report_notification(report, receiver)
+      NotificationFacade.following_report(report, receiver)
+    end
+
     def create_advisers_watch(report, adviser)
       Watch.create!(user: adviser, watchable: report)
+    end
+
+    def create_following_watch(report, follower)
+      Watch.create!(user: follower, watchable: report)
     end
 
     def delete_notification(report)
