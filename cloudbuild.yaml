@@ -53,11 +53,6 @@ steps:
       - '$_CLOUD_SQL_HOST'
       - '--memory'
       - '$_MEMORY'
-      - '--labels=managed-by=gcp-cloud-build-deploy-cloud-run'
-      - '--labels=commit-sha=$COMMIT_SHA'
-      - '--labels=gcb-build-id=$BUILD_ID'
-      - '--labels=gcb-trigger-id=$_TRIGGER_ID'
-      - '--labels=$_LABELS'
       - '--set-env-vars=LANG=ja_JP.UTF-8'
       - '--set-env-vars=TZ=Asia/Tokyo'
       - '--set-env-vars=RAILS_LOG_TO_STDOUT=true'
@@ -73,6 +68,8 @@ steps:
       - '--set-env-vars=GCS_BUCKET=$_GCS_BUCKET'
       - '--set-env-vars=REDIS_URL=$_REDIS_URL'
       - '--set-env-vars=$_ENVS'
+      - >-
+        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
 images:
   - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
 options:
