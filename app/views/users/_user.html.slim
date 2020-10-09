@@ -3,7 +3,7 @@
     .users-item__inner.a-card
       header.users-item__header
         .users-item__header-container
-          - if current_user.mentor? && !user.active?
+          - if current_user.mentor? && user.student_or_trainee? && !user.active?
             .users-item__inactive-message
               | 1ヶ月ログインがありません
           .users-item__name
