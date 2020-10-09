@@ -373,6 +373,14 @@ SQL
     retired_on?
   end
 
+  def graduated?
+    graduated_on?
+  end
+
+  def student_or_trainee?
+    !staff? && !retired? && !graduated?
+  end
+
   def unread_notifications_count
     @unread_notifications_count ||= notifications.unreads.count
   end
