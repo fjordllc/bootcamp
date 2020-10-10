@@ -216,6 +216,11 @@ class User < ApplicationRecord
       order(order_by.to_sym => direction.to_sym, created_at: :asc)
     end
   }
+  scope :same_generations, -> (start_date, next_date) {
+    where(created_at: start_date...next_date)
+    .unretired
+    .order(:created_at)
+  }
 
   class << self
     def announcement_receiver(target)
