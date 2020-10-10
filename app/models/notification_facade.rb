@@ -8,7 +8,7 @@ class NotificationFacade
         comment: comment,
         receiver: receiver,
         message: message
-      ).came_comment.deliver_later
+      ).came_comment.deliver_later(wait: 5)
     end
   end
 
@@ -16,7 +16,7 @@ class NotificationFacade
     Notification.checked(check)
     receiver = check.receiver
     if receiver.mail_notification? && !receiver.retired_on?
-      NotificationMailer.with(check: check).checked.deliver_later
+      NotificationMailer.with(check: check).checked.deliver_later(wait: 5)
     end
   end
 
@@ -26,7 +26,7 @@ class NotificationFacade
       NotificationMailer.with(
         mentionable: mentionable,
         receiver: receiver
-      ).mentioned.deliver_now
+      ).mentioned.deliver_later(wait: 5)
     end
   end
 
@@ -37,7 +37,7 @@ class NotificationFacade
         product: subject,
         receiver: receiver,
         message: message
-      ).submitted.deliver_later
+      ).submitted.deliver_later(wait: 5)
     end
   end
 
@@ -45,7 +45,7 @@ class NotificationFacade
     Notification.came_answer(answer)
     receiver = answer.receiver
     if answer.receiver.mail_notification? && !receiver.retired_on?
-      NotificationMailer.with(answer: answer).came_answer.deliver_later
+      NotificationMailer.with(answer: answer).came_answer.deliver_later(wait: 5)
     end
   end
 
@@ -55,7 +55,7 @@ class NotificationFacade
       NotificationMailer.with(
         announcement: announce,
         receiver: receiver
-      ).post_announcement.deliver_later
+      ).post_announcement.deliver_later(wait: 5)
     end
   end
 
@@ -65,7 +65,7 @@ class NotificationFacade
       NotificationMailer.with(
         question: question,
         receiver: receiver
-      ).came_question.deliver_later
+      ).came_question.deliver_later(wait: 5)
     end
   end
 
@@ -75,7 +75,7 @@ class NotificationFacade
       NotificationMailer.with(
         report: report,
         receiver: receiver
-      ).first_report.deliver_later
+      ).first_report.deliver_later(wait: 5)
     end
   end
 
@@ -86,7 +86,7 @@ class NotificationFacade
         watchable: watchable,
         receiver: receiver,
         comment: comment
-      ).watching_notification.deliver_later
+      ).watching_notification.deliver_later(wait: 5)
     end
   end
 
@@ -96,7 +96,7 @@ class NotificationFacade
       NotificationMailer.with(
         sender: sender,
         receiver: receiver
-      ).retired.deliver_later
+      ).retired.deliver_later(wait: 5)
     end
   end
 
@@ -106,7 +106,7 @@ class NotificationFacade
       NotificationMailer.with(
         report: report,
         receiver: receiver
-      ).trainee_report.deliver_later
+      ).trainee_report.deliver_later(wait: 5)
     end
   end
 
@@ -116,7 +116,7 @@ class NotificationFacade
       NotificationMailer.with(
         event: event,
         receiver: receiver
-      ).moved_up_event_waiting_user.deliver_later
+      ).moved_up_event_waiting_user.deliver_later(wait: 5)
     end
   end
 
@@ -126,7 +126,7 @@ class NotificationFacade
       NotificationMailer.with(
         page: page,
         receiver: receiver
-      ).create_page.deliver_later
+      ).create_page.deliver_later(wait: 5)
     end
   end
 end
