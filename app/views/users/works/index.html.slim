@@ -31,7 +31,8 @@ header.page-header
           | 自分の作ったGemや登壇した際の発表資料、自分で作ったWebサービス、自分が書いた書籍など、作品を登録していきましょう。
     .page-body-actions
       ul.page-body-actions__items
-        li.page-body-actions__item
-          = link_to new_work_path, class: "a-button is-lg is-warning is-block" do
-            i.fas.fa-plus
-            | 作品を追加
+        - if current_user == @user
+          li.page-body-actions__item
+            = link_to new_work_path, class: "a-button is-lg is-warning is-block" do
+              i.fas.fa-plus
+              | 作品を追加
