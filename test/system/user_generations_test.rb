@@ -10,4 +10,10 @@ class UserGenerationsTest < ApplicationSystemTestCase
     assert_text users(:kimura).name
     assert_text users(:komagata).name
   end
+
+  test "show no same generation users" do
+    login_user "kimura", "testtest"
+    visit user_generation_path(0)
+    assert_text "0期のユーザー一覧はありません"
+  end
 end
