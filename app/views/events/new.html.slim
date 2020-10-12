@@ -15,6 +15,3 @@ header.page-header
 .page-body
   .container
     = render "form", event: @event
-    - unless mentor_login?
-      p
-        | イベントを作成しましたら、WIPで保存し、作成したイベントのコメントから@mentorへ確認・公開の連絡をお願いします。
