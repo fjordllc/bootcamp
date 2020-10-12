@@ -13,6 +13,7 @@ class WorksTest < ApplicationSystemTestCase
     login_user "kimura", "testtest"
     visit work_path(works(:work_2))
     assert_text "hatsuno's app"
+    assert_no_text "作品を追加"
   end
 
   test "show user's profile link" do
