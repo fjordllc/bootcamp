@@ -135,7 +135,7 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "companies/products"
   end
 
-  resources :user_generations, only: %i(show)
+  resources :generations, only: %i(show)
 
   get "articles/tags/:tag", to: "articles#index", as: :tag
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag
