@@ -2,6 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :require_login, except: %i(new create)
+  before_action :require_token, only: %i(new) if Rails.env.production?
   before_action :set_user, only: %w(show)
 
   def index
@@ -132,5 +133,13 @@ class UsersController < ApplicationController
 
     def set_user
       @user = User.where(id: params[:id]).or(User.where(login_name: params[:id])).first!
+    end
+
+    def require_token
+      if params[:role]
+        if !params[:token] || !ENV["TOKEN"] || params[:token] != ENV["TOKEN"]
+          redirect_to root_path, notice: "アドバイザー・メンター・研修生登録にはTOKENが必要です。"
+        end
+      end
     end
 end
