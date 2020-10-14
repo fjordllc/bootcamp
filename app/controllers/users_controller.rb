@@ -119,7 +119,6 @@ class UsersController < ApplicationController
         :job,
         :organization,
         :os,
-        :study_place,
         :experience,
         :prefecture_code,
         :company_id,
