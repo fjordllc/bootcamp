@@ -14,7 +14,6 @@ komagata:
   course: course_1
   job: office_worker
   os: mac
-  study_place: local
   experience: rails
   organization: 合同会社フィヨルド
   admin: true
@@ -39,7 +38,6 @@ machida:
   course: course_1
   job: office_worker
   os: mac
-  study_place: local
   experience: rails
   organization: 合同会社フィヨルド
   admin: true
@@ -63,7 +61,6 @@ sotugyou:
   course: course_1
   job: office_worker
   os: mac
-  study_place: local
   experience: rails
   job_seeker: true
   organization: 株式会社卒業
@@ -101,7 +98,6 @@ yameo:
   course: course_1
   job: office_worker
   os: mac
-  study_place: remote
   experience: ruby
   organization: 株式会社ヤメオ
   job_seeker: true
@@ -123,7 +119,6 @@ yamada:
   course: course_1
   job: office_worker
   os: mac
-  study_place: remote
   experience: inexperienced
   organization: 木村大学
   mentor: true
@@ -144,7 +139,6 @@ kimura:
   course: course_1
   job: office_worker
   os: mac
-  study_place: remote
   experience: inexperienced
   prefecture_code: 13
   organization: 木村大学
@@ -167,7 +161,6 @@ hatsuno:
   course: course_1
   job: office_worker
   os: mac
-  study_place: remote
   experience: inexperienced
   prefecture_code: 4
   organization: 明治大学
@@ -189,7 +182,6 @@ hajime:
   course: course_1
   job: office_worker
   os: mac
-  study_place: remote
   experience: inexperienced
   organization: 始大学
   mail_notification: false
@@ -211,7 +203,6 @@ muryou:
   course: course_1
   job: office_worker
   os: mac
-  study_place: remote
   experience: inexperienced
   organization: 無料大学
   free: true
@@ -235,7 +226,6 @@ kensyu:
   course: course_1
   job: office_worker
   os: mac
-  study_place: local
   experience: rails
   organization: 研修大学
   trainee: true
@@ -280,7 +270,6 @@ kananashi: #name_kanaを持たないユーザー
   course: course_1
   job: office_worker
   os: mac
-  study_place: remote
   experience: rails
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
@@ -300,7 +289,6 @@ osnashi: #osを持たないユーザー
   description: "OSが無いユーザーです"
   course: course_1
   job: office_worker
-  study_place: remote
   experience: rails
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
@@ -320,7 +308,6 @@ jobseeker: #就活希望するユーザー
   description: "フィヨルドからの就職希望してます！"
   course: course_1
   job: office_worker
-  study_place: remote
   experience: rails
   job_seeker: true
   updated_at: "2020-01-01 00:00:12"
@@ -342,7 +329,6 @@ daimyo: # 大名エンジニアカレッジに通うユーザー
   description: "大名エンジニアカレッジで学んでいます."
   course: course_1
   job: office_worker
-  study_place: remote
   experience: rails
   updated_at: "2020-01-01 00:00:13"
   created_at: "2020-01-01 00:00:13"

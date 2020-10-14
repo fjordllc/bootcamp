@@ -1,4 +1,4 @@
-.form-item
+/.form-item
   = f.label :study_place, class: "a-label is-required"
   .a-button.is-md.is-secondary.is-select.is-block
     - options = options_for_select(User.study_places.map { |k, v| [t("activerecord.enums.user.study_place.#{k}"), k] }, selected: f.object.study_place)
