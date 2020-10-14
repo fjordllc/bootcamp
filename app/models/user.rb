@@ -21,11 +21,6 @@ class User < ApplicationRecord
     linux: 1
   }, _prefix: true
 
-  enum study_place: {
-    local: 0,
-    remote: 1
-  }, _prefix: true
-
   enum experience: {
     inexperienced: 0,
     html_css: 1,
@@ -137,7 +132,6 @@ class User < ApplicationRecord
   with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
     validates :job, presence: true
     validates :os, presence: true
-    validates :study_place, presence: true
     validates :experience, presence: true
   end
 
