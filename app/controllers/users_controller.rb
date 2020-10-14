@@ -6,11 +6,20 @@ class UsersController < ApplicationController
   before_action :set_user, only: %w(show)
 
   def index
-    @target = params[:target] || "student_and_trainee"
-    @users = User.with_attached_avatar
-      .preload(:course)
-      .order(updated_at: :desc)
-      .users_role(@target)
+    if params[:target] == "followings"
+      @target = "followings"
+      followings = Following.where(follower_id: current_user.id).select("followed_id")
+      @users = User
+        .includes(:company, :avatar_attachment, :course)
+        .where(id: followings)
+        .order(updated_at: :desc)
+    else
+      @target = params[:target] || "student_and_trainee"
+      @users = User.with_attached_avatar
+        .preload(:course)
+        .order(updated_at: :desc)
+        .users_role(@target)
+    end
   end
 
   def show
