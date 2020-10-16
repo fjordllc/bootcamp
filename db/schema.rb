@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 2020_11_04_093315) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.integer "target", default: 0, null: false
+    t.boolean "wip", default: false, null: false
+    t.datetime "published_at"
     t.index ["user_id"], name: "index_announcements_on_user_id"
   end
 
