@@ -48,3 +48,5 @@
           = link_to "キャンセル", announcements_path, class: "a-button is-md is-secondary"
         - elsif params[:action] == "edit" || params[:action] == "update"
           = link_to "キャンセル", announcement_path, class: "a-button is-md is-secondary"
+    - unless admin_login?
+      | お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。
