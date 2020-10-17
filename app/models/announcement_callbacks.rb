@@ -2,7 +2,15 @@
 
 class AnnouncementCallbacks
   def after_create(announce)
-    send_notification(announce)
+    if !announce.wip?
+      send_notification(announce)
+    end
+  end
+
+  def after_update(announce)
+    if !announce.wip?
+      send_notification(announce)
+    end
   end
 
   def after_destroy(announce)

@@ -2,6 +2,9 @@
   .thread__inner.a-card
     header.thread-header
       h1.thread-header__title
+        - if announcement.wip?
+          span.thread-header__title-icon
+            | WIP
         = announcement.title
 
       .thread-header__lower-side

@@ -2,7 +2,6 @@
 
 class AnnouncementsController < ApplicationController
   before_action :require_login
-  before_action :require_admin_login, except: %i(index show)
   before_action :set_announcement, only: %i(show edit update destroy)
   before_action :set_footprints, only: %i(show)
 
@@ -26,8 +25,9 @@ class AnnouncementsController < ApplicationController
   end
 
   def update
+    set_wip
     if @announcement.update(announcement_params)
-      redirect_to @announcement, notice: "お知らせを更新しました"
+      redirect_to @announcement, notice: notice_message(@announcement)
     else
       render :edit
     end
@@ -36,9 +36,10 @@ class AnnouncementsController < ApplicationController
   def create
     @announcement = Announcement.new(announcement_params)
     @announcement.user_id = current_user.id
+    set_wip
     if @announcement.save
       notify_to_slack(@announcement)
-      redirect_to @announcement, notice: "お知らせを作成しました"
+      redirect_to @announcement, notice: notice_message(@announcement)
     else
       render :new
     end
@@ -77,5 +78,17 @@ class AnnouncementsController < ApplicationController
 
     def set_announcement
       @announcement = Announcement.find(params[:id])
+    end
+
+    def set_wip
+      @announcement.wip = (params[:commit] == "WIP")
+    end
+
+    def notice_message(announcement)
+      if params[:action] == "create"
+        announcement.wip? ? "お知らせをWIPとして保存しました。" : "お知らせを作成しました。"
+      elsif params[:action] == "update"
+        announcement.wip? ? "お知らせをWIPとして保存しました。" : "お知らせを更新しました。"
+      end
     end
 end
