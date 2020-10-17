@@ -37,6 +37,7 @@ header.page-header
                 ul.card-footer-actions__items
                   li.card-footer-actions__item
                     - if current_user == @user
+                      = link_to "フォロー一覧を見る", users_path(target: :followings), class: "card-footer-actions__action a-button is-md is-secondary is-block"
                       = link_to "登録情報変更", edit_current_user_path, class: "card-footer-actions__action a-button is-md is-secondary is-block"
                     - else
                       .js-following(data-is-following="#{current_user.following?(@user)}" data-user-id="#{@user.id}")
