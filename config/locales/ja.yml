@@ -94,7 +94,7 @@ ja:
         target: ターゲット
         submission: 提出物
         progress: 進捗の計算
-        category_id: カテゴリー
+        categories: カテゴリー
         memo: メンター向けメモ
       product:
         user: ユーザー

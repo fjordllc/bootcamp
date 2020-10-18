@@ -95,6 +95,13 @@ ActiveRecord::Schema.define(version: 2020_10_01_000000) do
     t.bigint "category_id", null: false
   end
 
+  create_table "categories_practices", id: false, force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.bigint "practice_id", null: false
+    t.index ["category_id", "practice_id"], name: "index_categories_practices_on_category_id_and_practice_id"
+    t.index ["practice_id", "category_id"], name: "index_categories_practices_on_practice_id_and_category_id"
+  end
+
   create_table "checks", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "checkable_id", null: false
@@ -394,15 +401,15 @@ ActiveRecord::Schema.define(version: 2020_10_01_000000) do
     t.boolean "mail_notification", default: true, null: false
     t.integer "prefecture_code"
     t.boolean "job_seeker", default: false, null: false
+    t.string "github_id"
     t.boolean "slack_participation", default: true, null: false
     t.boolean "github_collaborator", default: false, null: false
     t.boolean "officekey_permission", default: false, null: false
-    t.string "github_id"
+    t.string "name", default: "", null: false
+    t.string "name_kana", default: "", null: false
     t.integer "satisfaction"
     t.text "opinion"
     t.bigint "retire_reasons", default: 0, null: false
-    t.string "name", default: "", null: false
-    t.string "name_kana", default: "", null: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
@@ -432,6 +439,8 @@ ActiveRecord::Schema.define(version: 2020_10_01_000000) do
   add_foreign_key "announcements", "users"
   add_foreign_key "borrowings", "books"
   add_foreign_key "borrowings", "users"
+  add_foreign_key "categories_practices", "categories"
+  add_foreign_key "categories_practices", "practices"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_times", "reports"

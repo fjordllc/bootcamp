@@ -9,6 +9,25 @@ namespace :bootcamp do
   end
 
   namespace :oneshot do
+    desc "Category data migrate to multiple categories."
+    task :migrate_category do
+      Practice.order(:category_id, :id).each do |practice|
+        category_id = practice.category_id
+        practice_id = practice.id
+        category_name = practice.category.name
+        practice_title = practice.title
+
+        sql = <<-SQL
+          INSERT INTO categories_practices (category_id, practice_id) VALUES (#{category_id}, #{practice_id});
+        SQL
+
+        puts sql
+        puts "INSERT #{category_name},\t#{practice_title}"
+
+        ActiveRecord::Base.connection.execute sql
+      end
+    end
+
     desc "Resize works."
     task :resize_all_works do
       Work.order(created_at: :asc).each do |work|
@@ -31,30 +50,6 @@ namespace :bootcamp do
 
       Work.order(created_at: :asc).each do |work|
         work.resize_thumbnail! if work.thumbnail.attached?
-      end
-    end
-
-    desc "insert userid into pages."
-    task :insert_userid_into_pages do
-      jnchito_id = 676
-      komagata_id = 1
-      Page.order(created_at: :asc).each do |page|
-        case page.id
-        when 194, 227, 240
-          page.update(user_id: jnchito_id)
-        else
-          page.update(user_id: komagata_id)
-        end
-      end
-    end
-
-    desc "concat and save user name in new columns"
-    task :concat_name do
-      puts "\n== Saving name and name_kana =="
-      User.find_each do |user|
-        user.name = user.full_name
-        user.name_kana = user.kana_full_name
-        user.save! validate: false
       end
     end
 
