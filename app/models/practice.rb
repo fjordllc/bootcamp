@@ -23,10 +23,10 @@ class Practice < ApplicationRecord
     source: :user
   has_many :products
   has_many :questions
-  belongs_to :category
-  acts_as_list scope: :category
   has_one :learning_minute_statistic
   belongs_to :last_updated_user, class_name: "User", optional: true
+
+  has_and_belongs_to_many :categories, dependent: :destroy
 
   validates :title, presence: true
   validates :description, presence: true
@@ -116,6 +116,16 @@ class Practice < ApplicationRecord
       average: average,
       median: median
     )
+  end
+
+  def category_by(course)
+    my_categories = categories.where(id: course.category_ids)
+
+    if categories.size > 0
+      my_categories.first
+    else
+      categories.first
+    end
   end
 
   private

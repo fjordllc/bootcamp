@@ -405,12 +405,11 @@ ActiveRecord::Schema.define(version: 2020_10_01_000000) do
     t.boolean "slack_participation", default: true, null: false
     t.boolean "github_collaborator", default: false, null: false
     t.boolean "officekey_permission", default: false, null: false
-    t.string "github_id"
+    t.string "name", default: "", null: false
+    t.string "name_kana", default: "", null: false
     t.integer "satisfaction"
     t.text "opinion"
     t.bigint "retire_reasons", default: 0, null: false
-    t.string "name", default: "", null: false
-    t.string "name_kana", default: "", null: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
