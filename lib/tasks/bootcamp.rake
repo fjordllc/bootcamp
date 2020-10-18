@@ -34,30 +34,6 @@ namespace :bootcamp do
       end
     end
 
-    desc "insert userid into pages."
-    task :insert_userid_into_pages do
-      jnchito_id = 676
-      komagata_id = 1
-      Page.order(created_at: :asc).each do |page|
-        case page.id
-        when 194, 227, 240
-          page.update(user_id: jnchito_id)
-        else
-          page.update(user_id: komagata_id)
-        end
-      end
-    end
-
-    desc "concat and save user name in new columns"
-    task :concat_name do
-      puts "\n== Saving name and name_kana =="
-      User.find_each do |user|
-        user.name = user.full_name
-        user.name_kana = user.kana_full_name
-        user.save! validate: false
-      end
-    end
-
     desc "Cloud Build Task"
     task :cloudbuild do
       puts "== START Cloud Build Task =="
