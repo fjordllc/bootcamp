@@ -189,4 +189,22 @@ class SignUpTest < ApplicationSystemTestCase
       allow: "chromedriver.storage.googleapis.com"
     )
   end
+
+  test "sign up as adviser with company_id" do
+    visit "/users/new?role=adviser&company_id=#{companies(:company_2).id}"
+
+    email = "test-#{SecureRandom.hex(16)}@example.com"
+
+    within "form[name=user]" do
+      fill_in "user[login_name]", with: "foo"
+      fill_in "user[email]", with: email
+      fill_in "user[name]", with: "テスト 太郎"
+      fill_in "user[name_kana]", with: "テスト タロウ"
+      fill_in "user[password]", with: "testtest"
+      fill_in "user[password_confirmation]", with: "testtest"
+    end
+    click_button "アドバイザー登録"
+    assert_text "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
+    assert_equal User.find_by(email: email).company_id, companies(:company_2).id
+  end
 end
