@@ -16,7 +16,6 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
       select "Mac", from: "user[os]"
-      select "自宅", from: "user[study_place]"
       select "未経験", from: "user[experience]"
     end
 
@@ -45,7 +44,6 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
       select "Mac", from: "user[os]"
-      select "自宅", from: "user[study_place]"
       select "未経験", from: "user[experience]"
     end
 
@@ -74,7 +72,6 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
       select "Mac", from: "user[os]"
-      select "自宅", from: "user[study_place]"
       select "未経験", from: "user[experience]"
     end
 
@@ -103,7 +100,6 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
       select "Mac", from: "user[os]"
-      select "自宅", from: "user[study_place]"
       select "未経験", from: "user[experience]"
     end
 
@@ -151,7 +147,6 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
       select "Mac", from: "user[os]"
-      select "自宅", from: "user[study_place]"
       select "未経験", from: "user[experience]"
     end
     click_button "利用規約に同意して参加する"
@@ -181,7 +176,6 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
       select "Mac", from: "user[os]"
-      select "自宅", from: "user[study_place]"
       select "未経験", from: "user[experience]"
     end
 
