@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
 
+  namespace :scheduler do
+    resource :statistics, only: %i(update)
+  end
+
   namespace "api" do
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)

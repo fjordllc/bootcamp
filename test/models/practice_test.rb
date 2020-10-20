@@ -38,4 +38,14 @@ class PracticeTest < ActiveSupport::TestCase
     assert ordered_practices.index(earlier) < ordered_practices.index(middle)
     assert ordered_practices.index(middle) < ordered_practices.index(later)
   end
+
+  test ".save_learning_minute_statistics" do
+    LearningMinuteStatistic.delete_all
+    assert LearningMinuteStatistic.count.zero?
+
+    Practice.save_learning_minute_statistics
+
+    practice_ids = Practice.joins(:reports).merge(Report.not_wip).distinct.pluck(:id)
+    assert LearningMinuteStatistic.count == practice_ids.size
+  end
 end
