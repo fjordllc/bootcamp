@@ -1,0 +1,22 @@
+- title "#{@generation}期のユーザー一覧"
+
+header.page-header.is-margin-bottom-0.is-border-bottom-none
+  .container
+    .page-header__inner
+      h2.page-header__title #{@generation}期のユーザー一覧
+      .page-header-actions
+        ul.page-header-actions__items
+
+.page-body
+  .container
+    - if @users.present?
+      .users
+        .row.is-gutter-width-32
+          = render partial: "users/user", collection: @users, as: :user
+    - else
+      .o-empty-massage
+        .o-empty-massage__icon
+          i.far.fa-smile
+        p.o-empty-massage__text
+          = title
+          | はありません
