@@ -5,8 +5,9 @@
         = User.human_attribute_name :created_at
       .user-metas__item-value
         = l user.created_at.to_date
-        | &nbsp;#{user.elapsed_days}日目
-        | &nbsp;#{user.generation}期生
+        | &nbsp;#{user.elapsed_days}日目&nbsp;
+        = link_to generation_path(user.generation)
+          | #{user.generation}期生
     .user-metas__item
       .user-metas__item-label
         = User.human_attribute_name :updated_at
