@@ -17,8 +17,7 @@ header.page-header
       .thread-list.a-card
         = render partial: "products/product",
           collection: @products,
-          as: :product,
-          cached: true
+          as: :product
     - else
       .o-empty-massage
         .o-empty-massage__icon
