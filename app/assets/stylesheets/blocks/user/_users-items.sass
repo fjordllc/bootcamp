@@ -2,12 +2,11 @@
   padding-bottom: 1.5rem
   height: 100%
 
-.users-item.inactive .a-card
-  background-color: $background-more-tint
-  .users-item__name,
-  .users-item__description,
-  .users-item__user-icon-image
-    opacity: .6
+.users-item__inactive-message
+  background-color: $danger
+  +text-block(.75rem 1.4, center $reversal-text)
+  padding: .25rem
+  margin-bottom: .25rem
 
 .users-item__inner
   height: 100%
@@ -15,6 +14,8 @@
 .users-item__header
   +position(relative)
   padding-left: 3.5rem
+  padding-right: 1rem
+  padding-top: .5rem
   border-bottom: solid 1px $background
   padding-bottom: .5rem
   +media-breakpoint-down(sm)
@@ -33,7 +34,6 @@
 .users-item__name-link
   color: $main
   display: block
-  padding-top: .5rem
   +hover-link
 
 .users-item__user-icon-image

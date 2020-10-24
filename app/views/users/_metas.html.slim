@@ -10,11 +10,6 @@
           | #{user.generation}期生
     .user-metas__item
       .user-metas__item-label
-        = User.human_attribute_name :updated_at
-      .user-metas__item-value
-        = l user.updated_at
-    .user-metas__item
-      .user-metas__item-label
         | 都道府県
       .user-metas__item-value
         = user.prefecture_name
