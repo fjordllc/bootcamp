@@ -41,4 +41,11 @@ namespace :bootcamp do
       puts "== END   Cloud Build Task =="
     end
   end
+
+  namespace :statistics do
+    desc "save learning minute statistics"
+    task :save_learning_minute_statistics do
+      Practice.save_learning_minute_statistics
+    end
+  end
 end
