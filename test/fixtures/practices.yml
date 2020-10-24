@@ -12,7 +12,6 @@ practice_2:
   title: "Terminalの基礎を覚える"
   description: "description..."
   goal: "goal..."
-  memo: "memo for mentors..."
   category: category_4
   position: 2
   submission: true
@@ -469,7 +468,6 @@ practice_56:
   title: "Unityでのテスト"
   description: "description..."
   goal: "goal..."
-  memo:
   category: category_21
   position: 56
   include_progress: false
