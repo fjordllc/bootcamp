@@ -68,7 +68,9 @@ export default {
         return response.json()
       })
       .then(json => {
-        this.memo = json['memo']
+        if (json['memo']) {
+          this.memo = json['memo']
+        }
       })
       .catch(error => {
         console.warn('Failed to parsing', error)
