@@ -2,7 +2,7 @@
   .thread-comment
     .thread-comment__author
       a.thread-comment__author-link(:href="answer.user.url" itemprop="url")
-        img.thread-comment__author-icon.a-user-icon(:src="answer.user.avatar_url" :title="answer.user.icon_title"  v-bind:class="userRole")
+        img.thread-comment__author-icon.a-user-icon(:src="answer.user.avatar_url" :title="answer.user.icon_title"  :class="[roleClass, daimyoClass]")
     .thread-comment__body.a-card(v-if="!editing")
       .answer-badge(v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer'")
         .answer-badge__icon
@@ -193,8 +193,11 @@ export default {
     updatedAt: function() {
       return moment(this.answer.updated_at).format("YYYY年MM月DD日(dd) HH:mm");
     },
-    userRole: function() {
+    roleClass: function() {
       return `is-${this.answer.user.role}`;
+    },
+    daimyoClass: function() {
+      return { 'is-daimyo': this.answer.user.daimyo }
     },
     validation: function() {
       return this.description.length > 0;
