@@ -9,6 +9,7 @@ class SignUpTest < ApplicationSystemTestCase
     visit "/users/new"
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
+      # 決め打ちメールアドレスにした場合テストを複数回実行すると失敗するため、ランダムでメールアドレスを生成する 詳細はissue#2035参照
       fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
       fill_in "user[name]", with: "テスト 太郎"
       fill_in "user[name_kana]", with: "テスト タロウ"
