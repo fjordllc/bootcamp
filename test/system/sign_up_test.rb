@@ -38,9 +38,9 @@ class SignUpTest < ApplicationSystemTestCase
     visit "/users/new"
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
-      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
-      fill_in "user[name]", with: "テスト 太郎"
-      fill_in "user[name_kana]", with: "テスト タロウ"
+      fill_in "user[email]", with: "jiro@example.com"
+      fill_in "user[name]", with: "テスト 次郎"
+      fill_in "user[name_kana]", with: "テスト ジロウ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
@@ -66,9 +66,9 @@ class SignUpTest < ApplicationSystemTestCase
     visit "/users/new"
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
-      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
-      fill_in "user[name]", with: "テスト 太郎"
-      fill_in "user[name_kana]", with: "テスト タロウ"
+      fill_in "user[email]", with: "saburo@example.com"
+      fill_in "user[name]", with: "テスト 三郎"
+      fill_in "user[name_kana]", with: "テスト サブロウ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
@@ -94,9 +94,9 @@ class SignUpTest < ApplicationSystemTestCase
     visit "/users/new"
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
-      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
-      fill_in "user[name]", with: "テスト 太郎"
-      fill_in "user[name_kana]", with: "テスト タロウ"
+      fill_in "user[email]", with: "hanako@example.com"
+      fill_in "user[name]", with: "テスト 花子"
+      fill_in "user[name_kana]", with: "テスト ハナコ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
@@ -119,13 +119,13 @@ class SignUpTest < ApplicationSystemTestCase
   test "sign up as adviser" do
     visit "/users/new?role=adviser"
 
-    email = "test-#{SecureRandom.hex(16)}@example.com"
+    email = "haruko@example.com"
 
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
       fill_in "user[email]", with: email
-      fill_in "user[name]", with: "テスト 太郎"
-      fill_in "user[name_kana]", with: "テスト タロウ"
+      fill_in "user[name]", with: "テスト 春子"
+      fill_in "user[name_kana]", with: "テスト ハルコ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
     end
@@ -137,13 +137,13 @@ class SignUpTest < ApplicationSystemTestCase
   test "sign up as trainee" do
     visit "/users/new?role=trainee"
 
-    email = "test-#{SecureRandom.hex(16)}@example.com"
+    email = "natsumi@example.com"
 
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
       fill_in "user[email]", with: email
-      fill_in "user[name]", with: "テスト 太郎"
-      fill_in "user[name_kana]", with: "テスト タロウ"
+      fill_in "user[name]", with: "テスト 夏美"
+      fill_in "user[name_kana]", with: "テスト ナツミ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
@@ -170,9 +170,9 @@ class SignUpTest < ApplicationSystemTestCase
     visit "/users/new"
     within "form[name=user]" do
       fill_in "user[login_name]", with: "mentor"
-      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
-      fill_in "user[name]", with: "テスト 太郎"
-      fill_in "user[name_kana]", with: "テスト タロウ"
+      fill_in "user[email]", with: "akiko@example.com"
+      fill_in "user[name]", with: "テスト 秋子"
+      fill_in "user[name_kana]", with: "テスト アキコ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
       select "学生", from: "user[job]"
@@ -194,13 +194,13 @@ class SignUpTest < ApplicationSystemTestCase
   test "sign up as adviser with company_id" do
     visit "/users/new?role=adviser&company_id=#{companies(:company_2).id}"
 
-    email = "test-#{SecureRandom.hex(16)}@example.com"
+    email = "fuyuko@example.com"
 
     within "form[name=user]" do
       fill_in "user[login_name]", with: "foo"
       fill_in "user[email]", with: email
-      fill_in "user[name]", with: "テスト 太郎"
-      fill_in "user[name_kana]", with: "テスト タロウ"
+      fill_in "user[name]", with: "テスト ふゆこ"
+      fill_in "user[name_kana]", with: "テスト フユコ"
       fill_in "user[password]", with: "testtest"
       fill_in "user[password_confirmation]", with: "testtest"
     end
