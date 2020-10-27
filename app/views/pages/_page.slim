@@ -1,7 +1,10 @@
 .thread-list-item
   .thread-list-item__inner
     .thread-list-item__author
-      = image_tag page.user.avatar_url, title: "#{page.user.icon_title}", class: "thread-list-item__author-icon a-user-icon is-#{page.user.role}"
+      = render "users/icon",
+        user: page.user,
+        link_class: "thread-header__author",
+        image_class: "thread-list-item__author-icon"
     header.thread-list-item__header
       - if page.wip?
         .thread-list-item__header-icon.is-wip WIP
