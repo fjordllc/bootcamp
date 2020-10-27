@@ -25,6 +25,7 @@ class UsersController < ApplicationController
     when "trainee"
       @user.trainee = true
     end
+    @user.company_id = params[:company_id]
   end
 
   def create
