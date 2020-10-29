@@ -13,8 +13,8 @@
             | #{product.practice.title}の提出物
     .thread-list-item-meta
       = link_to product.user.login_name, product.user, class: "thread-header__author"
-      time.thread-list-item-meta__updated-at(datetime="#{product.updated_at.to_datetime}")
-        = l product.updated_at
+      time.thread-list-item-meta__updated-at(datetime="#{product.created_at.to_datetime}")
+        = l product.created_at
     - if product.comments.any?
       .thread-list-item-meta
         .thread-list-item-meta__label
@@ -28,8 +28,8 @@
               locals: { image_class: "thread-list-item__checked-author-icon" },
               as: :user,
               cached: true
-        time.thread-list-item-meta__updated-at(datetime="#{product.commented_users.last.updated_at.to_datetime}")
-          = l product.comments.last.updated_at, format: :date_and_time
+        time.thread-list-item-meta__updated-at(datetime="#{product.commented_users.last.created_at.to_datetime}")
+          = l product.comments.last.created_at, format: :date_and_time
     - if product.checks.any?
       .stamp.stamp-approve
         h2.stamp__content.is-title 確認済
