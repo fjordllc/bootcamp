@@ -10,7 +10,7 @@ $checkbox-size: .875rem
   +padding(horizontal, .625rem)
   margin-bottom: .625rem
   label
-    +text-block(.9375rem 1.4, block)
+    +text-block(.9375rem 1.4, block $semi-muted-text)
     +position(relative)
     +hover-link
     cursor: pointer
@@ -40,6 +40,8 @@ $checkbox-size: .875rem
     border-color: $primary
   label:hover::after
     text-decoration: none
+  label.is-checked
+    color: black
   label.is-checked::before
     background-color: rgba($primary, .8)
     border-color: $primary
