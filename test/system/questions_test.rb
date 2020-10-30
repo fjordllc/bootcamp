@@ -126,7 +126,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test "update tags without page transitions" do
     login_user "komagata", "testtest"
     visit question_path(questions(:question_2))
-    click_button "タグ編集"
+    find(".tag-links__item-edit").click
     tagInput = find(".ti-new-tag-input ")
     tagInput.set "追加タグ"
     tagInput.native.send_keys :return
