@@ -21,9 +21,8 @@ class FollowingsTest < ApplicationSystemTestCase
   test "show following lists" do
     visit user_path(users(:hatsuno))
     click_button "日報をフォロー"
-    visit user_path(users(:kimura))
-    click_link "フォロー一覧を見る"
-    assert_text (users(:hatsuno).login_name)
+    visit "/users?target=followings"
+    assert has_content? users(:hatsuno).login_name
   end
 
   test "receive a notification when following user create a report" do
