@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     buttonLabel() {
-      return this.following ? 'フォローを解除する' : '日報をフォローする'
+      return this.following ? 'フォローを解除' : '日報をフォロー'
     },
     url () {
       return this.following ? `/api/followings/${this.userId}` : '/api/followings'
