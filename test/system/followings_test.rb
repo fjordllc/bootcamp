@@ -7,20 +7,20 @@ class FollowingsTest < ApplicationSystemTestCase
 
   test "follow" do
     visit user_path(users(:hatsuno))
-    click_button "日報をフォローする"
-    assert_button "フォローを解除する"
+    click_button "日報をフォロー"
+    assert_button "フォローを解除"
   end
 
   test "unfollow" do
     visit user_path(users(:hatsuno))
-    click_button "日報をフォローする"
-    click_button "フォローを解除する"
-    assert_button "日報をフォローする"
+    click_button "日報をフォロー"
+    click_button "フォローを解除"
+    assert_button "日報をフォロー"
   end
 
   test "show following lists" do
     visit user_path(users(:hatsuno))
-    click_button "日報をフォローする"
+    click_button "日報をフォロー"
     visit user_path(users(:kimura))
     click_link "フォロー一覧を見る"
     assert_text (users(:hatsuno).login_name)
@@ -28,7 +28,7 @@ class FollowingsTest < ApplicationSystemTestCase
 
   test "receive a notification when following user create a report" do
     visit user_path(users(:hatsuno))
-    click_button "日報をフォローする"
+    click_button "日報をフォロー"
     login_user "hatsuno", "testtest"
 
     visit "/reports/new"
@@ -52,7 +52,7 @@ class FollowingsTest < ApplicationSystemTestCase
 
   test "receive a notification when following user's report has comment" do
     visit user_path(users(:hatsuno))
-    click_button "日報をフォローする"
+    click_button "日報をフォロー"
     login_user "hatsuno", "testtest"
 
     visit "/reports/new"
