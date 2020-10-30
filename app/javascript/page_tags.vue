@@ -1,29 +1,31 @@
 <template lang="pug">
-  .thread-list-item-tags
-    .thread-list-item-tags__label タグ
-    ul.thread-list-item-tags__items(v-if="!editing")
-      li.thread-list-item-tags__item(v-for="tag in tags")
-        a(:href="`/pages/tags/${tag.text}`")
+  .tag-links
+    ul.tag-links__items(v-if="!editing")
+      li.tag-links__item(v-for="tag in tags")
+        a.tag-links__item-link(:href="`/pages/tags/${tag.text}`")
           | {{ tag.text }}
-      li.thread-list-item-tags__item
-        .thread-list-item-tags__item-edit(@click="editTag")
+      li.tag-links__item
+        .tag-links__item-edit(@click="editTag")
           | タグ編集
-    .thread-list-item-tags-edit(v-show="editing")
-      vue-tags-input(
-        v-model="inputTag"
-        :tags="tags"
-        :autocomplete-items="filteredTags"
-        @tags-changed="update"
-        placeholder=""
-        @before-adding-tag="checkTag")
-      input(type="hidden" :value="tagsValue" :name="tagsParamName")
-      .thread-list-item-tags-edit__actions
-        .thread-list-item-tags-edit__actions-item
-          button.a-button.is-sm.is-warning(@click="updateTag")
-            | 保存する
-        .thread-list-item-tags-edit__actions-item
-          button.a-button.is-sm.is-secondary(@click="cancel")
-            | キャンセル
+    .form(v-show="editing")
+      .form__items
+        .form-item
+          vue-tags-input(
+            v-model="inputTag"
+            :tags="tags"
+            :autocomplete-items="filteredTags"
+            @tags-changed="update"
+            placeholder=""
+            @before-adding-tag="checkTag")
+          input(type="hidden" :value="tagsValue" :name="tagsParamName")
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item.is-main
+            button.a-button.is-warning.is-block.is-md(@click="updateTag")
+              | 保存する
+          li.form-actions__item
+            button.a-button.is-secondary.is-block.is-sm(@click="cancel")
+              | キャンセル
 </template>
 
 <script>
