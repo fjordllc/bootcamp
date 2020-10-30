@@ -25,6 +25,10 @@ header.page-header
             .thread-header__date
               time.thread-header__date-value(datetime="#{@question.updated_at.to_datetime}" pubdate="pubdate")
                 = l @question.updated_at
+          - if @question.practice.present?
+            .thread-practice
+              = link_to @question.practice, class: "thread-practice__link" do
+                = @question.practice.title
           h1.thread-header__title
             - if @question.correct_answer.present?
               span.thread-header__title-icon.is-solved.is-success
@@ -37,12 +41,6 @@ header.page-header
             #js-watch(data-watchable-id="#{@question.id}", data-watchable-type="Question")
             .thread-header__raw
               = link_to "Raw", question_path(format: :md), class: "a-button is-sm is-secondary", target: "_blank"
-        - if @question.practice.present?
-          .report-practices
-            ul.report-practices__items
-              li.report-practices__item
-                = link_to @question.practice, class: "report-practices__item-link" do
-                  = @question.practice.title
         #js-question-tags(
           data-tags-initial-value="#{@question.tag_list.join(",")}"
           data-tags-param-name="question[tag_list]"

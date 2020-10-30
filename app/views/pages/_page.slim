@@ -23,11 +23,11 @@
             i.fas.fa-comment
           .thread-list-item-meta__comment-count-value
             = page.comments.size
-    - if page.tags.present?
-      .thread-list-item-tags
-        .thread-list-item-tags__label
-          | タグ
-        ul.thread-list-item-tags__items
-          - page.tags.each do |tag|
-            li.thread-list-item-tags__item
-              = link_to tag.name, pages_tag_path(tag.name)
+  - if page.tags.present?
+    .thread-list-item-tags
+      .thread-list-item-tags__label
+        i.fas.fa-tags
+      ul.thread-list-item-tags__items
+        - page.tags.each do |tag|
+          li.thread-list-item-tags__item
+            = link_to tag.name, pages_tag_path(tag.name), class: "thread-list-item-tags__item-link"

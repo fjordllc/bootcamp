@@ -46,11 +46,11 @@ header.page-header
             .thread-header__raw
               = link_to "Raw", report_path(format: :md), class: "a-button is-sm is-secondary", target: "_blank"
         - if @report.practices.present?
-          .report-practices
-            ul.report-practices__items
+          .tag-links
+            ul.tag-links__items
               - @report.practices.category_order.each do |practice|
-                li.report-practices__item
-                  = link_to practice, class: "report-practices__item-link" do
+                li.tag-links__item
+                  = link_to practice, class: "tag-links__item-link" do
                     = practice.title
 
         = render "reports/learning_times", report: @report

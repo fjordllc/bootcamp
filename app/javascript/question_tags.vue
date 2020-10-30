@@ -1,25 +1,31 @@
 <template lang="pug">
-  .thread-list-item-tags
-    .thread-list-item-tags__label タグ
-    ul.thread-list-item-tags__items(v-if="!editing")
-      li.thread-list-item-tags__item(v-for="tag in tags")
-        a(:href="`/questions/tags/${tag.text}?all=true`")
+  .tag-links
+    ul.tag-links__items(v-if="!editing")
+      li.tag-links__item(v-for="tag in tags")
+        a.tag-links__item-link(:href="`/questions/tags/${tag.text}?all=true`")
           | {{ tag.text }}
-      button.a-button(v-if="adminOrQuestionUser" @click="editTag")
-        | タグ編集
-    div(v-show="editing")
-      vue-tags-input(
-        v-model="inputTag"
-        :tags="tags"
-        :autocomplete-items="filteredTags"
-        @tags-changed="update"
-        placeholder=""
-        @before-adding-tag="checkTag")
-      input(type="hidden" :value="tagsValue" :name="tagsParamName")
-      button.a-button(@click="updateTag")
-        | 保存する
-      button.a-button(@click="cancel")
-        | キャンセル
+      li.tag-links__item
+        .tag-links__item-edit(v-if="adminOrQuestionUser" @click="editTag")
+          | タグ編集
+    .form(v-show="editing")
+      .form__items
+        .form-item
+          vue-tags-input(
+            v-model="inputTag"
+            :tags="tags"
+            :autocomplete-items="filteredTags"
+            @tags-changed="update"
+            placeholder=""
+            @before-adding-tag="checkTag")
+          input(type="hidden" :value="tagsValue" :name="tagsParamName")
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item.is-main
+            button.a-button.is-warning.is-block.is-md(@click="updateTag")
+              | 保存する
+          li.form-actions__item
+            button.a-button.is-secondary.is-block.is-sm(@click="cancel")
+              | キャンセル
 </template>
 
 <script>
