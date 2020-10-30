@@ -3,21 +3,19 @@
   .form-item
     .row
       .col-md-6.col-xs-12
-        = f.label :categories, class: "a-label"
-        .checkboxes
-          ul.checkboxes__items
-            = f.collection_check_boxes :category_ids, Category.all, :id, :name, class: "label-checkbox" do |b|
-              li.checkboxes__item
-                = b.label { b.check_box + b.text }
-  .form-item
-    .row
-      .col-md-6.col-xs-12
-        = f.label :title, class: "a-label"
+        = f.label :title, class: "a-label is-required"
         = f.text_field :title, class: "a-text-input js-warning-form"
+  .form-item
+    = f.label :categories, class: "a-label is-required"
+    .checkboxes
+      ul.checkboxes__items
+        = f.collection_check_boxes :category_ids, Category.all, :id, :name, class: "label-checkbox" do |b|
+          li.checkboxes__item
+                = b.label { b.check_box + b.text }
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label :description, class: "a-label"
+        = f.label :description, class: "a-label is-required"
         = f.text_area :description,
           class: "a-text-input js-warning-form markdown-form__text-area js-markdown",
           data: { "preview": ".js-description-preview" }
@@ -27,7 +25,7 @@
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label :goal, class: "a-label"
+        = f.label :goal, class: "a-label is-required"
         = f.text_area :goal,
           class: "a-text-input js-warning-form markdown-form__text-area js-markdown",
           data: { "preview": ".js-goal-preview" }
