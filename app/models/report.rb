@@ -54,7 +54,10 @@ class Report < ApplicationRecord
   }
 
   def self.faces
-    @_faces ||= emotions.keys.zip(%w(🙂 😢 😄)).to_h.with_indifferent_access
+    @_faces ||= emotions.keys
+                        .zip(%w(emotion/soso.svg emotion/sad.svg emotion/smile.svg))
+                        .to_h
+                        .with_indifferent_access
   end
 
   def previous
