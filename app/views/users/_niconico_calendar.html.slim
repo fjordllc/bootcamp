@@ -33,7 +33,7 @@
                       - else
                         = set[:date]
                     .niconico-calendar__day-value
-                      = image_tag Report.faces[set[:emotion]], alt: set[:report].emotion, class: "niconico-calendar__emotion-image"
+                      = Report.faces[set[:emotion]]
                 - else
                   .niconico-calendar__day-inner
                     .niconico-calendar__day-label
