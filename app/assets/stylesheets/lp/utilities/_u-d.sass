@@ -1,0 +1,14 @@
+$displays: inline, block, list-item, run-in, inline-block, table, inline-table, table-row-group, table-header-group, table-footer-group, table-row,table-column-group, table-column, table-cell, table-caption, ruby, ruby-base, ruby-text, ruby-base-container, ruby-text-container, none, inherit, flex,inline-flex, grid, inline-grid
+@each $display in $displays
+  .u-d-#{$display}
+    display: $display
+  @each $breakpoint in map-keys($grid-breakpoints)
+    +media-breakpoint-only(#{$breakpoint})
+      .#{$breakpoint}\:u-d-#{$display}
+        display: $display
+    +media-breakpoint-down(#{$breakpoint})
+      .#{$breakpoint}-down\:u-d-#{$display}
+        display: $display
+    +media-breakpoint-up(#{$breakpoint})
+      .#{$breakpoint}-up\:u-d-#{$display}
+        display: $display

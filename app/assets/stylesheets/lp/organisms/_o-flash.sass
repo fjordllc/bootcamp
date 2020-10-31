@@ -1,0 +1,25 @@
+.o-flash
+  +padding(vertical, 1rem)
+  &.is-notice
+    border: solid 1px $success
+    background-color: #aee4bb
+    color: #295d34
+    .a-cross-mark
+      &::before,
+      &::after
+        background-color: #295d34
+  &.is-alert
+    border: solid 1px $danger
+    background-color: #fbc7cc
+    color: #752d33
+    .a-cross-mark
+      &::before,
+      &::after
+        background-color: #752d33
+  .a-cross-mark
+    +position(absolute, right 0, top 0)
+  input[type="checkbox"]:checked + &
+    display: none
+
+.o-flash__inner
+  +position(relative)

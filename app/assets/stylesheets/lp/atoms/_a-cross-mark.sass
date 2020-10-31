@@ -1,0 +1,19 @@
+.a-cross-mark
+  +size(1em)
+  display: flex
+  align-items: center
+  justify-content: center
+  +position(relative)
+  cursor: pointer
+  &::before,
+  &::after
+    content: ""
+    +size(100% 2px)
+    background-color: $reversal-text
+    border-radius: 1px
+  &::before
+    transform: rotate(45deg)
+    +position(absolute, left 0, top calc(50% - 1px))
+  &::after
+    transform: rotate(-45deg)
+    +position(absolute, left 0, top calc(50% - 1px))

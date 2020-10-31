@@ -1,0 +1,53 @@
+.o-lp-header
+  +position(absolute, left 0, top 0, 4)
+  width: 100%
+  .l-container
+    height: inherit
+  .m-horizontal-icon-blocks
+    margin-right: -1.5rem
+
+.o-lp-header__inner
+  display: flex
+  height: $lp-header-height
+  justify-content: space-between
+  +position(relative, 2)
+
+.o-lp-header__start
+  display: flex
+  align-items: center
+  .a-brand-logo__link
+    color: $reversal-text
+
+.o-lp-header__page-links
+  margin-left: 1.25rem
+  font-size: .875rem
+  .m-inline-list__items
+    +flex-grid(0, nowrap)
+  .a-pill-link
+    color: $reversal-text
+    position: relative
+    transition: all .2s ease-out
+    *
+      cursor: pointer
+    &::before
+      content: ""
+      opacity: 0
+      border-radius: 2em
+      background-color: rgba(black, .4)
+      display: block
+      +position(absolute, left 50%, top 50%, 0)
+      transform: translate(-50%, -50%)
+      +size(70%)
+      transition: all .2s ease-out
+    &:hover
+      &::before
+        +size(100%)
+        opacity: 1
+
+.o-lp-header__auth-links
+  display: flex
+  align-items: center
+  height: 100%
+  $blocks__color: $base !default
+  $blocks__font-size: 1.375rem !default
+  $blocks__block-width: 3.75rem !default

@@ -1,0 +1,71 @@
+=margin($value1, $value2: null)
+  @if number(nth($value1, 1)) or nth($value1, 1) == 'auto'
+    @if equal_nth($value1, 1)
+      margin: $value1
+    @else if equal_nth($value1, 2)
+      margin-top: nth($value1, 1)
+      margin-bottom: nth($value1, 2)
+    @else if equal_nth($value1, 3)
+      margin-top: nth($value1, 1)
+      margin-left: nth($value1, 2)
+      margin-right: nth($value1, 2)
+      margin-bottom: nth($value1, 3)
+    @else if equal_nth($value1, 4)
+      margin-top: nth($value1, 1)
+      margin-right: nth($value1, 2)
+      margin-bottom: nth($value1, 3)
+      margin-left: nth($value1, 4)
+  @else if length($value1) == 1 and nth($value1, 1) == 'vertical'
+    margin-top: if(list($value2), nth($value2, 1), $value2)
+    margin-bottom: if(list($value2),nth($value2, 2), $value2)
+  @else if length($value1) == 1 and nth($value1, 1) == 'horizontal'
+    margin-left: if(list($value2), nth($value2, 1), $value2)
+    margin-right: if(list($value2),nth($value2, 2), $value2)
+  @else
+    @each $position in $value1
+      @if $position == 'all'
+        margin: $value2
+      @else if $position == 'vertical'
+        margin-top: $value2
+        margin-bottom: $value2
+      @else if $position == 'horizontal'
+        margin-left: $value2
+        margin-right: $value2
+      @else
+        margin-#{$position}: $value2
+
+=padding($value1: null, $value2: null)
+  @if number(nth($value1, 1)) or nth($value1, 1) == 'auto'
+    @if equal_nth($value1, 1)
+      padding: $value1
+    @else if equal_nth($value1, 2)
+      padding-top: nth($value1, 1)
+      padding-bottom: nth($value1, 2)
+    @else if equal_nth($value1, 3)
+      padding-top: nth($value1, 1)
+      padding-left: nth($value1, 2)
+      padding-right: nth($value1, 2)
+      padding-bottom: nth($value1, 3)
+    @else if equal_nth($value1, 4)
+      padding-top: nth($value1, 1)
+      padding-right: nth($value1, 2)
+      padding-bottom: nth($value1, 3)
+      padding-left: nth($value1, 4)
+  @else if length($value1) == 1 and nth($value1, 1) == 'vertical'
+    padding-top: if(list($value2), nth($value2, 1), $value2)
+    padding-bottom: if(list($value2),nth($value2, 2), $value2)
+  @else if length($value1) == 1 and nth($value1, 1) == 'horizontal'
+    padding-left: if(list($value2), nth($value2, 1), $value2)
+    padding-right: if(list($value2),nth($value2, 2), $value2)
+  @else
+    @each $position in $value1
+      @if $position == 'all'
+        padding: $value2
+      @else if $position == 'vertical'
+        padding-top: $value2
+        padding-bottom: $value2
+      @else if $position == 'horizontal'
+        padding-left: $value2
+        padding-right: $value2
+      @else
+        padding-#{$position}: $value2

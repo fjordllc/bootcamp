@@ -1,0 +1,34 @@
+$shadow-x-ratio: .375 !default
+$shadow-y-ratio: .375 !default
+$shadow-blur-lower: 1 !default
+$shadow-blur-ratio: 1 !default
+$shadow-color: black !default
+$shadow-alpha-init: .375 !default
+$shadow-alpha-lower: .175 !default
+$shadow-alpha-ratio: .005 !default
+
+@function layer-shadow($dp: 0, $x: 0px, $y: 1px, $blur: 1px)
+  $box-shadow: false
+  $shadow-x: $x
+  $shadow-y: $y
+  $shadow-blur: $blur
+
+  //shadow angle
+  $result-shadow-x: $shadow-x * if($shadow-x-ratio * abs($dp) > 1, $shadow-x-ratio * $dp, $dp)
+  $result-shadow-y: $shadow-y * if($shadow-y-ratio * abs($dp) > 1, $shadow-y-ratio * $dp, $dp)
+
+  //shadow color
+  $result-shadow-alpha: $shadow-alpha-init - $dp * $shadow-alpha-ratio
+  $result-shadow-color: rgba($shadow-color, if($result-shadow-alpha >= $shadow-alpha-lower, $result-shadow-alpha, $shadow-alpha-lower))
+
+  //shadow blur
+  $result-shadow-blur-size: $shadow-blur * if($shadow-blur-ratio * abs($dp) > 1, $shadow-blur-ratio * abs($dp), 1)
+
+  @if $dp < 0
+    $box-shadow: inset (-(floor($result-shadow-x))) (-(floor($result-shadow-y))) floor($result-shadow-blur-size) $result-shadow-color
+  @else if $dp == 0
+    $box-shadow: none
+  @else if $dp > 0
+    $box-shadow: floor($result-shadow-x) floor($result-shadow-y) floor($result-shadow-blur-size) $result-shadow-color
+
+  @return $box-shadow

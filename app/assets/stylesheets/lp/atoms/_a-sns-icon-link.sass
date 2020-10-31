@@ -1,0 +1,45 @@
+=a-sns-icon-link($color)
+  color: $color
+  &:hover
+    color: shade($color, .4)
+
+.a-sns-icon-link
+  transition: all .2s ease-out
+  &.is-github
+    +a-sns-icon-link($github)
+  &.is-twitter
+    +a-sns-icon-link($twitter)
+  &.is-facebook
+    +a-sns-icon-link($facebook)
+  &.is-blog
+    +a-sns-icon-link($blog)
+  &.is-qiita
+    +a-sns-icon-link($qiita)
+
+=a-sns-icon-square-link($color)
+  color: $reversal-text
+  background-color: $color
+  &:hover
+    background-color: shade($color, .4)
+    box-shadow: $primary 0 0 0 1px, rgba($primary, .2) 0 0 0 3px
+
+.a-sns-icon-square-link
+  +flex-link
+  text-align: center
+  +size(1em)
+  align-items: center
+  justify-content: center
+  border-radius: .1875em
+  transition: all .2s ease-out
+  > *
+    font-size: .75em
+  &.is-github
+    +a-sns-icon-square-link($github)
+  &.is-twitter
+    +a-sns-icon-square-link($twitter)
+  &.is-facebook
+    +a-sns-icon-square-link($facebook)
+  &.is-blog
+    +a-sns-icon-square-link($blog)
+  &.is-qiita
+    +a-sns-icon-square-link($qiita)

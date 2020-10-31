@@ -1,0 +1,12 @@
+.o-dropdown
+  display: none
+  input:checked + &
+    display: block
+
+.o-dropdown__inner
+  background-color: $base
+  border: solid 1px $border
+  +position(relative)
+
+.o-dropdown__overlay
+  +position(fixed, left 0, top 0, right 0, bottom 0)

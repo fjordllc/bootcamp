@@ -1,0 +1,45 @@
+=all-link-state
+  @content
+  &:link,
+  &:hover,
+  &:active,
+  &:visited,
+  &:focus,
+  &:focus-within
+    @content
+
+=hover-link($modifire-class: null)
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
+  @if $modifire-class
+    #{$modifire-class}: underline
+
+=hover-link-reversal($modifire-class: null)
+  text-decoration: underline
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: none
+  @if $modifire-class
+    #{$modifire-class}: none
+
+=flex-link
+  display: flex
+  text-decoration: none
+
+=block-link
+  display: block
+  text-decoration: none
+
+=link-text
+  &:link
+    color: $link-text
+  &:visited
+    color: $visited-text
+  &:hover
+    color: $visited-text
+  &:active
+    color: $visited-text

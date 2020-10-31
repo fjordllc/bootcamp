@@ -1,0 +1,44 @@
+.o-modal
+  display: none
+  +position(relative, 10)
+  input:checked + &
+    display: block
+  .l-container
+    max-width: 100vw !important
+  .a-long-text
+    font-size: .875rem
+
+.o-modal__overlay
+  +position(fixed, left 0, top 0, right 0, bottom 0)
+  background-color: rgba(black, .7)
+
+.o-modal__content
+  +position(fixed, left 50%, top 50%)
+  transform: translate(-50%, -50%)
+  .m-card__body
+    max-height: calc(100vh - 10rem)
+    overflow-y: auto
+
+.o-modal__close
+  +position(fixed)
+  +text-block(1, flex center $reversal-text)
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  transition: all .2s ease-out
+  +media-breakpoint-up(md)
+    font-size: 3rem
+    +position(right 0, top 0)
+    +size(1.5em)
+    &:hover
+      opacity: .8
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+    +position(left 0, top 0, right 0)
+    +size(100vw 3rem)
+
+.o-modal__close-label
+  +media-breakpoint-up(md)
+    display: none
+  +media-breakpoint-down(sm)
+    margin-left: .25em

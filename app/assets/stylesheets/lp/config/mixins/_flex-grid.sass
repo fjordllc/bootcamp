@@ -1,0 +1,18 @@
+=flex-grid($gutter: 1rem, $flex-wrap: wrap, $justify-content: flex-start)
+  display: flex
+  justify-content: $justify-content
+  flex-wrap: $flex-wrap
+  @if $gutter == 0
+    +margin(horizontal, 0)
+    margin-bottom: 0
+    >*
+      +padding(horizontal, 0)
+      margin-bottom: 0
+  @else
+    +margin(horizontal, calc(#{$gutter} / -2))
+    @if $flex-wrap == wrap
+      margin-bottom: calc(#{$gutter} * -1)
+    >*
+      +padding(horizontal, calc(#{$gutter} / 2))
+      @if $flex-wrap == wrap
+        margin-bottom: $gutter

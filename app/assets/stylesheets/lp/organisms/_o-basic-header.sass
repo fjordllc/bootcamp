@@ -1,0 +1,54 @@
+$header-height: 3.5rem !default
+
+.o-basic-header
+  height: $header-height
+  background-color: $base
+  +position(relative, 2)
+  .l-container
+    height: inherit
+  .m-horizontal-icon-blocks
+    margin-right: -1.5rem
+
+.o-basic-header__inner
+  display: flex
+  height: inherit
+  justify-content: space-between
+
+.o-basic-header__start
+  display: flex
+  align-items: center
+
+.o-basic-header__page-links
+  margin-left: 1.25rem
+  font-size: .875rem
+  .m-inline-list__items
+    +flex-grid(0, nowrap)
+  .a-pill-link
+    color: inherit
+    &:hover
+      background-color: $main
+      color: $reversal-text
+
+.o-basic-header__block-links,
+.o-basic-header__auth-links
+  display: flex
+  align-items: center
+  height: 100%
+  $blocks__color: $base !default
+  $blocks__font-size: 1.375rem !default
+  $blocks__block-width: 3.75rem !default
+  .m-horizontal-icon-blocks
+    font-size: $blocks__font-size
+    background-color: $blocks__color
+  .m-horizontal-icon-blocks,
+  .m-horizontal-icon-blocks__items,
+  .m-horizontal-icon-blocks__item,
+    height: inherit
+  .m-horizontal-icon-blocks__item
+    width: $blocks__block-width
+  .a-icon-square
+    background-color: $blocks__color
+    &:hover
+      background-color: shade($blocks__color, 12%)
+  .m-horizontal-icon-blocks__item .a-icon-square
+    border-left: solid 1px $border

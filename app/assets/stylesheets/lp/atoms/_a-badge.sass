@@ -1,0 +1,87 @@
+=badge-base
+  text-align: center
+  text-transform: none
+  display: inline-flex
+  border: solid 1px
+  border-radius: 1em
+  line-height: 1
+  white-space: nowrap
+  text-decoration: none
+  align-items: center
+  justify-content: center
+  vertical-align: middle
+  &.is-block
+    display: flex
+    width: 100%
+    flex-wrap: wrap
+
+=badge-color($color)
+  background-color: $color
+  $text-color: if(luma($color) > 50, $default-text, $reversal-text)
+  color: $text-color
+  border-color: if(luma($color) > 80, shade($color, 18%), $color)
+
+=badge-border-color($color)
+  color: $color
+  border-color: if(luma($color) > 80, shade($color, 18%), $color)
+
+=badge-size($font-size: 1rem, $horizontal: .75, $vertical: .625)
+  font-size: $font-size
+  +padding(horizontal, #{strip_unit($horizontal * $font-size)}em)
+  @if unitless_number($vertical)
+    min-height: #{strip_unit(($font-size * 1.45) + (($vertical * $font-size) * 2))}em
+  @else
+    min-height: $vertical
+  body.is-ie11 &
+    @if unitless_number($vertical)
+      height: #{strip_unit(($font-size * 1.45) + (($vertical * $font-size) * 2))}em
+    @else
+      height: $vertical
+
+.a-badge
+  +badge-base
+
+  // color
+  &.is-primary
+    +badge-color($primary)
+  &.is-secondary
+    +badge-color($secondary)
+  &.is-info
+    +badge-color($info)
+  &.is-success
+    +badge-color($success)
+  &.is-warning
+    +badge-color($warning)
+  &.is-danger
+    +badge-color($danger)
+
+  // border-color
+  &.is-primary-border
+    +badge-border-color($primary)
+  &.is-secondary-border
+    +badge-border-color($secondary)
+  &.is-info-border
+    +badge-border-color($info)
+  &.is-success-border
+    +badge-border-color($success)
+  &.is-warning-border
+    +badge-border-color($warning)
+  &.is-danger-border
+    +badge-border-color($danger)
+
+  //size
+  &.is-xs
+    +badge-size(.625rem, .875, .75)
+    font-weight: 600
+  &.is-sm
+    +badge-size(.75rem, .75, .5)
+    font-weight: 600
+  &.is-md
+    +badge-size(.875rem, .75, .25)
+    font-weight: 600
+  &.is-lg
+    +badge-size(1rem, .75, .25)
+    font-weight: 600
+  &.is-xl
+    +badge-size(1.25rem, .5, .0625)
+    font-weight: 600

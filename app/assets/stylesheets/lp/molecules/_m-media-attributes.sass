@@ -1,0 +1,23 @@
+.m-media-attributes
+  display: flex
+
+.m-media-attributes__row
+  .m-media-attributes__row + &
+    margin-top: vr(2)
+
+.m-media-attributes__title
+  +text-block(1em 1.3, 600)
+  margin-bottom: -.125em
+
+.m-media-attributes__list
+  font-size: fz(2)
+
+.m-media-attributes__date
+  +text-block(1em vr(4), $muted-text)
+
+.m-media-attributes__author
+  +text-block(1em vr(4), $muted-text flex)
+  align-items: center
+  .a-circle-image
+    +size(1.428em)
+    margin-right: .25em

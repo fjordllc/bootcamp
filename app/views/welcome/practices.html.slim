@@ -1,20 +1,44 @@
 - title '学習内容'
 
-.welcome-page-header
-  .container.is-xl
-    h1.welcome-page-header__title
-      = image_tag('practices-page-title.svg', class: 'welcome-page-header__title-image', alt: '学習内容')
+section.o-static-page
+  header.o-static-page-header
+    .o-static-page-header__main
+      nav.o-basic-breadcrumbs
+        .l-container.is-mxw-100pc
+          ol.o-basic-breadcrumbs__items
+            li.o-basic-breadcrumbs__item
+              = link_to "", class: "o-basic-breadcrumbs__item-link" do
+                | Home
+            li.o-basic-breadcrumbs__item
+              = link_to "", class: "o-basic-breadcrumbs__item-link" do
+                | お知らせ一覧
+      .l-container
+        .o-static-page-header__inner
+          h1.o-static-page-header__title
+            | 学習内容
 
-section.welcome-section
-  .container.is-xl
-    .welcome-small-sections
-      .row.is-gutter-widtd-32
-        - @categories.each do |category|
-          - if category.practices.present?
-            .col-xs-12.col-md-4
-              .welcome-small-section
-                h3.welcome-small-section__title = category.name
-                table.welcome-table
-                  - category.practices.each do |practice|
-                    tr
-                      td = practice.title
+.t-lp__contents
+  .o-lp-content
+    .l-container
+      .o-lp-content__inner
+        .o-lp-content__header
+          h1.o-lp-content__title
+            | Ruby on Rails を使って
+            br
+            | 自作 Web アプリを作るのがゴール
+        .o-lp-content__body
+          .l-grids
+            - @categories.each do |category|
+              - if category.practices.present?
+                .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+                  .m-card
+                    .m-card__header
+                      h2.m-card__title
+                        = category.name
+                    hr.a-hr-border
+                    .m-card__body
+                      .m-list
+                        ul.m-list__items
+                          - category.practices.each do |practice|
+                            li.m-list__item
+                              = practice.title

@@ -1,0 +1,32 @@
+.o-pill-tabs
+  font-size: fz(2)
+  display: flex
+  align-items: center
+
+.o-pill-tabs__header
+  margin-right: 1em
+
+.o-pill-tabs__title
+  font-weight: 600
+  line-height: vr(5)
+
+.o-pill-tabs__items
+  display: flex
+  margin-bottom: -1px
+  +flex-grid(.5em)
+
+.o-pill-tabs__item-link
+  display: flex
+  align-items: center
+  justify-content: center
+  text-align: center
+  min-width: 6em
+  height: vr(7)
+  +padding(horizontal, 1.25em)
+  background-color: rgba(black, .1)
+  text-decoration: none
+  color: $muted-text
+  border-radius: 2em
+  &.is-active
+    background-color: $primary
+    color: $reversal-text

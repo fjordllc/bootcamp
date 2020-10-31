@@ -1,0 +1,11 @@
+$list-style-types: none, disc, circle, square, decimal, decimal-leading-zero, lower-roman, upper-roman, lower-greek, lower-alpha, upper-alpha, lower-latin, upper-latin, cjk-ideographic, hiragana, katakana
+
+@each $list-style-type in $list-style-types
+  .u-list-#{$list-style-type}
+    list-style-type: $list-style-type
+
+$list-style-positions: inside, outside
+
+@each $list-style-position in $list-style-positions
+  .u-lisp-#{$list-style-position}
+    list-style-position: $list-style-position

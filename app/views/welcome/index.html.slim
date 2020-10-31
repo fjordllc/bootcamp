@@ -1,34 +1,187 @@
-- content_for :extra_body_classes, 'welcome welcome-home'
+- content_for :extra_body_classes, 'is-welcome-index'
 - content_for :head_last do
   = javascript_include_tag 'https://sdk.form.run/js/v2/formrun.js'
 
-= render 'welcome/main_visual'
-.welcome-sections
+= render "/lp/welcome/main_visual"
+.t-lp__contents
   = render 'welcome/campaign' if Campaign.today_is_campaign?
-  = render 'welcome/about'
-  = render 'welcome/pricing'
-  = render 'welcome/tutorials'
-  = render 'welcome/eligibility'
-  = render 'welcome/process'
+  .o-lp-content
+    .l-container
+      .o-lp-content__inner
+        .o-lp-content__body
+          .o-lp-content__row
+            .l-grids
+              .l-grids__item.u-col-5.md-down:u-col-12
+                .o-media-summary
+                  .m-medias-media
+                    .m-medias-media__col
+                      .m-media-attributes
+                        .m-media-attributes__col
+                          .m-media-attributes__row
+                            h2.m-media-attributes__title
+                              | 徹底的に現場目線
+                              br
+                              | 本格的なコードレビュー
+                          .m-media-attributes__row
+                            .m-media-attributes__summary
+                              .a-short-text
+                                p
+                                  | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
+              .l-grids__item.u-col-7.md-down:u-col-12
+          .o-lp-content__row
+            .l-grids
+              .l-grids__item.u-col-7.md-down:u-col-12
+              .l-grids__item.u-col-5.md-down:u-col-12
+                .o-media-summary
+                  .m-medias-media
+                    .m-medias-media__col
+                      .m-media-attributes
+                        .m-media-attributes__col
+                          .m-media-attributes__row
+                            h2.m-media-attributes__title
+                              | メンターは信頼のおける
+                              br
+                              | 現役プログラマー
+                          .m-media-attributes__row
+                            .m-media-attributes__summary
+                              .a-short-text
+                                p
+                                  | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
+          .o-lp-content__row
+            .l-grids
+              .l-grids__item.u-col-5.md-down:u-col-12
+                .o-media-summary
+                  .m-medias-media
+                    .m-medias-media__col
+                      .m-media-attributes
+                        .m-media-attributes__col
+                          .m-media-attributes__row
+                            h2.m-media-attributes__title
+                              | みんな最高！
+                              br
+                              | 楽しいコミュニティ
+                          .m-media-attributes__row
+                            .m-media-attributes__summary
+                              .a-short-text
+                                p
+                                  | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
+              .l-grids__item.u-col-7.md-down:u-col-12
+        .o-lp-content__body
+          = render "/lp/features"
+  hr.a-hr-border
+  = render "/lp/welcome/mentors"
+  hr.a-hr-border
+  = render "/lp/welcome/articles"
+  hr.a-hr-border
+  = render "/lp/welcome/lerning_procedure"
+  hr.a-hr-border
+  = render "/lp/welcome/features"
+  hr.a-hr-border
+  = render "/lp/welcome/practices"
+  hr.a-hr-border
+  = render "/lp/welcome/price"
+  hr.a-hr-border
+  = render "/lp/welcome/employed_companies"
+  hr.a-hr-border
+  .o-lp-content
+    .l-container
+      .o-lp-content__inner
+        .o-lp-content__header
+          h2.o-lp-content__title
+            | 企業研修代行
+          h3.o-lp-content__sub-title
+            | 卒業生が就職した企業の一部を紹介
+        .o-lp-content__body
+          .o-lp-content__row
+            .l-grids
+              .l-grids__item.u-col-6
+                | ああああああ
+              .l-grids__item.u-col-6
+                | ああああああ
+  hr.a-hr-border
+  .o-lp-content
+    .l-container
+      .o-lp-content__inner
+        .o-lp-content__header
+          h2.o-lp-content__title
+            | 卒業生の声
+        .o-lp-content__body
+          .o-lp-content__row
+            .l-container
+              .o-lp-comments
+                .l-grids
+                  .l-grids__item.md-up:u-col-6.sm-down:u-col-12
+                    = link_to "", class: "m-medias-media" do
+                      .l-container
+                        .m-medias-media__col
+                          .m-media-attributes
+                            .m-media-attributes__col
+                              .m-media-attributes__row
+                                .m-media-attributes__image
+                                  = image_tag("https://via.placeholder.com/100", class: "a-circle-image")
+                            .m-media-attributes__col
+                              .m-media-attributes__row
+                                h2.m-media-attributes__title
+                                  | どんな小さな羽さえもな羽さえもそよがぬどんな小さな羽さえもな羽さえもそよがぬ
+                              .m-media-attributes__row
+                                .m-media-attributes__list
+                                  .m-inline-list
+                                    .m-inline-list__items
+                                      .m-inline-list__item
+                                        .m-media-attributes__author
+                                          .m-media-attributes__author-name
+                                            | machida
+                        .m-medias-media__col
+                          .m-media-attributes__body
+                            .a-short-text
+                              p
+                                | それは黄金の昼下がり気ままにただようぼくらオールは二本ともあぶなげに小さな腕で漕がれ小さな手がぼくらのただよいを導こうとかっこうだけ申し訳につけてああ残酷な三人！こんな時間にこんな夢見る天気のもとで
+                              p
+                                | それは黄金の昼下がり気ままにただようぼくらオールは二本ともあぶなげに小さな腕で漕がれ小さな手がぼくらのただよいを導こうとかっこうだけ申し訳につけてああ残酷な三人！こんな時間にこんな夢見る天気のもとで
+                              p
+                                | それは黄金の昼下がり気ままにただようぼくらオールは二本ともあぶなげに小さな腕で漕がれ小さな手がぼくらのただよいを導こうとかっこうだけ申し訳につけてああ残酷な三人！こんな時間にこんな夢見る天気のもとで
+                  .l-grids__item.md-up:u-col-6.sm-down:u-col-12
+                    = link_to "", class: "m-medias-media" do
+                      .l-container
+                        .m-medias-media__col
+                          .m-media-attributes
+                            .m-media-attributes__col
+                              .m-media-attributes__row
+                                .m-media-attributes__image
+                                  = image_tag("https://via.placeholder.com/100", class: "a-circle-image")
+                            .m-media-attributes__col
+                              .m-media-attributes__row
+                                h2.m-media-attributes__title
+                                  | どんな小さな羽さえもな羽さえもそよがぬどんな小さな羽さえもな羽さえもそよがぬ
+                              .m-media-attributes__row
+                                .m-media-attributes__list
+                                  .m-inline-list
+                                    .m-inline-list__items
+                                      .m-inline-list__item
+                                        .m-media-attributes__author
+                                          .m-media-attributes__author-name
+                                            | machida
+                        .m-medias-media__col
+                          .m-media-attributes__body
+                            .a-short-text
+                              p
+                                | それは黄金の昼下がり気ままにただようぼくらオールは二本ともあぶなげに小さな腕で漕がれ小さな手がぼくらのただよいを導こうとかっこうだけ申し訳につけてああ残酷な三人！こんな時間にこんな夢見る天気のもとで
+                              p
+                                | それは黄金の昼下がり気ままにただようぼくらオールは二本ともあぶなげに小さな腕で漕がれ小さな手がぼくらのただよいを導こうとかっこうだけ申し訳につけてああ残酷な三人！こんな時間にこんな夢見る天気のもとで
+                              p
+                                | それは黄金の昼下がり気ままにただようぼくらオールは二本ともあぶなげに小さな腕で漕がれ小さな手がぼくらのただよいを導こうとかっこうだけ申し訳につけてああ残酷な三人！こんな時間にこんな夢見る天気のもとで
 
-  section.welcome-section.is-substance
-    .container.is-xl
-      h2.welcome-section__title
-        | フィヨルドブートキャンプの<br>中身を見てみよう！
-      .welcome-section__description
-        p
-          | 実際にどうやって学習を進めるの？
-          | 学習アプリってどんな画面？
-          | わからないときはどうやって質問するの？
-          | どんなイベントが開催されてる？
-          | 学習アプリを受講者が開発してるって本当？
-          | ...などについて書いています。
-          | これを読めば、フィヨルドブートキャンプに入会するとどんなことが
-          | 待っているかわかりますので、ぜひ見てみてください。
-      .welcome-section__actions
-        .welcome-section__actions-items
-          .welcome-section__actions-item
-            = link_to article_path(34), class: 'a-welcome-button is-md' do
-              | 中身を見てみる
 
-  = render 'welcome/administrator'
+
+
+//
+  = render "welcome/main_visual"
+  .welcome-sections
+    = render "welcome/about"
+    = render "welcome/pricing"
+    = render "welcome/tutorials"
+    = render "welcome/eligibility"
+    = render "welcome/process"
+    = render "welcome/administrator"
+    //
+      = render "welcome/other"

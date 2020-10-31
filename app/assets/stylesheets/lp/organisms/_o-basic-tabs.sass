@@ -1,0 +1,28 @@
+.o-basic-tabs
+  border-bottom: solid 1px $border
+  font-size: fz(3)
+  background-color: #e2e6ea
+  padding-top: vr(5)
+
+.o-basic-tabs__items
+  margin-bottom: -1px
+  +flex-grid(.5em, nowrap)
+
+.o-basic-tabs__item-link
+  display: flex
+  align-items: center
+  justify-content: center
+  text-align: center
+  min-width: 6em
+  height: vr(12)
+  +padding(horizontal, 1.25em)
+  background-color: rgba(black, .1)
+  text-decoration: none
+  color: $muted-text
+  transition: all .2s ease-out
+  &:hover
+    color: $default-text
+    background-color: rgba(black, .2)
+  &.is-active
+    background-color: $base
+    color: $default-text

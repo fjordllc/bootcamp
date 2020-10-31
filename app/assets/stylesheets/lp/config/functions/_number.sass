@@ -1,0 +1,84 @@
+// 数字のときにtrue
+@function number($number)
+  @if type-of($number) == number
+    @return true
+  @else
+    @return null
+
+@function strip_unit($number)
+  // strip the units
+  // That works. strip_unit(13.48cm) will return 13.48
+  @if number($number)
+    @return $number / ($number * 0 + 1)
+
+// 単位がない数字のときにtrue
+@function unitless_number($number)
+  @if number($number) and unitless($number)
+    @return true
+  @else
+    @return null
+
+// 単位がある数字のときにtrue
+@function unit_number($value)
+  @if number($value) and not unitless($value)
+    @return true
+  @else
+    @return null
+
+@function px($value)
+  @if number($value) and unit($value) == "px"
+    @return true
+  @else
+    @return null
+
+@function em($value)
+  @if number($value) and unit($value) == "em"
+    @return true
+  @else
+    @return null
+
+@function percent($value)
+  @if number($value) and unit($value) == "%"
+    @return true
+  @else
+    @return null
+
+@function px_to_em($px, $base-px: $base-px)
+  @if strip_unit($px) == 0
+    @return 0
+  @else if px($px)
+    @return (strip_unit($px) / strip_unit($base-px)) * 1em
+  @else if em($px)
+    @return $px
+
+@function em_to_px($em, $base-px: $base-px)
+  @if $em == 0
+    @return 0
+  @else if em($em)
+    @return (strip_unit($em) * strip_unit($base-px)) * 1px
+  @else if px($em)
+    @return $em
+
+@function px_to_rem($px, $base-px: $base-px)
+  @if strip_unit($px) == 0
+    @return 0
+  @else if px($px)
+    @return (strip_unit($px) / strip_unit($base-px)) * 1rem
+  @else if rem($px)
+    @return $px
+
+@function rem_to_px($rem, $base-px: $base-px)
+  @if strip_unit($rem) == 0
+    @return 0
+  @else if rem($rem)
+    @return (strip_unit($rem) * strip_unit($base-px)) * 1px
+  @else if px($px)
+    @return $rem
+
+@function multiple($number, $multiple_number)
+  // $multiple_number で割り切れる $number に近い数を出す
+  $remainder: $number % $multiple_number
+  @if $remainder == 0
+    @return "#{$number - $remainder}"
+  @else
+    @return "#{$number - $remainder} and #{$number + $remainder}"

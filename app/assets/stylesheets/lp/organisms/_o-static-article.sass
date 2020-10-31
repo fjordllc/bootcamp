@@ -1,0 +1,22 @@
+.o-static-article__header
+  margin-bottom: vr(13)
+  font-size: fz(8)
+  .m-article-meta
+    font-size: fz(3)
+    margin-top: 1em
+
+.o-static-article__header-end
+  margin-top: .25em
+
+.o-static-article__title
+  +media-breakpoint-up(md)
+    +text-block(fz(8) 1.4, 700 center)
+  +media-breakpoint-down(sm)
+    +text-block(fz(6) 1.4, 700 center)
+
+.o-static-article__main-image-container
+  +size(100% 35rem)
+
+.o-static-article__main-image
+  +size(100%)
+  object-fit: cover

@@ -1,0 +1,27 @@
+$t-fixed-left-nav__pl: 5rem !default
+
+.t-fixed-left-nav
+  padding-left: $t-fixed-left-nav__pl
+
+.t-fixed-left-nav__start
+  .l-container
+    +padding(horizontal, 1.5rem)
+
+.t-fixed-left-nav__end
+  +position(fixed, left 0, top 0, bottom 0)
+  width: $t-fixed-left-nav__pl
+  $block__height: 4.125rem !default
+  $blocks__color: $main !default
+  $blocks__font-size: 1.625rem !default
+  .o-application-global-nav
+    background-color: $blocks__color
+    font-size: $blocks__font-size
+    min-height: 100vh
+  .m-vertical-icon-blocks__item
+    height: $block__height
+  .a-icon-square
+    color: $reversal-text
+    background-color: $blocks__color
+    border-bottom: solid 1px rgba(black, .3)
+    &:hover
+      background-color: shade($blocks__color, 12%)

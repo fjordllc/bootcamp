@@ -1,0 +1,133 @@
+=button-base
+  text-align: center
+  text-transform: none
+  display: inline-flex
+  border: solid 1px
+  border-radius: .25rem
+  line-height: 1
+  white-space: nowrap
+  text-decoration: none
+  cursor: pointer
+  user-select: none
+  align-items: center
+  justify-content: center
+  transition: all .2s ease-out
+  &.is-block
+    display: flex
+    width: 100%
+    flex-wrap: wrap
+  &:focus
+    outline: none
+  &:disabled
+    cursor: default
+    pointer-events: none
+  +media-breakpoint-up(md)
+    .is-button-group &
+      margin-right: -1px
+    .is-button-group &:hover,
+    .is-button-group &:active
+      +position(relative)
+    .is-button-group li:not(:first-child):not(:last-child) &
+      border-radius: 0
+    .is-button-group li:first-child &
+      +border-radius(right, 0)
+    .is-button-group li:last-child &
+      +border-radius(left, 0)
+  i:first-child
+    margin-right: .4em
+  i:last-child
+    margin-left: .4em
+  i:first-child:last-child
+    +margin(horizontal, 0)
+
+=input-button-base
+  display: inline-block
+  vertical-align: middle
+  &.is-block
+    width: 100%
+    display: block
+
+=button-color($color)
+  $text-color: if(luma($color) > 50, $default-text, $reversal-text)
+  color: $text-color
+  $border-color: shade($color, 10%)
+  $gradient-depth: 5%
+  border-color: if(luma($color) > 80, shade($color, 18%), tint($border-color, $gradient-depth) $border-color shade($border-color, $gradient-depth))
+  background-color: $color
+  transition: all .2s ease-out
+  @if $color != $disabled
+    background-image: linear-gradient(tint($color, $gradient-depth), shade($color, $gradient-depth))
+    &:hover,
+    &:focus,
+    &:active
+      box-shadow: 0 0 0 100em rgba(black, .15) inset, 0 0 0 .1875rem rgba($color, .25)
+      $button-color: shade($color, 20%)
+      background-color: $button-color
+      border-color: if(luma($color) > 80, shade($color, 24%), tint($button-color, $gradient-depth) $button-color shade($button-color, $gradient-depth))
+  &.is-disabled,
+  &:disabled
+    color: rgba($text-color, .4)
+    pointer-events: none
+    border-color: shade($color, 6%)
+
+=button-border-color($color)
+  color: $color
+  border-color: $color
+  &:focus,
+  &:active
+    box-shadow: 0 0 0 .1875rem rgba($color, .25)
+  &:hover,
+  &:focus,
+  &:active
+    $button-color: darken($color, 10%)
+    background-color: rgba($color, .1)
+    border-color: $button-color
+  &.is-disabled,
+  &:disabled
+    color: rgba($color, .4)
+    pointer-events: none
+    border-color: shade($color, 6%)
+
+=button-3d-color($color)
+  $text-color: if(luma($color) > 50, $default-text, $reversal-text)
+  $border-color: shade($color, 10%)
+  $gradient-depth: 15%
+  $shadow-size: .125em
+  text-shadow: 0 1px 0 rgba(white, .1)
+  color: $text-color
+  border-color: if(luma($color) > 80, shade($color, 18%), tint($border-color, $gradient-depth) $border-color shade($color, 37%))
+  background-color: $color
+  box-shadow: shade($color, 36%) 0 $shadow-size 0 0, rgba(black, .4) 0 $shadow-size .3125em
+  @if $color != $disabled
+    background-image: linear-gradient(tint($color, $gradient-depth), shade($color, $gradient-depth))
+    &:hover,
+    &:focus,
+    &:active
+      $button-color: tint($color, 20%)
+      $border-color: shade($button-color, 10%)
+      background-color: $button-color
+      background-image: linear-gradient(tint($button-color, $gradient-depth), shade($button-color, $gradient-depth))
+      border-color: if(luma($color) > 80, shade($color, 24%), tint($border-color, $gradient-depth) $border-color shade($border-color, 37%))
+      box-shadow: shade($button-color, 36%) 0 $shadow-size 0 0, rgba(black, .4) 0 $shadow-size .3125em
+    &:active
+      $button-color: tint($color, 20%)
+      +position(relative, top .09375em)
+      box-shadow: shade($button-color, 36%) 0 calc(#{$shadow-size} / 2) 0 0, rgba(black, .4) 0 calc(#{$shadow-size} / 2) .3125em
+  &.is-disabled,
+  &:disabled
+    color: rgba($text-color, .4)
+    pointer-events: none
+    border-color: shade($color, 6%)
+
+=button-size($font-size: 1rem, $horizontal: .75, $vertical: .625)
+  font-size: $font-size
+  +padding(horizontal, #{strip_unit($horizontal * $font-size)}em)
+  @if unitless_number($vertical)
+    min-height: #{strip_unit(($font-size * 1.45) + (($vertical * $font-size) * 2))}em
+  @else
+    min-height: $vertical
+  body.is-ie11 &
+    @if unitless_number($vertical)
+      height: #{strip_unit(($font-size * 1.45) + (($vertical * $font-size) * 2))}em
+    @else
+      height: $vertical

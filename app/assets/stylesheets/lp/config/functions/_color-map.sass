@@ -1,0 +1,29 @@
+$baseColors: (main: $main, primary: $primary, secondary: $secondary, warning: $warning, danger: $danger, success: $success, info: $info, gray: $gray)
+
+@function colorMap($baseColors, $variations)
+  $colors: ()
+
+  @each $color, $value in $baseColors
+    $maxVar: 78
+    $mid: $variations / 2
+    $dist: $mid - 1
+    $step: $maxVar / $dist
+
+    // lighten and darken
+    @for $i from 1 through $dist
+      $percent: $maxVar - $step * ($i - 1)
+      $darken: ($variations - $i) * 100
+      $lighten: $i * 100
+
+      $colors: map-merge($colors, (#{$color}-#{$lighten}: tint($value, $percent), #{$color}-#{$darken}: shade($value, $percent)))
+
+    // middle eg 500
+    $colors: map-merge($colors, (#{$color}-50: tint($value, 92)))
+    $colors: map-merge($colors, (#{$color}-#{$variations / 2 * 100}: $value))
+
+  @return $colors
+
+@function c($colorName: null)
+  @each $color, $value in colorMap($baseColors, 10)
+    @if $colorName == $color
+      @return $value

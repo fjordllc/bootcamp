@@ -1,0 +1,45 @@
+.o-dev-pages
+  +position(fixed, left 0, bottom 0)
+  font-size: .875rem
+  .m-inline-list__title
+    margin-bottom: .5em
+    +text-block(1em 1.4, 600 $reversal-text)
+  .a-text-link
+    color: $reversal-text
+
+.o-dev-pages__toggle-switch
+  +size(2.25rem)
+  +text-block(1rem, flex)
+  align-items: center
+  justify-content: center
+  border: solid 1px $border
+  background-color: $base
+  cursor: pointer
+  +border-radius(top, .25rem)
+
+.o-dev-pages__inner
+  background-color: rgba(black, .6)
+  overflow: hidden
+  height: 0
+  padding: 0
+  transition: all .2s ease-out
+  input:checked ~&
+    +padding(vertical, 1em)
+    height: auto
+
+.is-hidden-checked
+  display: flex
+  input:checked ~&
+    display: none
+
+.is-hidden-unchecked
+  display: none
+  input:checked ~&
+    display: flex
+
+
+.o-dev-pages__row
+  &:not(:last-child)
+    padding-bottom: 1em
+    margin-bottom: 1em
+    border-bottom: dashed 1px rgba(white, .2)

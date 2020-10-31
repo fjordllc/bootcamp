@@ -1,0 +1,12 @@
+.o-media-summary
+  .m-media-attributes__title
+    +media-breakpoint-up(md)
+      +text-block(fz(7) 1.4, 700)
+    +media-breakpoint-down(sm)
+      +text-block(fz(6) 1.4, 700 center)
+  .m-media-attributes__row:not(:first-child)
+    margin-top: vr(3)
+  .m-media-attributes__list
+    font-size: fz(2)
+  .m-media-attributes__summary
+    +text-block(fz(3) 1.6)

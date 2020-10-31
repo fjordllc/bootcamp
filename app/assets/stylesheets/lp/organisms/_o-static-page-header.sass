@@ -1,0 +1,37 @@
+.o-static-page-header
+  +position(relative)
+  background-color: $main
+  background-image: linear-gradient(45deg, $main, #4e66da)
+  padding-top: $lp-header-height
+  color: $reversal-text
+  .o-basic-breadcrumbs
+    +media-breakpoint-up(md)
+      +position(absolute, left 0, top 0)
+    +media-breakpoint-down(sm)
+      background-color: rgba(black, .2)
+  &::before
+    content: ""
+    display: block
+    background-image: image_url("lp/background.svg")
+    +position(absolute, left 0, bottom 0, right 0, top 0, 1)
+    background-repeat: repeat
+    background-size: 20rem
+    +size(100%)
+    opacity: .05
+
+.o-static-page-header__main
+  +position(relative, 1)
+  background-color: rgba(black, .2)
+
+.o-static-page-header__inner
+  color: $reversal-text
+  +media-breakpoint-up(md)
+    +padding(vertical, vr(12))
+  +media-breakpoint-down(sm)
+    +padding(vertical, vr(8))
+
+.o-static-page-header__title
+  +media-breakpoint-up(md)
+    +text-block(fz(8) 1.3, 700 center)
+  +media-breakpoint-down(sm)
+    +text-block(fz(7) 1.3, 700 center)

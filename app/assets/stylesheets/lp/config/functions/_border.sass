@@ -1,0 +1,45 @@
+@function border-color($value)
+  @if optional_color_list($value)
+    @return true
+  @else
+    @return null
+
+@function border-width($value)
+  @if number($value)
+    @return true
+  @else if $value == 'thin' or $value == 'medium' or $value == 'thick'
+    @return true
+  @else if list($value)
+    @each $assign in $value
+      @if $assign == 'thin' or $assign == 'medium' or $assign == 'thick'
+        @return true
+      @else if number($assign)
+        @return true
+      @else
+        @return null
+  @else
+    @return null
+
+@function border-style($value)
+  @if $value == 'none' or $value == 'hidden' or $value == 'solid' or $value == 'double' or $value == 'groove' or $value == 'ridge' or $value == 'inset' or $value == 'outset' or $value == 'dashed' or $value == 'dotted'
+    @return true
+  @else if list($value)
+    @each $assign in $value
+      @if $value == 'none' or $value == 'hidden' or $value == 'solid' or $value == 'double' or $value == 'groove' or $value == 'ridge' or $value == 'inset' or $value == 'outset' or $value == 'dashed' or $value == 'dotted'
+        @return true
+      @else
+        @return null
+  @else
+    @return null
+
+@function border-position($value)
+  @if $value == "top" or $value == "bottom" or $value == "left" or $value == "right" or $value == "all" or $value == "horizontal" or $value == "vertical"
+    @return true
+  @else if list($value)
+    @each $assign in $value
+      @if $value == "top" or $value == "bottom" or $value == "left" or $value == "right" or $value == "all" or $value == "horizontal" or $value == "vertical"
+        @return true
+      @else
+        @return null
+  @else
+    @return null

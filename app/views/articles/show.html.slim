@@ -3,29 +3,55 @@
 notice = @notice
 - title @article.title
 
-.welcome-page-header
-  .container
-    .welcome-page-header__inner
-      .welcome-page-header__title
-        | Blog
-      .welcome-page-header__nav
-        = link_to articles_path, class: "a-button is-md is-secondary is-block" do
-          | ブログ記事一覧
+section.o-static-page
+  header.o-static-page-header
+    .o-static-page-header__main
+      nav.o-basic-breadcrumbs
+        .l-container.is-mxw-100pc
+          ol.o-basic-breadcrumbs__items
+            li.o-basic-breadcrumbs__item
+              = link_to root_path, class: "o-basic-breadcrumbs__item-link" do
+                | Home
+            li.o-basic-breadcrumbs__item
+              = link_to articles_path, class: "o-basic-breadcrumbs__item-link" do
+                | お知らせ一覧
+            li.o-basic-breadcrumbs__item
+              = link_to @article, class: "o-basic-breadcrumbs__item-link" do
+                = @article.title
+      .l-container
+        .o-static-page-header__inner
+          .o-static-page-header__title
+            | お知らせ
 
-.welcome-sections
-  .welcome-section
-    .container.is-md
-      article.article
-        header.article__header
-          - if @article.thumbnail.attached?
-            = image_tag @article.thumbnail_url
-          h1.article__title
-            - if @article.wip?
-              span.article__title-label
-                | WIP
-            = @article.title
-            br
-            = raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
+  .o-static-page-body
+    .l-container.is-xxl
+      .o-static-page-body__inner
+        .o-static-article
+          .o-static-article__header
+            .o-static-article__header-start
+              .l-container.is-lg
+                h1.o-static-article__title.u-ff-YakuHanJP_Narrow
+                  span.js-mikan
+                    = @article.title
+                  - if @article.wip?
+                    span.article__title-label
+                      | WIP
+                  = @article.title
+                  br
+                  = raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
+            .o-static-article__header-end
+              .l-container.is-lg
+                .m-media-attributes__list
+                  .m-inline-list
+                    .m-inline-list__items
+                      .m-inline-list__item
+                        date.m-media-attributes__date
+                          | 2020年12月24日
+                      .m-inline-list__item
+                        .m-media-attributes__author
+                          = image_tag("https://via.placeholder.com/100", class: "a-circle-image")
+                          .m-media-attributes__author-name
+                            | machida
           .article__metas
             .article__meta
               .article__author
@@ -39,6 +65,9 @@ notice = @notice
                   = l(@article.created_at)
                 - else
                   = l(@article.published_at)
-        .article__body
-          .js-markdown-view.js-target-blank.is-long-text
-            = @article.body
+          .o-static-article__body
+            .l-container.is-lg
+              - if @article.thumbnail.attached?
+                = image_tag @article.thumbnail_url
+              .a-long-text.js-markdown-view.js-target-blank
+                = @article.body

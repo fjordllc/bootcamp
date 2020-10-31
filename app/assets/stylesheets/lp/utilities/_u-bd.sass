@@ -1,0 +1,26 @@
+$border-styles: none, hidden, solid, double, groove, ridge, inset, outset, dashed, dotted
+@each $style in $border-styles
+  .u-bds-#{$style}
+    border-style: $style
+  .u-bdts-#{$style}
+    border-top-style: $style
+  .u-bdrs-#{$style}
+    border-right-style: $style
+  .u-bdbs-#{$style}
+    border-bottom-style: $style
+  .u-bdls-#{$style}
+    border-left-style: $style
+
+$size-count: 8
+
+@for $i from 0 through $size-count
+  .u-bdw-#{$i}#{if($i != 0, px, null)}
+    border-width: #{$i}#{if($i != 0, px, null)}
+  .u-bdtw-#{$i}#{if($i != 0, px, null)}
+    border-top-width: #{$i}#{if($i != 0, px, null)}
+  .u-bdrw-#{$i}#{if($i != 0, px, null)}
+    border-right-width: #{$i}#{if($i != 0, px, null)}
+  .u-bdbw-#{$i}#{if($i != 0, px, null)}
+    border-bottom-width: #{$i}#{if($i != 0, px, null)}
+  .u-bdlw-#{$i}#{if($i != 0, px, null)}
+    border-left-width: #{$i}#{if($i != 0, px, null)}

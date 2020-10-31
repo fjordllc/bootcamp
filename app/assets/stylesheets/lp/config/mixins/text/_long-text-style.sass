@@ -1,0 +1,186 @@
+=list
+  ol
+    list-style-type: decimal
+  >ul,
+    list-style-type: disc
+  >ol
+    list-style-type: decimal
+  li
+    >ul
+      list-style-type: circle
+      >li
+        >ul
+          list-style-type: square
+
+$md-font-sizes: (xs: fz(2), sm: fz(3), md: fz(4), h6: fz(4), h5: fz(4), h4: fz(5), h3: fz(6), h2: fz(7), h1: fz(8))
+$sm-font-sizes: (xs: fz(1), sm: fz(2), md: fz(3), h6: fz(3), h5: fz(3), h4: fz(4), h3: fz(5), h2: fz(6), h1: fz(7))
+
+=long-text-style($size)
+  $font-sizes: ""
+  @if $size == md
+    $font-sizes: $md-font-sizes
+  @else if $size == sm
+    $font-sizes: $sm-font-sizes
+  >*:first-child
+    margin-top: 0
+  >*:last-child
+    margin-bottom: 0
+
+  ////////////////
+  // headding
+  ////////////////
+  h1
+    +text-block(map-get($font-sizes, h1) 1.25 1em, 700)
+  h2
+    +text-block(map-get($font-sizes, h2) 1.4 1.25em, 700)
+    padding-bottom: vr(1, 1px)
+    border-bottom: solid 1px $border
+  h3
+    +text-block(map-get($font-sizes, h3) 1.4 1.25em, 600)
+  h4
+    +text-block(map-get($font-sizes, h4) 1.5 1.25em, 600)
+  h5
+    +text-block(map-get($font-sizes, h5) 1.5 1.25em, 600)
+  h6
+    +text-block(map-get($font-sizes, h6) 1.5 1.25em, 600)
+
+  p
+    +text-block(map-get($font-sizes, md) 1.8 1.25em)
+
+  a
+    +link-text
+    word-break: break-all
+    +hover-link-reversal
+
+  ////////////////
+  // code
+  ////////////////
+  code
+    tab-size: 2
+    hyphens: none
+  p code,
+  li code
+    +text-block(map-get($font-sizes, sm) 1.7, $default-text)
+    align-items: center
+    letter-spacing: 0
+    padding: .125em .25em
+    border: solid 1px $border
+    background-color: tint($default-text, 90%)
+    +margin(horizontal, .25em)
+    border-radius: .125rem
+  pre code
+    border: solid 1px $border
+    overflow: auto
+    display: block
+    width: 100%
+    padding: .875em
+  pre
+    padding: 0
+    +text-block(map-get($font-sizes, sm) 1.5 1.25em)
+
+  ////////////////
+  // hr
+  ////////////////
+  hr
+    +text-block(map-get($font-sizes, md)  1 2em 2em)
+    display: block
+    height: .5rem
+    background-color: $border
+
+  ////////////////
+  // img
+  ////////////////
+  img
+    +text-block(map-get($font-sizes, md)  1 1.5em 1.5em)
+    max-width: 100%
+    height: auto
+    display: block
+    +margin(horizontal, auto)
+    border: 1px solid transparent
+    a:hover &
+      border-color: shade($border, 20%)
+
+  ////////////////
+  // list
+  ////////////////
+  +list
+  ul,
+  ol
+    list-style-position: outside
+    margin-left: 2em
+    +text-block(map-get($font-sizes, md) 1.8 1.25em)
+  li
+    +text-block(map-get($font-sizes, md) 1.8 .75em)
+    &:first-child
+      margin-top: 0
+    input
+      margin-right: .25rem
+    ul,
+    ol
+      +text-block(map-get($font-sizes, md) 1.7 .25em)
+  *
+    +list
+
+  ////////////////
+  // table
+  ////////////////
+  table
+    +text-block(map-get($font-sizes, md) 1.6 1.5em 1.5em)
+    width: 100%
+  th,
+  td
+    border: solid 1px $border
+    padding: .75em .875em
+  th
+    background-color: tint($default-text, 94%)
+    font-weight: 600
+  tbody tr
+    &:nth-child(even)
+      background-color: tint($default-text, 97%)
+
+  ////////////////
+  // blockquote
+  ////////////////
+  blockquote
+    +text-block(map-get($font-sizes, md) 1.8 1.25em 1.25em)
+    padding-left: 1.25em
+    +position(relative)
+    border-left: solid .25em $border
+    +list
+    code
+      font-style: normal
+
+  ////////////////
+  // details
+  ////////////////
+  details
+    +text-block(map-get($font-sizes, md) 1.5 1.5em 1.5em)
+    border: solid 1px $border
+    border-radius: .25rem
+    padding: .5em 1em
+    transition: all .2s ease-out
+    summary
+      +text-block(1em 1.5)
+      cursor: pointer
+      outline: none
+    &:hover
+      box-shadow: 0 0 0 100em rgba($primary, .05) inset, 0 0 0 .1875rem rgba($primary, .25)
+      border-color: $primary
+    &[open] summary
+      +text-block(1em 1.5 0 .5em)
+      border-bottom: solid 1px $border
+      padding-bottom: .5em
+    &[open]:hover
+      box-shadow: none
+      border-color: $border
+    &[open] summary + *:first-child
+      margin-top: 0 !important
+
+  ////////////////
+  //  iframe
+  ////////////////
+  iframe
+    display: block
+    max-width: 100%
+    +text-block(map-get($font-sizes, md) 1.7 1.5em 1.5em)
+    +margin(horizontal, auto)
