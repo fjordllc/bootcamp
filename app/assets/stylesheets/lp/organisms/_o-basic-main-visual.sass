@@ -1,0 +1,58 @@
+.o-basic-main-visual
+  background-color: $main
+  background-image: linear-gradient(45deg, $main, #4e66da)
+  +position(relative)
+  +padding(vertical, $lp-header-height 5rem)
+  color: $reversal-text
+  &::before
+    content: ""
+    display: block
+    background-image: image_url("lp/background.svg")
+    +position(absolute, left 0, bottom 0, right 0, top 0, 1)
+    background-repeat: repeat
+    background-size: 20rem
+    +size(100%)
+    opacity: .05
+  &::after
+    content: ""
+    display: block
+    background-image: image_url("lp/main-visual-bottom.svg")
+    +position(absolute, left 0, bottom 0, right 0, 2)
+    background-repeat: repeat-x
+    background-position: center bottom
+    background-size: contain
+    +size(100% 5rem)
+
+.o-basic-main-visual__inner
+  +position(relative, 3)
+  +padding(vertical, 2rem 4rem)
+
+.o-basic-main-visual__hgroup
+  display: flex
+  flex-direction: column
+  justify-content: center
+  text-align: center
+
+.o-basic-main-visual__logo-image
+  +size(6.25rem auto)
+  +margin(horizontal, auto)
+  margin-bottom: .75rem
+
+.o-basic-main-visual__title
+  font-weight: 700
+  text-shadow: rgba(black, .3) 0 -1px 3px
+  +media-breakpoint-up(md)
+    +text-block(fz(9) 1.4)
+  +media-breakpoint-down(sm)
+    +text-block(fz(7) 1.4)
+
+.o-basic-main-visual__description
+  text-shadow: rgba(black, .3) 0 0 .5em
+  margin-top: vr(4)
+  font-size: fz(4)
+  line-height: vr(7)
+
+.o-basic-main-visual__actions
+  margin-top: 1.75rem
+  .m-horizontal-buttons__items
+    +flex-grid(1.25rem, nowrap, center)

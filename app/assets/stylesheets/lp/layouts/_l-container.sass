@@ -1,0 +1,10 @@
+.l-container
+  +margin(horizontal, auto)
+  +padding(horizontal, 1rem)
+  width: 100%
+  max-width: map-get($container-max-widths, xxl)
+  @each $size, $container-max-width in $container-max-widths
+    &.is-#{$size}
+        max-width: $container-max-width
+  &.is-mxw-100pc
+    max-width: 100%

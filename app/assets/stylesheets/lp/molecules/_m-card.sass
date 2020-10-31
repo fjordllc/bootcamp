@@ -1,0 +1,60 @@
+.m-card
+  background-color: $base
+  border: solid 1px $border
+  border-radius: .25rem
+  height: 100%
+  .a-link-block
+    +padding(horizontal, 1.25rem)
+  .m-style-block:not(:last-child)
+    margin-bottom: vr(5)
+  .a-basic-table
+    font-size: fz(2)
+
+a.m-card
+  +block-link
+  color: inherit
+  transition: all .2s ease-out
+  &:hover
+    border-color: $primary
+    box-shadow: rgba($primary, .2) 0 0 0 2px
+    +position(relative)
+
+.m-card__header
+  padding: vr(3) 1.25rem
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.m-card__title
+  +text-block(fz(5) 1.4, 600)
+
+.m-card__body
+  &>.a-basic-table
+    width: calc(100% + 2px)
+    +margin(horizontal, -1px)
+    margin-bottom: -1px
+  .m-list__item
+    padding: .5rem 1.25rem
+    &:not(:last-child)
+      border-bottom: solid 1px $border
+  .m-basic-form
+    padding: 1em 1.5em
+
+.m-card__text
+  padding: 1em 1.5em
+
+.m-card__blocks
+  +padding(vertical, vr(5))
+  margin-bottom: vr(5) * -1
+  &:last-child
+    margin-bottom: 0
+  .row
+    margin-bottom: vr(5) * -1
+  .row + .row
+    margin-top: vr(5)
+  [class*=col-]
+    margin-bottom: vr(5)
+
+.m-card__footer
+  .m-horizontal-buttons
+    padding: vr(3) 1rem

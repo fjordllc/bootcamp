@@ -1,0 +1,22 @@
+// 使い方
+// +border-radius(vertical, 4px)
+
+=border-radius($value1: null, $value2: null)
+  @if number(nth($value1, 1))
+    border-radius: $value1
+  @else
+    @for $i from 1 through length($value1)
+      @if nth($value1, $i) == 'all'
+        border-radius: $value2
+      @else if nth($value1, $i) == 'top'
+        border-top-left-radius: $value2
+        border-top-right-radius: $value2
+      @else if nth($value1, $i) == 'bottom'
+        border-bottom-left-radius: $value2
+        border-bottom-right-radius: $value2
+      @else if nth($value1, $i) == 'left'
+        border-top-left-radius: $value2
+        border-bottom-left-radius: $value2
+      @else if nth($value1, $i) == 'right'
+        border-top-right-radius: $value2
+        border-bottom-right-radius: $value2

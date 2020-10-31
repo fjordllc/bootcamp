@@ -1,0 +1,28 @@
+.m-left-image-content
+  display: flex
+  width: 35rem
+  max-width: 100%
+  .a-circle-number
+    font-size: fz(7)
+    background-color: #aaa
+
+.m-left-image-content__col
+  &:not(:first-child)
+    margin-left: 1.125rem
+
+.m-left-image-content__title-first-option
+  +text-block(fz(3) 1.3, 700 block)
+
+.m-left-image-content__title
+  +text-block(fz(6) 1.4, 700)
+
+.m-left-image-content__title-option
+  +text-block(fz(3) 1, 400 $muted-text)
+  margin-left: .5em
+
+.m-left-image-content__row
+  &:not(:first-child)
+    margin-top: vr(3)
+
+.m-left-image-content__description
+  +text-block(fz(3) 1.6)

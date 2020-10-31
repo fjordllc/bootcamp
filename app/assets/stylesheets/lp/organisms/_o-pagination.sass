@@ -1,0 +1,21 @@
+.o-pagination__items
+  +flex-grid(.5em)
+
+.o-pagination__item-link
+  +size(vr(10))
+  +flex-link
+  align-items: center
+  justify-content: center
+  background-color: $shade
+  color: $muted-text
+  border-radius: .1875rem
+  border: solid 1px $border
+  +block-hover
+  &:hover
+    background-color: $base
+    color: $primary
+  &.is-active
+    background-color: $main
+    color: $reversal-text
+    border-color: $main
+    pointer-events: none

@@ -1,0 +1,9 @@
+.a-image-link
+  img
+    +size(100% auto)
+    +block-link
+    transition: all .2s ease-out
+  &:hover
+    img
+      box-shadow: $primary 0 0 0 1px, rgba($primary, .2) 0 0 0 3px
+      +position(relative)

@@ -1,0 +1,12 @@
+@function str-replace($substr, $newsubstr, $str, $all:false)
+  $pos: str-index($str, $substr)
+  @while $pos != null
+    $strlen: str-length($substr)
+    $start: str-slice($str, 0, $pos - 1)
+    $end: str-slice($str, $pos + $strlen)
+    $str: $start + $newsubstr + $end
+    @if $all == true
+      $pos: str-index($str, $substr)
+    @else
+      $pos: null
+    @return $str

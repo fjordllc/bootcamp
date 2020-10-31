@@ -1,0 +1,33 @@
+.o-basic-breadcrumbs
+  font-size: .875rem
+  height: 2.5em
+  .l-container
+    height: inherit
+
+.o-basic-breadcrumbs__items
+  display: flex
+  height: inherit
+
+.o-basic-breadcrumbs__item
+  height: inherit
+  display: flex
+  &:not(:last-child)::after
+    content: ">"
+    color: $muted-text
+    display: flex
+    align-items: center
+    justify-content: center
+    +size(1.75em inherit)
+
+.o-basic-breadcrumbs__item-link
+  display: flex
+  height: inherit
+  align-items: center
+  justify-content: center
+  .o-basic-breadcrumbs__item:not(:last-child) &
+    +hover-link-reversal
+    color: $muted-text
+  .o-basic-breadcrumbs__item:last-child &
+    text-decoration: none
+    pointer-events: none
+    color: $reversal-text

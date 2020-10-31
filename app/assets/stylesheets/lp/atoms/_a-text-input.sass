@@ -1,0 +1,20 @@
+.a-text-input
+  border: solid 1px $border
+  padding: .5em
+  border-radius: .25rem
+  background-color: #f8f8f8
+  transition: all .2s ease-out
+  &:focus
+    border-color: $primary
+    background-color: $base
+    box-shadow: 0 0 .25rem rgba($primary, .8)
+  &.is-block
+    display: block
+    width: 100%
+
+textarea.a-text-input
+  line-height: 1.45
+  &.u-4-lines
+    height: calc(4em * 1.45 + 1em)
+  &.u-8-lines
+    height: calc(8em * 1.45 + 1em)

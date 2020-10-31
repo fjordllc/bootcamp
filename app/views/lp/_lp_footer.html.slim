@@ -1,0 +1,36 @@
+.o-lp-footer
+  .l-container
+    .o-lp-footer__inner
+      .o-lp-footer__row
+        = render "/lp/footer_nav"
+      hr.a-hr-border
+      .o-lp-footer__row
+        .o-lp-footer-site-meta
+          .o-lp-footer-site-meta__start
+            .m-copy-right
+              span
+                | Copyright
+              span
+                i.far.fa-copyright
+              span
+                = Time.now.year
+              span
+                | 合同会社フィヨルド
+          .o-lp-footer-site-meta__end
+            .m-inline-list
+              .m-inline-list__items
+                .m-inline-list__item
+                  = link_to "" , class: "a-text-link" do
+                    | プライバシーポリシー
+                .m-inline-list__item
+                  = link_to tos_path, class: "a-text-link" do
+                    | 利用規約
+                .m-inline-list__item
+                  = link_to coc_path, class: "a-text-link" do
+                    | アンチハラスメントポリシー
+                .m-inline-list__item
+                  = link_to law_path, class: "a-text-link" do
+                    | 特定商取引法に基づく表記
+                .m-inline-list__item
+                  = link_to "https://fjord.jp", class: "a-text-link", target: "_blank" do
+                    | 運営会社

@@ -1,0 +1,16 @@
+.m-file-upload__preview
+  border: dashed 2px $border
+  display: flex
+  align-items: center
+  justify-content: center
+  +size(100% 14rem)
+  padding: 1rem
+  margin-bottom: .5rem
+  border-radius: .25rem
+  cursor: pointer
+  img
+    +size(100%)
+    object-fit: contain
+
+.m-file-upload__preview-message
+  +text-block(1rem 1.45, $muted-text)

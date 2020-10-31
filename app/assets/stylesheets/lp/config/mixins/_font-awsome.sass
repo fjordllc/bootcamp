@@ -1,0 +1,33 @@
+=font-awsome-4-core
+  font-family: FontAwesome
+  font-style: normal
+  font-weight: normal
+  line-height: 1
+
+=font-awsome-5-core
+  -moz-osx-font-smoothing: grayscale
+  -webkit-font-smoothing: antialiased
+  font-style: normal
+  font-variant: normal
+  text-rendering: auto
+  line-height: 1
+
+=fa($value)
+  @if equal_nth($value, 1)
+    +font-awsome-4-core
+    content: "#{$value}"
+  @else if equal_nth($value, 2)
+    +font-awsome-5-core
+    content: "#{nth($value, 2)}"
+    @if nth($value, 1) == fa or nth($value, 1) == fas
+      font-family: 'Font Awesome 5 Free'
+      font-style: normal
+      font-weight: 900
+    @else if nth($value, 1) == far
+      font-family: 'Font Awesome 5 Free'
+      font-style: normal
+      font-weight: 400
+    @else if nth($value, 1) == fab
+      font-family: 'Font Awesome 5 Brands'
+      font-style: normal
+      font-weight: normal

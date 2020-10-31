@@ -1,0 +1,17 @@
+.u-hidden
+  display: none
+
+@each $breakpoint in map-keys($grid-breakpoints)
+  +media-breakpoint-only(#{$breakpoint})
+    .#{$breakpoint}\:u-hidden
+      display: none
+
+@each $breakpoint in map-keys($grid-breakpoints)
+  +media-breakpoint-down(#{$breakpoint})
+    .#{$breakpoint}-down\:u-hidden
+      display: none
+
+@each $breakpoint in map-keys($grid-breakpoints)
+  +media-breakpoint-up(#{$breakpoint})
+    .#{$breakpoint}-up\:u-hidden
+      display: none

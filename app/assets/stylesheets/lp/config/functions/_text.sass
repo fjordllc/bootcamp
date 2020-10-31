@@ -1,0 +1,46 @@
+@function display($value)
+  @if $value == "inline" or $value == "block" or $value == "list-item" or $value == "run-in" or $value == "inline-block" or $value == "table" or $value == "inline-table" or $value == "table-row-group" or $value == "table-header-group" or $value == "table-footer-group" or $value == "table-row" or $value == "table-column-group" or $value == "table-column" or $value == "table-cell" or $value == "table-caption" or $value == "none" or $value == "flex" or $value == "inline-flex"
+    @return true
+  @else
+    @return null
+
+@function text_align($value)
+  @if $value == "left" or $value == "right" or $value == "center"
+    @return true
+  @else
+    @return null
+
+@function color($value)
+  @if type-of($value) == color
+    @return true
+  @else
+    @return null
+
+@function font_weight($value)
+  @if $value == "bold" or $value == "normal" or $value == "lighter" or $value == "bolder"
+    @return true
+  @else if unitless_number($value)
+    @if $value >= 100
+      @return true
+    @else
+      @return null
+  @else
+    @return null
+
+@function font_style($value)
+  @if $value == "normal" or $value == "italic" or $value == "oblique"
+    @return true
+  @else
+    @return null
+
+@function white_space($value)
+  @if $value == "normal" or $value == "pre" or $value == "nowrap"
+    @return true
+  @else
+    @return null
+
+@function text_decoration($value)
+  @if $value == "none" or $value == "underline" or $value == "overline" or $value == "line-through" or $value == "blink"
+    @return true
+  @else
+    @return null

@@ -1,0 +1,83 @@
+=letter-spacing-center($space-width: null)
+  letter-spacing: $space-width
+  text-indent: $space-width * -1
+
+=open-face($color: black)
+  text-shadow: $color 1px 1px 0, $color -1px -1px 0, $color -1px 1px 0, $color 1px -1px 0, $color 0px 1px 0, $color 0 -1px 0, $color -1px 0 0, $color 1px 0 0
+
+// どこでも font-weight と text-align と color と +top() が書ける設定
+=text-block-options($value)
+  $fw: if(font_weight($value), $value, null)
+  $ta: if(text_align($value), $value, null)
+  $c: if(color($value), $value, null)
+  $ws: if(white_space($value), $value, null)
+  $d: if(display($value), $value, null)
+  $td: if(text_decoration($value), $value, null)
+  $fs: if(font_style($value), $value, null)
+  font-weight: $fw
+  text-align: $ta
+  color: $c
+  white-space: $ws
+  display: $d
+  text-decoration: $td
+  font-style: $fs
+
+=text-block-margin($margin, $margin-position, $fz)
+  @if $margin and unitless_number($margin)
+    #{$margin-position}: $margin * $vr
+  @else if $margin and em($margin)
+    $margin-unitless: strip_unit($margin)
+    $margin-surplus: ($fz * $margin-unitless) % $vr
+    @if $margin-surplus == 0
+      #{$margin-position}: $margin
+    @else
+      $margin-rounded: $margin-surplus / $vr
+      @if $margin-rounded >= (1 / 2)
+        $margin-result: $fz * $margin-unitless + ($vr - $margin-surplus)
+        #{$margin-position}: $margin-result
+      @else
+        $margin-result: $fz * $margin-unitless - $margin-surplus
+        #{$margin-position}: $margin-result
+  @else if $margin and unit_number($margin)
+    #{$margin-position}: $margin
+
+=text-block($value1: null, $value2: null)
+  $fz: optional_nth($value1, 1)
+  $lh: optional_nth($value1, 2)
+  $mt: optional_nth($value1, 3)
+  $mb: optional_nth($value1, 4)
+  font-size: $fz
+  @if $fz and em($fz)
+    line-height: $lh
+    margin-top: $mt
+    margin-bottom: $mb
+  @else
+    // margin-top
+    +text-block-margin($mt, margin-top, $fz)
+
+    // margin-bottom
+    +text-block-margin($mb, margin-bottom, $fz)
+    // line-height
+    @if $lh
+      @if em($lh)
+        $lh: strip_unit($lh)
+      $lh-surplus: ($fz * $lh) % $vr
+      @if $lh-surplus == 0
+        line-height: $lh
+      @else
+        $rounded: $lh-surplus / $vr
+        @if $rounded >= (1 / 2)
+          $lh-result: $fz * $lh + ($vr - $lh-surplus)
+          line-height: $lh-result
+        @else
+          $lh-result: $fz * $lh - $lh-surplus
+          line-height: $lh-result
+  @if ($value2)
+    @for $i from 1 through length($value2)
+      +text-block-options(nth($value2, $i))
+      @if unit_number(nth($value2, $i))
+        @if index($value2, center)
+          letter-spacing: nth($value2, $i)
+          text-indent: nth($value2, $i)
+        @else
+          letter-spacing: nth($value2, $i)

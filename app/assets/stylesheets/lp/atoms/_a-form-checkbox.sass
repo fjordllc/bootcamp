@@ -1,0 +1,49 @@
+.a-form-checkbox,
+.a-form-radio
+  cursor: pointer
+  line-height: 1.45
+  +position(relative)
+  input
+    visibility: hidden
+    +position(absolute)
+
+.a-form-checkbox__label,
+.a-form-radio__label
+  +position(relative)
+  padding-left: 1.5em
+  transition: all .2s ease-out
+  &::before
+    display: flex
+    align-items: center
+    justify-content: center
+    text-align: center
+    color: $reversal-text
+    content: ""
+    +position(absolute, left 0, top .015625em)
+    border: solid 2px $border
+    +size(1.125em)
+    text-decoration: none
+    transition: all .2s ease-out
+  .a-form-checkbox:hover &,
+  .a-form-radio:hover &
+    color: $primary
+    text-decoration: underline
+  .a-form-checkbox:hover &::before,
+  .a-form-radio:hover &::before
+    border-color: $primary
+  input:checked + &::before
+    background-color: $primary
+    border-color: $primary
+    text-decoration: none
+
+input:checked + .a-form-checkbox__label::before
+  +fa(fas "\f00c")
+
+input:checked + .a-form-radio__label::before
+  box-shadow: $reversal-text 0 0 0 2px inset
+
+.a-form-checkbox__label::before
+  border-radius: .1875em
+
+.a-form-radio__label::before
+  border-radius: 50%

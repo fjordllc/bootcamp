@@ -1,0 +1,44 @@
+$grid-gap: 2rem !default
+$grid-gap__sm: 1rem !default
+$grid-columns-count: 12
+
+.l-grids
+  display: grid
+  grid-template-columns: repeat(#{$grid-columns-count}, 1fr)
+  width: 100%
+  +media-breakpoint-up(md)
+    grid-gap: $grid-gap
+  +media-breakpoint-down(sm)
+    grid-gap: $grid-gap__sm
+  .l-grids + &
+    margin-top: calc(#{$grid-gap} * 1.5)
+
+.l-grids__item
+  height: 100%
+  @for $i from 1 through $grid-columns-count
+    &.u-col-#{$i}
+      grid-column: $i span
+    @each $breakpoint in map-keys($grid-breakpoints)
+      +media-breakpoint-only(#{$breakpoint})
+        &.#{$breakpoint}\:u-col-#{$i}
+          grid-column: $i span
+      +media-breakpoint-down(#{$breakpoint})
+        &.#{$breakpoint}-down\:u-col-#{$i}
+          grid-column: $i span
+      +media-breakpoint-up(#{$breakpoint})
+        &.#{$breakpoint}-up\:u-col-#{$i}
+          grid-column: $i span
+
+  @for $i from 1 through $grid-columns-count
+    &.u-row-#{$i}
+      grid-row: $i span
+    @each $breakpoint in map-keys($grid-breakpoints)
+      +media-breakpoint-only(#{$breakpoint})
+        &.#{$breakpoint}\:u-row-#{$i}
+          grid-row: $i span
+      +media-breakpoint-down(#{$breakpoint})
+        &.#{$breakpoint}-down\:u-row-#{$i}
+          grid-row: $i span
+      +media-breakpoint-up(#{$breakpoint})
+        &.#{$breakpoint}-up\:u-row-#{$i}
+          grid-row: $i span

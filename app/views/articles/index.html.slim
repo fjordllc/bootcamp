@@ -1,46 +1,93 @@
 - content_for :extra_body_classes, 'welcome'
 
-.welcome-page-header
-  .container
-    .welcome-page-header__title
-      - if params[:tag]
-        | タグ: #{params[:tag]} の記事一覧
-      - else
-        | Blog
+section.o-static-page
+  header.o-static-page-header
+    .o-static-page-header__main
+      nav.o-basic-breadcrumbs
+        .l-container.is-mxw-100pc
+          ol.o-basic-breadcrumbs__items
+            li.o-basic-breadcrumbs__item
+              = link_to "", class: "o-basic-breadcrumbs__item-link" do
+                | Home
+            li.o-basic-breadcrumbs__item
+              = link_to "", class: "o-basic-breadcrumbs__item-link" do
+                | お知らせ一覧
+      .l-container
+        .o-static-page-header__inner
+          h1.o-static-page-header__title
+            | お知らせ
 
-    //
-      .tag_cloud
-        - tag_cloud Article.tag_counts, %w{s m l} do |tag, css_class|
-          = link_to tag.name, tag_path(tag.name)
+  .o-static-page-body
+    .l-container.is-xxl
+      .o-static-page-body__inner
+        .o-static-page-body__row
+          .o-horizontal-medias
+            .o-horizontal-medias__items
+              .l-grids
+                - @articles.each do |article|
+                  .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+                    .o-horizontal-medias__item
+                      = link_to article, itempro: "url", class: "m-medias-media" do
+                        .m-medias-media__row
+                          .m-medias-media__image-container
+                            - if article.thumbnail.attached?
+                              = image_tag(article.thumbnail_url, class: "m-medias-media__image")
+                            - else
+                              = image_tag("work-blank.svg", class: "m-medias-media__image")
+                        .m-medias-media__row
+                          .m-media-attributes
+                            .m-media-attributes__col
+                              .m-media-attributes__row
+                                h2.m-media-attributes__title
+                                  = article.title
+                              .m-media-attributes__row
+                                .m-media-attributes__list
+                                  .m-inline-list
+                                    .m-inline-list__items
+                                      .m-inline-list__item
+                                        date.m-media-attributes__date
+                                          | 2020年12月24日
+                                      .m-inline-list__item
+                                        .m-media-attributes__author
+                                          = image_tag("https://via.placeholder.com/100", class: "a-circle-image")
+                                          .m-media-attributes__author-name
+                                            | machida
+                      - if admin_login?
+                        footer.articles-article__footer
+                          .card-footer-actions
+                            ul.card-footer-actions__items
+                              li.card-footer-actions__item
+                                = link_to edit_article_path(article), class: "card-footer-actions__action is-button-simple-md-primary is-block", id: "js-shortcut-edit" do
+                                  i.fas.fa-pen#edit
+                                  | 内容修正
+                              li.card-footer-actions__item
+                                = link_to article_path(article), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action is-button-simple-md-danger is-block" do
+                                  i.fas.fa-trash-alt#delete
+                                  | 削除
 
-
-.welcome-sections
-  .welcome-section
-    .container.is-md
-      .articles
-        .articles__items
-          - @articles.each do |article|
-            .articles__item
-              section.articles-article
-                header.articles-article__header
-                  = link_to article
-                    - if article.thumbnail.attached?
-                      = image_tag article.thumbnail_url
-                    - else
-                      = image_tag("work-blank.svg")
-                  h1.articles-article__title(itemprop="name")
-                    = link_to article.title, article, itempro: "url", class: "articles-article__title-link"
-                  //= raw article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
-                - if admin_login?
-                  footer.articles-article__footer
-                    .card-footer-actions
-                      ul.card-footer-actions__items
-                        li.card-footer-actions__item
-                          = link_to edit_article_path(article), class: "card-footer-actions__action is-button-simple-md-primary is-block", id: "js-shortcut-edit" do
-                            i.fas.fa-pen#edit
-                            | 内容修正
-                        li.card-footer-actions__item.is-sub
-                          = link_to article_path(article), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__delete" do
-                            #delete
-                            | 削除する
-    = paginate @articles, position: 'bottom'
+        .o-static-page-body__row
+          = paginate @articles, position: "bottom"
+          nav.o-pagination
+            ul.o-pagination__items
+              li.o-pagination__item.is-prev
+                a.o-pagination__item-link.is-prev href="" rel="prev"
+                  i.fbc-icon-angle-double-left
+              li.o-pagination__item.is-start
+                a.o-pagination__item-link.is-start href="/pages?page=5"
+                  i.fbc-icon-angle-left
+              li.o-pagination__item
+                a.o-pagination__item-link href=""  1
+              li.o-pagination__item
+                a.o-pagination__item-link href=""  2
+              li.o-pagination__item
+                a.o-pagination__item-link.is-active href=""  3
+              li.o-pagination__item
+                a.o-pagination__item-link href=""  4
+              li.o-pagination__item
+                a.o-pagination__item-link href=""  5
+              li.o-pagination__item.is-next
+                a.o-pagination__item-link.is-next href=""
+                  i.fbc-icon-angle-right
+              li.o-pagination__item.is-last
+                a.o-pagination__item-link.is-last href=""
+                  i.fbc-icon-angle-double-right
