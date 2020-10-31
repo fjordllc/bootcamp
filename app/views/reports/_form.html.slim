@@ -19,7 +19,7 @@
           = f.collection_radio_buttons :emotion, Report.faces, :first, :second do |b|
             li.form-radio-button.test-select-emotions
               label.form-radio-button__label.is-lg
-                = image_tag b.text, id: b.value, alt: b.value, class: "form-label__emotion-image"
+                = b.text
                 = b.radio_button
 
       .form-item#tasks
