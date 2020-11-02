@@ -10,7 +10,7 @@ class NoticeSlackJob < ApplicationJob
   private
     def notify(text, options = {})
       if Rails.env.production?
-        icon_url = options[:icon_url] || "http://i.gyazo.com/a8afa9d690ff4bbd87459709bbfe8be9.png"
+        icon_url = options[:icon_url] || "https://i.gyazo.com/7099977680d8d8c2d72a3f14ddf14cc6.png"
         attachments = options[:attachments] || [{}]
         username = options[:username] || "Bootcamp"
         channel = options[:channel] || "learning_notification"
