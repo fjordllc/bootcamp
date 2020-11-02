@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   get "coc", to: "welcome#coc", as: "coc"
 
   namespace :scheduler do
-    resource :statistics, only: %i(update)
+    resource :statistic, only: %i(update), controller: "statistic"
+    resource :link_checker, only: %i(update), controller: "link_checker"
   end
 
   namespace "api" do
