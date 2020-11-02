@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   namespace :scheduler do
     resource :statistic, only: %i(update), controller: "statistic"
+    resource :link_checker, only: %i(update), controller: "link_checker"
   end
 
   namespace "api" do
