@@ -13,7 +13,7 @@ module LinkChecker
       unless error_links.empty?
         texts = ["リンク切れがありました。"]
         error_links.map do |link|
-          texts << "- <#{link.source_url}|#{link.source_title}> from: <#{link.url}|#{link.title}>"
+          texts << "- <#{link.url}|#{link.title}> in: <#{link.source_url}|#{link.source_title}>"
         end
 
         SlackNotification.notify texts.join("\n"),
@@ -35,7 +35,7 @@ module LinkChecker
       end
       threads.each(&:join)
 
-      error_links
+      error_links.sort { |a, b| b.source_url <=> a.source_url }
     end
 
     def all_links
