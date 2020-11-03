@@ -10,7 +10,7 @@ class AnnouncementCallbacks
   end
 
   def after_update(announce)
-    if announce.wip == false && announce.published_at.nil?
+    if !announce.wip && announce.published_at.nil?
       send_notification(announce)
       announce.published_at = Time.current
       announce.save
