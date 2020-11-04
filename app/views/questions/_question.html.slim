@@ -1,4 +1,4 @@
-.thread-list-item
+.thread-list-item(class="#{question.correct_answer.present? ? "is-solved" : ""}")
   .thread-list-item__inner
     .thread-list-item__author
       = render "users/icon",
@@ -27,14 +27,14 @@
             i.fas.fa-comment
           .thread-list-item-meta__comment-count-value
             = question.answers.size
-  - if question.tags.present?
-    .thread-list-item-tags
-      .thread-list-item-tags__label
-        i.fas.fa-tags
-      ul.thread-list-item-tags__items
-        - question.tags.each do |tag|
-          li.thread-list-item-tags__item
-            = link_to tag.name, questions_tag_path(tag.name, all: "true"), class: "thread-list-item-tags__item-link"
+    - if question.tags.present?
+      .thread-list-item-tags
+        .thread-list-item-tags__label
+          i.fas.fa-tags
+        ul.thread-list-item-tags__items
+          - question.tags.each do |tag|
+            li.thread-list-item-tags__item
+              = link_to tag.name, questions_tag_path(tag.name, all: "true"), class: "thread-list-item-tags__item-link"
     - if question.correct_answer.present?
       .stamp.is-circle.is-solved
         .stamp__content.is-icon 解
