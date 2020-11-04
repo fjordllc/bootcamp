@@ -2,10 +2,10 @@
   .tag-links
     ul.tag-links__items(v-if="!editing")
       li.tag-links__item(v-for="tag in tags")
-        a.tag-links__item-link(:href="`/pages/tags/${tag.text}`")
+        a.tag-links__item-link(:href="`/questions/tags/${tag.text}?all=true`")
           | {{ tag.text }}
       li.tag-links__item
-        .tag-links__item-edit(@click="editTag")
+        .tag-links__item-edit(v-if="adminOrQuestionUser" @click="editTag")
           | タグ編集
     .form(v-show="editing")
       .form__items
@@ -32,7 +32,14 @@
 import VueTagsInput from '@johmun/vue-tags-input'
 
 export default {
-  props: ['tagsInitialValue','pageId','tagsParamName'],
+  props: [
+    'tagsInitialValue',
+    'questionId',
+    'tagsParamName',
+    'questionUserId',
+    'currentUserId',
+    'adminLogin'
+  ],
   components: { VueTagsInput },
   data() {
     return {
@@ -77,11 +84,11 @@ export default {
     },
     updateTag () {
       let params = {
-        page: {
+        question: {
           tag_list: this.tagsValue
         }
       }
-      fetch(`/api/pages/${this.pageId}`, {
+      fetch(`/api/questions/${this.questionId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -109,7 +116,7 @@ export default {
     this.tagsValue = this.tagsInitialValue
     this.tags = this.parseTags(this.tagsInitialValue)
 
-    fetch('/api/tags.json?taggable_type=Page', {
+    fetch('/api/tags.json?taggable_type=Question', {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -138,6 +145,11 @@ export default {
       return this.autocompleteTags.filter(tag => {
         return tag.text.toLowerCase().indexOf(this.inputTag.toLowerCase()) !== -1;
       });
+    },
+    adminOrQuestionUser () {
+      return (
+        this.questionUserId === this.currentUserId || this.adminLogin === "true"
+      )
     },
   },
 };

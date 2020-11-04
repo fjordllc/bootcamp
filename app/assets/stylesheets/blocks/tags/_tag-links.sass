@@ -1,20 +1,23 @@
-.report-practices
+.tag-links
   padding: .625rem 2rem
   border-top: solid 1px $background
   +media-breakpoint-down(sm)
     padding: .5rem 1rem
+  .form-actions
+    margin-top: .75rem
 
-.report-practices__items
+.tag-links__items
   display: flex
+  align-items: flex-end
   flex-wrap: wrap
   +margin(horizontal, -.25rem)
-  margin-bottom: -.625rem
+  margin-bottom: -.5rem
 
-.report-practices__item
+.tag-links__item
   +margin(horizontal, .25rem)
-  margin-bottom: .625rem
+  margin-bottom: .5rem
 
-.report-practices__item-link
+.tag-links__item-link
   +text-block(.6875rem 1.45, block $main)
   background-color: transparent
   border: solid 1px $main
@@ -24,3 +27,8 @@
   text-decoration: none
   &:hover
     background-color: rgba($main, .2)
+
+.tag-links__item-edit
+  +text-block(.75rem 1.4, $main block)
+  +hover-link-reversal
+  cursor: pointer
