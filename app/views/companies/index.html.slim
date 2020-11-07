@@ -1,0 +1,11 @@
+- title "企業一覧"
+
+header.page-header.is-margin-bottom-0
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+
+.page-body
+  .container
+    = render partial: "companies/company", collection: @companies, as: :company
