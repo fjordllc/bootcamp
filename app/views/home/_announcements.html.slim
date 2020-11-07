@@ -7,5 +7,5 @@
         = link_to announcement, itemprop: "url", class: "thread-list-item__title-link" do
           = announcement.title
     .thread-list-item-meta
-      time.thread-list-item-meta__updated-at(datetime="#{announcement.updated_at.to_datetime}" pubdate="pubdate")
+      time.thread-list-item-meta__datetime(datetime="#{announcement.updated_at.to_datetime}" pubdate="pubdate")
         = l announcement.updated_at
