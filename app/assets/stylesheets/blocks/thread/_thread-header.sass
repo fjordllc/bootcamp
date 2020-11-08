@@ -85,7 +85,7 @@
       background-color: $danger
 
 .thread-header__upper-side
-  +text-block(.8125rem 1 0 .75rem, $muted-text flex)
+  +text-block(.8125rem 1.4 0 .75rem, $muted-text flex)
   align-items: center
   flex-wrap: wrap
   +media-breakpoint-down(sm)
@@ -95,17 +95,26 @@
 .thread-header__author
   color: $muted-text
   margin-right: .5rem
+  .thread-list-item-meta__item &
+    margin-right: 0
 
 a.thread-header__author
   +hover-link
 
 .thread-header__date
-  +text-block(.8125rem 1, $muted-text flex)
+  +text-block(.8125rem 1.4, $muted-text flex)
   +media-breakpoint-down(sm)
     font-size: .75rem
   .is-important
     color: $danger
     font-weight: 600
+  +media-breakpoint-up(md)
+    .thread-header__date + &
+      margin-left: .25em
+      &::before
+        content: "（"
+      &::after
+        content: "）"
 
 .thread-header__date-label
   &::after

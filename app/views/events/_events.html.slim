@@ -18,7 +18,7 @@
           = link_to new_event_path(id: event), class: "thread-list-item__actions-link" do
             i.fas.fa-copy
     .thread-list-item-meta
-      time.thread-list-item-meta__updated-at(datetime="#{event.updated_at.to_datetime}" pubdate="pubdate")
+      time.thread-list-item-meta__datetime(datetime="#{event.updated_at.to_datetime}" pubdate="pubdate")
         = l event.updated_at
       - if event.comments.any?
         .thread-list-item-meta__comment-count
