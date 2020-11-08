@@ -15,12 +15,12 @@
             i.fas.fa-pen
           = link_to new_announcement_path(id: announcement), class: "thread-list-item__actions-link" do
             i.fas.fa-copy
-      .thread-list-item-meta
-        time.thread-list-item-meta__datetime(datetime="#{announcement.updated_at.to_datetime}" pubdate="pubdate")
-          = l announcement.updated_at
-        - if announcement.comments.any?
-        .thread-list-item-meta__comment-count
-          .thread-list-item-meta__comment-count-label
-            i.fas.fa-comment
-          .thread-list-item-meta__comment-count-value
-            = announcement.comments.size
+    .thread-list-item-meta
+      time.thread-list-item-meta__datetime(datetime="#{announcement.updated_at.to_datetime}" pubdate="pubdate")
+        = l announcement.updated_at
+      - if announcement.comments.any?
+      .thread-list-item-meta__comment-count
+        .thread-list-item-meta__comment-count-label
+          i.fas.fa-comment
+        .thread-list-item-meta__comment-count-value
+          = announcement.comments.size
