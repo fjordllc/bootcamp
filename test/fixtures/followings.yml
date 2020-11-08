@@ -1,7 +1,7 @@
-following_01:
+following_1:
   follower: muryou
   followed: kensyu
 
-following_02:
+following_2:
   follower: kensyu
   followed: muryou
