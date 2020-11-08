@@ -12,9 +12,32 @@
               | ★
             | #{product.practice.title}の提出物
     .thread-list-item-meta
-      = link_to product.user.login_name, product.user, class: "thread-header__author"
-      time.thread-list-item-meta__updated-at(datetime="#{product.created_at.to_datetime}")
-        = l product.created_at
+      .thread-list-item-meta__items
+        .thread-list-item-meta__item
+          = link_to product.user, class: "thread-header__author" do
+            = product.user.login_name
+
+        .thread-list-item-meta__item
+          - if product.wip?
+            .thread-list-item-meta__datetime
+              | 提出物作成中
+          - elsif product.published_at.present?
+            time.thread-list-item-meta__datetime(datetime="#{product.published_at.to_datetime}")
+              span.thread-list-item-meta__datetime-label
+                | 提出日
+              = l product.published_at
+          - else
+            time.thread-list-item-meta__datetime(datetime="#{product.created_at.to_datetime}")
+              span.thread-list-item-meta__datetime-label
+                | 提出日
+              = l product.created_at
+
+          - if product.updated_at.present?
+            time.thread-list-item-meta__datetime(datetime="#{product.updated_at.to_datetime}")
+              span.thread-list-item-meta__datetime-label
+                | 最終更新日
+              = l product.updated_at
+
     - if product.comments.any?
       .thread-list-item-meta
         .thread-list-item-meta__label
@@ -28,7 +51,7 @@
               locals: { image_class: "thread-list-item__checked-author-icon" },
               as: :user,
               cached: true
-        time.thread-list-item-meta__updated-at(datetime="#{product.commented_users.last.created_at.to_datetime}")
+        time.thread-list-item-meta__datetime(datetime="#{product.commented_users.last.created_at.to_datetime}")
           = l product.comments.last.created_at, format: :date_and_time
     - if product.checks.any?
       .stamp.stamp-approve

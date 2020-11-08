@@ -28,9 +28,29 @@ header.page-header
               .thread-header__upper-side
                 = link_to @product.user, class: "thread-header__author" do
                   = @product.user.login_name
+
                 .thread-header__date
-                  time.thread-header__date-value(datetime="#{@product.updated_at.to_datetime}" pubdate="pubdate")
-                    = l @product.updated_at
+                  - if @product.wip?
+                    .thread-header__date-value
+                      | 提出物作成中
+                  - elsif @product.published_at.present?
+                    span.thread-header__date-label
+                      | 提出日
+                    time.thread-header__date-value(datetime="#{@product.published_at.to_datetime}")
+                      = l @product.published_at
+                  - else
+                    span.thread-header__date-label
+                      | 提出日
+                    time.thread-header__date-value(datetime="#{@product.created_at.to_datetime}")
+                      = l @product.created_at
+
+                - if @product.updated_at.present?
+                  .thread-header__date
+                    span.thread-header__date-label
+                      | 最終更新日
+                    time.thread-header__date-value(datetime="#{@product.updated_at.to_datetime}")
+                      = l @product.updated_at
+
               h1.thread-header__title(class="#{@product.wip? ? "is-wip" : ""}")
                 - if @product.wip?
                   span.thread-header__title-icon
