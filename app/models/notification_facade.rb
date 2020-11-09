@@ -110,6 +110,16 @@ class NotificationFacade
     end
   end
 
+  def self.following_report(report, receiver)
+    Notification.following_report(report, receiver)
+    if receiver.mail_notification? && !receiver.retired_on?
+      NotificationMailer.with(
+        report: report,
+        receiver: receiver
+      ).trainee_report.deliver_later(wait: 5)
+    end
+  end
+
   def self.moved_up_event_waiting_user(event, receiver)
     Notification.moved_up_event_waiting_user(event, receiver)
     if receiver.mail_notification? && !receiver.retired_on?

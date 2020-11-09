@@ -8,11 +8,21 @@ header.page-header
         ul.page-header-actions__items
           li.page-header-actions__item
             = link_to "ユーザー一覧", users_path, class: "a-button is-md is-secondary is-block"
+          - if current_user == @user
+            li.page-header-actions__item
+              = link_to "登録情報変更", edit_current_user_path, class: "a-button is-md is-warning is-block"
 
 .page-tools
   = render "users/page_tabs", user: @user
 
 .page-body
+  - if current_user == @user
+    .page-notice
+      .container
+        .page-notice__inner
+          p
+            | このページは他のユーザーから見た、あなたのプロフィールページです。
+            | （ #{ link_to "登録情報変更", edit_current_user_path } ）
   .container
     .columns
       .row
@@ -32,15 +42,18 @@ header.page-header
               .user-data__description
                 = simple_format h @user.description
 
-            - if current_user == @user || current_user.admin?
-              footer.card-footer
-                .card-footer-actions
-                  ul.card-footer-actions__items
+            footer.card-footer
+              .card-footer-actions
+                ul.card-footer-actions__items
+                  - unless current_user == @user
                     li.card-footer-actions__item
-                      - if current_user == @user
-                        = link_to "登録情報変更", edit_current_user_path, class: "card-footer-actions__action a-button is-md is-secondary is-block"
-                      - elsif admin_login?
-                        = link_to "管理者として情報変更", edit_admin_user_path, class: "card-footer-actions__action a-button is-md is-secondary is-block"
+                      .js-following(data-is-following="#{current_user.following?(@user)}" data-user-id="#{@user.id}")
+                  - if current_user == @user
+                    li.card-footer-actions__item
+                      = link_to "登録情報変更", edit_current_user_path, class: "card-footer-actions__action a-button is-md is-secondary is-block"
+                  - elsif admin_login?
+                    li.card-footer-actions__item
+                      = link_to "管理者として情報変更", edit_admin_user_path, class: "card-footer-actions__action a-button is-sm is-secondary is-block"
         .col-xs-12.col-lg-7.col-xxl-6
           - unless @user.total_learning_time.zero? || @user.mentor?
             = render "users/grass", user: @user

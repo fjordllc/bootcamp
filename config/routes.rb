@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     resources :tags, only: %i(index)
     resources :pages, only: %i(update)
     resources :questions, only: %i(update)
+    resources :followings, only: %i(create destroy)
   end
 
   namespace :admin do

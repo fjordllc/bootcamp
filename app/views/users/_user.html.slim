@@ -32,10 +32,13 @@
         .users-item__description.a-short-text
           = simple_format h truncate user.description, length: 200
       = render "users/practices/completed_practices_progress", user: user
-      - if current_user.admin?
-        footer.card-footer
-          .card-footer-actions
-            ul.card-footer-actions__items
+      footer.card-footer
+        .card-footer-actions
+          ul.card-footer-actions__items
+            - if current_user != user
               li.card-footer-actions__item
-                = link_to edit_admin_user_path(user), class: "card-footer-actions__action a-button is-md is-secondary is-block" do
+                .js-following(data-is-following="#{current_user.following?(user)}" data-user-id="#{user.id}")
+            - if current_user.admin?
+              li.card-footer-actions__item
+                = link_to edit_admin_user_path(user), class: "card-footer-actions__action a-button is-sm is-secondary is-block" do
                   | 管理者として変更

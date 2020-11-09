@@ -19,7 +19,8 @@ class Notification < ApplicationRecord
     retired:         9,
     trainee_report: 10,
     moved_up_event_waiting_user: 11,
-    create_pages:   12
+    create_pages:   12,
+    following_report: 13
   }
 
   scope :reads, -> {
@@ -175,6 +176,17 @@ class Notification < ApplicationRecord
       sender: page.sender,
       path: Rails.application.routes.url_helpers.polymorphic_path(page),
       message: "#{page.user.login_name}さんがDocsに#{page.title}を投稿しました。",
+      read:    false
+    )
+  end
+
+  def self.following_report(report, receiver)
+    Notification.create!(
+      kind:    13,
+      user:    receiver,
+      sender:  report.sender,
+      path:    Rails.application.routes.url_helpers.polymorphic_path(report),
+      message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
       read:    false
     )
   end

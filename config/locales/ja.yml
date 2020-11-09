@@ -218,6 +218,7 @@ ja:
     year_end_party: 忘年会
     trainee: 研修生
     admin: 管理者
+    followings: フォロー中
   helpers:
     submit:
       create: 登録する

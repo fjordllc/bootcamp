@@ -212,4 +212,30 @@ class UserTest < ActiveSupport::TestCase
     assert_equal(users(:komagata).active_practice, practices(:practice_1).id)
     assert_nil(users(:machida).active_practice)
   end
+
+  test "#follow" do
+    kimura = users(:kimura)
+    hatsuno = users(:hatsuno)
+    kimura.follow(hatsuno)
+    assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
+  end
+
+  test "#unfollow" do
+    kimura = users(:kimura)
+    hatsuno = users(:hatsuno)
+    kimura.follow(hatsuno)
+    assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
+    kimura.unfollow(hatsuno)
+    assert_nil Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
+  end
+
+  test "#following" do
+    kimura = users(:kimura)
+    hatsuno = users(:hatsuno)
+    kimura.following?(hatsuno)
+    assert_not kimura.following?(hatsuno)
+    kimura.follow(hatsuno)
+    kimura.following?(hatsuno)
+    assert kimura.following?(hatsuno)
+  end
 end
