@@ -8,9 +8,14 @@ class ReportCallbacks
 
     if report.user.trainee?
       report.user.company.advisers.each do |adviser|
-        send_trainee_report_notification(report, adviser)
+        NotificationFacade.trainee_report(report, adviser)
         create_advisers_watch(report, adviser)
       end
+    end
+
+    report.user.followers.each do |follower|
+      NotificationFacade.following_report(report, follower)
+      create_following_watch(report, follower)
     end
 
     Cache.delete_unchecked_report_count
@@ -39,12 +44,12 @@ class ReportCallbacks
       end
     end
 
-    def send_trainee_report_notification(report, receiver)
-      NotificationFacade.trainee_report(report, receiver)
-    end
-
     def create_advisers_watch(report, adviser)
       Watch.create!(user: adviser, watchable: report)
+    end
+
+    def create_following_watch(report, follower)
+      Watch.create!(user: follower, watchable: report)
     end
 
     def delete_notification(report)
