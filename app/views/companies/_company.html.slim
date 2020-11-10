@@ -4,11 +4,11 @@
       .user-data__main
         .user-profile.is-company
           .user-profile__icon
-            = link_to company_path(company.id) do
+            = link_to company do
               = image_tag company.logo_url, title: company.name, alt: company.name, class: "user-profile__user-icon-image a-user-icon"
           .user-profile__names
             h1.user-profile__login-name
-              = link_to company.name, company_path(company.id)
+              = link_to company.name, company
             .user-profile__full-name
               = company.description
 
