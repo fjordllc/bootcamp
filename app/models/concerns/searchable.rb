@@ -41,9 +41,6 @@ module Searchable
       end
   end
 
-  included do
-  end
-
   def description
     case self
     when Page
