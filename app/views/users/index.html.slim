@@ -18,6 +18,7 @@ header.page-header.is-margin-bottom-0.is-border-bottom-none
   = render "nav"
 
 .page-body
+  = paginate @users, position: "top"
   .container
     .users
       .row.is-gutter-width-32
@@ -30,3 +31,4 @@ header.page-header.is-margin-bottom-0.is-border-bottom-none
             p.o-empty-massage__text
               = t("target.#{@target}")
               | のユーザーはいません
+  = paginate @users, position: "bottom"
