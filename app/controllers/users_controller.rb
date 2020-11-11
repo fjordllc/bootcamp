@@ -10,12 +10,15 @@ class UsersController < ApplicationController
       @target = "followings"
       followings = Following.where(follower_id: current_user.id).select("followed_id")
       @users = User
+        .page(params[:page]).per(20)
         .includes(:company, :avatar_attachment, :course)
         .where(id: followings)
         .order(updated_at: :desc)
     else
       @target = params[:target] || "student_and_trainee"
-      @users = User.with_attached_avatar
+      @users = User
+        .page(params[:page]).per(20)
+        .with_attached_avatar
         .preload(:course)
         .order(updated_at: :desc)
         .users_role(@target)
