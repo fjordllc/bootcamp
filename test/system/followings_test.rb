@@ -21,6 +21,7 @@ class FollowingsTest < ApplicationSystemTestCase
   test "show following lists" do
     visit user_path(users(:hatsuno))
     click_button "日報をフォロー"
+    assert has_content? "フォローを解除"
     visit "/users?target=followings"
     assert has_content? users(:hatsuno).login_name
   end
@@ -43,10 +44,11 @@ class FollowingsTest < ApplicationSystemTestCase
     all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
 
     click_button "提出"
+    assert has_content? "日報を保存しました。"
 
     login_user "kimura", "testtest"
     visit "/notifications"
-    assert_text "hatsunoさんが日報【 test title 】を書きました！"
+    assert has_content? "hatsunoさんが日報【 test title 】を書きました！"
   end
 
   test "receive a notification when following user's report has comment" do
@@ -68,13 +70,16 @@ class FollowingsTest < ApplicationSystemTestCase
 
     click_button "提出"
 
+    comment = "テストのコメントです"
+
     within(".thread-comment-form__form") do
-      fill_in("new_comment[description]", with: "test")
+      fill_in("new_comment[description]", with: comment)
     end
     click_button "コメントする"
+    assert has_content? comment
 
     login_user "kimura", "testtest"
     visit "/notifications"
-    assert_text "hatsunoさんの【 「test title」の日報 】にhatsunoさんがコメントしました。"
+    assert has_content? "hatsunoさんの【 「test title」の日報 】にhatsunoさんがコメントしました。"
   end
 end
