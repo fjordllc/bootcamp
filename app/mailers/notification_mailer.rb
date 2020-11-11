@@ -122,4 +122,12 @@ class NotificationMailer < ApplicationMailer
     subject = "[bootcamp] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
     mail to: @user.email, subject: subject
   end
+
+  # required params: report, receiver
+  def following_report
+    @user = @receiver
+    @notification = @user.notifications.find_by(path: "/reports/#{@report.id}")
+    subject = "[bootcamp] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
+    mail to: @user.email, subject: subject
+  end
 end

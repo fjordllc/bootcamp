@@ -175,3 +175,10 @@ report_22:
     卒業しました。
   practices: practice_2
   reported_on: "2020-09-10"
+
+report_23:
+  user: kensyu
+  title: フォローされた日報
+  description:
+    フォローされました。
+  reported_on: "2020-11-10"
