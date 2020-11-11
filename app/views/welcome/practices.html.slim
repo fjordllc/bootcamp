@@ -10,10 +10,11 @@ section.welcome-section
     .welcome-small-sections
       .row.is-gutter-widtd-32
         - @categories.each do |category|
-          .col-xs-12.col-md-4
-            .welcome-small-section
-              h3.welcome-small-section__title = category.name
-              table.welcome-table
-                - category.practices.each do |practice|
-                  tr
-                    td = practice.title
+          - if category.practices.present?
+            .col-xs-12.col-md-4
+              .welcome-small-section
+                h3.welcome-small-section__title = category.name
+                table.welcome-table
+                  - category.practices.each do |practice|
+                    tr
+                      td = practice.title
