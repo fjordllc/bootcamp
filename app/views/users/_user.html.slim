@@ -15,6 +15,9 @@
             li.users-item-names__item
               .users-item-names__ful-name
                 = user.name
+              - if user.company.present? && user.company.logo.attached?
+                = link_to company_path(user.company) do
+                  = image_tag user.company.logo_url, class: "user-profile__company-logo"
             - if user.slack_account.present?
               li.users-item-names__item
                 .users-item-names__slack
