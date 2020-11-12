@@ -256,4 +256,24 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal "[bootcamp] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。", email.subject
     assert_match %r{イベント}, email.body.to_s
   end
+
+  test "following_report" do
+    report = reports(:report_23)
+    notification = notifications(:notification_following_report)
+    mailer = NotificationMailer.with(
+      report: report,
+      receiver: notification.user
+    ).following_report
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ["noreply@bootcamp.fjord.jp"], email.from
+    assert_equal ["muryou@fjord.jp"], email.to
+    assert_equal "[bootcamp] kensyuさんが日報【 フォローされた日報 】を書きました！", email.subject
+    assert_match %r{日報}, email.body.to_s
+  end
 end

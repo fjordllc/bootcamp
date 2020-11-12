@@ -109,3 +109,11 @@ notification_create_page:
   message: "komagataさんがDocsにBootcampの作業のページを投稿しました。"
   path: "/pages/<%= ActiveRecord::FixtureSet.identify(:page_4) %>"
   read: false
+
+notification_following_report:
+  kind: 13
+  user: muryou
+  sender: kensyu
+  message: kensyuさんが日報【 フォローされた日報 】を書きました！
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report_23) %>"
+  read: false
