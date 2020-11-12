@@ -2,7 +2,7 @@
 
 class MailNotificationController < ApplicationController
   def update
-    user = User.where(unsubscribe_email_token: params[:token]).first
+    user = User.find_by(unsubscribe_email_token: params[:token])
     user.mail_notification = false
     user.save!
     render :show
