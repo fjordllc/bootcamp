@@ -4,20 +4,21 @@ class UsersController < ApplicationController
   before_action :require_login, except: %i(new create)
   before_action :require_token, only: %i(new) if Rails.env.production?
   before_action :set_user, only: %w(show)
+  PAGER_NUMBER = 20
 
   def index
     if params[:target] == "followings"
       @target = "followings"
       followings = Following.where(follower_id: current_user.id).select("followed_id")
       @users = User
-        .page(params[:page]).per(20)
+        .page(params[:page]).per(PAGER_NUMBER)
         .includes(:company, :avatar_attachment, :course)
         .where(id: followings)
         .order(updated_at: :desc)
     else
       @target = params[:target] || "student_and_trainee"
       @users = User
-        .page(params[:page]).per(20)
+        .page(params[:page]).per(PAGER_NUMBER)
         .with_attached_avatar
         .preload(:course)
         .order(updated_at: :desc)
