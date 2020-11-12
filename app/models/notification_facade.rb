@@ -116,7 +116,7 @@ class NotificationFacade
       NotificationMailer.with(
         report: report,
         receiver: receiver
-      ).trainee_report.deliver_later(wait: 5)
+      ).following_report.deliver_later(wait: 5)
     end
   end
 

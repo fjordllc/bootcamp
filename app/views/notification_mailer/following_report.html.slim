@@ -1,0 +1,2 @@
+= render "notification_mailer_template", title: "#{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！", link_url: notification_url(@notification), link_text: "この日報へ" do
+  = simple_format(@report.description)
