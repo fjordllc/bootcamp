@@ -8,7 +8,7 @@ module LinkChecker
       extractor = LinkChecker::Extractor.new(<<~TEXT, "apt", "https://bootcamp.fjord.jp/1234")
         aptとはdebianでソフトウェアをネットワークからインストールするコマンドです。
 
-        [TEST](/test)
+        [TEST](/test)(/test2)
 
         [missing](test)
         
