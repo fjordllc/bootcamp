@@ -1,0 +1,4 @@
+- if user.tag_list.present?
+  = raw user.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
+- else
+  | タグは設定されていません。
