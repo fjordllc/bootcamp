@@ -20,6 +20,7 @@ class ProductCallbacks
         )
       end
       product.published_at = Time.current
+      product.save
       product.change_learning_status(:submitted)
     end
 
