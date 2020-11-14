@@ -4,15 +4,18 @@ require "net/http"
 
 module LinkChecker
   class Checker
-    def self.start
-      self.new.notify_missing_links
+    attr_reader :errors
+
+    def initialize
+      @errors = []
+      @error_links = []
     end
 
     def notify_missing_links
-      error_links = check
-      unless error_links.empty?
+      check
+      unless @error_links.empty?
         texts = ["リンク切れがありました。"]
-        error_links.map do |link|
+        @error_links.map do |link|
           texts << "- <#{link.url}|#{link.title}> in: <#{link.source_url}|#{link.source_title}>"
         end
 
@@ -24,18 +27,17 @@ module LinkChecker
 
     def check
       threads = []
-      error_links = []
       all_links.each do |link|
         threads << Thread.new do
           link.response = check_status(link.url)
           if !link.response
-            error_links << link
+            @error_links << link
           end
         end
       end
       threads.each(&:join)
 
-      error_links.sort { |a, b| b.source_url <=> a.source_url }
+      @error_links.sort { |a, b| b.source_url <=> a.source_url }
     end
 
     def all_links
@@ -81,7 +83,7 @@ module LinkChecker
         response = Net::HTTP.get_response(URI.parse(url))
         response.code.to_i < 402
       rescue StandardError => e
-        puts "#{url} - #{e.class}: #{e.message}"
+        @errors << "#{url} - #{e.class}: #{e.message}"
         false
       end
   end
