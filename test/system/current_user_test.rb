@@ -13,4 +13,11 @@ class CurrentUserTest < ApplicationSystemTestCase
     end
     assert_text 'ユーザー情報を更新しました。'
   end
+
+  test "tags" do
+    visit "/current_user/edit"
+    fill_in "user[tag_list]", with: "テスト1, テスト2"
+    click_on "更新する"
+    assert_text "テスト1,テスト2"
+  end
 end
