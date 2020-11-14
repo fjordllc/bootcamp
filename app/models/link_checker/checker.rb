@@ -80,7 +80,8 @@ module LinkChecker
       def check_status(url)
         response = Net::HTTP.get_response(URI.parse(url))
         response.code.to_i < 402
-      rescue StandardError => _
+      rescue StandardError => e
+        puts "#{url} - #{e.class}: #{e.message}"
         false
       end
   end
