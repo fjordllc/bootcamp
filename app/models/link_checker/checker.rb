@@ -26,16 +26,18 @@ module LinkChecker
     end
 
     def check
-      threads = []
-      all_links.each do |link|
-        threads << Thread.new do
+      locks = Queue.new
+      5.times { locks.push :lock }
+      all_links.map do |link|
+        Thread.new do
+          lock = locks.pop
           link.response = check_status(link.url)
           if !link.response
             @error_links << link
           end
+          locks.push lock
         end
-      end
-      threads.each(&:join)
+      end.each(&:join)
 
       @error_links.sort { |a, b| b.source_url <=> a.source_url }
     end
@@ -81,7 +83,9 @@ module LinkChecker
 
       def check_status(url)
         response = Net::HTTP.get_response(URI.parse(url))
-        response.code.to_i < 402
+        result = response.code.to_i < 402
+        @errors << "#{url} - status: #{response.code}" unless result
+        result
       rescue StandardError => e
         @errors << "#{url} - #{e.class}: #{e.message}"
         false
