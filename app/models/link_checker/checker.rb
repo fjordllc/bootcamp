@@ -82,8 +82,10 @@ module LinkChecker
       end
 
       def check_status(url)
-        response = Net::HTTP.get_response(URI.parse(url))
-        result = response.code.to_i < 402
+        uri = URI.parse(url)
+        sleep 3 if uri.host == "www.amazon.co.jp"
+        response = Net::HTTP.get_response(uri)
+        result = response.code.to_i < 404
         @errors << "#{url} - status: #{response.code}" unless result
         result
       rescue StandardError => e
