@@ -12,7 +12,7 @@ module LinkChecker
 
     def extract
       links = @markdown_text.scan(/\[(.*?)\]\((.+?)\)/)&.map do |match|
-        title, url = match[0], match[1]
+        title, url = match[0].strip, match[1].strip
         if url.match?(%r{^/})
           uri = URI(@source_url)
           uri.path = ""
