@@ -4,6 +4,10 @@ require "net/http"
 
 module LinkChecker
   class Checker
+    DELAY = 10
+    DENY_LIST = %w(
+      codepen.io
+    )
     attr_reader :errors
 
     def initialize
@@ -28,7 +32,9 @@ module LinkChecker
     def check
       locks = Queue.new
       5.times { locks.push :lock }
-      all_links.map do |link|
+      all_links.reject do |link|
+        DENY_LIST.include?(URI.parse(link.url).host)
+      end.map do |link|
         Thread.new do
           lock = locks.pop
           link.response = check_status(link.url)
@@ -82,8 +88,9 @@ module LinkChecker
       end
 
       def check_status(url)
+        url = URI.encode(url) # rubocop:disable Lint/UriEscapeUnescape
         uri = URI.parse(url)
-        sleep 3 if uri.host == "www.amazon.co.jp"
+        sleep DELAY if uri.host == "www.amazon.co.jp"
         response = Net::HTTP.get_response(uri)
         result = response.code.to_i < 404
         @errors << "#{url} - status: #{response.code}" unless result
