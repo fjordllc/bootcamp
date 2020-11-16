@@ -42,8 +42,9 @@ module LinkChecker
       end.map do |link|
         Thread.new do
           lock = locks.pop
-          link.response = check_status(link.url)
-          if !link.response
+          response = Client.request(link.url)
+          link.response = response
+          if !response || response > 403
             @error_links << link
           end
           locks.push lock
@@ -90,18 +91,6 @@ module LinkChecker
           links += extractor.extract
         end
         links
-      end
-
-      def check_status(url)
-        begin
-          url = URI.encode(url) # rubocop:disable Lint/UriEscapeUnescape
-          uri = URI.parse(url)
-        end
-
-        response = Net::HTTP.get_response(uri)
-        response.code.to_i < 404
-      rescue StandardError => _
-        false
       end
   end
 end
