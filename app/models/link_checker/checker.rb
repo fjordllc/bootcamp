@@ -4,10 +4,9 @@ require "net/http"
 
 module LinkChecker
   class Checker
-    DELAY = 10
-    AMAZON_HOST = "www.amazon.co.jp"
     DENY_LIST = %w(
       codepen.io
+      www.amazon.co.jp
     )
     attr_reader :errors
 
@@ -99,7 +98,6 @@ module LinkChecker
           uri = URI.parse(url)
         end
 
-        sleep DELAY if uri.host == AMAZON_HOST
         response = Net::HTTP.get_response(uri)
         response.code.to_i < 404
       rescue StandardError => _
