@@ -52,7 +52,7 @@ module LinkChecker
     test "#check" do
       checker = LinkChecker::Checker.new
       @link_hdd.response = false
-      @link_not_exist.response = false
+      @link_not_exist.response = 404
       expected = [@link_hdd, @link_not_exist]
       assert_equal Set.new(expected), Set.new(checker.check)
     end
