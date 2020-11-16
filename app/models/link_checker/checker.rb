@@ -34,7 +34,12 @@ module LinkChecker
       locks = Queue.new
       5.times { locks.push :lock }
       all_links.reject do |link|
-        DENY_LIST.include?(URI.parse(link.url).host)
+        begin
+          url = URI.encode(link.url) # rubocop:disable Lint/UriEscapeUnescape
+          uri = URI.parse(url)
+        end
+
+        !uri || DENY_LIST.include?(uri.host)
       end.map do |link|
         Thread.new do
           lock = locks.pop
@@ -93,9 +98,6 @@ module LinkChecker
           url = URI.encode(url) # rubocop:disable Lint/UriEscapeUnescape
           uri = URI.parse(url)
         end
-
-        return true if !uri
-        return true if DENY_LIST.include?(uri.host)
 
         sleep DELAY if uri.host == AMAZON_HOST
         response = Net::HTTP.get_response(uri)
