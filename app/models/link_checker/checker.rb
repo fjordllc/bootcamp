@@ -5,6 +5,7 @@ require "net/http"
 module LinkChecker
   class Checker
     DELAY = 10
+    AMAZON_HOST = "www.amazon.co.jp"
     DENY_LIST = %w(
       codepen.io
     )
@@ -88,14 +89,18 @@ module LinkChecker
       end
 
       def check_status(url)
-        uri = URI.parse(url)
-        sleep DELAY if uri.host == "www.amazon.co.jp"
+        begin
+          url = URI.encode(url) # rubocop:disable Lint/UriEscapeUnescape
+          uri = URI.parse(url)
+        end
+
+        return true if !uri
+        return true if DENY_LIST.include?(uri.host)
+
+        sleep DELAY if uri.host == AMAZON_HOST
         response = Net::HTTP.get_response(uri)
-        result = response.code.to_i < 404
-        @errors << "#{url} - status: #{response.code}" unless result
-        result
-      rescue StandardError => e
-        @errors << "#{url} - #{e.class}: #{e.message}"
+        response.code.to_i < 404
+      rescue StandardError => _
         false
       end
   end
