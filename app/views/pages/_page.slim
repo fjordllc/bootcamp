@@ -18,8 +18,48 @@
       h3.thread-list-item__sub-title
         = page.practice.title
     .thread-list-item-meta
-      time.thread-list-item-meta__datetime(datetime="#{page.updated_at.to_datetime}" pubdate="pubdate")
-        = l page.updated_at
+      .thread-list-item-meta__items
+        .thread-list-item-meta__item
+          - if page.wip?
+            .thread-list-item-meta__datetime
+              | Doc作成中 by
+              = render "users/icon",
+                user: page.user,
+                link_class: "thread-header__user-icon-link",
+                image_class: "thread-header__user-icon"
+              = link_to page.user, class: "thread-header__user-link" do
+                | #{page.user.login_name}
+          - elsif page.published_at.present?
+            time.thread-list-item-meta__datetime(datetime="#{page.published_at.to_datetime}")
+              span.thread-list-item-meta__datetime-label
+                | 公開日
+              | #{l page.published_at} by
+              = render "users/icon",
+                user: page.user,
+                link_class: "thread-header__user-icon-link",
+                image_class: "thread-header__user-icon"
+              = link_to page.user, class: "thread-header__user-link" do
+                | #{page.user.login_name}
+
+          time.thread-list-item-meta__datetime(datetime="#{page.updated_at.to_datetime}")
+            span.thread-list-item-meta__datetime-label
+              | 最終更新日
+            | #{l page.updated_at} by
+            - if page.last_updated_user.present?
+              = render "users/icon",
+                user: page.last_updated_user,
+                link_class: "thread-header__user-icon-link",
+                image_class: "thread-header__user-icon"
+              = link_to page.last_updated_user, class: "thread-header__user-link" do
+                | #{page.last_updated_user.login_name}
+            - else
+              = render "users/icon",
+                user: page.user,
+                link_class: "thread-header__user-icon-link",
+                image_class: "thread-header__user-icon"
+              = link_to page.user, class: "thread-header__user-link" do
+                | #{page.user.login_name}
+
       - if page.comments.any?
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-label
