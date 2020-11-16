@@ -88,7 +88,6 @@ module LinkChecker
       end
 
       def check_status(url)
-        url = URI.encode(url) # rubocop:disable Lint/UriEscapeUnescape
         uri = URI.parse(url)
         sleep DELAY if uri.host == "www.amazon.co.jp"
         response = Net::HTTP.get_response(uri)
