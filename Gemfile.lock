@@ -312,7 +312,6 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.2.2)
     regexp_parser (1.7.1)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -497,7 +496,6 @@ DEPENDENCIES
   rails-i18n
   rails_autolink
   ransack
-  redis
   rollbar
   rqrcode
   rubocop
