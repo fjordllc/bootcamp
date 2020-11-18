@@ -1,4 +1,2 @@
 - if user.tag_list.present?
-  = raw user.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
-- else
-  | タグは設定されていません。
+  #js-user-tags(data-tags-initial-value="#{user.tag_list.join(",")}" data-tags-param-name="user[tag_list]" data-user-id="#{user.id}" editable="false")
