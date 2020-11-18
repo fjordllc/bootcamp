@@ -1,10 +1,16 @@
-.o-lp-content__inner
+.m-lp-content__inner
   +media-breakpoint-up(md)
     +padding(vertical, vr(16))
   +media-breakpoint-down(sm)
     +padding(vertical, vr(8))
+  nav.m-lp-content &
+    +media-breakpoint-up(md)
+      +padding(vertical, vr(6))
+    +media-breakpoint-down(sm)
+      +padding(vertical, vr(3))
 
-.o-lp-content__header
+
+.m-lp-content__header
   font-size: fz(8)
   +media-breakpoint-up(md)
     margin-bottom: vr(13)
@@ -14,29 +20,29 @@
     font-size: .33em
     margin-top: 1em
 
-.o-lp-content__body
-  .o-lp-content__body + &
+.m-lp-content__body
+  .m-lp-content__body + &
     margin-top: vr(12)
 
-.o-lp-content__title
+.m-lp-content__title
   +media-breakpoint-up(md)
     +text-block(fz(8) 1.3, 700 center)
   +media-breakpoint-down(sm)
     +text-block(fz(7) 1.3, 700 center)
 
-.o-lp-content__sub-title
+.m-lp-content__sub-title
   +media-breakpoint-up(md)
     +text-block(fz(5) 1.4 vr(4), 700 center)
   +media-breakpoint-down(sm)
     +text-block(fz(4) 1.4 vr(3), 700 center)
 
-.o-lp-content__row
-  .o-lp-content__row + &
+.m-lp-content__row
+  .m-lp-content__row + &
     margin-top: vr(12)
 
-.o-lp-content__main-image-container
+.m-lp-content__main-image-container
   +size(100% 35rem)
 
-.o-lp-content__main-image
+.m-lp-content__main-image
   +size(100%)
   object-fit: cover
