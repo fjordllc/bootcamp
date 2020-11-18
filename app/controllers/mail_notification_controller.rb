@@ -11,6 +11,6 @@ class MailNotificationController < ApplicationController
 
     user.mail_notification = false
     user.save!
-    render :show
+    redirect_to root_path, notice: "メール配信を停止しました。"
   end
 end
