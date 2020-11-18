@@ -18,27 +18,28 @@ section.o-static-page
             | 学習内容
 
 .t-lp__contents
-  .o-lp-content
+  .m-lp-content
     .l-container
-      .o-lp-content__inner
-        .o-lp-content__header
-          h1.o-lp-content__title
+      .m-lp-content__inner
+        .m-lp-content__header
+          h1.m-lp-content__title
             | Ruby on Rails を使って
             br
             | 自作 Web アプリを作るのがゴール
-        .o-lp-content__body
+        .m-lp-content__body
           .l-grids
             - @categories.each do |category|
               - if category.practices.present?
                 .l-grids__item.md-up:u-col-4.sm-down:u-col-12
-                  .m-card
-                    .m-card__header
-                      h2.m-card__title
-                        = category.name
-                    hr.a-hr-border
-                    .m-card__body
-                      .m-list
-                        ul.m-list__items
-                          - category.practices.each do |practice|
-                            li.m-list__item
-                              = practice.title
+                  .o-lp-practices
+                    .m-card
+                      .m-card__header
+                        h2.m-card__title
+                          = category.name
+                      hr.a-hr-border
+                      .m-card__body
+                        .m-list
+                          ul.m-list__items
+                            - category.practices.each do |practice|
+                              li.m-list__item
+                                = practice.title

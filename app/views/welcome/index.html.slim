@@ -1,15 +1,14 @@
-- content_for :extra_body_classes, 'is-welcome-index'
+- content_for :extra_body_classes, "is-welcome-index has-main-visual"
 - content_for :head_last do
   = javascript_include_tag 'https://sdk.form.run/js/v2/formrun.js'
 
 = render "/lp/welcome/main_visual"
-.t-lp__contents
   = render 'welcome/campaign' if Campaign.today_is_campaign?
-  .o-lp-content
+  .m-lp-content
     .l-container
-      .o-lp-content__inner
-        .o-lp-content__body
-          .o-lp-content__row
+      .m-lp-content__inner
+        .m-lp-content__body
+          .m-lp-content__row
             .l-grids
               .l-grids__item.u-col-5.md-down:u-col-12
                 .o-media-summary
@@ -28,7 +27,7 @@
                                 p
                                   | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
               .l-grids__item.u-col-7.md-down:u-col-12
-          .o-lp-content__row
+          .m-lp-content__row
             .l-grids
               .l-grids__item.u-col-7.md-down:u-col-12
               .l-grids__item.u-col-5.md-down:u-col-12
@@ -47,7 +46,7 @@
                               .a-short-text
                                 p
                                   | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
-          .o-lp-content__row
+          .m-lp-content__row
             .l-grids
               .l-grids__item.u-col-5.md-down:u-col-12
                 .o-media-summary
@@ -66,8 +65,11 @@
                                 p
                                   | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
               .l-grids__item.u-col-7.md-down:u-col-12
-        .o-lp-content__body
-          = render "/lp/features"
+  hr.a-hr-border
+  .m-lp-content
+    .m-lp-content__inner
+      .m-lp-content__body
+        = render "/lp/features"
   hr.a-hr-border
   = render "/lp/welcome/mentors"
   hr.a-hr-border
@@ -83,30 +85,30 @@
   hr.a-hr-border
   = render "/lp/welcome/employed_companies"
   hr.a-hr-border
-  .o-lp-content
+  .m-lp-content
     .l-container
-      .o-lp-content__inner
-        .o-lp-content__header
-          h2.o-lp-content__title
+      .m-lp-content__inner
+        .m-lp-content__header
+          h2.m-lp-content__title
             | 企業研修代行
-          h3.o-lp-content__sub-title
+          h3.m-lp-content__sub-title
             | 卒業生が就職した企業の一部を紹介
-        .o-lp-content__body
-          .o-lp-content__row
+        .m-lp-content__body
+          .m-lp-content__row
             .l-grids
               .l-grids__item.u-col-6
                 | ああああああ
               .l-grids__item.u-col-6
                 | ああああああ
   hr.a-hr-border
-  .o-lp-content
+  .m-lp-content
     .l-container
-      .o-lp-content__inner
-        .o-lp-content__header
-          h2.o-lp-content__title
+      .m-lp-content__inner
+        .m-lp-content__header
+          h2.m-lp-content__title
             | 卒業生の声
-        .o-lp-content__body
-          .o-lp-content__row
+        .m-lp-content__body
+          .m-lp-content__row
             .l-container
               .o-lp-comments
                 .l-grids

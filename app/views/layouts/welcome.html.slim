@@ -26,17 +26,8 @@ html.is-application lang='ja'
     = render "google_tag_manager_body"
     .t-lp
       = render "/lp/lp_header"
+      = render "flash"
       = yield
+      = render "/lp/lp_main_actions"
       = render "/lp/lp_footer"
     = any_login_here if defined?(AnyLogin)
-
-  //
-    body#body class="#{body_class}"
-      .wrapper
-        = render "flash"
-        main.main
-          = render "welcome/welcome_header"
-          .welcome-page
-            = yield
-        = render "welcome/form"
-        = render "welcome/welcome_footer"

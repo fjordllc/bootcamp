@@ -1,53 +1,67 @@
 - title '特定商取引法に基づく表記'
 
-header.welcome-page-header
-  .container.is-xl
-    h1.welcome-page-header__title
-      = image_tag 'law-page-title.svg', alt: '特定商取引法に基づく表記', class: 'welcome-page-header__title-image'
+section.o-static-page
+  header.o-static-page-header
+    .o-static-page-header__main
+      nav.o-basic-breadcrumbs
+        .l-container.is-mxw-100pc
+          ol.o-basic-breadcrumbs__items
+            li.o-basic-breadcrumbs__item
+              = link_to "", class: "o-basic-breadcrumbs__item-link" do
+                | Home
+            li.o-basic-breadcrumbs__item
+              = link_to "", class: "o-basic-breadcrumbs__item-link" do
+                | 特定商取引法に基づく表記
+      .l-container
+        .o-static-page-header__inner
+          h1.o-static-page-header__title
+            = title
 
-.welcome-sections
-  .welcome-section
-    .container.is-md
-      .tos.is-long-text
-        p 「特定商取引に関する法律」第11条（通信販売についての広告）に基づき以下に明示いたします。
-        table
-          tr
-            th 事業者の名称
-            td 株式会社フィヨルド
-          tr
-            th 運営責任者
-            td 駒形 真幸
-          tr
-            th 住所
-            td 東京都世田谷区松原２丁目３４−１１ ベルヴィカワダ 201号室
-          tr
-            th 電話番号
-            td
-              | 03-6300-0270
-              br
-              | ※この電話番号からのご利用方法お問い合わせや営業はお受けできません。
-          tr
-            th E-mail
-            td info@fjord.jp
-          tr
-            th  役務の提供の時期
-            td
-              | 申込み後すぐにご利用可能です。詳しくは
-              = link_to '料金ページ', pricing_path
-              | をご確認ください。
-          tr
-            th 支払いの時期及び方法
-            td お試し期間（申込日の翌々日まで）終了日の翌日（本利用開始日）から１ヶ月間毎に利用期間が延長されます。利用期間最終日の翌日（本利用開始日の翌月応当日）が当該期間分の料金支払日となり、クレジットカードによるお支払いとなります。詳しくは料金ページの「料金引き落としのタイミング」をご確認ください。クレジットカード会社の引き落としの時期については、各クレジットカード会社の定めをご確認ください。
-          tr
-            th 商品代金以外の必要料金
-            td サービス利用のために必要な通信回線、通信機器、コンピュータ、ソフトウェアなどはすべてお客様の費用において準備してください。
-          tr
-            th 返品について
-            td 商品の性質上、お客様都合による返品はご容赦下さい。
+.t-lp__contents
+  .m-lp-content
+    .l-container.is-lg
+      .m-lp-content__inner
+        .m-lp-content__body
+          .a-long-text
+            p 「特定商取引に関する法律」第11条（通信販売についての広告）に基づき以下に明示いたします。
+            table
+              tr
+                th 事業者の名称
+                td 株式会社フィヨルド
+              tr
+                th 運営責任者
+                td 駒形 真幸
+              tr
+                th 住所
+                td 東京都世田谷区松原２丁目３４−１１ ベルヴィカワダ 201号室
+              tr
+                th 電話番号
+                td
+                  | 03-6300-0270
+                  br
+                  | ※この電話番号からのご利用方法お問い合わせや営業はお受けできません。
+              tr
+                th E-mail
+                td info@fjord.jp
+              tr
+                th  役務の提供の時期
+                td
+                  | 申込み後すぐにご利用可能です。詳しくは
+                  = link_to '料金ページ', pricing_path
+                  | をご確認ください。
+              tr
+                th 支払いの時期及び方法
+                td お試し期間（申込日の翌々日まで）終了日の翌日（本利用開始日）から１ヶ月間毎に利用期間が延長されます。利用期間最終日の翌日（本利用開始日の翌月応当日）が当該期間分の料金支払日となり、クレジットカードによるお支払いとなります。詳しくは料金ページの「料金引き落としのタイミング」をご確認ください。クレジットカード会社の引き落としの時期については、各クレジットカード会社の定めをご確認ください。
+              tr
+                th 商品代金以外の必要料金
+                td サービス利用のために必要な通信回線、通信機器、コンピュータ、ソフトウェアなどはすべてお客様の費用において準備してください。
+              tr
+                th 返品について
+                td 商品の性質上、お客様都合による返品はご容赦下さい。
 
-        h2 解約条件
-        ul
-          li サービス利用中はいつでも解約することができます。
-          li 解約は個人の設定ページから行うことができます。
-          li 解約いただくとその時点以降のサービス提供は行わず、解約した月の翌月以降の利用料請求は行いません。
-          li また、利用料金の請求後にお支払いが1ヶ月以上滞った場合には自動的に解約されたものとして扱います。
+            h2 解約条件
+            ul
+              li サービス利用中はいつでも解約することができます。
+              li 解約は個人の設定ページから行うことができます。
+              li 解約いただくとその時点以降のサービス提供は行わず、解約した月の翌月以降の利用料請求は行いません。
+              li また、利用料金の請求後にお支払いが1ヶ月以上滞った場合には自動的に解約されたものとして扱います。

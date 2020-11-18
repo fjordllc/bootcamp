@@ -1,12 +1,25 @@
 - title '利用規約'
 
-header.welcome-page-header
-  .container.is-xl
-    h1.welcome-page-header__title
-      = image_tag('tos-page-title.svg', alt: '利用規約', class: 'welcome-page-header__title-image')
+header.o-static-page-header
+  .o-static-page-header__main
+    nav.o-basic-breadcrumbs
+      .l-container.is-mxw-100pc
+        ol.o-basic-breadcrumbs__items
+          li.o-basic-breadcrumbs__item
+            = link_to "", class: "o-basic-breadcrumbs__item-link" do
+              | Home
+          li.o-basic-breadcrumbs__item
+            = link_to "", class: "o-basic-breadcrumbs__item-link" do
+              | 利用規約
+    .l-container
+      .o-static-page-header__inner
+        h1.o-static-page-header__title
+          = title
 
-.welcome-sections
-  .welcome-section
-    .container.is-md
-      .tos.is-long-text
-        = render 'welcome/tos_text'
+.t-lp__contents
+  .m-lp-content
+    .l-container.is-lg
+      .m-lp-content__inner
+        .m-lp-content__body
+          .a-long-text
+            = render "welcome/tos_text"

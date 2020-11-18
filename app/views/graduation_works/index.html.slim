@@ -1,17 +1,27 @@
 - content_for :extra_body_classes, "welcome"
 - title "卒業制作"
 
-.welcome-page-header
-  .container
-    h1.welcome-page-header__title
-      = image_tag "",
-        alt: "卒業制作",
-        class: "welcome-page-header__title-image"
+header.o-static-page-header
+  .o-static-page-header__main
+    nav.o-basic-breadcrumbs
+      .l-container.is-mxw-100pc
+        ol.o-basic-breadcrumbs__items
+          li.o-basic-breadcrumbs__item
+            = link_to "", class: "o-basic-breadcrumbs__item-link" do
+              | Home
+          li.o-basic-breadcrumbs__item
+            = link_to "", class: "o-basic-breadcrumbs__item-link" do
+              | 卒業制作
+    .l-container
+      .o-static-page-header__inner
+        h1.o-static-page-header__title
+          = title
 
-.page-body
-  .container
-    .works
-      .row
-        = render partial: "graduation_works/graduation_work", collection: @graduation_works, as: :graduation_work
+.t-lp__contents
+  .m-lp-content
+    .l-container.is-lg
+      .m-lp-content__inner
+        .m-lp-content__body
+          = render partial: "graduation_works/graduation_work", collection: @graduation_works, as: :graduation_work
 
-    = paginate @graduation_works, position: "bottom"
+      = paginate @graduation_works, position: "bottom"
