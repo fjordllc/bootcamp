@@ -38,12 +38,15 @@ namespace :bootcamp do
     task :cloudbuild do
       puts "== START Cloud Build Task =="
       puts "#{User.count}件"
-      User.find_each do |user|
-        if user.unsubscribe_email_token.nil?
-          user.unsubscribe_email_token = SecureRandom.urlsafe_base64
-          user.save!
+      User.transaction do
+        User.find_each do |user|
+          if user.unsubscribe_email_token.nil?
+            user.unsubscribe_email_token = SecureRandom.urlsafe_base64
+            user.save!
+          end
         end
       end
+
       puts "== END   Cloud Build Task =="
       pages = Page.where(published_at: nil, wip: false)
       pages.each { |page| page.update(published_at: page.updated_at) }
