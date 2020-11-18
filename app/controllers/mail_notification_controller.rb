@@ -5,7 +5,7 @@ class MailNotificationController < ApplicationController
     user = User.find_by(unsubscribe_email_token: params[:token])
 
     if user.blank?
-      not_authenticated
+      redirect_to root_path, notice: "メール配信停止にはTOKENが必要です。"
       return
     end
 
