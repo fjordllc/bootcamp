@@ -70,3 +70,13 @@ learning_13:
   user: kananashi
   practice: practice_3
   status: "started"
+
+learning_14:
+  user: hajime
+  practice: practice_27
+  status: "complete"
+
+learning_15:
+  user: hajime
+  practice: practice_48
+  status: "complete"
