@@ -16,8 +16,9 @@ class CurrentUserTest < ApplicationSystemTestCase
 
   test "tags" do
     visit "/current_user/edit"
-    fill_in "user[tag_list]", with: "テスト1, テスト2"
+    tag_input = find ".ti-new-tag-input"
+    tag_input.set "タグ1"
     click_on "更新する"
-    assert_text "テスト1,テスト2"
+    assert_text "タグ1"
   end
 end
