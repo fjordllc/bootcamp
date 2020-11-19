@@ -2,6 +2,8 @@
 
 class ReportCallbacks
   def after_create(report)
+    create_author_watch(report)
+
     if report.user.reports.count == 1 && !report.wip?
       send_first_report_notification(report)
     end
@@ -35,6 +37,10 @@ class ReportCallbacks
   end
 
   private
+    def create_author_watch(report)
+      Watch.create!(user: report.user, watchable: report)
+    end
+
     def send_first_report_notification(report)
       receiver_list = User.where(retired_on: nil)
       receiver_list.each do |receiver|

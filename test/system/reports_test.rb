@@ -38,6 +38,7 @@ class ReportsTest < ApplicationSystemTestCase
     click_button "提出"
     assert_text "日報を保存しました。"
     assert_text Time.current.strftime("%Y年%m月%d日")
+    assert_text "Watch中"
   end
 
   test "create and update learning times in a report" do
