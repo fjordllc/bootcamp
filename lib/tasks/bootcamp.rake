@@ -38,6 +38,15 @@ namespace :bootcamp do
     task :cloudbuild do
       puts "== START Cloud Build Task =="
       puts "#{User.count}件"
+      Report.includes(:user, :watches).each do |report|
+        Watch.find_or_create_by!(user: report.user, watchable: report)
+      end
+      Product.includes(:user, :watches).each do |product|
+        Watch.find_or_create_by!(user: product.user, watchable: product)
+      end
+      Event.includes(:user, :watches).each do |event|
+        Watch.find_or_create_by!(user: event.user, watchable: event)
+      end
       puts "== END   Cloud Build Task =="
       pages = Page.where(published_at: nil, wip: false)
       pages.each { |page| page.update(published_at: page.updated_at) }
