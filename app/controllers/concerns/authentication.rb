@@ -58,12 +58,28 @@ module Authentication
     end
   end
 
-  def require_login_with_token
-    redirect_to root_path, alert: "ログインしてください。" if !logged_in? && !login_from_jwt
-  end
-
   protected
     def not_authenticated
       redirect_to root_path, alert: "ログインしてください"
+    end
+
+    def require_login_for_api
+      login_from_jwt if !logged_in?
+      head :unauthorized unless logged_in?
+    end
+
+    def require_admin_login_for_api
+      login_from_jwt if !logged_in?
+      head :unauthorized unless admin_login?
+    end
+
+    def require_mentor_login_for_api
+      login_from_jwt if !logged_in?
+      head :unauthorized unless mentor_login?
+    end
+
+    def require_staff_login_for_api
+      login_from_jwt if !logged_in?
+      head :unauthorized unless staff_login?
     end
 end

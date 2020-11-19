@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::MemosController < API::BaseController
-  before_action :admin_login?
+  before_action :require_admin_login_for_api
   before_action :set_memo, only: [:update, :destroy]
 
   def create

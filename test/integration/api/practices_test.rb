@@ -1,0 +1,40 @@
+# frozen_string_literal: true
+
+require "test_helper"
+
+class API::PracticesTest < ActionDispatch::IntegrationTest
+  fixtures :practices
+
+  test "GET /api/practices/1234.json" do
+    get api_practice_path(practices(:practice_1).id, format: :json)
+    assert_response :unauthorized
+
+    token = create_token("kimura", "testtest")
+    get api_practice_path(practices(:practice_1).id, format: :json),
+      headers: { "Authorization" => "Bearer #{token}" }
+    assert_response :unauthorized
+
+    token = create_token("yamada", "testtest")
+    get api_practice_path(practices(:practice_1).id, format: :json),
+      headers: { "Authorization" => "Bearer #{token}" }
+    assert_response :ok
+  end
+
+  test "PATCH /api/practices/1234.json" do
+    patch api_practice_path(practices(:practice_1).id, format: :json),
+      params: { practice: { memo: "test" } }
+    assert_response :unauthorized
+
+    token = create_token("kimura", "testtest")
+    patch api_practice_path(practices(:practice_1).id, format: :json),
+      params: { practice: { memo: "test" } },
+      headers: { "Authorization" => "Bearer #{token}" }
+    assert_response :unauthorized
+
+    token = create_token("yamada", "testtest")
+    patch api_practice_path(practices(:practice_1).id, format: :json),
+      params: { practice: { memo: "test" } },
+      headers: { "Authorization" => "Bearer #{token}" }
+    assert_response :ok
+  end
+end
