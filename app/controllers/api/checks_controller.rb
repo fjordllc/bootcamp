@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::ChecksController < API::BaseController
-  before_action :require_staff_login, only: %i(create destroy)
+  before_action :require_staff_login_for_api, only: %i(create destroy)
 
   def index
     @checks = Check.where(
@@ -17,6 +17,7 @@ class API::ChecksController < API::BaseController
 
     @check.save!
     notify_to_slack(@check)
+    head :created
   end
 
   def destroy
