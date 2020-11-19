@@ -2,6 +2,8 @@
 
 class ProductCallbacks
   def after_create(product)
+    create_author_watch(product)
+
     Cache.delete_unchecked_product_count
     Cache.delete_not_responded_product_count
   end
@@ -35,6 +37,10 @@ class ProductCallbacks
   end
 
   private
+    def create_author_watch(product)
+      Watch.create!(user: product.user, watchable: product)
+    end
+
     def send_notification(product:, receivers:, message:)
       receivers.each do |receiver|
         NotificationFacade.submitted(product, receiver, message)
