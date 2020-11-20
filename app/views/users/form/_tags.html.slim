@@ -1,6 +1,15 @@
 .form-item
   = f.label :tag_list, class: "a-label"
-  #js-user-tags(data-tags-initial-value="#{user.tag_list.join(",")}" data-tags-param-name="user[tag_list]" data-user-id="#{user.id}" editable="true")
+  #js-user-tags(
+    data-tags-initial-value="#{user.tag_list.join(",")}"
+    data-tags-param-name="user[tag_list]"
+    data-tags-input-id="user_tag_list"
+    data-tags-input="on"
+    data-tags-editable="false"
+    data-user-id="#{user.id}"
+    data-current-user-id="#{current_user.id}"
+    data-admin-login="#{current_user.mentor? || current_user.admin?}"
+  )
   .a-form-help
-    p 
+    p
       | あなたの趣味や経歴、立場などをタグとして設定してみましょう。自分と共通のタグを持つユーザーを探しやすくなります。入力してエンターキーを押すとタグになります。
