@@ -1,2 +1,11 @@
 - if user.tag_list.present?
-  #js-user-tags(data-tags-initial-value="#{user.tag_list.join(",")}" data-tags-param-name="user[tag_list]" data-user-id="#{user.id}" editable="false")
+  #js-user-tags(
+    data-tags-initial-value="#{user.tag_list.join(",")}"
+    data-tags-param-name="user[tag_list]"
+    data-tags-input-id="user_tag_list"
+    data-tags-input="off"
+    data-tags-editable="false"
+    data-user-id="#{user.id}"
+    data-current-user-id="#{current_user.id}"
+    data-admin-login="#{current_user.mentor? || current_user.admin?}"
+  )
