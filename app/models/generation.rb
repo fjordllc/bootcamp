@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Generation
+  attr_reader :number
+
   def initialize(number)
     @number = number
   end
@@ -13,8 +15,12 @@ class Generation
     Date.new(year, month, 1)
   end
 
-  def users
+  def end_date
     next_generation = Generation.new(@number + 1)
-    User.with_attached_avatar.same_generations(start_date, next_generation.start_date)
+    next_generation.start_date - 1
+  end
+
+  def users
+    User.with_attached_avatar.same_generations(start_date, end_date)
   end
 end
