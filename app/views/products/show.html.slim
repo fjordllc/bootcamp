@@ -97,4 +97,6 @@ header.page-header
 
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-5 col-xs-12 is-hidden-sm-down' : ''}")
         - if current_user.mentor? || current_user.admin?
+          - @reports.each do |report|
+            = render partial: "report", locals: { report: report }
           #js-mentor-memo(data-practice-id="#{@product.practice_id}")
