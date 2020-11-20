@@ -1,0 +1,8 @@
+- if generation.users.present?
+  div.generation-rows
+    = link_to generation_path(id: generation.number), class: "generation-row-link"
+      | #{generation.number}期生
+    div
+      | #{l generation.start_date} ~ #{l generation.end_date}
+    div.generation-user-avatar
+      = render partial: "generations/user", collection: generation.users, as: :user
