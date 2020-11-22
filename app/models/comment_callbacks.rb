@@ -2,7 +2,7 @@
 
 class CommentCallbacks
   def after_create(comment)
-    if [Report, Product, Event].include?(comment.commentable.class)
+    if comment.commentable.class.include?(Watchable)
       create_watch(comment)
       notify_to_watching_user(comment)
     else
