@@ -24,7 +24,11 @@ class PagesController < ApplicationController
 
   def create
     @page = Page.new(page_params)
-    @page.user = current_user
+    if @page.user
+      @page.last_updated_user = current_user
+    else
+      @page.user = current_user
+    end
     set_wip
     if @page.save
       redirect_to @page, notice: notice_message(@page, :create)
@@ -54,7 +58,11 @@ class PagesController < ApplicationController
     end
 
     def page_params
-      params.require(:page).permit(:title, :body, :tag_list)
+      if admin_login?
+        params.require(:page).permit(:title, :body, :tag_list, :user_id)
+      else
+        params.require(:page).permit(:title, :body, :tag_list)
+      end
     end
 
     def set_wip

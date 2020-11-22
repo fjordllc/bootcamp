@@ -133,6 +133,7 @@ ja:
         finished_at: 終了時間
       page:
         title: タイトル
+        user: ユーザー
         body: 本文
         tag_list: タグ
       question:
