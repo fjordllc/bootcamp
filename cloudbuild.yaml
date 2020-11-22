@@ -45,6 +45,7 @@ steps:
       - $_SERVICE_NAME
       - '--platform=managed'
       - '--region=asia-northeast1'
+      - '--clear-vpc-connector'
       - '--quiet'
       - '--image=asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
       - '--allow-unauthenticated'
