@@ -41,6 +41,8 @@ namespace :bootcamp do
       puts "== END   Cloud Build Task =="
       pages = Page.where(published_at: nil, wip: false)
       pages.each { |page| page.update(published_at: page.updated_at) }
+
+      Product.where(published_at: nil, wip: false).update_all("published_at = updated_at")
     end
   end
 

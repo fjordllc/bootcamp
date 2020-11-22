@@ -13,7 +13,7 @@ class ProductsController < ApplicationController
         { comments: { user: :avatar_attachment } },
         { user: [{ avatar_attachment: :blob }, :company] },
         { checks: { user: [:company] } })
-      .order(created_at: :desc)
+      .order(published_at: :desc)
       .page(params[:page])
   end
 
