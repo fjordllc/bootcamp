@@ -104,4 +104,43 @@ class PagesTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_text "追加タグ"
   end
+
+  test "administrator can change doc user" do
+    admin = users(:machida)
+    login_user admin.login_name, "testtest"
+    assert admin.admin?
+
+    page_1 = pages(:page_1)
+    visit "/pages/#{page_1.id}/edit"
+    assert_equal "komagata", page_1.user.login_name
+
+    within(".form") do
+      find("#select2-page_user_id-container").click
+      select("kimura", from: "page[user_id]")
+    end
+
+    click_on "保存"
+    assert find(".thread__author-icon")[:title].start_with?("kimura")
+    assert_equal admin.login_name, find(".thread-header__user-link").text
+  end
+
+  test "non-administrator cannot change doc user" do
+    non_admin = users(:kimura)
+    login_user non_admin.login_name, "testtest"
+    assert_not non_admin.admin?
+
+    visit "/pages/#{pages(:page_1).id}/edit"
+    assert_no_selector ".select-users"
+
+    visit "/pages/new"
+    assert_no_selector ".select-users"
+    within(".form") do
+      fill_in("page[title]", with: "Created by non-admin")
+      fill_in("page[body]", with: "非管理者によって作られたDocです。It's created by non-admin.")
+    end
+    click_on "保存"
+
+    click_on "内容変更"
+    assert_no_selector ".select-users"
+  end
 end
