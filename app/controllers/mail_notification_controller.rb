@@ -6,11 +6,10 @@ class MailNotificationController < ApplicationController
 
     if user.blank?
       redirect_to root_path, notice: "メール配信停止にはTOKENが必要です。"
-      return
+    else
+      user.mail_notification = false
+      user.save!
+      redirect_to root_path, notice: "メール配信を停止しました。"
     end
-
-    user.mail_notification = false
-    user.save!
-    redirect_to root_path, notice: "メール配信を停止しました。"
   end
 end
