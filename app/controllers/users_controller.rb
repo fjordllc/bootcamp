@@ -21,12 +21,18 @@ class UsersController < ApplicationController
                .where(id: followings)
                .order(updated_at: :desc)
     else
+      if params[:tag]
+        @target = "unretired"
+      else
+        @target = params[:target] || "student_and_trainee"
+      end
       @users = User
                .page(params[:page]).per(PAGER_NUMBER)
                .with_attached_avatar
                .preload(:course)
                .order(updated_at: :desc)
                .users_role(@target)
+      @users = @users.tagged_with(params[:tag]) if params[:tag]
     end
   end
 

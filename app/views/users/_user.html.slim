@@ -34,6 +34,8 @@
       .users-item__body
         .users-item__description.a-short-text
           = simple_format h truncate user.description, length: 200
+        .users-item__tags
+          = render 'users/tags', user: user
       = render 'users/practices/completed_practices_progress', user: user
       footer.card-footer
         .card-footer-actions
