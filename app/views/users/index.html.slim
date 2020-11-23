@@ -25,7 +25,10 @@ main.page-main
     .container
       .page-main-header__inner
         h1.page-main-header__title
-          | #{t("target.#{@target}")}（#{@users.total_count}）
+          - if params[:tag]
+            | 「#{params[:tag]}」のユーザー（#{@users.total_count}）
+          - else
+            | #{t("target.#{@target}")}（#{@users.total_count}）
   .page-body
     = paginate @users, position: 'top'
     .container

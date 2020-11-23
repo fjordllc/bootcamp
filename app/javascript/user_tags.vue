@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     editable() {
-      return this.tagsEditable && this.userId === this.currentUserId || this.adminLogin === "true"
+      return this.tagsEditable && (this.userId === this.currentUserId || this.adminLogin === "true")
     }
   }
 }
@@ -68,5 +68,10 @@ export default {
 <style scoped>
   .vue-tags-input .ti-autocomplete {
     z-index: 2;
+  }
+
+  .tag-links {
+    border-top: none;
+    padding: 0
   }
 </style>
