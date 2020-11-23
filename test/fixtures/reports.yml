@@ -182,3 +182,17 @@ report_23:
   description:
     フォローされました。
   reported_on: "2020-11-10"
+
+report_24:
+  user: daimyo
+  title: 検索用の日報
+  description:
+    ユーザーネームで検索できるよ
+  reported_on: "2020-11-20"
+
+report_25:
+  user: hatsuno
+  title: 検索用の日報
+  description:
+    ユーザーネームで検索できるよ
+  reported_on: "2020-11-20"

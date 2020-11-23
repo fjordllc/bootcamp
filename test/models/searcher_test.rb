@@ -198,4 +198,10 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, comments(:comment_14))
     assert_equal(6, result.size)
   end
+
+  test "returns only kimuras report when user param" do
+    result = Searcher.search("ユーザーネームで検索できるよ user:daimyo")
+    assert_includes(result, reports(:report_24))
+    assert_not_includes(result, reports(:report_25))
+  end
 end
