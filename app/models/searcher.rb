@@ -16,13 +16,13 @@ class Searcher
     def search(word, document_type: :all)
       case document_type
       when :all
-        AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by { |result| result.created_at }.reverse
+        AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
       when commentable?
-        [document_type, :comments].flat_map { |type| result_for(type, word, commentable_type: model_name(document_type)) }.sort_by { |result| result.created_at }.reverse
+        [document_type, :comments].flat_map { |type| result_for(type, word, commentable_type: model_name(document_type)) }.sort_by(&:updated_at).reverse
       when :questions
-        [document_type, :answers].flat_map { |type| result_for(type, word) }
+        [document_type, :answers].flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
       else
-        result_for(document_type, word).sort_by { |result| result.created_at }.reverse
+        result_for(document_type, word).sort_by(&:updated_at).reverse
       end
     end
 

@@ -78,14 +78,14 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_text "該当プラクティスを完了するまで他の人の提出物へのコメントは見れません。"
   end
 
-  test "show user name and created time" do
+  test "show user name and updated time" do
     within("form[name=search]") do
       select "日報"
       fill_in "word", with: "テストの日報"
     end
     find("#test-search").click
     assert_text "yamada"
-    assert_css ".thread-list-item-meta__created-at"
+    assert_css ".thread-list-item-meta__updated-at"
     assert_no_text "テストの回答"
   end
 end
