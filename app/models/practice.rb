@@ -127,7 +127,7 @@ class Practice < ApplicationRecord
 
   def save_statistic(practice_id, average, median)
     learning_minute_statistic = LearningMinuteStatistic.find_or_initialize_by(practice_id: practice_id)
-    learning_minute_statistic.update_attributes(
+    learning_minute_statistic.update(
       average: average,
       median: median
     )
