@@ -4,9 +4,9 @@ require "net/http"
 
 module LinkChecker
   class Checker
-    DELAY = 10
     DENY_LIST = %w(
       codepen.io
+      www.amazon.co.jp
     )
     attr_reader :errors
 
@@ -33,12 +33,18 @@ module LinkChecker
       locks = Queue.new
       5.times { locks.push :lock }
       all_links.reject do |link|
-        DENY_LIST.include?(URI.parse(link.url).host)
+        begin
+          url = URI.encode(link.url) # rubocop:disable Lint/UriEscapeUnescape
+          uri = URI.parse(url)
+        end
+
+        !uri || DENY_LIST.include?(uri.host)
       end.map do |link|
         Thread.new do
           lock = locks.pop
-          link.response = check_status(link.url)
-          if !link.response
+          response = Client.request(link.url)
+          link.response = response
+          if !response || response > 403
             @error_links << link
           end
           locks.push lock
@@ -85,19 +91,6 @@ module LinkChecker
           links += extractor.extract
         end
         links
-      end
-
-      def check_status(url)
-        url = URI.encode(url) # rubocop:disable Lint/UriEscapeUnescape
-        uri = URI.parse(url)
-        sleep DELAY if uri.host == "www.amazon.co.jp"
-        response = Net::HTTP.get_response(uri)
-        result = response.code.to_i < 404
-        @errors << "#{url} - status: #{response.code}" unless result
-        result
-      rescue StandardError => e
-        @errors << "#{url} - #{e.class}: #{e.message}"
-        false
       end
   end
 end
