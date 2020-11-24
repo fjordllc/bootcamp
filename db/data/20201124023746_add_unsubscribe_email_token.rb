@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddUnsubscribeEmailToken < ActiveRecord::Migration[6.0]
   def up
     User.transaction do
