@@ -24,7 +24,7 @@ module Searchable
 
       def word_to_groupings(word)
         case word
-        when /(?<=user:)+(.*)/
+        when /user:(.*)/
           create_parameter_for_search_user_id($1)
         else
           { _join_column_names => word }
