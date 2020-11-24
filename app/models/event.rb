@@ -16,6 +16,8 @@ class Event < ApplicationRecord
   validates :open_start_at, presence: true
   validates :open_end_at, presence: true
 
+  after_create EventCallbacks.new
+
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
   end
