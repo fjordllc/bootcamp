@@ -83,6 +83,7 @@ class ProductsTest < ApplicationSystemTestCase
     end
     click_button "提出する"
     assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+    assert_text "Watch中"
   end
 
   test "create product change status submitted" do

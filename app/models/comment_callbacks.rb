@@ -2,13 +2,13 @@
 
 class CommentCallbacks
   def after_create(comment)
-    if comment.sender != comment.receiver
-      notify_comment(comment)
-    end
-
-    if [Report, Product, Event].include?(comment.commentable.class)
+    if comment.commentable.class.include?(Watchable)
       create_watch(comment)
       notify_to_watching_user(comment)
+    else
+      if comment.sender != comment.receiver
+        notify_comment(comment)
+      end
     end
 
     if comment.commentable.class == Product

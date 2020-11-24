@@ -37,6 +37,7 @@ class EventsTest < ApplicationSystemTestCase
     end
     assert_text "イベントをWIPとして保存しました。"
     assert_text "公開されるまでお待ちください。"
+    assert_text "Watch中"
   end
 
   test "create a new event" do
