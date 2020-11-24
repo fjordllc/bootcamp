@@ -132,6 +132,7 @@ ja:
         started_at: 開始時間
         finished_at: 終了時間
       page:
+        practice: 関連プラクティス
         title: タイトル
         user: ユーザー
         body: 本文
