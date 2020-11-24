@@ -75,6 +75,7 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "users/products"
     get "portfolio" => "users/works#index", as: :portfolio
     patch "graduation", to: "graduation#update", as: :graduation
+    get "mail_notification", to: "mail_notification#update", as: :mail_notification
   end
 
   resource :card, only: %i(show new create edit update), controller: "card"

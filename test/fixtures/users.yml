@@ -20,6 +20,7 @@ komagata:
   mentor: true
   github_collaborator: true
   officekey_permission: true
+  unsubscribe_email_token: 037i-ef5n7V4EnPv74mtyQ
   updated_at: "2014-01-01 00:00:01"
   created_at: "2014-01-01 00:00:01"
 
@@ -44,6 +45,7 @@ machida:
   mentor: true
   github_collaborator: true
   officekey_permission: true
+  unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
   updated_at: "2014-01-01 00:00:02"
   created_at: "2014-01-01 00:00:02"
 
@@ -65,6 +67,7 @@ sotugyou:
   job_seeker: true
   organization: 株式会社卒業
   graduated_on: "2015-01-01"
+  unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
   updated_at: "2014-01-01 00:00:03"
   created_at: "2014-01-01 00:00:03"
 
@@ -81,6 +84,7 @@ advijirou:
   description: "アドバイ次郎です。アドバイザーです。"
   adviser: true
   course: course_1
+  unsubscribe_email_token: 6ULb9vj1AJzTH_mOsfR46Q
   updated_at: "2014-01-01 00:00:04"
   created_at: "2014-01-01 00:00:04"
 
@@ -101,6 +105,7 @@ yameo:
   experience: ruby
   organization: 株式会社ヤメオ
   job_seeker: true
+  unsubscribe_email_token: mzx5kXfsGmR1u0gOaXMseg
   retired_on: "2015-01-01"
   updated_at: "2014-01-01 00:00:05"
   created_at: "2014-01-01 00:00:05"
@@ -122,6 +127,7 @@ yamada:
   experience: inexperienced
   organization: 木村大学
   mentor: true
+  unsubscribe_email_token: -PmtH0Rmh36FIPhbxzkMGA
   updated_at: "2014-01-01 00:00:06"
   created_at: "2014-01-01 00:00:06"
 
@@ -142,6 +148,7 @@ kimura:
   experience: inexperienced
   prefecture_code: 13
   organization: 木村大学
+  unsubscribe_email_token: k6Da-oL3cRi8ApNFO9-Gcg
   updated_at: "2014-01-01 00:00:07"
   created_at: "2014-01-01 00:00:07"
 
@@ -165,6 +172,7 @@ hatsuno:
   prefecture_code: 4
   organization: 明治大学
   github_account: hatsuno
+  unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
   updated_at: "2014-01-01 00:00:08"
   created_at: "2014-01-01 00:00:08"
 
@@ -185,6 +193,7 @@ hajime:
   experience: inexperienced
   organization: 始大学
   mail_notification: false
+  unsubscribe_email_token: iHzoJxKvrBeGGT6DjAJgJQ
   updated_at: "2014-01-01 00:00:09"
   created_at: "2014-01-01 00:00:09"
 
@@ -206,6 +215,7 @@ muryou:
   experience: inexperienced
   organization: 無料大学
   free: true
+  unsubscribe_email_token: V8qOxq82MrYh6P_jwx9CQQ
   updated_at: "2014-01-01 00:00:10"
   created_at: "2014-01-01 00:00:10"
 
@@ -230,6 +240,7 @@ kensyu:
   organization: 研修大学
   trainee: true
   free: true
+  unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
 
@@ -252,6 +263,7 @@ senpai:
   os: mac
   experience: rails
   adviser: true
+  unsubscribe_email_token: E8ycg7ahXNYj5bPA9Ic7aw
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
 
@@ -271,6 +283,7 @@ kananashi: #name_kanaを持たないユーザー
   job: office_worker
   os: mac
   experience: rails
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
 
@@ -290,6 +303,7 @@ osnashi: #osを持たないユーザー
   course: course_1
   job: office_worker
   experience: rails
+  unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
 
@@ -310,6 +324,7 @@ jobseeker: #就活希望するユーザー
   job: office_worker
   experience: rails
   job_seeker: true
+  unsubscribe_email_token: Z2tKHxSjj7FreyqQ95Yd9g
   updated_at: "2020-01-01 00:00:12"
   created_at: "2020-01-01 00:00:12"
 
@@ -330,5 +345,6 @@ daimyo: # 大名エンジニアカレッジに通うユーザー
   course: course_1
   job: office_worker
   experience: rails
+  unsubscribe_email_token: OSZi0f_nJ3xG9crUPQ9ukQ
   updated_at: "2020-01-01 00:00:13"
   created_at: "2020-01-01 00:00:13"
