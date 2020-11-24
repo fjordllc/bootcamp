@@ -156,4 +156,40 @@ class UsersTest < ApplicationSystemTestCase
     visit "/"
     assert_no_text "1ヶ月以上ログインのないユーザー"
   end
+
+  test "student access control" do
+    login_user "kimura", "testtest"
+    visit "/users"
+    assert_no_text "全員"
+    assert_no_text "就職活動中"
+
+    visit "users?target=retired"
+    assert_no_text "リタイア"
+    assert_no_text "退会"
+  end
+
+  test "advisor access control" do
+    login_user "advijirou", "testtest"
+    visit "/users"
+    assert_no_text "全員"
+    assert find_link("就職活動中")
+
+    visit "users?target=retired"
+    assert_no_text "リタイア"
+    assert_no_text "退会"
+  end
+
+  test "mentor access control" do
+    login_user "yamada", "testtest"
+    visit "/users"
+    assert find_link("就職活動中")
+    assert find_link("全員")
+  end
+
+  test "admin access control" do
+    login_user "komagata", "testtest"
+    visit "/users"
+    assert find_link("就職活動中")
+    assert find_link("全員")
+  end
 end

@@ -49,7 +49,8 @@ gem "omniauth-github"
 gem "postmark-rails"
 gem "rails_autolink"
 gem "active_flag"
-gem "redis"
+gem "sorcery-jwt"
+gem "data_migrate"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

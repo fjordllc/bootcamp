@@ -111,6 +111,8 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
+    data_migrate (6.5.0)
+      rails (>= 5.0)
     declarative (0.0.20)
     declarative-option (0.1.0)
     diffy (3.4.0)
@@ -312,7 +314,6 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.2.2)
     regexp_parser (1.7.1)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -384,6 +385,9 @@ GEM
       bcrypt (~> 3.1)
       oauth (~> 0.4, >= 0.4.4)
       oauth2 (~> 1.0, >= 0.8.0)
+    sorcery-jwt (0.1.11)
+      jwt (>= 1.0, < 3.0)
+      sorcery (>= 0.13, < 0.16)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -471,6 +475,7 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 5.0.0)
   commonmarker
+  data_migrate
   diffy
   google-cloud-storage (~> 1.25)
   holiday_jp
@@ -497,7 +502,6 @@ DEPENDENCIES
   rails-i18n
   rails_autolink
   ransack
-  redis
   rollbar
   rqrcode
   rubocop
@@ -510,6 +514,7 @@ DEPENDENCIES
   slim-rails
   slim_lint
   sorcery
+  sorcery-jwt
   spring
   spring-watcher-listen (~> 2.0.0)
   stripe (~> 4.5.0)

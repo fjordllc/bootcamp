@@ -7,8 +7,13 @@ class UsersController < ApplicationController
   PAGER_NUMBER = 20
 
   def index
-    if params[:target] == "followings"
-      @target = "followings"
+    target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
+    target_allowlist.push("job_seeking") if current_user.adviser?
+    target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
+    @target = params[:target]
+    @target = "student_and_trainee" unless target_allowlist.include?(@target)
+
+    if @target == "followings"
       followings = Following.where(follower_id: current_user.id).select("followed_id")
       @users = User
         .page(params[:page]).per(PAGER_NUMBER)
@@ -16,7 +21,6 @@ class UsersController < ApplicationController
         .where(id: followings)
         .order(updated_at: :desc)
     else
-      @target = params[:target] || "student_and_trainee"
       @users = User
         .page(params[:page]).per(PAGER_NUMBER)
         .with_attached_avatar
