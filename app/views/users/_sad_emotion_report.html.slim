@@ -2,7 +2,9 @@
   .a-card
     header.card-header
       h2.card-header__title
-        | 3日連続😢のユーザー
+        | 3日連続
+        = image_tag Report.faces["sad"], id: "sad", alt: "sad", class: "card-header__title-emotion-image"
+        | のユーザー
     .card-list
       ul.card-list__items
         - users.each do |user|

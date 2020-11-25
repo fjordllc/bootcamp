@@ -22,7 +22,7 @@ header.page-header
         header.thread-header
           - if @report.emotion.present?
             .thread-header__emotion
-              = Report.faces[@report.emotion]
+              = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: "thread-header__emotion-image"
           .thread-header__upper-side
             = link_to @report.user, class: "thread-header__author", title: @report.user.name do
               = @report.user.login_name
