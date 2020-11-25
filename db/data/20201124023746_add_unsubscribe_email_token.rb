@@ -5,7 +5,7 @@ class AddUnsubscribeEmailToken < ActiveRecord::Migration[6.0]
     User.transaction do
       User.where(unsubscribe_email_token: nil).find_each do |user|
         user.unsubscribe_email_token = SecureRandom.urlsafe_base64
-        user.save!
+        user.save!(validate: false)
       end
     end
   end
