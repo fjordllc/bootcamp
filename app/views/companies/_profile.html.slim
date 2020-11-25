@@ -20,3 +20,8 @@
                   | URL
                 .user-metas__item-value.company_website
                   = link_to company.name, company.website, target: "_blank"
+              .user-metas__item
+                .user-metas__item-label
+                  | 人数
+                .user-metas__item-value.company_website
+                  = company.users.size
