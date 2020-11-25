@@ -29,7 +29,7 @@ class Searcher
     private
 
       def result_for(type, word, commentable_type: nil)
-        raise ArgumentError.new("#{type} is not available type") unless type.in?(AVAILABLE_TYPES)
+        raise ArgumentError "#{type} is not available type" unless type.in?(AVAILABLE_TYPES)
         model(type).search_by_keywords(word: word, commentable_type: commentable_type)
       end
 
