@@ -69,9 +69,8 @@ group :development do
 
   # not default
   gem "letter_opener"
-  gem "rubocop", require: false
-  gem "rubocop-performance"
-  gem "rubocop-rails"
+  gem "rubocop-fjord", require: false
+  gem "rubocop-rails", require: false
   gem "rubocop-minitest"
   gem "slim_lint"
   gem "bullet"
