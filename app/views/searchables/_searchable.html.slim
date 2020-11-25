@@ -13,5 +13,5 @@
         .thread-list-item-meta__user
           - if searchable.class != Practice && searchable.class != Page
             = link_to searchable.user.login_name, searchable.user, class: "thread-header__author"
-        time.thread-list-item-meta__created-at(datetime="#{searchable.created_at.to_datetime}" pubdate="pubdate")
+        time.thread-list-item-meta__updated-at(datetime="#{searchable.updated_at.to_datetime}" pubdate="pubdate")
           = l searchable.updated_at
