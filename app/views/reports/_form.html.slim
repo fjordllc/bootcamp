@@ -21,6 +21,8 @@
               label.form-radio-button__label.is-lg
                 = image_tag b.text, id: b.value, alt: b.value, class: "form-label__emotion-image"
                 = b.radio_button
+                span.form-radio-button__label-name
+                  = b.value
 
       .form-item#tasks
         label.a-label
