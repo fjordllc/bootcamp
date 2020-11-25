@@ -2,9 +2,9 @@
   .tag-links
     ul.tag-links__items(v-if="!editing")
       li.tag-links__item(v-for="tag in tags")
-        a.tag-links__item-link(:href="`${path}/${tag.text}${params}`")
+        a.tag-links__item-link(:href="`${tagsPath}/${tag.text}${tagsPathParams}`")
           | {{ tag.text }}  
-      li.tag-links__item(v-if="editable")
+      li.tag-links__item(v-if="tagsEditable")
         .tag-links__item-edit(@click="editTag")
           | タグ編集
     .form(v-show="editing")
@@ -12,7 +12,7 @@
         .form-item
           vue-tags-input(v-model="inputTag" :tags="tags" :autocomplete-items="filteredTags" @tags-changed="update" placeholder="" @before-adding-tag="checkTag")
           input(type="hidden" :value="tagsValue" :name="tagsParamName" :id="tagsInputId")
-      .form-actions(v-if="editable")
+      .form-actions(v-if="tagsEditable")
         ul.form-actions__items
           li.form-actions__item.is-main
             button.a-button.is-warning.is-block.is-md(@click="updateTag")
@@ -28,14 +28,42 @@ import VueTagsInput from '@johmun/vue-tags-input'
 export default {
   name: 'Tags',
   props: {
-    tagsInitialValue: String,
-    tagsParamName: String,
-    tagsPath: String,
-    tagsType: String,
-    tagsInput: Boolean,
-    tagsInputId: String,
-    tagsEditable: Boolean,
-    updateCallback: Function
+    tagsInitialValue: {
+      type: String,
+      required: true
+    },
+    tagsParamName: { 
+      type: String,
+      required: true
+    },
+    tagsPath: {
+      type: String,
+      required: true
+    },
+    tagsPathParams: {
+      type: String,
+      default: ''
+    },
+    tagsType: {
+      type: String,
+      required: true
+    },
+    updateCallback: {
+      type: Function,
+      required: true
+    },
+    tagsInputId: {
+      type: String,
+      default: ''
+    },
+    tagsEditing: {
+      type: Boolean,
+      default: false
+    },
+    tagsEditable: {
+      type: Boolean,
+      default: false
+    }
   },
   components: {
     VueTagsInput
@@ -44,14 +72,9 @@ export default {
     return {
       inputTag: '',
       tags: [],
-      taggableType: '',
       tagsValue: '',
-      tagsName: '',
-      path: '',
-      params: '',
       autocompleteTags: [],
-      editing: false,
-      editable: false
+      editing: false
     }
   },
   methods: {
@@ -90,9 +113,7 @@ export default {
       this.editing = true
     },
     async updateTag() {
-      console.log(`start update`)
       await this.updateCallback(this.tagsValue, this.token()).catch(this.parseTagsError)
-      console.log(`awaited update`)
       this.editing = false
     },
     cancel() {
@@ -101,32 +122,32 @@ export default {
       this.editing = false
     }
   },
-  async mounted() {
+  mounted() {
     this.tagsValue = this.tagsInitialValue
     this.tags = this.parseTags(this.tagsInitialValue)
-    this.taggableType = this.tagsType
-    this.tagsName = this.tagsParamName
-    this.path = this.tagsPath
-    this.editable = this.tagsEditable
-    this.editing = this.tagsInput
+    this.editing = this.tagsEditing
 
-    const response = await fetch(`/api/tags.json?taggable_type=${this.taggableType}`, {
+    fetch(`/api/tags.json?taggable_type=${this.tagsType}`, {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
       credentials: 'same-origin',
       redirect: 'manual'
-    }).catch(this.parseTagsError)
-
-    const json = await response.json().catch(this.parseTagsError)
-    const suggestions = json.map(tag => {
-      return {
-        text: tag.value
-      }
     })
-    this.autocompleteTags.length = 0
-    this.autocompleteTags.push(...suggestions)
+      .then(response => {
+          return response.json()
+      })
+      .then(json => {
+        const suggestions = json.map(tag => {
+          return {
+            text: tag.value
+          }
+        })
+        this.autocompleteTags.length = 0;
+        this.autocompleteTags.push(...suggestions);
+      })
+      .catch(this.parseTagsError)
   },
   computed: {
     filteredTags() {
