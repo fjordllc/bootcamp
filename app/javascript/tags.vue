@@ -138,7 +138,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   .vue-tags-input {
     max-width: 100% !important;
     background-color: transparent !important;
@@ -153,7 +153,7 @@ export default {
   }
 
   .vue-tags-input .ti-autocomplete {
-    z-index: 1;
+    z-index: 2;
     margin-top: -.25rem;
     padding-top: .1875rem;
     border: solid 1px #c1c5b9;

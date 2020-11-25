@@ -66,10 +66,6 @@ export default {
 </script>
 
 <style scoped>
-  .vue-tags-input .ti-autocomplete {
-    z-index: 2;
-  }
-
   .tag-links {
     border-top: none;
     padding: 0
