@@ -43,11 +43,14 @@
   color: $main
 
 .thread-header__emotion
-  +position(absolute, right 0, top 0)
+  +position(absolute, right .5rem, top .5rem)
   +text-block(2rem 1, flex)
   align-items: center
   justify-content: center
-  +size(3rem)
+  +size(2.5rem)
+
+.thread-header__emotion-image,
+  +size(100%)
 
 .thread-header__title
   +text-block(1.5rem 1.4, 700)
