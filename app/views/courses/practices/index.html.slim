@@ -19,6 +19,9 @@ header.page-header
 .page-body
   .container
     .categories-items
+      label for="displayProgress"
+        input type="checkbox" checked="checked" id="displayProgress"
+        |みんなの進捗を表示
       .categories-items__inner
         - @categories.each do |category|
           - if category.practices.present?
