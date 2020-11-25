@@ -14,11 +14,18 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_text 'ユーザー情報を更新しました。'
   end
 
-  test "tags" do
+  test "update user tags" do
+    login_user "kimura", "testtest"
     visit "/current_user/edit"
     tag_input = find ".ti-new-tag-input"
     tag_input.set "タグ1"
     click_on "更新する"
     assert_text "タグ1"
+
+    visit "/users"
+    assert_text "タグ1"
+
+    click_on "タグ1"
+    assert_text "「タグ1」のユーザー"
   end
 end
