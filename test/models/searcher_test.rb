@@ -79,9 +79,9 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, Comment)
   end
 
-  test "sort search results in descending order of creation date" do
+  test "sort search results in descending order of updated date" do
     result = Searcher.search("検索結果確認用", document_type: :reports)
-    assert_equal [reports(:report_12), reports(:report_14), reports(:report_13)], result
+    assert_equal [reports(:report_14), reports(:report_13), reports(:report_12)], result
     assert_not_includes(result, Answer)
   end
 
@@ -197,5 +197,11 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, comments(:comment_13))
     assert_includes(result, comments(:comment_14))
     assert_equal(6, result.size)
+  end
+
+  test "returns only kimuras report when user param" do
+    result = Searcher.search("ユーザーネームで検索できるよ user:daimyo")
+    assert_includes(result, reports(:report_24))
+    assert_not_includes(result, reports(:report_25))
   end
 end
