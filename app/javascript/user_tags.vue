@@ -5,44 +5,33 @@
     :tagsPath="path"
     :tagsType="type"
     :tagsEditable="editable"
-    :tagsInput="tagsInput"
+    :tagsEditing="editing"
     :tagsInputId="tagsInputId"
-    :updateCallback="update")
+    :updateCallback="updateTag")
 </template>
 
 <script>
 import Tags from './tags.vue'
 
 export default {
-  props: {
-    tagsInitialValue: String,
-    tagsParamName: String,
-    tagsEditable: Boolean,
-    tagsInput: Boolean,
-    tagsInputId: String,
-    userId: String,
-    currentUserId: String,
-    adminLogin: String
-  },
+  props: [
+    'tagsInitialValue',
+    'tagsParamName',
+    'tagsInputId',
+    'userId'
+  ],
   components: {
     tags: Tags
   },
-  data() {
-    return {
-      path: '/users/tags',
-      type: 'User',
-      id: ''
-    }
-  },
   methods: {
-    update(tagsValue, token) {
+    updateTag(tagsValue, token) {
       let params = {
         user: {
           tag_list: tagsValue
         }
       }
       
-      return fetch(`/api/users/${this.id}`, {
+      return fetch(`/api/users/${this.userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -58,8 +47,17 @@ export default {
     }
   },
   computed: {
+    editing() {
+      return true
+    },
     editable() {
-      return this.tagsEditable && (this.userId === this.currentUserId || this.adminLogin === "true")
+      return false
+    },
+    path() {
+      return '/users/tags'
+    },
+    type() {
+      return 'User'
     }
   }
 }
