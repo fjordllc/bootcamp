@@ -16,4 +16,12 @@ class GenerationsTest < ApplicationSystemTestCase
     visit generation_path(0)
     assert_text "0期のユーザー一覧はありません"
   end
+
+  test "show generations" do
+    login_user "kimura", "testtest"
+    visit generations_path
+    assert_text "期生別ユーザー一覧"
+    assert_link "#{users(:kimura).generation}期生"
+    assert_text "2014年01月01日 ~ 2014年03月31日"
+  end
 end
