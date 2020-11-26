@@ -26,8 +26,17 @@
 
 .categories-item__title
   +text-block(1.5rem 1.45, $side)
+  position: relative
   +media-breakpoint-down(sm)
     font-size: 1.25rem
+  .stamp
+    +media-breakpoint-up(md)
+      right: -3rem
+      top: -.5rem
+    +media-breakpoint-down(sm)
+      right: -3rem
+      top: -.75rem
+      transform: rotate(25deg) scale(.7)
 
 .categories-item__show-handle
   +size(2rem)
