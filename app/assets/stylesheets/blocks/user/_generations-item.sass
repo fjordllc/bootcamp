@@ -1,0 +1,30 @@
+.generations-item
+  padding: 1rem
+  &:not(:first-child)
+    border-top: solid 1px $border
+
+.generations-item__title
+  +media-breakpoint-up(md)
+    font-size: 1.125rem
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+
+.generations-item__title-link
+  text-decoration: none
+  color: $main
+  +media-breakpoint-up(md)
+    display: flex
+    align-items: flex-end
+
+.generations-item__title-label
+  display: block
+  font-weight: 600
+  +media-breakpoint-up(md)
+   margin-right: .25em
+  .generations-item__title-link:hover &
+    text-decoration: underline
+
+.generations-item__date
+  font-size: .75em
+  font-weight: 400
+  color: $muted-text

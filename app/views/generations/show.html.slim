@@ -3,20 +3,35 @@
 header.page-header.is-margin-bottom-0.is-border-bottom-none
   .container
     .page-header__inner
-      h2.page-header__title #{@generation}期のユーザー一覧
+      h2.page-header__title
+        | ユーザー一覧
       .page-header-actions
         ul.page-header-actions__items
 
-.page-body
-  .container
-    - if @users.present?
-      .users
-        .row.is-gutter-width-32
-          = render partial: "users/user", collection: @users, as: :user
-    - else
-      .o-empty-massage
-        .o-empty-massage__icon
-          i.far.fa-smile
-        p.o-empty-massage__text
+= render "/users/lg_page_tabs"
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        h1.page-main-header__title
           = title
-          | はありません
+        .page-header-actions
+          ul.page-header-actions__items
+            li.page-header-actions__item
+              = link_to generations_path, class: "a-button is-md is-block is-secondary" do
+                | 期一覧
+
+  .page-body
+    .container
+      - if @users.present?
+        .users
+          .row.is-gutter-width-32
+            = render partial: "users/user", collection: @users, as: :user
+      - else
+        .o-empty-massage
+          .o-empty-massage__icon
+            i.far.fa-smile
+          p.o-empty-massage__text
+            = title
+            | はありません
