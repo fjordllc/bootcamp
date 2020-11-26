@@ -29,47 +29,35 @@ header.page-header
                 | WIP
             | #{@page.title}
           .thread-header__lower-side
-            .thread-header__lower-side-date
-              - if @page.wip?
-                .thread-header__lower-side-value
-                  | Doc作成中 by
-                  = render "users/icon",
-                    user: @page.user,
-                    link_class: "thread-header__user-icon-link",
-                    image_class: "thread-header__user-icon"
-                  = link_to @page.user, class: "thread-header__user-link" do
-                    | #{@page.user.login_name}
-              - elsif @page.published_at.present?
-                span.thread-header__lower-side-label
-                  | 公開日
-                time.thread-header__lower-side-value(datetime="#{@page.published_at.to_datetime}")
-                  | #{l @page.published_at} by
-                  = render "users/icon",
-                    user: @page.user,
-                    link_class: "thread-header__user-icon-link",
-                    image_class: "thread-header__user-icon"
-                  = link_to @page.user, class: "thread-header__user-link" do
-                    | #{@page.user.login_name}
+            .thread-header__lower-side-dates
+              .thread-header__lower-side-date
+                - if @page.wip?
+                  .thread-header__lower-side-value
+                    | Doc作成中 by
+                    = render "users/icon",
+                      user: @page.user,
+                      link_class: "thread-header__user-icon-link",
+                      image_class: "thread-header__user-icon"
+                    = link_to @page.user, class: "thread-header__user-link" do
+                      | #{@page.user.login_name}
+                - elsif @page.published_at.present?
+                  span.thread-header__lower-side-label
+                    | 公開
+                  time.thread-header__lower-side-value(datetime="#{@page.published_at.to_datetime}")
+                    | #{l @page.published_at}
 
-            .thread-header__lower-side-date
-              span.thread-header__lower-side-label
-                | 最終更新日
-              time.thread-header__lower-side-value(datetime="#{@page.updated_at.to_datetime}")
-                | #{l @page.updated_at} by
-                - if @page.last_updated_user.present?
-                  = render "users/icon",
-                    user: @page.last_updated_user,
-                    link_class: "thread-header__user-icon-link",
-                    image_class: "thread-header__user-icon"
-                  = link_to @page.last_updated_user, class: "thread-header__user-link" do
-                    | #{@page.last_updated_user.login_name}
-                - else
-                  = render "users/icon",
-                    user: @page.user,
-                    link_class: "thread-header__user-icon-link",
-                    image_class: "thread-header__user-icon"
-                  = link_to @page.user, class: "thread-header__user-link" do
-                    | #{@page.user.login_name}
+              - if @page.last_updated_user.present?
+                .thread-header__lower-side-date
+                  span.thread-header__lower-side-label
+                    | 最終更新
+                  time.thread-header__lower-side-value(datetime="#{@page.updated_at.to_datetime}")
+                    | #{l @page.updated_at} by
+                    = render "users/icon",
+                      user: @page.last_updated_user,
+                      link_class: "thread-header__user-icon-link",
+                      image_class: "thread-header__user-icon"
+                    = link_to @page.last_updated_user, class: "thread-header__user-link" do
+                      | #{@page.last_updated_user.login_name}
 
         #js-page-tags(data-tags-initial-value="#{@page.tag_list.join(",")}" data-tags-param-name="page[tag_list]" data-page-id="#{@page.id}")
         .thread__body
