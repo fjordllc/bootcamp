@@ -17,10 +17,10 @@ class EmotionsTest < ApplicationSystemTestCase
     all(".learning-time")[0].all(".learning-time__finished-at select")[0].select("08")
     all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
 
-    find("#smile").click
+    find("#happy").click
 
     click_button "提出"
     assert_text "日報を保存しました。"
-    assert_selector "img#smile"
+    assert_selector "img#happy"
   end
 end
