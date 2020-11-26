@@ -51,10 +51,10 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text "プラクティスを完了するまで他の人の提出物は見れません。"
   end
 
-  test "non-mentor can not see a button to open all unchecked products" do
+  test "non-staff user can not see listing unchecked products" do
     login_user "hatsuno", "testtest"
     visit "/products/unchecked"
-    assert_no_button "未チェックの提出物を一括で開く"
+    assert_text "管理者・アドバイザー・メンターとしてログインしてください"
   end
 
   test "mentor can see a button to open to open all unchecked products" do
@@ -63,10 +63,10 @@ class ProductsTest < ApplicationSystemTestCase
     assert_button "未チェックの提出物を一括で開く"
   end
 
-  test "non-mentor can not see a button to open all not-responded products" do
+  test "non-staff user can not see listing not-responded products" do
     login_user "hatsuno", "testtest"
     visit "/products/not_responded"
-    assert_no_button "未返信の提出物を一括で開く"
+    assert_text "管理者・アドバイザー・メンターとしてログインしてください"
   end
 
   test "mentor can see a button to open to open all not-responded products" do
