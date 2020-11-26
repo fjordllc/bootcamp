@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class Generation
+  def self.max_generation_number
+    now_time = Time.now
+    (now_time.year - 2013) * 4 + (now_time.month + 2) / 3
+  end
+
   attr_reader :number
 
   def initialize(number)
