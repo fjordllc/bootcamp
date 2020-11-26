@@ -1,0 +1,21 @@
+.page-main-header
+  border-bottom: solid 1px $border-shade
+  +media-breakpoint-up(md)
+    font-size: 1.25rem
+  +media-breakpoint-down(sm)
+    font-size: 1.125rem
+
+.page-main-header__inner
+  +padding(vertical, 1em .5em)
+  display: flex
+  align-items: center
+  justify-content: space-between
+  +media-breakpoint-down(sm)
+    display: block
+
+
+  .page-notice + .page-main &
+    padding-top: .5em
+
+.page-main-header__title
+  +text-block(1em 1.4, $main 600)
