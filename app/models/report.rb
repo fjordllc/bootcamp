@@ -13,7 +13,7 @@ class Report < ApplicationRecord
   enum emotion: {
     soso: 0,
     sad: 1,
-    smile: 2
+    happy: 2
   }
 
   has_many :learning_times, -> { order(:started_at) }, dependent: :destroy, inverse_of: :report
@@ -55,7 +55,7 @@ class Report < ApplicationRecord
 
   def self.faces
     @_faces ||= emotions.keys
-                        .zip(%w(emotion/soso.svg emotion/sad.svg emotion/smile.svg))
+                        .zip(%w(emotion/soso.svg emotion/sad.svg emotion/happy.svg))
                         .to_h
                         .with_indifferent_access
   end
