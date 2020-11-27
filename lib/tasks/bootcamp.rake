@@ -38,7 +38,6 @@ namespace :bootcamp do
     task :cloudbuild do
       puts "== START Cloud Build Task =="
       puts "#{User.count}件"
-      Watch.migrate_data
       puts "== END   Cloud Build Task =="
     end
   end
