@@ -251,6 +251,9 @@ class User < ApplicationRecord
       .unretired
       .order(:created_at)
   }
+  scope :same_tags, -> {
+    in_school.unretired
+  }
 
   class << self
     def announcement_receiver(target)
