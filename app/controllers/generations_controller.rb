@@ -9,6 +9,6 @@ class GenerationsController < ApplicationController
   end
 
   def index
-    @generations = (1..Generation.max_generation_number).map { |n| Generation.new(n) }
+    @generations = Generation.generations
   end
 end
