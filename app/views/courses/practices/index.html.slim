@@ -16,11 +16,11 @@ header.page-header
                 i.fas.fa-plus
                 | プラクティス作成
 
-.page-body
+.page-body.js-users-visibility
   .container
     .categories-items
       label for="displayProgress"
-        input type="checkbox" checked="checked" id="displayProgress"
+        input type="checkbox" checked="checked" id="displayProgress" class="js-users-visibility__trigger"
         |みんなの進捗を表示
       .categories-items__inner
         - @categories.each do |category|

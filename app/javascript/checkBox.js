@@ -1,13 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   const localStorage = window.localStorage
   document.querySelectorAll('input').forEach((e) => {
-    const categoriesItems = e.closest('.categories-items')
-    if (localStorage.getItem('displayProgress') === 'off' && categoriesItems) {
-      e.closest('.categories-items').classList.add('js-is-hidden-users')
-      document.getElementById('displayProgress').checked = false
-    } else if (e.checked === true && categoriesItems) {
-      e.closest('.categories-items').classList.add('js-is-show-users')
-    } else if (e.checked === true) {
+    const hasJsClass = e.hasClass('js-users-visibility__trigger')
+    if (localStorage.getItem('hidden-users') === 'on' && hasJsClass) {
+      e.closest('.js-users-visibility').classList.add('is-hidden-users')
+      e.checked = false
+    } else if (e.checked === true && !hasJsClass) {
       e.parentNode.classList.add('is-checked')
     }
   })
@@ -17,17 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
       t = c.target.type
       chk = value.checked
       if (t === 'checkbox') {
-        const categoriesItems = value.closest('.categories-items')
-        if (chk === true && categoriesItems) {
-          value.closest('.categories-items').classList.remove('js-is-hidden-users')
-          value.closest('.categories-items').classList.add('js-is-show-users')
-          localStorage.removeItem('displayProgress')
+        const hasJsClass = value.hasClass('js-users-visibility__trigger')
+        if (chk === true && hasJsClass) {
+          value.closest('.js-users-visibility').classList.remove('is-hidden-users')
+          localStorage.removeItem('hidden-users')
         } else if (chk === true) {
           value.parentNode.classList.add('is-checked')
-        } else if (chk === false && categoriesItems) {
-          value.closest('.categories-items').classList.remove('js-is-show-users')
-          value.closest('.categories-items').classList.add('js-is-hidden-users')
-          localStorage.setItem('displayProgress', 'off')
+        } else if (chk === false && hasJsClass) {
+          value.closest('.js-users-visibility').classList.add('is-hidden-users')
+          localStorage.setItem('hidden-users', 'on')
         } else {
           value.parentNode.classList.remove('is-checked')
         }
