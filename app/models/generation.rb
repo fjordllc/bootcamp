@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
 class Generation
-  def self.max_generation_number
-    now_time = Time.now
-    (now_time.year - 2013) * 4 + (now_time.month + 2) / 3
+  class << self
+    def generations
+      (1..max_generation_number).map { |n| Generation.new(n) }
+    end
+
+    def max_generation_number
+      now_time = Time.now
+      (now_time.year - 2013) * 4 + (now_time.month + 2) / 3
+    end
   end
 
   attr_reader :number
