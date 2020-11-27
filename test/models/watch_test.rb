@@ -14,4 +14,10 @@ class WatchTest < ActiveSupport::TestCase
     assert Watch.find_by(user: hatsuno, watchable: product)
     assert Watch.find_by(user: komagata, watchable: event)
   end
+
+  test "migrate_data実行後は作成者自身がWatchしていない日報・提出物・イベントの数だけWatchが増える" do
+    assert_difference("Watch.count", 46) do
+      Watch.migrate_data
+    end
+  end
 end
