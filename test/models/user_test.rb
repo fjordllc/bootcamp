@@ -238,4 +238,10 @@ class UserTest < ActiveSupport::TestCase
     kimura.following?(hatsuno)
     assert kimura.following?(hatsuno)
   end
+
+  test "#completed_all_practices?" do
+    hajime = users(:hajime)
+    category_11 = categories(:category_11)
+    assert hajime.completed_all_practices?(category_11)
+  end
 end

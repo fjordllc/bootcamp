@@ -491,6 +491,10 @@ SQL
     following.include?(other_user)
   end
 
+  def completed_all_practices?(category)
+    category.practices.size == completed_practices_size(category)
+  end
+
   private
     def password_required?
       new_record? || password.present?
