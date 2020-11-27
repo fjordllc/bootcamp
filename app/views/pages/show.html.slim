@@ -19,6 +19,10 @@ header.page-header
     article.thread.is-page
       .thread__inner.a-card
         header.thread-header
+          - if @page.practice.present?
+            .thread-practice
+              = link_to @page.practice, class: "thread-practice__link" do
+                = @page.practice.title
           h1.thread-header__title(class="#{@page.wip? ? "is-wip" : ""}")
             - if @page.wip?
               span.thread-header__title-icon

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_04_093315) do
+ActiveRecord::Schema.define(version: 2020_11_23_142023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,6 +243,8 @@ ActiveRecord::Schema.define(version: 2020_11_04_093315) do
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
     t.integer "last_updated_user_id"
+    t.bigint "practice_id"
+    t.index ["practice_id"], name: "index_pages_on_practice_id"
     t.index ["updated_at"], name: "index_pages_on_updated_at"
     t.index ["user_id"], name: "index_pages_on_user_id"
   end
@@ -450,6 +452,7 @@ ActiveRecord::Schema.define(version: 2020_11_04_093315) do
   add_foreign_key "learning_times", "reports"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
+  add_foreign_key "pages", "practices"
   add_foreign_key "pages", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
