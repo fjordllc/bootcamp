@@ -27,6 +27,9 @@ header.page-header
               header.categories-item__header
                 h2.categories-item__title
                   = category.name
+                  - if current_user.completed_all_practices?(category)
+                    span.stamp.is-circle.is-solved
+                      | 完了
                 - if current_user.admin?
                   .categories-item__show-handle.js-show-handle__trigger
                     i.fas.fa-cog
