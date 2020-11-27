@@ -3,10 +3,11 @@
 class PagesController < ApplicationController
   before_action :require_login
   before_action :set_page, only: %i(show edit update destroy)
+  before_action :set_categories, only: %i(new create edit update)
 
   def index
     @pages = Page.with_avatar
-                 .includes(:comments)
+                 .includes(:comments, :practice)
                  .order(updated_at: :desc)
                  .page(params[:page])
     @pages = @pages.tagged_with(params[:tag]) if params[:tag]
@@ -59,9 +60,9 @@ class PagesController < ApplicationController
 
     def page_params
       if admin_login?
-        params.require(:page).permit(:title, :body, :tag_list, :user_id)
+        params.require(:page).permit(:title, :body, :tag_list, :user_id, :practice_id)
       else
-        params.require(:page).permit(:title, :body, :tag_list)
+        params.require(:page).permit(:title, :body, :tag_list, :practice_id)
       end
     end
 
@@ -77,5 +78,13 @@ class PagesController < ApplicationController
       when :update
         "ページを更新しました。"
       end
+    end
+
+    def set_categories
+      @categories =
+        Category
+          .eager_load(:practices)
+          .where.not(practices: { id: nil })
+          .order("categories.position ASC, practices.position ASC")
     end
 end

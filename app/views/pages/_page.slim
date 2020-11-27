@@ -14,6 +14,9 @@
       .thread-list-item__actions
         = link_to [:edit, page], class: "thread-list-item__actions-link" do
           i.fas.fa-pen
+    - if page.practice.present?
+      h3.thread-list-item__sub-title
+        = page.practice.title
     .thread-list-item-meta
       time.thread-list-item-meta__datetime(datetime="#{page.updated_at.to_datetime}" pubdate="pubdate")
         = l page.updated_at
