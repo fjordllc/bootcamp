@@ -22,7 +22,6 @@ class GithubGrass
     else
       localize(extract_svg(fetch_page)).to_s
     end
-
   rescue
     ""
   end
