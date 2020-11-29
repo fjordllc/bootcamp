@@ -46,7 +46,6 @@ linters:
       - Rails/TimeZone
       - Rails/Presence
       - Rails/ContentTag
-      - Lint/AmbiguousRegexpLiteral
       - Lint/EmptyConditionalBody
       - Lint/UnusedBlockArgument
       - Layout/SpaceAroundMethodCallOperator
