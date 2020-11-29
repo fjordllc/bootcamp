@@ -21,7 +21,7 @@ module LinkChecker
         Link.new(title, url, @source_title, @source_url)
       end
 
-      links.select { |link| URI.regexp.match(link.url) }
+      links.select { |link| URI::DEFAULT_PARSER.make_regexp.match(link.url) }
     end
   end
 end
