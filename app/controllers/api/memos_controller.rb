@@ -28,11 +28,11 @@ class API::MemosController < API::BaseController
 
   private
 
-    def set_memo
-      @memo = Memo.find(params[:id])
-    end
+  def set_memo
+    @memo = Memo.find(params[:id])
+  end
 
-    def memo_params
-      params.require(:memo).permit(:date, :body)
-    end
+  def memo_params
+    params.require(:memo).permit(:date, :body)
+  end
 end

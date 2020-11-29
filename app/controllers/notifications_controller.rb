@@ -20,7 +20,7 @@ class NotificationsController < ApplicationController
 
   private
 
-    def set_my_notification
-      @notification = current_user.notifications.find(params[:id])
-    end
+  def set_my_notification
+    @notification = current_user.notifications.find(params[:id])
+  end
 end

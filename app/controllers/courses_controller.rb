@@ -40,15 +40,15 @@ class CoursesController < ApplicationController
 
   private
 
-    def set_course
-      @course = Course.find(params[:id])
-    end
+  def set_course
+    @course = Course.find(params[:id])
+  end
 
-    def course_params
-      params.require(:course).permit(
-        :title,
-        :description,
-        category_ids: []
-      )
-    end
+  def course_params
+    params.require(:course).permit(
+      :title,
+      :description,
+      category_ids: []
+    )
+  end
 end

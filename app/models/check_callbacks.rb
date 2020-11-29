@@ -18,21 +18,21 @@ class CheckCallbacks
 
   private
 
-    def update_product_status(check)
-      if check.checkable_type == "Product"
-        check.checkable.change_learning_status(:complete)
-      end
+  def update_product_status(check)
+    if check.checkable_type == "Product"
+      check.checkable.change_learning_status(:complete)
     end
+  end
 
-    def delete_report_cache(check)
-      if check.checkable_type == "Report"
-        Cache.delete_unchecked_report_count
-      end
+  def delete_report_cache(check)
+    if check.checkable_type == "Report"
+      Cache.delete_unchecked_report_count
     end
+  end
 
-    def delete_product_cache(check)
-      if check.checkable_type == "Product"
-        Cache.delete_not_responded_product_count
-      end
+  def delete_product_cache(check)
+    if check.checkable_type == "Product"
+      Cache.delete_not_responded_product_count
     end
+  end
 end

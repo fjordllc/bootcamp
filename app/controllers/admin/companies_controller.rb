@@ -41,17 +41,17 @@ class Admin::CompaniesController < AdminController
 
   private
 
-    def set_company
-      @company = Company.find(params[:id])
-    end
+  def set_company
+    @company = Company.find(params[:id])
+  end
 
-    def company_params
-      params.require(:company).permit(
-        :name,
-        :description,
-        :website,
-        :slack_channel,
-        :logo
-      )
-    end
+  def company_params
+    params.require(:company).permit(
+      :name,
+      :description,
+      :website,
+      :slack_channel,
+      :logo
+    )
+  end
 end

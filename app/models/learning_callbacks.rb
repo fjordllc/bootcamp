@@ -11,7 +11,7 @@ class LearningCallbacks
 
   private
 
-    def delete_cache(user_id)
-      Rails.cache.delete "/model/user/#{user_id}/completed_percentage"
-    end
+  def delete_cache(user_id)
+    Rails.cache.delete "/model/user/#{user_id}/completed_percentage"
+  end
 end

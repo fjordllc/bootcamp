@@ -139,20 +139,20 @@ class Practice < ApplicationRecord
 
   private
 
-    def total_learning_minute(report)
-      total_time = report.learning_times.inject(0) do |sum, learning_time|
-        sum + learning_time.diff
-      end
-
-      total_minute = (total_time / 60)
-      if report.practices.size > 1
-        average_minute_per_practice(total_minute, report.practices.size)
-      else
-        total_minute
-      end
+  def total_learning_minute(report)
+    total_time = report.learning_times.inject(0) do |sum, learning_time|
+      sum + learning_time.diff
     end
 
-    def average_minute_per_practice(minute, size)
-      minute / size
+    total_minute = (total_time / 60)
+    if report.practices.size > 1
+      average_minute_per_practice(total_minute, report.practices.size)
+    else
+      total_minute
     end
+  end
+
+  def average_minute_per_practice(minute, size)
+    minute / size
+  end
 end
