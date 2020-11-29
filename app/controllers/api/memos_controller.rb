@@ -27,6 +27,7 @@ class API::MemosController < API::BaseController
   end
 
   private
+
     def set_memo
       @memo = Memo.find(params[:id])
     end

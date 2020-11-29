@@ -23,6 +23,7 @@ class CommentCallbacks
   end
 
   private
+
     def notify_comment(comment)
       NotificationFacade.came_comment(
         comment,

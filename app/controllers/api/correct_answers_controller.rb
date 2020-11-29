@@ -18,6 +18,7 @@ class API::CorrectAnswersController < API::BaseController
   end
 
   private
+
     def set_question
       @question = Question.find(params[:question_id])
     end

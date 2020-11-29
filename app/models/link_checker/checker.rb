@@ -59,6 +59,7 @@ module LinkChecker
     end
 
     private
+
       def page_links
         links = []
         Page.order(:created_at).each do |page|

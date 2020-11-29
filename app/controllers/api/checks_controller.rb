@@ -26,6 +26,7 @@ class API::ChecksController < API::BaseController
   end
 
   private
+
     def checkable
       params[:checkable_type].constantize.find_by(id: params[:checkable_id])
     end

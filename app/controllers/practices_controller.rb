@@ -46,6 +46,7 @@ class PracticesController < ApplicationController
   end
 
   private
+
     def practice_params
       params.require(:practice).permit(
         :title,

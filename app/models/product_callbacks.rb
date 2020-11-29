@@ -37,6 +37,7 @@ class ProductCallbacks
   end
 
   private
+
     def create_author_watch(product)
       Watch.create!(user: product.user, watchable: product)
     end

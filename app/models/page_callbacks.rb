@@ -20,6 +20,7 @@ class PageCallbacks
   end
 
   private
+
     def send_notification(page)
       receivers = User.where(retired_on: nil, graduated_on: nil, adviser: false, trainee: false)
       receivers.each do |receiver|

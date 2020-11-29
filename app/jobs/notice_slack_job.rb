@@ -8,6 +8,7 @@ class NoticeSlackJob < ApplicationJob
   end
 
   private
+
     def notify(text, options = {})
       if Rails.env.production?
         icon_url = options[:icon_url] || "https://i.gyazo.com/7099977680d8d8c2d72a3f14ddf14cc6.png"
