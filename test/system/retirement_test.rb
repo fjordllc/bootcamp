@@ -68,7 +68,7 @@ class RetirementTest < ApplicationSystemTestCase
     visit "/reports/new"
     within("#new_report") do
       fill_in("report[title]", with: "test title")
-      fill_in("report[description]",   with: "test")
+      fill_in("report[description]", with: "test")
     end
     click_button "WIP"
     assert_text "日報をWIPとして保存しました。"

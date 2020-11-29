@@ -41,7 +41,7 @@ class PracticesTest < ApplicationSystemTestCase
     assert_no_link "提出物を作る"
   end
 
-  test "only show when user isn't admin "  do
+  test "only show when user isn't admin " do
     login_user "yamada", "testtest"
 
     visit "/practices/#{practices(:practice_1).id}/edit"
