@@ -11,7 +11,7 @@ module LinkChecker
     end
 
     def request
-      @url = encode_ja(@url) # rubocop:disable Lint/UriEscapeUnescape
+      @url = encode_ja(@url)
       uri = URI.parse(@url)
       response = Net::HTTP.get_response(uri)
       response.code.to_i
