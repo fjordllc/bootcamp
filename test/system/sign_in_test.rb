@@ -9,7 +9,7 @@ class SignInTest < ApplicationSystemTestCase
     visit "/login"
     within("#sign-in-form") do
       fill_in("user[login]", with: "komagata")
-      fill_in("user[password]",   with: "testtest")
+      fill_in("user[password]", with: "testtest")
     end
     click_button "ログイン"
     assert_equal "/", current_path
@@ -19,7 +19,7 @@ class SignInTest < ApplicationSystemTestCase
     visit "/login"
     within("#sign-in-form") do
       fill_in("user[login]", with: "komagata@fjord.jp")
-      fill_in("user[password]",   with: "testtest")
+      fill_in("user[password]", with: "testtest")
     end
     click_button "ログイン"
     assert_equal "/", current_path
@@ -29,7 +29,7 @@ class SignInTest < ApplicationSystemTestCase
     visit "/login"
     within("#sign-in-form") do
       fill_in("user[login]", with: "komagata")
-      fill_in("user[password]",   with: "xxxxxxxx")
+      fill_in("user[password]", with: "xxxxxxxx")
     end
     click_button "ログイン"
     assert_equal "/user_sessions", current_path
@@ -41,7 +41,7 @@ class SignInTest < ApplicationSystemTestCase
     visit "/login"
     within("#sign-in-form") do
       fill_in("user[login]", with: "yameo")
-      fill_in("user[password]",   with: "yameo@example.com")
+      fill_in("user[password]", with: "yameo@example.com")
     end
     click_button "ログイン"
     assert_equal "/user_sessions", current_path

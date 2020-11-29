@@ -6,22 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 26
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment, AllowBeforeTrailingComments, ForceEqualSignAlignment.
-Layout/ExtraSpacing:
-  Exclude:
-    - 'app/models/plan.rb'
-    - 'app/models/user.rb'
-    - 'config.ru'
-    - 'db/migrate/20200220093305_add_github_officekey_slack_statuses_to_users.rb'
-    - 'test/system/followings_test.rb'
-    - 'test/system/notification/reports_test.rb'
-    - 'test/system/practices_test.rb'
-    - 'test/system/reports_test.rb'
-    - 'test/system/retirement_test.rb'
-    - 'test/system/sign_in_test.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.

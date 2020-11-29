@@ -10,7 +10,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     within("#new_report") do
       fill_in("report[title]", with: "test title")
-      fill_in("report[description]",   with: "test")
+      fill_in("report[description]", with: "test")
     end
 
     all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
@@ -41,7 +41,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     within("#new_report") do
       fill_in("report[title]", with: "test title")
-      fill_in("report[description]",   with: "test")
+      fill_in("report[description]", with: "test")
     end
 
     all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
@@ -66,7 +66,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     visit "/reports/new"
     within("#new_report") do
       fill_in("report[title]", with: "test title")
-      fill_in("report[description]",   with: "test")
+      fill_in("report[description]", with: "test")
     end
 
     all(".learning-time")[0].all(".learning-time__started-at select")[0].select("07")
