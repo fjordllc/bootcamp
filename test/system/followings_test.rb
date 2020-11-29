@@ -34,7 +34,7 @@ class FollowingsTest < ApplicationSystemTestCase
     visit "/reports/new"
     within("#new_report") do
       fill_in("report[title]", with: "test title")
-      fill_in("report[description]",   with: "test")
+      fill_in("report[description]", with: "test")
       fill_in("report[reported_on]", with: Time.current)
     end
 
@@ -59,7 +59,7 @@ class FollowingsTest < ApplicationSystemTestCase
     visit "/reports/new"
     within("#new_report") do
       fill_in("report[title]", with: "test title")
-      fill_in("report[description]",   with: "test")
+      fill_in("report[description]", with: "test")
       fill_in("report[reported_on]", with: Time.current)
     end
 

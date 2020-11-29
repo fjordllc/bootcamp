@@ -41,7 +41,7 @@ class User < ApplicationRecord
   belongs_to :course
   has_many :learnings
   has_many :borrowings
-  has_many :pages,         dependent: :destroy
+  has_many :pages, dependent: :destroy
   has_many :last_updated_pages, class_name: "Page"
   has_many :comments,      dependent: :destroy
   has_many :reports,       dependent: :destroy
@@ -116,8 +116,8 @@ class User < ApplicationRecord
   before_create UserCallbacks.new
   after_update UserCallbacks.new
 
-  validates :email,      presence: true, uniqueness: true
-  validates :name,  presence: true
+  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :twitter_account,
