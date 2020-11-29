@@ -247,8 +247,8 @@ class User < ApplicationRecord
   }
   scope :same_generations, -> (start_date, end_date) {
     where(created_at: start_date..end_date)
-    .unretired
-    .order(:created_at)
+      .unretired
+      .order(:created_at)
   }
 
   class << self

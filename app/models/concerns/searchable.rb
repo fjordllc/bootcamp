@@ -18,7 +18,7 @@ module Searchable
       return {} if searched_values[:word].blank?
 
       groupings = split_keyword_by_blank(searched_values[:word])
-                    .map { |word| word_to_groupings(word) }
+                  .map { |word| word_to_groupings(word) }
 
       { groupings: groupings }
     end
