@@ -6,16 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 5
-# Cop supports --auto-correct.
-Layout/EmptyLineAfterGuardClause:
-  Exclude:
-    - 'app/controllers/pages_controller.rb'
-    - 'app/controllers/products_controller.rb'
-    - 'app/helpers/application_helper.rb'
-    - 'app/models/concerns/searchable.rb'
-    - 'app/models/searcher.rb'
-
 # Offense count: 62
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
