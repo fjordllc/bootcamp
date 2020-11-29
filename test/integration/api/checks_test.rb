@@ -14,48 +14,48 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
 
   test "GET /api/checks.json" do
     get api_checks_path(format: :json),
-      params: { checkable_type: @check_1.checkable_type, checkable_id: @check_1.checkable_id }
+        params: { checkable_type: @check_1.checkable_type, checkable_id: @check_1.checkable_id }
     assert_response :unauthorized
 
     # student login
     token = create_token("kimura", "testtest")
     get api_checks_path(format: :json),
-      params: { checkable_type: @check_1.checkable_type, checkable_id: @check_1.checkable_id },
-      headers: { "Authorization" => "Bearer #{token}" }
+        params: { checkable_type: @check_1.checkable_type, checkable_id: @check_1.checkable_id },
+        headers: { "Authorization" => "Bearer #{token}" }
     assert_response :ok
   end
 
   test "POST /api/checks.json" do
     post api_checks_path(format: :json),
-      params: { checkable_type: @check_1.checkable_type, checkable_id: @check_1.checkable_id }
+         params: { checkable_type: @check_1.checkable_type, checkable_id: @check_1.checkable_id }
     assert_response :unauthorized
 
     # student login
     token = create_token("kimura", "testtest")
     post api_checks_path(format: :json),
-      params: { checkable_type: @check_1.checkable_type, checkable_id: @check_1.checkable_id },
-      headers: { "Authorization" => "Bearer #{token}" }
+         params: { checkable_type: @check_1.checkable_type, checkable_id: @check_1.checkable_id },
+         headers: { "Authorization" => "Bearer #{token}" }
     assert_response :unauthorized
 
     # admin login
     token = create_token("komagata", "testtest")
     post api_checks_path(format: :json),
-      params: { checkable_type: @check_2.checkable_type, checkable_id: @check_2.checkable_id },
-      headers: { "Authorization" => "Bearer #{token}" }
+         params: { checkable_type: @check_2.checkable_type, checkable_id: @check_2.checkable_id },
+         headers: { "Authorization" => "Bearer #{token}" }
     assert_response :created
 
     # adviser login
     token = create_token("advijirou", "testtest")
     post api_checks_path(format: :json),
-      params: { checkable_type: @check_3.checkable_type, checkable_id: @check_3.checkable_id },
-      headers: { "Authorization" => "Bearer #{token}" }
+         params: { checkable_type: @check_3.checkable_type, checkable_id: @check_3.checkable_id },
+         headers: { "Authorization" => "Bearer #{token}" }
     assert_response :created
 
     # mentor login
     token = create_token("yamada", "testtest")
     post api_checks_path(format: :json),
-      params: { checkable_type: @check_4.checkable_type, checkable_id: @check_4.checkable_id },
-      headers: { "Authorization" => "Bearer #{token}" }
+         params: { checkable_type: @check_4.checkable_type, checkable_id: @check_4.checkable_id },
+         headers: { "Authorization" => "Bearer #{token}" }
     assert_response :created
   end
 
@@ -66,25 +66,25 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     # student login
     token = create_token("kimura", "testtest")
     delete api_check_path(@check_1.id, format: :json),
-      headers: { "Authorization" => "Bearer #{token}" }
+           headers: { "Authorization" => "Bearer #{token}" }
     assert_response :unauthorized
 
     # admin login
     token = create_token("komagata", "testtest")
     delete api_check_path(@check_2.id, format: :json),
-      headers: { "Authorization" => "Bearer #{token}" }
+           headers: { "Authorization" => "Bearer #{token}" }
     assert_response :no_content
 
     # adviser login
     token = create_token("advijirou", "testtest")
     delete api_check_path(@check_3.id, format: :json),
-      headers: { "Authorization" => "Bearer #{token}" }
+           headers: { "Authorization" => "Bearer #{token}" }
     assert_response :no_content
 
     # mentor login
     token = create_token("yamada", "testtest")
     delete api_check_path(@check_4.id, format: :json),
-      headers: { "Authorization" => "Bearer #{token}" }
+           headers: { "Authorization" => "Bearer #{token}" }
     assert_response :no_content
   end
 end

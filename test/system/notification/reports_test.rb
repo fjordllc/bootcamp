@@ -24,13 +24,13 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
     open_notification
     assert_equal "muryouさんがはじめての日報を書きました！",
-      notification_message
+                 notification_message
     logout
 
     login_user "yamada", "testtest"
     open_notification
     assert_equal "muryouさんがはじめての日報を書きました！",
-      notification_message
+                 notification_message
     logout
   end
 
@@ -80,6 +80,6 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     login_user "senpai", "testtest"
     open_notification
     assert_equal "kensyuさんが日報【 test title 】を書きました！",
-      notification_message
+                 notification_message
   end
 end

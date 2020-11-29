@@ -5,11 +5,11 @@ module Authentication
 
   included do
     helper_method :admin_login?,
-      :adviser_login?,
-      :mentor_login?,
-      :staff_login?,
-      :paid_login?,
-      :staff_or_paid_login?
+                  :adviser_login?,
+                  :mentor_login?,
+                  :staff_login?,
+                  :paid_login?,
+                  :staff_or_paid_login?
   end
 
   def admin_login?

@@ -54,13 +54,13 @@ class AnnouncementsController < ApplicationController
       link = "<#{url_for(announcement)}|#{announcement.title}>"
 
       SlackNotification.notify "#{link}",
-        username: "#{announcement.user.login_name} (#{announcement.user.name})",
-        icon_url: announcement.user.avatar_url,
-        channel: "#general",
-        attachments: [{
-          fallback: "announcement description.",
-          text: announcement.description
-        }]
+                               username: "#{announcement.user.login_name} (#{announcement.user.name})",
+                               icon_url: announcement.user.avatar_url,
+                               channel: "#general",
+                               attachments: [{
+                                 fallback: "announcement description.",
+                                 text: announcement.description
+                               }]
     end
 
     def footprint!
