@@ -18,13 +18,13 @@ class Notification::PagesTest < ApplicationSystemTestCase
     login_user "hatsuno", "testtest"
     open_notification
     assert_equal "komagataさんがDocsにDocsTestを投稿しました。",
-      notification_message
+                 notification_message
 
     logout
     login_user "machida", "testtest"
     open_notification
     assert_equal "komagataさんがDocsにDocsTestを投稿しました。",
-      notification_message
+                 notification_message
 
     logout
     login_user "yameo", "testtest"
@@ -61,6 +61,6 @@ class Notification::PagesTest < ApplicationSystemTestCase
     login_user "machida", "testtest"
     open_notification
     assert_equal "komagataさんがDocsにWIPのテストを投稿しました。",
-      notification_message
+                 notification_message
   end
 end

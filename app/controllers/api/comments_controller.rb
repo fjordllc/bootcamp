@@ -51,11 +51,11 @@ class API::CommentsController < API::BaseController
       link = "<#{polymorphic_url(comment.commentable)}#comment_#{comment.id}|#{comment.commentable.title}>"
 
       SlackNotification.notify "#{name} commented to #{link}",
-        username: "#{comment.user.login_name} (#{comment.user.name})",
-        icon_url: comment.user.avatar_url,
-        attachments: [{
-          fallback: "comment body.",
-          text: comment.description
-        }]
+                               username: "#{comment.user.login_name} (#{comment.user.name})",
+                               icon_url: comment.user.avatar_url,
+                               attachments: [{
+                                 fallback: "comment body.",
+                                 text: comment.description
+                               }]
     end
 end

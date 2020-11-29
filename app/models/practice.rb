@@ -6,21 +6,21 @@ class Practice < ApplicationRecord
   has_many :learnings
   has_and_belongs_to_many :reports
   has_many :started_learnings,
-    -> { where(status: "started") },
-    class_name: "Learning"
+           -> { where(status: "started") },
+           class_name: "Learning"
   has_many :completed_learnings,
-    -> { where(status: "complete") },
-    class_name: "Learning"
+           -> { where(status: "complete") },
+           class_name: "Learning"
   has_many :started_users,
-    through: :started_learnings,
-    source: :user
+           through: :started_learnings,
+           source: :user
   has_many :completed_users,
-    through: :completed_learnings,
-    source: :user
+           through: :completed_learnings,
+           source: :user
   has_many :started_students,
-    -> { students_and_trainees },
-    through: :started_learnings,
-    source: :user
+           -> { students_and_trainees },
+           through: :started_learnings,
+           source: :user
   has_many :products
   has_many :questions
   has_many :pages

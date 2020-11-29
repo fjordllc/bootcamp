@@ -10,8 +10,8 @@ class Work < ApplicationRecord
   validates :description, presence: true
   validates :url_or_repository, presence: true
   validates :thumbnail,
-    content_type: %w(image/png image/jpg image/jpeg),
-    size: { less_than: 10.megabytes }
+            content_type: %w(image/png image/jpg image/jpeg),
+            size: { less_than: 10.megabytes }
 
   def resize_thumbnail!
     if thumbnail.attached?
