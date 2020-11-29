@@ -28,22 +28,22 @@ class Searcher
 
     private
 
-      def result_for(type, word, commentable_type: nil)
-        raise ArgumentError "#{type} is not available type" unless type.in?(AVAILABLE_TYPES)
+    def result_for(type, word, commentable_type: nil)
+      raise ArgumentError "#{type} is not available type" unless type.in?(AVAILABLE_TYPES)
 
-        model(type).search_by_keywords(word: word, commentable_type: commentable_type)
-      end
+      model(type).search_by_keywords(word: word, commentable_type: commentable_type)
+    end
 
-      def commentable?
-        -> (document_type) { model(document_type).include?(Commentable) }
-      end
+    def commentable?
+      -> (document_type) { model(document_type).include?(Commentable) }
+    end
 
-      def model(type)
-        model_name(type).constantize
-      end
+    def model(type)
+      model_name(type).constantize
+    end
 
-      def model_name(type)
-        type.to_s.capitalize.singularize
-      end
+    def model_name(type)
+      type.to_s.capitalize.singularize
+    end
   end
 end

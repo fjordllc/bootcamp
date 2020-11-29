@@ -25,24 +25,24 @@ class RetirementController < ApplicationController
 
   private
 
-    def retire_reason_params
-      params.require(:user).permit(:retire_reason, :satisfaction, :opinion, retire_reasons: [])
-    end
+  def retire_reason_params
+    params.require(:user).permit(:retire_reason, :satisfaction, :opinion, retire_reasons: [])
+  end
 
-    def destroy_subscription
-      Subscription.new.destroy(current_user.subscription_id) if current_user.subscription_id
-    end
+  def destroy_subscription
+    Subscription.new.destroy(current_user.subscription_id) if current_user.subscription_id
+  end
 
-    def notify_to_admins
-      User.admins.each do |admin_user|
-        Notification.retired(current_user, admin_user)
-      end
+  def notify_to_admins
+    User.admins.each do |admin_user|
+      Notification.retired(current_user, admin_user)
     end
+  end
 
-    def notify_to_slack
-      message = "<#{url_for(current_user)}|#{current_user.name} (#{current_user.login_name})>が退会しました。"
-      SlackNotification.notify message,
-                               username: "#{current_user.login_name}@bootcamp.fjord.jp",
-                               icon_url: current_user.avatar_url
-    end
+  def notify_to_slack
+    message = "<#{url_for(current_user)}|#{current_user.name} (#{current_user.login_name})>が退会しました。"
+    SlackNotification.notify message,
+                             username: "#{current_user.login_name}@bootcamp.fjord.jp",
+                             icon_url: current_user.avatar_url
+  end
 end

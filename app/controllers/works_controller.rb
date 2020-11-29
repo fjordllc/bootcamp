@@ -42,21 +42,21 @@ class WorksController < ApplicationController
 
   private
 
-    def work_params
-      params.require(:work).permit(
-        :title,
-        :description,
-        :url,
-        :repository,
-        :thumbnail
-      )
-    end
+  def work_params
+    params.require(:work).permit(
+      :title,
+      :description,
+      :url,
+      :repository,
+      :thumbnail
+    )
+  end
 
-    def set_my_work
-      if admin_login?
-        @work = Work.find(params[:id])
-      else
-        @work = current_user.works.find(params[:id])
-      end
+  def set_my_work
+    if admin_login?
+      @work = Work.find(params[:id])
+    else
+      @work = current_user.works.find(params[:id])
     end
+  end
 end

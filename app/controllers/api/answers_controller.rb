@@ -36,32 +36,32 @@ class API::AnswersController < API::BaseController
 
   private
 
-    def set_question
-      question = Question.find(params[:question_id])
-    end
+  def set_question
+    question = Question.find(params[:question_id])
+  end
 
-    def set_answer
-      @answer = current_user.admin? ? Answer.find(params[:id]) : current_user.answers.find(params[:id])
-    end
+  def set_answer
+    @answer = current_user.admin? ? Answer.find(params[:id]) : current_user.answers.find(params[:id])
+  end
 
-    def question
-      Question.find(params[:question_id])
-    end
+  def question
+    Question.find(params[:question_id])
+  end
 
-    def answer_params
-      params.require(:answer).permit(:description)
-    end
+  def answer_params
+    params.require(:answer).permit(:description)
+  end
 
-    def notify_to_slack(answer)
-      name = "#{answer.user.login_name}"
-      link = "<#{question_url(answer.question)}|#{answer.question.title}>"
+  def notify_to_slack(answer)
+    name = "#{answer.user.login_name}"
+    link = "<#{question_url(answer.question)}|#{answer.question.title}>"
 
-      SlackNotification.notify "#{name}が回答しました。#{link}",
-                               username: "#{answer.user.login_name} (#{answer.user.name})",
-                               icon_url: answer.user.avatar_url,
-                               attachments: [{
-                                 fallback: "answer body.",
-                                 text: answer.description
-                               }]
-    end
+    SlackNotification.notify "#{name}が回答しました。#{link}",
+                             username: "#{answer.user.login_name} (#{answer.user.name})",
+                             icon_url: answer.user.avatar_url,
+                             attachments: [{
+                               fallback: "answer body.",
+                               text: answer.description
+                             }]
+  end
 end

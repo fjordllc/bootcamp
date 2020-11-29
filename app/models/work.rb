@@ -29,7 +29,7 @@ class Work < ApplicationRecord
 
   private
 
-    def url_or_repository
-      url.presence || repository.presence
-    end
+  def url_or_repository
+    url.presence || repository.presence
+  end
 end

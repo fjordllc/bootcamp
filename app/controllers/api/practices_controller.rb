@@ -17,11 +17,11 @@ class API::PracticesController < API::BaseController
 
   private
 
-    def set_practice
-      @practice = Practice.find(params[:id])
-    end
+  def set_practice
+    @practice = Practice.find(params[:id])
+  end
 
-    def practice_params
-      params.require(:practice).permit(:memo)
-    end
+  def practice_params
+    params.require(:practice).permit(:memo)
+  end
 end

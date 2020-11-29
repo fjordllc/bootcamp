@@ -9,15 +9,15 @@ class Users::ProductsController < ApplicationController
 
   private
 
-    def set_user
-      @user = User.find(params[:user_id])
-    end
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
-    def set_products
-      @products = user.products.list
-    end
+  def set_products
+    @products = user.products.list
+  end
 
-    def user
-      @user ||= User.find(params[:user_id])
-    end
+  def user
+    @user ||= User.find(params[:user_id])
+  end
 end

@@ -193,7 +193,7 @@ class Notification < ApplicationRecord
 
   private
 
-    def self.into_one
-      select(:path).group(:path).maximum(:created_at)
-    end
+  def self.into_one
+    select(:path).group(:path).maximum(:created_at)
+  end
 end

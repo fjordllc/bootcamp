@@ -13,11 +13,11 @@ class API::PagesController < API::BaseController
 
   private
 
-    def set_page
-      @page = Page.find(params[:id])
-    end
+  def set_page
+    @page = Page.find(params[:id])
+  end
 
-    def page_params
-      params.require(:page).permit(:tag_list)
-    end
+  def page_params
+    params.require(:page).permit(:tag_list)
+  end
 end

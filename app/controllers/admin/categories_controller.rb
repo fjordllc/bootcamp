@@ -39,20 +39,20 @@ class Admin::CategoriesController < AdminController
 
   private
 
-    def set_category
-      @category = Category.find(params[:id])
-    end
+  def set_category
+    @category = Category.find(params[:id])
+  end
 
-    def category_params
-      params.require(:category).permit(
-        :name,
-        :slug,
-        :description
-      )
-    end
+  def category_params
+    params.require(:category).permit(
+      :name,
+      :slug,
+      :description
+    )
+  end
 
-    def return_to
-      course_id = params[:category][:course_id]
-      course_id.present? ? course_practices_url(course_id) : admin_categories_url
-    end
+  def return_to
+    course_id = params[:category][:course_id]
+    course_id.present? ? course_practices_url(course_id) : admin_categories_url
+  end
 end

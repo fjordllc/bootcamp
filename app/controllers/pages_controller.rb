@@ -56,38 +56,38 @@ class PagesController < ApplicationController
 
   private
 
-    def set_page
-      @page = Page.find(params[:id])
-    end
+  def set_page
+    @page = Page.find(params[:id])
+  end
 
-    def page_params
-      if admin_login?
-        params.require(:page).permit(:title, :body, :tag_list, :user_id, :practice_id)
-      else
-        params.require(:page).permit(:title, :body, :tag_list, :practice_id)
-      end
+  def page_params
+    if admin_login?
+      params.require(:page).permit(:title, :body, :tag_list, :user_id)
+    else
+      params.require(:page).permit(:title, :body, :tag_list)
     end
+  end
 
-    def set_wip
-      @page.wip = params[:commit] == "WIP"
+  def set_wip
+    @page.wip = params[:commit] == "WIP"
+  end
+
+  def notice_message(page, action_name)
+    return "ページをWIPとして保存しました。" if page.wip?
+
+    case action_name
+    when :create
+      "ページを作成しました。"
+    when :update
+      "ページを更新しました。"
     end
+  end
 
-    def notice_message(page, action_name)
-      return "ページをWIPとして保存しました。" if page.wip?
-
-      case action_name
-      when :create
-        "ページを作成しました。"
-      when :update
-        "ページを更新しました。"
-      end
-    end
-
-    def set_categories
-      @categories =
-        Category
-          .eager_load(:practices)
-          .where.not(practices: { id: nil })
-          .order("categories.position ASC, practices.position ASC")
-    end
+  def set_categories
+    @categories =
+      Category
+      .eager_load(:practices)
+      .where.not(practices: { id: nil })
+      .order("categories.position ASC, practices.position ASC")
+  end
 end

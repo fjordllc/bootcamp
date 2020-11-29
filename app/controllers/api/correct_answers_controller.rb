@@ -19,20 +19,20 @@ class API::CorrectAnswersController < API::BaseController
 
   private
 
-    def set_question
-      @question = Question.find(params[:question_id])
-    end
+  def set_question
+    @question = Question.find(params[:question_id])
+  end
 
-    def notify_to_slack(question)
-      name = "#{question.user.login_name}"
-      link = "<#{question_url(question)}|#{question.title}>"
+  def notify_to_slack(question)
+    name = "#{question.user.login_name}"
+    link = "<#{question_url(question)}|#{question.title}>"
 
-      SlackNotification.notify "#{name}が解答を選択しました。#{link}",
-                               username: "#{question.user.login_name} (#{question.user.name})",
-                               icon_url: question.user.avatar_url,
-                               attachments: [{
-                                 fallback: "question body.",
-                                 text: question.description
-                               }]
-    end
+    SlackNotification.notify "#{name}が解答を選択しました。#{link}",
+                             username: "#{question.user.login_name} (#{question.user.name})",
+                             icon_url: question.user.avatar_url,
+                             attachments: [{
+                               fallback: "question body.",
+                               text: question.description
+                             }]
+  end
 end

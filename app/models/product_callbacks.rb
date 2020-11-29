@@ -38,23 +38,23 @@ class ProductCallbacks
 
   private
 
-    def create_author_watch(product)
-      Watch.create!(user: product.user, watchable: product)
-    end
+  def create_author_watch(product)
+    Watch.create!(user: product.user, watchable: product)
+  end
 
-    def send_notification(product:, receivers:, message:)
-      receivers.each do |receiver|
-        NotificationFacade.submitted(product, receiver, message)
-      end
+  def send_notification(product:, receivers:, message:)
+    receivers.each do |receiver|
+      NotificationFacade.submitted(product, receiver, message)
     end
+  end
 
-    def create_watch(watchers:, watchable:)
-      watchers.each do |watcher|
-        Watch.create!(user: watcher, watchable: watchable)
-      end
+  def create_watch(watchers:, watchable:)
+    watchers.each do |watcher|
+      Watch.create!(user: watcher, watchable: watchable)
     end
+  end
 
-    def delete_notification(product)
-      Notification.where(path: "/products/#{product.id}").destroy_all
-    end
+  def delete_notification(product)
+    Notification.where(path: "/products/#{product.id}").destroy_all
+  end
 end

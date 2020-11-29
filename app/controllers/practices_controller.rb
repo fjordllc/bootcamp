@@ -47,25 +47,25 @@ class PracticesController < ApplicationController
 
   private
 
-    def practice_params
-      params.require(:practice).permit(
-        :title,
-        :description,
-        :goal,
-        :position,
-        :submission,
-        :open_product,
-        :include_progress,
-        :memo,
-        category_ids: []
-      )
-    end
+  def practice_params
+    params.require(:practice).permit(
+      :title,
+      :description,
+      :goal,
+      :position,
+      :submission,
+      :open_product,
+      :include_progress,
+      :memo,
+      category_ids: []
+    )
+  end
 
-    def set_practice
-      @practice = Practice.find(params[:id])
-    end
+  def set_practice
+    @practice = Practice.find(params[:id])
+  end
 
-    def set_course
-      @course = Course.find(params[:course_id]) if params[:course_id]
-    end
+  def set_course
+    @course = Course.find(params[:course_id]) if params[:course_id]
+  end
 end
