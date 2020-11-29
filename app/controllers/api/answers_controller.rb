@@ -3,7 +3,6 @@
 class API::AnswersController < API::BaseController
   include Rails.application.routes.url_helpers
   before_action :set_answer, only: %i(update destroy)
-  before_action :set_question, only: %i(create)
   before_action :set_available_emojis, only: %i(index create)
 
   def index
@@ -11,9 +10,9 @@ class API::AnswersController < API::BaseController
   end
 
   def create
+    question = Question.find(params[:question_id])
     @answer = question.answers.new(answer_params)
     @answer.user = current_user
-    @answer.question = question
     if @answer.save
       notify_to_slack(@answer)
       render :create, status: :created
@@ -35,10 +34,6 @@ class API::AnswersController < API::BaseController
   end
 
   private
-
-  def set_question
-    question = Question.find(params[:question_id])
-  end
 
   def set_answer
     @answer = current_user.admin? ? Answer.find(params[:id]) : current_user.answers.find(params[:id])

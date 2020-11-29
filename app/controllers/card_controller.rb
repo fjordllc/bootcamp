@@ -16,7 +16,7 @@ class CardController < ApplicationController
     begin
       token = params[:idempotency_token]
       customer = Card.new.create(current_user, params[:stripeToken], token)
-      subscription = Subscription.new.create(customer["id"], "#{token}-subscription")
+      Subscription.new.create(customer["id"], "#{token}-subscription")
       current_user.customer_id = customer["id"]
       current_user.save(validate: false)
 

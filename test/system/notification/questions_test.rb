@@ -8,7 +8,6 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     @notice_kind = Notification.kinds["came_question"]
     @notified_count = Notification.where(kind: @notice_kind).size
     @mentor_count = User.mentor.size
-    practice = Practice.find_by(title: "OS X Mountain Lionをクリーンインストールする")
   end
 
   test "mentor receive notification when question is posted" do

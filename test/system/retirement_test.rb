@@ -39,7 +39,6 @@ class RetirementTest < ApplicationSystemTestCase
     stub_subscription_cancel!
 
     login_user "muryou", "testtest"
-    user = users(:muryou)
     visit "/products/new?practice_id=#{practices(:practice_5).id}"
     within("#new_product") do
       fill_in("product[body]", with: "test")
@@ -52,7 +51,7 @@ class RetirementTest < ApplicationSystemTestCase
     fill_in "user[retire_reason]", with: "辞" * 8
     choose "良い", visible: false
     fill_in "user[opinion]", with: "ご意見"
-    assert_difference "user.products.unchecked.count", -1 do
+    assert_difference "Product.unchecked.count", -1 do
       page.accept_confirm "本当によろしいですか？" do
         click_on "退会する"
       end
@@ -64,7 +63,6 @@ class RetirementTest < ApplicationSystemTestCase
     stub_subscription_cancel!
 
     login_user "muryou", "testtest"
-    user = users(:muryou)
     visit "/reports/new"
     within("#new_report") do
       fill_in("report[title]", with: "test title")
@@ -78,7 +76,7 @@ class RetirementTest < ApplicationSystemTestCase
     fill_in "user[retire_reason]", with: "辞" * 8
     choose "良い", visible: false
     fill_in "user[opinion]", with: "ご意見"
-    assert_difference "user.reports.wip.count", -1 do
+    assert_difference "Report.wip.count", -1 do
       page.accept_confirm "本当によろしいですか？" do
         click_on "退会する"
       end
