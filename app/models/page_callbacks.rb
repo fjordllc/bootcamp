@@ -34,12 +34,12 @@ class PageCallbacks
       url = "https://bootcamp.fjord.jp#{path}"
       link = "<#{url}|#{page.title}>"
       SlackNotification.notify "#{link}",
-        username: "#{page.user.login_name} (#{page.user.name})",
-        icon_url: page.user.avatar_url,
-        channel: "#bootcamp_notification",
-        attachments: [{
-          fallback: "page body.",
-          text: page.body
-        }]
+                               username: "#{page.user.login_name} (#{page.user.name})",
+                               icon_url: page.user.avatar_url,
+                               channel: "#bootcamp_notification",
+                               attachments: [{
+                                 fallback: "page body.",
+                                 text: page.body
+                               }]
     end
 end

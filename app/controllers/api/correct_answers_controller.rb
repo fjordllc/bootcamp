@@ -27,11 +27,11 @@ class API::CorrectAnswersController < API::BaseController
       link = "<#{question_url(question)}|#{question.title}>"
 
       SlackNotification.notify "#{name}が解答を選択しました。#{link}",
-        username: "#{question.user.login_name} (#{question.user.name})",
-        icon_url: question.user.avatar_url,
-        attachments: [{
-          fallback: "question body.",
-          text: question.description
-        }]
+                               username: "#{question.user.login_name} (#{question.user.name})",
+                               icon_url: question.user.avatar_url,
+                               attachments: [{
+                                 fallback: "question body.",
+                                 text: question.description
+                               }]
     end
 end

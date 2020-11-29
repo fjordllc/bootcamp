@@ -18,6 +18,6 @@ class Notification::ProductsTest < ApplicationSystemTestCase
 
     open_notification
     assert_equal "kensyuさんが「#{practices(:practice_5).title}」の提出物を提出しました。",
-      notification_message
+                 notification_message
   end
 end

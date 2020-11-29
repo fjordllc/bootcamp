@@ -60,56 +60,56 @@ class User < ApplicationRecord
   has_many :answers,      dependent: :destroy
 
   has_many :participate_events,
-    through: :participations,
-    source: :event
+           through: :participations,
+           source: :event
 
   has_many :send_notifications,
-    class_name:  "Notification",
-    foreign_key: "sender_id",
-    dependent:   :destroy
+           class_name:  "Notification",
+           foreign_key: "sender_id",
+           dependent:   :destroy
 
   has_many :completed_learnings,
-    -> { where(status: "complete") },
-    class_name: "Learning",
-    dependent:  :destroy
+           -> { where(status: "complete") },
+           class_name: "Learning",
+           dependent:  :destroy
 
   has_many :completed_practices,
-    through:   :completed_learnings,
-    source:    :practice,
-    dependent: :destroy
+           through:   :completed_learnings,
+           source:    :practice,
+           dependent: :destroy
 
   has_many :active_learnings,
-    -> { where(status: "started") },
-    class_name: "Learning",
-    dependent:  :destroy
+           -> { where(status: "started") },
+           class_name: "Learning",
+           dependent:  :destroy
 
   has_many :active_practices,
-    through:   :active_learnings,
-    source:    :practice,
-    dependent: :destroy
+           through:   :active_learnings,
+           source:    :practice,
+           dependent: :destroy
 
   has_many :books,
-    through: :borrowings
+           through: :borrowings
 
   has_many :last_updated_practices, class_name: "Practice"
 
   has_many :active_relationships,
-    class_name: "Following",
-    foreign_key: "follower_id",
-    dependent: :destroy
+           class_name: "Following",
+           foreign_key: "follower_id",
+           dependent: :destroy
 
   has_many :following,
-    through: :active_relationships,
-    source: :followed
+           through: :active_relationships,
+           source: :followed
 
   has_many :passive_relationships,
-    class_name:  "Following",
-    foreign_key: "followed_id",
-    dependent: :destroy
+           class_name:  "Following",
+           foreign_key: "followed_id",
+           dependent: :destroy
 
   has_many :followers,
-    through: :passive_relationships,
-    source: :follower
+           through: :passive_relationships,
+           source: :follower
 
   has_one_attached :avatar
 
@@ -121,12 +121,12 @@ class User < ApplicationRecord
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :twitter_account,
-    length: { maximum: 15 },
-    format: {
-      allow_blank: true,
-      with: /\A\w+\z/,
-      message: "は英文字と_（アンダースコア）のみが使用できます"
-    }
+            length: { maximum: 15 },
+            format: {
+              allow_blank: true,
+              with: /\A\w+\z/,
+              message: "は英文字と_（アンダースコア）のみが使用できます"
+            }
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
 

@@ -11,7 +11,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
 
     token = create_token("kimura", "testtest")
     get api_users_path(format: :json),
-      headers: { "Authorization" => "Bearer #{token}" }
+        headers: { "Authorization" => "Bearer #{token}" }
     assert_response :ok
   end
 
@@ -21,7 +21,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
 
     token = create_token("kimura", "testtest")
     get api_user_path(users(:kimura).id, format: :json),
-      headers: { "Authorization" => "Bearer #{token}" }
+        headers: { "Authorization" => "Bearer #{token}" }
     assert_response :ok
   end
 end

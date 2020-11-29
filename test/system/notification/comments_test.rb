@@ -19,7 +19,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
 
     open_notification
     assert_equal "komagataさんからメンションがきました。",
-      notification_message
+                 notification_message
     assert_selector ".header-notification-count", text: "1"
   end
 end
