@@ -78,7 +78,7 @@ class NotificationMailer < ApplicationMailer
     @user = @receiver
     @notification = @user.notifications.find_by(path: "/reports/#{@report.id}")
     mail to: @user.email,
-      subject: "[bootcamp] #{@report.user.login_name}さんがはじめての日報を書きました！"
+         subject: "[bootcamp] #{@report.user.login_name}さんがはじめての日報を書きました！"
   end
 
   # required params: watchable, receiver
