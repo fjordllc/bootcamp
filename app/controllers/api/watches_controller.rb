@@ -27,6 +27,7 @@ class API::WatchesController < API::BaseController
   end
 
   private
+
     def watchable
       params[:watchable_type].constantize.find_by(id: params[:watchable_id])
     end

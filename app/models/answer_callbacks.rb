@@ -19,6 +19,7 @@ class AnswerCallbacks
   end
 
   private
+
     def notify_answer(answer)
       NotificationFacade.came_answer(answer)
     end

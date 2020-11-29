@@ -37,6 +37,7 @@ class ReportCallbacks
   end
 
   private
+
     def create_author_watch(report)
       Watch.create!(user: report.user, watchable: report)
     end

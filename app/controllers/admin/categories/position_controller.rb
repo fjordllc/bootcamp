@@ -19,6 +19,7 @@ class Admin::Categories::PositionController < AdminController
   end
 
   private
+
     def set_category
       @category = Category.find(params[:category_id])
     end

@@ -6,6 +6,7 @@ class EventCallbacks
   end
 
   private
+
     def create_author_watch(event)
       Watch.create!(user: event.user, watchable: event)
     end

@@ -28,6 +28,7 @@ class GithubGrass
   end
 
   private
+
     def extract_svg(html)
       Nokogiri::HTML(html).css(SELECTOR)
     end
