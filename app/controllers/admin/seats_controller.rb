@@ -38,6 +38,7 @@ class Admin::SeatsController < AdminController
   end
 
   private
+
     def set_seat
       @seat = Seat.find(params[:id])
     end

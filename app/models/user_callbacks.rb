@@ -21,6 +21,7 @@ class UserCallbacks
   end
 
   private
+
     def notify_to_slack(user)
       path = Rails.application.routes.url_helpers.user_path(user)
       url = "https://bootcamp.fjord.jp#{path}"

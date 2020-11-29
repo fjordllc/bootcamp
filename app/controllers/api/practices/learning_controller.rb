@@ -37,6 +37,7 @@ class API::Practices::LearningController < API::BaseController
   end
 
   private
+
     def notify_learning(user:, learning:)
       subject = "<#{user_url(user)}|#{user.login_name}>"
       object = "<#{practice_url(learning.practice)}|#{learning.practice.title}>"

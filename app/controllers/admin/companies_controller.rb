@@ -40,6 +40,7 @@ class Admin::CompaniesController < AdminController
   end
 
   private
+
     def set_company
       @company = Company.find(params[:id])
     end

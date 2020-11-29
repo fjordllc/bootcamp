@@ -15,6 +15,7 @@ module PageTabHelper
   end
 
   private
+
     def practices_tab_members(resource)
       [
         root_tab(resource),

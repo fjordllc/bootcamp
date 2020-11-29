@@ -65,6 +65,7 @@ class UsersController < ApplicationController
   end
 
   private
+
     def create_free_user!
       if @user.save
         UserMailer.welcome(@user).deliver_now

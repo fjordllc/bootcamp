@@ -69,6 +69,7 @@ class ProductsController < ApplicationController
   end
 
   private
+
     def notify_to_slack(product)
       name = "#{product.user.login_name}"
       link = "<#{url_for(product)}|#{product.title}>"

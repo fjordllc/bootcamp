@@ -28,6 +28,7 @@ class API::ReservationsController < API::BaseController
   end
 
   private
+
     def reservation_params
       params.require(:reservation).permit(
         :date,
