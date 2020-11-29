@@ -4,24 +4,24 @@
       li.page-tabs__item
         = link_to "管理ページ",
           admin_root_path,
-          class: "page-tabs__item-link #{current_link /^admin-home/}"
+          class: "page-tabs__item-link #{current_link(/^admin-home/)}"
       li.page-tabs__item
         = link_to "ユーザー",
           admin_users_path,
-          class: "page-tabs__item-link #{current_link /^admin-users/}"
+          class: "page-tabs__item-link #{current_link(/^admin-users/)}"
       li.page-tabs__item
         = link_to "カテゴリー",
           admin_categories_path,
-          class: "page-tabs__item-link #{current_link /^admin-categories/}"
+          class: "page-tabs__item-link #{current_link(/^admin-categories/)}"
       li.page-tabs__item
         = link_to "企業",
           admin_companies_path,
-          class: "page-tabs__item-link #{current_link /^admin-companies/}"
+          class: "page-tabs__item-link #{current_link(/^admin-companies/)}"
       li.page-tabs__item
         = link_to "書籍",
           admin_books_path,
-          class: "page-tabs__item-link #{current_link /^admin-books/}"
+          class: "page-tabs__item-link #{current_link(/^admin-books/)}"
       li.page-tabs__item
         = link_to "席",
           admin_seats_path,
-          class: "page-tabs__item-link #{current_link /^admin-seats/}"
+          class: "page-tabs__item-link #{current_link(/^admin-seats/)}"

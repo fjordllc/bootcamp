@@ -2,15 +2,15 @@
   .container
     ul.page-tabs__items
       li.page-tabs__item
-        = link_to "全て", products_path, class: "page-tabs__item-link #{current_link /^products-index/}"
+        = link_to "全て", products_path, class: "page-tabs__item-link #{current_link(/^products-index/)}"
       li.page-tabs__item
-        = link_to products_unchecked_index_path, class: "page-tabs__item-link #{current_link /^products-unchecked-index/}" do
+        = link_to products_unchecked_index_path, class: "page-tabs__item-link #{current_link(/^products-unchecked-index/)}" do
           | 未チェック
           - if Cache.unchecked_product_count > 0
             .page-tabs__item-count.a-notification-count
               = Cache.unchecked_product_count
       li.page-tabs__item
-        = link_to products_not_responded_index_path, class: "page-tabs__item-link #{current_link /^products-not_responded-index/}" do
+        = link_to products_not_responded_index_path, class: "page-tabs__item-link #{current_link(/^products-not_responded-index/)}" do
           | 未返信
           - if Cache.not_responded_product_count > 0
             .page-tabs__item-count.a-notification-count
