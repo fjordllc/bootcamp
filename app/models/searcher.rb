@@ -35,7 +35,7 @@ class Searcher
     end
 
     def commentable?
-      -> (document_type) { model(document_type).include?(Commentable) }
+      ->(document_type) { model(document_type).include?(Commentable) }
     end
 
     def model(type)

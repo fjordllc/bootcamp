@@ -6,16 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: require_no_space, require_space
-Layout/SpaceInLambdaLiteral:
-  Exclude:
-    - 'app/models/product.rb'
-    - 'app/models/searcher.rb'
-    - 'app/models/user.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.

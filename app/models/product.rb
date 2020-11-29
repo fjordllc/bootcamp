@@ -25,7 +25,7 @@ class Product < ApplicationRecord
   mentionable_as :body
 
   scope :ids_of_common_checked_with,
-        -> (user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
+        ->(user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: "Product").pluck(:checkable_id)) }
 
