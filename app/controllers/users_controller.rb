@@ -75,6 +75,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def create_user!
     @user.with_lock do
       if !@user.validate
@@ -112,6 +113,7 @@ class UsersController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def notify_to_slack!
     SlackNotification.notify "<#{url_for(@user)}|#{@user.name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
@@ -123,30 +125,14 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :login_name,
-      :name,
-      :name_kana,
-      :email,
-      :course_id,
-      :description,
-      :slack_account,
-      :github_account,
-      :twitter_account,
-      :facebook_url,
-      :blog_url,
-      :password,
-      :password_confirmation,
-      :job,
-      :organization,
-      :os,
-      :experience,
-      :prefecture_code,
-      :company_id,
-      :nda,
-      :avatar,
-      :trainee,
-      :adviser,
-      :job_seeker
+      :login_name, :name, :name_kana,
+      :email, :course_id, :description,
+      :slack_account, :github_account, :twitter_account,
+      :facebook_url, :blog_url, :password,
+      :password_confirmation, :job, :organization,
+      :os, :experience, :prefecture_code,
+      :company_id, :nda, :avatar,
+      :trainee, :adviser, :job_seeker
     )
   end
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module MetaTagsHelper
+  # rubocop:disable Metrics/MethodLength
   def default_meta_tags
     {
       site: "FJORD BOOT CAMP（フィヨルドブートキャンプ）",
@@ -25,4 +26,5 @@ module MetaTagsHelper
       }
     }
   end
+  # rubocop:enable Metrics/MethodLength
 end

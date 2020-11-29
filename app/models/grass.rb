@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Grass
+  # rubocop:disable Metrics/MethodLength
   def self.times(user, end_date)
     start_date = end_date.prev_year.sunday
     sql = <<~SQL
@@ -40,4 +41,5 @@ class Grass
 
     LearningTime.find_by_sql([sql, { start_date: start_date, end_date: end_date, user_id: user.id }])
   end
+  # rubocop:enable Metrics/MethodLength
 end

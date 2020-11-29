@@ -269,24 +269,16 @@ class User < ApplicationRecord
       case target
       when "student_and_trainee"
         self.students_and_trainees
-      when "job_seeking"
-        self.job_seeking
-      when "retired"
-        self.retired
       when "graduate"
         self.graduated
       when "adviser"
         self.advisers
-      when "mentor"
-        self.mentor
       when "inactive"
         self.inactive.order(:updated_at)
-      when "year_end_party"
-        self.year_end_party
       when "trainee"
         self.trainees
-      when "all"
-        self.all
+      else
+        self.send(target)
       end
     end
   end
