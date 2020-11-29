@@ -19,7 +19,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     login_user "kimura", "testtest"
     user = users(:komagata)
     Announcement.delete_all
-    26.times do |n|
+    26.times do
       Announcement.create(title: "test", description: "test", user: user)
     end
     visit "/announcements"
