@@ -3,11 +3,11 @@
 class Card
   def create(user, card_token, idempotency_key = SecureRandom.uuid)
     Stripe::Customer.create({
-      email: user.email,
-      source: card_token
-    }, {
-      idempotency_key: idempotency_key
-    })
+                              email: user.email,
+                              source: card_token
+                            }, {
+                              idempotency_key: idempotency_key
+                            })
   end
 
   def update(customer_id, card_token)
