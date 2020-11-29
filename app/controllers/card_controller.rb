@@ -12,6 +12,7 @@ class CardController < ApplicationController
   def new
   end
 
+  # rubocop:disable Metrics/MethodLength
   def create
     begin
       token = params[:idempotency_token]
@@ -40,6 +41,7 @@ class CardController < ApplicationController
       redirect_to card_url
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def edit
   end

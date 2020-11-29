@@ -34,6 +34,7 @@ class UserSessionsController < ApplicationController
     redirect_to root_url, notice: "ログアウトしました。"
   end
 
+  # rubocop:disable Metrics/MethodLength
   def callback
     auth = request.env["omniauth.auth"]
     github_id = auth[:uid]
@@ -61,6 +62,7 @@ class UserSessionsController < ApplicationController
     flash[:alert] = "GitHubログインに失敗しました。数回試しても続く場合、管理者に連絡してください。"
     redirect_to root_path
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 

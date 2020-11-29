@@ -37,6 +37,7 @@ class Product < ApplicationRecord
       .order(created_at: :desc)
   }
 
+  # rubocop:disable Metrics/MethodLength
   def self.not_responded_products
     sql = <<~SQL
       WITH last_comments AS (
@@ -66,6 +67,7 @@ class Product < ApplicationRecord
     product_ids = Product.find_by_sql(sql).map(&:id)
     Product.where(id: product_ids).order(created_at: :desc)
   end
+  # rubocop:enable Metrics/MethodLength
 
   def completed?(user)
     checks.where(user: user).present?
