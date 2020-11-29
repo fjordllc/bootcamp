@@ -232,7 +232,7 @@ class User < ApplicationRecord
       job_seeker: true
     )
   }
-  scope :order_by_counts, -> (order_by, direction) {
+  scope :order_by_counts, ->(order_by, direction) {
     unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
       raise ArgumentError, "Invalid argument"
     end
