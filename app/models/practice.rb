@@ -71,15 +71,15 @@ class Practice < ApplicationRecord
 
   def completed?(user)
     Learning.exists?(
-      user:        user,
+      user: user,
       practice_id: id,
-      status:      Learning.statuses[:complete]
+      status: Learning.statuses[:complete]
     )
   end
 
   def exists_learning?(user)
     Learning.exists?(
-      user:        user,
+      user: user,
       practice_id: id
     )
   end

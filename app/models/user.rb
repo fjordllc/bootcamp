@@ -64,28 +64,28 @@ class User < ApplicationRecord
            source: :event
 
   has_many :send_notifications,
-           class_name:  "Notification",
+           class_name: "Notification",
            foreign_key: "sender_id",
-           dependent:   :destroy
+           dependent: :destroy
 
   has_many :completed_learnings,
            -> { where(status: "complete") },
            class_name: "Learning",
-           dependent:  :destroy
+           dependent: :destroy
 
   has_many :completed_practices,
-           through:   :completed_learnings,
-           source:    :practice,
+           through: :completed_learnings,
+           source: :practice,
            dependent: :destroy
 
   has_many :active_learnings,
            -> { where(status: "started") },
            class_name: "Learning",
-           dependent:  :destroy
+           dependent: :destroy
 
   has_many :active_practices,
-           through:   :active_learnings,
-           source:    :practice,
+           through: :active_learnings,
+           source: :practice,
            dependent: :destroy
 
   has_many :books,
@@ -103,7 +103,7 @@ class User < ApplicationRecord
            source: :followed
 
   has_many :passive_relationships,
-           class_name:  "Following",
+           class_name: "Following",
            foreign_key: "followed_id",
            dependent: :destroy
 
@@ -134,18 +134,18 @@ class User < ApplicationRecord
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
-      format: {
-        with: /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i,
-          message: "は半角英数字と-（ハイフン）のみが使用できます 先頭と最後にハイフンを使用することはできません ハイフンを連続して使用することはできません"
-      }
+                           format: {
+                             with: /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i,
+                             message: "は半角英数字と-（ハイフン）のみが使用できます 先頭と最後にハイフンを使用することはできません ハイフンを連続して使用することはできません"
+                           }
   end
 
   with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
     validates :name_kana,  presence: true,
-    format: {
-      with: /\A^[ 　ア-ン゛゜ァ-ォャ-ョー]+\z/,
-      message: "はスペースとカタカナのみが使用できます"
-    }
+                           format: {
+                             with: /\A^[ 　ア-ン゛゜ァ-ォャ-ョー]+\z/,
+                             message: "はスペースとカタカナのみが使用できます"
+                           }
   end
 
   with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
@@ -191,7 +191,7 @@ class User < ApplicationRecord
       admin: false,
       mentor: false,
       adviser: false,
-      trainee:  false,
+      trainee: false,
       retired_on: nil,
       graduated_on: nil
     )
