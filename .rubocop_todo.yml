@@ -8,12 +8,6 @@
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Lint/OrderedMagicComments:
-  Exclude:
-    - 'db/data_schema.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Lint/RedundantCopDisableDirective:
   Exclude:
     - 'app/models/link_checker/client.rb'
