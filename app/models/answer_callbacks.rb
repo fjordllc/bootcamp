@@ -10,11 +10,11 @@ class AnswerCallbacks
     notify_to_watching_user(answer)
   end
 
-  def after_save(answer)
+  def after_save(_answer)
     Cache.delete_not_solved_question_count
   end
 
-  def after_destroy(answer)
+  def after_destroy(_answer)
     Cache.delete_not_solved_question_count
   end
 

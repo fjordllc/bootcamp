@@ -6,15 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods, IgnoreNotImplementedMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'app/decorators/company_decorator.rb'
-    - 'app/decorators/work_decorator.rb'
-    - 'app/models/answer_callbacks.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Lint/UriRegexp:
