@@ -7,12 +7,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 1
-# Configuration parameters: AllowSafeAssignment.
-Lint/AssignmentInCondition:
-  Exclude:
-    - 'bin/spring'
-
-# Offense count: 1
 Lint/IneffectiveAccessModifier:
   Exclude:
     - 'app/models/notification.rb'
