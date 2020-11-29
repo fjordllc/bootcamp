@@ -12,9 +12,9 @@ class PracticesTest < ApplicationSystemTestCase
   test "show link to all practices with same category" do
     login_user "hatsuno", "testtest"
     user = users(:hatsuno)
-    practice = practices(:practice_1)
-    category = practice.category(user.course)
-    visit "/practices/#{practice.id}"
+    practice_1 = practices(:practice_1)
+    category = practice_1.category(user.course)
+    visit "/practices/#{practice_1.id}"
     category.practices.each do |practice|
       assert has_link? practice.title
     end
