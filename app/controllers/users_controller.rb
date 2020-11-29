@@ -114,9 +114,9 @@ class UsersController < ApplicationController
 
     def notify_to_slack!
       SlackNotification.notify "<#{url_for(@user)}|#{@user.name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
-        username: "#{@user.login_name}@bootcamp.fjord.jp",
-        icon_url: @user.avatar_url,
-        channel: "#fjord"
+                               username: "#{@user.login_name}@bootcamp.fjord.jp",
+                               icon_url: @user.avatar_url,
+                               channel: "#fjord"
       redirect_to root_url, notice: "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
     end
 

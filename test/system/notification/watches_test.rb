@@ -27,13 +27,13 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     login_user "kimura", "testtest"
     open_notification
     assert_equal "komagataさんの【 「#{reports(:report_1).title}」の日報 】にkomagataさんがコメントしました。",
-      notification_message
+                 notification_message
 
     login_user "machida", "testtest"
     open_notification
 
     assert_equal "komagataさんの【 「#{reports(:report_1).title}」の日報 】にkomagataさんがコメントしました。",
-      notification_message
+                 notification_message
   end
 
   test "質問作成者がコメントをした際、ウォッチ通知が飛ばないバグの再現" do
@@ -60,11 +60,11 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     login_user "kimura", "testtest"
     open_notification
     assert_equal "machidaさんの【 「#{questions(:question_1).title}」のQ&A 】にmachidaさんがコメントしました。",
-      notification_message
+                 notification_message
 
     login_user "komagata", "testtest"
     open_notification
     assert_equal "machidaさんの【 「#{questions(:question_1).title}」のQ&A 】にmachidaさんがコメントしました。",
-      notification_message
+                 notification_message
   end
 end
