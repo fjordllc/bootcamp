@@ -16,11 +16,11 @@ class Searcher
     def search(word, document_type: :all)
       case document_type
       when :all
-        AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
+        result_for_all(word)
       when commentable?
-        [document_type, :comments].flat_map { |type| result_for(type, word, commentable_type: model_name(document_type)) }.sort_by(&:updated_at).reverse
+        result_for_comments(document_type, word)
       when :questions
-        [document_type, :answers].flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
+        result_for_questions(document_type, word)
       else
         result_for(document_type, word).sort_by(&:updated_at).reverse
       end
@@ -44,6 +44,18 @@ class Searcher
 
     def model_name(type)
       type.to_s.capitalize.singularize
+    end
+
+    def result_for_all(word)
+      AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
+    end
+
+    def result_for_comments(document_type, word)
+      [document_type, :comments].flat_map { |type| result_for(type, word, commentable_type: model_name(document_type)) }.sort_by(&:updated_at).reverse
+    end
+
+    def result_for_questions(document_type, word)
+      [document_type, :answers].flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
     end
   end
 end
