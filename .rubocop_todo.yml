@@ -6,16 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBrackets: space, no_space
-Layout/SpaceInsideArrayLiteralBrackets:
-  Exclude:
-    - 'app/decorators/user_decorator.rb'
-    - 'db/migrate/20181210065255_create_active_storage_tables.active_storage.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: AllowInHeredoc.

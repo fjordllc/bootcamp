@@ -46,8 +46,8 @@ module UserDecorator
 
     blanks = last_wday.times.map { { report: nil, date: nil, emotion: nil } }
 
-    [ *blanks, *reports_date_and_emotion].each_slice(DAYS_IN_WEEK)
-                                         .to_a
+    [*blanks, *reports_date_and_emotion].each_slice(DAYS_IN_WEEK)
+                                        .to_a
   end
 
   def icon_classes(*classes)
