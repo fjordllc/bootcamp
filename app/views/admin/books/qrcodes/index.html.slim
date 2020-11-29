@@ -1,7 +1,7 @@
 - @books.each_slice(Admin::Books::QrcodesController::DESPLAY_NUM) do |slice_book|
   section class="sheet"
     .book-stickers
-      - slice_book.each_with_index do |book, i|
+      - slice_book.each do |book|
         .book-sticker
           .book-sticker__logo
             = image_tag "pijord-book-logo.svg", class: "book-sticker__logo-image"

@@ -11,7 +11,7 @@
 .page-body
   .container
     .tag_cloud
-      - tag_cloud Article.tag_counts, %w{s m l} do |tag, css_class|
+      - tag_cloud Article.tag_counts, %w{s m l} do |tag, _|
         = link_to tag.name, tag_path(tag.name)
     .practice-contents
       - @articles.each do |article|

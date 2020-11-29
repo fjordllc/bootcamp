@@ -1,7 +1,7 @@
 .form-item
   = f.label :os, "学習に使うOS", class: "a-label is-required"
   .a-button.is-md.is-secondary.is-select.is-block
-    - options = options_for_select(User.os.map { |k, v| [t("activerecord.enums.user.os.#{k}"), k] }, selected: f.object.os)
+    - options = options_for_select(User.os.map { |k, _| [t("activerecord.enums.user.os.#{k}"), k] }, selected: f.object.os)
     = f.select :os, options, include_blank: "- 選択してください -"
   .a-form-help
     p

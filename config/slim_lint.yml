@@ -47,7 +47,6 @@ linters:
       - Rails/Presence
       - Rails/ContentTag
       - Lint/EmptyConditionalBody
-      - Lint/UnusedBlockArgument
       - Layout/SpaceAroundMethodCallOperator
       - Layout/SpaceInsideStringInterpolation
       - Style/StringConcatenation
