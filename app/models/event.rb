@@ -101,6 +101,7 @@ class Event < ApplicationRecord
   end
 
   private
+
     def end_at_be_greater_than_start_at
       diff = end_at - start_at
       if diff <= 0

@@ -50,6 +50,7 @@ class AnnouncementsController < ApplicationController
   end
 
   private
+
     def notify_to_slack(announcement)
       link = "<#{url_for(announcement)}|#{announcement.title}>"
 

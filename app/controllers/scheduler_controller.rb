@@ -5,6 +5,7 @@ class SchedulerController < ApplicationController
   before_action :require_token
 
   protected
+
     def require_token
       unless ENV["TOKEN"] == params[:token]
         head :unauthorized

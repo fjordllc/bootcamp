@@ -13,6 +13,7 @@ module TagHelper
   end
 
   private
+
     def qualified_page_name
       "#{controller_path.tr("/", "-")}-#{controller.action_name}"
     end

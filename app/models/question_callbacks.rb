@@ -12,6 +12,7 @@ class QuestionCallbacks
   end
 
   private
+
     def send_notification_to_mentors(question)
       User.mentor.each do |user|
         if question.sender != user

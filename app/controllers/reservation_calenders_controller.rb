@@ -21,6 +21,7 @@ class ReservationCalendersController < ApplicationController
   end
 
   private
+
     def beggining_of_this_month
       if @beggining_of_this_month.nil?
         if year_and_month?(params[:id])

@@ -10,6 +10,7 @@ class AnnouncementCallbacks
   end
 
   private
+
     def send_notification(announce)
       target_users = User.announcement_receiver(announce.target)
       target_users.each do |target|

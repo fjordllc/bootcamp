@@ -9,12 +9,14 @@ class ApplicationController < ActionController::Base
   before_action :set_host_for_disk_storage
 
   protected
+
     def allow_cross_domain_access
       response.headers["Access-Control-Allow-Origin"] = "*"
       response.headers["Access-Control-Allow-Methods"] = "*"
     end
 
   private
+
     def init_user
       @current_user = current_user
     end

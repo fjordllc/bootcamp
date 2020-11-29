@@ -24,6 +24,7 @@ class RetirementController < ApplicationController
   end
 
   private
+
     def retire_reason_params
       params.require(:user).permit(:retire_reason, :satisfaction, :opinion, retire_reasons: [])
     end
