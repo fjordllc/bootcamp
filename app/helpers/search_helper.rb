@@ -3,11 +3,11 @@
 module SearchHelper
   def matched_document(searchable)
     if searchable.class == Comment
-      document = searchable.commentable_type.constantize.find(searchable.commentable_id)
+      searchable.commentable_type.constantize.find(searchable.commentable_id)
     elsif searchable.class == Answer || searchable.class == CorrectAnswer
-      document = searchable.question
+      searchable.question
     else
-      document = searchable
+      searchable
     end
   end
 

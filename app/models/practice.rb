@@ -119,9 +119,9 @@ class Practice < ApplicationRecord
   def median_learning_minute(minute_list)
     center_index = ((minute_list.size - 1) / 2).floor
     if minute_list.size.even?
-      median_learning_minute = (minute_list[center_index] + minute_list[center_index + 1]) / 2
+      (minute_list[center_index] + minute_list[center_index + 1]) / 2
     else
-      median_learning_minute = (minute_list[center_index])
+      (minute_list[center_index])
     end
   end
 
