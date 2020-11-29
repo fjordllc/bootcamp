@@ -19,15 +19,15 @@ class Events::ParticipationsController < ApplicationController
 
   private
 
-    def set_event
-      @event = Event.find(params[:event_id])
-    end
+  def set_event
+    @event = Event.find(params[:event_id])
+  end
 
-    def create_watch
-      watch = Watch.new(
-        user: current_user,
-        watchable: @event
-      )
-      watch.save!
-    end
+  def create_watch
+    watch = Watch.new(
+      user: current_user,
+      watchable: @event
+    )
+    watch.save!
+  end
 end

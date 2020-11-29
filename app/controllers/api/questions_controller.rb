@@ -13,16 +13,16 @@ class API::QuestionsController < API::BaseController
 
   private
 
-    def set_question
-      @question =
-        if current_user.admin? || current_user.mentor?
-          Question.find(params[:id])
-        else
-          current_user.questions.find(params[:id])
-        end
-    end
+  def set_question
+    @question =
+      if current_user.admin? || current_user.mentor?
+        Question.find(params[:id])
+      else
+        current_user.questions.find(params[:id])
+      end
+  end
 
-    def question_params
-      params.require(:question).permit(:tag_list)
-    end
+  def question_params
+    params.require(:question).permit(:tag_list)
+  end
 end

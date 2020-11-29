@@ -44,10 +44,10 @@ class PasswordResetsController < ApplicationController
 
   private
 
-    def clear_password_token!
-      @user.update(
-        reset_password_token: nil,
-        reset_password_token_expires_at: nil
-      )
-    end
+  def clear_password_token!
+    @user.update(
+      reset_password_token: nil,
+      reset_password_token_expires_at: nil
+    )
+  end
 end

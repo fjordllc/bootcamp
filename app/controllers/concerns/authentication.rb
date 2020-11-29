@@ -60,27 +60,27 @@ module Authentication
 
   protected
 
-    def not_authenticated
-      redirect_to root_path, alert: "ログインしてください"
-    end
+  def not_authenticated
+    redirect_to root_path, alert: "ログインしてください"
+  end
 
-    def require_login_for_api
-      login_from_jwt if !logged_in?
-      head :unauthorized unless logged_in?
-    end
+  def require_login_for_api
+    login_from_jwt if !logged_in?
+    head :unauthorized unless logged_in?
+  end
 
-    def require_admin_login_for_api
-      login_from_jwt if !logged_in?
-      head :unauthorized unless admin_login?
-    end
+  def require_admin_login_for_api
+    login_from_jwt if !logged_in?
+    head :unauthorized unless admin_login?
+  end
 
-    def require_mentor_login_for_api
-      login_from_jwt if !logged_in?
-      head :unauthorized unless mentor_login?
-    end
+  def require_mentor_login_for_api
+    login_from_jwt if !logged_in?
+    head :unauthorized unless mentor_login?
+  end
 
-    def require_staff_login_for_api
-      login_from_jwt if !logged_in?
-      head :unauthorized unless staff_login?
-    end
+  def require_staff_login_for_api
+    login_from_jwt if !logged_in?
+    head :unauthorized unless staff_login?
+  end
 end

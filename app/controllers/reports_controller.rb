@@ -88,120 +88,120 @@ class ReportsController < ApplicationController
 
   private
 
-    def footprint!
-      @report.footprints.create_or_find_by(user: current_user) if @report.user != current_user
-    end
+  def footprint!
+    @report.footprints.create_or_find_by(user: current_user) if @report.user != current_user
+  end
 
-    def report_params
-      params.require(:report).permit(
-        :title,
-        :reported_on,
-        :emotion,
-        :description,
-        practice_ids: [],
-        learning_times_attributes: [:id, :started_at, :finished_at, :_destroy]
-      )
-    end
+  def report_params
+    params.require(:report).permit(
+      :title,
+      :reported_on,
+      :emotion,
+      :description,
+      practice_ids: [],
+      learning_times_attributes: [:id, :started_at, :finished_at, :_destroy]
+    )
+  end
 
-    def set_report
-      @report = Report.find(params[:id])
-    end
+  def set_report
+    @report = Report.find(params[:id])
+  end
 
-    def set_my_report
-      @report = current_user.reports.find(params[:id])
-    end
+  def set_my_report
+    @report = current_user.reports.find(params[:id])
+  end
 
-    def set_user
-      @user = User.find_by(id: params[:user_id])
-    end
+  def set_user
+    @user = User.find_by(id: params[:user_id])
+  end
 
-    def set_check
-      @check = Check.new
-    end
+  def set_check
+    @check = Check.new
+  end
 
-    def report
-      @report ||= Report.find(params[:id])
-    end
+  def report
+    @report ||= Report.find(params[:id])
+  end
 
-    def set_checks
-      @checks = report.checks.order(created_at: :desc)
-    end
+  def set_checks
+    @checks = report.checks.order(created_at: :desc)
+  end
 
-    def set_footprint
-      @footprint = Footprint.new
-    end
+  def set_footprint
+    @footprint = Footprint.new
+  end
 
-    def set_footprints
-      @footprints = @report.footprints.with_avatar.order(created_at: :desc)
-    end
+  def set_footprints
+    @footprints = @report.footprints.with_avatar.order(created_at: :desc)
+  end
 
-    def set_categories
-      @categories = Category.eager_load(:practices).where.not(practices: { id: nil }).order("categories.position ASC, practices.position ASC")
-    end
+  def set_categories
+    @categories = Category.eager_load(:practices).where.not(practices: { id: nil }).order("categories.position ASC, practices.position ASC")
+  end
 
-    def notify_to_slack(report)
-      name = "#{report.user.login_name}"
-      link = "<#{report_url(report)}|#{report.title}>"
+  def notify_to_slack(report)
+    name = "#{report.user.login_name}"
+    link = "<#{report_url(report)}|#{report.title}>"
 
-      SlackNotification.notify "#{name} created #{link}",
+    SlackNotification.notify "#{name} created #{link}",
+                             username: "#{report.user.login_name} (#{report.user.name})",
+                             icon_url: report.user.avatar_url,
+                             attachments: [{
+                               fallback: "report body.",
+                               text: report.description
+                             }]
+
+    if report.user.trainee? && report.user.company.slack_channel?
+      SlackNotification.notify "#{name} さんが日報を提出しました。 #{link}",
                                username: "#{report.user.login_name} (#{report.user.name})",
                                icon_url: report.user.avatar_url,
+                               channel: report.user.company.slack_channel,
                                attachments: [{
                                  fallback: "report body.",
                                  text: report.description
                                }]
+    end
+  end
 
-      if report.user.trainee? && report.user.company.slack_channel?
-        SlackNotification.notify "#{name} さんが日報を提出しました。 #{link}",
-                                 username: "#{report.user.login_name} (#{report.user.name})",
-                                 icon_url: report.user.avatar_url,
-                                 channel: report.user.company.slack_channel,
-                                 attachments: [{
-                                   fallback: "report body.",
-                                   text: report.description
-                                 }]
+  def set_wip
+    @report.wip = params[:commit] == "WIP"
+  end
+
+  def check_noticeable
+    if @report.published_at.nil? && @report.wip == false
+      @report.published_at = Date.current
+      @noticeable = true
+    end
+  end
+
+  def redirect_url(report)
+    report.wip? ? edit_report_url(report) : report
+  end
+
+  def notice_message(report)
+    report.wip? ? "日報をWIPとして保存しました。" : "日報を保存しました。"
+  end
+
+  def set_watch
+    @watch = Watch.new
+  end
+
+  def canonicalize_learning_times(report)
+    report.learning_times.each do |learning_time|
+      new_started_at = learning_time.started_at.change(
+        year: report.reported_on.year,
+        month: report.reported_on.month,
+        day: report.reported_on.day
+      )
+      new_finished_at = learning_time.finished_at.change(
+        year: report.reported_on.year,
+        month: report.reported_on.month,
+        day: report.reported_on.day
+      )
+      if new_started_at > new_finished_at
+        new_finished_at += 1.day
       end
+      learning_time.assign_attributes(started_at: new_started_at, finished_at: new_finished_at)
     end
-
-    def set_wip
-      @report.wip = params[:commit] == "WIP"
-    end
-
-    def check_noticeable
-      if @report.published_at.nil? && @report.wip == false
-        @report.published_at = Date.current
-        @noticeable = true
-      end
-    end
-
-    def redirect_url(report)
-      report.wip? ? edit_report_url(report) : report
-    end
-
-    def notice_message(report)
-      report.wip? ? "日報をWIPとして保存しました。" : "日報を保存しました。"
-    end
-
-    def set_watch
-      @watch = Watch.new
-    end
-
-    def canonicalize_learning_times(report)
-      report.learning_times.each do |learning_time|
-        new_started_at = learning_time.started_at.change(
-          year: report.reported_on.year,
-          month: report.reported_on.month,
-          day: report.reported_on.day
-        )
-        new_finished_at = learning_time.finished_at.change(
-          year: report.reported_on.year,
-          month: report.reported_on.month,
-          day: report.reported_on.day
-        )
-        if new_started_at > new_finished_at
-          new_finished_at += 1.day
-        end
-        learning_time.assign_attributes(started_at: new_started_at, finished_at: new_finished_at)
-      end
-    end
+  end
 end

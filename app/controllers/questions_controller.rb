@@ -64,53 +64,53 @@ class QuestionsController < ApplicationController
 
   private
 
-    def set_question
-      @question = Question.find(params[:id])
-    end
+  def set_question
+    @question = Question.find(params[:id])
+  end
 
-    def set_categories
-      @categories =
-        Category
-          .eager_load(:practices)
-          .where.not(practices: { id: nil })
-          .order("categories.position ASC, practices.position ASC")
-    end
+  def set_categories
+    @categories =
+      Category
+        .eager_load(:practices)
+        .where.not(practices: { id: nil })
+        .order("categories.position ASC, practices.position ASC")
+  end
 
-    def question_params
-      params.require(:question).permit(
-        :title,
-        :description,
-        :user_id,
-        :resolve,
-        :practice_id,
-        :tag_list
-      )
-    end
+  def question_params
+    params.require(:question).permit(
+      :title,
+      :description,
+      :user_id,
+      :resolve,
+      :practice_id,
+      :tag_list
+    )
+  end
 
-    def notify_to_slack(question)
-      name = "#{question.user.login_name}"
-      link = "<#{question_url(question)}|#{question.title}>"
+  def notify_to_slack(question)
+    name = "#{question.user.login_name}"
+    link = "<#{question_url(question)}|#{question.title}>"
 
-      SlackNotification.notify "#{name}質問しました。#{link}",
-                               username: "#{question.user.login_name} (#{question.user.name})",
-                               icon_url: question.user.avatar_url,
-                               attachments: [{
-                                 fallback: "question body.",
-                                 text: question.description
-                               }]
-    end
+    SlackNotification.notify "#{name}質問しました。#{link}",
+                             username: "#{question.user.login_name} (#{question.user.name})",
+                             icon_url: question.user.avatar_url,
+                             attachments: [{
+                               fallback: "question body.",
+                               text: question.description
+                             }]
+  end
 
-    def set_watch
-      @watch = Watch.new
-    end
+  def set_watch
+    @watch = Watch.new
+  end
 
-    def questions_property
-      if params[:all] == "true"
-        QuestionsProperty.new("全ての質問", "質問はまだありません。")
-      elsif params[:solved] == "true"
-        QuestionsProperty.new("解決済みの質問一覧", "解決済みの質問はまだありません。")
-      else
-        QuestionsProperty.new("未解決の質問一覧", "未解決の質問はまだありません。")
-      end
+  def questions_property
+    if params[:all] == "true"
+      QuestionsProperty.new("全ての質問", "質問はまだありません。")
+    elsif params[:solved] == "true"
+      QuestionsProperty.new("解決済みの質問一覧", "解決済みの質問はまだありません。")
+    else
+      QuestionsProperty.new("未解決の質問一覧", "未解決の質問はまだありません。")
     end
+  end
 end

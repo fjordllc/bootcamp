@@ -14,7 +14,7 @@ module TagHelper
 
   private
 
-    def qualified_page_name
-      "#{controller_path.tr("/", "-")}-#{controller.action_name}"
-    end
+  def qualified_page_name
+    "#{controller_path.tr("/", "-")}-#{controller.action_name}"
+  end
 end

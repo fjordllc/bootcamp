@@ -51,40 +51,40 @@ class EventsController < ApplicationController
 
   private
 
-    def event_params
-      params.require(:event).permit(
-        :title,
-        :description,
-        :location,
-        :capacity,
-        :start_at,
-        :end_at,
-        :open_start_at,
-        :open_end_at
-      )
-    end
+  def event_params
+    params.require(:event).permit(
+      :title,
+      :description,
+      :location,
+      :capacity,
+      :start_at,
+      :end_at,
+      :open_start_at,
+      :open_end_at
+    )
+  end
 
-    def set_event
-      @event = Event.find(params[:id])
-    end
+  def set_event
+    @event = Event.find(params[:id])
+  end
 
-    def set_footprints
-      @footprints = @event.footprints.with_avatar.order(created_at: :desc)
-    end
+  def set_footprints
+    @footprints = @event.footprints.with_avatar.order(created_at: :desc)
+  end
 
-    def footprint!
-      @event.footprints.create_or_find_by(user: current_user) if @event.user != current_user
-    end
+  def footprint!
+    @event.footprints.create_or_find_by(user: current_user) if @event.user != current_user
+  end
 
-    def set_wip
-      @event.wip = (params[:commit] == "WIP")
-    end
+  def set_wip
+    @event.wip = (params[:commit] == "WIP")
+  end
 
-    def notice_message(event)
-      if params[:action] == "create"
-        event.wip? ? "イベントをWIPとして保存しました。" : "イベントを作成しました。"
-      elsif params[:action] == "update"
-        event.wip? ? "イベントをWIPとして保存しました。" : "イベントを更新しました。"
-      end
+  def notice_message(event)
+    if params[:action] == "create"
+      event.wip? ? "イベントをWIPとして保存しました。" : "イベントを作成しました。"
+    elsif params[:action] == "update"
+      event.wip? ? "イベントをWIPとして保存しました。" : "イベントを更新しました。"
     end
+  end
 end
