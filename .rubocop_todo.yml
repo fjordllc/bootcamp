@@ -8,12 +8,6 @@
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Lint/UriRegexp:
-  Exclude:
-    - 'app/models/link_checker/extractor.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: ContextCreatingMethods, MethodCreatingMethods.
 Lint/UselessAccessModifier:
   Exclude:
