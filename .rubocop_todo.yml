@@ -6,16 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 18
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: leading, trailing
-Layout/DotPosition:
-  Exclude:
-    - 'app/models/customer_stub.rb'
-    - 'app/models/subscription_stub.rb'
-    - 'test/supports/stub_helper.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 Layout/EmptyLineAfterGuardClause:
