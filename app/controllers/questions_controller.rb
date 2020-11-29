@@ -71,9 +71,9 @@ class QuestionsController < ApplicationController
   def set_categories
     @categories =
       Category
-        .eager_load(:practices)
-        .where.not(practices: { id: nil })
-        .order("categories.position ASC, practices.position ASC")
+      .eager_load(:practices)
+      .where.not(practices: { id: nil })
+      .order("categories.position ASC, practices.position ASC")
   end
 
   def question_params

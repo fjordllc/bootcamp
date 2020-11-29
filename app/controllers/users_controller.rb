@@ -16,17 +16,17 @@ class UsersController < ApplicationController
     if @target == "followings"
       followings = Following.where(follower_id: current_user.id).select("followed_id")
       @users = User
-        .page(params[:page]).per(PAGER_NUMBER)
-        .includes(:company, :avatar_attachment, :course)
-        .where(id: followings)
-        .order(updated_at: :desc)
+               .page(params[:page]).per(PAGER_NUMBER)
+               .includes(:company, :avatar_attachment, :course)
+               .where(id: followings)
+               .order(updated_at: :desc)
     else
       @users = User
-        .page(params[:page]).per(PAGER_NUMBER)
-        .with_attached_avatar
-        .preload(:course)
-        .order(updated_at: :desc)
-        .users_role(@target)
+               .page(params[:page]).per(PAGER_NUMBER)
+               .with_attached_avatar
+               .preload(:course)
+               .order(updated_at: :desc)
+               .users_role(@target)
     end
   end
 
