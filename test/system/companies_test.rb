@@ -17,7 +17,7 @@ class CompaniesTest < ApplicationSystemTestCase
 
   test "show link to website if company has" do
     visit "/companies/#{companies(:company_1).id}"
-    within ".company_website" do
+    within ".user-metas__items" do
       assert_link "FJORD, LLC", href: "https://fjord.jp"
     end
   end
