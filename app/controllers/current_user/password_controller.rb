@@ -17,14 +17,14 @@ class CurrentUser::PasswordController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(
-        :password,
-        :password_confirmation
-      )
-    end
+  def user_params
+    params.require(:user).permit(
+      :password,
+      :password_confirmation
+    )
+  end
 
-    def set_user
-      @user = current_user
-    end
+  def set_user
+    @user = current_user
+  end
 end

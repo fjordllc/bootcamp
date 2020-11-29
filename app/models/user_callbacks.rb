@@ -22,12 +22,12 @@ class UserCallbacks
 
   private
 
-    def notify_to_slack(user)
-      path = Rails.application.routes.url_helpers.user_path(user)
-      url = "https://bootcamp.fjord.jp#{path}"
-      SlackNotification.notify "<#{url}|#{user.login_name}>さんが卒業しました！おめでとうございます🎉",
-                               username: "#{user.login_name} (#{user.name})",
-                               icon_url: user.avatar_url,
-                               channel: "#fjord"
-    end
+  def notify_to_slack(user)
+    path = Rails.application.routes.url_helpers.user_path(user)
+    url = "https://bootcamp.fjord.jp#{path}"
+    SlackNotification.notify "<#{url}|#{user.login_name}>さんが卒業しました！おめでとうございます🎉",
+                             username: "#{user.login_name} (#{user.name})",
+                             icon_url: user.avatar_url,
+                             channel: "#fjord"
+  end
 end

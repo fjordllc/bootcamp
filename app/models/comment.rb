@@ -27,10 +27,10 @@ class Comment < ApplicationRecord
 
     private
 
-      def params_for_keyword_search(searched_values = {})
-        groupings = super
-        { commentable_type_in: searched_values[:commentable_type] }.merge(groupings)
-      end
+    def params_for_keyword_search(searched_values = {})
+      groupings = super
+      { commentable_type_in: searched_values[:commentable_type] }.merge(groupings)
+    end
   end
 
   def receiver

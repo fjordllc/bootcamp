@@ -16,14 +16,14 @@ class Admin::Users::PasswordController < AdminController
 
   private
 
-    def user_params
-      params.require(:user).permit(
-        :password,
-        :password_confirmation
-      )
-    end
+  def user_params
+    params.require(:user).permit(
+      :password,
+      :password_confirmation
+    )
+  end
 
-    def set_user
-      @user = User.find(params[:user_id])
-    end
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 end

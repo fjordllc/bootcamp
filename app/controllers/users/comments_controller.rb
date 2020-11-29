@@ -9,20 +9,20 @@ class Users::CommentsController < ApplicationController
 
   private
 
-    def set_user
-      @user = User.find(params[:user_id])
-    end
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
-    def set_comments
-      @comments =
-        Comment
-          .preload(commentable: { user: { avatar_attachment: :blob } })
-          .eager_load(:user)
-          .where(user_id: user)
-          .order(created_at: :desc).page(params[:page])
-    end
+  def set_comments
+    @comments =
+      Comment
+        .preload(commentable: { user: { avatar_attachment: :blob } })
+        .eager_load(:user)
+        .where(user_id: user)
+        .order(created_at: :desc).page(params[:page])
+  end
 
-    def user
-      @user ||= User.find(params[:user_id])
-    end
+  def user
+    @user ||= User.find(params[:user_id])
+  end
 end

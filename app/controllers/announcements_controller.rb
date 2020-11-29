@@ -51,32 +51,32 @@ class AnnouncementsController < ApplicationController
 
   private
 
-    def notify_to_slack(announcement)
-      link = "<#{url_for(announcement)}|#{announcement.title}>"
+  def notify_to_slack(announcement)
+    link = "<#{url_for(announcement)}|#{announcement.title}>"
 
-      SlackNotification.notify "#{link}",
-                               username: "#{announcement.user.login_name} (#{announcement.user.name})",
-                               icon_url: announcement.user.avatar_url,
-                               channel: "#general",
-                               attachments: [{
-                                 fallback: "announcement description.",
-                                 text: announcement.description
-                               }]
-    end
+    SlackNotification.notify "#{link}",
+                             username: "#{announcement.user.login_name} (#{announcement.user.name})",
+                             icon_url: announcement.user.avatar_url,
+                             channel: "#general",
+                             attachments: [{
+                               fallback: "announcement description.",
+                               text: announcement.description
+                             }]
+  end
 
-    def footprint!
-      @announcement.footprints.create_or_find_by(user: current_user) if @announcement.user != current_user
-    end
+  def footprint!
+    @announcement.footprints.create_or_find_by(user: current_user) if @announcement.user != current_user
+  end
 
-    def set_footprints
-      @footprints = @announcement.footprints.with_avatar.order(created_at: :desc)
-    end
+  def set_footprints
+    @footprints = @announcement.footprints.with_avatar.order(created_at: :desc)
+  end
 
-    def announcement_params
-      params.require(:announcement).permit(:title, :description, :target)
-    end
+  def announcement_params
+    params.require(:announcement).permit(:title, :description, :target)
+  end
 
-    def set_announcement
-      @announcement = Announcement.find(params[:id])
-    end
+  def set_announcement
+    @announcement = Announcement.find(params[:id])
+  end
 end

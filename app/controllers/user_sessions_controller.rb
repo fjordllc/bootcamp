@@ -64,8 +64,8 @@ class UserSessionsController < ApplicationController
 
   private
 
-    def save_updated_at(user)
-      user.updated_at = Time.current
-      user.save(validate: false)
-    end
+  def save_updated_at(user)
+    user.updated_at = Time.current
+    user.save(validate: false)
+  end
 end

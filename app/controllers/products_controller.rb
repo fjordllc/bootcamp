@@ -70,78 +70,78 @@ class ProductsController < ApplicationController
 
   private
 
-    def notify_to_slack(product)
-      name = "#{product.user.login_name}"
-      link = "<#{url_for(product)}|#{product.title}>"
+  def notify_to_slack(product)
+    name = "#{product.user.login_name}"
+    link = "<#{url_for(product)}|#{product.title}>"
 
-      if product.user.trainee? && product.user.company.slack_channel?
-        SlackNotification.notify "#{name} さんが#{product.title}を提出しました。 #{link}",
-                                 username: "#{product.user.login_name} (#{product.user.name})",
-                                 icon_url: product.user.avatar_url,
-                                 channel: product.user.company.slack_channel,
-                                 attachments: [{
-                                   fallback: "product body.",
-                                   text: product.body
-                                 }]
-      end
+    if product.user.trainee? && product.user.company.slack_channel?
+      SlackNotification.notify "#{name} さんが#{product.title}を提出しました。 #{link}",
+                               username: "#{product.user.login_name} (#{product.user.name})",
+                               icon_url: product.user.avatar_url,
+                               channel: product.user.company.slack_channel,
+                               attachments: [{
+                                 fallback: "product body.",
+                                 text: product.body
+                               }]
     end
+  end
 
-    def find_product
+  def find_product
+    Product.find(params[:id])
+  end
+
+  def find_practice
+    if params[:practice_id]
+      Practice.find(params[:practice_id])
+    else
+      find_product.practice
+    end
+  end
+
+  def find_my_product
+    if admin_login?
       Product.find(params[:id])
+    else
+      current_user.products.find(params[:id])
     end
+  end
 
-    def find_practice
-      if params[:practice_id]
-        Practice.find(params[:practice_id])
-      else
-        find_product.practice
-      end
+  def find_footprints
+    find_product.footprints.with_avatar.order(created_at: :desc)
+  end
+
+  def footprint!
+    if find_product.user != current_user
+      find_product.footprints.create_or_find_by(user: current_user)
     end
+  end
 
-    def find_my_product
-      if admin_login?
-        Product.find(params[:id])
-      else
-        current_user.products.find(params[:id])
-      end
+  def check_permission!
+    unless policy(find_product).show? || find_practice&.open_product?
+      redirect_to root_path, alert: "プラクティスを完了するまで他の人の提出物は見れません。"
     end
+  end
 
-    def find_footprints
-      find_product.footprints.with_avatar.order(created_at: :desc)
+  def product_params
+    params.require(:product).permit(:body)
+  end
+
+  def set_watch
+    @watch = Watch.new
+  end
+
+  def set_wip
+    @product.wip = params[:commit] == "WIP"
+  end
+
+  def notice_message(product, action_name)
+    return "提出物をWIPとして保存しました。" if product.wip?
+
+    case action_name
+    when :create
+      "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。<br>7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+    when :update
+      "提出物を更新しました。"
     end
-
-    def footprint!
-      if find_product.user != current_user
-        find_product.footprints.create_or_find_by(user: current_user)
-      end
-    end
-
-    def check_permission!
-      unless policy(find_product).show? || find_practice&.open_product?
-        redirect_to root_path, alert: "プラクティスを完了するまで他の人の提出物は見れません。"
-      end
-    end
-
-    def product_params
-      params.require(:product).permit(:body)
-    end
-
-    def set_watch
-      @watch = Watch.new
-    end
-
-    def set_wip
-      @product.wip = params[:commit] == "WIP"
-    end
-
-    def notice_message(product, action_name)
-      return "提出物をWIPとして保存しました。" if product.wip?
-
-      case action_name
-      when :create
-        "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。<br>7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
-      when :update
-        "提出物を更新しました。"
-      end
-    end
+  end
 end
