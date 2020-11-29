@@ -76,8 +76,8 @@ class ReportsTest < ApplicationSystemTestCase
     first(".select2-selection--multiple").click
     report_practices = page.all(".select2-results__option").map { |e| e.text }
     assert_equal report_practices.count, Practice.count
-    assert_match /OS X Mountain Lionをクリーンインストールする$/, first(".select2-results__option").text
-    assert_match /Unityでのテスト$/, all(".select2-results__option").last.text
+    assert_match(/OS X Mountain Lionをクリーンインストールする$/, first(".select2-results__option").text)
+    assert_match(/Unityでのテスト$/, all(".select2-results__option").last.text)
   end
 
   test "equal practices order in practices and edit report" do
@@ -85,8 +85,8 @@ class ReportsTest < ApplicationSystemTestCase
     first(".select2-selection--multiple").click
     report_practices = page.all(".select2-results__option").map { |e| e.text }
     assert_equal report_practices.count, Practice.count
-    assert_match /OS X Mountain Lionをクリーンインストールする$/, first(".select2-results__option").text
-    assert_match /Unityでのテスト$/, all(".select2-results__option").last.text
+    assert_match(/OS X Mountain Lionをクリーンインストールする$/, first(".select2-results__option").text)
+    assert_match(/Unityでのテスト$/, all(".select2-results__option").last.text)
   end
 
   test "issue #360 duplicate" do
