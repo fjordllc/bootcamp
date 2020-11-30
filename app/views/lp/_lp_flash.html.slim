@@ -1,0 +1,24 @@
+- if notice
+  input.a-hidden-checkbox#checkbox-flash-alert(type="checkbox")
+  .o-flash.is-notice
+    .l-container.is-mxw-100pc
+      .o-flash__inner
+        label.o-flash__close(for="hide-flash")
+        p.o-flash__message
+          = notice.html_safe
+- if alert
+  input.a-hidden-checkbox#checkbox-flash-alert(type="checkbox")
+  .o-flash.is-alert
+    .l-container.is-mxw-100pc
+      .o-flash__inner
+        label.o-flash__close(for="hide-flash")
+        p.o-flash__message
+          = alert
+- if current_user && current_user.login_name !~ /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i
+  input.a-hidden-checkbox#checkbox-flash-alert(type="checkbox")
+  .o-flash.is-alert
+    .l-container.is-mxw-100pc
+      .o-flash__inner
+        label.o-flash__close(for="hide-flash")
+        p.o-flash__message
+          | アカウント名に半角英数字と-（ハイフン）以外の文字が使われています。#{link_to "変更", edit_current_user_path}をお願いします。
