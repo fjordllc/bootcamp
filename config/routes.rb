@@ -138,7 +138,7 @@ Rails.application.routes.draw do
     resources :participations, only: %i(create destroy), controller: "events/participations"
   end
 
-  resources :companies, only: %i(show) do
+  resources :companies, only: %i(index show) do
     resources :users, only: %i(index), controller: "companies/users"
     resources :reports, only: %i(index), controller: "companies/reports"
     resources :products, only: %i(index), controller: "companies/products"
