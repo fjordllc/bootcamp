@@ -38,3 +38,31 @@ linters:
       - Style/IfUnlessModifier
       - Style/Next
       - Style/WhileUntilModifier
+      # 一時的に下記を無効にする
+      - Rails/LinkToBlank
+      - Rails/OutputSafety
+      - Rails/Date
+      - Rails/TimeZone
+      - Rails/Presence
+      - Rails/ContentTag
+      - Lint/AmbiguousRegexpLiteral
+      - Lint/EmptyConditionalBody
+      - Lint/UnusedBlockArgument
+      - Layout/HashAlignment
+      - Layout/ExtraSpacing
+      - Layout/SpaceAroundMethodCallOperator
+      - Layout/SpaceInsideStringInterpolation
+      - Style/StringConcatenation
+      - Style/ConditionalAssignment
+      - Style/RedundantInterpolation
+      - Style/StringLiteralsInInterpolation
+      - Style/NumericPredicate
+      - Style/SymbolProc
+      - Style/FormatString
+      - Style/CaseLikeIf
+      - Style/SoleNestedConditional
+      - Style/NestedTernaryOperator
+      - Style/ZeroLengthPredicate
+      - Style/SafeNavigation
+      - Style/Not
+      - Style/RedundantParentheses
