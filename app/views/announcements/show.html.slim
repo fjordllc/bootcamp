@@ -6,11 +6,10 @@ header.page-header
       h1.page-header__title お知らせ
       .page-header-actions
         ul.page-header-actions__items
-          - if admin_login?
-            li.page-header-actions__item
-              = link_to new_announcement_path, class: "a-button is-md is-warning is-block" do
-                i.fa.fa-plus
-                | お知らせ作成
+          li.page-header-actions__item
+            = link_to new_announcement_path, class: "a-button is-md is-warning is-block" do
+              i.fa.fa-plus
+              | お知らせ作成
           li.page-header-actions__item
             = link_to announcements_path, class: "a-button is-md is-secondary is-block" do
               | お知らせ一覧へ

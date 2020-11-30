@@ -9,10 +9,10 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text "お知らせ作成"
   end
 
-  test "don't show link to create new announcement when user isn't admin" do
+  test "show link to create new announcement when user isn't admin" do
     login_user "kimura", "testtest"
     visit "/announcements"
-    assert_no_text "お知らせ作成"
+    assert_text "お知らせ作成"
   end
 
   test "show pagination" do
@@ -30,6 +30,23 @@ class AnnouncementsTest < ApplicationSystemTestCase
     login_user "kimura", "testtest"
     visit "/announcements/#{announcements(:announcement_1).id}"
     assert_selector ".thread-comment-form"
+  end
+
+  test "users except admin cannot publish an announcement" do
+    login_user "kimura", "testtest"
+    visit new_announcement_path
+    page.assert_no_selector("input[value='作成']")
+  end
+
+  test "create a new announcement as wip" do
+    login_user "kimura", "testtest"
+    visit new_announcement_path
+    fill_in "announcement[title]", with: "仮のお知らせ"
+    fill_in "announcement[description]", with: "まだWIPです。"
+    assert_difference "Announcement.count", 1 do
+      click_button "WIP"
+    end
+    assert_text "お知らせをWIPとして保存しました。"
   end
 
   test "delete announcement with notification" do
