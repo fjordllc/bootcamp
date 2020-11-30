@@ -7,7 +7,8 @@ class PagesController < ApplicationController
 
   def index
     @pages = Page.with_avatar
-                 .includes(:comments, :practice)
+                 .includes(:comments, :practice,
+                 { last_updated_user: { avatar_attachment: :blob } })
                  .order(updated_at: :desc)
                  .page(params[:page])
     @pages = @pages.tagged_with(params[:tag]) if params[:tag]
