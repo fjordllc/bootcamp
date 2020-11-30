@@ -3,9 +3,15 @@
 header.page-header.is-margin-bottom-0.is-border-bottom-none
   .container
     .page-header__inner
-      h2.page-header__title #{t("target.#{@target}")}（#{@users.total_count}）
+      h2.page-header__title
+        = title
       .page-header-actions
         ul.page-header-actions__items
+
+= render "lg_page_tabs"
+
+.page-tools
+  = render "nav"
 
 .page-notice
   .container
@@ -14,21 +20,24 @@ header.page-header.is-margin-bottom-0.is-border-bottom-none
         | 気になるユーザーをフォローしてみよう！自分が誰をフォローしているかを知られることはありません。
         | #{ link_to "くわしくはこちら", "/pages/303" }
 
-.page-tools
-  = render "nav"
-
-.page-body
-  = paginate @users, position: "top"
-  .container
-    .users
-      .row.is-gutter-width-32
-        - if @users.size > 0
-          = render partial: "users/user", collection: @users, as: :user
-        - else
-          .o-empty-massage
-            .o-empty-massage__icon
-              i.far.fa-sad-tear
-            p.o-empty-massage__text
-              = t("target.#{@target}")
-              | のユーザーはいません
-  = paginate @users, position: "bottom"
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        h1.page-main-header__title
+          | #{t("target.#{@target}")}（#{@users.total_count}）
+  .page-body
+    = paginate @users, position: "top"
+    .container
+      .users
+        .row.is-gutter-width-32
+          - if @users.size > 0
+            = render partial: "users/user", collection: @users, as: :user
+          - else
+            .o-empty-massage
+              .o-empty-massage__icon
+                i.far.fa-sad-tear
+              p.o-empty-massage__text
+                = t("target.#{@target}")
+                | のユーザーはいません
+    = paginate @users, position: "bottom"

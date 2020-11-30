@@ -1,10 +1,9 @@
-- title "#{@generation}期のユーザー一覧"
+- title "期一覧"
 
 header.page-header.is-margin-bottom-0.is-border-bottom-none
   .container
     .page-header__inner
-      h2.page-header__title
-        | ユーザー一覧
+      h2.page-header__title ユーザー一覧
       .page-header-actions
         ul.page-header-actions__items
 
@@ -16,18 +15,11 @@ main.page-main
       .page-main-header__inner
         h1.page-main-header__title
           = title
-        .page-header-actions
-          ul.page-header-actions__items
-            li.page-header-actions__item
-              = link_to generations_path, class: "a-button is-md is-block is-secondary" do
-                | 期一覧
-
   .page-body
-    .container
-      - if @users.present?
-        .users
-          .row.is-gutter-width-32
-            = render partial: "users/user", collection: @users, as: :user
+    .container.is-md
+      - if @generations.present?
+        .generations.a-card
+          = render partial: "generations/generation", collection: @generations, as: :generation
       - else
         .o-empty-massage
           .o-empty-massage__icon

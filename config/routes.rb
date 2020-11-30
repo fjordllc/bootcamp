@@ -144,7 +144,7 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "companies/products"
   end
 
-  resources :generations, only: %i(show)
+  resources :generations, only: %i(show index)
 
   get "articles/tags/:tag", to: "articles#index", as: :tag
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag

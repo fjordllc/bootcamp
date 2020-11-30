@@ -7,4 +7,8 @@ class GenerationsController < ApplicationController
     @generation = params[:id].to_i
     @users = Generation.new(@generation).users
   end
+
+  def index
+    @generations = Generation.generations
+  end
 end
