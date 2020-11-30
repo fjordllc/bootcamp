@@ -1,0 +1,12 @@
+- if generation.users.present?
+  .generations-item
+    header.generations-item__header
+      h2.generations-item__title
+        = link_to generation_path(id: generation.number), class: "generations-item__title-link"
+          span.generations-item__title-label
+            | #{generation.number}期生
+          date.generations-item__date
+            | #{l generation.start_date} ~ #{l generation.end_date}
+    .m-user-icons
+      .m-user-icons__items
+        = render partial: "generations/user", collection: generation.users, as: :user

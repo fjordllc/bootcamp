@@ -245,8 +245,8 @@ class User < ApplicationRecord
       order(order_by.to_sym => direction.to_sym, created_at: :asc)
     end
   }
-  scope :same_generations, -> (start_date, next_date) {
-    where(created_at: start_date...next_date)
+  scope :same_generations, -> (start_date, end_date) {
+    where(created_at: start_date..end_date)
     .unretired
     .order(:created_at)
   }
