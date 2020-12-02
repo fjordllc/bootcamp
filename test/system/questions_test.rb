@@ -107,11 +107,11 @@ class QuestionsTest < ApplicationSystemTestCase
     within "form[name=question]" do
       fill_in "question[title]", with: "tagテストの質問"
       fill_in "question[description]", with: "tagテストの質問です。"
-      tagInput = find(".ti-new-tag-input")
-      tagInput.set "tag1"
-      tagInput.native.send_keys :return
-      tagInput.set "tag2"
-      tagInput.native.send_keys :return
+      tag_input = find(".ti-new-tag-input")
+      tag_input.set "tag1"
+      tag_input.native.send_keys :return
+      tag_input.set "tag2"
+      tag_input.native.send_keys :return
       click_button "登録する"
     end
     click_on "Q&A", match: :first
@@ -127,9 +127,9 @@ class QuestionsTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
     visit question_path(questions(:question_2))
     find(".tag-links__item-edit").click
-    tagInput = find(".ti-new-tag-input ")
-    tagInput.set "追加タグ"
-    tagInput.native.send_keys :return
+    tag_input = find(".ti-new-tag-input")
+    tag_input.set "追加タグ"
+    tag_input.native.send_keys :return
     click_on "保存"
     wait_for_vuejs
     assert_text "追加タグ"

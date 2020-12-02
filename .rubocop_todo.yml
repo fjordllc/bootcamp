@@ -17,14 +17,6 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 466
 
-# Offense count: 16
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: snake_case, camelCase
-Naming/VariableName:
-  Exclude:
-    - 'test/system/pages_test.rb'
-    - 'test/system/questions_test.rb'
-
 # Offense count: 336
 # Configuration parameters: EnforcedStyle, CheckMethodNames, CheckSymbols, AllowedIdentifiers.
 # SupportedStyles: snake_case, normalcase, non_integer
