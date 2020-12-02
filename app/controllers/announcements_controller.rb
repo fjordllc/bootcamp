@@ -8,7 +8,7 @@ class AnnouncementsController < ApplicationController
   def index
     @announcements = Announcement.with_avatar
                                  .preload(:comments)
-                                 .order(created_at: :desc)
+                                 .order(published_at: :desc)
                                  .page(params[:page])
   end
 
