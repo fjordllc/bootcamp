@@ -6,9 +6,7 @@ class Company < ApplicationRecord
   validates :name, presence: true
   has_one_attached :logo
 
-  def advisers
-    users.advisers
-  end
+  delegate :advisers, to: :users
 
   def resize_logo!
     if logo.attached?

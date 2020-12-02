@@ -25,13 +25,6 @@ Naming/VariableNumber:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: EnforceForPrefixed.
-Rails/Delegate:
-  Exclude:
-    - 'app/models/company.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: Whitelist, AllowedMethods, AllowedReceivers.
 # Whitelist: find_by_sql
 # AllowedMethods: find_by_sql
