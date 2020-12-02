@@ -23,15 +23,6 @@ Metrics/ClassLength:
 Naming/VariableNumber:
   Enabled: false
 
-# Offense count: 6
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: strict, flexible
-Rails/Date:
-  Exclude:
-    - 'app/models/reservation.rb'
-    - 'app/models/user.rb'
-    - 'test/models/user_test.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforceForPrefixed.

@@ -72,7 +72,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "#reports_date_and_emotion" do
     user = users(:hajime)
-    assert_equal [report: nil, date: Date.today, emotion: nil], user.reports_date_and_emotion(0)
+    assert_equal [report: nil, date: Time.zone.today, emotion: nil], user.reports_date_and_emotion(0)
   end
 
   test "#depressed?" do
