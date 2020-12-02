@@ -35,12 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Rails/IndexWith:
-  Exclude:
-    - 'app/models/user.rb'
-
 # Offense count: 8
 # Configuration parameters: Include.
 # Include: app/models/**/*.rb

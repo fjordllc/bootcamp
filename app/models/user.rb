@@ -452,7 +452,7 @@ class User < ApplicationRecord
 
     emotions = reports.index_by(&:reported_on)
 
-    dates = search_term.map { |day| [day, nil] }.to_h
+    dates = search_term.index_with { |_day| nil }
 
     dates.merge(emotions)
          .to_a
