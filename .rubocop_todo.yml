@@ -23,25 +23,6 @@ Metrics/ClassLength:
 Naming/VariableNumber:
   Enabled: false
 
-# Offense count: 13
-# Configuration parameters: Database, Include.
-# SupportedDatabases: mysql, postgresql
-# Include: db/migrate/*.rb
-Rails/BulkChangeTable:
-  Exclude:
-    - 'db/migrate/20130313095813_add_first_name_and_last_name_to_users.rb'
-    - 'db/migrate/20130323091346_add_social_urls_to_users.rb'
-    - 'db/migrate/20161127104306_sorcery_reset_password.rb'
-    - 'db/migrate/20161216053008_add_correct_answer_id_to_questions.rb'
-    - 'db/migrate/20170807075444_change_option_to_checks.rb'
-    - 'db/migrate/20170814161854_chenge_option_to_footpoint.rb'
-    - 'db/migrate/20180115064753_add_attachment_face_to_users.rb'
-    - 'db/migrate/20181121110337_remove_retire_graduation_from_users.rb'
-    - 'db/migrate/20181128073541_add_columns_for_signup_to_users.rb'
-    - 'db/migrate/20190104064709_remove_paperclip_columns.rb'
-    - 'db/migrate/20191016235812_add_kana_to_users.rb'
-    - 'db/migrate/20200220093305_add_github_officekey_slack_statuses_to_users.rb'
-
 # Offense count: 2
 # Configuration parameters: Include.
 # Include: db/migrate/*.rb

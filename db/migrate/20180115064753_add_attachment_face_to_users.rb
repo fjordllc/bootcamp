@@ -2,9 +2,11 @@
 
 class AddAttachmentFaceToUsers < ActiveRecord::Migration[5.1]
   def change
-    add_column :users, :face_file_name, :string
-    add_column :users, :face_content_type, :string
-    add_column :users, :face_file_size, :integer
-    add_column :users, :face_updated_at, :datetime
+    change_table :users, bulk: true do |t|
+      t.string :face_file_name
+      t.string :face_content_type
+      t.integer :face_file_size
+      t.datetime :face_updated_at
+    end
   end
 end
