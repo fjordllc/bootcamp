@@ -22,7 +22,7 @@ class Reaction < ApplicationRecord
   validates :user_id, uniqueness: { scope: %i(reactionable_id reactionable_type kind) }
 
   def self.emojis
-    @_emojis ||= kinds.keys.zip(%w(👍 👎 😄 😕 🎉 ❤️ 🚀 👀 💯 💪 🙆‍♀️ 😭)).to_h.with_indifferent_access
+    @emojis ||= kinds.keys.zip(%w(👍 👎 😄 😕 🎉 ❤️ 🚀 👀 💯 💪 🙆‍♀️ 😭)).to_h.with_indifferent_access
   end
 
   def self.available_emojis
