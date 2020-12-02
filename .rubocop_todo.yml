@@ -23,16 +23,6 @@ Metrics/ClassLength:
 Naming/VariableNumber:
   Enabled: false
 
-# Offense count: 4
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: slashes, arguments
-Rails/FilePath:
-  Exclude:
-    - 'app/models/customer_stub.rb'
-    - 'app/models/subscription_stub.rb'
-    - 'lib/bootcamp/setup.rb'
-    - 'lib/tasks/bootcamp.rake'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: Include.

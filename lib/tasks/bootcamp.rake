@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/config/environment"
+require Rails.root.join("config/environment")
 
 namespace :bootcamp do
   desc "Find broken links in practices, pages."

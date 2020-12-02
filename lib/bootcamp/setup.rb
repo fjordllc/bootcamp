@@ -6,7 +6,7 @@ module Bootcamp
       def attachment
         User.all.each do |user|
           filename = "#{user.login_name}.jpg"
-          path = Rails.root.join("test", "fixtures", "files", "users", "avatars", filename)
+          path = Rails.root.join("test/fixtures/files/users/avatars/#{filename}")
           if File.exist?(path)
             user.avatar.attach(io: open(path), filename: filename)
             user.resize_avatar!
@@ -15,7 +15,7 @@ module Bootcamp
 
         Company.order(:created_at).each_with_index do |company, i|
           filename = "#{i + 1}.jpg"
-          dir = Rails.root.join("test", "fixtures", "files", "companies", "logos")
+          dir = Rails.root.join("test/fixtures/files/companies/logos")
           path = "#{dir}/#{filename}"
           unless File.exist?(path)
             filename = "default.jpg"
