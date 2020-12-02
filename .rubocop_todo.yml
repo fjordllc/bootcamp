@@ -23,12 +23,6 @@ Metrics/ClassLength:
 Naming/VariableNumber:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Rails/BelongsTo:
-  Exclude:
-    - 'app/models/user.rb'
-
 # Offense count: 13
 # Configuration parameters: Database, Include.
 # SupportedDatabases: mysql, postgresql
