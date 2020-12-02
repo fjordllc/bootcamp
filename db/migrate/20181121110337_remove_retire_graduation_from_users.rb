@@ -2,7 +2,9 @@
 
 class RemoveRetireGraduationFromUsers < ActiveRecord::Migration[5.2]
   def change
-    remove_column :users, :retire
-    remove_column :users, :graduation
+    change_table :users, bulk: true do |t|
+      t.remove :retire
+      t.remove :graduation
+    end
   end
 end

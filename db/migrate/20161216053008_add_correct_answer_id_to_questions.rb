@@ -2,7 +2,9 @@
 
 class AddCorrectAnswerIdToQuestions < ActiveRecord::Migration[4.2]
   def change
-    add_column :questions, :correct_answer_id, :integer
-    remove_column :questions, :resolve
+    change_table :questions, bulk: true do |t|
+      t.integer :correct_answer_id
+      t.remove :resolve
+    end
   end
 end
