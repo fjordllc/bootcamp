@@ -38,7 +38,7 @@ class Practice < ApplicationRecord
 
   class << self
     def save_learning_minute_statistics
-      Practice.all.each do |practice|
+      Practice.all.find_each do |practice|
         practice_id = practice.id
         learning_minute_list = practice.learning_minute_per_user
 

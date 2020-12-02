@@ -23,14 +23,6 @@ Metrics/ClassLength:
 Naming/VariableNumber:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: Include.
-# Include: app/models/**/*.rb
-Rails/FindEach:
-  Exclude:
-    - 'app/models/practice.rb'
-
 # Offense count: 4
 # Configuration parameters: Include.
 # Include: app/models/**/*.rb
