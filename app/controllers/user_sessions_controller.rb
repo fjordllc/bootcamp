@@ -39,7 +39,7 @@ class UserSessionsController < ApplicationController
     auth = request.env["omniauth.auth"]
     github_id = auth[:uid]
     if current_user.blank?
-      user = User.find_by_github_id(github_id)
+      user = User.find_by(github_id: github_id)
       if user.blank?
         flash[:alert] = "ログインに失敗しました。先にアカウントを作成後、GitHub連携を行ってください。"
         redirect_to root_url
