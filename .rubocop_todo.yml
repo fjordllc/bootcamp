@@ -17,13 +17,6 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 466
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredName.
-Naming/RescuedExceptionsVariableName:
-  Exclude:
-    - 'app/models/link_checker/client.rb'
-
 # Offense count: 16
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: snake_case, camelCase
