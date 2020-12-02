@@ -23,14 +23,6 @@ Metrics/ClassLength:
 Naming/VariableNumber:
   Enabled: false
 
-# Offense count: 2
-# Configuration parameters: Include.
-# Include: db/migrate/*.rb
-Rails/CreateTableWithTimestamps:
-  Exclude:
-    - 'db/migrate/20180310160849_create_learning_times.rb'
-    - 'db/migrate/20190118081802_acts_as_taggable_on_migration.acts_as_taggable_on_engine.rb'
-
 # Offense count: 6
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: strict, flexible
