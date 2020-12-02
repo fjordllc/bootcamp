@@ -5,7 +5,7 @@ module Bootcamp
     class << self
       def dump_categories
         Category.order("position").each do |c|
-          puts <<~EOS
+          puts <<~COURSE
                         courses_#{c.id}:
                           id: #{c.id}
                           title: "#{c.name}"
@@ -13,13 +13,13 @@ module Bootcamp
                           body: "#{c.description}"
                           position: #{c.position}
             #{'            '}
-          EOS
+          COURSE
         end
       end
 
       def dump_practices
         Practice.order("position").each do |c|
-          puts <<~EOS
+          puts <<~LESSON
                         lesson_#{c.id}:
                           id: #{c.id}
                           title: "#{c.title}"
@@ -28,16 +28,16 @@ module Bootcamp
                           course_id: #{c.category_id}
                           position: #{c.position}
             #{'            '}
-          EOS
+          LESSON
         end
       end
 
       def dump_users
         User.all.each do |c|
-          puts <<~EOS
+          puts <<~USER
             user_#{c.id}:
               id: #{c.id}
-          EOS
+          USER
         end
       end
     end
