@@ -37,7 +37,7 @@ class User < ApplicationRecord
     very_poor: 4
   }, _prefix: true
 
-  belongs_to :company, required: false
+  belongs_to :company, optional: true
   belongs_to :course
   has_many :learnings
   has_many :borrowings
