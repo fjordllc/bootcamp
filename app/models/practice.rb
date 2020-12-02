@@ -4,7 +4,7 @@ class Practice < ApplicationRecord
   include Searchable
 
   has_many :learnings
-  has_and_belongs_to_many :reports
+  has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany
   has_many :started_learnings,
            -> { where(status: "started") },
            class_name: "Learning"
