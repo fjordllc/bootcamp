@@ -313,7 +313,7 @@ class User < ApplicationRecord
     updated_at > 1.month.ago
   end
 
-  def has_checked_product_of?(*practices)
+  def checked_product_of?(*practices)
     products.where(practice: practices).any?(&:checked?)
   end
 
