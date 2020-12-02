@@ -77,11 +77,11 @@ class PagesTest < ApplicationSystemTestCase
     within "form[name=page]" do
       fill_in "page[title]", with: "tagのテスト"
       fill_in "page[body]", with: "tagをつけます。空白とカンマはタグには使えません。"
-      tagInput = find(".ti-new-tag-input ")
-      tagInput.set "tag1"
-      tagInput.native.send_keys :return
-      tagInput.set "tag2"
-      tagInput.native.send_keys :return
+      tag_input = find(".ti-new-tag-input")
+      tag_input.set "tag1"
+      tag_input.native.send_keys :return
+      tag_input.set "tag2"
+      tag_input.native.send_keys :return
       click_on "内容を保存"
     end
     click_on "Docs", match: :first
@@ -97,9 +97,9 @@ class PagesTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
     visit "/pages/#{pages(:page_1).id}"
     find(".tag-links__item-edit").click
-    tagInput = find(".ti-new-tag-input ")
-    tagInput.set "追加タグ"
-    tagInput.native.send_keys :return
+    tag_input = find(".ti-new-tag-input")
+    tag_input.set "追加タグ"
+    tag_input.native.send_keys :return
     click_on "保存"
     wait_for_vuejs
     assert_text "追加タグ"
