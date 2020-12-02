@@ -18,11 +18,17 @@
           = link_to new_announcement_path(id: announcement), class: "thread-list-item__actions-link" do
             i.fas.fa-copy
     .thread-list-item-meta
-      time.thread-list-item-meta__datetime(datetime="#{announcement.updated_at.to_datetime}" pubdate="pubdate")
-        = l announcement.updated_at
-      - if announcement.comments.any?
-      .thread-list-item-meta__comment-count
-        .thread-list-item-meta__comment-count-label
-          i.fas.fa-comment
-        .thread-list-item-meta__comment-count-value
-          = announcement.comments.size
+      - if announcement.wip?
+        .thread-list-item-meta__datetime
+          | お知らせ作成中
+      - elsif announcement.published_at.present?
+        time.thread-list-item-meta__datetime(datetime="#{announcement.published_at.to_datetime}")
+          span.span.thread-list-item-meta__datetime-label
+            | 公開
+          | #{l announcement.published_at}
+        - if announcement.comments.any?
+        .thread-list-item-meta__comment-count
+          .thread-list-item-meta__comment-count-label
+            i.fas.fa-comment
+          .thread-list-item-meta__comment-count-value
+            = announcement.comments.size
