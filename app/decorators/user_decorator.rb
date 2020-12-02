@@ -43,8 +43,7 @@ module UserDecorator
   def niconico_calendar
     reports_date_and_emotion = self.reports_date_and_emotion(CALENDAR_TERM)
     last_wday = reports_date_and_emotion.first[:date].wday
-
-    blanks = last_wday.times.map { { report: nil, date: nil, emotion: nil } }
+    blanks = Array.new(last_wday) { { report: nil, date: nil, emotion: nil } }
 
     [*blanks, *reports_date_and_emotion].each_slice(DAYS_IN_WEEK)
                                         .to_a
