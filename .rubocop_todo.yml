@@ -17,12 +17,6 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 466
 
-# Offense count: 2
-Naming/AccessorMethodName:
-  Exclude:
-    - 'app/models/holiday.rb'
-    - 'app/models/memo.rb'
-
 # Offense count: 3
 # Configuration parameters: ForbiddenDelimiters.
 # ForbiddenDelimiters: (?-mix:(^|\s)(EO[A-Z]{1}|END)(\s|$))

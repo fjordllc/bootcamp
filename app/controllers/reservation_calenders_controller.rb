@@ -12,8 +12,8 @@ class ReservationCalendersController < ApplicationController
     days_of_this_month = beggining_of_this_month..beggining_of_this_month.end_of_month
     @reservations = Reservation.where(date: days_of_this_month).includes(:user)
 
-    @memos = Memo.set_one_month_memos(beggining_of_this_month)
-    @holidays = Holiday.set_one_month_holidays(beggining_of_this_month)
+    @memos = Memo.one_month_memos(beggining_of_this_month)
+    @holidays = Holiday.one_month_holidays(beggining_of_this_month)
 
     @this_month = beggining_of_this_month
     @prev_month = beggining_of_this_month.prev_month
