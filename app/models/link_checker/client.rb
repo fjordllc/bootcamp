@@ -15,7 +15,7 @@ module LinkChecker
       uri = URI.parse(@url)
       response = Net::HTTP.get_response(uri)
       response.code.to_i
-    rescue StandardError => _
+    rescue StandardError => _e
       false
     end
 
