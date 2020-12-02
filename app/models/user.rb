@@ -450,7 +450,7 @@ class User < ApplicationRecord
     search_term = (Time.zone.today - term.day)..Time.zone.today
     reports = self.reports.where(reported_on: search_term)
 
-    emotions = reports.map { |report| [report.reported_on, report] }.to_h
+    emotions = reports.index_by(&:reported_on)
 
     dates = search_term.map { |day| [day, nil] }.to_h
 

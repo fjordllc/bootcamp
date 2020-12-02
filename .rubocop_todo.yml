@@ -37,12 +37,6 @@ Rails/HasManyOrHasOneDependent:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Rails/IndexBy:
-  Exclude:
-    - 'app/models/user.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Rails/IndexWith:
   Exclude:
     - 'app/models/user.rb'
