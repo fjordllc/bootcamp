@@ -22,10 +22,10 @@ module Reactionable
   private
 
   def grouped_reactions
-    @_grouped_reactions ||= reactions
-                            .joins(:user)
-                            .order(created_at: :asc)
-                            .pluck(:id, :kind, :"users.login_name").each_with_object(Hash.new { |hash, key| hash[key] = [] }) do |array, hash|
+    @grouped_reactions ||= reactions
+                           .joins(:user)
+                           .order(created_at: :asc)
+                           .pluck(:id, :kind, :"users.login_name").each_with_object(Hash.new { |hash, key| hash[key] = [] }) do |array, hash|
       id, kind, login_name = array
       hash[kind] << { id: id, login_name: login_name }
     end.with_indifferent_access
