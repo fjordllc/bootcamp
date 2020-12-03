@@ -35,20 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 19
-# Configuration parameters: Include.
-# Include: db/migrate/*.rb
-Rails/ReversibleMigration:
-  Exclude:
-    - 'db/migrate/20131007060524_remove_row_order_to_practices.rb'
-    - 'db/migrate/20161216053008_add_correct_answer_id_to_questions.rb'
-    - 'db/migrate/20181121110337_remove_retire_graduation_from_users.rb'
-    - 'db/migrate/20181123105150_remove_find_job_assist_from_users.rb'
-    - 'db/migrate/20181204021901_drop_contacts.rb'
-    - 'db/migrate/20190104064709_remove_paperclip_columns.rb'
-    - 'db/migrate/20191013112837_change_datatype_company_id_of_users.rb'
-    - 'db/migrate/20200912104610_remove_old_name_columns_from_users.rb'
-
 # Offense count: 2
 # Configuration parameters: ForbiddenMethods, AllowedMethods.
 # ForbiddenMethods: decrement!, decrement_counter, increment!, increment_counter, insert, insert!, insert_all, insert_all!, toggle!, touch, touch_all, update_all, update_attribute, update_column, update_columns, update_counters, upsert, upsert_all
