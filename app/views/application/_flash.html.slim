@@ -1,3 +1,4 @@
+- # rubocop:disable Rails/OutputSafety
 - if notice
   input.a-toggle-checkbox#hide-flash(type="checkbox")
   .flash.is-notice
@@ -22,3 +23,4 @@
         label.flash__close(for="hide-flash")
         p.flash__message
           | アカウント名に半角英数字と-（ハイフン）以外の文字が使われています。#{link_to "変更", edit_current_user_path}をお願いします。
+- # rubocop:enable Rails/OutputSafety
