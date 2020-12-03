@@ -36,13 +36,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/user.rb'
 
 # Offense count: 2
-# Cop supports --auto-correct.
-Style/ExpandPathArguments:
-  Exclude:
-    - 'Rakefile'
-    - 'config.ru'
-
-# Offense count: 2
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: left_coerce, right_coerce, single_coerce, fdiv
 Style/FloatDivision:
