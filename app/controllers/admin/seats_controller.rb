@@ -11,8 +11,7 @@ class Admin::SeatsController < AdminController
     @seat = Seat.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @seat = Seat.new(seat_params)

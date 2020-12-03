@@ -24,8 +24,7 @@ class Admin::UsersController < AdminController
     render action: :show, layout: nil
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update(user_params)

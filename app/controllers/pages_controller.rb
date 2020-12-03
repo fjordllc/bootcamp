@@ -14,15 +14,13 @@ class PagesController < ApplicationController
     @pages = @pages.tagged_with(params[:tag]) if params[:tag]
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @page = Page.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @page = Page.new(page_params)

@@ -3,8 +3,7 @@
 class Admin::Users::PasswordController < AdminController
   before_action :set_user
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update(user_params)

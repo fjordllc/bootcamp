@@ -5,8 +5,7 @@ class Practices::QuestionsController < ApplicationController
   before_action :set_practice
   before_action :set_questions
 
-  def index
-  end
+  def index; end
 
   private
 

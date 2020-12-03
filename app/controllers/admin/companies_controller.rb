@@ -11,8 +11,7 @@ class Admin::CompaniesController < AdminController
     @company = Company.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @company = Company.new(company_params)

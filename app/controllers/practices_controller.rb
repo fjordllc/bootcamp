@@ -14,8 +14,7 @@ class PracticesController < ApplicationController
     @practice = Practice.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @practice = Practice.new(practice_params)

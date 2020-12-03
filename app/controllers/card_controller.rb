@@ -9,8 +9,7 @@ class CardController < ApplicationController
     @card = current_user.card
   end
 
-  def new
-  end
+  def new; end
 
   # rubocop:disable Metrics/MethodLength
   def create
@@ -43,8 +42,7 @@ class CardController < ApplicationController
   end
   # rubocop:enable Metrics/MethodLength
 
-  def edit
-  end
+  def edit; end
 
   def update
     begin

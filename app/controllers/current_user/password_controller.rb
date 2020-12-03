@@ -4,8 +4,7 @@ class CurrentUser::PasswordController < ApplicationController
   before_action :require_login
   before_action :set_user
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update(user_params)
