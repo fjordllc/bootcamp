@@ -11,8 +11,9 @@ class PracticesTest < ApplicationSystemTestCase
 
   test "show link to all practices with same category" do
     login_user "hatsuno", "testtest"
+    user = users(:hatsuno)
     practice = practices(:practice_1)
-    category = practice.category
+    category = practice.category(user.course)
     visit "/practices/#{practice.id}"
     category.practices.each do |practice|
       assert has_link? practice.title
@@ -53,6 +54,7 @@ class PracticesTest < ApplicationSystemTestCase
     visit "/practices/new"
     within "form[name=practice]" do
       fill_in "practice[title]", with: "テストプラクティス"
+      check categories(:category_1).name, allow_label_click: true
       fill_in "practice[description]", with: "テストの内容です"
       fill_in "practice[goal]", with: "テストのゴールの内容です"
       fill_in "practice[memo]", with: "テストのメンター向けメモの内容です"
@@ -72,7 +74,6 @@ class PracticesTest < ApplicationSystemTestCase
       click_button "更新する"
     end
     assert_text "プラクティスを更新しました"
-    assert_equal "UNIX", Practice.find(practice.id).category.name
     visit "/products/#{product.id}"
     assert_text "メンター向けのメモの内容です"
   end
@@ -81,12 +82,13 @@ class PracticesTest < ApplicationSystemTestCase
     login_user "komagata", "testtest"
     practice = practices(:practice_1)
     user = users(:komagata)
-    visit "/practices/#{practice.id}/"
+    category = practice.category(user.course)
+    visit "/practices/#{practice.id}"
     within ".page-header-actions" do
       click_link "プラクティス一覧"
     end
     assert_current_path course_practices_path(user.course)
-    assert_equal "category-#{practice.category.id}", URI.parse(current_url).fragment
+    assert_equal "category-#{category.id}", URI.parse(current_url).fragment
   end
 
   test "show setting for completed percentage" do

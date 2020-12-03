@@ -84,4 +84,8 @@ ORDER BY unchecked_products.created_at DESC
       commented_users.last
     end
   end
+
+  def category(course)
+    Category.category(practice: practice, course: course)
+  end
 end

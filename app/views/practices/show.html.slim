@@ -1,4 +1,5 @@
 - title @practice.title
+- category = @practice.category(current_user.course)
 
 header.page-header
   .container
@@ -13,7 +14,8 @@ header.page-header
                 i.fas.fa-plus
                 | プラクティス作成
           li.page-header-actions__item
-            = link_to course_practices_path(current_user.course, anchor: "category-#{@category.id}"), class: "a-button is-md is-secondary is-block" do
+            = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
+              class: "a-button is-md is-secondary is-block" do
               | プラクティス一覧
 
 = render "page_tabs", resource: @practice
@@ -120,10 +122,11 @@ header.page-header
       nav.page-nav
         header.page-nav__header
           h2.page-nav__title
-            = link_to course_practices_path(current_user.course, anchor: "category-#{@category.id}"), class: "page-nav__title-link" do
-              = @category.name
+            = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
+              class: "page-nav__title-link" do
+              = category.name
         ul.page-nav__items
-          - @category.practices.each do |practice|
+          - category.practices.each do |practice|
             li.page-nav__item
               = link_to practice.title, practice_path(practice), class: "page-nav__item-link #{@practice == practice ? "is-current" : ""}"
 
