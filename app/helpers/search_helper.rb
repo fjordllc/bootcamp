@@ -2,9 +2,9 @@
 
 module SearchHelper
   def matched_document(searchable)
-    if searchable.class == Comment
+    if searchable.instance_of?(Comment)
       searchable.commentable_type.constantize.find(searchable.commentable_id)
-    elsif searchable.class == Answer || searchable.class == CorrectAnswer
+    elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
       searchable.question
     else
       searchable
@@ -12,10 +12,10 @@ module SearchHelper
   end
 
   def searchable_url(searchable)
-    if searchable.class == Comment
+    if searchable.instance_of?(Comment)
       document = searchable.commentable_type.constantize.find(searchable.commentable_id)
       "#{polymorphic_url(document)}#comment_#{searchable.id}"
-    elsif searchable.class == Answer || searchable.class == CorrectAnswer
+    elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
       document = searchable.question
       "#{polymorphic_url(document)}"
     else
@@ -24,7 +24,7 @@ module SearchHelper
   end
 
   def filtered_message(searchable)
-    if searchable.class == Comment && searchable.commentable_type == "Product"
+    if searchable.instance_of?(Comment) && searchable.commentable_type == "Product"
       commentable = Product.find(searchable.commentable_id)
       if policy(commentable).show? || commentable.practice.open_product?
         searchable.description

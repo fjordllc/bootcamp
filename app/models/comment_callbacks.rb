@@ -11,13 +11,13 @@ class CommentCallbacks
       end
     end
 
-    if comment.commentable.class == Product
+    if comment.commentable.instance_of?(Product)
       delete_product_cache(comment.commentable.id)
     end
   end
 
   def after_destroy(comment)
-    if comment.commentable.class == Product
+    if comment.commentable.instance_of?(Product)
       delete_product_cache(comment.commentable.id)
     end
   end
