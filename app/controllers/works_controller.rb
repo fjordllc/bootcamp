@@ -2,7 +2,7 @@
 
 class WorksController < ApplicationController
   before_action :require_login
-  before_action :set_my_work, only: %i(edit update destroy)
+  before_action :set_my_work, only: %i[edit update destroy]
 
   def show
     @work = Work.find(params[:id])

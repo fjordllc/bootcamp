@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::PagesController < API::BaseController
-  before_action :set_page, only: %i(update)
+  before_action :set_page, only: %i[update]
 
   def update
     if @page.update(page_params)

@@ -4,10 +4,10 @@ require "net/http"
 
 module LinkChecker
   class Checker
-    DENY_LIST = %w(
+    DENY_LIST = %w[
       codepen.io
       www.amazon.co.jp
-    ).freeze
+    ].freeze
     attr_reader :errors
 
     def initialize

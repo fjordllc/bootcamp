@@ -2,8 +2,8 @@
 
 class CoursesController < ApplicationController
   before_action :require_login
-  before_action :require_admin_login, except: %i(index)
-  before_action :set_course, only: %i(edit update destroy)
+  before_action :require_admin_login, except: %i[index]
+  before_action :set_course, only: %i[edit update destroy]
 
   def index
     @courses = Course.order(created_at: :desc)

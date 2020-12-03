@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GraduationController < ApplicationController
-  before_action :set_user, only: %i(update)
+  before_action :set_user, only: %i[update]
 
   def update
     if @user.update(graduated_on: Date.current)

@@ -2,8 +2,8 @@
 
 class API::AnswersController < API::BaseController
   include Rails.application.routes.url_helpers
-  before_action :set_answer, only: %i(update destroy)
-  before_action :set_available_emojis, only: %i(index create)
+  before_action :set_answer, only: %i[update destroy]
+  before_action :set_available_emojis, only: %i[index create]
 
   def index
     @answers = question.answers.order(created_at: :asc)

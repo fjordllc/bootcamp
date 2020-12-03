@@ -2,8 +2,8 @@
 
 class EventsController < ApplicationController
   before_action :require_login
-  before_action :set_event, only: %i(show edit update destroy)
-  before_action :set_footprints, only: %i(show)
+  before_action :set_event, only: %i[show edit update destroy]
+  before_action :set_footprints, only: %i[show]
 
   def index
     @events = Event.with_avatar

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReservationCalendersController < ApplicationController
-  before_action :set_seats, only: %w(show)
+  before_action :set_seats, only: %w[show]
 
   def index
     this_month = l(Date.new(Date.current.year, Date.current.month, 1), format: :ym)

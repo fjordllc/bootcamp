@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :require_login, except: %i(new create)
-  before_action :require_token, only: %i(new) if Rails.env.production?
-  before_action :set_user, only: %w(show)
+  before_action :require_login, except: %i[new create]
+  before_action :require_token, only: %i[new] if Rails.env.production?
+  before_action :set_user, only: %w[show]
   PAGER_NUMBER = 20
 
   def index

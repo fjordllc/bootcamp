@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class API::CommentsController < API::BaseController
-  before_action :set_my_comment, only: %i(update destroy)
-  before_action :set_available_emojis, only: %i(index create)
+  before_action :set_my_comment, only: %i[update destroy]
+  before_action :set_available_emojis, only: %i[index create]
 
   def index
     @comments = commentable.comments.order(created_at: :asc)

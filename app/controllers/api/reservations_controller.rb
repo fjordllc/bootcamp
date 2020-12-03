@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::ReservationsController < API::BaseController
-  before_action :set_reservation, only: %i(destroy)
+  before_action :set_reservation, only: %i[destroy]
 
   def index
     @reservations = Reservation.where(
