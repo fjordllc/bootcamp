@@ -33,7 +33,7 @@ class GithubGrass
   end
 
   def fetch_page
-    open(github_url(@name)) { |f| f.read }
+    URI.parse(github_url(@name)).open.read
   end
 
   def localize(svg)
