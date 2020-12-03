@@ -24,7 +24,7 @@ class API::CorrectAnswersController < API::BaseController
   end
 
   def notify_to_slack(question)
-    name = "#{question.user.login_name}"
+    name = question.user.login_name.to_s
     link = "<#{question_url(question)}|#{question.title}>"
 
     SlackNotification.notify "#{name}が解答を選択しました。#{link}",

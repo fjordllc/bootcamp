@@ -55,7 +55,7 @@ class AnnouncementsController < ApplicationController
   def notify_to_slack(announcement)
     link = "<#{url_for(announcement)}|#{announcement.title}>"
 
-    SlackNotification.notify "#{link}",
+    SlackNotification.notify link.to_s,
                              username: "#{announcement.user.login_name} (#{announcement.user.name})",
                              icon_url: announcement.user.avatar_url,
                              channel: "#general",

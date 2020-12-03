@@ -32,7 +32,7 @@ class API::ChecksController < API::BaseController
   end
 
   def notify_to_slack(check)
-    name = "#{check.user.login_name}"
+    name = check.user.login_name.to_s
     link = "<#{polymorphic_path(check.checkable)}#check_#{check.id}|#{check.checkable.title}>"
 
     SlackNotification.notify "#{name} check to #{link}",

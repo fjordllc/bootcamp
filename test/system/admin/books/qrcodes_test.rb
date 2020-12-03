@@ -8,12 +8,12 @@ class Admin::Books::QrcodesTest < ApplicationSystemTestCase
   test "show qrcodes" do
     book = books(:book_1)
     visit "/admin/books/qrcodes"
-    assert_text "#{book.id}"
+    assert_text book.id.to_s
   end
 
   test "show qrcode" do
     book = books(:book_1)
     visit "/admin/books/qrcodes/#{book.id}"
-    assert_text "#{book.id}"
+    assert_text book.id.to_s
   end
 end

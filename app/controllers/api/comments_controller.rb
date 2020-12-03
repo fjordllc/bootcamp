@@ -47,7 +47,7 @@ class API::CommentsController < API::BaseController
   end
 
   def notify_to_slack(comment)
-    name = "#{comment.user.login_name}"
+    name = comment.user.login_name.to_s
     link = "<#{polymorphic_url(comment.commentable)}#comment_#{comment.id}|#{comment.commentable.title}>"
 
     SlackNotification.notify "#{name} commented to #{link}",
