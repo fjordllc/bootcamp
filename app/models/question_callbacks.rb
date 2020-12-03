@@ -15,9 +15,7 @@ class QuestionCallbacks
 
   def send_notification_to_mentors(question)
     User.mentor.each do |user|
-      if question.sender != user
-        NotificationFacade.came_question(question, user)
-      end
+      NotificationFacade.came_question(question, user) if question.sender != user
     end
   end
 

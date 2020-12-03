@@ -26,9 +26,7 @@ class AnnouncementCallbacks
   def send_notification(announce)
     target_users = User.announcement_receiver(announce.target)
     target_users.each do |target|
-      if announce.sender != target
-        NotificationFacade.post_announcement(announce, target)
-      end
+      NotificationFacade.post_announcement(announce, target) if announce.sender != target
     end
   end
 

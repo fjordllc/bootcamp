@@ -40,9 +40,7 @@ class ReservationsTest < ApplicationSystemTestCase
 
     reservation_date = Date.current.next_month.tomorrow
 
-    if (Date.current.month + 2) <= reservation_date.month
-      click_link "next-month"
-    end
+    click_link "next-month" if (Date.current.month + 2) <= reservation_date.month
     accept_confirm do
       within("#reservation-#{reservation_date}-#{seats(:seat_2).id}") do
         find("#reserve-seat").click

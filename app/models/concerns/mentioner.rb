@@ -3,17 +3,13 @@
 module Mentioner
   def after_save_mention(mentions)
     new_mention_users.each do |receiver|
-      if receiver && sender != receiver
-        NotificationFacade.mentioned(self, receiver)
-      end
+      NotificationFacade.mentioned(self, receiver) if receiver && sender != receiver
     end
 
     return unless mentions.include? "@mentor"
 
     User.mentor.each do |receiver|
-      if sender != receiver
-        NotificationFacade.mentioned(self, receiver)
-      end
+      NotificationFacade.mentioned(self, receiver) if sender != receiver
     end
   end
 

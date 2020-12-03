@@ -18,9 +18,7 @@ class ReportsController < ApplicationController
     @search_words = params[:word]&.squish&.split(/[[:blank:]]/)&.uniq
     @reports = Report.list.page(params[:page])
 
-    if params[:practice_id].present?
-      @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] })
-    end
+    @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] }) if params[:practice_id].present?
 
     return if @search_words.blank?
 
@@ -198,9 +196,7 @@ class ReportsController < ApplicationController
         month: report.reported_on.month,
         day: report.reported_on.day
       )
-      if new_started_at > new_finished_at
-        new_finished_at += 1.day
-      end
+      new_finished_at += 1.day if new_started_at > new_finished_at
       learning_time.assign_attributes(started_at: new_started_at, finished_at: new_finished_at)
     end
   end

@@ -49,9 +49,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.course = Course.first
 
-    if @user.trainee?
-      @user.free = true
-    end
+    @user.free = true if @user.trainee?
 
     if @user.staff? || @user.trainee?
       create_free_user!
