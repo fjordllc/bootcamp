@@ -35,18 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'app/controllers/api/practices/learning_controller.rb'
-    - 'app/controllers/reservation_calenders_controller.rb'
-    - 'app/controllers/works_controller.rb'
-    - 'app/helpers/search_helper.rb'
-    - 'app/models/practice.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

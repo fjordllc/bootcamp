@@ -53,10 +53,10 @@ class WorksController < ApplicationController
   end
 
   def set_my_work
-    if admin_login?
-      @work = Work.find(params[:id])
-    else
-      @work = current_user.works.find(params[:id])
-    end
+    @work = if admin_login?
+              Work.find(params[:id])
+            else
+              current_user.works.find(params[:id])
+            end
   end
 end

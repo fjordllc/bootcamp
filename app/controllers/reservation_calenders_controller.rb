@@ -24,11 +24,11 @@ class ReservationCalendersController < ApplicationController
 
   def beggining_of_this_month
     if @beggining_of_this_month.nil?
-      if year_and_month?(params[:id])
-        @beggining_of_this_month = Date.new(params[:id].slice(0, 4).to_i, params[:id].slice(4, 2).to_i, 1)
-      else
-        @beggining_of_this_month = Date.current.beginning_of_month
-      end
+      @beggining_of_this_month = if year_and_month?(params[:id])
+                                   Date.new(params[:id].slice(0, 4).to_i, params[:id].slice(4, 2).to_i, 1)
+                                 else
+                                   Date.current.beginning_of_month
+                                 end
     else
       @beggining_of_this_month
     end
