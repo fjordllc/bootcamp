@@ -49,7 +49,6 @@ linters:
       - Style/StringConcatenation
       - Style/RedundantInterpolation
       - Style/StringLiteralsInInterpolation
-      - Style/NumericPredicate
       - Style/SymbolProc
       - Style/FormatString
       - Style/SoleNestedConditional

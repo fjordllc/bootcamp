@@ -31,7 +31,7 @@ main.page-main
     .container
       .users
         .row.is-gutter-width-32
-          - if @users.size > 0
+          - if @users.size.positive?
             = render partial: "users/user", collection: @users, as: :user
           - else
             .o-empty-massage
