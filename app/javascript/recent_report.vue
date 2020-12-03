@@ -4,7 +4,7 @@
       img.recent-reports-item__user-icon.a-user-icon(:src="report.user.avatar_url" :class="[roleClass, daimyoClass]")
       h3.recent-reports-item__title {{ report.title }}
       time.recent-reports-item__date {{ report.reported_on }}
-    .recent-reports-item__checked(v-if="report.check == 'true'")
+    .recent-reports-item__checked(v-if="report.check")
       i.fas.fa-check
 </template>
 <script>
