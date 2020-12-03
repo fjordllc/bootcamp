@@ -138,7 +138,7 @@ class ReportsController < ApplicationController
   end
 
   def notify_to_slack(report)
-    name = "#{report.user.login_name}"
+    name = report.user.login_name.to_s
     link = "<#{report_url(report)}|#{report.title}>"
 
     SlackNotification.notify "#{name} created #{link}",

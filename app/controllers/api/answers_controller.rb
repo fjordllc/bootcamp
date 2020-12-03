@@ -48,7 +48,7 @@ class API::AnswersController < API::BaseController
   end
 
   def notify_to_slack(answer)
-    name = "#{answer.user.login_name}"
+    name = answer.user.login_name.to_s
     link = "<#{question_url(answer.question)}|#{answer.question.title}>"
 
     SlackNotification.notify "#{name}が回答しました。#{link}",

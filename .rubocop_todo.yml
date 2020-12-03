@@ -35,24 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 18
-# Cop supports --auto-correct.
-Style/RedundantInterpolation:
-  Exclude:
-    - 'app/controllers/announcements_controller.rb'
-    - 'app/controllers/api/answers_controller.rb'
-    - 'app/controllers/api/checks_controller.rb'
-    - 'app/controllers/api/comments_controller.rb'
-    - 'app/controllers/api/correct_answers_controller.rb'
-    - 'app/controllers/products_controller.rb'
-    - 'app/controllers/questions_controller.rb'
-    - 'app/controllers/reports_controller.rb'
-    - 'app/helpers/required_fields_helper.rb'
-    - 'app/helpers/search_helper.rb'
-    - 'app/models/page_callbacks.rb'
-    - 'test/system/admin/books/qrcodes_test.rb'
-    - 'test/system/api/memos_test.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/RedundantRegexpEscape:

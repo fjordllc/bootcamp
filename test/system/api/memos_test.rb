@@ -40,7 +40,7 @@ class API::MemosTest < ApplicationSystemTestCase
     assert_equal "席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
 
     within("#memo-#{memos(:memo_1).date}") do
-      find('label[for="' + "#{memos(:memo_1).date}" + '"]').click
+      find('label[for="' + memos(:memo_1).date.to_s + '"]').click
       fill_in "memo[body]", with: "イベント：潮干狩り"
       click_button "更新"
     end
@@ -54,7 +54,7 @@ class API::MemosTest < ApplicationSystemTestCase
     assert_equal "席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
 
     within("#memo-#{memos(:memo_1).date}") do
-      find('label[for="' + "#{memos(:memo_1).date}" + '"]').click
+      find('label[for="' + memos(:memo_1).date.to_s + '"]').click
       click_button "削除"
     end
     within("#memo-#{memos(:memo_1).date}") do

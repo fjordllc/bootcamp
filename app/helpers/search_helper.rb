@@ -17,7 +17,7 @@ module SearchHelper
       "#{polymorphic_url(document)}#comment_#{searchable.id}"
     elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
       document = searchable.question
-      "#{polymorphic_url(document)}"
+      polymorphic_url(document).to_s
     else
       polymorphic_url(searchable)
     end

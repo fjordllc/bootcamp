@@ -8,17 +8,17 @@ module RequiredFieldsHelper
 
     messages = []
 
-    messages << "#{link_to "プロフィール画像を登録してください。", edit_current_user_path, class: "card-list__item-link"}".html_safe unless current_user.avatar.attached?
+    messages << link_to "プロフィール画像を登録してください。", edit_current_user_path, class: "card-list__item-link".to_s.html_safe unless current_user.avatar.attached?
 
-    messages << "#{link_to "自己紹介を入力してください。", edit_current_user_path, class: "card-list__item-link"}".html_safe unless current_user.description?
+    messages << link_to "自己紹介を入力してください。", edit_current_user_path, class: "card-list__item-link".to_s.html_safe unless current_user.description?
 
     if current_user.student?
       unless current_user.github_account?
-        messages << "#{link_to "GitHubアカウントを登録してください。", edit_current_user_path, class: "card-list__item-link is-github"}".html_safe
+        messages << link_to "GitHubアカウントを登録してください。", edit_current_user_path, class: "card-list__item-link is-github".to_s.html_safe
       end
 
       unless current_user.slack_account?
-        messages << "#{link_to "Slackアカウントを登録してください。", edit_current_user_path, class: "card-list__item-link is-slack"}".html_safe
+        messages << link_to "Slackアカウントを登録してください。", edit_current_user_path, class: "card-list__item-link is-slack".to_s.html_safe
       end
     end
 

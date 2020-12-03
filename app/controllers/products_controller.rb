@@ -72,7 +72,7 @@ class ProductsController < ApplicationController
   private
 
   def notify_to_slack(product)
-    name = "#{product.user.login_name}"
+    name = product.user.login_name.to_s
     link = "<#{url_for(product)}|#{product.title}>"
 
     return unless product.user.trainee? && product.user.company.slack_channel?
