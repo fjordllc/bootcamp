@@ -18,8 +18,8 @@ class Card
 
   def search(email:)
     result = Stripe::Customer.list(email: email, limit: 1)
-    if result.data.size > 0
-      result.data.first
-    end
+    return unless result.data.size > 0
+
+    result.data.first
   end
 end

@@ -59,9 +59,9 @@ class UsersController < ApplicationController
       create_user!
     end
 
-    if @user.errors.empty?
-      @user.resize_avatar!
-    end
+    return unless @user.errors.empty?
+
+    @user.resize_avatar!
   end
 
   private
@@ -141,10 +141,9 @@ class UsersController < ApplicationController
   end
 
   def require_token
-    if params[:role]
-      if !params[:token] || !ENV["TOKEN"] || params[:token] != ENV["TOKEN"]
-        redirect_to root_path, notice: "アドバイザー・メンター・研修生登録にはTOKENが必要です。"
-      end
-    end
+    return unless params[:role]
+    return unless !params[:token] || !ENV["TOKEN"] || params[:token] != ENV["TOKEN"]
+
+    redirect_to root_path, notice: "アドバイザー・メンター・研修生登録にはTOKENが必要です。"
   end
 end

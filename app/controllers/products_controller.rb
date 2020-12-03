@@ -75,16 +75,16 @@ class ProductsController < ApplicationController
     name = "#{product.user.login_name}"
     link = "<#{url_for(product)}|#{product.title}>"
 
-    if product.user.trainee? && product.user.company.slack_channel?
-      SlackNotification.notify "#{name} さんが#{product.title}を提出しました。 #{link}",
-                               username: "#{product.user.login_name} (#{product.user.name})",
-                               icon_url: product.user.avatar_url,
-                               channel: product.user.company.slack_channel,
-                               attachments: [{
-                                 fallback: "product body.",
-                                 text: product.body
-                               }]
-    end
+    return unless product.user.trainee? && product.user.company.slack_channel?
+
+    SlackNotification.notify "#{name} さんが#{product.title}を提出しました。 #{link}",
+                             username: "#{product.user.login_name} (#{product.user.name})",
+                             icon_url: product.user.avatar_url,
+                             channel: product.user.company.slack_channel,
+                             attachments: [{
+                               fallback: "product body.",
+                               text: product.body
+                             }]
   end
 
   def find_product
@@ -112,15 +112,15 @@ class ProductsController < ApplicationController
   end
 
   def footprint!
-    if find_product.user != current_user
-      find_product.footprints.create_or_find_by(user: current_user)
-    end
+    return unless find_product.user != current_user
+
+    find_product.footprints.create_or_find_by(user: current_user)
   end
 
   def check_permission!
-    unless policy(find_product).show? || find_practice&.open_product?
-      redirect_to root_path, alert: "プラクティスを完了するまで他の人の提出物は見れません。"
-    end
+    return if policy(find_product).show? || find_practice&.open_product?
+
+    redirect_to root_path, alert: "プラクティスを完了するまで他の人の提出物は見れません。"
   end
 
   def product_params

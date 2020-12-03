@@ -15,9 +15,9 @@ class UserCallbacks
       user.update(job_seeking: false)
     end
 
-    if user.saved_change_to_graduated_on? && user.graduated?
-      notify_to_slack(user)
-    end
+    return unless user.saved_change_to_graduated_on? && user.graduated?
+
+    notify_to_slack(user)
   end
 
   private

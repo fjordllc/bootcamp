@@ -8,11 +8,11 @@ module Mentioner
       end
     end
 
-    if mentions.include? "@mentor"
-      User.mentor.each do |receiver|
-        if sender != receiver
-          NotificationFacade.mentioned(self, receiver)
-        end
+    return unless mentions.include? "@mentor"
+
+    User.mentor.each do |receiver|
+      if sender != receiver
+        NotificationFacade.mentioned(self, receiver)
       end
     end
   end

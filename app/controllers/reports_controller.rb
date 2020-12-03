@@ -22,9 +22,9 @@ class ReportsController < ApplicationController
       @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] })
     end
 
-    if @search_words.present?
-      @reports = @reports.ransack(title_or_description_cont_all: @search_words).result
-    end
+    return if @search_words.blank?
+
+    @reports = @reports.ransack(title_or_description_cont_all: @search_words).result
   end
 
   def show
@@ -39,15 +39,15 @@ class ReportsController < ApplicationController
     @report = Report.new(reported_on: Date.current)
     @report.learning_times.build()
 
-    if params[:id]
-      report              = current_user.reports.find(params[:id])
-      @report.title       = report.title
-      @report.reported_on = Date.current
-      @report.emotion = report.emotion
-      @report.description = report.description
-      @report.practices   = report.practices
-      flash.now[:notice] = "日報をコピーしました。"
-    end
+    return unless params[:id]
+
+    report              = current_user.reports.find(params[:id])
+    @report.title       = report.title
+    @report.reported_on = Date.current
+    @report.emotion = report.emotion
+    @report.description = report.description
+    @report.practices   = report.practices
+    flash.now[:notice] = "日報をコピーしました。"
   end
 
   def edit
@@ -151,16 +151,16 @@ class ReportsController < ApplicationController
                                text: report.description
                              }]
 
-    if report.user.trainee? && report.user.company.slack_channel?
-      SlackNotification.notify "#{name} さんが日報を提出しました。 #{link}",
-                               username: "#{report.user.login_name} (#{report.user.name})",
-                               icon_url: report.user.avatar_url,
-                               channel: report.user.company.slack_channel,
-                               attachments: [{
-                                 fallback: "report body.",
-                                 text: report.description
-                               }]
-    end
+    return unless report.user.trainee? && report.user.company.slack_channel?
+
+    SlackNotification.notify "#{name} さんが日報を提出しました。 #{link}",
+                             username: "#{report.user.login_name} (#{report.user.name})",
+                             icon_url: report.user.avatar_url,
+                             channel: report.user.company.slack_channel,
+                             attachments: [{
+                               fallback: "report body.",
+                               text: report.description
+                             }]
   end
 
   def set_wip
@@ -168,10 +168,10 @@ class ReportsController < ApplicationController
   end
 
   def check_noticeable
-    if @report.published_at.nil? && @report.wip == false
-      @report.published_at = Date.current
-      @noticeable = true
-    end
+    return unless @report.published_at.nil? && @report.wip == false
+
+    @report.published_at = Date.current
+    @noticeable = true
   end
 
   def redirect_url(report)

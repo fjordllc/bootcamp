@@ -4,10 +4,10 @@ class Events::ParticipationsController < ApplicationController
   before_action :set_event
 
   def create
-    if @event.participations.create(user: current_user, enable: @event.can_participate?)
-      create_watch
-      redirect_to event_path(@event), notice: "出席登録が完了しました。"
-    end
+    return unless @event.participations.create(user: current_user, enable: @event.can_participate?)
+
+    create_watch
+    redirect_to event_path(@event), notice: "出席登録が完了しました。"
   end
 
   def destroy

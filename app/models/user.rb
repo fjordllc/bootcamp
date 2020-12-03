@@ -354,9 +354,9 @@ class User < ApplicationRecord
   end
 
   def customer
-    if customer_id?
-      Customer.new.retrieve(customer_id)
-    end
+    return unless customer_id?
+
+    Customer.new.retrieve(customer_id)
   end
 
   def card?
@@ -374,9 +374,9 @@ class User < ApplicationRecord
   end
 
   def subscription
-    if subscription?
-      Subscription.new.retrieve(subscription_id)
-    end
+    return unless subscription?
+
+    Subscription.new.retrieve(subscription_id)
   end
 
   def student?
@@ -438,9 +438,9 @@ class User < ApplicationRecord
   end
 
   def resize_avatar!
-    if avatar.attached?
-      avatar.variant(resize: AVATAR_SIZE).processed
-    end
+    return unless avatar.attached?
+
+    avatar.variant(resize: AVATAR_SIZE).processed
   end
 
   def generation
@@ -481,9 +481,9 @@ class User < ApplicationRecord
   end
 
   def active_practice
-    if self.active_practices.first
-      self.active_practices.first.id
-    end
+    return unless self.active_practices.first
+
+    self.active_practices.first.id
   end
 
   def follow(other_user)
