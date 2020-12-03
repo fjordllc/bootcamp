@@ -7,10 +7,12 @@ class Practice < ApplicationRecord
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany
   has_many :started_learnings,
            -> { where(status: "started") },
-           class_name: "Learning"
+           class_name: "Learning",
+           inverse_of: "practice"
   has_many :completed_learnings,
            -> { where(status: "complete") },
-           class_name: "Learning"
+           class_name: "Learning",
+           inverse_of: "practice"
   has_many :started_users,
            through: :started_learnings,
            source: :user
