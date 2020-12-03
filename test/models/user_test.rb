@@ -14,11 +14,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "#active?" do
-    travel_to Time.new(2014, 1, 1, 0, 0, 0) do
+    travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
       assert users(:komagata).active?
     end
 
-    travel_to Time.new(2014, 2, 2, 0, 0, 0) do
+    travel_to Time.zone.local(2014, 2, 2, 0, 0, 0) do
       assert_not users(:machida).active?
     end
   end
@@ -42,8 +42,8 @@ class UserTest < ActiveSupport::TestCase
 
   test "#elapsed_days" do
     user = users(:komagata)
-    user.created_at = Time.new(2019, 1, 1, 0, 0, 0)
-    travel_to Time.new(2020, 1, 1, 0, 0, 0) do
+    user.created_at = Time.zone.local(2019, 1, 1, 0, 0, 0)
+    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
       assert_equal 365, user.elapsed_days
     end
   end
