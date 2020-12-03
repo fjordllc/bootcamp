@@ -77,7 +77,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test "create product" do
     login_user "yamada", "testtest"
-    visit "/products/new?practice_id=#{practices(:practice_5).id}"
+    visit "/products/new?practice_id=#{practices(:practice_6).id}"
     within("#new_product") do
       fill_in("product[body]", with: "test")
     end
@@ -88,14 +88,14 @@ class ProductsTest < ApplicationSystemTestCase
 
   test "create product change status submitted" do
     login_user "yamada", "testtest"
-    visit "/products/new?practice_id=#{practices(:practice_5).id}"
+    visit "/products/new?practice_id=#{practices(:practice_6).id}"
     within("#new_product") do
       fill_in("product[body]", with: "test")
     end
     click_button "提出する"
     assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
 
-    visit "/practices/#{practices(:practice_5).id}"
+    visit "/practices/#{practices(:practice_6).id}"
     assert_equal first(".test-product").text, "提出物へ"
   end
 
@@ -138,7 +138,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test "create product as WIP" do
     login_user "yamada", "testtest"
-    visit "/products/new?practice_id=#{practices(:practice_5).id}"
+    visit "/products/new?practice_id=#{practices(:practice_6).id}"
     within("#new_product") do
       fill_in("product[body]", with: "test")
     end

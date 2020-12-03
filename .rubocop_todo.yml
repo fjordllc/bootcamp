@@ -35,19 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 10
-# Configuration parameters: Include.
-# Include: app/models/**/*.rb
-Rails/UniqueValidationWithoutIndex:
-  Exclude:
-    - 'app/models/memo.rb'
-    - 'app/models/product.rb'
-    - 'app/models/reaction.rb'
-    - 'app/models/report.rb'
-    - 'app/models/reservation.rb'
-    - 'app/models/user.rb'
-    - 'app/models/work.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: Include.

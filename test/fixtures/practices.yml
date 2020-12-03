@@ -66,6 +66,7 @@ practice_6:
   memo: "memo for mentors..."
   categories: category_4
   position: 6
+  submission: true
 
 practice_7:
   title: "viをインストールする"
