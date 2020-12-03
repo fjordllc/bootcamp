@@ -293,7 +293,7 @@ class User < ApplicationRecord
   end
 
   def completed_percentage
-    completed_practices.where(include_progress: true).size.to_f / course.practices.where(include_progress: true).count.to_f * 100
+    completed_practices.where(include_progress: true).size.to_f / course.practices.where(include_progress: true).count * 100
   end
 
   def completed_practices_size(category)
@@ -311,7 +311,7 @@ class User < ApplicationRecord
   end
 
   def completed_percentage_by(category)
-    completed_practices_size(category).to_f / category.practices.size.to_f * 100
+    completed_practices_size(category).to_f / category.practices.size * 100
   end
 
   def active?
