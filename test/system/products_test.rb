@@ -205,7 +205,7 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in("product[body]", with: "test")
     end
     mock_log = []
-    stub_info = Proc.new { |i| mock_log << i }
+    stub_info = proc { |i| mock_log << i }
 
     Rails.logger.stub(:info, stub_info) do
       click_button "提出する"
@@ -221,7 +221,7 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in("product[body]", with: "test")
     end
     mock_log = []
-    stub_info = Proc.new { |i| mock_log << i }
+    stub_info = proc { |i| mock_log << i }
 
     Rails.logger.stub(:info, stub_info) do
       click_button "WIP"

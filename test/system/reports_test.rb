@@ -350,7 +350,7 @@ class ReportsTest < ApplicationSystemTestCase
     all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
 
     mock_log = []
-    stub_info = Proc.new { |i| mock_log << i }
+    stub_info = proc { |i| mock_log << i }
 
     Rails.logger.stub(:info, stub_info) do
       click_button "提出"
@@ -376,7 +376,7 @@ class ReportsTest < ApplicationSystemTestCase
     all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
 
     mock_log = []
-    stub_info = Proc.new { |i| mock_log << i }
+    stub_info = proc { |i| mock_log << i }
 
     Rails.logger.stub(:info, stub_info) do
       click_button "WIP"
@@ -405,7 +405,7 @@ class ReportsTest < ApplicationSystemTestCase
     all(".learning-time")[0].all(".learning-time__finished-at select")[1].select("30")
 
     mock_log = []
-    stub_info = Proc.new { |i| mock_log << i }
+    stub_info = proc { |i| mock_log << i }
 
     Rails.logger.stub(:info, stub_info) do
       click_button "提出"
