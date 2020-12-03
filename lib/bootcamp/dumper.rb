@@ -2,6 +2,7 @@
 
 module Bootcamp
   class Dumper
+    # rubocop:disable Rails/Output
     class << self
       def dump_categories
         Category.order("position").each do |c|
@@ -41,5 +42,6 @@ module Bootcamp
         end
       end
     end
+    # rubocop:enable Rails/Output
   end
 end
