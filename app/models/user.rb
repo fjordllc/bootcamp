@@ -238,9 +238,7 @@ class User < ApplicationRecord
     )
   }
   scope :order_by_counts, ->(order_by, direction) {
-    unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
-      raise ArgumentError, "Invalid argument"
-    end
+    raise ArgumentError, "Invalid argument" unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
 
     if order_by.in? ["report", "comment"]
       left_outer_joins(order_by.pluralize.to_sym)

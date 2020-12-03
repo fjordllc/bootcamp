@@ -11,9 +11,7 @@ class UserCallbacks
       Report.where(user: user).wip.destroy_all
     end
 
-    if user.saved_change_to_retired_on?
-      user.update(job_seeking: false)
-    end
+    user.update(job_seeking: false) if user.saved_change_to_retired_on?
 
     return unless user.saved_change_to_graduated_on? && user.graduated?
 

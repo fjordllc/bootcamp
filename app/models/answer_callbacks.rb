@@ -2,9 +2,7 @@
 
 class AnswerCallbacks
   def after_create(answer)
-    if answer.sender != answer.receiver
-      notify_answer(answer)
-    end
+    notify_answer(answer) if answer.sender != answer.receiver
 
     create_watch(answer)
     notify_to_watching_user(answer)

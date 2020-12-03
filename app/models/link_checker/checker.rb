@@ -44,9 +44,7 @@ module LinkChecker
           lock = locks.pop
           response = Client.request(link.url)
           link.response = response
-          if !response || response > 403
-            @error_links << link
-          end
+          @error_links << link if !response || response > 403
           locks.push lock
         end
       end.each(&:join)

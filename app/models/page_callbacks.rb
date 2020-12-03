@@ -24,9 +24,7 @@ class PageCallbacks
   def send_notification(page)
     receivers = User.where(retired_on: nil, graduated_on: nil, adviser: false, trainee: false)
     receivers.each do |receiver|
-      if page.sender != receiver
-        NotificationFacade.create_page(page, receiver)
-      end
+      NotificationFacade.create_page(page, receiver) if page.sender != receiver
     end
   end
 
