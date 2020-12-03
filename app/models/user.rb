@@ -363,7 +363,7 @@ class User < ApplicationRecord
     customer_id?
   end
 
-  alias_method :paid?, :card?
+  alias paid? card?
 
   def card
     customer.sources.data.first

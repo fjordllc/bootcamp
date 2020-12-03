@@ -11,7 +11,7 @@ class Product < ApplicationRecord
 
   belongs_to :practice
   belongs_to :user, touch: true
-  alias_method :sender, :user
+  alias sender user
 
   after_create ProductCallbacks.new
   after_save ProductCallbacks.new

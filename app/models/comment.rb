@@ -9,7 +9,7 @@ class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   after_create CommentCallbacks.new
   after_destroy CommentCallbacks.new
-  alias_method :sender, :user
+  alias sender user
 
   validates :description, presence: true
 

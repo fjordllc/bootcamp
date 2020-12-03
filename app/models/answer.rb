@@ -6,7 +6,7 @@ class Answer < ApplicationRecord
 
   belongs_to :user, touch: true
   belongs_to :question
-  alias_method :sender, :user
+  alias sender user
 
   after_create AnswerCallbacks.new
   after_save AnswerCallbacks.new

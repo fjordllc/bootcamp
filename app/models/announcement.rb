@@ -14,7 +14,7 @@ class Announcement < ApplicationRecord
   }, _prefix: true
 
   belongs_to :user
-  alias_method :sender, :user
+  alias sender user
 
   after_create AnnouncementCallbacks.new
   after_update AnnouncementCallbacks.new
