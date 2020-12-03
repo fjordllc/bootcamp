@@ -47,7 +47,6 @@ linters:
       - Layout/SpaceAroundMethodCallOperator
       - Layout/SpaceInsideStringInterpolation
       - Style/StringConcatenation
-      - Style/RedundantInterpolation
       - Style/StringLiteralsInInterpolation
       - Style/SymbolProc
       - Style/FormatString
