@@ -31,7 +31,7 @@ class Product < ApplicationRecord
 
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
-  scope :list, -> {
+  scope :list, lambda {
     with_avatar
       .preload([:practice, :comments, { checks: { user: { avatar_attachment: :blob } } }])
       .order(created_at: :desc)

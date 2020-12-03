@@ -182,7 +182,7 @@ class User < ApplicationRecord
   scope :unretired, -> { where(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
-  scope :students_and_trainees, -> {
+  scope :students_and_trainees, lambda {
     where(
       admin: false,
       mentor: false,
@@ -191,7 +191,7 @@ class User < ApplicationRecord
       retired_on: nil
     )
   }
-  scope :students, -> {
+  scope :students, lambda {
     where(
       admin: false,
       mentor: false,
@@ -202,7 +202,7 @@ class User < ApplicationRecord
     )
   }
   scope :active, -> { where(updated_at: 1.month.ago..Float::INFINITY) }
-  scope :inactive, -> {
+  scope :inactive, lambda {
     where(
       updated_at: Date.new..1.month.ago,
       adviser: false,
@@ -210,7 +210,7 @@ class User < ApplicationRecord
       graduated_on: nil
     )
   }
-  scope :inactive_students_and_trainees, -> {
+  scope :inactive_students_and_trainees, lambda {
     where(
       updated_at: Date.new..1.month.ago,
       admin: false,
@@ -222,7 +222,7 @@ class User < ApplicationRecord
   }
   scope :year_end_party, -> { where(retired_on: nil) }
   scope :mentor, -> { where(mentor: true) }
-  scope :working, -> {
+  scope :working, lambda {
     active.where(
       adviser: false,
       graduated_on: nil,
@@ -232,12 +232,12 @@ class User < ApplicationRecord
   scope :admins, -> { where(admin: true) }
   scope :trainees, -> { where(trainee: true) }
   scope :job_seeking, -> { where(job_seeking: true) }
-  scope :job_seekers, -> {
+  scope :job_seekers, lambda {
     students.where(
       job_seeker: true
     )
   }
-  scope :order_by_counts, ->(order_by, direction) {
+  scope :order_by_counts, lambda { |order_by, direction|
     raise ArgumentError, "Invalid argument" unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
 
     if order_by.in? ["report", "comment"]
@@ -248,7 +248,7 @@ class User < ApplicationRecord
       order(order_by.to_sym => direction.to_sym, created_at: :asc)
     end
   }
-  scope :same_generations, -> (start_date, end_date) {
+  scope :same_generations, lambda { |start_date, end_date|
     where(created_at: start_date..end_date)
       .unretired
       .order(:created_at)
