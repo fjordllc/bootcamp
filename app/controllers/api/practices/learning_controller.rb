@@ -20,11 +20,11 @@ class API::Practices::LearningController < API::BaseController
       practice_id: params[:practice_id]
     )
 
-    if params[:status].nil?
-      learning.status = :complete
-    else
-      learning.status = params[:status].to_sym
-    end
+    learning.status = if params[:status].nil?
+                        :complete
+                      else
+                        params[:status].to_sym
+                      end
 
     status = learning.new_record? ? :created : :ok
 
