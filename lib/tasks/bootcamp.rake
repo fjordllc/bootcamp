@@ -9,25 +9,6 @@ namespace :bootcamp do
   end
 
   namespace :oneshot do
-    desc "Category data migrate to multiple categories."
-    task :migrate_category do
-      Practice.order(:category_id, :id).each do |practice|
-        category_id = practice.category_id
-        practice_id = practice.id
-        category_name = practice.category.name
-        practice_title = practice.title
-
-        sql = <<-SQL
-          INSERT INTO categories_practices (category_id, practice_id) VALUES (#{category_id}, #{practice_id});
-        SQL
-
-        puts sql
-        puts "INSERT #{category_name},\t#{practice_title}"
-
-        ActiveRecord::Base.connection.execute sql
-      end
-    end
-
     desc "Resize works."
     task :resize_all_works do
       Work.order(created_at: :asc).each do |work|
