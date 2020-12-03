@@ -23,11 +23,11 @@ class Notification < ApplicationRecord
     following_report: 13
   }
 
-  scope :reads, -> {
+  scope :reads, lambda {
     where(created_at: into_one.values).order(created_at: :desc)
   }
 
-  scope :unreads, -> {
+  scope :unreads, lambda {
     where(read: false, created_at: into_one.values).order(created_at: :desc)
   }
 

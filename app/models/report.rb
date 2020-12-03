@@ -39,7 +39,7 @@ class Report < ApplicationRecord
 
   scope :default_order, -> { order(reported_on: :desc, created_at: :desc) }
 
-  scope :unchecked, -> {
+  scope :unchecked, lambda {
     includes(:checks).where(checks: { id: nil })
   }
 
@@ -47,7 +47,7 @@ class Report < ApplicationRecord
 
   scope :not_wip, -> { where(wip: false) }
 
-  scope :list, -> {
+  scope :list, lambda {
     with_avatar
       .preload([:comments, { checks: { user: { avatar_attachment: :blob } } }])
       .default_order
