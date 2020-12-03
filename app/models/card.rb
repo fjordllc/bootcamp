@@ -20,8 +20,6 @@ class Card
     result = Stripe::Customer.list(email: email, limit: 1)
     if result.data.size > 0
       result.data.first
-    else
-      nil
     end
   end
 end
