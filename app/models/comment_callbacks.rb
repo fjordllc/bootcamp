@@ -5,10 +5,8 @@ class CommentCallbacks
     if comment.commentable.class.include?(Watchable)
       create_watch(comment)
       notify_to_watching_user(comment)
-    else
-      if comment.sender != comment.receiver
-        notify_comment(comment)
-      end
+    elsif comment.sender != comment.receiver
+      notify_comment(comment)
     end
 
     return unless comment.commentable.instance_of?(Product)
