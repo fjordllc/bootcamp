@@ -2,7 +2,7 @@
 
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin_login, except: %i(index show)
+  before_action :require_admin_login, except: %i[index show]
 
   def index
     @articles = Article.all.order(created_at: :desc).page(params[:page])

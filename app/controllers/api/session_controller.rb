@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class API::SessionController < API::BaseController
-  protect_from_forgery except: %i(create)
-  skip_before_action :require_login_for_api, only: %i(create)
+  protect_from_forgery except: %i[create]
+  skip_before_action :require_login_for_api, only: %i[create]
 
   def create
     token = login_and_issue_token(params[:login_name], params[:password])

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BorrowingsController < ApplicationController
-  before_action :require_login, only: %i(create destroy)
+  before_action :require_login, only: %i[create destroy]
 
   def create
     book = Book.find(params[:book_id])

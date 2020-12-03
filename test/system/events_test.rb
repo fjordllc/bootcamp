@@ -248,7 +248,7 @@ class EventsTest < ApplicationSystemTestCase
     end
     within ".participants" do
       participants = all("img").map { |img| img["alt"] }
-      assert_equal %w(komagata kimura), participants
+      assert_equal %w[komagata kimura], participants
     end
   end
 
@@ -279,7 +279,7 @@ class EventsTest < ApplicationSystemTestCase
     end
     within ".waitlist" do
       wait_user = all("img").map { |img| img["alt"] }
-      assert_equal %w(kimura), wait_user
+      assert_equal %w[kimura], wait_user
     end
   end
 
@@ -310,7 +310,7 @@ class EventsTest < ApplicationSystemTestCase
     end
     within ".participants" do
       participants = all("img").map { |img| img["alt"] }
-      assert_equal %w(komagata), participants
+      assert_equal %w[komagata], participants
     end
 
     login_user "komagata", "testtest"
@@ -321,7 +321,7 @@ class EventsTest < ApplicationSystemTestCase
     end
     within ".participants" do
       participants = all("img").map { |img| img["alt"] }
-      assert_equal %w(kimura), participants
+      assert_equal %w[kimura], participants
     end
   end
 

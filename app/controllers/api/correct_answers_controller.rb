@@ -2,7 +2,7 @@
 
 class API::CorrectAnswersController < API::BaseController
   include Rails.application.routes.url_helpers
-  before_action :set_question, only: %i(create update)
+  before_action :set_question, only: %i[create update]
 
   def create
     @answer = @question.answers.find(params[:answer_id])

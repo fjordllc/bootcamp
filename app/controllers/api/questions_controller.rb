@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::QuestionsController < API::BaseController
-  before_action :set_question, only: %i(update)
+  before_action :set_question, only: %i[update]
 
   def update
     if @question.update(question_params)

@@ -1,11 +1,11 @@
 nav.tab-nav
   .container.is-padding-horizontal-0-sm-down
     ul.tab-nav__items
-      - targets = %w(student_and_trainee followings mentor graduate adviser trainee)
+      - targets = %w[student_and_trainee followings mentor graduate adviser trainee]
       - if current_user.mentor?
-        - targets += %w(job_seeking all)
+        - targets += %w[job_seeking all]
       - elsif current_user.adviser?
-        - targets += %w(job_seeking)
+        - targets += %w[job_seeking]
       - targets.each do |target|
         li.tab-nav__item
           = link_to t("target.#{target}"), users_path(target: target), class: (@target == target ? ["is-active"] : []) << "tab-nav__item-link"
