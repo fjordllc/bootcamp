@@ -410,7 +410,7 @@ class User < ApplicationRecord
   end
 
   def unread_notifications_exists?
-    unread_notifications_count > 0
+    unread_notifications_count.positive?
   end
 
   def borrow(book)

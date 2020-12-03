@@ -125,7 +125,7 @@ class Event < ApplicationRecord
 
   def open_end_at_be_less_than_end_at
     diff = end_at - open_end_at
-    return unless diff < 0
+    return unless diff.negative?
 
     errors.add(:open_end_at, ": 募集終了日時はイベント終了日時よりも前の日時にしてください。")
   end
