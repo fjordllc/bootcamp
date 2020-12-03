@@ -6,6 +6,6 @@
       li.page-tabs__item
         = link_to reports_unchecked_index_path, class: "page-tabs__item-link #{current_link(/^reports-unchecked-index/)}" do
           | 未チェック
-          -  if Cache.unchecked_report_count > 0
+          -  if Cache.unchecked_report_count.positive?
             .page-tabs__item-count.a-notification-count
               = Cache.unchecked_report_count

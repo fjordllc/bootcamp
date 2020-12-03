@@ -74,7 +74,7 @@
               = link_to participant do
                 = image_tag participant.avatar_url, title: "#{participant.icon_title}", class: "footprints-item__checker-icon a-user-icon is-#{participant.login_name} is-#{participant.role}", alt: participant.login_name
 
-- if event.waitlist.count > 0
+- if event.waitlist.count.positive?
   .thread.waitlist
     .thread__inner.a-card
       header.card-header

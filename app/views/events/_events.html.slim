@@ -29,7 +29,7 @@
       .thread-list-item-meta__comment-count
         .thread-list-item-meta__comment-count-value
           | 参加者(#{event.participants_count}名/#{event.capacity}名)
-      - if event.waitlist_count > 0
+      - if event.waitlist_count.positive?
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-value
             | 補欠者(#{event.waitlist_count}名)
