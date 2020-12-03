@@ -81,9 +81,10 @@ class EventsController < ApplicationController
   end
 
   def notice_message(event)
-    if params[:action] == "create"
+    case params[:action]
+    when "create"
       event.wip? ? "イベントをWIPとして保存しました。" : "イベントを作成しました。"
-    elsif params[:action] == "update"
+    when "update"
       event.wip? ? "イベントをWIPとして保存しました。" : "イベントを更新しました。"
     end
   end
