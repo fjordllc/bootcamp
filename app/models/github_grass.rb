@@ -5,12 +5,12 @@ require "nokogiri"
 
 class GithubGrass
   SELECTOR = "svg.js-calendar-graph-svg"
-  WDAYS = ["日", "月", "火", "水", "木", "金", "土"]
+  WDAYS = ["日", "月", "火", "水", "木", "金", "土"].freeze
   MONTHS = {
     Jan: "1", Feb: "2", Mar: "3", Apr: "4",
     May: "5", Jun: "6", Jul: "7", Aug: "8",
     Sep: "9", Oct: "10", Nov: "11", Dec: "12"
-  }
+  }.freeze
 
   def initialize(name)
     @name = name

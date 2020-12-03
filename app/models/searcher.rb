@@ -8,7 +8,7 @@ class Searcher
     ["日報", :reports],
     ["Q&A", :questions],
     ["Docs", :pages]
-  ]
+  ].freeze
 
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 

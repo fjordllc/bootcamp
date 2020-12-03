@@ -7,7 +7,7 @@ module LinkChecker
     DENY_LIST = %w(
       codepen.io
       www.amazon.co.jp
-    )
+    ).freeze
     attr_reader :errors
 
     def initialize
