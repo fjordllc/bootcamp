@@ -21,7 +21,9 @@
         section.practice-content.a-card
           .practice-content__body.is-article.js-markdown-view.js-target-blank.is-long-text
             = truncate(article.body, length: 50)
+          - # rubocop:disable Rails/OutputSafety
           = raw article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
+          - # rubocop:enable Rails/OutputSafety
           - if admin_login?
             footer.card-footer
               .card-footer-actions
