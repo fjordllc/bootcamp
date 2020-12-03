@@ -13,7 +13,7 @@ module ReportsHelper
     hour = (time / 60).to_i
     minute = (time % 60).round
 
-    if minute == 0
+    if minute.zero?
       "#{hour}時間"
     else
       "#{hour}時間#{minute}分"

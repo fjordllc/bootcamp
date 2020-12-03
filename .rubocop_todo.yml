@@ -35,19 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IgnoredMethods.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'app/decorators/report_decorator.rb'
-    - 'app/helpers/reports_helper.rb'
-    - 'app/models/card.rb'
-    - 'app/models/event.rb'
-    - 'app/models/practice.rb'
-    - 'app/models/user.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/ParallelAssignment:
