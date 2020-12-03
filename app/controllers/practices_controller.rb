@@ -4,7 +4,7 @@ class PracticesController < ApplicationController
   before_action :require_login
   before_action :require_admin_login, except: %i(show)
   before_action :set_course, only: %i(new)
-  before_action :set_practice, only: %w(show edit update destroy)
+  before_action :set_practice, only: %w(show edit update)
 
   def show
     @categories = @practice.categories
