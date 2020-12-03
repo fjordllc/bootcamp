@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::CompaniesController < AdminController
-  before_action :set_company, only: [:show, :edit, :update, :destroy]
+  before_action :set_company, only: [:edit, :update, :destroy]
 
   def index
     @companies = Company.with_attached_logo.order(:id)

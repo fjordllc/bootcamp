@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::CategoriesController < AdminController
-  before_action :set_category, only: %i(show edit update destroy)
+  before_action :set_category, only: %i(edit update destroy)
 
   def index
     @categories = Category.order("position")
