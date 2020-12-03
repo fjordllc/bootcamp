@@ -9,7 +9,7 @@ module ApplicationHelper
 
   def md2html(text)
     html = CommonMarker.render_html(text)
-    raw(html)
+    raw(html) # rubocop:disable Rails/OutputSafety
   end
 
   def md_summury(comment, word_count)

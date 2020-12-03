@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module RequiredFieldsHelper
+  # rubocop:disable Rails/OutputSafety
   def required_fields
     return nil if !logged_in?
     return nil if current_user.staff?
@@ -27,4 +28,5 @@ module RequiredFieldsHelper
 
     messages
   end
+  # rubocop:enable Rails/OutputSafety
 end
