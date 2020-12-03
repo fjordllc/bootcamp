@@ -32,14 +32,15 @@ module LinkChecker
     def check
       locks = Queue.new
       5.times { locks.push :lock }
-      all_links.reject do |link|
+      all_links.reject! do |link|
         begin
           url = URI.encode(link.url) # rubocop:disable Lint/UriEscapeUnescape
           uri = URI.parse(url)
         end
 
         !uri || DENY_LIST.include?(uri.host)
-      end.map do |link|
+      end
+      all_links.map do |link|
         Thread.new do
           lock = locks.pop
           response = Client.request(link.url)
