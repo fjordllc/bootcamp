@@ -76,7 +76,7 @@ class UsersController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   def create_user!
     @user.with_lock do
-      if !@user.validate
+      unless @user.validate
         render "new"
         return false
       end
