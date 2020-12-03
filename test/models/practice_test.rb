@@ -30,15 +30,6 @@ class PracticeTest < ActiveSupport::TestCase
     assert_not practices(:practice_1).exists_learning?(users(:machida))
   end
 
-  test ".category_order" do
-    ordered_practices = Practice.category_order
-    earlier = practices(:practice_23)
-    middle = practices(:practice_20)
-    later = practices(:practice_14)
-    assert ordered_practices.index(earlier) < ordered_practices.index(middle)
-    assert ordered_practices.index(middle) < ordered_practices.index(later)
-  end
-
   test ".save_learning_minute_statistics" do
     LearningMinuteStatistic.delete_all
     assert LearningMinuteStatistic.count.zero?
@@ -47,5 +38,13 @@ class PracticeTest < ActiveSupport::TestCase
 
     practice_ids = Practice.joins(:reports).merge(Report.not_wip).distinct.pluck(:id)
     assert LearningMinuteStatistic.count == practice_ids.size
+  end
+
+  test "#category" do
+    practice = practices(:practice_1)
+    course = courses(:course_1)
+    category = categories(:category_2)
+
+    assert_equal category, practice.category(course)
   end
 end

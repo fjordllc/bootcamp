@@ -4,11 +4,10 @@ class PracticesController < ApplicationController
   before_action :require_login
   before_action :require_admin_login, except: %i(show)
   before_action :set_course, only: %i(new)
-  before_action :set_practice, only: %w(show edit update destroy sort)
+  before_action :set_practice, only: %w(show edit update destroy)
 
   def show
     @categories = @practice.categories
-    @category = @practice.category_by(current_user.course)
   end
 
   def new

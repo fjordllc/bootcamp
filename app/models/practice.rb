@@ -32,8 +32,7 @@ class Practice < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true
-
-  scope :category_order, -> { includes(:category).order("categories.position").order(:position) }
+  validates :categories, presence: true
 
   columns_for_keyword_search :title, :description, :goal
 
@@ -134,14 +133,8 @@ class Practice < ApplicationRecord
     )
   end
 
-  def category_by(course)
-    my_categories = categories.where(id: course.category_ids)
-
-    if categories.size > 0
-      my_categories.first
-    else
-      categories.first
-    end
+  def category(course)
+    Category.category(practice: self, course: course)
   end
 
   private
