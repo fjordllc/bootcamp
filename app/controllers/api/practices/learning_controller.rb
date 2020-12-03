@@ -9,9 +9,9 @@ class API::Practices::LearningController < API::BaseController
       practice_id: params[:practice_id]
     )
 
-    if @learning.new_record?
-      @learning.status = :unstarted
-    end
+    return unless @learning.new_record?
+
+    @learning.status = :unstarted
   end
 
   def update

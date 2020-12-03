@@ -27,13 +27,12 @@ class AnswerCallbacks
   def notify_to_watching_user(answer)
     question = Question.find(answer.question_id)
 
-    if question.try(:watched?)
-      watcher_ids = Watch.where(watchable_id: question.id).pluck(:user_id)
-      watcher_ids.each do |watcher_id|
-        if watcher_id != answer.sender.id
-          watcher = User.find_by(id: watcher_id)
-          NotificationFacade.watching_notification(question, watcher, answer)
-        end
+    retrun unless question.try(:watched?)
+    watcher_ids = Watch.where(watchable_id: question.id).pluck(:user_id)
+    watcher_ids.each do |watcher_id|
+      if watcher_id != answer.sender.id
+        watcher = User.find_by(id: watcher_id)
+        NotificationFacade.watching_notification(question, watcher, answer)
       end
     end
   end
@@ -41,12 +40,12 @@ class AnswerCallbacks
   def create_watch(answer)
     question = Question.find(answer.question_id)
 
-    unless question.watches.pluck(:user_id).include?(answer.sender.id)
-      @watch = Watch.new(
-        user: answer.sender,
-        watchable: question
-      )
-      @watch.save!
-    end
+    return if question.watches.pluck(:user_id).include?(answer.sender.id)
+
+    @watch = Watch.new(
+      user: answer.sender,
+      watchable: question
+    )
+    @watch.save!
   end
 end

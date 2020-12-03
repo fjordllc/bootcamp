@@ -16,8 +16,8 @@ class Learning < ApplicationRecord
   private
 
   def startable_practice
-    if started? && Learning.exists?(user_id: self.user_id, status: "started")
-      errors.add :error, "すでに着手しているプラクティスがあります。\n提出物を提出するか完了すると新しいプラクティスを開始できます。"
-    end
+    return unless started? && Learning.exists?(user_id: self.user_id, status: "started")
+
+    errors.add :error, "すでに着手しているプラクティスがあります。\n提出物を提出するか完了すると新しいプラクティスを開始できます。"
   end
 end

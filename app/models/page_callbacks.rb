@@ -2,21 +2,21 @@
 
 class PageCallbacks
   def after_create(page)
-    if !page.wip?
-      send_notification(page)
-      notify_to_slack(page)
-      page.published_at = Time.current
-      page.save
-    end
+    return if page.wip?
+
+    send_notification(page)
+    notify_to_slack(page)
+    page.published_at = Time.current
+    page.save
   end
 
   def after_update(page)
-    if page.wip == false && page.published_at.nil?
-      send_notification(page)
-      notify_to_slack(page)
-      page.published_at = Time.current
-      page.save
-    end
+    return unless page.wip == false && page.published_at.nil?
+
+    send_notification(page)
+    notify_to_slack(page)
+    page.published_at = Time.current
+    page.save
   end
 
   private

@@ -14,9 +14,9 @@ class Work < ApplicationRecord
             size: { less_than: 10.megabytes }
 
   def resize_thumbnail!
-    if thumbnail.attached?
-      thumbnail.variant(resize: THUMBNAIL_SIZE).processed
-    end
+    return unless thumbnail.attached?
+
+    thumbnail.variant(resize: THUMBNAIL_SIZE).processed
   end
 
   def thumbnail_url
