@@ -211,9 +211,9 @@ class EventsTest < ApplicationSystemTestCase
       fill_in "event[capacity]", with: 20
       fill_in "event[location]", with: "FJORDオフィス（#{url}）"
       fill_in "event[start_at]", with: Time.current.next_day
-      fill_in "event[end_at]", with: Time.current.next_day + 2.hour
+      fill_in "event[end_at]", with: Time.current.next_day + 2.hours
       fill_in "event[open_start_at]", with: Time.current
-      fill_in "event[open_end_at]", with: Time.current + 2.hour
+      fill_in "event[open_end_at]", with: Time.current + 2.hours
       click_button "作成"
     end
     within ".location" do
@@ -230,9 +230,9 @@ class EventsTest < ApplicationSystemTestCase
       fill_in "event[capacity]", with: 20
       fill_in "event[location]", with: "FJORDオフィス"
       fill_in "event[start_at]", with: Time.current.next_day
-      fill_in "event[end_at]", with: Time.current.next_day + 2.hour
+      fill_in "event[end_at]", with: Time.current.next_day + 2.hours
       fill_in "event[open_start_at]", with: Time.current
-      fill_in "event[open_end_at]", with: Time.current + 2.hour
+      fill_in "event[open_end_at]", with: Time.current + 2.hours
       click_button "作成"
     end
     accept_confirm do
@@ -261,9 +261,9 @@ class EventsTest < ApplicationSystemTestCase
       fill_in "event[capacity]", with: 1
       fill_in "event[location]", with: "FJORDオフィス"
       fill_in "event[start_at]", with: Time.current.next_day
-      fill_in "event[end_at]", with: Time.current.next_day + 2.hour
+      fill_in "event[end_at]", with: Time.current.next_day + 2.hours
       fill_in "event[open_start_at]", with: Time.current
-      fill_in "event[open_end_at]", with: Time.current + 2.hour
+      fill_in "event[open_end_at]", with: Time.current + 2.hours
       click_button "作成"
     end
     accept_confirm do
@@ -292,9 +292,9 @@ class EventsTest < ApplicationSystemTestCase
       fill_in "event[capacity]", with: 1
       fill_in "event[location]", with: "FJORDオフィス"
       fill_in "event[start_at]", with: Time.current.next_day
-      fill_in "event[end_at]", with: Time.current.next_day + 2.hour
+      fill_in "event[end_at]", with: Time.current.next_day + 2.hours
       fill_in "event[open_start_at]", with: Time.current
-      fill_in "event[open_end_at]", with: Time.current + 2.hour
+      fill_in "event[open_end_at]", with: Time.current + 2.hours
       click_button "作成"
     end
     accept_confirm do
@@ -334,9 +334,9 @@ class EventsTest < ApplicationSystemTestCase
       fill_in "event[capacity]", with: 1
       fill_in "event[location]", with: "FJORDオフィス"
       fill_in "event[start_at]", with: Time.current.next_day
-      fill_in "event[end_at]", with: Time.current.next_day + 2.hour
+      fill_in "event[end_at]", with: Time.current.next_day + 2.hours
       fill_in "event[open_start_at]", with: Time.current
-      fill_in "event[open_end_at]", with: Time.current + 2.hour
+      fill_in "event[open_end_at]", with: Time.current + 2.hours
       click_button "作成"
     end
     accept_confirm do
