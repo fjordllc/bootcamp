@@ -23,5 +23,5 @@ header.page-header
       h2.next-settlement-time__title
         | 次回決済日時
       .next-settlement-time__time
-        = l Time.at(current_user.subscription["current_period_end"])
+        = l Time.zone.at(current_user.subscription["current_period_end"])
 = render "notice"

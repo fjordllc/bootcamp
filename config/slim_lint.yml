@@ -41,7 +41,6 @@ linters:
       - Style/WhileUntilModifier
       # 一時的に下記を無効にする
       - Rails/LinkToBlank
-      - Rails/TimeZone
       - Rails/Presence
       - Rails/ContentTag
       - Lint/EmptyConditionalBody
