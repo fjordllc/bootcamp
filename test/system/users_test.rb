@@ -98,7 +98,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test "show last active date only to mentors" do
-    travel_to Time.new(2014, 1, 1, 0, 0, 0) do
+    travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
       login_user "kimura", "testtest"
     end
 
@@ -112,7 +112,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test "show inactive message on users page" do
-    travel_to Time.new(2014, 1, 1, 0, 0, 0) do
+    travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
       login_user "kimura", "testtest"
     end
 
@@ -144,7 +144,7 @@ class UsersTest < ApplicationSystemTestCase
     visit "/"
     assert_no_text "1ヶ月以上ログインのないユーザー"
 
-    travel_to Time.new(2020, 1, 1, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
       login_user "kimura", "testtest"
     end
 

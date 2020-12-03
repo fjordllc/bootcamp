@@ -35,16 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: strict, flexible
-Rails/TimeZone:
-  Exclude:
-    - 'test/models/subscription_test.rb'
-    - 'test/models/user_test.rb'
-    - 'test/system/users_test.rb'
-
 # Offense count: 10
 # Configuration parameters: Include.
 # Include: app/models/**/*.rb
