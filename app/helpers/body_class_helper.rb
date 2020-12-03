@@ -6,11 +6,12 @@ module BodyClassHelper
   end
 
   def page_category
-    if params[:action] == "new" || params[:action] == "create" || params[:action] == "edit"
+    case params[:action]
+    when "new", "create", "edit"
       "edit-page"
-    elsif params[:action] == "index"
+    when "index"
       "index-page"
-    elsif params[:action] == "show"
+    when "show"
       "show-page"
     else
       "other-page"
