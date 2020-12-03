@@ -12,8 +12,7 @@ class WorksController < ApplicationController
     @work = Work.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @work = Work.new(work_params)

@@ -7,15 +7,13 @@ class Admin::BooksController < AdminController
     @books = Book.order(:title).page(params[:page])
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @book = Book.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @book = Book.new(book_params)

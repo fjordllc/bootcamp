@@ -4,8 +4,7 @@ class Users::CommentsController < ApplicationController
   before_action :set_user
   before_action :set_comments
 
-  def index
-  end
+  def index; end
 
   private
 

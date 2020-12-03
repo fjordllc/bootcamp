@@ -5,8 +5,7 @@ class Users::ReportsController < ApplicationController
   before_action :set_user
   before_action :set_reports
 
-  def index
-  end
+  def index; end
 
   private
 

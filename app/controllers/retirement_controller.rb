@@ -3,11 +3,9 @@
 class RetirementController < ApplicationController
   before_action :require_login, except: %i(show)
 
-  def show
-  end
+  def show; end
 
-  def new
-  end
+  def new; end
 
   def create
     current_user.assign_attributes(retire_reason_params)

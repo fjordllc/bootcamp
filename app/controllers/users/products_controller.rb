@@ -4,8 +4,7 @@ class Users::ProductsController < ApplicationController
   before_action :set_user
   before_action :set_products
 
-  def index
-  end
+  def index; end
 
   private
 

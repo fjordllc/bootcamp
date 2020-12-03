@@ -20,9 +20,7 @@ class HomeController < ApplicationController
     end
   end
 
-  def pricing
-  end
+  def pricing; end
 
-  def test
-  end
+  def test; end
 end
