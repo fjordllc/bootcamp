@@ -135,7 +135,7 @@ class User < ApplicationRecord
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
 
-  validates_exclusion_of :login_name, in: RESERVED_LOGIN_NAMES, message: "に使用できない文字列が含まれています"
+  validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: "に使用できない文字列が含まれています" }
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
