@@ -301,9 +301,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test "reports can be copied" do
-    user   = users(:komagata)
-    report = user.reports.first
-    visit report_path(report)
+    visit report_path users(:komagata).reports.first
     travel 5.days do
       find("#copy").click
       assert_equal find("#report_reported_on").value, Date.current.strftime("%Y-%m-%d")
@@ -540,7 +538,8 @@ class ReportsTest < ApplicationSystemTestCase
 
   test "reports are ordered in descending of reported_on" do
     visit reports_path
-    precede, succeed = reports(:report_2).title, reports(:report_1).title
+    precede = reports(:report_2).title
+    succeed = reports(:report_1).title
     within ".thread-list" do
       assert page.text.index(precede) < page.text.index(succeed)
     end
@@ -548,7 +547,8 @@ class ReportsTest < ApplicationSystemTestCase
 
   test "reports are ordered in descending of created_at if reported_on is same" do
     visit reports_path
-    precede, succeed = reports(:report_5).title, reports(:report_1).title
+    precede = reports(:report_5).title
+    succeed = reports(:report_1).title
     within ".thread-list" do
       assert page.text.index(precede) < page.text.index(succeed)
     end
