@@ -35,21 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 33
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'app/decorators/user_decorator.rb'
-    - 'app/models/answer.rb'
-    - 'app/models/concerns/commentable.rb'
-    - 'app/models/concerns/mentioner.rb'
-    - 'app/models/concerns/watchable.rb'
-    - 'app/models/event.rb'
-    - 'app/models/learning.rb'
-    - 'app/models/participation.rb'
-    - 'app/models/reaction.rb'
-    - 'app/models/user.rb'
-
 # Offense count: 19
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, AllowInnerSlashes.

@@ -21,11 +21,11 @@ module Mentioner
   def where_mention
     case self
     when Product
-      "#{self.user.login_name}さんの「#{self.practice[:title]}」の提出物"
+      "#{user.login_name}さんの「#{practice[:title]}」の提出物"
     when Report
-      "#{self.user.login_name}さんの日報「#{self[:title]}」"
+      "#{user.login_name}さんの日報「#{self[:title]}」"
     when Comment
-      target_of_comment(self.commentable.class, self.commentable) + "へのコメント"
+      target_of_comment(commentable.class, commentable) + "へのコメント"
     end
   end
 

@@ -13,7 +13,7 @@ module Commentable
   def title
     case self
     when Product
-      "「#{self.practice[:title]}」の提出物"
+      "「#{practice[:title]}」の提出物"
     else
       self[:title]
     end

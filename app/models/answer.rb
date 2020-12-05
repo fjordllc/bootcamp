@@ -18,7 +18,7 @@ class Answer < ApplicationRecord
   columns_for_keyword_search :description
 
   def receiver
-    self.question.user
+    question.user
   end
 
   def path
