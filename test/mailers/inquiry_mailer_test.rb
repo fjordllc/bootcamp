@@ -14,6 +14,6 @@ class InquiryMailerTest < ActionMailer::TestCase
     assert_equal ["info@fjord.jp"], mail.to
     assert_equal ["noreply@bootcamp.fjord.jp"], mail.from
     assert_equal ["komagata@example.com"], mail.reply_to
-    assert_match %r{お問い合わせ}, mail.body.to_s
+    assert_match(/お問い合わせ/, mail.body.to_s)
   end
 end
