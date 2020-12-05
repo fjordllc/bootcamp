@@ -57,7 +57,7 @@ class UserSessionsController < ApplicationController
       flash[:notice] = "GitHubと連携しました。"
       redirect_to root_path
     end
-  rescue => e
+  rescue StandardError => e
     logger.warn "[GitHub Login] ログインに失敗しました。：#{e.message}"
     flash[:alert] = "GitHubログインに失敗しました。数回試しても続く場合、管理者に連絡してください。"
     redirect_to root_path
