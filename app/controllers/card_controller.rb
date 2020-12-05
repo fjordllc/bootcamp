@@ -27,7 +27,7 @@ class CardController < ApplicationController
       current_user.save(validate: false)
       flash[:alert] = "カード情報に不備があります。：#{e.message}"
       logger.warn "[Payment] カード情報に不備があります。：#{e.message}"
-    rescue => e
+    rescue StandardError => e
       current_user.customer_id = nil
       current_user.save(validate: false)
       flash[:alert] = "カード登録に失敗しました。運営会社までお問い合わせください。：#{e.message}"
@@ -55,7 +55,7 @@ class CardController < ApplicationController
       current_user.save(validate: false)
       flash[:alert] = "カード情報に不備があります。：#{e.message}"
       logger.warn "[Payment] カード情報に不備があります。：#{e.message}"
-    rescue => e
+    rescue StandardError => e
       current_user.customer_id = nil
       current_user.save(validate: false)
       flash[:alert] = "カード編集に失敗しました。運営会社までお問い合わせください。：#{e.message}"
