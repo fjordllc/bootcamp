@@ -41,16 +41,6 @@ Style/StderrPuts:
   Exclude:
     - 'bin/yarn'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-Style/StringConcatenation:
-  Exclude:
-    - 'app/controllers/api/practices/learning_controller.rb'
-    - 'app/controllers/practices_controller.rb'
-    - 'app/models/concerns/mentioner.rb'
-    - 'app/models/link_checker/checker.rb'
-    - 'test/system/api/memos_test.rb'
-
 # Offense count: 4462
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.

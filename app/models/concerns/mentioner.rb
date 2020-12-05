@@ -25,7 +25,7 @@ module Mentioner
     when Report
       "#{user.login_name}さんの日報「#{self[:title]}」"
     when Comment
-      target_of_comment(commentable.class, commentable) + "へのコメント"
+      "#{target_of_comment(commentable.class, commentable)}へのコメント"
     end
   end
 
