@@ -41,7 +41,7 @@ class API::Practices::LearningController < API::BaseController
   def notify_learning(user:, learning:)
     subject = "<#{user_url(user)}|#{user.login_name}>"
     object = "<#{practice_url(learning.practice)}|#{learning.practice.title}>"
-    verb = "#{t("activerecord.enums.learning.status." + learning.status.to_s)}しました。"
+    verb = "#{t("activerecord.enums.learning.status.#{learning.status}")}しました。"
     text = "#{subject}が#{object}を#{verb}"
     SlackNotification.notify text,
                              username: "#{current_user.login_name}@bootcamp.fjord.jp",

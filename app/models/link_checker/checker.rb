@@ -63,7 +63,7 @@ module LinkChecker
         extractor = Extractor.new(
           page.body,
           page.title,
-          "https://bootcamp.fjord.jp" + Rails.application.routes.url_helpers.polymorphic_path(page)
+          "https://bootcamp.fjord.jp#{Rails.application.routes.url_helpers.polymorphic_path(page)}"
         )
         links += extractor.extract
       end
@@ -77,14 +77,14 @@ module LinkChecker
         extractor = Extractor.new(
           practice.description,
           practice.title,
-          "https://bootcamp.fjord.jp" + practice_url
+          "https://bootcamp.fjord.jp#{practice_url}"
         )
         links += extractor.extract
 
         extractor = Extractor.new(
           practice.goal,
           practice.title,
-          "https://bootcamp.fjord.jp" + practice_url
+          "https://bootcamp.fjord.jp#{practice_url}"
         )
         links += extractor.extract
       end
