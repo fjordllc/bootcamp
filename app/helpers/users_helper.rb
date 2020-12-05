@@ -2,19 +2,19 @@
 
 module UsersHelper
   def user_tab_attrs(name)
-    target = params.fetch("target", "all")
+    target = params.fetch('target', 'all')
     if target == name
-      "active"
+      'active'
     else
-      ""
+      ''
     end
   end
 
   def user_tr_attrs(user)
     if user.active?
-      { class: "active" }
+      { class: 'active' }
     else
-      { class: "inactive" }
+      { class: 'inactive' }
     end
   end
 
@@ -25,12 +25,12 @@ module UsersHelper
   def user_submit_label(user, from)
     if from == :new
       if user.adviser?
-        "アドバイザー登録"
+        'アドバイザー登録'
       else
-        "利用規約に同意して参加する"
+        '利用規約に同意して参加する'
       end
     else
-      "更新する"
+      '更新する'
     end
   end
 

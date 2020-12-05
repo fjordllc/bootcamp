@@ -2,7 +2,7 @@
 
 class Notification < ApplicationRecord
   belongs_to :user
-  belongs_to :sender, class_name: "User"
+  belongs_to :sender, class_name: 'User'
 
   paginates_per 20
 

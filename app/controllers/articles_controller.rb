@@ -7,7 +7,7 @@ class ArticlesController < ApplicationController
   def index
     @articles = Article.all.order(created_at: :desc).page(params[:page])
     @articles = @articles.tagged_with(params[:tag]) if params[:tag]
-    render layout: "welcome"
+    render layout: 'welcome'
   end
 
   def show; end
@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
-      redirect_to @article, notice: "記事を作成しました"
+      redirect_to @article, notice: '記事を作成しました'
     else
       render :new
     end
@@ -30,7 +30,7 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
-      redirect_to @article, notice: "記事を更新しました"
+      redirect_to @article, notice: '記事を更新しました'
     else
       render :edit
     end
@@ -38,7 +38,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-    redirect_to articles_url, notice: "記事を削除しました"
+    redirect_to articles_url, notice: '記事を削除しました'
   end
 
   private

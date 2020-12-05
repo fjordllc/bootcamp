@@ -38,7 +38,7 @@ module Searchable
 
     def create_parameter_for_search_user_id(name)
       user = User.find_by(login_name: name)
-      { "user_id_eq" => user&.id || 0 }
+      { 'user_id_eq' => user&.id || 0 }
     end
   end
 

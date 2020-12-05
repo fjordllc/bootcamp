@@ -49,7 +49,7 @@ class PagesController < ApplicationController
 
   def destroy
     @page.destroy
-    redirect_to "/pages", notice: "ページを削除しました。"
+    redirect_to '/pages', notice: 'ページを削除しました。'
   end
 
   private
@@ -67,17 +67,17 @@ class PagesController < ApplicationController
   end
 
   def set_wip
-    @page.wip = params[:commit] == "WIP"
+    @page.wip = params[:commit] == 'WIP'
   end
 
   def notice_message(page, action_name)
-    return "ページをWIPとして保存しました。" if page.wip?
+    return 'ページをWIPとして保存しました。' if page.wip?
 
     case action_name
     when :create
-      "ページを作成しました。"
+      'ページを作成しました。'
     when :update
-      "ページを更新しました。"
+      'ページを更新しました。'
     end
   end
 
@@ -86,6 +86,6 @@ class PagesController < ApplicationController
       Category
       .eager_load(:practices)
       .where.not(practices: { id: nil })
-      .order("categories.position ASC, practices.position ASC")
+      .order('categories.position ASC, practices.position ASC')
   end
 end

@@ -5,7 +5,7 @@ class ReservationCalendersController < ApplicationController
 
   def index
     this_month = l(Date.new(Date.current.year, Date.current.month, 1), format: :ym)
-    redirect_to action: "show", id: this_month
+    redirect_to action: 'show', id: this_month
   end
 
   def show
@@ -41,7 +41,7 @@ class ReservationCalendersController < ApplicationController
   def set_seats
     @seats = []
     Seat.all.order(:name).each do |seat|
-      @seats.push(id: seat["id"], name: seat["name"])
+      @seats.push(id: seat['id'], name: seat['name'])
     end
   end
 end

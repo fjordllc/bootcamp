@@ -7,9 +7,9 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by(email: params[:email])
     if @user
       @user.deliver_reset_password_instructions!
-      redirect_to login_path, notice: "パスワードの再設定についてのメールを送信しました"
+      redirect_to login_path, notice: 'パスワードの再設定についてのメールを送信しました'
     else
-      redirect_to login_path, alert: "ユーザー名かパスワードが違います。"
+      redirect_to login_path, alert: 'ユーザー名かパスワードが違います。'
     end
   end
 
@@ -36,9 +36,9 @@ class PasswordResetsController < ApplicationController
 
     if @user.save(context: :reset_password)
       clear_password_token!
-      redirect_to login_path, notice: "パスワードが変更されました。"
+      redirect_to login_path, notice: 'パスワードが変更されました。'
     else
-      render action: "edit"
+      render action: 'edit'
     end
   end
 

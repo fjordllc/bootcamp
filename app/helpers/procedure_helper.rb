@@ -4,6 +4,6 @@ module ProcedureHelper
   def procedure(order, current)
     return unless order == current
 
-    "is-active"
+    'is-active'
   end
 end

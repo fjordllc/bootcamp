@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "active_record/fixtures"
+require 'active_record/fixtures'
 
 class NotificationMailerPreview < ActionMailer::Preview
   def came_comment

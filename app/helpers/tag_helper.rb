@@ -4,7 +4,7 @@ module TagHelper
   def current_link(name)
     return unless qualified_page_name&.match?(name)
 
-    "is-active"
+    'is-active'
   end
 
   def qrcode_tag(url, size: 1.8)

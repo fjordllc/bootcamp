@@ -4,7 +4,7 @@ class Admin::CategoriesController < AdminController
   before_action :set_category, only: %i[edit update destroy]
 
   def index
-    @categories = Category.order("position")
+    @categories = Category.order('position')
   end
 
   def new
@@ -17,23 +17,23 @@ class Admin::CategoriesController < AdminController
     @category = Category.new(category_params)
 
     if @category.save
-      redirect_to admin_categories_url, notice: "カテゴリーを作成しました。"
+      redirect_to admin_categories_url, notice: 'カテゴリーを作成しました。'
     else
-      render action: "new"
+      render action: 'new'
     end
   end
 
   def update
     if @category.update(category_params)
-      redirect_to return_to, notice: "カテゴリーを更新しました。"
+      redirect_to return_to, notice: 'カテゴリーを更新しました。'
     else
-      render action: "edit"
+      render action: 'edit'
     end
   end
 
   def destroy
     @category.destroy
-    redirect_to admin_categories_url, notice: "カテゴリーを削除しました。"
+    redirect_to admin_categories_url, notice: 'カテゴリーを削除しました。'
   end
 
   private

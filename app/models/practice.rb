@@ -6,13 +6,13 @@ class Practice < ApplicationRecord
   has_many :learnings
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany
   has_many :started_learnings,
-           -> { where(status: "started") },
-           class_name: "Learning",
-           inverse_of: "practice"
+           -> { where(status: 'started') },
+           class_name: 'Learning',
+           inverse_of: 'practice'
   has_many :completed_learnings,
-           -> { where(status: "complete") },
-           class_name: "Learning",
-           inverse_of: "practice"
+           -> { where(status: 'complete') },
+           class_name: 'Learning',
+           inverse_of: 'practice'
   has_many :started_users,
            through: :started_learnings,
            source: :user
@@ -27,7 +27,7 @@ class Practice < ApplicationRecord
   has_many :questions
   has_many :pages
   has_one :learning_minute_statistic
-  belongs_to :last_updated_user, class_name: "User", optional: true
+  belongs_to :last_updated_user, class_name: 'User', optional: true
 
   has_and_belongs_to_many :categories, dependent: :destroy
 
@@ -59,7 +59,7 @@ class Practice < ApplicationRecord
       practice_id: id
     )
     if learnings.blank?
-      "unstarted"
+      'unstarted'
     else
       learnings.first.status
     end
@@ -67,7 +67,7 @@ class Practice < ApplicationRecord
 
   def status_by_learnings(learnings)
     learning = learnings.detect { |lerning| id == lerning.practice_id }
-    learning&.status || "unstarted"
+    learning&.status || 'unstarted'
   end
 
   def completed?(user)
@@ -101,7 +101,7 @@ class Practice < ApplicationRecord
     user_id = 0
     learning_minute_list = []
 
-    reports.not_wip.order("user_id asc").each do |report|
+    reports.not_wip.order('user_id asc').each do |report|
       if user_id == report.user_id
         sum_same_user = learning_minute_list.last + total_learning_minute(report)
         learning_minute_list.pop

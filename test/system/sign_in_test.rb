@@ -1,53 +1,53 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class SignInTest < ApplicationSystemTestCase
   fixtures :users
 
-  test "sign in with login_name" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login]", with: "komagata")
-      fill_in("user[password]", with: "testtest")
+  test 'sign in with login_name' do
+    visit '/login'
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'komagata')
+      fill_in('user[password]', with: 'testtest')
     end
-    click_button "ログイン"
-    assert_equal "/", current_path
+    click_button 'ログイン'
+    assert_equal '/', current_path
   end
 
-  test "sign in with email" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login]", with: "komagata@fjord.jp")
-      fill_in("user[password]", with: "testtest")
+  test 'sign in with email' do
+    visit '/login'
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'komagata@fjord.jp')
+      fill_in('user[password]', with: 'testtest')
     end
-    click_button "ログイン"
-    assert_equal "/", current_path
+    click_button 'ログイン'
+    assert_equal '/', current_path
   end
 
-  test "sign in with wrong password" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login]", with: "komagata")
-      fill_in("user[password]", with: "xxxxxxxx")
+  test 'sign in with wrong password' do
+    visit '/login'
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'komagata')
+      fill_in('user[password]', with: 'xxxxxxxx')
     end
-    click_button "ログイン"
-    assert_equal "/user_sessions", current_path
-    assert_text "ユーザー名かパスワードが違います。"
+    click_button 'ログイン'
+    assert_equal '/user_sessions', current_path
+    assert_text 'ユーザー名かパスワードが違います。'
   end
 
-  test "sign in with retire account" do
+  test 'sign in with retire account' do
     logout
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login]", with: "yameo")
-      fill_in("user[password]", with: "yameo@example.com")
+    visit '/login'
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'yameo')
+      fill_in('user[password]', with: 'yameo@example.com')
     end
-    click_button "ログイン"
-    assert_equal "/user_sessions", current_path
-    assert_text "ユーザー名かパスワードが違います。"
+    click_button 'ログイン'
+    assert_equal '/user_sessions', current_path
+    assert_text 'ユーザー名かパスワードが違います。'
 
-    visit "/users"
+    visit '/users'
     assert_equal root_path, current_path
   end
 end

@@ -5,13 +5,13 @@ class Courses::Practices::PositionController < ApplicationController
 
   def update
     case params[:move]
-    when "higher"
+    when 'higher'
       @practice.move_higher
-    when "lower"
+    when 'lower'
       @practice.move_lower
-    when "top"
+    when 'top'
       @practice.move_to_top
-    when "bottom"
+    when 'bottom'
       @practice.move_to_bottom
     end
 

@@ -8,13 +8,13 @@ class UsersController < ApplicationController
 
   def index
     target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
-    target_allowlist.push("job_seeking") if current_user.adviser?
+    target_allowlist.push('job_seeking') if current_user.adviser?
     target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
     @target = params[:target]
-    @target = "student_and_trainee" unless target_allowlist.include?(@target)
+    @target = 'student_and_trainee' unless target_allowlist.include?(@target)
 
-    if @target == "followings"
-      followings = Following.where(follower_id: current_user.id).select("followed_id")
+    if @target == 'followings'
+      followings = Following.where(follower_id: current_user.id).select('followed_id')
       @users = User
                .page(params[:page]).per(PAGER_NUMBER)
                .includes(:company, :avatar_attachment, :course)
@@ -37,9 +37,9 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     case params[:role]
-    when "adviser"
+    when 'adviser'
       @user.adviser = true
-    when "trainee"
+    when 'trainee'
       @user.trainee = true
     end
     @user.company_id = params[:company_id]
@@ -69,7 +69,7 @@ class UsersController < ApplicationController
       UserMailer.welcome(@user).deliver_now
       notify_to_slack!
     else
-      render "new"
+      render 'new'
     end
   end
 
@@ -77,14 +77,14 @@ class UsersController < ApplicationController
   def create_user!
     @user.with_lock do
       unless @user.validate
-        render "new"
+        render 'new'
         return false
       end
 
       if Card.new.search(email: @user.email)
-        logger.error "[Payment] 同じメールアドレスの顧客が既に登録済みです。"
-        @user.errors.add :base, "同じメールアドレスの顧客が既に登録済みです。"
-        render "new"
+        logger.error '[Payment] 同じメールアドレスの顧客が既に登録済みです。'
+        @user.errors.add :base, '同じメールアドレスの顧客が既に登録済みです。'
+        render 'new'
         return false
       end
 
@@ -92,22 +92,22 @@ class UsersController < ApplicationController
 
       begin
         customer = Card.new.create(@user, params[:stripeToken], token)
-        subscription = Subscription.new.create(customer["id"], "#{token}-subscription")
+        subscription = Subscription.new.create(customer['id'], "#{token}-subscription")
       rescue Stripe::CardError => e
         logger.error "[Payment] customerの作成時にエラーが発生しました: #{e.message}"
         @user.errors.add :base, I18n.translate("stripe.errors.#{e.code}")
-        render "new"
+        render 'new'
         return false
       end
 
-      @user.customer_id = customer["id"]
-      @user.subscription_id = subscription["id"]
+      @user.customer_id = customer['id']
+      @user.subscription_id = subscription['id']
 
       if @user.save
         UserMailer.welcome(@user).deliver_now
         notify_to_slack!
       else
-        render "new"
+        render 'new'
       end
     end
   end
@@ -117,8 +117,8 @@ class UsersController < ApplicationController
     SlackNotification.notify "<#{url_for(@user)}|#{@user.name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
                              username: "#{@user.login_name}@bootcamp.fjord.jp",
                              icon_url: @user.avatar_url,
-                             channel: "#fjord"
-    redirect_to root_url, notice: "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
+                             channel: '#fjord'
+    redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
   end
 
   def user_params
@@ -140,8 +140,8 @@ class UsersController < ApplicationController
 
   def require_token
     return unless params[:role]
-    return unless !params[:token] || !ENV["TOKEN"] || params[:token] != ENV["TOKEN"]
+    return unless !params[:token] || !ENV['TOKEN'] || params[:token] != ENV['TOKEN']
 
-    redirect_to root_path, notice: "アドバイザー・メンター・研修生登録にはTOKENが必要です。"
+    redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
   end
 end

@@ -9,7 +9,7 @@ class Page < ApplicationRecord
 
   belongs_to :user
   belongs_to :practice, optional: true
-  belongs_to :last_updated_user, class_name: "User", optional: true
+  belongs_to :last_updated_user, class_name: 'User', optional: true
   validates :title, presence: true
   validates :body, presence: true
   paginates_per 20

@@ -15,10 +15,10 @@ module Bootcamp
 
         Company.order(:created_at).each_with_index do |company, i|
           filename = "#{i + 1}.jpg"
-          dir = Rails.root.join("test/fixtures/files/companies/logos")
+          dir = Rails.root.join('test/fixtures/files/companies/logos')
           path = "#{dir}/#{filename}"
           unless File.exist?(path)
-            filename = "default.jpg"
+            filename = 'default.jpg'
             path = "#{dir}/#{filename}"
           end
           company.logo.attach(io: File.open(path), filename: filename)

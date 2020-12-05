@@ -17,7 +17,7 @@ class Product < ApplicationRecord
   after_save ProductCallbacks.new
   after_destroy ProductCallbacks.new
 
-  validates :user, presence: true, uniqueness: { scope: :practice, message: "既に提出物があります。" }
+  validates :user, presence: true, uniqueness: { scope: :practice, message: '既に提出物があります。' }
   validates :body, presence: true
 
   paginates_per 50
@@ -27,7 +27,7 @@ class Product < ApplicationRecord
   scope :ids_of_common_checked_with,
         ->(user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
 
-  scope :unchecked, -> { where.not(id: Check.where(checkable_type: "Product").pluck(:checkable_id)) }
+  scope :unchecked, -> { where.not(id: Check.where(checkable_type: 'Product').pluck(:checkable_id)) }
 
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }

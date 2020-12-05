@@ -16,12 +16,12 @@ class CardController < ApplicationController
     begin
       token = params[:idempotency_token]
       customer = Card.new.create(current_user, params[:stripeToken], token)
-      Subscription.new.create(customer["id"], "#{token}-subscription")
-      current_user.customer_id = customer["id"]
+      Subscription.new.create(customer['id'], "#{token}-subscription")
+      current_user.customer_id = customer['id']
       current_user.save(validate: false)
 
-      flash[:notice] = "カードを登録しました。"
-      logger.info "[Payment] カードを登録しました。"
+      flash[:notice] = 'カードを登録しました。'
+      logger.info '[Payment] カードを登録しました。'
     rescue Stripe::CardError => e
       current_user.customer_id = nil
       current_user.save(validate: false)
@@ -48,8 +48,8 @@ class CardController < ApplicationController
     begin
       Card.new.update(current_user.customer_id, params[:stripeToken])
 
-      flash[:notice] = "カードを編集しました。"
-      logger.info "[Payment] カードを編集しました。"
+      flash[:notice] = 'カードを編集しました。'
+      logger.info '[Payment] カードを編集しました。'
     rescue Stripe::CardError => e
       current_user.customer_id = nil
       current_user.save(validate: false)

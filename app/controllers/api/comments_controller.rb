@@ -54,7 +54,7 @@ class API::CommentsController < API::BaseController
                              username: "#{comment.user.login_name} (#{comment.user.name})",
                              icon_url: comment.user.avatar_url,
                              attachments: [{
-                               fallback: "comment body.",
+                               fallback: 'comment body.',
                                text: comment.description
                              }]
   end

@@ -24,12 +24,12 @@ module SearchHelper
   end
 
   def filtered_message(searchable)
-    if searchable.instance_of?(Comment) && searchable.commentable_type == "Product"
+    if searchable.instance_of?(Comment) && searchable.commentable_type == 'Product'
       commentable = Product.find(searchable.commentable_id)
       if policy(commentable).show? || commentable.practice.open_product?
         searchable.description
       else
-        "該当プラクティスを完了するまで他の人の提出物へのコメントは見れません。"
+        '該当プラクティスを完了するまで他の人の提出物へのコメントは見れません。'
       end
     else
       searchable.description

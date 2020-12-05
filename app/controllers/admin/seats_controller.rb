@@ -17,7 +17,7 @@ class Admin::SeatsController < AdminController
     @seat = Seat.new(seat_params)
 
     if @seat.save
-      redirect_to admin_seats_path, notice: "席を作成しました。"
+      redirect_to admin_seats_path, notice: '席を作成しました。'
     else
       render :new
     end
@@ -25,7 +25,7 @@ class Admin::SeatsController < AdminController
 
   def update
     if @seat.update(seat_params)
-      redirect_to admin_seats_path, notice: "席を更新しました。"
+      redirect_to admin_seats_path, notice: '席を更新しました。'
     else
       render :edit
     end
@@ -33,7 +33,7 @@ class Admin::SeatsController < AdminController
 
   def destroy
     @seat.destroy
-    redirect_to admin_seats_path, notice: "席を削除しました。"
+    redirect_to admin_seats_path, notice: '席を削除しました。'
   end
 
   private

@@ -36,7 +36,7 @@ class EventsController < ApplicationController
   def update
     set_wip
     if @event.update(event_params)
-      @event.update_participations if @event.saved_change_to_attribute?("capacity")
+      @event.update_participations if @event.saved_change_to_attribute?('capacity')
       redirect_to @event, notice: notice_message(@event)
     else
       render :edit
@@ -45,7 +45,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
-    redirect_to events_path, notice: "イベントを削除しました。"
+    redirect_to events_path, notice: 'イベントを削除しました。'
   end
 
   private
@@ -76,15 +76,15 @@ class EventsController < ApplicationController
   end
 
   def set_wip
-    @event.wip = (params[:commit] == "WIP")
+    @event.wip = (params[:commit] == 'WIP')
   end
 
   def notice_message(event)
     case params[:action]
-    when "create"
-      event.wip? ? "イベントをWIPとして保存しました。" : "イベントを作成しました。"
-    when "update"
-      event.wip? ? "イベントをWIPとして保存しました。" : "イベントを更新しました。"
+    when 'create'
+      event.wip? ? 'イベントをWIPとして保存しました。' : 'イベントを作成しました。'
+    when 'update'
+      event.wip? ? 'イベントをWIPとして保存しました。' : 'イベントを更新しました。'
     end
   end
 end

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 module LinkChecker
   class ExtractorTest < ActiveSupport::TestCase
-    test "#extract" do
-      extractor = LinkChecker::Extractor.new(<<~TEXT, "apt", "https://bootcamp.fjord.jp/1234")
+    test '#extract' do
+      extractor = LinkChecker::Extractor.new(<<~TEXT, 'apt', 'https://bootcamp.fjord.jp/1234')
                         aptとはdebianでソフトウェアをネットワークからインストールするコマンドです。
         #{'        '}
                         [TEST](/test)(/test2)
@@ -25,22 +25,22 @@ module LinkChecker
 
       expected = [
         LinkChecker::Link.new(
-          "TEST",
-          "https://bootcamp.fjord.jp/test",
-          "apt",
-          "https://bootcamp.fjord.jp/1234"
+          'TEST',
+          'https://bootcamp.fjord.jp/test',
+          'apt',
+          'https://bootcamp.fjord.jp/1234'
         ),
         LinkChecker::Link.new(
-          "APT - Wikipedia",
-          "http://ja.wikipedia.org/wiki/APT",
-          "apt",
-          "https://bootcamp.fjord.jp/1234"
+          'APT - Wikipedia',
+          'http://ja.wikipedia.org/wiki/APT',
+          'apt',
+          'https://bootcamp.fjord.jp/1234'
         ),
         LinkChecker::Link.new(
-          "正規表現",
-          "https://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE",
-          "apt",
-          "https://bootcamp.fjord.jp/1234"
+          '正規表現',
+          'https://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE',
+          'apt',
+          'https://bootcamp.fjord.jp/1234'
         )
       ]
 

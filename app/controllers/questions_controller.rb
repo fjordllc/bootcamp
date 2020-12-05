@@ -42,7 +42,7 @@ class QuestionsController < ApplicationController
     @question.user = current_user
     if @question.save
       notify_to_slack(@question)
-      redirect_to @question, notice: "質問を作成しました。"
+      redirect_to @question, notice: '質問を作成しました。'
     else
       render :new
     end
@@ -50,7 +50,7 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
-      redirect_to @question, notice: "質問を更新しました。"
+      redirect_to @question, notice: '質問を更新しました。'
     else
       render :edit
     end
@@ -58,7 +58,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question.destroy
-    redirect_to questions_url, notice: "質問を削除しました。"
+    redirect_to questions_url, notice: '質問を削除しました。'
   end
 
   private
@@ -72,7 +72,7 @@ class QuestionsController < ApplicationController
       Category
       .eager_load(:practices)
       .where.not(practices: { id: nil })
-      .order("categories.position ASC, practices.position ASC")
+      .order('categories.position ASC, practices.position ASC')
   end
 
   def question_params
@@ -94,7 +94,7 @@ class QuestionsController < ApplicationController
                              username: "#{question.user.login_name} (#{question.user.name})",
                              icon_url: question.user.avatar_url,
                              attachments: [{
-                               fallback: "question body.",
+                               fallback: 'question body.',
                                text: question.description
                              }]
   end
@@ -104,12 +104,12 @@ class QuestionsController < ApplicationController
   end
 
   def questions_property
-    if params[:all] == "true"
-      QuestionsProperty.new("全ての質問", "質問はまだありません。")
-    elsif params[:solved] == "true"
-      QuestionsProperty.new("解決済みの質問一覧", "解決済みの質問はまだありません。")
+    if params[:all] == 'true'
+      QuestionsProperty.new('全ての質問', '質問はまだありません。')
+    elsif params[:solved] == 'true'
+      QuestionsProperty.new('解決済みの質問一覧', '解決済みの質問はまだありません。')
     else
-      QuestionsProperty.new("未解決の質問一覧", "未解決の質問はまだありません。")
+      QuestionsProperty.new('未解決の質問一覧', '未解決の質問はまだありません。')
     end
   end
 end
