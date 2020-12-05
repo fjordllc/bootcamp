@@ -50,7 +50,6 @@ linters:
       - Style/StringLiteralsInInterpolation
       - Style/SymbolProc
       - Style/FormatString
-      - Style/SoleNestedConditional
       - Style/NestedTernaryOperator
       - Style/ZeroLengthPredicate
       - Style/Not

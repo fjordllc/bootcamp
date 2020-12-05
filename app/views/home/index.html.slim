@@ -33,12 +33,10 @@ header.page-header
             = render "/users/practices/completed_practices", user: current_user, completed_learnings: @completed_learnings
 
         .col-xs-12.col-xl-6.col-xxl-6
-          - if current_user.admin? || current_user.adviser?
-            - if User.all.job_seeking.present?
-              = render "job_seeking_users", users: User.all.job_seeking
-          - if current_user.admin? || current_user.adviser?
-            - if @reservations_for_today.present?
-              = render "reserved_seats_today", reservations: @reservations_for_today
+          - if (current_user.admin? || current_user.adviser?) && User.all.job_seeking.present?
+            = render "job_seeking_users", users: User.all.job_seeking
+          - if (current_user.admin? || current_user.adviser?) && @reservations_for_today.present?
+            = render "reserved_seats_today", reservations: @reservations_for_today
           - unless current_user.total_learning_time.zero? || current_user.mentor?
             = render "users/grass", user: current_user
           - if current_user.github_account.present?
