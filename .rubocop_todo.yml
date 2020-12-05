@@ -167,14 +167,6 @@ Style/TrailingCommaInHashLiteral:
     - 'app/helpers/page_tab_helper.rb'
     - 'app/models/subscription.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: WordRegex.
-# SupportedStyles: percent, brackets
-Style/WordArray:
-  EnforcedStyle: percent
-  MinSize: 8
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/ZeroLengthPredicate:
