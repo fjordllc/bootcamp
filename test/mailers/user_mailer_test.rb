@@ -11,6 +11,6 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["komagata@fjord.jp"], email.to
     assert_equal "[bootcamp] フィヨルドブートキャンプへようこそ", email.subject
-    assert_match %r{お申し込みありがとうございます}, email.body.to_s
+    assert_match(/お申し込みありがとうございます/, email.body.to_s)
   end
 end

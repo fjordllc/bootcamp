@@ -16,6 +16,6 @@ class CheckUrlMailerTest < ActionMailer::TestCase
     assert_equal "[BootCamp Admin] リンク切れ報告", mail.subject
     assert_equal ["info@fjord.jp"], mail.to
     assert_equal ["noreply@bootcamp.fjord.jp"], mail.from
-    assert_match %r{リンク切れがありました。}, mail.body.to_s
+    assert_match(/リンク切れがありました。/, mail.body.to_s)
   end
 end

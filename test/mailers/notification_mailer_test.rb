@@ -21,7 +21,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["sotugyou@example.com"], email.to
     assert_equal "[bootcamp] komagataさんからコメントが届きました。", email.subject
-    assert_match %r{コメント}, email.body.to_s
+    assert_match(/コメント/, email.body.to_s)
   end
 
   test "checked" do
@@ -37,7 +37,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["sotugyou@example.com"], email.to
     assert_equal "[bootcamp] sotugyouさんの学習週1日目を確認しました。", email.subject
-    assert_match %r{確認}, email.body.to_s
+    assert_match(/確認/, email.body.to_s)
   end
 
   test "mentioned" do
@@ -57,7 +57,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["sotugyou@example.com"], email.to
     assert_equal "[bootcamp] sotugyouさんの日報「学習週1日目」へのコメントでkomagataさんからメンションがありました。", email.subject
-    assert_match %r{メンション}, email.body.to_s
+    assert_match(/メンション/, email.body.to_s)
   end
 
   test "submitted" do
@@ -78,7 +78,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["komagata@fjord.jp"], email.to
     assert_equal "[bootcamp] sotugyouさんが「#{product.title}」を提出しました。", email.subject
-    assert_match %r{提出}, email.body.to_s
+    assert_match(/提出/, email.body.to_s)
   end
 
   test "came_answer" do
@@ -94,7 +94,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["sotugyou@example.com"], email.to
     assert_equal "[bootcamp] komagataさんから回答がありました。", email.subject
-    assert_match %r{回答}, email.body.to_s
+    assert_match(/回答/, email.body.to_s)
   end
 
   test "post_announcement" do
@@ -114,7 +114,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["sotugyou@example.com"], email.to
     assert_equal "[bootcamp] komagataさんからお知らせです。", email.subject
-    assert_match %r{お知らせ}, email.body.to_s
+    assert_match(/お知らせ/, email.body.to_s)
   end
 
   test "came_question" do
@@ -134,7 +134,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["komagata@fjord.jp"], email.to
     assert_equal "[bootcamp] sotugyouさんから質問がありました。", email.subject
-    assert_match %r{質問}, email.body.to_s
+    assert_match(/質問/, email.body.to_s)
   end
 
   test "first_report" do
@@ -154,7 +154,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["komagata@fjord.jp"], email.to
     assert_equal "[bootcamp] hajimeさんがはじめての日報を書きました！", email.subject
-    assert_match %r{はじめて}, email.body.to_s
+    assert_match(/はじめて/, email.body.to_s)
   end
 
   test "create_page" do
@@ -174,7 +174,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["hatsuno@fjord.jp"], email.to
     assert_equal "[bootcamp] komagataさんがDocsにBootcampの作業のページを投稿しました。", email.subject
-    assert_match %r{Bootcamp}, email.body.to_s
+    assert_match(/Bootcamp/, email.body.to_s)
   end
 
   test "watching_notification" do
@@ -214,7 +214,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["komagata@fjord.jp"], email.to
     assert_equal "[bootcamp] yameoさんが退会しました。", email.subject
-    assert_match %r{退会}, email.body.to_s
+    assert_match(/退会/, email.body.to_s)
   end
 
   test "trainee_report" do
@@ -234,7 +234,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["senpai@fjord.jp"], email.to
     assert_equal "[bootcamp] kensyuさんが日報【 研修の日報 】を書きました！", email.subject
-    assert_match %r{日報}, email.body.to_s
+    assert_match(/日報/, email.body.to_s)
   end
 
   test "moved_up_event_waiting_user" do
@@ -254,7 +254,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["hajime@fjord.jp"], email.to
     assert_equal "[bootcamp] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。", email.subject
-    assert_match %r{イベント}, email.body.to_s
+    assert_match(/イベント/, email.body.to_s)
   end
 
   test "following_report" do
@@ -274,6 +274,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["noreply@bootcamp.fjord.jp"], email.from
     assert_equal ["muryou@fjord.jp"], email.to
     assert_equal "[bootcamp] kensyuさんが日報【 フォローされた日報 】を書きました！", email.subject
-    assert_match %r{日報}, email.body.to_s
+    assert_match(/日報/, email.body.to_s)
   end
 end

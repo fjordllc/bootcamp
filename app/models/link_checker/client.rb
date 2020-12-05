@@ -21,7 +21,7 @@ module LinkChecker
 
     def encode_ja(url)
       url.split(//).map do |c|
-        if c.match?(/[-_.!~*'()a-zA-Z0-9;\/?:@&=+$,%#]/)
+        if c.match?(%r{[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]})
           c
         else
           CGI.escape(c)

@@ -35,19 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 19
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, AllowInnerSlashes.
-# SupportedStyles: slashes, percent_r, mixed
-Style/RegexpLiteral:
-  Exclude:
-    - 'app/models/link_checker/client.rb'
-    - 'test/mailers/check_url_mailer_test.rb'
-    - 'test/mailers/inquiry_mailer_test.rb'
-    - 'test/mailers/notification_mailer_test.rb'
-    - 'test/mailers/user_mailer_test.rb'
-    - 'test/models/github_grass_test.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
