@@ -240,7 +240,7 @@ class User < ApplicationRecord
   scope :order_by_counts, lambda { |order_by, direction|
     raise ArgumentError, "Invalid argument" unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
 
-    if order_by.in? ["report", "comment"]
+    if order_by.in? %w[report comment]
       left_outer_joins(order_by.pluralize.to_sym)
         .group("users.id")
         .order(Arel.sql("count(#{order_by.pluralize}.id) #{direction}, users.created_at"))
