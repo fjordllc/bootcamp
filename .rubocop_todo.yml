@@ -35,12 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 1
-# Configuration parameters: AllowModifier.
-Style/SoleNestedConditional:
-  Exclude:
-    - 'app/controllers/users_controller.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/StderrPuts:
