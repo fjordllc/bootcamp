@@ -6,7 +6,7 @@ class API::CorrectAnswersController < API::BaseController
 
   def create
     @answer = @question.answers.find(params[:answer_id])
-    @answer.type = "CorrectAnswer"
+    @answer.type = 'CorrectAnswer'
     @answer.save!
     notify_to_slack(@question)
     render json: @answer
@@ -14,7 +14,7 @@ class API::CorrectAnswersController < API::BaseController
 
   def update
     answer = @question.answers.find(params[:answer_id])
-    answer.update!(type: "")
+    answer.update!(type: '')
   end
 
   private
@@ -31,7 +31,7 @@ class API::CorrectAnswersController < API::BaseController
                              username: "#{question.user.login_name} (#{question.user.name})",
                              icon_url: question.user.avatar_url,
                              attachments: [{
-                               fallback: "question body.",
+                               fallback: 'question body.',
                                text: question.description
                              }]
   end

@@ -2,12 +2,12 @@
 
 class Searcher
   DOCUMENT_TYPES = [
-    ["すべて", :all],
-    ["お知らせ", :announcements],
-    ["プラクティス", :practices],
-    ["日報", :reports],
-    ["Q&A", :questions],
-    ["Docs", :pages]
+    ['すべて', :all],
+    ['お知らせ', :announcements],
+    ['プラクティス', :practices],
+    ['日報', :reports],
+    ['Q&A', :questions],
+    ['Docs', :pages]
   ].freeze
 
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]

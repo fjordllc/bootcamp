@@ -17,7 +17,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def new
-    @announcement = Announcement.new(target: "students")
+    @announcement = Announcement.new(target: 'students')
   end
 
   def edit
@@ -47,7 +47,7 @@ class AnnouncementsController < ApplicationController
 
   def destroy
     @announcement.destroy
-    redirect_to announcements_path, notice: "お知らせを削除しました"
+    redirect_to announcements_path, notice: 'お知らせを削除しました'
   end
 
   private
@@ -58,9 +58,9 @@ class AnnouncementsController < ApplicationController
     SlackNotification.notify link.to_s,
                              username: "#{announcement.user.login_name} (#{announcement.user.name})",
                              icon_url: announcement.user.avatar_url,
-                             channel: "#general",
+                             channel: '#general',
                              attachments: [{
-                               fallback: "announcement description.",
+                               fallback: 'announcement description.',
                                text: announcement.description
                              }]
   end
@@ -82,14 +82,14 @@ class AnnouncementsController < ApplicationController
   end
 
   def set_wip
-    @announcement.wip = (params[:commit] == "WIP")
+    @announcement.wip = (params[:commit] == 'WIP')
   end
 
   def notice_message(announcement)
-    if params[:action] == "create"
-      announcement.wip? ? "お知らせをWIPとして保存しました。" : "お知らせを作成しました。"
-    elsif params[:action] == "update"
-      announcement.wip? ? "お知らせをWIPとして保存しました。" : "お知らせを更新しました。"
+    if params[:action] == 'create'
+      announcement.wip? ? 'お知らせをWIPとして保存しました。' : 'お知らせを作成しました。'
+    elsif params[:action] == 'update'
+      announcement.wip? ? 'お知らせをWIPとして保存しました。' : 'お知らせを更新しました。'
     end
   end
 end

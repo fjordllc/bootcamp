@@ -13,7 +13,7 @@ class Reservation < ApplicationRecord
   def after_a_month
     return unless date > (Time.zone.today.next_month)
 
-    errors.add(:date, "は一ヶ月先までしか予約できません")
+    errors.add(:date, 'は一ヶ月先までしか予約できません')
   end
 
   def maximum_reservations(threshold = 5)

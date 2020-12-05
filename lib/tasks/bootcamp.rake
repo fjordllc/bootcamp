@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-require Rails.root.join("config/environment")
+require Rails.root.join('config/environment')
 
 namespace :bootcamp do
-  desc "Find broken links in practices, pages."
+  desc 'Find broken links in practices, pages.'
   task find_broken_link: :environment do
     LinkChecker.new.notify_error_url
   end
 
   namespace :oneshot do
-    desc "Resize works."
+    desc 'Resize works.'
     task resize_all_works: :environment do
       Work.order(created_at: :asc).each do |work|
         work.resize_thumbnail! if work.thumbnail.attached?
       end
     end
 
-    desc "Resize images."
+    desc 'Resize images.'
     task resize_all_images: :environment do
       User.order(created_at: :asc).each do |user|
         if user.avatar.attached?
@@ -34,16 +34,16 @@ namespace :bootcamp do
       end
     end
 
-    desc "Cloud Build Task"
+    desc 'Cloud Build Task'
     task cloudbuild: :environment do
-      puts "== START Cloud Build Task =="
+      puts '== START Cloud Build Task =='
       puts "#{User.count}件"
-      puts "== END   Cloud Build Task =="
+      puts '== END   Cloud Build Task =='
     end
   end
 
   namespace :statistics do
-    desc "save learning minute statistics"
+    desc 'save learning minute statistics'
     task save_learning_minute_statistics: :environment do
       Practice.save_learning_minute_statistics
     end

@@ -7,14 +7,14 @@ class Events::ParticipationsController < ApplicationController
     return unless @event.participations.create(user: current_user, enable: @event.can_participate?)
 
     create_watch
-    redirect_to event_path(@event), notice: "出席登録が完了しました。"
+    redirect_to event_path(@event), notice: '出席登録が完了しました。'
   end
 
   def destroy
     @event.with_lock do
       @event.cancel_participation!(current_user)
     end
-    redirect_to event_path(@event), notice: "参加を取り消しました。"
+    redirect_to event_path(@event), notice: '参加を取り消しました。'
   end
 
   private

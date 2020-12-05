@@ -55,7 +55,7 @@ class API::AnswersController < API::BaseController
                              username: "#{answer.user.login_name} (#{answer.user.name})",
                              icon_url: answer.user.avatar_url,
                              attachments: [{
-                               fallback: "answer body.",
+                               fallback: 'answer body.',
                                text: answer.description
                              }]
   end

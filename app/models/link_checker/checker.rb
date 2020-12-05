@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "net/http"
+require 'net/http'
 
 module LinkChecker
   class Checker
@@ -19,14 +19,14 @@ module LinkChecker
       check
       return if @error_links.empty?
 
-      texts = ["リンク切れがありました。"]
+      texts = ['リンク切れがありました。']
       @error_links.map do |link|
         texts << "- <#{link.url}|#{link.title}> in: <#{link.source_url}|#{link.source_title}>"
       end
 
       SlackNotification.notify texts.join("\n"),
-                               channel: "bootcamp_notification",
-                               username: "リンクチェッカー"
+                               channel: 'bootcamp_notification',
+                               username: 'リンクチェッカー'
     end
 
     def check

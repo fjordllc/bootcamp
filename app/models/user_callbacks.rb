@@ -26,6 +26,6 @@ class UserCallbacks
     SlackNotification.notify "<#{url}|#{user.login_name}>さんが卒業しました！おめでとうございます🎉",
                              username: "#{user.login_name} (#{user.name})",
                              icon_url: user.avatar_url,
-                             channel: "#fjord"
+                             channel: '#fjord'
   end
 end

@@ -39,7 +39,7 @@ class API::ChecksController < API::BaseController
                              username: "#{check.user.login_name} (#{check.user.name})",
                              icon_url: check.user.avatar_url,
                              attachments: [{
-                               fallback: "check body.",
+                               fallback: 'check body.',
                                text: "#{check.user.login_name}さんが#{check.checkable.title}を確認しました。"
                              }]
   end

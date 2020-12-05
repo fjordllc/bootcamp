@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Work < ApplicationRecord
-  THUMBNAIL_SIZE = "1200x630>"
+  THUMBNAIL_SIZE = '1200x630>'
   belongs_to :user
   has_one_attached :thumbnail
 
@@ -23,7 +23,7 @@ class Work < ApplicationRecord
     if thumbnail.attached?
       thumbnail.variant(resize: THUMBNAIL_SIZE).service_url
     else
-      image_url("/images/works/thumbnails/default.png")
+      image_url('/images/works/thumbnails/default.png')
     end
   end
 

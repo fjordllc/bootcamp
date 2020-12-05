@@ -35,9 +35,9 @@ class PageCallbacks
     SlackNotification.notify link.to_s,
                              username: "#{page.user.login_name} (#{page.user.name})",
                              icon_url: page.user.avatar_url,
-                             channel: "#bootcamp_notification",
+                             channel: '#bootcamp_notification',
                              attachments: [{
-                               fallback: "page body.",
+                               fallback: 'page body.',
                                text: page.body
                              }]
   end

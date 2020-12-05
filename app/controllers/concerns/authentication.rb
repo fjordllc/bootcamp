@@ -43,25 +43,25 @@ module Authentication
   def require_mentor_login
     return if mentor_login?
 
-    redirect_to root_path, alert: "メンターとしてログインしてください"
+    redirect_to root_path, alert: 'メンターとしてログインしてください'
   end
 
   def require_admin_login
     return if admin_login?
 
-    redirect_to root_path, alert: "管理者としてログインしてください"
+    redirect_to root_path, alert: '管理者としてログインしてください'
   end
 
   def require_staff_login
     return if staff_login?
 
-    redirect_to root_path, alert: "管理者・アドバイザー・メンターとしてログインしてください"
+    redirect_to root_path, alert: '管理者・アドバイザー・メンターとしてログインしてください'
   end
 
   protected
 
   def not_authenticated
-    redirect_to root_path, alert: "ログインしてください"
+    redirect_to root_path, alert: 'ログインしてください'
   end
 
   def require_login_for_api

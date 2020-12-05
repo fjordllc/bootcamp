@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
-  LOGO_SIZE = "88x88>"
+  LOGO_SIZE = '88x88>'
   has_many :users
   validates :name, presence: true
   has_one_attached :logo
@@ -18,7 +18,7 @@ class Company < ApplicationRecord
     if logo.attached?
       logo.variant(resize: LOGO_SIZE).service_url
     else
-      image_url("/images/companies/logos/default.png")
+      image_url('/images/companies/logos/default.png')
     end
   end
 end

@@ -22,18 +22,18 @@ module UserDecorator
 
   def staff_roles
     staff_roles = [
-      { role: "管理者", value: admin },
-      { role: "メンター", value: mentor },
-      { role: "アドバイザー", value: adviser }
+      { role: '管理者', value: admin },
+      { role: 'メンター', value: mentor },
+      { role: 'アドバイザー', value: adviser }
     ]
     staff_roles.find_all { |v| v[:value] }
                .map { |v| v[:role] }
-               .join("、")
+               .join('、')
   end
 
   def icon_title
     [login_name, staff_roles].reject(&:blank?)
-                             .join(": ")
+                             .join(': ')
   end
 
   def url
@@ -50,10 +50,10 @@ module UserDecorator
   end
 
   def icon_classes(*classes)
-    classes << "a-user-icon"
+    classes << 'a-user-icon'
     classes << "is-#{role}"
-    classes << "is-daimyo" if daimyo?
-    classes.join(" ")
+    classes << 'is-daimyo' if daimyo?
+    classes.join(' ')
   end
 
   def cached_completed_percentage

@@ -1,68 +1,68 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class TagHelperTest < ActionView::TestCase
-  test "current_link" do
+  test 'current_link' do
     def controller_path
-      "practices"
+      'practices'
     end
 
-    assert_equal "is-active", current_link(/^practices/)
-    assert_not_equal "is-active", current_link(/^test/)
+    assert_equal 'is-active', current_link(/^practices/)
+    assert_not_equal 'is-active', current_link(/^test/)
 
     def controller_path
-      "practices/products"
+      'practices/products'
     end
 
-    assert_equal "is-active", current_link(/^practices/)
+    assert_equal 'is-active', current_link(/^practices/)
 
     def controller_path
-      "practices/reports"
+      'practices/reports'
     end
 
-    assert_equal "is-active", current_link(/^practices/)
+    assert_equal 'is-active', current_link(/^practices/)
 
     def controller_path
-      "reports"
+      'reports'
     end
 
-    assert_equal "is-active", current_link(/^reports/)
+    assert_equal 'is-active', current_link(/^reports/)
 
     def controller_path
-      "questions"
+      'questions'
     end
 
-    assert_equal "is-active", current_link(/^questions/)
+    assert_equal 'is-active', current_link(/^questions/)
 
     def controller_path
-      "users"
+      'users'
     end
 
-    assert_equal "is-active", current_link(/^users/)
+    assert_equal 'is-active', current_link(/^users/)
 
     def controller_path
-      "pages"
+      'pages'
     end
 
-    assert_equal "is-active", current_link(/^pages/)
+    assert_equal 'is-active', current_link(/^pages/)
 
     def controller_path
-      "admin/categories"
+      'admin/categories'
     end
 
-    assert_equal "is-active", current_link(/^admin-categories/)
+    assert_equal 'is-active', current_link(/^admin-categories/)
 
     def controller_path
-      "admin/categories"
+      'admin/categories'
     end
 
-    assert_equal "is-active", current_link(/^admin-categories/)
+    assert_equal 'is-active', current_link(/^admin-categories/)
 
     def controller_path
-      "admin/home"
+      'admin/home'
     end
 
-    assert_equal "is-active", current_link(/^admin-home/)
+    assert_equal 'is-active', current_link(/^admin-home/)
   end
 end

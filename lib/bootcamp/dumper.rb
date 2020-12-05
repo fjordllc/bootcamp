@@ -5,7 +5,7 @@ module Bootcamp
     # rubocop:disable Rails/Output
     class << self
       def dump_categories
-        Category.order("position").each do |c|
+        Category.order('position').each do |c|
           puts <<~COURSE
                         courses_#{c.id}:
                           id: #{c.id}
@@ -19,7 +19,7 @@ module Bootcamp
       end
 
       def dump_practices
-        Practice.order("position").each do |c|
+        Practice.order('position').each do |c|
           puts <<~LESSON
                         lesson_#{c.id}:
                           id: #{c.id}

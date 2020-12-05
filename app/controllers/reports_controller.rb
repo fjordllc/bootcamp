@@ -45,7 +45,7 @@ class ReportsController < ApplicationController
     @report.emotion = report.emotion
     @report.description = report.description
     @report.practices   = report.practices
-    flash.now[:notice] = "日報をコピーしました。"
+    flash.now[:notice] = '日報をコピーしました。'
   end
 
   def edit
@@ -81,7 +81,7 @@ class ReportsController < ApplicationController
 
   def destroy
     @report.destroy
-    redirect_to reports_url, notice: "日報を削除しました。"
+    redirect_to reports_url, notice: '日報を削除しました。'
   end
 
   private
@@ -134,7 +134,7 @@ class ReportsController < ApplicationController
   end
 
   def set_categories
-    @categories = Category.eager_load(:practices).where.not(practices: { id: nil }).order("categories.position ASC, practices.position ASC")
+    @categories = Category.eager_load(:practices).where.not(practices: { id: nil }).order('categories.position ASC, practices.position ASC')
   end
 
   def notify_to_slack(report)
@@ -145,7 +145,7 @@ class ReportsController < ApplicationController
                              username: "#{report.user.login_name} (#{report.user.name})",
                              icon_url: report.user.avatar_url,
                              attachments: [{
-                               fallback: "report body.",
+                               fallback: 'report body.',
                                text: report.description
                              }]
 
@@ -156,13 +156,13 @@ class ReportsController < ApplicationController
                              icon_url: report.user.avatar_url,
                              channel: report.user.company.slack_channel,
                              attachments: [{
-                               fallback: "report body.",
+                               fallback: 'report body.',
                                text: report.description
                              }]
   end
 
   def set_wip
-    @report.wip = params[:commit] == "WIP"
+    @report.wip = params[:commit] == 'WIP'
   end
 
   def check_noticeable
@@ -177,7 +177,7 @@ class ReportsController < ApplicationController
   end
 
   def notice_message(report)
-    report.wip? ? "日報をWIPとして保存しました。" : "日報を保存しました。"
+    report.wip? ? '日報をWIPとして保存しました。' : '日報を保存しました。'
   end
 
   def set_watch

@@ -1,56 +1,56 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
-  test "#opening?" do
+  test '#opening?' do
     event = events(:event_2)
     assert event.opening?
   end
 
-  test "#before_opening?" do
+  test '#before_opening?' do
     event = events(:event_4)
     assert event.before_opening?
   end
 
-  test "#closing?" do
+  test '#closing?' do
     event = events(:event_5)
     assert event.closing?
   end
 
-  test "#participants" do
+  test '#participants' do
     event = events(:event_2)
     participants = users(:hatsuno)
     assert_includes event.participants, participants
   end
 
-  test "#waitlist" do
+  test '#waitlist' do
     event = events(:event_3)
     waiting_user = users(:kimura)
     event.participations.create(user: waiting_user)
     assert_includes event.waitlist, waiting_user
   end
 
-  test "#participants_count" do
+  test '#participants_count' do
     waited_event = events(:event_3)
     assert_equal waited_event.participants_count, 1
     not_waited_event = events(:event_2)
     assert_equal not_waited_event.participants_count, 2
   end
 
-  test "#waitlist_count" do
+  test '#waitlist_count' do
     waited_event = events(:event_3)
     assert_equal waited_event.waitlist_count, 2
     not_waited_event = events(:event_2)
     assert_equal not_waited_event.waitlist_count, 0
   end
 
-  test "#can_participate?" do
+  test '#can_participate?' do
     event = events(:event_3)
     assert_not event.can_participate?
   end
 
-  test "#cancel_participation" do
+  test '#cancel_participation' do
     event = events(:event_3)
     participant = participations(:participation_3).user
     waiting_participation = participations(:participation_2)
@@ -63,7 +63,7 @@ class EventTest < ActiveSupport::TestCase
     assert_not_includes event.participations.disabled, move_up_participation
   end
 
-  test "#update_participations" do
+  test '#update_participations' do
     event = events(:event_3)
     move_up_participation = participations(:participation_2)
 
@@ -73,32 +73,32 @@ class EventTest < ActiveSupport::TestCase
     assert_not_includes event.participations.disabled, move_up_participation
   end
 
-  test "#send_notification" do
+  test '#send_notification' do
     event = events(:event_3)
     user = users(:hatsuno)
     event.send_notification(user)
     assert Notification.where(user: user, path: "/events/#{event.id}").exists?
   end
 
-  test "should be invalid when start_at >= end_at" do
+  test 'should be invalid when start_at >= end_at' do
     event = events(:event_1)
     event.end_at = event.start_at - 1.hour
     assert event.invalid?
   end
 
-  test "should be invalid when open_start_at >= open_end_at" do
+  test 'should be invalid when open_start_at >= open_end_at' do
     event = events(:event_1)
     event.open_end_at = event.open_start_at - 1.day
     assert event.invalid?
   end
 
-  test "should be invalid when open_start_at >= start_at" do
+  test 'should be invalid when open_start_at >= start_at' do
     event = events(:event_1)
     event.open_start_at = event.start_at + 1.day
     assert event.invalid?
   end
 
-  test "should be invalid when open_end_at > end_at" do
+  test 'should be invalid when open_end_at > end_at' do
     event = events(:event_1)
     event.open_end_at = event.end_at + 1.day
     assert event.invalid?

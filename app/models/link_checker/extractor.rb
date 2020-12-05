@@ -16,7 +16,7 @@ module LinkChecker
         url = match[1].strip
         if url.match?(%r{^/})
           uri = URI(@source_url)
-          uri.path = ""
+          uri.path = ''
           url = uri.to_s + url
         end
         Link.new(title, url, @source_title, @source_url)

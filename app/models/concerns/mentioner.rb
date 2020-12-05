@@ -6,7 +6,7 @@ module Mentioner
       NotificationFacade.mentioned(self, receiver) if receiver && sender != receiver
     end
 
-    return unless mentions.include? "@mentor"
+    return unless mentions.include? '@mentor'
 
     User.mentor.each do |receiver|
       NotificationFacade.mentioned(self, receiver) if sender != receiver
@@ -14,7 +14,7 @@ module Mentioner
   end
 
   def new_mention_users
-    names = new_mentions.map { |s| s.gsub(/@/, "") }
+    names = new_mentions.map { |s| s.gsub(/@/, '') }
     User.where(login_name: names)
   end
 

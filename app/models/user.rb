@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id updated_at created_at report comment asc desc].freeze
-  AVATAR_SIZE = "88x88>"
+  AVATAR_SIZE = '88x88>'
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
 
   enum job: {
@@ -42,7 +42,7 @@ class User < ApplicationRecord
   has_many :learnings
   has_many :borrowings
   has_many :pages, dependent: :destroy
-  has_many :last_updated_pages, class_name: "Page"
+  has_many :last_updated_pages, class_name: 'Page'
   has_many :comments,      dependent: :destroy
   has_many :reports,       dependent: :destroy
   has_many :checks,        dependent: :destroy
@@ -64,15 +64,15 @@ class User < ApplicationRecord
            source: :event
 
   has_many :send_notifications,
-           class_name: "Notification",
-           foreign_key: "sender_id",
-           inverse_of: "sender",
+           class_name: 'Notification',
+           foreign_key: 'sender_id',
+           inverse_of: 'sender',
            dependent: :destroy
 
   has_many :completed_learnings,
-           -> { where(status: "complete") },
-           class_name: "Learning",
-           inverse_of: "user",
+           -> { where(status: 'complete') },
+           class_name: 'Learning',
+           inverse_of: 'user',
            dependent: :destroy
 
   has_many :completed_practices,
@@ -81,9 +81,9 @@ class User < ApplicationRecord
            dependent: :destroy
 
   has_many :active_learnings,
-           -> { where(status: "started") },
-           class_name: "Learning",
-           inverse_of: "user",
+           -> { where(status: 'started') },
+           class_name: 'Learning',
+           inverse_of: 'user',
            dependent: :destroy
 
   has_many :active_practices,
@@ -94,12 +94,12 @@ class User < ApplicationRecord
   has_many :books,
            through: :borrowings
 
-  has_many :last_updated_practices, class_name: "Practice"
+  has_many :last_updated_practices, class_name: 'Practice'
 
   has_many :active_relationships,
-           class_name: "Following",
-           foreign_key: "follower_id",
-           inverse_of: "follower",
+           class_name: 'Following',
+           foreign_key: 'follower_id',
+           inverse_of: 'follower',
            dependent: :destroy
 
   has_many :following,
@@ -107,9 +107,9 @@ class User < ApplicationRecord
            source: :followed
 
   has_many :passive_relationships,
-           class_name: "Following",
-           foreign_key: "followed_id",
-           inverse_of: "followed",
+           class_name: 'Following',
+           foreign_key: 'followed_id',
+           inverse_of: 'followed',
            dependent: :destroy
 
   has_many :followers,
@@ -130,18 +130,18 @@ class User < ApplicationRecord
             format: {
               allow_blank: true,
               with: /\A\w+\z/,
-              message: "は英文字と_（アンダースコア）のみが使用できます"
+              message: 'は英文字と_（アンダースコア）のみが使用できます'
             }
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
 
-  validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: "に使用できない文字列が含まれています" }
+  validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
                            format: {
                              with: /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i,
-                             message: "は半角英数字と-（ハイフン）のみが使用できます 先頭と最後にハイフンを使用することはできません ハイフンを連続して使用することはできません"
+                             message: 'は半角英数字と-（ハイフン）のみが使用できます 先頭と最後にハイフンを使用することはできません ハイフンを連続して使用することはできません'
                            }
   end
 
@@ -149,7 +149,7 @@ class User < ApplicationRecord
     validates :name_kana,  presence: true,
                            format: {
                              with: /\A^[ 　ア-ン゛゜ァ-ォャ-ョー]+\z/,
-                             message: "はスペースとカタカナのみが使用できます"
+                             message: 'はスペースとカタカナのみが使用できます'
                            }
   end
 
@@ -238,11 +238,11 @@ class User < ApplicationRecord
     )
   }
   scope :order_by_counts, lambda { |order_by, direction|
-    raise ArgumentError, "Invalid argument" unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
+    raise ArgumentError, 'Invalid argument' unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
 
     if order_by.in? %w[report comment]
       left_outer_joins(order_by.pluralize.to_sym)
-        .group("users.id")
+        .group('users.id')
         .order(Arel.sql("count(#{order_by.pluralize}.id) #{direction}, users.created_at"))
     else
       order(order_by.to_sym => direction.to_sym, created_at: :asc)
@@ -257,11 +257,11 @@ class User < ApplicationRecord
   class << self
     def announcement_receiver(target)
       case target
-      when "all"
+      when 'all'
         User.unretired
-      when "students"
+      when 'students'
         User.admins.or(User.students)
-      when "job_seekers"
+      when 'job_seekers'
         User.admins.or(User.job_seekers)
       else
         User.none
@@ -270,15 +270,15 @@ class User < ApplicationRecord
 
     def users_role(target)
       case target
-      when "student_and_trainee"
+      when 'student_and_trainee'
         students_and_trainees
-      when "graduate"
+      when 'graduate'
         graduated
-      when "adviser"
+      when 'adviser'
         advisers
-      when "inactive"
+      when 'inactive'
         inactive.order(:updated_at)
-      when "trainee"
+      when 'trainee'
         trainees
       else
         send(target)
@@ -340,7 +340,7 @@ class User < ApplicationRecord
 
   def prefecture_name
     if prefecture_code.nil?
-      "未登録"
+      '未登録'
     else
       pref = JpPrefecture::Prefecture.find prefecture_code
       pref.name
@@ -431,7 +431,7 @@ class User < ApplicationRecord
     if avatar.attached?
       avatar.variant(resize: AVATAR_SIZE).service_url
     else
-      image_url("/images/users/avatars/default.png")
+      image_url('/images/users/avatars/default.png')
     end
   end
 
@@ -464,7 +464,7 @@ class User < ApplicationRecord
   end
 
   def daimyo?
-    company&.name == "DAIMYO Engineer College"
+    company&.name == 'DAIMYO Engineer College'
   end
 
   def register_github_account(id, account_name)
@@ -475,7 +475,7 @@ class User < ApplicationRecord
 
   def depressed?
     three_days_emotions = reports.order(reported_on: :desc).limit(3).pluck(:emotion)
-    !three_days_emotions.empty? && three_days_emotions.all?("sad")
+    !three_days_emotions.empty? && three_days_emotions.all?('sad')
   end
 
   def active_practice

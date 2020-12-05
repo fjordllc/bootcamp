@@ -18,7 +18,7 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     if @course.save
-      redirect_to courses_path, notice: "コースを作成しました。"
+      redirect_to courses_path, notice: 'コースを作成しました。'
     else
       render :new
     end
@@ -26,7 +26,7 @@ class CoursesController < ApplicationController
 
   def update
     if @course.update(course_params)
-      redirect_to courses_path, notice: "コースを更新しました。"
+      redirect_to courses_path, notice: 'コースを更新しました。'
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class CoursesController < ApplicationController
 
   def destroy
     @course.destroy
-    redirect_to courses_path, notice: "コースを削除しました。"
+    redirect_to courses_path, notice: 'コースを削除しました。'
   end
 
   private

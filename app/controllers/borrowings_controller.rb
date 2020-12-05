@@ -6,12 +6,12 @@ class BorrowingsController < ApplicationController
   def create
     book = Book.find(params[:book_id])
     current_user.borrow(book)
-    redirect_to book_url(book), notice: "書籍を借りました。"
+    redirect_to book_url(book), notice: '書籍を借りました。'
   end
 
   def destroy
     book = Book.find(params[:book_id])
     current_user.give_back(book)
-    redirect_to book_url(book), notice: "書籍を返却しました。"
+    redirect_to book_url(book), notice: '書籍を返却しました。'
   end
 end

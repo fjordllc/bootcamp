@@ -18,24 +18,24 @@ class Admin::CompaniesController < AdminController
 
     if @company.save
       @company.resize_logo!
-      redirect_to admin_companies_url, notice: "会社を作成しました。"
+      redirect_to admin_companies_url, notice: '会社を作成しました。'
     else
-      render "new"
+      render 'new'
     end
   end
 
   def update
     if @company.update(company_params)
       @company.resize_logo!
-      redirect_to admin_companies_url, notice: "会社を更新しました。"
+      redirect_to admin_companies_url, notice: '会社を更新しました。'
     else
-      render "edit"
+      render 'edit'
     end
   end
 
   def destroy
     @company.destroy
-    redirect_to admin_companies_url, notice: "会社を削除しました。"
+    redirect_to admin_companies_url, notice: '会社を削除しました。'
   end
 
   private

@@ -11,7 +11,7 @@ module PageTabHelper
   end
 
   def current_page_tab_or_not(target_name)
-    current_page_tab?(target_name) ? "is-active" : ""
+    current_page_tab?(target_name) ? 'is-active' : ''
   end
 
   private
@@ -45,11 +45,11 @@ module PageTabHelper
 
   def display_tab_names
     {
-      practices: "プラクティス",
-      reports: "日報",
-      questions: "質問",
-      pages: "Docs",
-      products: "提出物"
+      practices: 'プラクティス',
+      reports: '日報',
+      questions: '質問',
+      pages: 'Docs',
+      products: '提出物'
     }
   end
 
@@ -83,7 +83,7 @@ module PageTabHelper
   end
 
   def current_page_tab?(target_name)
-    paths = url_for(only_path: false).split("/")
+    paths = url_for(only_path: false).split('/')
     if paths[-2] == target_name
       true
     else

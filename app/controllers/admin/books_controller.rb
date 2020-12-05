@@ -19,23 +19,23 @@ class Admin::BooksController < AdminController
     @book = Book.new(book_params)
 
     if @book.save
-      redirect_to admin_books_url, notice: "書籍を登録しました。"
+      redirect_to admin_books_url, notice: '書籍を登録しました。'
     else
-      render action: "new"
+      render action: 'new'
     end
   end
 
   def update
     if @book.update(book_params)
-      redirect_to admin_books_url, notice: "書籍を更新しました。"
+      redirect_to admin_books_url, notice: '書籍を更新しました。'
     else
-      render action: "edit"
+      render action: 'edit'
     end
   end
 
   def destroy
     @book.destroy
-    redirect_to admin_books_url, notice: "書籍を削除しました。"
+    redirect_to admin_books_url, notice: '書籍を削除しました。'
   end
 
   private

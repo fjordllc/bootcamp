@@ -66,7 +66,7 @@ class ProductsController < ApplicationController
   def destroy
     @product = find_my_product
     @product.destroy
-    redirect_to @product.practice, notice: "提出物を削除しました。"
+    redirect_to @product.practice, notice: '提出物を削除しました。'
   end
 
   private
@@ -82,7 +82,7 @@ class ProductsController < ApplicationController
                              icon_url: product.user.avatar_url,
                              channel: product.user.company.slack_channel,
                              attachments: [{
-                               fallback: "product body.",
+                               fallback: 'product body.',
                                text: product.body
                              }]
   end
@@ -120,7 +120,7 @@ class ProductsController < ApplicationController
   def check_permission!
     return if policy(find_product).show? || find_practice&.open_product?
 
-    redirect_to root_path, alert: "プラクティスを完了するまで他の人の提出物は見れません。"
+    redirect_to root_path, alert: 'プラクティスを完了するまで他の人の提出物は見れません。'
   end
 
   def product_params
@@ -132,17 +132,17 @@ class ProductsController < ApplicationController
   end
 
   def set_wip
-    @product.wip = params[:commit] == "WIP"
+    @product.wip = params[:commit] == 'WIP'
   end
 
   def notice_message(product, action_name)
-    return "提出物をWIPとして保存しました。" if product.wip?
+    return '提出物をWIPとして保存しました。' if product.wip?
 
     case action_name
     when :create
-      "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。<br>7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+      '提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。<br>7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。'
     when :update
-      "提出物を更新しました。"
+      '提出物を更新しました。'
     end
   end
 end

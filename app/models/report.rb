@@ -27,7 +27,7 @@ class Report < ApplicationRecord
   validates :description, presence: true
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
-  validates :learning_times, length: { minimum: 1, message: ": 学習時間を入力してください。" }
+  validates :learning_times, length: { minimum: 1, message: ': 学習時間を入力してください。' }
 
   after_create ReportCallbacks.new
   after_update ReportCallbacks.new
@@ -62,14 +62,14 @@ class Report < ApplicationRecord
 
   def previous
     Report.where(user: user)
-          .where("reported_on < ?", reported_on)
+          .where('reported_on < ?', reported_on)
           .order(created_at: :desc)
           .first
   end
 
   def next
     Report.where(user: user)
-          .where("reported_on > ?", reported_on)
+          .where('reported_on > ?', reported_on)
           .order(:reported_on)
           .first
   end

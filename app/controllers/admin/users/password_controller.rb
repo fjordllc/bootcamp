@@ -7,9 +7,9 @@ class Admin::Users::PasswordController < AdminController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: "パスワードを更新しました。"
+      redirect_to @user, notice: 'パスワードを更新しました。'
     else
-      render "edit"
+      render 'edit'
     end
   end
 
