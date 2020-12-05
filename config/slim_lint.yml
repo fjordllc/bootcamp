@@ -53,6 +53,5 @@ linters:
       - Style/SoleNestedConditional
       - Style/NestedTernaryOperator
       - Style/ZeroLengthPredicate
-      - Style/SafeNavigation
       - Style/Not
       - Style/RedundantParentheses
