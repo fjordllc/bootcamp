@@ -72,7 +72,7 @@ class Event < ApplicationRecord
   end
 
   def cancel_participation!(user)
-    participation = self.participations.find_by(user_id: user.id)
+    participation = participations.find_by(user_id: user.id)
     participation.destroy
 
     return unless participation.enable
@@ -82,14 +82,14 @@ class Event < ApplicationRecord
     return unless move_up_participation
 
     move_up_participation.update!(enable: true)
-    self.send_notification(move_up_participation.user)
+    send_notification(move_up_participation.user)
   end
 
   def update_participations
     first_come_participations.each.with_index(1) do |participation, i|
-      if i <= self.capacity
+      if i <= capacity
         participation.update(enable: true)
-        self.send_notification(participation.user) if participation.waited?
+        send_notification(participation.user) if participation.waited?
       else
         participation.update(enable: false)
       end

@@ -271,23 +271,23 @@ class User < ApplicationRecord
     def users_role(target)
       case target
       when "student_and_trainee"
-        self.students_and_trainees
+        students_and_trainees
       when "graduate"
-        self.graduated
+        graduated
       when "adviser"
-        self.advisers
+        advisers
       when "inactive"
-        self.inactive.order(:updated_at)
+        inactive.order(:updated_at)
       when "trainee"
-        self.trainees
+        trainees
       else
-        self.send(target)
+        send(target)
       end
     end
   end
 
   def away?
-    self.updated_at <= 10.minutes.ago
+    updated_at <= 10.minutes.ago
   end
 
   def completed_percentage
@@ -348,7 +348,7 @@ class User < ApplicationRecord
   end
 
   def elapsed_days
-    (Date.current - self.created_at.to_date).to_i
+    (Date.current - created_at.to_date).to_i
   end
 
   def customer
@@ -470,18 +470,18 @@ class User < ApplicationRecord
   def register_github_account(id, account_name)
     self.github_account = account_name
     self.github_id = id
-    self.save!
+    save!
   end
 
   def depressed?
-    three_days_emotions = self.reports.order(reported_on: :desc).limit(3).pluck(:emotion)
+    three_days_emotions = reports.order(reported_on: :desc).limit(3).pluck(:emotion)
     !three_days_emotions.empty? && three_days_emotions.all?("sad")
   end
 
   def active_practice
-    return unless self.active_practices.first
+    return unless active_practices.first
 
-    self.active_practices.first.id
+    active_practices.first.id
   end
 
   def follow(other_user)
