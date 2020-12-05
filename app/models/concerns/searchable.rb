@@ -9,7 +9,7 @@ module Searchable
     end
 
     def columns_for_keyword_search(*column_names)
-      define_singleton_method(:_join_column_names) { "#{column_names.join("_or_")}_cont_all" }
+      define_singleton_method(:_join_column_names) { "#{column_names.join('_or_')}_cont_all" }
     end
 
     private
