@@ -36,14 +36,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/user.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: ConvertCodeThatCanStartToReturnNil, AllowedMethods.
-# AllowedMethods: present?, blank?, presence, try, try!
-Style/SafeNavigation:
-  Exclude:
-    - 'app/models/user.rb'
-
-# Offense count: 1
 # Configuration parameters: AllowModifier.
 Style/SoleNestedConditional:
   Exclude:
