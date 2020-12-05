@@ -35,12 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantRegexpEscape:
-  Exclude:
-    - 'app/models/link_checker/client.rb'
-
 # Offense count: 33
 # Cop supports --auto-correct.
 Style/RedundantSelf:
