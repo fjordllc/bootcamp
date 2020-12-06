@@ -1,4 +1,4 @@
-- if users.any? { |user| user.depressed? }
+- if users.any?(&:depressed?)
   .a-card
     header.card-header
       h2.card-header__title
