@@ -15,14 +15,14 @@ module MetaTagsHelper
         site_name: 'fjord bootcamp',
         description: :description,
         image: 'https://bootcamp.fjord.jp/ogp/ogp.png',
-        url: 'https://bootcamp.fjord.jp',
+        url: 'https://bootcamp.fjord.jp'
       },
       twitter: {
         card: 'summary',
         site: '@fjordbootcamp',
         description: :description,
         image: 'https://bootcamp.fjord.jp/ogp/ogp.png',
-        domain: 'https://bootcamp.fjord.jp',
+        domain: 'https://bootcamp.fjord.jp'
       }
     }
   end
