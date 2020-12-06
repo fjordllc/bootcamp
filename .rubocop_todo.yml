@@ -35,16 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInHashLiteral:
-  Exclude:
-    - 'app/helpers/meta_tags_helper.rb'
-    - 'app/helpers/page_tab_helper.rb'
-    - 'app/models/subscription.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/ZeroLengthPredicate:
