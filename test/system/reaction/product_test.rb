@@ -6,13 +6,13 @@ class Reaction::ProductsTest < ApplicationSystemTestCase
   setup { login_user 'machida', 'testtest' }
 
   test 'show reaction of product' do
-    visit product_path(products(:product_12))
+    visit product_path(products(:product12))
 
     assert_text "🎉1\n👀1"
   end
 
   test 'reaction to product' do
-    visit product_path(products(:product_12))
+    visit product_path(products(:product12))
     first('.thread__inner .js-reaction-dropdown-toggle').click
     first(".thread__inner .js-reaction-dropdown li[data-reaction-kind='eyes']").click
 
@@ -22,7 +22,7 @@ class Reaction::ProductsTest < ApplicationSystemTestCase
   end
 
   test 'delete reaction of product on dropdown' do
-    visit product_path(products(:product_12))
+    visit product_path(products(:product12))
     first('.thread__inner .js-reaction-dropdown-toggle').click
     first(".thread__inner .js-reaction-dropdown li[data-reaction-kind='tada']").click
 
@@ -32,7 +32,7 @@ class Reaction::ProductsTest < ApplicationSystemTestCase
   end
 
   test 'delete reaction of product on fotter' do
-    visit product_path(products(:product_12))
+    visit product_path(products(:product12))
     first(".thread__inner .js-reaction li[data-reaction-kind='tada']").click
 
     using_wait_time 5 do

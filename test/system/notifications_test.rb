@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class NotificationsTest < ApplicationSystemTestCase
   test 'do not send mail if user deny mail' do
     login_user 'kimura', 'testtest'
-    visit "/reports/#{reports(:report_8).id}"
+    visit "/reports/#{reports(:report8).id}"
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end

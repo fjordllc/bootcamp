@@ -6,7 +6,7 @@ class Course::PracticesTest < ApplicationSystemTestCase
   setup { login_user 'hatsuno', 'testtest' }
 
   test 'show listing practices' do
-    visit "/courses/#{courses(:course_1).id}/practices"
+    visit "/courses/#{courses(:course1).id}/practices"
     assert_equal 'Rails Webプログラマーコースのプラクティス | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 end

@@ -4,7 +4,7 @@ require 'test_helper'
 
 class ReportDecoratorTest < ActiveSupport::TestCase
   def setup
-    @report = ActiveDecorator::Decorator.instance.decorate(reports(:report_1))
+    @report = ActiveDecorator::Decorator.instance.decorate(reports(:report1))
   end
 
   test '#total_learning_time' do

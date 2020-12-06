@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class Notification::EventsTest < ApplicationSystemTestCase
   test 'waiting user receive notification when the event participant cancel' do
-    event = events(:event_3)
+    event = events(:event3)
     login_user 'komagata', 'testtest'
     visit event_path(event)
     accept_confirm do
@@ -20,7 +20,7 @@ class Notification::EventsTest < ApplicationSystemTestCase
   end
 
   test 'waiting user receive notification when the event capacity is increased' do
-    event = events(:event_3)
+    event = events(:event3)
     login_user 'komagata', 'testtest'
     visit event_path(event)
     click_link '内容修正'

@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class ArticlesTest < ApplicationSystemTestCase
   setup do
-    @article = articles(:article_1)
+    @article = articles(:article1)
   end
 
   test 'show listing articles' do

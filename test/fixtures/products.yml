@@ -1,69 +1,69 @@
-product_1:
-  practice: practice_1
+product1:
+  practice: practice1
   user: yamada
   body: テストの提出物1です。
 
-product_2:
-  practice: practice_1
+product2:
+  practice: practice1
   user: kimura
   body: テストの提出物2です。
 
-product_3:
-  practice: practice_2
+product3:
+  practice: practice2
   user: sotugyou
   body: 確認済みの提出物
 
-product_4:
-  practice: practice_2
+product4:
+  practice: practice2
   user: yamada
   body: テストの提出物4です。
 
-product_5:
-  practice: practice_2
+product5:
+  practice: practice2
   user: kimura
   body: テストの提出物5です。
 
-product_6:
-  practice: practice_3
+product6:
+  practice: practice3
   user: sotugyou
   body: 確認待ちの提出物
 
-product_7:
-  practice: practice_3
+product7:
+  practice: practice3
   user: yamada
   body: テストの提出物7です。
 
-product_8:
-  practice: practice_3
+product8:
+  practice: practice3
   user: kimura
   body: テストの提出物8です。
 
-product_9:
-  practice: practice_4
+product9:
+  practice: practice4
   user: yamada
   body: テストの提出物9です。
 
-product_10:
-  practice: practice_4
+product10:
+  practice: practice4
   user: kimura
   body: テストの提出物10です。
 
-product_11:
-  practice: practice_2
+product11:
+  practice: practice2
   user: hatsuno
   body: テストの提出物11です。
 
-product_12:
-  practice: practice_5
+product12:
+  practice: practice5
   user: yamada
   body: リアクションテスト
 
-product_13:
-  practice: practice_1
+product13:
+  practice: practice1
   user: kensyu
   body: 研修の提出物です。
 
-product_14:
-  practice: practice_1
+product14:
+  practice: practice1
   user: daimyo
   body: 研修の提出物です。

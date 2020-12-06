@@ -61,7 +61,7 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'update event' do
     login_user 'komagata', 'testtest'
-    visit edit_event_path(events(:event_1))
+    visit edit_event_path(events(:event1))
     within 'form[name=event]' do
       fill_in 'event[title]', with: 'ミートアップ(修正)'
       fill_in 'event[description]', with: 'ミートアップを開催します(修正)'
@@ -78,7 +78,7 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'destroy event' do
     login_user 'komagata', 'testtest'
-    visit event_path(events(:event_1))
+    visit event_path(events(:event1))
     accept_confirm do
       click_link '削除'
     end
@@ -155,30 +155,30 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'does not open when open_start_at > current time' do
     login_user 'kimura', 'testtest'
-    visit event_path(events(:event_4))
+    visit event_path(events(:event4))
     assert_text '募集開始までお待ち下さい'
   end
 
   test 'show participation link during opening' do
     login_user 'kimura', 'testtest'
-    visit event_path(events(:event_2))
+    visit event_path(events(:event2))
     assert_link '参加申込'
   end
 
   test 'are closed when current time > open_end_at' do
     login_user 'kimura', 'testtest'
-    visit event_path(events(:event_5))
+    visit event_path(events(:event5))
     assert_text '募集受付は終了しました。'
   end
 
   test 'show message about ending event after event end' do
     login_user 'kimura', 'testtest'
-    visit event_path(events(:event_6))
+    visit event_path(events(:event6))
     assert_text 'イベントは終了しました。'
   end
 
   test 'user can participate in an event' do
-    event = events(:event_2)
+    event = events(:event2)
     login_user 'kimura', 'testtest'
     visit event_path(event)
     accept_confirm do
@@ -190,7 +190,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'user can cancel event' do
-    event = events(:event_2)
+    event = events(:event2)
     login_user 'hatsuno', 'testtest'
     visit event_path(event)
     accept_confirm do
@@ -348,7 +348,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'turn on the watch when attend an event' do
-    event = events(:event_2)
+    event = events(:event2)
     login_user 'kimura', 'testtest'
     visit event_path(event)
     accept_confirm do

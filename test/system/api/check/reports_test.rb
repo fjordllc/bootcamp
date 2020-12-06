@@ -5,19 +5,19 @@ require 'application_system_test_case'
 class Check::ReportsTest < ApplicationSystemTestCase
   test 'non admin user is non botton' do
     login_user 'sotugyou', 'testtest'
-    visit "/reports/#{reports(:report_2).id}"
+    visit "/reports/#{reports(:report2).id}"
     assert_not has_button? '日報を確認'
   end
 
   test 'user can see stamp' do
     login_user 'sotugyou', 'testtest'
-    visit "/reports/#{reports(:report_1).id}"
+    visit "/reports/#{reports(:report1).id}"
     assert_text '確認済'
   end
 
   test 'success report checking' do
     login_user 'machida', 'testtest'
-    visit  "/reports/#{reports(:report_2).id}"
+    visit  "/reports/#{reports(:report2).id}"
     assert has_button? '日報を確認'
     click_button '日報を確認'
     assert has_button? '日報の確認を取り消す'
@@ -40,7 +40,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
 
   test 'success product checking cancel' do
     login_user 'machida', 'testtest'
-    visit "/reports/#{reports(:report_2).id}"
+    visit "/reports/#{reports(:report2).id}"
     click_button '日報を確認'
     click_button '日報の確認を取り消す'
     assert_no_text '確認済'
@@ -49,7 +49,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
 
   test 'comment and check report' do
     login_user 'machida', 'testtest'
-    visit "/reports/#{reports(:report_2).id}"
+    visit "/reports/#{reports(:report2).id}"
     fill_in 'new_comment[description]', with: '日報でcomment+確認OKにするtest'
     click_button '確認OKにする'
     assert_text '確認済'

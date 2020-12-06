@@ -16,8 +16,8 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_text 'Unityでのテスト'
     assert_text 'テストの質問1'
     assert_text 'テストのお知らせ'
-    assert_text 'テスト用 report_1へのコメント'
-    assert_text 'テスト用 announcement_1へのコメント'
+    assert_text 'テスト用 report1へのコメント'
+    assert_text 'テスト用 announcement1へのコメント'
     assert_text 'テストの回答'
   end
 
@@ -32,8 +32,8 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_no_text 'Unityでのテスト'
     assert_no_text 'テストの質問1'
     assert_no_text 'テストのお知らせ'
-    assert_text 'テスト用 report_1へのコメント'
-    assert_no_text 'テスト用 announcement_1へのコメント'
+    assert_text 'テスト用 report1へのコメント'
+    assert_no_text 'テスト用 announcement1へのコメント'
   end
 
   test 'admin can see comment description' do
@@ -43,7 +43,7 @@ class SearchablesTest < ApplicationSystemTestCase
       fill_in 'word', with: 'テスト'
     end
     find('#test-search').click
-    assert_text 'テスト用 product_1へのコメント'
+    assert_text 'テスト用 product1へのコメント'
   end
 
   test 'advisor can see comment description' do
@@ -53,7 +53,7 @@ class SearchablesTest < ApplicationSystemTestCase
       fill_in 'word', with: 'テスト'
     end
     find('#test-search').click
-    assert_text 'テスト用 product_1へのコメント'
+    assert_text 'テスト用 product1へのコメント'
   end
 
   test 'can see comment description if it is permitted' do
@@ -63,8 +63,8 @@ class SearchablesTest < ApplicationSystemTestCase
       fill_in 'word', with: 'テスト'
     end
     find('#test-search').click
-    assert_text 'テスト用 product_1へのコメント'
-    assert_text 'テスト用 product_3へのコメント'
+    assert_text 'テスト用 product1へのコメント'
+    assert_text 'テスト用 product3へのコメント'
   end
 
   test "can not see comment description if it isn't permitted" do
@@ -73,8 +73,8 @@ class SearchablesTest < ApplicationSystemTestCase
       fill_in 'word', with: 'テスト'
     end
     find('#test-search').click
-    assert_no_text 'テスト用 product_1へのコメント'
-    assert_text 'テスト用 product_3へのコメント'
+    assert_no_text 'テスト用 product1へのコメント'
+    assert_text 'テスト用 product3へのコメント'
     assert_text '該当プラクティスを完了するまで他の人の提出物へのコメントは見れません。'
   end
 

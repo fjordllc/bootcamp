@@ -10,9 +10,3 @@
 # Configuration parameters: CountComments, CountAsOne.
 Metrics/ClassLength:
   Max: 466
-
-# Offense count: 336
-# Configuration parameters: EnforcedStyle, CheckMethodNames, CheckSymbols, AllowedIdentifiers.
-# SupportedStyles: snake_case, normalcase, non_integer
-Naming/VariableNumber:
-  Enabled: false

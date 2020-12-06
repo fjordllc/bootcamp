@@ -5,20 +5,20 @@ require 'application_system_test_case'
 class WorksTest < ApplicationSystemTestCase
   test "user can see user's own work" do
     login_user 'kimura', 'testtest'
-    visit work_path(works(:work_1))
+    visit work_path(works(:work1))
     assert_text "kimura's app"
   end
 
   test "user can see other user's work" do
     login_user 'kimura', 'testtest'
-    visit work_path(works(:work_2))
+    visit work_path(works(:work2))
     assert_text "hatsuno's app"
     assert_no_text '作品を追加'
   end
 
   test "show user's profile link" do
     login_user 'kimura', 'testtest'
-    visit work_path(works(:work_1))
+    visit work_path(works(:work1))
     assert_link 'kimura', href: "/users/#{users(:kimura).id}"
   end
 
@@ -34,7 +34,7 @@ class WorksTest < ApplicationSystemTestCase
 
   test 'update my work' do
     login_user 'kimura', 'testtest'
-    visit work_path(works(:work_1))
+    visit work_path(works(:work1))
     click_link '内容修正'
     fill_in('work[description]', with: '木村のアプリです。頑張りました')
     click_button '更新する'
@@ -43,7 +43,7 @@ class WorksTest < ApplicationSystemTestCase
 
   test 'destroy my work' do
     login_user 'kimura', 'testtest'
-    visit work_path(works(:work_1))
+    visit work_path(works(:work1))
     accept_confirm do
       click_link '削除'
     end
@@ -52,7 +52,7 @@ class WorksTest < ApplicationSystemTestCase
 
   test 'admin can update a work' do
     login_user 'komagata', 'testtest'
-    visit work_path(works(:work_1))
+    visit work_path(works(:work1))
     click_link '内容修正'
     fill_in('work[description]', with: '木村のアプリです。頑張りました')
     click_button '更新する'
@@ -61,7 +61,7 @@ class WorksTest < ApplicationSystemTestCase
 
   test 'admin can destroy a work' do
     login_user 'komagata', 'testtest'
-    visit work_path(works(:work_1))
+    visit work_path(works(:work1))
     accept_confirm do
       click_link '削除'
     end
@@ -70,13 +70,13 @@ class WorksTest < ApplicationSystemTestCase
 
   test "user can't update other user's work" do
     login_user 'kimura', 'testtest'
-    visit work_path(works(:work_2))
+    visit work_path(works(:work2))
     assert_no_text '内容修正'
   end
 
   test "user can't destroy other user's work" do
     login_user 'kimura', 'testtest'
-    visit work_path(works(:work_2))
+    visit work_path(works(:work2))
     assert_no_text '削除'
   end
 end

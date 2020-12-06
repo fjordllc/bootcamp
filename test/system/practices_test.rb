@@ -5,16 +5,16 @@ require 'application_system_test_case'
 class PracticesTest < ApplicationSystemTestCase
   test 'show practice' do
     login_user 'hatsuno', 'testtest'
-    visit "/practices/#{practices(:practice_1).id}"
+    visit "/practices/#{practices(:practice1).id}"
     assert_equal 'OS X Mountain Lionをクリーンインストールする | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show link to all practices with same category' do
     login_user 'hatsuno', 'testtest'
     user = users(:hatsuno)
-    practice_1 = practices(:practice_1)
-    category = practice_1.category(user.course)
-    visit "/practices/#{practice_1.id}"
+    practice1 = practices(:practice1)
+    category = practice1.category(user.course)
+    visit "/practices/#{practice1.id}"
     category.practices.each do |practice|
       assert has_link? practice.title
     end
@@ -23,7 +23,7 @@ class PracticesTest < ApplicationSystemTestCase
   test 'finish a practice' do
     login_user 'komagata', 'testtest'
 
-    visit "/practices/#{practices(:practice_1).id}"
+    visit "/practices/#{practices(:practice1).id}"
     find('#js-complete').click
     assert_not has_link? '完了'
   end
@@ -31,21 +31,21 @@ class PracticesTest < ApplicationSystemTestCase
   test "show [提出物を作る] or [提出物] link if user don't have to submit product" do
     login_user 'machida', 'testtest'
 
-    visit "/practices/#{practices(:practice_1).id}"
+    visit "/practices/#{practices(:practice1).id}"
     assert_link '提出物を作る'
   end
 
   test "don't show [提出物を作る] link if user don't have to submit product" do
     login_user 'yamada', 'testtest'
 
-    visit "/practices/#{practices(:practice_1).id}"
+    visit "/practices/#{practices(:practice1).id}"
     assert_no_link '提出物を作る'
   end
 
   test "only show when user isn't admin " do
     login_user 'yamada', 'testtest'
 
-    visit "/practices/#{practices(:practice_1).id}/edit"
+    visit "/practices/#{practices(:practice1).id}/edit"
     assert_not_equal 'プラクティス編集', title
   end
 
@@ -65,8 +65,8 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'update practice' do
     login_user 'komagata', 'testtest'
-    practice = practices(:practice_2)
-    product = products(:product_3)
+    practice = practices(:practice2)
+    product = products(:product3)
     visit "/practices/#{practice.id}/edit"
     within 'form[name=practice]' do
       fill_in 'practice[title]', with: 'テストプラクティス'
@@ -80,7 +80,7 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'category button link to courses/practices#index with category fragment' do
     login_user 'komagata', 'testtest'
-    practice = practices(:practice_1)
+    practice = practices(:practice1)
     user = users(:komagata)
     category = practice.category(user.course)
     visit "/practices/#{practice.id}"
@@ -99,7 +99,7 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'change status' do
     login_user 'hatsuno', 'testtest'
-    practice = practices(:practice_1)
+    practice = practices(:practice1)
     visit "/practices/#{practice.id}"
     first('.js-started').click
     sleep 5
@@ -108,13 +108,13 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'valid is_startable_practice' do
     login_user 'hatsuno', 'testtest'
-    practice = practices(:practice_1)
+    practice = practices(:practice1)
     visit "/practices/#{practice.id}"
     first('.js-started').click
     sleep 5
     assert_equal 'started', practice.status(users(:hatsuno))
 
-    practice = practices(:practice_2)
+    practice = practices(:practice2)
     visit "/practices/#{practice.id}"
     first('.js-started').click
     sleep 5

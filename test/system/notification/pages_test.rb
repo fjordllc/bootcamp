@@ -50,7 +50,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
   end
 
   test 'Notify Docs updated from WIP' do
-    page = pages(:page_5)
+    page = pages(:page5)
     login_user 'komagata', 'testtest'
     visit page_path(page)
 

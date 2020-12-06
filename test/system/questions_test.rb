@@ -23,13 +23,13 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'show a resolved qestion' do
-    question = questions(:question_3)
+    question = questions(:question3)
     visit question_path(question)
     assert_text '解決済'
   end
 
   test 'show a question' do
-    question = questions(:question_8)
+    question = questions(:question8)
     visit question_path(question)
     assert_equal 'テストの質問 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
@@ -45,7 +45,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'update a question' do
-    question = questions(:question_8)
+    question = questions(:question8)
     visit edit_question_path(question)
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'テストの質問（修正）'
@@ -56,7 +56,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'delete a question' do
-    question = questions(:question_8)
+    question = questions(:question8)
     visit question_path(question)
     accept_confirm do
       find('.js-delete').click
@@ -93,7 +93,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'admin can update and delete any questions' do
     login_user 'komagata', 'testtest'
-    question = questions(:question_8)
+    question = questions(:question8)
     visit question_path(question)
     within '.thread__inner' do
       assert_text '内容修正'
@@ -125,7 +125,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'update tags without page transitions' do
     login_user 'komagata', 'testtest'
-    visit question_path(questions(:question_2))
+    visit question_path(questions(:question2))
     find('.tag-links__item-edit').click
     tag_input = find('.ti-new-tag-input')
     tag_input.set '追加タグ'

@@ -10,43 +10,43 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'see my product' do
     login_user 'yamada', 'testtest'
-    visit "/products/#{products(:product_1).id}"
-    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    visit "/products/#{products(:product1).id}"
+    assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test 'admin can see a product' do
     login_user 'komagata', 'testtest'
-    visit "/products/#{products(:product_1).id}"
-    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    visit "/products/#{products(:product1).id}"
+    assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test 'adviser can see a product' do
     login_user 'advijirou', 'testtest'
-    visit "/products/#{products(:product_1).id}"
-    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    visit "/products/#{products(:product1).id}"
+    assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test 'graduate can see a product' do
     login_user 'sotugyou', 'testtest'
-    visit "/products/#{products(:product_1).id}"
-    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    visit "/products/#{products(:product1).id}"
+    assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "user who completed the practice can see the other user's product" do
     login_user 'kimura', 'testtest'
-    visit "/products/#{products(:product_1).id}"
-    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    visit "/products/#{products(:product1).id}"
+    assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "can see other user's product if it is permitted" do
     login_user 'hatsuno', 'testtest'
-    visit "/products/#{products(:product_3).id}"
-    assert_equal "#{products(:product_3).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    visit "/products/#{products(:product3).id}"
+    assert_equal "#{products(:product3).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "can not see other user's product if it isn't permitted" do
     login_user 'hatsuno', 'testtest'
-    visit "/products/#{products(:product_1).id}"
+    visit "/products/#{products(:product1).id}"
     assert_not_equal '提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     assert_text 'プラクティスを完了するまで他の人の提出物は見れません。'
   end
@@ -77,7 +77,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'create product' do
     login_user 'yamada', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice_6).id}"
+    visit "/products/new?practice_id=#{practices(:practice6).id}"
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -88,20 +88,20 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'create product change status submitted' do
     login_user 'yamada', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice_6).id}"
+    visit "/products/new?practice_id=#{practices(:practice6).id}"
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
     assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
 
-    visit "/practices/#{practices(:practice_6).id}"
+    visit "/practices/#{practices(:practice6).id}"
     assert_equal first('.test-product').text, '提出物へ'
   end
 
   test 'update product' do
     login_user 'yamada', 'testtest'
-    product = products(:product_1)
+    product = products(:product1)
     visit "/products/#{product.id}/edit"
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
@@ -112,7 +112,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'delete product' do
     login_user 'yamada', 'testtest'
-    product = products(:product_1)
+    product = products(:product1)
     visit "/products/#{product.id}"
     accept_confirm do
       click_link '削除'
@@ -122,13 +122,13 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'product has a comment form ' do
     login_user 'yamada', 'testtest'
-    visit "/products/#{products(:product_1).id}"
+    visit "/products/#{products(:product1).id}"
     assert_selector '.thread-comment-form'
   end
 
   test 'admin can delete a product' do
     login_user 'komagata', 'testtest'
-    product = products(:product_1)
+    product = products(:product1)
     visit "/products/#{product.id}"
     accept_confirm do
       click_link '削除'
@@ -138,7 +138,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'create product as WIP' do
     login_user 'yamada', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice_6).id}"
+    visit "/products/new?practice_id=#{practices(:practice6).id}"
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -148,7 +148,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'update product as WIP' do
     login_user 'yamada', 'testtest'
-    product = products(:product_1)
+    product = products(:product1)
     visit "/products/#{product.id}/edit"
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
@@ -163,7 +163,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     login_user 'kensyu', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice_3).id}"
+    visit "/products/new?practice_id=#{practices(:practice3).id}"
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -172,7 +172,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     login_user 'komagata', 'testtest'
     visit '/notifications'
-    assert_no_text "kensyuさんが「#{practices(:practice_3).id}」の提出物を提出しました。"
+    assert_no_text "kensyuさんが「#{practices(:practice3).id}」の提出物を提出しました。"
   end
 
   test "Don't notify if update product as WIP" do
@@ -181,7 +181,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     login_user 'kensyu', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice_3).id}"
+    visit "/products/new?practice_id=#{practices(:practice3).id}"
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -195,12 +195,12 @@ class ProductsTest < ApplicationSystemTestCase
 
     login_user 'komagata', 'testtest'
     visit '/notifications'
-    assert_no_text "kensyuさんが「#{practices(:practice_3).title}」の提出物を提出しました。"
+    assert_no_text "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。"
   end
 
   test 'Slack notify if the create product' do
     login_user 'kensyu', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice_3).id}"
+    visit "/products/new?practice_id=#{practices(:practice3).id}"
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -209,14 +209,14 @@ class ProductsTest < ApplicationSystemTestCase
 
     Rails.logger.stub(:info, stub_info) do
       click_button '提出する'
-      assert_match "kensyu さんが「#{practices(:practice_3).title}」の提出物を提出しました。", mock_log.to_s
+      assert_match "kensyu さんが「#{practices(:practice3).title}」の提出物を提出しました。", mock_log.to_s
     end
     assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
   end
 
   test 'Slack notify if the create product as WIP' do
     login_user 'kensyu', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice_3).id}"
+    visit "/products/new?practice_id=#{practices(:practice3).id}"
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -225,7 +225,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     Rails.logger.stub(:info, stub_info) do
       click_button 'WIP'
-      assert_no_match "kensyu さんが「#{practices(:practice_3).title}」の提出物を提出しました。", mock_log.to_s
+      assert_no_match "kensyu さんが「#{practices(:practice3).title}」の提出物を提出しました。", mock_log.to_s
     end
     assert_text '提出物をWIPとして保存しました。'
   end

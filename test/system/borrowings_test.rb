@@ -8,7 +8,7 @@ class BorrowingsTest < ApplicationSystemTestCase
   end
 
   test 'borrow and return book' do
-    book = books(:book_2)
+    book = books(:book2)
     visit "books/#{book.id}"
     click_button '借りる'
     assert_text '書籍を借りました。'
@@ -17,7 +17,7 @@ class BorrowingsTest < ApplicationSystemTestCase
   end
 
   test 'show borrowed when the book is borrowed' do
-    book = books(:book_1)
+    book = books(:book1)
     visit "books/#{book.id}"
     assert_text '貸出中'
   end

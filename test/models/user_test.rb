@@ -63,10 +63,10 @@ class UserTest < ActiveSupport::TestCase
   test '#completed_percentage' do
     user = users(:komagata)
     old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice_5)
+    user.completed_practices << practices(:practice5)
     assert_not_equal old_percentage, user.completed_percentage
     old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice_53)
+    user.completed_practices << practices(:practice53)
     assert_equal old_percentage, user.completed_percentage
   end
 
@@ -209,7 +209,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#active_practice' do
-    assert_equal(users(:komagata).active_practice, practices(:practice_1).id)
+    assert_equal(users(:komagata).active_practice, practices(:practice1).id)
     assert_nil(users(:machida).active_practice)
   end
 
@@ -247,7 +247,7 @@ class UserTest < ActiveSupport::TestCase
 
   test '#completed_all_practices?' do
     hajime = users(:hajime)
-    category_11 = categories(:category_11)
-    assert hajime.completed_all_practices?(category_11)
+    category11 = categories(:category11)
+    assert hajime.completed_all_practices?(category11)
   end
 end

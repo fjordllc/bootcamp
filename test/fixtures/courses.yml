@@ -1,14 +1,14 @@
-course_1:
+course1:
   title: Rails Webプログラマー
   description: "Linux, Web, Ruby, Railsなどを学んでWebエンジニアになろう。"
-  categories: category_1, category_2, category_3, category_4, category_5, category_6,  category_7, category_8, category_9, category_10, category_11, category_12, category_15, category_16,
+  categories: category1, category2, category3, category4, category5, category6,  category7, category8, category9, category10, category11, category12, category15, category16,
 
-course_2:
+course2:
   title: Unityゲームプログラマー
   description: "Unity, C#を学んでゲームプログラマーになろう。"
-  categories: category_17, category_18, category_19, category_20, category_21
+  categories: category17, category18, category19, category20, category21
 
-course_3:
+course3:
   title: iOSプログラマー
   description: "iOS, Swiftを学んでiOSプログラマーになろう。"
-  categories: category_13
+  categories: category13
