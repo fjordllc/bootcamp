@@ -13,7 +13,7 @@ header.page-header
     .form__items
       .form-item
         .a-text-input.is-inputed.is-align-center
-          | #{@card['brand']} **** **** **** #{@card['last4']} #{sprintf('%02d', @card['exp_month'].to_i)}/#{@card['exp_year']}
+          | #{@card['brand']} **** **** **** #{@card['last4']} #{format('%02d', @card['exp_month'].to_i)}/#{@card['exp_year']}
     .form-actions
       ul.form-actions__items
         li.form-actions__item.is-main
