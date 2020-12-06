@@ -29,7 +29,7 @@ ActsAsTaggableOnMigration.class_eval do
     end
 
     add_index :taggings, :tag_id
-    add_index :taggings, [:taggable_id, :taggable_type, :context]
+    add_index :taggings, %i[taggable_id taggable_type context]
   end
   # rubocop:enable Rails/CreateTableWithTimestamps
 

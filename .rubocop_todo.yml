@@ -35,13 +35,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/question.rb'
     - 'app/models/user.rb'
 
-# Offense count: 29
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, MinSize.
-# SupportedStyles: percent, brackets
-Style/SymbolArray:
-  Enabled: false
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoredMethods.

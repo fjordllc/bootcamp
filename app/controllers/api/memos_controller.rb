@@ -2,7 +2,7 @@
 
 class API::MemosController < API::BaseController
   before_action :require_admin_login_for_api
-  before_action :set_memo, only: [:update, :destroy]
+  before_action :set_memo, only: %i[update destroy]
 
   def create
     memo = Memo.new(memo_params)

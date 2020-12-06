@@ -97,7 +97,7 @@ class ReportsController < ApplicationController
       :emotion,
       :description,
       practice_ids: [],
-      learning_times_attributes: [:id, :started_at, :finished_at, :_destroy]
+      learning_times_attributes: %i[id started_at finished_at _destroy]
     )
   end
 
