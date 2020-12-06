@@ -2,6 +2,7 @@
 
 require Rails.root.join('config/environment')
 
+# rubocop:disable Metrics/BlockLength
 namespace :bootcamp do
   desc 'Find broken links in practices, pages.'
   task find_broken_link: :environment do
@@ -49,3 +50,4 @@ namespace :bootcamp do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

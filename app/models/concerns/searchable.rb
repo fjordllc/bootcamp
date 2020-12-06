@@ -3,6 +3,7 @@
 module Searchable
   extend ActiveSupport::Concern
 
+  # rubocop:disable Metrics/BlockLength
   class_methods do
     def search_by_keywords(searched_values = {})
       ransack(**params_for_keyword_search(searched_values)).result
@@ -41,6 +42,7 @@ module Searchable
       { 'user_id_eq' => user&.id || 0 }
     end
   end
+  # rubocop:enable Metrics/BlockLength
 
   def description
     case self
