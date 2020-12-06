@@ -40,7 +40,7 @@ header.page-header
           .thread-header__lower-side
             #js-watch(data-watchable-id="#{@question.id}", data-watchable-type='Question')
             .thread-header__raw
-              = link_to 'Raw', question_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank'
+              = link_to 'Raw', question_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank', rel: 'noopener'
         #js-question-tags(
           data-tags-initial-value="#{@question.tag_list.join(',')}"
           data-tags-param-name='question[tag_list]'
