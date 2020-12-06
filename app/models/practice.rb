@@ -3,7 +3,7 @@
 class Practice < ApplicationRecord
   include Searchable
 
-  has_many :learnings
+  has_many :learnings, dependent: :destroy
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany
   has_many :started_learnings,
            -> { where(status: 'started') },
@@ -23,10 +23,10 @@ class Practice < ApplicationRecord
            -> { students_and_trainees },
            through: :started_learnings,
            source: :user
-  has_many :products
-  has_many :questions
-  has_many :pages
-  has_one :learning_minute_statistic
+  has_many :products, dependent: :destroy
+  has_many :questions, dependent: :nullify
+  has_many :pages, dependent: :nullify
+  has_one :learning_minute_statistic, dependent: :destroy
   belongs_to :last_updated_user, class_name: 'User', optional: true
 
   has_and_belongs_to_many :categories, dependent: :destroy

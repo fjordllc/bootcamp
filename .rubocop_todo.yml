@@ -22,15 +22,3 @@ Metrics/ClassLength:
 # SupportedStyles: snake_case, normalcase, non_integer
 Naming/VariableNumber:
   Enabled: false
-
-# Offense count: 12
-# Configuration parameters: Include.
-# Include: app/models/**/*.rb
-Rails/HasManyOrHasOneDependent:
-  Exclude:
-    - 'app/models/book.rb'
-    - 'app/models/company.rb'
-    - 'app/models/course.rb'
-    - 'app/models/practice.rb'
-    - 'app/models/question.rb'
-    - 'app/models/user.rb'
