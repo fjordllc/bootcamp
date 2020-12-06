@@ -10,7 +10,7 @@ module LinkChecker
         'HDDが分かる',
         'http://homepage2.nifty.com/kamurai/HDD.htm',
         'PC性能の見方を知る',
-        "https://bootcamp.fjord.jp/practices/#{practices(:practice_3).id}",
+        "https://bootcamp.fjord.jp/practices/#{practices(:practice_3).id}"
       )
 
       @link_cpu = LinkChecker::Link.new(
@@ -24,7 +24,7 @@ module LinkChecker
         '存在しないページ',
         'http://example.com/xxxxx',
         'Docsページ',
-        "https://bootcamp.fjord.jp/pages/#{pages(:page_3).id}",
+        "https://bootcamp.fjord.jp/pages/#{pages(:page_3).id}"
       )
 
       @link_example = LinkChecker::Link.new(

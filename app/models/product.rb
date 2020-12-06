@@ -76,7 +76,7 @@ class Product < ApplicationRecord
   def change_learning_status(status)
     learning = Learning.find_or_initialize_by(
       user_id: user.id,
-      practice_id: practice.id,
+      practice_id: practice.id
     )
     learning.update(status: status)
   end

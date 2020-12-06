@@ -34,7 +34,7 @@ class API::ReservationsController < API::BaseController
       :date,
       :seat_id,
       { seat_id: [] },
-      { date: [] },
+      { date: [] }
     )
   end
 
