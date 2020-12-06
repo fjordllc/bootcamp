@@ -18,7 +18,7 @@ class ProductCallbacks
         )
         create_watch(
           watchers: product.user.company.advisers,
-          watchable: product,
+          watchable: product
         )
       end
       product.published_at = Time.current
