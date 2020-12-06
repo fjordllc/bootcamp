@@ -2,6 +2,6 @@
 
 class AddIndexToWorks < ActiveRecord::Migration[6.0]
   def change
-    add_index :works, [:user_id, :title], unique: true
+    add_index :works, %i[user_id title], unique: true
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::SeatsController < AdminController
-  before_action :set_seat, only: [:edit, :update, :destroy]
+  before_action :set_seat, only: %i[edit update destroy]
 
   def index
     @seats = Seat.all

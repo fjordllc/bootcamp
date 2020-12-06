@@ -10,6 +10,6 @@ class CreateChecks < ActiveRecord::Migration[5.0]
     end
     add_index :checks, :user_id
     add_index :checks, :report_id
-    add_index :checks, [:user_id, :report_id], unique: true
+    add_index :checks, %i[user_id report_id], unique: true
   end
 end

@@ -163,17 +163,17 @@ class User < ApplicationRecord
     validates :satisfaction, presence: true
   end
 
-  flag :retire_reasons, [
-    :done,
-    :necessity,
-    :other_school,
-    :time,
-    :motivation,
-    :curriculum,
-    :support,
-    :environment,
-    :cost,
-    :job_change
+  flag :retire_reasons, %i[
+    done
+    necessity
+    other_school
+    time
+    motivation
+    curriculum
+    support
+    environment
+    cost
+    job_change
   ]
 
   scope :in_school, -> { where(graduated_on: nil) }

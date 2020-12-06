@@ -164,7 +164,7 @@ class CommentsTest < ApplicationSystemTestCase
     # クリップボードを直接読み取る方法がないので、未入力のテキストエリアを経由してクリップボードの値を読み取っている
     # また、Ctrl-Vではペーストできなかったので、かわりにShift-Insertをショートカットキーとして使っている
     # 参考 https://stackoverflow.com/a/57955123/1058763
-    find('#js-new-comment').send_keys [:shift, :insert]
+    find('#js-new-comment').send_keys %i[shift insert]
     clip_text = find('#js-new-comment').value
     assert_equal current_url + "#comment_#{comments(:comment_1).id}", clip_text
   end
