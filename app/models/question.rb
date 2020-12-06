@@ -9,7 +9,7 @@ class Question < ApplicationRecord
 
   belongs_to :practice, optional: true
   belongs_to :user, touch: true
-  has_one :correct_answer
+  has_one :correct_answer, dependent: :destroy
   has_many :answers, dependent: :destroy
   alias sender user
 

@@ -2,7 +2,7 @@
 
 class Company < ApplicationRecord
   LOGO_SIZE = '88x88>'
-  has_many :users
+  has_many :users, dependent: :nullify
   validates :name, presence: true
   has_one_attached :logo
 
