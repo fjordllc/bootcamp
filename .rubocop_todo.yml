@@ -34,9 +34,3 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/practice.rb'
     - 'app/models/question.rb'
     - 'app/models/user.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/ZeroLengthPredicate:
-  Exclude:
-    - 'app/models/card.rb'
