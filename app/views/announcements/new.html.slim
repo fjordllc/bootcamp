@@ -1,5 +1,5 @@
-- title "お知らせ作成"
-- content_for(:extra_body_classes, "no-recent-reports")
+- title 'お知らせ作成'
+- content_for(:extra_body_classes, 'no-recent-reports')
 
 header.page-header
   .container
@@ -8,10 +8,10 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to announcements_path, class: "a-button is-md is-secondary is-block" do
+            = link_to announcements_path, class: 'a-button is-md is-secondary is-block' do
               i.fa.fa-angle-left
               | お知らせ一覧へ
 
 .page-body
   .container
-    = render "form", announcement: @announcement
+    = render 'form', announcement: @announcement

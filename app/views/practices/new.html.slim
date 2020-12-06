@@ -1,5 +1,5 @@
-- title "プラクティス作成"
-- content_for(:extra_body_classes, "no-recent-reports")
+- title 'プラクティス作成'
+- content_for(:extra_body_classes, 'no-recent-reports')
 
 header.page-header
   .container
@@ -8,4 +8,4 @@ header.page-header
         = title
 .page-body
   .container
-    = render "form", practice: @practice
+    = render 'form', practice: @practice

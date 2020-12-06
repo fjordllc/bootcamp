@@ -1,4 +1,4 @@
-- title "書籍一覧"
+- title '書籍一覧'
 
 header.page-header
   .container
@@ -7,21 +7,21 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to new_admin_book_path, class: "a-button is-md is-warning is-block" do
+            = link_to new_admin_book_path, class: 'a-button is-md is-warning is-block' do
               i.fas.fa-plus
               | 書籍追加
 
 .page-tools
-  = render "admin/admin_page_tabs"
+  = render 'admin/admin_page_tabs'
 
 .page-body
   .container.is-padding-horizontal-0-sm-down
-    = paginate @books, position: "top"
-    = render "table", books: @books
-    = paginate @books, position: "bottom"
+    = paginate @books, position: 'top'
+    = render 'table', books: @books
+    = paginate @books, position: 'bottom'
     .card-footer
       .card-footer-actions
         .card-footer-actions__items
-          = link_to admin_books_qrcodes_path, class: "card-footer-actions_action a-button is-md is-warning is-block", target: "_blank", rel: "noopener" do
+          = link_to admin_books_qrcodes_path, class: 'card-footer-actions_action a-button is-md is-warning is-block', target: '_blank', rel: 'noopener' do
             i.fas.fa-print
             | 印刷ページ

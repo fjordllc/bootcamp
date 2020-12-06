@@ -1,20 +1,20 @@
-.thread-list-item(class="#{product.wip? ? "is-wip" : ""}")
+.thread-list-item(class="#{product.wip? ? 'is-wip' : ''}")
   .thread-list-item__inner
     .thread-list-item__author
-      = render "users/icon", user: product.user, link_class: "thread-header__author", image_class: "thread-list-item__author-icon"
+      = render 'users/icon', user: product.user, link_class: 'thread-header__author', image_class: 'thread-list-item__author-icon'
     header.thread-list-item__header
       .thread-list-item__header-title-container
         - if product.wip?
           .thread-list-item__header-icon.is-wip WIP
-        h2.thread-list-item__title(itemprop="name")
-          = link_to product, itemprop: "url", class: "thread-list-item__title-link js-unconfirmed-link" do
+        h2.thread-list-item__title(itemprop='name')
+          = link_to product, itemprop: 'url', class: 'thread-list-item__title-link js-unconfirmed-link' do
             - if product.user.daimyo?
               | ★
             | #{product.practice.title}の提出物
     .thread-list-item-meta
       .thread-list-item-meta__items
         .thread-list-item-meta__item
-          = link_to product.user, class: "thread-header__author" do
+          = link_to product.user, class: 'thread-header__author' do
             = product.user.login_name
 
         .thread-list-item-meta__item
@@ -46,9 +46,9 @@
           .thread-list-item-meta__comment-count-value （#{product.comments.size}）
         .thread-list-item__user-icons
           .thread-list-item__user-icon
-            = render partial: "users/icon",
+            = render partial: 'users/icon',
               collection: product.commented_users.distinct,
-              locals: { image_class: "thread-list-item__checked-author-icon" },
+              locals: { image_class: 'thread-list-item__checked-author-icon' },
               as: :user,
               cached: true
         time.thread-list-item-meta__datetime(datetime="#{product.commented_users.last.created_at.to_datetime}")

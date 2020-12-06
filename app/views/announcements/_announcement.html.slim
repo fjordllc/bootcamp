@@ -9,33 +9,33 @@
 
       .thread-header__lower-side
         .thread-header__lower-side-author-name
-          = link_to announcement.user, class: "thread-header__lower-side-author-name-link" do
+          = link_to announcement.user, class: 'thread-header__lower-side-author-name-link' do
             = announcement.user.login_name
-        time.thread-header__lower-side-created-at(datetime="#{announcement.created_at.to_datetime}" pubdate="pubdate")
+        time.thread-header__lower-side-created-at(datetime="#{announcement.created_at.to_datetime}" pubdate='pubdate')
           | 書いた日 : #{l announcement.updated_at}
 
     .thread__body
       .thread__description.js-target-blank.is-long-text.js-markdown-view
         = announcement.description
-      = render "reactions/reactions", reactionable: @announcement
+      = render 'reactions/reactions', reactionable: @announcement
       - if admin_login? || @announcement.user_id == current_user.id
         .card-footer
           .card-footer-actions
             ul.card-footer-actions__items
               li.card-footer-actions__item
-                = link_to edit_announcement_path(announcement), class: "card-footer-actions__action a-button is-md is-primary is-block", id: "js-shortcut-edit" do
+                = link_to edit_announcement_path(announcement), class: 'card-footer-actions__action a-button is-md is-primary is-block', id: 'js-shortcut-edit' do
                   i.fas.fa-pen#new
                   | 内容修正
               li.card-footer-actions__item
-                = link_to new_announcement_path(id: announcement), class: "card-footer-actions__action a-button is-md is-warning is-block" do
+                = link_to new_announcement_path(id: announcement), class: 'card-footer-actions__action a-button is-md is-warning is-block' do
                   i.fas.fa-copy#copy
                   | コピー
               li.card-footer-actions__item
-                = link_to announcement_path(announcement), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
+                = link_to announcement_path(announcement), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__action a-button is-md is-danger is-block' do
                   i.fas.fa-trash-alt#delete
                   | 削除
 
-  = render "users/icon",
+  = render 'users/icon',
     user: announcement.user,
-    link_class: "thread__author-link",
-    image_class: "thread__author-icon"
+    link_class: 'thread__author-link',
+    image_class: 'thread__author-icon'

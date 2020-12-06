@@ -2,7 +2,7 @@
   .container
     ul.page-tabs__items
       li.page-tabs__item
-        = link_to "全ての書籍", books_path, class: "page-tabs__item-link #{current_link(/^books-index/)}"
+        = link_to '全ての書籍', books_path, class: "page-tabs__item-link #{current_link(/^books-index/)}"
       li.page-tabs__item
         = link_to borrowed_index_path, class: "page-tabs__item-link #{current_link(/^books-borrowed-index/)}" do
           | 貸出中

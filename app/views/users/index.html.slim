@@ -1,4 +1,4 @@
-- title "ユーザー一覧"
+- title 'ユーザー一覧'
 
 header.page-header.is-margin-bottom-0.is-border-bottom-none
   .container
@@ -8,17 +8,17 @@ header.page-header.is-margin-bottom-0.is-border-bottom-none
       .page-header-actions
         ul.page-header-actions__items
 
-= render "lg_page_tabs"
+= render 'lg_page_tabs'
 
 .page-tools
-  = render "nav"
+  = render 'nav'
 
 .page-notice
   .container
     .page-notice__inner
       p
         | 気になるユーザーをフォローしてみよう！自分が誰をフォローしているかを知られることはありません。
-        | #{ link_to "くわしくはこちら", "/pages/303" }
+        | #{ link_to 'くわしくはこちら', '/pages/303' }
 
 main.page-main
   header.page-main-header
@@ -27,12 +27,12 @@ main.page-main
         h1.page-main-header__title
           | #{t("target.#{@target}")}（#{@users.total_count}）
   .page-body
-    = paginate @users, position: "top"
+    = paginate @users, position: 'top'
     .container
       .users
         .row.is-gutter-width-32
           - if @users.size.positive?
-            = render partial: "users/user", collection: @users, as: :user
+            = render partial: 'users/user', collection: @users, as: :user
           - else
             .o-empty-massage
               .o-empty-massage__icon
@@ -40,4 +40,4 @@ main.page-main
               p.o-empty-massage__text
                 = t("target.#{@target}")
                 | のユーザーはいません
-    = paginate @users, position: "bottom"
+    = paginate @users, position: 'bottom'

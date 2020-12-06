@@ -1,7 +1,7 @@
-- content_for(:extra_body_classes, "no-header no-recent-reports no-global-nav")
+- content_for(:extra_body_classes, 'no-header no-recent-reports no-global-nav')
 .thanks
-  = link_to root_path, class: "" do
-    = image_tag("logo.svg", class: "thanks__logo-image")
+  = link_to root_path, class: '' do
+    = image_tag('logo.svg', class: 'thanks__logo-image')
   .thanks__body
     .thanks__icon
       i.fas.fa-check-circle
@@ -11,5 +11,5 @@
       p
         | 申し込みが送信されました。
         br
-        = link_to "@komagata", "https://twitter.com/komagata", target: "_blank"
+        = link_to '@komagata', 'https://twitter.com/komagata', target: '_blank'
         | が折り返しメールします。

@@ -8,4 +8,4 @@ nav.tab-nav
         - targets += %w[job_seeking]
       - targets.each do |target|
         li.tab-nav__item
-          = link_to t("target.#{target}"), users_path(target: target), class: (@target == target ? ["is-active"] : []) << "tab-nav__item-link"
+          = link_to t("target.#{target}"), users_path(target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'

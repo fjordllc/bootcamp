@@ -46,7 +46,6 @@ linters:
       - Lint/EmptyConditionalBody
       - Layout/SpaceAroundMethodCallOperator
       - Layout/SpaceInsideStringInterpolation
-      - Style/StringLiteralsInInterpolation
       - Style/SymbolProc
       - Style/FormatString
       - Style/NestedTernaryOperator

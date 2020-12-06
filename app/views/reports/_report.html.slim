@@ -1,27 +1,27 @@
-.thread-list-item(class="#{report.wip? ? "is-wip" : ""}")
+.thread-list-item(class="#{report.wip? ? 'is-wip' : ''}")
   .thread-list-item__inner
     .thread-list-item__author
-      = render "users/icon", user: report.user, link_class: "thread-header__author", image_class: "thread-list-item__author-icon"
+      = render 'users/icon', user: report.user, link_class: 'thread-header__author', image_class: 'thread-list-item__author-icon'
     header.thread-list-item__header
       .thread-list-item__header-title-container
         - if report.wip?
           .thread-list-item__header-icon.is-wip WIP
-        h2.thread-list-item__title(itemprop="name")
-          = link_to report, itemprop: "url", class: "thread-list-item__title-link js-unconfirmed-link" do
+        h2.thread-list-item__title(itemprop='name')
+          = link_to report, itemprop: 'url', class: 'thread-list-item__title-link js-unconfirmed-link' do
             - if report.user.daimyo?
               | ★
             = report.title
       - if current_user == report.user
         .thread-list-item__actions
-          = link_to edit_report_path(report), class: "thread-list-item__actions-link" do
+          = link_to edit_report_path(report), class: 'thread-list-item__actions-link' do
             i.fas.fa-pen
-          = link_to new_report_path(id: report), class: "thread-list-item__actions-link" do
+          = link_to new_report_path(id: report), class: 'thread-list-item__actions-link' do
             i.fas.fa-copy
     .thread-list-item-meta
-      = link_to report.user.login_name, report.user, class: "thread-header__author"
+      = link_to report.user.login_name, report.user, class: 'thread-header__author'
       time.thread-list-item-meta__datetime(datetime="#{report.reported_on.to_datetime}")
         = l report.reported_on
-        = "の日報"
+        = 'の日報'
     - if report.comments.any?
       .thread-list-item-meta
         .thread-list-item-meta__label
@@ -29,8 +29,8 @@
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-value
             | （#{report.comments.size}）
-        = render partial: "comments/user_icons", collection: report.comments.commented_users, as: :user
-        time.thread-list-item-meta__datetime(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate="pubdate")
+        = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
+        time.thread-list-item-meta__datetime(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate='pubdate')
           | 〜 #{l report .comments.last.updated_at, format: :date_and_time}
 
     - if report.checks.any?

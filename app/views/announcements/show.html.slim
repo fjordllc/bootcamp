@@ -7,15 +7,15 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to new_announcement_path, class: "a-button is-md is-warning is-block" do
+            = link_to new_announcement_path, class: 'a-button is-md is-warning is-block' do
               i.fa.fa-plus
               | お知らせ作成
           li.page-header-actions__item
-            = link_to announcements_path, class: "a-button is-md is-secondary is-block" do
+            = link_to announcements_path, class: 'a-button is-md is-secondary is-block' do
               | お知らせ一覧へ
 
 .page-body
   .container
-    = render "announcement", announcement: @announcement
-    #js-comments(data-commentable-id="#{@announcement.id}" data-commentable-type="Announcement" data-current-user-id="#{current_user.id}")
-    = render "footprints/footprints", footprints: @footprints
+    = render 'announcement', announcement: @announcement
+    #js-comments(data-commentable-id="#{@announcement.id}" data-commentable-type='Announcement' data-current-user-id="#{current_user.id}")
+    = render 'footprints/footprints', footprints: @footprints

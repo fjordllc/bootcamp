@@ -8,8 +8,8 @@
           = link_to reservation.user do
             = image_tag reservation.user.avatar_url, class: "thread-list-item__author-icon a-user-icon is-#{reservation.user.role}"
         header.thread-list-item__header
-          h2.thread-list-item__title(itemprop="name")
-            = link_to reservation.user, itemprop: "url", class: "thread-list-item__title-link" do
+          h2.thread-list-item__title(itemprop='name')
+            = link_to reservation.user, itemprop: 'url', class: 'thread-list-item__title-link' do
               | #{reservation.user.name}（#{reservation.user.login_name}）
         .thread-list-item-meta
           .thread-list-item-meta__items

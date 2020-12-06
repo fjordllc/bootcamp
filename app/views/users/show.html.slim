@@ -7,13 +7,13 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to "ユーザー一覧", users_path, class: "a-button is-md is-secondary is-block"
+            = link_to 'ユーザー一覧', users_path, class: 'a-button is-md is-secondary is-block'
           - if current_user == @user
             li.page-header-actions__item
-              = link_to "登録情報変更", edit_current_user_path, class: "a-button is-md is-warning is-block"
+              = link_to '登録情報変更', edit_current_user_path, class: 'a-button is-md is-warning is-block'
 
 .page-tools
-  = render "users/page_tabs", user: @user
+  = render 'users/page_tabs', user: @user
 
 .page-body
   - if current_user == @user
@@ -22,7 +22,7 @@ header.page-header
         .page-notice__inner
           p
             | このページは他のユーザーから見た、あなたのプロフィールページです。
-            | （ #{ link_to "登録情報変更", edit_current_user_path } ）
+            | （ #{ link_to '登録情報変更', edit_current_user_path } ）
   .container
     .columns
       .row
@@ -30,15 +30,15 @@ header.page-header
           .a-card.is-user
             - if admin_login? && @user.retired_on? && (@user.slack_participation? || @user.github_collaborator? || @user.officekey_permission?)
               .a-card__alert
-                = link_to edit_admin_user_path(anchor: "external-services") do
+                = link_to edit_admin_user_path(anchor: 'external-services') do
                   | 外部サービスの設定を変更してください。
             .user-data__inner
               header.user-data__header
                 .user-data__main
-                  = render "users/profile", user: @user
+                  = render 'users/profile', user: @user
                 .user-data__sub
-                  = render "users/user_secret_attributes", user: @user
-                  = render "users/metas", user: @user
+                  = render 'users/user_secret_attributes', user: @user
+                  = render 'users/metas', user: @user
               .user-data__description
                 = simple_format h @user.description
 
@@ -50,21 +50,21 @@ header.page-header
                       .js-following(data-is-following="#{current_user.following?(@user)}" data-user-id="#{@user.id}")
                   - if current_user == @user
                     li.card-footer-actions__item
-                      = link_to "登録情報変更", edit_current_user_path, class: "card-footer-actions__action a-button is-md is-secondary is-block"
+                      = link_to '登録情報変更', edit_current_user_path, class: 'card-footer-actions__action a-button is-md is-secondary is-block'
                   - elsif admin_login?
                     li.card-footer-actions__item
-                      = link_to "管理者として情報変更", edit_admin_user_path, class: "card-footer-actions__action a-button is-sm is-secondary is-block"
+                      = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-footer-actions__action a-button is-sm is-secondary is-block'
         .col-xs-12.col-lg-7.col-xxl-6
           - unless @user.total_learning_time.zero? || @user.mentor?
-            = render "users/grass", user: @user
+            = render 'users/grass', user: @user
           - if @user.github_account.present?
-            = render "users/github_grass", user: @user
+            = render 'users/github_grass', user: @user
           - if @user.active_practices.present?
-            = render "/users/practices/active_practices", user: @user
+            = render '/users/practices/active_practices', user: @user
           - if @user.student? && @user.graduated_on.blank?
-            = render "/users/niconico_calendar", user: @user
+            = render '/users/niconico_calendar', user: @user
           - if @user.completed_practices.present?
             - cache [@user, @completed_learnings] do
-              = render "/users/practices/completed_practices", user: @user, completed_learnings: @completed_learnings
+              = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
           - if @user.books.present?
-            = render "/users/borrowing_books", user: @user
+            = render '/users/borrowing_books', user: @user

@@ -8,7 +8,7 @@ header.page-header.is-margin-bottom-0.is-border-bottom-none
       .page-header-actions
         ul.page-header-actions__items
 
-= render "/users/lg_page_tabs"
+= render '/users/lg_page_tabs'
 
 main.page-main
   header.page-main-header
@@ -19,7 +19,7 @@ main.page-main
         .page-header-actions
           ul.page-header-actions__items
             li.page-header-actions__item
-              = link_to generations_path, class: "a-button is-md is-block is-secondary" do
+              = link_to generations_path, class: 'a-button is-md is-block is-secondary' do
                 | 期一覧
 
   .page-body
@@ -27,7 +27,7 @@ main.page-main
       - if @users.present?
         .users
           .row.is-gutter-width-32
-            = render partial: "users/user", collection: @users, as: :user
+            = render partial: 'users/user', collection: @users, as: :user
       - else
         .o-empty-massage
           .o-empty-massage__icon

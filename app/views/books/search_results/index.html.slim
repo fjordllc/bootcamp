@@ -8,10 +8,10 @@ header.page-header
         .page-header-actions__items
           .page-header-actions__item
 
-= render "books/search_bar"
+= render 'books/search_bar'
 
 .page-body
   .container.is-padding-horizontal-0-sm-down
-    = paginate @search_results, position: "top"
-    = render "books/table", books: @search_results if @search_results.any?
-    = paginate @search_results, position: "bottom"
+    = paginate @search_results, position: 'top'
+    = render 'books/table', books: @search_results if @search_results.any?
+    = paginate @search_results, position: 'bottom'

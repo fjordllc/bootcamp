@@ -1,14 +1,14 @@
 header.header
   .container.has-no-right-padding
     .header__container
-      = link_to root_path, class: "header__title" do
-        = image_tag("pjord-face.svg", alt: "プログラミングスクール", class: "header__title-image")
+      = link_to root_path, class: 'header__title' do
+        = image_tag('pjord-face.svg', alt: 'プログラミングスクール', class: 'header__title-image')
         - if current_user.graduated_on?
-          .user-part.is-header(class="is-graduate") 卒業生
+          .user-part.is-header(class='is-graduate') 卒業生
         - if current_user.adviser
-          .user-part.is-header(class="is-adviser") アドバイザー
+          .user-part.is-header(class='is-adviser') アドバイザー
         - if current_user.admin?
-          .user-part.is-header(class="is-admin") 管理者
-      = render "header_links"
+          .user-part.is-header(class='is-admin') 管理者
+      = render 'header_links'
 
       #js-notifications-mobile

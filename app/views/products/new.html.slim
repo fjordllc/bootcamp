@@ -1,5 +1,5 @@
-- title "提出物作成"
-- content_for(:extra_body_classes, "no-recent-reports")
+- title '提出物作成'
+- content_for(:extra_body_classes, 'no-recent-reports')
 
 header.page-header
   .container
@@ -16,4 +16,4 @@ header.page-header
         .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text
           = @product.practice.goal
 
-    = render "form", practice: @practice, product: @product
+    = render 'form', practice: @practice, product: @product

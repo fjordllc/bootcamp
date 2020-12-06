@@ -1,6 +1,6 @@
 .user-profile
   .user-profile__icon
-    = image_tag user.avatar_url, title: user.icon_title, class: "user-profile__user-icon-image a-user-icon is-#{user.role} #{user.daimyo? ? "is-daimyo" : ""}"
+    = image_tag user.avatar_url, title: user.icon_title, class: "user-profile__user-icon-image a-user-icon is-#{user.role} #{user.daimyo? ? 'is-daimyo' : ''}"
   .user-profile__names
     h1.user-profile__login-name
       - if user.daimyo?
@@ -20,7 +20,7 @@
               = user.slack_account
             - else
               | Slack未設定
-  = render "users/sns", user: user
+  = render 'users/sns', user: user
   - if user.company.present? && user.company.logo.attached?
     = link_to company_path(user.company) do
-      = image_tag user.company.logo_url, class: "user-profile__company-logo"
+      = image_tag user.company.logo_url, class: 'user-profile__company-logo'

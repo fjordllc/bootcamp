@@ -1,31 +1,31 @@
-= form_for [:admin, company], html: { name: "company" } do |f|
+= form_for [:admin, company], html: { name: 'company' } do |f|
   .form__items
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label :name, class: "a-label"
-          = f.text_field :name, class: "a-text-input"
+          = f.label :name, class: 'a-label'
+          = f.text_field :name, class: 'a-text-input'
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label :description, class: "a-label"
-          = f.text_area :description, size: "10x20", class: "a-text-input"
+          = f.label :description, class: 'a-label'
+          = f.text_area :description, size: '10x20', class: 'a-text-input'
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label :website, class: "a-label"
-          = f.text_field :website, class: "a-text-input"
+          = f.label :website, class: 'a-label'
+          = f.text_field :website, class: 'a-text-input'
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label :slack_channel, class: "a-label"
-          = f.text_field :slack_channel, class: "a-text-input"
+          = f.label :slack_channel, class: 'a-label'
+          = f.text_field :slack_channel, class: 'a-text-input'
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label "ロゴ", class: "a-label"
+          = f.label 'ロゴ', class: 'a-label'
           .form-item-file-input.js-file-input.a-file-input
-            label.js-file-input__preview(for="company_logo")
+            label.js-file-input__preview(for='company_logo')
               - if company.logo.attached?
                 = image_tag company.logo_url
                 p 画像を変更
@@ -35,6 +35,6 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item
-        = link_to "キャンセル", :back, class: "a-button is-md is-secondary"
+        = link_to 'キャンセル', :back, class: 'a-button is-md is-secondary'
       li.form-actions__item
-        = f.submit nil, class: "a-button is-lg is-warning"
+        = f.submit nil, class: 'a-button is-lg is-warning'
