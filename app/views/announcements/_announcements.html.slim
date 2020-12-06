@@ -26,7 +26,6 @@
           span.span.thread-list-item-meta__datetime-label
             | 公開
           | #{l announcement.published_at}
-        - if announcement.comments.any?
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-label
             i.fas.fa-comment
