@@ -1,7 +1,7 @@
 .user-reports-item
-  = link_to [product.practice, product], itemprop: "url", class: "user-reports-item__link" do
-    h3.user-reports-item__title(itemprop="name") = product.title
-    time.user-reports-item__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate="pubdate")
+  = link_to [product.practice, product], itemprop: 'url', class: 'user-reports-item__link' do
+    h3.user-reports-item__title(itemprop='name') = product.title
+    time.user-reports-item__updated-at(datetime="#{product.updated_at.to_datetime}" pubdate='pubdate')
       = l product.updated_at
     - if product.comments.any?
       .user-reports-item__comment-count

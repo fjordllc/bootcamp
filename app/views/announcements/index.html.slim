@@ -1,4 +1,4 @@
-- title "お知らせ"
+- title 'お知らせ'
 
 header.page-header
   .container
@@ -8,13 +8,13 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to new_announcement_path, class: "a-button is-md is-warning is-block" do
+            = link_to new_announcement_path, class: 'a-button is-md is-warning is-block' do
               i.fa.fa-plus
               | お知らせ作成
 
 .page-body
-  = paginate @announcements, position: "top"
+  = paginate @announcements, position: 'top'
   .container
     .thread-list.a-card
-      = render partial: "announcements", collection: @announcements, as: :announcement
-= paginate @announcements, position: "bottom"
+      = render partial: 'announcements', collection: @announcements, as: :announcement
+= paginate @announcements, position: 'bottom'

@@ -1,5 +1,5 @@
-- content_for(:extra_body_classes, "no-recent-reports")
-- title "コース作成"
+- content_for(:extra_body_classes, 'no-recent-reports')
+- title 'コース作成'
 
 header.page-header
   .container
@@ -7,4 +7,4 @@ header.page-header
       h2.page-header__title
         = title
 .container
-  = render "form", course: @course
+  = render 'form', course: @course

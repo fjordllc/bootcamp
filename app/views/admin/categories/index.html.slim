@@ -1,16 +1,16 @@
-- title "カテゴリー"
+- title 'カテゴリー'
 
 header.page-header
   .container
     .page-header__inner
       h1.page-header__title = title
       .page-header__action
-        = link_to new_admin_category_path, class: "a-button is-md is-warning is-block" do
+        = link_to new_admin_category_path, class: 'a-button is-md is-warning is-block' do
           i.fas.fa-plus
           | カテゴリー作成
 
 .page-tools
-  = render "admin/admin_page_tabs"
+  = render 'admin/admin_page_tabs'
 
 .page-body
   .container.is-padding-horizontal-0-sm-down
@@ -32,25 +32,25 @@ header.page-header
               td.admin-table__item-value.is-text-align-center
                 ul.is-button-group
                   li
-                    = link_to edit_admin_category_path(category), class: "a-button is-sm is-primary is-icon" do
+                    = link_to edit_admin_category_path(category), class: 'a-button is-sm is-primary is-icon' do
                       i.fas.fa-pen
                   li
                     = link_to [:admin, category],
-                      data: { confirm: "本当によろしいですか？" },
+                      data: { confirm: '本当によろしいですか？' },
                       method: :delete,
-                      class: "a-button is-sm is-danger is-icon js-delete" do
+                      class: 'a-button is-sm is-danger is-icon js-delete' do
                       i.fas.fa-trash-alt
               td.admin-table__item-value.is-text-align-center
                 ul.is-button-group
                   li
-                    = link_to admin_category_position_path(category, move: :top), method: :put, class: "a-button is-sm is-secondary is-icon" do
+                    = link_to admin_category_position_path(category, move: :top), method: :put, class: 'a-button is-sm is-secondary is-icon' do
                       i.fas.fa-angle-double-up
                   li
-                    = link_to admin_category_position_path(category, move: :higher), method: :put, class: "a-button is-sm is-secondary is-icon" do
+                    = link_to admin_category_position_path(category, move: :higher), method: :put, class: 'a-button is-sm is-secondary is-icon' do
                       i.fas.fa-angle-up
                   li
-                    = link_to admin_category_position_path(category, move: :lower), method: :put, class: "a-button is-sm is-secondary is-icon" do
+                    = link_to admin_category_position_path(category, move: :lower), method: :put, class: 'a-button is-sm is-secondary is-icon' do
                       i.fas.fa-angle-down
                   li
-                    = link_to admin_category_position_path(category, move: :bottom), method: :put, class: "a-button is-sm is-secondary is-icon" do
+                    = link_to admin_category_position_path(category, move: :bottom), method: :put, class: 'a-button is-sm is-secondary is-icon' do
                       i.fas.fa-angle-double-down

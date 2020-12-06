@@ -2,14 +2,14 @@
   .container
     ul.page-tabs__items
       li.page-tabs__item
-        = link_to company, class: "page-tabs__item-link #{current_page_tab_or_not("companies")}" do
+        = link_to company, class: "page-tabs__item-link #{current_page_tab_or_not('companies')}" do
           | 会社情報
       li.page-tabs__item
-        = link_to company_users_path(company), class: "page-tabs__item-link #{current_page_tab_or_not("users")}" do
+        = link_to company_users_path(company), class: "page-tabs__item-link #{current_page_tab_or_not('users')}" do
           | ユーザー
       li.page-tabs__item
-        = link_to company_reports_path(company), class: "page-tabs__item-link #{current_page_tab_or_not("reports")}" do
+        = link_to company_reports_path(company), class: "page-tabs__item-link #{current_page_tab_or_not('reports')}" do
           | 日報
       li.page-tabs__item
-        = link_to company_products_path(company), class: "page-tabs__item-link #{current_page_tab_or_not("products")}" do
+        = link_to company_products_path(company), class: "page-tabs__item-link #{current_page_tab_or_not('products')}" do
           | 提出物

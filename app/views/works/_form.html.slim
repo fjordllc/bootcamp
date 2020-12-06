@@ -1,24 +1,24 @@
-= render "errors", object: work
-= form_for work, class: "form" do |f|
+= render 'errors', object: work
+= form_for work, class: 'form' do |f|
   .form__items
     .form__items-inner
       .form-item
-        = f.label :title, class: "a-label is-required"
-        = f.text_field :title, class: "a-text-input js-warning-form"
+        = f.label :title, class: 'a-label is-required'
+        = f.text_field :title, class: 'a-text-input js-warning-form'
       .form-item
-        = f.label :url, class: "a-label"
-        = f.text_field :url, class: "a-text-input", placeholder: "https://speakerdeck.com/machida/rails-developers-meetup-2018-day-3-extreme"
+        = f.label :url, class: 'a-label'
+        = f.text_field :url, class: 'a-text-input', placeholder: 'https://speakerdeck.com/machida/rails-developers-meetup-2018-day-3-extreme'
         .a-form-help
           p
             | Webサービスの場合はそのサービスのURL、イベントで登壇した際のプレゼン資料の場合は、スライドのURLを入力してください。
       .form-item
-        = f.label :repository, class: "a-label"
-        = f.text_field :repository, class: "a-text-input", placeholder: "https://github.com/fjordllc/bootcamp"
+        = f.label :repository, class: 'a-label'
+        = f.text_field :repository, class: 'a-text-input', placeholder: 'https://github.com/fjordllc/bootcamp'
         .a-form-help
           p
             | URLかリポジトリ、どちらかが入力されていることが必須です。
       .form-item
-        = f.label :thumbnail, class: "a-label"
+        = f.label :thumbnail, class: 'a-label'
         .form-item-file-input.js-file-input.a-file-input.is-work-thumbnail
           label.js-file-input__preview
             - if work.thumbnail.attached?
@@ -35,8 +35,8 @@
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
-          = f.label :description, class: "a-label is-required"
-          = f.text_area :description, class: "a-text-input js-warning-form js-markdown markdown-form__text-area", data: { "preview": ".js-preview" }
+          = f.label :description, class: 'a-label is-required'
+          = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
           .a-form-help
             p
               | 作品の説明、使い方、作った背景、発表資料の場合はイベントの詳細もあるといいです。またそれを作ることで学んだこと、苦労したこと、身についたことなども。
@@ -48,4 +48,4 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main.is-help
-        = f.submit nil, class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
+        = f.submit nil, class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'

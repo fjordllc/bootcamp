@@ -8,7 +8,7 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to user_portfolio_path(@work.user), class: "a-button is-md is-secondary is-block" do
+            = link_to user_portfolio_path(@work.user), class: 'a-button is-md is-secondary is-block' do
               | ポートフォリオ
 
 .page-body
@@ -16,33 +16,33 @@ header.page-header
     .thread.is-header-author
       .thread__inner.a-card
         header.thread-header
-          = link_to user_portfolio_path(@work.user), itemprop: "url", class: "thread-header__author-link" do
+          = link_to user_portfolio_path(@work.user), itemprop: 'url', class: 'thread-header__author-link' do
             = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: "thread-header__author-icon a-user-icon is-#{@work.user.role}"
           h2.thread-header__title
             = @work.title
           .thread-header__lower-side
             .thread-header__lower-side-author-name
-              = link_to @work.user, class: "thread-header__lower-side-author-name-link" do
+              = link_to @work.user, class: 'thread-header__lower-side-author-name-link' do
                 = @work.user.login_name
             .thread-header__lower-side-date
               .thread-header__lower-side-label
                 | 登録日
-              time.thread-header__lower-side-value(datetime="#{@work.created_at.to_datetime}" pubdate="pubdate")
+              time.thread-header__lower-side-value(datetime="#{@work.created_at.to_datetime}" pubdate='pubdate')
                 = l @work.created_at
         - if @work.thumbnail.attached?
-          = image_tag @work.thumbnail_url, class: "thread__work-image"
+          = image_tag @work.thumbnail_url, class: 'thread__work-image'
         .thread__description.js-target-blank.is-long-text.js-markdown-view
           p = @work.description
         .card-footer
           ul.card-footer-actions__items
             - if @work.url.present?
               li.card-footer-actions__item
-                = link_to @work.url, target: "_blank", class: "card-footer-actions_action a-button is-lg is-main is-block" do
+                = link_to @work.url, target: '_blank', class: 'card-footer-actions_action a-button is-lg is-main is-block' do
                   i.fas.fa-globe
                   | URL
             - if @work.repository.present?
               li.card-footer-actions__item
-                = link_to @work.repository, target: "_blank", class: "card-footer-actions__action a-button is-lg is-main is-block" do
+                = link_to @work.repository, target: '_blank', class: 'card-footer-actions__action a-button is-lg is-main is-block' do
                   i.fab.fa-github-alt
                   | Repository
         - if @work.user == current_user || admin_login?
@@ -50,10 +50,10 @@ header.page-header
             .card-footer-actions
               ul.card-footer-actions__items
                 li.card-footer-actions__item
-                  = link_to edit_work_path(@work), class: "card-footer-actions_action a-button is-md is-primary is-block" do
+                  = link_to edit_work_path(@work), class: 'card-footer-actions_action a-button is-md is-primary is-block' do
                     i.fas.fa-pen
                     | 内容修正
                 li.card-footer-actions__item
-                  = link_to @work, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
+                  = link_to @work, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__action a-button is-md is-danger is-block' do
                     i.fas.fa-trash-alt
                     | 削除

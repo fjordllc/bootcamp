@@ -2,26 +2,26 @@
   .container.is-padding-horizontal-0-sm-down
     ul.page-tabs__items
       li.page-tabs__item
-        = link_to "管理ページ",
+        = link_to '管理ページ',
           admin_root_path,
           class: "page-tabs__item-link #{current_link(/^admin-home/)}"
       li.page-tabs__item
-        = link_to "ユーザー",
+        = link_to 'ユーザー',
           admin_users_path,
           class: "page-tabs__item-link #{current_link(/^admin-users/)}"
       li.page-tabs__item
-        = link_to "カテゴリー",
+        = link_to 'カテゴリー',
           admin_categories_path,
           class: "page-tabs__item-link #{current_link(/^admin-categories/)}"
       li.page-tabs__item
-        = link_to "企業",
+        = link_to '企業',
           admin_companies_path,
           class: "page-tabs__item-link #{current_link(/^admin-companies/)}"
       li.page-tabs__item
-        = link_to "書籍",
+        = link_to '書籍',
           admin_books_path,
           class: "page-tabs__item-link #{current_link(/^admin-books/)}"
       li.page-tabs__item
-        = link_to "席",
+        = link_to '席',
           admin_seats_path,
           class: "page-tabs__item-link #{current_link(/^admin-seats/)}"

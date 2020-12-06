@@ -2,7 +2,7 @@
   ul.card-list__items
     - completed_learnings.each do |learning|
       li.card-list__item
-        = link_to learning.practice, class: "card-list__item-link" do
+        = link_to learning.practice, class: 'card-list__item-link' do
           = learning.practice.title
           .card-list__item-link-date
             .card-list__item-link-date-label

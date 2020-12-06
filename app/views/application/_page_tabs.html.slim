@@ -5,9 +5,9 @@
         - if tab[:is_products_tab]
           - case resource
           - when User
-            = render "page_tab", tab: tab
+            = render 'page_tab', tab: tab
           - when Practice
             - if @practice.submission
-              = render "page_tab", tab: tab
+              = render 'page_tab', tab: tab
         - else
-          = render "page_tab", tab: tab
+          = render 'page_tab', tab: tab

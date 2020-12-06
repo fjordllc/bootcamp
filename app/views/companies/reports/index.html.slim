@@ -6,12 +6,12 @@ header.page-header
         = title
 
 .page-tools
-  = render "companies/tabs", company: @company
+  = render 'companies/tabs', company: @company
 
 .page-body
   .container
-    = paginate @reports, position: "top"
+    = paginate @reports, position: 'top'
     - if @reports.present?
       .thread-list.a-card
-        = render partial: "reports/report", collection: @reports, as: :report
-    = paginate @reports, position: "bottom"
+        = render partial: 'reports/report', collection: @reports, as: :report
+    = paginate @reports, position: 'bottom'

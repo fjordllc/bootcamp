@@ -1,4 +1,4 @@
-- title "登録済クレジットカード"
+- title '登録済クレジットカード'
 
 header.page-header
   .container
@@ -13,15 +13,15 @@ header.page-header
     .form__items
       .form-item
         .a-text-input.is-inputed.is-align-center
-          | #{@card["brand"]} **** **** **** #{@card["last4"]} #{sprintf("%02d", @card["exp_month"].to_i)}/#{@card["exp_year"]}
+          | #{@card['brand']} **** **** **** #{@card['last4']} #{sprintf('%02d', @card['exp_month'].to_i)}/#{@card['exp_year']}
     .form-actions
       ul.form-actions__items
         li.form-actions__item.is-main
-          = link_to "カード変更", edit_card_path, class: "a-button is-lg is-warning is-block"
+          = link_to 'カード変更', edit_card_path, class: 'a-button is-lg is-warning is-block'
   .auth-form__footer
     .next-settlement-time
       h2.next-settlement-time__title
         | 次回決済日時
       .next-settlement-time__time
-        = l Time.zone.at(current_user.subscription["current_period_end"])
-= render "notice"
+        = l Time.zone.at(current_user.subscription['current_period_end'])
+= render 'notice'

@@ -1,4 +1,4 @@
-- title "会社"
+- title '会社'
 
 header.page-header
   .container
@@ -7,12 +7,12 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to new_admin_company_path, class: "a-button is-md is-warning is-block" do
+            = link_to new_admin_company_path, class: 'a-button is-md is-warning is-block' do
               i.fas.fa-plus
               | 会社作成
 
 .page-tools
-  = render "admin/admin_page_tabs"
+  = render 'admin/admin_page_tabs'
 
 .page-body
   .container.is-padding-horizontal-0-sm-down
@@ -34,7 +34,7 @@ header.page-header
                   = company.name
               td.admin-table__item-value
                 - if company.logo.attached?
-                  = image_tag company.logo_url, class: "admin-table__item-logo-image"
+                  = image_tag company.logo_url, class: 'admin-table__item-logo-image'
               td.admin-table__item-value
                 = company.description
               td.admin-table__item-value
@@ -44,11 +44,11 @@ header.page-header
               td.admin-table__item-value.is-text-align-center
                 ul.is-button-group
                   li
-                    = link_to edit_admin_company_path(company), class: "a-button is-sm is-primary is-icon" do
+                    = link_to edit_admin_company_path(company), class: 'a-button is-sm is-primary is-icon' do
                       i.fas.fa-pen
                   li
                     = link_to [:admin, company],
-                      data: { confirm: "本当によろしいですか？" },
+                      data: { confirm: '本当によろしいですか？' },
                       method: :delete,
-                      class: "a-button is-sm is-danger is-icon js-delete" do
+                      class: 'a-button is-sm is-danger is-icon js-delete' do
                       i.fas.fa-trash-alt

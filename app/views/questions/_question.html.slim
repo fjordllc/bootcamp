@@ -1,25 +1,25 @@
-.thread-list-item(class="#{question.correct_answer.present? ? "is-solved" : ""}")
+.thread-list-item(class="#{question.correct_answer.present? ? 'is-solved' : ''}")
   .thread-list-item__inner
     .thread-list-item__author
-      = render "users/icon",
+      = render 'users/icon',
         user: question.user,
-        link_class: "thread-header__author",
-        image_class: "thread-list-item__author-icon"
+        link_class: 'thread-header__author',
+        image_class: 'thread-list-item__author-icon'
 
     header.thread-list-item__header
-      h2.thread-list-item__title(itemprop="name")
-        = link_to question, itemprop: "url", class: "thread-list-item__title-link" do
+      h2.thread-list-item__title(itemprop='name')
+        = link_to question, itemprop: 'url', class: 'thread-list-item__title-link' do
           = question.title
       .thread-list-item__actions
         - if current_user == question.user
-          = link_to edit_question_path(question), class: "thread-list-item__actions-link" do
+          = link_to edit_question_path(question), class: 'thread-list-item__actions-link' do
             i.fas.fa-pen
     - if question.practice
       h3.thread-list-item__sub-title
         = question.practice.title
     .thread-list-item-meta
-      = link_to question.user.login_name, question.user, class: "thread-header__author"
-      time.thread-list-item-meta__datetime(datetime="#{question.updated_at.to_datetime}" pubdate="pubdate")
+      = link_to question.user.login_name, question.user, class: 'thread-header__author'
+      time.thread-list-item-meta__datetime(datetime="#{question.updated_at.to_datetime}" pubdate='pubdate')
         = l question.updated_at
       - if question.answers.present?
         .thread-list-item-meta__comment-count
@@ -34,7 +34,7 @@
         ul.thread-list-item-tags__items
           - question.tags.each do |tag|
             li.thread-list-item-tags__item
-              = link_to tag.name, questions_tag_path(tag.name, all: "true"), class: "thread-list-item-tags__item-link"
+              = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'thread-list-item-tags__item-link'
     - if question.correct_answer.present?
       .stamp.is-circle.is-solved
         .stamp__content.is-icon 解

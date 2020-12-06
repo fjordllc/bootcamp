@@ -1,4 +1,4 @@
-- title "書籍編集"
+- title '書籍編集'
 
 header.page-header
   .container
@@ -7,13 +7,13 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to admin_books_path, class: "a-button is-md is-warning is-block" do
+            = link_to admin_books_path, class: 'a-button is-md is-warning is-block' do
               i.fas.fa-plus
               | 書籍一覧
 
 .page-tools
-  = render "admin/admin_page_tabs"
+  = render 'admin/admin_page_tabs'
 
 .page-body
   .container
-    = render "form", book: @book
+    = render 'form', book: @book

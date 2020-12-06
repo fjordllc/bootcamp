@@ -8,11 +8,11 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to courses_path, class: "a-button is-md is-secondary is-block" do
+            = link_to courses_path, class: 'a-button is-md is-secondary is-block' do
               | コース一覧
           - if current_user.admin?
             li.page-header-actions__item
-              = link_to new_practice_path(course_id: @course), class: "a-button is-md is-warning is-block" do
+              = link_to new_practice_path(course_id: @course), class: 'a-button is-md is-warning is-block' do
                 i.fas.fa-plus
                 | プラクティス作成
 
@@ -36,13 +36,13 @@ header.page-header
               .categories-item__description
                 - if current_user.admin?
                   .categories-item__edit
-                    = link_to edit_admin_category_path(category, course_id: @course.id), class: "categories-item__edit-link" do
+                    = link_to edit_admin_category_path(category, course_id: @course.id), class: 'categories-item__edit-link' do
                       i.fas.fa-pen
                 .js-markdown-view.js-target-blank.is-long-text
                   = category.description
               .categories-item__body
                 .category-practices.js-category-practices
-                  = render partial: "practices/practice", collection: category.practices.order(:position), as: :practice, locals: { course: @course }
+                  = render partial: 'practices/practice', collection: category.practices.order(:position), as: :practice, locals: { course: @course }
 
       nav.page-nav
         ul.page-nav__items

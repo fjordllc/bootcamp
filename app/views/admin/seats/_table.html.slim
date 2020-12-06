@@ -12,11 +12,11 @@
           td.admin-table__item-value.is-text-align-center
             ul.is-button-group
               li
-                = link_to edit_admin_seat_path(seat), class: "a-button is-sm is-primary is-icon" do
+                = link_to edit_admin_seat_path(seat), class: 'a-button is-sm is-primary is-icon' do
                   i.fas.fa-pen
               li
                 = link_to [:admin, seat],
-                  data: { confirm: "本当によろしいですか？" },
+                  data: { confirm: '本当によろしいですか？' },
                   method: :delete,
-                  class: "a-button is-sm is-danger is-icon js-delete" do
+                  class: 'a-button is-sm is-danger is-icon js-delete' do
                   i.fas.fa-trash-alt

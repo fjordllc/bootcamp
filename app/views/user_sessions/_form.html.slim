@@ -1,31 +1,31 @@
-= form_for user, url: user_sessions_path, html: { id: "sign-in-form", class: "form", name: "user_session" } do |f|
+= form_for user, url: user_sessions_path, html: { id: 'sign-in-form', class: 'form', name: 'user_session' } do |f|
   .form__items
     .form-item
-      = label_tag "user_login", "ユーザー名 or メールアドレス", class: "a-label"
-      = text_field_tag "user[login]", "", class: "a-text-input", id: "user_login"
+      = label_tag 'user_login', 'ユーザー名 or メールアドレス', class: 'a-label'
+      = text_field_tag 'user[login]', '', class: 'a-text-input', id: 'user_login'
     .form-item
-      = f.label :password, class: "a-label"
-      = f.password_field :password, class: "a-text-input"
+      = f.label :password, class: 'a-label'
+      = f.password_field :password, class: 'a-text-input'
       .a-form-help.is-text-align-right
-        label.a-form-help-link(for="forgot-password-modal")
+        label.a-form-help-link(for='forgot-password-modal')
           | パスワードを忘れた
     .form-item
       label.form-item__one-checkbox.a-checkbox
-        = check_box_tag :remember, params[:remember], true, class: "form-item__remember-me-input"
+        = check_box_tag :remember, params[:remember], true, class: 'form-item__remember-me-input'
         span
           | 次回から自動的にログイン
   .form-actions
     .form-actions__items
       .form-actions__item.is-main
-        = button_tag(class: "a-button is-lg is-warning is-block") do
+        = button_tag(class: 'a-button is-lg is-warning is-block') do
           | ログイン
 
   .form-actions
     .form-actions__items
       .form-actions__item.is-main
-        a.a-button.is-lg.is-secondary.is-block.is-sm-text.is-left-icon.is-lg-icon href="/auth/github"
+        a.a-button.is-lg.is-secondary.is-block.is-sm-text.is-left-icon.is-lg-icon href='/auth/github'
           i.fab.fa-github-square
           span
             | GitHubアカウントでログイン
 
-= render "forgot_password_modal"
+= render 'forgot_password_modal'

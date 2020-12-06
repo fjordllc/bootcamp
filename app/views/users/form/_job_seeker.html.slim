@@ -1,9 +1,9 @@
 .form-item
-  = f.label :job_seeker, class: "a-label"
+  = f.label :job_seeker, class: 'a-label'
   ul.form-item__checkboxes
     li.form-checkbox
       label.form-checkbox__label
-        = f.check_box :job_seeker, class: "form-checkbox__input"
+        = f.check_box :job_seeker, class: 'form-checkbox__input'
         = User.human_attribute_name :job_seeker
   .a-form-help
     p

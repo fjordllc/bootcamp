@@ -11,11 +11,11 @@ header.page-header
         ul.page-header-actions__items
           - if current_user.admin?
             li.page-header-actions__item
-              = link_to new_article_path, class: "is-button-simple-md-warning" do
+              = link_to new_article_path, class: 'is-button-simple-md-warning' do
                 i.fas.fa-plus
                 | ブログ記事作成
           li.page-header-actions__item
-            = link_to articles_path, class: "is-button-simple-md-secondary" do
+            = link_to articles_path, class: 'is-button-simple-md-secondary' do
               i.fas.fa-angle-left
               | ブログ記事一覧
 
@@ -27,7 +27,7 @@ header.page-header
           = @article.title
           br
           - # rubocop:disable Rails/OutputSafety
-          = raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
+          = raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(',')
           - # rubocop:enable Rails/OutputSafety
       section.practice-content.a-card
         .practice-content__body.is-practice.js-markdown-view.js-target-blank.is-long-text

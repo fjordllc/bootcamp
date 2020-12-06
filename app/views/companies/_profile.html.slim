@@ -4,7 +4,7 @@
       .user-data__main
         .user-profile.is-company
           .user-profile__icon
-            = image_tag company.logo_url, title: company.name, alt: company.name, class: "user-profile__user-icon-image a-user-icon"
+            = image_tag company.logo_url, title: company.name, alt: company.name, class: 'user-profile__user-icon-image a-user-icon'
           .user-profile__names
             h1.user-profile__login-name
               = company.name
@@ -19,7 +19,7 @@
                 .user-metas__item-label
                   | URL
                 .user-metas__item-value.company_website
-                  = link_to company.name, company.website, target: "_blank"
+                  = link_to company.name, company.website, target: '_blank'
               .user-metas__item
                 .user-metas__item-label
                   | 人数

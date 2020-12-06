@@ -7,11 +7,11 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to admin_books_path, class: "a-button is-md is-warning is-block" do
+            = link_to admin_books_path, class: 'a-button is-md is-warning is-block' do
               | 書籍一覧
 
 .page-tools
-  = render "admin/admin_page_tabs"
+  = render 'admin/admin_page_tabs'
 
 .page-body
   .container
@@ -24,12 +24,12 @@ header.page-header
             .thread-header__lower-side-date
               .thread-header__lower-side-label
                 | 登録日
-              time.thread-header__lower-side-value(datetime="#{@book.created_at.to_datetime}" pubdate="pubdate")
+              time.thread-header__lower-side-value(datetime="#{@book.created_at.to_datetime}" pubdate='pubdate')
                 = l @book.created_at
         footer.card-footer
           .card-footer-actions
             p
               = "書籍ID: #{@book.id}"
             p
-              = link_to admin_books_qrcode_path(@book), target: "_blank", rel: "noopener" do
+              = link_to admin_books_qrcode_path(@book), target: '_blank', rel: 'noopener' do
                 | QRコードの印刷ページへ
