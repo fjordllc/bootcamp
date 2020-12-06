@@ -74,7 +74,7 @@ class ReportsTest < ApplicationSystemTestCase
   test 'equal practices order in practices and new report' do
     visit '/reports/new'
     first('.select2-selection--multiple').click
-    report_practices = page.all('.select2-results__option').map { |e| e.text }
+    report_practices = page.all('.select2-results__option').map(&:text)
     assert_equal report_practices.count, Practice.count
     assert_match(/OS X Mountain Lionをクリーンインストールする$/, first('.select2-results__option').text)
     assert_match(/Unityでのテスト$/, all('.select2-results__option').last.text)
@@ -83,7 +83,7 @@ class ReportsTest < ApplicationSystemTestCase
   test 'equal practices order in practices and edit report' do
     visit "/reports/#{reports(:report_1).id}/edit"
     first('.select2-selection--multiple').click
-    report_practices = page.all('.select2-results__option').map { |e| e.text }
+    report_practices = page.all('.select2-results__option').map(&:text)
     assert_equal report_practices.count, Practice.count
     assert_match(/OS X Mountain Lionをクリーンインストールする$/, first('.select2-results__option').text)
     assert_match(/Unityでのテスト$/, all('.select2-results__option').last.text)
@@ -460,9 +460,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'notify when WIP report submitted' do
-    Report.all.each do |r|
-      r.destroy
-    end
+    Report.all.each(&:destroy)
 
     login_user 'kensyu', 'testtest'
     visit '/reports/new'
