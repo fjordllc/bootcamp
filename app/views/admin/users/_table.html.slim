@@ -38,7 +38,7 @@
               | 卒業生
             - elsif user.active?
               | 現役生
-            - elsif not user.active?
+            - elsif !user.active?
               | 非アクティブ
           td.admin-table__item-value
             = link_to user, class: 'admin-table__user', target: '_blank', rel: 'noopener' do

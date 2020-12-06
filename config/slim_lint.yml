@@ -40,5 +40,4 @@ linters:
       - Style/WhileUntilDo
       - Style/WhileUntilModifier
       # 一時的に下記を無効にする
-      - Style/Not
       - Style/RedundantParentheses
