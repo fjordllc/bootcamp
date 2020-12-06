@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Notification::ProductsTest < ApplicationSystemTestCase
   test 'send adviser a notification when trainee create product' do
     login_user 'kensyu', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice_5).id}"
+    visit "/products/new?practice_id=#{practices(:practice5).id}"
 
     within('#new_product') do
       fill_in('product[body]', with: 'test')
@@ -17,7 +17,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     login_user 'senpai', 'testtest'
 
     open_notification
-    assert_equal "kensyuさんが「#{practices(:practice_5).title}」の提出物を提出しました。",
+    assert_equal "kensyuさんが「#{practices(:practice5).title}」の提出物を提出しました。",
                  notification_message
   end
 end

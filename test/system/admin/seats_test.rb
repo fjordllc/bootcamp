@@ -24,7 +24,7 @@ class Admin::SeatsTest < ApplicationSystemTestCase
   end
 
   test 'update seat' do
-    visit "/admin/seats/#{seats(:seat_1).id}/edit"
+    visit "/admin/seats/#{seats(:seat1).id}/edit"
     assert_equal '席一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     within 'form[name=seat]' do
@@ -38,7 +38,7 @@ class Admin::SeatsTest < ApplicationSystemTestCase
     visit '/admin/seats'
     assert_equal '席一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     accept_confirm do
-      find("#seat_#{seats(:seat_1).id} .js-delete").click
+      find("#seat_#{seats(:seat1).id} .js-delete").click
     end
     assert_text '席を削除しました。'
   end

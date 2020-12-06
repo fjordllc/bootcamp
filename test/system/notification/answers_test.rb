@@ -9,7 +9,7 @@ class Notification::AnswersTest < ApplicationSystemTestCase
 
   test "recieve a notification when I got my question's answer" do
     login_user 'komagata', 'testtest'
-    visit "/questions/#{questions(:question_2).id}"
+    visit "/questions/#{questions(:question2).id}"
     within('.thread-comment-form__form') do
       fill_in('answer[description]', with: 'reduceも使ってみては？')
     end

@@ -9,7 +9,7 @@ module Mention
     end
 
     test 'mention from a report' do
-      practice = practices(:practice_5)
+      practice = practices(:practice5)
       visit "/products/new?practice_id=#{practice.id}"
       within('#new_product') do
         fill_in('product[body]', with: '@machida test')

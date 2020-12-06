@@ -5,7 +5,7 @@ require 'test_helper'
 class ProductTest < ActiveSupport::TestCase
   test 'delete associated notification' do
     user = users(:kimura)
-    practice = practices(:practice_5)
+    practice = practices(:practice5)
     product = Product.create!(practice: practice, user: user, body: 'test')
     product.destroy
     assert_not Notification.where(path: "/products/#{product.id}").exists?
@@ -14,7 +14,7 @@ class ProductTest < ActiveSupport::TestCase
   test 'adviser watches trainee product when trainee create product' do
     trainee = users(:kensyu)
     adviser = users(:senpai)
-    practice = practices(:practice_2)
+    practice = practices(:practice2)
     product = Product.new(
       body: 'test',
       user: trainee,
@@ -27,7 +27,7 @@ class ProductTest < ActiveSupport::TestCase
   test 'adviser watches trainee product when trainee remove wip of product' do
     trainee = users(:kensyu)
     adviser = users(:senpai)
-    practice = practices(:practice_2)
+    practice = practices(:practice2)
     product = Product.new(
       body: 'test',
       user: trainee,
@@ -46,7 +46,7 @@ class ProductTest < ActiveSupport::TestCase
 
   test '#change_learning_status' do
     user = users(:kimura)
-    practice = practices(:practice_5)
+    practice = practices(:practice5)
     product = Product.create!(
       body: 'test',
       user: user,

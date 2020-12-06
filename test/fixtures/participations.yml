@@ -1,27 +1,27 @@
-participation_1:
+participation1:
   user: hatsuno
-  event: event_2
+  event: event2
   enable: true
 
-participation_2:
+participation2:
   user: hatsuno
-  event: event_3
+  event: event3
   created_at: <%= Time.current + 1.hour %>
   enable: false
 
-participation_3:
+participation3:
   user: komagata
-  event: event_3
+  event: event3
   created_at: <%= Time.current %>
   enable: true
 
-participation_4:
+participation4:
   user: sotugyou
-  event: event_3
+  event: event3
   created_at: <%= Time.current + 2.hour %>
   enable: false
 
-participation_5:
+participation5:
   user: sotugyou
-  event: event_2
+  event: event2
   enable: true

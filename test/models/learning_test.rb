@@ -4,7 +4,7 @@ require 'test_helper'
 
 class LearningTest < ActiveSupport::TestCase
   test 'valid is_startable_practice' do
-    learning = learnings(:learning_3)
+    learning = learnings(:learning3)
     assert learning.valid?
 
     learning.status = 'started'

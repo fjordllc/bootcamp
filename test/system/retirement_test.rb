@@ -39,7 +39,7 @@ class RetirementTest < ApplicationSystemTestCase
     stub_subscription_cancel!
 
     login_user 'muryou', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice_5).id}"
+    visit "/products/new?practice_id=#{practices(:practice5).id}"
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end

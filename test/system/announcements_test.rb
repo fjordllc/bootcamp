@@ -28,7 +28,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'announcement has a comment form ' do
     login_user 'kimura', 'testtest'
-    visit "/announcements/#{announcements(:announcement_1).id}"
+    visit "/announcements/#{announcements(:announcement1).id}"
     assert_selector '.thread-comment-form'
   end
 

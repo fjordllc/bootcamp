@@ -10,42 +10,42 @@ module LinkChecker
         'HDDが分かる',
         'http://homepage2.nifty.com/kamurai/HDD.htm',
         'PC性能の見方を知る',
-        "https://bootcamp.fjord.jp/practices/#{practices(:practice_3).id}"
+        "https://bootcamp.fjord.jp/practices/#{practices(:practice3).id}"
       )
 
       @link_cpu = LinkChecker::Link.new(
         'CPUとは',
         'https://www.pc-master.jp/words/cpu.html',
         'PC性能の見方を知る',
-        "https://bootcamp.fjord.jp/practices/#{practices(:practice_3).id}"
+        "https://bootcamp.fjord.jp/practices/#{practices(:practice3).id}"
       )
 
       @link_not_exist = LinkChecker::Link.new(
         '存在しないページ',
         'http://example.com/xxxxx',
         'Docsページ',
-        "https://bootcamp.fjord.jp/pages/#{pages(:page_3).id}"
+        "https://bootcamp.fjord.jp/pages/#{pages(:page3).id}"
       )
 
       @link_example = LinkChecker::Link.new(
         'example',
         'http://example.com',
         'テスト',
-        "https://bootcamp.fjord.jp/pages/#{pages(:page_2).id}"
+        "https://bootcamp.fjord.jp/pages/#{pages(:page2).id}"
       )
 
       @link_example = LinkChecker::Link.new(
         'example',
         'http://example.com',
         'テスト',
-        "https://bootcamp.fjord.jp/pages/#{pages(:page_2).id}"
+        "https://bootcamp.fjord.jp/pages/#{pages(:page2).id}"
       )
 
       @link_mac = LinkChecker::Link.new(
         'Macの型番調べ辛い',
         'https://docs.komagata.org/4433',
         'PC性能の見方を知る',
-        "https://bootcamp.fjord.jp/practices/#{practices(:practice_3).id}"
+        "https://bootcamp.fjord.jp/practices/#{practices(:practice3).id}"
       )
     end
 

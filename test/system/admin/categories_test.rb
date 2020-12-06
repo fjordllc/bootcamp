@@ -22,7 +22,7 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
   end
 
   test 'update category from course page' do
-    visit course_practices_path(courses(:course_1))
+    visit course_practices_path(courses(:course1))
     first('.categories-item__edit').click
     within 'form[name=category]' do
       fill_in 'category[name]', with: 'テストカテゴリー'
@@ -31,7 +31,7 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
       click_button '更新する'
     end
     assert_text 'カテゴリーを更新しました。'
-    assert_current_path course_practices_path(courses(:course_1))
+    assert_current_path course_practices_path(courses(:course1))
   end
 
   test 'update category from admin categories' do
@@ -50,7 +50,7 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
   test 'delete category' do
     visit '/admin/categories'
     accept_confirm do
-      find("#category_#{categories(:category_1).id} .js-delete").click
+      find("#category_#{categories(:category1).id} .js-delete").click
     end
     assert_text 'カテゴリーを削除しました。'
   end

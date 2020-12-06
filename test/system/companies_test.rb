@@ -11,12 +11,12 @@ class CompaniesTest < ApplicationSystemTestCase
   end
 
   test 'show company information' do
-    visit "/companies/#{companies(:company_1).id}"
+    visit "/companies/#{companies(:company1).id}"
     assert_equal 'FJORD, LLCの会社情報 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show link to website if company has' do
-    visit "/companies/#{companies(:company_1).id}"
+    visit "/companies/#{companies(:company1).id}"
     within '.user-metas__items' do
       assert_link 'FJORD, LLC', href: 'https://fjord.jp'
     end

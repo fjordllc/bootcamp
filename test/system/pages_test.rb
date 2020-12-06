@@ -12,25 +12,25 @@ class PagesTest < ApplicationSystemTestCase
   end
 
   test 'show page' do
-    id = pages(:page_1).id
+    id = pages(:page1).id
     visit "/pages/#{id}"
     assert_equal 'test1 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show edit page' do
-    id = pages(:page_2).id
+    id = pages(:page2).id
     visit "/pages/#{id}/edit"
     assert_equal 'ページ編集 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'page has a comment form ' do
-    id = pages(:page_1).id
+    id = pages(:page1).id
     visit "/pages/#{id}"
     assert_selector '.thread-comment-form'
   end
 
   test 'title with half-width space' do
-    target_page = pages(:page_1)
+    target_page = pages(:page1)
     visit edit_page_path(target_page)
     assert_equal edit_page_path(target_page), current_path
     fill_in 'page[title]', with: '半角スペースを 含んでも 正常なページに 遷移する'
@@ -61,7 +61,7 @@ class PagesTest < ApplicationSystemTestCase
 
   test 'update page as WIP' do
     login_user 'yamada', 'testtest'
-    page = pages(:page_1)
+    page = pages(:page1)
     visit "/pages/#{page.id}/edit"
     within('.form') do
       fill_in('page[title]', with: 'test')
@@ -95,7 +95,7 @@ class PagesTest < ApplicationSystemTestCase
 
   test 'update tags without page transitions' do
     login_user 'komagata', 'testtest'
-    visit "/pages/#{pages(:page_1).id}"
+    visit "/pages/#{pages(:page1).id}"
     find('.tag-links__item-edit').click
     tag_input = find('.ti-new-tag-input')
     tag_input.set '追加タグ'
@@ -110,9 +110,9 @@ class PagesTest < ApplicationSystemTestCase
     login_user admin.login_name, 'testtest'
     assert admin.admin?
 
-    page_1 = pages(:page_1)
-    visit "/pages/#{page_1.id}/edit"
-    assert_equal 'komagata', page_1.user.login_name
+    page1 = pages(:page1)
+    visit "/pages/#{page1.id}/edit"
+    assert_equal 'komagata', page1.user.login_name
 
     within('.form') do
       find('#select2-page_user_id-container').click
@@ -129,7 +129,7 @@ class PagesTest < ApplicationSystemTestCase
     login_user non_admin.login_name, 'testtest'
     assert_not non_admin.admin?
 
-    visit "/pages/#{pages(:page_1).id}/edit"
+    visit "/pages/#{pages(:page1).id}/edit"
     assert_no_selector '.select-users'
 
     visit '/pages/new'

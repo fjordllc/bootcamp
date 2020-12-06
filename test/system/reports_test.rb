@@ -81,7 +81,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'equal practices order in practices and edit report' do
-    visit "/reports/#{reports(:report_1).id}/edit"
+    visit "/reports/#{reports(:report1).id}/edit"
     first('.select2-selection--multiple').click
     report_practices = page.all('.select2-results__option').map(&:text)
     assert_equal report_practices.count, Practice.count
@@ -309,26 +309,26 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'previous report' do
-    visit "/reports/#{reports(:report_2).id}"
+    visit "/reports/#{reports(:report2).id}"
     click_link '前の日報'
-    assert_equal "/reports/#{reports(:report_1).id}", current_path
+    assert_equal "/reports/#{reports(:report1).id}", current_path
   end
 
   test 'next report' do
-    visit "/reports/#{reports(:report_2).id}"
+    visit "/reports/#{reports(:report2).id}"
     click_link '次の日報'
-    assert_equal "/reports/#{reports(:report_3).id}", current_path
+    assert_equal "/reports/#{reports(:report3).id}", current_path
   end
 
   test 'report has a comment form ' do
     login_user 'yamada', 'testtest'
-    visit "/reports/#{reports(:report_1).id}"
+    visit "/reports/#{reports(:report1).id}"
     assert_selector '.thread-comment-form'
   end
 
   test 'unwatch' do
     login_user 'kimura', 'testtest'
-    visit report_path(reports(:report_1))
+    visit report_path(reports(:report1))
     assert_difference('Watch.count', -1) do
       find('div.thread-header__watch-button', text: 'Watch中').click
       sleep 0.5
@@ -425,7 +425,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'click unwatch' do
     login_user 'kimura', 'testtest'
-    visit report_path(reports(:report_1))
+    visit report_path(reports(:report1))
     assert_difference('Watch.count', -1) do
       find('div.thread-header__watch-button', text: 'Watch中').click
       sleep 0.5
@@ -536,8 +536,8 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'reports are ordered in descending of reported_on' do
     visit reports_path
-    precede = reports(:report_2).title
-    succeed = reports(:report_1).title
+    precede = reports(:report2).title
+    succeed = reports(:report1).title
     within '.thread-list' do
       assert page.text.index(precede) < page.text.index(succeed)
     end
@@ -545,8 +545,8 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'reports are ordered in descending of created_at if reported_on is same' do
     visit reports_path
-    precede = reports(:report_5).title
-    succeed = reports(:report_1).title
+    precede = reports(:report5).title
+    succeed = reports(:report1).title
     within '.thread-list' do
       assert page.text.index(precede) < page.text.index(succeed)
     end

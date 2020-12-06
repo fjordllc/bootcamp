@@ -7,7 +7,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     watches(:report1_watch_kimura)
     # コメントを投稿しても自動的にウォッチがONになる
     login_user 'machida', 'testtest'
-    visit "/reports/#{reports(:report_1).id}"
+    visit "/reports/#{reports(:report1).id}"
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'いい日報ですね。')
     end
@@ -16,7 +16,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     logout
 
     login_user 'komagata', 'testtest'
-    visit "/reports/#{reports(:report_1).id}"
+    visit "/reports/#{reports(:report1).id}"
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'コメントありがとうございます。')
     end
@@ -26,13 +26,13 @@ class Notification::WatchesTest < ApplicationSystemTestCase
 
     login_user 'kimura', 'testtest'
     open_notification
-    assert_equal "komagataさんの【 「#{reports(:report_1).title}」の日報 】にkomagataさんがコメントしました。",
+    assert_equal "komagataさんの【 「#{reports(:report1).title}」の日報 】にkomagataさんがコメントしました。",
                  notification_message
 
     login_user 'machida', 'testtest'
     open_notification
 
-    assert_equal "komagataさんの【 「#{reports(:report_1).title}」の日報 】にkomagataさんがコメントしました。",
+    assert_equal "komagataさんの【 「#{reports(:report1).title}」の日報 】にkomagataさんがコメントしました。",
                  notification_message
   end
 
@@ -40,7 +40,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     watches(:question1_watch_kimura)
     # 質問に回答しても自動でウォッチがつく
     login_user 'komagata', 'testtest'
-    visit "/questions/#{questions(:question_1).id}"
+    visit "/questions/#{questions(:question1).id}"
     within('.thread-comment-form__form') do
       fill_in('answer[description]', with: 'Vimチュートリアルがおすすめです。')
     end
@@ -49,7 +49,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     logout
 
     login_user 'machida', 'testtest'
-    visit "/questions/#{questions(:question_1).id}"
+    visit "/questions/#{questions(:question1).id}"
     within('.thread-comment-form__form') do
       fill_in('answer[description]', with: '質問へのご回答ありがとうございます。')
     end
@@ -59,12 +59,12 @@ class Notification::WatchesTest < ApplicationSystemTestCase
 
     login_user 'kimura', 'testtest'
     open_notification
-    assert_equal "machidaさんの【 「#{questions(:question_1).title}」のQ&A 】にmachidaさんがコメントしました。",
+    assert_equal "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんがコメントしました。",
                  notification_message
 
     login_user 'komagata', 'testtest'
     open_notification
-    assert_equal "machidaさんの【 「#{questions(:question_1).title}」のQ&A 】にmachidaさんがコメントしました。",
+    assert_equal "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんがコメントしました。",
                  notification_message
   end
 end

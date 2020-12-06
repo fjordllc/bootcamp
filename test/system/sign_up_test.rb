@@ -192,7 +192,7 @@ class SignUpTest < ApplicationSystemTestCase
   end
 
   test 'sign up as adviser with company_id' do
-    visit "/users/new?role=adviser&company_id=#{companies(:company_2).id}"
+    visit "/users/new?role=adviser&company_id=#{companies(:company2).id}"
 
     email = 'fuyuko@example.com'
 
@@ -206,6 +206,6 @@ class SignUpTest < ApplicationSystemTestCase
     end
     click_button 'アドバイザー登録'
     assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
-    assert_equal User.find_by(email: email).company_id, companies(:company_2).id
+    assert_equal User.find_by(email: email).company_id, companies(:company2).id
   end
 end

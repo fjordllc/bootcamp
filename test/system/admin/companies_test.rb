@@ -22,7 +22,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   end
 
   test 'update company' do
-    visit "/admin/companies/#{companies(:company_1).id}/edit"
+    visit "/admin/companies/#{companies(:company1).id}/edit"
     within 'form[name=company]' do
       fill_in 'company[name]', with: 'テスト会社'
       fill_in 'company[description]', with: 'テストの会社です。'
@@ -35,7 +35,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   test 'delete company' do
     visit '/admin/companies'
     accept_confirm do
-      find("#company_#{companies(:company_1).id} .js-delete").click
+      find("#company_#{companies(:company1).id} .js-delete").click
     end
     assert_text '会社を削除しました。'
   end

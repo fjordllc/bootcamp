@@ -11,10 +11,10 @@ class ReservationsTest < ApplicationSystemTestCase
     visit '/reservation_calenders/201911'
     assert_equal '席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
-    within("#reservation-2019-11-02-#{seats(:seat_2).id}") do
+    within("#reservation-2019-11-02-#{seats(:seat2).id}") do
       find('#reserve-seat').click
     end
-    within("#reservation-2019-11-02-#{seats(:seat_2).id}") do
+    within("#reservation-2019-11-02-#{seats(:seat2).id}") do
       assert_text 'hatsuno'
     end
   end
@@ -24,11 +24,11 @@ class ReservationsTest < ApplicationSystemTestCase
     assert_equal '席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     accept_confirm do
-      within("#reservation-#{reservations(:reservation_4).date}-#{reservations(:reservation_4).seat.id}") do
+      within("#reservation-#{reservations(:reservation4).date}-#{reservations(:reservation4).seat.id}") do
         find('#cancel-reservation').click
       end
     end
-    within("#reservation-#{reservations(:reservation_4).date}-#{reservations(:reservation_4).seat.id}") do
+    within("#reservation-#{reservations(:reservation4).date}-#{reservations(:reservation4).seat.id}") do
       assert_no_text 'hatsuno'
     end
   end
@@ -42,12 +42,12 @@ class ReservationsTest < ApplicationSystemTestCase
 
     click_link 'next-month' if (Date.current.month + 2) <= reservation_date.month
     accept_confirm do
-      within("#reservation-#{reservation_date}-#{seats(:seat_2).id}") do
+      within("#reservation-#{reservation_date}-#{seats(:seat2).id}") do
         find('#reserve-seat').click
       end
     end
 
-    within("#reservation-#{reservation_date}-#{seats(:seat_2).id}") do
+    within("#reservation-#{reservation_date}-#{seats(:seat2).id}") do
       assert_no_text 'hatsuno'
     end
   end

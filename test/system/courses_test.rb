@@ -22,7 +22,7 @@ class CoursesTest < ApplicationSystemTestCase
 
   test 'update course' do
     login_user 'komagata', 'testtest'
-    visit "/courses/#{courses(:course_1).id}/edit"
+    visit "/courses/#{courses(:course1).id}/edit"
     within 'form[name=course]' do
       fill_in 'course[title]', with: 'テストコース'
       fill_in 'course[description]', with: 'テストのコースです。'
@@ -35,7 +35,7 @@ class CoursesTest < ApplicationSystemTestCase
     login_user 'komagata', 'testtest'
     visit '/courses'
     accept_confirm do
-      find("#course_#{courses(:course_3).id} .js-delete").click
+      find("#course_#{courses(:course3).id} .js-delete").click
     end
     assert_text 'コースを削除しました。'
   end

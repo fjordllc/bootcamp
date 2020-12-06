@@ -1,6 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-event_1:
+event1:
   title: "ミートアップ"
   description: "ミートアップを開催します。"
   location: "FJORDオフィス"
@@ -11,7 +11,7 @@ event_1:
   open_end_at: 2019-12-19 9:00
   user: komagata
 
-event_2:
+event2:
   title: "募集期間中のイベント(補欠者なし)"
   description: "募集期間中のイベントです。参加申込ができます。補欠者はまだいません。"
   location: "FJORDオフィス"
@@ -22,7 +22,7 @@ event_2:
   open_end_at: <%= Time.current.next_year %>
   user: komagata
 
-event_3:
+event3:
   title: "募集期間中のイベント(補欠者あり)"
   description: "募集期間中のイベントです。参加申込ができます。補欠者がいます。"
   location: "FJORDオフィス"
@@ -33,7 +33,7 @@ event_3:
   open_end_at: <%= Time.current.next_year %>
   user: komagata
 
-event_4:
+event4:
   title: "募集期間前のイベント"
   description: "募集期間前のイベントです。"
   location: "FJORDオフィス"
@@ -44,7 +44,7 @@ event_4:
   open_end_at: <%= Time.current.next_year %>
   user: komagata
 
-event_5:
+event5:
   title: "募集期間後のイベント"
   description: "募集が終了したイベントです。"
   location: "FJORDオフィス"
@@ -55,7 +55,7 @@ event_5:
   open_end_at: <%= Time.current.yesterday + 1.hour %>
   user: komagata
 
-event_6:
+event6:
   title: "終了したイベント"
   description: "終了したイベントです。"
   location: "FJORDオフィス"

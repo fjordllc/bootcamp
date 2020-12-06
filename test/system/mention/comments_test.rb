@@ -9,7 +9,7 @@ module Mention
     end
 
     test 'mention from a comment' do
-      visit "/reports/#{reports(:report_1).id}"
+      visit "/reports/#{reports(:report1).id}"
       within('.thread-comment-form__form') do
         fill_in('new_comment[description]', with: '@hatsuno test')
       end

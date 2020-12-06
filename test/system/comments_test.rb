@@ -21,7 +21,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'comment form in reports/:id has comment tab and preview tab' do
-    visit "/reports/#{reports(:report_3).id}"
+    visit "/reports/#{reports(:report3).id}"
     within('.thread-comment-form__tabs') do
       assert_text 'コメント'
       assert_text 'プレビュー'
@@ -29,7 +29,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'edit comment form has comment tab and preview tab' do
-    visit "/reports/#{reports(:report_3).id}"
+    visit "/reports/#{reports(:report3).id}"
     within('.thread-comment:first-child') do
       click_button '編集'
       assert_text 'コメント'
@@ -38,7 +38,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment for report' do
-    visit "/reports/#{reports(:report_1).id}"
+    visit "/reports/#{reports(:report1).id}"
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -48,7 +48,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment with mention for report' do
-    visit "/reports/#{reports(:report_1).id}"
+    visit "/reports/#{reports(:report1).id}"
     sleep 1
     find('#js-new-comment').set("login_nameの補完テスト: @koma\n")
     click_button 'コメントする'
@@ -58,7 +58,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment with emoji for report' do
-    visit "/reports/#{reports(:report_1).id}"
+    visit "/reports/#{reports(:report1).id}"
     sleep 1
     find('#js-new-comment').set("絵文字の補完テスト: :cat\n")
     click_button 'コメントする'
@@ -67,7 +67,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'edit the comment for report' do
-    visit "/reports/#{reports(:report_3).id}"
+    visit "/reports/#{reports(:report3).id}"
     within('.thread-comment:first-child') do
       click_button '編集'
       within(:css, '.thread-comment-form__form') do
@@ -79,7 +79,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'destroy the comment for report' do
-    visit "/reports/#{reports(:report_3).id}"
+    visit "/reports/#{reports(:report3).id}"
     within('.thread-comment:first-child') do
       accept_alert do
         click_button('削除')
@@ -89,7 +89,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment for product' do
-    visit "/products/#{products(:product_1).id}"
+    visit "/products/#{products(:product1).id}"
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -99,7 +99,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment for announcement' do
-    visit "/announcements/#{announcements(:announcement_1).id}"
+    visit "/announcements/#{announcements(:announcement1).id}"
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -109,7 +109,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment for page' do
-    visit "/pages/#{pages(:page_1).id}"
+    visit "/pages/#{pages(:page1).id}"
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -119,7 +119,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'comment tab is active after a comment has been posted' do
-    visit "/reports/#{reports(:report_3).id}"
+    visit "/reports/#{reports(:report3).id}"
     assert_equal 'コメント', find('.thread-comment-form__tab.is-active').text
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
@@ -159,18 +159,18 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'comment url is copied when click its updated_time' do
-    visit "/reports/#{reports(:report_1).id}"
+    visit "/reports/#{reports(:report1).id}"
     first(:css, '.thread-comment__created-at').click
     # クリップボードを直接読み取る方法がないので、未入力のテキストエリアを経由してクリップボードの値を読み取っている
     # また、Ctrl-Vではペーストできなかったので、かわりにShift-Insertをショートカットキーとして使っている
     # 参考 https://stackoverflow.com/a/57955123/1058763
     find('#js-new-comment').send_keys %i[shift insert]
     clip_text = find('#js-new-comment').value
-    assert_equal current_url + "#comment_#{comments(:comment_1).id}", clip_text
+    assert_equal current_url + "#comment_#{comments(:comment1).id}", clip_text
   end
 
   test 'suggest mention to mentor' do
-    visit "/reports/#{reports(:report_1).id}"
+    visit "/reports/#{reports(:report1).id}"
     find('#js-new-comment').set('@')
     assert_selector 'span.mention', text: 'mentor'
   end
