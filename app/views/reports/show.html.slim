@@ -44,7 +44,7 @@ header.page-header
           .thread-header__lower-side
             #js-watch(data-watchable-id="#{@report.id}", data-watchable-type='Report')
             .thread-header__raw
-              = link_to 'Raw', report_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank'
+              = link_to 'Raw', report_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank', rel: 'noopener'
         - if @report.practices.present?
           .tag-links
             ul.tag-links__items

@@ -24,13 +24,13 @@
                 = link_to new_article_path, class: 'header-dropdown__item-link' do
                   | ブログ記事作成
               li.header-dropdown__item
-                = link_to 'https://fjord.slack.com/admin', class: 'header-dropdown__item-link', target: '_blank' do
+                = link_to 'https://fjord.slack.com/admin', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                   | Slack管理
               li.header-dropdown__item
-                = link_to 'https://github.com/fjordllc/fjord/wiki/FjordBootCamp', class: 'header-dropdown__item-link', target: '_blank' do
+                = link_to 'https://github.com/fjordllc/fjord/wiki/FjordBootCamp', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                   | 管理者用ドキュメント
               li.header-dropdown__item
-                = link_to 'https://www.amazon.co.jp/hz/wishlist/ls/3I571CQISBFR6?ref_=wl_share', class: 'header-dropdown__item-link', target: '_blank' do
+                = link_to 'https://www.amazon.co.jp/hz/wishlist/ls/3I571CQISBFR6?ref_=wl_share', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                   | ウィッシュリスト
               li.header-dropdown__item
                 = link_to welcome_path, class: 'header-dropdown__item-link' do
@@ -38,12 +38,12 @@
               li.header-dropdown__item
                 = link_to 'https://app.redash.io/fjord-inc/public/dashboards/TR86ezvmxVWE7ScenS3yTE1z8lV4ILzvmOAyKmWY',
                   class: 'header-dropdown__item-link',
-                  target: '_blank' do
+                  target: '_blank', rel: 'noopener' do
                   | メンターダッシュボード
               li.header-dropdown__item
                 = link_to 'https://app.redash.io/fjord-inc/public/dashboards/WFwaaDZIgTFUan2BVhTK1axaxK1WaDSS0xOwSXHz',
                   class: 'header-dropdown__item-link',
-                  target: '_blank' do
+                  target: '_blank', rel: 'noopener' do
                   | 確認数の集計
     li.header-links__item
       label.header-links__link.test-show-menu(for='header-menu')
@@ -82,16 +82,16 @@
               = link_to companies_path, class: 'header-dropdown__item-link' do
                 | 企業一覧
             li.header-dropdown__item
-              = link_to 'https://github.com/fjordllc/bootcamp/projects/1', class: 'header-dropdown__item-link', target: '_blank' do
+              = link_to 'https://github.com/fjordllc/bootcamp/projects/1', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                 | GitHub Projects
             li.header-dropdown__item
-              = link_to 'https://fjord.whereby.com/talk', class: 'header-dropdown__item-link', target: '_blank' do
+              = link_to 'https://fjord.whereby.com/talk', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                 | Whereby
             li.header-dropdown__item
-              = link_to 'https://suzuri.jp/FjordBootCamp', class: 'header-dropdown__item-link', target: '_blank' do
+              = link_to 'https://suzuri.jp/FjordBootCamp', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                 | グッズ購入
             li.header-dropdown__item
-              = link_to coc_path, class: 'header-dropdown__item-link', target: '_blank' do
+              = link_to coc_path, class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                 | アンチハラスメントポリシー
             li.header-dropdown__item
               = link_to logout_path, class: 'header-dropdown__item-link' do

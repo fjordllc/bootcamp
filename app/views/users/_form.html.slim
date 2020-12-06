@@ -75,10 +75,10 @@
         .a-form-help
           ul
             li
-              = link_to 'https://fjord.slack.com/admin', target: '_blank' do
+              = link_to 'https://fjord.slack.com/admin', target: '_blank', rel: 'noopener' do
                 | Slack設定
             li
-              = link_to 'https://github.com/orgs/fjordllc/people', target: '_blank' do
+              = link_to 'https://github.com/orgs/fjordllc/people', target: '_blank', rel: 'noopener' do
                 | GitHub設定
 
   .form-actions
@@ -87,7 +87,7 @@
         = f.submit user_submit_label(user, from), id: 'user_submit', class: 'a-button is-lg is-warning is-block'
         - if from == :new
           .a-form-help.is-text-align-center
-            = link_to '利用規約を確認（別タブで開きます）', tos_path, target: '_blank'
+            = link_to '利用規約を確認（別タブで開きます）', tos_path, target: '_blank', rel: 'noopener'
         - if from == :edit
           .a-form-help.is-text-align-center
             - if admin_login? && (url != current_user_path)

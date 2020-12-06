@@ -41,7 +41,7 @@
             - elsif not user.active?
               | 非アクティブ
           td.admin-table__item-value
-            = link_to user, class: 'admin-table__user', target: '_blank' do
+            = link_to user, class: 'admin-table__user', target: '_blank', rel: 'noopener' do
               = image_tag user.avatar_url, title: user.icon_title, class: "admin-table__user-icon a-user-icon #{user.role} #{user.daimyo? ? 'is-daimyo' : ''}"
               span.admin-table__user-login-name
                 = user.login_name
@@ -64,7 +64,7 @@
             - if user.card?
               = link_to user.customer_url,
                 class: 'a-button is-sm is-success is-icon',
-                target: '_blank' do
+                target: '_blank', rel: 'noopener' do
                 i.fas.fa-credit-card
             - else
               | -
@@ -76,7 +76,7 @@
                 status_class = Subscription::STATUS_CLASS_MAP[status.to_sym]
               = link_to user.subscription_url,
                 class: "a-button is-sm #{status_class}",
-                target: '_blank' do
+                target: '_blank', rel: 'noopener' do
                 = t "enums.subscription_status.#{status}"
             - else
               | -
@@ -88,19 +88,19 @@
               = link_to '卒業', user_graduation_path(user), method: :patch, data: { confirm: '本当によろしいですか？' }, class: 'a-button is-sm is-primary'
           td.admin-table__item-value.is-text-align-center
             - if user.slack_participation?
-              = link_to 'https://fjord.slack.com/admin', class: 'a-button is-sm is-warning is-icon', target: '_blank' do
+              = link_to 'https://fjord.slack.com/admin', class: 'a-button is-sm is-warning is-icon', target: '_blank', rel: 'noopener' do
                 i.fab.fa-slack
             - else
               .a-button.is-sm.is-disabled.is-icon
                 i.fab.fa-slack
             - if user.github_collaborator?
-              = link_to 'https://github.com/orgs/fjordllc/people', class: 'a-button is-sm is-warning is-icon', target: '_blank' do
+              = link_to 'https://github.com/orgs/fjordllc/people', class: 'a-button is-sm is-warning is-icon', target: '_blank', rel: 'noopener' do
                 i.fab.fa-github-alt
             - else
               .a-button.is-sm.is-disabled.is-icon
                 i.fab.fa-github-alt
             - if user.officekey_permission?
-              = link_to 'https://play.google.com/store/apps/details?id=co.candyhouse.sesame&hl=ja', class: 'a-button is-sm is-warning is-icon', target: '_blank' do
+              = link_to 'https://play.google.com/store/apps/details?id=co.candyhouse.sesame&hl=ja', class: 'a-button is-sm is-warning is-icon', target: '_blank', rel: 'noopener' do
                 i.fas.fa-key
             - else
               .a-button.is-sm.is-disabled.is-icon
