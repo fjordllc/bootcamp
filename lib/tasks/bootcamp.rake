@@ -39,7 +39,6 @@ namespace :bootcamp do
       puts "== START Cloud Build Task =="
       puts "#{User.count}件"
       puts "== END   Cloud Build Task =="
-      Announcement.where(published_at: nil, wip: false).update_all(published_at: Time.current)
     end
   end
 
