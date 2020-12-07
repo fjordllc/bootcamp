@@ -97,6 +97,13 @@ ActiveRecord::Schema.define(version: 2020_11_23_142023) do
     t.bigint "category_id", null: false
   end
 
+  create_table "categories_practices", id: false, force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.bigint "practice_id", null: false
+    t.index ["category_id", "practice_id"], name: "index_categories_practices_on_category_id_and_practice_id"
+    t.index ["practice_id", "category_id"], name: "index_categories_practices_on_practice_id_and_category_id"
+  end
+
   create_table "checks", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "checkable_id", null: false
@@ -449,6 +456,8 @@ ActiveRecord::Schema.define(version: 2020_11_23_142023) do
   add_foreign_key "announcements", "users"
   add_foreign_key "borrowings", "books"
   add_foreign_key "borrowings", "users"
+  add_foreign_key "categories_practices", "categories"
+  add_foreign_key "categories_practices", "practices"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_times", "reports"

@@ -3,7 +3,7 @@ practice_1:
   description: "description..."
   goal: "OS X Mountain Lionをクリーンインストールする"
   memo: "「OS X Mountain Lionをクリーンインストールする」のメンターメモ"
-  category: category_2
+  categories: category_2
   position: 1
   submission: true
   open_product: false
@@ -12,7 +12,7 @@ practice_2:
   title: "Terminalの基礎を覚える"
   description: "description..."
   goal: "goal..."
-  category: category_4
+  categories: category_4
   position: 2
   submission: true
   open_product: true
@@ -39,7 +39,7 @@ practice_3:
     - CPUとメモリの違いを把握しているかチェックする。
     - 理解が浅いと感じたら突っ込みを入れてもいい。
 
-  category: category_2
+  categories: category_2
   position: 3
 
 practice_4:
@@ -47,7 +47,7 @@ practice_4:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_4
+  categories: category_4
   position: 4
 
 practice_5:
@@ -55,7 +55,7 @@ practice_5:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_4
+  categories: category_4
   position: 5
   submission: true
 
@@ -64,7 +64,7 @@ practice_6:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_4
+  categories: category_4
   position: 6
 
 practice_7:
@@ -72,7 +72,7 @@ practice_7:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_8
+  categories: category_8
   position: 7
 
 practice_8:
@@ -80,7 +80,7 @@ practice_8:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_8
+  categories: category_8
   position: 8
 
 practice_9:
@@ -88,7 +88,7 @@ practice_9:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_4
+  categories: category_4
   position: 9
 
 practice_10:
@@ -96,7 +96,7 @@ practice_10:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_4
+  categories: category_4
   position: 10
 
 practice_11:
@@ -104,7 +104,7 @@ practice_11:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_4
+  categories: category_4
   position: 11
 
 practice_12:
@@ -112,7 +112,7 @@ practice_12:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_4
+  categories: category_4
   position: 12
 
 practice_13:
@@ -120,7 +120,7 @@ practice_13:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_4
+  categories: category_4
   position: 13
 
 practice_14:
@@ -128,7 +128,7 @@ practice_14:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_16
+  categories: category_16
   position: 14
 
 practice_15:
@@ -136,7 +136,7 @@ practice_15:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_16
+  categories: category_16
   position: 15
 
 practice_16:
@@ -144,7 +144,7 @@ practice_16:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_15
+  categories: category_15
   position: 16
 
 practice_17:
@@ -152,7 +152,7 @@ practice_17:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_15
+  categories: category_15
   position: 17
 
 practice_18:
@@ -160,7 +160,7 @@ practice_18:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_16
+  categories: category_16
   position: 18
 
 practice_19:
@@ -168,7 +168,7 @@ practice_19:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_15
+  categories: category_15
   position: 19
 
 practice_20:
@@ -176,7 +176,7 @@ practice_20:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_7
+  categories: category_7
   position: 20
 
 practice_21:
@@ -184,7 +184,7 @@ practice_21:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_7
+  categories: category_7
   position: 21
 
 practice_22:
@@ -192,7 +192,7 @@ practice_22:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_7
+  categories: category_7
   position: 22
 
 practice_23:
@@ -200,7 +200,7 @@ practice_23:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_5
+  categories: category_5
   position: 23
 
 practice_24:
@@ -208,7 +208,7 @@ practice_24:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_5
+  categories: category_5
   position: 24
 
 practice_25:
@@ -216,7 +216,7 @@ practice_25:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_5
+  categories: category_5
   position: 25
 
 practice_26:
@@ -224,7 +224,7 @@ practice_26:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_5
+  categories: category_5
   position: 26
 
 practice_27:
@@ -232,7 +232,7 @@ practice_27:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_11
+  categories: category_11
   position: 27
 
 practice_28:
@@ -240,7 +240,7 @@ practice_28:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_9
+  categories: category_9
   position: 28
 
 practice_29:
@@ -248,7 +248,7 @@ practice_29:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_5
+  categories: category_5
   position: 29
 
 practice_30:
@@ -256,7 +256,7 @@ practice_30:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_5
+  categories: category_5
   position: 30
 
 practice_31:
@@ -264,7 +264,7 @@ practice_31:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_5
+  categories: category_5
   position: 31
 
 practice_32:
@@ -272,7 +272,7 @@ practice_32:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_5
+  categories: category_5
   position: 32
 
 practice_33:
@@ -280,7 +280,7 @@ practice_33:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 33
 
 practice_34:
@@ -288,7 +288,7 @@ practice_34:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 34
 
 practice_35:
@@ -296,7 +296,7 @@ practice_35:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 35
 
 practice_36:
@@ -304,7 +304,7 @@ practice_36:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 36
 
 practice_37:
@@ -312,7 +312,7 @@ practice_37:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 37
 
 practice_38:
@@ -320,7 +320,7 @@ practice_38:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 38
 
 practice_39:
@@ -328,7 +328,7 @@ practice_39:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 39
 
 practice_40:
@@ -336,7 +336,7 @@ practice_40:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 40
 
 practice_41:
@@ -344,7 +344,7 @@ practice_41:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 41
 
 practice_42:
@@ -352,7 +352,7 @@ practice_42:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 42
 
 practice_43:
@@ -360,7 +360,7 @@ practice_43:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 43
 
 practice_44:
@@ -368,7 +368,7 @@ practice_44:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_9
+  categories: category_9
   position: 44
 
 practice_45:
@@ -376,7 +376,7 @@ practice_45:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_9
+  categories: category_9
   position: 45
 
 practice_46:
@@ -384,7 +384,7 @@ practice_46:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_9
+  categories: category_9
   position: 46
 
 practice_47:
@@ -392,7 +392,7 @@ practice_47:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_9
+  categories: category_9
   position: 47
 
 practice_48:
@@ -400,7 +400,7 @@ practice_48:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_11
+  categories: category_11
   position: 48
 
 practice_49:
@@ -408,7 +408,7 @@ practice_49:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 49
 
 practice_50:
@@ -416,7 +416,7 @@ practice_50:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_6
+  categories: category_6
   position: 50
 
 practice_51:
@@ -424,7 +424,7 @@ practice_51:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_13
+  categories: category_13
   position: 51
 
 practice_52:
@@ -432,7 +432,7 @@ practice_52:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_17
+  categories: category_17
   position: 52
   include_progress: false
 
@@ -441,7 +441,7 @@ practice_53:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_18
+  categories: category_18
   position: 53
   include_progress: false
 
@@ -450,7 +450,7 @@ practice_54:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_19
+  categories: category_19
   position: 54
   include_progress: false
 
@@ -459,13 +459,13 @@ practice_55:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  category: category_20
+  categories: category_20
   position: 55
 
 practice_56:
   title: "Unityでのテスト"
   description: "description..."
   goal: "goal..."
-  category: category_21
+  categories: category_21
   position: 56
   include_progress: false

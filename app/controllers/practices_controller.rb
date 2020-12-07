@@ -4,10 +4,10 @@ class PracticesController < ApplicationController
   before_action :require_login
   before_action :require_admin_login, except: %i(show)
   before_action :set_course, only: %i(new)
-  before_action :set_practice, only: %w(show edit update destroy sort)
+  before_action :set_practice, only: %w(show edit update destroy)
 
   def show
-    @category = @practice.category
+    @categories = @practice.categories
   end
 
   def new
@@ -51,12 +51,12 @@ class PracticesController < ApplicationController
         :title,
         :description,
         :goal,
-        :category_id,
         :position,
         :submission,
         :open_product,
         :include_progress,
-        :memo
+        :memo,
+        category_ids: []
       )
     end
 

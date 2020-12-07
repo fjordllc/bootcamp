@@ -24,16 +24,15 @@ class Practice < ApplicationRecord
   has_many :products
   has_many :questions
   has_many :pages
-  belongs_to :category
-  acts_as_list scope: :category
   has_one :learning_minute_statistic
   belongs_to :last_updated_user, class_name: "User", optional: true
+
+  has_and_belongs_to_many :categories, dependent: :destroy
 
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true
-
-  scope :category_order, -> { includes(:category).order("categories.position").order(:position) }
+  validates :categories, presence: true
 
   columns_for_keyword_search :title, :description, :goal
 
@@ -132,6 +131,10 @@ class Practice < ApplicationRecord
       average: average,
       median: median
     )
+  end
+
+  def category(course)
+    Category.category(practice: self, course: course)
   end
 
   private

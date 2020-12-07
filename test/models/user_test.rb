@@ -239,6 +239,12 @@ class UserTest < ActiveSupport::TestCase
     assert kimura.following?(hatsuno)
   end
 
+  test "#completed_practices_size" do
+    kimura = users(:kimura)
+    category_2 = categories(:category_2)
+    assert_equal 1, kimura.completed_practices_size(category_2)
+  end
+
   test "#completed_all_practices?" do
     hajime = users(:hajime)
     category_11 = categories(:category_11)
