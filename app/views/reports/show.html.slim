@@ -48,7 +48,7 @@ header.page-header
         - if @report.practices.present?
           .tag-links
             ul.tag-links__items
-              - @report.practices.category_order.each do |practice|
+              - @report.practices.order(:position).each do |practice|
                 li.tag-links__item
                   = link_to practice, class: "tag-links__item-link" do
                     = practice.title
