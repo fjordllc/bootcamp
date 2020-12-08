@@ -42,7 +42,7 @@ header.page-header
                   = category.description
               .categories-item__body
                 .category-practices.js-category-practices
-                  = render partial: "practices/practice", collection: category.practices, as: :practice, locals: { course: @course }
+                  = render partial: "practices/practice", collection: category.practices.order(:position), as: :practice, locals: { course: @course }
 
       nav.page-nav
         ul.page-nav__items
