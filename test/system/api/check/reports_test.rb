@@ -55,4 +55,19 @@ class Check::ReportsTest < ApplicationSystemTestCase
     assert_text '確認済'
     assert_text '日報でcomment+確認OKにするtest'
   end
+
+  test 'success recent report checking' do
+    login_user 'machida', 'testtest'
+    visit "/reports/#{reports(:report20).id}"
+    click_button '日報を確認'
+    assert page.has_css?('.recent-reports-item__checked')
+  end
+
+  test 'success recent report checking cancel' do
+    login_user 'machida', 'testtest'
+    visit "/reports/#{reports(:report20).id}"
+    click_button '日報を確認'
+    click_button '日報の確認を取り消す'
+    assert page.has_no_css?('.recent-reports-item__checked')
+  end
 end
