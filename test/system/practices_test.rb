@@ -54,7 +54,7 @@ class PracticesTest < ApplicationSystemTestCase
     visit '/practices/new'
     within 'form[name=practice]' do
       fill_in 'practice[title]', with: 'テストプラクティス'
-      check categories(:category_1).name, allow_label_click: true
+      check categories(:category1).name, allow_label_click: true
       fill_in 'practice[description]', with: 'テストの内容です'
       fill_in 'practice[goal]', with: 'テストのゴールの内容です'
       fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'

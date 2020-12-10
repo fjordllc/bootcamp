@@ -3,7 +3,7 @@
 module StubHelper
   def stub_plan!
     stub_request(:get, 'https://api.stripe.com/v1/plans')
-      .to_return(status: 200, body: { "data": [{ "nickname": 'スタンダードプラン' }] }.to_json)
+      .to_return(status: 200, body: { 'data': [{ 'nickname': 'スタンダードプラン' }] }.to_json)
   end
 
   def stub_create_card!
@@ -28,7 +28,7 @@ module StubHelper
 
   def stub_subscription_create!
     stub_request(:get, 'https://api.stripe.com/v1/plans')
-      .to_return(status: 200, body: { "data": [{ "id": 'plan_12345678', "nickname": 'スタンダードプラン' }] }.to_json)
+      .to_return(status: 200, body: { 'data': [{ 'id': 'plan_12345678', 'nickname': 'スタンダードプラン' }] }.to_json)
 
     time = Time.parse('2000-01-04 00:00:00').to_i.to_s
 
@@ -51,7 +51,7 @@ module StubHelper
 
   def stub_subscription_all!
     stub_request(:get, 'https://api.stripe.com/v1/subscriptions?status=all')
-      .to_return(status: 200, body: { "has_more": false, "data": [{ "id": 'sub_xxxxxxxx', "status": 'canceled' }] }.to_json)
+      .to_return(status: 200, body: { 'has_more': false, 'data': [{ 'id': 'sub_xxxxxxxx', 'status': 'canceled' }] }.to_json)
   end
 
   def stub_github!

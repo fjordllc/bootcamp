@@ -29,7 +29,7 @@ class Practice < ApplicationRecord
   has_one :learning_minute_statistic, dependent: :destroy
   belongs_to :last_updated_user, class_name: 'User', optional: true
 
-  has_and_belongs_to_many :categories, dependent: :destroy
+  has_and_belongs_to_many :categories, dependent: :destroy # rubocop:disable Rails/HasAndBelongsToMany
 
   validates :title, presence: true
   validates :description, presence: true

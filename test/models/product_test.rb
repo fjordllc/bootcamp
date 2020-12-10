@@ -59,10 +59,10 @@ class ProductTest < ActiveSupport::TestCase
     assert Learning.find_by(user: user, practice: practice, status: :complete)
   end
 
-  test "#category" do
-    product = products(:product_1)
-    course = courses(:course_1)
-    category = categories(:category_2)
+  test '#category' do
+    product = products(:product1)
+    course = courses(:course1)
+    category = categories(:category2)
 
     assert_equal category, product.category(course)
   end

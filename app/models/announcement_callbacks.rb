@@ -2,19 +2,19 @@
 
 class AnnouncementCallbacks
   def after_create(announce)
-    if !announce.wip?
-      send_notification(announce)
-      announce.published_at = Time.current
-      announce.save
-    end
+    return if announce.wip?
+
+    send_notification(announce)
+    announce.published_at = Time.current
+    announce.save
   end
 
   def after_update(announce)
-    if !announce.wip && announce.published_at.nil?
-      send_notification(announce)
-      announce.published_at = Time.current
-      announce.save
-    end
+    return unless !announce.wip && announce.published_at.nil?
+
+    send_notification(announce)
+    announce.published_at = Time.current
+    announce.save
   end
 
   def after_destroy(announce)
