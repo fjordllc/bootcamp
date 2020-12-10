@@ -6,9 +6,9 @@ class Practices::PagesController < ApplicationController
   def index
     @practice = Practice.find(params[:practice_id])
     @pages = @practice.pages.with_avatar
-                .includes(:comments,
-                { last_updated_user: { avatar_attachment: :blob } })
-                .order(updated_at: :desc)
-                .page(params[:page])
+                      .includes(:comments,
+                                { last_updated_user: { avatar_attachment: :blob } })
+                      .order(updated_at: :desc)
+                      .page(params[:page])
   end
 end

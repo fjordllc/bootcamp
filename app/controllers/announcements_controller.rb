@@ -86,9 +86,10 @@ class AnnouncementsController < ApplicationController
   end
 
   def notice_message(announcement)
-    if params[:action] == 'create'
+    case params[:action]
+    when 'create'
       announcement.wip? ? 'お知らせをWIPとして保存しました。' : 'お知らせを作成しました。'
-    elsif params[:action] == 'update'
+    when 'update'
       announcement.wip? ? 'お知らせをWIPとして保存しました。' : 'お知らせを更新しました。'
     end
   end

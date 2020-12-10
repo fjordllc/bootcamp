@@ -293,13 +293,13 @@ class User < ApplicationRecord
 
   def completed_practices_size(category)
     Practice
-      .joins({ categories: :categories_practices  }, :learnings)
+      .joins({ categories: :categories_practices }, :learnings)
       .distinct(:id)
       .where(
         categories_practices: { category_id: category.id },
         learnings: {
           user_id: id,
-          status: "complete"
+          status: 'complete'
         }
       )
       .size

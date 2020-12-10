@@ -2,7 +2,11 @@
 
 class AddMultiCategories < ActiveRecord::Migration[6.0]
   def up
-    sql = "INSERT INTO categories_practices (category_id, practice_id) SELECT practices.category_id, practices.id FROM practices ORDER BY practices.category_id, practices.id"
+    sql = <<~SQL
+      INSERT INTO categories_practices (category_id, practice_id)
+        SELECT practices.category_id, practices.id FROM practices
+        ORDER BY practices.category_id, practices.id
+    SQL
     ActiveRecord::Base.connection.execute sql
   end
 

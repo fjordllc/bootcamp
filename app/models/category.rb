@@ -11,7 +11,7 @@ class Category < ApplicationRecord
     categories = practice.categories
     my_categories = categories.where(id: course.category_ids)
 
-    if categories.size > 0
+    if categories.size.positive?
       my_categories.first
     else
       categories.first

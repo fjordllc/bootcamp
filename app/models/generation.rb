@@ -7,7 +7,7 @@ class Generation
     end
 
     def max_generation_number
-      now_time = Time.now
+      now_time = Time.zone.now
       (now_time.year - 2013) * 4 + (now_time.month + 2) / 3
     end
   end

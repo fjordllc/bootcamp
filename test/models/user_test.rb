@@ -241,8 +241,8 @@ class UserTest < ActiveSupport::TestCase
 
   test '#completed_practices_size' do
     kimura = users(:kimura)
-    category_2 = categories(:category_2)
-    assert_equal 1, kimura.completed_practices_size(category_2)
+    category2 = categories(:category2)
+    assert_equal 1, kimura.completed_practices_size(category2)
   end
 
   test '#completed_all_practices?' do

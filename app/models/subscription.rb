@@ -4,10 +4,10 @@ class Subscription
   prepend SubscriptionStub if Rails.env.development?
 
   STATUS_CLASS_MAP = {
-    "trialing": 'is-primary',
-    "active": 'is-success',
-    "canceled": 'is-danger',
-    "past_due": 'is-warning'
+    'trialing': 'is-primary',
+    'active': 'is-success',
+    'canceled': 'is-danger',
+    'past_due': 'is-warning'
   }.freeze
 
   def retrieve(id)
