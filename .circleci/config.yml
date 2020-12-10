@@ -12,6 +12,8 @@ jobs:
            POSTGRES_USER: user
            POSTGRES_DB: user_test
     working_directory: ~/repo
+    environment:
+      TZ: "Asia/Tokyo"
 
     steps:
       - checkout
