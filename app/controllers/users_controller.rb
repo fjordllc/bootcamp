@@ -25,7 +25,8 @@ class UsersController < ApplicationController
                .page(params[:page]).per(PAGER_NUMBER)
                .with_attached_avatar
                .preload(:course)
-               .same_tags
+               .in_school
+               .unretired
                .order(updated_at: :desc)
                .tagged_with(params[:tag])
     else
