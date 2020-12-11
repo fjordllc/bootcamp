@@ -1,102 +1,102 @@
 .header-links.is-user-links
   ul.header-links__items
     li.header-links__search
-      = form_tag searchables_url, method: "get", class: "header-search", name: "search" do
+      = form_tag searchables_url, method: 'get', class: 'header-search', name: 'search' do
         .header-search__select.a-button.is-sm.is-secondary.is-select.is-block
-          = select_tag "document_type", options_for_select(Searcher::DOCUMENT_TYPES, params[:document_type])
-        = text_field_tag "word", params[:word], class: "a-xs-text-input header-search__text-input", placeholder: "検索"
-        button.a-button.is-sm.is-secondary.is-icon.header-search__submit#test-search(type="submit")
+          = select_tag 'document_type', options_for_select(Searcher::DOCUMENT_TYPES, params[:document_type])
+        = text_field_tag 'word', params[:word], class: 'a-xs-text-input header-search__text-input', placeholder: '検索'
+        button.a-button.is-sm.is-secondary.is-icon.header-search__submit#test-search(type='submit')
           i.fas.fa-search
     - if current_user.admin?
       li.header-links__item
-        label.header-links__link(for="header-admin-menu")
+        label.header-links__link(for='header-admin-menu')
           i.fas.fa-poo
           .header-links__link-label Admin
-        input.a-toggle-checkbox#header-admin-menu(type="checkbox")
+        input.a-toggle-checkbox#header-admin-menu(type='checkbox')
         .header-dropdown
-          label.header-dropdown__background(for="header-admin-menu")
+          label.header-dropdown__background(for='header-admin-menu')
           .header-dropdown__inner
             ul.header-dropdown__items
               li.header-dropdown__item
-                = link_to admin_root_path, class: "header-dropdown__item-link" do
+                = link_to admin_root_path, class: 'header-dropdown__item-link' do
                   | 管理ページ
               li.header-dropdown__item
-                = link_to new_article_path, class: "header-dropdown__item-link" do
+                = link_to new_article_path, class: 'header-dropdown__item-link' do
                   | ブログ記事作成
               li.header-dropdown__item
-                = link_to "https://fjord.slack.com/admin", class: "header-dropdown__item-link", target: "_blank" do
+                = link_to 'https://fjord.slack.com/admin', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                   | Slack管理
               li.header-dropdown__item
-                = link_to "https://github.com/fjordllc/fjord/wiki/FjordBootCamp", class: "header-dropdown__item-link", target: "_blank" do
+                = link_to 'https://github.com/fjordllc/fjord/wiki/FjordBootCamp', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                   | 管理者用ドキュメント
               li.header-dropdown__item
-                = link_to "https://www.amazon.co.jp/hz/wishlist/ls/3I571CQISBFR6?ref_=wl_share", class: "header-dropdown__item-link", target: "_blank"  do
+                = link_to 'https://www.amazon.co.jp/hz/wishlist/ls/3I571CQISBFR6?ref_=wl_share', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                   | ウィッシュリスト
               li.header-dropdown__item
-                = link_to welcome_path, class: "header-dropdown__item-link" do
+                = link_to welcome_path, class: 'header-dropdown__item-link' do
                   | トップページ確認
               li.header-dropdown__item
-                = link_to "https://app.redash.io/fjord-inc/public/dashboards/TR86ezvmxVWE7ScenS3yTE1z8lV4ILzvmOAyKmWY",
-                  class: "header-dropdown__item-link",
-                  target: "_blank" do
+                = link_to 'https://app.redash.io/fjord-inc/public/dashboards/TR86ezvmxVWE7ScenS3yTE1z8lV4ILzvmOAyKmWY',
+                  class: 'header-dropdown__item-link',
+                  target: '_blank', rel: 'noopener' do
                   | メンターダッシュボード
               li.header-dropdown__item
-                = link_to "https://app.redash.io/fjord-inc/public/dashboards/WFwaaDZIgTFUan2BVhTK1axaxK1WaDSS0xOwSXHz",
-                  class: "header-dropdown__item-link",
-                  target: "_blank" do
+                = link_to 'https://app.redash.io/fjord-inc/public/dashboards/WFwaaDZIgTFUan2BVhTK1axaxK1WaDSS0xOwSXHz',
+                  class: 'header-dropdown__item-link',
+                  target: '_blank', rel: 'noopener' do
                   | 確認数の集計
     li.header-links__item
-      label.header-links__link.test-show-menu(for="header-menu")
+      label.header-links__link.test-show-menu(for='header-menu')
         i.fas.fa-bars
         .header-links__link-label Menu
-      input.a-toggle-checkbox#header-menu(type="checkbox")
+      input.a-toggle-checkbox#header-menu(type='checkbox')
       .header-dropdown
-        label.header-dropdown__background(for="header-menu")
+        label.header-dropdown__background(for='header-menu')
         .header-dropdown__inner
           ul.header-dropdown__items
             li.header-dropdown__item
-              = link_to root_path, class: "header-dropdown__item-link" do
+              = link_to root_path, class: 'header-dropdown__item-link' do
                 | ダッシュボード
             li.header-dropdown__item
-              = link_to user_path(current_user), class: "header-dropdown__item-link" do
+              = link_to user_path(current_user), class: 'header-dropdown__item-link' do
                 | 自分のプロフィール
             li.header-dropdown__item
-              = link_to edit_current_user_path, class: "header-dropdown__item-link" do
+              = link_to edit_current_user_path, class: 'header-dropdown__item-link' do
                 | 登録情報変更
             - if !current_user.adviser? && !current_user.mentor? && !current_user.trainee?
               - if current_user.card?
                 li.header-dropdown__item
-                  = link_to "クレジットカード情報", card_path, class: "header-dropdown__item-link"
+                  = link_to 'クレジットカード情報', card_path, class: 'header-dropdown__item-link'
                 li.header-dropdown__item
-                  = link_to "クレジットカード変更", edit_card_path, class: "header-dropdown__item-link"
+                  = link_to 'クレジットカード変更', edit_card_path, class: 'header-dropdown__item-link'
               - else
                 li.header-dropdown__item
-                  = link_to "クレジットカード登録", new_card_path, class: "header-dropdown__item-link"
+                  = link_to 'クレジットカード登録', new_card_path, class: 'header-dropdown__item-link'
             li.header-dropdown__item
-              = link_to courses_path, class: "header-dropdown__item-link" do
+              = link_to courses_path, class: 'header-dropdown__item-link' do
                 | コース
             li.header-dropdown__item
-              = link_to books_path, class: "header-dropdown__item-link" do
+              = link_to books_path, class: 'header-dropdown__item-link' do
                 | 書籍一覧
             li.header-dropdown__item
-              = link_to companies_path, class: "header-dropdown__item-link" do
+              = link_to companies_path, class: 'header-dropdown__item-link' do
                 | 企業一覧
             li.header-dropdown__item
-              = link_to "https://github.com/fjordllc/bootcamp/projects/1", class: "header-dropdown__item-link", target: "_blank" do
+              = link_to 'https://github.com/fjordllc/bootcamp/projects/1', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                 | GitHub Projects
             li.header-dropdown__item
-              = link_to "https://fjord.whereby.com/talk", class: "header-dropdown__item-link", target: "_blank" do
+              = link_to 'https://fjord.whereby.com/talk', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                 | Whereby
             li.header-dropdown__item
-              = link_to "https://suzuri.jp/FjordBootCamp", class: "header-dropdown__item-link", target: "_blank" do
+              = link_to 'https://suzuri.jp/FjordBootCamp', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                 | グッズ購入
             li.header-dropdown__item
-              = link_to coc_path, class: "header-dropdown__item-link", target: "_blank" do
+              = link_to coc_path, class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
                 | アンチハラスメントポリシー
             li.header-dropdown__item
-              = link_to logout_path, class: "header-dropdown__item-link" do
+              = link_to logout_path, class: 'header-dropdown__item-link' do
                 | ログアウト
             li.header-dropdown__item
-              = link_to new_retirement_path, class: "header-dropdown__item-link" do
+              = link_to new_retirement_path, class: 'header-dropdown__item-link' do
                 | 退会手続き
     #js-notifications

@@ -1,47 +1,47 @@
 report4_check_komagata:
   user: komagata
-  checkable: report_4 (Report)
+  checkable: report4 (Report)
 
 report1_check_machida:
   user: machida
-  checkable: report_1 (Report)
+  checkable: report1 (Report)
 
 report3_check_machida:
   user: machida
-  checkable: report_3 (Report)
+  checkable: report3 (Report)
 
 report5_check_machida:
   user: machida
-  checkable: report_5 (Report)
+  checkable: report5 (Report)
 
 report5_check_komagata:
   user: komagata
-  checkable: report_5 (Report)
+  checkable: report5 (Report)
 
 report6_check_komagata:
   user: komagata
-  checkable: report_6 (Report)
+  checkable: report6 (Report)
 
 report7_check_machida:
   user: machida
-  checkable: report_7 (Report)
+  checkable: report7 (Report)
 
 procuct2_check_komagata:
   user: komagata
-  checkable: product_2 (Product)
+  checkable: product2 (Product)
 
 procuct3_check_komagata:
   user: komagata
-  checkable: product_3 (Product)
+  checkable: product3 (Product)
 
 procuct4_check_komagata:
   user: komagata
-  checkable: product_4 (Product)
+  checkable: product4 (Product)
 
 procuct7_check_komagata:
   user: komagata
-  checkable: product_7 (Product)
+  checkable: product7 (Product)
 
 procuct9_check_komagata:
   user: komagata
-  checkable: product_9 (Product)
+  checkable: product9 (Product)

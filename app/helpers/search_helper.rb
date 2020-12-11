@@ -2,34 +2,34 @@
 
 module SearchHelper
   def matched_document(searchable)
-    if searchable.class == Comment
-      document = searchable.commentable_type.constantize.find(searchable.commentable_id)
-    elsif searchable.class == Answer || searchable.class == CorrectAnswer
-      document = searchable.question
+    if searchable.instance_of?(Comment)
+      searchable.commentable_type.constantize.find(searchable.commentable_id)
+    elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
+      searchable.question
     else
-      document = searchable
+      searchable
     end
   end
 
   def searchable_url(searchable)
-    if searchable.class == Comment
+    if searchable.instance_of?(Comment)
       document = searchable.commentable_type.constantize.find(searchable.commentable_id)
       "#{polymorphic_url(document)}#comment_#{searchable.id}"
-    elsif searchable.class == Answer || searchable.class == CorrectAnswer
+    elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
       document = searchable.question
-      "#{polymorphic_url(document)}"
+      polymorphic_url(document).to_s
     else
       polymorphic_url(searchable)
     end
   end
 
   def filtered_message(searchable)
-    if searchable.class == Comment && searchable.commentable_type == "Product"
+    if searchable.instance_of?(Comment) && searchable.commentable_type == 'Product'
       commentable = Product.find(searchable.commentable_id)
       if policy(commentable).show? || commentable.practice.open_product?
         searchable.description
       else
-        "該当プラクティスを完了するまで他の人の提出物へのコメントは見れません。"
+        '該当プラクティスを完了するまで他の人の提出物へのコメントは見れません。'
       end
     else
       searchable.description

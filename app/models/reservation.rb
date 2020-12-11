@@ -9,23 +9,24 @@ class Reservation < ApplicationRecord
   validate :maximum_reservations, unless: :admin_or_trainee?
 
   private
-    def after_a_month
-      if date > (Date.today.next_month)
-        errors.add(:date, "は一ヶ月先までしか予約できません")
-      end
-    end
 
-    def maximum_reservations(threshold = 5)
-      if date > Date.today && count_reservations >= threshold
-        errors.add(:base, "明日以降の座席は最大#{threshold}つまでしか予約できません")
-      end
-    end
+  def after_a_month
+    return unless date > (Time.zone.today.next_month)
 
-    def admin_or_trainee?
-      user.admin? || user.trainee?
-    end
+    errors.add(:date, 'は一ヶ月先までしか予約できません')
+  end
 
-    def count_reservations
-      user.reservations.count { |reservation| reservation.date > Date.today }
-    end
+  def maximum_reservations(threshold = 5)
+    return unless date > Time.zone.today && count_reservations >= threshold
+
+    errors.add(:base, "明日以降の座席は最大#{threshold}つまでしか予約できません")
+  end
+
+  def admin_or_trainee?
+    user.admin? || user.trainee?
+  end
+
+  def count_reservations
+    user.reservations.count { |reservation| reservation.date > Time.zone.today }
+  end
 end

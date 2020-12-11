@@ -1,5 +1,5 @@
-- title "ブログ記事作成"
-- content_for(:page_classes, "no-recent-reports")
+- title 'ブログ記事作成'
+- content_for(:page_classes, 'no-recent-reports')
 
 header.page-header
   .container
@@ -8,9 +8,9 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to articles_path, class: "a-button is-md is-secondary is-block" do
+            = link_to articles_path, class: 'a-button is-md is-secondary is-block' do
               | ブログ記事一覧へ
 
 .page-body
   .container
-    = render "form", article: @article, categories: @articles
+    = render 'form', article: @article, categories: @articles

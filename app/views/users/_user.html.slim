@@ -7,7 +7,7 @@
             .users-item__inactive-message
               | 1ヶ月ログインがありません
           .users-item__name
-            = link_to user, class: "users-item__name-link" do
+            = link_to user, class: 'users-item__name-link' do
               - if user.daimyo?
                 | ★
               = user.login_name
@@ -17,7 +17,7 @@
                 = user.name
               - if user.company.present? && user.company.logo.attached?
                 = link_to company_path(user.company) do
-                  = image_tag user.company.logo_url, class: "user-item__company-logo"
+                  = image_tag user.company.logo_url, class: 'user-item__company-logo'
             - if user.slack_account.present?
               li.users-item-names__item
                 .users-item-names__slack
@@ -25,16 +25,16 @@
                     i.fab.fa-slack
                   .users-item-names__slack-value
                     = user.slack_account
-          = render "users/user_secret_attributes", user: user
+          = render 'users/user_secret_attributes', user: user
           .users-item__icon
-            = render "users/icon",
+            = render 'users/icon',
               user: user,
-              image_class: "users-item__user-icon-image"
-        = render "users/sns", user: user
+              image_class: 'users-item__user-icon-image'
+        = render 'users/sns', user: user
       .users-item__body
         .users-item__description.a-short-text
           = simple_format h truncate user.description, length: 200
-      = render "users/practices/completed_practices_progress", user: user
+      = render 'users/practices/completed_practices_progress', user: user
       footer.card-footer
         .card-footer-actions
           ul.card-footer-actions__items
@@ -43,5 +43,5 @@
                 .js-following(data-is-following="#{current_user.following?(user)}" data-user-id="#{user.id}")
             - if current_user.admin?
               li.card-footer-actions__item
-                = link_to edit_admin_user_path(user), class: "card-footer-actions__action a-button is-sm is-secondary is-block" do
+                = link_to edit_admin_user_path(user), class: 'card-footer-actions__action a-button is-sm is-secondary is-block' do
                   | 管理者として変更

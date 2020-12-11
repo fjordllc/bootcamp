@@ -7,11 +7,11 @@ header.page-header
         = title
 
 .page-tools
-  = render "companies/tabs", company: @company
+  = render 'companies/tabs', company: @company
 
 .page-body
   .container
     .columns
       .row
         .col-xs-12.col-lg-5.col-xxl-6
-          = render "companies/profile", company: @company
+          = render 'companies/profile', company: @company

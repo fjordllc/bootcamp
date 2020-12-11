@@ -18,7 +18,7 @@ class ProductCallbacks
         )
         create_watch(
           watchers: product.user.company.advisers,
-          watchable: product,
+          watchable: product
         )
       end
       product.published_at = Time.current
@@ -37,23 +37,24 @@ class ProductCallbacks
   end
 
   private
-    def create_author_watch(product)
-      Watch.create!(user: product.user, watchable: product)
-    end
 
-    def send_notification(product:, receivers:, message:)
-      receivers.each do |receiver|
-        NotificationFacade.submitted(product, receiver, message)
-      end
-    end
+  def create_author_watch(product)
+    Watch.create!(user: product.user, watchable: product)
+  end
 
-    def create_watch(watchers:, watchable:)
-      watchers.each do |watcher|
-        Watch.create!(user: watcher, watchable: watchable)
-      end
+  def send_notification(product:, receivers:, message:)
+    receivers.each do |receiver|
+      NotificationFacade.submitted(product, receiver, message)
     end
+  end
 
-    def delete_notification(product)
-      Notification.where(path: "/products/#{product.id}").destroy_all
+  def create_watch(watchers:, watchable:)
+    watchers.each do |watcher|
+      Watch.create!(user: watcher, watchable: watchable)
     end
+  end
+
+  def delete_notification(product)
+    Notification.where(path: "/products/#{product.id}").destroy_all
+  end
 end

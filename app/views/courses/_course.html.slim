@@ -3,7 +3,7 @@
     .courses-item__inner.a-card
       header.courses-item__header
         h3.courses-item__title
-          = link_to course.title, [course, :practices], class: "courses-item__title-link"
+          = link_to course.title, [course, :practices], class: 'courses-item__title-link'
       .courses-item__description
         = simple_format(course.description)
       - if admin_login?
@@ -11,10 +11,10 @@
           .card-footer-actions
             ul.card-footer-actions__items
               li.card-footer-actions__item
-                = link_to edit_course_path(course), class: "a-button is-md is-primary is-block" do
+                = link_to edit_course_path(course), class: 'a-button is-md is-primary is-block' do
                   i.fas.fa-pen
                   | 編集
               li.card-footer-actions__item
-                = link_to course, method: :delete, class: "a-button is-md is-danger is-block js-delete", data: { confirm: "本当によろしいですか？" } do
+                = link_to course, method: :delete, class: 'a-button is-md is-danger is-block js-delete', data: { confirm: '本当によろしいですか？' } do
                   i.fas.fa-trash-alt
                   | 削除

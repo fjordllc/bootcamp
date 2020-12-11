@@ -1,24 +1,24 @@
-.thread-list-item(class="#{event.wip? ? "is-wip" : ""}")
+.thread-list-item(class="#{event.wip? ? 'is-wip' : ''}")
   .thread-list-item__inner
     .thread-list-item__author
-      = render "users/icon",
+      = render 'users/icon',
         user: event.user,
-        link_class: "thread-header__author",
-        image_class: "thread-list-item__author-icon"
+        link_class: 'thread-header__author',
+        image_class: 'thread-list-item__author-icon'
     header.thread-list-item__header
       - if event.wip?
         .thread-list-item__header-icon.is-wip WIP
-      h2.thread-list-item__title(itemprop="name")
-        = link_to event, itemprop: "url", class: "thread-list-item__title-link" do
+      h2.thread-list-item__title(itemprop='name')
+        = link_to event, itemprop: 'url', class: 'thread-list-item__title-link' do
           = event.title
       - if admin_login? || current_user == event.user
         .thread-list-item__actions
-          = link_to edit_event_path(event), class: "thread-list-item__actions-link" do
+          = link_to edit_event_path(event), class: 'thread-list-item__actions-link' do
             i.fas.fa-pen
-          = link_to new_event_path(id: event), class: "thread-list-item__actions-link" do
+          = link_to new_event_path(id: event), class: 'thread-list-item__actions-link' do
             i.fas.fa-copy
     .thread-list-item-meta
-      time.thread-list-item-meta__datetime(datetime="#{event.updated_at.to_datetime}" pubdate="pubdate")
+      time.thread-list-item-meta__datetime(datetime="#{event.updated_at.to_datetime}" pubdate='pubdate')
         = l event.updated_at
       - if event.comments.any?
         .thread-list-item-meta__comment-count
@@ -29,7 +29,7 @@
       .thread-list-item-meta__comment-count
         .thread-list-item-meta__comment-count-value
           | 参加者(#{event.participants_count}名/#{event.capacity}名)
-      - if event.waitlist_count > 0
+      - if event.waitlist_count.positive?
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-value
             | 補欠者(#{event.waitlist_count}名)

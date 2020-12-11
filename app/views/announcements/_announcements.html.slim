@@ -1,21 +1,21 @@
-.thread-list-item(class="#{announcement.wip? ? "is-wip" : ""}")
+.thread-list-item(class="#{announcement.wip? ? 'is-wip' : ''}")
   .thread-list-item__inner
     .thread-list-item__author
-      = render "users/icon",
+      = render 'users/icon',
         user: announcement.user,
-        link_class: "thread-header__author",
-        image_class: "thread-list-item__author-icon"
+        link_class: 'thread-header__author',
+        image_class: 'thread-list-item__author-icon'
     header.thread-list-item__header
       - if announcement.wip?
         .thread-list-item__header-icon.is-wip WIP
-      h2.thread-list-item__title(itemprop="name")
-        = link_to announcement, itempro: "url", class: "thread-list-item__title-link" do
+      h2.thread-list-item__title(itemprop='name')
+        = link_to announcement, itempro: 'url', class: 'thread-list-item__title-link' do
           = announcement.title
       - if admin_login? || current_user == announcement.user
         .thread-list-item__actions
-          = link_to edit_announcement_path(announcement), class: "thread-list-item__actions-link" do
+          = link_to edit_announcement_path(announcement), class: 'thread-list-item__actions-link' do
             i.fas.fa-pen
-          = link_to new_announcement_path(id: announcement), class: "thread-list-item__actions-link" do
+          = link_to new_announcement_path(id: announcement), class: 'thread-list-item__actions-link' do
             i.fas.fa-copy
     .thread-list-item-meta
       - if announcement.wip?
@@ -26,7 +26,6 @@
           span.span.thread-list-item-meta__datetime-label
             | 公開
           | #{l announcement.published_at}
-        - if announcement.comments.any?
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-label
             i.fas.fa-comment

@@ -1,4 +1,4 @@
-- title "貸出中の書籍一覧"
+- title '貸出中の書籍一覧'
 
 header.page-header
   .container
@@ -8,12 +8,12 @@ header.page-header
         .page-header-actions__items
           .page-header-actions__item
 
-= render "books/search_bar"
+= render 'books/search_bar'
 
-= render "books/tabs"
+= render 'books/tabs'
 
 .page-body
   .container.is-padding-horizontal-0-sm-down
-    = paginate @books, position: "top"
-    = render "books/table", books: @books
-    = paginate @books, position: "bottom"
+    = paginate @books, position: 'top'
+    = render 'books/table', books: @books
+    = paginate @books, position: 'bottom'

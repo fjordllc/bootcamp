@@ -1,16 +1,16 @@
-- title @user.adviser? ? "アドバイザー登録" : "フィヨルドブートキャンプ参加登録"
-- content_for :extra_body_classes, "no-header no-footer no-recent-reports no-global-nav is-auth-page is-piyo-background"
+- title @user.adviser? ? 'アドバイザー登録' : 'フィヨルドブートキャンプ参加登録'
+- content_for :extra_body_classes, 'no-header no-footer no-recent-reports no-global-nav is-auth-page is-piyo-background'
 
 .auth-form.is-sign-up.a-card
   header.auth-form__header
     h1.auth-form__title = title
   .auth-form__body
-    = render "form", from: :new, url: users_path, user: @user
+    = render 'form', from: :new, url: users_path, user: @user
   footer.auth-form__footer
     nav.auth-form-nav
       ul.auth-form-nav__items
         li.auth-form-nav__item
-          = link_to "トップページ", welcome_path, class: "auth-form-nav__item-link"
+          = link_to 'トップページ', welcome_path, class: 'auth-form-nav__item-link'
         - if @user.adviser? || @user.trainee?
           li.auth-form-nav__item
              span.auth-form-nav__item-link 利用規約を確認

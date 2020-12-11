@@ -12,6 +12,8 @@ jobs:
            POSTGRES_USER: user
            POSTGRES_DB: user_test
     working_directory: ~/repo
+    environment:
+      TZ: "Asia/Tokyo"
 
     steps:
       - checkout
@@ -64,7 +66,7 @@ jobs:
       - run:
           name: rubocop
           command: |
-            bundle exec rubocop -c .rubocop.yml
+            bundle exec rubocop
 
       - run:
           command: FAIL_ON_ERROR=1 bundle exec rake traceroute

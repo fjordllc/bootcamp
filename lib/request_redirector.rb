@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class RequestRedirector
-  OLD_DOMAIN = "256interns.com"
-  NEW_DOMAIN = "bootcamp.fjord.jp"
+  OLD_DOMAIN = '256interns.com'
+  NEW_DOMAIN = 'bootcamp.fjord.jp'
 
   def initialize(app)
     @app = app
@@ -13,7 +13,7 @@ class RequestRedirector
 
     if request.host == OLD_DOMAIN
       location = request.url.sub(OLD_DOMAIN, NEW_DOMAIN)
-      [301, { "Location" => location, "Content-Type" => "text/html" }, []]
+      [301, { 'Location' => location, 'Content-Type' => 'text/html' }, []]
     else
       @app.call(env)
     end

@@ -1,7 +1,7 @@
 section.welcome-section.is-about.is-yellow#about
   .container
     h2.welcome-section__title
-      = image_tag "about-title.svg", alt: "プログラミングが無料で学べます", class: "welcome-section__title-image"
+      = image_tag 'about-title.svg', alt: 'プログラミングが無料で学べます', class: 'welcome-section__title-image'
     h3.welcome-section__sub-title
       | フィヨルドブートキャンプとは？
     .welcome-section__description
@@ -11,17 +11,17 @@ section.welcome-section.is-about.is-yellow#about
       .welcome-section__actions
         .welcome-section__actions-items
           .welcome-section__actions-item
-            = link_to "私たちの考える戦力", "http://docs.komagata.org/5494", class: "a-welcome-button is-md", target: "_blank"
+            = link_to '私たちの考える戦力', 'http://docs.komagata.org/5494', class: 'a-welcome-button is-md', target: '_blank', rel: 'noopener'
 
     .welcome-small-sections.is-conditions
       h3.welcome-small-sections__title
-        = image_tag("pjord-face.svg", class: "welcome-small-sections__title-icon")
+        = image_tag('pjord-face.svg', class: 'welcome-small-sections__title-icon')
         | フィヨルドブートキャンプはここが違う！
       .row.is-gutter-width-32
         .col-xs-12.col-md-4
           section.welcome-small-section
             .welcome-small-section__inner
-              = image_tag("programmer.svg", class: "welcome-small-section__icon")
+              = image_tag('programmer.svg', class: 'welcome-small-section__icon')
               h3.welcome-small-section__title
                 | 現役プログラマーの<br>メンター
               .welcome-small-section__description
@@ -31,7 +31,7 @@ section.welcome-section.is-about.is-yellow#about
         .col-xs-12.col-md-4
           section.welcome-small-section
             .welcome-small-section__inner
-              = image_tag("github.svg", class: "welcome-small-section__icon")
+              = image_tag('github.svg', class: 'welcome-small-section__icon')
               h3.welcome-small-section__title
                 | 仕事を想定したチーム開発など<br>現場目線のカリキュラム
               .welcome-small-section__description
@@ -40,7 +40,7 @@ section.welcome-section.is-about.is-yellow#about
         .col-xs-12.col-md-4
           section.welcome-small-section
             .welcome-small-section__inner
-              = image_tag("resume.svg", class: "welcome-small-section__icon")
+              = image_tag('resume.svg', class: 'welcome-small-section__icon')
               h3.welcome-small-section__title
                 | 就活に使える<br>成果物
               .welcome-small-section__description

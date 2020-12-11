@@ -3,33 +3,29 @@
 module Mentioner
   def after_save_mention(mentions)
     new_mention_users.each do |receiver|
-      if receiver && sender != receiver
-        NotificationFacade.mentioned(self, receiver)
-      end
+      NotificationFacade.mentioned(self, receiver) if receiver && sender != receiver
     end
 
-    if mentions.include? "@mentor"
-      User.mentor.each do |receiver|
-        if sender != receiver
-          NotificationFacade.mentioned(self, receiver)
-        end
-      end
+    return unless mentions.include? '@mentor'
+
+    User.mentor.each do |receiver|
+      NotificationFacade.mentioned(self, receiver) if sender != receiver
     end
   end
 
   def new_mention_users
-    names = new_mentions.map { |s| s.gsub(/@/, "") }
+    names = new_mentions.map { |s| s.gsub(/@/, '') }
     User.where(login_name: names)
   end
 
   def where_mention
     case self
     when Product
-      "#{self.user.login_name}さんの「#{self.practice[:title]}」の提出物"
+      "#{user.login_name}さんの「#{practice[:title]}」の提出物"
     when Report
-      "#{self.user.login_name}さんの日報「#{self[:title]}」"
+      "#{user.login_name}さんの日報「#{self[:title]}」"
     when Comment
-      target_of_comment(self.commentable.class, self.commentable) + "へのコメント"
+      "#{target_of_comment(commentable.class, commentable)}へのコメント"
     end
   end
 
@@ -39,13 +35,13 @@ module Mentioner
 
   private
 
-    def target_of_comment(commentable_class, commentable)
-      {
-        Report: "#{commentable.user.login_name}さんの日報「#{commentable.title}」",
-        Product: "#{commentable.user.login_name}さんの#{commentable.title}",
-        Event: "イベント「#{commentable.title}」",
-        Page: "Docs「#{commentable.title}」",
-        Announcement: "お知らせ「#{commentable.title}」"
-      }[:"#{commentable_class}"]
-    end
+  def target_of_comment(commentable_class, commentable)
+    {
+      Report: "#{commentable.user.login_name}さんの日報「#{commentable.title}」",
+      Product: "#{commentable.user.login_name}さんの#{commentable.title}",
+      Event: "イベント「#{commentable.title}」",
+      Page: "Docs「#{commentable.title}」",
+      Announcement: "お知らせ「#{commentable.title}」"
+    }[:"#{commentable_class}"]
+  end
 end

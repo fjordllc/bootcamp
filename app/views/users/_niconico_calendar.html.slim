@@ -24,16 +24,16 @@
         - user.niconico_calendar.each do |week|
           tr.niconico-calendar__week
             - week.each do |set|
-              td.niconico-calendar__day(class="is-#{set[:emotion].present? ? set[:emotion] : "blank"}")
+              td.niconico-calendar__day(class="is-#{set[:emotion].presence || 'blank'}")
                 - if set[:emotion].present?
-                  = link_to report_path(set[:report]), class: "niconico-calendar__day-inner" do
+                  = link_to report_path(set[:report]), class: 'niconico-calendar__day-inner' do
                     .niconico-calendar__day-label
                       - if set[:date]
                         = l(set[:date], format: :sm)
                       - else
                         = set[:date]
                     .niconico-calendar__day-value
-                      = image_tag Report.faces[set[:emotion]], alt: set[:report].emotion, class: "niconico-calendar__emotion-image"
+                      = image_tag Report.faces[set[:emotion]], alt: set[:report].emotion, class: 'niconico-calendar__emotion-image'
                 - else
                   .niconico-calendar__day-inner
                     .niconico-calendar__day-label

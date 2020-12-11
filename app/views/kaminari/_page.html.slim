@@ -1,6 +1,12 @@
+ruby:
+  rel = if page.next?
+          'next'
+        else
+          page.prev? ? 'prev' : nil
+        end
 - if page.current?
   li.pagination__item.is-active
-    = content_tag :a, page, remote: remote, rel: (page.next? ? "next" : (page.prev? ? "prev" : nil)), class: "pagination__item-link is-active"
+    = tag.a page, remote: remote, rel: rel, class: 'pagination__item-link is-active'
 - else
   li.pagination__item
-    = link_to page, url, remote: remote, rel: (page.next? ? "next" : (page.prev? ? "prev" : nil)), class: "pagination__item-link"
+    = link_to page, url, remote: remote, rel: rel, class: 'pagination__item-link'

@@ -5,13 +5,13 @@ class Admin::Categories::PositionController < AdminController
 
   def update
     case params[:move]
-    when "higher"
+    when 'higher'
       @category.move_higher
-    when "lower"
+    when 'lower'
       @category.move_lower
-    when "top"
+    when 'top'
       @category.move_to_top
-    when "bottom"
+    when 'bottom'
       @category.move_to_bottom
     end
 
@@ -19,7 +19,8 @@ class Admin::Categories::PositionController < AdminController
   end
 
   private
-    def set_category
-      @category = Category.find(params[:category_id])
-    end
+
+  def set_category
+    @category = Category.find(params[:category_id])
+  end
 end

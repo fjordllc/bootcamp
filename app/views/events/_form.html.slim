@@ -1,34 +1,34 @@
-= render "errors", object: event
-= form_with model: event, local: true, html: { name: "event" } do |f|
+= render 'errors', object: event
+= form_with model: event, local: true, html: { name: 'event' } do |f|
   .form__items
     .form__items-inner
       .form-item
-        = f.label :title, class: "a-label"
-        = f.text_field :title, class: "a-text-input js-warning-form"
+        = f.label :title, class: 'a-label'
+        = f.text_field :title, class: 'a-text-input js-warning-form'
       .form-item
-        = f.label :location, class: "a-label"
-        = f.text_field :location, class: "a-text-input js-warning-form"
+        = f.label :location, class: 'a-label'
+        = f.text_field :location, class: 'a-text-input js-warning-form'
       .form-item
-        = f.label :capacity, class: "a-label"
-        = f.text_field :capacity, class: "a-text-input js-warning-form"
+        = f.label :capacity, class: 'a-label'
+        = f.text_field :capacity, class: 'a-text-input js-warning-form'
       .form-item
-        = f.label :start_at, class: "a-label"
-        = f.datetime_field :start_at, class: "a-text-input js-warning-form"
+        = f.label :start_at, class: 'a-label'
+        = f.datetime_field :start_at, class: 'a-text-input js-warning-form'
       .form-item
-        = f.label :end_at, class: "a-label"
-        = f.datetime_field :end_at, class: "a-text-input js-warning-form"
+        = f.label :end_at, class: 'a-label'
+        = f.datetime_field :end_at, class: 'a-text-input js-warning-form'
       .form-item
-        = f.label :open_start_at, class: "a-label"
-        = f.datetime_field :open_start_at, class: "a-text-input js-warning-form"
+        = f.label :open_start_at, class: 'a-label'
+        = f.datetime_field :open_start_at, class: 'a-text-input js-warning-form'
       .form-item
-        = f.label :open_end_at, class: "a-label"
-        = f.datetime_field :open_end_at, class: "a-text-input js-warning-form"
+        = f.label :open_end_at, class: 'a-label'
+        = f.datetime_field :open_end_at, class: 'a-text-input js-warning-form'
   .form__items
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
-          = f.label :description, class: "a-label"
-          = f.text_area :description, class: "a-text-input js-warning-form js-markdown markdown-form__text-area", data: { "preview": ".js-preview" }
+          = f.label :description, class: 'a-label'
+          = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
         .col-md-6.col-xs-12
           .a-label
             | プレビュー
@@ -37,18 +37,19 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit "WIP", class: "a-button is-lg is-primary is-block", id: "js-shortcut-wip"
+        = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
       - if admin_login?
         li.form-actions__item.is-main
           - if event.new_record?
-            = f.submit "作成", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
+            = f.submit '作成', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
           - else
-            = f.submit "内容変更", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
+            = f.submit '内容変更', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
       li.form-actions__item
-        - if params[:action] == "new" || params[:action] == "create"
-          = link_to "キャンセル", events_path, class: "a-button is-md is-secondary"
-        - elsif params[:action] == "edit" || params[:action] == "update"
-          = link_to "キャンセル", event_path, class: "a-button is-md is-secondary"
+        - case params[:action]
+        - when 'new', 'create'
+          = link_to 'キャンセル', events_path, class: 'a-button is-md is-secondary'
+        - when 'edit', 'update'
+          = link_to 'キャンセル', event_path, class: 'a-button is-md is-secondary'
     - unless mentor_login?
       .form-actions__description.a-short-text
         p

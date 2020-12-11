@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::Books::QrcodesController < AdminController
-  layout "qrcodes"
+  layout 'qrcodes'
   DESPLAY_NUM = 12
 
   def index

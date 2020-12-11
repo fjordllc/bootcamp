@@ -10,6 +10,6 @@ class CreateFootprints < ActiveRecord::Migration[5.0]
     end
     add_index :footprints, :user_id
     add_index :footprints, :report_id
-    add_index :footprints, [:user_id, :report_id], unique: true
+    add_index :footprints, %i[user_id report_id], unique: true
   end
 end

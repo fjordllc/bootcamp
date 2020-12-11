@@ -1,5 +1,5 @@
-- title "ユーザー登録情報変更"
-- content_for(:extra_body_classes, "no-header no-footer no-recent-reports")
+- title 'ユーザー登録情報変更'
+- content_for(:extra_body_classes, 'no-header no-footer no-recent-reports')
 
 .auth-form.is-sign-up.a-card.is-in-app
   header.auth-form__header
@@ -7,14 +7,14 @@
       = title
   - if admin_login? && @user.retired_on? && (@user.slack_participation? || @user.github_collaborator? || @user.officekey_permission?)
     .auth-form__alert
-      = link_to "#external-services" do
+      = link_to '#external-services' do
         | 外部サービスの設定を変更してください。
   .auth-form__body
-    = render "users/form", from: :edit, url: [:admin, @user], user: @user
+    = render 'users/form', from: :edit, url: [:admin, @user], user: @user
   footer.auth-form__footer
     nav.auth-form-nav
       ul.auth-form-nav__items
         li.auth-form-nav__item
-          = link_to "トップページ", root_path, class: "auth-form-nav__item-link"
+          = link_to 'トップページ', root_path, class: 'auth-form-nav__item-link'
         li.auth-form-nav__item
-          = link_to "秘密保持契約書", login_path, class: "auth-form-nav__item-link"
+          = link_to '秘密保持契約書', login_path, class: 'auth-form-nav__item-link'

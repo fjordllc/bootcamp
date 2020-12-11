@@ -1,2 +1,2 @@
-= render "notification_mailer_template", title: "#{@event.title}で、補欠から参加に繰り上がりました。", link_url: notification_url(@notification), link_text: "イベント詳細へ" do
+= render 'notification_mailer_template', title: "#{@event.title}で、補欠から参加に繰り上がりました。", link_url: notification_url(@notification), link_text: 'イベント詳細へ' do
   = simple_format(@event.description)

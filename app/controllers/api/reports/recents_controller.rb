@@ -3,9 +3,9 @@
 class API::Reports::RecentsController < API::BaseController
   def index
     @reports = Report
-      .includes(user: [{ avatar_attachment: :blob }, :company])
-      .not_wip
-      .order(reported_on: :desc, id: :desc)
-      .limit(10)
+               .includes(user: [{ avatar_attachment: :blob }, :company])
+               .not_wip
+               .order(reported_on: :desc, id: :desc)
+               .limit(10)
   end
 end

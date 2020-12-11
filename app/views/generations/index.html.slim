@@ -1,4 +1,4 @@
-- title "期一覧"
+- title '期一覧'
 
 header.page-header.is-margin-bottom-0.is-border-bottom-none
   .container
@@ -7,7 +7,7 @@ header.page-header.is-margin-bottom-0.is-border-bottom-none
       .page-header-actions
         ul.page-header-actions__items
 
-= render "/users/lg_page_tabs"
+= render '/users/lg_page_tabs'
 
 main.page-main
   header.page-main-header
@@ -19,7 +19,7 @@ main.page-main
     .container.is-md
       - if @generations.present?
         .generations.a-card
-          = render partial: "generations/generation", collection: @generations, as: :generation
+          = render partial: 'generations/generation', collection: @generations, as: :generation
       - else
         .o-empty-massage
           .o-empty-massage__icon

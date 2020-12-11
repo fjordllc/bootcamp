@@ -9,8 +9,8 @@ module Taggable
   end
 
   def tag_list_validation
-    if tag_list.any? { |tag| tag =~ /\A(?=.*\s+|.*　+).*\z/ }
-      errors.add(:tag_list, "に空白が含まれています")
-    end
+    return unless tag_list.any? { |tag| tag =~ /\A(?=.*\s+|.*　+).*\z/ }
+
+    errors.add(:tag_list, 'に空白が含まれています')
   end
 end

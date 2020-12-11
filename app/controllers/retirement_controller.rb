@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 class RetirementController < ApplicationController
-  before_action :require_login, except: %i(show)
+  before_action :require_login, except: %i[show]
 
-  def show
-  end
+  def show; end
 
-  def new
-  end
+  def new; end
 
   def create
     current_user.assign_attributes(retire_reason_params)
@@ -24,24 +22,25 @@ class RetirementController < ApplicationController
   end
 
   private
-    def retire_reason_params
-      params.require(:user).permit(:retire_reason, :satisfaction, :opinion, retire_reasons: [])
-    end
 
-    def destroy_subscription
-      Subscription.new.destroy(current_user.subscription_id) if current_user.subscription_id
-    end
+  def retire_reason_params
+    params.require(:user).permit(:retire_reason, :satisfaction, :opinion, retire_reasons: [])
+  end
 
-    def notify_to_admins
-      User.admins.each do |admin_user|
-        Notification.retired(current_user, admin_user)
-      end
-    end
+  def destroy_subscription
+    Subscription.new.destroy(current_user.subscription_id) if current_user.subscription_id
+  end
 
-    def notify_to_slack
-      message = "<#{url_for(current_user)}|#{current_user.name} (#{current_user.login_name})>が退会しました。"
-      SlackNotification.notify message,
-        username: "#{current_user.login_name}@bootcamp.fjord.jp",
-        icon_url: current_user.avatar_url
+  def notify_to_admins
+    User.admins.each do |admin_user|
+      Notification.retired(current_user, admin_user)
     end
+  end
+
+  def notify_to_slack
+    message = "<#{url_for(current_user)}|#{current_user.name} (#{current_user.login_name})>が退会しました。"
+    SlackNotification.notify message,
+                             username: "#{current_user.login_name}@bootcamp.fjord.jp",
+                             icon_url: current_user.avatar_url
+  end
 end

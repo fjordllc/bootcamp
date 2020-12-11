@@ -7,22 +7,22 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to "ユーザー一覧", users_path, class: "a-button is-md is-secondary is-block"
+            = link_to 'ユーザー一覧', users_path, class: 'a-button is-md is-secondary is-block'
           - if current_user == @user
             li.page-header-actions__item
-              = link_to new_work_path, class: "a-button is-md is-warning is-block" do
+              = link_to new_work_path, class: 'a-button is-md is-warning is-block' do
                 i.fas.fa-plus
                 | 作品を追加
 
 .page-tools
-  = render "users/page_tabs", user: @user
+  = render 'users/page_tabs', user: @user
 
 .page-body
   .container
     - if @user.works.present?
       .works
         .row
-          = render partial: "works/work", collection: @works, as: :work
+          = render partial: 'works/work', collection: @works, as: :work
     - else
       .a-empty-message.is-info
         p
@@ -33,6 +33,6 @@ header.page-header
       ul.page-body-actions__items
         - if current_user == @user
           li.page-body-actions__item
-            = link_to new_work_path, class: "a-button is-lg is-warning is-block" do
+            = link_to new_work_path, class: 'a-button is-lg is-warning is-block' do
               i.fas.fa-plus
               | 作品を追加

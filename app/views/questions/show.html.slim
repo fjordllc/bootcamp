@@ -7,11 +7,11 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to new_question_path, class: "a-button is-md is-warning is-block" do
+            = link_to new_question_path, class: 'a-button is-md is-warning is-block' do
               i.fas.fa-plus
               | 質問する
           li.page-header-actions__item
-            = link_to questions_path, class: "a-button is-md is-secondary is-block" do
+            = link_to questions_path, class: 'a-button is-md is-secondary is-block' do
               | Q&A一覧
 
 .page-body
@@ -20,14 +20,14 @@ header.page-header
       .thread__inner.a-card
         header.thread-header
           .thread-header__upper-side
-            = link_to @question.user, class: "thread-header__author" do
+            = link_to @question.user, class: 'thread-header__author' do
               = @question.user.login_name
             .thread-header__date
-              time.thread-header__date-value(datetime="#{@question.updated_at.to_datetime}" pubdate="pubdate")
+              time.thread-header__date-value(datetime="#{@question.updated_at.to_datetime}" pubdate='pubdate')
                 = l @question.updated_at
           - if @question.practice.present?
             .thread-practice
-              = link_to @question.practice, class: "thread-practice__link" do
+              = link_to @question.practice, class: 'thread-practice__link' do
                 = @question.practice.title
           h1.thread-header__title
             - if @question.correct_answer.present?
@@ -38,12 +38,12 @@ header.page-header
                 | 未解決
             = @question.title
           .thread-header__lower-side
-            #js-watch(data-watchable-id="#{@question.id}", data-watchable-type="Question")
+            #js-watch(data-watchable-id="#{@question.id}", data-watchable-type='Question')
             .thread-header__raw
-              = link_to "Raw", question_path(format: :md), class: "a-button is-sm is-secondary", target: "_blank"
+              = link_to 'Raw', question_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank', rel: 'noopener'
         #js-question-tags(
-          data-tags-initial-value="#{@question.tag_list.join(",")}"
-          data-tags-param-name="question[tag_list]"
+          data-tags-initial-value="#{@question.tag_list.join(',')}"
+          data-tags-param-name='question[tag_list]'
           data-question-id="#{@question.id}"
           data-question-user-id="#{@question.user_id}"
           data-current-user-id="#{current_user.id}"
@@ -51,24 +51,24 @@ header.page-header
         .thread__body
           .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @question.description
-          = render "reactions/reactions", reactionable: @question
+          = render 'reactions/reactions', reactionable: @question
         - if @question.user_id == current_user.id || admin_login?
           .card-footer
             .card-footer-actions
               ul.card-footer-actions__items
                 li.card-footer-actions__item
-                  = link_to edit_question_path(@question), class: "card-footer-actions__action a-button is-md is-primary is-block", id: "js-shortcut-edit" do
+                  = link_to edit_question_path(@question), class: 'card-footer-actions__action a-button is-md is-primary is-block', id: 'js-shortcut-edit' do
                     i.fas.fa-pen#new
                     | 内容修正
                 li.card-footer-actions__item
-                  = link_to question_path(@question), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "js-delete card-footer-actions__action a-button is-md is-danger is-block" do
+                  = link_to question_path(@question), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'js-delete card-footer-actions__action a-button is-md is-danger is-block' do
                     i.fas.fa-trash-alt#delete
                     | 削除
 
-      = render "users/icon",
+      = render 'users/icon',
         user: @question.user,
-        link_class: "thread__author-link",
-        image_class: "thread__author-icon"
+        link_class: 'thread__author-link',
+        image_class: 'thread__author-icon'
 
     .thread-comments-container
 

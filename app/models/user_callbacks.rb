@@ -11,22 +11,21 @@ class UserCallbacks
       Report.where(user: user).wip.destroy_all
     end
 
-    if user.saved_change_to_retired_on?
-      user.update(job_seeking: false)
-    end
+    user.update(job_seeking: false) if user.saved_change_to_retired_on?
 
-    if user.saved_change_to_graduated_on? && user.graduated?
-      notify_to_slack(user)
-    end
+    return unless user.saved_change_to_graduated_on? && user.graduated?
+
+    notify_to_slack(user)
   end
 
   private
-    def notify_to_slack(user)
-      path = Rails.application.routes.url_helpers.user_path(user)
-      url = "https://bootcamp.fjord.jp#{path}"
-      SlackNotification.notify "<#{url}|#{user.login_name}>さんが卒業しました！おめでとうございます🎉",
-        username: "#{user.login_name} (#{user.name})",
-        icon_url: user.avatar_url,
-        channel: "#fjord"
-    end
+
+  def notify_to_slack(user)
+    path = Rails.application.routes.url_helpers.user_path(user)
+    url = "https://bootcamp.fjord.jp#{path}"
+    SlackNotification.notify "<#{url}|#{user.login_name}>さんが卒業しました！おめでとうございます🎉",
+                             username: "#{user.login_name} (#{user.name})",
+                             icon_url: user.avatar_url,
+                             channel: '#fjord'
+  end
 end

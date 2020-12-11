@@ -1,7 +1,7 @@
 .form-item
-  = f.label :experience, class: "a-label is-required"
+  = f.label :experience, class: 'a-label is-required'
   .a-button.is-md.is-secondary.is-select.is-block
-    - options = options_for_select(User.experiences.map { |k, v| [t("activerecord.enums.user.experience.#{k}"), k] }, selected: f.object.experience)
-    = f.select :experience, options, include_blank: "- 選択してください -"
+    - options = options_for_select(User.experiences.map { |k, _| [t("activerecord.enums.user.experience.#{k}"), k] }, selected: f.object.experience)
+    = f.select :experience, options, include_blank: '- 選択してください -'
   .a-form-help
     p この情報は他のフィヨルドブートキャンプ参加者には公開されません。

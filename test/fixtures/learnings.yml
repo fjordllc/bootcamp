@@ -1,82 +1,82 @@
-learning_1:
+learning1:
   user: komagata
-  practice: practice_1
+  practice: practice1
   status: "started"
 
-learning_2:
+learning2:
   user: komagata
-  practice: practice_2
+  practice: practice2
   status: "complete"
 
-learning_3:
+learning3:
   user: komagata
-  practice: practice_3
+  practice: practice3
   status: "unstarted"
 
-learning_4:
+learning4:
   user: machida
-  practice: practice_2
+  practice: practice2
   status: "complete"
 
-learning_5:
+learning5:
   user: sotugyou
-  practice: practice_2
+  practice: practice2
   status: "complete"
 
-learning_6:
+learning6:
   user: kimura
-  practice: practice_1
+  practice: practice1
   status: "complete"
 
-learning_7:
+learning7:
   user: komagata
-  practice: practice_4
+  practice: practice4
   status: "submitted"
 
-learning_8:
+learning8:
   user: machida
-  practice: practice_5
+  practice: practice5
   status: "complete"
   created_at: "2020-04-12 14:05:53.782503"
   updated_at: "2020-04-12 14:05:53.782503"
 
-learning_9:
+learning9:
   user: machida
-  practice: practice_6
+  practice: practice6
   status: "complete"
   created_at: "2020-04-10 14:05:53.782503"
   updated_at: "2020-04-10 14:05:53.782503"
 
-learning_10:
+learning10:
   user: machida
-  practice: practice_7
+  practice: practice7
   status: "complete"
   created_at: "2020-04-19 14:05:53.782503"
   updated_at: "2020-04-19 14:05:53.782503"
 
-learning_11:
+learning11:
   user: machida
-  practice: practice_8
+  practice: practice8
   status: "complete"
   created_at: "2020-04-22 14:05:53.782503"
   updated_at: "2020-04-22 14:05:53.782503"
 
-learning_12:
+learning12:
   user: hajime
-  practice: practice_1
+  practice: practice1
   status: "started"
 
-learning_13:
+learning13:
   user: kananashi
-  practice: practice_3
+  practice: practice3
   status: "started"
 
-learning_14:
+learning14:
   user: hajime
-  practice: practice_27
+  practice: practice27
   status: "complete"
 
-learning_15:
+learning15:
   user: hajime
-  practice: practice_48
+  practice: practice48
   status: "complete"

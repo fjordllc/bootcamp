@@ -1,9 +1,9 @@
 - if current_user.borrowing?(@book)
-  - title "書籍の返却"
+  - title '書籍の返却'
 - elsif @book.borrowed
-  - title "貸出中"
+  - title '貸出中'
 - else
-  - title "書籍を借りる"
+  - title '書籍を借りる'
 
 header.page-header
   .container
@@ -22,8 +22,8 @@ header.page-header
             .thread-header__lower-side-date
               .thread-header__lower-side-label
                 | 登録日
-              time.thread-header__lower-side-value(datetime="#{@book.created_at.to_datetime}" pubdate="pubdate")
+              time.thread-header__lower-side-value(datetime="#{@book.created_at.to_datetime}" pubdate='pubdate')
                 = l @book.created_at
         footer.card-footer
           .card-footer-actions
-            = render "form", book: @book
+            = render 'form', book: @book

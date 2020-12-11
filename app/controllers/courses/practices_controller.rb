@@ -11,9 +11,9 @@ class Courses::PracticesController < ApplicationController
     @learnings = current_user.learnings
 
     # TODO: リタイアした人のセッションが切れたら外す
-    if current_user.retired_on?
-      logout
-      redirect_to retire_path
-    end
+    return unless current_user.retired_on?
+
+    logout
+    redirect_to retire_path
   end
 end

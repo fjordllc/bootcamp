@@ -1,5 +1,5 @@
-- title "登録情報変更"
-- content_for(:extra_body_classes, "no-footer no-recent-reports")
+- title '登録情報変更'
+- content_for(:extra_body_classes, 'no-footer no-recent-reports')
 
 header.page-header
   .container
@@ -11,7 +11,7 @@ header.page-header
     h1.auth-form__title
       = title
   .auth-form__body
-    = render "users/form", from: :edit, url: current_user_path, user: @user
+    = render 'users/form', from: :edit, url: current_user_path, user: @user
   footer.auth-form__footer
     nav.auth-form-nav
       ul.auth-form-nav__items
@@ -19,4 +19,4 @@ header.page-header
           span.auth-form-nav__item-link
             | 利用規約を確認
         li.auth-form-nav__item
-          = link_to "退会手続きへ進む", new_retirement_path, class: "auth-form-nav__item-link test-fixed-bottom"
+          = link_to '退会手続きへ進む', new_retirement_path, class: 'auth-form-nav__item-link test-fixed-bottom'

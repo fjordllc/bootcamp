@@ -1,7 +1,7 @@
 section.welcome-section.is-administrator.is-bird#administrator
   .container
     h2.welcome-section__title
-      = image_tag("administrator-title.svg", alt: "運営会社", class: "welcome-section__title-image")
+      = image_tag('administrator-title.svg', alt: '運営会社', class: 'welcome-section__title-image')
     h3.welcome-section__sub-title
       | 合同会社フィヨルド
     .welcome-section__description
@@ -15,7 +15,7 @@ section.welcome-section.is-administrator.is-bird#administrator
           .col-xs-12.col-md-6
             section.welcome-member
               .welcome-member__inner
-                = image_tag("komagata.jpg", class: "welcome-member__image")
+                = image_tag('komagata.jpg', class: 'welcome-member__image')
                 .welcome-member__body
                   h3.welcome-member__name
                     | 駒形真幸
@@ -23,22 +23,22 @@ section.welcome-section.is-administrator.is-bird#administrator
                       | プログラマー
                   ul.welcome-member__sns
                     li.welcome-member__sns-item
-                      = link_to "https://github.com/komagata", class: "welcome-member__sns-item-link" do
+                      = link_to 'https://github.com/komagata', class: 'welcome-member__sns-item-link' do
                         i.fab.fa-github-alt
                     li.welcome-member__sns-item
-                      = link_to "https://github.com/komagata", class: "welcome-member__sns-item-link" do
+                      = link_to 'https://github.com/komagata', class: 'welcome-member__sns-item-link' do
                         i.fas.fa-home
                     li.welcome-member__sns-item
-                      = link_to "https://twitter.com/komagata", class: "welcome-member__sns-item-link" do
+                      = link_to 'https://twitter.com/komagata', class: 'welcome-member__sns-item-link' do
                         i.fab.fa-twitter
                     li.welcome-member__sns-item
-                      = link_to "https://www.facebook.com/komagata1111", class: "welcome-member__sns-item-link" do
+                      = link_to 'https://www.facebook.com/komagata1111', class: 'welcome-member__sns-item-link' do
                         i.fab.fa-facebook-square
 
           .col-xs-12.col-md-6
             section.welcome-member
               .welcome-member__inner
-                = image_tag("machida.jpg", class: "welcome-member__image")
+                = image_tag('machida.jpg', class: 'welcome-member__image')
                 .welcome-member__body
                   h3.welcome-member__name
                     | 町田 哲平
@@ -46,17 +46,17 @@ section.welcome-section.is-administrator.is-bird#administrator
                       | デザイナー
                   ul.welcome-member__sns
                     li.welcome-member__sns-item
-                      = link_to "https://github.com/machida", class: "welcome-member__sns-item-link" do
+                      = link_to 'https://github.com/machida', class: 'welcome-member__sns-item-link' do
                         i.fab.fa-github-alt
                     //
                       li.welcome-member__sns-item
-                        = link_to ""  , class: "welcome-member__sns-item-link" do
+                        = link_to ''  , class: 'welcome-member__sns-item-link' do
                           i.fas.fa-home
                     li.welcome-member__sns-item
-                      = link_to "https://twitter.com/machida", class: "welcome-member__sns-item-link" do
+                      = link_to 'https://twitter.com/machida', class: 'welcome-member__sns-item-link' do
                         i.fab.fa-twitter
                     li.welcome-member__sns-item
-                      = link_to "https://www.facebook.com/teppeimachida", class: "welcome-member__sns-item-link" do
+                      = link_to 'https://www.facebook.com/teppeimachida', class: 'welcome-member__sns-item-link' do
                         i.fab.fa-facebook-square
 
     section.welcome-child-section
@@ -83,5 +83,5 @@ section.welcome-section.is-administrator.is-bird#administrator
             tr
               th URL
               td
-                = link_to "https://fjord.jp", target: "_blank", class: "welcome-child-section__description-link" do
+                = link_to 'https://fjord.jp', target: '_blank', rel: 'noopener', class: 'welcome-child-section__description-link' do
                   | fjord.jp

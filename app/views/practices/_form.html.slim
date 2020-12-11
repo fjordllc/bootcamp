@@ -1,49 +1,49 @@
-= form_with model: practice, local: true, class: "form", html: { name: "practice" } do |f|
-  = render "errors", object: practice
+= form_with model: practice, local: true, class: 'form', html: { name: 'practice' } do |f|
+  = render 'errors', object: practice
   .form-item
     .row
       .col-md-6.col-xs-12
-        = f.label :title, class: "a-label is-required"
-        = f.text_field :title, class: "a-text-input js-warning-form"
+        = f.label :title, class: 'a-label is-required'
+        = f.text_field :title, class: 'a-text-input js-warning-form'
   .form-item
-    = f.label :categories, class: "a-label is-required"
+    = f.label :categories, class: 'a-label is-required'
     .checkboxes
       ul.checkboxes__items
-        = f.collection_check_boxes :category_ids, Category.all, :id, :name, class: "label-checkbox" do |b|
+        = f.collection_check_boxes :category_ids, Category.all, :id, :name, class: 'label-checkbox' do |b|
           li.checkboxes__item
                 = b.label { b.check_box + b.text }
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label :description, class: "a-label is-required"
+        = f.label :description, class: 'a-label is-required'
         = f.text_area :description,
-          class: "a-text-input js-warning-form markdown-form__text-area js-markdown",
-          data: { "preview": ".js-description-preview" }
+          class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
+          data: { 'preview': '.js-description-preview' }
       .col-md-6.col-xs-12
         .a-label プレビュー
         .js-description-preview.is-long-text.markdown-form__preview
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label :goal, class: "a-label is-required"
+        = f.label :goal, class: 'a-label is-required'
         = f.text_area :goal,
-          class: "a-text-input js-warning-form markdown-form__text-area js-markdown",
-          data: { "preview": ".js-goal-preview" }
+          class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
+          data: { 'preview': '.js-goal-preview' }
       .col-md-6.col-xs-12
         .a-label プレビュー
         .js-goal-preview.is-long-text.markdown-form__preview
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label :memo, class: "a-label"
+        = f.label :memo, class: 'a-label'
         = f.text_area :memo,
-          class: "a-text-input js-warning-form markdown-form__text-area js-markdown",
-          data: { "preview": ".js-memo-preview" }
+          class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
+          data: { 'preview': '.js-memo-preview' }
       .col-md-6.col-xs-12
         .a-label プレビュー
         .js-memo-preview.is-long-text.markdown-form__preview
   .form-item
-    = f.label :submission, class: "a-label"
+    = f.label :submission, class: 'a-label'
     .checkboxes
       ul.checkboxes__items
         li.checkboxes__item
@@ -55,7 +55,7 @@
             = f.check_box :open_product
             | OKをもらっていない人も提出物を見られるようにする場合はチェック
   .form-item
-    = f.label :progress, class: "a-label"
+    = f.label :progress, class: 'a-label'
     .checkboxes
       ul.checkboxes__items
         li.checkboxes__item
@@ -65,6 +65,6 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit nil, class: "a-button is-lg is-warning is-block"
+        = f.submit nil, class: 'a-button is-lg is-warning is-block'
       li.form-actions__item
-        = link_to "キャンセル", :back, class: "a-button is-md is-secondary"
+        = link_to 'キャンセル', :back, class: 'a-button is-md is-secondary'

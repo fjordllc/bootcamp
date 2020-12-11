@@ -1,14 +1,14 @@
-report_1:
+report1:
   user: komagata
   title: "作業週1日目"
   description: |-
     今日はローカルで怖話を動かしてみました。
     rbenv で ruby を動かすのは初めてだったので、色々手間取りました。
-  practices: practice_1
+  practices: practice1
   reported_on: "2017-01-01"
   created_at: "2017-01-01 00:00:00"
 
-report_2:
+report2:
   user: komagata
   title: "作業週2日目"
   description: |-
@@ -17,7 +17,7 @@ report_2:
   reported_on: "2017-01-02"
   created_at: "2017-01-02 00:00:00"
 
-report_3:
+report3:
   user: komagata
   title: "学習週3日目"
   description: |-
@@ -25,42 +25,42 @@ report_3:
   reported_on: "2017-01-03"
   created_at: "2017-01-03 00:00:00"
 
-report_4:
+report4:
   user: machida
   title: "Fjord Bootcamp で Bootstrap のバージョン更新"
   description: |-
     Fjord Bootcamp で Bootstrap のバージョン更新を行った他、デザインの微調整を行いました。
   reported_on: "2017-01-01"
 
-report_5:
+report5:
   user: sotugyou
   title: "学習週1日目"
   description: |-
     今日は　Rubyの基礎 を学習しました。
   reported_on: "2017-01-01"
 
-report_6:
+report6:
   user: sotugyou
   title: "学習週2日目"
   description: |-
     今日は　Railsの基礎 を学習しました。
   reported_on: "2017-01-02"
 
-report_7:
+report7:
   user: sotugyou
   title: "学習週3日目"
   description: |-
     今日は　RSpecの基礎 を学習しました。
   reported_on: "2017-01-03"
 
-report_8:
+report8:
   user: yamada
   title: テストの日報
   description: |-
     いろいろやりました。
   reported_on: "2017-01-01"
 
-report_9:
+report9:
   user: sotugyou
   title: WIPの日報
   description: |-
@@ -68,14 +68,14 @@ report_9:
   reported_on: "2019-01-01"
   wip: true
 
-report_10:
+report10:
   user: hajime
   title: 初日報です
   description:
     学習の準備をしました。
   reported_on: "2019-01-01"
 
-report_11:
+report11:
   user: kensyu
   title: 研修の日報
   description:
@@ -88,7 +88,7 @@ sotugyou:
   description: いろいろやりました
   reported_on: "2018-02-01"
 
-report_12:
+report12:
   user: yamada
   title: 検索結果確認用-C
   description:
@@ -96,7 +96,7 @@ report_12:
   reported_on: "2020-01-01"
   created_at: "2020-01-01 00:00:00"
 
-report_13:
+report13:
   user: yamada
   title: 検索結果確認用-A
   description:
@@ -104,7 +104,7 @@ report_13:
   reported_on: "1900-01-01"
   created_at: "1900-01-01 00:00:00"
 
-report_14:
+report14:
   user: yamada
   title: 検索結果確認用-B
   description:
@@ -112,7 +112,7 @@ report_14:
   reported_on: "2000-01-01"
   created_at: "2000-01-01 00:00:00"
 
-report_15:
+report15:
   user: hajime
   title: "今日は頑張りました"
   emotion: 2
@@ -120,7 +120,7 @@ report_15:
     頑張りました
   reported_on: <%= Time.now - 1.day %>
 
-report_16:
+report16:
   user: hajime
   title: "今日は頑張れませんでした"
   emotion: 1
@@ -128,23 +128,23 @@ report_16:
     頑張れませんでした
   reported_on: <%= Time.now - 2.day %>
 
-report_17:
+report17:
   user: yamada
   title: 1時間だけ学習
   description: |-
     yamadaです、メンターです。
     今日は1時間学習しました。
-  practices: practice_1
+  practices: practice1
   reported_on: "2020-06-01"
 
-report_18:
+report18:
   user: daimyo
   title: テストのnippou
   description: |-
     今日は1時間学習しました。
   reported_on: "2020-06-01"
 
-report_19:
+report19:
   user: hatsuno
   title: "<s>1日目</s> できなかった"
   emotion: 1
@@ -152,7 +152,7 @@ report_19:
     あまりできませんでした
   reported_on: <%= Time.current - 2.day %>
 
-report_20:
+report20:
   user: hatsuno
   title: "2日目 昨日よりできなかった"
   emotion: 1
@@ -160,37 +160,37 @@ report_20:
     昨日よりできませんでした
   reported_on: <%= Time.current - 1.day %>
 
-report_21:
+report21:
   user: sotugyou
   title: "学習週4日目"
   description: |-
     今日は　Vueの基礎 を学習しました。
-  practices: practice_1
+  practices: practice1
   reported_on: "2020-08-01"
 
-report_22:
+report22:
   user: sotugyou
   title: 卒業生による日報
   description:
     卒業しました。
-  practices: practice_2
+  practices: practice2
   reported_on: "2020-09-10"
 
-report_23:
+report23:
   user: kensyu
   title: フォローされた日報
   description:
     フォローされました。
   reported_on: "2020-11-10"
 
-report_24:
+report24:
   user: daimyo
   title: 検索用の日報
   description:
     ユーザーネームで検索できるよ
   reported_on: "2020-11-20"
 
-report_25:
+report25:
   user: hatsuno
   title: 検索用の日報
   description:

@@ -5,9 +5,10 @@ class SchedulerController < ApplicationController
   before_action :require_token
 
   protected
-    def require_token
-      unless ENV["TOKEN"] == params[:token]
-        head :unauthorized
-      end
-    end
+
+  def require_token
+    return if ENV['TOKEN'] == params[:token]
+
+    head :unauthorized
+  end
 end

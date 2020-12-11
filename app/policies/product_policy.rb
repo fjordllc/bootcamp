@@ -4,6 +4,7 @@ class ProductPolicy < ApplicationPolicy
   attr_reader :user, :product
 
   def initialize(user, product)
+    super()
     @user = user
     @product = product
   end

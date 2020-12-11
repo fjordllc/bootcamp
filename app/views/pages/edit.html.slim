@@ -1,5 +1,5 @@
-- title "ページ編集"
-- content_for(:extra_body_classes, "no-recent-reports")
+- title 'ページ編集'
+- content_for(:extra_body_classes, 'no-recent-reports')
 
 header.page-header
   .container
@@ -9,4 +9,4 @@ header.page-header
 
 .page-body
   .container
-    = render "form", page: @page, categories: @categories
+    = render 'form', page: @page, categories: @categories

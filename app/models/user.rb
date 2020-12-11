@@ -4,9 +4,9 @@ class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
 
   authenticates_with_sorcery!
-  VALID_SORT_COLUMNS = %w(id login_name company_id updated_at created_at report comment asc desc)
-  AVATAR_SIZE = "88x88>"
-  RESERVED_LOGIN_NAMES = %w(adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party)
+  VALID_SORT_COLUMNS = %w[id login_name company_id updated_at created_at report comment asc desc].freeze
+  AVATAR_SIZE = '88x88>'
+  RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
 
   enum job: {
     student: 0,
@@ -37,12 +37,11 @@ class User < ApplicationRecord
     very_poor: 4
   }, _prefix: true
 
-  belongs_to :company, required: false
+  belongs_to :company, optional: true
   belongs_to :course
-  has_many :learnings
-  has_many :borrowings
-  has_many :pages,         dependent: :destroy
-  has_many :last_updated_pages, class_name: "Page"
+  has_many :learnings, dependent: :destroy
+  has_many :borrowings, dependent: :destroy
+  has_many :pages, dependent: :destroy
   has_many :comments,      dependent: :destroy
   has_many :reports,       dependent: :destroy
   has_many :checks,        dependent: :destroy
@@ -60,92 +59,95 @@ class User < ApplicationRecord
   has_many :answers,      dependent: :destroy
 
   has_many :participate_events,
-    through: :participations,
-    source: :event
+           through: :participations,
+           source: :event
 
   has_many :send_notifications,
-    class_name:  "Notification",
-    foreign_key: "sender_id",
-    dependent:   :destroy
+           class_name: 'Notification',
+           foreign_key: 'sender_id',
+           inverse_of: 'sender',
+           dependent: :destroy
 
   has_many :completed_learnings,
-    -> { where(status: "complete") },
-    class_name: "Learning",
-    dependent:  :destroy
+           -> { where(status: 'complete') },
+           class_name: 'Learning',
+           inverse_of: 'user',
+           dependent: :destroy
 
   has_many :completed_practices,
-    through:   :completed_learnings,
-    source:    :practice,
-    dependent: :destroy
+           through: :completed_learnings,
+           source: :practice,
+           dependent: :destroy
 
   has_many :active_learnings,
-    -> { where(status: "started") },
-    class_name: "Learning",
-    dependent:  :destroy
+           -> { where(status: 'started') },
+           class_name: 'Learning',
+           inverse_of: 'user',
+           dependent: :destroy
 
   has_many :active_practices,
-    through:   :active_learnings,
-    source:    :practice,
-    dependent: :destroy
+           through: :active_learnings,
+           source: :practice,
+           dependent: :destroy
 
   has_many :books,
-    through: :borrowings
-
-  has_many :last_updated_practices, class_name: "Practice"
+           through: :borrowings
 
   has_many :active_relationships,
-    class_name: "Following",
-    foreign_key: "follower_id",
-    dependent: :destroy
+           class_name: 'Following',
+           foreign_key: 'follower_id',
+           inverse_of: 'follower',
+           dependent: :destroy
 
   has_many :following,
-    through: :active_relationships,
-    source: :followed
+           through: :active_relationships,
+           source: :followed
 
   has_many :passive_relationships,
-    class_name:  "Following",
-    foreign_key: "followed_id",
-    dependent: :destroy
+           class_name: 'Following',
+           foreign_key: 'followed_id',
+           inverse_of: 'followed',
+           dependent: :destroy
 
   has_many :followers,
-    through: :passive_relationships,
-    source: :follower
+           through: :passive_relationships,
+           source: :follower
 
   has_one_attached :avatar
 
   before_create UserCallbacks.new
   after_update UserCallbacks.new
 
-  validates :email,      presence: true, uniqueness: true
-  validates :name,  presence: true
+  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :twitter_account,
-    length: { maximum: 15 },
-    format: {
-      allow_blank: true,
-      with: /\A\w+\z/,
-      message: "は英文字と_（アンダースコア）のみが使用できます"
-    }
+            length: { maximum: 15 },
+            format: {
+              allow_blank: true,
+              with: /\A\w+\z/,
+              message: 'は英文字と_（アンダースコア）のみが使用できます'
+            }
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
 
-  validates_exclusion_of :login_name, in: RESERVED_LOGIN_NAMES, message: "に使用できない文字列が含まれています"
+  validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
-      format: {
-          with: /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i,
-          message: "は半角英数字と-（ハイフン）のみが使用できます 先頭と最後にハイフンを使用することはできません ハイフンを連続して使用することはできません"
-        }
+                           format: {
+                             with: /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i,
+                             message: 'は半角英数字と-（ハイフン）のみが使用できます 先頭と最後にハイフンを使用することはできません ハイフンを連続して使用することはできません'
+                           }
   end
 
   with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
     validates :name_kana,  presence: true,
-    format: {
-      with: /\A^[ 　ア-ン゛゜ァ-ォャ-ョー]+\z/,
-      message: "はスペースとカタカナのみが使用できます"
-    }
+                           format: {
+                             with: /\A^[ 　ア-ン゛゜ァ-ォャ-ョー]+\z/,
+                             message: 'はスペースとカタカナのみが使用できます'
+                           }
   end
 
   with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
@@ -158,17 +160,17 @@ class User < ApplicationRecord
     validates :satisfaction, presence: true
   end
 
-  flag :retire_reasons, [
-    :done,
-    :necessity,
-    :other_school,
-    :time,
-    :motivation,
-    :curriculum,
-    :support,
-    :environment,
-    :cost,
-    :job_change
+  flag :retire_reasons, %i[
+    done
+    necessity
+    other_school
+    time
+    motivation
+    curriculum
+    support
+    environment
+    cost
+    job_change
   ]
 
   scope :in_school, -> { where(graduated_on: nil) }
@@ -177,7 +179,7 @@ class User < ApplicationRecord
   scope :unretired, -> { where(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
-  scope :students_and_trainees, -> {
+  scope :students_and_trainees, lambda {
     where(
       admin: false,
       mentor: false,
@@ -186,18 +188,18 @@ class User < ApplicationRecord
       retired_on: nil
     )
   }
-  scope :students, -> {
+  scope :students, lambda {
     where(
       admin: false,
       mentor: false,
       adviser: false,
-      trainee:  false,
+      trainee: false,
       retired_on: nil,
       graduated_on: nil
     )
   }
   scope :active, -> { where(updated_at: 1.month.ago..Float::INFINITY) }
-  scope :inactive, -> {
+  scope :inactive, lambda {
     where(
       updated_at: Date.new..1.month.ago,
       adviser: false,
@@ -205,7 +207,7 @@ class User < ApplicationRecord
       graduated_on: nil
     )
   }
-  scope :inactive_students_and_trainees, -> {
+  scope :inactive_students_and_trainees, lambda {
     where(
       updated_at: Date.new..1.month.ago,
       admin: false,
@@ -217,7 +219,7 @@ class User < ApplicationRecord
   }
   scope :year_end_party, -> { where(retired_on: nil) }
   scope :mentor, -> { where(mentor: true) }
-  scope :working, -> {
+  scope :working, lambda {
     active.where(
       adviser: false,
       graduated_on: nil,
@@ -227,38 +229,36 @@ class User < ApplicationRecord
   scope :admins, -> { where(admin: true) }
   scope :trainees, -> { where(trainee: true) }
   scope :job_seeking, -> { where(job_seeking: true) }
-  scope :job_seekers, -> {
+  scope :job_seekers, lambda {
     students.where(
       job_seeker: true
     )
   }
-  scope :order_by_counts, -> (order_by, direction) {
-    unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
-      raise ArgumentError, "Invalid argument"
-    end
+  scope :order_by_counts, lambda { |order_by, direction|
+    raise ArgumentError, 'Invalid argument' unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
 
-    if order_by.in? ["report", "comment"]
+    if order_by.in? %w[report comment]
       left_outer_joins(order_by.pluralize.to_sym)
-        .group("users.id")
+        .group('users.id')
         .order(Arel.sql("count(#{order_by.pluralize}.id) #{direction}, users.created_at"))
     else
       order(order_by.to_sym => direction.to_sym, created_at: :asc)
     end
   }
-  scope :same_generations, -> (start_date, end_date) {
+  scope :same_generations, lambda { |start_date, end_date|
     where(created_at: start_date..end_date)
-    .unretired
-    .order(:created_at)
+      .unretired
+      .order(:created_at)
   }
 
   class << self
     def announcement_receiver(target)
       case target
-      when "all"
+      when 'all'
         User.unretired
-      when "students"
+      when 'students'
         User.admins.or(User.students)
-      when "job_seekers"
+      when 'job_seekers'
         User.admins.or(User.job_seekers)
       else
         User.none
@@ -267,61 +267,53 @@ class User < ApplicationRecord
 
     def users_role(target)
       case target
-      when "student_and_trainee"
-        self.students_and_trainees
-      when "job_seeking"
-        self.job_seeking
-      when "retired"
-        self.retired
-      when "graduate"
-        self.graduated
-      when "adviser"
-        self.advisers
-      when "mentor"
-        self.mentor
-      when "inactive"
-        self.inactive.order(:updated_at)
-      when "year_end_party"
-        self.year_end_party
-      when "trainee"
-        self.trainees
-      when "all"
-        self.all
+      when 'student_and_trainee'
+        students_and_trainees
+      when 'graduate'
+        graduated
+      when 'adviser'
+        advisers
+      when 'inactive'
+        inactive.order(:updated_at)
+      when 'trainee'
+        trainees
+      else
+        send(target)
       end
     end
   end
 
   def away?
-    self.updated_at <= 10.minutes.ago
+    updated_at <= 10.minutes.ago
   end
 
   def completed_percentage
-    completed_practices.where(include_progress: true).size.to_f / course.practices.where(include_progress: true).count.to_f * 100
+    completed_practices.where(include_progress: true).size.to_f / course.practices.where(include_progress: true).count * 100
   end
 
   def completed_practices_size(category)
     Practice
-      .joins({ categories: :categories_practices  }, :learnings)
+      .joins({ categories: :categories_practices }, :learnings)
       .distinct(:id)
       .where(
         categories_practices: { category_id: category.id },
         learnings: {
           user_id: id,
-          status: "complete"
+          status: 'complete'
         }
       )
       .size
   end
 
   def completed_percentage_by(category)
-    completed_practices_size(category).to_f / category.practices.size.to_f * 100
+    completed_practices_size(category).to_f / category.practices.size * 100
   end
 
   def active?
     updated_at > 1.month.ago
   end
 
-  def has_checked_product_of?(*practices)
+  def checked_product_of?(*practices)
     products.where(practice: practices).any?(&:checked?)
   end
 
@@ -330,14 +322,14 @@ class User < ApplicationRecord
   end
 
   def total_learning_time
-    sql = <<-SQL
-SELECT
-  SUM(EXTRACT(epoch from learning_times.finished_at - learning_times.started_at) / 60 / 60) AS total
-FROM
-  learning_times JOIN reports ON learning_times.report_id = reports.id
-WHERE
-  reports.user_id = :user_id
-SQL
+    sql = <<~SQL
+      SELECT
+        SUM(EXTRACT(epoch from learning_times.finished_at - learning_times.started_at) / 60 / 60) AS total
+      FROM
+        learning_times JOIN reports ON learning_times.report_id = reports.id
+      WHERE
+        reports.user_id = :user_id
+    SQL
 
     learning_time = LearningTime.find_by_sql([sql, { user_id: id }])
     learning_time.first.total || 0
@@ -345,7 +337,7 @@ SQL
 
   def prefecture_name
     if prefecture_code.nil?
-      "未登録"
+      '未登録'
     else
       pref = JpPrefecture::Prefecture.find prefecture_code
       pref.name
@@ -353,20 +345,20 @@ SQL
   end
 
   def elapsed_days
-    (Date.current - self.created_at.to_date).to_i
+    (Date.current - created_at.to_date).to_i
   end
 
   def customer
-    if customer_id?
-      Customer.new.retrieve(customer_id)
-    end
+    return unless customer_id?
+
+    Customer.new.retrieve(customer_id)
   end
 
   def card?
     customer_id?
   end
 
-  alias_method :paid?, :card?
+  alias paid? card?
 
   def card
     customer.sources.data.first
@@ -377,9 +369,9 @@ SQL
   end
 
   def subscription
-    if subscription?
-      Subscription.new.retrieve(subscription_id)
-    end
+    return unless subscription?
+
+    Subscription.new.retrieve(subscription_id)
   end
 
   def student?
@@ -415,7 +407,7 @@ SQL
   end
 
   def unread_notifications_exists?
-    unread_notifications_count > 0
+    unread_notifications_count.positive?
   end
 
   def borrow(book)
@@ -436,14 +428,14 @@ SQL
     if avatar.attached?
       avatar.variant(resize: AVATAR_SIZE).service_url
     else
-      image_url("/images/users/avatars/default.png")
+      image_url('/images/users/avatars/default.png')
     end
   end
 
   def resize_avatar!
-    if avatar.attached?
-      avatar.variant(resize: AVATAR_SIZE).processed
-    end
+    return unless avatar.attached?
+
+    avatar.variant(resize: AVATAR_SIZE).processed
   end
 
   def generation
@@ -455,12 +447,12 @@ SQL
   end
 
   def reports_date_and_emotion(term)
-    search_term = (Date.today - term.day)..Date.today
+    search_term = (Time.zone.today - term.day)..Time.zone.today
     reports = self.reports.where(reported_on: search_term)
 
-    emotions = reports.map { |report| [report.reported_on, report] }.to_h
+    emotions = reports.index_by(&:reported_on)
 
-    dates = search_term.map { |day| [day, nil] }.to_h
+    dates = search_term.index_with { |_day| nil }
 
     dates.merge(emotions)
          .to_a
@@ -469,24 +461,24 @@ SQL
   end
 
   def daimyo?
-    company&.name == "DAIMYO Engineer College"
+    company&.name == 'DAIMYO Engineer College'
   end
 
   def register_github_account(id, account_name)
     self.github_account = account_name
     self.github_id = id
-    self.save!
+    save!
   end
 
   def depressed?
-    three_days_emotions = self.reports.order(reported_on: :desc).limit(3).pluck(:emotion)
-    !three_days_emotions.empty? && three_days_emotions.all?("sad")
+    three_days_emotions = reports.order(reported_on: :desc).limit(3).pluck(:emotion)
+    !three_days_emotions.empty? && three_days_emotions.all?('sad')
   end
 
   def active_practice
-    if self.active_practices.first
-      self.active_practices.first.id
-    end
+    return unless active_practices.first
+
+    active_practices.first.id
   end
 
   def follow(other_user)
@@ -506,7 +498,8 @@ SQL
   end
 
   private
-    def password_required?
-      new_record? || password.present?
-    end
+
+  def password_required?
+    new_record? || password.present?
+  end
 end

@@ -1,7 +1,7 @@
 report1_watch_kimura:
   user: kimura
-  watchable: report_1 (Report)
+  watchable: report1 (Report)
 
 question1_watch_kimura:
   user: kimura
-  watchable: question_1 (Question)
+  watchable: question1 (Question)

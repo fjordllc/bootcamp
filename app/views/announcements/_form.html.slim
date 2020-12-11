@@ -1,17 +1,17 @@
-= render "errors", object: announcement
+= render 'errors', object: announcement
 = form_with model: announcement, local: true do |f|
   .form__items
     .form-item
       .row
         .col-lg-9.col-xs-12
           .form-item
-            = f.label :title, class: "a-label"
-            = f.text_field :title, class: "a-text-input js-warning-form"
+            = f.label :title, class: 'a-label'
+            = f.text_field :title, class: 'a-text-input js-warning-form'
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
-          = f.label :description, class: "a-label"
-          = f.text_area :description, class: "a-text-input js-warning-form js-markdown markdown-form__text-area", data: { "preview": ".js-preview" }
+          = f.label :description, class: 'a-label'
+          = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
         .col-md-6.col-xs-12
           .a-label
             | プレビュー
@@ -23,31 +23,32 @@
         li.form-radio-button
           label.form-radio-button__label
             | 全員にお知らせ
-            = f.radio_button :target, "all"
+            = f.radio_button :target, 'all'
         li.form-radio-button
           label.form-radio-button__label
             | 現役生にのみお知らせ
-            = f.radio_button :target, "students"
+            = f.radio_button :target, 'students'
         li.form-radio-button
           label.form-radio-button__label
             | 就職希望者にのみお知らせ
-            = f.radio_button :target, "job_seekers"
+            = f.radio_button :target, 'job_seekers'
 
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main.is-help
-        = f.submit "WIP", class: "a-button is-lg is-primary is-block", id: "js-shortcut-wip"
+        = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
         - if admin_login?
           li.form-actions__item.is-main.is-help
             - if announcement.new_record?
-              = f.submit "作成", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
+              = f.submit '作成', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
             - else
-              = f.submit "内容変更", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
+              = f.submit '内容変更', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
       li.form-actions__item
-        - if params[:action] == "new" || params[:action] == "create"
-          = link_to "キャンセル", announcements_path, class: "a-button is-md is-secondary"
-        - elsif params[:action] == "edit" || params[:action] == "update"
-          = link_to "キャンセル", announcement_path, class: "a-button is-md is-secondary"
+        - case params[:action]
+        - when 'new', 'create'
+          = link_to 'キャンセル', announcements_path, class: 'a-button is-md is-secondary'
+        - when 'edit', 'update'
+          = link_to 'キャンセル', announcement_path, class: 'a-button is-md is-secondary'
     - unless admin_login?
       .form-actions__description.a-short-text
         p
