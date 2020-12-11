@@ -1,10 +1,10 @@
 .form-item
-  = f.label :tag_list, class: "a-label"
+  = f.label :tag_list, class: 'a-label'
   #js-user-tags(
-    data-tags-initial-value="#{user.tag_list.join(",")}"
-    data-tags-param-name="user[tag_list]"
-    data-tags-input-id="user_tag_list"
-    data-user-id="#{user.id}"
+    data-tags-initial-value='#{user.tag_list.join(',')}'
+    data-tags-param-name='user[tag_list]'
+    data-tags-input-id='user_tag_list'
+    data-user-id='#{user.id}'
   )
   .a-form-help
     p

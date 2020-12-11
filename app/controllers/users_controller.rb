@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %w[show]
   PAGER_NUMBER = 20
 
+  # rubocop:disable Metrics/MethodLength
   def index
     target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
     target_allowlist.push('job_seeking') if current_user.adviser?
@@ -38,6 +39,7 @@ class UsersController < ApplicationController
                .users_role(@target)
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def show
     @completed_learnings = @user.learnings.where(status: 3).order(updated_at: :desc)
