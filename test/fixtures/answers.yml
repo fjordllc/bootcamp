@@ -1,24 +1,24 @@
-answer_1:
+answer1:
   description: atom一択です！
   user: komagata
-  question: question_1
+  question: question1
 
-answer_2:
+answer2:
   description: vimしかないでしょう。常識的に考えて。
   user: sotugyou
-  question: question_1
+  question: question1
 
-answer_3:
+answer3:
   description: injectを使っては？
   user: komagata
-  question: question_2
+  question: question2
 
-answer_4:
+answer4:
   description: テストの回答4です。
   user: komagata
-  question: question_3
+  question: question3
 
-answer_5:
+answer5:
   description: テストの回答5です。
   user: komagata
-  question: question_6
+  question: question6

@@ -1,5 +1,5 @@
-= render "errors", object: product
-= form_for product, html: { name: "product" }  do |f|
+= render 'errors', object: product
+= form_for product, html: { name: 'product' } do |f|
   = hidden_field_tag :practice_id, practice.id
   .form__items
     .form-item
@@ -7,7 +7,7 @@
         .col-md-6.col-xs-12
           label.a-label
             | 提出物
-          = f.text_area :body, class: "a-text-input js-warning-form js-markdown markdown-form__text-area", data: { "preview": ".js-preview" }
+          = f.text_area :body, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
         .col-md-6.col-xs-12
           .a-label
             | プレビュー
@@ -16,8 +16,8 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main.is-help
-        = f.submit "WIP", class: "a-button is-lg is-primary is-block", id: "js-shortcut-wip"
+        = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
         .form-actions__item-help
           | まだ書いてる途中
       li.form-actions__item.is-main
-        = f.submit "提出する", class: "a-button is-lg is-warning is-block"
+        = f.submit '提出する', class: 'a-button is-lg is-warning is-block'

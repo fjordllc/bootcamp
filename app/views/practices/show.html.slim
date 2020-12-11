@@ -10,15 +10,15 @@ header.page-header
         ul.page-header-actions__items
           - if current_user.admin?
             li.page-header-actions__item.is-hidden-sm-down
-              = link_to new_practice_path, class: "a-button is-md is-warning is-block" do
+              = link_to new_practice_path, class: 'a-button is-md is-warning is-block' do
                 i.fas.fa-plus
                 | プラクティス作成
           li.page-header-actions__item
             = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
-              class: "a-button is-md is-secondary is-block" do
+              class: 'a-button is-md is-secondary is-block' do
               | プラクティス一覧
 
-= render "page_tabs", resource: @practice
+= render 'page_tabs', resource: @practice
 
 .page-body
   .container
@@ -27,11 +27,11 @@ header.page-header
         header.practice-contents__header
           - learning_minute_statistic = @practice.learning_minute_statistic
           - if learning_minute_statistic
-            label.practice-contents__time.has-info(for="learning_minute")
+            label.practice-contents__time.has-info(for='learning_minute')
               span
                 | 所要時間の目安: #{convert_to_ceiled_hour(learning_minute_statistic.median)}
               i.fas.fa-info-circle
-            = render "shared/modal", id: "learning_minute", title: "所要時間の目安"
+            = render 'shared/modal', id: 'learning_minute', title: '所要時間の目安'
               .modal__description.is-md
                 .a-short-text
                   p
@@ -50,11 +50,11 @@ header.page-header
               | 最終更新
             .pub-date__value
               | #{l @practice.updated_at} by
-              = render "users/icon",
+              = render 'users/icon',
                 user: @practice.last_updated_user,
-                link_class: "thread-header__user-icon-link",
-                image_class: "thread-header__user-icon"
-              = link_to @practice.last_updated_user, class: "thread-header__user-link" do
+                link_class: 'thread-header__user-icon-link',
+                image_class: 'thread-header__user-icon'
+              = link_to @practice.last_updated_user, class: 'thread-header__user-link' do
                 = @practice.last_updated_user.login_name
 
         section.practice-content.a-card
@@ -68,7 +68,7 @@ header.page-header
             .card-footer-actions
               ul.card-footer-actions__items
                 li.card-footer-actions__item
-                  = link_to new_question_path, class: "a-button is-md is-primary is-block" do
+                  = link_to new_question_path, class: 'a-button is-md is-primary is-block' do
                     i.fas.fa-question-circle
                     | 質問する
 
@@ -115,7 +115,7 @@ header.page-header
               .card-footer-actions
                 ul.card-footer-actions__items
                   li.card-footer-actions__item
-                    = link_to edit_practice_path(@practice), class: "a-button is-md is-primary is-block" do
+                    = link_to edit_practice_path(@practice), class: 'a-button is-md is-primary is-block' do
                       i.fas.fa-pen
                       | 編集
 
@@ -123,14 +123,14 @@ header.page-header
         header.page-nav__header
           h2.page-nav__title
             = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
-              class: "page-nav__title-link" do
+              class: 'page-nav__title-link' do
               = category.name
         ul.page-nav__items
           - category.practices.each do |practice|
             li.page-nav__item
-              = link_to practice.title, practice_path(practice), class: "page-nav__item-link #{@practice == practice ? "is-current" : ""}"
+              = link_to practice.title, practice_path(practice), class: "page-nav__item-link #{@practice == practice ? 'is-current' : ''}"
 
 .sticky-message
   p
     | 困ったときは、質問・雑談ルームを利用しよう！
-    = link_to "くわしくはこちら", "https://bootcamp.fjord.jp/pages/242", target: "_blank"
+    = link_to 'くわしくはこちら', 'https://bootcamp.fjord.jp/pages/242', target: '_blank', rel: 'noopener'

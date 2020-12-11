@@ -37,17 +37,14 @@
       .user-metas__item-label
         | Slackアカウント
       .user-metas__item-value
-        - if user.slack_account.present?
-          = user.slack_account
-        - else
-          | 未登録
+        = user.slack_account.presence || '未登録'
     - unless user.admin? || user.adviser?
       .user-metas__item
         .user-metas__item-label
           | 合計学習時間
         .user-metas__item-value
-          = number_with_precision(user.total_learning_time, precision: 1) + "時間 / "
-          = render "users/learning_status", user: user
+          = "#{number_with_precision(user.total_learning_time, precision: 1)}時間 / "
+          = render 'users/learning_status', user: user
     - if user.company.present?
       .user-metas__item
         .user-metas__item-label

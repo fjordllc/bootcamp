@@ -12,16 +12,17 @@ module LinkChecker
 
     def extract
       links = @markdown_text.scan(/\[(.*?)\]\((.+?)\)/)&.map do |match|
-        title, url = match[0].strip, match[1].strip
+        title = match[0].strip
+        url = match[1].strip
         if url.match?(%r{^/})
           uri = URI(@source_url)
-          uri.path = ""
+          uri.path = ''
           url = uri.to_s + url
         end
         Link.new(title, url, @source_title, @source_url)
       end
 
-      links.select { |link| URI.regexp.match(link.url) }
+      links.select { |link| URI::DEFAULT_PARSER.make_regexp.match(link.url) }
     end
   end
 end

@@ -1,12 +1,12 @@
-- title "ダッシュボード"
+- title 'ダッシュボード'
 
 header.page-header
   .container
     .page-header__inner
       h2.page-header__title = title
-      = render "reports/new_report"
+      = render 'reports/new_report'
 - if @my_seat_today
-  = render "my_seat_today", my_seat_today: @my_seat_today
+  = render 'my_seat_today', my_seat_today: @my_seat_today
 .page-body
   .container
     .columns
@@ -16,38 +16,36 @@ header.page-header
             header.card-header.is-sm
               h2.card-header__title
                 | 最新のお知らせ
-            = render partial: "announcements", collection: @announcements, as: :announcement
+            = render partial: 'announcements', collection: @announcements, as: :announcement
             footer.thread-list__footer
               .thread-list__footer-to-index
-                = link_to announcements_path, class: "thread-list__footer-text-link" do
+                = link_to announcements_path, class: 'thread-list__footer-text-link' do
                   | 全てのお知らせ
           - if current_user.pages.wip.present?
-            = render "users/pages/wip_pages", user: current_user
+            = render 'users/pages/wip_pages', user: current_user
           - if current_user.reports.wip.present?
-            = render "users/reports/wip_reports", user: current_user
+            = render 'users/reports/wip_reports', user: current_user
           - if current_user.products.wip.present?
-            = render "users/products/wip_products", user: current_user
+            = render 'users/products/wip_products', user: current_user
           - if current_user.active_practices.present?
-            = render "/users/practices/active_practices", user: current_user
+            = render '/users/practices/active_practices', user: current_user
           - if current_user.completed_practices.present?
-            = render "/users/practices/completed_practices", user: current_user, completed_learnings: @completed_learnings
+            = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
 
         .col-xs-12.col-xl-6.col-xxl-6
-          - if current_user.admin? || current_user.adviser?
-            - if User.all.job_seeking.present?
-              = render "job_seeking_users", users: User.all.job_seeking
-          - if current_user.admin? || current_user.adviser?
-            - if @reservations_for_today.present?
-              = render "reserved_seats_today", reservations: @reservations_for_today
+          - if (current_user.admin? || current_user.adviser?) && User.all.job_seeking.present?
+            = render 'job_seeking_users', users: User.all.job_seeking
+          - if (current_user.admin? || current_user.adviser?) && @reservations_for_today.present?
+            = render 'reserved_seats_today', reservations: @reservations_for_today
           - unless current_user.total_learning_time.zero? || current_user.mentor?
-            = render "users/grass", user: current_user
+            = render 'users/grass', user: current_user
           - if current_user.github_account.present?
-            = render "users/github_grass", user: current_user
+            = render 'users/github_grass', user: current_user
           - if current_user.mentor?
-            = render "users/sad_emotion_report", users: User.students_and_trainees
+            = render 'users/sad_emotion_report', users: User.students_and_trainees
           - if current_user.mentor?
-            = render "users/inactive_users", users: User.inactive_students_and_trainees
+            = render 'users/inactive_users', users: User.inactive_students_and_trainees
           - if current_user.role == :student
-            = render "required_field", user: current_user
+            = render 'required_field', user: current_user
           - if current_user.books.present?
-            = render "users/borrowing_books", user: current_user
+            = render 'users/borrowing_books', user: current_user

@@ -9,9 +9,9 @@ komagata:
   facebook_url: http://www.facebook.com/komagata1111
   github_account: komagata
   blog_url: http://komagata.org
-  company: company_1
+  company: company1
   description: "平日１０〜１９時勤務です。"
-  course: course_1
+  course: course1
   job: office_worker
   os: mac
   experience: rails
@@ -34,9 +34,9 @@ machida:
   twitter_account: machida
   facebook_url:
   blog_url: http://machida.fjord.jp/
-  company: company_1
+  company: company1
   description: "月曜日と木曜日の午前中勤務です。"
-  course: course_1
+  course: course1
   job: office_worker
   os: mac
   experience: rails
@@ -60,7 +60,7 @@ sotugyou:
   facebook_url: http://www.facebook.com/sotugyou
   blog_url: http://sotugyou.example.com/
   description: "卒業です。卒業しちゃいました。"
-  course: course_1
+  course: course1
   job: office_worker
   os: mac
   experience: rails
@@ -83,7 +83,7 @@ advijirou:
   blog_url: http://advijirou.example.com
   description: "アドバイ次郎です。アドバイザーです。"
   adviser: true
-  course: course_1
+  course: course1
   unsubscribe_email_token: 6ULb9vj1AJzTH_mOsfR46Q
   updated_at: "2014-01-01 00:00:04"
   created_at: "2014-01-01 00:00:04"
@@ -99,7 +99,7 @@ yameo:
   facebook_url: http://www.facebook.com/yameo
   blog_url: http://yameo.org
   description: "リタイアしました。就職希望はしてました"
-  course: course_1
+  course: course1
   job: office_worker
   os: mac
   experience: ruby
@@ -121,7 +121,7 @@ yamada:
   facebook_url: http://www.facebook.com/yamada
   blog_url: http://yamada.com
   description: "山田です。メンターです。"
-  course: course_1
+  course: course1
   job: office_worker
   os: mac
   experience: inexperienced
@@ -142,7 +142,7 @@ kimura:
   facebook_url: http://www.facebook.com/kimura
   blog_url: http://kimura.org
   description: "木村です。"
-  course: course_1
+  course: course1
   job: office_worker
   os: mac
   experience: inexperienced
@@ -165,7 +165,7 @@ hatsuno:
   description: "初野です。課金しています。"
   customer_id: "cus_12345678"
   subscription_id: "sub_12345678"
-  course: course_1
+  course: course1
   job: office_worker
   os: mac
   experience: inexperienced
@@ -187,7 +187,7 @@ hajime:
   facebook_url: http://www.facebook.com/hajime
   blog_url: http://hajime.org
   description: "始です。"
-  course: course_1
+  course: course1
   job: office_worker
   os: mac
   experience: inexperienced
@@ -209,7 +209,7 @@ muryou:
   facebook_url: http://www.facebook.com/muryou
   blog_url: http://muryou.org
   description: "無料の助です。趣味は野良犬剣法です。"
-  course: course_1
+  course: course1
   job: office_worker
   os: mac
   experience: inexperienced
@@ -231,9 +231,9 @@ kensyu:
   twitter_account: kensyu
   facebook_url: http://www.facebook.com/kensyu
   blog_url: http://kensyu.org
-  company: company_2
+  company: company2
   description: "研修聖子です。"
-  course: course_1
+  course: course1
   job: office_worker
   os: mac
   experience: rails
@@ -256,9 +256,9 @@ senpai:
   twitter_account: senpai
   facebook_url: http://www.facebook.com/senpai
   blog_url: http://senpai.org
-  company: company_2
+  company: company2
   description: "研修聖子の会社の先輩エンジニアです。アドバイザーです。"
-  course: course_1
+  course: course1
   job: office_worker
   os: mac
   experience: rails
@@ -279,7 +279,7 @@ kananashi: #name_kanaを持たないユーザー
   facebook_url: http://www.facebook.com/kananashi
   blog_url: http://kananashi.org
   description: "読み方のカナが無いユーザーです"
-  course: course_1
+  course: course1
   job: office_worker
   os: mac
   experience: rails
@@ -300,7 +300,7 @@ osnashi: #osを持たないユーザー
   facebook_url: http://www.facebook.com/osnashi
   blog_url: http://osnashi.org
   description: "OSが無いユーザーです"
-  course: course_1
+  course: course1
   job: office_worker
   experience: rails
   unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
@@ -320,7 +320,7 @@ jobseeker: #就活希望するユーザー
   facebook_url: http://www.facebook.com/exmaple
   blog_url: http://example.org
   description: "フィヨルドからの就職希望してます！"
-  course: course_1
+  course: course1
   job: office_worker
   experience: rails
   job_seeker: true
@@ -340,9 +340,9 @@ daimyo: # 大名エンジニアカレッジに通うユーザー
   twitter_account: daimyo
   facebook_url: http://www.facebook.com/daimyo
   blog_url: http://example.org
-  company: company_4
+  company: company4
   description: "大名エンジニアカレッジで学んでいます."
-  course: course_1
+  course: course1
   job: office_worker
   experience: rails
   unsubscribe_email_token: OSZi0f_nJ3xG9crUPQ9ukQ

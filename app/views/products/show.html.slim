@@ -1,6 +1,6 @@
 - title "#{@product.practice.title}の提出物"
 - category = @product.category(current_user.course)
-- content_for(:extra_body_classes, "no-recent-reports")
+- content_for(:extra_body_classes, 'no-recent-reports')
 
 header.page-header
   .container
@@ -11,24 +11,24 @@ header.page-header
         ul.page-header-actions__items
           li.page-header-actions__item
             = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
-              class: "a-button is-md is-secondary is-block" do
+              class: 'a-button is-md is-secondary is-block' do
               | プラクティス一覧
           - if current_user.admin?
             li.page-header-actions__item
-              = link_to products_unchecked_index_path, class: "a-button is-md is-secondary is-block" do
+              = link_to products_unchecked_index_path, class: 'a-button is-md is-secondary is-block' do
                 | 未チェック一覧
 
-= render "page_tabs", resource: @product.practice
+= render 'page_tabs', resource: @product.practice
 
 .page-body
   .container
-    div(class="#{current_user.mentor? || current_user.admin? ? "row" : ""}")
-      div(class="#{current_user.mentor? || current_user.admin? ? "col-md-7 col-xs-12" : ""}")
+    div(class="#{current_user.mentor? || current_user.admin? ? 'row' : ''}")
+      div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
         .thread
           .thread__inner.a-card
             header.thread-header
               .thread-header__upper-side
-                = link_to @product.user, class: "thread-header__author" do
+                = link_to @product.user, class: 'thread-header__author' do
                   = @product.user.login_name
 
                 .thread-header__date
@@ -53,48 +53,48 @@ header.page-header
                     time.thread-header__date-value(datetime="#{@product.updated_at.to_datetime}")
                       = l @product.updated_at
 
-              h1.thread-header__title(class="#{@product.wip? ? "is-wip" : ""}")
+              h1.thread-header__title(class="#{@product.wip? ? 'is-wip' : ''}")
                 - if @product.wip?
                   span.thread-header__title-icon
                     | WIP
                 - if @product.user.daimyo?
                   | ★
-                | #{link_to @product.practice.title, @product.practice, class: "thread-header__title-link"}の提出物
+                | #{link_to @product.practice.title, @product.practice, class: 'thread-header__title-link'}の提出物
               .thread-header__lower-side
-                #js-watch(data-watchable-id="#{@product.id}", data-watchable-type="Product")
+                #js-watch(data-watchable-id="#{@product.id}", data-watchable-type='Product')
                 .thread-header__raw
-                  = link_to "Raw", product_path(format: :md), class: "a-button is-sm is-secondary", target: "_blank"
-            #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type="Product")
+                  = link_to 'Raw', product_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank', rel: 'noopener'
+            #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type='Product')
             .thread__description.js-target-blank.is-long-text.js-markdown-view
               =  @product.practice.goal
             .thread__description.js-target-blank.is-long-text.js-markdown-view
               =  @product.body
-            = render "reactions/reactions", reactionable: @product
+            = render 'reactions/reactions', reactionable: @product
             - if @product.user == current_user || admin_login?
               .card-footer
                 .card-footer-actions
                   ul.card-footer-actions__items
                     li.card-footer-actions__item
-                      = link_to edit_product_path(@product), class: "card-footer-actions_action a-button is-md is-primary is-block" do
+                      = link_to edit_product_path(@product), class: 'card-footer-actions_action a-button is-md is-primary is-block' do
                         i.fas.fa-pen
                         | 内容修正
                     li.card-footer-actions__item
-                      = link_to @product, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
+                      = link_to @product, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__action a-button is-md is-danger is-block' do
                         i.fas.fa-trash-alt
                         | 削除
 
             - if admin_login? || adviser_login?
-              #js-check(data-checkable-id="#{@product.id}" data-checkable-type="Product" data-checkable-label="#{Product.model_name.human}")
+              #js-check(data-checkable-id="#{@product.id}" data-checkable-type='Product' data-checkable-label="#{Product.model_name.human}")
 
           .thread-prev-next
             .thread-prev-next__item
-              = link_to @product.practice, class: "thread-prev-next__item-link is-index" do
+              = link_to @product.practice, class: 'thread-prev-next__item-link is-index' do
                 | プラクティスに戻る
 
-          = render "users/icon", user: @product.user, link_class: "thread__author-link", image_class: "thread__author-icon"
-        #js-comments(data-commentable-id="#{@product.id}" data-commentable-type="Product" data-current-user-id="#{current_user.id}")
-        = render "footprints/footprints", footprints: @footprints
+          = render 'users/icon', user: @product.user, link_class: 'thread__author-link', image_class: 'thread__author-icon'
+        #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
+        = render 'footprints/footprints', footprints: @footprints
 
-      div(class="#{current_user.mentor? || current_user.admin? ? "col-md-5 col-xs-12 is-hidden-sm-down" : ""}")
+      div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-5 col-xs-12 is-hidden-sm-down' : ''}")
         - if current_user.mentor? || current_user.admin?
           #js-mentor-memo(data-practice-id="#{@product.practice_id}")

@@ -1,4 +1,4 @@
-- title "提出物"
+- title '提出物'
 
 header.page-header
   .container
@@ -8,14 +8,14 @@ header.page-header
 
 - if current_user.admin?
   .page-tools
-    = render "products/tabs"
+    = render 'products/tabs'
 
 .page-body
   .container
-    = paginate @products, position: "top"
+    = paginate @products, position: 'top'
     - if @products.present?
       .thread-list.a-card
-        = render partial: "products/product",
+        = render partial: 'products/product',
           collection: @products,
           as: :product
     - else
@@ -25,4 +25,4 @@ header.page-header
         p.o-empty-massage__text
           = title
           | はありません
-    = paginate @products, position: "bottom"
+    = paginate @products, position: 'bottom'

@@ -5,7 +5,7 @@ class Check < ApplicationRecord
   belongs_to :checkable, polymorphic: true
   after_create CheckCallbacks.new
   after_destroy CheckCallbacks.new
-  alias_method :sender, :user
+  alias sender user
 
   def receiver
     checkable.user

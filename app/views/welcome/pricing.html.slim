@@ -1,12 +1,12 @@
-- content_for :extra_body_classes, "welcome"
-- title "料金"
+- content_for :extra_body_classes, 'welcome'
+- title '料金'
 
 .welcome-page-header
   .container
     h1.welcome-page-header__title
-      = image_tag "pricing-page-title.svg",
-        alt: "プログラミングスクールの料金",
-        class: "welcome-page-header__title-image"
+      = image_tag 'pricing-page-title.svg',
+        alt: 'プログラミングスクールの料金',
+        class: 'welcome-page-header__title-image'
 
 .welcome-sections
   section.welcome-section
@@ -27,8 +27,8 @@
             | 退会した月も日割りでの請求ではなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
       .welcome-small-section
         h2.welcome-small-sections__title
-          = image_tag "pjord-face.svg",
-            class: "welcome-small-sections__title-icon"
+          = image_tag 'pjord-face.svg',
+            class: 'welcome-small-sections__title-icon'
           | 3日間のお試し期間
         .welcome-section__description
           p
@@ -38,8 +38,8 @@
             | お試し期間の間に退会をしないと料金が請求されてしまうのでご注意ください。
       .welcome-small-section
         h2.welcome-small-sections__title
-          = image_tag "warning.svg",
-            alt: "注意！", class: "welcome-small-sections__title-icon"
+          = image_tag 'warning.svg',
+            alt: '注意！', class: 'welcome-small-sections__title-icon'
           | 料金引き落としのタイミング
         .welcome-section__description
           p

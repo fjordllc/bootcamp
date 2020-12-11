@@ -1,47 +1,47 @@
-seat_1:
+seat1:
   name: A
 
-seat_2:
+seat2:
   name: B
 
-seat_3:
+seat3:
   name: C
 
-seat_4:
+seat4:
   name: D
 
-seat_5:
+seat5:
   name: E
 
-seat_6:
+seat6:
   name: F
 
-seat_7:
+seat7:
   name: G
 
-seat_8:
+seat8:
   name: H
 
-seat_9:
+seat9:
   name: I
 
-seat_10:
+seat10:
   name: J
 
-seat_11:
+seat11:
   name: K
 
-seat_12:
+seat12:
   name: L
 
-seat_13:
+seat13:
   name: ソファ1
 
-seat_14:
+seat14:
   name: ソファ2
 
-seat_15:
+seat15:
   name: ソファ3
 
-seat_16:
+seat16:
   name: ソファ4

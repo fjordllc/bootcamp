@@ -7,16 +7,18 @@ linters:
   RuboCop:
     enabled: true
     ignored_cops:
-      - Layout/AlignArguments
-      - Layout/AlignArray
-      - Layout/AlignHash
-      - Layout/AlignParameters
+      - Layout/ArgumentAlignment
+      - Layout/ArrayAlignment
+      - Layout/BlockAlignment
       - Layout/EmptyLineAfterGuardClause
+      - Layout/EndAlignment
+      - Layout/FirstArrayElementIndentation
       - Layout/FirstParameterIndentation
-      - Layout/IndentArray
+      - Layout/HashAlignment
       - Layout/IndentationConsistency
       - Layout/IndentationWidth
       - Layout/InitialIndentation
+      - Layout/LineLength
       - Layout/MultilineArrayBraceLayout
       - Layout/MultilineAssignmentLayout
       - Layout/MultilineHashBraceLayout
@@ -24,17 +26,16 @@ linters:
       - Layout/MultilineMethodCallIndentation
       - Layout/MultilineMethodDefinitionBraceLayout
       - Layout/MultilineOperationIndentation
-      - Layout/TrailingBlankLines
-      - Layout/TrailingWhitespace
+      - Layout/ParameterAlignment
       - Layout/TrailingEmptyLines
-      - Lint/BlockAlignment
-      - Lint/EndAlignment
+      - Layout/TrailingWhitespace
       - Lint/Void
       - Metrics/BlockLength
       - Metrics/BlockNesting
-      - Metrics/LineLength
       - Naming/FileName
       - Style/FrozenStringLiteralComment
+      - Style/IdenticalConditionalBranches
       - Style/IfUnlessModifier
       - Style/Next
+      - Style/WhileUntilDo
       - Style/WhileUntilModifier

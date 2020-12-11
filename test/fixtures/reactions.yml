@@ -1,35 +1,35 @@
-reaction_1:
+reaction1:
   user: machida
-  reactionable: report_1 (Report)
+  reactionable: report1 (Report)
   kind: smile
 
-reaction_2:
+reaction2:
   user: komagata
-  reactionable: report_1 (Report)
+  reactionable: report1 (Report)
   kind: thumbsup
 
-reaction_3:
+reaction3:
   user: machida
-  reactionable: comment_2 (Comment)
+  reactionable: comment2 (Comment)
   kind: heart
 
-reaction_4:
+reaction4:
   user: komagata
-  reactionable: comment_2 (Comment)
+  reactionable: comment2 (Comment)
   kind: heart
 
-reaction_5:
+reaction5:
   user: komagata
-  reactionable: comment_2 (Comment)
+  reactionable: comment2 (Comment)
   kind: thumbsup
 
-reaction_6:
+reaction6:
   user: machida
-  reactionable: product_12 (Product)
+  reactionable: product12 (Product)
   kind: tada
 
-reaction_7:
+reaction7:
   user: komagata
-  reactionable: product_12 (Product)
+  reactionable: product12 (Product)
   kind: eyes
 

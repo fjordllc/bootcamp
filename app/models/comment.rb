@@ -9,7 +9,7 @@ class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   after_create CommentCallbacks.new
   after_destroy CommentCallbacks.new
-  alias_method :sender, :user
+  alias sender user
 
   validates :description, presence: true
 
@@ -20,17 +20,17 @@ class Comment < ApplicationRecord
   class << self
     def commented_users
       User.with_attached_avatar
-        .joins(:comments)
-        .where(comments: { id: self.select("DISTINCT ON (user_id) id").order(:user_id, created_at: :desc) })
-        .order("comments.created_at")
+          .joins(:comments)
+          .where(comments: { id: self.select('DISTINCT ON (user_id) id').order(:user_id, created_at: :desc) })
+          .order('comments.created_at')
     end
 
     private
 
-      def params_for_keyword_search(searched_values = {})
-        groupings = super
-        { commentable_type_in: searched_values[:commentable_type] }.merge(groupings)
-      end
+    def params_for_keyword_search(searched_values = {})
+      groupings = super
+      { commentable_type_in: searched_values[:commentable_type] }.merge(groupings)
+    end
   end
 
   def receiver

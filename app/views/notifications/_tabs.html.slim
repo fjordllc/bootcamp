@@ -2,7 +2,7 @@
   .container
     ul.page-tabs__items
       li.page-tabs__item
-        = link_to "全て", notifications_path, class: "page-tabs__item-link #{current_link /^notifications-index/}"
+        = link_to '全て', notifications_path, class: "page-tabs__item-link #{current_link(/^notifications-index/)}"
       li.page-tabs__item
-        = link_to unread_index_path, class: "page-tabs__item-link #{current_link /^notifications-unread-index/}" do
+        = link_to unread_index_path, class: "page-tabs__item-link #{current_link(/^notifications-unread-index/)}" do
           | 未読

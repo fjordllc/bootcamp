@@ -1,5 +1,5 @@
-- title "質問作成"
-- content_for(:extra_body_classes, "no-recent-reports")
+- title '質問作成'
+- content_for(:extra_body_classes, 'no-recent-reports')
 
 header.page-header
   .container
@@ -9,7 +9,7 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to questions_path, class: "a-button is-md is-secondary is-block" do
+            = link_to questions_path, class: 'a-button is-md is-secondary is-block' do
               i.fas.fa-angle-left
               | Q&A一覧へ
 
@@ -17,8 +17,8 @@ header.page-header
   .container
     .page-notice__inner
       p
-        = link_to "/pages/240", target: "_blank", class: "page-notice__link", rel: "noopener noreferrer" do
+        = link_to '/pages/240', target: '_blank', class: 'page-notice__link', rel: 'noopener noreferrer' do
           | このドキュメントを参考にして質問をしてみよう！
 .page-body
   .container
-    = render "form", question: @question, categories: @categories
+    = render 'form', question: @question, categories: @categories

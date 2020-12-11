@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class API::PracticesController < API::BaseController
-  before_action :require_mentor_login_for_api, only: %i(show update)
-  before_action :set_practice, only: %i(show update)
+  before_action :require_mentor_login_for_api, only: %i[show update]
+  before_action :set_practice, only: %i[show update]
 
-  def show
-  end
+  def show; end
 
   def update
     if @practice.update(practice_params)
@@ -17,11 +16,11 @@ class API::PracticesController < API::BaseController
 
   private
 
-    def set_practice
-      @practice = Practice.find(params[:id])
-    end
+  def set_practice
+    @practice = Practice.find(params[:id])
+  end
 
-    def practice_params
-      params.require(:practice).permit(:memo)
-    end
+  def practice_params
+    params.require(:practice).permit(:memo)
+  end
 end

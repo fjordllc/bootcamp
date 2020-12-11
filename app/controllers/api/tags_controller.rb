@@ -6,7 +6,8 @@ class API::TagsController < API::BaseController
   end
 
   private
-    def taggable_type
-      params[:taggable_type].constantize
-    end
+
+  def taggable_type
+    params[:taggable_type].constantize
+  end
 end

@@ -1,7 +1,7 @@
 - if current_user.card?
-  - title "クレジットカード変更"
+  - title 'クレジットカード変更'
 - else
-  - title "クレジットカード登録"
+  - title 'クレジットカード登録'
 
 header.page-header
   .container
@@ -12,5 +12,5 @@ header.page-header
   header.auth-form__header
     h1.auth-form__title = title
   .auth-form__body
-    = render "form", action: :new
-= render "notice"
+    = render 'form', action: :new
+= render 'notice'

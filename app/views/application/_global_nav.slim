@@ -1,105 +1,105 @@
-input.a-toggle-checkbox#mobile-nav(type="checkbox")
+input.a-toggle-checkbox#mobile-nav(type='checkbox')
 nav.global-nav
-  label.global-nav__background(for="mobile-nav")
+  label.global-nav__background(for='mobile-nav')
   .global-nav__inner
     - if current_user
       .global-nav-current-user
-        = link_to user_path(current_user), class: "global-nav-current-user__link"
+        = link_to user_path(current_user), class: 'global-nav-current-user__link'
           .global-nav-current-user__icon
             = image_tag current_user.avatar_url, title: current_user.icon_title, class: "global-nav-current-user__icon a-user-icon is-#{current_user.role}"
     .global-nav-links.is-contents-links
       ul.global-nav-links__items
         li.global-nav-links__item
-          = link_to announcements_path, class: "global-nav-links__link #{current_link /^announcements/}" do
+          = link_to announcements_path, class: "global-nav-links__link #{current_link(/^announcements/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-bullhorn
             .global-nav-links__link-label お知らせ
         li.global-nav-links__item
           - anchor = "practice_#{current_user.active_practice}" if current_user.active_practice
-          = link_to course_practices_path(current_user.course, anchor: anchor), class: "global-nav-links__link #{current_link /^(courses-practices|practices)-/}"  do
+          = link_to course_practices_path(current_user.course, anchor: anchor), class: "global-nav-links__link #{current_link(/^(courses-practices|practices)-/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-book
             .global-nav-links__link-label プラクティス
         li.global-nav-links__item
           - report_link = mentor_login? ? reports_unchecked_index_path : reports_path
-          = link_to report_link, class: "global-nav-links__link #{current_link /^reports/}" do
+          = link_to report_link, class: "global-nav-links__link #{current_link(/^reports/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-pen
-            - if admin_login? && Cache.unchecked_report_count > 0
+            - if admin_login? && Cache.unchecked_report_count.positive?
               .global-nav__item-count.a-notification-count
                 = Cache.unchecked_report_count
             .global-nav-links__link-label 日報
         - if staff_login?
           li.global-nav-links__item
-            = link_to products_not_responded_index_path, class: "global-nav-links__link #{current_link /^products/ }" do
+            = link_to products_not_responded_index_path, class: "global-nav-links__link #{current_link(/^products/)}" do
               .global-nav-links__link-icon
                 i.fas.fa-fw.fa-hand-paper
-              - if admin_login? && Cache.not_responded_product_count > 0
+              - if admin_login? && Cache.not_responded_product_count.positive?
                 .global-nav__item-count.a-notification-count
                   = Cache.not_responded_product_count
               .global-nav-links__link-label 提出物
         li.global-nav-links__item
-          = link_to questions_path, class: "global-nav-links__link #{current_link /^questions/}" do
+          = link_to questions_path, class: "global-nav-links__link #{current_link(/^questions/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-question
-            - if Question.not_solved.count > 0
+            - if Question.not_solved.count.positive?
               .global-nav__item-count.a-notification-count
                 = Question.not_solved.count
             .global-nav-links__link-label Q&A
         li.global-nav-links__item
-          = link_to "/pages", class: "global-nav-links__link #{current_link /^pages/}" do
+          = link_to '/pages', class: "global-nav-links__link #{current_link(/^pages/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-file
             .global-nav-links__link-label Docs
         / li.global-nav-links__item
-          = link_to "/reservation_calenders", class: "global-nav-links__link #{current_link /^reservation_calenders/}" do
+          = link_to '/reservation_calenders', class: "global-nav-links__link #{current_link(/^reservation_calenders/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-chair
             .global-nav-links__link-label 席予約
         li.global-nav-links__item
-          = link_to users_path, class: "global-nav-links__link #{current_link /^users/}" do
+          = link_to users_path, class: "global-nav-links__link #{current_link(/^users/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-users
             .global-nav-links__link-label ユーザー
         li.global-nav-links__item
-          = link_to events_path, class: "global-nav-links__link #{current_link /^events/}" do
+          = link_to events_path, class: "global-nav-links__link #{current_link(/^events/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-beer
             .global-nav-links__link-label イベント
         li.global-nav-links__item.is-hidden-md-up
-          = link_to courses_path, class: "global-nav-links__link #{current_link /^courses-index/}" do
+          = link_to courses_path, class: "global-nav-links__link #{current_link(/^courses-index/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-graduation-cap
             .global-nav-links__link-label コース
         li.global-nav-links__item.is-hidden-md-up
-          = link_to edit_current_user_path, class: "global-nav-links__link #{current_link /^current_user/}" do
+          = link_to edit_current_user_path, class: "global-nav-links__link #{current_link(/^current_user/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-user
             .global-nav-links__link-label 登録情報変更
         - if !current_user.adviser? && !current_user.mentor?
           li.global-nav-links__item.is-hidden-md-up
-            = link_to edit_card_path, class: "global-nav-links__link #{current_link /^card/}" do
+            = link_to edit_card_path, class: "global-nav-links__link #{current_link(/^card/)}" do
               .global-nav-links__link-icon
                 i.fas.fa-fw.fa-credit-card
               .global-nav-links__link-label クレジットカード
         - if admin_login?
           li.global-nav-links__item.is-hidden-md-up
-            = link_to admin_root_path, class: "global-nav-links__link" do
+            = link_to admin_root_path, class: 'global-nav-links__link' do
               .global-nav-links__link-icon
                 i.fab.fa-font-awesome-flag
               .global-nav-links__link-label 管理ページ
         li.global-nav-links__item.is-hidden-md-up
-          = link_to coc_path, class: "global-nav-links__link", target: "_blank" do
+          = link_to coc_path, class: 'global-nav-links__link', target: '_blank', rel: 'noopener' do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-heart
             .global-nav-links__link-label.is-sm アンチハラスメントポリシー
         li.global-nav-links__item.is-hidden-md-up
-          = link_to logout_path, class: "global-nav-links__link" do
+          = link_to logout_path, class: 'global-nav-links__link' do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-sign-out-alt
             .global-nav-links__link-label ログアウト
         li.global-nav-links__item.is-hidden-md-up
-          = link_to new_retirement_path, class: "global-nav-links__link" do
+          = link_to new_retirement_path, class: 'global-nav-links__link' do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-sad-tear
             .global-nav-links__link-label 退会手続き

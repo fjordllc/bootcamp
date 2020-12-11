@@ -3,11 +3,11 @@
 class Card
   def create(user, card_token, idempotency_key = SecureRandom.uuid)
     Stripe::Customer.create({
-      email: user.email,
-      source: card_token
-    }, {
-      idempotency_key: idempotency_key
-    })
+                              email: user.email,
+                              source: card_token
+                            }, {
+                              idempotency_key: idempotency_key
+                            })
   end
 
   def update(customer_id, card_token)
@@ -18,10 +18,8 @@ class Card
 
   def search(email:)
     result = Stripe::Customer.list(email: email, limit: 1)
-    if result.data.size > 0
-      result.data.first
-    else
-      nil
-    end
+    return unless result.data.size.positive?
+
+    result.data.first
   end
 end

@@ -8,11 +8,11 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to new_report_path, class: "a-button is-md is-warning is-block" do
+            = link_to new_report_path, class: 'a-button is-md is-warning is-block' do
               i.fas.fa-plus
               | 日報作成
           li.page-header-actions__item
-            = link_to reports_path, class: "a-button is-md is-secondary is-block" do
+            = link_to reports_path, class: 'a-button is-md is-secondary is-block' do
               | 日報一覧
 
 .page-body
@@ -22,77 +22,77 @@ header.page-header
         header.thread-header
           - if @report.emotion.present?
             .thread-header__emotion
-              = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: "thread-header__emotion-image"
+              = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: 'thread-header__emotion-image'
           .thread-header__upper-side
-            = link_to @report.user, class: "thread-header__author", title: @report.user.name do
+            = link_to @report.user, class: 'thread-header__author', title: @report.user.name do
               = @report.user.login_name
             .thread-header__date
               = l @report.reported_on
               |(
-              span.thread-header__count(class="#{@report.serial_number < 6 ? "is-important" : ""}")
+              span.thread-header__count(class="#{@report.serial_number < 6 ? 'is-important' : ''}")
                 = @report.number
               |)
-              = "の日報" unless @report.first?
-          h1.thread-header__title(class="#{@report.wip? ? "is-wip" : ""}")
+              = 'の日報' unless @report.first?
+          h1.thread-header__title(class="#{@report.wip? ? 'is-wip' : ''}")
             - if @report.wip?
               span.thread-header__title-icon
                 | WIP
             - if @report.user.daimyo?
               | ★
             | #{@report.title}
-          #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type="Report")
+          #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type='Report')
           .thread-header__lower-side
-            #js-watch(data-watchable-id="#{@report.id}", data-watchable-type="Report")
+            #js-watch(data-watchable-id="#{@report.id}", data-watchable-type='Report')
             .thread-header__raw
-              = link_to "Raw", report_path(format: :md), class: "a-button is-sm is-secondary", target: "_blank"
+              = link_to 'Raw', report_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank', rel: 'noopener'
         - if @report.practices.present?
           .tag-links
             ul.tag-links__items
               - @report.practices.order(:position).each do |practice|
                 li.tag-links__item
-                  = link_to practice, class: "tag-links__item-link" do
+                  = link_to practice, class: 'tag-links__item-link' do
                     = practice.title
 
-        = render "reports/learning_times", report: @report
+        = render 'reports/learning_times', report: @report
 
         .thread__body
           .thread__description.js-target-blank.is-long-text.js-markdown-view
             = @report.description
-          = render "reactions/reactions", reactionable: @report
+          = render 'reactions/reactions', reactionable: @report
           - if @report.user_id == current_user.id
             .card-footer
               .card-footer-actions
                 ul.card-footer-actions__items
                   li.card-footer-actions__item
-                    = link_to edit_report_path(@report), class: "card-footer-actions__action a-button is-md is-primary is-block", id: "js-shortcut-edit" do
+                    = link_to edit_report_path(@report), class: 'card-footer-actions__action a-button is-md is-primary is-block', id: 'js-shortcut-edit' do
                       i.fas.fa-pen#new
                       | 内容修正
                   li.card-footer-actions__item
-                    = link_to new_report_path(id: @report), class: "card-footer-actions__action a-button is-md is-warning is-block" do
+                    = link_to new_report_path(id: @report), class: 'card-footer-actions__action a-button is-md is-warning is-block' do
                       i.fas.fa-copy#copy
                       | コピー
                   li.card-footer-actions__item
-                    = link_to report_path(@report), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
+                    = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__action a-button is-md is-danger is-block' do
                       i.fas.fa-trash-alt#delete
                       | 削除
 
         - if admin_login? || adviser_login?
-          #js-check(data-checkable-id="#{@report.id}" data-checkable-type="Report" data-checkable-label="#{Report.model_name.human}")
+          #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
 
       .thread-prev-next
         .thread-prev-next__item
           - if @report.previous
-            = link_to @report.previous, class: "thread-prev-next__item-link is-prev" do
+            = link_to @report.previous, class: 'thread-prev-next__item-link is-prev' do
               i.fas.fa-angle-left
               | 前の日報
         .thread-prev-next__item
-          = link_to user_reports_path(@report.user_id), class: "thread-prev-next__item-link is-index" do
+          = link_to user_reports_path(@report.user_id), class: 'thread-prev-next__item-link is-index' do
             | 日報一覧
         .thread-prev-next__item
           - if @report.next
-            = link_to @report.next, class: "thread-prev-next__item-link is-next" do
+            = link_to @report.next, class: 'thread-prev-next__item-link is-next' do
               | 次の日報
               i.fas.fa-angle-right
-      = render "users/icon", user: @report.user, link_class: "thread__author-link", image_class: "thread__author-icon"
-    #js-comments(data-commentable-id="#{@report.id}" data-commentable-type="Report" data-current-user-id="#{current_user.id}")
-    = render "footprints/footprints", footprints: @footprints
+      = render 'users/icon', user: @report.user, link_class: 'thread__author-link', image_class: 'thread__author-icon'
+    #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
+    = render 'footprints/footprints', footprints: @footprints

@@ -1,51 +1,51 @@
 - if from == :new
-  = javascript_include_tag "https://js.stripe.com/v3/"
-= form_with model: user, url: url, local: true, id: "payment-form", html: { name: "user", autocomplete: "address-line3" } do |f|
+  = javascript_include_tag 'https://js.stripe.com/v3/'
+= form_with model: user, url: url, local: true, id: 'payment-form', html: { name: 'user', autocomplete: 'address-line3' } do |f|
   = f.hidden_field :adviser
   = f.hidden_field :trainee
   = f.hidden_field :company_id
   = hidden_field_tag :idempotency_token, SecureRandom.uuid
-  = render "errors", object: user
+  = render 'errors', object: user
   .form__items
 
-    = render "users/form/login_name", f: f
-    = render "users/form/email", f: f, user: user
+    = render 'users/form/login_name', f: f
+    = render 'users/form/email', f: f, user: user
 
     - if from == :edit
-      = render "users/form/mail_notification", f: f
+      = render 'users/form/mail_notification', f: f
 
-    = render "users/form/name", f: f, user: user
-    = render "users/form/kana_name", f: f, user: user
-    = render "users/form/avatar", f: f, user: user
-    = render "users/form/description", f: f, user: user
+    = render 'users/form/name', f: f, user: user
+    = render 'users/form/kana_name', f: f, user: user
+    = render 'users/form/avatar', f: f, user: user
+    = render 'users/form/description', f: f, user: user
     - unless user.adviser?
-      = render "users/form/course", f: f
-      = render "users/form/job", f: f
-      = render "users/form/os", f: f
-      = render "users/form/prefecture", f: f
-      = render "users/form/experience", f: f
+      = render 'users/form/course', f: f
+      = render 'users/form/job', f: f
+      = render 'users/form/os', f: f
+      = render 'users/form/prefecture', f: f
+      = render 'users/form/experience', f: f
     - if user.student?
-      = render "users/form/job_seeker", f: f
+      = render 'users/form/job_seeker', f: f
 
   - if from == :edit
     .form__items
       h3.form__items-title SNSアカウント
-      = render "users/form/sns", f: f
+      = render 'users/form/sns', f: f
 
   - else
     .form__items
-      = render "users/form/password", f: f, from: from
+      = render 'users/form/password', f: f, from: from
 
   - if from == :new && user.student?
-    = render "users/form/card"
+    = render 'users/form/card'
 
   - if admin_login?
     .form__items
       h3.form__items-title 以下管理者のみ操作ができます
-      = render "users/form/job_seeking", f: f
-      = render "users/form/company", f: f
-      = render "users/form/retire", f: f
-      = render "users/form/graduate", f: f
+      = render 'users/form/job_seeking', f: f
+      = render 'users/form/company', f: f
+      = render 'users/form/retire', f: f
+      = render 'users/form/graduate', f: f
 
       .form-item-block
         .form-item-block__inner
@@ -54,11 +54,11 @@
               | 特殊ユーザー属性
           .form-item-block__items
             .form-item-block__item
-              = render "users/form/adviser", f: f
+              = render 'users/form/adviser', f: f
             .form-item-block__item
-              = render "users/form/trainee", f: f
+              = render 'users/form/trainee', f: f
             .form-item-block__item
-              = render "users/form/free", f: f
+              = render 'users/form/free', f: f
 
       .form-item-block#external-services
         .form-item-block__inner
@@ -67,30 +67,30 @@
               | 外部サービス
           .form-item-block__items
             .form-item-block__item
-              = render "users/form/slack_participation", f: f, user: user
+              = render 'users/form/slack_participation', f: f, user: user
             .form-item-block__item
-              = render "users/form/github_collaborator", f: f, user: user
+              = render 'users/form/github_collaborator', f: f, user: user
             .form-item-block__item
-              = render "users/form/officekey_permission", f: f
+              = render 'users/form/officekey_permission', f: f
         .a-form-help
           ul
             li
-              = link_to "https://fjord.slack.com/admin", target: "_blank" do
+              = link_to 'https://fjord.slack.com/admin', target: '_blank', rel: 'noopener' do
                 | Slack設定
             li
-              = link_to "https://github.com/orgs/fjordllc/people", target: "_blank" do
+              = link_to 'https://github.com/orgs/fjordllc/people', target: '_blank', rel: 'noopener' do
                 | GitHub設定
 
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit user_submit_label(user, from), id: "user_submit", class: "a-button is-lg is-warning is-block"
+        = f.submit user_submit_label(user, from), id: 'user_submit', class: 'a-button is-lg is-warning is-block'
         - if from == :new
           .a-form-help.is-text-align-center
-            = link_to "利用規約を確認（別タブで開きます）", tos_path, target: "_blank"
+            = link_to '利用規約を確認（別タブで開きます）', tos_path, target: '_blank', rel: 'noopener'
         - if from == :edit
           .a-form-help.is-text-align-center
             - if admin_login? && (url != current_user_path)
-              = link_to "パスワード変更はこちらから", edit_admin_user_password_path(@user)
+              = link_to 'パスワード変更はこちらから', edit_admin_user_password_path(@user)
             - else
-              = link_to "パスワード変更はこちらから", edit_current_user_password_path
+              = link_to 'パスワード変更はこちらから', edit_current_user_password_path

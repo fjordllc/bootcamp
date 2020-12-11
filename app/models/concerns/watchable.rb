@@ -16,7 +16,7 @@ module Watchable
   def notification_title
     case self
     when Product
-      "「#{self.practice[:title]}」の提出物"
+      "「#{practice[:title]}」の提出物"
     when Report
       "「#{self[:title]}」の日報"
     when Question

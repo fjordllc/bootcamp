@@ -2,27 +2,25 @@
 
 class PagesController < ApplicationController
   before_action :require_login
-  before_action :set_page, only: %i(show edit update destroy)
-  before_action :set_categories, only: %i(new create edit update)
+  before_action :set_page, only: %i[show edit update destroy]
+  before_action :set_categories, only: %i[new create edit update]
 
   def index
     @pages = Page.with_avatar
                  .includes(:comments, :practice,
-                 { last_updated_user: { avatar_attachment: :blob } })
+                           { last_updated_user: { avatar_attachment: :blob } })
                  .order(updated_at: :desc)
                  .page(params[:page])
     @pages = @pages.tagged_with(params[:tag]) if params[:tag]
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @page = Page.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @page = Page.new(page_params)
@@ -51,41 +49,43 @@ class PagesController < ApplicationController
 
   def destroy
     @page.destroy
-    redirect_to "/pages", notice: "ページを削除しました。"
+    redirect_to '/pages', notice: 'ページを削除しました。'
   end
 
   private
-    def set_page
-      @page = Page.find(params[:id])
-    end
 
-    def page_params
-      if admin_login?
-        params.require(:page).permit(:title, :body, :tag_list, :user_id, :practice_id)
-      else
-        params.require(:page).permit(:title, :body, :tag_list, :practice_id)
-      end
-    end
+  def set_page
+    @page = Page.find(params[:id])
+  end
 
-    def set_wip
-      @page.wip = params[:commit] == "WIP"
+  def page_params
+    if admin_login?
+      params.require(:page).permit(:title, :body, :tag_list, :user_id)
+    else
+      params.require(:page).permit(:title, :body, :tag_list)
     end
+  end
 
-    def notice_message(page, action_name)
-      return "ページをWIPとして保存しました。" if page.wip?
-      case action_name
-      when :create
-        "ページを作成しました。"
-      when :update
-        "ページを更新しました。"
-      end
-    end
+  def set_wip
+    @page.wip = params[:commit] == 'WIP'
+  end
 
-    def set_categories
-      @categories =
-        Category
-          .eager_load(:practices)
-          .where.not(practices: { id: nil })
-          .order("categories.position ASC, practices.position ASC")
+  def notice_message(page, action_name)
+    return 'ページをWIPとして保存しました。' if page.wip?
+
+    case action_name
+    when :create
+      'ページを作成しました。'
+    when :update
+      'ページを更新しました。'
     end
+  end
+
+  def set_categories
+    @categories =
+      Category
+      .eager_load(:practices)
+      .where.not(practices: { id: nil })
+      .order('categories.position ASC, practices.position ASC')
+  end
 end

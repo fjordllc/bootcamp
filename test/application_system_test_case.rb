@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-require "test_helper"
-require "supports/login_helper"
-require "supports/stripe_helper"
-require "supports/notification_helper"
+require 'test_helper'
+require 'supports/login_helper'
+require 'supports/stripe_helper'
+require 'supports/notification_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
   include StripeHelper
   include NotificationHelper
 
-  VUEJS_WAIT_SECOND = (ENV["VUEJS_WAIT_SECOND"] || 2).to_i
+  VUEJS_WAIT_SECOND = (ENV['VUEJS_WAIT_SECOND'] || 2).to_i
 
-  if ENV["HEADED"]
+  if ENV['HEADED']
     driven_by :selenium, using: :chrome
   else
     driven_by :selenium, using: :headless_chrome

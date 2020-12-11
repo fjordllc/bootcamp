@@ -4,10 +4,10 @@ class Subscription
   prepend SubscriptionStub if Rails.env.development?
 
   STATUS_CLASS_MAP = {
-    "trialing": "is-primary",
-    "active": "is-success",
-    "canceled": "is-danger",
-    "past_due": "is-warning"
+    'trialing': 'is-primary',
+    'active': 'is-success',
+    'canceled': 'is-danger',
+    'past_due': 'is-warning'
   }.freeze
 
   def retrieve(id)
@@ -16,12 +16,12 @@ class Subscription
 
   def create(customer_id, idempotency_key = SecureRandom.uuid)
     Stripe::Subscription.create({
-      customer: customer_id,
-      trial_end: 3.days.since.to_i,
-      items: [{ plan: Plan.standard_plan.id }],
-    }, {
-      idempotency_key: idempotency_key
-    })
+                                  customer: customer_id,
+                                  trial_end: 3.days.since.to_i,
+                                  items: [{ plan: Plan.standard_plan.id }]
+                                }, {
+                                  idempotency_key: idempotency_key
+                                })
   end
 
   def destroy(subscription_id)
@@ -29,6 +29,6 @@ class Subscription
   end
 
   def all
-    Stripe::Subscription.list({ status: "all" }).auto_paging_each.map { |sub| sub }
+    Stripe::Subscription.list({ status: 'all' }).auto_paging_each.map { |sub| sub }
   end
 end

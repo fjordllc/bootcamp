@@ -2,6 +2,6 @@
 
 class RemoveRowOrderToPractices < ActiveRecord::Migration[4.2]
   def change
-    remove_column :practices, :row_order
+    remove_column :practices, :row_order, :integer
   end
 end

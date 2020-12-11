@@ -1,34 +1,34 @@
 .form-item
-  = f.label :slack_account, class: "a-label"
+  = f.label :slack_account, class: 'a-label'
   .form-item__mention-input
-    = f.text_field :slack_account, class: "a-text-input", placeholder: "komagata"
+    = f.text_field :slack_account, class: 'a-text-input', placeholder: 'komagata'
 .form-item
-  = f.label :github_account, class: "a-label"
+  = f.label :github_account, class: 'a-label'
   .form-item__mention-input
-    = f.text_field :github_account, class: "a-text-input", placeholder: "komagata", disabled: true
+    = f.text_field :github_account, class: 'a-text-input', placeholder: 'komagata', disabled: true
   .a-form-help
     - if f.object.github_id?
-      = link_to connection_git_hub_path, method: :delete, class: "a-form-help-link is-muted-text" do
+      = link_to connection_git_hub_path, method: :delete, class: 'a-form-help-link is-muted-text' do
         | GitHubとの連携を解除する
     - else
-      = link_to "/auth/github", class: "a-form-help-link is-danger" do
+      = link_to '/auth/github', class: 'a-form-help-link is-danger' do
         | GitHubと連携する
   .a-form-help
     p
       | GitHubと連携をすると、GitHubアカウントでログインができるようになります。
 .form-item
-  = f.label :twitter_account, class: "a-label"
+  = f.label :twitter_account, class: 'a-label'
   .form-item__mention-input
-    = f.text_field :twitter_account, class: "a-text-input", placeholder: "komagata"
+    = f.text_field :twitter_account, class: 'a-text-input', placeholder: 'komagata'
   .a-form-help
     p URL ではなく アカウント を入力。
 .form-item
-  = f.label :facebook_url, class: "a-label"
-  = f.text_field :facebook_url, class: "a-text-input", placeholder: "https://www.facebook.com/komagata1111"
+  = f.label :facebook_url, class: 'a-label'
+  = f.text_field :facebook_url, class: 'a-text-input', placeholder: 'https://www.facebook.com/komagata1111'
   .a-form-help
     p ID ではなく URL を入力。
 .form-item
-  = f.label :blog_url, class: "a-label"
-  = f.text_field :blog_url, class: "a-text-input", placeholder: "http://docs.komagata.org/"
+  = f.label :blog_url, class: 'a-label'
+  = f.text_field :blog_url, class: 'a-text-input', placeholder: 'http://docs.komagata.org/'
   .a-form-help
     p URL を入力。

@@ -10,7 +10,7 @@ module ReportDecorator
     hour = (total_minute / 60).to_i
     minute = (total_minute % 60).round
 
-    if minute == 0
+    if minute.zero?
       "#{hour}時間"
     else
       "#{hour}時間#{minute}分"
@@ -18,6 +18,6 @@ module ReportDecorator
   end
 
   def number
-    serial_number == 1 ? "初日報" : serial_number
+    serial_number == 1 ? '初日報' : serial_number
   end
 end

@@ -6,14 +6,14 @@ module Commentable
   included do
     has_many :comments, as: :commentable, dependent: :delete_all
     has_many :commented_users,
-      through: :comments,
-      source: :user
+             through: :comments,
+             source: :user
   end
 
   def title
     case self
     when Product
-      "「#{self.practice[:title]}」の提出物"
+      "「#{practice[:title]}」の提出物"
     else
       self[:title]
     end

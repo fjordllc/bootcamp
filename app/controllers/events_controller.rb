@@ -2,8 +2,8 @@
 
 class EventsController < ApplicationController
   before_action :require_login
-  before_action :set_event, only: %i(show edit update destroy)
-  before_action :set_footprints, only: %i(show)
+  before_action :set_event, only: %i[show edit update destroy]
+  before_action :set_footprints, only: %i[show]
 
   def index
     @events = Event.with_avatar
@@ -31,13 +31,12 @@ class EventsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     set_wip
     if @event.update(event_params)
-      @event.update_participations if @event.saved_change_to_attribute?("capacity")
+      @event.update_participations if @event.saved_change_to_attribute?('capacity')
       redirect_to @event, notice: notice_message(@event)
     else
       render :edit
@@ -46,44 +45,46 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
-    redirect_to events_path, notice: "イベントを削除しました。"
+    redirect_to events_path, notice: 'イベントを削除しました。'
   end
 
   private
-    def event_params
-      params.require(:event).permit(
-        :title,
-        :description,
-        :location,
-        :capacity,
-        :start_at,
-        :end_at,
-        :open_start_at,
-        :open_end_at
-      )
-    end
 
-    def set_event
-      @event = Event.find(params[:id])
-    end
+  def event_params
+    params.require(:event).permit(
+      :title,
+      :description,
+      :location,
+      :capacity,
+      :start_at,
+      :end_at,
+      :open_start_at,
+      :open_end_at
+    )
+  end
 
-    def set_footprints
-      @footprints = @event.footprints.with_avatar.order(created_at: :desc)
-    end
+  def set_event
+    @event = Event.find(params[:id])
+  end
 
-    def footprint!
-      @event.footprints.create_or_find_by(user: current_user) if @event.user != current_user
-    end
+  def set_footprints
+    @footprints = @event.footprints.with_avatar.order(created_at: :desc)
+  end
 
-    def set_wip
-      @event.wip = (params[:commit] == "WIP")
-    end
+  def footprint!
+    @event.footprints.create_or_find_by(user: current_user) if @event.user != current_user
+  end
 
-    def notice_message(event)
-      if params[:action] == "create"
-        event.wip? ? "イベントをWIPとして保存しました。" : "イベントを作成しました。"
-      elsif params[:action] == "update"
-        event.wip? ? "イベントをWIPとして保存しました。" : "イベントを更新しました。"
-      end
+  def set_wip
+    @event.wip = (params[:commit] == 'WIP')
+  end
+
+  def notice_message(event)
+    case params[:action]
+    when 'create'
+      event.wip? ? 'イベントをWIPとして保存しました。' : 'イベントを作成しました。'
+    when 'update'
+      event.wip? ? 'イベントをWIPとして保存しました。' : 'イベントを更新しました。'
     end
+  end
 end

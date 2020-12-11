@@ -1,22 +1,22 @@
-- title "未チェックの日報"
+- title '未チェックの日報'
 
 header.page-header
   .container
     .page-header__inner
       h2.page-header__title
         = title
-      = render "reports/new_report"
+      = render 'reports/new_report'
 
-= render "reports/tabs"
+= render 'reports/tabs'
 
 .page-body
   .container
-    = paginate @reports, position: "top"
+    = paginate @reports, position: 'top'
     - if @reports.present?
       .thread-list.a-card
-        = render partial: "reports/report", collection: @reports, as: :report
+        = render partial: 'reports/report', collection: @reports, as: :report
         - if mentor_login?
-          = render partial: "unconfirmed_links_open", locals: { label: "未チェックの日報を一括で開く" }
+          = render partial: 'unconfirmed_links_open', locals: { label: '未チェックの日報を一括で開く' }
     - else
       .o-empty-massage
         .o-empty-massage__icon
@@ -24,4 +24,4 @@ header.page-header
         p.o-empty-massage__text
           = title
           | はありません
-    = paginate @reports, position: "bottom"
+    = paginate @reports, position: 'bottom'

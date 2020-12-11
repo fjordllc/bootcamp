@@ -1,4 +1,4 @@
-- title "Docs"
+- title 'Docs'
 header.page-header
   .container
     .page-header__inner
@@ -7,7 +7,7 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to [:new, :page], class: "a-button is-md is-warning is-block" do
+            = link_to [:new, :page], class: 'a-button is-md is-warning is-block' do
               i.fas.fa-plus
               | 新規ページ
 
@@ -17,15 +17,15 @@ header.page-header
       .page-optional-header__inner
         h2.page-optional-header__title
           | タグ 「#{params[:tag]}」
-          = link_to pages_path, class: "page-body__optional-title-cancel" do
+          = link_to pages_path, class: 'page-body__optional-title-cancel' do
             i.fas.fa-times.fa-fw
 .page-body
   .container
-    = paginate @pages, position: "top"
+    = paginate @pages, position: 'top'
     .two-columns
       .two-columns__inner
         .thread-list.a-card
-          = render partial: "pages/page", collection: @pages, as: :page
+          = render partial: 'pages/page', collection: @pages, as: :page
       - if Page.all_tags.any?
         nav.page-tags-nav
           header.page-tags-nav__header
@@ -35,5 +35,5 @@ header.page-header
             ul.page-tags-nav__items
               - Page.all_tags.each do |tag|
                 li.page-tags-nav__item
-                  = link_to tag.name, pages_tag_path(tag.name), class: "page-tags-nav__item-link"
-    = paginate @pages, position: "bottom"
+                  = link_to tag.name, pages_tag_path(tag.name), class: 'page-tags-nav__item-link'
+    = paginate @pages, position: 'bottom'

@@ -3,10 +3,10 @@
     header.thread-header
       .thread-header__upper-side
         .thread-header__author
-          = link_to event.user, class: "thread-header__lower-side-author-name-link" do
+          = link_to event.user, class: 'thread-header__lower-side-author-name-link' do
             = event.user.login_name
         .thread-header__date
-          time.thread-header__date-value(datetime="#{event.created_at.to_datetime}" pubdate="pubdate")
+          time.thread-header__date-value(datetime="#{event.created_at.to_datetime}" pubdate='pubdate')
             = l event.updated_at
 
       h1.thread-header__title
@@ -16,7 +16,7 @@
         = event.title
 
       .thread-header__lower-side
-      #js-watch(data-watchable-id="#{@event.id}", data-watchable-type="Event")
+      #js-watch(data-watchable-id="#{@event.id}", data-watchable-type='Event')
 
     - if event.wip?
       .event-status
@@ -33,33 +33,33 @@
           | イベントは終了しました。
 
     .thread__body
-      = render("event_meta", event: event)
+      = render('event_meta', event: event)
       .thread__description.js-target-blank.is-long-text.js-markdown-view
         = event.description
       - unless event.wip?
-        = render "events/participation", event: event
-      = render "reactions/reactions", reactionable: event
+        = render 'events/participation', event: event
+      = render 'reactions/reactions', reactionable: event
       - if admin_login? || event.user_id == current_user.id
         .card-footer
           .card-footer-actions
             ul.card-footer-actions__items
               li.card-footer-actions__item
-                = link_to edit_event_path(event), class: "card-footer-actions__action a-button is-md is-primary is-block", id: "js-shortcut-edit" do
+                = link_to edit_event_path(event), class: 'card-footer-actions__action a-button is-md is-primary is-block', id: 'js-shortcut-edit' do
                   i.fas.fa-pen#new
                   | 内容修正
               li.card-footer-actions__item
-                = link_to new_event_path(id: event), class: "card-footer-actions__action a-button is-md is-warning is-block" do
+                = link_to new_event_path(id: event), class: 'card-footer-actions__action a-button is-md is-warning is-block' do
                   i.fas.fa-copy#copy
                   | コピー
               li.card-footer-actions__item
-                = link_to event_path(event), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
+                = link_to event_path(event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__action a-button is-md is-danger is-block' do
                   i.fas.fa-trash-alt#delete
                   | 削除
 
-  = render "users/icon",
+  = render 'users/icon',
     user: event.user,
-    link_class: "thread__author-link",
-    image_class: "thread__author-icon"
+    link_class: 'thread__author-link',
+    image_class: 'thread__author-icon'
 
 - unless event.wip?
   .thread.participants
@@ -72,9 +72,9 @@
           - event.participants.each do |participant|
             li.footprints-item
               = link_to participant do
-                = image_tag participant.avatar_url, title: "#{participant.icon_title}", class: "footprints-item__checker-icon a-user-icon is-#{participant.login_name} is-#{participant.role}", alt: participant.login_name
+                = image_tag participant.avatar_url, title: participant.icon_title, class: "footprints-item__checker-icon a-user-icon is-#{participant.login_name} is-#{participant.role}", alt: participant.login_name
 
-- if event.waitlist.count > 0
+- if event.waitlist.count.positive?
   .thread.waitlist
     .thread__inner.a-card
       header.card-header
@@ -84,6 +84,6 @@
         ul.footprints__items
           - event.waitlist.each do |wait_user|
             li.footprints-item
-              = render "users/icon",
+              = render 'users/icon',
                 user: wait_user,
-                image_class: "footprints-item__checker-icon"
+                image_class: 'footprints-item__checker-icon'

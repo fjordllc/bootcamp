@@ -22,18 +22,18 @@ module UserDecorator
 
   def staff_roles
     staff_roles = [
-      { role: "管理者", value: admin },
-      { role: "メンター", value: mentor },
-      { role: "アドバイザー", value: adviser }
+      { role: '管理者', value: admin },
+      { role: 'メンター', value: mentor },
+      { role: 'アドバイザー', value: adviser }
     ]
     staff_roles.find_all { |v| v[:value] }
                .map { |v| v[:role] }
-               .join("、")
+               .join('、')
   end
 
   def icon_title
-    [self.login_name, self.staff_roles].reject(&:blank?)
-                                       .join(": ")
+    [login_name, staff_roles].reject(&:blank?)
+                             .join(': ')
   end
 
   def url
@@ -43,18 +43,17 @@ module UserDecorator
   def niconico_calendar
     reports_date_and_emotion = self.reports_date_and_emotion(CALENDAR_TERM)
     last_wday = reports_date_and_emotion.first[:date].wday
+    blanks = Array.new(last_wday) { { report: nil, date: nil, emotion: nil } }
 
-    blanks = last_wday.times.map { { report: nil, date: nil, emotion: nil } }
-
-    [ *blanks, *reports_date_and_emotion].each_slice(DAYS_IN_WEEK)
-                                         .to_a
+    [*blanks, *reports_date_and_emotion].each_slice(DAYS_IN_WEEK)
+                                        .to_a
   end
 
   def icon_classes(*classes)
-    classes << "a-user-icon"
+    classes << 'a-user-icon'
     classes << "is-#{role}"
-    classes << "is-daimyo" if daimyo?
-    classes.join(" ")
+    classes << 'is-daimyo' if daimyo?
+    classes.join(' ')
   end
 
   def cached_completed_percentage

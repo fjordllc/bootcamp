@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_23_142023) do
+ActiveRecord::Schema.define(version: 2020_12_03_040305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,9 +143,6 @@ ActiveRecord::Schema.define(version: 2020_11_23_142023) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
-  end
-
   create_table "events", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -229,6 +226,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_142023) do
     t.string "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_memos_on_date", unique: true
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -301,6 +299,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_142023) do
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
     t.index ["practice_id"], name: "index_products_on_practice_id"
+    t.index ["user_id", "practice_id"], name: "index_products_on_user_id_and_practice_id", unique: true
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
@@ -323,6 +322,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_142023) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
+    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
@@ -336,6 +336,8 @@ ActiveRecord::Schema.define(version: 2020_11_23_142023) do
     t.boolean "wip", default: false, null: false
     t.integer "emotion"
     t.datetime "published_at"
+    t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
+    t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -344,6 +346,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_142023) do
     t.integer "seat_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["seat_id", "date"], name: "index_reservations_on_seat_id_and_date", unique: true
   end
 
   create_table "seats", force: :cascade do |t|
@@ -417,17 +420,20 @@ ActiveRecord::Schema.define(version: 2020_11_23_142023) do
     t.boolean "mail_notification", default: true, null: false
     t.integer "prefecture_code"
     t.boolean "job_seeker", default: false, null: false
+    t.string "github_id"
     t.boolean "slack_participation", default: true, null: false
     t.boolean "github_collaborator", default: false, null: false
     t.boolean "officekey_permission", default: false, null: false
-    t.string "github_id"
+    t.string "name", default: "", null: false
+    t.string "name_kana", default: "", null: false
     t.integer "satisfaction"
     t.text "opinion"
     t.bigint "retire_reasons", default: 0, null: false
-    t.string "name", default: "", null: false
-    t.string "name_kana", default: "", null: false
     t.string "unsubscribe_email_token"
     t.index ["course_id"], name: "index_users_on_course_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["github_id"], name: "index_users_on_github_id", unique: true
+    t.index ["login_name"], name: "index_users_on_login_name", unique: true
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
@@ -449,6 +455,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_142023) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "title"], name: "index_works_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "index_works_on_user_id"
   end
 

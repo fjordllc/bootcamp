@@ -3,6 +3,5 @@
 class MailsController < ApplicationController
   layout false
 
-  def welcome
-  end
+  def welcome; end
 end

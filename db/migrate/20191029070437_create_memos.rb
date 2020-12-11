@@ -3,7 +3,7 @@
 class CreateMemos < ActiveRecord::Migration[5.2]
   def change
     create_table :memos do |t|
-      t.date :date, unique: true
+      t.date :date
       t.string :body
 
       t.timestamps

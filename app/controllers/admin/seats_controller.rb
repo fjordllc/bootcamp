@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::SeatsController < AdminController
-  before_action :set_seat, only: [:edit, :update, :destroy]
+  before_action :set_seat, only: %i[edit update destroy]
 
   def index
     @seats = Seat.all
@@ -11,14 +11,13 @@ class Admin::SeatsController < AdminController
     @seat = Seat.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @seat = Seat.new(seat_params)
 
     if @seat.save
-      redirect_to admin_seats_path, notice: "席を作成しました。"
+      redirect_to admin_seats_path, notice: '席を作成しました。'
     else
       render :new
     end
@@ -26,7 +25,7 @@ class Admin::SeatsController < AdminController
 
   def update
     if @seat.update(seat_params)
-      redirect_to admin_seats_path, notice: "席を更新しました。"
+      redirect_to admin_seats_path, notice: '席を更新しました。'
     else
       render :edit
     end
@@ -34,15 +33,16 @@ class Admin::SeatsController < AdminController
 
   def destroy
     @seat.destroy
-    redirect_to admin_seats_path, notice: "席を削除しました。"
+    redirect_to admin_seats_path, notice: '席を削除しました。'
   end
 
   private
-    def set_seat
-      @seat = Seat.find(params[:id])
-    end
 
-    def seat_params
-      params.require(:seat).permit(:name)
-    end
+  def set_seat
+    @seat = Seat.find(params[:id])
+  end
+
+  def seat_params
+    params.require(:seat).permit(:name)
+  end
 end

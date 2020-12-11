@@ -6,23 +6,23 @@ header.page-header.is-margin-bottom-0
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to new_question_path, class: "a-button is-md is-warning is-block" do
+            = link_to new_question_path, class: 'a-button is-md is-warning is-block' do
               i.fas.fa-plus
               | 質問する
 
-= form_tag :questions, method: "get" do
+= form_tag :questions, method: 'get' do
   nav.sort-nav
     .container
       .sort-nav__inner
         = hidden_field_tag :solved, params[:solved]
-        = label_tag :practice_id, "プラクティスで絞り込む:", class: "sort-nav__label"
+        = label_tag :practice_id, 'プラクティスで絞り込む:', class: 'sort-nav__label'
         .sort-nav__select
-          = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, selected: params[:practice_id]), include_blank: "全ての質問を表示", onchange: "this.form.submit()", class: "js-select2"
-  = render "questions/tabs"
+          = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, selected: params[:practice_id]), include_blank: '全ての質問を表示', onchange: 'this.form.submit()', class: 'js-select2'
+  = render 'questions/tabs'
 
 .page-body
   .container
-    = paginate @questions, position: "top"
+    = paginate @questions, position: 'top'
     .two-columns
       .two-columns__inner
         - if @questions.present?
@@ -41,5 +41,5 @@ header.page-header.is-margin-bottom-0
               - Question.all.all_tags.each do |tag|
                 - if tag.present?
                   li.page-tags-nav__item
-                    = link_to tag.name, questions_tag_path(tag.name, all: "true"), class: "page-tags-nav__item-link"
-    = paginate @questions, position: "bottom"
+                    = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'page-tags-nav__item-link'
+    = paginate @questions, position: 'bottom'

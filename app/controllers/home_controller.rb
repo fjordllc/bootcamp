@@ -16,13 +16,11 @@ class HomeController < ApplicationController
         render aciton: :index
       end
     else
-      render template: "welcome/index", layout: "welcome"
+      render template: 'welcome/index', layout: 'welcome'
     end
   end
 
-  def pricing
-  end
+  def pricing; end
 
-  def test
-  end
+  def test; end
 end

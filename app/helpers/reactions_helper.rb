@@ -19,7 +19,7 @@ module ReactionsHelper
 
     if reaction_id
       attributes.deep_merge!(
-        class: "is-reacted",
+        class: 'is-reacted',
         data: { reaction: { id: reaction_id } }
       )
     end
