@@ -35,9 +35,13 @@ header.page-header
               .modal__description.is-md
                 .a-short-text
                   p
-                    | 所要時間の目安は、過去にこのプラクティスを完了した人の、完了までかかった時間の中央値を表示しています。完了までにかかった時間は、日報に記録された学習時間から算出しています。
+                    | 所要時間の目安は、過去にこのプラクティスを完了した人の、
+                    | 完了までかかった時間の中央値を表示しています。
+                    | 完了までにかかった時間は、日報に記録された学習時間から算出しています。
                   p
-                    | さらに深いところまで学習をして時間をかけたり、すでに学習した経験があってすぐに完了することができたりなど、人によっては時間のかかり方は様々です。この数字はあくまで一つの目安として捉えてください。
+                    | さらに深いところまで学習をして時間をかけたり、
+                    | すでに学習した経験があってすぐに完了することができたりなど、
+                    | 人によっては時間のかかり方は様々です。この数字はあくまで一つの目安として捉えてください。
             #js-annotation-modal
           h1.practice-contents__title
             = @practice.title
@@ -126,7 +130,7 @@ header.page-header
               class: 'page-nav__title-link' do
               = category.name
         ul.page-nav__items
-          - category.practices.each do |practice|
+          - category.practices.order(:position).each do |practice|
             li.page-nav__item
               = link_to practice.title, practice_path(practice), class: "page-nav__item-link #{@practice == practice ? 'is-current' : ''}"
 
