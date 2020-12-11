@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       followings = Following.where(follower_id: current_user.id).select('followed_id')
       @users = User
                .page(params[:page]).per(PAGER_NUMBER)
-               .includes(:company, :avatar_attachment, :course)
+               .includes(:company, :avatar_attachment, :course, :taggings)
                .where(id: followings)
                .order(updated_at: :desc)
     elsif params[:tag]
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
       @users = User
                .page(params[:page]).per(PAGER_NUMBER)
                .with_attached_avatar
-               .preload(:course)
+               .preload(:course, :taggings)
                .order(updated_at: :desc)
                .users_role(@target)
     end
