@@ -121,4 +121,14 @@ class PracticesTest < ApplicationSystemTestCase
     assert_equal page.driver.browser.switch_to.alert.text, "すでに着手しているプラクティスがあります。\n提出物を提出するか完了すると新しいプラクティスを開始できます。"
     page.driver.browser.switch_to.alert.accept
   end
+
+  test 'show other practices' do
+    login_user 'kimura', 'testtest'
+    practice = practices(:practice2)
+    visit "/practices/#{practice.id}"
+    titles = all('.page-nav__item-link').map(&:text)
+    index1 = titles.rindex 'Terminalの基礎を覚える'
+    index2 = titles.rindex 'Debianをインストールする'
+    assert index1 < index2
+  end
 end
