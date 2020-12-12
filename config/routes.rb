@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     resources :reactions, only: %i(create destroy)
     resources :checks, only: %i(index create destroy)
     resources :mention_users, only: %i(index)
-    resources :users, only: %i(index show)
+    resources :users, only: %i(index show update)
     get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
     resources :reservations, only: %i(index create destroy)
     resources :practices, only: %i(index show update) do

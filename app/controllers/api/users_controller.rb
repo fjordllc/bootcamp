@@ -2,6 +2,7 @@
 
 class API::UsersController < API::BaseController
   before_action :require_login, only: %i[index]
+  before_action :require_mentor_login_for_api, only: %i(update)
   PAGER_NUMBER = 20
 
   def index
@@ -30,6 +31,7 @@ class API::UsersController < API::BaseController
     @user = User.find(params[:id])
   end
 
+<<<<<<< HEAD
   private
 
   def target_allowlist
@@ -38,4 +40,20 @@ class API::UsersController < API::BaseController
     target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
     target_allowlist
   end
+=======
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      head :ok
+    else
+      head :bad_request
+    end
+  end
+
+  private
+
+    def user_params
+      params.require(:users).permit(:memo)
+    end
+>>>>>>> a593ce12b (ユーザーapiコントローラーにupdate処理を追加)
 end
