@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     resources :available_emojis, only: %i(index)
     resources :reactions, only: %i(create destroy)
     resources :checks, only: %i(index create destroy)
-    resources :users, only: %i(index show)
+    resources :users, only: %i(index show update)
     resources :reservations, only: %i(index create destroy)
     resources :practices, only: %i(show update) do
       resource :learning, only: %i(show update), controller: "practices/learning"
