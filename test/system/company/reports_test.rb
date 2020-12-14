@@ -7,6 +7,6 @@ class Company::ReportsTest < ApplicationSystemTestCase
 
   test 'show listing reports' do
     visit "/companies/#{companies(:company1).id}/reports"
-    assert_equal 'FJORD, LLC所属ユーザーの日報 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'Fjord Inc.所属ユーザーの日報 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 end
