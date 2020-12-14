@@ -229,4 +229,19 @@ class ProductsTest < ApplicationSystemTestCase
     end
     assert_text '提出物をWIPとして保存しました。'
   end
+
+  test 'setting checker' do
+    login_user 'komagata', 'testtest'
+    visit products_path
+    click_button '私が見ます', match: :first
+    assert_button '担当から外れる'
+  end
+
+  test 'unsetting checker' do
+    login_user 'komagata', 'testtest'
+    visit products_path
+    click_button '私が見ます', match: :first
+    click_button '担当から外れる', match: :first
+    assert_button '私が見ます'
+  end
 end
