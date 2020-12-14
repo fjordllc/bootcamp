@@ -90,4 +90,19 @@ class Product < ApplicationRecord
   def category(course)
     Category.category(practice: practice, course: course)
   end
+
+  def save_checker(current_user_id)
+    return false if other_checker_exists?(current_user_id)
+
+    self.checker_id = checker_id ? nil : current_user_id
+    save
+  end
+
+  def other_checker_exists?(current_user_id)
+    checker_id.present? && checker_id.to_s != current_user_id
+  end
+
+  def checker_name
+    checker_id ? User.find(checker_id).login_name : nil
+  end
 end
