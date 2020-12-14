@@ -37,7 +37,8 @@
               span.thread-list-item-meta__datetime-label
                 | 最終更新日
               = l product.updated_at
-
+          - if current_user.mentor? && product.checks.empty?
+            .js-checker(data-checker-id="#{product.checker_id}" data-checker-name="#{product.checker_name}" data-current-user-id="#{current_user.id}" data-product-id="#{product.id}")
     - if product.comments.any?
       .thread-list-item-meta
         .thread-list-item-meta__label
