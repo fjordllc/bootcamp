@@ -66,6 +66,26 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text '絵文字の補完テスト: 😺'
   end
 
+  test 'post new comment with image for report' do
+    visit "/reports/#{reports(:report1).id}"
+    sleep 1
+    find('#js-new-comment').set("![Image](https://example.com/test.png)'")
+    click_button 'コメントする'
+    wait_for_vuejs
+    assert_match '<a href="https://example.com/test.png" target="_blank" rel="noopener noreferrer"><img src="https://example.com/test.png" alt="Image"></a>',
+                 page.body
+  end
+
+  test 'post new comment with linked image for report' do
+    visit "/reports/#{reports(:report1).id}"
+    sleep 1
+
+    find('#js-new-comment').set('[![Image](https://example.com/test.png)](https://example.com)')
+    click_button 'コメントする'
+    wait_for_vuejs
+    assert_match '<a href="https://example.com" target="_blank" rel="noopener noreferrer"><img src="https://example.com/test.png" alt="Image"></a>', page.body
+  end
+
   test 'edit the comment for report' do
     visit "/reports/#{reports(:report3).id}"
     within('.thread-comment:first-child') do
