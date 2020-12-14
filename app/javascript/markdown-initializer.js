@@ -2,6 +2,7 @@ import MarkdownIt from 'markdown-it'
 import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
 import MarkdownItMention from './markdown-it-mention'
+import MarkdownItLinkingImage from './markdown-it-linking-image'
 import MarkdownOption from './markdown-it-option'
 
 export default class {
@@ -19,6 +20,7 @@ export default class {
     const md = new MarkdownIt(MarkdownOption)
     md.use(MarkdownItEmoji)
     md.use(MarkdownItMention)
+    md.use(MarkdownItLinkingImage)
     md.use(MarkdownItTaskLists)
 
     return md.render(text)
