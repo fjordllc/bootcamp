@@ -7,6 +7,6 @@ class Company::UsersTest < ApplicationSystemTestCase
 
   test 'show users' do
     visit "/companies/#{companies(:company1).id}/users"
-    assert_equal 'FJORD, LLC所属ユーザー | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'Fjord Inc.所属ユーザー | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 end
