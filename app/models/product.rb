@@ -28,6 +28,7 @@ class Product < ApplicationRecord
         ->(user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: 'Product').pluck(:checkable_id)) }
+  scope :self_assigned_product, ->(current_user_id) { where(checker_id: current_user_id) }
 
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
