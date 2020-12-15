@@ -13,7 +13,6 @@ class RetirementController < ApplicationController
     if current_user.save(context: :retirement)
       destroy_subscription
       notify_to_admins
-      notify_to_slack
       logout
       redirect_to retirement_url
     else
@@ -35,12 +34,5 @@ class RetirementController < ApplicationController
     User.admins.each do |admin_user|
       Notification.retired(current_user, admin_user)
     end
-  end
-
-  def notify_to_slack
-    message = "<#{url_for(current_user)}|#{current_user.name} (#{current_user.login_name})>が退会しました。"
-    SlackNotification.notify message,
-                             username: "#{current_user.login_name}@bootcamp.fjord.jp",
-                             icon_url: current_user.avatar_url
   end
 end
