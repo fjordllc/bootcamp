@@ -75,6 +75,35 @@ class ProductsTest < ApplicationSystemTestCase
     assert_button '未返信の提出物を一括で開く'
   end
 
+  test 'non-staff user can not see listing self-assigned products' do
+    login_user 'hatsuno', 'testtest'
+    visit '/products/self_assigned'
+    assert_text '管理者・アドバイザー・メンターとしてログインしてください'
+  end
+
+  test 'mentor can see a button to open to open all self-assigned products' do
+    login_user 'komagata', 'testtest'
+    checker = users(:komagata)
+    Product.create!(
+      body: 'test',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: checker.id
+    )
+    visit '/products/self_assigned'
+    assert_button '自分の担当の提出物を一括で開く'
+  end
+
+  test 'not display products in listing self-assigned if self-assigned products all checked' do
+    login_user 'komagata', 'testtest'
+    product = products(:product3)
+    checker = users(:komagata)
+    product.checker_id = checker.id
+    product.save
+    visit '/products/self_assigned'
+    assert_text 'レビューを担当する提出物はありません'
+  end
+
   test 'create product' do
     login_user 'yamada', 'testtest'
     visit "/products/new?practice_id=#{practices(:practice6).id}"
