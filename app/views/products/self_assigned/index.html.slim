@@ -18,7 +18,7 @@ header.page-header
           collection: @products,
           as: :product
         - if mentor_login?
-          = render partial: 'unconfirmed_links_open', locals: {label: '自分の担当の提出物を一括で開く'}
+          = render partial: 'unconfirmed_links_open', locals: { label: '自分の担当の提出物を一括で開く' }
     - else
       .o-empty-massage
         .o-empty-massage__icon
