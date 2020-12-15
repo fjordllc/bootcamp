@@ -44,8 +44,8 @@ Rails.application.routes.draw do
     resources :pages, only: %i(update)
     resources :questions, only: %i(update)
     resources :followings, only: %i(create destroy)
-    resources :products do
-      resource :checker, only: %i(update), controller: "products/checker"
+    namespace :products do
+      resource :checker, only: %i(update), controller: "checker"
     end
   end
 
