@@ -23,7 +23,7 @@ export default {
       return '担当者：' + (this.id ? this.name : "未設定")
     },
     url() {
-      return `/api/products/${this.productId}/checker`
+      return `/api/products/checker`
     },
   },
   methods: {
@@ -33,6 +33,7 @@ export default {
     },
     check() {
       let params = {
+        "product_id": this.productId,
         "current_user_id": this.currentUserId,
         "checker_id": this.checkerId
       }
