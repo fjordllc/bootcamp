@@ -2,7 +2,20 @@
   +media-breakpoint-up(md)
     display: flex
     align-items: center
+    cursor: pointer
+    transition: all .2s ease-out
+    *
+      cursor: pointer
 
 .page-header-switch__label
-  +text-block(.75rem 1.4, $muted-text center)
-  margin-right: .5em
+  +media-breakpoint-up(md)
+    +text-block(.75rem 1.4, $muted-text center)
+    margin-right: .5em
+    .a-help
+      +position(relative, top -1px)
+    &:hover
+      .page-header-switch__label-text
+        color: $main
+        text-decoration: underline
+      .a-help
+        background-color: $main
