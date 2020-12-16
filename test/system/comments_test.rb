@@ -83,7 +83,7 @@ class CommentsTest < ApplicationSystemTestCase
     find('#js-new-comment').set('[![Image](https://example.com/test.png)](https://example.com)')
     click_button 'コメントする'
     wait_for_vuejs
-    assert_match '<a href="https://example.com" target="_blank" rel="noopener noreferrer"><img src="https://example.com/test.png" alt="Image"></a>', page.body
+    assert_match '<a href="https://example.com"><img src="https://example.com/test.png" alt="Image"></a>', page.body
   end
 
   test 'edit the comment for report' do
