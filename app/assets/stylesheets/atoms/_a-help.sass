@@ -1,0 +1,15 @@
+.a-help
+  +text-block(1em 1, inline-flex $reversal-text)
+  +size(1.5em)
+  background-color: $muted-text
+  vertical-align: middle
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  cursor: pointer
+  transition: all .2s ease-out
+  &:hover
+    background-color: $main
+    color: $reversal-text
+  &:last-child
+    margin-left: .25em
