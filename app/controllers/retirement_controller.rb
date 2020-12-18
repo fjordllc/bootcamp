@@ -11,6 +11,8 @@ class RetirementController < ApplicationController
     current_user.assign_attributes(retire_reason_params)
     current_user.retired_on = Date.current
     if current_user.save(context: :retirement)
+      user = current_user
+      UserMailer.retire(user).deliver_now
       destroy_subscription
       notify_to_admins
       logout
