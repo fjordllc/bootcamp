@@ -11,4 +11,9 @@ class UserMailerPreview < ActionMailer::Preview
     user = User.first
     UserMailer.welcome(user)
   end
+
+  def retire
+    user = User.first
+    UserMailer.retire(user)
+  end
 end

@@ -11,4 +11,9 @@ class UserMailer < ApplicationMailer
     @user = user
     mail to: user.email, subject: '[bootcamp] フィヨルドブートキャンプへようこそ'
   end
+
+  def retire(user)
+    @user = user
+    mail to: user.email, subject: 'フィヨルドブートキャンプお礼'
+  end
 end
