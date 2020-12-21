@@ -7,18 +7,24 @@ export default new Vuex.Store({
   state: {
     checkId: null,
     userName: null,
-    craetedAt: null
+    createdAt: null,
+    checkableId: null,
+    checkableType: null
   },
   getters: {
     checkId: state => state.checkId,
     userName: state => state.userName,
-    createdAt: state => state.createdAt
+    createdAt: state => state.createdAt,
+    checkableId: state => state.checkableId,
+    checkableType: state => state.checkableType
   },
   mutations: {
-    setCheckable (state, { checkId, userName, createdAt }) {
+    setCheckable (state, { checkId, userName, createdAt, checkableId, checkableType }) {
       state.checkId = checkId
       state.userName = userName
       state.createdAt = createdAt
+      state.checkableId = checkableId
+      state.checkableType = checkableType
     }
   },
   actions: {
@@ -40,13 +46,17 @@ export default new Vuex.Store({
             commit('setCheckable', {
               checkId: json[0]['id'],
               createdAt: json[0]['created_at'],
-              userName: json[0]['user']['login_name']
+              userName: json[0]['user']['login_name'],
+              checkableId: checkableId,
+              checkableType: checkableType
             })
           } else {
             commit('setCheckable', {
               checkId: null,
               createdAt: null,
-              userName: null
+              userName: null,
+              checkableId: checkableId,
+              checkableType: checkableType
             })
           }
         })
