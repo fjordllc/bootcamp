@@ -9,4 +9,13 @@ class API::CategoriesController < API::BaseController
         Category.order(:created_at)
       end
   end
+
+  def destroy
+    @category = Category.find(params[:id])
+    if @category.destroy
+      head :no_content
+    else
+      head :bad_request
+    end
+  end
 end
