@@ -34,6 +34,33 @@ export default {
         .catch(error => {
           console.warn('Failed to parsing', error)
         })
+  },
+  computed: {
+    checkId: function () {
+      return this.$store.getters.checkId
+    }
+  },
+  methods: {
+    updateCheckValue(reportId, {check = true}){
+      this.reports.map( function (report) {
+        if (report.id == reportId) {
+          report.check = check
+        }
+      })
+    }
+  },
+  watch: {
+    checkId (checkId) {
+      let checkableType = this.$store.getters.checkableType
+      if (checkableType == "Report") {
+        let reportId = this.$store.getters.checkableId
+        if (checkId) {
+          this.updateCheckValue(reportId, {check: true})
+        } else {
+          this.updateCheckValue(reportId, {check: false})
+        }
+      }
+    }
   }
 }
 </script>
