@@ -21,7 +21,9 @@ Rails.application.routes.draw do
     resource :session, controller: "session", only: %i(create)
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
-    resources :categories, only: %i(index)
+    resources :categories, only: %i(index) do
+      resource :position, only: %i(update), controller: "categories/position"
+    end
     resources :notifications, only: %i(index)
     resources :comments, only: %i(index create update destroy)
     resources :answers, only: %i(index create update destroy) do
