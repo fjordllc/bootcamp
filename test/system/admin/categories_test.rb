@@ -49,9 +49,11 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
 
   test 'delete category' do
     visit '/admin/categories'
-    accept_confirm do
-      find("#category_#{categories(:category1).id} .js-delete").click
+    within('.admin-table__item:first-child') do
+      accept_confirm do
+        find('.js-delete').click
+      end
     end
-    assert_text 'カテゴリーを削除しました。'
+    assert_no_text '学習の準備'
   end
 end
