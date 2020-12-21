@@ -1,0 +1,115 @@
+<template lang="pug">
+  .container.is-padding-horizontal-0-sm-down
+    .admin-table
+      table.admin-table__table
+        thead.admin-table__header
+          tr.admin-table__labels
+            th.admin-table__label
+              | 名前
+            th.admin-table__label
+              | URLスラッグ
+            th.admin-table__label.actions
+              | 操作
+        draggable.admin-table__items(v-model="categories", tag="tbody", @start="start", @end="end")
+          tr.admin-table__item(
+            v-for="category in categories"
+            :key="category.id"
+            @dragstart="dragstart(category)")
+            td.admin-table__item-value
+              | {{ category.name }}
+            td.admin-table__item-value
+              | {{ category.slug }}
+            td.admin-table__item-value.is-text-align-center
+              ul.is-button-group
+                li
+                  a.a-button.is-sm.is-primary.is-icon(:href='`/admin/categories/${category.id}/edit`')
+                    i.fas.fa-pen
+                li
+                  a.a-button.is-sm.is-danger.is-icon.js-delete(@click='destroy(category)')
+                    i.fas.fa-trash-alt
+</template>
+<script>
+import draggable from 'vuedraggable'
+
+export default {
+  props: ['allCategories'],
+  data () {
+    return {
+      categories: JSON.parse(this.allCategories),
+      beforeDragging: '',
+      draggingItem: '',
+      oldPosition: null
+    }
+  },
+  components: {
+    draggable
+  },
+  methods: {
+    start () {
+      this.beforeDragging = this.categories
+    },
+    dragstart (category) {
+      this.draggingItem = category
+      const target = this.categories.find((v) => v.id === this.draggingItem.id)
+      this.oldPosition = this.categories.indexOf(target) + 1
+    },
+    token () {
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      return meta ? meta.getAttribute('content') : ''
+    },
+    end () {
+      const targetId = this.draggingItem.id
+      const targetItem = this.categories.find((v) => v.id === targetId)
+      const newPosition = this.categories.indexOf(targetItem) + 1
+      if (this.oldPosition !== newPosition) {
+        const params = {
+          'position': newPosition
+        }
+        fetch(`/api/categories/${targetId}/position.json`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-Token': this.token()
+          },
+          credentials: 'same-origin',
+          redirect: 'manual',
+          body: JSON.stringify(params)
+        })
+          .then(response => {
+            if (response.ok) {
+              return response.json()
+            } else {
+              this.categories = this.beforeDragging
+            }
+          })
+          .catch(error => {
+            console.warn('Failed to parsing', error)
+          })
+      }
+    },
+    destroy (category) {
+      if (window.confirm('本当によろしいですか？')) {
+        fetch(`/api/categories/${category.id}.json`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-Token': this.token()
+          },
+          credentials: 'same-origin',
+          redirect: 'manual'
+        })
+          .then(response => {
+            if (response.ok) {
+              this.categories = this.categories.filter(v => v.id !== category.id)
+            }
+          })
+          .catch(error => {
+            console.warn('Failed to parsing', error)
+          })
+      }
+    }
+  }
+}
+</script>
