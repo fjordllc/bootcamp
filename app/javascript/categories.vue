@@ -10,7 +10,9 @@
               | URLスラッグ
             th.admin-table__label.actions
               | 操作
-        draggable.admin-table__items(v-model="categories", tag="tbody", @start="start", @end="end")
+            th.admin-table__label.handle
+              | 並び順
+        draggable.admin-table__items(v-model="categories", handle='.grab', tag="tbody", @start="start", @end="end")
           tr.admin-table__item(
             v-for="category in categories"
             :key="category.id"
@@ -27,6 +29,9 @@
                 li
                   a.a-button.is-sm.is-danger.is-icon.js-delete(@click='destroy(category)')
                     i.fas.fa-trash-alt
+            td.admin-table__item-value.is-text-align-center
+              span.grab
+                i.fas.fa-align-justify
 </template>
 <script>
 import draggable from 'vuedraggable'
