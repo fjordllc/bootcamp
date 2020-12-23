@@ -204,4 +204,10 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, reports(:report24))
     assert_not_includes(result, reports(:report25))
   end
+
+  test 'returns only updated-by-komagata practice when user param' do
+    result = Searcher.search('ユーザーネーム（最終更新者）で検索できるよ user:komagata')
+    assert_includes(result, practices(:practice55))
+    assert_not_includes(result, practices(:practice56))
+  end
 end
