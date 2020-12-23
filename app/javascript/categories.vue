@@ -82,9 +82,7 @@ export default {
           body: JSON.stringify(params)
         })
           .then(response => {
-            if (response.ok) {
-              return response.json()
-            } else {
+            if (!response.ok) {
               this.categories = this.beforeDragging
             }
           })
