@@ -83,7 +83,7 @@ steps:
       - 'GITHUB_TOKEN=$_GITHUB_TOKEN'
       - 'BRANCH_NAME=$BRANCH_NAME'
       - 'SHORT_SHA=$SHORT_SHA'
-      - 'REVIEW_URL=https://bootcamp-review-app-$_PR_NUMBER-fvlfu45apq-an.a.run.app'
+      - 'REVIEW_URL=https://$_SERVICE_NAME-$_PR_NUMBER-fvlfu45apq-an.a.run.app'
 options:
   substitutionOption: ALLOW_LOOSE
 substitutions:
