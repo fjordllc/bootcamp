@@ -42,35 +42,30 @@ export default {
     return {
       categories: JSON.parse(this.allCategories),
       beforeDragging: '',
-      draggingItem: '',
-      oldPosition: null
+      draggingItem: ''
     }
   },
   components: {
     draggable
   },
   methods: {
+    token () {
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      return meta ? meta.getAttribute('content') : ''
+    },
     start () {
       this.beforeDragging = this.categories
     },
     dragstart (category) {
       this.draggingItem = category
-      const target = this.categories.find((v) => v.id === this.draggingItem.id)
-      this.oldPosition = this.categories.indexOf(target) + 1
     },
-    token () {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
-    end () {
-      const targetId = this.draggingItem.id
-      const targetItem = this.categories.find((v) => v.id === targetId)
-      const newPosition = this.categories.indexOf(targetItem) + 1
-      if (this.oldPosition !== newPosition) {
+    end (e) {
+      if (e.oldIndex !== e.newIndex) {
+        // position値は1から始まるため、インデックス番号 + 1
         const params = {
-          'position': newPosition
+          'position': e.newIndex + 1
         }
-        fetch(`/api/categories/${targetId}/position.json`, {
+        fetch(`/api/categories/${this.draggingItem.id}/position.json`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
