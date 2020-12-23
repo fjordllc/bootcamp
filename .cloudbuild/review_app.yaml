@@ -56,7 +56,7 @@ steps:
       - '--set-env-vars=RAILS_LOG_TO_STDOUT=true'
       - '--set-env-vars=RAILS_ENV=production'
       - '--set-env-vars=RACK_ENV=production'
-      - '--set-env-vars=APP_HOST_NAME=$_APP_HOST_NAME'
+      - '--set-env-vars=APP_HOST_NAME=$_APP_HOST_NAME-$_PR_NUMBER'
       - '--set-env-vars=RAILS_MASTER_KEY=$_RAILS_MASTER_KEY'
       - '--set-env-vars=DB_NAME=$_DB_NAME'
       - '--set-env-vars=DB_USER=$_DB_USER'
