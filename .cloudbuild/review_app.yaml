@@ -1,0 +1,111 @@
+steps:
+  - id: Docker Build
+    name: gcr.io/cloud-builders/docker
+    args: ['build',
+           '--no-cache',
+           '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$_PR_NUMBER-$SHORT_SHA',
+           '.',
+           '-f', 'Dockerfile-latest']
+  - id: Push gcr
+    name: gcr.io/cloud-builders/docker
+    args: ['push', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$_PR_NUMBER-$SHORT_SHA']
+  - id: SqlProxy
+    name: "gcr.io/cloudsql-docker/gce-proxy:1.16"
+    waitFor: ["-"]
+    volumes:
+      - name: db
+        path: "/cloudsql"
+    args: ["/cloud_sql_proxy", "-dir=/cloudsql", "-instances=$_CLOUD_SQL_HOST"]
+  - id: DB migrate
+    name: "asia.gcr.io/$PROJECT_ID/$REPO_NAME:$_PR_NUMBER-$SHORT_SHA"
+    waitFor: ["Docker Build"]
+    volumes:
+      - name: db
+        path: "/cloudsql"
+    args: ['bin/rails', 'db:create', 'db:migrate']
+    env:
+      - 'RAILS_ENV=production'
+      - 'DB_HOST=/cloudsql/$_CLOUD_SQL_HOST'
+      - 'DB_NAME=$_DB_NAME'
+      - 'DB_PASS=$_DB_PASS'
+      - 'DB_USER=$_DB_USER'
+      - 'RAILS_MASTER_KEY=$_RAILS_MASTER_KEY'
+  - id: Kill SqlProxy
+    name: "gcr.io/cloud-builders/docker"
+    waitFor: ["DB migrate"]
+    entrypoint: "sh"
+    args: ["-c", 'docker kill -s TERM $(docker ps -q --filter "volume=db")']
+  - id: Deploy to Cloud Run
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - $_SERVICE_NAME-review-app-$_PR_NUMBER
+      - '--platform=managed'
+      - '--region=asia-northeast1'
+      - '--quiet'
+      - '--image=asia.gcr.io/$PROJECT_ID/$REPO_NAME:$_PR_NUMBER-$SHORT_SHA'
+      - '--allow-unauthenticated'
+      - '--add-cloudsql-instances'
+      - '$_CLOUD_SQL_HOST'
+      - '--memory'
+      - '$_MEMORY'
+      - '--set-env-vars=LANG=ja_JP.UTF-8'
+      - '--set-env-vars=TZ=Asia/Tokyo'
+      - '--set-env-vars=RAILS_LOG_TO_STDOUT=true'
+      - '--set-env-vars=RAILS_ENV=review'
+      - '--set-env-vars=RACK_ENV=production'
+      - '--set-env-vars=APP_HOST_NAME=$_APP_HOST_NAME'
+      - '--set-env-vars=RAILS_MASTER_KEY=$_RAILS_MASTER_KEY'
+      - '--set-env-vars=DB_NAME=$_DB_NAME'
+      - '--set-env-vars=DB_USER=$_DB_USER'
+      - '--set-env-vars=DB_PASS=$_DB_PASS'
+      - '--set-env-vars=DB_HOST=/cloudsql/$_CLOUD_SQL_HOST'
+      - '--set-env-vars=GOOGLE_CREDENTIALS=$_GOOGLE_CREDENTIALS'
+      - '--set-env-vars=GCS_BUCKET=$_GCS_BUCKET'
+      - '--set-env-vars=REDIS_URL=$_REDIS_URL'
+      - '--set-env-vars=TOKEN=$_TOKEN'
+      - '--set-env-vars=$_ENVS'
+      - >-
+        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,pr-number=$_PR_NUMBER,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
+  - id: Cloud Run Update Traffic
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args: ['run', 'services', 'update-traffic', '$_SERVICE_NAME-review-app-$_PR_NUMBER', '--to-latest', '--platform=managed', '--region=asia-northeast1']
+  - id: Update Github Deployments
+    name: ruby:2.6
+    entrypoint: ruby
+    dir: .cloudbuild
+    args: ["review_app.rb"]
+    env:
+      - 'REPO_NAME=fjordllc/$REPO_NAME'
+      - 'GITHUB_TOKEN=$_GITHUB_TOKEN'
+      - 'BRANCH_NAME=$BRANCH_NAME'
+      - 'SHORT_SHA=$SHORT_SHA'
+      - 'REVIEW_URL=https://bootcamp-review-app-$_PR_NUMBER-fvlfu45apq-an.a.run.app'
+options:
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _MEMORY: 512M
+  _SERVICE_NAME: _
+  _LABELS: _
+  _ENVS: _
+  _TRIGGER_ID: _
+  _CLOUD_SQL_HOST: _
+  _RAILS_MASTER_KEY: _
+  _APP_HOST_NAME: _
+  _DB_NAME: _
+  _DB_USER: _
+  _DB_PASS: _
+  _GOOGLE_CREDENTIALS: _
+  _REDIS_URL: _
+  _GCS_BUCKET: _
+  _TOKEN: _
+  _GITHUB_TOKEN: _
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed
+  - bootcamp
+  - review-app
+timeout: 1200s

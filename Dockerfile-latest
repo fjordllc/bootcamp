@@ -1,0 +1,7 @@
+FROM asia.gcr.io/bootcamp-224405/bootcamp:latest
+
+RUN rm -rf /app
+COPY . ./
+RUN yarn install --production --ignore-engines
+RUN CFLAGS="-Wno-cast-function-type" BUNDLE_BUILD__SASSC="--disable-march-tune-native" BUNDLE_FORCE_RUBY_PLATFORM=1 bundle install -j4
+RUN SECRET_KEY_BASE=dummy bin/rails assets:precompile
