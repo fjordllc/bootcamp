@@ -3,8 +3,8 @@
 class API::Categories::PositionController < API::BaseController
   def update
     @category = Category.find(params[:category_id])
-    if @category.update(position: params[:position])
-      render :update, status: :ok
+    if @category.update(category_params)
+      head :no_content
     else
       render json: @category.errors, status: :unprocessable_entity
     end
@@ -13,6 +13,6 @@ class API::Categories::PositionController < API::BaseController
   private
 
   def category_params
-    params.require(:category).permit(:position)
+    params.permit(:position)
   end
 end
