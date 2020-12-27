@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::UsersController < API::BaseController
-  before_action :require_mentor_login_for_api, only: %i(update)
+  before_action :require_mentor_login_for_api, only: %i[update]
 
   def index
     users = User.select(:login_name, :name)
@@ -16,7 +16,7 @@ class API::UsersController < API::BaseController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
+    if @user.update_user_mentor_memo(@user.id, user_params)
       head :ok
     else
       head :bad_request
@@ -25,7 +25,7 @@ class API::UsersController < API::BaseController
 
   private
 
-    def user_params
-      params.require(:users).permit(:memo)
-    end
+  def user_params
+    params.require(:user).permit(:memo)
+  end
 end

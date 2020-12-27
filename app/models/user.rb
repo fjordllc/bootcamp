@@ -499,6 +499,14 @@ class User < ApplicationRecord
     category.practices.size == completed_practices_size(category)
   end
 
+  def update_user_mentor_memo(user_id, user_params)
+    user = User.find(user_id)
+    ActiveRecord::Base.transaction do
+      user.record_timestamps = false
+      user.update!(user_params)
+    end
+  end
+
   private
 
   def password_required?
