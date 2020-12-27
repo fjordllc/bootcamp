@@ -254,4 +254,14 @@ class UserTest < ActiveSupport::TestCase
     daimyo.unfollow(hatsuno)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
   end
+
+  test '#update_user_mentor_memo' do
+    user = users(:kimura)
+    params = { 'memo' => 'test' }
+    user.updated_at = Time.zone.local(2020, 1, 1, 0, 0, 0)
+    user.update_user_mentor_memo(user.id, params)
+    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
+      assert user.updated_at
+    end
+  end
 end
