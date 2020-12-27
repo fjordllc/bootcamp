@@ -41,7 +41,7 @@ export default {
   data () {
     return {
       categories: JSON.parse(this.allCategories),
-      beforeDragging: '',
+      categoriesBeforeDragging: '',
       draggingItem: ''
     }
   },
@@ -54,16 +54,16 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     start () {
-      this.beforeDragging = this.categories
+      this.categoriesBeforeDragging = this.categories
     },
     dragstart (category) {
       this.draggingItem = category
     },
-    end (e) {
-      if (e.oldIndex !== e.newIndex) {
-        // position値は1から始まるため、インデックス番号 + 1
+    end (event) {
+      if (event.oldIndex !== event.newIndex) {
         const params = {
-          'position': e.newIndex + 1
+          // position値は1から始まるため、インデックス番号 + 1
+          'position': event.newIndex + 1
         }
         fetch(`/api/categories/${this.draggingItem.id}/position.json`, {
           method: 'PATCH',
@@ -78,7 +78,7 @@ export default {
         })
           .then(response => {
             if (!response.ok) {
-              this.categories = this.beforeDragging
+              this.categories = this.categoriesBeforeDragging
             }
           })
           .catch(error => {
