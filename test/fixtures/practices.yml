@@ -457,16 +457,18 @@ practice54:
 
 practice55:
   title: "サーバー連携"
-  description: "description..."
+  description: "ユーザーネーム（最終更新者）で検索できるよ"
   goal: "goal..."
   memo: "memo for mentors..."
   categories: category20
   position: 55
+  last_updated_user: komagata
 
 practice56:
   title: "Unityでのテスト"
-  description: "description..."
+  description: "ユーザーネーム（最終更新者）で検索できるよ"
   goal: "goal..."
   categories: category21
   position: 56
   include_progress: false
+  last_updated_user: machida
