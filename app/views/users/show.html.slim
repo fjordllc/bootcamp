@@ -73,3 +73,8 @@ header.page-header
               = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
           - if @user.books.present?
             = render '/users/borrowing_books', user: @user
+
+        .col-xs-12.col-lg-5.col-xxl-6
+          .a-card.is-user
+            - if mentor_login? || admin_login?
+              #js-user-mentor-memo(data-user-id='#{@user.id}')
