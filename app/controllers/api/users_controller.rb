@@ -3,7 +3,7 @@
 class API::UsersController < API::BaseController
   before_action :require_login, only: %i[index]
   before_action :set_user, only: %i[show update]
-  before_action :require_mentor_login_for_api, only: %i(update)
+  before_action :require_mentor_login_for_api, only: %i[update]
   PAGER_NUMBER = 20
 
   def index
@@ -48,7 +48,7 @@ class API::UsersController < API::BaseController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
+    if @user.update_user_mentor_memo(@user.id, user_params)
       head :ok
     else
       head :bad_request
