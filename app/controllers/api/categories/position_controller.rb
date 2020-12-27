@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class API::Categories::PositionController < API::BaseController
+  wrap_parameters :category
+
   def update
     @category = Category.find(params[:category_id])
     if @category.update(category_params)
@@ -13,6 +15,6 @@ class API::Categories::PositionController < API::BaseController
   private
 
   def category_params
-    params.permit(:position)
+    params.require(:category).permit(:position)
   end
 end
