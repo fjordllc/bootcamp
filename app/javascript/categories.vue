@@ -15,8 +15,7 @@
         draggable.admin-table__items(v-model="categories", handle='.grab', tag="tbody", @start="start", @end="end")
           tr.admin-table__item(
             v-for="category in categories"
-            :key="category.id"
-            @dragstart="dragstart(category)")
+            :key="category.id")
             td.admin-table__item-value
               | {{ category.name }}
             td.admin-table__item-value
@@ -56,10 +55,8 @@ export default {
     start () {
       this.categoriesBeforeDragging = this.categories
     },
-    dragstart (category) {
-      this.draggingItem = category
-    },
     end (event) {
+      this.draggingItem = this.categoriesBeforeDragging[event.oldIndex]
       if (event.oldIndex !== event.newIndex) {
         const params = {
           // position値は1から始まるため、インデックス番号 + 1
