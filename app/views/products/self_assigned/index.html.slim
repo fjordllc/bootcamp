@@ -9,22 +9,4 @@ header.page-header
 .page-tools
   = render 'products/tabs'
 
-.page-body
-  .container
-    = paginate @products, position: 'top'
-    - if @products.present?
-      .thread-list.a-card
-        .thread-list__items
-          = render partial: 'products/product',
-            collection: @products,
-            as: :product
-        - if mentor_login?
-          = render partial: 'unconfirmed_links_open', locals: { label: '自分の担当の提出物を一括で開く' }
-    - else
-      .o-empty-massage
-        .o-empty-massage__icon
-          i.far.fa-smile
-        p.o-empty-massage__text
-          = title
-          | はありません
-    = paginate @products, position: 'bottom'
+#js-products(data-title="#{title}" data-selected-tab="self-assigned" data-mentor-login="#{mentor_login?}")

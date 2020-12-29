@@ -10,19 +10,4 @@ header.page-header
   .page-tools
     = render 'products/tabs'
 
-.page-body
-  .container
-    = paginate @products, position: 'top'
-    - if @products.present?
-      .thread-list.a-card
-        = render partial: 'products/product',
-          collection: @products,
-          as: :product
-    - else
-      .o-empty-massage
-        .o-empty-massage__icon
-          i.far.fa-smile
-        p.o-empty-massage__text
-          = title
-          | はありません
-    = paginate @products, position: 'bottom'
+#js-products(data-title="#{title}" data-selected-tab="all" data-mentor-login="#{mentor_login?}")
