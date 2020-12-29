@@ -51,8 +51,12 @@ Rails.application.routes.draw do
     resources :questions, only: %i(update)
     resources :followings, only: %i(create destroy)
     namespace :products do
+      resources :unchecked, only: %i(index)
+      resources :not_responded, only: %i(index)
+      resources :self_assigned, only: %i(index)
       resource :checker, only: %i(update), controller: "checker"
     end
+    resources :products, only: %i(index)
     namespace :categories_practices do
       resources :position, only: %i(update)
     end
