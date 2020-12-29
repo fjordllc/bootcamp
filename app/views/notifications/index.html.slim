@@ -15,11 +15,9 @@ header.page-header
 
 .page-body
   .container
-    = paginate @notifications, position: 'top'
     - if @notifications.present?
       .thread-list.a-card
         = render partial: 'notifications/notification',
           collection: @notifications,
           as: :notification,
           cached: true
-    = paginate @notifications, position: 'bottom'
