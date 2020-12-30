@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   const localStorage = window.localStorage
   document.querySelectorAll('input').forEach((e) => {
-    const hasJsClass = e.hasClass('js-users-visibility__trigger')
-    if (localStorage.getItem('hidden-users') && hasJsClass) {
+    const jsUsersVisibilityTriggerClass = e.hasClass('js-users-visibility__trigger')
+    if (localStorage.getItem('hidden-users') && jsUsersVisibilityTriggerClass) {
       document.querySelector('.js-users-visibility').classList.add('is-hidden-users')
       e.checked = false
-    } else if (e.checked && !hasJsClass) {
+    } else if (e.checked && !jsUsersVisibilityTriggerClass) {
       e.parentNode.classList.add('is-checked')
     }
   })
@@ -15,13 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
       t = c.target.type
       chk = value.checked
       if (t === 'checkbox') {
-        const hasJsClass = value.hasClass('js-users-visibility__trigger')
-        if (chk && hasJsClass) {
+        const jsUsersVisibilityTriggerClass = value.hasClass('js-users-visibility__trigger')
+        if (chk && jsUsersVisibilityTriggerClass) {
           document.querySelector('.js-users-visibility').classList.remove('is-hidden-users')
           localStorage.removeItem('hidden-users')
         } else if (chk) {
           value.parentNode.classList.add('is-checked')
-        } else if (!chk && hasJsClass) {
+        } else if (!chk && jsUsersVisibilityTriggerClass) {
           document.querySelector('.js-users-visibility').classList.add('is-hidden-users')
           localStorage.setItem('hidden-users', 'on')
         } else {
