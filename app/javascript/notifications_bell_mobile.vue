@@ -13,10 +13,10 @@
             li.header-dropdown__item(v-for="notification in notifications")
               a.header-dropdown__item-link(:href="notification.path")
                 .header-notifications-item__body
-                  img.header-notifications-item__user-icon.a-user-icon(:src="notification.avatar_url")
+                  img.header-notifications-item__user-icon.a-user-icon(:src="notification.sender.avatar_url")
                   .header-notifications-item__message
                     p {{ notification.message }}
-                  time.header-notifications-item_created-at {{ notification.created_at }}
+                  time.header-notifications-item_created-at {{ notification.created_at_time_ago }}
           footer.header-dropdown__footer
             a.header-dropdown__footer-link(href="/notifications/unread") 全ての未読通知
             a.header-dropdown__footer-link(href="/notifications") 全ての通知
@@ -32,7 +32,7 @@ export default {
     }
   },
   created() {
-    fetch(`/api/notifications.json`, {
+    fetch(`/api/notifications/unread.json`, {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -44,7 +44,7 @@ export default {
         return response.json()
       })
       .then(json => {
-        json.forEach(n => { this.notifications.push(n) })
+        json['notifications'].forEach(n => { this.notifications.push(n) })
       })
       .catch(error => {
         console.warn('Failed to parsing', error)
