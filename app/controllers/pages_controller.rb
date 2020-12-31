@@ -60,9 +60,9 @@ class PagesController < ApplicationController
 
   def page_params
     if admin_login?
-      params.require(:page).permit(:title, :body, :tag_list, :user_id)
+      params.require(:page).permit(:title, :body, :tag_list, :user_id, :practice_id)
     else
-      params.require(:page).permit(:title, :body, :tag_list)
+      params.require(:page).permit(:title, :body, :tag_list, :practice_id)
     end
   end
 
