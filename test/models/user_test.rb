@@ -250,4 +250,15 @@ class UserTest < ActiveSupport::TestCase
     category11 = categories(:category11)
     assert hajime.completed_all_practices?(category11)
   end
+
+  test 'dont unfollow user when other user unfollow user' do
+    kimura = users(:kimura)
+    hatsuno = users(:hatsuno)
+    kimura.follow(hatsuno)
+    daimyo = users(:daimyo)
+    daimyo.follow(hatsuno)
+    assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
+    daimyo.unfollow(hatsuno)
+    assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
+  end
 end
