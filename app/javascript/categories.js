@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Categories from './categories.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const categories = document.getElementById('js-categories')
+  const selector = '#js-categories'
+  const categories = document.querySelector(selector)
   if (categories) {
     const allCategories = categories.getAttribute('data-categories')
     new Vue({
@@ -11,6 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
           allCategories: allCategories
         }
       })
-    }).$mount('#js-categories')
+    }).$mount(selector)
   }
 })
