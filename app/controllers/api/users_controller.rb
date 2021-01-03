@@ -16,7 +16,7 @@ class API::UsersController < API::BaseController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_user_mentor_memo(@user.id, user_params)
+    if @user.update_mentor_memo(user_params[:memo])
       head :ok
     else
       head :bad_request
