@@ -62,10 +62,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  .tag-links {
-    border-top: none;
-    padding: 0
-  }
-</style>
