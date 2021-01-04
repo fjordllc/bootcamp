@@ -143,4 +143,14 @@ class PagesTest < ApplicationSystemTestCase
     click_on '内容変更'
     assert_no_selector '.select-users'
   end
+
+  test 'doc can relate practice' do
+    visit new_page_path
+    fill_in 'page[title]', with: 'Docに関連プラクティスを指定'
+    fill_in 'page[body]', with: 'Docに関連プラクティスを指定'
+    first('.select2-container').click
+    find('li.select2-results__option[role="option"]', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
+    click_button '内容を保存'
+    assert_text 'Linuxのファイル操作の基礎を覚える'
+  end
 end

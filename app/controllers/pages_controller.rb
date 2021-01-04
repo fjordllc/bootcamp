@@ -59,11 +59,9 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    if admin_login?
-      params.require(:page).permit(:title, :body, :tag_list, :user_id)
-    else
-      params.require(:page).permit(:title, :body, :tag_list)
-    end
+    keys = %i[title body tag_list practice_id]
+    keys << :user_id if admin_login?
+    params.require(:page).permit(*keys)
   end
 
   def set_wip
