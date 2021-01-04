@@ -2,6 +2,9 @@
 
 class API::NotificationsController < API::BaseController
   def index
-    @notifications = current_user.notifications.unreads_with_avatar
+    @notifications = current_user.notifications
+                                 .reads_with_avatar
+                                 .order(created_at: :desc)
+                                 .page(params[:page])
   end
 end
