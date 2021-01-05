@@ -15,9 +15,4 @@ header.page-header
 
 .page-body
   .container
-    - if @notifications.present?
-      .thread-list.a-card
-        = render partial: 'notifications/notification',
-          collection: @notifications,
-          as: :notification,
-          cached: true
+    #js-notifications
