@@ -5,7 +5,8 @@ class PageCallbacks
     return if page.wip?
 
     send_notification(page)
-    notify_to_slack(page)
+    notify_to_chat(page)
+
     page.published_at = Time.current
     page.save
   end
@@ -14,7 +15,8 @@ class PageCallbacks
     return unless page.wip == false && page.published_at.nil?
 
     send_notification(page)
-    notify_to_slack(page)
+    notify_to_chat(page)
+
     page.published_at = Time.current
     page.save
   end
@@ -28,17 +30,19 @@ class PageCallbacks
     end
   end
 
-  def notify_to_slack(page)
-    path = Rails.application.routes.url_helpers.polymorphic_path(page)
-    url = "https://bootcamp.fjord.jp#{path}"
-    link = "<#{url}|#{page.title}>"
-    SlackNotification.notify link.to_s,
-                             username: "#{page.user.login_name} (#{page.user.name})",
-                             icon_url: page.user.avatar_url,
-                             channel: '#bootcamp_notification',
-                             attachments: [{
-                               fallback: 'page body.',
-                               text: page.body
-                             }]
+  def notify_to_chat(page)
+    page_url = Rails.application.routes.url_helpers.polymorphic_url(
+      page,
+      host: 'bootcamp.fjord.jp',
+      protocol: 'https'
+    )
+
+    ChatNotifier.notify(
+      title: page.title,
+      title_url: page_url,
+      description: page.body,
+      user: page.user,
+      webhook_url: ENV['DISCORD_NOTICE_WEBHOOK_URL']
+    )
   end
 end

@@ -118,6 +118,7 @@ GEM
     diffy (3.4.0)
     digest-crc (0.6.1)
       rake (~> 13.0)
+    discord-notifier (1.0.3)
     equatable (0.6.1)
     erubi (1.9.0)
     execjs (2.7.0)
@@ -480,6 +481,7 @@ DEPENDENCIES
   commonmarker
   data_migrate
   diffy
+  discord-notifier
   google-cloud-storage (~> 1.25)
   holiday_jp
   image_processing (~> 1.2)

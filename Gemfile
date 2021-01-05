@@ -25,6 +25,7 @@ gem 'coffee-rails', '~> 5.0.0'
 gem 'commonmarker'
 gem 'data_migrate'
 gem 'diffy'
+gem 'discord-notifier'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'holiday_jp'
 gem 'jp_prefecture'
