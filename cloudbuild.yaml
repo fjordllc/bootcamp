@@ -67,6 +67,7 @@ steps:
       - '--set-env-vars=GCS_BUCKET=$_GCS_BUCKET'
       - '--set-env-vars=REDIS_URL=$_REDIS_URL'
       - '--set-env-vars=TOKEN=$_TOKEN'
+      - '--set-env-vars=DISCORD_NOTICE_WEBHOOK_URL=$_DISCORD_NOTICE_WEBHOOK_URL'
       - '--set-env-vars=$_ENVS'
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
