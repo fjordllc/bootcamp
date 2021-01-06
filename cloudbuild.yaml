@@ -91,6 +91,7 @@ substitutions:
   _REDIS_URL: _
   _GCS_BUCKET: _
   _TOKEN: _
+  _DISCORD_NOTICE_WEBHOOK_URL: _
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
