@@ -16,6 +16,10 @@
     display: block
     +padding(vertical, .5rem)
 
+.page-header__start
+  display: flex
+  align-items: center
+
 .page-header__title
   +text-block(1.25rem 1, $main 600)
   font-feature-settings: "palt"
@@ -28,6 +32,9 @@
     margin-right: .5rem
   +media-breakpoint-down(sm)
     +text-block(1rem 1.4, $side)
+  .page-header__start &
+    margin-right: .5em
+    align-self: center
 
 .page-header__action
   +media-breakpoint-down(sm)

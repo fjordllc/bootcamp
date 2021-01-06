@@ -118,10 +118,22 @@ textarea.a-text-input
   overflow: hidden
   visibility: hidden
 
+=on-off-checkbox($border-width: 1px, $height: 1.5rem, $width: 4.5rem, $font-size: .8125rem)
+  span
+    +size($width calc(#{$height} + #{$border-width} * 2))
+    border: solid $border-width $input-border
+    border-radius: $height
+    font-size: $font-size
+    &::before
+      +size($height)
+    &::after
+      +size(100% calc(100% - #{$border-width} * 2))
+      +padding(horizontal, $height .75em)
+  input:checked + span
+    &::after
+      +padding(horizontal, 1em $height)
+
 .a-on-off-checkbox
-  $border-width: 1px
-  $height: 1.5rem
-  $width: 5rem
   +position(relative)
   display: block
   cursor: pointer
@@ -134,27 +146,20 @@ textarea.a-text-input
   span
     display: block
     background-color: $background
-    +size($width calc(#{$height} + #{$border-width} * 2))
-    border-radius: 1.0625rem
-    border: solid $border-width $input-border
     +position(relative)
     transition: all .2s ease-out
     &::before
       content: ""
       display: block
-      +size($height)
       border-radius: 50%
-      border: solid 1px $border
       background-color: $base
       +position(absolute, left 0, top 0)
       border: solid 1px $input-border
     &::after
       content: "OFF"
-      +text-block(.875rem 1, flex center 600)
+      +text-block(1em 1, flex center 600)
       align-items: center
       justify-content: center
-      +size(100% calc(100% - #{$border-width} * 2))
-      +padding(horizontal, $height 1em)
   input:checked + span
     background-color: $danger
     border-color: $danger
@@ -163,7 +168,11 @@ textarea.a-text-input
     &::after
       content: "ON"
       color: $reversal-text
-      +padding(horizontal, 1em $height)
+  &.is-md
+    +on-off-checkbox
+  &.is-sm
+    +on-off-checkbox($border-width: 1px, $height: 1.125rem, $width: 3.5rem, $font-size: .75rem)
+
 
 .a-form-help
   font-size: .75rem

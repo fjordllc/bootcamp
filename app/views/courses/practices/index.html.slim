@@ -1,12 +1,35 @@
-- title "#{@course.title}コースのプラクティス"
+- title "#{@course.title}コース"
+
+= render '/shared/modal', id: 'modal-progress', title: 'みんなの進捗とは？'
+  .modal__description.is-md
+    .a-short-text
+      p
+        | こちらのページで他の受講者が今どのプラクティスを学習しているかが確認できます。
+      p
+        | 他の受講者の進捗が目に入ると焦ってしまう、精神的に追い詰められる、と感じた場合、「OFF」にすることで、他の受講者の進捗が非表示になります。逆にみんなの進捗が見れることでモチベーションアップにつながる、という方は「ON」にしてください。
+      hr
+      p
+        | フィヨルドブートキャンプは、前提の知識や経験は人によってバラバラ、どこまで掘り下げて学習をするかも人によってバラバラ、学習に使える時間もバラバラなので、学校の授業や資格取得の勉強とは全く別物です。早ければいいというものではないです。
+      p
+        | 同じくらいのプラクティスをやってる人の日報をフォローしたり、お互い日報にコメントを付け合ったり、チャットやミートアップで話してみたりするのオススメです。
 
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title = title
-      .page-header__action
+      .page-header__start
+        h2.page-header__title = title
       .page-header-actions
         ul.page-header-actions__items
+          li.page-header-actions__item
+            .page-header-switch.is-hidden-sm-down
+              label.page-header-switch__label(for = 'modal-progress')
+                span.page-header-switch__label-text
+                  | みんなの進捗
+                .a-help
+                  i.fas.fa-question
+              label.a-on-off-checkbox.is-sm(for = 'displayProgress')
+                input.js-users-visibility__trigger#displayProgress(type = 'checkbox' checked = 'checked')
+                span
           li.page-header-actions__item
             = link_to courses_path, class: 'a-button is-md is-secondary is-block' do
               | コース一覧
@@ -16,38 +39,39 @@ header.page-header
                 i.fas.fa-plus
                 | プラクティス作成
 
-.page-body
+.page-body.js-users-visibility
   .container
-    .categories-items
-      .categories-items__inner
-        - @categories.each do |category|
-          - if category.practices.present?
-            .categories-item.practices.js-show-handle
-              a.categories-item__anchor(id="category-#{category.id}")
-              header.categories-item__header
-                h2.categories-item__title
-                  = category.name
-                  - if current_user.completed_all_practices?(category)
-                    span.stamp.is-circle.is-solved
-                      | 完了
-                - if current_user.admin?
-                  .categories-item__show-handle.js-show-handle__trigger
-                    i.fas.fa-cog
-              .categories-item__description
-                - if current_user.admin?
-                  .categories-item__edit
-                    = link_to edit_admin_category_path(category, course_id: @course.id), class: 'categories-item__edit-link' do
-                      i.fas.fa-pen
-                .js-markdown-view.js-target-blank.is-long-text
-                  = category.description
-              .categories-item__body
-                .category-practices.js-category-practices
-                  = render partial: 'practices/practice', collection: category.practices.order(:position), as: :practice, locals: { course: @course }
-
-      nav.page-nav
-        ul.page-nav__items
+    .page-body__inner
+      .categories-items
+        .categories-items__inner
           - @categories.each do |category|
             - if category.practices.present?
-              li.page-nav__item
-                a.page-nav__item-link(href="#category-#{category.id}")
-                  = category.name
+              .categories-item.practices.js-show-handle
+                a.categories-item__anchor(id="category-#{category.id}")
+                header.categories-item__header
+                  h2.categories-item__title
+                    = category.name
+                    - if current_user.completed_all_practices?(category)
+                      span.stamp.is-circle.is-solved
+                        | 完了
+                  - if current_user.admin?
+                    .categories-item__show-handle.js-show-handle__trigger
+                      i.fas.fa-cog
+                .categories-item__description
+                  - if current_user.admin?
+                    .categories-item__edit
+                      = link_to edit_admin_category_path(category, course_id: @course.id), class: 'categories-item__edit-link' do
+                        i.fas.fa-pen
+                  .js-markdown-view.js-target-blank.is-long-text
+                    = category.description
+                .categories-item__body
+                  .category-practices.js-category-practices
+                    = render partial: '/practices/practice', collection: category.practices, as: :practice, locals: { course: @course }
+
+        nav.page-nav
+          ul.page-nav__items
+            - @categories.each do |category|
+              - if category.practices.present?
+                li.page-nav__item
+                  a.page-nav__item-link(href="#category-#{category.id}")
+                    = category.name
