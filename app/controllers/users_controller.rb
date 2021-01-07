@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %w[show]
   PAGER_NUMBER = 20
 
+  # rubocop:disable Metrics/MethodLength
   def index
     target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
     target_allowlist.push('job_seeking') if current_user.adviser?
@@ -17,18 +18,28 @@ class UsersController < ApplicationController
       followings = Following.where(follower_id: current_user.id).select('followed_id')
       @users = User
                .page(params[:page]).per(PAGER_NUMBER)
-               .includes(:company, :avatar_attachment, :course)
+               .includes(:company, :avatar_attachment, :course, :taggings)
                .where(id: followings)
                .order(updated_at: :desc)
+    elsif params[:tag]
+      @users = User
+               .page(params[:page]).per(PAGER_NUMBER)
+               .with_attached_avatar
+               .preload(:course, :taggings)
+               .in_school
+               .unretired
+               .order(updated_at: :desc)
+               .tagged_with(params[:tag])
     else
       @users = User
                .page(params[:page]).per(PAGER_NUMBER)
                .with_attached_avatar
-               .preload(:course)
+               .preload(:course, :taggings)
                .order(updated_at: :desc)
                .users_role(@target)
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def show
     @completed_learnings = @user.learnings.where(status: 3).order(updated_at: :desc)

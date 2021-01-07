@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
+  include Taggable
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id updated_at created_at report comment asc desc].freeze

@@ -25,7 +25,10 @@ main.page-main
     .container
       .page-main-header__inner
         h1.page-main-header__title
-          | #{t("target.#{@target}")}（#{@users.total_count}）
+          - if params[:tag]
+            | タグ「#{params[:tag]}」のユーザー（#{@users.total_count}）
+          - else
+            | #{t("target.#{@target}")}（#{@users.total_count}）
   .page-body
     = paginate @users, position: 'top'
     .container
@@ -38,6 +41,9 @@ main.page-main
               .o-empty-massage__icon
                 i.far.fa-sad-tear
               p.o-empty-massage__text
-                = t("target.#{@target}")
+                - if params[:tag]
+                  | タグ「#{params[:tag]}」
+                - else
+                  = t("target.#{@target}")
                 | のユーザーはいません
     = paginate @users, position: 'bottom'
