@@ -38,7 +38,6 @@ class AnnouncementsController < ApplicationController
     @announcement.user_id = current_user.id
     set_wip
     if @announcement.save
-      notify_to_slack(@announcement)
       redirect_to @announcement, notice: notice_message(@announcement)
     else
       render :new
@@ -51,19 +50,6 @@ class AnnouncementsController < ApplicationController
   end
 
   private
-
-  def notify_to_slack(announcement)
-    link = "<#{url_for(announcement)}|#{announcement.title}>"
-
-    SlackNotification.notify link.to_s,
-                             username: "#{announcement.user.login_name} (#{announcement.user.name})",
-                             icon_url: announcement.user.avatar_url,
-                             channel: '#general',
-                             attachments: [{
-                               fallback: 'announcement description.',
-                               text: announcement.description
-                             }]
-  end
 
   def footprint!
     @announcement.footprints.create_or_find_by(user: current_user) if @announcement.user != current_user
