@@ -41,13 +41,14 @@ header.page-header
             #js-watch(data-watchable-id="#{@question.id}", data-watchable-type='Question')
             .thread-header__raw
               = link_to 'Raw', question_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank', rel: 'noopener'
-        #js-question-tags(
-          data-tags-initial-value="#{@question.tag_list.join(',')}"
-          data-tags-param-name='question[tag_list]'
-          data-question-id="#{@question.id}"
-          data-question-user-id="#{@question.user_id}"
-          data-current-user-id="#{current_user.id}"
-          data-admin-login="#{current_user.mentor? || current_user.admin?}")
+        .thread__tags
+          #js-question-tags(
+            data-tags-initial-value="#{@question.tag_list.join(',')}"
+            data-tags-param-name='question[tag_list]'
+            data-question-id="#{@question.id}"
+            data-question-user-id="#{@question.user_id}"
+            data-current-user-id="#{current_user.id}"
+            data-admin-login="#{current_user.mentor? || current_user.admin?}")
         .thread__body
           .thread__description.js-markdown-view.js-target-blank.is-long-text
             = @question.description

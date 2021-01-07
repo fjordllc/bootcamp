@@ -41,6 +41,8 @@ header.page-header
                   = render 'users/metas', user: @user
               .user-data__description
                 = simple_format h @user.description
+              .user-data__tags
+                = render 'users/tags', user: @user
 
             footer.card-footer
               .card-footer-actions

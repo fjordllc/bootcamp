@@ -82,6 +82,7 @@ ja:
         slack_participation: Slack参加
         github_collaborator: GitHubチーム
         officekey_permission: オフィス鍵
+        tag_list: タグ
       course:
         title: タイトル
         description: 詳細
