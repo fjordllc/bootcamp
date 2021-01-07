@@ -311,11 +311,12 @@ class UserTest < ActiveSupport::TestCase
 
   test '#update_user_mentor_memo' do
     user = users(:kimura)
-    params = { 'memo' => 'test' }
+    assert_equal 'kimuraさんのメモ', user.memo
     user.updated_at = Time.zone.local(2020, 1, 1, 0, 0, 0)
-    user.update_mentor_memo(params)
+    user.update_mentor_memo('新規メモ')
     travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
       assert user.updated_at
     end
+    assert_equal '新規メモ', user.memo
   end
 end
