@@ -42,7 +42,7 @@
             - if announcement.new_record?
               = f.submit '作成', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
             - else
-              = f.submit '内容変更', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
+              = f.submit '公開', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
       li.form-actions__item
         - case params[:action]
         - when 'new', 'create'
