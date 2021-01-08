@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Products from './products.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const products = document.getElementById('js-products')
+  const selector = '#js-products'
+  const products = document.querySelector(selector)
   if (products) {
     const title = products.getAttribute('data-title')
     const selectedTab = products.getAttribute('data-selected-tab')
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
           mentorLogin: mentorLogin
         }
       })
-    }).$mount('#js-products')
+    }).$mount(selector)
   }
 
   const allOpenButton = document.querySelector('#js-shortcut-unconfirmed-links-open')
