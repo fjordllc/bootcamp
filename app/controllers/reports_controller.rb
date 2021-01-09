@@ -14,16 +14,7 @@ class ReportsController < ApplicationController
   before_action :set_categories, only: %i[new create edit update]
   before_action :set_watch, only: %i[show]
 
-  def index
-    @search_words = params[:word]&.squish&.split(/[[:blank:]]/)&.uniq
-    @reports = Report.list.page(params[:page])
-
-    @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] }) if params[:practice_id].present?
-
-    return if @search_words.blank?
-
-    @reports = @reports.ransack(title_or_description_cont_all: @search_words).result
-  end
+  def index; end
 
   def show
     footprint!
@@ -71,6 +62,7 @@ class ReportsController < ApplicationController
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
     check_noticeable
+
     if @report.save
       notify_to_slack(@report) if @noticeable
       redirect_to redirect_url(@report), notice: notice_message(@report)

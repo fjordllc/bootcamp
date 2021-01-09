@@ -21,9 +21,5 @@ header.page-header
     = render 'reports/tabs'
 
 .page-body
-  = paginate @reports, position: 'top'
   .container
-    - if @reports.present?
-      .thread-list.a-card
-        = render partial: 'reports/report', collection: @reports, as: :report
-  = paginate @reports, position: 'bottom'
+    #js-reports
