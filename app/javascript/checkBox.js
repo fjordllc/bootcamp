@@ -1,11 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const localStorage = window.localStorage
   document.querySelectorAll('input').forEach((e) => {
     const jsUsersVisibilityTriggerClass = e.classList.contains('js-users-visibility__trigger')
-    if (localStorage.getItem('hidden-users') && jsUsersVisibilityTriggerClass) {
-      document.querySelector('.js-users-visibility').classList.add('is-hidden-users')
-      e.checked = false
-    } else if (e.checked && !jsUsersVisibilityTriggerClass) {
+    if (e.checked && !jsUsersVisibilityTriggerClass) {
       e.parentNode.classList.add('is-checked')
     }
   })
@@ -16,18 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
       chk = value.checked
       if (t === 'checkbox') {
         const jsUsersVisibilityTriggerClass = value.classList.contains('js-users-visibility__trigger')
-        if (chk && jsUsersVisibilityTriggerClass) {
-          document.querySelector('.js-users-visibility').classList.remove('is-hidden-users')
-          localStorage.removeItem('hidden-users')
-        } else if (chk) {
-          value.parentNode.classList.add('is-checked')
-        } else if (!chk && jsUsersVisibilityTriggerClass) {
-          document.querySelector('.js-users-visibility').classList.add('is-hidden-users')
-          localStorage.setItem('hidden-users', 'on')
-        } else {
-          value.parentNode.classList.remove('is-checked')
+        if (!jsUsersVisibilityTriggerClass) {
+          if (chk) {
+            value.parentNode.classList.add('is-checked')
+          } else {
+            value.parentNode.classList.remove('is-checked')
+          }
+          return true
         }
-        return true
       } else if (t === 'radio') {
         if (chk) {
           document.querySelectorAll('ul, input').forEach(function (value) {
