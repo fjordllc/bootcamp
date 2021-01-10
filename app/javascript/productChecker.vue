@@ -1,6 +1,6 @@
 <template lang="pug">
   .thread-list-item-meta__item
-    button.thread-check-form__action(v-if="!checkerId || checkerId == currentUserId" :class=" id ? 'a-button is-md is-danger' : 'a-button is-md is-primary'" @click="check")
+    button.thread-check-form__action(v-if="!checkerId || checkerId == currentUserId" :class="['a-button', 'is-md', id ? 'is-danger' : 'is-primary']" @click="check")
       i.fas.fa-hand-paper
       | {{ buttonLabel }}
     .thread-list-item-meta__label
