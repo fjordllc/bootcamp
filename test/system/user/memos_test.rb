@@ -13,7 +13,37 @@ class User::MemoTest < ApplicationSystemTestCase
     assert_text 'ユーザーメンターメモ'
   end
 
-  test 'No one but mentor or administrator can see memorandom' do
+  test 'admin can see memorandom' do
+    login_user 'komagata', 'testtest'
+    visit user_path(users(:hatsuno))
+    assert page.has_content? 'メンター向けメモ'
+  end
+
+  test 'mentor can see memorandom' do
+    login_user 'yamada', 'testtest'
+    visit user_path(users(:hatsuno))
+    assert page.has_content? 'メンター向けメモ'
+  end
+
+  test 'adviser can’t see memorandom' do
+    login_user 'advijirou', 'testtest'
+    visit user_path(users(:hatsuno))
+    assert page.has_no_content? 'メンター向けメモ'
+  end
+
+  test 'trainee can’t see memorandom' do
+    login_user 'kensyu', 'testtest'
+    visit user_path(users(:hatsuno))
+    assert page.has_no_content? 'メンター向けメモ'
+  end
+
+  test 'graduate can’t see memorandom' do
+    login_user 'sotugyou', 'testtest'
+    visit user_path(users(:hatsuno))
+    assert page.has_no_content? 'メンター向けメモ'
+  end
+
+  test 'student can’t see memorandom' do
     login_user 'hatsuno', 'testtest'
     visit user_path(users(:hatsuno))
     assert page.has_no_content? 'メンター向けメモ'
