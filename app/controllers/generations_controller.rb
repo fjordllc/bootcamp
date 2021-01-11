@@ -9,6 +9,6 @@ class GenerationsController < ApplicationController
   end
 
   def index
-    @generations = Generation.generations.reverse
+    @generations = Generation.descending_order_generations
   end
 end
