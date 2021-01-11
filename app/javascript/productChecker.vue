@@ -52,8 +52,8 @@ export default {
         return response.json()
       })
       .then(json => {
-        if (json["errorMessage"]) {
-          alert(json["errorMessage"])
+        if (json["message"]) {
+          alert(json["message"])
         } else {
           this.id = json["checker_id"],
           this.name = json["checker_name"]
