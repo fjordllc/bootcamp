@@ -11,7 +11,7 @@ class API::Products::CheckerController < API::BaseController
         checker_name: @product.checker_name
       }
     else
-      render status: :bad_request, json: { errorMessage: 'すでに他のメンターが担当者になっています。' }
+      render status: :bad_request, json: { message: 'すでに他のメンターが担当者になっています。' }
     end
   end
 
