@@ -216,4 +216,32 @@ class SignUpTest < ApplicationSystemTestCase
     assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     assert_equal User.find_by(email: email).company_id, companies(:company2).id
   end
+
+  test 'sign up with empty description ' do
+    WebMock.allow_net_connect!
+
+    visit '/users/new'
+    within 'form[name=user]' do
+      fill_in 'user[login_name]', with: 'foo'
+      fill_in 'user[email]', with: 'siro@example.com'
+      fill_in 'user[name]', with: 'テスト 四郎'
+      fill_in 'user[name_kana]', with: 'テスト シロウ'
+      fill_in 'user[password]', with: 'testtest'
+      fill_in 'user[password_confirmation]', with: 'testtest'
+      select '学生', from: 'user[job]'
+      select 'Mac', from: 'user[os]'
+      select '未経験', from: 'user[experience]'
+    end
+
+    fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111', '11122')
+
+    click_button '利用規約に同意して参加する'
+    sleep 1
+    assert_text '自己紹介を入力してください'
+
+    WebMock.disable_net_connect!(
+      allow_localhost: true,
+      allow: 'chromedriver.storage.googleapis.com'
+    )
+  end
 end

@@ -28,4 +28,13 @@ class CurrentUserTest < ApplicationSystemTestCase
     click_on 'タグ1'
     assert_text '「タグ1」のユーザー'
   end
+
+  test 'update user description with blank' do
+    login_user 'kimura', 'testtest'
+    visit '/current_user/edit'
+    fill_in 'user[description]', with: ''
+    click_on '更新する'
+    assert_text '自己紹介を入力してください'
+  end
+
 end
