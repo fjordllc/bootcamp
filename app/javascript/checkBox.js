@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             value.parentNode.classList.remove('is-checked')
           }
-          return true
         }
       } else if (t === 'radio') {
         if (chk) {
@@ -29,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
           })
           value.parentNode.classList.add('is-checked')
         }
-        return true
       }
     })
   })
