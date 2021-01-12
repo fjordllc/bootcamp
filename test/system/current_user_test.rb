@@ -36,5 +36,4 @@ class CurrentUserTest < ApplicationSystemTestCase
     click_on '更新する'
     assert_text '自己紹介を入力してください'
   end
-
 end
