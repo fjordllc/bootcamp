@@ -112,6 +112,6 @@ header.page-header
               .side-tabs-contents__item#side-tabs-content-1
                 .thread-list.a-card
                   - @reports.each do |report|
-                    = render partial: "report", locals: { report: report }
+                    = render partial: 'report', locals: { report: report }
               .side-tabs-contents__item#side-tabs-content-2
                 #js-mentor-memo(data-practice-id="#{@product.practice_id}")
