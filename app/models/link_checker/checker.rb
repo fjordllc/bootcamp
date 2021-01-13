@@ -27,6 +27,8 @@ module LinkChecker
       SlackNotification.notify texts.join("\n"),
                                channel: 'bootcamp_notification',
                                username: 'リンクチェッカー'
+
+      ChatNotifier.message(texts.join("\n"), username: 'リンクチェッカー')
     end
 
     def check

@@ -1,12 +1,25 @@
 # frozen_string_literal: true
 
 class ChatNotifier
+  def self.message(
+    message,
+    username: 'ピヨルド',
+    webhook_url: ENV['DISCORD_NOTICE_WEBHOOK_URL']
+  )
+
+    if Rails.env.production?
+      Discord::Notifier.message(message, username: username, url: webhook_url)
+    else
+      Rails.logger.info 'Message to Discord.'
+    end
+  end
+
   def self.notify(
     title:,
     title_url:,
     description:,
     user:,
-    webhook_url:
+    webhook_url: ENV['DISCORD_NOTICE_WEBHOOK_URL']
   )
     user_url = Rails.application.routes.url_helpers.user_url(
       user,
