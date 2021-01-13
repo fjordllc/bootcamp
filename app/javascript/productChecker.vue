@@ -1,9 +1,9 @@
 <template lang="pug">
-  .thread-list-item-meta__item
-    button.thread-check-form__action(v-if="!checkerId || checkerId == currentUserId" :class="['a-button', 'is-md', id ? 'is-danger' : 'is-primary']" @click="check")
-      i.fas.fa-hand-paper
+  .thread-list-item__assigned
+    button(v-if="!checkerId || checkerId == currentUserId" :class="['a-button', 'is-sm', 'is-block', id ? 'is-danger' : 'is-primary']" @click="check")
+      i(v-if="!checkerId || checkerId == currentUserId" :class="['fas', 'is-sm', id ? 'fa-times' : 'fa-hand-paper']" @click="check")
       | {{ buttonLabel }}
-    .thread-list-item-meta__label
+    .thread-list-item__assignee
       | {{ checkerLabel }}
 </template>
 <script>
@@ -20,7 +20,7 @@ export default {
       return this.id ? "担当から外れる" : "私が見ます"
     },
     checkerLabel() {
-      return '担当者：' + (this.id ? this.name : "未設定")
+      return (this.id ? this.name : "未設定")
     },
     url() {
       return `/api/products/checker`

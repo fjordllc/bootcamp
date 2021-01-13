@@ -1,4 +1,4 @@
-.thread-list-item(class="#{product.wip? ? 'is-wip' : ''}")
+.thread-list-item(class="#{product.wip? ? 'is-wip' : ''} #{current_user.mentor? ? 'has-assigned' : ''}")
   .thread-list-item__inner
     .thread-list-item__author
       = render 'users/icon', user: product.user, link_class: 'thread-header__author', image_class: 'thread-list-item__author-icon'
@@ -37,8 +37,6 @@
               span.thread-list-item-meta__datetime-label
                 | 最終更新日
               = l product.updated_at
-          - if current_user.mentor? && product.checks.empty?
-            .js-checker(data-checker-id="#{product.checker_id}" data-checker-name="#{product.checker_name}" data-current-user-id="#{current_user.id}" data-product-id="#{product.id}")
     - if product.comments.any?
       .thread-list-item-meta
         .thread-list-item-meta__label
@@ -61,3 +59,5 @@
           = l product.checks.last.created_at.to_date, format: :short
         .stamp__content.is-user-name
           = product.checks.last.user.login_name
+    - if current_user.mentor? && product.checks.empty?
+      .js-checker(data-checker-id="#{product.checker_id}" data-checker-name="#{product.checker_name}" data-current-user-id="#{current_user.id}" data-product-id="#{product.id}")
