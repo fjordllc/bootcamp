@@ -14,22 +14,21 @@
     +media-breakpoint-up(md)
       padding-right: 8.75rem
 
-.thread-list-item__assigned
+.thread-list-item__assignee
   +media-breakpoint-up(md)
-    +position(absolute, right 0, top -.25rem)
+    +position(absolute, right 0, top 0)
     width: 8rem
   +media-breakpoint-down(sm)
     margin-top: .75rem
-    display: flex
-    align-items: center
-    margin-left: -3rem
-    .a-button
-      max-width: 7.5rem
-      margin-right: .5rem
 
-.thread-list-item__assignee
-  +text-block(.75rem 1.4 .25em, center $muted-text)
-
+.thread-list-item__assignee-name.a-button
+  border: dashed 1px $muted-text
+  pointer-events: none
+  color: $muted-text
+  span
+    display: block
+    overflow: hidden
+    text-overflow: ellipsis
 
 .thread-list-item__header-title-container
   +media-breakpoint-up(md)

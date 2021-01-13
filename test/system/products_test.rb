@@ -262,15 +262,15 @@ class ProductsTest < ApplicationSystemTestCase
   test 'setting checker' do
     login_user 'komagata', 'testtest'
     visit products_path
-    click_button '私が見ます', match: :first
+    click_button '担当する', match: :first
     assert_button '担当から外れる'
   end
 
   test 'unsetting checker' do
     login_user 'komagata', 'testtest'
     visit products_path
-    click_button '私が見ます', match: :first
+    click_button '担当する', match: :first
     click_button '担当から外れる', match: :first
-    assert_button '私が見ます'
+    assert_button '担当する'
   end
 end

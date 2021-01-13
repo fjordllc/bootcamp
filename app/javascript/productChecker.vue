@@ -1,10 +1,12 @@
 <template lang="pug">
-  .thread-list-item__assigned
+  .thread-list-item__assignee
     button(v-if="!checkerId || checkerId == currentUserId" :class="['a-button', 'is-sm', 'is-block', id ? 'is-danger' : 'is-primary']" @click="check")
       i(v-if="!checkerId || checkerId == currentUserId" :class="['fas', 'is-sm', id ? 'fa-times' : 'fa-hand-paper']" @click="check")
       | {{ buttonLabel }}
-    .thread-list-item__assignee
-      | {{ checkerLabel }}
+    .a-button.is-sm.is-block.thread-list-item__assignee-name(v-else)
+      span
+        | {{ this.name }}
+    
 </template>
 <script>
 export default {
@@ -17,10 +19,7 @@ export default {
   },
   computed: {
     buttonLabel() {
-      return this.id ? "担当から外れる" : "私が見ます"
-    },
-    checkerLabel() {
-      return (this.id ? this.name : "未設定")
+      return this.id ? "担当から外れる" : "担当する"
     },
     url() {
       return `/api/products/checker`
