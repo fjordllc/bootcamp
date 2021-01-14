@@ -2,7 +2,8 @@ import Vue from 'vue'
 import UserMentorMemo from './user_mentor_memo.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const userMentorMemo = document.querySelector('#js-user-mentor-memo')
+  const selector = '#js-user-mentor-memo'
+  const userMentorMemo = document.querySelector(selector)
   if (userMentorMemo) {
     const userId = userMentorMemo.getAttribute('data-user-id')
     new Vue({
@@ -11,6 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
           userId: userId
         }
       })
-    }).$mount('#js-user-mentor-memo')
+    }).$mount(selector)
   }
 })
