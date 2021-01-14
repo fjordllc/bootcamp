@@ -503,7 +503,7 @@ class User < ApplicationRecord
     # ユーザーの「最終ログイン日時」にupdated_at値が利用されるため
     # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
     self.record_timestamps = false
-    update!(memo: new_memo)
+    update!(mentor_memo: new_memo)
   end
 
   private

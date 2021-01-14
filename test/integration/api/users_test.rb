@@ -23,7 +23,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_equal(users(:kimura).memo, JSON.parse(@response.body)['memo'])
+    assert_equal(users(:kimura).mentor_memo, JSON.parse(@response.body)['mentor_memo'])
   end
 
   test 'GET /api/users/1234.json as mentor' do
@@ -34,7 +34,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_equal(users(:kimura).memo, JSON.parse(@response.body)['memo'])
+    assert_equal(users(:kimura).mentor_memo, JSON.parse(@response.body)['mentor_memo'])
   end
 
   test 'GET /api/users/1234.json as adviser' do
@@ -45,7 +45,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_nil(JSON.parse(@response.body)['memo'])
+    assert_nil(JSON.parse(@response.body)['mentor_memo'])
   end
 
   test 'GET /api/users/1234.json as trainee' do
@@ -56,7 +56,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_nil(JSON.parse(@response.body)['memo'])
+    assert_nil(JSON.parse(@response.body)['mentor_memo'])
   end
 
   test 'GET /api/users/1234.json as graduate' do
@@ -67,7 +67,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_nil(JSON.parse(@response.body)['memo'])
+    assert_nil(JSON.parse(@response.body)['mentor_memo'])
   end
 
   test 'GET /api/users/1234.json as student' do
@@ -78,6 +78,6 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_nil(JSON.parse(@response.body)['memo'])
+    assert_nil(JSON.parse(@response.body)['mentor_memo'])
   end
 end
