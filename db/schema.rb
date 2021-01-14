@@ -450,7 +450,7 @@ ActiveRecord::Schema.define(version: 2021_06_03_024907) do
     t.bigint "retire_reasons", default: 0, null: false
     t.string "unsubscribe_email_token"
     t.string "discord_account"
-    t.text "memo"
+    t.text "mentor_memo"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
