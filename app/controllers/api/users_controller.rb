@@ -43,7 +43,7 @@ class API::UsersController < API::BaseController
 =======
   def update
     @user = User.find(params[:id])
-    if @user.update_mentor_memo(user_params[:memo])
+    if @user.update_mentor_memo(user_params[:mentor_memo])
       head :ok
     else
       head :bad_request
@@ -59,7 +59,7 @@ class API::UsersController < API::BaseController
 >>>>>>> a593ce12b (ユーザーapiコントローラーにupdate処理を追加)
 =======
   def user_params
-    params.require(:user).permit(:memo)
+    params.require(:user).permit(:mentor_memo)
   end
 >>>>>>> 4e92003ea (メモを保存した場合、updated_atカラムを更新しない処理を追加)
 end
