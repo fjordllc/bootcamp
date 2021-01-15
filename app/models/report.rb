@@ -11,8 +11,8 @@ class Report < ApplicationRecord
   include Mentioner
 
   enum emotion: {
-    sad: 0,
-    soso: 1,
+    sad: 1,
+    soso: 0,
     happy: 2
   }
 
