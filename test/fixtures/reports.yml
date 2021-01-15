@@ -123,7 +123,7 @@ report15:
 report16:
   user: hajime
   title: "今日は頑張れませんでした"
-  emotion: 0
+  emotion: 1
   description: |-
     頑張れませんでした
   reported_on: <%= Time.now - 2.day %>
@@ -147,7 +147,7 @@ report18:
 report19:
   user: hatsuno
   title: "<s>1日目</s> できなかった"
-  emotion: 0
+  emotion: 1
   description: |-
     あまりできませんでした
   reported_on: <%= Time.current - 2.day %>
@@ -155,7 +155,7 @@ report19:
 report20:
   user: hatsuno
   title: "2日目 昨日よりできなかった"
-  emotion: 0
+  emotion: 1
   description: |-
     昨日よりできませんでした
   reported_on: <%= Time.current - 1.day %>
