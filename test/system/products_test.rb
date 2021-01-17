@@ -57,6 +57,12 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'
   end
 
+  test 'advisor can not see listing unchecked products' do
+    login_user 'advijirou', 'testtest'
+    visit '/products'
+    assert_no_link '未チェック'
+  end
+
   test 'mentor can see a button to open to open all unchecked products' do
     login_user 'komagata', 'testtest'
     visit '/products/unchecked'
@@ -69,6 +75,12 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'
   end
 
+  test 'advisor can not see listing not-responded products' do
+    login_user 'advijirou', 'testtest'
+    visit '/products'
+    assert_no_link '未返信'
+  end
+
   test 'mentor can see a button to open to open all not-responded products' do
     login_user 'komagata', 'testtest'
     visit '/products/not_responded'
@@ -79,6 +91,12 @@ class ProductsTest < ApplicationSystemTestCase
     login_user 'hatsuno', 'testtest'
     visit '/products/self_assigned'
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'
+  end
+
+  test 'advisor can not see listing self-assigned products' do
+    login_user 'advijirou', 'testtest'
+    visit '/products'
+    assert_no_link '自分の担当'
   end
 
   test 'mentor can see a button to open to open all self-assigned products' do
