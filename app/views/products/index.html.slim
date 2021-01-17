@@ -6,7 +6,7 @@ header.page-header
       h2.page-header__title
         = title
 
-- if current_user.admin?
+- if current_user.admin? || current_user.mentor?
   .page-tools
     = render 'products/tabs'
 
