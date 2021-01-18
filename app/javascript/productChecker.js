@@ -2,7 +2,8 @@ import Vue from 'vue'
 import productChecker from './productChecker.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const checkers = document.querySelectorAll('.js-checker')
+  const selector = '.js-checker'
+  const checkers = document.querySelectorAll(selector)
   if (checkers) {
     for (let i = 0; i < checkers.length; i++) {
       const checker = checkers[i]
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
           currentUserId: currentUserId,
           productId: productId
         } })
-      }).$mount('.js-checker')
+      }).$mount(selector)
     }
   }
 })
