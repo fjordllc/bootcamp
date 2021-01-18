@@ -49,6 +49,9 @@ Rails.application.routes.draw do
     namespace :products do
       resource :checker, only: %i(update), controller: "checker"
     end
+    namespace :categories_practices do
+      resources :position, only: %i(update)
+    end
   end
 
   namespace :admin do
