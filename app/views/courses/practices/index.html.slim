@@ -35,6 +35,9 @@ header.page-header
               | コース一覧
           - if current_user.admin?
             li.page-header-actions__item
+              = link_to course_sort_path(course_id: @course), class: 'a-button is-md is-warning is-block' do
+                | プラクティス並び替え
+            li.page-header-actions__item
               = link_to new_practice_path(course_id: @course), class: 'a-button is-md is-warning is-block' do
                 i.fas.fa-plus
                 | プラクティス作成

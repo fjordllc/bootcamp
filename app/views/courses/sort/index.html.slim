@@ -1,0 +1,47 @@
+- title "#{@course.title}コース"
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title = title
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to courses_path, class: 'a-button is-md is-secondary is-block' do
+              | コース一覧
+          - if current_user.admin?
+            li.page-header-actions__item
+              = link_to course_sort_path(course_id: @course), class: 'a-button is-md is-warning is-block' do
+                | プラクティス並び替え
+            li.page-header-actions__item
+              = link_to new_practice_path(course_id: @course), class: 'a-button is-md is-warning is-block' do
+                i.fas.fa-plus
+                | プラクティス作成
+
+.page-body.js-users-visibility
+  .container
+    .page-body__inner
+      .categories-items
+        .categories-items__inner
+          - @categories.each do |category|
+            - if category.practices.present?
+              .categories-item.practices.js-show-handle
+                a.categories-item__anchor(id="category-#{category.id}")
+                header.categories-item__header
+                  h2.categories-item__title
+                    = category.name
+                .categories-item__description
+                  .js-markdown-view.js-target-blank.is-long-text
+                    = category.description
+                .categories-item__body
+                  .category-practices.js-category-practices
+                    .js-admin-category-practice(data-category-id="#{category.id}" data-categories-practices="#{category.categories_practices.to_json}" data-practices="#{category.practices.to_json}")
+
+        nav.page-nav
+          ul.page-nav__items
+            - @categories.each do |category|
+              - if category.practices.present?
+                li.page-nav__item
+                  a.page-nav__item-link(href="#category-#{category.id}")
+                    = category.name
