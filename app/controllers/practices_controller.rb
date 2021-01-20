@@ -51,7 +51,6 @@ class PracticesController < ApplicationController
       :title,
       :description,
       :goal,
-      :position,
       :submission,
       :open_product,
       :include_progress,
