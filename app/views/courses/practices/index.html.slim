@@ -57,9 +57,6 @@ header.page-header
                     - if current_user.completed_all_practices?(category)
                       span.stamp.is-circle.is-solved
                         | 完了
-                  - if current_user.admin?
-                    .categories-item__show-handle.js-show-handle__trigger
-                      i.fas.fa-cog
                 .categories-item__description
                   - if current_user.admin?
                     .categories-item__edit
