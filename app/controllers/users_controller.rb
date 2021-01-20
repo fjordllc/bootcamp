@@ -79,6 +79,8 @@ class UsersController < ApplicationController
     if @user.save
       UserMailer.welcome(@user).deliver_now
       notify_to_slack!
+      notify_to_chat(@user.name)
+      redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
       render 'new'
     end
@@ -117,6 +119,8 @@ class UsersController < ApplicationController
       if @user.save
         UserMailer.welcome(@user).deliver_now
         notify_to_slack!
+        notify_to_chat(@user.name)
+        redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       else
         render 'new'
       end
@@ -129,7 +133,10 @@ class UsersController < ApplicationController
                              username: "#{@user.login_name}@bootcamp.fjord.jp",
                              icon_url: @user.avatar_url,
                              channel: '#fjord'
-    redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+  end
+
+  def notify_to_chat(name)
+    ChatNotifier.message "#{name}さんがJOINしました。"
   end
 
   def user_params
