@@ -34,21 +34,20 @@ class ReservationsTest < ApplicationSystemTestCase
   end
 
   test 'reservations beyond one month cannot be made' do
-    visit '/reservation_calenders'
-    assert_equal '席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
-    click_link 'next-month'
+    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
+      reservation_date = Date.current.next_month.tomorrow
+      visit "/reservation_calenders/#{reservation_date.strftime('%Y%m')}/"
+      assert_equal '席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
-    reservation_date = Date.current.next_month.tomorrow
-
-    click_link 'next-month' if (Date.current.month + 2) <= reservation_date.month
-    accept_confirm do
-      within("#reservation-#{reservation_date}-#{seats(:seat2).id}") do
-        find('#reserve-seat').click
+      accept_confirm do
+        within("#reservation-#{reservation_date}-#{seats(:seat2).id}") do
+          find('#reserve-seat').click
+        end
       end
-    end
 
-    within("#reservation-#{reservation_date}-#{seats(:seat2).id}") do
-      assert_no_text 'hatsuno'
+      within("#reservation-#{reservation_date}-#{seats(:seat2).id}") do
+        assert_no_text 'hatsuno'
+      end
     end
   end
 end
