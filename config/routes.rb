@@ -98,9 +98,7 @@ Rails.application.routes.draw do
   end
 
   resources :courses, only: %i(index) do
-    resources :practices, only: %i(index), controller: "courses/practices" do
-      resource :position, only: %i(update), controller: "courses/practices/position"
-    end
+    resources :practices, only: %i(index), controller: "courses/practices"
     get "practices_sort", to: "courses/practices_sort#index"
   end
   resources :courses, except: %i(index show)
