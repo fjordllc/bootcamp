@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import productChecker from './productChecker.vue'
+import productChecker from './product_checker.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '.js-checker'
