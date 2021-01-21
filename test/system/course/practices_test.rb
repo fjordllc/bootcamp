@@ -13,6 +13,7 @@ class Course::PracticesTest < ApplicationSystemTestCase
   test 'show/hide the progress of others' do
     visit practice_path(practices(:practice1).id)
     click_button '着手'
+    wait_for_vuejs
     visit course_practices_path(courses(:course1).id)
 
     assert page.find(:css, '#display-progress', visible: false).checked?
