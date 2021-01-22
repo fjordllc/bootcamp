@@ -66,4 +66,49 @@ class ProductTest < ActiveSupport::TestCase
 
     assert_equal category, product.category(course)
   end
+
+  test 'other_checker_exists' do
+    checker = users(:komagata)
+    current_user = users(:machida)
+    product = Product.create!(
+      body: 'test',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: checker.id
+    )
+    assert_equal true, product.other_checker_exists?(current_user.id)
+  end
+
+  test 'other_checker_not_exists' do
+    current_user = users(:machida)
+    product = Product.create!(
+      body: 'test',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: nil
+    )
+    assert_equal false, product.other_checker_exists?(current_user.id)
+  end
+
+  test '#checker_name' do
+    checker = users(:komagata)
+    product = Product.create!(
+      body: 'test',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: checker.id
+    )
+    assert_equal 'komagata', product.checker_name
+  end
+
+  test '#save_checker' do
+    current_user = users(:komagata)
+    product = Product.create!(
+      body: 'test',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: nil
+    )
+    assert_equal true, product.save_checker(current_user.id)
+  end
 end
