@@ -9,6 +9,17 @@ namespace :bootcamp do
     LinkChecker.new.notify_error_url
   end
 
+  desc 'Migration on production.'
+  task migrate: :environment do
+    name = ENV['DB_NAME'] == 'bootcamp_production' ? 'db:migrate:with_data' : 'db:migrate'
+    Rake::Task[name].execute
+  end
+
+  desc 'DB Reset on staging.'
+  task reset: :environment do
+    Rake::Task['db:reset'].execute if ENV['DB_NAME'] != 'bootcamp_production'
+  end
+
   namespace :oneshot do
     desc 'Resize works.'
     task resize_all_works: :environment do
