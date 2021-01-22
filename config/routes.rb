@@ -44,6 +44,9 @@ Rails.application.routes.draw do
     resources :pages, only: %i(update)
     resources :questions, only: %i(update)
     resources :followings, only: %i(create destroy)
+    namespace :products do
+      resource :checker, only: %i(update), controller: "checker"
+    end
   end
 
   namespace :admin do
@@ -106,6 +109,7 @@ Rails.application.routes.draw do
   namespace :products do
     resources :unchecked, only: %i(index)
     resources :not_responded, only: %i(index)
+    resources :self_assigned, only: %i(index)
   end
   resources :products
   namespace :reports do

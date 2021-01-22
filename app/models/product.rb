@@ -28,6 +28,7 @@ class Product < ApplicationRecord
         ->(user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: 'Product').pluck(:checkable_id)) }
+  scope :self_assigned_product, ->(current_user_id) { where(checker_id: current_user_id) }
 
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
@@ -89,5 +90,20 @@ class Product < ApplicationRecord
 
   def category(course)
     Category.category(practice: practice, course: course)
+  end
+
+  def save_checker(current_user_id)
+    return false if other_checker_exists?(current_user_id)
+
+    self.checker_id = checker_id ? nil : current_user_id
+    save
+  end
+
+  def other_checker_exists?(current_user_id)
+    checker_id.present? && checker_id.to_s != current_user_id
+  end
+
+  def checker_name
+    checker_id ? User.find(checker_id).login_name : nil
   end
 end

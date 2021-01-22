@@ -57,6 +57,12 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'
   end
 
+  test 'advisor can not see listing unchecked products' do
+    login_user 'advijirou', 'testtest'
+    visit '/products'
+    assert_no_link '未チェック'
+  end
+
   test 'mentor can see a button to open to open all unchecked products' do
     login_user 'komagata', 'testtest'
     visit '/products/unchecked'
@@ -69,10 +75,51 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'
   end
 
+  test 'advisor can not see listing not-responded products' do
+    login_user 'advijirou', 'testtest'
+    visit '/products'
+    assert_no_link '未返信'
+  end
+
   test 'mentor can see a button to open to open all not-responded products' do
     login_user 'komagata', 'testtest'
     visit '/products/not_responded'
     assert_button '未返信の提出物を一括で開く'
+  end
+
+  test 'non-staff user can not see listing self-assigned products' do
+    login_user 'hatsuno', 'testtest'
+    visit '/products/self_assigned'
+    assert_text '管理者・アドバイザー・メンターとしてログインしてください'
+  end
+
+  test 'advisor can not see listing self-assigned products' do
+    login_user 'advijirou', 'testtest'
+    visit '/products'
+    assert_no_link '自分の担当'
+  end
+
+  test 'mentor can see a button to open to open all self-assigned products' do
+    login_user 'komagata', 'testtest'
+    checker = users(:komagata)
+    Product.create!(
+      body: 'test',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: checker.id
+    )
+    visit '/products/self_assigned'
+    assert_button '自分の担当の提出物を一括で開く'
+  end
+
+  test 'not display products in listing self-assigned if self-assigned products all checked' do
+    login_user 'komagata', 'testtest'
+    product = products(:product3)
+    checker = users(:komagata)
+    product.checker_id = checker.id
+    product.save
+    visit '/products/self_assigned'
+    assert_text 'レビューを担当する提出物はありません'
   end
 
   test 'create product' do
@@ -228,5 +275,20 @@ class ProductsTest < ApplicationSystemTestCase
       assert_no_match "kensyu さんが「#{practices(:practice3).title}」の提出物を提出しました。", mock_log.to_s
     end
     assert_text '提出物をWIPとして保存しました。'
+  end
+
+  test 'setting checker' do
+    login_user 'komagata', 'testtest'
+    visit products_path
+    click_button '担当する', match: :first
+    assert_button '担当から外れる'
+  end
+
+  test 'unsetting checker' do
+    login_user 'komagata', 'testtest'
+    visit products_path
+    click_button '担当する', match: :first
+    click_button '担当から外れる', match: :first
+    assert_button '担当する'
   end
 end

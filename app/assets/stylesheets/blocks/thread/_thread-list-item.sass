@@ -10,6 +10,25 @@
   padding-left: 3.75rem
   +media-breakpoint-down(sm)
     padding-left: 3rem
+  .thread-list-item.has-assigned &
+    +media-breakpoint-up(md)
+      padding-right: 8.75rem
+
+.thread-list-item__assignee
+  +media-breakpoint-up(md)
+    +position(absolute, right 0, top 0)
+    width: 8rem
+  +media-breakpoint-down(sm)
+    margin-top: .75rem
+
+.thread-list-item__assignee-name.a-button
+  border: dashed 1px $muted-text
+  pointer-events: none
+  color: $muted-text
+  span
+    display: block
+    overflow: hidden
+    text-overflow: ellipsis
 
 .thread-list-item__header-title-container
   +media-breakpoint-up(md)
@@ -178,3 +197,4 @@
 .thread-list-item__user-icon
   margin-left: 0.125rem
   margin-right: 0.125rem
+
