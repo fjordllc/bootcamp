@@ -21,7 +21,9 @@ Rails.application.routes.draw do
     resource :session, controller: "session", only: %i(create)
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
-    resources :categories, only: %i(index)
+    resources :categories, only: %i(index destroy) do
+      resource :position, only: %i(update), controller: "categories/position"
+    end
     resources :notifications, only: %i(index)
     resources :comments, only: %i(index create update destroy)
     resources :answers, only: %i(index create update destroy) do
@@ -55,9 +57,7 @@ Rails.application.routes.draw do
     resources :users, only: %i(index show edit update destroy) do
       resource :password, only: %i(edit update), controller: "users/password"
     end
-    resources :categories, except: %i(show) do
-      resource :position, only: %i(update), controller: "categories/position"
-    end
+    resources :categories, except: %i(show)
 
     namespace :books do
       resources :qrcodes, only: %i(index show)

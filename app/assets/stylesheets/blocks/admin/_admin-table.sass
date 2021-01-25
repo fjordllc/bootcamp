@@ -1,3 +1,10 @@
+@keyframes grab-background-color
+  0%
+    background-color: $warning
+  100%
+    background-color: $base
+
+  
 .admin-table
   max-width: 110rem
   +margin(horizontal, auto)
@@ -37,11 +44,20 @@
     color: $default-text
 
 .admin-table__item
+  transition: all .2s ease-out
   background-color: $base
   .admin-table.is-all-user &.is-inactive
     background-color: $background-tint
   &:last-child
     +border-radius(bottom, .25rem)
+  &.sortable-chosen
+    background-color: tint($warning, 80%)
+  .admin-table.is-grab &:hover
+    background-color: tint($warning, 90%)
+  &[draggable="false"]
+    background-color: $base
+    animation: grab-background-color 1.25s ease 0s 1 normal none running 
+
 
 .admin-table__item-value
   padding: .375rem .75rem
@@ -51,6 +67,8 @@
     text-align: center
   .a-button
     +margin(horizontal, .1875rem)
+  &.is-grab
+    padding: 0
 
 .admin-table__item-logo-image
   border: solid 1px $border
