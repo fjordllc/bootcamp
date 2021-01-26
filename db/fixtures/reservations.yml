@@ -1,0 +1,29 @@
+reservation1:
+  date: 2019-11-21
+  seat: seat1
+  user: komagata
+
+reservation2:
+  date: 2019-11-09
+  seat: seat2
+  user: machida
+
+reservation3:
+  date: 2019-11-10
+  seat: seat3
+  user: machida
+
+reservation4:
+  date: 2019-11-03
+  seat: seat4
+  user: hatsuno
+
+reservation5:
+  date: <%= Date.current %>
+  seat: seat5
+  user: kimura
+
+reservation6:
+  date: <%= Date.current %>
+  seat: seat6
+  user: hajime
