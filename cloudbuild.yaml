@@ -48,6 +48,7 @@ steps:
       - '--quiet'
       - '--image=asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
       - '--allow-unauthenticated'
+      - '--clear-vpc-connector'
       - '--add-cloudsql-instances'
       - '$_CLOUD_SQL_HOST'
       - '--memory'
