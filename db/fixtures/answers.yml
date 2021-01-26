@@ -1,0 +1,24 @@
+answer1:
+  description: atom一択です！
+  user: komagata
+  question: question1
+
+answer2:
+  description: vimしかないでしょう。常識的に考えて。
+  user: sotugyou
+  question: question1
+
+answer3:
+  description: injectを使っては？
+  user: komagata
+  question: question2
+
+answer4:
+  description: テストの回答4です。
+  user: komagata
+  question: question3
+
+answer5:
+  description: テストの回答5です。
+  user: komagata
+  question: question6

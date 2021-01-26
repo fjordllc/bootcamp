@@ -1,0 +1,69 @@
+product1:
+  practice: practice1
+  user: yamada
+  body: テストの提出物1です。
+
+product2:
+  practice: practice1
+  user: kimura
+  body: テストの提出物2です。
+
+product3:
+  practice: practice2
+  user: sotugyou
+  body: 確認済みの提出物
+
+product4:
+  practice: practice2
+  user: yamada
+  body: テストの提出物4です。
+
+product5:
+  practice: practice2
+  user: kimura
+  body: テストの提出物5です。
+
+product6:
+  practice: practice3
+  user: sotugyou
+  body: 確認待ちの提出物
+
+product7:
+  practice: practice3
+  user: yamada
+  body: テストの提出物7です。
+
+product8:
+  practice: practice3
+  user: kimura
+  body: テストの提出物8です。
+
+product9:
+  practice: practice4
+  user: yamada
+  body: テストの提出物9です。
+
+product10:
+  practice: practice4
+  user: kimura
+  body: テストの提出物10です。
+
+product11:
+  practice: practice2
+  user: hatsuno
+  body: テストの提出物11です。
+
+product12:
+  practice: practice5
+  user: yamada
+  body: リアクションテスト
+
+product13:
+  practice: practice1
+  user: kensyu
+  body: 研修の提出物です。
+
+product14:
+  practice: practice1
+  user: daimyo
+  body: 研修の提出物です。
