@@ -6,6 +6,6 @@ class API::Reports::RecentsController < API::BaseController
                .includes(user: [{ avatar_attachment: :blob }, :company])
                .not_wip
                .order(reported_on: :desc, id: :desc)
-               .limit(10)
+               .limit(20)
   end
 end
