@@ -1,0 +1,7 @@
+following1:
+  follower: muryou
+  followed: kensyu
+
+following2:
+  follower: kensyu
+  followed: muryou

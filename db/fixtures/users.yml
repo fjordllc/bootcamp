@@ -1,0 +1,350 @@
+komagata:
+  login_name: komagata
+  email: komagata@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Komagata Masaki
+  name_kana: コマガタ マサキ
+  twitter_account: komagata
+  facebook_url: http://www.facebook.com/komagata1111
+  github_account: komagata
+  blog_url: http://komagata.org
+  company: company1
+  description: "平日１０〜１９時勤務です。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: 株式会社フィヨルド
+  admin: true
+  mentor: true
+  github_collaborator: true
+  officekey_permission: true
+  unsubscribe_email_token: 037i-ef5n7V4EnPv74mtyQ
+  updated_at: "2014-01-01 00:00:01"
+  created_at: "2014-01-01 00:00:01"
+
+machida:
+  login_name: machida
+  email: machidanohimitsu@gmail.com
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Machida Teppei
+  name_kana: マチダ テッペイ
+  twitter_account: machida
+  facebook_url:
+  blog_url: http://machida.fjord.jp/
+  company: company1
+  description: "月曜日と木曜日の午前中勤務です。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: 株式会社フィヨルド
+  admin: true
+  mentor: true
+  github_collaborator: true
+  officekey_permission: true
+  unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
+  updated_at: "2014-01-01 00:00:02"
+  created_at: "2014-01-01 00:00:02"
+
+sotugyou:
+  login_name: sotugyou
+  email: sotugyou@example.com
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 卒業 太郎
+  name_kana: ソツギョウ タロウ
+  twitter_account: sotugyou
+  facebook_url: http://www.facebook.com/sotugyou
+  blog_url: http://sotugyou.example.com/
+  description: "卒業です。卒業しちゃいました。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  job_seeker: true
+  organization: 株式会社卒業
+  graduated_on: "2015-01-01"
+  unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
+  updated_at: "2014-01-01 00:00:03"
+  created_at: "2014-01-01 00:00:03"
+
+advijirou:
+  login_name: advijirou
+  email: advijirou@example.com
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: アドバイ 次郎
+  name_kana: アドバイ ジロウ
+  twitter_account: advijirou
+  facebook_url: http://www.facebook.com/advijirou
+  blog_url: http://advijirou.example.com
+  description: "アドバイ次郎です。アドバイザーです。"
+  adviser: true
+  course: course1
+  unsubscribe_email_token: 6ULb9vj1AJzTH_mOsfR46Q
+  updated_at: "2014-01-01 00:00:04"
+  created_at: "2014-01-01 00:00:04"
+
+yameo:
+  login_name: yameo
+  email: yameo@example.com
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 辞目 辞目夫
+  name_kana: ヤメ ヤメオ
+  twitter_account: yameo
+  facebook_url: http://www.facebook.com/yameo
+  blog_url: http://yameo.org
+  description: "リタイアしました。就職希望はしてました"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: ruby
+  organization: 株式会社ヤメオ
+  job_seeker: true
+  unsubscribe_email_token: mzx5kXfsGmR1u0gOaXMseg
+  retired_on: "2015-01-01"
+  updated_at: "2014-01-01 00:00:05"
+  created_at: "2014-01-01 00:00:05"
+
+yamada:
+  login_name: yamada
+  email: yamada@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Yamada Taro
+  name_kana: ヤマダ タロウ
+  twitter_account: yamada
+  facebook_url: http://www.facebook.com/yamada
+  blog_url: http://yamada.com
+  description: "山田です。メンターです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  organization: 木村大学
+  mentor: true
+  unsubscribe_email_token: -PmtH0Rmh36FIPhbxzkMGA
+  updated_at: "2014-01-01 00:00:06"
+  created_at: "2014-01-01 00:00:06"
+
+kimura:
+  login_name: kimura
+  email: kimura@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Kimura Tadasi
+  name_kana: キムラ タダシ
+  twitter_account: kimura
+  facebook_url: http://www.facebook.com/kimura
+  blog_url: http://kimura.org
+  description: "木村です。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  prefecture_code: 13
+  organization: 木村大学
+  unsubscribe_email_token: k6Da-oL3cRi8ApNFO9-Gcg
+  updated_at: "2014-01-01 00:00:07"
+  created_at: "2014-01-01 00:00:07"
+
+hatsuno:
+  login_name: hatsuno
+  email: hatsuno@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Hatsuno Shinji
+  name_kana: ハツノ シンジ
+  twitter_account: hatsuno
+  facebook_url: http://www.facebook.com/hatsuno
+  blog_url: http://hatsuno.org
+  description: "初野です。課金しています。"
+  customer_id: "cus_12345678"
+  subscription_id: "sub_12345678"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  prefecture_code: 4
+  organization: 明治大学
+  github_account: hatsuno
+  unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
+  updated_at: "2014-01-01 00:00:08"
+  created_at: "2014-01-01 00:00:08"
+
+hajime:
+  login_name: hajime
+  email: hajime@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Hajime Tayo
+  name_kana: ハジメ タヨ
+  twitter_account: hajime
+  facebook_url: http://www.facebook.com/hajime
+  blog_url: http://hajime.org
+  description: "始です。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  organization: 始大学
+  mail_notification: false
+  unsubscribe_email_token: iHzoJxKvrBeGGT6DjAJgJQ
+  updated_at: "2014-01-01 00:00:09"
+  created_at: "2014-01-01 00:00:09"
+
+muryou:
+  login_name: muryou
+  email: muryou@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Muryou Nosuke
+  name_kana: ムリョウ ノスケ
+  slack_account: muryou
+  twitter_account: muryou
+  facebook_url: http://www.facebook.com/muryou
+  blog_url: http://muryou.org
+  description: "無料の助です。趣味は野良犬剣法です。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  organization: 無料大学
+  free: true
+  unsubscribe_email_token: V8qOxq82MrYh6P_jwx9CQQ
+  updated_at: "2014-01-01 00:00:10"
+  created_at: "2014-01-01 00:00:10"
+
+kensyu:
+  login_name: kensyu
+  email: kensyu@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Kensyu Seiko
+  name_kana: ケンシュウ セイコ
+  slack_account: kensyu
+  github_account: kensyu
+  twitter_account: kensyu
+  facebook_url: http://www.facebook.com/kensyu
+  blog_url: http://kensyu.org
+  company: company2
+  description: "研修聖子です。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: 研修大学
+  trainee: true
+  free: true
+  unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
+
+senpai:
+  login_name: senpai
+  email: senpai@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Senpai Ichiro
+  name_kana: センパイ イチロウ
+  slack_account: senpai
+  github_account: senpai
+  twitter_account: senpai
+  facebook_url: http://www.facebook.com/senpai
+  blog_url: http://senpai.org
+  company: company2
+  description: "研修聖子の会社の先輩エンジニアです。アドバイザーです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  adviser: true
+  unsubscribe_email_token: E8ycg7ahXNYj5bPA9Ic7aw
+  updated_at: "2014-01-01 00:00:12"
+  created_at: "2014-01-01 00:00:12"
+
+kananashi: #name_kanaを持たないユーザー
+  login_name: kananashi
+  email: kananashi@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: ユーザーです 読み方のカナが無い
+  slack_account: kananashi
+  github_account: kananashi
+  twitter_account: kananashi
+  facebook_url: http://www.facebook.com/kananashi
+  blog_url: http://kananashi.org
+  description: "読み方のカナが無いユーザーです"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2014-01-01 00:00:12"
+  created_at: "2014-01-01 00:00:12"
+
+osnashi: #osを持たないユーザー
+  login_name: osnashi
+  email: osnashi@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: ユーザーです OSが無い
+  name_kana: ナシ オーエス
+  slack_account: osnashi
+  github_account: osnashi
+  twitter_account: osnashi
+  facebook_url: http://www.facebook.com/osnashi
+  blog_url: http://osnashi.org
+  description: "OSが無いユーザーです"
+  course: course1
+  job: office_worker
+  experience: rails
+  unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
+  updated_at: "2014-01-01 00:00:12"
+  created_at: "2014-01-01 00:00:12"
+
+jobseeker: #就活希望するユーザー
+  login_name: jobseeker
+  email: jobseeker@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 就活 のぞむ
+  name_kana: シュウカツ ノゾム
+  slack_account: jobseeker
+  github_account: jobseeker
+  twitter_account: jobseeker
+  facebook_url: http://www.facebook.com/exmaple
+  blog_url: http://example.org
+  description: "フィヨルドからの就職希望してます！"
+  course: course1
+  job: office_worker
+  experience: rails
+  job_seeker: true
+  unsubscribe_email_token: Z2tKHxSjj7FreyqQ95Yd9g
+  updated_at: "2020-01-01 00:00:12"
+  created_at: "2020-01-01 00:00:12"
+
+daimyo: # 大名エンジニアカレッジに通うユーザー
+  login_name: daimyo
+  email: daimyo@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 大名 太郎
+  name_kana: ダイミョウ タロウ
+  slack_account: daimyo
+  github_account: daimyo
+  twitter_account: daimyo
+  facebook_url: http://www.facebook.com/daimyo
+  blog_url: http://example.org
+  company: company4
+  description: "大名エンジニアカレッジで学んでいます."
+  course: course1
+  job: office_worker
+  experience: rails
+  unsubscribe_email_token: OSZi0f_nJ3xG9crUPQ9ukQ
+  updated_at: "2020-01-01 00:00:13"
+  created_at: "2020-01-01 00:00:13"

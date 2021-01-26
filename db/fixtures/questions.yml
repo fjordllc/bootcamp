@@ -1,0 +1,47 @@
+question1:
+  title: どのエディターを使うのが良いでしょうか
+  description: |-
+    vi、emacs、atomと色々エディターがありますが、
+    どのエディターを使うのが一番良いでしょうか？
+  user: machida
+
+question2:
+  title: injectとreduce
+  description: |-
+    injectとreduceはどちらを使うのが一般的でしょうか？
+  user: sotugyou
+  practice: practice26
+
+question3:
+  title: テストの質問1
+  description: テスト1の内容です。
+  user: komagata
+  practice: practice1
+
+question4:
+  title: テストの質問2
+  description: テスト2の内容です。
+  user: komagata
+
+question5:
+  title: テストの質問3
+  description: テスト3の内容です。
+  user: komagata
+
+question6:
+  title: テストの質問4
+  description: テスト1の内容です。
+  user: komagata
+  practice: practice1
+
+question7:
+  title: テストの質問5
+  description: テスト1の内容です。
+  user: komagata
+  practice: practice1
+
+question8:
+  title: テストの質問
+  description: テストの内容です。
+  user: kimura
+  practice: practice1
