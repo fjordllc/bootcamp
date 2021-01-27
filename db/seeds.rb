@@ -32,11 +32,7 @@ FIXTURES = %i[
   seats
   watches
   works
-]
+].freeze
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', FIXTURES
-
-
-
-#rake::Task['db:fixtures:load'].execute
-#rake::Task['bootcamp:statistics:save_learning_minute_statistics'].execute
+Rake::Task['bootcamp:statistics:save_learning_minute_statistics'].execute
