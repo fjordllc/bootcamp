@@ -6,17 +6,7 @@ class ProductsController < ApplicationController
   before_action :require_staff_login, only: :index
   before_action :set_watch, only: %i[show]
 
-  def index
-    @products = Product
-                .includes(
-                  :practice,
-                  { comments: { user: :avatar_attachment } },
-                  { user: [{ avatar_attachment: :blob }, :company] },
-                  { checks: { user: [:company] } }
-                )
-                .order(published_at: :desc)
-                .page(params[:page])
-  end
+  def index; end
 
   def show
     @product = find_product
