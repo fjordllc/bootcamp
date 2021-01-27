@@ -8,12 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const title = products.getAttribute('data-title')
     const selectedTab = products.getAttribute('data-selected-tab')
     const mentorLogin = products.getAttribute('data-mentor-login')
+    const currentUserId = products.getAttribute('data-current-user-id')
     new Vue({
       render: h => h(Products, {
         props: {
           title: title,
           selectedTab: selectedTab,
-          mentorLogin: mentorLogin
+          mentorLogin: mentorLogin,
+          currentUserId: currentUserId
         }
       })
     }).$mount(selector)

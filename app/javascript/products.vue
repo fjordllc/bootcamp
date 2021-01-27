@@ -29,7 +29,9 @@
       .thread-list.a-card(v-if="products.length > 0")
         product(v-for="(product, index) in products"
           :key="product.id"
-          :product="product")
+          :product="product"
+          :currentUserId="currentUserId"
+          :mentorLogin="mentorLogin")
         .thread-admin-tools(v-if="mentorLogin && selectedTab != 'all'")
           ul.thread-admin-tools__items
             li.thread-admin-tools__item
@@ -72,7 +74,7 @@ import Product from './product.vue'
 import VueJsPaginate from 'vuejs-paginate'
 
 export default {
-  props: ['title', 'selectedTab', 'mentorLogin'],
+  props: ['title', 'selectedTab', 'mentorLogin', 'currentUserId'],
   components: {
     'product': Product,
     'pager-top': VueJsPaginate,
