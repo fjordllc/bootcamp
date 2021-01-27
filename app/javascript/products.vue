@@ -4,6 +4,7 @@
       nav.pagination.is-top
         .container
           pager-top(
+            v-if="totalPages > 1"
             v-model='currentPage'
             :page-count="totalPages"
             :page-range=5
@@ -45,6 +46,7 @@
       nav.pagination.is-bottom
         .container
           pager-bottom(
+            v-if="totalPages > 1"
             v-model='currentPage'
             :page-count="totalPages"
             :page-range=5
