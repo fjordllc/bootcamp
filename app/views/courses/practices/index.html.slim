@@ -35,12 +35,12 @@ header.page-header
               | コース一覧
           - if current_user.admin?
             li.page-header-actions__item
-              = link_to course_practices_sort_path(course_id: @course), class: 'a-button is-md is-warning is-block' do
-                | プラクティス並び替え
-            li.page-header-actions__item
               = link_to new_practice_path(course_id: @course), class: 'a-button is-md is-warning is-block' do
                 i.fas.fa-plus
                 | プラクティス作成
+            li.page-header-actions__item
+              = link_to course_practices_sort_path(course_id: @course), class: 'a-button is-md is-secondary is-block' do
+                | プラクティス並び替え
 
 .page-body.js-users-visibility
   .container
