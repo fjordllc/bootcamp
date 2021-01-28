@@ -1,5 +1,5 @@
 <template lang="pug">
-  .div
+  .container(v-if="loaded && notifications.length > 0")
     .pagination
       nav.container
         pager-top(
@@ -30,6 +30,7 @@
       notification(v-for="(notification, index) in notifications"
         :key="notification.id"
         :notification="notification")
+      unconfirmed-links-open-button(v-if='mentorLogin && isUnreadPage' :label="'未読の通知を一括で開く'")
     .pagination
       nav.container
         pager-bottom(
@@ -56,23 +57,41 @@
           :margin-pages="0"
           :break-view-text=null
         )
+  .container(v-else-if="loaded")
+    .o-empty-massage
+      .o-empty-massage__icon
+        i.far.fa-smile
+      p.o-empty-massage__text(v-if='isUnreadPage')
+        | 未読の通知はありません
+      p.o-empty-massage__text(v-else)
+        | 通知はありません
+  .container(v-else)
+    | ロード中
 </template>
 
 <script>
 import Notification from './notification.vue'
 import VueJsPaginate from "vuejs-paginate"
+import UnconfirmedLinksOpenButton from './unconfirmed_links_open_button'
 
 export default {
+  props: {
+    mentorLogin: {
+      type: Boolean
+    }
+  },
   components: {
     'notification': Notification,
     'pager-top': VueJsPaginate,
-    'pager-bottom': VueJsPaginate
+    'pager-bottom': VueJsPaginate,
+    'unconfirmed-links-open-button': UnconfirmedLinksOpenButton
   },
   data: () => {
     return {
       notifications: [],
       totalPages: 0,
       currentPage: null,
+      loaded: false
     }
   },
   created() {
@@ -85,11 +104,14 @@ export default {
   },
   computed: {
     url() {
-      if(location.pathname.includes('unread')){
+      if(this.isUnreadPage){
         return `/api/notifications/unread.json?page=${this.currentPage}`
       }else{
         return `/api/notifications.json?page=${this.currentPage}`
       }
+    },
+    isUnreadPage(){
+      return location.pathname.includes('unread') ? true : false
     }
   },
   methods: {
@@ -107,6 +129,7 @@ export default {
           this.totalPages = json['total_pages']
           this.notifications = []
           json['notifications'].forEach(n => { this.notifications.push(n) })
+          this.loaded = true
         })
         .catch(error => {
           console.warn('Failed to parsing', error)
