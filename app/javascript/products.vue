@@ -1,32 +1,31 @@
 <template lang="pug">
   .page-body
-    .container
+    .container(v-if="loaded")
       nav.pagination.is-top
-        .container
-          pager-top(
-            v-if="totalPages > 1"
-            v-model='currentPage'
-            :page-count="totalPages"
-            :page-range=5
-            :prev-text="`<i class='fas fa-angle-left'></i>`"
-            :next-text="`<i class='fas fa-angle-right'></i>`"
-            :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
-            :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
-            :click-handler="paginateClickCallback"
-            :container-class="'pagination__items'"
-            :page-class="'pagination__item'"
-            :page-link-class="'pagination__item-link'"
-            :disabled-class="'pager-disable'"
-            :active-class="'is-active'"
-            :prev-class="'is-prev pagination__item'"
-            :prev-link-class="'is-prev pagination__item-link'"
-            :next-class="'is-next pagination__item'"
-            :next-link-class="'is-next pagination__item-link'"
-            :first-last-button="true"
-            :hide-prev-next="true"
-            :margin-pages="0"
-            :break-view-text="null"
-          )
+        pager-top(
+          v-if="totalPages > 1"
+          v-model='currentPage'
+          :page-count="totalPages"
+          :page-range=5
+          :prev-text="`<i class='fas fa-angle-left'></i>`"
+          :next-text="`<i class='fas fa-angle-right'></i>`"
+          :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
+          :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
+          :click-handler="paginateClickCallback"
+          :container-class="'pagination__items'"
+          :page-class="'pagination__item'"
+          :page-link-class="'pagination__item-link'"
+          :disabled-class="'pager-disable'"
+          :active-class="'is-active'"
+          :prev-class="'is-prev pagination__item'"
+          :prev-link-class="'is-prev pagination__item-link'"
+          :next-class="'is-next pagination__item'"
+          :next-link-class="'is-next pagination__item-link'"
+          :first-last-button="true"
+          :hide-prev-next="true"
+          :margin-pages="0"
+          :break-view-text="null"
+        )
       .thread-list.a-card(v-if="products.length > 0")
         product(v-for="(product, index) in products"
           :key="product.id"
@@ -40,31 +39,32 @@
         p.o-empty-massage__text
           | {{ title }}はありません
       nav.pagination.is-bottom
-        .container
-          pager-bottom(
-            v-if="totalPages > 1"
-            v-model='currentPage'
-            :page-count="totalPages"
-            :page-range=5
-            :prev-text="`<i class='fas fa-angle-left'></i>`"
-            :next-text="`<i class='fas fa-angle-right'></i>`"
-            :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
-            :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
-            :click-handler="paginateClickCallback"
-            :container-class="'pagination__items'"
-            :page-class="'pagination__item'"
-            :page-link-class="'pagination__item-link'"
-            :disabled-class="'pager-disable'"
-            :active-class="'is-active'"
-            :prev-class="'is-prev pagination__item'"
-            :prev-link-class="'is-prev pagination__item-link'"
-            :next-class="'is-next pagination__item'"
-            :next-link-class="'is-next pagination__item-link'"
-            :first-last-button="true"
-            :hide-prev-next="true"
-            :margin-pages="0"
-            :break-view-text="null"
-          )
+        pager-bottom(
+          v-if="totalPages > 1"
+          v-model='currentPage'
+          :page-count="totalPages"
+          :page-range=5
+          :prev-text="`<i class='fas fa-angle-left'></i>`"
+          :next-text="`<i class='fas fa-angle-right'></i>`"
+          :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
+          :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
+          :click-handler="paginateClickCallback"
+          :container-class="'pagination__items'"
+          :page-class="'pagination__item'"
+          :page-link-class="'pagination__item-link'"
+          :disabled-class="'pager-disable'"
+          :active-class="'is-active'"
+          :prev-class="'is-prev pagination__item'"
+          :prev-link-class="'is-prev pagination__item-link'"
+          :next-class="'is-next pagination__item'"
+          :next-link-class="'is-next pagination__item-link'"
+          :first-last-button="true"
+          :hide-prev-next="true"
+          :margin-pages="0"
+          :break-view-text="null"
+        )
+    .container(v-else)
+      | ロード中
 </template>
 
 <script>
@@ -85,6 +85,7 @@ export default {
       products: [],
       totalPages: 0,
       currentPage: 1,
+      loaded: false
     }
   },
   computed: {
@@ -142,6 +143,7 @@ export default {
         json.products.forEach(c => {
           this.products.push(c);
         });
+        this.loaded = true
       })
       .catch(error => {
         console.warn('Failed to parsing', error)
