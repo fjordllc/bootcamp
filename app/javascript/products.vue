@@ -33,11 +33,7 @@
           :product="product"
           :currentUserId="currentUserId"
           :mentorLogin="mentorLogin")
-        .thread-admin-tools(v-if="mentorLogin && selectedTab != 'all'")
-          ul.thread-admin-tools__items
-            li.thread-admin-tools__item
-              button#js-shortcut-unconfirmed-links-open.thread-unconfirmed-links-form__action(class="a-button is-md is-primary")
-                | {{ unconfirmedLinksName }}の提出物を一括で開く
+        unconfirmed-links-open-button(v-if="mentorLogin && selectedTab != 'all'" :label="`${unconfirmedLinksName}の提出物を一括で開く`")
       .o-empty-massage(v-else)
         .o-empty-massage__icon
           i.far.fa-smile
@@ -73,12 +69,14 @@
 
 <script>
 import Product from './product.vue'
+import unconfirmedLinksOpenButton from './unconfirmed_links_open_button.vue'
 import VueJsPaginate from 'vuejs-paginate'
 
 export default {
   props: ['title', 'selectedTab', 'mentorLogin', 'currentUserId'],
   components: {
     'product': Product,
+    'unconfirmed-links-open-button': unconfirmedLinksOpenButton,
     'pager-top': VueJsPaginate,
     'pager-bottom': VueJsPaginate
   },
@@ -86,7 +84,7 @@ export default {
     return {
       products: [],
       totalPages: 0,
-      currentPage: 1
+      currentPage: 1,
     }
   },
   computed: {
