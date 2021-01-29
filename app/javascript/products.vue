@@ -3,7 +3,7 @@
     .container(v-if="loaded")
       nav.pagination.is-top
         pager-top(
-          v-if="totalPages > 1"
+          v-if="totalPages > 1 && products.length > 0"
           v-model='currentPage'
           :page-count="totalPages"
           :page-range=5
@@ -40,7 +40,7 @@
           | {{ title }}はありません
       nav.pagination.is-bottom
         pager-bottom(
-          v-if="totalPages > 1"
+          v-if="totalPages > 1 && products.length > 0"
           v-model='currentPage'
           :page-count="totalPages"
           :page-range=5
