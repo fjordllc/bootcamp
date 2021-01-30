@@ -71,6 +71,17 @@ class ProductsTest < ApplicationSystemTestCase
     assert_button '未チェックの提出物を一括で開く'
   end
 
+  test 'click on open all unchecked submissions button' do
+    login_user 'komagata', 'testtest'
+    visit '/products/unchecked'
+
+    click_button '未チェックの提出物を一括で開く'
+
+    within_window(windows.last) do
+      assert_text 'テストの提出物1です。'
+    end
+  end
+
   test 'non-staff user can not see listing not-responded products' do
     login_user 'hatsuno', 'testtest'
     visit '/products/not_responded'
@@ -87,6 +98,17 @@ class ProductsTest < ApplicationSystemTestCase
     login_user 'komagata', 'testtest'
     visit '/products/not_responded'
     assert_button '未返信の提出物を一括で開く'
+  end
+
+  test 'click on open all not-responded submissions button' do
+    login_user 'komagata', 'testtest'
+    visit '/products/not_responded'
+
+    click_button '未返信の提出物を一括で開く'
+
+    within_window(windows.last) do
+      assert_text 'テストの提出物1です。'
+    end
   end
 
   test 'non-staff user can not see listing self-assigned products' do
@@ -112,6 +134,24 @@ class ProductsTest < ApplicationSystemTestCase
     )
     visit '/products/self_assigned'
     assert_button '自分の担当の提出物を一括で開く'
+  end
+
+  test 'click on open all self-assigned submissions button' do
+    login_user 'komagata', 'testtest'
+    checker = users(:komagata)
+    Product.create!(
+      body: '自分の担当の提出物です。',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: checker.id
+    )
+    visit '/products/self_assigned'
+
+    click_button '自分の担当の提出物を一括で開く'
+
+    within_window(windows.last) do
+      assert_text '自分の担当の提出物です。'
+    end
   end
 
   test 'not display products in listing self-assigned if self-assigned products all checked' do
