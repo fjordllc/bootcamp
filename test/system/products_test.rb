@@ -95,6 +95,7 @@ class ProductsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
+    wait_for_vuejs
     assert_text '提出物を削除しました。'
   end
 
@@ -111,7 +112,7 @@ class ProductsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
-
+    wait_for_vuejs
     assert_text '提出物を削除しました。'
   end
 
