@@ -3,6 +3,8 @@
 require 'application_system_test_case'
 require 'minitest/mock'
 
+PAGINATES_PER = 50
+
 class ProductsTest < ApplicationSystemTestCase
   teardown do
     wait_for_vuejs
@@ -290,5 +292,75 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '担当する', match: :first
     click_button '担当から外れる', match: :first
     assert_button '担当する'
+  end
+
+  test 'click on the pager button' do
+    login_user 'komagata', 'testtest'
+
+    (PAGINATES_PER - Product.count + 1).times do |n|
+      Product.create!(
+        body: 'test',
+        user: users(:hajime),
+        practice: practices("practice#{n + 1}".to_sym)
+      )
+    end
+
+    visit '/products'
+    within first('.pagination') do
+      find('a', text: '2').click
+    end
+
+    all('.pagination .is-active').each do |active_button|
+      assert active_button.has_text? '2'
+    end
+    assert_current_path('/products?page=2')
+  end
+
+  test 'specify the page number in the URL' do
+    login_user 'komagata', 'testtest'
+
+    (PAGINATES_PER - Product.count + 1).times do |n|
+      Product.create!(
+        body: 'test',
+        user: users(:hajime),
+        practice: practices("practice#{n + 1}".to_sym)
+      )
+    end
+
+    visit '/products?page=2'
+    all('.pagination .is-active').each do |active_button|
+      assert active_button.has_text? '2'
+    end
+    assert_current_path('/products?page=2')
+  end
+
+  test 'clicking the browser back button will show the previous page' do
+    login_user 'komagata', 'testtest'
+
+    (PAGINATES_PER - Product.count + 1).times do |n|
+      Product.create!(
+        body: 'test',
+        user: users(:hajime),
+        practice: practices("practice#{n + 1}".to_sym)
+      )
+    end
+
+    visit '/products?page=2'
+    within first('.pagination') do
+      find('a', text: '1').click
+    end
+    page.go_back
+    assert_current_path('/products?page=2')
+    all('.pagination .is-active').each do |active_button|
+      assert active_button.has_text? '2'
+    end
+  end
+
+  test 'When the number of pages is one, the pager will not be displayed' do
+    login_user 'komagata', 'testtest'
+
+    visit '/products'
+
+    assert_not page.has_css?('.pagination')
   end
 end
