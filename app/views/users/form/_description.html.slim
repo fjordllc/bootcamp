@@ -7,7 +7,7 @@
       placeholder = 'XXXXと申します。月・水・金の 10:00 〜 19:00 に活動します。XXXXと考えたため、プログラマーとして就職することを決意しました。今はXXXXで働いています。XXXXが好きでよくXXXXしています。XXXXが好きな方、仲良くしてください！！'
       help_text = 'この情報は他のフィヨルドブートキャンプ参加者に公開されます。あとからでも内容を変更することができます。'
     end
-  = f.label :description, class: 'a-label'
+  = f.label :description, class: 'a-label is-required'
   = f.text_area :description, class: 'a-text-input is-sm', placeholder: placeholder
   .a-form-help
     p = help_text
