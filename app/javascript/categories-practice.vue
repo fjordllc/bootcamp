@@ -15,10 +15,9 @@ draggable.draggable-items(v-model='practices', handle=".grab", @start="start", @
 <script>
 import draggable from 'vuedraggable'
 export default {
-  props: ['id', 'categoriesPractices','categoryPractices'],
+  props: ['categoriesPractices','categoryPractices'],
   data () {
     return {
-      categoryId: this.id,
       combinations: JSON.parse(this.categoriesPractices),
       practices: JSON.parse(this.categoryPractices),
       practicesBeforeDragging: '',
