@@ -24,7 +24,7 @@
             | （#{report.comments.size}）
         = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
         time.thread-list-item-meta__datetime(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate='pubdate')
-          | 〜 #{l report .comments.last.updated_at, format: :date_and_time}
+          | 〜 #{l report.comments.last.updated_at, format: :date_and_time}
 
     - if report.checks.any?
       .stamp.stamp-approve
