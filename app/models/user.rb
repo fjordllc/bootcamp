@@ -121,6 +121,7 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
+  validates :description, presence: true
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :twitter_account,
