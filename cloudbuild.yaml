@@ -69,6 +69,8 @@ steps:
       - '--set-env-vars=REDIS_URL=$_REDIS_URL'
       - '--set-env-vars=TOKEN=$_TOKEN'
       - '--set-env-vars=DISCORD_NOTICE_WEBHOOK_URL=$_DISCORD_NOTICE_WEBHOOK_URL'
+      - '--set-env-vars=BASIC_AUTH_USER=$_BASIC_AUTH_USER'
+      - '--set-env-vars=BASIC_AUTH_PASSWORD=$_BASIC_AUTH_PASSWORD'
       - '--set-env-vars=$_ENVS'
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
@@ -93,6 +95,8 @@ substitutions:
   _GCS_BUCKET: _
   _TOKEN: _
   _DISCORD_NOTICE_WEBHOOK_URL: _
+  _BASIC_AUTH_USER: _
+  _BASIC_AUTH_PASSWORD: _
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
