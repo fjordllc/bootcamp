@@ -78,6 +78,17 @@ steps:
       - '--set-env-vars=$_ENVS'
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
+  - id: Notify
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: curl
+    args:
+      - '-H'
+      - '"Content-Type: application/json"'
+      - '-X'
+      - 'POST'
+      - '-d'
+      - '\'{"username": "test", "content": "Deployed bootcamp."}\''
+      - '$_DEPLOY_NOTIFY_WEBHOOK_URL'
 images:
   - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
 options:
