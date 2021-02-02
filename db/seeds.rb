@@ -2,7 +2,7 @@
 
 require 'active_record/fixtures'
 
-FIXTURES = %i[
+ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', %i[
   users
   announcements
   answers
@@ -32,7 +32,6 @@ FIXTURES = %i[
   seats
   watches
   works
-].freeze
+]
 
-ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', FIXTURES
 Rake::Task['bootcamp:statistics:save_learning_minute_statistics'].execute

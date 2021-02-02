@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include Authentication
   include PolicyHelper
   protect_from_forgery with: :exception
+  before_action :basic_auth, if: :staging?
   before_action :init_user
   before_action :allow_cross_domain_access
   before_action :set_host_for_disk_storage
@@ -16,6 +17,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def basic_auth
+    authenticate_or_request_with_http_basic do |user, password|
+      user == ENV['BASIC_AUTH_USER'] && password == ENV['BASIC_AUTH_PASSWORD']
+    end
+  end
 
   def init_user
     @current_user = current_user
@@ -37,5 +44,11 @@ class ApplicationController < ActionController::Base
 
   def require_subscription
     redirect_to root_path, notice: 'サブスクリプション登録が必要です。' unless current_user&.subscription?
+  end
+
+  protected
+
+  def staging?
+    ENV['DB_NAME'] == 'bootcamp_staging'
   end
 end
