@@ -81,14 +81,9 @@ steps:
   - id: Notify
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: curl
-    args:
-      - '-H'
-      - '"Content-Type: application/json"'
-      - '-X'
-      - 'POST'
-      - '-d'
-      - '\'{"username": "test", "content": "Deployed bootcamp."}\''
-      - '$_DEPLOY_NOTIFY_WEBHOOK_URL'
+    args: ['-H', '"Content-Type: application/json"',
+           '-X', 'POST', '-d', '''{"username": "test", "content": "Deployed bootcamp."}''',
+           '$_DEPLOY_NOTIFY_WEBHOOK_URL']
 images:
   - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
 options:
