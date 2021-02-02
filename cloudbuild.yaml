@@ -1,10 +1,14 @@
 steps:
+  - id: Fetch
+    name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker pull asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0']
   - id: Build
     name: gcr.io/cloud-builders/docker
     args: ['build',
-           '--no-cache',
            '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA',
            '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest',
+           '--cache-from', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest',
            '.',
            '-f', 'Dockerfile']
   - id: Push
