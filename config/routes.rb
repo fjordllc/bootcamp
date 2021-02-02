@@ -98,8 +98,11 @@ Rails.application.routes.draw do
   end
 
   resources :courses, only: %i(index) do
-    resources :practices, only: %i(index), controller: "courses/practices"
-    get "practices_sort", to: "courses/practices_sort#index"
+    resources :practices, only: %i(index), controller: "courses/practices" do
+      collection do
+        resources :sort, only: %i(index), controller: "courses/practices/sort"
+      end
+    end
   end
   resources :courses, except: %i(index show)
   resources :practices, except: %i(index destroy) do

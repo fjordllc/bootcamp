@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Courses::PracticesSortController < ApplicationController
+class Courses::Practices::SortController < ApplicationController
   before_action :require_admin_login
 
   def index
