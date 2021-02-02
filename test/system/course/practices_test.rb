@@ -31,14 +31,14 @@ class Course::PracticesTest < ApplicationSystemTestCase
     end
   end
 
-  test 'プラクティス一覧ページでプラクティスがカテゴリごとに順番通りに並ぶ' do
+  test 'practices by category on practice list page will be in order' do
     visit course_practices_path(courses(:course1).id)
     within('.categories-items .categories-item:first-child .category-practices-item:first-child') do
       assert_text 'OS X Mountain Lionをクリーンインストールする'
     end
   end
 
-  test 'プラクティス詳細ページのナビメニューが順番通りに並ぶ' do
+  test 'navi menu on practice show page will be in order' do
     visit practice_path(practices(:practice1).id)
     within('.page-nav .page-nav__item:first-child') do
       assert_text 'OS X Mountain Lionをクリーンインストールする'
