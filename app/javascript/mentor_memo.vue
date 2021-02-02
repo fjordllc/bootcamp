@@ -1,8 +1,6 @@
 <template lang="pug">
   .practice-content.is-memo
     section.a-card(v-if="!editing")
-      header.practice-content__header.card-header
-        h2.practice-content__title メンター向けメモ
       .practice-content__body
         .js-target-blank.is-long-text(
           v-html="markdownMemo")
