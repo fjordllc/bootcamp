@@ -69,6 +69,6 @@ class Check::ReportsTest < ApplicationSystemTestCase
     click_button '日報を確認'
     wait_for_vuejs
     click_button '日報の確認を取り消す'
-    assert page.all('.recent-reports-item')[0].has_no_css?('.recent-reports-item__checked')
+    assert page.first('.recent-reports-item').has_no_css?('.recent-reports-item__checked')
   end
 end
