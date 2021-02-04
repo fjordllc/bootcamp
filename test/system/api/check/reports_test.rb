@@ -60,7 +60,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     login_user 'machida', 'testtest'
     visit "/reports/#{reports(:report20).id}"
     click_button '日報を確認'
-    assert page.first('.recent-reports-item').has_css?('.recent-reports-item__checked')
+    assert page.first('.recent-reports-item').has_css?('.stamp-approve')
   end
 
   test 'success recent report checking cancel' do
@@ -69,6 +69,6 @@ class Check::ReportsTest < ApplicationSystemTestCase
     click_button '日報を確認'
     wait_for_vuejs
     click_button '日報の確認を取り消す'
-    assert page.first('.recent-reports-item').has_no_css?('.recent-reports-item__checked')
+    assert page.first('.recent-reports-item').has_no_css?('.stamp-approve')
   end
 end
