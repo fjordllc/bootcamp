@@ -60,7 +60,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     login_user 'machida', 'testtest'
     visit "/reports/#{reports(:report20).id}"
     click_button '日報を確認'
-    assert page.all('.recent-reports-item')[0].has_css?('.recent-reports-item__checked')
+    assert page.first('.recent-reports-item').has_css?('.recent-reports-item__checked')
   end
 
   test 'success recent report checking cancel' do
