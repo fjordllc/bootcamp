@@ -27,6 +27,8 @@ main.page-main
         h1.page-main-header__title
           - if params[:tag]
             | タグ「#{params[:tag]}」のユーザー（#{@users.total_count}）
+            - unless current_user.tag_list.include?(params[:tag])
+              = link_to 'このタグを自分にも追加', "/users/tags/#{params[:tag]}", method: 'post', class: 'a-button is-sm is-secondary'
           - else
             | #{t("target.#{@target}")}（#{@users.total_count}）
   .page-body
