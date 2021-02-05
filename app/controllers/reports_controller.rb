@@ -149,7 +149,7 @@ class ReportsController < ApplicationController
                                text: report.description
                              }]
 
-    return unless report.user.trainee? && report.user.company.slack_channel?
+    return unless report.user.trainee? && report.user.company&.slack_channel?
 
     SlackNotification.notify "#{name} さんが日報を提出しました。 #{link}",
                              username: "#{report.user.login_name} (#{report.user.name})",
