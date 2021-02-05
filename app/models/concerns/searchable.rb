@@ -4,6 +4,7 @@ module Searchable
   extend ActiveSupport::Concern
 
   included do
+    # 拡張する場合はこのスコープを上書きする
     scope :search_by_keywords_scope, -> { all }
   end
 
