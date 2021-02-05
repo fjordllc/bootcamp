@@ -6,7 +6,7 @@ class ReportCallbacks
 
     send_first_report_notification(report) if report.user.reports.count == 1 && !report.wip?
 
-    if report.user.trainee?
+    if report.user.trainee? && report.user.company_id?
       report.user.company.advisers.each do |adviser|
         NotificationFacade.trainee_report(report, adviser)
         create_advisers_watch(report, adviser)
