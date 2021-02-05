@@ -275,4 +275,10 @@ class UserTest < ActiveSupport::TestCase
     daimyo.unfollow(hatsuno)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
   end
+
+  test 'dont return retired user' do
+    yameo = users(:yameo)
+    sql = User.search_by_keywords({:word=>"#{yameo.name}", :commentable_type=>nil}).to_sql
+    assert_match(/"retired_on" IS NULL/, sql)
+  end
 end
