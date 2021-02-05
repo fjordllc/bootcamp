@@ -278,7 +278,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'dont return retired user' do
     yameo = users(:yameo)
-    sql = User.search_by_keywords({:word=>"#{yameo.name}", :commentable_type=>nil}).to_sql
+    sql = User.search_by_keywords({ word: yameo.name.to_s, commentable_type: nil }).to_sql
     assert_match(/"retired_on" IS NULL/, sql)
   end
 end
