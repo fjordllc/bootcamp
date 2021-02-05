@@ -156,6 +156,10 @@ Rails.application.routes.draw do
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag
   get "users/tags/:tag", to: "users#index", as: :users_tag
 
+  namespace :users do
+    post "tags/:tag", to: "tags#update"
+  end
+
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"
   post "user_sessions" => "user_sessions#create"
