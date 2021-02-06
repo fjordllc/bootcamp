@@ -47,10 +47,13 @@ class NotificationsTest < ApplicationSystemTestCase
   end
 
   test 'do not show read notification on the unread notifications' do
-    Notification.create(message: '1番新しい既読の通知', read: true,
+    Notification.create(message: '1番新しい既読の通知',
+                        read: true,
                         created_at: '2040-01-18 06:06:42',
-                        kind: 'mentioned', path: '/reports/20400118',
-                        user: users(:yamada), sender: users(:machida))
+                        kind: 'mentioned',
+                        path: '/reports/20400118',
+                        user: users(:yamada),
+                        sender: users(:machida))
     login_user 'yamada', 'testtest'
     visit '/notifications/unread'
     wait_for_vuejs
@@ -58,24 +61,35 @@ class NotificationsTest < ApplicationSystemTestCase
   end
 
   test 'click on the pager button' do
-    30.times do |n|
+    # 1ページに表示する通知の数は20件なのでtimesメソッドを使って19件作成し、一番新しい通知、古い通知を個別に作成する
+    19.times do |n|
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
-                          kind: 'mentioned', path: "/reports/#{n}",
-                          user: users(:yamada), sender: users(:machida))
+                          kind: 'mentioned',
+                          path: "/reports/#{n}",
+                          user: users(:yamada),
+                          sender: users(:machida))
     end
-    Notification.create(message: '1番新しい通知', created_at: '2040-01-18 06:06:42',
-                        kind: 'mentioned', path: '/reports/20400118',
-                        user: users(:yamada), sender: users(:machida))
-    Notification.create(message: '1番古い通知', created_at: '2000-01-18 06:06:42',
-                        kind: 'mentioned', path: '/reports/20000118',
-                        user: users(:yamada), sender: users(:machida))
+    Notification.create(message: '1番新しい通知',
+                        created_at: '2040-01-18 06:06:42',
+                        kind: 'mentioned',
+                        path: '/reports/20400118',
+                        user: users(:yamada),
+                        sender: users(:machida))
+    Notification.create(message: '1番古い通知',
+                        created_at: '2000-01-18 06:06:42',
+                        kind: 'mentioned',
+                        path: '/reports/20000118',
+                        user: users(:yamada),
+                        sender: users(:machida))
     login_user 'yamada', 'testtest'
     visit '/notifications'
     wait_for_vuejs
     within first('div.pagination') do
       find('a', text: '2').click
     end
+    # 2ページ目に1番古い通知が表示されることを確認
     assert_text '1番古い通知'
+    # 2ページ目に1番新しい通知が表示されないことを確認
     assert_no_text '1番新しい通知'
     all('.pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
@@ -84,17 +98,25 @@ class NotificationsTest < ApplicationSystemTestCase
   end
 
   test 'specify the page number in the URL' do
-    30.times do |n|
+    19.times do |n|
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
-                          kind: 'mentioned', path: "/reports/#{n}",
-                          user: users(:yamada), sender: users(:machida))
+                          kind: 'mentioned',
+                          path: "/reports/#{n}",
+                          user: users(:yamada),
+                          sender: users(:machida))
     end
-    Notification.create(message: '1番新しい通知', created_at: '2040-01-18 06:06:42',
-                        kind: 'mentioned', path: '/reports/20400118',
-                        user: users(:yamada), sender: users(:machida))
-    Notification.create(message: '1番古い通知', created_at: '2000-01-18 06:06:42',
-                        kind: 'mentioned', path: '/reports/20000118',
-                        user: users(:yamada), sender: users(:machida))
+    Notification.create(message: '1番新しい通知',
+                        created_at: '2040-01-18 06:06:42',
+                        kind: 'mentioned',
+                        path: '/reports/20400118',
+                        user: users(:yamada),
+                        sender: users(:machida))
+    Notification.create(message: '1番古い通知',
+                        created_at: '2000-01-18 06:06:42',
+                        kind: 'mentioned',
+                        path: '/reports/20000118',
+                        user: users(:yamada),
+                        sender: users(:machida))
     login_user 'yamada', 'testtest'
     visit '/notifications?page=2'
     wait_for_vuejs
@@ -106,17 +128,25 @@ class NotificationsTest < ApplicationSystemTestCase
   end
 
   test 'clicking the browser back button will show the previous page' do
-    30.times do |n|
+    19.times do |n|
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
-                          kind: 'mentioned', path: "/reports/#{n}",
-                          user: users(:yamada), sender: users(:machida))
+                          kind: 'mentioned',
+                          path: "/reports/#{n}",
+                          user: users(:yamada),
+                          sender: users(:machida))
     end
-    Notification.create(message: '1番新しい通知', created_at: '2040-01-18 06:06:42',
-                        kind: 'mentioned', path: '/reports/20400118',
-                        user: users(:yamada), sender: users(:machida))
-    Notification.create(message: '1番古い通知', created_at: '2000-01-18 06:06:42',
-                        kind: 'mentioned', path: '/reports/20000118',
-                        user: users(:yamada), sender: users(:machida))
+    Notification.create(message: '1番新しい通知',
+                        created_at: '2040-01-18 06:06:42',
+                        kind: 'mentioned',
+                        path: '/reports/20400118',
+                        user: users(:yamada),
+                        sender: users(:machida))
+    Notification.create(message: '1番古い通知',
+                        created_at: '2000-01-18 06:06:42',
+                        kind: 'mentioned',
+                        path: '/reports/20000118',
+                        user: users(:yamada),
+                        sender: users(:machida))
     login_user 'yamada', 'testtest'
     visit '/notifications?page=2'
     wait_for_vuejs

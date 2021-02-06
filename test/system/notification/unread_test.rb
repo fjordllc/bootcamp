@@ -12,8 +12,10 @@ class Notification::UnreadTest < ApplicationSystemTestCase
 
   test 'non-mentor can not see a button to open all unread notifications' do
     Notification.create(message: 'machidaさんがコメントしました',
-                        kind: 'came_comment', path: '/reports/20400118',
-                        user: users(:hatsuno), sender: users(:machida))
+                        kind: 'came_comment',
+                        path: '/reports/20400118',
+                        user: users(:hatsuno),
+                        sender: users(:machida))
     visit '/notifications/unread'
     wait_for_vuejs
     assert_no_button '未読の通知を一括で開く'
@@ -21,8 +23,10 @@ class Notification::UnreadTest < ApplicationSystemTestCase
 
   test 'mentor can see a button to open to open all unread notifications' do
     Notification.create(message: 'machidaさんがコメントしました',
-                        kind: 'came_comment', path: '/reports/20400118',
-                        user: users(:komagata), sender: users(:machida))
+                        kind: 'came_comment',
+                        path: '/reports/20400118',
+                        user: users(:komagata),
+                        sender: users(:machida))
     login_user 'komagata', 'testtest'
     visit '/notifications/unread'
     wait_for_vuejs
