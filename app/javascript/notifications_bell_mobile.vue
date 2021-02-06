@@ -16,7 +16,7 @@
                   img.header-notifications-item__user-icon.a-user-icon(:src="notification.sender.avatar_url")
                   .header-notifications-item__message
                     p {{ notification.message }}
-                  time.header-notifications-item_created-at {{ notification.created_at_time_ago }}
+                  time.header-notifications-item_created-at {{ createdAtFromNow(notification.created_at) }}
           footer.header-dropdown__footer
             a.header-dropdown__footer-link(href="/notifications/unread") 全ての未読通知
             a.header-dropdown__footer-link(href="/notifications") 全ての通知
@@ -25,6 +25,10 @@
       i.fas.fa-bars
 </template>
 <script>
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
+
 export default {
   data: () => {
     return {
@@ -49,6 +53,11 @@ export default {
       .catch(error => {
         console.warn('Failed to parsing', error)
       })
+  },
+  methods: {
+    createdAtFromNow(created_at) {
+      return dayjs(created_at).fromNow()
+    }
   },
   computed: {
     notificationCount() {
