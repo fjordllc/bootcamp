@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
       new Vue({
         render: h => h(CategoriesPractice, {
           props: {
-            categoriesPractices: categoriesPractices,
-            categoryPractices: categoryPractices
+            categoriesPractices: JSON.parse(categoriesPractices),
+            categoryPractices: JSON.parse(categoryPractices)
           }
         })
       }).$mount(selector)
