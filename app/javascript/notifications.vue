@@ -30,7 +30,7 @@
       notification(v-for="notification in notifications"
         :key="notification.id"
         :notification="notification")
-      unconfirmed-links-open-button(v-if="mentorLogin && isUnreadPage" label="未読の通知を一括で開く")
+      unconfirmed-links-open-button(v-if="isMentor && isUnreadPage" label="未読の通知を一括で開く")
     .pagination
       nav.container
         pager-bottom(
@@ -76,7 +76,7 @@ import UnconfirmedLinksOpenButton from './unconfirmed_links_open_button'
 
 export default {
   props: {
-    mentorLogin: {
+    isMentor: {
       type: Boolean
     }
   },
