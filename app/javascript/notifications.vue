@@ -4,7 +4,7 @@
       nav.container
         pager-top(
           v-if="totalPages > 1"
-          v-model='currentPage'
+          v-model="currentPage"
           :page-count="totalPages"
           :page-range="5"
           :prev-text="`<i class='fas fa-angle-left'></i>`"
@@ -27,15 +27,15 @@
           :break-view-text=null
         )
     .thread-list.a-card
-      notification(v-for="(notification, index) in notifications"
+      notification(v-for="notification in notifications"
         :key="notification.id"
         :notification="notification")
-      unconfirmed-links-open-button(v-if='mentorLogin && isUnreadPage' :label="'未読の通知を一括で開く'")
+      unconfirmed-links-open-button(v-if="mentorLogin && isUnreadPage" label="未読の通知を一括で開く")
     .pagination
       nav.container
         pager-bottom(
           v-if="totalPages > 1"
-          v-model='currentPage'
+          v-model="currentPage"
           :page-count="totalPages"
           :page-range="5"
           :prev-text="`<i class='fas fa-angle-left'></i>`"
@@ -61,7 +61,7 @@
     .o-empty-massage
       .o-empty-massage__icon
         i.far.fa-smile
-      p.o-empty-massage__text(v-if='isUnreadPage')
+      p.o-empty-massage__text(v-if="isUnreadPage")
         | 未読の通知はありません
       p.o-empty-massage__text(v-else)
         | 通知はありません
@@ -71,7 +71,7 @@
 
 <script>
 import Notification from './notification.vue'
-import VueJsPaginate from "vuejs-paginate"
+import VueJsPaginate from 'vuejs-paginate'
 import UnconfirmedLinksOpenButton from './unconfirmed_links_open_button'
 
 export default {
@@ -96,7 +96,7 @@ export default {
   },
   created() {
     // ブラウザバック・フォワードした時に画面を読み込ませる
-    window.onpopstate=function(){
+    window.onpopstate = function() {
       location.href = location.href
     }
     this.currentPage = Number(this.getPageValueFromParameter()) || 1
@@ -104,18 +104,18 @@ export default {
   },
   computed: {
     url() {
-      if(this.isUnreadPage){
+      if (this.isUnreadPage) {
         return `/api/notifications/unread.json?page=${this.currentPage}`
-      }else{
+      } else {
         return `/api/notifications.json?page=${this.currentPage}`
       }
     },
-    isUnreadPage(){
-      return location.pathname.includes('unread') ? true : false
+    isUnreadPage() {
+      return location.pathname.includes('unread')
     }
   },
   methods: {
-    getNotificationsPerPage: function(){
+    getNotificationsPerPage: function() {
       fetch(this.url, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest'},
@@ -135,20 +135,20 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
-    updateCurrentUrl: function(){
+    updateCurrentUrl: function() {
       let url = location.pathname
-      if (this.currentPage!=1){
-        url+=`?page=${this.currentPage}`
+      if (this.currentPage !== 1) {
+        url += `?page=${this.currentPage}`
       }
-      history.pushState(null,null,url)
+      history.pushState(null, null, url)
     },
-    paginateClickCallback: function () {
+    paginateClickCallback: function() {
       this.getNotificationsPerPage()
       this.updateCurrentUrl()
     },
     getPageValueFromParameter: function() {
       let url = location.href
-      let results= url.match(/\?page=(\d+)/)
+      let results = url.match(/\?page=(\d+)/)
       if (!results) return null;
       return results[1]
     }
