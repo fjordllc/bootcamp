@@ -17,13 +17,17 @@
                 img.header-notifications-item__user-icon.a-user-icon(:src="notification.sender.avatar_url")
                 .header-notifications-item__message
                   p.test-notification-message {{ notification.message }}
-                time.header-notifications-item_created-at {{ notification.created_at_time_ago }}
+                time.header-notifications-item_created-at {{ createdAtFromNow(notification.created_at) }}
         footer.header-dropdown__footer
           a.header-dropdown__footer-link(href="/notifications/unread") 全ての未読通知
           a.header-dropdown__footer-link(href="/notifications") 全ての通知
           a.header-dropdown__footer-link(href="/notifications/allmarks" ref="nofollow" data-method="post") 全て既読にする
 </template>
 <script>
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
+
 export default {
   data: () => {
     return {
@@ -54,6 +58,9 @@ export default {
       if (!this.notificationExist) {
         location.href = '/notifications'
       }
+    },
+    createdAtFromNow(created_at) {
+      return dayjs(created_at).fromNow()
     }
   },
   computed: {
