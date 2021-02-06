@@ -5,13 +5,13 @@
         img.thread-list-item__author-icon.a-user-icon(:title="notification.sender.icon_title" :src="notification.sender.avatar_url" :class="[roleClass, daimyoClass]")
       header.thread-list-item__header
         .thread-list-item__header-title-container
-          .thread-list-item__header-icon.is-unread(v-if='notification.read==false')
+          .thread-list-item__header-icon.is-unread(v-if='notification.read === false')
             | 未読
-          h2.thread-list-item__title(:itemprop='"name"')
-            a.thread-list-item__title-link.js-unconfirmed-link(:href="notification.path" :itemprop='"url"')
+          h2.thread-list-item__title(itemprop='name')
+            a.thread-list-item__title-link.js-unconfirmed-link(:href="notification.path" itemprop='url')
               span.thread-list-item__title-link-label {{ notification.message }}
       .thread-list-item-meta
-        time.thread-list-item-meta__created-at(datetime="#{notification.created_at.to_datetime}") {{ notification.created_at }}
+        time.thread-list-item-meta__created-at(:datetime='notification.created_at') {{ notification.created_at }}
 </template>
 <script>
 export default {
