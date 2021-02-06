@@ -18,8 +18,7 @@ export default {
   props: ['categoriesPractices','categoryPractices'],
   data () {
     return {
-      combinations: JSON.parse(this.categoriesPractices),
-      practices: JSON.parse(this.categoryPractices),
+      practices: this.categoryPractices,
       practicesBeforeDragging: '',
       draggingItem: ''
     }
@@ -42,7 +41,7 @@ export default {
           // position値は1から始まるため、インデックス番号 + 1
           'position': event.newIndex + 1
         }
-        const categoriesPracticeId = (this.combinations.find((v) => v.practice_id === this.draggingItem.id)).id
+        const categoriesPracticeId = (this.categoriesPractices.find((v) => v.practice_id === this.draggingItem.id)).id
         fetch(`/api/categories_practices/position/${categoriesPracticeId}.json`, {
           method: 'PATCH',
           headers: {
