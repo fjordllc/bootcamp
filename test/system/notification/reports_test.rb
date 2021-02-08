@@ -59,11 +59,6 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     login_user 'muryou', 'testtest'
     assert page.has_css?('.has-no-count')
-    logout
-
-    login_user 'yamada', 'testtest'
-    assert page.has_css?('.has-no-count')
-    logout
   end
 
   test '研修生が日報を提出したら企業のアドバイザーに通知が飛ぶ' do
