@@ -82,8 +82,10 @@ header.page-header
               h2.practice-content__title 参考書籍
             ul
               - @practice.reference_books.each do |book|
-                li = image_tag book.image_url
-                li = link_to book.title, book.page_url
+                li
+                  = link_to book.page_url, target: '_blank', rel: 'noopener' do
+                    = image_tag book.cover_url
+                    = book.title
 
         section.practice-content.a-card
           header.practice-content__header.card-header

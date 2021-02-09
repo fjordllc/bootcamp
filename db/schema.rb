@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2021_03_30_052132) do
+=======
+ActiveRecord::Schema.define(version: 2021_02_10_000000) do
+>>>>>>> 54a0f490f (参考書籍をAmazonECSを使わない方式に変更)
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -339,12 +343,11 @@ ActiveRecord::Schema.define(version: 2021_03_30_052132) do
 
   create_table "reference_books", force: :cascade do |t|
     t.string "title", null: false
-    t.string "asin", null: false
+    t.integer "price", null: false
+    t.string "page_url", null: false
     t.bigint "practice_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "page_url", null: false
-    t.string "image_url", null: false
     t.index ["practice_id"], name: "index_reference_books_on_practice_id"
   end
 
