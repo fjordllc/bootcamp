@@ -43,7 +43,7 @@
               :alt="user.icon_title"
               :src="user.avatar_url"
               :class="[roleClass, daimyoClass]")
-        time.thread-list-item-meta__datetime(datetime="product.comments.last_created_at_date_time}")
+        time.thread-list-item-meta__datetime(datetime="product.comments.last_created_at_date_time")
           | {{ product.comments.last_created_at }}
       .stamp.stamp-approve(v-if="product.checks.size > 0")
         h2.stamp__content.is-title 確認済
