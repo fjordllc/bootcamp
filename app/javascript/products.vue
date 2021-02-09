@@ -140,8 +140,8 @@ export default {
       .then(json => {
         this.totalPages = json.total_pages
         this.products = []
-        json.products.forEach(c => {
-          this.products.push(c);
+        json.products.forEach(product => {
+          this.products.push(product);
         });
         this.loaded = true
       })
