@@ -35,7 +35,7 @@
         .thread-list-item-meta__label
           | コメント
         .thread-list-item-meta__comment-count
-          .thread-list-item-meta__comment-count-value （{{product.comments.size}}）
+          .thread-list-item-meta__comment-count-value （{{ product.comments.size }}）
         .thread-list-item__user-icons(v-for="user in product.comments.users")
           a.thread-list-item__user-icon(:href="user.url")
             img.thread-list-item__checked-author-icon.a-user-icon(
