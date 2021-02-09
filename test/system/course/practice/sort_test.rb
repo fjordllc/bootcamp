@@ -7,7 +7,7 @@ class Practice::SortTest < ApplicationSystemTestCase
     login_user 'komagata', 'testtest'
     visit course_sort_index_path(courses(:course1).id)
     within('.categories-items__inner') do
-      assert_selector '.grab'
+      assert_selector '.js-grab'
     end
   end
 

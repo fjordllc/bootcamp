@@ -1,5 +1,5 @@
 <template lang="pug">
-draggable.draggable-items(v-model='practices', handle=".grab", @start="start", @end="end")
+draggable.draggable-items(v-model='practices', handle=".js-grab", @start="start", @end="end")
   .category-practices-item.js-practice(
     v-for="practice in practices"
     :key="practice.id")
@@ -8,8 +8,9 @@ draggable.draggable-items(v-model='practices', handle=".grab", @start="start", @
       .category-practices-item__title
         .category-practices-item__title-link
           | {{ practice.title }}
-      span.grab
-        i.fas.fa-align-justify
+      .category-practices-item__grab
+        span.a-grab.js-grab
+          i.fas.fa-align-justify
 </template>
 <script>
 import draggable from 'vuedraggable'
