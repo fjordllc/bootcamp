@@ -3,9 +3,9 @@
 class Reaction < ApplicationRecord
   enum kind: {
     thumbsup: 0,
-    thumbsdown: 1,
+    raised_hands: 1,
     smile: 2,
-    confused: 3,
+    pray: 3,
     tada: 4,
     heart: 5,
     rocket: 6,
@@ -22,7 +22,7 @@ class Reaction < ApplicationRecord
   validates :user_id, uniqueness: { scope: %i[reactionable_id reactionable_type kind] }
 
   def self.emojis
-    @emojis ||= kinds.keys.zip(%w[👍 👎 😄 😕 🎉 ❤️ 🚀 👀 💯 💪 🙆‍♀️ 😭]).to_h.with_indifferent_access
+    @emojis ||= kinds.keys.zip(%w[👍 🙌 😄 🙏 🎉 ❤️ 🚀 👀 💯 💪 🙆‍♀️ 😭]).to_h.with_indifferent_access
   end
 
   def self.available_emojis
