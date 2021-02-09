@@ -17,7 +17,12 @@ header.page-header
   .container
     .page-header__inner
       .page-header__start
-        h2.page-header__title = title
+        h2.page-header__title
+          = title
+        - if current_user.admin?
+          .page-header__optionable-action
+            = link_to course_sort_index_path(course_id: @course), class: 'a-button is-md is-secondary is-block' do
+              | 順番変更
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
@@ -38,9 +43,6 @@ header.page-header
               = link_to new_practice_path(course_id: @course), class: 'a-button is-md is-warning is-block' do
                 i.fas.fa-plus
                 | プラクティス作成
-            li.page-header-actions__item
-              = link_to course_sort_index_path(course_id: @course), class: 'a-button is-md is-secondary is-block' do
-                | プラクティス並び替え
 
 .page-body.js-users-visibility
   .container
