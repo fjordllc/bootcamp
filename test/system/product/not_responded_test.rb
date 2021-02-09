@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
-require 'minitest/mock'
 
 class ProductsTest < ApplicationSystemTestCase
   teardown do
