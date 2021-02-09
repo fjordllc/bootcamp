@@ -169,3 +169,14 @@ export default {
   }
 }
 </script>
+
+
+<style>
+  .pager-disable {
+    display: none;
+  }
+
+  .pagination__item-link {
+    outline: none;
+  }
+</style>
