@@ -27,7 +27,7 @@
           :break-view-text="null"
         )
       .thread-list.a-card(v-if="products.length > 0")
-        product(v-for="(product, index) in products"
+        product(v-for="product in products"
           :key="product.id"
           :product="product"
           :currentUserId="currentUserId"
