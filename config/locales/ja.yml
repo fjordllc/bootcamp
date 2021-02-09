@@ -100,8 +100,10 @@ ja:
         categories: カテゴリー
         memo: メンター向けメモ
       practice/reference_books:
-        title: 参考書籍のタイトル
-        asin: ASIN
+        title: タイトル
+        price: 価格
+        page_url: URL
+        cover: 表紙画像
       product:
         user: ユーザー
         practice: プラクティス
@@ -183,7 +185,9 @@ ja:
         open_end_at: 募集終了日時
       reference_book:
         title: タイトル
-        asin: ASIN
+        price: 価格
+        page_url: URL
+        cover: 表紙画像
     enums:
       user:
         job:
