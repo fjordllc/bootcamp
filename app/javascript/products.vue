@@ -31,8 +31,8 @@
           :key="product.id"
           :product="product"
           :currentUserId="currentUserId"
-          :mentorLogin="mentorLogin")
-        unconfirmed-links-open-button(v-if="mentorLogin && selectedTab != 'all'" :label="`${unconfirmedLinksName}の提出物を一括で開く`")
+          :isMentor="isMentor")
+        unconfirmed-links-open-button(v-if="isMentor && selectedTab != 'all'" :label="`${unconfirmedLinksName}の提出物を一括で開く`")
       .o-empty-massage(v-else)
         .o-empty-massage__icon
           i.far.fa-smile
@@ -73,7 +73,7 @@ import unconfirmedLinksOpenButton from './unconfirmed_links_open_button.vue'
 import VueJsPaginate from 'vuejs-paginate'
 
 export default {
-  props: ['title', 'selectedTab', 'mentorLogin', 'currentUserId'],
+  props: ['title', 'selectedTab', 'isMentor', 'currentUserId'],
   components: {
     'product': Product,
     'unconfirmed-links-open-button': unconfirmedLinksOpenButton,
