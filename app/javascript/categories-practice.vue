@@ -10,7 +10,6 @@ draggable.draggable-items(v-model='practices', handle=".grab", @start="start", @
           | {{ practice.title }}
       span.grab
         i.fas.fa-align-justify
-  .category-practices-item__handle.js-show-handle__target
 </template>
 <script>
 import draggable from 'vuedraggable'
