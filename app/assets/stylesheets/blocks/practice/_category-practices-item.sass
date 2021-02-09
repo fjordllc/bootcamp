@@ -9,6 +9,14 @@
   +media-breakpoint-down(sm)
     flex-wrap: wrap
     padding: .5rem .75rem .75rem
+  &.sortable-chosen
+    background-color: tint($warning, 90%)
+  &[draggable="false"]
+    background-color: $base
+    animation: grab-background-color 1.25s ease 0s 1 normal none running
+
+.category-practices-item__grab
+  flex: 0 0 2.75rem
 
 .category-practices-item__anchor
   +media-breakpoint-up(md)
@@ -42,18 +50,6 @@
   min-height: 1.875rem
   +media-breakpoint-down(sm)
     font-size: .8125rem
-
-.category-practices-item__handle
-  +position(absolute, right 0, top 0)
-  height: calc(100% + 1px)
-  display: none
-  background-color: $default-text
-  +padding(horizontal, 1rem)
-  border-bottom: solid 1px rgba(white, .2)
-  &.is-active
-    display: flex
-    justify-content: center
-    align-items: center
 
 .category-practices-item__learning-time
   +text-block(.75rem 1.4, $muted-text)
