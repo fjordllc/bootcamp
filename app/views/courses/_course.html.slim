@@ -14,7 +14,6 @@
                 = link_to edit_course_path(course), class: 'a-button is-md is-primary is-block' do
                   i.fas.fa-pen
                   | 編集
-              li.card-footer-actions__item
-                = link_to course, method: :delete, class: 'a-button is-md is-danger is-block js-delete', data: { confirm: '本当によろしいですか？' } do
-                  i.fas.fa-trash-alt
+              li.card-footer-actions__item.is-sub
+                = link_to course, method: :delete, class: 'card-footer-actions__delete js-delete', data: { confirm: '本当によろしいですか？' } do
                   | 削除
