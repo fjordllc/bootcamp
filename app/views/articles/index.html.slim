@@ -32,9 +32,9 @@
                     = link_to edit_article_path(article), class: 'card-footer-actions__action is-button-simple-md-primary is-block', id: 'js-shortcut-edit' do
                       i.fas.fa-pen#edit
                       | 内容修正
-                  li.card-footer-actions__item
-                    = link_to article_path(article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__action is-button-simple-md-danger is-block' do
-                      i.fas.fa-trash-alt#delete
-                      | 削除
+                  li.card-footer-actions__item.is-sub
+                    = link_to article_path(article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__delete' do
+                      span#delete
+                        | 削除
 
     = paginate @articles, position: 'bottom'
