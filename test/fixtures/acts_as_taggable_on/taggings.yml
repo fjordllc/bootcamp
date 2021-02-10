@@ -1,0 +1,24 @@
+komagata_tag_cat:
+  taggable: komagata (User)
+  context: tags
+  tag: cat
+komagata_tag_game:
+  taggable: komagata (User)
+  context: tags
+  tag: game
+komagata_tag_manga:
+  taggable: komagata (User)
+  context: tags
+  tag: manga
+machida_tag_guitar:
+  taggable: machida (User)
+  context: tags
+  tag: guitar
+kimura_tag_cat:
+  taggable: kimura (User)
+  context: tags
+  tag: cat
+hajime_tag_cat:
+  taggable: hajime (User)
+  context: tags
+  tag: cat
