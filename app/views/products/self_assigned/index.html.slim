@@ -28,3 +28,6 @@ header.page-header
           = title
           | はありません
     = paginate @products, position: 'bottom'
+
+    p= Cache.self_assigned_product_count(current_user.id)
+    p= Product.self_assigned_product(current_user.id).unchecked.count
