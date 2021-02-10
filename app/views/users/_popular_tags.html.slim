@@ -1,0 +1,6 @@
+.recent-reports
+  .popular-tags__items
+    ul.tag-links__items
+    - @popular_tags.each do |tag|
+      li.tag-links__item-link
+        = link_to "#{tag.taggings_count}: #{tag.name}", "/users/tags/#{tag.name}", class: 'tag-links__item'

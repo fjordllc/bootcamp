@@ -38,6 +38,8 @@ class UsersController < ApplicationController
                .order(updated_at: :desc)
                .users_role(@target)
     end
+
+    @popular_tags = User.tags_on(:tags).most_used(100)
   end
   # rubocop:enable Metrics/MethodLength
 
