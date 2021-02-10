@@ -1,0 +1,5 @@
+[pr-release "branch"]
+    production = master
+    staging = develop
+[pr-release]
+    labels = pr-release
