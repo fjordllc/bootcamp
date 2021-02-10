@@ -1,7 +1,7 @@
-.side-tabs-nav
-
 .side-tabs-nav__items
   display: flex
+  +position(relative, 2)
+  margin-bottom: -1px
 
 #side-tabs-1:checked ~ .side-tabs-nav #side-tabs-nav-1
   background-color: $base
@@ -16,6 +16,7 @@
   cursor: pointer
   padding: .75em 1.25em
   border: solid 1px $border-shade
+  border-bottom: none
   +position(relative, bottom -1px)
   +border-radius(top, .25rem)
   color: $muted-text
