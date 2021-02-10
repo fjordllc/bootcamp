@@ -11,6 +11,6 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: git-pr-release
-      uses: bakunyo/git-pr-release-action@1.2
+      uses: bakunyo/git-pr-release-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
