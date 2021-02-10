@@ -1,7 +1,7 @@
 .a-card
   background-color: $base
   border-radius: .25rem
-  box-shadow: rgba(black, .2) 0 .0625rem .125rem
+  border: solid 1px $border-shade
   max-width: 50rem
   +margin(horizontal, auto)
   +media-breakpoint-down(lg)
@@ -13,7 +13,6 @@
       margin-top: 1rem
   &.is-borderd
     border: solid 4px $welcome-default-text
-    box-shadow: none
   [class*=col-] + [class*=col-] &:first-child
     +media-breakpoint-down(md)
       margin-top: 1rem
