@@ -7,9 +7,9 @@
   +position(absolute, right 0, top 100%, 2)
   width: 14rem
   background-color: $base
-  border: solid 1px $background-shade
+  border: solid 1px $border-shade
   border-radius: .25rem
-  box-shadow: rgba(black, .15) 0 0 .375rem
+  box-shadow: rgba(black, .2) 0 0 .375rem
   &.is-notification
     width: 15rem
 
@@ -19,7 +19,7 @@
     overflow-y: auto
 
 .header-dropdown__item-link
-  +text-block(.875rem 1.4, $main)
+  +text-block(.875rem 1.4, $default-text)
   +flex-link
   padding: .75rem
   transition: all .2s ease-out
