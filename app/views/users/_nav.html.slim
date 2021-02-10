@@ -7,5 +7,5 @@ nav.tab-nav
       - elsif current_user.adviser?
         - targets += %w[job_seeking]
       - targets.each do |target|
-        li.tab-nav__item
+        li.tab-nav__item(class="#{target == 'job_seeking' || target == 'all' ? 'is-only-mentor' : ''}")
           = link_to t("target.#{target}"), users_path(target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
