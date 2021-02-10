@@ -8,7 +8,7 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           - if admin_login?
-            li.page-header-actions__item
+            li.page-header-actions__item.is-mentor-only
               = link_to new_event_path, class: 'a-button is-md is-warning is-block' do
                 i.fa.fa-plus
                 | イベント作成

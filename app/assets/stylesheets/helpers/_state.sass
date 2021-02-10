@@ -17,10 +17,22 @@ html
     .is-mw-100
       max-width: 100%
 
-  .is-hidden-sm-down
-    +media-breakpoint-down(sm)
-      display: none
+    .is-hidden-sm-down
+      +media-breakpoint-down(sm)
+        display: none
 
-  *[hidden],
-  .is-hidden
-    display: none !important
+    *[hidden],
+    .is-hidden
+      display: none !important
+
+    .is-jc\:c
+      justify-content: center
+
+  .is-only-mentor
+    display: none
+    body.is-mentor-mode &
+      display: block
+  .is-only-mentor-flex
+    display: none
+    body.is-mentor-mode &
+      display: flex

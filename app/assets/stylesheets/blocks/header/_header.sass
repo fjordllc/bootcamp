@@ -6,12 +6,21 @@ $header-height: 3.125rem
   border-bottom: solid 1px $background
   +media-breakpoint-up(md)
     +position(sticky, top 0)
+  .switch
+    margin-left: 1rem
 
 .header__container
   display: flex
   justify-content: space-between
   align-items: center
   height: $header-height
+
+.header__start
+  display: flex
+
+.header__end
+  display: flex
+  height: 100%
 
 .header__title
   text-decoration: none

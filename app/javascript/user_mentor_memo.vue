@@ -1,9 +1,10 @@
 <template lang="pug">
-  .practice-content.is-memo
+  .is-memo
     section.a-card(v-if="!editing")
-      header.practice-content__header.card-header
-        h2.practice-content__title メンター向けメモ
-      .practice-content__body
+      header.card-header.is-sm
+        h2.card-header__title
+          | メンター向けユーザーメモ
+      .card-body
         .js-target-blank.is-long-text(
           v-html="markdownMemo")
       footer.card-footer
@@ -90,7 +91,7 @@ export default {
     token () {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
-    },   
+    },
     updateMemo () {
       let params = {
         user: {

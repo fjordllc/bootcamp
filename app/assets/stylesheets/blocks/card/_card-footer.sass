@@ -1,6 +1,8 @@
 .card-footer
   padding: .75rem 1.25rem
   border-top: $background solid 1px
+  .card-body + &
+    border-top: none
   &:last-child
     +border-radius(bottom, .25rem)
   .card-header + &

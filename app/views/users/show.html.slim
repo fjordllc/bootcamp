@@ -43,7 +43,6 @@ header.page-header
                 = simple_format h @user.description
               .user-data__tags
                 = render 'users/tags', user: @user
-
             footer.card-footer
               .card-footer-actions
                 ul.card-footer-actions__items
@@ -56,7 +55,11 @@ header.page-header
                   - elsif admin_login?
                     li.card-footer-actions__item
                       = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-footer-actions__action a-button is-sm is-secondary is-block'
+
         .col-xs-12.col-lg-7.col-xxl-6
+          - if mentor_login? || admin_login?
+            .a-card.is-user
+              #js-user-mentor-memo(data-user-id='#{@user.id}')
           - unless @user.total_learning_time.zero? || @user.mentor?
             = render 'users/grass', user: @user
           - if @user.github_account.present?
@@ -72,6 +75,3 @@ header.page-header
             = render '/users/borrowing_books', user: @user
 
         .col-xs-12.col-lg-5.col-xxl-6
-          .a-card.is-user
-            - if mentor_login? || admin_login?
-              #js-user-mentor-memo(data-user-id='#{@user.id}')
