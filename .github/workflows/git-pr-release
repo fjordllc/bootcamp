@@ -1,0 +1,16 @@
+name: Create PR from staging to master
+on:
+  push:
+    branches:
+      - master
+      - develop
+jobs:
+  gitPrRelease:
+    name: git-pr-release
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: git-pr-release
+      uses: bakunyo/git-pr-release-action@1.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
