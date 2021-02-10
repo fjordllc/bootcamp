@@ -4,7 +4,7 @@
   100%
     background-color: $base
 
-  
+
 .admin-table
   max-width: 110rem
   +margin(horizontal, auto)
@@ -13,12 +13,11 @@
     overflow-x: auto
 
 .admin-table__table
-  box-shadow: rgba(black, .2) 0 .0625rem .125rem
   border-radius: .25rem
   width: 100%
 
 .admin-table__header
-  background-color: $background-shade
+  background-color: $background
   border: solid 1px #aaaaaa
   +border-radius(top, .25rem)
 
@@ -56,7 +55,7 @@
     background-color: tint($warning, 90%)
   &[draggable="false"]
     background-color: $base
-    animation: grab-background-color 1.25s ease 0s 1 normal none running 
+    animation: grab-background-color 1.25s ease 0s 1 normal none running
 
 
 .admin-table__item-value
