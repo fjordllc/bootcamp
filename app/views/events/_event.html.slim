@@ -51,10 +51,9 @@
                 = link_to new_event_path(id: event), class: 'card-footer-actions__action a-button is-md is-warning is-block' do
                   i.fas.fa-copy#copy
                   | コピー
-              li.card-footer-actions__item
-                = link_to event_path(event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__action a-button is-md is-danger is-block' do
-                  i.fas.fa-trash-alt#delete
-                  | 削除
+              li.card-footer-actions__item.is-sub
+                = link_to event_path(event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__delete' do
+                  | 削除する
 
   = render 'users/icon',
     user: event.user,

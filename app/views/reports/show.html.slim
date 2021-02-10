@@ -72,10 +72,10 @@ header.page-header
                     = link_to new_report_path(id: @report), class: 'card-footer-actions__action a-button is-md is-warning is-block' do
                       i.fas.fa-copy#copy
                       | コピー
-                  li.card-footer-actions__item
-                    = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__action a-button is-md is-danger is-block' do
-                      i.fas.fa-trash-alt#delete
-                      | 削除
+                  li.card-footer-actions__item.is-sub
+                    = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__delete' do
+                      span#delete
+                        | 削除する
 
         - if admin_login? || adviser_login?
           #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
