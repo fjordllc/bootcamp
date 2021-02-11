@@ -2,7 +2,8 @@
 
 class Category < ApplicationRecord
   has_and_belongs_to_many :courses, dependent: :destroy # rubocop:disable Rails/HasAndBelongsToMany
-  has_and_belongs_to_many :practices, dependent: :destroy # rubocop:disable Rails/HasAndBelongsToMany
+  has_many :categories_practices, dependent: :destroy
+  has_many :practices, through: :categories_practices
   validates :name, presence: true
   validates :slug, presence: true
   acts_as_list

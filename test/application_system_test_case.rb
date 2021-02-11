@@ -19,7 +19,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   setup do
-    Bootcamp::Setup.attachment
     stub_github!
     stub_subscription_all!
   end

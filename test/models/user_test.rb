@@ -108,15 +108,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'is valid with 8 or more characters' do
-    Bootcamp::Setup.attachment
     user = users(:hatsuno)
     user.retire_reason = '辞' * 8
     assert user.save(context: :retire_reason_presence)
   end
 
   test 'is valid username' do
-    Bootcamp::Setup.attachment
-
     user = users(:komagata)
     user.login_name = 'abcdABCD1234'
     assert user.valid?
@@ -145,8 +142,6 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'twitter_account' do
-    Bootcamp::Setup.attachment
-
     user = users(:komagata)
     user.twitter_account = ''
     assert user.valid?
@@ -163,8 +158,6 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'is valid name_kana' do
-    Bootcamp::Setup.attachment
-
     user = users(:komagata)
     user.name_kana = 'コマガタ マサキ'
     assert user.valid?

@@ -1,10 +1,12 @@
 .side-tabs-contents
   +position(relative, 1)
-  
+
 .side-tabs-contents__item
   display: none
   .a-card
     border-top-left-radius: 0
+    max-height: calc(100vh - 100px)
+    overflow-y: auto
 
 #side-tabs-1:checked ~ .side-tabs-contents #side-tabs-content-1
   display: block

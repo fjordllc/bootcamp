@@ -1,0 +1,27 @@
+participation1:
+  user: hatsuno
+  event: event2
+  enable: true
+
+participation2:
+  user: hatsuno
+  event: event3
+  created_at: <%= Time.current + 1.hour %>
+  enable: false
+
+participation3:
+  user: komagata
+  event: event3
+  created_at: <%= Time.current %>
+  enable: true
+
+participation4:
+  user: sotugyou
+  event: event3
+  created_at: <%= Time.current + 2.hour %>
+  enable: false
+
+participation5:
+  user: sotugyou
+  event: event2
+  enable: true

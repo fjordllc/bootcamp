@@ -17,7 +17,12 @@ header.page-header
   .container
     .page-header__inner
       .page-header__start
-        h2.page-header__title = title
+        h2.page-header__title
+          = title
+        - if current_user.admin?
+          .page-header__optionable-action
+            = link_to course_sort_index_path(course_id: @course), class: 'a-button is-md is-secondary is-block' do
+              | 順番変更
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
@@ -46,7 +51,7 @@ header.page-header
         .categories-items__inner
           - @categories.each do |category|
             - if category.practices.present?
-              .categories-item.practices.js-show-handle
+              .categories-item.practices
                 a.categories-item__anchor(id="category-#{category.id}")
                 header.categories-item__header
                   h2.categories-item__title
@@ -54,9 +59,6 @@ header.page-header
                     - if current_user.completed_all_practices?(category)
                       span.stamp.is-circle.is-solved
                         | 完了
-                  - if current_user.admin?
-                    .categories-item__show-handle.js-show-handle__trigger
-                      i.fas.fa-cog
                 .categories-item__description
                   - if current_user.admin?
                     .categories-item__edit
@@ -66,7 +68,7 @@ header.page-header
                     = category.description
                 .categories-item__body
                   .category-practices.js-category-practices
-                    = render partial: 'practices/practice', collection: category.practices.order(:position), as: :practice, locals: { course: @course }
+                    = render partial: 'practices/practice', collection: category.practices, as: :practice, locals: { course: @course }
 
         nav.page-nav
           ul.page-nav__items

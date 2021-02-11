@@ -1,0 +1,82 @@
+learning1:
+  user: komagata
+  practice: practice1
+  status: "started"
+
+learning2:
+  user: komagata
+  practice: practice2
+  status: "complete"
+
+learning3:
+  user: komagata
+  practice: practice3
+  status: "unstarted"
+
+learning4:
+  user: machida
+  practice: practice2
+  status: "complete"
+
+learning5:
+  user: sotugyou
+  practice: practice2
+  status: "complete"
+
+learning6:
+  user: kimura
+  practice: practice1
+  status: "complete"
+
+learning7:
+  user: komagata
+  practice: practice4
+  status: "submitted"
+
+learning8:
+  user: machida
+  practice: practice5
+  status: "complete"
+  created_at: "2020-04-12 14:05:53.782503"
+  updated_at: "2020-04-12 14:05:53.782503"
+
+learning9:
+  user: machida
+  practice: practice6
+  status: "complete"
+  created_at: "2020-04-10 14:05:53.782503"
+  updated_at: "2020-04-10 14:05:53.782503"
+
+learning10:
+  user: machida
+  practice: practice7
+  status: "complete"
+  created_at: "2020-04-19 14:05:53.782503"
+  updated_at: "2020-04-19 14:05:53.782503"
+
+learning11:
+  user: machida
+  practice: practice8
+  status: "complete"
+  created_at: "2020-04-22 14:05:53.782503"
+  updated_at: "2020-04-22 14:05:53.782503"
+
+learning12:
+  user: hajime
+  practice: practice1
+  status: "started"
+
+learning13:
+  user: kananashi
+  practice: practice3
+  status: "started"
+
+learning14:
+  user: hajime
+  practice: practice27
+  status: "complete"
+
+learning15:
+  user: hajime
+  practice: practice48
+  status: "complete"
