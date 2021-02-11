@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master
-      - production
 jobs:
   gitPrRelease:
     name: git-pr-release
