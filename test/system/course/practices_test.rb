@@ -30,4 +30,18 @@ class Course::PracticesTest < ApplicationSystemTestCase
       assert page.has_no_link?(href: user_path)
     end
   end
+
+  test 'practices by category on practice list page will be in order' do
+    visit course_practices_path(courses(:course1).id)
+    within('.categories-items .categories-item:first-child .category-practices-item:first-child') do
+      assert_text 'OS X Mountain Lionをクリーンインストールする'
+    end
+  end
+
+  test 'navi menu on practice show page will be in order' do
+    visit practice_path(practices(:practice1).id)
+    within('.page-nav .page-nav__item:first-child') do
+      assert_text 'OS X Mountain Lionをクリーンインストールする'
+    end
+  end
 end

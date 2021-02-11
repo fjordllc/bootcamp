@@ -185,7 +185,7 @@ class EventsTest < ApplicationSystemTestCase
       click_link '参加申込'
     end
     assert_difference 'event.users.count', 1 do
-      assert_text '出席登録が完了しました。'
+      assert_text '参加登録しました。'
     end
   end
 

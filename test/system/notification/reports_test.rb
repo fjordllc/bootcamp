@@ -35,6 +35,11 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test '複数の日報が投稿されているときは通知が飛ばない' do
+    # 他のテストの通知に影響を受けないよう、テスト実行前に通知を削除する
+    login_user 'muryou', 'testtest'
+    visit '/notifications'
+    click_link '全て既読にする'
+
     login_user 'komagata', 'testtest'
     visit '/reports'
     click_link '日報作成'
@@ -54,11 +59,6 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     login_user 'muryou', 'testtest'
     assert page.has_css?('.has-no-count')
-    logout
-
-    login_user 'yamada', 'testtest'
-    assert page.has_css?('.has-no-count')
-    logout
   end
 
   test '研修生が日報を提出したら企業のアドバイザーに通知が飛ぶ' do

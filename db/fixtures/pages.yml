@@ -1,0 +1,33 @@
+page1:
+  title: test1
+  body: |-
+    ## test
+    test
+  user: komagata
+
+page2:
+  title: テスト
+  body: |-
+    ## テスト
+    テスト
+    [example](http://example.com)
+  user: komagata
+
+page3:
+  title: Docsページ
+  body: |-
+    ## 存在しないDocsページ遷移テスト
+    [存在しないページ](http://example.com/xxxxx)
+  user: komagata
+
+page4:
+  title: Bootcampの作業のページ
+  body: |-
+    ## テスト
+    テスト
+  user: komagata
+
+page5:
+  title: WIPのテスト
+  body: WIP
+  user: komagata

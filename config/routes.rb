@@ -49,6 +49,9 @@ Rails.application.routes.draw do
     namespace :products do
       resource :checker, only: %i(update), controller: "checker"
     end
+    namespace :categories_practices do
+      resources :position, only: %i(update)
+    end
   end
 
   namespace :admin do
@@ -96,7 +99,9 @@ Rails.application.routes.draw do
 
   resources :courses, only: %i(index) do
     resources :practices, only: %i(index), controller: "courses/practices" do
-      resource :position, only: %i(update), controller: "courses/practices/position"
+      collection do
+        resources :sort, only: %i(index), controller: "courses/practices/sort"
+      end
     end
   end
   resources :courses, except: %i(index show)
@@ -155,6 +160,10 @@ Rails.application.routes.draw do
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag
   get "users/tags/:tag", to: "users#index", as: :users_tag
+
+  namespace :users do
+    post "tags/:tag", to: "tags#update"
+  end
 
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"

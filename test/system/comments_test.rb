@@ -191,6 +191,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'suggest mention to mentor' do
     visit "/reports/#{reports(:report1).id}"
+    sleep 1 # NOTE: ここでsleepしないとテストが失敗する
     find('#js-new-comment').set('@')
     assert_selector 'span.mention', text: 'mentor'
   end

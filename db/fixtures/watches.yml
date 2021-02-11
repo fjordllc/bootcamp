@@ -1,0 +1,7 @@
+report1_watch_kimura:
+  user: kimura
+  watchable: report1 (Report)
+
+question1_watch_kimura:
+  user: kimura
+  watchable: question1 (Question)
