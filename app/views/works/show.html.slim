@@ -53,7 +53,6 @@ header.page-header
                   = link_to edit_work_path(@work), class: 'card-footer-actions_action a-button is-md is-primary is-block' do
                     i.fas.fa-pen
                     | 内容修正
-                li.card-footer-actions__item
-                  = link_to @work, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__action a-button is-md is-danger is-block' do
-                    i.fas.fa-trash-alt
-                    | 削除
+                li.card-footer-actions__item.is-sub
+                  = link_to @work, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__delete' do
+                    | 削除する

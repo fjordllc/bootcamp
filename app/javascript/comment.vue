@@ -29,10 +29,9 @@
               button.card-footer-actions__action.a-button.is-md.is-primary.is-block(@click="editComment")
                 i.fas.fa-pen
                 | 編集
-            li.card-footer-actions__item
-              button.card-footer-actions__action.a-button.is-md.is-danger.is-block(@click="deleteComment")
-                i.fas.fa-trash-alt
-                | 削除
+            li.card-footer-actions__item.is-sub
+              button.card-footer-actions__delete(@click="deleteComment")
+                | 削除する
     .thread-comment-form__form.a-card(v-show="editing")
       .thread-comment-form__tabs.js-tabs
         .thread-comment-form__tab.js-tabs__tab(
