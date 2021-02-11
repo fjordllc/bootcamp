@@ -1,7 +1,7 @@
 <template lang="pug">
   .page-body
     .container(v-if="loaded")
-      nav.pagination.is-top
+      nav.pagination
         pager-top(
           v-if="totalPages > 1 && products.length > 0"
           v-model='currentPage'
@@ -38,7 +38,7 @@
           i.far.fa-smile
         p.o-empty-massage__text
           | {{ title }}はありません
-      nav.pagination.is-bottom
+      nav.pagination
         pager-bottom(
           v-if="totalPages > 1 && products.length > 0"
           v-model='currentPage'
