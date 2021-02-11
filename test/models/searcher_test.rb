@@ -3,80 +3,52 @@
 require 'test_helper'
 
 class SearchableTest < ActiveSupport::TestCase
+  SEARCHABLE_CLASSES = [Report, Page, Practice, Question, Announcement, Comment, Answer, CorrectAnswer].freeze
+
+  def assert_includes_classes(results, *expected_classes)
+    actual_classes = results.map(&:class).uniq
+    expected_classes.each do |klass|
+      assert_includes actual_classes, klass
+    end
+    not_expected_classes = SEARCHABLE_CLASSES - expected_classes
+    not_expected_classes.each do |klass|
+      assert_not_includes actual_classes, klass
+    end
+  end
+
   test "returns all types when document_type argument isn't specified" do
-    result = Searcher.search('テスト').map(&:class)
-    assert_includes(result, Report)
-    assert_includes(result, Page)
-    assert_includes(result, Practice)
-    assert_includes(result, Question)
-    assert_includes(result, Announcement)
-    assert_includes(result, Comment)
-    assert_includes(result, Answer)
+    results = Searcher.search('テスト')
+    assert_includes_classes(results, Report, Page, Practice, Question, Announcement, Comment, Answer, CorrectAnswer)
   end
 
   test 'returns all types when document_type argument is :all' do
-    result = Searcher.search('テスト', document_type: :all).map(&:class)
-    assert_includes(result, Report)
-    assert_includes(result, Page)
-    assert_includes(result, Practice)
-    assert_includes(result, Question)
-    assert_includes(result, Announcement)
-    assert_includes(result, Comment)
-    assert_includes(result, Answer)
+    results = Searcher.search('テスト', document_type: :all)
+    assert_includes_classes(results, Report, Page, Practice, Question, Announcement, Comment, Answer, CorrectAnswer)
   end
 
   test 'returns only report type when document_type argument is :reports' do
-    result = Searcher.search('テスト', document_type: :reports).map(&:class)
-    assert_includes(result, Report)
-    assert_not_includes(result, Page)
-    assert_not_includes(result, Practice)
-    assert_not_includes(result, Question)
-    assert_not_includes(result, Announcement)
-    assert_includes(result, Comment)
-    assert_not_includes(result, Answer)
+    results = Searcher.search('テスト', document_type: :reports)
+    assert_includes_classes(results, Report, Comment)
   end
 
   test 'returns only page type when document_type argument is :pages' do
-    result = Searcher.search('テスト', document_type: :pages).map(&:class)
-    assert_not_includes(result, Report)
-    assert_includes(result, Page)
-    assert_not_includes(result, Practice)
-    assert_not_includes(result, Question)
-    assert_not_includes(result, Announcement)
-    assert_not_includes(result, Comment)
-    assert_not_includes(result, Answer)
+    results = Searcher.search('テスト', document_type: :pages)
+    assert_includes_classes(results, Page)
   end
 
   test 'returns only practice type when document_type argument is :practices' do
-    result = Searcher.search('テスト', document_type: :practices).map(&:class)
-    assert_not_includes(result, Report)
-    assert_not_includes(result, Page)
-    assert_includes(result, Practice)
-    assert_not_includes(result, Question)
-    assert_not_includes(result, Announcement)
-    assert_not_includes(result, Comment)
-    assert_not_includes(result, Answer)
+    results = Searcher.search('テスト', document_type: :practices)
+    assert_includes_classes(results, Practice)
   end
 
   test 'returns only question type when document_type argument is :questions' do
-    result = Searcher.search('テスト', document_type: :questions).map(&:class)
-    assert_not_includes(result, Report)
-    assert_not_includes(result, Page)
-    assert_not_includes(result, Practice)
-    assert_includes(result, Question)
-    assert_not_includes(result, Announcement)
-    assert_not_includes(result, Comment)
-    assert_includes(result, Answer)
+    results = Searcher.search('テスト', document_type: :questions)
+    assert_includes_classes(results, Question, Answer, CorrectAnswer)
   end
 
   test 'returns only announcement type when document_type argument is :announcements' do
-    result = Searcher.search('テスト', document_type: :announcements).map(&:class)
-    assert_not_includes(result, Report)
-    assert_not_includes(result, Page)
-    assert_not_includes(result, Practice)
-    assert_not_includes(result, Question)
-    assert_includes(result, Announcement)
-    assert_includes(result, Comment)
+    results = Searcher.search('テスト', document_type: :announcements)
+    assert_includes_classes(results, Announcement, Comment)
   end
 
   test 'sort search results in descending order of updated date' do
