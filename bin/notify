@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo 'start'
+echo $DEPLOY_NOTIFY_WEBHOOK_URL
+curl -H 'Content-Type: application/json' -X POST -d '{"content": "ggg"}' $DEPLOY_NOTIFY_WEBHOOK_URL
