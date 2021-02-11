@@ -1,5 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env ruby
+# frozen_string_literal: true
 
-echo 'start'
-echo $DEPLOY_NOTIFY_WEBHOOK_URL
-curl -H 'Content-Type: application/json' -X POST -d '{"content": "ggg"}' $DEPLOY_NOTIFY_WEBHOOK_URL
+require 'net/http'
+require 'json'
+
+puts 'start'
+puts ENV['DEPLOY_NOTIFY_WEBHOOK_URL']
+
+uri = URI.parse(ENV['DEPLOY_NOTIFY_WEBHOOK_URL'])
+http = Net::HTTP.new(uri.host, uri.port)
+http.use_ssl = true
+
+params = { "content" => "ステージング環境にデプロイしました。" }
+headers = { "Content-Type" => "application/json" }
+http.post(uri.path, params.to_json, headers)
