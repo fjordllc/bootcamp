@@ -247,7 +247,41 @@ section.welcome-section.is-administrator.is-bird#administrator
                     li.welcome-member__sns-item
                       = link_to 'https://twitter.com/beta_chelsea', class: 'welcome-member__sns-item-link' do
                         i.fas.fa-home
+          .col-xs-12.col-md-6
+            section.welcome-member
+              .welcome-member__inner
+                = image_tag('mentors/kakutani.png', class: 'welcome-member__image')
+                .welcome-member__body
+                  h3.welcome-member__name
+                    | 角谷 信太郎
+                    span.welcome-member__job
+                      | プログラマー
+                  p
+                    | 個人事業主。#{link_to '一般社団法人日本Rubyの会', 'https://ruby-no-kai.org'}理事。
+                    | #{link_to '株式会社永和システムマネジメント', 'https://www.esm.co.jp'}フェロー。
+                    | すべての#{link_to 'RubyKaigi', 'https://rubykaigi.org'}の運営に携わる。
+                    | #{link_to 'Asakusa.rb', 'http://asakusa.rubyist.net'}メンバー。
+                    | 好きなメソッドはObject#extend。
+                    | フィヨルドブートキャンプの前身である256インターンのきっかけをつくったと主張している。
+                    | 主な訳書に#{link_to '『Clean Agile』', 'https://tatsu-zine.com/books/clean-agile'}、
+                    | #{link_to '『なるほどUnixプロセス』', 'https://tatsu-zine.com/books/naruhounix'}、
+                    | #{link_to '『Rubyのしくみ』', 'https://tatsu-zine.com/books/ruby-under-a-microscope-ja'}、
+                    | #{link_to '『アジャイルサムライ』', 'https://tatsu-zine.com/books/agile-samurai-ja'}、
+                    | #{link_to '『アジャイルな見積りと計画づくり』', 'https://www.amazon.co.jp/dp/4839924023'}など。
 
+                  ul.welcome-member__sns
+                    li.welcome-member__sns-item
+                        = link_to 'https://github.com/kakutani', class: 'welcome-member__sns-item-link' do
+                          i.fab.fa-github-alt
+                    li.welcome-member__sns-item
+                      = link_to 'https://kakutani.com/', class: 'welcome-member__sns-item-link' do
+                        i.fas.fa-home
+                    li.welcome-member__sns-item
+                      = link_to 'https://twitter.com/kakutani', class: 'welcome-member__sns-item-link' do
+                        i.fab.fa-twitter
+                    li.welcome-member__sns-item
+                      = link_to 'https://www.facebook.com/kakutani', class: 'welcome-member__sns-item-link' do
+                        i.fab.fa-facebook-square
     section.welcome-child-section
       h3.welcome-child-section__title
         | 会社概要
