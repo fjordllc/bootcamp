@@ -7,7 +7,7 @@ module MetaTagsHelper
       site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
       reverse: true,
       charset: 'utf-8',
-      description: 'プログラミングスキルを身につけられるプログラマー就職支援サービス。スキルを身につけるための学習支援と、就職支援を行います。',
+      description: '現場の即戦力になれるプログラミングスクール。',
       viewport: 'width=device-width, initial-scale=1.0',
       og: {
         title: :title,
