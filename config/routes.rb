@@ -172,4 +172,6 @@ Rails.application.routes.draw do
 
   get "thanks", to: "static_pages#thanks"
   get "retire", to: "static_pages#retire"
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
