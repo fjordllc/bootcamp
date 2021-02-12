@@ -11,9 +11,6 @@
       h2.thread-list-item__title(itemprop='name')
         = link_to page, itemprop: 'url', class: 'thread-list-item__title-link' do
           = page.title
-      .thread-list-item__actions
-        = link_to [:edit, page], class: 'thread-list-item__actions-link' do
-          i.fas.fa-pen
     - if page.practice.present?
       h3.thread-list-item__sub-title
         = page.practice.title
