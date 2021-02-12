@@ -83,7 +83,6 @@ Rails.application.routes.draw do
     patch "graduation", to: "graduation#update", as: :graduation
     get "mail_notification", to: "mail_notification#update", as: :mail_notification
   end
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   resource :card, only: %i(show new create edit update), controller: "card"
   resource :current_user, only: %i(edit update), controller: "current_user" do
@@ -173,4 +172,6 @@ Rails.application.routes.draw do
 
   get "thanks", to: "static_pages#thanks"
   get "retire", to: "static_pages#retire"
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
