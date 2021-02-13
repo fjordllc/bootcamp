@@ -16,6 +16,6 @@ export default {
         window.open(link.href, '_target', 'noopener')
       })
     }
-  },
+  }
 }
 </script>
