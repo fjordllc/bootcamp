@@ -19,7 +19,7 @@
           | コメント
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-value
-            | {{ report.numberOfcomments }}
+            | ({{ report.numberOfComments }})
         .thread-list-item__user-icons
           comment-user-icon(v-for="comment in report.comments"
                             :key="comment.id"
