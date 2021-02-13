@@ -15,7 +15,7 @@ class Reaction < ApplicationRecord
     okwoman: 10,
     loudlycrying: 11,
     raised_hands: 12,
-    pray: 13,
+    pray: 13
   }
 
   belongs_to :user
@@ -24,7 +24,8 @@ class Reaction < ApplicationRecord
   validates :user_id, uniqueness: { scope: %i[reactionable_id reactionable_type kind] }
 
   def self.emojis
-    @emojis ||= kinds.keys.zip(%w[👍 👎 😄 😕 🎉 ❤️ 🚀 👀 💯 💪 🙆‍♀️ 😭 🙌 🙏]).to_h.with_indifferent_access
+    negative_emojis = %w[thumbsdown confused]
+    @emojis ||= kinds.keys.zip(%w[👍 👎 😄 😕 🎉 ❤️ 🚀 👀 💯 💪 🙆‍♀️ 😭 🙌 🙏]).to_h.with_indifferent_access.filter { |e| !negative_emojis.include?(e) }
   end
 
   def self.available_emojis
