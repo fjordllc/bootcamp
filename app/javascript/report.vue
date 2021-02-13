@@ -14,6 +14,10 @@
               i.fas.fa-pen
             a.thread-list-item__actions-link(:href="report.newURL")
               i.fas.fa-copy
+      .thread-list-item-meta
+        a.link_to.thread-header__author(:href="report.user.url") {{ report.user.login_name }}
+        time.thread-list-item-meta__datetime {{ report.reportedOn }}
+          | の日報
       .thread-list-item-meta(v-if="report.hasAnyComments")
         .thread-list-item-meta__label
           | コメント
@@ -26,10 +30,6 @@
                             :comment="comment")
         time.thread-list-item-meta__datetime(datetime="report.lastCommentDatetime" pubdate="'pubdate'")
           | 〜 {{ report.lastCommentDate }}
-      .thread-list-item-meta
-        a.link_to.thread-header__author(:href="report.user.url") {{ report.user.login_name }}
-        time.thread-list-item-meta__datetime {{ report.reportedOn }}
-          | の日報
       .stamp.stamp-approve(v-if="this.report.hasCheck")
         h2.stamp__content.is-title 確認済
         time.stamp__content.is-created-at {{ report.checkDate }}
