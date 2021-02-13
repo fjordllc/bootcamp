@@ -1,5 +1,5 @@
 <template lang="pug">
-  .thread-list-item
+  .thread-list-item(:class="wipClass")
     .thread-list-item__inner
       .thread-list-item__author
         a.thread-header__author(:href="report.user.url")
@@ -50,6 +50,9 @@ export default {
     },
     daimyoClass() {
       return { 'is-daimyo': this.report.user.daimyo }
+    },
+    wipClass() {
+      return { 'is-wip': this.report.wip }
     },
   }
 }
