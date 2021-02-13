@@ -281,6 +281,37 @@ section.welcome-section.is-administrator.is-bird#administrator
                     li.welcome-member__sns-item
                       = link_to 'https://www.facebook.com/kakutani', class: 'welcome-member__sns-item-link' do
                         i.fab.fa-facebook-square
+          .col-xs-12.col-md-6
+            section.welcome-member
+              .welcome-member__inner
+                = image_tag('mentors/tadaaki.jpg', class: 'welcome-member__image')
+                .welcome-member__body
+                  h3.welcome-member__name
+                    | 多田 亜希
+                    span.welcome-member__job
+                      | プログラマー
+                  p
+                    | #{link_to 'hey, Inc.', 'https://hey.jp/'}所属。
+                    | たくさんの人達が楽しく過ごせることを目指して、毎日ふわふわ過ごしています。
+                    | また、業務やイベントでプログラミング未経験の方、学生インターン、新卒入社社員や実務経験の浅い社員に対してプログラミング研修を行なってきました。
+                    | #{link_to 'Tokyu Ruby Kaigi', 'https://tokyurubykaigi.github.io/tokyu13/'}実行委員。
+                    | #{link_to 'Shinjuku.rb', 'https://shinjukurb.connpass.com/'}管理者。
+                    | 好きなメソッドはObject#object_idです。
+
+                  ul.welcome-member__sns
+                    li.welcome-member__sns-item
+                        = link_to 'https://github.com/torinoko', class: 'welcome-member__sns-item-link' do
+                          i.fab.fa-github-alt
+                    li.welcome-member__sns-item
+                      = link_to 'https://tdak.hateblo.jp/', class: 'welcome-member__sns-item-link' do
+                        i.fas.fa-home
+                    li.welcome-member__sns-item
+                      = link_to 'https://twitter.com/tdakak', class: 'welcome-member__sns-item-link' do
+                        i.fab.fa-twitter
+                    li.welcome-member__sns-item
+                      = link_to 'https://www.facebook.com/aki.tada', class: 'welcome-member__sns-item-link' do
+                        i.fab.fa-facebook-square
+
     section.welcome-child-section
       h3.welcome-child-section__title
         | 会社概要
