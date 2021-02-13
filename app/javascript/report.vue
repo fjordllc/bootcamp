@@ -21,7 +21,9 @@
           .thread-list-item-meta__comment-count-value
             | {{ report.numberOfcomments }}
         .thread-list-item__user-icons
-          comment-user-icon(v-for="(comment, index) in report.comments" :key="comment.id" :comment="comment")
+          comment-user-icon(v-for="comment in report.comments"
+                            :key="comment.id"
+                            :comment="comment")
         time.thread-list-item-meta__datetime(datetime="report.lastCommentDatetime" pubdate="'pubdate'")
           | 〜 {{ report.lastCommentDate }}
       .thread-list-item-meta
