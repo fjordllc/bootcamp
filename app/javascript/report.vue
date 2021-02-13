@@ -51,6 +51,6 @@ export default {
     daimyoClass() {
       return { 'is-daimyo': this.report.user.daimyo }
     },
-  },
+  }
 }
 </script>
