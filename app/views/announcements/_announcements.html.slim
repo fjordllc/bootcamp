@@ -13,8 +13,6 @@
           = announcement.title
       - if admin_login? || current_user == announcement.user
         .thread-list-item__actions
-          = link_to edit_announcement_path(announcement), class: 'thread-list-item__actions-link' do
-            i.fas.fa-pen
           = link_to new_announcement_path(id: announcement), class: 'thread-list-item__actions-link' do
             i.fas.fa-copy
     .thread-list-item-meta
