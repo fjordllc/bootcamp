@@ -7,7 +7,7 @@
       header.thread-list-item__header
         .thread-list-item__header-title-container
           .thread-list-item__header-icon.is-wip(v-if="report.wip") WIP
-          h2.thread-list-item__title(itemprop='name')
+          h2.thread-list-item__title
             a.thread-list-item__title-link.js-unconfirmed-link(:href="report.url") {{ report.user.daimyo ? '★' + report.title : report.title }}
           .thread-list-item__actions(v-if="currentUserId == report.user.id")
             a.thread-list-item__actions-link(:href="report.editURL")
