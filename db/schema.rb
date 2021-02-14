@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_18_071628) do
+ActiveRecord::Schema.define(version: 2021_02_14_134753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -338,7 +338,7 @@ ActiveRecord::Schema.define(version: 2021_01_18_071628) do
     t.datetime "updated_at"
     t.date "reported_on"
     t.boolean "wip", default: false, null: false
-    t.integer "emotion"
+    t.integer "emotion", default: 2, null: false
     t.datetime "published_at"
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
