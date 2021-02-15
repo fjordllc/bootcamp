@@ -2,6 +2,7 @@
   display: flex
   justify-content: center
   flex-wrap: wrap
+  align-items: flex-end
   +margin(horizontal, -.375rem)
   margin-bottom: -.625rem
 
@@ -11,6 +12,14 @@
   +media-breakpoint-up(md)
     flex: 0 0 14rem
     max-width: 50%
+    &.is-sub
+      flex: 0 0 auto
   +media-breakpoint-down(sm)
     flex-basis: 100%
     max-width: 100%
+
+.card-footer-actions__delete
+  +hover-link-reversal
+  +text-block(.875rem 1.4, $muted-text)
+  &:hover
+    color: $danger

@@ -61,10 +61,9 @@ header.page-header
                   = link_to edit_question_path(@question), class: 'card-footer-actions__action a-button is-md is-primary is-block', id: 'js-shortcut-edit' do
                     i.fas.fa-pen#new
                     | 内容修正
-                li.card-footer-actions__item
-                  = link_to question_path(@question), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'js-delete card-footer-actions__action a-button is-md is-danger is-block' do
-                    i.fas.fa-trash-alt#delete
-                    | 削除
+                li.card-footer-actions__item.is-sub
+                  = link_to question_path(@question), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'js-delete card-footer-actions__delete' do
+                    | 削除する
 
       = render 'users/icon',
         user: @question.user,

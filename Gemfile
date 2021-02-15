@@ -71,7 +71,7 @@ group :development do
   # not default
   gem 'bullet'
   gem 'bundle_outdated_formatter'
-  gem 'letter_opener'
+  gem 'letter_opener_web', '~> 1.0'
   gem 'rack-mini-profiler', require: false
   gem 'rubocop-fjord', require: false
   gem 'rubocop-minitest'
