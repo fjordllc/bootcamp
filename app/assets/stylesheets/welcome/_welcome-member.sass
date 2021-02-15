@@ -1,6 +1,6 @@
 .welcome-members
-  max-width: 50rem
-  +margin(horizontal, auto)
+  [class*=col-]
+    margin-bottom: 1.5rem
 
 .welcome-member
   background-color: rgba($base, .8)
@@ -8,19 +8,26 @@
   padding: 1.25rem 1.5rem 1.5rem
   border-radius: .25rem
   height: 100%
-  padding-bottom: 1rem
   +media-breakpoint-down(sm)
     height: auto
     [class*=col-]:not(:last-child) &
       margin-bottom: 1rem
 
-.welcome-member__inner
+.welcome-member__header
   display: flex
+  align-items: flex-start
   +media-breakpoint-down(sm)
     display: block
 
+.welcome-member__start
+  flex: 0 0 4.5rem
+
+.welcome-member__end
+  flex: 1
+  padding-left: .75rem
+
 .welcome-member__image
-  +size(7rem)
+  width: 100%
   border-radius: .25rem
   margin-right: 1rem
   +media-breakpoint-down(sm)
@@ -29,7 +36,7 @@
     display: block
 
 .welcome-member__name
-  +text-block(1.25rem 1.45 0 .6em, 600)
+  +text-block(1.25rem 1.45, 600)
   +media-breakpoint-down(sm)
     font-size: 1rem
     display: flex
@@ -39,7 +46,8 @@
 
 .welcome-member__job
   +text-block(.75rem 1.45, 400)
-  margin-left: .5rem
+  +media-breakpoint-down(sm)
+    text-align: center
 
 .welcome-member__sns
   display: flex
@@ -52,3 +60,26 @@
 
 .welcome-member__sns-item-link
   +text-block(1.125rem 1.45, $default-text)
+  transition: all .2s ease-out
+  &:hover
+    color: $welcome-pink
+
+.welcome-member__body
+  margin-top: .5rem
+  font-size: .875rem
+  a
+    color: #2e6cab
+    +hover-link-reversal
+  p
+    line-height: 1.5
+  img
+    width: 6.25rem
+    float: right
+    margin-left: 1rem
+    margin-bottom: .75rem
+  .is-3-books
+    width: 8.25rem
+  .is-a-book
+    width: 5rem
+  .is-4-books
+    width: 9rem

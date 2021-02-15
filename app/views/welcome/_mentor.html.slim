@@ -1,0 +1,28 @@
+section.welcome-member
+  .welcome-member__header
+    .welcome-member__start
+      = image_tag("mentors/#{image}", class: 'welcome-member__image', alt: "#{name}のアイコン画像")
+    .welcome-member__end
+      h3.welcome-member__name
+        = name
+      p.welcome-member__job
+        = job
+      ul.welcome-member__sns
+        - if defined?(github_id)
+          li.welcome-member__sns-item
+            = link_to "https://github.com/#{github_id}", class: 'welcome-member__sns-item-link' do
+              i.fab.fa-github-alt
+        - if defined?(blog_url)
+          li.welcome-member__sns-item
+            = link_to blog_url, class: 'welcome-member__sns-item-link' do
+              i.fas.fa-home
+        - if defined?(twitter_id)
+          li.welcome-member__sns-item
+            = link_to "https://twitter.com/#{twitter_id}", class: 'welcome-member__sns-item-link' do
+              i.fab.fa-twitter
+        - if defined?(facebook_id)
+          li.welcome-member__sns-item
+            = link_to "https://www.facebook.com/#{facebook_id}", class: 'welcome-member__sns-item-link' do
+              i.fab.fa-facebook-square
+  .welcome-member__body
+    = yield
