@@ -7,57 +7,8 @@ section.welcome-section.is-administrator.is-bird#administrator
     .welcome-section__description
       p
         | 東京の明大前駅にある株式会社フィヨルドという会社です。自社で運営しているサービスを開発しながら、お客様からお金をいただいてお客様のシステムを開発する仕事（受託開発）をしています。
-    section.welcome-child-section
-      h3.welcome-child-section__title
-        | メンター
-      .welcome-members
-        .row.is-gutter-width-32
-          .col-xs-12.col-md-6
-            section.welcome-member
-              .welcome-member__inner
-                = image_tag('komagata.jpg', class: 'welcome-member__image')
-                .welcome-member__body
-                  h3.welcome-member__name
-                    | 駒形真幸
-                    span.welcome-member__job
-                      | プログラマー
-                  ul.welcome-member__sns
-                    li.welcome-member__sns-item
-                      = link_to 'https://github.com/komagata', class: 'welcome-member__sns-item-link' do
-                        i.fab.fa-github-alt
-                    li.welcome-member__sns-item
-                      = link_to 'https://github.com/komagata', class: 'welcome-member__sns-item-link' do
-                        i.fas.fa-home
-                    li.welcome-member__sns-item
-                      = link_to 'https://twitter.com/komagata', class: 'welcome-member__sns-item-link' do
-                        i.fab.fa-twitter
-                    li.welcome-member__sns-item
-                      = link_to 'https://www.facebook.com/komagata1111', class: 'welcome-member__sns-item-link' do
-                        i.fab.fa-facebook-square
 
-          .col-xs-12.col-md-6
-            section.welcome-member
-              .welcome-member__inner
-                = image_tag('machida.jpg', class: 'welcome-member__image')
-                .welcome-member__body
-                  h3.welcome-member__name
-                    | 町田 哲平
-                    span.welcome-member__job
-                      | デザイナー
-                  ul.welcome-member__sns
-                    li.welcome-member__sns-item
-                      = link_to 'https://github.com/machida', class: 'welcome-member__sns-item-link' do
-                        i.fab.fa-github-alt
-                    //
-                      li.welcome-member__sns-item
-                        = link_to ''  , class: 'welcome-member__sns-item-link' do
-                          i.fas.fa-home
-                    li.welcome-member__sns-item
-                      = link_to 'https://twitter.com/machida', class: 'welcome-member__sns-item-link' do
-                        i.fab.fa-twitter
-                    li.welcome-member__sns-item
-                      = link_to 'https://www.facebook.com/teppeimachida', class: 'welcome-member__sns-item-link' do
-                        i.fab.fa-facebook-square
+    = render 'welcome/mentors'
 
     section.welcome-child-section
       h3.welcome-child-section__title
