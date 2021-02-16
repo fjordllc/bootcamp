@@ -6,13 +6,6 @@ header.page-header
       h2.page-header__title
         = title
 
-- if @searchables.size.zero?
-  .page-notice
-    .container
-      .page-notice__inner
-        p
-          | '#{params[:word]}'に一致する情報は見つかりませんでした。別のキーワードをお試しください。
-
 .page-body
   .container
     = paginate @searchables, position: 'top'
