@@ -33,13 +33,13 @@ class Cache
     end
 
     def self_assigned_product_count(current_user_id)
-      Rails.cache.fetch 'self_assigned_product_count' do
+      Rails.cache.fetch("#{current_user_id}-self_assigned_product_count") do
         Product.self_assigned_product(current_user_id).unchecked.count
       end
     end
 
-    def delete_self_assigned_product_count
-      Rails.cache.delete 'self_assigned_product_count'
+    def delete_self_assigned_product_count(current_user_id)
+      Rails.cache.delete "#{current_user_id}-self_assigned_product_count"
     end
 
     def not_solved_question_count

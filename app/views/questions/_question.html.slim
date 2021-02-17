@@ -10,10 +10,6 @@
       h2.thread-list-item__title(itemprop='name')
         = link_to question, itemprop: 'url', class: 'thread-list-item__title-link' do
           = question.title
-      .thread-list-item__actions
-        - if current_user == question.user
-          = link_to edit_question_path(question), class: 'thread-list-item__actions-link' do
-            i.fas.fa-pen
     - if question.practice
       h3.thread-list-item__sub-title
         = question.practice.title
