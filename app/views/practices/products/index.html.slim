@@ -15,6 +15,10 @@ header.page-header
 
 = render 'page_tabs', resource: @practice
 
+- if current_user.student? && (@my_product.nil? || @my_product.checks.empty?)
+  div
+    p プラクティスを完了するまで他の人の提出物は見れません。
+
 .page-body
   .container
     = paginate @products, position: 'top'
