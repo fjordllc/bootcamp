@@ -74,6 +74,11 @@ header.page-header
               .card-footer
                 .card-footer-actions
                   ul.card-footer-actions__items
+                    - if @product.wip?
+                      li.card-footer-actions__item
+                        = form_for @product do |f|
+                          = f.hidden_field :body
+                          = f.submit '提出する', class: 'a-button is-md is-warning is-block'
                     li.card-footer-actions__item
                       = link_to edit_product_path(@product), class: 'card-footer-actions_action a-button is-md is-primary is-block' do
                         i.fas.fa-pen
