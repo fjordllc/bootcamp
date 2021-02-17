@@ -96,7 +96,8 @@ class Product < ApplicationRecord
     return false if other_checker_exists?(current_user_id)
 
     self.checker_id = checker_id ? nil : current_user_id
-    save
+    Cache.delete_self_assigned_product_count(current_user_id)
+    save!
   end
 
   def other_checker_exists?(current_user_id)

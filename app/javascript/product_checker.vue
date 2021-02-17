@@ -6,7 +6,6 @@
     .a-button.is-sm.is-block.thread-list-item__assignee-name(v-else)
       span
         | {{ this.name }}
-    
 </template>
 <script>
 export default {
