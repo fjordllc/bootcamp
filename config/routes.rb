@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'watches/index'
   root to: "home#index"
 
   get "test", to: "home#test", as: "test"
