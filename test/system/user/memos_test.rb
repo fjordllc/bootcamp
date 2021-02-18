@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class User::MemoTest < ApplicationSystemTestCase
-  test 'update memorandom without page transition' do
+  test 'update memorandom' do
     login_user 'komagata', 'testtest'
     visit user_path(users(:hatsuno))
     click_button '編集'
@@ -11,6 +11,23 @@ class User::MemoTest < ApplicationSystemTestCase
     click_button '保存する'
     wait_for_vuejs
     assert_text 'ユーザーメンターメモ'
+    visit user_path(users(:hatsuno))
+    assert_text 'ユーザーメンターメモ'
+  end
+
+  test 'do not update memorandom when cancel' do
+    login_user 'komagata', 'testtest'
+    visit user_path(users(:kimura))
+    assert_text 'kimuraさんのメモ'
+    click_button '編集'
+    fill_in 'js-user-mentor-memo', with: 'ユーザーメンターメモ'
+    click_button 'キャンセル'
+    wait_for_vuejs
+    assert_no_text 'ユーザーメンターメモ'
+    assert_text 'kimuraさんのメモ'
+    visit user_path(users(:kimura))
+    assert_no_text 'ユーザーメンターメモ'
+    assert_text 'kimuraさんのメモ'
   end
 
   test 'admin can see memorandom' do
