@@ -70,8 +70,8 @@ export default {
       return response.json()
     })
     .then(json => {
-      if (json['memo']){
-        this.memo = json['memo']
+      if (json['mentor_memo']){
+        this.memo = json['mentor_memo']
       }
     })
     .catch(error => {
@@ -95,7 +95,7 @@ export default {
     updateMemo () {
       let params = {
         user: {
-          memo: this.memo
+          mentor_memo: this.memo
         }
       }
       fetch(`/api/users/${this.userId}`, {
@@ -129,7 +129,7 @@ export default {
           return response.json()
         })
         .then(json => {
-          this.memo = json['memo']
+          this.memo = json['mentor_memo']
         })
         .catch(error => {
           console.warn('Failed to parsing', error)
