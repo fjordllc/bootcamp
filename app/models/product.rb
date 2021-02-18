@@ -111,4 +111,16 @@ class Product < ApplicationRecord
   def checker_name
     checker_id ? User.find(checker_id).login_name : nil
   end
+
+  def self.products_at_specific_day_ago(products, date)
+    products.order(published_at: :desc).select do |product|
+      product.published_at.strftime('%F') == Time.zone.today.prev_day(date).to_s
+    end
+  end
+
+  def self.products_before_specific_day_ago(products, date)
+    products.order(published_at: :desc).select do |product|
+      product.published_at.strftime('%F') < Time.zone.today.prev_day(date - 1).to_s
+    end
+  end
 end
