@@ -82,6 +82,7 @@ steps:
     name: asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest
     args: ['bin/notify']
     env:
+      - DB_NAME=$_DB_NAME
       - DEPLOY_NOTIFY_WEBHOOK_URL=$_DEPLOY_NOTIFY_WEBHOOK_URL
 images:
   - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
