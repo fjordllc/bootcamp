@@ -1,0 +1,49 @@
+.popular-tags
+  +position(fixed, right 0, top 0, bottom 0, 3)
+  +size(14rem 100vh)
+  background-color: #cbcbcb
+  overflow-y: auto
+  border-left: solid 1px #b9b9b9
+  +media-breakpoint-down(lg)
+    display: none
+
+.popular-tags__header
+  border-bottom: solid 1px #b9b9b9
+
+.popular-tags__header-inner
+  +padding(vertical, .75rem)
+
+.popular-tags__title
+  +text-block(.875rem 1.4, center)
+
+.popular-tags__item
+  &:not(:last-child)
+    border-bottom: dashed 1px #b9b9b9
+
+.popular-tags__item-link
+  +flex-link
+  +padding(horizontal, 1rem .5rem)
+  +padding(vertical, .5rem)
+  min-height: 2.75rem
+  align-items: center
+  transition: all .2s ease-out
+  &:hover
+    background-color: rgba(black, .05)
+
+.popular-tags__item-link-inner
+  +position(relative)
+  flex: 1
+  padding-right: 2em
+
+.popular-tags__item-count
+  +position(absolute, right 0, top 2px)
+  +text-block(.625rem, flex center $reversal-text)
+  justify-content: center
+  align-items: center
+  +padding(horizontal, .75em)
+  background-color: $main
+  height: 1.5em
+  border-radius: 1em
+
+.popular-tags__item-name
+  +text-block(.875rem 1.4, $main)
