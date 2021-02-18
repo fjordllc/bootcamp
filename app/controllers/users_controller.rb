@@ -45,7 +45,7 @@ class UsersController < ApplicationController
                     .group('tags.id, tags.name, tags.taggings_count')
                     .where(taggings: { taggable_type: 'User' })
                     .order('taggings_count desc')
-                    .limit(100)
+                    .limit(20)
   end
   # rubocop:enable Metrics/MethodLength
 
