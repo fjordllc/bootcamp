@@ -15,7 +15,7 @@
           :container-class="'pagination__items'"
           :page-class="'pagination__item'"
           :page-link-class="'pagination__item-link'"
-          :disabled-class="'pager-disable'"
+          :disabled-class="'is-disabled'"
           :active-class="'is-active'"
           :prev-class="'is-prev pagination__item'"
           :prev-link-class="'is-prev pagination__item-link'"
@@ -52,7 +52,7 @@
           :container-class="'pagination__items'"
           :page-class="'pagination__item'"
           :page-link-class="'pagination__item-link'"
-          :disabled-class="'pager-disable'"
+          :disabled-class="'is-disabled'"
           :active-class="'is-active'"
           :prev-class="'is-prev pagination__item'"
           :prev-link-class="'is-prev pagination__item-link'"
@@ -169,14 +169,3 @@ export default {
   }
 }
 </script>
-
-
-<style>
-  .pager-disable {
-    display: none;
-  }
-
-  .pagination__item-link {
-    outline: none;
-  }
-</style>
