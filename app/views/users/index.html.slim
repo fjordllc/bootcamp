@@ -1,4 +1,4 @@
-- content_for(:extra_body_classes, 'no-recent-reports popular-tags')
+- content_for(:extra_body_classes, 'no-recent-reports has-popular-tags')
 
 - title 'ユーザー一覧'
 
@@ -26,12 +26,18 @@ main.page-main
   header.page-main-header
     .container
       .page-main-header__inner
-        h1.page-main-header__title
-          - if params[:tag]
-            | タグ「#{params[:tag]}」のユーザー（#{@users.total_count}）
-            - unless current_user.tag_list.include?(params[:tag])
-              = link_to 'このタグを自分にも追加', "/users/tags/#{params[:tag]}", method: 'post', class: 'a-button is-sm is-secondary'
-          - else
+        - if params[:tag]
+          .page-main-header__start
+            h1.page-main-header__title
+              | タグ「#{params[:tag]}」のユーザー（#{@users.total_count}）
+          .page-main-header__end
+            - if current_user.tag_list.include?(params[:tag])
+              .a-button.is-md.is-disabled
+                | 追加済み
+            - else
+              = link_to 'このタグを自分に追加', "/users/tags/#{params[:tag]}", method: 'post', class: 'a-button is-md is-secondary'
+        - else
+          h1.page-main-header__title
             | #{t("target.#{@target}")}（#{@users.total_count}）
   .page-body
     = paginate @users, position: 'top'
