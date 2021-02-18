@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'watches/index'
   root to: "home#index"
 
   get "test", to: "home#test", as: "test"
@@ -12,6 +11,7 @@ Rails.application.routes.draw do
   get "tos", to: "welcome#tos", as: "tos"
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
+
 
   namespace :scheduler do
     resource :statistic, only: %i(show), controller: "statistic"
@@ -165,7 +165,7 @@ Rails.application.routes.draw do
   namespace :users do
     post "tags/:tag", to: "tags#update"
   end
-
+  get '/watches/:id', to: 'watches#index', as: 'watches'
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"
   post "user_sessions" => "user_sessions#create"
