@@ -2,68 +2,110 @@ product1:
   practice: practice1
   user: yamada
   body: テストの提出物1です。
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+  published_at: <%= Time.current %>
 
 product2:
   practice: practice1
   user: kimura
   body: テストの提出物2です。
+  created_at: <%= Time.current - 1.day %>
+  updated_at: <%= Time.current - 1.day %>
+  published_at: <%= Time.current - 1.day %>
 
 product3:
   practice: practice2
   user: sotugyou
   body: 確認済みの提出物
+  created_at: <%= Time.current - 2.day %>
+  updated_at: <%= Time.current - 2.day %>
+  published_at: <%= Time.current - 2.day %>
 
 product4:
   practice: practice2
   user: yamada
   body: テストの提出物4です。
+  created_at: <%= Time.current - 3.day %>
+  updated_at: <%= Time.current - 3.day %>
+  published_at: <%= Time.current - 3.day %>
 
 product5:
   practice: practice2
   user: kimura
   body: テストの提出物5です。
+  created_at: <%= Time.current - 4.day %>
+  updated_at: <%= Time.current - 4.day %>
+  published_at: <%= Time.current - 4.day %>
 
 product6:
   practice: practice3
   user: sotugyou
   body: 確認待ちの提出物
+  created_at: <%= Time.current - 5.day %>
+  updated_at: <%= Time.current - 5.day %>
+  published_at: <%= Time.current - 5.day %>
 
 product7:
   practice: practice3
   user: yamada
   body: テストの提出物7です。
+  created_at: <%= Time.current - 6.day %>
+  updated_at: <%= Time.current - 6.day %>
+  published_at: <%= Time.current - 6.day %>
 
 product8:
   practice: practice3
   user: kimura
   body: テストの提出物8です。
+  created_at: <%= Time.current - 7.day %>
+  updated_at: <%= Time.current - 7.day %>
+  published_at: <%= Time.current - 7.day %>
 
 product9:
   practice: practice4
   user: yamada
   body: テストの提出物9です。
+  created_at: <%= Time.current - 8.day %>
+  updated_at: <%= Time.current - 8.day %>
+  published_at: <%= Time.current - 8.day %>
 
 product10:
   practice: practice4
   user: kimura
   body: テストの提出物10です。
+  created_at: <%= Time.current - 9.day %>
+  updated_at: <%= Time.current - 9.day %>
+  published_at: <%= Time.current - 9.day %>
 
 product11:
   practice: practice2
   user: hatsuno
   body: テストの提出物11です。
+  created_at: <%= Time.current - 10.day %>
+  updated_at: <%= Time.current - 10.day %>
+  published_at: <%= Time.current - 10.day %>
 
 product12:
   practice: practice5
   user: yamada
   body: リアクションテスト
+  created_at: <%= Time.current - 11.day %>
+  updated_at: <%= Time.current - 11.day %>
+  published_at: <%= Time.current - 11.day %>
 
 product13:
   practice: practice1
   user: kensyu
   body: 研修の提出物です。
+  created_at: <%= Time.current - 12.day %>
+  updated_at: <%= Time.current - 12.day %>
+  published_at: <%= Time.current - 12.day %>
 
 product14:
   practice: practice1
   user: daimyo
   body: 研修の提出物です。
+  created_at: <%= Time.current - 13.day %>
+  updated_at: <%= Time.current - 13.day %>
+  published_at: <%= Time.current - 13.day %>
