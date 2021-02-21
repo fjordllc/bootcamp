@@ -1,2 +1,5 @@
-h1 Watches#index
-p Find me in app/views/watches/index.html.slim
+- @watches.each do |watch|
+  h2.thread-list-item__title
+          = link_to watch.watchable, class: 'thread-list-item__title-link js-unconfirmed-link' do
+            span.thread-list-item__title-link-label
+              = watch.watchable.title
