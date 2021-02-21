@@ -59,6 +59,7 @@ class User < ApplicationRecord
   has_many :participations, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :answers,      dependent: :destroy
+  has_many :watches, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
