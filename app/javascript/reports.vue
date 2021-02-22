@@ -4,9 +4,8 @@
       .fas.fa-spinner.fa-pulse
       |  ロード中
   .reports(v-else-if="reports.length > 0 || !isUncheckedReportsPage")
-    nav.pagination
+    nav.pagination(v-if="totalPages > 1")
       paginate(
-        v-if="totalPages > 1"
         v-model="currentPage"
         :page-count="totalPages"
         :page-range="9"
@@ -39,9 +38,8 @@
       unconfirmed-link(
         v-if="isUncheckedReportsPage"
         label="未チェックの日報を一括で開く")
-    nav.pagination
+    nav.pagination(v-if="totalPages > 1")
       paginate(
-        v-if="totalPages > 1"
         v-model="currentPage"
         :page-count="totalPages"
         :page-range="9"
