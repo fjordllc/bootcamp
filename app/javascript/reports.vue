@@ -1,9 +1,10 @@
 <template lang="pug">
-  .reports
-    .empty(v-if="reports === null")
+  .reports(v-if="reports === null")
+    .empty
       .fas.fa-spinner.fa-pulse
       |  ロード中
-    .reports__items(v-else-if="reports.length > 0 || !isUncheckedReportsPage")
+  .reports(v-else-if="reports.length > 0 || !isUncheckedReportsPage")
+    nav.pagination
       paginate(
         v-if="totalPages > 1"
         v-model="currentPage"
@@ -17,9 +18,10 @@
         :first-last-button="true"
         :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
         :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
-        :container-class="'page-body pagination__items container'"
+        :container-class="'pagination__items'"
         :page-class="'pagination__item'"
         :page-link-class="'pagination__item-link'"
+        :disabled-class="'is-disabled'"
         :prev-class="'pagination__item is-prev'"
         :prev-link-class="'pagination__item-link is-prev'"
         :next-class="'pagination__item is-next'"
@@ -27,16 +29,17 @@
         :active-class="'is-active'"
         :active-link-class="'is-active'"
         :hide-prev-next="true")
-      .reports__items
-        .thread-list.a-card
-          report(
-            v-for="report in reports"
-            :key="report.id"
-            :report="report"
-            :current-user-id="currentUserId")
+    .thread-list.a-card
+      .thread-list__items
+        report(
+          v-for="report in reports"
+          :key="report.id"
+          :report="report"
+          :current-user-id="currentUserId")
       unconfirmed-link(
         v-if="isUncheckedReportsPage"
         label="未チェックの日報を一括で開く")
+    nav.pagination
       paginate(
         v-if="totalPages > 1"
         v-model="currentPage"
@@ -50,9 +53,10 @@
         :first-last-button="true"
         :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
         :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
-        :container-class="'page-body pagination__items container'"
+        :container-class="'pagination__items'"
         :page-class="'pagination__item'"
         :page-link-class="'pagination__item-link'"
+        :disabled-class="'is-disabled'"
         :prev-class="'pagination__item is-prev'"
         :prev-link-class="'pagination__item-link is-prev'"
         :next-class="'pagination__item is-next'"
@@ -60,11 +64,11 @@
         :active-class="'is-active'"
         :active-link-class="'is-active'"
         :hide-prev-next="true")
-    .o-empty-massage(v-else)
-      .o-empty-massage__icon
-        i.far.fa-smile
-      p.o-empty-massage__text
-        | 未チェックの日報はありません
+  .o-empty-massage(v-else)
+    .o-empty-massage__icon
+      i.far.fa-smile
+    p.o-empty-massage__text
+      | 未チェックの日報はありません
 </template>
 <script>
 import Report from './report.vue'
@@ -146,14 +150,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-.pagination__item.disabled{
-  display: none;
-}
-
-.pagination__item-link{
-  outline: none;
-}
-
-</style>

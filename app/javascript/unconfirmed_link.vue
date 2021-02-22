@@ -1,9 +1,8 @@
 <template lang="pug">
-  .unconfirmed_links
-    .thread-admin-tools
-      ul.thread-admin-tools__items
-        li.thread-admin-tools__item
-          button.thread-unconfirmed-links-form__action(class="a-button is-md is-primary" @click="openUnconfirmedItems()") {{ label }}
+  .thread-admin-tools
+    ul.thread-admin-tools__items
+      li.thread-admin-tools__item
+        button.thread-unconfirmed-links-form__action(class="a-button is-md is-primary" @click="openUnconfirmedItems()") {{ label }}
 </template>
 <script>
 
