@@ -84,7 +84,7 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user 'yamada', 'testtest'
     visit '/notifications'
     wait_for_vuejs
-    within first('div.pagination') do
+    within first('nav.pagination') do
       find('a', text: '2').click
     end
     # 2ページ目に1番古い通知が表示されることを確認
@@ -150,7 +150,7 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user 'yamada', 'testtest'
     visit '/notifications?page=2'
     wait_for_vuejs
-    within first('div.pagination') do
+    within first('nav.pagination') do
       find('a', text: '1').click
     end
     page.go_back
