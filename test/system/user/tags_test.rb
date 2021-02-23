@@ -10,8 +10,8 @@ class User::TagsTest < ApplicationSystemTestCase
     assert_no_text '猫'
 
     visit '/users/tags/猫'
-    click_on 'このタグを自分にも追加'
-    assert_no_text 'このタグを自分にも追加'
+    click_on 'このタグを自分に追加'
+    assert_no_text 'このタグを自分に追加'
 
     visit user_path(users(:hatsuno))
     assert_text '猫'

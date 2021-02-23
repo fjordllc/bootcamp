@@ -3,6 +3,8 @@
 require 'active_record/fixtures'
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', %i[
+  acts_as_taggable_on/taggings
+  acts_as_taggable_on/tags
   users
   announcements
   answers

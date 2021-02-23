@@ -1,0 +1,16 @@
+.popular-tags
+  header.popular-tags__header
+    .container
+      .popular-tags__header-inner
+        h2.popular-tags__title
+          | ユーザータグ一覧
+  .popular-tags__items
+    ul.popular-tags__items
+      - @popular_tags.each do |tag|
+        li.popular-tags__item
+          = link_to "/users/tags/#{tag.name}", class: 'popular-tags__item-link' do
+            .popular-tags__item-link-inner
+              .popular-tags__item-name
+                = tag.name
+              .popular-tags__item-count
+                = tag.taggings_count
