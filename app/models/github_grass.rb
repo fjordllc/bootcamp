@@ -21,7 +21,7 @@ class GithubGrass
       ''
     else
       svg = extract_svg(fetch_page)
-      setViewBox(svg)
+      add_view_box_attribute(svg)
       localize(svg).to_s
     end
   rescue StandardError
@@ -58,7 +58,7 @@ class GithubGrass
     svg
   end
 
-  def setViewBox(svg)
+  def add_view_box_attribute(svg)
     width = svg.attribute('width').value
     height = svg.attribute('height').value
     svg.attribute('viewBox', "0 0 #{width} #{height}")
