@@ -20,7 +20,9 @@ class GithubGrass
     if Rails.env.test?
       ''
     else
-      localize(extract_svg(fetch_page)).to_s
+      svg = extract_svg(fetch_page)
+      setViewBox(svg)
+      localize(svg).to_s
     end
   rescue StandardError
     ''
@@ -54,6 +56,12 @@ class GithubGrass
       month.children = MONTHS[month.children.text.to_sym]
     end
     svg
+  end
+
+  def setViewBox(svg)
+    width = svg.attribute('width').value
+    height = svg.attribute('height').value
+    svg.attribute('viewBox', "0 0 #{width} #{height}")
   end
 
   def github_url(name)
