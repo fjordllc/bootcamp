@@ -24,7 +24,11 @@ Rails.application.routes.draw do
     resources :categories, only: %i(index destroy) do
       resource :position, only: %i(update), controller: "categories/position"
     end
-    resources :notifications, only: %i(index)
+    resources :notifications, only: %i(index) do
+      collection do
+        resources :unread, only: %i(index), controller: "/api/notifications/unread"
+      end
+    end
     resources :comments, only: %i(index create update destroy)
     resources :answers, only: %i(index create update destroy) do
       resource :correct_answer, only: %i(create update)

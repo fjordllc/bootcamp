@@ -4,12 +4,7 @@ class NotificationsController < ApplicationController
   before_action :require_login, only: %i[index show]
   before_action :set_my_notification, only: %i[show]
 
-  def index
-    @notifications = current_user.notifications
-                                 .reads_with_avatar
-                                 .order(created_at: :desc)
-                                 .page(params[:page])
-  end
+  def index; end
 
   def show
     path = @notification.read_attribute :path
