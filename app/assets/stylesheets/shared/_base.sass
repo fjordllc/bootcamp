@@ -50,6 +50,12 @@ body
   body.no-recent-reports &,
   body.is-admin-page &
     margin-right: 0
+  body.has-popular-tags &
+    margin-right: 14rem
+    +media-breakpoint-down(lg)
+      margin-right: 0
+    +media-breakpoint-down(sm)
+      margin-right: 0
   body.is-error-page &
     padding-top: 4rem
     overflow-y: auto
@@ -89,3 +95,6 @@ body
 
 [class*=a-button]:not(input)
   +padding(vertical, 0)
+
+textarea
+  overflow-anchor: none

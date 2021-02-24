@@ -37,6 +37,14 @@ class UsersController < ApplicationController
                .order(updated_at: :desc)
                .users_role(@target)
     end
+
+    @popular_tags = ActsAsTaggableOn::Tag
+                    .joins(:taggings)
+                    .select('tags.id, tags.name, COUNT(taggings.id) as taggings_count')
+                    .group('tags.id, tags.name, tags.taggings_count')
+                    .where(taggings: { taggable_type: 'User' })
+                    .order('taggings_count desc')
+                    .limit(20)
   end
   # rubocop:enable Metrics/MethodLength
 
