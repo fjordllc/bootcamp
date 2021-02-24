@@ -19,10 +19,14 @@
 
 .pagination__item
   +padding(horizontal, .125rem)
+  &.is-disabled
+    opacity: .4
+    pointer-events: none
 
 .pagination__item-link
   +size(2.5rem)
   border-radius: 50%
+  outline: none
   +text-block(.875rem 1, $muted-text)
   +flex-link
   justify-content: center
@@ -31,5 +35,8 @@
   &:hover
     background-color: rgba(black, .1)
   &.is-active
+    background-color: $main
+    color: $reversal-text
+  .pagination__item.is-active &
     background-color: $main
     color: $reversal-text

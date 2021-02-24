@@ -4,6 +4,7 @@
     "@johmun/vue-tags-input": "^2.0.1",
     "@rails/webpacker": "^4.2.0",
     "autosize": "^4.0.2",
+    "dayjs": "^1.10.4",
     "escape-html": "^1.0.3",
     "escape-string-regexp": "^2.0.0",
     "eslint": "^5.7.0",
@@ -34,6 +35,7 @@
     "vue-loader": "^15.7.2",
     "vue-template-compiler": "^2.6.10",
     "vuedraggable": "^2.24.3",
+    "vuejs-paginate": "^2.1.0",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
