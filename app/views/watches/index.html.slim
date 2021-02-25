@@ -1,5 +1,30 @@
+- title 'Watch中一覧'
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+
+.page-body
+    = paginate @watches, position: 'top'
 - @watches.each do |watch|
-  h2.thread-list-item__title
-          = link_to watch.watchable, class: 'thread-list-item__title-link js-unconfirmed-link' do
-            span.thread-list-item__title-link-label
+  .container
+    .thread-list.a-card
+      - document = matched_document(watch.watchable)
+      .thread-list-item(class="is-#{document.class.to_s.tableize.singularize}")
+       .thread-list-item__inner
+        .thread-list-item__label
+          = t("activerecord.models.#{document.class.to_s.tableize.singularize}")
+        header.thread-list-item__header
+          .thread-list-item__title
+            = link_to watch.watchable, class: 'thread-list-item__title-link js-unconfirmed-link' do
+             span.thread-list-item__title-link-label
               = watch.watchable.title
+        .thread-list-item__body
+          .thread-list-item__summury
+            = md_summury(filtered_message(watch.watchable), 90)
+            .thread-list-item-meta
+             .thread-list-item-meta__user
+              = link_to watch.watchable.user.login_name, watch.watchable.user, class: 'thread-header__author'
+              time.thread-list-item-meta__updated-at
+                = l watch.watchable.updated_at
