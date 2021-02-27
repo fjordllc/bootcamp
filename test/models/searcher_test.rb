@@ -251,6 +251,12 @@ class SearchableTest < ActiveSupport::TestCase
   test "don't return retired user data" do
     yameo = users(:yameo)
     result = Searcher.search(yameo.name)
-    assert_not_includes(result, yameo.name)
+    assert_not_includes(result, yameo)
+  end
+
+  test "return not retired user data" do
+    hajime = users(:hajime)
+    result = Searcher.search(hajime.name)
+    assert_includes(result, hajime)
   end
 end
