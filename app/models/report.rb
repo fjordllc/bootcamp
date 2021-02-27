@@ -28,10 +28,12 @@ class Report < ApplicationRecord
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
   validates :learning_times, length: { minimum: 1, message: ': 学習時間を入力してください。' }
+  validates :emotion, presence: true
 
   after_create ReportCallbacks.new
   after_update ReportCallbacks.new
   after_destroy ReportCallbacks.new
+  after_initialize :set_default_emotion, if: :new_record?
 
   columns_for_keyword_search :title, :description
 
@@ -83,5 +85,9 @@ class Report < ApplicationRecord
           .where(user: user)
           .order(:created_at)
           .index(self) + 1
+  end
+
+  def set_default_emotion
+    self.emotion ||= 2
   end
 end
