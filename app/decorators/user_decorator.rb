@@ -73,4 +73,8 @@ module UserDecorator
   def title
     login_name
   end
+
+  def hide_user?
+    true
+  end
 end
