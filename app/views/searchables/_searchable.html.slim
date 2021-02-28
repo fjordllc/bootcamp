@@ -11,7 +11,7 @@
         = md_summury(filtered_message(searchable), 90)
       .thread-list-item-meta
         .thread-list-item-meta__user
-          - if !searchable.try(:hide_user?)
+          - unless searchable.try(:hide_user?)
             = link_to searchable.user.login_name, searchable.user, class: 'thread-header__author'
         time.thread-list-item-meta__updated-at(datetime="#{searchable.updated_at.to_datetime}" pubdate='pubdate')
           = l searchable.updated_at
