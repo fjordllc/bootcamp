@@ -5,10 +5,7 @@
       = t("activerecord.models.#{document.class.to_s.tableize.singularize}")
     header.thread-list-item__header
       .thread-list-item__title
-        - if document.instance_of?(User)
-          = link_to document.login_name, searchable_url(searchable), class: 'thread-list-item__title-link'
-        - else
-          = link_to document.title, searchable_url(searchable), class: 'thread-list-item__title-link'
+        = link_to document.title, searchable_url(searchable), class: 'thread-list-item__title-link'
     .thread-list-item__body
       .thread-list-item__summury
         = md_summury(filtered_message(searchable), 90)
