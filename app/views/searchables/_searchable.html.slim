@@ -1,11 +1,11 @@
-- document = matched_document(searchable)
-.thread-list-item(class="is-#{document.class.to_s.tableize.singularize}")
+- result = matched_document(searchable)
+.thread-list-item(class="is-#{result.class.to_s.tableize.singularize}")
   .thread-list-item__inner
     .thread-list-item__label
-      = t("activerecord.models.#{document.class.to_s.tableize.singularize}")
+      = t("activerecord.models.#{result.class.to_s.tableize.singularize}")
     header.thread-list-item__header
       .thread-list-item__title
-        = link_to document.title, searchable_url(searchable), class: 'thread-list-item__title-link'
+        = link_to result.title, searchable_url(searchable), class: 'thread-list-item__title-link'
     .thread-list-item__body
       .thread-list-item__summury
         = md_summury(filtered_message(searchable), 90)
