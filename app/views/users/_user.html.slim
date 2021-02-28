@@ -25,6 +25,13 @@
                     i.fab.fa-slack
                   .users-item-names__slack-value
                     = user.slack_account
+            - if user.discord_account.present?
+              li.users-item-names__item
+                .users-item-names__slack
+                  .users-item-names__slack-label
+                    i.fab.fa-discord
+                  .users-item-names__slack-value
+                    = user.discord_account
           = render 'users/user_secret_attributes', user: user
           .users-item__icon
             = render 'users/icon',
