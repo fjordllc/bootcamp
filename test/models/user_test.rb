@@ -293,4 +293,25 @@ class UserTest < ActiveSupport::TestCase
     result = Searcher.search(hajime.name)
     assert_includes(result, hajime)
   end
+
+  test 'columns_for_keyword_searchの設定がsearch_by_keywordsに反映されていることを確認' do
+    komagata = users(:komagata)
+    komagata.update!(login_name: 'komagata1234',
+                     name: 'こまがた1234',
+                     name_kana: 'コマガタイチニサンヨン',
+                     twitter_account: 'komagata1234_tw',
+                     facebook_url: 'http://www.facebook.com/komagata1234',
+                     blog_url: 'http://komagata1234.org',
+                     github_account: 'komagata1234_github',
+                     slack_account: 'komagata1234_slack',
+                     description: '平日１０〜１９時勤務です。1234')
+    assert_includes(User.search_by_keywords({ word: komagata.login_name, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.name, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.name_kana, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.twitter_account, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.facebook_url, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.blog_url, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.github_account, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.slack_account, commentable_type: nil }), komagata)
+  end
 end
