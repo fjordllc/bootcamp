@@ -48,4 +48,22 @@ class HomeTest < ApplicationSystemTestCase
     visit '/'
     assert_no_selector '.card-list__item-link.is-slack'
   end
+
+  test 'GET / without discord_account' do
+    login_user 'hajime', 'testtest'
+
+    visit '/'
+    within('.card-list__item-link.is-discord') do
+      assert_text 'Discordアカウントを登録してください。'
+    end
+  end
+
+  test 'GET / with discord_account' do
+    user = users(:hajime)
+    user.discord_account = 'hajime#1111'
+    login_user user, 'testtest'
+
+    visit '/'
+    assert_no_selector '.card-list__item-link.is-discord'
+  end
 end
