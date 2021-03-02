@@ -38,12 +38,14 @@ class Check::ReportsTest < ApplicationSystemTestCase
     assert_text '確認済'
   end
 
-  test 'success product checking cancel' do
+  test 'success report checking cancel' do
     login_user 'machida', 'testtest'
     visit "/reports/#{reports(:report2).id}"
     click_button '日報を確認'
     click_button '日報の確認を取り消す'
-    assert_no_text '確認済'
+    within('.thread') do
+      assert_no_text '確認済'
+    end
     assert has_button? '日報を確認'
   end
 
