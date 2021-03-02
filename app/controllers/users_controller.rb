@@ -86,7 +86,7 @@ class UsersController < ApplicationController
     if @user.save
       UserMailer.welcome(@user).deliver_now
       notify_to_slack!
-      notify_to_chat(@user.name)
+      notify_to_chat(@user)
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
       render 'new'
@@ -126,7 +126,7 @@ class UsersController < ApplicationController
       if @user.save
         UserMailer.welcome(@user).deliver_now
         notify_to_slack!
-        notify_to_chat(@user.name)
+        notify_to_chat(@user)
         redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       else
         render 'new'
@@ -142,8 +142,8 @@ class UsersController < ApplicationController
                              channel: '#fjord'
   end
 
-  def notify_to_chat(name)
-    ChatNotifier.message "#{name}さんがJOINしました。"
+  def notify_to_chat(user)
+    ChatNotifier.message "#{user.name}さんが新たなメンバーとしてJOINしました🎉\r#{url_for(user)}"
   end
 
   def user_params
