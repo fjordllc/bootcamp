@@ -88,6 +88,16 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物を更新しました。'
   end
 
+  test 'update product if product page is WIP' do
+    login_user 'yamada', 'testtest'
+    product = products(:product1)
+    visit "/products/#{product.id}/edit"
+    click_button 'WIP'
+    visit "/products/#{product.id}"
+    click_button '提出する'
+    assert_text '提出物を更新しました。'
+  end
+
   test 'delete product' do
     login_user 'yamada', 'testtest'
     product = products(:product1)
