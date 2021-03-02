@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
 
-
   namespace :scheduler do
     resource :statistic, only: %i(show), controller: "statistic"
     resource :link_checker, only: %i(show), controller: "link_checker"
