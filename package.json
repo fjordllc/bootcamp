@@ -24,7 +24,7 @@
     "markdown-it-task-lists": "^2.1.1",
     "mem": "^4.0.0",
     "moment": "^2.24.0",
-    "prismjs": "^1.21.0",
+    "prismjs": "^1.23.0",
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
     "select2": "^4.0.7-rc.0",
