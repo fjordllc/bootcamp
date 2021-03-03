@@ -42,6 +42,7 @@ class QuestionsController < ApplicationController
     @question.user = current_user
     if @question.save
       notify_to_slack(@question)
+      notify_to_chat(@question)
       redirect_to @question, notice: '質問を作成しました。'
     else
       render :new
@@ -97,6 +98,10 @@ class QuestionsController < ApplicationController
                                fallback: 'question body.',
                                text: question.description
                              }]
+  end
+
+  def notify_to_chat(question)
+    ChatNotifier.message("質問：#{question.title}が作成されました。\r#{question_url(question)}")
   end
 
   def set_watch

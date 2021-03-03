@@ -6,17 +6,7 @@ class ProductsController < ApplicationController
   before_action :require_staff_login, only: :index
   before_action :set_watch, only: %i[show]
 
-  def index
-    @products = Product
-                .includes(
-                  :practice,
-                  { comments: { user: :avatar_attachment } },
-                  { user: [{ avatar_attachment: :blob }, :company] },
-                  { checks: { user: [:company] } }
-                )
-                .order(published_at: :desc)
-                .page(params[:page])
-  end
+  def index; end
 
   def show
     @product = find_product
@@ -47,7 +37,10 @@ class ProductsController < ApplicationController
     @product.user = current_user
     set_wip
     if @product.save
-      notify_to_slack(@product) unless @product.wip?
+      unless @product.wip?
+        notify_to_slack(@product)
+        notify_to_chat(@product)
+      end
       redirect_to @product, notice: notice_message(@product, :create)
     else
       render :new
@@ -86,6 +79,11 @@ class ProductsController < ApplicationController
                                fallback: 'product body.',
                                text: product.body
                              }]
+  end
+
+  def notify_to_chat(product)
+    name = product.user.login_name.to_s
+    ChatNotifier.message("#{name}さんが提出物：#{product.title}を提出しました。\r#{url_for(product)}")
   end
 
   def find_product

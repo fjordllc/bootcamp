@@ -15,5 +15,6 @@ class Practices::ProductsController < ApplicationController
                 .where(practice: @practice)
                 .order(created_at: :desc)
                 .page(params[:page])
+    @my_product = @products.find_by(user: current_user)
   end
 end

@@ -64,6 +64,9 @@ header.page-header
                 #js-watch(data-watchable-id="#{@product.id}", data-watchable-type='Product')
                 .thread-header__raw
                   = link_to 'Raw', product_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank', rel: 'noopener'
+            - if @product.wip?
+              .thread__warning-message
+                | まだ提出されていません。<br class='is-hidden-md-up'>完成したら「提出する」をクリック！
             #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type='Product')
             .thread__description.js-target-blank.is-long-text.js-markdown-view
               =  @product.practice.goal
@@ -74,6 +77,11 @@ header.page-header
               .card-footer
                 .card-footer-actions
                   ul.card-footer-actions__items
+                    - if @product.wip?
+                      li.card-footer-actions__item
+                        = form_for @product do |f|
+                          = f.hidden_field :body
+                          = f.submit '提出する', class: 'a-button is-md is-warning is-block'
                     li.card-footer-actions__item
                       = link_to edit_product_path(@product), class: 'card-footer-actions_action a-button is-md is-primary is-block' do
                         i.fas.fa-pen

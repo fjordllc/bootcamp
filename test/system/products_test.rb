@@ -3,6 +3,8 @@
 require 'application_system_test_case'
 require 'minitest/mock'
 
+PAGINATES_PER = 50
+
 class ProductsTest < ApplicationSystemTestCase
   teardown do
     wait_for_vuejs
@@ -51,77 +53,6 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text 'プラクティスを完了するまで他の人の提出物は見れません。'
   end
 
-  test 'non-staff user can not see listing unchecked products' do
-    login_user 'hatsuno', 'testtest'
-    visit '/products/unchecked'
-    assert_text '管理者・アドバイザー・メンターとしてログインしてください'
-  end
-
-  test 'advisor can not see listing unchecked products' do
-    login_user 'advijirou', 'testtest'
-    visit '/products'
-    assert_no_link '未チェック'
-  end
-
-  test 'mentor can see a button to open to open all unchecked products' do
-    login_user 'komagata', 'testtest'
-    visit '/products/unchecked'
-    assert_button '未チェックの提出物を一括で開く'
-  end
-
-  test 'non-staff user can not see listing not-responded products' do
-    login_user 'hatsuno', 'testtest'
-    visit '/products/not_responded'
-    assert_text '管理者・アドバイザー・メンターとしてログインしてください'
-  end
-
-  test 'advisor can not see listing not-responded products' do
-    login_user 'advijirou', 'testtest'
-    visit '/products'
-    assert_no_link '未返信'
-  end
-
-  test 'mentor can see a button to open to open all not-responded products' do
-    login_user 'komagata', 'testtest'
-    visit '/products/not_responded'
-    assert_button '未返信の提出物を一括で開く'
-  end
-
-  test 'non-staff user can not see listing self-assigned products' do
-    login_user 'hatsuno', 'testtest'
-    visit '/products/self_assigned'
-    assert_text '管理者・アドバイザー・メンターとしてログインしてください'
-  end
-
-  test 'advisor can not see listing self-assigned products' do
-    login_user 'advijirou', 'testtest'
-    visit '/products'
-    assert_no_link '自分の担当'
-  end
-
-  test 'mentor can see a button to open to open all self-assigned products' do
-    login_user 'komagata', 'testtest'
-    checker = users(:komagata)
-    Product.create!(
-      body: 'test',
-      user: users(:kimura),
-      practice: practices(:practice5),
-      checker_id: checker.id
-    )
-    visit '/products/self_assigned'
-    assert_button '自分の担当の提出物を一括で開く'
-  end
-
-  test 'not display products in listing self-assigned if self-assigned products all checked' do
-    login_user 'komagata', 'testtest'
-    product = products(:product3)
-    checker = users(:komagata)
-    product.checker_id = checker.id
-    product.save
-    visit '/products/self_assigned'
-    assert_text 'レビューを担当する提出物はありません'
-  end
-
   test 'create product' do
     login_user 'yamada', 'testtest'
     visit "/products/new?practice_id=#{practices(:practice6).id}"
@@ -157,6 +88,16 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物を更新しました。'
   end
 
+  test 'update product if product page is WIP' do
+    login_user 'yamada', 'testtest'
+    product = products(:product1)
+    visit "/products/#{product.id}/edit"
+    click_button 'WIP'
+    visit "/products/#{product.id}"
+    click_button '提出する'
+    assert_text '提出物を更新しました。'
+  end
+
   test 'delete product' do
     login_user 'yamada', 'testtest'
     product = products(:product1)
@@ -164,6 +105,7 @@ class ProductsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
+    wait_for_vuejs
     assert_text '提出物を削除しました。'
   end
 
@@ -180,6 +122,7 @@ class ProductsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
+    wait_for_vuejs
     assert_text '提出物を削除しました。'
   end
 
@@ -290,5 +233,75 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '担当する', match: :first
     click_button '担当から外れる', match: :first
     assert_button '担当する'
+  end
+
+  test 'click on the pager button' do
+    login_user 'komagata', 'testtest'
+
+    (PAGINATES_PER - Product.count + 1).times do |n|
+      Product.create!(
+        body: 'test',
+        user: users(:hajime),
+        practice: practices("practice#{n + 1}".to_sym)
+      )
+    end
+
+    visit '/products'
+    within first('.pagination') do
+      find('a', text: '2').click
+    end
+
+    all('.pagination .is-active').each do |active_button|
+      assert active_button.has_text? '2'
+    end
+    assert_current_path('/products?page=2')
+  end
+
+  test 'specify the page number in the URL' do
+    login_user 'komagata', 'testtest'
+
+    (PAGINATES_PER - Product.count + 1).times do |n|
+      Product.create!(
+        body: 'test',
+        user: users(:hajime),
+        practice: practices("practice#{n + 1}".to_sym)
+      )
+    end
+
+    visit '/products?page=2'
+    all('.pagination .is-active').each do |active_button|
+      assert active_button.has_text? '2'
+    end
+    assert_current_path('/products?page=2')
+  end
+
+  test 'clicking the browser back button will show the previous page' do
+    login_user 'komagata', 'testtest'
+
+    (PAGINATES_PER - Product.count + 1).times do |n|
+      Product.create!(
+        body: 'test',
+        user: users(:hajime),
+        practice: practices("practice#{n + 1}".to_sym)
+      )
+    end
+
+    visit '/products?page=2'
+    within first('.pagination') do
+      find('a', text: '1').click
+    end
+    page.go_back
+    assert_current_path('/products?page=2')
+    all('.pagination .is-active').each do |active_button|
+      assert active_button.has_text? '2'
+    end
+  end
+
+  test 'When the number of pages is one, the pager will not be displayed' do
+    login_user 'komagata', 'testtest'
+
+    visit '/products'
+
+    assert_not page.has_css?('.pagination')
   end
 end
