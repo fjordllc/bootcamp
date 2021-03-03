@@ -558,8 +558,8 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'reports are ordered in descending of reported_on' do
     visit reports_path
-    precede = reports(:report2).title
-    succeed = reports(:report1).title
+    precede = reports(:report24).title
+    succeed = reports(:report23).title
     within '.thread-list' do
       assert page.text.index(precede) < page.text.index(succeed)
     end
@@ -567,8 +567,9 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'reports are ordered in descending of created_at if reported_on is same' do
     visit reports_path
-    precede = reports(:report5).title
-    succeed = reports(:report1).title
+    precede = reports(:report18).title
+    succeed = reports(:report17).title
+
     within '.thread-list' do
       assert page.text.index(precede) < page.text.index(succeed)
     end
