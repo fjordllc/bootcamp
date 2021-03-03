@@ -5,6 +5,8 @@ require 'test_helper'
 class ReportTest < ActiveSupport::TestCase
   test '#previous' do
     assert_equal reports(:report1), reports(:report2).previous
+    assert_equal reports(:report22), reports(:report26).previous
+    assert_equal reports(:report27), reports(:report22).previous
   end
 
   test '#next' do
