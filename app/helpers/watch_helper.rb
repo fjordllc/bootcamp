@@ -10,14 +10,10 @@ module WatchHelper
   end
 
   def published_or_created_at(watches)
-    if which_watchable_type(watches) && watches.watchable.published_at
+    if watches.watchable.has_attribute?(:published_at) && watches.watchable.published_at
       watches.watchable.published_at
     else
       watches.watchable.created_at
     end
-  end
-
-  def which_watchable_type(watches)
-    watches.watchable_type == 'Product' || watches.watchable_type == 'Report'
   end
 end
