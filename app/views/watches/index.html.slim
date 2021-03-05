@@ -26,5 +26,5 @@ header.page-header
                = link_to watch.watchable.user.login_name, watch.watchable.user, class: 'thread-header__author'
                time.thread-list-item-meta__updated-at
                 = l display_date(watch)
-                - if watch.watchable_type == "Report"
+                - if watch.watchable_type == 'Report'
                   = 'の日報'
