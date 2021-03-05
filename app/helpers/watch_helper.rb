@@ -9,8 +9,10 @@ module WatchHelper
     end
   end
 
-  def published_or_created_at(watches)
-    if watches.watchable.has_attribute?(:published_at) && watches.watchable.published_at
+  def display_date(watches)
+    if watches.watchable_type == 'Report'
+      watches.watchable.reported_on
+    elsif watches.watchable.has_attribute?(:published_at) && watches.watchable.published_at
       watches.watchable.published_at
     else
       watches.watchable.created_at
