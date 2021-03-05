@@ -18,6 +18,14 @@ class AnnouncementsController < ApplicationController
 
   def new
     @announcement = Announcement.new(target: 'students')
+
+    return unless params[:id]
+
+    announcement = Announcement.find(params[:id])
+    @announcement.title       = announcement.title
+    @announcement.description = announcement.description
+    @announcement.target = announcement.target
+    flash.now[:notice] = 'お知らせをコピーしました。'
   end
 
   def edit
