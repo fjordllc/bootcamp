@@ -11,6 +11,8 @@ class API::AnnouncementsController < API::BaseController
                                  .page(params[:page])
   end
 
+  def show; end
+
   def new
     @announcement = Announcement.new(target: 'students')
   end
