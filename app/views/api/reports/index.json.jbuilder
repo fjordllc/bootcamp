@@ -17,9 +17,9 @@ json.reports @reports do |report|
     json.lastCommentDatetime report.comments.last.updated_at.to_datetime
     json.lastCommentDate l report.comments.last.updated_at, format: :date_and_time
     json.comments do
-      json.array! report.comments.uniq{ |comment| comment.user } do |comment|
-        json.user_icon comment.user.avatar_url
-        json.user_id comment.user.id
+      json.array! report.comments.commented_users do |user|
+        json.user_icon user.avatar_url
+        json.user_id user.id
       end
     end
   end
