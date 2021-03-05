@@ -5,7 +5,7 @@ require 'application_system_test_case'
 module Mention
   class AnswersTest < ApplicationSystemTestCase
     setup do
-      login_user 'komagata', 'testtest'
+      login_user 'kimura', 'testtest'
     end
 
     test 'mention from a answer' do
@@ -17,7 +17,7 @@ module Mention
 
       login_user 'hatsuno', 'testtest'
       visit '/notifications'
-      assert_text 'komagataさんからメンションがきました。'
+      assert_text 'kimuraさんからメンションがきました。'
     end
   end
 end
