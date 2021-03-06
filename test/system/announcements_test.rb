@@ -32,6 +32,22 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_selector '.thread-comment-form'
   end
 
+  test 'announcement has a copy form when user is admin' do
+    login_user 'komagata', 'testtest'
+    visit "/announcements/#{announcements(:announcement4).id}"
+    click_link 'コピー'
+
+    assert_text 'お知らせをコピーしました。'
+  end
+
+  test 'announcement has a copy form when user is author' do
+    login_user 'kimura', 'testtest'
+    visit "/announcements/#{announcements(:announcement4).id}"
+    click_link 'コピー'
+
+    assert_text 'お知らせをコピーしました。'
+  end
+
   test 'users except admin cannot publish an announcement' do
     login_user 'kimura', 'testtest'
     visit new_announcement_path
