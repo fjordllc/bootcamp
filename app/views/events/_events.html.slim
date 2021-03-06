@@ -18,8 +18,8 @@
           = link_to new_event_path(id: event), class: 'thread-list-item__actions-link' do
             i.fas.fa-copy
     .thread-list-item-meta
-      time.thread-list-item-meta__datetime(datetime="#{event.start_at.to_datetime}")
-        | 開催日時:#{l event.start_at}
+      time.thread-list-item-meta__datetime(datetime=event.start_at.to_datetime)
+        | 開催日時: #{l event.start_at}
       - if event.comments.any?
         .thread-list-item-meta__comment-count
           .thread-list-item-meta__comment-count-label
