@@ -32,7 +32,11 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '未返信の提出物を一括で開く'
 
     within_window(windows.last) do
-      assert_text Product.not_responded_products.reorder_for_not_responded_products.first.body
+      newest_product = Product
+                       .not_responded_products
+                       .reorder_for_not_responded_products
+                       .first
+      assert_text newest_product.body
     end
   end
 
