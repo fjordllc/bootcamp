@@ -46,7 +46,7 @@ class API::AnnouncementsController < API::BaseController
   private
 
   def announcement_params
-    params.require(:announcement).permit(:title, :description, :target, :wip)
+    params.permit(:title, :description, :target, :wip)
   end
 
   def set_announcement
