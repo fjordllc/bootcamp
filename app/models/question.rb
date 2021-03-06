@@ -6,6 +6,7 @@ class Question < ApplicationRecord
   include Watchable
   include WithAvatar
   include Taggable
+  include Mentioner
 
   belongs_to :practice, optional: true
   belongs_to :user, touch: true
@@ -24,4 +25,6 @@ class Question < ApplicationRecord
   scope :not_solved, -> { where.not(id: CorrectAnswer.pluck(:question_id)) }
 
   columns_for_keyword_search :title, :description
+
+  mentionable_as :description
 end
