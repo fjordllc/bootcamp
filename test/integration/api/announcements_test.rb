@@ -15,19 +15,19 @@ class API::AnnouncementsTest < ActionDispatch::IntegrationTest
 
     token = create_token('hatsuno', 'testtest')
     get api_announcements_path(format: :json),
-          headers: { 'Authorization' => "Bearer #{token}" }
+        headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
   end
 
   test 'POST /api/announcements.json' do
     post api_announcements_path(format: :json),
-          params: { title: 'test', description: 'postのテストです', target: 'students', wip: false }
+         params: { title: 'test', description: 'postのテストです', target: 'students', wip: false }
     assert_response :unauthorized
 
     token = create_token('hatsuno', 'testtest')
     post api_announcements_path(format: :json),
-          params: { title: 'test', description: 'postのテストです', target: 'students', wip: false },
-          headers: { 'Authorization' => "Bearer #{token}" }
+         params: { title: 'test', description: 'postのテストです', target: 'students', wip: false },
+         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :created
   end
 
@@ -37,7 +37,7 @@ class API::AnnouncementsTest < ActionDispatch::IntegrationTest
 
     token = create_token('hatsuno', 'testtest')
     get api_announcement_path(@announcement.id, format: :json),
-          headers: { 'Authorization' => "Bearer #{token}" }
+        headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
   end
 
@@ -59,7 +59,7 @@ class API::AnnouncementsTest < ActionDispatch::IntegrationTest
 
     token = create_token('hatsuno', 'testtest')
     delete api_announcement_path(@announcement.id, format: :json),
-          headers: { 'Authorization' => "Bearer #{token}" }
+           headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :no_content
   end
 end
