@@ -8,24 +8,43 @@ module RequiredFieldsHelper
 
     messages = []
 
-    messages << link_to('プロフィール画像を登録してください。', edit_current_user_path, class: 'card-list__item-link'.to_s.html_safe) unless current_user.avatar.attached?
+    required_avatar(messages)
+    required_description(messages)
 
-    messages << link_to('自己紹介を入力してください。', edit_current_user_path, class: 'card-list__item-link'.to_s.html_safe) unless current_user.description?
-
-    required_sns(messages) if current_user.student?
+    if current_user.student?
+      required_github(messages)
+      required_slack(messages)
+      required_discord(messages)
+    end
 
     messages
   end
 
-  def required_sns(messages)
+  def required_avatar(messages)
+    return if current_user.avatar.attached?
+
+    messages << link_to('プロフィール画像を登録してください。', edit_current_user_path, class: 'card-list__item-link'.to_s.html_safe)
+  end
+
+  def required_description(messages)
+    return if current_user.description?
+
+    messages << link_to('自己紹介を入力してください。', edit_current_user_path, class: 'card-list__item-link'.to_s.html_safe)
+  end
+
+  def required_github(messages)
     return if current_user.github_account?
 
     messages << link_to('GitHubアカウントを登録してください。', edit_current_user_path, class: 'card-list__item-link is-github'.to_s.html_safe)
+  end
 
+  def required_slack(messages)
     return if current_user.slack_account?
 
     messages << link_to('Slackアカウントを登録してください。', edit_current_user_path, class: 'card-list__item-link is-slack'.to_s.html_safe)
+  end
 
+  def required_discord(messages)
     return if current_user.discord_account?
 
     messages << link_to('Discordアカウントを登録してください。', edit_current_user_path, class: 'card-list__item-link is-discord'.to_s.html_safe)
