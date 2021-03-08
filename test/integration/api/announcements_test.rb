@@ -7,13 +7,14 @@ class API::AnnouncementsTest < ActionDispatch::IntegrationTest
 
   setup do
     @announcement = announcements(:announcement1)
+    @my_announcement = announcements(:announcement4)
   end
 
   test 'GET /api/announcements.json' do
     get api_announcements_path(format: :json)
     assert_response :unauthorized
 
-    token = create_token('hatsuno', 'testtest')
+    token = create_token('kimura', 'testtest')
     get api_announcements_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
@@ -21,12 +22,22 @@ class API::AnnouncementsTest < ActionDispatch::IntegrationTest
 
   test 'POST /api/announcements.json' do
     post api_announcements_path(format: :json),
-         params: { title: 'test', description: 'postのテストです', target: 'students', wip: false }
+         params: {
+           announcement: {
+             title: 'test',
+             description: 'postのテストです'
+           }
+         }
     assert_response :unauthorized
 
-    token = create_token('hatsuno', 'testtest')
+    token = create_token('kimura', 'testtest')
     post api_announcements_path(format: :json),
-         params: { title: 'test', description: 'postのテストです', target: 'students', wip: false },
+         params: {
+           announcement: {
+             title: 'test',
+             description: 'postのテストです'
+           }
+         },
          headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :created
   end
@@ -35,31 +46,112 @@ class API::AnnouncementsTest < ActionDispatch::IntegrationTest
     get api_announcement_path(@announcement.id, format: :json)
     assert_response :unauthorized
 
-    token = create_token('hatsuno', 'testtest')
+    token = create_token('kimura', 'testtest')
     get api_announcement_path(@announcement.id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
   end
 
   test 'PATCH /api/announcements/1234.json' do
-    patch api_announcement_path(@announcement.id, format: :json),
-          params: { title: 'test', description: 'patchのテストです', target: 'students', wip: false }
+    patch api_announcement_path(@my_announcement.id, format: :json),
+          params: {
+            announcement: {
+              title: 'test',
+              description: 'patchのテストです'
+            }
+          }
     assert_response :unauthorized
 
-    token = create_token('hatsuno', 'testtest')
-    patch api_announcement_path(@announcement.id, format: :json),
-          params: { title: 'test', description: 'patchのテストです', target: 'students', wip: false },
+    token = create_token('kimura', 'testtest')
+    patch api_announcement_path(@my_announcement.id, format: :json),
+          params: {
+            announcement: {
+              title: 'test',
+              description: 'patchのテストです',
+              'wip': true
+            }
+          },
           headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
   end
 
   test 'DELETE /api/announcements/1234.json' do
-    delete api_announcement_path(@announcement.id, format: :json)
+    delete api_announcement_path(@my_announcement.id, format: :json)
     assert_response :unauthorized
 
-    token = create_token('hatsuno', 'testtest')
+    token = create_token('kimura', 'testtest')
+    delete api_announcement_path(@announcement.id, format: :json),
+           headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :unauthorized
+
+    token = create_token('komagata', 'testtest')
     delete api_announcement_path(@announcement.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :no_content
+  end
+
+  test 'users except admin cannot publish an announcement when new' do
+    token = create_token('kimura', 'testtest')
+    post api_announcements_path(format: :json),
+         params: {
+           announcement: {
+             title: 'test',
+             description: 'postのテストです'
+           }
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :created
+    assert_equal(true, Announcement.last.wip)
+
+    token = create_token('komagata', 'testtest')
+    post api_announcements_path(format: :json),
+         params: {
+           announcement: {
+             title: 'test',
+             description: 'postのテストです',
+             wip: false
+           }
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :created
+    assert_equal(false, Announcement.last.wip)
+  end
+
+  test 'users except admin cannot publish an announcement when edit' do
+    token = create_token('kimura', 'testtest')
+    patch api_announcement_path(@my_announcement.id, format: :json),
+          params: {
+            announcement: {
+              title: 'test',
+              description: 'patchのテストです',
+              wip: false
+            }
+          },
+          headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :bad_request
+
+    token = create_token('kimura', 'testtest')
+    patch api_announcement_path(@my_announcement.id, format: :json),
+          params: {
+            announcement: {
+              title: 'test',
+              description: 'patchのテストです',
+              wip: true
+            }
+          },
+          headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+
+    token = create_token('komagata', 'testtest')
+    patch api_announcement_path(@my_announcement.id, format: :json),
+          params: {
+            announcement: {
+              title: 'test',
+              description: 'patchのテストです',
+              wip: false
+            }
+          },
+          headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
   end
 end
