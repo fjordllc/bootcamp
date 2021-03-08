@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     namespace :categories_practices do
       resources :position, only: %i(update)
     end
-  resources :announcements
+  resources :announcements, except: %i(new edit)
   end
 
   namespace :admin do
