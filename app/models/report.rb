@@ -65,7 +65,7 @@ class Report < ApplicationRecord
   def previous
     Report.where(user: user)
           .where('reported_on < ?', reported_on)
-          .order(reported_on: 'DESC')
+          .order(reported_on: :desc)
           .first
   end
 
