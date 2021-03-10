@@ -1,37 +1,72 @@
 .header-dropdown
-  display: none
-  input:checked + &
-    display: block
+  +media-breakpoint-up(md)
+    display: none
+    input:checked + &
+      display: block
+  +media-breakpoint-down(sm)
+    +position(fixed, left 0, top 0, bottom 0, 100)
+    background-color: rgba(black, 0)
+    width: 0
+    cursor: pointer
+    transition: background-color .4s ease-in
+    input:checked + &
+      opacity: 1
+      width: 100%
+      display: block
 
 .header-dropdown__inner
-  +position(absolute, right 0, top 100%, 2)
-  width: 14rem
-  background-color: $base
-  border: solid 1px $border-shade
-  border-radius: .25rem
-  box-shadow: rgba(black, .2) 0 0 .375rem
-  &.is-notification
-    width: 15rem
+  +media-breakpoint-up(md)
+    background-color: $base
+    +position(absolute, right 0, top 100%, 2)
+    border: solid 1px $border-shade
+    width: 14rem
+    box-shadow: rgba(black, .2) 0 0 .375rem
+    border-radius: .25rem
+    &.is-notification
+      width: 15rem
+  +media-breakpoint-down(sm)
+    $global-nav-width-sm: 13rem
+    background-color: $side
+    +position(fixed, top 0, bottom 0, right auto, 1)
+    transition: left .2s ease-out
+    width: $global-nav-width-sm
+    overflow-y: auto
+    left: $global-nav-width-sm * -1
+    input:checked + .header-dropdown &
+      left: 0
+      >*
+        width: $global-nav-width-sm
 
 .header-dropdown__items
   .header-dropdown__inner.is-notification &
-    max-height: 70vh
     overflow-y: auto
+    +media-breakpoint-up(md)
+      max-height: 70vh
+    +media-breakpoint-down(sm)
+      max-height: calc(100vh - 134px)
+      margin-bottom: -1px
 
 .header-dropdown__item-link
-  +text-block(.875rem 1.4, $default-text)
+  +text-block(.875rem 1.4)
   +flex-link
   padding: .75rem
   transition: all .2s ease-out
-  &:hover
-    background-color: $background-more-tint
-  .header-dropdown__item:not(:last-child) &
-    border-bottom: solid 1px $background
+  +media-breakpoint-up(md)
+    color: $default-text
+    .header-dropdown__item:not(:last-child) &
+      border-bottom: solid 1px $background
+    &:hover
+      background-color: $background-more-tint
+  +media-breakpoint-down(sm)
+    color: $reversal-text
+    border-bottom: solid 1px $side-border
+    &:hover
+      background-color: $side-shade
 
 .header-dropdown__footer
-  border-top: solid 1px $background-shade
   +border-radius(bottom, .25rem)
   overflow: hidden
+  border-top: solid 1px $background-shade
 
 .header-dropdown__footer-link
   +text-block(.875rem 1.4, $main)
@@ -42,9 +77,23 @@
   transition: all .2s ease-out
   &:hover
     background-color: $background-more-tint
-
-.header-dropdown__footer-link:not(:last-child)
-  border-bottom: solid 1px $background
+  +media-breakpoint-up(md)
+    &:not(:last-child)
+      border-bottom: solid 1px $background
+  +media-breakpoint-down(sm)
+    border-bottom: solid 1px $background
 
 .header-dropdown__background
-  +position(fixed, left 0, top 0, right 0, bottom 0, 2)
+  +media-breakpoint-up(md)
+    +position(fixed, left 0, top 0, right 0, bottom 0, 2)
+  +media-breakpoint-down(sm)
+    background-color: rgba(black, .6)
+    +position(fixed, left 0, top 0, bottom 0, 1)
+    height: 100%
+    width: 0
+    display: inline
+    opacity: 0
+    input:checked + .header-dropdown &
+      opacity: 1
+      width: 100%
+      display: block
