@@ -35,6 +35,7 @@ html.is-application lang='ja'
       = render 'flash'
       main.page
         = yield
+      = render 'footer'
     - if display_recent_reports?
       #js-recent-reports
     - elsif @popular_tags
