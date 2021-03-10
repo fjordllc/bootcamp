@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class WatchingTest < ApplicationSystemTestCase
-  setup { login_user 'machida', 'testtest' }
+  setup { login_user 'hajime', 'testtest' }
 
   test 'show_watch' do
     visit watches_path
