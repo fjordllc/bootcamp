@@ -53,8 +53,6 @@ body
   body.is-error-page &
     padding-top: 4rem
     overflow-y: auto
-  body.is-auth-page &
-    padding-top: 2rem
 
 .container
   +padding(horizontal, 1.5rem)
@@ -87,6 +85,11 @@ body
 
 [class*=a-button]:not(input)
   +padding(vertical, 0)
+
+.page
+  body.is-auth-page &
+    padding-top: 2rem
+
 
 textarea
   overflow-anchor: none
