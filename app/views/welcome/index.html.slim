@@ -1,9 +1,21 @@
 - content_for :extra_body_classes, "is-welcome-index has-main-visual"
 - content_for :head_last do
   = javascript_include_tag 'https://sdk.form.run/js/v2/formrun.js'
+- content_for :canonical do
+  link(rel='canonical' href='#{root_url}')
 
 = render "/lp/welcome/main_visual"
   = render 'welcome/campaign' if Campaign.today_is_campaign?
+  .m-lp-content
+    .l-container
+      .m-lp-content__inner
+        .m-lp-content__body
+          .m-lp-content__row
+            .l-grids
+              .l-grids__item.u-col-5.md-down:u-col-12
+                | 私たちの考えるプラスの戦力
+
+
   .m-lp-content
     .l-container
       .m-lp-content__inner
