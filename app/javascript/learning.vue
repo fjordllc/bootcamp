@@ -8,7 +8,7 @@
       li.card-footer-actions__item(v-if="complete")
         button.a-button.is-md.is-secondary.is-block.is-disabled.test-completed
           i.fas.fa-check
-          | 完了済
+          | 完了しています
       li.card-footer-actions__item(v-else)
         button.a-button.is-md.is-warning.is-block#js-complete(@click="pushComplete")
           i.fas.fa-check
