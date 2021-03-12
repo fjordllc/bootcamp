@@ -119,3 +119,14 @@
                 .faqs-item__body
                   p
                     | 全く問題ありません。フィヨルドブートキャンプは女性比率が高く、たくさんの女性が卒業しプログラマーとして就職し活躍しています。
+          .col-md-4
+            section.faqs-item
+              .faqs-item__inner
+                h3.faqs-item__title
+                  = image_tag('question.svg', class: 'faqs-item__title-icon')
+                  | 会社の新人研修など法人での利用はできますか？
+                .faqs-item__body
+                  p
+                    | 可能です。
+                  p
+                    | 法人でのご利用については#{link_to 'こちら', training_path}に詳細を記載しております。

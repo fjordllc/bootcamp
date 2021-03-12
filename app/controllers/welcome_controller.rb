@@ -9,6 +9,8 @@ class WelcomeController < ApplicationController
 
   def faq; end
 
+  def training; end
+
   def practices
     @categories = Course.first.categories.preload(:practices).order(:position)
   end
