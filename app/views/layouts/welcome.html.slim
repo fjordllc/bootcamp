@@ -5,6 +5,7 @@ html.is-application lang='ja'
     = render 'google_tag_manager_head'
     meta content='IE=edge' http-equiv='X-UA-Compatible'
     = display_meta_tags default_meta_tags
+    = yield :canonical
     = javascript_include_tag 'application'
     = javascript_pack_tag 'application'
     = csrf_meta_tags

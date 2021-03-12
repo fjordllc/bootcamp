@@ -2,7 +2,7 @@
   background-color: $main
   background-image: linear-gradient(45deg, $main, #4e66da)
   +position(relative)
-  +padding(vertical, $lp-header-height 5rem)
+  padding-top: $lp-header-height
   color: $reversal-text
   &::before
     content: ""
@@ -13,15 +13,6 @@
     background-size: 20rem
     +size(100%)
     opacity: .05
-  &::after
-    content: ""
-    display: block
-    background-image: image_url("lp/main-visual-bottom.svg")
-    +position(absolute, left 0, bottom 0, right 0, 2)
-    background-repeat: repeat-x
-    background-position: center bottom
-    background-size: contain
-    +size(100% 5rem)
 
 .o-basic-main-visual__inner
   +position(relative, 3)
