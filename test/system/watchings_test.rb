@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class WatchingTest < ApplicationSystemTestCase
   setup { login_user 'hajime', 'testtest' }
 
-  test 'show_watch' do
+  test 'show my watch list' do
     visit watches_path
     assert_no_text 'テストの質問1'
     question = questions(:question3)
