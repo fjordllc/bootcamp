@@ -1,71 +1,152 @@
 <template lang="pug">
-  li.header-links__item(v-bind:class="hasCountClass")
-    label.header-links__link.test-show-notifications(for="header-notification-pc" @click="clickBell")
-      .header-links__link.test-bell
-        .header-notification-icon
-          .header-notification-count.a-notification-count.test-notification-count(v-show="notificationExist") {{ this.notificationCount }}
-          i.fas.fa-bell
-          .header-links__link-label 通知
-    input.a-toggle-checkbox(v-if="notificationExist" type="checkbox" id="header-notification-pc")
-    .header-dropdown
-      label.header-dropdown__background(for="header-notification-pc")
-      .header-dropdown__inner.is-notification
-        ul.header-dropdown__items
-          li.header-dropdown__item(v-for="notification in notifications")
-            a.header-dropdown__item-link(:href="notification.path")
-              .header-notifications-item__body
-                img.header-notifications-item__user-icon.a-user-icon(:src="notification.avatar_url")
-                .header-notifications-item__message
-                  p.test-notification-message {{ notification.message }}
-                time.header-notifications-item_created-at {{ notification.created_at }}
-        footer.header-dropdown__footer
-          a.header-dropdown__footer-link(href="/notifications/unread") 全ての未読通知
-          a.header-dropdown__footer-link(href="/notifications") 全ての通知
-          a.header-dropdown__footer-link(href="/notifications/allmarks" ref="nofollow" data-method="post") 全て既読にする
+  .container(v-if="loaded && notifications.length > 0")
+    nav.pagination(v-if="totalPages > 1")
+      pager-top(
+        v-model="currentPage"
+        :page-count="totalPages"
+        :page-range="5"
+        :prev-text="`<i class='fas fa-angle-left'></i>`"
+        :next-text="`<i class='fas fa-angle-right'></i>`"
+        :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
+        :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
+        :click-handler="paginateClickCallback"
+        :container-class="'pagination__items'"
+        :page-class="'pagination__item'"
+        :page-link-class="'pagination__item-link'"
+        :disabled-class="'is-disabled'"
+        :active-class="'is-active'"
+        :prev-class="'is-prev pagination__item'"
+        :prev-link-class="'is-prev pagination__item-link'"
+        :next-class="'is-next pagination__item'"
+        :next-link-class="'is-next pagination__item-link'"
+        :first-last-button="true"
+        :hide-prev-next="true"
+        :margin-pages="0"
+        :break-view-text=null
+      )
+    .thread-list.a-card
+      notification(v-for="notification in notifications"
+        :key="notification.id"
+        :notification="notification")
+      unconfirmed-links-open-button(v-if="isMentor && isUnreadPage" label="未読の通知を一括で開く")
+    nav.pagination(v-if="totalPages > 1")
+      pager-bottom(
+        v-model="currentPage"
+        :page-count="totalPages"
+        :page-range="5"
+        :prev-text="`<i class='fas fa-angle-left'></i>`"
+        :next-text="`<i class='fas fa-angle-right'></i>`"
+        :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
+        :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
+        :click-handler="paginateClickCallback"
+        :container-class="'pagination__items'"
+        :page-class="'pagination__item'"
+        :page-link-class="'pagination__item-link'"
+        :disabled-class="'is-disabled'"
+        :active-class="'is-active'"
+        :prev-class="'is-prev pagination__item'"
+        :prev-link-class="'is-prev pagination__item-link'"
+        :next-class="'is-next pagination__item'"
+        :next-link-class="'is-next pagination__item-link'"
+        :first-last-button="true"
+        :hide-prev-next="true"
+        :margin-pages="0"
+        :break-view-text=null
+      )
+  .container(v-else-if="loaded")
+    .o-empty-massage
+      .o-empty-massage__icon
+        i.far.fa-smile
+      p.o-empty-massage__text(v-if="isUnreadPage")
+        | 未読の通知はありません
+      p.o-empty-massage__text(v-else)
+        | 通知はありません
+  .container(v-else)
+    | ロード中
 </template>
+
 <script>
+import Notification from './notification.vue'
+import VueJsPaginate from 'vuejs-paginate'
+import UnconfirmedLinksOpenButton from './unconfirmed_links_open_button'
+
 export default {
+  props: {
+    isMentor: {
+      type: Boolean
+    }
+  },
+  components: {
+    'notification': Notification,
+    'pager-top': VueJsPaginate,
+    'pager-bottom': VueJsPaginate,
+    'unconfirmed-links-open-button': UnconfirmedLinksOpenButton
+  },
   data: () => {
     return {
-      notifications: []
+      notifications: [],
+      totalPages: 0,
+      currentPage: null,
+      loaded: false
     }
   },
   created() {
-    fetch(`/api/notifications.json`, {
-      method: 'GET',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-      },
-      credentials: 'same-origin',
-      redirect: 'manual'
-    })
+    // ブラウザバック・フォワードした時に画面を読み込ませる
+    window.onpopstate = function() {
+      location.href = location.href
+    }
+    this.currentPage = Number(this.getPageValueFromParameter()) || 1
+    this.getNotificationsPerPage()
+  },
+  computed: {
+    url() {
+      if (this.isUnreadPage) {
+        return `/api/notifications/unread.json?page=${this.currentPage}`
+      } else {
+        return `/api/notifications.json?page=${this.currentPage}`
+      }
+    },
+    isUnreadPage() {
+      return location.pathname.includes('unread')
+    }
+  },
+  methods: {
+    getNotificationsPerPage: function() {
+      fetch(this.url, {
+        method: 'GET',
+        headers: { 'X-Requested-With': 'XMLHttpRequest'},
+        credentials: 'same-origin',
+        redirect: 'manual'
+      })
       .then(response => {
         return response.json()
       })
-      .then(json => {
-        json.forEach(n => { this.notifications.push(n) })
-      })
-      .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
-  },
-  methods: {
-    clickBell() {
-      if (!this.notificationExist) {
-        location.href = '/notifications'
+        .then(json => {
+          this.totalPages = json['total_pages']
+          this.notifications = []
+          json['notifications'].forEach(n => { this.notifications.push(n) })
+          this.loaded = true
+        })
+        .catch(error => {
+          console.warn('Failed to parsing', error)
+        })
+    },
+    updateCurrentUrl: function() {
+      let url = location.pathname
+      if (this.currentPage !== 1) {
+        url += `?page=${this.currentPage}`
       }
-    }
-  },
-  computed: {
-    notificationCount() {
-      const count = this.notifications.length
-      return count > 99 ? '99+' : String(count)
+      history.pushState(null, null, url)
     },
-    notificationExist() {
-      return this.notifications.length > 0
+    paginateClickCallback: function() {
+      this.getNotificationsPerPage()
+      this.updateCurrentUrl()
     },
-    hasCountClass() {
-      return this.notificationExist ? 'has-count' : 'has-no-count'
+    getPageValueFromParameter: function() {
+      let url = location.href
+      let results = url.match(/\?page=(\d+)/)
+      if (!results) return null;
+      return results[1]
     }
   }
 }

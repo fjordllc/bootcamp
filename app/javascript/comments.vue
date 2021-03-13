@@ -158,6 +158,10 @@ export default {
       textarea.style.height = `${this.defaultTextareaSize}px`
     },
     commentAndCheck() {
+      if (this.commentableType === "Product" &&
+          !window.confirm("提出物を確認済にしてよろしいですか？")) {
+        return null
+      }
       const check = document.getElementById("js-shortcut-check")
       this.createComment()
       check.click()

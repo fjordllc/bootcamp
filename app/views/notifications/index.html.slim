@@ -14,12 +14,4 @@ header.page-header
 = render 'notifications/tabs'
 
 .page-body
-  .container
-    = paginate @notifications, position: 'top'
-    - if @notifications.present?
-      .thread-list.a-card
-        = render partial: 'notifications/notification',
-          collection: @notifications,
-          as: :notification,
-          cached: true
-    = paginate @notifications, position: 'bottom'
+  #js-notifications(data-is-mentor="#{mentor_login?}")

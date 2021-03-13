@@ -24,7 +24,11 @@ Rails.application.routes.draw do
     resources :categories, only: %i(index destroy) do
       resource :position, only: %i(update), controller: "categories/position"
     end
-    resources :notifications, only: %i(index)
+    resources :notifications, only: %i(index) do
+      collection do
+        resources :unread, only: %i(index), controller: "/api/notifications/unread"
+      end
+    end
     resources :comments, only: %i(index create update destroy)
     resources :answers, only: %i(index create update destroy) do
       resource :correct_answer, only: %i(create update)
@@ -37,7 +41,9 @@ Rails.application.routes.draw do
     resources :practices, only: %i(show update) do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
+    resources :reports, only: %i(index)
     namespace "reports" do
+      resources :unchecked, only: %i(index)
       resources :recents, only: %i(index)
     end
     resources :watches, only: %i(index create destroy)
@@ -47,8 +53,12 @@ Rails.application.routes.draw do
     resources :questions, only: %i(update)
     resources :followings, only: %i(create destroy)
     namespace :products do
+      resources :unchecked, only: %i(index)
+      resources :not_responded, only: %i(index)
+      resources :self_assigned, only: %i(index)
       resource :checker, only: %i(update), controller: "checker"
     end
+    resources :products, only: %i(index)
     namespace :categories_practices do
       resources :position, only: %i(update)
     end

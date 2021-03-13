@@ -37,6 +37,14 @@ class UsersController < ApplicationController
                .order(updated_at: :desc)
                .users_role(@target)
     end
+
+    @popular_tags = ActsAsTaggableOn::Tag
+                    .joins(:taggings)
+                    .select('tags.id, tags.name, COUNT(taggings.id) as taggings_count')
+                    .group('tags.id, tags.name, tags.taggings_count')
+                    .where(taggings: { taggable_type: 'User' })
+                    .order('taggings_count desc')
+                    .limit(20)
   end
   # rubocop:enable Metrics/MethodLength
 
@@ -78,7 +86,7 @@ class UsersController < ApplicationController
     if @user.save
       UserMailer.welcome(@user).deliver_now
       notify_to_slack!
-      notify_to_chat(@user.name)
+      notify_to_chat(@user)
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
       render 'new'
@@ -118,7 +126,7 @@ class UsersController < ApplicationController
       if @user.save
         UserMailer.welcome(@user).deliver_now
         notify_to_slack!
-        notify_to_chat(@user.name)
+        notify_to_chat(@user)
         redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       else
         render 'new'
@@ -134,8 +142,8 @@ class UsersController < ApplicationController
                              channel: '#fjord'
   end
 
-  def notify_to_chat(name)
-    ChatNotifier.message "#{name}さんがJOINしました。"
+  def notify_to_chat(user)
+    ChatNotifier.message "#{user.name}さんが新たなメンバーとしてJOINしました🎉\r#{url_for(user)}"
   end
 
   def user_params

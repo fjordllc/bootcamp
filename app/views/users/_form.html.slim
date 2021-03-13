@@ -30,9 +30,16 @@
 
   - if from == :edit
     .form__items
+      h3.form__items-title パスワードの変更
+      .form-item
+        .form-item__button
+          - if admin_login? && (url != current_user_path)
+            = link_to '管理者としてパスワードを変更', edit_admin_user_password_path(@user), class: 'a-button is-md is-secondary'
+          - else
+            = link_to 'パスワード変更はこちらから', edit_current_user_password_path, class: 'a-button is-md is-secondary'
+    .form__items
       h3.form__items-title SNSアカウント
       = render 'users/form/sns', f: f
-
   - else
     .form__items
       = render 'users/form/password', f: f, from: from
@@ -89,9 +96,3 @@
         - if from == :new
           .a-form-help.is-text-align-center
             = link_to '利用規約を確認（別タブで開きます）', tos_path, target: '_blank', rel: 'noopener'
-        - if from == :edit
-          .a-form-help.is-text-align-center
-            - if admin_login? && (url != current_user_path)
-              = link_to 'パスワード変更はこちらから', edit_admin_user_password_path(@user)
-            - else
-              = link_to 'パスワード変更はこちらから', edit_current_user_password_path
