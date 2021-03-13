@@ -25,4 +25,22 @@ module Watchable
       "「#{self[:title]}」のイベント"
     end
   end
+
+  def filter_product
+    if watchable_type == 'Product'
+      watchable.body
+    else
+      watchable.description
+    end
+  end
+
+  def time
+    if watchable_type == 'Report'
+      watchable.reported_on
+    elsif watchable.has_attribute?(:published_at) && watchable.published_at
+      watchable.published_at
+    else
+      watchable.created_at
+    end
+  end
 end
