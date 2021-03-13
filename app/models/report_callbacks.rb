@@ -4,8 +4,6 @@ class ReportCallbacks
   def after_create(report)
     create_author_watch(report)
 
-    send_first_report_notification(report) if report.user.reports.count == 1 && !report.wip?
-
     if report.user.trainee? && report.user.company_id?
       report.user.company.advisers.each do |adviser|
         NotificationFacade.trainee_report(report, adviser)
@@ -21,9 +19,7 @@ class ReportCallbacks
     Cache.delete_unchecked_report_count
   end
 
-  def after_update(report)
-    send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1
-
+  def after_update(_report)
     Cache.delete_unchecked_report_count
   end
 
@@ -36,13 +32,6 @@ class ReportCallbacks
 
   def create_author_watch(report)
     Watch.create!(user: report.user, watchable: report)
-  end
-
-  def send_first_report_notification(report)
-    receiver_list = User.where(retired_on: nil)
-    receiver_list.each do |receiver|
-      NotificationFacade.first_report(report, receiver) if report.sender != receiver
-    end
   end
 
   def create_advisers_watch(report, adviser)

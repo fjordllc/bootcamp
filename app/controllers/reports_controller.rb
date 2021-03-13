@@ -50,7 +50,10 @@ class ReportsController < ApplicationController
     canonicalize_learning_times(@report)
     check_noticeable
     if @report.save
-      notify_to_slack(@report) if @noticeable
+      if @noticeable
+        notify_to_slack(@report)
+        send_first_report_notification(@report) if @report.user.reports.count == 1
+      end
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :new
@@ -64,7 +67,10 @@ class ReportsController < ApplicationController
     check_noticeable
 
     if @report.save
-      notify_to_slack(@report) if @noticeable
+      if @noticeable
+        notify_to_slack(@report)
+        send_first_report_notification(@report) if @report.user.reports.count == 1
+      end
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :edit
@@ -151,6 +157,13 @@ class ReportsController < ApplicationController
                                fallback: 'report body.',
                                text: report.description
                              }]
+  end
+
+  def send_first_report_notification(report)
+    receiver_list = User.where(retired_on: nil)
+    receiver_list.each do |receiver|
+      NotificationFacade.first_report(report, receiver) if report.sender != receiver
+    end
   end
 
   def set_wip
