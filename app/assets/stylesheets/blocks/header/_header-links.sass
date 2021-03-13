@@ -2,8 +2,6 @@
   height: 100%
   display: flex
   align-items: center
-  +media-breakpoint-down(sm)
-    display: none
 
 .header-links__items
   display: flex
@@ -23,13 +21,19 @@
 .header-links__link
   +flex-link
   flex-direction: column
-  +size(3.5rem 100%)
   align-items: center
   justify-content: center
-  +text-block(1.375rem 1, $default-text)
+  height: 100%
+  +text-block(1em 1, $default-text)
   +position(relative)
   transition: all .2s ease-in
   cursor: pointer
+  +media-breakpoint-up(md)
+    font-size: 1.375rem
+    width: 3.75rem
+  +media-breakpoint-down(sm)
+    font-size: 1.125rem
+    width: 2.75rem
   &:hover
     background-color: #f8f8f8
   &.is-active
@@ -37,8 +41,17 @@
     color: $main
 
 .header-links__link-label
-  +text-block(.625rem 1 .375rem)
-  transform: scale(.9)
+  margin-top: .375em
+  +media-breakpoint-up(md)
+    font-size: .6875rem
+  +media-breakpoint-down(sm)
+    font-size: .625rem
 
 .header-links__link-count
   +position(right .25rem, top .25rem)
+
+.header-links__image
+  +media-breakpoint-up(md)
+    width: 1.5rem
+  +media-breakpoint-down(sm)
+    width: 1.125rem
