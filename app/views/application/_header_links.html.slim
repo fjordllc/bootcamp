@@ -10,7 +10,7 @@
     - if current_user.admin?
       li.header-links__item
         label.header-links__link(for='header-admin-menu')
-          i.fas.fa-poo
+          = image_tag('admin.svg', alt: 'Admin', class: 'header-links__image')
           .header-links__link-label Admin
         input.a-toggle-checkbox#header-admin-menu(type='checkbox')
         .header-dropdown
@@ -36,55 +36,44 @@
                   class: 'header-dropdown__item-link',
                   target: '_blank', rel: 'noopener' do
                   | 確認数の集計
-    li.header-links__item
-      label.header-links__link.test-show-menu(for='header-menu')
-        i.fas.fa-bars
-        .header-links__link-label Menu
-      input.a-toggle-checkbox#header-menu(type='checkbox')
-      .header-dropdown
-        label.header-dropdown__background(for='header-menu')
-        .header-dropdown__inner
-          ul.header-dropdown__items
-            li.header-dropdown__item
-              = link_to root_path, class: 'header-dropdown__item-link' do
-                | ダッシュボード
-            li.header-dropdown__item
-              = link_to user_path(current_user), class: 'header-dropdown__item-link' do
-                | 自分のプロフィール
-            li.header-dropdown__item
-              = link_to edit_current_user_path, class: 'header-dropdown__item-link' do
-                | 登録情報変更
-            - if !current_user.adviser? && !current_user.mentor? && !current_user.trainee?
-              - if current_user.card?
-                li.header-dropdown__item
-                  = link_to 'クレジットカード情報', card_path, class: 'header-dropdown__item-link'
-                li.header-dropdown__item
-                  = link_to 'クレジットカード変更', edit_card_path, class: 'header-dropdown__item-link'
-              - else
-                li.header-dropdown__item
-                  = link_to 'クレジットカード登録', new_card_path, class: 'header-dropdown__item-link'
-            li.header-dropdown__item
-              = link_to courses_path, class: 'header-dropdown__item-link' do
-                | コース
-            li.header-dropdown__item
-              = link_to companies_path, class: 'header-dropdown__item-link' do
-                | 企業一覧
-            li.header-dropdown__item
-              = link_to 'https://github.com/fjordllc/bootcamp/projects/1', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
-                | GitHub Projects
-            li.header-dropdown__item
-              = link_to 'https://suzuri.jp/FjordBootCamp', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
-                | グッズ購入
-            li.header-dropdown__item
-              = link_to coc_path, class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
-                | アンチハラスメントポリシー
-            li.header-dropdown__item
-              = link_to welcome_path, class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
-                | ホームページ
-            li.header-dropdown__item
-              = link_to logout_path, class: 'header-dropdown__item-link' do
-                | ログアウト
-            li.header-dropdown__item
-              = link_to new_retirement_path, class: 'header-dropdown__item-link' do
-                | 退会手続き
-    #js-notifications-bell
+    - if current_user
+      li.header-links__item
+        label.header-links__link.test-show-menu(for='header-menu')
+          .header-current-user
+            = image_tag current_user.avatar_url, title: current_user.icon_title, class: "header-current-user__icon a-user-icon is-#{current_user.role}"
+          .header-links__link-label
+            | Me
+        input.a-toggle-checkbox#header-menu(type='checkbox')
+        .header-dropdown
+          label.header-dropdown__background(for='header-menu')
+          .header-dropdown__inner
+            ul.header-dropdown__items
+              li.header-dropdown__item
+                = link_to root_path, class: 'header-dropdown__item-link' do
+                  | ダッシュボード
+              li.header-dropdown__item
+                = link_to user_path(current_user), class: 'header-dropdown__item-link' do
+                  | 自分のプロフィール
+              li.header-dropdown__item
+                = link_to edit_current_user_path, class: 'header-dropdown__item-link' do
+                  | 登録情報変更
+              - if !current_user.adviser? && !current_user.mentor? && !current_user.trainee?
+                - if current_user.card?
+                  li.header-dropdown__item
+                    = link_to 'クレジットカード情報', card_path, class: 'header-dropdown__item-link'
+                  li.header-dropdown__item
+                    = link_to 'クレジットカード変更', edit_card_path, class: 'header-dropdown__item-link'
+                - else
+                  li.header-dropdown__item
+                    = link_to 'クレジットカード登録', new_card_path, class: 'header-dropdown__item-link'
+              li.header-dropdown__item
+                = link_to logout_path, class: 'header-dropdown__item-link' do
+                  | ログアウト
+              li.header-dropdown__item
+                = link_to new_retirement_path, class: 'header-dropdown__item-link' do
+                  | 退会手続き
+      li.header-links__item.is-hidden-md-up
+        label.header-links__link.test-show-menu(for='mobile-nav')
+          i.fas.fa-bars
+          .header-links__link-label Menu
+      #js-notifications-bell

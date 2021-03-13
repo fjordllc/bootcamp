@@ -4,14 +4,6 @@ body
   &.welcome
     background-color: $base
     color: $welcome-default-text
-  &.has-background
-    background-image: image_url('main-visual.jpg')
-    background-size: cover
-    background-position: center center
-    background-attachment: fixed
-  &.is-mobile-nav-active
-    +media-breakpoint-down(sm)
-      overflow: hidden
   &.is-piyo-background
     background-color: $main
     background-image: image_url('error-background-main-color.svg')
@@ -23,12 +15,14 @@ body
 
 .wrapper
   +margin(horizontal, 5rem 14rem)
-  //overflow-y: scroll
   min-height: 100vh
   scroll-behavior: smooth
   -webkit-overflow-scrolling: touch
   +media-breakpoint-down(lg)
     +margin(horizontal, 5rem 0)
+  +media-breakpoint-up(md)
+    display: flex
+    flex-direction: column
   +media-breakpoint-down(sm)
     +margin(horizontal, 0)
     height: auto
@@ -59,16 +53,12 @@ body
   body.is-error-page &
     padding-top: 4rem
     overflow-y: auto
-  body.is-auth-page &
-    padding-top: 2rem
 
 .container
   +padding(horizontal, 1.5rem)
   max-width: 100%
   body &.has-no-right-padding
     padding-right: 0
-    +media-breakpoint-down(sm)
-      padding-right: 1rem
   +media-breakpoint-down(md)
     +padding(horizontal, 1rem)
   body.is-learning-page &
@@ -95,6 +85,11 @@ body
 
 [class*=a-button]:not(input)
   +padding(vertical, 0)
+
+.page
+  body.is-auth-page &
+    padding-top: 2rem
+
 
 textarea
   overflow-anchor: none
