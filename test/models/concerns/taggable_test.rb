@@ -21,5 +21,9 @@ module Taggable
         assert_raise(ActiveRecord::RecordInvalid) { @user.update!(tag_list: [tag]) }
       end
     end
+
+    test 'valid contains_one_dot_only' do
+      assert_raise(ActiveRecord::RecordInvalid) { @user.update!(tag_list: ['.']) }
+    end
   end
 end
