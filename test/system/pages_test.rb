@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
+require 'supports/tag_helper'
 
 class PagesTest < ApplicationSystemTestCase
   setup { login_user 'komagata', 'testtest' }
@@ -152,5 +153,21 @@ class PagesTest < ApplicationSystemTestCase
     find('li.select2-results__option[role="option"]', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
     click_button '内容を保存'
     assert_text 'Linuxのファイル操作の基礎を覚える'
+  end
+
+  # ここから下のテストはTagHelperのmethodを利用する
+  include TagHelper
+
+  test 'alert when enter tag with space on creation page' do
+    visit new_page_path
+
+    assert_alert_when_enter_tag_with_space
+  end
+
+  test 'alert when enter tag with space on update page' do
+    visit "/pages/#{pages(:page1).id}"
+    find('.tag-links__item-edit').click
+
+    assert_alert_when_enter_tag_with_space
   end
 end

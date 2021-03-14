@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
+require 'supports/tag_helper'
 
 class QuestionsTest < ApplicationSystemTestCase
   setup do
@@ -133,5 +134,21 @@ class QuestionsTest < ApplicationSystemTestCase
     click_on '保存'
     wait_for_vuejs
     assert_text '追加タグ'
+  end
+
+  # ここから下のテストはTagHelperのmethodを利用する
+  include TagHelper
+
+  test 'alert when enter tag with space on creation page' do
+    visit new_page_path
+
+    assert_alert_when_enter_tag_with_space
+  end
+
+  test 'alert when enter tag with space on update page' do
+    visit "/pages/#{pages(:page1).id}"
+    find('.tag-links__item-edit').click
+
+    assert_alert_when_enter_tag_with_space
   end
 end
