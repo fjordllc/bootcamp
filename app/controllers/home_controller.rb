@@ -13,6 +13,7 @@ class HomeController < ApplicationController
         @completed_learnings = current_user.learnings.where(status: 3).order(updated_at: :desc)
         @my_seat_today = current_user.reservations.find_by(date: Date.current)&.seat&.name
         @reservations_for_today = Reservation.where(date: Date.current).to_a
+        @required_fields = RequiredFields.create_register_messages(current_user) if logged_in?
         render aciton: :index
       end
     else
