@@ -26,7 +26,7 @@ module Watchable
     end
   end
 
-  def filter_product
+  def detail
     if watchable_type == 'Product'
       watchable.body
     else
