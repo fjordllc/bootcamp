@@ -8,6 +8,10 @@ module TagHelper
     ].each { |tag| assert_alert_when_enter_tag(tag) }
   end
 
+  def assert_alert_when_enter_one_dot_only_tag
+    ['.'].each { |tag| assert_alert_when_enter_tag(tag) }
+  end
+
   private
 
   def assert_alert_when_enter_tag(name)

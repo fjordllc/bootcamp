@@ -142,7 +142,15 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'alert when enter tag with space on creation page' do
     visit new_page_path
 
+    # この次に assert_alert_when_enter_one_dot_only_tag を追加しても、
+    # 空白を入力したalertが発生し、ドットのみのalertが発生するテストにならない
     assert_alert_when_enter_tag_with_space
+  end
+
+  test 'alert when enter one dot only tag on creation page' do
+    visit new_page_path
+
+    assert_alert_when_enter_one_dot_only_tag
   end
 
   test 'alert when enter tag with space on update page' do
@@ -150,5 +158,12 @@ class QuestionsTest < ApplicationSystemTestCase
     find('.tag-links__item-edit').click
 
     assert_alert_when_enter_tag_with_space
+  end
+
+  test 'alert when enter one dot only tag on update page' do
+    visit "/pages/#{pages(:page1).id}"
+    find('.tag-links__item-edit').click
+
+    assert_alert_when_enter_one_dot_only_tag
   end
 end
