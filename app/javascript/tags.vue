@@ -103,8 +103,11 @@ export default {
       console.warn('Failed to parsing', error)
     },
     checkTag(obj) {
-      if (/ |　/.test(obj.tag.text)) {
+      const { text } = obj.tag
+      if (/ |　/.test(text)) {
         alert('入力されたタグにスペースが含まれています')
+      } else if (text === '.') {
+        alert('ドット1つだけのタグは作成できません')
       } else {
         obj.addTag()
       }
