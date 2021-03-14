@@ -37,7 +37,7 @@ module Watchable
   def time
     if watchable_type == 'Report'
       watchable.reported_on
-    elsif watchable.has_attribute?(:published_at) && watchable.published_at
+    elsif watchable.has_attribute?(:published_at) && watchable.published_at?
       watchable.published_at
     else
       watchable.created_at
