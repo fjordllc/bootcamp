@@ -5,10 +5,10 @@ module Taggable
 
   included do
     acts_as_taggable
-    validate :tag_list_validation
+    validate :contains_space
   end
 
-  def tag_list_validation
+  def contains_space
     return unless tag_list.any? { |tag| tag =~ /\A(?=.*\s+|.*　+).*\z/ }
 
     errors.add(:tag_list, 'に空白が含まれています')
