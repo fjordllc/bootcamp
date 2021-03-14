@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
+require 'supports/tag_helper'
 
 class CurrentUserTest < ApplicationSystemTestCase
   setup { login_user 'komagata', 'testtest' }
@@ -35,5 +36,14 @@ class CurrentUserTest < ApplicationSystemTestCase
     fill_in 'user[description]', with: ''
     click_on '更新する'
     assert_text '自己紹介を入力してください'
+  end
+
+  # ここから下のテストはTagHelperのmethodを利用する
+  include TagHelper
+
+  test 'alert when enter tag with space' do
+    visit edit_current_user_path
+
+    assert_alert_when_enter_tag_with_space
   end
 end
