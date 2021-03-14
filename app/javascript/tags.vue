@@ -103,7 +103,7 @@ export default {
       console.warn('Failed to parsing', error)
     },
     checkTag(obj) {
-      if (obj.tag.text.includes(' ')) {
+      if (/ |　/.test(obj.tag.text)) {
         alert('入力されたタグにスペースが含まれています')
       } else {
         obj.addTag()

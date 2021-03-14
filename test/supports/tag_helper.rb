@@ -2,7 +2,10 @@
 
 module TagHelper
   def assert_alert_when_enter_tag_with_space
-    assert_alert_when_enter_tag('半角スペースは 使えない')
+    [
+      '半角スペースは 使えない',
+      '全角スペースも　使えない'
+    ].each { |tag| assert_alert_when_enter_tag(tag) }
   end
 
   private
