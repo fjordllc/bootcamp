@@ -75,23 +75,25 @@ class PagesTest < ApplicationSystemTestCase
   test 'search pages by tag' do
     visit pages_url
     click_on '新規ページ'
+    tag_list = %w[tag1 tag2]
     within 'form[name=page]' do
       fill_in 'page[title]', with: 'tagのテスト'
       fill_in 'page[body]', with: 'tagをつけます。空白とカンマはタグには使えません。'
       tag_input = find('.ti-new-tag-input')
-      tag_input.set 'tag1'
-      tag_input.native.send_keys :return
-      tag_input.set 'tag2'
-      tag_input.native.send_keys :return
+      tag_list.each do |tag|
+        tag_input.set tag
+        tag_input.native.send_keys :return
+      end
       click_on '内容を保存'
     end
     click_on 'Docs', match: :first
-    assert_text 'tag1'
-    assert_text 'tag2'
 
-    click_on 'tag1', match: :first
-    assert_text 'tagのテスト'
-    assert_no_text 'Bootcampの作業のページ'
+    tag_list.each do |tag|
+      assert_text tag
+      click_on tag, match: :first
+      assert_text 'tagのテスト'
+      assert_no_text 'Bootcampの作業のページ'
+    end
   end
 
   test 'update tags without page transitions' do
