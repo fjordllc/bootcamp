@@ -105,7 +105,11 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'search questions by tag' do
     visit questions_url
     click_on '質問する'
-    tag_list = %w[tag1 tag2]
+    tag_list = ['tag1',
+                'ドットつき.タグ',
+                'ドットが.2つ以上の.タグ',
+                '.先頭がドット',
+                '最後がドット.']
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'tagテストの質問'
       fill_in 'question[description]', with: 'tagテストの質問です。'

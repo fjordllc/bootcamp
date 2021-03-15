@@ -75,7 +75,11 @@ class PagesTest < ApplicationSystemTestCase
   test 'search pages by tag' do
     visit pages_url
     click_on '新規ページ'
-    tag_list = %w[tag1 tag2]
+    tag_list = ['tag1',
+                'ドットつき.タグ',
+                'ドットが.2つ以上の.タグ',
+                '.先頭がドット',
+                '最後がドット.']
     within 'form[name=page]' do
       fill_in 'page[title]', with: 'tagのテスト'
       fill_in 'page[body]', with: 'tagをつけます。空白とカンマはタグには使えません。'

@@ -8,7 +8,7 @@ class User::TagsTest < ApplicationSystemTestCase
   test 'search user by tag on user page' do
     user = users(:kimura)
 
-    %i[cat].each do |key|
+    %i[cat shinjuku_rb neovim_v_zero_five_zero _net_framework may_j_].each do |key|
       name = acts_as_taggable_on_tags(key).name
       visit user_path(user)
       click_on name
@@ -22,7 +22,7 @@ class User::TagsTest < ApplicationSystemTestCase
     user = users(:kimura)
     visit users_path
 
-    %i[cat].each do |key|
+    %i[cat shinjuku_rb neovim_v_zero_five_zero _net_framework may_j_].each do |key|
       name = acts_as_taggable_on_tags(key).name
       within '.popular-tags' do
         click_on name, exact_text: true
@@ -36,7 +36,7 @@ class User::TagsTest < ApplicationSystemTestCase
   test 'add user tag' do
     visit user_path(users(:hatsuno))
 
-    %i[cat].each do |key|
+    %i[cat shinjuku_rb neovim_v_zero_five_zero _net_framework may_j_].each do |key|
       name = acts_as_taggable_on_tags(key).name
       assert_no_text name
 
