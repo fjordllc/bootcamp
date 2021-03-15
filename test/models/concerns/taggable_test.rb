@@ -5,7 +5,7 @@ require 'test_helper'
 module Taggable
   class TagTest < ActiveSupport::TestCase
     setup do
-      # Taggable modeuleをicnludeしているUserを利用する
+      # Taggable modeuleをicnludeしているUser classを利用する
       @user = users(:komagata)
     end
 
