@@ -8,12 +8,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkableId = check.getAttribute('data-checkable-id')
     const checkableType = check.getAttribute('data-checkable-type')
     const checkableLabel = check.getAttribute('data-checkable-label')
+    const checkerId = check.getAttribute('data-checker-id')
+    const checkerName = check.getAttribute('data-checker-name')
+    const currentUserId = check.getAttribute('data-current-user-id')
     new Vue({
       store,
       render: h => h(Check, { props: {
         checkableId: checkableId,
         checkableType: checkableType,
-        checkableLabel: checkableLabel
+        checkableLabel: checkableLabel,
+        checkerId: checkerId,
+        checkerName: checkerName,
+        currentUserId: currentUserId
       } })
     }).$mount('#js-check')
   }
