@@ -105,23 +105,25 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'search questions by tag' do
     visit questions_url
     click_on '質問する'
+    tag_list = %w[tag1 tag2]
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'tagテストの質問'
       fill_in 'question[description]', with: 'tagテストの質問です。'
       tag_input = find('.ti-new-tag-input')
-      tag_input.set 'tag1'
-      tag_input.native.send_keys :return
-      tag_input.set 'tag2'
-      tag_input.native.send_keys :return
+      tag_list.each do |tag|
+        tag_input.set tag
+        tag_input.native.send_keys :return
+      end
       click_button '登録する'
     end
     click_on 'Q&A', match: :first
-    assert_text 'tag1'
-    assert_text 'tag2'
 
-    click_on 'tag1', match: :first
-    assert_text 'tagテストの質問'
-    assert_no_text 'どのエディターを使うのが良いでしょうか'
+    tag_list.each do |tag|
+      assert_text tag
+      click_on tag, match: :first
+      assert_text 'tagテストの質問'
+      assert_no_text 'どのエディターを使うのが良いでしょうか'
+    end
   end
 
   test 'update tags without page transitions' do
