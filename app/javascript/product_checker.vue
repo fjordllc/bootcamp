@@ -1,5 +1,4 @@
 <template lang="pug">
-  .thread-list-item__assignee
     button(v-if="!checkerId || checkerId == currentUserId" :class="['a-button', 'is-sm', 'is-block', id ? 'is-danger' : 'is-primary']" @click="check")
       i(v-if="!checkerId || checkerId == currentUserId" :class="['fas', 'is-sm', id ? 'fa-times' : 'fa-hand-paper']" @click="check")
       | {{ buttonLabel }}
