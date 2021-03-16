@@ -13,7 +13,7 @@ json.created_at_date_time announcement.created_at.to_datetime
 json.updated_at l(announcement.updated_at)
 json.updated_at_date_time announcement.updated_at.to_datetime
 
-if announcement.published_at.present?
+if announcement.published_at
   json.published_at l(announcement.published_at)
   json.published_at_date_time announcement.published_at.to_datetime
 end
