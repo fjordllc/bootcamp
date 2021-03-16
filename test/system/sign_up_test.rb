@@ -21,7 +21,7 @@ class SignUpTest < ApplicationSystemTestCase
       select '未経験', from: 'user[experience]'
     end
 
-    fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111', '11122')
+    fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111')
 
     click_button '利用規約に同意して参加する'
     sleep 1
@@ -50,7 +50,7 @@ class SignUpTest < ApplicationSystemTestCase
       select '未経験', from: 'user[experience]'
     end
 
-    fill_stripe_element('4000 0000 0000 0069', '12 / 21', '111', '11122')
+    fill_stripe_element('4000 0000 0000 0069', '12 / 21', '111')
 
     click_button '利用規約に同意して参加する'
     sleep 1
@@ -79,7 +79,7 @@ class SignUpTest < ApplicationSystemTestCase
       select '未経験', from: 'user[experience]'
     end
 
-    fill_stripe_element('4000 0000 0000 0127', '12 / 21', '111', '11122')
+    fill_stripe_element('4000 0000 0000 0127', '12 / 21', '111')
 
     click_button '利用規約に同意して参加する'
     sleep 1
@@ -108,7 +108,7 @@ class SignUpTest < ApplicationSystemTestCase
       select '未経験', from: 'user[experience]'
     end
 
-    fill_stripe_element('4000 0000 0000 0002', '12 / 21', '111', '11122')
+    fill_stripe_element('4000 0000 0000 0002', '12 / 21', '111')
 
     click_button '利用規約に同意して参加する'
     sleep 1
@@ -187,7 +187,7 @@ class SignUpTest < ApplicationSystemTestCase
       select '未経験', from: 'user[experience]'
     end
 
-    fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111', '11122')
+    fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111')
 
     click_button '利用規約に同意して参加する'
     assert_text 'に使用できない文字列が含まれています'
@@ -233,7 +233,7 @@ class SignUpTest < ApplicationSystemTestCase
       select '未経験', from: 'user[experience]'
     end
 
-    fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111', '11122')
+    fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111')
 
     click_button '利用規約に同意して参加する'
     sleep 1
