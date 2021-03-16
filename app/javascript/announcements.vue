@@ -63,6 +63,7 @@
           :break-view-text="null"
         )
     .container(v-else)
+      .fas.fa-spinner.fa-pulse
       | ロード中
 </template>
 
