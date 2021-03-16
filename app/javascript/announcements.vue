@@ -31,8 +31,7 @@
           :key="announcement.id"
           :title="title"
           :announcement="announcement"
-          :currentUserId="currentUserId"
-          :isAdmin="isAdmin")
+          :currentUser="currentUser")
       .o-empty-massage(v-else)
         .o-empty-massage__icon
           i.far.fa-smile
@@ -72,7 +71,7 @@ import Announcement from './announcement.vue'
 import VueJsPaginate from 'vuejs-paginate'
 
 export default {
-  props: ['title', 'currentUserId', 'isAdmin'],
+  props: ['title', 'currentUserId'],
   components: {
     'announcement': Announcement,
     'pager-top': VueJsPaginate,
@@ -83,7 +82,8 @@ export default {
       announcements: [],
       totalPages: 0,
       currentPage: 1,
-      loaded: false
+      loaded: false,
+      currentUser: {}
     }
   },
   computed: {
@@ -97,6 +97,7 @@ export default {
     }
     this.currentPage = Number(this.getPageValueFromParameter()) || 1
     this.getAnnouncementsPerPage()
+    this.getCurrentUser()
   },
   methods: {
     token () {
@@ -145,6 +146,27 @@ export default {
     paginateClickCallback (pageNum) {
       this.getAnnouncementsPerPage()
       this.updateCurrentUrl()
+    },
+    getCurrentUser() {
+      fetch(`/api/users/${this.currentUserId}.json`, {
+      method: "GET",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      credentials: "same-origin",
+      redirect: "manual"
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        for (var key in json) {
+          this.$set(this.currentUser, key, json[key]);
+        }
+      })
+      .catch(error => {
+        console.warn("Failed to parsing", error);
+      });
     }
   }
 }

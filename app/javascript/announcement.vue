@@ -13,7 +13,7 @@
         h2.thread-list-item__title
           a.thread-list-item__title-link(:href="announcement.url")
             | {{ announcement.title }}
-        .thread-list-item__actions(v-if="isAdmin == 'true' || currentUserId == announcement.user.id")
+        .thread-list-item__actions(v-if="currentUser.role == 'admin' || currentUser.id == announcement.user.id")
           a.thread-list-item__actions-link(:href="announcement.newURL")
             i.fas.fa-copy
       .thread-list-item-meta(v-if="announcement.wip")
@@ -32,7 +32,7 @@
 </template>
 <script>
 export default {
-  props: ['title', 'announcement', 'currentUserId', 'isAdmin'],
+  props: ['title', 'announcement', 'currentUser'],
   computed: {
     roleClass() {
       return `is-${this.announcement.user.role}`
