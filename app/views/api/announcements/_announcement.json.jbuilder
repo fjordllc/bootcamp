@@ -6,6 +6,8 @@ json.title announcement.title
 json.description announcement.description
 json.target announcement.target
 json.wip announcement.wip
+json.url announcement_path(id: announcement)
+json.newURL new_announcement_path(id: announcement)
 json.created_at l(announcement.created_at)
 json.created_at_date_time announcement.created_at.to_datetime
 json.updated_at l(announcement.updated_at)
@@ -15,3 +17,5 @@ if announcement.published_at.present?
   json.published_at l(announcement.published_at)
   json.published_at_date_time announcement.published_at.to_datetime
 end
+
+json.commentsSize announcement.comments.size
