@@ -87,9 +87,7 @@ export default {
     }
   },
   computed: {
-    url () {
-      return `/api/announcements?page=${this.currentPage}`
-    }
+    url () { return `/api/announcements?page=${this.currentPage}` }
   },
   created () {
     window.onpopstate = function(){
