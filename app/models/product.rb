@@ -112,11 +112,11 @@ class Product < ApplicationRecord
     checker_id ? User.find(checker_id).login_name : nil
   end
 
-  def submitted_specific_day_ago?(date)
+  def submitted_just_specific_days(date)
     published_at.strftime('%F') == Time.zone.today.prev_day(date).to_s
   end
 
-  def submitted_before_specific_day_ago?(date)
+  def submitted_over_specific_days(date)
     published_at.strftime('%F') < Time.zone.today.prev_day(date - 1).to_s
   end
 end
