@@ -22,8 +22,7 @@ class ReportCallbacks
   end
 
   def after_update(report)
-    send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1
-
+    send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1 && report.saved_change_to_wip == [true, false]
     Cache.delete_unchecked_report_count
   end
 
