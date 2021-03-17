@@ -5,7 +5,7 @@ class WatchesController < ApplicationController
 
   PAGINATES_PER = 25
   def index
-    user_watching = current_user.watches.order(created_at: :desc)
-    @watches = user_watching.page(params[:page]).per(PAGINATES_PER)
+    user_watching = current_user.watches.order(created_at: :desc).map(&:watchable)
+    @watches = Kaminari.paginate_array(user_watching).page(params[:page]).per(PAGINATES_PER)
   end
 end
