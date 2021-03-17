@@ -51,6 +51,10 @@ class ProductsController < ApplicationController
     @product = find_my_product
     set_wip
     if @product.update(product_params)
+      unless @product.wip? && @product.published_at.nil?
+        notify_to_slack(@product)
+        notify_to_chat(@product)
+      end
       redirect_to @product, notice: notice_message(@product, :update)
     else
       render :edit
