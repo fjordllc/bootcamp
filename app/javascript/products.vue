@@ -19,6 +19,9 @@
           :product='product',
           :currentUserId='currentUserId',
           :isMentor='isMentor'
+          :latestProductSubmittedJust5days="latestProductSubmittedJust5days"
+          :latestProductSubmittedJust6days="latestProductSubmittedJust6days"
+          :latestProductSubmittedOver7days="latestProductSubmittedOver7days"
         )
       unconfirmed-links-open-button(
         v-if='isMentor && selectedTab != "all"',
@@ -51,6 +54,9 @@ export default {
       totalPages: 0,
       currentPage: Number(this.getPageValueFromParameter()) || 1,
       loaded: false
+      latestProductSubmittedJust5days: null,
+      latestProductSubmittedJust6days: null,
+      latestProductSubmittedOver7days: null,
     }
   },
   computed: {
@@ -105,6 +111,11 @@ export default {
           return response.json()
         })
         .then((json) => {
+          if (location.pathname == "/products/not_responded") {
+            this.latestProductSubmittedJust5days = json.latest_product_submitted_just_5days
+            this.latestProductSubmittedJust6days = json.latest_product_submitted_just_6days
+            this.latestProductSubmittedOver7days = json.latest_product_submitted_over_7days
+          }
           this.totalPages = json.total_pages
           this.products = []
           json.products.forEach((product) => {
