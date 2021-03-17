@@ -26,21 +26,25 @@ module Watchable
     end
   end
 
-  def detail
-    if watchable_type == 'Product'
-      watchable.body
+  def description
+    if class_name == 'Product'
+      self[:body]
     else
-      watchable.description
+      self[:description]
     end
   end
 
   def time
-    if watchable_type == 'Report'
-      watchable.reported_on
-    elsif watchable.has_attribute?(:published_at) && watchable.published_at?
-      watchable.published_at
+    if class_name == 'Report'
+      self[:reported_on]
+    elsif has_attribute?(:published_at) && published_at?
+      self[:published_at]
     else
-      watchable.created_at
+      self[:created_at]
     end
+  end
+
+  def class_name
+    self.class.name
   end
 end
