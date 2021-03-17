@@ -23,6 +23,8 @@ html.is-application lang='ja'
     = stylesheet_link_tag "https://cdn.jsdelivr.net/npm/yakuhanjp@3.2.0/dist/css/yakuhanjp-narrow.min.css", media: "all"
     = render "/head/fontawsome"
     = content_for(:head_last) if content_for?(:head_last)
+    - if Rails.env == 'development'
+      link rel="stylesheet" href="https://i.icomoon.io/public/0fe9383927/FBC/style.css"
   body.is-lp(class="is-#{params[:id]} #{body_class}")
     = render "google_tag_manager_body"
     .t-lp

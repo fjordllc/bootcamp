@@ -1,150 +1,159 @@
 .o-lp-mentors
   .m-lp-content__row
     .l-grids
-      .l-grids__item.md-up:u-col-6.sm-down:u-col-12
-        .m-left-image-content
-          .m-left-image-content__col
-            .m-left-image-content__row
-              = image_tag("https://via.placeholder.com/500", class: "a-circle-image")
-          .m-left-image-content__col
-            .m-left-image-content__row
-              .m-left-image-content__title
-                span.m-left-image-content__title-first-option
-                  | メンター
-                | 町田 哲平
-                span.m-left-image-content__title-option
-                  | Teppei Machida
-            .m-left-image-content__row
-              .m-left-image-content__description
-                .a-short-text
-                  p
-                    | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
-            .m-left-image-content__row
-              .m-inline-icon-list
-                ul.m-inline-icon-list__items
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-github" do
-                      i.fbc-icon-github
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-twitter" do
-                      i.fbc-icon-twitter
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-facebook" do
-                      i.fbc-icon-facebook
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-blog" do
-                      i.fbc-icon-blog
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-qiita" do
-                      i.fbc-icon-qiita
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '駒形 真幸',
+                                   job: 'プログラマー',
+                                   image: 'komagata.jpg',
+                                   github_id: 'komagata',
+                                   blog_url: 'https://docs.komagata.org/',
+                                   twitter_id: 'komagata',
+                                   facebook_id: 'komagata1111' do
+          p
+            | #{link_to '株式会社フィヨルド', 'https://fjord.jp/'}の代表兼プログラマー。
+            | Rubyが大好きで#{link_to '怖話'}、#{link_to 'フィヨルドブートキャンプ', 'https://bootcamp.fjord.jp/'}などを開発している。
 
-      .l-grids__item.md-up:u-col-6.sm-down:u-col-12
-        .m-left-image-content
-          .m-left-image-content__col
-            .m-left-image-content__row
-              = image_tag("https://via.placeholder.com/500", class: "a-circle-image")
-          .m-left-image-content__col
-            .m-left-image-content__row
-              .m-left-image-content__title
-                span.m-left-image-content__title-first-option
-                  | メンター
-                | 町田 哲平
-                span.m-left-image-content__title-option
-                  | Teppei Machida
-            .m-left-image-content__row
-              .m-left-image-content__description
-                .a-short-text
-                  p
-                    | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
-            .m-left-image-content__row
-              .m-inline-icon-list
-                ul.m-inline-icon-list__items
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-github" do
-                      i.fbc-icon-github
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-twitter" do
-                      i.fbc-icon-twitter
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-facebook" do
-                      i.fbc-icon-facebook
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-blog" do
-                      i.fbc-icon-blog
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-qiita" do
-                      i.fbc-icon-qiita
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '伊藤 淳一',
+                                   job: 'プログラマー',
+                                   image: 'ito.jpg',
+                                   github_id: 'JunichiIto',
+                                   blog_url: 'https://blog.jnito.com/',
+                                   twitter_id: 'jnchito',
+                                   facebook_id: 'junichi.ito.717' do
+          = image_tag('mentors/cherry-book.jpg', class: 'has-2-books', alt: 'プロを目指す人のためのRuby入門、Everyday Rails - RSpecによるRailsテスト入門の表紙画像')
+          p
+            | #{link_to '株式会社ソニックガーデン', 'https://www.sonicgarden.jp/'}。
+            | 2017年11月に『#{link_to 'プロを目指す人のためのRuby入門', 'https://gihyo.jp/book/2017/978-4-7741-9397-7'}』を出版。
+            | 電子書籍『#{link_to 'Everyday Rails - RSpecによるRailsテスト入門', 'https://leanpub.com/everydayrailsrspec-jp/'}』の翻訳者でもある。
 
-      .l-grids__item.md-up:u-col-6.sm-down:u-col-12
-        .m-left-image-content
-          .m-left-image-content__col
-            .m-left-image-content__row
-              = image_tag("https://via.placeholder.com/500", class: "a-circle-image")
-          .m-left-image-content__col
-            .m-left-image-content__row
-              .m-left-image-content__title
-                span.m-left-image-content__title-first-option
-                  | メンター
-                | 町田 哲平
-                span.m-left-image-content__title-option
-                  | Teppei Machida
-            .m-left-image-content__row
-              .m-left-image-content__description
-                .a-short-text
-                  p
-                    | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
-            .m-left-image-content__row
-              .m-inline-icon-list
-                ul.m-inline-icon-list__items
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-github" do
-                      i.fbc-icon-github
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-twitter" do
-                      i.fbc-icon-twitter
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-facebook" do
-                      i.fbc-icon-facebook
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-blog" do
-                      i.fbc-icon-blog
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-qiita" do
-                      i.fbc-icon-qiita
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '高木 里穂',
+                                   job: 'プログラマー',
+                                   image: 'riho.jpg',
+                                   github_id: 'rlho',
+                                   blog_url: 'https://lapras.com/public/EXD6Q3S',
+                                   twitter_id: 'rllllho',
+                                   facebook_id: 'riho.takagi.39' do
+          p
+            | 大阪で働くフリーランスエンジニア。サーバーサイドがメインですがフロントも書きます。
+            | 今はRuby on Rails/React/TypeScriptを主に書いています。
+            | 女性のエンジニアを増やすことに興味があり、Rails Girls Tokyo 11th主催したり、
+            | #{link_to 'DevFest Women Tokyo 2019', 'http://www.devfest-women.com/'}を主催したりコミュニティの運営に携わっていたりしています。
 
-      .l-grids__item.md-up:u-col-6.sm-down:u-col-12
-        .m-left-image-content
-          .m-left-image-content__col
-            .m-left-image-content__row
-              = image_tag("https://via.placeholder.com/500", class: "a-circle-image")
-          .m-left-image-content__col
-            .m-left-image-content__row
-              .m-left-image-content__title
-                span.m-left-image-content__title-first-option
-                  | メンター
-                | 町田 哲平
-                span.m-left-image-content__title-option
-                  | Teppei Machida
-            .m-left-image-content__row
-              .m-left-image-content__description
-                .a-short-text
-                  p
-                    | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
-            .m-left-image-content__row
-              .m-inline-icon-list
-                ul.m-inline-icon-list__items
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-github" do
-                      i.fbc-icon-github
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-twitter" do
-                      i.fbc-icon-twitter
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-facebook" do
-                      i.fbc-icon-facebook
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-blog" do
-                      i.fbc-icon-blog
-                  li.m-inline-icon-list__item
-                    = link_to "", class: "a-sns-icon-square-link is-qiita" do
-                      i.fbc-icon-qiita
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '五十嵐 邦明',
+                                   job: 'プログラマー',
+                                   image: 'igarasi.png',
+                                   github_id: 'igaiga',
+                                   blog_url: 'https://igarashikuniaki.net/diary/',
+                                   twitter_id: 'igaiga555',
+                                   facebook_id: 'kuniaki.igarashi' do
+          = image_tag('mentors/chou-nyuumon.jpg', class: 'has-3-books', alt: 'ゼロからわかる Ruby超入門、パーフェクトRuby on Rail、RubyとRailsの学習ガイドの表紙画像')
+          p
+            | 2003年、Rubyで書かれたWeb日記アプリ#{link_to 'tDiary', 'https://tdiary.org/'}を使い始めてRubyistになる。
+            | 一橋大学の非常勤講師として2012年から2年間、RubyとRailsを教える。
+            | 受託開発会社、Webサービス開発会社CTOなどを経て2017年4月よりフリーランス、
+            | 2019年7月#{link_to 'ガーネットテック373株式会社', 'https://www.garnettech373.com/'}を設立、同社代表取締役社長。
+            | #{link_to 'RubyWorld Conference', 'http://2013.rubyworld-conf.org/ja/'}や#{link_to 'RubyConf台湾', 'https://rubyconf.tw/'}などで講演。
+            | 著書に『#{link_to 'ゼロからわかる Ruby超入門', 'https://www.amazon.co.jp/dp/B07KQXFF6D'}』、
+            | 『#{link_to 'Railsの教科書', 'https://tatsu-zine.com/books/rails-textbook'}』、
+            | 『#{link_to 'パーフェクトRuby on Rails', 'https://www.amazon.co.jp/dp/B00P0UR1RU'}』、
+            | 『#{link_to 'RubyとRailsの学習ガイド', 'https://booth.pm/ja/items/1312664'}』ほか。
+
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '前田 直樹',
+                                   job: 'プログラマー',
+                                   image: 'maeda.jpg',
+                                   github_id: 'maedana',
+                                   twitter_id: 'maedana',
+                                   facebook_id: 'maedana' do
+          p
+            | #{link_to '株式会社ソニックガーデン', 'https://www.sonicgarden.jp/'}所属のプログラマー。
+            | VimでRubyのコードが書ける日々が幸せです。
+
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '田中 勇一',
+                                   job: 'プログラマー',
+                                   image: 'tanaka.jpg',
+                                   github_id: 'u1tnk',
+                                   blog_url: 'https://u1tnk.github.io/',
+                                   twitter_id: 'u1tnk' do
+          p
+            | Rails/AWSを主としたフリーランスプログラマ。
+            | プログラマとしては10年超、フリーランスとしては6年超。
+            | 主にスタートアップ系企業を顧客として開発やレビュー業務をしています。名付け重要。
+
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '小田井 優',
+                                   job: 'プログラマー',
+                                   image: 'odai.jpg',
+                                   github_id: 'u1tnk',
+                                   twitter_id: 'odailly_jp',
+                                   facebook_id: 'suguru.odai' do
+          = image_tag('mentors/genba-rails-book.jpg', class: 'has-a-book', alt: '現場で使える Ruby on Rails 5速習実践ガイドの表紙画像')
+          p
+            | #{link_to '株式会社万葉', 'https://everyleaf.com/'}に所属し、Railsなどを使ったWebアプリケーションの受託開発を行っている。
+            | 過去にはフィヨルドブートキャンプの前身である256インターンに参加しており、#{link_to '怖話', 'https://kowabana.jp/'}の開発にも関わっていた。
+            | 『#{link_to '現場で使える Ruby on Rails 5速習実践ガイド', 'https://www.amazon.co.jp/dp/B07JHQ9B5T'}』の著書の一人。
+
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '柏 夏美',
+                                   job: 'プログラマー',
+                                   image: 'kasiwa.png',
+                                   github_id: 'betachelsea',
+                                   twitter_id: 'beta_chelsea' do
+          p
+            | #{link_to '株式会社ARROWS', 'https://arrowsinc.com/'}に所属。Railsを使った自社サービスの開発保守の担当プログラマ。
+            | Rails Girls Tokyo にコーチとして参加経験あり。好きなRubyメソッドはmapです。
+
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '角谷 信太郎',
+                                   job: 'プログラマー',
+                                   image: 'kakutani.jpg',
+                                   github_id: 'kakutani',
+                                   blog_url: 'https://kakutani.com/',
+                                   twitter_id: 'kakutani',
+                                   facebook_id: 'kakutani' do
+          = image_tag('mentors/clearn-agile-book.jpg', class: 'has-4-books', alt: 'Clean Agile、なるほどUnixプロセス、Rubyのしくみ、アジャイルサムライの表紙画像')
+          p
+            | 個人事業主。#{link_to '一般社団法人日本Rubyの会', 'https://ruby-no-kai.org'}理事。
+            | #{link_to '株式会社永和システムマネジメント', 'https://www.esm.co.jp'}フェロー。
+            | すべての#{link_to 'RubyKaigi', 'https://rubykaigi.org'}の運営に携わる。
+            | #{link_to 'Asakusa.rb', 'http://asakusa.rubyist.net'}メンバー。
+            | 好きなメソッドはObject#extend。
+            | フィヨルドブートキャンプの前身である256インターンのきっかけをつくったと主張している。
+            | 主な訳書に#{link_to '『Clean Agile』', 'https://tatsu-zine.com/books/clean-agile'}、
+            | #{link_to '『なるほどUnixプロセス』', 'https://tatsu-zine.com/books/naruhounix'}、
+            | #{link_to '『Rubyのしくみ』', 'https://tatsu-zine.com/books/ruby-under-a-microscope-ja'}、
+            | #{link_to '『アジャイルサムライ』', 'https://tatsu-zine.com/books/agile-samurai-ja'}、
+            | #{link_to '『アジャイルな見積りと計画づくり』', 'https://www.amazon.co.jp/dp/4839924023'}など。
+
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '多田 亜希',
+                                   job: 'プログラマー',
+                                   image: 'tadaaki.jpg',
+                                   github_id: 'torinoko',
+                                   blog_url: 'https://tdak.hateblo.jp/',
+                                   twitter_id: 'tdakak',
+                                   facebook_id: 'aki.tada' do
+          p
+            | #{link_to 'hey, Inc.', 'https://hey.jp/'}所属。
+            | たくさんの人達が楽しく過ごせることを目指して、毎日ふわふわ過ごしています。
+            | また、業務やイベントでプログラミング未経験の方、学生インターン、新卒入社社員や実務経験の浅い社員に対してプログラミング研修を行なってきました。
+            | #{link_to 'Tokyu Ruby Kaigi', 'https://tokyurubykaigi.github.io/tokyu13/'}実行委員。
+            | #{link_to 'Shinjuku.rb', 'https://shinjukurb.connpass.com/'}管理者。
+            | 好きなメソッドはObject#object_idです。
+
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '町田 哲平',
+                                   job: 'デザイナー',
+                                   image: 'machida.jpg',
+                                   github_id: 'machida',
+                                   twitter_id: 'machida',
+                                   facebook_id: 'teppeimachida' do
+          p
+            | #{link_to '株式会社フィヨルド', 'https://bootcamp.fjord.jp/'}のデザイナー。
+            | Ruby on Railsを使ったWebアプリを中心に多くのプロジェクトに参加。
+            | 仙台で行われた#{link_to 'RubyKaigi 2018', 'https://rubykaigi.org/2018/'}のデザイン担当。
+            | フィヨルドブートキャンプでは主に HTML と CSS のレビュー担当。

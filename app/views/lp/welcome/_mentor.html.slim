@@ -1,0 +1,43 @@
+section.m-medias-media
+  .m-medias-media__col
+    .m-media-attributes
+      .m-media-attributes__col
+        .m-media-attributes__row
+          .m-media-attributes__image
+            = image_tag("mentors/#{image}", class: '', alt: "#{name}のアイコン画像")
+      .m-media-attributes__col
+        .m-media-attributes__row
+          h2.m-media-attributes__title
+            span.m-left-image-content__title-first-option
+              = job
+            = name
+            //
+              span.m-left-image-content__title-option
+                | Teppei Machida
+        .m-media-attributes__row
+          .m-inline-icon-list
+            ul.m-inline-icon-list__items
+              - if defined?(github_id)
+                li.m-inline-icon-list__item
+                  = link_to "https://github.com/#{github_id}", class: 'a-sns-icon-square-link is-github' do
+                    i.fbc-icon-github
+              - if defined?(blog_url)
+                li.m-inline-icon-list__item
+                  = link_to blog_url, class: 'a-sns-icon-square-link is-blog' do
+                    i.fbc-icon-blog
+              - if defined?(twitter_id)
+                li.m-inline-icon-list__item
+                  = link_to "https://twitter.com/#{twitter_id}", class: 'a-sns-icon-square-link is-twitter' do
+                    i.fbc-icon-twitter
+              - if defined?(facebook_id)
+                li.m-inline-icon-list__item
+                  = link_to "https://www.facebook.com/#{facebook_id}", class: 'a-sns-icon-square-link is-facebook' do
+                    i.fbc-icon-facebook
+              - if defined?(qiita_id)
+                li.m-inline-icon-list__item
+                  = link_to "https://qiita.com/#{qiita_id}", class: "a-sns-icon-square-link is-qiita" do
+                    i.fbc-icon-qiita
+  .m-medias-media__col
+    .m-media-attributes__body
+      .a-long-text.is-sm
+        = yield

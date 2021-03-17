@@ -1,6 +1,29 @@
 .o-lp-mentors
   margin-bottom: calc(#{vr(5)} * -1)
-  .m-left-image-content
-    margin-bottom: vr(5)
+  .m-medias-media
+    border: solid 1px $border
+    padding: vr(6) vr(7)
+    height: 100%
+    border-radius: vr(1)
+  .m-left-image-content__title-first-option
+    +text-block(fz(3) 1.3, 700 block)
+  .m-media-attributes__title
+    +text-block(fz(6) 1.4, 700)
   .m-inline-icon-list
     font-size: fz(6)
+  .m-media-attributes__image
+    width: vr(22)
+    margin-right: vr(6)
+    img
+      border-radius: vr(2)
+      +size(100%)
+      object-fit: cover
+      border: solid 1px #eee
+  .m-media-attributes__body
+    margin-top: vr(4)
+  .a-long-text
+    img
+      float: right
+      width: 100px
+      margin-bottom: vr(4)
+      margin-left: 2em
