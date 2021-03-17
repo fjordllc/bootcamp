@@ -1,5 +1,11 @@
 <template lang="pug">
   .thread-list-item(:class="product.wip ? 'is-wip' : ''")
+    p(v-if="isLatestProductSubmittedJust5days")
+      | 5日経過
+    p(v-else-if="isLatestProductSubmittedJust6days")
+      | 6日経過
+    p(v-else-if="isLatestProductSubmittedOver7days")
+      | 7日以上経過
     .thread-list-item__inner
       .thread-list-item__author
         a.thread-header__author(:href="product.user.url")
@@ -54,7 +60,7 @@
 <script>
 import ProductChecker from './product_checker'
 export default {
-  props: ['product', 'currentUserId', 'isMentor'],
+  props: ['product', 'currentUserId', 'isMentor', 'latestProductSubmittedJust5days', 'latestProductSubmittedJust6days', 'latestProductSubmittedOver7days'],
   components: {
     'product-checker': ProductChecker,
   },
@@ -67,7 +73,22 @@ export default {
     },
     practiceTitle() {
       return this.product.user.daimyo ? `★${this.product.practice.title}の提出物` : `${this.product.practice.title}の提出物`
-    }
+    },
+    isLatestProductSubmittedJust5days() {
+      if (this.latestProductSubmittedJust5days !== null) {
+        return this.product.id === this.latestProductSubmittedJust5days.id
+      }
+    },
+    isLatestProductSubmittedJust6days() {
+      if (this.latestProductSubmittedJust6days !== null) {
+        return this.product.id === this.latestProductSubmittedJust6days.id
+      }
+    },
+    isLatestProductSubmittedOver7days() {
+      if (this.latestProductSubmittedOver7days !== null) {
+        return this.product.id === this.latestProductSubmittedOver7days.id
+      }
+    },
   }
 }
 </script>
