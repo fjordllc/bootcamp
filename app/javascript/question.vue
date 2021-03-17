@@ -68,10 +68,18 @@
                   .thread-question-form__tab.js-tabs__tab(v-bind:class="{'is-active': isActive('preview')}" @click="changeActiveTab('preview')")
                     | プレビュー
                 .thread-question-form__markdown-parent.js-markdown-parent
-                  .thread-question-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('question')}")
-                    markdown-textarea(v-model="tempDescription" :class="classQuestionId" class="a-text-input js-warning-form thread-question-form__textarea js-question-markdown" name="question[description]")
-                  .thread-question-form__markdown.js-tabs__content(v-bind:class="{'is-active': isActive('preview')}")
-                    .js-preview.is-long-text.thread-question-form__preview(v-html="markdownDescription")
+                  .thread-question-form__markdown.js-tabs__content(
+                    v-bind:class="{'is-active': isActive('question')}")
+                    // - TODO classQuestionId は必要?
+                    textarea.a-text-input.js-warning-form.thread-question-form__textarea(
+                      v-model="tempDescription"
+                      id="js-question-content"
+                      data-preview="#js-question-preview"
+                      name="question[description]")
+                  .thread-question-form__markdown.js-tabs__content(
+                    :class="{'is-active': isActive('preview')}")
+                    .js-preview.is-long-text.thread-question-form__preview(
+                      id="js-question-preview")
               ul.thread-question-form__actions
                 li.thread-question-form__action
                   button.a-button.is-md.is-warning.is-block(@click="updateQuestion" v-bind:disabled="!validation" type="button")
@@ -82,22 +90,14 @@
 </template>
 <script>
 import Reaction from './reaction.vue'
-import MarkdownTextarea from './markdown-textarea.vue'
-import MarkdownIt from 'markdown-it'
-import MarkdownItEmoji from 'markdown-it-emoji'
-import MarkdownItMention from './packs/markdown-it-mention'
 import Watch from './watch'
-import Prism from 'prismjs/components/prism-core'
-import 'prism_languages'
-import Tribute from 'tributejs'
-import TextareaAutocomplteEmoji from 'classes/textarea-autocomplte-emoji'
-import TextareaAutocomplteMention from 'classes/textarea-autocomplte-mention'
+import MarkdownInitializer from './markdown-initializer'
+import TextareaInitializer from './textarea-initializer'
 import moment from 'moment'
 moment.locale('ja')
 
 export default {
   components: {
-    'markdown-textarea': MarkdownTextarea,
     'js-watch': Watch,
   },
   props: {
@@ -124,25 +124,8 @@ export default {
   },
   computed: {
     markdownDescription: function () {
-      const md = new MarkdownIt({
-        html: true,
-        breaks: true,
-        linkify: true,
-        langPrefix: 'language-',
-        highlight: (str, lang) => {
-          if (lang && Prism.languages[lang]) {
-            try {
-              return Prism.highlight(str, Prism.languages[lang], lang)
-            } catch (__) {}
-          }
-          return ''
-        },
-      })
-      md.use(MarkdownItEmoji).use(MarkdownItMention)
-      return md.render(this.tempDescription)
-    },
-    classQuestionId: function () {
-      return `question-id-${this.question.id}`
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.tempDescription)
     },
     validation: function () {
       return this.tempDescription.length > 0
@@ -169,18 +152,7 @@ export default {
     this.reaction = Reaction
   },
   mounted: function () {
-    $('textarea').textareaAutoSize()
-    const textareas = document.querySelectorAll(
-      `.question-id-${this.question.id}`
-    )
-    const emoji = new TextareaAutocomplteEmoji()
-    const mention = new TextareaAutocomplteMention()
-    mention.fetchValues((json) => {
-      mention.values = json
-      const collection = [emoji.params(), mention.params()]
-      const tribute = new Tribute({ collection: collection })
-      tribute.attach(textareas)
-    })
+    TextareaInitializer.initialize(`#js-question-content`)
   },
   methods: {
     async setQuestion() {
