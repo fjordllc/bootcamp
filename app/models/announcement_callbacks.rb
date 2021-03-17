@@ -4,19 +4,13 @@ class AnnouncementCallbacks
   def after_create(announce)
     return if announce.wip?
 
-    notify_to_slack(announce)
-    send_notification(announce)
-    announce.published_at = Time.current
-    announce.save
+    after_first_publish(announce)
   end
 
   def after_update(announce)
     return unless !announce.wip && announce.published_at.nil?
 
-    notify_to_slack(announce)
-    send_notification(announce)
-    announce.published_at = Time.current
-    announce.save
+    after_first_publish(announce)
   end
 
   def after_destroy(announce)
@@ -25,6 +19,12 @@ class AnnouncementCallbacks
 
   private
 
+  def after_first_publish(announce)
+    notify_to_chat(announce)
+    send_notification(announce)
+    announce.update(published_at: Time.current)
+  end
+
   def send_notification(announce)
     target_users = User.announcement_receiver(announce.target)
     target_users.each do |target|
@@ -32,19 +32,14 @@ class AnnouncementCallbacks
     end
   end
 
-  def notify_to_slack(announce)
+  def notify_to_chat(announce)
     path = Rails.application.routes.url_helpers.polymorphic_path(announce)
     url = "https://bootcamp.fjord.jp#{path}"
-    link = "<#{url}|#{announce.title}>"
 
-    SlackNotification.notify link.to_s,
-                             username: "#{announce.user.login_name} (#{announce.user.name})",
-                             icon_url: announce.user.avatar_url,
-                             channel: '#general',
-                             attachments: [{
-                               fallback: 'announcement description.',
-                               text: announce.description
-                             }]
+    ChatNotifier.message(
+      "お知らせ：「#{announce.title}」\r#{url}",
+      webhook_url: ENV['DISCORD_ALL_WEBHOOK_URL']
+    )
   end
 
   def delete_notification(announce)
