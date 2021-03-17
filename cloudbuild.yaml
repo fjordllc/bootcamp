@@ -73,6 +73,7 @@ steps:
       - '--set-env-vars=REDIS_URL=$_REDIS_URL'
       - '--set-env-vars=TOKEN=$_TOKEN'
       - '--set-env-vars=DISCORD_NOTICE_WEBHOOK_URL=$_DISCORD_NOTICE_WEBHOOK_URL'
+      - '--set-env-vars=DISCORD_ALL_WEBHOOK_URL=$_DISCORD_ALL_WEBHOOK_URL'
       - '--set-env-vars=BASIC_AUTH_USER=$_BASIC_AUTH_USER'
       - '--set-env-vars=BASIC_AUTH_PASSWORD=$_BASIC_AUTH_PASSWORD'
       - '--set-env-vars=$_ENVS'
@@ -105,6 +106,7 @@ substitutions:
   _GCS_BUCKET: _
   _TOKEN: _
   _DISCORD_NOTICE_WEBHOOK_URL: _
+  _DISCORD_ALL_WEBHOOK_URL: _
   _BASIC_AUTH_USER: _
   _BASIC_AUTH_PASSWORD: _
 tags:
