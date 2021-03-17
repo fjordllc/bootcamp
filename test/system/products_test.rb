@@ -188,7 +188,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_no_text "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。"
   end
 
-  test 'Slack notify if the create product' do
+  test 'Slack and Discord notify if the create product as publish' do
     login_user 'kensyu', 'testtest'
     visit "/products/new?practice_id=#{practices(:practice3).id}"
     within('#new_product') do
@@ -200,11 +200,12 @@ class ProductsTest < ApplicationSystemTestCase
     Rails.logger.stub(:info, stub_info) do
       click_button '提出する'
       assert_match "kensyu さんが「#{practices(:practice3).title}」の提出物を提出しました。", mock_log.to_s
+      assert_match 'Message to Discord.', mock_log.to_s
     end
     assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
   end
 
-  test 'Slack notify if the create product as WIP' do
+  test 'Slack and Discord notify if the create product as WIP' do
     login_user 'kensyu', 'testtest'
     visit "/products/new?practice_id=#{practices(:practice3).id}"
     within('#new_product') do
@@ -216,6 +217,41 @@ class ProductsTest < ApplicationSystemTestCase
     Rails.logger.stub(:info, stub_info) do
       click_button 'WIP'
       assert_no_match "kensyu さんが「#{practices(:practice3).title}」の提出物を提出しました。", mock_log.to_s
+      assert_no_match 'Message to Discord.', mock_log.to_s
+    end
+    assert_text '提出物をWIPとして保存しました。'
+  end
+
+  test 'Slack and Discord notify if the update product as publish' do
+    login_user 'kensyu', 'testtest'
+    visit "/products/#{products(:product13).id}/edit"
+    within('form[name=product]') do
+      fill_in('product[body]', with: 'test')
+    end
+    mock_log = []
+    stub_info = proc { |i| mock_log << i }
+
+    Rails.logger.stub(:info, stub_info) do
+      click_button '提出する'
+      assert_match "kensyu さんが「#{practices(:practice1).title}」の提出物を提出しました。", mock_log.to_s
+      assert_match 'Message to Discord.', mock_log.to_s
+    end
+    assert_text '提出物を更新しました。'
+  end
+
+  test 'Slack and Discord notify if the update product as WIP' do
+    login_user 'kensyu', 'testtest'
+    visit "/products/#{products(:product13).id}/edit"
+    within('form[name=product]') do
+      fill_in('product[body]', with: 'test')
+    end
+    mock_log = []
+    stub_info = proc { |i| mock_log << i }
+
+    Rails.logger.stub(:info, stub_info) do
+      click_button 'WIP'
+      assert_no_match "kensyu さんが「#{practices(:practice13).title}」の提出物を提出しました。", mock_log.to_s
+      assert_no_match 'Message to Discord.', mock_log.to_s
     end
     assert_text '提出物をWIPとして保存しました。'
   end
