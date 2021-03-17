@@ -4,6 +4,8 @@ require 'application_system_test_case'
 require 'supports/tag_helper'
 
 class QuestionsTest < ApplicationSystemTestCase
+  include TagHelper
+
   setup do
     login_user 'kimura', 'testtest'
   end
@@ -141,9 +143,6 @@ class QuestionsTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_text '追加タグ'
   end
-
-  # ここから下のテストはTagHelperのmethodを利用する
-  include TagHelper
 
   test 'alert when enter tag with space on creation page' do
     visit new_page_path

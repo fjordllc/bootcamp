@@ -4,6 +4,8 @@ require 'application_system_test_case'
 require 'supports/tag_helper'
 
 class PagesTest < ApplicationSystemTestCase
+  include TagHelper
+
   setup { login_user 'komagata', 'testtest' }
 
   test 'GET /pages' do
@@ -160,9 +162,6 @@ class PagesTest < ApplicationSystemTestCase
     click_button '内容を保存'
     assert_text 'Linuxのファイル操作の基礎を覚える'
   end
-
-  # ここから下のテストはTagHelperのmethodを利用する
-  include TagHelper
 
   test 'alert when enter tag with space on creation page' do
     visit new_page_path
