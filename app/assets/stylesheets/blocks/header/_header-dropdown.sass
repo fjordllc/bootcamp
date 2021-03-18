@@ -66,22 +66,33 @@
 .header-dropdown__footer
   +border-radius(bottom, .25rem)
   overflow: hidden
-  border-top: solid 1px $background-shade
+  +media-breakpoint-up(md)
+    border-top: solid 1px $background
+  +media-breakpoint-down(sm)
+    border-top: solid 1px $side-border
+
 
 .header-dropdown__footer-link
-  +text-block(.875rem 1.4, $main)
+  +text-block(.875rem 1.4)
   +flex-link
   align-items: center
   justify-content: center
   +size(100% 2.75rem)
   transition: all .2s ease-out
+  +media-breakpoint-up(md)
+    color: $main
+  +media-breakpoint-down(sm)
+    color: $reversal-text
   &:hover
-    background-color: $background-more-tint
+    +media-breakpoint-up(md)
+      background-color: $background-more-tint
+    +media-breakpoint-down(sm)
+      background-color: $side-shade
   +media-breakpoint-up(md)
     &:not(:last-child)
       border-bottom: solid 1px $background
   +media-breakpoint-down(sm)
-    border-bottom: solid 1px $background
+    border-bottom: solid 1px $side-border
 
 .header-dropdown__background
   +media-breakpoint-up(md)
