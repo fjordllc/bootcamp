@@ -17,7 +17,7 @@
           | 未解決
         | {{ question.title }}
       .thread-header__lower-side
-        #js-watch(:data-watchable-id="questionId", data-watchable-type="Question")
+        watch(:watchableId="questionId", watchableType="Question")
         .thread-header__raw
           a(:href="`/questions/${question.id}.md`", class= "a-button is-sm is-secondary", target="_blank")
             | Raw
@@ -89,7 +89,7 @@
 </template>
 <script>
 import Reaction from './reaction.vue'
-import Watch from './watch'
+import Watch from './watch.vue'
 import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
 import moment from 'moment'
@@ -97,7 +97,7 @@ moment.locale('ja')
 
 export default {
   components: {
-    'js-watch': Watch,
+    watch: Watch,
   },
   props: {
     currentUserId: { type: String, required: true },
