@@ -6,6 +6,9 @@
           | {{ questionUser.login_name }}
         .thread-header__date
           | {{ createdAt }}
+      .thread-practice(v-if="question.practice")
+        a(:href="`/practices/${question.practice.id}`", class="thread-practice__link")
+          | {{ question.practice.title }}
       h1.thread-header__title
         span.thread-header__title-icon.is-solved.is-success(v-if="present")
           | 解決済
@@ -17,11 +20,6 @@
         .thread-header__raw
           a(:href="`/questions/${question.id}.md`", class= "a-button is-sm is-secondary", target="_blank")
             | Raw
-    .report-practices(v-if="question.practice")
-      ul.report-practices__items
-       li.report-practices__item
-          a(:href="`/practices/${question.practice.id}`", class="report-practices__item-link")
-            | {{ question.practice.title }}
 
     .thread__body
       .thread-question__body.a-card(v-if="!editing")
