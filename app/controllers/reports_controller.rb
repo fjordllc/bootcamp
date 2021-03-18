@@ -160,7 +160,6 @@ class ReportsController < ApplicationController
   def check_noticeable
     return unless @report.published_at.nil? && @report.wip == false
 
-    @report.published_at = Date.current
     @noticeable = true
   end
 

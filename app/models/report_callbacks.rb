@@ -4,7 +4,11 @@ class ReportCallbacks
   def after_create(report)
     create_author_watch(report)
 
-    send_first_report_notification(report) if report.user.reports.count == 1 && !report.wip?
+    if report.wip == false && report.user.reports.count == 1 && report.published_at.nil?
+      send_first_report_notification(report)
+      report.published_at = Date.current
+      report.save
+    end
 
     if report.user.trainee? && report.user.company_id?
       report.user.company.advisers.each do |adviser|
@@ -22,7 +26,11 @@ class ReportCallbacks
   end
 
   def after_update(report)
-    send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1 && report.saved_change_to_wip == [true, false]
+    if report.wip == false && report.user.reports.count == 1 && report.published_at.nil?
+      send_first_report_notification(report)
+      report.published_at = Date.current
+      report.save
+    end
     Cache.delete_unchecked_report_count
   end
 
