@@ -5,7 +5,8 @@
         a(:href="`/users/${questionUser.id}`", class= "thread-header__author")
           | {{ questionUser.login_name }}
         .thread-header__date
-          | {{ updateAt }}
+          time.thread_header_date-value(:datetime="updateAtISO8601" pubdate="pubdate")
+            | {{ updateAt }}
       .thread-practice(v-if="question.practice")
         a(:href="`/practices/${question.practice.id}`", class="thread-practice__link")
           | {{ question.practice.title }}
@@ -130,6 +131,9 @@ export default {
     },
     reactionableId: function () {
       return `Question_${this.question.id}`
+    },
+    updateAtISO8601: function() {
+      return moment(this.question.update_at).format();
     },
     updateAt: function () {
       return moment(this.question.update_at).format('YYYY年MM月DD日(dd) HH:mm')
