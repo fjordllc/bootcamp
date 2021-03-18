@@ -6,7 +6,7 @@ class ReportCallbacks
 
     send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1 && report.published_at.nil?
 
-    published_at(report) if !report.wip? && report.published_at.nil?
+    save_published_at(report) if !report.wip? && report.published_at.nil?
 
     send_notification_to_company_adivisers(report)
     create_notification_to_followers(report)
@@ -17,7 +17,7 @@ class ReportCallbacks
   def after_update(report)
     send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1 && report.published_at.nil?
 
-    published_at(report) if !report.wip? && report.published_at.nil?
+    save_published_at(report) if !report.wip? && report.published_at.nil?
     Cache.delete_unchecked_report_count
   end
 
@@ -51,7 +51,7 @@ class ReportCallbacks
     Notification.where(path: "/reports/#{report.id}").destroy_all
   end
 
-  def published_at(report)
+  def save_published_at(report)
     report.published_at = Date.current
     report.save
   end
