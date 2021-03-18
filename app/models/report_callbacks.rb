@@ -4,33 +4,20 @@ class ReportCallbacks
   def after_create(report)
     create_author_watch(report)
 
-    if report.wip == false && report.user.reports.count == 1 && report.published_at.nil?
-      send_first_report_notification(report)
-      report.published_at = Date.current
-      report.save
-    end
+    send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1 && report.published_at.nil?
 
-    if report.user.trainee? && report.user.company_id?
-      report.user.company.advisers.each do |adviser|
-        NotificationFacade.trainee_report(report, adviser)
-        create_advisers_watch(report, adviser)
-      end
-    end
+    published_at(report) if !report.wip? && report.published_at.nil?
 
-    report.user.followers.each do |follower|
-      NotificationFacade.following_report(report, follower)
-      create_following_watch(report, follower)
-    end
+    send_notification_to_company_adivisers(report)
+    create_notification_to_followers(report)
 
     Cache.delete_unchecked_report_count
   end
 
   def after_update(report)
-    if report.wip == false && report.user.reports.count == 1 && report.published_at.nil?
-      send_first_report_notification(report)
-      report.published_at = Date.current
-      report.save
-    end
+    send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1 && report.published_at.nil?
+
+    published_at(report) if !report.wip? && report.published_at.nil?
     Cache.delete_unchecked_report_count
   end
 
@@ -62,5 +49,26 @@ class ReportCallbacks
 
   def delete_notification(report)
     Notification.where(path: "/reports/#{report.id}").destroy_all
+  end
+
+  def published_at(report)
+    report.published_at = Date.current
+    report.save
+  end
+
+  def create_notification_to_followers(report)
+    report.user.followers.each do |follower|
+      NotificationFacade.following_report(report, follower)
+      create_following_watch(report, follower)
+    end
+  end
+
+  def send_notification_to_company_adivisers(report)
+    return if !report.user.trainee? || !report.user.company_id?
+
+    report.user.company.advisers.each do |adviser|
+      NotificationFacade.trainee_report(report, adviser)
+      create_advisers_watch(report, adviser)
+    end
   end
 end
