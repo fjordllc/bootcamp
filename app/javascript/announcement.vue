@@ -14,7 +14,7 @@
           a.thread-list-item__title-link(:href="announcement.url")
             | {{ announcement.title }}
         .thread-list-item__actions(v-if="currentUser.role == 'admin' || currentUser.id == announcement.user.id")
-          a.thread-list-item__actions-link(:href="announcement.newURL")
+          a.thread-list-item__actions-link(:href="announcement.new_url")
             i.fas.fa-copy
       .thread-list-item-meta(v-if="announcement.wip")
         .thread-list-item-meta__datetime

@@ -7,7 +7,7 @@ json.description announcement.description
 json.target announcement.target
 json.wip announcement.wip
 json.url announcement_path(id: announcement)
-json.newURL new_announcement_path(id: announcement)
+json.new_url new_announcement_path(id: announcement)
 json.created_at l(announcement.created_at)
 json.created_at_date_time announcement.created_at.to_datetime
 json.updated_at l(announcement.updated_at)
