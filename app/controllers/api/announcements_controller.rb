@@ -15,9 +15,7 @@ class API::AnnouncementsController < API::BaseController
   def show; end
 
   def update
-    if !current_user.admin? \
-      && (announcement_params['wip'] == 'false' \
-      || announcement_params['wip'].nil?)
+    if !current_user.admin? && announcement_params['wip'] != true
       head :bad_request
     elsif @announcement.update(announcement_params)
       head :ok
