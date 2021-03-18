@@ -1,5 +1,24 @@
 .footer
-  +padding(vertical, 2rem)
+  border-top: solid 1px $border-shade
+  color: $semi-muted-text
+  +media-breakpoint-up(md)
+    +padding(vertical, 1.5rem)
+  +media-breakpoint-down(sm)
+    .container
+      +padding(horizontal, 0)
 
 .footer__copyright
+  line-height: 1.4
+  display: block
   text-align: center
+  +media-breakpoint-up(md)
+    font-size: .8125rem
+    margin-top: 1.5em
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+    +padding(vertical, 1.25rem)
+
+.footer__copyright-link
+  +margin(horizontal, .25em)
+  +hover-link
+  color: $semi-muted-text

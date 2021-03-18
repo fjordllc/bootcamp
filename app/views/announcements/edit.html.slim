@@ -4,5 +4,7 @@
   .container
     .page-header__inner
       h1.page-header__title = title
-.container
-  = render 'form', announcement: @announcement
+
+.page-body
+  .container
+    = render 'form', announcement: @announcement

@@ -2,7 +2,6 @@ $global-nav-width: 5rem
 $global-nav-width-sm: 13rem
 
 .global-nav
-  display: inline
   +media-breakpoint-down(sm)
     +position(fixed, left 0, top 0, bottom 0, 100)
     background-color: rgba(black, 0)
@@ -17,7 +16,6 @@ $global-nav-width-sm: 13rem
 .global-nav__background
   +position(fixed, left 0, top 0, bottom 0, 1)
   background-color: rgba(black, .6)
-  opacity: 1
   height: 100%
   width: 0
   display: inline
@@ -42,21 +40,6 @@ $global-nav-width-sm: 13rem
       >*
         width: $global-nav-width-sm
 
-.global-nav-current-user
-  +padding(vertical, .75rem)
-
-.global-nav-current-user__icon
-  +size(($global-nav-width - 1.5rem))
-  display: block
-  +margin(horizontal, auto)
-  +icon-role-style
-
-.global-nav-current-user__name
-  +text-block(.75rem 1.45, center $reversal-text)
-
-.global-nav-links__items
-  border-bottom: solid 1px $side-border
-
 .global-nav-links__link
   position: relative
   +flex-link
@@ -65,7 +48,7 @@ $global-nav-width-sm: 13rem
   +size(100% 4.5rem)
   align-items: center
   justify-content: center
-  border-top: solid 1px $side-border
+  border-bottom: solid 1px $side-border
   color: $reversal-text
   transition: color .2s ease-in, background-color .2s ease-in
   +media-breakpoint-down(sm)
