@@ -5,7 +5,7 @@
         a(:href="`/users/${questionUser.id}`", class= "thread-header__author")
           | {{ questionUser.login_name }}
         .thread-header__date
-          | {{ createdAt }}
+          | {{ updateAt }}
       .thread-practice(v-if="question.practice")
         a(:href="`/practices/${question.practice.id}`", class="thread-practice__link")
           | {{ question.practice.title }}
@@ -131,8 +131,8 @@ export default {
     reactionableId: function () {
       return `Question_${this.question.id}`
     },
-    createdAt: function () {
-      return moment(this.question.created_at).format('YYYY年MM月DD日(dd) HH:mm')
+    updateAt: function () {
+      return moment(this.question.update_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     adminOrQuestionUser: function () {
       return (
