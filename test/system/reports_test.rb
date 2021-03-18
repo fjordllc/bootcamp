@@ -41,6 +41,29 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
+  test 'practices are displayed when updating with selecting a practice' do
+    login_user 'hajime', 'testtest'
+    report = reports(:report10)
+    visit "/reports/#{report.id}"
+    click_link '内容修正'
+
+    click_button '内容変更'
+    assert_text 'Terminalの基礎を覚える'
+    assert_text '日報を保存しました。'
+  end
+
+  test 'practices are not displayed when updating without selecting a practice' do
+    login_user 'hajime', 'testtest'
+    report = reports(:report10)
+    visit "/reports/#{report.id}"
+    click_link '内容修正'
+    first('.select2-selection__choice__remove').click
+
+    click_button '内容変更'
+    assert_no_text 'Terminalの基礎を覚える'
+    assert_text '日報を保存しました。'
+  end
+
   test 'create a report without company as trainee' do
     user = users(:kensyu)
     user.update!(company: nil)
