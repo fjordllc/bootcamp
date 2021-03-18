@@ -37,10 +37,6 @@ class ProductsController < ApplicationController
     @product.user = current_user
     set_wip
     if @product.save
-      unless @product.wip?
-        notify_to_slack(@product)
-        notify_to_chat(@product)
-      end
       redirect_to @product, notice: notice_message(@product, :create)
     else
       render :new
@@ -64,27 +60,6 @@ class ProductsController < ApplicationController
   end
 
   private
-
-  def notify_to_slack(product)
-    name = product.user.login_name.to_s
-    link = "<#{url_for(product)}|#{product.title}>"
-
-    return unless product.user.trainee? && product.user.company.slack_channel?
-
-    SlackNotification.notify "#{name} さんが#{product.title}を提出しました。 #{link}",
-                             username: "#{product.user.login_name} (#{product.user.name})",
-                             icon_url: product.user.avatar_url,
-                             channel: product.user.company.slack_channel,
-                             attachments: [{
-                               fallback: 'product body.',
-                               text: product.body
-                             }]
-  end
-
-  def notify_to_chat(product)
-    name = product.user.login_name.to_s
-    ChatNotifier.message("#{name}さんが提出物：#{product.title}を提出しました。\r#{url_for(product)}")
-  end
 
   def find_product
     Product.find(params[:id])

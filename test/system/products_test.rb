@@ -188,38 +188,6 @@ class ProductsTest < ApplicationSystemTestCase
     assert_no_text "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。"
   end
 
-  test 'Slack notify if the create product' do
-    login_user 'kensyu', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice3).id}"
-    within('#new_product') do
-      fill_in('product[body]', with: 'test')
-    end
-    mock_log = []
-    stub_info = proc { |i| mock_log << i }
-
-    Rails.logger.stub(:info, stub_info) do
-      click_button '提出する'
-      assert_match "kensyu さんが「#{practices(:practice3).title}」の提出物を提出しました。", mock_log.to_s
-    end
-    assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
-  end
-
-  test 'Slack notify if the create product as WIP' do
-    login_user 'kensyu', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice3).id}"
-    within('#new_product') do
-      fill_in('product[body]', with: 'test')
-    end
-    mock_log = []
-    stub_info = proc { |i| mock_log << i }
-
-    Rails.logger.stub(:info, stub_info) do
-      click_button 'WIP'
-      assert_no_match "kensyu さんが「#{practices(:practice3).title}」の提出物を提出しました。", mock_log.to_s
-    end
-    assert_text '提出物をWIPとして保存しました。'
-  end
-
   test 'setting checker' do
     login_user 'komagata', 'testtest'
     visit products_path
