@@ -1,6 +1,34 @@
 footer.footer
   .container
-    .footer__copyright
-      i.fas.fa-copyright
-      = link_to 'Fjord Inc.', 'https://fjord.jp', class: 'footer__copyright-link'
-      = Time.zone.today.year
+    .footer__inner
+      nav.footer-nav
+        ul.footer-nav__items
+          li.footer-nav__item
+            = link_to welcome_path, class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | ホームページ
+          li.footer-nav__item
+            = link_to 'https://github.com/fjordllc/bootcamp/projects/1', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | GitHub Projects
+          li.footer-nav__item
+            = link_to 'https://suzuri.jp/FjordBootCamp', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | グッズ購入
+          li.footer-nav__item
+            = link_to coc_path, class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | アンチハラスメントポリシー
+          li.footer-nav__item
+            = link_to tos_path, class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | 利用規約
+          li.footer-nav__item
+            = link_to law_path, class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | 特定商取引法に基づく表記
+          li.footer-nav__item
+            = link_to courses_path, class: 'footer-nav__item-link' do
+              | コース一覧
+          li.footer-nav__item
+            = link_to companies_path, class: 'footer-nav__item-link' do
+              | 企業一覧
+
+      small.footer__copyright
+        i.far.fa-copyright
+        = link_to 'Fjord Inc.', 'https://fjord.jp', class: 'footer__copyright-link'
+        = Time.zone.today.year

@@ -11,18 +11,4 @@ header.page-header
 
 .page-body
   .container
-    = paginate @reports, position: 'top'
-    - if @reports.present?
-      .thread-list.a-card
-        .thread-list__items
-          = render partial: 'reports/report', collection: @reports, as: :report
-        - if mentor_login?
-          = render partial: 'unconfirmed_links_open', locals: { label: '未チェックの日報を一括で開く' }
-    - else
-      .o-empty-massage
-        .o-empty-massage__icon
-          i.far.fa-smile
-        p.o-empty-massage__text
-          = title
-          | はありません
-    = paginate @reports, position: 'bottom'
+    #js-reports

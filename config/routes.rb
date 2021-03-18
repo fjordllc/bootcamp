@@ -41,7 +41,9 @@ Rails.application.routes.draw do
     resources :practices, only: %i(show update) do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
+    resources :reports, only: %i(index)
     namespace "reports" do
+      resources :unchecked, only: %i(index)
       resources :recents, only: %i(index)
     end
     resources :watches, only: %i(index create destroy)
@@ -60,6 +62,7 @@ Rails.application.routes.draw do
     namespace :categories_practices do
       resources :position, only: %i(update)
     end
+  resources :announcements, except: %i(new edit)
   end
 
   namespace :admin do

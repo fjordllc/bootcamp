@@ -12,7 +12,7 @@ class Admin::Users::PasswordTest < ApplicationSystemTestCase
     visit user_path(@user)
     click_on('管理者として情報変更')
 
-    click_on('パスワード変更はこちらから')
+    click_on('管理者としてパスワードを変更')
 
     within 'form[name=password_change]' do
       fill_in 'user[password]', with: 'newpassword'

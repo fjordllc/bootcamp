@@ -34,7 +34,7 @@ class Check::ProductsTest < ApplicationSystemTestCase
 
     login_user 'yamada', 'testtest'
     visit "/practices/#{products(:product1).practice.id}"
-    assert_equal first('.test-completed').text, '完了済'
+    assert_equal first('.test-completed').text, '完了しています'
   end
 
   test 'success product checking cancel' do
@@ -50,7 +50,9 @@ class Check::ProductsTest < ApplicationSystemTestCase
     login_user 'komagata', 'testtest'
     visit "/products/#{products(:product1).id}"
     fill_in 'new_comment[description]', with: '提出物でcomment+確認OKにするtest'
-    click_button '確認OKにする'
+    page.accept_confirm do
+      click_on '確認OKにする'
+    end
     assert_text '確認済'
     assert_text '提出物でcomment+確認OKにするtest'
   end
