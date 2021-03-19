@@ -31,6 +31,15 @@
           target="_blank"
         )
           | Raw
+  .thread__tags
+    tags(
+      :tagsInitialValue="question.tag_list"
+      :questionId="questionId"
+      tagsParamName="question[tag_list]"
+      :questionUserId="questionUserId"
+      :currentUserId="currentUserId"
+      :adminLogin="adminLogin"
+    )
 
   .thread__body
     .thread-question__body.a-card(v-if="!editing")
@@ -127,12 +136,14 @@ import Reaction from './reaction.vue'
 import Watch from './watch.vue'
 import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
+import Tags from './question_tags.vue'
 import moment from 'moment'
 moment.locale('ja')
 
 export default {
   components: {
     watch: Watch,
+    tags: Tags
   },
   props: {
     currentUserId: { type: String, required: true },

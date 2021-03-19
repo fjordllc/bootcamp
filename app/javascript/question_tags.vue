@@ -67,7 +67,7 @@ export default {
     parseTags(value) {
       if (value === '') return [];
 
-      return value.split(',').map(value => {
+      return value.map(value => {
         return {
           text: value,
           tiClasses: ["ti-valid"]
@@ -143,7 +143,7 @@ export default {
     },
     adminOrQuestionUser () {
       return (
-        this.questionUserId === this.currentUserId || this.adminLogin === "true"
+        this.questionUserId === this.currentUserId || this.adminLogin
       )
     },
   },
