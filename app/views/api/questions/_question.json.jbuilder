@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-json.call(question, :id, :title, :description, :created_at, :updated_at)
+json.call(question, :id, :title, :description, :tag_list, :created_at, :updated_at)
 
 json.user do
   json.partial! 'api/users/user', user: question.user
