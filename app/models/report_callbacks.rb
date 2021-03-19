@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class ReportCallbacks
+  def after_save(report)
+    save_published_at(report) if !report.wip? && report.published_at.nil?
+  end
+
   def after_create(report)
     create_author_watch(report)
 
     send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1 && report.published_at.nil?
-
-    save_published_at(report) if !report.wip? && report.published_at.nil?
 
     send_notification_to_company_adivisers(report)
     create_notification_to_followers(report)

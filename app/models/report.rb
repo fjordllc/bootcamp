@@ -30,6 +30,7 @@ class Report < ApplicationRecord
   validates :learning_times, length: { minimum: 1, message: ': 学習時間を入力してください。' }
   validates :emotion, presence: true
 
+  after_save ReportCallbacks.new
   after_create ReportCallbacks.new
   after_update ReportCallbacks.new
   after_destroy ReportCallbacks.new
