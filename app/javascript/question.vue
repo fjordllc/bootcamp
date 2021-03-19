@@ -151,29 +151,6 @@ export default {
       tab: 'question',
     }
   },
-  computed: {
-    markdownDescription: function () {
-      const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.tempDescription)
-    },
-    validation: function () {
-      return this.tempDescription.length > 0
-    },
-    reactionableId: function () {
-      return `Question_${this.question.id}`
-    },
-    updateAtISO8601: function() {
-      return moment(this.question.update_at).format();
-    },
-    updateAt: function () {
-      return moment(this.question.update_at).format('YYYY年MM月DD日(dd) HH:mm')
-    },
-    adminOrQuestionUser: function () {
-      return (
-        this.questionUserId === this.currentUserId || this.adminLogin === true
-      )
-    },
-  },
   async created() {
     await this.setQuestion()
     await this.setUser(this.currentUserId, this.currentUser)
@@ -359,6 +336,30 @@ export default {
         })
         .shift()
       return practice.title
+    },
+  },
+  computed: {
+    markdownDescription: function () {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.tempDescription)
+    },
+    validation: function () {
+      return this.tempDescription.length > 0
+    },
+    reactionableId: function () {
+      return `Question_${this.question.id}`
+    },
+    updateAtISO8601: function() {
+      return moment(this.question.update_at).format();
+    },
+    updateAt: function () {
+      return moment(this.question.update_at).format('YYYY年MM月DD日(dd) HH:mm')
+    },
+    /* TODO updateOrDeleteAble */
+    adminOrQuestionUser: function () {
+      return (
+        this.questionUserId === this.currentUserId || this.adminLogin === true
+      )
     },
   },
 }
