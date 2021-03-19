@@ -1,91 +1,121 @@
 <template lang="pug">
-  .thread__inner.a-card
-    header.thread-header
-      .thread-header__upper-side
-        a(:href="`/users/${questionUser.id}`", class= "thread-header__author")
-          | {{ questionUser.login_name }}
-        .thread-header__date
-          time.thread_header_date-value(:datetime="updateAtISO8601" pubdate="pubdate")
-            | {{ updateAt }}
-      .thread-practice(v-if="question.practice")
-        a(:href="`/practices/${question.practice.id}`", class="thread-practice__link")
-          | {{ question.practice.title }}
-      h1.thread-header__title
-        span.thread-header__title-icon.is-solved.is-success(v-if="present")
-          | 解決済
-        span.thread-header__title-icon.is-solved.is-danger(v-else)
-          | 未解決
-        | {{ question.title }}
-      .thread-header__lower-side
-        watch(:watchableId="questionId", watchableType="Question")
-        .thread-header__raw
-          a(:href="`/questions/${question.id}.md`", class= "a-button is-sm is-secondary", target="_blank")
-            | Raw
+.thread__inner.a-card
+  header.thread-header
+    .thread-header__upper-side
+      a.thread-header__author(:href="`/users/${questionUser.id}`")
+        | {{ questionUser.login_name }}
+      .thread-header__date
+        time.thread_header_date-value(
+          :datetime="updateAtISO8601",
+          pubdate="pubdate"
+        )
+          | {{ updateAt }}
+    .thread-practice(v-if="question.practice")
+      a.thread-practice__link(:href="`/practices/${question.practice.id}`")
+        | {{ question.practice.title }}
+    h1.thread-header__title
+      span.thread-header__title-icon.is-solved.is-success(v-if="present")
+        | 解決済
+      span.thread-header__title-icon.is-solved.is-danger(v-else)
+        | 未解決
+      | {{ question.title }}
+    .thread-header__lower-side
+      watch(:watchableId="questionId", watchableType="Question")
+      .thread-header__raw
+        a.a-button.is-sm.is-secondary(
+          :href="`/questions/${question.id}.md`",
+          target="_blank"
+        )
+          | Raw
 
-    .thread__body
-      .thread-question__body.a-card(v-if="!editing")
-        .thread-question__description.js-target-blank.is-long-text(v-html="markdownDescription")
-        reaction(
-          :is="reaction",
-          :reactionable="question",
-          :currentUser="currentUser",
-          :reactionableId="reactionableId")
-        footer.card-footer(v-if="adminOrQuestionUser")
-          .card-footer-actions
-            ul.card-footer-actions__items
-              li.card-footer-actions__item
-                button.card-footer-actions__action.a-button.is-md.is-primary.is-block(@click="editQuestion")
-                  i.fas.fa-pen
-                    | 内容修正
-              li.card-footer-actions__item
-                button.js-delete.card-footer-actions__action.a-button.is-md.is-danger.is-block(@click="deleteQuestion")
-                  i.fas.fa-trash-alt
-                  | 削除
-      .thread-question-for(v-show="editing")
-        form(name="question")
-          .form__items
+  .thread__body
+    .thread-question__body.a-card(v-if="!editing")
+      .thread-question__description.js-target-blank.is-long-text(
+        v-html="markdownDescription"
+      )
+      reaction(
+        :is="reaction",
+        :reactionable="question",
+        :currentUser="currentUser",
+        :reactionableId="reactionableId"
+      )
+      footer.card-footer(v-if="adminOrQuestionUser")
+        .card-footer-actions
+          ul.card-footer-actions__items
+            li.card-footer-actions__item
+              button.card-footer-actions__action.a-button.is-md.is-primary.is-block(
+                @click="editQuestion"
+              )
+                i.fas.fa-pen
+                  | 内容修正
+            li.card-footer-actions__item
+              button.js-delete.card-footer-actions__action.a-button.is-md.is-danger.is-block(
+                @click="deleteQuestion"
+              )
+                i.fas.fa-trash-alt
+                | 削除
+    .thread-question-for(v-show="editing")
+      form(name="question")
+        .form__items
+          .form-item
             .form-item
-              .form-item
-                .row
-                  .col-lg-6.col-xs-12
-                    .form-item
-                      | プラクティス
-                      .select-practices
-                        select(v-model="selectedId")
-                          option(v-for="practice in practices" :value="practice.id")
-                            div {{ practice.option }}
-              .form-item
-                .row.js-markdown-parent
-                  .col-md-6.col-xs-12
-                    .a-label
-                      | タイトル
-                    input(v-model='tempTitle' name="question[title]")
-              .form-item
-                .thread-question-form__tabs.js-tabs
-                  .thread-question-form__tab.js-tabs__tab(v-bind:class="{'is-active': isActive('question')}" @click="changeActiveTab('question')")
-                    | コメント
-                  .thread-question-form__tab.js-tabs__tab(v-bind:class="{'is-active': isActive('preview')}" @click="changeActiveTab('preview')")
-                    | プレビュー
-                .thread-question-form__markdown-parent.js-markdown-parent
-                  .thread-question-form__markdown.js-tabs__content(
-                    v-bind:class="{'is-active': isActive('question')}")
-                    // - TODO classQuestionId は必要?
-                    textarea.a-text-input.js-warning-form.thread-question-form__textarea(
-                      v-model="tempDescription"
-                      id="js-question-content"
-                      data-preview="#js-question-preview"
-                      name="question[description]")
-                  .thread-question-form__markdown.js-tabs__content(
-                    :class="{'is-active': isActive('preview')}")
-                    .js-preview.is-long-text.thread-question-form__preview(
-                      id="js-question-preview")
-              ul.thread-question-form__actions
-                li.thread-question-form__action
-                  button.a-button.is-md.is-warning.is-block(@click="updateQuestion" v-bind:disabled="!validation" type="button")
-                    | 更新する
-                li.thread-question-form__action
-                  button.a-button.is-md.is-secondary.is-block(@click="cancel" type="button")
-                    | キャンセル
+              .row
+                .col-lg-6.col-xs-12
+                  .form-item
+                    | プラクティス
+                    .select-practices
+                      select(v-model="selectedId")
+                        option(
+                          v-for="practice in practices",
+                          :value="practice.id"
+                        )
+                          div {{ practice.option }}
+            .form-item
+              .row.js-markdown-parent
+                .col-md-6.col-xs-12
+                  .a-label
+                    | タイトル
+                  input(v-model="tempTitle", name="question[title]")
+            .form-item
+              .thread-question-form__tabs.js-tabs
+                .thread-question-form__tab.js-tabs__tab(
+                  v-bind:class="{ 'is-active': isActive('question') }",
+                  @click="changeActiveTab('question')"
+                )
+                  | コメント
+                .thread-question-form__tab.js-tabs__tab(
+                  v-bind:class="{ 'is-active': isActive('preview') }",
+                  @click="changeActiveTab('preview')"
+                )
+                  | プレビュー
+              .thread-question-form__markdown-parent.js-markdown-parent
+                .thread-question-form__markdown.js-tabs__content(
+                  v-bind:class="{ 'is-active': isActive('question') }"
+                )
+                  // - TODO classQuestionId は必要?
+                  textarea#js-question-content.a-text-input.js-warning-form.thread-question-form__textarea(
+                    v-model="tempDescription",
+                    data-preview="#js-question-preview",
+                    name="question[description]"
+                  )
+                .thread-question-form__markdown.js-tabs__content(
+                  :class="{ 'is-active': isActive('preview') }"
+                )
+                  #js-question-preview.js-preview.is-long-text.thread-question-form__preview
+            ul.thread-question-form__actions
+              li.thread-question-form__action
+                button.a-button.is-md.is-warning.is-block(
+                  @click="updateQuestion",
+                  v-bind:disabled="!validation",
+                  type="button"
+                )
+                  | 更新する
+              li.thread-question-form__action
+                button.a-button.is-md.is-secondary.is-block(
+                  @click="cancel",
+                  type="button"
+                )
+                  | キャンセル
 </template>
 <script>
 import Reaction from './reaction.vue'
