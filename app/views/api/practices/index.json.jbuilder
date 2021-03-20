@@ -2,4 +2,6 @@
 
 json.array! @practices do |practice|
   json.(practice, :id, :title, :category_id)
+  # いる?
+  # json.option "[#{practice.category.name}] #{practice.title}"
 end
