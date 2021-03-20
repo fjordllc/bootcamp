@@ -39,7 +39,7 @@
         :currentUser="currentUser",
         :reactionableId="`Question_${this.questionId}`"
       )
-      footer.card-footer(v-if="adminOrQuestionUser")
+      footer.card-footer(v-if="editAble")
         .card-footer-actions
           ul.card-footer-actions__items
             li.card-footer-actions__item
@@ -333,8 +333,7 @@ export default {
     updateAt: function () {
       return moment(this.question.update_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
-    /* TODO updateOrDeleteAble */
-    adminOrQuestionUser: function () {
+    editAble: function () {
       return (
         this.questionUserId === this.currentUserId || this.adminLogin === true
       )
