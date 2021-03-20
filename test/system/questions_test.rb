@@ -49,8 +49,10 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'update a question' do
+    login_user 'komagata', 'testtest'
     question = questions(:question8)
     visit question_path(question)
+    wait_for_vuejs
     click_button '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'テストの質問（修正）'
