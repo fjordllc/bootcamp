@@ -26,6 +26,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'show a resolved qestion' do
+    login_user 'komagata', 'testtest'
     question = questions(:question3)
     visit question_path(question)
     assert_text '解決済'
