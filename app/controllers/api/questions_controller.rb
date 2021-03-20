@@ -3,11 +3,7 @@
 class API::QuestionsController < API::BaseController
   include Rails.application.routes.url_helpers
   before_action :set_question, only: %i[show update destroy]
-  before_action :set_available_emojis, only: %i[index show]
-
-  def index
-    @questions = Question.all
-  end
+  before_action :set_available_emojis, only: %i[show]
 
   def show; end
 
