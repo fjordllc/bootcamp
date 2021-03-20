@@ -33,6 +33,7 @@
       .thread-question__description.js-target-blank.is-long-text(
         v-html="markdownDescription"
       )
+      // - :reactionableId="question.id"
       reaction(
         :is="reaction",
         :reactionable="question",
@@ -118,6 +119,7 @@
                   | キャンセル
 </template>
 <script>
+// TODO reactionの中身見る
 import Reaction from './reaction.vue'
 import Watch from './watch.vue'
 import MarkdownInitializer from './markdown-initializer'
@@ -134,12 +136,14 @@ export default {
     questionUserId: { type: String, required: true },
     questionId: { type: String, required: true },
     adminLogin: { type: Boolean, required: true },
+    /* solveの方が適している */
     present: { type: Boolean, required: true },
   },
   data: () => {
     return {
       tempTitle: '',
       tempDescription: '',
+      // practiceIdでは駄目なの?
       selectedId: '',
       editing: false,
       questions: [],
@@ -152,12 +156,14 @@ export default {
     }
   },
   async created() {
-    await this.setQuestion()
+    await this.setQuestion()  // actionを取得すればいる
+    // いらない
     await this.setUser(this.currentUserId, this.currentUser)
     await this.setUser(this.questionUserId, this.questionUser)
+    // いらない
     await this.setPractices()
     this.setTemporaryData()
-    this.setQuestions()
+    this.setQuestions()  // 必要なさそう
     this.reaction = Reaction
   },
   mounted: function () {
@@ -197,6 +203,8 @@ export default {
         })
         .then((json) => {
           for (var key in json) {
+            /* ここなにやってんの */
+            /* user(this.currentUserIdやquestionUserId)を更新している */
             this.$set(user, key, json[key])
           }
         })
@@ -226,7 +234,7 @@ export default {
     setTemporaryData() {
       this.tempTitle = this.question.title
       this.tempDescription = this.question.description
-      if (this.question.practice) this.selectedId = this.question.practice.id
+      if (this.question.practice) this.selectedId = this.question.practice.id  // ここはなにやっているの
     },
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
@@ -284,6 +292,7 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
+    /* Questionいる? */
     deleteQuestion: function () {
       if (window.confirm('削除してよろしいですか？')) {
         fetch(`/api/questions/${this.question.id}.json`, {
@@ -296,6 +305,7 @@ export default {
           redirect: 'manual',
         })
           .then((response) => {
+            // いらないんじゃない
             this.questions.forEach((question, i) => {
               if (question.id === this.question.id) {
                 this.questions.splice(i, 1)
@@ -308,6 +318,7 @@ export default {
           })
       }
     },
+    // いらなくなくない
     setQuestions: function () {
       fetch(`/api/questions.json`, {
         method: 'GET',
@@ -329,6 +340,7 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
+    /* 何やってるの */
     practiceTitle: function () {
       const practice = this.practices
         .filter((practice) => {
@@ -346,6 +358,7 @@ export default {
     validation: function () {
       return this.tempDescription.length > 0
     },
+    /* いらない */
     reactionableId: function () {
       return `Question_${this.question.id}`
     },
