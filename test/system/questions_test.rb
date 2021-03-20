@@ -62,8 +62,10 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'delete a question' do
+    login_user 'komagata', 'testtest'
     question = questions(:question8)
     visit question_path(question)
+    wait_for_vuejs
     accept_confirm do
       find('.js-delete').click
     end
@@ -84,9 +86,10 @@ class QuestionsTest < ApplicationSystemTestCase
     visit '/notifications'
     assert_text 'kimuraさんから質問がありました。'
 
-    login_user 'kimura', 'testtest'
+    login_user 'machida', 'testtest'
     visit '/questions'
     click_on 'タイトルtest'
+    wait_for_vuejs
     accept_confirm do
       click_button '削除'
     end
