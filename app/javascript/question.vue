@@ -1,5 +1,9 @@
 <template lang="pug">
-.thread__inner.a-card
+.thread__inner.a-card(v-if="question === null")
+  .empty
+    .fas.fa-spinner.fa-pulse
+    |  ロード中
+.thread__inner.a-card(v-else)
   header.thread-header
     .thread-header__upper-side
       a.thread-header__author(:href="`/users/${questionUser.id}`")
@@ -145,7 +149,7 @@ export default {
       // practiceIdでは駄目なの?
       selectedId: '',
       editing: false,
-      question: [],
+      question: null,
       practices: [],
       currentUser: {},
       questionUser: {},
