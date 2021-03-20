@@ -54,7 +54,7 @@ class ReportCallbacks
   end
 
   def save_published_at(report)
-    report.published_at = Date.current
+    report.published_at = Time.current
     report.save
   end
 
