@@ -146,7 +146,6 @@ export default {
       // practiceIdでは駄目なの?
       selectedId: '',
       editing: false,
-      questions: [],
       question: [],
       practices: [],
       currentUser: {},
@@ -163,7 +162,6 @@ export default {
     // いらない
     await this.setPractices()
     this.setTemporaryData()
-    this.setQuestions()  // 必要なさそう
     this.reaction = Reaction
   },
   mounted: function () {
@@ -305,40 +303,12 @@ export default {
           redirect: 'manual',
         })
           .then((response) => {
-            // いらないんじゃない
-            this.questions.forEach((question, i) => {
-              if (question.id === this.question.id) {
-                this.questions.splice(i, 1)
-              }
-            })
             location.href = '/questions'
           })
           .catch((error) => {
             console.warn('Failed to parsing', error)
           })
       }
-    },
-    // いらなくなくない
-    setQuestions: function () {
-      fetch(`/api/questions.json`, {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-      })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          json.forEach((q) => {
-            this.questions.push(q)
-          })
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
     },
     /* 何やってるの */
     practiceTitle: function () {
