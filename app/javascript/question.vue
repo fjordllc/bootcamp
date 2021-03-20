@@ -33,12 +33,11 @@
       .thread-question__description.js-target-blank.is-long-text(
         v-html="markdownDescription"
       )
-      // - :reactionableId="question.id"
       reaction(
         :is="reaction",
         :reactionable="question",
         :currentUser="currentUser",
-        :reactionableId="reactionableId"
+        :reactionableId="`Question_${this.questionId}`"
       )
       footer.card-footer(v-if="adminOrQuestionUser")
         .card-footer-actions
@@ -327,10 +326,6 @@ export default {
     },
     validation: function () {
       return this.tempDescription.length > 0
-    },
-    /* いらない */
-    reactionableId: function () {
-      return `Question_${this.question.id}`
     },
     updateAtISO8601: function() {
       return moment(this.question.update_at).format();
