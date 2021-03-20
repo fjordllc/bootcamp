@@ -9,6 +9,7 @@ class API::PracticesController < API::BaseController
 
   def index
     @practices = Practice.all
+    @course = User.find(params[:user_id]).course
   end
 
   def update

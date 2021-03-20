@@ -82,7 +82,7 @@
                           v-for="practice in practices",
                           :value="practice.id"
                         )
-                          div {{ practice.option }}
+                          div {{ practice.categoryAndPracticeName }}
             .form-item
               .row.js-markdown-parent
                 .col-md-6.col-xs-12
@@ -225,7 +225,7 @@ export default {
         })
     },
     async setPractices() {
-      await fetch('/api/practices.json', {
+      await fetch(`/api/practices.json?user_id=${this.questionUserId}`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -236,8 +236,11 @@ export default {
         .then((response) => {
           return response.json()
         })
-        .then((json) => {
-          this.practices = json
+        .then((practices) => {
+          this.practices = practices.map(practice => {
+            practice.categoryAndPracticeName = `[${practice.category}] ${practice.title}`
+            return practice
+          });
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
