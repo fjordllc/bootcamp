@@ -78,7 +78,7 @@
                   .form-item
                     | プラクティス
                     .select-practices
-                      select(v-model="selectedId")
+                      select(v-model="edited.practiceId")
                         option(
                           v-for="practice in practices",
                           :value="practice.id"
@@ -89,7 +89,7 @@
                 .col-md-6.col-xs-12
                   .a-label
                     | タイトル
-                  input(v-model="tempTitle", name="question[title]")
+                  input(v-model="edited.title", name="question[title]")
             .form-item
               .thread-question-form__tabs.js-tabs
                 .thread-question-form__tab.js-tabs__tab(
@@ -108,7 +108,7 @@
                 )
                   // - TODO classQuestionId は必要?
                   textarea#js-question-content.a-text-input.js-warning-form.thread-question-form__textarea(
-                    v-model="tempDescription",
+                    v-model="edited.description",
                     data-preview="#js-question-preview",
                     name="question[description]"
                   )
@@ -152,10 +152,11 @@ export default {
   },
   data: () => {
     return {
-      tempTitle: '',
-      tempDescription: '',
-      // practiceIdでは駄目なの?
-      selectedId: '',
+      edited: {
+        title: '',
+        description: '',
+        practiceId: ''
+      },
       editing: false,
       question: null,
       practices: null,
@@ -171,7 +172,7 @@ export default {
         practice.categoryAndPracticeName = `[${practice.category}] ${practice.title}`
         return practice
       });
-    this.setTemporaryData()
+    this.setEditedData()
   },
   mounted: function () {
     TextareaInitializer.initialize(`#js-question-content`)
@@ -228,10 +229,15 @@ export default {
           return null
         })
     },
-    setTemporaryData() {
-      this.tempTitle = this.question.title
-      this.tempDescription = this.question.description
-      if (this.question.practice) this.selectedId = this.question.practice.id  // ここはなにやっているの
+    setEditedData() {
+      ['title', 'description'].forEach(key => {
+        this.edited[key] = this.question[key]
+      })
+
+      const { practice } = this.question
+      if (practice !== undefined) {
+        this.edited['practiceId'] = practice.id
+      }
     },
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
@@ -244,7 +250,7 @@ export default {
       this.tab = tab
     },
     cancel: function () {
-      this.setTemporaryData()
+      this.setEditedData()
       this.editing = false
     },
     editQuestion: function () {
@@ -254,11 +260,12 @@ export default {
       })
     },
     updateQuestion: function () {
+      const { title, description, practiceId } = this.edited
       const params = {
         question: {
-          title: this.tempTitle,
-          description: this.tempDescription,
-          practice_id: this.selectedId,
+          title,
+          description,
+          practice_id: practiceId
         },
       }
       fetch(`/api/questions/${this.questionId}`, {
@@ -273,13 +280,18 @@ export default {
         body: JSON.stringify(params),
       })
         .then(() => {
-          this.question.title = this.tempTitle
-          this.question.description = this.tempDescription
-          if (this.question.practice) {
-            this.question.practice.id = this.selectedId
-            this.question.practice.title = this.practices
-              .find(practice => practice.id === this.selectedId)
-              .title
+          ['title', 'description'].forEach(key => {
+            this.question[key] = this.edited[key]
+          })
+
+          const { practice } = this.question
+          if (practice !== undefined) {
+            practice.id = this.edited.practiceId
+            // find(practice  だと const { practice } と
+            // 重複するので利用していない
+            practice.title = this.practices
+                             .find(obj => obj.id === practice.id)
+                             .title
           }
 
           this.editing = false
@@ -288,7 +300,6 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
-    /* Questionいる? */
     deleteQuestion: function () {
       if (window.confirm('削除してよろしいですか？')) {
         fetch(`/api/questions/${this.questionId}.json`, {
@@ -312,10 +323,11 @@ export default {
   computed: {
     markdownDescription: function () {
       const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.tempDescription)
+      return markdownInitializer.render(this.edited.description)
     },
     validation: function () {
-      return this.tempTitle.length > 0 && this.tempDescription.length > 0
+      const { title, description } = this.edited
+      return title.length > 0 && description.length > 0
     },
     updateAtISO8601: function() {
       return moment(this.question.update_at).format();
