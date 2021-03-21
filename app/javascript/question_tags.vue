@@ -5,7 +5,7 @@
         a.tag-links__item-link(:href="`/questions/tags/${tag.text}?all=true`")
           | {{ tag.text }}
       li.tag-links__item
-        .tag-links__item-edit(v-if="adminOrQuestionUser" @click="editTag")
+        .tag-links__item-edit(v-if="editAble" @click="editTag")
           | タグ編集
     .form(v-show="editing")
       .form__items
@@ -38,9 +38,7 @@ export default {
     'tagsInitialValue',
     'questionId',
     'tagsParamName',
-    'questionUserId',
-    'currentUserId',
-    'adminLogin'
+    'editAble',
   ],
   components: { VueTagsInput },
   data() {
@@ -140,11 +138,6 @@ export default {
       return this.autocompleteTags.filter(tag => {
         return tag.text.toLowerCase().indexOf(this.inputTag.toLowerCase()) !== -1;
       });
-    },
-    adminOrQuestionUser () {
-      return (
-        this.questionUserId === this.currentUserId || this.adminLogin
-      )
     },
   },
 };

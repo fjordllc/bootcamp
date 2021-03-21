@@ -38,9 +38,7 @@
       :tagsInitialValue="question.tag_list"
       :questionId="questionId"
       tagsParamName="question[tag_list]"
-      :questionUserId="question.user.id"
-      :currentUserId="currentUserId"
-      :adminLogin="adminLogin"
+      :editAble="editAble"
     )
 
   .thread__body
