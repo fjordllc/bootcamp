@@ -165,22 +165,17 @@ export default {
       tab: 'question',
     }
   },
-  async created() {
+  created() {
     this.question = this.initialQuestion
     this.setEditedData()
-    this.practices = (await this.fetchPractices(this.question.user.id)).map(
-      (practice) => {
-        practice.categoryAndPracticeName = `[${practice.category}] ${practice.title}`
-        return practice
-      }
-    )
+    this.fetchPractices(this.question.user.id)
   },
   mounted() {
     TextareaInitializer.initialize(`#js-question-content`)
   },
   methods: {
-    async fetchPractices(userId) {
-      return fetch(`/api/practices.json?user_id=${userId}`, {
+    fetchPractices(userId) {
+      fetch(`/api/practices.json?user_id=${userId}`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -191,9 +186,14 @@ export default {
         .then((response) => {
           return response.json()
         })
+        .then((practices) => {
+          this.practices = practices.map((practice) => {
+            practice.categoryAndPracticeName = `[${practice.category}] ${practice.title}`
+            return practice
+          })
+        })
         .catch((error) => {
           console.warn('Failed to parsing', error)
-          return null
         })
     },
     setEditedData() {
