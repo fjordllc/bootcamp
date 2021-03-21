@@ -2,7 +2,8 @@
   .a-card
     header.card-header
       h2.card-header__title
-        | 1ヶ月以上ログインのないユーザー
+        | 1ヶ月以上ログインのないユーザー  
+        = '(' + users.size.to_s + ')'
     .card-list
       ul.card-list__items
         - users.each do |user|
