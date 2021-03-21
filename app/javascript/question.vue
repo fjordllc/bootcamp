@@ -27,7 +27,7 @@
       watch(:watchableId="questionId", watchableType="Question")
       .thread-header__raw
         a.a-button.is-sm.is-secondary(
-          :href="`/questions/${question.id}.md`",
+          :href="`/questions/${questionId}.md`",
           target="_blank"
         )
           | Raw
@@ -268,7 +268,7 @@ export default {
     editQuestion: function () {
       this.editing = true
       this.$nextTick(function () {
-        $(`.question-id-${this.question.id}`).trigger('input')
+        $(`.question-id-${this.questionId}`).trigger('input')
       })
     },
     updateQuestion: function () {
@@ -282,7 +282,7 @@ export default {
           practice_id: this.selectedId,
         },
       }
-      fetch(`/api/questions/${this.question.id}`, {
+      fetch(`/api/questions/${this.questionId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -310,7 +310,7 @@ export default {
     /* Questionいる? */
     deleteQuestion: function () {
       if (window.confirm('削除してよろしいですか？')) {
-        fetch(`/api/questions/${this.question.id}.json`, {
+        fetch(`/api/questions/${this.questionId}.json`, {
           method: 'DELETE',
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
