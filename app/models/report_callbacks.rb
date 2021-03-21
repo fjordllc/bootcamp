@@ -2,7 +2,7 @@
 
 class ReportCallbacks
   def after_save(report)
-    save_published_at(report) if !report.wip? && report.published_at.nil?
+    update_published_at(report) if !report.wip? && report.published_at.nil?
   end
 
   def after_create(report)
@@ -18,8 +18,6 @@ class ReportCallbacks
 
   def after_update(report)
     send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1 && report.published_at.nil?
-
-    save_published_at(report) if !report.wip? && report.published_at.nil?
     Cache.delete_unchecked_report_count
   end
 
@@ -53,9 +51,8 @@ class ReportCallbacks
     Notification.where(path: "/reports/#{report.id}").destroy_all
   end
 
-  def save_published_at(report)
-    report.published_at = Time.current
-    report.save
+  def update_published_at(report)
+    report.update!(published_at: Time.current)
   end
 
   def create_notification_to_followers(report)
