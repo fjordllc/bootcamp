@@ -272,4 +272,54 @@ class ProductsTest < ApplicationSystemTestCase
 
     assert_not page.has_css?('.pagination')
   end
+
+  test 'be person on charge at comment on product of there are not person on charge' do
+    login_user 'machida', 'testtest'
+
+    visit products_not_responded_index_path
+    def assigned_product_count
+      find_link('自分の担当').find('.page-tabs__item-count').text.to_i
+    end
+
+    before_comment = assigned_product_count
+
+    visit "/products/#{products(:product1).id}"
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: '担当者がいない提出物の場合、担当者になる')
+    end
+    click_button 'コメントする'
+    wait_for_vuejs
+
+    visit products_not_responded_index_path
+    assert_equal before_comment + 1, assigned_product_count
+  end
+
+  test 'be not person on charge at comment on product of there are person on charge' do
+    login_user 'komagata', 'testtest'
+
+    visit products_not_responded_index_path
+    product = find('.thread-list-item', match: :first)
+    product.click_button '担当する'
+    show_product_path = product.find_link(href: /products/)[:href]
+    logout
+
+    login_user 'machida', 'testtest'
+    visit products_not_responded_index_path
+
+    def assigned_product_count
+      find_link('自分の担当').find('.page-tabs__item-count').text.to_i
+    end
+
+    before_comment = assigned_product_count
+
+    visit show_product_path
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: '担当者がいる提出物の場合、担当者にならない')
+    end
+    click_button 'コメントする'
+    wait_for_vuejs
+
+    visit products_not_responded_index_path
+    assert_equal before_comment, assigned_product_count
+  end
 end

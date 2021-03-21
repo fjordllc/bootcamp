@@ -125,6 +125,10 @@ export default {
           this.tab = 'comment';
           this.buttonDisabled = false
           this.resizeTextarea()
+
+          if (this.commentableType === 'Product') {
+            this.assignProductToSelf()
+          }
         })
         .catch(error => {
           console.warn('Failed to parsing', error)
@@ -165,7 +169,24 @@ export default {
       const check = document.getElementById("js-shortcut-check")
       this.createComment()
       check.click()
-    }
+    },
+    assignProductToSelf() {
+      const params = {
+        "product_id": this.commentableId,
+        "current_user_id": this.currentUserId,
+      }
+      fetch('/api/products/checker', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+        body: JSON.stringify(params)
+      })
+    },
   },
   computed: {
     validation() {
