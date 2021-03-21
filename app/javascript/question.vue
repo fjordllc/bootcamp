@@ -158,6 +158,7 @@ export default {
         practiceId: ''
       },
       editing: false,
+      hasInitializedTextArea: false,
       question: null,
       practices: null,
       currentUser: null,
@@ -173,9 +174,6 @@ export default {
         return practice
       });
     this.setEditedData()
-  },
-  mounted: function () {
-    TextareaInitializer.initialize(`#js-question-content`)
   },
   methods: {
     async fetchQuestion() {
@@ -254,6 +252,11 @@ export default {
       this.editing = false
     },
     editQuestion: function () {
+      if (!this.hasInitializedTextArea) {
+        TextareaInitializer.initialize(`#js-question-content`)
+        this.hasInitializedTextArea = true
+      }
+
       this.editing = true
       this.$nextTick(function () {
         $(`.question-id-${this.questionId}`).trigger('input')
