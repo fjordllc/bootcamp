@@ -1,5 +1,7 @@
 <template lang="pug">
-.thread__inner.a-card(v-if="question === null")
+.thread__inner.a-card(
+  v-if="question === null || practices === null || currentUser === null"
+)
   .empty
     .fas.fa-spinner.fa-pulse
     |  ロード中
