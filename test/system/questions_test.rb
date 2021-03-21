@@ -26,7 +26,6 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'show a resolved qestion' do
-    login_user 'komagata', 'testtest'
     question = questions(:question3)
     visit question_path(question)
     assert_text '解決済'
@@ -49,7 +48,6 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'update a question' do
-    login_user 'komagata', 'testtest'
     question = questions(:question8)
     visit question_path(question)
     wait_for_vuejs
@@ -64,7 +62,6 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'delete a question' do
-    login_user 'komagata', 'testtest'
     question = questions(:question8)
     visit question_path(question)
     wait_for_vuejs
@@ -88,7 +85,7 @@ class QuestionsTest < ApplicationSystemTestCase
     visit '/notifications'
     assert_text 'kimuraさんから質問がありました。'
 
-    login_user 'machida', 'testtest'
+    login_user 'kimura', 'testtest'
     visit '/questions'
     click_on 'タイトルtest'
     wait_for_vuejs
