@@ -3,19 +3,19 @@
   .container(v-if="question === null")
     .empty
       .fas.fa-spinner.fa-pulse
-      |  ロード中
+      |
+      | ロード中
   .container(v-else)
     questionDetail(
-      v-if="currentUser !== null"
-      :initialQuestion="question"
+      v-if="currentUser !== null",
+      :initialQuestion="question",
       :currentUser="currentUser"
     )
     answers(
-      :questionId="questionId"
-      :questionUserId="question.user.id"
+      :questionId="questionId",
+      :questionUserId="question.user.id",
       :currentUserId="currentUserId"
     )
-
 </template>
 <script>
 import QuestionDetail from './question-detail.vue'
