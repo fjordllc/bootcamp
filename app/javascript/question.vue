@@ -47,7 +47,6 @@
         v-html="markdownDescription"
       )
       reaction(
-        :is="reaction",
         :reactionable="question",
         :currentUser="currentUser",
         :reactionableId="`Question_${this.questionId}`"
@@ -131,7 +130,6 @@
                   | キャンセル
 </template>
 <script>
-// TODO reactionの中身見る
 import Reaction from './reaction.vue'
 import Watch from './watch.vue'
 import MarkdownInitializer from './markdown-initializer'
@@ -143,7 +141,8 @@ moment.locale('ja')
 export default {
   components: {
     watch: Watch,
-    tags: Tags
+    tags: Tags,
+    reaction: Reaction,
   },
   props: {
     currentUserId: { type: String, required: true },
@@ -162,7 +161,6 @@ export default {
       question: null,
       practices: null,
       currentUser: null,
-      reaction: null,
       tab: 'question',
     }
   },
@@ -175,7 +173,6 @@ export default {
         return practice
       });
     this.setTemporaryData()
-    this.reaction = Reaction
   },
   mounted: function () {
     TextareaInitializer.initialize(`#js-question-content`)
