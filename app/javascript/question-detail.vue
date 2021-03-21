@@ -1,9 +1,6 @@
 <template lang="pug">
 .thread
-  userIcon(
-    :user="question.user"
-    threadClassSuffix=""
-  )
+  userIcon(:user="question.user", threadClassSuffix="")
   .thread__inner.a-card
     header.thread-header
       .thread-header__upper-side
@@ -36,9 +33,9 @@
             | Raw
     .thread__tags
       tags(
-        :tagsInitialValue="question.tag_list"
-        :questionId="question.id"
-        tagsParamName="question[tag_list]"
+        :tagsInitialValue="question.tag_list",
+        :questionId="question.id",
+        tagsParamName="question[tag_list]",
         :editAble="editAble"
       )
 
@@ -79,11 +76,10 @@
                       .select-practices(v-if="practices === null")
                         .empty
                           .fas.fa-spinner.fa-pulse
-                          |  ロード中
+                          |
+                          | ロード中
                       .select-practices(v-else)
-                        select(
-                          v-model="edited.practiceId"
-                        )
+                        select(v-model="edited.practiceId")
                           option(
                             v-for="practice in practices",
                             :value="practice.id"
