@@ -103,7 +103,7 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    getAnnouncementsPerPage() {
+    getAnnouncementsPerPage () {
       fetch(this.url, {
         method: 'GET',
         headers: {
@@ -129,14 +129,14 @@ export default {
         console.warn('Failed to parsing', error)
       })
     },
-    updateCurrentUrl() {
+    updateCurrentUrl () {
       let url = location.pathname
       if (this.currentPage != 1) {
         url += `?page=${this.currentPage}`
       }
       history.pushState(null, null, url)
     },
-    getPageValueFromParameter() {
+    getPageValueFromParameter () {
       let url = location.href
       let results= url.match(/\?page=(\d+)/)
       if (!results) return null;
@@ -146,7 +146,7 @@ export default {
       this.getAnnouncementsPerPage()
       this.updateCurrentUrl()
     },
-    getCurrentUser() {
+    getCurrentUser () {
       fetch(`/api/users/${this.currentUserId}.json`, {
       method: "GET",
       headers: {
