@@ -280,7 +280,9 @@ export default {
           this.question.description = this.tempDescription
           if (this.question.practice) {
             this.question.practice.id = this.selectedId
-            this.question.practice.title = this.practiceTitle()
+            this.question.practice.title = this.practices
+              .find(practice => practice.id === this.selectedId)
+              .title
           }
 
           this.editing = false
@@ -308,15 +310,6 @@ export default {
             console.warn('Failed to parsing', error)
           })
       }
-    },
-    /* 何やってるの */
-    practiceTitle: function () {
-      const practice = this.practices
-        .filter((practice) => {
-          return practice.id === this.selectedId
-        })
-        .shift()
-      return practice.title
     },
   },
   computed: {
