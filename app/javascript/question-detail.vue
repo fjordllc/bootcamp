@@ -11,10 +11,10 @@
           | {{ question.user.login_name }}
         .thread-header__date
           time.thread_header_date-value(
-            :datetime="updateAtISO8601",
+            :datetime="updatedAtISO8601",
             pubdate="pubdate"
           )
-            | {{ updateAt }}
+            | {{ updatedAt }}
       .thread-practice(v-if="question.practice")
         a.thread-practice__link(:href="`/practices/${question.practice.id}`")
           | {{ question.practice.title }}
@@ -299,10 +299,10 @@ export default {
       const { title, description } = this.edited
       return title.length > 0 && description.length > 0
     },
-    updateAtISO8601: function() {
+    updatedAtISO8601: function() {
       return moment(this.question.updated_at).format();
     },
-    updateAt: function () {
+    updatedAt: function () {
       return moment(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     editAble: function () {
