@@ -160,18 +160,20 @@ export default {
       selectedId: '',
       editing: false,
       question: null,
-      practices: [],
-      currentUser: {},
+      practices: null,
+      currentUser: null,
       reaction: null,
       tab: 'question',
     }
   },
   async created() {
-    await this.setQuestion()  // actionを取得すればいる
-    // いらない
-    await this.setUser(this.currentUserId, this.currentUser)
-    // いらない
-    await this.setPractices()
+    this.question = await this.fetchQuestion()
+    this.currentUser = await this.fetchUser(this.currentUserId)
+    this.practices = (await this.fetchPractices(this.question.user.id))
+      .map(practice => {
+        practice.categoryAndPracticeName = `[${practice.category}] ${practice.title}`
+        return practice
+      });
     this.setTemporaryData()
     this.reaction = Reaction
   },
@@ -179,8 +181,8 @@ export default {
     TextareaInitializer.initialize(`#js-question-content`)
   },
   methods: {
-    async setQuestion() {
-      await fetch(`/api/questions/${this.questionId}.json`, {
+    async fetchQuestion() {
+      return fetch(`/api/questions/${this.questionId}.json`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -191,15 +193,13 @@ export default {
         .then((response) => {
           return response.json()
         })
-        .then((json) => {
-          this.question = json
-        })
         .catch((error) => {
           console.warn('Failed to parsing', error)
+          return null
         })
     },
-    async setUser(id, user) {
-      await fetch(`/api/users/${id}.json`, {
+    async fetchUser(id) {
+      return fetch(`/api/users/${id}.json`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -210,19 +210,13 @@ export default {
         .then((response) => {
           return response.json()
         })
-        .then((json) => {
-          for (var key in json) {
-            /* ここなにやってんの */
-            /* user(this.currentUserIdやquestionUserId)を更新している */
-            this.$set(user, key, json[key])
-          }
-        })
         .catch((error) => {
           console.warn('Failed to parsing', error)
+          return null
         })
     },
-    async setPractices() {
-      await fetch(`/api/practices.json?user_id=${this.question.user.id}`, {
+    async fetchPractices(userId) {
+      return fetch(`/api/practices.json?user_id=${userId}`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -233,14 +227,9 @@ export default {
         .then((response) => {
           return response.json()
         })
-        .then((practices) => {
-          this.practices = practices.map(practice => {
-            practice.categoryAndPracticeName = `[${practice.category}] ${practice.title}`
-            return practice
-          });
-        })
         .catch((error) => {
           console.warn('Failed to parsing', error)
+          return null
         })
     },
     setTemporaryData() {
