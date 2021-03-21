@@ -293,7 +293,7 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params),
       })
-        .then((response) => {
+        .then(() => {
           this.question.title = this.tempTitle
           this.question.description = this.tempDescription
           if (this.question.practice) {
@@ -319,7 +319,7 @@ export default {
           credentials: 'same-origin',
           redirect: 'manual',
         })
-          .then((response) => {
+          .then(() => {
             location.href = '/questions'
           })
           .catch((error) => {
