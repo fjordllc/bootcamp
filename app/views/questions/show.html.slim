@@ -24,8 +24,7 @@ header.page-header
       #js-question(
         data-current-user-id="#{current_user.id}"
         data-question-id="#{@question.id}"
-        data-admin-login="#{admin_login?}"
-        data-present="#{@question.correct_answer.present?}")
+        data-admin-login="#{admin_login?}")
 
     .thread-comments-container
       #js-answers(data-question-id="#{@question.id}" data-current-user-id="#{current_user.id}" data-question-user-id="#{@question.user.id}")

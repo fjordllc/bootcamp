@@ -20,7 +20,9 @@
       a.thread-practice__link(:href="`/practices/${question.practice.id}`")
         | {{ question.practice.title }}
     h1.thread-header__title
-      span.thread-header__title-icon.is-solved.is-success(v-if="present")
+      span.thread-header__title-icon.is-solved.is-success(
+        v-if="question.correct_answer !== null"
+      )
         | 解決済
       span.thread-header__title-icon.is-solved.is-danger(v-else)
         | 未解決
@@ -148,8 +150,6 @@ export default {
     currentUserId: { type: String, required: true },
     questionId: { type: String, required: true },
     adminLogin: { type: Boolean, required: true },
-    /* solveの方が適している */
-    present: { type: Boolean, required: true },
   },
   data: () => {
     return {
