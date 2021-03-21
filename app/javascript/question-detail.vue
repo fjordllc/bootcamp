@@ -300,10 +300,10 @@ export default {
       return title.length > 0 && description.length > 0
     },
     updateAtISO8601: function() {
-      return moment(this.question.update_at).format();
+      return moment(this.question.updated_at).format();
     },
     updateAt: function () {
-      return moment(this.question.update_at).format('YYYY年MM月DD日(dd) HH:mm')
+      return moment(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     editAble: function () {
       return (
