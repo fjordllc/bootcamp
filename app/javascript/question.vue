@@ -6,8 +6,8 @@
 .thread__inner.a-card(v-else)
   header.thread-header
     .thread-header__upper-side
-      a.thread-header__author(:href="`/users/${questionUser.id}`")
-        | {{ questionUser.login_name }}
+      a.thread-header__author(:href="`/users/${question.user.id}`")
+        | {{ question.user.login_name }}
       .thread-header__date
         time.thread_header_date-value(
           :datetime="updateAtISO8601",
@@ -36,7 +36,7 @@
       :tagsInitialValue="question.tag_list"
       :questionId="questionId"
       tagsParamName="question[tag_list]"
-      :questionUserId="questionUserId"
+      :questionUserId="question.user.id"
       :currentUserId="currentUserId"
       :adminLogin="adminLogin"
     )
@@ -147,7 +147,6 @@ export default {
   },
   props: {
     currentUserId: { type: String, required: true },
-    questionUserId: { type: String, required: true },
     questionId: { type: String, required: true },
     adminLogin: { type: Boolean, required: true },
     /* solveの方が適している */
@@ -163,7 +162,6 @@ export default {
       question: null,
       practices: [],
       currentUser: {},
-      questionUser: {},
       reaction: null,
       tab: 'question',
     }
@@ -172,7 +170,6 @@ export default {
     await this.setQuestion()  // actionを取得すればいる
     // いらない
     await this.setUser(this.currentUserId, this.currentUser)
-    await this.setUser(this.questionUserId, this.questionUser)
     // いらない
     await this.setPractices()
     this.setTemporaryData()
@@ -225,7 +222,7 @@ export default {
         })
     },
     async setPractices() {
-      await fetch(`/api/practices.json?user_id=${this.questionUserId}`, {
+      await fetch(`/api/practices.json?user_id=${this.question.user.id}`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -353,7 +350,7 @@ export default {
     },
     editAble: function () {
       return (
-        this.questionUserId === this.currentUserId || this.adminLogin === true
+        this.question.user.id === this.currentUserId || this.adminLogin === true
       )
     },
   },

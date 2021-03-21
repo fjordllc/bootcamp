@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const questionElement = document.getElementById('js-question')
   if (questionElement) {
     const currentUserId = questionElement.getAttribute('data-current-user-id')
-    const questionUserId = questionElement.getAttribute('data-question-user-id')
     const questionId = questionElement.getAttribute('data-question-id')
     var adminLogin = questionElement.getAttribute('data-admin-login')
     adminLogin = adminLogin === 'true'
@@ -17,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         h(Question, {
           props: {
             currentUserId: currentUserId,
-            questionUserId: questionUserId,
             questionId: questionId,
             adminLogin: adminLogin,
             present: present
