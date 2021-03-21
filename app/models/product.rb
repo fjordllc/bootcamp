@@ -113,12 +113,18 @@ class Product < ApplicationRecord
   end
 
   def submitted_just_specific_days(date)
-    #published_at.strftime('%F') == Time.zone.today.prev_day(date).to_s
-    5
+    if published_at.nil?
+      created_at.strftime('%F') == Time.zone.today.prev_day(date).to_s
+    else
+      published_at.strftime('%F') == Time.zone.today.prev_day(date).to_s
+    end
   end
 
   def submitted_over_specific_days(date)
-    #published_at.strftime('%F') < Time.zone.today.prev_day(date - 1).to_s
-    5
+    if published_at.nil?
+      created_at.strftime('%F') == Time.zone.today.prev_day(date).to_s
+    else
+      published_at.strftime('%F') < Time.zone.today.prev_day(date - 1).to_s
+    end
   end
 end
