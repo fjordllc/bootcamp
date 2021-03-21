@@ -254,9 +254,6 @@ export default {
       })
     },
     updateQuestion: function () {
-      if (this.tempDescription.length < 1) {
-        return null
-      }
       const params = {
         question: {
           title: this.tempTitle,
@@ -318,7 +315,7 @@ export default {
       return markdownInitializer.render(this.tempDescription)
     },
     validation: function () {
-      return this.tempDescription.length > 0
+      return this.tempTitle.length > 0 && this.tempDescription.length > 0
     },
     updateAtISO8601: function() {
       return moment(this.question.update_at).format();
