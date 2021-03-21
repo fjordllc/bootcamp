@@ -168,11 +168,12 @@ export default {
   async created() {
     this.question = this.initialQuestion
     this.setEditedData()
-    this.practices = (await this.fetchPractices(this.question.user.id))
-      .map(practice => {
+    this.practices = (await this.fetchPractices(this.question.user.id)).map(
+      (practice) => {
         practice.categoryAndPracticeName = `[${practice.category}] ${practice.title}`
         return practice
-      });
+      }
+    )
   },
   mounted() {
     TextareaInitializer.initialize(`#js-question-content`)
@@ -255,9 +256,9 @@ export default {
             practice.id = this.edited.practiceId
             // find(practice  だと const { practice } と
             // 重複するので利用していない
-            practice.title = this.practices
-                             .find(obj => obj.id === practice.id)
-                             .title
+            practice.title = this.practices.find(
+              (obj) => obj.id === practice.id
+            ).title
           }
 
           this.editing = false
@@ -299,7 +300,9 @@ export default {
       return moment(this.question.updated_at).format();
     },
     updatedAt: function () {
-      return moment(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+      return moment(this.question.updated_at).format(
+        "YYYY年MM月DD日(dd) HH:mm"
+      )
     },
     editAble: function () {
       return (
