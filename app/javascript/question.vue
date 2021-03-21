@@ -149,7 +149,6 @@ export default {
   props: {
     currentUserId: { type: String, required: true },
     questionId: { type: String, required: true },
-    adminLogin: { type: Boolean, required: true },
   },
   data: () => {
     return {
@@ -336,7 +335,8 @@ export default {
     },
     editAble: function () {
       return (
-        this.question.user.id === this.currentUserId || this.adminLogin === true
+        this.question.user.id === this.currentUserId ||
+        this.currentUser.role === 'admin'
       )
     },
   },
