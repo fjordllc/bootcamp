@@ -14,11 +14,7 @@ header.page-header
             = link_to questions_path, class: 'a-button is-md is-secondary is-block' do
               | Q&A一覧
 
-.page-body
-  .container
-    #js-question(
-      data-current-user-id="#{current_user.id}"
-      data-question-id="#{@question.id}")
-
-    .thread-comments-container
-      #js-answers(data-question-id="#{@question.id}" data-current-user-id="#{current_user.id}" data-question-user-id="#{@question.user.id}")
+#js-question(
+  data-current-user-id="#{current_user.id}"
+  data-question-id="#{@question.id}"
+)
