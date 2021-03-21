@@ -149,7 +149,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :questions
+  resources :questions, only: %i(index show new create)
   resources :reservation_calenders, only: %i(index show)
   resources :courses, only: :index
 
