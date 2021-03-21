@@ -38,13 +38,13 @@ export default {
       currentUser: null,
     }
   },
-  async created() {
-    this.question = await this.fetchQuestion()
-    this.currentUser = await this.fetchUser(this.currentUserId)
+  created() {
+    this.fetchQuestion()
+    this.fetchUser(this.currentUserId)
   },
   methods: {
-    async fetchQuestion() {
-      return fetch(`/api/questions/${this.questionId}.json`, {
+    fetchQuestion() {
+      fetch(`/api/questions/${this.questionId}.json`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -55,13 +55,15 @@ export default {
         .then((response) => {
           return response.json()
         })
+        .then((question) => {
+          this.question = question
+        })
         .catch((error) => {
           console.warn('Failed to parsing', error)
-          return null
         })
     },
-    async fetchUser(id) {
-      return fetch(`/api/users/${id}.json`, {
+    fetchUser(id) {
+      fetch(`/api/users/${id}.json`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -72,9 +74,11 @@ export default {
         .then((response) => {
           return response.json()
         })
+        .then((user) => {
+          this.currentUser = user
+        })
         .catch((error) => {
           console.warn('Failed to parsing', error)
-          return null
         })
     },
     token() {
