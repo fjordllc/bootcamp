@@ -8,7 +8,6 @@ class API::Products::NotRespondedController < API::BaseController
                 .list
                 .reorder_for_not_responded_products
                 .page(params[:page])
-    
     @latest_product_submitted_just_5days = @products.find { |product| product.submitted_just_specific_days(5) }
     @latest_product_submitted_just_6days = @products.find { |product| product.submitted_just_specific_days(6) }
     @latest_product_submitted_over_7days = @products.find { |product| product.submitted_over_specific_days(7) }
