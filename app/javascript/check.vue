@@ -15,7 +15,7 @@
         //-
         product-checker(v-show="checkableType === 'Product' && checkId === null", :checkerId="checkerId", :checkerName="checkerName", :currentUserId="currentUserId", :productId="checkableId")
       li.thread-admin-tools__item
-        button#js-shortcut-check.thread-check-form__action(:class=" checkId ? 'is-text' : 'a-button is-md is-danger' " @click="check")
+        button#js-shortcut-check.thread-check-form__action.is-block(:class=" checkId ? 'is-text' : 'a-button is-md is-danger' " @click="check")
           i.fas.fa-check
           | {{ buttonLabel }}
 </template>
