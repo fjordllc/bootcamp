@@ -6,8 +6,10 @@
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
+import checkTag from './mixins/check-tag'
 
 export default {
+  mixins: [checkTag],
   props: ['tagsInitialValue', 'tagsParamName', 'taggableType'],
   components: { VueTagsInput },
   data() {
@@ -35,16 +37,6 @@ export default {
           tiClasses: ["ti-valid"]
         }
      })
-    },
-    checkTag(obj) {
-      const { text } = obj.tag
-      if (/ |　/.test(text)) {
-        alert('入力されたタグにスペースが含まれています')
-      } else if (text === '.') {
-        alert('ドット1つだけのタグは作成できません')
-      } else {
-        obj.addTag()
-      }
     },
   },
   mounted() {
