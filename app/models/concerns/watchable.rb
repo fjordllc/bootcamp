@@ -27,10 +27,10 @@ module Watchable
   end
 
   def description
-    if class_name == 'Product'
-      self[:body]
-    else
+    if has_attribute?(:description)
       self[:description]
+    else
+      self[:body]
     end
   end
 
