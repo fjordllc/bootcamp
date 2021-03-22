@@ -3,7 +3,6 @@
   .container(v-if="question === null")
     .empty
       .fas.fa-spinner.fa-pulse
-      |
       | ロード中
   .container(v-else)
     questionDetail(
