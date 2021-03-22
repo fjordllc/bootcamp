@@ -3,6 +3,7 @@
 class Answer < ApplicationRecord
   include Reactionable
   include Searchable
+  include Mentioner
 
   belongs_to :user, touch: true
   belongs_to :question
@@ -16,6 +17,8 @@ class Answer < ApplicationRecord
   validates :user, presence: true
 
   columns_for_keyword_search :description
+
+  mentionable_as :description
 
   def receiver
     question.user

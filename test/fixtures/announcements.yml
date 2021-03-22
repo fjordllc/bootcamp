@@ -19,6 +19,13 @@ announcement3:
   created_at: "2018-01-03"
   target: 0
 
+announcement4:
+  user: kimura
+  title: 生徒からのお知らせ
+  description: 生徒からのお知らせ本文
+  created_at: "2018-01-03"
+  target: 0
+
 announcement_notification_active_user:
   user: machida
   title: 現役生にのみ通知するお知らせ

@@ -37,6 +37,7 @@ class Product < ApplicationRecord
       .preload([:practice, :comments, { checks: { user: { avatar_attachment: :blob } } }])
       .order(created_at: :desc)
   }
+  scope :reorder_for_not_responded_products, -> { reorder(published_at: :desc, id: :desc) }
 
   # rubocop:disable Metrics/MethodLength
   def self.not_responded_products

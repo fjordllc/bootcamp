@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module StripeHelper
-  def fill_stripe_element(card, exp, cvc, postal)
+  def fill_stripe_element(card, exp, cvc)
     card_iframe = all('iframe')[0]
 
     within_frame card_iframe do
@@ -15,10 +15,6 @@ module StripeHelper
 
       cvc.chars.each do |piece|
         find_field('cvc').send_keys(piece)
-      end
-
-      postal.chars.each do |piece|
-        find_field('postal').send_keys(piece)
       end
     end
   end

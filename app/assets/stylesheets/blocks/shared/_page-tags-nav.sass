@@ -1,15 +1,15 @@
 .page-tags-nav
-  +position(right 0, top 3.5rem)
-  flex: 0 0 16rem
-  position: sticky
   background-color: $base
-  width: 16rem
   border: solid 1px #dadada
   border-radius: .25rem
-  transition: opacity .2s ease-in
-  margin-left: 1.5rem
+  +media-breakpoint-up(md)
+    +position(right 0, top 3.5rem)
+    flex: 0 0 16rem
+    position: sticky
+    width: 16rem
+    margin-left: 1.5rem
   +media-breakpoint-down(sm)
-    display: none
+    margin-top: 1rem
 
 .page-tags-nav__header
   border-bottom: solid 1px $border

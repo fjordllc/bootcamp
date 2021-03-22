@@ -1,10 +1,11 @@
 .two-columns
-  max-width: 58rem
   +margin(horizontal, auto)
   +position(relative)
-  display: flex
-  justify-content: space-between
-  align-items: flex-start
+  +media-breakpoint-up(md)
+    max-width: 58rem
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
 
 .two-columns__inner
   flex: 100

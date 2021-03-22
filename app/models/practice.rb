@@ -137,7 +137,7 @@ class Practice < ApplicationRecord
   end
 
   def category(course)
-    Category.category(practice: self, course: course)
+    Category.category(practice: self, course: course) || categories.first || Category.first
   end
 
   private
