@@ -172,4 +172,13 @@ class AnnouncementsTest < ApplicationSystemTestCase
     visit '/notifications'
     assert_no_text 'machidaさんからお知らせです。'
   end
+
+  test '一般のユーザーもお知らせを編集できる' do
+    login_user 'kimura', 'testtest'
+    announcement = announcements(:announcement1)
+    visit announcement_path(announcement)
+    within '.thread__inner' do
+      assert_text '内容修正'
+    end
+  end
 end
