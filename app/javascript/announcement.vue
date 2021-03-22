@@ -34,10 +34,10 @@
 export default {
   props: ['title', 'announcement', 'currentUser'],
   computed: {
-    roleClass () {
+    roleClass() {
       return `is-${this.announcement.user.role}`
     },
-    daimyoClass () {
+    daimyoClass() {
       return { 'is-daimyo': this.announcement.user.daimyo }
     }
   }
