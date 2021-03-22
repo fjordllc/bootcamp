@@ -76,7 +76,6 @@
                       .select-practices(v-if="practices === null")
                         .empty
                           .fas.fa-spinner.fa-pulse
-                          |
                           | ロード中
                       .select-practices(v-else)
                         select(v-model="edited.practiceId")
