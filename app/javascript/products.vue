@@ -27,11 +27,12 @@
           :break-view-text="null"
         )
       .thread-list.a-card(v-if="products.length > 0")
-        product(v-for="product in products"
-          :key="product.id"
-          :product="product"
-          :currentUserId="currentUserId"
-          :isMentor="isMentor")
+        .thread-list__items
+          product(v-for="product in products"
+            :key="product.id"
+            :product="product"
+            :currentUserId="currentUserId"
+            :isMentor="isMentor")
         unconfirmed-links-open-button(v-if="isMentor && selectedTab != 'all'" :label="`${unconfirmedLinksName}の提出物を一括で開く`")
       .o-empty-massage(v-else)
         .o-empty-massage__icon

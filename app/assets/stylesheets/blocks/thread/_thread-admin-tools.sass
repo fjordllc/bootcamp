@@ -7,12 +7,21 @@
 .thread-admin-tools__items
   display: flex
   justify-content: flex-end
+  +margin(horizontal, -.375rem)
+
+.thread-admin-tools__item
+  +padding(horizontal, .375rem)
+  min-width: 12rem
+  .a-button
+    min-height: 2.375rem
+    font-size: .8125rem
 
 .thread-check-form__action, .thread-unconfirmed-links-form__action
   &.is-text
     +hover-link-reversal
     +text-block(.875rem 1.4, $muted-text)
     cursor: pointer
+    min-height: 2.375rem
     +padding(vertical, .25rem)
     i
       margin-right: .25em
