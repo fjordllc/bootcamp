@@ -83,7 +83,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
                  notification_message
   end
 
-  test '2回目のWIPではない提出で、初めての日報の通知を飛ばさない' do
+  test '初日報の2回目のWIPではない提出で、初めての日報の通知を飛ばさない' do
     login_user 'muryou', 'testtest'
     visit '/reports'
     click_link '日報作成'
@@ -118,7 +118,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     logout
 
     login_user 'yamada', 'testtest'
-    open_notification
+    click_link '通知'
     assert_no_text 'muryouさんがはじめての日報を書きました！'
     logout
   end
