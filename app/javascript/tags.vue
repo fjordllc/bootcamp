@@ -3,7 +3,7 @@
     ul.tag-links__items(v-if="!editing")
       li.tag-links__item(v-for="tag in tags")
         a.tag-links__item-link(:href="`${tagsPath}/${tag.text}${tagsPathParams}`")
-          | {{ tag.text }}  
+          | {{ tag.text }}
       li.tag-links__item(v-if="tagsEditable")
         .tag-links__item-edit(@click="editTag")
           | タグ編集
@@ -24,15 +24,17 @@
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
+import checkTag from './mixins/check-tag'
 
 export default {
   name: 'Tags',
+  mixins: [checkTag],
   props: {
     tagsInitialValue: {
       type: String,
       required: true
     },
-    tagsParamName: { 
+    tagsParamName: {
       type: String,
       required: true
     },
@@ -101,16 +103,6 @@ export default {
     },
     parseTagsError(error) {
       console.warn('Failed to parsing', error)
-    },
-    checkTag(obj) {
-      const { text } = obj.tag
-      if (/ |　/.test(text)) {
-        alert('入力されたタグにスペースが含まれています')
-      } else if (text === '.') {
-        alert('ドット1つだけのタグは作成できません')
-      } else {
-        obj.addTag()
-      }
     },
     editTag() {
       this.editing = true
