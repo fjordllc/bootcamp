@@ -13,10 +13,24 @@
       white-space: nowrap
 
 .welcome-section__title
-  +text-block(1.75rem 1.45 0 .3em, 400 center $welcome-default-text)
+  +text-block(1.875rem 1.45 0 .3em, 700 center $welcome-default-text)
   +media-breakpoint-down(sm)
     +text-block(1.125rem 1.3 0 1rem)
     +position(relative)
+  &.has-border
+    position: relative
+    padding-bottom: .75em
+    margin-bottom: 1em
+    &::before
+      content: ''
+      display: block
+      +position(absolute, left 50%, bottom 0)
+      +size(6em .375em)
+      //background-color: #178bff
+      transform: translate(-50%, 0)
+      border-radius: 1em
+      background: rgb(250,237,0)
+      background: linear-gradient(180deg, #fdb82e 0%, #fdb82e 50%, #ef6085 50%, #ef6085 100%)
 
 .welcome-section__sub-title
   +text-block(1.25rem 1.45 0 .8em, 700 center $welcome-default-text)
@@ -60,6 +74,10 @@
 .welcome-section__description
   max-width: 40rem
   +margin(horizontal, auto)
+  +media-breakpoint-up(md)
+    font-size: 1rem
+  +media-breakpoint-down(sm)
+    font-size: .875rem
   &:not(:last-child)
     margin-bottom: 2rem
   .welcome-section__title + &
@@ -67,9 +85,17 @@
   &.is-reversal
     color: $reversal-text
   p
-    +text-block(1rem 1.6 0 1.2em)
-    +media-breakpoint-down(sm)
-      font-size: .875rem
+    +text-block(1em 1.6 0 1.2em)
+  h3
+    +text-block(1.25em 1.45 0 .5em, 700)
+  ul,
+  ol
+    margin-left: 2em
+  ul
+    list-style: disc outside
+    margin-bottom: 1.2em
+  li
+    +text-block(1em 1.6 0 .25em)
   *:last-child
     margin-bottom: 0
 
