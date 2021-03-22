@@ -106,13 +106,19 @@ export default {
         : `${this.product.practice.title}の提出物`
     },
     isLatestProductSubmittedJust5days() {
-      return this.product.id === this.latestProductSubmittedJust5days.id
+      if (this.latestProductSubmittedJust5days !== null) {
+        return this.product.id === this.latestProductSubmittedJust5days.id
+      }
     },
     isLatestProductSubmittedJust6days() {
-      return this.product.id === this.latestProductSubmittedJust6days.id
+      if (this.latestProductSubmittedJust6days !== null) {
+        return this.product.id === this.latestProductSubmittedJust6days.id
+      }
     },
     isLatestProductSubmittedOver7days() {
-      return this.product.id === this.latestProductSubmittedOver7days.id
+      if (this.latestProductSubmittedOver7days !== null) {
+        return this.product.id === this.latestProductSubmittedOver7days.id
+      }
     },
     notResponded() {
       return location.pathname === "/products/not_responded"
