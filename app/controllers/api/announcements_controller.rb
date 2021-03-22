@@ -15,6 +15,8 @@ class API::AnnouncementsController < API::BaseController
   def show; end
 
   def update
+    # announcement_params['wip']はユーザーが入力をするので、(文字列で'false'入力した場合等)
+    #「boolean型のtrueの時」のみ「更新」が出来る様、明示的にtureを書き込んでいます。
     if !current_user.admin? && announcement_params['wip'] != true
       head :bad_request
     elsif @announcement.update(announcement_params)
