@@ -7,7 +7,7 @@ class ReportCallbacks
 
     if report.first_public?
       report.update!(published_at: report.updated_at)
-      notify_advisers(report) if report.user.trainee? && report.user.company_id?
+      notify_users(report)
     end
 
     Cache.delete_unchecked_report_count
@@ -17,8 +17,6 @@ class ReportCallbacks
     create_author_watch(report)
 
     send_first_report_notification(report) if report.user.reports.count == 1 && !report.wip?
-
-    notify_followers(report)
   end
 
   def after_update(report)
@@ -41,6 +39,11 @@ class ReportCallbacks
     receiver_list.each do |receiver|
       NotificationFacade.first_report(report, receiver) if report.sender != receiver
     end
+  end
+
+  def notify_users(report)
+    notify_advisers(report) if report.user.trainee? && report.user.company_id?
+    notify_followers(report)
   end
 
   def notify_advisers(report)
