@@ -49,7 +49,7 @@ class ReportsController < ApplicationController
     set_wip
     canonicalize_learning_times(@report)
     if @report.save
-      notify_to_slack(@report) if check_noticeable
+      notify_to_slack(@report) if @noticeable
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :new
@@ -63,7 +63,7 @@ class ReportsController < ApplicationController
     check_noticeable
 
     if @report.save
-      notify_to_slack(@report) if check_noticeable
+      notify_to_slack(@report) if @noticeable
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :edit
@@ -157,7 +157,9 @@ class ReportsController < ApplicationController
   end
 
   def check_noticeable
-    @report.published_at.nil? && !@report.wip
+    return unless @report.published_at.nil? && !@report.wip
+
+    @noticeable = true
   end
 
   def redirect_url(report)

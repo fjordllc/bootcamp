@@ -2,10 +2,7 @@
 
 class ReportCallbacks
   def after_save(report)
-    return unless first_published?(report)
-
-    update_published_at(report)
-    send_first_report_notification(report) if report.first?
+    send_first_report_notification(report) if report.first? && first_published?(report)
   end
 
   def after_create(report)
