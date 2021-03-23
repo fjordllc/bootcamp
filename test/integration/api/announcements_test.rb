@@ -67,8 +67,18 @@ class API::AnnouncementsTest < ActionDispatch::IntegrationTest
           params: {
             announcement: {
               title: 'test',
-              description: 'patchのテストです',
-              'wip': true
+              description: 'patchのテストです'
+            }
+          },
+          headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :bad_request
+
+    token = create_token('komagata', 'testtest')
+    patch api_announcement_path(@my_announcement.id, format: :json),
+          params: {
+            announcement: {
+              title: 'test',
+              description: 'patchのテストです'
             }
           },
           headers: { 'Authorization' => "Bearer #{token}" }
@@ -129,18 +139,6 @@ class API::AnnouncementsTest < ActionDispatch::IntegrationTest
           },
           headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :bad_request
-
-    token = create_token('kimura', 'testtest')
-    patch api_announcement_path(@my_announcement.id, format: :json),
-          params: {
-            announcement: {
-              title: 'test',
-              description: 'patchのテストです',
-              wip: true
-            }
-          },
-          headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :ok
 
     token = create_token('komagata', 'testtest')
     patch api_announcement_path(@my_announcement.id, format: :json),
