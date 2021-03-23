@@ -3,7 +3,7 @@
     .thread-admin-tools
       ul.thread-admin-tools__items
         li.thread-admin-tools__item
-          button.thread-unconfirmed-links-form__action(class="a-button is-md is-primary" @click="openUnconfirmedItems()") {{ label }}
+          button.thread-unconfirmed-links-form__action(class="a-button is-md is-secondary" @click="openUnconfirmedItems()") {{ label }}
 </template>
 <script>
 

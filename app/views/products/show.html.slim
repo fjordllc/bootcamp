@@ -91,7 +91,12 @@ header.page-header
                         | 削除する
 
             - if admin_login? || adviser_login?
-              #js-check(data-checkable-id="#{@product.id}" data-checkable-type='Product' data-checkable-label="#{Product.model_name.human}")
+              #js-check(data-checkable-id="#{@product.id}"
+                        data-checkable-type='Product'
+                        data-checkable-label="#{Product.model_name.human}"
+                        data-checker-id="#{@product.checker_id}"
+                        data-checker-name="#{@product.checker_name}"
+                        data-current-user-id="#{current_user.id}")
 
           .thread-prev-next
             .thread-prev-next__item
