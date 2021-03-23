@@ -173,9 +173,18 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_no_text 'machidaさんからお知らせです。'
   end
 
-  test '一般のユーザーもお知らせを編集できる' do
+  test '一般のユーザーは提出済みのお知らせを編集できない' do
     login_user 'kimura', 'testtest'
     announcement = announcements(:announcement1)
+    visit announcement_path(announcement)
+    within '.thread__inner' do
+      assert_no_text '内容修正'
+    end
+  end
+
+  test '一般ユーザーはWIPのお知らせを編集できる' do
+    login_user 'kimura', 'testtest'
+    announcement = announcements(:announcement_wip)
     visit announcement_path(announcement)
     within '.thread__inner' do
       assert_text '内容修正'
