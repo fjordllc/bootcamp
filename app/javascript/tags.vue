@@ -10,7 +10,7 @@
     .form(v-show="editing")
       .form__items
         .form-item
-          vue-tags-input(v-model="inputTag" :tags="tags" :autocomplete-items="filteredTags" @tags-changed="update" placeholder="" @before-adding-tag="checkTag")
+          vue-tags-input(v-model="inputTag" :tags="tags" :autocomplete-items="filteredTags" @tags-changed="update" placeholder="" @before-adding-tag="validateTagName")
           input(type="hidden" :value="tagsValue" :name="tagsParamName" :id="tagsInputId")
       .form-actions(v-if="tagsEditable")
         ul.form-actions__items
@@ -24,11 +24,11 @@
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
-import checkTag from './check-tag'
+import validateTagName from './validate-tag-name'
 
 export default {
   name: 'Tags',
-  mixins: [checkTag],
+  mixins: [validateTagName],
   props: {
     tagsInitialValue: {
       type: String,

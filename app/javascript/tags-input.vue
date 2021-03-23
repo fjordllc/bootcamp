@@ -1,15 +1,15 @@
 <template lang="pug">
   div
-    vue-tags-input(v-model="inputTag" :tags="tags" :autocomplete-items="filteredTags" @tags-changed="update" placeholder="" @before-adding-tag="checkTag")
+    vue-tags-input(v-model="inputTag" :tags="tags" :autocomplete-items="filteredTags" @tags-changed="update" placeholder="" @before-adding-tag="validateTagName")
     input(type="hidden" :value="tagsValue" :name="tagsParamName")
 </template>
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
-import checkTag from './check-tag'
+import validateTagName from './validate-tag-name'
 
 export default {
-  mixins: [checkTag],
+  mixins: [validateTagName],
   props: ['tagsInitialValue', 'tagsParamName', 'taggableType'],
   components: { VueTagsInput },
   data() {

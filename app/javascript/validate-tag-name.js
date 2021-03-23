@@ -1,6 +1,6 @@
 export default {
   methods: {
-    checkTag (obj) {
+    validateTagName (obj) {
       const { text } = obj.tag
       if (/ |　/.test(text)) { // eslint-disable-line no-irregular-whitespace
         alert('入力されたタグにスペースが含まれています') // eslint-disable-line no-undef
