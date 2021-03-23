@@ -1,4 +1,4 @@
-- if @required_fields.present?
+- unless @required_fields.valid?
   .a-card
     header.card-header.is-sm
       h2.card-header__title
@@ -11,6 +11,7 @@
             = link_to '学習の準備', 'https://bootcamp.fjord.jp/courses/1/practices#category-1'
             | が終わりましたら、以下の項目を埋めてください。
       ul.card-list__items
-        - @required_fields.each do |field|
-          li.card-list__item
-            = field
+        - unless current_user.avatar.attached?
+          li = link_to 'プロフィール画像を登録してください。', edit_current_user_path, class: 'card-list__item-link'
+        - @required_fields.errors.each do |message|
+          = link_to t(message.to_s) << 'を登録してください。', edit_current_user_path, class: "card-list__item-link is-#{message}"
