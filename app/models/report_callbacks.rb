@@ -44,6 +44,7 @@ class ReportCallbacks
   def notify_users(report)
     notify_advisers(report) if report.user.trainee? && report.user.company_id?
     notify_followers(report)
+    report.notify_all_mention_user
   end
 
   def notify_advisers(report)
