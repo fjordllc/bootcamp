@@ -59,7 +59,7 @@ class ReportsController < ApplicationController
 
   def update
     set_wip
-    @report.practice_ids = nil if params[:report][:practice_ids].nil? 
+    @report.practice_ids = nil if params[:report][:practice_ids].nil?
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
     check_noticeable
