@@ -21,6 +21,12 @@ class HomeController < ApplicationController
     end
   end
 
+  def pricing; end
+
+  def test; end
+
+  private
+
   def set_required_fields
     @required_fields = RequiredField.new(
       description: current_user.description,
@@ -29,8 +35,4 @@ class HomeController < ApplicationController
       discord_account: current_user.discord_account
     )
   end
-
-  def pricing; end
-
-  def test; end
 end
