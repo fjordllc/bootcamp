@@ -5,12 +5,7 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: %i[show edit update destroy]
   before_action :set_footprints, only: %i[show]
 
-  def index
-    @announcements = Announcement.with_avatar
-                                 .preload(:comments)
-                                 .order(published_at: :desc, created_at: :desc)
-                                 .page(params[:page])
-  end
+  def index; end
 
   def show
     footprint!
