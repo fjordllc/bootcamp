@@ -246,3 +246,6 @@ ja:
         environment: 学ぶ環境に満足できなかったから
         cost: 受講料が高いから
         job_change: 転職や引っ越しなど環境の変化によって学びが継続できなくなったから
+  github_account: GitHubアカウント
+  discord_account: Discordアカウント
+  slack_account: Slackアカウント
