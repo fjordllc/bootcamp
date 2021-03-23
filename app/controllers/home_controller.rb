@@ -13,12 +13,21 @@ class HomeController < ApplicationController
         @completed_learnings = current_user.learnings.where(status: 3).order(updated_at: :desc)
         @my_seat_today = current_user.reservations.find_by(date: Date.current)&.seat&.name
         @reservations_for_today = Reservation.where(date: Date.current).to_a
-        @required_fields = RequiredFields.create_register_messages(current_user) if logged_in?
+        set_required_fields
         render aciton: :index
       end
     else
       render template: 'welcome/index', layout: 'welcome'
     end
+  end
+
+  def set_required_fields
+    @required_fields = RequiredField.new(
+      description: current_user.description,
+      github_account: current_user.github_account,
+      slack_account: current_user.slack_account,
+      discord_account: current_user.discord_account
+    )
   end
 
   def pricing; end
