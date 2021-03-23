@@ -16,7 +16,7 @@
             :autocomplete-items="filteredTags"
             @tags-changed="update"
             placeholder=""
-            @before-adding-tag="checkTag")
+            @before-adding-tag="validateTagName")
           input(type="hidden" :value="tagsValue" :name="tagsParamName")
       .form-actions
         ul.form-actions__items
@@ -30,10 +30,10 @@
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
-import checkTag from './check-tag'
+import validateTagName from './validate-tag-name'
 
 export default {
-  mixins: [checkTag],
+  mixins: [validateTagName],
   props: [
     'tagsInitialValue',
     'questionId',
