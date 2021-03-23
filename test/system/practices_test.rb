@@ -59,11 +59,13 @@ class PracticesTest < ApplicationSystemTestCase
       within '#reference_books' do
         click_link '追加'
         fill_in 'タイトル', with: 'テストの参考書籍タイトル'
-        fill_in 'ASIN', with: 'テストの参考書籍ASIN'
+        fill_in '価格', with: '1234'
+        fill_in 'URL', with: 'テストの参考書籍ASIN'
         click_link '削除'
         click_link '追加'
         fill_in 'タイトル', with: 'テストの参考書籍タイトル2'
-        fill_in 'ASIN', with: 'テストの参考書籍ASIN2'
+        fill_in '価格', with: '1234'
+        fill_in 'URL', with: 'http://example.com'
       end
       fill_in 'practice[goal]', with: 'テストのゴールの内容です'
       fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
@@ -83,7 +85,8 @@ class PracticesTest < ApplicationSystemTestCase
       within '#reference_books' do
         click_link '追加'
         fill_in 'タイトル', with: 'プロを目指す人のためのRuby入門'
-        fill_in 'ASIN', with: 'B077Q8BXHC'
+        fill_in '価格', with: '2345'
+        fill_in 'URL', with: 'http://example.com'
       end
       click_button '更新する'
     end
@@ -114,18 +117,20 @@ class PracticesTest < ApplicationSystemTestCase
     within '#reference_books' do
       click_link '追加'
       fill_in 'タイトル', with: 'プロを目指す人のRuby入門', match: :prefer_exact
-      fill_in 'ASIN', with: 'B077Q8BXHC', match: :prefer_exact
+      fill_in '価格', with: '2345', match: :prefer_exact
+      fill_in 'URL', with: 'http://example.com'
     end
     click_button '更新する'
   end
 
   test 'update a reference book' do
     login_user 'komagata', 'testtest'
-    practice = practices(:practice2)
+    practice = practices(:practice1)
     visit "/practices/#{practice.id}/edit"
     within '#reference_books' do
       fill_in 'タイトル', with: 'プロを目指す人のRuby入門'
-      fill_in 'ASIN', with: 'B077Q8BXHC'
+      fill_in '価格', with: '2345'
+      fill_in 'URL', with: 'http://example.com'
     end
     click_button '更新する'
   end
