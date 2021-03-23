@@ -2,6 +2,8 @@
 
 module Mentioner
   def after_save_mention(new_mentions)
+    return if instance_of?(Report)
+
     notify_users_found_by_mentions(new_mentions)
   end
 
@@ -22,6 +24,10 @@ module Mentioner
 
   def body
     self[:body] || self[:description]
+  end
+
+  def notify_all_mention_user
+    notify_users_found_by_mentions(mentions)
   end
 
   private

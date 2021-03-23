@@ -123,4 +123,18 @@ class Notification::ReportsTest < ApplicationSystemTestCase
       description
     )
   end
+
+  test '初めて提出した時だけ、メンション通知する' do
+    mention_target_login_name = 'kimura'
+    author_login_name = 'machida'
+    title = '初めて提出したら、'
+    description = "@#{mention_target_login_name} に通知する"
+    assert_notify_only_at_first_published_of_report(
+      make_mention_notify_message(author_login_name),
+      author_login_name,
+      mention_target_login_name,
+      title,
+      description
+    )
+  end
 end
