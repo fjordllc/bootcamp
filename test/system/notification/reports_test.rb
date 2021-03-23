@@ -105,4 +105,22 @@ class Notification::ReportsTest < ApplicationSystemTestCase
       description
     )
   end
+
+  test '初めて提出した時だけ、フォローされているユーザーに通知する' do
+    following = Following.first
+    followed_user_login_name = User.find(following.followed_id).login_name
+    follower_user_login_name = User.find(following.follower_id).login_name
+    title = '初めて提出した時だけ'
+    description = 'フォローされているユーザーに通知を飛ばす'
+    notify_message = make_write_report_notify_message(
+      followed_user_login_name, title
+    )
+    assert_notify_only_at_first_published_of_report(
+      notify_message,
+      followed_user_login_name,
+      follower_user_login_name,
+      title,
+      description
+    )
+  end
 end
