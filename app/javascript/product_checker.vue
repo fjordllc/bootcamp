@@ -1,7 +1,6 @@
 <template lang="pug">
-  .thread-list-item__assignee
-    button(v-if="!checkerId || checkerId == currentUserId" :class="['a-button', 'is-sm', 'is-block', id ? 'is-danger' : 'is-primary']" @click="check")
-      i(v-if="!checkerId || checkerId == currentUserId" :class="['fas', 'is-sm', id ? 'fa-times' : 'fa-hand-paper']" @click="check")
+    button(v-if="!checkerId || checkerId == currentUserId" :class="['a-button', 'is-sm', 'is-block', id ? 'is-warning' : 'is-secondary']" @click="check")
+      i(v-if="!checkerId || checkerId == currentUserId" :class="['fas', id ? 'fa-times' : 'fa-hand-paper']" @click="check")
       | {{ buttonLabel }}
     .a-button.is-sm.is-block.thread-list-item__assignee-name(v-else)
       span
