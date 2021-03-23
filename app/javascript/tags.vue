@@ -24,7 +24,7 @@
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
-import checkTag from './mixins/check-tag'
+import checkTag from './check-tag'
 
 export default {
   name: 'Tags',
