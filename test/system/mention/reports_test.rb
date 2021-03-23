@@ -5,7 +5,7 @@ require 'application_system_test_case'
 module Mention
   class ReportsTest < ApplicationSystemTestCase
     setup do
-      login_user 'kimura', 'testtest'
+      login_user 'yamada', 'testtest'
     end
 
     test 'mention from a report' do
@@ -20,7 +20,7 @@ module Mention
 
       login_user 'hatsuno', 'testtest'
       visit '/notifications'
-      assert_text 'kimuraさんからメンションがきました。'
+      assert_text 'yamadaさんからメンションがきました。'
     end
   end
 end

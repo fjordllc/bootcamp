@@ -2,22 +2,21 @@
 
 class ReportCallbacks
   def after_save(report)
-    update_published_at(report) if !report.wip? && report.published_at.nil?
+    return unless first_published?(report)
+    update_published_at(report)
+    send_first_report_notification(report) if report.first?
   end
 
   def after_create(report)
     create_author_watch(report)
-
-    send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1 && report.published_at.nil?
-
-    send_notification_to_company_adivisers(report)
-    create_notification_to_followers(report)
+    notify_to_company_adivisers(report) if report.user.trainee? && report.user.company_id?
+    notify_to_followers(report)
 
     Cache.delete_unchecked_report_count
   end
 
   def after_update(report)
-    send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1 && report.published_at.nil?
+    send_first_report_notification(report) if report.first? && first_published?(report)
     Cache.delete_unchecked_report_count
   end
 
@@ -55,19 +54,21 @@ class ReportCallbacks
     report.update!(published_at: Time.current)
   end
 
-  def create_notification_to_followers(report)
+  def notify_to_followers(report)
     report.user.followers.each do |follower|
       NotificationFacade.following_report(report, follower)
       create_following_watch(report, follower)
     end
   end
 
-  def send_notification_to_company_adivisers(report)
-    return if !report.user.trainee? || !report.user.company_id?
-
+  def notify_to_company_adivisers(report)
     report.user.company.advisers.each do |adviser|
       NotificationFacade.trainee_report(report, adviser)
       create_advisers_watch(report, adviser)
     end
+  end
+
+  def first_published?(report)
+    !report.wip? && report.published_at.nil?
   end
 end

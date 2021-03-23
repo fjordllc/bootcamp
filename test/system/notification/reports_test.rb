@@ -83,14 +83,15 @@ class Notification::ReportsTest < ApplicationSystemTestCase
                  notification_message
   end
 
-  test '初日報の2回目のWIPではない提出で、初めての日報の通知を飛ばさない' do
+  test '初日報は初めて公開した時だけ通知する' do
     login_user 'muryou', 'testtest'
     visit '/reports'
     click_link '日報作成'
-
+    first_report_title = 'test title'
+    first_repor_description = 'test'
     within('#new_report') do
-      fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'test')
+      fill_in('report[title]', with: first_report_title)
+      fill_in('report[description]', with: first_repor_description)
     end
 
     all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
@@ -103,14 +104,17 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     login_user 'yamada', 'testtest'
     open_notification
-    assert_equal 'muryouさんがはじめての日報を書きました！',
-                 notification_message
+
+    author_name = 'muryo'
+    message = "#{author_name}さんがはじめての日報を書きました！"
+    assert_equal message, notification_message
     click_link '全て既読にする'
     logout
 
     login_user 'muryou', 'testtest'
     visit '/reports'
-    click_link 'test title'
+
+    click_link first_report_title
     click_link '内容修正'
 
     fill_in('report[description]', with: 'testtest')
@@ -119,7 +123,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     login_user 'yamada', 'testtest'
     click_link '通知'
-    assert_no_text 'muryouさんがはじめての日報を書きました！'
+    assert_no_text message
     logout
   end
 end
