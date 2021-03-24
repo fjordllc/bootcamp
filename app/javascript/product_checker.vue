@@ -1,5 +1,5 @@
 <template lang="pug">
-    button(v-if="!checkerId || checkerId == currentUserId" :class="['a-button', 'is-sm', 'is-block', id ? 'is-warning' : 'is-secondary']" @click="check")
+    button(v-if="!checkerId || checkerId == currentUserId" :class="['a-button', 'is-block', id ? 'is-warning' : 'is-secondary' ,checkableType? 'is-md' : 'is-sm']" @click="check")
       i(v-if="!checkerId || checkerId == currentUserId" :class="['fas', id ? 'fa-times' : 'fa-hand-paper']" @click="check")
       | {{ buttonLabel }}
     .a-button.is-sm.is-block.thread-list-item__assignee-name(v-else)
@@ -8,7 +8,7 @@
 </template>
 <script>
 export default {
-  props: ['checkerId', 'checkerName', 'currentUserId', 'productId'],
+  props: ['checkerId', 'checkerName', 'currentUserId', 'productId','checkableType'],
   data () {
     return {
       id: this.checkerId,
