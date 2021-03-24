@@ -16,7 +16,6 @@ class API::ChecksController < API::BaseController
     )
 
     @check.save!
-    notify_to_slack(@check)
     head :created
   end
 
@@ -29,18 +28,5 @@ class API::ChecksController < API::BaseController
 
   def checkable
     params[:checkable_type].constantize.find_by(id: params[:checkable_id])
-  end
-
-  def notify_to_slack(check)
-    name = check.user.login_name.to_s
-    link = "<#{polymorphic_path(check.checkable)}#check_#{check.id}|#{check.checkable.title}>"
-
-    SlackNotification.notify "#{name} check to #{link}",
-                             username: "#{check.user.login_name} (#{check.user.name})",
-                             icon_url: check.user.avatar_url,
-                             attachments: [{
-                               fallback: 'check body.',
-                               text: "#{check.user.login_name}さんが#{check.checkable.title}を確認しました。"
-                             }]
   end
 end
