@@ -5,8 +5,8 @@ ruby:
           page.prev? ? 'prev' : nil
         end
 - if page.current?
-  li.pagination__item.is-active
-    = tag.a page, remote: remote, rel: rel, class: 'pagination__item-link is-active'
+  li.o-pagination__item.is-active
+    = tag.a page, remote: remote, rel: rel, class: 'o-pagination__item-link is-active'
 - else
-  li.pagination__item
-    = link_to page, url, remote: remote, rel: rel, class: 'pagination__item-link'
+  li.o-pagination__item
+    = link_to page, url, remote: remote, rel: rel, class: 'o-pagination__item-link'

@@ -1,5 +1,5 @@
 - content_for :extra_body_classes, 'welcome'
-- title 'FAQ'
+- title 'よくある質問'
 
 header.o-static-page-header
   .o-static-page-header__main
@@ -7,11 +7,11 @@ header.o-static-page-header
       .l-container.is-mxw-100pc
         ol.o-basic-breadcrumbs__items
           li.o-basic-breadcrumbs__item
-            = link_to '', class: 'o-basic-breadcrumbs__item-link' do
+            = link_to root_path, class: 'o-basic-breadcrumbs__item-link' do
               | Home
           li.o-basic-breadcrumbs__item
-            = link_to '', class: 'o-basic-breadcrumbs__item-link' do
-              | FAQ
+            = link_to request.fullpath, class: 'o-basic-breadcrumbs__item-link' do
+              = title
     .l-container
       .o-static-page-header__inner
         h1.o-static-page-header__title

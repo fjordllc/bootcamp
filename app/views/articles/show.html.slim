@@ -29,7 +29,7 @@ section.o-static-page
         .o-static-article
           .o-static-article__header
             .o-static-article__header-start
-              .l-container.is-lg
+              .l-container.is-md
                 h1.o-static-article__title.u-ff-YakuHanJP_Narrow
                   span.js-mikan
                     = @article.title
@@ -40,34 +40,34 @@ section.o-static-page
                   br
                   = raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(",")
             .o-static-article__header-end
-              .l-container.is-lg
+              .l-container.is-md
                 .m-media-attributes__list
                   .m-inline-list
                     .m-inline-list__items
                       .m-inline-list__item
                         date.m-media-attributes__date
-                          | 2020年12月24日
+                          - if @article.wip?
+                            = '執筆中'
+                          - elsif @article.published_at.nil?
+                            = l(@article.created_at)
+                          - else
+                            = l(@article.published_at)
                       .m-inline-list__item
                         .m-media-attributes__author
-                          = image_tag("https://via.placeholder.com/100", class: "a-circle-image")
+                          = image_tag(@article.user.avatar_url, class: "a-circle-image")
                           .m-media-attributes__author-name
-                            | machida
-          .article__metas
-            .article__meta
-              .article__author
-                = image_tag @article.user.avatar_url
-                = @article.user.login_name
-            .article__meta
-              .article__published-at
-                - if @article.wip?
-                  = '執筆中'
-                - elsif @article.published_at.nil?
-                  = l(@article.created_at)
-                - else
-                  = l(@article.published_at)
+                            = @article.user.login_name
           .o-static-article__body
-            .l-container.is-lg
+            .l-container.is-md
               - if @article.thumbnail.attached?
-                = image_tag @article.thumbnail_url
+                .o-static-article__main-image-container
+                  = image_tag(@article.thumbnail_url, class: 'o-static-article__main-image')
               .a-long-text.js-markdown-view.js-target-blank
                 = @article.body
+          - if admin_login?
+            .o-static-article__footer
+              .m-inline-icon-list
+                ul.m-inline-icon-list__items
+                  li.m-inline-icon-list__item
+                    = link_to edit_article_path(@article), class: "a-button is-md is-warning is-icon", id: "js-shortcut-edit" do
+                      i.fas.fa-pen#edit

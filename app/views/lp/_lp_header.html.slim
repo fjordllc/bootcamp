@@ -4,7 +4,7 @@ header.o-lp-header
       .o-lp-header__start
         h1.a-brand-logo
           = link_to welcome_path, class: "a-brand-logo__link" do
-           | FBC UI KIT
+           | FjordBootCamp
         .o-lp-header__page-links.md-down:u-hidden
           .m-inline-list
             .m-inline-list__items
@@ -13,9 +13,9 @@ header.o-lp-header
                   span
                     | お知らせ
               .m-inline-list__item
-                = link_to "", class: "a-pill-link" do
+                = link_to training_path, class: "a-pill-link" do
                   span
-                    | 企業研修代行
+                    | 企業研修
               .m-inline-list__item
                 = link_to practices_path, class: "a-pill-link" do
                   span
@@ -24,14 +24,11 @@ header.o-lp-header
                 = link_to faq_path, class: "a-pill-link" do
                   span
                     | よくある質問
-              .m-inline-list__item
-                = link_to "", class: "a-pill-link" do
-                  span
-                    | 企業様へ
-              .m-inline-list__item
-                = link_to graduation_works_path, class: "a-pill-link" do
-                  span
-                    | 卒業制作
+              //
+                .m-inline-list__item
+                  = link_to graduation_works_path, class: "a-pill-link" do
+                    span
+                      | 卒業制作
       .o-lp-header__end
         .o-lp-header__auth-links
           .m-inline-list

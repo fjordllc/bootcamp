@@ -26,46 +26,5 @@ section.o-static-page
               .l-grids
                 - @articles.each do |article|
                   .l-grids__item.md-up:u-col-4.sm-down:u-col-12
-                    .o-horizontal-medias__item class=(article.wip? ? ' is-wip' : '')
-                      = link_to article, itempro: "url", class: "m-medias-media" do
-                        .m-medias-media__row
-                          .m-medias-media__image-container
-                            - if article.thumbnail.attached?
-                              = image_tag(article.thumbnail_url, class: "m-medias-media__image")
-                            - else
-                              = image_tag("work-blank.svg", class: "m-medias-media__image")
-                        .m-medias-media__row
-                          .m-media-attributes
-                            .m-media-attributes__col
-                              .m-media-attributes__row
-                                h2.m-media-attributes__title
-                                  = article.title
-                                  - if article.wip?
-                                    span.article__title-label.is-wip
-                                      | WIP
-                              .m-media-attributes__row
-                                .m-media-attributes__list
-                                  .m-inline-list
-                                    .m-inline-list__items
-                                      .m-inline-list__item
-                                        date.m-media-attributes__date
-                                          - if article.wip?
-                                            = '執筆中'
-                                          - elsif article.published_at.nil?
-                                            = l(article.created_at)
-                                          - else
-                                            = l(article.published_at)
-                                      .m-inline-list__item
-                                        .m-media-attributes__author
-                                          = image_tag("https://via.placeholder.com/100", class: "a-circle-image")
-                                          .m-media-attributes__author-name
-                                            = article.user.login_name
-                      - if admin_or_mentor_login?
-                        footer.articles-article__footer
-                          .m-inline-icon-list
-                            ul.m-inline-icon-list__items
-                              li.m-inline-icon-list__item
-                                = link_to edit_article_path(article), class: "a-button is-md is-warning is-icon", id: "js-shortcut-edit" do
-                                  i.fas.fa-pen#edit
-
-    = paginate @articles, position: 'bottom'
+                    = render 'article', article: article
+      = paginate @articles, position: 'bottom'

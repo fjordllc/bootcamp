@@ -16,10 +16,11 @@ html.is-application lang='ja'
     = stylesheet_link_tag "lp", media: "all"
     - if page_classes.include?("welcome-home")
       link(rel="canonical" href="https://bootcamp.fjord.jp/")
-    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto+Mono:500", media: "all"
-    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Lato:900", media: "all"
-    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:900", media: "all"
-    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Source+Code+Pro", media: "all"
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto+Mono:500=swap", media: "all"
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Lato:900=swap", media: "all"
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:900=swap", media: "all"
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Source+Code+Pro=swap", media: "all"
+    = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap", media: "all"
     = stylesheet_link_tag "https://cdn.jsdelivr.net/npm/yakuhanjp@3.2.0/dist/css/yakuhanjp-narrow.min.css", media: "all"
     = render "/head/fontawsome"
     = content_for(:head_last) if content_for?(:head_last)

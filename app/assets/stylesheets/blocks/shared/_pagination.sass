@@ -1,4 +1,4 @@
-.pagination
+.o-pagination
   +position(relative, 1)
   &:first-child
     +media-breakpoint-up(md)
@@ -15,7 +15,7 @@
     +media-breakpoint-down(sm)
       margin-top: .5rem
 
-.pagination__items
+.o-pagination__items
   display: flex
   flex-wrap: wrap
   justify-content: center
@@ -23,13 +23,13 @@
   overflow-x: auto
   -webkit-overflow-scrolling: touch
 
-.pagination__item
+.o-pagination__item
   +padding(horizontal, .125rem)
   &.is-disabled
     opacity: .4
     pointer-events: none
 
-.pagination__item-link
+.o-pagination__item-link
   +size(2.5rem)
   border-radius: 50%
   outline: none
@@ -43,6 +43,6 @@
   &.is-active
     background-color: $main
     color: $reversal-text
-  .pagination__item.is-active &
+  .o-pagination__item.is-active &
     background-color: $main
     color: $reversal-text
