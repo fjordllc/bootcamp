@@ -62,7 +62,6 @@ class ReportsController < ApplicationController
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
     check_noticeable
-
     if @report.save
       notify_to_slack(@report) if @noticeable
       redirect_to redirect_url(@report), notice: notice_message(@report)
