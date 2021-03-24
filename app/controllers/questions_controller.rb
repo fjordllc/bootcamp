@@ -41,7 +41,6 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.user = current_user
     if @question.save
-      notify_to_slack(@question)
       notify_to_chat(@question)
       redirect_to @question, notice: '質問を作成しました。'
     else
@@ -85,19 +84,6 @@ class QuestionsController < ApplicationController
       :practice_id,
       :tag_list
     )
-  end
-
-  def notify_to_slack(question)
-    name = question.user.login_name.to_s
-    link = "<#{question_url(question)}|#{question.title}>"
-
-    SlackNotification.notify "#{name}質問しました。#{link}",
-                             username: "#{question.user.login_name} (#{question.user.name})",
-                             icon_url: question.user.avatar_url,
-                             attachments: [{
-                               fallback: 'question body.',
-                               text: question.description
-                             }]
   end
 
   def notify_to_chat(question)
