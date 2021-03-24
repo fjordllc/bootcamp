@@ -56,7 +56,8 @@
         h2.stamp__content.is-title 確認済
         time.stamp__content.is-created-at {{ product.checks.last_created_at }}
         .stamp__content.is-user-name {{ product.checks.last_user_login_name }}
-      product-checker(v-if="isMentor && product.checks.size == 0" :checkerId="product.checker_id", :checkerName="product.checker_name", :currentUserId="currentUserId", :productId="product.id")
+      .thread-list-item__assignee
+        product-checker(v-if="isMentor && product.checks.size == 0" :checkerId="product.checker_id", :checkerName="product.checker_name", :currentUserId="currentUserId", :productId="product.id")
 </template>
 <script>
 import ProductChecker from './product_checker'

@@ -2,15 +2,32 @@
   .thread-admin-tools
     ul.thread-admin-tools__items
       li.thread-admin-tools__item
-        button#js-shortcut-check.thread-check-form__action(:class=" checkId ? 'is-text' : 'a-button is-md is-danger' " @click="check")
+        //
+          v-showではなくv-ifだと "提出物を確認" => "取り消し" した際、
+          担当ボタンの表示はページ読み込み時に戻る。
+          例えば、ページ読み込み時に "担当する" ボタンだった場合、
+          クリックして "担当から外れる" ボタンに変更後、
+          "提出物を確認" => "取り消し" すると、
+          ページ読み込み時の "担当する" ボタンが表示される。
+          パフォーマンスが非常に悪くなるとかではないので、今回はv-showを利用
+          checkerIdの値がページ読み込み時の値のままではなく、
+          現状のcheckerIdを参照すれば、v-ifでも大丈夫と推測
+        //-
+        product-checker(v-show="checkableType === 'Product' && checkId === null", :checkerId="checkerId", :checkerName="checkerName", :currentUserId="currentUserId", :productId="checkableId")
+      li.thread-admin-tools__item
+        button#js-shortcut-check.thread-check-form__action.is-block(:class=" checkId ? 'is-text' : 'a-button is-md is-danger' " @click="check")
           i.fas.fa-check
           | {{ buttonLabel }}
 </template>
 <script>
 import 'whatwg-fetch'
+import ProductChecker from './product_checker'
 
 export default {
-  props: ['checkableId', 'checkableType', 'checkableLabel'],
+  props: ['checkableId', 'checkableType', 'checkableLabel', 'checkerId', 'checkerName', 'currentUserId'],
+  components: {
+    'product-checker': ProductChecker,
+  },
   computed: {
     checkId() {
       return this.$store.getters.checkId

@@ -126,6 +126,30 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物を削除しました。'
   end
 
+  test 'setting checker on show page' do
+    login_user 'komagata', 'testtest'
+    visit "/products/#{products(:product1).id}"
+    click_button '担当する'
+    assert_button '担当から外れる'
+  end
+
+  test 'unsetting checker on show page' do
+    login_user 'komagata', 'testtest'
+    visit "/products/#{products(:product1).id}"
+    click_button '担当する'
+    click_button '担当から外れる'
+    assert_button '担当する'
+  end
+
+  test 'hide checker button at product checked' do
+    login_user 'machida', 'testtest'
+    visit "/products/#{products(:product1).id}"
+    assert_button '担当する'
+    click_button '提出物を確認'
+    assert_no_button '担当する'
+    assert_no_button '担当から外れる'
+  end
+
   test 'create product as WIP' do
     login_user 'yamada', 'testtest'
     visit "/products/new?practice_id=#{practices(:practice6).id}"
