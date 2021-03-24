@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 class ReportCallbacks
+  def after_save(report)
+    # 何も変更がないsaveの場合はなにもしない
+    return unless report.saved_changes?
+
+    report.update!(published_at: report.updated_at) if report.first_public?
+
+    Cache.delete_unchecked_report_count
+  end
+
   def after_create(report)
     create_author_watch(report)
 
@@ -8,14 +17,10 @@ class ReportCallbacks
 
     notify_advisers(report) if report.user.trainee? && report.user.company_id?
     notify_followers(report)
-
-    Cache.delete_unchecked_report_count
   end
 
   def after_update(report)
     send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1
-
-    Cache.delete_unchecked_report_count
   end
 
   def after_destroy(report)
