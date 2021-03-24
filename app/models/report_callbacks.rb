@@ -2,11 +2,12 @@
 
 class ReportCallbacks
   def after_save(report)
-    send_first_report_notification(report) if report.first? && first_published?(report)
+    update_published_at(report) if first_published?(report)
   end
 
   def after_create(report)
     create_author_watch(report)
+    send_first_report_notification(report) if report.first? && first_published?(report)
     notify_to_company_adivisers(report) if report.user.trainee? && report.user.company_id?
     notify_to_followers(report)
 
