@@ -61,6 +61,34 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     assert page.has_css?('.has-no-count')
   end
 
+  def assert_notify_only_at_first_published_of_report(
+    notify_message, author_login_name, recived_user_login_name, title, description
+  )
+    exists_notify_in_unread = -> { exists_unread_notify?(notify_message) }
+    report_id = nil # injectで書く方法もあるがそうすると読み辛い
+
+    3.times do |time|
+      login_user author_login_name, 'testtest'
+      # WIP => 提出 => 提出のように日報を書く
+      if time.zero?
+        report_id = create_report(title, description, true)
+      else
+        update_report(report_id, title, description, false)
+      end
+      logout
+
+      login_user recived_user_login_name, 'testtest'
+      if time == 1
+        assert exists_notify_in_unread.call
+        link_to_page_by_unread_notify(notify_message)
+        assert_equal current_path, report_path(report_id)
+      else
+        assert_not exists_notify_in_unread.call
+      end
+      logout
+    end
+  end
+
   test '研修生が日報を提出したら企業のアドバイザーに通知が飛ぶ' do
     login_user 'kensyu', 'testtest'
     visit '/reports/new'
