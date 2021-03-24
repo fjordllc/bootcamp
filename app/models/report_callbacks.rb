@@ -6,17 +6,8 @@ class ReportCallbacks
 
     send_first_report_notification(report) if report.user.reports.count == 1 && !report.wip?
 
-    if report.user.trainee? && report.user.company_id?
-      report.user.company.advisers.each do |adviser|
-        NotificationFacade.trainee_report(report, adviser)
-        create_advisers_watch(report, adviser)
-      end
-    end
-
-    report.user.followers.each do |follower|
-      NotificationFacade.following_report(report, follower)
-      create_following_watch(report, follower)
-    end
+    notify_advisers(report) if report.user.trainee? && report.user.company_id?
+    notify_followers(report)
 
     Cache.delete_unchecked_report_count
   end
@@ -42,6 +33,20 @@ class ReportCallbacks
     receiver_list = User.where(retired_on: nil)
     receiver_list.each do |receiver|
       NotificationFacade.first_report(report, receiver) if report.sender != receiver
+    end
+  end
+
+  def notify_advisers(report)
+    report.user.company.advisers.each do |adviser|
+      NotificationFacade.trainee_report(report, adviser)
+      create_advisers_watch(report, adviser)
+    end
+  end
+
+  def notify_followers(report)
+    report.user.followers.each do |follower|
+      NotificationFacade.following_report(report, follower)
+      create_following_watch(report, follower)
     end
   end
 
