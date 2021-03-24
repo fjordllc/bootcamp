@@ -89,25 +89,20 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test '研修生が日報を提出したら企業のアドバイザーに通知が飛ぶ' do
-    login_user 'kensyu', 'testtest'
-    visit '/reports/new'
-    within('#new_report') do
-      fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'test')
-    end
-
-    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
-    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
-    click_button '提出'
-
-    logout
-
-    login_user 'senpai', 'testtest'
-    open_notification
-    assert_equal 'kensyuさんが日報【 test title 】を書きました！',
-                 notification_message
+  test '研修生が初めて提出した時だけ、企業のアドバイザーに通知する' do
+    kensyu_login_name = 'kensyu'
+    advisor_login_name = 'senpai'
+    title = '研修生が初めて提出した時だけ、'
+    description = 'アドバイザーに通知を飛ばす'
+    notify_message = make_write_report_notify_message(
+      kensyu_login_name, title
+    )
+    assert_notify_only_at_first_published_of_report(
+      notify_message,
+      kensyu_login_name,
+      advisor_login_name,
+      title,
+      description
+    )
   end
 end

@@ -5,7 +5,10 @@ class ReportCallbacks
     # 何も変更がないsaveの場合はなにもしない
     return unless report.saved_changes?
 
-    report.update!(published_at: report.updated_at) if report.first_public?
+    if report.first_public?
+      report.update!(published_at: report.updated_at)
+      notify_advisers(report) if report.user.trainee? && report.user.company_id?
+    end
 
     Cache.delete_unchecked_report_count
   end
@@ -15,7 +18,6 @@ class ReportCallbacks
 
     send_first_report_notification(report) if report.user.reports.count == 1 && !report.wip?
 
-    notify_advisers(report) if report.user.trainee? && report.user.company_id?
     notify_followers(report)
   end
 
