@@ -20,7 +20,7 @@ header.page-header
               = link_to document.title, watch, class: 'thread-list-item__title-link'
           .thread-list-item__body
             .thread-list-item__summury
-              = md_summury(watch.description, 90)
+              = md_summury(watch.body, 90)
               .thread-list-item-meta
                 .thread-list-item-meta__user
                   = link_to watch.user.login_name, watch.user, class: 'thread-header__author'

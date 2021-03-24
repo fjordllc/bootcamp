@@ -26,8 +26,9 @@ module Watchable
     end
   end
 
-  def description
-    if has_attribute?(:description)
+  def body
+    case self
+    when Question, Event, Report
       self[:description]
     else
       self[:body]
