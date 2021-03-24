@@ -18,7 +18,7 @@
       .thread__description.js-target-blank.is-long-text.js-markdown-view
         = announcement.description
       = render 'reactions/reactions', reactionable: @announcement
-      card-footer
+      .card-footer
         .card-footer-actions
           ul.card-footer-actions__items
            -if @announcement.wip || admin_login?
