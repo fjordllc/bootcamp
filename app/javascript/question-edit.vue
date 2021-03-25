@@ -57,7 +57,7 @@
                   @click="editQuestion"
                 )
                   i.fas.fa-pen
-                    | 内容修正
+                  | 内容修正
               li.card-footer-actions__item
                 button.js-delete.card-footer-actions__action.a-button.is-md.is-danger.is-block(
                   @click="deleteQuestion"
