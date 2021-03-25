@@ -59,8 +59,15 @@
                   i#new.fas.fa-pen
                   | 内容修正
               li.card-footer-actions__item.is-sub
+                // - vue.jsでDELETE methodのリンクを作成する方法が、
+                // - 見つからなかったので、
+                // - いい実装方法ではないが、
+                // - Rails特定の属性(data-confirm, data-method)を付与して、
+                // - 確認ダイアログとDELETE methodのリンクを実装する
                 a.js-delete.card-footer-actions__delete(
-                  @click="deleteQuestion"
+                  :href="`/questions/${question.id}`",
+                  data-confirm="本当によろしいですか？",
+                  data-method="delete"
                 )
                   | 削除する
       .thread-question-for(v-show="editing")
@@ -264,25 +271,6 @@ export default {
         .catch((error) => {
           console.warn('Failed to parsing', error)
         })
-    },
-    deleteQuestion() {
-      if (window.confirm('削除してよろしいですか？')) {
-        fetch(`/api/questions/${this.question.id}.json`, {
-          method: 'DELETE',
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': this.token(),
-          },
-          credentials: 'same-origin',
-          redirect: 'manual',
-        })
-          .then(() => {
-            location.href = '/questions'
-          })
-          .catch((error) => {
-            console.warn('Failed to parsing', error)
-          })
-      }
     },
   },
   computed: {

@@ -3,6 +3,7 @@
 class QuestionsController < ApplicationController
   include Rails.application.routes.url_helpers
   before_action :require_login
+  before_action :set_question, only: %i[show destroy]
   before_action :set_categories, only: %i[new show create]
   before_action :set_watch, only: %i[show]
 
@@ -24,7 +25,6 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question = Question.find(params[:id])
     respond_to do |format|
       format.html
       format.md
@@ -47,7 +47,16 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def destroy
+    @question.destroy
+    redirect_to questions_url, notice: '質問を削除しました。'
+  end
+
   private
+
+  def set_question
+    @question = Question.find(params[:id])
+  end
 
   def set_categories
     @categories =
