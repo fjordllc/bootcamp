@@ -90,7 +90,9 @@ class QuestionsTest < ApplicationSystemTestCase
     click_on 'タイトルtest'
     wait_for_vuejs
     accept_confirm do
-      click_button '削除'
+      # vue.js側の@clickを変更していないので、一時的にこれに変更
+      # click_link '削除する' では失敗する
+      find('.js-delete').click
     end
     assert_no_text 'タイトルtest'
 
