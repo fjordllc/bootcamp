@@ -126,6 +126,30 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物を削除しました。'
   end
 
+  test 'setting checker on show page' do
+    login_user 'komagata', 'testtest'
+    visit "/products/#{products(:product1).id}"
+    click_button '担当する'
+    assert_button '担当から外れる'
+  end
+
+  test 'unsetting checker on show page' do
+    login_user 'komagata', 'testtest'
+    visit "/products/#{products(:product1).id}"
+    click_button '担当する'
+    click_button '担当から外れる'
+    assert_button '担当する'
+  end
+
+  test 'hide checker button at product checked' do
+    login_user 'machida', 'testtest'
+    visit "/products/#{products(:product1).id}"
+    assert_button '担当する'
+    click_button '提出物を確認'
+    assert_no_button '担当する'
+    assert_no_button '担当から外れる'
+  end
+
   test 'create product as WIP' do
     login_user 'yamada', 'testtest'
     visit "/products/new?practice_id=#{practices(:practice6).id}"
@@ -186,38 +210,6 @@ class ProductsTest < ApplicationSystemTestCase
     login_user 'komagata', 'testtest'
     visit '/notifications'
     assert_no_text "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。"
-  end
-
-  test 'Slack notify if the create product' do
-    login_user 'kensyu', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice3).id}"
-    within('#new_product') do
-      fill_in('product[body]', with: 'test')
-    end
-    mock_log = []
-    stub_info = proc { |i| mock_log << i }
-
-    Rails.logger.stub(:info, stub_info) do
-      click_button '提出する'
-      assert_match "kensyu さんが「#{practices(:practice3).title}」の提出物を提出しました。", mock_log.to_s
-    end
-    assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
-  end
-
-  test 'Slack notify if the create product as WIP' do
-    login_user 'kensyu', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice3).id}"
-    within('#new_product') do
-      fill_in('product[body]', with: 'test')
-    end
-    mock_log = []
-    stub_info = proc { |i| mock_log << i }
-
-    Rails.logger.stub(:info, stub_info) do
-      click_button 'WIP'
-      assert_no_match "kensyu さんが「#{practices(:practice3).title}」の提出物を提出しました。", mock_log.to_s
-    end
-    assert_text '提出物をWIPとして保存しました。'
   end
 
   test 'setting checker' do
@@ -303,5 +295,55 @@ class ProductsTest < ApplicationSystemTestCase
     visit '/products'
 
     assert_not page.has_css?('.pagination')
+  end
+
+  test 'be person on charge at comment on product of there are not person on charge' do
+    login_user 'machida', 'testtest'
+
+    visit products_not_responded_index_path
+    def assigned_product_count
+      find_link('自分の担当').find('.page-tabs__item-count').text.to_i
+    end
+
+    before_comment = assigned_product_count
+
+    visit "/products/#{products(:product1).id}"
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: '担当者がいない提出物の場合、担当者になる')
+    end
+    click_button 'コメントする'
+    wait_for_vuejs
+
+    visit products_not_responded_index_path
+    assert_equal before_comment + 1, assigned_product_count
+  end
+
+  test 'be not person on charge at comment on product of there are person on charge' do
+    login_user 'komagata', 'testtest'
+
+    visit products_not_responded_index_path
+    product = find('.thread-list-item', match: :first)
+    product.click_button '担当する'
+    show_product_path = product.find_link(href: /products/)[:href]
+    logout
+
+    login_user 'machida', 'testtest'
+    visit products_not_responded_index_path
+
+    def assigned_product_count
+      find_link('自分の担当').find('.page-tabs__item-count').text.to_i
+    end
+
+    before_comment = assigned_product_count
+
+    visit show_product_path
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: '担当者がいる提出物の場合、担当者にならない')
+    end
+    click_button 'コメントする'
+    wait_for_vuejs
+
+    visit products_not_responded_index_path
+    assert_equal before_comment, assigned_product_count
   end
 end
