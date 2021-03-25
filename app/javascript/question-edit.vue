@@ -47,7 +47,7 @@
         reaction(
           :reactionable="question",
           :currentUser="currentUser",
-          :reactionableId="`Question_${this.question.id}`"
+          :reactionableId="`Question_${question.id}`"
         )
         footer.card-footer(v-if="editAble")
           .card-footer-actions
