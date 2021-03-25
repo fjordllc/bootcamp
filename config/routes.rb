@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     resources :memos, only: %i(create update destroy)
     resources :tags, only: %i(index)
     resources :pages, only: %i(update)
-    resources :questions, only: %i(show update destroy)
+    resources :questions, only: %i(show update)
     resources :followings, only: %i(create destroy)
     namespace :products do
       resources :unchecked, only: %i(index)
@@ -149,7 +149,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :questions, only: %i(index show new create)
+  resources :questions, only: %i(index show new create destroy)
   resources :reservation_calenders, only: %i(index show)
   resources :courses, only: :index
 
