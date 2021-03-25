@@ -13,10 +13,10 @@ class API::QuestionsController < API::BaseController
       if current_user.admin? || current_user.mentor?
         Question.find(params[:id])
       else
-        current_user.questions.find(params[:id])
+        current_user.questions.find_by(id: params[:id])
       end
 
-    if question.update(question_params)
+    if !question.nil? && question.update(question_params)
       head :ok
     else
       head :bad_request
