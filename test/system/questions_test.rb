@@ -66,9 +66,9 @@ class QuestionsTest < ApplicationSystemTestCase
     visit question_path(question)
     wait_for_vuejs
     accept_confirm do
-      find('.js-delete').click
+      click_link '削除する'
     end
-    assert_no_text 'kimura'
+    assert_text '質問を削除しました。'
   end
 
   test 'delete question with notification' do
@@ -90,11 +90,9 @@ class QuestionsTest < ApplicationSystemTestCase
     click_on 'タイトルtest'
     wait_for_vuejs
     accept_confirm do
-      # vue.js側の@clickを変更していないので、一時的にこれに変更
-      # click_link '削除する' では失敗する
-      find('.js-delete').click
+      click_link '削除する'
     end
-    assert_no_text 'タイトルtest'
+    assert_text '質問を削除しました。'
 
     login_user 'komagata', 'testtest'
     visit '/notifications'
