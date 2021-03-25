@@ -13,13 +13,17 @@ header.o-lp-header
                   span
                     | お知らせ
               .m-inline-list__item
-                = link_to training_path, class: "a-pill-link" do
+                = link_to pricing_path, class: "a-pill-link" do
                   span
-                    | 企業研修
+                    | 料金
               .m-inline-list__item
                 = link_to practices_path, class: "a-pill-link" do
                   span
-                    | カリキュラム一覧
+                    | 学習内容
+              .m-inline-list__item
+                = link_to training_path, class: "a-pill-link" do
+                  span
+                    | 企業研修
               .m-inline-list__item
                 = link_to faq_path, class: "a-pill-link" do
                   span

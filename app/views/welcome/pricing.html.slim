@@ -1,86 +1,97 @@
-- content_for :extra_body_classes, 'welcome'
 - title '料金'
 
-.welcome-page-header
-  .container.is-xl
-    h1.welcome-page-header__title
-      = image_tag 'pricing-page-title.svg',
-        alt: 'プログラミングスクールの料金',
-        class: 'welcome-page-header__title-image'
+header.o-static-page-header
+  .o-static-page-header__main
+    nav.o-basic-breadcrumbs
+      .l-container.is-mxw-100pc
+        ol.o-basic-breadcrumbs__items
+          li.o-basic-breadcrumbs__item
+            = link_to "", class: "o-basic-breadcrumbs__item-link" do
+              | Home
+          li.o-basic-breadcrumbs__item
+            = link_to "", class: "o-basic-breadcrumbs__item-link" do
+              = title
+    .l-container
+      .o-static-page-header__inner
+        h1.o-static-page-header__title
+          = title
 
-.welcome-sections
-  section.welcome-section
-    .container.is-md
-      .welcome-small-section
-        .welcome-small-sections__title
-          h2.welcome-section__price
-            .welcome-section__price-period 月額
-            .welcome-section__price-number 29,800
-            .welcome-section__price-unit 円
-        .welcome-section__description
-          p
-            | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。
-            | お試しだけの場合もクレジットカードの登録が必要になります。
-            | クレジットカードの登録が完了した時点でフィヨルドブートキャンプが利用できるようになります。
-          p
-            | お試し期間終了後に最初の1ヶ月分の料金の引き落としが発生します。
-            | 退会した月も日割りでの請求ではなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
-      .welcome-small-section
-        h2.welcome-small-sections__title
-          = image_tag 'pjord-face.svg',
-            class: 'welcome-small-sections__title-icon'
-          = Campaign.today_is_campaign? ? 'お試し延長中につき、7日間' : '3日間'
-          | のお試し期間
-        .welcome-section__description
-          p
-            | 月額29,800円は決して安い金額ではありません。
-            | 自分は本当にフィヨルドブートキャンプを使うべきかを判断するために
-            = Campaign.today_is_campaign? ? '7日間' : '3日間'
-            | のお試し期間を用意しています。
-            | その
-            = Campaign.today_is_campaign? ? '7日間' : '3日間'
-            | 、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。
-            | お試し期間の間に退会をしないと料金が請求されてしまうのでご注意ください。
-      .welcome-small-section
-        h2.welcome-small-sections__title
-          = image_tag 'warning.svg',
-            alt: '注意！', class: 'welcome-small-sections__title-icon'
-          | 料金引き落としのタイミング
-        .welcome-section__description
-          p
-            | 厳密にはお試し期間は
-            = Campaign.today_is_campaign? ? '168時間（7日間）' : '72時間（3日間）'
-            | になります。
-            | 例えば7月20日10時10分10秒にフィヨルドブートキャンプを利用開始したとすると、
-            | そこから
-            = Campaign.today_is_campaign? ? '7日後の7月27日' : '3日後の7月23日'
-            | 10時10分9秒がお試し期間終了のタイミングになります。
-            | その後7月
-            = Campaign.today_is_campaign? ? '27' : '23'
-            | 日10時10分10秒に最初の1ヶ月分の料金が引き落とされます。
-          table.welcome-trial-period-table.is-hidden-sm-down
-            tr
-              th 7月20日10時10分10秒
-              th.trial_end = Campaign.today_is_campaign? ? '7月27日10時10分9秒' : '7月23日10時10分9秒'
-              th = Campaign.today_is_campaign? ? '7月27日10時10分10秒' : '7月23日10時10分10秒'
-            tr
-              td お試し期間
-              td.trial_end
-                | お試し期間終了時刻
-                br
-                | 無料退会期限
-              td 初回引き落とし
+.t-lp__contents
+  .m-lp-content
+    .l-container.is-lg
+      .m-lp-content__inner
+        .m-lp-content__body
+          .a-long-text
 
-          table.welcome-trial-period-table.is-hidden-md-up
-            tr
-              th 7月20日10時10分10秒
-              td お試し期間
-            tr
-              th.trial_end = Campaign.today_is_campaign? ? '7月27日10時10分9秒' : '7月23日10時10分9秒'
-              td.trial_end
-                | お試し期間終了時刻
-                br
-                | 無料退会期限
-            tr
-              th = Campaign.today_is_campaign? ? '7月27日10時10分10秒' : '7月23日10時10分10秒'
-              td 初回引き落とし
+            .welcome-sections
+              section.welcome-section
+                .container.is-md
+                  .welcome-small-section
+                    .welcome-small-sections__title
+                      h2.welcome-section__price
+                        .welcome-section__price-period 月額
+                        .welcome-section__price-number 29,800
+                        .welcome-section__price-unit 円
+                    .welcome-section__description
+                      p
+                        | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。
+                        | お試しだけの場合もクレジットカードの登録が必要になります。
+                        | クレジットカードの登録が完了した時点でフィヨルドブートキャンプが利用できるようになります。
+                      p
+                        | お試し期間終了後に最初の1ヶ月分の料金の引き落としが発生します。
+                        | 退会した月も日割りでの請求ではなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
+                  .welcome-small-section
+                    h2.welcome-small-sections__title
+                      = Campaign.today_is_campaign? ? 'お試し延長中につき、7日間' : '3日間'
+                      | のお試し期間
+                    .welcome-section__description
+                      p
+                        | 月額29,800円は決して安い金額ではありません。
+                        | 自分は本当にフィヨルドブートキャンプを使うべきかを判断するために
+                        = Campaign.today_is_campaign? ? '7日間' : '3日間'
+                        | のお試し期間を用意しています。
+                        | その
+                        = Campaign.today_is_campaign? ? '7日間' : '3日間'
+                        | 、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。
+                        | お試し期間の間に退会をしないと料金が請求されてしまうのでご注意ください。
+                  .welcome-small-section
+                    h2.welcome-small-sections__title
+                      | 料金引き落としのタイミング
+                    .welcome-section__description
+                      p
+                        | 厳密にはお試し期間は
+                        = Campaign.today_is_campaign? ? '168時間（7日間）' : '72時間（3日間）'
+                        | になります。
+                        | 例えば7月20日10時10分10秒にフィヨルドブートキャンプを利用開始したとすると、
+                        | そこから
+                        = Campaign.today_is_campaign? ? '7日後の7月27日' : '3日後の7月23日'
+                        | 10時10分9秒がお試し期間終了のタイミングになります。
+                        | その後7月
+                        = Campaign.today_is_campaign? ? '27' : '23'
+                        | 日10時10分10秒に最初の1ヶ月分の料金が引き落とされます。
+                      table.welcome-trial-period-table.is-hidden-sm-down
+                        tr
+                          th 7月20日10時10分10秒
+                          th.trial_end = Campaign.today_is_campaign? ? '7月27日10時10分9秒' : '7月23日10時10分9秒'
+                          th = Campaign.today_is_campaign? ? '7月27日10時10分10秒' : '7月23日10時10分10秒'
+                        tr
+                          td お試し期間
+                          td.trial_end
+                            | お試し期間終了時刻
+                            br
+                            | 無料退会期限
+                          td 初回引き落とし
+
+                      table.welcome-trial-period-table.is-hidden-md-up
+                        tr
+                          th 7月20日10時10分10秒
+                          td お試し期間
+                        tr
+                          th.trial_end = Campaign.today_is_campaign? ? '7月27日10時10分9秒' : '7月23日10時10分9秒'
+                          td.trial_end
+                            | お試し期間終了時刻
+                            br
+                            | 無料退会期限
+                        tr
+                          th = Campaign.today_is_campaign? ? '7月27日10時10分10秒' : '7月23日10時10分10秒'
+                          td 初回引き落とし
