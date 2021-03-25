@@ -81,6 +81,7 @@
                         select(v-model="edited.practiceId")
                           option(
                             v-for="practice in practices",
+                            :key="practice.id",
                             :value="practice.id"
                           )
                             div {{ practice.categoryAndPracticeName }}
