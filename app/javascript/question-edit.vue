@@ -224,10 +224,13 @@ export default {
     changeActiveTab(tab) {
       this.tab = tab
     },
+    finishEditing(hasUpdatedQuestion) {
+      this.editing = false
+      this.displayedUpdateMessage = hasUpdatedQuestion
+    },
     cancel() {
       this.setEditedData()
-      this.editing = false
-      this.displayedUpdateMessage = false
+      this.finishEditing(false)
     },
     editQuestion() {
       this.editing = true
@@ -235,7 +238,27 @@ export default {
         $(`.question-id-${this.question.id}`).trigger('input')
       })
     },
+    changedQuestion() {
+      const changedTitleOrDescription = ['title', 'description'].some(key => {
+        return this.question[key] !== this.edited[key]
+      })
+
+      if (changedTitleOrDescription) {
+        return true
+      }
+
+      const { practice } = this.question
+
+      return this.edited.practiceId !== (practice === undefined ? '' : practice.id)
+    },
     updateQuestion() {
+      if (!this.changedQuestion()) {
+        // 何も変更していなくても、更新メッセージは表示する
+        // 表示しないとユーザーが更新されていないと不安に感じる
+        this.finishEditing(true)
+        return
+      }
+
       const { title, description, practiceId } = this.edited
       const params = {
         question: {
@@ -268,8 +291,7 @@ export default {
           } else {
             this.question.practice = undefined
           }
-          this.editing = false
-          this.displayedUpdateMessage = true
+          this.finishEditing(true)
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
