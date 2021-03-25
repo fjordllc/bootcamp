@@ -5,7 +5,7 @@
       .fas.fa-spinner.fa-pulse
       | ロード中
   .container(v-else)
-    questionDetail(
+    questionEdit(
       v-if="currentUser !== null",
       :initialQuestion="question",
       :currentUser="currentUser"
@@ -17,14 +17,14 @@
     )
 </template>
 <script>
-import QuestionDetail from './question-detail.vue'
+import QuestionEdit from './question-edit.vue'
 import Answers from './answers.vue'
 import moment from 'moment'
 moment.locale('ja')
 
 export default {
   components: {
-    questionDetail: QuestionDetail,
+    questionEdit: QuestionEdit,
     answers: Answers,
   },
   props: {
