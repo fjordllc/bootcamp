@@ -93,18 +93,18 @@
               .form-item
                 .thread-question-form__tabs.js-tabs
                   .thread-question-form__tab.js-tabs__tab(
-                    v-bind:class="{ 'is-active': isActive('question') }",
+                    :class="{ 'is-active': isActive('question') }",
                     @click="changeActiveTab('question')"
                   )
                     | コメント
                   .thread-question-form__tab.js-tabs__tab(
-                    v-bind:class="{ 'is-active': isActive('preview') }",
+                    :class="{ 'is-active': isActive('preview') }",
                     @click="changeActiveTab('preview')"
                   )
                     | プレビュー
                 .thread-question-form__markdown-parent.js-markdown-parent
                   .thread-question-form__markdown.js-tabs__content(
-                    v-bind:class="{ 'is-active': isActive('question') }"
+                    :class="{ 'is-active': isActive('question') }"
                   )
                     textarea#js-question-content.a-text-input.js-warning-form.thread-question-form__textarea(
                       v-model="edited.description",
@@ -119,7 +119,7 @@
                 li.thread-question-form__action
                   button.a-button.is-md.is-warning.is-block(
                     @click="updateQuestion",
-                    v-bind:disabled="!validation",
+                    :disabled="!validation",
                     type="button"
                   )
                     | 更新する
