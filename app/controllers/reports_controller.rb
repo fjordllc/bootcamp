@@ -135,7 +135,6 @@ class ReportsController < ApplicationController
     return unless @report.published_at.nil? && @report.wip == false
 
     @report.published_at = Date.current
-    @noticeable = true
   end
 
   def redirect_url(report)
