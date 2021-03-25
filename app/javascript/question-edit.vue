@@ -58,12 +58,11 @@
                 )
                   i#new.fas.fa-pen
                   | 内容修正
-              li.card-footer-actions__item
-                button.js-delete.card-footer-actions__action.a-button.is-md.is-danger.is-block(
+              li.card-footer-actions__item.is-sub
+                a.js-delete.card-footer-actions__delete(
                   @click="deleteQuestion"
                 )
-                  i.fas.fa-trash-alt
-                  | 削除
+                  | 削除する
       .thread-question-for(v-show="editing")
         form(name="question")
           .form__items
