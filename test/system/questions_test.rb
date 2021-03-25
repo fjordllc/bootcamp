@@ -59,6 +59,7 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text 'テストの質問（修正）'
     assert_text 'テストの質問です。（修正）'
+    assert_text '質問を更新しました'
   end
 
   test 'delete a question' do
