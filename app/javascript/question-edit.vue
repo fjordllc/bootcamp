@@ -83,8 +83,7 @@
                             v-for="practice in practices",
                             :key="practice.id",
                             :value="practice.id"
-                          )
-                            div {{ practice.categoryAndPracticeName }}
+                          ) {{ practice.categoryAndPracticeName }}
               .form-item
                 .row.js-markdown-parent
                   .col-md-6.col-xs-12
