@@ -2,7 +2,6 @@
 
 class ReportCallbacks
   def after_save(report)
-    # 何も変更がないsaveの場合はなにもしない
     return unless report.saved_changes?
 
     if report.first_public?
