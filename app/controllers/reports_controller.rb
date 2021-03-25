@@ -158,7 +158,7 @@ class ReportsController < ApplicationController
   end
 
   def check_noticeable
-    return unless @report.published_at.nil? && !@report.wip
+    return unless report.first_public?
 
     @noticeable = true
   end

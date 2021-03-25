@@ -2,12 +2,12 @@
 
 class ReportCallbacks
   def after_save(report)
-    update_published_at(report) if first_published?(report)
+    update_published_at(report) if report.first_public?
   end
 
   def after_create(report)
     create_author_watch(report)
-    send_first_report_notification(report) if report.first? && first_published?(report)
+    send_first_report_notification(report) if report.first? && report.first_public?
     notify_to_company_adivisers(report) if report.user.trainee? && report.user.company_id?
     notify_to_followers(report)
 
@@ -15,7 +15,7 @@ class ReportCallbacks
   end
 
   def after_update(report)
-    send_first_report_notification(report) if report.first? && first_published?(report)
+    send_first_report_notification(report) if report.first? && report.first_public?
     Cache.delete_unchecked_report_count
   end
 
@@ -65,9 +65,5 @@ class ReportCallbacks
       NotificationFacade.trainee_report(report, adviser)
       create_advisers_watch(report, adviser)
     end
-  end
-
-  def first_published?(report)
-    !report.wip? && report.published_at.nil?
   end
 end
