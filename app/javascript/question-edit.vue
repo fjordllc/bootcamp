@@ -70,6 +70,8 @@
                   data-method="delete"
                 )
                   | 削除する
+            ul.card-footer-actions__items(v-show="displayedUpdateMessage")
+              | 質問を更新しました
       .thread-question-for(v-show="editing")
         form(name="question")
           .form__items
@@ -168,6 +170,7 @@ export default {
       question: null,
       practices: null,
       tab: 'question',
+      displayedUpdateMessage: false,
     }
   },
   created() {
@@ -224,6 +227,7 @@ export default {
     cancel() {
       this.setEditedData()
       this.editing = false
+      this.displayedUpdateMessage = false
     },
     editQuestion() {
       this.editing = true
@@ -265,8 +269,8 @@ export default {
               (obj) => obj.id === practice.id
             ).title
           }
-
           this.editing = false
+          this.displayedUpdateMessage = true
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
