@@ -4,12 +4,12 @@ class ReportCallbacks
   def after_save(report)
     return unless report.saved_changes?
 
-    if report.first_public?
-      report.update!(published_at: report.updated_at)
-      notify_users(report)
-    end
-
     Cache.delete_unchecked_report_count
+
+    return unless report.first_public?
+
+    report.update!(published_at: report.updated_at)
+    notify_users(report)
   end
 
   def after_create(report)
