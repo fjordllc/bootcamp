@@ -88,6 +88,10 @@ class Report < ApplicationRecord
           .index(self) + 1
   end
 
+  def first_public?
+    !wip && published_at.nil?
+  end
+
   def set_default_emotion
     self.emotion ||= 2
   end

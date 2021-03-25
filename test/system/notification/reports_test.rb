@@ -102,7 +102,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     click_button '提出'
     logout
 
-    login_user 'yamada', 'testtest'
+    receiver_user = 'yamada'
+    login_user receiver_user, 'testtest'
     open_notification
 
     author_name = 'muryou'
@@ -111,7 +112,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
     logout
 
-    login_user 'muryou', 'testtest'
+    login_user author_name, 'testtest'
     visit '/reports'
 
     click_link first_report_title
@@ -121,7 +122,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     click_button '内容変更'
     logout
 
-    login_user 'yamada', 'testtest'
+    login_user receiver_user, 'testtest'
     click_link '通知'
     assert_no_text message
     logout
