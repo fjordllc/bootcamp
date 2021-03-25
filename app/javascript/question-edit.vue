@@ -209,23 +209,23 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    isActive: function (tab) {
+    isActive(tab) {
       return this.tab === tab
     },
-    changeActiveTab: function (tab) {
+    changeActiveTab(tab) {
       this.tab = tab
     },
-    cancel: function () {
+    cancel() {
       this.setEditedData()
       this.editing = false
     },
-    editQuestion: function () {
+    editQuestion() {
       this.editing = true
-      this.$nextTick(function () {
+      this.$nextTick(() => {
         $(`.question-id-${this.question.id}`).trigger('input')
       })
     },
-    updateQuestion: function () {
+    updateQuestion() {
       const { title, description, practiceId } = this.edited
       const params = {
         question: {
@@ -266,7 +266,7 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
-    deleteQuestion: function () {
+    deleteQuestion() {
       if (window.confirm('削除してよろしいですか？')) {
         fetch(`/api/questions/${this.question.id}.json`, {
           method: 'DELETE',
@@ -287,23 +287,23 @@ export default {
     },
   },
   computed: {
-    markdownDescription: function () {
+    markdownDescription() {
       const markdownInitializer = new MarkdownInitializer()
       return markdownInitializer.render(this.edited.description)
     },
-    validation: function () {
+    validation() {
       const { title, description } = this.edited
       return title.length > 0 && description.length > 0
     },
-    updatedAtISO8601: function() {
+    updatedAtISO8601() {
       return moment(this.question.updated_at).format();
     },
-    updatedAt: function () {
+    updatedAt() {
       return moment(this.question.updated_at).format(
         "YYYY年MM月DD日(dd) HH:mm"
       )
     },
-    editAble: function () {
+    editAble() {
       return (
         this.question.user.id === this.currentUser.id ||
         this.currentUser.role === 'admin'
