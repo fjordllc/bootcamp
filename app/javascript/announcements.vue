@@ -3,7 +3,7 @@
     .container(v-if="loaded")
       nav.pagination
         pager-top(
-          v-if="totalPages > 1 && products.length > 0"
+          v-if="totalPages > 1 && announcements.length > 0"
           v-model='currentPage'
           :page-count="totalPages"
           :page-range=5
@@ -26,14 +26,12 @@
           :margin-pages="0"
           :break-view-text="null"
         )
-      .thread-list.a-card(v-if="products.length > 0")
-        .thread-list__items
-          product(v-for="product in products"
-            :key="product.id"
-            :product="product"
-            :currentUserId="currentUserId"
-            :isMentor="isMentor")
-        unconfirmed-links-open-button(v-if="isMentor && selectedTab != 'all'" :label="`${unconfirmedLinksName}の提出物を一括で開く`")
+      .thread-list.a-card(v-if="announcements.length > 0")
+        announcement(v-for="announcement in announcements"
+          :key="announcement.id"
+          :title="title"
+          :announcement="announcement"
+          :currentUser="currentUser")
       .o-empty-massage(v-else)
         .o-empty-massage__icon
           i.far.fa-smile
@@ -41,7 +39,7 @@
           | {{ title }}はありません
       nav.pagination
         pager-bottom(
-          v-if="totalPages > 1 && products.length > 0"
+          v-if="totalPages > 1 && announcements.length > 0"
           v-model='currentPage'
           :page-count="totalPages"
           :page-range=5
@@ -65,66 +63,47 @@
           :break-view-text="null"
         )
     .container(v-else)
+      .fas.fa-spinner.fa-pulse
       | ロード中
 </template>
 
 <script>
-import Product from './product.vue'
-import unconfirmedLinksOpenButton from './unconfirmed_links_open_button.vue'
+import Announcement from './announcement.vue'
 import VueJsPaginate from 'vuejs-paginate'
 
 export default {
-  props: ['title', 'selectedTab', 'isMentor', 'currentUserId'],
+  props: ['title', 'currentUserId'],
   components: {
-    'product': Product,
-    'unconfirmed-links-open-button': unconfirmedLinksOpenButton,
+    'announcement': Announcement,
     'pager-top': VueJsPaginate,
     'pager-bottom': VueJsPaginate
   },
   data: () => {
     return {
-      products: [],
+      announcements: [],
       totalPages: 0,
       currentPage: 1,
-      loaded: false
+      loaded: false,
+      currentUser: {}
     }
   },
   computed: {
-    url () {
-      switch (this.selectedTab) {
-      case 'all':
-        return `/api/products?page=${this.currentPage}`
-      case 'unchecked':
-        return `/api/products/unchecked?page=${this.currentPage}`
-      case 'not-responded':
-        return `/api/products/not_responded?page=${this.currentPage}`
-      case 'self-assigned':
-        return `/api/products/self_assigned?page=${this.currentPage}`
-      }
-    },
-    unconfirmedLinksName() {
-      if (this.selectedTab == 'unchecked') {
-        return '未チェック'
-      } else if (this.selectedTab == 'not-responded') {
-        return '未返信'
-      } else if (this.selectedTab == 'self-assigned') {
-        return '自分の担当'
-      }
-    }
+    url() { return `/api/announcements?page=${this.currentPage}` }
   },
-  created () {
+  created() {
     window.onpopstate = function(){
       location.href = location.href
     }
     this.currentPage = Number(this.getPageValueFromParameter()) || 1
-    this.getProductsPerPage()
+    this.getAnnouncementsPerPage()
+    this.getCurrentUser()
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    getProductsPerPage() {
+    getAnnouncementsPerPage() {
       fetch(this.url, {
         method: 'GET',
         headers: {
@@ -140,9 +119,9 @@ export default {
       })
       .then(json => {
         this.totalPages = json.total_pages
-        this.products = []
-        json.products.forEach(product => {
-          this.products.push(product);
+        this.announcements = []
+        json.announcements.forEach(announcement => {
+          this.announcements.push(announcement);
         });
         this.loaded = true
       })
@@ -163,9 +142,30 @@ export default {
       if (!results) return null;
       return results[1]
     },
-    paginateClickCallback (pageNum) {
-      this.getProductsPerPage()
+    paginateClickCallback(pageNum) {
+      this.getAnnouncementsPerPage()
       this.updateCurrentUrl()
+    },
+    getCurrentUser() {
+      fetch(`/api/users/${this.currentUserId}.json`, {
+      method: "GET",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      credentials: "same-origin",
+      redirect: "manual"
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        for (var key in json) {
+          this.$set(this.currentUser, key, json[key]);
+        }
+      })
+      .catch(error => {
+        console.warn("Failed to parsing", error);
+      });
     }
   }
 }
