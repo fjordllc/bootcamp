@@ -3,6 +3,7 @@
 class ReportCallbacks
   def after_save(report)
     update_published_at(report) if report.first_public?
+    Cache.delete_unchecked_report_count
   end
 
   def after_create(report)
@@ -10,13 +11,10 @@ class ReportCallbacks
     send_first_report_notification(report) if report.first? && report.first_public?
     notify_to_company_adivisers(report) if report.user.trainee? && report.user.company_id?
     notify_to_followers(report)
-
-    Cache.delete_unchecked_report_count
   end
 
   def after_update(report)
     send_first_report_notification(report) if report.first? && report.first_public?
-    Cache.delete_unchecked_report_count
   end
 
   def after_destroy(report)

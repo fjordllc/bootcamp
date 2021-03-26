@@ -84,7 +84,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test '初日報は初めて公開した時だけ通知する' do
-    login_user 'muryou', 'testtest'
+    author_name = 'muryou'
+    login_user author_name, 'testtest'
     visit '/reports'
     click_link '日報作成'
     first_report_title = 'test title'
@@ -105,8 +106,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     receiver_user = 'yamada'
     login_user receiver_user, 'testtest'
     open_notification
-
-    author_name = 'muryou'
+    
     message = "#{author_name}さんがはじめての日報を書きました！"
     assert_equal message, notification_message
     click_link '全て既読にする'
