@@ -190,4 +190,22 @@ class AnnouncementsTest < ApplicationSystemTestCase
       assert_text '内容修正'
     end
   end
+
+  test '一般のユーザーは提出済みのお知らせをコピーできる' do
+    login_user 'kimura', 'testtest'
+    announcement = announcements(:announcement1)
+    visit announcement_path(announcement)
+    within '.thread__inner' do
+      assert_no_text 'コピー'
+    end
+  end
+
+  test '一般のユーザーはWIPのお知らせをコピーできる' do
+    login_user 'kimura', 'testtest'
+    announcement = announcements(:announcement_wip)
+    visit announcement_path(announcement)
+    within '.thread__inner' do
+      assert_text 'コピー'
+    end
+  end
 end
