@@ -106,7 +106,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     receiver_user = 'yamada'
     login_user receiver_user, 'testtest'
     open_notification
-    
+
     message = "#{author_name}さんがはじめての日報を書きました！"
     assert_equal message, notification_message
     click_link '全て既読にする'
