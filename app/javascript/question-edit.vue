@@ -260,14 +260,13 @@ export default {
             this.question[key] = this.edited[key]
           })
 
-          const { practice } = this.question
-          if (practice !== undefined) {
-            practice.id = this.edited.practiceId
-            // find(practice  だと const { practice } と
-            // 重複するので利用していない
-            practice.title = this.practices.find(
-              (obj) => obj.id === practice.id
-            ).title
+          if (practiceId !== '') {
+            this.question.practice = {
+              id: practiceId,
+              title: this.practices.find((practice) => practice.id === practiceId).title
+            }
+          } else {
+            this.question.practice = undefined
           }
           this.editing = false
           this.displayedUpdateMessage = true
