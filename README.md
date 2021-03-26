@@ -4,6 +4,13 @@
 
 ## インストール
 
+### 依存ライブラリ
+
+mimemagic をインストールするために `shared-mime-info` が必要です。
+macOS の場合は、 `brew install shared-mime-info` でインストールできます。
+
+### セットアップ
+
 ```
 $ bin/setup
 $ rails server

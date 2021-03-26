@@ -27,6 +27,9 @@ RUN apk add --no-cache imagemagick bash pngcrush optipng=0.7.7-r0 ghostscript-fo
 COPY package.json yarn.lock ./
 RUN yarn install --production --ignore-engines
 
+# mimemagic
+RUN apk add --no-cache shared-mime-info
+
 # Install gems
 COPY Gemfile Gemfile.lock ./
 RUN CFLAGS="-Wno-cast-function-type" BUNDLE_BUILD__SASSC="--disable-march-tune-native" BUNDLE_FORCE_RUBY_PLATFORM=1 bundle install -j4
