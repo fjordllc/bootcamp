@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
+require 'supports/tag_helper'
 
 class CurrentUserTest < ApplicationSystemTestCase
+  include TagHelper
+
   setup { login_user 'komagata', 'testtest' }
 
   test 'update user' do
@@ -35,5 +38,19 @@ class CurrentUserTest < ApplicationSystemTestCase
     fill_in 'user[description]', with: ''
     click_on '更新する'
     assert_text '自己紹介を入力してください'
+  end
+
+  test 'alert when enter tag with space' do
+    visit edit_current_user_path
+
+    # この次に assert_alert_when_enter_one_dot_only_tag を追加しても、
+    # 空白を入力したalertが発生し、ドットのみのalertが発生するテストにならない
+    assert_alert_when_enter_tag_with_space
+  end
+
+  test 'alert when enter one dot only tag' do
+    visit edit_current_user_path
+
+    assert_alert_when_enter_one_dot_only_tag
   end
 end
