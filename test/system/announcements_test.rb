@@ -196,7 +196,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     announcement = announcements(:announcement1)
     visit announcement_path(announcement)
     within '.thread__inner' do
-      assert_no_text 'コピー'
+      assert_text 'コピー'
     end
   end
 
