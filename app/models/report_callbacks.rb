@@ -14,9 +14,8 @@ class ReportCallbacks
 
   def after_create(report)
     create_author_watch(report)
+
     send_first_report_notification(report) if report.first? && report.first_public?
-    notify_to_company_adivisers(report) if report.user.trainee? && report.user.company_id?
-    notify_to_followers(report)
   end
 
   def after_update(report)
@@ -71,23 +70,5 @@ class ReportCallbacks
 
   def delete_notification(report)
     Notification.where(path: "/reports/#{report.id}").destroy_all
-  end
-
-  def update_published_at(report)
-    report.update!(published_at: Time.current)
-  end
-
-  def notify_to_followers(report)
-    report.user.followers.each do |follower|
-      NotificationFacade.following_report(report, follower)
-      create_following_watch(report, follower)
-    end
-  end
-
-  def notify_to_company_adivisers(report)
-    report.user.company.advisers.each do |adviser|
-      NotificationFacade.trainee_report(report, adviser)
-      create_advisers_watch(report, adviser)
-    end
   end
 end

@@ -69,7 +69,6 @@ class ReportsController < ApplicationController
     set_wip
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
-
     # createと同様
     first_public = @report.first_public?
     if @report.save
