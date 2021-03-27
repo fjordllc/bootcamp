@@ -8,7 +8,7 @@ module Mention
       login_user 'kimura', 'testtest'
     end
 
-    test 'mention from a report' do
+    test 'mention from a production' do
       practice = practices(:practice5)
       visit "/products/new?practice_id=#{practice.id}"
       within('#new_product') do
