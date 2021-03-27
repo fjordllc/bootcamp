@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
+require 'supports/tag_helper'
 
 class QuestionsTest < ApplicationSystemTestCase
+  include TagHelper
+
   setup do
     login_user 'kimura', 'testtest'
   end
@@ -104,23 +107,29 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'search questions by tag' do
     visit questions_url
     click_on '質問する'
+    tag_list = ['tag1',
+                'ドットつき.タグ',
+                'ドットが.2つ以上の.タグ',
+                '.先頭がドット',
+                '最後がドット.']
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'tagテストの質問'
       fill_in 'question[description]', with: 'tagテストの質問です。'
       tag_input = find('.ti-new-tag-input')
-      tag_input.set 'tag1'
-      tag_input.native.send_keys :return
-      tag_input.set 'tag2'
-      tag_input.native.send_keys :return
+      tag_list.each do |tag|
+        tag_input.set tag
+        tag_input.native.send_keys :return
+      end
       click_button '登録する'
     end
     click_on 'Q&A', match: :first
-    assert_text 'tag1'
-    assert_text 'tag2'
 
-    click_on 'tag1', match: :first
-    assert_text 'tagテストの質問'
-    assert_no_text 'どのエディターを使うのが良いでしょうか'
+    tag_list.each do |tag|
+      assert_text tag
+      click_on tag, match: :first
+      assert_text 'tagテストの質問'
+      assert_no_text 'どのエディターを使うのが良いでしょうか'
+    end
   end
 
   test 'update tags without page transitions' do
@@ -133,5 +142,33 @@ class QuestionsTest < ApplicationSystemTestCase
     click_on '保存'
     wait_for_vuejs
     assert_text '追加タグ'
+  end
+
+  test 'alert when enter tag with space on creation page' do
+    visit new_page_path
+
+    # この次に assert_alert_when_enter_one_dot_only_tag を追加しても、
+    # 空白を入力したalertが発生し、ドットのみのalertが発生するテストにならない
+    assert_alert_when_enter_tag_with_space
+  end
+
+  test 'alert when enter one dot only tag on creation page' do
+    visit new_page_path
+
+    assert_alert_when_enter_one_dot_only_tag
+  end
+
+  test 'alert when enter tag with space on update page' do
+    visit "/pages/#{pages(:page1).id}"
+    find('.tag-links__item-edit').click
+
+    assert_alert_when_enter_tag_with_space
+  end
+
+  test 'alert when enter one dot only tag on update page' do
+    visit "/pages/#{pages(:page1).id}"
+    find('.tag-links__item-edit').click
+
+    assert_alert_when_enter_one_dot_only_tag
   end
 end
