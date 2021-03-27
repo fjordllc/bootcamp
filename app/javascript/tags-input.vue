@@ -1,13 +1,26 @@
 <template lang="pug">
   div
-    vue-tags-input(v-model="inputTag" :tags="tags" :autocomplete-items="filteredTags" @tags-changed="update" placeholder="" @before-adding-tag="checkTag")
-    input(type="hidden" :value="tagsValue" :name="tagsParamName")
+    vue-tags-input(
+      v-model="inputTag"
+      :tags="tags"
+      :autocomplete-items="filteredTags"
+      @tags-changed="update"
+      placeholder=""
+      @before-adding-tag="validateTagName"
+    )
+    input(
+      type="hidden"
+      :value="tagsValue"
+      :name="tagsParamName"
+    )
 </template>
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
+import validateTagName from './validate-tag-name'
 
 export default {
+  mixins: [validateTagName],
   props: ['tagsInitialValue', 'tagsParamName', 'taggableType'],
   components: { VueTagsInput },
   data() {
@@ -35,13 +48,6 @@ export default {
           tiClasses: ["ti-valid"]
         }
      })
-    },
-    checkTag(obj) {
-      if (obj.tag.text.includes(' ')) {
-        alert('入力されたタグにスペースが含まれています')
-      } else {
-        obj.addTag()
-      }
     },
   },
   mounted() {

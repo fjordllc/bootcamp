@@ -37,6 +37,12 @@ header.page-header
               span.thread-header__title-icon.is-solved.is-danger
                 | 未解決
             = @question.title
+            - if @question.answers.present?
+              .thread-list-item-meta__comment-count
+                .thread-list-item-meta__comment-count-label
+                  i.fas.fa-comment
+                .thread-list-item-meta__comment-count-value
+                  = @question.answers.size
           .thread-header__lower-side
             #js-watch(data-watchable-id="#{@question.id}", data-watchable-type='Question')
             .thread-header__raw

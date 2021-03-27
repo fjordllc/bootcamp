@@ -48,8 +48,16 @@ class ReportsController < ApplicationController
     @report.user = current_user
     set_wip
     canonicalize_learning_times(@report)
+    # @report.save 後、
+    # 正確には `after_save` の
+    # `report.update!(published_at: report.published_at)` 後だと、
+    # 正しい値が取得できないので @repot.save 前に実行して、
+    # 値を保存しておく
     first_public = @report.first_public?
     if @report.save
+      # notify_to_slack は report_url(report) を利用しているため、
+      # modelのcallback(model/report_callbacks)へ簡単に移動できない
+      # 移動できれば `first_public = @report.first_public?` は必要ない
       notify_to_slack(@report) if first_public
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
@@ -61,8 +69,9 @@ class ReportsController < ApplicationController
     set_wip
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
-    first_public = @report.first_public?
 
+    # createと同様
+    first_public = @report.first_public?
     if @report.save
       notify_to_slack(@report) if first_public
       redirect_to redirect_url(@report), notice: notice_message(@report)
