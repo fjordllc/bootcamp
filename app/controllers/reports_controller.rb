@@ -48,9 +48,9 @@ class ReportsController < ApplicationController
     @report.user = current_user
     set_wip
     canonicalize_learning_times(@report)
-    check_noticeable
+    first_public = @report.first_public?
     if @report.save
-      notify_to_slack(@report) if @noticeable
+      notify_to_slack(@report) if first_public
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :new
@@ -61,10 +61,10 @@ class ReportsController < ApplicationController
     set_wip
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
-    check_noticeable
+    first_public = @report.first_public?
 
     if @report.save
-      notify_to_slack(@report) if @noticeable
+      notify_to_slack(@report) if first_public
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :edit
@@ -155,12 +155,6 @@ class ReportsController < ApplicationController
 
   def set_wip
     @report.wip = params[:commit] == 'WIP'
-  end
-
-  def check_noticeable
-    return unless report.first_public?
-
-    @noticeable = true
   end
 
   def redirect_url(report)
