@@ -139,47 +139,17 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test '初日報は初めて公開した時だけ通知する' do
-    author_name = 'muryou'
-    login_user author_name, 'testtest'
-    visit '/reports'
-    click_link '日報作成'
-    first_report_title = 'test title'
-    first_repor_description = 'test'
-    within('#new_report') do
-      fill_in('report[title]', with: first_report_title)
-      fill_in('report[description]', with: first_repor_description)
-    end
-
-    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
-    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
-
-    click_button '提出'
-    logout
-
-    receiver_user = 'yamada'
-    login_user receiver_user, 'testtest'
-    open_notification
-
-    message = "#{author_name}さんがはじめての日報を書きました！"
-    assert_equal message, notification_message
-    click_link '全て既読にする'
-    logout
-
-    login_user author_name, 'testtest'
-    visit '/reports'
-
-    click_link first_report_title
-    click_link '内容修正'
-
-    fill_in('report[description]', with: 'testtest')
-    click_button '内容変更'
-    logout
-
-    login_user receiver_user, 'testtest'
-    click_link '通知'
-    assert_no_text message
-    logout
+    mention_target_login_name = 'kimura'
+    author_login_name = 'muryou'
+    # muryouが初の日報提出である必要があります。muryouの日報はtest/fixtureには作成しないでください。
+    title = '初めての日報を提出したら'
+    description = 'ユーザーに通知をする'
+    assert_notify_only_at_first_published_of_report(
+      make_first_report_nofify_message(author_login_name),
+      author_login_name,
+      mention_target_login_name,
+      title,
+      description
+    )
   end
 end
