@@ -13,7 +13,7 @@
           checkerIdの値がページ読み込み時の値のままではなく、
           現状のcheckerIdを参照すれば、v-ifでも大丈夫と推測
         //-
-        product-checker(v-show="checkableType === 'Product' && checkId === null", :checkerId="checkerId", :checkerName="checkerName", :currentUserId="currentUserId", :productId="checkableId",:checkableType="checkableType",)
+        product-checker(v-show="checkableType === 'Product' && checkId === null", :checkerId="checkerId", :checkerName="checkerName", :currentUserId="currentUserId", :productId="checkableId",:checkableType="checkableType")
       li.thread-admin-tools__item
         button#js-shortcut-check.thread-check-form__action.is-block(:class=" checkId ? 'is-text' : 'a-button is-md is-danger' " @click="check")
           i.fas.fa-check
@@ -24,7 +24,7 @@ import 'whatwg-fetch'
 import ProductChecker from './product_checker'
 
 export default {
-  props: ['checkableId', 'checkableType', 'checkableLabel', 'checkerId', 'checkerName', 'currentUserId','checkableType',],
+  props: ['checkableId', 'checkableType', 'checkableLabel', 'checkerId', 'checkerName', 'currentUserId'],
   components: {
     'product-checker': ProductChecker,
   },
