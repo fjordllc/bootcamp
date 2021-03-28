@@ -200,5 +200,4 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '質問のタブわからない'
     assert_text '質問のタブに関して。。。追加質問'
   end
-
 end
