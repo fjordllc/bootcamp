@@ -48,3 +48,15 @@ question8:
   description: テストの内容です。
   user: kimura
   practice: practice1
+
+question9:
+  title: 質問のタブわからない
+  description: タブをテストする①
+  user: hatsuno
+  practice: practice5
+
+question10:
+  title: 質問のタブに関して。。。追加質問
+  description: タブをテストする②
+  user: hatsuno
+  practice: practice5
