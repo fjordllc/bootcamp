@@ -222,7 +222,7 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (1.0.0)
     memoist (0.16.2)
-    mentionable (0.2.0)
+    mentionable (0.2.1)
       activerecord
       railties
     meta-tags (2.14.0)
@@ -509,7 +509,7 @@ DEPENDENCIES
   kaminari
   letter_opener_web (~> 1.0)
   listen (~> 3.3)
-  mentionable (~> 0.2)
+  mentionable (~> 0.2.1)
   meta-tags
   oauth2
   omniauth (~> 1.9.1)
