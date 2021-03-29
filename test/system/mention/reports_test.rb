@@ -14,10 +14,11 @@ module Mention
         create_report('メンション通知が送信されるかのテスト', description, false)
       }
 
-      %w[hatsuno].each do |mention_target_login_name|
+      %w[hatsuno with-hyphen].each do |mention_target_login_name|
         assert exists_unread_mention_notification_after_posting_mention?(
           'kimura', mention_target_login_name, post_mention
         )
+        Report.last.destroy
       end
     end
   end
