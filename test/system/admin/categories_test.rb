@@ -36,7 +36,7 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
 
   test 'update category from admin categories' do
     visit  admin_categories_path
-    first('.a-button.is-sm.is-primary.is-icon').click
+    first('.a-button.is-icon').click
     within 'form[name=category]' do
       fill_in 'category[name]', with: 'テストカテゴリー'
       fill_in 'category[slug]', with: 'test-category'
