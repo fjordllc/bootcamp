@@ -38,12 +38,12 @@ export default {
     }
   },
   created() {
-    this.fetchQuestion()
+    this.fetchQuestion(this.questionId)
     this.fetchUser(this.currentUserId)
   },
   methods: {
-    fetchQuestion() {
-      fetch(`/api/questions/${this.questionId}.json`, {
+    fetchQuestion(id) {
+      fetch(`/api/questions/${id}.json`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
