@@ -22,17 +22,17 @@ export default {
   },
   computed: {
     id: function() {
-      if (typeof this.parentReservation !== null) {
+      if (this.parentReservation !== null) {
         return this.parentReservation.id
       }
     },
     userId: function() {
-      if (typeof this.parentReservation !== null) {
+      if (this.parentReservation !== null) {
         return this.parentReservation.user_id
       }
     },
     label: function() {
-      if (typeof this.parentReservation !== null) {
+      if (this.parentReservation !== null) {
         return this.parentReservation.admin ? 'X' : this.parentReservation.login_name
       }
     }
