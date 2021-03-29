@@ -91,25 +91,18 @@ export default {
   },
   computed: {
     url () {
-      switch (this.selectedTab) {
-      case 'all':
-        return `/api/products?page=${this.currentPage}`
-      case 'unchecked':
-        return `/api/products/unchecked?page=${this.currentPage}`
-      case 'not-responded':
-        return `/api/products/not_responded?page=${this.currentPage}`
-      case 'self-assigned':
-        return `/api/products/self_assigned?page=${this.currentPage}`
-      }
+      return (
+        '/api/products' +
+        (this.selectedTab === 'all' ? '' : '/' + this.selectedTab.replace('-', '_')) +
+        `?page=${this.currentPage}`
+      )
     },
     unconfirmedLinksName() {
-      if (this.selectedTab == 'unchecked') {
-        return '未チェック'
-      } else if (this.selectedTab == 'not-responded') {
-        return '未返信'
-      } else if (this.selectedTab == 'self-assigned') {
-        return '自分の担当'
-      }
+      return {
+        unchecked: '未チェック',
+        'not-responded': '未返信',
+        'self-assigned': '自分の担当',
+      }[this.selectedTab]
     }
   },
   created () {

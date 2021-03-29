@@ -218,9 +218,7 @@ export default {
       return this.description.length > 0
     },
     commentType() {
-      if (this.commentableType === "Report" || this.commentableType === "Product") {
-        return true
-      }
+      return /^(Report|Product)$/.test(this.commentableType)
     },
     checkId() {
       return this.$store.getters.checkId
