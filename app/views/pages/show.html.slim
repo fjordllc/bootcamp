@@ -69,7 +69,7 @@ header.page-header
           .card-footer-actions
             ul.card-footer-actions__items
               li.card-footer-actions__item
-                = link_to [:edit, @page], class: 'card-footer-actions__action a-button is-md is-warning is-block' do
+                = link_to [:edit, @page], class: 'card-footer-actions__action a-button is-md is-secondary is-block' do
                   i.fas.fa-pen
                   | 内容変更
               - if admin_login? || current_user == @page.user
