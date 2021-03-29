@@ -48,7 +48,6 @@ class ReportsController < ApplicationController
     @report.user = current_user
     set_wip
     canonicalize_learning_times(@report)
-    check_noticeable
     if @report.save
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
@@ -60,8 +59,6 @@ class ReportsController < ApplicationController
     set_wip
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
-    check_noticeable
-
     if @report.save
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else

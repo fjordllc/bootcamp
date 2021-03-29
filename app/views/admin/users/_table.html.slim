@@ -10,6 +10,7 @@
           | 会社
           = render 'sort_column', order_by: 'company_id', direction: direction, target: @target
         th.admin-table__label Slack
+        th.admin-table__label Discord
         th.admin-table__label
           | 最終アクセス
           = render 'sort_column', order_by: 'updated_at', direction: direction, target: @target
@@ -53,6 +54,8 @@
               | -
           td.admin-table__item-value.is-text-align-center
             = user.slack_account.presence || '-'
+          td.admin-table__item-value.is-text-align-center
+            = user.discord_account.presence || '-'
           td.admin-table__item-value.is-text-align-center
             = l user.updated_at
           td.admin-table__item-value.is-text-align-center

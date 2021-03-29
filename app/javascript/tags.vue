@@ -2,37 +2,57 @@
   .tag-links
     ul.tag-links__items(v-if="!editing")
       li.tag-links__item(v-for="tag in tags")
-        a.tag-links__item-link(:href="`${tagsPath}/${tag.text}${tagsPathParams}`")
-          | {{ tag.text }}  
+        a.tag-links__item-link(
+          :href="`${tagsPath}/${tag.text}${tagsPathParams}`"
+        )
+          | {{ tag.text }}
       li.tag-links__item(v-if="tagsEditable")
         .tag-links__item-edit(@click="editTag")
           | タグ編集
     .form(v-show="editing")
       .form__items
         .form-item
-          vue-tags-input(v-model="inputTag" :tags="tags" :autocomplete-items="filteredTags" @tags-changed="update" placeholder="" @before-adding-tag="checkTag")
-          input(type="hidden" :value="tagsValue" :name="tagsParamName" :id="tagsInputId")
+          vue-tags-input(
+            v-model="inputTag"
+            :tags="tags"
+            :autocomplete-items="filteredTags"
+            @tags-changed="update"
+            placeholder=""
+            @before-adding-tag="validateTagName"
+          )
+          input(
+            type="hidden"
+            :value="tagsValue"
+            :name="tagsParamName"
+            :id="tagsInputId"
+          )
       .form-actions(v-if="tagsEditable")
         ul.form-actions__items
           li.form-actions__item.is-main
-            button.a-button.is-warning.is-block.is-md(@click="updateTag")
+            button.a-button.is-warning.is-block.is-md(
+              @click="updateTag"
+            )
               | 保存する
           li.form-actions__item
-            button.a-button.is-secondary.is-block.is-sm(@click="cancel")
+            button.a-button.is-secondary.is-block.is-sm(
+              @click="cancel"
+            )
               | キャンセル
 </template>
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
+import validateTagName from './validate-tag-name'
 
 export default {
   name: 'Tags',
+  mixins: [validateTagName],
   props: {
     tagsInitialValue: {
       type: String,
       required: true
     },
-    tagsParamName: { 
+    tagsParamName: {
       type: String,
       required: true
     },
@@ -101,13 +121,6 @@ export default {
     },
     parseTagsError(error) {
       console.warn('Failed to parsing', error)
-    },
-    checkTag(obj) {
-      if (obj.tag.text.includes(' ')) {
-        alert('入力されたタグにスペースが含まれています')
-      } else {
-        obj.addTag()
-      }
     },
     editTag() {
       this.editing = true
