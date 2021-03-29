@@ -23,7 +23,7 @@
             td.admin-table__item-value.is-text-align-center
               ul.is-button-group
                 li
-                  a.a-button.is-sm.is-primary.is-icon(:href='`/admin/categories/${category.id}/edit`')
+                  a.a-button.is-sm.is-secondary.is-icon(:href='`/admin/categories/${category.id}/edit`')
                     i.fas.fa-pen
                 li
                   a.a-button.is-sm.is-danger.is-icon.js-delete(@click='destroy(category)')
