@@ -100,7 +100,7 @@ export default {
     changeActiveTab(tab) {
       this.tab = tab
     },
-    createComment(event) {
+    createComment() {
       if (this.description.length < 1) { return null }
       this.buttonDisabled = true
       let params = {
@@ -148,7 +148,7 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then(response => {
+        .then(() => {
           this.comments.forEach((comment, i) => {
             if (comment.id === id) { this.comments.splice(i, 1); }
           });

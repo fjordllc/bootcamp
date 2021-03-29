@@ -163,7 +163,7 @@ export default {
       if (!results) return null;
       return results[1]
     },
-    paginateClickCallback (pageNum) {
+    paginateClickCallback () {
       this.getProductsPerPage()
       this.updateCurrentUrl()
     }
