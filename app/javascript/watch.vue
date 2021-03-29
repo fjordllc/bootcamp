@@ -89,7 +89,7 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then(response => {
+        .then(() => {
           this.watchId = null
           this.watchLabel = 'Watchする'
         })
