@@ -18,13 +18,20 @@
               - if user.company.present? && user.company.logo.attached?
                 = link_to company_path(user.company) do
                   = image_tag user.company.logo_url, class: 'user-item__company-logo'
-            - if user.slack_account.present?
+            - if user.slack_account?
               li.users-item-names__item
                 .users-item-names__slack
                   .users-item-names__slack-label
                     i.fab.fa-slack
                   .users-item-names__slack-value
                     = user.slack_account
+            - if user.discord_account?
+              li.users-item-names__item
+                .users-item-names__slack
+                  .users-item-names__slack-label
+                    i.fab.fa-discord
+                  .users-item-names__slack-value
+                    = user.discord_account
           = render 'users/user_secret_attributes', user: user
           .users-item__icon
             = render 'users/icon',

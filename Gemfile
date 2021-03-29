@@ -9,7 +9,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'image_processing', '~> 1.2'
 gem 'jbuilder', '~> 2.7'
 gem 'puma', '~> 4.3'
-gem 'rails', '~> 6.0.3.2'
+gem 'rails', '~> 6.0.3.6'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
 
