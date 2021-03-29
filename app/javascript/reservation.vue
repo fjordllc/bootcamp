@@ -22,19 +22,17 @@ export default {
   },
   computed: {
     id: function() {
-      if (this.parentReservation !== null) {
-        return this.parentReservation.id
-      }
+      return this.parentReservation !== null ? this.parentReservation.id : null
     },
     userId: function() {
-      if (this.parentReservation !== null) {
-        return this.parentReservation.user_id
-      }
+      return this.parentReservation !== null ? this.parentReservation.user_id : null
     },
     label: function() {
-      if (this.parentReservation !== null) {
-        return this.parentReservation.admin ? 'X' : this.parentReservation.login_name
+      if (this.parentReservation === null) {
+        return null
       }
+
+      return this.parentReservation.admin ? 'X' : this.parentReservation.login_name
     }
   }
 }
