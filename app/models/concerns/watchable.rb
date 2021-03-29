@@ -36,16 +36,12 @@ module Watchable
   end
 
   def time
-    if class_name == 'Report'
+    if self.class.name == 'Report'
       self[:reported_on]
     elsif has_attribute?(:published_at) && published_at?
       self[:published_at]
     else
       self[:created_at]
     end
-  end
-
-  def class_name
-    self.class.name
   end
 end
