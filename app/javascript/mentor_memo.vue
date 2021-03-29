@@ -6,7 +6,7 @@
           v-html="markdownMemo")
       footer.card-footer
         .card-footer-actions
-          button.card-footer-actions__action.a-button.is-md.is-primary.is-block(@click="editMemo")
+          button.card-footer-actions__action.a-button.is-md.is-secondary.is-block(@click="editMemo")
             i.fas.fa-pen
             | 編集
     .thread-comment-form__form.a-card(v-show="editing")
