@@ -14,6 +14,13 @@
       li.users-item-names__item
         .users-item-names__slack
           .users-item-names__slack-label
+            i.fab.fa-slack
+          .users-item-names__slack-value
+            = user.slack_account.presence || 'Slack未設定'
+    ul.users-item-names
+      li.users-item-names__item
+        .users-item-names__slack
+          .users-item-names__slack-label
             i.fab.fa-discord
           .users-item-names__slack-value
             = user.discord_account.presence || 'Discord未設定'
