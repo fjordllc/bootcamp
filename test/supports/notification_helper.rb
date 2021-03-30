@@ -41,7 +41,4 @@ module NotificationHelper
     "#{writer_login_name}さんからメンションがきました。"
   end
 
-  def make_first_report_nofify_message(writer_login_name)
-    "#{writer_login_name}さんがはじめての日報を書きました！"
-  end
 end
