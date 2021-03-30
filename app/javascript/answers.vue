@@ -70,6 +70,8 @@ export default {
         json.forEach(c => {
           this.answers.push(c);
         });
+
+        this.updateAnswerCount()
       })
       .catch(error => {
         console.warn("Failed to parsing", error);
@@ -119,6 +121,7 @@ export default {
           this.tab = "answer";
           this.buttonDisabled = false;
           this.resizeTextarea()
+          this.updateAnswerCount()
         })
         .catch(error => {
           console.warn("Failed to parsing", error);
@@ -140,6 +143,8 @@ export default {
               this.answers.splice(i, 1);
             }
           });
+
+          this.updateAnswerCount()
         })
         .catch(error => {
           console.warn("Failed to parsing", error);
@@ -199,6 +204,9 @@ export default {
         .catch(error => {
           console.warn("Failed to parsing", error);
         });
+    },
+    updateAnswerCount: function() {
+      this.$emit('updateAnswerCount', this.answers.length)
     },
     setDefaultTextareaSize: function () {
       const textarea = document.getElementById('js-new-comment')
