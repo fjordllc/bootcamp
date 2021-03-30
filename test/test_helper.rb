@@ -13,7 +13,7 @@ Webdrivers.cache_time = 86_400
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
-  # parallelize(workers: :number_of_processors)
+  parallelize(workers: :number_of_processors) unless ENV['CI']
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
