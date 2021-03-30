@@ -170,9 +170,9 @@ export default {
         practiceId: this.question.practice.id,
       },
       editing: false,
-      practices: null,
-      tab: 'question',
       displayedUpdateMessage: false,
+      tab: 'question',
+      practices: null,
     }
   },
   created() {
@@ -182,6 +182,10 @@ export default {
     TextareaInitializer.initialize(`#js-question-content`)
   },
   methods: {
+    token() {
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      return meta ? meta.getAttribute('content') : ''
+    },
     fetchPractices(userId) {
       fetch(`/api/practices.json?user_id=${userId}`, {
         method: 'GET',
@@ -204,31 +208,21 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
+    startEditing() {
+      this.editing = true
+      this.$nextTick(() => {
+        $(`.question-id-${this.question.id}`).trigger('input')
+      })
+    },
+    finishEditing(hasUpdatedQuestion) {
+      this.editing = false
+      this.displayedUpdateMessage = hasUpdatedQuestion
     },
     isActive(tab) {
       return this.tab === tab
     },
     changeActiveTab(tab) {
       this.tab = tab
-    },
-    finishEditing(hasUpdatedQuestion) {
-      this.editing = false
-      this.displayedUpdateMessage = hasUpdatedQuestion
-    },
-    cancel() {
-      Object.keys(this.edited).forEach((key) => {
-        this.edited[key] = this[key]
-      })
-      this.finishEditing(false)
-    },
-    startEditing() {
-      this.editing = true
-      this.$nextTick(() => {
-        $(`.question-id-${this.question.id}`).trigger('input')
-      })
     },
     changedQuestion(values) {
       return Object.entries(values).some(([key, val]) => {
@@ -272,16 +266,14 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
+    cancel() {
+      Object.keys(this.edited).forEach((key) => {
+        this.edited[key] = this[key]
+      })
+      this.finishEditing(false)
+    },
   },
   computed: {
-    markdownDescription() {
-      const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.description)
-    },
-    validation() {
-      const { title, description } = this.edited
-      return title.length > 0 && description.length > 0
-    },
     updatedAtISO8601() {
       return moment(this.question.updated_at).format();
     },
@@ -290,19 +282,27 @@ export default {
         "YYYY年MM月DD日(dd) HH:mm"
       )
     },
-    editAble() {
-      return (
-        this.question.user.id === this.currentUser.id ||
-        this.currentUser.role === 'admin'
-      )
-    },
     practiceTitle() {
       const { practices, question, practiceId } = this;
 
       return practices === null
              ? question.practice.title
              : practices.find((practice) => practice.id === practiceId).title
-    }
+    },
+    editAble() {
+      return (
+        this.question.user.id === this.currentUser.id ||
+        this.currentUser.role === 'admin'
+      )
+    },
+    markdownDescription() {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.description)
+    },
+    validation() {
+      const { title, description } = this.edited
+      return title.length > 0 && description.length > 0
+    },
   },
 }
 </script>
