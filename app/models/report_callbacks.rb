@@ -8,7 +8,6 @@ class ReportCallbacks
 
     return unless report.first_public?
 
-    notify_first_report(report) if report.first?
     report.update!(published_at: report.updated_at)
     notify_users(report)
   end
@@ -36,6 +35,7 @@ class ReportCallbacks
   end
 
   def notify_users(report)
+    notify_first_report(report) if report.first?
     notify_advisers(report) if report.user.trainee? && report.user.company_id?
     notify_followers(report)
     report.notify_all_mention_user
