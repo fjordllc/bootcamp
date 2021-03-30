@@ -54,7 +54,7 @@
             ul.card-footer-actions__items
               li.card-footer-actions__item
                 button.card-footer-actions__action.a-button.is-md.is-primary.is-block(
-                  @click="editQuestion"
+                  @click="startEditing"
                 )
                   i#new.fas.fa-pen
                   | 内容修正
@@ -224,7 +224,7 @@ export default {
       })
       this.finishEditing(false)
     },
-    editQuestion() {
+    startEditing() {
       this.editing = true
       this.$nextTick(() => {
         $(`.question-id-${this.question.id}`).trigger('input')
