@@ -8,7 +8,6 @@
         :currentUser="currentUser",
         :id="'answer_' + answer.id",
         :questionUser="questionUser",
-        :correctAnswer="question.correctAnswer",
         :hasCorrectAnswer="hasCorrectAnswer",
         @delete="deleteAnswer",
         @bestAnswer="solveAnswer",
@@ -41,7 +40,7 @@ import Answer from "./answer.vue";
 import TextareaInitializer from './textarea-initializer'
 
 export default {
-  props: ["questionId", "type", "currentUserId", "questionUserId"],
+  props: ["questionId", "currentUserId", "questionUserId"],
   components: {
     answer: Answer
   },
