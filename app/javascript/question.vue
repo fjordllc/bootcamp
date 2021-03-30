@@ -17,6 +17,8 @@
       :questionUser="question.user",
       :currentUser="currentUser",
       @updateAnswerCount="updateAnswerCount"
+      @solveQuestion="solveQuestion",
+      @cancelSolveQuestion="cancelSolveQuestion"
     )
 </template>
 <script>
@@ -83,6 +85,12 @@ export default {
         .catch((error) => {
           console.warn('Failed to parsing', error)
         })
+    },
+    solveQuestion(answer) {
+      this.question.correct_answer = answer
+    },
+    cancelSolveQuestion() {
+      this.question.correct_answer = null
     },
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
