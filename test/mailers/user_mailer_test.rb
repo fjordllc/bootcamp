@@ -21,7 +21,7 @@ class UserMailerTest < ActionMailer::TestCase
     assert_not ActionMailer::Base.deliveries.empty?
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['kimura@fjord.jp'], email.to
-    assert_equal '[bootcamp] 退会処理が完了しました', email.subject
-    assert_match(/ご利用いただきありがとうございました/, email.body.to_s)
+    assert_equal 'フィヨルドブートキャンプお礼', email.subject
+    assert_match(/今までお疲れ様です/, email.body.to_s)
   end
 end
