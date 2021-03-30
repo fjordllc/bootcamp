@@ -32,6 +32,23 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_selector '.card-list__item-link.is-github_account'
   end
 
+  test 'GET / without slack account' do
+    login_user 'hajime', 'testtest'
+    visit '/'
+    within('.card-list__item-link.is-slack_account') do
+      assert_text 'Slackアカウントを登録してください。'
+    end
+  end
+
+  test 'GET / with slack_account' do
+    user = users(:hajime)
+    user.slack_account = 'hajime'
+    login_user user, 'testtest'
+
+    visit '/'
+    assert_no_selector '.card-list__item-link.is-slack_account'
+  end
+
   test 'GET / without discord_account' do
     login_user 'hajime', 'testtest'
 
