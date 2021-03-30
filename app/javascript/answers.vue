@@ -10,8 +10,8 @@
         :questionUser="questionUser",
         :hasCorrectAnswer="hasCorrectAnswer",
         @delete="deleteAnswer",
-        @bestAnswer="solveAnswer",
-        @cancelBestAnswer="unsolveAnswer")
+        @makeToBestAnswer="makeToBestAnswer",
+        @cancelBestAnswer="cancelBestAnswer")
       .thread-comment-form
         .thread-comment__author
           img.thread-comment__author-icon.a-user-icon(:src="currentUser.avatar_url" :title="currentUser.icon_title")
@@ -101,7 +101,7 @@ export default {
         answer: { description: this.description },
         question_id: this.questionId
       };
-      fetch(`/api/answers`, {
+      fetch(this.baseUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
@@ -128,7 +128,7 @@ export default {
         });
     },
     deleteAnswer: function(id) {
-      fetch(`/api/answers/${id}.json`, {
+      fetch(`${this.baseUrl}/${id}.json`, {
         method: "DELETE",
         headers: {
           "X-Requested-With": "XMLHttpRequest",
@@ -137,14 +137,16 @@ export default {
         credentials: "same-origin",
         redirect: "manual"
       })
-        .then(response => {
-          this.answers.forEach((answer, i) => {
-            if (answer.id == id) {
+        .then(() => {
+          this.answers.some((answer, i) => {
+            if (answer.id === id) {
               this.answers.splice(i, 1);
 
               if (answer.type === "CorrectAnswer") {
                 this.$emit('cancelSolveQuestion')
               }
+
+              return true
             }
           });
 
@@ -154,15 +156,13 @@ export default {
           console.warn("Failed to parsing", error);
         });
     },
-    findAnswerById(id) {
-      return this.answers.find(answer => answer.id === id)
-    },
-    solveAnswer: function(id) {
+    requestSolveQuestion: function(id, isCancel) {
       let params = {
         question_id: this.questionId
       };
-      fetch(`/api/answers/${id}/correct_answer`, {
-        method: "POST",
+
+      return fetch(`${this.baseUrl}/${id}/correct_answer`, {
+        method: isCancel ? "PATCH" : "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           "X-Requested-With": "XMLHttpRequest",
@@ -172,10 +172,16 @@ export default {
         redirect: "manual",
         body: JSON.stringify(params)
       })
+    },
+    findAnswerById: function(id) {
+      return this.answers.find(answer => answer.id === id)
+    },
+    makeToBestAnswer: function(id) {
+      this.requestSolveQuestion(id, false)
         .then(response => {
           return response.json();
         })
-        .then(answer => {
+        .then((answer) => {
           this.findAnswerById(answer.id).type = "CorrectAnswer"
 
           this.$emit('solveQuestion', answer)
@@ -184,21 +190,8 @@ export default {
           console.warn("Failed to parsing", error);
         });
     },
-    unsolveAnswer: function(id) {
-      let params = {
-        question_id: this.questionId
-      };
-      fetch(`/api/answers/${id}/correct_answer`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "X-Requested-With": "XMLHttpRequest",
-          "X-CSRF-Token": this.token()
-        },
-        credentials: "same-origin",
-        redirect: "manual",
-        body: JSON.stringify(params)
-      })
+    cancelBestAnswer: function(id) {
+      this.requestSolveQuestion(id, true)
         .then(() => {
           this.findAnswerById(id).type = ""
 
@@ -226,6 +219,9 @@ export default {
     },
     hasCorrectAnswer: function() {
       return this.answers.some(answer => (answer.type === "CorrectAnswer"));
+    },
+    baseUrl: function() {
+      return '/api/answers'
     }
   }
 };
