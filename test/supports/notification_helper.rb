@@ -40,5 +40,4 @@ module NotificationHelper
   def make_mention_notify_message(writer_login_name)
     "#{writer_login_name}さんからメンションがきました。"
   end
-
 end
