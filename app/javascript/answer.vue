@@ -25,7 +25,7 @@
           ul.card-footer-actions__items
             li.card-footer-actions__item(
               v-if="!hasCorrectAnswer && answer.type != 'CorrectAnswer' && (currentUser.id === questionUser.id || currentUser.role === 'admin')")
-              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="solveAnswer")
+              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="makeToBestAnswer")
                 | ベストアンサーにする
             li.card-footer-actions__item(
               v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
@@ -38,7 +38,7 @@
                 | 削除する
             li.card-footer-actions__item(
               v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer' && (currentUser.id === questionUser.id || currentUser.role === 'admin')")
-              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="unsolveAnswer")
+              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="cancelBestAnswer")
                 | ベストアンサーを取り消す
     .thread-comment-form__form.a-card(v-show="editing")
       .thread-comment-form__tabs.js-tabs
@@ -128,12 +128,12 @@ export default {
         $(`.answer-id-${this.answer.id}`).trigger("input");
       });
     },
-    solveAnswer: function() {
+    makeToBestAnswer: function() {
       if (window.confirm("本当に宜しいですか？")) {
-        this.$emit("bestAnswer", this.answer.id);
+        this.$emit("makeToBestAnswer", this.answer.id);
       }
     },
-    unsolveAnswer: function() {
+    cancelBestAnswer: function() {
       if (window.confirm("本当に宜しいですか？")) {
         this.$emit("cancelBestAnswer", this.answer.id);
       }
