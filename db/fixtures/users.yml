@@ -364,6 +364,7 @@ nippounashi: # 日報を投稿していないユーザー
   name: Nippou nashi
   name_kana: ニッポウ　ナシ
   slack_account: nippounashi
+  discord_account: nippounashi#0001
   twitter_account: nippounashi
   facebook_url: http://www.facebook.com/nippounashi
   blog_url: http://nippounashiorg
