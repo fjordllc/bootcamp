@@ -13,8 +13,8 @@
           )
             | {{ updatedAt }}
       .thread-practice
-        a.thread-practice__link(:href="`/practices/${question.practice.id}`")
-          | {{ question.practice.title }}
+        a.thread-practice__link(:href="`/practices/${practiceId}`")
+          | {{ practiceTitle }}
       h1.thread-header__title
         span.thread-header__title-icon.is-solved.is-success(
           v-if="question.correct_answer !== null"
@@ -22,7 +22,7 @@
           | 解決済
         span.thread-header__title-icon.is-solved.is-danger(v-else)
           | 未解決
-        | {{ question.title }}
+        | {{ title }}
       .thread-header__lower-side
         watch(:watchableId="question.id", watchableType="Question")
         .thread-header__raw
@@ -156,26 +156,26 @@ export default {
     userIcon: UserIcon,
   },
   props: {
-    initialQuestion: { type: Object, required: true },
+    question: { type: Object, required: true },
     currentUser: { type: Object, required: true },
   },
-  data: () => {
+  data() {
     return {
+      title: this.question.title,
+      description: this.question.description,
+      practiceId: this.question.practice.id,
       edited: {
-        title: '',
-        description: '',
-        practiceId: ''
+        title: this.question.title,
+        description: this.question.description,
+        practiceId: this.question.practice.id,
       },
       editing: false,
-      question: null,
       practices: null,
       tab: 'question',
       displayedUpdateMessage: false,
     }
   },
   created() {
-    this.question = this.initialQuestion
-    this.setEditedData()
     this.fetchPractices(this.question.user.id)
   },
   mounted() {
@@ -204,13 +204,6 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
-    setEditedData() {
-      ['title', 'description'].forEach(key => {
-        this.edited[key] = this.question[key]
-      })
-
-      this.edited['practiceId'] = this.question.practice.id
-    },
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
@@ -226,7 +219,9 @@ export default {
       this.displayedUpdateMessage = hasUpdatedQuestion
     },
     cancel() {
-      this.setEditedData()
+      Object.keys(this.edited).forEach((key) => {
+        this.edited[key] = this[key]
+      })
       this.finishEditing(false)
     },
     editQuestion() {
@@ -235,19 +230,13 @@ export default {
         $(`.question-id-${this.question.id}`).trigger('input')
       })
     },
-    changedQuestion() {
-      const changedTitleOrDescription = ['title', 'description'].some(key => {
-        return this.edited[key] !== this.question[key]
+    changedQuestion(values) {
+      return Object.entries(values).some(([key, val]) => {
+        return val !== this[key]
       })
-
-      if (changedTitleOrDescription) {
-        return true
-      }
-
-      return this.edited.practiceId !==  this.question.practice.id
     },
     updateQuestion() {
-      if (!this.changedQuestion()) {
+      if (!this.changedQuestion(this.edited)) {
         // 何も変更していなくても、更新メッセージは表示する
         // 表示しないとユーザーが更新されていないと不安に感じる
         this.finishEditing(true)
@@ -274,14 +263,9 @@ export default {
         body: JSON.stringify(params),
       })
         .then(() => {
-          ['title', 'description'].forEach(key => {
-            this.question[key] = this.edited[key]
+          Object.entries(this.edited).some(([key, val]) => {
+            this[key] = val
           })
-
-          this.question.practice = {
-            id: practiceId,
-            title: this.practices.find((practice) => practice.id === practiceId).title
-          }
           this.finishEditing(true)
         })
         .catch((error) => {
@@ -292,7 +276,7 @@ export default {
   computed: {
     markdownDescription() {
       const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.edited.description)
+      return markdownInitializer.render(this.description)
     },
     validation() {
       const { title, description } = this.edited
@@ -312,6 +296,13 @@ export default {
         this.currentUser.role === 'admin'
       )
     },
+    practiceTitle() {
+      const { practices, question, practiceId } = this;
+
+      return practices === null
+             ? question.practice.title
+             : practices.find((practice) => practice.id === practiceId).title
+    }
   },
 }
 </script>

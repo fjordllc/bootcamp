@@ -7,7 +7,7 @@
   .container(v-else)
     questionEdit(
       v-if="currentUser !== null",
-      :initialQuestion="question",
+      :question="question",
       :currentUser="currentUser"
     )
     answers(
