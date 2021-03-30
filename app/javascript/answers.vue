@@ -40,61 +40,21 @@ import Answer from "./answer.vue";
 import TextareaInitializer from './textarea-initializer'
 
 export default {
-  props: ["questionId", "currentUserId", "questionUserId"],
+  props: ["questionId", "questionUser", "currentUser"],
   components: {
     answer: Answer
   },
   data: () => {
     return {
-      currentUser: {},
       answers: [],
       description: "",
       tab: "answer",
       buttonDisabled: false,
       question: { correctAnswer: null },
-      questionUser: {},
       defaultTextareaSize: null
     };
   },
   created: function() {
-    fetch(`/api/users/${this.currentUserId}.json`, {
-      method: "GET",
-      headers: {
-        "X-Requested-With": "XMLHttpRequest"
-      },
-      credentials: "same-origin",
-      redirect: "manual"
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        for (var key in json) {
-          this.$set(this.currentUser, key, json[key]);
-        }
-      })
-      .catch(error => {
-        console.warn("Failed to parsing", error);
-      });
-    fetch(`/api/users/${this.questionUserId}.json`, {
-      method: "GET",
-      headers: {
-        "X-Requested-With": "XMLHttpRequest"
-      },
-      credentials: "same-origin",
-      redirect: "manual"
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        for (var key in json) {
-          this.$set(this.questionUser, key, json[key]);
-        }
-      })
-      .catch(error => {
-        console.warn("Failed to parsing", error);
-      });
     fetch(`/api/answers.json?question_id=${this.questionId}`, {
       method: "GET",
       headers: {
