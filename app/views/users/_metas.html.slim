@@ -38,6 +38,11 @@
         | Slackアカウント
       .user-metas__item-value
         = user.slack_account.presence || '未登録'
+    .user-metas__item
+      .user-metas__item-label
+        | Discordアカウント
+      .user-metas__item-value
+        = user.discord_account.presence || '未登録'
     - unless user.admin? || user.adviser?
       .user-metas__item
         .user-metas__item-label

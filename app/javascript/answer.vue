@@ -29,7 +29,7 @@
                 | ベストアンサーにする
             li.card-footer-actions__item(
               v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
-              button.card-footer-actions__action.a-button.is-md.is-primary.is-block(@click="editAnswer")
+              button.card-footer-actions__action.a-button.is-md.is-secondary.is-block(@click="editAnswer")
                 i.fas.fa-pen
                 | 内容修正
             li.card-footer-actions__item.is-sub(
