@@ -23,6 +23,11 @@
         span.thread-header__title-icon.is-solved.is-danger(v-else)
           | 未解決
         | {{ title }}
+        .thread-list-item-meta__comment-count(v-if="answerCount !== 0")
+          .thread-list-item-meta__comment-count-label
+            i.fas.fa-comment
+          .thread-list-item-meta__comment-count-value
+            | {{ answerCount }}
       .thread-header__lower-side
         watch(:watchableId="question.id", watchableType="Question")
         .thread-header__raw
@@ -157,6 +162,7 @@ export default {
   },
   props: {
     question: { type: Object, required: true },
+    answerCount: { type: Number, required: true },
     currentUser: { type: Object, required: true },
   },
   data() {
