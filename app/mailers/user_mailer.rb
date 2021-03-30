@@ -14,6 +14,6 @@ class UserMailer < ApplicationMailer
 
   def retire(user)
     @user = user
-    mail to: user.email, subject: '[bootcamp] 退会処理が完了しました'
+    mail to: user.email, subject: 'フィヨルドブートキャンプお礼'
   end
 end

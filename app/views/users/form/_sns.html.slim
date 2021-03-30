@@ -1,14 +1,11 @@
 .form-item
+  = f.label :slack_account, class: 'a-label'
+  .form-item__mention-input
+    = f.text_field :slack_account, class: 'a-text-input', placeholder: 'komagata'
+.form-item
   = f.label :discord_account, class: 'a-label'
   .form-item__mention-input
     = f.text_field :discord_account, class: 'a-text-input', placeholder: 'komagata#1111'
-  .a-form-help
-    p
-      | Discord のアカウントの調べ方は
-      label.a-form-help-link.is-danger(for='modal-discord-account')
-        | こちら
-        span.a-help
-          i.fas.fa-question
 .form-item
   = f.label :github_account, class: 'a-label'
   .form-item__mention-input
@@ -16,13 +13,13 @@
   .a-form-help
     - if f.object.github_id?
       = link_to connection_git_hub_path, method: :delete, class: 'a-form-help-link is-muted-text' do
-        | GitHub との連携を解除する
+        | GitHubとの連携を解除する
     - else
       = link_to '/auth/github', class: 'a-form-help-link is-danger' do
-        | GitHub と連携する
+        | GitHubと連携する
   .a-form-help
     p
-      | GitHub と連携をすると、GitHub アカウントでログインができるようになります。
+      | GitHubと連携をすると、GitHubアカウントでログインができるようになります。
 .form-item
   = f.label :twitter_account, class: 'a-label'
   .form-item__mention-input
@@ -39,11 +36,3 @@
   = f.text_field :blog_url, class: 'a-text-input', placeholder: 'http://docs.komagata.org/'
   .a-form-help
     p URL を入力。
-
-= render '/shared/modal', id: 'modal-discord-account', title: 'Discord のアカウントの調べ方'
-  .modal__description.is-md
-    .a-short-text
-      p
-        | ここに表示されているのが Discord アカウントです。クリックをすると、コピーされます。
-      p
-        = image_tag('help/discord-account.jpg', alt: 'Discord のアカウントの調べ方')
