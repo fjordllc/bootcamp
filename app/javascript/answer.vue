@@ -80,7 +80,7 @@ import moment from "moment";
 moment.locale("ja");
 
 export default {
-  props: ["answer", "currentUser", "availableEmojis", "correctAnswer", "hasCorrectAnswer", "questionUser"],
+  props: ["answer", "currentUser", "availableEmojis", "hasCorrectAnswer", "questionUser"],
   components: {
     reaction: Reaction
   },
