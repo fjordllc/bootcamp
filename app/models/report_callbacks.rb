@@ -8,13 +8,18 @@ class ReportCallbacks
 
     return unless report.first_public?
 
-    notify_first_report(report) if report.first?
     report.update!(published_at: report.updated_at)
     notify_users(report)
   end
 
   def after_create(report)
     create_author_watch(report)
+
+    send_first_report_notification(report) if report.user.reports.count == 1 && !report.wip?
+  end
+
+  def after_update(report)
+    send_first_report_notification(report) if report.wip == false && report.user.reports.count == 1
   end
 
   def after_destroy(report)
@@ -28,7 +33,7 @@ class ReportCallbacks
     Watch.create!(user: report.user, watchable: report)
   end
 
-  def notify_first_report(report)
+  def send_first_report_notification(report)
     receiver_list = User.where(retired_on: nil)
     receiver_list.each do |receiver|
       NotificationFacade.first_report(report, receiver) if report.sender != receiver
