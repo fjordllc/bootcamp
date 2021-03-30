@@ -12,7 +12,7 @@
             pubdate="pubdate"
           )
             | {{ updatedAt }}
-      .thread-practice(v-if="question.practice")
+      .thread-practice
         a.thread-practice__link(:href="`/practices/${question.practice.id}`")
           | {{ question.practice.title }}
       h1.thread-header__title
@@ -209,10 +209,7 @@ export default {
         this.edited[key] = this.question[key]
       })
 
-      const { practice } = this.question
-      if (practice !== undefined) {
-        this.edited['practiceId'] = practice.id
-      }
+      this.edited['practiceId'] = this.question.practice.id
     },
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
@@ -240,16 +237,14 @@ export default {
     },
     changedQuestion() {
       const changedTitleOrDescription = ['title', 'description'].some(key => {
-        return this.question[key] !== this.edited[key]
+        return this.edited[key] !== this.question[key]
       })
 
       if (changedTitleOrDescription) {
         return true
       }
 
-      const { practice } = this.question
-
-      return this.edited.practiceId !== (practice === undefined ? '' : practice.id)
+      return this.edited.practiceId !==  this.question.practice.id
     },
     updateQuestion() {
       if (!this.changedQuestion()) {
@@ -283,13 +278,9 @@ export default {
             this.question[key] = this.edited[key]
           })
 
-          if (practiceId !== '') {
-            this.question.practice = {
-              id: practiceId,
-              title: this.practices.find((practice) => practice.id === practiceId).title
-            }
-          } else {
-            this.question.practice = undefined
+          this.question.practice = {
+            id: practiceId,
+            title: this.practices.find((practice) => practice.id === practiceId).title
           }
           this.finishEditing(true)
         })
