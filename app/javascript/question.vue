@@ -9,12 +9,14 @@
   .container(v-else)
     questionEdit(
       :question="question",
+      :answerCount="answerCount",
       :currentUser="currentUser"
     )
     answers(
       :questionId="questionId",
       :questionUser="question.user",
-      :currentUser="currentUser"
+      :currentUser="currentUser",
+      @updateAnswerCount="updateAnswerCount"
     )
 </template>
 <script>
@@ -36,6 +38,7 @@ export default {
     return {
       question: null,
       currentUser: null,
+      answerCount: 0,
     }
   },
   created() {
@@ -84,6 +87,9 @@ export default {
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
+    },
+    updateAnswerCount(count) {
+      this.answerCount = count
     },
   },
 }
