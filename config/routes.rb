@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     resources :memos, only: %i(create update destroy)
     resources :tags, only: %i(index)
     resources :pages, only: %i(update)
+    resources :users, only: %i(update)
     resources :questions, only: %i(update)
     resources :followings, only: %i(create destroy)
     namespace :products do

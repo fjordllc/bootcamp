@@ -138,7 +138,6 @@ class UsersTest < ApplicationSystemTestCase
       login_user 'osnashi', 'testtest'
       login_user 'jobseeker', 'testtest'
       login_user 'daimyo', 'testtest'
-      login_user 'nippounashi', 'testtest'
     end
 
     login_user 'komagata', 'testtest'

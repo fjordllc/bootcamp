@@ -32,6 +32,7 @@ class Report < ApplicationRecord
 
   after_save   ReportCallbacks.new
   after_create ReportCallbacks.new
+  after_update ReportCallbacks.new
   after_destroy ReportCallbacks.new
   after_initialize :set_default_emotion, if: :new_record?
 
