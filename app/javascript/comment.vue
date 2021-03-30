@@ -26,7 +26,7 @@
         .card-footer-actions
           ul.card-footer-actions__items
             li.card-footer-actions__item
-              button.card-footer-actions__action.a-button.is-md.is-primary.is-block(@click="editComment")
+              button.card-footer-actions__action.a-button.is-md.is-secondary.is-block(@click="editComment")
                 i.fas.fa-pen
                 | 編集
             li.card-footer-actions__item.is-sub
