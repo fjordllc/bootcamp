@@ -141,6 +141,10 @@ export default {
           this.answers.forEach((answer, i) => {
             if (answer.id == id) {
               this.answers.splice(i, 1);
+
+              if (answer.type === "CorrectAnswer") {
+                this.$emit('cancelSolveQuestion')
+              }
             }
           });
 
@@ -149,6 +153,9 @@ export default {
         .catch(error => {
           console.warn("Failed to parsing", error);
         });
+    },
+    findAnswerById(id) {
+      return this.answers.find(answer => answer.id === id)
     },
     solveAnswer: function(id) {
       let params = {
@@ -168,12 +175,10 @@ export default {
         .then(response => {
           return response.json();
         })
-        .then(json => {
-          this.answers.forEach((answer, i) => {
-            if (answer.id == json.id) {
-              answer.type = "CorrectAnswer";
-            }
-          });
+        .then(answer => {
+          this.findAnswerById(answer.id).type = "CorrectAnswer"
+
+          this.$emit('solveQuestion', answer)
         })
         .catch(error => {
           console.warn("Failed to parsing", error);
@@ -194,12 +199,10 @@ export default {
         redirect: "manual",
         body: JSON.stringify(params)
       })
-        .then(response => {
-          this.answers.forEach((answer, i) => {
-            if (answer.id == id) {
-              answer.type = "";
-            }
-          });
+        .then(() => {
+          this.findAnswerById(id).type = ""
+
+          this.$emit('cancelSolveQuestion')
         })
         .catch(error => {
           console.warn("Failed to parsing", error);
