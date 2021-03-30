@@ -197,7 +197,7 @@ class UsersTest < ApplicationSystemTestCase
     login_user 'hatsuno', 'testtest'
     visit "/users/#{users(:hatsuno).id}"
     click_link '質問'
-    assert_text '質問のタブわからない'
+    assert_text '質問のタブの作り方'
     assert_text '質問のタブに関して。。。追加質問'
   end
 end
