@@ -1,19 +1,20 @@
 <template lang="pug">
 .page-body
-  .container(v-if="question === null")
+  .container(
+    v-if="question === null || currentUser === null"
+  )
     .empty
       .fas.fa-spinner.fa-pulse
       | ロード中
   .container(v-else)
     questionEdit(
-      v-if="currentUser !== null",
       :question="question",
       :currentUser="currentUser"
     )
     answers(
       :questionId="questionId",
-      :questionUserId="question.user.id",
-      :currentUserId="currentUserId"
+      :questionUser="question.user",
+      :currentUser="currentUser"
     )
 </template>
 <script>
