@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/komagata/stripe-i18n
+  revision: 584c711fc66ad71a5293a9dc21d717ec608c4692
+  branch: update-depencency
+  specs:
+    stripe-i18n (2.0.0)
+      i18n (>= 0.6, < 2.0)
+      railties (>= 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -418,9 +427,6 @@ GEM
     stripe (4.5.0)
       faraday (~> 0.13)
       net-http-persistent (~> 3.0)
-    stripe-i18n (2.0.0)
-      i18n (~> 0.6)
-      railties (>= 4.0)
     sucker_punch (2.1.2)
       concurrent-ruby (~> 1.0)
     temple (0.8.2)
@@ -529,7 +535,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   stripe (~> 4.5.0)
-  stripe-i18n
+  stripe-i18n!
   sucker_punch (~> 2.0)
   traceroute
   web-console (>= 3.3.0)
@@ -541,4 +547,4 @@ RUBY VERSION
    ruby 2.6.6p146
 
 BUNDLED WITH
-   2.2.8
+   2.2.15
