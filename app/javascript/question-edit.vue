@@ -45,8 +45,8 @@
       )
 
     .thread__body
-      .thread-question__body.a-card(v-if="!editing")
-        .thread-question__description.js-target-blank.is-long-text(
+      .thread-question__body(v-if="!editing")
+        .thread__description.js-target-blank.is-long-text(
           v-html="markdownDescription"
         )
         reaction(
@@ -75,73 +75,70 @@
                   data-method="delete"
                 )
                   | 削除する
-            ul.card-footer-actions__items(v-show="displayedUpdateMessage")
-              | 質問を更新しました
-      .thread-question-for(v-show="editing")
-        form(name="question")
+            .card-footer__notice(v-show="displayedUpdateMessage")
+              p
+                | 質問を更新しました
+      .thread-form(v-show="editing")
+        form.form(name="question")
           .form__items
             .form-item
-              .form-item
-                .row
-                  .col-lg-6.col-xs-12
-                    .form-item
-                      | プラクティス
-                      .select-practices(v-if="practices === null")
-                        .empty
-                          .fas.fa-spinner.fa-pulse
-                          | ロード中
-                      .select-practices(v-else)
-                        select(v-model="edited.practiceId")
-                          option(
-                            v-for="practice in practices",
-                            :key="practice.id",
-                            :value="practice.id"
-                          ) {{ practice.categoryAndPracticeName }}
-              .form-item
-                .row.js-markdown-parent
-                  .col-md-6.col-xs-12
-                    .a-label
-                      | タイトル
-                    input(v-model="edited.title", name="question[title]")
-              .form-item
-                .thread-question-form__tabs.js-tabs
-                  .thread-question-form__tab.js-tabs__tab(
-                    :class="{ 'is-active': isActive('question') }",
-                    @click="changeActiveTab('question')"
+              label.a-label
+                | プラクティス
+              .select-practices(v-if="practices === null")
+                .empty
+                  .fas.fa-spinner.fa-pulse
+                  | ロード中
+              .select-practices(v-else)
+                select.js-select2(v-model="edited.practiceId")
+                  option(
+                    v-for="practice in practices",
+                    :key="practice.id",
+                    :value="practice.id"
+                  ) {{ practice.categoryAndPracticeName }}
+            .form-item
+              .a-label
+                | タイトル
+              input.a-text-input.js-warning-form(v-model="edited.title", name="question[title]")
+            .form-tabs-item
+              .form-tabs.js-tabs
+                .form-tabs__tab.js-tabs__tab(
+                  :class="{ 'is-active': isActive('question') }",
+                  @click="changeActiveTab('question')"
+                )
+                  | 質問文
+                .form-tabs__tab.js-tabs__tab(
+                  :class="{ 'is-active': isActive('preview') }",
+                  @click="changeActiveTab('preview')"
+                )
+                  | プレビュー
+              .form-tabs-item__markdown-parent.js-markdown-parent
+                .form-tabs-item__markdown.js-tabs__content(
+                  :class="{ 'is-active': isActive('question') }"
+                )
+                  textarea#js-question-content.a-text-input.js-warning-form.form-tabs-item__textarea(
+                    v-model="edited.description",
+                    data-preview="#js-question-preview",
+                    name="question[description]"
                   )
-                    | コメント
-                  .thread-question-form__tab.js-tabs__tab(
-                    :class="{ 'is-active': isActive('preview') }",
-                    @click="changeActiveTab('preview')"
-                  )
-                    | プレビュー
-                .thread-question-form__markdown-parent.js-markdown-parent
-                  .thread-question-form__markdown.js-tabs__content(
-                    :class="{ 'is-active': isActive('question') }"
-                  )
-                    textarea#js-question-content.a-text-input.js-warning-form.thread-question-form__textarea(
-                      v-model="edited.description",
-                      data-preview="#js-question-preview",
-                      name="question[description]"
-                    )
-                  .thread-question-form__markdown.js-tabs__content(
-                    :class="{ 'is-active': isActive('preview') }"
-                  )
-                    #js-question-preview.js-preview.is-long-text.thread-question-form__preview
-              ul.thread-question-form__actions
-                li.thread-question-form__action
-                  button.a-button.is-md.is-warning.is-block(
-                    @click="updateQuestion",
-                    :disabled="!validation",
-                    type="button"
-                  )
-                    | 更新する
-                li.thread-question-form__action
-                  button.a-button.is-md.is-secondary.is-block(
-                    @click="cancel",
-                    type="button"
-                  )
-                    | キャンセル
+                .form-tabs-item__markdown.js-tabs__content(
+                  :class="{ 'is-active': isActive('preview') }"
+                )
+                  #js-question-preview.js-preview.is-long-text.form-tabs-item__preview
+
+          ul.thread-form__actions
+            li.thread-form__action
+              button.a-button.is-md.is-warning.is-block(
+                @click="updateQuestion",
+                :disabled="!validation",
+                type="button"
+              )
+                | 更新する
+            li.thread-form__action
+              button.a-button.is-md.is-secondary.is-block(
+                @click="cancel",
+                type="button"
+              )
+                | キャンセル
 </template>
 <script>
 import Reaction from './reaction.vue'
@@ -218,6 +215,9 @@ export default {
       this.editing = true
       this.$nextTick(() => {
         $(`.question-id-${this.question.id}`).trigger('input')
+      })
+      $('.js-select2').select2({
+        closeOnSelect: true
       })
     },
     finishEditing(hasUpdatedQuestion) {
