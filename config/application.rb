@@ -23,13 +23,6 @@ module Bootcamp
 
      config.paths.add "lib", eager_load: true
 
-     config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
-       allow do
-         origins "*"
-         resource "*", headers: :any, methods: [:get, :post, :patch, :delete, :option]
-       end
-     end
-
      config.action_view.field_error_proc = Proc.new do |html_tag, instance|
        html_tag.html_safe
      end
