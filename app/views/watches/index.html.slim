@@ -6,25 +6,9 @@ header.page-header
         = title
 
 .page-body
-    = paginate @watches, position: 'top'
-- @watches.each do |watch|
   .container
+    = paginate @watches
     .thread-list.a-card
-      - document = matched_document(watch)
-      .thread-list-item(class="is-#{document.class.to_s.tableize.singularize}")
-        .thread-list-item__inner
-          .thread-list-item__label
-            = t("activerecord.models.#{document.class.to_s.tableize.singularize}")
-          header.thread-list-item__header
-            .thread-list-item__title
-              = link_to document.title, watch, class: 'thread-list-item__title-link'
-          .thread-list-item__body
-            .thread-list-item__summury
-              = md_summury(watch.body, 90)
-              .thread-list-item-meta
-                .thread-list-item-meta__user
-                  = link_to watch.user.login_name, watch.user, class: 'thread-header__author'
-                  time.thread-list-item-meta__updated-at
-                    = l watch.time
-                    - if watch.class.name
-                      = 'の日報'
+      - @watches.each do |watch|
+        = render 'watch', watch: watch, document: matched_document(watch)
+    = paginate @watches
