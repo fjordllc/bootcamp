@@ -30,10 +30,12 @@
                 data-preview="#new-comment-preview")
             .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('preview')}")
               #new-comment-preview.is-long-text.thread-comment-form__preview
-          .thread-comment-form__actions
-            .thread-comment-form__action
-              button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createAnswer" :disabled="!validation || buttonDisabled")
-                | コメントする
+          .card-footer
+            .card-main-actions
+              .card-main-actions__items
+                .card-main-actions__item
+                  button#js-shortcut-post-comment.a-button.is-md.is-warning.is-block(@click="createAnswer" :disabled="!validation || buttonDisabled")
+                    | コメントする
 </template>
 <script>
 import Answer from "./answer.vue";

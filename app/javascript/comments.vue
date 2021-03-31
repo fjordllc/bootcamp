@@ -35,15 +35,18 @@
             .thread-comment-form__markdown.js-tabs__content(
               :class="{'is-active': isActive('preview')}")
               #new-comment-preview.is-long-text.thread-comment-form__preview
-          .thread-comment-form__actions
-            .thread-comment-form__action
-              button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(
-                @click="createComment"
-                :disabled="!validation || buttonDisabled")
-                | コメントする
-            .thread-comment-form__action(v-if="(currentUser.role == 'admin' || currentUser.role == 'adviser') && commentType && !checkId")
-              button.a-button.is-lg.is-success.is-block(@click="commentAndCheck" :disabled="!validation || buttonDisabled")
-                | 確認OKにする
+          .card-footer
+            .card-main-actions
+              .card-main-actions__items
+                .card-main-actions__item
+                  button#js-shortcut-post-comment.a-button.is-md.is-primary.is-block(
+                    @click="createComment"
+                    :disabled="!validation || buttonDisabled")
+                    | コメントする
+                .card-main-actions__item(v-if="(currentUser.role == 'admin' || currentUser.role == 'adviser') && commentType && !checkId")
+                  button.a-button.is-md.is-danger.is-block(@click="commentAndCheck" :disabled="!validation || buttonDisabled")
+                    i.fas.fa-check
+                    | 確認OKにする
 </template>
 <script>
 import Comment from './comment.vue'
