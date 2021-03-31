@@ -17,9 +17,9 @@ header.page-header
 
 .page-body
   - if current_user == @user
-    .page-notice
+    .a-page-notice.page-notice
       .container
-        .page-notice__inner
+        .a-page-notice__inner
           p
             | このページは他のユーザーから見た、あなたのプロフィールページです。
             | （ #{ link_to '登録情報変更', edit_current_user_path } ）
