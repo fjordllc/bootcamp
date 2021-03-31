@@ -45,12 +45,12 @@
           = render 'users/tags', user: user
       = render 'users/practices/completed_practices_progress', user: user
       footer.card-footer
-        .card-footer-actions
-          ul.card-footer-actions__items
+        .card-main-actions
+          ul.card-main-actions__items
             - if current_user != user
-              li.card-footer-actions__item
+              li.card-main-actions__item
                 .js-following(data-is-following="#{current_user.following?(user)}" data-user-id="#{user.id}")
             - if current_user.admin?
-              li.card-footer-actions__item
-                = link_to edit_admin_user_path(user), class: 'card-footer-actions__action a-button is-sm is-secondary is-block' do
+              li.card-main-actions__item
+                = link_to edit_admin_user_path(user), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
                   | 管理者として変更

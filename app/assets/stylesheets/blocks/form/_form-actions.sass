@@ -24,6 +24,9 @@
 .form-actions__item
   +padding(horizontal, .375rem)
   +position(relative)
+  &.is-sub
+    +media-breakpoint-up(md)
+      flex: 0 0 auto
   &.is-help
     +media-breakpoint-down(sm)
       margin-bottom: 1.5rem
@@ -31,7 +34,7 @@
     +media-breakpoint-up(md)
       min-width: 14rem
       &:first-child:last-child
-        min-width: 18rem
+        min-width: 14rem
     +media-breakpoint-down(sm)
       width: 100%
   +media-breakpoint-down(sm)
@@ -42,6 +45,7 @@
       margin-top: .75rem
     > *
       width: 100%
+
 
 .form-actions__item-help
   +text-block(.75rem 1, center)
