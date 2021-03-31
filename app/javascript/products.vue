@@ -107,7 +107,7 @@ export default {
   },
   created () {
     window.onpopstate = function(){
-      location.href = location.href
+      location.replace(location.href);
     }
     this.currentPage = Number(this.getPageValueFromParameter()) || 1
     this.getProductsPerPage()

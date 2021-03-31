@@ -97,7 +97,7 @@ export default {
     const commentAnchor = location.hash;
     if(commentAnchor) {
       this.$nextTick( () => {
-        location.href = location.href;
+        location.replace(location.href);
       })
     }
   },
