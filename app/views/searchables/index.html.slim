@@ -8,7 +8,7 @@ header.page-header
 
 .page-body
   .container
-    = paginate @searchables, position: 'top'
+    = paginate @searchables
     - if @searchables.size.positive?
       .thread-list.a-card
         = render partial: 'searchables/searchable', collection: @searchables, as: :searchable, locals: { words: '' }
@@ -18,4 +18,4 @@ header.page-header
           i.far.fa-sad-tear
         p.o-empty-massage__text
           | '#{params[:word]}'に一致する情報は見つかりませんでした。
-    = paginate @searchables, position: 'bottom'
+    = paginate @searchables

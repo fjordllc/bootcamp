@@ -14,7 +14,7 @@ header.page-header
 
 .page-body
   .container
-    = paginate @comments, position: 'top'
+    = paginate @comments
     .thread-list.a-card
       = render 'comments', comments: @comments
-    = paginate @comments, position: 'bottom'
+    = paginate @comments

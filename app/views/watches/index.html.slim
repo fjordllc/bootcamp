@@ -7,8 +7,15 @@ header.page-header
 
 .page-body
   .container
-    = paginate @watches
-    .thread-list.a-card
-      - @watches.each do |watch|
-        = render 'watch', watch: watch, document: matched_document(watch)
-    = paginate @watches
+    - if @watches.present?
+      = paginate @watches
+      .thread-list.a-card
+        - @watches.each do |watch|
+          = render 'watch', watch: watch, document: matched_document(watch)
+      = paginate @watches
+    - else
+      .o-empty-massage
+        .o-empty-massage__icon
+          i.far.fa-sad-tear
+        p.o-empty-massage__text
+          | Watch中のコンテンツはありません

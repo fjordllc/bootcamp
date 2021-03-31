@@ -13,8 +13,8 @@ header.page-header
               | お知らせ作成
 
 .page-body
-  = paginate @announcements, position: 'top'
   .container
+    = paginate @announcements
     .thread-list.a-card
       = render partial: 'announcements', collection: @announcements, as: :announcement
-= paginate @announcements, position: 'bottom'
+    = paginate @announcements
