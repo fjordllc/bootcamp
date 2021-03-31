@@ -41,8 +41,12 @@ header.page-header
                   = render 'users/metas', user: @user
               .user-data__description
                 = simple_format h @user.description
-              .user-data__tags
-                = render 'users/tags', user: @user
+              - if current_user == @user || current_user.mentor?  
+                #js-editing-user-tags(
+                  data-tags-initial-value="#{@user.tag_list.join(',')}"
+                  data-tags-param-name='user[tag_list]'
+                  data-user-id="#{@user.id}"
+                )
 
             footer.card-footer
               .card-footer-actions
