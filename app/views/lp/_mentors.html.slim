@@ -20,8 +20,11 @@
                                    github_id: 'JunichiIto',
                                    blog_url: 'https://blog.jnito.com/',
                                    twitter_id: 'jnchito',
-                                   facebook_id: 'junichi.ito.717' do
-          = image_tag('mentors/cherry-book.jpg', class: 'has-2-books', alt: 'プロを目指す人のためのRuby入門、Everyday Rails - RSpecによるRailsテスト入門の表紙画像')
+                                   facebook_id: 'junichi.ito.717',
+                                   books: { 'cherry-bon': { 'name': 'プロを目指す人のためのRuby入門 言語仕様からテスト駆動開発・デバッグ技法まで',
+                                                            'url': 'https://gihyo.jp/book/2017/978-4-7741-9397-7' },
+                                            'everyday-rails': { 'name': 'Everyday Rails - RSpecによるRailsテスト入門 テスト駆動開発の習得に向けた実践的アプローチ',
+                                                                'url': 'https://leanpub.com/everydayrailsrspec-jp/' } } do
           p
             | #{link_to '株式会社ソニックガーデン', 'https://www.sonicgarden.jp/'}。
             | 2017年11月に『#{link_to 'プロを目指す人のためのRuby入門', 'https://gihyo.jp/book/2017/978-4-7741-9397-7'}』を出版。
@@ -48,8 +51,17 @@
                                    github_id: 'igaiga',
                                    blog_url: 'https://igarashikuniaki.net/diary/',
                                    twitter_id: 'igaiga555',
-                                   facebook_id: 'kuniaki.igarashi' do
-          = image_tag('mentors/chou-nyuumon.jpg', class: 'has-3-books', alt: 'ゼロからわかる Ruby超入門、パーフェクトRuby on Rail、RubyとRailsの学習ガイドの表紙画像')
+                                   facebook_id: 'kuniaki.igarashi',
+                                   books: { 'cho-nyumon': { 'name': 'ゼロからわかる Ruby 超入門',
+                                                            'url': 'https://gihyo.jp/book/2018/978-4-297-10123-7' },
+                                            'rails-no-kyoukasho': { 'name': 'Railsの教科書',
+                                                                    'url': 'https://tatsu-zine.com/books/rails-textbook' },
+                                            'pa-rails2': { 'name': 'パーフェクトRuby on Rails 【増補改訂版】',
+                                                           'url': 'https://gihyo.jp/book/2020/978-4-297-11462-6' },
+                                            'pa-rails': { 'name': 'パーフェクトRuby on Rails',
+                                                          'url': 'https://gihyo.jp/book/2014/978-4-7741-6516-5' },
+                                            'gakushu-guide': { 'name': 'RubyとRailsの学習ガイド',
+                                                               'url': 'https://booth.pm/ja/items/1312664' } } do
           p
             | 2003年、Rubyで書かれたWeb日記アプリ#{link_to 'tDiary', 'https://tdiary.org/'}を使い始めてRubyistになる。
             | 一橋大学の非常勤講師として2012年から2年間、RubyとRailsを教える。
@@ -90,8 +102,10 @@
                                    image: 'odai.jpg',
                                    github_id: 'u1tnk',
                                    twitter_id: 'odailly_jp',
-                                   facebook_id: 'suguru.odai' do
-          = image_tag('mentors/genba-rails-book.jpg', class: 'has-a-book', alt: '現場で使える Ruby on Rails 5速習実践ガイドの表紙画像')
+                                   facebook_id: 'suguru.odai',
+                                   books: { 'genba-rails': { 'name': '現場で使える Ruby on Rails 5速習実践ガイド',
+                                                              'url': 'https://book.mynavi.jp/ec/products/detail/id=93905' } } do
+
           p
             | #{link_to '株式会社万葉', 'https://everyleaf.com/'}に所属し、Railsなどを使ったWebアプリケーションの受託開発を行っている。
             | 過去にはフィヨルドブートキャンプの前身である256インターンに参加しており、#{link_to '怖話', 'https://kowabana.jp/'}の開発にも関わっていた。
@@ -114,8 +128,19 @@
                                    github_id: 'kakutani',
                                    blog_url: 'https://kakutani.com/',
                                    twitter_id: 'kakutani',
-                                   facebook_id: 'kakutani' do
-          = image_tag('mentors/clearn-agile-book.jpg', class: 'has-4-books', alt: 'Clean Agile、なるほどUnixプロセス、Rubyのしくみ、アジャイルサムライの表紙画像')
+                                   facebook_id: 'kakutani',
+                                   books: { 'competing-with-unicorns': { 'name': 'ユニコーン企業のひみつ',
+                                                                'url': 'https://www.oreilly.co.jp/books/9784873119465/' },
+                                            'clearn-agile': { 'name': 'Clean Agile',
+                                                               'url': 'https://tatsu-zine.com/books/clean-agile' },
+                                            'ruby-no-shikumi': { 'name': 'Rubyのしくみ Ruby Under a Microscope',
+                                                                  'url': 'https://www.ohmsha.co.jp/book/9784274050657/' },
+                                            'naruhodo-unix': { 'name': 'なるほどUnixプロセス',
+                                                                'url': 'https://tatsu-zine.com/books/naruhounix' },
+                                            'agile-samurai': { 'name': 'アジャイルサムライ――達人開発者への道',
+                                                                'url': 'https://www.ohmsha.co.jp/book/9784274068560/' },
+                                            'agile-na': { 'name': 'アジャイルな見積りと計画づくり ~価値あるソフトウェアを育てる概念と技法~',
+                                                           'url': 'https://book.mynavi.jp/ec/products/detail/id=22141' } } do
           p
             | 個人事業主。#{link_to '一般社団法人日本Rubyの会', 'https://ruby-no-kai.org'}理事。
             | #{link_to '株式会社永和システムマネジメント', 'https://www.esm.co.jp'}フェロー。
@@ -123,7 +148,8 @@
             | #{link_to 'Asakusa.rb', 'http://asakusa.rubyist.net'}メンバー。
             | 好きなメソッドはObject#extend。
             | フィヨルドブートキャンプの前身である256インターンのきっかけをつくったと主張している。
-            | 主な訳書に#{link_to '『Clean Agile』', 'https://tatsu-zine.com/books/clean-agile'}、
+            | 主な訳書に#{link_to '『ユニコーン企業のひみつ』', 'https://www.oreilly.co.jp/books/9784873119465/'}、
+            | #{link_to '『Clean Agile』', 'https://tatsu-zine.com/books/clean-agile'}
             | #{link_to '『なるほどUnixプロセス』', 'https://tatsu-zine.com/books/naruhounix'}、
             | #{link_to '『Rubyのしくみ』', 'https://tatsu-zine.com/books/ruby-under-a-microscope-ja'}、
             | #{link_to '『アジャイルサムライ』', 'https://tatsu-zine.com/books/agile-samurai-ja'}、
@@ -144,6 +170,61 @@
             | #{link_to 'Tokyu Ruby Kaigi', 'https://tokyurubykaigi.github.io/tokyu13/'}実行委員。
             | #{link_to 'Shinjuku.rb', 'https://shinjukurb.connpass.com/'}管理者。
             | 好きなメソッドはObject#object_idです。
+
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'welcome/mentor', name: '岡嵜 雄平',
+                                   job: 'プログラマー',
+                                   image: 'yuuu.png',
+                                   github_id: 'yuuu',
+                                   blog_url: 'https://portfolio.y-uuu.net/',
+                                   twitter_id: 'Y_uuu' do
+          p
+            | #{link_to '株式会社Fusic', 'https://fusic.co.jp/'}所属。
+            | 福岡でIoTクラウドエンジニアとして、RailsやAWSを活用したIoTシステムやサービスの開発を担当しています。
+            | #{link_to 'Fukuoka.rb', 'https://fukuokarb.connpass.com/'}に定期参加しています。
+            | 過去には#{link_to 'Rails Girls Fukuoka 2nd', 'http://railsgirls.com/fukuoka.html'}のコーチや
+            | #{link_to 'RubyKaigi 2019', 'https://rubykaigi.org/2019/'}のローカルオーガナイザーもしていました。
+
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'welcome/mentor', name: '吉次 孝太',
+                                   job: 'プログラマー',
+                                   image: 'yoshitsugu.jpg',
+                                   github_id: 'yoshitsugu',
+                                   blog_url: 'https://yoshitsugu.net/',
+                                   twitter_id: '_yoshitsugu' do
+          p
+            | #{link_to 'しくみ製作所株式会社', 'https://sikmi.com/'}所属。
+            | 最近はRuby on RailsやVue.js/Nuxt.jsを使った自社サービス開発に携わっている。
+            | また、プログラミングスクール卒の社員のメンターも担当している。
+            | 技術自体ももちろんのこと、より効率よく継続的に学習ができるための方法論にも興味あり。
+            | 好きなメソッドはString#each_grapheme_clusterです。
+
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '深井 海斗',
+                                   job: 'プログラマー',
+                                   image: 'kaito.jpg',
+                                   github_id: 'kfukai23',
+                                   twitter_id: 'kfukai23' do
+          p
+            | #{link_to '株式会社万葉', 'https://everyleaf.com/'}所属のプログラマーです。
+            | 新卒でメーカー営業職に6年ほど従事した後、
+            | 一念発起して未経験からプログラマーにキャリアチェンジしました。
+            | プログラマーを目指す人の力になりたいです。
+            | #{link_to '平成.rb', 'https://heiseirb.connpass.com/'}の運営に携わっていたことがあります。
+            | 好きなRubyのメソッドはEnumerable#all?です。
+
+      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+        = render 'lp/welcome/mentor', name: '梅本 祥平',
+                                   job: 'プログラマー',
+                                   image: 'cafedomancer.jpg',
+                                   github_id: 'cafedomancer',
+                                   blog_url: 'https://cafedomancer.com/',
+                                   twitter_id: 'cafedomancer',
+                                   facebook_id: 'cafedomancer' do
+          p
+            | #{link_to '株式会社えにしテック', 'https://www.enishi-tech.com/'}のプログラマー。
+            | 普段は Rails を中心とした技術支援を業務として行っている。
+            | フィヨルドブートキャンプでは受講生の方とのペアプロやモブプロを主に担当。
 
       .l-grids__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '町田 哲平',

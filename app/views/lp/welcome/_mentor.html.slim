@@ -1,3 +1,6 @@
+- if defined?(books)
+  - books
+
 section.m-medias-media
   .m-medias-media__col
     .m-media-attributes
@@ -39,5 +42,22 @@ section.m-medias-media
                     i.fbc-icon-qiita
   .m-medias-media__col
     .m-media-attributes__body
+      - if defined?(books)
+        - if books.count <= 2
+          .m-overlapped-books(class="is-#{books.count}books")
+            ul.m-overlapped-books__items
+              - books.each do | id, book |
+                li.m-overlapped-books__item
+                  = link_to book[:url], class: 'm-overlapped-books__item-link', target: '_blank', rel: 'noopener' do
+                    = image_tag("books/#{id}.jpg", class: 'm-overlapped-books__item-image', alt: book[:name])
       .a-long-text.is-sm
         = yield
+  .m-medias-media__col
+    - if defined?(books)
+      - if books.count >= 3
+        .m-inline-books
+          ul.m-inline-books__items
+            - books.each do | id, book |
+              li.m-inline-books__item
+                = link_to book[:url], class: 'm-inline-books__item-link', target: '_blank', rel: 'noopener' do
+                  = image_tag("books/#{id}.jpg", class: 'm-inline-books__item-image', alt: book[:name])

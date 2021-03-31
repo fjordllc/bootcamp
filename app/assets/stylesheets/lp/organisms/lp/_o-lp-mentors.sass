@@ -2,7 +2,7 @@
   margin-bottom: calc(#{vr(5)} * -1)
   .m-medias-media
     border: solid 1px $border
-    padding: vr(6) vr(7)
+    padding: vr(7) vr(8)
     height: 100%
     border-radius: vr(1)
     background-color: $base
@@ -21,10 +21,25 @@
       object-fit: cover
       border: solid 1px #eee
   .m-media-attributes__body
-    margin-top: vr(4)
-  .a-long-text
-    img
-      float: right
-      width: 100px
-      margin-bottom: vr(4)
-      margin-left: 2em
+    margin-top: vr(5)
+
+  .m-inline-books
+    margin-top: vr(5)
+  .m-inline-books__items
+    +flex-grid(vr(3), wrap, flex-start)
+    align-items: flex-end
+  .m-inline-books__item
+    flex: 0 0 25%
+
+.m-media-attributes__body
+  .m-overlapped-books
+    float: right
+    margin-bottom: vr(3)
+    margin-left: vr(3)
+    width: 30%
+  .m-overlapped-books__items
+    position: relative
+  .m-overlapped-books__item
+    width: 80%
+    &:nth-child(2)
+      +position(relative, left 30%, top -50px)
