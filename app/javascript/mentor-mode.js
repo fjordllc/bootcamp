@@ -5,15 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!checkboxMentorMode) return
   if (localStorage.getItem('mentor-mode')) {
     checkboxMentorMode.checked = false
-    jsMentorModeClass?.classList.add('is-only-mentor')
+    if (jsMentorModeClass !== null) {
+      jsMentorModeClass.classList.add('is-only-mentor')
+    }
   }
   checkboxMentorMode.addEventListener('click', () => {
     if (checkboxMentorMode.checked) {
       localStorage.removeItem('mentor-mode')
-      jsMentorModeClass?.classList.remove('is-only-mentor')
+      if (jsMentorModeClass !== null) {
+        jsMentorModeClass.classList.remove('is-only-mentor')
+      }
     } else {
       localStorage.setItem('mentor-mode', 'off')
-      jsMentorModeClass?.classList.add('is-only-mentor')
+      if (jsMentorModeClass !== null) {
+        jsMentorModeClass.classList.add('is-only-mentor')
+      }
     }
   })
 })
