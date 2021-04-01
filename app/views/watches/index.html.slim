@@ -12,19 +12,19 @@ header.page-header
     .thread-list.a-card
       - document = matched_document(watch.watchable)
       .thread-list-item(class="is-#{document.class.to_s.tableize.singularize}")
-       .thread-list-item__inner
-        .thread-list-item__label
-          = t("activerecord.models.#{document.class.to_s.tableize.singularize}")
-        header.thread-list-item__header
-          .thread-list-item__title
-            = link_to document.title, watch.watchable, class: 'thread-list-item__title-link'
-        .thread-list-item__body
-          .thread-list-item__summury
-            = md_summury(filter_product(watch), 90)
-            .thread-list-item-meta
-             .thread-list-item-meta__user
-               = link_to watch.watchable.user.login_name, watch.watchable.user, class: 'thread-header__author'
-               time.thread-list-item-meta__updated-at
-                = l display_date(watch)
-                - if watch.watchable_type == 'Report'
-                  = 'の日報'
+        .thread-list-item__inner
+          .thread-list-item__label
+            = t("activerecord.models.#{document.class.to_s.tableize.singularize}")
+          header.thread-list-item__header
+            .thread-list-item__title
+              = link_to document.title, watch.watchable, class: 'thread-list-item__title-link'
+          .thread-list-item__body
+            .thread-list-item__summury
+              = md_summury(filter_product(watch), 90)
+              .thread-list-item-meta
+                .thread-list-item-meta__user
+                  = link_to watch.watchable.user.login_name, watch.watchable.user, class: 'thread-header__author'
+                  time.thread-list-item-meta__updated-at
+                    = l display_date(watch)
+                    - if watch.watchable_type == 'Report'
+                    = 'の日報'
