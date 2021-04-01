@@ -9,5 +9,8 @@
     "FileReader": true,
     "Event": true,
     "FormData": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020
   }
 }
