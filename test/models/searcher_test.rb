@@ -6,13 +6,13 @@ class SearchableTest < ActiveSupport::TestCase
   SEARCHABLE_CLASSES = [Report, Page, Practice, Question, Announcement, Comment, Answer, CorrectAnswer].freeze
 
   def assert_includes_classes(results, *expected_classes)
-    actual_classes = results.map(&:class).uniq
+    actual_classes = results.map(&:class).map(&:name).uniq
     expected_classes.each do |klass|
-      assert_includes actual_classes, klass
+      assert_includes actual_classes, klass.name
     end
     not_expected_classes = SEARCHABLE_CLASSES - expected_classes
     not_expected_classes.each do |klass|
-      assert_not_includes actual_classes, klass
+      assert_not_includes actual_classes, klass.name
     end
   end
 
