@@ -3,7 +3,12 @@
   userIcon(:user="question.user", threadClassSuffix="")
   .thread__inner.a-card
     header.thread-header
-      .thread-header__upper-side
+      a.a-count-badge(href='#comments')
+        .a-count-badge__label
+          | 回答
+        .a-count-badge__value(:class="answerCount === 0 ? 'is-zero' : ''")
+          | {{ answerCount }}
+      .thread-header__row
         a.thread-header__author(:href="`/users/${question.user.id}`")
           | {{ question.user.login_name }}
         .thread-header__date
@@ -12,9 +17,10 @@
             pubdate="pubdate"
           )
             | {{ updatedAt }}
-      .thread-practice
-        a.thread-practice__link(:href="`/practices/${practiceId}`")
-          | {{ practiceTitle }}
+      .thread-header__row
+        .thread-practice
+          a.thread-practice__link(:href="`/practices/${practiceId}`")
+            | {{ practiceTitle }}
       h1.thread-header__title
         span.thread-header__title-icon.is-solved.is-success(
           v-if="question.correct_answer !== null"
@@ -23,11 +29,6 @@
         span.thread-header__title-icon.is-solved.is-danger(v-else)
           | 未解決
         | {{ title }}
-        .thread-list-item-meta__comment-count(v-if="answerCount !== 0")
-          .thread-list-item-meta__comment-count-label
-            i.fas.fa-comment
-          .thread-list-item-meta__comment-count-value
-            | {{ answerCount }}
       .thread-header__lower-side
         watch(:watchableId="question.id", watchableType="Question")
         .thread-header__raw

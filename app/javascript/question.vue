@@ -12,6 +12,7 @@
       :answerCount="answerCount",
       :currentUser="currentUser"
     )
+    a.a-anchor#comments
     answers(
       :questionId="questionId",
       :questionUser="question.user",
