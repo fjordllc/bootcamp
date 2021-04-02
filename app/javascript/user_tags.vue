@@ -30,7 +30,6 @@ export default {
           tag_list: tagsValue
         }
       }
-      
       return fetch(`/api/users/${this.userId}`, {
         method: 'PUT',
         headers: {
