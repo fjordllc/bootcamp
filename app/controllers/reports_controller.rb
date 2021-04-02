@@ -48,9 +48,17 @@ class ReportsController < ApplicationController
     @report.user = current_user
     set_wip
     canonicalize_learning_times(@report)
-    check_noticeable
+    # @report.save 後、
+    # 正確には `after_save` の
+    # `report.update!(published_at: report.published_at)` 後だと、
+    # 正しい値が取得できないので @repot.save 前に実行して、
+    # 値を保存しておく
+    first_public = @report.first_public?
     if @report.save
-      notify_to_slack(@report) if @noticeable
+      # notify_to_slack は report_url(report) を利用しているため、
+      # modelのcallback(model/report_callbacks)へ簡単に移動できない
+      # 移動できれば `first_public = @report.first_public?` は必要ない
+      notify_to_slack(@report) if first_public
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :new
@@ -59,12 +67,13 @@ class ReportsController < ApplicationController
 
   def update
     set_wip
+    @report.practice_ids = nil if params[:report][:practice_ids].nil?
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
-    check_noticeable
-
+    # createと同様
+    first_public = @report.first_public?
     if @report.save
-      notify_to_slack(@report) if @noticeable
+      notify_to_slack(@report) if first_public
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :edit
@@ -155,13 +164,6 @@ class ReportsController < ApplicationController
 
   def set_wip
     @report.wip = params[:commit] == 'WIP'
-  end
-
-  def check_noticeable
-    return unless @report.published_at.nil? && @report.wip == false
-
-    @report.published_at = Date.current
-    @noticeable = true
   end
 
   def redirect_url(report)

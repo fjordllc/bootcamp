@@ -19,16 +19,22 @@ header.page-header
     .thread
       .thread__inner.a-card
         header.thread-header
-          .thread-header__upper-side
+          = link_to '#comments', class: 'a-count-badge' do
+            .a-count-badge__label
+              | 回答
+            .a-count-badge__value(class="#{@question.answers.size.zero? ? 'is-zero' : ''}")
+              = @question.answers.size
+          .thread-header__row
             = link_to @question.user, class: 'thread-header__author' do
               = @question.user.login_name
             .thread-header__date
               time.thread-header__date-value(datetime="#{@question.updated_at.to_datetime}" pubdate='pubdate')
                 = l @question.updated_at
-          - if @question.practice.present?
-            .thread-practice
-              = link_to @question.practice, class: 'thread-practice__link' do
-                = @question.practice.title
+          .thread-header__row
+            - if @question.practice.present?
+              .thread-practice
+                = link_to @question.practice, class: 'thread-practice__link' do
+                  = @question.practice.title
           h1.thread-header__title
             - if @question.correct_answer.present?
               span.thread-header__title-icon.is-solved.is-success
@@ -58,7 +64,7 @@ header.page-header
             .card-footer-actions
               ul.card-footer-actions__items
                 li.card-footer-actions__item
-                  = link_to edit_question_path(@question), class: 'card-footer-actions__action a-button is-md is-primary is-block', id: 'js-shortcut-edit' do
+                  = link_to edit_question_path(@question), class: 'card-footer-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
                     i.fas.fa-pen#new
                     | 内容修正
                 li.card-footer-actions__item.is-sub
@@ -70,6 +76,5 @@ header.page-header
         link_class: 'thread__author-link',
         image_class: 'thread__author-icon'
 
-    .thread-comments-container
-
+    a.a-anchor#comments
     #js-answers(data-question-id="#{@question.id}" data-current-user-id="#{current_user.id}" data-question-user-id="#{@question.user.id}")
