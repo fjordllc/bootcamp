@@ -308,11 +308,7 @@ class ProductsTest < ApplicationSystemTestCase
     before_comment = assigned_product_count
 
     visit "/products/#{products(:product1).id}"
-    within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: '担当者がいない提出物の場合、担当者になる')
-    end
-    click_button 'コメントする'
-    wait_for_vuejs
+    post_comment('担当者がいない提出物の場合、担当者になる')
 
     visit products_not_responded_index_path
     assert_equal before_comment + 1, assigned_product_count
@@ -337,11 +333,7 @@ class ProductsTest < ApplicationSystemTestCase
     before_comment = assigned_product_count
 
     visit show_product_path
-    within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: '担当者がいる提出物の場合、担当者にならない')
-    end
-    click_button 'コメントする'
-    wait_for_vuejs
+    post_comment('担当者がいる提出物の場合、担当者にならない')
 
     visit products_not_responded_index_path
     assert_equal before_comment, assigned_product_count
