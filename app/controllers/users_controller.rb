@@ -74,10 +74,6 @@ class UsersController < ApplicationController
     else
       create_user!
     end
-
-    return unless @user.errors.empty?
-
-    @user.resize_avatar!
   end
 
   private
