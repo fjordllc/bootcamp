@@ -428,7 +428,7 @@ class User < ApplicationRecord
 
   def avatar_url
     if avatar.attached?
-      avatar.variant(resize: AVATAR_SIZE).url
+      avatar.variant(resize: AVATAR_SIZE).processed.url
     else
       image_url('/images/users/avatars/default.png')
     end
