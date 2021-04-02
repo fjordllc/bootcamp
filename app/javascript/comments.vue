@@ -119,14 +119,15 @@ export default {
         .then(response => {
           return response.json()
         })
-        .then(json=> {
-          this.comments.push(json);
+        .then(async comment => {
+          this.comments.push(comment);
           this.description = '';
           this.tab = 'comment';
           this.buttonDisabled = false
           this.resizeTextarea()
 
-          if (this.commentableType === 'Product') {
+          if (this.commentableType === 'Product' &&
+              !(await this.isProductAssginedToSelf(Number(this.commentableId)))) {
             this.assignProductToSelf()
           }
         })
@@ -169,6 +170,27 @@ export default {
       const check = document.getElementById("js-shortcut-check")
       this.createComment()
       check.click()
+    },
+    async isProductAssginedToSelf(productId) {
+      return fetch('/api/products/self_assigned', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+      })
+        .then(response => {
+          return response.json()
+        })
+        .then(({ products }) => {
+          return products.some(product => product.id === productId)
+        })
+        .catch(error => {
+          console.warn('Failed to parsing', error)
+        })
     },
     assignProductToSelf() {
       const params = {
