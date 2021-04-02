@@ -16,7 +16,7 @@ class Company < ApplicationRecord
 
   def logo_url
     if logo.attached?
-      logo.variant(resize: LOGO_SIZE).url
+      logo.variant(resize: LOGO_SIZE).processed.url
     else
       image_url('/images/companies/logos/default.png')
     end
