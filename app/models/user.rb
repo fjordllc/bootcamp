@@ -434,12 +434,6 @@ class User < ApplicationRecord
     end
   end
 
-  def resize_avatar!
-    return unless avatar.attached?
-
-    avatar.variant(resize: AVATAR_SIZE).processed
-  end
-
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end
