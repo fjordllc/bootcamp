@@ -21,7 +21,7 @@ class Work < ApplicationRecord
 
   def thumbnail_url
     if thumbnail.attached?
-      thumbnail.variant(resize: THUMBNAIL_SIZE).url
+      thumbnail.variant(resize: THUMBNAIL_SIZE).processed.url
     else
       image_url('/images/works/thumbnails/default.png')
     end
