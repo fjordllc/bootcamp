@@ -11,8 +11,7 @@ header.header
           - if current_user.admin?
             .user-part.is-header.is-only-mentor-flex(class='is-admin') 管理者
 
-        - if current_user.admin?
-          .user-part.is-header(class='is-admin') 管理者
+        - if current_user.mentor? || current_user.adviser?
           .switch.is-hidden-sm-down
             label.switch__label(for='modal-mentor-mode')
               span.switch__label-text
