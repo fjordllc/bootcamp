@@ -1,21 +1,20 @@
 <template lang="pug">
-.is-memo
-  section.a-card(v-if='!editing')
-    header.card-header.is-sm
-      h2.card-header__title
-        | メンター向けユーザーメモ
-    .card-body
-      .js-target-blank.is-long-text(v-html='markdownMemo')
-    footer.card-footer
-      .card-main-actions
-        .card-main-actions__items
-          .card-main-actions__item
-            button.card-footer-actions__action.a-button.is-sm.is-secondary.is-block(
-              @click='editMemo'
-            )
-              i.fas.fa-pen
-              | 編集
-  .thread-comment-form__form.a-card(v-show='editing')
+section.a-card.is-memo.is-only-mentor
+  header.card-header.is-sm(v-if='!editing')
+    h2.card-header__title
+      | メンター向けユーザーメモ
+  .card-body(v-if='!editing')
+    .js-target-blank.is-long-text(v-html='markdownMemo')
+  footer.card-footer(v-if='!editing')
+    .card-main-actions
+      .card-main-actions__items
+        .card-main-actions__item
+          button.card-footer-actions__action.a-button.is-md.is-secondary.is-block(
+            @click='editMemo'
+          )
+            i.fas.fa-pen
+            | 編集
+  .thread-comment-form__form(v-show='editing')
     .thread-comment-form__tabs.js-tabs
       .thread-comment-form__tab.js-tabs__tab(
         :class='{ "is-active": isActive("memo") }',
@@ -57,20 +56,12 @@ import TextareaInitializer from './textarea-initializer'
 import MarkdownInitializer from './markdown-initializer'
 
 export default {
-  props: {
-    userId: { type: String, required: true }
-  },
+  props: ['userId'],
   data: () => {
     return {
       memo: '',
       tab: 'memo',
       editing: false
-    }
-  },
-  computed: {
-    markdownMemo() {
-      const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.memo)
     }
   },
   created() {
@@ -124,9 +115,14 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual',
         body: JSON.stringify(params)
-      }).catch((error) => {
-        console.warn('Failed to parsing', error)
       })
+        .then((response) => {
+          this.editing = false
+          return response
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     },
     cancel() {
       fetch(`/api/users/${this.userId}.json`, {
@@ -150,6 +146,12 @@ export default {
     },
     editMemo() {
       this.editing = true
+    }
+  },
+  computed: {
+    markdownMemo() {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.memo)
     }
   }
 }
