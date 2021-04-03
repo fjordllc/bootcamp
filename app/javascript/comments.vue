@@ -142,17 +142,14 @@ export default {
         .then((response) => {
           return response.json()
         })
-        .then(async (comment) => {
+        .then((comment) => {
           this.comments.push(comment)
           this.description = ''
           this.tab = 'comment'
           this.buttonDisabled = false
           this.resizeTextarea()
 
-          if (
-            this.commentableType === 'Product' &&
-            !(await this.isProductAssginedToSelf(Number(this.commentableId)))
-          ) {
+          if (this.commentableType === 'Product') {
             this.assignProductToSelf()
           }
         })
@@ -200,7 +197,7 @@ export default {
       this.createComment()
       check.click()
     },
-    async isProductAssginedToSelf(productId) {
+    async fetchProductsAssginedToSelf() {
       return fetch('/api/products/self_assigned', {
         method: 'GET',
         headers: {
@@ -214,14 +211,15 @@ export default {
         .then((response) => {
           return response.json()
         })
-        .then(({ products }) => {
-          return products.some((product) => product.id === productId)
-        })
         .catch((error) => {
           console.warn('Failed to parsing', error)
+          return null
         })
     },
-    assignProductToSelf() {
+    isProductAssgined(products, productId) {
+      return products.some((product) => product.id === productId)
+    },
+    toggleProductAssignment() {
       const params = {
         product_id: this.commentableId,
         current_user_id: this.currentUserId
@@ -237,6 +235,16 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
+    },
+    async assignProductToSelf() {
+      const response = await this.fetchProductsAssginedToSelf()
+
+      if (
+        response &&
+        !this.isProductAssgined(response.products, Number(this.commentableId))
+      ) {
+        this.toggleProductAssignment()
+      }
     }
   },
   computed: {
