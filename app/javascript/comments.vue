@@ -149,7 +149,8 @@ export default {
           this.buttonDisabled = false
           this.resizeTextarea()
 
-          if (this.commentableType === 'Product') {
+          if (this.commentableType === 'Product' &&
+              this.isProductAssignableUser(this.currentUser.role)) {
             this.assignProductToSelf()
           }
         })
@@ -196,6 +197,9 @@ export default {
       const check = document.getElementById('js-shortcut-check')
       this.createComment()
       check.click()
+    },
+    isProductAssignableUser(userRole) {
+      return /^(admin|mentor)$/.test(userRole)
     },
     async fetchProductsAssginedToSelf() {
       return fetch('/api/products/self_assigned', {
