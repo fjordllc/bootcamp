@@ -9,6 +9,9 @@ header.page-header
   = render 'my_seat_today', my_seat_today: @my_seat_today
 .page-body
   .container
+    - if !Learning.find_by(user_id: current_user)
+      .a-card
+        | ようこそ! welcome message がここに入ります！
     .columns
       .row
         .col-xs-12.col-xl-6.col-xxl-6
