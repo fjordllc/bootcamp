@@ -205,7 +205,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'show weclome message' do
     login_user 'hatsuno', 'testtest'
-    assert_text "ようこそ! welcome message がここに入ります！"
+    assert_text 'ようこそ! welcome message がここに入ります！'
   end
 
   test 'not show weclome message' do
@@ -214,6 +214,6 @@ class UsersTest < ApplicationSystemTestCase
     click_button '着手'
     wait_for_vuejs
     visit '/'
-    assert_no_text "ようこそ! welcome message がここに入ります！"
+    assert_no_text 'ようこそ! welcome message がここに入ります！'
   end
 end
