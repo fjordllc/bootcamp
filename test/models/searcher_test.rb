@@ -13,6 +13,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, Event)
     assert_includes(result, Comment)
     assert_includes(result, Answer)
+    assert_includes(result, User)
   end
 
   test 'returns all types when document_type argument is :all' do
@@ -25,6 +26,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, Event)
     assert_includes(result, Comment)
     assert_includes(result, Answer)
+    assert_includes(result, User)
   end
 
   test 'returns only report type when document_type argument is :reports' do
@@ -37,6 +39,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Event)
     assert_includes(result, Comment)
     assert_not_includes(result, Answer)
+    assert_not_includes(result, User)
   end
 
   test 'returns only page type when document_type argument is :pages' do
@@ -49,6 +52,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Event)
     assert_not_includes(result, Comment)
     assert_not_includes(result, Answer)
+    assert_not_includes(result, User)
   end
 
   test 'returns only practice type when document_type argument is :practices' do
@@ -61,6 +65,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Event)
     assert_not_includes(result, Comment)
     assert_not_includes(result, Answer)
+    assert_not_includes(result, User)
   end
 
   test 'returns only question type when document_type argument is :questions' do
@@ -73,6 +78,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Event)
     assert_not_includes(result, Comment)
     assert_includes(result, Answer)
+    assert_not_includes(result, User)
   end
 
   test 'returns only announcement type when document_type argument is :announcements' do
@@ -95,6 +101,18 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Announcement)
     assert_includes(result, Event)
     assert_includes(result, Comment)
+    assert_not_includes(result, User)
+  end
+
+  test 'returns only user type when document_type argument is :user' do
+    result = Searcher.search('テスト', document_type: :users).map(&:class)
+    assert_not_includes(result, Report)
+    assert_not_includes(result, Page)
+    assert_not_includes(result, Practice)
+    assert_not_includes(result, Question)
+    assert_not_includes(result, Announcement)
+    assert_not_includes(result, Comment)
+    assert_includes(result, User)
   end
 
   test 'sort search results in descending order of updated date' do
@@ -228,5 +246,11 @@ class SearchableTest < ActiveSupport::TestCase
     result = Searcher.search('ユーザーネーム（最終更新者）で検索できるよ user:komagata')
     assert_includes(result, practices(:practice55))
     assert_not_includes(result, practices(:practice56))
+  end
+
+  test 'dont return retired user data' do
+    yameo = users(:yameo)
+    result = Searcher.search(yameo.name)
+    assert_not_includes(result, yameo.name)
   end
 end
