@@ -47,11 +47,18 @@ module LinkChecker
         'PC性能の見方を知る',
         "https://bootcamp.fjord.jp/practices/#{practices(:practice3).id}"
       )
+
+      WebMock.disable_net_connect!
+      stub_link_checker!
+    end
+
+    teardown do
+      WebMock.allow_net_connect!
     end
 
     test '#check' do
       checker = LinkChecker::Checker.new
-      @link_hdd.response = false
+      @link_hdd.response = 404
       @link_not_exist.response = 404
       expected = [@link_hdd, @link_not_exist]
       assert_equal Set.new(expected), Set.new(checker.check)
