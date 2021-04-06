@@ -1,0 +1,3 @@
+json.products_submitted_just_5days_count @products_submitted_just_5days_count
+json.products_submitted_just_6days_count @products_submitted_just_6days_count
+json.products_submitted_over_7days_count @products_submitted_over_7days_count
