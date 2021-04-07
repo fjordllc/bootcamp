@@ -62,7 +62,12 @@ class QuestionsTest < ApplicationSystemTestCase
       click_button '更新する'
     end
 
-    updated_question.each_value { |text| assert_text text }
+    wait_for_vuejs # Vueが実行したREST APIがDBに反映されるのを待つ
+    question.reload
+    updated_question.each do |key, val|
+      assert_equal val, question[key]
+      assert_text val
+    end
     assert_text '質問を更新しました'
   end
 
