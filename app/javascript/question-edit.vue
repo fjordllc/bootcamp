@@ -90,7 +90,10 @@
                   .fas.fa-spinner.fa-pulse
                   | ロード中
               .select-practices(v-else)
-                select.js-select2(v-model="edited.practiceId")
+                select.js-select2(
+                  v-model="edited.practiceId",
+                  name="question[practice]"
+                )
                   option(
                     v-for="practice in practices",
                     :key="practice.id",
