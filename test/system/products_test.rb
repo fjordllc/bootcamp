@@ -316,6 +316,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     before_comment = assigned_product_count
 
+<<<<<<< HEAD
     [
       '担当者がいない提出物の場合、担当者になる',
       '自分が担当者の場合、担当者のまま'
@@ -326,6 +327,13 @@ class ProductsTest < ApplicationSystemTestCase
       visit products_not_responded_index_path
       assert_equal before_comment + 1, assigned_product_count
     end
+=======
+    visit "/products/#{products(:product1).id}"
+    post_comment('担当者がいない提出物の場合、担当者になる')
+
+    visit products_not_responded_index_path
+    assert_equal before_comment + 1, assigned_product_count
+>>>>>>> c926ea9f... コメント投稿するtest helperを作成
   end
 
   test 'be not person on charge at comment on product of there are person on charge' do
