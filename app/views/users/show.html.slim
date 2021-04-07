@@ -8,11 +8,12 @@ header.page-header
         ul.page-header-actions__items
           - if current_user == @user
             li.page-header-actions__item
-              = link_to edit_current_user_path, class: 'a-button is-md is-secondary is-block'
+              = link_to edit_current_user_path, class: 'a-button is-md is-secondary is-block' do
                 i.fas.fa-pen
-          li.page-header-actions__item
-            = link_to 'ユーザー一覧', users_path, class: 'a-button is-md is-secondary is-block is-back'
                 | 登録情報変更
+          li.page-header-actions__item
+            = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
+              | ユーザー一覧
 
 .page-tools
   = render 'users/page_tabs', user: @user
@@ -34,7 +35,7 @@ header.page-header
               .a-card__alert
                 = link_to edit_admin_user_path(anchor: 'external-services') do
                   | 外部サービスの設定を変更してください。
-            .user-data__inner
+            .user-data
               header.user-data__header
                 .user-data__main
                   = render 'users/profile', user: @user

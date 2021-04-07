@@ -30,13 +30,19 @@
   +word-wrap
 
 .user-profile__full-name
-  +text-block(.875rem 1.45 0 .125rem, 400)
+  +text-block(.875rem 1.45 0 .25rem, 400)
 
 .user-profile__kana-full-name
   color: $muted-text
   font-size: .8125em
   margin-left: .5em
 
+.user-profile__names
+  +media-breakpoint-down(sm)
+    .sns-links__items
+      justify-content: center
+    .users-item-names
+      justify-content: center
 
 .user-profile__company-name
   +text-block(.875rem 1.45, 400)

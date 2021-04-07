@@ -21,20 +21,20 @@
         v-bind:questionUser="questionUser",
         v-bind:reactionableId="reactionableId")
       footer.card-footer
-        .card-footer-actions
-          ul.card-footer-actions__items
-            li.card-footer-actions__item(
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item(
               v-if="!hasCorrectAnswer && answer.type != 'CorrectAnswer' && (currentUser.id === questionUser.id || currentUser.role === 'admin')")
-              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="makeToBestAnswer")
+              button.card-main-actions__action.a-button.is-md.is-warning.is-block(@click="makeToBestAnswer")
                 | ベストアンサーにする
-            li.card-footer-actions__item(
+            li.card-main-actions__item(
               v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
               button.card-main-actions__action.a-button.is-md.is-secondary.is-block(@click="editAnswer")
                 i.fas.fa-pen
                 | 内容修正
             li.card-main-actions__item(
               v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer' && (currentUser.id === questionUser.id || currentUser.role === 'admin')")
-              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="cancelBestAnswer")
+              button.card-main-actions__action.a-button.is-md.is-warning.is-block(@click="cancelBestAnswer")
                 | ベストアンサーを取り消す
             li.card-main-actions__item.is-sub(
               v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
