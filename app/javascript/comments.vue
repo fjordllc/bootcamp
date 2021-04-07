@@ -152,9 +152,8 @@ export default {
           if (
             this.commentableType === 'Product' &&
             this.isProductAssignableUser(this.currentUser.role) &&
-            (await this.fetchProductAssignedToSelf(
-              Number(this.commentableId)
-            )) === false
+            (await this.fetchProductAssign(Number(this.commentableId))) ===
+              false
           ) {
             this.toggleProductAssignment()
           }
@@ -206,8 +205,8 @@ export default {
     isProductAssignableUser(userRole) {
       return /^(admin|mentor)$/.test(userRole)
     },
-    async fetchProductsAssginedToSelf(page) {
-      return fetch(`/api/products/self_assigned?page=${page}`, {
+    async fetchUncheckedProducts(page) {
+      return fetch(`/api/products/unchecked?page=${page}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -225,20 +224,20 @@ export default {
           return null
         })
     },
-    async fetchProductAssignedToSelf(productId) {
+    async fetchProductAssign(productId) {
       for (let pageNumber = 1; ; pageNumber++) {
-        const response = await this.fetchProductsAssginedToSelf(pageNumber)
+        const response = await this.fetchUncheckedProducts(pageNumber)
 
         if (response === null) {
           return null
         }
 
-        if (response.products.length === 0) {
-          return false
-        }
+        const product = response.products.find(
+          (product) => product.id === productId
+        )
 
-        if (response.products.some((product) => product.id === productId)) {
-          return true
+        if (product !== undefined) {
+          return product.checker_id !== null
         }
       }
     },
