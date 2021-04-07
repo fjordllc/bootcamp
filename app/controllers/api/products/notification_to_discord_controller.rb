@@ -3,10 +3,10 @@
 class API::Products::NotificationToDiscordController < API::BaseController
   def index
     products = Product
-                .not_responded_products
-                .list
-                .reorder_for_not_responded_products
-                .page(params[:page])
+               .not_responded_products
+               .list
+               .reorder_for_not_responded_products
+               .page(params[:page])
     @products_submitted_just_5days_count = 0
     @products_submitted_just_6days_count = 0
     @products_submitted_over_7days_count = 0
