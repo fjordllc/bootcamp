@@ -142,16 +142,21 @@ export default {
         .then((response) => {
           return response.json()
         })
-        .then((comment) => {
+        .then(async (comment) => {
           this.comments.push(comment)
           this.description = ''
           this.tab = 'comment'
           this.buttonDisabled = false
           this.resizeTextarea()
 
-          if (this.commentableType === 'Product' &&
-              this.isProductAssignableUser(this.currentUser.role)) {
-            this.assignProductToSelf()
+          if (
+            this.commentableType === 'Product' &&
+            this.isProductAssignableUser(this.currentUser.role) &&
+            (await this.fetchProductAssignedToSelf(
+              Number(this.commentableId)
+            )) === false
+          ) {
+            this.toggleProductAssignment()
           }
         })
         .catch((error) => {
@@ -201,8 +206,8 @@ export default {
     isProductAssignableUser(userRole) {
       return /^(admin|mentor)$/.test(userRole)
     },
-    async fetchProductsAssginedToSelf() {
-      return fetch('/api/products/self_assigned', {
+    async fetchProductsAssginedToSelf(page) {
+      return fetch(`/api/products/self_assigned?page=${page}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -220,8 +225,22 @@ export default {
           return null
         })
     },
-    isProductAssgined(products, productId) {
-      return products.some((product) => product.id === productId)
+    async fetchProductAssignedToSelf(productId) {
+      for (let pageNumber = 1; ; pageNumber++) {
+        const response = await this.fetchProductsAssginedToSelf(pageNumber)
+
+        if (response === null) {
+          return null
+        }
+
+        if (response.products.length === 0) {
+          return false
+        }
+
+        if (response.products.some((product) => product.id === productId)) {
+          return true
+        }
+      }
     },
     toggleProductAssignment() {
       const params = {
@@ -239,16 +258,6 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
-    },
-    async assignProductToSelf() {
-      const response = await this.fetchProductsAssginedToSelf()
-
-      if (
-        response &&
-        !this.isProductAssgined(response.products, Number(this.commentableId))
-      ) {
-        this.toggleProductAssignment()
-      }
     }
   },
   computed: {
