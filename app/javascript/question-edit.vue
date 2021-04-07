@@ -56,21 +56,21 @@
           :reactionableId="`Question_${question.id}`"
         )
         footer.card-footer(v-if="editAble")
-          .card-footer-actions
-            ul.card-footer-actions__items
-              li.card-footer-actions__item
-                button.card-footer-actions__action.a-button.is-md.is-secondary.is-block(
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
                   @click="startEditing"
                 )
                   i#new.fas.fa-pen
                   | 内容修正
-              li.card-footer-actions__item.is-sub
+              li.card-main-actions__item.is-sub
                 // - vue.jsでDELETE methodのリンクを作成する方法が、
                 // - 見つからなかったので、
                 // - いい実装方法ではないが、
                 // - Rails特定の属性(data-confirm, data-method)を付与して、
                 // - 確認ダイアログとDELETE methodのリンクを実装する
-                a.js-delete.card-footer-actions__delete(
+                a.js-delete.card-main-actions__delete(
                   :href="`/questions/${question.id}`",
                   data-confirm="本当によろしいですか？",
                   data-method="delete"
@@ -126,20 +126,21 @@
                 )
                   #js-question-preview.js-preview.is-long-text.form-tabs-item__preview
 
-          ul.thread-form__actions
-            li.thread-form__action
-              button.a-button.is-md.is-warning.is-block(
-                @click="updateQuestion",
-                :disabled="!validation",
-                type="button"
-              )
-                | 更新する
-            li.thread-form__action
-              button.a-button.is-md.is-secondary.is-block(
-                @click="cancel",
-                type="button"
-              )
-                | キャンセル
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                button.a-button.is-md.is-warning.is-block(
+                  @click="updateQuestion",
+                  :disabled="!validation",
+                  type="button"
+                )
+                  | 更新する
+              li.card-main-actions__item
+                button.a-button.is-md.is-secondary.is-block(
+                  @click="cancel",
+                  type="button"
+                )
+                  | キャンセル
 </template>
 <script>
 import Reaction from './reaction.vue'
