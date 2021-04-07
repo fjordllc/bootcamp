@@ -3,8 +3,8 @@
 class QuestionsController < ApplicationController
   include Rails.application.routes.url_helpers
   before_action :require_login
-  before_action :set_question, only: %i[show edit update destroy]
-  before_action :set_categories, only: %i[new create edit update]
+  before_action :set_question, only: %i[show destroy]
+  before_action :set_categories, only: %i[new show create]
   before_action :set_watch, only: %i[show]
 
   QuestionsProperty = Struct.new(:title, :empty_message)
@@ -35,8 +35,6 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
-  def edit; end
-
   def create
     @question = Question.new(question_params)
     @question.user = current_user
@@ -45,14 +43,6 @@ class QuestionsController < ApplicationController
       redirect_to @question, notice: '質問を作成しました。'
     else
       render :new
-    end
-  end
-
-  def update
-    if @question.update(question_params)
-      redirect_to @question, notice: '質問を更新しました。'
-    else
-      render :edit
     end
   end
 
