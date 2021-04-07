@@ -131,6 +131,12 @@ class ReportsController < ApplicationController
     @report.wip = params[:commit] == 'WIP'
   end
 
+  def check_noticeable
+    return unless @report.published_at.nil? && @report.wip == false
+
+    @report.published_at = Date.current
+  end
+
   def redirect_url(report)
     report.wip? ? edit_report_url(report) : report
   end
