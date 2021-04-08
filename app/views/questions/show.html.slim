@@ -7,11 +7,11 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to new_question_path, class: 'a-button is-md is-warning is-block' do
+            = link_to new_question_path, class: 'a-button is-md is-secondary is-block' do
               i.fas.fa-plus
               | 質問する
           li.page-header-actions__item
-            = link_to questions_path, class: 'a-button is-md is-secondary is-block' do
+            = link_to questions_path, class: 'a-button is-md is-secondary is-block is-back' do
               | Q&A一覧
 
 #js-question(

@@ -3,11 +3,14 @@
 header.page-header
   .container
     .page-header__inner
-      h1.page-header__title = title
-      .page-header__action
-        = link_to new_admin_category_path, class: 'a-button is-md is-warning is-block' do
-          i.fas.fa-plus
-          | カテゴリー作成
+      h1.page-header__title
+        = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to new_admin_category_path, class: 'a-button is-md is-secondary is-block' do
+              i.fas.fa-plus
+              | カテゴリー作成
 
 = render 'admin/admin_page_tabs'
 
