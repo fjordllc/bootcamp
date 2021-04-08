@@ -129,13 +129,6 @@ class UsersController < ApplicationController
   end
   # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
 
-  def notify_to_slack!
-    SlackNotification.notify "<#{url_for(@user)}|#{@user.name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
-                             username: "#{@user.login_name}@bootcamp.fjord.jp",
-                             icon_url: @user.avatar_url,
-                             channel: '#fjord'
-  end
-
   def notify_to_chat(user)
     ChatNotifier.message "#{user.name}さんが新たなメンバーとしてJOINしました🎉\r#{url_for(user)}"
   end
