@@ -1,14 +1,19 @@
 .page-notice
-  background-color: $info
   .page-body &
     +margin(vertical, -.5rem 1rem)
   .page-tools + &
     margin-top: -1px
+  .page-tabs + &
+    margin-top: 1rem
 
 .page-notice__inner
   +padding(vertical, .5rem)
   p
-    +text-block(.875rem 1.4, $reversal-text center)
+    +text-block(1em 1.4, $reversal-text center)
+    +media-breakpoint-up(md)
+      font-size: .875rem
+    +media-breakpoint-down(sm)
+      font-size: .75rem
   a
     color: $reversal-text
     +hover-link-reversal

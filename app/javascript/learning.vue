@@ -1,15 +1,15 @@
 <template lang="pug">
-  .card-footer-actions
-    ul.card-footer-actions__items
-      li.card-footer-actions__item(v-if="submission")
+  .card-main-actions
+    ul.card-main-actions__items
+      li.card-main-actions__item(v-if="submission")
         a.a-button.is-md.is-primary.is-block.test-product(:href="productLink")
           i.fas.fa-file
           | {{ productLabel }}
-      li.card-footer-actions__item(v-if="complete")
+      li.card-main-actions__item(v-if="complete")
         button.a-button.is-md.is-secondary.is-block.is-disabled.test-completed
           i.fas.fa-check
           | 完了しています
-      li.card-footer-actions__item(v-else)
+      li.card-main-actions__item(v-else)
         button.a-button.is-md.is-warning.is-block#js-complete(@click="pushComplete")
           i.fas.fa-check
           | 完了
