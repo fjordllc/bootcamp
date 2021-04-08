@@ -12,12 +12,17 @@ namespace :bootcamp do
   desc 'Migration on production.'
   task migrate: :environment do
     Rake::Task['db:migrate'].execute
+
+    # staging
+    Rake::Task['db:reset'].execute if ENV['DB_NAME'] == 'bootcamp_staging'
+
+    # production
     Rake::Task['data:migrate'].execute if ENV['DB_NAME'] == 'bootcamp_production'
   end
 
   desc 'DB Reset on staging.'
   task reset: :environment do
-    Rake::Task['db:reset'].execute if ENV['DB_NAME'] != 'bootcamp_production'
+    Rake::Task['db:reset'].execute if ENV['DB_NAME'] == 'bootcamp_staging'
   end
 
   namespace :oneshot do
