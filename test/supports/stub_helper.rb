@@ -61,4 +61,39 @@ module StubHelper
         .to_return(status: 200, body: '')
     end
   end
+
+  def stub_link_checker!
+    stub_request(:get, 'http://example.com/')
+      .to_return(status: 200, body: read_body('example.com.html'))
+
+    stub_request(:get, 'https://fjord.jp/foo')
+      .to_return(status: 404)
+
+    stub_request(:get, 'http://foofoofoo.com/')
+      .to_return(status: false)
+
+    stub_request(:get, 'https://e-words.jp/w/単体テスト.html')
+      .to_return(status: 200, body: read_body('e-words.jp.html'))
+
+    stub_request(:get, 'https://developer.mozilla.org/ja/docs/Web/JavaScript')
+      .to_return(status: 200, body: read_body('developer.mozilla.org.html'))
+
+    stub_request(:get, 'http://example.com/xxxxx')
+      .to_return(status: 404)
+
+    stub_request(:get, 'https://www.pc-master.jp/words/cpu.html')
+      .to_return(status: 200, body: read_body('pc-master.jp.html'))
+
+    stub_request(:get, 'http://homepage2.nifty.com/kamurai/HDD.htm')
+      .to_return(status: 404)
+
+    stub_request(:get, 'https://docs.komagata.org/4433')
+      .to_return(status: 200, body: read_body('docs.komagata.org.html'))
+  end
+
+  private
+
+  def read_body(filename)
+    File.read("#{Rails.root}/test/fixtures/files/mock_bodies/#{filename}")
+  end
 end

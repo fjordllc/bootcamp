@@ -26,3 +26,19 @@ hajime_tag_cat:
   taggable: hajime (User)
   context: tags
   tag: cat
+kimura_tag_shinjuku_rb:
+  taggable: kimura (User)
+  context: tags
+  tag: shinjuku_rb
+kimura_tag_neovim_v_zero_five_zero:
+  taggable: kimura (User)
+  context: tags
+  tag: neovim_v_zero_five_zero
+kimura_tag__net_framework:
+  taggable: kimura (User)
+  context: tags
+  tag: _net_framework
+kimura_tag_may_j_:
+  taggable: kimura (User)
+  context: tags
+  tag: may_j_

@@ -1,7 +1,7 @@
 inherit_gem:
   rubocop-fjord:
-    - "config/rubocop.yml"
-    - "config/rails.yml"
+    - config/rubocop.yml
+    - config/rails.yml
 
 Metrics/BlockLength:
   Exclude:
@@ -18,3 +18,17 @@ Metrics/ClassLength:
     - app/models/notification_facade.rb
     - app/models/practice.rb
     - app/models/user.rb
+
+AllCops:
+  Exclude:
+    - '**/templates/**/*'
+    - '**/vendor/**/*'
+    - app/views/**/*
+    - config/**/*
+    - config.ru
+    - node_modules/**/*
+    - db/migrate/*
+    - db/schema.rb
+    - storage/**/*
+    - tmp/**/*
+    - bin/**/*

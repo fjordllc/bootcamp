@@ -48,9 +48,7 @@ class ReportsController < ApplicationController
     @report.user = current_user
     set_wip
     canonicalize_learning_times(@report)
-    check_noticeable
     if @report.save
-      notify_to_slack(@report) if @noticeable
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :new
@@ -59,12 +57,10 @@ class ReportsController < ApplicationController
 
   def update
     set_wip
+    @report.practice_ids = nil if params[:report][:practice_ids].nil?
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
-    check_noticeable
-
     if @report.save
-      notify_to_slack(@report) if @noticeable
       redirect_to redirect_url(@report), notice: notice_message(@report)
     else
       render :edit
@@ -129,39 +125,8 @@ class ReportsController < ApplicationController
     @categories = Category.eager_load(:practices).where.not(practices: { id: nil }).order('categories.position ASC, categories_practices.position ASC')
   end
 
-  def notify_to_slack(report)
-    name = report.user.login_name.to_s
-    link = "<#{report_url(report)}|#{report.title}>"
-
-    SlackNotification.notify "#{name} created #{link}",
-                             username: "#{report.user.login_name} (#{report.user.name})",
-                             icon_url: report.user.avatar_url,
-                             attachments: [{
-                               fallback: 'report body.',
-                               text: report.description
-                             }]
-
-    return unless report.user.trainee? && report.user.company&.slack_channel?
-
-    SlackNotification.notify "#{name} さんが日報を提出しました。 #{link}",
-                             username: "#{report.user.login_name} (#{report.user.name})",
-                             icon_url: report.user.avatar_url,
-                             channel: report.user.company.slack_channel,
-                             attachments: [{
-                               fallback: 'report body.',
-                               text: report.description
-                             }]
-  end
-
   def set_wip
     @report.wip = params[:commit] == 'WIP'
-  end
-
-  def check_noticeable
-    return unless @report.published_at.nil? && @report.wip == false
-
-    @report.published_at = Date.current
-    @noticeable = true
   end
 
   def redirect_url(report)
