@@ -1,5 +1,5 @@
 <template lang="pug">
-  button.card-footer-actions__action.a-button.is-sm.is-block(:class=" following ? 'is-danger' : 'is-secondary' " @click="followOrUnfollow")
+  button.card-main-actions__action.a-button.is-sm.is-block(:class=" following ? 'is-danger' : 'is-secondary' " @click="followOrUnfollow")
     | {{ buttonLabel }}
 </template>
 <script>

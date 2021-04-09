@@ -25,5 +25,5 @@ header.page-header
               time.thread-header__lower-side-value(datetime="#{@book.created_at.to_datetime}" pubdate='pubdate')
                 = l @book.created_at
         footer.card-footer
-          .card-footer-actions
+          .card-main-actions
             = render 'form', book: @book

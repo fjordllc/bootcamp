@@ -49,6 +49,7 @@ ja:
         blog_url: ブログURL
         github_account: GitHubアカウント
         slack_account: Slackアカウント
+        discord_account: Discordアカウント
         password: パスワード
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
@@ -141,7 +142,7 @@ ja:
       question:
         practice: プラクティス
         title: タイトル
-        description: 詳細
+        description: 質問文
       answer:
         description: 詳細
       announcement:

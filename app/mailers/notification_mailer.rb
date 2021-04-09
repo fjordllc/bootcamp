@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NotificationMailer < ApplicationMailer
-  add_template_helper(ApplicationHelper)
+  helper ApplicationHelper
 
   before_action do
     @mentionable = params[:mentionable]

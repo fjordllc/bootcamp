@@ -1,0 +1,27 @@
+.form-tabs
+  display: flex
+  margin-bottom: 1rem
+  border-bottom: solid 1px $border
+
+.form-tabs__tab
+  width: 5.5rem
+  padding-bottom: 1rem
+  +text-block(.8125rem 1, flex $muted-text)
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  position: relative
+  transition: all .2s ease-out
+  &:hover
+    color: $default-text
+    text-decoration: underline
+  &.is-active
+    color: $default-text
+    font-weight: 600
+    pointer-events: none
+  &.is-active::before
+    content: ''
+    display: block
+    height: .375rem
+    +position(absolute, left 0, bottom 0, right 0)
+    background-color: $warning

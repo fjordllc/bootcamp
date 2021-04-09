@@ -3,13 +3,13 @@
   +position(relative, 1)
 
 .page-header__inner
-  height: 3.125rem
   +position(relative)
-  display: flex
-  align-items: center
-  justify-content: space-between
+  +media-breakpoint-up(md)
+    height: 3.5rem
+    display: flex
+    align-items: center
+    justify-content: space-between
   +media-breakpoint-down(sm)
-    height: auto
     display: block
     +padding(vertical, .5rem)
 
@@ -24,6 +24,7 @@
   +media-breakpoint-down(sm)
     font-size: 1.125rem
     word-break: break-all
+    flex: 1
   img
     +size(2.5rem auto)
     margin-right: .5rem
@@ -35,6 +36,8 @@
 
 .page-header__optionable-action
   min-width: 7.5rem
+  .a-button
+    height: 2.125rem
 
 .page-header__action
   +media-breakpoint-down(sm)

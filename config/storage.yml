@@ -11,6 +11,7 @@ google:
   project: "bootcamp-224405"
   credentials: <%= Base64.decode64(ENV["GOOGLE_CREDENTIALS"].to_s) %>
   bucket: <%= ENV["GCS_BUCKET"] %>
+  public: true
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:

@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     resources :checks, only: %i(index create destroy)
     resources :users, only: %i(index show)
     resources :reservations, only: %i(index create destroy)
-    resources :practices, only: %i(show update) do
+    resources :practices, only: %i(index show update) do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
     resources :reports, only: %i(index)
@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     resources :memos, only: %i(create update destroy)
     resources :tags, only: %i(index)
     resources :pages, only: %i(update)
-    resources :questions, only: %i(update)
+    resources :questions, only: %i(show update)
     resources :followings, only: %i(create destroy)
     namespace :products do
       resources :unchecked, only: %i(index)
@@ -149,7 +149,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :questions
+  resources :questions, only: %i(index show new create destroy)
   resources :reservation_calenders, only: %i(index show)
   resources :courses, only: :index
 
@@ -168,13 +168,13 @@ Rails.application.routes.draw do
 
   resources :generations, only: %i(show index)
 
-  get "articles/tags/:tag", to: "articles#index", as: :tag
-  get "pages/tags/:tag", to: "pages#index", as: :pages_tag
-  get "questions/tags/:tag", to: "questions#index", as: :questions_tag
-  get "users/tags/:tag", to: "users#index", as: :users_tag
+  get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
+  get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/
+  get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/
+  get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
 
   namespace :users do
-    post "tags/:tag", to: "tags#update"
+    post "tags/:tag", to: "tags#update", tag: /.+/
   end
 
   get "login" => "user_sessions#new", as: :login

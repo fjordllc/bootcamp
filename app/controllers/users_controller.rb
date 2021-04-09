@@ -74,10 +74,6 @@ class UsersController < ApplicationController
     else
       create_user!
     end
-
-    return unless @user.errors.empty?
-
-    @user.resize_avatar!
   end
 
   private
@@ -85,7 +81,6 @@ class UsersController < ApplicationController
   def create_free_user!
     if @user.save
       UserMailer.welcome(@user).deliver_now
-      notify_to_slack!
       notify_to_chat(@user)
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
@@ -125,7 +120,6 @@ class UsersController < ApplicationController
 
       if @user.save
         UserMailer.welcome(@user).deliver_now
-        notify_to_slack!
         notify_to_chat(@user)
         redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       else
@@ -135,13 +129,6 @@ class UsersController < ApplicationController
   end
   # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
 
-  def notify_to_slack!
-    SlackNotification.notify "<#{url_for(@user)}|#{@user.name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
-                             username: "#{@user.login_name}@bootcamp.fjord.jp",
-                             icon_url: @user.avatar_url,
-                             channel: '#fjord'
-  end
-
   def notify_to_chat(user)
     ChatNotifier.message "#{user.name}さんが新たなメンバーとしてJOINしました🎉\r#{url_for(user)}"
   end
@@ -150,7 +137,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(
       :login_name, :name, :name_kana,
       :email, :course_id, :description,
-      :slack_account, :github_account, :twitter_account,
+      :slack_account, :discord_account, :github_account, :twitter_account,
       :facebook_url, :blog_url, :password,
       :password_confirmation, :job, :organization,
       :os, :experience, :prefecture_code,

@@ -10,7 +10,6 @@ class CurrentUserController < ApplicationController
 
   def update
     if @user.update(user_params)
-      @user.resize_avatar!
       redirect_to @user, notice: 'ユーザー情報を更新しました。'
     else
       render 'edit'
@@ -23,7 +22,7 @@ class CurrentUserController < ApplicationController
     params.require(:user).permit(
       :adviser, :login_name, :name,
       :name_kana, :email, :course_id,
-      :description, :job_seeking, :slack_account,
+      :description, :job_seeking, :slack_account, :discord_account,
       :github_account, :twitter_account, :facebook_url,
       :blog_url, :password, :password_confirmation,
       :job, :organization, :os,
