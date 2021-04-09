@@ -91,7 +91,7 @@ images:
 options:
   substitutionOption: ALLOW_LOOSE
 substitutions:
-  _MEMORY: 512M
+  _MEMORY: 1G
   _SERVICE_NAME: _
   _LABELS: _
   _ENVS: _
