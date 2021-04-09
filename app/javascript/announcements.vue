@@ -32,10 +32,10 @@
           :title="title"
           :announcement="announcement"
           :currentUser="currentUser")
-      .o-empty-massage(v-else)
-        .o-empty-massage__icon
+      .o-empty-message(v-else)
+        .o-empty-message__icon
           i.far.fa-smile
-        p.o-empty-massage__text
+        p.o-empty-message__text
           | {{ title }}はありません
       nav.pagination
         pager-bottom(
