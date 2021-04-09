@@ -62,10 +62,10 @@
         :active-class="'is-active'"
         :active-link-class="'is-active'"
         :hide-prev-next="true")
-  .o-empty-massage(v-else)
-    .o-empty-massage__icon
+  .o-empty-message(v-else)
+    .o-empty-message__icon
       i.far.fa-smile
-    p.o-empty-massage__text
+    p.o-empty-message__text
       | 未チェックの日報はありません
 </template>
 <script>

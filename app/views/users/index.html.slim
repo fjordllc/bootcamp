@@ -48,10 +48,10 @@ main.page-main
           - if @users.size.positive?
             = render partial: 'users/user', collection: @users, as: :user
           - else
-            .o-empty-massage
-              .o-empty-massage__icon
+            .o-empty-message
+              .o-empty-message__icon
                 i.far.fa-sad-tear
-              p.o-empty-massage__text
+              p.o-empty-message__text
                 - if params[:tag]
                   | タグ「#{params[:tag]}」
                 - else
