@@ -41,6 +41,29 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
+  test 'practices are displayed when updating with selecting a practice' do
+    login_user 'hajime', 'testtest'
+    report = reports(:report10)
+    visit "/reports/#{report.id}"
+    click_link '内容修正'
+
+    click_button '内容変更'
+    assert_text 'Terminalの基礎を覚える'
+    assert_text '日報を保存しました。'
+  end
+
+  test 'practices are not displayed when updating without selecting a practice' do
+    login_user 'hajime', 'testtest'
+    report = reports(:report10)
+    visit "/reports/#{report.id}"
+    click_link '内容修正'
+    first('.select2-selection__choice__remove').click
+
+    click_button '内容変更'
+    assert_no_text 'Terminalの基礎を覚える'
+    assert_text '日報を保存しました。'
+  end
+
   test 'create a report without company as trainee' do
     user = users(:kensyu)
     user.update!(company: nil)
@@ -355,94 +378,6 @@ class ReportsTest < ApplicationSystemTestCase
       find('div.thread-header__watch-button', text: 'Watch中').click
       sleep 0.5
     end
-  end
-
-  test 'その日報を初めて提出した時にslackに通知がいく' do
-    login_user 'kensyu', 'testtest'
-    visit '/reports/new'
-    within('#new_report') do
-      fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'test')
-      fill_in('report[reported_on]', with: Time.current)
-    end
-
-    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
-    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
-
-    mock_log = []
-    stub_info = proc { |i| mock_log << i }
-
-    Rails.logger.stub(:info, stub_info) do
-      click_button '提出'
-    end
-
-    assert_text '日報を保存しました。'
-    assert_text Time.current.strftime('%Y年%m月%d日')
-    assert_match 'kensyu さんが日報を提出しました', mock_log.to_s
-  end
-
-  test 'WIPで保存した日報を初めて提出した時にだけslackに通知がいく' do
-    login_user 'kensyu', 'testtest'
-    visit '/reports/new'
-    within('#new_report') do
-      fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'test')
-      fill_in('report[reported_on]', with: Time.current)
-    end
-
-    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
-    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
-
-    mock_log = []
-    stub_info = proc { |i| mock_log << i }
-
-    Rails.logger.stub(:info, stub_info) do
-      click_button 'WIP'
-      assert_text '日報をWIPとして保存しました。'
-      assert_no_match 'kensyu さんが日報を提出しました', mock_log.to_s
-      click_button '提出'
-    end
-
-    assert_text '日報を保存しました。'
-    assert_text Time.current.strftime('%Y年%m月%d日')
-    assert_match 'kensyu さんが日報を提出しました', mock_log.to_s
-  end
-
-  test '最初の日報を提出した時にだけslackに通知がいく' do
-    login_user 'kensyu', 'testtest'
-    visit '/reports/new'
-    within('#new_report') do
-      fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'test')
-      fill_in('report[reported_on]', with: Time.current)
-    end
-
-    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
-    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
-
-    mock_log = []
-    stub_info = proc { |i| mock_log << i }
-
-    Rails.logger.stub(:info, stub_info) do
-      click_button '提出'
-      assert_match 'kensyu さんが日報を提出しました', mock_log.to_s
-      mock_log = []
-      click_link '内容修正'
-      click_button 'WIP'
-      assert_text '日報をWIPとして保存しました。'
-      assert_no_match 'kensyu さんが日報を提出しました', mock_log.to_s
-      click_button '提出'
-    end
-
-    assert_text '日報を保存しました。'
-    assert_text Time.current.strftime('%Y年%m月%d日')
-    assert_no_match 'kensyu さんが日報を提出しました', mock_log.to_s
   end
 
   test 'click unwatch' do

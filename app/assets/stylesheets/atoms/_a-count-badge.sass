@@ -1,0 +1,30 @@
+.a-count-badge
+  +text-block(1.5rem 1, center)
+  border: solid 1px $border-shade
+  vertical-align: middle
+  border-radius: .25rem
+  min-width: 2.25em
+  overflow: hidden
+  background-color: $base
+  transition: all .2s ease-out
+
+a.a-count-badge
+  display: block
+  text-decoration: none
+  &:hover
+    background-color: $background-more-tint
+
+.a-count-badge__label
+  font-size: .625rem
+  color: $default-text
+  padding: .25em
+  border-bottom: solid 1px $border-shade
+
+.a-count-badge__value
+  font-size: 1em
+  font-weight: 700
+  padding: .0625em .125em .1875em
+  line-height: .9375
+  color: $danger
+  &.is-zero
+    color: $muted-text

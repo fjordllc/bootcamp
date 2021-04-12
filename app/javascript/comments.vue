@@ -35,15 +35,18 @@
             .thread-comment-form__markdown.js-tabs__content(
               :class="{'is-active': isActive('preview')}")
               #new-comment-preview.is-long-text.thread-comment-form__preview
-          .thread-comment-form__actions
-            .thread-comment-form__action
-              button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(
-                @click="createComment"
-                :disabled="!validation || buttonDisabled")
-                | コメントする
-            .thread-comment-form__action(v-if="(currentUser.role == 'admin' || currentUser.role == 'adviser') && commentType && !checkId")
-              button.a-button.is-lg.is-success.is-block(@click="commentAndCheck" :disabled="!validation || buttonDisabled")
-                | 確認OKにする
+          .card-footer
+            .card-main-actions
+              .card-main-actions__items
+                .card-main-actions__item
+                  button#js-shortcut-post-comment.a-button.is-md.is-primary.is-block(
+                    @click="createComment"
+                    :disabled="!validation || buttonDisabled")
+                    | コメントする
+                .card-main-actions__item(v-if="(currentUser.role == 'admin' || currentUser.role == 'adviser') && commentType && !checkId")
+                  button.a-button.is-md.is-danger.is-block(@click="commentAndCheck" :disabled="!validation || buttonDisabled")
+                    i.fas.fa-check
+                    | 確認OKにする
 </template>
 <script>
 import Comment from './comment.vue'
@@ -119,14 +122,15 @@ export default {
         .then(response => {
           return response.json()
         })
-        .then(json=> {
-          this.comments.push(json);
+        .then(async comment => {
+          this.comments.push(comment);
           this.description = '';
           this.tab = 'comment';
           this.buttonDisabled = false
           this.resizeTextarea()
 
-          if (this.commentableType === 'Product') {
+          if (this.commentableType === 'Product' &&
+              !(await this.isProductAssginedToSelf(Number(this.commentableId)))) {
             this.assignProductToSelf()
           }
         })
@@ -169,6 +173,27 @@ export default {
       const check = document.getElementById("js-shortcut-check")
       this.createComment()
       check.click()
+    },
+    async isProductAssginedToSelf(productId) {
+      return fetch('/api/products/self_assigned', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+      })
+        .then(response => {
+          return response.json()
+        })
+        .then(({ products }) => {
+          return products.some(product => product.id === productId)
+        })
+        .catch(error => {
+          console.warn('Failed to parsing', error)
+        })
     },
     assignProductToSelf() {
       const params = {

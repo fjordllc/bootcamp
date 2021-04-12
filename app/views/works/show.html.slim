@@ -34,25 +34,25 @@ header.page-header
         .thread__description.js-target-blank.is-long-text.js-markdown-view
           p = @work.description
         .card-footer
-          ul.card-footer-actions__items
+          ul.card-main-actions__items
             - if @work.url.present?
-              li.card-footer-actions__item
-                = link_to @work.url, target: '_blank', rel: 'noopener', class: 'card-footer-actions_action a-button is-lg is-main is-block' do
+              li.card-main-actions__item
+                = link_to @work.url, target: '_blank', rel: 'noopener', class: 'card-main-actions_action a-button is-lg is-main is-block' do
                   i.fas.fa-globe
                   | URL
             - if @work.repository.present?
-              li.card-footer-actions__item
-                = link_to @work.repository, target: '_blank', rel: 'noopener', class: 'card-footer-actions__action a-button is-lg is-main is-block' do
+              li.card-main-actions__item
+                = link_to @work.repository, target: '_blank', rel: 'noopener', class: 'card-main-actions__action a-button is-lg is-main is-block' do
                   i.fab.fa-github-alt
                   | Repository
         - if @work.user == current_user || admin_login?
           .card-footer
-            .card-footer-actions
-              ul.card-footer-actions__items
-                li.card-footer-actions__item
-                  = link_to edit_work_path(@work), class: 'card-footer-actions_action a-button is-md is-primary is-block' do
+            .card-main-actions
+              ul.card-main-actions__items
+                li.card-main-actions__item
+                  = link_to edit_work_path(@work), class: 'card-main-actions_action a-button is-md is-secondary is-block' do
                     i.fas.fa-pen
                     | 内容修正
-                li.card-footer-actions__item.is-sub
-                  = link_to @work, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__delete' do
+                li.card-main-actions__item.is-sub
+                  = link_to @work, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
                     | 削除する

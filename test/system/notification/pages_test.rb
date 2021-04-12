@@ -6,7 +6,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
   test 'Only students and mentors are notified' do
     login_user 'komagata', 'testtest'
     visit '/pages'
-    click_link '新規ページ'
+    click_link '新規Doc作成'
 
     within('.form') do
       fill_in('page[title]', with: 'DocsTest')
@@ -35,7 +35,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
   test "don't notify when page is WIP" do
     login_user 'komagata', 'testtest'
     visit '/pages'
-    click_link '新規ページ'
+    click_link '新規Doc作成'
 
     within('.form') do
       fill_in('page[title]', with: 'DocsTest')

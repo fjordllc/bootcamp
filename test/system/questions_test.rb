@@ -49,20 +49,37 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'update a question' do
     question = questions(:question8)
-    visit edit_question_path(question)
+    visit question_path(question)
+    updated_question = {
+      title: 'テストの質問（修正）',
+      description: 'テストの質問です。（修正）',
+      practice: Practice.where.not(id: question.practice.id).first
+    }
+    wait_for_vuejs
+    click_button '内容修正'
     within 'form[name=question]' do
-      fill_in 'question[title]', with: 'テストの質問（修正）'
-      fill_in 'question[description]', with: 'テストの質問です。（修正）'
+      fill_in 'question[title]', with: updated_question[:title]
+      fill_in 'question[description]', with: updated_question[:description]
+      select updated_question[:practice].title, from: 'question[practice]'
       click_button '更新する'
     end
-    assert_text '質問を更新しました。'
+
+    wait_for_vuejs # Vueが実行したREST APIがDBに反映されるのを待つ
+    question.reload
+    updated_question.each do |key, val|
+      is_practice_value = key == :practice
+      assert_equal val, is_practice_value ? question.practice : question[key]
+      assert_text is_practice_value ? question.practice.title : val
+    end
+    assert_text '質問を更新しました'
   end
 
   test 'delete a question' do
     question = questions(:question8)
     visit question_path(question)
+    wait_for_vuejs
     accept_confirm do
-      find('.js-delete').click
+      click_link '削除する'
     end
     assert_text '質問を削除しました。'
   end
@@ -84,8 +101,9 @@ class QuestionsTest < ApplicationSystemTestCase
     login_user 'kimura', 'testtest'
     visit '/questions'
     click_on 'タイトルtest'
+    wait_for_vuejs
     accept_confirm do
-      click_link '削除'
+      click_link '削除する'
     end
     assert_text '質問を削除しました。'
 
