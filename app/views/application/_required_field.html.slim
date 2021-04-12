@@ -13,5 +13,5 @@
       ul.card-list__items
         - unless current_user.avatar.attached?
           li = link_to 'プロフィール画像を登録してください。', edit_current_user_path, class: 'card-list__item-link'
-        - @required_fields.errors.each do |attribute, message|
-          = link_to message, edit_current_user_path, class: "card-list__item-link is-#{attribute}"
+        - @required_fields.errors.each do |error|
+          = link_to error.message, edit_current_user_path, class: "card-list__item-link is-#{error.attribute}"

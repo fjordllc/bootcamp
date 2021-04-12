@@ -6,6 +6,8 @@
       padding-top: 3.5rem
   +media-breakpoint-down(sm)
     padding: 2.5rem .75rem .75rem
+  .a-count-badge
+    +position(absolute, right .5rem, top .5rem)
 
 .thread-header__author-link
   +position(absolute, left 50%)
@@ -85,13 +87,12 @@
     &.is-danger
       background-color: $danger
 
-.thread-header__upper-side
-  +text-block(.8125rem 1.4 0 .75rem, $muted-text flex)
+.thread-header__row
+  +text-block(.8125rem 1.4 0 .5rem, $muted-text flex)
   align-items: center
   flex-wrap: wrap
   +media-breakpoint-down(sm)
     font-size: .75rem
-    margin-bottom: .5rem
 
 .thread-header__author
   color: $muted-text

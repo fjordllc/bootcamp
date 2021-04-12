@@ -4,6 +4,7 @@ question1:
     vi、emacs、atomと色々エディターがありますが、
     どのエディターを使うのが一番良いでしょうか？
   user: machida
+  practice: practice1
 
 question2:
   title: injectとreduce
@@ -22,11 +23,13 @@ question4:
   title: テストの質問2
   description: テスト2の内容です。
   user: komagata
+  practice: practice1
 
 question5:
   title: テストの質問3
   description: テスト3の内容です。
   user: komagata
+  practice: practice1
 
 question6:
   title: テストの質問4

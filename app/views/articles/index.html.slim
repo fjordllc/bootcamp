@@ -26,14 +26,14 @@
           - # rubocop:enable Rails/OutputSafety
           - if admin_login?
             footer.card-footer
-              .card-footer-actions
-                ul.card-footer-actions__items
-                  li.card-footer-actions__item
-                    = link_to edit_article_path(article), class: 'card-footer-actions__action is-button-simple-md-primary is-block', id: 'js-shortcut-edit' do
+              .card-main-actions
+                ul.card-main-actions__items
+                  li.card-main-actions__item
+                    = link_to edit_article_path(article), class: 'card-main-actions__action is-button-simple-md-secondary is-block', id: 'js-shortcut-edit' do
                       i.fas.fa-pen#edit
                       | 内容修正
-                  li.card-footer-actions__item.is-sub
-                    = link_to article_path(article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__delete' do
+                  li.card-main-actions__item.is-sub
+                    = link_to article_path(article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
                       span#delete
                         | 削除
 

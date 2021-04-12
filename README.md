@@ -22,13 +22,13 @@ $ rake bootcamp:statistics:save_learning_minute_statistics
 ヘッドレスブラウザーでテスト
 
 ```
-$ ./bin/test
+$ rails test:all
 ```
 
 普通のブラウザーでテスト
 
 ```
-$ HEADED=1 ./bin/test
+$ HEADED=1 rails test:all
 ```
 
 ## Lint
