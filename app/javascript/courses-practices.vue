@@ -1,11 +1,101 @@
 <template lang="pug">
-  .fas.fa-spinner.fa-pulse
+  .page-body__inner(v-if="categories === true")
+    .empty
+      .fas.fa-spinner.fa-pulse
+      |  ロード中
+  .page-body__inner(v-else)
+    .categories-items
+      .categories-items__inner
+        .categories-item.practices(v-for="category in isPractices")
+          a.categories-item__anchor(:id="`category-${category.id}`")
+          header.categories-item__header
+            h2.categories-item__title
+              | {{category.name}}
+              //ここのcompleted_all_practices?の条件分岐がまだこれはpracticeの完了をチェックすればできるが、そのロジックをここで考えるJSONで持ってこれればよし。
+              span.stamp.is-circle.is-solved
+                | 完了
+          .categories-item__description
+            .categories-item__edit(v-if="currentUser.role === 'admin'")
+              a.link_to.categories-item__edit-link(:href="'admin/categories'")
+                i.fas.fa-pen
+            .js-markdown-view.js-target-blank.is-long-text
+            p {{category.description}}
+            //インデントおかしい。スタイルが効いてないため。
+          .categories-item__body
+            .category-practices.js-category-practices
+              courses-practice(
+                  :key = "category.id"
+                  :categories = "categories"
+                  :currentUserId = "currentUserId"
+                  :currentUser = "currentUser"
+                  :category = "category"
+                  :learnings = "learnings"
+                  )
+      nav.page-nav
+        ul.page-nav__items
+          li.page-nav__item(v-for="category in isPractices")
+            a.page-nav__item-link(:href="`practices#category-${category.id}`")
+              | {{category.name}}
+
 </template>
 
 <script>
+import CoursesPractice from './courses-practice.vue'
 
 export default {
-
+  props: ['courseId','currentUserId','currentUser'],
+  components: {
+    'courses-practice': CoursesPractice
+  },
+  data: () => {
+    return {
+      categories: null,
+      currentPage: 1,
+      totalPages: null,
+      learnings: null,
+      //jsonReportUrl: null,
+    }
+  },
+  computed: {
+    url () {
+      return `/api/courses/${this.courseId}/practices`
+    },
+    completed_all_practices (category) {
+      category.practices.length == completed_practices_size(category)
+    },
+    isPractices () {
+      if(!this.categories) return [];
+      return this.categories.filter(value => value.practices.length !== 0)
+    }
+  },
+  created () {
+    this.getProductsPerPage()
+  },
+  methods: {
+    getProductsPerPage() {
+      fetch(this.url, {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+      })
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        this.categories = []
+        json.categories.forEach(r => { this.categories.push(r) })
+        this.learnings = json.learnings
+        //this.jsonReportUrl = json.report
+        //this.loaded = true
+      })
+      .catch(error => {
+        console.warn('Failed to parsing', error)
+      })
+    },
+  }
 }
 
 </script>
