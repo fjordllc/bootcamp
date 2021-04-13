@@ -13,7 +13,6 @@ class API::CommentsController < API::BaseController
     @comment.user = current_user
     @comment.commentable = commentable
     if @comment.save
-      notify_to_slack(@comment)
       render :create, status: :created
     else
       head :bad_request
@@ -44,18 +43,5 @@ class API::CommentsController < API::BaseController
 
   def set_my_comment
     @comment = current_user.admin? ? Comment.find(params[:id]) : current_user.comments.find(params[:id])
-  end
-
-  def notify_to_slack(comment)
-    name = comment.user.login_name.to_s
-    link = "<#{polymorphic_url(comment.commentable)}#comment_#{comment.id}|#{comment.commentable.title}>"
-
-    SlackNotification.notify "#{name} commented to #{link}",
-                             username: "#{comment.user.login_name} (#{comment.user.name})",
-                             icon_url: comment.user.avatar_url,
-                             attachments: [{
-                               fallback: 'comment body.',
-                               text: comment.description
-                             }]
   end
 end

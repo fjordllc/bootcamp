@@ -9,13 +9,12 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to questions_path, class: 'a-button is-md is-secondary is-block' do
-              i.fas.fa-angle-left
-              | Q&A一覧へ
+            = link_to questions_path, class: 'a-button is-md is-secondary is-block is-back' do
+              | Q&A一覧
 
-.page-notice
+.a-page-notice.page-notice
   .container
-    .page-notice__inner
+    .a-page-notice__inner
       p
         = link_to '/pages/240', target: '_blank', class: 'page-notice__link', rel: 'noopener noreferrer' do
           | このドキュメントを参考にして質問をしてみよう！

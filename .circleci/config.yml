@@ -82,7 +82,7 @@ jobs:
           name: Test
           command: |
             bundle exec rake db:schema:load
-            ./bin/test
+            bin/rails test:all
 
       - store_test_results:
           path: tmp/test-results

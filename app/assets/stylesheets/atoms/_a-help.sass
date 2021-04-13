@@ -1,6 +1,7 @@
 .a-help
   +text-block(.75em 1, inline-flex $reversal-text)
   +size(1.75em)
+  text-decoration: none
   background-color: $muted-text
   vertical-align: middle
   align-items: center
@@ -13,3 +14,5 @@
     color: $reversal-text
   &:last-child
     margin-left: .25em
+  .is-danger &
+    background-color: $danger

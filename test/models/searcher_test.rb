@@ -10,6 +10,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, Practice)
     assert_includes(result, Question)
     assert_includes(result, Announcement)
+    assert_includes(result, Event)
     assert_includes(result, Comment)
     assert_includes(result, Answer)
   end
@@ -21,6 +22,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, Practice)
     assert_includes(result, Question)
     assert_includes(result, Announcement)
+    assert_includes(result, Event)
     assert_includes(result, Comment)
     assert_includes(result, Answer)
   end
@@ -32,6 +34,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Practice)
     assert_not_includes(result, Question)
     assert_not_includes(result, Announcement)
+    assert_not_includes(result, Event)
     assert_includes(result, Comment)
     assert_not_includes(result, Answer)
   end
@@ -43,6 +46,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Practice)
     assert_not_includes(result, Question)
     assert_not_includes(result, Announcement)
+    assert_not_includes(result, Event)
     assert_not_includes(result, Comment)
     assert_not_includes(result, Answer)
   end
@@ -54,6 +58,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, Practice)
     assert_not_includes(result, Question)
     assert_not_includes(result, Announcement)
+    assert_not_includes(result, Event)
     assert_not_includes(result, Comment)
     assert_not_includes(result, Answer)
   end
@@ -65,6 +70,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Practice)
     assert_includes(result, Question)
     assert_not_includes(result, Announcement)
+    assert_not_includes(result, Event)
     assert_not_includes(result, Comment)
     assert_includes(result, Answer)
   end
@@ -76,6 +82,18 @@ class SearchableTest < ActiveSupport::TestCase
     assert_not_includes(result, Practice)
     assert_not_includes(result, Question)
     assert_includes(result, Announcement)
+    assert_not_includes(result, Event)
+    assert_includes(result, Comment)
+  end
+
+  test 'returns only event type when document_type argument is :events' do
+    result = Searcher.search('テスト', document_type: :events).map(&:class)
+    assert_not_includes(result, Report)
+    assert_not_includes(result, Page)
+    assert_not_includes(result, Practice)
+    assert_not_includes(result, Question)
+    assert_not_includes(result, Announcement)
+    assert_includes(result, Event)
     assert_includes(result, Comment)
   end
 
@@ -196,7 +214,8 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, comments(:comment12))
     assert_includes(result, comments(:comment13))
     assert_includes(result, comments(:comment14))
-    assert_equal(6, result.size)
+    assert_includes(result, comments(:comment16))
+    assert_equal(7, result.size)
   end
 
   test 'returns only daimyos report when user param' do

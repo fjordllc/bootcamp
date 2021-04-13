@@ -5,20 +5,20 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby RUBY_VERSION
 
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootsnap', '>= 1.4.4', require: false
 gem 'image_processing', '~> 1.2'
 gem 'jbuilder', '~> 2.7'
-gem 'puma', '~> 4.3'
-gem 'rails', '~> 6.0.3.6'
+gem 'puma', '~> 5.0'
+gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 gem 'sass-rails', '>= 6'
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 5.0'
 
 # not default
 gem 'active_decorator'
 gem 'active_flag'
 gem 'active_storage_validations'
 gem 'acts_as_list'
-gem 'acts-as-taggable-on', '~> 6.5'
+gem 'acts-as-taggable-on', '~> 7.0'
 gem 'any_login'
 gem 'cocoon'
 gem 'coffee-rails', '~> 5.0.0'
@@ -31,7 +31,7 @@ gem 'holiday_jp'
 gem 'jp_prefecture'
 gem 'jquery-rails'
 gem 'kaminari'
-gem 'mentionable', '~> 0.2'
+gem 'mentionable', '~> 0.2.1'
 gem 'meta-tags'
 gem 'oauth2'
 gem 'omniauth', '~> 1.9.1'
@@ -45,7 +45,6 @@ gem 'rails-i18n'
 gem 'ransack'
 gem 'rollbar'
 gem 'rqrcode'
-gem 'slack-notifier'
 gem 'slim-rails'
 gem 'sorcery'
 gem 'sorcery-jwt'
@@ -63,16 +62,16 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '~> 3.2'
+  gem 'listen', '~> 3.3'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console', '>= 3.3.0'
+  gem 'web-console', '>= 4.1.0'
 
   # not default
   gem 'bullet'
   gem 'bundle_outdated_formatter'
   gem 'letter_opener_web', '~> 1.0'
-  gem 'rack-mini-profiler', require: false
+  gem 'rack-mini-profiler', '~> 2.0'
   gem 'rubocop-fjord', require: false
   gem 'rubocop-minitest'
   gem 'rubocop-rails', require: false

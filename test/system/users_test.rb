@@ -139,6 +139,7 @@ class UsersTest < ApplicationSystemTestCase
       login_user 'jobseeker', 'testtest'
       login_user 'daimyo', 'testtest'
       login_user 'nippounashi', 'testtest'
+      login_user 'with-hyphen', 'testtest'
     end
 
     login_user 'komagata', 'testtest'

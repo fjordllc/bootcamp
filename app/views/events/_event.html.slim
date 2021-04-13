@@ -1,7 +1,7 @@
 .thread
   .thread__inner.a-card
     header.thread-header
-      .thread-header__upper-side
+      .thread-header__row
         .thread-header__author
           = link_to event.user, class: 'thread-header__lower-side-author-name-link' do
             = event.user.login_name
@@ -41,18 +41,18 @@
       = render 'reactions/reactions', reactionable: event
       - if admin_login? || event.user_id == current_user.id
         .card-footer
-          .card-footer-actions
-            ul.card-footer-actions__items
-              li.card-footer-actions__item
-                = link_to edit_event_path(event), class: 'card-footer-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                = link_to edit_event_path(event), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
                   i.fas.fa-pen#new
                   | 内容修正
-              li.card-footer-actions__item
-                = link_to new_event_path(id: event), class: 'card-footer-actions__action a-button is-md is-secondary is-block' do
+              li.card-main-actions__item
+                = link_to new_event_path(id: event), class: 'card-main-actions__action a-button is-md is-secondary is-block' do
                   i.fas.fa-copy#copy
                   | コピー
-              li.card-footer-actions__item.is-sub
-                = link_to event_path(event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__delete' do
+              li.card-main-actions__item.is-sub
+                = link_to event_path(event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
                   | 削除する
 
   = render 'users/icon',

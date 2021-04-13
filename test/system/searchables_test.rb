@@ -16,8 +16,10 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_text 'Unityでのテスト'
     assert_text 'テストの質問1'
     assert_text 'テストのお知らせ'
+    assert_text 'テストのイベント'
     assert_text 'テスト用 report1へのコメント'
     assert_text 'テスト用 announcement1へのコメント'
+    assert_text 'テスト用 event1へのコメント'
     assert_text 'テストの回答'
   end
 
@@ -32,8 +34,26 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_no_text 'Unityでのテスト'
     assert_no_text 'テストの質問1'
     assert_no_text 'テストのお知らせ'
+    assert_no_text 'テストのイベント'
     assert_text 'テスト用 report1へのコメント'
     assert_no_text 'テスト用 announcement1へのコメント'
+    assert_no_text 'テスト用 event1へのコメント'
+  end
+
+  test 'search events' do
+    within('form[name=search]') do
+      select 'イベント'
+      fill_in 'word', with: 'テスト'
+    end
+    find('#test-search').click
+    assert_text 'テストのイベント'
+    assert_no_text 'Docsページ'
+    assert_no_text 'Unityでのテスト'
+    assert_no_text 'テストの質問1'
+    assert_no_text 'テストのお知らせ'
+    assert_no_text 'テスト用 report1へのコメント'
+    assert_no_text 'テスト用 announcement1へのコメント'
+    assert_text 'テスト用 event1へのコメント'
   end
 
   test 'admin can see comment description' do

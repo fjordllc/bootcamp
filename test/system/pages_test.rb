@@ -45,8 +45,8 @@ class PagesTest < ApplicationSystemTestCase
   test 'add new page' do
     visit new_page_path
     assert_equal new_page_path, current_path
-    fill_in 'page[title]', with: '新規ページを作成する'
-    fill_in 'page[body]', with: '新規ページを作成する本文です'
+    fill_in 'page[title]', with: '新規Docを作成する'
+    fill_in 'page[body]', with: '新規Docを作成する本文です'
     click_button '内容を保存'
     assert_text 'ページを作成しました'
   end
@@ -76,7 +76,7 @@ class PagesTest < ApplicationSystemTestCase
 
   test 'search pages by tag' do
     visit pages_url
-    click_on '新規ページ'
+    click_on '新規Doc作成'
     tag_list = ['tag1',
                 'ドットつき.タグ',
                 'ドットが.2つ以上の.タグ',
