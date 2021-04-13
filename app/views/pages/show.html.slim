@@ -9,7 +9,7 @@ header.page-header
           li.page-header-actions__item
             = link_to [:new, :page], class: 'a-button is-md is-warning is-block' do
               i.fas.fa-plus
-              | 新規ページ
+              | 新規Doc
           li.page-header-actions__item
             = link_to :pages, class: 'a-button is-md is-secondary is-block' do
               | Docs
@@ -66,15 +66,15 @@ header.page-header
             = @page.body
           = render 'reactions/reactions', reactionable: @page
         footer.card-footer
-          .card-footer-actions
-            ul.card-footer-actions__items
-              li.card-footer-actions__item
-                = link_to [:edit, @page], class: 'card-footer-actions__action a-button is-md is-secondary is-block' do
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                = link_to [:edit, @page], class: 'card-main-actions__action a-button is-md is-secondary is-block' do
                   i.fas.fa-pen
                   | 内容変更
               - if admin_login? || current_user == @page.user
-                li.card-footer-actions__item.is-sub
-                  = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__delete' do
+                li.card-main-actions__item.is-sub
+                  = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
                     | 削除する
       .thread-prev-next
         .thread-prev-next__item

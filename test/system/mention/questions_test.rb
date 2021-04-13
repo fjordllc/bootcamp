@@ -1,22 +1,21 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
+require 'supports/mention_helper'
 
 module Mention
   class QuestionsTest < ApplicationSystemTestCase
-    setup do
-      login_user 'kimura', 'testtest'
-    end
+    include MentionHelper
 
     test 'mention from a question' do
-      visit '/questions/new'
-      fill_in 'question_title', with: 'テスト質問'
-      fill_in 'question_description', with: '@hatsuno test'
-      click_button '登録する'
+      post_mention = lambda { |description|
+        visit new_question_path
+        fill_in 'question_title', with: 'メンション通知が送信されるかのテスト'
+        fill_in 'question_description', with: description
+        click_button '登録する'
+      }
 
-      login_user 'hatsuno', 'testtest'
-      visit '/notifications'
-      assert_text 'kimuraさんからメンションがきました。'
+      assert_notify_mention(post_mention)
     end
   end
 end

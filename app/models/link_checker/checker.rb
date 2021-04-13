@@ -24,10 +24,6 @@ module LinkChecker
         texts << "- <#{link.url}|#{link.title}> in: <#{link.source_url}|#{link.source_title}>"
       end
 
-      SlackNotification.notify texts.join("\n"),
-                               channel: 'bootcamp_notification',
-                               username: 'リンクチェッカー'
-
       ChatNotifier.message(texts.join("\n"), username: 'リンクチェッカー')
     end
 

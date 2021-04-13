@@ -7,10 +7,7 @@ module Bootcamp
         User.all.each do |user|
           filename = "#{user.login_name}.jpg"
           path = Rails.root.join("test/fixtures/files/users/avatars/#{filename}")
-          if File.exist?(path)
-            user.avatar.attach(io: File.open(path), filename: filename)
-            user.resize_avatar!
-          end
+          user.avatar.attach(io: File.open(path), filename: filename) if File.exist?(path)
         end
 
         Company.order(:created_at).each_with_index do |company, i|
@@ -22,7 +19,6 @@ module Bootcamp
             path = "#{dir}/#{filename}"
           end
           company.logo.attach(io: File.open(path), filename: filename)
-          company.resize_logo!
         end
       end
     end

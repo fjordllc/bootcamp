@@ -84,3 +84,8 @@ comment15:
   commentable: report4 (Report)
   description: ":thumbsup:"
   created_at: "2019-01-02 12:00:01"
+
+comment16:
+  user: yamada
+  commentable: event1 (Event)
+  description: "テスト用 event1へのコメント"
