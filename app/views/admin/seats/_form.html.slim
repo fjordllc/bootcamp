@@ -8,7 +8,7 @@
           = f.text_field :name, class: 'a-text-input js-warning-form'
   .form-actions
     ul.form-actions__items
-      li.form-actions__item
-        = link_to 'キャンセル', admin_seats_path, class: 'a-button is-md is-secondary'
-      li.form-actions__item
-        = f.submit nil, class: 'a-button is-lg is-warning'
+      li.form-actions__item.is-main
+        = f.submit nil, class: 'a-button is-lg is-block is-warning'
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', admin_seats_path, class: 'a-button is-md is-block is-secondary'

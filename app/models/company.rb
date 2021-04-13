@@ -8,15 +8,9 @@ class Company < ApplicationRecord
 
   delegate :advisers, to: :users
 
-  def resize_logo!
-    return unless logo.attached?
-
-    logo.variant(resize: LOGO_SIZE).processed
-  end
-
   def logo_url
     if logo.attached?
-      logo.variant(resize: LOGO_SIZE).url
+      logo.variant(resize: LOGO_SIZE).processed.url
     else
       image_url('/images/companies/logos/default.png')
     end

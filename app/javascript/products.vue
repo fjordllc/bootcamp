@@ -34,10 +34,10 @@
             :currentUserId="currentUserId"
             :isMentor="isMentor")
         unconfirmed-links-open-button(v-if="isMentor && selectedTab != 'all'" :label="`${unconfirmedLinksName}の提出物を一括で開く`")
-      .o-empty-massage(v-else)
-        .o-empty-massage__icon
+      .o-empty-message(v-else)
+        .o-empty-message__icon
           i.far.fa-smile
-        p.o-empty-massage__text
+        p.o-empty-message__text
           | {{ title }}はありません
       nav.pagination
         pager-bottom(

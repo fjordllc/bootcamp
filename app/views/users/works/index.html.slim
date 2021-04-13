@@ -6,13 +6,14 @@ header.page-header
         = title
       .page-header-actions
         ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to 'ユーザー一覧', users_path, class: 'a-button is-md is-secondary is-block'
           - if current_user == @user
             li.page-header-actions__item
               = link_to new_work_path, class: 'a-button is-md is-warning is-block' do
                 i.fas.fa-plus
                 | 作品を追加
+          li.page-header-actions__item
+            = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
+              | ユーザー一覧
 
 .page-tools
   = render 'users/page_tabs', user: @user
