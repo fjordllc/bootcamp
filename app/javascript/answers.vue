@@ -94,7 +94,7 @@ export default {
     changeActiveTab: function(tab) {
       this.tab = tab;
     },
-    createAnswer: function(event) {
+    createAnswer: function() {
       if (this.description.length < 1) {
         return null;
       }

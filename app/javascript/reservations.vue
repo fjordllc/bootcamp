@@ -150,7 +150,7 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then(response => {
+        .then(() => {
           for (var reservation in this.reservations) {
             if (this.reservations[reservation].id == id) {
               this.$delete(this.reservations, reservation);

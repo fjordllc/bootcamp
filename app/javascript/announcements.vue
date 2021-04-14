@@ -92,7 +92,7 @@ export default {
   },
   created() {
     window.onpopstate = function(){
-      location.href = location.href
+      location.replace(location.href);
     }
     this.currentPage = Number(this.getPageValueFromParameter()) || 1
     this.getAnnouncementsPerPage()
@@ -142,7 +142,7 @@ export default {
       if (!results) return null;
       return results[1]
     },
-    paginateClickCallback(pageNum) {
+    paginateClickCallback() {
       this.getAnnouncementsPerPage()
       this.updateCurrentUrl()
     },
