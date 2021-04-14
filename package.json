@@ -1,7 +1,4 @@
 {
-  "scripts": {
-    "lint": "vue-cli-service lint"
-  },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.0.1",
     "@rails/webpacker": "^5.2.1",
@@ -41,7 +38,6 @@
     "webpack": "^4.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-eslint": "~4.5.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "webpack-dev-server": "^3.9.0"
