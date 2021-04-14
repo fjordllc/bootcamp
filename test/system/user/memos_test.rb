@@ -33,36 +33,36 @@ class User::MemoTest < ApplicationSystemTestCase
   test 'admin can see memorandom' do
     login_user 'komagata', 'testtest'
     visit user_path(users(:hatsuno))
-    page.assert_text('メンター向けユーザーメモ')
+    assert_text 'メンター向けユーザーメモ'
   end
 
   test 'mentor can see memorandom' do
     login_user 'yamada', 'testtest'
     visit user_path(users(:hatsuno))
-    page.assert_text('メンター向けユーザーメモ')
+    assert_text 'メンター向けユーザーメモ'
   end
 
   test 'adviser can’t see memorandom' do
     login_user 'advijirou', 'testtest'
     visit user_path(users(:hatsuno))
-    page.assert_no_text('メンター向けユーザーメモ')
+    assert_no_text 'メンター向けユーザーメモ'
   end
 
   test 'trainee can’t see memorandom' do
     login_user 'kensyu', 'testtest'
     visit user_path(users(:hatsuno))
-    page.assert_no_text('メンター向けユーザーメモ')
+    assert_no_text 'メンター向けユーザーメモ'
   end
 
   test 'graduate can’t see memorandom' do
     login_user 'sotugyou', 'testtest'
     visit user_path(users(:hatsuno))
-    page.assert_no_text('メンター向けユーザーメモ')
+    assert_no_text 'メンター向けユーザーメモ'
   end
 
   test 'student can’t see memorandom' do
     login_user 'hatsuno', 'testtest'
     visit user_path(users(:hatsuno))
-    page.assert_no_text('メンター向けユーザーメモ')
+    assert_no_text 'メンター向けユーザーメモ'
   end
 end
