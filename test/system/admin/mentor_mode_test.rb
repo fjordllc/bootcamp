@@ -11,7 +11,7 @@ class Admin::MentorModeTest < ApplicationSystemTestCase
     page.assert_no_text('メンター向けユーザーメモ')
   end
 
-  test 'student don`t show mentor-user-memo' do
+  test 'student do not show mentor-user-memo' do
     login_user 'kimura', 'testtest'
     page.assert_no_text('メンター向けユーザーメモ')
   end
