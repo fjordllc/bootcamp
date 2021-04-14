@@ -92,7 +92,7 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
-        .then(response => {
+        .then(() => {
           this.editing = false;
         })
         .catch(error => {

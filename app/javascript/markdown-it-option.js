@@ -16,7 +16,9 @@ export default {
           Prism.highlight(str, langObject, lang) +
           '</code></pre>'
         )
-      } catch (_) { }
+      } catch (_) {
+        // 何もしない
+      }
     }
     const m = new MarkdownIt()
     return `<pre class="language-${lang}"><code>` + m.utils.escapeHtml(str) + '</code></pre>'
