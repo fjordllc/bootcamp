@@ -19,6 +19,7 @@ class User < ApplicationRecord
 
   enum os: {
     mac: 0,
+    mac_m1: 2,
     linux: 1
   }, _prefix: true
 
