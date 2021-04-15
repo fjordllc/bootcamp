@@ -2,4 +2,4 @@
 
 bundle exec rubocop -a
 bundle exec slim-lint app/views -c config/slim_lint.yml
-bin/yarn eslint app/javascript
+bin/yarn eslint 'app/javascript/**/*.{js,vue}'

@@ -34,10 +34,10 @@
             :currentUserId="currentUserId"
             :isMentor="isMentor")
         unconfirmed-links-open-button(v-if="isMentor && selectedTab != 'all'" :label="`${unconfirmedLinksName}の提出物を一括で開く`")
-      .o-empty-massage(v-else)
-        .o-empty-massage__icon
+      .o-empty-message(v-else)
+        .o-empty-message__icon
           i.far.fa-smile
-        p.o-empty-massage__text
+        p.o-empty-message__text
           | {{ title }}はありません
       nav.pagination
         pager-bottom(
@@ -91,30 +91,23 @@ export default {
   },
   computed: {
     url () {
-      switch (this.selectedTab) {
-      case 'all':
-        return `/api/products?page=${this.currentPage}`
-      case 'unchecked':
-        return `/api/products/unchecked?page=${this.currentPage}`
-      case 'not-responded':
-        return `/api/products/not_responded?page=${this.currentPage}`
-      case 'self-assigned':
-        return `/api/products/self_assigned?page=${this.currentPage}`
-      }
+      return (
+        '/api/products' +
+        (this.selectedTab === 'all' ? '' : '/' + this.selectedTab.replace('-', '_')) +
+        `?page=${this.currentPage}`
+      )
     },
     unconfirmedLinksName() {
-      if (this.selectedTab == 'unchecked') {
-        return '未チェック'
-      } else if (this.selectedTab == 'not-responded') {
-        return '未返信'
-      } else if (this.selectedTab == 'self-assigned') {
-        return '自分の担当'
-      }
+      return {
+        unchecked: '未チェック',
+        'not-responded': '未返信',
+        'self-assigned': '自分の担当',
+      }[this.selectedTab]
     }
   },
   created () {
     window.onpopstate = function(){
-      location.href = location.href
+      location.replace(location.href);
     }
     this.currentPage = Number(this.getPageValueFromParameter()) || 1
     this.getProductsPerPage()
@@ -163,7 +156,7 @@ export default {
       if (!results) return null;
       return results[1]
     },
-    paginateClickCallback (pageNum) {
+    paginateClickCallback () {
       this.getProductsPerPage()
       this.updateCurrentUrl()
     }

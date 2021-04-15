@@ -14,7 +14,7 @@ export default class {
       values: (text, callback) => {
         this._filterValues(text, callback)
       },
-      lookup: (person, _mentionText) => {
+      lookup: (person) => {
         return person.login_name + person.name
       },
       menuItemTemplate: (item) => {
