@@ -15,9 +15,8 @@
             現状のcheckerIdを参照すれば、v-ifでも大丈夫と推測
           //-
           product-checker(v-show="checkId === null", :checkerId="checkerId", :checkerName="checkerName", :currentUserId="currentUserId", :productId="checkableId")
-        li.card-main-actions__item
-          button#js-shortcut-check.thread-check-form__action.is-block(:class=" checkId ? 'is-text' : 'a-button is-md is-danger' " @click="check")
-            i.fas.fa-check
+        li.card-main-actions__item(:class=" checkId ? 'is-sub' : '' ")
+          button#js-shortcut-check.is-block(:class=" checkId ? 'card-main-actions__delete' : 'a-button is-md is-danger' " @click="check")
             | {{ buttonLabel }}
 </template>
 <script>
