@@ -57,7 +57,7 @@ import ProductChecker from './product_checker'
 export default {
   props: ['product', 'currentUserId', 'isMentor'],
   components: {
-    'product-checker': ProductChecker,
+    'product-checker': ProductChecker
   },
   computed: {
     roleClass() {
@@ -67,7 +67,9 @@ export default {
       return { 'is-daimyo': this.product.user.daimyo }
     },
     practiceTitle() {
-      return this.product.user.daimyo ? `★${this.product.practice.title}の提出物` : `${this.product.practice.title}の提出物`
+      return this.product.user.daimyo
+        ? `★${this.product.practice.title}の提出物`
+        : `${this.product.practice.title}の提出物`
     }
   }
 }

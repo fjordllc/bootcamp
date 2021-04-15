@@ -25,20 +25,20 @@ import 'whatwg-fetch'
 
 export default {
   props: ['practiceId', 'status', 'submission'],
-  data () {
+  data() {
     return {
       statusName: null
     }
   },
-  mounted () {
+  mounted() {
     this.statusName = this.status
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    pushStatus (name) {
+    pushStatus(name) {
       let params = new FormData()
       params.append('status', name)
 
@@ -52,22 +52,21 @@ export default {
         redirect: 'manual',
         body: params
       })
-        .then(response => {
+        .then((response) => {
           if (response.ok) {
             this.statusName = name
             return this
           } else {
-            response.json().then(data => {
+            response.json().then((data) => {
               alert(data.error)
-            });
+            })
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.warn('Failed to parsing', error)
         })
-    },
+    }
   }
 }
 </script>
-<style scoped>
-</style>
+<style scoped></style>

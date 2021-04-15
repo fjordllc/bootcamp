@@ -28,7 +28,7 @@ import Pager from './pager.vue'
 export default {
   props: ['title', 'currentUserId'],
   components: {
-    'announcement': Announcement,
+    announcement: Announcement,
     pager: Pager
   },
   data() {
@@ -41,7 +41,9 @@ export default {
     }
   },
   computed: {
-    url() { return `/api/announcements?page=${this.currentPage}` },
+    url() {
+      return `/api/announcements?page=${this.currentPage}`
+    },
     pagerProps() {
       return {
         initialPageNumber: this.currentPage,
@@ -52,8 +54,8 @@ export default {
     }
   },
   created() {
-    window.onpopstate = function(){
-      location.replace(location.href);
+    window.onpopstate = function () {
+      location.replace(location.href)
     }
     this.getAnnouncementsPerPage()
     this.getCurrentUser()
@@ -72,27 +74,27 @@ export default {
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
-        redirect: 'manual',
+        redirect: 'manual'
       })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        this.totalPages = json.total_pages
-        this.announcements = []
-        json.announcements.forEach(announcement => {
-          this.announcements.push(announcement);
-        });
-        this.loaded = true
-      })
-      .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          this.totalPages = json.total_pages
+          this.announcements = []
+          json.announcements.forEach((announcement) => {
+            this.announcements.push(announcement)
+          })
+          this.loaded = true
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     },
     getPageValueFromParameter() {
       let url = location.href
-      let results= url.match(/\?page=(\d+)/)
-      if (!results) return null;
+      let results = url.match(/\?page=(\d+)/)
+      if (!results) return null
       return results[1]
     },
     paginateClickCallback(pageNumber) {
@@ -101,29 +103,29 @@ export default {
       history.pushState(
         null,
         null,
-        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`),
+        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
       )
     },
     getCurrentUser() {
       fetch(`/api/users/${this.currentUserId}.json`, {
-      method: "GET",
-      headers: {
-        "X-Requested-With": "XMLHttpRequest"
-      },
-      credentials: "same-origin",
-      redirect: "manual"
-    })
-      .then(response => {
-        return response.json();
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        credentials: 'same-origin',
+        redirect: 'manual'
       })
-      .then(json => {
-        for (var key in json) {
-          this.$set(this.currentUser, key, json[key]);
-        }
-      })
-      .catch(error => {
-        console.warn("Failed to parsing", error);
-      });
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          for (var key in json) {
+            this.$set(this.currentUser, key, json[key])
+          }
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     }
   }
 }

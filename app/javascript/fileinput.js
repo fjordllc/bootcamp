@@ -3,10 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (inputs) {
     for (let i = 0; i < inputs.length; i++) {
       let input = inputs[i]
-      input.addEventListener('change', e => {
+      input.addEventListener('change', (e) => {
         const file = e.target.files[0]
         const fileReader = new FileReader()
-        fileReader.addEventListener('load', event => {
+        fileReader.addEventListener('load', (event) => {
           let dataUri = event.target.result
           const preview = document.querySelector('.js-file-input__preview')
           const p = document.querySelector('.js-file-input__preview p')

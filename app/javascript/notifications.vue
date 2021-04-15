@@ -33,7 +33,7 @@ export default {
     }
   },
   components: {
-    'notification': Notification,
+    notification: Notification,
     pager: Pager,
     'unconfirmed-links-open-button': UnconfirmedLinksOpenButton
   },
@@ -47,8 +47,8 @@ export default {
   },
   created() {
     // ブラウザバック・フォワードした時に画面を読み込ませる
-    window.onpopstate = function() {
-      location.replace(location.href);
+    window.onpopstate = function () {
+      location.replace(location.href)
     }
     this.getNotificationsPerPage()
   },
@@ -73,39 +73,41 @@ export default {
     }
   },
   methods: {
-    getNotificationsPerPage: function() {
+    getNotificationsPerPage: function () {
       fetch(this.url, {
         method: 'GET',
-        headers: { 'X-Requested-With': 'XMLHttpRequest'},
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
         credentials: 'same-origin',
         redirect: 'manual'
       })
-      .then(response => {
-        return response.json()
-      })
-        .then(json => {
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
           this.totalPages = json['total_pages']
           this.notifications = []
-          json['notifications'].forEach(n => { this.notifications.push(n) })
+          json['notifications'].forEach((n) => {
+            this.notifications.push(n)
+          })
           this.loaded = true
         })
-        .catch(error => {
+        .catch((error) => {
           console.warn('Failed to parsing', error)
         })
     },
-    paginateClickCallback: function(pageNumber) {
+    paginateClickCallback: function (pageNumber) {
       this.currentPage = pageNumber
       this.getNotificationsPerPage()
       history.pushState(
         null,
         null,
-        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`),
+        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
       )
     },
-    getPageValueFromParameter: function() {
+    getPageValueFromParameter: function () {
       let url = location.href
       let results = url.match(/\?page=(\d+)/)
-      if (!results) return null;
+      if (!results) return null
       return results[1]
     }
   }

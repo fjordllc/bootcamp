@@ -28,38 +28,40 @@ export default {
       sendBody: '',
       id: '',
       body: '',
-      checked: false,
+      checked: false
     }
   },
   watch: {
-    body: function() {
-      this.checked = false;
+    body: function () {
+      this.checked = false
     },
-    checked: function() {
+    checked: function () {
       if (this.checked == false) {
-        this.sendBody = '';
+        this.sendBody = ''
       } else {
-        this.sendBody = this.body;
+        this.sendBody = this.body
       }
     }
   },
-  created: function() {
-    if(!(this.memo === undefined)){
+  created: function () {
+    if (!(this.memo === undefined)) {
       this.id = this.memo.id
       this.sendBody = this.memo.body
       this.body = this.memo.body
     }
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    createMemo: function() {
-      if (this.sendBody.length < 1) { return null }
+    createMemo: function () {
+      if (this.sendBody.length < 1) {
+        return null
+      }
       let params = {
-        'date': this.date,
-        'body': this.$refs.sendBody.value,
+        date: this.date,
+        body: this.$refs.sendBody.value
       }
       fetch(`/api/memos`, {
         method: 'POST',
@@ -72,28 +74,32 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
-        .then(response => {
-          return response.json();
+        .then((response) => {
+          return response.json()
         })
-        .then(json => {
-          if (json["message"] == undefined) {
-            this.id = json["id"];
-            this.body = json["body"];
-          }else{
-            alert(json["message"]);
+        .then((json) => {
+          if (json['message'] == undefined) {
+            this.id = json['id']
+            this.body = json['body']
+          } else {
+            alert(json['message'])
           }
         })
-        .catch(error => {
-          console.warn('Failed to parsing', error);
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
         })
     },
-    updateMemo: function() {
-      if (this.sendBody.length < 1) { return null }
-      if (this.sendBody === this.body) { return null }
+    updateMemo: function () {
+      if (this.sendBody.length < 1) {
+        return null
+      }
+      if (this.sendBody === this.body) {
+        return null
+      }
 
       let params = {
-        'date': this.date,
-        'body': this.$refs.sendBody.value,
+        date: this.date,
+        body: this.$refs.sendBody.value
       }
       fetch(`/api/memos/${this.id}`, {
         method: 'PATCH',
@@ -106,22 +112,22 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
-        .then(response => {
-          return response.json();
+        .then((response) => {
+          return response.json()
         })
-        .then(json => {
-          if (json["message"] == undefined) {
-            this.id = json["id"];
-            this.body = json["body"];
-          }else{
-            alert(json["message"]);
+        .then((json) => {
+          if (json['message'] == undefined) {
+            this.id = json['id']
+            this.body = json['body']
+          } else {
+            alert(json['message'])
           }
         })
-        .catch(error => {
-          console.warn('Failed to parsing', error);
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
         })
     },
-    deleteMemo: function() {
+    deleteMemo: function () {
       fetch(`/api/memos/${this.id}.json`, {
         method: 'DELETE',
         headers: {
@@ -131,23 +137,22 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then(response => {
-          return response.json();
+        .then((response) => {
+          return response.json()
         })
-        .then(json => {
-          if (json["message"] == undefined) {
-            this.id = json["id"];
-            this.body = '';
-          }else{
-            alert(json["message"]);
+        .then((json) => {
+          if (json['message'] == undefined) {
+            this.id = json['id']
+            this.body = ''
+          } else {
+            alert(json['message'])
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.warn('Failed to parsing', error)
         })
     }
   },
-  computed: {
-  }
+  computed: {}
 }
 </script>

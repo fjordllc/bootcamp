@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (categories) {
     const allCategories = categories.getAttribute('data-categories')
     new Vue({
-      render: h => h(Categories, {
-        props: {
-          allCategories: allCategories
-        }
-      })
+      render: (h) =>
+        h(Categories, {
+          props: {
+            allCategories: allCategories
+          }
+        })
     }).$mount(selector)
   }
 })

@@ -41,7 +41,7 @@ import CommentUserIcon from './comment-user-icon.vue'
 
 export default {
   components: {
-    "comment-user-icon": CommentUserIcon
+    'comment-user-icon': CommentUserIcon
   },
   props: ['report', 'currentUserId'],
   computed: {
@@ -53,7 +53,7 @@ export default {
     },
     wipClass() {
       return { 'is-wip': this.report.wip }
-    },
+    }
   }
 }
 </script>

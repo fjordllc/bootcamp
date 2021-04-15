@@ -28,122 +28,132 @@
 <script>
 import moment from 'moment'
 
-moment.locale("ja");
+moment.locale('ja')
 
 export default {
-  props: ['reactionable', 'currentUser', "reactionableId"],
-  components: {
-  },
+  props: ['reactionable', 'currentUser', 'reactionableId'],
+  components: {},
   data: () => {
     return {
       availableEmojis: [],
       dropdown: false
     }
   },
-  created: function() {
+  created: function () {
     this.availableEmojis = window.availableEmojis
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    createReaction: function(kind) {
+    createReaction: function (kind) {
       let params = {
-        "reactionable_id": this.reactionableId,
-        "kind": kind
-        }
+        reactionable_id: this.reactionableId,
+        kind: kind
+      }
 
-    fetch(`/api/reactions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': this.token()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual',
-      body: JSON.stringify(params)
-    })
-      .then(response => {
-        function findKind(element) {
-          return element.kind == kind;
-        }
-        const id = this.reactionable.reaction_count.findIndex(findKind)
-        this.reactionable.reaction_count[id].count += 1
-        this.reactionable.reaction_count[id].login_names.push(this.currentUser.login_name)
-        return response.json()
+      fetch(`/api/reactions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+        body: JSON.stringify(params)
       })
-      .then(json => {
-        this.reactionable.reaction.push(
-          {
+        .then((response) => {
+          function findKind(element) {
+            return element.kind == kind
+          }
+          const id = this.reactionable.reaction_count.findIndex(findKind)
+          this.reactionable.reaction_count[id].count += 1
+          this.reactionable.reaction_count[id].login_names.push(
+            this.currentUser.login_name
+          )
+          return response.json()
+        })
+        .then((json) => {
+          this.reactionable.reaction.push({
             id: json.id,
             user_id: this.currentUser.id,
             kind: kind
-          }
-        )
-      })
-      .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
+          })
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     },
-    destroyReaction: function(kind) {
-      const clickedReaction = this.reactionable.reaction.find(function(el) {
-        return (el.user_id == this.currentUser.id) && (el.kind == kind)
+    destroyReaction: function (kind) {
+      const clickedReaction = this.reactionable.reaction.find(function (el) {
+        return el.user_id == this.currentUser.id && el.kind == kind
       }, this)
 
       fetch(`/api/reactions/${clickedReaction.id}`, {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': this.token()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual'
-    })
-      .then(() => {
-        this.reactionable.reaction.forEach((reaction, i) => {
-            if (reaction.id == clickedReaction.id) { this.reactionable.reaction.splice(i, 1); }
-          });
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual'
+      })
+        .then(() => {
+          this.reactionable.reaction.forEach((reaction, i) => {
+            if (reaction.id == clickedReaction.id) {
+              this.reactionable.reaction.splice(i, 1)
+            }
+          })
 
-        function findKind(element) {
-          return element.kind == kind;
-        }
-        const id = this.reactionable.reaction_count.findIndex(findKind)
-        this.reactionable.reaction_count[id].count -= 1
-        this.reactionable.reaction_count[id].login_names.forEach((name, i) => {
-            if (name == this.currentUser.login_name) { this.reactionable.reaction_count[id].login_names.splice(i, 1); }
-          });
-      })
-      .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
+          function findKind(element) {
+            return element.kind == kind
+          }
+          const id = this.reactionable.reaction_count.findIndex(findKind)
+          this.reactionable.reaction_count[id].count -= 1
+          this.reactionable.reaction_count[id].login_names.forEach(
+            (name, i) => {
+              if (name == this.currentUser.login_name) {
+                this.reactionable.reaction_count[id].login_names.splice(i, 1)
+              }
+            }
+          )
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     },
-    footerReaction: function(kind) {
-      this.isReacted(kind) ? this.destroyReaction(kind) : this.createReaction(kind)
+    footerReaction: function (kind) {
+      this.isReacted(kind)
+        ? this.destroyReaction(kind)
+        : this.createReaction(kind)
     },
-    dropdownReaction: function(kind) {
+    dropdownReaction: function (kind) {
       this.footerReaction(kind)
       this.dropdownToggle()
     },
-    dropdownToggle: function() {
+    dropdownToggle: function () {
       this.dropdown = !this.dropdown
     },
-    isReacted: function(kind) {
+    isReacted: function (kind) {
       function findkind(element) {
-          return element.kind == kind;
-        }
+        return element.kind == kind
+      }
       const id = this.reactionable.reaction_count.findIndex(findkind)
-      const reaction = this.reactionable.reaction_count[id].login_names.filter(function(el) {
-        return el == this.currentUser.login_name
-      }, this)
+      const reaction = this.reactionable.reaction_count[id].login_names.filter(
+        function (el) {
+          return el == this.currentUser.login_name
+        },
+        this
+      )
       return reaction.length == 0 ? false : true
     }
   },
   computed: {
-    displayedEmojis: function() {
-      const emojis = this.reactionable.reaction_count.filter(function(el) {
+    displayedEmojis: function () {
+      const emojis = this.reactionable.reaction_count.filter(function (el) {
         return el.count != 0
       }, this)
       return emojis
@@ -151,5 +161,4 @@ export default {
   }
 }
 </script>
-<style scoped>
-</style>
+<style scoped></style>

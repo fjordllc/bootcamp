@@ -75,137 +75,145 @@
                 | キャンセル
 </template>
 <script>
-import Reaction from "./reaction.vue";
+import Reaction from './reaction.vue'
 import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
-import moment from "moment";
-moment.locale("ja");
+import moment from 'moment'
+moment.locale('ja')
 
 export default {
-  props: ["answer", "currentUser", "availableEmojis", "hasCorrectAnswer", "questionUser"],
+  props: [
+    'answer',
+    'currentUser',
+    'availableEmojis',
+    'hasCorrectAnswer',
+    'questionUser'
+  ],
   components: {
     reaction: Reaction
   },
   data: () => {
     return {
-      description: "",
+      description: '',
       editing: false,
       isCopied: false,
-      tab: "answer",
+      tab: 'answer',
       question: [],
       activating: false
-    };
+    }
   },
-  created: function() {
-    this.description = this.answer.description;
+  created: function () {
+    this.description = this.answer.description
   },
-  mounted: function() {
+  mounted: function () {
     TextareaInitializer.initialize(`#js-comment-${this.answer.id}`)
 
-    const answerAnchor = location.hash;
+    const answerAnchor = location.hash
     if (answerAnchor) {
       this.$nextTick(() => {
-        location.replace(location.href);
-      });
+        location.replace(location.href)
+      })
     }
   },
   methods: {
     token() {
-      const meta = document.querySelector('meta[name="csrf-token"]');
-      return meta ? meta.getAttribute("content") : "";
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      return meta ? meta.getAttribute('content') : ''
     },
-    isActive: function(tab) {
-      return this.tab == tab;
+    isActive: function (tab) {
+      return this.tab == tab
     },
-    changeActiveTab: function(tab) {
-      this.tab = tab;
+    changeActiveTab: function (tab) {
+      this.tab = tab
     },
-    cancel: function() {
-      this.description = this.answer.description;
-      this.editing = false;
+    cancel: function () {
+      this.description = this.answer.description
+      this.editing = false
     },
-    editAnswer: function() {
-      this.editing = true;
-      this.$nextTick(function() {
-        $(`.answer-id-${this.answer.id}`).trigger("input");
-      });
+    editAnswer: function () {
+      this.editing = true
+      this.$nextTick(function () {
+        $(`.answer-id-${this.answer.id}`).trigger('input')
+      })
     },
-    makeToBestAnswer: function() {
-      if (window.confirm("本当に宜しいですか？")) {
-        this.$emit("makeToBestAnswer", this.answer.id);
+    makeToBestAnswer: function () {
+      if (window.confirm('本当に宜しいですか？')) {
+        this.$emit('makeToBestAnswer', this.answer.id)
       }
     },
-    cancelBestAnswer: function() {
-      if (window.confirm("本当に宜しいですか？")) {
-        this.$emit("cancelBestAnswer", this.answer.id);
+    cancelBestAnswer: function () {
+      if (window.confirm('本当に宜しいですか？')) {
+        this.$emit('cancelBestAnswer', this.answer.id)
       }
     },
-    updateAnswer: function() {
+    updateAnswer: function () {
       if (this.description.length < 1) {
-        return null;
+        return null
       }
       let params = {
         answer: { description: this.description }
-      };
+      }
       fetch(`/api/answers/${this.answer.id}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "X-Requested-With": "XMLHttpRequest",
-          "X-CSRF-Token": this.token()
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
         },
-        credentials: "same-origin",
-        redirect: "manual",
+        credentials: 'same-origin',
+        redirect: 'manual',
         body: JSON.stringify(params)
       })
         .then(() => {
-          this.editing = false;
+          this.editing = false
         })
-        .catch(error => {
-          console.warn("Failed to parsing", error);
-        });
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     },
-    deleteAnswer: function() {
-      if (window.confirm("削除してよろしいですか？")) {
-        this.$emit("delete", this.answer.id);
+    deleteAnswer: function () {
+      if (window.confirm('削除してよろしいですか？')) {
+        this.$emit('delete', this.answer.id)
       }
     },
     copyAnswerURLToClipboard(answerId) {
-      const answerURL = location.href.split("#")[0] + "#answer_" + answerId;
-      const textBox = document.createElement("textarea");
-      textBox.setAttribute("type", "hidden");
-      textBox.textContent = answerURL;
-      document.body.appendChild(textBox);
-      textBox.select();
-      document.execCommand("copy");
-      document.body.removeChild(textBox);
-      this.activating = true;
-      setTimeout(() => {this.activating = false}, 4000);
+      const answerURL = location.href.split('#')[0] + '#answer_' + answerId
+      const textBox = document.createElement('textarea')
+      textBox.setAttribute('type', 'hidden')
+      textBox.textContent = answerURL
+      document.body.appendChild(textBox)
+      textBox.select()
+      document.execCommand('copy')
+      document.body.removeChild(textBox)
+      this.activating = true
+      setTimeout(() => {
+        this.activating = false
+      }, 4000)
     }
   },
   computed: {
-    markdownDescription: function() {
+    markdownDescription: function () {
       const markdownInitializer = new MarkdownInitializer()
       return markdownInitializer.render(this.description)
     },
-    answerCreatedAt: function() {
-      return moment(this.answer.question.created_at).format();
+    answerCreatedAt: function () {
+      return moment(this.answer.question.created_at).format()
     },
-    updatedAt: function() {
-      return moment(this.answer.updated_at).format("YYYY年MM月DD日(dd) HH:mm");
+    updatedAt: function () {
+      return moment(this.answer.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
-    roleClass: function() {
-      return `is-${this.answer.user.role}`;
+    roleClass: function () {
+      return `is-${this.answer.user.role}`
     },
-    daimyoClass: function() {
+    daimyoClass: function () {
       return { 'is-daimyo': this.answer.user.daimyo }
     },
-    validation: function() {
-      return this.description.length > 0;
+    validation: function () {
+      return this.description.length > 0
     },
-    reactionableId: function() {
-      return `Answer_${this.answer.id}`;
+    reactionableId: function () {
+      return `Answer_${this.answer.id}`
     }
   }
-};
+}
 </script>

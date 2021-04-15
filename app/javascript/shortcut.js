@@ -8,7 +8,7 @@ hotkeys.filter = function (event) {
   return true
 }
 
-function isMac () {
+function isMac() {
   return navigator.userAgent.toLowerCase().indexOf('mac') > 0
 }
 
@@ -26,7 +26,9 @@ hotkeys(`${ctrl}+s`, 'input', function (event, handler) {
 hotkeys(`${ctrl}+enter`, 'input', function (event, handler) {
   console.log(handler.key)
   event.preventDefault()
-  const button = document.querySelector('#js-shortcut-submit,#js-shortcut-post-comment')
+  const button = document.querySelector(
+    '#js-shortcut-submit,#js-shortcut-post-comment'
+  )
   if (button) {
     button.click()
   }
@@ -49,7 +51,9 @@ hotkeys(`${ctrl}+b`, 'all', function (event, handler) {
     button.click()
   }
 
-  const allOpenButton = document.querySelector('#js-shortcut-unconfirmed-links-open')
+  const allOpenButton = document.querySelector(
+    '#js-shortcut-unconfirmed-links-open'
+  )
   if (allOpenButton) {
     allOpenButton.click()
   }

@@ -60,20 +60,20 @@ export default {
     fetch(`/api/practices/${this.practiceId}.json`, {
       method: 'GET',
       headers: {
-        'X-Requested-With': 'XMLHttpRequest',
+        'X-Requested-With': 'XMLHttpRequest'
       },
       credentials: 'same-origin',
       redirect: 'manual'
     })
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
+      .then((json) => {
         if (json['memo']) {
           this.memo = json['memo']
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.warn('Failed to parsing', error)
       })
   },
@@ -81,7 +81,7 @@ export default {
     TextareaInitializer.initialize('#js-practice-memo')
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
@@ -95,23 +95,23 @@ export default {
       fetch(`/api/practices/${this.practiceId}.json`, {
         method: 'GET',
         headers: {
-          'X-Requested-With': 'XMLHttpRequest',
+          'X-Requested-With': 'XMLHttpRequest'
         },
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then(response => {
+        .then((response) => {
           return response.json()
         })
-        .then(json => {
+        .then((json) => {
           this.memo = json['memo']
         })
-        .catch(error => {
+        .catch((error) => {
           console.warn('Failed to parsing', error)
         })
-        this.editing = false;
+      this.editing = false
     },
-    updateMemo () {
+    updateMemo() {
       let params = {
         practice: {
           memo: this.memo
@@ -129,14 +129,14 @@ export default {
         body: JSON.stringify(params)
       })
         .then(() => {
-          this.editing = false;
+          this.editing = false
         })
-        .catch(error => {
+        .catch((error) => {
           console.warn('Failed to parsing', error)
         })
     },
-    editMemo () {
-      this.editing = true;
+    editMemo() {
+      this.editing = true
     }
   },
   computed: {

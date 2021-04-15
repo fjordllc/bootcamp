@@ -161,21 +161,21 @@ export default {
     watch: Watch,
     tags: Tags,
     reaction: Reaction,
-    userIcon: UserIcon,
+    userIcon: UserIcon
   },
   directives: {
     select2: {
       inserted(el) {
         $(el).on('select2:select', () => {
-          el.dispatchEvent(new Event('change'));
-        });
+          el.dispatchEvent(new Event('change'))
+        })
       }
     }
   },
   props: {
     question: { type: Object, required: true },
     answerCount: { type: Number, required: true },
-    currentUser: { type: Object, required: true },
+    currentUser: { type: Object, required: true }
   },
   data() {
     return {
@@ -185,12 +185,12 @@ export default {
       edited: {
         title: this.question.title,
         description: this.question.description,
-        practiceId: this.question.practice.id,
+        practiceId: this.question.practice.id
       },
       editing: false,
       displayedUpdateMessage: false,
       tab: 'question',
-      practices: null,
+      practices: null
     }
   },
   created() {
@@ -209,9 +209,9 @@ export default {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token(),
+          'X-CSRF-Token': this.token()
         },
-        credentials: 'same-origin',
+        credentials: 'same-origin'
       })
         .then((response) => {
           return response.json()
@@ -264,18 +264,18 @@ export default {
           title,
           description,
           practice_id: practiceId
-        },
+        }
       }
       fetch(`/api/questions/${this.question.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token(),
+          'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
         redirect: 'manual',
-        body: JSON.stringify(params),
+        body: JSON.stringify(params)
       })
         .then(() => {
           Object.entries(this.edited).some(([key, val]) => {
@@ -292,23 +292,21 @@ export default {
         this.edited[key] = this[key]
       })
       this.finishEditing(false)
-    },
+    }
   },
   computed: {
     updatedAtISO8601() {
-      return moment(this.question.updated_at).format();
+      return moment(this.question.updated_at).format()
     },
     updatedAt() {
-      return moment(this.question.updated_at).format(
-        "YYYY年MM月DD日(dd) HH:mm"
-      )
+      return moment(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     practiceTitle() {
-      const { practices, question, practiceId } = this;
+      const { practices, question, practiceId } = this
 
       return practices === null
-             ? question.practice.title
-             : practices.find((practice) => practice.id === practiceId).title
+        ? question.practice.title
+        : practices.find((practice) => practice.id === practiceId).title
     },
     editAble() {
       return (
@@ -323,7 +321,7 @@ export default {
     validation() {
       const { title, description } = this.edited
       return title.length > 0 && description.length > 0
-    },
-  },
+    }
+  }
 }
 </script>

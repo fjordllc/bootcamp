@@ -11,7 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const status = learningStatus.getAttribute('data-status')
       const submission = learningStatus.getAttribute('data-submission')
       new Vue({
-        render: h => h(LearningStatus, { props: { practiceId: practiceId, status: status, submission: submission } })
+        render: (h) =>
+          h(LearningStatus, {
+            props: {
+              practiceId: practiceId,
+              status: status,
+              submission: submission
+            }
+          })
       }).$mount('.js-learning-status')
     }
   }

@@ -15,8 +15,8 @@ draggable.draggable-items(v-model='practices', handle=".js-grab", @start="start"
 <script>
 import draggable from 'vuedraggable'
 export default {
-  props: ['categoriesPractices','categoryPractices'],
-  data () {
+  props: ['categoriesPractices', 'categoryPractices'],
+  data() {
     return {
       practices: this.categoryPractices,
       practicesBeforeDragging: '',
@@ -27,40 +27,45 @@ export default {
     draggable
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    start () {
+    start() {
       this.practicesBeforeDragging = this.practices
     },
-    end (event) {
+    end(event) {
       this.draggingItem = this.practicesBeforeDragging[event.oldIndex]
       if (event.oldIndex !== event.newIndex) {
         const params = {
           // position値は1から始まるため、インデックス番号 + 1
-          'position': event.newIndex + 1
+          position: event.newIndex + 1
         }
-        const categoriesPracticeId = (this.categoriesPractices.find((v) => v.practice_id === this.draggingItem.id)).id
-        fetch(`/api/categories_practices/position/${categoriesPracticeId}.json`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': this.token()
-          },
-          credentials: 'same-origin',
-          redirect: 'manual',
-          body: JSON.stringify(params)
-        })
-            .then(response => {
-              if (!response.ok) {
-                this.practices = this.practicesBeforeDragging
-              }
-            })
-            .catch(error => {
-              console.warn('Failed to parsing', error)
-            })
+        const categoriesPracticeId = this.categoriesPractices.find(
+          (v) => v.practice_id === this.draggingItem.id
+        ).id
+        fetch(
+          `/api/categories_practices/position/${categoriesPracticeId}.json`,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRF-Token': this.token()
+            },
+            credentials: 'same-origin',
+            redirect: 'manual',
+            body: JSON.stringify(params)
+          }
+        )
+          .then((response) => {
+            if (!response.ok) {
+              this.practices = this.practicesBeforeDragging
+            }
+          })
+          .catch((error) => {
+            console.warn('Failed to parsing', error)
+          })
       }
     }
   }

@@ -31,7 +31,7 @@ export default {
     initialPageNumber: { type: Number, required: true },
     pageCount: { type: Number, required: true },
     pageRange: { type: Number, required: true },
-    clickHandle: { type: Function, required: true },
+    clickHandle: { type: Function, required: true }
   },
   components: {
     pager: VuejsPaginate

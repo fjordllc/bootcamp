@@ -21,6 +21,10 @@ export default {
       }
     }
     const m = new MarkdownIt()
-    return `<pre class="language-${lang}"><code>` + m.utils.escapeHtml(str) + '</code></pre>'
+    return (
+      `<pre class="language-${lang}"><code>` +
+      m.utils.escapeHtml(str) +
+      '</code></pre>'
+    )
   }
 }
