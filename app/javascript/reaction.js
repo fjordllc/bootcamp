@@ -69,15 +69,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const url = `/api/reactions?reactionable_id=${reactionableId}&kind=${kind}`
 
     requestReaction(url, 'POST', (json) => {
-      Array.from(
-        reaction.querySelectorAll(`[data-reaction-kind="${kind}"]`),
-        (element) => {
+      reaction
+        .querySelectorAll(`[data-reaction-kind="${kind}"]`)
+        .forEach((element) => {
           element.classList.add('is-reacted')
           element.dataset.reactionId = json.id
           updateReactionCount(element, 1)
           updateReactionLoginNames(element, loginName)
-        }
-      )
+        })
     })
   }
 
@@ -85,23 +84,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const url = `/api/reactions/${reactionId}`
 
     requestReaction(url, 'DELETE', () => {
-      Array.from(
-        reaction.querySelectorAll(`[data-reaction-kind="${kind}"]`),
-        (element) => {
+      reaction
+        .querySelectorAll(`[data-reaction-kind="${kind}"]`)
+        .forEach((element) => {
           element.classList.remove('is-reacted')
           delete element.dataset.reactionId
           updateReactionCount(element, -1)
           updateReactionLoginNames(element, loginName)
-        }
-      )
+        })
     })
   }
 
-  Array.from(reactions, (reaction) => {
+  reactions.forEach((reaction) => {
     const loginName = reaction.dataset.reactionLoginName
     const reactionableId = reaction.dataset.reactionReactionableId
 
-    Array.from(reaction.querySelectorAll('li'), (element) => {
+    reaction.querySelectorAll('li').forEach((element) => {
       element.addEventListener('click', (e) => {
         const kind = e.currentTarget.dataset.reactionKind
         const reactionId = e.currentTarget.dataset.reactionId
@@ -115,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 
-  Array.from(document.querySelectorAll('.js-reaction-dropdown'), (dropdown) => {
+  document.querySelectorAll('.js-reaction-dropdown').forEach((dropdown) => {
     dropdown.addEventListener('click', (e) => {
       const reaction = e.currentTarget.querySelector('.js-reaction')
       reaction.hidden = !reaction.hidden

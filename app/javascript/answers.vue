@@ -159,15 +159,17 @@ export default {
       })
         .then(() => {
           this.answers.some((answer, i) => {
-            if (answer.id === id) {
-              this.answers.splice(i, 1)
-
-              if (answer.type === 'CorrectAnswer') {
-                this.$emit('cancelSolveQuestion')
-              }
-
-              return true
+            if (answer.id !== id) {
+              return false
             }
+
+            this.answers.splice(i, 1)
+
+            if (answer.type === 'CorrectAnswer') {
+              this.$emit('cancelSolveQuestion')
+            }
+
+            return true
           })
 
           this.updateAnswerCount()
