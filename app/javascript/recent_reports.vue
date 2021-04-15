@@ -47,7 +47,7 @@ export default {
   methods: {
     updateCheckValue(reportId, { check = true }) {
       this.reports.map(function (report) {
-        if (report.id == reportId) {
+        if (report.id === reportId) {
           report.check = check
         }
       })
@@ -55,15 +55,13 @@ export default {
   },
   watch: {
     checkId(checkId) {
-      const checkableType = this.$store.getters.checkableType
-      if (checkableType == 'Report') {
-        const reportId = this.$store.getters.checkableId
-        if (checkId) {
-          this.updateCheckValue(reportId, { check: true })
-        } else {
-          this.updateCheckValue(reportId, { check: false })
-        }
+      if (this.$store.getters.checkableType !== 'Report') {
+        return
       }
+
+      this.updateCheckValue(Number(this.$store.getters.checkableId), {
+        check: Boolean(checkId)
+      })
     }
   }
 }

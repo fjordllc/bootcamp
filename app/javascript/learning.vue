@@ -44,7 +44,7 @@ export default {
       })
       .then((json) => {
         this.submission = json.practice.submission
-        this.complete = json.status == 'complete'
+        this.complete = json.status === 'complete'
         this.product = json.practice.product
         if (this.product) {
           this.productLink = `/products/${this.product.id}`

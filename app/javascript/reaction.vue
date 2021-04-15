@@ -71,7 +71,7 @@ export default {
       })
         .then((response) => {
           function findKind(element) {
-            return element.kind == kind
+            return element.kind === kind
           }
           const id = this.reactionable.reaction_count.findIndex(findKind)
           this.reactionable.reaction_count[id].count += 1
@@ -93,7 +93,7 @@ export default {
     },
     destroyReaction: function (kind) {
       const clickedReaction = this.reactionable.reaction.find(function (el) {
-        return el.user_id == this.currentUser.id && el.kind == kind
+        return el.user_id === this.currentUser.id && el.kind === kind
       }, this)
 
       fetch(`/api/reactions/${clickedReaction.id}`, {
@@ -108,19 +108,19 @@ export default {
       })
         .then(() => {
           this.reactionable.reaction.forEach((reaction, i) => {
-            if (reaction.id == clickedReaction.id) {
+            if (reaction.id === clickedReaction.id) {
               this.reactionable.reaction.splice(i, 1)
             }
           })
 
           function findKind(element) {
-            return element.kind == kind
+            return element.kind === kind
           }
           const id = this.reactionable.reaction_count.findIndex(findKind)
           this.reactionable.reaction_count[id].count -= 1
           this.reactionable.reaction_count[id].login_names.forEach(
             (name, i) => {
-              if (name == this.currentUser.login_name) {
+              if (name === this.currentUser.login_name) {
                 this.reactionable.reaction_count[id].login_names.splice(i, 1)
               }
             }
@@ -144,22 +144,22 @@ export default {
     },
     isReacted: function (kind) {
       function findkind(element) {
-        return element.kind == kind
+        return element.kind === kind
       }
       const id = this.reactionable.reaction_count.findIndex(findkind)
       const reaction = this.reactionable.reaction_count[id].login_names.filter(
         function (el) {
-          return el == this.currentUser.login_name
+          return el === this.currentUser.login_name
         },
         this
       )
-      return reaction.length != 0
+      return reaction.length !== 0
     }
   },
   computed: {
     displayedEmojis: function () {
       const emojis = this.reactionable.reaction_count.filter(function (el) {
-        return el.count != 0
+        return el.count !== 0
       }, this)
       return emojis
     }
