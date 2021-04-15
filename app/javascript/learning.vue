@@ -1,18 +1,20 @@
 <template lang="pug">
-  .card-main-actions
-    ul.card-main-actions__items
-      li.card-main-actions__item(v-if="submission")
-        a.a-button.is-md.is-primary.is-block.test-product(:href="productLink")
-          i.fas.fa-file
-          | {{ productLabel }}
-      li.card-main-actions__item(v-if="complete")
-        button.a-button.is-md.is-secondary.is-block.is-disabled.test-completed
-          i.fas.fa-check
-          | 完了しています
-      li.card-main-actions__item(v-else)
-        button.a-button.is-md.is-warning.is-block#js-complete(@click="pushComplete")
-          i.fas.fa-check
-          | 完了
+.card-main-actions
+  ul.card-main-actions__items
+    li.card-main-actions__item(v-if='submission')
+      a.a-button.is-md.is-primary.is-block.test-product(:href='productLink')
+        i.fas.fa-file
+        | {{ productLabel }}
+    li.card-main-actions__item(v-if='complete')
+      button.a-button.is-md.is-secondary.is-block.is-disabled.test-completed
+        i.fas.fa-check
+        | 完了しています
+    li.card-main-actions__item(v-else)
+      button#js-complete.a-button.is-md.is-warning.is-block(
+        @click='pushComplete'
+      )
+        i.fas.fa-check
+        | 完了
 </template>
 <script>
 import 'whatwg-fetch'

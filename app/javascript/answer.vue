@@ -1,78 +1,107 @@
 <template lang="pug">
-  .thread-comment
-    .thread-comment__author
-      a.thread-comment__author-link(:href="answer.user.url" itemprop="url")
-        img.thread-comment__author-icon.a-user-icon(:src="answer.user.avatar_url" :title="answer.user.icon_title"  :class="[roleClass, daimyoClass]")
-    .thread-comment__body.a-card(v-if="!editing")
-      .answer-badge(v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer'")
-        .answer-badge__icon
-          i.fas.fa-star
-        .answer-badge__label ベストアンサー
-      header.thread-comment__body-header
-        h2.thread-comment__title
-          a.thread-comment__title-link(:href="answer.user.url" itemprop="url")
-            | {{ answer.user.login_name }}
-        time.thread-comment__created-at(:class="{'is-active': activating}" :datetime="answerCreatedAt" pubdate="pubdate" @click="copyAnswerURLToClipboard(answer.id)")
-          | {{ updatedAt }}
-      .thread-comment__description.js-target-blank.is-long-text(v-html="markdownDescription")
-      reaction(
-        v-bind:reactionable="answer",
-        v-bind:currentUser="currentUser",
-        v-bind:questionUser="questionUser",
-        v-bind:reactionableId="reactionableId")
-      footer.card-footer
-        .card-main-actions
-          ul.card-main-actions__items
-            li.card-main-actions__item(
-              v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
-              button.card-main-actions__action.a-button.is-md.is-secondary.is-block(@click="editAnswer")
-                i.fas.fa-pen
-                | 内容修正
-            li.card-main-actions__item(
-              v-if="!hasCorrectAnswer && answer.type != 'CorrectAnswer' && (currentUser.id === questionUser.id || currentUser.role === 'admin')")
-              button.card-main-actions__action.a-button.is-md.is-primary.is-block(@click="makeToBestAnswer")
-                | ベストアンサーにする
-            li.card-main-actions__item(
-              v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer' && (currentUser.id === questionUser.id || currentUser.role === 'admin')")
-              button.card-main-actions__action.a-button.is-md.is-muted.is-block(@click="cancelBestAnswer")
-                | ベストアンサーを取り消す
-            li.card-main-actions__item.is-sub(
-              v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
-              button.card-main-actions__delete(@click="deleteAnswer")
-                | 削除する
-    .thread-comment-form__form.a-card(v-show="editing")
-      .thread-comment-form__tabs.js-tabs
-        .thread-comment-form__tab.js-tabs__tab(
-          v-bind:class="{'is-active': isActive('answer')}"
-          @click="changeActiveTab('answer')")
-          | コメント
-        .thread-comment-form__tab.js-tabs__tab(
-          v-bind:class="{'is-active': isActive('preview')}"
-          @click="changeActiveTab('preview')")
-          | プレビュー
-      .thread-comment-form__markdown-parent.js-markdown-parent
-        .thread-comment-form__markdown.js-tabs__content(
-          v-bind:class="{'is-active': isActive('answer')}")
-          textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
-            v-model="description"
-            :id="`js-comment-${this.answer.id}`"
-            :data-preview="`#js-comment-preview-${this.answer.id}`"
-            name="answer[description]")
-        .thread-comment-form__markdown.js-tabs__content(
-          v-bind:class="{'is-active': isActive('preview')}")
-          .js-preview.is-long-text.thread-comment-form__preview(
-            :id="`js-comment-preview-${this.answer.id}`")
-      .card-footer
-        .card-main-actions
-          .card-main-actions__items
-            .card-main-actions__item
-              button.a-button.is-md.is-warning.is-block(
-                @click="updateAnswer"
-                v-bind:disabled="!validation")
-                | 保存する
-            .card-main-actions__item
-              button.a-button.is-md.is-secondary.is-block(@click="cancel")
-                | キャンセル
+.thread-comment
+  .thread-comment__author
+    a.thread-comment__author-link(:href='answer.user.url', itemprop='url')
+      img.thread-comment__author-icon.a-user-icon(
+        :src='answer.user.avatar_url',
+        :title='answer.user.icon_title',
+        :class='[roleClass, daimyoClass]'
+      )
+  .thread-comment__body.a-card(v-if='!editing')
+    .answer-badge(v-if='hasCorrectAnswer && answer.type == "CorrectAnswer"')
+      .answer-badge__icon
+        i.fas.fa-star
+      .answer-badge__label ベストアンサー
+    header.thread-comment__body-header
+      h2.thread-comment__title
+        a.thread-comment__title-link(:href='answer.user.url', itemprop='url')
+          | {{ answer.user.login_name }}
+      time.thread-comment__created-at(
+        :class='{ "is-active": activating }',
+        :datetime='answerCreatedAt',
+        pubdate='pubdate',
+        @click='copyAnswerURLToClipboard(answer.id)'
+      )
+        | {{ updatedAt }}
+    .thread-comment__description.js-target-blank.is-long-text(
+      v-html='markdownDescription'
+    )
+    reaction(
+      v-bind:reactionable='answer',
+      v-bind:currentUser='currentUser',
+      v-bind:questionUser='questionUser',
+      v-bind:reactionableId='reactionableId'
+    )
+    footer.card-footer
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item(
+            v-if='answer.user.id == currentUser.id || currentUser.role == "admin"'
+          )
+            button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
+              @click='editAnswer'
+            )
+              i.fas.fa-pen
+              | 内容修正
+          li.card-main-actions__item(
+            v-if='!hasCorrectAnswer && answer.type != "CorrectAnswer" && (currentUser.id === questionUser.id || currentUser.role === "admin")'
+          )
+            button.card-main-actions__action.a-button.is-md.is-primary.is-block(
+              @click='makeToBestAnswer'
+            )
+              | ベストアンサーにする
+          li.card-main-actions__item(
+            v-if='hasCorrectAnswer && answer.type == "CorrectAnswer" && (currentUser.id === questionUser.id || currentUser.role === "admin")'
+          )
+            button.card-main-actions__action.a-button.is-md.is-muted.is-block(
+              @click='cancelBestAnswer'
+            )
+              | ベストアンサーを取り消す
+          li.card-main-actions__item.is-sub(
+            v-if='answer.user.id == currentUser.id || currentUser.role == "admin"'
+          )
+            button.card-main-actions__delete(@click='deleteAnswer')
+              | 削除する
+  .thread-comment-form__form.a-card(v-show='editing')
+    .thread-comment-form__tabs.js-tabs
+      .thread-comment-form__tab.js-tabs__tab(
+        v-bind:class='{ "is-active": isActive("answer") }',
+        @click='changeActiveTab("answer")'
+      )
+        | コメント
+      .thread-comment-form__tab.js-tabs__tab(
+        v-bind:class='{ "is-active": isActive("preview") }',
+        @click='changeActiveTab("preview")'
+      )
+        | プレビュー
+    .thread-comment-form__markdown-parent.js-markdown-parent
+      .thread-comment-form__markdown.js-tabs__content(
+        v-bind:class='{ "is-active": isActive("answer") }'
+      )
+        textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
+          v-model='description',
+          :id='`js-comment-${this.answer.id}`',
+          :data-preview='`#js-comment-preview-${this.answer.id}`',
+          name='answer[description]'
+        )
+      .thread-comment-form__markdown.js-tabs__content(
+        v-bind:class='{ "is-active": isActive("preview") }'
+      )
+        .js-preview.is-long-text.thread-comment-form__preview(
+          :id='`js-comment-preview-${this.answer.id}`'
+        )
+    .card-footer
+      .card-main-actions
+        .card-main-actions__items
+          .card-main-actions__item
+            button.a-button.is-md.is-warning.is-block(
+              @click='updateAnswer',
+              v-bind:disabled='!validation'
+            )
+              | 保存する
+          .card-main-actions__item
+            button.a-button.is-md.is-secondary.is-block(@click='cancel')
+              | キャンセル
 </template>
 <script>
 import Reaction from './reaction.vue'

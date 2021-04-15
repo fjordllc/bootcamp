@@ -1,13 +1,14 @@
 <template lang="pug">
-  tags(
-    :tagsInitialValue="tagsInitialValue"
-    :tagsParamName="tagsParamName"
-    :tagsPath="path"
-    :tagsType="type"
-    :tagsEditable="editable"
-    :tagsEditing="editing"
-    :tagsInputId="tagsInputId"
-    :updateCallback="updateTag")
+tags(
+  :tagsInitialValue='tagsInitialValue',
+  :tagsParamName='tagsParamName',
+  :tagsPath='path',
+  :tagsType='type',
+  :tagsEditable='editable',
+  :tagsEditing='editing',
+  :tagsInputId='tagsInputId',
+  :updateCallback='updateTag'
+)
 </template>
 
 <script>

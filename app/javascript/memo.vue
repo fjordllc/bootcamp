@@ -1,24 +1,38 @@
 <template lang="pug">
-  .memo
-    .memo-form
-      label.memo-form__show-modal(v-bind:for="date")
-      input.memo-form__toggle-checkbox(type="checkbox" v-bind:id="date" v-model="checked")
-      .memo-form-modal
-        .memo-form-modal__inner.a-card
-          .card-header
-            .card-header__title.is-sm
-              | メモ
-          .card-body
-            textarea.a-text-input(ref="sendBody" v-model="sendBody" name="memo[body]")
-            button.a-button.is-md.is-primary.is-block(v-if="!body" @click="createMemo")
-              | 作成
-            button.a-button.is-md.is-warning.is-block(v-else @click="updateMemo")
-              | 更新
-            button.a-button.is-md.is-danger.is-block(@click="deleteMemo")
-              | 削除
-        label.memo-form-modal__overlay(v-bind:for="date")
-    .memo-body
-      | {{ body }}
+.memo
+  .memo-form
+    label.memo-form__show-modal(v-bind:for='date')
+    input.memo-form__toggle-checkbox(
+      type='checkbox',
+      v-bind:id='date',
+      v-model='checked'
+    )
+    .memo-form-modal
+      .memo-form-modal__inner.a-card
+        .card-header
+          .card-header__title.is-sm
+            | メモ
+        .card-body
+          textarea.a-text-input(
+            ref='sendBody',
+            v-model='sendBody',
+            name='memo[body]'
+          )
+          button.a-button.is-md.is-primary.is-block(
+            v-if='!body',
+            @click='createMemo'
+          )
+            | 作成
+          button.a-button.is-md.is-warning.is-block(
+            v-else,
+            @click='updateMemo'
+          )
+            | 更新
+          button.a-button.is-md.is-danger.is-block(@click='deleteMemo')
+            | 削除
+      label.memo-form-modal__overlay(v-bind:for='date')
+  .memo-body
+    | {{ body }}
 </template>
 <script>
 export default {

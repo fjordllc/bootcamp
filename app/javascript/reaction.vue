@@ -1,29 +1,34 @@
 <template lang="pug">
-  .reactions.test-block.js-reactions
-    ul.reactions__items.test-inline-block.js-reaction
+.reactions.test-block.js-reactions
+  ul.reactions__items.test-inline-block.js-reaction
+    li.reactions__item.test-inline-block(
+      v-for='emoji in displayedEmojis',
+      v-bind:class='{ "is-reacted": isReacted(emoji.kind) }',
+      @click='footerReaction(emoji.kind)',
+      :data-reaction-kind='emoji.kind'
+    )
+      span.reactions__item-emoji.js-reaction-emoji
+        | {{ emoji.value }}
+      span.reactions__item-count.js-reaction-count
+        | {{ emoji.count }}
+      ul.reactions__item-login-names.js-reaction-login-names
+        li(v-for='login_name in emoji.login_names')
+          | {{ login_name }}
+  .reactions__dropdown.js-reaction-dropdown
+    .reactions__dropdown-toggle.js-reaction-dropdown-toggle(
+      @click='dropdownToggle()'
+    )
+      i.fas.fa-plus.reactions__dropdown-toggle-plus
+      i.fas.fa-smile
+    ul.reactions__items.test-inline-block.js-reaction(v-if='dropdown')
       li.reactions__item.test-inline-block(
-        v-for="emoji in displayedEmojis"
-        v-bind:class="{'is-reacted': isReacted(emoji.kind)}"
-        @click="footerReaction(emoji.kind)"
-        :data-reaction-kind='emoji.kind')
+        v-for='emoji in availableEmojis',
+        v-bind:class='{ "is-reacted": isReacted(emoji.kind) }',
+        :data-reaction-kind='emoji.kind',
+        @click='dropdownReaction(emoji.kind)'
+      )
         span.reactions__item-emoji.js-reaction-emoji
           | {{ emoji.value }}
-        span.reactions__item-count.js-reaction-count
-          | {{ emoji.count }}
-        ul.reactions__item-login-names.js-reaction-login-names
-          li(v-for="login_name in emoji.login_names")
-            | {{ login_name }}
-    .reactions__dropdown.js-reaction-dropdown
-      .reactions__dropdown-toggle.js-reaction-dropdown-toggle(@click="dropdownToggle()")
-        i.fas.fa-plus.reactions__dropdown-toggle-plus
-        i.fas.fa-smile
-      ul.reactions__items.test-inline-block(v-if="dropdown").js-reaction
-        li.reactions__item.test-inline-block(v-for="emoji in availableEmojis"
-          v-bind:class="{'is-reacted': isReacted(emoji.kind)}"
-          :data-reaction-kind='emoji.kind'
-          @click="dropdownReaction(emoji.kind)")
-          span.reactions__item-emoji.js-reaction-emoji
-            | {{ emoji.value }}
 </template>
 <script>
 import moment from 'moment'

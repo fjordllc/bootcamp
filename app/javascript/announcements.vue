@@ -1,24 +1,26 @@
 <template lang="pug">
-  .page-body
-    .container(v-if="!loaded")
-      | ロード中
-    .container(v-else-if="announcements.length === 0")
-      .o-empty-message
-        .o-empty-message__icon
-          i.far.fa-smile
-        p.o-empty-message__text
-          | {{ title }}はありません
-    .container(v-else)
-      nav.pagination(v-if="totalPages > 1")
-        pager(v-bind="pagerProps")
-      .thread-list.a-card
-        announcement(v-for="announcement in announcements"
-          :key="announcement.id"
-          :title="title"
-          :announcement="announcement"
-          :currentUser="currentUser")
-      nav.pagination(v-if="totalPages > 1")
-        pager(v-bind="pagerProps")
+.page-body
+  .container(v-if='!loaded')
+    | ロード中
+  .container(v-else-if='announcements.length === 0')
+    .o-empty-message
+      .o-empty-message__icon
+        i.far.fa-smile
+      p.o-empty-message__text
+        | {{ title }}はありません
+  .container(v-else)
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
+    .thread-list.a-card
+      announcement(
+        v-for='announcement in announcements',
+        :key='announcement.id',
+        :title='title',
+        :announcement='announcement',
+        :currentUser='currentUser'
+      )
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
 </template>
 
 <script>

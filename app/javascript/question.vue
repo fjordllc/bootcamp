@@ -1,25 +1,23 @@
 <template lang="pug">
 .page-body
-  .container(
-    v-if="question === null || currentUser === null"
-  )
+  .container(v-if='question === null || currentUser === null')
     .empty
       .fas.fa-spinner.fa-pulse
       | ロード中
   .container(v-else)
     questionEdit(
-      :question="question",
-      :answerCount="answerCount",
-      :currentUser="currentUser"
+      :question='question',
+      :answerCount='answerCount',
+      :currentUser='currentUser'
     )
-    a.a-anchor#comments
+    a#comments.a-anchor
     answers(
-      :questionId="questionId",
-      :questionUser="question.user",
-      :currentUser="currentUser",
-      @updateAnswerCount="updateAnswerCount"
-      @solveQuestion="solveQuestion",
-      @cancelSolveQuestion="cancelSolveQuestion"
+      :questionId='questionId',
+      :questionUser='question.user',
+      :currentUser='currentUser',
+      @updateAnswerCount='updateAnswerCount',
+      @solveQuestion='solveQuestion',
+      @cancelSolveQuestion='cancelSolveQuestion'
     )
 </template>
 <script>

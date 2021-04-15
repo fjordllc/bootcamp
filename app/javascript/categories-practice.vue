@@ -1,8 +1,14 @@
 <template lang="pug">
-draggable.draggable-items(v-model='practices', handle=".js-grab", @start="start", @end="end")
+draggable.draggable-items(
+  v-model='practices',
+  handle='.js-grab',
+  @start='start',
+  @end='end'
+)
   .category-practices-item.js-practice(
-    v-for="practice in practices"
-    :key="practice.id")
+    v-for='practice in practices',
+    :key='practice.id'
+  )
     a.category-practices-item__anchor
     header.category-practices-item__header
       .category-practices-item__title

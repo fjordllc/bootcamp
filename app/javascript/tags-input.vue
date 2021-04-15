@@ -1,18 +1,14 @@
 <template lang="pug">
-  div
-    vue-tags-input(
-      v-model="inputTag"
-      :tags="tags"
-      :autocomplete-items="filteredTags"
-      @tags-changed="update"
-      placeholder=""
-      @before-adding-tag="validateTagName"
-    )
-    input(
-      type="hidden"
-      :value="tagsValue"
-      :name="tagsParamName"
-    )
+div
+  vue-tags-input(
+    v-model='inputTag',
+    :tags='tags',
+    :autocomplete-items='filteredTags',
+    @tags-changed='update',
+    placeholder='',
+    @before-adding-tag='validateTagName'
+  )
+  input(type='hidden', :value='tagsValue', :name='tagsParamName')
 </template>
 
 <script>
