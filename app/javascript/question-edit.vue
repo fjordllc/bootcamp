@@ -281,7 +281,7 @@ export default {
         body: JSON.stringify(params)
       })
         .then(() => {
-          Object.entries(this.edited).some(([key, val]) => {
+          Object.entries(this.edited).forEach(([key, val]) => {
             this[key] = val
           })
           this.finishEditing(true)

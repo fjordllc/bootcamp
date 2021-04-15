@@ -46,11 +46,7 @@ export default {
   },
   methods: {
     updateCheckValue(reportId, { check = true }) {
-      this.reports.map(function (report) {
-        if (report.id === reportId) {
-          report.check = check
-        }
-      })
+      this.reports.find((report) => report.id === reportId).check = check
     }
   },
   watch: {
