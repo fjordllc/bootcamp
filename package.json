@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "lint:prettier": "prettier 'app/javascript/**/*.{js,vue}' --check",
+    "fix:prettier": "yarn lint:prettier --write"
+  },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.0.1",
     "@rails/webpacker": "^5.2.1",
@@ -34,11 +38,14 @@
   },
   "devDependencies": {
     "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-vue": "^7.9.0",
+    "prettier": "^2.2.1",
+    "prettier-config-standard": "^4.0.0",
     "webpack-dev-server": "^3.9.0"
   },
   "license": "MIT"
