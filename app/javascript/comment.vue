@@ -97,7 +97,7 @@ export default {
     const commentAnchor = location.hash;
     if(commentAnchor) {
       this.$nextTick( () => {
-        location.href = location.href;
+        location.replace(location.href);
       })
     }
   },
@@ -140,7 +140,7 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
-        .then(response => {
+        .then(() => {
           this.editing = false;
         })
         .catch(error => {

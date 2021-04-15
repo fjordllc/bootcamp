@@ -79,7 +79,7 @@ export default {
         redirect: 'manual',
         body: params
       })
-        .then(response => {
+        .then(() => {
           this.complete = true
         })
         .catch(error => {

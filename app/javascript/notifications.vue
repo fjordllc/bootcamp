@@ -54,12 +54,12 @@
         :break-view-text=null
       )
   .container(v-else-if="loaded")
-    .o-empty-massage
-      .o-empty-massage__icon
+    .o-empty-message
+      .o-empty-message__icon
         i.far.fa-smile
-      p.o-empty-massage__text(v-if="isUnreadPage")
+      p.o-empty-message__text(v-if="isUnreadPage")
         | 未読の通知はありません
-      p.o-empty-massage__text(v-else)
+      p.o-empty-message__text(v-else)
         | 通知はありません
   .container(v-else)
     | ロード中
@@ -93,7 +93,7 @@ export default {
   created() {
     // ブラウザバック・フォワードした時に画面を読み込ませる
     window.onpopstate = function() {
-      location.href = location.href
+      location.replace(location.href);
     }
     this.currentPage = Number(this.getPageValueFromParameter()) || 1
     this.getNotificationsPerPage()

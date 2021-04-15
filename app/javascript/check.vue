@@ -2,7 +2,7 @@
   .card-footer
     .card-main-actions
       ul.card-main-actions__items
-        li.card-main-actions__item
+        li.card-main-actions__item(v-if="checkableType === 'Product'")
           //
             v-showではなくv-ifだと "提出物を確認" => "取り消し" した際、
             担当ボタンの表示はページ読み込み時に戻る。
@@ -14,10 +14,9 @@
             checkerIdの値がページ読み込み時の値のままではなく、
             現状のcheckerIdを参照すれば、v-ifでも大丈夫と推測
           //-
-          product-checker(v-show="checkableType === 'Product' && checkId === null", :checkerId="checkerId", :checkerName="checkerName", :currentUserId="currentUserId", :productId="checkableId")
-        li.card-main-actions__item
-          button#js-shortcut-check.thread-check-form__action.is-block(:class=" checkId ? 'is-text' : 'a-button is-md is-danger' " @click="check")
-            i.fas.fa-check
+          product-checker(v-show="checkId === null", :checkerId="checkerId", :checkerName="checkerName", :currentUserId="currentUserId", :productId="checkableId")
+        li.card-main-actions__item(:class=" checkId ? 'is-sub' : '' ")
+          button#js-shortcut-check.is-block(:class=" checkId ? 'card-main-actions__delete' : 'a-button is-md is-danger' " @click="check")
             | {{ buttonLabel }}
 </template>
 <script>
@@ -65,7 +64,7 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
-        .then(response => {
+        .then(() => {
           this.$store.dispatch('setCheckable', {
             checkableId: this.checkableId,
             checkableType: this.checkableType
