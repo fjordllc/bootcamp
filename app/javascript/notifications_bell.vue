@@ -75,8 +75,8 @@ export default {
         location.href = '/notifications'
       }
     },
-    createdAtFromNow(created_at) {
-      return dayjs(created_at).fromNow()
+    createdAtFromNow(createdAt) {
+      return dayjs(createdAt).fromNow()
     }
   },
   computed: {

@@ -15,41 +15,41 @@
           | メモ
       .reservations__day-items
         .reservations__day-item.date(
-          v-for='one_day in this_months',
-          v-bind:class='is_holiday(reservationsHolidayJps[one_day["ymd"]])'
+          v-for='oneDay in thisMonths',
+          v-bind:class='isHoliday(reservationsHolidayJps[oneDay["ymd"]])'
         )
           .reservations__day-item-value.reservations__day.is-day(
-            @click='createReservationForOneDay(one_day["ymd"])'
-          ) {{ one_day["d_jp"] }}
+            @click='createReservationForOneDay(oneDay["ymd"])'
+          ) {{ oneDay["d_jp"] }}
           .reservations__day-item-value.reservations__seat.is-seat(
             v-for='seat in seats',
             :key='seat.id',
-            v-bind:id='reservation_hash_id(one_day["ymd"], seat.id)'
+            v-bind:id='reservationHashId(oneDay["ymd"], seat.id)'
           )
             #reserve-seat.reservations__seat-action(
-              v-if='reservations[`${one_day["ymd"]}-${seat.id}`] === undefined',
-              @click='createReservation(one_day["ymd"], seat.id)'
+              v-if='reservations[`${oneDay["ymd"]}-${seat.id}`] === undefined',
+              @click='createReservation(oneDay["ymd"], seat.id)'
             )
               |
             reservation(
               v-else,
               :currentUserId='currentUserId',
-              :parentReservation='reservations[`${one_day["ymd"]}-${seat.id}`]',
+              :parentReservation='reservations[`${oneDay["ymd"]}-${seat.id}`]',
               @delete='deleteReservation'
             )
           .reservations__day-item-value.is-memo(
-            v-if='admin_login == 1',
-            v-bind:id='memoId(one_day["ymd"])'
+            v-if='adminLogin == 1',
+            v-bind:id='memoId(oneDay["ymd"])'
           )
-            memo(:memo='memos[one_day["ymd"]]', :date='one_day["ymd"]')
+            memo(:memo='memos[oneDay["ymd"]]', :date='oneDay["ymd"]')
           .reservations__day-item-value.is-memo(
             v-else,
-            v-bind:id='memoId(one_day["ymd"])'
+            v-bind:id='memoId(oneDay["ymd"])'
           )
-            template(v-if='memos[one_day["ymd"]] === undefined')
+            template(v-if='memos[oneDay["ymd"]] === undefined')
               |
             template(v-else)
-              | {{ memoBody(one_day) }}
+              | {{ memoBody(oneDay) }}
 </template>
 <script>
 import Reservation from './reservation.vue'
@@ -70,13 +70,13 @@ export default {
   },
   data: () => {
     return {
-      this_months: [],
+      thisMonths: [],
       reservation: [],
       reservations: {},
       seats: {},
       reservationsHolidayJps: {},
       memos: {},
-      admin_login: ''
+      adminLogin: ''
     }
   },
   created: function () {
@@ -87,7 +87,7 @@ export default {
     this.seats = JSON.parse(document.querySelector('#js-seats-data').innerText)
 
     if (!(document.querySelector('#js-admin-login') == null)) {
-      this.admin_login = document.querySelector('#js-admin-login').innerText
+      this.adminLogin = document.querySelector('#js-admin-login').innerText
     }
 
     fetch(
@@ -113,7 +113,7 @@ export default {
         console.warn('Failed to parsing', error)
       })
 
-    this.this_months = this.getDates(
+    this.thisMonths = this.getDates(
       new Date(this.reservationsBegginingOfThisMonth),
       new Date(this.reservationsEndOfThisMonth)
     )
@@ -127,17 +127,17 @@ export default {
       const dateArray = new Array()
       let currentDate = startDate
       while (currentDate <= stopDate) {
-        const one_day = {}
-        one_day.ymd = moment(new Date(currentDate)).format('YYYY-MM-DD')
-        one_day.d_jp = moment(new Date(currentDate)).format('D日(ddd)')
-        dateArray.push(one_day)
+        const oneDay = {}
+        oneDay.ymd = moment(new Date(currentDate)).format('YYYY-MM-DD')
+        oneDay.d_jp = moment(new Date(currentDate)).format('D日(ddd)')
+        dateArray.push(oneDay)
         currentDate = moment(currentDate).add(1, 'd')
       }
       return dateArray
     },
-    createReservation: function (date, seat_id) {
+    createReservation: function (date, seatId) {
       const params = {
-        seat_id: seat_id,
+        seat_id: seatId,
         date: date
       }
       fetch(`/api/reservations`, {
@@ -192,32 +192,32 @@ export default {
           console.warn('Failed to parsing', error)
         })
     },
-    is_holiday(isholiday) {
+    isHoliday(isHoliday) {
       return {
-        'is-holiday': isholiday === 1
+        'is-holiday': isHoliday === 1
       }
     },
-    reservation_hash_id(date, seatId) {
+    reservationHashId(date, seatId) {
       return `reservation-${date}-${seatId}`
     },
-    memoBody(one_day) {
-      return this.memos[one_day.ymd].body
+    memoBody(oneDay) {
+      return this.memos[oneDay.ymd].body
     },
-    memoId(one_day) {
-      return `memo-${one_day}`
+    memoId(oneDay) {
+      return `memo-${oneDay}`
     },
     createReservationForOneMonth(seatId) {
       const multipleDays = []
-      if (this.admin_login === 1) {
-        this.this_months.forEach((one_day) => {
-          multipleDays.push(one_day.ymd)
+      if (this.adminLogin === 1) {
+        this.thisMonths.forEach((oneDay) => {
+          multipleDays.push(oneDay.ymd)
         })
         this.createReservation(multipleDays, seatId)
       }
     },
     createReservationForOneDay(oneDay) {
       const seatIds = []
-      if (this.admin_login === 1) {
+      if (this.adminLogin === 1) {
         this.seats.forEach((seat) => {
           seatIds.push(seat.id)
         })
