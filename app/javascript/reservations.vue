@@ -124,19 +124,19 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getDates: function (startDate, stopDate) {
-      var dateArray = new Array()
-      var currentDate = startDate
+      const dateArray = new Array()
+      let currentDate = startDate
       while (currentDate <= stopDate) {
-        var one_day = {}
-        one_day['ymd'] = moment(new Date(currentDate)).format('YYYY-MM-DD')
-        one_day['d_jp'] = moment(new Date(currentDate)).format('D日(ddd)')
+        const one_day = {}
+        one_day.ymd = moment(new Date(currentDate)).format('YYYY-MM-DD')
+        one_day.d_jp = moment(new Date(currentDate)).format('D日(ddd)')
         dateArray.push(one_day)
         currentDate = moment(currentDate).add(1, 'd')
       }
       return dateArray
     },
     createReservation: function (date, seat_id) {
-      let params = {
+      const params = {
         seat_id: seat_id,
         date: date
       }
@@ -160,10 +160,10 @@ export default {
               this.$set(this.reservations, `${c.date}-${c.seat_id}`, c)
             })
           } else {
-            if (json['message'] == undefined) {
+            if (json.message == undefined) {
               this.$set(this.reservations, `${json.date}-${json.seat_id}`, json)
             } else {
-              alert(json['message'])
+              alert(json.message)
             }
           }
         })
@@ -182,7 +182,7 @@ export default {
         redirect: 'manual'
       })
         .then(() => {
-          for (var reservation in this.reservations) {
+          for (const reservation in this.reservations) {
             if (this.reservations[reservation].id == id) {
               this.$delete(this.reservations, reservation)
             }
@@ -201,22 +201,22 @@ export default {
       return `reservation-${date}-${seatId}`
     },
     memoBody(one_day) {
-      return this.memos[one_day['ymd']].body
+      return this.memos[one_day.ymd].body
     },
     memoId(one_day) {
       return `memo-${one_day}`
     },
     createReservationForOneMonth(seatId) {
-      let multipleDays = []
+      const multipleDays = []
       if (this.admin_login == 1) {
         this.this_months.forEach((one_day) => {
-          multipleDays.push(one_day['ymd'])
+          multipleDays.push(one_day.ymd)
         })
         this.createReservation(multipleDays, seatId)
       }
     },
     createReservationForOneDay(oneDay) {
-      let seatIds = []
+      const seatIds = []
       if (this.admin_login == 1) {
         this.seats.forEach((seat) => {
           seatIds.push(seat.id)

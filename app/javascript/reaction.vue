@@ -53,7 +53,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     createReaction: function (kind) {
-      let params = {
+      const params = {
         reactionable_id: this.reactionableId,
         kind: kind
       }
@@ -153,7 +153,7 @@ export default {
         },
         this
       )
-      return reaction.length == 0 ? false : true
+      return reaction.length != 0
     }
   },
   computed: {

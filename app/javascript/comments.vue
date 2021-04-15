@@ -123,7 +123,7 @@ export default {
         return null
       }
       this.buttonDisabled = true
-      let params = {
+      const params = {
         comment: { description: this.description },
         commentable_type: this.commentableType,
         commentable_id: this.commentableId

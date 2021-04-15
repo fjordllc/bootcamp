@@ -94,8 +94,8 @@ export default {
         })
     },
     getPageValueFromParameter() {
-      let url = location.href
-      let results = url.match(/\?page=(\d+)/)
+      const url = location.href
+      const results = url.match(/\?page=(\d+)/)
       if (!results) return null
       return results[1]
     },
@@ -121,7 +121,7 @@ export default {
           return response.json()
         })
         .then((json) => {
-          for (var key in json) {
+          for (const key in json) {
             this.$set(this.currentUser, key, json[key])
           }
         })

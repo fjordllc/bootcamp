@@ -42,7 +42,7 @@ export default class {
       return callback(this.values.slice(0, this.menuItemsSize))
     }
 
-    let filteredValues = []
+    const filteredValues = []
     const regex = new RegExp(escapeStringRegexp(text))
 
     this.values.every((value) => {

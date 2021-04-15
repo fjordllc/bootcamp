@@ -72,7 +72,7 @@ export default {
       this.editing = true
     },
     updateTag() {
-      let params = {
+      const params = {
         page: {
           tag_list: this.tagsValue
         }

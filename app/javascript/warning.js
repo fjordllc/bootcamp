@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   }
-  for (let warningForm of warningForms) {
+  for (const warningForm of warningForms) {
     warningForm.addEventListener('keyup', onUnload, false)
     warningForm.addEventListener('change', onUnload, false)
   }

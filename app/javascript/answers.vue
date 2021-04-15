@@ -117,7 +117,7 @@ export default {
         return null
       }
       this.buttonDisabled = true
-      let params = {
+      const params = {
         answer: { description: this.description },
         question_id: this.questionId
       }
@@ -177,7 +177,7 @@ export default {
         })
     },
     requestSolveQuestion: function (id, isCancel) {
-      let params = {
+      const params = {
         question_id: this.questionId
       }
 

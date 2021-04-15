@@ -37,7 +37,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     check() {
-      let params = {
+      const params = {
         product_id: this.productId,
         current_user_id: this.currentUserId,
         checker_id: this.checkerId
@@ -57,11 +57,11 @@ export default {
           return response.json()
         })
         .then((json) => {
-          if (json['message']) {
-            alert(json['message'])
+          if (json.message) {
+            alert(json.message)
           } else {
-            this.id = json['checker_id']
-            this.name = json['checker_name']
+            this.id = json.checker_id
+            this.name = json.checker_name
           }
         })
     }

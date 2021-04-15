@@ -66,7 +66,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     check() {
-      let params = {
+      const params = {
         checkable_type: this.checkableType,
         checkable_id: this.checkableId
       }

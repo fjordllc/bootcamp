@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const updateReactionCount = (element, count) => {
-    let reactionCount = element.querySelector('.js-reaction-count')
+    const reactionCount = element.querySelector('.js-reaction-count')
 
     if (!reactionCount) {
       return
@@ -44,13 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const updateReactionLoginNames = (element, loginName) => {
-    let reactionLoginNames = element.querySelector('.js-reaction-login-names')
+    const reactionLoginNames = element.querySelector('.js-reaction-login-names')
 
     if (!reactionLoginNames) {
       return
     }
 
-    let reactionLoginName = Array.from(reactionLoginNames.children).find(
+    const reactionLoginName = Array.from(reactionLoginNames.children).find(
       (li) => {
         return li.textContent === loginName
       }
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (reactionLoginName) {
       reactionLoginNames.removeChild(reactionLoginName)
     } else {
-      let li = document.createElement('li')
+      const li = document.createElement('li')
       li.textContent = loginName
       reactionLoginNames.appendChild(li)
     }

@@ -89,9 +89,9 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.totalPages = json['total_pages']
+          this.totalPages = json.total_pages
           this.notifications = []
-          json['notifications'].forEach((n) => {
+          json.notifications.forEach((n) => {
             this.notifications.push(n)
           })
           this.loaded = true
@@ -110,8 +110,8 @@ export default {
       )
     },
     getPageValueFromParameter: function () {
-      let url = location.href
-      let results = url.match(/\?page=(\d+)/)
+      const url = location.href
+      const results = url.match(/\?page=(\d+)/)
       if (!results) return null
       return results[1]
     }

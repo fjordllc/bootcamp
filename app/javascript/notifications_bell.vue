@@ -61,7 +61,7 @@ export default {
         return response.json()
       })
       .then((json) => {
-        json['notifications'].forEach((n) => {
+        json.notifications.forEach((n) => {
           this.notifications.push(n)
         })
       })

@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     updateTag(tagsValue, token) {
-      let params = {
+      const params = {
         user: {
           tag_list: tagsValue
         }

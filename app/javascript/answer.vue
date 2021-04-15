@@ -179,7 +179,7 @@ export default {
       if (this.description.length < 1) {
         return null
       }
-      let params = {
+      const params = {
         answer: { description: this.description }
       }
       fetch(`/api/answers/${this.answer.id}`, {
