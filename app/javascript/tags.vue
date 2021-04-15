@@ -1,43 +1,39 @@
 <template lang="pug">
-  .tag-links
-    ul.tag-links__items(v-if="!editing")
-      li.tag-links__item(v-for="tag in tags")
-        a.tag-links__item-link(
-          :href="`${tagsPath}/${tag.text}${tagsPathParams}`"
+.tag-links
+  ul.tag-links__items(v-if='!editing')
+    li.tag-links__item(v-for='tag in tags')
+      a.tag-links__item-link(
+        :href='`${tagsPath}/${tag.text}${tagsPathParams}`'
+      )
+        | {{ tag.text }}
+    li.tag-links__item(v-if='tagsEditable')
+      .tag-links__item-edit(@click='editTag')
+        | タグ編集
+  .form(v-show='editing')
+    .form__items
+      .form-item
+        vue-tags-input(
+          v-model='inputTag',
+          :tags='tags',
+          :autocomplete-items='filteredTags',
+          @tags-changed='update',
+          placeholder='',
+          @before-adding-tag='validateTagName'
         )
-          | {{ tag.text }}
-      li.tag-links__item(v-if="tagsEditable")
-        .tag-links__item-edit(@click="editTag")
-          | タグ編集
-    .form(v-show="editing")
-      .form__items
-        .form-item
-          vue-tags-input(
-            v-model="inputTag"
-            :tags="tags"
-            :autocomplete-items="filteredTags"
-            @tags-changed="update"
-            placeholder=""
-            @before-adding-tag="validateTagName"
-          )
-          input(
-            type="hidden"
-            :value="tagsValue"
-            :name="tagsParamName"
-            :id="tagsInputId"
-          )
-      .form-actions(v-if="tagsEditable")
-        ul.form-actions__items
-          li.form-actions__item.is-main
-            button.a-button.is-warning.is-block.is-md(
-              @click="updateTag"
-            )
-              | 保存する
-          li.form-actions__item
-            button.a-button.is-secondary.is-block.is-sm(
-              @click="cancel"
-            )
-              | キャンセル
+        input(
+          type='hidden',
+          :value='tagsValue',
+          :name='tagsParamName',
+          :id='tagsInputId'
+        )
+    .form-actions(v-if='tagsEditable')
+      ul.form-actions__items
+        li.form-actions__item.is-main
+          button.a-button.is-warning.is-block.is-md(@click='updateTag')
+            | 保存する
+        li.form-actions__item
+          button.a-button.is-secondary.is-block.is-sm(@click='cancel')
+            | キャンセル
 </template>
 
 <script>

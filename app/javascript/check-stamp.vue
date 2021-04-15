@@ -1,11 +1,11 @@
 <template lang="pug">
-  .stamp.stamp-approve(v-if="checkId")
-    h2.stamp__content.is-title
-      | 確認済
-    time.stamp__content.is-created-at
-      | {{ checkCreatedAt }}
-    .stamp__content.is-user-name
-      | {{ checkUserName }}
+.stamp.stamp-approve(v-if='checkId')
+  h2.stamp__content.is-title
+    | 確認済
+  time.stamp__content.is-created-at
+    | {{ checkCreatedAt }}
+  .stamp__content.is-user-name
+    | {{ checkUserName }}
 </template>
 <script>
 import 'whatwg-fetch'

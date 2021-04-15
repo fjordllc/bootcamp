@@ -1,11 +1,15 @@
 <template lang="pug">
-  .reservation
-    template(v-if="this.currentUserId == this.userId")
-      #cancel-reservation.reservations__seat-action.is-reserved.is-me(@click="deleteReservation")
-        | {{ this.label }}
-    template(v-else)
-      #cancel-reservation.reservations__seat-action.is-reserved.is-not-me(@click="linkToUser")
-        | {{ this.label }}
+.reservation
+  template(v-if='this.currentUserId == this.userId')
+    #cancel-reservation.reservations__seat-action.is-reserved.is-me(
+      @click='deleteReservation'
+    )
+      | {{ this.label }}
+  template(v-else)
+    #cancel-reservation.reservations__seat-action.is-reserved.is-not-me(
+      @click='linkToUser'
+    )
+      | {{ this.label }}
 </template>
 <script>
 export default {

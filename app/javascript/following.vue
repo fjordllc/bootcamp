@@ -1,6 +1,9 @@
 <template lang="pug">
-  button.card-main-actions__action.a-button.is-sm.is-block(:class=" following ? 'is-danger' : 'is-secondary' " @click="followOrUnfollow")
-    | {{ buttonLabel }}
+button.card-main-actions__action.a-button.is-sm.is-block(
+  :class='following ? "is-danger" : "is-secondary"',
+  @click='followOrUnfollow'
+)
+  | {{ buttonLabel }}
 </template>
 <script>
 import 'whatwg-fetch'

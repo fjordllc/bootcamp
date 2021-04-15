@@ -1,70 +1,85 @@
 <template lang="pug">
-  .thread-comment
-    .thread-comment__author
-      a.thread-comment__author-link(:href="comment.user.url")
-        img.thread-comment__author-icon.a-user-icon(
-          :src="comment.user.avatar_url"
-          :title="comment.user.icon_title"
-          :class="[roleClass, daimyoClass]")
-    .thread-comment__body.a-card(v-if="!editing")
-      header.thread-comment__body-header
-        h2.thread-comment__title
-          a.thread-comment__title-link(:href="comment.user.url")
-            | {{ comment.user.login_name }}
-        time.thread-comment__created-at(
-          :class="{'is-active': activating}"
-          :datetime="commentableCreatedAt"
-          @click="copyCommentURLToClipboard(comment.id)")
-          | {{ updatedAt }}
-      .thread-comment__description.js-target-blank.is-long-text(
-        v-html="markdownDescription")
-      reaction(
-        v-bind:reactionable="comment",
-        v-bind:currentUser="currentUser",
-        v-bind:reactionableId="reactionableId")
-      footer.card-footer(v-if="comment.user.id === currentUser.id || currentUser.role === 'admin'")
-        .card-main-actions
-          ul.card-main-actions__items
-            li.card-main-actions__item
-              button.card-main-actions__action.a-button.is-md.is-secondary.is-block(@click="editComment")
-                i.fas.fa-pen
-                | 編集
-            li.card-main-actions__item.is-sub
-              button.card-main-actions__delete(@click="deleteComment")
-                | 削除する
-    .thread-comment-form__form.a-card(v-show="editing")
-      .thread-comment-form__tabs.js-tabs
-        .thread-comment-form__tab.js-tabs__tab(
-          v-bind:class="{'is-active': isActive('comment')}"
-          @click="changeActiveTab('comment')")
-          | コメント
-        .thread-comment-form__tab.js-tabs__tab(
-          v-bind:class="{'is-active': isActive('preview')}"
-          @click="changeActiveTab('preview')")
-          | プレビュー
-      .thread-comment-form__markdown-parent.js-markdown-parent
-        .thread-comment-form__markdown.js-tabs__content(
-          v-bind:class="{'is-active': isActive('comment')}")
-          textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
-            :id="`js-comment-${this.comment.id}`"
-            :data-preview="`#js-comment-preview-${this.comment.id}`"
-            v-model="description"
-            name="comment[description]")
-        .thread-comment-form__markdown.js-tabs__content(
-          v-bind:class="{'is-active': isActive('preview')}")
-          .is-long-text.thread-comment-form__preview(
-            :id="`js-comment-preview-${this.comment.id}`")
-      .card-footer
-        .card-main-actions
-          .card-main-actions__items
-            .card-main-actions__item
-              button.a-button.is-md.is-warning.is-block(
-                @click="updateComment"
-                v-bind:disabled="!validation")
-                | 保存する
-            .card-main-actions__item
-              button.a-button.is-md.is-secondary.is-block(@click="cancel")
-                | キャンセル
+.thread-comment
+  .thread-comment__author
+    a.thread-comment__author-link(:href='comment.user.url')
+      img.thread-comment__author-icon.a-user-icon(
+        :src='comment.user.avatar_url',
+        :title='comment.user.icon_title',
+        :class='[roleClass, daimyoClass]'
+      )
+  .thread-comment__body.a-card(v-if='!editing')
+    header.thread-comment__body-header
+      h2.thread-comment__title
+        a.thread-comment__title-link(:href='comment.user.url')
+          | {{ comment.user.login_name }}
+      time.thread-comment__created-at(
+        :class='{ "is-active": activating }',
+        :datetime='commentableCreatedAt',
+        @click='copyCommentURLToClipboard(comment.id)'
+      )
+        | {{ updatedAt }}
+    .thread-comment__description.js-target-blank.is-long-text(
+      v-html='markdownDescription'
+    )
+    reaction(
+      v-bind:reactionable='comment',
+      v-bind:currentUser='currentUser',
+      v-bind:reactionableId='reactionableId'
+    )
+    footer.card-footer(
+      v-if='comment.user.id === currentUser.id || currentUser.role === "admin"'
+    )
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item
+            button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
+              @click='editComment'
+            )
+              i.fas.fa-pen
+              | 編集
+          li.card-main-actions__item.is-sub
+            button.card-main-actions__delete(@click='deleteComment')
+              | 削除する
+  .thread-comment-form__form.a-card(v-show='editing')
+    .thread-comment-form__tabs.js-tabs
+      .thread-comment-form__tab.js-tabs__tab(
+        v-bind:class='{ "is-active": isActive("comment") }',
+        @click='changeActiveTab("comment")'
+      )
+        | コメント
+      .thread-comment-form__tab.js-tabs__tab(
+        v-bind:class='{ "is-active": isActive("preview") }',
+        @click='changeActiveTab("preview")'
+      )
+        | プレビュー
+    .thread-comment-form__markdown-parent.js-markdown-parent
+      .thread-comment-form__markdown.js-tabs__content(
+        v-bind:class='{ "is-active": isActive("comment") }'
+      )
+        textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
+          :id='`js-comment-${this.comment.id}`',
+          :data-preview='`#js-comment-preview-${this.comment.id}`',
+          v-model='description',
+          name='comment[description]'
+        )
+      .thread-comment-form__markdown.js-tabs__content(
+        v-bind:class='{ "is-active": isActive("preview") }'
+      )
+        .is-long-text.thread-comment-form__preview(
+          :id='`js-comment-preview-${this.comment.id}`'
+        )
+    .card-footer
+      .card-main-actions
+        .card-main-actions__items
+          .card-main-actions__item
+            button.a-button.is-md.is-warning.is-block(
+              @click='updateComment',
+              v-bind:disabled='!validation'
+            )
+              | 保存する
+          .card-main-actions__item
+            button.a-button.is-md.is-secondary.is-block(@click='cancel')
+              | キャンセル
 </template>
 <script>
 import Reaction from './reaction.vue'

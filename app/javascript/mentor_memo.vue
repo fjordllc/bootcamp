@@ -1,47 +1,52 @@
 <template lang="pug">
-  .practice-content.is-memo
-    section.a-card(v-if="!editing")
-      .practice-content__body
-        .js-target-blank.is-long-text(
-          v-html="markdownMemo")
-      footer.card-footer
-        .card-main-actions
-          ul.card-main-actions__items
-            li.card-main-actions__item
-              button.card-main-actions__action.a-button.is-md.is-secondary.is-block(@click="editMemo")
-                i.fas.fa-pen
-                | 編集
-    .thread-comment-form__form.a-card(v-show="editing")
-      .thread-comment-form__tabs.js-tabs
-        .thread-comment-form__tab.js-tabs__tab(
-          :class="{'is-active': isActive('memo')}"
-          @click="changeActiveTab('memo')")
-          | メモ
-        .thread-comment-form__tab.js-tabs__tab(
-          :class="{'is-active': isActive('preview')}"
-          @click="changeActiveTab('preview')")
-          | プレビュー
-      .thread-comment-form__markdown-parent.js-markdown-parent
-        .thread-comment-form__markdown.is-editor.js-tabs__content(
-          :class="{'is-active': isActive('memo')}")
-          textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
-            :id="`js-practice-memo`"
-            data-preview="#practice-memo-preview"
-            v-model="memo"
-            name="practice[memo]"
+.practice-content.is-memo
+  section.a-card(v-if='!editing')
+    .practice-content__body
+      .js-target-blank.is-long-text(v-html='markdownMemo')
+    footer.card-footer
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item
+            button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
+              @click='editMemo'
             )
-        .thread-comment-form__markdown.is-preview.js-tabs__content(
-          :class="{'is-active': isActive('preview')}")
-          .is-long-text.thread-comment-form__preview(v-html="markdownMemo")
-      .card-footer
-        .card-main-actions
-          .card-main-actions__items
-            .card-main-actions__item
-              button.a-button.is-md.is-warning.is-block(@click="updateMemo")
-                | 保存する
-            .card-main-actions__item
-              button.a-button.is-md.is-secondary.is-block(@click="cancel")
-                | キャンセル
+              i.fas.fa-pen
+              | 編集
+  .thread-comment-form__form.a-card(v-show='editing')
+    .thread-comment-form__tabs.js-tabs
+      .thread-comment-form__tab.js-tabs__tab(
+        :class='{ "is-active": isActive("memo") }',
+        @click='changeActiveTab("memo")'
+      )
+        | メモ
+      .thread-comment-form__tab.js-tabs__tab(
+        :class='{ "is-active": isActive("preview") }',
+        @click='changeActiveTab("preview")'
+      )
+        | プレビュー
+    .thread-comment-form__markdown-parent.js-markdown-parent
+      .thread-comment-form__markdown.is-editor.js-tabs__content(
+        :class='{ "is-active": isActive("memo") }'
+      )
+        textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
+          :id='`js-practice-memo`',
+          data-preview='#practice-memo-preview',
+          v-model='memo',
+          name='practice[memo]'
+        )
+      .thread-comment-form__markdown.is-preview.js-tabs__content(
+        :class='{ "is-active": isActive("preview") }'
+      )
+        .is-long-text.thread-comment-form__preview(v-html='markdownMemo')
+    .card-footer
+      .card-main-actions
+        .card-main-actions__items
+          .card-main-actions__item
+            button.a-button.is-md.is-warning.is-block(@click='updateMemo')
+              | 保存する
+          .card-main-actions__item
+            button.a-button.is-md.is-secondary.is-block(@click='cancel')
+              | キャンセル
 </template>
 <script>
 import TextareaInitializer from './textarea-initializer'

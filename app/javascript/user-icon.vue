@@ -1,13 +1,10 @@
 <template lang="pug">
-a(
-  :href="user.url"
-  :class="`${threadClass}author-link`"
-)
+a(:href='user.url', :class='`${threadClass}author-link`')
   img(
-    :src="user.avatar_url"
-    :alt="user.icon_title"
-    :title="user.icon_title"
-    :class="[`${threadClass}author-icon`, 'a-user-icon', roleClass, daimyoClass]"
+    :src='user.avatar_url',
+    :alt='user.icon_title',
+    :title='user.icon_title',
+    :class='[`${threadClass}author-icon`, "a-user-icon", roleClass, daimyoClass]'
   )
 </template>
 

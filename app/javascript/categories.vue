@@ -1,36 +1,47 @@
 <template lang="pug">
-  .container.is-padding-horizontal-0-sm-down
-    .admin-table.is-grab
-      table.admin-table__table
-        thead.admin-table__header
-          tr.admin-table__labels
-            th.admin-table__label
-              | 名前
-            th.admin-table__label
-              | URLスラッグ
-            th.admin-table__label.actions
-              | 操作
-            th.admin-table__label.handle
-              | 並び順
-        draggable.admin-table__items(v-model="categories", handle='.js-grab', tag="tbody", @start="start", @end="end")
-          tr.admin-table__item(
-            v-for="category in categories"
-            :key="category.id")
-            td.admin-table__item-value
-              | {{ category.name }}
-            td.admin-table__item-value
-              | {{ category.slug }}
-            td.admin-table__item-value.is-text-align-center
-              ul.is-button-group
-                li
-                  a.a-button.is-sm.is-secondary.is-icon.spec-edit(:href='`/admin/categories/${category.id}/edit`')
-                    i.fas.fa-pen
-                li
-                  a.a-button.is-sm.is-danger.is-icon.js-delete(@click='destroy(category)')
-                    i.fas.fa-trash-alt
-            td.admin-table__item-value.is-text-align-center.is-grab
-              span.js-grab.a-grab
-                i.fas.fa-align-justify
+.container.is-padding-horizontal-0-sm-down
+  .admin-table.is-grab
+    table.admin-table__table
+      thead.admin-table__header
+        tr.admin-table__labels
+          th.admin-table__label
+            | 名前
+          th.admin-table__label
+            | URLスラッグ
+          th.admin-table__label.actions
+            | 操作
+          th.admin-table__label.handle
+            | 並び順
+      draggable.admin-table__items(
+        v-model='categories',
+        handle='.js-grab',
+        tag='tbody',
+        @start='start',
+        @end='end'
+      )
+        tr.admin-table__item(
+          v-for='category in categories',
+          :key='category.id'
+        )
+          td.admin-table__item-value
+            | {{ category.name }}
+          td.admin-table__item-value
+            | {{ category.slug }}
+          td.admin-table__item-value.is-text-align-center
+            ul.is-button-group
+              li
+                a.a-button.is-sm.is-secondary.is-icon.spec-edit(
+                  :href='`/admin/categories/${category.id}/edit`'
+                )
+                  i.fas.fa-pen
+              li
+                a.a-button.is-sm.is-danger.is-icon.js-delete(
+                  @click='destroy(category)'
+                )
+                  i.fas.fa-trash-alt
+          td.admin-table__item-value.is-text-align-center.is-grab
+            span.js-grab.a-grab
+              i.fas.fa-align-justify
 </template>
 <script>
 import draggable from 'vuedraggable'

@@ -1,10 +1,12 @@
 <template lang="pug">
-  .recent-reports
-    .recent-reports__items
-      recent-report(v-for="(report, index) in reports"
-        :key="report.id"
-        :report="report")
-    a.recent-reports__to-index(href="/reports") もっとみる
+.recent-reports
+  .recent-reports__items
+    recent-report(
+      v-for='(report, index) in reports',
+      :key='report.id',
+      :report='report'
+    )
+  a.recent-reports__to-index(href='/reports') もっとみる
 </template>
 <script>
 import RecentReport from './recent_report.vue'

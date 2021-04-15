@@ -1,9 +1,11 @@
 <template lang="pug">
 .thread-header__watch
-  #watch-button.thread-header__watch-button.a-button.is-sm.is-left-icon(:class=" watchId ? 'is-active is-secondary' : 'is-inactive is-main' " @click="push")
+  #watch-button.thread-header__watch-button.a-button.is-sm.is-left-icon(
+    :class='watchId ? "is-active is-secondary" : "is-inactive is-main"',
+    @click='push'
+  )
     i.fas.fa-eye
     | {{ watchLabel }}
-
 </template>
 <script>
 import 'whatwg-fetch'
