@@ -1,8 +1,42 @@
 .form-item
-  = f.label :os, '学習に使うOS', class: 'a-label is-required'
+  = f.label :os, '学習に使うマシン・OS', class: 'a-label is-required'
   .a-button.is-md.is-secondary.is-select.is-block
     - options = options_for_select(User.os.map { |k, _| [t("activerecord.enums.user.os.#{k}"), k] }, selected: f.object.os)
     = f.select :os, options, include_blank: '- 選択してください -'
   .a-form-help
     p
-      | カリキュラムはMac向けののみなのでWindowsでは受講できません。Macを持ってない方は用意する必要があります。Linux経験者であればLinuxで学習を行っても構いませんが、Linuxであるがために学習が進まなかった場合にサポートができない場合があります。
+      | Mac の場合、現在 Apple M1 チップを採用しているものと、
+      | Intel の CPU を採用しているものがあります。
+      | どちらの Mac をお使いかで手順が異なるプラクティスがあります。
+      | アドバイスをする際にその情報が必要なため、お答えいただいております。
+      br
+      label.a-form-help-link.is-danger(for='modal-mac')
+        | M1 Mac or Intel Mac? の調べ方
+        span.a-help
+          i.fas.fa-question
+    p
+      | カリキュラムは Mac 向けの内容のみ用意をしております。
+      | なので、現在は Windows では受講できません
+      | （ Windows でも学習ができるように準備を進めています）。
+    p
+      | Linux 経験者であれば Linux で学習を行うことは可能ですが、
+      | Linux であるがために学習が進まなかった場合にサポートが
+      | できない場合がありますのでご注意ください。
+
+= render '/shared/modal', id: 'modal-mac', title: '🍏 M1 Mac or Intel Mac? の調べ方'
+  .modal__description.is-md
+    .a-short-text
+      p
+        | Mac の画面の左上にあるリンゴマーク > 「この Mac について」の順に選択します。
+      p
+        = image_tag('signup/about-mac.jpg')
+      p
+        | すると、このようなポップアップウインドウが表示されます。
+      p
+        | 矢印で示した部分に、
+        br
+        | 「チップ」という項目があり、「Apple M1」 とあれば、M1 Mac です。
+        br
+        | 「プロセッサ」という項目があり、そこに「Intel」とありましたら、Intel Mac です。
+      p
+        = image_tag('signup/about-mac-popup.jpg')
