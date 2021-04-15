@@ -2,6 +2,7 @@
   "extends": [
     "plugin:vue/essential",
     "eslint:recommended",
+    'standard',
     "prettier"
   ],
   "env": {
@@ -19,5 +20,12 @@
   "parserOptions": {
     "ecmaVersion": 2020
   },
-  "rules": {}
+  "rules": {
+    // eslint-config-standardでは引数が利用しているか
+    // チェックしていない("args": none)ので、
+    // 引数もチェックするようにする
+    "no-unused-vars": ["error", {
+      "args": "all",
+    }],
+  }
 }
