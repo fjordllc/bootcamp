@@ -6,12 +6,12 @@
 
 <script>
 export default {
-  props: ["comment"],
-  data(){
+  props: ['comment'],
+  data() {
     return {
       user_id: this.comment.user_id,
-      user_icon: this.comment.user_icon,
+      user_icon: this.comment.user_icon
     }
-  },
+  }
 }
 </script>

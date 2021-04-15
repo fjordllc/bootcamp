@@ -72,12 +72,12 @@ import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
 import moment from 'moment'
 import autosize from 'autosize'
-moment.locale('ja');
+moment.locale('ja')
 
 export default {
   props: ['comment', 'currentUser', 'availableEmojis'],
   components: {
-    'reaction': Reaction
+    reaction: Reaction
   },
   data: () => {
     return {
@@ -89,15 +89,15 @@ export default {
     }
   },
   created() {
-    this.description = this.comment.description;
+    this.description = this.comment.description
   },
   mounted() {
     TextareaInitializer.initialize(`#js-comment-${this.comment.id}`)
 
-    const commentAnchor = location.hash;
-    if(commentAnchor) {
-      this.$nextTick( () => {
-        location.replace(location.href);
+    const commentAnchor = location.hash
+    if (commentAnchor) {
+      this.$nextTick(() => {
+        location.replace(location.href)
       })
     }
   },
@@ -113,21 +113,25 @@ export default {
       this.tab = tab
     },
     cancel() {
-      this.description = this.comment.description;
-      this.editing = false;
+      this.description = this.comment.description
+      this.editing = false
     },
     editComment() {
-      this.editing = true;
-      this.$nextTick(function() {
-        const textarea = document.querySelector(`#js-comment-${this.comment.id}`)
+      this.editing = true
+      this.$nextTick(function () {
+        const textarea = document.querySelector(
+          `#js-comment-${this.comment.id}`
+        )
         autosize.update(textarea)
-        $(`.comment-id-${this.comment.id}`).trigger('input');
+        $(`.comment-id-${this.comment.id}`).trigger('input')
       })
     },
     updateComment() {
-      if (this.description.length < 1) { return null }
+      if (this.description.length < 1) {
+        return null
+      }
       let params = {
-        'comment': { 'description': this.description }
+        comment: { description: this.description }
       }
       fetch(`/api/comments/${this.comment.id}`, {
         method: 'PUT',
@@ -141,28 +145,30 @@ export default {
         body: JSON.stringify(params)
       })
         .then(() => {
-          this.editing = false;
+          this.editing = false
         })
-        .catch(error => {
+        .catch((error) => {
           console.warn('Failed to parsing', error)
         })
     },
     deleteComment() {
       if (window.confirm('削除してよろしいですか？')) {
-        this.$emit('delete', this.comment.id);
+        this.$emit('delete', this.comment.id)
       }
     },
     copyCommentURLToClipboard(commentId) {
-      const commentURL = location.href.split("#")[0] + "#comment_" + commentId;
-      const textBox = document.createElement("textarea");
-      textBox.setAttribute("type", "hidden");
-      textBox.textContent = commentURL;
-      document.body.appendChild(textBox);
-      textBox.select();
-      document.execCommand('copy');
-      document.body.removeChild(textBox);
-      this.activating = true;
-      setTimeout(() => {this.activating = false}, 4000);
+      const commentURL = location.href.split('#')[0] + '#comment_' + commentId
+      const textBox = document.createElement('textarea')
+      textBox.setAttribute('type', 'hidden')
+      textBox.textContent = commentURL
+      document.body.appendChild(textBox)
+      textBox.select()
+      document.execCommand('copy')
+      document.body.removeChild(textBox)
+      this.activating = true
+      setTimeout(() => {
+        this.activating = false
+      }, 4000)
     }
   },
   computed: {
@@ -186,7 +192,7 @@ export default {
       return this.description.length > 0
     },
     reactionableId() {
-      return `Comment_${this.comment.id}`;
+      return `Comment_${this.comment.id}`
     }
   }
 }

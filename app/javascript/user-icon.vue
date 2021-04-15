@@ -18,15 +18,15 @@ export default {
     threadClassSuffix: { type: String, required: true }
   },
   computed: {
-    threadClass: function() {
+    threadClass: function () {
       return `thread${this.threadClassSuffix}__`
     },
-    roleClass: function() {
-      return `is-${this.user.role}`;
+    roleClass: function () {
+      return `is-${this.user.role}`
     },
-    daimyoClass: function() {
+    daimyoClass: function () {
       return { 'is-daimyo': this.user.daimyo }
-    },
-  },
+    }
+  }
 }
 </script>

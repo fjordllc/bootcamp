@@ -21,19 +21,21 @@ export default {
   created() {
     fetch('/api/reports/recents.json', {
       method: 'GET',
-      headers: { 'X-Requested-With': 'XMLHttpRequest', },
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
       credentials: 'same-origin',
       redirect: 'manual'
     })
-        .then(response => {
-          return response.json()
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        json.forEach((r) => {
+          this.reports.push(r)
         })
-        .then(json => {
-          json.forEach(r => { this.reports.push(r) })
-        })
-        .catch(error => {
-          console.warn('Failed to parsing', error)
-        })
+      })
+      .catch((error) => {
+        console.warn('Failed to parsing', error)
+      })
   },
   computed: {
     checkId: function () {
@@ -41,8 +43,8 @@ export default {
     }
   },
   methods: {
-    updateCheckValue(reportId, {check = true}){
-      this.reports.map( function (report) {
+    updateCheckValue(reportId, { check = true }) {
+      this.reports.map(function (report) {
         if (report.id == reportId) {
           report.check = check
         }
@@ -50,14 +52,14 @@ export default {
     }
   },
   watch: {
-    checkId (checkId) {
+    checkId(checkId) {
       let checkableType = this.$store.getters.checkableType
-      if (checkableType == "Report") {
+      if (checkableType == 'Report') {
         let reportId = this.$store.getters.checkableId
         if (checkId) {
-          this.updateCheckValue(reportId, {check: true})
+          this.updateCheckValue(reportId, { check: true })
         } else {
-          this.updateCheckValue(reportId, {check: false})
+          this.updateCheckValue(reportId, { check: false })
         }
       }
     }

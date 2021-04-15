@@ -22,7 +22,9 @@ export default {
   props: ['notification'],
   computed: {
     formattedCreatedAtInJapanese() {
-      return dayjs(this.notification.created_at).format('YYYY年MM月DD日(ddd) HH:mm')
+      return dayjs(this.notification.created_at).format(
+        'YYYY年MM月DD日(ddd) HH:mm'
+      )
     },
     roleClass() {
       return `is-${this.notification.sender.role}`

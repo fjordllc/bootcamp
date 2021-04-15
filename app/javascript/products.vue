@@ -31,7 +31,7 @@ import Pager from './pager.vue'
 export default {
   props: ['title', 'selectedTab', 'isMentor', 'currentUserId'],
   components: {
-    'product': Product,
+    product: Product,
     'unconfirmed-links-open-button': unconfirmedLinksOpenButton,
     pager: Pager
   },
@@ -44,10 +44,12 @@ export default {
     }
   },
   computed: {
-    url () {
+    url() {
       return (
         '/api/products' +
-        (this.selectedTab === 'all' ? '' : '/' + this.selectedTab.replace('-', '_')) +
+        (this.selectedTab === 'all'
+          ? ''
+          : '/' + this.selectedTab.replace('-', '_')) +
         `?page=${this.currentPage}`
       )
     },
@@ -55,7 +57,7 @@ export default {
       return {
         unchecked: '未チェック',
         'not-responded': '未返信',
-        'self-assigned': '自分の担当',
+        'self-assigned': '自分の担当'
       }[this.selectedTab]
     },
     pagerProps() {
@@ -67,14 +69,14 @@ export default {
       }
     }
   },
-  created () {
-    window.onpopstate = function(){
-      location.replace(location.href);
+  created() {
+    window.onpopstate = function () {
+      location.replace(location.href)
     }
     this.getProductsPerPage()
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
@@ -87,36 +89,36 @@ export default {
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
-        redirect: 'manual',
+        redirect: 'manual'
       })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        this.totalPages = json.total_pages
-        this.products = []
-        json.products.forEach(product => {
-          this.products.push(product);
-        });
-        this.loaded = true
-      })
-      .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          this.totalPages = json.total_pages
+          this.products = []
+          json.products.forEach((product) => {
+            this.products.push(product)
+          })
+          this.loaded = true
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     },
     getPageValueFromParameter() {
       let url = location.href
-      let results= url.match(/\?page=(\d+)/)
-      if (!results) return null;
+      let results = url.match(/\?page=(\d+)/)
+      if (!results) return null
       return results[1]
     },
-    paginateClickCallback (pageNumber) {
+    paginateClickCallback(pageNumber) {
       this.currentPage = pageNumber
       this.getProductsPerPage()
       history.pushState(
         null,
         null,
-        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`),
+        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
       )
     }
   }

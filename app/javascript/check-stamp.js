@@ -9,10 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkableType = checkStamp.getAttribute('data-checkable-type')
     new Vue({
       store,
-      render: h => h(CheckStamp, { props: {
-        checkableId: checkableId,
-        checkableType: checkableType
-      } })
+      render: (h) =>
+        h(CheckStamp, {
+          props: {
+            checkableId: checkableId,
+            checkableType: checkableType
+          }
+        })
     }).$mount('#js-check-stamp')
   }
 })

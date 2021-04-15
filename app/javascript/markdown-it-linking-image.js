@@ -2,7 +2,7 @@ export default function (md) {
   const defaultRender = md.renderer.rules.image
 
   md.renderer.rules.image = function (tokens, idx, options, env, self) {
-    if (tokens.some(token => token.type === 'link_open')) {
+    if (tokens.some((token) => token.type === 'link_open')) {
       return defaultRender(tokens, idx, options, env, self)
     }
 

@@ -19,7 +19,7 @@ import 'whatwg-fetch'
 
 export default {
   props: ['practiceId'],
-  data () {
+  data() {
     return {
       submission: false,
       complete: false,
@@ -28,7 +28,7 @@ export default {
       productLink: ''
     }
   },
-  mounted () {
+  mounted() {
     fetch(`/api/practices/${this.practiceId}/learning.json`, {
       method: 'GET',
       headers: {
@@ -37,10 +37,10 @@ export default {
       },
       credentials: 'same-origin'
     })
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
+      .then((json) => {
         this.submission = json['practice']['submission']
         this.complete = json['status'] == 'complete'
         this.product = json['practice']['product']
@@ -52,12 +52,12 @@ export default {
           this.productLabel = '提出物を作る'
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.warn('Failed to parsing', error)
       })
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       if (meta) {
         return meta.getAttribute('content')
@@ -65,7 +65,7 @@ export default {
         return ''
       }
     },
-    pushComplete () {
+    pushComplete() {
       let params = new FormData()
       params.append('status', 'complete')
 
@@ -82,12 +82,11 @@ export default {
         .then(() => {
           this.complete = true
         })
-        .catch(error => {
+        .catch((error) => {
           console.warn('Failed to parsing', error)
         })
     }
   }
 }
 </script>
-<style scoped>
-</style>
+<style scoped></style>

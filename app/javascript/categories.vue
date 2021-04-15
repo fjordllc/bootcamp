@@ -37,7 +37,7 @@ import draggable from 'vuedraggable'
 
 export default {
   props: ['allCategories'],
-  data () {
+  data() {
     return {
       categories: JSON.parse(this.allCategories),
       categoriesBeforeDragging: '',
@@ -48,19 +48,19 @@ export default {
     draggable
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    start () {
+    start() {
       this.categoriesBeforeDragging = this.categories
     },
-    end (event) {
+    end(event) {
       this.draggingItem = this.categoriesBeforeDragging[event.oldIndex]
       if (event.oldIndex !== event.newIndex) {
         const params = {
           // position値は1から始まるため、インデックス番号 + 1
-          'position': event.newIndex + 1
+          position: event.newIndex + 1
         }
         fetch(`/api/categories/${this.draggingItem.id}/position.json`, {
           method: 'PATCH',
@@ -73,17 +73,17 @@ export default {
           redirect: 'manual',
           body: JSON.stringify(params)
         })
-          .then(response => {
+          .then((response) => {
             if (!response.ok) {
               this.categories = this.categoriesBeforeDragging
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.warn('Failed to parsing', error)
           })
       }
     },
-    destroy (category) {
+    destroy(category) {
       if (window.confirm('本当によろしいですか？')) {
         fetch(`/api/categories/${category.id}.json`, {
           method: 'DELETE',
@@ -95,12 +95,14 @@ export default {
           credentials: 'same-origin',
           redirect: 'manual'
         })
-          .then(response => {
+          .then((response) => {
             if (response.ok) {
-              this.categories = this.categories.filter(v => v.id !== category.id)
+              this.categories = this.categories.filter(
+                (v) => v.id !== category.id
+              )
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.warn('Failed to parsing', error)
           })
       }

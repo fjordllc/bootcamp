@@ -31,17 +31,17 @@ moment.locale('ja')
 export default {
   components: {
     questionEdit: QuestionEdit,
-    answers: Answers,
+    answers: Answers
   },
   props: {
     currentUserId: { type: String, required: true },
-    questionId: { type: String, required: true },
+    questionId: { type: String, required: true }
   },
   data: () => {
     return {
       question: null,
       currentUser: null,
-      answerCount: 0,
+      answerCount: 0
     }
   },
   created() {
@@ -54,9 +54,9 @@ export default {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token(),
+          'X-CSRF-Token': this.token()
         },
-        credentials: 'same-origin',
+        credentials: 'same-origin'
       })
         .then((response) => {
           return response.json()
@@ -72,10 +72,10 @@ export default {
       fetch(`/api/users/${id}.json`, {
         method: 'GET',
         headers: {
-          'X-Requested-With': 'XMLHttpRequest',
+          'X-Requested-With': 'XMLHttpRequest'
         },
         credentials: 'same-origin',
-        redirect: 'manual',
+        redirect: 'manual'
       })
         .then((response) => {
           return response.json()
@@ -99,7 +99,7 @@ export default {
     },
     updateAnswerCount(count) {
       this.answerCount = count
-    },
-  },
+    }
+  }
 }
 </script>

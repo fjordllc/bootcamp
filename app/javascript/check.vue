@@ -24,16 +24,25 @@ import 'whatwg-fetch'
 import ProductChecker from './product_checker'
 
 export default {
-  props: ['checkableId', 'checkableType', 'checkableLabel', 'checkerId', 'checkerName', 'currentUserId'],
+  props: [
+    'checkableId',
+    'checkableType',
+    'checkableLabel',
+    'checkerId',
+    'checkerName',
+    'currentUserId'
+  ],
   components: {
-    'product-checker': ProductChecker,
+    'product-checker': ProductChecker
   },
   computed: {
     checkId() {
       return this.$store.getters.checkId
     },
     buttonLabel() {
-      return this.checkableLabel + (this.checkId ? 'の確認を取り消す' : 'を確認')
+      return (
+        this.checkableLabel + (this.checkId ? 'の確認を取り消す' : 'を確認')
+      )
     },
     url() {
       return this.checkId ? `/api/checks/${this.checkId}` : '/api/checks'
@@ -43,14 +52,14 @@ export default {
     }
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
     check() {
       let params = {
-        "checkable_type": this.checkableType,
-        "checkable_id": this.checkableId
+        checkable_type: this.checkableType,
+        checkable_id: this.checkableId
       }
 
       fetch(this.url, {
@@ -70,7 +79,7 @@ export default {
             checkableType: this.checkableType
           })
         })
-        .catch(error => {
+        .catch((error) => {
           console.warn('Failed to parsing', error)
         })
     }

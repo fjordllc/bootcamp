@@ -1,14 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
   const warningForms = document.querySelectorAll('.js-warning-form')
-  if (warningForms.length <= 0) { return null }
+  if (warningForms.length <= 0) {
+    return null
+  }
 
   let submitting = false
   const commentForm = document.querySelector('#js-new-comment')
   const onUnload = () => {
-    window.addEventListener('beforeunload', e => {
+    window.addEventListener('beforeunload', (e) => {
       if (!submitting && !commentForm) {
         e.preventDefault()
-        e.returnValue = 'このページを離れると、入力したデータが削除されます。本当に移動しますか？'
+        e.returnValue =
+          'このページを離れると、入力したデータが削除されます。本当に移動しますか？'
       }
     })
   }

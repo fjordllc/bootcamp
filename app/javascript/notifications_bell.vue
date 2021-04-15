@@ -38,18 +38,20 @@ export default {
     fetch(`/api/notifications/unread.json`, {
       method: 'GET',
       headers: {
-        'X-Requested-With': 'XMLHttpRequest',
+        'X-Requested-With': 'XMLHttpRequest'
       },
       credentials: 'same-origin',
       redirect: 'manual'
     })
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
-        json['notifications'].forEach(n => { this.notifications.push(n) })
+      .then((json) => {
+        json['notifications'].forEach((n) => {
+          this.notifications.push(n)
+        })
       })
-      .catch(error => {
+      .catch((error) => {
         console.warn('Failed to parsing', error)
       })
   },

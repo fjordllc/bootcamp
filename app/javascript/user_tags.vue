@@ -14,12 +14,7 @@
 import Tags from './tags.vue'
 
 export default {
-  props: [
-    'tagsInitialValue',
-    'tagsParamName',
-    'tagsInputId',
-    'userId'
-  ],
+  props: ['tagsInitialValue', 'tagsParamName', 'tagsInputId', 'userId'],
   components: {
     tags: Tags
   },

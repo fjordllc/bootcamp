@@ -12,7 +12,7 @@ import 'whatwg-fetch'
 
 export default {
   props: ['checkableId', 'checkableType', 'checkableLabel'],
-  mounted () {
+  mounted() {
     this.$store.dispatch('setCheckable', {
       checkableId: this.checkableId,
       checkableType: this.checkableType
