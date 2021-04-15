@@ -50,7 +50,7 @@ export default {
       this.checked = false
     },
     checked: function () {
-      if (this.checked == false) {
+      if (this.checked === false) {
         this.sendBody = ''
       } else {
         this.sendBody = this.body
@@ -92,7 +92,7 @@ export default {
           return response.json()
         })
         .then((json) => {
-          if (json.message == undefined) {
+          if (json.message === undefined) {
             this.id = json.id
             this.body = json.body
           } else {
@@ -130,7 +130,7 @@ export default {
           return response.json()
         })
         .then((json) => {
-          if (json.message == undefined) {
+          if (json.message === undefined) {
             this.id = json.id
             this.body = json.body
           } else {
@@ -155,7 +155,7 @@ export default {
           return response.json()
         })
         .then((json) => {
-          if (json.message == undefined) {
+          if (json.message === undefined) {
             this.id = json.id
             this.body = ''
           } else {

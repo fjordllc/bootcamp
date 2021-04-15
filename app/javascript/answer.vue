@@ -150,7 +150,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     isActive: function (tab) {
-      return this.tab == tab
+      return this.tab === tab
     },
     changeActiveTab: function (tab) {
       this.tab = tab

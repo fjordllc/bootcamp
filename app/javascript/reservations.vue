@@ -160,7 +160,7 @@ export default {
               this.$set(this.reservations, `${c.date}-${c.seat_id}`, c)
             })
           } else {
-            if (json.message == undefined) {
+            if (json.message === undefined) {
               this.$set(this.reservations, `${json.date}-${json.seat_id}`, json)
             } else {
               alert(json.message)
@@ -183,7 +183,7 @@ export default {
       })
         .then(() => {
           for (const reservation in this.reservations) {
-            if (this.reservations[reservation].id == id) {
+            if (this.reservations[reservation].id === id) {
               this.$delete(this.reservations, reservation)
             }
           }
@@ -194,7 +194,7 @@ export default {
     },
     is_holiday(isholiday) {
       return {
-        'is-holiday': isholiday == 1
+        'is-holiday': isholiday === 1
       }
     },
     reservation_hash_id(date, seatId) {
@@ -208,7 +208,7 @@ export default {
     },
     createReservationForOneMonth(seatId) {
       const multipleDays = []
-      if (this.admin_login == 1) {
+      if (this.admin_login === 1) {
         this.this_months.forEach((one_day) => {
           multipleDays.push(one_day.ymd)
         })
@@ -217,7 +217,7 @@ export default {
     },
     createReservationForOneDay(oneDay) {
       const seatIds = []
-      if (this.admin_login == 1) {
+      if (this.admin_login === 1) {
         this.seats.forEach((seat) => {
           seatIds.push(seat.id)
         })
