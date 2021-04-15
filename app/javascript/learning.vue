@@ -43,9 +43,9 @@ export default {
         return response.json()
       })
       .then((json) => {
-        this.submission = json['practice']['submission']
-        this.complete = json['status'] == 'complete'
-        this.product = json['practice']['product']
+        this.submission = json.practice.submission
+        this.complete = json.status == 'complete'
+        this.product = json.practice.product
         if (this.product) {
           this.productLink = `/products/${this.product.id}`
           this.productLabel = '提出物へ'
@@ -68,7 +68,7 @@ export default {
       }
     },
     pushComplete() {
-      let params = new FormData()
+      const params = new FormData()
       params.append('status', 'complete')
 
       fetch(`/api/practices/${this.practiceId}/learning.json`, {

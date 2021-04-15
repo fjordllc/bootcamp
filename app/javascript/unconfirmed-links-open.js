@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   )
   if (allOpenButton) {
     allOpenButton.addEventListener('click', () => {
-      var links = document.querySelectorAll(
+      const links = document.querySelectorAll(
         '.thread-list-item .js-unconfirmed-link'
       )
       links.forEach((link) => {

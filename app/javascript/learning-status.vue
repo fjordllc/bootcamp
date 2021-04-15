@@ -55,7 +55,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     pushStatus(name) {
-      let params = new FormData()
+      const params = new FormData()
       params.append('status', name)
 
       fetch(`/api/practices/${this.practiceId}/learning.json`, {

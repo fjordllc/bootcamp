@@ -35,7 +35,7 @@ export default {
       })
       .then((json) => {
         if (json[0]) {
-          this.watchId = json[0]['id']
+          this.watchId = json[0].id
           this.watchLabel = 'Watch中'
         }
       })
@@ -56,7 +56,7 @@ export default {
       }
     },
     watch() {
-      let params = {
+      const params = {
         watchable_type: this.watchableType,
         watchable_id: this.watchableId
       }
@@ -76,7 +76,7 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.watchId = json['id']
+          this.watchId = json.id
           this.watchLabel = 'Watch中'
         })
         .catch((error) => {

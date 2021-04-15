@@ -73,7 +73,7 @@ export default {
       if (this.sendBody.length < 1) {
         return null
       }
-      let params = {
+      const params = {
         date: this.date,
         body: this.$refs.sendBody.value
       }
@@ -92,11 +92,11 @@ export default {
           return response.json()
         })
         .then((json) => {
-          if (json['message'] == undefined) {
-            this.id = json['id']
-            this.body = json['body']
+          if (json.message == undefined) {
+            this.id = json.id
+            this.body = json.body
           } else {
-            alert(json['message'])
+            alert(json.message)
           }
         })
         .catch((error) => {
@@ -111,7 +111,7 @@ export default {
         return null
       }
 
-      let params = {
+      const params = {
         date: this.date,
         body: this.$refs.sendBody.value
       }
@@ -130,11 +130,11 @@ export default {
           return response.json()
         })
         .then((json) => {
-          if (json['message'] == undefined) {
-            this.id = json['id']
-            this.body = json['body']
+          if (json.message == undefined) {
+            this.id = json.id
+            this.body = json.body
           } else {
-            alert(json['message'])
+            alert(json.message)
           }
         })
         .catch((error) => {
@@ -155,11 +155,11 @@ export default {
           return response.json()
         })
         .then((json) => {
-          if (json['message'] == undefined) {
-            this.id = json['id']
+          if (json.message == undefined) {
+            this.id = json.id
             this.body = ''
           } else {
-            alert(json['message'])
+            alert(json.message)
           }
         })
         .catch((error) => {

@@ -145,7 +145,7 @@ export default {
       if (this.description.length < 1) {
         return null
       }
-      let params = {
+      const params = {
         comment: { description: this.description }
       }
       fetch(`/api/comments/${this.comment.id}`, {

@@ -74,8 +74,8 @@ export default {
         return response.json()
       })
       .then((json) => {
-        if (json['memo']) {
-          this.memo = json['memo']
+        if (json.memo) {
+          this.memo = json.memo
         }
       })
       .catch((error) => {
@@ -109,7 +109,7 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.memo = json['memo']
+          this.memo = json.memo
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
@@ -117,7 +117,7 @@ export default {
       this.editing = false
     },
     updateMemo() {
-      let params = {
+      const params = {
         practice: {
           memo: this.memo
         }

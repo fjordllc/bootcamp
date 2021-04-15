@@ -55,9 +55,9 @@ export default {
   },
   watch: {
     checkId(checkId) {
-      let checkableType = this.$store.getters.checkableType
+      const checkableType = this.$store.getters.checkableType
       if (checkableType == 'Report') {
-        let reportId = this.$store.getters.checkableId
+        const reportId = this.$store.getters.checkableId
         if (checkId) {
           this.updateCheckValue(reportId, { check: true })
         } else {
