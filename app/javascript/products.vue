@@ -2,29 +2,9 @@
   .page-body
     .container(v-if="loaded")
       nav.pagination
-        pager-top(
+        pager(
           v-if="totalPages > 1 && products.length > 0"
-          v-model='currentPage'
-          :page-count="totalPages"
-          :page-range=5
-          :prev-text="`<i class='fas fa-angle-left'></i>`"
-          :next-text="`<i class='fas fa-angle-right'></i>`"
-          :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
-          :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
-          :click-handler="paginateClickCallback"
-          :container-class="'pagination__items'"
-          :page-class="'pagination__item'"
-          :page-link-class="'pagination__item-link'"
-          :disabled-class="'is-disabled'"
-          :active-class="'is-active'"
-          :prev-class="'is-prev pagination__item'"
-          :prev-link-class="'is-prev pagination__item-link'"
-          :next-class="'is-next pagination__item'"
-          :next-link-class="'is-next pagination__item-link'"
-          :first-last-button="true"
-          :hide-prev-next="true"
-          :margin-pages="0"
-          :break-view-text="null"
+          v-bind="pagerProps"
         )
       .thread-list.a-card(v-if="products.length > 0")
         .thread-list__items
@@ -40,29 +20,9 @@
         p.o-empty-message__text
           | {{ title }}はありません
       nav.pagination
-        pager-bottom(
+        pager(
           v-if="totalPages > 1 && products.length > 0"
-          v-model='currentPage'
-          :page-count="totalPages"
-          :page-range=5
-          :prev-text="`<i class='fas fa-angle-left'></i>`"
-          :next-text="`<i class='fas fa-angle-right'></i>`"
-          :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
-          :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
-          :click-handler="paginateClickCallback"
-          :container-class="'pagination__items'"
-          :page-class="'pagination__item'"
-          :page-link-class="'pagination__item-link'"
-          :disabled-class="'is-disabled'"
-          :active-class="'is-active'"
-          :prev-class="'is-prev pagination__item'"
-          :prev-link-class="'is-prev pagination__item-link'"
-          :next-class="'is-next pagination__item'"
-          :next-link-class="'is-next pagination__item-link'"
-          :first-last-button="true"
-          :hide-prev-next="true"
-          :margin-pages="0"
-          :break-view-text="null"
+          v-bind="pagerProps"
         )
     .container(v-else)
       | ロード中
@@ -71,21 +31,20 @@
 <script>
 import Product from './product.vue'
 import unconfirmedLinksOpenButton from './unconfirmed_links_open_button.vue'
-import VueJsPaginate from 'vuejs-paginate'
+import Pager from './pager.vue'
 
 export default {
   props: ['title', 'selectedTab', 'isMentor', 'currentUserId'],
   components: {
     'product': Product,
     'unconfirmed-links-open-button': unconfirmedLinksOpenButton,
-    'pager-top': VueJsPaginate,
-    'pager-bottom': VueJsPaginate
+    pager: Pager
   },
-  data: () => {
+  data() {
     return {
       products: [],
       totalPages: 0,
-      currentPage: 1,
+      currentPage: Number(this.getPageValueFromParameter()) || 1,
       loaded: false
     }
   },
@@ -103,13 +62,20 @@ export default {
         'not-responded': '未返信',
         'self-assigned': '自分の担当',
       }[this.selectedTab]
+    },
+    pagerProps() {
+      return {
+        initialPageNumber: this.currentPage,
+        pageCount: this.totalPages,
+        pageRange: 5,
+        clickHandle: this.paginateClickCallback
+      }
     }
   },
   created () {
     window.onpopstate = function(){
       location.replace(location.href);
     }
-    this.currentPage = Number(this.getPageValueFromParameter()) || 1
     this.getProductsPerPage()
   },
   methods: {
@@ -143,22 +109,20 @@ export default {
         console.warn('Failed to parsing', error)
       })
     },
-    updateCurrentUrl() {
-      let url = location.pathname
-      if (this.currentPage != 1) {
-        url += `?page=${this.currentPage}`
-      }
-      history.pushState(null, null, url)
-    },
     getPageValueFromParameter() {
       let url = location.href
       let results= url.match(/\?page=(\d+)/)
       if (!results) return null;
       return results[1]
     },
-    paginateClickCallback () {
+    paginateClickCallback (pageNumber) {
+      this.currentPage = pageNumber
       this.getProductsPerPage()
-      this.updateCurrentUrl()
+      history.pushState(
+        null,
+        null,
+        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`),
+      )
     }
   }
 }
