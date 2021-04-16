@@ -21,7 +21,7 @@
       .card-footer
         .card-main-actions
           ul.card-main-actions__items
-           -if @announcement.wip || admin_login? || @announcement.user_id == current_user.id
+           - if @announcement.wip || admin_login? || @announcement.user_id == current_user.id
             li.card-main-actions__item
               = link_to edit_announcement_path(announcement), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
                 i.fas.fa-pen#new
