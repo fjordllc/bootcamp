@@ -5,29 +5,7 @@
       |  ロード中
   .reports(v-else-if="reports.length > 0 || !isUncheckedReportsPage")
     nav.pagination(v-if="totalPages > 1")
-      paginate(
-        v-model="currentPage"
-        :page-count="totalPages"
-        :page-range="9"
-        :margin-pages="0"
-        :click-handler="clickCallback"
-        :prev-text="`<i class='fas fa-angle-left'></i>`"
-        :next-text="`<i class='fas fa-angle-right'></i>`"
-        :break-view-text="''"
-        :first-last-button="true"
-        :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
-        :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
-        :container-class="'pagination__items'"
-        :page-class="'pagination__item'"
-        :page-link-class="'pagination__item-link'"
-        :disabled-class="'is-disabled'"
-        :prev-class="'pagination__item is-prev'"
-        :prev-link-class="'pagination__item-link is-prev'"
-        :next-class="'pagination__item is-next'"
-        :next-link-class="'pagination__item-link is-next'"
-        :active-class="'is-active'"
-        :active-link-class="'is-active'"
-        :hide-prev-next="true")
+      pager(v-bind="pagerProps")
     .thread-list.a-card
       .thread-list__items
         report(
@@ -39,29 +17,7 @@
         v-if="isUncheckedReportsPage"
         label="未チェックの日報を一括で開く")
     nav.pagination(v-if="totalPages > 1")
-      paginate(
-        v-model="currentPage"
-        :page-count="totalPages"
-        :page-range="9"
-        :margin-pages="0"
-        :click-handler="clickCallback"
-        :prev-text="`<i class='fas fa-angle-left'></i>`"
-        :next-text="`<i class='fas fa-angle-right'></i>`"
-        :break-view-text="''"
-        :first-last-button="true"
-        :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
-        :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
-        :container-class="'pagination__items'"
-        :page-class="'pagination__item'"
-        :page-link-class="'pagination__item-link'"
-        :disabled-class="'is-disabled'"
-        :prev-class="'pagination__item is-prev'"
-        :prev-link-class="'pagination__item-link is-prev'"
-        :next-class="'pagination__item is-next'"
-        :next-link-class="'pagination__item-link is-next'"
-        :active-class="'is-active'"
-        :active-link-class="'is-active'"
-        :hide-prev-next="true")
+      pager(v-bind="pagerProps")
   .o-empty-message(v-else)
     .o-empty-message__icon
       i.far.fa-smile
@@ -71,16 +27,18 @@
 <script>
 import Report from './report.vue'
 import UnconfirmedLink from './unconfirmed_link.vue'
+import Pager from './pager.vue'
 
 export default {
   components: {
     'report': Report,
-    'unconfirmed-link': UnconfirmedLink
+    'unconfirmed-link': UnconfirmedLink,
+    pager: Pager
   },
-  data: () => {
+  data() {
     return {
       reports: null,
-      currentPage: null,
+      currentPage: this.pageParam(),
       totalPages: null,
       currentUserId: null,
     }
@@ -90,7 +48,6 @@ export default {
       this.currentPage = this.pageParam()
       this.getReports()
     }
-    this.currentPage = this.pageParam()
     this.getReports()
   },
   methods: {
@@ -100,7 +57,7 @@ export default {
       return parseInt(page || 1)
     },
     clickCallback(pageNum){
-      this.currentPage = parseInt(pageNum)
+      this.currentPage = pageNum
       history.pushState(null, null, this.newURL)
       this.getReports()
     },
@@ -143,6 +100,14 @@ export default {
         return `/api/reports/unchecked.json?${params}`
       }else{
         return `/api/reports.json?${params}`
+      }
+    },
+    pagerProps() {
+      return {
+        initialPageNumber: this.currentPage,
+        pageCount: this.totalPages,
+        pageRange: 9,
+        clickHandle: this.clickCallback
       }
     }
   }
