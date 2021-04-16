@@ -173,7 +173,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_no_text 'machidaさんからお知らせです。'
   end
 
-  test '一般のユーザーは提出済みのお知らせを編集できない' do
+  test "general user can't edit submitted　announcement" do
     login_user 'kimura', 'testtest'
     announcement = announcements(:announcement1)
     visit announcement_path(announcement)
@@ -182,7 +182,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     end
   end
 
-  test '一般ユーザーはWIPのお知らせを編集できる' do
+  test 'general user can edit wip announcement' do
     login_user 'kimura', 'testtest'
     announcement = announcements(:announcement_wip)
     visit announcement_path(announcement)
@@ -191,7 +191,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     end
   end
 
-  test '一般のユーザーは提出済みのお知らせをコピーできる' do
+  test 'general user can copy submitted announcement' do
     login_user 'kimura', 'testtest'
     announcement = announcements(:announcement1)
     visit announcement_path(announcement)
@@ -200,7 +200,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     end
   end
 
-  test '一般のユーザーはWIPのお知らせをコピーできる' do
+  test 'general user can copy wip announcement' do
     login_user 'kimura', 'testtest'
     announcement = announcements(:announcement_wip)
     visit announcement_path(announcement)
