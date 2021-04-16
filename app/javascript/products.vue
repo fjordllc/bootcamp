@@ -1,12 +1,17 @@
 <template lang="pug">
   .page-body
-    .container(v-if="loaded")
-      nav.pagination
-        pager(
-          v-if="totalPages > 1 && products.length > 0"
-          v-bind="pagerProps"
-        )
-      .thread-list.a-card(v-if="products.length > 0")
+    .container(v-if="!loaded")
+      | ロード中
+    .container(v-else-if="products.length === 0")
+      .o-empty-message
+        .o-empty-message__icon
+          i.far.fa-smile
+        p.o-empty-message__text
+          | {{ title }}はありません
+    .container(v-else)
+      nav.pagination(v-if="totalPages > 1")
+        pager(v-bind="pagerProps")
+      .thread-list.a-card
         .thread-list__items
           product(v-for="product in products"
             :key="product.id"
@@ -14,18 +19,8 @@
             :currentUserId="currentUserId"
             :isMentor="isMentor")
         unconfirmed-links-open-button(v-if="isMentor && selectedTab != 'all'" :label="`${unconfirmedLinksName}の提出物を一括で開く`")
-      .o-empty-message(v-else)
-        .o-empty-message__icon
-          i.far.fa-smile
-        p.o-empty-message__text
-          | {{ title }}はありません
-      nav.pagination
-        pager(
-          v-if="totalPages > 1 && products.length > 0"
-          v-bind="pagerProps"
-        )
-    .container(v-else)
-      | ロード中
+      nav.pagination(v-if="totalPages > 1")
+        pager(v-bind="pagerProps")
 </template>
 
 <script>
