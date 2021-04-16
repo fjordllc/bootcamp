@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const destroyReaction = (reaction, kind, loginName, reactionId) => {
     const url = `/api/reactions/${reactionId}`
 
-    requestReaction(url, 'DELETE', (json) => {
+    requestReaction(url, 'DELETE', () => {
       Array.from(reaction.querySelectorAll(`[data-reaction-kind="${kind}"]`), element => {
         element.classList.remove('is-reacted')
         delete (element.dataset.reactionId)

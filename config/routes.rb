@@ -176,7 +176,7 @@ Rails.application.routes.draw do
   namespace :users do
     post "tags/:tag", to: "tags#update", tag: /.+/
   end
-
+  resources :watches, only: %i(index)
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"
   post "user_sessions" => "user_sessions#create"

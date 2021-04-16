@@ -157,6 +157,22 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
+  test 'discord_account' do
+    user = users(:komagata)
+    user.discord_account = ''
+    assert user.valid?
+    user.discord_account = 'komagata#1234'
+    assert user.valid?
+    user.discord_account = 'komagata'
+    assert user.invalid?
+    user.discord_account = '#1234'
+    assert user.invalid?
+    user.discord_account = ' komagata　#1234'
+    assert user.invalid?
+    user.discord_account = 'komagata1234'
+    assert user.invalid?
+  end
+
   test 'is valid name_kana' do
     user = users(:komagata)
     user.name_kana = 'コマガタ マサキ'
