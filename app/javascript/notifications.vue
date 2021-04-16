@@ -93,7 +93,7 @@ export default {
   created() {
     // ブラウザバック・フォワードした時に画面を読み込ませる
     window.onpopstate = function() {
-      location.href = location.href
+      location.replace(location.href);
     }
     this.currentPage = Number(this.getPageValueFromParameter()) || 1
     this.getNotificationsPerPage()
