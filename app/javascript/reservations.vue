@@ -124,7 +124,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getDates: function (startDate, stopDate) {
-      const dateArray = new Array()
+      const dateArray = []
       let currentDate = startDate
       while (currentDate <= stopDate) {
         const oneDay = {}
