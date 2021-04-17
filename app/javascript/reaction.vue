@@ -74,13 +74,18 @@ export default {
             return element.kind === kind
           }
           const id = this.reactionable.reaction_count.findIndex(findKind)
+          // TODO propsを直接変更しているコードを修正する #2600
+          // eslint-disable-next-line vue/no-mutating-props
           this.reactionable.reaction_count[id].count += 1
+          // eslint-disable-next-line vue/no-mutating-props
           this.reactionable.reaction_count[id].login_names.push(
             this.currentUser.login_name
           )
           return response.json()
         })
         .then((json) => {
+          // TODO propsを直接変更しているコードを修正する #2600
+          // eslint-disable-next-line vue/no-mutating-props
           this.reactionable.reaction.push({
             id: json.id,
             user_id: this.currentUser.id,
@@ -109,6 +114,8 @@ export default {
         .then(() => {
           this.reactionable.reaction.forEach((reaction, i) => {
             if (reaction.id === clickedReaction.id) {
+              // TODO propsを直接変更しているコードを修正する #2600
+              // eslint-disable-next-line vue/no-mutating-props
               this.reactionable.reaction.splice(i, 1)
             }
           })
@@ -117,10 +124,14 @@ export default {
             return element.kind === kind
           }
           const id = this.reactionable.reaction_count.findIndex(findKind)
+          // TODO propsを直接変更しているコードを修正する #2600
+          // eslint-disable-next-line vue/no-mutating-props
           this.reactionable.reaction_count[id].count -= 1
           this.reactionable.reaction_count[id].login_names.forEach(
             (name, i) => {
               if (name === this.currentUser.login_name) {
+                // TODO propsを直接変更しているコードを修正する #2600
+                // eslint-disable-next-line vue/no-mutating-props
                 this.reactionable.reaction_count[id].login_names.splice(i, 1)
               }
             }
