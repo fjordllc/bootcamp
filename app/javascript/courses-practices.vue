@@ -6,7 +6,7 @@
   .page-body__inner(v-else)
     .categories-items
       .categories-items__inner
-        .categories-item.practices(v-for="category in isPractices")
+        .categories-item.practices(v-for="category in isPractices" :key="category.id")
           a.categories-item__anchor(:id="`category-${category.id}`")
           header.categories-item__header
             h2.categories-item__title
@@ -31,7 +31,7 @@
                   )
       nav.page-nav
         ul.page-nav__items
-          li.page-nav__item(v-for="category in isPractices")
+          li.page-nav__item(v-for="category in isPractices" :key="category.id")
             a.page-nav__item-link(:href="`practices#category-${category.id}`")
               | {{category.name}}
 
