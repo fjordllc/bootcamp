@@ -23,12 +23,13 @@ class Generation
     m = @number - y * 4
     year = y + 2013
     month = m * 3 - 2
-    Date.new(year, month, 1)
+    Time.zone.local(year, month, 1)
   end
 
   def end_date
     next_generation = Generation.new(@number + 1)
-    next_generation.start_date - 1
+    end_date = next_generation.start_date - 1
+    end_date.end_of_day
   end
 
   def users
