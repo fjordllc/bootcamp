@@ -1,31 +1,27 @@
 <template lang="pug">
-  tags(
-    :tagsInitialValue="tagsInitialValue"
-    :tagsParamName="tagsParamName"
-    :tagsPath="path"
-    :tagsType="type"
-    :tagsEditable="editable"
-    :tagsEditing="editing"
-    :tagsInputId="tagsInputId"
-    :updateCallback="updateTag")
+tags(
+  :tagsInitialValue='tagsInitialValue',
+  :tagsParamName='tagsParamName',
+  :tagsPath='path',
+  :tagsType='type',
+  :tagsEditable='editable',
+  :tagsEditing='editing',
+  :tagsInputId='tagsInputId',
+  :updateCallback='updateTag'
+)
 </template>
 
 <script>
 import Tags from './tags.vue'
 
 export default {
-  props: [
-    'tagsInitialValue',
-    'tagsParamName',
-    'tagsInputId',
-    'userId'
-  ],
+  props: ['tagsInitialValue', 'tagsParamName', 'tagsInputId', 'userId'],
   components: {
     tags: Tags
   },
   methods: {
     updateTag(tagsValue, token) {
-      let params = {
+      const params = {
         user: {
           tag_list: tagsValue
         }

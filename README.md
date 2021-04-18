@@ -33,11 +33,22 @@ $ HEADED=1 rails test:all
 
 ## Lint
 
-rubocopとslim-lintを実行します。
+次のコマンドでlintを実行します。
 
 ```
 $ ./bin/lint
 ```
+
+実行されるlint
+
+* Ruby
+  * rubocop
+  * slim-lint
+* JavaScript  
+  `bin/yarn fix` で、eslintとprettierが自動でエラーや警告を修正してくれます。ただし、全てのエラーや警告は修正されず、手動で修正する必要がある場合もあります。
+  * eslint
+  * prettier
+
 
 ## その他
 
