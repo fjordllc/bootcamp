@@ -7,10 +7,6 @@
 <script>
 export default {
   props: ["startedStudent"],
-  data(){
-    return {
-    }
-  },
   computed: {
     activeOrInactive () {
       let active = this.startedStudent.active

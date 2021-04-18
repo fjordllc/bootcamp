@@ -26,7 +26,6 @@
                   v-for="practices in category.practices"
                   :key = "practices.id"
                   :practices = "practices"
-                  :currentUserId = "currentUserId"
                   :category = "category"
                   :learnings = "learnings"
                   )
@@ -42,37 +41,30 @@
 import CoursesPractice from './courses-practice.vue'
 
 export default {
-  props: ['courseId','currentUserId','currentUser'],
+  props: ['courseId','currentUser'],
   components: {
     'courses-practice': CoursesPractice
   },
   data: () => {
     return {
       categories: null,
-      currentPage: 1,
-      totalPages: null,
       learnings: null,
-      //jsonReportUrl: null,
-      test: null,
     }
   },
   computed: {
     url () {
       return `/api/courses/${this.courseId}/practices`
     },
-    completed_all_practices (category) {
-      category.practices.length == completed_practices_size(category)
-    },
     isPractices () {
       if(!this.categories) return [];
-      return this.categories.filter(value => value.practices.length !== 0)
+      return this.categories.filter(value => value.practices.length)
     },
   },
   created () {
-    this.getProductsPerPage()
+    this.getCoursesPractices()
   },
   methods: {
-    getProductsPerPage() {
+    getCoursesPractices() {
       fetch(this.url, {
         method: 'GET',
         headers: {
@@ -88,9 +80,6 @@ export default {
         this.categories = []
         json.categories.forEach(r => { this.categories.push(r) })
         this.learnings = json.learnings
-        //this.jsonReportUrl = json.report
-        //this.loaded = true
-        this.test = json.test
       })
       .catch(error => {
         console.warn('Failed to parsing', error)

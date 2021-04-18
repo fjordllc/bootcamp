@@ -6,15 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const practices = document.querySelector(selector)
   if (practices) {
     const courseId = practices.getAttribute('course-id')
-    const categories = practices.getAttribute('categories')
-    const currentUserId = practices.getAttribute('data-current-user-id')
     const currentUser = window.currentUser
     new Vue({
-      render: h => h(CorusesPractices,{
+      render: h => h(CorusesPractices, {
         props: {
           courseId: courseId,
-          categories: categories,
-          currentUserId: currentUserId,
           currentUser: currentUser
         }
       })
