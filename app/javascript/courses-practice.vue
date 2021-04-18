@@ -7,7 +7,7 @@
           | {{practices.practice.title}}
       //if current_userユーザーの進捗パネル表示
       a(:class="`practice-status category-practices-item__status is-${statusByLearnings(practices.practice.id)}`" :href="`${practices.url}#learning-Status`")
-        | {{japnaeseStatus(practices.practice.id)}}
+        | {{translateToJapanese(practices.practice.id)}}
     .category-practices-item__learning-time(v-if="practiceTime")
       | 所要時間の目安: {{practiceTime.median}}
       | （平均: {{convertToHourMinute(practiceTime.average)}})
@@ -17,7 +17,6 @@
           v-for="startedStudent in practices.started_students"
           :key = "startedStudent.id"
           :startedStudent="startedStudent")
-        //ここからユーザーアイコンを取得。
 </template>
 
 
@@ -25,22 +24,20 @@
 import PracticeUserIcon from './practice-user-icon.vue'
 
 export default {
-  props: ['courseId','currentUserId','category','learnings','practices'],
+  props: ['practices','category','learnings',],
   components: {
     'practice-user-icon': PracticeUserIcon
   },
   data: () => {
     return {
-      currentPage: 1,
-      totalPages: null,
       learningStatus: ["未着手","着手","提出","完了"]
     }
   },
   methods: {
     statusByLearnings(practices){
-      let le = this.learnings.find(element => practices === element.practice_id)
-      if(!le) return 'unstarted'
-      return le.status
+      let learning= this.learnings.find(element => practices === element.practice_id)
+      if(!learning) return 'unstarted'
+      return learning.status
     },
     convertToHourMinute(time){
       let hour = parseInt(time / 60)
@@ -51,7 +48,7 @@ export default {
         return `${hour}時間${minute}分`
       }
     },
-    japnaeseStatus(practices){
+    translateToJapanese(practices){
       let status = this.statusByLearnings(practices)
       switch(status){
         case 'unstarted':
