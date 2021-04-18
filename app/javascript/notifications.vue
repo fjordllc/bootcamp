@@ -32,15 +32,15 @@ import Pager from './pager.vue'
 import UnconfirmedLinksOpenButton from './unconfirmed_links_open_button'
 
 export default {
-  props: {
-    isMentor: {
-      type: Boolean
-    }
-  },
   components: {
     notification: Notification,
     pager: Pager,
     'unconfirmed-links-open-button': UnconfirmedLinksOpenButton
+  },
+  props: {
+    isMentor: {
+      type: Boolean
+    }
   },
   data() {
     return {
@@ -49,13 +49,6 @@ export default {
       currentPage: Number(this.getPageValueFromParameter()) || 1,
       loaded: false
     }
-  },
-  created() {
-    // ブラウザバック・フォワードした時に画面を読み込ませる
-    window.onpopstate = function () {
-      location.replace(location.href)
-    }
-    this.getNotificationsPerPage()
   },
   computed: {
     url() {
@@ -76,6 +69,13 @@ export default {
         clickHandle: this.paginateClickCallback
       }
     }
+  },
+  created() {
+    // ブラウザバック・フォワードした時に画面を読み込ませる
+    window.onpopstate = function () {
+      location.replace(location.href)
+    }
+    this.getNotificationsPerPage()
   },
   methods: {
     getNotificationsPerPage: function () {

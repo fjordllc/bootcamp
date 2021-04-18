@@ -15,9 +15,23 @@ tags(
 import Tags from './tags.vue'
 
 export default {
-  props: ['tagsInitialValue', 'tagsParamName', 'tagsInputId', 'userId'],
   components: {
     tags: Tags
+  },
+  props: ['tagsInitialValue', 'tagsParamName', 'tagsInputId', 'userId'],
+  computed: {
+    editing() {
+      return true
+    },
+    editable() {
+      return false
+    },
+    path() {
+      return '/users/tags'
+    },
+    type() {
+      return 'User'
+    }
   },
   methods: {
     updateTag(tagsValue, token) {
@@ -39,20 +53,6 @@ export default {
       }).catch((error) => {
         console.warn('Failed to parsing', error)
       })
-    }
-  },
-  computed: {
-    editing() {
-      return true
-    },
-    editable() {
-      return false
-    },
-    path() {
-      return '/users/tags'
-    },
-    type() {
-      return 'User'
     }
   }
 }

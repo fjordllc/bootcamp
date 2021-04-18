@@ -74,10 +74,10 @@
 <script>
 import ProductChecker from './product_checker'
 export default {
-  props: ['product', 'currentUserId', 'isMentor'],
   components: {
     'product-checker': ProductChecker
   },
+  props: ['product', 'currentUserId', 'isMentor'],
   computed: {
     roleClass() {
       return `is-${this.product.user.role}`

@@ -12,12 +12,6 @@ import 'whatwg-fetch'
 
 export default {
   props: ['checkableId', 'checkableType'],
-  mounted() {
-    this.$store.dispatch('setCheckable', {
-      checkableId: this.checkableId,
-      checkableType: this.checkableType
-    })
-  },
   computed: {
     checkId() {
       return this.$store.getters.checkId
@@ -28,6 +22,12 @@ export default {
     checkUserName() {
       return this.$store.getters.userName
     }
+  },
+  mounted() {
+    this.$store.dispatch('setCheckable', {
+      checkableId: this.checkableId,
+      checkableType: this.checkableType
+    })
   }
 }
 </script>

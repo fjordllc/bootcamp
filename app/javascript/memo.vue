@@ -45,6 +45,7 @@ export default {
       checked: false
     }
   },
+  computed: {},
   watch: {
     body: function () {
       this.checked = false
@@ -166,7 +167,6 @@ export default {
           console.warn('Failed to parsing', error)
         })
     }
-  },
-  computed: {}
+  }
 }
 </script>

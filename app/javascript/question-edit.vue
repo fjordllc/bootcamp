@@ -196,6 +196,35 @@ export default {
       practices: null
     }
   },
+  computed: {
+    updatedAtISO8601() {
+      return moment(this.question.updated_at).format()
+    },
+    updatedAt() {
+      return moment(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+    },
+    practiceTitle() {
+      const { practices, question, practiceId } = this
+
+      return practices === null
+        ? question.practice.title
+        : practices.find((practice) => practice.id === practiceId).title
+    },
+    editAble() {
+      return (
+        this.question.user.id === this.currentUser.id ||
+        this.currentUser.role === 'admin'
+      )
+    },
+    markdownDescription() {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.description)
+    },
+    validation() {
+      const { title, description } = this.edited
+      return title.length > 0 && description.length > 0
+    }
+  },
   created() {
     this.fetchPractices(this.question.user.id)
   },
@@ -295,35 +324,6 @@ export default {
         this.edited[key] = this[key]
       })
       this.finishEditing(false)
-    }
-  },
-  computed: {
-    updatedAtISO8601() {
-      return moment(this.question.updated_at).format()
-    },
-    updatedAt() {
-      return moment(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
-    },
-    practiceTitle() {
-      const { practices, question, practiceId } = this
-
-      return practices === null
-        ? question.practice.title
-        : practices.find((practice) => practice.id === practiceId).title
-    },
-    editAble() {
-      return (
-        this.question.user.id === this.currentUser.id ||
-        this.currentUser.role === 'admin'
-      )
-    },
-    markdownDescription() {
-      const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.description)
-    },
-    validation() {
-      const { title, description } = this.edited
-      return title.length > 0 && description.length > 0
     }
   }
 }

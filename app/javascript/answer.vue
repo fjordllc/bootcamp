@@ -111,15 +111,10 @@ import moment from 'moment'
 moment.locale('ja')
 
 export default {
-  props: [
-    'answer',
-    'currentUser',
-    'hasCorrectAnswer',
-    'questionUser'
-  ],
   components: {
     reaction: Reaction
   },
+  props: ['answer', 'currentUser', 'hasCorrectAnswer', 'questionUser'],
   data: () => {
     return {
       description: '',
@@ -128,6 +123,30 @@ export default {
       tab: 'answer',
       question: [],
       activating: false
+    }
+  },
+  computed: {
+    markdownDescription: function () {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.description)
+    },
+    answerCreatedAt: function () {
+      return moment(this.answer.question.created_at).format()
+    },
+    updatedAt: function () {
+      return moment(this.answer.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+    },
+    roleClass: function () {
+      return `is-${this.answer.user.role}`
+    },
+    daimyoClass: function () {
+      return { 'is-daimyo': this.answer.user.daimyo }
+    },
+    validation: function () {
+      return this.description.length > 0
+    },
+    reactionableId: function () {
+      return `Answer_${this.answer.id}`
     }
   },
   created: function () {
@@ -217,30 +236,6 @@ export default {
       setTimeout(() => {
         this.activating = false
       }, 4000)
-    }
-  },
-  computed: {
-    markdownDescription: function () {
-      const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.description)
-    },
-    answerCreatedAt: function () {
-      return moment(this.answer.question.created_at).format()
-    },
-    updatedAt: function () {
-      return moment(this.answer.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
-    },
-    roleClass: function () {
-      return `is-${this.answer.user.role}`
-    },
-    daimyoClass: function () {
-      return { 'is-daimyo': this.answer.user.daimyo }
-    },
-    validation: function () {
-      return this.description.length > 0
-    },
-    reactionableId: function () {
-      return `Answer_${this.answer.id}`
     }
   }
 }

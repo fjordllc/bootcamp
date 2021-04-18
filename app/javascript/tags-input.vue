@@ -16,9 +16,9 @@ import VueTagsInput from '@johmun/vue-tags-input'
 import validateTagName from './validate-tag-name'
 
 export default {
+  components: { VueTagsInput },
   mixins: [validateTagName],
   props: ['tagsInitialValue', 'tagsParamName', 'taggableType'],
-  components: { VueTagsInput },
   data() {
     return {
       inputTag: '',
@@ -27,22 +27,12 @@ export default {
       autocompleteTags: []
     }
   },
-  methods: {
-    update(newTags) {
-      this.tags = newTags
-      this.tagsValue = this.joinTags(newTags)
-    },
-    joinTags(value) {
-      return value.map((tag) => tag.text).join(',')
-    },
-    parseTags(value) {
-      if (value === '') return []
-
-      return value.split(',').map((value) => {
-        return {
-          text: value,
-          tiClasses: ['ti-valid']
-        }
+  computed: {
+    filteredTags() {
+      return this.autocompleteTags.filter((tag) => {
+        return (
+          tag.text.toLowerCase().indexOf(this.inputTag.toLowerCase()) !== -1
+        )
       })
     }
   },
@@ -75,12 +65,22 @@ export default {
         console.warn('Failed to parsing', error)
       })
   },
-  computed: {
-    filteredTags() {
-      return this.autocompleteTags.filter((tag) => {
-        return (
-          tag.text.toLowerCase().indexOf(this.inputTag.toLowerCase()) !== -1
-        )
+  methods: {
+    update(newTags) {
+      this.tags = newTags
+      this.tagsValue = this.joinTags(newTags)
+    },
+    joinTags(value) {
+      return value.map((tag) => tag.text).join(',')
+    },
+    parseTags(value) {
+      if (value === '') return []
+
+      return value.split(',').map((value) => {
+        return {
+          text: value,
+          tiClasses: ['ti-valid']
+        }
       })
     }
   }

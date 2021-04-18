@@ -27,14 +27,14 @@ pager(
 import VuejsPaginate from 'vuejs-paginate'
 
 export default {
+  components: {
+    pager: VuejsPaginate
+  },
   props: {
     initialPageNumber: { type: Number, required: true },
     pageCount: { type: Number, required: true },
     pageRange: { type: Number, required: true },
     clickHandle: { type: Function, required: true }
-  },
-  components: {
-    pager: VuejsPaginate
   },
   methods: {
     makeITag(iconName) {

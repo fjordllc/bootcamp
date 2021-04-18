@@ -36,12 +36,20 @@ import moment from 'moment'
 moment.locale('ja')
 
 export default {
-  props: ['reactionable', 'currentUser', 'reactionableId'],
   components: {},
+  props: ['reactionable', 'currentUser', 'reactionableId'],
   data: () => {
     return {
       availableEmojis: [],
       dropdown: false
+    }
+  },
+  computed: {
+    displayedEmojis: function () {
+      const emojis = this.reactionable.reaction_count.filter(function (el) {
+        return el.count !== 0
+      }, this)
+      return emojis
     }
   },
   created: function () {
@@ -165,14 +173,6 @@ export default {
         this
       )
       return reaction.length !== 0
-    }
-  },
-  computed: {
-    displayedEmojis: function () {
-      const emojis = this.reactionable.reaction_count.filter(function (el) {
-        return el.count !== 0
-      }, this)
-      return emojis
     }
   }
 }

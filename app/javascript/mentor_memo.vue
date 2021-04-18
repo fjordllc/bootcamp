@@ -61,6 +61,12 @@ export default {
       editing: false
     }
   },
+  computed: {
+    markdownMemo() {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.memo)
+    }
+  },
   created() {
     fetch(`/api/practices/${this.practiceId}.json`, {
       method: 'GET',
@@ -142,12 +148,6 @@ export default {
     },
     editMemo() {
       this.editing = true
-    }
-  },
-  computed: {
-    markdownMemo() {
-      const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.memo)
     }
   }
 }

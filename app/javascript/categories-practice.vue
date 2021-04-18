@@ -21,6 +21,9 @@ draggable.draggable-items(
 <script>
 import draggable from 'vuedraggable'
 export default {
+  components: {
+    draggable
+  },
   props: ['categoriesPractices', 'categoryPractices'],
   data() {
     return {
@@ -28,9 +31,6 @@ export default {
       practicesBeforeDragging: '',
       draggingItem: ''
     }
-  },
-  components: {
-    draggable
   },
   methods: {
     token() {

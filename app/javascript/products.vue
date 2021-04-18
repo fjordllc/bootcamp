@@ -34,12 +34,12 @@ import unconfirmedLinksOpenButton from './unconfirmed_links_open_button.vue'
 import Pager from './pager.vue'
 
 export default {
-  props: ['title', 'selectedTab', 'isMentor', 'currentUserId'],
   components: {
     product: Product,
     'unconfirmed-links-open-button': unconfirmedLinksOpenButton,
     pager: Pager
   },
+  props: ['title', 'selectedTab', 'isMentor', 'currentUserId'],
   data() {
     return {
       products: [],

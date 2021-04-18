@@ -66,10 +66,10 @@ import Comment from './comment.vue'
 import TextareaInitializer from './textarea-initializer'
 
 export default {
-  props: ['commentableId', 'commentableType', 'currentUserId', 'currentUser'],
   components: {
     comment: Comment
   },
+  props: ['commentableId', 'commentableType', 'currentUserId', 'currentUser'],
   data: () => {
     return {
       comments: [],
@@ -77,6 +77,23 @@ export default {
       tab: 'comment',
       buttonDisabled: false,
       defaultTextareaSize: null
+    }
+  },
+  computed: {
+    validation() {
+      return this.description.length > 0
+    },
+    commentType() {
+      return /^(Report|Product)$/.test(this.commentableType)
+    },
+    checkId() {
+      return this.$store.getters.checkId
+    },
+    roleClass() {
+      return `is-${this.currentUser.role}`
+    },
+    daimyoClass() {
+      return { 'is-daimyo': this.currentUser.daimyo }
     }
   },
   created() {
@@ -257,23 +274,6 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
-    }
-  },
-  computed: {
-    validation() {
-      return this.description.length > 0
-    },
-    commentType() {
-      return /^(Report|Product)$/.test(this.commentableType)
-    },
-    checkId() {
-      return this.$store.getters.checkId
-    },
-    roleClass() {
-      return `is-${this.currentUser.role}`
-    },
-    daimyoClass() {
-      return { 'is-daimyo': this.currentUser.daimyo }
     }
   }
 }
