@@ -11,8 +11,7 @@
           header.categories-item__header
             h2.categories-item__title
               | {{category.name}}
-              //ここのcompleted_all_practices?の条件分岐がまだこれはpracticeの完了をチェックすればできるが、そのロジックをここで考えるJSONで持ってこれればよし。
-              span.stamp.is-circle.is-solved
+              span.stamp.is-circle.is-solved(v-if="category.completed_all_practices === true")
                 | 完了
           .categories-item__description
             .categories-item__edit(v-if="currentUser.role === 'admin'")
