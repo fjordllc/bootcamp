@@ -47,6 +47,9 @@
 import draggable from 'vuedraggable'
 
 export default {
+  components: {
+    draggable
+  },
   props: ['allCategories'],
   data() {
     return {
@@ -54,9 +57,6 @@ export default {
       categoriesBeforeDragging: '',
       draggingItem: ''
     }
-  },
-  components: {
-    draggable
   },
   methods: {
     token() {

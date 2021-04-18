@@ -33,6 +33,9 @@ import 'whatwg-fetch'
 import ProductChecker from './product_checker'
 
 export default {
+  components: {
+    'product-checker': ProductChecker
+  },
   props: [
     'checkableId',
     'checkableType',
@@ -41,9 +44,6 @@ export default {
     'checkerName',
     'currentUserId'
   ],
-  components: {
-    'product-checker': ProductChecker
-  },
   computed: {
     checkId() {
       return this.$store.getters.checkId

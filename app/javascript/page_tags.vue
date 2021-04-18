@@ -34,9 +34,9 @@ import VueTagsInput from '@johmun/vue-tags-input'
 import validateTagName from './validate-tag-name'
 
 export default {
+  components: { VueTagsInput },
   mixins: [validateTagName],
   props: ['tagsInitialValue', 'pageId', 'tagsParamName'],
-  components: { VueTagsInput },
   data() {
     return {
       inputTag: '',
@@ -45,6 +45,43 @@ export default {
       autocompleteTags: [],
       editing: false
     }
+  },
+  computed: {
+    filteredTags() {
+      return this.autocompleteTags.filter((tag) => {
+        return (
+          tag.text.toLowerCase().indexOf(this.inputTag.toLowerCase()) !== -1
+        )
+      })
+    }
+  },
+  mounted() {
+    this.tagsValue = this.tagsInitialValue
+    this.tags = this.parseTags(this.tagsInitialValue)
+
+    fetch('/api/tags.json?taggable_type=Page', {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      credentials: 'same-origin',
+      redirect: 'manual'
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        const suggestions = json.map((tag) => {
+          return {
+            text: tag.value
+          }
+        })
+        this.autocompleteTags.length = 0
+        this.autocompleteTags.push(...suggestions)
+      })
+      .catch((error) => {
+        console.warn('Failed to parsing', error)
+      })
   },
   methods: {
     token() {
@@ -99,43 +136,6 @@ export default {
       this.tagsValue = this.tagsInitialValue
       this.tags = this.parseTags(this.tagsInitialValue)
       this.editing = false
-    }
-  },
-  mounted() {
-    this.tagsValue = this.tagsInitialValue
-    this.tags = this.parseTags(this.tagsInitialValue)
-
-    fetch('/api/tags.json?taggable_type=Page', {
-      method: 'GET',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      credentials: 'same-origin',
-      redirect: 'manual'
-    })
-      .then((response) => {
-        return response.json()
-      })
-      .then((json) => {
-        const suggestions = json.map((tag) => {
-          return {
-            text: tag.value
-          }
-        })
-        this.autocompleteTags.length = 0
-        this.autocompleteTags.push(...suggestions)
-      })
-      .catch((error) => {
-        console.warn('Failed to parsing', error)
-      })
-  },
-  computed: {
-    filteredTags() {
-      return this.autocompleteTags.filter((tag) => {
-        return (
-          tag.text.toLowerCase().indexOf(this.inputTag.toLowerCase()) !== -1
-        )
-      })
     }
   }
 }

@@ -20,6 +20,22 @@ export default {
       reports: []
     }
   },
+  computed: {
+    checkId: function () {
+      return this.$store.getters.checkId
+    }
+  },
+  watch: {
+    checkId(checkId) {
+      if (this.$store.getters.checkableType !== 'Report') {
+        return
+      }
+
+      this.updateCheckValue(Number(this.$store.getters.checkableId), {
+        check: Boolean(checkId)
+      })
+    }
+  },
   created() {
     fetch('/api/reports/recents.json', {
       method: 'GET',
@@ -39,11 +55,6 @@ export default {
         console.warn('Failed to parsing', error)
       })
   },
-  computed: {
-    checkId: function () {
-      return this.$store.getters.checkId
-    }
-  },
   methods: {
     updateCheckValue(reportId, { check = true }) {
       const report = this.reports.find((report) => report.id === reportId)
@@ -51,17 +62,6 @@ export default {
       if (report !== undefined) {
         report.check = check
       }
-    }
-  },
-  watch: {
-    checkId(checkId) {
-      if (this.$store.getters.checkableType !== 'Report') {
-        return
-      }
-
-      this.updateCheckValue(Number(this.$store.getters.checkableId), {
-        check: Boolean(checkId)
-      })
     }
   }
 }

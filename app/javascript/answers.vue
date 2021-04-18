@@ -60,10 +60,10 @@ import Answer from './answer.vue'
 import TextareaInitializer from './textarea-initializer'
 
 export default {
-  props: ['questionId', 'questionUser', 'currentUser'],
   components: {
     answer: Answer
   },
+  props: ['questionId', 'questionUser', 'currentUser'],
   data: () => {
     return {
       answers: [],
@@ -72,6 +72,17 @@ export default {
       buttonDisabled: false,
       question: { correctAnswer: null },
       defaultTextareaSize: null
+    }
+  },
+  computed: {
+    validation: function () {
+      return this.description.length > 0
+    },
+    hasCorrectAnswer: function () {
+      return this.answers.some((answer) => answer.type === 'CorrectAnswer')
+    },
+    baseUrl: function () {
+      return '/api/answers'
     }
   },
   created: function () {
@@ -233,17 +244,6 @@ export default {
     resizeTextarea: function () {
       const textarea = document.getElementById('js-new-comment')
       textarea.style.height = `${this.defaultTextareaSize}px`
-    }
-  },
-  computed: {
-    validation: function () {
-      return this.description.length > 0
-    },
-    hasCorrectAnswer: function () {
-      return this.answers.some((answer) => answer.type === 'CorrectAnswer')
-    },
-    baseUrl: function () {
-      return '/api/answers'
     }
   }
 }

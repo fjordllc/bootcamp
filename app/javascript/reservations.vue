@@ -59,14 +59,14 @@ import moment from 'moment'
 moment.locale('ja')
 
 export default {
+  components: {
+    reservation: Reservation,
+    memo: Memo
+  },
   props: {
     reservationsBegginingOfThisMonth: String,
     reservationsEndOfThisMonth: String,
     currentUserId: String
-  },
-  components: {
-    reservation: Reservation,
-    memo: Memo
   },
   data: () => {
     return {

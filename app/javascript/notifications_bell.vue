@@ -48,6 +48,18 @@ export default {
       notifications: []
     }
   },
+  computed: {
+    notificationCount() {
+      const count = this.notifications.length
+      return count > 99 ? '99+' : String(count)
+    },
+    notificationExist() {
+      return this.notifications.length > 0
+    },
+    hasCountClass() {
+      return this.notificationExist ? 'has-count' : 'has-no-count'
+    }
+  },
   created() {
     fetch(`/api/notifications/unread.json`, {
       method: 'GET',
@@ -77,18 +89,6 @@ export default {
     },
     createdAtFromNow(createdAt) {
       return dayjs(createdAt).fromNow()
-    }
-  },
-  computed: {
-    notificationCount() {
-      const count = this.notifications.length
-      return count > 99 ? '99+' : String(count)
-    },
-    notificationExist() {
-      return this.notifications.length > 0
-    },
-    hasCountClass() {
-      return this.notificationExist ? 'has-count' : 'has-no-count'
     }
   }
 }
