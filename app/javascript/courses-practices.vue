@@ -16,18 +16,18 @@
                 | 完了
           .categories-item__description
             .categories-item__edit(v-if="currentUser.role === 'admin'")
-              a.link_to.categories-item__edit-link(:href="'admin/categories'")
+              a.link_to.categories-item__edit-link(:href="`/admin/categories/${category.id}/edit`")
                 i.fas.fa-pen
             .js-markdown-view.js-target-blank.is-long-text
-            p {{category.description}}
-            //インデントおかしい。スタイルが効いてないため。
+              p {{category.description}}
+              //pタグが欲しいのでpをつける。
           .categories-item__body
             .category-practices.js-category-practices
               courses-practice(
-                  :key = "category.id"
-                  :categories = "categories"
+                  v-for="practices in category.practices"
+                  :key = "practices.id"
+                  :practices = "practices"
                   :currentUserId = "currentUserId"
-                  :currentUser = "currentUser"
                   :category = "category"
                   :learnings = "learnings"
                   )
@@ -54,6 +54,7 @@ export default {
       totalPages: null,
       learnings: null,
       //jsonReportUrl: null,
+      test: null,
     }
   },
   computed: {
@@ -66,7 +67,7 @@ export default {
     isPractices () {
       if(!this.categories) return [];
       return this.categories.filter(value => value.practices.length !== 0)
-    }
+    },
   },
   created () {
     this.getProductsPerPage()
@@ -90,6 +91,7 @@ export default {
         this.learnings = json.learnings
         //this.jsonReportUrl = json.report
         //this.loaded = true
+        this.test = json.test
       })
       .catch(error => {
         console.warn('Failed to parsing', error)
@@ -99,3 +101,10 @@ export default {
 }
 
 </script>
+
+//インデントおかしい。スタイルが効いてないため。scopedあるとおかしくなる。
+<style>
+.js-markdown-view.js-target-blank.is-long-text {
+  display:block;
+}
+</style>
