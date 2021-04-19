@@ -55,7 +55,11 @@ export default {
   components: {
     'comment-user-icon': CommentUserIcon
   },
-  props: ['report', 'currentUserId'],
+  props: {
+    report: { type: Object, required: true },
+    // issue #2625 を修正すれば、required: true にし、defaultはいらなくなる
+    currentUserId: { type: Number, required: false, default: null }
+  },
   computed: {
     roleClass() {
       return `is-${this.report.user.role}`
