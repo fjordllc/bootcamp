@@ -53,7 +53,9 @@ import TextareaInitializer from './textarea-initializer'
 import MarkdownInitializer from './markdown-initializer'
 
 export default {
-  props: ['practiceId'],
+  props: {
+    practiceId: { type: String, required: true }
+  },
   data: () => {
     return {
       memo: '',
