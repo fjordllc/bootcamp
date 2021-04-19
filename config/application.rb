@@ -26,5 +26,7 @@ module Bootcamp
      config.action_view.field_error_proc = Proc.new do |html_tag, instance|
        html_tag.html_safe
      end
+
+     config.active_storage.resolve_model_to_route = :rails_storage_proxy
   end
 end

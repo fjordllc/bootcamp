@@ -8,6 +8,7 @@ steps:
     args: ['build',
            '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA',
            '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest',
+           '--cache-from', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest',
            '.',
            '-f', 'Dockerfile']
   - id: Push
@@ -58,6 +59,7 @@ steps:
       - '$_MEMORY'
       - '--set-env-vars=LANG=ja_JP.UTF-8'
       - '--set-env-vars=TZ=Asia/Tokyo'
+      - '--set-env-vars=RAILS_SERVE_STATIC_FILES=true'
       - '--set-env-vars=RAILS_LOG_TO_STDOUT=true'
       - '--set-env-vars=RAILS_ENV=production'
       - '--set-env-vars=RACK_ENV=production'
@@ -89,7 +91,7 @@ images:
 options:
   substitutionOption: ALLOW_LOOSE
 substitutions:
-  _MEMORY: 512M
+  _MEMORY: 1G
   _SERVICE_NAME: _
   _LABELS: _
   _ENVS: _

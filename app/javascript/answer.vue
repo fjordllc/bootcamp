@@ -21,25 +21,25 @@
         v-bind:questionUser="questionUser",
         v-bind:reactionableId="reactionableId")
       footer.card-footer
-        .card-footer-actions
-          ul.card-footer-actions__items
-            li.card-footer-actions__item(
-              v-if="!hasCorrectAnswer && answer.type != 'CorrectAnswer' && (currentUser.id === questionUser.id || currentUser.role === 'admin')")
-              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="solveAnswer")
-                | ベストアンサーにする
-            li.card-footer-actions__item(
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item(
               v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
-              button.card-footer-actions__action.a-button.is-md.is-secondary.is-block(@click="editAnswer")
+              button.card-main-actions__action.a-button.is-md.is-secondary.is-block(@click="editAnswer")
                 i.fas.fa-pen
                 | 内容修正
-            li.card-footer-actions__item.is-sub(
-              v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
-              button.card-footer-actions__delete(@click="deleteAnswer")
-                | 削除する
-            li.card-footer-actions__item(
+            li.card-main-actions__item(
+              v-if="!hasCorrectAnswer && answer.type != 'CorrectAnswer' && (currentUser.id === questionUser.id || currentUser.role === 'admin')")
+              button.card-main-actions__action.a-button.is-md.is-primary.is-block(@click="makeToBestAnswer")
+                | ベストアンサーにする
+            li.card-main-actions__item(
               v-if="hasCorrectAnswer && answer.type == 'CorrectAnswer' && (currentUser.id === questionUser.id || currentUser.role === 'admin')")
-              button.card-footer-actions__action.a-button.is-md.is-warning.is-block(@click="unsolveAnswer")
+              button.card-main-actions__action.a-button.is-md.is-muted.is-block(@click="cancelBestAnswer")
                 | ベストアンサーを取り消す
+            li.card-main-actions__item.is-sub(
+              v-if="answer.user.id == currentUser.id || currentUser.role == 'admin'")
+              button.card-main-actions__delete(@click="deleteAnswer")
+                | 削除する
     .thread-comment-form__form.a-card(v-show="editing")
       .thread-comment-form__tabs.js-tabs
         .thread-comment-form__tab.js-tabs__tab(
@@ -62,15 +62,17 @@
           v-bind:class="{'is-active': isActive('preview')}")
           .js-preview.is-long-text.thread-comment-form__preview(
             :id="`js-comment-preview-${this.answer.id}`")
-      .thread-comment-form__actions
-        .thread-comment-form__action
-          button.a-button.is-md.is-warning.is-block(
-            @click="updateAnswer"
-            v-bind:disabled="!validation")
-            | 保存する
-        .thread-comment-form__action
-          button.a-button.is-md.is-secondary.is-block(@click="cancel")
-            | キャンセル
+      .card-footer
+        .card-main-actions
+          .card-main-actions__items
+            .card-main-actions__item
+              button.a-button.is-md.is-warning.is-block(
+                @click="updateAnswer"
+                v-bind:disabled="!validation")
+                | 保存する
+            .card-main-actions__item
+              button.a-button.is-md.is-secondary.is-block(@click="cancel")
+                | キャンセル
 </template>
 <script>
 import Reaction from "./reaction.vue";
@@ -80,7 +82,7 @@ import moment from "moment";
 moment.locale("ja");
 
 export default {
-  props: ["answer", "currentUser", "availableEmojis", "correctAnswer", "hasCorrectAnswer", "questionUser"],
+  props: ["answer", "currentUser", "availableEmojis", "hasCorrectAnswer", "questionUser"],
   components: {
     reaction: Reaction
   },
@@ -103,7 +105,7 @@ export default {
     const answerAnchor = location.hash;
     if (answerAnchor) {
       this.$nextTick(() => {
-        location.href = location.href;
+        location.replace(location.href);
       });
     }
   },
@@ -128,12 +130,12 @@ export default {
         $(`.answer-id-${this.answer.id}`).trigger("input");
       });
     },
-    solveAnswer: function() {
+    makeToBestAnswer: function() {
       if (window.confirm("本当に宜しいですか？")) {
-        this.$emit("bestAnswer", this.answer.id);
+        this.$emit("makeToBestAnswer", this.answer.id);
       }
     },
-    unsolveAnswer: function() {
+    cancelBestAnswer: function() {
       if (window.confirm("本当に宜しいですか？")) {
         this.$emit("cancelBestAnswer", this.answer.id);
       }
@@ -156,7 +158,7 @@ export default {
         redirect: "manual",
         body: JSON.stringify(params)
       })
-        .then(response => {
+        .then(() => {
           this.editing = false;
         })
         .catch(error => {

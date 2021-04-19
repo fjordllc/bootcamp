@@ -17,7 +17,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      select 'Mac', from: 'user[os]'
+      select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
     end
 
@@ -46,7 +46,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      select 'Mac', from: 'user[os]'
+      select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
     end
 
@@ -75,7 +75,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      select 'Mac', from: 'user[os]'
+      select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
     end
 
@@ -104,7 +104,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      select 'Mac', from: 'user[os]'
+      select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
     end
 
@@ -153,7 +153,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      select 'Mac', from: 'user[os]'
+      select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
     end
     click_button '利用規約に同意して参加する'
@@ -183,7 +183,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      select 'Mac', from: 'user[os]'
+      select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
     end
 
@@ -229,7 +229,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      select 'Mac', from: 'user[os]'
+      select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
     end
 

@@ -8,11 +8,10 @@
         :currentUser="currentUser",
         :id="'answer_' + answer.id",
         :questionUser="questionUser",
-        :correctAnswer="question.correctAnswer",
         :hasCorrectAnswer="hasCorrectAnswer",
         @delete="deleteAnswer",
-        @bestAnswer="solveAnswer",
-        @cancelBestAnswer="unsolveAnswer")
+        @makeToBestAnswer="makeToBestAnswer",
+        @cancelBestAnswer="cancelBestAnswer")
       .thread-comment-form
         .thread-comment__author
           img.thread-comment__author-icon.a-user-icon(:src="currentUser.avatar_url" :title="currentUser.icon_title")
@@ -31,71 +30,33 @@
                 data-preview="#new-comment-preview")
             .thread-comment-form__markdown.js-tabs__content(:class="{'is-active': isActive('preview')}")
               #new-comment-preview.is-long-text.thread-comment-form__preview
-          .thread-comment-form__actions
-            .thread-comment-form__action
-              button#js-shortcut-post-comment.a-button.is-lg.is-warning.is-block(@click="createAnswer" :disabled="!validation || buttonDisabled")
-                | コメントする
+          .card-footer
+            .card-main-actions
+              .card-main-actions__items
+                .card-main-actions__item
+                  button#js-shortcut-post-comment.a-button.is-md.is-warning.is-block(@click="createAnswer" :disabled="!validation || buttonDisabled")
+                    | コメントする
 </template>
 <script>
 import Answer from "./answer.vue";
 import TextareaInitializer from './textarea-initializer'
 
 export default {
-  props: ["questionId", "type", "currentUserId", "questionUserId"],
+  props: ["questionId", "questionUser", "currentUser"],
   components: {
     answer: Answer
   },
   data: () => {
     return {
-      currentUser: {},
       answers: [],
       description: "",
       tab: "answer",
       buttonDisabled: false,
       question: { correctAnswer: null },
-      questionUser: {},
       defaultTextareaSize: null
     };
   },
   created: function() {
-    fetch(`/api/users/${this.currentUserId}.json`, {
-      method: "GET",
-      headers: {
-        "X-Requested-With": "XMLHttpRequest"
-      },
-      credentials: "same-origin",
-      redirect: "manual"
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        for (var key in json) {
-          this.$set(this.currentUser, key, json[key]);
-        }
-      })
-      .catch(error => {
-        console.warn("Failed to parsing", error);
-      });
-    fetch(`/api/users/${this.questionUserId}.json`, {
-      method: "GET",
-      headers: {
-        "X-Requested-With": "XMLHttpRequest"
-      },
-      credentials: "same-origin",
-      redirect: "manual"
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        for (var key in json) {
-          this.$set(this.questionUser, key, json[key]);
-        }
-      })
-      .catch(error => {
-        console.warn("Failed to parsing", error);
-      });
     fetch(`/api/answers.json?question_id=${this.questionId}`, {
       method: "GET",
       headers: {
@@ -111,6 +72,8 @@ export default {
         json.forEach(c => {
           this.answers.push(c);
         });
+
+        this.updateAnswerCount()
       })
       .catch(error => {
         console.warn("Failed to parsing", error);
@@ -131,7 +94,7 @@ export default {
     changeActiveTab: function(tab) {
       this.tab = tab;
     },
-    createAnswer: function(event) {
+    createAnswer: function() {
       if (this.description.length < 1) {
         return null;
       }
@@ -140,7 +103,7 @@ export default {
         answer: { description: this.description },
         question_id: this.questionId
       };
-      fetch(`/api/answers`, {
+      fetch(this.baseUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
@@ -160,13 +123,14 @@ export default {
           this.tab = "answer";
           this.buttonDisabled = false;
           this.resizeTextarea()
+          this.updateAnswerCount()
         })
         .catch(error => {
           console.warn("Failed to parsing", error);
         });
     },
     deleteAnswer: function(id) {
-      fetch(`/api/answers/${id}.json`, {
+      fetch(`${this.baseUrl}/${id}.json`, {
         method: "DELETE",
         headers: {
           "X-Requested-With": "XMLHttpRequest",
@@ -175,23 +139,32 @@ export default {
         credentials: "same-origin",
         redirect: "manual"
       })
-        .then(response => {
-          this.answers.forEach((answer, i) => {
-            if (answer.id == id) {
+        .then(() => {
+          this.answers.some((answer, i) => {
+            if (answer.id === id) {
               this.answers.splice(i, 1);
+
+              if (answer.type === "CorrectAnswer") {
+                this.$emit('cancelSolveQuestion')
+              }
+
+              return true
             }
           });
+
+          this.updateAnswerCount()
         })
         .catch(error => {
           console.warn("Failed to parsing", error);
         });
     },
-    solveAnswer: function(id) {
+    requestSolveQuestion: function(id, isCancel) {
       let params = {
         question_id: this.questionId
       };
-      fetch(`/api/answers/${id}/correct_answer`, {
-        method: "POST",
+
+      return fetch(`${this.baseUrl}/${id}/correct_answer`, {
+        method: isCancel ? "PATCH" : "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           "X-Requested-With": "XMLHttpRequest",
@@ -201,45 +174,37 @@ export default {
         redirect: "manual",
         body: JSON.stringify(params)
       })
+    },
+    findAnswerById: function(id) {
+      return this.answers.find(answer => answer.id === id)
+    },
+    makeToBestAnswer: function(id) {
+      this.requestSolveQuestion(id, false)
         .then(response => {
           return response.json();
         })
-        .then(json => {
-          this.answers.forEach((answer, i) => {
-            if (answer.id == json.id) {
-              answer.type = "CorrectAnswer";
-            }
-          });
+        .then((answer) => {
+          this.findAnswerById(answer.id).type = "CorrectAnswer"
+
+          this.$emit('solveQuestion', answer)
         })
         .catch(error => {
           console.warn("Failed to parsing", error);
         });
     },
-    unsolveAnswer: function(id) {
-      let params = {
-        question_id: this.questionId
-      };
-      fetch(`/api/answers/${id}/correct_answer`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "X-Requested-With": "XMLHttpRequest",
-          "X-CSRF-Token": this.token()
-        },
-        credentials: "same-origin",
-        redirect: "manual",
-        body: JSON.stringify(params)
-      })
-        .then(response => {
-          this.answers.forEach((answer, i) => {
-            if (answer.id == id) {
-              answer.type = "";
-            }
-          });
+    cancelBestAnswer: function(id) {
+      this.requestSolveQuestion(id, true)
+        .then(() => {
+          this.findAnswerById(id).type = ""
+
+          this.$emit('cancelSolveQuestion')
         })
         .catch(error => {
           console.warn("Failed to parsing", error);
         });
+    },
+    updateAnswerCount: function() {
+      this.$emit('updateAnswerCount', this.answers.length)
     },
     setDefaultTextareaSize: function () {
       const textarea = document.getElementById('js-new-comment')
@@ -256,6 +221,9 @@ export default {
     },
     hasCorrectAnswer: function() {
       return this.answers.some(answer => (answer.type === "CorrectAnswer"));
+    },
+    baseUrl: function() {
+      return '/api/answers'
     }
   }
 };

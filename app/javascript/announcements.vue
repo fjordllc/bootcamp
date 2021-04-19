@@ -2,29 +2,9 @@
   .page-body
     .container(v-if="loaded")
       nav.pagination
-        pager-top(
+        pager(
           v-if="totalPages > 1 && announcements.length > 0"
-          v-model='currentPage'
-          :page-count="totalPages"
-          :page-range=5
-          :prev-text="`<i class='fas fa-angle-left'></i>`"
-          :next-text="`<i class='fas fa-angle-right'></i>`"
-          :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
-          :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
-          :click-handler="paginateClickCallback"
-          :container-class="'pagination__items'"
-          :page-class="'pagination__item'"
-          :page-link-class="'pagination__item-link'"
-          :disabled-class="'is-disabled'"
-          :active-class="'is-active'"
-          :prev-class="'is-prev pagination__item'"
-          :prev-link-class="'is-prev pagination__item-link'"
-          :next-class="'is-next pagination__item'"
-          :next-link-class="'is-next pagination__item-link'"
-          :first-last-button="true"
-          :hide-prev-next="true"
-          :margin-pages="0"
-          :break-view-text="null"
+          v-bind="pagerProps"
         )
       .thread-list.a-card(v-if="announcements.length > 0")
         announcement(v-for="announcement in announcements"
@@ -32,35 +12,15 @@
           :title="title"
           :announcement="announcement"
           :currentUser="currentUser")
-      .o-empty-massage(v-else)
-        .o-empty-massage__icon
+      .o-empty-message(v-else)
+        .o-empty-message__icon
           i.far.fa-smile
-        p.o-empty-massage__text
+        p.o-empty-message__text
           | {{ title }}はありません
       nav.pagination
-        pager-bottom(
+        pager(
           v-if="totalPages > 1 && announcements.length > 0"
-          v-model='currentPage'
-          :page-count="totalPages"
-          :page-range=5
-          :prev-text="`<i class='fas fa-angle-left'></i>`"
-          :next-text="`<i class='fas fa-angle-right'></i>`"
-          :first-button-text="`<i class='fas fa-angle-double-left'></i>`"
-          :last-button-text="`<i class='fas fa-angle-double-right'></i>`"
-          :click-handler="paginateClickCallback"
-          :container-class="'pagination__items'"
-          :page-class="'pagination__item'"
-          :page-link-class="'pagination__item-link'"
-          :disabled-class="'is-disabled'"
-          :active-class="'is-active'"
-          :prev-class="'is-prev pagination__item'"
-          :prev-link-class="'is-prev pagination__item-link'"
-          :next-class="'is-next pagination__item'"
-          :next-link-class="'is-next pagination__item-link'"
-          :first-last-button="true"
-          :hide-prev-next="true"
-          :margin-pages="0"
-          :break-view-text="null"
+          v-bind="pagerProps"
         )
     .container(v-else)
       .fas.fa-spinner.fa-pulse
@@ -69,32 +29,38 @@
 
 <script>
 import Announcement from './announcement.vue'
-import VueJsPaginate from 'vuejs-paginate'
+import Pager from './pager.vue'
 
 export default {
   props: ['title', 'currentUserId'],
   components: {
     'announcement': Announcement,
-    'pager-top': VueJsPaginate,
-    'pager-bottom': VueJsPaginate
+    pager: Pager
   },
-  data: () => {
+  data() {
     return {
       announcements: [],
       totalPages: 0,
-      currentPage: 1,
+      currentPage: Number(this.getPageValueFromParameter()) || 1,
       loaded: false,
       currentUser: {}
     }
   },
   computed: {
-    url() { return `/api/announcements?page=${this.currentPage}` }
+    url() { return `/api/announcements?page=${this.currentPage}` },
+    pagerProps() {
+      return {
+        initialPageNumber: this.currentPage,
+        pageCount: this.totalPages,
+        pageRange: 5,
+        clickHandle: this.paginateClickCallback
+      }
+    }
   },
   created() {
     window.onpopstate = function(){
-      location.href = location.href
+      location.replace(location.href);
     }
-    this.currentPage = Number(this.getPageValueFromParameter()) || 1
     this.getAnnouncementsPerPage()
     this.getCurrentUser()
   },
@@ -129,22 +95,20 @@ export default {
         console.warn('Failed to parsing', error)
       })
     },
-    updateCurrentUrl() {
-      let url = location.pathname
-      if (this.currentPage != 1) {
-        url += `?page=${this.currentPage}`
-      }
-      history.pushState(null, null, url)
-    },
     getPageValueFromParameter() {
       let url = location.href
       let results= url.match(/\?page=(\d+)/)
       if (!results) return null;
       return results[1]
     },
-    paginateClickCallback(pageNum) {
+    paginateClickCallback(pageNumber) {
+      this.currentPage = pageNumber
       this.getAnnouncementsPerPage()
-      this.updateCurrentUrl()
+      history.pushState(
+        null,
+        null,
+        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`),
+      )
     },
     getCurrentUser() {
       fetch(`/api/users/${this.currentUserId}.json`, {

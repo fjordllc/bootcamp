@@ -2,8 +2,6 @@
   margin-bottom: .5rem
   display: flex
   flex-wrap: wrap
-  +media-breakpoint-down(sm)
-    justify-content: center
 
 .users-item-names__item
   +text-block(.75rem 1.4, flex $semi-muted-text)
@@ -12,10 +10,10 @@
     &::before
       content: "、"
 
-.users-item-names__slack
+.users-item-names__chat
   display: flex
   align-items: center
 
-.users-item-names__slack-label
+.users-item-names__chat-label
   font-size: 1.125em
   margin-right: .125em

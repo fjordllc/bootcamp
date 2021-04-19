@@ -23,14 +23,14 @@
         v-bind:currentUser="currentUser",
         v-bind:reactionableId="reactionableId")
       footer.card-footer(v-if="comment.user.id === currentUser.id || currentUser.role === 'admin'")
-        .card-footer-actions
-          ul.card-footer-actions__items
-            li.card-footer-actions__item
-              button.card-footer-actions__action.a-button.is-md.is-secondary.is-block(@click="editComment")
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              button.card-main-actions__action.a-button.is-md.is-secondary.is-block(@click="editComment")
                 i.fas.fa-pen
                 | 編集
-            li.card-footer-actions__item.is-sub
-              button.card-footer-actions__delete(@click="deleteComment")
+            li.card-main-actions__item.is-sub
+              button.card-main-actions__delete(@click="deleteComment")
                 | 削除する
     .thread-comment-form__form.a-card(v-show="editing")
       .thread-comment-form__tabs.js-tabs
@@ -54,15 +54,17 @@
           v-bind:class="{'is-active': isActive('preview')}")
           .is-long-text.thread-comment-form__preview(
             :id="`js-comment-preview-${this.comment.id}`")
-      .thread-comment-form__actions
-        .thread-comment-form__action
-          button.a-button.is-md.is-warning.is-block(
-            @click="updateComment"
-            v-bind:disabled="!validation")
-            | 保存する
-        .thread-comment-form__action
-          button.a-button.is-md.is-secondary.is-block(@click="cancel")
-            | キャンセル
+      .card-footer
+        .card-main-actions
+          .card-main-actions__items
+            .card-main-actions__item
+              button.a-button.is-md.is-warning.is-block(
+                @click="updateComment"
+                v-bind:disabled="!validation")
+                | 保存する
+            .card-main-actions__item
+              button.a-button.is-md.is-secondary.is-block(@click="cancel")
+                | キャンセル
 </template>
 <script>
 import Reaction from './reaction.vue'
@@ -95,7 +97,7 @@ export default {
     const commentAnchor = location.hash;
     if(commentAnchor) {
       this.$nextTick( () => {
-        location.href = location.href;
+        location.replace(location.href);
       })
     }
   },
@@ -138,7 +140,7 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
-        .then(response => {
+        .then(() => {
           this.editing = false;
         })
         .catch(error => {

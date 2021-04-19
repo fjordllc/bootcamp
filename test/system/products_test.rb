@@ -290,6 +290,15 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'When the number of pages is one, the pager will not be displayed' do
+    count_of_delete = Product.count - PAGINATES_PER
+    if count_of_delete.positive?
+      Product.all.each_with_index do |product, index|
+        product.delete
+
+        break if index >= count_of_delete
+      end
+    end
+
     login_user 'komagata', 'testtest'
 
     visit '/products'
@@ -307,15 +316,16 @@ class ProductsTest < ApplicationSystemTestCase
 
     before_comment = assigned_product_count
 
-    visit "/products/#{products(:product1).id}"
-    within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: '担当者がいない提出物の場合、担当者になる')
-    end
-    click_button 'コメントする'
-    wait_for_vuejs
+    [
+      '担当者がいない提出物の場合、担当者になる',
+      '自分が担当者の場合、担当者のまま'
+    ].each do |comment|
+      visit "/products/#{products(:product1).id}"
+      post_comment(comment)
 
-    visit products_not_responded_index_path
-    assert_equal before_comment + 1, assigned_product_count
+      visit products_not_responded_index_path
+      assert_equal before_comment + 1, assigned_product_count
+    end
   end
 
   test 'be not person on charge at comment on product of there are person on charge' do
@@ -337,11 +347,7 @@ class ProductsTest < ApplicationSystemTestCase
     before_comment = assigned_product_count
 
     visit show_product_path
-    within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: '担当者がいる提出物の場合、担当者にならない')
-    end
-    click_button 'コメントする'
-    wait_for_vuejs
+    post_comment('担当者がいる提出物の場合、担当者にならない')
 
     visit products_not_responded_index_path
     assert_equal before_comment, assigned_product_count

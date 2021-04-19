@@ -20,9 +20,6 @@ class PracticesController < ApplicationController
     @practice = Practice.new(practice_params)
 
     if @practice.save
-      SlackNotification.notify "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を作成しました。",
-                               username: "#{current_user.login_name}@bootcamp.fjord.jp",
-                               icon_url: current_user.avatar_url
       ChatNotifier.message("プラクティス：「#{@practice.title}」を作成しました。\r#{url_for(@practice)}")
       redirect_to @practice, notice: 'プラクティスを作成しました。'
     else
@@ -31,14 +28,8 @@ class PracticesController < ApplicationController
   end
 
   def update
-    old_practice = @practice.dup
     @practice.last_updated_user = current_user
     if @practice.update(practice_params)
-      text = "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を編集しました。"
-      diff = Diffy::Diff.new("#{old_practice.all_text}\n", "#{@practice.all_text}\n", context: 1).to_s
-      SlackNotification.notify "#{text}\n```#{diff}```",
-                               username: "#{current_user.login_name}@bootcamp.fjord.jp",
-                               icon_url: current_user.avatar_url
       ChatNotifier.message("プラクティス：「#{@practice.title}」を編集しました。\r#{url_for(@practice)}")
       redirect_to @practice, notice: 'プラクティスを更新しました。'
     else

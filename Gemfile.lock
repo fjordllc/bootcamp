@@ -222,7 +222,7 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (1.0.0)
     memoist (0.16.2)
-    mentionable (0.2.0)
+    mentionable (0.2.1)
       activerecord
       railties
     meta-tags (2.14.0)
@@ -395,7 +395,6 @@ GEM
       faraday (>= 0.17.3, < 2.0)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
-    slack-notifier (2.3.2)
     slim (4.1.0)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
@@ -509,7 +508,7 @@ DEPENDENCIES
   kaminari
   letter_opener_web (~> 1.0)
   listen (~> 3.3)
-  mentionable (~> 0.2)
+  mentionable (~> 0.2.1)
   meta-tags
   oauth2
   omniauth (~> 1.9.1)
@@ -532,7 +531,6 @@ DEPENDENCIES
   rubocop-rails
   sass-rails (>= 6)
   selenium-webdriver
-  slack-notifier
   slim-rails
   slim_lint
   sorcery
