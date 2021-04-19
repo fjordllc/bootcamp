@@ -50,7 +50,9 @@ export default {
   components: {
     draggable
   },
-  props: ['allCategories'],
+  props: {
+    allCategories: { type: String, required: true }
+  },
   data() {
     return {
       categories: JSON.parse(this.allCategories),
