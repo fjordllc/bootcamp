@@ -5,8 +5,7 @@
       .category-practices-item__title
         a.category-practices-item__title-link(:href="practices.url")
           | {{practices.practice.title}}
-      //if current_userユーザーの進捗パネル表示
-      a(:class="`practice-status category-practices-item__status is-${statusByLearnings(practices.practice.id)}`" :href="`${practices.url}#learning-Status`")
+      a(:class="`practice-status category-practices-item__status is-${statusByLearnings(practices.practice.id)}`" :href="`${practices.url}#learning-Status`" v-if="isCurrentUser")
         | {{translate(practices.practice.id)}}
     .category-practices-item__learning-time(v-if="practiceTime")
       | 所要時間の目安: {{practiceTime.median}}
@@ -24,7 +23,7 @@
 import PracticeUserIcon from './practice-user-icon.vue'
 
 export default {
-  props: ['practices','category','learnings',],
+  props: ['practices','category','learnings','currentUser'],
   components: {
     'practice-user-icon': PracticeUserIcon
   },
@@ -60,6 +59,9 @@ export default {
     practiceTime() {
        return this.practices.learning_minute_statistic
     },
+    isCurrentUser() {
+      return this.currentUser.hasOwnProperty('id')
+    }
   },
 }
 

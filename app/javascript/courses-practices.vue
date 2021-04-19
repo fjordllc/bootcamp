@@ -15,7 +15,7 @@
                 | 完了
           .categories-item__description
             .categories-item__edit(v-if="currentUser.role === 'admin'")
-              a.link_to.categories-item__edit-link(:href="`/admin/categories/${category.id}/edit`")
+              a.categories-item__edit-link(:href="`/admin/categories/${category.id}/edit`")
                 i.fas.fa-pen
             .js-markdown-view.js-target-blank.is-long-text
               p {{category.description}}
@@ -28,6 +28,7 @@
                   :practices = "practices"
                   :category = "category"
                   :learnings = "learnings"
+                  :currentUser = "currentUser"
                   )
       nav.page-nav
         ul.page-nav__items
