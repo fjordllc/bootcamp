@@ -90,7 +90,7 @@ import autosize from 'autosize'
 moment.locale('ja')
 
 export default {
-  props: ['comment', 'currentUser', 'availableEmojis'],
+  props: ['comment', 'currentUser'],
   components: {
     reaction: Reaction
   },
