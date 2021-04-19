@@ -39,7 +39,12 @@ export default {
     'unconfirmed-links-open-button': unconfirmedLinksOpenButton,
     pager: Pager
   },
-  props: ['title', 'selectedTab', 'isMentor', 'currentUserId'],
+  props: {
+    title: { type: String, required: true },
+    selectedTab: { type: String, required: true },
+    isMentor: { type: Boolean, required: true },
+    currentUserId: { type: String, required: true }
+  },
   data() {
     return {
       products: [],

@@ -77,7 +77,11 @@ export default {
   components: {
     'product-checker': ProductChecker
   },
-  props: ['product', 'currentUserId', 'isMentor'],
+  props: {
+    product: { type: Object, required: true },
+    isMentor: { type: Boolean, required: true },
+    currentUserId: { type: String, required: true }
+  },
   computed: {
     roleClass() {
       return `is-${this.product.user.role}`
