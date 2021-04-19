@@ -37,7 +37,11 @@ moment.locale('ja')
 
 export default {
   components: {},
-  props: ['reactionable', 'currentUser', 'reactionableId'],
+  props: {
+    reactionable: { type: Object, required: true },
+    currentUser: { type: Object, required: true },
+    reactionableId: { type: String, required: true }
+  },
   data: () => {
     return {
       availableEmojis: [],
