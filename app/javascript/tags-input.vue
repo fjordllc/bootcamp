@@ -18,7 +18,11 @@ import validateTagName from './validate-tag-name'
 export default {
   components: { VueTagsInput },
   mixins: [validateTagName],
-  props: ['tagsInitialValue', 'tagsParamName', 'taggableType'],
+  props: {
+    tagsInitialValue: { type: String, required: true },
+    tagsParamName: { type: String, required: true },
+    taggableType: { type: String, required: true }
+  },
   data() {
     return {
       inputTag: '',
