@@ -13,7 +13,10 @@
 </template>
 <script>
 export default {
-  props: ['parentReservation', 'currentUserId'],
+  props: {
+    parentReservation: { type: Object, required: true },
+    currentUserId: { type: String, required: true }
+  },
   computed: {
     id: function () {
       return this.parentReservation !== null ? this.parentReservation.id : null
