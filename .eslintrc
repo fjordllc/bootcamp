@@ -1,13 +1,16 @@
 {
+<<<<<<< HEAD
   "extends": [
     "plugin:vue/recommended",
     "eslint:recommended",
     'standard',
     "prettier"
   ],
+=======
+  "extends": "standard",
+>>>>>>> 7318223b... 意図しない変更のため
   "env": {
-    "jquery": true,
-    "node": true
+    "jquery": true
   },
   "globals": {
     "window": true,
