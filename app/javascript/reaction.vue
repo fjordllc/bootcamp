@@ -27,7 +27,6 @@
 </template>
 <script>
 import moment from 'moment'
-import MarkdownIt from 'markdown-it'
 
 moment.locale("ja");
 
@@ -103,7 +102,7 @@ export default {
       credentials: 'same-origin',
       redirect: 'manual'
     })
-      .then(response => {
+      .then(() => {
         this.reactionable.reaction.forEach((reaction, i) => {
             if (reaction.id == clickedReaction.id) { this.reactionable.reaction.splice(i, 1); }
           });

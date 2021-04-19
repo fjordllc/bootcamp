@@ -14,7 +14,6 @@ class API::AnswersController < API::BaseController
     @answer = question.answers.new(answer_params)
     @answer.user = current_user
     if @answer.save
-      notify_to_slack(@answer)
       render :create, status: :created
     else
       head :bad_request
@@ -45,18 +44,5 @@ class API::AnswersController < API::BaseController
 
   def answer_params
     params.require(:answer).permit(:description)
-  end
-
-  def notify_to_slack(answer)
-    name = answer.user.login_name.to_s
-    link = "<#{question_url(answer.question)}|#{answer.question.title}>"
-
-    SlackNotification.notify "#{name}が回答しました。#{link}",
-                             username: "#{answer.user.login_name} (#{answer.user.name})",
-                             icon_url: answer.user.avatar_url,
-                             attachments: [{
-                               fallback: 'answer body.',
-                               text: answer.description
-                             }]
   end
 end

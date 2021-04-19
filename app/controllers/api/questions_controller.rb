@@ -1,10 +1,22 @@
 # frozen_string_literal: true
 
 class API::QuestionsController < API::BaseController
-  before_action :set_question, only: %i[update]
+  include Rails.application.routes.url_helpers
+  before_action :set_available_emojis, only: %i[show]
+
+  def show
+    @question = Question.find(params[:id])
+  end
 
   def update
-    if @question.update(question_params)
+    question =
+      if current_user.admin? || current_user.mentor?
+        Question.find(params[:id])
+      else
+        current_user.questions.find_by(id: params[:id])
+      end
+
+    if !question.nil? && question.update(question_params)
       head :ok
     else
       head :bad_request
@@ -13,16 +25,7 @@ class API::QuestionsController < API::BaseController
 
   private
 
-  def set_question
-    @question =
-      if current_user.admin? || current_user.mentor?
-        Question.find(params[:id])
-      else
-        current_user.questions.find(params[:id])
-      end
-  end
-
   def question_params
-    params.require(:question).permit(:tag_list)
+    params.require(:question).permit(:title, :description, :practice_id, :tag_list)
   end
 end

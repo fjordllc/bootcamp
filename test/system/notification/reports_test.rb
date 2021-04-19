@@ -62,9 +62,13 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   def assert_notify_only_at_first_published_of_report(
-    notify_message, author_login_name, recived_user_login_name, title, description
+    notification_message,
+    author_login_name,
+    recived_user_login_name,
+    title,
+    description
   )
-    exists_notify_in_unread = -> { exists_unread_notify?(notify_message) }
+    exists_notification_in_unread = -> { exists_unread_notification?(notification_message) }
     report_id = nil # injectで書く方法もあるがそうすると読み辛い
 
     3.times do |time|
@@ -79,11 +83,11 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
       login_user recived_user_login_name, 'testtest'
       if time == 1
-        assert exists_notify_in_unread.call
-        link_to_page_by_unread_notify(notify_message)
+        assert exists_notification_in_unread.call
+        link_to_page_by_unread_notification(notification_message)
         assert_equal current_path, report_path(report_id)
       else
-        assert_not exists_notify_in_unread.call
+        assert_not exists_notification_in_unread.call
       end
       logout
     end
@@ -94,11 +98,11 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     advisor_login_name = 'senpai'
     title = '研修生が初めて提出した時だけ、'
     description = 'アドバイザーに通知を飛ばす'
-    notify_message = make_write_report_notify_message(
+    notification_message = make_write_report_notification_message(
       kensyu_login_name, title
     )
     assert_notify_only_at_first_published_of_report(
-      notify_message,
+      notification_message,
       kensyu_login_name,
       advisor_login_name,
       title,
@@ -112,11 +116,11 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     follower_user_login_name = User.find(following.follower_id).login_name
     title = '初めて提出した時だけ'
     description = 'フォローされているユーザーに通知を飛ばす'
-    notify_message = make_write_report_notify_message(
+    notification_message = make_write_report_notification_message(
       followed_user_login_name, title
     )
     assert_notify_only_at_first_published_of_report(
-      notify_message,
+      notification_message,
       followed_user_login_name,
       follower_user_login_name,
       title,
@@ -130,9 +134,23 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     title = '初めて提出したら、'
     description = "@#{mention_target_login_name} に通知する"
     assert_notify_only_at_first_published_of_report(
-      make_mention_notify_message(author_login_name),
+      make_mention_notification_message(author_login_name),
       author_login_name,
       mention_target_login_name,
+      title,
+      description
+    )
+  end
+
+  test '初日報は初めて公開した時だけ通知する' do
+    check_notification_login_name = 'kimura'
+    author_login_name = 'nippounashi'
+    title = '初めての日報を提出したら'
+    description = 'ユーザーに通知をする'
+    assert_notify_only_at_first_published_of_report(
+      "#{author_login_name}さんがはじめての日報を書きました！",
+      author_login_name,
+      check_notification_login_name,
       title,
       description
     )

@@ -21,9 +21,6 @@
                 = link_to admin_root_path, class: 'header-dropdown__item-link' do
                   | 管理ページ
               li.header-dropdown__item
-                = link_to 'https://github.com/fjordllc/fjord/wiki/FjordBootCamp', class: 'header-dropdown__item-link', target: '_blank', rel: 'noopener' do
-                  | 管理者用ドキュメント
-              li.header-dropdown__item
                 = link_to 'https://app.redash.io/fjord-inc/public/dashboards/TR86ezvmxVWE7ScenS3yTE1z8lV4ILzvmOAyKmWY',
                   class: 'header-dropdown__item-link',
                   target: '_blank', rel: 'noopener' do
@@ -51,6 +48,9 @@
               li.header-dropdown__item
                 = link_to user_path(current_user), class: 'header-dropdown__item-link' do
                   | 自分のプロフィール
+              li.header-dropdown__item
+                = link_to watches_path, class: 'header-dropdown__item-link' do
+                  | Watch中一覧
               li.header-dropdown__item
                 = link_to edit_current_user_path, class: 'header-dropdown__item-link' do
                   | 登録情報変更

@@ -18,7 +18,7 @@ module NotificationHelper
   # でも可能だが、notification_messagesは
   # open_notificationを実行した(右上のベルボタンを押した)かで
   # 戻り値が変更されるため、これを作成
-  def exists_unread_notify?(message)
+  def exists_unread_notification?(message)
     visit unread_index_path
     wait_for_vuejs # 通知一覧はVueでREST APIを利用して表示しているため
     exists = page.has_selector?('span.thread-list-item__title-link-label',
@@ -27,17 +27,17 @@ module NotificationHelper
     exists
   end
 
-  def link_to_page_by_unread_notify(message)
+  def link_to_page_by_unread_notification(message)
     visit unread_index_path
     wait_for_vuejs # 通知一覧はVueでREST APIを利用して表示しているため
     click_link message, class: 'thread-list-item__title-link'
   end
 
-  def make_write_report_notify_message(user_login_name, report_title)
+  def make_write_report_notification_message(user_login_name, report_title)
     "#{user_login_name}さんが日報【 #{report_title} 】を書きました！"
   end
 
-  def make_mention_notify_message(writer_login_name)
+  def make_mention_notification_message(writer_login_name)
     "#{writer_login_name}さんからメンションがきました。"
   end
 end
