@@ -1,7 +1,9 @@
 import 'whatwg-fetch'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const categorySelect = document.querySelector("select[name='practice[category_id]']")
+  const categorySelect = document.querySelector(
+    "select[name='practice[category_id]']"
+  )
   const courseSelect = document.querySelector("select[name='course']")
   if (!categorySelect || !courseSelect) {
     return null
@@ -14,10 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
       headers: { 'X-Requested-With': 'XMLHttpRequest' },
       credentials: 'same-origin'
     })
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
+      .then((json) => {
         categorySelect.innerHTML = ''
         for (let i = 0; i < json.length; i++) {
           const category = json[i]
@@ -27,12 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
           categorySelect.appendChild(option)
         }
 
-        const selectedCategoryId = document.querySelector('#selected_category_id').value
+        const selectedCategoryId = document.querySelector(
+          '#selected_category_id'
+        ).value
         if (selectedCategoryId !== '') {
-          document.querySelector("select[name='practice[category_id]']").value = selectedCategoryId
+          document.querySelector(
+            "select[name='practice[category_id]']"
+          ).value = selectedCategoryId
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.warn('Failed to parsing', error)
       })
   }

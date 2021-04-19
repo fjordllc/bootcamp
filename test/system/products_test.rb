@@ -290,6 +290,15 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'When the number of pages is one, the pager will not be displayed' do
+    count_of_delete = Product.count - PAGINATES_PER
+    if count_of_delete.positive?
+      Product.all.each_with_index do |product, index|
+        product.delete
+
+        break if index >= count_of_delete
+      end
+    end
+
     login_user 'komagata', 'testtest'
 
     visit '/products'

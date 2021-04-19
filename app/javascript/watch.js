@@ -7,10 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const watchableId = watch.getAttribute('data-watchable-id')
     const watchableType = watch.getAttribute('data-watchable-type')
     new Vue({
-      render: h => h(Watch, { props: {
-        watchableId: watchableId,
-        watchableType: watchableType
-      } })
+      render: (h) =>
+        h(Watch, {
+          props: {
+            watchableId: watchableId,
+            watchableType: watchableType
+          }
+        })
     }).$mount('#js-watch')
   }
 })
