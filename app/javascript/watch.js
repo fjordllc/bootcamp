@@ -4,7 +4,7 @@ import Watch from './watch.vue'
 document.addEventListener('DOMContentLoaded', () => {
   const watch = document.getElementById('js-watch')
   if (watch) {
-    const watchableId = watch.getAttribute('data-watchable-id')
+    const watchableId = Number(watch.getAttribute('data-watchable-id'))
     const watchableType = watch.getAttribute('data-watchable-type')
     new Vue({
       render: (h) =>

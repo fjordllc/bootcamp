@@ -11,7 +11,10 @@
 import 'whatwg-fetch'
 
 export default {
-  props: ['watchableId', 'watchableType'],
+  props: {
+    watchableId: { type: Number, required: true },
+    watchableType: { type: String, required: true }
+  },
   data() {
     return {
       watchId: null,
