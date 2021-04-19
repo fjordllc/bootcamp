@@ -64,9 +64,9 @@ export default {
     memo: Memo
   },
   props: {
-    reservationsBegginingOfThisMonth: String,
-    reservationsEndOfThisMonth: String,
-    currentUserId: String
+    reservationsBegginingOfThisMonth: { type: String, required: true },
+    reservationsEndOfThisMonth: { type: String, required: true },
+    currentUserId: { type: String, required: true }
   },
   data: () => {
     return {
