@@ -25,4 +25,23 @@ module Watchable
       "「#{self[:title]}」のイベント"
     end
   end
+
+  def body
+    case self
+    when Question, Event, Report
+      self[:description]
+    else
+      self[:body]
+    end
+  end
+
+  def time
+    if instance_of?(Report)
+      self[:reported_on]
+    elsif has_attribute?(:published_at) && published_at?
+      self[:published_at]
+    else
+      self[:created_at]
+    end
+  end
 end

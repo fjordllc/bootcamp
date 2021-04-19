@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const reports = document.querySelector(selector)
   if (reports) {
     new Vue({
-      render: h => h(Reports)
+      render: (h) => h(Reports)
     }).$mount(selector)
   }
 })

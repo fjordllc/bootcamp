@@ -141,4 +141,18 @@ class Notification::ReportsTest < ApplicationSystemTestCase
       description
     )
   end
+
+  test '初日報は初めて公開した時だけ通知する' do
+    check_notification_login_name = 'kimura'
+    author_login_name = 'nippounashi'
+    title = '初めての日報を提出したら'
+    description = 'ユーザーに通知をする'
+    assert_notify_only_at_first_published_of_report(
+      "#{author_login_name}さんがはじめての日報を書きました！",
+      author_login_name,
+      check_notification_login_name,
+      title,
+      description
+    )
+  end
 end
