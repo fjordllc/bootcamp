@@ -18,7 +18,12 @@ export default {
   components: {
     tags: Tags
   },
-  props: ['tagsInitialValue', 'tagsParamName', 'tagsInputId', 'userId'],
+  props: {
+    tagsInitialValue: { type: String, required: true },
+    tagsParamName: { type: String, required: true },
+    tagsInputId: { type: String, required: true },
+    userId: { type: String, required: true }
+  },
   computed: {
     editing() {
       return true
