@@ -11,7 +11,10 @@
 import 'whatwg-fetch'
 
 export default {
-  props: ['checkableId', 'checkableType'],
+  props: {
+    checkableId: { type: String, required: true },
+    checkableType: { type: String, required: true }
+  },
   computed: {
     checkId() {
       return this.$store.getters.checkId
