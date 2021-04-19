@@ -93,7 +93,10 @@ export default {
   components: {
     reaction: Reaction
   },
-  props: ['comment', 'currentUser'],
+  props: {
+    comment: { type: Object, required: true },
+    currentUser: { type: Object, required: true }
+  },
   data: () => {
     return {
       description: '',
