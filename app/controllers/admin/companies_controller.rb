@@ -17,7 +17,7 @@ class Admin::CompaniesController < AdminController
     @company = Company.new(company_params)
 
     if @company.save
-      redirect_to admin_companies_url, notice: '会社を作成しました。'
+      redirect_to admin_companies_url, notice: '企業を作成しました。'
     else
       render 'new'
     end
@@ -25,7 +25,7 @@ class Admin::CompaniesController < AdminController
 
   def update
     if @company.update(company_params)
-      redirect_to admin_companies_url, notice: '会社を更新しました。'
+      redirect_to admin_companies_url, notice: '企業を更新しました。'
     else
       render 'edit'
     end
@@ -33,7 +33,7 @@ class Admin::CompaniesController < AdminController
 
   def destroy
     @company.destroy
-    redirect_to admin_companies_url, notice: '会社を削除しました。'
+    redirect_to admin_companies_url, notice: '企業を削除しました。'
   end
 
   private
