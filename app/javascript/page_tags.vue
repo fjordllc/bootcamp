@@ -130,7 +130,11 @@ export default {
         body: JSON.stringify(params)
       })
         .then(() => {
+<<<<<<< HEAD
           this.editing = false
+=======
+          this.editing = false;
+>>>>>>> 77f10974... 利用していない引数を削除
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
