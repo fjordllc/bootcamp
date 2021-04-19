@@ -7,7 +7,7 @@
           | {{practices.practice.title}}
       //if current_userユーザーの進捗パネル表示
       a(:class="`practice-status category-practices-item__status is-${statusByLearnings(practices.practice.id)}`" :href="`${practices.url}#learning-Status`")
-        | {{translateToJapanese(practices.practice.id)}}
+        | {{translate(practices.practice.id)}}
     .category-practices-item__learning-time(v-if="practiceTime")
       | 所要時間の目安: {{practiceTime.median}}
       | （平均: {{convertToHourMinute(practiceTime.average)}})
@@ -28,11 +28,6 @@ export default {
   components: {
     'practice-user-icon': PracticeUserIcon
   },
-  data: () => {
-    return {
-      learningStatus: ["未着手","着手","提出","完了"]
-    }
-  },
   methods: {
     statusByLearnings(practices){
       let learning= this.learnings.find(element => practices === element.practice_id)
@@ -48,28 +43,23 @@ export default {
         return `${hour}時間${minute}分`
       }
     },
-    translateToJapanese(practices){
-      let status = this.statusByLearnings(practices)
-      switch(status){
-        case 'unstarted':
-          return this.learningStatus[0]
-          break
-        case 'started':
-          return this.learningStatus[1]
-          break
-        case 'submitted':
-          return this.learningStatus[2]
-          break
-        case 'complete':
-          return this.learningStatus[3]
-          break
-      }
-    }
+    translate(practices){
+      let learningStatus = this.statusByLearnings(practices)
+      return this.toJapanese(learningStatus)
+    },
+    toJapanese(learningStatus){
+      return {
+        'unstarted': '未着手',
+        'started': "着手",
+        'submitted': "提出",
+        'complete' : "完了",
+      }[learningStatus]
+    },
   },
   computed: {
     practiceTime() {
        return this.practices.learning_minute_statistic
-    }
+    },
   },
 }
 
