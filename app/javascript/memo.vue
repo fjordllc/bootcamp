@@ -36,8 +36,11 @@
 </template>
 <script>
 export default {
-  props: ['memo', 'date'],
-  data: () => {
+  props: {
+    memo: { type: Object, required: false, default: undefined },
+    date: { type: String, required: true }
+  },
+  data() {
     return {
       sendBody: '',
       id: '',
