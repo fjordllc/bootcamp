@@ -19,6 +19,7 @@ class User < ApplicationRecord
 
   enum os: {
     mac: 0,
+    mac_m1: 2,
     linux: 1
   }, _prefix: true
 
@@ -58,6 +59,7 @@ class User < ApplicationRecord
   has_many :participations, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :answers,      dependent: :destroy
+  has_many :watches, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -133,6 +135,12 @@ class User < ApplicationRecord
             }
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
+  validates :discord_account,
+            format: {
+              allow_blank: true,
+              with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
+              message: 'は「ユーザー名#４桁の数字」で入力してください'
+            }
 
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
 

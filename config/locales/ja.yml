@@ -186,8 +186,9 @@ ja:
           unemployed: 働いていない
         os:
           windows: Windows
-          mac: Mac
+          mac: Mac(Intel)
           linux: Linux
+          mac_m1: Mac(M1 chip)
         study_place:
           local: フィヨルドブートキャンプオフィス
           remote: 自宅

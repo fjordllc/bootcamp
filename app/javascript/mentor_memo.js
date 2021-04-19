@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (mentorMemo) {
     const practiceId = mentorMemo.getAttribute('data-practice-id')
     new Vue({
-      render: h =>
+      render: (h) =>
         h(MentorMemo, {
           props: {
             practiceId: practiceId

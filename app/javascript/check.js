@@ -13,14 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentUserId = check.getAttribute('data-current-user-id')
     new Vue({
       store,
-      render: h => h(Check, { props: {
-        checkableId: checkableId,
-        checkableType: checkableType,
-        checkableLabel: checkableLabel,
-        checkerId: checkerId,
-        checkerName: checkerName,
-        currentUserId: currentUserId
-      } })
+      render: (h) =>
+        h(Check, {
+          props: {
+            checkableId: checkableId,
+            checkableType: checkableType,
+            checkableLabel: checkableLabel,
+            checkerId: checkerId,
+            checkerName: checkerName,
+            currentUserId: currentUserId
+          }
+        })
     }).$mount('#js-check')
   }
 })
