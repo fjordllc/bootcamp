@@ -114,7 +114,6 @@ export default {
   props: [
     'answer',
     'currentUser',
-    'availableEmojis',
     'hasCorrectAnswer',
     'questionUser'
   ],
