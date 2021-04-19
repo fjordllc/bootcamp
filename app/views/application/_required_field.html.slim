@@ -1,4 +1,4 @@
-- unless @required_fields.valid?
+- unless @required_fields.valid? && current_user.avatar.attached? && !current_user.tag_list.empty?
   .a-card
     header.card-header.is-sm
       h2.card-header__title

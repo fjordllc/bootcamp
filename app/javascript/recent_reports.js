@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (recentReports) {
     new Vue({
       store,
-      render: h => h(RecentReports)
+      render: (h) => h(RecentReports)
     }).$mount(selector)
   }
 })

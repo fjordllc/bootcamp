@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const notificationsBell = document.querySelector('#js-notifications-bell')
   if (notificationsBell) {
     new Vue({
-      render: h => h(NotificationsBell)
+      render: (h) => h(NotificationsBell)
     }).$mount('#js-notifications-bell')
   }
 })

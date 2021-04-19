@@ -6,9 +6,11 @@ import MarkdownItLinkingImage from './markdown-it-linking-image'
 import MarkdownOption from './markdown-it-option'
 
 export default class {
-  replace (selector) {
+  replace(selector) {
     const elements = document.querySelectorAll(selector)
-    if (elements.length === 0) { return null }
+    if (elements.length === 0) {
+      return null
+    }
 
     Array.from(elements).forEach((element) => {
       element.style.display = 'block'
@@ -16,7 +18,7 @@ export default class {
     })
   }
 
-  render (text) {
+  render(text) {
     const md = new MarkdownIt(MarkdownOption)
     md.use(MarkdownItEmoji)
     md.use(MarkdownItMention)
