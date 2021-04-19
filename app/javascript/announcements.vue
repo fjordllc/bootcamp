@@ -32,7 +32,10 @@ export default {
     announcement: Announcement,
     pager: Pager
   },
-  props: ['title', 'currentUserId'],
+  props: {
+    title: { type: String, required: true },
+    currentUserId: { type: String, required: true }
+  },
   data() {
     return {
       announcements: [],
