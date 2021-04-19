@@ -36,14 +36,14 @@ export default {
   components: {
     'product-checker': ProductChecker
   },
-  props: [
-    'checkableId',
-    'checkableType',
-    'checkableLabel',
-    'checkerId',
-    'checkerName',
-    'currentUserId'
-  ],
+  props: {
+    checkableId: { type: Number, required: true },
+    checkableType: { type: String, required: true },
+    checkableLabel: { type: String, required: true },
+    checkerId: { type: Number, required: true },
+    checkerName: { type: String, required: false, default: null },
+    currentUserId: { type: String, required: false, default: null }
+  },
   computed: {
     checkId() {
       return this.$store.getters.checkId
