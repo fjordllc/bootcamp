@@ -63,7 +63,11 @@ export default {
   components: {
     answer: Answer
   },
-  props: ['questionId', 'questionUser', 'currentUser'],
+  props: {
+    questionId: { type: String, required: true },
+    questionUser: { type: Object, required: true },
+    currentUser: { type: Object, required: true }
+  },
   data: () => {
     return {
       answers: [],
