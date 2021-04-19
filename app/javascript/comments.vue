@@ -69,7 +69,12 @@ export default {
   components: {
     comment: Comment
   },
-  props: ['commentableId', 'commentableType', 'currentUserId', 'currentUser'],
+  props: {
+    commentableId: { type: String, required: true },
+    commentableType: { type: String, required: true },
+    currentUserId: { type: String, required: true },
+    currentUser: { type: Object, required: true }
+  },
   data: () => {
     return {
       comments: [],
