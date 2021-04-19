@@ -114,7 +114,12 @@ export default {
   components: {
     reaction: Reaction
   },
-  props: ['answer', 'currentUser', 'hasCorrectAnswer', 'questionUser'],
+  props: {
+    answer: { type: Object, required: true },
+    currentUser: { type: Object, required: true },
+    hasCorrectAnswer: { type: Boolean, required: true },
+    questionUser: { type: Object, required: true }
+  },
   data: () => {
     return {
       description: '',
