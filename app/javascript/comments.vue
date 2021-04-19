@@ -151,9 +151,11 @@ export default {
 
           if (
             this.commentableType === 'Product' &&
-            !(await this.isProductAssginedToSelf(Number(this.commentableId)))
+            this.isProductAssignableUser(this.currentUser.role) &&
+            (await this.fetchProductAssign(Number(this.commentableId))) ===
+              false
           ) {
-            this.assignProductToSelf()
+            this.toggleProductAssignment()
           }
         })
         .catch((error) => {
@@ -200,8 +202,11 @@ export default {
       this.createComment()
       check.click()
     },
-    async isProductAssginedToSelf(productId) {
-      return fetch('/api/products/self_assigned', {
+    isProductAssignableUser(userRole) {
+      return /^(admin|mentor)$/.test(userRole)
+    },
+    async fetchUncheckedProducts(page) {
+      return fetch(`/api/products/unchecked?page=${page}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -214,14 +219,29 @@ export default {
         .then((response) => {
           return response.json()
         })
-        .then(({ products }) => {
-          return products.some((product) => product.id === productId)
-        })
         .catch((error) => {
           console.warn('Failed to parsing', error)
+          return null
         })
     },
-    assignProductToSelf() {
+    async fetchProductAssign(productId) {
+      for (let pageNumber = 1; ; pageNumber++) {
+        const response = await this.fetchUncheckedProducts(pageNumber)
+
+        if (response === null) {
+          return null
+        }
+
+        const product = response.products.find(
+          (product) => product.id === productId
+        )
+
+        if (product !== undefined) {
+          return product.checker_id !== null
+        }
+      }
+    },
+    toggleProductAssignment() {
       const params = {
         product_id: this.commentableId,
         current_user_id: this.currentUserId
