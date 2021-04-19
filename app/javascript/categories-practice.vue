@@ -24,7 +24,10 @@ export default {
   components: {
     draggable
   },
-  props: ['categoriesPractices', 'categoryPractices'],
+  props: {
+    categoriesPractices: { type: Array, required: true },
+    categoryPractices: { type: Array, required: true }
+  },
   data() {
     return {
       practices: this.categoryPractices,
