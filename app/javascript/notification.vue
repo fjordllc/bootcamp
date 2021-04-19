@@ -30,7 +30,9 @@ import ja from 'dayjs/locale/ja'
 dayjs.locale(ja)
 
 export default {
-  props: ['notification'],
+  props: {
+    notification: { type: Object, required: true }
+  },
   computed: {
     formattedCreatedAtInJapanese() {
       return dayjs(this.notification.created_at).format(
