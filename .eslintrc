@@ -16,7 +16,6 @@
     "Event": true,
     "FormData": true
   },
-  "root": true,
   "parserOptions": {
     "ecmaVersion": 2020
   },
