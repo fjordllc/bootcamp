@@ -4,14 +4,14 @@ require 'test_helper'
 
 class GenerationTest < ActiveSupport::TestCase
   test '#start_of_fisrt_day' do
-    assert_equal Time.zone.local(2013, 1, 1), Generation.new(1).start_of_fisrt_day
-    assert_equal Time.zone.local(2013, 4, 1), Generation.new(2).start_of_fisrt_day
+    assert_equal Time.zone.local(2013, 1, 1), Generation.new(1).start_date
+    assert_equal Time.zone.local(2013, 4, 1), Generation.new(2).start_date
   end
 
   test '#last_of_end_day' do
-    assert_equal Time.zone.local(2013, 3, 31).end_of_day, Generation.new(1).last_of_end_day
-    assert_equal Time.zone.local(2013, 6, 30).end_of_day, Generation.new(2).last_of_end_day
-    assert_equal Time.zone.local(2020, 12, 31).end_of_day, Generation.new(32).last_of_end_day
+    assert_equal Time.zone.local(2013, 3, 31).end_of_day, Generation.new(1).end_date
+    assert_equal Time.zone.local(2013, 6, 30).end_of_day, Generation.new(2).end_date
+    assert_equal Time.zone.local(2020, 12, 31).end_of_day, Generation.new(32).end_date
   end
 
   test '#users' do

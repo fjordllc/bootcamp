@@ -20,7 +20,7 @@ class Generation
     @number = number
   end
 
-  def start_of_fisrt_day
+  def start_date
     add_year = (@number - 1) / 4
     year = add_year + START_YEAR
     quarter = @number - add_year * 4
@@ -28,13 +28,12 @@ class Generation
     Time.zone.local(year, first_month, 1)
   end
 
-  def last_of_end_day
+  def end_date
     next_generation = Generation.new(@number + 1)
-    end_date = next_generation.start_of_fisrt_day - 1
-    end_date.end_of_day
+    (next_generation.start_date - 1).end_of_day
   end
 
   def users
-    User.with_attached_avatar.same_generations(start_of_fisrt_day, last_of_end_day)
+    User.with_attached_avatar.same_generations(start_date, end_date)
   end
 end
