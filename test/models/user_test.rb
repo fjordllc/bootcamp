@@ -43,8 +43,13 @@ class UserTest < ActiveSupport::TestCase
   test '#elapsed_days' do
     user = users(:komagata)
     user.created_at = Time.zone.local(2019, 1, 1, 0, 0, 0)
+    graduated_user = users(:sotugyou)
+    graduated_user.created_at = Time.zone.local(2019, 1, 1, 0, 0, 0)
+    graduated_user.graduated_on = Time.zone.local(2019, 5, 31, 0, 0, 0)
     travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
       assert_equal 365, user.elapsed_days
+      assert_equal 150, graduated_user.elapsed_days
+      assert_not_equal 365, graduated_user.elapsed_days
     end
   end
 
