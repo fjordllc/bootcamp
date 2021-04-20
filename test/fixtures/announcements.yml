@@ -32,3 +32,11 @@ announcement_notification_active_user:
   description: 現役生にのみ通知するお知らせの本文
   created_at: "2018-01-04"
   target: 1
+
+announcement_wip:
+  user: komagata
+  title: wipのお知らせ
+  description: wipお知らせ本文
+  created_at: "2018-01-05"
+  target: 0
+  wip: true
