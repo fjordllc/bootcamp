@@ -1,9 +1,5 @@
 <template lang="pug">
-  .page-body__inner(v-if="categories === true")
-    .empty
-      .fas.fa-spinner.fa-pulse
-      |  ロード中
-  .page-body__inner(v-else)
+  .page-body__inner
     .categories-items
       .categories-items__inner
         .categories-item.practices(v-for="category in containsPractices" :key="category.id")
@@ -19,17 +15,16 @@
                 i.fas.fa-pen
             .js-markdown-view.js-target-blank.is-long-text
               p {{category.description}}
-              //pタグが欲しいのでpをつける。
           .categories-item__body
             .category-practices.js-category-practices
               courses-practice(
-                  v-for="practices in category.practices"
-                  :key = "practices.id"
-                  :practices = "practices"
-                  :category = "category"
-                  :learnings = "learnings"
-                  :currentUser = "currentUser"
-                  )
+                v-for="practices in category.practices"
+                :key = "practices.id"
+                :practices = "practices"
+                :category = "category"
+                :learnings = "learnings"
+                :currentUser = "currentUser"
+              )
       nav.page-nav
         ul.page-nav__items
           li.page-nav__item(v-for="category in containsPractices" :key="category.id")
@@ -91,8 +86,7 @@ export default {
 
 </script>
 
-//インデントおかしい。スタイルが効いてないため。scopedあるとおかしくなる。
-<style>
+<style scoped>
 .js-markdown-view.js-target-blank.is-long-text {
   display:block;
 }

@@ -15,7 +15,8 @@
         practice-user-icon(
           v-for="startedStudent in practices.started_students"
           :key = "startedStudent.id"
-          :startedStudent="startedStudent")
+          :startedStudent="startedStudent"
+        )
 </template>
 
 
@@ -23,13 +24,13 @@
 import PracticeUserIcon from './practice-user-icon.vue'
 
 export default {
-  props: ['practices','category','learnings','currentUser'],
+  props: ['practices', 'category', 'learnings', 'currentUser'],
   components: {
     'practice-user-icon': PracticeUserIcon
   },
   methods: {
     statusByLearnings(practices){
-      let learning= this.learnings.find(element => practices === element.practice_id)
+      let learning = this.learnings.find(element => practices === element.practice_id)
       if(!learning) return 'unstarted'
       return learning.status
     },
