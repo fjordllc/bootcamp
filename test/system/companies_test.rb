@@ -14,7 +14,7 @@ class CompaniesTest < ApplicationSystemTestCase
   test 'show company information' do
     Bootcamp::Setup.attachment
     visit "/companies/#{companies(:company1).id}"
-    assert_equal 'Fjord Inc.の会社情報 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'Fjord Inc.の企業情報 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show link to website if company has' do
