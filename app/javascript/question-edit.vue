@@ -89,7 +89,7 @@
                 .empty
                   .fas.fa-spinner.fa-pulse
                   | ロード中
-              .select-practices(v-show="practices !== null")
+              .select-practices(v-show='practices !== null')
                 select.js-select2(
                   v-model='edited.practiceId',
                   v-select2,
