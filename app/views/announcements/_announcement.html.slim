@@ -18,18 +18,19 @@
       .thread__description.js-target-blank.is-long-text.js-markdown-view
         = announcement.description
       = render 'reactions/reactions', reactionable: @announcement
-      - if admin_login? || @announcement.user_id == current_user.id
-        .card-footer
-          .card-main-actions
-            ul.card-main-actions__items
+      .card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            - if @announcement.wip || admin_login? || @announcement.user_id == current_user.id
               li.card-main-actions__item
                 = link_to edit_announcement_path(announcement), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
                   i.fas.fa-pen#new
                   | 内容修正
-              li.card-main-actions__item
-                = link_to new_announcement_path(id: announcement), class: 'card-main-actions__action a-button is-md is-secondary is-block' do
-                  i.fas.fa-copy#copy
-                  | コピー
+            li.card-main-actions__item
+              = link_to new_announcement_path(id: announcement), class: 'card-main-actions__action a-button is-md is-secondary is-block' do
+                i.fas.fa-copy#copy
+                | コピー
+            - if admin_login? || @announcement.user_id == current_user.id
               li.card-main-actions__item.is-sub
                 = link_to announcement_path(announcement), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
                   span#delete
