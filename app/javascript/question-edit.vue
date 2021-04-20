@@ -299,6 +299,7 @@ export default {
         this.finishEditing(true)
         return
       }
+
       const { title, description, practiceId } = this.edited
       const params = {
         question: {

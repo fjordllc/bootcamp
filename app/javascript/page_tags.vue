@@ -32,6 +32,7 @@
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
 import validateTagName from './validate-tag-name'
+
 export default {
   components: { VueTagsInput },
   mixins: [validateTagName],
@@ -100,6 +101,7 @@ export default {
     },
     parseTags(value) {
       if (value === '') return []
+
       return value.split(',').map((value) => {
         return {
           text: value,
@@ -148,6 +150,7 @@ export default {
   max-width: 100% !important;
   background-color: transparent !important;
 }
+
 .vue-tags-input .ti-input {
   padding: 0.25rem 0.375rem;
   background-color: #f7f7f7;
@@ -155,6 +158,7 @@ export default {
   border-radius: 0.25rem;
   transition: border-bottom 200ms ease;
 }
+
 .vue-tags-input .ti-autocomplete {
   z-index: 1;
   margin-top: -0.25rem;
@@ -167,21 +171,26 @@ export default {
   background-color: #f7f7f7;
   line-height: 1.5;
 }
+
 .vue-tags-input .ti-item {
   padding: 0.25rem 0.375rem;
 }
+
 .vue-tags-input .ti-item:first-child {
   border-top: solid 1px #c1c5b9;
 }
+
 .vue-tags-input .ti-item:not(:last-child) {
   border-bottom: dashed 1px #eaeaea;
 }
+
 .vue-tags-input .ti-item.ti-selected-item {
   background: #4638a0;
   opacity: 0.8;
   color: #ffffff;
   padding: 0.25rem 0.375rem;
 }
+
 .vue-tags-input .ti-tag {
   position: relative;
   background: #edebf6;
@@ -191,12 +200,15 @@ export default {
   border-radius: 0.25rem;
   font-size: 0.875rem;
 }
+
 .vue-tags-input .ti-new-tag-input {
   font-size: 1rem;
 }
+
 .vue-tags-input .ti-invalid {
   color: red;
 }
+
 .vue-tags-input .ti-tag:after {
   transition: transform 0.2s;
   position: absolute;
@@ -208,9 +220,11 @@ export default {
   background-color: #000;
   transform: scaleX(0);
 }
+
 .vue-tags-input .ti-deletion-mark {
   background: #edebf6 !important;
 }
+
 .vue-tags-input .ti-deletion-mark:after {
   transform: scaleX(1);
 }
