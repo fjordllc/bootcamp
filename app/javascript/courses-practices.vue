@@ -1,5 +1,9 @@
 <template lang="pug">
-  .page-body__inner
+  .page-body__inner(v-if='categories === null')
+    .empty
+      .fas.fa-spinner.fa-pulse
+      |  ロード中
+  .page-body__inner(v-else)
     .categories-items
       .categories-items__inner
         .categories-item.practices(v-for="category in containsPractices" :key="category.id")
