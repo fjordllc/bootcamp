@@ -10,8 +10,7 @@ header.page-header
 .page-body
   .container
     - unless Learning.find_by(user_id: current_user)
-      .a-card
-        | ようこそ! welcome message がここに入ります！
+      = render 'welcome_message'
     .columns
       .row
         .col-xs-12.col-xl-6.col-xxl-6
