@@ -47,16 +47,18 @@
 import draggable from 'vuedraggable'
 
 export default {
-  props: ['allCategories'],
+  components: {
+    draggable
+  },
+  props: {
+    allCategories: { type: String, required: true }
+  },
   data() {
     return {
       categories: JSON.parse(this.allCategories),
       categoriesBeforeDragging: '',
       draggingItem: ''
     }
-  },
-  components: {
-    draggable
   },
   methods: {
     token() {

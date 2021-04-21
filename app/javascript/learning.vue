@@ -20,7 +20,9 @@
 import 'whatwg-fetch'
 
 export default {
-  props: ['practiceId'],
+  props: {
+    practiceId: { type: String, required: true }
+  },
   data() {
     return {
       submission: false,

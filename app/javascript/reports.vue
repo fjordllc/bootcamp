@@ -43,6 +43,35 @@ export default {
       currentUserId: null
     }
   },
+  computed: {
+    isUncheckedReportsPage() {
+      return location.pathname.includes('unchecked')
+    },
+    newParams() {
+      const params = new URL(location.href).searchParams
+      params.set('page', this.currentPage)
+      return params
+    },
+    newURL() {
+      return `${location.pathname}?${this.newParams}`
+    },
+    reportsAPI() {
+      const params = this.newParams
+      if (this.isUncheckedReportsPage) {
+        return `/api/reports/unchecked.json?${params}`
+      } else {
+        return `/api/reports.json?${params}`
+      }
+    },
+    pagerProps() {
+      return {
+        initialPageNumber: this.currentPage,
+        pageCount: this.totalPages,
+        pageRange: 9,
+        clickHandle: this.clickCallback
+      }
+    }
+  },
   created() {
     window.onpopstate = () => {
       this.currentPage = this.pageParam()
@@ -82,35 +111,6 @@ export default {
         .catch((error) => {
           console.warn('Failed to parsing', error)
         })
-    }
-  },
-  computed: {
-    isUncheckedReportsPage() {
-      return location.pathname.includes('unchecked')
-    },
-    newParams() {
-      const params = new URL(location.href).searchParams
-      params.set('page', this.currentPage)
-      return params
-    },
-    newURL() {
-      return `${location.pathname}?${this.newParams}`
-    },
-    reportsAPI() {
-      const params = this.newParams
-      if (this.isUncheckedReportsPage) {
-        return `/api/reports/unchecked.json?${params}`
-      } else {
-        return `/api/reports.json?${params}`
-      }
-    },
-    pagerProps() {
-      return {
-        initialPageNumber: this.currentPage,
-        pageCount: this.totalPages,
-        pageRange: 9,
-        clickHandle: this.clickCallback
-      }
     }
   }
 }

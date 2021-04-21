@@ -90,9 +90,12 @@ import autosize from 'autosize'
 moment.locale('ja')
 
 export default {
-  props: ['comment', 'currentUser', 'availableEmojis'],
   components: {
     reaction: Reaction
+  },
+  props: {
+    comment: { type: Object, required: true },
+    currentUser: { type: Object, required: true }
   },
   data: () => {
     return {
@@ -101,6 +104,30 @@ export default {
       isCopied: false,
       tab: 'comment',
       activating: false
+    }
+  },
+  computed: {
+    commentableCreatedAt() {
+      return moment(this.comment.commentable.created_at).format()
+    },
+    markdownDescription() {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.description)
+    },
+    updatedAt() {
+      return moment(this.comment.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+    },
+    roleClass() {
+      return `is-${this.comment.user.role}`
+    },
+    daimyoClass() {
+      return { 'is-daimyo': this.comment.user.daimyo }
+    },
+    validation() {
+      return this.description.length > 0
+    },
+    reactionableId() {
+      return `Comment_${this.comment.id}`
     }
   },
   created() {
@@ -184,30 +211,6 @@ export default {
       setTimeout(() => {
         this.activating = false
       }, 4000)
-    }
-  },
-  computed: {
-    commentableCreatedAt() {
-      return moment(this.comment.commentable.created_at).format()
-    },
-    markdownDescription() {
-      const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.description)
-    },
-    updatedAt() {
-      return moment(this.comment.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
-    },
-    roleClass() {
-      return `is-${this.comment.user.role}`
-    },
-    daimyoClass() {
-      return { 'is-daimyo': this.comment.user.daimyo }
-    },
-    validation() {
-      return this.description.length > 0
-    },
-    reactionableId() {
-      return `Comment_${this.comment.id}`
     }
   }
 }

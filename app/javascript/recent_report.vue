@@ -13,7 +13,9 @@
 </template>
 <script>
 export default {
-  props: ['report'],
+  props: {
+    report: { type: Object, required: true }
+  },
   computed: {
     roleClass() {
       return `is-${this.report.user.role}`

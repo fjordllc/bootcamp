@@ -36,8 +36,11 @@
 </template>
 <script>
 export default {
-  props: ['memo', 'date'],
-  data: () => {
+  props: {
+    memo: { type: Object, required: false, default: undefined },
+    date: { type: String, required: true }
+  },
+  data() {
     return {
       sendBody: '',
       id: '',
@@ -45,6 +48,7 @@ export default {
       checked: false
     }
   },
+  computed: {},
   watch: {
     body: function () {
       this.checked = false
@@ -166,7 +170,6 @@ export default {
           console.warn('Failed to parsing', error)
         })
     }
-  },
-  computed: {}
+  }
 }
 </script>

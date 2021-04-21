@@ -40,7 +40,11 @@
 import 'whatwg-fetch'
 
 export default {
-  props: ['practiceId', 'status', 'submission'],
+  props: {
+    practiceId: { type: String, required: true },
+    status: { type: String, required: true },
+    submission: { type: String, required: true }
+  },
   data() {
     return {
       statusName: null
