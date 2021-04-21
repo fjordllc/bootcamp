@@ -1,7 +1,9 @@
 {
   "extends": [
-    "plugin:vue/essential",
-    "eslint:recommended"
+    "plugin:vue/recommended",
+    "eslint:recommended",
+    'standard',
+    "prettier"
   ],
   "env": {
     "jquery": true,
@@ -18,5 +20,12 @@
   "parserOptions": {
     "ecmaVersion": 2020
   },
-  "rules": {}
+  "rules": {
+    // eslint-config-standardでは引数が利用しているか
+    // チェックしていない("args": none)ので、
+    // 引数もチェックするようにする
+    "no-unused-vars": ["error", {
+      "args": "all",
+    }],
+  }
 }

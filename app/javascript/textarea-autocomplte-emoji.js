@@ -3,11 +3,11 @@ import escapeStringRegexp from 'escape-string-regexp'
 import emojis from 'markdown-it-emoji/lib/data/full.json'
 
 export default class {
-  constructor (menuItemsSize = 5) {
+  constructor(menuItemsSize = 5) {
     this.menuItemsSize = menuItemsSize
   }
 
-  params () {
+  params() {
     return {
       trigger: ':',
       fillAttr: 'key',
@@ -19,19 +19,21 @@ export default class {
         return item.original.value
       },
       menuItemTemplate: (item) => {
-        return `${escapeHtml(item.original.value)}` +
+        return (
+          `${escapeHtml(item.original.value)}` +
           `<span class='emoji'>${escapeHtml(item.original.key)}</span>`
+        )
       }
     }
   }
 
-  _fetchValues () {
-    this.values = Object.keys(emojis).map(key => {
+  _fetchValues() {
+    this.values = Object.keys(emojis).map((key) => {
       return { key: key, value: emojis[key] }
     })
   }
 
-  _filterValues (text, callback) {
+  _filterValues(text, callback) {
     if (!this.values) {
       this._fetchValues()
     }
@@ -40,10 +42,10 @@ export default class {
       return callback(this.values.slice(0, this.menuItemsSize))
     }
 
-    let filteredValues = []
+    const filteredValues = []
     const regex = new RegExp(escapeStringRegexp(text))
 
-    this.values.every(value => {
+    this.values.every((value) => {
       if (value.key.match(regex)) {
         filteredValues.push(value)
       }

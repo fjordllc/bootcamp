@@ -76,7 +76,7 @@ jobs:
           name: Lint
           command: |
             bundle exec slim-lint app/views -c config/slim_lint.yml
-            bin/yarn eslint 'app/javascript/**/*.{js,vue}'
+            bin/yarn lint
 
       - run:
           name: Test

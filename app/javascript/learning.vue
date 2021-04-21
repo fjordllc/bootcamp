@@ -1,25 +1,29 @@
 <template lang="pug">
-  .card-main-actions
-    ul.card-main-actions__items
-      li.card-main-actions__item(v-if="submission")
-        a.a-button.is-md.is-primary.is-block.test-product(:href="productLink")
-          i.fas.fa-file
-          | {{ productLabel }}
-      li.card-main-actions__item(v-if="complete")
-        button.a-button.is-md.is-secondary.is-block.is-disabled.test-completed
-          i.fas.fa-check
-          | 完了しています
-      li.card-main-actions__item(v-else)
-        button.a-button.is-md.is-warning.is-block#js-complete(@click="pushComplete")
-          i.fas.fa-check
-          | 完了
+.card-main-actions
+  ul.card-main-actions__items
+    li.card-main-actions__item(v-if='submission')
+      a.a-button.is-md.is-primary.is-block.test-product(:href='productLink')
+        i.fas.fa-file
+        | {{ productLabel }}
+    li.card-main-actions__item(v-if='complete')
+      button.a-button.is-md.is-secondary.is-block.is-disabled.test-completed
+        i.fas.fa-check
+        | 完了しています
+    li.card-main-actions__item(v-else)
+      button#js-complete.a-button.is-md.is-warning.is-block(
+        @click='pushComplete'
+      )
+        i.fas.fa-check
+        | 完了
 </template>
 <script>
 import 'whatwg-fetch'
 
 export default {
-  props: ['practiceId'],
-  data () {
+  props: {
+    practiceId: { type: String, required: true }
+  },
+  data() {
     return {
       submission: false,
       complete: false,
@@ -28,7 +32,7 @@ export default {
       productLink: ''
     }
   },
-  mounted () {
+  mounted() {
     fetch(`/api/practices/${this.practiceId}/learning.json`, {
       method: 'GET',
       headers: {
@@ -37,13 +41,13 @@ export default {
       },
       credentials: 'same-origin'
     })
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
-        this.submission = json['practice']['submission']
-        this.complete = json['status'] == 'complete'
-        this.product = json['practice']['product']
+      .then((json) => {
+        this.submission = json.practice.submission
+        this.complete = json.status === 'complete'
+        this.product = json.practice.product
         if (this.product) {
           this.productLink = `/products/${this.product.id}`
           this.productLabel = '提出物へ'
@@ -52,12 +56,12 @@ export default {
           this.productLabel = '提出物を作る'
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.warn('Failed to parsing', error)
       })
   },
   methods: {
-    token () {
+    token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       if (meta) {
         return meta.getAttribute('content')
@@ -65,8 +69,8 @@ export default {
         return ''
       }
     },
-    pushComplete () {
-      let params = new FormData()
+    pushComplete() {
+      const params = new FormData()
       params.append('status', 'complete')
 
       fetch(`/api/practices/${this.practiceId}/learning.json`, {
@@ -82,12 +86,11 @@ export default {
         .then(() => {
           this.complete = true
         })
-        .catch(error => {
+        .catch((error) => {
           console.warn('Failed to parsing', error)
         })
     }
   }
 }
 </script>
-<style scoped>
-</style>
+<style scoped></style>

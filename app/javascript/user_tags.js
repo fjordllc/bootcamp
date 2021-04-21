@@ -10,14 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const userId = element.getAttribute('data-user-id')
 
     new Vue({
-      render: h => h(UserTags, {
-        props: {
-          tagsInitialValue: tagsInitialValue,
-          tagsParamName: tagsParamName,
-          tagsInputId: tagsInputId,
-          userId: userId
-        }
-      })
+      render: (h) =>
+        h(UserTags, {
+          props: {
+            tagsInitialValue: tagsInitialValue,
+            tagsParamName: tagsParamName,
+            tagsInputId: tagsInputId,
+            userId: userId
+          }
+        })
     }).$mount('#js-user-tags')
   }
 })

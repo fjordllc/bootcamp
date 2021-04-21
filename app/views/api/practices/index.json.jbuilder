@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-
-json.array! @practices do |practice|
-  json.(practice, :id, :title)
-  json.category practice.category(@course).name
+@categories.flat_map do |category|
+  json.array! category.practices do |practice|
+    json.(practice, :id, :title)
+    json.category category.name
+  end
 end

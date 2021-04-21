@@ -10,14 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const isMentor = products.getAttribute('data-mentor-login')
     const currentUserId = products.getAttribute('data-current-user-id')
     new Vue({
-      render: h => h(Products, {
-        props: {
-          title: title,
-          selectedTab: selectedTab,
-          isMentor: isMentor,
-          currentUserId: currentUserId
-        }
-      })
+      render: (h) =>
+        h(Products, {
+          props: {
+            title: title,
+            selectedTab: selectedTab,
+            isMentor: isMentor === 'true',
+            currentUserId: currentUserId
+          }
+        })
     }).$mount(selector)
   }
 })
