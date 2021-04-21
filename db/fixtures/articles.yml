@@ -1,7 +1,41 @@
 article1:
-  title: タイトル１
-  body: 本文１
+  title: VirtualBoxでLinuxを使おう
+  body: |-
+    VirtualBoxはオープンソースの仮想化ソフトウェアです。Windows、Mac、Linuxに対応し仮想マシンを構築・実行することができます。
+    ## 仮想マシンとは？
+    仮想マシンとは通常物理的に存在するコンピュータのハードウェアをソフトウェアで用意したマシンです。
+    ![Image from Gyazo](https://i.gyazo.com/d9e609148b5d8d9133c7eb5e6fc4a7d1.png)
+    仮想マシンにLinuxやWindowsなどのOSをインストールして使うわけですが、OSにとっては自分が入っているのが物理的なマシンなのか、仮想マシンなのかは区別がつかないわけです。
+    ![Image from Gyazo](https://i.gyazo.com/3f771a82c06cc2d26c079b93c34557ef.png)
+    マトリックスみたいなもんですね🤭
+    厳密に説明すると本一冊では足りない量が必要なので大体のイメージを掴んでもらえればいいと思います。
+    ソフトウェアになると何がいいかというと、場所を取らないし、新しいマシンを用意するのも削除するのもファイルを作成・削除するのと同じぐらい手軽にできるところです。
+    またLinux学習においてはWindowsやMac上でLinuxをインストールするマシンを簡単に用意できるところが便利です。また複数のマシンを作ることも簡単です。
+    ![Image from Gyazo](https://i.gyazo.com/abfd6ebea9b035259351bc78d3f670db.png)
+    ## VirtualBoxダウンロードとインストール
+    下記からダウンロードできます。Windows、Macそれぞれのインストーラーがあるので自分の環境に合わせてダウンロードしてください。
+    [https://www.oracle.com/jp/virtualization/technologies/vm/downloads/virtualbox-downloads.html](https://www.oracle.com/jp/virtualization/technologies/vm/downloads/virtualbox-downloads.html)
+    ![Image from Gyazo](https://i.gyazo.com/9be15807028d985676f0f3a21526d55c.png)
+    あとはインストーラーの指示に従ってインストールしましょう。
 
 article2:
-  title: タイトル２
-  body: 本文２
+  title: Debian用の仮想マシンを作ろう
+  body: |-
+    VirtualBoxや仮想化ソフトウェアについてはこちらを参照ください。
+    ![Image from Gyazo](https://i.gyazo.com/9542fe6980cc3e4539288b99fbc509ab.png)
+    **新規**をクリックしてDebian用の仮想マシンを作ります。
+    ![Image from Gyazo](https://i.gyazo.com/f4b619dcef63e26c8160782f07c41f8e.png)
+    名前は好きな名前、マシンフォルダーも適当な場所を選択します。タイプは**Linux**、バージョンは**Debian(64-bit)**を選択。
+    ![Image from Gyazo](https://i.gyazo.com/e54d7e5e056146a5586c0c0140683ab1.png)
+    メモリーはデフォルトで良いです。
+    ![Image from Gyazo](https://i.gyazo.com/95f6de81a52f6dd8a172b4285875897c.png)
+    ハードディスクは**仮想ハードディスクを作成する**を選択。
+    ![Image from Gyazo](https://i.gyazo.com/04c8d83d33a5b338022c7339ed31cf6e.png)
+    ハードディスクのファイルタイプは**VDI**を選択。
+    ![Image from Gyazo](https://i.gyazo.com/5f82553197261470a99a341e97891a92.png)
+    物理ハードディスクにあるストレージは**可変サイズ**を選択。
+    ![Image from Gyazo](https://i.gyazo.com/84118a7fd7e839979a06d862f0c63e62.png)
+    ファイルの場所とサイズはデフォルトで良いです。
+    ![Image from Gyazo](https://i.gyazo.com/f699612913d1dbcce9281c1ce47562ff.png)
+    左側にDebian用の仮想マシンが表示されました。
+    しかしこれは中身の空っぽの仮想マシンができた状態なので続けてOSをインストールしましょう。
