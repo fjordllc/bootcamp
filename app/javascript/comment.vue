@@ -1,70 +1,85 @@
 <template lang="pug">
-  .thread-comment
-    .thread-comment__author
-      a.thread-comment__author-link(:href="comment.user.url")
-        img.thread-comment__author-icon.a-user-icon(
-          :src="comment.user.avatar_url"
-          :title="comment.user.icon_title"
-          :class="[roleClass, daimyoClass]")
-    .thread-comment__body.a-card(v-if="!editing")
-      header.thread-comment__body-header
-        h2.thread-comment__title
-          a.thread-comment__title-link(:href="comment.user.url")
-            | {{ comment.user.login_name }}
-        time.thread-comment__created-at(
-          :class="{'is-active': activating}"
-          :datetime="commentableCreatedAt"
-          @click="copyCommentURLToClipboard(comment.id)")
-          | {{ updatedAt }}
-      .thread-comment__description.js-target-blank.is-long-text(
-        v-html="markdownDescription")
-      reaction(
-        v-bind:reactionable="comment",
-        v-bind:currentUser="currentUser",
-        v-bind:reactionableId="reactionableId")
-      footer.card-footer(v-if="comment.user.id === currentUser.id || currentUser.role === 'admin'")
-        .card-main-actions
-          ul.card-main-actions__items
-            li.card-main-actions__item
-              button.card-main-actions__action.a-button.is-md.is-secondary.is-block(@click="editComment")
-                i.fas.fa-pen
-                | 編集
-            li.card-main-actions__item.is-sub
-              button.card-main-actions__delete(@click="deleteComment")
-                | 削除する
-    .thread-comment-form__form.a-card(v-show="editing")
-      .thread-comment-form__tabs.js-tabs
-        .thread-comment-form__tab.js-tabs__tab(
-          v-bind:class="{'is-active': isActive('comment')}"
-          @click="changeActiveTab('comment')")
-          | コメント
-        .thread-comment-form__tab.js-tabs__tab(
-          v-bind:class="{'is-active': isActive('preview')}"
-          @click="changeActiveTab('preview')")
-          | プレビュー
-      .thread-comment-form__markdown-parent.js-markdown-parent
-        .thread-comment-form__markdown.js-tabs__content(
-          v-bind:class="{'is-active': isActive('comment')}")
-          textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
-            :id="`js-comment-${this.comment.id}`"
-            :data-preview="`#js-comment-preview-${this.comment.id}`"
-            v-model="description"
-            name="comment[description]")
-        .thread-comment-form__markdown.js-tabs__content(
-          v-bind:class="{'is-active': isActive('preview')}")
-          .is-long-text.thread-comment-form__preview(
-            :id="`js-comment-preview-${this.comment.id}`")
-      .card-footer
-        .card-main-actions
-          .card-main-actions__items
-            .card-main-actions__item
-              button.a-button.is-md.is-warning.is-block(
-                @click="updateComment"
-                v-bind:disabled="!validation")
-                | 保存する
-            .card-main-actions__item
-              button.a-button.is-md.is-secondary.is-block(@click="cancel")
-                | キャンセル
+.thread-comment
+  .thread-comment__author
+    a.thread-comment__author-link(:href='comment.user.url')
+      img.thread-comment__author-icon.a-user-icon(
+        :src='comment.user.avatar_url',
+        :title='comment.user.icon_title',
+        :class='[roleClass, daimyoClass]'
+      )
+  .thread-comment__body.a-card(v-if='!editing')
+    header.thread-comment__body-header
+      h2.thread-comment__title
+        a.thread-comment__title-link(:href='comment.user.url')
+          | {{ comment.user.login_name }}
+      time.thread-comment__created-at(
+        :class='{ "is-active": activating }',
+        :datetime='commentableCreatedAt',
+        @click='copyCommentURLToClipboard(comment.id)'
+      )
+        | {{ updatedAt }}
+    .thread-comment__description.js-target-blank.is-long-text(
+      v-html='markdownDescription'
+    )
+    reaction(
+      v-bind:reactionable='comment',
+      v-bind:currentUser='currentUser',
+      v-bind:reactionableId='reactionableId'
+    )
+    footer.card-footer(
+      v-if='comment.user.id === currentUser.id || currentUser.role === "admin"'
+    )
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item
+            button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
+              @click='editComment'
+            )
+              i.fas.fa-pen
+              | 編集
+          li.card-main-actions__item.is-sub
+            button.card-main-actions__delete(@click='deleteComment')
+              | 削除する
+  .thread-comment-form__form.a-card(v-show='editing')
+    .thread-comment-form__tabs.js-tabs
+      .thread-comment-form__tab.js-tabs__tab(
+        v-bind:class='{ "is-active": isActive("comment") }',
+        @click='changeActiveTab("comment")'
+      )
+        | コメント
+      .thread-comment-form__tab.js-tabs__tab(
+        v-bind:class='{ "is-active": isActive("preview") }',
+        @click='changeActiveTab("preview")'
+      )
+        | プレビュー
+    .thread-comment-form__markdown-parent.js-markdown-parent
+      .thread-comment-form__markdown.js-tabs__content(
+        v-bind:class='{ "is-active": isActive("comment") }'
+      )
+        textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
+          :id='`js-comment-${this.comment.id}`',
+          :data-preview='`#js-comment-preview-${this.comment.id}`',
+          v-model='description',
+          name='comment[description]'
+        )
+      .thread-comment-form__markdown.js-tabs__content(
+        v-bind:class='{ "is-active": isActive("preview") }'
+      )
+        .is-long-text.thread-comment-form__preview(
+          :id='`js-comment-preview-${this.comment.id}`'
+        )
+    .card-footer
+      .card-main-actions
+        .card-main-actions__items
+          .card-main-actions__item
+            button.a-button.is-md.is-warning.is-block(
+              @click='updateComment',
+              v-bind:disabled='!validation'
+            )
+              | 保存する
+          .card-main-actions__item
+            button.a-button.is-md.is-secondary.is-block(@click='cancel')
+              | キャンセル
 </template>
 <script>
 import Reaction from './reaction.vue'
@@ -72,12 +87,15 @@ import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
 import moment from 'moment'
 import autosize from 'autosize'
-moment.locale('ja');
+moment.locale('ja')
 
 export default {
-  props: ['comment', 'currentUser', 'availableEmojis'],
   components: {
-    'reaction': Reaction
+    reaction: Reaction
+  },
+  props: {
+    comment: { type: Object, required: true },
+    currentUser: { type: Object, required: true }
   },
   data: () => {
     return {
@@ -86,83 +104,6 @@ export default {
       isCopied: false,
       tab: 'comment',
       activating: false
-    }
-  },
-  created() {
-    this.description = this.comment.description;
-  },
-  mounted() {
-    TextareaInitializer.initialize(`#js-comment-${this.comment.id}`)
-
-    const commentAnchor = location.hash;
-    if(commentAnchor) {
-      this.$nextTick( () => {
-        location.replace(location.href);
-      })
-    }
-  },
-  methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
-    isActive(tab) {
-      return this.tab === tab
-    },
-    changeActiveTab(tab) {
-      this.tab = tab
-    },
-    cancel() {
-      this.description = this.comment.description;
-      this.editing = false;
-    },
-    editComment() {
-      this.editing = true;
-      this.$nextTick(function() {
-        const textarea = document.querySelector(`#js-comment-${this.comment.id}`)
-        autosize.update(textarea)
-        $(`.comment-id-${this.comment.id}`).trigger('input');
-      })
-    },
-    updateComment() {
-      if (this.description.length < 1) { return null }
-      let params = {
-        'comment': { 'description': this.description }
-      }
-      fetch(`/api/comments/${this.comment.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
-        .then(() => {
-          this.editing = false;
-        })
-        .catch(error => {
-          console.warn('Failed to parsing', error)
-        })
-    },
-    deleteComment() {
-      if (window.confirm('削除してよろしいですか？')) {
-        this.$emit('delete', this.comment.id);
-      }
-    },
-    copyCommentURLToClipboard(commentId) {
-      const commentURL = location.href.split("#")[0] + "#comment_" + commentId;
-      const textBox = document.createElement("textarea");
-      textBox.setAttribute("type", "hidden");
-      textBox.textContent = commentURL;
-      document.body.appendChild(textBox);
-      textBox.select();
-      document.execCommand('copy');
-      document.body.removeChild(textBox);
-      this.activating = true;
-      setTimeout(() => {this.activating = false}, 4000);
     }
   },
   computed: {
@@ -186,7 +127,90 @@ export default {
       return this.description.length > 0
     },
     reactionableId() {
-      return `Comment_${this.comment.id}`;
+      return `Comment_${this.comment.id}`
+    }
+  },
+  created() {
+    this.description = this.comment.description
+  },
+  mounted() {
+    TextareaInitializer.initialize(`#js-comment-${this.comment.id}`)
+
+    const commentAnchor = location.hash
+    if (commentAnchor) {
+      this.$nextTick(() => {
+        location.replace(location.href)
+      })
+    }
+  },
+  methods: {
+    token() {
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      return meta ? meta.getAttribute('content') : ''
+    },
+    isActive(tab) {
+      return this.tab === tab
+    },
+    changeActiveTab(tab) {
+      this.tab = tab
+    },
+    cancel() {
+      this.description = this.comment.description
+      this.editing = false
+    },
+    editComment() {
+      this.editing = true
+      this.$nextTick(function () {
+        const textarea = document.querySelector(
+          `#js-comment-${this.comment.id}`
+        )
+        autosize.update(textarea)
+        $(`.comment-id-${this.comment.id}`).trigger('input')
+      })
+    },
+    updateComment() {
+      if (this.description.length < 1) {
+        return null
+      }
+      const params = {
+        comment: { description: this.description }
+      }
+      fetch(`/api/comments/${this.comment.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+        body: JSON.stringify(params)
+      })
+        .then(() => {
+          this.editing = false
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
+    },
+    deleteComment() {
+      if (window.confirm('削除してよろしいですか？')) {
+        this.$emit('delete', this.comment.id)
+      }
+    },
+    copyCommentURLToClipboard(commentId) {
+      const commentURL = location.href.split('#')[0] + '#comment_' + commentId
+      const textBox = document.createElement('textarea')
+      textBox.setAttribute('type', 'hidden')
+      textBox.textContent = commentURL
+      document.body.appendChild(textBox)
+      textBox.select()
+      document.execCommand('copy')
+      document.body.removeChild(textBox)
+      this.activating = true
+      setTimeout(() => {
+        this.activating = false
+      }, 4000)
     }
   }
 }

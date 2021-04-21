@@ -84,24 +84,4 @@ class ArticlesTest < ApplicationSystemTestCase
 
     assert_no_text '削除'
   end
-
-  test 'search by tag' do
-    login_user 'komagata', 'testtest'
-    visit articles_url
-    click_on '内容修正', match: :first
-
-    fill_in 'article[title]', with: 'タイトル'
-    fill_in 'article[body]', with: '内容'
-    fill_in 'article[tag_list]', with: 'tag'
-    click_on '更新する'
-    click_on 'ブログ記事一覧'
-
-    assert_equal 2, all('.a-card').length
-
-    within('.tag_cloud') do
-      click_on 'tag'
-    end
-
-    assert_equal 1, all('.a-card').length
-  end
 end

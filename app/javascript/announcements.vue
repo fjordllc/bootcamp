@@ -1,30 +1,26 @@
 <template lang="pug">
-  .page-body
-    .container(v-if="loaded")
-      nav.pagination
-        pager(
-          v-if="totalPages > 1 && announcements.length > 0"
-          v-bind="pagerProps"
-        )
-      .thread-list.a-card(v-if="announcements.length > 0")
-        announcement(v-for="announcement in announcements"
-          :key="announcement.id"
-          :title="title"
-          :announcement="announcement"
-          :currentUser="currentUser")
-      .o-empty-message(v-else)
-        .o-empty-message__icon
-          i.far.fa-smile
-        p.o-empty-message__text
-          | {{ title }}はありません
-      nav.pagination
-        pager(
-          v-if="totalPages > 1 && announcements.length > 0"
-          v-bind="pagerProps"
-        )
-    .container(v-else)
-      .fas.fa-spinner.fa-pulse
-      | ロード中
+.page-body
+  .container(v-if='!loaded')
+    | ロード中
+  .container(v-else-if='announcements.length === 0')
+    .o-empty-message
+      .o-empty-message__icon
+        i.far.fa-smile
+      p.o-empty-message__text
+        | {{ title }}はありません
+  .container(v-else)
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
+    .thread-list.a-card
+      announcement(
+        v-for='announcement in announcements',
+        :key='announcement.id',
+        :title='title',
+        :announcement='announcement',
+        :currentUser='currentUser'
+      )
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
 </template>
 
 <script>
@@ -32,10 +28,13 @@ import Announcement from './announcement.vue'
 import Pager from './pager.vue'
 
 export default {
-  props: ['title', 'currentUserId'],
   components: {
-    'announcement': Announcement,
+    announcement: Announcement,
     pager: Pager
+  },
+  props: {
+    title: { type: String, required: true },
+    currentUserId: { type: String, required: true }
   },
   data() {
     return {
@@ -47,7 +46,9 @@ export default {
     }
   },
   computed: {
-    url() { return `/api/announcements?page=${this.currentPage}` },
+    url() {
+      return `/api/announcements?page=${this.currentPage}`
+    },
     pagerProps() {
       return {
         initialPageNumber: this.currentPage,
@@ -58,8 +59,8 @@ export default {
     }
   },
   created() {
-    window.onpopstate = function(){
-      location.replace(location.href);
+    window.onpopstate = function () {
+      location.replace(location.href)
     }
     this.getAnnouncementsPerPage()
     this.getCurrentUser()
@@ -78,27 +79,27 @@ export default {
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
-        redirect: 'manual',
+        redirect: 'manual'
       })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        this.totalPages = json.total_pages
-        this.announcements = []
-        json.announcements.forEach(announcement => {
-          this.announcements.push(announcement);
-        });
-        this.loaded = true
-      })
-      .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          this.totalPages = json.total_pages
+          this.announcements = []
+          json.announcements.forEach((announcement) => {
+            this.announcements.push(announcement)
+          })
+          this.loaded = true
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     },
     getPageValueFromParameter() {
-      let url = location.href
-      let results= url.match(/\?page=(\d+)/)
-      if (!results) return null;
+      const url = location.href
+      const results = url.match(/\?page=(\d+)/)
+      if (!results) return null
       return results[1]
     },
     paginateClickCallback(pageNumber) {
@@ -107,29 +108,29 @@ export default {
       history.pushState(
         null,
         null,
-        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`),
+        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
       )
     },
     getCurrentUser() {
       fetch(`/api/users/${this.currentUserId}.json`, {
-      method: "GET",
-      headers: {
-        "X-Requested-With": "XMLHttpRequest"
-      },
-      credentials: "same-origin",
-      redirect: "manual"
-    })
-      .then(response => {
-        return response.json();
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        credentials: 'same-origin',
+        redirect: 'manual'
       })
-      .then(json => {
-        for (var key in json) {
-          this.$set(this.currentUser, key, json[key]);
-        }
-      })
-      .catch(error => {
-        console.warn("Failed to parsing", error);
-      });
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          for (const key in json) {
+            this.$set(this.currentUser, key, json[key])
+          }
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     }
   }
 }

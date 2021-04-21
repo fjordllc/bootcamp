@@ -1,28 +1,28 @@
 <template lang="pug">
-  .reports(v-if="reports === null")
-    .empty
-      .fas.fa-spinner.fa-pulse
-      |  ロード中
-  .reports(v-else-if="reports.length > 0 || !isUncheckedReportsPage")
-    nav.pagination(v-if="totalPages > 1")
-      pager(v-bind="pagerProps")
-    .thread-list.a-card
-      .thread-list__items
-        report(
-          v-for="report in reports"
-          :key="report.id"
-          :report="report"
-          :current-user-id="currentUserId")
-      unconfirmed-link(
-        v-if="isUncheckedReportsPage"
-        label="未チェックの日報を一括で開く")
-    nav.pagination(v-if="totalPages > 1")
-      pager(v-bind="pagerProps")
-  .o-empty-message(v-else)
-    .o-empty-message__icon
-      i.far.fa-smile
-    p.o-empty-message__text
-      | 未チェックの日報はありません
+.reports(v-if='reports === null')
+  .empty
+    .fas.fa-spinner.fa-pulse
+    |
+    | ロード中
+.reports(v-else-if='reports.length > 0 || !isUncheckedReportsPage')
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
+  .thread-list.a-card
+    .thread-list__items
+      report(
+        v-for='report in reports',
+        :key='report.id',
+        :report='report',
+        :current-user-id='currentUserId'
+      )
+    unconfirmed-link(v-if='isUncheckedReportsPage', label='未チェックの日報を一括で開く')
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
+.o-empty-message(v-else)
+  .o-empty-message__icon
+    i.far.fa-smile
+  p.o-empty-message__text
+    | 未チェックの日報はありません
 </template>
 <script>
 import Report from './report.vue'
@@ -31,7 +31,7 @@ import Pager from './pager.vue'
 
 export default {
   components: {
-    'report': Report,
+    report: Report,
     'unconfirmed-link': UnconfirmedLink,
     pager: Pager
   },
@@ -40,65 +40,26 @@ export default {
       reports: null,
       currentPage: this.pageParam(),
       totalPages: null,
-      currentUserId: null,
+      currentUserId: null
     }
-  },
-  created() {
-    window.onpopstate = () => {
-      this.currentPage = this.pageParam()
-      this.getReports()
-    }
-    this.getReports()
-  },
-  methods: {
-    pageParam(){
-      const url = new URL(location.href)
-      const page = url.searchParams.get('page')
-      return parseInt(page || 1)
-    },
-    clickCallback(pageNum){
-      this.currentPage = pageNum
-      history.pushState(null, null, this.newURL)
-      this.getReports()
-    },
-    getReports(){
-      fetch(this.reportsAPI, {
-        method: 'GET',
-        headers: { 'X-Requested-With': 'XMLHttpRequest', },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      })
-        .then(response => {
-          return response.json()
-        })
-        .then(json => {
-          this.reports = []
-          json.reports.forEach(r => { this.reports.push(r) })
-          this.currentUserId = json.currentUserId
-          this.totalPages = parseInt(json.totalPages)
-        })
-        .catch(error => {
-          console.warn('Failed to parsing', error)
-        })
-    },
   },
   computed: {
-    isUncheckedReportsPage(){
+    isUncheckedReportsPage() {
       return location.pathname.includes('unchecked')
     },
-    newParams(){
+    newParams() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
       return params
     },
-    newURL(){
+    newURL() {
       return `${location.pathname}?${this.newParams}`
     },
-    reportsAPI(){
+    reportsAPI() {
       const params = this.newParams
-      if(this.isUncheckedReportsPage){
+      if (this.isUncheckedReportsPage) {
         return `/api/reports/unchecked.json?${params}`
-      }else{
+      } else {
         return `/api/reports.json?${params}`
       }
     },
@@ -109,6 +70,47 @@ export default {
         pageRange: 9,
         clickHandle: this.clickCallback
       }
+    }
+  },
+  created() {
+    window.onpopstate = () => {
+      this.currentPage = this.pageParam()
+      this.getReports()
+    }
+    this.getReports()
+  },
+  methods: {
+    pageParam() {
+      const url = new URL(location.href)
+      const page = url.searchParams.get('page')
+      return parseInt(page || 1)
+    },
+    clickCallback(pageNum) {
+      this.currentPage = pageNum
+      history.pushState(null, null, this.newURL)
+      this.getReports()
+    },
+    getReports() {
+      fetch(this.reportsAPI, {
+        method: 'GET',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        credentials: 'same-origin',
+        redirect: 'manual'
+      })
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          this.reports = []
+          json.reports.forEach((r) => {
+            this.reports.push(r)
+          })
+          this.currentUserId = json.currentUserId
+          this.totalPages = parseInt(json.totalPages)
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     }
   }
 }

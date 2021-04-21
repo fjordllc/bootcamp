@@ -15,17 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     credentials: 'same-origin'
   })
-    .then(response => {
+    .then((response) => {
       return response.json()
     })
-    .then(json => {
+    .then((json) => {
       render(json)
     })
-    .catch(error => {
+    .catch((error) => {
       console.warn('parsing failed', error)
     })
 
-  const render = grasses => {
+  const render = (grasses) => {
     const startX = 20
     const startY = 20
     const height = 10
@@ -49,7 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < grasses.length; i++) {
       const grass = grasses[i]
       ctx.fillStyle = colors[grass.velocity]
-      ctx.fillRect(startX + (width + spanX) * col, startY + (height + spanY) * row, width, height)
+      ctx.fillRect(
+        startX + (width + spanX) * col,
+        startY + (height + spanY) * row,
+        width,
+        height
+      )
 
       // render month
       if (row === 0) {
@@ -75,7 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.font = '10px Arial'
     for (let i = 0; i < colors.length; i++) {
       ctx.fillStyle = colors[i]
-      ctx.fillRect(sampleStartX + (width + sampleSpanX) * i, sampleStartY, width, height)
+      ctx.fillRect(
+        sampleStartX + (width + sampleSpanX) * i,
+        sampleStartY,
+        width,
+        height
+      )
     }
     ctx.strokeText('0 h', sampleStartX - 23, sampleStartY + 8.5)
     ctx.strokeText('6 h', sampleStartX + 71, sampleStartY + 8.5)
