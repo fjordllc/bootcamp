@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     resources :categories, only: %i(index destroy) do
       resource :position, only: %i(update), controller: "categories/position"
     end
-    resources :courses do
+    resources :courses, only: %i() do
       resources :practices, only: %i(index), controller: "/api/courses/practices"
     end
     resources :notifications, only: %i(index) do
