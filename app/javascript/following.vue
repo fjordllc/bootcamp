@@ -9,7 +9,10 @@ button.card-main-actions__action.a-button.is-sm.is-block(
 import 'whatwg-fetch'
 
 export default {
-  props: ['isFollowing', 'userId'],
+  props: {
+    isFollowing: { type: Boolean, required: true },
+    userId: { type: String, required: true }
+  },
   data() {
     return {
       following: this.isFollowing

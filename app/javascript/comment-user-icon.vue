@@ -8,7 +8,9 @@
 
 <script>
 export default {
-  props: ['comment'],
+  props: {
+    comment: { type: Object, required: true }
+  },
   data() {
     return {
       user_id: this.comment.user_id,

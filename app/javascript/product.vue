@@ -74,9 +74,13 @@
 <script>
 import ProductChecker from './product_checker'
 export default {
-  props: ['product', 'currentUserId', 'isMentor'],
   components: {
     'product-checker': ProductChecker
+  },
+  props: {
+    product: { type: Object, required: true },
+    isMentor: { type: Boolean, required: true },
+    currentUserId: { type: String, required: true }
   },
   computed: {
     roleClass() {

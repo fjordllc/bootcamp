@@ -9,7 +9,9 @@
 </template>
 <script>
 export default {
-  props: ['label'],
+  props: {
+    label: { type: String, required: true }
+  },
   methods: {
     openUnconfirmedItems() {
       const links = document.querySelectorAll(

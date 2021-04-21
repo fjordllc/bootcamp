@@ -37,7 +37,11 @@
 </template>
 <script>
 export default {
-  props: ['title', 'announcement', 'currentUser'],
+  props: {
+    title: { type: String, required: true },
+    announcement: { type: Object, required: true },
+    currentUser: { type: Object, required: true }
+  },
   computed: {
     roleClass() {
       return `is-${this.announcement.user.role}`

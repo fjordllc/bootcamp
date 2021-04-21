@@ -28,10 +28,13 @@ import Announcement from './announcement.vue'
 import Pager from './pager.vue'
 
 export default {
-  props: ['title', 'currentUserId'],
   components: {
     announcement: Announcement,
     pager: Pager
+  },
+  props: {
+    title: { type: String, required: true },
+    currentUserId: { type: String, required: true }
   },
   data() {
     return {

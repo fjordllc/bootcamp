@@ -13,16 +13,9 @@
 </template>
 <script>
 export default {
-  props: ['parentReservation', 'currentUserId'],
-  methods: {
-    deleteReservation: function () {
-      if (confirm('予約を削除しますか？')) {
-        this.$emit('delete', this.id)
-      }
-    },
-    linkToUser: function () {
-      location.href = `/users/${this.parentReservation.user_id}`
-    }
+  props: {
+    parentReservation: { type: Object, required: true },
+    currentUserId: { type: String, required: true }
   },
   computed: {
     id: function () {
@@ -41,6 +34,16 @@ export default {
       return this.parentReservation.admin
         ? 'X'
         : this.parentReservation.login_name
+    }
+  },
+  methods: {
+    deleteReservation: function () {
+      if (confirm('予約を削除しますか？')) {
+        this.$emit('delete', this.id)
+      }
+    },
+    linkToUser: function () {
+      location.href = `/users/${this.parentReservation.user_id}`
     }
   }
 }
