@@ -2,7 +2,6 @@
 .page-body__inner(v-if='categories === null')
   .empty
     .fas.fa-spinner.fa-pulse
-    |
     | ロード中
 .page-body__inner(v-else)
   .categories-items
@@ -69,7 +68,7 @@ export default {
       return `/api/courses/${this.courseId}/practices`
     },
     containsPractices() {
-      if (!this.categories) return []
+      if (!this.categories) return null
       return this.categories.filter((value) => value.practices.length)
     }
   },
