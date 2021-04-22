@@ -1,13 +1,10 @@
 <template lang="pug">
-a(
-  :href="user.url"
-  :class="`${threadClass}author-link`"
-)
+a(:href='user.url', :class='`${threadClass}author-link`')
   img(
-    :src="user.avatar_url"
-    :alt="user.icon_title"
-    :title="user.icon_title"
-    :class="[`${threadClass}author-icon`, 'a-user-icon', roleClass, daimyoClass]"
+    :src='user.avatar_url',
+    :alt='user.icon_title',
+    :title='user.icon_title',
+    :class='[`${threadClass}author-icon`, "a-user-icon", roleClass, daimyoClass]'
   )
 </template>
 
@@ -18,15 +15,15 @@ export default {
     threadClassSuffix: { type: String, required: true }
   },
   computed: {
-    threadClass: function() {
+    threadClass: function () {
       return `thread${this.threadClassSuffix}__`
     },
-    roleClass: function() {
-      return `is-${this.user.role}`;
+    roleClass: function () {
+      return `is-${this.user.role}`
     },
-    daimyoClass: function() {
+    daimyoClass: function () {
       return { 'is-daimyo': this.user.daimyo }
-    },
-  },
+    }
+  }
 }
 </script>

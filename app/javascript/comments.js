@@ -11,14 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentUser = window.currentUser
     new Vue({
       store,
-      render: h => h(Comments, {
-        props: {
-          commentableId: commentableId,
-          commentableType: commentableType,
-          currentUserId: currentUserId,
-          currentUser: currentUser
-        }
-      })
+      render: (h) =>
+        h(Comments, {
+          props: {
+            commentableId: commentableId,
+            commentableType: commentableType,
+            currentUserId: currentUserId,
+            currentUser: currentUser
+          }
+        })
     }).$mount('#js-comments')
   }
 })

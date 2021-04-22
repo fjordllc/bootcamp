@@ -9,13 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageId = pageTagsElm.getAttribute('data-page-id')
 
     new Vue({
-      render: h => h(PageTags, {
-        props: {
-          tagsInitialValue: tagsInitialValue,
-          tagsParamName: tagsParamName,
-          pageId: pageId
-        }
-      })
+      render: (h) =>
+        h(PageTags, {
+          props: {
+            tagsInitialValue: tagsInitialValue,
+            tagsParamName: tagsParamName,
+            pageId: pageId
+          }
+        })
     }).$mount('#js-page-tags')
   }
 })

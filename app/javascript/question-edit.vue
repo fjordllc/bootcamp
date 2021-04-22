@@ -1,66 +1,66 @@
 <template lang="pug">
 .thread
-  userIcon(:user="question.user", threadClassSuffix="")
+  userIcon(:user='question.user', threadClassSuffix='')
   .thread__inner.a-card
     header.thread-header
       a.a-count-badge(href='#comments')
         .a-count-badge__label
           | 回答
-        .a-count-badge__value(:class="answerCount === 0 ? 'is-zero' : ''")
+        .a-count-badge__value(:class='answerCount === 0 ? "is-zero" : ""')
           | {{ answerCount }}
       .thread-header__row
-        a.thread-header__author(:href="`/users/${question.user.id}`")
+        a.thread-header__author(:href='`/users/${question.user.id}`')
           | {{ question.user.login_name }}
         .thread-header__date
           time.thread_header_date-value(
-            :datetime="updatedAtISO8601",
-            pubdate="pubdate"
+            :datetime='updatedAtISO8601',
+            pubdate='pubdate'
           )
             | {{ updatedAt }}
       .thread-header__row
         .thread-practice
-          a.thread-practice__link(:href="`/practices/${practiceId}`")
+          a.thread-practice__link(:href='`/practices/${practiceId}`')
             | {{ practiceTitle }}
       h1.thread-header__title
         span.thread-header__title-icon.is-solved.is-success(
-          v-if="question.correct_answer !== null"
+          v-if='question.correct_answer !== null'
         )
           | 解決済
         span.thread-header__title-icon.is-solved.is-danger(v-else)
           | 未解決
         | {{ title }}
       .thread-header__lower-side
-        watch(:watchableId="question.id", watchableType="Question")
+        watch(:watchableId='question.id', watchableType='Question')
         .thread-header__raw
           a.a-button.is-sm.is-secondary(
-            :href="`/questions/${question.id}.md`",
-            target="_blank"
+            :href='`/questions/${question.id}.md`',
+            target='_blank'
           )
             | Raw
     .thread__tags
       tags(
-        :tagsInitialValue="question.tag_list",
-        :questionId="question.id",
-        tagsParamName="question[tag_list]",
-        :editAble="editAble"
+        :tagsInitialValue='question.tag_list',
+        :questionId='question.id',
+        tagsParamName='question[tag_list]',
+        :editAble='editAble'
       )
 
     .thread__body
-      .thread-question__body(v-if="!editing")
+      .thread-question__body(v-if='!editing')
         .thread__description.js-target-blank.is-long-text(
-          v-html="markdownDescription"
+          v-html='markdownDescription'
         )
         reaction(
-          :reactionable="question",
-          :currentUser="currentUser",
-          :reactionableId="`Question_${question.id}`"
+          :reactionable='question',
+          :currentUser='currentUser',
+          :reactionableId='`Question_${question.id}`'
         )
-        footer.card-footer(v-if="editAble")
+        footer.card-footer(v-if='editAble')
           .card-main-actions
             ul.card-main-actions__items
               li.card-main-actions__item
                 button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
-                  @click="startEditing"
+                  @click='startEditing'
                 )
                   i#new.fas.fa-pen
                   | 内容修正
@@ -71,62 +71,65 @@
                 // - Rails特定の属性(data-confirm, data-method)を付与して、
                 // - 確認ダイアログとDELETE methodのリンクを実装する
                 a.js-delete.card-main-actions__delete(
-                  :href="`/questions/${question.id}`",
-                  data-confirm="本当によろしいですか？",
-                  data-method="delete"
+                  :href='`/questions/${question.id}`',
+                  data-confirm='本当によろしいですか？',
+                  data-method='delete'
                 )
                   | 削除する
-            .card-footer__notice(v-show="displayedUpdateMessage")
+            .card-footer__notice(v-show='displayedUpdateMessage')
               p
                 | 質問を更新しました
-      .thread-form(v-show="editing")
-        form.form(name="question")
+      .thread-form(v-show='editing')
+        form.form(name='question')
           .form__items
             .form-item
               label.a-label
                 | プラクティス
-              .select-practices(v-if="practices === null")
+              .select-practices(v-if='practices === null')
                 .empty
                   .fas.fa-spinner.fa-pulse
                   | ロード中
-              .select-practices(v-else)
+              .select-practices(v-show='practices !== null')
                 select.js-select2(
-                  v-model="edited.practiceId",
+                  v-model='edited.practiceId',
                   v-select2,
-                  name="question[practice]"
+                  name='question[practice]'
                 )
                   option(
-                    v-for="practice in practices",
-                    :key="practice.id",
-                    :value="practice.id"
+                    v-for='practice in practices',
+                    :key='practice.id',
+                    :value='practice.id'
                   ) {{ practice.categoryAndPracticeName }}
             .form-item
               .a-label
                 | タイトル
-              input.a-text-input.js-warning-form(v-model="edited.title", name="question[title]")
+              input.a-text-input.js-warning-form(
+                v-model='edited.title',
+                name='question[title]'
+              )
             .form-tabs-item
               .form-tabs.js-tabs
                 .form-tabs__tab.js-tabs__tab(
-                  :class="{ 'is-active': isActive('question') }",
-                  @click="changeActiveTab('question')"
+                  :class='{ "is-active": isActive("question") }',
+                  @click='changeActiveTab("question")'
                 )
                   | 質問文
                 .form-tabs__tab.js-tabs__tab(
-                  :class="{ 'is-active': isActive('preview') }",
-                  @click="changeActiveTab('preview')"
+                  :class='{ "is-active": isActive("preview") }',
+                  @click='changeActiveTab("preview")'
                 )
                   | プレビュー
               .form-tabs-item__markdown-parent.js-markdown-parent
                 .form-tabs-item__markdown.js-tabs__content(
-                  :class="{ 'is-active': isActive('question') }"
+                  :class='{ "is-active": isActive("question") }'
                 )
                   textarea#js-question-content.a-text-input.js-warning-form.form-tabs-item__textarea(
-                    v-model="edited.description",
-                    data-preview="#js-question-preview",
-                    name="question[description]"
+                    v-model='edited.description',
+                    data-preview='#js-question-preview',
+                    name='question[description]'
                   )
                 .form-tabs-item__markdown.js-tabs__content(
-                  :class="{ 'is-active': isActive('preview') }"
+                  :class='{ "is-active": isActive("preview") }'
                 )
                   #js-question-preview.js-preview.is-long-text.form-tabs-item__preview
 
@@ -134,15 +137,15 @@
             ul.card-main-actions__items
               li.card-main-actions__item
                 button.a-button.is-md.is-warning.is-block(
-                  @click="updateQuestion",
-                  :disabled="!validation",
-                  type="button"
+                  @click='updateQuestion',
+                  :disabled='!validation',
+                  type='button'
                 )
                   | 更新する
               li.card-main-actions__item
                 button.a-button.is-md.is-secondary.is-block(
-                  @click="cancel",
-                  type="button"
+                  @click='cancel',
+                  type='button'
                 )
                   | キャンセル
 </template>
@@ -161,21 +164,21 @@ export default {
     watch: Watch,
     tags: Tags,
     reaction: Reaction,
-    userIcon: UserIcon,
+    userIcon: UserIcon
   },
   directives: {
     select2: {
       inserted(el) {
         $(el).on('select2:select', () => {
-          el.dispatchEvent(new Event('change'));
-        });
+          el.dispatchEvent(new Event('change'))
+        })
       }
     }
   },
   props: {
     question: { type: Object, required: true },
     answerCount: { type: Number, required: true },
-    currentUser: { type: Object, required: true },
+    currentUser: { type: Object, required: true }
   },
   data() {
     return {
@@ -185,12 +188,41 @@ export default {
       edited: {
         title: this.question.title,
         description: this.question.description,
-        practiceId: this.question.practice.id,
+        practiceId: this.question.practice.id
       },
       editing: false,
       displayedUpdateMessage: false,
       tab: 'question',
-      practices: null,
+      practices: null
+    }
+  },
+  computed: {
+    updatedAtISO8601() {
+      return moment(this.question.updated_at).format()
+    },
+    updatedAt() {
+      return moment(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+    },
+    practiceTitle() {
+      const { practices, question, practiceId } = this
+
+      return practices === null
+        ? question.practice.title
+        : practices.find((practice) => practice.id === practiceId).title
+    },
+    editAble() {
+      return (
+        this.question.user.id === this.currentUser.id ||
+        this.currentUser.role === 'admin'
+      )
+    },
+    markdownDescription() {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.description)
+    },
+    validation() {
+      const { title, description } = this.edited
+      return title.length > 0 && description.length > 0
     }
   },
   created() {
@@ -209,9 +241,9 @@ export default {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token(),
+          'X-CSRF-Token': this.token()
         },
-        credentials: 'same-origin',
+        credentials: 'same-origin'
       })
         .then((response) => {
           return response.json()
@@ -264,21 +296,21 @@ export default {
           title,
           description,
           practice_id: practiceId
-        },
+        }
       }
       fetch(`/api/questions/${this.question.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token(),
+          'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
         redirect: 'manual',
-        body: JSON.stringify(params),
+        body: JSON.stringify(params)
       })
         .then(() => {
-          Object.entries(this.edited).some(([key, val]) => {
+          Object.entries(this.edited).forEach(([key, val]) => {
             this[key] = val
           })
           this.finishEditing(true)
@@ -292,38 +324,7 @@ export default {
         this.edited[key] = this[key]
       })
       this.finishEditing(false)
-    },
-  },
-  computed: {
-    updatedAtISO8601() {
-      return moment(this.question.updated_at).format();
-    },
-    updatedAt() {
-      return moment(this.question.updated_at).format(
-        "YYYY年MM月DD日(dd) HH:mm"
-      )
-    },
-    practiceTitle() {
-      const { practices, question, practiceId } = this;
-
-      return practices === null
-             ? question.practice.title
-             : practices.find((practice) => practice.id === practiceId).title
-    },
-    editAble() {
-      return (
-        this.question.user.id === this.currentUser.id ||
-        this.currentUser.role === 'admin'
-      )
-    },
-    markdownDescription() {
-      const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.description)
-    },
-    validation() {
-      const { title, description } = this.edited
-      return title.length > 0 && description.length > 0
-    },
-  },
+    }
+  }
 }
 </script>
