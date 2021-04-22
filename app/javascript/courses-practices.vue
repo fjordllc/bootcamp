@@ -1,66 +1,79 @@
 <template lang="pug">
-  .page-body__inner(v-if='categories === null')
-    .empty
-      .fas.fa-spinner.fa-pulse
-      |  ロード中
-  .page-body__inner(v-else)
-    .categories-items
-      .categories-items__inner
-        .categories-item.practices(v-for="category in containsPractices" :key="category.id")
-          a.categories-item__anchor(:id="`category-${category.id}`")
-          header.categories-item__header
-            h2.categories-item__title
-              | {{category.name}}
-              span.stamp.is-circle.is-solved(v-if="category.completed_all_practices === true")
-                | 完了
-          .categories-item__description
-            .categories-item__edit(v-if="currentUser.role === 'admin'")
-              a.categories-item__edit-link(:href="`${category.edit_admin_category_path}`")
-                i.fas.fa-pen
-            .js-markdown-view.js-target-blank.is-long-text
-              p {{category.description}}
-          .categories-item__body
-            .category-practices.js-category-practices
-              courses-practice(
-                v-for="practices in category.practices"
-                :key = "practices.id"
-                :practices = "practices"
-                :category = "category"
-                :learnings = "learnings"
-                :currentUser = "currentUser"
-              )
-      nav.page-nav
-        ul.page-nav__items
-          li.page-nav__item(v-for="category in containsPractices" :key="category.id")
-            a.page-nav__item-link(:href="`practices#category-${category.id}`")
-              | {{category.name}}
-
+.page-body__inner(v-if='categories === null')
+  .empty
+    .fas.fa-spinner.fa-pulse
+    |
+    | ロード中
+.page-body__inner(v-else)
+  .categories-items
+    .categories-items__inner
+      .categories-item.practices(
+        v-for='category in containsPractices',
+        :key='category.id'
+      )
+        a.categories-item__anchor(:id='`category-${category.id}`')
+        header.categories-item__header
+          h2.categories-item__title
+            | {{ category.name }}
+            span.stamp.is-circle.is-solved(
+              v-if='category.completed_all_practices === true'
+            )
+              | 完了
+        .categories-item__description
+          .categories-item__edit(v-if='currentUser.role === "admin"')
+            a.categories-item__edit-link(
+              :href='`${category.edit_admin_category_path}`'
+            )
+              i.fas.fa-pen
+          .js-markdown-view.js-target-blank.is-long-text
+            p {{ category.description }}
+        .categories-item__body
+          .category-practices.js-category-practices
+            courses-practice(
+              v-for='practices in category.practices',
+              :key='practices.id',
+              :practices='practices',
+              :category='category',
+              :learnings='learnings',
+              :currentUser='currentUser'
+            )
+    nav.page-nav
+      ul.page-nav__items
+        li.page-nav__item(
+          v-for='category in containsPractices',
+          :key='category.id'
+        )
+          a.page-nav__item-link(:href='`practices#category-${category.id}`')
+            | {{ category.name }}
 </template>
 
 <script>
 import CoursesPractice from './courses-practice.vue'
 
 export default {
-  props: ['courseId','currentUser'],
   components: {
     'courses-practice': CoursesPractice
+  },
+  props: {
+    courseId: { type: String, required: true },
+    currentUser: { type: Object, required: true }
   },
   data: () => {
     return {
       categories: null,
-      learnings: null,
+      learnings: null
     }
   },
   computed: {
-    url () {
+    url() {
       return `/api/courses/${this.courseId}/practices`
     },
-    containsPractices () {
-      if(!this.categories) return [];
-      return this.categories.filter(value => value.practices.length)
-    },
+    containsPractices() {
+      if (!this.categories) return []
+      return this.categories.filter((value) => value.practices.length)
+    }
   },
-  created () {
+  created() {
     this.getCoursesPractices()
   },
   methods: {
@@ -68,30 +81,31 @@ export default {
       fetch(this.url, {
         method: 'GET',
         headers: {
-          'X-Requested-With': 'XMLHttpRequest',
+          'X-Requested-With': 'XMLHttpRequest'
         },
         credentials: 'same-origin',
-        redirect: 'manual',
+        redirect: 'manual'
       })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        this.categories = []
-        json.categories.forEach(r => { this.categories.push(r) })
-        this.learnings = json.learnings
-      })
-      .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
-    },
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          this.categories = []
+          json.categories.forEach((r) => {
+            this.categories.push(r)
+          })
+          this.learnings = json.learnings
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
+    }
   }
 }
-
 </script>
 
 <style scoped>
 .js-markdown-view.js-target-blank.is-long-text {
-  display:block;
+  display: block;
 }
 </style>
