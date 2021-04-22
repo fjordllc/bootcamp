@@ -1,6 +1,6 @@
 <template lang="pug">
 .category-practices-item.js-practice
-  a.category-practices-item__anchor(:id='`practice_${category.id}`')
+  a.category-practices-item__anchor(:id='`practice_${practices.practice.id}`')
   header.category-practices-item__header
     .category-practices-item__title
       a.category-practices-item__title-link(:href='practices.url')
