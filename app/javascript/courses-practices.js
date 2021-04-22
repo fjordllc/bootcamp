@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const courseId = practices.getAttribute('course-id')
     const currentUser = window.currentUser
     new Vue({
-      render: h =>
+      render: (h) =>
         h(CorusesPractices, {
-          props: {courseId: courseId, currentUser: currentUser }
+          props: { courseId: courseId, currentUser: currentUser }
         })
     }).$mount(selector)
   }
