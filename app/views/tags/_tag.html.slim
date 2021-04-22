@@ -1,0 +1,11 @@
+.generations-item
+  header.generations-item__header
+    h2.generations-item__title
+      = link_to "/users/tags/#{tag.name}", class: 'generations-item__title-link'
+        span.generations-item__title-label
+          | #{tag.name}
+        date.generations-item__date
+          | #{tag.taggings_count}
+  .m-user-icons
+    .m-user-icons__items
+      = render partial: 'tags/user', collection: users_tagged_with(tag.name), as: :user
