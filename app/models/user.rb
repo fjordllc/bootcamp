@@ -59,6 +59,7 @@ class User < ApplicationRecord
   has_many :participations, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :answers,      dependent: :destroy
+  has_many :watches, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -354,7 +355,11 @@ class User < ApplicationRecord
   end
 
   def elapsed_days
-    (Date.current - created_at.to_date).to_i
+    if graduated_on.present?
+      (graduated_on.to_date - created_at.to_date).to_i
+    else
+      (Date.current - created_at.to_date).to_i
+    end
   end
 
   def customer

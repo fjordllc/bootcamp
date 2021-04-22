@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (learning) {
     const practiceId = learning.getAttribute('data-practice-id')
     new Vue({
-      render: h => h(Learning, { props: { practiceId: practiceId } })
+      render: (h) => h(Learning, { props: { practiceId: practiceId } })
     }).$mount('#js-learning')
   }
 })

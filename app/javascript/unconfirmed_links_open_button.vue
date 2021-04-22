@@ -1,18 +1,23 @@
 <template lang="pug">
-  .unconfirmed_links.card-footer
-    .card-main-actions
-      ul.card-main-actions__items
-        li.card-main-actions__item
-          button.thread-unconfirmed-links-form__action(class="a-button is-block is-md is-secondary" @click="openUnconfirmedItems()") {{ label }}
+.unconfirmed_links.card-footer
+  .card-main-actions
+    ul.card-main-actions__items
+      li.card-main-actions__item
+        button.thread-unconfirmed-links-form__action.a-button.is-block.is-md.is-secondary(
+          @click='openUnconfirmedItems()'
+        ) {{ label }}
 </template>
 <script>
-
 export default {
-  props: ['label'],
+  props: {
+    label: { type: String, required: true }
+  },
   methods: {
-    openUnconfirmedItems(){
-      const links = document.querySelectorAll('.thread-list-item .js-unconfirmed-link')
-      links.forEach(link => {
+    openUnconfirmedItems() {
+      const links = document.querySelectorAll(
+        '.thread-list-item .js-unconfirmed-link'
+      )
+      links.forEach((link) => {
         window.open(link.href, '_target', 'noopener')
       })
     }

@@ -21,7 +21,7 @@ ja:
       user: ユーザー
       course: コース
       practice: プラクティス
-      company: 会社
+      company: 企業
       comment: コメント
       report: 日報
       learning_time: 学習時間
@@ -64,7 +64,7 @@ ja:
         experience: プログラミング経験
         prefecture_code: お住まいの都道府県
         organization: 現在の所属組織
-        company: 会社
+        company: 企業
         created_at: 開始日
         updated_at: 最終ログイン日時
         nda: 秘密保持契約
@@ -74,7 +74,7 @@ ja:
         job_seeking: 就職活動中
         retired_on: リタイア日
         free: 無料ユーザー
-        avatar: プロフィール画像
+        avatar: ユーザーアイコン
         retire_reason: 退会理由
         satisfaction: 満足度
         opinion: ご意見
