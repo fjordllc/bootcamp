@@ -11,7 +11,7 @@ class LearningTime < ApplicationRecord
   end
 
   def learning_times_finished_at_be_greater_than_started_at
-    return unless !report.wip? && diff <= 0
+    return unless !report.wip? && diff < 0
 
     errors.add(:finished_at, ': 終了時間は開始時間より後にしてください。')
   end

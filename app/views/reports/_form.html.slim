@@ -23,7 +23,6 @@
                 = image_tag b.text, id: b.value, alt: b.value, class: 'form-label__emotion-image'
                 span.form-radio-button__label-name
                   = b.value
-
       .form-item#tasks
         label.a-form-label
           | 学習時間
@@ -33,6 +32,8 @@
           = link_to_add_association f, :learning_times, class: 'a-button is-md is-primary' do
             i.fas.fa-plus
             | 学習時間追加
+      input.js-no-practice-time(type = 'checkbox' checked = 'checked')
+        | 勉強時間なかったけどどうしても日報が書きたい！
 
   .form__items
     .form-item
