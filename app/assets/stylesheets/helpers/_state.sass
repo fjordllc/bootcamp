@@ -11,6 +11,14 @@ html
       +media-breakpoint-up(lg)
         display: none
 
+    .is-inactive
+      display: none
+
+    .js-show-message
+      display: none
+      body.is-inactive &
+        display: block
+
     *[hidden],
     .is-hidden
       display: none !important
