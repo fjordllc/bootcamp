@@ -39,12 +39,16 @@ class UsersController < ApplicationController
     end
 
     users_tags = ActsAsTaggableOn::Tag
-                .joins(:taggings)
-                .select('tags.id, tags.name, COUNT(taggings.id) as taggings_count')
-                .group('tags.id, tags.name, tags.taggings_count')
-                .where(taggings: { taggable_type: 'User' })
+                 .joins(:taggings)
+                 .select('tags.id, tags.name, COUNT(taggings.id) as taggings_count')
+                 .group('tags.id, tags.name, tags.taggings_count')
+                 .where(taggings: { taggable_type: 'User' })
 
-    @max_counts = users_tags.order('taggings_count desc').limit(3).map(&:taggings_count).uniq
+    @max_counts = users_tags
+                  .order('taggings_count desc')
+                  .limit(3)
+                  .map(&:taggings_count)
+                  .uniq
     @random_tags = users_tags.find(users_tags.pluck(:id).sample(20))
   end
   # rubocop:enable Metrics/MethodLength
