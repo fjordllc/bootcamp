@@ -6,6 +6,7 @@ class Searcher
     ['お知らせ', :announcements],
     ['プラクティス', :practices],
     ['日報', :reports],
+    ['提出物', :products],
     ['Q&A', :questions],
     ['Docs', :pages],
     ['イベント', :events],
