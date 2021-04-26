@@ -194,4 +194,12 @@ class UsersTest < ApplicationSystemTestCase
     assert find_link('就職活動中')
     assert find_link('全員')
   end
+
+  test 'push question tab for showing all the recoreded questions' do
+    login_user 'hatsuno', 'testtest'
+    visit "/users/#{users(:hatsuno).id}"
+    click_link '質問'
+    assert_text '質問のタブの作り方'
+    assert_text '質問のタブに関して。。。追加質問'
+  end
 end
