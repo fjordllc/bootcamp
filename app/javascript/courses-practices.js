@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import CorusesPractices from './courses-practices.vue'
+import CoursesPractices from './courses-practices.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-courses-practices'
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentUser = window.currentUser
     new Vue({
       render: (h) =>
-        h(CorusesPractices, {
+        h(CoursesPractices, {
           props: { courseId: courseId, currentUser: currentUser }
         })
     }).$mount(selector)
