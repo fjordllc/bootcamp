@@ -1,9 +1,40 @@
 .thread-list-item
-  padding: .75rem 1rem
   &:not(:last-child)
     border-bottom: solid 1px $background
+  +media-breakpoint-up(md)
+    padding: .75rem 1rem
   +media-breakpoint-down(sm)
     padding: .75rem
+
+.thread-list-item__strip-label
+  +media-breakpoint-up(md)
+    margin: -.75rem -1rem .75rem
+  +media-breakpoint-down(sm)
+    margin: -.75rem -.75rem .75rem
+
+.thread-list-item__elapsed-days
+  letter-spacing: .125em
+  text-indent: .125em
+  +media-breakpoint-up(md)
+    +text-block(1rem 1.4, 700 center)
+    padding: .5rem 1rem
+    border: dashed 3px
+  +media-breakpoint-down(sm)
+    +text-block(.875rem 1.4, 700 center)
+    padding: .5rem .75rem
+    border: dashed 2px
+  &.is-5-days
+    background-color: $warning
+    border-color: #d09a0e
+  &.is-6-days
+    background-color: #ff7500
+    color: $reversal-text
+    border-color: #d06305
+  &.is-7-days
+    background-color: $danger
+    color: $reversal-text
+    border-color: #b50f38
+
 
 .thread-list-item__inner
   +position(relative)

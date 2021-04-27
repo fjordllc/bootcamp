@@ -1,11 +1,11 @@
 <template lang="pug">
   .thread-list-item(:class="product.wip ? 'is-wip' : ''")
-    .foo(v-if="notResponded")
-      p(v-if="isLatestProductSubmittedJust5days")
+    .thread-list-item__strip-label(v-if="notResponded")
+      .thread-list-item__elapsed-days.is-5-days(v-if="isLatestProductSubmittedJust5days")
         | 5日経過
-      p(v-else-if="isLatestProductSubmittedJust6days")
+      .thread-list-item__elapsed-days.is-6-days(v-else-if="isLatestProductSubmittedJust6days")
         | 6日経過
-      p(v-else-if="isLatestProductSubmittedOver7days")
+      .thread-list-item__elapsed-days.is-7-days(v-else-if="isLatestProductSubmittedOver7days")
         | 7日以上経過
       .thread-list-item__inner
         .thread-list-item__rows
