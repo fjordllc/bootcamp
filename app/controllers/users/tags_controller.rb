@@ -4,12 +4,8 @@ class Users::TagsController < ApplicationController
   helper_method :users_tagged_with
 
   def index
-    @tags = ActsAsTaggableOn::Tag
-            .joins(:taggings)
-            .select('tags.id, tags.name, COUNT(taggings.id) as taggings_count')
-            .group('tags.id, tags.name, tags.taggings_count')
-            .where(taggings: { taggable_type: 'User' })
-            .order('taggings_count desc')
+    @tags = User.tags.order('taggings_count desc')
+    @max_counts = @tags.limit(3).map(&:taggings_count).uniq
   end
 
   def update
