@@ -18,6 +18,7 @@ class QuestionsController < ApplicationController
       else
         Question.not_solved
       end.order(updated_at: :desc, id: :desc)
+    @tags = questions.all_tags
     @questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
     @questions = @questions.preload(%i[practice answers]).with_avatar.page(params[:page])
     @questions = @questions.tagged_with(params[:tag]) if params[:tag]
