@@ -1,0 +1,17 @@
+section.welcome-section.is-gw
+  .container
+    h2.welcome-section__title
+      | ゴールデンウィーク<br>キャンペーン
+    h3.welcome-section__sub-title
+      | お試し期間が倍以上に延長！！
+    .welcome-section__description
+      p
+        | ゴールデンウィークキャンペーンとして 4月29日〜5月9日 までの間に
+        | 参加登録された方は通常 <em class='em'>3日間</em> のお試し期間が <em class='em is-danger'>7日間</em> となります。
+      p
+        | 7日以内に退会すれば受講料はかかりません。この機会にぜひフィヨルドブートキャンプをガッツリお試しください！！
+    .welcome-actions__items
+      .welcome-actions__item
+        = link_to 'お問い合わせ・質問', new_inquiry_path, class: 'a-welcome-button'
+      .welcome-actions__item
+        = link_to '参加登録', new_user_path, class: 'a-welcome-button is-signup'
