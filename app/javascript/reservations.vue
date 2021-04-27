@@ -54,9 +54,9 @@
 <script>
 import Reservation from './reservation.vue'
 import Memo from './memo.vue'
-import moment from 'moment'
-
-moment.locale('ja')
+import dayjs from 'dayjs'
+import ja from 'dayjs/locale/ja'
+dayjs.locale(ja)
 
 export default {
   components: {
@@ -128,10 +128,10 @@ export default {
       let currentDate = startDate
       while (currentDate <= stopDate) {
         const oneDay = {}
-        oneDay.ymd = moment(new Date(currentDate)).format('YYYY-MM-DD')
-        oneDay.d_jp = moment(new Date(currentDate)).format('D日(ddd)')
+        oneDay.ymd = dayjs(new Date(currentDate)).format('YYYY-MM-DD')
+        oneDay.d_jp = dayjs(new Date(currentDate)).format('D日(ddd)')
         dateArray.push(oneDay)
-        currentDate = moment(currentDate).add(1, 'd')
+        currentDate = dayjs(currentDate).add(1, 'd')
       }
       return dateArray
     },
