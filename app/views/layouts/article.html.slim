@@ -24,5 +24,21 @@ html.is-application lang='ja'
           .flash__container
             p.flash__message
               = notice.html_safe
+      .article__header
+        = link_to articles_path do
+          = image_tag 'logo-lg.svg', class: 'article__logo'
       = yield
+      .article__footer
+        .a-card
+          .bootcamp-ad
+            h3 = link_to 'フィヨルドブートキャンプ', root_path, target: 'blank'
+            h4 現場の即戦力になれるプログラミングスクール
+            p
+              | プログラマーとして就職を目指せるだけのスキルを身につけることを
+              | 目標としたオンラインプログラミングスクールです。
+              | 就職を目指せるスキルを弊社では
+              | 「現場の人間にとって、戦力になるプログラマー」としています。
+              | 具体的には、一人でWebサービスを作ることをゴールとした課題をやるのですが、
+              | それだけでなくチーム開発も経験できます。
+            p 詳細は#{link_to 'こちら', root_path}へ
 - # rubocop:enable Rails/OutputSafety
