@@ -203,12 +203,12 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '質問のタブに関して。。。追加質問'
   end
 
-  test 'show weclome message' do
+  test 'show welcome message' do
     login_user 'hatsuno', 'testtest'
     assert_text 'ようこそ'
   end
 
-  test 'not show weclome message' do
+  test 'not show welcome message' do
     login_user 'hatsuno', 'testtest'
     visit practice_path(practices(:practice1).id)
     click_button '着手'
