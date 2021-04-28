@@ -7,7 +7,7 @@
   .popular-tags__items
     ul.popular-tags__items
       - @random_tags.each do |tag|
-        li.popular-tags__item class="#{users_tags_gradation(tag.taggings_count, @max_counts[0])} #{users_tags_rank(tag.taggings_count, @max_counts)}"
+        li.popular-tags__item class="#{users_tags_gradation(tag.taggings_count, @top3_tags_counts[0])} #{users_tags_rank(tag.taggings_count, @top3_tags_counts)}"
           = link_to "/users/tags/#{tag.name}", class: 'popular-tags__item-link' do
             .popular-tags__item-link-inner
               .popular-tags__item-name

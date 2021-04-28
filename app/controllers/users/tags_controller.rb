@@ -5,7 +5,7 @@ class Users::TagsController < ApplicationController
 
   def index
     @tags = User.tags.order('taggings_count desc')
-    @max_counts = @tags.limit(3).map(&:taggings_count).uniq
+    @top3_tags_counts = @tags.limit(3).map(&:taggings_count).uniq
   end
 
   def update
