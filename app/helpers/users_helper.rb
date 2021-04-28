@@ -38,12 +38,12 @@ module UsersHelper
     "https://grass-graph.moshimo.works/images/#{user.github_account}.png?background=none"
   end
 
-  def users_tags_rank(count, max_counts)
-    if count == max_counts[0]
+  def users_tags_rank(count, top3_tags_counts)
+    if count == top3_tags_counts[0]
       'is-first'
-    elsif count == max_counts[1]
+    elsif count == top3_tags_counts[1]
       'is-second'
-    elsif count == max_counts[2]
+    elsif count == top3_tags_counts[2]
       'is-third'
     end
   end

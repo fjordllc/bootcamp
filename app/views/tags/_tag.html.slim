@@ -1,4 +1,4 @@
-.generations-item class="#{users_tags_gradation(tag.taggings_count, @max_counts[0])} #{users_tags_rank(tag.taggings_count, @max_counts)}"
+.generations-item class="#{users_tags_gradation(tag.taggings_count, @top3_tags_counts[0])} #{users_tags_rank(tag.taggings_count, @top3_tags_counts)}"
   header.generations-item__header
     h2.generations-item__title
       = link_to "/users/tags/#{tag.name}", class: 'generations-item__title-link'
