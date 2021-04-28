@@ -1,13 +1,15 @@
 - title 'ブログ記事一覧'
 
-h1 = title
-
 - @articles.each do |article|
-  h2.thread-list-item__title
-    = link_to article.title, article
-  - if admin_login?
-    ul
-      li
-        = link_to '内容修正', edit_article_path(article)
-      li
-        = link_to '削除', article_path(article), data: { confirm: '本当によろしいですか？' }, method: :delete
+  .article.is-long-text
+    .a-card
+      h2.article__title = link_to article.title, article
+      - if admin_login?
+        ul
+          li
+            = link_to '内容修正', edit_article_path(article)
+          li
+            = link_to '削除',
+              article_path(article),
+              data: { confirm: '本当によろしいですか？' },
+              method: :delete
