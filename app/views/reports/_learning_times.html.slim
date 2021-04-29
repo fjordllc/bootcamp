@@ -1,17 +1,13 @@
-.js-no-practice-time.form-item#tasks
-  - if @report.learning_times.present?
-    .learning-times
-      header.learning-times__header
-        h2.learning-times__title 学習時間:
-        span.learning-times__total-time = @report.total_learning_time
-      ul.learning-times__items
-        - @report.learning_times.each do |learning_time|
-          li.learning-times__item
-            | #{l learning_time.started_at, format: :time_only} 〜 #{l learning_time.finished_at, format: :time_only}
-  - else
-    .learning-times
-      header.learning-times__header
-        h2.learning-times__title 学習時間:
-        span.learning-times__total-time = @report.total_learning_time
-.js-show-message
-  | 勉強時間なかったけどどうしても日報が書きたい！
+- if @report.total_learning_time == '0時間'
+  .learning-times
+    header.learning-times__header
+      h2.learning-times__title 学習時間無し
+- else
+  .learning-times
+    header.learning-times__header
+      h2.learning-times__title 学習時間:
+      span.learning-times__total-time = @report.total_learning_time
+    ul.learning-times__items
+      - @report.learning_times.each do |learning_time|
+        li.learning-times__item
+          | #{l learning_time.started_at, format: :time_only} 〜 #{l learning_time.finished_at, format: :time_only}
