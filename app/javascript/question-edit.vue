@@ -185,15 +185,6 @@ export default {
       }
     }
   },
-  directives: {
-    select2: {
-      inserted(el) {
-        $(el).on('select2:select', () => {
-          el.dispatchEvent(new Event('change'));
-        });
-      }
-    }
-  },
   props: {
     question: { type: Object, required: true },
     answerCount: { type: Number, required: true },
@@ -308,7 +299,6 @@ export default {
         this.finishEditing(true)
         return
       }
-
       const { title, description, practiceId } = this.edited
       const params = {
         question: {
