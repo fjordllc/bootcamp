@@ -36,6 +36,14 @@
                   input.js-no-practice-time(type = 'checkbox')
                 span
                   | 学習時間は無し
+
+            label.a-form-help-link.is-muted-text(for='modal-progress')
+              span.a-form-help-link__label
+                | とは？
+              span.a-help
+                i.fas.fa-question
+
+
         #js-learning-times
           = f.fields_for :learning_times do |learning_time|
             = render 'learning_time_fields', f: learning_time
@@ -79,3 +87,11 @@
           = link_to 'キャンセル', reports_path, class: 'a-button is-md is-secondary'
         - when 'edit', 'update'
           = link_to 'キャンセル', report_path, class: 'a-button is-md is-secondary'
+
+= render '/shared/modal', id: 'modal-progress', title: '学習時間は無しとは？'
+  .modal__description.is-md
+    .a-short-text
+      p
+        | プラクティスは進めていないけど日報は書いておきたい、というときは、学習時間無しの日報が書けます。その場合は、「学習時間は無し」にチェックを入れてください。
+      p
+        | 日報を書くということも文章を書くこと、アウトプットに慣れるための大事な学習です。なので、今この日報を書いている時間も学習時間に含めてしまって問題ないですよ。
