@@ -30,7 +30,7 @@
           .checkboxes__items
             .checkboxes__item
               label
-                - if @report && @report.total_learning_time == '0時間'
+                - if params[:action] == 'edit' && @report.total_learning_time == '0時間'
                   input.js-no-practice-time(type = 'checkbox' checked = 'checked')
                 - else
                   input.js-no-practice-time(type = 'checkbox')
