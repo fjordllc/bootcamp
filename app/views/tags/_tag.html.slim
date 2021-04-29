@@ -8,4 +8,4 @@
           | #{tag.taggings_count}
   .m-user-icons
     .m-user-icons__items
-      = render partial: 'tags/user', collection: users_tagged_with(tag.name), as: :user
+      = render partial: 'tags/user', collection: User.desc_tagged_with(tag.name), as: :user
