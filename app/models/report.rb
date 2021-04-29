@@ -27,7 +27,7 @@ class Report < ApplicationRecord
   validates :description, presence: true
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
-  validates :learning_times, length: { minimum: 1, message: ': 学習時間を入力してください。' }
+  #validates :learning_times, length: { minimum: 1, message: ': 学習時間を入力してください。' }
   validates :emotion, presence: true
 
   after_save   ReportCallbacks.new

@@ -1,23 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const localStorage = window.localStorage
   const checkIfNoPracticeTime = document.querySelector('.js-no-practice-time')
-  const formItemClass = document.querySelector('.form-item#tasks')
-  if (!checkIfNoPracticeTime) return
+  const formItemClass = document.querySelector('#js-learning-times')
   if (checkIfNoPracticeTime) {
-    if (localStorage.getItem('inactive')) {
-      checkIfNoPracticeTime.checked = true
-      formItemClass.classList.add('is-inactive')
+    if (checkIfNoPracticeTime.checked) {
+      formItemClass.classList.add('is-hidden')
     } else {
-      checkIfNoPracticeTime.checked = false
-      formItemClass.classList.remove('is-inactive')
+      formItemClass.classList.remove('is-hidden')
     }
     checkIfNoPracticeTime.addEventListener('click', () => {
       if (checkIfNoPracticeTime.checked) {
-        localStorage.setItem('inactive', 'on')
-        formItemClass.classList.add('is-inactive')
+        formItemClass.classList.add('is-hidden')
       } else {
-        localStorage.removeItem('inactive')
-        formItemClass.classList.remove('is-inactive')
+        formItemClass.classList.remove('is-hidden')
       }
     })
   }

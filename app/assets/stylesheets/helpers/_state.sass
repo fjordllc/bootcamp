@@ -1,8 +1,10 @@
 html
-  body
-    .is-hidden
-      display: none
 
+  *[hidden],
+  .is-hidden
+    display: none !important
+
+  body
     .is-hidden-md-up
       +media-breakpoint-up(md)
         display: none
@@ -11,24 +13,9 @@ html
       +media-breakpoint-up(lg)
         display: none
 
-    .is-inactive
-      display: none
+    .is-hidden-sm-down
+      +media-breakpoint-down(sm)
+        display: none
 
-    .js-show-message
-      display: none
-      body.is-inactive &
-        display: block
-
-    *[hidden],
-    .is-hidden
-      display: none !important
     .is-mw-100
       max-width: 100%
-
-  .is-hidden-sm-down
-    +media-breakpoint-down(sm)
-      display: none
-
-  *[hidden],
-  .is-hidden
-    display: none !important
