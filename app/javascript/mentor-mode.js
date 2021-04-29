@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkbox = document.querySelector('.js-mentor-mode__trigger')
   const body = document.body
   if (!checkbox) return
+
   if (localStorage.getItem('mentor-mode')) {
     checkbox.checked = false
     body.classList.remove('is-mentor-mode')
