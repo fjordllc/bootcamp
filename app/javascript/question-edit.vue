@@ -226,7 +226,7 @@ export default {
     }
   },
   created() {
-    this.fetchPractices(this.question.user.id)
+    this.fetchPractices()
   },
   mounted() {
     TextareaInitializer.initialize(`#js-question-content`)
@@ -236,8 +236,8 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    fetchPractices(userId) {
-      fetch(`/api/practices.json?user_id=${userId}`, {
+    fetchPractices() {
+      fetch('/api/practices.json', {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
