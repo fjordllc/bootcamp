@@ -276,12 +276,6 @@ class UserTest < ActiveSupport::TestCase
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
   end
 
-  test "don't return retired user" do
-    yameo = users(:yameo)
-    sql = User.search_by_keywords({ word: yameo.name.to_s, commentable_type: nil }).to_sql
-    assert_match(/"retired_on" IS NULL/, sql)
-  end
-
   test "don't return retired user data" do
     yameo = users(:yameo)
     result = Searcher.search(yameo.name)
