@@ -17,6 +17,7 @@ class ReportsController < ApplicationController
   def index; end
 
   def show
+    @reports = @report.user.reports.limit(10).order(reported_on: :DESC)
     footprint!
     respond_to do |format|
       format.html
