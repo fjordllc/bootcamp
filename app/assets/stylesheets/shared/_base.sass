@@ -75,6 +75,8 @@ body
 .columns
   max-width: 75rem
   +margin(horizontal, auto)
+  .columns + &
+    margin-top: 1.5rem
 
 [class*=a-button]
   &[class*=-secondary]
