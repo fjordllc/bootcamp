@@ -85,9 +85,10 @@
 import Reaction from './reaction.vue'
 import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
-import moment from 'moment'
 import autosize from 'autosize'
-moment.locale('ja')
+import dayjs from 'dayjs'
+import ja from 'dayjs/locale/ja'
+dayjs.locale(ja)
 
 export default {
   components: {
@@ -108,14 +109,14 @@ export default {
   },
   computed: {
     commentableCreatedAt() {
-      return moment(this.comment.commentable.created_at).format()
+      return dayjs(this.comment.commentable.created_at).format()
     },
     markdownDescription() {
       const markdownInitializer = new MarkdownInitializer()
       return markdownInitializer.render(this.description)
     },
     updatedAt() {
-      return moment(this.comment.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+      return dayjs(this.comment.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     roleClass() {
       return `is-${this.comment.user.role}`
