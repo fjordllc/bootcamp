@@ -37,4 +37,25 @@ module UsersHelper
   def user_github_grass_url(user)
     "https://grass-graph.moshimo.works/images/#{user.github_account}.png?background=none"
   end
+
+  def users_tags_rank(count, max_counts)
+    if count == max_counts[0]
+      'is-first'
+    elsif count == max_counts[1]
+      'is-second'
+    elsif count == max_counts[2]
+      'is-third'
+    end
+  end
+
+  def users_tags_gradation(count, max_count)
+    gradation_size = 3
+    if count > (max_count / gradation_size * 2)
+      'is-up'
+    elsif count <= (max_count / gradation_size)
+      'is-low'
+    else
+      'is-mid'
+    end
+  end
 end

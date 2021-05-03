@@ -291,6 +291,14 @@ class User < ApplicationRecord
         send(target)
       end
     end
+
+    def tags
+      ActsAsTaggableOn::Tag
+        .joins(:taggings)
+        .select('tags.id, tags.name, COUNT(taggings.id) as taggings_count')
+        .group('tags.id, tags.name, tags.taggings_count')
+        .where(taggings: { taggable_type: 'User' })
+    end
   end
 
   def away?
