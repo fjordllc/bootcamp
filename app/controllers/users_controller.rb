@@ -6,47 +6,29 @@ class UsersController < ApplicationController
   before_action :set_user, only: %w[show]
   PAGER_NUMBER = 20
 
-  # rubocop:disable Metrics/MethodLength
   def index
-    target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
-    target_allowlist.push('job_seeking') if current_user.adviser?
-    target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
     @target = params[:target]
     @target = 'student_and_trainee' unless target_allowlist.include?(@target)
 
-    if @target == 'followings'
-      followings = Following.where(follower_id: current_user.id).select('followed_id')
-      @users = User
-               .page(params[:page]).per(PAGER_NUMBER)
-               .includes(:company, :avatar_attachment, :course, :taggings)
-               .where(id: followings)
-               .order(updated_at: :desc)
-    elsif params[:tag]
-      @users = User
-               .page(params[:page]).per(PAGER_NUMBER)
-               .with_attached_avatar
-               .preload(:course, :taggings)
-               .unretired
-               .order(updated_at: :desc)
-               .tagged_with(params[:tag])
-    else
-      @users = User
-               .page(params[:page]).per(PAGER_NUMBER)
-               .with_attached_avatar
-               .preload(:course, :taggings)
-               .order(updated_at: :desc)
-               .users_role(@target)
-    end
+    target_users =
+      if @target == 'followings'
+        followings = Following.where(follower_id: current_user.id).select('followed_id')
+        User.where(id: followings)
+      elsif params[:tag]
+        User.tagged_with(params[:tag])
+      else
+        User.users_role(@target)
+      end
 
-    @popular_tags = ActsAsTaggableOn::Tag
-                    .joins(:taggings)
-                    .select('tags.id, tags.name, COUNT(taggings.id) as taggings_count')
-                    .group('tags.id, tags.name, tags.taggings_count')
-                    .where(taggings: { taggable_type: 'User' })
-                    .order('taggings_count desc')
-                    .limit(20)
+    @users = target_users
+             .page(params[:page]).per(PAGER_NUMBER)
+             .preload(:company, :avatar_attachment, :course, :taggings)
+             .unretired
+             .order(updated_at: :desc)
+
+    @random_tags = User.tags.find(User.tags.pluck(:id).sample(20))
+    @max_counts = User.tags.order('taggings_count desc').limit(3).map(&:taggings_count).uniq
   end
-  # rubocop:enable Metrics/MethodLength
 
   def show
     @completed_learnings = @user.learnings.where(status: 3).order(updated_at: :desc)
@@ -77,6 +59,13 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def target_allowlist
+    target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
+    target_allowlist.push('job_seeking') if current_user.adviser?
+    target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
+    target_allowlist
+  end
 
   def create_free_user!
     if @user.save
