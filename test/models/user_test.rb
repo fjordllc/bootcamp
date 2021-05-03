@@ -297,7 +297,7 @@ class UserTest < ActiveSupport::TestCase
                      facebook_url: 'http://www.facebook.com/komagata1234',
                      blog_url: 'http://komagata1234.org',
                      github_account: 'komagata1234_github',
-                     discord_account: 'komagata1234_discord',
+                     discord_account: 'komagata#1234',
                      description: '平日１０〜１９時勤務です。1234')
     assert_includes(User.search_by_keywords({ word: komagata.login_name, commentable_type: nil }), komagata)
     assert_includes(User.search_by_keywords({ word: komagata.name, commentable_type: nil }), komagata)
