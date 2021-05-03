@@ -156,8 +156,9 @@ import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
 import Tags from './question_tags.vue'
 import UserIcon from './user-icon.vue'
-import moment from 'moment'
-moment.locale('ja')
+import dayjs from 'dayjs'
+import ja from 'dayjs/locale/ja'
+dayjs.locale(ja)
 
 export default {
   components: {
@@ -198,10 +199,10 @@ export default {
   },
   computed: {
     updatedAtISO8601() {
-      return moment(this.question.updated_at).format()
+      return dayjs(this.question.updated_at).format()
     },
     updatedAt() {
-      return moment(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+      return dayjs(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     practiceTitle() {
       const { practices, question, practiceId } = this
