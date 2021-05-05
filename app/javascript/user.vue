@@ -23,7 +23,13 @@
                   | {{ user.discord_account }}
           user-secret-attributes(:user='user', :currentUser='currentUser')
           .users-item__icon
-            userIcon()
+            a(:href='user.url')
+              img.users-item__user-icon-image.a-user-icon(
+                :title='user.icon_title',
+                :alt='user.icon_title',
+                :src='user.avatar_url',
+                :class='[roleClass, daimyoClass]'
+              )
         usersSns()
       .users-item__body
         .users-item__description.a-short-text
@@ -69,6 +75,12 @@ export default {
         ? description
         : description.substring(0, 200) + '...'
       return  description.split(/\n|\r\n/)
+    },
+    roleClass() {
+      return `is-${this.user.role}`
+    },
+    daimyoClass() {
+      return { 'is-daimyo': this.user.daimyo }
     }
   }
 }
