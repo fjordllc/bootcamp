@@ -1,10 +1,14 @@
 json.(user, :id, :login_name, :name, :discord_account, :description, :job_seeker, :free, :job, :os, :experience, :email)
 json.url user_url(user)
-json.updatedAt l(user.updated_at)
-json.studentOrTrainee user.student_or_trainee?
+json.updated_at l(user.updated_at)
 json.active user.active?
 json.avatar_url user.avatar_url
 json.daimyo user.daimyo?
+json.student user.student?
+json.card user.card?
+json.job_name t("activerecord.enums.user.job.#{user.job}")
+json.os_name t("activerecord.enums.user.os.#{user.os}")
+json.experience_name t("activerecord.enums.user.experience.#{user.experience}")
 json.student_or_trainee user.student_or_trainee?
 json.edit_admin_user_path edit_admin_user_path(user)
 json.isFollowing current_user.following?(user)
