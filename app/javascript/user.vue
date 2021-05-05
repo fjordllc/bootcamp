@@ -26,9 +26,9 @@
             userIcon()
         usersSns()
       .users-item__body
-        .users-item__description.a-short-text(style='white-space:pre-wrap')
-          p(v-for='paragraph in paragraphs')
-          | {{ user.description | truncate(200) }}
+        .users-item__description.a-short-text
+          p(v-for='paragraph in userDescParagraphs')
+            | {{ paragraph }}
         .users-item__tags
           usersTags()
       usersProgress()
@@ -43,12 +43,6 @@
 </template>
 <script>
 export default {
-  filters: {
-    truncate(value, length) {
-      if(value.length <= length) return value
-      return value.substring(0, length) + '...'
-    }
-  },
   props: {
     user: { type: Object, required: true },
     currentUser: { type: Object, required: true }
@@ -58,6 +52,13 @@ export default {
       return this.user.daimyo
       ? '★' + this.user.login_name
       : this.user.login_name
+    },
+    userDescParagraphs() {
+      let description = this.user.description
+      description = description.length <= 200
+        ? description
+        : description.substring(0, 200) + '...'
+      return  description.split(/\n|\r\n/)
     }
   }
 }
