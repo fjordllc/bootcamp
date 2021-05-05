@@ -30,7 +30,7 @@
                 :src='user.avatar_url',
                 :class='[roleClass, daimyoClass]'
               )
-        usersSns()
+        user-sns(:user='user')
       .users-item__body
         .users-item__description.a-short-text
           p(v-for='paragraph in userDescParagraphs')
@@ -53,11 +53,13 @@
 <script>
 import UserSecretAttributes from './user-secret-attributes.vue'
 import Following from './following.vue'
+import UserSns from './user-sns.vue'
 
 export default {
   components: {
     following: Following,
-    'user-secret-attributes' : UserSecretAttributes
+    'user-secret-attributes': UserSecretAttributes,
+    'user-sns': UserSns
   },
   props: {
     user: { type: Object, required: true },
