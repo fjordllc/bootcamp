@@ -21,7 +21,7 @@
                   i.fab.fa-discord
                 .users-item-names__chat-value
                   | {{ user.discord_account }}
-          usersSecretAttributes()
+          user-secret-attributes(:user='user', :currentUser='currentUser')
           .users-item__icon
             userIcon()
         usersSns()
@@ -45,11 +45,13 @@
                 | 管理者として変更
 </template>
 <script>
+import UserSecretAttributes from './user-secret-attributes.vue'
 import Following from './following.vue'
 
 export default {
   components: {
-    following: Following
+    following: Following,
+    'user-secret-attributes' : UserSecretAttributes
   },
   props: {
     user: { type: Object, required: true },
