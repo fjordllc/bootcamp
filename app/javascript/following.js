@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
           h(Following, {
             props: {
               isFollowing: isFollowing === 'true',
-              userId: userId
+              userId: Number(userId)
             }
           })
       }).$mount('.js-following')
