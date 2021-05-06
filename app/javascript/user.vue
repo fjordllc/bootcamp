@@ -36,7 +36,7 @@
           p(v-for='paragraph in userDescParagraphs')
             | {{ paragraph }}
         .users-item__tags
-          usersTags()
+          user-tags(:user='user')
       usersProgress()
       footer.card-footer
         .card-main-actions
@@ -54,12 +54,14 @@
 import UserSecretAttributes from './user-secret-attributes.vue'
 import Following from './following.vue'
 import UserSns from './user-sns.vue'
+import UserTags from './user-tags.vue'
 
 export default {
   components: {
     following: Following,
     'user-secret-attributes': UserSecretAttributes,
-    'user-sns': UserSns
+    'user-sns': UserSns,
+    'user-tags': UserTags
   },
   props: {
     user: { type: Object, required: true },
