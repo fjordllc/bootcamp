@@ -3,7 +3,7 @@
   //- = paginate @users, position: 'top'
   .container
     .users
-      .row.is-gutter-width-32(v-if='this.users.length === 0')
+      .row.is-gutter-width-32(v-if='users.length === 0')
         .o-empty-message
           .o-empty-message__icon
             i.far.fa-sad-tear
