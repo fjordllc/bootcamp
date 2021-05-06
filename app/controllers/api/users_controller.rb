@@ -20,7 +20,7 @@ class API::UsersController < API::BaseController
 
     @users = target_users
             .page(params[:page])
-            .preload(:company, :avatar_attachment, :course, :taggings)
+            .preload(:company, :avatar_attachment, :course, :tags)
             .unretired
             .order(updated_at: :desc)
 
