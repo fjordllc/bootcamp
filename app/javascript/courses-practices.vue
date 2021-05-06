@@ -60,7 +60,10 @@ export default {
   data: () => {
     return {
       categories: null,
-      learnings: null
+      learnings: null,
+      styleObject: {
+        display: 'block'
+      }
     }
   },
   computed: {
