@@ -37,7 +37,7 @@
             | {{ paragraph }}
         .users-item__tags
           user-tags(:user='user')
-      usersProgress()
+      user-practice-progress(:user='user')
       footer.card-footer
         .card-main-actions
           ul.card-main-actions__items
@@ -55,13 +55,15 @@ import UserSecretAttributes from './user-secret-attributes.vue'
 import Following from './following.vue'
 import UserSns from './user-sns.vue'
 import UserTags from './user-tags.vue'
+import UserPracticeProgress from './user-practice-progress.vue'
 
 export default {
   components: {
     following: Following,
     'user-secret-attributes': UserSecretAttributes,
     'user-sns': UserSns,
-    'user-tags': UserTags
+    'user-tags': UserTags,
+    'user-practice-progress': UserPracticeProgress
   },
   props: {
     user: { type: Object, required: true },
