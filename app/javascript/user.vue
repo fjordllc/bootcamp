@@ -33,8 +33,8 @@
         user-sns(:user='user')
       .users-item__body
         .users-item__description.a-short-text
-          p(v-for='paragraph in userDescParagraphs')
-            | {{ paragraph }}
+          p(v-for='paragraph in userDescParagraphs' :key='paragraph.id')
+            | {{ paragraph.text }}
         .users-item__tags
           user-tags(:user='user')
       user-practice-progress(:user='user')
@@ -80,7 +80,13 @@ export default {
       description = description.length <= 200
         ? description
         : description.substring(0, 200) + '...'
-      return  description.split(/\n|\r\n/)
+      const paragraphs = description.split(/\n|\r\n/).map((text, i) => {
+        return {
+          id: i,
+          text: text
+        }
+      })
+      return paragraphs
     },
     roleClass() {
       return `is-${this.user.role}`
