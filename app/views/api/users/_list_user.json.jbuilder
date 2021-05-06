@@ -1,4 +1,4 @@
-json.(user, :id, :login_name, :name, :discord_account, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :job_seeker, :free, :job, :os, :experience, :email, :role, :icon_title, :tag_list)
+json.(user, :id, :login_name, :name, :discord_account, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :job_seeker, :free, :job, :os, :experience, :email, :role, :icon_title, :tag_list,:cached_completed_percentage)
 json.url user_url(user)
 json.updated_at l(user.updated_at)
 json.active user.active?
