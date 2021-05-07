@@ -20,10 +20,10 @@ class API::UsersController < API::BaseController
       end
 
     @users = target_users
-            .page(params[:page]).per(PAGER_NUMBER)
-            .preload(:company, :avatar_attachment, :course, :tags)
-            .unretired
-            .order(updated_at: :desc)
+             .page(params[:page]).per(PAGER_NUMBER)
+             .preload(:company, :avatar_attachment, :course, :tags)
+             .unretired
+             .order(updated_at: :desc)
   end
 
   def show

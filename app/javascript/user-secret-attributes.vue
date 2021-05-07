@@ -21,7 +21,9 @@
     .user-secret-attributes__item
       .user-secret-attributes__item-label
         | 最終ログイン日時
-      .user-secret-attributes__item-value(:class="{ 'is-important': isInactive }")
+      .user-secret-attributes__item-value(
+        :class='{ "is-important": isInactive }'
+      )
         | {{ user.updated_at }}
 </template>
 <script>
@@ -42,4 +44,3 @@ export default {
   }
 }
 </script>
-

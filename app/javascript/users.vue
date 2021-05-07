@@ -50,10 +50,12 @@ export default {
       return this.currentTag || this.currentTarget
     },
     url() {
-      return '/api/users/' +
-              (this.params.tag ? `tags/${this.params.tag}` : '') +
-              `?page=${this.currentPage}` +
-              (this.params.target ? `&target=${this.params.target}` : '')
+      return (
+        '/api/users/' +
+        (this.params.tag ? `tags/${this.params.tag}` : '') +
+        `?page=${this.currentPage}` +
+        (this.params.target ? `&target=${this.params.target}` : '')
+      )
     },
     pagerProps() {
       return {
@@ -105,7 +107,10 @@ export default {
     },
     getParams() {
       const params = {}
-        location.search.slice(1).split('&').forEach(query => {
+      location.search
+        .slice(1)
+        .split('&')
+        .forEach((query) => {
           const queryArr = query.split('=')
           params[queryArr[0]] = queryArr[1]
         })
@@ -122,11 +127,10 @@ export default {
         null,
         null,
         location.pathname +
-        (pageNumber === 1 ? '' : `?page=${pageNumber}`) +
-        (this.params.target ? `&target=${this.params.target}` : '')
+          (pageNumber === 1 ? '' : `?page=${pageNumber}`) +
+          (this.params.target ? `&target=${this.params.target}` : '')
       )
     }
   }
 }
 </script>
-
