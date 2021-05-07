@@ -24,11 +24,6 @@ class API::UsersController < API::BaseController
             .preload(:company, :avatar_attachment, :course, :tags)
             .unretired
             .order(updated_at: :desc)
-
-    # users = User.select(:login_name, :name)
-    #             .order(updated_at: :desc)
-    #             .as_json(except: :id)
-    # render json: users
   end
 
   def show
