@@ -4,7 +4,9 @@
     .users-item__inner.a-card
       header.users-item__header
         .users-item__header-container
-          .users-item__inactive-message(v-if='currentUser.mentor && user.student_or_trainee && !user.active')
+          .users-item__inactive-message(
+            v-if='currentUser.mentor && user.student_or_trainee && !user.active'
+          )
             | 1ヶ月ログインがありません
           .users-item__name
             a.users-item__name-link(:href='user.url')
@@ -13,7 +15,10 @@
             li.users-item-names__item
               .users-item-names__ful-name
                 | {{ user.name }}
-              a(v-if='user.company && user.company.logo_url' :href='user.company.url')
+              a(
+                v-if='user.company && user.company.logo_url',
+                :href='user.company.url'
+              )
                 img.user-item__company-logo(:src='user.company.logo_url')
             li.users-item-names__item(v-if='user.discord_account')
               .users-item-names__chat
@@ -33,7 +38,7 @@
         user-sns(:user='user')
       .users-item__body
         .users-item__description.a-short-text
-          p(v-for='paragraph in userDescParagraphs' :key='paragraph.id')
+          p(v-for='paragraph in userDescParagraphs', :key='paragraph.id')
             | {{ paragraph.text }}
         .users-item__tags
           user-tags(:user='user')
@@ -42,12 +47,11 @@
         .card-main-actions
           ul.card-main-actions__items
             li.card-main-actions__item(v-if='currentUser.id != user.id')
-              following(
-                :isFollowing='user.isFollowing'
-                :userId='user.id'
-              )
+              following(:isFollowing='user.isFollowing', :userId='user.id')
             li.card-main-actions__item(v-if='currentUser.admin')
-              a.card-main-actions__action.a-button.is-sm.is-secondary.is-block(:href='user.edit_admin_user_path')
+              a.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
+                :href='user.edit_admin_user_path'
+              )
                 | 管理者として変更
 </template>
 <script>
@@ -72,14 +76,15 @@ export default {
   computed: {
     loginName() {
       return this.user.daimyo
-      ? '★' + this.user.login_name
-      : this.user.login_name
+        ? '★' + this.user.login_name
+        : this.user.login_name
     },
     userDescParagraphs() {
       let description = this.user.description
-      description = description.length <= 200
-        ? description
-        : description.substring(0, 200) + '...'
+      description =
+        description.length <= 200
+          ? description
+          : description.substring(0, 200) + '...'
       const paragraphs = description.split(/\n|\r\n/).map((text, i) => {
         return {
           id: i,
