@@ -1,70 +1,82 @@
 <template lang="pug">
 .page-body
-  //- = paginate @users, position: 'top'
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
   .container
     .users
-      .row.is-gutter-width-32(v-if='users.length === 0')
-        .o-empty-message
-          .o-empty-message__icon
-            i.far.fa-sad-tear
-          p.o-empty-message__text 
-            | {{ targetName }}のユーザーはいません
-      .row.is-gutter-width-32(v-else)
+      .row.is-gutter-width-32(v-if='users.length !== 0')
         user(
           v-for='user in users',
           :key='user.id',
           :user='user',
           :currentUser='currentUser'
         )
-  //- = paginate @users, position: 'bottom'
+      .row.is-gutter-width-32(v-else)
+        .o-empty-message
+          .o-empty-message__icon
+            i.far.fa-sad-tear
+          p.o-empty-message__text
+            | {{ targetName }}のユーザーはいません
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
 </template>
 <script>
 import User from './user.vue'
+import Pager from './pager.vue'
 
 export default {
   components: {
-    user: User
+    user: User,
+    pager: Pager
   },
   data() {
     return {
       users: [],
-      pathname: location.pathname,
       currentUser: null,
       currentTarget: null,
-      currentTag: null
+      currentTag: null,
+      currentPage: Number(this.getParams().page) || 1,
+      totalPages: 0,
+      params: this.getParams()
     }
   },
   computed: {
     targetName() {
       return this.currentTag || this.currentTarget
     },
-    params() {
-      const params = {}
-      location.search.slice(1).split('&').forEach(query => {
-        const queryArr = query.split('=')
-        params[queryArr[0]] = queryArr[1]
-      })
-      return params
-    },
     url() {
-      if (location.pathname.match(/tags/)) {
-        return '/api' + location.pathname
-      } else {
-        return '/api/users/' + `?target=${this.params.target}`
+      return '/api/users/' +
+              (this.params.tag ? `tags/${this.params.tag}` : '') +
+              `?page=${this.currentPage}` +
+              (this.params.target ? `&target=${this.params.target}` : '')
+    },
+    pagerProps() {
+      return {
+        initialPageNumber: this.currentPage,
+        pageCount: this.totalPages,
+        pageRange: 5,
+        clickHandle: this.paginateClickCallback
       }
     }
   },
   created() {
+    window.onpopstate = function () {
+      location.replace(location.href)
+    }
     this.getUsers()
   },
   methods: {
+    token() {
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      return meta ? meta.getAttribute('content') : ''
+    },
     getUsers() {
       fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          // 'X-CSRF-Token': this.token()
+          'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
         redirect: 'manual'
@@ -80,9 +92,35 @@ export default {
           this.currentUser = json.currentUser
           this.currentTarget = json.target
           this.currentTag = json.tag
+          this.totalPages = json.totalPages
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
         })
     },
-    
+    getParams() {
+      const params = {}
+        location.search.slice(1).split('&').forEach(query => {
+          const queryArr = query.split('=')
+          params[queryArr[0]] = queryArr[1]
+        })
+      if (location.pathname.match(/tags/)) {
+        const tag = location.pathname.split('/').pop()
+        params.tag = tag
+      }
+      return params
+    },
+    paginateClickCallback(pageNumber) {
+      this.currentPage = pageNumber
+      this.getUsers()
+      history.pushState(
+        null,
+        null,
+        location.pathname +
+        (pageNumber === 1 ? '' : `?page=${pageNumber}`) +
+        (this.params.target ? `&target=${this.params.target}` : '')
+      )
+    }
   }
 }
 </script>
