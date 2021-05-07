@@ -2,6 +2,7 @@
 
 class API::UsersController < API::BaseController
   before_action :require_login, only: %i[index]
+  PAGER_NUMBER = 20
 
   def index
     @tag = params[:tag]
@@ -19,7 +20,7 @@ class API::UsersController < API::BaseController
       end
 
     @users = target_users
-            .page(params[:page])
+            .page(params[:page]).per(PAGER_NUMBER)
             .preload(:company, :avatar_attachment, :course, :tags)
             .unretired
             .order(updated_at: :desc)
