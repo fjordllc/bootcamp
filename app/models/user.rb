@@ -316,9 +316,11 @@ class User < ApplicationRecord
     def tags
       ActsAsTaggableOn::Tag
         .joins(:taggings)
+        .joins('INNER JOIN users ON taggings.taggable_id = users.id')
         .select('tags.id, tags.name, COUNT(taggings.id) as taggings_count')
         .group('tags.id, tags.name, tags.taggings_count')
         .where(taggings: { taggable_type: 'User' })
+        .where(users: { retired_on: nil })
     end
   end
 
