@@ -12,7 +12,7 @@
         p {{ searchable.summury }}
       .thread-list-item-meta
         .thread-list-item-meta__user
-          a.thread-header__author(v-if='searchable.model_name !== "practice" && searchable.model_name !== "page"' :href='userUrl')
+          a.thread-header__author(v-if='searchable.model_name !== "practice" && searchable.model_name !== "page" && searchable.model_name !== "user"' :href='userUrl')
             | {{ searchable.login_name }}
         time.thread-list-item-meta__updated-at(:datetime='searchable.updated_at_date_time' pubdate='pubdate')
           | {{ searchable.updated_at }}
