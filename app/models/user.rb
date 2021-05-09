@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
+  include Searchable
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id updated_at created_at report comment asc desc].freeze
@@ -260,6 +261,20 @@ class User < ApplicationRecord
       .unretired
       .order(:created_at)
   }
+
+  scope :search_by_keywords_scope, -> { unretired }
+
+  columns_for_keyword_search(
+    :login_name,
+    :name,
+    :name_kana,
+    :twitter_account,
+    :facebook_url,
+    :blog_url,
+    :github_account,
+    :discord_account,
+    :description
+  )
 
   class << self
     def announcement_receiver(target)
