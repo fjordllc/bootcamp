@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/fjordllc/bootcamp.svg?style=shield)](https://app.circleci.com/pipelines/github/fjordllc)
+[![Create a release pull-request](https://github.com/fjordllc/bootcamp/actions/workflows/git-pr-release-action.yml/badge.svg)](https://github.com/fjordllc/bootcamp/actions/workflows/git-pr-release-action.yml)
+
 # Bootcamp
 
 プログラマー向けEラーニングシステム。
