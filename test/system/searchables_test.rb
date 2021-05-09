@@ -108,4 +108,14 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_css '.thread-list-item-meta__updated-at'
     assert_no_text 'テストの回答'
   end
+
+  test 'search user' do
+    within('form[name=search]') do
+      select 'ユーザー'
+      fill_in 'word', with: 'komagata'
+    end
+    find('#test-search').click
+    assert_text 'komagata'
+    assert_no_text 'PC性能の見方を知る'
+  end
 end
