@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (reports) {
     const reportId = reports.getAttribute('report-id')
     new Vue({
-      render: (h) => h(UserReports,{
-        props:{
-          reportId: reportId
-        }
-      })
+      render: (h) =>
+        h(UserReports, {
+          props: {
+            reportId: reportId
+          }
+        })
     }).$mount(selector)
   }
 })
