@@ -31,7 +31,7 @@ export default {
     pager: Pager
   },
   props: {
-    document_type: { type: String, required: true },
+    documentType: { type: String, required: true },
     word: { type: String, required: true }
     },
   data() {
@@ -43,7 +43,7 @@ export default {
     }
   },
   computed: {
-    url() { return `/api/searchables?document_type=${this.document_type}&page=${this.currentPage}&word=${this.word}`
+    url() { return `/api/searchables?document_type=${this.documentType}&page=${this.currentPage}&word=${this.word}`
     },
     pagerProps() {
       return {
@@ -103,7 +103,7 @@ export default {
       history.pushState(
         null,
         null,
-        location.pathname + (pageNumber === 1 ? `?document_type=${this.document_type}&word=${this.word}` : `?document_type=${this.document_type}&page=${pageNumber}&word=${this.word}`)
+        location.pathname + (pageNumber === 1 ? `?document_type=${this.documentType}&word=${this.word}` : `?document_type=${this.documentType}&page=${pageNumber}&word=${this.word}`)
       )
     }
   }
