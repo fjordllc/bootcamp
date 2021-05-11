@@ -9,9 +9,9 @@
           i.fas.fa-angle-down
         .thread-list-item__author
           = render 'users/icon', user: user, image_class: 'thread-list-item__author-icon'
-        header.thread-list-item__header
-          h2.thread-list-item__title(itemprop='name')
-            = link_to user, itemprop: 'url', class: 'thread-list-item__title-link' do
+        header.thread-list-item-title
+          h2.thread-list-item-title__title(itemprop='name')
+            = link_to user, itemprop: 'url', class: 'thread-list-item-title__link' do
               | #{user.name}（#{user.login_name}）
 
         .thread-list-item-meta
@@ -28,6 +28,7 @@
               .thread-list-item-meta__item
                 = link_to user_portfolio_path(user), class: 'thread-list-item-meta__item-link' do
                   | ポートフォリオ（#{user.works.count}）
+
       input.a-toggle-checkbox(id="show-user-detail-#{user.id}" type='checkbox')
       .thread-list-item__user-detail
         .thread-list-item__user-description.a-short-text

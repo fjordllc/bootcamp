@@ -1,0 +1,41 @@
+.thread-list-item-actions__trigger
+  +position(absolute, right -.75rem, top -.5rem, 2)
+  +size(2.25rem)
+  display: flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  color: $muted-text
+  //border: solid 1px $border
+  border-radius: .25rem
+
+.thread-list-item-actions__inner
+  display: none
+  +position(absolute, right 0, top 0, 3)
+  input:checked + &
+    display: block
+
+.thread-list-item-actions__items
+  +position(relative, 2)
+  border: solid 1px $border
+  width: 10rem
+  border-radius: .25rem
+  overflow: hidden
+
+.thread-list-item-actions__item
+  .thread-list-item-actions__item + &
+    border-top: dashed 1px $border
+
+.thread-list-item-actions__action
+  +text-block(.875rem, $default-text)
+  +flex-link
+  align-items: center
+  background-color: $base
+  transition: all .2s ease-out
+  padding: .5em 1em
+  min-height: 2.75rem
+  i
+    margin-right: .5em
+  &:hover
+    background-color: tint($main, 95%)
+    color: $main

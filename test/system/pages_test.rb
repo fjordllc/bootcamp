@@ -130,7 +130,7 @@ class PagesTest < ApplicationSystemTestCase
 
     click_on '保存'
     assert find('.thread__author-icon')[:title].start_with?('kimura')
-    assert_equal admin.login_name, find('.thread-header__user-link').text
+    assert_equal admin.login_name, find('.a-user-name').text
   end
 
   test 'non-administrator cannot change doc user' do

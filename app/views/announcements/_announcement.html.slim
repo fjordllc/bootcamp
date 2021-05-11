@@ -1,18 +1,32 @@
 .thread
   .thread__inner.a-card
     header.thread-header
-      h1.thread-header__title
-        - if announcement.wip?
-          span.thread-header__title-icon
-            | WIP
-        = announcement.title
-
-      .thread-header__lower-side
-        .thread-header__lower-side-author-name
-          = link_to announcement.user, class: 'thread-header__lower-side-author-name-link' do
-            = announcement.user.login_name
-        time.thread-header__lower-side-created-at(datetime="#{announcement.created_at.to_datetime}" pubdate='pubdate')
-          | 書いた日 : #{l announcement.updated_at}
+      .thread-header__row
+        .thread-header-metas
+          .thread-header-metas__start
+            - if announcement.wip?
+              .thread-header-metas__meta
+                span.thread-header__wip
+                  | WIP
+            .thread-header-metas__meta
+              = link_to announcement.user, class: 'a-user-name' do
+                = announcement.user.login_name
+            .thread-header-metas__meta
+              time.a-date(datetime="#{announcement.created_at.to_datetime}" pubdate='pubdate')
+                span.a-date__label
+                  | 書いた日
+                = l announcement.updated_at
+      .thread-header__row
+        h1.thread-header-title(class="#{announcement.wip? ? 'is-wip' : ''}")
+          = announcement.title
+      .thread-header__row
+        .thread-header-actions
+          .thread-header-actions__start
+          .thread-header-actions__end
+            .thread-header-actions__action
+              = link_to new_announcement_path(id: announcement), class: 'a-button is-xs is-secondary is-block' do
+                i.fas.fa-copy#copy
+                | コピー
 
     .thread__body
       .thread__description.js-target-blank.is-long-text.js-markdown-view
@@ -26,10 +40,6 @@
                 = link_to edit_announcement_path(announcement), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
                   i.fas.fa-pen#new
                   | 内容修正
-            li.card-main-actions__item
-              = link_to new_announcement_path(id: announcement), class: 'card-main-actions__action a-button is-md is-secondary is-block' do
-                i.fas.fa-copy#copy
-                | コピー
             - if admin_login? || @announcement.user_id == current_user.id
               li.card-main-actions__item.is-sub
                 = link_to announcement_path(announcement), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do

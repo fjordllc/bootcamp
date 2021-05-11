@@ -11,8 +11,8 @@
 
 .event-meta__inner
   padding: .75em 1em
-  background-color: $success-shade
-  border: solid $success 1px
+  background-color: $background-more-tint
+  border: solid $border-shade 1px
 
 .event-meta__item
   line-height: 1.5
@@ -22,14 +22,13 @@
   &:not(:first-child)
     margin-top: .5em
     padding-top: .5em
-    border-top: dashed rgba($success, .5) 1px
+    border-top: dashed $border-shade 1px
 
 .event-meta__item-label
   flex-basis: 5em
   margin-right: .5em
   white-space: nowrap
   font-weight: 600
-  color: $success-text
   +media-breakpoint-up(md)
     text-align: right
   +media-breakpoint-down(sm)

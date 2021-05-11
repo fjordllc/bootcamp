@@ -3,51 +3,60 @@
     .thread-list-item__author
       = render 'users/icon',
         user: page.user,
-        link_class: 'thread-header__author',
+        link_class: 'a-user-name',
         image_class: 'thread-list-item__author-icon'
-    header.thread-list-item__header
-      - if page.wip?
-        .thread-list-item__header-icon.is-wip WIP
-      h2.thread-list-item__title(itemprop='name')
-        = link_to page, itemprop: 'url', class: 'thread-list-item__title-link' do
-          = page.title
-    - if page.practice.present?
-      h3.thread-list-item__sub-title
-        = page.practice.title
-    .thread-list-item-meta
-      .thread-list-item-meta__items
-        .thread-list-item-meta__item
+    .thread-list-item__rows
+      .thread-list-item__row
+        .thread-list-item-title
           - if page.wip?
-            .thread-list-item-meta__datetime
-              | Doc作成中
-          - elsif page.published_at.present?
-            time.thread-list-item-meta__datetime(datetime="#{page.published_at.to_datetime}")
-              span.thread-list-item-meta__datetime-label
-                | 公開
-              | #{l page.published_at}
-          - if page.last_updated_user.present?
-            time.thread-list-item-meta__datetime(datetime="#{page.updated_at.to_datetime}")
-              span.thread-list-item-meta__datetime-label
-                | 最終更新
-              | #{l page.updated_at} by
-              = render 'users/icon',
-                user: page.last_updated_user,
-                link_class: 'thread-header__user-icon-link',
-                image_class: 'thread-header__user-icon'
-              = link_to page.last_updated_user, class: 'thread-header__user-link' do
-                | #{page.last_updated_user.login_name}
+            .thread-list-item-title__icon.is-wip WIP
+          h2.thread-list-item-title__title(itemprop='name')
+            = link_to page, itemprop: 'url', class: 'thread-list-item-title__link' do
+              = page.title
+      - if page.practice.present?
+        .thread-list-item__row
+          .thread-list-item-sub-title
+            = page.practice.title
+      .thread-list-item__row
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              - if page.wip?
+                .a-date
+                  | Doc作成中
+              - elsif page.published_at.present?
+                time.a-date(datetime="#{page.published_at.to_datetime}")
+                  span.a-date__label
+                    | 公開
+                  span.a-date__value
+                    | #{l page.published_at}
+            - if page.last_updated_user.present?
+              .thread-list-item-meta__item
+                  time.a-date(datetime="#{page.updated_at.to_datetime}")
+                    span.a-date__label
+                      | 最終更新日
+                    | #{l page.updated_at} by
+                    = render 'users/icon',
+                      user: page.last_updated_user,
+                      link_class: 'thread-list-item-meta__icon-link',
+                      image_class: 'thread-list-item-meta__icon'
+                    = link_to page.last_updated_user, class: 'a-user-name' do
+                      | #{page.last_updated_user.login_name}
+
+      - if page.tags.present?
+        .thread-list-item__row
+          .thread-list-item-tags
+            .thread-list-item-tags__label
+              i.fas.fa-tags
+            ul.thread-list-item-tags__items
+              - page.tags.each do |tag|
+                li.thread-list-item-tags__item
+                  = link_to tag.name, pages_tag_path(tag.name), class: 'thread-list-item-tags__item-link'
 
       - if page.comments.any?
-        .thread-list-item-meta__comment-count
-          .thread-list-item-meta__comment-count-label
-            i.fas.fa-comment
-          .thread-list-item-meta__comment-count-value
-            = page.comments.size
-  - if page.tags.present?
-    .thread-list-item-tags
-      .thread-list-item-tags__label
-        i.fas.fa-tags
-      ul.thread-list-item-tags__items
-        - page.tags.each do |tag|
-          li.thread-list-item-tags__item
-            = link_to tag.name, pages_tag_path(tag.name), class: 'thread-list-item-tags__item-link'
+        .thread-list-item__row
+          .thread-list-item-meta__comment-count
+            .thread-list-item-meta__comment-count-label
+              i.fas.fa-comment
+            .thread-list-item-meta__comment-count-value
+              = page.comments.size

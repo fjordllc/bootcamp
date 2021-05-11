@@ -2,17 +2,17 @@
   = render 'errors', object: inquiry
   .form__items
     .form-item
-      = f.label :name, class: 'a-label is-required'
+      = f.label :name, class: 'a-form-label is-required'
       = f.text_field :name, class: 'a-text-input'
     .form-item
-      = f.label :email, class: 'a-label is-required'
+      = f.label :email, class: 'a-form-label is-required'
       = f.text_field :email, class: 'a-text-input'
     .form-item
-      = f.label :body, class: 'a-label is-required' do
+      = f.label :body, class: 'a-form-label is-required' do
         | お問い合わせ内容
       = f.text_area :body, class: 'a-text-input is-md'
     .form-item
-      .a-label
+      .a-form-label
         | 個人情報の取り扱いについて
       label.form-item__one-checkbox.a-checkbox
         = f.check_box :privacy_policy
