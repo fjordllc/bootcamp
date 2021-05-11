@@ -13,7 +13,7 @@
       .thread-list-item-meta
         .thread-list-item-meta__user
           a.thread-header__author(
-            v-if='searchable.model_name !== "practice" && searchable.model_name !== "page" && searchable.model_name !== "user"',
+            v-if='!["practice", "page", "user"].includes(searchable.model_name)',
             :href='userUrl'
           )
             | {{ searchable.login_name }}

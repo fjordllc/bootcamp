@@ -94,7 +94,7 @@ export default {
     },
     getPageValueFromParameter() {
       const url = location.href
-      const results = url.match(/\page=(\d+)/)
+      const results = url.match(/page=(\d+)/)
       if (!results) return null
       return results[1]
     },
