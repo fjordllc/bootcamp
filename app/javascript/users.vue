@@ -123,13 +123,20 @@ export default {
     paginateClickCallback(pageNumber) {
       this.currentPage = pageNumber
       this.getUsers()
-      history.pushState(
-        null,
-        null,
-        location.pathname +
-          (pageNumber === 1 ? '' : `?page=${pageNumber}`) +
-          (this.params.target ? `&target=${this.params.target}` : '')
-      )
+      history.pushState(null, null, this.newUrl(pageNumber))
+    },
+    newUrl(pageNumber) {
+      if (this.params.target) {
+        return (
+          location.pathname +
+          `?target=${this.params.target}` +
+          (pageNumber === 1 ? '' : `&page=${pageNumber}`)
+        )
+      } else {
+        return (
+          location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
+        )
+      }
     }
   }
 }
