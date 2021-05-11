@@ -29,7 +29,7 @@
             .thread-list-item-comment
               .thread-list-item-comment__label
                 | コメント
-              .thread-list-item-comment__value
+              .thread-list-item-comment__count
                 | （#{report.comments.size}）
               = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
               time.a-date(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate='pubdate')
