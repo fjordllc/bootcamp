@@ -15,8 +15,19 @@
               = page.title
       - if page.practice.present?
         .thread-list-item__row
-          .thread-list-item-sub-title
-            = page.practice.title
+          .thread-list-item-meta
+            .thread-list-item-meta__items
+              .thread-list-item-meta__item
+                .thread-list-item-sub-title
+                  = page.practice.title
+              - if page.comments.any?
+                .thread-list-item-meta__item
+                  .thread-list-item-comment
+                    .thread-list-item-comment__label
+                      | コメント
+                    .thread-list-item-comment__count
+                      | （#{page.comments.size}）
+
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -52,14 +63,3 @@
               - page.tags.each do |tag|
                 li.thread-list-item-tags__item
                   = link_to tag.name, pages_tag_path(tag.name), class: 'thread-list-item-tags__item-link'
-
-      - if page.comments.any?
-        .thread-list-item__row
-          .thread-list-item-meta
-            .thread-list-item-meta__items
-              .thread-list-item-meta__item
-                .thread-list-item-comment
-                  .thread-list-item-comment__label
-                    | コメント
-                  .thread-list-item-comment__value
-                    | （#{page.comments.size}）

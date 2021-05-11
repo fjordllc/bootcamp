@@ -26,19 +26,19 @@
               .thread-list-item-comment
                 .thread-list-item-comment__label
                   | 参加者
-                .thread-list-item-comment__value
+                .thread-list-item-comment__count
                   | （#{event.participants_count}名 / #{event.capacity}名）
             - if event.waitlist_count.positive?
               .thread-list-item-meta__item
                 .thread-list-item-comment
                   .thread-list-item-comment__label
                     | 補欠者
-                  .thread-list-item-comment__value
+                  .thread-list-item-comment__count
                     | (#{event.waitlist_count}名)
             - if event.comments.any?
               .thread-list-item-meta__item
                 .thread-list-item-comment
                   .thread-list-item-comment__label
                     | コメント
-                  .thread-list-item-comment__value
+                  .thread-list-item-comment__count
                     | （#{event.comments.size}）
