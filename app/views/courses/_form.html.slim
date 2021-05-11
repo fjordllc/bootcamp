@@ -3,15 +3,15 @@
   .form-item
     .row
       .col-md-6.col-xs-12
-        = f.label :title, class: 'a-label'
+        = f.label :title, class: 'a-form-label'
         = f.text_field :title, class: 'a-text-input js-warning-form'
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label :description, class: 'a-label'
+        = f.label :description, class: 'a-form-label'
         = f.text_area :description, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown', data: { 'preview': '.js-preview' }
       .col-md-6.col-xs-12
-        .a-label
+        .a-form-label
           | プレビュー
         .js-preview.is-long-text.markdown-form__preview
   .form-item

@@ -31,15 +31,6 @@
     overflow: hidden
     text-overflow: ellipsis
 
-.thread-list-item__header-title-container
-  +media-breakpoint-up(md)
-    display: flex
-    align-items: flex-start
-    &:first-child:last-child
-      width: 100%
-  +media-breakpoint-down(sm)
-    width: 100%
-
 .thread-list-item__label
   +position(absolute, left 0, top 0)
   +size(3rem)
@@ -82,71 +73,14 @@
     +size(2.25rem)
   .thread-list-item.is-wip &
     opacity: .6
-  +icon-role-style
 
-.thread-list-item__header
-  display: flex
-  align-items: center
-  margin-bottom: .25rem
-  justify-content: space-between
-  +media-breakpoint-down(sm)
-    flex-direction: column
-    align-items: flex-start
-
-.thread-list-item__header-icon
-  +text-block(.75rem, inline-flex $muted-text nowrap)
-  margin-top: .25rem
-  +padding(horizontal, .5rem)
-  height: 1.125rem
-  margin-right: .5rem
-  border-radius: .75rem
-  align-items: center
-  justify-content: center
-  +media-breakpoint-down(sm)
-    float: left
-  &.is-wip
-    background-color: #e9ebef
-  &.is-unread
-    background-color: $danger
-    color: $reversal-text
-    font-size: .625rem
-
-.thread-list-item__title
-  width: 100%
-  flex-basis: 100%
-
-.thread-list-item__title-link
-  +text-block(.875rem 1.5, 600 $side block)
-  word-break: break-all
-  +hover-link-reversal
-  .thread-list-item.is-wip &,
-  .thread-list-item.is-read &
-    color: $muted-text
-
-.thread-list-item__sub-title
-  +text-block(.75rem 1.4 .25rem .25rem, $default-text 400)
-
-.thread-list-item__actions
-  margin-left: .5rem
-  display: flex
-  +media-breakpoint-down(sm)
-    margin-left: 0
-    margin-top: .5rem
-    margin-bottom: .25rem
-  .thread-list-item__header:hover &
-    +position(relative, 1)
-
-.thread-list-item__actions-link
-  +text-block(1rem 1, $muted-text)
-  +flex-link
-  align-items: center
-  justify-content: center
-  +size(1.75rem)
-  border-radius: .1875rem
-  transition: all .2s ease-out
-  &:hover
-    background-color: rgba($main, .2)
-    color: $main
+.thread-list-item__row
+  &:not(:first-child)
+    margin-top: .375rem
+  &.has-border-top
+    padding-top: .375rem
+    margin-bottom: -.25rem
+    border-top: dashed 1px $border
 
 .thread-list-item__checked-author-icon
   +size(1.25rem)

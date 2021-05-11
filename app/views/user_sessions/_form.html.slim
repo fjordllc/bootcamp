@@ -1,10 +1,10 @@
 = form_for user, url: user_sessions_path, html: { id: 'sign-in-form', class: 'form', name: 'user_session' } do |f|
   .form__items
     .form-item
-      = label_tag 'user_login', 'ユーザー名 or メールアドレス', class: 'a-label'
+      = label_tag 'user_login', 'ユーザー名 or メールアドレス', class: 'a-form-label'
       = text_field_tag 'user[login]', '', class: 'a-text-input', id: 'user_login'
     .form-item
-      = f.label :password, class: 'a-label'
+      = f.label :password, class: 'a-form-label'
       = f.password_field :password, class: 'a-text-input'
       .a-form-help.is-text-align-right
         label.a-form-help-link(for='forgot-password-modal')

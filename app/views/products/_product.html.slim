@@ -1,40 +1,40 @@
 .thread-list-item(class="#{product.wip? ? 'is-wip' : ''} #{current_user.mentor? ? 'has-assigned' : ''}")
   .thread-list-item__inner
     .thread-list-item__author
-      = render 'users/icon', user: product.user, link_class: 'thread-header__author', image_class: 'thread-list-item__author-icon'
-    header.thread-list-item__header
-      .thread-list-item__header-title-container
+      = render 'users/icon', user: product.user, link_class: 'a-user-name', image_class: 'thread-list-item__author-icon'
+    header.thread-list-item-title
+      .thread-list-item-title__start
         - if product.wip?
-          .thread-list-item__header-icon.is-wip WIP
-        h2.thread-list-item__title(itemprop='name')
-          = link_to product, itemprop: 'url', class: 'thread-list-item__title-link js-unconfirmed-link' do
+          .thread-list-item-title__icon.is-wip WIP
+        h2.thread-list-item-title__title(itemprop='name')
+          = link_to product, itemprop: 'url', class: 'thread-list-item-title__link js-unconfirmed-link' do
             - if product.user.daimyo?
               | ★
             | #{product.practice.title}の提出物
     .thread-list-item-meta
       .thread-list-item-meta__items
         .thread-list-item-meta__item
-          = link_to product.user, class: 'thread-header__author' do
+          = link_to product.user, class: 'a-user-name' do
             = product.user.login_name
 
         .thread-list-item-meta__item
           - if product.wip?
-            .thread-list-item-meta__datetime
+            .a-date
               | 提出物作成中
           - elsif product.published_at.present?
-            time.thread-list-item-meta__datetime(datetime="#{product.published_at.to_datetime}")
-              span.thread-list-item-meta__datetime-label
+            time.a-date(datetime="#{product.published_at.to_datetime}")
+              span.a-date__label
                 | 提出日
               = l product.published_at
           - else
-            time.thread-list-item-meta__datetime(datetime="#{product.created_at.to_datetime}")
-              span.thread-list-item-meta__datetime-label
+            time.a-date(datetime="#{product.created_at.to_datetime}")
+              span.a-date__label
                 | 提出日
               = l product.created_at
 
           - if product.updated_at.present?
-            time.thread-list-item-meta__datetime(datetime="#{product.updated_at.to_datetime}")
-              span.thread-list-item-meta__datetime-label
+            time.a-date(datetime="#{product.updated_at.to_datetime}")
+              span.a-date__label
                 | 最終更新日
               = l product.updated_at
     - if product.comments.any?
@@ -50,7 +50,7 @@
               locals: { image_class: 'thread-list-item__checked-author-icon' },
               as: :user,
               cached: true
-        time.thread-list-item-meta__datetime(datetime="#{product.commented_users.last.created_at.to_datetime}")
+        time.a-date(datetime="#{product.commented_users.last.created_at.to_datetime}")
           = l product.comments.last.created_at, format: :date_and_time
     - if product.checks.any?
       .stamp.stamp-approve

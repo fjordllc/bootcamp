@@ -1,0 +1,20 @@
+.a-date
+  +text-block(.8125rem 1.4, $muted-text flex)
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+  .is-important
+    color: $danger
+    font-weight: 600
+  +media-breakpoint-up(md)
+    .a-date + &
+      margin-left: .25em
+      &::before
+        content: "（"
+      &::after
+        content: "）"
+
+.a-date__label
+  &::after
+    content: ":"
+    display: inline-flex
+    +margin(horizontal, .25em)

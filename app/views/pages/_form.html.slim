@@ -4,32 +4,32 @@
     .row
       .col-lg-6.col-xs-12
         .form-item
-          = f.label :practice, class: 'a-label'
+          = f.label :practice, class: 'a-form-label'
           .select-practices
             = f.select(:practice_id, practice_options(categories), { include_blank: '関連プラクティスを指定しない' }, { class: 'js-select2' })
   .form-item
     .row
       .col-md-6.col-xs-12
-        = f.label :title, class: 'a-label'
+        = f.label :title, class: 'a-form-label'
         = f.text_field :title, class: 'a-text-input js-warning-form'
       - if admin_login?
         .col-md-3.col-xs-6
-          = f.label :user, class: 'a-label'
+          = f.label :user, class: 'a-form-label'
           .select-users
             = f.select(:user_id, User.where(retired_on: nil).pluck(:login_name, :id).sort, { include_blank: (page.user || current_user).login_name }, { class: 'js-select2' })
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label :body, class: 'a-label'
+        = f.label :body, class: 'a-form-label'
         = f.text_area :body, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown', data: { 'preview': '.js-preview' }
       .col-md-6.col-xs-12
-        .a-label
+        .a-form-label
           | プレビュー
         .js-preview.is-long-text.markdown-form__preview
   .form-item
     .row
       .col-md-6.col-xs-12
-        = f.label :tag_list, 'タグを入力してください', class: 'a-label'
+        = f.label :tag_list, 'タグを入力してください', class: 'a-form-label'
         = render partial: 'tags_input', locals: { taggable: @page }
   .form-actions
     ul.form-actions__items

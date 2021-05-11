@@ -1,6 +1,6 @@
 <template lang="pug">
-.thread-header__watch
-  #watch-button.thread-header__watch-button.a-button.is-sm.is-left-icon(
+.thread-header-actions__action
+  #watch-button.a-watch-button.a-button.is-xs(
     :class='watchId ? "is-active is-secondary" : "is-inactive is-main"',
     @click='push'
   )
