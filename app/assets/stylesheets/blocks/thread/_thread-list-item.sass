@@ -87,9 +87,6 @@
   &:not(:first-child)
     margin-left: .25rem
 
-.thread-list-item__body
-  +text-block(.875rem 1.6)
-
 .thread-list-item__show-user-detail
   +position(absolute, top 0)
   +size(2.75rem)
@@ -116,6 +113,7 @@
     font-size: .8125rem
   +media-breakpoint-down(sm)
     font-size: .75rem
+
 .thread-list-item__close-user-detail
   margin-top: 1rem
   +text-block(.8125rem 1.4, flex $main)
