@@ -33,7 +33,7 @@ export default {
   props: {
     documentType: { type: String, required: true },
     word: { type: String, required: true }
-    },
+  },
   data() {
     return {
       searchables: [],
@@ -43,7 +43,8 @@ export default {
     }
   },
   computed: {
-    url() { return `/api/searchables?document_type=${this.documentType}&page=${this.currentPage}&word=${this.word}`
+    url() {
+      return `/api/searchables?document_type=${this.documentType}&page=${this.currentPage}&word=${this.word}`
     },
     pagerProps() {
       return {
@@ -66,7 +67,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getSearchablesPerPage() {
-      fetch(this.url , {
+      fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -76,20 +77,20 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-      .then((response) => {
-        return response.json()
-      })
-      .then(json => {
-        this.totalPages = json.total_pages
-        this.searchables = []
-        json.searchables.forEach((searchable) => {
-          this.searchables.push(searchable)
+        .then((response) => {
+          return response.json()
         })
-        this.loaded = true
-      })
-      .catch(error => {
-        console.warn('Failed to parsing', error)
-      })
+        .then((json) => {
+          this.totalPages = json.total_pages
+          this.searchables = []
+          json.searchables.forEach((searchable) => {
+            this.searchables.push(searchable)
+          })
+          this.loaded = true
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     },
     getPageValueFromParameter() {
       const url = location.href
@@ -103,7 +104,10 @@ export default {
       history.pushState(
         null,
         null,
-        location.pathname + (pageNumber === 1 ? `?document_type=${this.documentType}&word=${this.word}` : `?document_type=${this.documentType}&page=${pageNumber}&word=${this.word}`)
+        location.pathname +
+          (pageNumber === 1
+            ? `?document_type=${this.documentType}&word=${this.word}`
+            : `?document_type=${this.documentType}&page=${pageNumber}&word=${this.word}`)
       )
     }
   }

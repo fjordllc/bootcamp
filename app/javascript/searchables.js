@@ -8,9 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const documentType = searchables.getAttribute('document_type')
     const word = searchables.getAttribute('word')
     new Vue({
-      render: h => h(Searchables, {
-        props: {document_type: documentType, word: word }
-      })
+      render: (h) =>
+        h(Searchables, {
+          props: { documentType: documentType, word: word }
+        })
     }).$mount(selector)
   }
 })
