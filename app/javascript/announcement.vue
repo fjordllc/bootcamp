@@ -23,9 +23,7 @@
       .a-date
         | {{ title }}作成中
     .thread-list-item-meta(v-else)
-      time.a-date(
-        datetime='announcement.published_at_date_time'
-      )
+      time.a-date(datetime='announcement.published_at_date_time')
         span.span.a-date__label
           | 公開
         | {{ announcement.published_at }}
