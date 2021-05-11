@@ -22,19 +22,23 @@
                   | 開催日時
                 span.a-date__value
                   = l event.start_at
-            - if event.comments.any?
-              .thread-list-item-meta__item
-                .thread-list-item-meta__comment-count
-                  .thread-list-item-meta__comment-count-label
-                    i.fas.fa-comment
-                  .thread-list-item-meta__comment-count-value
-                    = event.comments.size
             .thread-list-item-meta__item
-              .thread-list-item-meta__comment-count
-                .thread-list-item-meta__comment-count-value
-                  | 参加者(#{event.participants_count}名/#{event.capacity}名)
+              .thread-list-item-comment
+                .thread-list-item-comment__label
+                  | 参加者
+                .thread-list-item-comment__value
+                  | （#{event.participants_count}名 / #{event.capacity}名）
             - if event.waitlist_count.positive?
               .thread-list-item-meta__item
-                .thread-list-item-meta__comment-count
-                  .thread-list-item-meta__comment-count-value
-                    | 補欠者(#{event.waitlist_count}名)
+                .thread-list-item-comment
+                  .thread-list-item-comment__label
+                    | 補欠者
+                  .thread-list-item-comment__value
+                    | (#{event.waitlist_count}名)
+            - if event.comments.any?
+              .thread-list-item-meta__item
+                .thread-list-item-comment
+                  .thread-list-item-comment__label
+                    | コメント
+                  .thread-list-item-comment__value
+                    | （#{event.comments.size}）

@@ -40,22 +40,24 @@
                 | の日報
       .thread-list-item__row.has-border-top(v-if='report.hasAnyComments')
         .thread-list-item-meta
-          .thread-list-item-meta__label
-            | コメント
-          .thread-list-item-meta__comment-count
-            .thread-list-item-meta__comment-count-value
-              | ({{ report.numberOfComments }})
-          .thread-list-item__user-icons
-            comment-user-icon(
-              v-for='comment in report.comments',
-              :key='comment.id',
-              :comment='comment'
-            )
-          time.a-date(
-            datetime='report.lastCommentDatetime',
-            pubdate='\'pubdate\''
-          )
-            | 〜 {{ report.lastCommentDate }}
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              .thread-list-item-comment
+                .thread-list-item-comment__label
+                  | コメント
+                .thread-list-item-comment__count
+                  | ({{ report.numberOfComments }})
+                .thread-list-item-comment__user-icons
+                  comment-user-icon(
+                    v-for='comment in report.comments',
+                    :key='comment.id',
+                    :comment='comment'
+                  )
+                time.a-date(
+                  datetime='report.lastCommentDatetime',
+                  pubdate='\'pubdate\''
+                )
+                  | 〜 {{ report.lastCommentDate }}
     .stamp.stamp-approve(v-if='this.report.hasCheck')
       h2.stamp__content.is-title 確認済
       time.stamp__content.is-created-at {{ report.checkDate }}
