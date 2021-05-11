@@ -1,7 +1,9 @@
 <template lang="pug">
 .thread-list-item(:class='wipClass')
   .thread-list-item__inner
-    label.thread-list-item-actions__trigger(:for='report.id')(v-if='currentUserId == report.user.id')
+    label.thread-list-item-actions__trigger(:for='report.id')(
+      v-if='currentUserId == report.user.id'
+    )
       i.fas.fa-ellipsis-v
     .thread-list-item__rows
       .thread-list-item__row
@@ -15,7 +17,7 @@
 
           .thread-list-item-title__end
             .thread-list-item-actions(v-if='currentUserId == report.user.id')
-              input.a-toggle-checkbox(type="checkbox" :id='report.id')
+              input.a-toggle-checkbox(type='checkbox', :id='report.id')
               .thread-list-item-actions__inner
                 ul.thread-list-item-actions__items
                   li.thread-list-item-actions__item

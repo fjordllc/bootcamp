@@ -19,15 +19,11 @@
             .thread-list-item-meta__item(v-if='product.wip')
               .a-date 提出物作成中
             .thread-list-item-meta__item(v-else-if='product.published_at')
-              time.a-date(
-                datetime='product.published_at_date_time'
-              )
+              time.a-date(datetime='product.published_at_date_time')
                 span.a-date__label 提出日
                 | {{ product.published_at }}
             .thread-list-item-meta__item(v-else)
-              time.a-date(
-                datetime='product.created_at_date_time'
-              )
+              time.a-date(datetime='product.created_at_date_time')
                 span.a-date__label 提出日
                 | {{ product.created_at }}
             time.a-date(
@@ -51,9 +47,7 @@
                 :src='user.avatar_url',
                 :class='[roleClass, daimyoClass]'
               )
-          time.a-date(
-            datetime='product.comments.last_created_at_date_time'
-          )
+          time.a-date(datetime='product.comments.last_created_at_date_time')
             | {{ product.comments.last_created_at }}
     .stamp.stamp-approve(v-if='product.checks.size > 0')
       h2.stamp__content.is-title 確認済
