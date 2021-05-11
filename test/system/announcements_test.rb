@@ -35,14 +35,6 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせ作成中'
   end
 
-  test 'show new action link' do
-    login_user 'hatsuno', 'testtest'
-    user = users(:hatsuno)
-    Announcement.create(title: 'test', description: 'test', user: user, wip: true)
-    visit '/announcements'
-    assert_selector '.thread-list-item-actions__action'
-  end
-
   test 'announcement has a comment form ' do
     login_user 'kimura', 'testtest'
     visit "/announcements/#{announcements(:announcement1).id}"
