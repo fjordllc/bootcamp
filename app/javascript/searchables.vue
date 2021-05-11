@@ -105,9 +105,9 @@ export default {
         null,
         null,
         location.pathname +
-          (pageNumber === 1
-            ? `?document_type=${this.documentType}&word=${this.word}`
-            : `?document_type=${this.documentType}&page=${pageNumber}&word=${this.word}`)
+        `?document_type=${this.documentType}` +
+        (pageNumber === 1 ? '' : `&page=${pageNumber}`) +
+        `&word=${this.word}`
       )
     }
   }
