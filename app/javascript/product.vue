@@ -35,20 +35,23 @@
 
       .thread-list-item__row.has-border-top(v-if='product.comments.size > 0')
         .thread-list-item-meta
-          .thread-list-item-meta__label
-            | コメント
-          .thread-list-item-meta__comment-count
-            .thread-list-item-meta__comment-count-value （{{ product.comments.size }}）
-          .thread-list-item__user-icons(v-for='user in product.comments.users')
-            a.thread-list-item__user-icon(:href='user.url')
-              img.thread-list-item__checked-author-icon.a-user-icon(
-                :title='user.icon_title',
-                :alt='user.icon_title',
-                :src='user.avatar_url',
-                :class='[roleClass, daimyoClass]'
-              )
-          time.a-date(datetime='product.comments.last_created_at_date_time')
-            | {{ product.comments.last_created_at }}
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              .thread-list-item-comment
+                .thread-list-item-comment__label
+                  | コメント
+                .thread-list-item-comment__count
+                  | （{{ product.comments.size }}）
+                .thread-list-item-comment__user-icons
+                  a.thread-list-item-comment__user-icon(:href='user.url')(v-for='user in product.comments.users')
+                    img.a-user-icon(
+                      :title='user.icon_title',
+                      :alt='user.icon_title',
+                      :src='user.avatar_url',
+                      :class='[roleClass, daimyoClass]'
+                    )
+                time.a-date(datetime='product.comments.last_created_at_date_time')
+                  | 〜 {{ product.comments.last_created_at }}
     .stamp.stamp-approve(v-if='product.checks.size > 0')
       h2.stamp__content.is-title 確認済
       time.stamp__content.is-created-at {{ product.checks.last_created_at }}

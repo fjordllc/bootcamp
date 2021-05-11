@@ -55,8 +55,11 @@
 
       - if page.comments.any?
         .thread-list-item__row
-          .thread-list-item-meta__comment-count
-            .thread-list-item-meta__comment-count-label
-              i.fas.fa-comment
-            .thread-list-item-meta__comment-count-value
-              = page.comments.size
+          .thread-list-item-meta
+            .thread-list-item-meta__items
+              .thread-list-item-meta__item
+                .thread-list-item-comment
+                  .thread-list-item-comment__label
+                    | コメント
+                  .thread-list-item-comment__value
+                    | （#{page.comments.size}）
