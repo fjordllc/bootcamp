@@ -5,20 +5,23 @@
         | 1ヶ月以上ログインのないユーザー
         = "(#{users.size})"
     .card-list
-      ul.card-list__items
+      .card-list__items
         - users.each do |user|
-          li.card-list__item
+          .card-list__item
             .thread-list-item
               .thread-list-item__inner
                 .thread-list-item__author
                   = render 'users/icon', user: user, link_class: 'a-user-name', image_class: 'thread-list-item__author-icon'
-                header.thread-list-item-title
-                  h2.thread-list-item-title__title(itemprop='name')
-                    = link_to user, itemprop: 'url', class: 'thread-list-item-title__link' do
-                      = user.name
-                  .thread-list-item-title__start
-                .thread-list-item-meta
-                  time.a-date
-                    = User.human_attribute_name :updated_at
-                    | :&nbsp;
-                    = l user.updated_at
+                .thread-list-item__rows
+                  .thread-list-item__row
+                    .thread-list-item-title
+                      h2.thread-list-item-title__title(itemprop='name')
+                        = link_to user, itemprop: 'url', class: 'thread-list-item-title__link' do
+                          = user.name
+                  .thread-list-item__row
+                    .thread-list-item-meta
+                      time.a-date
+                        span.a-date__label
+                          = User.human_attribute_name :updated_at
+                        span.a-date__value
+                          = l user.updated_at
