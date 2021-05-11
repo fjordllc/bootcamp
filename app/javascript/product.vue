@@ -43,14 +43,18 @@
                 .thread-list-item-comment__count
                   | （{{ product.comments.size }}）
                 .thread-list-item-comment__user-icons
-                  a.thread-list-item-comment__user-icon(:href='user.url')(v-for='user in product.comments.users')
+                  a.thread-list-item-comment__user-icon(:href='user.url')(
+                    v-for='user in product.comments.users'
+                  )
                     img.a-user-icon(
                       :title='user.icon_title',
                       :alt='user.icon_title',
                       :src='user.avatar_url',
                       :class='[roleClass, daimyoClass]'
                     )
-                time.a-date(datetime='product.comments.last_created_at_date_time')
+                time.a-date(
+                  datetime='product.comments.last_created_at_date_time'
+                )
                   | 〜 {{ product.comments.last_created_at }}
     .stamp.stamp-approve(v-if='product.checks.size > 0')
       h2.stamp__content.is-title 確認済
