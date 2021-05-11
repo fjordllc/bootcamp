@@ -10,8 +10,8 @@ header.page-header
 
 .page-body
   .container
-    = paginate @products, position: 'top'
+    = paginate @products
     - if @products.present?
       .thread-list.a-card
         = render partial: 'products/product', collection: @products, as: :product
-    = paginate @products, position: 'bottom'
+    = paginate @products
