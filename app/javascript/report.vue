@@ -4,7 +4,7 @@
     label.thread-list-item-actions__trigger(:for='report.id')(
       v-if='currentUserId == report.user.id'
     )
-      i.fas.fa-ellipsis-v
+      i.fas.fa-ellipsis-h
     .thread-list-item__rows
       .thread-list-item__row
         header.thread-list-item-title
