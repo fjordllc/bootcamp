@@ -1,4 +1,4 @@
-- title '期一覧'
+- title 'タグ別'
 
 header.page-header.is-border-bottom-none
   .container
@@ -17,9 +17,9 @@ main.page-main
           = title
   .page-body
     .container.is-md
-      - if @generations.present?
+      - if @tags.present?
         .a-card
-          = render partial: 'generations/generation', collection: @generations, as: :generation
+          = render partial: 'tags/tag', collection: @tags, as: :tag
       - else
         .o-empty-message
           .o-empty-message__icon

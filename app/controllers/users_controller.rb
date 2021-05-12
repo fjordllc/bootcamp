@@ -27,7 +27,7 @@ class UsersController < ApplicationController
              .order(updated_at: :desc)
 
     @random_tags = User.tags.find(User.tags.pluck(:id).sample(20))
-    @max_counts = User.tags.order('taggings_count desc').limit(3).map(&:taggings_count).uniq
+    @top3_tags_counts = User.tags.order('taggings_count desc').limit(3).map(&:taggings_count).uniq
   end
 
   def show
