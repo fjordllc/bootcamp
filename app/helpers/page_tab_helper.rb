@@ -14,6 +14,10 @@ module PageTabHelper
     current_page_tab?(target_name) ? 'is-active' : ''
   end
 
+  def users_current_page_tab_or_not(target_name)
+    users_current_page_tab?(target_name) ? 'is-active' : ''
+  end
+
   private
 
   def practices_tab_members(resource)
@@ -89,5 +93,10 @@ module PageTabHelper
     else
       paths.last == target_name
     end
+  end
+
+  def users_current_page_tab?(target_name)
+    paths = url_for(only_path: false).split('/')
+    paths.last == target_name
   end
 end
