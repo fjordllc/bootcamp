@@ -24,9 +24,7 @@
               :href='`${category.edit_admin_category_path}`'
             )
               i.fas.fa-pen
-          .is-long-text(
-            v-html='markdownDescription'
-          )
+          .is-long-text(v-html='markdownDescription')
         .categories-item__body
           .category-practices.js-category-practices
             courses-practice(
