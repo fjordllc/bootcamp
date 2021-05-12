@@ -145,6 +145,12 @@ class User < ApplicationRecord
 
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
 
+  validates :avatar, attached: false,
+                     content_type: {
+                       in: %w[image/png image/jpg image/jpeg image/gif],
+                       message: 'はPNG, JPG, GIF形式にしてください'
+                     }
+
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
                            format: {
@@ -467,6 +473,8 @@ class User < ApplicationRecord
     else
       image_url('/images/users/avatars/default.png')
     end
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+    image_url('/images/users/avatars/default.png')
   end
 
   def generation
