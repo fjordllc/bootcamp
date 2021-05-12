@@ -24,7 +24,7 @@
               :href='`${category.edit_admin_category_path}`'
             )
               i.fas.fa-pen
-          .is-long-text(v-html='markdownDescription')
+          .is-long-text(v-html='markdownDescription(category.description)')
         .categories-item__body
           .category-practices.js-category-practices
             courses-practice(
@@ -66,7 +66,9 @@ export default {
   computed: {
     markdownDescription: function () {
       const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.description)
+      return function (description) {
+        return markdownInitializer.render(description)
+      }
     },
     url() {
       return `/api/courses/${this.courseId}/practices`
