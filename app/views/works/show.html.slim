@@ -16,33 +16,40 @@ header.page-header
     .thread.is-header-author
       .thread__inner.a-card
         header.thread-header
-          = link_to user_portfolio_path(@work.user), itemprop: 'url', class: 'thread-header__author-link' do
-            = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: "thread-header__author-icon a-user-icon is-#{@work.user.role}"
-          h2.thread-header__title
-            = @work.title
-          .thread-header__lower-side
-            .thread-header__lower-side-author-name
-              = link_to @work.user, class: 'thread-header__lower-side-author-name-link' do
-                = @work.user.login_name
-            .thread-header__lower-side-date
-              .thread-header__lower-side-label
-                | 登録日
-              time.thread-header__lower-side-value(datetime="#{@work.created_at.to_datetime}" pubdate='pubdate')
-                = l @work.created_at
-        - if @work.thumbnail.attached?
-          = image_tag @work.thumbnail_url, class: 'thread__work-image'
-        .thread__description.js-target-blank.is-long-text.js-markdown-view
-          p = @work.description
+          = link_to user_portfolio_path(@work.user), itemprop: 'url', class: 'a-user-name-link' do
+            = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: "a-user-name-icon a-user-icon is-#{@work.user.role}"
+          .thread-header__row
+            .thread-header-metas
+              .thread-header-metas__start
+                .thread-header-metas__meta
+                  = link_to @work.user, class: 'a-user-name' do
+                    = @work.user.login_name
+                .thread-header-metas__meta
+                  .a-date
+                    .a-date__label
+                      | 登録日
+                    time.a-date__value(datetime="#{@work.created_at.to_datetime}" pubdate='pubdate')
+                      = l @work.created_at
+          .thread-header__row
+            h1.thread-header-title
+              span.thread-header-title__title
+                = @work.title
+        .thread__description.js-target-blank.is-long-text
+          - if @work.thumbnail.attached?
+            p
+              = image_tag @work.thumbnail_url, alt: @work.title
+          .js-markdown-view
+            = @work.description
         .card-footer
           ul.card-main-actions__items
             - if @work.url.present?
               li.card-main-actions__item
-                = link_to @work.url, target: '_blank', rel: 'noopener', class: 'card-main-actions_action a-button is-lg is-main is-block' do
+                = link_to @work.url, target: '_blank', rel: 'noopener', class: 'a-button is-md is-secondary is-block' do
                   i.fas.fa-globe
                   | URL
             - if @work.repository.present?
               li.card-main-actions__item
-                = link_to @work.repository, target: '_blank', rel: 'noopener', class: 'card-main-actions__action a-button is-lg is-main is-block' do
+                = link_to @work.repository, target: '_blank', rel: 'noopener', class: 'a-button is-md is-secondary is-block' do
                   i.fab.fa-github-alt
                   | Repository
         - if @work.user == current_user || admin_login?
@@ -50,7 +57,7 @@ header.page-header
             .card-main-actions
               ul.card-main-actions__items
                 li.card-main-actions__item
-                  = link_to edit_work_path(@work), class: 'card-main-actions_action a-button is-md is-secondary is-block' do
+                  = link_to edit_work_path(@work), class: 'a-button is-md is-secondary is-block' do
                     i.fas.fa-pen
                     | 内容修正
                 li.card-main-actions__item.is-sub

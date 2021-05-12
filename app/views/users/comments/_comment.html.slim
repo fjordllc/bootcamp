@@ -3,15 +3,15 @@
   .thread-list-item__inner
     .thread-list-item__label
       = t("activerecord.models.#{commentable.class.to_s.tableize.singularize}")
-    header.thread-list-item__header
+    header.thread-list-item-title
       - if user_comments_page?
-        h2.thread-list-item__title
-          = link_to commentable, class: 'thread-list-item__title-link' do
+        h2.thread-list-item-title__title
+          = link_to commentable, class: 'thread-list-item-title__link' do
             = image_tag commentable.user.avatar_url, title: commentable.user.icon_title, class: 'thread-comment__title-icon a-user-icon'
             = truncate(commentable.title, length: 50)
       - else
-        h2.thread-list-item__title
-          = link_to comment.user, itemprop: 'url', class: 'thread-list-item__title-link' do
+        h2.thread-list-item-title__title
+          = link_to comment.user, itemprop: 'url', class: 'thread-list-item-title__link' do
             = comment.user.login_name
       time.thread-comment__created-at(datetime="#{commentable.created_at.to_datetime}" pubdate='pubdate')
         = l comment.updated_at
