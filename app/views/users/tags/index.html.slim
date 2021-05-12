@@ -1,4 +1,4 @@
-- title 'タグ一覧'
+- title 'タグ別'
 
 header.page-header.is-border-bottom-none
   .container
@@ -18,7 +18,7 @@ main.page-main
   .page-body
     .container.is-md
       - if @tags.present?
-        .generations.a-card
+        .a-card
           = render partial: 'tags/tag', collection: @tags, as: :tag
       - else
         .o-empty-message
