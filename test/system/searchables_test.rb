@@ -105,7 +105,7 @@ class SearchablesTest < ApplicationSystemTestCase
     end
     find('#test-search').click
     assert_text 'yamada'
-    assert_css '.thread-list-item-meta__updated-at'
+    assert_css '.a-date'
     assert_no_text 'テストの回答'
   end
 

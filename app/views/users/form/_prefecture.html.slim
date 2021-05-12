@@ -1,5 +1,5 @@
 .form-item
-  = f.label :prefecture_code, class: 'a-label'
+  = f.label :prefecture_code, class: 'a-form-label'
   .a-button.is-md.is-secondary.is-select.is-block
     = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, include_blank: '都道府県を選択してください'
   .a-form-help

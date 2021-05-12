@@ -1,10 +1,11 @@
 .card-list.is-completed
-  ul.card-list__items
+  .card-list__items
     - completed_learnings.each do |learning|
-      li.card-list__item
+      .card-list__item
         = link_to learning.practice, class: 'card-list__item-link' do
           = learning.practice.title
-          .card-list__item-link-date
-            .card-list__item-link-date-label
+          .a-date
+            .a-date__label
               | 完了日
-            = l learning.updated_at.to_date
+            .a-date__value
+              = l learning.updated_at.to_date

@@ -1,5 +1,5 @@
 .form-item
-  = f.label :os, '学習に使うマシン・OS', class: 'a-label is-required'
+  = f.label :os, '学習に使うマシン・OS', class: 'a-form-label is-required'
   .a-button.is-md.is-secondary.is-select.is-block
     - options = options_for_select(User.os.map { |k, _| [t("activerecord.enums.user.os.#{k}"), k] }, selected: f.object.os)
     = f.select :os, options, include_blank: '- 選択してください -'

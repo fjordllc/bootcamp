@@ -9,34 +9,43 @@
         .a-count-badge__value(:class='answerCount === 0 ? "is-zero" : ""')
           | {{ answerCount }}
       .thread-header__row
-        a.thread-header__author(:href='`/users/${question.user.id}`')
-          | {{ question.user.login_name }}
-        .thread-header__date
-          time.thread_header_date-value(
-            :datetime='updatedAtISO8601',
-            pubdate='pubdate'
+        .thread-header-metas
+          .thread-header-metas__start
+            .thread-header-metas__meta
+              a.a-user-name(:href='`/users/${question.user.id}`')
+                | {{ question.user.login_name }}
+            .thread-header-metas__meta
+              .a-date
+                time.thread_header_date-value(
+                  :datetime='updatedAtISO8601',
+                  pubdate='pubdate'
+                )
+                  | {{ updatedAt }}
+      .thread-header__row
+        .thread-header-title
+          .thread-header-title__label.is-solved.is-success(
+            v-if='question.correct_answer !== null'
           )
-            | {{ updatedAt }}
+            | 解決済
+          .thread-header-title__label.is-solved.is-danger(v-else)
+            | 未解決
+          h1.thread-header-title__title
+            | {{ title }}
       .thread-header__row
         .thread-practice
           a.thread-practice__link(:href='`/practices/${practiceId}`')
             | {{ practiceTitle }}
-      h1.thread-header__title
-        span.thread-header__title-icon.is-solved.is-success(
-          v-if='question.correct_answer !== null'
-        )
-          | 解決済
-        span.thread-header__title-icon.is-solved.is-danger(v-else)
-          | 未解決
-        | {{ title }}
-      .thread-header__lower-side
-        watch(:watchableId='question.id', watchableType='Question')
-        .thread-header__raw
-          a.a-button.is-sm.is-secondary(
-            :href='`/questions/${question.id}.md`',
-            target='_blank'
-          )
-            | Raw
+      .thread-header__row
+        .thread-header-actions
+          .thread-header-actions__start
+            watch(:watchableId='question.id', watchableType='Question')
+          .thread-header-actions__end
+            .thread-header__raw
+              a.a-button.is-sm.is-secondary(
+                :href='`/questions/${question.id}.md`',
+                target='_blank'
+              )
+                | Raw
     .thread__tags
       tags(
         :tagsInitialValue='question.tag_list',
@@ -83,7 +92,7 @@
         form.form(name='question')
           .form__items
             .form-item
-              label.a-label
+              label.a-form-label
                 | プラクティス
               .select-practices(v-if='practices === null')
                 .empty
@@ -101,7 +110,7 @@
                     :value='practice.id'
                   ) {{ practice.categoryAndPracticeName }}
             .form-item
-              .a-label
+              .a-form-label
                 | タイトル
               input.a-text-input.js-warning-form(
                 v-model='edited.title',

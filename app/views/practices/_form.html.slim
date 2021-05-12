@@ -3,10 +3,10 @@
   .form-item
     .row
       .col-md-6.col-xs-12
-        = f.label :title, class: 'a-label is-required'
+        = f.label :title, class: 'a-form-label is-required'
         = f.text_field :title, class: 'a-text-input js-warning-form'
   .form-item
-    = f.label :categories, class: 'a-label is-required'
+    = f.label :categories, class: 'a-form-label is-required'
     .checkboxes
       ul.checkboxes__items
         = f.collection_check_boxes :category_ids, Category.all, :id, :name, class: 'label-checkbox' do |b|
@@ -15,35 +15,35 @@
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label :description, class: 'a-label is-required'
+        = f.label :description, class: 'a-form-label is-required'
         = f.text_area :description,
           class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
           data: { 'preview': '.js-description-preview' }
       .col-md-6.col-xs-12
-        .a-label プレビュー
+        .a-form-label プレビュー
         .js-description-preview.is-long-text.markdown-form__preview
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label :goal, class: 'a-label is-required'
+        = f.label :goal, class: 'a-form-label is-required'
         = f.text_area :goal,
           class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
           data: { 'preview': '.js-goal-preview' }
       .col-md-6.col-xs-12
-        .a-label プレビュー
+        .a-form-label プレビュー
         .js-goal-preview.is-long-text.markdown-form__preview
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label :memo, class: 'a-label'
+        = f.label :memo, class: 'a-form-label'
         = f.text_area :memo,
           class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
           data: { 'preview': '.js-memo-preview' }
       .col-md-6.col-xs-12
-        .a-label プレビュー
+        .a-form-label プレビュー
         .js-memo-preview.is-long-text.markdown-form__preview
   .form-item
-    = f.label :submission, class: 'a-label'
+    = f.label :submission, class: 'a-form-label'
     .checkboxes
       ul.checkboxes__items
         li.checkboxes__item
@@ -55,7 +55,7 @@
             = f.check_box :open_product
             | OKをもらっていない人も提出物を見られるようにする場合はチェック
   .form-item
-    = f.label :progress, class: 'a-label'
+    = f.label :progress, class: 'a-form-label'
     .checkboxes
       ul.checkboxes__items
         li.checkboxes__item
