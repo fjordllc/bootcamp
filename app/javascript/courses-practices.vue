@@ -24,8 +24,9 @@
               :href='`${category.edit_admin_category_path}`'
             )
               i.fas.fa-pen
-          .is-long-text
-            p {{ category.description }}
+          .is-long-text(
+            v-html='markdownDescription'
+          )
         .categories-item__body
           .category-practices.js-category-practices
             courses-practice(
@@ -48,6 +49,7 @@
 
 <script>
 import CoursesPractice from './courses-practice.vue'
+import MarkdownInitializer from './markdown-initializer'
 
 export default {
   components: {
@@ -64,6 +66,10 @@ export default {
     }
   },
   computed: {
+    markdownDescription: function () {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.description)
+    },
     url() {
       return `/api/courses/${this.courseId}/practices`
     },
