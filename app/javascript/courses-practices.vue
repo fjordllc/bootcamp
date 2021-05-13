@@ -24,7 +24,7 @@
               :href='`${category.edit_admin_category_path}`'
             )
               i.fas.fa-pen
-          .js-markdown-view.js-target-blank.is-long-text
+          .is-long-text
             p {{ category.description }}
         .categories-item__body
           .category-practices.js-category-practices
@@ -108,9 +108,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.js-markdown-view.js-target-blank.is-long-text {
-  display: block;
-}
-</style>
