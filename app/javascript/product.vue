@@ -33,7 +33,8 @@
               span.a-date__label 最終更新日
               | {{ product.updated_at }}
 
-      .thread-list-item__row.has-border-top(v-if='product.comments.size > 0')
+      .thread-list-item__row(v-if='product.comments.size > 0')
+        hr.thread-list-item__row-separator
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
