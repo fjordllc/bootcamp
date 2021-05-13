@@ -31,16 +31,8 @@ class AnnouncementsTest < ApplicationSystemTestCase
     user = users(:komagata)
     Announcement.create(title: 'test', description: 'test', user: user, wip: true)
     visit '/announcements'
-    assert_selector '.thread-list-item__header-icon'
+    assert_selector '.thread-list-item-title__icon'
     assert_text 'お知らせ作成中'
-  end
-
-  test 'show new action link' do
-    login_user 'hatsuno', 'testtest'
-    user = users(:hatsuno)
-    Announcement.create(title: 'test', description: 'test', user: user, wip: true)
-    visit '/announcements'
-    assert_selector '.thread-list-item__actions-link'
   end
 
   test 'announcement has a comment form ' do

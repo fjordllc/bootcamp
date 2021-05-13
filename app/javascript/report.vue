@@ -1,6 +1,67 @@
 <template lang="pug">
 .thread-list-item(:class='wipClass')
   .thread-list-item__inner
+    label.thread-list-item-actions__trigger(:for='report.id')(
+      v-if='currentUserId == report.user.id'
+    )
+      i.fas.fa-ellipsis-h
+    .thread-list-item__rows
+      .thread-list-item__row
+        header.thread-list-item-title
+          .thread-list-item-title__start
+            .thread-list-item-title__icon.is-wip(v-if='report.wip') WIP
+            h2.thread-list-item-title__title
+              a.thread-list-item-title__link.js-unconfirmed-link(
+                :href='report.url'
+              ) {{ report.user.daimyo ? "★" + report.title : report.title }}
+
+          .thread-list-item-title__end
+            .thread-list-item-actions(v-if='currentUserId == report.user.id')
+              input.a-toggle-checkbox(type='checkbox', :id='report.id')
+              .thread-list-item-actions__inner
+                ul.thread-list-item-actions__items
+                  li.thread-list-item-actions__item
+                    a.thread-list-item-actions__action(:href='report.editURL')
+                      i.fas.fa-pen
+                      | 内容変更
+                  li.thread-list-item-actions__item
+                    a.thread-list-item-actions__action(:href='report.newURL')
+                      i.fas.fa-copy
+                      | コピー
+                label.a-overlay(:for='report.id')
+
+      .thread-list-item__row
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              a.a-user-name(:href='report.user.url') {{ report.user.login_name }}
+            .thread-list-item-meta__item
+              time.a-date {{ report.reportedOn }}
+                | の日報
+      .thread-list-item__row.has-border-top(v-if='report.hasAnyComments')
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              .thread-list-item-comment
+                .thread-list-item-comment__label
+                  | コメント
+                .thread-list-item-comment__count
+                  | ({{ report.numberOfComments }})
+                .thread-list-item-comment__user-icons
+                  comment-user-icon(
+                    v-for='comment in report.comments',
+                    :key='comment.id',
+                    :comment='comment'
+                  )
+                time.a-date(
+                  datetime='report.lastCommentDatetime',
+                  pubdate='\'pubdate\''
+                )
+                  | 〜 {{ report.lastCommentDate }}
+    .stamp.stamp-approve(v-if='this.report.hasCheck')
+      h2.stamp__content.is-title 確認済
+      time.stamp__content.is-created-at {{ report.checkDate }}
+      .stamp__content.is-user-name {{ report.checkUserName }}
     .thread-list-item__author
       a.thread-header__author(:href='report.user.url')
         img.thread-list-item__author-icon.a-user-icon(
@@ -9,43 +70,6 @@
           :alt='report.user.login_name',
           :class='[roleClass, daimyoClass]'
         )
-    header.thread-list-item__header
-      .thread-list-item__header-title-container
-        .thread-list-item__header-icon.is-wip(v-if='report.wip') WIP
-        h2.thread-list-item__title
-          a.thread-list-item__title-link.js-unconfirmed-link(
-            :href='report.url'
-          ) {{ report.user.daimyo ? "★" + report.title : report.title }}
-        .thread-list-item__actions(v-if='currentUserId == report.user.id')
-          a.thread-list-item__actions-link(:href='report.editURL')
-            i.fas.fa-pen
-          a.thread-list-item__actions-link(:href='report.newURL')
-            i.fas.fa-copy
-    .thread-list-item-meta
-      a.link_to.thread-header__author(:href='report.user.url') {{ report.user.login_name }}
-      time.thread-list-item-meta__datetime {{ report.reportedOn }}
-        | の日報
-    .thread-list-item-meta(v-if='report.hasAnyComments')
-      .thread-list-item-meta__label
-        | コメント
-      .thread-list-item-meta__comment-count
-        .thread-list-item-meta__comment-count-value
-          | ({{ report.numberOfComments }})
-      .thread-list-item__user-icons
-        comment-user-icon(
-          v-for='comment in report.comments',
-          :key='comment.id',
-          :comment='comment'
-        )
-      time.thread-list-item-meta__datetime(
-        datetime='report.lastCommentDatetime',
-        pubdate='\'pubdate\''
-      )
-        | 〜 {{ report.lastCommentDate }}
-    .stamp.stamp-approve(v-if='this.report.hasCheck')
-      h2.stamp__content.is-title 確認済
-      time.stamp__content.is-created-at {{ report.checkDate }}
-      .stamp__content.is-user-name {{ report.checkUserName }}
 </template>
 
 <script>

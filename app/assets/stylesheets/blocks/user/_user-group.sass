@@ -1,30 +1,39 @@
-.generations-item
+.user-group
   padding: 1rem
   &:not(:first-child)
     border-top: solid 1px $border
 
-.generations-item__title
+.user-group__title
   +media-breakpoint-up(md)
     font-size: 1.125rem
   +media-breakpoint-down(sm)
     font-size: 1rem
 
-.generations-item__title-link
+.user-group__title-link
   text-decoration: none
   color: $main
   +media-breakpoint-up(md)
     display: flex
     align-items: flex-end
 
-.generations-item__title-label
+.user-group__title-label
   display: block
   font-weight: 600
   +media-breakpoint-up(md)
    margin-right: .25em
-  .generations-item__title-link:hover &
+  .user-group__title-link:hover &
     text-decoration: underline
 
-.generations-item__date
+.user-group__title-icon
+  margin-right: .375em
+  &.is-first
+    color: #c1ad15
+  &.is-second
+    color: #a0a0a0
+  &.is-third
+    color: #dc7e61
+
+.user-group__date
   font-size: .75em
   font-weight: 400
   color: $muted-text

@@ -1,9 +1,6 @@
 <template lang="pug">
-.thread-list-item__user-icon
-  a(:href='`/users/${user_id}`')
-    img.thread-list-item__checked-author-icon.a-user-icon(
-      :src='comment.user_icon'
-    )
+a.thread-list-item-comment__user-icon(:href='`/users/${user_id}`')
+  img.a-user-icon(:src='comment.user_icon')
 </template>
 
 <script>

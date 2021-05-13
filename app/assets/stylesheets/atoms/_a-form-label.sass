@@ -1,0 +1,9 @@
+.a-form-label
+  +text-block(.875rem 1.5 0 .5rem, block 600)
+  &.is-required
+    &::after
+      +fa(fas '\f069')
+      +text-block(.625rem, $danger inline-block)
+      margin-left: .125rem
+      vertical-align: top
+      transform: scale(.7)

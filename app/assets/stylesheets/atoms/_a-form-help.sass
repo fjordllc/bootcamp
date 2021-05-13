@@ -1,0 +1,43 @@
+.a-form-help
+  font-size: .75rem
+  margin-top: .5em
+  color: $semi-muted-text
+  &.is-text-align-right
+    text-align: right
+  &.is-text-align-center
+    text-align: center
+  [class*=a-button] + &
+    margin-top: 1em
+  [class*=is-select] + &
+    margin-top: .5em
+  .form-item-block &
+    margin-top: .75em
+  p
+    +text-block(1em 1.6 0 .75em)
+  a
+    +hover-link-reversal
+  *:last-child
+    margin-bottom: 0
+  a
+    +text-block(.75rem 1.6)
+    +hover-link-reversal
+    cursor: pointer
+    +default-link
+  ul
+    list-style-type: disc
+    list-style-position: outside
+    margin-left: 1.5em
+  li
+    line-height: 1.6
+    &:not(:first-child)
+      margin-top: .125em
+
+.a-form-help-link
+  +text-block(.75rem 1.6)
+  +hover-link-reversal
+  cursor: pointer
+  +default-link
+  .a-form-help &.is-danger
+      color: $danger
+  .a-form-help &.is-muted-text
+      color: $muted-text

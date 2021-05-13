@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     resources :categories, only: %i(index destroy) do
       resource :position, only: %i(update), controller: "categories/position"
     end
+    resources :courses, only: %i() do
+      resources :practices, only: %i(index), controller: "/api/courses/practices"
+    end
     resources :notifications, only: %i(index) do
       collection do
         resources :unread, only: %i(index), controller: "/api/notifications/unread"
@@ -83,6 +86,10 @@ Rails.application.routes.draw do
 
   namespace "partial" do
     resource :git_hub_grass, only: %i(show), controller: "git_hub_grass"
+  end
+
+  namespace :users do
+    get "tags", to: "tags#index"
   end
 
   resources :announcements

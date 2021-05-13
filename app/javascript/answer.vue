@@ -107,8 +107,9 @@
 import Reaction from './reaction.vue'
 import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
-import moment from 'moment'
-moment.locale('ja')
+import dayjs from 'dayjs'
+import ja from 'dayjs/locale/ja'
+dayjs.locale(ja)
 
 export default {
   components: {
@@ -136,10 +137,10 @@ export default {
       return markdownInitializer.render(this.description)
     },
     answerCreatedAt: function () {
-      return moment(this.answer.question.created_at).format()
+      return dayjs(this.answer.question.created_at).format()
     },
     updatedAt: function () {
-      return moment(this.answer.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+      return dayjs(this.answer.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     roleClass: function () {
       return `is-${this.answer.user.role}`

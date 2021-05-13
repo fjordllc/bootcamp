@@ -31,7 +31,7 @@ header.page-header
         - else
           .a-empty-message
             = @questions_property.empty_message
-      - if @questions.all_tags.any?
+      - if @tags.any?
         nav.page-tags-nav
           header.page-tags-nav__header
             h2.page-tags-nav__title

@@ -76,6 +76,7 @@ group :development do
   gem 'rubocop-minitest'
   gem 'rubocop-rails', require: false
   gem 'slim_lint'
+  gem 'view_source_map'
 end
 
 group :test do

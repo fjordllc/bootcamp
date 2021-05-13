@@ -13,13 +13,10 @@ $global-nav-width-sm: 13rem
       width: 100%
       display: block
 
-.global-nav__background
-  +position(fixed, left 0, top 0, bottom 0, 1)
+.global-nav__background.a-overlay
   background-color: rgba(black, .6)
-  height: 100%
   width: 0
   display: inline
-  opacity: 0
   input:checked + .global-nav &
     opacity: 1
     width: 100%
