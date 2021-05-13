@@ -61,9 +61,6 @@ export default {
     return {
       categories: null,
       learnings: null,
-      styleObject: {
-        display: 'block'
-      }
     }
   },
   computed: {
