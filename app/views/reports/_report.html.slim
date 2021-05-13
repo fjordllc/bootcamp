@@ -1,39 +1,58 @@
 .thread-list-item(class="#{report.wip? ? 'is-wip' : ''}")
   .thread-list-item__inner
+    label.thread-list-item-actions__trigger(for="#{report.id}")
+      i.fas.fa-ellipsis-h
     .thread-list-item__author
       = render 'users/icon', user: report.user, link_class: 'a-user-name', image_class: 'thread-list-item__author-icon'
-    header.thread-list-item-title
-      .thread-list-item-title__start
-        - if report.wip?
-          .thread-list-item-title__icon.is-wip WIP
-        h2.thread-list-item-title__title(itemprop='name')
-          = link_to report, itemprop: 'url', class: 'thread-list-item-title__link js-unconfirmed-link' do
-            - if report.user.daimyo?
-              | ★
-            = report.title
-      - if current_user == report.user
-        .thread-list-item-actions
-          = link_to edit_report_path(report), class: 'thread-list-item-actions__action' do
-            i.fas.fa-pen
-          = link_to new_report_path(id: report), class: 'thread-list-item-actions__action' do
-            i.fas.fa-copy
-    .thread-list-item-meta
-      .thread-list-item-meta__items
-        .thread-list-item-meta__item
-          = link_to report.user.login_name, report.user, class: 'a-user-name'
-          time.a-date(datetime="#{report.reported_on.to_datetime}")
-            = l report.reported_on
-            = 'の日報'
-        - if report.comments.any?
-          .thread-list-item-meta__item
-            .thread-list-item-comment
-              .thread-list-item-comment__label
-                | コメント
-              .thread-list-item-comment__count
-                | （#{report.comments.size}）
-              = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
-              time.a-date(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate='pubdate')
-                | 〜 #{l report.comments.last.updated_at, format: :date_and_time}
+    .thread-list-item__rows
+      .thread-list-item__row
+        .thread-list-item-title
+          .thread-list-item-title__start
+            - if report.wip?
+              .thread-list-item-title__icon.is-wip WIP
+            h2.thread-list-item-title__title(itemprop='name')
+              = link_to report, itemprop: 'url', class: 'thread-list-item-title__link js-unconfirmed-link' do
+                - if report.user.daimyo?
+                  | ★
+                = report.title
+          - if current_user == report.user
+            .thread-list-item-title__end
+              .thread-list-item-actions
+                input.a-toggle-checkbox(type="checkbox" id=="#{report.id}")
+                .thread-list-item-actions__inner
+                  ul.thread-list-item-actions__items
+                    li.thread-list-item-actions__item
+                      = link_to edit_report_path(report), class: 'thread-list-item-actions__action' do
+                        i.fas.fa-pen
+                        | 内容変更
+                    li.thread-list-item-actions__item
+                      = link_to new_report_path(id: report), class: 'thread-list-item-actions__action' do
+                        i.fas.fa-copy
+                        | コピー
+                  label.a-overlay(for="#{report.id}")
+      .thread-list-item__row
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              = link_to report.user.login_name, report.user, class: 'a-user-name'
+              time.a-date(datetime="#{report.reported_on.to_datetime}")
+                = l report.reported_on
+                = 'の日報'
+      - if report.comments.any?
+        .thread-list-item__row
+          hr.thread-list-item__row-separator
+          .thread-list-item-meta
+            .thread-list-item-meta__items
+              .thread-list-item-meta__item
+                .thread-list-item-comment
+                  .thread-list-item-comment__label
+                    | コメント
+                  .thread-list-item-comment__count
+                    | （#{report.comments.size}）
+                  .thread-list-item-comment__user-icons
+                    = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
+                  time.a-date(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate='pubdate')
+                    | 〜 #{l report.comments.last.updated_at, format: :date_and_time}
 
     - if report.checks.any?
       .stamp.stamp-approve

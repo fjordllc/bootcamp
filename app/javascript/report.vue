@@ -38,7 +38,8 @@
             .thread-list-item-meta__item
               time.a-date {{ report.reportedOn }}
                 | の日報
-      .thread-list-item__row.has-border-top(v-if='report.hasAnyComments')
+      .thread-list-item__row(v-if='report.hasAnyComments')
+        hr.thread-list-item__row-separator
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
