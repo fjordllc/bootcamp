@@ -41,11 +41,11 @@
   +hover-link
 
 .users-item__user-icon-image
-  +position(absolute, left -1rem, top -.375rem)
-  +size(4rem)
-  border: solid $base .25rem
   background-color: white
-  +icon-role-style
+  +media-breakpoint-up(md)
+    +size(4rem)
+    +position(absolute, left -1rem, top -.375rem)
+    border: solid $base .25rem
   +media-breakpoint-down(sm)
     +size(3rem)
     +position(absolute, left -.5rem, top -.25rem)

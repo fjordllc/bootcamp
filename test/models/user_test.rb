@@ -265,7 +265,7 @@ class UserTest < ActiveSupport::TestCase
     assert hajime.completed_all_practices?(category11)
   end
 
-  test 'dont unfollow user when other user unfollow user' do
+  test "don't unfollow user when other user unfollow user" do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
     kimura.follow(hatsuno)
@@ -274,5 +274,38 @@ class UserTest < ActiveSupport::TestCase
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
     daimyo.unfollow(hatsuno)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
+  end
+
+  test "don't return retired user data" do
+    yameo = users(:yameo)
+    result = Searcher.search(yameo.name)
+    assert_not_includes(result, yameo)
+  end
+
+  test 'return not retired user data' do
+    hajime = users(:hajime)
+    result = Searcher.search(hajime.name)
+    assert_includes(result, hajime)
+  end
+
+  test 'columns_for_keyword_searchの設定がsearch_by_keywordsに反映されていることを確認' do
+    komagata = users(:komagata)
+    komagata.update!(login_name: 'komagata1234',
+                     name: 'こまがた1234',
+                     name_kana: 'コマガタイチニサンヨン',
+                     twitter_account: 'komagata1234_tw',
+                     facebook_url: 'http://www.facebook.com/komagata1234',
+                     blog_url: 'http://komagata1234.org',
+                     github_account: 'komagata1234_github',
+                     discord_account: 'komagata#1234',
+                     description: '平日１０〜１９時勤務です。1234')
+    assert_includes(User.search_by_keywords({ word: komagata.login_name, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.name, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.name_kana, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.twitter_account, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.facebook_url, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.blog_url, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.github_account, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.discord_account, commentable_type: nil }), komagata)
   end
 end

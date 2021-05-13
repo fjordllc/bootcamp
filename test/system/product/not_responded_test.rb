@@ -52,8 +52,8 @@ class ProductsTest < ApplicationSystemTestCase
     visit '/products/not_responded'
 
     # 提出日の昇順で並んでいることを検証する
-    extract_all_title_on_display_page = -> { all('.thread-list-item__title').map { |t| t.text.gsub('★', '') } }
-    extract_all_author_on_display_page = ->  { all('.thread-list-item-meta .thread-header__author').map(&:text) }
+    extract_all_title_on_display_page = -> { all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') } }
+    extract_all_author_on_display_page = ->  { all('.thread-list-item-meta .a-user-name').map(&:text) }
 
     assert_equal "#{newest_product.practice.title}の提出物",
                  extract_all_title_on_display_page.call.first

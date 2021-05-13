@@ -23,8 +23,6 @@
 <script>
 import QuestionEdit from './question-edit.vue'
 import Answers from './answers.vue'
-import moment from 'moment'
-moment.locale('ja')
 
 export default {
   components: {

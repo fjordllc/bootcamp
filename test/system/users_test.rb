@@ -202,4 +202,18 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '質問のタブの作り方'
     assert_text '質問のタブに関して。。。追加質問'
   end
+
+  test 'show welcome message' do
+    login_user 'hatsuno', 'testtest'
+    assert_text 'ようこそ'
+  end
+
+  test 'not show welcome message' do
+    login_user 'hatsuno', 'testtest'
+    visit practice_path(practices(:practice1).id)
+    click_button '着手'
+    wait_for_vuejs
+    visit '/'
+    assert_no_text 'ようこそ'
+  end
 end

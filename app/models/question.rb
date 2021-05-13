@@ -21,7 +21,7 @@ class Question < ApplicationRecord
   validates :description, presence: true
   validates :user, presence: true
 
-  scope :solved, -> { joins(:correct_answer) }
+  scope :solved, -> { where(id: CorrectAnswer.pluck(:question_id)) }
   scope :not_solved, -> { where.not(id: CorrectAnswer.pluck(:question_id)) }
 
   columns_for_keyword_search :title, :description

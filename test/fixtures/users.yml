@@ -186,7 +186,7 @@ hajime:
   twitter_account: hajime
   facebook_url: http://www.facebook.com/hajime
   blog_url: http://hajime.org
-  description: "始です。"
+  description: "始です。テストです。"
   course: course1
   job: office_worker
   os: mac
