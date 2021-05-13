@@ -12,7 +12,7 @@
     )
       | {{ translate(practices.practice.id) }}
   .category-practices-item__learning-time(v-if='practiceTime')
-    | 所要時間の目安: {{ practiceTime.median }}
+    | 所要時間の目安: {{ convertToHourMinute(practiceTime.median) }}
     | （平均: {{ convertToHourMinute(practiceTime.average) }})
   .m-user-icons(v-if='practices.started_students.length')
     .m-user-icons__items
