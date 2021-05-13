@@ -1,7 +1,54 @@
 <template lang="pug">
-.thread-comments-container
-  h2.thread-comments-container__title コメント
-  .thread-comments
+  .thread-comments(v-if="loaded === false && commentableType === 'Product'")
+    .thread-comment
+      .thread-comment__author
+        .thread-comment__author-icon.a-user-icon.a-placeholder
+      .thread-comment__body.a-card
+        .thread-comment__body-header
+          .thread-comment__title
+            .thread-comment__title-link.a-placeholder
+          .thread-comment__created-at.a-placeholder
+        .thread-comment__description.is-long-text.a-placeholder
+          p
+          p
+          p
+          p
+          p
+          p
+
+    .thread-comment
+      .thread-comment__author
+        .thread-comment__author-icon.a-user-icon.a-placeholder
+      .thread-comment__body.a-card
+        .thread-comment__body-header
+          .thread-comment__title
+            .thread-comment__title-link.a-placeholder
+          .thread-comment__created-at.a-placeholder
+        .thread-comment__description.is-long-text.a-placeholder
+          p
+          p
+          p
+          p
+          p
+          p
+
+    .thread-comment
+      .thread-comment__author
+        .thread-comment__author-icon.a-user-icon.a-placeholder
+      .thread-comment__body.a-card
+        .thread-comment__body-header
+          .thread-comment__title
+            .thread-comment__title-link.a-placeholder
+          .thread-comment__created-at.a-placeholder
+        .thread-comment__description.is-long-text.a-placeholder
+          p
+          p
+          p
+          p
+          p
+          p
+
+  .thread-comments(v-else)
     comment(
       v-for='(comment, index) in comments',
       :key='comment.id',
@@ -81,7 +128,8 @@ export default {
       description: '',
       tab: 'comment',
       buttonDisabled: false,
-      defaultTextareaSize: null
+      defaultTextareaSize: null,
+      loaded: false,
     }
   },
   computed: {
@@ -116,10 +164,9 @@ export default {
       .then((response) => {
         return response.json()
       })
-      .then((json) => {
-        json.forEach((c) => {
-          this.comments.push(c)
-        })
+      .then(json => {
+        json.forEach(c => { this.comments.push(c) });
+        this.loaded = true
       })
       .catch((error) => {
         console.warn('Failed to parsing', error)
