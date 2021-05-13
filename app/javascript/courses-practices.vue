@@ -24,8 +24,7 @@
               :href='`${category.edit_admin_category_path}`'
             )
               i.fas.fa-pen
-          .is-long-text
-            p {{ category.description }}
+          .is-long-text(v-html='markdownDescription(category.description)')
         .categories-item__body
           .category-practices.js-category-practices
             courses-practice(
@@ -48,6 +47,7 @@
 
 <script>
 import CoursesPractice from './courses-practice.vue'
+import MarkdownInitializer from './markdown-initializer'
 
 export default {
   components: {
@@ -64,6 +64,12 @@ export default {
     }
   },
   computed: {
+    markdownDescription: function () {
+      const markdownInitializer = new MarkdownInitializer()
+      return function (description) {
+        return markdownInitializer.render(description)
+      }
+    },
     url() {
       return `/api/courses/${this.courseId}/practices`
     },
@@ -99,7 +105,9 @@ export default {
           const count = location.href.search('#')
           const hash = location.href.slice(count + 1)
           const element = document.getElementById(hash)
-          element.scrollIntoView()
+          if (element) {
+            element.scrollIntoView()
+          }
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
