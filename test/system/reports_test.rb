@@ -41,6 +41,26 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
+  test 'create a report without learning time' do
+    visit '/reports/new'
+    within('#new_report') do
+      fill_in('report[title]', with: 'test title')
+      fill_in('report[description]', with: 'test')
+      fill_in('report[reported_on]', with: Time.current)
+
+      first('.learning-time').all('.learning-time__started-at select')[0].select('07')
+      first('.learning-time').all('.learning-time__started-at select')[1].select('30')
+      first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
+      first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
+
+      check '学習時間は無し', allow_label_click: true
+    end
+
+    click_button '提出'
+    assert_text '日報を保存しました。'
+    assert_text '学習時間無し'
+  end
+
   test 'practices are displayed when updating with selecting a practice' do
     login_user 'hajime', 'testtest'
     report = reports(:report10)
@@ -281,21 +301,6 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '00:30 〜 02:30'
   end
 
-  test "can't register learning_times 0h0m" do
-    visit '/reports/new'
-    fill_in 'report_title', with: 'テスト日報'
-    fill_in 'report_description', with: "can't register learning_times 0h0m"
-
-    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('22')
-    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('00')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('22')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('00')
-
-    click_button '提出'
-
-    assert_text '終了時間は開始時間より後にしてください'
-  end
-
   test 'learning times order' do
     visit '/reports/new'
     fill_in 'report_title', with: 'テスト日報'
@@ -527,5 +532,12 @@ class ReportsTest < ApplicationSystemTestCase
     click_link 'Raw'
     switch_to_window windows.last
     assert_text '## this is heading2', exact: true
+  end
+
+  test 'update report without learning time' do
+    visit edit_report_path(reports(:report1))
+    check '学習時間は無し', allow_label_click: true
+    click_button '内容変更'
+    assert_text '学習時間無し'
   end
 end

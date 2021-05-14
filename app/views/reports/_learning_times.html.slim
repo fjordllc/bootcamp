@@ -1,4 +1,4 @@
-- if @report.total_learning_time == '0時間'
+- if @report.total_learning_time == 0
   .learning-times
     header.learning-times__header
       h2.learning-times__title 学習時間無し
@@ -6,7 +6,7 @@
   .learning-times
     header.learning-times__header
       h2.learning-times__title 学習時間:
-      span.learning-times__total-time = @report.total_learning_time
+      span.learning-times__total-time = minute_to_span @report.total_learning_time
     ul.learning-times__items
       - @report.learning_times.each do |learning_time|
         li.learning-times__item

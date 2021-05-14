@@ -16,6 +16,8 @@ class Report < ApplicationRecord
     happy: 2
   }
 
+  attribute :no_learn, :boolean
+
   has_many :learning_times, -> { order(:started_at) }, dependent: :destroy, inverse_of: :report
   validates_associated :learning_times
   accepts_nested_attributes_for :learning_times, reject_if: :all_blank, allow_destroy: true
@@ -92,5 +94,9 @@ class Report < ApplicationRecord
 
   def set_default_emotion
     self.emotion ||= 2
+  end
+
+  def total_learning_time
+    learning_times.sum(&:diff).to_i
   end
 end

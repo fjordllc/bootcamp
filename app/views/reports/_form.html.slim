@@ -29,17 +29,12 @@
         .checkboxes
           .checkboxes__items
             .checkboxes__item
-              label
-                - if params[:action] == 'edit' && @report.total_learning_time == '0時間'
-                  input.js-no-practice-time(type = 'checkbox' checked = 'checked')
-                - else
-                  input.js-no-practice-time(type = 'checkbox')
-                span
-                  | 学習時間は無し
+              = f.label :no_learn do
+                = f.check_box :no_learn, class: 'js-no-practice-time'
+                = Report.human_attribute_name :no_learn
 
             label.a-form-help-link.is-muted-text(for='modal-progress')
-              span.a-form-help-link__label
-                | とは？
+              span.a-form-help-link__label とは？
               span.a-help
                 i.fas.fa-question
 
@@ -63,16 +58,19 @@
           = f.label :description, class: 'a-form-label'
           = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
         .col-md-6.col-xs-12
+<<<<<<< HEAD
           .a-form-label
             | プレビュー
+=======
+          .a-label プレビュー
+>>>>>>> e8ded1275 (学習時間無しの処理を修正)
           .js-preview.is-long-text.markdown-form__preview
 
   .form-actions.is-report
     ul.form-actions__items
       li.form-actions__item.is-main.is-help
         = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
-        .form-actions__item-help
-          | まだ書いてる途中
+        .form-actions__item-help まだ書いてる途中
       li.form-actions__item.is-main.is-help
         - if report.new_record? || report.wip?
           = f.submit '提出', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
