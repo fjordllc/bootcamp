@@ -74,13 +74,15 @@
   .thread-list-item.is-wip &
     opacity: .6
 
+.thread-list-item__row-separator
+  // TODO resetに移す
+  border: none
+  margin-bottom: .375rem
+  border-top: dashed 1px $border
+
 .thread-list-item__row
   &:not(:first-child)
     margin-top: .375rem
-  &.has-border-top
-    padding-top: .375rem
-    margin-bottom: -.25rem
-    border-top: dashed 1px $border
 
 .thread-list-item__show-user-detail
   +position(absolute, top 0)
