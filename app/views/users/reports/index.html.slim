@@ -22,4 +22,7 @@ header.page-header
     - if @reports.present?
       .thread-list.a-card
         = render partial: 'reports/report', collection: @reports, as: :report
+    - else
+      .a-empty-message
+        | 日報はまだありません。
     = paginate @reports, position: 'bottom'
