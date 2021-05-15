@@ -3,4 +3,4 @@ json.searchables do
     json.partial! "api/searchables/searchable", searchable: searchable
   end
 end
-json.total_pages @searchables.page(1).total_pages
+json.total_pages @searchables.total_pages
