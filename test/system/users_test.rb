@@ -166,7 +166,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_text '就職活動中'
 
     visit 'users?target=retired'
-    assert_no_text 'リタイア'
     assert_no_text '退会'
   end
 
@@ -177,7 +176,6 @@ class UsersTest < ApplicationSystemTestCase
     assert find_link('就職活動中')
 
     visit 'users?target=retired'
-    assert_no_text 'リタイア'
     assert_no_text '退会'
   end
 
