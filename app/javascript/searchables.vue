@@ -1,7 +1,7 @@
 <template lang="pug">
 .page-body
   .container(v-if='!loaded')
-    | ロード中
+    |  ロード中
   .container(v-else-if='searchables.length === 0')
     .o-empty-message
       .o-empty-message__icon
