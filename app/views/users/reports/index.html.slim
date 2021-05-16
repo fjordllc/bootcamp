@@ -23,6 +23,9 @@ header.page-header
       .thread-list.a-card
         = render partial: 'reports/report', collection: @reports, as: :report
     - else
-      .a-empty-message
-        | 日報はまだありません。
+      .o-empty-message
+        .o-empty-message__icon
+          i.far.fa-sad-tear
+        p.o-empty-message__text
+          | 日報はまだありません。
     = paginate @reports, position: 'bottom'
