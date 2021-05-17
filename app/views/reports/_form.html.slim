@@ -67,7 +67,13 @@
     ul.form-actions__items
       li.form-actions__item.is-main.is-help
         = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
-        .form-actions__item-help まだ書いてる途中
+        .form-actions__item-help
+          | まだ書いてる途中
+          label.a-form-help-link.is-muted-text(for='modal-wip')
+            span.a-form-help-link__label 詳しく
+            span.a-help
+              i.fas.fa-question
+
       li.form-actions__item.is-main.is-help
         - if report.new_record? || report.wip?
           = f.submit '提出', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
@@ -92,3 +98,29 @@
       p
         | 日報を書くということも文章を書くこと、アウトプットに慣れるための大事な学習です。
         | なので、今この日報を書いている時間も学習時間に含めてしまって問題ないですよ。
+
+= render '/shared/modal', id: 'modal-wip', title: 'WIPとは？'
+  .modal__description.is-md
+    .a-short-text
+      p
+        | WIPとは、「work in progress」もしくは「work in process」の略。
+        | 「作業中」を表すプログラマー界隈でよく使われる用語です。
+      p
+        | 下書きと違って、WIPの状態でも公開されています(バグではありません😄)。
+      p
+        | なぜ、作業中なのに公開されれるのかというと、公開されることによって、
+        | 誰が今何をやっているのかが可視化されるからです。
+      p
+        | 開発の現場では、まだ作業途中なんだけど、この理解で合ってるか確認して欲しい、と、
+        | 作業中のものを見てもらう機会が多くあります。
+      p
+        | 作業中のものを人に見てもらうことで、
+        | 早い段階で間違いに気づき、手戻りが最小限になったり、
+        | 上手く行ってないことに気づいてもらい、手助けしてもらいやすくなったりします。
+      p
+        | また、WIP で保存されていることによって、今はまだ途中だから色々間違いが含まれてたり、
+        | 汚いコードが含まれてますよ、最後はちゃんとするから口を出さないでね、
+        | という合図にもなります。
+      p
+        | 日報も同じで、WIP はどんなに間違ったことを書いてても問題なしです。
+        | 途中経過を人前に晒すことに慣れてしまいましょう💪
