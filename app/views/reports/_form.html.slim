@@ -15,7 +15,7 @@
       .form-item.is-sm
         label.a-form-label
           = f.label :emotion
-        ul.form-item__radio-buttons.is-inline
+        ul.form-item__radio-buttons.is-inline.is-3-items
           = f.collection_radio_buttons :emotion, Report.faces, :first, :second do |b|
             li.form-radio-button.test-select-emotions
               = b.radio_button(class: 'a-toggle-checkbox')
@@ -26,25 +26,26 @@
       .form-item
         label.a-form-label
           | 学習時間
-        .checkboxes
-          .checkboxes__items
-            .checkboxes__item
-              = f.label :no_learn do
-                = f.check_box :no_learn, class: 'js-no-practice-time'
-                = Report.human_attribute_name :no_learn
 
-            label.a-form-help-link.is-muted-text(for='modal-progress')
-              span.a-form-help-link__label とは？
-              span.a-help
-                i.fas.fa-question
-
-        #js-learning-times
+        .form-item__lerning-times#js-learning-times
           = f.fields_for :learning_times do |learning_time|
             = render 'learning_time_fields', f: learning_time
           .form-item__add-times
             = link_to_add_association f, :learning_times, class: 'a-button is-md is-primary' do
               i.fas.fa-plus
               | 学習時間追加
+
+        .checkboxes
+          .checkboxes__items
+            .checkboxes__item
+              = f.label :no_learn, class: 'is-sm' do
+                = f.check_box :no_learn, class: 'js-no-practice-time'
+                = Report.human_attribute_name :no_learn
+
+            label.a-form-help-link.is-muted-text(for='modal-progress')
+              span.a-form-help-link__label 詳しく
+              span.a-help
+                i.fas.fa-question
 
   .form__items
     .form-item
@@ -85,8 +86,9 @@
   .modal__description.is-md
     .a-short-text
       p
-        | プラクティスは進めていないけど日報は書いておきたい、というときは、
-        | 学習時間無しの日報が書けます。その場合は、「学習時間は無し」にチェックを入れてください。
+        | プラクティスは進めていないけど日報は書いておきたいというときは、
+        | 学習時間無しの日報を書くことができます。
+        | 「学習時間は無し」にチェックを入れてください。
       p
         | 日報を書くということも文章を書くこと、アウトプットに慣れるための大事な学習です。
         | なので、今この日報を書いている時間も学習時間に含めてしまって問題ないですよ。
