@@ -6,7 +6,7 @@ header.page-header
         = title
 
 .page-body
-  = paginate @watches, position: 'top'
+  = paginate @watches
 .container
   .thread-list.a-card
     = render partial: 'watch', collection: @watches
