@@ -15,7 +15,11 @@ header.page-header
 
 .page-body
   .container
-    = paginate @comments, position: 'top'
-    .thread-list.a-card
-      = render 'comments', comments: @comments
-    = paginate @comments, position: 'bottom'
+    = paginate @comments
+    - if @comments.present?
+      .thread-list.a-card
+        = render 'comments', comments: @comments
+      = paginate @comments
+    - else
+      .a-empty-message
+        | コメントはありません。
