@@ -1,53 +1,6 @@
 <template lang="pug">
 .thread-comments(v-if='loaded === false && commentableType === "Product"')
-  .thread-comment
-    .thread-comment__author
-      .thread-comment__author-icon.a-user-icon.a-placeholder
-    .thread-comment__body.a-card
-      .thread-comment__body-header
-        .thread-comment__title
-          .thread-comment__title-link.a-placeholder
-        .thread-comment__created-at.a-placeholder
-      .thread-comment__description.is-long-text.a-placeholder
-        p
-        p
-        p
-        p
-        p
-        p
-
-  .thread-comment
-    .thread-comment__author
-      .thread-comment__author-icon.a-user-icon.a-placeholder
-    .thread-comment__body.a-card
-      .thread-comment__body-header
-        .thread-comment__title
-          .thread-comment__title-link.a-placeholder
-        .thread-comment__created-at.a-placeholder
-      .thread-comment__description.is-long-text.a-placeholder
-        p
-        p
-        p
-        p
-        p
-        p
-
-  .thread-comment
-    .thread-comment__author
-      .thread-comment__author-icon.a-user-icon.a-placeholder
-    .thread-comment__body.a-card
-      .thread-comment__body-header
-        .thread-comment__title
-          .thread-comment__title-link.a-placeholder
-        .thread-comment__created-at.a-placeholder
-      .thread-comment__description.is-long-text.a-placeholder
-        p
-        p
-        p
-        p
-        p
-        p
-
+  commentPlaceholder(v-for='num in placeholderCount', :key='num')
 .thread-comments(v-else)
   comment(
     v-for='(comment, index) in comments',
@@ -111,10 +64,12 @@
 <script>
 import Comment from './comment.vue'
 import TextareaInitializer from './textarea-initializer'
+import CommentPleaceholder from './comment-placeholder'
 
 export default {
   components: {
-    comment: Comment
+    comment: Comment,
+    commentPlaceholder: CommentPleaceholder
   },
   props: {
     commentableId: { type: String, required: true },
@@ -129,7 +84,8 @@ export default {
       tab: 'comment',
       buttonDisabled: false,
       defaultTextareaSize: null,
-      loaded: false
+      loaded: false,
+      placeholderCount: 3
     }
   },
   computed: {
