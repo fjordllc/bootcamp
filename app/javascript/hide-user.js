@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const localStorage = window.localStorage
-  const checkboxProgress = document.querySelector('.js-users-visibility__trigger')
+  const checkboxProgress = document.querySelector(
+    '.js-users-visibility__trigger'
+  )
   const jsUsersVisibilityClass = document.querySelector('.js-users-visibility')
   if (checkboxProgress) {
     if (localStorage.getItem('hidden-users')) {

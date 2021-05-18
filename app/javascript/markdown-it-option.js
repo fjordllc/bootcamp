@@ -9,16 +9,22 @@ export default {
   linkify: true,
   highlight: (str, lang) => {
     if (lang) {
-      let langObject = Prism.languages[lang]
+      const langObject = Prism.languages[lang]
       try {
         return (
           `<pre class="language-${lang}"><code>` +
           Prism.highlight(str, langObject, lang) +
           '</code></pre>'
         )
-      } catch (_) { }
+      } catch (_) {
+        // 何もしない
+      }
     }
     const m = new MarkdownIt()
-    return `<pre class="language-${lang}"><code>` + m.utils.escapeHtml(str) + '</code></pre>'
+    return (
+      `<pre class="language-${lang}"><code>` +
+      m.utils.escapeHtml(str) +
+      '</code></pre>'
+    )
   }
 }

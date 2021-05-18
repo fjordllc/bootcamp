@@ -18,12 +18,12 @@ main.page-main
   .page-body
     .container.is-md
       - if @generations.present?
-        .generations.a-card
+        .a-card
           = render partial: 'generations/generation', collection: @generations, as: :generation
       - else
-        .o-empty-massage
-          .o-empty-massage__icon
+        .o-empty-message
+          .o-empty-message__icon
             i.far.fa-smile
-          p.o-empty-massage__text
+          p.o-empty-message__text
             = title
             | はありません

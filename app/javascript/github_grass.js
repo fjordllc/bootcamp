@@ -13,13 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then(response => {
+        .then((response) => {
           return response.text()
         })
-        .then(text => {
+        .then((text) => {
           grass.innerHTML = text
         })
-        .catch(error => {
+        .catch((error) => {
           console.warn('Failed to parsing', error)
         })
     })

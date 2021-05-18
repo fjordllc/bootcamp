@@ -1,35 +1,51 @@
 .thread
   .thread__inner.a-card
     header.thread-header
-      .thread-header__upper-side
-        .thread-header__author
-          = link_to event.user, class: 'thread-header__lower-side-author-name-link' do
-            = event.user.login_name
-        .thread-header__date
-          time.thread-header__date-value(datetime="#{event.created_at.to_datetime}" pubdate='pubdate')
-            = l event.updated_at
+      .thread-header__row
+        .thread-header-metas
+          .thread-header-metas__start
+            .thread-header-metas__meta
+              = link_to event.user, class: 'a-user-name' do
+                = event.user.login_name
+            .thread-header-metas__meta
+              .a-date
+                time.a-date__value(datetime="#{event.created_at.to_datetime}" pubdate='pubdate')
+                  = l event.updated_at
 
-      h1.thread-header__title
-        - if event.wip?
-          span.thread-header__title-icon
-            | WIP
-        = event.title
+      .thread-header__row
+        h1.thread-header-title
+          - if event.wip?
+            span.thread-header-title__label
+              | WIP
+          span.thread-header-title__title
+            = event.title
 
-      .thread-header__lower-side
-      #js-watch(data-watchable-id="#{@event.id}", data-watchable-type='Event')
+      .thread-header__row
+        .thread-header-actions
+          .thread-header-actions__start
+            .thread-header-actions__action
+              #js-watch(data-watchable-id="#{@event.id}", data-watchable-type='Event')
+          .thread-header-actions__end
+            .thread-header-actions__action
+              = link_to new_event_path(id: event), class: 'a-button is-xs is-secondary is-block' do
+                i.fas.fa-copy#copy
+                | コピー
 
     - if event.wip?
       .event-status
         | 公開されるまでお待ちください。
     - elsif !event.opening?
-      .event-status
-        - if event.wip?
+      - if event.wip?
+        .event-status.is-not-shown
           | 公開されるまでお待ちください。
-        - elsif event.before_opening?
+      - elsif event.before_opening?
+        .event-status.is-not-opened
           | 募集開始までお待ち下さい。
-        - elsif event.closing?
+      - elsif event.closing?
+        .event-status.is-closed
           | 募集受付は終了しました。
-        - else
+      - else
+        .event-status.is-ended
           | イベントは終了しました。
 
     .thread__body
@@ -41,18 +57,14 @@
       = render 'reactions/reactions', reactionable: event
       - if admin_login? || event.user_id == current_user.id
         .card-footer
-          .card-footer-actions
-            ul.card-footer-actions__items
-              li.card-footer-actions__item
-                = link_to edit_event_path(event), class: 'card-footer-actions__action a-button is-md is-primary is-block', id: 'js-shortcut-edit' do
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                = link_to edit_event_path(event), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
                   i.fas.fa-pen#new
                   | 内容修正
-              li.card-footer-actions__item
-                = link_to new_event_path(id: event), class: 'card-footer-actions__action a-button is-md is-warning is-block' do
-                  i.fas.fa-copy#copy
-                  | コピー
-              li.card-footer-actions__item.is-sub
-                = link_to event_path(event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__delete' do
+              li.card-main-actions__item.is-sub
+                = link_to event_path(event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
                   | 削除する
 
   = render 'users/icon',

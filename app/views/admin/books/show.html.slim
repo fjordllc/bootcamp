@@ -7,7 +7,7 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to admin_books_path, class: 'a-button is-md is-warning is-block' do
+            = link_to admin_books_path, class: 'a-button is-md is-warning is-block is-back' do
               | 書籍一覧
 
 .page-tools
@@ -18,7 +18,7 @@ header.page-header
     article.thread
       .thread__inner.a-card
         header.thread-header
-          h1.thread-header__title
+          h1.thread-header-title
             = @book.title
           .thread-header__lower-side
             .thread-header__lower-side-date
@@ -27,7 +27,7 @@ header.page-header
               time.thread-header__lower-side-value(datetime="#{@book.created_at.to_datetime}" pubdate='pubdate')
                 = l @book.created_at
         footer.card-footer
-          .card-footer-actions
+          .card-main-actions
             p
               = "書籍ID: #{@book.id}"
             p

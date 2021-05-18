@@ -8,14 +8,14 @@ header.page-header
 
 .page-body
   .container
-    = paginate @searchables, position: 'top'
+    = paginate @searchables
     - if @searchables.size.positive?
       .thread-list.a-card
         = render partial: 'searchables/searchable', collection: @searchables, as: :searchable, locals: { words: '' }
     - else
-      .o-empty-massage
-        .o-empty-massage__icon
+      .o-empty-message
+        .o-empty-message__icon
           i.far.fa-sad-tear
-        p.o-empty-massage__text
+        p.o-empty-message__text
           | '#{params[:word]}'に一致する情報は見つかりませんでした。
-    = paginate @searchables, position: 'bottom'
+    = paginate @searchables

@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/fjordllc/bootcamp.svg?style=shield)](https://app.circleci.com/pipelines/github/fjordllc)
+[![Create a release pull-request](https://github.com/fjordllc/bootcamp/actions/workflows/git-pr-release-action.yml/badge.svg)](https://github.com/fjordllc/bootcamp/actions/workflows/git-pr-release-action.yml)
+
 # Bootcamp
 
 プログラマー向けEラーニングシステム。
@@ -22,22 +25,33 @@ $ rake bootcamp:statistics:save_learning_minute_statistics
 ヘッドレスブラウザーでテスト
 
 ```
-$ ./bin/test
+$ rails test:all
 ```
 
 普通のブラウザーでテスト
 
 ```
-$ HEADED=1 ./bin/test
+$ HEADED=1 rails test:all
 ```
 
 ## Lint
 
-rubocopとslim-lintを実行します。
+次のコマンドでlintを実行します。
 
 ```
 $ ./bin/lint
 ```
+
+実行されるlint
+
+* Ruby
+  * rubocop
+  * slim-lint
+* JavaScript  
+  `bin/yarn fix` で、eslintとprettierが自動でエラーや警告を修正してくれます。ただし、全てのエラーや警告は修正されず、手動で修正する必要がある場合もあります。
+  * eslint
+  * prettier
+
 
 ## その他
 

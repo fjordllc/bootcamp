@@ -21,7 +21,7 @@ ja:
       user: ユーザー
       course: コース
       practice: プラクティス
-      company: 会社
+      company: 企業
       comment: コメント
       report: 日報
       learning_time: 学習時間
@@ -49,6 +49,7 @@ ja:
         blog_url: ブログURL
         github_account: GitHubアカウント
         slack_account: Slackアカウント
+        discord_account: Discordアカウント
         password: パスワード
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
@@ -63,7 +64,7 @@ ja:
         experience: プログラミング経験
         prefecture_code: お住まいの都道府県
         organization: 現在の所属組織
-        company: 会社
+        company: 企業
         created_at: 開始日
         updated_at: 最終ログイン日時
         nda: 秘密保持契約
@@ -71,9 +72,9 @@ ja:
         adviser: アドバイザー
         trainee: 研修生
         job_seeking: 就職活動中
-        retired_on: リタイア日
+        retired_on: 退会日
         free: 無料ユーザー
-        avatar: プロフィール画像
+        avatar: ユーザーアイコン
         retire_reason: 退会理由
         satisfaction: 満足度
         opinion: ご意見
@@ -141,7 +142,7 @@ ja:
       question:
         practice: プラクティス
         title: タイトル
-        description: 詳細
+        description: 質問文
       answer:
         description: 詳細
       announcement:
@@ -185,8 +186,9 @@ ja:
           unemployed: 働いていない
         os:
           windows: Windows
-          mac: Mac
+          mac: Mac(Intel)
           linux: Linux
+          mac_m1: Mac(M1 chip)
         study_place:
           local: フィヨルドブートキャンプオフィス
           remote: 自宅
@@ -216,7 +218,7 @@ ja:
     graduate: 卒業生
     adviser: アドバイザー
     all: 全員
-    retired: リタイア
+    retired: 退会
     inactive: 非アクティブ
     year_end_party: 忘年会
     trainee: 研修生

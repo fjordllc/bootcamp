@@ -31,16 +31,8 @@ class AnnouncementsTest < ApplicationSystemTestCase
     user = users(:komagata)
     Announcement.create(title: 'test', description: 'test', user: user, wip: true)
     visit '/announcements'
-    assert_selector '.thread-list-item__header-icon'
+    assert_selector '.thread-list-item-title__icon'
     assert_text 'お知らせ作成中'
-  end
-
-  test 'show new action link' do
-    login_user 'hatsuno', 'testtest'
-    user = users(:hatsuno)
-    Announcement.create(title: 'test', description: 'test', user: user, wip: true)
-    visit '/announcements'
-    assert_selector '.thread-list-item__actions-link'
   end
 
   test 'announcement has a comment form ' do
@@ -171,5 +163,41 @@ class AnnouncementsTest < ApplicationSystemTestCase
     login_user 'kimura', 'testtest'
     visit '/notifications'
     assert_no_text 'machidaさんからお知らせです。'
+  end
+
+  test "general user can't edit submitted　announcement" do
+    login_user 'kimura', 'testtest'
+    announcement = announcements(:announcement1)
+    visit announcement_path(announcement)
+    within '.thread__inner' do
+      assert_no_text '内容修正'
+    end
+  end
+
+  test 'general user can edit wip announcement' do
+    login_user 'kimura', 'testtest'
+    announcement = announcements(:announcement_wip)
+    visit announcement_path(announcement)
+    within '.thread__inner' do
+      assert_text '内容修正'
+    end
+  end
+
+  test 'general user can copy submitted announcement' do
+    login_user 'kimura', 'testtest'
+    announcement = announcements(:announcement1)
+    visit announcement_path(announcement)
+    within '.thread__inner' do
+      assert_text 'コピー'
+    end
+  end
+
+  test 'general user can copy wip announcement' do
+    login_user 'kimura', 'testtest'
+    announcement = announcements(:announcement_wip)
+    visit announcement_path(announcement)
+    within '.thread__inner' do
+      assert_text 'コピー'
+    end
   end
 end

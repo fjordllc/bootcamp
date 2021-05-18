@@ -6,47 +6,29 @@ class UsersController < ApplicationController
   before_action :set_user, only: %w[show]
   PAGER_NUMBER = 20
 
-  # rubocop:disable Metrics/MethodLength
   def index
-    target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
-    target_allowlist.push('job_seeking') if current_user.adviser?
-    target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
     @target = params[:target]
     @target = 'student_and_trainee' unless target_allowlist.include?(@target)
 
-    if @target == 'followings'
-      followings = Following.where(follower_id: current_user.id).select('followed_id')
-      @users = User
-               .page(params[:page]).per(PAGER_NUMBER)
-               .includes(:company, :avatar_attachment, :course, :taggings)
-               .where(id: followings)
-               .order(updated_at: :desc)
-    elsif params[:tag]
-      @users = User
-               .page(params[:page]).per(PAGER_NUMBER)
-               .with_attached_avatar
-               .preload(:course, :taggings)
-               .unretired
-               .order(updated_at: :desc)
-               .tagged_with(params[:tag])
-    else
-      @users = User
-               .page(params[:page]).per(PAGER_NUMBER)
-               .with_attached_avatar
-               .preload(:course, :taggings)
-               .order(updated_at: :desc)
-               .users_role(@target)
-    end
+    target_users =
+      if @target == 'followings'
+        followings = Following.where(follower_id: current_user.id).select('followed_id')
+        User.where(id: followings)
+      elsif params[:tag]
+        User.tagged_with(params[:tag])
+      else
+        User.users_role(@target)
+      end
 
-    @popular_tags = ActsAsTaggableOn::Tag
-                    .joins(:taggings)
-                    .select('tags.id, tags.name, COUNT(taggings.id) as taggings_count')
-                    .group('tags.id, tags.name, tags.taggings_count')
-                    .where(taggings: { taggable_type: 'User' })
-                    .order('taggings_count desc')
-                    .limit(20)
+    @users = target_users
+             .page(params[:page]).per(PAGER_NUMBER)
+             .preload(:company, :avatar_attachment, :course, :taggings)
+             .unretired
+             .order(updated_at: :desc)
+
+    @random_tags = User.tags.find(User.tags.pluck(:id).sample(20))
+    @top3_tags_counts = User.tags.order('taggings_count desc').limit(3).map(&:taggings_count).uniq
   end
-  # rubocop:enable Metrics/MethodLength
 
   def show
     @completed_learnings = @user.learnings.where(status: 3).order(updated_at: :desc)
@@ -74,18 +56,20 @@ class UsersController < ApplicationController
     else
       create_user!
     end
-
-    return unless @user.errors.empty?
-
-    @user.resize_avatar!
   end
 
   private
 
+  def target_allowlist
+    target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
+    target_allowlist.push('job_seeking') if current_user.adviser?
+    target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
+    target_allowlist
+  end
+
   def create_free_user!
     if @user.save
       UserMailer.welcome(@user).deliver_now
-      notify_to_slack!
       notify_to_chat(@user)
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
@@ -125,7 +109,6 @@ class UsersController < ApplicationController
 
       if @user.save
         UserMailer.welcome(@user).deliver_now
-        notify_to_slack!
         notify_to_chat(@user)
         redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       else
@@ -135,13 +118,6 @@ class UsersController < ApplicationController
   end
   # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
 
-  def notify_to_slack!
-    SlackNotification.notify "<#{url_for(@user)}|#{@user.name} (#{@user.login_name})>が#{User.count}番目の仲間としてBootcampにJOINしました。",
-                             username: "#{@user.login_name}@bootcamp.fjord.jp",
-                             icon_url: @user.avatar_url,
-                             channel: '#fjord'
-  end
-
   def notify_to_chat(user)
     ChatNotifier.message "#{user.name}さんが新たなメンバーとしてJOINしました🎉\r#{url_for(user)}"
   end
@@ -150,7 +126,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(
       :login_name, :name, :name_kana,
       :email, :course_id, :description,
-      :slack_account, :github_account, :twitter_account,
+      :slack_account, :discord_account, :github_account, :twitter_account,
       :facebook_url, :blog_url, :password,
       :password_confirmation, :job, :organization,
       :os, :experience, :prefecture_code,

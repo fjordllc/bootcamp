@@ -16,12 +16,12 @@ header.page-header
 
 .page-body
   .container.is-padding-horizontal-0-sm-down
-    = paginate @books, position: 'top'
+    = paginate @books
     = render 'table', books: @books
-    = paginate @books, position: 'bottom'
+    = paginate @books
     .card-footer
-      .card-footer-actions
-        .card-footer-actions__items
-          = link_to admin_books_qrcodes_path, class: 'card-footer-actions_action a-button is-md is-warning is-block', target: '_blank', rel: 'noopener' do
+      .card-main-actions
+        .card-main-actions__items
+          = link_to admin_books_qrcodes_path, class: 'card-main-actions_action a-button is-md is-warning is-block', target: '_blank', rel: 'noopener' do
             i.fas.fa-print
             | 印刷ページ

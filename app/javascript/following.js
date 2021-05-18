@@ -10,12 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const userId = following.getAttribute('data-user-id')
 
       new Vue({
-        render: h => h(Following, {
-          props: {
-            isFollowing: isFollowing === 'true',
-            userId: userId
-          }
-        })
+        render: (h) =>
+          h(Following, {
+            props: {
+              isFollowing: isFollowing === 'true',
+              userId: userId
+            }
+          })
       }).$mount('.js-following')
     }
   }

@@ -53,7 +53,7 @@ class Admin::UsersController < AdminController
     params.require(:user).permit(
       :adviser, :login_name, :name,
       :name_kana, :email, :course_id,
-      :description, :slack_account, :github_account,
+      :description, :slack_account, :discord_account, :github_account,
       :twitter_account, :facebook_url, :blog_url,
       :password, :password_confirmation, :job,
       :organization, :os, :study_place,

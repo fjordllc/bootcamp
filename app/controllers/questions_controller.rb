@@ -3,8 +3,8 @@
 class QuestionsController < ApplicationController
   include Rails.application.routes.url_helpers
   before_action :require_login
-  before_action :set_question, only: %i[show edit update destroy]
-  before_action :set_categories, only: %i[new create edit update]
+  before_action :set_question, only: %i[show destroy]
+  before_action :set_categories, only: %i[new show create]
   before_action :set_watch, only: %i[show]
 
   QuestionsProperty = Struct.new(:title, :empty_message)
@@ -17,10 +17,17 @@ class QuestionsController < ApplicationController
         Question.all
       else
         Question.not_solved
-      end.order(updated_at: :desc, id: :desc)
-    @questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
-    @questions = @questions.preload(%i[practice answers]).with_avatar.page(params[:page])
-    @questions = @questions.tagged_with(params[:tag]) if params[:tag]
+      end
+    @tags = questions.all_tags
+    questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
+    questions = questions.preload(%i[practice answers]).with_avatar.page(params[:page])
+    questions = questions.tagged_with(params[:tag]) if params[:tag]
+    @questions =
+      if params[:solved].present?
+        questions.includes(:answers).order('answers.updated_at DESC')
+      else
+        questions.order(updated_at: :desc, id: :desc)
+      end
     @questions_property = questions_property
   end
 
@@ -35,25 +42,14 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
-  def edit; end
-
   def create
     @question = Question.new(question_params)
     @question.user = current_user
     if @question.save
-      notify_to_slack(@question)
       notify_to_chat(@question)
       redirect_to @question, notice: '質問を作成しました。'
     else
       render :new
-    end
-  end
-
-  def update
-    if @question.update(question_params)
-      redirect_to @question, notice: '質問を更新しました。'
-    else
-      render :edit
     end
   end
 
@@ -85,19 +81,6 @@ class QuestionsController < ApplicationController
       :practice_id,
       :tag_list
     )
-  end
-
-  def notify_to_slack(question)
-    name = question.user.login_name.to_s
-    link = "<#{question_url(question)}|#{question.title}>"
-
-    SlackNotification.notify "#{name}質問しました。#{link}",
-                             username: "#{question.user.login_name} (#{question.user.name})",
-                             icon_url: question.user.avatar_url,
-                             attachments: [{
-                               fallback: 'question body.',
-                               text: question.description
-                             }]
   end
 
   def notify_to_chat(question)

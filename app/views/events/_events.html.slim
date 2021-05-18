@@ -3,33 +3,42 @@
     .thread-list-item__author
       = render 'users/icon',
         user: event.user,
-        link_class: 'thread-header__author',
+        link_class: 'a-user-name',
         image_class: 'thread-list-item__author-icon'
-    header.thread-list-item__header
-      - if event.wip?
-        .thread-list-item__header-icon.is-wip WIP
-      h2.thread-list-item__title(itemprop='name')
-        = link_to event, itemprop: 'url', class: 'thread-list-item__title-link' do
-          = event.title
-      - if admin_login? || current_user == event.user
-        .thread-list-item__actions
-          = link_to edit_event_path(event), class: 'thread-list-item__actions-link' do
-            i.fas.fa-pen
-          = link_to new_event_path(id: event), class: 'thread-list-item__actions-link' do
-            i.fas.fa-copy
-    .thread-list-item-meta
-      time.thread-list-item-meta__datetime(datetime=event.start_at.to_datetime)
-        | 開催日時: #{l event.start_at}
-      - if event.comments.any?
-        .thread-list-item-meta__comment-count
-          .thread-list-item-meta__comment-count-label
-            i.fas.fa-comment
-          .thread-list-item-meta__comment-count-value
-            = event.comments.size
-      .thread-list-item-meta__comment-count
-        .thread-list-item-meta__comment-count-value
-          | 参加者(#{event.participants_count}名/#{event.capacity}名)
-      - if event.waitlist_count.positive?
-        .thread-list-item-meta__comment-count
-          .thread-list-item-meta__comment-count-value
-            | 補欠者(#{event.waitlist_count}名)
+    .thread-list-item__rows
+      .thread-list-item__row
+        .thread-list-item-title
+          - if event.wip?
+            .thread-list-item-title__icon.is-wip WIP
+          h2.thread-list-item-title__title(itemprop='name')
+            = link_to event, itemprop: 'url', class: 'thread-list-item-title__link' do
+              = event.title
+      .thread-list-item__row
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              time.a-date(datetime=event.start_at.to_datetime)
+                span.a-date__label
+                  | 開催日時
+                span.a-date__value
+                  = l event.start_at
+            .thread-list-item-meta__item
+              .thread-list-item-comment
+                .thread-list-item-comment__label
+                  | 参加者
+                .thread-list-item-comment__count
+                  | （#{event.participants_count}名 / #{event.capacity}名）
+            - if event.waitlist_count.positive?
+              .thread-list-item-meta__item
+                .thread-list-item-comment
+                  .thread-list-item-comment__label
+                    | 補欠者
+                  .thread-list-item-comment__count
+                    | (#{event.waitlist_count}名)
+            - if event.comments.any?
+              .thread-list-item-meta__item
+                .thread-list-item-comment
+                  .thread-list-item-comment__label
+                    | コメント
+                  .thread-list-item-comment__count
+                    | （#{event.comments.size}）

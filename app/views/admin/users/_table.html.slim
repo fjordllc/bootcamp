@@ -7,9 +7,10 @@
           | ユーザー名
           = render 'sort_column', order_by: 'login_name', direction: direction, target: @target
         th.admin-table__label
-          | 会社
+          | 企業
           = render 'sort_column', order_by: 'company_id', direction: direction, target: @target
         th.admin-table__label Slack
+        th.admin-table__label Discord
         th.admin-table__label
           | 最終アクセス
           = render 'sort_column', order_by: 'updated_at', direction: direction, target: @target
@@ -33,7 +34,7 @@
             - elsif user.trainee
               | 研修生
             - elsif user.retired_on?
-              | リタイア
+              | 退会
             - elsif user.graduated_on?
               | 卒業生
             - elsif user.active?
@@ -53,6 +54,8 @@
               | -
           td.admin-table__item-value.is-text-align-center
             = user.slack_account.presence || '-'
+          td.admin-table__item-value.is-text-align-center
+            = user.discord_account.presence || '-'
           td.admin-table__item-value.is-text-align-center
             = l user.updated_at
           td.admin-table__item-value.is-text-align-center
@@ -107,7 +110,7 @@
                 = link_to edit_admin_user_path(user, anchor: 'external-services') do
                   | 外部サービス設定変更
           td.admin-table__item-value.is-text-align-center
-            = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: 'a-button is-sm is-warning is-icon' do
+            = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: 'a-button is-sm is-secondary is-icon' do
               i.fas.fa-pen
           td.admin-table__item-value.is-text-align-center
             - if user.id != current_user.id

@@ -10,7 +10,8 @@
   margin-bottom: .25rem
 
 .users-item__inner
-  height: 100%
+  +media-breakpoint-up(md)
+    height: 100%
 
 .users-item__header
   +position(relative)
@@ -23,10 +24,12 @@
     padding-left: 3rem
 
 .users-item__name
-  +text-block(1.125rem 1.4, 600 $main block)
+  +text-block(1em 1.4, 600 $main block)
   margin-bottom: .125rem
+  +media-breakpoint-up(md)
+    font-size: 1.25rem
   +media-breakpoint-down(sm)
-    font-size: 1rem
+    font-size: 1.125rem
   i
     color: $danger
     margin-left: .25em
@@ -38,11 +41,11 @@
   +hover-link
 
 .users-item__user-icon-image
-  +position(absolute, left -1rem, top -.375rem)
-  +size(4rem)
-  border: solid $base .25rem
   background-color: white
-  +icon-role-style
+  +media-breakpoint-up(md)
+    +size(4rem)
+    +position(absolute, left -1rem, top -.375rem)
+    border: solid $base .25rem
   +media-breakpoint-down(sm)
     +size(3rem)
     +position(absolute, left -.5rem, top -.25rem)
@@ -50,7 +53,7 @@
 
 .users-item__body
   padding: .75rem 1rem 0
-  
+
 .users-item__description
   p
     +text-block(.75rem 1.6)
@@ -65,6 +68,7 @@
 
 .user-item__company-logo
   max-width: 5rem
+  background-color: $base
   +position(absolute, right 0.5rem, top 0.5rem)
   border-radius: .25rem
   border: solid 1px $border
@@ -76,4 +80,3 @@
     max-height: 3.5rem
     +position(absolute, right -0.5rem, top -0.5rem)
     border-radius: 50%
-

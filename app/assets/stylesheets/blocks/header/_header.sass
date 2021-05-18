@@ -1,9 +1,11 @@
 .header
   background-color: $base
-  +position(relative, 2)
+  z-index: 3
   border-bottom: solid 1px $background
   +media-breakpoint-up(md)
     +position(sticky, top 0)
+  +media-breakpoint-down(sm)
+    position: relative
 
 .header__container
   display: flex

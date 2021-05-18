@@ -44,7 +44,7 @@ body
   body.no-recent-reports &,
   body.is-admin-page &
     margin-right: 0
-  body.has-popular-tags &
+  body.has-random-tags &
     margin-right: 14rem
     +media-breakpoint-down(lg)
       margin-right: 0
@@ -75,6 +75,8 @@ body
 .columns
   max-width: 75rem
   +margin(horizontal, auto)
+  .columns + &
+    margin-top: 1.5rem
 
 [class*=a-button]
   &[class*=-secondary]

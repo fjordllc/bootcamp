@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     resources :categories, only: %i(index destroy) do
       resource :position, only: %i(update), controller: "categories/position"
     end
+    resources :courses, only: %i() do
+      resources :practices, only: %i(index), controller: "/api/courses/practices"
+    end
     resources :notifications, only: %i(index) do
       collection do
         resources :unread, only: %i(index), controller: "/api/notifications/unread"
@@ -39,7 +42,7 @@ Rails.application.routes.draw do
     resources :checks, only: %i(index create destroy)
     resources :users, only: %i(index show)
     resources :reservations, only: %i(index create destroy)
-    resources :practices, only: %i(show update) do
+    resources :practices, only: %i(index show update) do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
     resources :reports, only: %i(index)
@@ -51,7 +54,7 @@ Rails.application.routes.draw do
     resources :memos, only: %i(create update destroy)
     resources :tags, only: %i(index)
     resources :pages, only: %i(update)
-    resources :questions, only: %i(update)
+    resources :questions, only: %i(show update)
     resources :followings, only: %i(create destroy)
     namespace :products do
       resources :unchecked, only: %i(index)
@@ -85,12 +88,17 @@ Rails.application.routes.draw do
     resource :git_hub_grass, only: %i(show), controller: "git_hub_grass"
   end
 
+  namespace :users do
+    get "tags", to: "tags#index"
+  end
+
   resources :announcements
   resource :retirement, only: %i(show new create), controller: "retirement"
   resources :users, only: %i(index show new create) do
     resources :reports, only: %i(index), controller: "users/reports"
     resources :comments, only: %i(index), controller: "users/comments"
     resources :products, only: %i(index), controller: "users/products"
+    resources :questions, only: %i(index), controller: "users/questions"
     get "portfolio" => "users/works#index", as: :portfolio
     patch "graduation", to: "graduation#update", as: :graduation
     get "mail_notification", to: "mail_notification#update", as: :mail_notification
@@ -149,7 +157,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :questions
+  resources :questions, only: %i(index show new create destroy)
   resources :reservation_calenders, only: %i(index show)
   resources :courses, only: :index
 
@@ -168,15 +176,15 @@ Rails.application.routes.draw do
 
   resources :generations, only: %i(show index)
 
-  get "articles/tags/:tag", to: "articles#index", as: :tag
-  get "pages/tags/:tag", to: "pages#index", as: :pages_tag
-  get "questions/tags/:tag", to: "questions#index", as: :questions_tag
-  get "users/tags/:tag", to: "users#index", as: :users_tag
+  get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
+  get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/
+  get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/
+  get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
 
   namespace :users do
-    post "tags/:tag", to: "tags#update"
+    post "tags/:tag", to: "tags#update", tag: /.+/
   end
-
+  resources :watches, only: %i(index)
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"
   post "user_sessions" => "user_sessions#create"

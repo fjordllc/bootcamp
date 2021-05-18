@@ -9,7 +9,7 @@ header.page-header
           li.page-header-actions__item
             = link_to [:new, :page], class: 'a-button is-md is-warning is-block' do
               i.fas.fa-plus
-              | 新規ページ
+              | 新規Doc
           li.page-header-actions__item
             = link_to :pages, class: 'a-button is-md is-secondary is-block' do
               | Docs
@@ -19,45 +19,54 @@ header.page-header
     article.thread.is-page
       .thread__inner.a-card
         header.thread-header
-          - if @page.practice.present?
-            .thread-practice
-              = link_to @page.practice, class: 'thread-practice__link' do
-                = @page.practice.title
-          h1.thread-header__title(class="#{@page.wip? ? 'is-wip' : ''}")
-            - if @page.wip?
-              span.thread-header__title-icon
-                | WIP
-            | #{@page.title}
-          .thread-header__lower-side
-            .thread-header__lower-side-dates
-              .thread-header__lower-side-date
+          .thread-header__row
+            .thread-header-metas
+              .thread-header-metas__start
                 - if @page.wip?
-                  .thread-header__lower-side-value
-                    | Doc作成中 by
-                    = render 'users/icon',
-                      user: @page.user,
-                      link_class: 'thread-header__user-icon-link',
-                      image_class: 'thread-header__user-icon'
-                    = link_to @page.user, class: 'thread-header__user-link' do
-                      | #{@page.user.login_name}
+                  .thread-header-metas__meta
+                    .a-date
+                      span.a-date__label
+                        | Doc作成中 by
+                        = render 'users/icon',
+                          user: @page.user,
+                          link_class: 'thread-header__user-icon-link',
+                          image_class: 'thread-header__user-icon'
+                        = link_to @page.user, class: 'a-user-name' do
+                          | #{@page.user.login_name}
                 - elsif @page.published_at.present?
-                  span.thread-header__lower-side-label
-                    | 公開
-                  time.thread-header__lower-side-value(datetime="#{@page.published_at.to_datetime}")
-                    | #{l @page.published_at}
+                  .thread-header-metas__meta
+                    .a-date
+                      span.a-date__label
+                        | 公開
+                      time.a-date__value(datetime="#{@page.published_at.to_datetime}")
+                        | #{l @page.published_at}
 
-              - if @page.last_updated_user.present?
-                .thread-header__lower-side-date
-                  span.thread-header__lower-side-label
-                    | 最終更新
-                  time.thread-header__lower-side-value(datetime="#{@page.updated_at.to_datetime}")
-                    | #{l @page.updated_at} by
-                    = render 'users/icon',
-                      user: @page.last_updated_user,
-                      link_class: 'thread-header__user-icon-link',
-                      image_class: 'thread-header__user-icon'
-                    = link_to @page.last_updated_user, class: 'thread-header__user-link' do
-                      | #{@page.last_updated_user.login_name}
+                - if @page.last_updated_user.present?
+                  .thread-header-metas__meta
+                    .a-date
+                      span.a-date__label
+                        | 最終更新日
+                      time.a-date__value(datetime="#{@page.updated_at.to_datetime}")
+                        | #{l @page.updated_at} by
+                        = render 'users/icon',
+                          user: @page.last_updated_user,
+                          link_class: 'thread-header__user-icon-link',
+                          image_class: 'thread-header__user-icon'
+                        = link_to @page.last_updated_user, class: 'a-user-name' do
+                          | #{@page.last_updated_user.login_name}
+          .thread-header__row
+            h1.thread-header-title(class="#{@page.wip? ? 'is-wip' : ''}")
+              - if @page.wip?
+                span.thread-header-title__label
+                  | WIP
+              span.thread-header-title__title
+                | #{@page.title}
+
+          - if @page.practice.present?
+            .thread-header__row
+              .thread-practice
+                = link_to @page.practice, class: 'thread-practice__link' do
+                  = @page.practice.title
 
         .thread__tags
           #js-page-tags(data-tags-initial-value="#{@page.tag_list.join(',')}" data-tags-param-name='page[tag_list]' data-page-id="#{@page.id}")
@@ -66,15 +75,15 @@ header.page-header
             = @page.body
           = render 'reactions/reactions', reactionable: @page
         footer.card-footer
-          .card-footer-actions
-            ul.card-footer-actions__items
-              li.card-footer-actions__item
-                = link_to [:edit, @page], class: 'card-footer-actions__action a-button is-md is-warning is-block' do
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                = link_to [:edit, @page], class: 'card-main-actions__action a-button is-md is-secondary is-block' do
                   i.fas.fa-pen
                   | 内容変更
               - if admin_login? || current_user == @page.user
-                li.card-footer-actions__item.is-sub
-                  = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-footer-actions__delete' do
+                li.card-main-actions__item.is-sub
+                  = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
                     | 削除する
       .thread-prev-next
         .thread-prev-next__item

@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
+  include Searchable
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id updated_at created_at report comment asc desc].freeze
@@ -19,6 +20,7 @@ class User < ApplicationRecord
 
   enum os: {
     mac: 0,
+    mac_m1: 2,
     linux: 1
   }, _prefix: true
 
@@ -58,6 +60,7 @@ class User < ApplicationRecord
   has_many :participations, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :answers,      dependent: :destroy
+  has_many :watches, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -133,8 +136,20 @@ class User < ApplicationRecord
             }
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
+  validates :discord_account,
+            format: {
+              allow_blank: true,
+              with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
+              message: 'は「ユーザー名#４桁の数字」で入力してください'
+            }
 
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
+
+  validates :avatar, attached: false,
+                     content_type: {
+                       in: %w[image/png image/jpg image/jpeg image/gif],
+                       message: 'はPNG, JPG, GIF形式にしてください'
+                     }
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
@@ -252,6 +267,26 @@ class User < ApplicationRecord
       .unretired
       .order(:created_at)
   }
+  scope :desc_tagged_with, lambda { |tag_name|
+    with_attached_avatar
+      .unretired
+      .order(updated_at: :desc)
+      .tagged_with(tag_name)
+  }
+
+  scope :search_by_keywords_scope, -> { unretired }
+
+  columns_for_keyword_search(
+    :login_name,
+    :name,
+    :name_kana,
+    :twitter_account,
+    :facebook_url,
+    :blog_url,
+    :github_account,
+    :discord_account,
+    :description
+  )
 
   class << self
     def announcement_receiver(target)
@@ -282,6 +317,16 @@ class User < ApplicationRecord
       else
         send(target)
       end
+    end
+
+    def tags
+      ActsAsTaggableOn::Tag
+        .joins(:taggings)
+        .joins('INNER JOIN users ON taggings.taggable_id = users.id')
+        .select('tags.id, tags.name, COUNT(taggings.id) as taggings_count')
+        .group('tags.id, tags.name, tags.taggings_count')
+        .where(taggings: { taggable_type: 'User' })
+        .where(users: { retired_on: nil })
     end
   end
 
@@ -347,7 +392,11 @@ class User < ApplicationRecord
   end
 
   def elapsed_days
-    (Date.current - created_at.to_date).to_i
+    if graduated_on.present?
+      (graduated_on.to_date - created_at.to_date).to_i
+    else
+      (Date.current - created_at.to_date).to_i
+    end
   end
 
   def customer
@@ -428,16 +477,12 @@ class User < ApplicationRecord
 
   def avatar_url
     if avatar.attached?
-      avatar.variant(resize: AVATAR_SIZE).service_url
+      avatar.variant(resize: AVATAR_SIZE).processed.url
     else
       image_url('/images/users/avatars/default.png')
     end
-  end
-
-  def resize_avatar!
-    return unless avatar.attached?
-
-    avatar.variant(resize: AVATAR_SIZE).processed
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+    image_url('/images/users/avatars/default.png')
   end
 
   def generation

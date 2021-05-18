@@ -29,9 +29,9 @@ class UsersTest < ApplicationSystemTestCase
   test 'retired date is displayed' do
     login_user 'komagata', 'testtest'
     visit "/users/#{users(:yameo).id}"
-    assert_text 'リタイア日'
+    assert_text '退会日'
     visit "/users/#{users(:sotugyou).id}"
-    assert_no_text 'リタイア日'
+    assert_no_text '退会日'
   end
 
   test 'retire reason is displayed when login user is admin' do
@@ -138,6 +138,8 @@ class UsersTest < ApplicationSystemTestCase
       login_user 'osnashi', 'testtest'
       login_user 'jobseeker', 'testtest'
       login_user 'daimyo', 'testtest'
+      login_user 'nippounashi', 'testtest'
+      login_user 'with-hyphen', 'testtest'
     end
 
     login_user 'komagata', 'testtest'
@@ -164,7 +166,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_text '就職活動中'
 
     visit 'users?target=retired'
-    assert_no_text 'リタイア'
     assert_no_text '退会'
   end
 
@@ -175,7 +176,6 @@ class UsersTest < ApplicationSystemTestCase
     assert find_link('就職活動中')
 
     visit 'users?target=retired'
-    assert_no_text 'リタイア'
     assert_no_text '退会'
   end
 
@@ -191,5 +191,27 @@ class UsersTest < ApplicationSystemTestCase
     visit '/users'
     assert find_link('就職活動中')
     assert find_link('全員')
+  end
+
+  test 'push question tab for showing all the recoreded questions' do
+    login_user 'hatsuno', 'testtest'
+    visit "/users/#{users(:hatsuno).id}"
+    click_link '質問'
+    assert_text '質問のタブの作り方'
+    assert_text '質問のタブに関して。。。追加質問'
+  end
+
+  test 'show welcome message' do
+    login_user 'hatsuno', 'testtest'
+    assert_text 'ようこそ'
+  end
+
+  test 'not show welcome message' do
+    login_user 'hatsuno', 'testtest'
+    visit practice_path(practices(:practice1).id)
+    click_button '着手'
+    wait_for_vuejs
+    visit '/'
+    assert_no_text 'ようこそ'
   end
 end

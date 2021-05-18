@@ -1,5 +1,5 @@
 .form-item
-  = f.label :tag_list, class: 'a-label'
+  = f.label :tag_list, class: 'a-form-label'
   #js-user-tags(
     data-tags-initial-value='#{user.tag_list.join(',')}'
     data-tags-param-name='user[tag_list]'
@@ -8,4 +8,30 @@
   )
   .a-form-help
     p
-      | あなたの趣味や経歴、立場などをタグとして設定してみましょう。自分と共通のタグを持つユーザーを探しやすくなります。入力してエンターキーを押すとタグになります。
+      | あなたの趣味や経歴、立場などをタグとして設定してみましょう。
+      | 自分と共通のタグを持つユーザーを探しやすくなります。
+      | 入力してエンターキーを押すとタグになります。
+      br
+      label.a-form-help-link.is-danger(for='modal-user-tag')
+        | タグについてくわしく
+        span.a-help
+          i.fas.fa-question
+
+= render '/shared/modal', id: 'modal-user-tag', title: '🔖 タグとは？'
+  .modal__description.is-md
+    .a-short-text
+      p
+        | 手っ取り早くあなたのことを伝える方法が、このタグです。
+      p
+        | 例えば、あなたが「育児中」でしたら、「育児中」と入れます。
+        | ボードゲームが好きだったら「ボードゲーム」と入れたり、
+        | 漫画家の手塚治虫先生が好きだったら「手塚治虫」と入れたり、
+        | ロックバンドの「Ramones」が好きだったら「Ramones」と入れたり、
+        | 松江市出身でしたら「松江市出身」と入れたり、
+        | 「チェロ」を演奏するのが趣味でしたら「チェロ」と入れたり ...
+      p
+        | こうやって、あなたの趣味や経歴、立場などをタグとして設定することで、
+        | あなたがどんな人なのかがわかったり、自分と趣味や経歴、
+        | 立場のユーザーが探しやすくなります。
+      p
+        | あなたのタグをどんどん追加していきましょう。

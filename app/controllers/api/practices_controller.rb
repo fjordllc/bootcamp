@@ -1,10 +1,18 @@
 # frozen_string_literal: true
 
 class API::PracticesController < API::BaseController
+  include Rails.application.routes.url_helpers
   before_action :require_mentor_login_for_api, only: %i[show update]
   before_action :set_practice, only: %i[show update]
 
   def show; end
+
+  def index
+    @categories = Category
+                  .eager_load(:practices)
+                  .where.not(practices: { id: nil })
+                  .order('categories.position ASC, categories_practices.position ASC')
+  end
 
   def update
     if @practice.update(practice_params)

@@ -76,13 +76,13 @@ jobs:
           name: Lint
           command: |
             bundle exec slim-lint app/views -c config/slim_lint.yml
-            bin/yarn eslint app/javascript
+            bin/yarn lint
 
       - run:
           name: Test
           command: |
             bundle exec rake db:schema:load
-            ./bin/test
+            bin/rails test:all
 
       - store_test_results:
           path: tmp/test-results

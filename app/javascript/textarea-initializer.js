@@ -9,11 +9,13 @@ import MarkdownOption from './markdown-it-option'
 import autosize from 'autosize'
 
 export default class {
-  static initialize (selector) {
+  static initialize(selector) {
     const meta = document.querySelector('meta[name="csrf-token"]')
     const token = meta ? meta.content : ''
     const textareas = document.querySelectorAll(selector)
-    if (textareas.length === 0) { return null }
+    if (textareas.length === 0) {
+      return null
+    }
 
     autosize(textareas)
 
@@ -21,9 +23,9 @@ export default class {
     const emoji = new TextareaAutocomplteEmoji()
     const mention = new TextareaAutocomplteMention()
 
-    mention.fetchValues(json => {
+    mention.fetchValues((json) => {
       mention.values = json
-      mention.values.unshift({ 'login_name': 'mentor', 'name': 'メンター' })
+      mention.values.unshift({ login_name: 'mentor', name: 'メンター' })
       const collection = [emoji.params(), mention.params()]
       const tribute = new Tribute({
         collection: collection

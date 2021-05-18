@@ -1,70 +1,102 @@
 <template lang="pug">
-  .thread-list-item(:class="product.wip ? 'is-wip' : ''")
-    .thread-list-item__strip-label(v-if="notResponded")
-      .thread-list-item__elapsed-days.is-5-days(v-if="isLatestProductSubmittedJust5days")
-        | 5日経過
-      .thread-list-item__elapsed-days.is-6-days(v-else-if="isLatestProductSubmittedJust6days")
-        | 6日経過
-      .thread-list-item__elapsed-days.is-7-days(v-else-if="isLatestProductSubmittedOver7days")
-        | 7日以上経過
-    .thread-list-item__inner
-      .thread-list-item__author
-        a.thread-header__author(:href="product.user.url")
-          img.thread-list-item__author-icon.a-user-icon(
-            :title="product.user.icon_title"
-            :alt="product.user.icon_title"
-            :src="product.user.avatar_url"
-            :class="[roleClass, daimyoClass]")
-      header.thread-list-item__header
-        .thread-list-item__header-title-container
-          .thread-list-item__header-icon.is-wip(v-if="product.wip") WIP
-        h2.thread-list-item__title(itemprop='name')
-          a.thread-list-item__title-link.js-unconfirmed-link(:href="product.url" itemprop='url') {{ practiceTitle }}
-      .thread-list-item-meta
-        .thread-list-item-meta__items
-          .thread-list-item-meta__item
-            a.thread-header__author(:href="product.user.url") {{ product.user.login_name }}
-          .thread-list-item-meta__item(v-if="product.wip")
-            .thread-list-item-meta__datetime 提出物作成中
-          .thread-list-item-meta__item(v-else-if="product.published_at")
-            time.thread-list-item-meta__datetime(datetime="product.published_at_date_time")
-              span.thread-list-item-meta__datetime-label 提出日
-              | {{ product.published_at }}
-          .thread-list-item-meta__item(v-else)
-            time.thread-list-item-meta__datetime(datetime="product.created_at_date_time")
-              span.thread-list-item-meta__datetime-label 提出日
-              | {{ product.created_at }}
-          time.thread-list-item-meta__datetime(v-if="product.updated_at" datetime="product.updated_at_date_time")
-            span.thread-list-item-meta__datetime-label 最終更新日
-            | {{ product.updated_at }}
+.thread-list-item(:class='product.wip ? "is-wip" : ""')
+  .thread-list-item__strip-label(v-if="notResponded")
+    .thread-list-item__elapsed-days.is-5-days(v-if="isLatestProductSubmittedJust5days")
+      | 5日経過
+    .thread-list-item__elapsed-days.is-6-days(v-else-if="isLatestProductSubmittedJust6days")
+      | 6日経過
+    .thread-list-item__elapsed-days.is-7-days(v-else-if="isLatestProductSubmittedOver7days")
+      | 7日以上経過
+  .thread-list-item__inner
+    .thread-list-item__rows
+      .thread-list-item__row
+        .thread-list-item-title
+          .thread-list-item-title__start
+            .thread-list-item-title__icon.is-wip(v-if='product.wip') WIP
+          h2.thread-list-item-title__title(itemprop='name')
+            a.thread-list-item-title__link.js-unconfirmed-link(
+              :href='product.url',
+              itemprop='url'
+            ) {{ practiceTitle }}
+      .thread-list-item__row
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              a.a-user-name(:href='product.user.url') {{ product.user.login_name }}
+            .thread-list-item-meta__item(v-if='product.wip')
+              .a-date 提出物作成中
+            .thread-list-item-meta__item(v-else-if='product.published_at')
+              time.a-date(datetime='product.published_at_date_time')
+                span.a-date__label 提出日
+                | {{ product.published_at }}
+            .thread-list-item-meta__item(v-else)
+              time.a-date(datetime='product.created_at_date_time')
+                span.a-date__label 提出日
+                | {{ product.created_at }}
+            time.a-date(
+              v-if='product.updated_at',
+              datetime='product.updated_at_date_time'
+            )
+              span.a-date__label 最終更新日
+              | {{ product.updated_at }}
 
-      .thread-list-item-meta(v-if="product.comments.size > 0")
-        .thread-list-item-meta__label
-          | コメント
-        .thread-list-item-meta__comment-count
-          .thread-list-item-meta__comment-count-value （{{ product.comments.size }}）
-        .thread-list-item__user-icons(v-for="user in product.comments.users")
-          a.thread-list-item__user-icon(:href="user.url")
-            img.thread-list-item__checked-author-icon.a-user-icon(
-              :title="user.icon_title"
-              :alt="user.icon_title"
-              :src="user.avatar_url"
-              :class="[roleClass, daimyoClass]")
-        time.thread-list-item-meta__datetime(datetime="product.comments.last_created_at_date_time")
-          | {{ product.comments.last_created_at }}
-      .stamp.stamp-approve(v-if="product.checks.size > 0")
-        h2.stamp__content.is-title 確認済
-        time.stamp__content.is-created-at {{ product.checks.last_created_at }}
-        .stamp__content.is-user-name {{ product.checks.last_user_login_name }}
-      .thread-list-item__assignee
-        product-checker(v-if="isMentor && product.checks.size == 0" :checkerId="product.checker_id", :checkerName="product.checker_name", :currentUserId="currentUserId", :productId="product.id")
+      .thread-list-item__row(v-if='product.comments.size > 0')
+        hr.thread-list-item__row-separator
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              .thread-list-item-comment
+                .thread-list-item-comment__label
+                  | コメント
+                .thread-list-item-comment__count
+                  | （{{ product.comments.size }}）
+                .thread-list-item-comment__user-icons
+                  a.thread-list-item-comment__user-icon(:href='user.url')(
+                    v-for='user in product.comments.users'
+                  )
+                    img.a-user-icon(
+                      :title='user.icon_title',
+                      :alt='user.icon_title',
+                      :src='user.avatar_url',
+                      :class='[roleClass, daimyoClass]'
+                    )
+                time.a-date(
+                  datetime='product.comments.last_created_at_date_time'
+                )
+                  | 〜 {{ product.comments.last_created_at }}
+    .stamp.stamp-approve(v-if='product.checks.size > 0')
+      h2.stamp__content.is-title 確認済
+      time.stamp__content.is-created-at {{ product.checks.last_created_at }}
+      .stamp__content.is-user-name {{ product.checks.last_user_login_name }}
+    .thread-list-item__assignee(v-if='isMentor && product.checks.size == 0')
+      product-checker(
+        :checkerId='product.checker_id',
+        :checkerName='product.checker_name',
+        :currentUserId='currentUserId',
+        :productId='product.id'
+      )
+    .thread-list-item__author
+      a.a-user-name(:href='product.user.url')
+        img.thread-list-item__author-icon.a-user-icon(
+          :title='product.user.icon_title',
+          :alt='product.user.icon_title',
+          :src='product.user.avatar_url',
+          :class='[roleClass, daimyoClass]'
+        )
 </template>
 <script>
 import ProductChecker from './product_checker'
 export default {
-  props: ['product', 'currentUserId', 'isMentor', 'latestProductSubmittedJust5days', 'latestProductSubmittedJust6days', 'latestProductSubmittedOver7days'],
   components: {
-    'product-checker': ProductChecker,
+    'product-checker': ProductChecker
+  },
+  props: {
+    product: { type: Object, required: true },
+    isMentor: { type: Boolean, required: true },
+    currentUserId: { type: String, required: true },
+    latestProductSubmittedJust5days: { type: String },
+    latestProductSubmittedJust6days: { type: String },
+    latestProductSubmittedOver7days: { type: String },
   },
   computed: {
     roleClass() {
@@ -74,7 +106,9 @@ export default {
       return { 'is-daimyo': this.product.user.daimyo }
     },
     practiceTitle() {
-      return this.product.user.daimyo ? `★${this.product.practice.title}の提出物` : `${this.product.practice.title}の提出物`
+      return this.product.user.daimyo
+        ? `★${this.product.practice.title}の提出物`
+        : `${this.product.practice.title}の提出物`
     },
     isLatestProductSubmittedJust5days() {
       if (this.latestProductSubmittedJust5days !== null) {

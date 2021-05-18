@@ -30,8 +30,8 @@ class Report < ApplicationRecord
   validates :learning_times, length: { minimum: 1, message: ': 学習時間を入力してください。' }
   validates :emotion, presence: true
 
+  after_save   ReportCallbacks.new
   after_create ReportCallbacks.new
-  after_update ReportCallbacks.new
   after_destroy ReportCallbacks.new
   after_initialize :set_default_emotion, if: :new_record?
 
@@ -85,6 +85,10 @@ class Report < ApplicationRecord
           .where(user: user)
           .order(:created_at)
           .index(self) + 1
+  end
+
+  def first_public?
+    !wip && published_at.nil?
   end
 
   def set_default_emotion

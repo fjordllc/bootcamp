@@ -109,3 +109,233 @@ product14:
   created_at: <%= Time.current - 13.day %>
   updated_at: <%= Time.current - 13.day %>
   published_at: <%= Time.current - 13.day %>
+
+product15:
+  practice: practice1
+  user: with_hyphen
+  body: テストの提出物15です。
+
+product16:
+  practice: practice2
+  user: with_hyphen
+  body: テストの提出物16です。
+
+product17:
+  practice: practice3
+  user: with_hyphen
+  body: テストの提出物17です。
+
+product18:
+  practice: practice4
+  user: with_hyphen
+  body: テストの提出物18です。
+
+product19:
+  practice: practice5
+  user: with_hyphen
+  body: テストの提出物19です。
+
+product20:
+  practice: practice6
+  user: with_hyphen
+  body: テストの提出物20です。
+
+product21:
+  practice: practice7
+  user: with_hyphen
+  body: テストの提出物21です。
+
+product22:
+  practice: practice8
+  user: with_hyphen
+  body: テストの提出物22です。
+
+product23:
+  practice: practice9
+  user: with_hyphen
+  body: テストの提出物23です。
+
+product24:
+  practice: practice10
+  user: with_hyphen
+  body: テストの提出物24です。
+
+product25:
+  practice: practice11
+  user: with_hyphen
+  body: テストの提出物25です。
+
+product26:
+  practice: practice12
+  user: with_hyphen
+  body: テストの提出物26です。
+
+product27:
+  practice: practice13
+  user: with_hyphen
+  body: テストの提出物27です。
+
+product28:
+  practice: practice14
+  user: with_hyphen
+  body: テストの提出物28です。
+
+product29:
+  practice: practice15
+  user: with_hyphen
+  body: テストの提出物29です。
+
+product30:
+  practice: practice16
+  user: with_hyphen
+  body: テストの提出物30です。
+
+product31:
+  practice: practice17
+  user: with_hyphen
+  body: テストの提出物31です。
+
+product32:
+  practice: practice18
+  user: with_hyphen
+  body: テストの提出物32です。
+
+product33:
+  practice: practice19
+  user: with_hyphen
+  body: テストの提出物33です。
+
+product34:
+  practice: practice20
+  user: with_hyphen
+  body: テストの提出物34です。
+
+product35:
+  practice: practice21
+  user: with_hyphen
+  body: テストの提出物35です。
+
+product36:
+  practice: practice22
+  user: with_hyphen
+  body: テストの提出物36です。
+
+product37:
+  practice: practice23
+  user: with_hyphen
+  body: テストの提出物37です。
+
+product38:
+  practice: practice24
+  user: with_hyphen
+  body: テストの提出物38です。
+
+product39:
+  practice: practice25
+  user: with_hyphen
+  body: テストの提出物39です。
+
+product40:
+  practice: practice26
+  user: with_hyphen
+  body: テストの提出物40です。
+
+product41:
+  practice: practice27
+  user: with_hyphen
+  body: テストの提出物41です。
+
+product42:
+  practice: practice28
+  user: with_hyphen
+  body: テストの提出物42です。
+
+product43:
+  practice: practice29
+  user: with_hyphen
+  body: テストの提出物43です。
+
+product44:
+  practice: practice30
+  user: with_hyphen
+  body: テストの提出物44です。
+
+product45:
+  practice: practice31
+  user: with_hyphen
+  body: テストの提出物45です。
+
+product46:
+  practice: practice32
+  user: with_hyphen
+  body: テストの提出物46です。
+
+product47:
+  practice: practice33
+  user: with_hyphen
+  body: テストの提出物47です。
+
+product48:
+  practice: practice34
+  user: with_hyphen
+  body: テストの提出物48です。
+
+product49:
+  practice: practice35
+  user: with_hyphen
+  body: テストの提出物49です。
+
+product50:
+  practice: practice36
+  user: with_hyphen
+  body: テストの提出物50です。
+
+product51:
+  practice: practice37
+  user: with_hyphen
+  body: テストの提出物51です。
+
+product52:
+  practice: practice38
+  user: with_hyphen
+  body: テストの提出物52です。
+
+product53:
+  practice: practice39
+  user: with_hyphen
+  body: テストの提出物53です。
+
+product54:
+  practice: practice40
+  user: with_hyphen
+  body: テストの提出物54です。
+
+product55:
+  practice: practice41
+  user: with_hyphen
+  body: テストの提出物55です。
+
+product56:
+  practice: practice42
+  user: with_hyphen
+  body: テストの提出物56です。
+
+product57:
+  practice: practice43
+  user: with_hyphen
+  body: テストの提出物57です。
+
+product58:
+  practice: practice44
+  user: with_hyphen
+  body: テストの提出物58です。
+
+product59:
+  practice: practice45
+  user: with_hyphen
+  body: テストの提出物59です。
+
+product60:
+  practice: practice46
+  user: with_hyphen
+  body: テストの提出物60です。

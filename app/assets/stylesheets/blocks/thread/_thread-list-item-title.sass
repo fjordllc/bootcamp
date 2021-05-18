@@ -1,0 +1,45 @@
+.thread-list-item-title
+  display: flex
+  align-items: center
+  justify-content: space-between
+  +media-breakpoint-down(sm)
+    flex-direction: column
+    align-items: flex-start
+
+.thread-list-item-title__icon
+  +text-block(.75rem, inline-flex $muted-text nowrap)
+  margin-top: .25rem
+  +padding(horizontal, .5rem)
+  height: 1.125rem
+  margin-right: .5rem
+  border-radius: .75rem
+  align-items: center
+  justify-content: center
+  +media-breakpoint-down(sm)
+    float: left
+  &.is-wip
+    background-color: #e9ebef
+  &.is-unread
+    background-color: $danger
+    color: $reversal-text
+    font-size: .625rem
+
+.thread-list-item-title__start
+  +media-breakpoint-up(md)
+    display: flex
+    align-items: center
+    flex: 1
+  +media-breakpoint-down(sm)
+    width: 100%
+
+.thread-list-item-title__title
+  width: 100%
+  flex-basis: 100%
+
+.thread-list-item-title__link
+  +text-block(.875rem 1.5, 600 $side block)
+  word-break: break-all
+  +hover-link-reversal
+  .thread-list-item.is-wip &,
+  .thread-list-item.is-read &
+    color: $muted-text

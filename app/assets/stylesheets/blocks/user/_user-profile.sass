@@ -1,6 +1,6 @@
 .user-profile
   +position(relative)
-  padding-left: 6.5rem
+  padding-left: 6rem
   min-height: 6.25rem
   margin-bottom: .5rem
   padding-right: 5.5rem
@@ -21,22 +21,28 @@
 
 .user-profile__user-icon-image
   +media-breakpoint-up(md)
-    +size(5.5rem)
+    +size(5rem)
   +media-breakpoint-down(sm)
-    +size(4.5rem)
+    +size(4rem)
 
 .user-profile__login-name
   +text-block(1.5rem 1.2 0 .125rem, 600 $main)
   +word-wrap
 
 .user-profile__full-name
-  +text-block(.875rem 1.45 0 .125rem, 400)
+  +text-block(.875rem 1.45 0 .25rem, 400)
 
 .user-profile__kana-full-name
   color: $muted-text
   font-size: .8125em
   margin-left: .5em
 
+.user-profile__names
+  +media-breakpoint-down(sm)
+    .sns-links__items
+      justify-content: center
+    .users-item-names
+      justify-content: center
 
 .user-profile__company-name
   +text-block(.875rem 1.45, 400)
