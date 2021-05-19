@@ -16,17 +16,17 @@ header.page-header
 = render 'page_tabs', resource: @practice
 
 - if current_user.student_or_trainee? && !@practice.open_product? && (@my_product.nil? || @my_product.checks.empty?)
-  .page-notice
+  .a-page-notice
     .container
-      .page-notice__inner
+      .a-page-notice__inner
         p プラクティスを完了するまで他の人の提出物は見れません。
 
 .page-body
   .container
-    = paginate @products, position: 'top'
+    = paginate @products
     - if @products.present?
       .thread-list.a-card
         = render partial: 'products/product',
           collection: @products,
           as: :product
-    = paginate @products, position: 'bottom'
+    = paginate @products
