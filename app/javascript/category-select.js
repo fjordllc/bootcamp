@@ -33,8 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
           '#selected_category_id'
         ).value
         if (selectedCategoryId !== '') {
-          document.querySelector("select[name='practice[category_id]']").value =
-            selectedCategoryId
+          document.querySelector(
+            "select[name='practice[category_id]']"
+          ).value = selectedCategoryId
         }
       })
       .catch((error) => {
