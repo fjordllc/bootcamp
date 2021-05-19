@@ -19,7 +19,9 @@
             )
               | 完了
         .categories-item__description
-          .categories-item__edit.is-only-mentor(v-if='currentUser.role === "admin"')
+          .categories-item__edit.is-only-mentor(
+            v-if='currentUser.role === "admin"'
+          )
             a.categories-item__edit-link(
               :href='`${category.edit_admin_category_path}`'
             )
