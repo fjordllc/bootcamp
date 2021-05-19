@@ -22,7 +22,7 @@
                 | {{ searchable.login_name }}
             .thread-list-item-meta__item
               time.a-date(
-                :datetime='this.searchable.updated_at',
+                :datetime='searchable.updated_at',
                 pubdate='pubdate'
               )
                 | {{ updatedAt }}
