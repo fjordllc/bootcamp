@@ -29,9 +29,9 @@ class UsersTest < ApplicationSystemTestCase
   test 'retired date is displayed' do
     login_user 'komagata', 'testtest'
     visit "/users/#{users(:yameo).id}"
-    assert_text 'リタイア日'
+    assert_text '退会日'
     visit "/users/#{users(:sotugyou).id}"
-    assert_no_text 'リタイア日'
+    assert_no_text '退会日'
   end
 
   test 'retire reason is displayed when login user is admin' do
@@ -166,7 +166,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_text '就職活動中'
 
     visit 'users?target=retired'
-    assert_no_text 'リタイア'
     assert_no_text '退会'
   end
 
@@ -177,7 +176,6 @@ class UsersTest < ApplicationSystemTestCase
     assert find_link('就職活動中')
 
     visit 'users?target=retired'
-    assert_no_text 'リタイア'
     assert_no_text '退会'
   end
 
