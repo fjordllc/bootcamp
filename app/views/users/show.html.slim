@@ -61,8 +61,7 @@ header.page-header
 
         .col-xs-12.col-lg-6.col-xxl-6
           - if mentor_login? || admin_login?
-            .a-card.is-user
-              #js-user-mentor-memo(data-user-id='#{@user.id}')
+            #js-user-mentor-memo(data-user-id='#{@user.id}')
           - unless @user.total_learning_time.zero? || @user.mentor?
             = render 'users/grass', user: @user
           - if @user.github_account.present?

@@ -1,5 +1,5 @@
 <template lang="pug">
-.card-footer
+.card-footer.is-only-mentor
   .card-main-actions
     ul.card-main-actions__items
       li.card-main-actions__item(v-if='checkableType === "Product"')

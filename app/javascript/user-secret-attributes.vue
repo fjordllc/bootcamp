@@ -1,5 +1,5 @@
 <template lang="pug">
-.user-secret-attributes(v-if='currentUser.mentor && user.student_or_trainee')
+.user-secret-attributes.is-only-mentor(v-if='currentUser.mentor && user.student_or_trainee')
   .user-secret-attributes__title
     | メンターだけが見れる情報
   .user-secret-attributes__items(v-if='user.student')
