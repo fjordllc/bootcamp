@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (userMentorMemo) {
     const userId = userMentorMemo.getAttribute('data-user-id')
     new Vue({
-      render: h => h(UserMentorMemo, {
-        props: {
-          userId: userId
-        }
-      })
+      render: (h) =>
+        h(UserMentorMemo, {
+          props: {
+            userId: userId
+          }
+        })
     }).$mount(selector)
   }
 })
