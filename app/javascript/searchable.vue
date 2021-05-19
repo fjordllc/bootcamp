@@ -22,12 +22,16 @@
                 | {{ searchable.login_name }}
             .thread-list-item-meta__item
               time.a-date(
-                :datetime='searchable.updated_at_date_time',
+                :datetime='this.searchable.updated_at',
                 pubdate='pubdate'
               )
-                | {{ searchable.updated_at }}
+                | {{ updatedAt }}
 </template>
 <script>
+import dayjs from 'dayjs'
+import ja from 'dayjs/locale/ja'
+dayjs.locale(ja)
+
 export default {
   props: {
     searchable: { type: Object, required: true }
@@ -38,6 +42,11 @@ export default {
     },
     userUrl() {
       return `/users/${this.searchable.user_id}`
+    },
+    updatedAt() {
+      return dayjs(this.searchable.updated_at).format(
+        'YYYY年MM月DD日(dd) HH:mm'
+      )
     }
   }
 }
