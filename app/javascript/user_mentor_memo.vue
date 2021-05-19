@@ -57,12 +57,20 @@ import TextareaInitializer from './textarea-initializer'
 import MarkdownInitializer from './markdown-initializer'
 
 export default {
-  props: ['userId'],
+  props: {
+    userId: { type: String, required: true }
+  },
   data: () => {
     return {
       memo: '',
       tab: 'memo',
       editing: false
+    }
+  },
+  computed: {
+    markdownMemo() {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.memo)
     }
   },
   created() {
@@ -78,8 +86,8 @@ export default {
         return response.json()
       })
       .then((json) => {
-        if (json['mentor_memo']) {
-          this.memo = json['mentor_memo']
+        if (json.mentor_memo) {
+          this.memo = json.mentor_memo
         }
       })
       .catch((error) => {
@@ -101,7 +109,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     updateMemo() {
-      let params = {
+      const params = {
         user: {
           mentor_memo: this.memo
         }
@@ -116,13 +124,9 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual',
         body: JSON.stringify(params)
+      }).catch((error) => {
+        console.warn('Failed to parsing', error)
       })
-        .then((response) => {
-          this.editing = false
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
     },
     cancel() {
       fetch(`/api/users/${this.userId}.json`, {
@@ -137,7 +141,7 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.memo = json['mentor_memo']
+          this.memo = json.mentor_memo
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
@@ -146,12 +150,6 @@ export default {
     },
     editMemo() {
       this.editing = true
-    }
-  },
-  computed: {
-    markdownMemo() {
-      const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.memo)
     }
   }
 }
