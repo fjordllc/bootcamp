@@ -97,6 +97,6 @@ class Report < ApplicationRecord
   end
 
   def total_learning_time
-    learning_times.sum(&:diff).to_i
+    (learning_times.sum(&:diff) / 60).to_i
   end
 end
