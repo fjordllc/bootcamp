@@ -1,0 +1,32 @@
+@keyframes loadingNow
+  0%
+    opacity: .6
+  100%
+    opacity: 1
+
+.a-placeholder
+  $placeholder: rgba(black, .075)
+  background-color: $placeholder
+  animation: loadingNow .75s ease infinite alternate
+  &.a-user-icon
+    background-color: $placeholder
+  &.is-long-text
+    background-color: transparent
+    p
+      background-color: $placeholder
+      height: 1.2em
+      margin-bottom: 0
+      &:not(:first-child)
+        margin-top: .5em
+      &:nth-child(1)
+        width: 70%
+      &:nth-child(2)
+        width: 100%
+      &:nth-child(3)
+        width: 100%
+      &:nth-child(4)
+        width: 80%
+      &:nth-child(5)
+        width: 60%
+      &:nth-child(7)
+        width: 20%
