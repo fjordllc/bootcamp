@@ -31,16 +31,6 @@ class API::UsersController < API::BaseController
     @user = User.find(params[:id])
   end
 
-<<<<<<< HEAD
-  private
-
-  def target_allowlist
-    target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
-    target_allowlist.push('job_seeking') if current_user.adviser?
-    target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
-    target_allowlist
-  end
-=======
   def update
     @user = User.find(params[:id])
     if @user.update_mentor_memo(user_params[:mentor_memo])
@@ -52,14 +42,16 @@ class API::UsersController < API::BaseController
 
   private
 
-<<<<<<< HEAD
+  def target_allowlist
+    target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
+    target_allowlist.push('job_seeking') if current_user.adviser?
+    target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
+    target_allowlist
+  end
+
+  private
+
     def user_params
-      params.require(:users).permit(:memo)
-    end
->>>>>>> a593ce12b (ユーザーapiコントローラーにupdate処理を追加)
-=======
-  def user_params
     params.require(:user).permit(:mentor_memo)
   end
->>>>>>> 4e92003ea (メモを保存した場合、updated_atカラムを更新しない処理を追加)
 end

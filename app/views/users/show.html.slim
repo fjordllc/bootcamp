@@ -56,10 +56,10 @@ header.page-header
                     li.card-main-actions__item
                       = link_to '登録情報変更', edit_current_user_path, class: 'card-main-actions__action a-button is-md is-secondary is-block'
                   - elsif admin_login?
-                    li.card-footer-actions__item
+                    li.card-main-actions__item
                       = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
 
-        .col-xs-12.col-lg-7.col-xxl-6
+        .col-xs-12.col-lg-6.col-xxl-6
           - if mentor_login? || admin_login?
             .a-card.is-user
               #js-user-mentor-memo(data-user-id='#{@user.id}')
