@@ -49,9 +49,7 @@ class API::UsersController < API::BaseController
     target_allowlist
   end
 
-  private
-
-    def user_params
+  def user_params
     params.require(:user).permit(:mentor_memo)
   end
 end
