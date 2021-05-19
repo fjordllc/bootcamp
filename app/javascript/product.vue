@@ -61,7 +61,9 @@
       h2.stamp__content.is-title 確認済
       time.stamp__content.is-created-at {{ product.checks.last_created_at }}
       .stamp__content.is-user-name {{ product.checks.last_user_login_name }}
-    .thread-list-item__assignee.is-only-mentor(v-if='isMentor && product.checks.size == 0')
+    .thread-list-item__assignee.is-only-mentor(
+      v-if='isMentor && product.checks.size == 0'
+    )
       product-checker(
         :checkerId='product.checker_id',
         :checkerName='product.checker_name',
