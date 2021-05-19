@@ -119,6 +119,7 @@ ja:
         description: 内容
         learning_times: 学習時間
         emotion: 今日の気分
+        no_learn: 学習時間は無し
       reservation:
         date: 日付
         user_id: ユーザー
