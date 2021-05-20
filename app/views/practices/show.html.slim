@@ -86,13 +86,20 @@ header.page-header
             header.card-header
               h2.card-header__title
                 | 参考書籍
-            .card-list
-              .card-list__items
+            .card-books
+              .card-books__items
                 - @practice.reference_books.each do |book|
-                  .card-list__item
-                    = link_to book.page_url, target: '_blank', rel: 'noopener' do
-                      = image_tag book.cover_url
-                      = book.title
+                  .card-books-item
+                    = link_to book.page_url, target: '_blank', rel: 'noopener', class: 'card-books-item__inner' do
+                      .card-books-item__start
+                        .card-books-item__cover-container
+                          = image_tag book.cover_url, class: 'card-books-item__image', alt: book.title
+                      .card-books-item__end
+                        h3.card-books-item__title
+                          = book.title
+                        p.card-books-item__price
+                          = book.price.to_s(:delimited)
+                          | 円
 
         section.a-card
           header.card-header
