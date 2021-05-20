@@ -1,31 +1,3 @@
-.practice-contents
-  max-width: 58rem
-  +margin(horizontal, auto)
-  +position(relative)
-  display: flex
-  justify-content: space-between
-  align-items: flex-start
-  &:not(:first-child)
-    margin-top: 2rem
-  &.is-admin
-    max-width: 100%
-
-.practice-contents__inner
-  flex: 100
-  .practice-contents.is-admin &
-    max-width: 50rem
-
-.practice-contents__header
-  border-bottom: solid 1px $background-shade
-  margin-bottom: 1rem
-  padding-bottom: .5rem
-
-.practice-contents__title
-  +text-block(1.375rem 1.4, 600 $side)
-  +media-breakpoint-down(sm)
-    font-size: 1rem
-    word-break: break-all
-
 .practice-content
   position: relative
   display: block
@@ -40,21 +12,6 @@
       margin-bottom: 0
     .thread-comment-form__markdown.is-preview
       overflow: auto
-
-.practice-content__title
-  +text-block(1rem 1.4, 600)
-
-.practice-contents__time
-  +text-block(.875rem 1.4, inline-block)
-  margin-bottom: .25em
-  i
-    color: $main
-  i:not(:first-child)
-    margin-left: .125em
-    font-size: 1.125em
-  &.has-info
-    +hover-link
-    cursor: pointer
 
 .practice-content__body
   padding: 1.25rem
