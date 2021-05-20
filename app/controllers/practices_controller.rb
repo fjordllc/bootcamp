@@ -36,9 +36,6 @@ class PracticesController < ApplicationController
       @practice.reference_books.each(&:resize_cover!)
       text = "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を編集しました。"
       diff = Diffy::Diff.new("#{old_practice.all_text}\n", "#{@practice.all_text}\n", context: 1).to_s
-      SlackNotification.notify "#{text}\n```#{diff}```",
-                               username: "#{current_user.login_name}@bootcamp.fjord.jp",
-                               icon_url: current_user.avatar_url
       ChatNotifier.message("プラクティス：「#{@practice.title}」を編集しました。\r#{url_for(@practice)}")
       redirect_to @practice, notice: 'プラクティスを更新しました。'
     else
