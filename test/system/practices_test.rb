@@ -75,6 +75,8 @@ class PracticesTest < ApplicationSystemTestCase
     end
     assert_text 'プラクティスを更新しました'
     visit "/products/#{product.id}"
+    wait_for_vuejs
+    find('#side-tabs-nav-2').click
     assert_text 'メンター向けのメモの内容です'
   end
 
