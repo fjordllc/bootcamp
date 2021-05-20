@@ -28,7 +28,7 @@ export default class {
   }
 
   fetchValues(callback) {
-    fetch('/api/users', {
+    fetch('/api/mention_users', {
       method: 'GET',
       credentials: 'same-origin',
       headers: { 'X-Requested-With': 'XMLHttpRequest' }

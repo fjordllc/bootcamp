@@ -15,7 +15,7 @@
       .form-item.is-sm
         label.a-form-label
           = f.label :emotion
-        ul.form-item__radio-buttons.is-inline
+        ul.form-item__radio-buttons.is-inline.is-3-items
           = f.collection_radio_buttons :emotion, Report.faces, :first, :second do |b|
             li.form-radio-button.test-select-emotions
               = b.radio_button(class: 'a-toggle-checkbox')
@@ -23,16 +23,29 @@
                 = image_tag b.text, id: b.value, alt: b.value, class: 'form-label__emotion-image'
                 span.form-radio-button__label-name
                   = b.value
-
-      .form-item#tasks
+      .form-item
         label.a-form-label
           | 学習時間
-        = f.fields_for :learning_times do |learning_time|
-          = render 'learning_time_fields', f: learning_time
-        .form-item__add-times
-          = link_to_add_association f, :learning_times, class: 'a-button is-md is-primary' do
-            i.fas.fa-plus
-            | 学習時間追加
+
+        .form-item__lerning-times#js-learning-times
+          = f.fields_for :learning_times do |learning_time|
+            = render 'learning_time_fields', f: learning_time
+          .form-item__add-times
+            = link_to_add_association f, :learning_times, class: 'a-button is-md is-primary' do
+              i.fas.fa-plus
+              | 学習時間追加
+
+        .checkboxes
+          .checkboxes__items
+            .checkboxes__item
+              = f.label :no_learn, class: 'is-sm' do
+                = f.check_box :no_learn, class: 'js-no-practice-time'
+                = Report.human_attribute_name :no_learn
+
+            label.a-form-help-link.is-muted-text(for='modal-progress')
+              span.a-form-help-link__label 詳しく
+              span.a-help
+                i.fas.fa-question
 
   .form__items
     .form-item
@@ -56,6 +69,11 @@
         = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
         .form-actions__item-help
           | まだ書いてる途中
+          label.a-form-help-link.is-muted-text(for='modal-wip')
+            span.a-form-help-link__label 詳しく
+            span.a-help
+              i.fas.fa-question
+
       li.form-actions__item.is-main.is-help
         - if report.new_record? || report.wip?
           = f.submit '提出', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
@@ -69,3 +87,40 @@
           = link_to 'キャンセル', reports_path, class: 'a-button is-md is-secondary'
         - when 'edit', 'update'
           = link_to 'キャンセル', report_path, class: 'a-button is-md is-secondary'
+
+= render '/shared/modal', id: 'modal-progress', title: '学習時間は無しとは？'
+  .modal__description.is-md
+    .a-short-text
+      p
+        | プラクティスは進めていないけど日報は書いておきたいというときは、
+        | 学習時間無しの日報を書くことができます。
+        | 「学習時間は無し」にチェックを入れてください。
+      p
+        | 日報を書くということも文章を書くこと、アウトプットに慣れるための大事な学習です。
+        | なので、今この日報を書いている時間も学習時間に含めてしまって問題ないですよ。
+
+= render '/shared/modal', id: 'modal-wip', title: 'WIPとは？'
+  .modal__description.is-md
+    .a-short-text
+      p
+        | WIPとは、「work in progress」もしくは「work in process」の略。
+        | 「作業中」を表すプログラマー界隈でよく使われる用語です。
+      p
+        | 下書きと違って、WIPの状態でも公開されています(バグではありません😄)。
+      p
+        | なぜ、作業中なのに公開されれるのかというと、公開されることによって、
+        | 誰が今何をやっているのかが可視化されるからです。
+      p
+        | 開発の現場では、まだ作業途中なんだけど、この理解で合ってるか確認して欲しい、と、
+        | 作業中のものを見てもらう機会が多くあります。
+      p
+        | 作業中のものを人に見てもらうことで、
+        | 早い段階で間違いに気づき、手戻りが最小限になったり、
+        | 上手く行ってないことに気づいてもらい、手助けしてもらいやすくなったりします。
+      p
+        | また、WIP で保存されていることによって、今はまだ途中だから色々間違いが含まれてたり、
+        | 汚いコードが含まれてますよ、最後はちゃんとするから口を出さないでね、
+        | という合図にもなります。
+      p
+        | 日報も同じで、WIP はどんなに間違ったことを書いてても問題なしです。
+        | 途中経過を人前に晒すことに慣れてしまいましょう💪

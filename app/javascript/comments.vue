@@ -1,73 +1,75 @@
 <template lang="pug">
-.thread-comments-container
-  h2.thread-comments-container__title コメント
-  .thread-comments
-    comment(
-      v-for='(comment, index) in comments',
-      :key='comment.id',
-      :comment='comment',
-      :currentUser='currentUser',
-      :id='"comment_" + comment.id',
-      @delete='deleteComment'
-    )
-    .thread-comment-form
-      .thread-comment__author
-        img.thread-comment__author-icon.a-user-icon(
-          :src='currentUser.avatar_url',
-          :class='[roleClass, daimyoClass]',
-          :title='currentUser.icon_title'
+.thread-comments(v-if='loaded === false && commentableType === "Product"')
+  commentPlaceholder(v-for='num in placeholderCount', :key='num')
+.thread-comments(v-else)
+  comment(
+    v-for='(comment, index) in comments',
+    :key='comment.id',
+    :comment='comment',
+    :currentUser='currentUser',
+    :id='"comment_" + comment.id',
+    @delete='deleteComment'
+  )
+  .thread-comment-form
+    .thread-comment__author
+      img.thread-comment__author-icon.a-user-icon(
+        :src='currentUser.avatar_url',
+        :class='[roleClass, daimyoClass]',
+        :title='currentUser.icon_title'
+      )
+    .thread-comment-form__form.a-card
+      .thread-comment-form__tabs.js-tabs
+        .thread-comment-form__tab.js-tabs__tab(
+          :class='{ "is-active": isActive("comment") }',
+          @click='changeActiveTab("comment")'
         )
-      .thread-comment-form__form.a-card
-        .thread-comment-form__tabs.js-tabs
-          .thread-comment-form__tab.js-tabs__tab(
-            :class='{ "is-active": isActive("comment") }',
-            @click='changeActiveTab("comment")'
+          | コメント
+        .thread-comment-form__tab.js-tabs__tab(
+          :class='{ "is-active": isActive("preview") }',
+          @click='changeActiveTab("preview")'
+        )
+          | プレビュー
+      .thread-comment-form__markdown-parent.js-markdown-parent
+        .thread-comment-form__markdown.js-tabs__content(
+          :class='{ "is-active": isActive("comment") }'
+        )
+          textarea#js-new-comment.a-text-input.js-warning-form.thread-comment-form__textarea(
+            v-model='description',
+            name='new_comment[description]',
+            data-preview='#new-comment-preview'
           )
-            | コメント
-          .thread-comment-form__tab.js-tabs__tab(
-            :class='{ "is-active": isActive("preview") }',
-            @click='changeActiveTab("preview")'
-          )
-            | プレビュー
-        .thread-comment-form__markdown-parent.js-markdown-parent
-          .thread-comment-form__markdown.js-tabs__content(
-            :class='{ "is-active": isActive("comment") }'
-          )
-            textarea#js-new-comment.a-text-input.js-warning-form.thread-comment-form__textarea(
-              v-model='description',
-              name='new_comment[description]',
-              data-preview='#new-comment-preview'
-            )
-          .thread-comment-form__markdown.js-tabs__content(
-            :class='{ "is-active": isActive("preview") }'
-          )
-            #new-comment-preview.is-long-text.thread-comment-form__preview
-        .card-footer
-          .card-main-actions
-            .card-main-actions__items
-              .card-main-actions__item
-                button#js-shortcut-post-comment.a-button.is-md.is-primary.is-block(
-                  @click='createComment',
-                  :disabled='!validation || buttonDisabled'
-                )
-                  | コメントする
-              .card-main-actions__item(
-                v-if='(currentUser.role == "admin" || currentUser.role == "adviser") && commentType && !checkId'
+        .thread-comment-form__markdown.js-tabs__content(
+          :class='{ "is-active": isActive("preview") }'
+        )
+          #new-comment-preview.is-long-text.thread-comment-form__preview
+      .card-footer
+        .card-main-actions
+          .card-main-actions__items
+            .card-main-actions__item
+              button#js-shortcut-post-comment.a-button.is-md.is-primary.is-block(
+                @click='createComment',
+                :disabled='!validation || buttonDisabled'
               )
-                button.a-button.is-md.is-danger.is-block(
-                  @click='commentAndCheck',
-                  :disabled='!validation || buttonDisabled'
-                )
-                  i.fas.fa-check
-                  | 確認OKにする
+                | コメントする
+            .card-main-actions__item(
+              v-if='(currentUser.role == "admin" || currentUser.role == "adviser") && commentType && !checkId'
+            )
+              button.a-button.is-md.is-danger.is-block(
+                @click='commentAndCheck',
+                :disabled='!validation || buttonDisabled'
+              )
+                i.fas.fa-check
+                | 確認OKにする
 </template>
 <script>
 import Comment from './comment.vue'
 import TextareaInitializer from './textarea-initializer'
+import CommentPleaceholder from './comment-placeholder'
 
 export default {
   components: {
-    comment: Comment
+    comment: Comment,
+    commentPlaceholder: CommentPleaceholder
   },
   props: {
     commentableId: { type: String, required: true },
@@ -81,7 +83,9 @@ export default {
       description: '',
       tab: 'comment',
       buttonDisabled: false,
-      defaultTextareaSize: null
+      defaultTextareaSize: null,
+      loaded: false,
+      placeholderCount: 3
     }
   },
   computed: {
@@ -120,12 +124,13 @@ export default {
         json.forEach((c) => {
           this.comments.push(c)
         })
+        this.loaded = true
       })
       .catch((error) => {
         console.warn('Failed to parsing', error)
       })
   },
-  mounted() {
+  updated() {
     TextareaInitializer.initialize('#js-new-comment')
     this.setDefaultTextareaSize()
   },

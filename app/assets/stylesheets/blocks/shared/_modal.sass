@@ -9,18 +9,6 @@
   +position(fixed, left 0, top 0, right 0, bottom 0)
   background-color: rgba(black, .8)
 
-.modal-content
-  +position(absolute, left 50%, top 50%, 1)
-  transform: translate(-50%, -50%)
-  background-color: $base
-  border-radius: .25rem
-  width: 40rem
-  max-width: 100%
-  &.is-sm
-    width: 24rem
-  > *:last-child
-    border-bottom: none
-
 .modal__description
   &.is-md
     font-size: .875rem
@@ -56,6 +44,18 @@
     transform: translate(-50%, -50%) rotate(-45deg)
   &:hover
     opacity: 1
+
+.modal-content
+  +position(absolute, left 50%, top 50%, 1)
+  transform: translate(-50%, -50%)
+  background-color: $base
+  border-radius: .25rem
+  width: 40rem
+  max-width: calc(100% - 2rem)
+  &.is-sm
+    width: 24rem
+  > *:last-child
+    border-bottom: none
 
 .modal-body
   max-height: calc(100vh - 11.5rem)
