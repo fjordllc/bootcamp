@@ -31,7 +31,6 @@ class PracticesController < ApplicationController
     @practice.last_updated_user = current_user
     if @practice.update(practice_params)
       @practice.reference_books.each(&:resize_cover!)
-      text = "<#{url_for(current_user)}|#{current_user.login_name}>が<#{url_for(@practice)}|#{@practice.title}>を編集しました。"
       ChatNotifier.message("プラクティス：「#{@practice.title}」を編集しました。\r#{url_for(@practice)}")
       redirect_to @practice, notice: 'プラクティスを更新しました。'
     else
