@@ -116,7 +116,7 @@
                 v-model='edited.title',
                 name='question[title]'
               )
-            .form-tabs-item
+            .form-item
               .form-tabs.js-tabs
                 .form-tabs__tab.js-tabs__tab(
                   :class='{ "is-active": isActive("question") }',
