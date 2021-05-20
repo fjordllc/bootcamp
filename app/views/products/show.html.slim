@@ -134,7 +134,16 @@ header.page-header
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
                 .thread-list.a-card
-                  - @reports.each do |report|
-                    = render partial: 'report', locals: { report: report }
+                  - if @reports.present?
+                    - @reports.each do |report|
+                      = render partial: 'report', locals: { report: report }
+                  - else
+                    .thread-list__inner
+                      .container
+                        .o-empty-message
+                          .o-empty-message__icon
+                            i.far.fa-sad-tear
+                          .o-empty-message__text
+                            | 日報はまだありません。
               .side-tabs-contents__item#side-tabs-content-2
                 #js-mentor-memo(data-practice-id="#{@product.practice_id}")
