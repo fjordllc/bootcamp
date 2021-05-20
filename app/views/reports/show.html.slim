@@ -109,22 +109,25 @@ header.page-header
             - if (@report.user.daimyo? && staff_login?) || admin_or_mentor_login?
               #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
 
-      .thread-prev-next
-        .thread-prev-next__item
-          - if @report.previous
-            = link_to @report.previous, class: 'thread-prev-next__item-link is-prev' do
-              i.fas.fa-angle-left
-              | 前の日報
-        .thread-prev-next__item
-          = link_to user_reports_path(@report.user_id), class: 'thread-prev-next__item-link is-index' do
-            | 日報一覧
-        .thread-prev-next__item
-          - if @report.next
-            = link_to @report.next, class: 'thread-prev-next__item-link is-next' do
-              | 次の日報
-              i.fas.fa-angle-right
-      = render 'users/icon', user: @report.user, link_class: 'thread__author-link', image_class: 'thread__author-icon'
-    #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
-    = render 'footprints/footprints', footprints: @footprints
+          .thread-prev-next
+            .thread-prev-next__item
+              - if @report.previous
+                = link_to @report.previous, class: 'thread-prev-next__item-link is-prev' do
+                  i.fas.fa-angle-left
+                  | 前の日報
+            .thread-prev-next__item
+              = link_to user_reports_path(@report.user_id), class: 'thread-prev-next__item-link is-index' do
+                | 日報一覧
+            .thread-prev-next__item
+              - if @report.next
+                = link_to @report.next, class: 'thread-prev-next__item-link is-next' do
+                  | 次の日報
+                  i.fas.fa-angle-right
+          = render 'users/icon', user: @report.user, link_class: 'thread__author-link', image_class: 'thread__author-icon'
 
-    #js-user-recent-reports(report-id="#{@report.id}")
+        #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
+
+        = render 'footprints/footprints', footprints: @footprints
+
+      .col-lg-4.col-xs-12
+        #js-user-recent-reports(report-id="#{@report.id}")
