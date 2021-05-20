@@ -42,14 +42,17 @@
       .col-md-6.col-xs-12
         .a-form-label プレビュー
         .js-memo-preview.is-long-text.markdown-form__preview
-  .form__items
-    .form-item#reference_books
-      label.a-label
-        | 参考書籍
+  .form-item
+    label.a-form-label
+      | 参考書籍
+    .row
       = f.fields_for :reference_books do |book|
         = render 'reference_book_fields', f: book
-      .form-item
-        = link_to_add_association '追加', f, :reference_books
+      .col-xs-12.nested-fields__add
+        = link_to_add_association f, :reference_books, class: 'a-button is-md is-secondary' do
+          i.fas.fa-plus
+          span
+            | 書籍を追加
   .form-item
     = f.label :submission, class: 'a-form-label'
     .checkboxes
