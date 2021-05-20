@@ -9,7 +9,7 @@ header.page-header
   = render 'my_seat_today', my_seat_today: @my_seat_today
 .page-body
   .container
-    - unless Learning.find_by(user_id: current_user)
+    - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
       = render 'welcome_message'
     .columns
       .row
