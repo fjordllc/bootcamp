@@ -7,29 +7,6 @@
         = text_field_tag 'word', params[:word], class: 'a-xs-text-input header-search__text-input', placeholder: '検索'
         button.a-button.is-sm.is-secondary.is-icon.header-search__submit#test-search(type='submit')
           i.fas.fa-search
-    - if current_user.admin?
-      li.header-links__item
-        label.header-links__link(for='header-admin-menu')
-          = image_tag('admin.svg', alt: 'Admin', class: 'header-links__image')
-          .header-links__link-label Admin
-        input.a-toggle-checkbox#header-admin-menu(type='checkbox')
-        .header-dropdown
-          label.header-dropdown__background(for='header-admin-menu')
-          .header-dropdown__inner
-            ul.header-dropdown__items
-              li.header-dropdown__item
-                = link_to admin_root_path, class: 'header-dropdown__item-link' do
-                  | 管理ページ
-              li.header-dropdown__item
-                = link_to 'https://app.redash.io/fjord-inc/public/dashboards/TR86ezvmxVWE7ScenS3yTE1z8lV4ILzvmOAyKmWY',
-                  class: 'header-dropdown__item-link',
-                  target: '_blank', rel: 'noopener' do
-                  | メンターダッシュボード
-              li.header-dropdown__item
-                = link_to 'https://app.redash.io/fjord-inc/public/dashboards/WFwaaDZIgTFUan2BVhTK1axaxK1WaDSS0xOwSXHz',
-                  class: 'header-dropdown__item-link',
-                  target: '_blank', rel: 'noopener' do
-                  | 確認数の集計
     - if current_user
       li.header-links__item
         label.header-links__link.test-show-menu(for='header-menu')
@@ -41,34 +18,58 @@
         .header-dropdown
           label.header-dropdown__background(for='header-menu')
           .header-dropdown__inner
-            ul.header-dropdown__items
-              li.header-dropdown__item
-                = link_to root_path, class: 'header-dropdown__item-link' do
-                  | ダッシュボード
-              li.header-dropdown__item
-                = link_to user_path(current_user), class: 'header-dropdown__item-link' do
-                  | 自分のプロフィール
-              li.header-dropdown__item
-                = link_to watches_path, class: 'header-dropdown__item-link' do
-                  | Watch中一覧
-              li.header-dropdown__item
-                = link_to edit_current_user_path, class: 'header-dropdown__item-link' do
-                  | 登録情報変更
-              - if !current_user.adviser? && !current_user.mentor? && !current_user.trainee?
-                - if current_user.card?
+            .header-dropdown__list
+              ul.header-dropdown__items
+                li.header-dropdown__item
+                  = link_to root_path, class: 'header-dropdown__item-link' do
+                    | ダッシュボード
+                li.header-dropdown__item
+                  = link_to user_path(current_user), class: 'header-dropdown__item-link' do
+                    | 自分のプロフィール
+                li.header-dropdown__item
+                  = link_to watches_path, class: 'header-dropdown__item-link' do
+                    | Watch中一覧
+                li.header-dropdown__item
+                  = link_to edit_current_user_path, class: 'header-dropdown__item-link' do
+                    | 登録情報変更
+                - if !current_user.adviser? && !current_user.mentor? && !current_user.trainee?
+                  - if current_user.card?
+                    li.header-dropdown__item
+                      = link_to 'クレジットカード情報', card_path, class: 'header-dropdown__item-link'
+                    li.header-dropdown__item
+                      = link_to 'クレジットカード変更', edit_card_path, class: 'header-dropdown__item-link'
+                  - else
+                    li.header-dropdown__item
+                      = link_to 'クレジットカード登録', new_card_path, class: 'header-dropdown__item-link'
+                li.header-dropdown__item
+                  = link_to logout_path, class: 'header-dropdown__item-link' do
+                    | ログアウト
+                li.header-dropdown__item
+                  = link_to new_retirement_path, class: 'header-dropdown__item-link' do
+                    | 退会手続き
+            - if current_user.admin?
+              .header-dropdown__list
+                .header-dropdown__label
+                  | 管理者メニュー
+                ul.header-dropdown__items
                   li.header-dropdown__item
-                    = link_to 'クレジットカード情報', card_path, class: 'header-dropdown__item-link'
+                    = link_to admin_root_path, class: 'header-dropdown__item-link' do
+                      | 管理ページ
+            - if current_user.mentor?
+              .header-dropdown__list
+                .header-dropdown__label
+                  | メンターメニュー
+                ul.header-dropdown__items
                   li.header-dropdown__item
-                    = link_to 'クレジットカード変更', edit_card_path, class: 'header-dropdown__item-link'
-                - else
+                    = link_to 'https://app.redash.io/fjord-inc/public/dashboards/TR86ezvmxVWE7ScenS3yTE1z8lV4ILzvmOAyKmWY',
+                      class: 'header-dropdown__item-link',
+                      target: '_blank', rel: 'noopener' do
+                      | メンターダッシュボード
                   li.header-dropdown__item
-                    = link_to 'クレジットカード登録', new_card_path, class: 'header-dropdown__item-link'
-              li.header-dropdown__item
-                = link_to logout_path, class: 'header-dropdown__item-link' do
-                  | ログアウト
-              li.header-dropdown__item
-                = link_to new_retirement_path, class: 'header-dropdown__item-link' do
-                  | 退会手続き
+                    = link_to 'https://app.redash.io/fjord-inc/public/dashboards/WFwaaDZIgTFUan2BVhTK1axaxK1WaDSS0xOwSXHz',
+                      class: 'header-dropdown__item-link',
+                      target: '_blank', rel: 'noopener' do
+                      | 確認数の集計
       li.header-links__item.is-hidden-md-up
         label.header-links__link.test-show-menu(for='mobile-nav')
           i.fas.fa-bars
