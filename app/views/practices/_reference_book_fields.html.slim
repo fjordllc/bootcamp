@@ -1,18 +1,24 @@
-.col-lg-4.col-md-4.col-xs-12
-  .nested-fields
-    .nested-fields__items
-      .nested-fields-item
+.col-xl-4.col-md-6.col-xs-12
+  .nested-fields.reference-books-form
+    .reference-books-form__items
+      .reference-books-form-item
         = f.label :title, class: 'a-form-label'
         = f.text_field :title, class: 'a-text-input'
-      .nested-fields-item
-        = f.label :price, class: 'a-form-label'
-        = f.text_field :price, class: 'a-text-input'
-      .nested-fields-item
+      .reference-books-form-item
+        = f.label '価格（税込）', class: 'a-form-label'
+        .reference-books-form-item__price-container
+          = f.text_field :price, class: 'a-text-input', placeholder: '2728'
+          .reference-books-form-item__price-unit
+            | 円
+        .a-form-help
+          p
+            | カンマは不要です。
+      .reference-books-form-item
         = f.label :page_url, class: 'a-form-label'
-        = f.text_field :page_url, class: 'a-text-input'
-      .nested-fields-item
+        = f.text_field :page_url, class: 'a-text-input', placeholder: 'https://www.amazon.co.jp/dp/4297101238'
+      .reference-books-form-item
         = f.label :cover, class: 'a-form-label'
-        .form-item-file-input.js-file-input.a-file-input.is-avatar
+        .form-item-file-input.js-file-input.a-file-input.is-book
           label.js-file-input__preview
             - if f.object.cover.attached?
               p 画像を変更
@@ -21,6 +27,6 @@
             - else
               p 画像を選択
               = f.file_field :cover
-    .nested-fields__delete
-      = link_to_remove_association f, class: 'nested-fields__delete-link' do
+    .reference-books-form__delete
+      = link_to_remove_association f, class: 'reference-books-form__delete-link' do
         i.fas.fa-times
