@@ -1,6 +1,6 @@
 <template lang="pug">
 .thread-list.a-card
-  .thread-list__items
+  .thread-list__items.has-no-author-image
     report(
       v-for='report in reports',
       :key='report.id',
@@ -60,10 +60,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
-</style>
