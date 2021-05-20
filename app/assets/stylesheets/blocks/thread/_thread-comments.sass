@@ -28,11 +28,10 @@ $thread-header-author: 3.5rem
 .thread-comment__title
   +text-block(1rem 1.4)
   margin-right: .5rem
+  width: 100%
   +media-breakpoint-down(sm)
     +text-block(.875rem 1.4 0 .25rem)
     margin-right: 0
-  &
-    font-size: .9375rem
 
 .thread-comment__title-link
   color: $main
@@ -41,6 +40,9 @@ $thread-header-author: 3.5rem
   align-items: center
   .thread-comment__title.is-user-comments &
     +hover-link
+  &.a-placeholder
+    width: 15%
+    height: 1.4em
 
 .thread-comment__title-icon
   +size(1.5rem)
@@ -130,6 +132,9 @@ $thread-header-author: 3.5rem
       padding: .25rem
       +text-block(.625rem 1, $reversal-text)
       +position(absolute, left 0, top 100%)
+  &.a-placeholder
+    width: 30%
+    height: 1.4em
 
 .thread-comment__actions
   +padding(vertical, 0 1rem)

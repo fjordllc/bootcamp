@@ -12,6 +12,6 @@ header.page-header
 
 .page-body
   .container.is-padding-horizontal-0-sm-down
-    = paginate @search_results, position: 'top'
+    = paginate @search_results
     = render 'books/table', books: @search_results if @search_results.any?
-    = paginate @search_results, position: 'bottom'
+    = paginate @search_results
