@@ -21,10 +21,7 @@
               a.a-user-name(:href='userUrl')
                 | {{ searchable.login_name }}
             .thread-list-item-meta__item
-              time.a-date(
-                :datetime='searchable.updated_at',
-                pubdate='pubdate'
-              )
+              time.a-date(:datetime='searchable.updated_at', pubdate='pubdate')
                 | {{ updatedAt }}
 </template>
 <script>
