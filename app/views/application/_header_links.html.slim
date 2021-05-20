@@ -1,7 +1,8 @@
 .header-links.is-user-links
   ul.header-links__items
+
     li.header-links__search.is-hidden-sm-down
-      = render 'header_search'
+      = render 'header_search', id: 'header_search'
 
     li.header-links__item.is-hidden-md-up
       label.header-links__link.test-show-menu(for='header-search')
@@ -31,6 +32,7 @@
           .header-links__link-label Menu
       #js-notifications-bell
 
+
 = render '/shared/modal', id: 'header-search', title: '検索'
   .modal__description.is-md
-    = render 'header_search'
+    = render 'header_search', id: 'header_search_modal'
