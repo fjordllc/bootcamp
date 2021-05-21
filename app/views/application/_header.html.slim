@@ -1,15 +1,18 @@
 header.header
   .container.has-no-right-padding
     .header__container
-      .header__start
-        = link_to root_path, class: 'header__title' do
-          = image_tag('pjord-face.svg', alt: 'プログラミングスクール', class: 'header__title-image')
-          - if current_user.graduated_on?
-            .user-part.is-header(class='is-graduate') 卒業生
-          - if current_user.adviser
-            .user-part.is-header(class='is-adviser') アドバイザー
-          - if current_user.admin?
-            .user-part.is-header.is-only-mentor-flex(class='is-admin') 管理者
+      = link_to root_path, class: 'header__title' do
+        = image_tag('pjord-face.svg', alt: 'プログラミングスクール', class: 'header__title-image')
+        - unless current_user.student_or_trainee?
+          .a-user-role.is-header
+            - if current_user.graduated_on?
+              span.a-user-role__label(class='is-graduate') 卒業生
+            - if current_user.adviser?
+              span.a-user-role__label(class='is-adviser') アドバイザー
+            - if current_user.mentor?
+              span.a-user-role__label(class='is-mentor') メンター
+            - if current_user.admin?
+              span.a-user-role__label(class='is-admin') 管理者
 
         - if current_user.mentor? || current_user.adviser?
           .switch.is-hidden-sm-down
