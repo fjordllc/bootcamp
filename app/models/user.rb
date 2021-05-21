@@ -495,7 +495,7 @@ class User < ApplicationRecord
 
   def reports_date_and_emotion(term)
     search_term = (Time.zone.today - term.day)..Time.zone.today
-    reports = self.reports.where(reported_on: search_term)
+    reports = self.reports.where(reported_on: search_term, wip: false)
 
     emotions = reports.index_by(&:reported_on)
 
