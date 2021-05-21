@@ -130,8 +130,10 @@ export default {
         console.warn('Failed to parsing', error)
       })
   },
-  updated() {
+  mounted() {
     TextareaInitializer.initialize('#js-new-comment')
+  },
+  updated() {
     this.setDefaultTextareaSize()
   },
   methods: {
