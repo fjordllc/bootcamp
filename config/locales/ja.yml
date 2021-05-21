@@ -72,7 +72,7 @@ ja:
         adviser: アドバイザー
         trainee: 研修生
         job_seeking: 就職活動中
-        retired_on: 退会日
+        retired_on: リタイア日
         free: 無料ユーザー
         avatar: ユーザーアイコン
         retire_reason: 退会理由
@@ -119,7 +119,6 @@ ja:
         description: 内容
         learning_times: 学習時間
         emotion: 今日の気分
-        no_learn: 学習時間は無し
       reservation:
         date: 日付
         user_id: ユーザー
@@ -219,7 +218,7 @@ ja:
     graduate: 卒業生
     adviser: アドバイザー
     all: 全員
-    retired: 退会
+    retired: リタイア
     inactive: 非アクティブ
     year_end_party: 忘年会
     trainee: 研修生

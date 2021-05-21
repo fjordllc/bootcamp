@@ -40,7 +40,6 @@ class ReportsController < ApplicationController
   end
 
   def edit
-    @report.no_learn = true if @report.learning_times.empty?
     @report.user = current_user
   end
 
@@ -84,7 +83,6 @@ class ReportsController < ApplicationController
       :title,
       :reported_on,
       :emotion,
-      :no_learn,
       :description,
       practice_ids: [],
       learning_times_attributes: %i[id started_at finished_at _destroy]

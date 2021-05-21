@@ -22,7 +22,7 @@ header.page-header
 
 .page-body
   .container
-    = paginate @questions
+    = paginate @questions, position: 'top'
     .two-columns
       .two-columns__inner
         - if @questions.present?
@@ -42,4 +42,4 @@ header.page-header
                 - if tag.present?
                   li.page-tags-nav__item
                     = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'page-tags-nav__item-link'
-    = paginate @questions
+    = paginate @questions, position: 'bottom'

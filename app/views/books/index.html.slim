@@ -18,6 +18,6 @@ header.page-header
       p
         | フィヨルドオフィスにて以下の書籍を借りることができます。
   .container.is-padding-horizontal-0-sm-down
-    = paginate @books
+    = paginate @books, position: 'top'
     = render 'table', books: @books
-    = paginate @books
+    = paginate @books, position: 'bottom'
