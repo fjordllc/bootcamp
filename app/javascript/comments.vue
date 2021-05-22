@@ -1,6 +1,4 @@
 <template lang="pug">
-.thread-comments(v-if='loaded === false && commentableType === "Product"')
-  commentPlaceholder(v-for='num in placeholderCount', :key='num')
 .thread-comments(v-else)
   comment(
     v-for='(comment, index) in comments',
