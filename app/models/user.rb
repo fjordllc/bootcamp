@@ -518,8 +518,8 @@ class User < ApplicationRecord
   end
 
   def depressed?
-    three_days_emotions = reports.order(reported_on: :desc).limit(3).pluck(:emotion)
-    !three_days_emotions.empty? && three_days_emotions.all?('sad')
+    three_days_reports = reports.order(reported_on: :desc).limit(3)
+    three_days_reports.size == 3 && three_days_reports.all?(&:sad?)
   end
 
   def active_practice
