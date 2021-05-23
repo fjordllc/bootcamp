@@ -21,7 +21,7 @@ header.page-header
             i.fas.fa-times.fa-fw
 .page-body
   .container
-    = paginate @pages
+    = paginate @pages, position: 'top'
     .two-columns
       .two-columns__inner
         .thread-list.a-card
@@ -36,4 +36,4 @@ header.page-header
               - Page.all_tags.each do |tag|
                 li.page-tags-nav__item
                   = link_to tag.name, pages_tag_path(tag.name), class: 'page-tags-nav__item-link'
-    = paginate @pages
+    = paginate @pages, position: 'bottom'

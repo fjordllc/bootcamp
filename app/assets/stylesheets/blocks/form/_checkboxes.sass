@@ -15,11 +15,8 @@ $checkbox-size: .875rem
     +hover-link
     cursor: pointer
     padding-left: calc(#{$checkbox-size} * 1.4)
-    &.is-sm
-      font-size: .8125rem
     &::before
       content: ""
-      text-decoration: none
       +size($checkbox-size)
       border: solid 1px $input-border
       display: block
@@ -27,10 +24,17 @@ $checkbox-size: .875rem
       transform: translate(0, -50%)
       background-color: $base
       border-radius: .1875rem
-      +text-block(.75rem 1, $reversal-text flex $reversal-text)
+      transition: all .2s ease-out
+    &::after
+      +fa(fas "\f00c")
+      +text-block(.75rem 1, $reversal-text flex)
+      +size($checkbox-size)
       align-items: center
       justify-content: center
-      transition: all .2s ease-out
+      +position(absolute, left 0, top 50%)
+      transform: translate(0, -50%)
+      opacity: 0
+      text-decoration: none
   label:hover::before
     background-color: rgba($primary, .4)
     border-color: $primary
@@ -39,9 +43,8 @@ $checkbox-size: .875rem
   label.is-checked
     color: black
   label.is-checked::before
-    background-color: $primary
+    background-color: rgba($primary, .8)
     border-color: $primary
-    +fa(fas "\f00c")
   label.is-checked:hover::before
     border-color: $primary
   label.is-checked::after

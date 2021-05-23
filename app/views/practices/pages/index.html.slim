@@ -17,11 +17,11 @@ header.page-header
 
 .page-body
   .container
-    = paginate @pages
+    = paginate @pages, position: 'top'
     - if @pages.present?
       .thread-list.a-card
         = render partial: 'pages/page', collection: @pages, as: :page
-      = paginate @pages
+      = paginate @pages, position: 'bottom'
     - else
       .a-empty-message
         | Docsはまだありません。

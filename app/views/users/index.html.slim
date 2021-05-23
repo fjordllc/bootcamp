@@ -17,7 +17,7 @@ header.page-header.is-border-bottom-none
 - unless params[:tag]
   .a-page-notice.page-notice
     .container
-      .a-page-notice__inner
+      .page-notice__inner
         p
           | 気になるユーザーをフォローしてみよう！自分が誰をフォローしているかを知られることはありません。
           = link_to 'くわしくはこちら', '/pages/303'
@@ -43,7 +43,7 @@ main.page-main
           h1.page-main-header__title
             | #{t("target.#{@target}")}（#{@users.total_count}）
   .page-body
-    = paginate @users
+    = paginate @users, position: 'top'
     .container
       .users
         .row.is-gutter-width-32
@@ -59,4 +59,4 @@ main.page-main
                 - else
                   = t("target.#{@target}")
                 | のユーザーはいません
-    = paginate @users
+    = paginate @users, position: 'bottom'

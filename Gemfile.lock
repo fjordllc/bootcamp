@@ -239,10 +239,10 @@ GEM
     net-http-persistent (3.1.0)
       connection_pool (~> 2.2)
     nio4r (2.5.7)
-    nokogiri (1.11.4)
+    nokogiri (1.11.3)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
-    nokogiri (1.11.4-x86_64-darwin)
+    nokogiri (1.11.3-x86_64-darwin)
       racc (~> 1.4)
     oauth (0.5.5)
     oauth2 (1.4.4)
@@ -280,7 +280,7 @@ GEM
       pry (~> 0.13.0)
     psych (3.3.0)
     public_suffix (4.0.6)
-    puma (5.3.1)
+    puma (5.2.2)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -465,7 +465,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (5.3.0)
+    webpacker (5.2.1)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
@@ -518,7 +518,7 @@ DEPENDENCIES
   pg
   postmark-rails
   pry-byebug
-  puma (~> 5.3)
+  puma (~> 5.0)
   rack-cors
   rack-mini-profiler (~> 2.0)
   rack-user_agent

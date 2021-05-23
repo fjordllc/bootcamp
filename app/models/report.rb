@@ -16,8 +16,6 @@ class Report < ApplicationRecord
     happy: 2
   }
 
-  attribute :no_learn, :boolean
-
   has_many :learning_times, -> { order(:started_at) }, dependent: :destroy, inverse_of: :report
   validates_associated :learning_times
   accepts_nested_attributes_for :learning_times, reject_if: :all_blank, allow_destroy: true
@@ -29,6 +27,7 @@ class Report < ApplicationRecord
   validates :description, presence: true
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
+  validates :learning_times, length: { minimum: 1, message: ': 学習時間を入力してください。' }
   validates :emotion, presence: true
 
   after_save   ReportCallbacks.new
@@ -94,9 +93,5 @@ class Report < ApplicationRecord
 
   def set_default_emotion
     self.emotion ||= 2
-  end
-
-  def total_learning_time
-    (learning_times.sum(&:diff) / 60).to_i
   end
 end

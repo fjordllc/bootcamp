@@ -10,8 +10,8 @@ header.page-header
 
 .page-body
   .container
-    = paginate @reports
+    = paginate @reports, position: 'top'
     - if @reports.present?
       .thread-list.a-card
         = render partial: 'reports/report', collection: @reports, as: :report
-    = paginate @reports
+    = paginate @reports, position: 'bottom'

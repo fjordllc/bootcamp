@@ -16,9 +16,9 @@ header.page-header
 
 .page-body
   .container.is-padding-horizontal-0-sm-down
-    = paginate @books
+    = paginate @books, position: 'top'
     = render 'table', books: @books
-    = paginate @books
+    = paginate @books, position: 'bottom'
     .card-footer
       .card-main-actions
         .card-main-actions__items
