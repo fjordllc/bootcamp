@@ -34,10 +34,12 @@
 
 .a-form-help-link
   +text-block(.75rem 1.6)
-  +hover-link-reversal
   cursor: pointer
   +default-link
   .a-form-help &.is-danger
       color: $danger
-  .a-form-help &.is-muted-text
+  &.is-muted-text
       color: $muted-text
+
+.a-form-help-link__label
+  +hover-link-reversal

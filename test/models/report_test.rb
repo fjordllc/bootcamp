@@ -30,6 +30,11 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal report2.serial_number, 2
   end
 
+  test '#total_learning_time' do
+    assert_equal 420, reports(:report1).total_learning_time
+    assert_equal 0, reports(:report3).total_learning_time
+  end
+
   test 'adviser watches trainee report when trainee create report' do
     trainee = users(:kensyu)
     adviser = users(:senpai)
