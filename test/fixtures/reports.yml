@@ -1,6 +1,7 @@
 report1:
   user: komagata
   title: "作業週1日目"
+  emotion: 1
   description: |-
     今日はローカルで怖話を動かしてみました。
     rbenv で ruby を動かすのは初めてだったので、色々手間取りました。

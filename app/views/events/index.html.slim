@@ -13,8 +13,8 @@ header.page-header
               | イベント作成
 
 .page-body
-  = paginate @events, position: 'top'
+  = paginate @events
   .container
     .thread-list.a-card
       = render partial: 'events', collection: @events, as: :event
-= paginate @events, position: 'bottom'
+= paginate @events
