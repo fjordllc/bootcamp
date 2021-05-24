@@ -119,8 +119,8 @@ class CommentsTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_text 'test'
   end
-  
-  test 'check preview for product' do 
+
+  test 'check preview for product' do
     visit "/products/#{products(:product2).id}"
     wait_for_vuejs
     within('.thread-comment-form__form') do
