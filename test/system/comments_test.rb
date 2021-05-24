@@ -117,6 +117,16 @@ class CommentsTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_text 'test'
   end
+  
+  test 'check preview for product' do 
+    visit "/products/#{products(:product2).id}"
+    wait_for_vuejs
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: "1\n2\n3\n4\n5\n6\n7\n8\n9")
+    end
+    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    assert_text "1\n2\n3\n4\n5\n6\n7\n8\n9"
+  end
 
   test 'post new comment for announcement' do
     visit "/announcements/#{announcements(:announcement1).id}"
