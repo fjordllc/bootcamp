@@ -82,7 +82,7 @@ class UserTest < ActiveSupport::TestCase
 
   test '#depressed?' do
     user = users(:kimura)
-    4.times do |i|
+    2.times do |i|
       report = Report.new(
         user_id: user.id, title: "test #{i}", description: 'test',
         wip: false, emotion: 'sad', reported_on: Date.current - i.days
@@ -92,6 +92,16 @@ class UserTest < ActiveSupport::TestCase
       )
       report.save!
     end
+    assert_not user.depressed?
+
+    report = Report.new(
+      user_id: user.id, title: 'test 2', description: 'test',
+      wip: false, emotion: 'sad', reported_on: Date.current - 2.days
+    )
+    report.learning_times << LearningTime.new(
+      started_at: '2018-01-01 00:00:00', finished_at: '2018-01-01 02:00:00'
+    )
+    report.save!
     assert user.depressed?
 
     report = user.reports.find_by(reported_on: Date.current)
