@@ -1,4 +1,6 @@
 <template lang="pug">
+.thread-comments(v-if='loaded === false && commentableType === "Product"')
+  commentPlaceholder(v-for='num in placeholderCount', :key='num')
 .thread-comments(v-else)
   comment(
     v-for='(comment, index) in comments',
@@ -122,17 +124,17 @@ export default {
         json.forEach((c) => {
           this.comments.push(c)
         })
-        this.loaded = true
       })
       .catch((error) => {
         console.warn('Failed to parsing', error)
       })
   },
   mounted() {
-    TextareaInitializer.initialize('#js-new-comment')
-  },
-  updated() {
-    this.setDefaultTextareaSize()
+    this.loaded = true
+    this.$nextTick(function () {
+      TextareaInitializer.initialize('#js-new-comment')
+      this.setDefaultTextareaSize()
+    })
   },
   methods: {
     token() {
