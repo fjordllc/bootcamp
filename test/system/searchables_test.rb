@@ -8,19 +8,16 @@ class SearchablesTest < ApplicationSystemTestCase
   test 'search All ' do
     within('form[name=search]') do
       select 'すべて'
-      fill_in 'word', with: 'テスト'
+      fill_in 'word', with: '検索結果テスト用'
     end
     find('#test-search').click
-    assert_text 'テストの日報'
-    assert_text 'Docsページ'
-    assert_text 'Unityでのテスト'
-    assert_text 'テストの質問1'
-    assert_text 'テストのお知らせ'
-    assert_text 'テストのイベント'
-    assert_text 'テスト用 report1へのコメント'
-    assert_text 'テスト用 announcement1へのコメント'
-    assert_text 'テスト用 event1へのコメント'
-    assert_text 'テストの回答'
+    assert_text 'お知らせの検索結果テスト用'
+    assert_text 'プラクティスの検索結果テスト用'
+    assert_text '日報の検索結果テスト用'
+    assert_text '提出物の検索結果テスト用'
+    assert_text 'Q&Aの検索結果テスト用'
+    assert_text 'Docsの検索結果テスト用'
+    assert_text 'イベントの検索結果テスト用'
   end
 
   test 'search reports ' do
