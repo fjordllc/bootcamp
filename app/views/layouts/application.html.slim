@@ -10,6 +10,7 @@ html.is-application lang='ja'
     = csrf_meta_tags
     = render 'pwa'
     = render 'favicons'
+    = render 'rollbar' if Rails.env.production?
     - if page_classes.include?('welcome')
       = stylesheet_link_tag 'welcome', media: 'all'
       - if page_classes.include?('welcome-home')
