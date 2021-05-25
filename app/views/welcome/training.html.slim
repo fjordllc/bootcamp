@@ -1,17 +1,9 @@
 - content_for :extra_body_classes, 'welcome'
 - title '企業研修でのご利用'
+- add_breadcrumb title, ''
 
 header.o-static-page-header
   .o-static-page-header__main
-    nav.o-basic-breadcrumbs
-      .l-container.is-mxw-100pc
-        ol.o-basic-breadcrumbs__items
-          li.o-basic-breadcrumbs__item
-            = link_to "", class: "o-basic-breadcrumbs__item-link" do
-              | Home
-          li.o-basic-breadcrumbs__item
-            = link_to "", class: "o-basic-breadcrumbs__item-link" do
-              | 利用規約
     .l-container
       .o-static-page-header__inner
         h1.o-static-page-header__title
@@ -22,8 +14,6 @@ header.o-static-page-header
     .l-container.is-lg
       .m-lp-content__inner
         .m-lp-content__body
-
-
           .welcome-sections
             section.welcome-section
               .container.is-md

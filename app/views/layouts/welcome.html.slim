@@ -29,9 +29,15 @@ html.is-application lang='ja'
   body.is-lp(class="is-#{params[:id]} #{body_class}")
     = render "google_tag_manager_body"
     .t-lp
-      = render "/lp/lp_header"
-      = render "/lp/lp_flash"
-      = yield
-      = render "/lp/lp_main_actions"
-      = render "/lp/lp_footer"
+      .t-lp__header
+        = render "/lp/lp_header"
+        = render "/lp/lp_flash"
+      .t-lp__page
+        = yield
+      .t-lp__breadcrumbs
+        = render "breadcrumbs"
+      .t-lp__main-actions
+        = render "/lp/lp_main_actions"
+      .t-lp__footer
+        = render "/lp/lp_footer"
     = any_login_here if defined?(AnyLogin)

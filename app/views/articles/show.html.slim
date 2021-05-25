@@ -6,18 +6,6 @@ notice = @notice
 section.o-static-page
   header.o-static-page-header
     .o-static-page-header__main
-      nav.o-basic-breadcrumbs
-        .l-container.is-mxw-100pc
-          ol.o-basic-breadcrumbs__items
-            li.o-basic-breadcrumbs__item
-              = link_to root_path, class: "o-basic-breadcrumbs__item-link" do
-                | Home
-            li.o-basic-breadcrumbs__item
-              = link_to articles_path, class: "o-basic-breadcrumbs__item-link" do
-                | お知らせ一覧
-            li.o-basic-breadcrumbs__item
-              = link_to @article, class: "o-basic-breadcrumbs__item-link" do
-                = @article.title
       .l-container
         .o-static-page-header__inner
           .o-static-page-header__title
@@ -71,3 +59,15 @@ section.o-static-page
                   li.m-inline-icon-list__item
                     = link_to edit_article_path(@article), class: "a-button is-md is-warning is-icon", id: "js-shortcut-edit" do
                       i.fas.fa-pen#edit
+nav.o-basic-breadcrumbs
+  .l-container.is-mxw-100pc
+    ol.o-basic-breadcrumbs__items
+      li.o-basic-breadcrumbs__item
+        = link_to root_path, class: "o-basic-breadcrumbs__item-link" do
+          | Home
+      li.o-basic-breadcrumbs__item
+        = link_to articles_path, class: "o-basic-breadcrumbs__item-link" do
+          | お知らせ一覧
+      li.o-basic-breadcrumbs__item
+        = link_to @article, class: "o-basic-breadcrumbs__item-link" do
+          = @article.title

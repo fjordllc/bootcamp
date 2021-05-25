@@ -1,17 +1,10 @@
 - content_for :extra_body_classes, 'welcome'
 - title 'よくある質問'
+- add_breadcrumb "Home", root_path
+- add_breadcrumb title, ''
 
 header.o-static-page-header
   .o-static-page-header__main
-    nav.o-basic-breadcrumbs
-      .l-container.is-mxw-100pc
-        ol.o-basic-breadcrumbs__items
-          li.o-basic-breadcrumbs__item
-            = link_to root_path, class: 'o-basic-breadcrumbs__item-link' do
-              | Home
-          li.o-basic-breadcrumbs__item
-            = link_to request.fullpath, class: 'o-basic-breadcrumbs__item-link' do
-              = title
     .l-container
       .o-static-page-header__inner
         h1.o-static-page-header__title

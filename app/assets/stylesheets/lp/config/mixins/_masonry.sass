@@ -1,0 +1,9 @@
+=masonry($column-count, $column-gap)
+  column-count: $column-count
+  column-gap: $column-gap
+  margin-bottom: calc(#{$column-gap} * -1)
+  > *
+    margin-bottom: $column-gap
+    -webkit-column-break-inside: avoid
+    page-break-inside: avoid
+    break-inside: avoid

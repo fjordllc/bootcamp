@@ -1,16 +1,9 @@
 - title '料金'
+- add_breadcrumb "Home", root_path
+- add_breadcrumb title, ''
 
 header.o-static-page-header
   .o-static-page-header__main
-    nav.o-basic-breadcrumbs
-      .l-container.is-mxw-100pc
-        ol.o-basic-breadcrumbs__items
-          li.o-basic-breadcrumbs__item
-            = link_to "", class: "o-basic-breadcrumbs__item-link" do
-              | Home
-          li.o-basic-breadcrumbs__item
-            = link_to "", class: "o-basic-breadcrumbs__item-link" do
-              = title
     .l-container
       .o-static-page-header__inner
         h1.o-static-page-header__title
@@ -21,17 +14,19 @@ header.o-static-page-header
     .l-container.is-lg
       .m-lp-content__inner
         .m-lp-content__body
+          .welcome-section__price
+            .m-lg-price
+              .m-lg-price__time 月額
+              .m-lg-price__unit
+                i.fas.fa-yen-sign
+              .m-lg-price__number
+                 | 29,800
+              .m-lg-price__tax 円
           .a-long-text
-
             .welcome-sections
               section.welcome-section
                 .container.is-md
                   .welcome-small-section
-                    .welcome-small-sections__title
-                      h2.welcome-section__price
-                        .welcome-section__price-period 月額
-                        .welcome-section__price-number 29,800
-                        .welcome-section__price-unit 円
                     .welcome-section__description
                       p
                         | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。
@@ -69,7 +64,7 @@ header.o-static-page-header
                         | その後7月
                         = Campaign.today_is_campaign? ? '27' : '23'
                         | 日10時10分10秒に最初の1ヶ月分の料金が引き落とされます。
-                      table.welcome-trial-period-table.is-hidden-sm-down
+                      table.welcome-trial-period-table.sm-down:u-d-none
                         tr
                           th 7月20日10時10分10秒
                           th.trial_end = Campaign.today_is_campaign? ? '7月27日10時10分9秒' : '7月23日10時10分9秒'
@@ -82,7 +77,7 @@ header.o-static-page-header
                             | 無料退会期限
                           td 初回引き落とし
 
-                      table.welcome-trial-period-table.is-hidden-md-up
+                      table.welcome-trial-period-table.md-up:u-d-none
                         tr
                           th 7月20日10時10分10秒
                           td お試し期間

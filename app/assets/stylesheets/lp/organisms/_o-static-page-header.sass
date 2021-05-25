@@ -6,9 +6,7 @@
   color: $reversal-text
   .o-basic-breadcrumbs
     +media-breakpoint-up(md)
-      +position(absolute, left 0, top 0)
-    +media-breakpoint-down(sm)
-      background-color: rgba(black, .2)
+      +position(absolute, left 0, bottom 0)
   &::before
     content: ""
     display: block
@@ -28,10 +26,10 @@
   +media-breakpoint-up(md)
     +padding(vertical, vr(12))
   +media-breakpoint-down(sm)
-    +padding(vertical, vr(8))
+    +padding(vertical, vr(6) vr(4))
 
 .o-static-page-header__title
   +media-breakpoint-up(md)
     +text-block(fz(8) 1.3, 700 center)
   +media-breakpoint-down(sm)
-    +text-block(fz(7) 1.3, 700 center)
+    +text-block(fz(6) 1.3, 700 center)

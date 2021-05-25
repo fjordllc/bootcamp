@@ -1,7 +1,7 @@
 .o-lp-mentors
   .m-lp-content__row
-    .l-grids
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+    .l-masonry
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '駒形 真幸',
                                    job: 'プログラマー',
                                    image: 'komagata.jpg',
@@ -13,7 +13,7 @@
             | #{link_to '株式会社フィヨルド', 'https://fjord.jp/'}の代表兼プログラマー。
             | Rubyが大好きで#{link_to '怖話'}、#{link_to 'フィヨルドブートキャンプ', 'https://bootcamp.fjord.jp/'}などを開発している。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '伊藤 淳一',
                                    job: 'プログラマー',
                                    image: 'ito.jpg',
@@ -30,7 +30,7 @@
             | 2017年11月に『#{link_to 'プロを目指す人のためのRuby入門', 'https://gihyo.jp/book/2017/978-4-7741-9397-7'}』を出版。
             | 電子書籍『#{link_to 'Everyday Rails - RSpecによるRailsテスト入門', 'https://leanpub.com/everydayrailsrspec-jp/'}』の翻訳者でもある。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '高木 里穂',
                                    job: 'プログラマー',
                                    image: 'riho.jpg',
@@ -44,7 +44,7 @@
             | 女性のエンジニアを増やすことに興味があり、Rails Girls Tokyo 11th主催したり、
             | #{link_to 'DevFest Women Tokyo 2019', 'http://www.devfest-women.com/'}を主催したりコミュニティの運営に携わっていたりしています。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '五十嵐 邦明',
                                    job: 'プログラマー',
                                    image: 'igarasi.png',
@@ -58,8 +58,6 @@
                                                                     'url': 'https://tatsu-zine.com/books/rails-textbook' },
                                             'pa-rails2': { 'name': 'パーフェクトRuby on Rails 【増補改訂版】',
                                                            'url': 'https://gihyo.jp/book/2020/978-4-297-11462-6' },
-                                            'pa-rails': { 'name': 'パーフェクトRuby on Rails',
-                                                          'url': 'https://gihyo.jp/book/2014/978-4-7741-6516-5' },
                                             'gakushu-guide': { 'name': 'RubyとRailsの学習ガイド',
                                                                'url': 'https://booth.pm/ja/items/1312664' } } do
           p
@@ -73,7 +71,7 @@
             | 『#{link_to 'パーフェクトRuby on Rails', 'https://www.amazon.co.jp/dp/B00P0UR1RU'}』、
             | 『#{link_to 'RubyとRailsの学習ガイド', 'https://booth.pm/ja/items/1312664'}』ほか。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '前田 直樹',
                                    job: 'プログラマー',
                                    image: 'maeda.jpg',
@@ -84,7 +82,7 @@
             | #{link_to '株式会社ソニックガーデン', 'https://www.sonicgarden.jp/'}所属のプログラマー。
             | VimでRubyのコードが書ける日々が幸せです。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '田中 勇一',
                                    job: 'プログラマー',
                                    image: 'tanaka.jpg',
@@ -96,7 +94,7 @@
             | プログラマとしては10年超、フリーランスとしては6年超。
             | 主にスタートアップ系企業を顧客として開発やレビュー業務をしています。名付け重要。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '小田井 優',
                                    job: 'プログラマー',
                                    image: 'odai.jpg',
@@ -111,7 +109,7 @@
             | 過去にはフィヨルドブートキャンプの前身である256インターンに参加しており、#{link_to '怖話', 'https://kowabana.jp/'}の開発にも関わっていた。
             | 『#{link_to '現場で使える Ruby on Rails 5速習実践ガイド', 'https://www.amazon.co.jp/dp/B07JHQ9B5T'}』の著書の一人。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '柏 夏美',
                                    job: 'プログラマー',
                                    image: 'kasiwa.png',
@@ -121,7 +119,7 @@
             | #{link_to '株式会社ARROWS', 'https://arrowsinc.com/'}に所属。Railsを使った自社サービスの開発保守の担当プログラマ。
             | Rails Girls Tokyo にコーチとして参加経験あり。好きなRubyメソッドはmapです。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '角谷 信太郎',
                                    job: 'プログラマー',
                                    image: 'kakutani.jpg',
@@ -155,7 +153,7 @@
             | #{link_to '『アジャイルサムライ』', 'https://tatsu-zine.com/books/agile-samurai-ja'}、
             | #{link_to '『アジャイルな見積りと計画づくり』', 'https://www.amazon.co.jp/dp/4839924023'}など。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '多田 亜希',
                                    job: 'プログラマー',
                                    image: 'tadaaki.jpg',
@@ -171,7 +169,7 @@
             | #{link_to 'Shinjuku.rb', 'https://shinjukurb.connpass.com/'}管理者。
             | 好きなメソッドはObject#object_idです。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'welcome/mentor', name: '岡嵜 雄平',
                                    job: 'プログラマー',
                                    image: 'yuuu.png',
@@ -185,7 +183,7 @@
             | 過去には#{link_to 'Rails Girls Fukuoka 2nd', 'http://railsgirls.com/fukuoka.html'}のコーチや
             | #{link_to 'RubyKaigi 2019', 'https://rubykaigi.org/2019/'}のローカルオーガナイザーもしていました。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'welcome/mentor', name: '吉次 孝太',
                                    job: 'プログラマー',
                                    image: 'yoshitsugu.jpg',
@@ -199,7 +197,7 @@
             | 技術自体ももちろんのこと、より効率よく継続的に学習ができるための方法論にも興味あり。
             | 好きなメソッドはString#each_grapheme_clusterです。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '深井 海斗',
                                    job: 'プログラマー',
                                    image: 'kaito.jpg',
@@ -226,7 +224,7 @@
             | 普段は Rails を中心とした技術支援を業務として行っている。
             | フィヨルドブートキャンプでは受講生の方とのペアプロやモブプロを主に担当。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
         = render 'lp/welcome/mentor', name: '町田 哲平',
                                    job: 'デザイナー',
                                    image: 'machida.jpg',

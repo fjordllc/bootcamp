@@ -53,6 +53,7 @@ gem 'sorcery', '~> 0.16.2'
 gem 'sorcery-jwt'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
+gem "pankuzu"
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
