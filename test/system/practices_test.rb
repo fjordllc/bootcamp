@@ -56,6 +56,17 @@ class PracticesTest < ApplicationSystemTestCase
       fill_in 'practice[title]', with: 'テストプラクティス'
       check categories(:category1).name, allow_label_click: true
       fill_in 'practice[description]', with: 'テストの内容です'
+      within '#reference_books' do
+        click_link '書籍を追加'
+        fill_in 'タイトル', with: 'テストの参考書籍タイトル'
+        fill_in '価格', with: '1234'
+        fill_in 'URL', with: 'テストの参考書籍ASIN'
+        find('.reference-books-form__delete-link').click # delete
+        click_link '書籍を追加'
+        fill_in 'タイトル', with: 'テストの参考書籍タイトル2'
+        fill_in '価格', with: '1234'
+        fill_in 'URL', with: 'http://example.com'
+      end
       fill_in 'practice[goal]', with: 'テストのゴールの内容です'
       fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
       click_button '登録する'
@@ -71,6 +82,12 @@ class PracticesTest < ApplicationSystemTestCase
     within 'form[name=practice]' do
       fill_in 'practice[title]', with: 'テストプラクティス'
       fill_in 'practice[memo]', with: 'メンター向けのメモの内容です'
+      within '#reference_books' do
+        click_link '追加'
+        fill_in 'タイトル', with: 'プロを目指す人のためのRuby入門'
+        fill_in '価格', with: '2345'
+        fill_in 'URL', with: 'http://example.com'
+      end
       click_button '更新する'
     end
     assert_text 'プラクティスを更新しました'
@@ -91,6 +108,31 @@ class PracticesTest < ApplicationSystemTestCase
     end
     assert_current_path course_practices_path(user.course)
     assert_equal "category-#{category.id}", URI.parse(current_url).fragment
+  end
+
+  test 'add a reference book' do
+    login_user 'komagata', 'testtest'
+    practice = practices(:practice2)
+    visit "/practices/#{practice.id}/edit"
+    within '#reference_books' do
+      click_link '追加'
+      fill_in 'タイトル', with: 'プロを目指す人のRuby入門', match: :prefer_exact
+      fill_in '価格', with: '2345', match: :prefer_exact
+      fill_in 'URL', with: 'http://example.com'
+    end
+    click_button '更新する'
+  end
+
+  test 'update a reference book' do
+    login_user 'komagata', 'testtest'
+    practice = practices(:practice1)
+    visit "/practices/#{practice.id}/edit"
+    within '#reference_books' do
+      fill_in 'タイトル', with: 'プロを目指す人のRuby入門'
+      fill_in '価格', with: '2345'
+      fill_in 'URL', with: 'http://example.com'
+    end
+    click_button '更新する'
   end
 
   test 'show setting for completed percentage' do
