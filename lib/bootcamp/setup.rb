@@ -19,10 +19,7 @@ module Bootcamp
         User.all.each do |user|
           filename = "#{user.login_name}.jpg"
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/users/avatars/#{filename}")
-          if File.exist?(path)
-            user.avatar.attach(io: File.open(path), filename: filename)
-            user.resize_avatar!
-          end
+          user.avatar.attach(io: File.open(path), filename: filename) if File.exist?(path)
         end
       end
 
@@ -43,10 +40,7 @@ module Bootcamp
         ReferenceBook.order(:created_at).each_with_index do |book, i|
           filename = "#{i + 1}.jpg"
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/reference_books/covers/#{filename}")
-          if File.exist?(path)
-            book.cover.attach(io: File.open(path), filename: filename)
-            book.resize_cover!
-          end
+          book.cover.attach(io: File.open(path), filename: filename) if File.exist?(path)
         end
       end
     end
