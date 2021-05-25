@@ -57,12 +57,12 @@ class PracticesTest < ApplicationSystemTestCase
       check categories(:category1).name, allow_label_click: true
       fill_in 'practice[description]', with: 'テストの内容です'
       within '#reference_books' do
-        click_link '追加'
+        click_link '書籍を追加'
         fill_in 'タイトル', with: 'テストの参考書籍タイトル'
         fill_in '価格', with: '1234'
         fill_in 'URL', with: 'テストの参考書籍ASIN'
-        click_link '削除'
-        click_link '追加'
+        find('.reference-books-form__delete-link').click # delete
+        click_link '書籍を追加'
         fill_in 'タイトル', with: 'テストの参考書籍タイトル2'
         fill_in '価格', with: '1234'
         fill_in 'URL', with: 'http://example.com'
