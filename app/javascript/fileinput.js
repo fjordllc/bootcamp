@@ -1,6 +1,8 @@
 function initializeFileInput(target) {
   const inputs = target.querySelectorAll('.js-file-input input')
-  if (!inputs) { return null }
+  if (!inputs) {
+    return null
+  }
 
   for (let i = 0; i < inputs.length; i++) {
     const input = inputs[i]
@@ -35,7 +37,9 @@ function extractField(elements) {
     } else {
       if (typeof element.querySelector === 'function') {
         const field = element.querySelector('.nested-fields')
-        if (field) { return field }
+        if (field) {
+          return field
+        }
       }
     }
   }
@@ -44,7 +48,7 @@ function extractField(elements) {
 document.addEventListener('DOMContentLoaded', () => {
   const ref = document.querySelector('#reference_books')
   if (ref) {
-    $(ref).on('cocoon:after-insert', (_, target) => { // eslint-disable-line
+    $(ref).on('cocoon:after-insert', (_, target) => { // eslint-disable-line no-unused-vars
       const added = extractField(target)
       initializeFileInput(added)
     })
