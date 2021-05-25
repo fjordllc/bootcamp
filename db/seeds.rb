@@ -27,6 +27,7 @@ ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', %i[
   pages
   participations
   practices
+  reference_books
   products
   questions
   reactions
@@ -36,4 +37,5 @@ ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', %i[
   works
 ]
 
+Bootcamp::Setup.attachment
 Rake::Task['bootcamp:statistics:save_learning_minute_statistics'].execute
