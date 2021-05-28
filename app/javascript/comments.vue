@@ -131,12 +131,10 @@ export default {
       .finally(() => {
         this.loaded = true
         this.$nextTick(() => {
+          TextareaInitializer.initialize('#js-new-comment')
           this.setDefaultTextareaSize()
         })
       })
-  },
-  mounted() {
-    TextareaInitializer.initialize('#js-new-comment')
   },
   methods: {
     token() {
