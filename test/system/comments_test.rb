@@ -190,6 +190,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'comment url is copied when click its updated_time' do
     visit "/reports/#{reports(:report1).id}"
+    wait_for_vuejs
     first(:css, '.thread-comment__created-at').click
     # クリップボードを直接読み取る方法がないので、未入力のテキストエリアを経由してクリップボードの値を読み取っている
     # また、Ctrl-Vではペーストできなかったので、かわりにShift-Insertをショートカットキーとして使っている
