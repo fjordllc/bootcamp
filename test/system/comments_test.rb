@@ -42,6 +42,8 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
+    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
     assert_text 'test'
@@ -133,6 +135,8 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
+    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
     assert_text 'test'
@@ -143,6 +147,20 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
+    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    assert_text 'test'
+    click_button 'コメントする'
+    wait_for_vuejs
+    assert_text 'test'
+  end
+
+  test 'post new comment for event' do
+    visit "/events/#{events(:event1).id}"
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
     assert_text 'test'
