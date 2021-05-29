@@ -9,6 +9,7 @@ class Users::TagsController < ApplicationController
   def update
     current_user.tag_list.add(params[:tag])
     current_user.save
-    redirect_to "/users/tags/#{params[:tag]}"
+    url = URI.encode_www_form_component(params[:tag])
+    redirect_to "/users/tags/#{url}"
   end
 end
