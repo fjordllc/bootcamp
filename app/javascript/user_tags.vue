@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     editing() {
-      return true
+      return false
     },
     editable() {
       return false
