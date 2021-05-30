@@ -42,6 +42,8 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
+    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
     assert_text 'test'
@@ -133,6 +135,8 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
+    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
     assert_text 'test'
@@ -143,6 +147,20 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
+    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    assert_text 'test'
+    click_button 'コメントする'
+    wait_for_vuejs
+    assert_text 'test'
+  end
+
+  test 'post new comment for event' do
+    visit "/events/#{events(:event1).id}"
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
     assert_text 'test'
@@ -190,6 +208,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'comment url is copied when click its updated_time' do
     visit "/reports/#{reports(:report1).id}"
+    wait_for_vuejs
     first(:css, '.thread-comment__created-at').click
     # クリップボードを直接読み取る方法がないので、未入力のテキストエリアを経由してクリップボードの値を読み取っている
     # また、Ctrl-Vではペーストできなかったので、かわりにShift-Insertをショートカットキーとして使っている

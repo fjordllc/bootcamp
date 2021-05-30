@@ -1,5 +1,5 @@
 <template lang="pug">
-.thread-comments(v-if='loaded === false && commentableType === "Product"')
+.thread-comments(v-if='loaded === false')
   commentPlaceholder(v-for='num in placeholderCount', :key='num')
 .thread-comments(v-else)
   comment(
@@ -128,13 +128,13 @@ export default {
       .catch((error) => {
         console.warn('Failed to parsing', error)
       })
-  },
-  mounted() {
-    this.loaded = true
-    this.$nextTick(function () {
-      TextareaInitializer.initialize('#js-new-comment')
-      this.setDefaultTextareaSize()
-    })
+      .finally(() => {
+        this.loaded = true
+        this.$nextTick(() => {
+          TextareaInitializer.initialize('#js-new-comment')
+          this.setDefaultTextareaSize()
+        })
+      })
   },
   methods: {
     token() {
