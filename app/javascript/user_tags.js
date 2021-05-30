@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tagsParamName = element.getAttribute('data-tags-param-name')
     const tagsInputId = element.getAttribute('data-tags-input-id')
     const userId = element.getAttribute('data-user-id')
+    const currentUserId = element.getAttribute('data-current-user-id')
 
     new Vue({
       render: (h) =>
@@ -16,7 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
             tagsInitialValue: tagsInitialValue,
             tagsParamName: tagsParamName,
             tagsInputId: tagsInputId,
-            userId: userId
+            userId: userId,
+            currentUserId: currentUserId
           }
         })
     }).$mount('#js-user-tags')

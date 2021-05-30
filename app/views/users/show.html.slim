@@ -46,10 +46,11 @@ header.page-header
                 = auto_link simple_format h @user.description
               .user-data__tags
                 #js-user-tags(
-                  data-tags-initial-value='#{@user.tag_list.join(',')}'
-                  data-tags-param-name='@user[tag_list]'
+                  data-tags-initial-value="#{@user.tag_list.join(',')}"
+                  data-tags-param-name='user[tag_list]'
                   data-tags-input-id='user_tag_list'
-                  data-user-id='#{@user.id}'
+                  data-user-id="#{@user.id}"
+                  data-current-user-id="#{current_user.id}"
                 )
 
             footer.card-footer
