@@ -22,14 +22,15 @@ export default {
     tagsInitialValue: { type: String, required: true },
     tagsParamName: { type: String, required: true },
     tagsInputId: { type: String, required: true },
-    userId: { type: String, required: true }
+    userId: { type: String, required: true },
+    currentUserId: { type: String, required: true }
   },
   computed: {
     editing() {
       return false
     },
     editable() {
-      return false
+      return this.currentUserId === this.userId
     },
     path() {
       return '/users/tags'
