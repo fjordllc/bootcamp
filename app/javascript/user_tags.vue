@@ -7,7 +7,8 @@ tags(
   :tagsEditable='editable',
   :tagsEditing='editing',
   :tagsInputId='tagsInputId',
-  :updateCallback='updateTag'
+  :tagsTypeId='userId',
+  :lowerTagsType='lowerType'
 )
 </template>
 
@@ -37,28 +38,9 @@ export default {
     },
     type() {
       return 'User'
-    }
-  },
-  methods: {
-    updateTag(tagsValue, token) {
-      const params = {
-        user: {
-          tag_list: tagsValue
-        }
-      }
-      return fetch(`/api/users/${this.userId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': token
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      }).catch((error) => {
-        console.warn('Failed to parsing', error)
-      })
+    },
+    lowerType() {
+      return 'user'
     }
   }
 }

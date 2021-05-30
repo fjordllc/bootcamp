@@ -67,10 +67,6 @@ export default {
       type: String,
       required: true
     },
-    updateCallback: {
-      type: Function,
-      required: true
-    },
     tagsInputId: {
       type: String,
       default: ''
@@ -82,6 +78,14 @@ export default {
     tagsEditable: {
       type: Boolean,
       default: false
+    },
+    tagsTypeId: {
+      type: String,
+      required: true
+    },
+    lowerTagsType: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -130,6 +134,26 @@ export default {
       .catch(this.parseTagsError)
   },
   methods: {
+    updateCallback(tagsValue, token) {
+      const params = {
+        [this.lowerTagsType]: {
+          tag_list: tagsValue
+        }
+      }
+      return fetch(`/api/${this.lowerTagsType}s/${this.tagsTypeId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': token
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+        body: JSON.stringify(params)
+      }).catch((error) => {
+        console.warn('Failed to parsing', error)
+      })
+    },
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
