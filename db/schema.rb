@@ -511,7 +511,7 @@ ActiveRecord::Schema.define(version: 2021_03_30_052132) do
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
   add_foreign_key "reactions", "users"
-  add_foreign_key "timelines", "users"
   add_foreign_key "reference_books", "practices"
+  add_foreign_key "timelines", "users"
   add_foreign_key "works", "users"
 end
