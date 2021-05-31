@@ -3,7 +3,7 @@
   ul.tag-links__items(v-if='!editing')
     li.tag-links__item(v-for='tag in tags')
       a.tag-links__item-link(
-        :href='`${tagsPath}/${tag.text}${tagsPathParams}`'
+        :href='`tags/${tag.text}`'
       )
         | {{ tag.text }}
     li.tag-links__item(v-if='tagsEditable')
@@ -55,14 +55,6 @@ export default {
       type: String,
       required: true
     },
-    tagsPath: {
-      type: String,
-      required: true
-    },
-    tagsPathParams: {
-      type: String,
-      default: ''
-    },
     tagsType: {
       type: String,
       required: true
@@ -80,10 +72,6 @@ export default {
       default: false
     },
     tagsTypeId: {
-      type: String,
-      required: true
-    },
-    lowerTagsType: {
       type: String,
       required: true
     }
@@ -136,11 +124,11 @@ export default {
   methods: {
     updateCallback(tagsValue, token) {
       const params = {
-        [this.lowerTagsType]: {
+        [this.tagsType.toLowerCase()]: {
           tag_list: tagsValue
         }
       }
-      return fetch(`/api/${this.lowerTagsType}s/${this.tagsTypeId}`, {
+      return fetch(`/api/${this.tagsType.toLowerCase()}s/${this.tagsTypeId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',

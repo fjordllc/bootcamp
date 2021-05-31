@@ -17,10 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
             tagsParamName: tagsParamName,
             tagsInputId: tagsInputId,
             tagsTypeId: pageId,
-            tagsPath: 'tags',
             tagsEditable: true,
-            tagsType: 'Page',
-            lowerTagsType: 'page'
+            tagsType: 'Page'
           }
         })
     }).$mount('#js-page-tags')

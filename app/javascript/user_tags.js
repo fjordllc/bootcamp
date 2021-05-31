@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import UserTags from './user_tags.vue'
+import Tags from './tags.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const element = document.getElementById('js-user-tags')
@@ -9,16 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const tagsInputId = element.getAttribute('data-tags-input-id')
     const userId = element.getAttribute('data-user-id')
     const currentUserId = element.getAttribute('data-current-user-id')
+    const tagsEditable = userId === currentUserId
 
     new Vue({
       render: (h) =>
-        h(UserTags, {
+        h(Tags, {
           props: {
             tagsInitialValue: tagsInitialValue,
             tagsParamName: tagsParamName,
             tagsInputId: tagsInputId,
-            userId: userId,
-            currentUserId: currentUserId
+            tagsTypeId: userId,
+            tagsEditable: tagsEditable,
+            tagsType: 'User'
           }
         })
     }).$mount('#js-user-tags')
