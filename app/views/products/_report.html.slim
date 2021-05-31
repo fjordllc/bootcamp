@@ -31,8 +31,7 @@
                   .thread-list-item-comment__count
                     | （#{report.comments.size}）
                   .thread-list-item-comment__user-icons
-                    .thread-list-item-comment__user-icon
-                      = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
+                    = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
                   time.a-date(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate='pubdate')
                     | 〜 #{l report.comments.last.updated_at, format: :date_and_time}
 
