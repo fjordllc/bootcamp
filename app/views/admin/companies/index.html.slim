@@ -24,7 +24,6 @@ header.page-header
             th.admin-table__label = Company.human_attribute_name :logo
             th.admin-table__label = Company.human_attribute_name :description
             th.admin-table__label = Company.human_attribute_name :website
-            th.admin-table__label = Company.human_attribute_name :slack_channel
             th.admin-table__label.actions 操作
         tbody.admin-table__items
           - @companies.each do |company|
@@ -39,8 +38,6 @@ header.page-header
                 = company.description
               td.admin-table__item-value
                 = company.website
-              td.admin-table__item-value
-                = company.slack_channel
               td.admin-table__item-value.is-text-align-center
                 ul.is-button-group
                   li
