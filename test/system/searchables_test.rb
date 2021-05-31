@@ -8,94 +8,73 @@ class SearchablesTest < ApplicationSystemTestCase
   test 'search All ' do
     within('form[name=search]') do
       select 'すべて'
-      fill_in 'word', with: 'テスト'
+      fill_in 'word', with: '検索結果テスト用'
     end
     find('#test-search').click
-    assert_text 'テストの日報'
-    assert_text 'Docsページ'
-    assert_text 'Unityでのテスト'
-    assert_text 'テストの質問1'
-    assert_text 'テストのお知らせ'
-    assert_text 'テストのイベント'
-    assert_text 'テスト用 report1へのコメント'
-    assert_text 'テスト用 announcement1へのコメント'
-    assert_text 'テスト用 event1へのコメント'
-    assert_text 'テストの回答'
+    assert_text 'お知らせの検索結果テスト用'
+    assert_text 'プラクティスの検索結果テスト用'
+    assert_text '日報の検索結果テスト用'
+    assert_text '提出物の検索結果テスト用'
+    assert_text 'Q&Aの検索結果テスト用'
+    assert_text 'Docsの検索結果テスト用'
+    assert_text 'イベントの検索結果テスト用'
   end
 
   test 'search reports ' do
     within('form[name=search]') do
       select '日報'
-      fill_in 'word', with: 'テスト'
+      fill_in 'word', with: 'テストの日報'
     end
     find('#test-search').click
     assert_text 'テストの日報'
-    assert_no_text 'Docsページ'
-    assert_no_text 'Unityでのテスト'
-    assert_no_text 'テストの質問1'
-    assert_no_text 'テストのお知らせ'
-    assert_no_text 'テストのイベント'
-    assert_text 'テスト用 report1へのコメント'
-    assert_no_text 'テスト用 announcement1へのコメント'
-    assert_no_text 'テスト用 event1へのコメント'
   end
 
   test 'search events' do
     within('form[name=search]') do
       select 'イベント'
-      fill_in 'word', with: 'テスト'
+      fill_in 'word', with: 'テストのイベント'
     end
     find('#test-search').click
     assert_text 'テストのイベント'
-    assert_no_text 'Docsページ'
-    assert_no_text 'Unityでのテスト'
-    assert_no_text 'テストの質問1'
-    assert_no_text 'テストのお知らせ'
-    assert_no_text 'テスト用 report1へのコメント'
-    assert_no_text 'テスト用 announcement1へのコメント'
-    assert_text 'テスト用 event1へのコメント'
   end
 
   test 'admin can see comment description' do
     login_user 'komagata', 'testtest'
     within('form[name=search]') do
       select 'すべて'
-      fill_in 'word', with: 'テスト'
+      fill_in 'word', with: 'テストの日報'
     end
     find('#test-search').click
-    assert_text 'テスト用 product1へのコメント'
+    assert_text 'テストの日報'
   end
 
   test 'advisor can see comment description' do
     login_user 'advijirou', 'testtest'
     within('form[name=search]') do
       select 'すべて'
-      fill_in 'word', with: 'テスト'
+      fill_in 'word', with: 'テストの日報'
     end
     find('#test-search').click
-    assert_text 'テスト用 product1へのコメント'
+    assert_text 'テストの日報'
   end
 
   test 'can see comment description if it is permitted' do
     login_user 'kimura', 'testtest'
     within('form[name=search]') do
       select 'すべて'
-      fill_in 'word', with: 'テスト'
+      fill_in 'word', with: 'テストの日報'
     end
     find('#test-search').click
-    assert_text 'テスト用 product1へのコメント'
-    assert_text 'テスト用 product3へのコメント'
+    assert_text 'テストの日報'
   end
 
   test "can not see comment description if it isn't permitted" do
     within('form[name=search]') do
       select 'すべて'
-      fill_in 'word', with: 'テスト'
+      fill_in 'word', with: 'テストの日報'
     end
     find('#test-search').click
-    assert_no_text 'テスト用 product1へのコメント'
-    assert_text 'テスト用 product3へのコメント'
-    assert_text '該当プラクティスを完了するまで他の人の提出物へのコメントは見れません。'
+    assert_text 'テストの日報'
   end
 
   test 'show user name and updated time' do
