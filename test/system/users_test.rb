@@ -9,6 +9,15 @@ class UsersTest < ApplicationSystemTestCase
     assert_equal 'hatsunoのプロフィール | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
+  test 'autolink profile when url is included' do
+    url = 'https://bootcamp.fjord.jp/'
+    login_user 'kimura', 'testtest'
+    visit edit_current_user_path
+    fill_in 'user_description', with: "木村です。ブートキャンプはじめました。#{url}"
+    click_button '更新する'
+    assert_link url, href: url
+  end
+
   test 'access by other users' do
     login_user 'yamada', 'testtest'
     user = users(:hatsuno)

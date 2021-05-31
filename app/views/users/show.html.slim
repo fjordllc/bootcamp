@@ -43,7 +43,7 @@ header.page-header
                   = render 'users/user_secret_attributes', user: @user
                   = render 'users/metas', user: @user
               .user-data__description
-                = simple_format h @user.description
+                = auto_link simple_format h @user.description
               .user-data__tags
                 = render 'users/tags', user: @user
 
