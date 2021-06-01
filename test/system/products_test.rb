@@ -352,4 +352,18 @@ class ProductsTest < ApplicationSystemTestCase
     visit products_not_responded_index_path
     assert_equal before_comment, assigned_product_count
   end
+
+  test 'notice accessibility to open products on products index' do
+    login_user 'kimura', 'testtest'
+    visit "/users/#{users(:kimura).id}/products/"
+    assert_text 'このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。'
+  end
+
+  test 'notice accessibility to itself on an open product page' do
+    login_user 'kimura', 'testtest'
+    visit "/products/#{products(:product2).id}"
+    assert_no_text 'このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。'
+    visit "/products/#{products(:product3).id}"
+    assert_text 'このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。'
+  end
 end
