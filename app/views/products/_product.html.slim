@@ -66,3 +66,6 @@
           = product.checks.last.user.login_name
     - if current_user.mentor? && product.checks.empty?
       .js-checker(data-checker-id="#{product.checker_id}" data-checker-name="#{product.checker_name}" data-current-user-id="#{current_user.id}" data-product-id="#{product.id}")
+    - if !current_user.adviser? && product.practice.open_product?
+      p
+      | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
