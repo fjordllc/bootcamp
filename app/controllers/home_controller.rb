@@ -14,6 +14,8 @@ class HomeController < ApplicationController
         @completed_learnings = current_user.learnings.where(status: 3).order(updated_at: :desc)
         @my_seat_today = current_user.reservations.find_by(date: Date.current)&.seat&.name
         @reservations_for_today = Reservation.where(date: Date.current).to_a
+        @evnets_for_today = Event.where(start_at: Date.current).to_a
+        @evnets_for_tomorrow = Event.where(start_at: Date.tomorrow).to_a
         set_required_fields
         render aciton: :index
       end

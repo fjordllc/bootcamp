@@ -38,9 +38,18 @@ header.page-header
             = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
 
         .col-xs-12.col-xl-6.col-xxl-6
-          - if true
-            = "イベントの紹介スペース"
-            = render partial: 'events', collection: @events, as: :event
+          - if @evnets_for_today.present?
+            .thread-list.a-card
+              header.card-header.is-sm
+                h2.card-header__title
+                  = "本日開催のイベントです！"
+              = render partial: 'events', collection: @evnets_for_today, as: :event
+          - if @evnets_for_tomorrow.present?
+            .thread-list.a-card
+              header.card-header.is-sm
+                h2.card-header__title 
+                  = "明日開催のイベントです！"
+              = render partial: 'events', collection: @evnets_for_tomorrow, as: :event
           - if (current_user.admin? || current_user.adviser?) && User.all.job_seeking.present?
             = render 'job_seeking_users', users: User.all.job_seeking
           - if current_user.staff? && @reservations_for_today.present?
