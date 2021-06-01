@@ -81,6 +81,9 @@ header.page-header
                 | まだ提出されていません。<br class='is-hidden-md-up'>完成したら「提出する」をクリック！
             .thread__description.js-target-blank.is-long-text.js-markdown-view
               =  @product.practice.goal
+            - if !current_user.adviser? && @product.practice.open_product?
+              p
+              | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
             .thread__description.js-target-blank.is-long-text.js-markdown-view
               =  @product.body
             = render 'reactions/reactions', reactionable: @product
