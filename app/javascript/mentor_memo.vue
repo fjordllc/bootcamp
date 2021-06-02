@@ -12,14 +12,14 @@
             )
               i.fas.fa-pen
               | 編集
-  .thread-comment-form__form.a-card(v-show='editing')
-    .thread-comment-form__tabs.js-tabs
-      .thread-comment-form__tab.js-tabs__tab(
+  .a-card(v-show='editing')
+    .form-tabs.js-tabs
+      .form-tabs__tab.js-tabs__tab(
         :class='{ "is-active": isActive("memo") }',
         @click='changeActiveTab("memo")'
       )
         | メモ
-      .thread-comment-form__tab.js-tabs__tab(
+      .form-tabs__tab.js-tabs__tab(
         :class='{ "is-active": isActive("preview") }',
         @click='changeActiveTab("preview")'
       )
@@ -53,12 +53,20 @@ import TextareaInitializer from './textarea-initializer'
 import MarkdownInitializer from './markdown-initializer'
 
 export default {
-  props: ['practiceId'],
+  props: {
+    practiceId: { type: String, required: true }
+  },
   data: () => {
     return {
       memo: '',
       tab: 'memo',
       editing: false
+    }
+  },
+  computed: {
+    markdownMemo() {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.memo)
     }
   },
   created() {
@@ -142,12 +150,6 @@ export default {
     },
     editMemo() {
       this.editing = true
-    }
-  },
-  computed: {
-    markdownMemo() {
-      const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.memo)
     }
   }
 }

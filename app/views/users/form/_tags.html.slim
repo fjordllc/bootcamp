@@ -1,5 +1,5 @@
 .form-item
-  = f.label :tag_list, class: 'a-label'
+  = f.label :tag_list, class: 'a-form-label'
   #js-user-tags(
     data-tags-initial-value='#{user.tag_list.join(',')}'
     data-tags-param-name='user[tag_list]'
@@ -13,7 +13,8 @@
       | 入力してエンターキーを押すとタグになります。
       br
       label.a-form-help-link.is-danger(for='modal-user-tag')
-        | タグについてくわしく
+        span.a-form-help-link__label
+          | タグについてくわしく
         span.a-help
           i.fas.fa-question
 

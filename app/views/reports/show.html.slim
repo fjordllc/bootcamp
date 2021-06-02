@@ -20,31 +20,52 @@ header.page-header
     .thread
       .thread__inner.a-card
         header.thread-header
-          - if @report.emotion.present?
-            .thread-header__emotion
-              = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: 'thread-header__emotion-image'
-          .thread-header__row
-            = link_to @report.user, class: 'thread-header__author', title: @report.user.name do
-              = @report.user.login_name
-            .thread-header__date
-              = l @report.reported_on
-              |(
-              span.thread-header__count(class="#{@report.serial_number < 6 ? 'is-important' : ''}")
-                = @report.number
-              |)
-              = 'の日報' unless @report.first?
-          h1.thread-header__title(class="#{@report.wip? ? 'is-wip' : ''}")
-            - if @report.wip?
-              span.thread-header__title-icon
-                | WIP
-            - if @report.user.daimyo?
-              | ★
-            | #{@report.title}
           #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type='Report')
-          .thread-header__lower-side
-            #js-watch(data-watchable-id="#{@report.id}", data-watchable-type='Report')
-            .thread-header__raw
-              = link_to 'Raw', report_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank', rel: 'noopener'
+          .thread-header__row
+            .thread-header-metas
+              .thread-header-metas__start
+                - if @report.wip?
+                  .thread-header-metas__meta
+                    .thread-header__wip
+                      | WIP
+                .thread-header-metas__meta
+                  = link_to @report.user, class: 'a-user-name', title: @report.user.name do
+                    = @report.user.login_name
+                .thread-header-metas__meta
+                  .a-date
+                    = l @report.reported_on
+                    |(
+                    span.a-date__count(class="#{@report.serial_number < 6 ? 'is-important' : ''}")
+                      = @report.number
+                    |)
+                    = 'の日報' unless @report.first?
+                - if @report.published_at.present?
+                  .thread-header-metas__meta
+                    .a-date
+                      .a-date__label
+                        | 提出日
+                      = l @report.published_at
+          .thread-header__row
+            .thread-header-title(class="#{@report.wip? ? 'is-wip' : ''}")
+              - if @report.emotion.present?
+                .thread-header__emotion
+                  = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: 'thread-header__emotion-image'
+              h1.thread-header-title__title
+                - if @report.user.daimyo?
+                  | ★
+                | #{@report.title}
+          .thread-header__row
+            .thread-header-actions
+              .thread-header-actions__start
+                #js-watch(data-watchable-id="#{@report.id}", data-watchable-type='Report')
+              .thread-header-actions__end
+                - if @report.user_id == current_user.id
+                  .thread-header-actions__action
+                    = link_to new_report_path(id: @report), class: 'a-button is-xs is-secondary is-block' do
+                      i.fas.fa-copy#copy
+                      | コピー
+                .thread-header-actions__action
+                  = link_to 'Raw', report_path(format: :md), class: 'a-button is-xs is-secondary', target: '_blank', rel: 'noopener'
         - if @report.practices.present?
           .thread__tags
             .tag-links
@@ -68,10 +89,6 @@ header.page-header
                     = link_to edit_report_path(@report), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
                       i.fas.fa-pen#new
                       | 内容修正
-                  li.card-main-actions__item
-                    = link_to new_report_path(id: @report), class: 'card-main-actions__action a-button is-md is-secondary is-block' do
-                      i.fas.fa-copy#copy
-                      | コピー
                   li.card-main-actions__item.is-sub
                     = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
                       span#delete

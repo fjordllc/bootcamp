@@ -1,0 +1,45 @@
+- # rubocop:disable Rails/OutputSafety
+doctype html
+html.is-application lang='ja'
+  head
+    = render 'google_tag_manager_head'
+    meta content='IE=edge' http-equiv='X-UA-Compatible'
+    = display_meta_tags default_meta_tags
+    = javascript_include_tag 'application'
+    = javascript_pack_tag 'application'
+    = csrf_meta_tags
+    = render 'favicons'
+    = render 'rollbar' if Rails.env.production?
+    link(rel='manifest' href='/manifest.json')
+    = stylesheet_link_tag 'article', media: 'all'
+      link(rel='canonical' href='https://bootcamp.fjord.jp/')
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Roboto+Mono:500', media: 'all'
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Lato:900', media: 'all'
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:900', media: 'all'
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Code+Pro', media: 'all'
+  body#body class="#{body_class}"
+    = render 'google_tag_manager_body'
+    .container
+      - if notice
+        .flash
+          .flash__container
+            p.flash__message
+              = notice.html_safe
+      .article__header
+        = link_to articles_path do
+          = image_tag 'logo-lg.svg', class: 'article__logo'
+      = yield
+      .article__footer
+        .a-card
+          .bootcamp-ad
+            h3 = link_to 'フィヨルドブートキャンプ', root_path, target: 'blank'
+            h4 現場の即戦力になれるプログラミングスクール
+            p
+              | プログラマーとして就職を目指せるだけのスキルを身につけることを
+              | 目標としたオンラインプログラミングスクールです。
+              | 就職を目指せるスキルを弊社では
+              | 「現場の人間にとって、戦力になるプログラマー」としています。
+              | 具体的には、一人でWebサービスを作ることをゴールとした課題をやるのですが、
+              | それだけでなくチーム開発も経験できます。
+            p 詳細は#{link_to 'こちら', root_path}へ
+- # rubocop:enable Rails/OutputSafety

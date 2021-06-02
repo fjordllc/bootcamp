@@ -8,7 +8,7 @@ ruby RUBY_VERSION
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'image_processing', '~> 1.2'
 gem 'jbuilder', '~> 2.7'
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5.3'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
@@ -76,6 +76,7 @@ group :development do
   gem 'rubocop-minitest'
   gem 'rubocop-rails', require: false
   gem 'slim_lint'
+  gem 'view_source_map'
 end
 
 group :test do

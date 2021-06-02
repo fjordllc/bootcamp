@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
           props: {
             title: title,
             selectedTab: selectedTab,
-            isMentor: isMentor,
+            isMentor: isMentor === 'true',
             currentUserId: currentUserId
           }
         })

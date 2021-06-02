@@ -2,7 +2,7 @@
 .practice-status-buttons
   .practice-status-buttons__start
     .practice-status-buttons__label
-      | ステータス変更
+      | ステータス
     ul.practice-status-buttons__items.is-button-group
       li.practice-status-buttons__item
         button.practice-status-buttons__button.a-button.is-md.is-block.is-unstarted.js-not-complete(
@@ -40,7 +40,11 @@
 import 'whatwg-fetch'
 
 export default {
-  props: ['practiceId', 'status', 'submission'],
+  props: {
+    practiceId: { type: String, required: true },
+    status: { type: String, required: true },
+    submission: { type: String, required: true }
+  },
   data() {
     return {
       statusName: null

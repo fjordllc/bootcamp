@@ -22,7 +22,7 @@ header.page-header
 
 .page-body
   .container
-    = paginate @questions, position: 'top'
+    = paginate @questions
     .two-columns
       .two-columns__inner
         - if @questions.present?
@@ -31,7 +31,7 @@ header.page-header
         - else
           .a-empty-message
             = @questions_property.empty_message
-      - if @questions.all_tags.any?
+      - if @tags.any?
         nav.page-tags-nav
           header.page-tags-nav__header
             h2.page-tags-nav__title
@@ -42,4 +42,4 @@ header.page-header
                 - if tag.present?
                   li.page-tags-nav__item
                     = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'page-tags-nav__item-link'
-    = paginate @questions, position: 'bottom'
+    = paginate @questions

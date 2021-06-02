@@ -98,7 +98,7 @@ yameo:
   twitter_account: yameo
   facebook_url: http://www.facebook.com/yameo
   blog_url: http://yameo.org
-  description: "リタイアしました。就職希望はしてました"
+  description: "退会しました。就職希望はしてました"
   course: course1
   job: office_worker
   os: mac
@@ -186,7 +186,7 @@ hajime:
   twitter_account: hajime
   facebook_url: http://www.facebook.com/hajime
   blog_url: http://hajime.org
-  description: "始です。"
+  description: "始です。テストです。"
   course: course1
   job: office_worker
   os: mac

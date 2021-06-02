@@ -1,0 +1,44 @@
+.a-file-input
+  label
+    height: 10rem
+    max-width: 100%
+    +margin(horizontal, auto)
+    border: solid 1px $input-border
+    background-color: $base
+    display: flex
+    align-items: center
+    justify-content: center
+    +position(relative)
+    overflow: hidden
+    cursor: pointer
+    border-radius: .25rem
+    padding: .5rem .5rem 2.75rem .5rem
+  img
+    max-height: 100%
+    transition: all .2s ease-out
+    &:hover
+      opacity: .6
+  &.is-avatar img
+    +size(7rem)
+    object-fit: cover
+  &.is-book img
+    max-height: 100%
+    max-width: 100%
+    object-fit: contain
+    border: solid 1px $background
+  input
+    overflow: hidden
+    +size(0)
+    +position(absolute, left 0, top 0)
+    opacity: 0
+  p
+    +size(100% 2.25rem)
+    background-color: $base
+    +position(absolute, left 0, bottom 0, right 0)
+    +text-block(.8125rem 1, flex 600)
+    justify-content: center
+    align-items: center
+    border-top: solid 1px $input-border
+    transition: all .2s ease-out
+    &:hover
+      background-color: #e8e8e8

@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
+  include Searchable
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id updated_at created_at report comment asc desc].freeze
@@ -144,6 +145,12 @@ class User < ApplicationRecord
 
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
 
+  validates :avatar, attached: false,
+                     content_type: {
+                       in: %w[image/png image/jpg image/jpeg image/gif],
+                       message: 'はPNG, JPG, GIF形式にしてください'
+                     }
+
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
                            format: {
@@ -260,6 +267,26 @@ class User < ApplicationRecord
       .unretired
       .order(:created_at)
   }
+  scope :desc_tagged_with, lambda { |tag_name|
+    with_attached_avatar
+      .unretired
+      .order(updated_at: :desc)
+      .tagged_with(tag_name)
+  }
+
+  scope :search_by_keywords_scope, -> { unretired }
+
+  columns_for_keyword_search(
+    :login_name,
+    :name,
+    :name_kana,
+    :twitter_account,
+    :facebook_url,
+    :blog_url,
+    :github_account,
+    :discord_account,
+    :description
+  )
 
   class << self
     def announcement_receiver(target)
@@ -290,6 +317,16 @@ class User < ApplicationRecord
       else
         send(target)
       end
+    end
+
+    def tags
+      ActsAsTaggableOn::Tag
+        .joins(:taggings)
+        .joins('INNER JOIN users ON taggings.taggable_id = users.id')
+        .select('tags.id, tags.name, COUNT(taggings.id) as taggings_count')
+        .group('tags.id, tags.name, tags.taggings_count')
+        .where(taggings: { taggable_type: 'User' })
+        .where(users: { retired_on: nil })
     end
   end
 
@@ -355,7 +392,11 @@ class User < ApplicationRecord
   end
 
   def elapsed_days
-    (Date.current - created_at.to_date).to_i
+    if graduated_on.present?
+      (graduated_on.to_date - created_at.to_date).to_i
+    else
+      (Date.current - created_at.to_date).to_i
+    end
   end
 
   def customer
@@ -440,6 +481,8 @@ class User < ApplicationRecord
     else
       image_url('/images/users/avatars/default.png')
     end
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+    image_url('/images/users/avatars/default.png')
   end
 
   def generation
@@ -452,7 +495,7 @@ class User < ApplicationRecord
 
   def reports_date_and_emotion(term)
     search_term = (Time.zone.today - term.day)..Time.zone.today
-    reports = self.reports.where(reported_on: search_term)
+    reports = self.reports.where(reported_on: search_term, wip: false)
 
     emotions = reports.index_by(&:reported_on)
 
@@ -475,8 +518,8 @@ class User < ApplicationRecord
   end
 
   def depressed?
-    three_days_emotions = reports.order(reported_on: :desc).limit(3).pluck(:emotion)
-    !three_days_emotions.empty? && three_days_emotions.all?('sad')
+    three_days_reports = reports.order(reported_on: :desc).limit(3)
+    three_days_reports.size == 3 && three_days_reports.all?(&:sad?)
   end
 
   def active_practice

@@ -1,26 +1,25 @@
-.popular-tags
+.random-tags
   +position(fixed, right 0, top 0, bottom 0, 3)
   +size(14rem 100vh)
-  background-color: #cbcbcb
+  background-color: $main
   overflow-y: auto
-  border-left: solid 1px #b9b9b9
   +media-breakpoint-down(lg)
     display: none
 
-.popular-tags__header
-  border-bottom: solid 1px #b9b9b9
+.random-tags__header
+  border-bottom: solid 1px $side-border
 
-.popular-tags__header-inner
+.random-tags__header-inner
   +padding(vertical, .75rem)
 
-.popular-tags__title
-  +text-block(.875rem 1.4, center)
+.random-tags__title
+  +text-block(.875rem 1.4, center $reversal-text)
 
-.popular-tags__item
+.random-tags__item
   &:not(:last-child)
-    border-bottom: dashed 1px #b9b9b9
+    border-bottom: dashed 1px $side-border
 
-.popular-tags__item-link
+.random-tags__item-link
   +flex-link
   +padding(horizontal, 1rem .5rem)
   +padding(vertical, .5rem)
@@ -30,20 +29,42 @@
   &:hover
     background-color: rgba(black, .05)
 
-.popular-tags__item-link-inner
+.random-tags__item-link-inner
   +position(relative)
   flex: 1
   padding-right: 2em
 
-.popular-tags__item-count
+.random-tags__item-count
   +position(absolute, right 0, top 2px)
   +text-block(.625rem, flex center $reversal-text)
   justify-content: center
   align-items: center
   +padding(horizontal, .75em)
-  background-color: $main
+  background-color: rgba(black, .4)
   height: 1.5em
   border-radius: 1em
 
-.popular-tags__item-name
-  +text-block(.875rem 1.4, $main)
+.random-tags__item-name
+  +text-block(.875rem 1.4, #bcb4e8)
+  .is-first &,
+  .is-second &,
+  .is-third &
+    font-weight: 600
+  .is-first &::before,
+  .is-second &::before,
+  .is-third &::before
+    margin-right: .5em
+    +fa(fas '\f521')
+  .is-first &,
+  .is-first &::before
+    color: #deea20
+  .is-second &,
+  .is-second &::before
+    color: $reversal-text
+  .is-third &,
+  .is-third &::before
+    color: #f3b8a6
+  .is-up &
+    font-size: 1.125em
+  .is-low &
+    font-size: .875em

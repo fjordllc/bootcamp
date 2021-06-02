@@ -27,47 +27,58 @@ header.page-header
         .thread
           .thread__inner.a-card
             header.thread-header
+              #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type='Product')
               .thread-header__row
-                = link_to @product.user, class: 'thread-header__author' do
-                  = @product.user.login_name
+                .thread-header-metas
+                  .thread-header-metas__start
+                    .thread-header-metas__meta
+                      = link_to @product.user, class: 'a-user-name' do
+                        = @product.user.login_name
 
-                .thread-header__date
+                    .thread-header-metas__meta
+                      .a-date
+                        - if @product.wip?
+                          .a-date__value
+                            | 提出物作成中
+                        - elsif @product.published_at.present?
+                          span.a-date__label
+                            | 提出日
+                          time.a-date__value(datetime="#{@product.published_at.to_datetime}")
+                            = l @product.published_at
+                        - else
+                          span.a-date__label
+                            | 提出日
+                          time.a-date__value(datetime="#{@product.created_at.to_datetime}")
+                            = l @product.created_at
+
+                    - if @product.updated_at.present?
+                      .thread-header-metas__meta
+                        .a-date
+                          span.a-date__label
+                            | 最終更新日
+                          time.a-date__value(datetime="#{@product.updated_at.to_datetime}")
+                            = l @product.updated_at
+
+              .thread-header__row
+                h1.thread-header-title(class="#{@product.wip? ? 'is-wip' : ''}")
                   - if @product.wip?
-                    .thread-header__date-value
-                      | 提出物作成中
-                  - elsif @product.published_at.present?
-                    span.thread-header__date-label
-                      | 提出日
-                    time.thread-header__date-value(datetime="#{@product.published_at.to_datetime}")
-                      = l @product.published_at
-                  - else
-                    span.thread-header__date-label
-                      | 提出日
-                    time.thread-header__date-value(datetime="#{@product.created_at.to_datetime}")
-                      = l @product.created_at
+                    span.thread-header-title__label
+                      | WIP
+                  span.thread-header-title__title
+                    - if @product.user.daimyo?
+                      | ★
+                    | #{link_to @product.practice.title, @product.practice, class: 'thread-header-title__link'}の提出物
 
-                - if @product.updated_at.present?
-                  .thread-header__date
-                    span.thread-header__date-label
-                      | 最終更新日
-                    time.thread-header__date-value(datetime="#{@product.updated_at.to_datetime}")
-                      = l @product.updated_at
-
-              h1.thread-header__title(class="#{@product.wip? ? 'is-wip' : ''}")
-                - if @product.wip?
-                  span.thread-header__title-icon
-                    | WIP
-                - if @product.user.daimyo?
-                  | ★
-                | #{link_to @product.practice.title, @product.practice, class: 'thread-header__title-link'}の提出物
-              .thread-header__lower-side
-                #js-watch(data-watchable-id="#{@product.id}", data-watchable-type='Product')
-                .thread-header__raw
-                  = link_to 'Raw', product_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank', rel: 'noopener'
+              .thread-header__row
+                .thread-header-actions
+                  .thread-header-actions__start
+                    #js-watch(data-watchable-id="#{@product.id}", data-watchable-type='Product')
+                  .thread-header-actions__end
+                    .thread-header__raw
+                      = link_to 'Raw', product_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank', rel: 'noopener'
             - if @product.wip?
               .thread__warning-message
                 | まだ提出されていません。<br class='is-hidden-md-up'>完成したら「提出する」をクリック！
-            #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type='Product')
             .thread__description.js-target-blank.is-long-text.js-markdown-view
               =  @product.practice.goal
             .thread__description.js-target-blank.is-long-text.js-markdown-view
@@ -110,8 +121,8 @@ header.page-header
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-5 col-xs-12 is-hidden-sm-down' : ''}")
         - if current_user.mentor? || current_user.admin?
           .side-tabs
-            input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents'
-            input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents' checked='checked'
+            input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
+            input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
             .side-tabs-nav
               .side-tabs-nav__items
                 .side-tabs-nav__item
@@ -123,7 +134,16 @@ header.page-header
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
                 .thread-list.a-card
-                  - @reports.each do |report|
-                    = render partial: 'report', locals: { report: report }
+                  - if @reports.present?
+                    - @reports.each do |report|
+                      = render partial: 'report', locals: { report: report }
+                  - else
+                    .thread-list__inner
+                      .container
+                        .o-empty-message
+                          .o-empty-message__icon
+                            i.far.fa-sad-tear
+                          .o-empty-message__text
+                            | 日報はまだありません。
               .side-tabs-contents__item#side-tabs-content-2
                 #js-mentor-memo(data-practice-id="#{@product.practice_id}")

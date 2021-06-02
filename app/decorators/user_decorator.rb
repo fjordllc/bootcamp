@@ -69,4 +69,8 @@ module UserDecorator
   def subscription_url
     "https://dashboard.stripe.com/subscriptions/#{subscription_id}"
   end
+
+  def title
+    login_name
+  end
 end
