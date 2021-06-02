@@ -1,15 +1,10 @@
 steps:
-  - id: Build
-    name: gcr.io/cloud-builders/docker
+  - id: Docker Build and Push
+    name: gcr.io/kaniko-project/executor:latest
     args:
-      - 'build'
-      - '--cache-from'
-      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
-      - '-t'
-      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-      - '.'
-      - '-f'
-      - 'Dockerfile'
+      - --destination=asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA
+      - --dockerfile=Dockerfile
+      - --cache=true
   - id: SqlProxy
     name: "gcr.io/cloudsql-docker/gce-proxy:1.16"
     waitFor: ["-"]
@@ -19,7 +14,7 @@ steps:
     args: ["/cloud_sql_proxy", "-dir=/cloudsql", "-instances=$_CLOUD_SQL_HOST"]
   - id: Task
     name: "asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA"
-    waitFor: ["Build"]
+    waitFor: ["Docker Build and Push"]
     volumes:
       - name: db
         path: "/cloudsql"
@@ -36,7 +31,6 @@ steps:
     waitFor: ["Task"]
     entrypoint: "sh"
     args: ["-c", 'docker kill -s TERM $(docker ps -q --filter "volume=db")']
-images: ['asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
 options:
   substitutionOption: ALLOW_LOOSE
 substitutions:
