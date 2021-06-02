@@ -97,9 +97,15 @@ header.page-header
                       .card-books-item__end
                         h3.card-books-item__title
                           = book.title
+                          - if book.must_read
+                            span.is-required
+                              | (必読)
                         p.card-books-item__price
                           = book.price.to_s(:delimited)
                           | 円
+                        - if book.description
+                          p.card-books-item__description
+                            = book.description
 
         section.a-card
           header.card-header

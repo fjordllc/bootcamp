@@ -17,6 +17,9 @@
         = f.label :page_url, class: 'a-form-label'
         = f.text_field :page_url, class: 'a-text-input', placeholder: 'https://www.amazon.co.jp/dp/4297101238'
       .reference-books-form-item
+        = f.label :must_read, class: 'a-form-label'
+        = f.check_box :must_read, class: 'a-checkbox'
+      .reference-books-form-item
         = f.label :cover, class: 'a-form-label'
         .form-item-file-input.js-file-input.a-file-input.is-book
           label.js-file-input__preview
@@ -27,6 +30,9 @@
             - else
               p 画像を選択
               = f.file_field :cover
+      .reference-books-form-item
+        = f.label :description, class: 'a-form-label'
+        = f.text_area :description, class: 'a-text-input', placeholder: 'とても参考になる本です！'
     .reference-books-form__delete
       = link_to_remove_association f, class: 'reference-books-form__delete-link' do
         i.fas.fa-times
