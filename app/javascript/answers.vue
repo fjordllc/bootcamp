@@ -5,7 +5,7 @@
   h2.thread-comments-container__title 回答・コメント
   .thread-comments
     answer(
-      v-for='(answer, index) in answers',
+      v-for='(answer) in answers',
       :key='answer.id',
       :answer='answer',
       :currentUser='currentUser',
