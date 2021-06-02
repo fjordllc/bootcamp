@@ -359,3 +359,10 @@ practice56:
   goal: "goal..."
   include_progress: false
   last_updated_user: machida
+
+practice57:
+  title: "プラクティスの検索結果テスト用"
+  description: "プラクティスの検索結果テスト用"
+  goal: "goal..."
+  include_progress: false
+  last_updated_user: komagata

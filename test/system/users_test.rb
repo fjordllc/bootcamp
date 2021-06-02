@@ -9,6 +9,15 @@ class UsersTest < ApplicationSystemTestCase
     assert_equal 'hatsunoのプロフィール | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
+  test 'autolink profile when url is included' do
+    url = 'https://bootcamp.fjord.jp/'
+    login_user 'kimura', 'testtest'
+    visit edit_current_user_path
+    fill_in 'user_description', with: "木村です。ブートキャンプはじめました。#{url}"
+    click_button '更新する'
+    assert_link url, href: url
+  end
+
   test 'access by other users' do
     login_user 'yamada', 'testtest'
     user = users(:hatsuno)
@@ -29,9 +38,9 @@ class UsersTest < ApplicationSystemTestCase
   test 'retired date is displayed' do
     login_user 'komagata', 'testtest'
     visit "/users/#{users(:yameo).id}"
-    assert_text 'リタイア日'
+    assert_text '退会日'
     visit "/users/#{users(:sotugyou).id}"
-    assert_no_text 'リタイア日'
+    assert_no_text '退会日'
   end
 
   test 'retire reason is displayed when login user is admin' do
@@ -166,7 +175,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_text '就職活動中'
 
     visit 'users?target=retired'
-    assert_no_text 'リタイア'
     assert_no_text '退会'
   end
 
@@ -177,7 +185,6 @@ class UsersTest < ApplicationSystemTestCase
     assert find_link('就職活動中')
 
     visit 'users?target=retired'
-    assert_no_text 'リタイア'
     assert_no_text '退会'
   end
 
@@ -193,5 +200,27 @@ class UsersTest < ApplicationSystemTestCase
     visit '/users'
     assert find_link('就職活動中')
     assert find_link('全員')
+  end
+
+  test 'push question tab for showing all the recoreded questions' do
+    login_user 'hatsuno', 'testtest'
+    visit "/users/#{users(:hatsuno).id}"
+    click_link '質問'
+    assert_text '質問のタブの作り方'
+    assert_text '質問のタブに関して。。。追加質問'
+  end
+
+  test 'show welcome message' do
+    login_user 'hatsuno', 'testtest'
+    assert_text 'ようこそ'
+  end
+
+  test 'not show welcome message' do
+    login_user 'hatsuno', 'testtest'
+    visit practice_path(practices(:practice1).id)
+    click_button '着手'
+    wait_for_vuejs
+    visit '/'
+    assert_no_text 'ようこそ'
   end
 end

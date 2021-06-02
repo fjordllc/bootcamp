@@ -34,12 +34,13 @@ class ReportsController < ApplicationController
     @report.title       = report.title
     @report.reported_on = Date.current
     @report.emotion = report.emotion
-    @report.description = report.description
+    @report.description = "<!-- #{report.reported_on} の日報をコピー -->\n" + report.description
     @report.practices   = report.practices
     flash.now[:notice] = '日報をコピーしました。'
   end
 
   def edit
+    @report.no_learn = true if @report.learning_times.empty?
     @report.user = current_user
   end
 
@@ -83,6 +84,7 @@ class ReportsController < ApplicationController
       :title,
       :reported_on,
       :emotion,
+      :no_learn,
       :description,
       practice_ids: [],
       learning_times_attributes: %i[id started_at finished_at _destroy]

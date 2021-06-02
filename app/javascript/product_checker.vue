@@ -16,7 +16,12 @@ button(
 </template>
 <script>
 export default {
-  props: ['checkerId', 'checkerName', 'currentUserId', 'productId'],
+  props: {
+    checkerId: { type: Number, required: false, default: null },
+    checkerName: { type: String, required: false, default: null },
+    currentUserId: { type: String, required: true },
+    productId: { type: Number, required: true }
+  },
   data() {
     return {
       id: this.checkerId,

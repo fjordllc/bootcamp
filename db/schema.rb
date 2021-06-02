@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_30_052132) do
+ActiveRecord::Schema.define(version: 2021_05_28_112148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,7 +143,6 @@ ActiveRecord::Schema.define(version: 2021_03_30_052132) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "tos"
-    t.string "slack_channel"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -337,6 +336,16 @@ ActiveRecord::Schema.define(version: 2021_03_30_052132) do
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
+  create_table "reference_books", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "price", null: false
+    t.string "page_url", null: false
+    t.bigint "practice_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["practice_id"], name: "index_reference_books_on_practice_id"
+  end
+
   create_table "reports", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", limit: 255, null: false
@@ -501,6 +510,7 @@ ActiveRecord::Schema.define(version: 2021_03_30_052132) do
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
   add_foreign_key "reactions", "users"
+  add_foreign_key "reference_books", "practices"
   add_foreign_key "timelines", "users"
   add_foreign_key "works", "users"
 end

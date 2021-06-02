@@ -8,8 +8,10 @@ class API::PracticesController < API::BaseController
   def show; end
 
   def index
-    @practices = Practice.all
-    @course = User.find(params[:user_id]).course
+    @categories = Category
+                  .eager_load(:practices)
+                  .where.not(practices: { id: nil })
+                  .order('categories.position ASC, categories_practices.position ASC')
   end
 
   def update

@@ -8,6 +8,7 @@ class Product < ApplicationRecord
   include Reactionable
   include WithAvatar
   include Mentioner
+  include Searchable
 
   belongs_to :practice
   belongs_to :user, touch: true
@@ -16,6 +17,8 @@ class Product < ApplicationRecord
   after_create ProductCallbacks.new
   after_save ProductCallbacks.new
   after_destroy ProductCallbacks.new
+
+  columns_for_keyword_search :body
 
   validates :user, presence: true, uniqueness: { scope: :practice, message: '既に提出物があります。' }
   validates :body, presence: true

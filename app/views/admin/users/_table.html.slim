@@ -7,7 +7,7 @@
           | ユーザー名
           = render 'sort_column', order_by: 'login_name', direction: direction, target: @target
         th.admin-table__label
-          | 会社
+          | 企業
           = render 'sort_column', order_by: 'company_id', direction: direction, target: @target
         th.admin-table__label Slack
         th.admin-table__label Discord
@@ -34,7 +34,7 @@
             - elsif user.trainee
               | 研修生
             - elsif user.retired_on?
-              | リタイア
+              | 退会
             - elsif user.graduated_on?
               | 卒業生
             - elsif user.active?

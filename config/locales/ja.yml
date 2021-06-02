@@ -21,7 +21,7 @@ ja:
       user: ユーザー
       course: コース
       practice: プラクティス
-      company: 会社
+      company: 企業
       comment: コメント
       report: 日報
       learning_time: 学習時間
@@ -36,6 +36,7 @@ ja:
       reservation: 席予約
       seat: 席
       memo: メモ
+      reference_book: 参考書籍
     attributes:
       user:
         login_name: アカウント
@@ -64,7 +65,7 @@ ja:
         experience: プログラミング経験
         prefecture_code: お住まいの都道府県
         organization: 現在の所属組織
-        company: 会社
+        company: 企業
         created_at: 開始日
         updated_at: 最終ログイン日時
         nda: 秘密保持契約
@@ -72,9 +73,9 @@ ja:
         adviser: アドバイザー
         trainee: 研修生
         job_seeking: 就職活動中
-        retired_on: リタイア日
+        retired_on: 退会日
         free: 無料ユーザー
-        avatar: プロフィール画像
+        avatar: ユーザーアイコン
         retire_reason: 退会理由
         satisfaction: 満足度
         opinion: ご意見
@@ -98,6 +99,11 @@ ja:
         progress: 進捗の計算
         categories: カテゴリー
         memo: メンター向けメモ
+      practice/reference_books:
+        title: タイトル
+        price: 価格
+        page_url: URL
+        cover: 表紙画像
       product:
         user: ユーザー
         practice: プラクティス
@@ -107,7 +113,6 @@ ja:
         description: 詳細
         website: ウェブサイト
         logo: ロゴ
-        slack_channel: Slackチャンネル
       category:
         name: 名前
         slug: URLスラッグ
@@ -119,6 +124,7 @@ ja:
         description: 内容
         learning_times: 学習時間
         emotion: 今日の気分
+        no_learn: 学習時間は無し
       reservation:
         date: 日付
         user_id: ユーザー
@@ -176,6 +182,11 @@ ja:
         end_at: イベント終了日時
         open_start_at: 募集開始日時
         open_end_at: 募集終了日時
+      reference_book:
+        title: タイトル
+        price: 価格
+        page_url: URL
+        cover: 表紙画像
     enums:
       user:
         job:
@@ -218,7 +229,7 @@ ja:
     graduate: 卒業生
     adviser: アドバイザー
     all: 全員
-    retired: リタイア
+    retired: 退会
     inactive: 非アクティブ
     year_end_party: 忘年会
     trainee: 研修生

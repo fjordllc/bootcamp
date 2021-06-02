@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     resources :categories, only: %i(index destroy) do
       resource :position, only: %i(update), controller: "categories/position"
     end
+    resources :courses, only: %i() do
+      resources :practices, only: %i(index), controller: "/api/courses/practices"
+    end
     resources :notifications, only: %i(index) do
       collection do
         resources :unread, only: %i(index), controller: "/api/notifications/unread"
@@ -37,7 +40,9 @@ Rails.application.routes.draw do
     resources :available_emojis, only: %i(index)
     resources :reactions, only: %i(create destroy)
     resources :checks, only: %i(index create destroy)
+    resources :mention_users, only: %i(index)
     resources :users, only: %i(index show)
+    get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
     resources :reservations, only: %i(index create destroy)
     resources :practices, only: %i(index show update) do
       resource :learning, only: %i(show update), controller: "practices/learning"
@@ -85,12 +90,17 @@ Rails.application.routes.draw do
     resource :git_hub_grass, only: %i(show), controller: "git_hub_grass"
   end
 
+  namespace :users do
+    get "tags", to: "tags#index"
+  end
+
   resources :announcements
   resource :retirement, only: %i(show new create), controller: "retirement"
   resources :users, only: %i(index show new create) do
     resources :reports, only: %i(index), controller: "users/reports"
     resources :comments, only: %i(index), controller: "users/comments"
     resources :products, only: %i(index), controller: "users/products"
+    resources :questions, only: %i(index), controller: "users/questions"
     get "portfolio" => "users/works#index", as: :portfolio
     patch "graduation", to: "graduation#update", as: :graduation
     get "mail_notification", to: "mail_notification#update", as: :mail_notification

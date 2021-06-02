@@ -1,74 +1,81 @@
 <template lang="pug">
-.thread-comments-container
-  h2.thread-comments-container__title コメント
-  .thread-comments
-    comment(
-      v-for='(comment, index) in comments',
-      :key='comment.id',
-      :comment='comment',
-      :currentUser='currentUser',
-      :id='"comment_" + comment.id',
-      @delete='deleteComment'
-    )
-    .thread-comment-form
-      .thread-comment__author
-        img.thread-comment__author-icon.a-user-icon(
-          :src='currentUser.avatar_url',
-          :class='[roleClass, daimyoClass]',
-          :title='currentUser.icon_title'
+.thread-comments(v-if='loaded === false')
+  commentPlaceholder(v-for='num in placeholderCount', :key='num')
+.thread-comments(v-else)
+  comment(
+    v-for='(comment, index) in comments',
+    :key='comment.id',
+    :comment='comment',
+    :currentUser='currentUser',
+    :id='"comment_" + comment.id',
+    @delete='deleteComment'
+  )
+  .thread-comment-form
+    .thread-comment__author
+      img.thread-comment__author-icon.a-user-icon(
+        :src='currentUser.avatar_url',
+        :class='[roleClass, daimyoClass]',
+        :title='currentUser.icon_title'
+      )
+    .thread-comment-form__form.a-card
+      .thread-comment-form__tabs.js-tabs
+        .thread-comment-form__tab.js-tabs__tab(
+          :class='{ "is-active": isActive("comment") }',
+          @click='changeActiveTab("comment")'
         )
-      .thread-comment-form__form.a-card
-        .thread-comment-form__tabs.js-tabs
-          .thread-comment-form__tab.js-tabs__tab(
-            :class='{ "is-active": isActive("comment") }',
-            @click='changeActiveTab("comment")'
+          | コメント
+        .thread-comment-form__tab.js-tabs__tab(
+          :class='{ "is-active": isActive("preview") }',
+          @click='changeActiveTab("preview")'
+        )
+          | プレビュー
+      .thread-comment-form__markdown-parent.js-markdown-parent
+        .thread-comment-form__markdown.js-tabs__content(
+          :class='{ "is-active": isActive("comment") }'
+        )
+          textarea#js-new-comment.a-text-input.js-warning-form.thread-comment-form__textarea(
+            v-model='description',
+            name='new_comment[description]',
+            data-preview='#new-comment-preview'
           )
-            | コメント
-          .thread-comment-form__tab.js-tabs__tab(
-            :class='{ "is-active": isActive("preview") }',
-            @click='changeActiveTab("preview")'
-          )
-            | プレビュー
-        .thread-comment-form__markdown-parent.js-markdown-parent
-          .thread-comment-form__markdown.js-tabs__content(
-            :class='{ "is-active": isActive("comment") }'
-          )
-            textarea#js-new-comment.a-text-input.js-warning-form.thread-comment-form__textarea(
-              v-model='description',
-              name='new_comment[description]',
-              data-preview='#new-comment-preview'
-            )
-          .thread-comment-form__markdown.js-tabs__content(
-            :class='{ "is-active": isActive("preview") }'
-          )
-            #new-comment-preview.is-long-text.thread-comment-form__preview
-        .card-footer
-          .card-main-actions
-            .card-main-actions__items
-              .card-main-actions__item
-                button#js-shortcut-post-comment.a-button.is-md.is-primary.is-block(
-                  @click='createComment',
-                  :disabled='!validation || buttonDisabled'
-                )
-                  | コメントする
-              .card-main-actions__item(
-                v-if='(currentUser.role == "admin" || currentUser.role == "adviser") && commentType && !checkId'
+        .thread-comment-form__markdown.js-tabs__content(
+          :class='{ "is-active": isActive("preview") }'
+        )
+          #new-comment-preview.is-long-text.thread-comment-form__preview
+      .card-footer
+        .card-main-actions
+          .card-main-actions__items
+            .card-main-actions__item
+              button#js-shortcut-post-comment.a-button.is-md.is-primary.is-block(
+                @click='createComment',
+                :disabled='!validation || buttonDisabled'
               )
-                button.a-button.is-md.is-danger.is-block(
-                  @click='commentAndCheck',
-                  :disabled='!validation || buttonDisabled'
-                )
-                  i.fas.fa-check
-                  | 確認OKにする
+                | コメントする
+            .card-main-actions__item(
+              v-if='(currentUser.role == "admin" || currentUser.role == "adviser") && commentType && !checkId'
+            )
+              button.a-button.is-md.is-danger.is-block(
+                @click='commentAndCheck',
+                :disabled='!validation || buttonDisabled'
+              )
+                i.fas.fa-check
+                | 確認OKにする
 </template>
 <script>
 import Comment from './comment.vue'
 import TextareaInitializer from './textarea-initializer'
+import CommentPleaceholder from './comment-placeholder'
 
 export default {
-  props: ['commentableId', 'commentableType', 'currentUserId', 'currentUser'],
   components: {
-    comment: Comment
+    comment: Comment,
+    commentPlaceholder: CommentPleaceholder
+  },
+  props: {
+    commentableId: { type: String, required: true },
+    commentableType: { type: String, required: true },
+    currentUserId: { type: String, required: true },
+    currentUser: { type: Object, required: true }
   },
   data: () => {
     return {
@@ -76,7 +83,26 @@ export default {
       description: '',
       tab: 'comment',
       buttonDisabled: false,
-      defaultTextareaSize: null
+      defaultTextareaSize: null,
+      loaded: false,
+      placeholderCount: 3
+    }
+  },
+  computed: {
+    validation() {
+      return this.description.length > 0
+    },
+    commentType() {
+      return /^(Report|Product)$/.test(this.commentableType)
+    },
+    checkId() {
+      return this.$store.getters.checkId
+    },
+    roleClass() {
+      return `is-${this.currentUser.role}`
+    },
+    daimyoClass() {
+      return { 'is-daimyo': this.currentUser.daimyo }
     }
   },
   created() {
@@ -102,10 +128,13 @@ export default {
       .catch((error) => {
         console.warn('Failed to parsing', error)
       })
-  },
-  mounted() {
-    TextareaInitializer.initialize('#js-new-comment')
-    this.setDefaultTextareaSize()
+      .finally(() => {
+        this.loaded = true
+        this.$nextTick(() => {
+          TextareaInitializer.initialize('#js-new-comment')
+          this.setDefaultTextareaSize()
+        })
+      })
   },
   methods: {
     token() {
@@ -151,9 +180,11 @@ export default {
 
           if (
             this.commentableType === 'Product' &&
-            !(await this.isProductAssginedToSelf(Number(this.commentableId)))
+            this.isProductAssignableUser(this.currentUser.role) &&
+            (await this.fetchProductAssign(Number(this.commentableId))) ===
+              false
           ) {
-            this.assignProductToSelf()
+            this.toggleProductAssignment()
           }
         })
         .catch((error) => {
@@ -200,8 +231,11 @@ export default {
       this.createComment()
       check.click()
     },
-    async isProductAssginedToSelf(productId) {
-      return fetch('/api/products/self_assigned', {
+    isProductAssignableUser(userRole) {
+      return /^(admin|mentor)$/.test(userRole)
+    },
+    async fetchUncheckedProducts(page) {
+      return fetch(`/api/products/unchecked?page=${page}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -214,14 +248,29 @@ export default {
         .then((response) => {
           return response.json()
         })
-        .then(({ products }) => {
-          return products.some((product) => product.id === productId)
-        })
         .catch((error) => {
           console.warn('Failed to parsing', error)
+          return null
         })
     },
-    assignProductToSelf() {
+    async fetchProductAssign(productId) {
+      for (let pageNumber = 1; ; pageNumber++) {
+        const response = await this.fetchUncheckedProducts(pageNumber)
+
+        if (response === null) {
+          return null
+        }
+
+        const product = response.products.find(
+          (product) => product.id === productId
+        )
+
+        if (product !== undefined) {
+          return product.checker_id !== null
+        }
+      }
+    },
+    toggleProductAssignment() {
       const params = {
         product_id: this.commentableId,
         current_user_id: this.currentUserId
@@ -237,23 +286,6 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
-    }
-  },
-  computed: {
-    validation() {
-      return this.description.length > 0
-    },
-    commentType() {
-      return /^(Report|Product)$/.test(this.commentableType)
-    },
-    checkId() {
-      return this.$store.getters.checkId
-    },
-    roleClass() {
-      return `is-${this.currentUser.role}`
-    },
-    daimyoClass() {
-      return { 'is-daimyo': this.currentUser.daimyo }
     }
   }
 }

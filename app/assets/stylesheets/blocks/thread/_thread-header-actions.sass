@@ -1,0 +1,15 @@
+.thread-header-actions
+  display: flex
+  justify-content: space-between
+  padding-top: .25rem
+
+.thread-header-actions__start,
+.thread-header-actions__end
+  display: flex
+
+.thread-header-actions__action
+  .a-button
+    +media-breakpoint-up(md)
+      min-width: 7rem
+  &:not(:last-child)
+    margin-right: .5rem

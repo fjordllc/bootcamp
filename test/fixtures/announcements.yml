@@ -26,9 +26,24 @@ announcement4:
   created_at: "2018-01-03"
   target: 0
 
+announcement5:
+  user: komagata
+  title: お知らせの検索結果テスト用
+  description: お知らせの検索結果テスト用
+  created_at: "2018-05-20"
+  target: 0
+
 announcement_notification_active_user:
   user: machida
   title: 現役生にのみ通知するお知らせ
   description: 現役生にのみ通知するお知らせの本文
   created_at: "2018-01-04"
   target: 1
+
+announcement_wip:
+  user: komagata
+  title: wipのお知らせ
+  description: wipお知らせ本文
+  created_at: "2018-01-05"
+  target: 0
+  wip: true
