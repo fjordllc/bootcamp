@@ -9,6 +9,7 @@ class ReferenceBook < ApplicationRecord
   validates :title, presence: true
   validates :price, presence: true, numericality: { only_integer: true }
   validates :page_url, presence: true
+  validates :must_read, inclusion: { in: [true, false] }
   validates :cover,
             content_type: %w[image/png image/jpg image/jpeg],
             size: { less_than: 10.megabytes }
