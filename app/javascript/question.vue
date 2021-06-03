@@ -37,7 +37,7 @@ export default {
     return {
       question: null,
       currentUser: null,
-      answerCount: 0
+      answerCount: null
     }
   },
   created() {
