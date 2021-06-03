@@ -6,7 +6,9 @@
       a.a-count-badge(href='#comments')
         .a-count-badge__label
           | 回答
-        .a-count-badge__value(:class='answerCount === 0 ? "is-zero" : ""')
+        .a-count-badge__value(v-if='!loaded')
+          i.fas.fa-spinner
+        .a-count-badge__value(v-else,:class='answerCount === 0 ? "is-zero" : ""')
           | {{ answerCount }}
       .thread-header__row
         .thread-header-metas
@@ -203,7 +205,8 @@ export default {
       editing: false,
       displayedUpdateMessage: false,
       tab: 'question',
-      practices: null
+      practices: null,
+      loaded: false
     }
   },
   computed: {
@@ -235,6 +238,9 @@ export default {
       return title.length > 0 && description.length > 0
     }
   },
+  beforeCreate(){
+    this.loaded = true
+  },
   created() {
     this.fetchPractices()
   },
@@ -263,6 +269,7 @@ export default {
             practice.categoryAndPracticeName = `[${practice.category}] ${practice.title}`
             return practice
           })
+          this.loaded = true
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
