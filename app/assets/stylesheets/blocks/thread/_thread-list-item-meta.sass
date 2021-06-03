@@ -24,6 +24,12 @@
   +hover-link-reversal
   color: $main
 
+.thread-list-item-meta__item-note
+  +text-block(.75rem 1.4, $default-text)
+  &::before
+    content: "※"
+    +position(relative, top -.0625em)
+
 .thread-list-item-meta__checkers
   display: inline-block
   margin-left: .75rem

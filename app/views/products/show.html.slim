@@ -21,6 +21,12 @@ header.page-header
 = render 'page_tabs', resource: @product.practice
 
 .page-body
+  - if !current_user.adviser? && @product.practice.open_product?
+    .a-page-notice.page-notice
+      .container
+        .a-page-notice__inner
+          p
+            | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
   .container
     div(class="#{current_user.mentor? || current_user.admin? ? 'row' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
@@ -81,9 +87,6 @@ header.page-header
                 | まだ提出されていません。<br class='is-hidden-md-up'>完成したら「提出する」をクリック！
             .thread__description.js-target-blank.is-long-text.js-markdown-view
               =  @product.practice.goal
-            - if !current_user.adviser? && @product.practice.open_product?
-              p
-              | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
             .thread__description.js-target-blank.is-long-text.js-markdown-view
               =  @product.body
             = render 'reactions/reactions', reactionable: @product
