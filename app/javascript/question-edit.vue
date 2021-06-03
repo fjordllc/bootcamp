@@ -238,9 +238,6 @@ export default {
       return title.length > 0 && description.length > 0
     }
   },
-  beforeCreate(){
-    this.loaded = true
-  },
   created() {
     this.fetchPractices()
   },
