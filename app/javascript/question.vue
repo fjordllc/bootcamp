@@ -59,7 +59,6 @@ export default {
         })
         .then((question) => {
           this.question = question
-          this.currentUser = question.user
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
