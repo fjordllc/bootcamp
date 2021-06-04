@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_30_052132) do
+ActiveRecord::Schema.define(version: 2021_05_28_112148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,7 +143,6 @@ ActiveRecord::Schema.define(version: 2021_03_30_052132) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "tos"
-    t.string "slack_channel"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -511,7 +510,7 @@ ActiveRecord::Schema.define(version: 2021_03_30_052132) do
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
   add_foreign_key "reactions", "users"
-  add_foreign_key "timelines", "users"
   add_foreign_key "reference_books", "practices"
+  add_foreign_key "timelines", "users"
   add_foreign_key "works", "users"
 end

@@ -219,3 +219,11 @@ report27:
     遡って作成しましたが、卒業の前日の分の日報です。
   reported_on: "2020-09-09"
   created_at: "2020-09-12 01:00:00"
+
+report28:
+  user: komagata
+  title: "日報の検索結果テスト用"
+  description:
+    "日報の検索結果テスト用"
+  reported_on: "2017-05-20"
+  created_at: "2017-05-20 00:00:00"
