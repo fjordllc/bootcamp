@@ -72,7 +72,7 @@ header.page-header
               .thread-header__row
                 .thread-header-actions
                   .thread-header-actions__start
-                    #js-watch(data-watchable-id="#{@product.id}", data-watchable-type='Product')
+                    #js-watch-toggle(data-watchable-id="#{@product.id}", data-watchable-type='Product')
                   .thread-header-actions__end
                     .thread-header__raw
                       = link_to 'Raw', product_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank', rel: 'noopener'

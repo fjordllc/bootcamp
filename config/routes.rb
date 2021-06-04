@@ -69,6 +69,7 @@ Rails.application.routes.draw do
       resources :position, only: %i(update)
     end
   resources :announcements, except: %i(new edit)
+  resources :watches, only: %i(index)
   end
 
   namespace :admin do
