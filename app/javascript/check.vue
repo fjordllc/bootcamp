@@ -19,7 +19,8 @@
           :checkerId='checkerId',
           :checkerName='checkerName',
           :currentUserId='currentUserId',
-          :productId='checkableId'
+          :productId='checkableId',
+          :checkableType='checkableType'
         )
       li.card-main-actions__item(:class='checkId ? "is-sub" : ""')
         button#js-shortcut-check.is-block(
