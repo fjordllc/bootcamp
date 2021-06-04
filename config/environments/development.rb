@@ -86,10 +86,3 @@ Rails.application.configure do
      Bullet.bullet_logger = true
    end
 end
-
-ActiveRecord::Base.logger = Logger.new("log/sql.log")
-ActiveRecord::Base.logger.formatter = proc do |severity, timestamp, progname, msg|
-  "#{msg}\n"
-  # Uncomment if you wish to allow Action Cable access from any origin.
-  # config.action_cable.disable_request_forgery_protection = true
-end
