@@ -147,6 +147,19 @@ section.welcome-child-section
             | #{link_to 'Tokyu Ruby Kaigi', 'https://tokyurubykaigi.github.io/tokyu13/'}実行委員。
             | #{link_to 'Shinjuku.rb', 'https://shinjukurb.connpass.com/'}管理者。
             | 好きなメソッドはObject#object_idです。
+      .col-xs-12.col-md-6.col-lg-4
+        = render 'welcome/mentor', name: '吉次 孝太',
+                                   job: 'プログラマー',
+                                   image: 'yoshitsugu.jpg',
+                                   github_id: 'yoshitsugu',
+                                   blog_url: 'https://yoshitsugu.net/',
+                                   twitter_id: '_yoshitsugu' do
+          p
+            | #{link_to 'しくみ製作所株式会社', 'https://sikmi.com/'}所属。
+            | 最近はRuby on RailsやVue.js/Nuxt.jsを使った自社サービス開発に携わっている。
+            | また、プログラミングスクール卒の社員のメンターも担当している。
+            | 技術自体ももちろんのこと、より効率よく継続的に学習ができるための方法論にも興味あり。
+            | 好きなメソッドはString#each_grapheme_clusterです。
 
       .col-xs-12.col-md-6.col-lg-4
         = render 'welcome/mentor', name: '町田 哲平',
