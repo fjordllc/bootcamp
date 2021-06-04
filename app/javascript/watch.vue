@@ -1,111 +1,50 @@
 <template lang="pug">
-.thread-header-actions__action
-  #watch-button.a-watch-button.a-button.is-xs(
-    :class='watchId ? "is-active is-secondary" : "is-inactive is-main"',
-    @click='push'
-  )
-    i.fas.fa-eye
-    | {{ watchLabel }}
+.thread-list-item(:class='[isWatchClassName]')
+  .thread-list-item__inner
+    .thread-list-item__label
+      | {{watch.model_name_with_i18n}}
+    .thread-list-item__rows
+      .thread-list-item__row
+        .thread-list-item-title
+          .thread-list-item-title__title
+            a.thread-list-item-title__link(:href='watch.url')
+             | {{ watch.title }}
+      .thread-list-item__row
+        .thread-list-item__summury
+          p {{ watch.summury }}
+      .thread-list-item__row
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              a.a-user-name(:href='userUrl')
+                | {{ watch.user.login_name }}
+            .thread-list-item-meta__item
+              time.a-date(:datetime='watch.updated_at')
+                | {{updatedAt}}
 </template>
 <script>
-import 'whatwg-fetch'
-
+import dayjs from 'dayjs'
+import ja from 'dayjs/locale/ja'
+dayjs.locale(ja)
 export default {
   props: {
-    watchableId: { type: Number, required: true },
-    watchableType: { type: String, required: true }
+    watch: { type: Object, required: true },
   },
-  data() {
-    return {
-      watchId: null,
-      watchLabel: 'Watchする'
-    }
-  },
-  mounted() {
-    fetch(
-      `/api/watches.json?watchable_type=${this.watchableType}&watchable_id=${this.watchableId}`,
-      {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin'
-      }
-    )
-      .then((response) => {
-        return response.json()
-      })
-      .then((json) => {
-        if (json[0]) {
-          this.watchId = json[0].id
-          this.watchLabel = 'Watch中'
-        }
-      })
-      .catch((error) => {
-        console.warn('Failed to parsing', error)
-      })
-  },
-  methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
+  computed: {
+    watchUser(){
+     return this.watch.user
     },
-    push() {
-      if (this.watchId) {
-        this.unwatch()
-      } else {
-        this.watch()
-      }
+    isWatchClassName(){
+     return `is-${this.watch.watch_class_name}`
     },
-    watch() {
-      const params = {
-        watchable_type: this.watchableType,
-        watchable_id: this.watchableId
-      }
-
-      fetch(`/api/watches`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          this.watchId = json.id
-          this.watchLabel = 'Watch中'
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
+    userUrl() {
+      return `/users/${this.watch.user.id}`
     },
-    unwatch() {
-      fetch(`/api/watches/${this.watchId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      })
-        .then(() => {
-          this.watchId = null
-          this.watchLabel = 'Watchする'
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
+    updatedAt() {
+      return dayjs(this.watch.updated_at).format(
+        'YYYY年MM月DD日(dd) HH:mm'
+      )
     }
   }
 }
 </script>
-<style scoped></style>

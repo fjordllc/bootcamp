@@ -160,7 +160,7 @@
 </template>
 <script>
 import Reaction from './reaction.vue'
-import Watch from './watch.vue'
+import Watch from './watch-toggle.vue'
 import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
 import Tags from './question_tags.vue'
