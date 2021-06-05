@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     end
     resources :announcements, except: %i(new edit)
     resources :searchables, only: %i(index)
+    resources :bookmarks, only: %i(index, create, destroy)
   end
 
   namespace :admin do
@@ -181,6 +182,7 @@ Rails.application.routes.draw do
   end
 
   resources :generations, only: %i(show index)
+  resources :bookmarks, only: %i(index)
 
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/
