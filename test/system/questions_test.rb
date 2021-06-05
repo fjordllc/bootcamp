@@ -230,4 +230,26 @@ class QuestionsTest < ApplicationSystemTestCase
 
     assert_alert_when_enter_one_dot_only_tag
   end
+
+  test 'permission decision best answer' do
+    visit new_question_path
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'テストの質問タイトル'
+      fill_in 'question[description]', with: 'テストの質問です。'
+      click_button '登録する'
+    end
+    fill_in 'answer[description]', with: 'アンサーテスト'
+    click_button 'コメントする'
+    assert_text 'ベストアンサーにする'
+
+    login_user 'komagata', 'testtest'
+    visit questions_path
+    click_on 'テストの質問タイトル'
+    assert_text 'ベストアンサーにする'
+
+    login_user 'hatsuno', 'testtest'
+    visit questions_path
+    click_on 'テストの質問タイトル'
+    assert_no_text 'ベストアンサーにする'
+  end
 end
