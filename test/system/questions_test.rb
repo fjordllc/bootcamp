@@ -240,16 +240,25 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     fill_in 'answer[description]', with: 'アンサーテスト'
     click_button 'コメントする'
-    assert_text 'ベストアンサーにする'
+    within '.thread-comment__body' do
+      assert_text '内容修正'
+      assert_text 'ベストアンサーにする'
+    end
 
     login_user 'komagata', 'testtest'
     visit questions_path
     click_on 'テストの質問タイトル'
-    assert_text 'ベストアンサーにする'
+    within '.thread-comment__body' do
+      assert_text '内容修正'
+      assert_text 'ベストアンサーにする'
+    end
 
     login_user 'hatsuno', 'testtest'
     visit questions_path
     click_on 'テストの質問タイトル'
-    assert_no_text 'ベストアンサーにする'
+    within '.thread-comment__body' do
+      assert_no_text '内容修正'
+      assert_no_text 'ベストアンサーにする'
+    end
   end
 end
