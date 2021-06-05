@@ -74,6 +74,7 @@ Rails.application.routes.draw do
     resources :announcements, except: %i(new edit)
     resources :searchables, only: %i(index)
     resources :bookmarks, only: %i(index, create, destroy)
+    resources :bookmarks, only: %i(index create destroy)
   end
 
   namespace :admin do
