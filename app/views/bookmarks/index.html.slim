@@ -8,6 +8,7 @@ header.page-header
 .page-body
   .container
     .thread-list.a-card
-      = @bookmarks
+      = @bookmarks.each do |bookmark|
+        = bookmark
 
 
