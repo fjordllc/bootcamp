@@ -9,6 +9,7 @@ class Report < ApplicationRecord
   include Watchable
   include WithAvatar
   include Mentioner
+  include Bookmarkable
 
   enum emotion: {
     sad: 1,
