@@ -3,7 +3,5 @@
 class BookmarksController < ApplicationController
   before_action :require_login
 
-  def index
-    @bookmarks = Bookmark.where(user_id: current_user.id).order(created_at: :desc)
-  end
+  def index; end
 end
