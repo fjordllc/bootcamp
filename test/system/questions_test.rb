@@ -243,6 +243,7 @@ class QuestionsTest < ApplicationSystemTestCase
     within '.thread-comment__body' do
       assert_text '内容修正'
       assert_text 'ベストアンサーにする'
+      assert_text '削除する'
     end
 
     login_user 'komagata', 'testtest'
@@ -251,6 +252,7 @@ class QuestionsTest < ApplicationSystemTestCase
     within '.thread-comment__body' do
       assert_text '内容修正'
       assert_text 'ベストアンサーにする'
+      assert_text '削除する'
     end
 
     login_user 'hatsuno', 'testtest'
@@ -259,6 +261,7 @@ class QuestionsTest < ApplicationSystemTestCase
     within '.thread-comment__body' do
       assert_no_text '内容修正'
       assert_no_text 'ベストアンサーにする'
+      assert_no_text '削除する'
     end
   end
 end
