@@ -74,7 +74,7 @@ module UserDecorator
     login_name
   end
 
-  def login_and_full_name
+  def long_name
     "#{login_name} (#{name})"
   end
 end
