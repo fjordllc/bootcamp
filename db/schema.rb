@@ -270,7 +270,9 @@ ActiveRecord::Schema.define(version: 2021_06_05_082712) do
     t.datetime "published_at"
     t.integer "last_updated_user_id"
     t.bigint "practice_id"
+    t.string "slug", limit: 200
     t.index ["practice_id"], name: "index_pages_on_practice_id"
+    t.index ["slug"], name: "index_pages_on_slug", unique: true
     t.index ["updated_at"], name: "index_pages_on_updated_at"
     t.index ["user_id"], name: "index_pages_on_user_id"
   end
