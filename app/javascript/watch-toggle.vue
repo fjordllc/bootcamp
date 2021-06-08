@@ -67,7 +67,6 @@ export default {
         watchable_type: this.watchableType,
         watchable_id: this.watchableId
       }
-
       fetch(`/api/watches/toggle`, {
         method: 'POST',
         headers: {

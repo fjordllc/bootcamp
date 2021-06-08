@@ -5,4 +5,3 @@ json.watches do
   end
 
 json.totalPages @watches.total_pages
-
