@@ -4,7 +4,15 @@ class API::WatchesController < API::BaseController
   include Rails.application.routes.url_helpers
 
   def index
-    @watches = Watch.preload(:watchable).order(created_at: :desc).page(params[:page])
+    @watches = if params[:watchable_type]
+                 # @watches = Watch.preload(:watchable).order(created_at: :desc).page(params[:page])
+                 Watch.where(
+                   user: current_user,
+                   watchable: watchable
+                 )
+               else
+                 Watch.preload(:watchable).order(created_at: :desc).page(params[:page])
+               end
   end
 
   def create
