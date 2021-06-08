@@ -37,8 +37,8 @@ export default {
         return response.json()
       })
       .then((json) => {
-        if (json[0]) {
-          this.watchId = json[0].id
+        if (json.watches[0]) {
+          this.watchId = json.watches[0].id
           this.watchLabel = 'Watch中'
         }
       })
