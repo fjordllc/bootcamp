@@ -18,12 +18,16 @@ export default {
   data() {
     return {
       watchId: null,
-      watchLabel: 'Watchする'
+      watchLabel: 'Watchする',
+      totalPages: 0,
     }
   },
   mounted() {
+    const params = new URL(location.href).searchParams
+    params.set('watchable_type', this.watchableType)
+    params.set('watchable_id', this.watchableId)
     fetch(
-      `/api/watches.json?watchable_type=${this.watchableType}&watchable_id=${this.watchableId}`,
+      `/api/watches/toggle.json?${params}`,
       {
         method: 'GET',
         headers: {
@@ -37,8 +41,8 @@ export default {
         return response.json()
       })
       .then((json) => {
-        if (json.watches[0]) {
-          this.watchId = json.watches[0].id
+        if (json[0]) {
+          this.watchId = json[0].id
           this.watchLabel = 'Watch中'
         }
       })
@@ -64,7 +68,7 @@ export default {
         watchable_id: this.watchableId
       }
 
-      fetch(`/api/watches`, {
+      fetch(`/api/watches/toggle`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -87,7 +91,7 @@ export default {
         })
     },
     unwatch() {
-      fetch(`/api/watches/${this.watchId}`, {
+      fetch(`/api/watches/toggle/${this.watchId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
