@@ -54,7 +54,7 @@ header.page-header
                           image_class: 'thread-header__user-icon'
                         = link_to @page.last_updated_user, class: 'a-user-name' do
                           | #{@page.last_updated_user.login_name}
-                - unless @page.slug.blank?
+                - if @page.slug.present?
                   .thread-header-metas__meta
                     | #{@page.slug}
           .thread-header__row
