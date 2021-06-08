@@ -27,12 +27,12 @@ module SearchHelper
     if searchable.instance_of?(Comment) && searchable.commentable_type == 'Product'
       commentable = Product.find(searchable.commentable_id)
       if policy(commentable).show? || commentable.practice.open_product?
-        searchable.description || ''
+        searchable.description
       else
         '該当プラクティスを完了するまで他の人の提出物へのコメントは見れません。'
       end
     else
-      searchable.description || ''
+      searchable.description
     end
   end
 end
