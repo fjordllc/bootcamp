@@ -168,4 +168,15 @@ class PagesTest < ApplicationSystemTestCase
     find('.tag-links__item-edit').click
     assert_alert_when_enter_one_dot_only_tag
   end
+
+  test 'add new page with slug and visit page' do
+    slug = 'test-page-slug1'
+    visit new_page_path
+    fill_in 'page[title]', with: 'ページタイトル'
+    fill_in 'page[slug]', with: slug
+    fill_in 'page[body]', with: 'slug付きテストページの本文'
+    click_button '内容を保存'
+    visit "/pages/#{slug}"
+    assert_text 'slug付きテストページの本文'
+  end
 end

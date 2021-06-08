@@ -55,11 +55,11 @@ class PagesController < ApplicationController
   private
 
   def set_page
-    @page = Page.find(params[:id])
+    @page = Page.find_by(slug: params[:slug_or_id]) || Page.find(params[:slug_or_id])
   end
 
   def page_params
-    keys = %i[title body tag_list practice_id]
+    keys = %i[title body tag_list practice_id slug]
     keys << :user_id if admin_login?
     params.require(:page).permit(*keys)
   end

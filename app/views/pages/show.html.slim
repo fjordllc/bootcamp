@@ -54,6 +54,9 @@ header.page-header
                           image_class: 'thread-header__user-icon'
                         = link_to @page.last_updated_user, class: 'a-user-name' do
                           | #{@page.last_updated_user.login_name}
+                - unless @page.slug.blank?
+                  .thread-header-metas__meta
+                    | #{@page.slug}
           .thread-header__row
             h1.thread-header-title(class="#{@page.wip? ? 'is-wip' : ''}")
               - if @page.wip?
