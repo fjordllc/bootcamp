@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
       render: (h) =>
         h(BookmarkButton, {
           props: {
-            bookmarkbleId: bookmarkbleId,
+            bookmarkableId: bookmarkbleId,
             bookmarkableType: bookmarkableType
           }
         })
