@@ -19,7 +19,6 @@ komagata:
   admin: true
   mentor: true
   github_collaborator: true
-  officekey_permission: true
   unsubscribe_email_token: 037i-ef5n7V4EnPv74mtyQ
   updated_at: "2014-01-01 00:00:01"
   created_at: "2014-01-01 00:00:01"
@@ -44,7 +43,6 @@ machida:
   admin: true
   mentor: true
   github_collaborator: true
-  officekey_permission: true
   unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
   updated_at: "2014-01-01 00:00:02"
   created_at: "2014-01-01 00:00:02"
