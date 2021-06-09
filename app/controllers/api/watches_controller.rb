@@ -8,22 +8,6 @@ class API::WatchesController < API::BaseController
     @watches = Watch.preload(:watchable).order(created_at: :desc).page(params[:page])
   end
 
-  def create
-    @watch = Watch.new(
-      user: current_user,
-      watchable: watchable
-    )
-
-    @watch.save!
-    render json: @watch
-  end
-
-  def destroy
-    @watch = Watch.find(params[:id])
-    @watch.destroy
-    head :no_content
-  end
-
   private
 
   def watchable
