@@ -1,26 +1,24 @@
 <template lang="pug">
 .page-body
-  .container(v-if='!loaded')
-    .empty
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
+  .container
+    .empty(v-if='!loaded')
       .fas.fa-spinner.fa-pulse
       |
       | ロード中
-  .container(v-else-if='bookmarks.length == 0')
-    .o-empty-message
+    .o-empty-message(v-else-if='bookmarks.length == 0')
       p.o-empty-message__text
       | ブックマークしているものはありません。
-  .container(v-else)
-    nav.pagenation(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
-    .thread-list.a-card
+    .thread-list.a-card(v-else)
       .thread-list__items
         bookmark(
           v-for='bookmark in bookmarks',
           :key='bookmark.id',
           :bookmark='bookmark'
         )
-    nav.pagenation(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
 </template>
 <script>
 import Bookmark from './bookmark.vue'
@@ -92,8 +90,7 @@ export default {
     getPageValueFromParameter() {
       const url = location.href
       const results = url.match(/\?page=(\d+)/)
-      if (!results) return null
-      return results[1]
+      return results ? results[1] : null
     },
     paginateClickCallback(pageNumber) {
       this.currentPage = pageNumber
