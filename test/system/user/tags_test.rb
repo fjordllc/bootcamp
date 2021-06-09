@@ -48,4 +48,17 @@ class User::TagsTest < ApplicationSystemTestCase
       assert_text name
     end
   end
+
+  test 'edit user tag current_user page' do
+    visit user_path users(:hatsuno)
+    page.all('.tag-links__item-edit')[0].click
+    tag_input = find('.ti-new-tag-input')
+    tag_input.set '課金'
+    click_button '保存する'
+
+    login_user 'komagata', 'testtest'
+    visit user_path(users(:hatsuno))
+    assert_text '課金'
+    assert_no_text 'タグ編集'
+  end
 end
