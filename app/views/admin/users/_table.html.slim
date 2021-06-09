@@ -99,13 +99,7 @@
             - else
               .a-button.is-sm.is-disabled.is-icon
                 i.fab.fa-github-alt
-            - if user.officekey_permission?
-              = link_to 'https://play.google.com/store/apps/details?id=co.candyhouse.sesame&hl=ja', class: 'a-button is-sm is-warning is-icon', target: '_blank', rel: 'noopener' do
-                i.fas.fa-key
-            - else
-              .a-button.is-sm.is-disabled.is-icon
-                i.fas.fa-key
-            - if user.retired_on? && (user.slack_participation? || user.github_collaborator? || user.officekey_permission?)
+            - if user.retired_on? && (user.slack_participation? || user.github_collaborator?)
               .admin-table__item-block-link-container
                 = link_to edit_admin_user_path(user, anchor: 'external-services') do
                   | 外部サービス設定変更
