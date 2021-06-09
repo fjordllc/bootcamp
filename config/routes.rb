@@ -52,7 +52,7 @@ Rails.application.routes.draw do
       resources :unchecked, only: %i(index)
       resources :recents, only: %i(index)
     end
-    resources :watches, only: %i(index create destroy)
+    resources :watches, only: %i(index)
     namespace "watches" do
       resources :toggle, only: %i(index create destroy)
     end
