@@ -17,10 +17,10 @@
           .thread-list-item-meta__items
             .thread-list-item-meta__item
               a.a-user-name(:href='userUrl')
-                | {{ watch.user.login_name }}
+                | {{ watch.edit_user.login_name }}
             .thread-list-item-meta__item
               time.a-date(:datetime='watch.updated_at')
-                | {{updatedAt}}
+                | {{createdAt}}
 </template>
 <script>
 import dayjs from 'dayjs'
@@ -38,10 +38,10 @@ export default {
      return `is-${this.watch.watch_class_name}`
     },
     userUrl() {
-      return `/users/${this.watch.user.id}`
+      return `/users/${this.watch.edit_user.id}`
     },
-    updatedAt() {
-      return dayjs(this.watch.updated_at).format(
+    createdAt() {
+      return dayjs(this.watch.created_at).format(
         'YYYY年MM月DD日(dd) HH:mm'
       )
     }
