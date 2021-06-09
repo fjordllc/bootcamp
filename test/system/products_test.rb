@@ -352,4 +352,10 @@ class ProductsTest < ApplicationSystemTestCase
     visit products_not_responded_index_path
     assert_equal before_comment, assigned_product_count
   end
+
+  test 'show user full_name next to user login_name' do
+    login_user 'kimura', 'testtest'
+    visit "/products/#{products(:product1).id}"
+    assert_text 'yamada (Yamada Taro)'
+  end
 end
