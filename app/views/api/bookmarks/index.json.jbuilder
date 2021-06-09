@@ -3,4 +3,4 @@ json.bookmarks do
     json.partial! "api/bookmarks/bookmark", bookmark: bookmark
   end
 end
-json.total_pages @bookmarks.total_pages if @bookmarks.length > 1
+json.total_pages @bookmarks.total_pages if @bookmarks.respond_to?(:total_pages)
