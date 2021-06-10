@@ -1,7 +1,9 @@
 bookmarkable = bookmark.bookmarkable
 json.id bookmark.id
-json.model_name bookmark.bookmarkable_type
-json.model_name_i18n t("activerecord.models.#{bookmarkable.class.to_s.tableize.singularize}")
-json.user_name bookmarkable.user.name
+json.modelName bookmark.bookmarkable_type
+json.modelNameI18n t("activerecord.models.#{bookmarkable.class.to_s.tableize.singularize}")
+json.author bookmarkable.user.name
+json.authorUrl bookmarkable.user.url
 json.url polymorphic_url(bookmarkable)
 json.title bookmarkable.title
+json.reportedOn l(bookmarkable.reported_on) if bookmark.bookmarkable_type == "Report"

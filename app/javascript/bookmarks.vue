@@ -76,7 +76,7 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.totalPages = json.total_pages
+          this.totalPages = json.totalPages
           this.bookmarks = []
           json.bookmarks.forEach((bookmark) => {
             this.bookmarks.push(bookmark)
