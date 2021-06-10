@@ -22,4 +22,8 @@ class UserDecoratorTest < ActiveSupport::TestCase
     days_in_weeks = 7
     assert_equal days_in_weeks, @user2.niconico_calendar.first.count
   end
+
+  test 'long_name' do
+    assert_equal 'hajime (Hajime Tayo)', @user2.long_name
+  end
 end

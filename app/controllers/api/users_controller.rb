@@ -2,6 +2,7 @@
 
 class API::UsersController < API::BaseController
   before_action :require_login, only: %i[index]
+  before_action :set_user, only: %i[show update]
   PAGER_NUMBER = 20
 
   def index
@@ -26,8 +27,14 @@ class API::UsersController < API::BaseController
              .order(updated_at: :desc)
   end
 
-  def show
-    @user = User.find(params[:id])
+  def show; end
+
+  def update
+    if @user == current_user && @user.update(user_params)
+      head :ok
+    else
+      head :bad_request
+    end
   end
 
   private
@@ -37,5 +44,13 @@ class API::UsersController < API::BaseController
     target_allowlist.push('job_seeking') if current_user.adviser?
     target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
     target_allowlist
+  end
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:tag_list)
   end
 end
