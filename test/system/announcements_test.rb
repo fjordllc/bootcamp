@@ -200,4 +200,10 @@ class AnnouncementsTest < ApplicationSystemTestCase
       assert_text 'コピー'
     end
   end
+
+  test 'show user full_name next to user login_name' do
+    login_user 'kimura', 'testtest'
+    visit "/announcements/#{announcements(:announcement1).id}"
+    assert_text 'komagata (Komagata Masaki)'
+  end
 end
