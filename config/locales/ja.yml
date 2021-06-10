@@ -83,7 +83,6 @@ ja:
         job_seeker: 就職を希望する
         slack_participation: Slack参加
         github_collaborator: GitHubチーム
-        officekey_permission: オフィス鍵
         tag_list: タグ
       course:
         title: タイトル
