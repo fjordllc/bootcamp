@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_06_05_082712) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["bookmarkable_id", "bookmarkable_type", "user_id"], name: "index_bookmarks_unique", unique: true
     t.index ["bookmarkable_type", "bookmarkable_id"], name: "index_bookmarks_on_bookmarkable"
   end
 
