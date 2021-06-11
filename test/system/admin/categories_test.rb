@@ -56,4 +56,14 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
     end
     assert_no_text '学習の準備'
   end
+
+  test 'show pagination' do
+    login_user 'komagata', 'testtest'
+    Announcement.delete_all
+    26.times do
+      Category.create(name: 'test', slug: 'test', description: 'test')
+    end
+    visit '/admin/categories'
+    assert_selector 'nav.pagination', count: 2
+  end
 end
