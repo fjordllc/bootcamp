@@ -60,7 +60,8 @@ class Admin::UsersController < AdminController
       :experience, :prefecture_code, :company_id,
       :trainee, :job_seeking, :nda,
       :graduated_on, :retired_on, :free,
-      :job_seeker, :slack_participation, :github_collaborator
+      :job_seeker, :slack_participation, :github_collaborator,
+      :officekey_permission, :tag_list
     )
   end
 end
