@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::BookmarksController < API::BaseController
-  before_action :require_login
+  before_action :require_login_for_api
   PEGER_NUMBER = 25
 
   def index
@@ -22,7 +22,7 @@ class API::BookmarksController < API::BaseController
     )
 
     @bookmark.save!
-    render json: @bookmark
+    render status: :created, json: @bookmark
   end
 
   def destroy
