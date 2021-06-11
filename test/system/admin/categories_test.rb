@@ -59,7 +59,7 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
 
   test 'show pagination' do
     login_user 'komagata', 'testtest'
-    Announcement.delete_all
+    Category.delete_all
     26.times do
       Category.create(name: 'test', slug: 'test', description: 'test')
     end
