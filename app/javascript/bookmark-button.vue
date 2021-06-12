@@ -1,6 +1,6 @@
 <template lang="pug">
 .thread-header-actions__action
-  .a-button.is-xs(
+  #bookmark-button.a-button.is-xs(
     :class='isBookmark ? "is-secondary" : "is-main"',
     @click='push'
   )
@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       bookmarkId: null,
-      bookmarkLabel: 'bookmark',
+      bookmarkLabel: 'bookmarkする',
       isBookmark: false
     }
   },
@@ -54,7 +54,7 @@ export default {
         .then((json) => {
           if (json.bookmarks.length) {
             this.bookmarkId = json.bookmarks[0].id
-            this.bookmarkLabel = 'unbookmark'
+            this.bookmarkLabel = 'bookmark解除'
             this.isBookmark = true
           }
         })
@@ -81,7 +81,7 @@ export default {
         })
         .then((json) => {
           this.bookmarkId = json.id
-          this.bookmarkLabel = 'unbookmark'
+          this.bookmarkLabel = 'bookmark解除'
           this.isBookmark = true
         })
         .catch((error) => {
@@ -101,7 +101,7 @@ export default {
       })
         .then(() => {
           this.bookmarkId = null
-          this.bookmarkLabel = 'bookmark'
+          this.bookmarkLabel = 'bookmarkする'
           this.isBookmark = false
         })
         .catch((error) => {
