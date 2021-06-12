@@ -10,7 +10,7 @@
             a.thread-list-item-title__link(:href='searchable.url')
               | {{ searchable.title }}
       .thread-list-item__row
-        .thread-list-item__summury
+        .thread-list-item__summary
           p {{ searchable.summary }}
       .thread-list-item__row
         .thread-list-item-meta
