@@ -11,7 +11,7 @@
               | {{ searchable.title }}
       .thread-list-item__row
         .thread-list-item__summury
-          p {{ searchable.summury }}
+          p {{ searchable.summary }}
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
