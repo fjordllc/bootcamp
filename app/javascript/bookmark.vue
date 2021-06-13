@@ -15,7 +15,7 @@
             a.a-user-name(:href='bookmark.authorUrl')
               | {{ bookmark.author }}
           .thread-list-item-meta__item(v-if='bookmark.modelName == "Report"')
-            time.a-date(:datetime='bookmark.reportedOn', pubdate='pubdate')
+            time.a-date(:datetime='bookmark.reportedOn')
               | {{ bookmark.reportedOn }}の日報
 </template>
 <script>
