@@ -168,6 +168,6 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user 'hatsuno', 'testtest'
     find('.header-links__link.test-show-notifications').click
     wait_for_vuejs
-    assert_text 'komagataさんがコメントとの確認とコメントをしました。'
+    assert_text 'hatsunoさんの【 「コメントと」の日報 】にkomagataさんがコメントしました。'
   end
 end
