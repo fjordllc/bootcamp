@@ -27,4 +27,17 @@ class ProductsTest < ApplicationSystemTestCase
       assert_text 'テストの提出物1です。'
     end
   end
+
+  test 'renamed unchecked to incomplete' do
+    login_user 'komagata', 'testtest'
+    visit '/products/unchecked'
+    assert_link '未完了'
+    assert_text '未完了の提出物'
+  end
+
+  test 'button name is incomplete list' do
+    login_user 'komagata', 'testtest'
+    visit "/products/#{products(:product1).id}"
+    assert_link '未完了一覧'
+  end
 end
