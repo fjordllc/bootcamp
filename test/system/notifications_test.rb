@@ -155,4 +155,19 @@ class NotificationsTest < ApplicationSystemTestCase
       assert active_button.has_text? '2'
     end
   end
+
+  test 'notify comment and check' do
+    login_user 'hatsuno', 'testtest'
+    report = create_report 'コメントと', '確認があった', false
+
+    login_user 'komagata', 'testtest'
+    visit "/reports/#{report}"
+    fill_in 'new_comment[description]', with: 'コメントと確認した'
+    click_button '確認OKにする'
+
+    login_user 'hatsuno', 'testtest'
+    find('.header-links__link.test-show-notifications').click
+    wait_for_vuejs
+    assert_text 'komagataさんがコメントとの確認とコメントをしました。'
+  end
 end
