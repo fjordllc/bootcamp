@@ -6,7 +6,7 @@
           .thread-header-metas__start
             .thread-header-metas__meta
               = link_to event.user, class: 'a-user-name' do
-                = event.user.login_name
+                = event.user.long_name
             .thread-header-metas__meta
               .a-date
                 time.a-date__value(datetime="#{event.created_at.to_datetime}" pubdate='pubdate')
