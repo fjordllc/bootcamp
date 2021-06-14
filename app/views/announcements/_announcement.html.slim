@@ -10,7 +10,7 @@
                   | WIP
             .thread-header-metas__meta
               = link_to announcement.user, class: 'a-user-name' do
-                = announcement.user.login_name
+                = announcement.user.long_name
             .thread-header-metas__meta
               time.a-date(datetime="#{announcement.created_at.to_datetime}" pubdate='pubdate')
                 span.a-date__label
