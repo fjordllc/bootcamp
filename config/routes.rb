@@ -73,7 +73,6 @@ Rails.application.routes.draw do
     end
     resources :announcements, except: %i(new edit)
     resources :searchables, only: %i(index)
-    resources :bookmarks, only: %i(index, create, destroy)
     resources :bookmarks, only: %i(index create destroy)
   end
 
