@@ -15,6 +15,7 @@ header.page-header
   = render 'admin/admin_page_tabs'
 
 .page-body
+  = paginate @companies
   .container.is-padding-horizontal-0-sm-down
     .admin-table
       table.admin-table__table
@@ -49,3 +50,4 @@ header.page-header
                       method: :delete,
                       class: 'a-button is-sm is-danger is-icon js-delete' do
                       i.fas.fa-trash-alt
+  = paginate @companies
