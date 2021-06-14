@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class API::BookmarksController < API::BaseController
-  before_action :require_login_for_api
   PEGER_NUMBER = 25
 
   def index
