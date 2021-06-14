@@ -8,7 +8,7 @@
           | 回答
         .a-count-badge__value(v-if='!loaded')
           i.fas.fa-spinner
-        .a-count-badge__value(v-else, :class='answerCount === 0 ? "is-zero" : ""')
+        .a-count-badge__value(:class='answerCount === 0 ? "is-zero" : ""')
           | {{ answerCount }}
       .thread-header__row
         .thread-header-metas
@@ -189,7 +189,7 @@ export default {
   },
   props: {
     question: { type: Object, required: true },
-    answerCount: { type: Number, required: true },
+    answerCount: { type: Number },
     currentUser: { type: Object, required: true }
   },
   data() {
