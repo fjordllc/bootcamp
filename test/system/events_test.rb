@@ -356,4 +356,11 @@ class EventsTest < ApplicationSystemTestCase
     end
     assert_text 'Watch中'
   end
+
+  test 'show user full_name next to user login_name' do
+    event = events(:event2)
+    login_user 'kimura', 'testtest'
+    visit event_path(event)
+    assert_text 'komagata (Komagata Masaki)'
+  end
 end
