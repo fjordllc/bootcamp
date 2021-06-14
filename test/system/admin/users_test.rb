@@ -140,4 +140,16 @@ class Admin::UsersTest < ApplicationSystemTestCase
     check 'graduation_checkbox', allow_label_click: true
     assert has_field?('user_graduated_on', with: '')
   end
+
+  test 'edit user tag' do
+    user = users(:kimura)
+    visit "/admin/users/#{user.id}/edit"
+    tag_input = find('.ti-new-tag-input')
+    tag_input.set '追加タグ'
+    tag_input.native.send_keys :enter
+    click_on '更新する'
+    wait_for_vuejs
+    visit "/admin/users/#{user.id}/edit"
+    assert_text '追加タグ'
+  end
 end
