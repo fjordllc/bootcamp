@@ -10,6 +10,7 @@ class Admin::UsersController < AdminController
                  .preload(%i[company course])
                  .order_by_counts(params[:order_by] || 'id', @direction)
                  .users_role(@target)
+                 .page(params[:page])
 
     if Rails.env.production?
       @subscriptions = Subscription.new.all
