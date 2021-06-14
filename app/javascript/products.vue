@@ -65,7 +65,7 @@ export default {
     },
     unconfirmedLinksName() {
       return {
-        unchecked: '未チェック',
+        unchecked: '未完了',
         'not-responded': '未返信',
         'self-assigned': '自分の担当'
       }[this.selectedTab]
