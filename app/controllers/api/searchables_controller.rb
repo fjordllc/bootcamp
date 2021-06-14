@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class API::SearchablesController < API::BaseController
-  before_action :require_login
   PAGER_NUMBER = 50
 
   def index
