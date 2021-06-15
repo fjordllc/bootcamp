@@ -189,7 +189,7 @@ export default {
   },
   props: {
     question: { type: Object, required: true },
-    answerCount: { type: Number },
+    answerCount: { type: Number, required:false },
     currentUser: { type: Object, required: true }
   },
   data() {
