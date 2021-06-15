@@ -31,7 +31,7 @@ export default {
     params.set('watchable_id', this.watchableId)
     if (this.checked) {
       this.watchId= this.watchIndexId
-      this.watchLabel = 'Watch中'
+      this.watchLabel = 'Watchを外す'
     } else {
     fetch(
       `/api/watches/toggle.json?${params}`,
