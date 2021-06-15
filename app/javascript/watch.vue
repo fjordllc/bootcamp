@@ -12,6 +12,14 @@
       .thread-list-item__row
         .thread-list-item__summury
           p {{ watch.summury }}
+      label( v-if="checked") 
+        watchToggle(
+          :checked='checked'
+          :watchableType='watch.watchable_type',
+          :watchableId='watch.watchable_id',
+          :watchIndexId='watch.id'
+          @childs-event="$listeners['parentMethod']",
+        )
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -25,8 +33,12 @@
 <script>
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
+import watchToggle from './watch-toggle.vue'
 dayjs.locale(ja)
 export default {
+  components: {
+    watchToggle: watchToggle
+  },
   props: {
     watch: { type: Object, required: true },
   },

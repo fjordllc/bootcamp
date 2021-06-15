@@ -22,9 +22,21 @@ report6_watch_kimura:
   user: kimura
   watchable: report6 (Report)  
 
+report7_watch_kimura:
+  user: kimura
+  watchable: report7 (Report)
+
+report8_watch_kimura:
+  user: kimura
+  watchable: report8 (Report)
+
 report9_watch_kimura:
   user: kimura
   watchable: report9 (Report)  
+
+report10_watch_kimura:
+  user: kimura
+  watchable: report10 (Report)  
 
 question1_watch_kimura:
   user: kimura

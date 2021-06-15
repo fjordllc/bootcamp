@@ -13,19 +13,26 @@ import 'whatwg-fetch'
 export default {
   props: {
     watchableId: { type: Number, required: true },
-    watchableType: { type: String, required: true }
+    watchableType: { type: String, required: true },
+    checked:{type:Boolean,default:false},
+    watchIndexId:{type:Number,required: false,default:0}  
   },
   data() {
     return {
       watchId: null,
       watchLabel: 'Watchする',
       totalPages: 0,
+      watchValue: null
     }
   },
   mounted() {
     const params = new URL(location.href).searchParams
     params.set('watchable_type', this.watchableType)
     params.set('watchable_id', this.watchableId)
+    if(this.checked){
+      this.watchId= this.watchIndexId
+      this.watchLabel = 'Watch中'
+    }else{
     fetch(
       `/api/watches/toggle.json?${params}`,
       {
@@ -49,6 +56,7 @@ export default {
       .catch((error) => {
         console.warn('Failed to parsing', error)
       })
+    }
   },
   methods: {
     token() {
@@ -103,6 +111,9 @@ export default {
         .then(() => {
           this.watchId = null
           this.watchLabel = 'Watchする'
+        })
+        .then(()=>{
+          this.$emit('childs-event', this.message)
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
