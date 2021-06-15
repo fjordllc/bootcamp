@@ -15,7 +15,7 @@
          :key='watch.id',
          :watch='watch',
          :checked='checked',
-         @parentMethod="parentsMethod"
+         @updateIndex="updateIndex"
        )
     nav.pagination(v-if='totalPages > 1')
      pager(v-bind='pagerProps')
@@ -101,7 +101,7 @@ export default {
           console.warn('Failed to parsing', error)
         })
             },
-    parentsMethod(){
+    updateIndex(){
             this.getWatches()
         }
     }

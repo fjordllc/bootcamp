@@ -10,15 +10,15 @@
             a.thread-list-item-title__link(:href='watch.url')
              | {{ watch.title }}
       .thread-list-item__row
-        .thread-list-item__summury
-          p {{ watch.summury }}
+        .thread-list-item__summary
+            p {{ watch.summury }}
       label( v-if="checked") 
         watchToggle(
           :checked='checked'
           :watchableType='watch.watchable_type',
           :watchableId='watch.watchable_id',
           :watchIndexId='watch.id'
-          @childs-event="$listeners['parentMethod']",
+          @update-index="$listeners['updateIndex']",
         )
       .thread-list-item__row
         .thread-list-item-meta
@@ -41,6 +41,7 @@ export default {
   },
   props: {
     watch: { type: Object, required: true },
+    checked: { type: Boolean }
   },
   computed: {
     watchUser(){

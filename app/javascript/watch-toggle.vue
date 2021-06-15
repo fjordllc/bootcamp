@@ -14,8 +14,8 @@ export default {
   props: {
     watchableId: { type: Number, required: true },
     watchableType: { type: String, required: true },
-    checked:{type:Boolean,default:false},
-    watchIndexId:{type:Number,required: false,default:0}  
+    checked: { type:Boolean, default:false },
+    watchIndexId: { type:Number, required: false, default:0 }  
   },
   data() {
     return {
@@ -29,10 +29,10 @@ export default {
     const params = new URL(location.href).searchParams
     params.set('watchable_type', this.watchableType)
     params.set('watchable_id', this.watchableId)
-    if(this.checked){
+    if (this.checked) {
       this.watchId= this.watchIndexId
       this.watchLabel = 'Watch中'
-    }else{
+    } else {
     fetch(
       `/api/watches/toggle.json?${params}`,
       {
@@ -113,7 +113,7 @@ export default {
           this.watchLabel = 'Watchする'
         })
         .then(()=>{
-          this.$emit('childs-event', this.message)
+          this.$emit('update-index', this.message)
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
