@@ -21,9 +21,4 @@ module ApplicationHelper
     summary = strip_tags(md2html(comment)).gsub(/[\r\n]/, '')
     truncate(summary, length: word_count)
   end
-
-  def searcher_summury(comment, word_count)
-    summury = strip_tags(md2html(comment)).gsub(/[\r\n]/, '')
-    truncate(summury, length: word_count)
-  end
 end
