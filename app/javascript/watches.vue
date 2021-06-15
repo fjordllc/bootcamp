@@ -5,12 +5,17 @@
   .container(v-else)
     nav.pagination
       pager(v-bind='pagerProps')
+    label
+      input(type='checkbox',v-model="checked",)
+      | 編集 
     .thread-list.a-card
      .thread-list__items
         watch(
          v-for='watch in watches',
          :key='watch.id',
          :watch='watch',
+         :checked='checked',
+         @parentMethod="parentsMethod"
        )
     nav.pagination(v-if='totalPages > 1')
      pager(v-bind='pagerProps')
@@ -31,6 +36,7 @@ export default {
       totalPages: 0,
       currentPage: this.pageParam(),
       loaded: false,
+      checked:false
     }
   },
   computed: {
@@ -94,7 +100,10 @@ export default {
         .catch((error) => {
           console.warn('Failed to parsing', error)
         })
+            },
+    parentsMethod(){
+            this.getWatches()
+        }
     }
-  }
 }
 </script>
