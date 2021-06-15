@@ -2,6 +2,124 @@ report1_watch_kimura:
   user: kimura
   watchable: report1 (Report)
 
+report2_watch_kimura:
+  user: kimura
+  watchable: report2 (Report)
+
+report3_watch_kimura:
+  user: kimura
+  watchable: report3 (Report)
+
+report4_watch_kimura:
+  user: kimura
+  watchable: report4 (Report)
+
+report5_watch_kimura:
+  user: kimura
+  watchable: report5 (Report)
+
+report6_watch_kimura:
+  user: kimura
+  watchable: report6 (Report)  
+
+report7_watch_kimura:
+  user: kimura
+  watchable: report7 (Report)
+
+report8_watch_kimura:
+  user: kimura
+  watchable: report8 (Report)
+
+report9_watch_kimura:
+  user: kimura
+  watchable: report9 (Report)  
+
+report10_watch_kimura:
+  user: kimura
+  watchable: report10 (Report)  
+
 question1_watch_kimura:
   user: kimura
   watchable: question1 (Question)
+
+question2_watch_kimura:
+  user: kimura
+  watchable: question2 (Question)
+
+question3_watch_kimura:
+  user: kimura
+  watchable: question3 (Question)
+
+question4_watch_kimura:
+  user: kimura
+  watchable: question4 (Question)
+
+question5_watch_kimura:
+  user: kimura
+  watchable: question5 (Question)
+
+question6_watch_kimura:
+  user: kimura
+  watchable: question6 (Question)
+
+question7_watch_kimura:
+  user: kimura
+  watchable: question7(Question)
+
+
+question8_watch_kimura:
+  user: kimura
+  watchable: question8 (Question)
+
+
+product1_watch_kimura:
+  user: kimura
+  watchable: product1 (Product)
+
+product2_watch_kimura:
+  user: kimura
+  watchable: product2 (Product)
+
+product3_watch_kimura:
+  user: kimura
+  watchable: product3 (Product)
+
+product4_watch_kimura:
+  user: kimura
+  watchable: product4 (Product)
+
+product5_watch_kimura:
+  user: kimura
+  watchable: product5 (Product)
+
+product6_watch_kimura:
+  user: kimura
+  watchable: product6 (Product)
+
+product7_watch_kimura:
+  user: kimura
+  watchable: product7 (Product)
+
+event1_watch_kimura:
+  user: kimura
+  watchable: event1 (Event)
+
+event2_watch_kimura:
+  user: kimura
+  watchable: event2 (Event)
+
+event3_watch_kimura:
+  user: kimura
+  watchable: event3 (Event)
+
+event4_watch_kimura:
+  user: kimura
+  watchable: event4 (Event)
+
+event5_watch_kimura:
+  user: kimura
+  watchable: event5 (Event)
+
+event6_watch_kimura:
+  user: kimura
+  watchable: event6 (Event)
