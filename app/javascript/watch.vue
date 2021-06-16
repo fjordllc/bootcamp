@@ -2,7 +2,7 @@
 .thread-list-item(:class='[isWatchClassName]')
   .thread-list-item__inner
     .thread-list-item__label
-      | {{watch.model_name_with_i18n}}
+      | {{ watch.model_name_with_i18n }}
     .thread-list-item__rows
       .thread-list-item__row
         .thread-list-item-title
@@ -28,7 +28,7 @@
                 | {{ watch.edit_user.login_name }}
             .thread-list-item-meta__item
               time.a-date(:datetime='watch.updated_at')
-                | {{createdAt}}
+                | {{ createdAt }}
 </template>
 <script>
 import dayjs from 'dayjs'
