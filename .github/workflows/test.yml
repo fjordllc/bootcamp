@@ -59,5 +59,11 @@ jobs:
     - name: yarn install
       run:  yarn install --check-files
 
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+
+    - name: Setup test DB
+      run: bundle exec rails db:setup
+
     - name: Run tests
       run: bundle exec rails db:setup test:all
