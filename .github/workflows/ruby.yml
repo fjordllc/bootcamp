@@ -24,6 +24,7 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
+      CI_HOST: localhost
 
     services:
       postgres:
@@ -48,5 +49,6 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - run: bundle exec rake db:setup
     - name: Run tests
-      run: bundle exec rake db:setup test
+      run: bundle exec test
