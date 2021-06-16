@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.6']
+        ruby-version: ['2.6.6']
         
     env:
       RAILS_ENV: test
@@ -49,6 +49,6 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - run: bundle exec rake db:setup
+
     - name: Run tests
       run: bundle exec test
