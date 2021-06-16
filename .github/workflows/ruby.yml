@@ -19,7 +19,24 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.6', '2.7', '3.0']
+        ruby-version: ['2.6']
+        
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
+
+    services:
+      postgres:
+        image: postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
     - uses: actions/checkout@v2
@@ -32,4 +49,4 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Run tests
-      run: bundle exec rake
+      run: bundle exec rake db:setup test
