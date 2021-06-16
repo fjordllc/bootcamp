@@ -4,8 +4,6 @@ require 'application_system_test_case'
 
 class SignUpTest < ApplicationSystemTestCase
   test 'sign up' do
-    WebMock.allow_net_connect!
-
     visit '/users/new'
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'foo'
@@ -26,16 +24,9 @@ class SignUpTest < ApplicationSystemTestCase
     click_button '利用規約に同意して参加する'
     sleep 1
     assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
-
-    WebMock.disable_net_connect!(
-      allow_localhost: true,
-      allow: 'chromedriver.storage.googleapis.com'
-    )
   end
 
   test 'sign up with expired card' do
-    WebMock.allow_net_connect!
-
     visit '/users/new'
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'foo'
@@ -55,16 +46,9 @@ class SignUpTest < ApplicationSystemTestCase
     click_button '利用規約に同意して参加する'
     sleep 1
     assert_text 'クレジットカードが有効期限切れです。'
-
-    WebMock.disable_net_connect!(
-      allow_localhost: true,
-      allow: 'chromedriver.storage.googleapis.com'
-    )
   end
 
   test 'sign up with incorrect cvc card' do
-    WebMock.allow_net_connect!
-
     visit '/users/new'
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'foo'
@@ -84,16 +68,9 @@ class SignUpTest < ApplicationSystemTestCase
     click_button '利用規約に同意して参加する'
     sleep 1
     assert_text 'クレジットカードセキュリティコードが正しくありません。'
-
-    WebMock.disable_net_connect!(
-      allow_localhost: true,
-      allow: 'chromedriver.storage.googleapis.com'
-    )
   end
 
   test 'sign up with declined card' do
-    WebMock.allow_net_connect!
-
     visit '/users/new'
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'foo'
@@ -113,11 +90,6 @@ class SignUpTest < ApplicationSystemTestCase
     click_button '利用規約に同意して参加する'
     sleep 1
     assert_text 'クレジットカードへの請求が拒否されました。'
-
-    WebMock.disable_net_connect!(
-      allow_localhost: true,
-      allow: 'chromedriver.storage.googleapis.com'
-    )
   end
 
   test 'sign up as adviser' do
@@ -171,8 +143,6 @@ class SignUpTest < ApplicationSystemTestCase
   end
 
   test 'sign up with reserved login name' do
-    WebMock.allow_net_connect!
-
     visit '/users/new'
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'mentor'
@@ -191,11 +161,6 @@ class SignUpTest < ApplicationSystemTestCase
 
     click_button '利用規約に同意して参加する'
     assert_text 'に使用できない文字列が含まれています'
-
-    WebMock.disable_net_connect!(
-      allow_localhost: true,
-      allow: 'chromedriver.storage.googleapis.com'
-    )
   end
 
   test 'sign up as adviser with company_id' do
@@ -218,8 +183,6 @@ class SignUpTest < ApplicationSystemTestCase
   end
 
   test 'sign up with empty description ' do
-    WebMock.allow_net_connect!
-
     visit '/users/new'
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'foo'
@@ -238,10 +201,5 @@ class SignUpTest < ApplicationSystemTestCase
     click_button '利用規約に同意して参加する'
     sleep 1
     assert_text '自己紹介を入力してください'
-
-    WebMock.disable_net_connect!(
-      allow_localhost: true,
-      allow: 'chromedriver.storage.googleapis.com'
-    )
   end
 end

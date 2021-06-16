@@ -47,13 +47,6 @@ module LinkChecker
         'PC性能の見方を知る',
         "https://bootcamp.fjord.jp/practices/#{practices(:practice3).id}"
       )
-
-      WebMock.disable_net_connect!
-      stub_link_checker!
-    end
-
-    teardown do
-      WebMock.allow_net_connect!
     end
 
     test '#check' do
