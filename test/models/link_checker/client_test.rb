@@ -4,15 +4,6 @@ require 'test_helper'
 
 module LinkChecker
   class ClientTest < ActiveSupport::TestCase
-    setup do
-      WebMock.disable_net_connect!
-      stub_link_checker!
-    end
-
-    teardown do
-      WebMock.allow_net_connect!
-    end
-
     test '.request' do
       assert_equal 200, Client.request('http://example.com/')
       assert_equal 404, Client.request('https://fjord.jp/foo')

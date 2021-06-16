@@ -4,8 +4,6 @@ require 'application_system_test_case'
 
 class RetirementTest < ApplicationSystemTestCase
   test 'retire user' do
-    stub_subscription_destroy!
-
     login_user 'kananashi', 'testtest'
     user = users(:kananashi)
     visit new_retirement_path
@@ -36,8 +34,6 @@ class RetirementTest < ApplicationSystemTestCase
   end
 
   test 'delete unchecked products when the user retired' do
-    stub_subscription_cancel!
-
     login_user 'muryou', 'testtest'
     visit "/products/new?practice_id=#{practices(:practice5).id}"
     within('#new_product') do
@@ -60,8 +56,6 @@ class RetirementTest < ApplicationSystemTestCase
   end
 
   test 'delete WIP reports when the user retired' do
-    stub_subscription_cancel!
-
     login_user 'muryou', 'testtest'
     visit '/reports/new'
     within('#new_report') do
