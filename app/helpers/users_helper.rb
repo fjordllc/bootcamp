@@ -58,4 +58,8 @@ module UsersHelper
       'is-mid'
     end
   end
+
+  def user_practices(user)
+    user.course.categories.order(:position).map(&:practices).flatten
+  end
 end
