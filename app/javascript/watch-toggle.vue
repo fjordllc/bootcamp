@@ -14,7 +14,7 @@ export default {
   props: {
     watchableId: { type: Number, required: true },
     watchableType: { type: String, required: true },
-    checked: { type:Boolean, default:false },
+    checked: { type:Boolean, required: false, default:false },
     watchIndexId: { type:Number, required: false, default:0 }  
   },
   data() {
