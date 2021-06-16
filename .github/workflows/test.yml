@@ -50,4 +50,4 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
     - name: Run tests
-      run: bundle exec rails db:setup test
+      run: bundle exec rails db:setup test:all
