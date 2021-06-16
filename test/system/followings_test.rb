@@ -47,7 +47,8 @@ class FollowingsTest < ApplicationSystemTestCase
     assert_text '日報を保存しました。'
 
     login_user 'kimura', 'testtest'
-    visit '/notifications'
+    visit '/notifications/unread'
+    assert_no_text 'ロード中'
     assert_text 'hatsunoさんが日報【 test title 】を書きました！'
   end
 
