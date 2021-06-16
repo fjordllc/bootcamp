@@ -49,5 +49,15 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
+    - name: Cache node modules
+      uses: actions/cache@v2.1.4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: yarn install
+      run:  yarn install --check-files
+
     - name: Run tests
       run: bundle exec rails db:setup test:all
