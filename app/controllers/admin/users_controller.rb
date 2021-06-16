@@ -11,8 +11,7 @@ class Admin::UsersController < AdminController
                  .order_by_counts(params[:order_by] || 'id', @direction)
                  .users_role(@target)
                  .page(params[:page])
-    @emails = User.with_attached_avatar
-                  .preload(%i[company course])
+    @emails = User.preload(%i[company course])
                   .order_by_counts(params[:order_by] || 'id', @direction)
                   .users_role(@target)
                   .pluck(:email)
