@@ -5,8 +5,8 @@
   .container(v-else)
     nav.pagination
       pager(v-bind='pagerProps')
-    label
-      input(type='checkbox',v-model="checked",)
+    label(v-if='watches.length')
+      input(type='checkbox',v-model="checked")
       | 編集 
     .thread-list.a-card
      .thread-list__items
@@ -36,7 +36,7 @@ export default {
       totalPages: 0,
       currentPage: this.pageParam(),
       loaded: false,
-      checked:false
+      checked:false,
     }
   },
   computed: {
@@ -80,6 +80,7 @@ export default {
       this.getWatches()
     },
     getWatches() {
+      console.log(this.watchesAPI)
       fetch(this.watchesAPI, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
@@ -104,6 +105,6 @@ export default {
     updateIndex(){
             this.getWatches()
         }
-    }
+    },
 }
 </script>
