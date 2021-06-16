@@ -80,7 +80,6 @@ export default {
       this.getWatches()
     },
     getWatches() {
-      console.log(this.watchesAPI)
       fetch(this.watchesAPI, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
