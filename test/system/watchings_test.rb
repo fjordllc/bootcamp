@@ -30,7 +30,6 @@ class WatchingTest < ApplicationSystemTestCase
     report = reports(:report1)
     visit report_path(report)
     assert_text 'Watch中'
-    wait_for_vuejs
     visit watches_path
     assert_text '作業週1日目'
     check '編集'

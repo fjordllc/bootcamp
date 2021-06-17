@@ -3,10 +3,10 @@
   .container(v-if='!loaded')
     | ロード中
   .container(v-else)
-    nav.pagination
+    nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     label(v-if='watches.length')
-      input(type='checkbox',v-model="checked")
+      input(type='checkbox', v-model="checked")
       | 編集 
     .thread-list.a-card
      .thread-list__items
@@ -36,7 +36,7 @@ export default {
       totalPages: 0,
       currentPage: this.pageParam(),
       loaded: false,
-      checked:false,
+      checked: false,
     }
   },
   computed: {
