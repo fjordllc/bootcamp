@@ -27,6 +27,8 @@ class FollowingsTest < ApplicationSystemTestCase
   end
 
   test 'receive a notification when following user create a report' do
+    visit '/notifications'
+    click_link '全て既読にする' # 通知を削除
     visit user_path(users(:hatsuno))
     click_button '日報をフォロー'
     login_user 'hatsuno', 'testtest'
@@ -53,6 +55,8 @@ class FollowingsTest < ApplicationSystemTestCase
   end
 
   test "receive a notification when following user's report has comment" do
+    visit '/notifications'
+    click_link '全て既読にする' # 通知を削除
     visit user_path(users(:hatsuno))
     click_button '日報をフォロー'
     login_user 'hatsuno', 'testtest'
