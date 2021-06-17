@@ -117,7 +117,7 @@ section.welcome-child-section
                                    blog_url: 'https://kakutani.com/',
                                    twitter_id: 'kakutani',
                                    facebook_id: 'kakutani' do
-          = image_tag('mentors/clearn-agile-book.jpg', class: 'has-4-books', alt: 'Clean Agile、なるほどUnixプロセス、Rubyのしくみ、アジャイルサムライの表紙画像')
+          = image_tag('mentors/clearn-agile-book.jpg', class: 'has-5-books', alt: 'ユニコーン企業のひみつ、Clean Agile、なるほどUnixプロセス、Rubyのしくみ、アジャイルサムライの表紙画像')
           p
             | 個人事業主。#{link_to '一般社団法人日本Rubyの会', 'https://ruby-no-kai.org'}理事。
             | #{link_to '株式会社永和システムマネジメント', 'https://www.esm.co.jp'}フェロー。
@@ -148,20 +148,6 @@ section.welcome-child-section
             | #{link_to 'Shinjuku.rb', 'https://shinjukurb.connpass.com/'}管理者。
             | 好きなメソッドはObject#object_idです。
       .col-xs-12.col-md-6.col-lg-4
-        = render 'welcome/mentor', name: '吉次 孝太',
-                                   job: 'プログラマー',
-                                   image: 'yoshitsugu.jpg',
-                                   github_id: 'yoshitsugu',
-                                   blog_url: 'https://yoshitsugu.net/',
-                                   twitter_id: '_yoshitsugu' do
-          p
-            | #{link_to 'しくみ製作所株式会社', 'https://sikmi.com/'}所属。
-            | 最近はRuby on RailsやVue.js/Nuxt.jsを使った自社サービス開発に携わっている。
-            | また、プログラミングスクール卒の社員のメンターも担当している。
-            | 技術自体ももちろんのこと、より効率よく継続的に学習ができるための方法論にも興味あり。
-            | 好きなメソッドはString#each_grapheme_clusterです。
-
-      .col-xs-12.col-md-6.col-lg-4
         = render 'welcome/mentor', name: '岡嵜 雄平',
                                    job: 'プログラマー',
                                    image: 'yuuu.png',
@@ -174,7 +160,19 @@ section.welcome-child-section
             | #{link_to 'Fukuoka.rb', 'https://fukuokarb.connpass.com/'}に定期参加しています。
             | 過去には#{link_to 'Rails Girls Fukuoka 2nd', 'http://railsgirls.com/fukuoka.html'}のコーチや
             | #{link_to 'RubyKaigi 2019', 'https://rubykaigi.org/2019/'}のローカルオーガナイザーもしていました。
-
+      .col-xs-12.col-md-6.col-lg-4
+        = render 'welcome/mentor', name: '吉次 孝太',
+                                   job: 'プログラマー',
+                                   image: 'yoshitsugu.jpg',
+                                   github_id: 'yoshitsugu',
+                                   blog_url: 'https://yoshitsugu.net/',
+                                   twitter_id: '_yoshitsugu' do
+          p
+            | #{link_to 'しくみ製作所株式会社', 'https://sikmi.com/'}所属。
+            | 最近はRuby on RailsやVue.js/Nuxt.jsを使った自社サービス開発に携わっている。
+            | また、プログラミングスクール卒の社員のメンターも担当している。
+            | 技術自体ももちろんのこと、より効率よく継続的に学習ができるための方法論にも興味あり。
+            | 好きなメソッドはString#each_grapheme_clusterです。
       .col-xs-12.col-md-6.col-lg-4
         = render 'welcome/mentor', name: '町田 哲平',
                                    job: 'デザイナー',
