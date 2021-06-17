@@ -14,8 +14,8 @@ export default {
   props: {
     watchableId: { type: Number, required: true },
     watchableType: { type: String, required: true },
-    checked: { type:Boolean, required: false, default:false },
-    watchIndexId: { type:Number, required: false, default:0 }  
+    checked: { type: Boolean, required: false, default: false },
+    watchIndexId: { type: Number, required: false, default: 0 }
   },
   data() {
     return {
@@ -113,7 +113,7 @@ export default {
           this.watchLabel = 'Watchする'
         })
         .then(()=>{
-          this.$emit('update-index', this.message)
+          this.$emit('update-index')
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)

@@ -1,5 +1,5 @@
 <template lang="pug">
-.thread-list-item(:class='[isWatchClassName]')
+.thread-list-item(:class='isWatchClassName')
   .thread-list-item__inner
     .thread-list-item__label
       | {{ watch.model_name_with_i18n }}
@@ -11,7 +11,7 @@
              | {{ watch.title }}
       .thread-list-item__row
         .thread-list-item__summary
-            p {{ watch.summury }}
+            p {{ watch.summary }}
       label( v-if="checked") 
         watchToggle(
           :checked='checked'
