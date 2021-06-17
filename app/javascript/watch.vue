@@ -44,9 +44,6 @@ export default {
     checked: { type: Boolean }
   },
   computed: {
-    watchUser(){
-     return this.watch.user
-    },
     isWatchClassName(){
      return `is-${this.watch.watch_class_name}`
     },

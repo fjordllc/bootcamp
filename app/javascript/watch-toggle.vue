@@ -2,7 +2,7 @@
 .thread-header-actions__action
   #watch-button.a-watch-button.a-button.is-xs(
     :class='watchId ? "is-active is-secondary" : "is-inactive is-main"',
-    @click='push'
+    @click='buttonClick'
   )
     i.fas.fa-eye
     | {{ watchLabel }}
@@ -63,7 +63,7 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    push() {
+    buttonClick() {
       if (this.watchId) {
         this.unwatch()
       } else {
