@@ -63,6 +63,9 @@
   .thread-list-item.is-product &
     background-color: #909b3c
     color: $reversal-text
+  .thread-list-item.is-user &
+    background-color: #7cbd9c
+    color: $reversal-text
 
 .thread-list-item__author
   +position(absolute, left 0, top 0)
@@ -119,7 +122,7 @@
   +hover-link-reversal
   cursor: pointer
 
-.thread-list-item__summury
+.thread-list-item__summary
   color: $muted-text
   p
     +text-block(.75rem 1.5)
