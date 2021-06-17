@@ -78,29 +78,7 @@ event7:
   user: komagata
 
 event8:
-  title: "本日のテストイベント②"
-  description: "テストイベントです。"
-  location: "FJORDオフィス"
-  capacity: 10
-  start_at: <%= Date.current %>
-  end_at: 2021-05-30 12:00:00
-  open_start_at: 2021-05-31 9:00
-  open_end_at: 2021-05-31 9:00
-  user: komagata
-
-event9:
   title: "明日のテストイベント①"
-  description: "テストイベントです。"
-  location: "FJORDオフィス"
-  capacity: 10
-  start_at: <%= Date.tomorrow %>
-  end_at: 2021-05-30 12:00:00
-  open_start_at: 2021-05-31 9:00
-  open_end_at: 2021-05-31 9:00
-  user: komagata
-
-event10:
-  title: "明日のテストイベント②"
   description: "テストイベントです。"
   location: "FJORDオフィス"
   capacity: 10
