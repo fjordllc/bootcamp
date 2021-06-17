@@ -11,7 +11,7 @@ class API::Watches::ToggleController < API::BaseController
   def create
     @watch = Watch.new(
       user: current_user,
-      watchable: wachable
+      watchable: watchable
     )
 
     @watch.save!
