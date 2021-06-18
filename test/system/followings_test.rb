@@ -50,6 +50,7 @@ class FollowingsTest < ApplicationSystemTestCase
 
     login_user 'kimura', 'testtest'
     visit '/notifications/unread'
+    sleep 2
     assert_no_text 'ロード中' # ロード完了を待つ
     assert_text 'hatsunoさんが日報【 test title 】を書きました！'
   end
@@ -85,6 +86,7 @@ class FollowingsTest < ApplicationSystemTestCase
 
     login_user 'kimura', 'testtest'
     visit '/notifications/unread'
+    sleep 2
     assert_no_text 'ロード中' # ロード完了を待つ
     assert_text 'hatsunoさんの【 「test title」の日報 】にhatsunoさんがコメントしました。'
   end
