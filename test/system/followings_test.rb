@@ -49,15 +49,15 @@ class FollowingsTest < ApplicationSystemTestCase
     assert_text '日報を保存しました。'
 
     login_user 'kimura', 'testtest'
-    pp Time.now
+    pp Time.zone.now
     visit '/notifications/unread'
-    pp Time.now
+    pp Time.zone.now
     sleep 2
-    pp Time.now
+    pp Time.zone.now
     assert_no_text 'ロード中' # ロード完了を待つ
-    pp Time.now
+    pp Time.zone.now
     assert_text 'hatsunoさんが日報【 test title 】を書きました！'
-    pp Time.now
+    pp Time.zone.now
   end
 
   test "receive a notification when following user's report has comment" do
@@ -90,14 +90,14 @@ class FollowingsTest < ApplicationSystemTestCase
     assert_text comment
 
     login_user 'kimura', 'testtest'
-    pp Time.now
+    pp Time.zone.now
     visit '/notifications/unread'
-    pp Time.now
+    pp Time.zone.now
     sleep 2
-    pp Time.now
+    pp Time.zone.now
     assert_no_text 'ロード中' # ロード完了を待つ
-    pp Time.now
+    pp Time.zone.now
     assert_text 'hatsunoさんの【 「test title」の日報 】にhatsunoさんがコメントしました。'
-    pp Time.now
+    pp Time.zone.now
   end
 end
