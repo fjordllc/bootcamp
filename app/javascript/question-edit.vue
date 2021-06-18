@@ -6,7 +6,7 @@
       a.a-count-badge(href='#comments')
         .a-count-badge__label
           | 回答
-        .a-count-badge__value(v-if='!loaded')
+        .a-count-badge__value(v-if='!updatedAnswerCount')
           i.fas.fa-spinner
         .a-count-badge__value(:class='answerCount === 0 ? "is-zero" : ""')
           | {{ answerCount }}
@@ -189,7 +189,8 @@ export default {
   },
   props: {
     question: { type: Object, required: true },
-    answerCount: { type: Number, required:false },
+    answerCount: { type: Number, required: true },
+    updatedAnswerCount: { type: Boolean, required: true },
     currentUser: { type: Object, required: true }
   },
   data() {
@@ -206,7 +207,6 @@ export default {
       displayedUpdateMessage: false,
       tab: 'question',
       practices: null,
-      loaded: false,
     }
   },
   computed: {
@@ -266,7 +266,6 @@ export default {
             practice.categoryAndPracticeName = `[${practice.category}] ${practice.title}`
             return practice
           })
-          this.loaded = true
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
