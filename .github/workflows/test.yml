@@ -58,6 +58,7 @@ jobs:
           ${{ runner.os }}-node-
     - name: yarn install
       run:  yarn install --check-files
-
+    - name: Setup test DB
+      run: bundle exec rails db:setup
     - name: Run tests
-      run: bundle exec rails db:setup test:all
+      run: bundle exec rails test test/models/subscription_test.rb
