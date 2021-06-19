@@ -227,3 +227,19 @@ report28:
     "日報の検索結果テスト用"
   reported_on: "2017-05-20"
   created_at: "2017-05-20 00:00:00"
+
+report29:
+  user: hajime
+  title: "先月の日報"
+  emotion: 0
+  description: |-
+    頑張りました
+  reported_on: <%= Time.now - 1.month %>
+
+report30:
+  user: hajime
+  title: "先月の日報2"
+  emotion: 2
+  description: |-
+    頑張れませんでした
+  reported_on: <%= Time.now - 1.month - 1.day %>
