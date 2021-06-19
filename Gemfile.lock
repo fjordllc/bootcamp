@@ -450,6 +450,7 @@ GEM
     unicode-display_width (1.7.0)
     unicode_utils (1.4.0)
     uniform_notifier (1.13.2)
+    vcr (6.0.0)
     view_source_map (0.3.0)
       rails (>= 5)
     web-console (4.1.0)
@@ -543,6 +544,7 @@ DEPENDENCIES
   stripe-i18n!
   sucker_punch (~> 2.0)
   traceroute
+  vcr
   view_source_map
   web-console (>= 4.1.0)
   webdrivers

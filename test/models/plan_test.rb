@@ -4,7 +4,8 @@ require 'test_helper'
 
 class PlanTest < ActiveSupport::TestCase
   test '.standard_plan' do
-    plan = Plan.standard_plan
-    assert_equal 'スタンダードプラン', plan['nickname']
+    VCR.use_cassette 'plan/list' do
+      assert_equal 'スタンダードプラン', Plan.standard_plan['nickname']
+    end
   end
 end
