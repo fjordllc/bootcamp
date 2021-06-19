@@ -70,6 +70,7 @@ Rails.application.routes.draw do
     end
     resources :announcements, except: %i(new edit)
     resources :searchables, only: %i(index)
+    resources :niconico_calendars, only: %i(show)
   end
 
   namespace :admin do
