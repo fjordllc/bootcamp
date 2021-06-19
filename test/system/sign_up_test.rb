@@ -7,8 +7,7 @@ class SignUpTest < ApplicationSystemTestCase
     visit '/users/new'
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'foo'
-      # 決め打ちメールアドレスにした場合テストを複数回実行すると失敗するため、ランダムでメールアドレスを生成する 詳細はissue#2035参照
-      fill_in 'user[email]', with: "test-#{SecureRandom.hex(16)}@example.com"
+      fill_in 'user[email]', with: 'test@example.com'
       fill_in 'user[name]', with: 'テスト 太郎'
       fill_in 'user[name_kana]', with: 'テスト タロウ'
       fill_in 'user[description]', with: 'テスト太郎です。'
@@ -21,9 +20,10 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111')
 
-    click_button '利用規約に同意して参加する'
-    sleep 1
-    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    VCR.use_cassette 'sign_up/valid-card' do
+      click_button '利用規約に同意して参加する'
+      assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    end
   end
 
   test 'sign up with expired card' do
@@ -43,9 +43,10 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('4000 0000 0000 0069', '12 / 21', '111')
 
-    click_button '利用規約に同意して参加する'
-    sleep 1
-    assert_text 'クレジットカードが有効期限切れです。'
+    VCR.use_cassette 'sign_up/expired-card' do
+      click_button '利用規約に同意して参加する'
+      assert_text 'クレジットカードが有効期限切れです。'
+    end
   end
 
   test 'sign up with incorrect cvc card' do
@@ -65,9 +66,10 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('4000 0000 0000 0127', '12 / 21', '111')
 
-    click_button '利用規約に同意して参加する'
-    sleep 1
-    assert_text 'クレジットカードセキュリティコードが正しくありません。'
+    VCR.use_cassette 'sign_up/incorrect-cvc-card' do
+      click_button '利用規約に同意して参加する'
+      assert_text 'クレジットカードセキュリティコードが正しくありません。'
+    end
   end
 
   test 'sign up with declined card' do
@@ -87,9 +89,10 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('4000 0000 0000 0002', '12 / 21', '111')
 
-    click_button '利用規約に同意して参加する'
-    sleep 1
-    assert_text 'クレジットカードへの請求が拒否されました。'
+    VCR.use_cassette 'sign_up/declined-card' do
+      click_button '利用規約に同意して参加する'
+      assert_text 'クレジットカードへの請求が拒否されました。'
+    end
   end
 
   test 'sign up as adviser' do
@@ -159,8 +162,10 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111')
 
-    click_button '利用規約に同意して参加する'
-    assert_text 'に使用できない文字列が含まれています'
+    VCR.use_cassette 'sign_up/valid-card' do
+      click_button '利用規約に同意して参加する'
+      assert_text 'に使用できない文字列が含まれています'
+    end
   end
 
   test 'sign up as adviser with company_id' do
@@ -198,8 +203,9 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111')
 
-    click_button '利用規約に同意して参加する'
-    sleep 1
-    assert_text '自己紹介を入力してください'
+    VCR.use_cassette 'sign_up/valid-card' do
+      click_button '利用規約に同意して参加する'
+      assert_text '自己紹介を入力してください'
+    end
   end
 end

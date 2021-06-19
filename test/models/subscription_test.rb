@@ -3,19 +3,26 @@
 require 'test_helper'
 
 class SubscriptionTest < ActiveSupport::TestCase
+  test '#retrieve' do
+    VCR.use_cassette 'subscription/retrieve' do
+      subscription = Subscription.new.retrieve('sub_12345678')
+      assert_equal 'sub_12345678', subscription['id']
+    end
+  end
+
   test '#create' do
-    subscription = travel_to Time.zone.parse('2023-01-01 00:00:00') do
+    travel_to Time.zone.parse('2023-01-01 00:00:00') do
       VCR.use_cassette 'subscription/create' do
-        Subscription.new.create('cus_12345678')
+        subscription = Subscription.new.create('cus_12345678')
+        assert_equal 'sub_12345678', subscription['id']
       end
     end
-    assert subscription['id'].present?
   end
 
   test '#destroy' do
     VCR.use_cassette 'subscription/update' do
       subscription = Subscription.new.destroy('sub_12345678')
-      assert subscription['id'].present?
+      assert_equal 'sub_12345678', subscription['id']
     end
   end
 

@@ -170,7 +170,7 @@ http_interactions:
       encoding: UTF-8
       string: |-
         {
-          "id": "sub_JhRl7RujYO2Bd4",
+          "id": "sub_12345678",
           "object": "subscription",
           "application_fee_percent": null,
           "automatic_tax": {
@@ -258,7 +258,7 @@ http_interactions:
                   "unit_amount_decimal": "29800"
                 },
                 "quantity": 1,
-                "subscription": "sub_JhRl7RujYO2Bd4",
+                "subscription": "sub_12345678",
                 "tax_rates": [
 
                 ]
@@ -266,7 +266,7 @@ http_interactions:
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/subscription_items?subscription=sub_JhRl7RujYO2Bd4"
+            "url": "/v1/subscription_items?subscription=sub_12345678"
           },
           "latest_invoice": "in_1J42sABpeWcLFd8fMJ1mRFIt",
           "livemode": false,
@@ -736,7 +736,7 @@ http_interactions:
               "trial_start": 1624104217
             },
             {
-              "id": "sub_JhRl7RujYO2Bd4",
+              "id": "sub_12345678",
               "object": "subscription",
               "application_fee_percent": null,
               "automatic_tax": {
@@ -824,7 +824,7 @@ http_interactions:
                       "unit_amount_decimal": "29800"
                     },
                     "quantity": 1,
-                    "subscription": "sub_JhRl7RujYO2Bd4",
+                    "subscription": "sub_12345678",
                     "tax_rates": [
 
                     ]
@@ -832,7 +832,7 @@ http_interactions:
                 ],
                 "has_more": false,
                 "total_count": 1,
-                "url": "/v1/subscription_items?subscription=sub_JhRl7RujYO2Bd4"
+                "url": "/v1/subscription_items?subscription=sub_12345678"
               },
               "latest_invoice": "in_1J42sABpeWcLFd8fMJ1mRFIt",
               "livemode": false,
