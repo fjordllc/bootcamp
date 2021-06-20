@@ -73,6 +73,31 @@ export default {
           report.reported_on.includes(`${this.calendarYear}-${this.formatMonth(this.calendarMonth)}`)
       )
     },
+    firstWday() {
+      const firstDay = new Date(this.calendarYear, this.calendarMonth - 1, 1)
+      return firstDay.getDay()
+    },
+    lastDate() {
+      const lastDay = new Date(this.calendarYear, this.calendarMonth, 0)
+      return lastDay.getDate()
+    },
+    calendarSquares() {
+      const calendars = []
+      if (this.firstWday > 0) {
+        for(let blank = 0; blank < this.firstWday; blank++) {
+          calendars.push(null)
+        }
+      }
+      for (let date = 1; date <= this.lastDate; date++) {
+        let reslut = null
+        if ((reslut = this.calendarReports.find(report => report.reported_on.endsWith(date.toString().padStart(2, '0'))))) {
+          calendars.push(reslut)
+        } else {
+          calendars.push(date)
+        }
+      }
+      return calendars
+    }
   },
   methods: {
     token() {
