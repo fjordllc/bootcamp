@@ -2,12 +2,9 @@
 
 class AddEmptyStringToNilDescription < ActiveRecord::Migration[6.1]
   def up
-    User.find_each do |user|
-      if user.description.nil?
-        user.description = '自己紹介文はありません。'
-        user.save!
-      end
-    end
+    now = Time.current
+
+    User.where(description: nil).update_all(description: '自己紹介文はありません。', updated_at: now)
   end
 
   def down
