@@ -1,0 +1,38 @@
+name: Lint
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
+      with:
+        ruby-version: 2.6.6
+        bundler-cache: true
+
+    - name: Cache node modules
+      uses: actions/cache@v2.1.4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: yarn install
+      run:  yarn install --check-files
+
+    - name: Rubocop
+      run: bundle exec rubocop
+
+    - name: Traceroute
+      run: FAIL_ON_ERROR=1 bundle exec rake traceroute
+
+    - name: Slim Lint
+      run: bundle exec slim-lint app/views -c config/slim_lint.yml
+
+    - name: JS Lint
+      run: bin/yarn lint
