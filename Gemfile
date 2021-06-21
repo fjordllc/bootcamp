@@ -71,8 +71,9 @@ group :development do
   gem 'bundle_outdated_formatter'
   gem 'letter_opener_web', '~> 1.0'
   gem 'rack-mini-profiler', '~> 2.0'
-  gem 'rubocop-fjord', require: false
-  gem 'rubocop-minitest'
+  gem 'rubocop', require: false
+  gem 'rubocop-minitest', require: false
+  gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'slim_lint'
   gem 'view_source_map'
