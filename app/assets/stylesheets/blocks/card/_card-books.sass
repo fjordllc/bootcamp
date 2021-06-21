@@ -1,25 +1,24 @@
-.card-books__items
-  +media-breakpoint-up(md)
-    display: flex
-    flex-wrap: wrap
-    overflow: hidden
 
 .card-books-item
-  border-bottom: solid 1px $border
-  +media-breakpoint-up(md)
-    flex-basis: calc(50% + 2px)
-    width: calc(50% + 2px)
-    border-right: solid 1px $border
-    margin: -1px
+  &:not(:first-child)
+    border-top: solid 1px $border
 
 .card-books-item__inner
-  +flex-link
   +size(100%)
   padding: .75rem 1rem
+  +media-breakpoint-up(md)
+    +flex-link
+  +media-breakpoint-down(sm)
+    +block-link
 
 .card-books-item__start
-  flex: 0 0 4rem
-  margin-right: 1rem
+  +media-breakpoint-up(md)
+    flex: 0 0 4rem
+    margin-right: 1.5rem
+  +media-breakpoint-down(sm)
+    float: left
+    margin-right: 1rem
+    width: 3.5rem
 
 .card-books-item__end
   flex: 1
@@ -31,18 +30,18 @@
   justify-content: center
 
 .card-books-item__title
-  +text-block(1em 1.4, $default-text)
+  +text-block(1rem 1.4, $default-text)
   transition: all .2s ease-out
-  +media-breakpoint-up(md)
-    font-size: .875rem
-  +media-breakpoint-down(sm)
-    font-size: .8125rem
-  .card-books-item__inner:hover &
-    text-decoration: underline
-    color: $main
+  .a-badge
+    +position(relative, top -.125em)
+    margin-right: .5em
+
+.card-books-item__inner:hover .card-books-item__title-label
+  text-decoration: underline
+  color: $main
 
 .card-books-item__price
-  +text-block(.8125rem 1.4 .125em, $default-text)
+  +text-block(.875rem 1.4 .5em, $default-text)
 
 .card-books-item__image
   max-height: 100%
@@ -51,3 +50,8 @@
   object-position: 50% 0
   border: solid 1px $background
   border-radius: 2px
+
+.card-books-item__description
+  font-size: .75rem
+  color: $semi-muted-text
+  margin-top: .5em
