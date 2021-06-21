@@ -334,5 +334,4 @@ class EventsTest < ApplicationSystemTestCase
     visit event_path(events(:event2))
     assert_text 'komagata (Komagata Masaki)'
   end
-
 end
