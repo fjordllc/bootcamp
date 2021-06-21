@@ -360,6 +360,9 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.4.1)
       parser (>= 2.7.1.5)
+    rubocop-fjord (0.1.4)
+      rubocop (>= 1.0)
+      rubocop-performance
     rubocop-minitest (0.11.0)
       rubocop (>= 0.90, < 2.0)
     rubocop-performance (1.11.3)
@@ -530,6 +533,7 @@ DEPENDENCIES
   rollbar
   rqrcode
   rubocop
+  rubocop-fjord
   rubocop-minitest
   rubocop-performance
   rubocop-rails
