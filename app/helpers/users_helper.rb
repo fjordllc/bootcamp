@@ -60,6 +60,6 @@ module UsersHelper
   end
 
   def user_practices(user)
-    user.course.categories.order(:position).map(&:practices).flatten
+    user.course.categories.order(:position).flat_map(&:practices)
   end
 end
