@@ -22,11 +22,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     driven_by :selenium, using: :headless_chrome
   end
 
-  setup do
-    stub_github!
-    stub_subscription_all!
-  end
-
   def wait_for_vuejs
     # https://bootcamp.fjord.jp/questions/468 に書いた理由により、やむを得ずsleepする
     sleep VUEJS_WAIT_SECOND

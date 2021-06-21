@@ -58,7 +58,6 @@ group :development, :test do
   # not default
   gem 'pry-byebug'
   gem 'traceroute'
-  gem 'webmock'
 end
 
 group :development do
@@ -72,8 +71,10 @@ group :development do
   gem 'bundle_outdated_formatter'
   gem 'letter_opener_web', '~> 1.0'
   gem 'rack-mini-profiler', '~> 2.0'
+  gem 'rubocop', require: false
   gem 'rubocop-fjord', require: false
-  gem 'rubocop-minitest'
+  gem 'rubocop-minitest', require: false
+  gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'slim_lint'
   gem 'view_source_map'
@@ -81,6 +82,9 @@ end
 
 group :test do
   gem 'capybara', '>= 2.15'
+  gem 'minitest-retry'
   gem 'selenium-webdriver'
+  gem 'vcr'
   gem 'webdrivers'
+  gem 'webmock'
 end
