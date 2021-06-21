@@ -1,7 +1,49 @@
-inherit_gem:
-  rubocop-fjord:
-    - config/rubocop.yml
-    - config/rails.yml
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-minitest
+
+AllCops:
+  NewCops: disable
+
+  Exclude:
+    - '**/templates/**/*'
+    - '**/vendor/**/*'
+    - app/views/**/*
+    - config/**/*
+    - config.ru
+    - node_modules/**/*
+    - db/migrate/*
+    - db/schema.rb
+    - storage/**/*
+    - tmp/**/*
+    - bin/**/*
+
+Performance:
+  Exclude:
+    - '**/test/**/*'
+
+Layout/LineLength:
+  Max: 160
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 20
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
 
 Metrics/BlockLength:
   Exclude:
@@ -19,16 +61,3 @@ Metrics/ClassLength:
     - app/models/practice.rb
     - app/models/user.rb
 
-AllCops:
-  Exclude:
-    - '**/templates/**/*'
-    - '**/vendor/**/*'
-    - app/views/**/*
-    - config/**/*
-    - config.ru
-    - node_modules/**/*
-    - db/migrate/*
-    - db/schema.rb
-    - storage/**/*
-    - tmp/**/*
-    - bin/**/*
