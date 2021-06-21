@@ -7,7 +7,7 @@
       .calendar__head
         .calendar__pager--previous(@click='previousMonth')
           | <
-        | {{ calendarMonth }}月
+        | {{ calendarYear }}年{{ calendarMonth }}月
         .calendar__pager--next(@click='nextMonth')
           | >
       table.niconico-calendar
@@ -97,6 +97,21 @@ export default {
         }
       }
       return calendars
+    },
+    calendarWeeksAry() {
+      const weeksAry = []
+      let week = []
+      let weekIndex = 1
+      this.calendarSquares.forEach(function (date, i, ary) {
+        week.push(date)
+        if (week.length === 7 || i === ary.length - 1) {
+          const weekObj = {weekIndex: weekIndex, week: week}
+          weeksAry.push(weekObj)
+          weekIndex++
+          week = []
+        }
+      })
+      return weeksAry
     }
   },
   methods: {
