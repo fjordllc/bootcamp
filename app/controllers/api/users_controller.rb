@@ -31,22 +31,6 @@ class API::UsersController < API::BaseController
   def show; end
 
   def update
-    if @user == current_user && @user.update(user_params)
-      head :ok
-    else
-      head :bad_request
-    end
-  end
-
-  def set_user
-    @user = User.find(params[:id])
-  end
-
-  def user_params
-    params.require(:user).permit(:tag_list)
-  end
-
-  def update
     @user = User.find(params[:id])
     if @user.update_mentor_memo(user_params[:mentor_memo])
       head :ok
@@ -64,7 +48,11 @@ class API::UsersController < API::BaseController
     target_allowlist
   end
 
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def user_params
-    params.require(:user).permit(:mentor_memo)
+    params.require(:user).permit(:tag_list, :mentor_memo)
   end
 end
