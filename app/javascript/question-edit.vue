@@ -6,7 +6,7 @@
       a.a-count-badge(href='#comments')
         .a-count-badge__label
           | 回答
-        .a-count-badge__value(v-if='!updatedAnswerCount')
+        .a-count-badge__value(v-if='!isAnswerCountUpdated')
           i.fas.fa-spinner
         .a-count-badge__value(:class='answerCount === 0 ? "is-zero" : ""')
           | {{ answerCount }}
@@ -190,7 +190,7 @@ export default {
   props: {
     question: { type: Object, required: true },
     answerCount: { type: Number, required: true },
-    updatedAnswerCount: { type: Boolean, required: true },
+    isAnswerCountUpdated: { type: Boolean, required: true },
     currentUser: { type: Object, required: true }
   },
   data() {
