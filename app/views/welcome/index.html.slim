@@ -1,35 +1,31 @@
-- content_for :extra_body_classes, "is-welcome-index has-main-visual"
+- content_for :extra_body_classes, 'is-welcome-index has-main-visual'
 - content_for :head_last do
   = javascript_include_tag 'https://sdk.form.run/js/v2/formrun.js'
 - content_for :canonical do
-  link(rel='canonical' href='#{root_url}')
+  link(rel='canonical' href="#{root_url}")
 
-= render "/lp/welcome/main_visual"
+= render '/lp/welcome/main_visual'
+.t-lp__contents
   = render 'welcome/campaign' if Campaign.today_is_campaign?
   .m-lp-content
     .l-container
       .m-lp-content__inner
         .m-lp-content__body
-          = render "/lp/plus_strength"
+          = render '/lp/plus_strength'
   hr.a-hr-border
-  .m-lp-content
-    .m-lp-content__inner
-      .m-lp-content__body
-        = render "/lp/features"
+  = render '/lp/welcome/features'
   hr.a-hr-border
-  = render "/lp/welcome/mentors"
+  = render '/lp/welcome/mentors'
   hr.a-hr-border
-  = render "/lp/welcome/articles"
+  = render '/lp/welcome/articles'
   hr.a-hr-border
-  = render "/lp/welcome/lerning_procedure"
+  = render '/lp/welcome/lerning_procedure'
   hr.a-hr-border
-  = render "/lp/welcome/features"
+  = render '/lp/welcome/practices'
   hr.a-hr-border
-  = render "/lp/welcome/practices"
+  = render '/lp/welcome/price'
   hr.a-hr-border
-  = render "/lp/welcome/price"
-  hr.a-hr-border
-  = render "/lp/welcome/employed_companies"
+  = render '/lp/welcome/employed_companies'
   hr.a-hr-border
   .m-lp-content
     .l-container
@@ -59,14 +55,14 @@
               .o-lp-comments
                 .l-grids
                   .l-grids__item.md-up:u-col-6.sm-down:u-col-12
-                    = link_to "", class: "m-medias-media" do
+                    = link_to '', class: 'm-medias-media' do
                       .l-container
                         .m-medias-media__col
                           .m-media-attributes
                             .m-media-attributes__col
                               .m-media-attributes__row
                                 .m-media-attributes__image
-                                  = image_tag("https://via.placeholder.com/100", class: "a-circle-image")
+                                  = image_tag('https://via.placeholder.com/100', class: 'a-circle-image')
                             .m-media-attributes__col
                               .m-media-attributes__row
                                 h2.m-media-attributes__title
@@ -89,14 +85,14 @@
                               p
                                 | それは黄金の昼下がり気ままにただようぼくらオールは二本ともあぶなげに小さな腕で漕がれ小さな手がぼくらのただよいを導こうとかっこうだけ申し訳につけてああ残酷な三人！こんな時間にこんな夢見る天気のもとで
                   .l-grids__item.md-up:u-col-6.sm-down:u-col-12
-                    = link_to "", class: "m-medias-media" do
+                    = link_to '', class: 'm-medias-media' do
                       .l-container
                         .m-medias-media__col
                           .m-media-attributes
                             .m-media-attributes__col
                               .m-media-attributes__row
                                 .m-media-attributes__image
-                                  = image_tag("https://via.placeholder.com/100", class: "a-circle-image")
+                                  = image_tag('https://via.placeholder.com/100', class: 'a-circle-image')
                             .m-media-attributes__col
                               .m-media-attributes__row
                                 h2.m-media-attributes__title
