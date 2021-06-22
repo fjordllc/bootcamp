@@ -21,6 +21,12 @@ header.page-header
 = render 'page_tabs', resource: @product.practice
 
 .page-body
+  - if !current_user.adviser? && @product.practice.open_product?
+    .a-page-notice.page-notice
+      .container
+        .a-page-notice__inner
+          p
+            | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
   .container
     div(class="#{current_user.mentor? || current_user.admin? ? 'row' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
