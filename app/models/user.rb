@@ -544,6 +544,10 @@ class User < ApplicationRecord
     category.practices.size == completed_practices_size(category)
   end
 
+  def practices
+    course.categories.order(:position).flat_map(&:practices)
+  end
+
   private
 
   def password_required?
