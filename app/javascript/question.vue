@@ -8,7 +8,7 @@
     questionEdit(
       :question='question',
       :answerCount='answerCount',
-      :updatedAnswerCount='updatedAnswerCount'
+      :isAnswerCountUpdated='isAnswerCountUpdated'
       :currentUser='currentUser'
     )
     a#comments.a-anchor
@@ -39,7 +39,7 @@ export default {
       question: null,
       currentUser: null,
       answerCount: 0,
-      updatedAnswerCount: false
+      isAnswerCountUpdated: false
     }
   },
   created() {
@@ -97,7 +97,7 @@ export default {
     },
     updateAnswerCount(count) {
       this.answerCount = count
-      this.updatedAnswerCount = true
+      this.isAnswerCountUpdated = true
     }
   }
 }
