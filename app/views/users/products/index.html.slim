@@ -15,5 +15,12 @@ header.page-header
 
 .page-body
   .container
-    .thread-list.a-card
-      = render partial: 'products/product', collection: @products, as: :product
+    - if @products.present?
+      .thread-list.a-card
+        = render partial: 'products/product', collection: @products, as: :product
+    - else
+      .o-empty-message
+        .o-empty-message__icon
+          i.far.fa-sad-tear
+        p.o-empty-message__text
+          | 提出物はまだありません。
