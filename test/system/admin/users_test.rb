@@ -156,7 +156,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'show pagination users' do
     login_user 'komagata', 'testtest'
     user = users(:kimura)
-    26.times do |n|
+    101.times do |n|
       User.create!(
         email: "test#{n}@fjord.jp",
         name: "test#{n}",
