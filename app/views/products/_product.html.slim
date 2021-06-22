@@ -34,7 +34,8 @@
                     | 提出日
                   = l product.created_at
 
-              - if product.updated_at.present?
+            - if product.updated_at.present?
+              .thread-list-item-meta__item
                 time.a-date(datetime="#{product.updated_at.to_datetime}")
                   span.a-date__label
                     | 最終更新日
@@ -57,6 +58,13 @@
                       cached: true
                   time.a-date(datetime="#{product.commented_users.last.created_at.to_datetime}")
                     | 〜 #{l product.comments.last.created_at, format: :date_and_time}
+      - if !current_user.adviser? && product.practice.open_product?
+        .thread-list-item__row
+          .thread-list-item-meta
+            .thread-list-item-meta__items
+              .thread-list-item-meta__item
+                .thread-list-item-meta__item-note
+                  | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
     - if product.checks.any?
       .stamp.stamp-approve
         h2.stamp__content.is-title 確認済
