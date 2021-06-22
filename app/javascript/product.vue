@@ -94,9 +94,9 @@ export default {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: String, required: true },
-    latestProductSubmittedJust5days: { type: String },
-    latestProductSubmittedJust6days: { type: String },
-    latestProductSubmittedOver7days: { type: String },
+    latestProductSubmittedJust5days: { type: String, required: false, default: null },
+    latestProductSubmittedJust6days: { type: String, required: false, default: null },
+    latestProductSubmittedOver7days: { type: String, required: false, default: null },
   },
   computed: {
     roleClass() {

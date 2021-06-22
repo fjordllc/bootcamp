@@ -111,7 +111,7 @@ export default {
           return response.json()
         })
         .then((json) => {
-          if (location.pathname == "/products/not_responded") {
+          if (location.pathname === "/products/not_responded") {
             this.latestProductSubmittedJust5days = json.latest_product_submitted_just_5days
             this.latestProductSubmittedJust6days = json.latest_product_submitted_just_6days
             this.latestProductSubmittedOver7days = json.latest_product_submitted_over_7days
