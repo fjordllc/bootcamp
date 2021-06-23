@@ -210,7 +210,7 @@ class SignUpTest < ApplicationSystemTestCase
   end
 
   test 'sign up with tag' do
-    email = 'goro@example.com'
+    email = 'tag_goro@example.com'
     tag = 'タグ五郎'
 
     visit '/users/new'
@@ -232,7 +232,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111')
 
-    VCR.use_cassette 'sign_up/valid-card' do
+    VCR.use_cassette 'sign_up/tag' do
       click_button '利用規約に同意して参加する'
       assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       goro = User.find_by(email: email)
