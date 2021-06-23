@@ -337,6 +337,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redcarpet (3.5.1)
     regexp_parser (2.1.1)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -530,6 +531,7 @@ DEPENDENCIES
   rails-i18n
   rails_autolink
   ransack
+  redcarpet
   rollbar
   rqrcode
   rubocop
@@ -560,4 +562,4 @@ RUBY VERSION
    ruby 2.6.6p146
 
 BUNDLED WITH
-   2.2.15
+   2.2.19
