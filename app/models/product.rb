@@ -112,11 +112,8 @@ class Product < ApplicationRecord
     checker_id ? User.find(checker_id).login_name : nil
   end
 
-  def submitted_just_specific_days(date)
-    published_at.nil? ? created_at.strftime('%F') == Time.zone.today.prev_day(date).to_s : published_at.strftime('%F') == Time.zone.today.prev_day(date).to_s
-  end
-
-  def submitted_over_specific_days(date)
-    published_at.nil? ? created_at.strftime('%F') == Time.zone.today.prev_day(date).to_s : published_at.strftime('%F') < Time.zone.today.prev_day(date - 1).to_s
+  def elapsed_days
+    t = published_at || created_at
+    ((Time.current - t) / 1.day).to_i
   end
 end
