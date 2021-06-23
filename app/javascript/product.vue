@@ -110,6 +110,8 @@ export default {
         ? `★${this.product.practice.title}の提出物`
         : `${this.product.practice.title}の提出物`
     },
+  },
+  methods: {
     isLatestProductSubmittedJust5days() {
       if (this.latestProductSubmittedJust5days !== null) {
         return this.product.id === this.latestProductSubmittedJust5days.id
