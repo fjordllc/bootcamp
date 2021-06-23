@@ -32,7 +32,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '未チェックの提出物を一括で開く'
 
     within_window(windows.last) do
-      assert_text 'テストの提出物1です。'
+      assert_text 'テストの提出物60です。'
     end
   end
 end
