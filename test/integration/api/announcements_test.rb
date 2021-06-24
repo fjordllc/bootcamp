@@ -111,7 +111,7 @@ class API::AnnouncementsTest < ActionDispatch::IntegrationTest
          },
          headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :created
-    assert_equal(true, Announcement.last.wip)
+    assert Announcement.last.wip
 
     token = create_token('komagata', 'testtest')
     post api_announcements_path(format: :json),
@@ -124,7 +124,7 @@ class API::AnnouncementsTest < ActionDispatch::IntegrationTest
          },
          headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :created
-    assert_equal(false, Announcement.last.wip)
+    assert_not Announcement.last.wip
   end
 
   test 'users except admin cannot publish an announcement when edit' do

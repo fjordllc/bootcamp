@@ -232,6 +232,8 @@ GEM
     mini_mime (1.0.3)
     mini_portile2 (2.5.1)
     minitest (5.14.4)
+    minitest-retry (0.2.2)
+      minitest (>= 5.0)
     msgpack (1.4.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -363,8 +365,8 @@ GEM
       rubocop-performance
     rubocop-minitest (0.11.0)
       rubocop (>= 0.90, < 2.0)
-    rubocop-performance (1.10.2)
-      rubocop (>= 0.90.0, < 2.0)
+    rubocop-performance (1.11.3)
+      rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
     rubocop-rails (2.9.1)
       activesupport (>= 4.2.0)
@@ -450,6 +452,7 @@ GEM
     unicode-display_width (1.7.0)
     unicode_utils (1.4.0)
     uniform_notifier (1.13.2)
+    vcr (6.0.0)
     view_source_map (0.3.0)
       rails (>= 5)
     web-console (4.1.0)
@@ -512,6 +515,7 @@ DEPENDENCIES
   listen (~> 3.3)
   mentionable (~> 0.2.1)
   meta-tags
+  minitest-retry
   oauth2
   omniauth (~> 1.9.1)
   omniauth-github (~> 1.4.0)
@@ -528,8 +532,10 @@ DEPENDENCIES
   ransack
   rollbar
   rqrcode
+  rubocop
   rubocop-fjord
   rubocop-minitest
+  rubocop-performance
   rubocop-rails
   sass-rails (>= 6)
   selenium-webdriver
@@ -543,6 +549,7 @@ DEPENDENCIES
   stripe-i18n!
   sucker_punch (~> 2.0)
   traceroute
+  vcr
   view_source_map
   web-console (>= 4.1.0)
   webdrivers
