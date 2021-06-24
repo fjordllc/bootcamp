@@ -1,0 +1,9 @@
+.page-tabs
+  .container
+    ul.page-tabs__items
+      li.page-tabs__item
+        = link_to root_path, class: "page-tabs__item-link #{current_page_tab_or_not('')}" do
+          | ダッシュボード
+      li.page-tabs__item
+        = link_to root_path, class: "page-tabs__item-link #{current_page_tab_or_not('reports')}" do
+          | 自分の日報
