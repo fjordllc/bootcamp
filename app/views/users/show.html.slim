@@ -31,7 +31,7 @@ header.page-header
       .row
         .col-xs-12.col-lg-6.col-xxl-6
           .a-card.is-user
-            - if admin_login? && @user.retired_on? && (@user.slack_participation? || @user.github_collaborator? || @user.officekey_permission?)
+            - if admin_login? && @user.retired_on? && (@user.slack_participation? || @user.github_collaborator?)
               .a-card__alert
                 = link_to edit_admin_user_path(anchor: 'external-services') do
                   | 外部サービスの設定を変更してください。
@@ -45,7 +45,13 @@ header.page-header
               .user-data__description
                 = auto_link simple_format h @user.description
               .user-data__tags
-                = render 'users/tags', user: @user
+                #js-user-tags(
+                  data-tags-initial-value="#{@user.tag_list.join(',')}"
+                  data-tags-param-name='user[tag_list]'
+                  data-tags-input-id='user_tag_list'
+                  data-user-id="#{@user.id}"
+                  data-current-user-id="#{current_user.id}"
+                )
 
             footer.card-footer
               .card-main-actions
