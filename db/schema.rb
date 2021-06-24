@@ -400,14 +400,6 @@ ActiveRecord::Schema.define(version: 2021_06_03_024907) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
-  create_table "timelines", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_timelines_on_user_id"
-  end
-
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "login_name", null: false
     t.string "email"
@@ -457,7 +449,6 @@ ActiveRecord::Schema.define(version: 2021_06_03_024907) do
     t.text "opinion"
     t.bigint "retire_reasons", default: 0, null: false
     t.string "unsubscribe_email_token"
-    t.text "mentor_memo"
     t.string "discord_account"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -484,7 +475,6 @@ ActiveRecord::Schema.define(version: 2021_06_03_024907) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "graduation_work", default: false, null: false
     t.index ["user_id", "title"], name: "index_works_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "index_works_on_user_id"
   end
@@ -510,6 +500,5 @@ ActiveRecord::Schema.define(version: 2021_06_03_024907) do
   add_foreign_key "questions", "practices"
   add_foreign_key "reactions", "users"
   add_foreign_key "reference_books", "practices"
-  add_foreign_key "timelines", "users"
   add_foreign_key "works", "users"
 end

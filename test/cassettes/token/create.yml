@@ -1,0 +1,103 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/tokens
+    body:
+      encoding: UTF-8
+      string: card[number]=4242424242424242&card[exp_month]=6&card[exp_year]=2022&card[cvc]=314
+    headers:
+      User-Agent:
+      - Stripe/v1 RubyBindings/4.5.0
+      Authorization:
+      - Bearer sk_test_XLP1Ajz1JvT9jUt5uKGvL0Wd
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"4.5.0","lang":"ruby","lang_version":"2.6.6 p146 (2020-03-31)","platform":"x86_64-darwin20","engine":"ruby","publisher":"stripe","uname":"Darwin
+        komagata-macbookpro.local 20.5.0 Darwin Kernel Version 20.5.0: Sat May  8
+        05:10:33 PDT 2021; root:xnu-7195.121.3~9/RELEASE_X86_64 x86_64","hostname":"komagata-macbookpro.local"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 20 Jun 2021 05:53:32 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '786'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_Np1ZDyBXQZBSlr
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-C-Cost:
+      - '1'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "id": "tok_12345678",
+          "object": "token",
+          "card": {
+            "id": "card_12345678",
+            "object": "card",
+            "address_city": null,
+            "address_country": null,
+            "address_line1": null,
+            "address_line1_check": null,
+            "address_line2": null,
+            "address_state": null,
+            "address_zip": null,
+            "address_zip_check": null,
+            "brand": "Visa",
+            "country": "US",
+            "cvc_check": "unchecked",
+            "dynamic_last4": null,
+            "exp_month": 6,
+            "exp_year": 2022,
+            "fingerprint": "eag9gJuE59ucFrh7",
+            "funding": "credit",
+            "last4": "4242",
+            "metadata": {
+            },
+            "name": null,
+            "tokenization_method": null
+          },
+          "client_ip": "159.28.241.145",
+          "created": 1624168412,
+          "livemode": false,
+          "type": "card",
+          "used": false
+        }
+  recorded_at: Sun, 20 Jun 2021 05:53:32 GMT
+recorded_with: VCR 6.0.0

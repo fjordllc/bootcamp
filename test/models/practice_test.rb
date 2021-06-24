@@ -37,7 +37,7 @@ class PracticeTest < ActiveSupport::TestCase
     Practice.save_learning_minute_statistics
 
     practice_ids = Practice.joins(:reports).merge(Report.not_wip).distinct.pluck(:id)
-    assert LearningMinuteStatistic.count == practice_ids.size
+    assert_equal practice_ids.size, LearningMinuteStatistic.count
   end
 
   test '#category' do
