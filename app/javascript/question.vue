@@ -42,6 +42,7 @@ export default {
   },
   created() {
     this.fetchQuestion(this.questionId)
+    this.fetchUser(this.currentUserId)
   },
   methods: {
     fetchQuestion(id) {
@@ -58,7 +59,25 @@ export default {
         })
         .then((question) => {
           this.question = question
-          this.currentUser = question.user
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
+    },
+    fetchUser(id) {
+      fetch(`/api/users/${id}.json`, {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        credentials: 'same-origin',
+        redirect: 'manual'
+      })
+        .then((response) => {
+          return response.json()
+        })
+        .then((user) => {
+          this.currentUser = user
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)

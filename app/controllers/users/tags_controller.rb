@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::TagsController < ApplicationController
+  before_action :require_login
+
   def index
     @tags = User.tags.order('taggings_count desc')
     @top3_tags_counts = @tags.limit(3).map(&:taggings_count).uniq
