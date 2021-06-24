@@ -8,7 +8,7 @@
     questionEdit(
       :question='question',
       :answerCount='answerCount',
-      :isAnswerCountUpdated='isAnswerCountUpdated'
+      :isAnswerCountUpdated='isAnswerCountUpdated',
       :currentUser='currentUser'
     )
     a#comments.a-anchor

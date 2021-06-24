@@ -206,7 +206,7 @@ export default {
       editing: false,
       displayedUpdateMessage: false,
       tab: 'question',
-      practices: null,
+      practices: null
     }
   },
   computed: {
