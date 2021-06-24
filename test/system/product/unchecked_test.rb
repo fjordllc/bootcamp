@@ -40,7 +40,7 @@ class ProductsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'renamed unchecked to incomplete' do
+  test 'show incomplete' do
     login_user 'komagata', 'testtest'
     visit '/products/unchecked'
     assert_link '未完了'
