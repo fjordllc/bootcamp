@@ -232,7 +232,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111')
 
-    VCR.use_cassette 'sign_up/tag' do
+    VCR.use_cassette 'sign_up/tag', record: :once, match_requests_on: %i[method uri] do
       click_button '利用規約に同意して参加する'
       assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       goro = User.find_by(email: email)
