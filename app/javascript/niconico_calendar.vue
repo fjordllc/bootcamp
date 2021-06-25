@@ -5,11 +5,15 @@
         | ニコニコカレンダー
     .card-body
       .calendar__head
-        .calendar__pager--previous(@click='previousMonth')
-          | <
-        | {{ calendarYear }}年{{ calendarMonth }}月
-        .calendar__pager--next(@click='nextMonth')
-          | >
+        .calendar__head--previous(
+          v-show='!oldestMonth()'
+          @click='previousMonth'
+        ) <
+        .calendar__head--year--month {{ calendarYear }}年{{ calendarMonth }}月
+        .calendar__head--next(
+          v-show='!newestMonth()'
+          @click='nextMonth'
+          ) >
       table.niconico-calendar
         thead.niconico-calendar__header
           tr
@@ -27,7 +31,30 @@
               | 金
             th.niconico-calendar__header-day.is-saturday
               | 土
-        tbody.niconico-calendar__body
+        tbody.niconico-calendar__body(
+          v-for='weekObj in calendarWeeksAry',
+          :key='weekObj.weekIndex'
+          )
+          tr.niconico-calendar__week
+            td.niconico-calendar__day(
+              v-for='date in weekObj.week'
+              :key='date.weekDay'
+              :class="emotionClass(date)"
+            )
+              a.niconico-calendar__day-inner(
+                v-if='date.id'
+                :href='`/reports/${date.id}`'
+              )
+                .niconico-calendar__day-label {{ date.date }}
+                .niconico-calendar__day-value
+                  img.niconico-calendar__emotion-image(
+                    :src='`/images/emotion/${date.emotion}.svg`'
+                    :alt='date.emotion'
+                  )
+              .niconico-calendar__day-inner(v-else)
+                .niconico-calendar__day-label {{ date.date }}
+                .niconico-calendar__day-value
+                  i.fas.fa-minus(v-if='date.date')
 </template>
 
 <script>
@@ -38,10 +65,10 @@ export default {
   data() {
     return {
       reports: [],
-      currentYear: new Date().getFullYear(),
-      currentMonth: new Date().getMonth() + 1,
-      calendarYear: new Date().getFullYear(),
-      calendarMonth: new Date().getMonth() + 1,
+      currentYear: this.getCurrentYear(),
+      currentMonth: this.getCurrentMonth(),
+      calendarYear: this.getCurrentYear(),
+      calendarMonth: this.getCurrentMonth(),
     }
   },
   mounted() {
@@ -82,37 +109,43 @@ export default {
       return lastDay.getDate()
     },
     calendarSquares() {
-      const calendars = []
+      const calendar = []
       if (this.firstWday > 0) {
-        for(let blank = 0; blank < this.firstWday; blank++) {
-          calendars.push(null)
+        for (let blank = 0; blank < this.firstWday; blank++) {
+          calendar.push(null)
         }
       }
       for (let date = 1; date <= this.lastDate; date++) {
-        let reslut = null
-        if ((reslut = this.calendarReports.find(report => report.reported_on.endsWith(date.toString().padStart(2, '0'))))) {
-          calendars.push(reslut)
+        let result = null
+        if ((result = this.calendarReports.find(report =>
+            Number(report.reported_on.split('-')[2]) === date))) {
+          result.date = date
+          calendar.push(result)
         } else {
-          calendars.push(date)
+          calendar.push({date: date})
         }
       }
-      return calendars
+      return calendar
     },
     calendarWeeksAry() {
       const weeksAry = []
       let week = []
       let weekIndex = 1
+      let weekDay = 0
       this.calendarSquares.forEach(function (date, i, ary) {
+        !date ? date = {weekDay: weekDay} : date.weekDay = weekDay
         week.push(date)
+        weekDay++
         if (week.length === 7 || i === ary.length - 1) {
           const weekObj = {weekIndex: weekIndex, week: week}
           weeksAry.push(weekObj)
           weekIndex++
           week = []
+          weekDay = 0
         }
       })
       return weeksAry
-    }
+    },
   },
   methods: {
     token() {
@@ -127,7 +160,7 @@ export default {
         this.calendarMonth = 12
         this.calendarYear--
       } else {
-        return this.calendarMonth--
+        this.calendarMonth--
       }
     },
     nextMonth() {
@@ -135,8 +168,26 @@ export default {
         this.calendarMonth = 1
         this.calendarYear++
       } else {
-        return this.calendarMonth++
+        this.calendarMonth++
       }
+    },
+    emotionClass(date) {
+      return date.emotion ? `is-${date.emotion}` : 'is-blank'
+    },
+    oldestMonth() {
+      const firstReportDate = this.reports[0].reported_on
+      const firstReportYear = Number(firstReportDate.split('-')[0])
+      const firstReportMonth = Number(firstReportDate.split('-')[1])
+      return firstReportYear === this.calendarYear && firstReportMonth === this.calendarMonth
+    },
+    newestMonth() {
+      return this.currentYear === this.calendarYear && this.currentMonth === this.calendarMonth
+    },
+    getCurrentYear() {
+      return new Date().getFullYear()
+    },
+    getCurrentMonth() {
+      return new Date().getMonth() + 1
     }
   }
 }
