@@ -3,10 +3,8 @@
 require 'application_system_test_case'
 
 class EmotionsTest < ApplicationSystemTestCase
-  setup { login_user 'komagata', 'testtest' }
-
   test 'create a report with an emotion' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
     within('#new_report') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')

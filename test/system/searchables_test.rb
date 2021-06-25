@@ -3,9 +3,8 @@
 require 'application_system_test_case'
 
 class SearchablesTest < ApplicationSystemTestCase
-  setup { login_user 'hatsuno', 'testtest' }
-
   test 'search All ' do
+    visit_with_auth '/', 'hatsuno'
     within('form[name=search]') do
       select 'すべて'
       fill_in 'word', with: '検索結果テスト用'
@@ -21,6 +20,7 @@ class SearchablesTest < ApplicationSystemTestCase
   end
 
   test 'search reports ' do
+    visit_with_auth '/', 'hatsuno'
     within('form[name=search]') do
       select '日報'
       fill_in 'word', with: 'テストの日報'
@@ -30,6 +30,7 @@ class SearchablesTest < ApplicationSystemTestCase
   end
 
   test 'search events' do
+    visit_with_auth '/', 'hatsuno'
     within('form[name=search]') do
       select 'イベント'
       fill_in 'word', with: 'テストのイベント'
@@ -39,7 +40,7 @@ class SearchablesTest < ApplicationSystemTestCase
   end
 
   test 'admin can see comment description' do
-    login_user 'komagata', 'testtest'
+    visit_with_auth '/', 'komagata'
     within('form[name=search]') do
       select 'すべて'
       fill_in 'word', with: 'テストの日報'
@@ -49,7 +50,7 @@ class SearchablesTest < ApplicationSystemTestCase
   end
 
   test 'advisor can see comment description' do
-    login_user 'advijirou', 'testtest'
+    visit_with_auth '/', 'advijirou'
     within('form[name=search]') do
       select 'すべて'
       fill_in 'word', with: 'テストの日報'
@@ -59,7 +60,7 @@ class SearchablesTest < ApplicationSystemTestCase
   end
 
   test 'can see comment description if it is permitted' do
-    login_user 'kimura', 'testtest'
+    visit_with_auth '/', 'kimura'
     within('form[name=search]') do
       select 'すべて'
       fill_in 'word', with: 'テストの日報'
@@ -69,6 +70,7 @@ class SearchablesTest < ApplicationSystemTestCase
   end
 
   test "can not see comment description if it isn't permitted" do
+    visit_with_auth '/', 'hatsuno'
     within('form[name=search]') do
       select 'すべて'
       fill_in 'word', with: 'テストの日報'
@@ -78,6 +80,7 @@ class SearchablesTest < ApplicationSystemTestCase
   end
 
   test 'show user name and updated time' do
+    visit_with_auth '/', 'hatsuno'
     within('form[name=search]') do
       select '日報'
       fill_in 'word', with: 'テストの日報'
@@ -89,6 +92,7 @@ class SearchablesTest < ApplicationSystemTestCase
   end
 
   test 'search user' do
+    visit_with_auth '/', 'hatsuno'
     within('form[name=search]') do
       select 'ユーザー'
       fill_in 'word', with: 'komagata'
@@ -99,6 +103,7 @@ class SearchablesTest < ApplicationSystemTestCase
   end
 
   test 'can search user with nil description' do
+    visit_with_auth '/', 'hatsuno'
     kimura = users(:kimura)
     kimura.update_attribute(:description, nil) # rubocop:disable Rails/SkipsModelValidations
     within('form[name=search]') do

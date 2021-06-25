@@ -3,15 +3,13 @@
 require 'application_system_test_case'
 
 class BooksTest < ApplicationSystemTestCase
-  setup { login_user 'hatsuno', 'testtest' }
-
   test 'show listing books' do
-    visit books_path
+    visit_with_auth books_path, 'hatsuno'
     assert_text '書籍一覧'
   end
 
   test 'search books' do
-    visit books_path
+    visit_with_auth books_path, 'hatsuno'
     within('form[name=book_search]') do
       fill_in 'word', with: '現場'
     end

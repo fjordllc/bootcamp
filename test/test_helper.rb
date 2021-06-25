@@ -11,7 +11,7 @@ require 'supports/vcr_helper'
 Capybara.default_max_wait_time = 5
 Capybara.disable_animation = true
 Webdrivers.cache_time = 86_400
-Minitest::Retry.use!
+Minitest::Retry.use! if ENV['CI']
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers

@@ -4,20 +4,17 @@ require 'application_system_test_case'
 
 class Check::ReportsTest < ApplicationSystemTestCase
   test 'non admin user is non botton' do
-    login_user 'sotugyou', 'testtest'
-    visit "/reports/#{reports(:report2).id}"
+    visit_with_auth "/reports/#{reports(:report2).id}", 'kimura'
     assert_not has_button? '日報を確認'
   end
 
   test 'user can see stamp' do
-    login_user 'sotugyou', 'testtest'
-    visit "/reports/#{reports(:report1).id}"
+    visit_with_auth "/reports/#{reports(:report1).id}", 'kimura'
     assert_text '確認済'
   end
 
   test 'success report checking' do
-    login_user 'machida', 'testtest'
-    visit  "/reports/#{reports(:report2).id}"
+    visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
     assert has_button? '日報を確認'
     click_button '日報を確認'
     assert has_button? '日報の確認を取り消す'
@@ -26,7 +23,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
   end
 
   test "success adviser's report checking" do
-    login_user 'advijirou', 'testtest'
+    visit_with_auth '/', 'advijirou'
     assert_equal '/', current_path
     click_link '日報'
     assert_text '作業週2日目'
@@ -39,8 +36,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'success report checking cancel' do
-    login_user 'machida', 'testtest'
-    visit "/reports/#{reports(:report2).id}"
+    visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
     click_button '日報を確認'
     click_button '日報の確認を取り消す'
     within('.thread') do
@@ -50,8 +46,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'comment and check report' do
-    login_user 'machida', 'testtest'
-    visit "/reports/#{reports(:report2).id}"
+    visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
     fill_in 'new_comment[description]', with: '日報でcomment+確認OKにするtest'
     click_button '確認OKにする'
     assert_text '確認済'
@@ -59,15 +54,13 @@ class Check::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'success recent report checking' do
-    login_user 'machida', 'testtest'
-    visit "/reports/#{reports(:report20).id}"
+    visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
     click_button '日報を確認'
     assert page.first('.recent-reports-item').has_css?('.stamp-approve')
   end
 
   test 'success recent report checking cancel' do
-    login_user 'machida', 'testtest'
-    visit "/reports/#{reports(:report20).id}"
+    visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
     click_button '日報を確認'
     wait_for_vuejs
     click_button '日報の確認を取り消す'
