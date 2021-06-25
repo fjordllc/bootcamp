@@ -72,9 +72,8 @@ header.page-header
             = render 'users/github_grass', user: @user
           - if @user.active_practices.present?
             = render '/users/practices/active_practices', user: @user
-          #js-niconico_calendar(data-user-id="#{@user.id}")
-          / - if @user.student? && @user.graduated_on.blank?
-          /   = render '/users/niconico_calendar', user: @user
+          - if @user.student? && @user.graduated_on.blank?
+            #js-niconico_calendar(data-user-id="#{@user.id}")
           - if @user.completed_practices.present?
             - cache [@user, @completed_learnings] do
               = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
