@@ -4,68 +4,59 @@ require 'application_system_test_case'
 
 class AnnouncementsTest < ApplicationSystemTestCase
   test 'show link to create new announcement when user is admin' do
-    login_user 'komagata', 'testtest'
-    visit '/announcements'
+    visit_with_auth '/announcements', 'komagata'
     assert_text 'お知らせ作成'
   end
 
   test "show link to create new announcement when user isn't admin" do
-    login_user 'kimura', 'testtest'
-    visit '/announcements'
+    visit_with_auth '/announcements', 'kimura'
     assert_text 'お知らせ作成'
   end
 
   test 'show pagination' do
-    login_user 'kimura', 'testtest'
     user = users(:komagata)
     Announcement.delete_all
     26.times do
       Announcement.create(title: 'test', description: 'test', user: user)
     end
-    visit '/announcements'
+    visit_with_auth '/announcements', 'kimura'
     assert_selector 'nav.pagination', count: 2
   end
 
   test 'show WIP message' do
-    login_user 'kimura', 'testtest'
     user = users(:komagata)
     Announcement.create(title: 'test', description: 'test', user: user, wip: true)
-    visit '/announcements'
+    visit_with_auth '/announcements', 'kimura'
     assert_selector '.thread-list-item-title__icon'
     assert_text 'お知らせ作成中'
   end
 
   test 'announcement has a comment form ' do
-    login_user 'kimura', 'testtest'
-    visit "/announcements/#{announcements(:announcement1).id}"
+    visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
     assert_selector '.thread-comment-form'
   end
 
   test 'announcement has a copy form when user is admin' do
-    login_user 'komagata', 'testtest'
-    visit "/announcements/#{announcements(:announcement4).id}"
+    visit_with_auth "/announcements/#{announcements(:announcement4).id}", 'komagata'
     click_link 'コピー'
 
     assert_text 'お知らせをコピーしました。'
   end
 
   test 'announcement has a copy form when user is author' do
-    login_user 'kimura', 'testtest'
-    visit "/announcements/#{announcements(:announcement4).id}"
+    visit_with_auth "/announcements/#{announcements(:announcement4).id}", 'kimura'
     click_link 'コピー'
 
     assert_text 'お知らせをコピーしました。'
   end
 
   test 'users except admin cannot publish an announcement' do
-    login_user 'kimura', 'testtest'
-    visit new_announcement_path
+    visit_with_auth new_announcement_path, 'kimura'
     page.assert_no_selector('input[value="作成"]')
   end
 
   test 'create a new announcement as wip' do
-    login_user 'kimura', 'testtest'
-    visit new_announcement_path
+    visit_with_auth new_announcement_path, 'kimura'
     fill_in 'announcement[title]', with: '仮のお知らせ'
     fill_in 'announcement[description]', with: 'まだWIPです。'
     assert_difference 'Announcement.count', 1 do
@@ -75,8 +66,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
   end
 
   test 'delete announcement with notification' do
-    login_user 'komagata', 'testtest'
-    visit '/announcements'
+    visit_with_auth '/announcements', 'komagata'
     click_link 'お知らせ作成'
     fill_in 'announcement[title]', with: 'タイトルtest'
     fill_in 'announcement[description]', with: '内容test'
@@ -84,26 +74,22 @@ class AnnouncementsTest < ApplicationSystemTestCase
     click_button '作成'
     assert_text 'お知らせを作成しました'
 
-    login_user 'hatsuno', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'hatsuno'
     assert_text 'komagataさんからお知らせです。'
 
-    login_user 'komagata', 'testtest'
-    visit '/announcements'
+    visit_with_auth '/announcements', 'komagata'
     click_on 'タイトルtest'
     accept_confirm do
       click_link '削除'
     end
     assert_text 'お知らせを削除しました'
 
-    login_user 'hatsuno', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'hatsuno'
     assert_no_text 'komagataさんからお知らせです。'
   end
 
   test 'announcement notification receive only active users' do
-    login_user 'machida', 'testtest'
-    visit '/announcements'
+    visit_with_auth '/announcements', 'machida'
     click_link 'お知らせ作成'
     fill_in 'announcement[title]', with: '現役生にのみお知らせtest'
     fill_in 'announcement[description]', with: '内容test'
@@ -112,38 +98,30 @@ class AnnouncementsTest < ApplicationSystemTestCase
     click_button '作成'
     assert_text 'お知らせを作成しました'
 
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     assert_text 'machidaさんからお知らせです。'
 
-    login_user 'kimura', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'kimura'
     assert_text 'machidaさんからお知らせです。'
 
-    login_user 'sotugyou', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'sotugyou'
     assert_no_text 'machidaさんからお知らせです。'
 
-    login_user 'advijirou', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'advijirou'
     assert_no_text 'machidaさんからお知らせです。'
 
-    login_user 'yameo', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'yameo'
     assert_no_text 'machidaさんからお知らせです。'
 
-    login_user 'yamada', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'yamada'
     assert_no_text 'machidaさんからお知らせです。'
 
-    login_user 'kensyu', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'kensyu'
     assert_no_text 'machidaさんからお知らせです。'
   end
 
   test 'announcement notifications are only recived by job seekers' do
-    login_user 'machida', 'testtest'
-    visit '/announcements'
+    visit_with_auth '/announcements', 'machida'
     click_link 'お知らせ作成'
     fill_in 'announcement[title]', with: '就活希望者のみお知らせします'
     fill_in 'announcement[description]', with: '合同説明会をやるのでぜひいらしてください！'
@@ -152,58 +130,50 @@ class AnnouncementsTest < ApplicationSystemTestCase
     click_button '作成'
     assert_text 'お知らせを作成しました'
 
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     assert_text 'machidaさんからお知らせです。'
 
-    login_user 'jobseeker', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'jobseeker'
     assert_text 'machidaさんからお知らせです。'
 
-    login_user 'kimura', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'kimura'
     assert_no_text 'machidaさんからお知らせです。'
   end
 
-  test "general user can't edit submitted　announcement" do
-    login_user 'kimura', 'testtest'
+  test "general user can't edit submitted announcement" do
     announcement = announcements(:announcement1)
-    visit announcement_path(announcement)
+    visit_with_auth announcement_path(announcement), 'kimura'
     within '.thread__inner' do
       assert_no_text '内容修正'
     end
   end
 
   test 'general user can edit wip announcement' do
-    login_user 'kimura', 'testtest'
     announcement = announcements(:announcement_wip)
-    visit announcement_path(announcement)
+    visit_with_auth announcement_path(announcement), 'kimura'
     within '.thread__inner' do
       assert_text '内容修正'
     end
   end
 
   test 'general user can copy submitted announcement' do
-    login_user 'kimura', 'testtest'
     announcement = announcements(:announcement1)
-    visit announcement_path(announcement)
+    visit_with_auth announcement_path(announcement), 'kimura'
     within '.thread__inner' do
       assert_text 'コピー'
     end
   end
 
   test 'general user can copy wip announcement' do
-    login_user 'kimura', 'testtest'
     announcement = announcements(:announcement_wip)
-    visit announcement_path(announcement)
+    visit_with_auth announcement_path(announcement), 'kimura'
     within '.thread__inner' do
       assert_text 'コピー'
     end
   end
 
   test 'show user full_name next to user login_name' do
-    login_user 'kimura', 'testtest'
-    visit "/announcements/#{announcements(:announcement1).id}"
+    visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
     assert_text 'komagata (Komagata Masaki)'
   end
 end
