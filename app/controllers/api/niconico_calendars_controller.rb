@@ -5,6 +5,6 @@ class API::NiconicoCalendarsController < API::BaseController
     @reports = User.find(params[:id])
                    .reports
                    .where(wip: false)
-                   .order(reported_on: :desc)
+                   .order(reported_on: :asc)
   end
 end
