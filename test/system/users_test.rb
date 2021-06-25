@@ -194,4 +194,17 @@ class UsersTest < ApplicationSystemTestCase
     visit '/'
     assert_no_text 'ようこそ'
   end
+
+  test 'paging niconico_calendar' do
+    login_user 'hatsuno', 'testtest'
+    today = Time.current
+    last_month = today.prev_month
+    visit user_path(users(:hajime).id)
+    within '.calendar__head' do
+      assert_text "#{today.year}年#{today.month}月"
+      find('.calendar__head--previous').click
+      wait_for_vuejs
+      assert_text "#{last_month.year}年#{last_month.month}月"
+    end
+  end
 end
