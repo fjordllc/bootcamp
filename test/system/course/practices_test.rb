@@ -3,15 +3,13 @@
 require 'application_system_test_case'
 
 class Course::PracticesTest < ApplicationSystemTestCase
-  setup { login_user 'hatsuno', 'testtest' }
-
   test 'show listing practices' do
-    visit "/courses/#{courses(:course1).id}/practices"
+    visit_with_auth "/courses/#{courses(:course1).id}/practices", 'kimura'
     assert_equal 'Rails Webプログラマーコース | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show/hide the progress of others' do
-    visit practice_path(practices(:practice1).id)
+    visit_with_auth practice_path(practices(:practice1)), 'hatsuno'
     click_button '着手'
     wait_for_vuejs
     visit course_practices_path(courses(:course1).id)
@@ -32,14 +30,14 @@ class Course::PracticesTest < ApplicationSystemTestCase
   end
 
   test 'practices by category on practice list page will be in order' do
-    visit course_practices_path(courses(:course1).id)
+    visit_with_auth course_practices_path(courses(:course1).id), 'hatsuno'
     within('.categories-items .categories-item:first-child .category-practices-item:first-child') do
       assert_text 'OS X Mountain Lionをクリーンインストールする'
     end
   end
 
   test 'navi menu on practice show page will be in order' do
-    visit practice_path(practices(:practice1).id)
+    visit_with_auth practice_path(practices(:practice1).id), 'hatsuno'
     within('.page-nav .page-nav__item:first-child') do
       assert_text 'OS X Mountain Lionをクリーンインストールする'
     end

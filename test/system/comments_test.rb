@@ -3,25 +3,23 @@
 require 'application_system_test_case'
 
 class CommentsTest < ApplicationSystemTestCase
-  setup { login_user 'komagata', 'testtest' }
-
   test 'show all comments for reports of the target user' do
-    visit polymorphic_path([users(:komagata), :comments])
+    visit_with_auth polymorphic_path([users(:komagata), :comments]), 'komagata'
     assert_equal 4, users(:komagata).comments.where(commentable_type: 'Report').size
   end
 
   test 'comment form not found in /users/:user_id/comments' do
-    visit user_comments_path(users(:komagata))
+    visit_with_auth user_comments_path(users(:komagata)), 'komagata'
     assert has_no_field?('new_comment[description]')
   end
 
   test 'comment form found in /reports/:report_id' do
-    visit report_path(users(:komagata).reports.first)
+    visit_with_auth report_path(users(:komagata).reports.first), 'komagata'
     assert has_field?('new_comment[description]')
   end
 
   test 'comment form in reports/:id has comment tab and preview tab' do
-    visit "/reports/#{reports(:report3).id}"
+    visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
     within('.thread-comment-form__tabs') do
       assert_text 'コメント'
       assert_text 'プレビュー'
@@ -29,7 +27,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'edit comment form has comment tab and preview tab' do
-    visit "/reports/#{reports(:report3).id}"
+    visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
     within('.thread-comment:first-child') do
       click_button '編集'
       assert_text 'コメント'
@@ -38,7 +36,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment for report' do
-    visit "/reports/#{reports(:report1).id}"
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -50,7 +48,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment with mention for report' do
-    visit "/reports/#{reports(:report1).id}"
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     sleep 1
     find('#js-new-comment').set("login_nameの補完テスト: @koma\n")
     click_button 'コメントする'
@@ -60,7 +58,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment with emoji for report' do
-    visit "/reports/#{reports(:report1).id}"
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     sleep 1
     find('#js-new-comment').set("絵文字の補完テスト: :cat\n")
     click_button 'コメントする'
@@ -69,7 +67,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment with image for report' do
-    visit "/reports/#{reports(:report1).id}"
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     sleep 1
     find('#js-new-comment').set("![Image](https://example.com/test.png)'")
     click_button 'コメントする'
@@ -79,7 +77,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment with linked image for report' do
-    visit "/reports/#{reports(:report1).id}"
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     sleep 1
 
     find('#js-new-comment').set('[![Image](https://example.com/test.png)](https://example.com)')
@@ -89,7 +87,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'edit the comment for report' do
-    visit "/reports/#{reports(:report3).id}"
+    visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
     within('.thread-comment:first-child') do
       click_button '編集'
       within(:css, '.thread-comment-form__form') do
@@ -101,7 +99,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'destroy the comment for report' do
-    visit "/reports/#{reports(:report3).id}"
+    visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
     within('.thread-comment:first-child') do
       accept_alert do
         click_button('削除')
@@ -111,7 +109,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment for product' do
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -121,7 +119,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'check preview for product' do
-    visit "/products/#{products(:product2).id}"
+    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
     wait_for_vuejs
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: "1\n2\n3\n4\n5\n6\n7\n8\n9")
@@ -131,7 +129,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment for announcement' do
-    visit "/announcements/#{announcements(:announcement1).id}"
+    visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'komagata'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -143,7 +141,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment for page' do
-    visit "/pages/#{pages(:page1).id}"
+    visit_with_auth "/pages/#{pages(:page1).id}", 'komagata'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -155,7 +153,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'post new comment for event' do
-    visit "/events/#{events(:event1).id}"
+    visit_with_auth "/events/#{events(:event1).id}", 'komagata'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -167,7 +165,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'comment tab is active after a comment has been posted' do
-    visit "/reports/#{reports(:report3).id}"
+    visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
     assert_equal 'コメント', find('.thread-comment-form__tab.is-active').text
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
@@ -181,7 +179,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'prevent double submit' do
-    visit report_path(users(:komagata).reports.first)
+    visit_with_auth report_path(users(:komagata).reports.first), 'komagata'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -191,7 +189,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'submit_button is enabled after a post is done' do
-    visit report_path(users(:komagata).reports.first)
+    visit_with_auth report_path(users(:komagata).reports.first), 'komagata'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -207,7 +205,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'comment url is copied when click its updated_time' do
-    visit "/reports/#{reports(:report1).id}"
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     wait_for_vuejs
     first(:css, '.thread-comment__created-at').click
     # クリップボードを直接読み取る方法がないので、未入力のテキストエリアを経由してクリップボードの値を読み取っている
@@ -219,7 +217,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'suggest mention to mentor' do
-    visit "/reports/#{reports(:report1).id}"
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     sleep 1 # NOTE: ここでsleepしないとテストが失敗する
     find('#js-new-comment').set('@')
     assert_selector 'span.mention', text: 'mentor'

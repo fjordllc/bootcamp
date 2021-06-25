@@ -10,13 +10,12 @@ class ArticlesTest < ApplicationSystemTestCase
   # 仮デザインなので一時的に無効化
   # test 'show listing articles' do
   #   login_user 'komagata', 'testtest'
-  #   visit articles_url
+  #   visit_with_auth articles_url
   #   assert_text 'ブログ記事一覧'
   # end
 
   test 'create article' do
-    login_user 'komagata', 'testtest'
-    visit new_article_url
+    visit_with_auth new_article_url, 'komagata'
 
     fill_in 'article[title]', with: @article.title
     fill_in 'article[body]', with: @article.body
@@ -26,8 +25,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'title & body not allow blank' do
-    login_user 'komagata', 'testtest'
-    visit new_article_url
+    visit_with_auth new_article_url, 'komagata'
 
     fill_in 'article[title]', with: ''
     fill_in 'article[body]', with: ''
@@ -38,8 +36,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test "can't create article" do
-    login_user 'yamada', 'testtest'
-    visit articles_url
+    visit_with_auth articles_url, 'yamada'
 
     assert_no_text 'ブログ記事作成'
 
@@ -48,8 +45,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'update article' do
-    login_user 'komagata', 'testtest'
-    visit articles_url
+    visit_with_auth articles_url, 'komagata'
     click_on '内容修正', match: :first
 
     fill_in 'article[title]', with: @article.title
@@ -60,8 +56,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test "can't update article" do
-    login_user 'yamada', 'testtest'
-    visit articles_url
+    visit_with_auth articles_url, 'yamada'
 
     assert_no_text '内容修正'
 
@@ -70,8 +65,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'delete article' do
-    login_user 'komagata', 'testtest'
-    visit articles_url
+    visit_with_auth articles_url, 'komagata'
     page.accept_confirm do
       click_on '削除', match: :first
     end
@@ -80,9 +74,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test "can't delete article" do
-    login_user 'yamada', 'testtest'
-    visit articles_url
-
+    visit_with_auth articles_url, 'yamada'
     assert_no_text '削除'
   end
 end
