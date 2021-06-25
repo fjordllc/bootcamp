@@ -4,8 +4,7 @@ require 'application_system_test_case'
 
 class Notification::CommentsTest < ApplicationSystemTestCase
   test 'recieve only one notificaiton if you send two mentions in one comment' do
-    login_user 'komagata', 'testtest'
-    visit "/reports/#{reports(:report1).id}"
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
 
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: '@machida @machida test')

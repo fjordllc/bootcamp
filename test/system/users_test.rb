@@ -4,31 +4,26 @@ require 'application_system_test_case'
 
 class UsersTest < ApplicationSystemTestCase
   test 'show profile' do
-    login_user 'hatsuno', 'testtest'
-    visit "/users/#{users(:hatsuno).id}"
+    visit_with_auth "/users/#{users(:hatsuno).id}", 'hatsuno'
     assert_equal 'hatsunoのプロフィール | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'autolink profile when url is included' do
     url = 'https://bootcamp.fjord.jp/'
-    login_user 'kimura', 'testtest'
-    visit edit_current_user_path
+    visit_with_auth edit_current_user_path, 'kimura'
     fill_in 'user_description', with: "木村です。ブートキャンプはじめました。#{url}"
     click_button '更新する'
     assert_link url, href: url
   end
 
   test 'access by other users' do
-    login_user 'yamada', 'testtest'
     user = users(:hatsuno)
-    visit edit_admin_user_path(user.id)
+    visit_with_auth edit_admin_user_path(user.id), 'yamada'
     assert_text '管理者としてログインしてください'
   end
 
   test 'graduation date is displayed' do
-    login_user 'komagata', 'testtest'
-
-    visit "/users/#{users(:yamada).id}"
+    visit_with_auth "/users/#{users(:yamada).id}", 'komagata'
     assert_no_text '卒業日'
 
     visit "/users/#{users(:sotugyou).id}"
@@ -36,141 +31,122 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'retired date is displayed' do
-    login_user 'komagata', 'testtest'
-    visit "/users/#{users(:yameo).id}"
+    visit_with_auth "/users/#{users(:yameo).id}", 'komagata'
     assert_text '退会日'
     visit "/users/#{users(:sotugyou).id}"
     assert_no_text '退会日'
   end
 
   test 'retire reason is displayed when login user is admin' do
-    login_user 'komagata', 'testtest'
-    visit "/users/#{users(:yameo).id}"
+    visit_with_auth "/users/#{users(:yameo).id}", 'komagata'
     assert_text '退会理由'
     visit "/users/#{users(:sotugyou).id}"
     assert_no_text '退会理由'
   end
 
   test "retire reason isn't displayed when login user isn't admin" do
-    login_user 'kimura', 'testtest'
-    visit "/users/#{users(:yameo).id}"
+    visit_with_auth "/users/#{users(:yameo).id}", 'kimura'
     assert_no_text '退会理由'
   end
 
   test "normal user can't see unchecked number table" do
-    login_user 'hatsuno', 'testtest'
-    visit "/users/#{users(:hatsuno).id}"
+    visit_with_auth "/users/#{users(:hatsuno).id}", 'hatsuno'
     assert_equal 0, all('.admin-table').length
   end
 
   test 'show users role' do
-    login_user 'komagata', 'testtest'
-    visit "/users/#{users(:komagata).id}"
+    visit_with_auth "/users/#{users(:komagata).id}", 'komagata'
     assert_text '管理者'
 
-    login_user 'yamada', 'testtest'
-    visit "/users/#{users(:yamada).id}"
+    visit_with_auth "/users/#{users(:yamada).id}", 'yamada'
     assert_text 'メンター'
 
-    login_user 'advijirou', 'testest'
-    visit "/users/#{users(:advijirou).id}"
+    visit_with_auth "/users/#{users(:advijirou).id}", 'advijirou'
     assert_text 'アドバイザー'
 
-    login_user 'kensyu', 'testtest'
-    visit "/users/#{users(:kensyu).id}"
+    visit_with_auth "/users/#{users(:kensyu).id}", 'kensyu'
     assert_text '研修生'
 
-    login_user 'sotugyou', 'testtest'
-    visit "/users/#{users(:sotugyou)}"
+    visit_with_auth "/users/#{users(:sotugyou).id}", 'sotugyou'
     assert_text '卒業生'
   end
 
   test 'show completed practices' do
-    login_user 'machida', 'testtest'
-    visit "/users/#{users(:kimura).id}"
+    visit_with_auth "/users/#{users(:kimura).id}", 'machida'
     assert_text 'OS X Mountain Lionをクリーンインストールする'
     assert_no_text 'Terminalの基礎を覚える'
   end
 
   test 'show my seat today' do
-    login_user 'hajime', 'testtest'
-    visit '/'
+    visit_with_auth '/', 'hajime'
     assert_text '今日はF席を予約しています'
 
-    login_user 'kimura', 'testtest'
-    visit '/'
+    visit_with_auth '/', 'kimura'
     assert_text '今日はE席を予約しています'
 
-    login_user 'kensyu', 'testtest'
-    visit '/'
+    visit_with_auth '/', 'kensyu'
     assert_no_text '予約しています'
   end
 
   test 'show last active date only to mentors' do
     travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
-      login_user 'kimura', 'testtest'
+      visit_with_auth '/', 'kimura'
     end
 
-    login_user 'komagata', 'testtest'
-    visit "/users/#{users(:kimura).id}"
+    visit_with_auth "/users/#{users(:kimura).id}", 'komagata'
     assert_text '最終ログイン日時'
 
-    login_user 'hatsuno', 'testtest'
-    visit "/users/#{users(:kimura).id}"
+    visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
     assert_no_text '最終ログイン日時'
   end
 
   test 'show inactive message on users page' do
     travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
-      login_user 'kimura', 'testtest'
+      visit_with_auth '/', 'kimura'
     end
 
-    login_user 'komagata', 'testtest'
-    visit '/users'
+    visit_with_auth '/users', 'komagata'
     assert_no_selector 'div.users-item.inactive'
     assert_text '1ヶ月ログインがありません'
 
-    login_user 'hatsuno', 'testtest'
-    visit '/users'
+    visit_with_auth '/users', 'hatsuno'
     assert_no_selector 'div.users-item.inactive'
     assert_no_text '1ヶ月ログインがありません'
   end
 
   test 'show inactive users only to mentors' do
-    travel_to Date.current do
-      login_user 'kimura', 'testtest'
-      login_user 'hatsuno', 'testtest'
-      login_user 'hajime', 'testtest'
-      login_user 'muryou', 'testtest'
-      login_user 'kensyu', 'testtest'
-      login_user 'kananashi', 'testtest'
-      login_user 'osnashi', 'testtest'
-      login_user 'jobseeker', 'testtest'
-      login_user 'daimyo', 'testtest'
-      login_user 'nippounashi', 'testtest'
-      login_user 'with-hyphen', 'testtest'
+    %i[
+      kimura
+      hatsuno
+      hajime
+      muryou
+      kensyu
+      kananashi
+      osnashi
+      jobseeker
+      daimyo
+      nippounashi
+      with_hyphen
+    ].each do |name|
+      users(name).touch # rubocop:disable Rails/SkipsModelValidations
     end
 
-    login_user 'komagata', 'testtest'
-    visit '/'
+    visit_with_auth '/', 'komagata'
     assert_no_text '1ヶ月以上ログインのないユーザー'
 
-    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
-      login_user 'kimura', 'testtest'
-    end
+    users(:kimura).update!(
+      updated_at: Time.zone.local(2020, 1, 1, 0, 0, 0)
+    )
 
-    login_user 'komagata', 'testtest'
-    visit '/'
+    visit_with_auth '/', 'komagata'
     assert_text '1ヶ月以上ログインのないユーザー'
 
-    login_user 'hatsuno', 'testtest'
-    visit '/'
+    visit_with_auth '/', 'hatsuno'
     assert_no_text '1ヶ月以上ログインのないユーザー'
   end
 
   test 'student access control' do
-    login_user 'kimura', 'testtest'
-    visit '/users'
+    visit_with_auth '/users', 'kimura'
     assert_no_text '全員'
     assert_no_text '就職活動中'
 
@@ -179,8 +155,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'advisor access control' do
-    login_user 'advijirou', 'testtest'
-    visit '/users'
+    visit_with_auth '/users', 'advijirou'
     assert_no_text '全員'
     assert find_link('就職活動中')
 
@@ -189,35 +164,31 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'mentor access control' do
-    login_user 'yamada', 'testtest'
-    visit '/users'
+    visit_with_auth '/users', 'yamada'
     assert find_link('就職活動中')
     assert find_link('全員')
   end
 
   test 'admin access control' do
-    login_user 'komagata', 'testtest'
-    visit '/users'
+    visit_with_auth '/users', 'komagata'
     assert find_link('就職活動中')
     assert find_link('全員')
   end
 
   test 'push question tab for showing all the recoreded questions' do
-    login_user 'hatsuno', 'testtest'
-    visit "/users/#{users(:hatsuno).id}"
+    visit_with_auth "/users/#{users(:hatsuno).id}", 'hatsuno'
     click_link '質問'
     assert_text '質問のタブの作り方'
     assert_text '質問のタブに関して。。。追加質問'
   end
 
   test 'show welcome message' do
-    login_user 'hatsuno', 'testtest'
+    visit_with_auth '/', 'hatsuno'
     assert_text 'ようこそ'
   end
 
   test 'not show welcome message' do
-    login_user 'hatsuno', 'testtest'
-    visit practice_path(practices(:practice1).id)
+    visit_with_auth practice_path(practices(:practice1).id), 'hatsuno'
     click_button '着手'
     wait_for_vuejs
     visit '/'

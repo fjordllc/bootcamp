@@ -3,10 +3,8 @@
 require 'application_system_test_case'
 
 class WatchingTest < ApplicationSystemTestCase
-  setup { login_user 'hajime', 'testtest' }
-
   test 'show my watch list' do
-    visit watches_path
+    visit_with_auth watches_path, 'hajime'
     assert_no_text 'テストの質問1'
     question = questions(:question3)
     visit question_path(question)

@@ -10,14 +10,12 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test 'GET /' do
-    login_user 'komagata', 'testtest'
-    visit '/'
+    visit_with_auth '/', 'komagata'
     assert_equal 'ダッシュボード | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'GET / without github account ' do
-    login_user 'hajime', 'testtest'
-    visit '/'
+    visit_with_auth '/', 'hajime'
     within('.card-list__item-link.is-github_account') do
       assert_text 'GitHubアカウントを登録してください。'
     end
@@ -25,17 +23,13 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'GET / with github account' do
     user = users(:hajime)
-    user.github_account = 'hajime'
-    login_user user, 'testtest'
-
-    visit '/'
+    user.update!(github_account: 'hajime')
+    visit_with_auth '/', 'hajime'
     assert_no_selector '.card-list__item-link.is-github_account'
   end
 
   test 'GET / without discord_account' do
-    login_user 'hajime', 'testtest'
-
-    visit '/'
+    visit_with_auth '/', 'hajime'
     within('.card-list__item-link.is-discord_account') do
       assert_text 'Discordアカウントを登録してください。'
     end
@@ -43,10 +37,8 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'GET / with discord_account' do
     user = users(:hajime)
-    user.discord_account = 'hajime#1111'
-    login_user user, 'testtest'
-
-    visit '/'
+    user.update!(discord_account: 'hajime#1111')
+    visit_with_auth '/', 'hajime'
     assert_no_selector '.card-list__item-link.is-discord_account'
   end
 end

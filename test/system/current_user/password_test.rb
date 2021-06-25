@@ -3,13 +3,9 @@
 require 'application_system_test_case'
 
 class CurrentUser::PasswordTest < ApplicationSystemTestCase
-  setup do
-    login_user 'kimura', 'testtest'
-    @user = users(:kimura)
-  end
-
   test 'update password' do
-    visit edit_current_user_path
+    user = users(:kimura)
+    visit_with_auth edit_current_user_path, 'kimura'
     click_on 'パスワード変更はこちらから'
 
     within 'form[name=password_change]' do
@@ -24,7 +20,7 @@ class CurrentUser::PasswordTest < ApplicationSystemTestCase
 
     visit login_url
     within 'form[name=user_session]' do
-      fill_in 'user[login]', with: @user.login_name
+      fill_in 'user[login]', with: user.login_name
       fill_in 'user[password]', with: 'newpassword'
       click_button 'ログイン'
     end

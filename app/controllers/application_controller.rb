@@ -2,9 +2,11 @@
 
 class ApplicationController < ActionController::Base
   include Authentication
+  include TestAuthentication if Rails.env.test?
   include PolicyHelper
   protect_from_forgery with: :exception
   before_action :basic_auth, if: :staging?
+  before_action :test_login, if: :test?
   before_action :init_user
   before_action :allow_cross_domain_access
   before_action :set_host_for_disk_storage
@@ -50,5 +52,9 @@ class ApplicationController < ActionController::Base
 
   def staging?
     ENV['DB_NAME'] == 'bootcamp_staging'
+  end
+
+  def test?
+    Rails.env.test?
   end
 end
