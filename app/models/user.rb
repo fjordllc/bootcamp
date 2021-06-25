@@ -545,7 +545,7 @@ class User < ApplicationRecord
   end
 
   def practices
-    course.categories.order(:position).flat_map(&:practices)
+    course.practices.order('categories.position', 'practices.position')
   end
 
   private
