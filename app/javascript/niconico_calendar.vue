@@ -1,9 +1,11 @@
 <template lang="pug">
-  .a-card
+  .a-card(v-else)
     header.card-header.is-sm
       h2.card-header__title
         | ニコニコカレンダー
-    .card-body
+    .card-body(v-if='!loaded')
+      | ロード中
+    .card-body(v-else)
       .calendar__head
         .calendar__head--previous(
           v-show='!oldestMonth()'
@@ -69,6 +71,7 @@ export default {
       currentMonth: this.getCurrentMonth(),
       calendarYear: this.getCurrentYear(),
       calendarMonth: this.getCurrentMonth(),
+      loaded: null,
     }
   },
   mounted() {
@@ -89,6 +92,7 @@ export default {
           json.forEach((r) => {
             this.reports.push(r)
           })
+          this.loaded = true
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
