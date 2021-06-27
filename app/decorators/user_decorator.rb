@@ -32,7 +32,7 @@ module UserDecorator
   end
 
   def icon_title
-    [login_name, staff_roles].reject(&:blank?)
+    [login_name, name, staff_roles].reject(&:blank?)
                              .join(': ')
   end
 
