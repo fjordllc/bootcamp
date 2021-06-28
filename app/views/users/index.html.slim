@@ -35,8 +35,7 @@ main.page-main
               .page-main-header-actions__items
                 .page-main-header-actions__item
                   - if current_user.tag_list.include?(params[:tag])
-                    .a-button.is-md.is-disabled
-                      | 追加済み
+                    = link_to 'このタグを自分から外す', "/users/tags/#{params[:tag]}", method: 'delete', class: 'a-button is-md is-secondary'
                   - else
                     = link_to 'このタグを自分に追加', "/users/tags/#{params[:tag]}", method: 'post', class: 'a-button is-md is-secondary'
         - else
