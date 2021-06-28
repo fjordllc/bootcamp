@@ -104,6 +104,6 @@ export default {
     updateIndex(){
             this.getWatches()
         }
-    },
+    }
 }
 </script>

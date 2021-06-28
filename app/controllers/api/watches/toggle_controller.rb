@@ -9,12 +9,10 @@ class API::Watches::ToggleController < API::BaseController
   end
 
   def create
-    @watch = Watch.new(
+    @watch = Watch.create!(
       user: current_user,
       watchable: watchable
     )
-
-    @watch.save!
     render json: @watch
   end
 
