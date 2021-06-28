@@ -37,6 +37,13 @@
       >*
         width: $global-nav-width-sm
 
+.header-dropdown__label
+  +text-block(.75rem 1.4, $reversal-text 600)
+  padding: .5rem .75rem
+  background-color: rgba(black, .3)
+  +media-breakpoint-down(sm)
+    border-bottom: solid 1px $side-border
+
 .header-dropdown__items
   .header-dropdown__inner.is-notification &
     overflow-y: auto

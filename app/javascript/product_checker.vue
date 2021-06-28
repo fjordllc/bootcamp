@@ -1,7 +1,7 @@
 <template lang="pug">
 button(
   v-if='!checkerId || checkerId == currentUserId',
-  :class='["a-button", "is-sm", "is-block", id ? "is-warning" : "is-secondary"]',
+  :class='["a-button", "is-block", id ? "is-warning" : "is-secondary", checkableType ? "is-md" : "is-sm"]',
   @click='check'
 )
   i(
@@ -20,7 +20,8 @@ export default {
     checkerId: { type: Number, required: false, default: null },
     checkerName: { type: String, required: false, default: null },
     currentUserId: { type: String, required: true },
-    productId: { type: Number, required: true }
+    productId: { type: Number, required: true },
+    checkableType: {type: String,}
   },
   data() {
     return {

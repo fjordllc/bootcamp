@@ -1,0 +1,29 @@
+.header-dropdown__list
+  ul.header-dropdown__items
+    li.header-dropdown__item
+      = link_to root_path, class: 'header-dropdown__item-link' do
+        | ダッシュボード
+    li.header-dropdown__item
+      = link_to user_path(current_user), class: 'header-dropdown__item-link' do
+        | 自分のプロフィール
+    li.header-dropdown__item
+      = link_to watches_path, class: 'header-dropdown__item-link' do
+        | Watch中一覧
+    li.header-dropdown__item
+      = link_to edit_current_user_path, class: 'header-dropdown__item-link' do
+        | 登録情報変更
+    - if !current_user.adviser? && !current_user.mentor? && !current_user.trainee?
+      - if current_user.card?
+        li.header-dropdown__item
+          = link_to 'クレジットカード情報', card_path, class: 'header-dropdown__item-link'
+        li.header-dropdown__item
+          = link_to 'クレジットカード変更', edit_card_path, class: 'header-dropdown__item-link'
+      - else
+        li.header-dropdown__item
+          = link_to 'クレジットカード登録', new_card_path, class: 'header-dropdown__item-link'
+    li.header-dropdown__item
+      = link_to logout_path, class: 'header-dropdown__item-link' do
+        | ログアウト
+    li.header-dropdown__item
+      = link_to new_retirement_path, class: 'header-dropdown__item-link' do
+        | 退会手続き

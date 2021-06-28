@@ -7,7 +7,7 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to new_admin_company_path, class: 'a-button is-md is-warning is-block' do
+            = link_to new_admin_company_path, class: 'a-button is-md is-secondary is-block' do
               i.fas.fa-plus
               | 企業作成
 
@@ -15,6 +15,7 @@ header.page-header
   = render 'admin/admin_page_tabs'
 
 .page-body
+  = paginate @companies
   .container.is-padding-horizontal-0-sm-down
     .admin-table
       table.admin-table__table
@@ -24,7 +25,6 @@ header.page-header
             th.admin-table__label = Company.human_attribute_name :logo
             th.admin-table__label = Company.human_attribute_name :description
             th.admin-table__label = Company.human_attribute_name :website
-            th.admin-table__label = Company.human_attribute_name :slack_channel
             th.admin-table__label.actions 操作
         tbody.admin-table__items
           - @companies.each do |company|
@@ -39,8 +39,6 @@ header.page-header
                 = company.description
               td.admin-table__item-value
                 = company.website
-              td.admin-table__item-value
-                = company.slack_channel
               td.admin-table__item-value.is-text-align-center
                 ul.is-button-group
                   li
@@ -52,3 +50,4 @@ header.page-header
                       method: :delete,
                       class: 'a-button is-sm is-danger is-icon js-delete' do
                       i.fas.fa-trash-alt
+  = paginate @companies

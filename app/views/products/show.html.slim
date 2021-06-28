@@ -21,6 +21,12 @@ header.page-header
 = render 'page_tabs', resource: @product.practice
 
 .page-body
+  - if !current_user.adviser? && @product.practice.open_product?
+    .a-page-notice.page-notice
+      .container
+        .a-page-notice__inner
+          p
+            | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
   .container
     div(class="#{current_user.mentor? || current_user.admin? ? 'row' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
@@ -33,7 +39,7 @@ header.page-header
                   .thread-header-metas__start
                     .thread-header-metas__meta
                       = link_to @product.user, class: 'a-user-name' do
-                        = @product.user.login_name
+                        = @product.user.long_name
 
                     .thread-header-metas__meta
                       .a-date
@@ -121,8 +127,8 @@ header.page-header
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-5 col-xs-12 is-hidden-sm-down' : ''}")
         - if current_user.mentor? || current_user.admin?
           .side-tabs
-            input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents'
-            input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents' checked='checked'
+            input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
+            input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
             .side-tabs-nav
               .side-tabs-nav__items
                 .side-tabs-nav__item
@@ -134,7 +140,16 @@ header.page-header
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
                 .thread-list.a-card
-                  - @reports.each do |report|
-                    = render partial: 'report', locals: { report: report }
+                  - if @reports.present?
+                    - @reports.each do |report|
+                      = render partial: 'report', locals: { report: report }
+                  - else
+                    .thread-list__inner
+                      .container
+                        .o-empty-message
+                          .o-empty-message__icon
+                            i.far.fa-sad-tear
+                          .o-empty-message__text
+                            | 日報はまだありません。
               .side-tabs-contents__item#side-tabs-content-2
                 #js-mentor-memo(data-practice-id="#{@product.practice_id}")

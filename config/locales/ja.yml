@@ -36,6 +36,7 @@ ja:
       reservation: 席予約
       seat: 席
       memo: メモ
+      reference_book: 参考書籍
     attributes:
       user:
         login_name: アカウント
@@ -82,7 +83,6 @@ ja:
         job_seeker: 就職を希望する
         slack_participation: Slack参加
         github_collaborator: GitHubチーム
-        officekey_permission: オフィス鍵
         tag_list: タグ
       course:
         title: タイトル
@@ -98,6 +98,11 @@ ja:
         progress: 進捗の計算
         categories: カテゴリー
         memo: メンター向けメモ
+      practice/reference_books:
+        title: タイトル
+        price: 価格
+        page_url: URL
+        cover: 表紙画像
       product:
         user: ユーザー
         practice: プラクティス
@@ -107,7 +112,6 @@ ja:
         description: 詳細
         website: ウェブサイト
         logo: ロゴ
-        slack_channel: Slackチャンネル
       category:
         name: 名前
         slug: URLスラッグ
@@ -119,6 +123,7 @@ ja:
         description: 内容
         learning_times: 学習時間
         emotion: 今日の気分
+        no_learn: 学習時間は無し
       reservation:
         date: 日付
         user_id: ユーザー
@@ -176,6 +181,11 @@ ja:
         end_at: イベント終了日時
         open_start_at: 募集開始日時
         open_end_at: 募集終了日時
+      reference_book:
+        title: タイトル
+        price: 価格
+        page_url: URL
+        cover: 表紙画像
     enums:
       user:
         job:

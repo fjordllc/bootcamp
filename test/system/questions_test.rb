@@ -6,39 +6,35 @@ require 'supports/tag_helper'
 class QuestionsTest < ApplicationSystemTestCase
   include TagHelper
 
-  setup do
-    login_user 'kimura', 'testtest'
-  end
-
   test 'show listing unsolved questions' do
-    visit questions_path
+    visit_with_auth questions_path, 'kimura'
     assert_equal '未解決の質問一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing solved questions' do
-    visit questions_path(solved: 'true')
+    visit_with_auth questions_path(solved: 'true'), 'kimura'
     assert_equal '解決済みの質問一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing all questions' do
-    visit questions_path(all: 'true')
+    visit_with_auth questions_path(all: 'true'), 'kimura'
     assert_equal '全ての質問 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show a resolved qestion' do
     question = questions(:question3)
-    visit question_path(question)
+    visit_with_auth question_path(question), 'kimura'
     assert_text '解決済'
   end
 
   test 'show a question' do
     question = questions(:question8)
-    visit question_path(question)
+    visit_with_auth question_path(question), 'kimura'
     assert_equal 'テストの質問 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'create a question' do
-    visit new_question_path
+    visit_with_auth new_question_path, 'kimura'
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'テストの質問'
       fill_in 'question[description]', with: 'テストの質問です。'
@@ -49,7 +45,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'update a question' do
     question = questions(:question8)
-    visit question_path(question)
+    visit_with_auth question_path(question), 'kimura'
     updated_question = {
       title: 'テストの質問（修正）',
       description: 'テストの質問です。（修正）',
@@ -75,7 +71,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'update question for practice without questioner\'s course' do
-    visit edit_current_user_path
+    visit_with_auth edit_current_user_path, 'kimura'
 
     login_user = User.find_by(login_name: find_field(id: 'user_login_name').value)
     practice = Practice.where.not(
@@ -117,7 +113,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'delete a question' do
     question = questions(:question8)
-    visit question_path(question)
+    visit_with_auth question_path(question), 'kimura'
     wait_for_vuejs
     accept_confirm do
       click_link '削除する'
@@ -126,8 +122,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'delete question with notification' do
-    login_user 'kimura', 'testtest'
-    visit '/questions'
+    visit_with_auth '/questions', 'kimura'
     click_link '質問する'
     fill_in 'question[title]', with: 'タイトルtest'
     fill_in 'question[description]', with: '内容test'
@@ -135,12 +130,10 @@ class QuestionsTest < ApplicationSystemTestCase
     click_button '登録する'
     assert_text '質問を作成しました。'
 
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     assert_text 'kimuraさんから質問がありました。'
 
-    login_user 'kimura', 'testtest'
-    visit '/questions'
+    visit_with_auth '/questions', 'kimura'
     click_on 'タイトルtest'
     wait_for_vuejs
     accept_confirm do
@@ -148,15 +141,13 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text '質問を削除しました。'
 
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     assert_no_text 'kimuraさんから質問がありました。'
   end
 
   test 'admin can update and delete any questions' do
-    login_user 'komagata', 'testtest'
     question = questions(:question8)
-    visit question_path(question)
+    visit_with_auth question_path(question), 'komagata'
     within '.thread__inner' do
       assert_text '内容修正'
       assert_text '削除'
@@ -164,7 +155,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'search questions by tag' do
-    visit questions_url
+    visit_with_auth questions_url, 'kimura'
     click_on '質問する'
     tag_list = ['tag1',
                 'ドットつき.タグ',
@@ -192,8 +183,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'update tags without page transitions' do
-    login_user 'komagata', 'testtest'
-    visit question_path(questions(:question2))
+    visit_with_auth question_path(questions(:question2)), 'komagata'
     find('.tag-links__item-edit').click
     tag_input = find('.ti-new-tag-input')
     tag_input.set '追加タグ'
@@ -204,7 +194,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'alert when enter tag with space on creation page' do
-    visit new_page_path
+    visit_with_auth new_page_path, 'kimura'
 
     # この次に assert_alert_when_enter_one_dot_only_tag を追加しても、
     # 空白を入力したalertが発生し、ドットのみのalertが発生するテストにならない
@@ -212,22 +202,51 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'alert when enter one dot only tag on creation page' do
-    visit new_page_path
-
+    visit_with_auth new_page_path, 'kimura'
     assert_alert_when_enter_one_dot_only_tag
   end
 
   test 'alert when enter tag with space on update page' do
-    visit "/pages/#{pages(:page1).id}"
+    visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
     find('.tag-links__item-edit').click
-
     assert_alert_when_enter_tag_with_space
   end
 
   test 'alert when enter one dot only tag on update page' do
-    visit "/pages/#{pages(:page1).id}"
+    visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
     find('.tag-links__item-edit').click
-
     assert_alert_when_enter_one_dot_only_tag
+  end
+
+  test 'permission decision best answer' do
+    visit_with_auth new_question_path, 'kimura'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'テストの質問タイトル'
+      fill_in 'question[description]', with: 'テストの質問です。'
+      click_button '登録する'
+    end
+    fill_in 'answer[description]', with: 'アンサーテスト'
+    click_button 'コメントする'
+    within '.thread-comment__body' do
+      assert_text '内容修正'
+      assert_text 'ベストアンサーにする'
+      assert_text '削除する'
+    end
+
+    visit_with_auth questions_path, 'komagata'
+    click_on 'テストの質問タイトル'
+    within '.thread-comment__body' do
+      assert_text '内容修正'
+      assert_text 'ベストアンサーにする'
+      assert_text '削除する'
+    end
+
+    visit_with_auth questions_path, 'hatsuno'
+    click_on 'テストの質問タイトル'
+    within '.thread-comment__body' do
+      assert_no_text '内容修正'
+      assert_no_text 'ベストアンサーにする'
+      assert_no_text '削除する'
+    end
   end
 end

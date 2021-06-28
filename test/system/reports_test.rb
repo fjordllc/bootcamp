@@ -1,19 +1,10 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
-require 'minitest/mock'
 
 class ReportsTest < ApplicationSystemTestCase
-  def setup
-    login_user 'komagata', 'testtest'
-  end
-
-  def teardown
-    wait_for_vuejs
-  end
-
   test 'create report as WIP' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
     within('#new_report') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -23,7 +14,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'create a report' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
     within('#new_report') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -41,10 +32,29 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
+  test 'create a report without learning time' do
+    visit_with_auth '/reports/new', 'komagata'
+    within('#new_report') do
+      fill_in('report[title]', with: 'test title')
+      fill_in('report[description]', with: 'test')
+      fill_in('report[reported_on]', with: Time.current)
+
+      first('.learning-time').all('.learning-time__started-at select')[0].select('07')
+      first('.learning-time').all('.learning-time__started-at select')[1].select('30')
+      first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
+      first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
+
+      check '学習時間は無し', allow_label_click: true
+    end
+
+    click_button '提出'
+    assert_text '日報を保存しました。'
+    assert_text '学習時間無し'
+  end
+
   test 'practices are displayed when updating with selecting a practice' do
-    login_user 'hajime', 'testtest'
     report = reports(:report10)
-    visit "/reports/#{report.id}"
+    visit_with_auth "/reports/#{report.id}", 'hajime'
     click_link '内容修正'
 
     click_button '内容変更'
@@ -53,9 +63,8 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'practices are not displayed when updating without selecting a practice' do
-    login_user 'hajime', 'testtest'
     report = reports(:report10)
-    visit "/reports/#{report.id}"
+    visit_with_auth "/reports/#{report.id}", 'hajime'
     click_link '内容修正'
     first('.select2-selection__choice__remove').click
 
@@ -68,9 +77,7 @@ class ReportsTest < ApplicationSystemTestCase
     user = users(:kensyu)
     user.update!(company: nil)
 
-    login_user 'kensyu', 'testtest'
-
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'kensyu'
     within('#new_report') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -87,7 +94,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'create and update learning times in a report' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
     within('#new_report') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -117,7 +124,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'equal practices order in practices and new report' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
     first('.select2-selection--multiple').click
     report_practices = page.all('.select2-results__option').map(&:text)
     assert_equal report_practices.count, Practice.count
@@ -126,7 +133,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'equal practices order in practices and edit report' do
-    visit "/reports/#{reports(:report1).id}/edit"
+    visit_with_auth "/reports/#{reports(:report1).id}/edit", 'komagata'
     first('.select2-selection--multiple').click
     report_practices = page.all('.select2-results__option').map(&:text)
     assert_equal report_practices.count, Practice.count
@@ -135,7 +142,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'issue #360 duplicate' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
     fill_in 'report_title', with: 'テスト日報'
     fill_in 'report_description', with: '不具合再現の結合テストコード'
 
@@ -165,7 +172,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'register learning_times 2h' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
     fill_in 'report_title', with: 'テスト日報 成功'
     fill_in 'report_description', with: '不具合再現の結合テストコード'
 
@@ -188,7 +195,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'register learning_times 1h40m' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
     fill_in 'report_title', with: 'テスト日報 成功'
     fill_in 'report_description', with: '不具合再現の結合テストコード'
 
@@ -211,7 +218,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'register learning_time 45m' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
     fill_in 'report_title', with: 'テスト日報 成功'
     fill_in 'report_description', with: '不具合再現の結合テストコード'
 
@@ -227,7 +234,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'canonicalize learning times when create and update a report' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
 
     fill_in 'report_title', with: 'テスト日報'
     fill_in 'report_description', with: '完了日時 - 開始日時 < 0のパターン'
@@ -259,7 +266,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'register learning_times 4h' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
     fill_in 'report_title', with: 'テスト日報'
     fill_in 'report_description', with: '複数時間登録のパターン'
 
@@ -281,23 +288,8 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '00:30 〜 02:30'
   end
 
-  test "can't register learning_times 0h0m" do
-    visit '/reports/new'
-    fill_in 'report_title', with: 'テスト日報'
-    fill_in 'report_description', with: "can't register learning_times 0h0m"
-
-    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('22')
-    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('00')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('22')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('00')
-
-    click_button '提出'
-
-    assert_text '終了時間は開始時間より後にしてください'
-  end
-
   test 'learning times order' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
     fill_in 'report_title', with: 'テスト日報'
     fill_in 'report_description', with: '学習時間の順番'
 
@@ -318,7 +310,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'add learning times the next day' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'komagata'
     fill_in 'report_title', with: 'テスト日報'
     fill_in 'report_description', with: '学習時間の順番'
 
@@ -346,7 +338,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'reports can be copied' do
-    visit report_path users(:komagata).reports.first
+    visit_with_auth report_path(users(:komagata).reports.first), 'komagata'
     travel 5.days do
       find('#copy').click
       assert_equal find('#report_reported_on').value, Date.current.strftime('%Y-%m-%d')
@@ -354,26 +346,24 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'previous report' do
-    visit "/reports/#{reports(:report2).id}"
+    visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
     click_link '前の日報'
     assert_equal "/reports/#{reports(:report1).id}", current_path
   end
 
   test 'next report' do
-    visit "/reports/#{reports(:report2).id}"
+    visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
     click_link '次の日報'
     assert_equal "/reports/#{reports(:report3).id}", current_path
   end
 
   test 'report has a comment form ' do
-    login_user 'yamada', 'testtest'
-    visit "/reports/#{reports(:report1).id}"
+    visit_with_auth "/reports/#{reports(:report1).id}", 'yamada'
     assert_selector '.thread-comment-form'
   end
 
   test 'unwatch' do
-    login_user 'kimura', 'testtest'
-    visit report_path(reports(:report1))
+    visit_with_auth report_path(reports(:report1)), 'kimura'
     assert_difference('Watch.count', -1) do
       find('div.a-watch-button', text: 'Watch中').click
       sleep 0.5
@@ -381,8 +371,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'click unwatch' do
-    login_user 'kimura', 'testtest'
-    visit report_path(reports(:report1))
+    visit_with_auth report_path(reports(:report1)), 'kimura'
     assert_difference('Watch.count', -1) do
       find('div.a-watch-button', text: 'Watch中').click
       sleep 0.5
@@ -392,8 +381,7 @@ class ReportsTest < ApplicationSystemTestCase
   test "don't notify when first report is WIP" do
     Report.destroy_all
 
-    login_user 'kensyu', 'testtest'
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'kensyu'
     within('#new_report') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -411,16 +399,14 @@ class ReportsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '日報をWIPとして保存しました。'
 
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     assert_no_text 'kensyuさんがはじめての日報を書きました！'
   end
 
   test 'notify when WIP report submitted' do
     Report.all.each(&:destroy)
 
-    login_user 'kensyu', 'testtest'
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'kensyu'
     within('#new_report') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -438,25 +424,21 @@ class ReportsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '日報をWIPとして保存しました。'
 
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     assert_no_text 'kensyuさんがはじめての日報を書きました！'
 
-    login_user 'kensyu', 'testtest'
-    visit "/users/#{users(:kensyu).id}/reports"
+    visit_with_auth "/users/#{users(:kensyu).id}/reports", 'kensyu'
     click_link 'test title'
     click_link '内容修正'
     click_button '提出'
     assert_text '日報を保存しました。'
 
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     assert_text 'kensyuさんがはじめての日報を書きました！'
   end
 
   test 'delete report with notification' do
-    login_user 'kimura', 'testtest'
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'kimura'
     within('#new_report') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -474,25 +456,22 @@ class ReportsTest < ApplicationSystemTestCase
     click_button '提出'
     assert_text '日報を保存しました。'
 
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     assert_text 'kimuraさんがはじめての日報を書きました！'
 
-    login_user 'kimura', 'testtest'
-    visit '/reports'
+    visit_with_auth '/reports', 'kimura'
     click_on 'test title'
     accept_confirm do
       click_link '削除'
     end
     assert_text '日報を削除しました。'
 
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     assert_no_text 'kimuraさんがはじめての日報を書きました！'
   end
 
   test 'reports are ordered in descending of reported_on' do
-    visit reports_path
+    visit_with_auth reports_path, 'kimura'
     precede = reports(:report24).title
     succeed = reports(:report23).title
     within '.thread-list' do
@@ -501,7 +480,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'reports are ordered in descending of created_at if reported_on is same' do
-    visit reports_path
+    visit_with_auth reports_path, 'kimura'
     precede = reports(:report18).title
     succeed = reports(:report17).title
 
@@ -511,7 +490,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'reports can be checked as plain markdown' do
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'kimura'
     within('#new_report') do
       fill_in('report[title]', with: 'check plain markdown')
       fill_in('report[description]', with: '## this is heading2')
@@ -527,5 +506,12 @@ class ReportsTest < ApplicationSystemTestCase
     click_link 'Raw'
     switch_to_window windows.last
     assert_text '## this is heading2', exact: true
+  end
+
+  test 'update report without learning time' do
+    visit_with_auth edit_report_path(reports(:report1)), 'komagata'
+    check '学習時間は無し', allow_label_click: true
+    click_button '内容変更'
+    assert_text '学習時間無し'
   end
 end

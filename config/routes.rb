@@ -40,7 +40,9 @@ Rails.application.routes.draw do
     resources :available_emojis, only: %i(index)
     resources :reactions, only: %i(create destroy)
     resources :checks, only: %i(index create destroy)
-    resources :users, only: %i(index show)
+    resources :mention_users, only: %i(index)
+    resources :users, only: %i(index show update)
+    get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
     resources :reservations, only: %i(index create destroy)
     resources :practices, only: %i(index show update) do
       resource :learning, only: %i(show update), controller: "practices/learning"
@@ -66,7 +68,8 @@ Rails.application.routes.draw do
     namespace :categories_practices do
       resources :position, only: %i(update)
     end
-  resources :announcements, except: %i(new edit)
+    resources :announcements, except: %i(new edit)
+    resources :searchables, only: %i(index)
   end
 
   namespace :admin do

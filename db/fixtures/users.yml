@@ -19,7 +19,6 @@ komagata:
   admin: true
   mentor: true
   github_collaborator: true
-  officekey_permission: true
   unsubscribe_email_token: 037i-ef5n7V4EnPv74mtyQ
   updated_at: "2014-01-01 00:00:01"
   created_at: "2014-01-01 00:00:01"
@@ -44,7 +43,6 @@ machida:
   admin: true
   mentor: true
   github_collaborator: true
-  officekey_permission: true
   unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
   updated_at: "2014-01-01 00:00:02"
   created_at: "2014-01-01 00:00:02"
@@ -399,3 +397,249 @@ with_hyphen:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:17"
   created_at: "2021-01-01 00:00:17"
+
+sumi:
+  login_name: sumi
+  email: sumi@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 秋元 澄
+  name_kana: アキモト スミ
+  slack_account: sumi
+  github_account: sumi
+  discord_account: sumi#1234
+  twitter_account: sumi
+  facebook_url: http://www.facebook.com/sumi
+  blog_url: http://sumi.org
+  description: "testユーザーです。"
+  course: course1
+  job: office_worker
+  os: mac_m1
+  experience: html_css
+  job_seeker: true
+  job_seeking: true
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-01-01 00:00:18"
+  created_at: "2021-01-01 00:00:18"
+
+nobu:
+  login_name: nobu
+  email: nobu@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 岡野 伸江
+  name_kana: オカノ ノブエ
+  slack_account: nobu
+  github_account: nobu
+  discord_account: nobu#1234
+  twitter_account: nobu
+  facebook_url: http://www.facebook.com/nobu
+  blog_url: http://nobu.org
+  description: "testユーザーです。"
+  course: course1
+  job: office_worker
+  os: linux
+  experience: rails
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-01-01 00:00:19"
+  created_at: "2021-01-01 00:00:19"
+
+rie:
+  login_name: rie
+  email: rie@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 服部 梨絵
+  name_kana: ハットリ リエ
+  slack_account: rie
+  github_account: rie
+  discord_account: rie#1234
+  twitter_account: rie
+  facebook_url: http://www.facebook.com/rie
+  blog_url: http://rie.org
+  description: "testユーザーです。"
+  course: course1
+  job: unemployed
+  os: mac
+  experience: inexperienced
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-01-01 00:00:20"
+  created_at: "2021-01-01 00:00:20"
+
+take:
+  login_name: take
+  email: take@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 青木 武久
+  name_kana: アオキ タケヒサ
+  slack_account: take
+  github_account: take
+  discord_account: take#1234
+  twitter_account: take
+  facebook_url: http://www.facebook.com/take
+  blog_url: http://take.org
+  description: "testユーザーです。"
+  course: course1
+  job: vacation
+  os: mac_m1
+  experience: rails
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-01-01 00:00:21"
+  created_at: "2021-01-01 00:00:21"
+
+kunimi:
+  login_name: kunimi
+  email: kunimi@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 平川 邦美
+  name_kana: ヒラカワ クニミ
+  slack_account: kunimi
+  github_account: kunimi
+  discord_account: kunimi#1234
+  twitter_account: kunimi
+  facebook_url: http://www.facebook.com/kunimi
+  blog_url: http://kunimi.org
+  description: "testユーザーです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-01-01 00:00:22"
+  created_at: "2021-01-01 00:00:22"
+
+tomo:
+  login_name: tomo
+  email: tomo@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 向井 知美
+  name_kana: ムカイ トモミ
+  slack_account: tomo
+  github_account: tomo
+  discord_account: tomo#1234
+  twitter_account: tomo
+  facebook_url: http://www.facebook.com/tomo
+  blog_url: http://tomo.org
+  description: "testユーザーです。"
+  course: course1
+  job: part_time_worker
+  os: mac
+  experience: rails
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-01-01 00:00:23"
+  created_at: "2021-01-01 00:00:23"
+
+akiyosi:
+  login_name: akiyosi
+  email: akiyosi@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 秋山 義幸
+  name_kana: アキヤマ ヨシユキ
+  slack_account: akiyosi
+  github_account: akiyosi
+  discord_account: akiyosi#1234
+  twitter_account: akiyosi
+  facebook_url: http://www.facebook.com/akiyosi
+  blog_url: http://akiyosi.org
+  description: "testユーザーです。"
+  course: course1
+  job: student
+  os: mac
+  experience: ruby
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-01-01 00:00:24"
+  created_at: "2021-01-01 00:00:24"
+
+tomomi:
+  login_name: tomomi
+  email: tomomi@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 西川 知実
+  name_kana: ニシカワ トモミ
+  slack_account: tomomi
+  github_account: tomomi
+  discord_account: tomomi#1234
+  twitter_account: tomomi
+  facebook_url: http://www.facebook.com/tomomi
+  blog_url: http://tomomi.org
+  description: "testユーザーです。"
+  course: course1
+  job: student
+  os: mac
+  experience: ruby
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-01-01 00:00:25"
+  created_at: "2021-01-01 00:00:25"
+
+ogaoga:
+  login_name: ogaoga
+  email: ogaoga@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 小笠原 里江子
+  name_kana: オガサハラ リエコ
+  slack_account: ogaoga
+  github_account: ogaoga
+  discord_account: ogaoga#1234
+  twitter_account: ogaoga
+  facebook_url: http://www.facebook.com/ogaoga
+  blog_url: http://ogaoga.org
+  description: "testユーザーです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-01-01 00:00:26"
+  created_at: "2021-01-01 00:00:26"
+
+take8:
+  login_name: take8
+  email: take8@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 武井 恵八郎
+  name_kana: タケイ エイハチロウ
+  slack_account: take8
+  github_account: take8
+  discord_account: take8#1234
+  twitter_account: take8
+  facebook_url: http://www.facebook.com/take8
+  blog_url: http://take8.org
+  description: "testユーザーです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  job_seeker: true
+  job_seeking: true
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-01-01 00:00:27"
+  created_at: "2021-01-01 00:00:27"
+
+fujiyasu:
+  login_name: fujiyasu
+  email: fujiyasu@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 藤野 安則
+  name_kana: フジノ ヤスノリ
+  slack_account: fujiyasu
+  github_account: fujiyasu
+  discord_account: fujiyasu#1234
+  twitter_account: fujiyasu
+  facebook_url: http://www.facebook.com/fujiyasu
+  blog_url: http://fujiyasu.org
+  description: "testユーザーです。"
+  course: course1
+  job: unemployed
+  os: mac_m1
+  experience: inexperienced
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-01-01 00:00:28"
+  created_at: "2021-01-01 00:00:28"

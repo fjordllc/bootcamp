@@ -11,7 +11,7 @@ import 'whatwg-fetch'
 export default {
   props: {
     isFollowing: { type: Boolean, required: true },
-    userId: { type: String, required: true }
+    userId: { type: Number, required: true }
   },
   data() {
     return {

@@ -3,12 +3,8 @@
 require 'application_system_test_case'
 
 class API::MemosTest < ApplicationSystemTestCase
-  def setup
-    login_user 'komagata', 'testtest'
-  end
-
   test 'show memo' do
-    visit '/reservation_calenders/201911'
+    visit_with_auth '/reservation_calenders/201911', 'komagata'
     assert_equal '席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     within('#memo-2019-11-01') do
@@ -22,7 +18,7 @@ class API::MemosTest < ApplicationSystemTestCase
   end
 
   test 'create memo' do
-    visit '/reservation_calenders/201911'
+    visit_with_auth '/reservation_calenders/201911', 'komagata'
     assert_equal '席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     within('#memo-2019-11-01') do
@@ -36,7 +32,7 @@ class API::MemosTest < ApplicationSystemTestCase
   end
 
   test 'update memo' do
-    visit '/reservation_calenders/201911'
+    visit_with_auth '/reservation_calenders/201911', 'komagata'
     assert_equal '席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     within("#memo-#{memos(:memo1).date}") do
@@ -50,7 +46,7 @@ class API::MemosTest < ApplicationSystemTestCase
   end
 
   test 'delete memo' do
-    visit '/reservation_calenders/201911'
+    visit_with_auth '/reservation_calenders/201911', 'komagata'
     assert_equal '席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     within("#memo-#{memos(:memo1).date}") do
@@ -63,8 +59,7 @@ class API::MemosTest < ApplicationSystemTestCase
   end
 
   test "cann't delete memo when the user non-admin" do
-    login_user 'kimura', 'testtest'
-    visit '/reservation_calenders/201911'
+    visit_with_auth '/reservation_calenders/201911', 'kimura'
     assert_equal '席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     within("#memo-#{memos(:memo1).date}") do

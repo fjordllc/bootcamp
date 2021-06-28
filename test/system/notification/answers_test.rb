@@ -8,8 +8,7 @@ class Notification::AnswersTest < ApplicationSystemTestCase
   end
 
   test "recieve a notification when I got my question's answer" do
-    login_user 'komagata', 'testtest'
-    visit "/questions/#{questions(:question2).id}"
+    visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
     within('.thread-comment-form__form') do
       fill_in('answer[description]', with: 'reduceも使ってみては？')
     end
@@ -17,12 +16,12 @@ class Notification::AnswersTest < ApplicationSystemTestCase
     wait_for_vuejs
     logout
 
-    login_user 'sotugyou', 'testtest'
+    visit_with_auth '/', 'sotugyou'
     open_notification
     assert_equal @notice_text, notification_message
     logout
 
-    login_user 'komagata', 'testtest'
+    visit_with_auth '/', 'komagata'
     refute_text @notice_text
   end
 end

@@ -1,26 +1,25 @@
 html
-  body
-    .is-hidden
-      display: none
 
+  *[hidden],
+  .is-hidden
+    display: none !important
+
+  body
     .is-hidden-md-up
       +media-breakpoint-up(md)
+        display: none
+
+    .is-hidden-md-down
+      +media-breakpoint-down(md)
         display: none
 
     .is-hidden-lg-up
       +media-breakpoint-up(lg)
         display: none
 
-    *[hidden],
-    .is-hidden
-      display: none !important
+    .is-hidden-sm-down
+      +media-breakpoint-down(sm)
+        display: none
+
     .is-mw-100
       max-width: 100%
-
-  .is-hidden-sm-down
-    +media-breakpoint-down(sm)
-      display: none
-
-  *[hidden],
-  .is-hidden
-    display: none !important

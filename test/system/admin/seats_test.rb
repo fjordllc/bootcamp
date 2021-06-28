@@ -3,17 +3,13 @@
 require 'application_system_test_case'
 
 class Admin::SeatsTest < ApplicationSystemTestCase
-  setup do
-    login_user 'komagata', 'testtest'
-  end
-
   test 'show seats' do
-    visit '/admin/seats'
+    visit_with_auth '/admin/seats', 'komagata'
     assert_equal '席一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'create seat' do
-    visit '/admin/seats/new'
+    visit_with_auth '/admin/seats/new', 'komagata'
     assert_equal '席一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     within 'form[name=seat]' do
@@ -24,7 +20,7 @@ class Admin::SeatsTest < ApplicationSystemTestCase
   end
 
   test 'update seat' do
-    visit "/admin/seats/#{seats(:seat1).id}/edit"
+    visit_with_auth "/admin/seats/#{seats(:seat1).id}/edit", 'komagata'
     assert_equal '席一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     within 'form[name=seat]' do
@@ -35,7 +31,7 @@ class Admin::SeatsTest < ApplicationSystemTestCase
   end
 
   test 'delete seat' do
-    visit '/admin/seats'
+    visit_with_auth '/admin/seats', 'komagata'
     assert_equal '席一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     accept_confirm do
       find("#seat_#{seats(:seat1).id} .js-delete").click

@@ -76,7 +76,7 @@ class ProductTest < ActiveSupport::TestCase
       practice: practices(:practice5),
       checker_id: checker.id
     )
-    assert_equal true, product.other_checker_exists?(current_user.id)
+    assert product.other_checker_exists?(current_user.id)
   end
 
   test 'other_checker_not_exists' do
@@ -87,7 +87,7 @@ class ProductTest < ActiveSupport::TestCase
       practice: practices(:practice5),
       checker_id: nil
     )
-    assert_equal false, product.other_checker_exists?(current_user.id)
+    assert_not product.other_checker_exists?(current_user.id)
   end
 
   test '#checker_name' do
@@ -109,6 +109,6 @@ class ProductTest < ActiveSupport::TestCase
       practice: practices(:practice5),
       checker_id: nil
     )
-    assert_equal true, product.save_checker(current_user.id)
+    assert product.save_checker(current_user.id)
   end
 end

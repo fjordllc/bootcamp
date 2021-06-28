@@ -495,7 +495,7 @@ class User < ApplicationRecord
 
   def reports_date_and_emotion(term)
     search_term = (Time.zone.today - term.day)..Time.zone.today
-    reports = self.reports.where(reported_on: search_term)
+    reports = self.reports.where(reported_on: search_term, wip: false)
 
     emotions = reports.index_by(&:reported_on)
 
@@ -518,8 +518,8 @@ class User < ApplicationRecord
   end
 
   def depressed?
-    three_days_emotions = reports.order(reported_on: :desc).limit(3).pluck(:emotion)
-    !three_days_emotions.empty? && three_days_emotions.all?('sad')
+    three_days_reports = reports.order(reported_on: :desc).limit(3)
+    three_days_reports.size == 3 && three_days_reports.all?(&:sad?)
   end
 
   def active_practice

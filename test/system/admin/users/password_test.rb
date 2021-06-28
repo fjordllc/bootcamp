@@ -3,13 +3,10 @@
 require 'application_system_test_case'
 
 class Admin::Users::PasswordTest < ApplicationSystemTestCase
-  setup do
-    login_user 'komagata', 'testtest'
-    @user = users(:kimura)
-  end
-
   test "update user's password by admin" do
-    visit user_path(@user)
+    user = users(:kimura)
+
+    visit_with_auth user_path(user), 'komagata'
     click_on('管理者として情報変更')
 
     click_on('管理者としてパスワードを変更')
@@ -26,7 +23,7 @@ class Admin::Users::PasswordTest < ApplicationSystemTestCase
 
     visit login_url
     within 'form[name=user_session]' do
-      fill_in 'user[login]', with: @user.login_name
+      fill_in 'user[login]', with: user.login_name
       fill_in 'user[password]', with: 'newpassword'
       click_button 'ログイン'
     end

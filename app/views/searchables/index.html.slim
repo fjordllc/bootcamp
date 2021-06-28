@@ -6,16 +6,4 @@ header.page-header
       h2.page-header__title
         = title
 
-.page-body
-  .container
-    = paginate @searchables
-    - if @searchables.size.positive?
-      .thread-list.a-card
-        = render partial: 'searchables/searchable', collection: @searchables, as: :searchable, locals: { words: '' }
-    - else
-      .o-empty-message
-        .o-empty-message__icon
-          i.far.fa-sad-tear
-        p.o-empty-message__text
-          | '#{params[:word]}'に一致する情報は見つかりませんでした。
-    = paginate @searchables
+#js-searchables(document_type="#{params[:document_type]}" word="#{params[:word]}")
