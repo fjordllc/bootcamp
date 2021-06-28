@@ -9,15 +9,6 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'advisor can not see listing unchecked products' do
-<<<<<<< HEAD
-    visit_with_auth '/products', 'advijirou'
-    assert_no_link '未チェック'
-  end
-
-  test 'mentor can see a button to open to open all unchecked products' do
-    visit_with_auth '/products/unchecked', 'komagata'
-    assert_button '未チェックの提出物を一括で開く'
-=======
     login_user 'advijirou', 'testtest'
     visit '/products'
     assert_no_link '未完了'
@@ -27,7 +18,6 @@ class ProductsTest < ApplicationSystemTestCase
     login_user 'komagata', 'testtest'
     visit '/products/unchecked'
     assert_button '未完了の提出物を一括で開く'
->>>>>>> 0b552d5c (「未チェックの提出物を一括で開く」ボタンも未完了に変更&テストを修正)
   end
 
   test 'click on open all unchecked submissions button' do
