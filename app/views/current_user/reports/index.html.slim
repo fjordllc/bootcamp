@@ -1,0 +1,28 @@
+- title "#{@user.login_name}の日報"
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to new_report_path, class: 'a-button is-md is-secondary is-block' do
+              i.fas.fa-plus
+              | 日報作成
+
+= render 'home/page_tabs', user: @user
+
+.page-body
+  .container
+    = paginate @reports
+    - if @reports.present?
+      .thread-list.a-card
+        = render partial: 'reports/report', collection: @reports, as: :report
+    - else
+      .o-empty-message
+        .o-empty-message__icon
+          i.far.fa-sad-tear
+        p.o-empty-message__text
+          | 日報はまだありません。
+    = paginate @reports
