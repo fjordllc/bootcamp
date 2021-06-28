@@ -188,10 +188,11 @@ Rails.application.routes.draw do
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/
   get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
-
   namespace :users do
     post "tags/:tag", to: "tags#update", tag: /.+/
+    delete "tags/:tag", to: "tags#destroy", tag: /.+/
   end
+
   resources :watches, only: %i(index)
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"
