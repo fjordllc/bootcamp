@@ -24,7 +24,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '未完了の提出物を一括で開く'
 
     within_window(windows.last) do
-      assert_text 'テストの提出物60です。'
+      assert_text '提出物の検索結果テスト用'
     end
   end
 
