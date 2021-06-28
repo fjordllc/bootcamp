@@ -58,4 +58,22 @@ class User::TagsTest < ApplicationSystemTestCase
     assert_text '課金'
     assert_no_text 'タグ編集'
   end
+
+  test 'delete user tag on tag page' do
+    visit_with_auth '/', 'hatsuno'
+
+    %i[cat shinjuku_rb neovim_v_zero_five_zero _net_framework may_j_].each do |key|
+      name = acts_as_taggable_on_tags(key).name
+      visit "/users/tags/#{name}"
+      click_link 'このタグを自分に追加'
+      visit user_path(users(:hatsuno))
+      assert_text name
+
+      visit "/users/tags/#{name}"
+      click_link 'このタグを自分から外す'
+      assert_no_text 'このタグを自分から外す'
+      visit user_path(users(:hatsuno))
+      assert_no_text name
+    end
+  end
 end
