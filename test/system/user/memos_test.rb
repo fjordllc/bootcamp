@@ -3,21 +3,17 @@
 require 'application_system_test_case'
 
 class User::MemoTest < ApplicationSystemTestCase
-  test 'update memorandom' do
-    login_user 'komagata', 'testtest'
-    visit user_path(users(:hatsuno))
+  test 'update memo' do
+    visit_with_auth user_path(users(:hatsuno)), 'komagata'
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: 'ユーザーメンターメモ'
     click_button '保存する'
     wait_for_vuejs
     assert_text 'ユーザーメンターメモ'
-    visit user_path(users(:hatsuno))
-    assert_text 'ユーザーメンターメモ'
   end
 
-  test 'do not update memorandom when cancel' do
-    login_user 'komagata', 'testtest'
-    visit user_path(users(:kimura))
+  test 'do not update memo when cancel' do
+    visit_with_auth user_path(users(:kimura)), 'komagata'
     assert_text 'kimuraさんのメモ'
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: 'ユーザーメンターメモ'
@@ -25,44 +21,35 @@ class User::MemoTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_no_text 'ユーザーメンターメモ'
     assert_text 'kimuraさんのメモ'
-    visit user_path(users(:kimura))
-    assert_no_text 'ユーザーメンターメモ'
-    assert_text 'kimuraさんのメモ'
   end
 
-  test 'admin can see memorandom' do
-    login_user 'komagata', 'testtest'
-    visit user_path(users(:hatsuno))
+  test 'admin can see memo' do
+    visit_with_auth user_path(users(:hatsuno)), 'komagata'
     assert_text 'メンター向けユーザーメモ'
   end
 
-  test 'mentor can see memorandom' do
-    login_user 'yamada', 'testtest'
-    visit user_path(users(:hatsuno))
+  test 'mentor can see memo' do
+    visit_with_auth user_path(users(:hatsuno)), 'yamada'
     assert_text 'メンター向けユーザーメモ'
   end
 
-  test 'adviser can’t see memorandom' do
-    login_user 'advijirou', 'testtest'
-    visit user_path(users(:hatsuno))
+  test 'adviser can’t see memo' do
+    visit_with_auth user_path(users(:hatsuno)), 'advijirou'
     assert_no_text 'メンター向けユーザーメモ'
   end
 
-  test 'trainee can’t see memorandom' do
-    login_user 'kensyu', 'testtest'
-    visit user_path(users(:hatsuno))
+  test 'trainee can’t see memo' do
+    visit_with_auth user_path(users(:hatsuno)), 'kensyu'
     assert_no_text 'メンター向けユーザーメモ'
   end
 
-  test 'graduate can’t see memorandom' do
-    login_user 'sotugyou', 'testtest'
-    visit user_path(users(:hatsuno))
+  test 'graduate can’t see memo' do
+    visit_with_auth user_path(users(:hatsuno)), 'sotugyou'
     assert_no_text 'メンター向けユーザーメモ'
   end
 
-  test 'student can’t see memorandom' do
-    login_user 'hatsuno', 'testtest'
-    visit user_path(users(:hatsuno))
+  test 'student can’t see memo' do
+    visit_with_auth user_path(users(:hatsuno)), 'hatsuno'
     assert_no_text 'メンター向けユーザーメモ'
   end
 end
