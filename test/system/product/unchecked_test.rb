@@ -9,14 +9,12 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'advisor can not see listing unchecked products' do
-    login_user 'advijirou', 'testtest'
-    visit '/products'
+    visit_with_auth 'products', 'advijirou'
     assert_no_link '未完了'
   end
 
   test 'mentor can see a button to open to open all unchecked products' do
-    login_user 'komagata', 'testtest'
-    visit '/products/unchecked'
+    visit_with_auth 'products', 'komagata'
     assert_button '未完了の提出物を一括で開く'
   end
 
@@ -31,15 +29,13 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'show incomplete' do
-    login_user 'komagata', 'testtest'
-    visit '/products/unchecked'
+    visit_with_auth '/products/unchecked', 'komagata'
     assert_link '未完了'
     assert_text '未完了の提出物'
   end
 
   test 'button name is incomplete list' do
-    login_user 'komagata', 'testtest'
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     assert_link '未完了一覧'
   end
 end
