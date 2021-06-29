@@ -331,4 +331,9 @@ class EventsTest < ApplicationSystemTestCase
     visit_with_auth event_path(events(:event2)), 'kimura'
     assert_text 'komagata (Komagata Masaki)'
   end
+
+  test 'show user full name on list page' do
+    visit_with_auth '/events', 'kimura'
+    assert_text 'komagata (Komagata Masaki)'
+  end
 end
