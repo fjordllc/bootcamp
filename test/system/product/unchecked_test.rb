@@ -14,7 +14,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'mentor can see a button to open to open all unchecked products' do
-    visit_with_auth 'products', 'komagata'
+    visit_with_auth 'products/unchecked', 'komagata'
     assert_button '未完了の提出物を一括で開く'
   end
 
