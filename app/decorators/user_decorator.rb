@@ -32,8 +32,10 @@ module UserDecorator
   end
 
   def icon_title
-    [login_name, name, staff_roles].reject(&:blank?)
-                                   .join(': ')
+    ["#{login_name} (#{name})", staff_roles].reject(&:blank?)
+                                            .join(': ')
+    # [login_name, name, staff_roles].reject(&:blank?)
+    #                                .join(': ')
   end
 
   def url
