@@ -18,9 +18,10 @@
         = f.text_field :page_url, class: 'a-text-input', placeholder: 'https://www.amazon.co.jp/dp/4297101238'
       .reference-books-form-item.is-inline
         = f.label :must_read, class: 'a-form-label'
-        label.a-on-off-checkbox.is-sm
+        label.a-on-off-checkbox.is-sm.reference-books-form-item__must-read
           = f.check_box :must_read
           span
+            span.is-hidden 必読
       .reference-books-form-item
         = f.label :cover, class: 'a-form-label'
         .form-item-file-input.js-file-input.a-file-input.is-book
