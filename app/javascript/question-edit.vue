@@ -40,7 +40,7 @@
       .thread-header__row
         .thread-header-actions
           .thread-header-actions__start
-            watch(:watchableId='question.id', watchableType='Question')
+            WatchToggle(:watchableId='question.id', watchableType='Question')
           .thread-header-actions__end
             .thread-header__raw
               a.a-button.is-sm.is-secondary(
@@ -162,7 +162,7 @@
 </template>
 <script>
 import Reaction from './reaction.vue'
-import Watch from './watch.vue'
+import WatchToggle from './watch-toggle.vue'
 import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
 import Tags from './question_tags.vue'
@@ -173,7 +173,7 @@ dayjs.locale(ja)
 
 export default {
   components: {
-    watch: Watch,
+    WatchToggle: WatchToggle,
     tags: Tags,
     reaction: Reaction,
     userIcon: UserIcon

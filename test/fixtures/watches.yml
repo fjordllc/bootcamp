@@ -1,7 +1,23 @@
-report1_watch_kimura:
-  user: kimura
-  watchable: report1 (Report)
+<% 1.upto(10) do |i| %>
+report<%= i %>_watch_kimura:
+   user: kimura
+   watchable: report<%= i %> (Report)
+<% end %>
 
-question1_watch_kimura:
-  user: kimura
-  watchable: question1 (Question)
+<% 1.upto(8) do |i| %>
+question<%= i %>_watch_kimura:
+   user: kimura
+   watchable: question<%= i %> (Question)
+<% end %>
+
+<% 1.upto(8) do |i| %>
+product<%= i %>_watch_kimura:
+   user: kimura
+   watchable: product<%= i %> (Product)
+<% end %>
+
+<% 1.upto(6) do |i|  %>
+event<%= i %>_watch_kimura:
+   user: kimura
+   watchable: event<%= i %> (Event)
+<% end %>
