@@ -328,10 +328,12 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'show user full_name next to user login_name' do
-    login_user 'kimura', 'testtest'
-    visit '/events'
+    visit_with_auth event_path(events(:event2)), 'kimura'
     assert_text 'komagata (Komagata Masaki)'
-    visit event_path(events(:event2))
+  end
+
+  test 'show user full name on list page' do
+    visit_with_auth '/events', 'kimura'
     assert_text 'komagata (Komagata Masaki)'
   end
 end
