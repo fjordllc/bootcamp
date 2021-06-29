@@ -28,7 +28,7 @@ header.page-header
           p
             | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
   .container
-    div(class="#{current_user.mentor? || current_user.admin? ? 'row' : ''}")
+    div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
         .thread
           .thread__inner.a-card
@@ -124,7 +124,7 @@ header.page-header
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
         = render 'footprints/footprints', footprints: @footprints
 
-      div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-5 col-xs-12 is-hidden-sm-down' : ''}")
+      .is-only-mentor(class="#{current_user.mentor? || current_user.admin? ? 'col-md-5 col-xs-12 is-hidden-sm-down' : ''}")
         - if current_user.mentor? || current_user.admin?
           .side-tabs
             input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
