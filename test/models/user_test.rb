@@ -310,4 +310,15 @@ class UserTest < ActiveSupport::TestCase
     assert_includes(User.search_by_keywords({ word: komagata.github_account, commentable_type: nil }), komagata)
     assert_includes(User.search_by_keywords({ word: komagata.discord_account, commentable_type: nil }), komagata)
   end
+
+  test '#update_user_mentor_memo' do
+    user = users(:kimura)
+    assert_equal 'kimuraさんのメモ', user.mentor_memo
+    user.updated_at = Time.zone.local(2020, 1, 1, 0, 0, 0)
+    user.update_mentor_memo('新規メモ')
+    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
+      assert user.updated_at
+    end
+    assert_equal '新規メモ', user.mentor_memo
+  end
 end

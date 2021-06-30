@@ -6,6 +6,8 @@
       a.a-count-badge(href='#comments')
         .a-count-badge__label
           | 回答
+        .a-count-badge__value(v-if='!isAnswerCountUpdated')
+          i.fas.fa-spinner
         .a-count-badge__value(:class='answerCount === 0 ? "is-zero" : ""')
           | {{ answerCount }}
       .thread-header__row
@@ -38,7 +40,7 @@
       .thread-header__row
         .thread-header-actions
           .thread-header-actions__start
-            watch(:watchableId='question.id', watchableType='Question')
+            WatchToggle(:watchableId='question.id', watchableType='Question')
           .thread-header-actions__end
             .thread-header__raw
               a.a-button.is-sm.is-secondary(
@@ -160,7 +162,7 @@
 </template>
 <script>
 import Reaction from './reaction.vue'
-import Watch from './watch.vue'
+import WatchToggle from './watch-toggle.vue'
 import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
 import Tags from './question_tags.vue'
@@ -171,7 +173,7 @@ dayjs.locale(ja)
 
 export default {
   components: {
-    watch: Watch,
+    WatchToggle: WatchToggle,
     tags: Tags,
     reaction: Reaction,
     userIcon: UserIcon
@@ -188,6 +190,7 @@ export default {
   props: {
     question: { type: Object, required: true },
     answerCount: { type: Number, required: true },
+    isAnswerCountUpdated: { type: Boolean, required: true },
     currentUser: { type: Object, required: true }
   },
   data() {
