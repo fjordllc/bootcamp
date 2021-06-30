@@ -22,6 +22,10 @@ class Page < ApplicationRecord
 
   before_validation :empty_slug_to_nil
 
+  def self.search_by_slug_or_id(params)
+    Page.find_by(slug: params) || Page.find(params)
+  end
+
   private
 
   def empty_slug_to_nil

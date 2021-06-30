@@ -55,7 +55,7 @@ class PagesController < ApplicationController
   private
 
   def set_page
-    @page = Page.find_by(slug: params[:slug_or_id]) || Page.find(params[:slug_or_id])
+    @page = Page.search_by_slug_or_id(params[:slug_or_id])
   end
 
   def page_params
