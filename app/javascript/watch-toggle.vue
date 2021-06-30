@@ -1,11 +1,9 @@
 <template lang="pug">
-.thread-header-actions__action
-  #watch-button.a-watch-button.a-button.is-xs(
-    :class='watchId ? "is-active is-secondary" : "is-inactive is-main"',
-    @click='buttonClick'
-  )
-    i.fas.fa-eye
-    | {{ watchLabel }}
+#watch-button.a-watch-button.a-button.is-xs(
+  :class='watchId ? "is-active is-main" : "is-inactive is-muted"',
+  @click='buttonClick'
+)
+  | {{ watchLabel }}
 </template>
 <script>
 import 'whatwg-fetch'
@@ -20,7 +18,7 @@ export default {
   data() {
     return {
       watchId: null,
-      watchLabel: 'Watchする',
+      watchLabel: 'Watch',
       totalPages: 0,
       watchValue: null
     }
@@ -31,7 +29,7 @@ export default {
     params.set('watchable_id', this.watchableId)
     if (this.checked) {
       this.watchId= this.watchIndexId
-      this.watchLabel = 'Watchを外す'
+      this.watchLabel = '削除'
     } else {
     fetch(
       `/api/watches/toggle.json?${params}`,
@@ -110,7 +108,7 @@ export default {
       })
         .then(() => {
           this.watchId = null
-          this.watchLabel = 'Watchする'
+          this.watchLabel = 'Watch'
         })
         .then(()=>{
           this.$emit('update-index')

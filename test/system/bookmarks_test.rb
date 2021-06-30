@@ -17,15 +17,17 @@ class BookmarksTest < ApplicationSystemTestCase
   test 'show my bookmark report' do
     login_user 'komagata', 'testtest'
     visit "/reports/#{@report.id}"
-    assert_text 'bookmark解除'
-    assert_no_text 'bookmarkする'
+    wait_for_vuejs
+    assert_selector '#bookmark-button.is-active'
+    assert_no_selector '#bookmark-button.is-inactive'
   end
 
   test 'show not bookmark report' do
     login_user 'machida', 'testtest'
     visit "/reports/#{@report.id}"
-    assert_text 'bookmarkする'
-    assert_no_text 'bookmark解除'
+    wait_for_vuejs
+    assert_selector '#bookmark-button.is-inactive'
+    assert_no_selector '#bookmark-button.is-active'
   end
 
   test 'bookmark' do
@@ -33,7 +35,8 @@ class BookmarksTest < ApplicationSystemTestCase
     visit "/reports/#{@report.id}"
     find('#bookmark-button').click
     wait_for_vuejs
-    assert_text 'bookmark解除'
+    assert_selector '#bookmark-button.is-active'
+    assert_no_selector '#bookmark-button.is-inactive'
 
     visit '/bookmarks'
     assert_text @report.title
@@ -44,7 +47,9 @@ class BookmarksTest < ApplicationSystemTestCase
     visit "/reports/#{@report.id}"
     wait_for_vuejs
     find('#bookmark-button').click
-    assert_text 'bookmarkする'
+    wait_for_vuejs
+    assert_selector '#bookmark-button.is-inactive'
+    assert_no_selector '#bookmark-button.is-active'
 
     visit '/bookmarks'
     assert_no_text @report.title

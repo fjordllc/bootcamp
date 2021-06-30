@@ -57,8 +57,10 @@ header.page-header
           .thread-header__row
             .thread-header-actions
               .thread-header-actions__start
-                #js-watch-toggle(data-watchable-id="#{@report.id}", data-watchable-type='Report')
-                #js-bookmark(data-bookmarkable-id="#{@report.id}", data-bookmarkable-type='Report')
+                .thread-header-actions__action
+                  #js-watch-toggle(data-watchable-id="#{@report.id}", data-watchable-type='Report')
+                .thread-header-actions__action
+                  #js-bookmark(data-bookmarkable-id="#{@report.id}", data-bookmarkable-type='Report')
               .thread-header-actions__end
                 - if @report.user_id == current_user.id
                   .thread-header-actions__action
