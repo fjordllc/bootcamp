@@ -7,7 +7,4 @@ header.page-header
 
 .page-body
   .container
-    = paginate @watches
-    .thread-list.a-card
-      = render partial: 'watch', collection: @watches
-    = paginate @watches
+    #js-watches

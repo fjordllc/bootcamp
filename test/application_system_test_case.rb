@@ -2,6 +2,7 @@
 
 require 'test_helper'
 require 'supports/login_helper'
+require 'supports/test_auth_helper'
 require 'supports/stripe_helper'
 require 'supports/notification_helper'
 require 'supports/report_helper'
@@ -9,6 +10,7 @@ require 'supports/comment_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
+  include TestAuthHelper
   include StripeHelper
   include NotificationHelper
   include ReportHelper
@@ -20,11 +22,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     driven_by :selenium, using: :chrome
   else
     driven_by :selenium, using: :headless_chrome
-  end
-
-  setup do
-    stub_github!
-    stub_subscription_all!
   end
 
   def wait_for_vuejs

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'open-uri'
+require 'net/http'
 require 'nokogiri'
 
 class GithubGrass
@@ -17,13 +17,9 @@ class GithubGrass
   end
 
   def fetch
-    if Rails.env.test?
-      ''
-    else
-      svg = extract_svg(fetch_page)
-      add_view_box_attribute(svg)
-      localize(svg).to_s
-    end
+    svg = extract_svg(fetch_page)
+    add_view_box_attribute(svg)
+    localize(svg).to_s
   rescue StandardError
     ''
   end
@@ -35,7 +31,9 @@ class GithubGrass
   end
 
   def fetch_page
-    URI.parse(github_url(@name)).open.read
+    uri = URI.parse(github_url(@name))
+    response = Net::HTTP.get_response(uri)
+    response.body
   end
 
   def localize(svg)

@@ -4,11 +4,8 @@ require 'application_system_test_case'
 
 class RetirementTest < ApplicationSystemTestCase
   test 'retire user' do
-    stub_subscription_destroy!
-
-    login_user 'kananashi', 'testtest'
     user = users(:kananashi)
-    visit new_retirement_path
+    visit_with_auth new_retirement_path, 'kananashi'
     choose '良い', visible: false
     click_on '退会する'
     page.driver.browser.switch_to.alert.accept
@@ -20,9 +17,8 @@ class RetirementTest < ApplicationSystemTestCase
     login_user 'kananashi', 'testtest'
     assert_text 'ログインができません'
 
-    login_user 'osnashi', 'testtest'
     user = users(:osnashi)
-    visit new_retirement_path
+    visit_with_auth new_retirement_path, 'osnashi'
     choose '良い', visible: false
     click_on '退会する'
     page.driver.browser.switch_to.alert.accept
@@ -36,10 +32,7 @@ class RetirementTest < ApplicationSystemTestCase
   end
 
   test 'delete unchecked products when the user retired' do
-    stub_subscription_cancel!
-
-    login_user 'muryou', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice5).id}"
+    visit_with_auth "/products/new?practice_id=#{practices(:practice5).id}", 'muryou'
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -60,10 +53,7 @@ class RetirementTest < ApplicationSystemTestCase
   end
 
   test 'delete WIP reports when the user retired' do
-    stub_subscription_cancel!
-
-    login_user 'muryou', 'testtest'
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'muryou'
     within('#new_report') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')

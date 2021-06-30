@@ -331,8 +331,8 @@ ActiveRecord::Schema.define(version: 2021_06_03_024907) do
     t.integer "kind", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
-    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable", unique: true
+    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable"
+    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
@@ -400,14 +400,6 @@ ActiveRecord::Schema.define(version: 2021_06_03_024907) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
-  create_table "timelines", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_timelines_on_user_id"
-  end
-
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "login_name", null: false
     t.string "email"
@@ -473,7 +465,7 @@ ActiveRecord::Schema.define(version: 2021_06_03_024907) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable_type_and_watchable_id"
+    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable"
   end
 
   create_table "works", force: :cascade do |t|
@@ -484,7 +476,6 @@ ActiveRecord::Schema.define(version: 2021_06_03_024907) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "graduation_work", default: false, null: false
     t.index ["user_id", "title"], name: "index_works_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "index_works_on_user_id"
   end
@@ -510,6 +501,5 @@ ActiveRecord::Schema.define(version: 2021_06_03_024907) do
   add_foreign_key "questions", "practices"
   add_foreign_key "reactions", "users"
   add_foreign_key "reference_books", "practices"
-  add_foreign_key "timelines", "users"
   add_foreign_key "works", "users"
 end

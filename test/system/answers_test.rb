@@ -3,10 +3,8 @@
 require 'application_system_test_case'
 
 class AnswersTest < ApplicationSystemTestCase
-  setup { login_user 'komagata', 'testtest' }
-
   test 'answer form in questions/:id has comment tab and preview tab' do
-    visit "/questions/#{questions(:question2).id}"
+    visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
     wait_for_vuejs
     within('.thread-comment-form__tabs') do
       assert_text 'コメント'
@@ -15,7 +13,7 @@ class AnswersTest < ApplicationSystemTestCase
   end
 
   test 'post new comment for question' do
-    visit "/questions/#{questions(:question2).id}"
+    visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
     wait_for_vuejs
     within('.thread-comment-form__form') do
       fill_in('answer[description]', with: 'test')
@@ -27,7 +25,7 @@ class AnswersTest < ApplicationSystemTestCase
   end
 
   test 'edit answer form has comment tab and preview tab' do
-    visit "/questions/#{questions(:question3).id}"
+    visit_with_auth "/questions/#{questions(:question3).id}", 'komagata'
     wait_for_vuejs
     within('.thread-comment:first-child') do
       click_button '内容修正'
@@ -37,7 +35,7 @@ class AnswersTest < ApplicationSystemTestCase
   end
 
   test 'admin can edit and delete any questions' do
-    visit "/questions/#{questions(:question1).id}"
+    visit_with_auth "/questions/#{questions(:question1).id}", 'komagata'
     wait_for_vuejs
     answer_by_user = page.all('.thread-comment')[1]
     within answer_by_user do
@@ -47,7 +45,7 @@ class AnswersTest < ApplicationSystemTestCase
   end
 
   test "admin can resolve user's question" do
-    visit "/questions/#{questions(:question2).id}"
+    visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
     wait_for_vuejs
     assert_text 'ベストアンサーにする'
     accept_alert do
@@ -57,7 +55,7 @@ class AnswersTest < ApplicationSystemTestCase
   end
 
   test 'delete best answer' do
-    visit "/questions/#{questions(:question2).id}"
+    visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
     wait_for_vuejs
     accept_alert do
       click_button 'ベストアンサーにする'
