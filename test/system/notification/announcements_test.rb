@@ -11,8 +11,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
   end
 
   test 'all menber recieve a notification when announcement posted' do
-    login_user 'komagata', 'testtest'
-    visit '/announcements'
+    visit_with_auth '/announcements', 'komagata'
     click_link 'お知らせ作成'
 
     find("input[name='announcement[title]']").set('お知らせです')
@@ -21,12 +20,12 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     click_button '作成'
     logout
 
-    login_user 'sotugyou', 'testtest'
+    visit_with_auth '/', 'sotugyou'
     open_notification
     assert_equal @notice_text, notification_message
     logout
 
-    login_user 'komagata', 'testtest'
+    visit_with_auth '/', 'komagata'
     refute_text @notice_text
 
     assert_equal(@notified_count + @receiver_count, Notification.where(kind: @notice_kind).size)

@@ -11,8 +11,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'mentor receive notification when question is posted' do
-    login_user 'hatsuno', 'testtest'
-    visit '/questions/new'
+    visit_with_auth '/questions/new', 'hatsuno'
     within 'form[name=question]' do
       fill_in('question[title]', with: 'メンターに質問！！')
       fill_in('question[description]', with: '通知行ってますか？')
@@ -31,8 +30,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'There is no notification to the mentor who posted' do
-    login_user 'yamada', 'testtest'
-    visit '/questions/new'
+    visit_with_auth '/questions/new', 'yamada'
     within 'form[name=question]' do
       fill_in('question[title]', with: '皆さんに質問！！')
       fill_in('question[description]', with: '通知行ってますか？')

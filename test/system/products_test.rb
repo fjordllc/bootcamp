@@ -1,61 +1,48 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
-require 'minitest/mock'
 
 PAGINATES_PER = 50
 
 class ProductsTest < ApplicationSystemTestCase
-  teardown do
-    wait_for_vuejs
-  end
-
   test 'see my product' do
-    login_user 'yamada', 'testtest'
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'yamada'
     assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test 'admin can see a product' do
-    login_user 'komagata', 'testtest'
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test 'adviser can see a product' do
-    login_user 'advijirou', 'testtest'
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'advijirou'
     assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test 'graduate can see a product' do
-    login_user 'sotugyou', 'testtest'
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'sotugyou'
     assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "user who completed the practice can see the other user's product" do
-    login_user 'kimura', 'testtest'
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'kimura'
     assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "can see other user's product if it is permitted" do
-    login_user 'hatsuno', 'testtest'
-    visit "/products/#{products(:product3).id}"
+    visit_with_auth "/products/#{products(:product3).id}", 'hatsuno'
     assert_equal "#{products(:product3).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
   test "can not see other user's product if it isn't permitted" do
-    login_user 'hatsuno', 'testtest'
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'hatsuno'
     assert_not_equal '提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     assert_text 'プラクティスを完了するまで他の人の提出物は見れません。'
   end
 
   test 'create product' do
-    login_user 'yamada', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice6).id}"
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'yamada'
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -65,8 +52,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'create product change status submitted' do
-    login_user 'yamada', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice6).id}"
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'yamada'
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -78,9 +64,8 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'update product' do
-    login_user 'yamada', 'testtest'
     product = products(:product1)
-    visit "/products/#{product.id}/edit"
+    visit_with_auth "/products/#{product.id}/edit", 'yamada'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
@@ -89,9 +74,8 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'update product if product page is WIP' do
-    login_user 'yamada', 'testtest'
     product = products(:product1)
-    visit "/products/#{product.id}/edit"
+    visit_with_auth "/products/#{product.id}/edit", 'yamada'
     click_button 'WIP'
     visit "/products/#{product.id}"
     click_button '提出する'
@@ -99,9 +83,8 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'delete product' do
-    login_user 'yamada', 'testtest'
     product = products(:product1)
-    visit "/products/#{product.id}"
+    visit_with_auth "/products/#{product.id}", 'yamada'
     accept_confirm do
       click_link '削除'
     end
@@ -110,15 +93,13 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'product has a comment form ' do
-    login_user 'yamada', 'testtest'
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'yamada'
     assert_selector '.thread-comment-form'
   end
 
   test 'admin can delete a product' do
-    login_user 'komagata', 'testtest'
     product = products(:product1)
-    visit "/products/#{product.id}"
+    visit_with_auth "/products/#{product.id}", 'komagata'
     accept_confirm do
       click_link '削除'
     end
@@ -127,23 +108,20 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'setting checker on show page' do
-    login_user 'komagata', 'testtest'
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     click_button '担当する'
     assert_button '担当から外れる'
   end
 
   test 'unsetting checker on show page' do
-    login_user 'komagata', 'testtest'
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     click_button '担当する'
     click_button '担当から外れる'
     assert_button '担当する'
   end
 
   test 'hide checker button at product checked' do
-    login_user 'machida', 'testtest'
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'machida'
     assert_button '担当する'
     click_button '提出物を確認'
     assert_no_button '担当する'
@@ -151,8 +129,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'create product as WIP' do
-    login_user 'yamada', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice6).id}"
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'yamada'
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -161,9 +138,8 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'update product as WIP' do
-    login_user 'yamada', 'testtest'
     product = products(:product1)
-    visit "/products/#{product.id}/edit"
+    visit_with_auth "/products/#{product.id}/edit", 'yamada'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
@@ -172,30 +148,25 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test "Don't notify if create product as WIP" do
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
-    login_user 'kensyu', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice3).id}"
+    visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
     assert_text '提出物をWIPとして保存しました。'
 
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     assert_no_text "kensyuさんが「#{practices(:practice3).id}」の提出物を提出しました。"
   end
 
   test "Don't notify if update product as WIP" do
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
-    login_user 'kensyu', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice3).id}"
+    visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -207,29 +178,24 @@ class ProductsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '提出物をWIPとして保存しました。'
 
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     assert_no_text "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。"
   end
 
   test 'setting checker' do
-    login_user 'komagata', 'testtest'
-    visit products_path
+    visit_with_auth products_path, 'komagata'
     click_button '担当する', match: :first
     assert_button '担当から外れる'
   end
 
   test 'unsetting checker' do
-    login_user 'komagata', 'testtest'
-    visit products_path
+    visit_with_auth products_path, 'komagata'
     click_button '担当する', match: :first
     click_button '担当から外れる', match: :first
     assert_button '担当する'
   end
 
   test 'click on the pager button' do
-    login_user 'komagata', 'testtest'
-
     (PAGINATES_PER - Product.count + 1).times do |n|
       Product.create!(
         body: 'test',
@@ -238,7 +204,7 @@ class ProductsTest < ApplicationSystemTestCase
       )
     end
 
-    visit '/products'
+    visit_with_auth '/products', 'komagata'
     within first('.pagination') do
       find('a', text: '2').click
     end
@@ -250,8 +216,6 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'specify the page number in the URL' do
-    login_user 'komagata', 'testtest'
-
     (PAGINATES_PER - Product.count + 1).times do |n|
       Product.create!(
         body: 'test',
@@ -259,7 +223,7 @@ class ProductsTest < ApplicationSystemTestCase
         practice: practices("practice#{n + 1}".to_sym)
       )
     end
-
+    login_user 'komagata', 'testtest'
     visit '/products?page=2'
     all('.pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
@@ -268,8 +232,6 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'clicking the browser back button will show the previous page' do
-    login_user 'komagata', 'testtest'
-
     (PAGINATES_PER - Product.count + 1).times do |n|
       Product.create!(
         body: 'test',
@@ -277,7 +239,7 @@ class ProductsTest < ApplicationSystemTestCase
         practice: practices("practice#{n + 1}".to_sym)
       )
     end
-
+    login_user 'komagata', 'testtest'
     visit '/products?page=2'
     within first('.pagination') do
       find('a', text: '1').click
@@ -299,17 +261,13 @@ class ProductsTest < ApplicationSystemTestCase
       end
     end
 
-    login_user 'komagata', 'testtest'
-
-    visit '/products'
+    visit_with_auth '/products', 'komagata'
 
     assert_not page.has_css?('.pagination')
   end
 
   test 'be person on charge at comment on product of there are not person on charge' do
-    login_user 'machida', 'testtest'
-
-    visit products_not_responded_index_path
+    visit_with_auth products_not_responded_index_path, 'machida'
     def assigned_product_count
       find_link('自分の担当').find('.page-tabs__item-count').text.to_i
     end
@@ -329,16 +287,13 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'be not person on charge at comment on product of there are person on charge' do
-    login_user 'komagata', 'testtest'
-
-    visit products_not_responded_index_path
+    visit_with_auth products_not_responded_index_path, 'komagata'
     product = find('.thread-list-item', match: :first)
     product.click_button '担当する'
     show_product_path = product.find_link(href: /products/)[:href]
     logout
 
-    login_user 'machida', 'testtest'
-    visit products_not_responded_index_path
+    visit_with_auth products_not_responded_index_path, 'machida'
 
     def assigned_product_count
       find_link('自分の担当').find('.page-tabs__item-count').text.to_i
@@ -354,8 +309,19 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'show user full_name next to user login_name' do
-    login_user 'kimura', 'testtest'
-    visit "/products/#{products(:product1).id}"
+    visit_with_auth "/products/#{products(:product1).id}", 'kimura'
     assert_text 'yamada (Yamada Taro)'
+  end
+
+  test 'notice accessibility to open products on products index' do
+    visit_with_auth "/users/#{users(:kimura).id}/products/", 'kimura'
+    assert_text 'このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。'
+  end
+
+  test 'notice accessibility to itself on an open product page' do
+    visit_with_auth "/products/#{products(:product2).id}", 'kimura'
+    assert_no_text 'このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。'
+    visit "/products/#{products(:product3).id}"
+    assert_text 'このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。'
   end
 end

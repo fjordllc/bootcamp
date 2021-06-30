@@ -1,4 +1,3 @@
-[![CircleCI](https://circleci.com/gh/fjordllc/bootcamp.svg?style=shield)](https://app.circleci.com/pipelines/github/fjordllc)
 [![Create a release pull-request](https://github.com/fjordllc/bootcamp/actions/workflows/git-pr-release-action.yml/badge.svg)](https://github.com/fjordllc/bootcamp/actions/workflows/git-pr-release-action.yml)
 
 # Bootcamp
@@ -47,7 +46,7 @@ $ ./bin/lint
 * Ruby
   * rubocop
   * slim-lint
-* JavaScript  
+* JavaScript
   `bin/yarn fix` で、eslintとprettierが自動でエラーや警告を修正してくれます。ただし、全てのエラーや警告は修正されず、手動で修正する必要がある場合もあります。
   * eslint
   * prettier

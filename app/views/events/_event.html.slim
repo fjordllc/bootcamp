@@ -6,7 +6,7 @@
           .thread-header-metas__start
             .thread-header-metas__meta
               = link_to event.user, class: 'a-user-name' do
-                = event.user.login_name
+                = event.user.long_name
             .thread-header-metas__meta
               .a-date
                 time.a-date__value(datetime="#{event.created_at.to_datetime}" pubdate='pubdate')
@@ -24,7 +24,7 @@
         .thread-header-actions
           .thread-header-actions__start
             .thread-header-actions__action
-              #js-watch(data-watchable-id="#{@event.id}", data-watchable-type='Event')
+              #js-watch-toggle(data-watchable-id="#{@event.id}", data-watchable-type='Event')
           .thread-header-actions__end
             .thread-header-actions__action
               = link_to new_event_path(id: event), class: 'a-button is-xs is-secondary is-block' do

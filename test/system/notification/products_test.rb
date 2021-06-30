@@ -4,8 +4,7 @@ require 'application_system_test_case'
 
 class Notification::ProductsTest < ApplicationSystemTestCase
   test 'send adviser a notification when trainee create product' do
-    login_user 'kensyu', 'testtest'
-    visit "/products/new?practice_id=#{practices(:practice5).id}"
+    visit_with_auth "/products/new?practice_id=#{practices(:practice5).id}", 'kensyu'
 
     within('#new_product') do
       fill_in('product[body]', with: 'test')

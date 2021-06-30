@@ -3,14 +3,12 @@
 require 'application_system_test_case'
 
 class User::TagsTest < ApplicationSystemTestCase
-  setup { login_user 'hatsuno', 'testtest' }
-
   test 'search user by tag on user page' do
     user = users(:kimura)
 
     %i[cat shinjuku_rb neovim_v_zero_five_zero _net_framework may_j_].each do |key|
       name = acts_as_taggable_on_tags(key).name
-      visit user_path(user)
+      visit_with_auth user_path(user), 'hatsuno'
       click_on name
       assert_text "タグ「#{name}」のユーザー"
       assert_text user.name
@@ -20,7 +18,7 @@ class User::TagsTest < ApplicationSystemTestCase
 
   test 'search user with user tag list' do
     user = users(:kimura)
-    visit users_path
+    visit_with_auth users_path, 'kimura'
 
     %i[cat shinjuku_rb neovim_v_zero_five_zero _net_framework may_j_].each do |key|
       name = acts_as_taggable_on_tags(key).name
@@ -34,7 +32,7 @@ class User::TagsTest < ApplicationSystemTestCase
   end
 
   test 'add user tag' do
-    visit user_path(users(:hatsuno))
+    visit_with_auth user_path(users(:hatsuno)), 'hatsuno'
 
     %i[cat shinjuku_rb neovim_v_zero_five_zero _net_framework may_j_].each do |key|
       name = acts_as_taggable_on_tags(key).name
@@ -50,14 +48,13 @@ class User::TagsTest < ApplicationSystemTestCase
   end
 
   test 'edit user tag current_user page' do
-    visit user_path users(:hatsuno)
+    visit_with_auth user_path(users(:hatsuno)), 'hatsuno'
     page.all('.tag-links__item-edit')[0].click
     tag_input = find('.ti-new-tag-input')
     tag_input.set '課金'
     click_button '保存する'
 
-    login_user 'komagata', 'testtest'
-    visit user_path(users(:hatsuno))
+    visit_with_auth user_path(users(:hatsuno)), 'komagata'
     assert_text '課金'
     assert_no_text 'タグ編集'
   end

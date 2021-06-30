@@ -4,8 +4,7 @@ require 'application_system_test_case'
 
 class Notification::ReportsTest < ApplicationSystemTestCase
   test 'はじめての日報が投稿されたときに全員が通知を受け取る' do
-    login_user 'muryou', 'testtest'
-    visit '/reports'
+    visit_with_auth '/reports', 'muryou'
     click_link '日報作成'
 
     within('#new_report') do
@@ -36,12 +35,10 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
   test '複数の日報が投稿されているときは通知が飛ばない' do
     # 他のテストの通知に影響を受けないよう、テスト実行前に通知を削除する
-    login_user 'muryou', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'muryou'
     click_link '全て既読にする'
 
-    login_user 'komagata', 'testtest'
-    visit '/reports'
+    visit_with_auth '/reports', 'komagata'
     click_link '日報作成'
 
     within('#new_report') do

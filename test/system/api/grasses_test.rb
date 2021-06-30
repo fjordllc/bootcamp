@@ -4,8 +4,7 @@ require 'application_system_test_case'
 
 class API::GrassesTest < ApplicationSystemTestCase
   test 'get grass' do
-    login_user 'sotugyou', 'testtest'
-    visit "/api/grasses/#{users(:sotugyou).id}.json"
+    visit_with_auth "/api/grasses/#{users(:sotugyou).id}.json", 'kimura'
     assert_text 'velocity'
   end
 end

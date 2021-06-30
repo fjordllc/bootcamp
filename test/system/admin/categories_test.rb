@@ -3,15 +3,13 @@
 require 'application_system_test_case'
 
 class Admin::CategoriesTest < ApplicationSystemTestCase
-  setup { login_user 'komagata', 'testtest' }
-
   test 'show listing categories' do
-    visit '/admin/categories'
+    visit_with_auth '/admin/categories', 'komagata'
     assert_equal 'カテゴリー | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'create category' do
-    visit '/admin/categories/new'
+    visit_with_auth '/admin/categories/new', 'komagata'
     within 'form[name=category]' do
       fill_in 'category[name]', with: 'テストカテゴリー'
       fill_in 'category[slug]', with: 'test-category'
@@ -22,7 +20,7 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
   end
 
   test 'update category from course page' do
-    visit course_practices_path(courses(:course1))
+    visit_with_auth course_practices_path(courses(:course1)), 'komagata'
     first('.categories-item__edit').click
     within 'form[name=category]' do
       fill_in 'category[name]', with: 'テストカテゴリー'
@@ -35,7 +33,7 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
   end
 
   test 'update category from admin categories' do
-    visit  admin_categories_path
+    visit_with_auth admin_categories_path, 'komagata'
     first('.spec-edit').click
     within 'form[name=category]' do
       fill_in 'category[name]', with: 'テストカテゴリー'
@@ -48,7 +46,7 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
   end
 
   test 'delete category' do
-    visit '/admin/categories'
+    visit_with_auth '/admin/categories', 'komagata'
     within('.admin-table__item:first-child') do
       accept_confirm do
         find('.js-delete').click

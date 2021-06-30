@@ -6,10 +6,8 @@ require 'supports/tag_helper'
 class CurrentUserTest < ApplicationSystemTestCase
   include TagHelper
 
-  setup { login_user 'komagata', 'testtest' }
-
   test 'update user' do
-    visit '/current_user/edit'
+    visit_with_auth '/current_user/edit', 'komagata'
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'testuser'
       click_on '更新する'
@@ -18,8 +16,7 @@ class CurrentUserTest < ApplicationSystemTestCase
   end
 
   test 'update user tags' do
-    login_user 'kimura', 'testtest'
-    visit '/current_user/edit'
+    visit_with_auth '/current_user/edit', 'komagata'
     tag_input = find '.ti-new-tag-input'
     tag_input.set 'タグ1'
     click_on '更新する'
@@ -33,15 +30,14 @@ class CurrentUserTest < ApplicationSystemTestCase
   end
 
   test 'update user description with blank' do
-    login_user 'kimura', 'testtest'
-    visit '/current_user/edit'
+    visit_with_auth '/current_user/edit', 'komagata'
     fill_in 'user[description]', with: ''
     click_on '更新する'
     assert_text '自己紹介を入力してください'
   end
 
   test 'alert when enter tag with space' do
-    visit edit_current_user_path
+    visit_with_auth edit_current_user_path, 'komagata'
 
     # この次に assert_alert_when_enter_one_dot_only_tag を追加しても、
     # 空白を入力したalertが発生し、ドットのみのalertが発生するテストにならない
@@ -49,8 +45,7 @@ class CurrentUserTest < ApplicationSystemTestCase
   end
 
   test 'alert when enter one dot only tag' do
-    visit edit_current_user_path
-
+    visit_with_auth edit_current_user_path, 'komagata'
     assert_alert_when_enter_one_dot_only_tag
   end
 end
