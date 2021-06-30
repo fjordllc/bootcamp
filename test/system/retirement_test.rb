@@ -39,7 +39,7 @@ class RetirementTest < ApplicationSystemTestCase
     click_button '提出する'
     assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
     visit edit_current_user_path
-    click_on '退会手続きへ進む'
+    click_on '退会手続き'
     check '受講したいカリキュラムを全て受講したから', allow_label_click: true
     fill_in 'user[retire_reason]', with: '辞' * 8
     choose '良い', visible: false
@@ -61,7 +61,7 @@ class RetirementTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '日報をWIPとして保存しました。'
     visit edit_current_user_path
-    click_on '退会手続きへ進む'
+    click_on '退会手続き'
     check '受講したいカリキュラムを全て受講したから', allow_label_click: true
     fill_in 'user[retire_reason]', with: '辞' * 8
     choose '良い', visible: false
