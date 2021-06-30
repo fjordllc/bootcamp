@@ -1,13 +1,17 @@
 <template lang="pug">
 .page-body
-  .container(v-if='!loaded')
+  .container.is-md(v-if='!loaded')
     | ロード中
-  .container(v-else)
+  .container.is-md(v-else)
+    .thread-list-tools(v-if='watches.length')
+      .form-item.is-inline
+        label.a-form-label(for='thread-list-tools__action')
+          | 編集
+        label.a-on-off-checkbox.is-sm
+          input(type='checkbox', name='thread-list-tools__action', id='thread-list-tools__action', v-model="checked")
+          span#spec-edit-mode
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
-    label(v-if='watches.length')
-      input(type='checkbox', v-model="checked")
-      | 編集 
     .thread-list.a-card
      .thread-list__items
         watch(
