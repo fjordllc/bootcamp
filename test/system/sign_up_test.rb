@@ -236,8 +236,7 @@ class SignUpTest < ApplicationSystemTestCase
       click_button '利用規約に同意して参加する'
       assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       user = User.find_by(email: email)
-      login_user 'taguo', 'testtest'
-      visit user_path(user)
+      visit_with_auth user_path(user), 'taguo'
       assert_text 'タグ夫'
     end
   end
