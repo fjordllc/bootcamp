@@ -74,30 +74,6 @@ export default {
       loaded: null,
     }
   },
-  mounted() {
-    fetch(
-        `/api/niconico_calendars/${this.userId}.json`,
-        {
-          method: 'GET',
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': this.token()
-          },
-          credentials: 'same-origin'
-        })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          json.forEach((r) => {
-            this.reports.push(r)
-          })
-          this.loaded = true
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
-  },
   computed: {
     calendarReports() {
       return this.reports.filter(report =>
@@ -150,6 +126,30 @@ export default {
       })
       return weeksAry
     },
+  },
+  mounted() {
+    fetch(
+        `/api/niconico_calendars/${this.userId}.json`,
+        {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-Token': this.token()
+          },
+          credentials: 'same-origin'
+        })
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          json.forEach((r) => {
+            this.reports.push(r)
+          })
+          this.loaded = true
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
   },
   methods: {
     token() {
