@@ -14,8 +14,8 @@ class UserDecoratorTest < ActiveSupport::TestCase
   end
 
   test 'icon_title' do
-    assert_equal 'komagata: 管理者、メンター', @user1.icon_title
-    assert_equal 'hajime', @user2.icon_title
+    assert_equal 'komagata (Komagata Masaki): 管理者、メンター', @user1.icon_title
+    assert_equal 'hajime (Hajime Tayo)', @user2.icon_title
   end
 
   test 'niconico_calendar' do
