@@ -542,8 +542,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'select box shows the practices that belong to a user course' do
-    login_user 'kimura', 'testtest'
-    visit reports_path
+    visit_with_auth reports_path, 'kimura'
     find('#select2-practice_id-container').click
     selects_size = users(:kimura).course.practices.size + 1
     assert_selector '.select2-results__option', count: selects_size
