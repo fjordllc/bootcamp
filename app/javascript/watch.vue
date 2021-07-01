@@ -12,14 +12,6 @@
       .thread-list-item__row
         .thread-list-item__summary
             p {{ watch.summary }}
-      label( v-if="checked") 
-        watchToggle(
-          :checked='checked'
-          :watchableType='watch.watchable_type',
-          :watchableId='watch.watchable_id',
-          :watchIndexId='watch.id'
-          @update-index="$listeners['updateIndex']",
-        )
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -29,6 +21,14 @@
             .thread-list-item-meta__item
               time.a-date(:datetime='watch.updated_at')
                 | {{ createdAt }}
+    .thread-list-item__option(v-if="checked")
+      watchToggle(
+        :checked='checked'
+        :watchableType='watch.watchable_type',
+        :watchableId='watch.watchable_id',
+        :watchIndexId='watch.id'
+        @update-index="$listeners['updateIndex']",
+      )
 </template>
 <script>
 import dayjs from 'dayjs'
