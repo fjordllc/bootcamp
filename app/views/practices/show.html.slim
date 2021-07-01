@@ -77,7 +77,7 @@ header.page-header
             .card-main-actions
               ul.card-main-actions__items
                 li.card-main-actions__item
-                  = link_to new_question_path, class: 'a-button is-md is-primary is-block' do
+                  = link_to new_question_path(practice_id: params[:id]), class: 'a-button is-md is-primary is-block' do
                     i.fas.fa-question-circle
                     | 質問する
 
