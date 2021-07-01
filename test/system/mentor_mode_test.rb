@@ -10,6 +10,13 @@ class MentorModeTest < ApplicationSystemTestCase
     assert_no_text 'メンター向けユーザーメモ'
   end
 
+  test 'show/hide retire_reason' do
+    visit_with_auth user_path(users(:yameo)), 'komagata'
+    assert_text '内容が難しかった'
+    find(:css, '#checkbox-mentor-mode').set(false)
+    assert_no_text '内容が難しかった'
+  end
+
   test "student don't show mentor-user-memo" do
     visit_with_auth user_path(users(:hatsuno)), 'kimura'
     assert_no_text 'メンター向けユーザーメモ'

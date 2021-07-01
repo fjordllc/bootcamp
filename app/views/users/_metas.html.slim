@@ -73,9 +73,10 @@
           = User.human_attribute_name :retired_on
         .user-metas__item-value
           = l user.retired_on
-    - if user.retired? && current_user.admin?
-      .user-metas__item
-        .user-metas__item-label
-          = User.human_attribute_name :retire_reason
-        .user-metas__item-value
-          = user.retire_reason
+    - if user.retired? && staff_login?
+      .is-only-mentor-flex
+        .user-metas__item
+          .user-metas__item-label
+            = User.human_attribute_name :retire_reason
+          .user-metas__item-value
+            = user.retire_reason
