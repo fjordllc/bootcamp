@@ -44,8 +44,8 @@ class BookmarksTest < ApplicationSystemTestCase
   test 'show inactive button when not bookmarked question' do
     visit_with_auth "/questions/#{@question.id}", 'hajime'
     wait_for_vuejs
-    assert_selector '#bookmark-button.is-active'
-    assert_no_selector '#bookmark-button.is-inactive'
+    assert_selector '#bookmark-button.is-inactive'
+    assert_no_selector '#bookmark-button.is-active'
   end
 
   test 'bookmark' do
