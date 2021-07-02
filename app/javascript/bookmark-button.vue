@@ -1,5 +1,5 @@
 <template lang="pug">
-#bookmark-button.a-button.is-xs(
+#bookmark-button.a-bookmark-button.a-button.is-xs(
   :class='isBookmark ? "is-active is-main" : "is-inactive is-muted"',
   @click='push'
 )
