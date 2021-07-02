@@ -32,9 +32,6 @@ export default {
   computed: {
     isBookmarkClassName(){
      return `is-${this.bookmark.bookmark_class_name}`
-    },
-    modelName() {
-      return `is-${this.bookmark.modelName}`
     }
   }
 }
