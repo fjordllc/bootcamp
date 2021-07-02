@@ -1,5 +1,5 @@
 <template lang="pug">
-.thread-list-item(:class='modelName')
+.thread-list-item(:class='isBookmarkClassName')
   .thread-list-item__inner
     .thread-list-item__label
       | {{ bookmark.modelNameI18n }}
@@ -27,6 +27,9 @@ export default {
     bookmark: { type: Object, required: true }
   },
   computed: {
+    isBookmarkClassName(){
+     return `is-${this.bookmark.bookmark_class_name}`
+    },
     modelName() {
       return `is-${this.bookmark.modelName}`
     }
