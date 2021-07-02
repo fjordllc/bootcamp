@@ -16,7 +16,10 @@
               | {{ bookmark.author }}
           .thread-list-item-meta__item(v-if='bookmark.modelName == "Report"')
             time.a-date(:datetime='bookmark.reportedOn')
-              | {{ bookmark.reportedOn }}の日報
+              | {{ bookmark.reportedOn }}
+          .thread-list-item-meta__item(v-else)
+            time.a-date(:datetime='bookmark.createdAt')
+              | {{ bookmark.createdAt }}
 </template>
 <script>
 export default {
