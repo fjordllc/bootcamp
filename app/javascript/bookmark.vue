@@ -10,6 +10,9 @@
             a.thread-list-item-title__link(:href='bookmark.url')
               | {{ bookmark.title }}
       .thread-list-item__row
+        .thread-list-item__summary
+            p {{ bookmark.summary }}
+      .thread-list-item__row
         .thread-list-item-meta__items
           .thread-list-item-meta__item
             a.a-user-name(:href='bookmark.authorUrl')
