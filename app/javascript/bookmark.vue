@@ -17,14 +17,14 @@
           .thread-list-item-meta__item
             a.a-user-name(:href='bookmark.authorUrl')
               | {{ bookmark.author }}
-          .thread-list-item-meta__item(v-if='bookmark.modelName == "Report"')
-            time.a-date(:datetime='bookmark.reportedOn')
-              | {{ bookmark.reportedOn }}
-          .thread-list-item-meta__item(v-else)
-            time.a-date(:datetime='bookmark.createdAt')
-              | {{ bookmark.createdAt }}
+          .thread-list-item-meta__item
+            time.a-date(:datetime='bookmark.updated_at')
+              | {{ createdAt }}
 </template>
 <script>
+import dayjs from 'dayjs'
+import ja from 'dayjs/locale/ja'
+dayjs.locale(ja)
 export default {
   props: {
     bookmark: { type: Object, required: true }
@@ -32,6 +32,12 @@ export default {
   computed: {
     isBookmarkClassName(){
      return `is-${this.bookmark.bookmark_class_name}`
+    },
+    createdAt() {
+      const date = this.bookmark.reported_on || this.bookmark.created_at
+      return dayjs(date).format(
+          'YYYY年MM月DD日(dd) HH:mm'
+      )
     }
   }
 }
