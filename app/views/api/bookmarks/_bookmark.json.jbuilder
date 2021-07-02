@@ -9,3 +9,4 @@ json.title bookmarkable.title
 json.createdAt l(bookmarkable.created_at)
 json.updatedAt l(bookmarkable.updated_at)
 json.reportedOn l(bookmarkable.reported_on) if bookmark.bookmarkable_type == "Report"
+json.bookmark_class_name bookmark.bookmarkable_type.to_s.tableize.chop
