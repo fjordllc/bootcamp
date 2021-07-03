@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 module UserDecorator
-  DAYS_IN_WEEK = 7
-  CALENDAR_TERM = 30
-
   def twitter_url
     "https://twitter.com/#{twitter_account}"
   end
