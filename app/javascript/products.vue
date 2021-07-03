@@ -53,7 +53,7 @@ export default {
       products: [],
       totalPages: 0,
       currentPage: Number(this.getPageValueFromParameter()) || 1,
-      loaded: false
+      loaded: false,
       latestProductSubmittedJust5days: null,
       latestProductSubmittedJust6days: null,
       latestProductSubmittedOver7days: null,
