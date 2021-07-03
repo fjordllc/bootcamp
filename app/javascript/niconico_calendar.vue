@@ -88,7 +88,7 @@ export default {
       const lastDay = new Date(this.calendarYear, this.calendarMonth, 0)
       return lastDay.getDate()
     },
-    calendarSquares() {
+    calendarDates() {
       const calendar = []
       if (this.firstWday > 0) {
         for (let blank = 0; blank < this.firstWday; blank++) {
@@ -112,7 +112,7 @@ export default {
       let week = []
       let weekIndex = 1
       let weekDay = 0
-      this.calendarSquares.forEach(function (date, i, ary) {
+      this.calendarDates.forEach(function (date, i, ary) {
         !date ? date = {weekDay: weekDay} : date.weekDay = weekDay
         week.push(date)
         weekDay++
