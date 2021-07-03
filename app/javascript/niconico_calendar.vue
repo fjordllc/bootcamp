@@ -96,9 +96,9 @@ export default {
         }
       }
       for (let date = 1; date <= this.lastDate; date++) {
-        let result = null
-        if ((result = this.calendarReports.find(report =>
-            Number(report.reported_on.split('-')[2]) === date))) {
+        const result = this.calendarReports.find(report =>
+            this.reportDate(report) === date)
+        if (result) {
           result.date = date
           calendar.push(result)
         } else {
@@ -192,6 +192,9 @@ export default {
     },
     getCurrentMonth() {
       return new Date().getMonth() + 1
+    },
+    reportDate(report) {
+      return Number(report.reported_on.split('-')[2])
     }
   }
 }
