@@ -160,20 +160,24 @@ export default {
       return month.toString().padStart(2, '0')
     },
     previousMonth() {
+      this.loaded = false
       if (this.calendarMonth === 1) {
         this.calendarMonth = 12
         this.calendarYear--
       } else {
         this.calendarMonth--
       }
+      this.$nextTick(() => (this.loaded = true))
     },
     nextMonth() {
+      this.loaded = false
       if (this.calendarMonth === 12) {
         this.calendarMonth = 1
         this.calendarYear++
       } else {
         this.calendarMonth++
       }
+      this.$nextTick(() => (this.loaded = true))
     },
     emotionClass(date) {
       return date.emotion ? `is-${date.emotion}` : 'is-blank'
