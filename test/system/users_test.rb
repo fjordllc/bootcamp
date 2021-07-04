@@ -196,7 +196,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'paging niconico_calendar' do
-    login_user 'hatsuno', 'testtest'
+    visit_with_auth root_path, 'hatsuno'
     today = Time.current
     last_month = today.prev_month
     visit user_path(users(:hajime).id)
