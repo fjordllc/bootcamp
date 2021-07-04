@@ -5,6 +5,8 @@
         | ニコニコカレンダー
     .card-body(v-if='!loaded')
       | ロード中
+    .card-body(v-else-if='reports.length === 0')
+      | 日報はありません。
     .card-body(v-else)
       .calendar__head
         .calendar__head--previous(
