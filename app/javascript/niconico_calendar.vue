@@ -34,12 +34,12 @@
             th.niconico-calendar__header-day.is-saturday
               | 土
         tbody.niconico-calendar__body(
-          v-for='weekObj in calendarWeeksAry',
-          :key='weekObj.weekIndex'
+          v-for='week in calendarWeeks',
+          :key='week.id'
           )
           tr.niconico-calendar__week
             td.niconico-calendar__day(
-              v-for='date in weekObj.week'
+              v-for='date in week.value'
               :key='date.weekDay'
               :class="emotionClass(date)"
             )
@@ -107,20 +107,19 @@ export default {
       }
       return calendar
     },
-    calendarWeeksAry() {
+    calendarWeeks() {
       const weeksAry = []
-      let week = []
-      let weekIndex = 1
+      let value = []
+      let id = 1
       let weekDay = 0
       this.calendarDates.forEach(function (date, i, ary) {
         !date ? date = {weekDay: weekDay} : date.weekDay = weekDay
-        week.push(date)
+        value.push(date)
         weekDay++
-        if (week.length === 7 || i === ary.length - 1) {
-          const weekObj = {weekIndex: weekIndex, week: week}
-          weeksAry.push(weekObj)
-          weekIndex++
-          week = []
+        if (value.length === 7 || i === ary.length - 1) {
+          weeksAry.push({id: id, value: value})
+          id++
+          value = []
           weekDay = 0
         }
       })
