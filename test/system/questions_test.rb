@@ -255,5 +255,10 @@ class QuestionsTest < ApplicationSystemTestCase
     find('#select2-practice_id-container').click
     selects_size = users(:kimura).course.practices.size + 1
     assert_selector '.select2-results__option', count: selects_size
+    
+  test 'select practice title when question create page' do
+    visit_with_auth "/practices/#{practices(:practice23).id}", 'hatsuno'
+    click_on '質問する'
+    assert_text '[Ruby] rubyをインストールする'
   end
 end
