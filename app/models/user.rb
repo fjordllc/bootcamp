@@ -476,13 +476,14 @@ class User < ApplicationRecord
   end
 
   def avatar_url
+    default_image_path = '/images/users/avatars/default.png'
     if avatar.attached?
       avatar.variant(resize: AVATAR_SIZE).processed.url
     else
-      image_url('/images/users/avatars/default.png')
+      image_url default_image_path
     end
   rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
-    image_url('/images/users/avatars/default.png')
+    image_url default_image_path
   end
 
   def generation

@@ -93,10 +93,7 @@ header.page-header
                     = link_to book.page_url, target: '_blank', rel: 'noopener', class: 'card-books-item__inner' do
                       .card-books-item__start
                         .card-books-item__cover-container
-                          - if book.cover_url.present?
-                            = image_tag book.cover_url, class: 'card-books-item__image', alt: book.title
-                          - else
-                            = image_tag 'book-no-image.svg', class: 'card-books-item__image', alt: book.title
+                          = image_tag book.cover_url, class: 'card-books-item__image', alt: book.title
                       .card-books-item__end
                         h3.card-books-item__title
                           = book.title
