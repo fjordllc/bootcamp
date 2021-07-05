@@ -5,7 +5,7 @@
         = link_to '全て', products_path, class: "page-tabs__item-link #{current_link(/^products-index/)}"
       li.page-tabs__item
         = link_to products_unchecked_index_path, class: "page-tabs__item-link #{current_link(/^products-unchecked-index/)}" do
-          | 未チェック
+          | 未完了
           - if Cache.unchecked_product_count.positive?
             .page-tabs__item-count.a-notification-count
               = Cache.unchecked_product_count
