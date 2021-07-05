@@ -19,7 +19,6 @@ class PracticesController < ApplicationController
   def create
     @practice = Practice.new(practice_params)
     if @practice.save
-      @practice.reference_books.each(&:resize_cover!)
       ChatNotifier.message("プラクティス：「#{@practice.title}」を作成しました。\r#{url_for(@practice)}")
       redirect_to @practice, notice: 'プラクティスを作成しました。'
     else
@@ -30,7 +29,6 @@ class PracticesController < ApplicationController
   def update
     @practice.last_updated_user = current_user
     if @practice.update(practice_params)
-      @practice.reference_books.each(&:resize_cover!)
       ChatNotifier.message("プラクティス：「#{@practice.title}」を編集しました。\r#{url_for(@practice)}")
       redirect_to @practice, notice: 'プラクティスを更新しました。'
     else

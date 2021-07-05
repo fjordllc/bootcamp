@@ -4,7 +4,7 @@
       header.users-item__header
         .users-item__header-container
           - if current_user.mentor? && user.student_or_trainee? && !user.active?
-            .users-item__inactive-message
+            .users-item__inactive-message.is-only-mentor
               | 1ヶ月ログインがありません
           .users-item__name
             = link_to user, class: 'users-item__name-link' do

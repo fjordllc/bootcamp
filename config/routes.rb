@@ -52,7 +52,10 @@ Rails.application.routes.draw do
       resources :unchecked, only: %i(index)
       resources :recents, only: %i(index)
     end
-    resources :watches, only: %i(index create destroy)
+    resources :watches, only: %i(index)
+    namespace "watches" do
+      resources :toggle, only: %i(index create destroy)
+    end
     resources :memos, only: %i(create update destroy)
     resources :tags, only: %i(index)
     resources :pages, only: %i(update)
@@ -70,6 +73,7 @@ Rails.application.routes.draw do
     end
     resources :announcements, except: %i(new edit)
     resources :searchables, only: %i(index)
+    resources :bookmarks, only: %i(index create destroy)
   end
 
   namespace :admin do
@@ -178,6 +182,7 @@ Rails.application.routes.draw do
   end
 
   resources :generations, only: %i(show index)
+  resources :bookmarks, only: %i(index)
 
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/

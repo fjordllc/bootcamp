@@ -36,6 +36,9 @@ export default {
     pageRange: { type: Number, required: true },
     clickHandle: { type: Function, required: true }
   },
+  created () {
+    console.log('fff')
+  },
   methods: {
     makeITag(iconName) {
       return `<i class='fas fa-angle-${iconName}'></i>`

@@ -104,6 +104,7 @@ yameo:
   organization: 株式会社ヤメオ
   job_seeker: true
   unsubscribe_email_token: mzx5kXfsGmR1u0gOaXMseg
+  retire_reason: "内容が難しかった"
   retired_on: "2015-01-01"
   updated_at: "2014-01-01 00:00:05"
   created_at: "2014-01-01 00:00:05"
