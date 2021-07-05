@@ -335,7 +335,14 @@ class User < ApplicationRecord
   end
 
   def completed_percentage
-    completed_practices.where(include_progress: true).size.to_f / course.practices.where(include_progress: true).count * 100
+    course.practices
+      .where(include_progress: true)
+      .map(&:learnings)
+      .flatten
+      .select {|learning|
+        learning.user_id == id &&
+        learning.complete?
+    }.size.to_f / course.practices.where(include_progress: true).count * 100
   end
 
   def completed_practices_size(category)
