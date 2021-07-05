@@ -188,6 +188,7 @@ Rails.application.routes.draw do
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/
   get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
+
   namespace :users do
     post "tags/:tag", to: "tags#update", tag: /.+/
     delete "tags/:tag", to: "tags#destroy", tag: /.+/
