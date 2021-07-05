@@ -3,12 +3,8 @@
 require 'application_system_test_case'
 
 class ReservationsTest < ApplicationSystemTestCase
-  setup do
-    login_user 'hatsuno', 'testtest'
-  end
-
   test 'create reservation' do
-    visit '/reservation_calenders/201911'
+    visit_with_auth '/reservation_calenders/201911', 'hatsuno'
     assert_equal '席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     within("#reservation-2019-11-02-#{seats(:seat2).id}") do
@@ -20,7 +16,7 @@ class ReservationsTest < ApplicationSystemTestCase
   end
 
   test 'delete reservation' do
-    visit '/reservation_calenders/201911'
+    visit_with_auth '/reservation_calenders/201911', 'hatsuno'
     assert_equal '席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     accept_confirm do
@@ -36,7 +32,7 @@ class ReservationsTest < ApplicationSystemTestCase
   test 'reservations beyond one month cannot be made' do
     travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
       reservation_date = Date.current.next_month.tomorrow
-      visit "/reservation_calenders/#{reservation_date.strftime('%Y%m')}/"
+      visit_with_auth "/reservation_calenders/#{reservation_date.strftime('%Y%m')}/", 'hatsuno'
       assert_equal '席予約一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
       accept_confirm do

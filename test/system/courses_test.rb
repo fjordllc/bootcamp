@@ -4,14 +4,12 @@ require 'application_system_test_case'
 
 class CoursesTest < ApplicationSystemTestCase
   test 'show listing courses' do
-    login_user 'yamada', 'testtest'
-    visit '/courses'
+    visit_with_auth '/courses', 'yamada'
     assert_equal 'コース | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'create course' do
-    login_user 'komagata', 'testtest'
-    visit '/courses/new'
+    visit_with_auth '/courses/new', 'komagata'
     within 'form[name=course]' do
       fill_in 'course[title]', with: 'テストコース'
       fill_in 'course[description]', with: 'テストのコースです。'
@@ -21,8 +19,7 @@ class CoursesTest < ApplicationSystemTestCase
   end
 
   test 'update course' do
-    login_user 'komagata', 'testtest'
-    visit "/courses/#{courses(:course1).id}/edit"
+    visit_with_auth "/courses/#{courses(:course1).id}/edit", 'komagata'
     within 'form[name=course]' do
       fill_in 'course[title]', with: 'テストコース'
       fill_in 'course[description]', with: 'テストのコースです。'
@@ -32,8 +29,7 @@ class CoursesTest < ApplicationSystemTestCase
   end
 
   test 'delete course' do
-    login_user 'komagata', 'testtest'
-    visit '/courses'
+    visit_with_auth '/courses', 'komagata'
     accept_confirm do
       find("#course_#{courses(:course3).id} .js-delete").click
     end

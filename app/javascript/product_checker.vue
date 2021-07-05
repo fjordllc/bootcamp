@@ -10,7 +10,7 @@ button(
     @click='check'
   )
   | {{ buttonLabel }}
-.a-button.is-sm.is-block.thread-list-item__assignee-name(v-else)
+.a-button.is-sm.is-block.thread-list-item__assignee-name.is-only-mentor(v-else)
   span
     | {{ this.name }}
 </template>

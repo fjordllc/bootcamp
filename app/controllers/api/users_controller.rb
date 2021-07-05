@@ -3,6 +3,7 @@
 class API::UsersController < API::BaseController
   before_action :require_login, only: %i[index]
   before_action :set_user, only: %i[show update]
+  before_action :require_mentor_login_for_api, only: %i[update]
   PAGER_NUMBER = 20
 
   def index
@@ -30,7 +31,8 @@ class API::UsersController < API::BaseController
   def show; end
 
   def update
-    if @user == current_user && @user.update(user_params)
+    @user = User.find(params[:id])
+    if @user.update_mentor_memo(user_params[:mentor_memo])
       head :ok
     else
       head :bad_request
@@ -51,6 +53,6 @@ class API::UsersController < API::BaseController
   end
 
   def user_params
-    params.require(:user).permit(:tag_list)
+    params.require(:user).permit(:tag_list, :mentor_memo)
   end
 end

@@ -51,7 +51,7 @@
                 :disabled='!validation || buttonDisabled'
               )
                 | コメントする
-            .card-main-actions__item(
+            .card-main-actions__item.is-only-mentor(
               v-if='(currentUser.role == "admin" || currentUser.role == "adviser") && commentType && !checkId'
             )
               button.a-button.is-md.is-danger.is-block(

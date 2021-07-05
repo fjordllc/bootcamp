@@ -10,6 +10,9 @@
       = link_to watches_path, class: 'header-dropdown__item-link' do
         | Watch中一覧
     li.header-dropdown__item
+      = link_to bookmarks_path, class: 'header-dropdown__item-link' do
+        | ブックマーク一覧
+    li.header-dropdown__item
       = link_to edit_current_user_path, class: 'header-dropdown__item-link' do
         | 登録情報変更
     - if !current_user.adviser? && !current_user.mentor? && !current_user.trainee?

@@ -3,10 +3,8 @@
 require 'application_system_test_case'
 
 class Notification::UnreadTest < ApplicationSystemTestCase
-  setup { login_user 'hatsuno', 'testtest' }
-
   test 'show listing unread notification' do
-    visit '/notifications/unread'
+    visit_with_auth '/notifications/unread', 'hatsuno'
     assert_equal '未読の通知 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
@@ -16,7 +14,7 @@ class Notification::UnreadTest < ApplicationSystemTestCase
                         path: '/reports/20400118',
                         user: users(:hatsuno),
                         sender: users(:machida))
-    visit '/notifications/unread'
+    visit_with_auth '/notifications/unread', 'hatsuno'
     wait_for_vuejs
     assert_no_button '未読の通知を一括で開く'
   end
@@ -27,8 +25,7 @@ class Notification::UnreadTest < ApplicationSystemTestCase
                         path: '/reports/20400118',
                         user: users(:komagata),
                         sender: users(:machida))
-    login_user 'komagata', 'testtest'
-    visit '/notifications/unread'
+    visit_with_auth '/notifications/unread', 'komagata'
     wait_for_vuejs
     assert_button '未読の通知を一括で開く'
   end

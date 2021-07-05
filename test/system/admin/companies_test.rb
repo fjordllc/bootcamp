@@ -3,15 +3,13 @@
 require 'application_system_test_case'
 
 class Admin::CompaniesTest < ApplicationSystemTestCase
-  setup { login_user 'komagata', 'testtest' }
-
   test 'show listing companies' do
-    visit '/admin/companies'
+    visit_with_auth '/admin/companies', 'komagata'
     assert_equal '企業 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'create company' do
-    visit '/admin/companies/new'
+    visit_with_auth '/admin/companies/new', 'komagata'
     within 'form[name=company]' do
       fill_in 'company[name]', with: 'テスト企業'
       fill_in 'company[description]', with: 'テストの企業です。'
@@ -22,7 +20,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   end
 
   test 'update company' do
-    visit "/admin/companies/#{companies(:company1).id}/edit"
+    visit_with_auth "/admin/companies/#{companies(:company1).id}/edit", 'komagata'
     within 'form[name=company]' do
       fill_in 'company[name]', with: 'テスト企業'
       fill_in 'company[description]', with: 'テストの企業です。'
@@ -33,7 +31,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   end
 
   test 'delete company' do
-    visit '/admin/companies'
+    visit_with_auth '/admin/companies', 'komagata'
     accept_confirm do
       find("#company_#{companies(:company1).id} .js-delete").click
     end
@@ -41,11 +39,10 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   end
 
   test 'show pagination' do
-    login_user 'komagata', 'testtest'
     26.times do
       Company.create(name: 'test', description: 'test', website: 'test')
     end
-    visit '/admin/companies'
+    visit_with_auth '/admin/companies', 'komagata'
     assert_selector 'nav.pagination', count: 2
   end
 end

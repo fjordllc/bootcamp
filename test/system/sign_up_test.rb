@@ -208,4 +208,36 @@ class SignUpTest < ApplicationSystemTestCase
       assert_text '自己紹介を入力してください'
     end
   end
+
+  test 'sign up with tag' do
+    email = 'taguo@example.com'
+    tag = 'タグ夫'
+
+    visit '/users/new'
+    within 'form[name=user]' do
+      fill_in 'user[login_name]', with: 'taguo'
+      fill_in 'user[email]', with: email
+      fill_in 'user[name]', with: 'テスト タグ夫'
+      fill_in 'user[name_kana]', with: 'テスト タグオ'
+      fill_in 'user[description]', with: 'タグ登録確認用'
+      fill_in 'user[password]', with: 'testtest'
+      fill_in 'user[password_confirmation]', with: 'testtest'
+      select '学生', from: 'user[job]'
+      select 'Mac(Intel)', from: 'user[os]'
+      select '未経験', from: 'user[experience]'
+      tag_input = find('.ti-new-tag-input')
+      tag_input.set tag
+      tag_input.native.send_keys :return
+    end
+
+    fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111')
+
+    VCR.use_cassette 'sign_up/tag', record: :once, match_requests_on: %i[method uri] do
+      click_button '利用規約に同意して参加する'
+      assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+      user = User.find_by(email: email)
+      visit_with_auth user_path(user), 'taguo'
+      assert_text 'タグ夫'
+    end
+  end
 end

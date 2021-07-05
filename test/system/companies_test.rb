@@ -3,20 +3,18 @@
 require 'application_system_test_case'
 
 class CompaniesTest < ApplicationSystemTestCase
-  setup { login_user 'komagata', 'testtest' }
-
   test 'GET /companies' do
-    visit '/companies'
+    visit_with_auth '/companies', 'komagata'
     assert_equal '企業一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show company information' do
-    visit "/companies/#{companies(:company1).id}"
+    visit_with_auth "/companies/#{companies(:company1).id}", 'komagata'
     assert_equal 'Fjord Inc.の企業情報 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show link to website if company has' do
-    visit "/companies/#{companies(:company1).id}"
+    visit_with_auth "/companies/#{companies(:company1).id}", 'komagata'
     within '.user-metas__items' do
       assert_link 'Fjord Inc.', href: 'https://fjord.jp'
     end

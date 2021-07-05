@@ -18,6 +18,7 @@ header.page-header
         = label_tag :practice_id, 'プラクティスで絞り込む:', class: 'sort-nav__label'
         .sort-nav__select
           = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, selected: params[:practice_id]), include_blank: '全ての質問を表示', onchange: 'this.form.submit()', class: 'js-select2'
+
   = render 'questions/tabs'
 
 .page-body

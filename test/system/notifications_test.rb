@@ -4,8 +4,7 @@ require 'application_system_test_case'
 
 class NotificationsTest < ApplicationSystemTestCase
   test 'do not send mail if user deny mail' do
-    login_user 'kimura', 'testtest'
-    visit "/reports/#{reports(:report8).id}"
+    visit_with_auth "/reports/#{reports(:report8).id}", 'kimura'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -19,12 +18,10 @@ class NotificationsTest < ApplicationSystemTestCase
   end
 
   test "don't notify the same report" do
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
-    login_user 'kensyu', 'testtest'
-    visit '/reports/new'
+    visit_with_auth '/reports/new', 'kensyu'
     fill_in 'report_title', with: 'テスト日報'
     fill_in 'report_description', with: 'none'
     select '23', from: :report_learning_times_attributes_0_started_at_4i
@@ -39,8 +36,7 @@ class NotificationsTest < ApplicationSystemTestCase
     assert_text 'login_nameの補完テスト: @komagata'
     assert_selector :css, "a[href='/users/komagata']"
 
-    login_user 'komagata', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'komagata'
     wait_for_vuejs
     assert_no_text 'kensyuさんがはじめての日報を書きました！'
     assert_text 'kensyuさんからメンションがきました。'
@@ -54,8 +50,7 @@ class NotificationsTest < ApplicationSystemTestCase
                         path: '/reports/20400118',
                         user: users(:yamada),
                         sender: users(:machida))
-    login_user 'yamada', 'testtest'
-    visit '/notifications/unread'
+    visit_with_auth '/notifications/unread', 'yamada'
     wait_for_vuejs
     assert_no_text '1番新しい既読の通知'
   end
@@ -81,8 +76,7 @@ class NotificationsTest < ApplicationSystemTestCase
                         path: '/reports/20000118',
                         user: users(:yamada),
                         sender: users(:machida))
-    login_user 'yamada', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'yamada'
     wait_for_vuejs
     within first('nav.pagination') do
       find('a', text: '2').click

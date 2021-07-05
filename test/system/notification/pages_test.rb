@@ -4,8 +4,7 @@ require 'application_system_test_case'
 
 class Notification::PagesTest < ApplicationSystemTestCase
   test 'Only students and mentors are notified' do
-    login_user 'komagata', 'testtest'
-    visit '/pages'
+    visit_with_auth '/pages', 'komagata'
     click_link '新規Doc作成'
 
     within('.form') do
@@ -27,14 +26,12 @@ class Notification::PagesTest < ApplicationSystemTestCase
                  notification_message
 
     logout
-    login_user 'yameo', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'yameo'
     assert_no_text 'komagataさんがDocsにDocsTestを投稿しました。'
   end
 
   test "don't notify when page is WIP" do
-    login_user 'komagata', 'testtest'
-    visit '/pages'
+    visit_with_auth '/pages', 'komagata'
     click_link '新規Doc作成'
 
     within('.form') do
@@ -44,15 +41,13 @@ class Notification::PagesTest < ApplicationSystemTestCase
     click_button 'WIP'
 
     logout
-    login_user 'hatsuno', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'hatsuno'
     assert_no_text 'komagataさんがDocsにDocsTestを投稿しました。'
   end
 
   test 'Notify Docs updated from WIP' do
     page = pages(:page5)
-    login_user 'komagata', 'testtest'
-    visit page_path(page)
+    visit_with_auth page_path(page), 'komagata'
 
     click_link '内容変更'
     click_button '内容を保存'

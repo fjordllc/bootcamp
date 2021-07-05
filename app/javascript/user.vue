@@ -4,7 +4,7 @@
     .users-item__inner.a-card
       header.users-item__header
         .users-item__header-container
-          .users-item__inactive-message(
+          .users-item__inactive-message.is-only-mentor(
             v-if='currentUser.mentor && user.student_or_trainee && !user.active'
           )
             | 1ヶ月ログインがありません

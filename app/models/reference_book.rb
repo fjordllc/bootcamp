@@ -14,16 +14,13 @@ class ReferenceBook < ApplicationRecord
             size: { less_than: 10.megabytes }
 
   def cover_url
+    default_image_path = '/images/reference_books/covers/default.svg'
     if cover.attached?
-      cover.variant(resize: COVER_SIZE).service_url
+      cover.variant(resize: COVER_SIZE)
     else
-      image_url('/images/reference_books/covers/default.jpg')
+      image_url default_image_path
     end
-  end
-
-  def resize_cover!
-    return unless cover.attached?
-
-    cover.variant(resize: COVER_SIZE).processed
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+    image_url default_image_path
   end
 end

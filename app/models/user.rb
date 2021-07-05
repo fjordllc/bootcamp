@@ -476,13 +476,14 @@ class User < ApplicationRecord
   end
 
   def avatar_url
+    default_image_path = '/images/users/avatars/default.png'
     if avatar.attached?
       avatar.variant(resize: AVATAR_SIZE).processed.url
     else
-      image_url('/images/users/avatars/default.png')
+      image_url default_image_path
     end
   rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
-    image_url('/images/users/avatars/default.png')
+    image_url default_image_path
   end
 
   def generation
@@ -542,6 +543,13 @@ class User < ApplicationRecord
 
   def completed_all_practices?(category)
     category.practices.size == completed_practices_size(category)
+  end
+
+  def update_mentor_memo(new_memo)
+    # ユーザーの「最終ログイン日時」にupdated_at値が利用されるため
+    # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
+    self.record_timestamps = false
+    update!(mentor_memo: new_memo)
   end
 
   private

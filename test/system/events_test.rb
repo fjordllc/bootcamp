@@ -3,25 +3,18 @@
 require 'application_system_test_case'
 
 class EventsTest < ApplicationSystemTestCase
-  teardown do
-    wait_for_vuejs
-  end
-
   test 'show link to create new event' do
-    login_user 'komagata', 'testtest'
-    visit events_path
+    visit_with_auth events_path, 'komagata'
     assert_link 'イベント作成'
   end
 
   test 'users except admin cannot publish a event' do
-    login_user 'kimura', 'testtest'
-    visit new_event_path
+    visit_with_auth new_event_path, 'kimura'
     page.assert_no_selector("input[value='作成']")
   end
 
   test 'create a new event as wip' do
-    login_user 'kimura', 'testtest'
-    visit new_event_path
+    visit_with_auth new_event_path, 'kimura'
     within 'form[name=event]' do
       fill_in 'event[title]', with: '仮のイベント'
       fill_in 'event[description]', with: 'まだWIPです。'
@@ -41,8 +34,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'create a new event' do
-    login_user 'komagata', 'testtest'
-    visit new_event_path
+    visit_with_auth new_event_path, 'komagata'
     within 'form[name=event]' do
       fill_in 'event[title]', with: '新しいイベント'
       fill_in 'event[description]', with: 'イベントの説明文'
@@ -60,8 +52,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'update event' do
-    login_user 'komagata', 'testtest'
-    visit edit_event_path(events(:event1))
+    visit_with_auth edit_event_path(events(:event1)), 'komagata'
     within 'form[name=event]' do
       fill_in 'event[title]', with: 'ミートアップ(修正)'
       fill_in 'event[description]', with: 'ミートアップを開催します(修正)'
@@ -77,8 +68,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'destroy event' do
-    login_user 'komagata', 'testtest'
-    visit event_path(events(:event1))
+    visit_with_auth event_path(events(:event1)), 'komagata'
     accept_confirm do
       click_link '削除'
     end
@@ -86,8 +76,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'cannot create a new event when start_at > end_at' do
-    login_user 'komagata', 'testtest'
-    visit new_event_path
+    visit_with_auth new_event_path, 'komagata'
     within 'form[name=event]' do
       fill_in 'event[title]', with: 'イベント開始日時 > イベント終了日時のイベント'
       fill_in 'event[description]', with: 'エラーになる'
@@ -103,8 +92,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'cannot create a new event when open_start_at > open_end_at' do
-    login_user 'komagata', 'testtest'
-    visit new_event_path
+    visit_with_auth new_event_path, 'komagata'
     within 'form[name=event]' do
       fill_in 'event[title]', with: '募集開始日時 > 募集終了日時のイベント'
       fill_in 'event[description]', with: 'エラーになる'
@@ -120,8 +108,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'cannot create a new event when open_start_at > start_at' do
-    login_user 'komagata', 'testtest'
-    visit new_event_path
+    visit_with_auth new_event_path, 'komagata'
     within 'form[name=event]' do
       fill_in 'event[title]', with: '募集開始日時 > イベント開始日時のイベント'
       fill_in 'event[description]', with: 'エラーになる'
@@ -137,8 +124,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'cannot create a new event when open_end_at > end_at' do
-    login_user 'komagata', 'testtest'
-    visit new_event_path
+    visit_with_auth new_event_path, 'komagata'
     within 'form[name=event]' do
       fill_in 'event[title]', with: '募集終了日時 > イベント終了日時のイベント'
       fill_in 'event[description]', with: 'エラーになる'
@@ -154,33 +140,28 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'does not open when open_start_at > current time' do
-    login_user 'kimura', 'testtest'
-    visit event_path(events(:event4))
+    visit_with_auth event_path(events(:event4)), 'kimura'
     assert_text '募集開始までお待ち下さい'
   end
 
   test 'show participation link during opening' do
-    login_user 'kimura', 'testtest'
-    visit event_path(events(:event2))
+    visit_with_auth event_path(events(:event2)), 'kimura'
     assert_link '参加申込'
   end
 
   test 'are closed when current time > open_end_at' do
-    login_user 'kimura', 'testtest'
-    visit event_path(events(:event5))
+    visit_with_auth event_path(events(:event5)), 'kimura'
     assert_text '募集受付は終了しました。'
   end
 
   test 'show message about ending event after event end' do
-    login_user 'kimura', 'testtest'
-    visit event_path(events(:event6))
+    visit_with_auth event_path(events(:event6)), 'kimura'
     assert_text 'イベントは終了しました。'
   end
 
   test 'user can participate in an event' do
     event = events(:event2)
-    login_user 'kimura', 'testtest'
-    visit event_path(event)
+    visit_with_auth event_path(event), 'kimura'
     accept_confirm do
       click_link '参加申込'
     end
@@ -191,8 +172,7 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'user can cancel event' do
     event = events(:event2)
-    login_user 'hatsuno', 'testtest'
-    visit event_path(event)
+    visit_with_auth event_path(event), 'hatsuno'
     accept_confirm do
       click_link '参加を取り消す'
     end
@@ -203,8 +183,7 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'autolink location when url is included' do
     url = 'https://bootcamp.fjord.jp/'
-    login_user 'komagata', 'testtest'
-    visit new_event_path
+    visit_with_auth new_event_path, 'komagata'
     within 'form[name=event]' do
       fill_in 'event[title]', with: '会場にURLを含むイベント'
       fill_in 'event[description]', with: 'イベントの説明文'
@@ -222,8 +201,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'participating is first-come-first-served' do
-    login_user 'komagata', 'testtest'
-    visit new_event_path
+    visit_with_auth new_event_path, 'komagata'
     within 'form[name=event]' do
       fill_in 'event[title]', with: '先着順のイベント'
       fill_in 'event[description]', with: 'イベントの説明文'
@@ -240,8 +218,7 @@ class EventsTest < ApplicationSystemTestCase
     end
     sleep 1
 
-    login_user 'kimura', 'testtest'
-    visit events_path
+    visit_with_auth events_path, 'kimura'
     click_link '先着順のイベント'
     accept_confirm do
       click_link '参加申込'
@@ -253,8 +230,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'display user to waitlist when event participants are fulled' do
-    login_user 'komagata', 'testtest'
-    visit new_event_path
+    visit_with_auth new_event_path, 'komagata'
     within 'form[name=event]' do
       fill_in 'event[title]', with: '補欠者のいるイベント'
       fill_in 'event[description]', with: 'イベントの説明文'
@@ -271,21 +247,19 @@ class EventsTest < ApplicationSystemTestCase
     end
     sleep 1
 
-    login_user 'kimura', 'testtest'
-    visit events_path
+    visit_with_auth events_path, 'kimura'
     click_link '補欠者のいるイベント'
     accept_confirm do
       click_link '補欠登録'
     end
     within '.waitlist' do
       wait_user = all('img').map { |img| img['alt'] }
-      assert_equal %w[kimura], wait_user
+      assert_equal %w[kimura\ (Kimura\ Tadasi)], wait_user
     end
   end
 
   test 'waiting user moves up when participant cancels event' do
-    login_user 'komagata', 'testtest'
-    visit new_event_path
+    visit_with_auth new_event_path, 'komagata'
     within 'form[name=event]' do
       fill_in 'event[title]', with: '補欠者が繰り上がるイベント'
       fill_in 'event[description]', with: 'イベントの説明文'
@@ -302,8 +276,7 @@ class EventsTest < ApplicationSystemTestCase
     end
     sleep 1
 
-    login_user 'kimura', 'testtest'
-    visit events_path
+    visit_with_auth events_path, 'kimura'
     click_link '補欠者が繰り上がるイベント'
     accept_confirm do
       click_link '補欠登録'
@@ -313,8 +286,7 @@ class EventsTest < ApplicationSystemTestCase
       assert_equal %w[komagata], participants
     end
 
-    login_user 'komagata', 'testtest'
-    visit events_path
+    visit_with_auth events_path, 'komagata'
     click_link '補欠者が繰り上がるイベント'
     accept_confirm do
       click_link '参加を取り消す'
@@ -326,8 +298,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'does not display waitlist card when no users waiting' do
-    login_user 'komagata', 'testtest'
-    visit new_event_path
+    visit_with_auth new_event_path, 'komagata'
     within 'form[name=event]' do
       fill_in 'event[title]', with: '補欠者リストが表示されないイベント'
       fill_in 'event[description]', with: 'イベントの説明文'
@@ -349,8 +320,7 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'turn on the watch when attend an event' do
     event = events(:event2)
-    login_user 'kimura', 'testtest'
-    visit event_path(event)
+    visit_with_auth event_path(event), 'kimura'
     accept_confirm do
       click_link '参加申込'
     end
@@ -358,8 +328,12 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'show user full_name next to user login_name' do
-    login_user 'kimura', 'testtest'
-    visit event_path(events(:event2))
+    visit_with_auth event_path(events(:event2)), 'kimura'
+    assert_text 'komagata (Komagata Masaki)'
+  end
+
+  test 'show user full name on list page' do
+    visit_with_auth '/events', 'kimura'
     assert_text 'komagata (Komagata Masaki)'
   end
 end
