@@ -14,12 +14,6 @@ class BookmarksTest < ApplicationSystemTestCase
     assert_text @report.title
   end
 
-  test 'show question bookmark on lists' do
-    visit_with_auth '/bookmarks', 'kimura'
-    assert_text 'ブックマーク一覧'
-    assert_text @question.title
-  end
-
   test 'show my bookmark report' do
     visit_with_auth "/reports/#{@report.id}", 'komagata'
     wait_for_vuejs
@@ -29,20 +23,6 @@ class BookmarksTest < ApplicationSystemTestCase
 
   test 'show not bookmark report' do
     visit_with_auth "/reports/#{@report.id}", 'machida'
-    wait_for_vuejs
-    assert_selector '#bookmark-button.is-inactive'
-    assert_no_selector '#bookmark-button.is-active'
-  end
-
-  test 'show active button when bookmarked question' do
-    visit_with_auth "/questions/#{@question.id}", 'kimura'
-    wait_for_vuejs
-    assert_selector '#bookmark-button.is-active'
-    assert_no_selector '#bookmark-button.is-inactive'
-  end
-
-  test 'show inactive button when not bookmarked question' do
-    visit_with_auth "/questions/#{@question.id}", 'hajime'
     wait_for_vuejs
     assert_selector '#bookmark-button.is-inactive'
     assert_no_selector '#bookmark-button.is-active'
@@ -69,6 +49,26 @@ class BookmarksTest < ApplicationSystemTestCase
 
     visit '/bookmarks'
     assert_no_text @report.title
+  end
+
+  test 'show question bookmark on lists' do
+    visit_with_auth '/bookmarks', 'kimura'
+    assert_text 'ブックマーク一覧'
+    assert_text @question.title
+  end
+
+  test 'show active button when bookmarked question' do
+    visit_with_auth "/questions/#{@question.id}", 'kimura'
+    wait_for_vuejs
+    assert_selector '#bookmark-button.is-active'
+    assert_no_selector '#bookmark-button.is-inactive'
+  end
+
+  test 'show inactive button when not bookmarked question' do
+    visit_with_auth "/questions/#{@question.id}", 'hajime'
+    wait_for_vuejs
+    assert_selector '#bookmark-button.is-inactive'
+    assert_no_selector '#bookmark-button.is-active'
   end
 
   test 'bookmark question' do
