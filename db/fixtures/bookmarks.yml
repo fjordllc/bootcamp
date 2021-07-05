@@ -1,6 +1,6 @@
 bookmark28:
   user: kimura
-  bookmarkable: question1 (Question
+  bookmarkable: question1 (Question)
 
 <% (1..27).each do |id| %>
 bookmark<%= id %>:
