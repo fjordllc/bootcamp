@@ -7,6 +7,7 @@ class Question < ApplicationRecord
   include WithAvatar
   include Taggable
   include Mentioner
+  include Bookmarkable
 
   belongs_to :practice, optional: true
   belongs_to :user, touch: true
