@@ -93,4 +93,27 @@ class BookmarksTest < ApplicationSystemTestCase
     visit '/bookmarks'
     assert_no_text @question.title
   end
+
+  test 'edit bookmarks' do
+    visit_with_auth bookmarks_path, 'kimura'
+    assert_no_selector '.thread-list-item__option'
+    find(:css, '#spec-edit-mode').set(true)
+    wait_for_vuejs
+    assert_selector '.thread-list-item__option'
+  end
+
+  test 'delete bookmark from bookmarks' do
+    visit_with_auth report_path(@report), 'komagata'
+    wait_for_vuejs
+    assert_text 'Bookmark中'
+    visit bookmarks_path
+    assert_text '作業週1日目'
+    find(:css, '#spec-edit-mode').set(true)
+    assert_selector '.thread-list-item__option'
+    first('#bookmark-button').click
+    wait_for_vuejs
+    assert_no_text '作業週1日目'
+    visit report_path(@report)
+    assert_text 'Bookmark'
+  end
 end
