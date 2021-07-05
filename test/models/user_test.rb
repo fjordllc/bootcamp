@@ -65,13 +65,29 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 29, User.new(created_at: '2020-01-10 00:00:00').generation
   end
 
-  test '#completed_percentage' do
+  test '#completed_percentage don\'t calculate practice that include_progress: false' do
     user = users(:komagata)
     old_percentage = user.completed_percentage
     user.completed_practices << practices(:practice5)
+
     assert_not_equal old_percentage, user.completed_percentage
+
     old_percentage = user.completed_percentage
     user.completed_practices << practices(:practice53)
+
+    assert_equal old_percentage, user.completed_percentage
+  end
+
+  test '#completed_percentage don\'t calculate practice unrelated cource' do
+    user = users(:komagata)
+    old_percentage = user.completed_percentage
+    user.completed_practices << practices(:practice5)
+
+    assert_not_equal old_percentage, user.completed_percentage
+
+    old_percentage = user.completed_percentage
+    user.completed_practices << practices(:practice52)
+
     assert_equal old_percentage, user.completed_percentage
   end
 
