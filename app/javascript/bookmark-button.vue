@@ -1,6 +1,6 @@
 <template lang="pug">
 #bookmark-button.a-bookmark-button.a-button.is-xs(
-  :class='isBookmark ? "is-active is-main" : "is-inactive is-muted"',
+  :class='bookmarkId ? "is-active is-main" : "is-inactive is-muted"',
   @click='push'
 )
   | {{ bookmarkLabel }}
@@ -9,13 +9,16 @@
 export default {
   props: {
     bookmarkableId: { type: Number, required: true },
-    bookmarkableType: { type: String, required: true }
+    bookmarkableType: { type: String, required: true },
+    checked: { type: Boolean, required: false, default: false },
+    bookmarkIndexId: { type: Number, required: false, default: 0 }
   },
   data() {
     return {
       bookmarkId: null,
       bookmarkLabel: 'Bookmark',
-      isBookmark: false
+      totalPages: 0,
+      bookmarkValue: null
     }
   },
   created() {
@@ -27,39 +30,43 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     push() {
-      if (this.isBookmark) {
+      if (this.bookmarkId) {
         this.unbookmark()
       } else {
         this.bookmark()
       }
     },
     getBookmark() {
-      fetch(
-        `/api/bookmarks.json?bookmarkable_type=${this.bookmarkableType}&bookmarkable_id=${this.bookmarkableId}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': this.token()
-          },
-          credentials: 'same-origin',
-          redirect: 'manual'
-        }
-      )
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          if (json.bookmarks.length) {
-            this.bookmarkId = json.bookmarks[0].id
-            this.bookmarkLabel = 'Bookmark中'
-            this.isBookmark = true
-          }
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
+      if (this.checked) {
+        this.bookmarkId= this.bookmarkIndexId
+        this.bookmarkLabel = '削除'
+      } else {
+        fetch(
+            `/api/bookmarks.json?bookmarkable_type=${this.bookmarkableType}&bookmarkable_id=${this.bookmarkableId}`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-Token': this.token()
+              },
+              credentials: 'same-origin',
+              redirect: 'manual'
+            }
+        )
+            .then((response) => {
+              return response.json()
+            })
+            .then((json) => {
+              if (json.bookmarks.length) {
+                this.bookmarkId = json.bookmarks[0].id
+                this.bookmarkLabel = 'Bookmark中'
+              }
+            })
+            .catch((error) => {
+              console.warn('Failed to parsing', error)
+            })
+      }
     },
     bookmark() {
       fetch(
@@ -81,7 +88,6 @@ export default {
         .then((json) => {
           this.bookmarkId = json.id
           this.bookmarkLabel = 'Bookmark中'
-          this.isBookmark = true
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
@@ -101,7 +107,9 @@ export default {
         .then(() => {
           this.bookmarkId = null
           this.bookmarkLabel = 'Bookmark'
-          this.isBookmark = false
+        })
+        .then(()=>{
+          this.$emit('update-index')
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
@@ -110,3 +118,4 @@ export default {
   }
 }
 </script>
+<style scoped></style>
