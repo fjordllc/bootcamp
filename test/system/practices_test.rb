@@ -50,11 +50,15 @@ class PracticesTest < ApplicationSystemTestCase
         fill_in 'タイトル', with: 'テストの参考書籍タイトル'
         fill_in '価格', with: '1234'
         fill_in 'URL', with: 'テストの参考書籍ASIN'
+        find('.reference-books-form-item__must-read').click
+        fill_in '説明', with: 'テストの参考書籍説明'
         find('.reference-books-form__delete-link').click # delete
         click_link '書籍を追加'
         fill_in 'タイトル', with: 'テストの参考書籍タイトル2'
         fill_in '価格', with: '1234'
         fill_in 'URL', with: 'http://example.com'
+        find('.reference-books-form-item__must-read').click
+        fill_in '説明', with: 'テストの参考書籍説明'
       end
       fill_in 'practice[goal]', with: 'テストのゴールの内容です'
       fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
@@ -75,6 +79,8 @@ class PracticesTest < ApplicationSystemTestCase
         fill_in 'タイトル', with: 'プロを目指す人のためのRuby入門'
         fill_in '価格', with: '2345'
         fill_in 'URL', with: 'http://example.com'
+        find('.reference-books-form-item__must-read').click
+        fill_in '説明', with: 'テストの参考書籍説明'
       end
       click_button '更新する'
     end
@@ -105,6 +111,8 @@ class PracticesTest < ApplicationSystemTestCase
       fill_in 'タイトル', with: 'プロを目指す人のRuby入門', match: :prefer_exact
       fill_in '価格', with: '2345', match: :prefer_exact
       fill_in 'URL', with: 'http://example.com'
+      find('.reference-books-form-item__must-read').click
+      fill_in '説明', with: 'テストの参考書籍説明'
     end
     click_button '更新する'
   end
@@ -116,6 +124,8 @@ class PracticesTest < ApplicationSystemTestCase
       fill_in 'タイトル', with: 'プロを目指す人のRuby入門'
       fill_in '価格', with: '2345'
       fill_in 'URL', with: 'http://example.com'
+      find('.reference-books-form-item__must-read').click
+      fill_in '説明', with: 'テストの参考書籍説明'
     end
     click_button '更新する'
   end
