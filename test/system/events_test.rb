@@ -254,7 +254,7 @@ class EventsTest < ApplicationSystemTestCase
     end
     within '.waitlist' do
       wait_user = all('img').map { |img| img['alt'] }
-      assert_equal %w[kimura], wait_user
+      assert_equal %w[kimura\ (Kimura\ Tadasi)], wait_user
     end
   end
 
@@ -329,6 +329,11 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'show user full_name next to user login_name' do
     visit_with_auth event_path(events(:event2)), 'kimura'
+    assert_text 'komagata (Komagata Masaki)'
+  end
+
+  test 'show user full name on list page' do
+    visit_with_auth '/events', 'kimura'
     assert_text 'komagata (Komagata Masaki)'
   end
 end

@@ -1,13 +1,9 @@
 .a-watch-button
-  &.a-button.is-sm,
-    width: 6.5rem
-    +position(relative)
-    padding-left: 1.75rem
-    i
-      +position(absolute, left .5rem)
-  &.is-active
-    color: $main
-    border-color: $main
+  border: none
+  &:hover
+    border: none
+  &.is-inactive
+    color: $semi-muted-text
     &:hover
-      color: $main
-      border-color: $main
+      color: $default-text
+      background-color: $background-shade

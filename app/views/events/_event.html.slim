@@ -24,7 +24,7 @@
         .thread-header-actions
           .thread-header-actions__start
             .thread-header-actions__action
-              #js-watch(data-watchable-id="#{@event.id}", data-watchable-type='Event')
+              #js-watch-toggle(data-watchable-id="#{@event.id}", data-watchable-type='Event')
           .thread-header-actions__end
             .thread-header-actions__action
               = link_to new_event_path(id: event), class: 'a-button is-xs is-secondary is-block' do

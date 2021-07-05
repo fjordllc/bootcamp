@@ -1,5 +1,5 @@
 <template lang="pug">
-.unconfirmed_links.card-footer
+.unconfirmed_links.card-footer.is-only-mentor
   .card-main-actions
     ul.card-main-actions__items
       li.card-main-actions__item

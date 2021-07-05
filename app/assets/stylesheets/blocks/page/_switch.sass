@@ -1,4 +1,4 @@
-.page-header-switch
+.switch
   +media-breakpoint-up(md)
     display: flex
     align-items: center
@@ -7,14 +7,14 @@
     *
       cursor: pointer
 
-.page-header-switch__label
+.switch__label
   +media-breakpoint-up(md)
     +text-block(.75rem 1.4, $muted-text center)
     margin-right: .5em
     .a-help
       +position(relative, top -1px)
     &:hover
-      .page-header-switch__label-text
+      .switch__label-text
         color: $main
         text-decoration: underline
       .a-help
