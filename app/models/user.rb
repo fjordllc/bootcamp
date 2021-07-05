@@ -9,6 +9,7 @@ class User < ApplicationRecord
   VALID_SORT_COLUMNS = %w[id login_name company_id updated_at created_at report comment asc desc].freeze
   AVATAR_SIZE = '88x88>'
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
+  MAX_PERCENTAGE = 100
 
   enum job: {
     student: 0,
@@ -335,14 +336,13 @@ class User < ApplicationRecord
   end
 
   def completed_percentage
-    course.practices
-      .where(include_progress: true)
-      .map(&:learnings)
-      .flatten
-      .select {|learning|
-        learning.user_id == id &&
-        learning.complete?
-    }.size.to_f / course.practices.where(include_progress: true).count * 100
+    practices_include_progress = course.practices.where(include_progress: true)
+
+    completed_practices_include_progress =
+      practices_include_progress.joins(:learnings)
+                                .merge(Learning.complete.where(user_id: id))
+
+    completed_practices_include_progress.size.to_f / practices_include_progress.size * MAX_PERCENTAGE
   end
 
   def completed_practices_size(category)
