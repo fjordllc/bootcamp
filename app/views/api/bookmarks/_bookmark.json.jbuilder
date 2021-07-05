@@ -1,5 +1,6 @@
 bookmarkable = bookmark.bookmarkable
 json.id bookmark.id
+json.bookmarkable_id bookmark.bookmarkable_id
 json.modelName bookmark.bookmarkable_type
 json.modelNameI18n t("activerecord.models.#{bookmarkable.class.to_s.tableize.singularize}")
 json.author bookmarkable.user.name
