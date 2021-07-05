@@ -16,15 +16,22 @@
         span.a-help
           i.fas.fa-question
     p
-      | カリキュラムは Mac 向けの内容のみ用意をしております。
-      | なので、現在は Windows では受講できません
-      | （ Windows でも学習ができるように準備を進めています）。
+      | Windows(WSL2)を選択いただく場合はHyper-Vに対応したパソコンが必要です
+      | お持ちのパソコンがHyper-Vに対応しているかどうかは
+      | 下記の方法で確認することができます。
+      br
+      label.a-form-help-link.is-danger(for='modal-win')
+        span.a-form-help-link__label
+          | Hyper-V対応の調べ方
+        span.a-help
+          i.fas.fa-question
     p
       | Linux 経験者であれば Linux で学習を行うことは可能ですが、
       | Linux であるがために学習が進まなかった場合にサポートが
       | できない場合がありますのでご注意ください。
-
-= render '/shared/modal', id: 'modal-mac', title: '🍏 M1 Mac or Intel Mac? の調べ方'
+= render '/shared/modal',
+  id: 'modal-mac',
+  title: '🍏 M1 Mac or Intel Mac? の調べ方'
   .modal__description.is-md
     .a-short-text
       p
@@ -40,4 +47,21 @@
         br
         | 「プロセッサ」という項目があり、そこに「Intel」とありましたら、Intel Mac です。
       p
-        = image_tag('signup/about-mac-popup.jpg', alt: 'この Mac についてのポップアップウインドウのキャプチャ')
+        = image_tag 'signup/about-mac-popup.jpg',
+          alt: 'この Mac についてのポップアップウインドウのキャプチャ'
+= render '/shared/modal',
+  id: 'modal-win',
+  title: 'Hyper-V対応の調べ方'
+  .modal__description.is-md
+    .a-short-text
+      p スタートボタンの右にある検索欄に「タスクマネージャー」を入力してタスクマネージャーを立ち上げます。
+      p = image_tag 'https://i.gyazo.com/53e17941316c04a75dbd7b953ccc7a3a.png'
+      p 「パフォーマンス」タブを選択します。
+      p 右下の「仮想化」の部分が「有効」になっていればHyper-Vに対応しています。
+      p = image_tag 'https://i.gyazo.com/de5e34f289843201d2246be964c26864.png'
+      p
+        span(style="color:red")
+          | 「無効」になっている場合でもパソコンが対応してれば
+          | 設定で有効にできる場合があります。
+      p 詳細は下記のページを参考にしてください。
+      p = link_to 'WSL2が使えるマシンとは？', 'https://bootcamp.fjord.jp/articles/15', target: :blank
