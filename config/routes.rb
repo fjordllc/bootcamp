@@ -106,7 +106,7 @@ Rails.application.routes.draw do
   end
 
   namespace :current_user do
-    resources :products
+    resources :products, only: %i(index)
   end
 
   resources :announcements
