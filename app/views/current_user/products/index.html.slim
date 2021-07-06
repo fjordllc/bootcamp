@@ -1,2 +1,26 @@
-h1 CurrentUser::Products#index
-p Find me in app/views/current_user/products/index.html.slim
+- title "#{@user.login_name}の提出物"
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
+              | ユーザー一覧
+
+.page-tools
+  = render 'users/page_tabs', user: @user
+
+.page-body
+  .container
+    - if @products.present?
+      .thread-list.a-card
+        = render partial: 'products/product', collection: @products, as: :product
+    - else
+      .o-empty-message
+        .o-empty-message__icon
+          i.far.fa-sad-tear
+        p.o-empty-message__text
+          | 提出物はまだありません。
