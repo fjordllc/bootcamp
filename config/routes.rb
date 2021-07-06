@@ -105,6 +105,10 @@ Rails.application.routes.draw do
     get "tags", to: "tags#index"
   end
 
+  namespace :current_user do
+    resources :products
+  end
+
   resources :announcements
   resource :retirement, only: %i(show new create), controller: "retirement"
   resources :users, only: %i(index show new create) do
