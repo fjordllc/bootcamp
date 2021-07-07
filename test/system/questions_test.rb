@@ -230,4 +230,18 @@ class QuestionsTest < ApplicationSystemTestCase
 
     assert_alert_when_enter_one_dot_only_tag
   end
+
+  test 'hoge' do
+    50.times do |n|
+      q = Question.create(title: "順番ばらつきテスト#{n}", description: "答え#{n}", user_id: 253_826_460, practice_id: 315_059_988)
+      Answer.create(description: '正しい答え', user_id: 253_826_460, question_id: q.id, type: 'CorrectAnswer')
+      Answer.create(description: '正しい答え2', user_id: 253_826_460, question_id: q.id)
+    end
+
+    visit '/questions?solved=true'
+
+    assert_selector '.thread-list-item', count: 25
+    click_link '2', match: :first
+    assert_selector '.thread-list-item', count: 25
+  end
 end
