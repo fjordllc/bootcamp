@@ -249,4 +249,11 @@ class QuestionsTest < ApplicationSystemTestCase
       assert_no_text '削除する'
     end
   end
+
+  test 'select box shows the practices that belong to a user course' do
+    visit_with_auth questions_path, 'kimura'
+    find('#select2-practice_id-container').click
+    selects_size = users(:kimura).course.practices.size + 1
+    assert_selector '.select2-results__option', count: selects_size
+  end
 end
