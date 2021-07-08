@@ -115,16 +115,22 @@ export default {
     isLatestProductSubmittedJust5days() {
       if (this.latestProductSubmittedJust5days !== null) {
         return this.product.id === this.latestProductSubmittedJust5days.id
+      } else {
+         return false
       }
     },
     isLatestProductSubmittedJust6days() {
       if (this.latestProductSubmittedJust6days !== null) {
         return this.product.id === this.latestProductSubmittedJust6days.id
+      } else {
+         return false
       }
     },
     isLatestProductSubmittedOver7days() {
       if (this.latestProductSubmittedOver7days !== null) {
         return this.product.id === this.latestProductSubmittedOver7days.id
+      } else {
+         return false
       }
     },
     notResponded() {
