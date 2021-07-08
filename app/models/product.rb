@@ -111,4 +111,9 @@ class Product < ApplicationRecord
   def checker_name
     checker_id ? User.find(checker_id).login_name : nil
   end
+
+  def elapsed_days
+    t = published_at || created_at
+    ((Time.current - t) / 1.day).to_i
+  end
 end
