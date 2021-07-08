@@ -552,6 +552,10 @@ class User < ApplicationRecord
     category.practices.size == completed_practices_size(category)
   end
 
+  def practices
+    course.practices.order('categories.position', 'practices.position')
+  end
+
   def update_mentor_memo(new_memo)
     # ユーザーの「最終ログイン日時」にupdated_at値が利用されるため
     # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
