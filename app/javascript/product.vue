@@ -96,9 +96,9 @@ export default {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: String, required: true },
-    latestProductSubmittedJust5days: { type: String, required: false, default: null },
-    latestProductSubmittedJust6days: { type: String, required: false, default: null },
-    latestProductSubmittedOver7days: { type: String, required: false, default: null },
+    latestProductSubmittedJust5days: { type: Object, required: false, default: null },
+    latestProductSubmittedJust6days: { type: Object, required: false, default: null },
+    latestProductSubmittedOver7days: { type: Object, required: false, default: null },
   },
   computed: {
     roleClass() {
@@ -112,8 +112,6 @@ export default {
         ? `★${this.product.practice.title}の提出物`
         : `${this.product.practice.title}の提出物`
     },
-  },
-  methods: {
     isLatestProductSubmittedJust5days() {
       if (this.latestProductSubmittedJust5days !== null) {
         return this.product.id === this.latestProductSubmittedJust5days.id
