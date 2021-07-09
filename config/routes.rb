@@ -91,6 +91,10 @@ Rails.application.routes.draw do
     resources :seats, except: %i(show)
   end
 
+  namespace :current_user do
+    resources :reports, only: %i(index)
+  end
+
   namespace "partial" do
     resource :git_hub_grass, only: %i(show), controller: "git_hub_grass"
   end
