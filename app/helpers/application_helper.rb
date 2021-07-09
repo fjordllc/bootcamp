@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def md2html(text)
-    html = CommonMarker.render_html(text) unless text.nil?
+    html = CommonMarker.render_html(text, :HARDBREAKS) unless text.nil?
     raw(html) # rubocop:disable Rails/OutputSafety
   end
 
