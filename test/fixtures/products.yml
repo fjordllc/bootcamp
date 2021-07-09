@@ -1,82 +1,127 @@
-product1:
+product1: # 自分のコメントあり(2つ)
   practice: practice1
   user: yamada
   body: テストの提出物1です。
 
-product2:
+product2: # チェック済
   practice: practice1
   user: kimura
   body: テストの提出物2です。
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
+  published_at: <%= 1.day.ago %>
 
-product3:
+product3: # チェック済, 他者のコメントあり
   practice: practice2
   user: sotugyou
   body: 確認済みの提出物
+  created_at: <%= 2.day.ago %>
+  updated_at: <%= 2.day.ago %>
+  published_at: <%= 2.day.ago %>
 
-product4:
+product4: # チェック済
   practice: practice2
   user: yamada
   body: テストの提出物4です。
+  created_at: <%= 3.day.ago %>
+  updated_at: <%= 3.day.ago %>
+  published_at: <%= 3.day.ago %>
 
 product5:
   practice: practice2
   user: kimura
   body: テストの提出物5です。
+  created_at: <%= 4.day.ago %>
+  updated_at: <%= 4.day.ago %>
+  published_at: <%= 4.day.ago %>
 
 product6:
   practice: practice3
   user: sotugyou
   body: 確認待ちの提出物
+  created_at: <%= 5.day.ago %>
+  updated_at: <%= 5.day.ago %>
+  published_at: <%= 5.day.ago %>
 
-product7:
+product7: # チェック済
   practice: practice3
   user: yamada
   body: テストの提出物7です。
+  created_at: <%= 6.day.ago %>
+  updated_at: <%= 6.day.ago %>
+  published_at: <%= 6.day.ago %>
 
 product8:
   practice: practice3
   user: kimura
   body: テストの提出物8です。
+  created_at: <%= 7.day.ago %>
+  updated_at: <%= 7.day.ago %>
+  published_at: <%= 7.day.ago %>
 
-product9:
+product9: # チェック済
   practice: practice4
   user: yamada
   body: テストの提出物9です。
+  created_at: <%= 8.day.ago %>
+  updated_at: <%= 8.day.ago %>
+  published_at: <%= 8.day.ago %>
 
-product10:
+product10: # 他者のコメントあり
   practice: practice4
   user: kimura
   body: テストの提出物10です。
+  created_at: <%= 9.day.ago %>
+  updated_at: <%= 9.day.ago %>
+  published_at: <%= 9.day.ago %>
 
 product11:
   practice: practice2
   user: hatsuno
   body: テストの提出物11です。
+  created_at: <%= 10.day.ago %>
+  updated_at: <%= 10.day.ago %>
+  published_at: <%= 10.day.ago %>
 
 product12:
   practice: practice5
   user: yamada
   body: リアクションテスト
+  created_at: <%= 11.day.ago %>
+  updated_at: <%= 11.day.ago %>
+  published_at: <%= 11.day.ago %>
 
 product13:
   practice: practice1
   user: kensyu
   body: 研修の提出物です。
+  created_at: <%= 12.day.ago %>
+  updated_at: <%= 12.day.ago %>
+  published_at: <%= 12.day.ago %>
 
 product14:
   practice: practice1
   user: daimyo
   body: 研修の提出物です。
+  created_at: <%= 13.day.ago %>
+  updated_at: <%= 13.day.ago %>
+  published_at: <%= 13.day.ago %>
 
 product15:
   practice: practice1
   user: with_hyphen
   body: テストの提出物15です。
+  created_at: <%= 6.day.ago %>
+  updated_at: <%= 6.day.ago %>
+  published_at: <%= 6.day.ago %>
 
 product16:
   practice: practice2
   user: with_hyphen
   body: テストの提出物16です。
+  created_at: <%= 6.day.ago %>
+  updated_at: <%= 6.day.ago %>
+  published_at: <%= 6.day.ago %>
 
 product17:
   practice: practice3

@@ -11,8 +11,8 @@ module LinkChecker
       VCR.use_cassette 'link_checker/client/request/fjord.jp' do
         assert_equal 404, Client.request('https://fjord.jp/foo')
       end
-      VCR.use_cassette 'link_checker/client/request/foofoofoo.com' do
-        assert_not Client.request('http://foofoofoo.com/')
+      VCR.use_cassette 'link_checker/client/request/foobarbuz.com' do
+        assert_not Client.request('http://foobarbuz.com/')
       end
       VCR.use_cassette 'link_checker/client/request/e-words.jp' do
         assert_equal 200, Client.request('https://e-words.jp/w/単体テスト.html')
@@ -29,8 +29,8 @@ module LinkChecker
       VCR.use_cassette 'link_checker/client/request/fjord.jp' do
         assert_equal 404, Client.new('https://fjord.jp/foo').request
       end
-      VCR.use_cassette 'link_checker/client/request/foofoofoo.com' do
-        assert_not Client.new('http://foofoofoo.com/').request
+      VCR.use_cassette 'link_checker/client/request/foobarbuz.com' do
+        assert_not Client.new('http://foobarbuz.com/').request
       end
       VCR.use_cassette 'link_checker/client/request/e-words.jp' do
         assert_equal 200, Client.new('https://e-words.jp/w/単体テスト.html').request
