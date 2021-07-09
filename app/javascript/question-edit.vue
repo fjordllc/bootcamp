@@ -2,7 +2,7 @@
 .thread
   userIcon(:user='question.user', threadClassSuffix='')
   .thread__inner.a-card
-    header.thread-header
+    .thread-header.has-count
       a.a-count-badge(href='#comments')
         .a-count-badge__label
           | 回答
@@ -34,20 +34,20 @@
           h1.thread-header-title__title
             | {{ title }}
       .thread-header__row
-        .thread-practice
-          a.thread-practice__link(:href='`/practices/${practiceId}`')
-            | {{ practiceTitle }}
-      .thread-header__row
         .thread-header-actions
           .thread-header-actions__start
-            WatchToggle(:watchableId='question.id', watchableType='Question')
+            .thread-header-actions__action
+              WatchToggle(:watchableId='question.id', watchableType='Question')
           .thread-header-actions__end
-            .thread-header__raw
+            .thread-header-actions__action
               a.a-button.is-sm.is-secondary(
                 :href='`/questions/${question.id}.md`',
                 target='_blank'
               )
                 | Raw
+    .thread-category
+      a.thread-category__link(:href='`/practices/${practiceId}`')
+        | {{ practiceTitle }}
     .thread__tags
       tags(
         :tagsInitialValue='question.tag_list',
