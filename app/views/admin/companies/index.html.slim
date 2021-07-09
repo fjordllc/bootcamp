@@ -25,6 +25,7 @@ header.page-header
             th.admin-table__label = Company.human_attribute_name :logo
             th.admin-table__label = Company.human_attribute_name :description
             th.admin-table__label = Company.human_attribute_name :website
+            th.admin-table__label.actions リンク
             th.admin-table__label.actions 操作
         tbody.admin-table__items
           - @companies.each do |company|
@@ -39,6 +40,11 @@ header.page-header
                 = company.description
               td.admin-table__item-value
                 = company.website
+              td.admin-table__item-value.is-text-align-center
+                = link_to company.adviser_sign_up_url,
+                  title: 'アドバイザーサインアップURL',
+                  class: 'a-button is-sm is-secondary is-icon' do
+                  i.fas.fa-user-plus
               td.admin-table__item-value.is-text-align-center
                 ul.is-button-group
                   li
