@@ -15,8 +15,9 @@ class HomeController < ApplicationController
         @completed_learnings = current_user.learnings.where(status: 3).order(updated_at: :desc)
         @my_seat_today = current_user.reservations.find_by(date: Date.current)&.seat&.name
         @reservations_for_today = Reservation.where(date: Date.current).to_a
-        @events_for_today = Event.where(start_at: Date.current).to_a
-        @events_for_tomorrow = Event.where(start_at: Date.tomorrow).to_a
+        cookies_ids = JSON.parse(cookies[:confirmed_event_ids]) if cookies[:confirmed_event_ids]
+        @events_for_today = Event.where(start_at: Date.current).where.not(id: cookies_ids)
+        @events_for_tomorrow = Event.where(start_at: Date.tomorrow).where.not(id: cookies_ids)
         set_required_fields
         render aciton: :index
       end

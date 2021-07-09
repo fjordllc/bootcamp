@@ -212,5 +212,8 @@ Rails.application.routes.draw do
   get "thanks", to: "static_pages#thanks"
   get "retire", to: "static_pages#retire"
 
+  post 'event/event_id/notice/event_day/confirmed', to: "event_notices#save_confirmed_event_ids_in_cookies"
+  post 'event/event_id/notice/before_event_day/confirmed', to: "event_notices#confirmed_before_event_day"
+
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

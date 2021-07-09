@@ -4,3 +4,4 @@
     h2.thread-list-item__title(itemprop='name')
       = link_to event, itemprop: 'url', class: 'thread-list-item__title-link' do
         = event.title
+        = link_to '閉じる', event_event_id_notice_event_day_confirmed_path(event_id: event.id), method: :post

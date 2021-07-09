@@ -20,11 +20,11 @@ header.page-header
           h2.card-header__title
             = "本日開催のイベントです！"
         = render partial: 'events', collection: @events_for_today, as: :event
-              
+
     - if @events_for_tomorrow.present?
       .thread-list.a-card
         header.card-header.is-sm
-          h2.card-header__title 
+          h2.card-header__title
             = "明日開催のイベントです！"
         = render partial: 'events', collection: @events_for_tomorrow, as: :event
     .columns
