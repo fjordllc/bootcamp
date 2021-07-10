@@ -185,7 +185,9 @@ ja:
         title: タイトル
         price: 価格
         page_url: URL
+        must_read: 必読
         cover: 表紙画像
+        description: 説明
     enums:
       user:
         job:

@@ -353,6 +353,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_082712) do
     t.bigint "practice_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "must_read", default: false, null: false
+    t.text "description"
     t.index ["practice_id"], name: "index_reference_books_on_practice_id"
   end
 
