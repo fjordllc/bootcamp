@@ -9,9 +9,4 @@ class API::UserIconUrlsController < API::BaseController
     end
     render json: user_icon_urls.to_json
   end
-
-  def show
-    user_icon_url = rails_storage_proxy_url(User.find_by(login_name: params[:login_name]).avatar)
-    render json: user_icon_url.to_json
-  end
 end
