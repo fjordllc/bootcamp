@@ -56,7 +56,7 @@ header.page-header
                           | #{@page.last_updated_user.login_name}
                 - if @page.slug.present?
                   .thread-header-metas__meta
-                    | #{@page.slug}
+                    = @page.slug
           .thread-header__row
             h1.thread-header-title(class="#{@page.wip? ? 'is-wip' : ''}")
               - if @page.wip?
