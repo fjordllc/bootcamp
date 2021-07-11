@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_05_082712) do
+ActiveRecord::Schema.define(version: 2021_07_11_080417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -430,7 +430,6 @@ ActiveRecord::Schema.define(version: 2021_06_05_082712) do
     t.string "github_account"
     t.boolean "adviser", default: false, null: false
     t.boolean "nda", default: true, null: false
-    t.string "slack_account"
     t.string "reset_password_token"
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
@@ -453,7 +452,6 @@ ActiveRecord::Schema.define(version: 2021_06_05_082712) do
     t.integer "prefecture_code"
     t.boolean "job_seeker", default: false, null: false
     t.string "github_id"
-    t.boolean "slack_participation", default: true, null: false
     t.boolean "github_collaborator", default: false, null: false
     t.string "name", default: "", null: false
     t.string "name_kana", default: "", null: false
