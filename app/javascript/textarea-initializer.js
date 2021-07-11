@@ -1,11 +1,14 @@
 import Tribute from 'tributejs'
 import TextareaAutocomplteEmoji from './textarea-autocomplte-emoji'
 import TextareaAutocomplteMention from './textarea-autocomplte-mention'
+import TextareaAutocompliteUserIcon from './textarea-autocomplite-user-icon'
 import TextareaMarkdown from 'textarea-markdown'
 import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
 import MarkdownItMention from './markdown-it-mention'
+import MarkdownItUserIcon from './markdown-it-user-icon'
 import MarkdownOption from './markdown-it-option'
+import UserIconRenderer from './user-icon-renderer'
 import autosize from 'autosize'
 
 export default class {
@@ -22,11 +25,13 @@ export default class {
     // auto-completion
     const emoji = new TextareaAutocomplteEmoji()
     const mention = new TextareaAutocomplteMention()
+    const userIcon = new TextareaAutocompliteUserIcon()
 
     mention.fetchValues((json) => {
       mention.values = json
       mention.values.unshift({ login_name: 'mentor', name: 'メンター' })
-      const collection = [emoji.params(), mention.params()]
+      userIcon.values = mention.values
+      const collection = [emoji.params(), mention.params(), userIcon.params()]
       const tribute = new Tribute({
         collection: collection
       })
@@ -51,10 +56,13 @@ export default class {
           })
           textarea.dispatchEvent(event)
         },
-        plugins: [MarkdownItEmoji, MarkdownItMention, MarkdownItTaskLists],
+        plugins: [MarkdownItEmoji, MarkdownItMention, MarkdownItUserIcon, MarkdownItTaskLists],
         markdownOptions: MarkdownOption
       })
       /* eslint-enable no-new */
     })
+
+    // user-icon
+    new UserIconRenderer().render(selector)
   }
 }
