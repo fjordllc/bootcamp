@@ -160,12 +160,12 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user 'hatsuno', 'testtest'
     report = create_report 'コメントと', '確認があった', false
 
-    login_user 'komagata', 'testtest'
+    visit_with_auth "/reports/#{report}", 'komagata'
     visit "/reports/#{report}"
     fill_in 'new_comment[description]', with: 'コメントと確認した'
     click_button '確認OKにする'
 
-    login_user 'hatsuno', 'testtest'
+    visit_with_auth "/reports/#{report}", 'hatsuno'
     find('.header-links__link.test-show-notifications').click
     wait_for_vuejs
     assert_text 'hatsunoさんの【 「コメントと」の日報 】にkomagataさんがコメントしました。'
