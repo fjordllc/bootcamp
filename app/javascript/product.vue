@@ -51,7 +51,8 @@
                 .thread-list-item-comment__count
                   | （{{ product.comments.size }}）
                 .thread-list-item-comment__user-icons
-                  a.thread-list-item-comment__user-icon(:href='user.url')(
+                  a.thread-list-item-comment__user-icon(
+                    :href='user.url'
                     v-for='user in product.comments.users'
                   )
                     img.a-user-icon(
