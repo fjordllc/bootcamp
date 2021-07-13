@@ -28,10 +28,5 @@ html
       justify-content: center
 
 .is-only-mentor
-  display: none !important
-  body.is-mentor-mode &
-    display: block !important
-.is-only-mentor-flex
-  display: none !important
-  body.is-mentor-mode &
-    display: flex !important
+  body:not(.is-mentor-mode) &
+    display: none !important
