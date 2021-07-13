@@ -19,6 +19,7 @@ export default class {
         return item.original.value
       },
       menuItemTemplate: (item) => {
+        if (item.original.isUser) return `<span class='emoji'>${escapeHtml(item.original.login_name)}</span>`
         return (
           `${escapeHtml(item.original.value)}` +
           `<span class='emoji'>${escapeHtml(item.original.key)}</span>`
@@ -27,10 +28,16 @@ export default class {
     }
   }
 
+  addUserData(json) {
+    this.userValues = json.map((user) => {
+      return { key: `@${user.login_name}`, value: `:@${user.login_name}:`, isUser: true, login_name: user.login_name }
+    })
+  }
+
   _fetchValues() {
     this.values = Object.keys(emojis).map((key) => {
       return { key: key, value: emojis[key] }
-    })
+    }).concat(this.userValues)
   }
 
   _filterValues(text, callback) {
