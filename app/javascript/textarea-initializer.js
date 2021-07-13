@@ -1,7 +1,6 @@
 import Tribute from 'tributejs'
 import TextareaAutocomplteEmoji from './textarea-autocomplte-emoji'
 import TextareaAutocomplteMention from './textarea-autocomplte-mention'
-import TextareaAutocompliteUserIcon from './textarea-autocomplite-user-icon'
 import TextareaMarkdown from 'textarea-markdown'
 import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
@@ -25,13 +24,12 @@ export default class {
     // auto-completion
     const emoji = new TextareaAutocomplteEmoji()
     const mention = new TextareaAutocomplteMention()
-    const userIcon = new TextareaAutocompliteUserIcon()
 
     mention.fetchValues((json) => {
+      emoji.addUserData(json)
       mention.values = json
       mention.values.unshift({ login_name: 'mentor', name: 'メンター' })
-      userIcon.values = mention.values
-      const collection = [emoji.params(), mention.params(), userIcon.params()]
+      const collection = [emoji.params(), mention.params()]
       const tribute = new Tribute({
         collection: collection
       })
