@@ -2,7 +2,8 @@ import Vue from 'vue'
 import NiconicoCalendar from './niconico_calendar'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const niconicoCalendar = document.getElementById('js-niconico_calendar')
+  const selector = '#js-niconico_calendar'
+  const niconicoCalendar = document.querySelector(selector)
   if (niconicoCalendar) {
     const userId = niconicoCalendar.getAttribute('data-user-id')
 
@@ -13,6 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
             userId: userId
           }
         })
-    }).$mount('#js-niconico_calendar')
+    }).$mount(selector)
   }
 })
