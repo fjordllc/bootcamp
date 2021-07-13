@@ -1,3 +1,23 @@
 .page-main-header-actions
   +media-breakpoint-up(md)
     margin-top: -.375rem
+
+.page-main-header-actions__items
+  display: flex
+  +margin(horizontal, -.25rem)
+  justify-content: center
+
+.page-main-header-actions__item
+  +padding(horizontal, .25rem)
+  +media-breakpoint-up(md)
+    min-width: 10rem
+    display: flex
+    justify-content: center
+  +media-breakpoint-down(sm)
+    flex: 1
+  &.is-remove
+    .is-muted
+      border: solid 1px $border-more-shade
+      &:hover
+        color: $default-text
+        background-color: $base
