@@ -8,16 +8,20 @@
     .card-body(v-else-if='reports.length === 0')
       | 日報はありません。
     .card-body(v-else)
-      .calendar__head
-        .calendar__head--previous(
-          v-show='!oldestMonth()'
+      .niconico-calendar-nav
+        .niconico-calendar-nav__previous(
+          v-if='!oldestMonth()'
           @click='previousMonth'
-        ) <
-        .calendar__head--year--month {{ calendarYear }}年{{ calendarMonth }}月
-        .calendar__head--next(
-          v-show='!newestMonth()'
+        )
+          i.fas.fa-angle-left
+        .niconico-calendar-nav__previous.is-blank(v-else)
+        .niconico-calendar-nav__year--month {{ calendarYear }}年{{ calendarMonth }}月
+        .niconico-calendar-nav__next(
+          v-if='!newestMonth()'
           @click='nextMonth'
-          ) >
+          )
+          i.fas.fa-angle-right
+        .niconico-calendar-nav__next.is-blank(v-else)
       table.niconico-calendar
         thead.niconico-calendar__header
           tr

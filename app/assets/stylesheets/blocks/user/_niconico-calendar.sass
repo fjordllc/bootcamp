@@ -1,3 +1,23 @@
+.niconico-calendar-nav
+  display: flex
+  justify-content: center
+  align-items: center
+  margin-top: -1rem
+
+.niconico-calendar-nav__previous,
+.niconico-calendar-nav__next
+  +size(2.75rem)
+  display: flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  &.is-blank
+    cursor: default
+
+.niconico-calendar-nav__year--month
+  width: 6rem
+  text-align: center
+
 .niconico-calendar
   width: 100%
   table-layout: fixed
