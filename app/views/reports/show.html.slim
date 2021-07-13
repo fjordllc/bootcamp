@@ -68,7 +68,7 @@ header.page-header
                       i.fas.fa-copy#copy
                       | コピー
                 .thread-header-actions__action
-                  = link_to 'Raw', report_path(format: :md), class: 'a-button is-xs is-secondary', target: '_blank', rel: 'noopener'
+                  = link_to 'Raw', report_path(format: :md), class: 'a-button is-xs is-secondary is-block', target: '_blank', rel: 'noopener'
         - if @report.practices.present?
           .thread__tags
             .tag-links
