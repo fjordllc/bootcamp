@@ -42,7 +42,7 @@
               BookmarkButton(:bookmarkableId='question.id', bookmarkableType='Question')
           .thread-header-actions__end
             .thread-header-actions__action
-              a.a-button.is-sm.is-secondary(
+              a.a-button.is-sm.is-secondary.is-block(
                 :href='`/questions/${question.id}.md`',
                 target='_blank'
               )
