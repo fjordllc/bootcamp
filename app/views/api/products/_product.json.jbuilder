@@ -1,6 +1,7 @@
 json.id product.id
 json.checker_id product.checker_id
 json.checker_name product.checker_name
+json.checker_avatar product.checker_avatar
 json.wip product.wip
 json.url product_url(product)
 json.created_at l(product.created_at)
