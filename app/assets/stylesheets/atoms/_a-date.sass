@@ -15,6 +15,10 @@
         content: "（"
       &::after
         content: "）"
+  +media-breakpoint-down(sm)
+    .thread-header__user-icon-link,
+    .thread-list-item-meta__icon-link
+      display: none
 
 .a-date__label
   &::after
