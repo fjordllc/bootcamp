@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
-
   def index
     if current_user
       if current_user.retired_on?
