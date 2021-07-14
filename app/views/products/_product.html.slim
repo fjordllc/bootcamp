@@ -38,7 +38,7 @@
               .thread-list-item-meta__item
                 time.a-date(datetime="#{product.updated_at.to_datetime}")
                   span.a-date__label
-                    | 最終更新日
+                    | 更新
                   = l product.updated_at
       - if product.comments.any?
         .thread-list-item__row
