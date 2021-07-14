@@ -67,7 +67,7 @@ event6:
   user: komagata
 
 event7:
-  title: "本日のテストイベント①"
+  title: "ダッシュボード表示テストイベント(本日の日付)"
   description: "テストイベントです。"
   location: "FJORDオフィス"
   capacity: 10
@@ -78,7 +78,7 @@ event7:
   user: komagata
 
 event8:
-  title: "明日のテストイベント①"
+  title: "ダッシュボード表示テストイベント(明日の日付)"
   description: "テストイベントです。"
   location: "FJORDオフィス"
   capacity: 10
