@@ -45,7 +45,7 @@ header.page-header
                   .thread-header-metas__meta
                     .a-date
                       span.a-date__label
-                        | 最終更新日
+                        | 更新
                       time.a-date__value(datetime="#{@page.updated_at.to_datetime}")
                         | #{l @page.updated_at} by
                         = render 'users/icon',
@@ -54,9 +54,11 @@ header.page-header
                           image_class: 'thread-header__user-icon'
                         = link_to @page.last_updated_user, class: 'a-user-name' do
                           | #{@page.last_updated_user.login_name}
-                - if @page.slug.present?
+              - if @page.slug.present?
+                .thread-header-metas__end
                   .thread-header-metas__meta
-                    = @page.slug
+                    .a-slug
+                      = @page.slug
           .thread-header__row
             h1.thread-header-title(class="#{@page.wip? ? 'is-wip' : ''}")
               - if @page.wip?
