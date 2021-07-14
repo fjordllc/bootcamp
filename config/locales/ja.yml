@@ -144,6 +144,7 @@ ja:
         user: ユーザー
         body: 本文
         tag_list: タグ
+        slug: スラッグ
       question:
         practice: プラクティス
         title: タイトル

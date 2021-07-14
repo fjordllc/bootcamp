@@ -18,6 +18,12 @@
           .select-users
             = f.select(:user_id, User.where(retired_on: nil).pluck(:login_name, :id).sort, { include_blank: (page.user || current_user).login_name }, { class: 'js-select2' })
   .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label :slug, class: 'a-form-label'
+        = f.text_field :slug, class: 'a-text-input js-warning-form'
+        p アルファベットから始まる半角英数字とハイフン(-)、アンダーバー(_)が使えます
+  .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
         = f.label :body, class: 'a-form-label'
