@@ -12,6 +12,7 @@ button(
   | {{ buttonLabel }}
 .a-button.is-sm.is-block.thread-list-item__assignee-name.is-only-mentor(v-else)
   span
+    img.a-user-icon(:src="checkerAvatar" width="30" length="30")
     | {{ this.name }}
 </template>
 <script>
@@ -21,7 +22,8 @@ export default {
     checkerName: { type: String, required: false, default: null },
     currentUserId: { type: String, required: true },
     productId: { type: Number, required: true },
-    checkableType: {type: String,}
+    checkableType: {type: String,},
+    checkerAvatar: { type: String, required: false, default: null }
   },
   data() {
     return {
