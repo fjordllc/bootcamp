@@ -74,10 +74,10 @@ page2_tag_intermediate:
   tag: intermediate
 
 tagging_1:
-  taggable: article_1 (Article)
+  taggable: article1 (Article)
   context: tags
   tag: Ruby
 tagging_2:
-  taggable: article_2 (Article)
+  taggable: article2 (Article)
   context: tags
   tag: FJORD

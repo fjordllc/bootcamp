@@ -39,6 +39,7 @@ gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
 gem 'oauth2'
 gem 'omniauth', '~> 1.9.1'
 gem 'omniauth-github', '~> 1.4.0'
+gem 'pankuzu'
 gem 'pg'
 gem 'postmark-rails'
 gem 'rack-cors', require: 'rack/cors'
