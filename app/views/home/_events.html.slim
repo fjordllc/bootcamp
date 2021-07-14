@@ -1,8 +1,9 @@
-
-.thread-list-item
+.thread-list-item.incoming-events
   header.thread-list-item__header
     h2.thread-list-item__title(itemprop='name')
-      = link_to event, itemprop: 'url', class: 'thread-list-item__title-link' do
-        = event.start_at.strftime("%m月%d日開催 ")
-        = event.title
-        = link_to '閉じる', event_event_id_notice_event_day_confirmed_path(event_id: event.id), method: :post
+      .event(data-event-id="#{event.id}")
+        = link_to event, itemprop: 'url',
+          class: 'thread-list-item__title-link' do
+          div = l event.start_at.to_date, format: :md
+          div = event.title
+        .a-button.is-primary.is-sm.js-close-event 閉じる

@@ -14,12 +14,11 @@ header.page-header
   .container
     - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
       = render 'welcome_message'
-    div class="confirmed_event"
+    .confirmed_event
       - if @events_coming_soon.present?
         .thread-list.a-card
           header.card-header.is-sm
-            h2.card-header__title
-              = "まもなく開催のイベントです！"
+            h2.card-header__title まもなく開催のイベント
           = render partial: 'events', collection: @events_coming_soon, as: :event
     .columns
       .row
