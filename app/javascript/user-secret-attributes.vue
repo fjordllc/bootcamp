@@ -44,7 +44,3 @@ export default {
   }
 }
 </script>
-<<<<<<< HEAD
-=======
-
->>>>>>> 12dc7da72... user-secret-attributes.vueの作成
