@@ -1,299 +1,107 @@
+<% now = Time.current %>
 product1:
   practice: practice1
   user: yamada
   body: テストの提出物1です。
+  published_at: <%= (now - 60 * 60 * 24 * 1).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 1).to_s(:db) %>
 
 product2:
   practice: practice1
   user: kimura
   body: テストの提出物2です。
+  published_at: <%= (now - 60 * 60 * 24 * 2).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 2).to_s(:db) %>
 
 product3:
   practice: practice2
   user: sotugyou
   body: 確認済みの提出物
+  published_at: <%= (now - 60 * 60 * 24 * 3).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 3).to_s(:db) %>
 
 product4:
   practice: practice2
   user: yamada
   body: テストの提出物4です。
+  published_at: <%= (now - 60 * 60 * 24 * 4).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 4).to_s(:db) %>
 
 product5:
   practice: practice2
   user: kimura
   body: テストの提出物5です。
+  published_at: <%= (now - 60 * 60 * 24 * 5).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 5).to_s(:db) %>
 
 product6:
   practice: practice3
   user: sotugyou
   body: 確認待ちの提出物
+  published_at: <%= (now - 60 * 60 * 24 * 6).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 6).to_s(:db) %>
 
 product7:
   practice: practice3
   user: yamada
   body: テストの提出物7です。
+  published_at: <%= (now - 60 * 60 * 24 * 7).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 7).to_s(:db) %>
 
 product8:
   practice: practice3
   user: kimura
   body: テストの提出物8です。
+  published_at: <%= (now - 60 * 60 * 24 * 8).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 8).to_s(:db) %>
 
 product9:
   practice: practice4
   user: yamada
   body: テストの提出物9です。
+  published_at: <%= (now - 60 * 60 * 24 * 9).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 9).to_s(:db) %>
 
 product10:
   practice: practice4
   user: kimura
   body: テストの提出物10です。
+  published_at: <%= (now - 60 * 60 * 24 * 10).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 10).to_s(:db) %>
 
 product11:
   practice: practice2
   user: hatsuno
   body: テストの提出物11です。
+  published_at: <%= (now - 60 * 60 * 24 * 11).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 11).to_s(:db) %>
 
 product12:
   practice: practice5
   user: yamada
   body: リアクションテスト
+  published_at: <%= (now - 60 * 60 * 24 * 12).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 12).to_s(:db) %>
 
 product13:
   practice: practice1
   user: kensyu
   body: 研修の提出物です。
+  published_at: <%= (now - 60 * 60 * 24 * 13).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 13).to_s(:db) %>
 
 product14:
   practice: practice1
   user: daimyo
   body: 研修の提出物です。
+  published_at: <%= (now - 60 * 60 * 24 * 14).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 14).to_s(:db) %>
 
-product15:
-  practice: practice1
+<% (15..60).each do |i| %>
+product<%= i %>:
+  practice: practice<%= i - 14 %>
   user: with_hyphen
-  body: テストの提出物15です。
-
-product16:
-  practice: practice2
-  user: with_hyphen
-  body: テストの提出物16です。
-
-product17:
-  practice: practice3
-  user: with_hyphen
-  body: テストの提出物17です。
-
-product18:
-  practice: practice4
-  user: with_hyphen
-  body: テストの提出物18です。
-
-product19:
-  practice: practice5
-  user: with_hyphen
-  body: テストの提出物19です。
-
-product20:
-  practice: practice6
-  user: with_hyphen
-  body: テストの提出物20です。
-
-product21:
-  practice: practice7
-  user: with_hyphen
-  body: テストの提出物21です。
-
-product22:
-  practice: practice8
-  user: with_hyphen
-  body: テストの提出物22です。
-
-product23:
-  practice: practice9
-  user: with_hyphen
-  body: テストの提出物23です。
-
-product24:
-  practice: practice10
-  user: with_hyphen
-  body: テストの提出物24です。
-
-product25:
-  practice: practice11
-  user: with_hyphen
-  body: テストの提出物25です。
-
-product26:
-  practice: practice12
-  user: with_hyphen
-  body: テストの提出物26です。
-
-product27:
-  practice: practice13
-  user: with_hyphen
-  body: テストの提出物27です。
-
-product28:
-  practice: practice14
-  user: with_hyphen
-  body: テストの提出物28です。
-
-product29:
-  practice: practice15
-  user: with_hyphen
-  body: テストの提出物29です。
-
-product30:
-  practice: practice16
-  user: with_hyphen
-  body: テストの提出物30です。
-
-product31:
-  practice: practice17
-  user: with_hyphen
-  body: テストの提出物31です。
-
-product32:
-  practice: practice18
-  user: with_hyphen
-  body: テストの提出物32です。
-
-product33:
-  practice: practice19
-  user: with_hyphen
-  body: テストの提出物33です。
-
-product34:
-  practice: practice20
-  user: with_hyphen
-  body: テストの提出物34です。
-
-product35:
-  practice: practice21
-  user: with_hyphen
-  body: テストの提出物35です。
-
-product36:
-  practice: practice22
-  user: with_hyphen
-  body: テストの提出物36です。
-
-product37:
-  practice: practice23
-  user: with_hyphen
-  body: テストの提出物37です。
-
-product38:
-  practice: practice24
-  user: with_hyphen
-  body: テストの提出物38です。
-
-product39:
-  practice: practice25
-  user: with_hyphen
-  body: テストの提出物39です。
-
-product40:
-  practice: practice26
-  user: with_hyphen
-  body: テストの提出物40です。
-
-product41:
-  practice: practice27
-  user: with_hyphen
-  body: テストの提出物41です。
-
-product42:
-  practice: practice28
-  user: with_hyphen
-  body: テストの提出物42です。
-
-product43:
-  practice: practice29
-  user: with_hyphen
-  body: テストの提出物43です。
-
-product44:
-  practice: practice30
-  user: with_hyphen
-  body: テストの提出物44です。
-
-product45:
-  practice: practice31
-  user: with_hyphen
-  body: テストの提出物45です。
-
-product46:
-  practice: practice32
-  user: with_hyphen
-  body: テストの提出物46です。
-
-product47:
-  practice: practice33
-  user: with_hyphen
-  body: テストの提出物47です。
-
-product48:
-  practice: practice34
-  user: with_hyphen
-  body: テストの提出物48です。
-
-product49:
-  practice: practice35
-  user: with_hyphen
-  body: テストの提出物49です。
-
-product50:
-  practice: practice36
-  user: with_hyphen
-  body: テストの提出物50です。
-
-product51:
-  practice: practice37
-  user: with_hyphen
-  body: テストの提出物51です。
-
-product52:
-  practice: practice38
-  user: with_hyphen
-  body: テストの提出物52です。
-
-product53:
-  practice: practice39
-  user: with_hyphen
-  body: テストの提出物53です。
-
-product54:
-  practice: practice40
-  user: with_hyphen
-  body: テストの提出物54です。
-
-product55:
-  practice: practice41
-  user: with_hyphen
-  body: テストの提出物55です。
-
-product56:
-  practice: practice42
-  user: with_hyphen
-  body: テストの提出物56です。
-
-product57:
-  practice: practice43
-  user: with_hyphen
-  body: テストの提出物57です。
-
-product58:
-  practice: practice44
-  user: with_hyphen
-  body: テストの提出物58です。
-
-product59:
-  practice: practice45
-  user: with_hyphen
-  body: テストの提出物59です。
-
-product60:
-  practice: practice46
-  user: with_hyphen
-  body: テストの提出物60です。
+  body: テストの提出物<%= i %>です。
+  published_at: <%= (now - i).to_s(:db) %>
+  created_at: <%= (now - i).to_s(:db) %>
+<% end %>
