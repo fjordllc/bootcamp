@@ -1,12 +1,11 @@
-- unless announcement.wip
-  .thread-list-item
-    .thread-list-item__inner
-      .thread-list-item__author
-        = render 'users/icon', user: announcement.user, link_class: 'a-user-name', image_class: 'thread-list-item__author-icon'
-      header.thread-list-item-title
-        h2.thread-list-item-title__title(itemprop='name')
-          = link_to announcement, itemprop: 'url', class: 'thread-list-item-title__link' do
-            = announcement.title
-      .thread-list-item-meta
-        time.a-date(datetime="#{announcement.updated_at.to_datetime}" pubdate='pubdate')
-          = l announcement.updated_at
+.thread-list-item
+  .thread-list-item__inner
+    .thread-list-item__author
+      = render 'users/icon', user: announcement.user, link_class: 'a-user-name', image_class: 'thread-list-item__author-icon'
+    header.thread-list-item-title
+      h2.thread-list-item-title__title(itemprop='name')
+        = link_to announcement, itemprop: 'url', class: 'thread-list-item-title__link' do
+          = announcement.title
+    .thread-list-item-meta
+      time.a-date(datetime="#{announcement.updated_at.to_datetime}" pubdate='pubdate')
+        = l announcement.updated_at
