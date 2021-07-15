@@ -8154,10 +8154,14 @@ webpack-sources@^1.0.0, webpack-sources@^1.1.0, webpack-sources@^1.4.0, webpack-
     source-map "~0.6.1"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpack@^4.46.0:
 =======
 webpack@^4.0.0, webpack@^4.46.0:
 >>>>>>> 0d500d1a5... Bump @rails/webpacker 5.3.0
+=======
+webpack@^4.46.0:
+>>>>>>> c7235338c... Run `bin/rails webpacker:install`
   version "4.46.0"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.46.0.tgz#bf9b4404ea20a073605e0a011d188d77cb6ad542"
   integrity sha512-6jJuJjg8znb/xRItk7bkT0+Q7AHCYjjFnvKIWQPkNIOyRqoCGvkOs0ipeQzrqz4l5FtN5ZI/ukEHroeX/o1/5Q==
