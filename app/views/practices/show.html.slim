@@ -56,7 +56,7 @@ header.page-header
           .practice-contents__pub-date
             .a-date
               .a-date__label
-                | 最終更新日
+                | 更新
               .a-date__value
                 | #{l @practice.updated_at} by
                 = render 'users/icon',
@@ -77,7 +77,7 @@ header.page-header
             .card-main-actions
               ul.card-main-actions__items
                 li.card-main-actions__item
-                  = link_to new_question_path, class: 'a-button is-md is-primary is-block' do
+                  = link_to new_question_path(practice_id: params[:id]), class: 'a-button is-md is-primary is-block' do
                     i.fas.fa-question-circle
                     | 質問する
 
@@ -96,10 +96,17 @@ header.page-header
                           = image_tag book.cover_url, class: 'card-books-item__image', alt: book.title
                       .card-books-item__end
                         h3.card-books-item__title
-                          = book.title
+                          - if book.must_read
+                            span.a-badge.is-danger.is-sm
+                              | 必読
+                          span.card-books-item__title-label
+                            = book.title
                         p.card-books-item__price
-                          = book.price.to_s(:delimited)
-                          | 円
+                          = number_to_currency(book.price, unit: '円（税込）')
+                        - if book.description
+                          .card-books-item__description
+                            .a-short-text
+                              = simple_format(book.description)
 
         section.a-card
           header.card-header

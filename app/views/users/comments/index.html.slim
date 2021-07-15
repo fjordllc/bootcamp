@@ -21,5 +21,8 @@ header.page-header
         = render 'comments', comments: @comments
       = paginate @comments
     - else
-      .a-empty-message
-        | コメントはありません。
+      .o-empty-message
+        .o-empty-message__icon
+          i.far.fa-sad-tear
+        p.o-empty-message__text
+          | コメントはまだありません。

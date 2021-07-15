@@ -45,7 +45,7 @@
               .thread-list-item-meta__item
                   time.a-date(datetime="#{page.updated_at.to_datetime}")
                     span.a-date__label
-                      | 最終更新日
+                      | 更新
                     | #{l page.updated_at} by
                     = render 'users/icon',
                       user: page.last_updated_user,
