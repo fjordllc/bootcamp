@@ -120,8 +120,10 @@ export default {
       .then((response) => {
         return response.json()
       })
-      .then(json => {
-        json.forEach(c => { this.comments.push(c) });
+      .then((json) => {
+        json.forEach((c) => {
+          this.comments.push(c)
+        })
         this.loaded = true
       })
       .catch((error) => {
