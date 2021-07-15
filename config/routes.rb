@@ -65,8 +65,8 @@ Rails.application.routes.draw do
       resources :unchecked, only: %i(index)
       resources :not_responded, only: %i(index)
       resources :self_assigned, only: %i(index)
-      resource :checker, only: %i(update), controller: "checker"
-      resources :notification_to_discord, only: %i(index)
+      resource :checker, only: %i(update), controller: 'checker'
+      resource :passed, only: %i(show), controller: 'passed'
     end
     resources :products, only: %i(index)
     namespace :categories_practices do
