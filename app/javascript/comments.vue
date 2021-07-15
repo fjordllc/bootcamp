@@ -124,7 +124,6 @@ export default {
         json.forEach((c) => {
           this.comments.push(c)
         })
-        this.loaded = true
       })
       .catch((error) => {
         console.warn('Failed to parsing', error)
