@@ -43,7 +43,7 @@ class Product < ApplicationRecord
   scope :reorder_for_not_responded_products, -> { reorder(published_at: :desc, id: :desc) }
 
   # rubocop:disable Metrics/MethodLength
-  def self.not_responded_products
+  def self.not_responded_product_ids
     sql = <<~SQL
       WITH last_comments AS (
         SELECT *
@@ -69,8 +69,12 @@ class Product < ApplicationRecord
       OR unchecked_products.user_id = last_comments.user_id
       ORDER BY unchecked_products.created_at DESC
     SQL
-    product_ids = Product.find_by_sql(sql).map(&:id)
-    Product.where(id: product_ids).order(created_at: :desc)
+    Product.find_by_sql(sql).map(&:id)
+  end
+
+  def self.not_responded_products
+    Product.where(id: not_responded_product_ids)
+           .order(created_at: :desc)
   end
   # rubocop:enable Metrics/MethodLength
 
@@ -115,13 +119,5 @@ class Product < ApplicationRecord
   def elapsed_days
     t = published_at || created_at
     ((Time.current - t) / 1.day).to_i
-  end
-
-  def submitted_just_specific_days(date)
-    published_at.nil? ? created_at.strftime('%F') == Time.zone.today.prev_day(date).to_s : published_at.strftime('%F') == Time.zone.today.prev_day(date).to_s
-  end
-
-  def submitted_over_specific_days(date)
-    published_at.nil? ? created_at.strftime('%F') == Time.zone.today.prev_day(date).to_s : published_at.strftime('%F') < Time.zone.today.prev_day(date - 1).to_s
   end
 end
