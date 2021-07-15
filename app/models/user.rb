@@ -189,6 +189,7 @@ class User < ApplicationRecord
     environment
     cost
     job_change
+    training_end
   ]
 
   scope :in_school, -> { where(graduated_on: nil) }
