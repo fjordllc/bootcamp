@@ -49,3 +49,7 @@ export default {
   }
 }
 </script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> bc04ec30b... user-sns.vueの作成
