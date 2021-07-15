@@ -19,18 +19,31 @@ export default class {
         return item.original.value
       },
       menuItemTemplate: (item) => {
-        if (item.original.isUser) return `<span class='emoji'>${escapeHtml(item.original.login_name)}</span>`
-        return (
-          `${escapeHtml(item.original.value)}` +
-          `<span class='emoji'>${escapeHtml(item.original.key)}</span>`
-        )
+        if (item.original.isUser) {
+          return(
+            `<span class='mention'>${escapeHtml(
+              item.original.login_name
+            )}</span>` + `${escapeHtml(item.original.name)}`  
+          )
+        } else {
+          return (
+            `${escapeHtml(item.original.value)}` +
+            `<span class='emoji'>${escapeHtml(item.original.key)}</span>`
+          )
+        }
       }
     }
   }
 
   addUserData(json) {
     this.userValues = json.map((user) => {
-      return { key: `@${user.login_name}`, value: `:@${user.login_name}:`, isUser: true, login_name: user.login_name }
+      return {
+        key: `@${user.login_name}`,
+        value: `:@${user.login_name}:`,
+        isUser: true,
+        login_name: user.login_name,
+        name: user.name
+      }
     })
   }
 
