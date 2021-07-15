@@ -1,0 +1,39 @@
+.nested-fields
+  border: solid 1px $border-more-shade
+  padding: .75rem 1rem
+  background-color: $background-shade
+  border-radius: .25rem
+  margin-bottom: 1.5rem
+  .nested-fields + &
+    margin-top: 2rem
+
+.nested-fields-item
+  margin-bottom: .75rem
+  position: relative
+  .a-form-label
+    margin-bottom: .25rem
+
+.nested-fields__delete
+  +position(absolute, right -.25rem, top -.5rem)
+  +size(2.5rem)
+
+.nested-fields__delete-link
+  border: solid 1px $border-more-more-shade
+  font-size: 1.25rem
+  color: $muted-text
+  +size(100%)
+  +flex-link
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  background-color: $base
+  transition: all .2s ease-out
+  &:hover
+    color: $danger
+    border-color: $danger
+
+.nested-fields__add
+  .a-button
+    min-width: 12rem
+    +media-breakpoint-down(sm)
+      width: 100%
