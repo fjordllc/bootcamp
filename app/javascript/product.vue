@@ -37,7 +37,7 @@
               v-if='product.updated_at',
               datetime='product.updated_at_date_time'
             )
-              span.a-date__label 最終更新日
+              span.a-date__label 更新
               | {{ product.updated_at }}
 
       .thread-list-item__row(v-if='product.comments.size > 0')
@@ -51,7 +51,8 @@
                 .thread-list-item-comment__count
                   | （{{ product.comments.size }}）
                 .thread-list-item-comment__user-icons
-                  a.thread-list-item-comment__user-icon(:href='user.url')(
+                  a.thread-list-item-comment__user-icon(
+                    :href='user.url'
                     v-for='user in product.comments.users'
                   )
                     img.a-user-icon(

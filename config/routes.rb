@@ -65,7 +65,8 @@ Rails.application.routes.draw do
       resources :unchecked, only: %i(index)
       resources :not_responded, only: %i(index)
       resources :self_assigned, only: %i(index)
-      resource :checker, only: %i(update), controller: "checker"
+      resource :checker, only: %i(update), controller: 'checker'
+      resource :passed, only: %i(show), controller: 'passed'
     end
     resources :products, only: %i(index)
     namespace :categories_practices do
@@ -73,6 +74,7 @@ Rails.application.routes.draw do
     end
     resources :announcements, except: %i(new edit)
     resources :searchables, only: %i(index)
+    resources :niconico_calendars, only: %i(show)
     resources :bookmarks, only: %i(index create destroy)
   end
 
@@ -152,7 +154,7 @@ Rails.application.routes.draw do
     resources :unchecked, only: %i(index)
   end
   resources :reports
-  resources :pages
+  resources :pages, param: :slug_or_id
   resources :notifications, only: %i(index show) do
     collection do
       resources :allmarks, only: %i(create), controller: "notifications/allmarks"
@@ -195,7 +197,9 @@ Rails.application.routes.draw do
 
   namespace :users do
     post "tags/:tag", to: "tags#update", tag: /.+/
+    delete "tags/:tag", to: "tags#destroy", tag: /.+/
   end
+
   resources :watches, only: %i(index)
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"

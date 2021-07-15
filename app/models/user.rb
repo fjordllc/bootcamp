@@ -501,20 +501,6 @@ class User < ApplicationRecord
     participate_events.include?(event)
   end
 
-  def reports_date_and_emotion(term)
-    search_term = (Time.zone.today - term.day)..Time.zone.today
-    reports = self.reports.where(reported_on: search_term, wip: false)
-
-    emotions = reports.index_by(&:reported_on)
-
-    dates = search_term.index_with { |_day| nil }
-
-    dates.merge(emotions)
-         .to_a
-         .map { |set| [report: set[1], date: set[0], emotion: set[1]&.emotion] }
-         .flatten
-  end
-
   def daimyo?
     company&.name == 'DAIMYO Engineer College'
   end

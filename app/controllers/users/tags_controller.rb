@@ -14,4 +14,11 @@ class Users::TagsController < ApplicationController
     url = URI.encode_www_form_component(params[:tag])
     redirect_to "/users/tags/#{url}"
   end
+
+  def destroy
+    current_user.tag_list.delete(params[:tag])
+    current_user.save
+    url = URI.encode_www_form_component(params[:tag])
+    redirect_to "/users/tags/#{url}"
+  end
 end

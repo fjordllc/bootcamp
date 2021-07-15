@@ -1,0 +1,42 @@
+.a-badge
+  +badge-base
+
+  // color
+  &.is-primary
+    +badge-color($primary)
+  &.is-secondary
+    +badge-color($secondary)
+  &.is-info
+    +badge-color($info)
+  &.is-success
+    +badge-color($success)
+  &.is-warning
+    +badge-color($warning)
+  &.is-danger
+    +badge-color($danger)
+  &.is-disabled
+    +badge-color($disabled)
+  &.is-main
+    +badge-color($main)
+  &.is-muted
+    border: none
+    color: $muted-text
+    font-weight: 400
+    background-color: $background
+
+  //size
+  &.is-xs
+    +button-size(.625rem, 1, .25)
+    font-weight: 600
+  &.is-sm
+    +button-size(.6875rem, 1, .5)
+    font-weight: 600
+  &.is-md
+    +button-size(.8125rem, 1, .5)
+    font-weight: 600
+  &.is-lg
+    +button-size(1rem, 1, .5)
+    font-weight: 600
+  &.is-xl
+    +button-size(1.25rem, 1, .5)
+    font-weight: 800
