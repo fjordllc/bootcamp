@@ -45,7 +45,7 @@
   .form-item
     label.a-form-label
       | 参考書籍
-    .row
+    .row#reference_books
       = f.fields_for :reference_books do |book|
         = render 'reference_book_fields', f: book
       .col-xs-12.reference-books-form__add
