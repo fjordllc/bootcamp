@@ -3,6 +3,7 @@ announcement1:
   title: お知らせ1
   description: お知らせ本文1
   created_at: "2018-01-01"
+  published_at: "2018-01-01"
   target: 0
 
 announcement2:
@@ -10,6 +11,7 @@ announcement2:
   title: お知らせ2
   description: お知らせ本文2
   created_at: "2018-01-02"
+  published_at: "2018-01-02"
   target: 0
 
 announcement3:
@@ -17,6 +19,7 @@ announcement3:
   title: テストのお知らせ
   description: テストのお知らせ本文
   created_at: "2018-01-03"
+  published_at: "2018-01-03"
   target: 0
 
 announcement4:
@@ -24,6 +27,7 @@ announcement4:
   title: 生徒からのお知らせ
   description: 生徒からのお知らせ本文
   created_at: "2018-01-03"
+  published_at: "2018-01-03"
   target: 0
 
 announcement5:
@@ -31,6 +35,7 @@ announcement5:
   title: お知らせの検索結果テスト用
   description: お知らせの検索結果テスト用
   created_at: "2018-05-20"
+  published_at: "2018-05-20"
   target: 0
 
 announcement_notification_active_user:
@@ -38,6 +43,7 @@ announcement_notification_active_user:
   title: 現役生にのみ通知するお知らせ
   description: 現役生にのみ通知するお知らせの本文
   created_at: "2018-01-04"
+  published_at: "2018-01-04"
   target: 1
 
 announcement_wip:
