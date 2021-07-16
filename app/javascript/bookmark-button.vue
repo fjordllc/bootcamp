@@ -108,7 +108,7 @@ export default {
           this.bookmarkId = null
           this.bookmarkLabel = 'Bookmark'
         })
-        .then(()=>{
+        .then(() => {
           this.$emit('update-index')
         })
         .catch((error) => {
