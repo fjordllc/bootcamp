@@ -41,4 +41,10 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'hajime'
     assert_no_selector '.card-list__item-link.is-discord_account'
   end
+
+  test 'show latest announcements on dashboard' do
+    visit_with_auth '/', 'hajime'
+    assert_text '後から公開されたお知らせ'
+    assert_no_text 'wipのお知らせ'
+  end
 end
