@@ -95,6 +95,7 @@ Rails.application.routes.draw do
 
   namespace :current_user do
     resources :reports, only: %i(index)
+    resources :products, only: %i(index)
   end
 
   namespace "partial" do
@@ -103,10 +104,6 @@ Rails.application.routes.draw do
 
   namespace :users do
     get "tags", to: "tags#index"
-  end
-
-  namespace :current_user do
-    resources :products, only: %i(index)
   end
 
   resources :announcements
