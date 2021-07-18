@@ -71,6 +71,13 @@
     - if user.retired? && staff_login?
       .user-metas__item.is-only-mentor
         .user-metas__item-label
+          = User.human_attribute_name :retire_reasons
+        .user-metas__item-value
+          ul
+            - user.retire_reasons.to_human.each do |reason|
+              li= reason
+      .user-metas__item.is-only-mentor
+        .user-metas__item-label
           = User.human_attribute_name :retire_reason
         .user-metas__item-value
           = user.retire_reason
