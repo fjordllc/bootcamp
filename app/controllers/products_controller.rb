@@ -114,7 +114,7 @@ class ProductsController < ApplicationController
 
     case action_name
     when :create
-      '提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。<br>7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。'
+      '提出物を提出しました。'
     when :update
       '提出物を更新しました。'
     end
