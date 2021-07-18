@@ -75,7 +75,7 @@
         .user-metas__item-value
           ul
             - user.retire_reasons.to_human.each do |reason|
-              li= reason
+              li = reason
       .user-metas__item.is-only-mentor
         .user-metas__item-label
           = User.human_attribute_name :retire_reason
