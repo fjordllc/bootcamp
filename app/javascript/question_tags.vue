@@ -5,7 +5,7 @@
       a.tag-links__item-link(:href='`/questions/tags/${tag.text}?all=true`')
         | {{ tag.text }}
     li.tag-links__item
-      .tag-links__item-edit(v-if='editAble', @click='editTag')
+      .tag-links__item-edit(@click='editTag')
         | タグ編集
   .form(v-show='editing')
     .form__items
@@ -40,7 +40,6 @@ export default {
     tagsInitialValue: { type: Array, required: true },
     questionId: { type: Number, required: true },
     tagsParamName: { type: String, required: true },
-    editAble: { type: Boolean, required: true }
   },
   data() {
     return {

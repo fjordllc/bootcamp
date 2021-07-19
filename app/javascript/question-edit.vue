@@ -53,7 +53,6 @@
         :tagsInitialValue='question.tag_list',
         :questionId='question.id',
         tagsParamName='question[tag_list]',
-        :editAble='editAble'
       )
 
     .thread__body
@@ -66,7 +65,7 @@
           :currentUser='currentUser',
           :reactionableId='`Question_${question.id}`'
         )
-        footer.card-footer(v-if='editAble')
+        footer.card-footer
           .card-main-actions
             ul.card-main-actions__items
               li.card-main-actions__item
@@ -222,12 +221,6 @@ export default {
       return practices === null
         ? question.practice.title
         : practices.find((practice) => practice.id === practiceId).title
-    },
-    editAble() {
-      return (
-        this.question.user.id === this.currentUser.id ||
-        this.currentUser.role === 'admin'
-      )
     },
     markdownDescription() {
       const markdownInitializer = new MarkdownInitializer()
