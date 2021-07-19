@@ -22,7 +22,7 @@ export default {
     checkerName: { type: String, required: false, default: null },
     currentUserId: { type: String, required: true },
     productId: { type: Number, required: true },
-    checkableType: {type: String,},
+    checkableType: { type: String },
     checkerAvatar: { type: String, required: false, default: null }
   },
   data() {
