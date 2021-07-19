@@ -31,7 +31,6 @@ class HomeController < ApplicationController
     @required_fields = RequiredField.new(
       description: current_user.description,
       github_account: current_user.github_account,
-      slack_account: current_user.slack_account,
       discord_account: current_user.discord_account
     )
   end
