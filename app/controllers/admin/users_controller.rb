@@ -56,14 +56,14 @@ class Admin::UsersController < AdminController
     params.require(:user).permit(
       :adviser, :login_name, :name,
       :name_kana, :email, :course_id,
-      :description, :slack_account, :discord_account, :github_account,
+      :description, :discord_account, :github_account,
       :twitter_account, :facebook_url, :blog_url,
       :password, :password_confirmation, :job,
       :organization, :os, :study_place,
       :experience, :prefecture_code, :company_id,
       :trainee, :job_seeking, :nda,
       :graduated_on, :retired_on, :free,
-      :job_seeker, :slack_participation, :github_collaborator,
+      :job_seeker, :github_collaborator,
       :officekey_permission, :tag_list
     )
   end

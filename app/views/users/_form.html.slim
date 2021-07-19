@@ -75,14 +75,9 @@
               | 外部サービス
           .form-item-block__items
             .form-item-block__item
-              = render 'users/form/slack_participation', f: f, user: user
-            .form-item-block__item
               = render 'users/form/github_collaborator', f: f, user: user
         .a-form-help
           ul
-            li
-              = link_to 'https://fjord.slack.com/admin', target: '_blank', rel: 'noopener' do
-                | Slack設定
             li
               = link_to 'https://github.com/orgs/fjordllc/people', target: '_blank', rel: 'noopener' do
                 | GitHub設定
