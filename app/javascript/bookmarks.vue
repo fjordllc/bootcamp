@@ -1,24 +1,35 @@
 <template lang="pug">
 .page-body
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
-  .container
-    .empty(v-if='!loaded')
+  .container.is-md(v-if='!loaded')
+    .empty
       .fas.fa-spinner.fa-pulse
       |
       | ロード中
-    .o-empty-message(v-else-if='bookmarks.length == 0')
-      p.o-empty-message__text
-      | ブックマークしているものはありません。
-    .thread-list.a-card(v-else)
+  .container.is-md(v-else)
+    .thread-list-tools(v-if='bookmarks.length')
+      .form-item.is-inline
+        label.a-form-label(for='thread-list-tools__action')
+          | 編集
+        label.a-on-off-checkbox.is-sm
+          input(type='checkbox', name='thread-list-tools__action', id='thread-list-tools__action', v-model="checked")
+          span#spec-edit-mode
+    .thread-list-tools(v-else)
+      .o-empty-message
+        p.o-empty-message__text
+        | ブックマークしているものはありません。
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
+    .thread-list.a-card
       .thread-list__items
         bookmark(
           v-for='bookmark in bookmarks',
           :key='bookmark.id',
-          :bookmark='bookmark'
+          :bookmark='bookmark',
+          :checked='checked',
+          @updateIndex="updateIndex"
         )
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
 </template>
 <script>
 import Bookmark from './bookmark.vue'
@@ -34,7 +45,8 @@ export default {
       bookmarks: [],
       totalPages: 0,
       currentPage: Number(this.getPageValueFromParameter()) || 1,
-      loaded: false
+      loaded: false,
+      checked: false
     }
   },
   computed: {
@@ -76,11 +88,11 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.totalPages = json.totalPages
           this.bookmarks = []
           json.bookmarks.forEach((bookmark) => {
             this.bookmarks.push(bookmark)
           })
+          this.totalPages = parseInt(json.totalPages)
           this.loaded = true
         })
         .catch((error) => {
@@ -100,6 +112,9 @@ export default {
         null,
         location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
       )
+    },
+    updateIndex(){
+      this.getBookmarks()
     }
   }
 }
