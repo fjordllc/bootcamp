@@ -9,12 +9,7 @@ class API::QuestionsController < API::BaseController
   end
 
   def update
-    question =
-      if current_user.admin? || current_user.mentor?
-        Question.find(params[:id])
-      else
-        current_user.questions.find_by(id: params[:id])
-      end
+    question = Question.find(params[:id])
 
     if !question.nil? && question.update(question_params)
       head :ok

@@ -39,11 +39,6 @@ class API::QuestionsTest < ActionDispatch::IntegrationTest
             params: { question: { title: changed_title } },
             headers: { 'Authorization' => "Bearer #{token}" }
 
-      if name == @non_editable_user_login_name
-        assert_response :bad_request
-        next
-      end
-
       assert_response :ok
       assert_equal changed_title, @question.reload.title
     end
