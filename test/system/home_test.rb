@@ -47,4 +47,19 @@ class HomeTest < ApplicationSystemTestCase
     assert_text '後から公開されたお知らせ'
     assert_no_text 'wipのお知らせ'
   end
+
+  test '現役生の場合にニコニコカレンダーが表示されているか' do
+    visit_with_auth '/', 'hajime'
+    assert_text 'ニコニコカレンダー'
+  end
+
+  test '卒業生の場合にニコニコカレンダーが表示されていないか' do
+    visit_with_auth '/', 'sotugyou'
+    assert_no_text 'ニコニコカレンダー'
+  end
+
+  test '管理者の場合にニコニコカレンダーが表示されていないか' do
+    visit_with_auth '/', 'komagata'
+    assert_no_text 'ニコニコカレンダー'
+  end
 end
