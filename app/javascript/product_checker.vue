@@ -10,9 +10,10 @@ button(
     @click='check'
   )
   | {{ buttonLabel }}
-.a-button.is-sm.is-block.thread-list-item__assignee-name.is-only-mentor(v-else)
-  span
-    img.a-user-icon(:src="checkerAvatar" width="30" length="30")
+.a-button.is-sm.is-block.thread-list-item__assignee-button.is-only-mentor(v-else)
+  span.thread-list-item__assignee-image
+    img.a-user-icon(:src="checkerAvatar" width="20" length="20")
+  span.thread-list-item__assignee-name
     | {{ this.name }}
 </template>
 <script>
