@@ -18,7 +18,7 @@ export default class {
   _callbackFunc () {
     const elements = document.getElementsByClassName('js-user-icon')
     Array.from(elements).forEach((element) => {
-      const loginName = element.getAttribute('data-user')
+      const loginName = element.dataset.user
       element.src = this.urls[loginName]
     })
   }
