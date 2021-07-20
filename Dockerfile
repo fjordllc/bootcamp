@@ -6,7 +6,7 @@ WORKDIR /app
 # Update rubygems
 RUN gem update --system
 RUN printf "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri" > ~/.gemrc
-RUN gem install --no-document --force bundler -v 2.1.4
+RUN gem install --no-document --force bundler -v 2.2.24
 RUN bundle config set without development:test
 
 # Install packages
