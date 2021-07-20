@@ -18,7 +18,7 @@ header.page-header
       - if @events_coming_soon.present?
         .thread-list.a-card
           header.card-header.is-sm
-            h2.card-header__title まもなく開催のイベント
+            h2.card-header__title 開催のイベント
           = render partial: 'events', collection: @events_coming_soon, as: :event
     .columns
       .row
