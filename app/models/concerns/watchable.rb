@@ -23,6 +23,8 @@ module Watchable
       "「#{self[:title]}」のQ&A"
     when Event
       "「#{self[:title]}」のイベント"
+    when Page
+      "「#{self[:title]}」のDocs"
     end
   end
 
