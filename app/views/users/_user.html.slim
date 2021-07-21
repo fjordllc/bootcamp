@@ -25,7 +25,8 @@
                     i.fab.fa-discord
                   .users-item-names__chat-value
                     = user.discord_account
-          = render 'users/user_secret_attributes', user: user
+          - if current_user.admin_or_mentor? && user.student_or_trainee?
+            = render 'users/user_secret_attributes', user: user
           .users-item__icon
             = render 'users/icon',
               user: user,
