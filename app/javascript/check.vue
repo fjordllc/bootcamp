@@ -18,6 +18,7 @@
           v-show='checkId === null',
           :checkerId='checkerId',
           :checkerName='checkerName',
+          :checkerAvatar='checkerAvatar',
           :currentUserId='currentUserId',
           :productId='checkableId',
           :checkableType='checkableType'
@@ -43,6 +44,7 @@ export default {
     checkableLabel: { type: String, required: true },
     checkerId: { type: Number, required: true },
     checkerName: { type: String, required: false, default: null },
+    checkerAvatar: { type: String, required: false, default: null },
     currentUserId: { type: String, required: false, default: null }
   },
   computed: {

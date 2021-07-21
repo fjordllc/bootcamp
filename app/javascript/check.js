@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkableLabel = check.getAttribute('data-checkable-label')
     const checkerId = Number(check.getAttribute('data-checker-id'))
     const checkerName = check.getAttribute('data-checker-name')
+    const checkerAvatar = check.getAttribute('data-checker-avatar')
     const currentUserId = check.getAttribute('data-current-user-id')
     new Vue({
       store,
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             checkableLabel: checkableLabel,
             checkerId: checkerId,
             checkerName: checkerName,
+            checkerAvatar: checkerAvatar,
             currentUserId: currentUserId
           }
         })
