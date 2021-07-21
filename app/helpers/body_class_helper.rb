@@ -18,6 +18,12 @@ module BodyClassHelper
     end
   end
 
+  def adviser_mode
+    if adviser_login?
+      'is-adviser-mode'
+    end
+  end
+
   def page_area
     if controller.controller_path.include?('admin/')
       'admin-page'
@@ -35,7 +41,7 @@ module BodyClassHelper
   def body_class(options = {})
     extra_body_classes_symbol = options[:extra_body_classes_symbol] || :extra_body_classes
     qualified_controller_name = controller.controller_path.tr('/', '-')
-    basic_body_class = "#{qualified_controller_name} #{qualified_controller_name}-#{controller.action_name} is-#{page_category} is-#{page_area} is-#{Rails.env}"
+    basic_body_class = "#{qualified_controller_name} #{qualified_controller_name}-#{controller.action_name} is-#{page_category} is-#{page_area} is-#{Rails.env} #{adviser_mode}"
 
     if content_for?(extra_body_classes_symbol)
       [basic_body_class, content_for(extra_body_classes_symbol)].join(' ')
