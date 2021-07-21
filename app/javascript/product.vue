@@ -1,15 +1,15 @@
 <template lang="pug">
 .thread-list-item(:class='product.wip ? "is-wip" : ""')
   .thread-list-item__strip-label(v-if='notResponded')
-    .thread-list-item__elapsed-days.is-reply-warning(
+    .thread-list-item__elapsed-days.is-reply-warning.is-only-mentor(
       v-if='isLatestProductSubmittedJust5days'
     )
       | 5日経過
-    .thread-list-item__elapsed-days.is-reply-alert(
+    .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
       v-else-if='isLatestProductSubmittedJust6days'
     )
       | 6日経過
-    .thread-list-item__elapsed-days.is-reply-deadline(
+    .thread-list-item__elapsed-days.is-reply-deadline.is-only-mentor(
       v-else-if='isLatestProductSubmittedOver7days'
     )
       | 7日以上経過

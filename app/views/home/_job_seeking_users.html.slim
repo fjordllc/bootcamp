@@ -1,4 +1,4 @@
-.a-card.is-only-mentor
+.a-card(class="#{current_user.admin_or_mentor? ? 'is-only-mentor' : ''}")
   header.card-header.is-sm
     h2.card-header__title
       | 就職活動中のユーザー
