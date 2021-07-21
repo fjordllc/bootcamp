@@ -20,7 +20,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     token = create_token('kimura', 'testtest')
     get api_products_unchecked_index_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :redirect
+    assert_response :unauthorized
 
     token = create_token('yamada', 'testtest')
     get api_products_unchecked_index_path(format: :json),
@@ -35,7 +35,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     token = create_token('kimura', 'testtest')
     get api_products_not_responded_index_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :redirect
+    assert_response :unauthorized
 
     token = create_token('yamada', 'testtest')
     get api_products_not_responded_index_path(format: :json),
@@ -50,7 +50,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     token = create_token('kimura', 'testtest')
     get api_products_self_assigned_index_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :redirect
+    assert_response :unauthorized
 
     token = create_token('yamada', 'testtest')
     get api_products_self_assigned_index_path(format: :json),
