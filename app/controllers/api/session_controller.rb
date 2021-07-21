@@ -5,6 +5,7 @@ class API::SessionController < API::BaseController
   skip_before_action :require_login_for_api, only: %i[create]
 
   def create
+    logout if current_user
     user = User.authenticate(params[:login_name], params[:password])
     if user
       token = User.issue_token(id: user.id, email: user.email)
