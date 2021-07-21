@@ -120,4 +120,8 @@ class Product < ApplicationRecord
     t = published_at || created_at
     ((Time.current - t) / 1.day).to_i
   end
+
+  def checker_avatar
+    checker_id ? User.find(checker_id).avatar_url : nil
+  end
 end
