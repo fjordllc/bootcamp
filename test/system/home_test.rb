@@ -47,4 +47,19 @@ class HomeTest < ApplicationSystemTestCase
     assert_text '後から公開されたお知らせ'
     assert_no_text 'wipのお知らせ'
   end
+
+  test 'show the Nico Nico calendar for students' do
+    visit_with_auth '/', 'hajime'
+    assert_text 'ニコニコカレンダー'
+  end
+
+  test 'not show the Nico Nico calendar for graduates' do
+    visit_with_auth '/', 'sotugyou'
+    assert_no_text 'ニコニコカレンダー'
+  end
+
+  test 'not show the Nico Nico calendar for administrators' do
+    visit_with_auth '/', 'komagata'
+    assert_no_text 'ニコニコカレンダー'
+  end
 end
