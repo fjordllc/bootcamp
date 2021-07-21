@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::Products::CheckerController < API::BaseController
-  before_action :require_mentor_login
+  before_action :require_mentor_login_for_api
   before_action :set_product, only: %i[update]
 
   def update
