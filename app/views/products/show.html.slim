@@ -147,7 +147,7 @@ header.page-header
                     | 直近の日報
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-2 for='side-tabs-2'
-                    | メンターメモ
+                    | プラクティスメモ
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
                 .thread-list.a-card
@@ -163,4 +163,4 @@ header.page-header
                           .o-empty-message__text
                             | 日報はまだありません。
               .side-tabs-contents__item#side-tabs-content-2
-                #js-mentor-memo(data-practice-id="#{@product.practice_id}")
+                #js-practice-memo(data-practice-id="#{@product.practice_id}")
