@@ -51,7 +51,7 @@
 
   .form__items
     .form-item
-      - if @report.published_at
+      - if !@report.wip? && (params[:action] != 'new')
         .a-page-notice.is-danger
           .a-page-notice__inner
             p
