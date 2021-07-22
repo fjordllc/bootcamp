@@ -5,7 +5,9 @@ import TextareaMarkdown from 'textarea-markdown'
 import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
 import MarkdownItMention from './markdown-it-mention'
+import MarkdownItUserIcon from './markdown-it-user-icon'
 import MarkdownOption from './markdown-it-option'
+import UserIconRenderer from './user-icon-renderer'
 import autosize from 'autosize'
 
 export default class {
@@ -24,6 +26,7 @@ export default class {
     const mention = new TextareaAutocomplteMention()
 
     mention.fetchValues((json) => {
+      emoji.addUserData(json)
       mention.values = json
       mention.values.unshift({ login_name: 'mentor', name: 'メンター' })
       const collection = [emoji.params(), mention.params()]
@@ -51,10 +54,13 @@ export default class {
           })
           textarea.dispatchEvent(event)
         },
-        plugins: [MarkdownItEmoji, MarkdownItMention, MarkdownItTaskLists],
+        plugins: [MarkdownItEmoji, MarkdownItMention, MarkdownItUserIcon, MarkdownItTaskLists],
         markdownOptions: MarkdownOption
       })
       /* eslint-enable no-new */
     })
+
+    // user-icon
+    new UserIconRenderer().render(selector)
   }
 }
