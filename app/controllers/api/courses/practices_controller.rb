@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::Courses::PracticesController < API::BaseController
-  before_action :require_login
+  before_action :require_login_for_api
 
   def index
     @course = Course.find(params[:course_id])

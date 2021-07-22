@@ -5,8 +5,10 @@ class API::SessionController < API::BaseController
   skip_before_action :require_login_for_api, only: %i[create]
 
   def create
-    token = login_and_issue_token(params[:login_name], params[:password])
-    if token
+    logout if current_user
+    user = User.authenticate(params[:login_name], params[:password])
+    if user
+      token = User.issue_token(id: user.id, email: user.email)
       render json: { token: token }
     else
       head :bad_request
