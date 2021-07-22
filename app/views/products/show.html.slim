@@ -27,7 +27,7 @@ header.page-header
         .a-page-notice__inner
           p
             | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
-  - if @product.user == current_user && !@product.wip? && @product.commented_users.mentor.empty?
+  - if @product.user == current_user && !@product.wip? && !@product.checked? && @product.commented_users.mentor.empty?
     .a-page-notice.page-notice
       .container
         .a-page-notice__inner
