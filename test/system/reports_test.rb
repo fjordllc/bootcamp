@@ -470,6 +470,28 @@ class ReportsTest < ApplicationSystemTestCase
     assert_no_text 'kimuraさんがはじめての日報を書きました！'
   end
 
+  test 'change report status to wip' do
+    visit_with_auth '/reports/new', 'kimura'
+    within('#new_report') do
+      fill_in('report[title]', with: 'test title')
+      fill_in('report[description]', with: 'test')
+      fill_in('report[reported_on]', with: Time.current)
+    end
+    first('.learning-time').all('.learning-time__started-at select')[0].select('09')
+    first('.learning-time').all('.learning-time__started-at select')[1].select('30')
+    first('.learning-time').all('.learning-time__finished-at select')[0].select('12')
+    first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
+
+    click_button '提出'
+    assert_text '日報を保存しました。'
+
+    click_link '内容修正'
+    assert_text 'この日報はすでに提出済みです。'
+    
+    click_button 'WIP'
+    assert_no_text 'この日報はすでに提出済みです。'
+  end
+
   test 'reports are ordered in descending of reported_on' do
     visit_with_auth reports_path, 'kimura'
     precede = reports(:report24).title
