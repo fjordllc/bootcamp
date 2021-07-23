@@ -487,7 +487,6 @@ class ReportsTest < ApplicationSystemTestCase
 
     click_link '内容修正'
     assert_text 'この日報はすでに提出済みです。'
-    
     click_button 'WIP'
     assert_no_text 'この日報はすでに提出済みです。'
   end
