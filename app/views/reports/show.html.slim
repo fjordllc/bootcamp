@@ -47,7 +47,7 @@ header.page-header
                       = l @report.published_at
           .thread-header__row
             .thread-header-metas
-              .thread-header-metas__start
+              .thread-header-metas__start.comments-count
                 = @report.comments.length
           .thread-header__row
             .thread-header-title(class="#{@report.wip? ? 'is-wip' : ''}")
