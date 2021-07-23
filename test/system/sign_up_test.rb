@@ -187,6 +187,28 @@ class SignUpTest < ApplicationSystemTestCase
     assert_equal User.find_by(email: email).company_id, companies(:company2).id
   end
 
+  test 'sign up as trainee with course_id' do
+    course = courses(:course2)
+    visit "/users/new?role=trainee&course_id=#{course.id}"
+
+    email = 'fuyuko@example.com'
+
+    within 'form[name=user]' do
+      fill_in 'user[login_name]', with: 'foo'
+      fill_in 'user[email]', with: email
+      fill_in 'user[name]', with: 'テスト ふゆこ'
+      fill_in 'user[name_kana]', with: 'テスト フユコ'
+      fill_in 'user[description]', with: 'テストふゆこです。'
+      fill_in 'user[password]', with: 'testtest'
+      fill_in 'user[password_confirmation]', with: 'testtest'
+      select '学生', from: 'user[job]'
+      select 'Mac(Intel)', from: 'user[os]'
+      select '未経験', from: 'user[experience]'
+    end
+    click_button '利用規約に同意して参加する'
+    assert_equal User.find_by(email: email).course_id, course.id
+  end
+
   test 'sign up with empty description ' do
     visit '/users/new'
     within 'form[name=user]' do
