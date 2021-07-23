@@ -46,6 +46,10 @@ header.page-header
                         | 提出日
                       = l @report.published_at
           .thread-header__row
+            .thread-header-metas
+              .thread-header-metas__start
+                = @report.comments.length
+          .thread-header__row
             .thread-header-title(class="#{@report.wip? ? 'is-wip' : ''}")
               - if @report.emotion.present?
                 .thread-header__emotion
