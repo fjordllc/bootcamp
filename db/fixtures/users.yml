@@ -206,6 +206,7 @@ muryou:
   name_kana: ムリョウ ノスケ
   discord_account: muryou#2222
   twitter_account: muryou
+  times_url: https://discord.gg/muryou-times
   facebook_url: http://www.facebook.com/muryou
   blog_url: http://muryou.org
   description: "無料の助です。趣味は野良犬剣法です。"
@@ -229,6 +230,7 @@ kensyu:
   discord_account: kensyu#3333
   github_account: kensyu
   twitter_account: kensyu
+  times_url: https://discord.gg/kensyu-times
   facebook_url: http://www.facebook.com/kensyu
   blog_url: http://kensyu.org
   company: company2
@@ -254,6 +256,7 @@ senpai:
   discord_account: senpai#4444
   github_account: senpai
   twitter_account: senpai
+  times_url: https://discord.gg/senpai-times
   facebook_url: http://www.facebook.com/senpai
   blog_url: http://senpai.org
   company: company2
@@ -276,6 +279,7 @@ kananashi: #name_kanaを持たないユーザー
   discord_account: kananashi#6666
   github_account: kananashi
   twitter_account: kananashi
+  times_url: https://discord.gg/kananashi-times
   facebook_url: http://www.facebook.com/kananashi
   blog_url: http://kananashi.org
   description: "読み方のカナが無いユーザーです"
@@ -297,6 +301,7 @@ osnashi: #osを持たないユーザー
   discord_account: osnashi#7777
   github_account: osnashi
   twitter_account: osnashi
+  times_url: https://discord.gg/osnashi-times
   facebook_url: http://www.facebook.com/osnashi
   blog_url: http://osnashi.org
   description: "OSが無いユーザーです"
@@ -317,6 +322,7 @@ jobseeker: #就活希望するユーザー
   discord_account: jobseeker#8888
   github_account: jobseeker
   twitter_account: jobseeker
+  times_url: https://discord.gg/jobseeker-times
   facebook_url: http://www.facebook.com/exmaple
   blog_url: http://example.org
   description: "フィヨルドからの就職希望してます！"
@@ -338,6 +344,7 @@ daimyo: # 大名エンジニアカレッジに通うユーザー
   discord_account: daimyo#9999
   github_account: daimyo
   twitter_account: daimyo
+  times_url: https://discord.gg/daimyo-times
   facebook_url: http://www.facebook.com/daimyo
   blog_url: http://example.org
   company: company4
@@ -358,6 +365,7 @@ nippounashi: # 日報を投稿していないユーザー
   name_kana: ニッポウ　ナシ
   discord_account: nippounashi#0001
   twitter_account: nippounashi
+  times_url: https://discord.gg/nippounashi-times
   facebook_url: http://www.facebook.com/nippounashi
   blog_url: http://nippounashiorg
   description: "日報がないユーザーです。"
@@ -380,6 +388,7 @@ with_hyphen:
   github_account: *login_name
   discord_account: with_hyphen#1234
   twitter_account: with_hyphen
+  times_url: https://discord.gg/with_hyphen-times
   facebook_url: http://www.facebook.com/with-hyphen
   blog_url: http://with-hyphen.org
   description: "ログインネームにハイフン(-)を利用しているユーザーです。"
@@ -401,6 +410,7 @@ sumi:
   github_account: sumi
   discord_account: sumi#1234
   twitter_account: sumi
+  times_url: https://discord.gg/sumi-times
   facebook_url: http://www.facebook.com/sumi
   blog_url: http://sumi.org
   description: "testユーザーです。"
@@ -424,6 +434,7 @@ nobu:
   github_account: nobu
   discord_account: nobu#1234
   twitter_account: nobu
+  times_url: https://discord.gg/nobu-times
   facebook_url: http://www.facebook.com/nobu
   blog_url: http://nobu.org
   description: "testユーザーです。"
@@ -445,6 +456,7 @@ rie:
   github_account: rie
   discord_account: rie#1234
   twitter_account: rie
+  times_url: https://discord.gg/rie-times
   facebook_url: http://www.facebook.com/rie
   blog_url: http://rie.org
   description: "testユーザーです。"
@@ -466,6 +478,7 @@ take:
   github_account: take
   discord_account: take#1234
   twitter_account: take
+  times_url: https://discord.gg/take-times
   facebook_url: http://www.facebook.com/take
   blog_url: http://take.org
   description: "testユーザーです。"
@@ -487,6 +500,7 @@ kunimi:
   github_account: kunimi
   discord_account: kunimi#1234
   twitter_account: kunimi
+  times_url: https://discord.gg/kunimi-times
   facebook_url: http://www.facebook.com/kunimi
   blog_url: http://kunimi.org
   description: "testユーザーです。"
@@ -508,6 +522,7 @@ tomo:
   github_account: tomo
   discord_account: tomo#1234
   twitter_account: tomo
+  times_url: https://discord.gg/tomo-times
   facebook_url: http://www.facebook.com/tomo
   blog_url: http://tomo.org
   description: "testユーザーです。"
@@ -529,6 +544,7 @@ akiyosi:
   github_account: akiyosi
   discord_account: akiyosi#1234
   twitter_account: akiyosi
+  times_url: https://discord.gg/akiyosi-times
   facebook_url: http://www.facebook.com/akiyosi
   blog_url: http://akiyosi.org
   description: "testユーザーです。"
@@ -550,6 +566,7 @@ tomomi:
   github_account: tomomi
   discord_account: tomomi#1234
   twitter_account: tomomi
+  times_url: https://discord.gg/tomomi-times
   facebook_url: http://www.facebook.com/tomomi
   blog_url: http://tomomi.org
   description: "testユーザーです。"
@@ -571,6 +588,7 @@ ogaoga:
   github_account: ogaoga
   discord_account: ogaoga#1234
   twitter_account: ogaoga
+  times_url: https://discord.gg/ogaoga-times
   facebook_url: http://www.facebook.com/ogaoga
   blog_url: http://ogaoga.org
   description: "testユーザーです。"
@@ -592,6 +610,7 @@ take8:
   github_account: take8
   discord_account: take8#1234
   twitter_account: take8
+  times_url: https://discord.gg/take8-times
   facebook_url: http://www.facebook.com/take8
   blog_url: http://take8.org
   description: "testユーザーです。"
@@ -615,6 +634,7 @@ fujiyasu:
   github_account: fujiyasu
   discord_account: fujiyasu#1234
   twitter_account: fujiyasu
+  times_url: https://discord.gg/fujiyasu-times
   facebook_url: http://www.facebook.com/fujiyasu
   blog_url: http://fujiyasu.org
   description: "testユーザーです。"
