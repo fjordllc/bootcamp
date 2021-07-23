@@ -207,4 +207,15 @@ class UsersTest < ApplicationSystemTestCase
       assert_text "#{last_month.year}年#{last_month.month}月"
     end
   end
+
+  test 'show times link on user page' do
+    visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
+    assert has_no_link?(href: 'https://discord.gg/kimura-times')
+
+    kimura = users(:kimura)
+    kimura.update!(times_url: 'https://discord.gg/kimura-times')
+
+    visit current_path
+    assert has_link?(href: 'https://discord.gg/kimura-times')
+  end
 end
