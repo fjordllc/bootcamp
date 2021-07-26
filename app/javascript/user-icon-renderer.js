@@ -9,7 +9,7 @@ export default class {
     this.urls = await response.json()
     this._callbackFunc()
     Array.from(textareas).forEach((textarea) => {
-      textarea.addEventListener('change', () => {
+      textarea.addEventListener('input', () => {
         this._callbackFunc()
       })
     })
