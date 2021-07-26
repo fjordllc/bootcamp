@@ -18,7 +18,12 @@ header.page-header
   .container
     article.thread.is-page
       .thread__inner.a-card
-        header.thread-header
+        header.thread-header.has-count
+          a.a-count-badge(href='#comments')
+            .a-count-badge__label
+              | コメント
+            .a-count-badge__value(class="#{@page.comments.empty? ? 'is-zero' : ''}")
+              = @page.comments.size
           .thread-header__row
             .thread-header-metas
               .thread-header-metas__start
@@ -107,4 +112,5 @@ header.page-header
           user: @page.user,
           link_class: 'thread__author-link',
           image_class: 'thread__author-icon'
+    a#comments.a-anchor
     #js-comments(data-commentable-id="#{@page.id}" data-commentable-type='Page' data-current-user-id="#{current_user.id}")
