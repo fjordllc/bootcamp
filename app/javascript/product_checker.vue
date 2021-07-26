@@ -10,8 +10,10 @@ button(
     @click='check'
   )
   | {{ buttonLabel }}
-.a-button.is-sm.is-block.thread-list-item__assignee-name.is-only-mentor(v-else)
-  span
+.a-button.is-sm.is-block.thread-list-item__assignee-button.is-only-mentor(v-else)
+  span.thread-list-item__assignee-image
+    img.a-user-icon(:src="checkerAvatar" width="20" length="20")
+  span.thread-list-item__assignee-name
     | {{ this.name }}
 </template>
 <script>
@@ -21,7 +23,8 @@ export default {
     checkerName: { type: String, required: false, default: null },
     currentUserId: { type: String, required: true },
     productId: { type: Number, required: true },
-    checkableType: {type: String,}
+    checkableType: { type: String },
+    checkerAvatar: { type: String, required: false, default: null }
   },
   data() {
     return {

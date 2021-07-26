@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class API::UsersController < API::BaseController
-  before_action :require_login, only: %i[index]
   before_action :set_user, only: %i[show update]
   before_action :require_mentor_login_for_api, only: %i[update]
   PAGER_NUMBER = 20

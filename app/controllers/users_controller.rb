@@ -42,13 +42,13 @@ class UsersController < ApplicationController
     when 'trainee'
       @user.trainee = true
     end
+    @user.course_id = params[:course_id]
     @user.company_id = params[:company_id]
   end
 
   def create
     @user = User.new(user_params)
-    @user.course = Course.first
-
+    @user.course_id ||= Course.first.id
     @user.free = true if @user.trainee?
 
     if @user.staff? || @user.trainee?
@@ -126,7 +126,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(
       :login_name, :name, :name_kana,
       :email, :course_id, :description,
-      :slack_account, :discord_account, :github_account, :twitter_account,
+      :discord_account, :github_account, :twitter_account,
       :facebook_url, :blog_url, :password,
       :password_confirmation, :job, :organization,
       :os, :experience, :prefecture_code,

@@ -203,7 +203,6 @@ muryou:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Muryou Nosuke
   name_kana: ムリョウ ノスケ
-  slack_account: muryou
   discord_account: muryou#2222
   twitter_account: muryou
   facebook_url: http://www.facebook.com/muryou
@@ -226,7 +225,6 @@ kensyu:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Kensyu Seiko
   name_kana: ケンシュウ セイコ
-  slack_account: kensyu
   discord_account: kensyu#3333
   github_account: kensyu
   twitter_account: kensyu
@@ -252,7 +250,6 @@ senpai:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Senpai Ichiro
   name_kana: センパイ イチロウ
-  slack_account: senpai
   discord_account: senpai#4444
   github_account: senpai
   twitter_account: senpai
@@ -275,7 +272,6 @@ kananashi: #name_kanaを持たないユーザー
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: ユーザーです 読み方のカナが無い
-  slack_account: kananashi
   discord_account: kananashi#6666
   github_account: kananashi
   twitter_account: kananashi
@@ -297,7 +293,6 @@ osnashi: #osを持たないユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: ユーザーです OSが無い
   name_kana: ナシ オーエス
-  slack_account: osnashi
   discord_account: osnashi#7777
   github_account: osnashi
   twitter_account: osnashi
@@ -318,7 +313,6 @@ jobseeker: #就活希望するユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 就活 のぞむ
   name_kana: シュウカツ ノゾム
-  slack_account: jobseeker
   discord_account: jobseeker#8888
   github_account: jobseeker
   twitter_account: jobseeker
@@ -340,7 +334,6 @@ daimyo: # 大名エンジニアカレッジに通うユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 大名 太郎
   name_kana: ダイミョウ タロウ
-  slack_account: daimyo
   discord_account: daimyo#9999
   github_account: daimyo
   twitter_account: daimyo
@@ -362,7 +355,6 @@ nippounashi: # 日報を投稿していないユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Nippou nashi
   name_kana: ニッポウ　ナシ
-  slack_account: nippounashi
   discord_account: nippounashi#0001
   twitter_account: nippounashi
   facebook_url: http://www.facebook.com/nippounashi
@@ -384,7 +376,6 @@ with_hyphen:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: ハイフンありユーザー
   name_kana: ハイフンアリユーザー
-  slack_account: *login_name
   github_account: *login_name
   discord_account: with_hyphen#1234
   twitter_account: with_hyphen
@@ -406,7 +397,6 @@ sumi:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 秋元 澄
   name_kana: アキモト スミ
-  slack_account: sumi
   github_account: sumi
   discord_account: sumi#1234
   twitter_account: sumi
@@ -430,7 +420,6 @@ nobu:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 岡野 伸江
   name_kana: オカノ ノブエ
-  slack_account: nobu
   github_account: nobu
   discord_account: nobu#1234
   twitter_account: nobu
@@ -452,7 +441,6 @@ rie:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 服部 梨絵
   name_kana: ハットリ リエ
-  slack_account: rie
   github_account: rie
   discord_account: rie#1234
   twitter_account: rie
@@ -474,7 +462,6 @@ take:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 青木 武久
   name_kana: アオキ タケヒサ
-  slack_account: take
   github_account: take
   discord_account: take#1234
   twitter_account: take
@@ -496,7 +483,6 @@ kunimi:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 平川 邦美
   name_kana: ヒラカワ クニミ
-  slack_account: kunimi
   github_account: kunimi
   discord_account: kunimi#1234
   twitter_account: kunimi
@@ -518,7 +504,6 @@ tomo:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 向井 知美
   name_kana: ムカイ トモミ
-  slack_account: tomo
   github_account: tomo
   discord_account: tomo#1234
   twitter_account: tomo
@@ -540,7 +525,6 @@ akiyosi:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 秋山 義幸
   name_kana: アキヤマ ヨシユキ
-  slack_account: akiyosi
   github_account: akiyosi
   discord_account: akiyosi#1234
   twitter_account: akiyosi
@@ -562,7 +546,6 @@ tomomi:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 西川 知実
   name_kana: ニシカワ トモミ
-  slack_account: tomomi
   github_account: tomomi
   discord_account: tomomi#1234
   twitter_account: tomomi
@@ -584,7 +567,6 @@ ogaoga:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 小笠原 里江子
   name_kana: オガサハラ リエコ
-  slack_account: ogaoga
   github_account: ogaoga
   discord_account: ogaoga#1234
   twitter_account: ogaoga
@@ -606,7 +588,6 @@ take8:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 武井 恵八郎
   name_kana: タケイ エイハチロウ
-  slack_account: take8
   github_account: take8
   discord_account: take8#1234
   twitter_account: take8
@@ -630,7 +611,6 @@ fujiyasu:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 藤野 安則
   name_kana: フジノ ヤスノリ
-  slack_account: fujiyasu
   github_account: fujiyasu
   discord_account: fujiyasu#1234
   twitter_account: fujiyasu

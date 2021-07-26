@@ -22,7 +22,7 @@ class CurrentUserController < ApplicationController
     params.require(:user).permit(
       :adviser, :login_name, :name,
       :name_kana, :email, :course_id,
-      :description, :job_seeking, :slack_account, :discord_account,
+      :description, :job_seeking, :discord_account,
       :github_account, :twitter_account, :facebook_url,
       :blog_url, :password, :password_confirmation,
       :job, :organization, :os,

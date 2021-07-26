@@ -52,15 +52,23 @@
   +media-breakpoint-down(sm)
     margin-top: .75rem
 
-.thread-list-item__assignee-name.a-button
+.thread-list-item__assignee-button.a-button
   border: dashed 1px $muted-text
   pointer-events: none
   color: $muted-text
   background-color: #f6f6f6
-  span
-    display: block
-    overflow: hidden
-    text-overflow: ellipsis
+
+.thread-list-item__assignee-image
+  flex: 0 0 1.25rem
+  .a-user-icon
+    +size(1.25rem)
+
+.thread-list-item__assignee-name
+  display: block
+  overflow: hidden
+  text-overflow: ellipsis
+  flex: 1
+  text-align: center
 
 .thread-list-item__label
   +position(absolute, left 0, top 0)

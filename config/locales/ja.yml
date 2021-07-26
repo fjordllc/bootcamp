@@ -49,7 +49,6 @@ ja:
         facebook_url: Facebook URL
         blog_url: ブログURL
         github_account: GitHubアカウント
-        slack_account: Slackアカウント
         discord_account: Discordアカウント
         password: パスワード
         password_confirmation: パスワード（確認）
@@ -81,7 +80,6 @@ ja:
         opinion: ご意見
         mail_notification: メール通知
         job_seeker: 就職を希望する
-        slack_participation: Slack参加
         github_collaborator: GitHubチーム
         tag_list: タグ
       course:
@@ -260,3 +258,4 @@ ja:
         environment: 学ぶ環境に満足できなかったから
         cost: 受講料が高いから
         job_change: 転職や引っ越しなど環境の変化によって学びが継続できなくなったから
+        training_end: 企業研修で利用をしていて研修期間が終了したため

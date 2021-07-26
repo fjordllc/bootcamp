@@ -204,7 +204,6 @@ muryou:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Muryou Nosuke
   name_kana: ムリョウ ノスケ
-  slack_account: muryou
   discord_account: muryou#2222
   twitter_account: muryou
   facebook_url: http://www.facebook.com/muryou
@@ -227,7 +226,6 @@ kensyu:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Kensyu Seiko
   name_kana: ケンシュウ セイコ
-  slack_account: kensyu
   discord_account: kensyu#3333
   github_account: kensyu
   twitter_account: kensyu
@@ -253,7 +251,6 @@ senpai:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Senpai Ichiro
   name_kana: センパイ イチロウ
-  slack_account: senpai
   discord_account: senpai#4444
   github_account: senpai
   twitter_account: senpai
@@ -276,7 +273,6 @@ kananashi: #name_kanaを持たないユーザー
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: ユーザーです 読み方のカナが無い
-  slack_account: kananashi
   discord_account: kananashi#6666
   github_account: kananashi
   twitter_account: kananashi
@@ -298,7 +294,6 @@ osnashi: #osを持たないユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: ユーザーです OSが無い
   name_kana: ナシ オーエス
-  slack_account: osnashi
   discord_account: osnashi#7777
   github_account: osnashi
   twitter_account: osnashi
@@ -319,7 +314,6 @@ jobseeker: #就活希望するユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 就活 のぞむ
   name_kana: シュウカツ ノゾム
-  slack_account: jobseeker
   discord_account: jobseeker#8888
   github_account: jobseeker
   twitter_account: jobseeker
@@ -341,7 +335,6 @@ daimyo: # 大名エンジニアカレッジに通うユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 大名 太郎
   name_kana: ダイミョウ タロウ
-  slack_account: daimyo
   discord_account: daimyo#9999
   github_account: daimyo
   twitter_account: daimyo
@@ -363,7 +356,6 @@ nippounashi: # 日報を投稿していないユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Nippou nashi
   name_kana: ニッポウ　ナシ
-  slack_account: nippounashi
   discord_account: nippounashi#0001
   twitter_account: nippounashi
   facebook_url: http://www.facebook.com/nippounashi
@@ -385,7 +377,6 @@ with_hyphen:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: ハイフンありユーザー
   name_kana: ハイフンアリユーザー
-  slack_account: *login_name
   github_account: *login_name
   discord_account: with_hyphen#1234
   twitter_account: with_hyphen
