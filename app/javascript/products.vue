@@ -73,7 +73,8 @@ export default {
       return {
         unchecked: '未完了',
         'not-responded': '未返信',
-        'self-assigned': '自分の担当'
+        'self-assigned': '自分の担当',
+        unassigned: '未アサイン'
       }[this.selectedTab]
     },
     pagerProps() {
@@ -111,7 +112,10 @@ export default {
           return response.json()
         })
         .then((json) => {
-          if (location.pathname === '/products/not_responded') {
+          if (
+            location.pathname === '/products/not_responded' ||
+            location.pathname === '/products/unassigned'
+          ) {
             this.latestProductSubmittedJust5days =
               json.latest_product_submitted_just_5days
             this.latestProductSubmittedJust6days =
