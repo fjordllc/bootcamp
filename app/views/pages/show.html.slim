@@ -7,9 +7,9 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to [:new, :page], class: 'a-button is-md is-warning is-block' do
+            = link_to [:new, :page], class: 'a-button is-md is-secondary is-block' do
               i.fas.fa-plus
-              | 新規Doc
+              | 新規Doc作成
           li.page-header-actions__item
             = link_to :pages, class: 'a-button is-md is-secondary is-block' do
               | Docs
@@ -66,7 +66,11 @@ header.page-header
                   | WIP
               span.thread-header-title__title
                 | #{@page.title}
-
+          .thread-header__row
+            .thread-header-actions
+              .thread-header-actions__start
+                .thread-header-actions__action
+                  #js-watch-toggle(data-watchable-id="#{@page.id}", data-watchable-type='Page')
           - if @page.practice.present?
             .thread-header__row
               .thread-practice

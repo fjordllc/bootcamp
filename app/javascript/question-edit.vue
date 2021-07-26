@@ -38,9 +38,11 @@
           .thread-header-actions__start
             .thread-header-actions__action
               WatchToggle(:watchableId='question.id', watchableType='Question')
+            .thread-header-actions__action
+              BookmarkButton(:bookmarkableId='question.id', bookmarkableType='Question')
           .thread-header-actions__end
             .thread-header-actions__action
-              a.a-button.is-sm.is-secondary(
+              a.a-button.is-sm.is-secondary.is-block(
                 :href='`/questions/${question.id}.md`',
                 target='_blank'
               )
@@ -53,7 +55,6 @@
         :tagsInitialValue='question.tag_list',
         :questionId='question.id',
         tagsParamName='question[tag_list]',
-        :editAble='editAble'
       )
 
     .thread__body
@@ -66,7 +67,7 @@
           :currentUser='currentUser',
           :reactionableId='`Question_${question.id}`'
         )
-        footer.card-footer(v-if='editAble')
+        footer.card-footer
           .card-main-actions
             ul.card-main-actions__items
               li.card-main-actions__item
@@ -163,6 +164,7 @@
 <script>
 import Reaction from './reaction.vue'
 import WatchToggle from './watch-toggle.vue'
+import BookmarkButton from './bookmark-button.vue'
 import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
 import Tags from './question_tags.vue'
@@ -174,6 +176,7 @@ dayjs.locale(ja)
 export default {
   components: {
     WatchToggle: WatchToggle,
+    BookmarkButton: BookmarkButton,
     tags: Tags,
     reaction: Reaction,
     userIcon: UserIcon
@@ -222,12 +225,6 @@ export default {
       return practices === null
         ? question.practice.title
         : practices.find((practice) => practice.id === practiceId).title
-    },
-    editAble() {
-      return (
-        this.question.user.id === this.currentUser.id ||
-        this.currentUser.role === 'admin'
-      )
     },
     markdownDescription() {
       const markdownInitializer = new MarkdownInitializer()

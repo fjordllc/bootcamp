@@ -35,11 +35,6 @@
         = user.completed_practices.size
     .user-metas__item
       .user-metas__item-label
-        | Slackアカウント
-      .user-metas__item-value
-        = user.slack_account.presence || '未登録'
-    .user-metas__item
-      .user-metas__item-label
         | Discordアカウント
       .user-metas__item-value
         = user.discord_account.presence || '未登録'

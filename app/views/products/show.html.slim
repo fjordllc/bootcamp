@@ -81,8 +81,8 @@ header.page-header
                     .thread-header-actions__action
                       #js-watch-toggle(data-watchable-id="#{@product.id}", data-watchable-type='Product')
                   .thread-header-actions__end
-                    .thread-header__raw
-                      = link_to 'Raw', product_path(format: :md), class: 'a-button is-sm is-secondary', target: '_blank', rel: 'noopener'
+                    .thread-header__action
+                      = link_to 'Raw', product_path(format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener'
             - if @product.wip?
               .thread__warning-message
                 | まだ提出されていません。<br class='is-hidden-md-up'>完成したら「提出する」をクリック！
@@ -114,6 +114,7 @@ header.page-header
                         data-checkable-label="#{Product.model_name.human}"
                         data-checker-id="#{@product.checker_id}"
                         data-checker-name="#{@product.checker_name}"
+                        data-checker-avatar="#{@product.checker_avatar}"
                         data-current-user-id="#{current_user.id}")
 
           .thread-prev-next

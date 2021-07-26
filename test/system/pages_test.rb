@@ -44,6 +44,7 @@ class PagesTest < ApplicationSystemTestCase
     fill_in 'page[body]', with: '新規Docを作成する本文です'
     click_button '内容を保存'
     assert_text 'ページを作成しました'
+    assert_text 'Watch中'
   end
 
   test 'create page as WIP' do
