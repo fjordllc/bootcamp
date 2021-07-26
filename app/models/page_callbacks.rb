@@ -6,6 +6,7 @@ class PageCallbacks
 
     send_notification(page)
     notify_to_chat(page)
+    create_author_watch(page)
 
     page.published_at = Time.current
     page.save
@@ -16,6 +17,7 @@ class PageCallbacks
 
     send_notification(page)
     notify_to_chat(page)
+    create_author_watch(page)
 
     page.published_at = Time.current
     page.save
@@ -44,5 +46,9 @@ class PageCallbacks
       user: page.user,
       webhook_url: ENV['DISCORD_NOTICE_WEBHOOK_URL']
     )
+  end
+
+  def create_author_watch(page)
+    Watch.create!(user: page.user, watchable: page)
   end
 end

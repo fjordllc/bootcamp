@@ -66,7 +66,11 @@ header.page-header
                   | WIP
               span.thread-header-title__title
                 | #{@page.title}
-
+          .thread-header__row
+            .thread-header-actions
+              .thread-header-actions__start
+                .thread-header-actions__action
+                  #js-watch-toggle(data-watchable-id="#{@page.id}", data-watchable-type='Page')
           - if @page.practice.present?
             .thread-header__row
               .thread-practice
