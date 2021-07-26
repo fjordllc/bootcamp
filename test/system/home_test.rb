@@ -68,6 +68,6 @@ class HomeTest < ApplicationSystemTestCase
       visit_with_auth '/', 'komagata'
       assert_text '直近イベントの表示テスト用(当日)'
       assert_text '直近イベントの表示テスト用(翌日)'
-    endgit
+    end
   end
 end
