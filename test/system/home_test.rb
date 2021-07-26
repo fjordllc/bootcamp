@@ -64,7 +64,7 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test 'show test events on dashboard' do
-    travel_to Time.zone.local(2017, 04, 01, 10, 0, 00) do
+    travel_to Time.zone.local(2017, 0o4, 0o1, 10, 0, 0o0) do
       visit_with_auth '/', 'komagata'
       assert_text '直近イベントの表示テスト用(当日)'
       assert_text '直近イベントの表示テスト用(翌日)'
