@@ -12,3 +12,7 @@
         li.page-tabs__item
           = link_to current_user_products_path, class: "page-tabs__item-link #{current_page_tab_or_not('products')}" do
             | 自分の提出物
+      - if !user.staff? || user.watches.present?
+        li.page-tabs__item
+          = link_to current_user_watches_path, class: "page-tabs__item-link #{current_page_tab_or_not('watches')}" do
+            | 自分のWatch中
