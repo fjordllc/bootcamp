@@ -32,6 +32,16 @@ class Cache
       Rails.cache.delete 'not_responded_product_count'
     end
 
+    def unassigned_product_count
+      Rails.cache.fetch 'unassigned_product_count' do
+        Product.unassigned.unchecked.not_wip.count
+      end
+    end
+
+    def delete_unassigned_product_count
+      Rails.cache.delete 'unassigned_product_count'
+    end
+
     def self_assigned_product_count(current_user_id)
       Rails.cache.fetch("#{current_user_id}-self_assigned_product_count") do
         Product.self_assigned_product(current_user_id).unchecked.count
