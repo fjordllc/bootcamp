@@ -65,25 +65,3 @@ event6:
   open_start_at: 2019-12-10 9:00
   open_end_at: 2019-12-16 9:00
   user: komagata
-
-event7:
-  title: "ダッシュボード表示テストイベント(本日の日付)"
-  description: "テストイベントです。"
-  location: "FJORDオフィス"
-  capacity: 10
-  start_at: <%= Date.current %>
-  end_at: 2021-05-30 12:00:00
-  open_start_at: 2021-05-31 9:00
-  open_end_at: 2021-05-31 9:00
-  user: komagata
-
-event8:
-  title: "ダッシュボード表示テストイベント(明日の日付)"
-  description: "テストイベントです。"
-  location: "FJORDオフィス"
-  capacity: 10
-  start_at: <%= Date.tomorrow %>
-  end_at: 2021-05-30 12:00:00
-  open_start_at: 2021-05-31 9:00
-  open_end_at: 2021-05-31 9:00
-  user: komagata

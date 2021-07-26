@@ -62,4 +62,12 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'komagata'
     assert_no_text 'ニコニコカレンダー'
   end
+
+  test 'show test events on dashboard' do
+    travel_to Time.zone.local(2017, 04, 01, 10, 0, 00) do
+      visit_with_auth '/', 'komagata'
+      assert_text '直近イベントの表示テスト用(当日)'
+      assert_text '直近イベントの表示テスト用(翌日)'
+    endgit
+  end
 end
