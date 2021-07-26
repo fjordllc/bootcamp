@@ -6,10 +6,12 @@ class Page < ApplicationRecord
   include Taggable
   include Reactionable
   include Commentable
+  include Watchable
 
   belongs_to :user
   belongs_to :practice, optional: true
   belongs_to :last_updated_user, class_name: 'User', optional: true
+  has_many :watches, as: :watchable, dependent: :destroy
   validates :title, presence: true
   validates :body, presence: true
   validates :slug, length: { maximum: 200 }, format: { with: /\A[a-z][a-z0-9_-]*\z/ }, uniqueness: true, allow_nil: true
