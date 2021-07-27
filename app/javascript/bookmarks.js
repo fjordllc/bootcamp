@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const bookmarks = document.querySelector(selector)
   if (bookmarks) {
     new Vue({
-      render: (h) =>
-        h(Bookmarks)
+      render: (h) => h(Bookmarks)
     }).$mount(selector)
   }
 })

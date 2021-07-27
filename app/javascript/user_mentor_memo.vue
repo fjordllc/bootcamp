@@ -56,12 +56,20 @@ import TextareaInitializer from './textarea-initializer'
 import MarkdownInitializer from './markdown-initializer'
 
 export default {
-  props: ['userId'],
+  props: {
+    userId: { type: String, required: true }
+  },
   data: () => {
     return {
       memo: '',
       tab: 'memo',
       editing: false
+    }
+  },
+  computed: {
+    markdownMemo() {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.memo)
     }
   },
   created() {
@@ -146,12 +154,6 @@ export default {
     },
     editMemo() {
       this.editing = true
-    }
-  },
-  computed: {
-    markdownMemo() {
-      const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.memo)
     }
   }
 }

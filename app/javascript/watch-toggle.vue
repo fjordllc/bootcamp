@@ -28,32 +28,29 @@ export default {
     params.set('watchable_type', this.watchableType)
     params.set('watchable_id', this.watchableId)
     if (this.checked) {
-      this.watchId= this.watchIndexId
+      this.watchId = this.watchIndexId
       this.watchLabel = '削除'
     } else {
-    fetch(
-      `/api/watches/toggle.json?${params}`,
-      {
+      fetch(`/api/watches/toggle.json?${params}`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin'
-      }
-    )
-      .then((response) => {
-        return response.json()
       })
-      .then((json) => {
-        if (json[0]) {
-          this.watchId = json[0].id
-          this.watchLabel = 'Watch中'
-        }
-      })
-      .catch((error) => {
-        console.warn('Failed to parsing', error)
-      })
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          if (json[0]) {
+            this.watchId = json[0].id
+            this.watchLabel = 'Watch中'
+          }
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     }
   },
   methods: {
@@ -110,7 +107,7 @@ export default {
           this.watchId = null
           this.watchLabel = 'Watch'
         })
-        .then(()=>{
+        .then(() => {
           this.$emit('update-index')
         })
         .catch((error) => {

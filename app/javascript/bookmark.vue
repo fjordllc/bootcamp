@@ -11,7 +11,7 @@
               | {{ bookmark.title }}
       .thread-list-item__row
         .thread-list-item__summary
-            p {{ bookmark.summary }}
+          p {{ bookmark.summary }}
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -21,13 +21,13 @@
             .thread-list-item-meta__item
               time.a-date(:datetime='bookmark.updated_at')
                 | {{ createdAt }}
-    .thread-list-item__option(v-if="checked")
+    .thread-list-item__option(v-if='checked')
       bookmarkButton(
-        :checked='checked'
+        :checked='checked',
         :bookmarkableType='bookmark.modelName',
         :bookmarkableId='bookmark.bookmarkable_id',
-        :bookmarkIndexId='bookmark.id'
-        @update-index="$listeners['updateIndex']",
+        :bookmarkIndexId='bookmark.id',
+        @update-index='$listeners["updateIndex"]'
       )
 </template>
 <script>
@@ -44,14 +44,12 @@ export default {
     checked: { type: Boolean }
   },
   computed: {
-    isBookmarkClassName(){
-     return `is-${this.bookmark.bookmark_class_name}`
+    isBookmarkClassName() {
+      return `is-${this.bookmark.bookmark_class_name}`
     },
     createdAt() {
       const date = this.bookmark.reported_on || this.bookmark.created_at
-      return dayjs(date).format(
-          'YYYY年MM月DD日(dd) HH:mm'
-      )
+      return dayjs(date).format('YYYY年MM月DD日(dd) HH:mm')
     }
   }
 }
