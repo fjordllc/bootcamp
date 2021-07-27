@@ -10,14 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', () => {
       button.parentElement.innerHTML = ''
         
-        if (document.cookie.split('; ').find(row => row.startsWith('confirmed_event_ids')) == undefined){
-          document.cookie = "confirmed_event_ids=" + JSON.stringify([eventId]) + ";max-age=2592000;"//有効期限30日=259200秒
+        if (document.cookie.split('; ').find(row => row.startsWith('confirmed_event_ids')) === undefined){
+          document.cookie = "confirmed_event_ids=" + JSON.stringify([eventId]) + ";max-age=2592000;" // 有効期限30日=259200秒
         }else{
-          let originalEventIds = document.cookie.split('; ').find(row => row.startsWith('confirmed_event_ids'))
-          let updatedEventIds = originalEventIds.substr(20)
-          let savedEventIds = JSON.parse(updatedEventIds)
+          const originalEventIds = document.cookie.split('; ').find(row => row.startsWith('confirmed_event_ids'))
+          const updatedEventIds = originalEventIds.substr(20)
+          const savedEventIds = JSON.parse(updatedEventIds)
           savedEventIds.push(eventId)
-          document.cookie = "confirmed_event_ids=" + JSON.stringify(savedEventIds) + ";max-age=2592000;"//有効期限30日=259200秒
+          document.cookie = "confirmed_event_ids=" + JSON.stringify(savedEventIds) + ";max-age=2592000;" // 有効期限30日=259200秒
         }
 
       const eventCount = document.querySelectorAll(selector + ' .js-close-event').length
