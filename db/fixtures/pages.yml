@@ -36,3 +36,10 @@ page5:
   body: WIP
   user: komagata
   published_at: "2021-04-01 00:00:00"
+
+page6:
+  title: ヘルプのページ
+  body: ヘルプ
+  slug: help
+  user: komagata
+  published_at: "2021-07-01 00:00:00"
