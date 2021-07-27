@@ -5,7 +5,7 @@
   h2.thread-comments-container__title 回答・コメント
   .thread-comments
     answer(
-      v-for='(answer) in answers',
+      v-for='answer in answers',
       :key='answer.id',
       :answer='answer',
       :currentUser='currentUser',
@@ -81,7 +81,7 @@ export default {
       question: { correctAnswer: null },
       defaultTextareaSize: null,
       loaded: false,
-      placeholderCount: 3,
+      placeholderCount: 3
     }
   },
   computed: {

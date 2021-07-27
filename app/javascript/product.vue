@@ -1,11 +1,17 @@
 <template lang="pug">
 .thread-list-item(:class='product.wip ? "is-wip" : ""')
-  .thread-list-item__strip-label(v-if="notResponded")
-    .thread-list-item__elapsed-days.is-reply-warning(v-if="isLatestProductSubmittedJust5days")
+  .thread-list-item__strip-label(v-if='notResponded')
+    .thread-list-item__elapsed-days.is-reply-warning(
+      v-if='isLatestProductSubmittedJust5days'
+    )
       | 5日経過
-    .thread-list-item__elapsed-days.is-reply-alert(v-else-if="isLatestProductSubmittedJust6days")
+    .thread-list-item__elapsed-days.is-reply-alert(
+      v-else-if='isLatestProductSubmittedJust6days'
+    )
       | 6日経過
-    .thread-list-item__elapsed-days.is-reply-deadline(v-else-if="isLatestProductSubmittedOver7days")
+    .thread-list-item__elapsed-days.is-reply-deadline(
+      v-else-if='isLatestProductSubmittedOver7days'
+    )
       | 7日以上経過
   .thread-list-item__inner
     .thread-list-item__rows
@@ -52,7 +58,7 @@
                   | （{{ product.comments.size }}）
                 .thread-list-item-comment__user-icons
                   a.thread-list-item-comment__user-icon(
-                    :href='user.url'
+                    :href='user.url',
                     v-for='user in product.comments.users'
                   )
                     img.a-user-icon(
@@ -98,9 +104,21 @@ export default {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: String, required: true },
-    latestProductSubmittedJust5days: { type: Object, required: false, default: null },
-    latestProductSubmittedJust6days: { type: Object, required: false, default: null },
-    latestProductSubmittedOver7days: { type: Object, required: false, default: null },
+    latestProductSubmittedJust5days: {
+      type: Object,
+      required: false,
+      default: null
+    },
+    latestProductSubmittedJust6days: {
+      type: Object,
+      required: false,
+      default: null
+    },
+    latestProductSubmittedOver7days: {
+      type: Object,
+      required: false,
+      default: null
+    }
   },
   computed: {
     roleClass() {
@@ -118,26 +136,26 @@ export default {
       if (this.latestProductSubmittedJust5days !== null) {
         return this.product.id === this.latestProductSubmittedJust5days.id
       } else {
-         return false
+        return false
       }
     },
     isLatestProductSubmittedJust6days() {
       if (this.latestProductSubmittedJust6days !== null) {
         return this.product.id === this.latestProductSubmittedJust6days.id
       } else {
-         return false
+        return false
       }
     },
     isLatestProductSubmittedOver7days() {
       if (this.latestProductSubmittedOver7days !== null) {
         return this.product.id === this.latestProductSubmittedOver7days.id
       } else {
-         return false
+        return false
       }
     },
     notResponded() {
-      return location.pathname === "/products/not_responded"
-    },
+      return location.pathname === '/products/not_responded'
+    }
   }
 }
 </script>
