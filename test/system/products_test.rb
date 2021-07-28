@@ -324,4 +324,24 @@ class ProductsTest < ApplicationSystemTestCase
     visit "/products/#{products(:product3).id}"
     assert_text 'このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。'
   end
+
+  test 'show review schedule message on product page' do
+    visit_with_auth "/products/#{products(:product8).id}", 'kimura'
+    assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+  end
+
+  test "don't show review schedule message on product page if mentor comments" do
+    visit_with_auth "/products/#{products(:product10).id}", 'kimura'
+    assert_no_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+  end
+
+  test "don't show review schedule message on product page if product is checked" do
+    visit_with_auth "/products/#{products(:product2).id}", 'kimura'
+    assert_no_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+  end
+
+  test "don't show review schedule message on product page if product is WIP" do
+    visit_with_auth "/products/#{products(:product5).id}", 'kimura'
+    assert_no_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+  end
 end
