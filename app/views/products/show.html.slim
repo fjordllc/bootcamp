@@ -27,6 +27,14 @@ header.page-header
         .a-page-notice__inner
           p
             | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
+  - if @product.user == current_user && !@product.wip? && !@product.checked? && @product.commented_users.mentor.empty?
+    .a-page-notice.page-notice
+      .container
+        .a-page-notice__inner
+          p
+            | 提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。
+            br
+            | 7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。
   .container
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
