@@ -1,8 +1,8 @@
 {
   "scripts": {
     "lint": "run-p lint:*",
-    "lint:eslint": "yarn run eslint 'app/javascript/**/*.{js,vue}' --max-warnings=0",
-    "lint:prettier": "yarn run prettier app/javascript/**/*.{js,vue} --check"
+    "lint:eslint": "eslint 'app/javascript/**/*.{js,vue}' --max-warnings=0",
+    "lint:prettier": "prettier app/javascript/**/*.{js,vue} --check"
   },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.0.1",
