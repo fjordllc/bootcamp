@@ -48,7 +48,7 @@ function extractField(elements) {
 document.addEventListener('DOMContentLoaded', () => {
   const ref = document.querySelector('#reference_books')
   if (ref) {
-    $(ref).on('cocoon:after-insert', (_, target) => { // eslint-disable-line no-unused-vars
+    $(ref).on('cocoon:after-insert', (_, target) => {
       const added = extractField(target)
       initializeFileInput(added)
     })
