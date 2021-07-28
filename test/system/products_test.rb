@@ -392,4 +392,29 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '保存する'
     assert_text '編集後のユーザーメモです。'
   end
+
+  test 'can see unassigned-tab' do
+    visit_with_auth products_path, 'komagata'
+    assert find('.page-tabs__item-link', text: '未アサイン')
+  end
+
+  test 'can access unassigned products page after click unassigned-tab' do
+    visit_with_auth products_path, 'komagata'
+    find('.page-tabs__item-link', text: '未アサイン').click
+    assert find('h2.page-header__title', text: '未アサインの提出物')
+  end
+
+  test 'show unassigned products counter and can change counter after click assignee-button on unassigned-tab' do
+    visit_with_auth products_path, 'komagata'
+    unassigned_tab = find('.page-tabs__item-link', text: '未アサイン')
+    assert unassigned_tab.text.include? '55'
+
+    assignee_buttons = all('.a-button.is-block.is-secondary.is-sm', text: '担当する')
+    assignee_buttons.first(3).each(&:click)
+
+    unassigned_tab.click
+    wait_for_vuejs
+    unassigned_tab = find('.page-tabs__item-link.is-active', text: '未アサイン')
+    assert unassigned_tab.text.include? '52'
+  end
 end
