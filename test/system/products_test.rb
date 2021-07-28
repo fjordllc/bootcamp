@@ -47,7 +47,7 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
-    assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+    assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
     assert_text 'Watch中'
   end
 
@@ -57,7 +57,7 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
-    assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+    assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
 
     visit "/practices/#{practices(:practice6).id}"
     assert_equal first('.test-product').text, '提出物へ'
@@ -327,21 +327,21 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'show review schedule message on product page' do
     visit_with_auth "/products/#{products(:product8).id}", 'kimura'
-    assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+    assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
   end
 
   test "don't show review schedule message on product page if mentor comments" do
     visit_with_auth "/products/#{products(:product10).id}", 'kimura'
-    assert_no_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+    assert_no_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
   end
 
   test "don't show review schedule message on product page if product is checked" do
     visit_with_auth "/products/#{products(:product2).id}", 'kimura'
-    assert_no_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+    assert_no_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
   end
 
   test "don't show review schedule message on product page if product is WIP" do
     visit_with_auth "/products/#{products(:product5).id}", 'kimura'
-    assert_no_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+    assert_no_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
   end
 end
