@@ -39,7 +39,7 @@ export default {
   props: {
     tagsInitialValue: { type: Array, required: true },
     questionId: { type: Number, required: true },
-    tagsParamName: { type: String, required: true },
+    tagsParamName: { type: String, required: true }
   },
   data() {
     return {

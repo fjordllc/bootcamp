@@ -8,21 +8,25 @@
         label.a-form-label(for='thread-list-tools__action')
           | 編集
         label.a-on-off-checkbox.is-sm
-          input(type='checkbox', name='thread-list-tools__action', id='thread-list-tools__action', v-model="checked")
+          input#thread-list-tools__action(
+            type='checkbox',
+            name='thread-list-tools__action',
+            v-model='checked'
+          )
           span#spec-edit-mode
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .thread-list.a-card
-     .thread-list__items
+      .thread-list__items
         watch(
-         v-for='watch in watches',
-         :key='watch.id',
-         :watch='watch',
-         :checked='checked',
-         @updateIndex="updateIndex"
-       )
+          v-for='watch in watches',
+          :key='watch.id',
+          :watch='watch',
+          :checked='checked',
+          @updateIndex='updateIndex'
+        )
     nav.pagination(v-if='totalPages > 1')
-     pager(v-bind='pagerProps')
+      pager(v-bind='pagerProps')
 </template>
 
 <script>
@@ -34,24 +38,24 @@ export default {
     watch: watch,
     pager: Pager
   },
- data() {
+  data() {
     return {
       watches: null,
       totalPages: 0,
       currentPage: this.pageParam(),
       loaded: false,
-      checked: false,
+      checked: false
     }
   },
   computed: {
-    newParams(){
+    newParams() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
       return params
     },
     watchesAPI() {
-        const params = this.newParams
-        return `/api/watches.json?${params}`
+      const params = this.newParams
+      return `/api/watches.json?${params}`
     },
     newURL() {
       return `${location.pathname}?${this.newParams}`
@@ -65,7 +69,7 @@ export default {
       }
     }
   },
- created() {
+  created() {
     window.onpopstate = () => {
       this.currentPage = this.pageParam()
       this.getWatches()
@@ -73,12 +77,12 @@ export default {
     this.getWatches()
   },
   methods: {
-    pageParam(){
+    pageParam() {
       const url = new URL(location.href)
       const page = url.searchParams.get('page')
       return parseInt(page || 1)
     },
-    clickCallback(pageNum){
+    clickCallback(pageNum) {
       this.currentPage = pageNum
       history.pushState(null, null, this.newURL)
       this.getWatches()
@@ -98,16 +102,16 @@ export default {
           json.watches.forEach((r) => {
             this.watches.push(r)
           })
-         this.totalPages = parseInt(json.totalPages)
-         this.loaded = true
+          this.totalPages = parseInt(json.totalPages)
+          this.loaded = true
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
         })
-            },
-    updateIndex(){
-            this.getWatches()
-        }
+    },
+    updateIndex() {
+      this.getWatches()
     }
+  }
 }
 </script>

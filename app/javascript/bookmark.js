@@ -9,14 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const bookmarkableType = bookmark.getAttribute('data-bookmarkable-type')
     if (bookmark) {
       new Vue({
-      render: (h) =>
-        h(BookmarkButton, {
-          props: {
-            bookmarkableId: bookmarkbleId,
-            bookmarkableType: bookmarkableType
-          }
-        })
-    }).$mount(selector)
+        render: (h) =>
+          h(BookmarkButton, {
+            props: {
+              bookmarkableId: bookmarkbleId,
+              bookmarkableType: bookmarkableType
+            }
+          })
+      }).$mount(selector)
     }
   }
 })
