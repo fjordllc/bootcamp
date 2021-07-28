@@ -48,4 +48,11 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth edit_current_user_path, 'komagata'
     assert_alert_when_enter_one_dot_only_tag
   end
+
+  test 'update times url with wrong url' do
+    visit_with_auth '/current_user/edit', 'komagata'
+    fill_in 'user[times_url]', with: 'https://example.gg/xhGP6etJBX'
+    click_button '更新する'
+    assert_text '分報URLは「https://discord.gg/」で始まる招待URLを入力してください'
+  end
 end

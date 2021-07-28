@@ -191,6 +191,18 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
+  test 'times_url' do
+    user = users(:komagata)
+    user.times_url = 'https://discord.gg/xhGP6etJBX'
+    assert user.valid?
+    user.times_url = ''
+    assert user.valid?
+    user.times_url = 'xhGP6etJBX'
+    assert user.invalid?
+    user.times_url = 'https://example.gg/xhGP6etJBX'
+    assert user.invalid?
+  end
+
   test 'is valid name_kana' do
     user = users(:komagata)
     user.name_kana = 'コマガタ マサキ'
