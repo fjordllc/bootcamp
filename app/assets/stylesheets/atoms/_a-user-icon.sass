@@ -4,8 +4,14 @@
   background-color: $base
   +icon-role-style
 
-.js-user-icon
-  +size(1.9em)
+.a-user-emoji-link
+  +size(2em)
+  display: inline-block
+  &:not(:first-child)
+    margin-left: .5em
+
+.a-user-emoji
+  +size(2em)
   object-fit: cover
   background-color: $base
   border-radius: 2px
@@ -13,5 +19,3 @@
   border: none !important
   margin-left: 0 !important
   margin-right: 0 !important
-  a:not(:first-child) &
-    margin-left: .5em !important
