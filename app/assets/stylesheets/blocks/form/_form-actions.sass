@@ -14,9 +14,12 @@
       padding-top: 1rem
 
 .form-actions__items
-  display: flex
-  align-items: flex-end
-  justify-content: center
+  +media-breakpoint-up(md)
+    display: flex
+    align-items: flex-end
+    justify-content: center
+    &.is-ais-flex-start
+      align-items: flex-start
   +media-breakpoint-down(sm)
     flex-direction: column
 
@@ -28,7 +31,7 @@
       flex: 0 0 auto
   &.is-help
     +media-breakpoint-down(sm)
-      margin-bottom: 1.5rem
+      margin-bottom: 1rem
   &.is-main
     +media-breakpoint-up(md)
       min-width: 16rem
@@ -46,9 +49,7 @@
 
 .form-actions__item-help
   +text-block(.8125rem 1, center)
-  height: 1.25rem
   padding-top: .5rem
-  +position(absolute, left 0, bottom -1.25rem, right 0)
   .a-form-help-link
     margin-left: .5em
 
