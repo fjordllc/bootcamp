@@ -30,3 +30,12 @@ html
 .is-only-mentor
   body:not(.is-mentor-mode) &
     display: none !important
+
+.is-only-adviser
+  body:not(.is-adviser-mode) &
+    display: none !important
+
+
+body.is-mentor-mode .is-only-mentor.is-only-adviser,
+body.is-adviser-mode .is-only-mentor.is-only-adviser
+  display: block !important

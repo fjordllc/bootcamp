@@ -1,6 +1,14 @@
 .user-metas
   margin-top: 1rem
 
+.user-metas__title
+  border: solid 1px $border-more-shade
+  margin-bottom: -1px
+  padding: .375rem .75rem
+  +text-block(.75rem 1.4, 600)
+  background-color: $background-shade
+  position: relative
+
 .user-metas__items
   border: solid 1px $background-shade
 
@@ -8,7 +16,7 @@
   +text-block(.75rem 1.4, flex)
   +media-breakpoint-down(sm)
     display: block
-  &:nth-child(odd)
+  &:nth-child(even)
     background-color: #fafafa
   &:not(:last-child)
     border-bottom: solid 1px $background-shade
@@ -16,7 +24,7 @@
 .user-metas__item-label
   text-align: right
   border-right: dashed 1px $background-shade
-  flex: 0 0 8rem
+  flex: 0 0 9rem
   padding: .375rem .5rem
   +media-breakpoint-down(sm)
     text-align: left
@@ -24,5 +32,5 @@
     border-bottom: dashed 1px $background-shade
 
 .user-metas__item-value
-  flex: 100
+  flex: 1
   padding: .375rem .5rem
