@@ -447,6 +447,10 @@ class User < ApplicationRecord
     staff? || paid?
   end
 
+  def admin_or_mentor?
+    admin? || mentor?
+  end
+
   def adviser_or_mentor?
     adviser? || mentor?
   end
@@ -461,6 +465,10 @@ class User < ApplicationRecord
 
   def student_or_trainee?
     !staff? && !retired? && !graduated?
+  end
+
+  def student_or_trainee_or_retired?
+    !staff? && !graduated?
   end
 
   def unread_notifications_count

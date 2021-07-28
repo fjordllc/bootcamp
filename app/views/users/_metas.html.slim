@@ -1,4 +1,6 @@
 .user-metas
+  h2.user-metas__title.is-only-mentor
+    | ユーザー公開情報
   .user-metas__items
     .user-metas__item
       .user-metas__item-label
@@ -62,15 +64,3 @@
           = User.human_attribute_name :graduated_on
         .user-metas__item-value
           = l user.graduated_on
-    - if user.retired?
-      .user-metas__item
-        .user-metas__item-label
-          = User.human_attribute_name :retired_on
-        .user-metas__item-value
-          = l user.retired_on
-    - if user.retired? && staff_login?
-      .user-metas__item.is-only-mentor
-        .user-metas__item-label
-          = User.human_attribute_name :retire_reason
-        .user-metas__item-value
-          = user.retire_reason
