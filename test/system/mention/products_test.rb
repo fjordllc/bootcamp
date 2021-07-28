@@ -14,7 +14,7 @@ module Mention
           fill_in('product[body]', with: body)
         end
         click_button '提出する'
-        assert_text "提出物を提出しました。7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\n7日以上待ってもレビューされない場合は、気軽にメンターにメンションを送ってください。"
+        assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
       }
 
       %w[hatsuno with-hyphen].each do |mention_target_login_name|
