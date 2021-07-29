@@ -525,7 +525,7 @@ class ReportsTest < ApplicationSystemTestCase
   test 'show number of comments' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
     within(:css, '.comments-count') do
-    assert_text '2'
+      assert_text '2'
     end
   end
 end
