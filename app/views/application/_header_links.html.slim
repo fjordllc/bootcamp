@@ -25,7 +25,7 @@
             = render 'user_menu'
             - if current_user.admin?
               = render 'admin_menu'
-            - if current_user.admin_or_mentor?
+            - if admin_or_mentor_login?
               = render 'mentor_menu'
       li.header-links__item.is-hidden-md-up
         label.header-links__link.test-show-menu(for='mobile-nav')

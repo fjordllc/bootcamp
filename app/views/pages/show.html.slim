@@ -95,7 +95,7 @@ header.page-header
                 = link_to [:edit, @page], class: 'card-main-actions__action a-button is-md is-secondary is-block' do
                   i.fas.fa-pen
                   | 内容変更
-              - if admin_login? || current_user == @page.user
+              - if admin_or_mentor_login? || current_user == @page.user
                 li.card-main-actions__item.is-sub
                   = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
                     | 削除する
