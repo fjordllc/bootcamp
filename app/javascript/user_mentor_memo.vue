@@ -14,8 +14,13 @@ section.a-card.is-memo.is-only-mentor
           )
             i.fas.fa-pen
             | 編集
-  div(:class='{ "a-card": productsMode, "thread-comment-form__form": !productsMode }', v-show='editing')
-    div(:class='[{ "form-tabs": productsMode, "thread-comment-form__tabs": !productsMode }, "js-tabs"]')
+  div(
+    :class='{ "a-card": productsMode, "thread-comment-form__form": !productsMode }',
+    v-show='editing'
+  )
+    div(
+      :class='[{ "form-tabs": productsMode, "thread-comment-form__tabs": !productsMode }, "js-tabs"]'
+    )
       div(
         :class='[{ "is-active": isActive("memo"), "form-tabs__tab": productsMode, "thread-comment-form__tab": !productsMode }, "js-tabs__tab"]',
         @click='changeActiveTab("memo")'
