@@ -35,14 +35,14 @@
 
   .form-actions
     ul.form-actions__items
-      li.form-actions__item.is-main.is-help
+      li.form-actions__item.is-main
         = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
-        - if admin_login?
-          li.form-actions__item.is-main.is-help
-            - if announcement.new_record?
-              = f.submit '作成', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
-            - else
-              = f.submit '公開', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
+      - if admin_login? || mentor_login?
+        li.form-actions__item.is-main
+          - if announcement.new_record?
+            = f.submit '作成', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
+          - else
+            = f.submit '公開', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
       li.form-actions__item
         - case params[:action]
         - when 'new', 'create'
