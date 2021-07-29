@@ -52,7 +52,7 @@ header.page-header
                 = link_to @work.repository, target: '_blank', rel: 'noopener', class: 'a-button is-md is-secondary is-block' do
                   i.fab.fa-github-alt
                   | Repository
-        - if @work.user == current_user || admin_login?
+        - if @work.user == current_user || admin_or_mentor_login?
           .card-footer
             .card-main-actions
               ul.card-main-actions__items

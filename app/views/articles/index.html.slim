@@ -4,7 +4,7 @@
   .article.is-long-text
     .a-card
       h2.article__title = link_to article.title, article
-      - if admin_login?
+      - if admin_or_mentor_login?
         ul
           li
             = link_to '内容修正', edit_article_path(article)
