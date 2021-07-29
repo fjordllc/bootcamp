@@ -8,12 +8,11 @@ header.page-header
         = title
 .page-body
   .container
-    .practice-contents
-      .a-card
-        .card-header
-          h2.card-header__title
-            = Practice.human_attribute_name :goal
-        .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text
-          = @product.practice.goal
+    .a-card
+      .card-header
+        h2.card-header__title
+          = Practice.human_attribute_name :goal
+      .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text
+        = @product.practice.goal
 
     = render 'form', practice: @practice, product: @product
