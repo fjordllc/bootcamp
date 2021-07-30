@@ -8,10 +8,10 @@
         .thread-list-item-title
           .thread-list-item-title__title
             a.thread-list-item-title__link(:href='watch.url')
-             | {{ watch.title }}
+              | {{ watch.title }}
       .thread-list-item__row
         .thread-list-item__summary
-            p {{ watch.summary }}
+          p {{ watch.summary }}
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -21,13 +21,13 @@
             .thread-list-item-meta__item
               time.a-date(:datetime='watch.updated_at')
                 | {{ createdAt }}
-    .thread-list-item__option(v-if="checked")
+    .thread-list-item__option(v-if='checked')
       watchToggle(
-        :checked='checked'
+        :checked='checked',
         :watchableType='watch.watchable_type',
         :watchableId='watch.watchable_id',
-        :watchIndexId='watch.id'
-        @update-index="$listeners['updateIndex']",
+        :watchIndexId='watch.id',
+        @update-index='$listeners["updateIndex"]'
       )
 </template>
 <script>
@@ -44,16 +44,14 @@ export default {
     checked: { type: Boolean }
   },
   computed: {
-    isWatchClassName(){
-     return `is-${this.watch.watch_class_name}`
+    isWatchClassName() {
+      return `is-${this.watch.watch_class_name}`
     },
     userUrl() {
       return `/users/${this.watch.edit_user.id}`
     },
     createdAt() {
-      return dayjs(this.watch.created_at).format(
-        'YYYY年MM月DD日(dd) HH:mm'
-      )
+      return dayjs(this.watch.created_at).format('YYYY年MM月DD日(dd) HH:mm')
     }
   }
 }

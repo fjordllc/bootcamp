@@ -20,10 +20,10 @@ export default class {
       },
       menuItemTemplate: (item) => {
         if (item.original.isUser) {
-          return(
+          return (
             `<span class='mention'>${escapeHtml(
               item.original.login_name
-            )}</span>` + `${escapeHtml(item.original.name)}`  
+            )}</span>` + `${escapeHtml(item.original.name)}`
           )
         } else {
           return (
@@ -48,9 +48,11 @@ export default class {
   }
 
   _fetchValues() {
-    this.values = Object.keys(emojis).map((key) => {
-      return { key: key, value: emojis[key] }
-    }).concat(this.userValues)
+    this.values = Object.keys(emojis)
+      .map((key) => {
+        return { key: key, value: emojis[key] }
+      })
+      .concat(this.userValues)
   }
 
   _filterValues(text, callback) {

@@ -3,8 +3,10 @@
     border-bottom: solid 1px $background
   +media-breakpoint-up(md)
     padding: .75rem 1rem
+    min-height: 3.875rem
   +media-breakpoint-down(sm)
     padding: .75rem
+    min-height: 3.5rem
 
 .thread-list-item__strip-label
   +media-breakpoint-up(md)
@@ -60,6 +62,7 @@
 
 .thread-list-item__assignee-image
   flex: 0 0 1.25rem
+  margin-right: .375rem
   .a-user-icon
     +size(1.25rem)
 
@@ -67,8 +70,6 @@
   display: block
   overflow: hidden
   text-overflow: ellipsis
-  flex: 1
-  text-align: center
 
 .thread-list-item__label
   +position(absolute, left 0, top 0)

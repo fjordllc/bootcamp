@@ -30,10 +30,11 @@ product4: # チェック済
 product5:
   practice: practice2
   user: kimura
-  body: テストの提出物5です。
+  body: WIPの提出物です。
   created_at: <%= 4.day.ago %>
   updated_at: <%= 4.day.ago %>
   published_at: <%= 4.day.ago %>
+  wip: true
 
 product6:
   practice: practice3
