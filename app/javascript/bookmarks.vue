@@ -11,7 +11,11 @@
         label.a-form-label(for='thread-list-tools__action')
           | 編集
         label.a-on-off-checkbox.is-sm
-          input(type='checkbox', name='thread-list-tools__action', id='thread-list-tools__action', v-model="checked")
+          input#thread-list-tools__action(
+            type='checkbox',
+            name='thread-list-tools__action',
+            v-model='checked'
+          )
           span#spec-edit-mode
     .thread-list-tools(v-else)
       .o-empty-message
@@ -26,7 +30,7 @@
           :key='bookmark.id',
           :bookmark='bookmark',
           :checked='checked',
-          @updateIndex="updateIndex"
+          @updateIndex='updateIndex'
         )
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
@@ -113,7 +117,7 @@ export default {
         location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
       )
     },
-    updateIndex(){
+    updateIndex() {
       this.getBookmarks()
     }
   }

@@ -1,0 +1,21 @@
+.user-metas.is-only-mentor
+  h2.user-metas__title
+    | 退会情報（非公開）
+  .user-metas__items
+    .user-metas__item
+      .user-metas__item-label
+        = User.human_attribute_name :retired_on
+      .user-metas__item-value
+        = l user.retired_on
+    .user-metas__item
+      .user-metas__item-label
+        = User.human_attribute_name :retire_reasons
+      .user-metas__item-value
+        ul
+          - user.retire_reasons.to_human.each do |reason|
+            li = reason
+    .user-metas__item
+      .user-metas__item-label
+        = User.human_attribute_name :retire_reason
+      .user-metas__item-value
+        = user.retire_reason

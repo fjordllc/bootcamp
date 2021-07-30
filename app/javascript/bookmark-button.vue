@@ -38,34 +38,34 @@ export default {
     },
     getBookmark() {
       if (this.checked) {
-        this.bookmarkId= this.bookmarkIndexId
+        this.bookmarkId = this.bookmarkIndexId
         this.bookmarkLabel = '削除'
       } else {
         fetch(
-            `/api/bookmarks.json?bookmarkable_type=${this.bookmarkableType}&bookmarkable_id=${this.bookmarkableId}`,
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-Token': this.token()
-              },
-              credentials: 'same-origin',
-              redirect: 'manual'
-            }
+          `/api/bookmarks.json?bookmarkable_type=${this.bookmarkableType}&bookmarkable_id=${this.bookmarkableId}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRF-Token': this.token()
+            },
+            credentials: 'same-origin',
+            redirect: 'manual'
+          }
         )
-            .then((response) => {
-              return response.json()
-            })
-            .then((json) => {
-              if (json.bookmarks.length) {
-                this.bookmarkId = json.bookmarks[0].id
-                this.bookmarkLabel = 'Bookmark中'
-              }
-            })
-            .catch((error) => {
-              console.warn('Failed to parsing', error)
-            })
+          .then((response) => {
+            return response.json()
+          })
+          .then((json) => {
+            if (json.bookmarks.length) {
+              this.bookmarkId = json.bookmarks[0].id
+              this.bookmarkLabel = 'Bookmark中'
+            }
+          })
+          .catch((error) => {
+            console.warn('Failed to parsing', error)
+          })
       }
     },
     bookmark() {

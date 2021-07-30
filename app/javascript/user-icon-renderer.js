@@ -15,11 +15,11 @@ export default class {
     })
   }
 
-  _callbackFunc () {
+  _callbackFunc() {
     const elements = document.getElementsByClassName('js-user-icon')
     Array.from(elements).forEach((element) => {
       const loginName = element.dataset.user
-      element.src = this.urls[loginName]
+      if (element.src === '') element.src = this.urls[loginName]
     })
   }
 }

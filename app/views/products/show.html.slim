@@ -27,6 +27,15 @@ header.page-header
         .a-page-notice__inner
           p
             | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
+  - if @product.user == current_user && !@product.wip? && !@product.checked? && @product.commented_users.mentor.empty?
+    .a-page-alert
+      .container.is-md
+        .a-page-alert__inner
+          .a-short-text
+            p
+              | 7日以内にメンターがレビューしますので、次のプラクティスにお進みください。
+              br
+              | もし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。
   .container
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
@@ -81,7 +90,7 @@ header.page-header
                     .thread-header-actions__action
                       #js-watch-toggle(data-watchable-id="#{@product.id}", data-watchable-type='Product')
                   .thread-header-actions__end
-                    .thread-header__action
+                    .thread-header-actions__action
                       = link_to 'Raw', product_path(format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener'
             - if @product.wip?
               .thread__warning-message

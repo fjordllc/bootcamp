@@ -1,5 +1,5 @@
 = render 'errors', object: product
-= form_for product, html: { name: 'product' } do |f|
+= form_for product, html: { name: 'product', class: 'form' } do |f|
   = hidden_field_tag :practice_id, practice.id
   .form__items
     .form-item
@@ -14,10 +14,10 @@
           .js-preview.is-long-text.markdown-form__preview
 
   .form-actions
-    ul.form-actions__items
-      li.form-actions__item.is-main.is-help
+    ul.form-actions__items.is-ais-flex-start
+      li.form-actions__item.is-main
         = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
         .form-actions__item-help
-          | まだ書いてる途中
+          | まだ作成途中
       li.form-actions__item.is-main
         = f.submit '提出する', class: 'a-button is-lg is-warning is-block'

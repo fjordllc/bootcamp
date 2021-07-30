@@ -14,7 +14,7 @@ header.header
             - if current_user.admin?
               span.a-user-role__label(class='is-admin') 管理者
 
-        - if current_user.mentor? || current_user.adviser?
+        - if current_user.admin_or_mentor?
           .switch.is-hidden-sm-down
             label.switch__label(for='modal-mentor-mode')
               span.switch__label-text

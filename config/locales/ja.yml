@@ -75,7 +75,8 @@ ja:
         retired_on: 退会日
         free: 無料ユーザー
         avatar: ユーザーアイコン
-        retire_reason: 退会理由
+        retire_reasons: 選択入力の退会理由
+        retire_reason: 自由記入の退会理由
         satisfaction: 満足度
         opinion: ご意見
         mail_notification: メール通知

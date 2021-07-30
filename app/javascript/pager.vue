@@ -36,7 +36,7 @@ export default {
     pageRange: { type: Number, required: true },
     clickHandle: { type: Function, required: true }
   },
-  created () {
+  created() {
     console.log('fff')
   },
   methods: {

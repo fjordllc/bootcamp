@@ -54,7 +54,12 @@ export default class {
           })
           textarea.dispatchEvent(event)
         },
-        plugins: [MarkdownItEmoji, MarkdownItMention, MarkdownItUserIcon, MarkdownItTaskLists],
+        plugins: [
+          MarkdownItEmoji,
+          MarkdownItMention,
+          MarkdownItUserIcon,
+          MarkdownItTaskLists
+        ],
         markdownOptions: MarkdownOption
       })
       /* eslint-enable no-new */

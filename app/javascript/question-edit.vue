@@ -39,7 +39,10 @@
             .thread-header-actions__action
               WatchToggle(:watchableId='question.id', watchableType='Question')
             .thread-header-actions__action
-              BookmarkButton(:bookmarkableId='question.id', bookmarkableType='Question')
+              BookmarkButton(
+                :bookmarkableId='question.id',
+                bookmarkableType='Question'
+              )
           .thread-header-actions__end
             .thread-header-actions__action
               a.a-button.is-sm.is-secondary.is-block(
@@ -54,7 +57,7 @@
       tags(
         :tagsInitialValue='question.tag_list',
         :questionId='question.id',
-        tagsParamName='question[tag_list]',
+        tagsParamName='question[tag_list]'
       )
 
     .thread__body
