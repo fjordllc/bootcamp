@@ -98,7 +98,9 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:body)
+    keys = %i[body]
+    keys << :checker_id if mentor_login?
+    params.require(:product).permit(*keys)
   end
 
   def set_watch
