@@ -30,9 +30,9 @@ nav.global-nav
             = link_to products_link, class: "global-nav-links__link #{current_link(/^products/)}" do
               .global-nav-links__link-icon
                 i.fas.fa-fw.fa-hand-paper
-              - if admin_or_mentor_login? && Cache.not_responded_product_count.positive?
+              - if admin_login? || mentor_login? && Cache.unassigned_product_count.positive?
                 .global-nav__item-count.a-notification-count.is-only-mentor
-                  = Cache.not_responded_product_count
+                  = Cache.unassigned_product_count
               .global-nav-links__link-label 提出物
         li.global-nav-links__item
           = link_to questions_path, class: "global-nav-links__link #{current_link(/^questions/)}" do
