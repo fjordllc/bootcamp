@@ -30,8 +30,9 @@ class API::UsersController < API::BaseController
   def show; end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update_mentor_memo(user_params[:mentor_memo])
+    if @user == current_user && @user.update(user_params)
+      head :ok
+    elsif @user.update_mentor_memo(user_params[:mentor_memo]) 
       head :ok
     else
       head :bad_request
