@@ -127,7 +127,7 @@ class UsersController < ApplicationController
       :login_name, :name, :name_kana,
       :email, :course_id, :description,
       :discord_account, :github_account, :twitter_account,
-      :facebook_url, :blog_url, :password,
+      :facebook_url, :blog_url, :times_url, :password,
       :password_confirmation, :job, :organization,
       :os, :experience, :prefecture_code,
       :company_id, :nda, :avatar,

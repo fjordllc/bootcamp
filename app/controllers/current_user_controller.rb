@@ -24,7 +24,7 @@ class CurrentUserController < ApplicationController
       :name_kana, :email, :course_id,
       :description, :job_seeking, :discord_account,
       :github_account, :twitter_account, :facebook_url,
-      :blog_url, :password, :password_confirmation,
+      :blog_url, :times_url, :password, :password_confirmation,
       :job, :organization, :os,
       :experience, :prefecture_code, :company_id,
       :nda, :avatar, :trainee,

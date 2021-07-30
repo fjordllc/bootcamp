@@ -26,6 +26,11 @@
                   i.fab.fa-discord
                 .users-item-names__chat-value
                   | {{ user.discord_account }}
+                .users-item-names__chat-times(v-if='user.times_url')
+                  | （
+                  a(:href='user.times_url')
+                    | 分報
+                  | ）
           user-secret-attributes(:user='user', :currentUser='currentUser')
           .users-item__icon
             a(:href='user.url')
