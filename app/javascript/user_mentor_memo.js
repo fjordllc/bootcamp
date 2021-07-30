@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const userMentorMemo = document.querySelector(selector)
   if (userMentorMemo) {
     const userId = userMentorMemo.getAttribute('data-user-id')
-    const productsMode = Boolean(userMentorMemo.getAttribute('data-products-mode'))
+    const productsMode = Boolean(
+      userMentorMemo.getAttribute('data-products-mode')
+    )
     new Vue({
       render: (h) =>
         h(UserMentorMemo, {
