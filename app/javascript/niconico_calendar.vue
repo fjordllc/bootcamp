@@ -44,7 +44,7 @@
           td.niconico-calendar__day(
             v-for='date in week.value',
             :key='date.weekDay',
-            :class='emotionClass(date)'
+            :class='[emotionClass(date), todayClass(date)]'
           )
             a.niconico-calendar__day-inner(
               v-if='date.id',
@@ -74,6 +74,7 @@ export default {
       currentMonth: this.getCurrentMonth(),
       calendarYear: this.getCurrentYear(),
       calendarMonth: this.getCurrentMonth(),
+      today: this.getCurrentDay(),
       loaded: null
     }
   },
@@ -185,6 +186,14 @@ export default {
     emotionClass(date) {
       return date.emotion ? `is-${date.emotion}` : 'is-blank'
     },
+    todayClass(date) {
+      if (
+        this.calendarYear !== this.currentYear ||
+        this.calendarMonth !== this.currentMonth
+      )
+        return
+      if (date.date === this.today) return 'is-today'
+    },
     oldestMonth() {
       const firstReportDate = this.reports[0].reported_on
       const firstReportYear = Number(firstReportDate.split('-')[0])
@@ -205,6 +214,9 @@ export default {
     },
     getCurrentMonth() {
       return new Date().getMonth() + 1
+    },
+    getCurrentDay() {
+      return new Date().getDate()
     },
     reportDate(report) {
       return Number(report.reported_on.split('-')[2])
