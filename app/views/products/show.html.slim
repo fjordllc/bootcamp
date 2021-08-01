@@ -140,6 +140,7 @@ header.page-header
           .side-tabs
             input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
             input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
+            input.a-toggle-checkbox#side-tabs-3 type='radio' name='side-tabs-contents'
             .side-tabs-nav
               .side-tabs-nav__items
                 .side-tabs-nav__item
@@ -147,7 +148,10 @@ header.page-header
                     | 直近の日報
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-2 for='side-tabs-2'
-                    | メンターメモ
+                    | プラクティスメモ
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-3 for='side-tabs-3'
+                    | ユーザーメモ
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
                 .thread-list.a-card
@@ -163,4 +167,6 @@ header.page-header
                           .o-empty-message__text
                             | 日報はまだありません。
               .side-tabs-contents__item#side-tabs-content-2
-                #js-mentor-memo(data-practice-id="#{@product.practice_id}")
+                #js-practice-memo(data-practice-id="#{@product.practice_id}")
+              .side-tabs-contents__item#side-tabs-content-3
+                #js-user-mentor-memo(data-user-id="#{@product.user.id}" data-products-mode="#{true}")
