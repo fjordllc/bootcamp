@@ -1,6 +1,6 @@
 <template lang="pug">
 section.a-card.is-memo.is-only-mentor
-  header.card-header.is-sm(v-if='!editing')
+  header.card-header.is-sm(v-if='!editing && !productsMode')
     h2.card-header__title
       | メンター向けユーザーメモ
   .card-body(v-if='!editing')
@@ -14,15 +14,20 @@ section.a-card.is-memo.is-only-mentor
           )
             i.fas.fa-pen
             | 編集
-  .thread-comment-form__form(v-show='editing')
-    .thread-comment-form__tabs.js-tabs
-      .thread-comment-form__tab.js-tabs__tab(
-        :class='{ "is-active": isActive("memo") }',
+  div(
+    :class='{ "a-card": productsMode, "thread-comment-form__form": !productsMode }',
+    v-show='editing'
+  )
+    div(
+      :class='[{ "form-tabs": productsMode, "thread-comment-form__tabs": !productsMode }, "js-tabs"]'
+    )
+      div(
+        :class='[{ "is-active": isActive("memo"), "form-tabs__tab": productsMode, "thread-comment-form__tab": !productsMode }, "js-tabs__tab"]',
         @click='changeActiveTab("memo")'
       )
         | メモ
-      .thread-comment-form__tab.js-tabs__tab(
-        :class='{ "is-active": isActive("preview") }',
+      div(
+        :class='[{ "is-active": isActive("preview"), "form-tabs__tab": productsMode, "thread-comment-form__tab": !productsMode }, "js-tabs__tab"]',
         @click='changeActiveTab("preview")'
       )
         | プレビュー
@@ -57,7 +62,8 @@ import MarkdownInitializer from './markdown-initializer'
 
 export default {
   props: {
-    userId: { type: String, required: true }
+    userId: { type: String, required: true },
+    productsMode: { type: Boolean, required: true }
   },
   data: () => {
     return {

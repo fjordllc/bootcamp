@@ -344,4 +344,52 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product5).id}", 'kimura'
     assert_no_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
   end
+
+  test 'mentors can see block for mentors' do
+    visit_with_auth "/products/#{products(:product2).id}", 'yamada'
+    assert_text '直近の日報'
+    assert_text 'プラクティスメモ'
+    assert_text 'ユーザーメモ'
+  end
+
+  test 'students can not see block for mentors' do
+    visit_with_auth "/products/#{products(:product2).id}", 'hatsuno'
+    assert_no_text '直近の日報'
+    assert_no_text 'プラクティスメモ'
+    assert_no_text 'ユーザーメモ'
+  end
+
+  test 'display the user memos after click on user-memos tab' do
+    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
+    find('#side-tabs-nav-3').click
+    assert_text 'kimuraさんのメモ'
+  end
+
+  test 'can cancel editing of user-memos' do
+    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
+    find('#side-tabs-nav-3').click
+    click_button '編集'
+    fill_in 'js-user-mentor-memo', with: '編集はできないはずです。'
+    click_button 'キャンセル'
+    assert_no_text '編集はできないはずです。'
+    assert_text 'kimuraさんのメモ'
+  end
+
+  test 'can preview editing of user-memos' do
+    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
+    find('#side-tabs-nav-3').click
+    click_button '編集'
+    fill_in 'js-user-mentor-memo', with: 'プレビューができます。'
+    find('.form-tabs__tab', text: 'プレビュー').click
+    assert_text 'プレビューができます。'
+  end
+
+  test 'can update user-memos' do
+    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
+    find('#side-tabs-nav-3').click
+    click_button '編集'
+    fill_in 'js-user-mentor-memo', with: '編集後のユーザーメモです。'
+    click_button '保存する'
+    assert_text '編集後のユーザーメモです。'
+  end
 end
