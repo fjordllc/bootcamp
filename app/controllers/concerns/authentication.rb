@@ -5,8 +5,9 @@ module Authentication
 
   included do
     helper_method :admin_login?,
-                  :adviser_login?,
                   :mentor_login?,
+                  :admin_or_mentor_login?,
+                  :adviser_login?,
                   :staff_login?,
                   :paid_login?,
                   :staff_or_paid_login?
@@ -16,12 +17,16 @@ module Authentication
     logged_in? && current_user.admin?
   end
 
-  def adviser_login?
-    logged_in? && current_user.adviser?
-  end
-
   def mentor_login?
     logged_in? && current_user.mentor?
+  end
+
+  def admin_or_mentor_login?
+    logged_in? && current_user.admin_or_mentor?
+  end
+
+  def adviser_login?
+    logged_in? && current_user.adviser?
   end
 
   def staff_login?

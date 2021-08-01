@@ -36,7 +36,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test "can't create article" do
-    visit_with_auth articles_url, 'yamada'
+    visit_with_auth articles_url, 'kimura'
 
     assert_no_text 'ブログ記事作成'
 
@@ -56,7 +56,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test "can't update article" do
-    visit_with_auth articles_url, 'yamada'
+    visit_with_auth articles_url, 'kimura'
 
     assert_no_text '内容修正'
 
@@ -74,7 +74,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test "can't delete article" do
-    visit_with_auth articles_url, 'yamada'
+    visit_with_auth articles_url, 'kimura'
     assert_no_text '削除'
   end
 end
