@@ -5,6 +5,7 @@ ignore_unused_routes:
 ignore_unreachable_actions:
   - rails\/.*
   - .*#admin_login\?
+  - .*#admin_or_mentor_login\?
   - .*#adviser_login\?
   - .*#mentor_login\?
   - .*#staff_login\?

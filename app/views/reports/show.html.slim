@@ -97,7 +97,7 @@ header.page-header
                       span#delete
                         | 削除する
 
-        - if admin_login? || adviser_login?
+        - if staff_login?
           #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
 
       .thread-prev-next

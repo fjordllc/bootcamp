@@ -40,9 +40,9 @@ header.page-header
                 .user-data__main
                   = render 'users/profile', user: @user
                 .user-data__sub
-                  - if current_user.admin_or_mentor? && @user.retired?
+                  - if admin_or_mentor_login? && @user.retired?
                     = render 'users/retire_info', user: @user
-                  - if current_user.admin_or_mentor? && @user.student_or_trainee_or_retired?
+                  - if admin_or_mentor_login? && @user.student_or_trainee_or_retired?
                     = render 'users/user_secret_attributes', user: @user
                   = render 'users/metas', user: @user
               .user-data__description
@@ -69,7 +69,7 @@ header.page-header
                       = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
 
         .col-xs-12.col-lg-6.col-xxl-6
-          - if mentor_login? || admin_login?
+          - if admin_or_mentor_login?
             #js-user-mentor-memo(data-user-id='#{@user.id}')
           - unless @user.total_learning_time.zero? || @user.mentor?
             = render 'users/grass', user: @user
