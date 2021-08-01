@@ -5,8 +5,6 @@ class User < ApplicationRecord
   include Taggable
   include Searchable
 
-  self.ignored_columns = %i[slack_account slack_participation]
-
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id updated_at created_at report comment asc desc].freeze
   AVATAR_SIZE = '88x88>'
