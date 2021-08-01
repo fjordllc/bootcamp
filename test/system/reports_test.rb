@@ -470,6 +470,16 @@ class ReportsTest < ApplicationSystemTestCase
     assert_no_text 'kimuraさんがはじめての日報を書きました！'
   end
 
+  test 'change report status to wip' do
+    report = reports(:report15)
+    visit_with_auth "/reports/#{report.id}", 'hajime'
+
+    click_link '内容修正'
+    assert_text 'この日報はすでに提出済みです。'
+    click_button 'WIP'
+    assert_no_text 'この日報はすでに提出済みです。'
+  end
+
   test 'reports are ordered in descending of reported_on' do
     visit_with_auth reports_path, 'kimura'
     precede = reports(:report24).title
