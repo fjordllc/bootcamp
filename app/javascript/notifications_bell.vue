@@ -95,7 +95,6 @@ export default {
       const links = document.querySelectorAll(
         '.header-dropdown__item-link.unconfirmed_link'
       )
-      console.log(links)
       links.forEach((link) => {
         window.open(link.href, '_target', 'noopener')
       })
