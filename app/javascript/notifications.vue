@@ -40,6 +40,10 @@ export default {
   props: {
     isMentor: {
       type: Boolean
+    },
+    target: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -53,9 +57,9 @@ export default {
   computed: {
     url() {
       if (this.isUnreadPage) {
-        return `/api/notifications.json?page=${this.currentPage}&status=unread`
+        return `/api/notifications.json?page=${this.currentPage}&status=unread&target=${this.target}`
       } else {
-        return `/api/notifications.json?page=${this.currentPage}`
+        return `/api/notifications.json?page=${this.currentPage}&target=${this.target}`
       }
     },
     isUnreadPage() {
