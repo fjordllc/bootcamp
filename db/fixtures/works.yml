@@ -12,3 +12,16 @@ work2:
   repository: https://hatsunosapp.repository.com
   user: hatsuno
 
+work3:
+  title: sumi's app
+  description: "澄がつくったアプリです"
+  url: https://sumisapp.com
+  repository: https://sumisapp.repository.com
+  user: sumi
+
+work4:
+  title: take8's app
+  description: "武井がつくったアプリです"
+  url: https://take8sapp.com
+  repository: https://take8sapp.repository.com
+  user: take8

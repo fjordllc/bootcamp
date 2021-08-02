@@ -231,3 +231,19 @@ report29:
   description: |-
     頑張れませんでした
   reported_on: <%= Time.now - 1.month - 1.day %>
+
+report30:
+  user: sumi
+  title: "365日目の日報"
+  emotion: 2
+  description: |-
+    Vue.jsが楽しかったです
+  reported_on: <%= Time.now - 1.month - 1.day %>
+
+report31:
+  user: take8
+  title: "366日目の日報"
+  emotion: 1
+  description: |-
+    エレベーターピッチ難しいです。
+  reported_on: <%= Time.now - 1.month - 1.day %>
