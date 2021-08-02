@@ -44,12 +44,12 @@
             = f.submit '作成', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
           - else
             = f.submit '内容変更', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
-      li.form-actions__item
+      li.form-actions__item.is-sub
         - case params[:action]
         - when 'new', 'create'
-          = link_to 'キャンセル', events_path, class: 'a-button is-md is-secondary'
+          = link_to 'キャンセル', events_path, class: 'a-button is-md is-secondary is-block'
         - when 'edit', 'update'
-          = link_to 'キャンセル', event_path, class: 'a-button is-md is-secondary'
+          = link_to 'キャンセル', event_path, class: 'a-button is-md is-secondary is-block'
     - unless mentor_login?
       .form-actions__description.a-short-text
         p
