@@ -35,6 +35,23 @@ class Notification < ApplicationRecord
   scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
   scope :by_read_status, ->(status) { status == 'unread' ? unreads.with_avatar.limit(99) : reads.with_avatar }
 
+  scope :by_target, lambda { |target|
+    case target
+    when :announcement
+      where(kind: :announced)
+    when :mention
+      where(kind: :mentioned)
+    when :comment
+      where(kind: %i[came_comment answered])
+    when :check
+      where(kind: :checked)
+    when :watching
+      where(kind: :watching)
+    when :following_report
+      where(kind: :following_report)
+    end
+  }
+
   def self.came_comment(comment, receiver, message)
     Notification.create!(
       kind: 0,

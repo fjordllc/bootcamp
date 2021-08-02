@@ -6,12 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const notifications = document.querySelector(selector)
   if (notifications) {
     const isMentor = notifications.getAttribute('data-is-mentor')
+    const target = notifications.getAttribute('data-target')
     new Vue({
       render: (h) =>
         h(Notifications, {
           props: {
             // 文字列を真偽値に変換して渡す
-            isMentor: isMentor === 'true'
+            isMentor: isMentor === 'true',
+            target: target
           }
         })
     }).$mount(selector)
