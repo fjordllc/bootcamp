@@ -38,5 +38,5 @@
         li.form-actions__item
           = link_to 'キャンセル', questions_path, class: 'a-button is-md is-secondary'
       - when 'edit', 'update'
-        li.form-actions__item
-          = link_to 'キャンセル', question_path, class: 'a-button is-md is-secondary'
+        li.form-actions__item.is-sub
+          = link_to 'キャンセル', question_path, class: 'a-button is-md is-secondary is-block'
