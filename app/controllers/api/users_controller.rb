@@ -2,7 +2,6 @@
 
 class API::UsersController < API::BaseController
   before_action :set_user, only: %i[show update]
-  before_action :require_mentor_login_for_api,  if: -> { user_params[:mentor_memo].present? } 
   PAGER_NUMBER = 20
 
   def index
@@ -30,10 +29,10 @@ class API::UsersController < API::BaseController
   def show; end
 
   def update
-    if @user == current_user && @user.update(tag_list: user_params[:tag_list])
-      head :ok
-    elsif @user.update_mentor_memo(user_params[:mentor_memo])
-      head :ok
+    if @user == current_user && !user_params[:tag_list].nil?
+      update_tag_list
+    elsif mentor_login? && !user_params[:mentor_memo].nil?
+      update_memo
     else
       head :bad_request
     end
@@ -54,5 +53,21 @@ class API::UsersController < API::BaseController
 
   def user_params
     params.require(:user).permit(:tag_list, :mentor_memo)
+  end
+
+  def update_memo
+    if @user.update_mentor_memo(user_params[:mentor_memo])
+      head :ok
+    else
+      head :bad_request
+    end
+  end
+
+  def update_tag_list
+    if @user.update(tag_list: user_params[:tag_list])
+      head :ok
+    else
+      head :bad_request
+    end
   end
 end
