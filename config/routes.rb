@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     end
     resources :memos, only: %i(create update destroy)
     resources :tags, only: %i(index)
-    resources :pages, only: %i(update)
+    resources :page_tags, only: %i(update)
     resources :questions, only: %i(show update)
     resources :followings, only: %i(create destroy)
     namespace :products do
