@@ -126,17 +126,20 @@ export default {
           tag_list: tagsValue
         }
       }
-      return fetch(`/api/${this.tagsType.toLowerCase()}s/${this.tagsTypeId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': token
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      }).catch((error) => {
+      return fetch(
+        `/api/${this.tagsType.toLowerCase()}_tags/${this.tagsTypeId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-Token': token
+          },
+          credentials: 'same-origin',
+          redirect: 'manual',
+          body: JSON.stringify(params)
+        }
+      ).catch((error) => {
         console.warn('Failed to parsing', error)
       })
     },
