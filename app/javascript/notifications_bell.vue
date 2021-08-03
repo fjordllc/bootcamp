@@ -31,7 +31,7 @@ li.header-links__item(v-bind:class='hasCountClass')
                 p.test-notification-message {{ notification.message }}
               time.header-notifications-item_created-at {{ createdAtFromNow(notification.created_at) }}
       footer.header-dropdown__footer
-        a.header-dropdown__footer-link(href='/notifications/unread') 全ての未読通知
+        a.header-dropdown__footer-link(href='/notifications?status=unread') 全ての未読通知
         a.header-dropdown__footer-link(href='/notifications') 全ての通知
         a.header-dropdown__footer-link(
           href='/notifications/allmarks',
@@ -64,7 +64,7 @@ export default {
     }
   },
   created() {
-    fetch(`/api/notifications/unread.json`, {
+    fetch(`/api/notifications.json?status=unread`, {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'

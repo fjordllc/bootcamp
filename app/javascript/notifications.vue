@@ -53,13 +53,13 @@ export default {
   computed: {
     url() {
       if (this.isUnreadPage) {
-        return `/api/notifications/unread.json?page=${this.currentPage}`
+        return `/api/notifications.json?page=${this.currentPage}&status=unread`
       } else {
         return `/api/notifications.json?page=${this.currentPage}`
       }
     },
     isUnreadPage() {
-      return location.pathname.includes('unread')
+      return location.search.includes('unread')
     },
     pagerProps() {
       return {
