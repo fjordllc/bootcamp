@@ -105,3 +105,16 @@ product<%= i %>:
   published_at: <%= (now - i).to_s(:db) %>
   created_at: <%= (now - i).to_s(:db) %>
 <% end %>
+
+product61:
+  practice: practice1
+  user: sumi
+  body: テストの提出物61です。
+  published_at: <%= (now - 60 * 60 * 24 * 10).to_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 10).to_s(:db) %>
+
+product62:
+  practice: practice1
+  user: take8
+  body: テストの提出物62です。
+  published_at: <%= (now - 60 * 60 * 24 * 10).to_s(:db) %>
