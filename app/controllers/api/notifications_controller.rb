@@ -2,8 +2,10 @@
 
 class API::NotificationsController < API::BaseController
   def index
+    status = params[:status]
+
     @notifications = current_user.notifications
-                                 .reads_with_avatar
+                                 .by_read_status(status)
                                  .order(created_at: :desc)
                                  .page(params[:page])
   end
