@@ -1,4 +1,4 @@
-.a-date
+.a-meta
   +text-block(1em 1.4, $muted-text flex)
   flex-wrap: wrap
   +media-breakpoint-up(md)
@@ -8,8 +8,13 @@
   .is-important
     color: $danger
     font-weight: 600
+  .is-muted
+    color: $muted-text
+  .is-emphasized
+    color: $default-text
+    font-weight: 600
   +media-breakpoint-up(md)
-    .a-date + &
+    .a-meta + &
       margin-left: .25em
       &::before
         content: "（"
@@ -20,7 +25,7 @@
     .thread-list-item-meta__icon-link
       display: none
 
-.a-date__label
+.a-meta__label
   &::after
     content: ":"
     display: inline-flex
