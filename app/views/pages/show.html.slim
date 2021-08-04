@@ -71,11 +71,10 @@ header.page-header
               .thread-header-actions__start
                 .thread-header-actions__action
                   #js-watch-toggle(data-watchable-id="#{@page.id}", data-watchable-type='Page')
-          - if @page.practice.present?
-            .thread-header__row
-              .thread-practice
-                = link_to @page.practice, class: 'thread-practice__link' do
-                  = @page.practice.title
+        - if @page.practice.present?
+          .thread-category
+            = link_to @page.practice, class: 'thread-category__link' do
+              = @page.practice.title
 
         .thread__tags
           #js-page-tags(
