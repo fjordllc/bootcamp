@@ -531,4 +531,11 @@ class ReportsTest < ApplicationSystemTestCase
     selects_size = users(:kimura).course.practices.size + 1
     assert_selector '.select2-results__option', count: selects_size
   end
+
+  test 'show number of comments' do
+    visit_with_auth report_path(reports(:report1)), 'komagata'
+    within(:css, '.is-emphasized') do
+      assert_text '2'
+    end
+  end
 end

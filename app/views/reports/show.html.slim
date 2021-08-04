@@ -32,19 +32,26 @@ header.page-header
                   = link_to @report.user, class: 'a-user-name', title: @report.user.name do
                     = @report.user.login_name
                 .thread-header-metas__meta
-                  .a-date
+                  .a-meta
                     = l @report.reported_on
-                    |(
-                    span.a-date__count(class="#{@report.serial_number < 6 ? 'is-important' : ''}")
+                    | （
+                    span.a-meta__count(class="#{@report.serial_number < 6 ? 'is-important' : ''}")
                       = @report.number
-                    |)
+                    | ）
                     = 'の日報' unless @report.first?
                 - if @report.published_at.present?
                   .thread-header-metas__meta
-                    .a-date
-                      .a-date__label
+                    .a-meta
+                      .a-meta__label
                         | 提出日
                       = l @report.published_at
+                .thread-header-metas__meta
+                  .a-meta
+                    - length = @report.comments.length
+                    | コメント（
+                    span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                      = length
+                    | ）
           .thread-header__row
             .thread-header-title(class="#{@report.wip? ? 'is-wip' : ''}")
               - if @report.emotion.present?

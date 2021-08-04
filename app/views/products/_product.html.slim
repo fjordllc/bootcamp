@@ -21,23 +21,23 @@
                 = product.user.login_name
             .thread-list-item-meta__item
               - if product.wip?
-                .a-date
+                .a-meta
                   | 提出物作成中
               - elsif product.published_at.present?
-                time.a-date(datetime="#{product.published_at.to_datetime}")
-                  span.a-date__label
+                time.a-meta(datetime="#{product.published_at.to_datetime}")
+                  span.a-meta__label
                     | 提出日
                   = l product.published_at
               - else
-                time.a-date(datetime="#{product.created_at.to_datetime}")
-                  span.a-date__label
+                time.a-meta(datetime="#{product.created_at.to_datetime}")
+                  span.a-meta__label
                     | 提出日
                   = l product.created_at
 
             - if product.updated_at.present?
               .thread-list-item-meta__item
-                time.a-date(datetime="#{product.updated_at.to_datetime}")
-                  span.a-date__label
+                time.a-meta(datetime="#{product.updated_at.to_datetime}")
+                  span.a-meta__label
                     | 更新
                   = l product.updated_at
       - if product.comments.any?
@@ -56,7 +56,7 @@
                       locals: { link_class: 'thread-list-item-comment__user-icon', image_class: 'a-user-icon' },
                       as: :user,
                       cached: true
-                  time.a-date(datetime="#{product.commented_users.last.created_at.to_datetime}")
+                  time.a-meta(datetime="#{product.commented_users.last.created_at.to_datetime}")
                     | 〜 #{l product.comments.last.created_at, format: :date_and_time}
       - if !current_user.adviser? && product.practice.open_product?
         .thread-list-item__row

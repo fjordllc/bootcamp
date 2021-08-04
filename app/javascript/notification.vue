@@ -19,7 +19,7 @@
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
-              time.a-date(:datetime='notification.created_at') {{ formattedCreatedAtInJapanese }}
+              time.a-meta(:datetime='notification.created_at') {{ formattedCreatedAtInJapanese }}
     .thread-list-item__author
       img.thread-list-item__author-icon.a-user-icon(
         :title='notification.sender.icon_title',
