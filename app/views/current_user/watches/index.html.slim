@@ -5,16 +5,14 @@ header.page-header
       h2.page-header__title
         | ダッシュボード
 
-.page-tools
 = render 'home/page_tabs', user: @user
 
 .page-body
-  .container
-    - if @watches.present?
-      #js-watches
-    - else
-      .o-empty-message
-        .o-empty-message__icon
-          i.far.fa-sad-tear
-        p.o-empty-message__text
-          | Watch中はまだありません。
+  - if @watches.present?
+    #js-watches
+  - else
+    .o-empty-message
+      .o-empty-message__icon
+        i.far.fa-sad-tear
+      p.o-empty-message__text
+        | Watch中はまだありません。
