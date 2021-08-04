@@ -24,7 +24,8 @@
                 = b.label { b.check_box + b.text }
   .form-actions
     ul.form-actions__items
-      li.form-actions__item
-        = link_to 'キャンセル', :back, class: 'a-button is-md is-secondary'
-      li.form-actions__item
-        button.a-button.is-lg.is-warning 内容を保存
+      li.form-actions__item.is-main
+        button.a-button.is-lg.is-warning.is-block
+          | 内容を保存
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', :back, class: 'a-button is-md is-secondary is-block'
