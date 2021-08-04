@@ -180,4 +180,16 @@ class PagesTest < ApplicationSystemTestCase
     visit "/pages/#{slug}"
     assert_text 'slug付きテストページの本文'
   end
+
+  test 'show comment count' do
+    visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
+    assert_text "コメント（\n0\n）"
+
+    fill_in 'new_comment[description]', with: 'コメント数表示のテストです。'
+    click_button 'コメントする'
+    wait_for_vuejs
+
+    visit current_path
+    assert_text "コメント（\n1\n）"
+  end
 end
