@@ -9,12 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     button.addEventListener('click', () => {
       button.parentElement.innerHTML = ''
-        
+
         if (document.cookie.split('; ').find(row => row.startsWith('confirmed_event_ids')) === undefined){
           document.cookie = "confirmed_event_ids=" + JSON.stringify([eventId]) + ";max-age=2592000;" // 有効期限30日=259200秒
         }else{
           const originalEventIds = document.cookie.split('; ').find(row => row.startsWith('confirmed_event_ids'))
-          const updatedEventIds = originalEventIds.substr(20)
+          const unnecessaryCharacters = 20
+          const updatedEventIds = originalEventIds.substr(unnecessaryCharacters) // Keyである"confirmed_event_ids="の20文字を除きidであるvalue値のみを取得
           const savedEventIds = JSON.parse(updatedEventIds)
           savedEventIds.push(eventId)
           document.cookie = "confirmed_event_ids=" + JSON.stringify(savedEventIds) + ";max-age=2592000;" // 有効期限30日=259200秒
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const eventCount = document.querySelectorAll(selector + ' .js-close-event').length
       if (eventCount < 1) {
-        document.querySelector('.incoming-events').parentElement.parentElement.innerHTML = ''
+        document.querySelector('#events_on_dashbord.confirmed_event').innerHTML = ''
       }
     })
   })
