@@ -20,7 +20,8 @@ class Notification < ApplicationRecord
     trainee_report: 10,
     moved_up_event_waiting_user: 11,
     create_pages: 12,
-    following_report: 13
+    following_report: 13,
+    chose_correct_answer: 14
   }
 
   scope :reads, lambda {
@@ -187,6 +188,17 @@ class Notification < ApplicationRecord
       sender: report.sender,
       path: Rails.application.routes.url_helpers.polymorphic_path(report),
       message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
+      read: false
+    )
+  end
+
+  def self.chose_correct_answer(answer, receiver)
+    Notification.create!(
+      kind: 14,
+      user: receiver,
+      sender: answer.receiver,
+      path: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
+      message: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
       read: false
     )
   end

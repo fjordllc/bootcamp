@@ -110,4 +110,11 @@ class NotificationMailerPreview < ActionMailer::Preview
       receiver: receiver
     ).moved_up_event_waiting_user
   end
+
+  def chose_correct_answer
+    answer = Answer.find(ActiveRecord::FixtureSet.identify(:correct_answer2))
+    receiver = answer.sender
+
+    NotificationMailer.with(answer: answer, receiver: receiver).chose_correct_answer
+  end
 end
