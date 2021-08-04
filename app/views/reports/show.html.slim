@@ -46,8 +46,8 @@ header.page-header
                         | 提出日
                       = l @report.published_at
                 .thread-header-metas__meta
-                  .a-meta
-                    - length = @report.comments.length
+                  - length = @report.comments.length
+                  a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
                     | コメント（
                     span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
                       = length
