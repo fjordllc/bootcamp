@@ -17,7 +17,7 @@
               a.a-user-name(:href='`/users/${question.user.id}`')
                 | {{ question.user.login_name }}
             .thread-header-metas__meta
-              .a-date
+              .a-meta
                 time.thread_header_date-value(
                   :datetime='updatedAtISO8601',
                   pubdate='pubdate'

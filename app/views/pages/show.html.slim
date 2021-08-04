@@ -24,8 +24,8 @@ header.page-header
               .thread-header-metas__start
                 - if @page.wip?
                   .thread-header-metas__meta
-                    .a-date
-                      span.a-date__label
+                    .a-meta
+                      span.a-meta__label
                         | Doc作成中 by
                         = render 'users/icon',
                           user: @page.user,
@@ -35,18 +35,18 @@ header.page-header
                           | #{@page.user.login_name}
                 - elsif @page.published_at.present?
                   .thread-header-metas__meta
-                    .a-date
-                      span.a-date__label
+                    .a-meta
+                      span.a-meta__label
                         | 公開
-                      time.a-date__value(datetime="#{@page.published_at.to_datetime}")
+                      time.a-meta__value(datetime="#{@page.published_at.to_datetime}")
                         | #{l @page.published_at}
 
                 - if @page.last_updated_user.present?
                   .thread-header-metas__meta
-                    .a-date
-                      span.a-date__label
+                    .a-meta
+                      span.a-meta__label
                         | 更新
-                      time.a-date__value(datetime="#{@page.updated_at.to_datetime}")
+                      time.a-meta__value(datetime="#{@page.updated_at.to_datetime}")
                         | #{l @page.updated_at} by
                         = render 'users/icon',
                           user: @page.last_updated_user,

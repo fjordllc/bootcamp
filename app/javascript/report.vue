@@ -35,7 +35,7 @@
             .thread-list-item-meta__item
               a.a-user-name(:href='report.user.url') {{ report.user.login_name }}
             .thread-list-item-meta__item
-              time.a-date {{ report.reportedOn }}
+              time.a-meta {{ report.reportedOn }}
                 | の日報
       .thread-list-item__row(v-if='report.hasAnyComments')
         hr.thread-list-item__row-separator
@@ -53,7 +53,7 @@
                     :key='comment.id',
                     :comment='comment'
                   )
-                time.a-date(
+                time.a-meta(
                   datetime='report.lastCommentDatetime',
                   pubdate='\'pubdate\''
                 )
