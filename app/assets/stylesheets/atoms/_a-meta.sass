@@ -25,6 +25,15 @@
     .thread-list-item-meta__icon-link
       display: none
 
+a.a-meta
+  +hover-link
+  color: $muted-text
+  transition: all .2s ease-out
+  &:hover
+    color: $main
+  &.is-disabled
+    pointer-events: none
+
 .a-meta__label
   &::after
     content: ":"

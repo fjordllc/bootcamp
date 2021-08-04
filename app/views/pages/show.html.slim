@@ -55,8 +55,8 @@ header.page-header
                         = link_to @page.last_updated_user, class: 'a-user-name' do
                           | #{@page.last_updated_user.login_name}
                 .thread-header-metas__meta
-                  .a-meta
-                    - length = @page.comments.length
+                  - length = @page.comments.length
+                  a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
                     | コメント（
                     span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
                       = length
