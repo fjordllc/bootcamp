@@ -19,7 +19,7 @@
               a.a-user-name(:href='userUrl')
                 | {{ watch.edit_user.login_name }}
             .thread-list-item-meta__item
-              time.a-date(:datetime='watch.updated_at')
+              time.a-meta(:datetime='watch.updated_at')
                 | {{ createdAt }}
     .thread-list-item__option(v-if='checked')
       watchToggle(

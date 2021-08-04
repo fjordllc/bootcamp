@@ -30,20 +30,20 @@
             .thread-list-item-meta__item
               a.a-user-name(:href='product.user.url') {{ product.user.login_name }}
             .thread-list-item-meta__item(v-if='product.wip')
-              .a-date 提出物作成中
+              .a-meta 提出物作成中
             .thread-list-item-meta__item(v-else-if='product.published_at')
-              time.a-date(datetime='product.published_at_date_time')
-                span.a-date__label 提出日
+              time.a-meta(datetime='product.published_at_date_time')
+                span.a-meta__label 提出日
                 | {{ product.published_at }}
             .thread-list-item-meta__item(v-else)
-              time.a-date(datetime='product.created_at_date_time')
-                span.a-date__label 提出日
+              time.a-meta(datetime='product.created_at_date_time')
+                span.a-meta__label 提出日
                 | {{ product.created_at }}
-            time.a-date(
+            time.a-meta(
               v-if='product.updated_at',
               datetime='product.updated_at_date_time'
             )
-              span.a-date__label 更新
+              span.a-meta__label 更新
               | {{ product.updated_at }}
 
       .thread-list-item__row(v-if='product.comments.size > 0')
@@ -67,7 +67,7 @@
                       :src='user.avatar_url',
                       :class='[roleClass, daimyoClass]'
                     )
-                time.a-date(
+                time.a-meta(
                   datetime='product.comments.last_created_at_date_time'
                 )
                   | 〜 {{ product.comments.last_created_at }}

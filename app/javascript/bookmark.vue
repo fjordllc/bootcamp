@@ -19,7 +19,7 @@
               a.a-user-name(:href='bookmark.authorUrl')
                 | {{ bookmark.author }}
             .thread-list-item-meta__item
-              time.a-date(:datetime='bookmark.updated_at')
+              time.a-meta(:datetime='bookmark.updated_at')
                 | {{ createdAt }}
     .thread-list-item__option(v-if='checked')
       bookmarkButton(

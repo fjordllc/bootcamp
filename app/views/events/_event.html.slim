@@ -8,8 +8,8 @@
               = link_to event.user, class: 'a-user-name' do
                 = event.user.long_name
             .thread-header-metas__meta
-              .a-date
-                time.a-date__value(datetime="#{event.created_at.to_datetime}" pubdate='pubdate')
+              .a-meta
+                time.a-meta__value(datetime="#{event.created_at.to_datetime}" pubdate='pubdate')
                   = l event.updated_at
 
       .thread-header__row

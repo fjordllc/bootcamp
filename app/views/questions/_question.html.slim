@@ -25,7 +25,7 @@
             .thread-list-item-meta__item
               = link_to question.user.login_name, question.user, class: 'a-user-name'
             .thread-list-item-meta__item
-              time.a-date(datetime="#{question.updated_at.to_datetime}" pubdate='pubdate')
+              time.a-meta(datetime="#{question.updated_at.to_datetime}" pubdate='pubdate')
                 = l question.updated_at
             - if question.answers.present?
               .thread-list-item-meta__item
