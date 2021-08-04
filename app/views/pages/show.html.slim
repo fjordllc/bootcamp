@@ -19,11 +19,6 @@ header.page-header
     article.thread.is-page
       .thread__inner.a-card
         header.thread-header.has-count
-          a.a-count-badge(href='#comments')
-            .a-count-badge__label
-              | コメント
-            .a-count-badge__value(class="#{@page.comments.empty? ? 'is-zero' : ''}")
-              = @page.comments.size
           .thread-header__row
             .thread-header-metas
               .thread-header-metas__start
@@ -59,6 +54,13 @@ header.page-header
                           image_class: 'thread-header__user-icon'
                         = link_to @page.last_updated_user, class: 'a-user-name' do
                           | #{@page.last_updated_user.login_name}
+                .thread-header-metas__meta
+                  .a-meta
+                    - length = @page.comments.length
+                    | コメント（
+                    span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                      = length
+                    | ）
               - if @page.slug.present?
                 .thread-header-metas__end
                   .thread-header-metas__meta
