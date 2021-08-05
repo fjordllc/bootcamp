@@ -38,7 +38,10 @@ header.page-header
             = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
 
         .col-xs-12.col-xl-6.col-xxl-6
-          - if current_user.staff? && User.all.job_seeking.present?
+          - if true
+            = "イベントの紹介スペース"
+            = render partial: 'events', collection: @events, as: :event
+          - if (current_user.admin? || current_user.adviser?) && User.all.job_seeking.present?
             = render 'job_seeking_users', users: User.all.job_seeking
           - if current_user.staff? && @reservations_for_today.present?
             = render 'reserved_seats_today', reservations: @reservations_for_today

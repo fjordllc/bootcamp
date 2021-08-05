@@ -1,0 +1,7 @@
+
+.thread-list-item
+  = "広告スペース"
+  header.thread-list-item__header
+    h2.thread-list-item__title(itemprop='name')
+      = link_to event, itemprop: 'url', class: 'thread-list-item__title-link' do
+        = event.title
