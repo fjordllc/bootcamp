@@ -121,7 +121,7 @@ export default {
     hasCorrectAnswer: { type: Boolean, required: true },
     questionUser: { type: Object, required: true }
   },
-  data: () => {
+  data() {
     return {
       description: '',
       editing: false,

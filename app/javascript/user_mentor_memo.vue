@@ -65,7 +65,7 @@ export default {
     userId: { type: String, required: true },
     productsMode: { type: Boolean, required: true }
   },
-  data: () => {
+  data() {
     return {
       memo: '',
       tab: 'memo',

@@ -68,7 +68,7 @@ export default {
     reservationsEndOfThisMonth: { type: String, required: true },
     currentUserId: { type: String, required: true }
   },
-  data: () => {
+  data() {
     return {
       thisMonths: [],
       reservation: [],
