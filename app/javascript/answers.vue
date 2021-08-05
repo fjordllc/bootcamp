@@ -72,7 +72,7 @@ export default {
     questionUser: { type: Object, required: true },
     currentUser: { type: Object, required: true }
   },
-  data: () => {
+  data() {
     return {
       answers: [],
       description: '',

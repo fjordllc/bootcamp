@@ -38,7 +38,7 @@ export default {
     currentUser: { type: Object, required: true },
     reactionableId: { type: String, required: true }
   },
-  data: () => {
+  data() {
     return {
       availableEmojis: [],
       dropdown: false

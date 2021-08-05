@@ -59,7 +59,7 @@ export default {
     courseId: { type: String, required: true },
     currentUser: { type: Object, required: true }
   },
-  data: () => {
+  data() {
     return {
       categories: null,
       learnings: null
