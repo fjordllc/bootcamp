@@ -6,6 +6,7 @@
           = link_to course.title, [course, :practices], class: 'courses-item__title-link'
       .courses-item__description
         = simple_format(course.description)
+        p コース表示: #{course.open_course ? 'ON' : 'OFF'}
       - if admin_login?
         footer.card-footer
           .card-main-actions
