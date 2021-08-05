@@ -20,17 +20,17 @@ nav.global-nav
           = link_to report_link, class: "global-nav-links__link #{current_link(/^reports/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-pen
-            - if current_user.admin_or_mentor? && Cache.unchecked_report_count.positive?
+            - if admin_or_mentor_login? && Cache.unchecked_report_count.positive?
               .global-nav__item-count.a-notification-count.is-only-mentor
                 = Cache.unchecked_report_count
             .global-nav-links__link-label 日報
         - if staff_login?
           li.global-nav-links__item
-            - products_link = admin_login? || mentor_login? ? products_not_responded_index_path : products_path
+            - products_link = admin_or_mentor_login? ? products_not_responded_index_path : products_path
             = link_to products_link, class: "global-nav-links__link #{current_link(/^products/)}" do
               .global-nav-links__link-icon
                 i.fas.fa-fw.fa-hand-paper
-              - if admin_login? || mentor_login? && Cache.not_responded_product_count.positive?
+              - if admin_or_mentor_login? && Cache.not_responded_product_count.positive?
                 .global-nav__item-count.a-notification-count.is-only-mentor
                   = Cache.not_responded_product_count
               .global-nav-links__link-label 提出物
@@ -43,7 +43,7 @@ nav.global-nav
                 = Question.not_solved.count
             .global-nav-links__link-label Q&A
         li.global-nav-links__item
-          = link_to '/pages', class: "global-nav-links__link #{current_link(/^pages/)}" do
+          = link_to '/pages', class: "global-nav-links__link #{(@page&.slug != 'help') && current_link(/^pages/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-file
             .global-nav-links__link-label Docs
@@ -58,7 +58,7 @@ nav.global-nav
               i.fas.fa-fw.fa-beer
             .global-nav-links__link-label イベント
         li.global-nav-links__item
-          = link_to '/pages/334', class: "global-nav-links__link #{current_link(%r{^pages/334})}" do
+          = link_to '/pages/help', class: "global-nav-links__link #{(@page&.slug == 'help') && current_link(/^pages/)}" do
             .global-nav-links__link-icon
               i.fas.fa-hands-helping
             .global-nav-links__link-label ヘルプ

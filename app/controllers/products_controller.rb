@@ -74,7 +74,7 @@ class ProductsController < ApplicationController
   end
 
   def find_my_product
-    if admin_login?
+    if admin_or_mentor_login?
       Product.find(params[:id])
     else
       current_user.products.find(params[:id])

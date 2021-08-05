@@ -28,7 +28,7 @@
     ul.form-actions__items
       li.form-actions__item.is-main
         = f.submit nil, class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
-      li.form-actions__item
+      li.form-actions__item.is-sub
         - case params[:action]
         - when 'new', 'create'
           = link_to 'キャンセル', articles_path, class: 'a-button is-md is-secondary is-block'

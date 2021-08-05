@@ -20,11 +20,11 @@
         .thread-list-item-meta__items
           .thread-list-item-meta__item
             .thread-list-item-meta(v-if='announcement.wip')
-              .a-date
+              .a-meta
                 | {{ title }}作成中
             .thread-list-item-meta(v-else)
-              time.a-date(datetime='announcement.published_at_date_time')
-                span.span.a-date__label
+              time.a-meta(datetime='announcement.published_at_date_time')
+                span.span.a-meta__label
                   | 公開
                 | {{ announcement.published_at }}
           .thread-list-item-meta__item

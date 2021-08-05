@@ -20,10 +20,10 @@
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
-              time.a-date(datetime=event.start_at.to_datetime)
-                span.a-date__label
+              time.a-meta(datetime=event.start_at.to_datetime)
+                span.a-meta__label
                   | 開催日時
-                span.a-date__value
+                span.a-meta__value
                   = l event.start_at
             .thread-list-item-meta__item
               .thread-list-item-comment

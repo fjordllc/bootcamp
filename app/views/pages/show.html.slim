@@ -18,14 +18,14 @@ header.page-header
   .container
     article.thread.is-page
       .thread__inner.a-card
-        header.thread-header
+        header.thread-header.has-count
           .thread-header__row
             .thread-header-metas
               .thread-header-metas__start
                 - if @page.wip?
                   .thread-header-metas__meta
-                    .a-date
-                      span.a-date__label
+                    .a-meta
+                      span.a-meta__label
                         | Doc作成中 by
                         = render 'users/icon',
                           user: @page.user,
@@ -35,18 +35,18 @@ header.page-header
                           | #{@page.user.login_name}
                 - elsif @page.published_at.present?
                   .thread-header-metas__meta
-                    .a-date
-                      span.a-date__label
+                    .a-meta
+                      span.a-meta__label
                         | 公開
-                      time.a-date__value(datetime="#{@page.published_at.to_datetime}")
+                      time.a-meta__value(datetime="#{@page.published_at.to_datetime}")
                         | #{l @page.published_at}
 
                 - if @page.last_updated_user.present?
                   .thread-header-metas__meta
-                    .a-date
-                      span.a-date__label
+                    .a-meta
+                      span.a-meta__label
                         | 更新
-                      time.a-date__value(datetime="#{@page.updated_at.to_datetime}")
+                      time.a-meta__value(datetime="#{@page.updated_at.to_datetime}")
                         | #{l @page.updated_at} by
                         = render 'users/icon',
                           user: @page.last_updated_user,
@@ -54,6 +54,13 @@ header.page-header
                           image_class: 'thread-header__user-icon'
                         = link_to @page.last_updated_user, class: 'a-user-name' do
                           | #{@page.last_updated_user.login_name}
+                .thread-header-metas__meta
+                  - length = @page.comments.length
+                  a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
+                    | コメント（
+                    span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                      = length
+                    | ）
               - if @page.slug.present?
                 .thread-header-metas__end
                   .thread-header-metas__meta
@@ -71,11 +78,10 @@ header.page-header
               .thread-header-actions__start
                 .thread-header-actions__action
                   #js-watch-toggle(data-watchable-id="#{@page.id}", data-watchable-type='Page')
-          - if @page.practice.present?
-            .thread-header__row
-              .thread-practice
-                = link_to @page.practice, class: 'thread-practice__link' do
-                  = @page.practice.title
+        - if @page.practice.present?
+          .thread-category
+            = link_to @page.practice, class: 'thread-category__link' do
+              = @page.practice.title
 
         .thread__tags
           #js-page-tags(
@@ -95,7 +101,7 @@ header.page-header
                 = link_to [:edit, @page], class: 'card-main-actions__action a-button is-md is-secondary is-block' do
                   i.fas.fa-pen
                   | 内容変更
-              - if admin_login? || current_user == @page.user
+              - if admin_or_mentor_login? || current_user == @page.user
                 li.card-main-actions__item.is-sub
                   = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
                     | 削除する
@@ -108,4 +114,5 @@ header.page-header
           user: @page.user,
           link_class: 'thread__author-link',
           image_class: 'thread__author-icon'
+    a#comments.a-anchor
     #js-comments(data-commentable-id="#{@page.id}" data-commentable-type='Page' data-current-user-id="#{current_user.id}")
