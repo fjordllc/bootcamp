@@ -133,6 +133,7 @@ export default {
     }
   },
   mounted() {
+    this.loadState()
     fetch(`/api/niconico_calendars/${this.userId}.json`, {
       method: 'GET',
       headers: {
@@ -171,6 +172,7 @@ export default {
         this.calendarMonth--
       }
       this.$nextTick(() => (this.loaded = true))
+      this.saveState()
     },
     nextMonth() {
       this.loaded = false
@@ -181,6 +183,7 @@ export default {
         this.calendarMonth++
       }
       this.$nextTick(() => (this.loaded = true))
+      this.saveState()
     },
     emotionClass(date) {
       return date.emotion ? `is-${date.emotion}` : 'is-blank'
@@ -208,6 +211,24 @@ export default {
     },
     reportDate(report) {
       return Number(report.reported_on.split('-')[2])
+    },
+    loadState() {
+      const params = new URLSearchParams(location.search)
+      const yearMonth = params.get('niconico_calendar') || ''
+      const match = /(\d{4})-(\d{2})/.exec(yearMonth)
+      if (!match) {
+        return
+      }
+
+      this.calendarYear = parseInt(match[1])
+      this.calendarMonth = parseInt(match[2])
+    },
+    saveState() {
+      const year = String(this.calendarYear)
+      const month = String(this.calendarMonth).padStart(2, '0')
+      const params = new URLSearchParams(location.search)
+      params.set('niconico_calendar', `${year}-${month}`)
+      history.replaceState(history.state, '', `?${params}${location.hash}`)
     }
   }
 }
