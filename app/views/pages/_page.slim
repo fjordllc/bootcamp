@@ -33,18 +33,18 @@
           .thread-list-item-meta__items
             .thread-list-item-meta__item
               - if page.wip?
-                .a-date
+                .a-meta
                   | Doc作成中
               - elsif page.published_at.present?
-                time.a-date(datetime="#{page.published_at.to_datetime}")
-                  span.a-date__label
+                time.a-meta(datetime="#{page.published_at.to_datetime}")
+                  span.a-meta__label
                     | 公開
-                  span.a-date__value
+                  span.a-meta__value
                     | #{l page.published_at}
             - if page.last_updated_user.present?
               .thread-list-item-meta__item
-                  time.a-date(datetime="#{page.updated_at.to_datetime}")
-                    span.a-date__label
+                  time.a-meta(datetime="#{page.updated_at.to_datetime}")
+                    span.a-meta__label
                       | 更新
                     | #{l page.updated_at} by
                     = render 'users/icon',

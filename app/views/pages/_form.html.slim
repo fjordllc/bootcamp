@@ -13,7 +13,7 @@
         .col-md-6.col-xs-12
           = f.label :title, class: 'a-form-label'
           = f.text_field :title, class: 'a-text-input js-warning-form'
-        - if admin_login?
+        - if admin_or_mentor_login?
           .col-md-3.col-xs-6
             = f.label :user, class: 'a-form-label'
             .select-users
@@ -49,9 +49,9 @@
             | 内容を保存
           - else
             | 内容を投稿
-      li.form-actions__item
+      li.form-actions__item.is-sub
         - case params[:action]
         - when 'new', 'create'
-          = link_to 'キャンセル', :pages, class: 'a-button is-md is-secondary'
+          = link_to 'キャンセル', :pages, class: 'a-button is-md is-secondary is-block'
         - when 'edit', 'update'
-          = link_to 'キャンセル', :pages, class: 'a-button is-md is-secondary'
+          = link_to 'キャンセル', :pages, class: 'a-button is-md is-secondary is-block'

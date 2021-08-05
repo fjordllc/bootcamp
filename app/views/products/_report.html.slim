@@ -16,7 +16,7 @@
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
-              time.a-date(datetime="#{report.reported_on.to_datetime}")
+              time.a-meta(datetime="#{report.reported_on.to_datetime}")
                 = l report.reported_on
                 = 'の日報'
       - if report.comments.any?
@@ -32,7 +32,7 @@
                     | （#{report.comments.size}）
                   .thread-list-item-comment__user-icons
                     = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
-                  time.a-date(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate='pubdate')
+                  time.a-meta(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate='pubdate')
                     | 〜 #{l report.comments.last.updated_at, format: :date_and_time}
 
     - if report.checks.any?

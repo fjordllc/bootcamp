@@ -4,8 +4,8 @@
       .card-list__item
         = link_to learning.practice, class: 'card-list__item-link' do
           = learning.practice.title
-          .a-date
-            .a-date__label
+          .a-meta
+            .a-meta__label
               | 完了日
-            .a-date__value
+            .a-meta__value
               = l learning.updated_at.to_date

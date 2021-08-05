@@ -37,6 +37,10 @@
       min-width: 16rem
     +media-breakpoint-down(sm)
       width: 100%
+  &.has-help
+    +media-breakpoint-up(md)
+      position: relative
+      padding-bottom: 1.5rem
   +media-breakpoint-down(sm)
     width: 100%
     +padding(horizontal, 0)
@@ -46,12 +50,13 @@
     > *
       width: 100%
 
-
 .form-actions__item-help
   +text-block(.8125rem 1, center)
   padding-top: .5rem
   .a-form-help-link
     margin-left: .5em
+  +media-breakpoint-up(md)
+    +position(absolute, left 0, bottom 0, right 0)
 
 .form-actions__description
   margin-top: 1em

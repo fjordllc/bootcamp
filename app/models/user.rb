@@ -5,8 +5,6 @@ class User < ApplicationRecord
   include Taggable
   include Searchable
 
-  self.ignored_columns = %i[slack_account slack_participation]
-
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id updated_at created_at report comment asc desc].freeze
   AVATAR_SIZE = '88x88>'
@@ -144,6 +142,12 @@ class User < ApplicationRecord
               allow_blank: true,
               with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
               message: 'は「ユーザー名#４桁の数字」で入力してください'
+            }
+  validates :times_url,
+            format: {
+              allow_blank: true,
+              with: %r{\Ahttps://discord\.gg/},
+              message: 'は「https://discord.gg/」で始まる招待URLを入力してください'
             }
 
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
