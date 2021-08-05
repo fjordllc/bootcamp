@@ -8,7 +8,7 @@
         i.far.fa-sad-tear
       p.o-empty-message__text
         | '{{ word }}'に一致する情報は見つかりませんでした。
-  .container(v-else)
+  .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .thread-list.a-card
