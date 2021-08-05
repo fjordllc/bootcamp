@@ -7,7 +7,7 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to admin_books_path, class: 'a-button is-md is-warning is-block' do
+            = link_to admin_books_path, class: 'a-button is-md is-secondary is-block' do
               i.fas.fa-plus
               | 書籍一覧
 
@@ -15,5 +15,5 @@ header.page-header
   = render 'admin/admin_page_tabs'
 
 .page-body
-  .container
+  .container.is-md
     = render 'form', book: @book

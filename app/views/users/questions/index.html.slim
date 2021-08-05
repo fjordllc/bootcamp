@@ -13,7 +13,7 @@ header.page-header
   = render 'users/page_tabs', user: @user
 
 .page-body
-  .container
+  .container.is-md
     - if @questions.present?
       .thread-list.a-card
         = render partial: 'questions/question', collection: @questions, as: :question

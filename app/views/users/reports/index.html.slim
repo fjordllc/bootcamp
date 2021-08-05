@@ -17,7 +17,7 @@ header.page-header
 = render 'users/page_tabs', user: @user
 
 .page-body
-  .container
+  .container.is-md
     = paginate @reports
     - if @reports.present?
       .thread-list.a-card
