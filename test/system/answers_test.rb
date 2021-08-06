@@ -71,7 +71,7 @@ class AnswersTest < ApplicationSystemTestCase
   test 'notify watchers of best answer' do
     visit_with_auth "/questions/#{questions(:question2).id}", 'sotugyou'
 
-    assert_difference 'NotificationMailer.deliveries.count', 1 do
+    assert_difference 'ActionMailer::Base.deliveries.count', 1 do
       perform_enqueued_jobs do
         accept_alert do
           click_button 'ベストアンサーにする'
