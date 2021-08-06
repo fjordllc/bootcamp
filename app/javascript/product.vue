@@ -45,6 +45,14 @@
             )
               span.a-meta__label 更新
               | {{ product.updated_at }}
+            .thread-list-item-meta__item(v-if='product.self_last_comment_at_date_time')
+              time.a-date(datetime='product.self_last_comment_at_date_time')
+                span.a-date__label 提出者最終コメント
+                | {{ product.self_last_comment_at }}
+            .thread-list-item-meta__item(v-if='product.mentor_last_comment_at_date_time')
+              time.a-date(datetime='product.mentor_last_comment_at_date_time')
+                span.a-date__label メンター最終コメント
+                | {{ product.mentor_last_comment_at }}
 
       .thread-list-item__row(v-if='product.comments.size > 0')
         hr.thread-list-item__row-separator
