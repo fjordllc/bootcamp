@@ -68,10 +68,10 @@ class AnswersTest < ApplicationSystemTestCase
     assert_text 'ベストアンサーにする'
   end
 
-  test 'notify answerer and watchers of best answer' do
+  test 'notify watchers of best answer' do
     visit_with_auth "/questions/#{questions(:question2).id}", 'sotugyou'
 
-    assert_difference 'NotificationMailer.deliveries.count', 2 do
+    assert_difference 'NotificationMailer.deliveries.count', 1 do
       perform_enqueued_jobs do
         accept_alert do
           click_button 'ベストアンサーにする'
@@ -80,13 +80,13 @@ class AnswersTest < ApplicationSystemTestCase
       end
     end
 
-    # 回答者に通知される
-    visit_with_auth '/notifications/unread', 'komagata'
-    assert_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
-
     # Watcherに通知される
     visit_with_auth '/notifications/unread', 'kimura'
     assert_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
+
+    # Watchしていない回答者には通知されない
+    visit_with_auth '/notifications/unread', 'komagata'
+    assert_no_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
 
     # 質問者には通知されない
     visit_with_auth '/notifications/unread', 'sotugyou'
