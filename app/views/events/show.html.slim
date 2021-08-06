@@ -18,7 +18,7 @@ header.page-header
               | イベント一覧
 
 .page-body
-  .container
+  .container.is-lg
     = render 'event', event: @event
     #js-comments(data-commentable-id="#{@event.id}" data-commentable-type='Event' data-current-user-id="#{current_user.id}")
     = render 'footprints/footprints', footprints: @footprints
