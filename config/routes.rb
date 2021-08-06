@@ -139,6 +139,7 @@ Rails.application.routes.draw do
         resources :sort, only: %i(index), controller: "courses/practices/sort"
       end
     end
+    resources :categories, only: %i(index), controller: "courses/categories"
   end
   resources :courses, except: %i(index show)
   resources :practices, except: %i(index destroy) do
