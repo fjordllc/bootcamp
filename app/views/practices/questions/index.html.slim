@@ -24,7 +24,7 @@ nav.tab-nav
         = link_to '解決済み', polymorphic_path([@practice, :questions], solved: 'true'), class: "tab-nav__item-link #{params[:solved].present? ? 'is-active' : ''}"
 
 .page-body
-  .container
+  .container.is-md
     - if @questions.present?
       .thread-list.a-card
         - @questions.each do |question|

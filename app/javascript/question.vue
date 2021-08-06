@@ -4,7 +4,7 @@
     .empty
       .fas.fa-spinner.fa-pulse
       | ロード中
-  .container(v-else)
+  .container.is-lg(v-else)
     questionEdit(
       :question='question',
       :answerCount='answerCount',

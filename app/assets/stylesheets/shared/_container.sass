@@ -1,0 +1,21 @@
+.container
+  max-width: 100%
+  +margin(horizontal, auto)
+  +media-breakpoint-up(lg)
+    +padding(horizontal, 1.5rem)
+  +media-breakpoint-down(md)
+    +padding(horizontal, 1rem)
+  &.is-xxxl
+    width: 93.75rem
+  &.is-xxl
+    width: 82.5rem
+  &.is-xl
+    width: 71.5rem
+  &.is-lg
+    width: 60rem
+  &.is-md
+    width: 45rem
+  &.is-sm
+    width: 33.75rem
+  body &.has-no-right-padding
+    padding-right: 0

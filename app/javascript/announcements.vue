@@ -8,7 +8,7 @@
         i.far.fa-smile
       p.o-empty-message__text
         | {{ title }}はありません
-  .container(v-else)
+  .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .thread-list.a-card
