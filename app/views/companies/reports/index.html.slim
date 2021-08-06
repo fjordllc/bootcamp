@@ -9,7 +9,7 @@ header.page-header
   = render 'companies/tabs', company: @company
 
 .page-body
-  .container
+  .container.is-md
     = paginate @reports
     - if @reports.present?
       .thread-list.a-card
