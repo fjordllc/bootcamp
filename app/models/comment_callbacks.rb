@@ -10,8 +10,13 @@ class CommentCallbacks
     end
 
     return unless comment.commentable.instance_of?(Product)
-
+    update_last_comment_at(comment)
     delete_product_cache(comment.commentable.id)
+  end
+
+  def after_update(comment)
+    return unless comment.commentable.instance_of?(Product)
+    update_last_comment_at(comment)
   end
 
   def after_destroy(comment)
@@ -21,6 +26,17 @@ class CommentCallbacks
   end
 
   private
+
+  def update_last_comment_at(comment)
+    product = Product.find(comment.commentable.id)
+    if comment.user.mentor
+      product.mentor_last_comment_at = comment.updated_at
+      product.save!
+    elsif comment.user == product.user
+      product.self_last_comment_at = comment.updated_at
+      product.save!
+    end
+  end
 
   def notify_comment(comment)
     NotificationFacade.came_comment(
