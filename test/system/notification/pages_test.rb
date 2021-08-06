@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Notification::PagesTest < ApplicationSystemTestCase
   test 'Only students and mentors are notified' do
     visit_with_auth '/pages', 'komagata'
-    click_link '新規Doc作成'
+    click_link 'Doc作成'
 
     within('.form') do
       fill_in('page[title]', with: 'DocsTest')
