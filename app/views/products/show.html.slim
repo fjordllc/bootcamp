@@ -75,8 +75,8 @@ header.page-header
                             = l @product.updated_at
 
                     .thread-header-metas__meta
-                      .a-meta
-                        - length = @product.comments.length
+                      - length = @product.comments.length
+                      a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
                         | コメント（
                         span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
                           = length
