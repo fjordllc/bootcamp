@@ -20,7 +20,9 @@ li.header-links__item(v-bind:class='hasCountClass')
     .header-dropdown__inner.is-notification
       ul.header-dropdown__items
         li.header-dropdown__item(v-for='notification in notifications')
-          a.header-dropdown__item-link(:href='notification.path')
+          a.header-dropdown__item-link.unconfirmed_link(
+            :href='notification.path'
+          )
             .header-notifications-item__body
               img.header-notifications-item__user-icon.a-user-icon(
                 :src='notification.sender.avatar_url'
@@ -36,6 +38,7 @@ li.header-links__item(v-bind:class='hasCountClass')
           ref='nofollow',
           data-method='post'
         ) 全て既読にする
+        button.header-dropdown__footer-link(@click='openUnconfirmedItems()') 全て別タブで開く
 </template>
 <script>
 import dayjs from 'dayjs'
@@ -89,6 +92,14 @@ export default {
     },
     createdAtFromNow(createdAt) {
       return dayjs(createdAt).fromNow()
+    },
+    openUnconfirmedItems() {
+      const links = document.querySelectorAll(
+        '.header-dropdown__item-link.unconfirmed_link'
+      )
+      links.forEach((link) => {
+        window.open(link.href, '_target', 'noopener')
+      })
     }
   }
 }
