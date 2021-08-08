@@ -34,7 +34,7 @@ export default {
     currentUserId: { type: String, required: true },
     questionId: { type: String, required: true }
   },
-  data: () => {
+  data() {
     return {
       question: null,
       currentUser: null,

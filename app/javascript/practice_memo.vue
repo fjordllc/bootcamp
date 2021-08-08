@@ -56,7 +56,7 @@ export default {
   props: {
     practiceId: { type: String, required: true }
   },
-  data: () => {
+  data() {
     return {
       memo: '',
       tab: 'memo',
