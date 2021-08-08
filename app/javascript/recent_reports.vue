@@ -15,7 +15,7 @@ export default {
   components: {
     'recent-report': RecentReport
   },
-  data: () => {
+  data() {
     return {
       reports: []
     }
