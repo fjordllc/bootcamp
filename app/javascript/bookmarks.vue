@@ -1,6 +1,6 @@
 <template lang="pug">
 .page-body
-  .container(v-if='!loaded')
+  .container(v-if='false')
     .empty
       .fas.fa-spinner.fa-pulse
       |
