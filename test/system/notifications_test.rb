@@ -50,7 +50,7 @@ class NotificationsTest < ApplicationSystemTestCase
                         path: '/reports/20400118',
                         user: users(:yamada),
                         sender: users(:machida))
-    visit_with_auth '/notifications/unread', 'yamada'
+    visit_with_auth '/notifications?status=unread', 'yamada'
     wait_for_vuejs
     assert_no_text '1番新しい既読の通知'
   end
@@ -169,5 +169,32 @@ class NotificationsTest < ApplicationSystemTestCase
     find('.header-links__link.test-show-notifications').click
     wait_for_vuejs
     assert_text 'hatsunoさんの【 「コメントと」の日報 】にkomagataさんがコメントしました。'
+  end
+
+  test 'show listing unread notification' do
+    visit_with_auth '/notifications?status=unread', 'hatsuno'
+    assert_equal '通知 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+  end
+
+  test 'non-mentor can not see a button to open all unread notifications' do
+    Notification.create(message: 'machidaさんがコメントしました',
+                        kind: 'came_comment',
+                        path: '/reports/20400118',
+                        user: users(:hatsuno),
+                        sender: users(:machida))
+    visit_with_auth '/notifications?status=unread', 'hatsuno'
+    wait_for_vuejs
+    assert_no_button '未読の通知を一括で開く'
+  end
+
+  test 'mentor can see a button to open to open all unread notifications' do
+    Notification.create(message: 'machidaさんがコメントしました',
+                        kind: 'came_comment',
+                        path: '/reports/20400118',
+                        user: users(:komagata),
+                        sender: users(:machida))
+    visit_with_auth '/notifications?status=unread', 'komagata'
+    wait_for_vuejs
+    assert_button '未読の通知を一括で開く'
   end
 end

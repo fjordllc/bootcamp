@@ -19,7 +19,7 @@ module NotificationHelper
   # open_notificationを実行した(右上のベルボタンを押した)かで
   # 戻り値が変更されるため、これを作成
   def exists_unread_notification?(message)
-    visit unread_index_path
+    visit notifications_path(status: 'unread')
     wait_for_vuejs # 通知一覧はVueでREST APIを利用して表示しているため
     exists = page.has_selector?('span.thread-list-item-title__link-label',
                                 text: message)
@@ -28,7 +28,7 @@ module NotificationHelper
   end
 
   def link_to_page_by_unread_notification(message)
-    visit unread_index_path
+    visit notifications_path(status: 'unread')
     wait_for_vuejs # 通知一覧はVueでREST APIを利用して表示しているため
     click_link message, class: 'thread-list-item-title__link'
   end
