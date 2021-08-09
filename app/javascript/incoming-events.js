@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ).length
       if (eventCount < 1) {
         document.querySelector(
-          '#events_on_dashbord.confirmed_event'
+          '#events_on_dashboard.confirmed_event'
         ).innerHTML = ''
       }
     })

@@ -14,8 +14,8 @@ header.page-header
   .container
     - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
       = render 'welcome_message'
-    #events_on_dashbord.confirmed_event
-      - if @events_coming_soon.present?
+    - if @events_coming_soon.present?
+      #events_on_dashboard.confirmed_event
         .thread-list.a-card
           header.card-header.is-sm
             h2.card-header__title 開催のイベント
