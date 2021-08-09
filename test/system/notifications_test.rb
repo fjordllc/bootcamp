@@ -197,4 +197,56 @@ class NotificationsTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_button '未読の通知を一括で開く'
   end
+
+  test 'show listing notification that target is all' do
+    Notification.create(message: 'お知らせの通知',
+                        kind: 'announced',
+                        path: '/announcements/1',
+                        user: users(:komagata),
+                        sender: users(:machida))
+    Notification.create(message: 'コメントの通知',
+                        kind: 'came_comment',
+                        path: '/reports/1',
+                        user: users(:komagata),
+                        sender: users(:machida))
+    visit_with_auth '/notifications', 'komagata'
+    wait_for_vuejs
+    assert_text 'コメントの通知'
+    assert_text 'お知らせの通知'
+  end
+
+  test 'show listing notification that target is announcements' do
+    Notification.create(message: 'お知らせの通知',
+                        kind: 'announced',
+                        path: '/announcements/1',
+                        user: users(:komagata),
+                        sender: users(:machida))
+    Notification.create(message: 'コメントの通知',
+                        kind: 'came_comment',
+                        path: '/reports/1',
+                        user: users(:komagata),
+                        sender: users(:machida))
+    visit_with_auth '/notifications?target=announcement', 'komagata'
+    wait_for_vuejs
+    assert_text 'お知らせの通知'
+    assert_no_text 'コメントの通知'
+  end
+
+  test 'show listing unread notification that target is announcements' do
+    Notification.create(message: '未読のお知らせの通知',
+                        kind: 'announced',
+                        path: '/announcements/1',
+                        user: users(:komagata),
+                        sender: users(:machida))
+    Notification.create(message: '既読のお知らせの通知',
+                        kind: 'announced',
+                        path: '/announcements/2',
+                        user: users(:komagata),
+                        sender: users(:machida),
+                        read: true)
+    visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
+    wait_for_vuejs
+    assert_text '未読のお知らせの通知'
+    assert_no_text '既読のお知らせの通知'
+  end
 end
