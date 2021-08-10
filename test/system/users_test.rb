@@ -208,6 +208,23 @@ class UsersTest < ApplicationSystemTestCase
     end
   end
 
+  test 'show mark to today on niconico_calendar' do
+    today = Time.current
+    visit_with_auth root_path, 'hatsuno'
+    visit user_path(users(:hajime).id)
+    assert_selector '.niconico-calendar__day.is-today'
+    target_day = find('.niconico-calendar__day.is-today').text
+    assert_equal today.day.to_s, target_day
+  end
+
+  test 'not show mark to today on niconico_calendar' do
+    visit_with_auth root_path, 'hatsuno'
+    visit user_path(users(:hajime).id)
+    find('.niconico-calendar-nav__previous').click
+    wait_for_vuejs
+    assert_no_selector '.niconico-calendar__day.is-today'
+  end
+
   test 'show times link on user page' do
     visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
     assert has_no_link?(href: 'https://discord.gg/kimura-times')
