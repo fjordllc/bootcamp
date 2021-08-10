@@ -14,6 +14,10 @@
                 = link_to edit_course_path(course), class: 'a-button is-md is-secondary is-block' do
                   i.fas.fa-pen
                   | 編集
-              li.card-main-actions__item.is-sub
+              li.card-main-actions__item
+                = link_to course_categories_path(course), class: 'a-button is-md is-secondary is-block' do
+                  i.fas.fa-align-justify
+                  | 並び替え
+              li.card-main-actions__item.is-end
                 = link_to course, method: :delete, class: 'card-main-actions__delete js-delete', data: { confirm: '本当によろしいですか？' } do
                   | 削除
