@@ -42,7 +42,6 @@ Rails.application.routes.draw do
     resources :checks, only: %i(index create destroy)
     resources :mention_users, only: %i(index)
     resources :users, only: %i(index show update)
-    resources :user_tags, only: %i(update)
     resources :user_icon_urls, only: %i(index)
     get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
     resources :reservations, only: %i(index create destroy)
@@ -59,8 +58,9 @@ Rails.application.routes.draw do
       resources :toggle, only: %i(index create destroy)
     end
     resources :memos, only: %i(create update destroy)
+    resources :mentor_memos, only: %i(update)
     resources :tags, only: %i(index)
-    resources :page_tags, only: %i(update)
+    resources :pages, only: %i(update)
     resources :questions, only: %i(show update)
     resources :followings, only: %i(create destroy)
     namespace :products do
