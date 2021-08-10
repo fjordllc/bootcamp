@@ -114,7 +114,8 @@ header.page-header
                             span.a-meta__label
                               | 最終コメント(メンター)
                             time.a-meta__value(datetime="#{@product.mentor_last_comment_at.to_datetime}")
-                              = l @product.mentor_last_comment_at                     
+                              = l @product.mentor_last_comment_at
+
               .thread-header__row
                 h1.thread-header-title(class="#{@product.wip? ? 'is-wip' : ''}")
                   - if @product.wip?
