@@ -10,12 +10,14 @@ class CommentCallbacks
     end
 
     return unless comment.commentable.instance_of?(Product)
+
     update_last_comment_at(comment)
     delete_product_cache(comment.commentable.id)
   end
 
   def after_update(comment)
     return unless comment.commentable.instance_of?(Product)
+
     update_last_comment_at(comment)
   end
 
