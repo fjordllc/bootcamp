@@ -119,7 +119,7 @@ export default {
           mentor_memo: this.memo
         }
       }
-      fetch(`/api/users/${this.userId}`, {
+      fetch(`/api/mentor_memos/${this.userId}`, {
         method: 'PUT',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
