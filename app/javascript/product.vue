@@ -48,14 +48,14 @@
             .thread-list-item-meta__item(
               v-if='product.self_last_comment_at_date_time'
             )
-              time.a-date(datetime='product.self_last_comment_at_date_time')
-                span.a-date__label 提出者最終コメント
+              time.a-meta(datetime='product.self_last_comment_at_date_time')
+                span.a-meta__label 提出者最終コメント
                 | {{ product.self_last_comment_at }}
             .thread-list-item-meta__item(
               v-if='product.mentor_last_comment_at_date_time'
             )
-              time.a-date(datetime='product.mentor_last_comment_at_date_time')
-                span.a-date__label メンター最終コメント
+              time.a-meta(datetime='product.mentor_last_comment_at_date_time')
+                span.a-meta__label メンター最終コメント
                 | {{ product.mentor_last_comment_at }}
 
       .thread-list-item__row(v-if='product.comments.size > 0')
