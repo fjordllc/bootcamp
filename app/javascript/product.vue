@@ -48,20 +48,32 @@
             .thread-list-item-meta__item(
               v-if='product.self_last_comment_at_date_time && product.mentor_last_comment_at_date_time'
             )
-              time.a-meta(v-if='product.self_last_comment_at_date_time > product.mentor_last_comment_at_date_time' datetime='product.self_last_comment_at_date_time')
+              time.a-meta(
+                v-if='product.self_last_comment_at_date_time > product.mentor_last_comment_at_date_time',
+                datetime='product.self_last_comment_at_date_time'
+              )
                 span.a-meta__label.self_comment 最終コメント(提出者)
                 | {{ product.self_last_comment_at }}
-              time.a-meta(v-if='product.self_last_comment_at_date_time < product.mentor_last_comment_at_date_time' datetime='product.mentor_last_comment_at_date_time')
+              time.a-meta(
+                v-if='product.self_last_comment_at_date_time < product.mentor_last_comment_at_date_time',
+                datetime='product.mentor_last_comment_at_date_time'
+              )
                 span.a-meta__label.mentor_comment 最終コメント(メンター)
                 | {{ product.mentor_last_comment_at }}
-             
+
             .thread-list-item-meta__item(
               v-else-if='product.self_last_comment_at_date_time || product.mentor_last_comment_at_date_time'
             )
-              time.a-meta(v-if='product.self_last_comment_at_date_time' datetime='product.self_last_comment_at_date_time')
+              time.a-meta(
+                v-if='product.self_last_comment_at_date_time',
+                datetime='product.self_last_comment_at_date_time'
+              )
                 span.a-meta__label.self_comment 最終コメント(提出者)
                 | {{ product.self_last_comment_at }}
-              time.a-meta(v-else-if='product.mentor_last_comment_at_date_time' datetime='product.mentor_last_comment_at_date_time')
+              time.a-meta(
+                v-else-if='product.mentor_last_comment_at_date_time',
+                datetime='product.mentor_last_comment_at_date_time'
+              )
                 span.a-meta__label.mentor_comment 最終コメント(メンター)
                 | {{ product.mentor_last_comment_at }}
 
