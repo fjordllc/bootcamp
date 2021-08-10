@@ -89,7 +89,7 @@ header.page-header
                             | 提出者最終コメント
                           time.a-date__value(datetime="#{@product.self_last_comment_at.to_datetime}")
                             = l @product.self_last_comment_at
-                    
+
                     - if @product.mentor_last_comment_at.present?
                       .thread-header-metas__meta
                         .a-date
