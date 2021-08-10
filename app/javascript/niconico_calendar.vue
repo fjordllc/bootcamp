@@ -220,8 +220,14 @@ export default {
         return
       }
 
-      this.calendarYear = parseInt(match[1])
-      this.calendarMonth = parseInt(match[2])
+      const year = parseInt(match[1])
+      const month = parseInt(match[2])
+      if (new Date(year, month).getTime() > Date.now()) {
+        return
+      }
+
+      this.calendarYear = year
+      this.calendarMonth = month
     },
     saveState() {
       const year = String(this.calendarYear)

@@ -68,6 +68,11 @@ class HomeTest < ApplicationSystemTestCase
     find('.niconico-calendar-nav').assert_text '2020年1月'
   end
 
+  test "show current month's page of Nico Nico calendar when future date is specified in URL params" do
+    visit_with_auth "/?niconico_calendar=#{Time.current.next_month.strftime('%Y-%m')}", 'hajime'
+    find('.niconico-calendar-nav').assert_text Time.current.strftime('%Y年%-m月')
+  end
+
   test 'keep Nico Nico calendar page even when leave dashboard' do
     visit_with_auth '/', 'hajime'
     find('.niconico-calendar-nav__previous').click
