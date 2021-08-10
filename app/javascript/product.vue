@@ -46,16 +46,23 @@
               span.a-meta__label 更新
               | {{ product.updated_at }}
             .thread-list-item-meta__item(
-              v-if='product.self_last_comment_at_date_time'
+              v-if='product.self_last_comment_at_date_time && product.mentor_last_comment_at_date_time'
             )
-              time.a-meta(datetime='product.self_last_comment_at_date_time')
-                span.a-meta__label 提出者最終コメント
+              time.a-meta(v-if='product.self_last_comment_at_date_time > product.mentor_last_comment_at_date_time' datetime='product.self_last_comment_at_date_time')
+                span.a-meta__label.self_comment 最終コメント(提出者)
                 | {{ product.self_last_comment_at }}
+              time.a-meta(v-if='product.self_last_comment_at_date_time < product.mentor_last_comment_at_date_time' datetime='product.mentor_last_comment_at_date_time')
+                span.a-meta__label.mentor_comment 最終コメント(メンター)
+                | {{ product.mentor_last_comment_at }}
+             
             .thread-list-item-meta__item(
-              v-if='product.mentor_last_comment_at_date_time'
+              v-else-if='product.self_last_comment_at_date_time || product.mentor_last_comment_at_date_time'
             )
-              time.a-meta(datetime='product.mentor_last_comment_at_date_time')
-                span.a-meta__label メンター最終コメント
+              time.a-meta(v-if='product.self_last_comment_at_date_time' datetime='product.self_last_comment_at_date_time')
+                span.a-meta__label.self_comment 最終コメント(提出者)
+                | {{ product.self_last_comment_at }}
+              time.a-meta(v-else-if='product.mentor_last_comment_at_date_time' datetime='product.mentor_last_comment_at_date_time')
+                span.a-meta__label.mentor_comment 最終コメント(メンター)
                 | {{ product.mentor_last_comment_at }}
 
       .thread-list-item__row(v-if='product.comments.size > 0')

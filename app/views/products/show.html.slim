@@ -82,21 +82,39 @@ header.page-header
                           = length
                         | ）
 
-                    - if @product.self_last_comment_at.present?
-                      .thread-header-metas__meta
-                        .a-meta
-                          span.a-meta__label
-                            | 提出者最終コメント
-                          time.a-meta__value(datetime="#{@product.self_last_comment_at.to_datetime}")
-                            = l @product.self_last_comment_at
+                    - if @product.self_last_comment_at.present? && @product.mentor_last_comment_at.present?
+                      - if @product.self_last_comment_at > @product.mentor_last_comment_at
+                        .thread-header-metas__meta
+                          .a-meta.self_comment
+                            span.a-meta__label
+                              | 最終コメント(提出者)
+                            time.a-meta__value(datetime="#{@product.self_last_comment_at.to_datetime}")
+                              = l @product.self_last_comment_at
 
-                    - if @product.mentor_last_comment_at.present?
-                      .thread-header-metas__meta
-                        .a-meta
-                          span.a-meta__label
-                            | メンター最終コメント
-                          time.a-meta__value(datetime="#{@product.mentor_last_comment_at.to_datetime}")
-                            = l @product.mentor_last_comment_at
+                      - elsif @product.self_last_comment_at < @product.mentor_last_comment_at
+                        .thread-header-metas__meta
+                          .a-meta.mentor_comment
+                            span.a-meta__label
+                              | 最終コメント(メンター)
+                            time.a-meta__value(datetime="#{@product.mentor_last_comment_at.to_datetime}")
+                              = l @product.mentor_last_comment_at
+
+                    - elsif @product.self_last_comment_at.present? || @product.mentor_last_comment_at.present?
+                      - if @product.self_last_comment_at.present?
+                        .thread-header-metas__meta
+                          .a-meta.self_comment
+                            span.a-meta__label
+                              | 最終コメント(提出者)
+                            time.a-meta__value(datetime="#{@product.self_last_comment_at.to_datetime}")
+                              = l @product.self_last_comment_at
+
+                      - elsif @product.mentor_last_comment_at.present?
+                        .thread-header-metas__meta
+                          .a-meta.mentor_comment
+                            span.a-meta__label
+                              | 最終コメント(メンター)
+                            time.a-meta__value(datetime="#{@product.mentor_last_comment_at.to_datetime}")
+                              = l @product.mentor_last_comment_at                     
               .thread-header__row
                 h1.thread-header-title(class="#{@product.wip? ? 'is-wip' : ''}")
                   - if @product.wip?
