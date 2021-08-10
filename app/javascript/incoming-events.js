@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
           JSON.stringify(savedEventIds) +
           ';max-age=2592000;' // 有効期限30日=259200秒
       }
-
+// ↓のように保存されたid中に自身があれば自信を消すコード必要
       const eventCount = document.querySelectorAll(
         selector + ' .js-close-event'
       ).length
