@@ -58,6 +58,7 @@ Rails.application.routes.draw do
       resources :toggle, only: %i(index create destroy)
     end
     resources :memos, only: %i(create update destroy)
+    resources :mentor_memos, only: %i(update)
     resources :tags, only: %i(index)
     resources :pages, only: %i(update)
     resources :questions, only: %i(show update)
