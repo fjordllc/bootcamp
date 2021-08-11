@@ -405,19 +405,15 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'show unassigned products counter and can change counter after click assignee-button on unassigned-tab' do
     visit_with_auth products_path, 'komagata'
-    unassigned_tab = find('.page-tabs__item-link', text: '未アサイン')
-    within(unassigned_tab) do
-      assert_selector('.page-tabs__item-count.a-notification-count')
-    end
-
-    initial_counter = unassigned_tab.text
+    unassigned_tab = find('#test-unassigned-tab')
+    initial_counter = find('#test-unassigned-counter').text
 
     assignee_buttons = all('.a-button.is-block.is-secondary.is-sm', text: '担当する')
-    assignee_buttons.first(3).each(&:click)
+    assignee_buttons.first.click
 
     unassigned_tab.click
     wait_for_vuejs
-    operated_counter = find('.page-tabs__item-link.is-active', text: '未アサイン').text
+    operated_counter = find('#test-unassigned-counter').text
     assert_not_equal initial_counter, operated_counter
   end
 end
