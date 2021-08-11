@@ -79,6 +79,8 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getBookmarks() {
+      console.log(this)
+      console.log(this.url.replace("current_user/", ""))
       fetch(this.url, {
         method: 'GET',
         headers: {
@@ -91,9 +93,11 @@ export default {
       })
         .then((response) => {
           console.log(response)
+          console.log(response.json())
           return response.json()
         })
         .then((json) => {
+          console.log("gggggggg")
           this.bookmarks = []
           json.bookmarks.forEach((bookmark) => {
             this.bookmarks.push(bookmark)
