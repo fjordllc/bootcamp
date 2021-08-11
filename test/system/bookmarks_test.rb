@@ -9,7 +9,7 @@ class BookmarksTest < ApplicationSystemTestCase
   end
 
   test 'show my bookmark lists' do
-    visit_with_auth '/bookmarks', 'komagata'
+    visit_with_auth '/current_user/bookmarks', 'komagata'
     assert_text 'ブックマーク一覧'
     assert_text @report.title
   end
