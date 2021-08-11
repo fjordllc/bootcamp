@@ -1,6 +1,6 @@
 .thread
   .thread__inner.a-card
-    header.thread-header
+    header.thread-header.has-count
       .thread-header__row
         .thread-header-metas
           .thread-header-metas__start
@@ -16,6 +16,13 @@
                 span.a-meta__label
                   | 書いた日
                 = l announcement.updated_at
+            .thread-header-metas__meta
+              - length = @announcement.comments.length
+              a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
+                | コメント（
+                span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                  = length
+                | ）
       .thread-header__row
         h1.thread-header-title(class="#{announcement.wip? ? 'is-wip' : ''}")
           = announcement.title
