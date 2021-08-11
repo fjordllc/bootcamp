@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     reportsAPI() {
-      return `/api/reports/${this.reportId}.json?`
+      return `/api/reports/${this.reportId}.json`
     }
   },
   created() {
