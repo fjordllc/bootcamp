@@ -106,8 +106,8 @@ header.page-header
                           span#delete
                             | 削除する
 
-            - if (@report.user.daimyo? && staff_login?) || admin_or_mentor_login?
-              #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
+        - if (@report.user.daimyo? && staff_login?) || admin_or_mentor_login?
+          #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
 
           .thread-prev-next
             .thread-prev-next__item
