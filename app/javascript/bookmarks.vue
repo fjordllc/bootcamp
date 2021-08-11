@@ -1,6 +1,6 @@
 <template lang="pug">
 .page-body
-  .container(v-if='false')
+  .container(v-if='!loaded')
     .empty
       .fas.fa-spinner.fa-pulse
       |
@@ -55,6 +55,7 @@ export default {
   },
   computed: {
     url() {
+      console.log(this.currentPage)
       return `/api/bookmarks?page=${this.currentPage}`
     },
     pagerProps() {
@@ -89,6 +90,7 @@ export default {
         redirect: 'manual'
       })
         .then((response) => {
+          console.log(response)
           return response.json()
         })
         .then((json) => {
