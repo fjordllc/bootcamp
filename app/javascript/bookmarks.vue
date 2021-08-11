@@ -86,7 +86,7 @@ export default {
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
-        redirect: 'follow'
+        redirect: 'manual'
       })
         .then((response) => {
           return response.json()
