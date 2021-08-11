@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NotificationMailer < ApplicationMailer
+class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLength
   helper ApplicationHelper
 
   before_action do
@@ -128,6 +128,14 @@ class NotificationMailer < ApplicationMailer
     @user = @receiver
     @notification = @user.notifications.find_by(path: "/reports/#{@report.id}")
     subject = "[bootcamp] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
+    mail to: @user.email, subject: subject
+  end
+
+  # required params: answer, receiver
+  def chose_correct_answer
+    @user = @receiver
+    @notification = @user.notifications.find_by(path: "/questions/#{@answer.question.id}")
+    subject = "[bootcamp] #{@answer.receiver.login_name}さんの質問【 #{@answer.question.title} 】で#{@answer.sender.login_name}さんの回答がベストアンサーに選ばれました。"
     mail to: @user.email, subject: subject
   end
 end

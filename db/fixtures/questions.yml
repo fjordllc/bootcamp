@@ -48,3 +48,9 @@ question8:
   description: テストの内容です。
   user: kimura
   practice: practice1
+
+question12:
+  title: 解決済みの質問
+  description: 解決済みの内容です。
+  user: hajime
+  practice: practice1

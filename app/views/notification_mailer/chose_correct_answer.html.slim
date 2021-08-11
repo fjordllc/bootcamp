@@ -1,0 +1,2 @@
+= render 'notification_mailer_template', title: "#{@answer.receiver.login_name}さんの質問【 #{@answer.question.title} 】で#{@answer.sender.login_name}さんの回答がベストアンサーが選ばれました。", link_url: notification_url(@notification), link_text: '質問へ' do
+  = md2html(@answer.description)
