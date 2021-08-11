@@ -5,6 +5,8 @@ class API::BookmarksController < API::BaseController
 
   def index
     bookmarks = Bookmark.where(user: current_user).order(created_at: :desc)
+    print bookmarks
+    print "あああああああああああああああああああああああああああああああああああああああああああああああああああああああS"
     @bookmarks = Kaminari.paginate_array(bookmarks).page(params[:page]).per(PEGER_NUMBER)
     return unless params[:bookmarkable_id] && params[:bookmarkable_type]
 
