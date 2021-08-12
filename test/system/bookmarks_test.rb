@@ -95,7 +95,7 @@ class BookmarksTest < ApplicationSystemTestCase
   end
 
   test 'edit bookmarks' do
-    visit_with_auth bookmarks_path, 'kimura'
+    visit_with_auth current_user_bookmarks_path, 'kimura'
     assert_no_selector '.thread-list-item__option'
     find(:css, '#spec-edit-mode').set(true)
     wait_for_vuejs
@@ -106,7 +106,7 @@ class BookmarksTest < ApplicationSystemTestCase
     visit_with_auth report_path(@report), 'komagata'
     wait_for_vuejs
     assert_text 'Bookmark中'
-    visit bookmarks_path
+    visit current_user_bookmarks_path
     assert_text '作業週1日目'
     find(:css, '#spec-edit-mode').set(true)
     assert_selector '.thread-list-item__option'
