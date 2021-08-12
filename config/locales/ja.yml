@@ -198,7 +198,7 @@ ja:
           vacation: 休職中
           unemployed: 働いていない
         os:
-          windows: Windows
+          windows_wsl2: Windows(WSL2)
           mac: Mac(Intel)
           linux: Linux
           mac_m1: Mac(M1 chip)
