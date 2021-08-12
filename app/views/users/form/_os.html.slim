@@ -3,9 +3,11 @@
   .a-button.is-md.is-secondary.is-select.is-block
     - options = options_for_select(User.os.map { |k, _| [t("activerecord.enums.user.os.#{k}"), k] }, selected: f.object.os)
     = f.select :os, options, include_blank: '- 選択してください -'
-  .a-form-help
+  .a-form-help.is-important
+    h2
+      | M1 Mac or Intel Mac
     p
-      | Mac の場合、現在 Apple M1 チップを採用しているものと、
+      | Mac には現在 Apple M1 チップを採用しているものと、
       | Intel の CPU を採用しているものがあります。
       | どちらの Mac をお使いかで手順が異なるプラクティスがあります。
       | アドバイスをする際にその情報が必要なため、お答えいただいております。
@@ -15,16 +17,25 @@
           | M1 Mac or Intel Mac? の調べ方
         span.a-help
           i.fas.fa-question
+    hr.a-horizontal-dashed
+    h2
+      | Windows(WSL2)
     p
-      | Windows(WSL2)を選択いただく場合はHyper-Vに対応したパソコンが必要です
-      | お持ちのパソコンがHyper-Vに対応しているかどうかは
-      | 下記の方法で確認することができます。
+      | Windows で学習をする場合、WSL2 という
+      | Windows 上で Linux を動作させる仕組みをを使います。
+      | WSL2 を使うには、学習に使うパソコンが Hyper-V に
+      | 対応していることが必要です。
+      | お持ちのパソコンが Hyper-V に対応しているかどうかを
+      | 下記の方法でご確認ください。
       br
       label.a-form-help-link.is-danger(for='modal-win')
         span.a-form-help-link__label
-          | Hyper-V対応の調べ方
+          | Hyper-V 対応の調べ方
         span.a-help
           i.fas.fa-question
+    hr.a-horizontal-dashed
+    h2
+      | Linux
     p
       | Linux 経験者であれば Linux で学習を行うことは可能ですが、
       | Linux であるがために学習が進まなかった場合にサポートが
