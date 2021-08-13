@@ -1,6 +1,6 @@
 .welcome-sections
   section.welcome-section.is-faq.is-dots#faq
-    .container
+    .container.is-xl
       h2.welcome-section__title
         = image_tag 'faq-title.svg', alt: 'よくある質問', class: 'welcome-section__title-image'
       .welcome-section__description
@@ -78,11 +78,29 @@
             section.faqs-item
               .faqs-item__inner
                 h3.faqs-item__title
-                  = image_tag('question.svg', class: 'faqs-item__title-icon')
-                  | Mac ではなく、 Linux で学習をしたいのですが可能ですか？
+                  = image_tag 'question.svg', class: 'faqs-item__title-icon'
+                  | Linuxで学習をしたいのですが可能ですか？
                 .faqs-item__body
                   p
-                    | Linux でも可能ですが、条件があります。用意しているカリキュラムは Mac を想定して作られています。そのため、Linux でカリキュラムを行う場合は自分自身で Mac 用のカリキュラムを Linux に合わせて操作方法などを変える必要があります。それができるだけの Linux のスキルがある方のみ、Linux で学習をすることを OK とします。
+                    | Linuxでも可能ですが条件があります。
+                    | 用意しているカリキュラムは Mac を想定して作られています。
+                    | そのため、Linux でカリキュラムを行う場合は自分自身でMac用のカリキュラムを
+                    | Linuxに合わせて操作方法などを変える必要があります。
+                    | それができるだけのLinuxのスキルがある方のみ、Linuxで学習をすることをOKとしています。
+          .col-md-4
+            section.faqs-item
+              .faqs-item__inner
+                h3.faqs-item__title
+                  = image_tag 'question.svg', class: 'faqs-item__title-icon'
+                  | Windowsで学習をしたいのですが可能ですか？
+                .faqs-item__body
+                  p
+                    | Windowsでも可能ですが、WSL2を使うのでWSL2対応のパソコンであることが必須です。
+                    | WSL2についてとWSL2に対応しているかの調べ方は下記にかいてあります。
+                    | そちらを読んで理解できないようであればMacを購入してから受講することをおすすめしております。
+                  p = link_to 'WSL2が使えるマシンとは？', 'https://bootcamp.fjord.jp/articles/32'
+                  p = link_to 'WSL2でLinuxを使おう', 'https://bootcamp.fjord.jp/articles/6'
+
           .col-md-4
             section.faqs-item
               .faqs-item__inner

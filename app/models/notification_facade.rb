@@ -139,4 +139,14 @@ class NotificationFacade
       receiver: receiver
     ).create_page.deliver_later(wait: 5)
   end
+
+  def self.chose_correct_answer(answer, receiver)
+    Notification.chose_correct_answer(answer, receiver)
+    return unless receiver.mail_notification? && !receiver.retired_on?
+
+    NotificationMailer.with(
+      answer: answer,
+      receiver: receiver
+    ).chose_correct_answer.deliver_later(wait: 5)
+  end
 end

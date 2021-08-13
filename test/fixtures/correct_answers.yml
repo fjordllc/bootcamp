@@ -3,3 +3,9 @@ correct_answer1:
   user: komagata
   question: question3
   type: "CorrectAnswer"
+
+correct_answer2:
+  description: テストの正解回答です。
+  user: advijirou
+  question: question12
+  type: "CorrectAnswer"

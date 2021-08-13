@@ -53,9 +53,9 @@ class HomeTest < ApplicationSystemTestCase
     assert_text 'ニコニコカレンダー'
   end
 
-  test 'not show the Nico Nico calendar for graduates' do
+  test 'show the Nico Nico calendar for graduates' do
     visit_with_auth '/', 'sotugyou'
-    assert_no_text 'ニコニコカレンダー'
+    assert_text 'ニコニコカレンダー'
   end
 
   test 'not show the Nico Nico calendar for administrators' do

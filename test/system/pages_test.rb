@@ -69,7 +69,7 @@ class PagesTest < ApplicationSystemTestCase
 
   test 'search pages by tag' do
     visit_with_auth pages_url, 'kimura'
-    click_on '新規Doc作成'
+    click_on 'Doc作成'
     tag_list = ['tag1',
                 'ドットつき.タグ',
                 'ドットが.2つ以上の.タグ',

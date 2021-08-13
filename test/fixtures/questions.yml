@@ -66,3 +66,9 @@ question11:
   description: Q&Aの検索結果テスト用
   user: komagata
   practice: practice46
+
+question12:
+  title: 解決済みの質問
+  description: 解決済みの内容です。
+  user: hajime
+  practice: practice1

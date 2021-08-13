@@ -77,7 +77,7 @@ export default {
     currentUserId: { type: String, required: true },
     currentUser: { type: Object, required: true }
   },
-  data: () => {
+  data() {
     return {
       comments: [],
       description: '',

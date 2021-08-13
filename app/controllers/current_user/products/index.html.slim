@@ -14,7 +14,7 @@ header.page-header
   = render 'home/page_tabs', user: @current_user
 
 .page-body
-  .container
+  .container.is-md
     - if @products.present?
       .thread-list.a-card
         = render partial: 'products/product', collection: @products, as: :product

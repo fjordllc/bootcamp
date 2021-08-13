@@ -21,7 +21,7 @@ header.page-header
       .container
         .a-page-notice__inner
           p プラクティスを完了するまで他の人の提出物は見れません。
-  .container
+  .container.is-md
     = paginate @products
     - if @products.present?
       .thread-list.a-card
