@@ -11,23 +11,25 @@ header.o-static-page-header
 
 .t-lp__contents
   .m-lp-content
-    .l-container.is-lg
-      .m-lp-content__inner
-        .m-lp-content__body
-          .welcome-section__price
-            .m-lg-price
-              .m-lg-price__time 月額
-              .m-lg-price__unit
-                i.fas.fa-yen-sign
-              .m-lg-price__number
-                 | 29,800
-              .m-lg-price__tax 円
-          .a-long-text
-            .welcome-sections
-              section.welcome-section
-                .container.is-md
-                  .welcome-small-section
-                    .welcome-section__description
+    .m-lp-content__inner
+      .m-lp-content__body
+        .m-lp-sections
+          .m-lp-sections__item
+            .l-container.is-md
+              section.o-lp-small-section
+                .o-lp-small-section__row
+                  header.o-lp-small-section__header
+                    h2.o-lp-small-section__price
+                      .m-lg-price
+                        .m-lg-price__time 月額
+                        .m-lg-price__unit
+                          i.fas.fa-yen-sign
+                        .m-lg-price__number
+                          | 29,800
+                        .m-lg-price__tax 円
+                .o-lp-small-section__row
+                  .o-lp-small-section__body
+                    .a-long-text
                       p
                         | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。
                         | お試しだけの場合もクレジットカードの登録が必要になります。
@@ -35,11 +37,17 @@ header.o-static-page-header
                       p
                         | お試し期間終了後に最初の1ヶ月分の料金の引き落としが発生します。
                         | 退会した月も日割りでの請求ではなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
-                  .welcome-small-section
-                    h2.welcome-small-sections__title
+
+          .m-lp-sections__item
+            .l-container.is-md
+              section.o-lp-small-section
+                .o-lp-small-section__row
+                  header.o-lp-small-section__header
+                    h2.o-lp-small-section__title
                       = Campaign.today_is_campaign? ? 'お試し延長中につき、7日間' : '3日間'
-                      | のお試し期間
-                    .welcome-section__description
+                .o-lp-small-section__row
+                  .o-lp-small-section__body
+                    .a-long-text
                       p
                         | 月額29,800円は決して安い金額ではありません。
                         | 自分は本当にフィヨルドブートキャンプを使うべきかを判断するために
@@ -49,10 +57,17 @@ header.o-static-page-header
                         = Campaign.today_is_campaign? ? '7日間' : '3日間'
                         | 、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。
                         | お試し期間の間に退会をしないと料金が請求されてしまうのでご注意ください。
-                  .welcome-small-section
-                    h2.welcome-small-sections__title
+
+          .m-lp-sections__item
+            .l-container.is-md
+              section.o-lp-small-section
+                .o-lp-small-section__row
+                  header.o-lp-small-section__header
+                    h2.o-lp-small-section__title
                       | 料金引き落としのタイミング
-                    .welcome-section__description
+                .o-lp-small-section__row
+                  .o-lp-small-section__body
+                    .a-long-text
                       p
                         | 厳密にはお試し期間は
                         = Campaign.today_is_campaign? ? '168時間（7日間）' : '72時間（3日間）'

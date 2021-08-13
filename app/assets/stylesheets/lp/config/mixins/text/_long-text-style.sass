@@ -30,13 +30,13 @@ $sm-font-sizes: (xs: fz(1), sm: fz(2), md: fz(3), h6: fz(3), h5: fz(3), h4: fz(4
   // headding
   ////////////////
   h1
-    +text-block(map-get($font-sizes, h1) 1.25 1em, 700)
+    +text-block(map-get($font-sizes, h1) 1.3 1em, 700)
   h2
-    +text-block(map-get($font-sizes, h2) 1.4 1.25em, 700)
+    +text-block(map-get($font-sizes, h2) 1.5 1.25em, 700)
     padding-bottom: vr(1, 1px)
     border-bottom: solid 1px $border
   h3
-    +text-block(map-get($font-sizes, h3) 1.4 1.25em, 600)
+    +text-block(map-get($font-sizes, h3) 1.5 1.25em, 600)
   h4
     +text-block(map-get($font-sizes, h4) 1.5 1.25em, 600)
   h5
@@ -45,7 +45,7 @@ $sm-font-sizes: (xs: fz(1), sm: fz(2), md: fz(3), h6: fz(3), h5: fz(3), h4: fz(4
     +text-block(map-get($font-sizes, h6) 1.5 1.25em, 600)
 
   p
-    +text-block(map-get($font-sizes, md) 1.8 1.25em)
+    +text-block(map-get($font-sizes, md) 1.9 1.25em)
 
   a
     +link-text
@@ -107,17 +107,17 @@ $sm-font-sizes: (xs: fz(1), sm: fz(2), md: fz(3), h6: fz(3), h5: fz(3), h4: fz(4
   ul,
   ol
     list-style-position: outside
-    margin-left: 1.25em
-    +text-block(map-get($font-sizes, md) 1.8 1.25em)
+    margin-left: 1.75em
+    +text-block(map-get($font-sizes, md) 1.9 1em)
   li
-    +text-block(map-get($font-sizes, md) 1.8 .75em)
+    +text-block(map-get($font-sizes, md) 1.9 .5em)
     &:first-child
       margin-top: 0
     input
       margin-right: .25rem
     ul,
     ol
-      +text-block(map-get($font-sizes, md) 1.7 .25em)
+      +text-block(map-get($font-sizes, md) 1.9 .25em)
   *
     +list
 
@@ -125,12 +125,12 @@ $sm-font-sizes: (xs: fz(1), sm: fz(2), md: fz(3), h6: fz(3), h5: fz(3), h4: fz(4
   // table
   ////////////////
   table
-    +text-block(map-get($font-sizes, md) 1.6 1.5em 1.5em)
+    +text-block(map-get($font-sizes, sm) 1.8 1.5em 1.5em)
     width: 100%
   th,
   td
     border: solid 1px $border
-    padding: .75em .875em
+    padding: .75em 1em
   th
     background-color: tint($default-text, 94%)
     font-weight: 600
@@ -142,7 +142,7 @@ $sm-font-sizes: (xs: fz(1), sm: fz(2), md: fz(3), h6: fz(3), h5: fz(3), h4: fz(4
   // blockquote
   ////////////////
   blockquote
-    +text-block(map-get($font-sizes, md) 1.8 1.25em 1.25em)
+    +text-block(map-get($font-sizes, md) 1.9 1.25em 1.25em)
     padding-left: 1.25em
     +position(relative)
     border-left: solid .25em $border

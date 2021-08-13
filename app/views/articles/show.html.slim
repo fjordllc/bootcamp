@@ -12,15 +12,13 @@ section.o-static-page
             | お知らせ
 
   .o-static-page-body
-    .l-container.is-xxl
-      .o-static-page-body__inner
-        .o-static-article
-          .o-static-article__header
-            .o-static-article__header-start
-              .l-container.is-md
-                h1.o-static-article__title.u-ff-YakuHanJP_Narrow
-                  span.js-mikan
-                    = @article.title
+    .o-static-page-body__inner
+      article.o-static-article
+        header.m-article-header
+          .l-container.is-md
+            .m-article-header__inner.a-left-bold-border
+              .m-article-header__row
+                h1.m-article-header__title.u-ff-YakuHanJP_Narrow
                   - if @article.wip?
                     span.article__title-label
                       | WIP
