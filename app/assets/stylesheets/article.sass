@@ -42,6 +42,15 @@
   +media-breakpoint-down(sm)
     font-size: 1.75rem
 
+.article__published-at
+  color: $semi-muted-text
+  margin-top: .5em
+  +media-breakpoint-up(md)
+    font-size: .8125rem
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+
+
 .article__body
   margin-top: 1.5rem
   &.is-long-text
@@ -88,3 +97,18 @@
     font-size: .875rem
   +media-breakpoint-down(sm)
     font-size: .8125rem
+
+  .bootcamp-ad__image
+    float: left
+    margin-right: 1rem
+    margin-bottom: .5rem
+    +size(4rem auto)
+    +position(relative, top .125rem)
+
+  .bootcamp-ad__image + *
+    margin-top: 0
+
+  .a-button
+    +media-breakpoint-up(md)
+      max-width: 20rem
+      +margin(horizontal, auto)
