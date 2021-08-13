@@ -57,6 +57,16 @@ class CommentsTest < ApplicationSystemTestCase
     assert_selector :css, "a[href='/users/komagata']"
   end
 
+  test 'post new comment with mention to mentor for report' do
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
+    sleep 1
+    find('#js-new-comment').set("login_nameの補完テスト: @men\n")
+    click_button 'コメントする'
+    wait_for_vuejs
+    assert_text 'login_nameの補完テスト: @mentor'
+    assert_selector :css, "a[href='/users?target=mentor']"
+  end
+
   test 'post new comment with emoji for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     sleep 1
