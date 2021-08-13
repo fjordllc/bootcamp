@@ -18,6 +18,7 @@ Metrics/ClassLength:
     - app/models/notification_facade.rb
     - app/models/practice.rb
     - app/models/user.rb
+    - app/models/product.rb
 
 AllCops:
   Exclude:
