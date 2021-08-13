@@ -9,7 +9,7 @@ header.page-header
           li.page-header-actions__item
             = link_to [:new, :page], class: 'a-button is-md is-secondary is-block' do
               i.fas.fa-plus
-              | 新規Doc作成
+              | Doc作成
 
 - if params[:tag]
   .page-optional-header
@@ -20,7 +20,7 @@ header.page-header
           = link_to pages_path, class: 'page-body__optional-title-cancel' do
             i.fas.fa-times.fa-fw
 .page-body
-  .container
+  .container.is-lg
     = paginate @pages
     .two-columns
       .two-columns__inner

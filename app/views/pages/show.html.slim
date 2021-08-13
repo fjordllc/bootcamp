@@ -9,13 +9,13 @@ header.page-header
           li.page-header-actions__item
             = link_to [:new, :page], class: 'a-button is-md is-secondary is-block' do
               i.fas.fa-plus
-              | 新規Doc作成
+              | Doc作成
           li.page-header-actions__item
             = link_to :pages, class: 'a-button is-md is-secondary is-block' do
               | Docs
 
 .page-body
-  .container
+  .container.is-lg
     article.thread.is-page
       .thread__inner.a-card
         header.thread-header.has-count

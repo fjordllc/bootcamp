@@ -2,13 +2,13 @@
   background-color: $base
   border-radius: .25rem
   border: solid 1px $border-more-shade
-  max-width: 48rem
   +margin(horizontal, auto)
   +media-breakpoint-down(lg)
     &:not(:last-child)
       margin-bottom: 1rem
   .a-card + &
-    margin-top: 1.25rem
+    +media-breakpoint-up(xl)
+      margin-top: 1.25rem
     +media-breakpoint-down(lg)
       margin-top: 1rem
   &.is-borderd
@@ -16,8 +16,6 @@
   [class*=col-] + [class*=col-] &:first-child
     +media-breakpoint-down(md)
       margin-top: 1rem
-  &.is-max-width-100
-    max-width: 110rem
 
 .a-card-notice
   p

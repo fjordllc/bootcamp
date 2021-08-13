@@ -43,23 +43,17 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth '/products/not_responded', 'komagata'
 
     # 提出日の昇順で並んでいることを検証する
-    extract_all_title_on_display_page = -> { all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') } }
-    extract_all_author_on_display_page = ->  { all('.thread-list-item-meta .a-user-name').map(&:text) }
+    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    names = all('.thread-list-item-meta .a-user-name').map(&:text)
+    assert_equal "#{newest_product.practice.title}の提出物", titles.first
+    assert_equal newest_product.user.login_name, names.first
+    assert_equal "#{oldest_product.practice.title}の提出物", titles.last
+    assert_equal oldest_product.user.login_name, names.last
+  end
 
-    assert_equal "#{newest_product.practice.title}の提出物",
-                 extract_all_title_on_display_page.call.first
-    assert_equal newest_product.user.login_name,
-                 extract_all_author_on_display_page.call.first
-
-    # ページングがあったら最後のページまで移動する
-    if has_selector?('.pagination')
-      find(class: %w[fas fa-angle-double-right], match: :first).find(:xpath, '..').click
-      wait_for_vuejs
-    end
-
-    assert_equal "#{oldest_product.practice.title}の提出物",
-                 extract_all_title_on_display_page.call.last
-    assert_equal oldest_product.user.login_name,
-                 extract_all_author_on_display_page.call.last
+  test 'show all not responded products without pagination' do
+    visit_with_auth '/products/not_responded', 'komagata'
+    assert_selector '.thread-list-item', count: Product.not_responded_products.size
+    assert_no_selector '.pagination'
   end
 end

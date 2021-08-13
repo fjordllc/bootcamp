@@ -98,7 +98,7 @@ export default {
     comment: { type: Object, required: true },
     currentUser: { type: Object, required: true }
   },
-  data: () => {
+  data() {
     return {
       description: '',
       editing: false,

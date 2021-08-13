@@ -54,27 +54,7 @@ body
     padding-top: 4rem
     overflow-y: auto
 
-.container
-  +padding(horizontal, 1.5rem)
-  max-width: 100%
-  body &.has-no-right-padding
-    padding-right: 0
-  +media-breakpoint-down(md)
-    +padding(horizontal, 1rem)
-  body.is-learning-page &
-    &.is-md
-      width: 48rem
-      +margin(horizontal, auto)
-  body.welcome &
-    width: 75rem
-    +padding(horizontal, 1rem)
-    +margin(horizontal, auto)
-    &.is-md
-      width: 48rem
-
 .columns
-  max-width: 75rem
-  +margin(horizontal, auto)
   .columns + &
     margin-top: 1.5rem
 

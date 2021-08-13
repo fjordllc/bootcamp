@@ -392,4 +392,11 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '保存する'
     assert_text '編集後のユーザーメモです。'
   end
+
+  test 'show number of comments' do
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
+    within(:css, '.is-emphasized') do
+      assert_text '2'
+    end
+  end
 end

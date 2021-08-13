@@ -16,7 +16,7 @@ header.page-header
 = render 'page_tabs', resource: @practice
 
 .page-body
-  .container
+  .container.is-md
     = paginate @reports
     - if @reports.present?
       .thread-list.a-card

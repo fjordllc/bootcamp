@@ -36,7 +36,7 @@ header.page-header
               | 7日以内にメンターがレビューしますので、次のプラクティスにお進みください。
               br
               | もし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。
-  .container
+  .container.is-xxxl
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
         .thread
@@ -73,6 +73,14 @@ header.page-header
                             | 更新
                           time.a-meta__value(datetime="#{@product.updated_at.to_datetime}")
                             = l @product.updated_at
+
+                    .thread-header-metas__meta
+                      - length = @product.comments.length
+                      a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
+                        | コメント（
+                        span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                          = length
+                        | ）
 
               .thread-header__row
                 h1.thread-header-title(class="#{@product.wip? ? 'is-wip' : ''}")
