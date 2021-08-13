@@ -23,6 +23,7 @@ class CoursesTest < ApplicationSystemTestCase
     within 'form[name=course]' do
       fill_in 'course[title]', with: 'テストコース'
       fill_in 'course[description]', with: 'テストのコースです。'
+      check 'course[open_course]'
       click_button '内容を保存'
     end
     assert_text 'コースを更新しました。'
