@@ -166,4 +166,24 @@ class PracticesTest < ApplicationSystemTestCase
     index2 = titles.rindex 'Debianをインストールする'
     assert index1 < index2
   end
+
+  test 'update practice in the role of mentor' do
+    practice = practices(:practice2)
+    product = products(:product3)
+    visit_with_auth "/practices/#{practice.id}/edit", 'yamada'
+    within 'form[name=practice]' do
+      fill_in 'practice[title]', with: 'テストプラクティス'
+      within '#reference_books' do
+        click_link '追加'
+        fill_in 'タイトル', with: 'プロを目指す人のためのRuby入門'
+        fill_in '価格', with: '2345'
+        fill_in 'URL', with: 'http://example.com'
+        find('.reference-books-form-item__must-read').click
+        fill_in '説明', with: 'テストの参考書籍説明'
+      end
+      click_button '更新する'
+    end
+    assert_text 'プラクティスを更新しました'
+    visit "/products/#{product.id}"
+  end
 end
