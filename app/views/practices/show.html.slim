@@ -135,7 +135,7 @@ header.page-header
                 br
                 | 終了条件をクリアしたら完了にしてください。
 
-        - if current_user.mentor? || current_user.admin?
+        - if current_user.admin_or_mentor?
           section.a-card
             header.card-header
               h2.card-header__title
