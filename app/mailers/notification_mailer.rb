@@ -24,8 +24,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
   def came_comment
     @user = @receiver
     path = "/#{@comment.commentable_type.downcase.pluralize}/#{@comment.commentable.id}"
-    notification = @user.notifications.find_by(path: path)
-    @notification_path = "#{notification.path}#comment_#{@comment.id}"
+    @notification = @user.notifications.find_by(path: path)  
     mail to: @user.email, subject: "[bootcamp] #{@message}"
   end
 
