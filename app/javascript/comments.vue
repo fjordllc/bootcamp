@@ -10,7 +10,7 @@
     :id='"comment_" + comment.id',
     @delete='deleteComment'
   )
-  .thread-comment-form(:id='"comment-form"')
+  .thread-comment-form
     .thread-comment__author
       img.thread-comment__author-icon.a-user-icon(
         :src='currentUser.avatar_url',
