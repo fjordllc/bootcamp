@@ -10,12 +10,12 @@
     :id='"comment_" + comment.id',
     @delete='deleteComment'
   )
-  .thread-comment-form(:id='"comment-form"')    
+  .thread-comment-form(:id='"comment-form"')
     .thread-comment__author
       img.thread-comment__author-icon.a-user-icon(
         :src='currentUser.avatar_url',
         :class='[roleClass, daimyoClass]',
-        :title='currentUser.icon_title'        
+        :title='currentUser.icon_title'
       )
     .thread-comment-form__form.a-card
       .thread-comment-form__tabs.js-tabs
