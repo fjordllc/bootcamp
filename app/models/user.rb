@@ -119,6 +119,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   before_create UserCallbacks.new
+  before_save UserCallbacks.new
   after_update UserCallbacks.new
 
   validates :email, presence: true, uniqueness: true
@@ -144,8 +145,8 @@ class User < ApplicationRecord
   validates :times_url,
             format: {
               allow_blank: true,
-              with: %r{\Ahttps://discord\.gg/},
-              message: 'は「https://discord.gg/」で始まる招待URLを入力してください'
+              with: %r{\Ahttps://discord\.(?:com|gg)/},
+              message: 'はDiscordのチャンネルURLを入力してください'
             }
 
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }

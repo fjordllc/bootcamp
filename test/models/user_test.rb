@@ -218,14 +218,22 @@ class UserTest < ActiveSupport::TestCase
 
   test 'times_url' do
     user = users(:komagata)
-    user.times_url = 'https://discord.gg/xhGP6etJBX'
+    user.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001'
     assert user.valid?
     user.times_url = ''
     assert user.valid?
-    user.times_url = 'xhGP6etJBX'
+    user.times_url = '123456789000000001'
     assert user.invalid?
-    user.times_url = 'https://example.gg/xhGP6etJBX'
+    user.times_url = 'https://example.com/channels/1234/5678/'
     assert user.invalid?
+  end
+
+  test 'times_url is channel url even if message url is passed' do
+    user = users(:komagata)
+    user.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001/123456789000000001'
+    user.save!
+    assert user.valid?
+    assert_equal 'https://discord.com/channels/715806612824260640/123456789000000001', user.times_url
   end
 
   test 'is valid name_kana' do

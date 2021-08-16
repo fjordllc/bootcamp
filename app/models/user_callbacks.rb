@@ -5,6 +5,13 @@ class UserCallbacks
     user.unsubscribe_email_token = SecureRandom.urlsafe_base64
   end
 
+  def before_save(user)
+    return unless user.will_save_change_to_times_url?
+
+    match = user.times_url&.match(%r{\Ahttps://discord.com/channels/\d+/\d+})
+    user.times_url = match[0] if match
+  end
+
   def after_update(user)
     if user.saved_change_to_retired_on?
       Product.where(user: user).unchecked.destroy_all
