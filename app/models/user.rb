@@ -555,7 +555,7 @@ class User < ApplicationRecord
   end
 
   def practices
-    course.practices.order('categories.position', 'practices.position')
+    course.practices.unscope(:order).order('categories.position', 'categories_practices.position')
   end
 
   def update_mentor_memo(new_memo)
