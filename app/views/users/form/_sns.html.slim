@@ -14,7 +14,13 @@
   = f.label :times_url, class: 'a-form-label'
   = f.text_field :times_url, class: 'a-text-input', placeholder: 'https://discord.com/channels/715806612824260640/123456789012345678'
   .a-form-help
-    p Discord の分報チャンネルの招待 URL を入力。
+    p
+      | Discord の分報チャンネルの URL を入力。調べ方は
+      label.a-form-help-link.is-danger(for='modal-times-url')
+        span.a-form-help-link__label
+          | こちら
+        span.a-help
+          i.fas.fa-question
 .form-item
   = f.label :github_account, class: 'a-form-label'
   .form-item__mention-input
@@ -53,3 +59,11 @@
         | ここに表示されているのが Discord アカウントです。クリックをすると、コピーされます。
       p
         = image_tag('help/discord-account.jpg', alt: 'Discord のアカウントの調べ方')
+
+= render '/shared/modal', id: 'modal-times-url', title: '分報チャンネルの URL の調べ方'
+  .modal__description.is-md
+    .a-short-text
+      p
+        | 分報チャンネル内のメッセージを右クリックし、「メッセージリンクをコピー」をクリックすると URL がコピーされます。
+      p
+        = image_tag('help/times-url.png', alt: '分報チャンネルの URL の調べ方')
