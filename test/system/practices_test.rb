@@ -169,7 +169,6 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'update practice in the role of mentor' do
     practice = practices(:practice2)
-    product = products(:product3)
     visit_with_auth "/practices/#{practice.id}/edit", 'yamada'
     within 'form[name=practice]' do
       fill_in 'practice[title]', with: 'テストプラクティス'
@@ -184,6 +183,8 @@ class PracticesTest < ApplicationSystemTestCase
       click_button '更新する'
     end
     assert_text 'プラクティスを更新しました'
-    visit "/products/#{product.id}"
+    visit "/practices/#{practice.id}"
+    wait_for_vuejs
+    assert_equal 'テストプラクティス | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 end
