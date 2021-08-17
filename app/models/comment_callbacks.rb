@@ -23,6 +23,7 @@ class CommentCallbacks
 
   def after_destroy(comment)
     return unless comment.commentable.instance_of?(Product)
+
     delete_last_comment_at(comment.commentable.id)
     delete_product_cache(comment.commentable.id)
   end
@@ -31,10 +32,10 @@ class CommentCallbacks
 
   def delete_last_comment_at(product_id)
     product = Product.find(product_id)
-    #最終日時をリセットする
+    # 最終日時をリセットする
     product.mentor_last_comment_at = nil
     product.self_last_comment_at = nil
-    #最新日時を上書きする
+    # 最新日時を上書きする
     product.comments.each do |comment|
       if comment.user.mentor
         product.mentor_last_comment_at = comment.updated_at
