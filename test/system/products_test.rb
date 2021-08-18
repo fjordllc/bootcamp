@@ -128,6 +128,15 @@ class ProductsTest < ApplicationSystemTestCase
     assert_no_button '担当から外れる'
   end
 
+  test 'change checker on edit page' do
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
+    click_button '担当する'
+    click_link '内容修正'
+    select 'machida', from: 'product_checker_id'
+    click_button '提出する'
+    assert_text 'machida'
+  end
+
   test 'create product as WIP' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'yamada'
     within('#new_product') do
