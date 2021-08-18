@@ -10,6 +10,13 @@
   animation: loadingNow .75s ease infinite alternate
   &.a-user-icon
     background-color: $placeholder
+  &.thread-list-item-title
+    height: 1.5em
+    width: 50%
+  &.thread-list-item-meta__items
+    height: 1.4em
+    width: 70%
+    +margin(horizontal, 0)
   &.is-long-text
     background-color: transparent
     p
@@ -30,3 +37,7 @@
         width: 60%
       &:nth-child(7)
         width: 20%
+
+.a-card.is-loading
+  border: none
+  background-color: rgba($base, .8)

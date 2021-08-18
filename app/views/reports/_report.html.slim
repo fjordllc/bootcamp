@@ -3,7 +3,10 @@
     label.thread-list-item-actions__trigger(for="#{report.id}")
       i.fas.fa-ellipsis-h
     .thread-list-item__author
-      = render 'users/icon', user: report.user, link_class: 'a-user-name', image_class: 'thread-list-item__author-icon'
+      = render 'users/icon',
+        user: report.user,
+        link_class: 'thread-list-item__author-link',
+        image_class: 'thread-list-item__author-icon'
     .thread-list-item__rows
       .thread-list-item__row
         .thread-list-item-title
