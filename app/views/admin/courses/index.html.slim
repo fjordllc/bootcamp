@@ -1,0 +1,20 @@
+- title 'コース一覧'
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title = title
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to new_course_path, class: 'a-button is-md is-secondary is-block' do
+              i.fas.fa-plus
+              | コース作成
+
+.page-tools
+  = render 'admin/admin_page_tabs'
+
+.page-body
+  .container
+    .courses-items
+      .row
+        = render @courses.order(:created_at)
