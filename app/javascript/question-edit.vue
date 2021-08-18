@@ -118,7 +118,7 @@
             .form-item
               .a-form-label
                 | タイトル
-              input.a-text-input.js-warning-form(
+              input.a-text-input(
                 v-model='edited.title',
                 name='question[title]'
               )
@@ -138,7 +138,7 @@
                 .form-tabs-item__markdown.js-tabs__content(
                   :class='{ "is-active": isActive("question") }'
                 )
-                  textarea#js-question-content.a-text-input.js-warning-form.form-tabs-item__textarea(
+                  textarea#js-question-content.a-text-input.form-tabs-item__textarea(
                     v-model='edited.description',
                     data-preview='#js-question-preview',
                     name='question[description]'
@@ -172,6 +172,7 @@ import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
 import Tags from './question_tags.vue'
 import UserIcon from './user-icon.vue'
+import confirmUnload from './confirm-unload'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
 dayjs.locale(ja)
@@ -193,6 +194,7 @@ export default {
       }
     }
   },
+  mixins: [confirmUnload],
   props: {
     question: { type: Object, required: true },
     answerCount: { type: Number, required: true },
