@@ -8,8 +8,10 @@
   .form-item
     .row
       .col-md-6.col-xs-12
-        = f.check_box :open_course, class: 'is-open-checkbox'
-        = f.label 'コースを表示する', class: 'is-open-label'
+        = f.label 'コースを表示する', class: 'a-form-label'
+        label.a-on-off-checkbox.is-md
+          = f.check_box :open_course, class: 'is-open-checkbox'
+          span
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
