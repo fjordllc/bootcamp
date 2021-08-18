@@ -14,10 +14,9 @@ header.page-header
   nav.sort-nav
     .container
       .sort-nav__inner
-        = hidden_field_tag :solved, params[:solved]
         = label_tag :practice_id, 'プラクティスで絞り込む:', class: 'sort-nav__label'
         .sort-nav__select
-          = select_tag :practice_id, options_from_collection_for_select(current_user.practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての質問を表示', onchange: 'this.form.submit()', class: 'js-select2'
+          #js-practice-select data-solved=params[:solved] data-current-user-id=current_user.id
   = render 'questions/tabs'
 
 .page-body
