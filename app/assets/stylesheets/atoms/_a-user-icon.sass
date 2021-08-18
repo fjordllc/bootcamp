@@ -4,18 +4,18 @@
   background-color: $base
   +icon-role-style
 
-.a-user-emoji-link
-  +size(2em)
-  display: inline-block
-  &:not(:first-child)
-    margin-left: .5em
-
-.a-user-emoji
-  +size(2em)
-  object-fit: cover
-  background-color: $base
-  border-radius: 2px
-  display: inline-block !important
-  border: none !important
-  margin-left: 0 !important
-  margin-right: 0 !important
+.is-long-text
+  .a-user-emoji-link
+    +size(2em)
+    display: inline-block
+    &:not(:first-child)
+      margin-left: .5em
+  .a-user-emoji
+    +size(1.8em)
+    object-fit: cover
+    background-color: $base
+    border-radius: 2px
+    display: inline-block !important
+    border: none !important
+    margin-left: 0 !important
+    margin-right: 0 !important
