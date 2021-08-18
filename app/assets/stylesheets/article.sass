@@ -2,6 +2,46 @@
 @import /blocks/base/body
 @import /blocks/footer/footer
 
+.articles__header
+  margin-bottom: 1rem
+
+.articles__title
+  +text-block(1.75rem 1.4, center)
+
+.articles__item:not(:first-child)
+  border-top: solid 1px $border
+
+.articles__item-link
+  +block-link
+  padding: 1rem
+  &:hover
+    .articles__item-title
+      text-decoration: underline
+
+.articles__item-title
+  +text-block(1.125rem 1.4, $default-text)
+
+.articles__item-metas
+  display: flex
+  margin-top: .5rem
+
+.articles__item-meta:not(:first-child)
+  margin-left: .75rem
+
+.articles__item-author
+  display: flex
+  align-items: center
+  +text-block(.8125rem 1.4, $default-text)
+  img
+    +size(1.125rem)
+    object-fit: cover
+    margin-right: .25rem
+    border-radius: 50%
+
+.articles__item-published-at
+  +text-block(.8125rem 1.4, $semi-muted-text)
+
+
 ////////////////////
 // .l-article
 ////////////////////
@@ -33,23 +73,38 @@
     padding: 1rem 1rem
 
 .article__title
-  line-height: 1.4
+  line-height: 1.3
   font-weight: 700
   font-feature-settings: "palt"
   letter-spacing: .02em
   +media-breakpoint-up(md)
     font-size: 2rem
   +media-breakpoint-down(sm)
-    font-size: 1.75rem
+    font-size: 1.625rem
+
+.article__metas
+  display: flex
+  margin-top: .75rem
+  +media-breakpoint-up(md)
+    font-size: .875rem
+  +media-breakpoint-down(sm)
+    font-size: .8125rem
+
+.article__meta:not(:first-child)
+  margin-left: .75em
 
 .article__published-at
-  color: $semi-muted-text
-  margin-top: .5em
-  +media-breakpoint-up(md)
-    font-size: .8125rem
-  +media-breakpoint-down(sm)
-    font-size: .75rem
+  +text-block(1em 1.4, $semi-muted-text)
 
+.article__author
+  display: flex
+  align-items: center
+  +text-block(1em 1.4, $default-text)
+  img
+    +size(1.125rem)
+    object-fit: cover
+    margin-right: .25rem
+    border-radius: 50%
 
 .article__body
   margin-top: 1.5rem
