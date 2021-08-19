@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const button = event.querySelector('.js-close-event')
 
     button.addEventListener('click', () => {
-      button.parentElement.innerHTML = ''
+      document.querySelector(
+        '#event.thread-list-item.incoming-events'
+      ).remove()
 
       if (
         document.cookie
@@ -32,14 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
           JSON.stringify(savedEventIds) +
           ';max-age=2592000;' // 有効期限30日=259200秒
       }
-// ↓のように保存されたid中に自身があれば自信を消すコード必要
+
       const eventCount = document.querySelectorAll(
         selector + ' .js-close-event'
       ).length
       if (eventCount < 1) {
         document.querySelector(
           '#events_on_dashboard.confirmed_event'
-        ).innerHTML = ''
+        ).remove()
       }
     })
   })
