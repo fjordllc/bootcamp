@@ -2,7 +2,7 @@ tr.admin-table__item(id="course_#{course.id}")
   td.admin-table__item-value
     = link_to course.title, [course, :practices], class: 'courses-item__title-link'
   td.admin-table__item-value
-    = simple_format(course.description)
+    = course.description.truncate(100)
   td.admin-table__item-value.admin-table__item-value.is-text-align-center
     ul.is-inline-buttons
       li
