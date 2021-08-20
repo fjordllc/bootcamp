@@ -20,7 +20,7 @@
           td.admin-table__item-value
             | {{ category.slug }}
           td.admin-table__item-value.is-text-align-center
-            ul.is-button-group
+            ul.is-inline-buttons
               li
                 a.a-button.is-sm.is-secondary.is-icon.spec-edit(
                   :href='`/admin/categories/${category.id}/edit`'

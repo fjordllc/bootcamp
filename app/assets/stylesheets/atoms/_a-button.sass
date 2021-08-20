@@ -99,6 +99,14 @@ input[type="button"]
     .a-button
       border-radius: 0
 
+.is-inline-buttons
+  display: flex
+  +margin(horizontal, -.25rem)
+  .is-text-align-center &
+    justify-content: center
+  >li
+    +padding(horizontal, .25rem)
+
 .a-welcome-button
   +size(auto 4rem)
   +text-block(1.125rem 1, flex 700 $welcome-default-text)
