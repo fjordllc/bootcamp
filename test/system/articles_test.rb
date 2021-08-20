@@ -44,37 +44,10 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text '管理者としてログインしてください'
   end
 
-  test 'update article' do
-    visit_with_auth articles_url, 'komagata'
-    click_on '内容修正', match: :first
-
-    fill_in 'article[title]', with: @article.title
-    fill_in 'article[body]', with: @article.body
-    click_on '更新する'
-
-    assert_text '記事を更新しました'
-  end
-
   test "can't update article" do
     visit_with_auth articles_url, 'kimura'
 
-    assert_no_text '内容修正'
-
     visit edit_article_path(@article)
     assert_text '管理者としてログインしてください'
-  end
-
-  test 'delete article' do
-    visit_with_auth articles_url, 'komagata'
-    page.accept_confirm do
-      click_on '削除', match: :first
-    end
-
-    assert_text '記事を削除しました'
-  end
-
-  test "can't delete article" do
-    visit_with_auth articles_url, 'kimura'
-    assert_no_text '削除'
   end
 end

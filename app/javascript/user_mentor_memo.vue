@@ -35,7 +35,7 @@ section.a-card.is-memo.is-only-mentor
       .thread-comment-form__markdown.is-editor.js-tabs__content(
         :class='{ "is-active": isActive("memo") }'
       )
-        textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
+        textarea.a-text-input.thread-comment-form__textarea(
           :id='`js-user-mentor-memo`',
           data-preview='#user-mentor-memo-preview',
           v-model='memo',
@@ -59,8 +59,10 @@ section.a-card.is-memo.is-only-mentor
 <script>
 import TextareaInitializer from './textarea-initializer'
 import MarkdownInitializer from './markdown-initializer'
+import confirmUnload from './confirm-unload'
 
 export default {
+  mixins: [confirmUnload],
   props: {
     userId: { type: String, required: true },
     productsMode: { type: Boolean, required: true }

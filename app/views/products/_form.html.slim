@@ -12,6 +12,13 @@
           .a-form-label
             | プレビュー
           .js-preview.is-long-text.markdown-form__preview
+    .form-item
+      - if admin_login?
+        .col-md-3.col-xs-6
+          .a-form-label
+            | 担当者
+            .select-mentors
+              = f.select(:checker_id, User.where(mentor: true).where(retired_on: nil).pluck(:login_name, :id).sort, { include_blank: true }, { class: 'js-select2' })
 
   .form-actions
     ul.form-actions__items.is-ais-flex-start

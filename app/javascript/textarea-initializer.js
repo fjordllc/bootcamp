@@ -19,7 +19,17 @@ export default class {
       return null
     }
 
+    // autosize
     autosize(textareas)
+    textareas.forEach((textarea) => {
+      new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.target.scrollHeight !== 0) {
+            autosize.update(entry.target)
+          }
+        })
+      }).observe(textarea)
+    })
 
     // auto-completion
     const emoji = new TextareaAutocomplteEmoji()
