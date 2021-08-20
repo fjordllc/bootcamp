@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 class Notification < ApplicationRecord
+  TARGETS_TO_KINDS = {
+    announcement: [:announced],
+    mention: [:mentioned],
+    comment: %i[came_comment answered],
+    check: [:checked],
+    watching: [:watching],
+    following_report: [:following_report]
+  }.freeze
+
   belongs_to :user
   belongs_to :sender, class_name: 'User'
 
@@ -36,20 +45,7 @@ class Notification < ApplicationRecord
   scope :by_read_status, ->(status) { status == 'unread' ? unreads.with_avatar.limit(99) : reads.with_avatar }
 
   scope :by_target, lambda { |target|
-    case target
-    when :announcement
-      where(kind: :announced)
-    when :mention
-      where(kind: :mentioned)
-    when :comment
-      where(kind: %i[came_comment answered])
-    when :check
-      where(kind: :checked)
-    when :watching
-      where(kind: :watching)
-    when :following_report
-      where(kind: :following_report)
-    end
+    target ? where(kind: TARGETS_TO_KINDS[target]) : all
   }
 
   def self.came_comment(comment, receiver, message)

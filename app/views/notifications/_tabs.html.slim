@@ -1,6 +1,8 @@
 .page-tabs
   .container
     ul.page-tabs__items
-      - %w[all announcement mention comment check watching following_report].each do |target|
+      li.page-tabs__item
+        = link_to t('notofication.all'), notifications_path(status: 'unread'), class: "page-tabs__item-link #{'is-active' if @target.nil?}".strip
+      - Notification::TARGETS_TO_KINDS.each_key do |target|
         li.page-tabs__item
-          = link_to t("notification.#{target}"), notifications_path(status: 'unread', target: target), class: (@target == target ? ['is-active'] : []) << 'page-tabs__item-link'
+          = link_to t("notification.#{target}"), notifications_path(status: 'unread', target: target), class: "page-tabs__item-link #{'is-active' if @target == target.to_s}".strip
