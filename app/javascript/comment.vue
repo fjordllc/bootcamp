@@ -56,7 +56,7 @@
       .thread-comment-form__markdown.js-tabs__content(
         v-bind:class='{ "is-active": isActive("comment") }'
       )
-        textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
+        textarea.a-text-input.thread-comment-form__textarea(
           :id='`js-comment-${this.comment.id}`',
           :data-preview='`#js-comment-preview-${this.comment.id}`',
           v-model='description',
@@ -85,6 +85,7 @@
 import Reaction from './reaction.vue'
 import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
+import confirmUnload from './confirm-unload'
 import autosize from 'autosize'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
@@ -94,11 +95,12 @@ export default {
   components: {
     reaction: Reaction
   },
+  mixins: [confirmUnload],
   props: {
     comment: { type: Object, required: true },
     currentUser: { type: Object, required: true }
   },
-  data: () => {
+  data() {
     return {
       description: '',
       editing: false,

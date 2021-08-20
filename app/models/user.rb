@@ -22,7 +22,8 @@ class User < ApplicationRecord
   enum os: {
     mac: 0,
     mac_m1: 2,
-    linux: 1
+    linux: 1,
+    windows_wsl2: 3
   }, _prefix: true
 
   enum experience: {
@@ -62,6 +63,7 @@ class User < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_many :answers,      dependent: :destroy
   has_many :watches, dependent: :destroy
+  has_many :articles, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,

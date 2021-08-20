@@ -117,3 +117,11 @@ notification_following_report:
   message: kensyuさんが日報【 フォローされた日報 】を書きました！
   path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report23) %>"
   read: false
+
+notification_chose_correct_answer:
+  kind: 14
+  user: advijirou
+  sender: hajime
+  message: hajimeさんの質問【 解決済みの質問 】でadvijirouさんの回答がベストアンサーに選ばれました。
+  path: "/questions/<%= ActiveRecord::FixtureSet.identify(:question12) %>"
+  read: false

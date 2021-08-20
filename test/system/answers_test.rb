@@ -3,6 +3,8 @@
 require 'application_system_test_case'
 
 class AnswersTest < ApplicationSystemTestCase
+  include ActiveJob::TestHelper
+
   test 'answer form in questions/:id has comment tab and preview tab' do
     visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
     wait_for_vuejs
@@ -64,5 +66,30 @@ class AnswersTest < ApplicationSystemTestCase
       click_button 'ベストアンサーを取り消す'
     end
     assert_text 'ベストアンサーにする'
+  end
+
+  test 'notify watchers of best answer' do
+    visit_with_auth "/questions/#{questions(:question2).id}", 'sotugyou'
+
+    assert_difference 'ActionMailer::Base.deliveries.count', 1 do
+      perform_enqueued_jobs do
+        accept_alert do
+          click_button 'ベストアンサーにする'
+        end
+        wait_for_vuejs
+      end
+    end
+
+    # Watcherに通知される
+    visit_with_auth '/notifications/unread', 'kimura'
+    assert_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
+
+    # Watchしていない回答者には通知されない
+    visit_with_auth '/notifications/unread', 'komagata'
+    assert_no_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
+
+    # 質問者には通知されない
+    visit_with_auth '/notifications/unread', 'sotugyou'
+    assert_no_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
   end
 end

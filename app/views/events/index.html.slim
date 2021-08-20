@@ -14,7 +14,7 @@ header.page-header
 
 .page-body
   = paginate @events
-  .container
+  .container.is-md
     .thread-list.a-card
       = render partial: 'events', collection: @events, as: :event
 = paginate @events

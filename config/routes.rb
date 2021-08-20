@@ -58,6 +58,7 @@ Rails.application.routes.draw do
       resources :toggle, only: %i(index create destroy)
     end
     resources :memos, only: %i(create update destroy)
+    resources :mentor_memos, only: %i(update)
     resources :tags, only: %i(index)
     resources :pages, only: %i(update)
     resources :questions, only: %i(show update)
@@ -65,6 +66,7 @@ Rails.application.routes.draw do
     namespace :products do
       resources :unchecked, only: %i(index)
       resources :not_responded, only: %i(index)
+      resources :unassigned, only: %i(index)
       resources :self_assigned, only: %i(index)
       resource :checker, only: %i(update), controller: 'checker'
       resource :passed, only: %i(show), controller: 'passed'
@@ -139,6 +141,7 @@ Rails.application.routes.draw do
         resources :sort, only: %i(index), controller: "courses/practices/sort"
       end
     end
+    resources :categories, only: %i(index), controller: "courses/categories"
   end
   resources :courses, except: %i(index show)
   resources :practices, except: %i(index destroy) do
@@ -150,6 +153,7 @@ Rails.application.routes.draw do
   namespace :products do
     resources :unchecked, only: %i(index)
     resources :not_responded, only: %i(index)
+    resources :unassigned, only: %i(index)
     resources :self_assigned, only: %i(index)
   end
   resources :products

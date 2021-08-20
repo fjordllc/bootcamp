@@ -19,15 +19,17 @@ section.welcome-child-section.is-conditions
           .welcome-small-section__inner
             = image_tag('my-mac.svg', class: 'welcome-small-section__icon')
             h3.welcome-small-section__title
-              | 自分のMacを<br>用意できる
+              | 自分のパソコンを<br>用意できる
             .welcome-small-section__description
               p
-                | 用意しているカリキュラムはMacを使って学習することを前提に作られています。なので、最新のOSが動くMacを持っていることが必要です。これからMacを購入をする場合は、以下のリンク先を参考にしてください。
+                | Mac、Windows、LinuxそれぞれのOSで受講することができます。しかし、それぞれで最新のOSが動く必要があります。詳しい要件、おすすめのOSについては下記を参照してください。
             .welcome-small-section__actions
               .welcome-small-section__actions-items
                 .welcome-small-section__actions-item
-                  = link_to 'http://docs.komagata.org/5535', class: 'a-welcome-button is-sm', target: '_blank', rel: 'noopener' do
-                    | おすすめのMac
+                  = link_to '受講できるパソコンの要件',
+                    'https://bootcamp.fjord.jp/articles/32',
+                    class: 'a-welcome-button is-sm',
+                    target: '_blank', rel: 'noopener'
       .col-xs-12.col-md-4
         section.welcome-small-section
           .welcome-small-section__inner

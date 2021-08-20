@@ -128,6 +128,15 @@ class ProductsTest < ApplicationSystemTestCase
     assert_no_button '担当から外れる'
   end
 
+  test 'change checker on edit page' do
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
+    click_button '担当する'
+    click_link '内容修正'
+    select 'machida', from: 'product_checker_id'
+    click_button '提出する'
+    assert_text 'machida'
+  end
+
   test 'create product as WIP' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'yamada'
     within('#new_product') do
@@ -390,6 +399,37 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: '編集後のユーザーメモです。'
     click_button '保存する'
-    assert_text '編集後のユーザーメモです。'
+  end
+
+  test 'can see unassigned-tab' do
+    visit_with_auth products_path, 'komagata'
+    assert find('.page-tabs__item-link', text: '未アサイン')
+  end
+
+  test 'can access unassigned products page after click unassigned-tab' do
+    visit_with_auth products_path, 'komagata'
+    find('.page-tabs__item-link', text: '未アサイン').click
+    assert find('h2.page-header__title', text: '未アサインの提出物')
+  end
+
+  test 'show unassigned products counter and can change counter after click assignee-button on unassigned-tab' do
+    visit_with_auth products_path, 'komagata'
+    unassigned_tab = find('#test-unassigned-tab')
+    initial_counter = find('#test-unassigned-counter').text
+
+    assignee_buttons = all('.a-button.is-block.is-secondary.is-sm', text: '担当する')
+    assignee_buttons.first.click
+
+    unassigned_tab.click
+    wait_for_vuejs
+    operated_counter = find('#test-unassigned-counter').text
+    assert_not_equal initial_counter, operated_counter
+  end
+
+  test 'show number of comments' do
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
+    within(:css, '.is-emphasized') do
+      assert_text '2'
+    end
   end
 end

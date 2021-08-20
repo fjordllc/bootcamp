@@ -3,9 +3,11 @@
   .a-button.is-md.is-secondary.is-select.is-block
     - options = options_for_select(User.os.map { |k, _| [t("activerecord.enums.user.os.#{k}"), k] }, selected: f.object.os)
     = f.select :os, options, include_blank: '- 選択してください -'
-  .a-form-help
+  .a-form-help.is-important
+    h2
+      | M1 Mac or Intel Mac
     p
-      | Mac の場合、現在 Apple M1 チップを採用しているものと、
+      | Mac には現在 Apple M1 チップを採用しているものと、
       | Intel の CPU を採用しているものがあります。
       | どちらの Mac をお使いかで手順が異なるプラクティスがあります。
       | アドバイスをする際にその情報が必要なため、お答えいただいております。
@@ -15,16 +17,32 @@
           | M1 Mac or Intel Mac? の調べ方
         span.a-help
           i.fas.fa-question
+    hr.a-horizontal-dashed
+    h2
+      | Windows(WSL2)
     p
-      | カリキュラムは Mac 向けの内容のみ用意をしております。
-      | なので、現在は Windows では受講できません
-      | （ Windows でも学習ができるように準備を進めています）。
+      | Windows で学習をする場合、WSL2 という
+      | Windows 上で Linux を動作させる仕組みをを使います。
+      | WSL2 を使うには、学習に使うパソコンが Hyper-V に
+      | 対応していることが必要です。
+      | お持ちのパソコンが Hyper-V に対応しているかどうかを
+      | 下記の方法でご確認ください。
+      br
+      label.a-form-help-link.is-danger(for='modal-win')
+        span.a-form-help-link__label
+          | Hyper-V 対応の調べ方
+        span.a-help
+          i.fas.fa-question
+    hr.a-horizontal-dashed
+    h2
+      | Linux
     p
       | Linux 経験者であれば Linux で学習を行うことは可能ですが、
       | Linux であるがために学習が進まなかった場合にサポートが
       | できない場合がありますのでご注意ください。
-
-= render '/shared/modal', id: 'modal-mac', title: '🍏 M1 Mac or Intel Mac? の調べ方'
+= render '/shared/modal',
+  id: 'modal-mac',
+  title: '🍏 M1 Mac or Intel Mac? の調べ方'
   .modal__description.is-md
     .a-short-text
       p
@@ -40,4 +58,21 @@
         br
         | 「プロセッサ」という項目があり、そこに「Intel」とありましたら、Intel Mac です。
       p
-        = image_tag('signup/about-mac-popup.jpg', alt: 'この Mac についてのポップアップウインドウのキャプチャ')
+        = image_tag 'signup/about-mac-popup.jpg',
+          alt: 'この Mac についてのポップアップウインドウのキャプチャ'
+= render '/shared/modal',
+  id: 'modal-win',
+  title: 'Hyper-V対応の調べ方'
+  .modal__description.is-md
+    .a-short-text
+      p スタートボタンの右にある検索欄に「タスクマネージャー」を入力してタスクマネージャーを立ち上げます。
+      p = image_tag 'https://i.gyazo.com/53e17941316c04a75dbd7b953ccc7a3a.png'
+      p 「パフォーマンス」タブを選択します。
+      p 右下の「仮想化」の部分が「有効」になっていればHyper-Vに対応しています。
+      p = image_tag 'https://i.gyazo.com/de5e34f289843201d2246be964c26864.png'
+      p
+        span(style="color:red")
+          | 「無効」になっている場合でもパソコンが対応してれば
+          | 設定で有効にできる場合があります。
+      p 詳細は下記のページを参考にしてください。
+      p = link_to 'WSL2が使えるマシンとは？', 'https://bootcamp.fjord.jp/articles/15', target: :blank

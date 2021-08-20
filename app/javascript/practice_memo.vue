@@ -28,7 +28,7 @@
       .thread-comment-form__markdown.is-editor.js-tabs__content(
         :class='{ "is-active": isActive("memo") }'
       )
-        textarea.a-text-input.js-warning-form.thread-comment-form__textarea(
+        textarea.a-text-input.thread-comment-form__textarea(
           :id='`js-practice-memo`',
           data-preview='#practice-memo-preview',
           v-model='memo',
@@ -51,12 +51,14 @@
 <script>
 import TextareaInitializer from './textarea-initializer'
 import MarkdownInitializer from './markdown-initializer'
+import confirmUnload from './confirm-unload'
 
 export default {
+  mixins: [confirmUnload],
   props: {
     practiceId: { type: String, required: true }
   },
-  data: () => {
+  data() {
     return {
       memo: '',
       tab: 'memo',

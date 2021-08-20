@@ -8,7 +8,7 @@
         i.far.fa-smile
       p.o-empty-message__text
         | {{ title }}はありません
-  .container(v-else)
+  .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .thread-list.a-card
@@ -73,7 +73,8 @@ export default {
       return {
         unchecked: '未完了',
         'not-responded': '未返信',
-        'self-assigned': '自分の担当'
+        'self-assigned': '自分の担当',
+        unassigned: '未アサイン'
       }[this.selectedTab]
     },
     pagerProps() {
@@ -111,7 +112,10 @@ export default {
           return response.json()
         })
         .then((json) => {
-          if (location.pathname === '/products/not_responded') {
+          if (
+            location.pathname === '/products/not_responded' ||
+            location.pathname === '/products/unassigned'
+          ) {
             this.latestProductSubmittedJust5days =
               json.latest_product_submitted_just_5days
             this.latestProductSubmittedJust6days =

@@ -176,4 +176,16 @@ class AnnouncementsTest < ApplicationSystemTestCase
     visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
     assert_text 'komagata (Komagata Masaki)'
   end
+
+  test 'show comment count' do
+    visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
+    assert_text "コメント（\n1\n）"
+
+    fill_in 'new_comment[description]', with: 'コメント数表示のテストです。'
+    click_button 'コメントする'
+    wait_for_vuejs
+
+    visit current_path
+    assert_text "コメント（\n2\n）"
+  end
 end

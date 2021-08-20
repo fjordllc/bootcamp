@@ -53,9 +53,9 @@ class HomeTest < ApplicationSystemTestCase
     assert_text 'ニコニコカレンダー'
   end
 
-  test 'not show the Nico Nico calendar for graduates' do
+  test 'show the Nico Nico calendar for graduates' do
     visit_with_auth '/', 'sotugyou'
-    assert_no_text 'ニコニコカレンダー'
+    assert_text 'ニコニコカレンダー'
   end
 
   test 'not show the Nico Nico calendar for administrators' do
@@ -63,6 +63,27 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_text 'ニコニコカレンダー'
   end
 
+  test 'show Nico Nico calendar page that matches URL params' do
+    visit_with_auth '/?niconico_calendar=2020-01', 'hajime'
+    find('.niconico-calendar-nav').assert_text '2020年1月'
+  end
+
+  test "show current month's page of Nico Nico calendar when future date is specified in URL params" do
+    visit_with_auth "/?niconico_calendar=#{Time.current.next_month.strftime('%Y-%m')}", 'hajime'
+    find('.niconico-calendar-nav').assert_text Time.current.strftime('%Y年%-m月')
+  end
+
+  test 'keep Nico Nico calendar page even when leave dashboard' do
+    visit_with_auth '/', 'hajime'
+    find('.niconico-calendar-nav__previous').click
+    wait_for_vuejs
+    find('.niconico-calendar-nav').assert_text 1.month.ago.strftime('%Y年%-m月')
+    find('.niconico-calendar').click_link href: /reports/, match: :first
+    go_back
+    find('.niconico-calendar-nav').assert_text 1.month.ago.strftime('%Y年%-m月')
+    assert_current_path(/niconico_calendar=#{1.month.ago.strftime('%Y-%m')}/)
+  end
+  
   test 'show test events on dashboard' do
     travel_to Time.zone.local(2017, 0o4, 0o1, 10, 0, 0o0) do
       visit_with_auth '/', 'komagata'

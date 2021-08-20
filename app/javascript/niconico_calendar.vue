@@ -44,7 +44,7 @@
           td.niconico-calendar__day(
             v-for='date in week.value',
             :key='date.weekDay',
-            :class='emotionClass(date)'
+            :class='[emotionClass(date), todayClass(date)]'
           )
             a.niconico-calendar__day-inner(
               v-if='date.id',
@@ -74,6 +74,7 @@ export default {
       currentMonth: this.getCurrentMonth(),
       calendarYear: this.getCurrentYear(),
       calendarMonth: this.getCurrentMonth(),
+      today: this.getCurrentDay(),
       loaded: null
     }
   },
@@ -133,6 +134,7 @@ export default {
     }
   },
   mounted() {
+    this.loadState()
     fetch(`/api/niconico_calendars/${this.userId}.json`, {
       method: 'GET',
       headers: {
@@ -171,6 +173,7 @@ export default {
         this.calendarMonth--
       }
       this.$nextTick(() => (this.loaded = true))
+      this.saveState()
     },
     nextMonth() {
       this.loaded = false
@@ -181,9 +184,18 @@ export default {
         this.calendarMonth++
       }
       this.$nextTick(() => (this.loaded = true))
+      this.saveState()
     },
     emotionClass(date) {
       return date.emotion ? `is-${date.emotion}` : 'is-blank'
+    },
+    todayClass(date) {
+      if (
+        this.calendarYear !== this.currentYear ||
+        this.calendarMonth !== this.currentMonth
+      )
+        return
+      if (date.date === this.today) return 'is-today'
     },
     oldestMonth() {
       const firstReportDate = this.reports[0].reported_on
@@ -206,8 +218,35 @@ export default {
     getCurrentMonth() {
       return new Date().getMonth() + 1
     },
+    getCurrentDay() {
+      return new Date().getDate()
+    },
     reportDate(report) {
       return Number(report.reported_on.split('-')[2])
+    },
+    loadState() {
+      const params = new URLSearchParams(location.search)
+      const yearMonth = params.get('niconico_calendar') || ''
+      const match = /(\d{4})-(\d{2})/.exec(yearMonth)
+      if (!match) {
+        return
+      }
+
+      const year = parseInt(match[1])
+      const month = parseInt(match[2])
+      if (new Date(year, month).getTime() > Date.now()) {
+        return
+      }
+
+      this.calendarYear = year
+      this.calendarMonth = month
+    },
+    saveState() {
+      const year = String(this.calendarYear)
+      const month = String(this.calendarMonth).padStart(2, '0')
+      const params = new URLSearchParams(location.search)
+      params.set('niconico_calendar', `${year}-${month}`)
+      history.replaceState(history.state, '', `?${params}${location.hash}`)
     }
   }
 }
