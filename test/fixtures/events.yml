@@ -102,3 +102,25 @@ event<%= i %>:
   updated_at: <%= Time.zone.local(2018, 5, 14, 9).ago(i.days) %>
   user: komagata
 <% end %>
+
+event27:
+  title: "直近イベントの表示テスト用(当日)"
+  description: "直近イベントの表示テスト用(当日)"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: 2017-04-01 00:00:00
+  end_at: 2017-4-1 12:00:00
+  open_start_at: 2017-3-25 9:00
+  open_end_at: 2017-4-01 9:00
+  user: komagata
+
+event28:
+  title: "直近イベントの表示テスト用(翌日)"
+  description: "直近イベントの表示テスト用(翌日)"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: 2017-04-02 00:00:00
+  end_at: 2017-4-2 12:00:00
+  open_start_at: 2017-3-26 9:00
+  open_end_at: 2017-4-02 9:00
+  user: komagata

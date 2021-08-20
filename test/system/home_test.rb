@@ -88,4 +88,12 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'hajime'
     assert_text '学習時間'
   end
+
+  test 'show test events on dashboard' do
+    travel_to Time.zone.local(2017, 4, 1, 10, 0, 0) do
+      visit_with_auth '/', 'komagata'
+      assert_text '直近イベントの表示テスト用(当日)'
+      assert_text '直近イベントの表示テスト用(翌日)'
+    end
+  end
 end
