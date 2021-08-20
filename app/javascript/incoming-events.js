@@ -8,9 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const button = event.querySelector('.js-close-event')
 
     button.addEventListener('click', () => {
-      document.querySelector(
-        '#event.thread-list-item.incoming-events'
-      ).remove()
+      document.querySelector('#event.thread-list-item.incoming-events').remove()
 
       if (
         document.cookie
@@ -39,9 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selector + ' .js-close-event'
       ).length
       if (eventCount < 1) {
-        document.querySelector(
-          '#events_on_dashboard.confirmed_event'
-        ).remove()
+        document.querySelector('#events_on_dashboard.confirmed_event').remove()
       }
     })
   })
