@@ -1,15 +1,25 @@
 - title 'ブログ記事一覧'
 
-- @articles.each do |article|
-  .article.is-long-text
-    .a-card
-      h2.article__title = link_to article.title, article
-      - if admin_or_mentor_login?
-        ul
-          li
-            = link_to '内容修正', edit_article_path(article)
-          li
-            = link_to '削除',
-              article_path(article),
-              data: { confirm: '本当によろしいですか？' },
-              method: :delete
+.articles
+  header.articles__header
+    .container.is-md
+      .articles__header-inner
+        h1.articles__title
+          = title
+  .articles__body
+    .container.is-md
+      .a-card
+        .articles__items
+          - @articles.each do |article|
+              .articles__item
+                = link_to article, class: 'articles__item-link' do
+                  h2.articles__item-title
+                    = article.title
+                  .articles__item-metas
+                    .articles__item-meta
+                      .articles__item-author
+                        = image_tag article.user.avatar_url
+                        = article.user.login_name
+                    .articles__item-meta
+                      .articles__item-published-at
+                        = l(article.created_at)

@@ -1,2 +1,6 @@
-= render 'notification_mailer_template', title: "#{@watchable.notification_title}に#{@comment.user.login_name}さんがコメントしました。", link_url: notification_url(@notification), link_text: "この#{@watchable.class.model_name.human}へ" do
+- anchor_prefix = @watchable.class.model_name.name == 'Question' ? 'answer_' : 'comment_'
+= render 'notification_mailer_template',
+  title: "#{@watchable.notification_title}に#{@comment.user.login_name}さんがコメントしました。",
+  link_url: notification_url(@notification, anchor: "#{anchor_prefix}#{@comment.id}"),
+  link_text: "この#{@watchable.class.model_name.human}へ" do
   = md2html @comment.description

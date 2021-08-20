@@ -1,56 +1,169 @@
-@import variables/_colors
+@import common-imports
+@import /blocks/base/body
+@import /blocks/footer/footer
 
-body
-  background-color: #ececec
+.articles__header
+  margin-bottom: 1rem
 
-.article__header
-  width: 40%
-  margin-top: 2rem
-  margin-left: auto
-  margin-right: auto
+.articles__title
+  +text-block(1.75rem 1.4, center)
 
-.article
-  margin-top: 2rem
-  margin-bottom: 2rem
+.articles__item:not(:first-child)
+  border-top: solid 1px $border
 
-  .a-card
-    background-color: white
-    border-radius: .25rem
-    border: solid 1px $border-more-shade
-    max-width: 50rem
-    margin-left: auto
-    margin-right: auto
+.articles__item-link
+  +block-link
+  padding: 1rem
+  &:hover
+    .articles__item-title
+      text-decoration: underline
+
+.articles__item-title
+  +text-block(1.125rem 1.4, $default-text)
+
+.articles__item-metas
+  display: flex
+  margin-top: .5rem
+
+.articles__item-meta:not(:first-child)
+  margin-left: .75rem
+
+.articles__item-author
+  display: flex
+  align-items: center
+  +text-block(.8125rem 1.4, $default-text)
+  img
+    +size(1.125rem)
+    object-fit: cover
+    margin-right: .25rem
+    border-radius: 50%
+
+.articles__item-published-at
+  +text-block(.8125rem 1.4, $semi-muted-text)
+
+
+////////////////////
+// .l-article
+////////////////////
+
+.l-article__header
+  max-width: 100%
+  +margin(horizontal, auto)
+  +media-breakpoint-up(md)
+    +padding(vertical, 3rem)
+    width: 22.5rem
+  +media-breakpoint-down(sm)
+    +padding(vertical, 1.5rem)
+    width: 16rem
+
+.l-article__footer
+  +media-breakpoint-up(md)
+    +padding(vertical, 3rem)
+  +media-breakpoint-down(sm)
+    +padding(vertical, 1.5rem)
+
+////////////////////
+// .article
+////////////////////
+
+.article__inner
+  +media-breakpoint-up(md)
+    padding: 1.25rem 2rem
+  +media-breakpoint-down(sm)
+    padding: 1rem 1rem
 
 .article__title
-  padding: 1.25rem 2rem
-  font-size: 1.5rem
-  line-height: 1.4
+  line-height: 1.3
   font-weight: 700
   font-feature-settings: "palt"
   letter-spacing: .02em
+  +media-breakpoint-up(md)
+    font-size: 2rem
+  +media-breakpoint-down(sm)
+    font-size: 1.625rem
 
-.article__description
-  padding: 1.25rem 2rem
+.article__metas
+  display: flex
+  margin-top: .75rem
+  +media-breakpoint-up(md)
+    font-size: .875rem
+  +media-breakpoint-down(sm)
+    font-size: .8125rem
 
+.article__meta:not(:first-child)
+  margin-left: .75em
+
+.article__published-at
+  +text-block(1em 1.4, $semi-muted-text)
+
+.article__author
+  display: flex
+  align-items: center
+  +text-block(1em 1.4, $default-text)
   img
-    max-width: 100%
-    height: auto
-    display: block
-    margin-left: auto
-    margin-right: auto
+    +size(1.125rem)
+    object-fit: cover
+    margin-right: .25rem
+    border-radius: 50%
 
-.is-long-text
-  p
-    font-size: 1em
-    line-height: 1.86
-    margin-bottom: 1.5em
+.article__body
+  margin-top: 1.5rem
+  &.is-long-text
+    +media-breakpoint-up(md)
+      font-size: 1rem
+    +media-breakpoint-down(sm)
+      font-size: .875rem
+  br + a img
+    margin-top: 1.5em !important
+
+
+////////////////////
+// .bootcamp-ad
+////////////////////
 
 .bootcamp-ad
-  padding: 1.25rem 2rem
-
+  margin-top: 2rem
+  a.a-card
+    +block-link
+    color: $default-text
   img
     max-width: 100%
     height: auto
     display: block
     margin-left: auto
     margin-right: auto
+
+.bootcamp-ad__inner
+  +media-breakpoint-up(md)
+    padding: 1.25rem 2rem
+  +media-breakpoint-down(sm)
+    padding: 1rem 1rem
+
+.bootcamp-ad__header
+  border-bottom: solid 1px $border
+  padding-bottom: .25rem
+
+.bootcamp-ad__title
+  +text-block(1rem 1.4, 700)
+
+.bootcamp-ad__body
+  padding-top: 1em
+  +media-breakpoint-up(md)
+    font-size: .875rem
+  +media-breakpoint-down(sm)
+    font-size: .8125rem
+
+  .bootcamp-ad__image
+    float: left
+    margin-right: 1rem
+    margin-bottom: .5rem
+    +size(4rem auto)
+    +position(relative, top .125rem)
+
+  .bootcamp-ad__image + *
+    margin-top: 0
+
+  .a-button
+    +media-breakpoint-up(md)
+      max-width: 20rem
+      +margin(horizontal, auto)

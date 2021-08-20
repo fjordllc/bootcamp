@@ -1,15 +1,28 @@
 - title @article.title
 
-.article.is-long-text
-  .a-card
-    h2.article__title = title
-    .article__description.js-markdown-view = @article.body
-    - if admin_login?
-      ul
-        li
-          = link_to '内容修正', edit_article_path(@article)
-        li
-          = link_to '削除',
-            article_path(@article),
-            data: { confirm: '本当によろしいですか？' },
-            method: :delete
+.article
+  .container.is-md
+    .a-card
+      .article__inner
+        header.article__header
+          h1.article__title
+            = title
+          .article__metas
+            .article__meta
+              .article__author
+                = image_tag @article.user.avatar_url
+                = @article.user.login_name
+            .article__meta
+              .article__published-at
+                = l(@article.created_at)
+        .article__body.js-markdown-view.is-long-text
+          = @article.body
+          - if admin_login?
+            ul
+              li
+                = link_to '内容修正', edit_article_path(@article)
+              li
+                = link_to '削除',
+                  article_path(@article),
+                  data: { confirm: '本当によろしいですか？' },
+                  method: :delete

@@ -20,6 +20,7 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
+      TZ: '/usr/share/zoneinfo/Asia/Tokyo'
 
     services:
       postgres:
