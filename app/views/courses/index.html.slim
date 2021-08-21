@@ -15,4 +15,7 @@ header.page-header
   .container
     .courses-items
       .row
-        = render @courses.order(:created_at)
+        - if current_user&.admin?
+          = render @courses.order(:created_at)
+        - else
+          = render @courses.where(open_course: true).order(:created_at)
