@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(version: 2021_08_28_145120) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "open_course", default: false, null: false
+<<<<<<< HEAD
   end
 
   create_table "courses_categories", force: :cascade do |t|
@@ -150,6 +151,8 @@ ActiveRecord::Schema.define(version: 2021_08_28_145120) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
+=======
+>>>>>>> 7f7b72c9c (コンフリクトの解消)
   end
 
   create_table "events", force: :cascade do |t|
