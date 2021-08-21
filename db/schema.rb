@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 2021_08_28_145120) do
     t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "open_course", default: false, null: false
   end
 
   create_table "courses_categories", force: :cascade do |t|
