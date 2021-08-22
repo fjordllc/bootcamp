@@ -31,7 +31,6 @@ ja:
       announcement: お知らせ
       article: ブログ記事
       work: 作品
-      book: 書籍
       event: イベント
       reservation: 席予約
       seat: 席
@@ -169,10 +168,6 @@ ja:
         repository: リポジトリURL
         url_or_repository: URLまたはリポジトリ
         thumbnail: サムネイル画像
-      book:
-        id: ID
-        title: タイトル
-        isbn: ISBN-13
       event:
         title: タイトル
         description: 詳細
