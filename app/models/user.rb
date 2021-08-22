@@ -97,9 +97,6 @@ class User < ApplicationRecord
            source: :practice,
            dependent: :destroy
 
-  has_many :books,
-           through: :borrowings
-
   has_many :active_relationships,
            class_name: 'Following',
            foreign_key: 'follower_id',
@@ -477,20 +474,6 @@ class User < ApplicationRecord
 
   def unread_notifications_exists?
     unread_notifications_count.positive?
-  end
-
-  def borrow(book)
-    book.update(borrowed: true)
-    borrowings.create(book_id: book.id)
-  end
-
-  def give_back(book)
-    book.update(borrowed: false)
-    borrowings.find_by(book_id: book.id).destroy
-  end
-
-  def borrowing?(book)
-    borrowings.exists?(book_id: book.id)
   end
 
   def avatar_url
