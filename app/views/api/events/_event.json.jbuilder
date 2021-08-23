@@ -1,7 +1,6 @@
-json.(event, :id, :title, :capacity, :wip, :participants_count, :waitlist_count)
+json.(event, :id, :title, :capacity, :wip, :start_at, :participants_count, :waitlist_count)
+json.start_at_localized l(event.start_at)
 json.comments_count event.comments.size
-json.start_at l(event.start_at)
-json.start_at_datetime event.start_at.to_datetime
 json.url event_url(event)
 
 json.user do

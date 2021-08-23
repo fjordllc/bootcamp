@@ -336,4 +336,23 @@ class EventsTest < ApplicationSystemTestCase
     visit_with_auth '/events', 'kimura'
     assert_text 'komagata (Komagata Masaki)'
   end
+
+  test 'show pagination' do
+    attributes = {
+      title: 'test',
+      description: 'test',
+      location: 'test',
+      capacity: 40,
+      start_at: Time.zone.local(2019, 12, 20, 10),
+      end_at: Time.zone.local(2019, 12, 20, 12),
+      open_start_at: Time.zone.local(2019, 12, 19, 9),
+      open_end_at: Time.zone.local(2019, 12, 20, 9),
+      user_id: users(:komagata).id
+    }
+    26.times do
+      Event.create(**attributes)
+    end
+    visit_with_auth '/events', 'kimura'
+    assert_selector 'nav.pagination', count: 2
+  end
 end
