@@ -79,6 +79,7 @@ Rails.application.routes.draw do
     resources :searchables, only: %i(index)
     resources :niconico_calendars, only: %i(show)
     resources :bookmarks, only: %i(index create destroy)
+    resources :events, only: %i(index)
   end
 
   namespace :admin do
