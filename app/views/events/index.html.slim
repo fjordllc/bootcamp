@@ -12,9 +12,4 @@ header.page-header
               i.fa.fa-plus
               | イベント作成
 
-.page-body
-  = paginate @events
-  .container.is-md
-    .thread-list.a-card
-      = render partial: 'events', collection: @events, as: :event
-= paginate @events
+#js-events
