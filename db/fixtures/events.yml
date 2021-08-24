@@ -65,3 +65,40 @@ event6:
   open_start_at: 2019-12-10 9:00
   open_end_at: 2019-12-16 9:00
   user: komagata
+
+event7:
+  title: "テストのイベント"
+  description: "テストのイベントです。"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: 2019-12-17 10:00:00
+  end_at: 2019-12-17 12:00:00
+  open_start_at: 2019-12-10 9:00
+  open_end_at: 2019-12-16 9:00
+  user: komagata
+
+event8:
+  title: "イベントの検索結果テスト用"
+  description: "イベントの検索結果テスト用"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: 2018-5-20 10:00:00
+  end_at: 2018-5-20 12:00:00
+  open_start_at: 2018-5-14 9:00
+  open_end_at: 2018-5-20 9:00
+  user: komagata
+
+<% (9..26).each do |i| %>
+event<%= i %>:
+  title: "イベント<%= i %>"
+  description: "<%= i %>番目のイベントです。"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: <%= Time.zone.local(2018, 5, 20, 10).ago(i.days) %>
+  end_at: <%= Time.zone.local(2018, 5, 20, 12).ago(i.days) %>
+  open_start_at: <%= Time.zone.local(2018, 5, 14, 9).ago(i.days) %>
+  open_end_at: <%= Time.zone.local(2018, 5, 20, 9).ago(i.days) %>
+  created_at: <%= Time.zone.local(2018, 5, 14, 9).ago(i.days) %>
+  updated_at: <%= Time.zone.local(2018, 5, 14, 9).ago(i.days) %>
+  user: komagata
+<% end %>
