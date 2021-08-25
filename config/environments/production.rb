@@ -128,8 +128,6 @@ Rails.application.configure do
    config.action_mailer.delivery_method = :postmark
    config.action_mailer.postmark_settings = { api_token: ENV["POSTMARK_API_TOKEN"] }
 
-   config.hosts << ".a.run.app"
-   if app_host_name = ENV["APP_HOST_NAME"]
-     config.hosts << app_host_name
-   end
+   config.hosts << ENV["CLOUD_RUN_HOST_NAME"] if ENV["CLOUD_RUN_HOST_NAME"]
+   config.hosts << ENV["APP_HOST_NAME"] if ENV["APP_HOST_NAME"]
 end
