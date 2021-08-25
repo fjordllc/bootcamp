@@ -50,6 +50,12 @@ module UserDecorator
     end
   end
 
+  def cached_completed_fraction
+    Rails.cache.fetch "/model/user/#{id}/completed_fraction" do
+      completed_fraction
+    end
+  end
+
   def customer_url
     "https://dashboard.stripe.com/customers/#{customer_id}"
   end
