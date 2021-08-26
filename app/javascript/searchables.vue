@@ -15,7 +15,8 @@
       searchable(
         v-for='searchable in searchables',
         :key='searchable.id',
-        :searchable='searchable'
+        :searchable='searchable',
+        :word='word'
       )
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')

@@ -17,8 +17,20 @@ module ApplicationHelper
     simple_format(truncate(summary, length: word_count))
   end
 
-  def searchable_summary(comment, word_count)
+  def searchable_summary(comment, word_count, word = nil)
     summary = strip_tags(md2html(comment)).gsub(/[\r\n]/, '')
-    truncate(summary, length: word_count)
+    return truncate(summary, length: word_count) if word.nil?
+
+    characters_before_word = 50
+    characters_after_word = 50
+    word_index = summary.index(word)
+    start_index = word_index - characters_before_word
+    display_characters = characters_before_word + word.size + characters_after_word
+
+    if start_index >= 0
+      summary[start_index, display_characters]
+    else
+      summary[0, display_characters]
+    end
   end
 end
