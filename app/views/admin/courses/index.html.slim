@@ -1,0 +1,29 @@
+- title 'コース一覧'
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title = title
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to new_course_path, class: 'a-button is-md is-secondary is-block' do
+              i.fas.fa-plus
+              | コース作成
+
+.page-tools
+  = render 'admin/admin_page_tabs'
+
+.page-body
+  .container.is-padding-horizontal-0-sm-down
+    .admin-table
+      table.admin-table__table
+        thead.admin-table__header
+          tr.admin-table__labels
+            th.admin-table__label
+              | コース名
+            th.admin-table__label
+              | 説明文
+            th.admin-table__label
+              | 操作
+        tbody.admin-table__items
+          = render @courses.order(:created_at)

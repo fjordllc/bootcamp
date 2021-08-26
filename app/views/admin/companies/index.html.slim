@@ -33,7 +33,7 @@ header.page-header
               td.admin-table__item-value
                 - if company.present?
                   = company.name
-              td.admin-table__item-value
+              td.admin-table__item-value.is-text-align-center
                 - if company.logo.attached?
                   = image_tag company.logo_url, class: 'admin-table__item-logo-image'
               td.admin-table__item-value
@@ -46,7 +46,7 @@ header.page-header
                   class: 'a-button is-sm is-secondary is-icon' do
                   i.fas.fa-user-plus
               td.admin-table__item-value.is-text-align-center
-                ul.is-button-group
+                ul.is-inline-buttons
                   li
                     = link_to edit_admin_company_path(company), class: 'a-button is-sm is-secondary is-icon' do
                       i.fas.fa-pen
