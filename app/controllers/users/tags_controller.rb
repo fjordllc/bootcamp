@@ -4,8 +4,8 @@ class Users::TagsController < ApplicationController
   before_action :require_login
 
   def index
-    @tags = User.tags.order('taggings_count desc')
-    @top3_tags_counts = @tags.limit(3).map(&:taggings_count).uniq
+    @tags = User.tags.page(params[:page])
+    @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
   end
 
   def update
