@@ -11,5 +11,10 @@
         = link_to users_tags_path, class: "page-tabs__item-link #{users_current_page_tab_or_not('tags')} #{current_page_tab_or_not('tags')}" do
           | タグ別
       li.page-tabs__item
+<<<<<<< HEAD
         = link_to users_path(target: 'followings'), class: "page-tabs__item-link #{'is-active' if @target == 'followings'}"
           | フォロー中
+=======
+        = link_to companies_path, class: "page-tabs__item-link #{users_current_page_tab_or_not('companies')}" do
+          | 企業別
+>>>>>>> 38283418d (企業別タブを作成)
