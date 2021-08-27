@@ -107,3 +107,13 @@ courses_category22:
   course: course3
   category: category13
   position: 1
+
+courses_category23:
+  course: course3
+  category: category14
+  position: 2
+
+courses_category24:
+  course: course3
+  category: category15
+  position: 3
