@@ -22,11 +22,12 @@ Rails.application.routes.draw do
     resource :session, controller: "session", only: %i(create)
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
-    resources :categories, only: %i(index destroy) do
-      resource :position, only: %i(update), controller: "categories/position"
-    end
+    resources :categories, only: %i(index destroy)
     resources :courses, only: %i() do
       resources :practices, only: %i(index), controller: "/api/courses/practices"
+    end
+    resources :courses_categories, only: %i() do
+      resource :position, only: %i(update), controller: "courses_categories/position"
     end
     resources :notifications, only: %i(index) do
       collection do
