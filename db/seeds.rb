@@ -18,6 +18,7 @@ ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', %i[
   companies
   correct_answers
   courses
+  courses_categories
   events
   followings
   reports
