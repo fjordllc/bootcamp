@@ -9,7 +9,7 @@
       role='progressbar',
       :style='`width: ${roundedPercentage}`'
     )
-  .completed-practices-progress__percentage-number
+  .completed-practices-progress__number
     | {{ fraction }}
 </template>
 <script>
