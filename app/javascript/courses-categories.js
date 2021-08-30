@@ -3,14 +3,16 @@ import CoursesCategories from './courses-categories.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-courses-categories'
-  const categories = document.querySelector(selector)
-  if (categories) {
-    const allCategories = categories.getAttribute('data-categories')
+  const coursesCategories = document.querySelector(selector)
+  if (coursesCategories) {
+    const allCoursesCategories = coursesCategories.getAttribute(
+      'data-courses-categories'
+    )
     new Vue({
       render: (h) =>
         h(CoursesCategories, {
           props: {
-            allCategories: allCategories
+            allCoursesCategories: allCoursesCategories
           }
         })
     }).$mount(selector)

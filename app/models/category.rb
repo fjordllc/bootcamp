@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
-  has_and_belongs_to_many :courses, dependent: :destroy # rubocop:disable Rails/HasAndBelongsToMany
+  has_many :courses_categories, dependent: :destroy
+  has_many :courses, through: :courses_categories
   has_many :categories_practices, dependent: :destroy
   has_many :practices, through: :categories_practices
   validates :name, presence: true
