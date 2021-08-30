@@ -5,28 +5,28 @@ require 'application_system_test_case'
 class FollowingsTest < ApplicationSystemTestCase
   test 'follow' do
     visit_with_auth user_path(users(:hatsuno)), 'kimura'
-    click_button '日報をフォロー'
-    assert_button 'フォローを解除'
+    click_button '日報を自動Watch'
+    assert_button '自動Watchを解除'
   end
 
   test 'unfollow' do
     visit_with_auth user_path(users(:hatsuno)), 'kimura'
-    click_button '日報をフォロー'
-    click_button 'フォローを解除'
-    assert_button '日報をフォロー'
+    click_button '日報を自動Watch'
+    click_button '自動Watchを解除'
+    assert_button '日報を自動Watch'
   end
 
   test 'show following lists' do
     visit_with_auth user_path(users(:hatsuno)), 'kimura'
-    click_button '日報をフォロー'
-    assert_text 'フォローを解除'
+    click_button '日報を自動Watch'
+    assert_text '自動Watchを解除'
     visit '/users?target=followings'
     assert_text users(:hatsuno).login_name
   end
 
   test 'receive a notification when following user create a report' do
     visit_with_auth user_path(users(:hatsuno)), 'kimura'
-    click_button '日報をフォロー'
+    click_button '日報を自動Watch'
 
     visit_with_auth '/reports/new', 'hatsuno'
     within('#new_report') do
@@ -49,7 +49,7 @@ class FollowingsTest < ApplicationSystemTestCase
 
   test "receive a notification when following user's report has comment" do
     visit_with_auth user_path(users(:hatsuno)), 'kimura'
-    click_button '日報をフォロー'
+    click_button '日報を自動Watch'
 
     visit_with_auth '/reports/new', 'hatsuno'
     within('#new_report') do

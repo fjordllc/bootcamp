@@ -107,12 +107,12 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
   end
 
-  test '初めて提出した時だけ、フォローされているユーザーに通知する' do
+  test '初めて提出した時だけ、自動Watchされているユーザーに通知する' do
     following = Following.first
     followed_user_login_name = User.find(following.followed_id).login_name
     follower_user_login_name = User.find(following.follower_id).login_name
     title = '初めて提出した時だけ'
-    description = 'フォローされているユーザーに通知を飛ばす'
+    description = '自動Watchされているユーザーに通知を飛ばす'
     notification_message = make_write_report_notification_message(
       followed_user_login_name, title
     )
