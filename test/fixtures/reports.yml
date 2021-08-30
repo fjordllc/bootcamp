@@ -185,9 +185,9 @@ report22:
 
 report23:
   user: kensyu
-  title: フォローされた日報
+  title: 自動Watchされた日報
   description:
-    フォローされました。
+    自動Watchされました。
   reported_on: "2020-11-10"
 
 report24:
