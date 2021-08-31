@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-user-recent-reports'
   const reports = document.querySelector(selector)
   if (reports) {
-    const reportId = reports.getAttribute('report-id')
+    const userID = reports.getAttribute('user-id')
     new Vue({
       render: (h) =>
         h(UserReports, {
           props: {
-            reportId: reportId
+            userID: userID
           }
         })
     }).$mount(selector)

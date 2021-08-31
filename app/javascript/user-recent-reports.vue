@@ -16,7 +16,7 @@ export default {
     report: Report
   },
   props: {
-    reportId: { type: String, required: true }
+    userID: { type: String, required: true }
   },
   data: function () {
     return {
@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     reportsAPI() {
-      return `/api/reports/${this.reportId}.json`
+      return `/api/users/${this.userID}/recent_reports.json`
     }
   },
   created() {
