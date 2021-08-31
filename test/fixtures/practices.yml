@@ -330,7 +330,6 @@ practice52:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  include_progress: false
 
 practice53:
   title: "C#の基本"
