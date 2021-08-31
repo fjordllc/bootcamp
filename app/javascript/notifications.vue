@@ -63,7 +63,8 @@ export default {
       }
     },
     isUnreadPage() {
-      return location.search.includes('unread')
+      const params = new URLSearchParams(location.search)
+      return params.get('status') !== null && params.get('status') === 'unread'
     },
     pagerProps() {
       return {
