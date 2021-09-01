@@ -1,7 +1,7 @@
-#event.thread-list-item.incoming-events
+.thread-list-item.incoming-events(data-event-id="#{event.id}")
   header.thread-list-item__header
     .h2.thread-list-item__title(itemprop='name')
-      .event(data-event-id="#{event.id}")
+      .event
         = link_to event, itemprop: 'url',
           class: 'thread-list-item__title-link' do
           div = l event.start_at.to_date, format: :md

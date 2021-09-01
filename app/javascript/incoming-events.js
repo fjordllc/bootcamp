@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const selector = '.incoming-events .event'
+  const selector = '.incoming-events'
   const events = document.querySelectorAll(selector)
   if (!events) return false
 
@@ -8,29 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const button = event.querySelector('.js-close-event')
 
     button.addEventListener('click', () => {
-      document.querySelector('#event.thread-list-item.incoming-events').remove()
+      document.querySelector(`.thread-list-item.incoming-events[data-event-id="${eventId}"]`).remove()
 
       if (
         document.cookie
           .split('; ')
           .find((row) => row.startsWith('confirmed_event_ids')) === undefined
       ) {
-        document.cookie =
-          'confirmed_event_ids=' +
-          JSON.stringify([eventId]) +
-          ';max-age=2592000;' // 有効期限30日=259200秒
+        saveCookie([eventId])
       } else {
-        const originalEventIds = document.cookie
+        const latestCookie = document.cookie
           .split('; ')
           .find((row) => row.startsWith('confirmed_event_ids'))
-        const unnecessaryCharacters = 20
-        const updatedEventIds = originalEventIds.substr(unnecessaryCharacters) // Keyである"confirmed_event_ids="の20文字を除きidであるvalue値のみを取得
-        const savedEventIds = JSON.parse(updatedEventIds)
-        savedEventIds.push(eventId)
-        document.cookie =
-          'confirmed_event_ids=' +
-          JSON.stringify(savedEventIds) +
-          ';max-age=2592000;' // 有効期限30日=259200秒
+          saveCookie(updateEventIds(latestCookie, eventId))
       }
 
       const eventCount = document.querySelectorAll(
@@ -41,4 +31,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   })
+
+  function saveCookie(eventIds) {
+    const secondsFor30days = 2592000
+    document.cookie =
+    'confirmed_event_ids=' +
+    JSON.stringify(eventIds) +
+    ';max-age=' +
+    secondsFor30days
+  }
+
+  function updateEventIds(latestCookie, eventId) {
+    const unnecessaryCharacters = 20
+    const latestEventIds = latestCookie.substr(unnecessaryCharacters)
+    const updatedEventIds = JSON.parse(latestEventIds)
+    updatedEventIds.push(eventId)
+    return updatedEventIds
+  }
 })
