@@ -86,7 +86,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not_equal old_percentage, user.completed_percentage
 
     old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice52)
+    user.completed_practices << practices(:practice55)
 
     assert_equal old_percentage, user.completed_percentage
   end
@@ -112,7 +112,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not_equal old_fraction, user.completed_fraction
 
     old_fraction = user.completed_fraction
-    user.completed_practices << practices(:practice52)
+    user.completed_practices << practices(:practice55)
 
     assert_equal old_fraction, user.completed_fraction
   end
