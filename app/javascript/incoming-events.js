@@ -8,7 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const button = event.querySelector('.js-close-event')
 
     button.addEventListener('click', () => {
-      document.querySelector(`.thread-list-item.incoming-events[data-event-id="${eventId}"]`).remove()
+      document
+        .querySelector(
+          `.thread-list-item.incoming-events[data-event-id="${eventId}"]`
+        )
+        .remove()
 
       if (
         document.cookie
@@ -20,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const latestCookie = document.cookie
           .split('; ')
           .find((row) => row.startsWith('confirmed_event_ids'))
-          saveCookie(updateEventIds(latestCookie, eventId))
+        saveCookie(updateEventIds(latestCookie, eventId))
       }
 
       const eventCount = document.querySelectorAll(
@@ -35,10 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveCookie(eventIds) {
     const secondsFor30days = 2592000
     document.cookie =
-    'confirmed_event_ids=' +
-    JSON.stringify(eventIds) +
-    ';max-age=' +
-    secondsFor30days
+      'confirmed_event_ids=' +
+      JSON.stringify(eventIds) +
+      ';max-age=' +
+      secondsFor30days
   }
 
   function updateEventIds(latestCookie, eventId) {
