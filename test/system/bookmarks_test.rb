@@ -35,7 +35,7 @@ class BookmarksTest < ApplicationSystemTestCase
     assert_selector '#bookmark-button.is-active'
     assert_no_selector '#bookmark-button.is-inactive'
 
-    visit '/bookmarks'
+    visit '/current_user/bookmarks'
     assert_text @report.title
   end
 
@@ -47,12 +47,12 @@ class BookmarksTest < ApplicationSystemTestCase
     assert_selector '#bookmark-button.is-inactive'
     assert_no_selector '#bookmark-button.is-active'
 
-    visit '/bookmarks'
+    visit '/current_user/bookmarks'
     assert_no_text @report.title
   end
 
   test 'show question bookmark on lists' do
-    visit_with_auth '/bookmarks', 'kimura'
+    visit_with_auth '/current_user/bookmarks', 'kimura'
     assert_text 'ブックマーク一覧'
     assert_text @question.title
   end
@@ -78,7 +78,7 @@ class BookmarksTest < ApplicationSystemTestCase
     assert_selector '#bookmark-button.is-active'
     assert_no_selector '#bookmark-button.is-inactive'
 
-    visit '/bookmarks'
+    visit '/current_user/bookmarks'
     assert_text @question.title
   end
 
@@ -90,7 +90,7 @@ class BookmarksTest < ApplicationSystemTestCase
     assert_selector '#bookmark-button.is-inactive'
     assert_no_selector '#bookmark-button.is-active'
 
-    visit '/bookmarks'
+    visit '/current_user/bookmarks'
     assert_no_text @question.title
   end
 
