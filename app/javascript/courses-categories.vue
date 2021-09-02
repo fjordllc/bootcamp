@@ -11,20 +11,20 @@
           th.admin-table__label.handle
             | 並び順
       draggable.admin-table__items(
-        v-model='categories',
+        v-model='coursesCategories',
         handle='.js-grab',
         tag='tbody',
         @start='start',
         @end='end'
       )
         tr.admin-table__item(
-          v-for='category in categories',
-          :key='category.id'
+          v-for='coursesCategory in coursesCategories',
+          :key='coursesCategory.id'
         )
           td.admin-table__item-value
-            | {{ category.name }}
+            | {{ coursesCategory.category.name }}
           td.admin-table__item-value
-            | {{ category.slug }}
+            | {{ coursesCategory.slug }}
           td.admin-table__item-value.is-text-align-center.is-grab
             span.js-grab.a-grab
               i.fas.fa-align-justify
@@ -37,12 +37,12 @@ export default {
     draggable
   },
   props: {
-    allCategories: { type: String, required: true }
+    allCoursesCategories: { type: String, required: true }
   },
   data() {
     return {
-      categories: JSON.parse(this.allCategories),
-      categoriesBeforeDragging: '',
+      coursesCategories: JSON.parse(this.allCoursesCategories),
+      coursesCategoriesBeforeDragging: '',
       draggingItem: ''
     }
   },
@@ -52,16 +52,16 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     start() {
-      this.categoriesBeforeDragging = this.categories
+      this.coursesCategoriesBeforeDragging = this.coursesCategories
     },
     end(event) {
-      this.draggingItem = this.categoriesBeforeDragging[event.oldIndex]
+      this.draggingItem = this.coursesCategoriesBeforeDragging[event.oldIndex]
       if (event.oldIndex !== event.newIndex) {
         const params = {
           // position値は1から始まるため、インデックス番号 + 1
           position: event.newIndex + 1
         }
-        fetch(`/api/categories/${this.draggingItem.id}/position.json`, {
+        fetch(`/api/courses_categories/${this.draggingItem.id}/position.json`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -74,7 +74,7 @@ export default {
         })
           .then((response) => {
             if (!response.ok) {
-              this.categories = this.categoriesBeforeDragging
+              this.coursesCategories = this.coursesCategoriesBeforeDragging
             }
           })
           .catch((error) => {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_17_055525) do
+ActiveRecord::Schema.define(version: 2021_08_27_042336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,11 +111,6 @@ ActiveRecord::Schema.define(version: 2021_08_17_055525) do
     t.text "description"
   end
 
-  create_table "categories_courses", id: false, force: :cascade do |t|
-    t.bigint "course_id", null: false
-    t.bigint "category_id", null: false
-  end
-
   create_table "categories_practices", force: :cascade do |t|
     t.bigint "category_id", null: false
     t.bigint "practice_id", null: false
@@ -162,6 +157,15 @@ ActiveRecord::Schema.define(version: 2021_08_17_055525) do
     t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "courses_categories", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "category_id", null: false
+    t.integer "position", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
   end
 
   create_table "events", force: :cascade do |t|

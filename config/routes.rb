@@ -22,11 +22,12 @@ Rails.application.routes.draw do
     resource :session, controller: "session", only: %i(create)
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
-    resources :categories, only: %i(index destroy) do
-      resource :position, only: %i(update), controller: "categories/position"
-    end
+    resources :categories, only: %i(index destroy)
     resources :courses, only: %i() do
       resources :practices, only: %i(index), controller: "/api/courses/practices"
+    end
+    resources :courses_categories, only: %i() do
+      resource :position, only: %i(update), controller: "courses_categories/position"
     end
     resources :notifications, only: %i(index) do
       collection do
@@ -135,7 +136,7 @@ Rails.application.routes.draw do
     resource :git_hub, only: %i(destroy), controller: "git_hub"
   end
 
-  resources :courses, only: %i(index) do
+  resources :courses, except: %i(show) do
     resources :practices, only: %i(index), controller: "courses/practices" do
       collection do
         resources :sort, only: %i(index), controller: "courses/practices/sort"
@@ -143,7 +144,6 @@ Rails.application.routes.draw do
     end
     resources :categories, only: %i(index), controller: "courses/categories"
   end
-  resources :courses, except: %i(index show)
   resources :practices, except: %i(index destroy) do
     resources :reports, only: %i(index), controller: "practices/reports"
     resources :questions, only: %i(index), controller: "practices/questions"
@@ -179,7 +179,6 @@ Rails.application.routes.draw do
 
   resources :questions, only: %i(index show new create destroy)
   resources :reservation_calenders, only: %i(index show)
-  resources :courses, only: :index
 
   resource :inquiry, only: %i(new create)
 
