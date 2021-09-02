@@ -1,0 +1,119 @@
+courses_category1:
+  course: course1
+  category: category1
+  position: 1
+
+courses_category2:
+  course: course1
+  category: category2
+  position: 2
+
+courses_category3:
+  course: course1
+  category: category3
+  position: 3
+
+courses_category4:
+  course: course1
+  category: category4
+  position: 4
+
+courses_category5:
+  course: course1
+  category: category5
+  position: 5
+
+courses_category6:
+  course: course1
+  category: category6
+  position: 6
+
+courses_category7:
+  course: course1
+  category: category7
+  position: 7
+
+courses_category8:
+  course: course1
+  category: category8
+  position: 8
+
+courses_category9:
+  course: course1
+  category: category9
+  position: 9
+
+courses_category10:
+  course: course1
+  category: category10
+  position: 10
+
+courses_category11:
+  course: course1
+  category: category11
+  position: 11
+
+courses_category12:
+  course: course1
+  category: category12
+  position: 12
+
+courses_category13:
+  course: course1
+  category: category13
+  position: 13
+
+courses_category14:
+  course: course1
+  category: category14
+  position: 14
+
+courses_category15:
+  course: course1
+  category: category15
+  position: 15
+
+courses_category16:
+  course: course1
+  category: category16
+  position: 16
+
+courses_category17:
+  course: course2
+  category: category17
+  position: 1
+
+courses_category18:
+  course: course2
+  category: category18
+  position: 2
+
+courses_category19:
+  course: course2
+  category: category19
+  position: 3
+
+courses_category20:
+  course: course2
+  category: category20
+  position: 4
+
+courses_category21:
+  course: course2
+  category: category21
+  position: 5
+
+courses_category22:
+  course: course3
+  category: category13
+  position: 1
+
+courses_category23:
+  course: course3
+  category: category14
+  position: 2
+
+courses_category24:
+  course: course3
+  category: category15
+  position: 3

@@ -18,8 +18,10 @@ main.page-main
   .page-body
     .container.is-md
       - if @tags.present?
+        = paginate @tags
         .a-card
           = render partial: 'tags/tag', collection: @tags, as: :tag
+        = paginate @tags
       - else
         .o-empty-message
           .o-empty-message__icon
