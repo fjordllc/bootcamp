@@ -107,7 +107,6 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     childprocess (3.0.0)
-    chunky_png (1.4.0)
     cocoon (1.2.15)
     coderay (1.1.3)
     coffee-rails (5.0.0)
@@ -345,10 +344,6 @@ GEM
     retriable (3.1.2)
     rexml (3.2.5)
     rollbar (3.1.1)
-    rqrcode (1.2.0)
-      chunky_png (~> 1.0)
-      rqrcode_core (~> 0.2)
-    rqrcode_core (0.2.0)
     rubocop (1.18.3)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
@@ -531,7 +526,6 @@ DEPENDENCIES
   rails_autolink
   ransack
   rollbar
-  rqrcode
   rubocop
   rubocop-fjord
   rubocop-minitest
