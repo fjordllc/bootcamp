@@ -1,5 +1,13 @@
+.card-books__items
+  +media-breakpoint-up(md)
+    display: flex
+    flex-wrap: wrap
 
 .card-books-item
+  +media-breakpoint-up(md)
+    flex: 0 0 50%
+    &:nth-child(odd)
+      border-right: solid 1px $border
   &:not(:first-child)
     border-top: solid 1px $border
 
