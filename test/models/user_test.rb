@@ -102,7 +102,7 @@ class UserTest < ActiveSupport::TestCase
 
     Report.create!(
       user_id: user.id, title: 'test 2', description: 'test',
-      wip: false, emotion: 'sad', reported_on: 1.days.ago, no_learn: true
+      wip: false, emotion: 'sad', reported_on: 1.day.ago, no_learn: true
     )
     assert user.depressed?
 
