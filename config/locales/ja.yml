@@ -225,7 +225,7 @@ ja:
     admin: 管理者
     followings: フォロー中
     self_assigned_all: 全て
-    no_replied: 未返信
+    self_assigned_no_replied: 未返信
   helpers:
     submit:
       create: 登録する
