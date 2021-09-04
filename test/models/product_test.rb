@@ -111,4 +111,16 @@ class ProductTest < ActiveSupport::TestCase
     )
     assert product.save_checker(current_user.id)
   end
+
+  test '.self_assigned_no_replied_products' do
+    current_user = users(:yamada)
+    product = Product.create!(
+      body: 'test',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: nil
+    )
+    product.save_checker(current_user.id)
+    assert_equal [product.id], Product.self_assigned_no_replied_products(current_user.id).pluck(:id)
+  end
 end
