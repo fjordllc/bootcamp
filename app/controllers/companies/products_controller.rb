@@ -9,7 +9,7 @@ class Companies::ProductsController < ApplicationController
                 .includes(:user)
                 .where(users: { company: @company })
                 .list
-                .reorder_for_list
+                .order_for_list
                 .page(params[:page])
   end
 end

@@ -7,7 +7,7 @@ class API::Products::UncheckedController < API::BaseController
                 .unchecked
                 .not_wip
                 .list
-                .reorder_for_not_wip_list
+                .order_for_not_wip_list
                 .page(params[:page])
   end
 end

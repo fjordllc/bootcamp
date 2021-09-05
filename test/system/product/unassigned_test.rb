@@ -30,7 +30,7 @@ class ProductsTest < ApplicationSystemTestCase
                          .unassigned
                          .unchecked
                          .not_wip
-                         .reorder_for_not_wip_list
+                         .order_for_not_wip_list
                          .first
       assert_text newest_product.body
     end
