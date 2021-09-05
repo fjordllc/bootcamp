@@ -516,8 +516,12 @@ class User < ApplicationRecord
 
   def follow(other_user, watch)
     following << other_user
+    change_watching(other_user, watch)
+  end
+
+  def change_watching(other_user, watch)
     following_row = Following.find_by(follower_id: self, followed_id: other_user)
-    following_row.update(watch: watch)
+    following_row.update!(watch: watch)
   end
 
   def unfollow(other_user)
