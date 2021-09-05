@@ -5,7 +5,8 @@ class API::FollowingsController < API::BaseController
 
   def create
     user = User.find(params[:id])
-    if current_user.follow(user)
+    watch = params[:watch] == 'true'
+    if current_user.follow(user, watch)
       render json: { id: user.id }
     else
       head :bad_request

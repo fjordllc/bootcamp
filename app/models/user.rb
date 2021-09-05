@@ -514,8 +514,10 @@ class User < ApplicationRecord
     active_practices.first.id
   end
 
-  def follow(other_user)
+  def follow(other_user, watch)
     following << other_user
+    following_row = Following.find_by(follower_id: self, followed_id: other_user)
+    following_row.update(watch: watch)
   end
 
   def unfollow(other_user)
@@ -524,6 +526,10 @@ class User < ApplicationRecord
 
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def auto_watching?(other_user)
+    Following.find_by(follower_id: self, followed_id: other_user).watch
   end
 
   def completed_all_practices?(category)
