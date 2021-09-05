@@ -43,9 +43,12 @@ class Product < ApplicationRecord
                :comments,
                { user: :company },
                { checks: { user: { avatar_attachment: :blob } } })
-      .order(created_at: :desc)
   }
-  scope :reorder_for_not_wip, -> { reorder(published_at: :desc, id: :desc) }
+  # TODO: reorder を order にする
+  #   .not_responded_products の order の排除が必要
+  # order はorder専用のスコープで行うようにしたほうが、他のスコープの再利用性が高くなる
+  scope :reorder_for_list, -> { reorder(created_at: :desc, id: :desc) }
+  scope :reorder_for_not_wip_list, -> { reorder(published_at: :desc, id: :desc) }
 
   # rubocop:disable Metrics/MethodLength
   def self.not_responded_product_ids
