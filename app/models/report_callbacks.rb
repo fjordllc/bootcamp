@@ -52,7 +52,7 @@ class ReportCallbacks
   def notify_followers(report)
     report.user.followers.each do |follower|
       NotificationFacade.following_report(report, follower)
-      create_following_watch(report, follower)
+      create_following_watch(report, follower) if follower.auto_watching?(report.user)
     end
   end
 
