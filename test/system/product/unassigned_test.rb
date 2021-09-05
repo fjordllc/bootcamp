@@ -27,11 +27,11 @@ class ProductsTest < ApplicationSystemTestCase
 
     within_window(windows.last) do
       newest_product = Product
-                         .unassigned
-                         .unchecked
-                         .not_wip
-                         .order_for_not_wip_list
-                         .first
+                       .unassigned
+                       .unchecked
+                       .not_wip
+                       .order_for_not_wip_list
+                       .first
       assert_text newest_product.body
     end
   end
