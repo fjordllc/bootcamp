@@ -273,7 +273,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['muryou@fjord.jp'], email.to
-    assert_equal '[bootcamp] kensyuさんが日報【 自動Watchされた日報 】を書きました！', email.subject
+    assert_equal '[bootcamp] kensyuさんが日報【 フォローされた日報 】を書きました！', email.subject
     assert_match(/日報/, email.body.to_s)
   end
 
