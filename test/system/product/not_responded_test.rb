@@ -42,7 +42,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     visit_with_auth '/products/not_responded', 'komagata'
 
-    # 提出日の昇順で並んでいることを検証する
+    # 提出日の降順で並んでいることを検証する
     titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
     names = all('.thread-list-item-meta .a-user-name').map(&:text)
     assert_equal "#{newest_product.practice.title}の提出物", titles.first
