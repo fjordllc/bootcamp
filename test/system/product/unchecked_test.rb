@@ -26,7 +26,12 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '未完了の提出物を一括で開く'
 
     within_window(windows.last) do
-      assert_text '提出物の検索結果テスト用'
+      newest_product = Product
+                       .unchecked
+                       .not_wip
+                       .order_for_not_wip_list
+                       .first
+      assert_text newest_product.body
     end
   end
 
