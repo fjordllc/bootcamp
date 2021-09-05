@@ -2,6 +2,8 @@
 
 require 'application_system_test_case'
 
+PAGINATES_PER = 50
+
 class ProductsTest < ApplicationSystemTestCase
   test 'non-staff user can not see listing unchecked products' do
     visit_with_auth '/products/unchecked', 'hatsuno'
@@ -26,6 +28,27 @@ class ProductsTest < ApplicationSystemTestCase
     within_window(windows.last) do
       assert_text '提出物の検索結果テスト用'
     end
+  end
+
+  test 'products order' do
+    # id順で並べたときの最初と最後の提出物を、提出日順で見たときに最新と最古になるように入れ替える
+    Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
+    # 最古の提出物を画面上で判定するため、提出物を1ページ内に収める
+    Product.unchecked.not_wip.limit(Product.count - PAGINATES_PER).delete_all
+    newest_product = Product.unchecked.not_wip.reorder(:id).first
+    newest_product.update(published_at: Time.current)
+    oldest_product = Product.unchecked.not_wip.reorder(:id).last
+    oldest_product.update(published_at: 2.days.ago)
+
+    visit_with_auth '/products/unchecked', 'komagata'
+
+    # 提出日の降順で並んでいることを検証する
+    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    names = all('.thread-list-item-meta .a-user-name').map(&:text)
+    assert_equal "#{newest_product.practice.title}の提出物", titles.first
+    assert_equal newest_product.user.login_name, names.first
+    assert_equal "#{oldest_product.practice.title}の提出物", titles.last
+    assert_equal oldest_product.user.login_name, names.last
   end
 
   test 'show incomplete' do
