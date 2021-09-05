@@ -44,7 +44,7 @@ class ProductsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'products order' do
+  test 'products order on self assigned tab' do
     checker = users(:komagata)
     # id順で並べたときの最初と最後の提出物を、作成日順で見たときに最新と最古になるように入れ替える
     # 最古の提出物を画面上で判定するため、提出物を1ページ内に収める

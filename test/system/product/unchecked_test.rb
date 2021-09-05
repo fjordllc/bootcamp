@@ -30,7 +30,7 @@ class ProductsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'products order' do
+  test 'products order on unchecked tab' do
     # id順で並べたときの最初と最後の提出物を、提出日順で見たときに最新と最古になるように入れ替える
     Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
     # 最古の提出物を画面上で判定するため、提出物を1ページ内に収める
