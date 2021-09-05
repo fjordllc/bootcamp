@@ -14,7 +14,7 @@ class CurrentUser::ProductsController < ApplicationController
   end
 
   def set_products
-    @products = user.products.list
+    @products = user.products.list.reorder_for_list
   end
 
   def user

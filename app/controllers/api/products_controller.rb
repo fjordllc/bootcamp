@@ -6,6 +6,7 @@ class API::ProductsController < API::BaseController
   def index
     @products = Product
                 .list
+                .reorder_for_list
                 .page(params[:page])
   end
 end
