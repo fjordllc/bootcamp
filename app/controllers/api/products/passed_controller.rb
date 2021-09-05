@@ -5,7 +5,7 @@ class API::Products::PassedController < API::BaseController
     products = Product
                .not_responded_products
                .list
-               .reorder_for_not_wip_list
+               .order_for_not_wip_list
     @passed5 = products.count { |product| product.elapsed_days == 5 }
     @passed6 = products.count { |product| product.elapsed_days == 6 }
     @over7 = products.count { |product| product.elapsed_days >= 7 }

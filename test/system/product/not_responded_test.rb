@@ -26,7 +26,7 @@ class ProductsTest < ApplicationSystemTestCase
     within_window(windows.last) do
       newest_product = Product
                        .not_responded_products
-                       .reorder_for_not_wip_list
+                       .order_for_not_wip_list
                        .first
       assert_text newest_product.body
     end
