@@ -34,7 +34,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'products order' do
     # id順で並べたときの最初と最後の提出物を、提出日順で見たときに最新と最古になるように入れ替える
-    Product.update_all(published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
+    Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
     newest_product = Product.not_responded_products.reorder(:id).first
     newest_product.update(published_at: Time.current)
     oldest_product = Product.not_responded_products.reorder(:id).last
