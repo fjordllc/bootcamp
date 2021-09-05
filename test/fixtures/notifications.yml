@@ -114,7 +114,7 @@ notification_following_report:
   kind: 13
   user: muryou
   sender: kensyu
-  message: kensyuさんが日報【 自動Watchされた日報 】を書きました！
+  message: kensyuさんが日報【 フォローされた日報 】を書きました！
   path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report23) %>"
   read: false
 
