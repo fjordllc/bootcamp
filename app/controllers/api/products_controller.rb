@@ -5,13 +5,7 @@ class API::ProductsController < API::BaseController
 
   def index
     @products = Product
-                .includes(
-                  :practice,
-                  { comments: { user: :avatar_attachment } },
-                  { user: [{ avatar_attachment: :blob }, :company] },
-                  { checks: { user: [:company] } }
-                )
-                .order(published_at: :desc)
+                .list
                 .page(params[:page])
   end
 end
