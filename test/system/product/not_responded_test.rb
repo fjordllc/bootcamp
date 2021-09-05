@@ -32,7 +32,7 @@ class ProductsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'products order' do
+  test 'products orderon not responded tab' do
     # id順で並べたときの最初と最後の提出物を、提出日順で見たときに最新と最古になるように入れ替える
     Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
     newest_product = Product.not_responded_products.reorder(:id).first
