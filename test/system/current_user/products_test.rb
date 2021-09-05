@@ -18,7 +18,7 @@ class CurrentUser::ProductsTest < ApplicationSystemTestCase
     oldest_product = Product.where(user: user).last
     oldest_product.update(created_at: 2.days.ago)
 
-    visit_with_auth "/current_user/products", 'with_hyphen'
+    visit_with_auth '/current_user/products', 'with_hyphen'
 
     # 作成日の降順で並んでいることを検証する
     titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
