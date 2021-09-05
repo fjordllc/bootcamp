@@ -6,7 +6,7 @@ class API::Products::NotRespondedController < API::BaseController
     @products = Product
                 .not_responded_products
                 .list
-                .reorder_for_not_responded_products
+                .reorder_for_not_wip
     @latest_product_submitted_just_5days = @products.find { |product| product.elapsed_days == 5 }
     @latest_product_submitted_just_6days = @products.find { |product| product.elapsed_days == 6 }
     @latest_product_submitted_over_7days = @products.find { |product| product.elapsed_days >= 7 }
