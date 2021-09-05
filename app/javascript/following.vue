@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     buttonLabel() {
-      return this.following ? '自動Watchを解除' : '日報を自動Watch'
+      return this.following ? 'フォローを解除' : '日報をフォロー'
     },
     url() {
       return this.following
@@ -32,8 +32,8 @@ export default {
     },
     errorMessage() {
       return this.following
-        ? '自動Watch解除に失敗しました'
-        : '自動Watchに失敗しました'
+        ? 'フォロー解除に失敗しました'
+        : 'フォローに失敗しました'
     }
   },
   methods: {
