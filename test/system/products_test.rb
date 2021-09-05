@@ -191,6 +191,27 @@ class ProductsTest < ApplicationSystemTestCase
     assert_no_text "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。"
   end
 
+  test 'products order' do
+    # id順で並べたときの最初と最後の提出物を、作成日順で見たときに最新と最古になるように入れ替える
+    Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
+    # 最古の提出物を画面上で判定するため、提出物を1ページ内に収める
+    Product.limit(Product.count - PAGINATES_PER).delete_all
+    newest_product = Product.reorder(:id).first
+    newest_product.update(created_at: Time.current)
+    oldest_product = Product.reorder(:id).last
+    oldest_product.update(created_at: 2.days.ago)
+
+    visit_with_auth '/products', 'komagata'
+
+    # 作成日の降順で並んでいることを検証する
+    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    names = all('.thread-list-item-meta .a-user-name').map(&:text)
+    assert_equal "#{newest_product.practice.title}の提出物", titles.first
+    assert_equal newest_product.user.login_name, names.first
+    assert_equal "#{oldest_product.practice.title}の提出物", titles.last
+    assert_equal oldest_product.user.login_name, names.last
+  end
+
   test 'setting checker' do
     visit_with_auth products_path, 'komagata'
     click_button '担当する', match: :first
