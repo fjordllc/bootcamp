@@ -152,7 +152,11 @@ class NotificationFacade
 
   def self.twice_sad_report(report, receiver)
     Notification.twice_sad_report(report, receiver)
+    return unless receiver.mail_notification? && !receiver.retired_on?
 
-    # TODO: メール送信を実装
+    NotificationMailer.with(
+      report: report,
+      receiver: receiver
+    ).twice_sad_report.deliver_later(wait: 5)
   end
 end

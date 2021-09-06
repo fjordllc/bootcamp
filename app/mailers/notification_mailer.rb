@@ -138,4 +138,12 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     subject = "[bootcamp] #{@answer.receiver.login_name}さんの質問【 #{@answer.question.title} 】で#{@answer.sender.login_name}さんの回答がベストアンサーに選ばれました。"
     mail to: @user.email, subject: subject
   end
+
+  # required params: report, receiver
+  def twice_sad_report
+    @user = @receiver
+    @notification = @user.notifications.find_by(path: "/reports/#{@report.id}")
+    mail to: @user.email,
+         subject: "[bootcamp] #{@report.user.login_name}さんが2回連続でsadアイコンの日報を提出しました。"
+  end
 end
