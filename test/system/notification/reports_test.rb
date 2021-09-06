@@ -154,28 +154,36 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'sadアイコンの日報を2回続けて提出した場合、メンターに通知する' do
-    student = 'hajime'
+    student = 'kimura'
     mentor = 'yamada'
 
     visit_with_auth '/reports', student
 
-    [1, 3].each do |i|
-      click_link '日報作成'
-
-      within('#new_report') do
-        fill_in('report[title]', with: 'test title')
-        fill_in('report[description]', with: 'test')
-        fill_in('report[reported_on]', with: "2021/09/0#{i}")
-        find('#sad').click
-      end
-
-      all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
-      all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
-      all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
-      all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
-
-      click_button '提出'
+    click_link '日報作成'
+    within('#new_report') do
+      fill_in('report[title]', with: 'test title 1')
+      fill_in('report[description]', with: 'test 1')
+      fill_in('report[reported_on]', with: '2021-09-01')
+      find('#sad').click
     end
+    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
+    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
+    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
+    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
+    click_button '提出'
+
+    click_link '日報作成'
+    within('#new_report') do
+      fill_in('report[title]', with: 'test title 2')
+      fill_in('report[description]', with: 'test 2')
+      fill_in('report[reported_on]', with: '2021-09-03')
+      find('#sad').click
+    end
+    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
+    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
+    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
+    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
+    click_button '提出'
 
     logout
 
