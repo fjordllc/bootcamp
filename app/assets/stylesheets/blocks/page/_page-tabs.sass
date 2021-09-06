@@ -2,7 +2,7 @@
   background-color: $background-shade
   padding-top: .5rem
   border-top: solid 1px $border-shade
-  border-bottom: solid 1px $border-more-shade
+  border-bottom: solid 1px $border-more-more-shade
   .sort-nav + &
     border-top: solid 1px $border-more-more-shade
   +media-breakpoint-down(sm)
@@ -31,24 +31,28 @@
 
 .page-tabs__item-link
   +flex-link
-  +text-block(.825rem 1, #7d8486 600)
+  +text-block(.825rem 1, $default-text 600)
   align-items: center
   justify-content: center
   height: 2.75rem
   background-color: #dedede
   +padding(horizontal, 1em)
   +border-radius(top, .25rem)
-  border: solid 1px $border-more-shade
+  border: solid 1px $border-more-more-shade
   +position(relative)
+  transition: all .2s ease-out
   +media-breakpoint-down(sm)
     font-size: .75rem
   &:hover
-    color: $default-text
+    background-color: $background
   &.is-active
     background-color: $background
-    border-color: $border-more-shade
+    border-color: $border-more-more-shade
     border-bottom-color: $background
-    color: $default-text
+    color: $main-text
+  &.is-inactive
+    pointer-events: none
+    color: $muted-text
 
 .page-tabs__item-count
   +position(right .125rem, top .125rem)
