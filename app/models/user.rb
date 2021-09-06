@@ -335,13 +335,11 @@ class User < ApplicationRecord
   end
 
   def completed_percentage
-    practices_include_progress = course.practices.where(include_progress: true)
-
-    completed_practices_include_progress =
-      practices_include_progress.joins(:learnings)
-                                .merge(Learning.complete.where(user_id: id))
-
     completed_practices_include_progress.size.to_f / practices_include_progress.size * MAX_PERCENTAGE
+  end
+
+  def completed_fraction
+    "#{completed_practices_include_progress.size}/#{practices_include_progress.size}"
   end
 
   def completed_practices_size(category)
@@ -546,5 +544,14 @@ class User < ApplicationRecord
 
   def password_required?
     new_record? || password.present?
+  end
+
+  def practices_include_progress
+    course.practices.where(include_progress: true)
+  end
+
+  def completed_practices_include_progress
+    practices_include_progress.joins(:learnings)
+                              .merge(Learning.complete.where(user_id: id))
   end
 end
