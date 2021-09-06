@@ -47,7 +47,7 @@ class ProductsTest < ApplicationSystemTestCase
     checker = users(:komagata)
     product.checker_id = checker.id
     product.save
-    visit_with_auth '/products/self_assigned', 'komagata'
+    visit_with_auth '/products/self_assigned?target=self_assigned_all', 'komagata'
     assert_text 'レビューを担当する提出物はありません'
   end
 
@@ -110,6 +110,6 @@ class ProductsTest < ApplicationSystemTestCase
     assert_equal [user.login_name], names
     visit_with_auth '/products/self_assigned', 'yamada'
     wait_for_vuejs
-    assert_text 'レビューを担当する提出物はありません'
+    assert_text 'レビューを担当する未返信の提出物はありません'
   end
 end
