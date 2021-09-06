@@ -22,6 +22,5 @@ header.page-header
         li.tab-nav__item
           = link_to '全て', notifications_path(target: @target), class: "tab-nav__item-link #{params[:status] == 'unread' ? '' : 'is-active'}"
 
-
 .page-body
   #js-notifications(data-is-mentor="#{mentor_login?}" data-target="#{@target}")
