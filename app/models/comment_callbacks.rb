@@ -30,12 +30,16 @@ class CommentCallbacks
 
   private
 
-  def delete_last_comment_at(product_id)
-    product = Product.find(product_id)
-    # 最終日時をリセットする
+  def reset_last_comment_at
     product.mentor_last_comment_at = nil
     product.self_last_comment_at = nil
-    # 最新日時を上書きする
+  end
+
+  def delete_last_comment_at(product_id)
+    product = Product.find(product_id)
+
+    reset_last_comment_at
+
     product.comments.each do |comment|
       if comment.user.mentor
         product.mentor_last_comment_at = comment.updated_at
@@ -50,11 +54,10 @@ class CommentCallbacks
     product = Product.find(comment.commentable.id)
     if comment.user.mentor
       product.mentor_last_comment_at = comment.updated_at
-      product.save!
     elsif comment.user == product.user
       product.self_last_comment_at = comment.updated_at
-      product.save!
     end
+    product.save!
   end
 
   def notify_comment(comment)
