@@ -152,4 +152,36 @@ class Notification::ReportsTest < ApplicationSystemTestCase
       description
     )
   end
+
+  test 'sadアイコンの日報を2回続けて提出した場合、メンターに通知する' do
+    student = 'hajime'
+    mentor = 'yamada'
+
+    visit_with_auth '/reports', student
+
+    [1, 3].each do |i|
+      click_link '日報作成'
+
+      within('#new_report') do
+        fill_in('report[title]', with: 'test title')
+        fill_in('report[description]', with: 'test')
+        fill_in('report[reported_on]', with: "2021/09/0#{i}")
+        find('#sad').click
+      end
+
+      all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
+      all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
+      all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
+      all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
+
+      click_button '提出'
+    end
+
+    logout
+
+    login_user mentor, 'testtest'
+    open_notification
+
+    assert_equal "#{student}さんが2回連続でsadアイコンの日報を提出しました。", notification_message
+  end
 end
