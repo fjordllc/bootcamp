@@ -9,8 +9,8 @@
       role='progressbar',
       :style='`width: ${roundedPercentage}`'
     )
-  .completed-practices-progress__percentage-number
-    | {{ roundedPercentage }}
+  .completed-practices-progress__number
+    | {{ fraction }}
 </template>
 <script>
 export default {
@@ -19,7 +19,8 @@ export default {
   },
   data() {
     return {
-      percentage: this.user.cached_completed_percentage
+      percentage: this.user.cached_completed_percentage,
+      fraction: this.user.completed_fraction
     }
   },
   computed: {
