@@ -49,7 +49,26 @@ header.page-header
                     .thread-header-metas__meta
                       = link_to @product.user, class: 'a-user-name' do
                         = @product.user.long_name
-
+                  .thread-header-metas__end
+                    .thread-header-metas__meta
+                      - length = @product.comments.length
+                      a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
+                        | コメント（
+                        span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                          = length
+                        | ）
+              .thread-header__row
+                h1.thread-header-title(class="#{@product.wip? ? 'is-wip' : ''}")
+                  - if @product.wip?
+                    span.thread-header-title__label
+                      | WIP
+                  span.thread-header-title__title
+                    - if @product.user.daimyo?
+                      | ★
+                    | #{link_to @product.practice.title, @product.practice, class: 'thread-header-title__link'}の提出物
+              .thread-header__row
+                .thread-header-metas
+                  .thread-header-metas__start
                     .thread-header-metas__meta
                       .a-meta
                         - if @product.wip?
@@ -73,58 +92,6 @@ header.page-header
                             | 更新
                           time.a-meta__value(datetime="#{@product.updated_at.to_datetime}")
                             = l @product.updated_at
-
-                    .thread-header-metas__meta
-                      - length = @product.comments.length
-                      a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-                        | コメント（
-                        span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                          = length
-                        | ）
-
-                    - if @product.self_last_comment_at.present? && @product.mentor_last_comment_at.present?
-                      - if @product.self_last_comment_at > @product.mentor_last_comment_at
-                        .thread-header-metas__meta
-                          .a-meta.self_comment
-                            span.a-meta__label
-                              | 最終コメント(提出者)
-                            time.a-meta__value(datetime="#{@product.self_last_comment_at.to_datetime}")
-                              = l @product.self_last_comment_at
-
-                      - elsif @product.self_last_comment_at < @product.mentor_last_comment_at
-                        .thread-header-metas__meta
-                          .a-meta.mentor_comment
-                            span.a-meta__label
-                              | 最終コメント(メンター)
-                            time.a-meta__value(datetime="#{@product.mentor_last_comment_at.to_datetime}")
-                              = l @product.mentor_last_comment_at
-
-                    - elsif @product.self_last_comment_at.present? || @product.mentor_last_comment_at.present?
-                      - if @product.self_last_comment_at.present?
-                        .thread-header-metas__meta
-                          .a-meta.self_comment
-                            span.a-meta__label
-                              | 最終コメント(提出者)
-                            time.a-meta__value(datetime="#{@product.self_last_comment_at.to_datetime}")
-                              = l @product.self_last_comment_at
-
-                      - elsif @product.mentor_last_comment_at.present?
-                        .thread-header-metas__meta
-                          .a-meta.mentor_comment
-                            span.a-meta__label
-                              | 最終コメント(メンター)
-                            time.a-meta__value(datetime="#{@product.mentor_last_comment_at.to_datetime}")
-                              = l @product.mentor_last_comment_at
-
-              .thread-header__row
-                h1.thread-header-title(class="#{@product.wip? ? 'is-wip' : ''}")
-                  - if @product.wip?
-                    span.thread-header-title__label
-                      | WIP
-                  span.thread-header-title__title
-                    - if @product.user.daimyo?
-                      | ★
-                    | #{link_to @product.practice.title, @product.practice, class: 'thread-header-title__link'}の提出物
 
               .thread-header__row
                 .thread-header-actions
