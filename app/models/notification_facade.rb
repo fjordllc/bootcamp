@@ -149,4 +149,10 @@ class NotificationFacade
       receiver: receiver
     ).chose_correct_answer.deliver_later(wait: 5)
   end
+
+  def self.twice_sad_report(report, receiver)
+    Notification.twice_sad_report(report, receiver)
+
+    # TODO: メール送信を実装
+  end
 end
