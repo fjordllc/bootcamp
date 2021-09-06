@@ -117,4 +117,11 @@ class NotificationMailerPreview < ActionMailer::Preview
 
     NotificationMailer.with(answer: answer, receiver: receiver).chose_correct_answer
   end
+
+  def twice_sad_report
+    report = Report.find(ActiveRecord::FixtureSet.identify(:report16))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+
+    NotificationMailer.with(report: report, receiver: receiver).twice_sad_report
+  end
 end
