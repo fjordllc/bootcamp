@@ -43,9 +43,7 @@
                 span.a-meta__label 提出日
                 | {{ product.created_at }}
             .thread-list-item-meta__item
-              time.a-meta(
-                v-if='product.updated_at',
-              )
+              time.a-meta(v-if='product.updated_at')
                 span.a-meta__label 更新
                 | {{ product.updated_at }}
 
@@ -89,16 +87,12 @@
             .thread-list-item-meta__item(
               v-else-if='product.self_last_comment_at_date_time || product.mentor_last_comment_at_date_time'
             )
-              time.a-meta(
-                v-if='product.self_last_comment_at_date_time'
-              )
+              time.a-meta(v-if='product.self_last_comment_at_date_time')
                 | 〜 {{ product.self_last_comment_at }}（
                 strong
                   | 提出者
-                |）
-              time.a-meta(
-                v-else-if='product.mentor_last_comment_at_date_time'
-              )
+                | ）
+              time.a-meta(v-else-if='product.mentor_last_comment_at_date_time')
                 | 〜 {{ product.mentor_last_comment_at }}（メンター）
 
     .stamp.stamp-approve(v-if='product.checks.size > 0')
