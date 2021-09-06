@@ -1,7 +1,7 @@
 <template lang="pug">
-.thread-comments(v-if='loaded === false')
+.thread-comments#comments(v-if='loaded === false')
   commentPlaceholder(v-for='num in placeholderCount', :key='num')
-.thread-comments(v-else)
+.thread-comments#comments(v-else)
   comment(
     v-for='(comment, index) in comments',
     :key='comment.id',

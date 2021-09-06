@@ -1,5 +1,5 @@
 <template lang="pug">
-.thread-list-item(:class='product.wip ? "is-wip" : ""')
+.thread-list-item.has-assigned(:class='product.wip ? "is-wip" : ""')
   .thread-list-item__strip-label(v-if='notResponded || unassigned')
     .thread-list-item__elapsed-days.is-reply-warning.is-only-mentor(
       v-if='isLatestProductSubmittedJust5days'
@@ -29,56 +29,28 @@
           .thread-list-item-meta__items
             .thread-list-item-meta__item
               a.a-user-name(:href='product.user.url') {{ product.user.login_name }}
+      .thread-list-item__row
+        .thread-list-item-meta
+          .thread-list-item-meta__items
             .thread-list-item-meta__item(v-if='product.wip')
               .a-meta 提出物作成中
             .thread-list-item-meta__item(v-else-if='product.published_at')
-              time.a-meta(datetime='product.published_at_date_time')
+              time.a-meta
                 span.a-meta__label 提出日
                 | {{ product.published_at }}
             .thread-list-item-meta__item(v-else)
-              time.a-meta(datetime='product.created_at_date_time')
+              time.a-meta
                 span.a-meta__label 提出日
                 | {{ product.created_at }}
-            time.a-meta(
-              v-if='product.updated_at',
-              datetime='product.updated_at_date_time'
-            )
-              span.a-meta__label 更新
-              | {{ product.updated_at }}
-            .thread-list-item-meta__item(
-              v-if='product.self_last_comment_at_date_time && product.mentor_last_comment_at_date_time'
-            )
+            .thread-list-item-meta__item
               time.a-meta(
-                v-if='product.self_last_comment_at_date_time > product.mentor_last_comment_at_date_time',
-                datetime='product.self_last_comment_at_date_time'
+                v-if='product.updated_at',
               )
-                span.a-meta__label.self_comment 最終コメント(提出者)
-                | {{ product.self_last_comment_at }}
-              time.a-meta(
-                v-if='product.self_last_comment_at_date_time < product.mentor_last_comment_at_date_time',
-                datetime='product.mentor_last_comment_at_date_time'
-              )
-                span.a-meta__label.mentor_comment 最終コメント(メンター)
-                | {{ product.mentor_last_comment_at }}
+                span.a-meta__label 更新
+                | {{ product.updated_at }}
 
-            .thread-list-item-meta__item(
-              v-else-if='product.self_last_comment_at_date_time || product.mentor_last_comment_at_date_time'
-            )
-              time.a-meta(
-                v-if='product.self_last_comment_at_date_time',
-                datetime='product.self_last_comment_at_date_time'
-              )
-                span.a-meta__label.self_comment 最終コメント(提出者)
-                | {{ product.self_last_comment_at }}
-              time.a-meta(
-                v-else-if='product.mentor_last_comment_at_date_time',
-                datetime='product.mentor_last_comment_at_date_time'
-              )
-                span.a-meta__label.mentor_comment 最終コメント(メンター)
-                | {{ product.mentor_last_comment_at }}
-
+      hr.thread-list-item__row-separator(v-if='product.comments.size > 0')
       .thread-list-item__row(v-if='product.comments.size > 0')
-        hr.thread-list-item__row-separator
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
@@ -98,10 +70,37 @@
                       :src='user.avatar_url',
                       :class='[roleClass, daimyoClass]'
                     )
-                time.a-meta(
-                  datetime='product.comments.last_created_at_date_time'
-                )
-                  | 〜 {{ product.comments.last_created_at }}
+
+            .thread-list-item-meta__item(
+              v-if='product.self_last_comment_at_date_time && product.mentor_last_comment_at_date_time'
+            )
+              time.a-meta(
+                v-if='product.self_last_comment_at_date_time > product.mentor_last_comment_at_date_time'
+              )
+                | 〜 {{ product.self_last_comment_at }}（
+                strong
+                  | 提出者
+                | ）
+              time.a-meta(
+                v-if='product.self_last_comment_at_date_time < product.mentor_last_comment_at_date_time'
+              )
+                | 〜 {{ product.mentor_last_comment_at }}（メンター）
+
+            .thread-list-item-meta__item(
+              v-else-if='product.self_last_comment_at_date_time || product.mentor_last_comment_at_date_time'
+            )
+              time.a-meta(
+                v-if='product.self_last_comment_at_date_time'
+              )
+                | 〜 {{ product.self_last_comment_at }}（
+                strong
+                  | 提出者
+                |）
+              time.a-meta(
+                v-else-if='product.mentor_last_comment_at_date_time'
+              )
+                | 〜 {{ product.mentor_last_comment_at }}（メンター）
+
     .stamp.stamp-approve(v-if='product.checks.size > 0')
       h2.stamp__content.is-title 確認済
       time.stamp__content.is-created-at {{ product.checks.last_created_at }}

@@ -232,29 +232,4 @@ class CommentsTest < ApplicationSystemTestCase
     find('#js-new-comment').set('@')
     assert_selector 'span.mention', text: 'mentor'
   end
-
-  test 'show last comment at' do
-    # メンターがコメントする
-    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
-    within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'メンターがコメント')
-    end
-    click_button 'コメントする'
-    wait_for_vuejs
-    assert_text 'メンターがコメント'
-    # 最終コメントがメンターであることを確認
-    visit current_url
-    assert_text '最終コメント(メンター)'
-    # 提出者がコメントする
-    visit_with_auth "/products/#{products(:product2).id}", 'kimura'
-    within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: '提出者がコメント')
-    end
-    click_button 'コメントする'
-    wait_for_vuejs
-    assert_text '提出者がコメント'
-    # 最終コメントが提出者であることを確認
-    visit current_url
-    assert_text '最終コメント(提出者)'
-  end
 end
