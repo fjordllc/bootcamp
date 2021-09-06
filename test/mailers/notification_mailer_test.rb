@@ -296,4 +296,24 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal '[bootcamp] hajimeさんの質問【 解決済みの質問 】でadvijirouさんの回答がベストアンサーに選ばれました。', email.subject
     assert_match(/回答/, email.body.to_s)
   end
+
+  test 'twice_sad_report' do
+    report = reports(:report16)
+    twice_sad_report = notifications(:notification_twice_sad_report)
+    mailer = NotificationMailer.with(
+      report: report,
+      receiver: twice_sad_report.user
+    ).twice_sad_report
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[bootcamp] hajimeさんが2回連続でsadアイコンの日報を提出しました。', email.subject
+    assert_match(/2回連続/, email.body.to_s)
+  end
 end

@@ -125,3 +125,11 @@ notification_chose_correct_answer:
   message: hajimeさんの質問【 解決済みの質問 】でadvijirouさんの回答がベストアンサーに選ばれました。
   path: "/questions/<%= ActiveRecord::FixtureSet.identify(:question12) %>"
   read: false
+
+notification_twice_sad_report:
+  kind: 15
+  user: komagata
+  sender: hajime
+  message: hajimeさんが2回連続でsadアイコンの日報を提出しました。
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report16) %>"
+  read: false
