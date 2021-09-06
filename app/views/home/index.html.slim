@@ -54,5 +54,3 @@ header.page-header
             = render 'users/inactive_users', users: User.inactive_students_and_trainees
           - if current_user.role == :student
             = render 'required_field', user: current_user
-          - if current_user.books.present?
-            = render 'users/borrowing_books', user: current_user

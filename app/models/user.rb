@@ -45,7 +45,6 @@ class User < ApplicationRecord
   belongs_to :company, optional: true
   belongs_to :course
   has_many :learnings, dependent: :destroy
-  has_many :borrowings, dependent: :destroy
   has_many :pages, dependent: :destroy
   has_many :comments,      dependent: :destroy
   has_many :reports,       dependent: :destroy
@@ -96,9 +95,6 @@ class User < ApplicationRecord
            through: :active_learnings,
            source: :practice,
            dependent: :destroy
-
-  has_many :books,
-           through: :borrowings
 
   has_many :active_relationships,
            class_name: 'Following',
@@ -477,20 +473,6 @@ class User < ApplicationRecord
 
   def unread_notifications_exists?
     unread_notifications_count.positive?
-  end
-
-  def borrow(book)
-    book.update(borrowed: true)
-    borrowings.create(book_id: book.id)
-  end
-
-  def give_back(book)
-    book.update(borrowed: false)
-    borrowings.find_by(book_id: book.id).destroy
-  end
-
-  def borrowing?(book)
-    borrowings.exists?(book_id: book.id)
   end
 
   def avatar_url

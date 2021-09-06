@@ -10,8 +10,6 @@ ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', %i[
   answers
   articles
   bookmarks
-  books
-  borrowings
   categories
   checks
   comments

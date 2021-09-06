@@ -82,7 +82,5 @@ header.page-header
           - if @user.completed_practices.present?
             - cache [@user, @completed_learnings] do
               = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
-          - if @user.books.present?
-            = render '/users/borrowing_books', user: @user
 
         .col-xs-12.col-lg-5.col-xxl-6
