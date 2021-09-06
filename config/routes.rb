@@ -91,10 +91,6 @@ Rails.application.routes.draw do
     end
     resources :categories, except: %i(show)
     resources :courses, only: %i(index)
-    namespace :books do
-      resources :qrcodes, only: %i(index show)
-    end
-    resources :books
     resources :seats, except: %i(show)
   end
 
@@ -170,13 +166,6 @@ Rails.application.routes.draw do
     end
   end
   resources :works, except: %i(index)
-  resources :books, only: %i(index show) do
-    resources :borrowings, only: %i(create destroy)
-    collection do
-      resources :borrowed, only: %i(index), controller: "books/borrowed", path: :borrowed
-      resources :search_results, only: %i(index), controller: "books/search_results"
-    end
-  end
 
   resources :questions, only: %i(index show new create destroy)
   resources :reservation_calenders, only: %i(index show)
