@@ -13,7 +13,15 @@ header.page-header
 
 = render 'notifications/tabs'
 
+.page-tools
+  nav.tab-nav.is-centered
+    .container.is-padding-horizontal-0-sm-down
+      ul.tab-nav__items
+        li.tab-nav__item
+          = link_to '未読', notifications_path(status: 'unread', target: @target), class: "tab-nav__item-link #{params[:status] == 'unread' ? 'is-active' : ''}"
+        li.tab-nav__item
+          = link_to '全て', notifications_path(target: @target), class: "tab-nav__item-link #{params[:status] == 'unread' ? '' : 'is-active'}"
+
+
 .page-body
-  = link_to '未読', notifications_path(status: 'unread', target: @target)
-  = link_to '全て', notifications_path(target: @target)
   #js-notifications(data-is-mentor="#{mentor_login?}" data-target="#{@target}")
