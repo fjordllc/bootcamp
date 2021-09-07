@@ -533,7 +533,7 @@ class User < ApplicationRecord
   end
 
   def auto_watching?(other_user)
-    Following.find_by(follower_id: self, followed_id: other_user).watch
+    following?(other_user) ? Following.find_by(follower_id: self, followed_id: other_user).watch : false
   end
 
   def completed_all_practices?(category)

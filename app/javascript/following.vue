@@ -3,7 +3,8 @@ button.card-main-actions__action.a-button.is-sm.is-block(
   :class='following ? "is-danger" : "is-secondary"',
   @click='followOrUnfollow'
 )
-  | {{ buttonLabel }}
+  | {{ isWatching ? "✔︎" : "" }}
+  | コメントあり
 </template>
 <script>
 import 'whatwg-fetch'
@@ -11,7 +12,8 @@ import 'whatwg-fetch'
 export default {
   props: {
     isFollowing: { type: Boolean, required: true },
-    userId: { type: Number, required: true }
+    userId: { type: Number, required: true },
+    isWatching : { type: Boolean, required: true },
   },
   data() {
     return {
@@ -25,7 +27,7 @@ export default {
     url() {
       return this.following
         ? `/api/followings/${this.userId}`
-        : '/api/followings'
+        : '/api/followings?watch=true'
     },
     verb() {
       return this.following ? 'DELETE' : 'POST'
