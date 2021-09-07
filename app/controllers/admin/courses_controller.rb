@@ -2,7 +2,7 @@
 
 class Admin::CoursesController < AdminController
   before_action :set_course, only: %i[edit update destroy]
-  
+
   def index
     @courses = Course.order(created_at: :desc)
   end
