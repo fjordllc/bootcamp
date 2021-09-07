@@ -55,7 +55,6 @@ export default {
   },
   computed: {
     url() {
-      console.log(this.currentPage)
       return `/api/bookmarks?page=${this.currentPage}`
     },
     pagerProps() {
@@ -79,8 +78,6 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getBookmarks() {
-      console.log(this)
-      console.log(this.url.replace("current_user/", ""))
       fetch(this.url, {
         method: 'GET',
         headers: {
@@ -89,15 +86,12 @@ export default {
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
-        redirect: 'manual'
+        redirect: 'follow'
       })
         .then((response) => {
-          console.log(response)
-          console.log(response.json())
           return response.json()
         })
         .then((json) => {
-          console.log("gggggggg")
           this.bookmarks = []
           json.bookmarks.forEach((bookmark) => {
             this.bookmarks.push(bookmark)
