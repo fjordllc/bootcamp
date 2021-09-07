@@ -4,7 +4,9 @@ class NotificationsController < ApplicationController
   before_action :require_login, only: %i[index show]
   before_action :set_my_notification, only: %i[show]
 
-  def index; end
+  def index
+    @target = params[:target]
+  end
 
   def show
     path = @notification.read_attribute :path

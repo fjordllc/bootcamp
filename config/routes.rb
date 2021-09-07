@@ -29,11 +29,7 @@ Rails.application.routes.draw do
     resources :courses_categories, only: %i() do
       resource :position, only: %i(update), controller: "courses_categories/position"
     end
-    resources :notifications, only: %i(index) do
-      collection do
-        resources :unread, only: %i(index), controller: "/api/notifications/unread"
-      end
-    end
+    resources :notifications, only: %i(index)
     resources :comments, only: %i(index create update destroy)
     resources :answers, only: %i(index create update destroy) do
       resource :correct_answer, only: %i(create update)
@@ -162,7 +158,6 @@ Rails.application.routes.draw do
   resources :notifications, only: %i(index show) do
     collection do
       resources :allmarks, only: %i(create), controller: "notifications/allmarks"
-      resources :unread, only: %i(index), controller: "notifications/unread", path: :unread
     end
   end
   resources :works, except: %i(index)
