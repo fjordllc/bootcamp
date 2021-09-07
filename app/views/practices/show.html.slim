@@ -136,6 +136,12 @@ header.page-header
                 br
                 | 終了条件をクリアしたら完了にしてください。
 
+        - if @practice.submission?
+          section.a-card
+            .practice-content__body
+              = link_to '提出物を出す時の注意点',
+                'https://bootcamp.fjord.jp/pages/info-for-product'
+
         - if current_user.mentor? || current_user.admin?
           section.a-card
             header.card-header
