@@ -3,9 +3,7 @@
 class CompaniesController < ApplicationController
   before_action :require_login
 
-  def index
-    @companies = Company.with_attached_logo
-  end
+  def index; end
 
   def show
     @company = Company.find(params[:id])
