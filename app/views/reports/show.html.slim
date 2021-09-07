@@ -16,7 +16,7 @@ header.page-header
               | 日報一覧
 
 .page-body
-  .container.is-xxxl
+  .container.is-xxl
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
         .thread
@@ -32,7 +32,7 @@ header.page-header
                           | WIP
                     .thread-header-metas__meta
                       = link_to @report.user, class: 'a-user-name', title: @report.user.name do
-                        = @report.user.long_name
+                        = @report.user.login_name
                     .thread-header-metas__meta
                       .a-meta
                         = l @report.reported_on
@@ -87,47 +87,48 @@ header.page-header
                         = link_to practice, class: 'tag-links__item-link' do
                           = practice.title
 
-        = render 'reports/learning_times', report: @report
+            = render 'reports/learning_times', report: @report
 
-        .thread__body
-          .thread__description.js-target-blank.is-long-text.js-markdown-view
-            = @report.description
-          = render 'reactions/reactions', reactionable: @report
-        - if @report.user_id == current_user.id
-          .card-footer
-            .card-main-actions
-              ul.card-main-actions__items
-                li.card-main-actions__item
-                  = link_to edit_report_path(@report), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
-                    i.fas.fa-pen#new
-                    | 内容修正
-                li.card-main-actions__item.is-sub
-                  = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
-                    span#delete
-                      | 削除する
+            .thread__body
+              .thread__description.js-target-blank.is-long-text.js-markdown-view
+                = @report.description
+              = render 'reactions/reactions', reactionable: @report
 
-        - if (@report.user.daimyo? && staff_login?) || admin_or_mentor_login?
-          #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
+            - if @report.user_id == current_user.id
+              .card-footer
+                .card-main-actions
+                  ul.card-main-actions__items
+                    li.card-main-actions__item
+                      = link_to edit_report_path(@report), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
+                        i.fas.fa-pen#new
+                        | 内容修正
+                    li.card-main-actions__item.is-sub
+                      = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
+                        span#delete
+                          | 削除する
 
-      .thread-prev-next
-        .thread-prev-next__item
-          - if @report.previous
-            = link_to @report.previous, class: 'thread-prev-next__item-link is-prev' do
-              i.fas.fa-angle-left
-              | 前の日報
-        .thread-prev-next__item
-          = link_to user_reports_path(@report.user_id), class: 'thread-prev-next__item-link is-index' do
-            | 日報一覧
-        .thread-prev-next__item
-          - if @report.next
-            = link_to @report.next, class: 'thread-prev-next__item-link is-next' do
-              | 次の日報
-              i.fas.fa-angle-right
-      = render 'users/icon', user: @report.user, link_class: 'thread__author-link', image_class: 'thread__author-icon'
+            - if (@report.user.daimyo? && staff_login?) || admin_or_mentor_login?
+              #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
 
-      #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
+          .thread-prev-next
+            .thread-prev-next__item
+              - if @report.previous
+                = link_to @report.previous, class: 'thread-prev-next__item-link is-prev' do
+                  i.fas.fa-angle-left
+                  | 前の日報
+            .thread-prev-next__item
+              = link_to user_reports_path(@report.user_id), class: 'thread-prev-next__item-link is-index' do
+                | 日報一覧
+            .thread-prev-next__item
+              - if @report.next
+                = link_to @report.next, class: 'thread-prev-next__item-link is-next' do
+                  | 次の日報
+                  i.fas.fa-angle-right
+          = render 'users/icon', user: @report.user, link_class: 'thread__author-link', image_class: 'thread__author-icon'
 
-      = render 'footprints/footprints', footprints: @footprints
+        #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
+
+        = render 'footprints/footprints', footprints: @footprints
 
       .col-lg-4.col-xs-12
         // #js-user-recent-reports(report-id="#{@report.id}")
