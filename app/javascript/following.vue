@@ -1,19 +1,20 @@
 <template lang="pug">
 ul
   li
-    button.card-main-actions__action.a-button.is-sm.is-block(
-      :class='following&&watching ? "is-danger" : "is-secondary"',
-      @click='followOrUnfollow(true)'
-    )
-      | {{ watching ? "✔︎" : "" }}
+    button(v-if='following && watching')
+      | ✔︎ コメントあり
+    button(v-else, @click='followOrChangeFollow(true)')
       | コメントあり
   li
-    button.card-main-actions__action.a-button.is-sm.is-block(
-      :class='following&&!watching ? "is-danger" : "is-secondary"',
-      @click='followOrUnfollow(false)'
-    )
-      | {{ following&&!watching ? "✔︎" : "" }}
+    button(v-if='following && !watching')
+      | ✔︎ コメントなし
+    button(v-else, @click='followOrChangeFollow(false)')
       | コメントなし
+  li
+    button(v-if='!following')
+      | ✔︎ フォローしない
+    button(v-else, @click='unfollow')
+      | フォローしない
 </template>
 <script>
 import 'whatwg-fetch'
@@ -22,12 +23,12 @@ export default {
   props: {
     isFollowing: { type: Boolean, required: true },
     userId: { type: Number, required: true },
-    isWatching : { type: Boolean, required: true },
+    isWatching: { type: Boolean, required: true }
   },
   data() {
     return {
       following: this.isFollowing,
-      watching: this.isWatching,
+      watching: this.isWatching
     }
   },
   computed: {
@@ -37,12 +38,12 @@ export default {
     url: () => {
       return function (isWatch) {
         return this.following
-            ? `/api/followings/${this.userId}`
-            : `/api/followings?watch=${isWatch}`
+          ? `/api/followings/${this.userId}?watch=${isWatch}`
+          : `/api/followings?watch=${isWatch}`
       }
     },
     verb() {
-      return this.following ? 'DELETE' : 'POST'
+      return this.following ? 'PATCH' : 'POST'
     },
     errorMessage() {
       return this.following
@@ -55,7 +56,7 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    followOrUnfollow(isWatch) {
+    followOrChangeFollow(isWatch) {
       const params = {
         id: this.userId
       }
@@ -72,8 +73,37 @@ export default {
       })
         .then((response) => {
           if (response.ok) {
-            this.following = !this.following
+            if (!this.following) {
+              this.following = true
+            }
             this.watching = isWatch
+          } else {
+            alert(this.errorMessage)
+          }
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
+    },
+    unfollow() {
+      const params = {
+        id: this.userId
+      }
+      fetch(this.url(''), {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+        body: JSON.stringify(params)
+      })
+        .then((response) => {
+          if (response.ok) {
+            this.following = false
+            this.watching = false
           } else {
             alert(this.errorMessage)
           }
