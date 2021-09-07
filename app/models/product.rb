@@ -133,7 +133,6 @@ class Product < ApplicationRecord
       LEFT JOIN last_comments ON self_assigned_products.id = last_comments.commentable_id
       WHERE last_comments.id IS NULL
       OR self_assigned_products.checker_id != last_comments.user_id
-      -- WHERE NOT (self_assigned_products.checker_id = last_comments.user_id)
       ORDER BY self_assigned_products.created_at DESC
     SQL
     Product.find_by_sql(sql).map(&:id)
