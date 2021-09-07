@@ -1,5 +1,5 @@
 <template lang="pug">
-.container(v-if='!loaded')
+.container.is-md(v-if='!loaded')
   | ロード中
 .container(v-else-if='notifications.length === 0')
   .o-empty-message
@@ -9,7 +9,7 @@
       | 未読の通知はありません
     p.o-empty-message__text(v-else)
       | 通知はありません
-.container(v-else)
+.container.is-md(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
   .thread-list.a-card
@@ -40,6 +40,10 @@ export default {
   props: {
     isMentor: {
       type: Boolean
+    },
+    target: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -53,13 +57,14 @@ export default {
   computed: {
     url() {
       if (this.isUnreadPage) {
-        return `/api/notifications/unread.json?page=${this.currentPage}`
+        return `/api/notifications.json?page=${this.currentPage}&status=unread&target=${this.target}`
       } else {
-        return `/api/notifications.json?page=${this.currentPage}`
+        return `/api/notifications.json?page=${this.currentPage}&target=${this.target}`
       }
     },
     isUnreadPage() {
-      return location.pathname.includes('unread')
+      const params = new URLSearchParams(location.search)
+      return params.get('status') !== null && params.get('status') === 'unread'
     },
     pagerProps() {
       return {
