@@ -1,10 +1,19 @@
 <template lang="pug">
-button.card-main-actions__action.a-button.is-sm.is-block(
-  :class='following ? "is-danger" : "is-secondary"',
-  @click='followOrUnfollow'
-)
-  | {{ isWatching ? "✔︎" : "" }}
-  | コメントあり
+ul
+  li
+    button.card-main-actions__action.a-button.is-sm.is-block(
+      :class='following&&watching ? "is-danger" : "is-secondary"',
+      @click='followOrUnfollow(true)'
+    )
+      | {{ watching ? "✔︎" : "" }}
+      | コメントあり
+  li
+    button.card-main-actions__action.a-button.is-sm.is-block(
+      :class='following&&!watching ? "is-danger" : "is-secondary"',
+      @click='followOrUnfollow(false)'
+    )
+      | {{ following&&!watching ? "✔︎" : "" }}
+      | コメントなし
 </template>
 <script>
 import 'whatwg-fetch'
@@ -17,17 +26,20 @@ export default {
   },
   data() {
     return {
-      following: this.isFollowing
+      following: this.isFollowing,
+      watching: this.isWatching,
     }
   },
   computed: {
     buttonLabel() {
       return this.following ? 'フォローを解除' : '日報をフォロー'
     },
-    url() {
-      return this.following
-        ? `/api/followings/${this.userId}`
-        : '/api/followings?watch=true'
+    url: () => {
+      return function (isWatch) {
+        return this.following
+            ? `/api/followings/${this.userId}`
+            : `/api/followings?watch=${isWatch}`
+      }
     },
     verb() {
       return this.following ? 'DELETE' : 'POST'
@@ -43,11 +55,11 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    followOrUnfollow() {
+    followOrUnfollow(isWatch) {
       const params = {
         id: this.userId
       }
-      fetch(this.url, {
+      fetch(this.url(isWatch), {
         method: this.verb,
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -61,6 +73,7 @@ export default {
         .then((response) => {
           if (response.ok) {
             this.following = !this.following
+            this.watching = isWatch
           } else {
             alert(this.errorMessage)
           }

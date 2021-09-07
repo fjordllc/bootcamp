@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             props: {
               isFollowing: isFollowing === 'true',
               userId: Number(userId),
-              isWatching: isWatching === 'true',
+              isWatching: isWatching === 'true'
             }
           })
       }).$mount('.js-following')
