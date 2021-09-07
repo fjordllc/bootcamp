@@ -16,3 +16,7 @@
         li.page-tabs__item
           = link_to current_user_watches_path, class: "page-tabs__item-link #{current_page_tab_or_not('watches')}" do
             | 自分のWatch中
+      - if !user.staff? || user.bookmarks.present?
+        li.page-tabs__item
+          = link_to current_user_bookmarks_path, class: "page-tabs__item-link #{current_page_tab_or_not('bookmarks')}" do
+            | ブックマーク
