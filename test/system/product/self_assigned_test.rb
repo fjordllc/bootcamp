@@ -92,11 +92,11 @@ class ProductsTest < ApplicationSystemTestCase
     practice = practices(:practice5)
     user = users(:kimura)
     product = Product.create!(
-                body: 'test',
-                user: user,
-                practice: practice,
-                checker_id: checker.id
-              )
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
     visit_with_auth "/products/#{product.id}", 'yamada'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
