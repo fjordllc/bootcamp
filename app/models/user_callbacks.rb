@@ -8,8 +8,8 @@ class UserCallbacks
   def before_save(user)
     return unless user.will_save_change_to_times_url?
 
-    match = user.times_url&.match(%r{\Ahttps://discord.com/channels/\d+/\d+})
-    user.times_url = match[0] if match
+    match = user.times_url&.match(%r{\A(https://discord\.com/channels/\d+/\d+)(?:/\d+)?\z})
+    user.times_url = match.captures.first if match
   end
 
   def after_update(user)
