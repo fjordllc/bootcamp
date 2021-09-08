@@ -32,8 +32,6 @@ ja:
       article: ブログ記事
       work: 作品
       event: イベント
-      reservation: 席予約
-      seat: 席
       memo: メモ
       reference_book: 参考書籍
     attributes:
@@ -123,12 +121,6 @@ ja:
         learning_times: 学習時間
         emotion: 今日の気分
         no_learn: 学習時間は無し
-      reservation:
-        date: 日付
-        user_id: ユーザー
-        seat_id: 席
-      seat:
-        name: 名前
       memo:
         body: 内容
         date: 日付
