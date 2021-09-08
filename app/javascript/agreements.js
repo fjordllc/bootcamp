@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const isSubmit = checkboxes.every(element => element.checked)
 
       if (isSubmit) {
-        submit.classList.remove('is-disabled');
+        submit.classList.remove('is-disabled')
       } else {
-        submit.classList.add('is-disabled');
+        submit.classList.add('is-disabled')
       }
     })
   })
