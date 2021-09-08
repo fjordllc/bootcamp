@@ -10,6 +10,7 @@ class User < ApplicationRecord
   AVATAR_SIZE = '88x88>'
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
+  DEPRESSED_SIZE = 2
 
   enum job: {
     student: 0,
@@ -523,8 +524,8 @@ class User < ApplicationRecord
   end
 
   def depressed?
-    two_days_reports = reports.order(reported_on: :desc).limit(2)
-    two_days_reports.size == 2 && two_days_reports.all?(&:sad?)
+    reported_reports = reports.order(reported_on: :desc).limit(DEPRESSED_SIZE)
+    reported_reports.size == DEPRESSED_SIZE && reported_reports.all?(&:sad?)
   end
 
   def active_practice

@@ -144,6 +144,6 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(path: "/reports/#{@report.id}")
     mail to: @user.email,
-         subject: "[bootcamp] #{@report.user.login_name}さんが2回連続でsadアイコンの日報を提出しました。"
+         subject: "[bootcamp] #{@report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。"
   end
 end

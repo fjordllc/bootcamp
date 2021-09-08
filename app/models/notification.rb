@@ -210,7 +210,7 @@ class Notification < ApplicationRecord
       user: receiver,
       sender: report.sender,
       path: Rails.application.routes.url_helpers.polymorphic_path(report),
-      message: "#{report.user.login_name}さんが2回連続でsadアイコンの日報を提出しました。",
+      message: "#{report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。",
       read: false
     )
   end
