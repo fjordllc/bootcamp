@@ -126,7 +126,7 @@ notification_chose_correct_answer:
   path: "/questions/<%= ActiveRecord::FixtureSet.identify(:question12) %>"
   read: false
 
-notification_twice_sad_report:
+notification_consecutive_sad_report:
   kind: 15
   user: komagata
   sender: hajime

@@ -297,13 +297,13 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/回答/, email.body.to_s)
   end
 
-  test 'twice_sad_report' do
+  test 'consecutive_sad_report' do
     report = reports(:report16)
-    twice_sad_report = notifications(:notification_twice_sad_report)
+    consecutive_sad_report = notifications(:notification_consecutive_sad_report)
     mailer = NotificationMailer.with(
       report: report,
-      receiver: twice_sad_report.user
-    ).twice_sad_report
+      receiver: consecutive_sad_report.user
+    ).consecutive_sad_report
 
     perform_enqueued_jobs do
       mailer.deliver_later
