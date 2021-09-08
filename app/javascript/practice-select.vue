@@ -5,7 +5,7 @@ div
     :options='practices',
     label='title',
     placeholder='',
-    :max-height='100',
+    :max-height='300',
     @select='submit()'
   )
 </template>
@@ -73,10 +73,6 @@ export default {
 </script>
 
 <style scoped>
-.multiselect {
-  background-color: #fff;
-}
-
 .multiselect--active {
   overflow-y: scroll;
 }

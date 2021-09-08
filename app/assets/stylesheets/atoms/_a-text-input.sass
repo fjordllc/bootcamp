@@ -1,11 +1,13 @@
 .a-text-input
-  +text-block(.875rem 1.45, block)
+  +text-block(1em 1.45, block)
   background-color: #fafafa
   width: 100%
   padding: .5rem
   border: solid 1px $input-border
   border-radius: .25rem
   transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
+  +media-breakpoint-up(md)
+    font-size: .875rem
   +media-breakpoint-down(sm)
     font-size: 1rem
   .field_with_errors &
