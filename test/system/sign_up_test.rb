@@ -16,12 +16,14 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
+      check 'アンチハラスメントポリシーに同意', allow_label_click: true
+      check '利用規約に同意', allow_label_click: true
     end
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111')
 
-    VCR.use_cassette 'sign_up/valid-card' do
-      click_button '利用規約に同意して参加する'
+    VCR.use_cassette 'sign_up/valid-card', record: :once, match_requests_on: %i[method uri] do
+      click_button '参加する'
       assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     end
   end
@@ -39,12 +41,14 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
+      check 'アンチハラスメントポリシーに同意', allow_label_click: true
+      check '利用規約に同意', allow_label_click: true
     end
 
     fill_stripe_element('4000 0000 0000 0069', '12 / 21', '111')
 
     VCR.use_cassette 'sign_up/expired-card' do
-      click_button '利用規約に同意して参加する'
+      click_button '参加する'
       assert_text 'クレジットカードが有効期限切れです。'
     end
   end
@@ -62,12 +66,14 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
+      check 'アンチハラスメントポリシーに同意', allow_label_click: true
+      check '利用規約に同意', allow_label_click: true
     end
 
     fill_stripe_element('4000 0000 0000 0127', '12 / 21', '111')
 
     VCR.use_cassette 'sign_up/incorrect-cvc-card' do
-      click_button '利用規約に同意して参加する'
+      click_button '参加する'
       assert_text 'クレジットカードセキュリティコードが正しくありません。'
     end
   end
@@ -85,12 +91,14 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
+      check 'アンチハラスメントポリシーに同意', allow_label_click: true
+      check '利用規約に同意', allow_label_click: true
     end
 
     fill_stripe_element('4000 0000 0000 0002', '12 / 21', '111')
 
     VCR.use_cassette 'sign_up/declined-card' do
-      click_button '利用規約に同意して参加する'
+      click_button '参加する'
       assert_text 'クレジットカードへの請求が拒否されました。'
     end
   end
@@ -108,7 +116,10 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[description]', with: 'テスト春子です。'
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
+      check 'アンチハラスメントポリシーに同意', allow_label_click: true
+      check '利用規約に同意', allow_label_click: true
     end
+
     click_button 'アドバイザー登録'
     assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     assert User.find_by(email: email).adviser?
@@ -130,8 +141,11 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
+      check 'アンチハラスメントポリシーに同意', allow_label_click: true
+      check '利用規約に同意', allow_label_click: true
     end
-    click_button '利用規約に同意して参加する'
+
+    click_button '参加する'
     assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     assert User.find_by(email: email).trainee?
   end
@@ -158,12 +172,14 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
+      check 'アンチハラスメントポリシーに同意', allow_label_click: true
+      check '利用規約に同意', allow_label_click: true
     end
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111')
 
     VCR.use_cassette 'sign_up/valid-card' do
-      click_button '利用規約に同意して参加する'
+      click_button '参加する'
       assert_text 'に使用できない文字列が含まれています'
     end
   end
@@ -181,7 +197,10 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[description]', with: 'テストふゆこです。'
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
+      check 'アンチハラスメントポリシーに同意', allow_label_click: true
+      check '利用規約に同意', allow_label_click: true
     end
+
     click_button 'アドバイザー登録'
     assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     assert_equal User.find_by(email: email).company_id, companies(:company2).id
@@ -204,8 +223,11 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
+      check 'アンチハラスメントポリシーに同意', allow_label_click: true
+      check '利用規約に同意', allow_label_click: true
     end
-    click_button '利用規約に同意して参加する'
+
+    click_button '参加する'
     assert_equal User.find_by(email: email).course_id, course.id
   end
 
@@ -221,12 +243,14 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
+      check 'アンチハラスメントポリシーに同意', allow_label_click: true
+      check '利用規約に同意', allow_label_click: true
     end
 
     fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111')
 
     VCR.use_cassette 'sign_up/valid-card' do
-      click_button '利用規約に同意して参加する'
+      click_button '参加する'
       assert_text '自己紹介を入力してください'
     end
   end
@@ -247,6 +271,8 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
+      check 'アンチハラスメントポリシーに同意', allow_label_click: true
+      check '利用規約に同意', allow_label_click: true
       tag_input = find('.ti-new-tag-input')
       tag_input.set tag
       tag_input.native.send_keys :return
@@ -255,7 +281,7 @@ class SignUpTest < ApplicationSystemTestCase
     fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111')
 
     VCR.use_cassette 'sign_up/tag', record: :once, match_requests_on: %i[method uri] do
-      click_button '利用規約に同意して参加する'
+      click_button '参加する'
       assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       user = User.find_by(email: email)
       visit_with_auth user_path(user), 'taguo'
