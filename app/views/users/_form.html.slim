@@ -85,7 +85,19 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit user_submit_label(user, from), id: 'user_submit', class: 'a-button is-lg is-warning is-block'
         - if from == :new
-          .a-form-help.is-text-align-center
-            = link_to '利用規約を確認（別タブで開きます）', tos_path, target: '_blank', rel: 'noopener'
+          .form-actions__item-checkbox
+            label.form-checkbox__label
+              = check_box_tag :coc, 1, false, class: 'js-agreements-checkbox'
+              | アンチハラスメントポリシーに同意
+            .a-form-help
+              = link_to 'アンチハラスメントポリシーを確認（別タブで開きます）', coc_path, target: '_blank', rel: 'noopener'
+          .form-actions__item-checkbox
+            label.form-checkbox__label
+              = check_box_tag :tosh, 2, false, class: 'js-agreements-checkbox'
+              | 利用規約に同意
+            .a-form-help
+              = link_to '利用規約を確認（別タブで開きます）', tos_path, target: '_blank', rel: 'noopener'
+          = f.submit user_submit_label(user, from), id: 'user_submit', class: 'a-button is-lg is-warning is-block is-disabled js-agreements-submit'
+        - else
+          = f.submit user_submit_label(user, from), id: 'user_submit', class: 'a-button is-lg is-warning is-block'
