@@ -140,7 +140,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
   end
 
   # required params: report, receiver
-  def twice_sad_report
+  def consecutive_sad_report
     @user = @receiver
     @notification = @user.notifications.find_by(path: "/reports/#{@report.id}")
     mail to: @user.email,

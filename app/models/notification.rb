@@ -22,7 +22,7 @@ class Notification < ApplicationRecord
     create_pages: 12,
     following_report: 13,
     chose_correct_answer: 14,
-    twice_sad_report: 15
+    consecutive_sad_report: 15
   }
 
   scope :reads, lambda {
@@ -204,7 +204,7 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.twice_sad_report(report, receiver)
+  def self.consecutive_sad_report(report, receiver)
     Notification.create!(
       kind: 15,
       user: receiver,
