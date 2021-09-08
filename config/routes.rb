@@ -41,7 +41,6 @@ Rails.application.routes.draw do
     resources :users, only: %i(index show update)
     resources :user_icon_urls, only: %i(index)
     get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
-    resources :reservations, only: %i(index create destroy)
     resources :practices, only: %i(index show update) do
       resource :learning, only: %i(show update), controller: "practices/learning"
     end
@@ -87,7 +86,6 @@ Rails.application.routes.draw do
     end
     resources :categories, except: %i(show)
     resources :courses, only: %i(index)
-    resources :seats, except: %i(show)
   end
 
   namespace :current_user do
@@ -163,7 +161,7 @@ Rails.application.routes.draw do
   resources :works, except: %i(index)
 
   resources :questions, only: %i(index show new create destroy)
-  resources :reservation_calenders, only: %i(index show)
+  resources :courses, only: :index
 
   resource :inquiry, only: %i(new create)
 

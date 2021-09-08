@@ -12,8 +12,6 @@ class HomeController < ApplicationController
                                      .order(published_at: :desc)
                                      .limit(5)
         @completed_learnings = current_user.learnings.where(status: 3).order(updated_at: :desc)
-        @my_seat_today = current_user.reservations.find_by(date: Date.current)&.seat&.name
-        @reservations_for_today = Reservation.where(date: Date.current).to_a
         set_required_fields
         render aciton: :index
       end

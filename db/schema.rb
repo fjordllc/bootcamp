@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_27_042336) do
+ActiveRecord::Schema.define(version: 2021_08_28_145120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -363,21 +363,6 @@ ActiveRecord::Schema.define(version: 2021_08_27_042336) do
     t.datetime "published_at"
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
-  end
-
-  create_table "reservations", force: :cascade do |t|
-    t.date "date"
-    t.integer "user_id", null: false
-    t.integer "seat_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["seat_id", "date"], name: "index_reservations_on_seat_id_and_date", unique: true
-  end
-
-  create_table "seats", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|

@@ -31,8 +31,6 @@ ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', %i[
   products
   questions
   reactions
-  reservations
-  seats
   watches
   works
 ]
