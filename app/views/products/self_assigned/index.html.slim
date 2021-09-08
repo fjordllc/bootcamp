@@ -9,4 +9,10 @@ header.page-header
 .page-tools
   = render 'products/tabs'
 
+ul.tab-nav__items
+      li.tab-nav__item
+        = link_to '全て', { anchor: "all" }, class: "tab-nav__item-link #{params[:solved].present? ? '' : 'is-active'}"
+      li.tab-nav__item
+        = link_to '未返信', {anchor: "no_reply" , solved: 'true'}, class: "tab-nav__item-link #{params[:solved].present? ? 'is-active' : ''}"
+
 #js-products(data-title="#{title}" data-selected-tab="self-assigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
