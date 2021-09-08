@@ -9,6 +9,9 @@
                 | 非表示
               span.courses-item__title-label
                 = course.title
+            - else
+              span.courses-item__title-label
+                = course.title
       .courses-item__description
         = simple_format(course.description)
       - if admin_login?
