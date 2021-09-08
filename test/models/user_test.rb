@@ -228,7 +228,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
-  test 'times_url is channel url even if message url is passed' do
+  test 'times_url should be converted to a channel url if a message url is specified' do
     user = users(:komagata)
     user.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001/123456789000000001'
     user.save!
