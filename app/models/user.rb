@@ -145,7 +145,7 @@ class User < ApplicationRecord
   validates :times_url,
             format: {
               allow_blank: true,
-              with: %r{\Ahttps://discord\.(?:com|gg)/},
+              with: %r{\Ahttps://discord\.(?:com/channels/\d+/\d+(?:/\d+)?/?|gg/\w+)\z},
               message: 'はDiscordのチャンネルURLを入力してください'
             }
 
