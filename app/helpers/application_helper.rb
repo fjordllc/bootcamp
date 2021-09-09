@@ -19,11 +19,11 @@ module ApplicationHelper
 
   def searchable_summary(comment, word_count, word = nil)
     summary = strip_tags(md2html(comment)).gsub(/[\r\n]/, '')
-    return truncate(summary, length: word_count) if word.nil?
+    word_index = summary.index(word) unless word.nil?
+    return truncate(summary, length: word_count) if word.nil? || word_index.nil?
 
     characters_before_word = 50
     characters_after_word = 50
-    word_index = summary.index(word)
     start_index = word_index - characters_before_word
     display_characters = characters_before_word + word.size + characters_after_word
 
