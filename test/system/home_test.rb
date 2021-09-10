@@ -83,4 +83,9 @@ class HomeTest < ApplicationSystemTestCase
     find('.niconico-calendar-nav').assert_text 1.month.ago.strftime('%Y年%-m月')
     assert_current_path(/niconico_calendar=#{1.month.ago.strftime('%Y-%m')}/)
   end
+
+  test 'show the grass' do
+    visit_with_auth '/', 'hajime'
+    assert_text '学習時間'
+  end
 end
