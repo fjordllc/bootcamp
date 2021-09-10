@@ -38,6 +38,7 @@ header.page-header
         .col-xs-12.col-xl-6.col-xxl-6
           - if current_user.staff? && User.all.job_seeking.present?
             = render 'job_seeking_users', users: User.all.job_seeking
+          - if current_user.total_learning_time.positive? || !current_user.mentor?
             = render 'users/grass', user: current_user
           - if current_user.github_account.present?
             = render 'users/github_grass', user: current_user
