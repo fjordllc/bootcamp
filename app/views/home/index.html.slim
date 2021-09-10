@@ -8,8 +8,6 @@ header.page-header
 
 = render 'page_tabs', user: current_user
 
-- if @my_seat_today
-  = render 'my_seat_today', my_seat_today: @my_seat_today
 .page-body
   .container.is-xxl
     - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
@@ -40,9 +38,6 @@ header.page-header
         .col-xs-12.col-xl-6.col-xxl-6
           - if current_user.staff? && User.all.job_seeking.present?
             = render 'job_seeking_users', users: User.all.job_seeking
-          - if current_user.staff? && @reservations_for_today.present?
-            = render 'reserved_seats_today', reservations: @reservations_for_today
-          - unless current_user.total_learning_time.zero? || current_user.mentor?
             = render 'users/grass', user: current_user
           - if current_user.github_account.present?
             = render 'users/github_grass', user: current_user
@@ -54,5 +49,3 @@ header.page-header
             = render 'users/inactive_users', users: User.inactive_students_and_trainees
           - if current_user.role == :student
             = render 'required_field', user: current_user
-          - if current_user.books.present?
-            = render 'users/borrowing_books', user: current_user

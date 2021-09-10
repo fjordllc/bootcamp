@@ -1,5 +1,13 @@
+.card-books__items
+  +media-breakpoint-up(md)
+    display: flex
+    flex-wrap: wrap
 
 .card-books-item
+  +media-breakpoint-up(md)
+    flex: 0 0 50%
+    &:nth-child(odd)
+      border-right: solid 1px $border
   &:not(:first-child)
     border-top: solid 1px $border
 
@@ -39,7 +47,7 @@
 
 .card-books-item__inner:hover .card-books-item__title-label
   text-decoration: underline
-  color: $main
+  color: $main-text
 
 .card-books-item__price
   +text-block(.875rem 1.4 .5em, $default-text)

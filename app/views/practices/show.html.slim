@@ -21,7 +21,7 @@ header.page-header
 = render 'page_tabs', resource: @practice
 
 .page-body
-  .container.is-xl
+  .container.is-lg
     .practice-contents
       .practice-contents__inner
         header.practice-contents__header
@@ -136,7 +136,7 @@ header.page-header
                 br
                 | 終了条件をクリアしたら完了にしてください。
 
-        - if current_user.mentor? || current_user.admin?
+        - if current_user.admin_or_mentor?
           section.a-card
             header.card-header
               h2.card-header__title
@@ -144,10 +144,9 @@ header.page-header
             .practice-content__body.is-memo
               .js-markdown-view.js-target-blank.is-long-text
                 = @practice.memo
-        - if current_user.admin?
           section.a-card
             header.card-header
-              h2.card-header__title 管理者メニュー
+              h2.card-header__title 管理者・メンター用メニュー
             footer.card-footer
               .card-main-actions
                 ul.card-main-actions__items

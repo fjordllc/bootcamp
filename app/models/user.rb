@@ -45,7 +45,6 @@ class User < ApplicationRecord
   belongs_to :company, optional: true
   belongs_to :course
   has_many :learnings, dependent: :destroy
-  has_many :borrowings, dependent: :destroy
   has_many :pages, dependent: :destroy
   has_many :comments,      dependent: :destroy
   has_many :reports,       dependent: :destroy
@@ -60,7 +59,6 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :events,        dependent: :destroy
   has_many :participations, dependent: :destroy
-  has_many :reservations, dependent: :destroy
   has_many :answers,      dependent: :destroy
   has_many :watches, dependent: :destroy
   has_many :articles, dependent: :destroy
@@ -96,9 +94,6 @@ class User < ApplicationRecord
            through: :active_learnings,
            source: :practice,
            dependent: :destroy
-
-  has_many :books,
-           through: :borrowings
 
   has_many :active_relationships,
            class_name: 'Following',
@@ -339,13 +334,11 @@ class User < ApplicationRecord
   end
 
   def completed_percentage
-    practices_include_progress = course.practices.where(include_progress: true)
-
-    completed_practices_include_progress =
-      practices_include_progress.joins(:learnings)
-                                .merge(Learning.complete.where(user_id: id))
-
     completed_practices_include_progress.size.to_f / practices_include_progress.size * MAX_PERCENTAGE
+  end
+
+  def completed_fraction
+    "#{completed_practices_include_progress.size}/#{practices_include_progress.size}"
   end
 
   def completed_practices_size(category)
@@ -479,20 +472,6 @@ class User < ApplicationRecord
     unread_notifications_count.positive?
   end
 
-  def borrow(book)
-    book.update(borrowed: true)
-    borrowings.create(book_id: book.id)
-  end
-
-  def give_back(book)
-    book.update(borrowed: false)
-    borrowings.find_by(book_id: book.id).destroy
-  end
-
-  def borrowing?(book)
-    borrowings.exists?(book_id: book.id)
-  end
-
   def avatar_url
     default_image_path = '/images/users/avatars/default.png'
     if avatar.attached?
@@ -564,5 +543,14 @@ class User < ApplicationRecord
 
   def password_required?
     new_record? || password.present?
+  end
+
+  def practices_include_progress
+    course.practices.where(include_progress: true)
+  end
+
+  def completed_practices_include_progress
+    practices_include_progress.joins(:learnings)
+                              .merge(Learning.complete.where(user_id: id))
   end
 end

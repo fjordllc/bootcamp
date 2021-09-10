@@ -17,6 +17,16 @@ if product.updated_at.present?
   json.updated_at_date_time product.updated_at.to_datetime
 end
 
+if product.self_last_comment_at.present?
+  json.self_last_comment_at l(product.self_last_comment_at)
+  json.self_last_comment_at_date_time product.self_last_comment_at.to_datetime
+end
+
+if product.mentor_last_comment_at.present?
+  json.mentor_last_comment_at l(product.mentor_last_comment_at)
+  json.mentor_last_comment_at_date_time product.mentor_last_comment_at.to_datetime
+end
+
 json.user do
   json.partial! "api/users/user", user: product.user
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_27_042336) do
+ActiveRecord::Schema.define(version: 2021_08_28_145120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,23 +83,6 @@ ActiveRecord::Schema.define(version: 2021_08_27_042336) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["bookmarkable_id", "bookmarkable_type", "user_id"], name: "index_bookmarks_unique", unique: true
     t.index ["bookmarkable_type", "bookmarkable_id"], name: "index_bookmarks_on_bookmarkable"
-  end
-
-  create_table "books", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "isbn", null: false
-    t.boolean "borrowed", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "borrowings", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "book_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_borrowings_on_book_id"
-    t.index ["user_id"], name: "index_borrowings_on_user_id"
   end
 
   create_table "categories", id: :serial, force: :cascade do |t|
@@ -326,6 +309,8 @@ ActiveRecord::Schema.define(version: 2021_08_27_042336) do
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
     t.bigint "checker_id"
+    t.datetime "self_last_comment_at"
+    t.datetime "mentor_last_comment_at"
     t.index ["practice_id"], name: "index_products_on_practice_id"
     t.index ["user_id", "practice_id"], name: "index_products_on_user_id_and_practice_id", unique: true
     t.index ["user_id"], name: "index_products_on_user_id"
@@ -378,21 +363,6 @@ ActiveRecord::Schema.define(version: 2021_08_27_042336) do
     t.datetime "published_at"
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
-  end
-
-  create_table "reservations", force: :cascade do |t|
-    t.date "date"
-    t.integer "user_id", null: false
-    t.integer "seat_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["seat_id", "date"], name: "index_reservations_on_seat_id_and_date", unique: true
-  end
-
-  create_table "seats", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -503,8 +473,6 @@ ActiveRecord::Schema.define(version: 2021_08_27_042336) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "announcements", "users"
   add_foreign_key "articles", "users"
-  add_foreign_key "borrowings", "books"
-  add_foreign_key "borrowings", "users"
   add_foreign_key "categories_practices", "categories"
   add_foreign_key "categories_practices", "practices"
   add_foreign_key "images", "users"
