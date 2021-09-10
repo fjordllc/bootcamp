@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 class Notification < ApplicationRecord
+  TARGETS_TO_KINDS = {
+    announcement: [:announced],
+    mention: [:mentioned],
+    comment: %i[came_comment answered],
+    check: [:checked],
+    watching: [:watching],
+    following_report: [:following_report]
+  }.freeze
+
   belongs_to :user
   belongs_to :sender, class_name: 'User'
 
@@ -33,8 +42,11 @@ class Notification < ApplicationRecord
   }
 
   scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
-  scope :reads_with_avatar, -> { reads.with_avatar }
-  scope :unreads_with_avatar, -> { unreads.with_avatar.limit(99) }
+  scope :by_read_status, ->(status) { status == 'unread' ? unreads.with_avatar.limit(99) : reads.with_avatar }
+
+  scope :by_target, lambda { |target|
+    target ? where(kind: TARGETS_TO_KINDS[target]) : all
+  }
 
   def self.came_comment(comment, receiver, message)
     Notification.create!(

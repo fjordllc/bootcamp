@@ -81,15 +81,15 @@ class AnswersTest < ApplicationSystemTestCase
     end
 
     # Watcherに通知される
-    visit_with_auth '/notifications/unread', 'kimura'
+    visit_with_auth '/notifications?status=unread', 'kimura'
     assert_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
 
     # Watchしていない回答者には通知されない
-    visit_with_auth '/notifications/unread', 'komagata'
+    visit_with_auth '/notifications?status=unread', 'komagata'
     assert_no_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
 
     # 質問者には通知されない
-    visit_with_auth '/notifications/unread', 'sotugyou'
+    visit_with_auth '/notifications?status=unread', 'sotugyou'
     assert_no_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
   end
 end

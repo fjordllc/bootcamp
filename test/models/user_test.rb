@@ -86,9 +86,35 @@ class UserTest < ActiveSupport::TestCase
     assert_not_equal old_percentage, user.completed_percentage
 
     old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice52)
+    user.completed_practices << practices(:practice55)
 
     assert_equal old_percentage, user.completed_percentage
+  end
+
+  test '#completed_fraction don\'t calculate practice that include_progress: false' do
+    user = users(:komagata)
+    old_fraction = user.completed_fraction
+    user.completed_practices << practices(:practice5)
+
+    assert_not_equal old_fraction, user.completed_fraction
+
+    old_fraction = user.completed_fraction
+    user.completed_practices << practices(:practice53)
+
+    assert_equal old_fraction, user.completed_fraction
+  end
+
+  test '#completed_fraction don\'t calculate practice unrelated cource' do
+    user = users(:komagata)
+    old_fraction = user.completed_fraction
+    user.completed_practices << practices(:practice5)
+
+    assert_not_equal old_fraction, user.completed_fraction
+
+    old_fraction = user.completed_fraction
+    user.completed_practices << practices(:practice55)
+
+    assert_equal old_fraction, user.completed_fraction
   end
 
   test '#depressed?' do

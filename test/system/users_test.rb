@@ -77,17 +77,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_text 'Terminalの基礎を覚える'
   end
 
-  test 'show my seat today' do
-    visit_with_auth '/', 'hajime'
-    assert_text '今日はF席を予約しています'
-
-    visit_with_auth '/', 'kimura'
-    assert_text '今日はE席を予約しています'
-
-    visit_with_auth '/', 'kensyu'
-    assert_no_text '予約しています'
-  end
-
   test 'show last active date only to mentors' do
     travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
       visit_with_auth '/', 'kimura'

@@ -336,4 +336,9 @@ class EventsTest < ApplicationSystemTestCase
     visit_with_auth '/events', 'kimura'
     assert_text 'komagata (Komagata Masaki)'
   end
+
+  test 'show pagination' do
+    visit_with_auth '/events', 'kimura'
+    assert_selector 'nav.pagination', count: 2
+  end
 end

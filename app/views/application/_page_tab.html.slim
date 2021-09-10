@@ -1,3 +1,7 @@
 li.page-tabs__item
-  = link_to tab[:path], class: "page-tabs__item-link #{current_page_tab_or_not(tab[:target_name])}" do
-    = tab[:display_name]
+  - if tab[:display_name] == '質問'
+    = link_to tab[:path], class: "page-tabs__item-link #{current_page_tab_or_not(tab[:target_name])} #{@practice.questions.length.zero? ? 'is-inactive' : ''}" do
+      = tab[:display_name] + " （#{@practice.questions.length}）"
+  - else
+    = link_to tab[:path], class: "page-tabs__item-link #{current_page_tab_or_not(tab[:target_name])}" do
+      = tab[:display_name]

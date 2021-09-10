@@ -31,10 +31,7 @@ ja:
       announcement: お知らせ
       article: ブログ記事
       work: 作品
-      book: 書籍
       event: イベント
-      reservation: 席予約
-      seat: 席
       memo: メモ
       reference_book: 参考書籍
     attributes:
@@ -124,12 +121,6 @@ ja:
         learning_times: 学習時間
         emotion: 今日の気分
         no_learn: 学習時間は無し
-      reservation:
-        date: 日付
-        user_id: ユーザー
-        seat_id: 席
-      seat:
-        name: 名前
       memo:
         body: 内容
         date: 日付
@@ -169,10 +160,6 @@ ja:
         repository: リポジトリURL
         url_or_repository: URLまたはリポジトリ
         thumbnail: サムネイル画像
-      book:
-        id: ID
-        title: タイトル
-        isbn: ISBN-13
       event:
         title: タイトル
         description: 詳細
@@ -261,3 +248,11 @@ ja:
         cost: 受講料が高いから
         job_change: 転職や引っ越しなど環境の変化によって学びが継続できなくなったから
         training_end: 企業研修で利用をしていて研修期間が終了したため
+  notification:
+    all: 全て
+    announcement: お知らせ
+    mention: メンション
+    comment: コメント
+    check: 提出物の確認
+    watching: Watch中
+    following_report: フォロー中
