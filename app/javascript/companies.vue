@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     url() {
-      return `/api/companies`
+      return `/api/users/companies`
     }
   },
   created() {
@@ -47,7 +47,7 @@ export default {
       })
         .then((response) => response.json())
         .then((json) => {
-          this.companies = json.companies
+          this.companies = json
           this.loaded = true
         })
         .catch((error) => {
