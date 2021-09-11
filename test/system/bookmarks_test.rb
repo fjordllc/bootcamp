@@ -106,7 +106,7 @@ class BookmarksTest < ApplicationSystemTestCase
   test 'show product bookmark on lists' do
     visit_with_auth '/bookmarks', 'kimura'
     assert_text 'ブックマーク一覧'
-    assert_text @product.practice.title
+    assert_text @product.title
   end
 
   test 'show active button when bookmarked product' do
