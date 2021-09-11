@@ -22,8 +22,8 @@ class CoursesTest < ApplicationSystemTestCase
     visit_with_auth "/courses/#{courses(:course1).id}/edit", 'komagata'
     within 'form[name=course]' do
       fill_in 'course[title]', with: 'テストコース'
+      find(:css, '#checkbox-open-course').set(true)
       fill_in 'course[description]', with: 'テストのコースです。'
-      check 'course[open_course]'
       click_button '内容を保存'
     end
     assert_text 'コースを更新しました。'
