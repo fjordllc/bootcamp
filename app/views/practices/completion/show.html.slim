@@ -1,0 +1,10 @@
+- title @practice.title
+- if @practice.ogp_image.attached?
+  - set_meta_tags(og: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+
+.page-body
+  .container.is-md
+    p
+      = "「#{@practice.title}」を修了しました。お疲れ様でした！"
+    - if @practice.ogp_image.attached?
+      = image_tag @practice.ogp_image

@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(version: 2022_01_27_083838) do
     t.integer "status", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "completion_message_displayed", default: false, null: false
     t.index ["user_id", "practice_id"], name: "index_learnings_on_user_id_and_practice_id", unique: true
     t.index ["user_id", "status"], name: "index_learnings_on_user_id_and_status"
   end

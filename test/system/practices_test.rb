@@ -34,6 +34,28 @@ class PracticesTest < ApplicationSystemTestCase
     assert_no_link '提出物を作る'
   end
 
+  test 'complete and tweet' do
+    visit_with_auth "/practices/#{practices(:practice2).id}", 'kimura'
+    find('#js-complete').click
+    assert_text 'Twitterにシェアする'
+
+    click_link 'Twitterにシェアする'
+    switch_to_window(windows.last)
+    assert_includes current_url, 'https://twitter.com/intent/tweet'
+  end
+
+  test 'can see tweet button when current_user has completed a practice' do
+    visit_with_auth "/practices/#{practices(:practice1).id}", 'kimura'
+    assert_text '完了Tweetする'
+
+    find('span.switch__label-text').click
+    assert_text 'Twitterにシェアする'
+
+    click_link 'Twitterにシェアする'
+    switch_to_window(windows.last)
+    assert_includes current_url, 'https://twitter.com/intent/tweet'
+  end
+
   test "only show when user isn't admin " do
     visit_with_auth "/practices/#{practices(:practice1).id}/edit", 'yamada'
     assert_not_equal 'プラクティス編集', title
@@ -128,6 +150,18 @@ class PracticesTest < ApplicationSystemTestCase
       fill_in '説明', with: 'テストの参考書籍説明'
     end
     click_button '更新する'
+  end
+
+  test 'add ogp image' do
+    practice = practices(:practice1)
+    visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
+    attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg'
+    click_button '更新する'
+
+    visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
+    within('form[name=practice]') do
+      assert_selector 'img'
+    end
   end
 
   test 'show setting for completed percentage' do
