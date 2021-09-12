@@ -9,6 +9,7 @@ class API::NotificationsController < API::BaseController
                                  .by_target(target)
                                  .by_read_status(status)
                                  .order(created_at: :desc)
-                                 .page(params[:page])
+
+    @notifications = params[:page] ? @notifications.page(params[:page]) : @notifications
   end
 end
