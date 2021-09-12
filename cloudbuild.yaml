@@ -118,4 +118,4 @@ tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
   - bootcamp
-timeout: 1800s
+timeout: 7200s
