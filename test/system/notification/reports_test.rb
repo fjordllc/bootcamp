@@ -153,7 +153,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
   end
 
-  test 'sadアイコンの日報を2回続けて提出した場合、メンターに通知する' do
+  test 'notify to mentors when a student submitted reports with sad icon at twice in a row' do
     student = 'kimura'
     mentor = 'yamada'
 
