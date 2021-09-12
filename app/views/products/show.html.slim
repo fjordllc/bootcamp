@@ -2,6 +2,11 @@
 - category = @product.category(current_user.course)
 - content_for(:extra_body_classes, 'no-recent-reports')
 
+= render '/shared/modal_learning_completion',
+  practice: @product.practice,
+  tweet_url: @tweet_url,
+  should_display_message_automatically: @learning&.should_display_message_automatically?(current_user: current_user)
+
 header.page-header
   .container
     .page-header__inner
@@ -111,6 +116,14 @@ header.page-header
             .thread__description.js-target-blank.is-long-text.js-markdown-view(data-taskable-id="#{@product.id}" data-taskable-type='Product' data-taskable="#{@product.taskable?(current_user).to_s}")
               =  @product.body
             = render 'reactions/reactions', reactionable: @product
+
+            - if @product.user == current_user && @learning&.complete?
+              .card-footer
+                .switch
+                  label.switch__label(for='modal-learning_completion')
+                    span.switch__label-text.a-button.is-md.is-primary.is-block
+                      | 完了Tweetする
+
             - if @product.user == current_user || admin_or_mentor_login?
               .card-footer
                 .card-main-actions

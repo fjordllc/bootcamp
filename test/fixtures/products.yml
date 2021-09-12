@@ -369,3 +369,8 @@ product64:
   user: kimura
   body: 担当者のいる提出物です。
   checker_id: "<%= ActiveRecord::FixtureSet.identify(:machida) %>"
+
+product65:
+  practice: practice6
+  user: kimura
+  body: プラクティス完了メッセージ未表示の提出物です。

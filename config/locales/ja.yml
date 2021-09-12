@@ -94,6 +94,7 @@ ja:
         target: ターゲット
         submission: 提出物
         progress: 進捗の計算
+        ogp_image: OGP画像
         categories: カテゴリー
         memo: メンター向けメモ
       practice/reference_books:

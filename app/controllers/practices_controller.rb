@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PracticesController < ApplicationController
+  include LearningCompletion
+
   before_action :require_login
   before_action :require_admin_login, only: %i[new create]
   before_action :require_admin_or_mentor_login, only: %i[edit update]
@@ -9,6 +11,7 @@ class PracticesController < ApplicationController
 
   def show
     @categories = @practice.categories
+    @tweet_url = tweet_url(practice_title: @practice.title)
   end
 
   def new
@@ -47,6 +50,7 @@ class PracticesController < ApplicationController
       :submission,
       :open_product,
       :include_progress,
+      :ogp_image,
       :memo,
       category_ids: [],
       reference_books_attributes: %i[id title price page_url must_read cover description _destroy]
