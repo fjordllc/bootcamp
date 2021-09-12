@@ -79,6 +79,38 @@ class Product < ApplicationRecord
   end
   # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
+  def self.add_last_comment_at
+    products = Product.where(
+      self_last_comment_at: nil,
+      mentor_last_comment_at: nil
+    ).order(:id)
+
+    logger.info "nil products: #{products.size}"
+    logger.info "first id: #{products.first.id}"
+    logger.info "last id: #{products.last.id}"
+
+    products.each do |product|
+      next if product.comments.size.negative?
+
+      logger.info "product id: #{product.id}"
+
+      product.comments.each do |comment|
+        if comment.user.mentor
+          logger.info "update mentor_last_comment_at: #{comment.updated_at}"
+          product.mentor_last_comment_at = comment.updated_at
+        elsif comment.user == product.user
+          logger.info "update self_last_comment_at: #{comment.updated_at}"
+          product.self_last_comment_at = comment.updated_at
+        else
+          logger.info 'comment by other user'
+        end
+      end
+      product.save!
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
+
   def completed?(user)
     checks.where(user: user).present?
   end
