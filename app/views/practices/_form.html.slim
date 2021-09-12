@@ -73,6 +73,11 @@
           label
             = f.check_box :include_progress
             | 進捗の計算に含むようにする場合はチェック
+  .form-item
+    = f.label :ogp_image, class: 'a-form-label'
+    - if f.object.ogp_image.attached?
+      = image_tag f.object.ogp_image.variant(resize: '100x100')
+    = f.file_field :ogp_image
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main

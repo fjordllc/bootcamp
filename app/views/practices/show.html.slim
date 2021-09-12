@@ -1,6 +1,8 @@
 - title @practice.title
 - category = @practice.category(current_user.course)
 
+= render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false
+
 header.page-header
   .container
     .page-header__inner
@@ -127,6 +129,12 @@ header.page-header
                   | も参考にしてください。
           footer.card-footer
             #js-learning(data-practice-id="#{@practice.id}")
+            - if @practice.learning(current_user)&.complete?
+              .card-footer
+                .switch
+                  label.switch__label(for='modal-learning_completion')
+                    span.switch__label-text.a-button.is-md.is-primary.is-block
+                      | 完了Tweetする
             - if @practice.submission
               .card-footer__alert
                 = link_to '提出の前に、提出時の注意点を確認しよう',
