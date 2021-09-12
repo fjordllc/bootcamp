@@ -171,6 +171,30 @@ class NotificationsTest < ApplicationSystemTestCase
     assert_text 'hatsunoさんの【 「コメントと」の日報 】にkomagataさんがコメントしました。'
   end
 
+  test 'show notification count' do
+    Notification.create(message: 'machidaさんからメンションが届きました',
+                        created_at: '2040-01-18 06:06:42',
+                        kind: 'mentioned',
+                        path: '/reports/20400118',
+                        user: users(:yamada),
+                        sender: users(:machida))
+
+    visit_with_auth '/notifications', 'yamada'
+    wait_for_vuejs
+    assert_selector '.header-notification-count', text: '1'
+
+    20.times do |n|
+      Notification.create(message: "machidaさんからメンションが届きました#{n}",
+                          kind: 'mentioned',
+                          path: "/reports/#{n}",
+                          user: users(:yamada),
+                          sender: users(:machida))
+    end
+    visit_with_auth '/notifications', 'yamada'
+    wait_for_vuejs
+    assert_selector '.header-notification-count', text: '21'
+  end
+
   test 'show listing unread notification' do
     visit_with_auth '/notifications?status=unread', 'hatsuno'
     assert_equal '通知 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
