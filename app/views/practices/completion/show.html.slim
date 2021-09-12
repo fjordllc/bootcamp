@@ -1,0 +1,27 @@
+- title @practice.title
+- set_meta_tags(og: { image: @image.path, url: request.url })
+
+- if current_user.present?
+  - category = @practice.category(current_user.course)
+  header.page-header
+    .container
+      .page-header__inner
+        .page-header__title
+          = @practice.title
+        .page-header-actions
+          ul.page-header-actions__items
+            - if current_user.admin?
+              li.page-header-actions__item.is-hidden-sm-down.is-only-mentor
+                = link_to new_practice_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fas.fa-plus
+                  | プラクティス作成
+            li.page-header-actions__item
+              = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
+                class: 'a-button is-md is-secondary is-block is-back' do
+                | プラクティス一覧
+
+.page-body
+  .container.is-md
+    p
+      = "「#{@practice.title}」を修了しました。お疲れ様でした！"
+    = link_to 'Twitterにシェアする', @tweet_url, class: 'a-button is-md is-primary is-block'

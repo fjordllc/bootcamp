@@ -510,6 +510,7 @@ DEPENDENCIES
   listen (~> 3.3)
   mentionable (~> 0.2.1)
   meta-tags
+  mini_magick
   minitest-retry
   oauth2
   omniauth (~> 1.9.1)
@@ -554,4 +555,4 @@ RUBY VERSION
    ruby 2.6.8p205
 
 BUNDLED WITH
-   2.2.24
+   2.2.25
