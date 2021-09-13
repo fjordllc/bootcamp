@@ -85,7 +85,7 @@ Rails.application.routes.draw do
       resource :password, only: %i(edit update), controller: "users/password"
     end
     resources :categories, except: %i(show)
-    resources :courses, only: %i(index)
+    resources :courses, except: %i(show)
   end
 
   namespace :current_user do
