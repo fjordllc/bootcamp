@@ -9,10 +9,11 @@ class API::UsersController < API::BaseController
     @tag = params[:tag]
     @target = params[:target]
     @target = 'student_and_trainee' unless target_allowlist.include?(@target)
+    @watch = params[:watch]
 
     target_users =
       if @target == 'followings'
-        followings = Following.where(follower_id: current_user.id).select('followed_id')
+        followings = current_user.following_list(@watch)
         User.where(id: followings)
       elsif params[:tag]
         User.tagged_with(params[:tag])

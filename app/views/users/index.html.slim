@@ -14,6 +14,10 @@ header.page-header.is-border-bottom-none
   .page-tools
     = render 'nav'
 
+- if params[:target] == 'followings'
+  .page-tools
+    = render 'followings_nav'
+
 - unless params[:tag]
   .a-page-notice.page-notice
     .container
@@ -40,5 +44,8 @@ main.page-main
                     = link_to 'このタグを自分に追加', "/users/tags/#{params[:tag]}", method: 'post', class: 'a-button is-md is-secondary is-block'
         - else
           h1.page-main-header__title
-            | #{t("target.#{@target}")}（#{@users.total_count}）
+            - if @watch
+              | #{t("target.#{@target}")}：#{t("watch.#{@watch}")}（#{@users.total_count}）
+            - else
+              | #{t("target.#{@target}")}（#{@users.total_count}）
   #js-users
