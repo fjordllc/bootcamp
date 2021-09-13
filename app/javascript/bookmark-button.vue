@@ -5,8 +5,12 @@
 )
   | {{ bookmarkLabel }}
 </template>
+
 <script>
+import toast from './toast'
+
 export default {
+  mixins: [toast],
   props: {
     bookmarkableId: { type: Number, required: true },
     bookmarkableType: { type: String, required: true },
@@ -88,6 +92,7 @@ export default {
         .then((json) => {
           this.bookmarkId = json.id
           this.bookmarkLabel = 'Bookmark中'
+          this.toast('Bookmarkしました！')
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
@@ -118,4 +123,5 @@ export default {
   }
 }
 </script>
+
 <style scoped></style>
