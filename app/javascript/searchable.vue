@@ -10,7 +10,7 @@
             a.thread-list-item-title__link(:href='searchable.url')
               | {{ searchable.title }}
       .thread-list-item__row
-        #summary.thread-list-item__summary(v-html='Summary')
+        .thread-list-item__summary(v-html='Summary')
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -47,7 +47,10 @@ export default {
     Summary() {
       const word = this.word
       if (word) {
-        return this.searchable.summary.replace(word, `<strong>${word}</strong>`)
+        return this.searchable.summary.replace(
+          word,
+          `<strong class='matched_word'>${word}</strong>`
+        )
       } else {
         return this.searchable.summary
       }
