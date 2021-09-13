@@ -1,20 +1,26 @@
 <template lang="pug">
-ul
-  li
-    button(v-if='following && watching')
-      | ✔︎ コメントあり
-    button(v-else, @click='followOrChangeFollow(true)')
-      | コメントあり
-  li
-    button(v-if='following && !watching')
-      | ✔︎ コメントなし
-    button(v-else, @click='followOrChangeFollow(false)')
-      | コメントなし
-  li
-    button(v-if='!following')
-      | ✔︎ フォローしない
-    button(v-else, @click='unfollow')
-      | フォローしない
+details
+  summary
+    | {{ following ? "フォロー中" : "フォローする" }}
+  div
+    ul
+      li
+        button.select-menu-item(v-if='following && watching')
+          | ✔︎ コメントあり
+        button.select-menu-item(v-else, @click='followOrChangeFollow(true)')
+          | コメントあり
+        | フォローしたユーザーの日報を自動でWatch状態にします。日報投稿時の通知と日報にコメントが来た際に通知を受け取ります。
+      li
+        button.select-menu-item(v-if='following && !watching')
+          | ✔︎ コメントなし
+        button.select-menu-item(v-else, @click='followOrChangeFollow(false)')
+          | コメントなし
+        | フォローしたユーザーの日報はWatch状態にしません。日報投稿時の通知だけ通知を受けとります。
+      li
+        button.select-menu-item(v-if='!following')
+          | ✔︎ フォローしない
+        button.select-menu-item(v-else, @click='unfollow')
+          | フォローしない
 </template>
 <script>
 import 'whatwg-fetch'
@@ -115,4 +121,31 @@ export default {
   }
 }
 </script>
-<style scoped></style>
+<style scoped>
+details > div {
+  position: absolute;
+  display: block;
+  width: 300px;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 3px;
+  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+  z-index: 100;
+  background-color: #ffffff;
+}
+
+details[open] > summary:before {
+  content: ' ';
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  background: transparent;
+}
+
+.select-menu-item {
+  display: flex;
+}
+</style>
