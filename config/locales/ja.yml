@@ -226,6 +226,10 @@ ja:
     followings: フォロー中
     self_assigned_all: 全て
     self_assigned_no_replied: 未返信
+  watch:
+    all: すべて
+    true: コメントあり
+    false: コメントなし
   helpers:
     submit:
       create: 登録する

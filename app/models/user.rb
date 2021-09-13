@@ -536,6 +536,14 @@ class User < ApplicationRecord
     following?(other_user) ? Following.find_by(follower_id: self, followed_id: other_user).watch : false
   end
 
+  def following_list(watch = '')
+    if %w[true false].include?(watch)
+      Following.where(follower_id: self, watch: watch).select('followed_id')
+    else
+      Following.where(follower_id: self).select('followed_id')
+    end
+  end
+
   def completed_all_practices?(category)
     category.practices.size == completed_practices_size(category)
   end
