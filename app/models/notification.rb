@@ -30,7 +30,8 @@ class Notification < ApplicationRecord
     moved_up_event_waiting_user: 11,
     create_pages: 12,
     following_report: 13,
-    chose_correct_answer: 14
+    chose_correct_answer: 14,
+    consecutive_sad_report: 15
   }
 
   scope :reads, lambda {
@@ -211,6 +212,17 @@ class Notification < ApplicationRecord
       sender: answer.receiver,
       path: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
       message: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
+      read: false
+    )
+  end
+
+  def self.consecutive_sad_report(report, receiver)
+    Notification.create!(
+      kind: 15,
+      user: receiver,
+      sender: report.sender,
+      path: Rails.application.routes.url_helpers.polymorphic_path(report),
+      message: "#{report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。",
       read: false
     )
   end
