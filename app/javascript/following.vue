@@ -1,7 +1,7 @@
 <template lang="pug">
 details
   summary
-    | {{ following ? "フォロー中" : "フォローする" }}
+    | {{ buttonLabel }}
   div
     ul
       li
@@ -39,7 +39,11 @@ export default {
   },
   computed: {
     buttonLabel() {
-      return this.following ? 'フォローを解除' : '日報をフォロー'
+      if (this.following) {
+        return this.watching ? 'コメントあり' : 'コメントなし'
+      } else {
+        return 'フォローする'
+      }
     },
     url: () => {
       return function (isWatch) {
