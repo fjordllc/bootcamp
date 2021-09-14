@@ -14,10 +14,6 @@ header.page-header.is-border-bottom-none
   .page-tools
     = render 'nav'
 
-- if params[:target] == 'followings'
-  .page-tools
-    = render 'followings_nav'
-
 - unless params[:tag]
   .a-page-notice.page-notice
     .container

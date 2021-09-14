@@ -10,3 +10,6 @@
       li.page-tabs__item
         = link_to users_tags_path, class: "page-tabs__item-link #{users_current_page_tab_or_not('tags')} #{current_page_tab_or_not('tags')}" do
           | タグ別
+      li.page-tabs__item
+        = link_to users_path(target: 'followings'), class: "page-tabs__item-link #{users_current_page_tab_or_not('followings')}" do
+          | フォロー中
