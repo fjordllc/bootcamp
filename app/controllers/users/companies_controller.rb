@@ -3,6 +3,5 @@
 class Users::CompaniesController < ApplicationController
   before_action :require_login
 
-  def index
-  end
+  def index; end
 end
