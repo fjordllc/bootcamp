@@ -10,7 +10,8 @@
             a.thread-list-item-title__link(:href='searchable.url')
               | {{ searchable.title }}
       .thread-list-item__row
-        .thread-list-item__summary(v-html='Summary')
+        .thread-list-item__summary
+          p(v-html='summary')
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -44,12 +45,14 @@ export default {
         'YYYY年MM月DD日(dd) HH:mm'
       )
     },
-    Summary() {
+    summary() {
       const word = this.word
+      const wordsPattern = word.replaceAll(/[\s+]/g, '|')
+      const pattern = new RegExp(wordsPattern, 'gi')
       if (word) {
-        return this.searchable.summary.replace(
-          word,
-          `<strong class='matched_word'>${word}</strong>`
+        return this.searchable.summary.replaceAll(
+          pattern,
+          `<strong class='matched_word'>$&</strong>`
         )
       } else {
         return this.searchable.summary
