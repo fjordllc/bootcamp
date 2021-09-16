@@ -2,9 +2,9 @@
 
 require 'application_system_test_case'
 
-PAGINATES_PER = 50
-
 class ProductsTest < ApplicationSystemTestCase
+  PAGINATES_PER = 50
+
   test 'non-staff user can not see listing unchecked products' do
     visit_with_auth '/products/unchecked', 'hatsuno'
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'
