@@ -33,7 +33,6 @@
                     :class='`m-user-icons__item-icon a-user-icon is-${user.role}`'
                   )
 </template>
-
 <script>
 export default {
   props: {

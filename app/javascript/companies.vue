@@ -2,7 +2,11 @@
 .page-body
   .container
     .thread-list.a-card
-      company(v-for='company in companies', :key='company.id', :company='company')
+      company(
+        v-for='company in companies',
+        :key='company.id',
+        :company='company'
+      )
 </template>
 <script>
 import Company from './company.vue'
@@ -20,7 +24,7 @@ export default {
   },
   computed: {
     url() {
-      return `/api/users/companies`
+      return '/api/users/companies'
     }
   },
   created() {
