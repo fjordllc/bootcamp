@@ -2,9 +2,9 @@
 
 require 'application_system_test_case'
 
-PAGINATES_PER = 50
-
 class ProductsTest < ApplicationSystemTestCase
+  PAGINATES_PER = 50
+
   test 'see my product' do
     visit_with_auth "/products/#{products(:product1).id}", 'yamada'
     assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
