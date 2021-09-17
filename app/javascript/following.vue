@@ -1,26 +1,48 @@
 <template lang="pug">
-details
-  summary
+details.following
+  summary.a-button.is-warning.is-md.is-block(v-if='following && watching')
+    i.fas.fa-check
+    span
+      | コメントあり
+  summary.a-button.is-warning.is-md.is-block(v-else-if='following && !watching')
+    i.fas.fa-check
+    span
+      | コメントなし
+  summary.a-button.is-secondary.is-md.is-block(v-else)
     | {{ buttonLabel }}
-  div
-    ul
-      li
-        button.select-menu-item(v-if='following && watching')
-          | ✔︎ コメントあり
-        button.select-menu-item(v-else, @click='followOrChangeFollow(true)')
-          | コメントあり
-        | フォローしたユーザーの日報を自動でWatch状態にします。日報投稿時の通知と日報にコメントが来た際に通知を受け取ります。
-      li
-        button.select-menu-item(v-if='following && !watching')
-          | ✔︎ コメントなし
-        button.select-menu-item(v-else, @click='followOrChangeFollow(false)')
-          | コメントなし
-        | フォローしたユーザーの日報はWatch状態にしません。日報投稿時の通知だけ通知を受けとります。
-      li
-        button.select-menu-item(v-if='!following')
-          | ✔︎ フォローしない
-        button.select-menu-item(v-else, @click='unfollow')
-          | フォローしない
+  .following__dropdown.a-dropdown
+    ul.a-dropdown__items
+      li.following__dropdown-item.a-dropdown__item
+        button.following-option.a-dropdown__item-inner.is-active(v-if='following && watching')
+          .following-option__inner
+            .following-option__label
+              | コメントあり
+        button.following-option.a-dropdown__item-inner(v-else, @click='followOrChangeFollow(true)')
+          .following-option__inner
+            .following-option__label
+              | コメントあり
+            .following-option__desciption
+              | フォローしたユーザーの日報を自動でWatch状態にします。日報投稿時の通知と日報にコメントが来た際に通知を受け取ります。
+      li.following__dropdown-item.a-dropdown__item
+        button.following-option.a-dropdown__item-inner.is-active(v-if='following && !watching')
+          .following-option__inner
+            .following-option__label
+              | コメントなし
+        button.following-option.a-dropdown__item-inner(v-else, @click='followOrChangeFollow(false)')
+          .following-option__inner
+            .following-option__label
+              | コメントなし
+            .following-option__desciption
+              | フォローしたユーザーの日報はWatch状態にしません。日報投稿時の通知だけ通知を受けとります。
+      li.following__dropdown-item.a-dropdown__item
+        button.following-option.a-dropdown__item-inner.is-active(v-if='!following')
+          .following-option__inner
+            .following-option__label
+              | フォローしない
+        button.following-option.a-dropdown__item-inner(v-else, @click='unfollow')
+          .following-option__inner
+            .following-option__label
+              | フォローしない
 </template>
 <script>
 import 'whatwg-fetch'
@@ -125,31 +147,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-details > div {
-  position: absolute;
-  display: block;
-  width: 300px;
-  border: 1px solid rgba(27, 31, 35, 0.15);
-  border-radius: 3px;
-  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
-  z-index: 100;
-  background-color: #ffffff;
-}
-
-details[open] > summary:before {
-  content: ' ';
-  display: block;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 50;
-  background: transparent;
-}
-
-.select-menu-item {
-  display: flex;
-}
-</style>
