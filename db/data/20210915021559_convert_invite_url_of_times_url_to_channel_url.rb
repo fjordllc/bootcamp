@@ -18,10 +18,7 @@ class ConvertInviteUrlOfTimesUrlToChannelUrl < ActiveRecord::Migration[6.1]
         break
       end
 
-      if channel_url.nil?
-        Rails.logger.warn "[Discord API] 無効な招待URLです。:#{user.times_url}"
-        next
-      end
+      Rails.logger.warn "[Discord API] 無効な招待URLです。:#{user.login_name} #{user.times_url}" if channel_url.nil?
 
       user.update!(times_url: channel_url)
     end
