@@ -239,7 +239,6 @@ class UserTest < ActiveSupport::TestCase
   test 'times_url should be converted to a channel url if a message url is specified' do
     user = users(:komagata)
     user.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001/123456789000000001'
-    user.save!
     assert user.valid?
     assert_equal 'https://discord.com/channels/715806612824260640/123456789000000001', user.times_url
   end

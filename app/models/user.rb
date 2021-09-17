@@ -119,7 +119,6 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   before_create UserCallbacks.new
-  before_save UserCallbacks.new
   after_update UserCallbacks.new
 
   validates :email, presence: true, uniqueness: true
@@ -501,6 +500,12 @@ class User < ApplicationRecord
     self.github_account = account_name
     self.github_id = id
     save!
+  end
+
+  def times_url=(url)
+    # DiscordのメッセージURLをチャンネルURLに変換する
+    match = url&.match(%r{\A(https://discord\.com/channels/\d+/\d+)(?:/\d+)?/?\z})
+    self[:times_url] = match&.captures&.first || url
   end
 
   def depressed?
