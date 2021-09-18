@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     fetchPractices() {
-      fetch(`/api/practices.json?user_id=${this.currentUserId}`)
+      fetch(`/api/practices.json?scoped_by_user=true`)
         .then((response) => {
           return response.json()
         })
