@@ -39,15 +39,7 @@ export default {
   },
   methods: {
     fetchPractices() {
-      fetch(`/api/practices.json?user_id=${this.currentUserId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      })
+      fetch(`/api/practices.json?user_id=${this.currentUserId}`)
         .then((response) => {
           return response.json()
         })
