@@ -20,13 +20,18 @@ export default {
     Multiselect
   },
   props: {
+    title: { type: String, required: true },
     solved: { type: String, required: true },
     currentUserId: { type: String, required: true }
   },
   data() {
+    const initOption =
+      this.title.length !== 0
+        ? { id: blankOption.id, title: this.title } // 初期描画でblankOption.titleがチラつくのを防止する
+        : blankOption
     return {
-      selected: blankOption,
-      practices: [blankOption]
+      selected: initOption,
+      practices: [initOption]
     }
   },
   computed: {
@@ -44,7 +49,7 @@ export default {
           return response.json()
         })
         .then((practices) => {
-          this.practices = this.practices.concat(practices)
+          this.practices = [blankOption].concat(practices)
           if (this.queryPracticeId) {
             this.selected = this.practices.find((practice) => {
               return practice.id === parseInt(this.queryPracticeId)
@@ -57,7 +62,7 @@ export default {
     },
     submit() {
       this.$nextTick(() => {
-        location.href = `${location.pathname}?solved=${this.solved}&practice_id=${this.selected.id}`
+        location.href = `${location.pathname}?solved=${this.solved}&practice_id=${this.selected.id}&title=${this.selected.title}`
       })
     }
   }
