@@ -1,0 +1,58 @@
+name: Test Rails 7
+
+on:
+  push:
+    branches: rails7
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
+      TZ: 'Asia/Tokyo'
+      BUNDLE_GEMFILE: 'gemfiles/rails_70.gemfile'
+      DISABLE_SPRING: "1"
+
+    services:
+      postgres:
+        image: postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
+    - name: Cache node modules
+      uses: actions/cache@v2.1.4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: yarn install
+      run:  yarn install --check-files
+
+    - name: Setup test DB
+      run: bundle exec rails db:setup
+
+    - name: Run tests
+      run: bundle exec rails test:all

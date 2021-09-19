@@ -45,3 +45,4 @@ storage/
 yarn-debug.log*
 .yarn-integrity
 .envrc
+gemfiles/*.lock

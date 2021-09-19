@@ -80,9 +80,11 @@ Rails.application.configure do
    config.action_controller.asset_host = "http://localhost:3000"
    config.action_mailer.asset_host = "http://localhost:3000"
 
-   config.after_initialize do
-     Bullet.enable = true
-     Bullet.add_footer = true
-     Bullet.bullet_logger = true
-   end
+  unless Rails::VERSION::STRING.start_with?("7.0")
+    config.after_initialize do
+      Bullet.enable = true
+      Bullet.add_footer = true
+      Bullet.bullet_logger = true
+    end
+  end
 end
