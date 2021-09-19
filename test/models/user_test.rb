@@ -353,9 +353,9 @@ class UserTest < ActiveSupport::TestCase
   test "don't unfollow user when other user unfollow user" do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    kimura.follow(hatsuno)
+    kimura.follow(hatsuno, true)
     daimyo = users(:daimyo)
-    daimyo.follow(hatsuno)
+    daimyo.follow(hatsuno, true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
     daimyo.unfollow(hatsuno)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
