@@ -37,7 +37,11 @@ class ApplicationController < ActionController::Base
   def set_host_for_disk_storage
     return unless %i[local test].include? Rails.application.config.active_storage.service
 
-    ActiveStorage::Current.host = request.base_url
+    if Rails::VERSION::STRING.start_with?('7.0')
+      ActiveSupport::Deprecation.silence { ActiveStorage::Current.host = request.base_url }
+    else
+      ActiveStorage::Current.host = request.base_url
+    end
   end
 
   def require_card
