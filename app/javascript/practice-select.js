@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const practiceSelect = document.querySelector(selector)
   const matchedTitle = location.search.match(/&title=.+$/g)
   const title = matchedTitle
-    ? decodeURI(matchedTitle).replace('&title=', '')
+    ? decodeURI(matchedTitle).replace('&title=', '').replace(/\+/g, ' ')
     : ''
   if (practiceSelect) {
     new Vue({
