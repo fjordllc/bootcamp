@@ -4,7 +4,6 @@ require 'application_system_test_case'
 
 class BookmarksTest < ApplicationSystemTestCase
   setup do
-    @product = products(:product1)
     @report = reports(:report1)
     @question = questions(:question1)
   end
@@ -101,49 +100,6 @@ class BookmarksTest < ApplicationSystemTestCase
     find(:css, '#spec-edit-mode').set(true)
     wait_for_vuejs
     assert_selector '.thread-list-item__option'
-  end
-
-  test 'show product bookmark on lists' do
-    visit_with_auth '/bookmarks', 'kimura'
-    assert_text 'ブックマーク一覧'
-    assert_text @product.title
-  end
-
-  test 'show active button when bookmarked product' do
-    visit_with_auth "/products/#{@product.id}", 'kimura'
-    wait_for_vuejs
-    assert_selector '#bookmark-button.is-active'
-    assert_no_selector '#bookmark-button.is-inactive'
-  end
-
-  test 'show inactive button when not bookmarked product' do
-    visit_with_auth "/products/#{@product.id}", 'komagata'
-    wait_for_vuejs
-    assert_selector '#bookmark-button.is-inactive'
-    assert_no_selector '#bookmark-button.is-active'
-  end
-
-  test 'bookmark product' do
-    visit_with_auth "/products/#{@product.id}", 'komagata'
-    find('#bookmark-button').click
-    wait_for_vuejs
-    assert_selector '#bookmark-button.is-active'
-    assert_no_selector '#bookmark-button.is-inactive'
-
-    visit '/bookmarks'
-    assert_text @product.title
-  end
-
-  test 'unbookmark product' do
-    visit_with_auth "/products/#{@product.id}", 'kimura'
-    wait_for_vuejs
-    find('#bookmark-button').click
-    wait_for_vuejs
-    assert_selector '#bookmark-button.is-inactive'
-    assert_no_selector '#bookmark-button.is-active'
-
-    visit '/bookmarks'
-    assert_no_text @product.title
   end
 
   test 'delete bookmark from bookmarks' do
