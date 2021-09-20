@@ -1,4 +1,5 @@
-- if users.any?(&:depressed?)
+/ - if users.any?(&:depressed?)
+- if depressed_reports.present?
   .a-card.is-only-mentor
     header.card-header
       h2.card-header__title
@@ -7,7 +8,10 @@
         | のユーザー
     .card-list
       .card-list__items
-        - users.each do |user|
-          - if user.depressed?
-            .card-list__item
-              = render partial: 'reports/report', collection: user.reports.order(reported_on: :desc).limit(1), as: :report
+        - depressed_reports.each do |report|
+          .card-list__item
+            = render partial: 'reports/report', locals: { report: report }
+        / - users.each do |user|
+        /   - if user.depressed?
+        /     .card-list__item
+        /       = render partial: 'reports/report', collection: user.reports.order(reported_on: :desc).limit(1), as: :report

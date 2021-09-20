@@ -329,6 +329,39 @@ class User < ApplicationRecord
     def tags
       unretired.all_tag_counts(order: 'count desc, name asc')
     end
+
+    def depressed_reports(users)
+      sql = <<~SQL
+        WITH
+          X AS (
+            SELECT
+              user_id, max(reported_on) AS first_max_reported_on
+            FROM reports
+            WHERE reported_on > NOW() - INTERVAL '180 DAY' AND user_id IN (:user_ids)
+            GROUP BY user_id
+          ),
+          Y AS (
+            SELECT
+              reports.user_id, reports.emotion, reports.reported_on
+            FROM X
+            JOIN reports ON X.user_id = reports.user_id AND first_max_reported_on = reports.reported_on WHERE reports.emotion = 1 ORDER BY reports.user_id
+          ),
+          Z AS (
+            SELECT
+              reports.user_id, max(reports.reported_on) AS second_max_reported_on
+            FROM Y
+            JOIN reports ON Y.user_id = reports.user_id AND Y.reported_on > reports.reported_on GROUP BY reports.user_id ORDER BY reports.user_id
+          )
+        SELECT
+          reports.*
+        FROM Z
+        JOIN reports ON Z.user_id = reports.user_id AND second_max_reported_on = reports.reported_on WHERE reports.emotion = 1 ORDER BY reports.user_id;
+      SQL
+
+      user_ids = users.map {|u| %("#{u.id}") }.join(',')
+
+      Report.find_by_sql([sql, { user_ids: user_ids }])
+    end
   end
 
   def away?

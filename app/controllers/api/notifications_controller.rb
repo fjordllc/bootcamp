@@ -6,6 +6,7 @@ class API::NotificationsController < API::BaseController
     status = params[:status]
 
     @notifications = current_user.notifications
+                                 .includes(sender: [:company])
                                  .by_target(target)
                                  .by_read_status(status)
                                  .order(created_at: :desc)
