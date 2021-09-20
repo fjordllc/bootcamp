@@ -18,6 +18,7 @@ jobs:
       DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
       TZ: 'Asia/Tokyo'
       BUNDLE_GEMFILE: 'gemfiles/rails_70.gemfile'
+      BUNDLE_DEPLOYMENT: "false"
       DISABLE_SPRING: "1"
 
     services:
@@ -36,7 +37,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: ruby/setup-ruby@v1
+    - name: Copy Gemfile.lock to gemfiles directory
+      run: cp Gemfile.lock ${{ env.BUNDLE_GEMFILE }}.lock
+
+    - uses: sinsoku/setup-ruby@respect_bundle_deployment
       with:
         bundler-cache: true
 
