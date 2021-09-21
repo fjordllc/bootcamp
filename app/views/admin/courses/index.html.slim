@@ -6,7 +6,7 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to new_course_path, class: 'a-button is-md is-secondary is-block' do
+            = link_to new_admin_course_path, class: 'a-button is-md is-secondary is-block' do
               i.fas.fa-plus
               | コース作成
 
@@ -26,4 +26,4 @@ header.page-header
             th.admin-table__label
               | 操作
         tbody.admin-table__items
-          = render @courses.order(:created_at)
+          = render @courses

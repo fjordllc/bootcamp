@@ -47,7 +47,69 @@ class ProductsTest < ApplicationSystemTestCase
     checker = users(:komagata)
     product.checker_id = checker.id
     product.save
-    visit_with_auth '/products/self_assigned', 'komagata'
+    visit_with_auth '/products/self_assigned?target=self_assigned_all', 'komagata'
     assert_text 'レビューを担当する提出物はありません'
+  end
+
+  test 'display no replied products if click on self-assigned-tab' do
+    checker = users(:yamada)
+    practice = practices(:practice5)
+    user = users(:kimura)
+    Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+    visit_with_auth '/products/self_assigned', 'yamada'
+    wait_for_vuejs
+    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    names = all('.thread-list-item-meta .a-user-name').map(&:text)
+    assert_equal ["#{practice.title}の提出物"], titles
+    assert_equal [user.login_name], names
+  end
+
+  test 'display no replied products if click on no-replied-button' do
+    checker = users(:yamada)
+    practice = practices(:practice5)
+    user = users(:kimura)
+    Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+    visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'yamada'
+    wait_for_vuejs
+    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    names = all('.thread-list-item-meta .a-user-name').map(&:text)
+    assert_equal ["#{practice.title}の提出物"], titles
+    assert_equal [user.login_name], names
+  end
+
+  test 'display replied products if click on self_assigned_all-button' do
+    checker = users(:yamada)
+    practice = practices(:practice5)
+    user = users(:kimura)
+    product = Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+    visit_with_auth "/products/#{product.id}", 'yamada'
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+    click_button 'コメントする'
+    visit_with_auth '/products/self_assigned?target=self_assigned_all', 'yamada'
+    wait_for_vuejs
+    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    names = all('.thread-list-item-meta .a-user-name').map(&:text)
+    assert_equal ["#{practice.title}の提出物"], titles
+    assert_equal [user.login_name], names
+    visit_with_auth '/products/self_assigned', 'yamada'
+    wait_for_vuejs
+    assert_text 'レビューを担当する未返信の提出物はありません'
   end
 end

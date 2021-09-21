@@ -149,4 +149,14 @@ class NotificationFacade
       receiver: receiver
     ).chose_correct_answer.deliver_later(wait: 5)
   end
+
+  def self.consecutive_sad_report(report, receiver)
+    Notification.consecutive_sad_report(report, receiver)
+    return unless receiver.mail_notification? && !receiver.retired_on?
+
+    NotificationMailer.with(
+      report: report,
+      receiver: receiver
+    ).consecutive_sad_report.deliver_later(wait: 5)
+  end
 end

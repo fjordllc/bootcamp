@@ -224,6 +224,8 @@ ja:
     trainee: 研修生
     admin: 管理者
     followings: フォロー中
+    self_assigned_all: 全て
+    self_assigned_no_replied: 未返信
   helpers:
     submit:
       create: 登録する
