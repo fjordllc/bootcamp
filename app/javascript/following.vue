@@ -78,9 +78,7 @@ export default {
       return this.following ? 'PATCH' : 'POST'
     },
     errorMessage() {
-      return this.following
-        ? 'フォロー解除に失敗しました'
-        : 'フォローに失敗しました'
+      return 'フォロー処理に失敗しました'
     }
   },
   methods: {
