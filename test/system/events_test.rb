@@ -369,7 +369,7 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'show pagination' do
     visit_with_auth '/events', 'kimura'
-    assert_selector 'nav.pagination', count: 2
+    assert_selector 'nav.o-pagination', count: 2
   end
 
   test 'dates of target events get filled automatically only when they are empty' do

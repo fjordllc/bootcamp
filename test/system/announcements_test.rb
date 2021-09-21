@@ -20,7 +20,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
       Announcement.create(title: 'test', description: 'test', user: user)
     end
     visit_with_auth '/announcements', 'kimura'
-    assert_selector 'nav.pagination', count: 2
+    assert_selector 'nav.o-pagination', count: 2
   end
 
   test 'show WIP message' do

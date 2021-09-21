@@ -45,4 +45,12 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     end
     assert_text '企業を削除しました。'
   end
+
+  test 'show pagination' do
+    26.times do
+      Company.create(name: 'test', description: 'test', website: 'test')
+    end
+    visit_with_auth '/admin/companies', 'komagata'
+    assert_selector 'nav.o-pagination', count: 2
+  end
 end

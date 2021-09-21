@@ -1,5 +1,5 @@
 <template lang="pug">
-.users
+.page-body
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
   .users__items

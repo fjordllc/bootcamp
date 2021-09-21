@@ -5,10 +5,17 @@
         h2.m-lp-content__title
           | 学習内容
         h3.m-lp-content__sub-title
-          | 最終課題が「自分で考えたWebサービスを作って公開」。それに必要な、サーバの構築からバックエンド、フロントエンドも学べます。それだけでなく、オンライン上での質問の仕方、チーム開発のやり方、ペアプログラミングのやり方、ユーザー目線に立った Web サービスの考え方など、コードを書くこと以外の実践に必要なことも学べます。
 
       .m-lp-content__body
-        = render "/lp/practices"
+        .m-lp-content__row
+          .a-short-text
+            p
+              | 最終課題が「自分で考えたWebサービスを作って公開」。
+              | それに必要な、サーバの構築からバックエンド、フロントエンドも学べます。
+              | それだけでなく、オンライン上での質問の仕方、チーム開発のやり方、ペアプログラミングのやり方、
+              | ユーザー目線に立った Web サービスの考え方など、コードを書くこと以外の実践に必要なことも学べます。
+        .m-lp-content__row
+          = render "/lp/practices"
         .m-lp-content__row
           .m-horizontal-buttons
             .m-horizontal-buttons__items

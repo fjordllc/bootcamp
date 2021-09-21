@@ -3,11 +3,11 @@
   .container(v-if='!loaded')
     | ロード中
   .container.is-md(v-else)
-    nav.pagination(v-if='totalPages > 1')
+    nav.o-pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .thread-list.a-card
       event(v-for='event in events', :key='event.id', :event='event')
-    nav.pagination(v-if='totalPages > 1')
+    nav.o-pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
 </template>
 

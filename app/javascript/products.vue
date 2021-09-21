@@ -9,7 +9,7 @@
       p.o-empty-message__text
         | {{ title }}はありません
   .container.is-md(v-else)
-    nav.pagination(v-if='totalPages > 1')
+    nav.o-pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .thread-list.a-card
       .thread-list__items
@@ -27,7 +27,7 @@
         v-if='isMentor && selectedTab != "all"',
         :label='`${unconfirmedLinksName}の提出物を一括で開く`'
       )
-    nav.pagination(v-if='totalPages > 1')
+    nav.o-pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
 </template>
 

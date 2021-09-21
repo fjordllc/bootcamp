@@ -35,8 +35,10 @@ html.is-application lang='ja'
         = render "/lp/lp_flash"
       .t-lp__page
         = yield
-      .t-lp__breadcrumbs
-        = render "breadcrumbs"
+      - if breadcrumbs.present?
+        hr.a-hr-border
+        .t-lp__breadcrumbs
+          = render "breadcrumbs"
       .t-lp__main-actions
         = render "/lp/lp_main_actions"
       .t-lp__footer

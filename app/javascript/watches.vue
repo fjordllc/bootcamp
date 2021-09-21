@@ -14,7 +14,7 @@
             v-model='checked'
           )
           span#spec-edit-mode
-    nav.pagination(v-if='totalPages > 1')
+    nav.o-pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .thread-list.a-card
       .thread-list__items
@@ -25,7 +25,7 @@
           :checked='checked',
           @updateIndex='updateIndex'
         )
-    nav.pagination(v-if='totalPages > 1')
+    nav.o-pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
 </template>
 

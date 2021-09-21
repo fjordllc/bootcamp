@@ -1,7 +1,6 @@
-- if breadcrumbs.present?
-  .o-basic-breadcrumbs
-    .l-container.is-mxw-100pc
-      ol.o-basic-breadcrumbs__items
-        - breadcrumbs.each do |breadcrumb|
-          li.o-basic-breadcrumbs__item
-            = link_to breadcrumb.name, breadcrumb.url, class: 'o-basic-breadcrumbs__item-link'
+.o-basic-breadcrumbs
+  .l-container.is-mxw-100pc
+    ol.o-basic-breadcrumbs__items
+      - breadcrumbs.each do |breadcrumb|
+        li.o-basic-breadcrumbs__item
+          = link_to breadcrumb.name, breadcrumb.url, class: 'o-basic-breadcrumbs__item-link'

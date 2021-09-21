@@ -9,7 +9,7 @@ class PagesTest < ApplicationSystemTestCase
   test 'GET /pages' do
     visit_with_auth '/pages', 'kimura'
     assert_equal 'Docs | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
-    assert_no_selector 'nav.pagination'
+    assert_no_selector 'nav.o-pagination'
   end
 
   test 'show page' do

@@ -78,14 +78,14 @@ class NotificationsTest < ApplicationSystemTestCase
                         sender: users(:machida))
     visit_with_auth '/notifications', 'mentormentaro'
     wait_for_vuejs
-    within first('nav.pagination') do
+    within first('nav.o-pagination') do
       find('a', text: '2').click
     end
     # 2ページ目に1番古い通知が表示されることを確認
     assert_text '1番古い通知'
     # 2ページ目に1番新しい通知が表示されないことを確認
     assert_no_text '1番新しい通知'
-    all('.pagination .is-active').each do |active_button|
+    all('.o-pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
     end
     assert_current_path('/notifications?page=2')
@@ -116,7 +116,7 @@ class NotificationsTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
-    all('.pagination .is-active').each do |active_button|
+    all('.o-pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
     end
   end
@@ -144,14 +144,14 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?page=2'
     wait_for_vuejs
-    within first('nav.pagination') do
+    within first('nav.o-pagination') do
       find('a', text: '1').click
     end
     page.go_back
     wait_for_vuejs
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
-    all('.pagination .is-active').each do |active_button|
+    all('.o-pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
     end
   end

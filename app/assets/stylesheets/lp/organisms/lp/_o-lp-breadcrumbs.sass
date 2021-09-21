@@ -1,6 +1,6 @@
 .o-basic-breadcrumbs
   font-size: fz(2)
-  height: vr(8)
+  height: vr(11)
   .l-container
     height: inherit
 
@@ -20,14 +20,13 @@
     +size(1.75em inherit)
 
 .o-basic-breadcrumbs__item-link
+  color: $muted-text
   display: flex
   height: inherit
   align-items: center
   justify-content: center
   .o-basic-breadcrumbs__item:not(:last-child) &
-    +hover-link-reversal
-    color: $muted-main-text
+    +hover-link
   .o-basic-breadcrumbs__item:last-child &
     text-decoration: none
     pointer-events: none
-    color: $reversal-text

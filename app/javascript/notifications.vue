@@ -10,7 +10,7 @@
     p.o-empty-message__text(v-else)
       | 通知はありません
 #notifications.container.is-md.loaded(v-else)
-  nav.pagination(v-if='totalPages > 1')
+  nav.o-pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
   .thread-list.a-card
     notification(
@@ -22,7 +22,7 @@
       v-if='isMentor && isUnreadPage',
       label='未読の通知を一括で開く'
     )
-  nav.pagination(v-if='totalPages > 1')
+  nav.o-pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>
 
