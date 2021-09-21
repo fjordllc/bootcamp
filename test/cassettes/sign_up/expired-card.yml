@@ -878,4 +878,166 @@ http_interactions:
         IGhhcyBleHBpcmVkLiIsCiAgICAicGFyYW0iOiAiZXhwX21vbnRoIiwKICAg
         ICJ0eXBlIjogImNhcmRfZXJyb3IiCiAgfQp9
   recorded_at: Thu, 24 Jun 2021 10:24:34 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/customers
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ZW1haWw9amlybyU0MGV4YW1wbGUuY29tJnNvdXJjZT10b2tfMUpYTWQzQnBl
+        V2NMRmQ4ZnR4RWhrRDR2
+    headers:
+      User-Agent:
+      - Stripe/v1 RubyBindings/4.5.0
+      Authorization:
+      - Bearer sk_test_XLP1Ajz1JvT9jUt5uKGvL0Wd
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"4.5.0","lang":"ruby","lang_version":"2.6.8 p205 (2021-07-07)","platform":"x86_64-darwin19","engine":"ruby","publisher":"stripe","uname":"Darwin
+        GennoMacBook-Pro.local 19.6.0 Darwin Kernel Version 19.6.0: Tue Nov 10 00:10:30
+        PST 2020; root:xnu-6153.141.10~1/RELEASE_X86_64 x86_64","hostname":"GennoMacBook-Pro.local"}'
+      Idempotency-Key:
+      - 2e4d8a5b-e33c-497f-a09a-c5a187da1185
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+  response:
+    status:
+      code: 402
+      message: Payment Required
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 08 Sep 2021 08:59:38 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '208'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Idempotency-Key:
+      - 2e4d8a5b-e33c-497f-a09a-c5a187da1185
+      Original-Request:
+      - req_Upi0kmplomD3mO
+      Request-Id:
+      - req_Upi0kmplomD3mO
+      Stripe-Should-Retry:
+      - 'false'
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-C-Cost:
+      - '3'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJlcnJvciI6IHsKICAgICJjb2RlIjogImV4cGlyZWRfY2FyZCIsCiAg
+        ICAiZG9jX3VybCI6ICJodHRwczovL3N0cmlwZS5jb20vZG9jcy9lcnJvci1j
+        b2Rlcy9leHBpcmVkLWNhcmQiLAogICAgIm1lc3NhZ2UiOiAiWW91ciBjYXJk
+        IGhhcyBleHBpcmVkLiIsCiAgICAicGFyYW0iOiAiZXhwX21vbnRoIiwKICAg
+        ICJ0eXBlIjogImNhcmRfZXJyb3IiCiAgfQp9
+  recorded_at: Wed, 08 Sep 2021 08:59:38 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/customers
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ZW1haWw9amlybyU0MGV4YW1wbGUuY29tJnNvdXJjZT10b2tfMUpYTWVTQnBl
+        V2NMRmQ4ZmtEUXNJcFZm
+    headers:
+      User-Agent:
+      - Stripe/v1 RubyBindings/4.5.0
+      Authorization:
+      - Bearer sk_test_XLP1Ajz1JvT9jUt5uKGvL0Wd
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"4.5.0","lang":"ruby","lang_version":"2.6.8 p205 (2021-07-07)","platform":"x86_64-darwin19","engine":"ruby","publisher":"stripe","uname":"Darwin
+        GennoMacBook-Pro.local 19.6.0 Darwin Kernel Version 19.6.0: Tue Nov 10 00:10:30
+        PST 2020; root:xnu-6153.141.10~1/RELEASE_X86_64 x86_64","hostname":"GennoMacBook-Pro.local"}'
+      Idempotency-Key:
+      - 8e0d352d-55af-4415-a24b-ade0e89aecf6
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+  response:
+    status:
+      code: 402
+      message: Payment Required
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 08 Sep 2021 09:01:05 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '208'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Idempotency-Key:
+      - 8e0d352d-55af-4415-a24b-ade0e89aecf6
+      Original-Request:
+      - req_BCCWFqPf7s9kla
+      Request-Id:
+      - req_BCCWFqPf7s9kla
+      Stripe-Should-Retry:
+      - 'false'
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-C-Cost:
+      - '3'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJlcnJvciI6IHsKICAgICJjb2RlIjogImV4cGlyZWRfY2FyZCIsCiAg
+        ICAiZG9jX3VybCI6ICJodHRwczovL3N0cmlwZS5jb20vZG9jcy9lcnJvci1j
+        b2Rlcy9leHBpcmVkLWNhcmQiLAogICAgIm1lc3NhZ2UiOiAiWW91ciBjYXJk
+        IGhhcyBleHBpcmVkLiIsCiAgICAicGFyYW0iOiAiZXhwX21vbnRoIiwKICAg
+        ICJ0eXBlIjogImNhcmRfZXJyb3IiCiAgfQp9
+  recorded_at: Wed, 08 Sep 2021 09:01:05 GMT
 recorded_with: VCR 6.0.0
