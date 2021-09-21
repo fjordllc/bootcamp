@@ -4,7 +4,9 @@ details.following
     i.fas.fa-check
     span
       | コメントあり
-  summary.a-button.is-warning.is-md.is-block(v-else-if='following && !watching')
+  summary.a-button.is-warning.is-md.is-block(
+    v-else-if='following && !watching'
+  )
     i.fas.fa-check
     span
       | コメントなし
@@ -13,33 +15,48 @@ details.following
   .following__dropdown.a-dropdown
     ul.a-dropdown__items
       li.following__dropdown-item.a-dropdown__item
-        button.following-option.a-dropdown__item-inner.is-active(v-if='following && watching')
+        button.following-option.a-dropdown__item-inner.is-active(
+          v-if='following && watching'
+        )
           .following-option__inner
             .following-option__label
               | コメントあり
-        button.following-option.a-dropdown__item-inner(v-else, @click='followOrChangeFollow(true)')
+        button.following-option.a-dropdown__item-inner(
+          v-else,
+          @click='followOrChangeFollow(true)'
+        )
           .following-option__inner
             .following-option__label
               | コメントあり
             .following-option__desciption
               | フォローしたユーザーの日報を自動でWatch状態にします。日報投稿時の通知と日報にコメントが来た際に通知を受け取ります。
       li.following__dropdown-item.a-dropdown__item
-        button.following-option.a-dropdown__item-inner.is-active(v-if='following && !watching')
+        button.following-option.a-dropdown__item-inner.is-active(
+          v-if='following && !watching'
+        )
           .following-option__inner
             .following-option__label
               | コメントなし
-        button.following-option.a-dropdown__item-inner(v-else, @click='followOrChangeFollow(false)')
+        button.following-option.a-dropdown__item-inner(
+          v-else,
+          @click='followOrChangeFollow(false)'
+        )
           .following-option__inner
             .following-option__label
               | コメントなし
             .following-option__desciption
               | フォローしたユーザーの日報はWatch状態にしません。日報投稿時の通知だけ通知を受けとります。
       li.following__dropdown-item.a-dropdown__item
-        button.following-option.a-dropdown__item-inner.is-active(v-if='!following')
+        button.following-option.a-dropdown__item-inner.is-active(
+          v-if='!following'
+        )
           .following-option__inner
             .following-option__label
               | フォローしない
-        button.following-option.a-dropdown__item-inner(v-else, @click='unfollow')
+        button.following-option.a-dropdown__item-inner(
+          v-else,
+          @click='unfollow'
+        )
           .following-option__inner
             .following-option__label
               | フォローしない
