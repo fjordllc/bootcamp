@@ -9,9 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     button.addEventListener('click', () => {
       document
-        .querySelector(
-          `.incoming-event[data-event-id="${eventId}"]`
-        )
+        .querySelector(`.incoming-event[data-event-id="${eventId}"]`)
         .remove()
 
       if (
