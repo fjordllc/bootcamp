@@ -515,8 +515,7 @@ class User < ApplicationRecord
   end
 
   def follow(other_user, watch:)
-    following << other_user
-    change_watching(other_user, watch)
+    active_relationships.create(followed: other_user, watch: watch)
   end
 
   def change_watching(other_user, watch)
