@@ -1,11 +1,20 @@
 .page-notices__item
   .a-page-notice.page-notice(data-event-id="#{event.id}")
     .container.is-lg
-      .a-page-notice__inner
+      .a-page-notice__inner.has-close
         .a-page-notice__inner-start
-          .a-button.is-primary.is-sm.js-close-event 閉じる
+          p
+            = link_to event, itemprop: 'url',class: 'has-badge' do
+              span.a-badge.is-primary.is-sm
+                | イベント
+              - if event.start_at.to_date.today?
+                | 今日
+              - elsif event.start_at.to_date == Date.tomorrow
+                | 明日
+              | は 「
+              span.a-page-notice__label
+                = event.title
+              | 」 が開催されます
         .a-page-notice__inner-end
-          = link_to event, itemprop: 'url',
-            class: 'thread-list-item__title-link' do
-            = l event.start_at.to_date, format: :md
-            = event.title
+          .a-page-notice__close.js-close-event
+            i.fal.fa-times
