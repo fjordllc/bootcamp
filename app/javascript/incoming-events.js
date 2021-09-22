@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const selector = '.incoming-events'
+  const selector = '.incoming-event'
   const events = document.querySelectorAll(selector)
   if (!events) return false
 
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', () => {
       document
         .querySelector(
-          `.thread-list-item.incoming-events[data-event-id="${eventId}"]`
+          `.incoming-event[data-event-id="${eventId}"]`
         )
         .remove()
 

@@ -13,15 +13,15 @@ header.page-header
     .container.is-lg
       = render 'welcome_message'
 .page-body
+  - if @events_coming_soon.present?
+    #events_on_dashboard.confirmed_event
+      .page-notices
+        = render partial: 'event', collection: @events_coming_soon, as: :event
+
+
   .container.is-xxl
     - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
       = render 'welcome_message'
-    - if @events_coming_soon.present?
-      #events_on_dashboard.confirmed_event
-        .thread-list.a-card
-          header.card-header.is-sm
-            h2.card-header__title 開催のイベント
-          = render partial: 'events', collection: @events_coming_soon, as: :event
     .columns
       .row
         .col-xs-12.col-xl-6.col-xxl-6
