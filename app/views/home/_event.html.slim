@@ -1,0 +1,11 @@
+.page-notices__item
+  .a-page-notice.page-notice(data-event-id="#{event.id}")
+    .container.is-lg
+      .a-page-notice__inner
+        .a-page-notice__inner-start
+          .a-button.is-primary.is-sm.js-close-event 閉じる
+        .a-page-notice__inner-end
+          = link_to event, itemprop: 'url',
+            class: 'thread-list-item__title-link' do
+            = l event.start_at.to_date, format: :md
+            = event.title

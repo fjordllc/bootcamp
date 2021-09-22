@@ -5,6 +5,8 @@
     background-color: $danger
   .page-body &
     +margin(vertical, -.5rem 1rem)
+  .page-body .page-notices__item &
+    +margin(vertical, 0)
   .page-tools + &
     margin-top: -1px
   .page-tabs + &
@@ -12,6 +14,9 @@
 
 .a-page-notice__inner
   +padding(vertical, .5rem)
+  position: relative
+  display: flex
+  align-items: center
   p
     +text-block(1em 1.4, $reversal-text center)
     +media-breakpoint-up(md)

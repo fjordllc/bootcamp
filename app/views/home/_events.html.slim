@@ -1,9 +1,0 @@
-.thread-list-item.incoming-events(data-event-id="#{event.id}")
-  header.thread-list-item__header
-    .h2.thread-list-item__title(itemprop='name')
-      .event
-        = link_to event, itemprop: 'url',
-          class: 'thread-list-item__title-link' do
-          div = l event.start_at.to_date, format: :md
-          div = event.title
-        .a-button.is-primary.is-sm.js-close-event 閉じる
