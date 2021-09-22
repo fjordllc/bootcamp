@@ -8,7 +8,7 @@ class Bookmark::ProductTest < ApplicationSystemTestCase
   end
 
   test 'show product bookmark on lists' do
-    visit_with_auth '/bookmarks', 'kimura'
+    visit_with_auth '/current_user/bookmarks', 'kimura'
     assert_text 'ブックマーク一覧'
     assert_text @product.title
   end
@@ -34,7 +34,7 @@ class Bookmark::ProductTest < ApplicationSystemTestCase
     assert_selector '#bookmark-button.is-active'
     assert_no_selector '#bookmark-button.is-inactive'
 
-    visit '/bookmarks'
+    visit '/current_user/bookmarks'
     assert_text @product.title
   end
 
@@ -46,7 +46,7 @@ class Bookmark::ProductTest < ApplicationSystemTestCase
     assert_selector '#bookmark-button.is-inactive'
     assert_no_selector '#bookmark-button.is-active'
 
-    visit '/bookmarks'
+    visit '/current_user/bookmarks'
     assert_no_text @product.title
   end
 end
