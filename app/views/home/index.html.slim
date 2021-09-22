@@ -17,8 +17,6 @@ header.page-header
     #events_on_dashboard.confirmed_event
       .page-notices
         = render partial: 'event', collection: @events_coming_soon, as: :event
-
-
   .container.is-xxl
     - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
       = render 'welcome_message'

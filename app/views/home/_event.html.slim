@@ -4,13 +4,15 @@
       .a-page-notice__inner.has-close
         .a-page-notice__inner-start
           p
-            = link_to event, itemprop: 'url',class: 'has-badge' do
+            = link_to event, itemprop: 'url', class: 'has-badge' do
               span.a-badge.is-primary.is-sm
                 | イベント
               - if event.start_at.to_date.today?
                 | 今日
               - elsif event.start_at.to_date == Date.tomorrow
                 | 明日
+              - else
+                = l event.start_at.to_date, format: :md
               | は 「
               span.a-page-notice__label
                 = event.title
