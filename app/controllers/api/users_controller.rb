@@ -13,8 +13,7 @@ class API::UsersController < API::BaseController
 
     target_users =
       if @target == 'followings'
-        followings = current_user.following_list(@watch)
-        User.where(id: followings)
+        current_user.following_list(watch: @watch)
       elsif params[:tag]
         User.tagged_with(params[:tag])
       else
