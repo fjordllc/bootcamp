@@ -1,8 +1,0 @@
-nav.tab-nav
-  .container.is-padding-horizontal-0-sm-down
-    ul.tab-nav__items
-      li.tab-nav__item
-        = link_to t('watch.all'), users_path(target: @target), class: "tab-nav__item-link #{'is-active' if @watch.nil?}".strip
-      - %w[true false].each do |watch|
-        li.tab-nav__item
-          = link_to t("watch.#{watch}"), users_path(target: @target, watch: watch), class: (@watch == watch ? ['is-active'] : []) << 'tab-nav__item-link'
