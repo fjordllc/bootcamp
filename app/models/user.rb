@@ -514,7 +514,7 @@ class User < ApplicationRecord
     active_practices.first.id
   end
 
-  def follow(other_user, watch)
+  def follow(other_user, watch:)
     following << other_user
     change_watching(other_user, watch)
   end
