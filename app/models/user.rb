@@ -536,11 +536,11 @@ class User < ApplicationRecord
     following?(other_user) ? Following.find_by(follower_id: self, followed_id: other_user).watch : false
   end
 
-  def following_list(watch = '')
+  def following_list(watch: '')
     if %w[true false].include?(watch)
-      Following.where(follower_id: self, watch: watch).select('followed_id')
+      following.includes(:passive_relationships).where(followings: { watch: watch })
     else
-      Following.where(follower_id: self).select('followed_id')
+      following
     end
   end
 
