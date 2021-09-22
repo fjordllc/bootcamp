@@ -316,13 +316,13 @@ class UserTest < ActiveSupport::TestCase
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
     kimura.following?(hatsuno)
-    assert_not kimura.auto_watching?(hatsuno)
+    assert_not kimura.watching?(hatsuno)
     kimura.follow(hatsuno, watch: false)
     kimura.following?(hatsuno)
-    assert_not kimura.auto_watching?(hatsuno)
+    assert_not kimura.watching?(hatsuno)
     kimura.change_watching(hatsuno, true)
     kimura.following?(hatsuno)
-    assert kimura.auto_watching?(hatsuno)
+    assert kimura.watching?(hatsuno)
   end
 
   test '#following_list ' do
