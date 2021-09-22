@@ -1,6 +1,6 @@
 <template lang="pug">
 .page-body
-  .container
+  .container.is-lg
     .thread-list.a-card
       company(
         v-for='company in companies',
