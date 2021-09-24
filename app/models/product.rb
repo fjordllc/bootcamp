@@ -9,6 +9,7 @@ class Product < ApplicationRecord
   include WithAvatar
   include Mentioner
   include Searchable
+  include Bookmarkable
 
   belongs_to :practice
   belongs_to :user, touch: true
