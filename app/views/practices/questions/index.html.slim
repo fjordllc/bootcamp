@@ -30,5 +30,8 @@ nav.tab-nav
         - @questions.each do |question|
           = render 'questions/question', question: question
     - else
-      .a-empty-message
-        | 質問はまだありません。
+      .o-empty-message
+        .o-empty-message__icon
+          i.far.fa-sad-tear
+        p.o-empty-message__text
+          | 質問はまだありません。
