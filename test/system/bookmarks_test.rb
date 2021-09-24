@@ -9,7 +9,7 @@ class BookmarksTest < ApplicationSystemTestCase
   end
 
   test 'show my bookmark lists' do
-    visit_with_auth '/bookmarks', 'komagata'
+    visit_with_auth '/current_user/bookmarks', 'komagata'
     assert_text 'ブックマーク一覧'
     assert_text @report.title
   end
@@ -35,7 +35,7 @@ class BookmarksTest < ApplicationSystemTestCase
     assert_selector '#bookmark-button.is-active'
     assert_no_selector '#bookmark-button.is-inactive'
 
-    visit '/bookmarks'
+    visit '/current_user/bookmarks'
     assert_text @report.title
   end
 
@@ -47,12 +47,12 @@ class BookmarksTest < ApplicationSystemTestCase
     assert_selector '#bookmark-button.is-inactive'
     assert_no_selector '#bookmark-button.is-active'
 
-    visit '/bookmarks'
+    visit '/current_user/bookmarks'
     assert_no_text @report.title
   end
 
   test 'show question bookmark on lists' do
-    visit_with_auth '/bookmarks', 'kimura'
+    visit_with_auth '/current_user/bookmarks', 'kimura'
     assert_text 'ブックマーク一覧'
     assert_text @question.title
   end
@@ -78,7 +78,7 @@ class BookmarksTest < ApplicationSystemTestCase
     assert_selector '#bookmark-button.is-active'
     assert_no_selector '#bookmark-button.is-inactive'
 
-    visit '/bookmarks'
+    visit '/current_user/bookmarks'
     assert_text @question.title
   end
 
@@ -90,12 +90,12 @@ class BookmarksTest < ApplicationSystemTestCase
     assert_selector '#bookmark-button.is-inactive'
     assert_no_selector '#bookmark-button.is-active'
 
-    visit '/bookmarks'
+    visit '/current_user/bookmarks'
     assert_no_text @question.title
   end
 
   test 'edit bookmarks' do
-    visit_with_auth bookmarks_path, 'kimura'
+    visit_with_auth current_user_bookmarks_path, 'kimura'
     assert_no_selector '.thread-list-item__option'
     find(:css, '#spec-edit-mode').set(true)
     wait_for_vuejs
@@ -106,7 +106,7 @@ class BookmarksTest < ApplicationSystemTestCase
     visit_with_auth report_path(@report), 'komagata'
     wait_for_vuejs
     assert_text 'Bookmark中'
-    visit bookmarks_path
+    visit current_user_bookmarks_path
     assert_text '作業週1日目'
     find(:css, '#spec-edit-mode').set(true)
     assert_selector '.thread-list-item__option'
