@@ -45,7 +45,6 @@ header.page-header
           - if current_user.student?
             #js-niconico_calendar(data-user-id="#{current_user.id}")
           - if current_user.mentor?
-            / = render 'users/sad_emotion_report', users: @students_and_trainees
             = render 'users/sad_emotion_report', depressed_reports: @depressed_reports
           - if current_user.mentor?
             = render 'users/inactive_users', users: @inactive_students_and_trainees
