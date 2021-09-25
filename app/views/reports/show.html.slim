@@ -30,7 +30,7 @@ header.page-header
                       | WIP
                 .thread-header-metas__meta
                   = link_to @report.user, class: 'a-user-name', title: @report.user.name do
-                    = @report.user.login_name
+                    = @report.user.long_name
                 .thread-header-metas__meta
                   .a-meta
                     = l @report.reported_on
