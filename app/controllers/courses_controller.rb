@@ -47,6 +47,7 @@ class CoursesController < ApplicationController
     params.require(:course).permit(
       :title,
       :description,
+      :open,
       category_ids: []
     )
   end

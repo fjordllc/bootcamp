@@ -1,9 +1,14 @@
 .col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
-  .courses-item(id="course_#{course.id}")
+  .courses-item(id="course_#{course.id}" class="#{course.open ? 'is-opened' : 'is-closed'}")
     .courses-item__inner.a-card
       header.courses-item__header
         h3.courses-item__title
-          = link_to course.title, [course, :practices], class: 'courses-item__title-link'
+          = link_to [course, :practices], class: 'courses-item__title-link' do
+            - if admin_login? && !course.open
+              .courses-item__title-icon.is-closed
+                | 非表示
+            span.courses-item__title-label
+              = course.title
       .courses-item__description
         = simple_format(course.description)
       - if admin_login?
