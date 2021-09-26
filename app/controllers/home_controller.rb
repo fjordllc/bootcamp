@@ -14,6 +14,7 @@ class HomeController < ApplicationController
         @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
         @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(updated_at: :desc)
         @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
+        @depressed_reports = User.depressed_reports(User.with_attached_avatar.students_and_trainees)
         display_events_on_dashboard
         set_required_fields
         render aciton: :index
