@@ -64,6 +64,11 @@
   .modal__description.is-md
     .a-short-text
       p
-        | 分報チャンネル内のメッセージを右クリックし、「メッセージリンクをコピー」をクリックすると URL がコピーされます。
+        | ブラウザで
+        a(href='https://discord.com/channels/715806612824260640' target='_blank' rel='noopener noreferrer')
+          | フィヨルドブートキャンプの Discord
+        | を開き、自分の分報チャンネルを選択します（command + k でチャンネルを検索できます）。
       p
-        = image_tag('help/times-url.png', alt: '分報チャンネルの URL の調べ方')
+        | 自分の分報チャンネルが開かれた状態で、ブラウザのアドレスバーに表示されている URL をコピーしてください。
+      p
+        = image_tag('help/discord-channel-url.png', alt: '分報チャンネルの URL の調べ方')
