@@ -502,12 +502,6 @@ class User < ApplicationRecord
     save!
   end
 
-  def times_url=(url)
-    # DiscordのメッセージURLをチャンネルURLに変換する
-    match = url&.match(%r{\A(https://discord\.com/channels/\d+/\d+)(?:/\d+)?/?\z})
-    self[:times_url] = match&.captures&.first || url
-  end
-
   def depressed?
     reported_reports = reports.order(reported_on: :desc).limit(DEPRESSED_SIZE)
     reported_reports.size == DEPRESSED_SIZE && reported_reports.all?(&:sad?)
