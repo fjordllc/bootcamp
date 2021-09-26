@@ -143,6 +143,21 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.depressed?
   end
 
+  test '.depressed_reports' do
+    ids = users(:komagata, :hatsuno, :kensyu).map(&:id)
+    users = User.where(id: ids)
+    reports = User.depressed_reports(users)
+    assert_equal 2, reports.size
+
+    kensyu = users.find_by(login_name: 'kensyu')
+    latest_report = kensyu.reports.order(reported_on: :asc).last
+    latest_report.emotion = 'happy'
+    latest_report.save!
+
+    reports = User.depressed_reports(users)
+    assert_equal 1, reports.size
+  end
+
   test '.order_by_counts' do
     ordered_users = User.order_by_counts('report', 'desc')
     more_report_user = users(:sotugyou)

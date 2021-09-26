@@ -243,3 +243,19 @@ report30:
   description: |-
     頑張れませんでした
   reported_on: <%= Time.now - 1.month - 1.day %>
+
+report31:
+  user: kensyu
+  title: "悲しい顔アイコンの日報1"
+  emotion: 1
+  description: |-
+    難しかったです
+  reported_on: <%= Time.now - 3.day %>
+
+report32:
+  user: kensyu
+  title: "悲しい顔アイコンの日報2"
+  emotion: 1
+  description: |-
+    やっぱり難しいです。
+  reported_on: <%= Time.now - 1.day %>
