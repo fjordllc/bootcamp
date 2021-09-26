@@ -1,13 +1,12 @@
-- if users.any?(&:depressed?)
+- if depressed_reports.present?
   .a-card.is-only-mentor
     header.card-header
       h2.card-header__title
-        | 2回連続
+        | #{User::DEPRESSED_SIZE}回連続
         = image_tag Report.faces['sad'], id: 'sad', alt: 'sad', class: 'card-header__title-emotion-image'
         | のユーザー
     .card-list
       .card-list__items
-        - users.each do |user|
-          - if user.depressed?
-            .card-list__item
-              = render partial: 'reports/report', collection: user.reports.order(reported_on: :desc).limit(1), as: :report
+        - depressed_reports.each do |report|
+          .card-list__item
+            = render partial: 'reports/report', locals: { report: report }

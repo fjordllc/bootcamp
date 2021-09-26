@@ -353,6 +353,47 @@ class User < ApplicationRecord
     def tags
       unretired.all_tag_counts(order: 'count desc, name asc')
     end
+
+    def depressed_reports(users)
+      reports = nil
+
+      DEPRESSED_SIZE.times do |i|
+        sub_query_name = "sub_reports_#{i}"
+        max_reported_on = "max_reported_on_#{i}"
+
+        if (i.zero?)
+          # max関数を使うと、emotionを同時に取得できないので、まずuser_idと最新のreported_onだけを取得する
+          # また最後に、最新のreportsを返すため、最新のreported_onをlatest_max_reported_onとして、すべてのサブクエリに渡す
+          reports = Report.select('reports.user_id', "max(reports.reported_on) AS #{max_reported_on}", 'max(reports.reported_on) AS latest_max_reported_on')
+                          .where('reported_on > :date AND user_id in (:user_ids)', {
+                            date: Time.current.ago(6.months),
+                            user_ids: users.ids
+                          })
+                          .group(:user_id)
+        else
+          # 2回目以降は前回のサブクエリのreported_onより小さい（以前）の日付を取得することで連続したreported_onを取得する
+          reports = Report.select('reports.user_id', "max(reports.reported_on) AS #{max_reported_on}", 'latest_max_reported_on')
+                          .from(reports, sub_query_name)
+                          .joins("JOIN reports ON #{sub_query_name}.user_id = reports.user_id AND #{sub_query_name}.reported_on > reports.reported_on GROUP BY reports.user_id, latest_max_reported_on")
+
+          # サブクエリの名前が重複しないよう連続にしたいので、ここでindexを1すすめる
+          sub_query_name = "sub_reports_#{i + 1}"
+        end
+
+        # 直前のクエリ結果をサブクエリとして読み込み、emotion: sadで絞り込む
+        reports = Report.select('reports.*', 'latest_max_reported_on')
+                        .from(reports, sub_query_name)
+                        .joins("JOIN reports ON #{sub_query_name}.user_id = reports.user_id AND #{sub_query_name}.#{max_reported_on} = reports.reported_on")
+                        .where('reports.emotion': Report.emotions[:sad])
+                        .order('reports.reported_on': :desc)
+      end
+
+      # 最新のlatest_max_reported_onで絞り込んで、返却する
+      Report.select('reports.*')
+            .from(reports, 'last_sub_query')
+            .joins("JOIN reports ON last_sub_query.user_id = reports.user_id AND last_sub_query.latest_max_reported_on = reports.reported_on")
+            .order('reports.reported_on': :desc)
+    end
   end
 
   def retired_three_months_ago_and_notification_not_sent?
