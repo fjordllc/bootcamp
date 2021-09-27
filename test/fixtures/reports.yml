@@ -250,7 +250,7 @@ report31:
   emotion: 1
   description: |-
     難しかったです
-  reported_on: <%= Time.now - 3.day %>
+  reported_on: "2020-11-11"
 
 report32:
   user: kensyu
@@ -258,4 +258,4 @@ report32:
   emotion: 1
   description: |-
     やっぱり難しいです。
-  reported_on: <%= Time.now - 1.day %>
+  reported_on: "2020-11-13"

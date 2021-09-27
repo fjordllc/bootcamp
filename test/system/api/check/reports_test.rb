@@ -14,7 +14,20 @@ class Check::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'success report checking' do
-    visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
+    visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
+    assert has_button? '日報を確認'
+    click_button '日報を確認'
+    assert has_button? '日報の確認を取り消す'
+    visit reports_path
+    assert_text '確認済'
+  end
+
+  test "success adviser's report checking" do
+    visit_with_auth '/', 'advijirou'
+    assert_equal '/', current_path
+    click_link '日報'
+    assert_text '今日は頑張りました'
+    click_link '今日は頑張りました'
     assert has_button? '日報を確認'
     accept_alert do
       wait_for_vuejs
