@@ -21,6 +21,8 @@ details.following
           .following-option__inner
             .following-option__label
               | コメントあり
+            .following-option__desciption
+              | フォローしたユーザーの日報を自動でWatch状態にします。日報投稿時の通知と日報にコメントが来た際に通知を受け取ります。
         button.following-option.a-dropdown__item-inner(
           v-else,
           @click='followOrChangeFollow(true)'
@@ -37,6 +39,8 @@ details.following
           .following-option__inner
             .following-option__label
               | コメントなし
+            .following-option__desciption
+              | フォローしたユーザーの日報はWatch状態にしません。日報投稿時の通知だけ通知を受けとります。
         button.following-option.a-dropdown__item-inner(
           v-else,
           @click='followOrChangeFollow(false)'
