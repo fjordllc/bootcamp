@@ -378,7 +378,7 @@ class User < ApplicationRecord
       # max関数を使うと、emotionを同時に取得できないので、まずuser_idと最新のreported_onだけを取得する
       # また最後に、最新のreportsを返すため、最新のreported_onをlatest_max_reported_onとして、すべてのサブクエリに渡す
       Report.select('reports.user_id', "max(reports.reported_on) AS #{max_reported_on}", 'max(reports.reported_on) AS latest_max_reported_on')
-            .where('reported_on > :date AND user_id in (:user_ids)', date: Time.current.ago(6.months), user_ids: users.ids)
+            .where('user_id in (:user_ids)', user_ids: users.ids)
             .group(:user_id)
     end
 
