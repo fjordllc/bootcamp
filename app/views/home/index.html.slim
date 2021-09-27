@@ -8,10 +8,12 @@ header.page-header
 
 = render 'page_tabs', user: current_user
 
+- if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
+.page-body
+  .container.is-lg
+    = render 'welcome_message'
 .page-body
   .container.is-xxl
-    - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
-      = render 'welcome_message'
     .columns
       .row
         .col-xs-12.col-xl-6.col-xxl-6
