@@ -39,10 +39,13 @@ class Product < ApplicationRecord
   scope :not_wip, -> { where(wip: false) }
   scope :list, lambda {
     with_avatar
-      .preload([:practice, :comments, { checks: { user: { avatar_attachment: :blob } } }])
-      .order(created_at: :desc)
+      .preload(:practice,
+               :comments,
+               { user: :company },
+               { checks: { user: { avatar_attachment: :blob } } })
   }
-  scope :reorder_for_not_responded_products, -> { reorder(published_at: :desc, id: :desc) }
+  scope :order_for_list, -> { order(created_at: :desc, id: :desc) }
+  scope :order_for_not_wip_list, -> { order(published_at: :desc, id: :desc) }
 
   # rubocop:disable Metrics/MethodLength
   def self.not_responded_product_ids
@@ -76,7 +79,6 @@ class Product < ApplicationRecord
 
   def self.not_responded_products
     Product.where(id: not_responded_product_ids)
-           .order(created_at: :desc)
   end
   # rubocop:enable Metrics/MethodLength
 

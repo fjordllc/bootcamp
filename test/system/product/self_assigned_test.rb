@@ -3,6 +3,8 @@
 require 'application_system_test_case'
 
 class ProductsTest < ApplicationSystemTestCase
+  PAGINATES_PER = 50
+
   test 'non-staff user can not see listing self-assigned products' do
     visit_with_auth '/products/self_assigned', 'hatsuno'
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'
@@ -40,6 +42,27 @@ class ProductsTest < ApplicationSystemTestCase
     within_window(windows.last) do
       assert_text '自分の担当の提出物です。'
     end
+  end
+
+  test 'products order on self assigned tab' do
+    checker = users(:komagata)
+    # id順で並べたときの最初と最後の提出物を、作成日順で見たときに最新と最古になるように入れ替える
+    # 最古の提出物を画面上で判定するため、提出物を1ページ内に収める
+    Product.limit(PAGINATES_PER).update_all(created_at: 1.day.ago, published_at: 1.day.ago, checker_id: checker.id) # rubocop:disable Rails/SkipsModelValidations
+    newest_product = Product.self_assigned_product(checker.id).unchecked.reorder(:id).first
+    newest_product.update(created_at: Time.current)
+    oldest_product = Product.self_assigned_product(checker.id).unchecked.reorder(:id).last
+    oldest_product.update(created_at: 2.days.ago)
+
+    visit_with_auth '/products/self_assigned', 'komagata'
+
+    # 作成日の降順で並んでいることを検証する
+    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    names = all('.thread-list-item-meta .a-user-name').map(&:text)
+    assert_equal "#{newest_product.practice.title}の提出物", titles.first
+    assert_equal newest_product.user.login_name, names.first
+    assert_equal "#{oldest_product.practice.title}の提出物", titles.last
+    assert_equal oldest_product.user.login_name, names.last
   end
 
   test 'not display products in listing self-assigned if self-assigned products all checked' do
