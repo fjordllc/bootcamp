@@ -118,7 +118,7 @@ header.page-header
             .js-markdown-view.js-target-blank.is-long-text
               = @practice.goal
             - if !current_user.adviser? && @practice.open_product?
-              .practice-content__body-alert
+              .practice-content__body-notice
                 p
                   | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
                   = link_to practice_products_path(@practice) do
@@ -127,6 +127,11 @@ header.page-header
           footer.card-footer
             #js-learning(data-practice-id="#{@practice.id}")
             - if @practice.submission
+              .card-footer__alert
+                = link_to '提出の前に、提出時の注意点を確認しよう',
+                  'https://bootcamp.fjord.jp/pages/info-for-product',
+                  target: '_blank',
+                  rel: 'noopener'
               .card-footer__description
                 | 提出物を作成し提出し、メンターから確認をもらったら
                 br

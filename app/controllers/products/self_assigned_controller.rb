@@ -2,5 +2,14 @@
 
 class Products::SelfAssignedController < ApplicationController
   before_action :require_staff_login
-  def index; end
+  def index
+    @target = params[:target]
+    @target = 'self_assigned_no_replied' unless target_allowlist.include?(@target)
+  end
+
+  private
+
+  def target_allowlist
+    %w[self_assigned_no_replied self_assigned_all]
+  end
 end

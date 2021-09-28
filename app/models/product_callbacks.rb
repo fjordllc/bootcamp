@@ -7,7 +7,7 @@ class ProductCallbacks
     Cache.delete_unchecked_product_count
     Cache.delete_not_responded_product_count
     Cache.delete_unassigned_product_count
-    Cache.delete_self_assigned_product_count(product.checker_id)
+    Cache.delete_self_assigned_no_replied_product_count(product.checker_id)
   end
 
   def after_save(product)
@@ -37,7 +37,7 @@ class ProductCallbacks
     Cache.delete_unchecked_product_count
     Cache.delete_not_responded_product_count
     Cache.delete_unassigned_product_count
-    Cache.delete_self_assigned_product_count(product.checker_id)
+    Cache.delete_self_assigned_no_replied_product_count(product.checker_id)
   end
 
   private

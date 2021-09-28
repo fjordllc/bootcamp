@@ -56,7 +56,8 @@ export default {
       loaded: false,
       latestProductSubmittedJust5days: null,
       latestProductSubmittedJust6days: null,
-      latestProductSubmittedOver7days: null
+      latestProductSubmittedOver7days: null,
+      params: this.getParams()
     }
   },
   computed: {
@@ -66,7 +67,8 @@ export default {
         (this.selectedTab === 'all'
           ? ''
           : '/' + this.selectedTab.replace('-', '_')) +
-        `?page=${this.currentPage}`
+        `?page=${this.currentPage}` +
+        (this.params.target ? `&target=${this.params.target}` : '')
       )
     },
     unconfirmedLinksName() {
@@ -148,6 +150,17 @@ export default {
         null,
         location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
       )
+    },
+    getParams() {
+      const params = {}
+      location.search
+        .slice(1)
+        .split('&')
+        .forEach((query) => {
+          const queryArr = query.split('=')
+          params[queryArr[0]] = queryArr[1]
+        })
+      return params
     }
   }
 }

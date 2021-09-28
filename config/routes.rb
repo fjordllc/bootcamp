@@ -85,13 +85,14 @@ Rails.application.routes.draw do
       resource :password, only: %i(edit update), controller: "users/password"
     end
     resources :categories, except: %i(show)
-    resources :courses, only: %i(index)
+    resources :courses, except: %i(show)
   end
 
   namespace :current_user do
     resources :reports, only: %i(index)
     resources :products, only: %i(index)
     resources :watches, only: %i(index)
+    resources :bookmarks, only: %i(index)
   end
 
   namespace "partial" do
@@ -177,7 +178,6 @@ Rails.application.routes.draw do
   end
 
   resources :generations, only: %i(show index)
-  resources :bookmarks, only: %i(index)
 
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/

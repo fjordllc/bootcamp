@@ -8,5 +8,8 @@ header.page-header
 
 .page-tools
   = render 'products/tabs'
+  = render 'nav'
+
+- title 'レビューを担当する未返信の提出物' if @target == 'self_assigned_no_replied'
 
 #js-products(data-title="#{title}" data-selected-tab="self-assigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
