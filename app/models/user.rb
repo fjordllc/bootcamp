@@ -239,7 +239,7 @@ class User < ApplicationRecord
       adviser: false,
       retired_on: nil,
       graduated_on: nil
-    )
+    ).order(updated_at: :desc)
   }
   scope :year_end_party, -> { where(retired_on: nil) }
   scope :mentor, -> { where(mentor: true) }
