@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module ReportsHelper
-  def practice_options(categories)
-    categories.flat_map do |category|
+  def practice_options
+    current_user.course.categories.flat_map do |category|
       category.practices.map do |practice|
         ["[#{category.name}] #{practice.title}", practice.id]
       end
