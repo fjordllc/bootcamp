@@ -37,6 +37,7 @@ class ReportCallbacks
   def notify_users(report)
     notify_first_report(report) if report.first?
     notify_advisers(report) if report.user.trainee? && report.user.company_id?
+    notify_consecutive_sad_report(report) if report.user.depressed?
     notify_followers(report)
     report.notify_all_mention_user
   end
@@ -52,6 +53,12 @@ class ReportCallbacks
     report.user.followers.each do |follower|
       NotificationFacade.following_report(report, follower)
       create_following_watch(report, follower)
+    end
+  end
+
+  def notify_consecutive_sad_report(report)
+    User.mentor.each do |receiver|
+      NotificationFacade.consecutive_sad_report(report, receiver)
     end
   end
 

@@ -48,4 +48,4 @@ substitutions:
 tags:
   - gcp-cloud-build-task
   - bootcamp
-timeout: 1800s
+timeout: 43200s

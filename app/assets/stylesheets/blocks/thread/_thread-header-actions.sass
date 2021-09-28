@@ -13,6 +13,10 @@
     +margin(horizontal, -.125rem)
 
 .thread-header-actions__start
+  +media-breakpoint-down(sm)
+    flex: 2
+
+.thread-header-actions__start
   justify-content: flex-start
 
 .thread-header-actions__end
@@ -21,7 +25,7 @@
 .thread-header-actions__action
   +media-breakpoint-up(md)
     +padding(horizontal, .25rem)
-    min-width: 6rem
+    min-width: 7rem
   +media-breakpoint-down(sm)
     +padding(horizontal, .125rem)
     width: 50%

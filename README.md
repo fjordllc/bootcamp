@@ -49,9 +49,19 @@ $ ./bin/lint
   * rubocop
   * slim-lint
 * JavaScript
-  `bin/yarn fix` で、eslintとprettierが自動でエラーや警告を修正してくれます。ただし、全てのエラーや警告は修正されず、手動で修正する必要がある場合もあります。
   * eslint
   * prettier
+* eslintの警告は以下のコマンドで修正されますが、修正されない場合は手動で修正してください。
+
+```shell
+$ eslint 'app/javascript/**/*.{js,vue}' --fix
+```
+
+* prettierの警告が出ている場合には、以下のコマンドで修正できます。
+
+```shell
+$ prettier app/javascript/**/*.{js,vue} --write
+```
 
 
 ## その他

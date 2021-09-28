@@ -9,6 +9,7 @@ class Product < ApplicationRecord
   include WithAvatar
   include Mentioner
   include Searchable
+  include Bookmarkable
 
   belongs_to :practice
   belongs_to :user, touch: true
@@ -79,6 +80,72 @@ class Product < ApplicationRecord
   end
   # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
+  def self.add_last_comment_at
+    products = Product.where(
+      self_last_comment_at: nil,
+      mentor_last_comment_at: nil
+    ).order(:id)
+
+    logger.info "nil products: #{products.size}"
+    logger.info "first id: #{products.first.id}"
+    logger.info "last id: #{products.last.id}"
+
+    products.each do |product|
+      next if product.comments.size.negative?
+
+      logger.info "product id: #{product.id}"
+
+      product.comments.each do |comment|
+        if comment.user.mentor
+          logger.info "update mentor_last_comment_at: #{comment.updated_at}"
+          product.mentor_last_comment_at = comment.updated_at
+        elsif comment.user == product.user
+          logger.info "update self_last_comment_at: #{comment.updated_at}"
+          product.self_last_comment_at = comment.updated_at
+        else
+          logger.info 'comment by other user'
+        end
+      end
+      product.save!
+    end
+  end
+
+  def self.self_assigned_no_replied_product_ids(current_user_id)
+    sql = <<~SQL
+      WITH last_comments AS (
+        SELECT *
+        FROM comments AS parent
+        WHERE commentable_type = 'Product' AND id = (
+          SELECT id
+          FROM comments AS child
+          WHERE parent.commentable_id = child.commentable_id
+            AND commentable_type = 'Product'
+          ORDER BY created_at DESC LIMIT 1
+        )
+      ),
+      self_assigned_products AS (
+        SELECT products.*
+        FROM products
+        WHERE checker_id = #{current_user_id}
+      )
+      SELECT self_assigned_products.id
+      FROM self_assigned_products
+      LEFT JOIN last_comments ON self_assigned_products.id = last_comments.commentable_id
+      WHERE last_comments.id IS NULL
+      OR self_assigned_products.checker_id != last_comments.user_id
+      ORDER BY self_assigned_products.created_at DESC
+    SQL
+    Product.find_by_sql(sql).map(&:id)
+  end
+  # rubocop:enable Metrics/MethodLength
+
+  def self.self_assigned_no_replied_products(current_user_id)
+    no_replied_product_ids = self_assigned_no_replied_product_ids(current_user_id)
+    Product.where(id: no_replied_product_ids)
+           .order(created_at: :desc)
+  end
+
   def completed?(user)
     checks.where(user: user).present?
   end
@@ -105,7 +172,7 @@ class Product < ApplicationRecord
     return false if other_checker_exists?(current_user_id)
 
     self.checker_id = checker_id ? nil : current_user_id
-    Cache.delete_self_assigned_product_count(current_user_id)
+    Cache.delete_self_assigned_no_replied_product_count(current_user_id)
     save!
   end
 
