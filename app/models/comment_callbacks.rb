@@ -64,8 +64,7 @@ class CommentCallbacks
   end
 
   def update_commented_at(comment)
-    comment.commentable.commented_at = comment.updated_at
-    comment.commentable.save!
+    comment.commentable.update!(commented_at: comment.updated_at)
   end
 
   def delete_commented_at(comment)
