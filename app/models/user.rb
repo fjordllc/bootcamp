@@ -362,17 +362,19 @@ class User < ApplicationRecord
         max_reported_on = "max_reported_on_#{i}"
 
         if i.zero?
-          reports = User.depressed_reports_on_first(users, max_reported_on)
+          reports = depressed_reports_on_first(users, max_reported_on)
         else
-          reports = User.depressed_reports_on_after_second(reports, sub_query_name, max_reported_on)
+          reports = depressed_reports_on_after_second(reports, sub_query_name, max_reported_on)
           sub_query_name = "sub_reports_#{i + 1}" # サブクエリの名前が重複しないよう連続にしたいので、ここでindexを1すすめる
         end
 
-        reports = User.depressed_reports_with_sad(reports, sub_query_name, max_reported_on)
+        reports = depressed_reports_with_sad(reports, sub_query_name, max_reported_on)
       end
 
-      User.last_depressed_reports(reports)
+      last_depressed_reports(reports)
     end
+
+    private
 
     def depressed_reports_on_first(users, max_reported_on)
       # max関数を使うと、emotionを同時に取得できないので、まずuser_idと最新のreported_onだけを取得する
