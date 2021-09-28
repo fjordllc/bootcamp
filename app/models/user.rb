@@ -168,7 +168,7 @@ class User < ApplicationRecord
   with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
     validates :name_kana,  presence: true,
                            format: {
-                             with: /\A^[ 　ア-ン゛゜ァ-ォャ-ョー]+\z/,
+                             with: /\A[\p{katakana}\p{blank}ー－]+\z/,
                              message: 'はスペースとカタカナのみが使用できます'
                            }
   end
