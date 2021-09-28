@@ -7,7 +7,7 @@
           .form-item
             = f.label :practice, class: 'a-form-label'
             .select-practices
-              = f.select(:practice_id, practice_options, { include_blank: '関連プラクティスを指定しない' }, { class: 'js-select2' })
+              = f.select(:practice_id, practice_options(categories), { include_blank: '関連プラクティスを指定しない' }, { class: 'js-select2' })
     .form-item
       .row
         .col-md-6.col-xs-12
