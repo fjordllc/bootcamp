@@ -238,6 +238,8 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
     user.name_kana = 'こまがた まさき'
     assert user.invalid?
+    user.name_kana = 'グエンテーヴィン'
+    assert user.valid?
     user.name_kana = 'komagata masaki'
     assert user.invalid?
     user.name_kana = '-'
