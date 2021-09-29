@@ -22,8 +22,30 @@
                       | URL
                     .user-metas__item-value.company_website
                       = link_to company.name, company.website, target: '_blank', rel: 'noopener'
-                .user-metas__item
-                  .user-metas__item-label
-                    | 人数
-                  .user-metas__item-value.company_website
-                    = company.users.unretired.size
+                  - unless company.users.mentor.size.zero?
+                    .user-metas__item
+                      .user-metas__item-label
+                        | メンター
+                      .user-metas__item-value.company_website
+                        = company.users.mentor.size
+                  .user-metas__item
+                    .user-metas__item-label
+                      | アドバイザー
+                    .user-metas__item-value.company_website
+                      = users_unretired_advisers(company.users).size
+                  .user-metas__item
+                    .user-metas__item-label
+                      | 研修生
+                    .user-metas__item-value.company_website
+                      = users_unretired_trainees(company.users).size
+                  - unless company.users.admins.size.zero?
+                    .user-metas__item
+                      .user-metas__item-label
+                        | 管理者
+                      .user-metas__item-value.company_website
+                        = company.users.admins.size
+                  .user-metas__item
+                    .user-metas__item-label
+                      | 合計
+                    .user-metas__item-value.company_website
+                      = company.users.unretired.size
