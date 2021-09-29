@@ -218,14 +218,39 @@ class UserTest < ActiveSupport::TestCase
 
   test 'times_url' do
     user = users(:komagata)
-    user.times_url = 'https://discord.gg/xhGP6etJBX'
-    assert user.valid?
     user.times_url = ''
     assert user.valid?
-    user.times_url = 'xhGP6etJBX'
+    user.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001'
+    assert user.valid?
+    user.times_url = "https://discord.com/channels/715806612824260640/12345678900000000\n"
     assert user.invalid?
-    user.times_url = 'https://example.gg/xhGP6etJBX'
+    user.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001/123456789000000001'
     assert user.invalid?
+    user.times_url = 'https://discord.gg/jc9fnWk4'
+    assert user.invalid?
+    user.times_url = 'https://example.com/channels/715806612824260640/123456789000000001'
+    assert user.invalid?
+  end
+
+  test '#convert_to_channel_url!' do
+    VCR.use_cassette 'discord/invite' do
+      user = users(:komagata)
+      user.times_url = 'https://discord.gg/m2K7QG8byz'
+      user.convert_to_channel_url!
+      assert_equal 'https://discord.com/channels/715806612824260640/715806613264400385', user.times_url
+
+      user.times_url = 'https://discord.gg/8Px4f7nMUx'
+      user.convert_to_channel_url!
+      assert_nil user.times_url
+
+      user.times_url = 'https://discord.com/channels/715806612824260640/715806613264400385'
+      user.convert_to_channel_url!
+      assert_equal 'https://discord.com/channels/715806612824260640/715806613264400385', user.times_url
+
+      user.times_url = nil
+      user.convert_to_channel_url!
+      assert_nil user.times_url
+    end
   end
 
   test 'is valid name_kana' do
