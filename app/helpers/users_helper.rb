@@ -58,4 +58,12 @@ module UsersHelper
       'is-mid'
     end
   end
+
+  def users_unretired_advisers(users)
+    users.advisers.where(retired_on: nil)
+  end
+
+  def users_unretired_trainees(users)
+    users.trainees.where(retired_on: nil)
+  end
 end
