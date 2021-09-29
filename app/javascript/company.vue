@@ -16,10 +16,7 @@
             | {{ company.description }}
   .m-user-icons
     .m-user-icons__items
-      .m-user-icons__item(
-        v-for='user in company.users',
-        :key='user.id'
-      )
+      .m-user-icons__item(v-for='user in company.users', :key='user.id')
         a.m-user-icons__item-link(:href='user.url')
           img(
             :src='user.avatar_url',
