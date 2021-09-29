@@ -145,8 +145,8 @@ class User < ApplicationRecord
   validates :times_url,
             format: {
               allow_blank: true,
-              with: %r{\Ahttps://discord\.gg/},
-              message: 'は「https://discord.gg/」で始まる招待URLを入力してください'
+              with: %r{\Ahttps://discord\.com/channels/\d+/\d+\z},
+              message: 'はDiscordのチャンネルURLを入力してください'
             }
 
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
@@ -539,6 +539,25 @@ class User < ApplicationRecord
     # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
     self.record_timestamps = false
     update!(mentor_memo: new_memo)
+  end
+
+  def convert_to_channel_url!
+    match = times_url&.match(%r{\Ahttps://discord.gg/(?<invite_code>\w+)\z})
+    return if match.nil?
+
+    uri = URI("https://discord.com/api/invites/#{match[:invite_code]}")
+    res = Net::HTTP.get_response(uri)
+
+    case res
+    when Net::HTTPSuccess
+      data = JSON.parse(res.body)
+      update!(times_url: "https://discord.com/channels/#{data['guild']['id']}/#{data['channel']['id']}")
+    when Net::HTTPNotFound
+      logger.warn "[Discord API] 無効な招待URLです: #{login_name} (#{times_url})"
+      update!(times_url: nil)
+    else
+      logger.error "[Discord API] チャンネルURLを取得できません: #{login_name} (#{res.code} #{res.message})"
+    end
   end
 
   private
