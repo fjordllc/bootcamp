@@ -144,15 +144,22 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '.depressed_reports' do
-    ids = users(:komagata, :hatsuno, :kensyu).map(&:id)
+    no_depressed_user = users(:kimura)
+    first_depressed_user = users(:hatsuno)
+    second_depressed_user = users(:kensyu)
+
+    ids = [
+      no_depressed_user.id,
+      first_depressed_user.id,
+      second_depressed_user.id
+    ]
     users = User.where(id: ids)
     reports = User.depressed_reports(users)
     assert_equal 2, reports.size
 
     kensyu = users.find_by(login_name: 'kensyu')
-    latest_report = kensyu.reports.order(reported_on: :asc).last
-    latest_report.emotion = 'happy'
-    latest_report.save!
+    latest_report = kensyu.reports.order(reported_on: :desc).first
+    latest_report.update!(emotion: 'happy')
 
     reports = User.depressed_reports(users)
     assert_equal 1, reports.size
