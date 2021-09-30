@@ -19,8 +19,10 @@
           span#spec-edit-mode
     .thread-list-tools(v-else)
       .o-empty-message
-        p.o-empty-message__text
-        | ブックマークしているものはありません。
+        .o-empty-message__icon
+          i.far.fa-sad-tear
+          p.o-empty-message__text
+          | ブックマークしているものはありません。
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .thread-list.a-card
