@@ -29,7 +29,7 @@ li.header-links__item(v-bind:class='hasCountClass')
               )
               .header-notifications-item__message
                 p.test-notification-message {{ notification.message }}
-              time.header-notifications-item_created-at {{ createdAtFromNow(notification.created_at) }}
+              time.header-notifications-item__created-at {{ createdAtFromNow(notification.created_at) }}
       footer.header-dropdown__footer
         a.header-dropdown__footer-link(href='/notifications?status=unread') 全ての未読通知
         a.header-dropdown__footer-link(href='/notifications') 全ての通知

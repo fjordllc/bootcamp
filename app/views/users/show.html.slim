@@ -60,7 +60,7 @@ header.page-header
                 ul.card-main-actions__items
                   - unless current_user == @user
                     li.card-main-actions__item
-                      .js-following(data-is-following="#{current_user.following?(@user)}" data-user-id="#{@user.id}")
+                      .js-following(data-is-following="#{current_user.following?(@user)}" data-user-id="#{@user.id}" data-is-watching="#{current_user.watching?(@user)}")
                   - if current_user == @user
                     li.card-main-actions__item
                       = link_to '登録情報変更', edit_current_user_path, class: 'card-main-actions__action a-button is-md is-secondary is-block'

@@ -514,8 +514,13 @@ class User < ApplicationRecord
     active_practices.first.id
   end
 
-  def follow(other_user)
-    following << other_user
+  def follow(other_user, watch:)
+    active_relationships.create(followed: other_user, watch: watch)
+  end
+
+  def change_watching(other_user, watch)
+    following_row = Following.find_by(follower_id: self, followed_id: other_user)
+    following_row.update(watch: watch)
   end
 
   def unfollow(other_user)
@@ -524,6 +529,18 @@ class User < ApplicationRecord
 
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def watching?(other_user)
+    following?(other_user) ? Following.find_by(follower_id: self, followed_id: other_user).watch? : false
+  end
+
+  def following_list(watch: '')
+    if %w[true false].include?(watch)
+      following.includes(:passive_relationships).where(followings: { watch: watch })
+    else
+      following
+    end
   end
 
   def completed_all_practices?(category)
