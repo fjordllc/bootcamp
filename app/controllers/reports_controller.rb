@@ -25,7 +25,7 @@ class ReportsController < ApplicationController
   end
 
   def new
-    @report = Report.new(reported_on: Date.current)
+    @report = params[:date] ? Report.new(reported_on: Date.parse(params[:date])) : Report.new(reported_on: Date.current)
     @report.learning_times.build
 
     return unless params[:id]

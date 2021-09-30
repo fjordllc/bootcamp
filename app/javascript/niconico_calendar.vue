@@ -56,7 +56,10 @@
                   :src='`/images/emotion/${date.emotion}.svg`',
                   :alt='date.emotion'
                 )
-            .niconico-calendar__day-inner(v-else)
+            a.niconico-calendar__day-inner(
+              v-else,
+              :href='`/reports/new?date=` + `${currentYear}` + `-` + `${currentMonth}` + `-` + `${date.date}`'
+            )
               .niconico-calendar__day-label {{ date.date }}
               .niconico-calendar__day-value
                 i.fas.fa-minus(v-if='date.date')
