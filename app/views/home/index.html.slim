@@ -47,7 +47,7 @@ header.page-header
           - if (current_user.admin? || current_user.adviser?) && User.all.job_seeking.present?
             = render 'job_seeking_users', users: User.all.job_seeking
           - if current_user.total_learning_time.positive? || !current_user.mentor?
-            = render 'users/grass', user: current_user
+            #js-grass(data-user-id="#{current_user.id}")
           - if current_user.github_account.present?
             = render 'users/github_grass', user: current_user
           - if current_user.student?
