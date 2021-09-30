@@ -47,7 +47,9 @@ export default {
     },
     summary() {
       const word = this.word
-      const wordsPattern = word.replaceAll(/[\s+]/g, '|')
+      const wordsPattern = word
+        .replace(/[.*+?^=!:${}()|[\]/\\]/g, '\\$&')
+        .replaceAll(/\s+/g, '|')
       const pattern = new RegExp(wordsPattern, 'gi')
       if (word) {
         return this.searchable.summary.replaceAll(
