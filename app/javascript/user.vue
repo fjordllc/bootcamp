@@ -52,12 +52,11 @@
         .card-main-actions
           ul.card-main-actions__items
             li.card-main-actions__item(v-if='currentUser.id != user.id')
-              following(:isFollowing='user.isFollowing', :userId='user.id')
-            li.card-main-actions__item(v-if='currentUser.admin')
-              a.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
-                :href='user.edit_admin_user_path'
+              following(
+                :isFollowing='user.isFollowing',
+                :userId='user.id',
+                :isWatching='user.isWatching'
               )
-                | 管理者として変更
 </template>
 <script>
 import UserSecretAttributes from './user-secret-attributes.vue'

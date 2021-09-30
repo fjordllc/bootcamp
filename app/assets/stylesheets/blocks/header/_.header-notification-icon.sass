@@ -1,0 +1,50 @@
+.header-notification-icon
+  +text-block(1.25rem 1, center)
+  +media-breakpoint-down(sm)
+    +text-block(1.125rem 1)
+    .has-count &
+      color: $default-text
+
+.header-notification-count
+  background-color: $badge-color
+  +text-block(.625rem 1, center $reversal-text flex)
+  align-items: center
+  justify-content: center
+  border-radius: 1rem
+  position: absolute
+  +media-breakpoint-up(md)
+    +size(1.25rem .875rem)
+    +position(right .25rem, top .25rem)
+  +media-breakpoint-down(sm)
+    +size(1.125rem .75rem)
+    +position(right .125rem, top .125rem)
+
+.header-notifications-item__body
+  width: 100%
+  +media-breakpoint-up(md)
+    color: $default-text
+  +media-breakpoint-down(sm)
+    color: $reversal-text
+
+.header-notifications-item__user-icon
+  float: left
+  +size(2rem)
+  margin-right: .5rem
+  margin-bottom: .25rem
+
+.header-notifications-item__message
+  p
+    line-height: 1.45
+    margin-bottom: .375em
+    +media-breakpoint-up(md)
+      font-size: .8125rem
+    +media-breakpoint-down(sm)
+      font-size: .75rem
+
+.header-notifications-item__created-at
+  text-align: right
+  display: block
+  +media-breakpoint-up(md)
+    font-size: .75rem
+  +media-breakpoint-down(sm)
+    font-size: .625rem
