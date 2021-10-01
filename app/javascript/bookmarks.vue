@@ -21,7 +21,7 @@
       .o-empty-message
         .o-empty-message__icon
           i.far.fa-sad-tear
-          p.o-empty-message__text
+        p.o-empty-message__text
           | ブックマークしているものはありません。
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
