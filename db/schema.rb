@@ -313,6 +313,8 @@ ActiveRecord::Schema.define(version: 2021_09_23_053650) do
     t.bigint "checker_id"
     t.datetime "self_last_comment_at"
     t.datetime "mentor_last_comment_at"
+    t.datetime "commented_at"
+    t.index ["commented_at"], name: "index_products_on_commented_at"
     t.index ["practice_id"], name: "index_products_on_practice_id"
     t.index ["user_id", "practice_id"], name: "index_products_on_user_id_and_practice_id", unique: true
     t.index ["user_id"], name: "index_products_on_user_id"
