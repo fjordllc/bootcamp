@@ -26,11 +26,11 @@ module ApplicationHelper
 
     words_pattern = words.map { |keyword| Regexp.escape(keyword) }.join('|')
     words_regexp = Regexp.new(words_pattern, Regexp::IGNORECASE)
-    match = words_regexp.match(comment)
+    match = words_regexp.match(summary)
     return truncate(summary, length: word_count) if match.nil?
 
     begin_offset = (match.begin(0) - EXTRACTING_CHARACTERS).clamp(0, Float::INFINITY)
     end_offset = match.end(0) + EXTRACTING_CHARACTERS
-    comment[begin_offset...end_offset]
+    summary[begin_offset...end_offset]
   end
 end
