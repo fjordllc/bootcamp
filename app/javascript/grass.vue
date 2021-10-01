@@ -1,34 +1,76 @@
 <template lang="pug">
 .a-card
-  .card-header.is-sm
+  header.card-header.is-sm
     h2.card-header__title
       | 学習時間
   .user-grass
+    .user-grass-nav
+      .user-grass-nav__previous(@click='onPrevYearMonth')
+        i.fas.fa-angle-left
+      .user-grass-nav__year--month {{ prevYearMonth && prevYearMonth.format(clientFormat) }} 〜 {{ currentYearMonth && currentYearMonth.format(clientFormat) }}
+      .user-grass-nav__next(
+        v-if='!isLatestYearMonth(currentYearMonth)',
+        @click='onNextYearMonth'
+      )
+        i.fas.fa-angle-right
+      .user-grass-nav__next.is-blank(v-else)
     canvas#grass.a-grass(width='650px', height='130px')
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 export default {
   props: {
     userId: { type: String, required: true }
   },
+  data() {
+    return {
+      clientFormat: 'YYYY年M月',
+      serverFormat: 'YYYY-MM-DD',
+      prevYearMonth: null,
+      currentYearMonth: null
+    }
+  },
   mounted() {
+    this.prevYearMonth = this.getPrevYearMonth()
+    this.currentYearMonth = this.getCurrentYearMonth()
     this.canvas = document.getElementById('grass')
 
-    fetch(`/api/grasses/${this.userId}.json`)
-      .then((response) => {
-        return response.json()
-      })
-      .then((json) => {
-        this.render(json)
-      })
-      .catch((error) => {
-        console.warn('parsing failed', error)
-      })
+    this.load(dayjs().format(this.serverFormat))
   },
   methods: {
+    getPrevYearMonth(yearMonth) {
+      return dayjs(yearMonth).subtract(1, 'year')
+    },
+    getCurrentYearMonth(yearMonth) {
+      return dayjs(yearMonth)
+    },
+    isLatestYearMonth(currentYearMonth) {
+      return dayjs().isSame(currentYearMonth, 'month')
+    },
+    onPrevYearMonth() {
+      const prev = dayjs(this.currentYearMonth).subtract(1, 'year')
+      this.load(prev.format(this.serverFormat))
+    },
+    onNextYearMonth() {
+      const next = dayjs(this.currentYearMonth).add(1, 'year')
+      this.load(next.format(this.serverFormat))
+    },
+    load(date) {
+      fetch(`/api/grasses/${this.userId}.json?end_date=${date}`)
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          this.render(json)
+        })
+        .catch((error) => {
+          console.warn('parsing failed', error)
+        })
+    },
     render(grasses) {
-      const startX = 20
+      const startX = 16
       const startY = 20
       const height = 10
       const width = 10
@@ -37,6 +79,7 @@ export default {
       const ctx = this.canvas.getContext('2d')
       ctx.font = '8px Arial'
       ctx.strokeStyle = 'rgb(132, 132, 132)'
+      ctx.clearRect(0, 0, 650, 130)
 
       // render day of the week
       const colors = ['#e2e5ec', '#98A5DA', '#5D72C4', '#223FAF', '#06063e']
@@ -74,6 +117,10 @@ export default {
           row++
         }
       }
+
+      const lastDate = grasses[grasses.length - 1].date
+      this.prevYearMonth = this.getPrevYearMonth(lastDate)
+      this.currentYearMonth = this.getCurrentYearMonth(lastDate)
 
       // render sample
       const sampleStartX = 555
