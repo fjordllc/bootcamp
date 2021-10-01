@@ -113,6 +113,14 @@ class Product < ApplicationRecord
     end
   end
 
+  def self.add_latest_commented_at
+    Product.all.includes(:comments).find_each do |product|
+      next if product.comments.blank?
+
+      product.update!(commented_at: product.comments.last.updated_at)
+    end
+  end
+
   def self.self_assigned_no_replied_product_ids(current_user_id)
     sql = <<~SQL
       WITH last_comments AS (

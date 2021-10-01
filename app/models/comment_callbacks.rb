@@ -12,6 +12,7 @@ class CommentCallbacks
     return unless comment.commentable.instance_of?(Product)
 
     update_last_comment_at(comment)
+    update_commented_at(comment)
     delete_product_cache(comment.commentable.id)
   end
 
@@ -19,12 +20,14 @@ class CommentCallbacks
     return unless comment.commentable.instance_of?(Product)
 
     update_last_comment_at(comment)
+    update_commented_at(comment)
   end
 
   def after_destroy(comment)
     return unless comment.commentable.instance_of?(Product)
 
     delete_last_comment_at(comment.commentable.id)
+    delete_commented_at(comment)
     delete_product_cache(comment.commentable.id)
   end
 
@@ -58,6 +61,16 @@ class CommentCallbacks
       product.self_last_comment_at = comment.updated_at
     end
     product.save!
+  end
+
+  def update_commented_at(comment)
+    comment.commentable.update!(commented_at: comment.updated_at)
+  end
+
+  def delete_commented_at(comment)
+    last_comment = comment.commentable.comments.last
+    comment.commentable.commented_at = last_comment ? last_comment.updated_at : nil
+    comment.commentable.save!
   end
 
   def notify_comment(comment)
