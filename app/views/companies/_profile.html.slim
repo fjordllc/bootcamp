@@ -30,12 +30,12 @@
                 .user-metas__item-label
                   | アドバイザー
                 .user-metas__item-value.company_website
-                  = users_unretired_advisers(company.users).size
+                  = users_unretired(company.users.advisers).size
               .user-metas__item
                 .user-metas__item-label
                   | 研修生
                 .user-metas__item-value.company_website
-                  = users_unretired_trainees(company.users).size
+                  = users_unretired(company.users.trainees).size
               - unless company.users.admins.size.zero?
                 .user-metas__item
                   .user-metas__item-label
