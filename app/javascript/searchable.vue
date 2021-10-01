@@ -48,7 +48,7 @@ export default {
     summary() {
       const word = this.word
       const wordsPattern = word
-        .replace(/[.*+?^=!:${}()|[\]/\\]/g, '\\$&')
+        .replaceAll(/[.*+?^=!:${}()|[\]/\\]/g, '\\$&')
         .replaceAll(/\s+/g, '|')
       const pattern = new RegExp(wordsPattern, 'gi')
       if (word) {
