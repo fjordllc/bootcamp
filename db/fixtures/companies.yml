@@ -1,6 +1,6 @@
 company1:
-  name: "Okamoto Electric Co."
-  description: "有限会社岡本電気"
+  name: "MaruMaru Inc."
+  description: "◯◯株式会社"
   website: "http://example.com/ben/"
   tos: "秘密保持契約書 　　　__COMPANY_NAME__（以下「甲」という）と__USER_NAME__（以下「乙」という）とは、甲が業務を乙に委託し、乙がこれを実施する事に関連して、甲から乙に対しまたは乙から甲に対し開示される秘密情報、個人情報の取扱いに関し、次の通り契約を締結する。
 
@@ -50,19 +50,19 @@ company1:
   created_at: 2000-01-01 00:00:01
 
 company2:
-  name: "Ishikawa Gas Joint-Stock Company"
-  description: "石川ガス合名会社"
+  name: "BatsuBatsu Inc"
+  description: "××株式会社"
   website: "http://example.com/ignacio/"
   created_at: 2000-01-01 00:00:02
 
 company3:
-  name: "株式会社中野農林"
-  description: "Nakano Norin Inc."
+  name: "ShikakuShikaku Inc"
+  description: "□□株式会社"
   website: "http://example.com/zada.schumm"
   created_at: 2000-01-01 00:00:03
 
 company4:
-  name: "Kinoshita Printing Inc."
-  description: "木下印刷株式会社"
+  name: "SankakuSankaku Inc"
+  description: "△△株式会社"
   website: "http://example.com/loriann"
   created_at: 2000-01-01 00:00:04
