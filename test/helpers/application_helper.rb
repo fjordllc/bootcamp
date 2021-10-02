@@ -59,4 +59,12 @@ class  ApplicationHelperTest < ActionView::TestCase
 
     assert_equal '09876543210987654321098765432109876543210987654321検索ワード検索単語キーワード12345678901234567890', searchable_summary(comment, word_count, word)
   end
+
+  test 'regexp in searchable_summary' do
+    comment = 'テスト! " # $ \' % & ( ) = ~ | - ^ ¥ ` { @ [ + * } ; : ] < > ? _ , . / 　テスト'
+    word_count = 90
+    word = '% テスト'
+
+    assert_equal 'テスト! " # $ \' % &amp; ( ) = ~ | - ^ ¥ ` { @ [ + * } ; ', searchable_summary(comment, word_count, word)
+  end
 end
