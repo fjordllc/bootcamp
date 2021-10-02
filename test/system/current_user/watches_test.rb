@@ -10,7 +10,7 @@ class CurrentUser::WatchesTest < ApplicationSystemTestCase
 
   # 下記3つのtestは/watches削除に伴い、WatchingTestより転記し修正した
   test 'show my watch list' do
-    visit_with_auth'/current_user/watches', 'hajime'
+    visit_with_auth '/current_user/watches', 'hajime'
     assert_no_text 'テストの質問1'
     question = questions(:question3)
     visit question_path(question)
