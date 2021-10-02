@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   before_action :require_login
   before_action :set_page, only: %i[show edit update destroy]
   before_action :set_categories, only: %i[new create edit update]
+  before_action :redirect_to_slug, only: %i[show edit]
 
   def index
     @pages = Page.with_avatar
@@ -85,5 +86,12 @@ class PagesController < ApplicationController
       .eager_load(:practices)
       .where.not(practices: { id: nil })
       .order('categories.position ASC, categories_practices.position ASC')
+  end
+
+  def redirect_to_slug
+    return if @page.slug.nil?
+    unless params[:slug_or_id].start_with?(/[a-z]/)
+      redirect_to request.original_url.sub(params[:slug_or_id], @page.slug)
+    end
   end
 end
