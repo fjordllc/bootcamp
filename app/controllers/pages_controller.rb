@@ -90,6 +90,7 @@ class PagesController < ApplicationController
 
   def redirect_to_slug
     return if @page.slug.nil?
+    
     redirect_to request.original_url.sub(params[:slug_or_id], @page.slug) unless params[:slug_or_id].start_with?(/[a-z]/)
   end
 end
