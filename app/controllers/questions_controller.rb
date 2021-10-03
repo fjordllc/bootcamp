@@ -98,7 +98,7 @@ class QuestionsController < ApplicationController
   end
 
   def create_mentors_watch
-    Watch.insert_all(watch_records)
+    Watch.insert_all(watch_records) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def watch_records
