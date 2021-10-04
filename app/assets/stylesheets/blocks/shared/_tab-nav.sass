@@ -25,14 +25,14 @@
 
 .tab-nav__item-link
   +block-link
-  +text-block(.75rem 2.3, $muted-text center nowrap)
+  +text-block(.75rem 2.3, $semi-muted-text center nowrap)
   background-color: $background-shade
   border-radius: 20rem
   width: 7rem
   transition: all.2s ease-out
   &:hover
     background-color: shade($background-shade, 10%)
-    color: $main-text
+    color: $default-text
   &.is-active
     background-color: $accent
-    color: $main-text
+    color: $default-text

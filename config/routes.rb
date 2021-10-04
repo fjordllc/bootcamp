@@ -58,7 +58,7 @@ Rails.application.routes.draw do
     resources :tags, only: %i(index)
     resources :pages, only: %i(update)
     resources :questions, only: %i(show update)
-    resources :followings, only: %i(create destroy)
+    resources :followings, only: %i(create update destroy)
     namespace :products do
       resources :unchecked, only: %i(index)
       resources :not_responded, only: %i(index)

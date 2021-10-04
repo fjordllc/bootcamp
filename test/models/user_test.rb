@@ -218,14 +218,39 @@ class UserTest < ActiveSupport::TestCase
 
   test 'times_url' do
     user = users(:komagata)
-    user.times_url = 'https://discord.gg/xhGP6etJBX'
-    assert user.valid?
     user.times_url = ''
     assert user.valid?
-    user.times_url = 'xhGP6etJBX'
+    user.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001'
+    assert user.valid?
+    user.times_url = "https://discord.com/channels/715806612824260640/12345678900000000\n"
     assert user.invalid?
-    user.times_url = 'https://example.gg/xhGP6etJBX'
+    user.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001/123456789000000001'
     assert user.invalid?
+    user.times_url = 'https://discord.gg/jc9fnWk4'
+    assert user.invalid?
+    user.times_url = 'https://example.com/channels/715806612824260640/123456789000000001'
+    assert user.invalid?
+  end
+
+  test '#convert_to_channel_url!' do
+    VCR.use_cassette 'discord/invite' do
+      user = users(:komagata)
+      user.times_url = 'https://discord.gg/m2K7QG8byz'
+      user.convert_to_channel_url!
+      assert_equal 'https://discord.com/channels/715806612824260640/715806613264400385', user.times_url
+
+      user.times_url = 'https://discord.gg/8Px4f7nMUx'
+      user.convert_to_channel_url!
+      assert_nil user.times_url
+
+      user.times_url = 'https://discord.com/channels/715806612824260640/715806613264400385'
+      user.convert_to_channel_url!
+      assert_equal 'https://discord.com/channels/715806612824260640/715806613264400385', user.times_url
+
+      user.times_url = nil
+      user.convert_to_channel_url!
+      assert_nil user.times_url
+    end
   end
 
   test 'is valid name_kana' do
@@ -238,6 +263,8 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
     user.name_kana = 'こまがた まさき'
     assert user.invalid?
+    user.name_kana = 'グエンテーヴィン'
+    assert user.valid?
     user.name_kana = 'komagata masaki'
     assert user.invalid?
     user.name_kana = '-'
@@ -280,14 +307,23 @@ class UserTest < ActiveSupport::TestCase
   test '#follow' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    kimura.follow(hatsuno)
-    assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
+    kimura.follow(hatsuno, watch: true)
+    assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: true)
+  end
+
+  test '#change_watching' do
+    kimura = users(:kimura)
+    hatsuno = users(:hatsuno)
+    kimura.follow(hatsuno, watch: true)
+    assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: true)
+    kimura.change_watching(hatsuno, false)
+    assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: false)
   end
 
   test '#unfollow' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    kimura.follow(hatsuno)
+    kimura.follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
     kimura.unfollow(hatsuno)
     assert_nil Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
@@ -298,9 +334,35 @@ class UserTest < ActiveSupport::TestCase
     hatsuno = users(:hatsuno)
     kimura.following?(hatsuno)
     assert_not kimura.following?(hatsuno)
-    kimura.follow(hatsuno)
+    kimura.follow(hatsuno, watch: true)
     kimura.following?(hatsuno)
     assert kimura.following?(hatsuno)
+  end
+
+  test '#auto_watching' do
+    kimura = users(:kimura)
+    hatsuno = users(:hatsuno)
+    kimura.following?(hatsuno)
+    assert_not kimura.watching?(hatsuno)
+    kimura.follow(hatsuno, watch: false)
+    kimura.following?(hatsuno)
+    assert_not kimura.watching?(hatsuno)
+    kimura.change_watching(hatsuno, true)
+    kimura.following?(hatsuno)
+    assert kimura.watching?(hatsuno)
+  end
+
+  test '#following_list ' do
+    kimura = users(:kimura)
+    hatsuno = users(:hatsuno)
+    hajime = users(:hajime)
+    yamada = users(:yamada)
+    kimura.follow(hatsuno, watch: true)
+    kimura.follow(hajime, watch: true)
+    kimura.follow(yamada, watch: false)
+    assert_equal 3, kimura.following_list.count
+    assert_equal 2, kimura.following_list(watch: 'true').count
+    assert_equal 1, kimura.following_list(watch: 'false').count
   end
 
   test '#completed_practices_size' do
@@ -318,9 +380,9 @@ class UserTest < ActiveSupport::TestCase
   test "don't unfollow user when other user unfollow user" do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    kimura.follow(hatsuno)
+    kimura.follow(hatsuno, watch: true)
     daimyo = users(:daimyo)
-    daimyo.follow(hatsuno)
+    daimyo.follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
     daimyo.unfollow(hatsuno)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)

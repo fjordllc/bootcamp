@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_28_145120) do
+ActiveRecord::Schema.define(version: 2021_09_23_053650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 2021_08_28_145120) do
     t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "open", default: false, null: false
   end
 
   create_table "courses_categories", force: :cascade do |t|
@@ -172,6 +173,7 @@ ActiveRecord::Schema.define(version: 2021_08_28_145120) do
     t.integer "followed_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "watch", default: true, null: false
     t.index ["followed_id"], name: "index_followings_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_followings_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_followings_on_follower_id"
@@ -311,6 +313,8 @@ ActiveRecord::Schema.define(version: 2021_08_28_145120) do
     t.bigint "checker_id"
     t.datetime "self_last_comment_at"
     t.datetime "mentor_last_comment_at"
+    t.datetime "commented_at"
+    t.index ["commented_at"], name: "index_products_on_commented_at"
     t.index ["practice_id"], name: "index_products_on_practice_id"
     t.index ["user_id", "practice_id"], name: "index_products_on_user_id_and_practice_id", unique: true
     t.index ["user_id"], name: "index_products_on_user_id"

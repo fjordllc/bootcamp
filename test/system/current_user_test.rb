@@ -51,8 +51,8 @@ class CurrentUserTest < ApplicationSystemTestCase
 
   test 'update times url with wrong url' do
     visit_with_auth '/current_user/edit', 'komagata'
-    fill_in 'user[times_url]', with: 'https://example.gg/xhGP6etJBX'
+    fill_in 'user[times_url]', with: 'https://example.com/channels/1234/5678/'
     click_button '更新する'
-    assert_text '分報URLは「https://discord.gg/」で始まる招待URLを入力してください'
+    assert_text '分報URLはDiscordのチャンネルURLを入力してください'
   end
 end

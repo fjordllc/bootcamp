@@ -13,6 +13,7 @@ json.experience_name t("activerecord.enums.user.experience.#{user.experience}")
 json.student_or_trainee user.student_or_trainee?
 json.edit_admin_user_path edit_admin_user_path(user)
 json.isFollowing current_user.following?(user)
+json.isWatching current_user.watching?(user)
 
 json.company do
   if user.company.present?

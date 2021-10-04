@@ -45,6 +45,6 @@
               li.card-main-actions__item
                 .js-following(data-is-following="#{current_user.following?(user)}" data-user-id="#{user.id}")
             - if current_user.admin?
-              li.card-main-actions__item
+              li.card-main-actions__item.is-only-mentor
                 = link_to edit_admin_user_path(user), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
                   | 管理者として変更

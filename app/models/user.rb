@@ -145,8 +145,8 @@ class User < ApplicationRecord
   validates :times_url,
             format: {
               allow_blank: true,
-              with: %r{\Ahttps://discord\.gg/},
-              message: 'は「https://discord.gg/」で始まる招待URLを入力してください'
+              with: %r{\Ahttps://discord\.com/channels/\d+/\d+\z},
+              message: 'はDiscordのチャンネルURLを入力してください'
             }
 
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
@@ -168,7 +168,7 @@ class User < ApplicationRecord
   with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
     validates :name_kana,  presence: true,
                            format: {
-                             with: /\A^[ 　ア-ン゛゜ァ-ォャ-ョー]+\z/,
+                             with: /\A[\p{katakana}\p{blank}ー－]+\z/,
                              message: 'はスペースとカタカナのみが使用できます'
                            }
   end
@@ -514,8 +514,13 @@ class User < ApplicationRecord
     active_practices.first.id
   end
 
-  def follow(other_user)
-    following << other_user
+  def follow(other_user, watch:)
+    active_relationships.create(followed: other_user, watch: watch)
+  end
+
+  def change_watching(other_user, watch)
+    following_row = Following.find_by(follower_id: self, followed_id: other_user)
+    following_row.update(watch: watch)
   end
 
   def unfollow(other_user)
@@ -524,6 +529,18 @@ class User < ApplicationRecord
 
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def watching?(other_user)
+    following?(other_user) ? Following.find_by(follower_id: self, followed_id: other_user).watch? : false
+  end
+
+  def following_list(watch: '')
+    if %w[true false].include?(watch)
+      following.includes(:passive_relationships).where(followings: { watch: watch })
+    else
+      following
+    end
   end
 
   def completed_all_practices?(category)
@@ -539,6 +556,25 @@ class User < ApplicationRecord
     # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
     self.record_timestamps = false
     update!(mentor_memo: new_memo)
+  end
+
+  def convert_to_channel_url!
+    match = times_url&.match(%r{\Ahttps://discord.gg/(?<invite_code>\w+)\z})
+    return if match.nil?
+
+    uri = URI("https://discord.com/api/invites/#{match[:invite_code]}")
+    res = Net::HTTP.get_response(uri)
+
+    case res
+    when Net::HTTPSuccess
+      data = JSON.parse(res.body)
+      update!(times_url: "https://discord.com/channels/#{data['guild']['id']}/#{data['channel']['id']}")
+    when Net::HTTPNotFound
+      logger.warn "[Discord API] 無効な招待URLです: #{login_name} (#{times_url})"
+      update!(times_url: nil)
+    else
+      logger.error "[Discord API] チャンネルURLを取得できません: #{login_name} (#{res.code} #{res.message})"
+    end
   end
 
   private
