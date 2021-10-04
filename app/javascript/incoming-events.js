@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const selector = '.incoming-event'
+  const selector = '.page-notices__item'
   const events = document.querySelectorAll(selector)
   if (!events) return false
 
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     button.addEventListener('click', () => {
       document
-        .querySelector(`.incoming-event[data-event-id="${eventId}"]`)
+        .querySelector(`.page-notices__item[data-event-id="${eventId}"]`)
         .remove()
 
       if (
