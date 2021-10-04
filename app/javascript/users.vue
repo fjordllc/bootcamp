@@ -54,7 +54,8 @@ export default {
         '/api/users/' +
         (this.params.tag ? `tags/${this.params.tag}` : '') +
         `?page=${this.currentPage}` +
-        (this.params.target ? `&target=${this.params.target}` : '')
+        (this.params.target ? `&target=${this.params.target}` : '') +
+        (this.params.watch ? `&watch=${this.params.watch}` : '')
       )
     },
     pagerProps() {

@@ -215,24 +215,25 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'show times link on user page' do
-    visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
-    assert has_no_link?(href: 'https://discord.gg/kimura-times')
-
     kimura = users(:kimura)
-    kimura.update!(times_url: 'https://discord.gg/kimura-times')
+
+    visit_with_auth "/users/#{kimura.id}", 'hatsuno'
+    assert_no_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
+
+    kimura.update!(times_url: 'https://discord.com/channels/715806612824260640/123456789000000007')
 
     visit current_path
-    assert has_link?(href: 'https://discord.gg/kimura-times')
+    assert_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
   end
 
   test 'show times link on user list page' do
     visit_with_auth '/users', 'hatsuno'
-    has_no_link?(href: 'https://discord.gg/kimura-times')
+    assert_no_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
 
     kimura = users(:kimura)
-    kimura.update!(times_url: 'https://discord.gg/kimura-times')
+    kimura.update!(times_url: 'https://discord.com/channels/715806612824260640/123456789000000007')
 
     visit current_path
-    has_link?(href: 'https://discord.gg/kimura-times')
+    assert_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
   end
 end

@@ -1,0 +1,32 @@
+.following
+  position: relative
+
+.following__dropdown
+  +position(absolute, 2)
+  width: 18.75rem
+
+.following-option
+  cursor: pointer
+  width: 100%
+  padding: .75rem
+  display: block
+  text-align: left
+  transition: all .2s ease-out
+  &:hover
+    background-color: $hover-background
+
+.following-option__inner
+  position: relative
+  padding-left: 1.5rem
+  .following-option.is-active &::before
+    +fa(fas '\f00c')
+    +position(absolute, left 0, top 0)
+
+.following-option__label
+  +text-block(.875rem 1.4, 600 $semi-muted-text)
+  .following-option.is-active &
+    color: $default-text
+
+.following-option__desciption
+  +text-block(.75rem 1.5, $muted-text)
+  margin-top: .125rem

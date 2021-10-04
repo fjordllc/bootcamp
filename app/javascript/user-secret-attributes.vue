@@ -27,6 +27,11 @@
         :class='{ "is-important": isInactive }'
       )
         | {{ user.updated_at }}
+  .user-secret-attributes__action(v-if='currentUser.admin')
+    a.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
+      :href='user.edit_admin_user_path'
+    )
+      | 管理者として変更
 </template>
 <script>
 export default {

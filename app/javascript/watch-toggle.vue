@@ -7,8 +7,10 @@
 </template>
 <script>
 import 'whatwg-fetch'
+import toast from './toast'
 
 export default {
+  mixins: [toast],
   props: {
     watchableId: { type: Number, required: true },
     watchableType: { type: String, required: true },
@@ -87,6 +89,7 @@ export default {
         .then((json) => {
           this.watchId = json.id
           this.watchLabel = 'Watch中'
+          this.toast('Watchしました！')
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)

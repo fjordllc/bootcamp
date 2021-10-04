@@ -208,7 +208,7 @@ muryou:
   name_kana: ムリョウ ノスケ
   discord_account: muryou#2222
   twitter_account: muryou
-  times_url: https://discord.gg/muryou-times
+  times_url: https://discord.com/channels/715806612824260640/123456789000000010
   facebook_url: http://www.facebook.com/muryou
   blog_url: http://muryou.org
   description: "無料の助です。趣味は野良犬剣法です。"
@@ -232,7 +232,7 @@ kensyu:
   discord_account: kensyu#3333
   github_account: kensyu
   twitter_account: kensyu
-  times_url: https://discord.gg/kensyu-times
+  times_url: https://discord.com/channels/715806612824260640/123456789000000011
   facebook_url: http://www.facebook.com/kensyu
   blog_url: http://kensyu.org
   company: company2
@@ -258,7 +258,7 @@ senpai:
   discord_account: senpai#4444
   github_account: senpai
   twitter_account: senpai
-  times_url: https://discord.gg/senpai-times
+  times_url: https://discord.com/channels/715806612824260640/123456789000000012
   facebook_url: http://www.facebook.com/senpai
   blog_url: http://senpai.org
   company: company2
@@ -281,7 +281,7 @@ kananashi: #name_kanaを持たないユーザー
   discord_account: kananashi#6666
   github_account: kananashi
   twitter_account: kananashi
-  times_url: https://discord.gg/kananashi-times
+  times_url: https://discord.com/channels/715806612824260640/123456789000000013
   facebook_url: http://www.facebook.com/kananashi
   blog_url: http://kananashi.org
   description: "読み方のカナが無いユーザーです"
@@ -303,7 +303,7 @@ osnashi: #osを持たないユーザー
   discord_account: osnashi#7777
   github_account: osnashi
   twitter_account: osnashi
-  times_url: https://discord.gg/osnashi-times
+  times_url: https://discord.com/channels/715806612824260640/123456789000000014
   facebook_url: http://www.facebook.com/osnashi
   blog_url: http://osnashi.org
   description: "OSが無いユーザーです"
@@ -324,7 +324,7 @@ jobseeker: #就活希望するユーザー
   discord_account: jobseeker#8888
   github_account: jobseeker
   twitter_account: jobseeker
-  times_url: https://discord.gg/jobseeker-times
+  times_url: https://discord.com/channels/715806612824260640/123456789000000015
   facebook_url: http://www.facebook.com/exmaple
   blog_url: http://example.org
   description: "フィヨルドからの就職希望してます！"
@@ -346,7 +346,6 @@ daimyo: # 大名エンジニアカレッジに通うユーザー
   discord_account: daimyo#9999
   github_account: daimyo
   twitter_account: daimyo
-  times_url: https://discord.gg/daimyo-times
   facebook_url: http://www.facebook.com/daimyo
   blog_url: http://example.org
   company: company4
@@ -367,7 +366,6 @@ nippounashi: # 日報を投稿していないユーザー
   name_kana: ニッポウ　ナシ
   discord_account: nippounashi#0001
   twitter_account: nippounashi
-  times_url: https://discord.gg/nippounashi-times
   facebook_url: http://www.facebook.com/nippounashi
   blog_url: http://nippounashiorg
   description: "日報がないユーザーです。"
@@ -390,7 +388,6 @@ with_hyphen:
   github_account: *login_name
   discord_account: with_hyphen#1234
   twitter_account: with_hyphen
-  times_url: https://discord.gg/with_hyphen-times
   facebook_url: http://www.facebook.com/with-hyphen
   blog_url: http://with-hyphen.org
   description: "ログインネームにハイフン(-)を利用しているユーザーです。"
