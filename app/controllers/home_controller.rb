@@ -12,7 +12,7 @@ class HomeController < ApplicationController
                                      .order(published_at: :desc)
                                      .limit(5)
         @completed_learnings = current_user.learnings.where(status: 3).order(updated_at: :desc)
-        @ordered_inactive_students_and_trainees = User.inactive_students_and_trainees.order(updated_at: :desc)
+        @inactive_students = User.inactive_students_and_trainees.order(updated_at: :desc)
         set_required_fields
         render aciton: :index
       end
