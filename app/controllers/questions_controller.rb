@@ -41,6 +41,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.user = current_user
     if @question.save
+      create_mentors_watch
       notify_to_chat(@question)
       redirect_to @question, notice: '質問を作成しました。'
     else
@@ -93,6 +94,22 @@ class QuestionsController < ApplicationController
       QuestionsProperty.new('解決済みの質問一覧', '解決済みの質問はまだありません。')
     else
       QuestionsProperty.new('未解決の質問一覧', '未解決の質問はまだありません。')
+    end
+  end
+
+  def create_mentors_watch
+    Watch.insert_all(watch_records) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def watch_records
+    User.mentor.map do |mentor|
+      {
+        watchable_type: 'Question',
+        watchable_id: @question.id,
+        created_at: Time.current,
+        updated_at: Time.current,
+        user_id: mentor.id
+      }
     end
   end
 end

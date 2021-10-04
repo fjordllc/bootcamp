@@ -277,4 +277,14 @@ class QuestionsTest < ApplicationSystemTestCase
     click_link '2', match: :first
     assert_selector '.thread-list-item', count: 25
   end
+
+  test 'mentor create a question' do
+    visit_with_auth new_question_path, 'komagata'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'メンターのみ投稿された質問が"Watch中"になるテスト'
+      fill_in 'question[description]', with: 'メンターのみ投稿された質問が"Watch中"になるテスト'
+      click_button '登録する'
+    end
+    assert_text 'Watch中'
+  end
 end
