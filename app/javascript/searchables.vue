@@ -15,7 +15,8 @@
       searchable(
         v-for='searchable in searchables',
         :key='searchable.id',
-        :searchable='searchable'
+        :searchable='searchable',
+        :word='word'
       )
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
@@ -43,7 +44,11 @@ export default {
   },
   computed: {
     url() {
-      return `/api/searchables?document_type=${this.documentType}&page=${this.currentPage}&word=${this.word}`
+      const params = new URLSearchParams()
+      params.append('document_type', this.documentType)
+      params.append('page', this.currentPage)
+      params.append('word', this.word)
+      return `/api/searchables?${params}`
     },
     pagerProps() {
       return {

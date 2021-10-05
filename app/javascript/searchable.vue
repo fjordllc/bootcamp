@@ -11,7 +11,7 @@
               | {{ searchable.title }}
       .thread-list-item__row
         .thread-list-item__summary
-          p {{ searchable.summary }}
+          p(v-html='summary')
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -30,7 +30,8 @@ import ja from 'dayjs/locale/ja'
 dayjs.locale(ja)
 export default {
   props: {
-    searchable: { type: Object, required: true }
+    searchable: { type: Object, required: true },
+    word: { type: String, required: true }
   },
   computed: {
     modelName() {
@@ -43,6 +44,22 @@ export default {
       return dayjs(this.searchable.updated_at).format(
         'YYYY年MM月DD日(dd) HH:mm'
       )
+    },
+    summary() {
+      const word = this.word
+      const wordsPattern = word
+        .trim()
+        .replaceAll(/[.*+?^=!:${}()|[\]/\\]/g, '\\$&')
+        .replaceAll(/\s+/g, '|')
+      const pattern = new RegExp(wordsPattern, 'gi')
+      if (word) {
+        return this.searchable.summary.replaceAll(
+          pattern,
+          `<strong class='matched_word'>$&</strong>`
+        )
+      } else {
+        return this.searchable.summary
+      }
     }
   }
 }
