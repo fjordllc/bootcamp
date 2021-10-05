@@ -44,8 +44,11 @@ export default {
   },
   computed: {
     url() {
-      const SearchParams = new URLSearchParams(`word=${this.word}`)
-      return `/api/searchables?document_type=${this.documentType}&page=${this.currentPage}&${SearchParams}`
+      const params = new URLSearchParams()
+      params.append('document_type', this.documentType)
+      params.append('page', this.currentPage)
+      params.append('word', this.word)
+      return `/api/searchables?${params}`
     },
     pagerProps() {
       return {
