@@ -57,7 +57,7 @@
                   :alt='date.emotion'
                 )
             a.niconico-calendar__day-inner(
-              v-else-if='date.date && isOlderThanToday(date.date)',
+              v-else-if='date.date && isOlderThanTodayOrToday(date.date)',
               :href='buildLinkToReportForSpecificDate(date.date)'
             )
               .niconico-calendar__day-label {{ date.date }}
@@ -229,7 +229,7 @@ export default {
       return new Date().getDate()
     },
     getDateExpression(day) {
-      return `${this.getCurrentYear()}` + '-' + `${this.getCurrentMonth()}` + '-' + day
+      return `${this.calendarYear}` + '-' + `${this.calendarMonth}` + '-' + day
     },
     reportDate(report) {
       return Number(report.reported_on.split('-')[2])
@@ -261,12 +261,12 @@ export default {
     buildLinkToReportForSpecificDate(day){
       return "/reports/new?date=" + this.getDateExpression(day)
     },
-    isOlderThanToday(day){
+    isOlderThanTodayOrToday(day){
       if (this.calendarYear > this.currentYear) return false
       if (this.calendarYear < this.currentYear) return true
       if (this.calendarMonth > this.currentMonth) return false
       if (this.calendarMonth < this.currentMonth) return true
-      if (day >= this.today) return false
+      if (day > this.today) return false
       return true
     }
   }
