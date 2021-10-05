@@ -72,3 +72,9 @@ question12:
   description: 解決済みの内容です。
   user: hajime
   practice: practice1
+
+question13:
+  title: 検索ワードが太字で表示されるかのテスト用の質問
+  description: こちらの質問は検索ワードの表示に関するテスト用の質問です。検索ワードが太字で表示されるかのテスト。こちらの質問は検索ワードの表示に関するテスト用の質問です。
+  user: hajime
+  practice: practice1
