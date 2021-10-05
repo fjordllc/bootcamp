@@ -1,7 +1,7 @@
 company1:
-  name: "Fjord Inc."
-  description: "株式会社フィヨルド"
-  website: "https://fjord.jp"
+  name: "MaruMaru Inc."
+  description: "◯◯株式会社"
+  website: "http://example.com/ben/"
   tos: "秘密保持契約書 　　　__COMPANY_NAME__（以下「甲」という）と__USER_NAME__（以下「乙」という）とは、甲が業務を乙に委託し、乙がこれを実施する事に関連して、甲から乙に対しまたは乙から甲に対し開示される秘密情報、個人情報の取扱いに関し、次の通り契約を締結する。
 
   第１条（秘密情報）
@@ -50,19 +50,19 @@ company1:
   created_at: 2000-01-01 00:00:01
 
 company2:
-  name: "root inc."
-  description: "株式会社ルート"
-  website: "http://ic-root.com/"
+  name: "BatsuBatsu Inc"
+  description: "××株式会社"
+  website: "http://example.com/ignacio/"
   created_at: 2000-01-01 00:00:02
 
 company3:
-  name: "esm inc."
-  description: "株式会社永和システムマネジメント"
-  website: "http://www.esm.co.jp/"
+  name: "ShikakuShikaku Inc"
+  description: "□□株式会社"
+  website: "http://example.com/zada.schumm"
   created_at: 2000-01-01 00:00:03
 
 company4:
-  name: "DAIMYO Engineer College"
-  description: "大名エンジニアカレッジ"
-  website: "https://daimyo-college.pepabo.com/"
+  name: "SankakuSankaku Inc"
+  description: "△△株式会社"
+  website: "http://example.com/loriann"
   created_at: 2000-01-01 00:00:04
