@@ -57,9 +57,13 @@
                   :alt='date.emotion'
                 )
             a.niconico-calendar__day-inner(
-              v-else,
-              :href='`/reports/new?date=` + `${currentYear}` + `-` + `${currentMonth}` + `-` + `${date.date}`'
+              v-else-if='date.date && isOlderThanToday(date.date)',
+              :href='buildLinkToReportForSpecificDate(date.date)'
             )
+              .niconico-calendar__day-label {{ date.date }}
+              .niconico-calendar__day-value
+                i.fas.fa-minus(v-if='date.date')
+            niconico-calendar__day-inner(v-else)
               .niconico-calendar__day-label {{ date.date }}
               .niconico-calendar__day-value
                 i.fas.fa-minus(v-if='date.date')
@@ -224,6 +228,9 @@ export default {
     getCurrentDay() {
       return new Date().getDate()
     },
+    getDateExpression(day) {
+      return `${this.getCurrentYear()}` + '-' + `${this.getCurrentMonth()}` + '-' + day
+    },
     reportDate(report) {
       return Number(report.reported_on.split('-')[2])
     },
@@ -250,6 +257,17 @@ export default {
       const params = new URLSearchParams(location.search)
       params.set('niconico_calendar', `${year}-${month}`)
       history.replaceState(history.state, '', `?${params}${location.hash}`)
+    },
+    buildLinkToReportForSpecificDate(day){
+      return "/reports/new?date=" + this.getDateExpression(day)
+    },
+    isOlderThanToday(day){
+      if (this.calendarYear > this.currentYear) return false
+      if (this.calendarYear < this.currentYear) return true
+      if (this.calendarMonth > this.currentMonth) return false
+      if (this.calendarMonth < this.currentMonth) return true
+      if (day >= this.today) return false
+      return true
     }
   }
 }
