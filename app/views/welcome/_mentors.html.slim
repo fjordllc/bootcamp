@@ -161,6 +161,19 @@ section.welcome-child-section
             | 技術自体ももちろんのこと、より効率よく継続的に学習ができるための方法論にも興味あり。
             | 好きなメソッドはString#each_grapheme_clusterです。
       .col-xs-12.col-md-6.col-lg-4
+        = render 'welcome/mentor', name: '深井 海斗',
+                                   job: 'プログラマー',
+                                   image: 'kaito.jpg',
+                                   github_id: 'kfukai23',
+                                   twitter_id: 'kfukai23' do
+          p
+            | #{link_to '株式会社万葉', 'https://everyleaf.com/'}所属のプログラマーです。
+            | 新卒でメーカー営業職に6年ほど従事した後、
+            | 一念発起して未経験からプログラマーにキャリアチェンジしました。
+            | プログラマーを目指す人の力になりたいです。
+            | #{link_to '平成.rb', 'https://heiseirb.connpass.com/'}の運営に携わっていたことがあります。
+            | 好きなRubyのメソッドはEnumerable#all?です。
+      .col-xs-12.col-md-6.col-lg-4
         = render 'welcome/mentor', name: '町田 哲平',
                                    job: 'デザイナー',
                                    image: 'machida.jpg',
