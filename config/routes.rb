@@ -92,6 +92,10 @@ Rails.application.routes.draw do
     resources :courses, except: %i(show)
   end
 
+  namespace :mentor do
+    root to: "home#index", as: :root
+  end
+
   namespace :current_user do
     resources :reports, only: %i(index)
     resources :products, only: %i(index)
