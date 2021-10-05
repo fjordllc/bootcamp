@@ -13,6 +13,8 @@ class HomeController < ApplicationController
                                      .limit(5)
         @completed_learnings = current_user.learnings.where(status: 3).order(updated_at: :desc)
         @inactive_students = User.inactive_students_and_trainees.order(updated_at: :desc)
+        cookies_ids = JSON.parse(cookies[:confirmed_event_ids]) if cookies[:confirmed_event_ids]
+        @events_coming_soon = Event.where(start_at: Date.current).or(Event.where(start_at: Date.tomorrow)).where.not(id: cookies_ids)
         set_required_fields
         render aciton: :index
       end

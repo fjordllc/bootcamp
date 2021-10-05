@@ -5,6 +5,8 @@
     background-color: $danger
   .page-body &
     +margin(vertical, -.5rem 1rem)
+  .page-body .page-notices__item &
+    +margin(vertical, 0)
   .page-tools + &
     margin-top: -1px
   .page-tabs + &
@@ -12,6 +14,11 @@
 
 .a-page-notice__inner
   +padding(vertical, .5rem)
+  &.has-close
+    padding: 0
+    position: relative
+    display: flex
+    align-items: center
   p
     +text-block(1em 1.4, $reversal-text center)
     +media-breakpoint-up(md)
@@ -21,3 +28,33 @@
   a
     color: $reversal-text
     +hover-link-reversal
+    &.has-badge
+      text-decoration: none
+      +media-breakpoint-down(sm)
+        display: block
+        position: relative
+        padding-left: 4rem
+      .a-badge
+        margin-right: .75rem
+        background-color: rgba(black, .4)
+        border: none
+        +media-breakpoint-down(sm)
+          +position(absolute, left 0, top 0)
+      .a-page-notice__label
+        +hover-link-reversal
+
+.a-page-notice__inner-start
+  flex: 1
+
+.a-page-notice__close
+  +size(2.75rem)
+  display: flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  font-size: 1.5rem
+  opacity: .6
+  transition: all .2s ease-out
+  margin-left: .5rem
+  &:hover
+    opacity: 1

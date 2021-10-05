@@ -102,3 +102,25 @@ event<%= i %>:
   updated_at: <%= Time.zone.local(2018, 5, 14, 9).ago(i.days) %>
   user: komagata
 <% end %>
+
+event27:
+  title: "ダッシュボード表示確認用テストイベント(当日用)"
+  description: "ダッシュボード表示確認用テストイベント(当日用)"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: <%= Date.current %>
+  end_at: 2019-12-17 12:00:00
+  open_start_at: 2019-12-10 9:00
+  open_end_at: 2019-12-16 9:00
+  user: komagata
+
+event28:
+  title: "ダッシュボード表示確認用テストイベント(翌日用)"
+  description: "ダッシュボード表示確認用テストイベント(翌日用)"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: <%= Date.tomorrow %>
+  end_at: 2019-12-17 12:00:00
+  open_start_at: 2019-12-10 9:00
+  open_end_at: 2019-12-16 9:00
+  user: komagata

@@ -13,7 +13,13 @@ header.page-header
     .container.is-lg
       = render 'welcome_message'
 .page-body
+  - if @events_coming_soon.present?
+    #events_on_dashboard.confirmed_event
+      .page-notices
+        = render partial: 'event', collection: @events_coming_soon, as: :event
   .container.is-xxl
+    - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
+      = render 'welcome_message'
     .columns
       .row
         .col-xs-12.col-xl-6.col-xxl-6
@@ -38,7 +44,7 @@ header.page-header
             = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
 
         .col-xs-12.col-xl-6.col-xxl-6
-          - if current_user.staff? && User.all.job_seeking.present?
+          - if (current_user.admin? || current_user.adviser?) && User.all.job_seeking.present?
             = render 'job_seeking_users', users: User.all.job_seeking
           - if current_user.total_learning_time.positive? || !current_user.mentor?
             = render 'users/grass', user: current_user
