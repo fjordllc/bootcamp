@@ -1,0 +1,6 @@
+nav.company-links
+  ul.company-links__items
+    - if company.website?
+      li.company-links__item
+        = link_to company.name, target: '_blank', rel: 'noopener', class: 'a-button is-xs is-secondary is-block' do
+          | 企業ページ
