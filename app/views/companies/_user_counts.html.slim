@@ -12,13 +12,13 @@
         dt.company-counts__item-label
           | アドバイザー
         dd.company-counts__item-value
-          = users_unretired(users.advisers).size
+          = users.unretired.advisers.size
     .company-counts__item
       .company-counts__item-inner
         dt.company-counts__item-label
           | 研修生
         dd.company-counts__item-value
-          = users_unretired(users.trainees).size
+          = users.unretired.trainees.size
     - unless users.admins.size.zero?
       .company-counts__item
         .company-counts__item-inner
