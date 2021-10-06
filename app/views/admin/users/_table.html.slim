@@ -66,15 +66,11 @@
             - else
               | -
           td.admin-table__item-value.is-text-align-center
-            - if @subscription_ids.include? user.subscription_id
-              ruby:
-                sub = @subscriptions.find { |s| s['id'] == user.subscription_id }
-                status = sub['status']
-                status_class = Subscription::STATUS_CLASS_MAP[status.to_sym]
+            - if user.subscription_id?
               = link_to user.subscription_url,
-                class: "a-button is-sm #{status_class}",
+                class: 'a-button is-sm is-info',
                 target: '_blank', rel: 'noopener' do
-                = t "enums.subscription_status.#{status}"
+                i.fas.fa-credit-card
             - else
               | -
           td.admin-table__item-value.is-text-align-center
