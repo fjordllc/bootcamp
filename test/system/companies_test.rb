@@ -15,8 +15,8 @@ class CompaniesTest < ApplicationSystemTestCase
 
   test 'show link to website if company has' do
     visit_with_auth "/companies/#{companies(:company1).id}", 'komagata'
-    within '.user-metas__items' do
-      assert_link 'Fjord Inc.', href: 'https://fjord.jp'
+    within '.company-links' do
+      assert_link '企業ページ', href: 'https://fjord.jp'
     end
   end
 end
