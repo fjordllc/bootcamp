@@ -3,6 +3,7 @@
 class API::GrassesController < API::BaseController
   def show
     user = User.find(params[:id])
-    @times = Grass.times(user, Date.parse(params[:end_date]))
+    date = params[:end_date] ? Date.parse(params[:end_date]) : Date.current
+    @times = Grass.times(user, date)
   end
 end
