@@ -19,7 +19,7 @@ class CoursesTest < ApplicationSystemTestCase
   end
 
   test 'update course' do
-    visit_with_auth "/courses/#{courses(:course1).id}/edit", 'komagata'
+    visit_with_auth "/admin/courses/#{courses(:course1).id}/edit", 'komagata'
     within 'form[name=course]' do
       fill_in 'course[title]', with: 'テストコース'
       find(:css, '#checkbox-published-course').set(true)
