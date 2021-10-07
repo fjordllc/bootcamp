@@ -149,26 +149,4 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit "/admin/users/#{user.id}/edit"
     assert_text '追加タグ'
   end
-
-  test 'show pagination users' do
-    login_user 'komagata', 'testtest'
-    user = users(:kimura)
-    101.times do |n|
-      User.create!(
-        email: "test#{n}@fjord.jp",
-        name: "test#{n}",
-        description: user[:description],
-        nda: user[:nda],
-        password: 'testtest',
-        login_name: "test#{n}",
-        name_kana: user[:name_kana],
-        course_id: user[:course_id],
-        job: user[:job],
-        os: user[:os],
-        experience: user[:experience]
-      )
-    end
-    visit '/admin/users?target=all'
-    assert_selector 'nav.pagination', count: 2
-  end
 end
