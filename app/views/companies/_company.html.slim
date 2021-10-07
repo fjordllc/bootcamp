@@ -1,29 +1,18 @@
 .col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
-  .users-item
-    .users-item__inner.a-card
-      header.users-item__header
-        .users-item__header-container
-          .user-profile__names
-            h1.user-profile__login-name
-              = link_to company.name, company, class: 'users-item__name-link'
-            ul.users-item-names
-              li.users-item-names__item
-                .users-item-names__ful-name
-                  = company.description
-          .users-item__icon
-            = link_to company do
-              = image_tag company.logo_url, title: company.name, alt: company.name, class: 'users-item__user-icon-image a-user-icon is-studentn'
-          .user-data__sub
-            .user-metas
-              .user-metas__items
-                - if company.website?
-                  .user-metas__item
-                    .user-metas__item-label
-                      | URL
-                    .user-metas__item-value.company_website
-                      = link_to company.name, company.website, target: '_blank', rel: 'noopener'
-                .user-metas__item
-                  .user-metas__item-label
-                    | 人数
-                  .user-metas__item-value.company_website
-                    = company.users.unretired.size
+  .companies-item
+    .companies-item__inner.a-card
+      header.companies-item__header
+        h2.companies-item__name
+          = link_to company.name, company, class: 'companies-item__name-link'
+        .companies-item__icon
+          = link_to company do
+            = image_tag company.logo_url, title: company.name, alt: company.name, class: 'companies-item__user-icon-image a-user-icon is-studentn'
+
+      .companies-item__body
+        .companies-item__body-row
+          = render 'links', company: company
+        .companies-item__body-row
+          = render 'user_counts', users: company.users
+        .companies-item__body-row
+          .companies-item__description.a-short-text
+            = simple_format(company.description)
