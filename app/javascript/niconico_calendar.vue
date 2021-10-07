@@ -258,10 +258,10 @@ export default {
       params.set('niconico_calendar', `${year}-${month}`)
       history.replaceState(history.state, '', `?${params}${location.hash}`)
     },
-    buildLinkToReportForSpecificDate(day){
-      return "/reports/new?date=" + this.getDateExpression(day)
+    buildLinkToReportForSpecificDate(day) {
+      return '/reports/new?date=' + this.getDateExpression(day)
     },
-    isOlderThanTodayOrToday(day){
+    isOlderThanTodayOrToday(day) {
       if (this.calendarYear > this.currentYear) return false
       if (this.calendarYear < this.currentYear) return true
       if (this.calendarMonth > this.currentMonth) return false
