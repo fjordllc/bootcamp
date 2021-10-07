@@ -1,0 +1,65 @@
+.companies-item
+  padding-top: .375rem
+  padding-bottom: 1.5rem
+  height: 100%
+
+.companies-item__inner
+  +media-breakpoint-up(md)
+    height: 100%
+
+.companies-item__header
+  +position(relative)
+  padding-left: 3.5rem
+  padding-right: 1rem
+  padding-top: .5rem
+  padding-bottom: .5rem
+  +media-breakpoint-down(sm)
+    padding-left: 3rem
+  &:not(:last-child)
+    border-bottom: solid 1px $background
+
+.companies-item__name
+  +text-block(1em 1.4, 600 $main block)
+  margin-bottom: .125rem
+  +media-breakpoint-up(md)
+    font-size: 1.25rem
+  +media-breakpoint-down(sm)
+    font-size: 1.125rem
+
+.companies-item__name-link
+  color: $main-text
+  display: block
+  +hover-link
+
+.companies-item__user-icon-image
+  background-color: white
+  box-shadow: rgba(black, .2) 0 0 .25rem
+  +media-breakpoint-up(md)
+    +size(4rem)
+    +position(absolute, left -1rem, top -.375rem)
+    border: solid $base .25rem
+  +media-breakpoint-down(sm)
+    +size(3rem)
+    +position(absolute, left -.5rem, top -.25rem)
+    border: solid $base .125rem
+
+.companies-item__body
+  padding: 1rem
+
+.companies-item__body-row
+  &:not(:first-child)
+    margin-top: .75rem
+
+.companies-item__description
+  p
+    +text-block(.75rem 1.6)
+
+.user-item__company-logo
+  max-width: 3rem
+  background-color: $base
+  +position(absolute, right 0.5rem, top 0.5rem)
+  border-radius: .25rem
+  border: solid 1px $border
+  +media-breakpoint-down(lg)
+    +position(absolute, right -0.5rem, top -0.5rem)
+    border-radius: 50%

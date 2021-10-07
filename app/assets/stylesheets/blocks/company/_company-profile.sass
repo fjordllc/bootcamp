@@ -1,0 +1,39 @@
+.company-profile__header
+  padding: 1rem
+  .company-links__items
+    justify-content: flex-start
+
+.company-profile__header-inner
+  +media-breakpoint-up(md)
+    display: flex
+  +media-breakpoint-down(sm)
+    text-align: center
+
+.company-profile__header-start
+  margin-right: 1.25rem
+
+.company-profile__header-end
+  flex: 1
+
+.company-profile__logo
+  +media-breakpoint-down(sm)
+    position: static
+    text-align: center
+    margin-bottom: .25rem
+
+.company-profile__logo-image
+  +media-breakpoint-up(md)
+    +size(4.5rem)
+  +media-breakpoint-down(sm)
+    +size(3.5rem)
+
+.company-profile__name
+  +text-block(1em 1.45, 700 $main-text)
+  +media-breakpoint-up(md)
+    font-size: 1.5rem
+  +media-breakpoint-down(sm)
+    font-size: 1.25rem
+
+.company-profile__body
+  padding: 1rem
+  border-top: solid 1px $border
