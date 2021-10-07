@@ -6,7 +6,11 @@
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .thread-list.a-card
-      worriedUsers(v-for='worriedUser in worriedUsers', :key='worriedUser.id', :worriedUser='worriedUser')
+      worriedUsers(
+        v-for='worriedUser in worriedUsers',
+        :key='worriedUser.id',
+        :worriedUser='worriedUser'
+      )
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
 </template>
