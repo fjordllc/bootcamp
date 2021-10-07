@@ -6,28 +6,8 @@ header.page-header
       h2.page-header__title
         = title
 
-<<<<<<< HEAD
-= render '/users/lg_page_tabs'
-
-main.page-main
-  header.page-main-header
-    .container
-      .page-main-header__inner
-        h1.page-main-header__title
-          = title
-<<<<<<< HEAD
-
 .page-body
   .container
     .companies
       .row.is-gutter-width-32
         = render partial: 'companies/company', collection: @companies, as: :company
-=======
-  #js-companies
->>>>>>> 9f395bf6f (企業一覧をVueで表示するよう変更)
-=======
-.page-body
-  .container
-    .row.is-gutter-width-32
-      = render partial: 'companies/company', collection: @companies, as: :company
->>>>>>> ae2e00069 (ユーザーアイコンが表示されるようにした)
