@@ -1,5 +1,5 @@
 <template lang="pug">
-.user-group(v-if='company.users.length !== 0')
+.user-group(v-if='company.users.length > 0')
   header.user-group__header
     h2.group-company-name
       a.group-company-name__link(:href='company.users_url')

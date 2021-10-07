@@ -22,15 +22,7 @@ export default {
       companies: []
     }
   },
-  computed: {
-    url() {
-      return '/api/users/companies'
-    }
-  },
   created() {
-    window.onpopstate = function () {
-      location.replace(location.href)
-    }
     this.getComaniesPage()
   },
   methods: {
@@ -39,7 +31,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getComaniesPage() {
-      fetch(this.url, {
+      fetch('/api/users/companies', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
