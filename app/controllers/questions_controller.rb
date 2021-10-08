@@ -89,11 +89,11 @@ class QuestionsController < ApplicationController
 
   def questions_property
     if params[:all] == 'true'
-      QuestionsProperty.new('全ての質問', '質問はまだありません。')
+      QuestionsProperty.new('全ての質問', '質問はありません。')
     elsif params[:solved] == 'true'
-      QuestionsProperty.new('解決済みの質問一覧', '解決済みの質問はまだありません。')
+      QuestionsProperty.new('解決済みの質問一覧', '解決済みの質問はありません。')
     else
-      QuestionsProperty.new('未解決の質問一覧', '未解決の質問はまだありません。')
+      QuestionsProperty.new('未解決の質問一覧', '未解決の質問はありません。')
     end
   end
 
