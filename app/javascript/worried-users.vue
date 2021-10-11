@@ -40,14 +40,14 @@ export default {
       credentials: 'same-origin',
       redirect: 'manual'
     })
-        .then((response) => response.json())
-        .then((json) => {
-          this.worriedUsers = json.worried_users
-          this.loaded = true
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
+      .then((response) => response.json())
+      .then((json) => {
+        this.worriedUsers = json.worried_users
+        this.loaded = true
+      })
+      .catch((error) => {
+        console.warn('Failed to parsing', error)
+      })
   },
   methods: {
     token() {
