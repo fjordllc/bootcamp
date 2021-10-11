@@ -20,7 +20,6 @@ class FollowingsTest < ApplicationSystemTestCase
   test 'unfollow' do
     visit_with_auth user_path(users(:hatsuno)), 'kimura'
     find('.following').click
-    click_button 'コメントあり'
     click_button 'フォローしない'
     assert_selector 'summary', text: 'フォローする'
   end
