@@ -18,10 +18,10 @@
         .companies-item__description.a-short-text
           = simple_format(company.description)
 
-- if current_user.admin?
-  footer.card-footer
-    .card-main-actions
-      .card-main-actions__items.is-only-mentor
-        .card-main-actions__item
-          = link_to edit_admin_company_path(company), class: 'thread-prev-next__item-link is-index' do
-            | 管理者として編集
+  - if current_user.admin?
+    footer.card-footer
+      .card-main-actions
+        .card-main-actions__items
+          .card-main-actions__item.is-only-mentor
+            = link_to edit_admin_company_path(company), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+              | 管理者として編集
