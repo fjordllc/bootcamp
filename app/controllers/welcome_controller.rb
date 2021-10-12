@@ -17,6 +17,8 @@ class WelcomeController < ApplicationController
 
   def tos; end
 
+  def pp; end
+
   def law; end
 
   def coc; end
