@@ -1,0 +1,18 @@
+.page-notices__item(data-event-id="#{event.id}")
+  .a-page-notice.page-notice
+    .container.is-lg
+      .a-page-notice__inner.has-close
+        .a-page-notice__inner-start
+          p
+            = link_to event, itemprop: 'url', class: 'has-badge' do
+              span.a-badge.is-primary.is-sm
+                | イベント
+              = today_or_tommorow(event)
+                = l event.start_at.to_date, format: :md
+              | は 「
+              span.a-page-notice__label
+                = event.title
+              | 」 が開催されます
+        .a-page-notice__inner-end
+          .a-page-notice__close.js-close-event
+            i.fal.fa-times

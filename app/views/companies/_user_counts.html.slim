@@ -1,0 +1,28 @@
+.company-counts
+  dl.company-counts__items
+    - unless users.mentor.size.zero?
+      .company-counts__item
+        .company-counts__item-inner
+          dt.company-counts__item-label
+            | メンター
+          dd.company-counts__item-value
+            = users.mentor.size
+    .company-counts__item
+      .company-counts__item-inner
+        dt.company-counts__item-label
+          | アドバイザー
+        dd.company-counts__item-value
+          = users.unretired.advisers.size
+    .company-counts__item
+      .company-counts__item-inner
+        dt.company-counts__item-label
+          | 研修生
+        dd.company-counts__item-value
+          = users.unretired.trainees.size
+    - unless users.admins.size.zero?
+      .company-counts__item
+        .company-counts__item-inner
+          dt.company-counts__item-label
+            | 管理者
+          dd.company-counts__item-value
+            = users.admins.size

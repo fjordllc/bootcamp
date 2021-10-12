@@ -113,4 +113,14 @@ class SearchablesTest < ApplicationSystemTestCase
     find('#test-search').click
     assert_text 'kimura'
   end
+
+  test 'matched_word is in bold' do
+    visit_with_auth '/', 'komagata'
+    within('form[name=search]') do
+      select 'すべて'
+      fill_in 'word', with: '検索ワードが太字で表示されるかのテスト'
+    end
+    find('#test-search').click
+    assert_selector 'strong.matched_word', text: '検索ワードが太字で表示されるかのテスト'
+  end
 end

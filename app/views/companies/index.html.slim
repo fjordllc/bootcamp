@@ -8,5 +8,6 @@ header.page-header
 
 .page-body
   .container
-    .row.is-gutter-width-32
-      = render partial: 'companies/company', collection: @companies, as: :company
+    .companies
+      .row.is-gutter-width-32
+        = render partial: 'companies/company', collection: @companies, as: :company

@@ -189,7 +189,6 @@ Rails.application.routes.draw do
     delete "tags/:tag", to: "tags#destroy", tag: /.+/
   end
 
-  resources :watches, only: %i(index)
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"
   post "user_sessions" => "user_sessions#create"
