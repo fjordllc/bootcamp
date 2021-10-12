@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "training", to: "welcome#training", as: "training"
   get "faq", to: "welcome#faq", as: "faq"
   get "tos", to: "welcome#tos", as: "tos"
+  get "pp", to: "welcome#pp", as: "pp"
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
 

@@ -17,7 +17,7 @@ class SignUpTest < ApplicationSystemTestCase
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
       check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      check '利用規約・プライバシーポリシーに同意', allow_label_click: true
     end
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111')
@@ -42,7 +42,7 @@ class SignUpTest < ApplicationSystemTestCase
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
       check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      check '利用規約・プライバシーポリシーに同意', allow_label_click: true
     end
 
     fill_stripe_element('4000 0000 0000 0069', '12 / 21', '111')
@@ -67,7 +67,7 @@ class SignUpTest < ApplicationSystemTestCase
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
       check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      check '利用規約・プライバシーポリシーに同意', allow_label_click: true
     end
 
     fill_stripe_element('4000 0000 0000 0127', '12 / 21', '111')
@@ -92,7 +92,7 @@ class SignUpTest < ApplicationSystemTestCase
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
       check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      check '利用規約・プライバシーポリシーに同意', allow_label_click: true
     end
 
     fill_stripe_element('4000 0000 0000 0002', '12 / 21', '111')
