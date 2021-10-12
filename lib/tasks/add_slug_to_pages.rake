@@ -14,7 +14,7 @@ namespace :add_slug_to_pages do
       page = Page.find(id)
       next unless page
 
-      page.update_column(:slug, slug)
+      page.update_column(:slug, slug) # rubocop:disable Rails/SkipsModelValidations
     end
   end
 end
