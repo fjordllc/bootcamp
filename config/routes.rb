@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
     resources :categories, only: %i(index destroy)
-    resources :courses, only: %i() do
+    resources :courses, only: %i(index new create destroy) do
       resources :practices, only: %i(index), controller: "/api/courses/practices"
     end
     resources :courses_categories, only: %i() do
