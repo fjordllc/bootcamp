@@ -3,7 +3,6 @@
 class CoursesController < ApplicationController
   before_action :require_login
   before_action :require_admin_login, except: %i[index]
-  before_action :set_course, only: %i[destroy]
 
   def index
     @courses = Course.order(created_at: :desc)
@@ -22,16 +21,7 @@ class CoursesController < ApplicationController
     end
   end
 
-  def destroy
-    @course.destroy
-    redirect_to courses_path, notice: 'コースを削除しました。'
-  end
-
   private
-
-  def set_course
-    @course = Course.find(params[:id])
-  end
 
   def course_params
     params.require(:course).permit(

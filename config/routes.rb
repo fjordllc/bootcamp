@@ -129,7 +129,7 @@ Rails.application.routes.draw do
     resource :git_hub, only: %i(destroy), controller: "git_hub"
   end
 
-  resources :courses, except: %i(show edit update) do
+  resources :courses, only: %i(index new create) do
     resources :practices, only: %i(index), controller: "courses/practices" do
       collection do
         resources :sort, only: %i(index), controller: "courses/practices/sort"
