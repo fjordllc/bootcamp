@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
     resources :categories, only: %i(index destroy)
-    resources :courses, only: %i(index new create destroy) do
+    resources :courses, only: %i() do
       resources :practices, only: %i(index), controller: "/api/courses/practices"
     end
     resources :courses_categories, only: %i() do
@@ -129,7 +129,7 @@ Rails.application.routes.draw do
     resource :git_hub, only: %i(destroy), controller: "git_hub"
   end
 
-  resources :courses, except: %i(show) do
+  resources :courses, except: %i(show edit update) do
     resources :practices, only: %i(index), controller: "courses/practices" do
       collection do
         resources :sort, only: %i(index), controller: "courses/practices/sort"
