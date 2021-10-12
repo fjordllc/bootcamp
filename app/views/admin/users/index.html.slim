@@ -9,7 +9,5 @@ header.page-header
   = render 'nav'
 
 .page-body
-  = paginate @users
   .container.is-padding-horizontal-0-sm-down
     = render 'table', users: @users, direction: @direction
-  = paginate @users

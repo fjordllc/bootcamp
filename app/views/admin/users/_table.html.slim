@@ -7,6 +7,8 @@
           | ユーザー名
           = render 'sort_column', order_by: 'login_name', direction: direction, target: @target
         th.admin-table__label
+          | メールアドレス
+        th.admin-table__label
           | 企業
           = render 'sort_column', order_by: 'company_id', direction: direction, target: @target
         th.admin-table__label Discord
@@ -28,6 +30,8 @@
           td.admin-table__item-value.is-text-align-center
             - if user.admin?
               | 管理者
+            - if user.mentor?
+              | メンター
             - elsif user.adviser
               | アドバイザー
             - elsif user.trainee
@@ -46,6 +50,8 @@
               span.admin-table__user-login-name
                 = user.login_name
                 | （#{user.name}）
+          td.admin-table__item-value.is-text-align-center
+            = user.email
           td.admin-table__item-value.is-text-align-center
             - if user.company.present?
               = user.company.name
@@ -66,15 +72,11 @@
             - else
               | -
           td.admin-table__item-value.is-text-align-center
-            - if @subscription_ids.include? user.subscription_id
-              ruby:
-                sub = @subscriptions.find { |s| s['id'] == user.subscription_id }
-                status = sub['status']
-                status_class = Subscription::STATUS_CLASS_MAP[status.to_sym]
+            - if user.subscription_id?
               = link_to user.subscription_url,
-                class: "a-button is-sm #{status_class}",
+                class: 'a-button is-sm is-info',
                 target: '_blank', rel: 'noopener' do
-                = t "enums.subscription_status.#{status}"
+                i.fas.fa-credit-card
             - else
               | -
           td.admin-table__item-value.is-text-align-center

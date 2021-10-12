@@ -1,0 +1,30 @@
+.company-counts__items
+  display: flex
+  justify-content: center
+  +margin(horizontal, -.125rem)
+  flex-wrap: wrap
+  margin-bottom: -.25rem
+
+.company-counts__item
+  +padding(horizontal, .125rem)
+  margin-bottom: .25rem
+  +media-breakpoint-up(xxl)
+    flex: 0 0 25%
+  +media-breakpoint-down(xl)
+    flex: 0 0 33.33%
+  +media-breakpoint-down(sm)
+    flex: 0 0 50%
+
+.company-counts__item-inner
+  border: solid 1px $border
+  border-radius: 3px
+
+.company-counts__item-label
+  +text-block(.625rem 1.4, center)
+  +padding(vertical, .125rem)
+  border-bottom: solid 1px $border
+  background-color: $background-more-tint
+
+.company-counts__item-value
+  +text-block(1rem 1.4, center)
+  padding-bottom: .125rem

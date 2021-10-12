@@ -2,7 +2,6 @@
 
 class Admin::UsersController < AdminController
   before_action :set_user, only: %i[show edit update]
-  PAGER_NUMBER = 100
 
   def index
     @direction = params[:direction] || 'desc'
@@ -11,16 +10,7 @@ class Admin::UsersController < AdminController
                  .preload(%i[company course])
                  .order_by_counts(params[:order_by] || 'id', @direction)
                  .users_role(@target)
-                 .page(params[:page]).per(PAGER_NUMBER)
     @emails = User.users_role(@target).pluck(:email)
-
-    if Rails.env.production?
-      @subscriptions = Subscription.new.all
-      @subscription_ids = @subscriptions.map { |s| s['id'] }
-    else
-      @subscriptions = []
-      @subscription_ids = []
-    end
   end
 
   def show
