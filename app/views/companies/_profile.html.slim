@@ -19,9 +19,9 @@
           = simple_format(company.description)
 
   - if current_user.admin?
-    footer.card-footer
+    footer.card-footer.is-only-mentor
       .card-main-actions
         .card-main-actions__items
-          .card-main-actions__item.is-only-mentor
+          .card-main-actions__item
             = link_to edit_admin_company_path(company), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
               | 管理者として編集
