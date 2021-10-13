@@ -96,6 +96,7 @@ export default {
       placeholderCount: 3,
       commentLimit: 8,
       commentOffset: 0,
+      commentTotalCount: null,
       loadedComment: false
     }
   },
@@ -131,7 +132,6 @@ export default {
       this.tab = tab
     },
     showComments() {
-      this.loadedComment = this.commentLimit === -1
       fetch(
         `/api/comments.json?commentable_type=${this.commentableType}&` +
           `commentable_id=${this.commentableId}&comment_limit=${this.commentLimit}&` +
@@ -149,22 +149,29 @@ export default {
           return response.json()
         })
         .then((json) => {
-          json.forEach((c) => {
+          json.comments.forEach((c) => {
             this.comments.unshift(c)
           })
+          this.commentTotalCount = json.comment_total_count
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
         })
         .finally(() => {
-          if (this.loadedComment === false) {
+          if (this.loaded === false) {
             this.loaded = true
             this.$nextTick(() => {
               TextareaInitializer.initialize('#js-new-comment')
               this.setDefaultTextareaSize()
             })
-            this.commentOffset = this.commentLimit + 1
-            this.commentLimit = -1
+          }
+          this.loadedComment =
+            this.commentLimit + this.commentOffset >= this.commentTotalCount
+          if (this.loadedComment === false) {
+            const commentLimit = this.commentLimit
+            this.commentLimit =
+              this.commentTotalCount - (this.commentLimit + this.commentOffset)
+            this.commentOffset = commentLimit
           }
         })
     },
