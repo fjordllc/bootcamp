@@ -169,15 +169,25 @@ export default {
         })
     },
     createComment() {
-      fetch(this.url, {
-        method: 'GET',
+      if (this.description.length < 1) {
+        return null
+      }
+      this.buttonDisabled = true
+      const params = {
+        comment: { description: this.description },
+        commentable_type: this.commentableType,
+        commentable_id: this.commentableId
+      }
+      fetch(`/api/comments`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
-        redirect: 'manual'
+        redirect: 'manual',
+        body: JSON.stringify(params)
       })
         .then((response) => {
           return response.json()
@@ -274,15 +284,12 @@ export default {
     async fetchProductAssign(productId) {
       for (let pageNumber = 1; ; pageNumber++) {
         const response = await this.fetchUncheckedProducts(pageNumber)
-
         if (response === null) {
           return null
         }
-
         const product = response.products.find(
           (product) => product.id === productId
         )
-
         if (product !== undefined) {
           return product.checker_id !== null
         }
