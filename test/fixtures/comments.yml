@@ -1,3 +1,5 @@
+<% now = Time.current %>
+
 comment1:
   user: machida
   commentable: report1 (Report)
@@ -9,12 +11,16 @@ comment2:
   commentable: report3 (Report)
   description: |-
     どういう教材がいいんでしょうかね？
+  created_at: <%= now %>
+  updated_at: <%= now %>
 
 comment3:
   user: machida
   commentable: report3 (Report)
   description: |-
     https://github.com/fjordllc/csstutorial/tree/master とかですかねー。
+  created_at: <%= now + 1.seconds %>
+  updated_at: <%= now + 1.seconds %>
 
 comment4:
   user: sotugyou
