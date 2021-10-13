@@ -2,6 +2,11 @@
 #comments.thread-comments(v-if='loaded === false')
   commentPlaceholder(v-for='num in placeholderCount', :key='num')
 #comments.thread-comments(v-else)
+  button#js-shortcut-post-comment.a-button.is-md.is-primary.is-block(
+    @click='showComments',
+    v-show='!loadedComment'
+  )
+    | 古いコメントを表示する
   comment(
     v-for='(comment, index) in comments',
     :key='comment.id',
@@ -88,7 +93,10 @@ export default {
       buttonDisabled: false,
       defaultTextareaSize: null,
       loaded: false,
-      placeholderCount: 3
+      placeholderCount: 3,
+      commentLimit: 8,
+      commentOffset: 0,
+      loadedComment: false
     }
   },
   computed: {
@@ -109,35 +117,7 @@ export default {
     }
   },
   created() {
-    fetch(
-      `/api/comments.json?commentable_type=${this.commentableType}&commentable_id=${this.commentableId}`,
-      {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      }
-    )
-      .then((response) => {
-        return response.json()
-      })
-      .then((json) => {
-        json.forEach((c) => {
-          this.comments.push(c)
-        })
-      })
-      .catch((error) => {
-        console.warn('Failed to parsing', error)
-      })
-      .finally(() => {
-        this.loaded = true
-        this.$nextTick(() => {
-          TextareaInitializer.initialize('#js-new-comment')
-          this.setDefaultTextareaSize()
-        })
-      })
+    this.showComments()
   },
   methods: {
     token() {
@@ -150,26 +130,54 @@ export default {
     changeActiveTab(tab) {
       this.tab = tab
     },
+    showComments() {
+      this.loadedComment = this.commentLimit === -1
+      fetch(
+        `/api/comments.json?commentable_type=${this.commentableType}&` +
+          `commentable_id=${this.commentableId}&comment_limit=${this.commentLimit}&` +
+          `comment_offset=${this.commentOffset}`,
+        {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          credentials: 'same-origin',
+          redirect: 'manual'
+        }
+      )
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          json.forEach((c) => {
+            this.comments.unshift(c)
+          })
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
+        .finally(() => {
+          if (this.loadedComment === false) {
+            this.loaded = true
+            this.$nextTick(() => {
+              TextareaInitializer.initialize('#js-new-comment')
+              this.setDefaultTextareaSize()
+            })
+            this.commentOffset = this.commentLimit + 1
+            this.commentLimit = -1
+          }
+        })
+    },
     createComment() {
-      if (this.description.length < 1) {
-        return null
-      }
-      this.buttonDisabled = true
-      const params = {
-        comment: { description: this.description },
-        commentable_type: this.commentableType,
-        commentable_id: this.commentableId
-      }
-      fetch(`/api/comments`, {
-        method: 'POST',
+      fetch(this.url, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
+        redirect: 'manual'
       })
         .then((response) => {
           return response.json()
