@@ -54,3 +54,15 @@ question12:
   description: 解決済みの内容です。
   user: hajime
   practice: practice1
+
+question13:
+  title: tagが付与された質問1
+  description: tagが付与された質問1の内容です。
+  user: komagata
+  practice: practice1
+
+question14:
+  title: tagが付与された質問2
+  description: tagが付与された質問2の内容です。
+  user: komagata
+  practice: practice1
