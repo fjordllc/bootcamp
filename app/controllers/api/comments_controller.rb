@@ -6,6 +6,7 @@ class API::CommentsController < API::BaseController
 
   def index
     @comments = commentable.comments.order(created_at: :desc)
+    @comment_total_count = @comments.size
     @comments = @comments.limit(params[:comment_limit]) if params[:comment_limit].to_i > -1
     @comments = @comments.offset(params[:comment_offset]) if params[:comment_offset].to_i > -1
   end
