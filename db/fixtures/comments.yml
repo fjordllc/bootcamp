@@ -84,3 +84,12 @@ comment15:
   commentable: report4 (Report)
   description: ":thumbsup:"
   created_at: "2019-01-02 12:00:01"
+
+<% (1..20).each do |i| %>
+comment<%= i + 16 %>:
+  user: komagata
+  commentable: product10 (Product)
+  description: <%= "提出物のコメント#{i}です。" %>
+  created_at: <%= Time.current + i.seconds %>
+  updated_at: <%= Time.current + i.seconds %>
+<% end %>
