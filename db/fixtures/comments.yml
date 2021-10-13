@@ -69,6 +69,8 @@ comment11:
   user: yamada
   commentable: report1 (Report)
   description: "テスト用 report1へのコメント"
+  created_at: <%= now + 2.seconds %>
+  updated_at: <%= now + 2.seconds %>
 
 comment12:
   user: yamada
