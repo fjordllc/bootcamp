@@ -21,6 +21,8 @@ header.page-header
   = render 'questions/tabs'
 
 .page-body
+  - if @tag.present?
+    | タグ「#{@tag}」のユーザー（#{@questions.total_count}）
   .container.is-lg
     = paginate @questions
     .two-columns
