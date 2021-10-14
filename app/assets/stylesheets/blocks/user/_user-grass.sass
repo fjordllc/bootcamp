@@ -13,6 +13,31 @@
     +media-breakpoint-up(lg)
       +margin(vertical, -.75rem)
 
+.user-grass-nav
+  display: flex
+  justify-content: center
+  align-items: center
+  margin-top: -1rem
+
+.user-grass-nav__previous,
+.user-grass-nav__next
+  +size(2.75rem)
+  display: flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  +hover-link
+  transition: all .2s ease-out
+  &:hover
+    color: $main-text
+  &.is-blank
+    cursor: default
+    pointer-events: none
+
+.user-grass-nav__year--month
+  width: 13rem
+  text-align: center
+
 .user-data-grass
   margin-top: 1.5rem
   border: dashed 1px $background-shade
