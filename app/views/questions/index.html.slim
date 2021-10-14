@@ -20,9 +20,14 @@ header.page-header
           = select_tag :practice_id, options_from_collection_for_select(current_user.practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての質問を表示', onchange: 'this.form.submit()', class: 'js-select2'
   = render 'questions/tabs'
 
+- if @tag.present?
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | タグ「#{@tag}」の質問（#{@questions.total_count}）
 .page-body
-  - if @tag.present?
-    | タグ「#{@tag}」のユーザー（#{@questions.total_count}）
   .container.is-lg
     = paginate @questions
     .two-columns

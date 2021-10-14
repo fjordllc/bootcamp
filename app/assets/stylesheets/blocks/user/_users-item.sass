@@ -1,6 +1,6 @@
 .users-item
-  padding-top: .375rem
-  padding-bottom: 1.5rem
+  +media-breakpoint-up(md)
+    +padding(vertical, .375rem 1.5rem)
   height: 100%
 
 .users-item__inactive-message
@@ -48,7 +48,7 @@
     border: solid $base .25rem
   +media-breakpoint-down(sm)
     +size(3rem)
-    +position(absolute, left -.5rem, top -.25rem)
+    +position(absolute, left -.75rem, top -.5rem)
     border: solid $base .125rem
 
 .users-item__body
