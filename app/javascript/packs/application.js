@@ -55,8 +55,5 @@ require('../bookmarks.js')
 require('../events.js')
 require('../agreements.js')
 require('../incoming-events.js')
-<<<<<<< HEAD
 require('../practice-select.js')
-=======
 require('../companies.js')
->>>>>>> e07ec959a (JSファイルを作成)
