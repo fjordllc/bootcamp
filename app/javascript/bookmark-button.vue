@@ -112,6 +112,7 @@ export default {
         .then(() => {
           this.bookmarkId = null
           this.bookmarkLabel = 'Bookmark'
+          this.toast('Bookmarkを削除しました')
         })
         .then(() => {
           this.$emit('update-index')
