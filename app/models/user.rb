@@ -509,9 +509,8 @@ class User < ApplicationRecord
   end
 
   def active_practice
-    return unless active_practices.first
-
-    active_practices.first.id
+    active_practice = active_practices.first
+    active_practice ? active_practice.id : nil
   end
 
   def follow(other_user, watch:)
