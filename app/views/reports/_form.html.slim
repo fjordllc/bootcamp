@@ -5,7 +5,7 @@
       .form-item
         = f.label :practice, class: 'a-form-label'
         .select-practices
-          = f.select(:practice_ids, practice_options(categories), { include_hidden: false }, { multiple: true, class: 'js-select2' })
+          = f.select(:practice_ids, practice_options_within_course, { include_hidden: false }, { multiple: true, class: 'js-select2' })
       .form-item
         = f.label :title, class: 'a-form-label'
         = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'display: inline-block の挙動の調査を進めた'
