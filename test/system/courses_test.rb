@@ -37,12 +37,12 @@ class CoursesTest < ApplicationSystemTestCase
     assert_text 'コースを削除しました。'
   end
 
-  test 'show open courses' do
+  test 'show published courses' do
     visit_with_auth '/courses', 'yamada'
     assert_no_text courses(:course1).title
     visit_with_auth "/admin/courses/#{courses(:course1).id}/edit", 'komagata'
     within 'form[name=course]' do
-      find(:css, '#checkbox-open-course').set(true)
+      find(:css, '#checkbox-published-course').set(true)
       click_button '内容を保存'
     end
     visit_with_auth '/courses', 'yamada'
