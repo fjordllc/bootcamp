@@ -52,9 +52,10 @@
 import TextareaInitializer from './textarea-initializer'
 import MarkdownInitializer from './markdown-initializer'
 import confirmUnload from './confirm-unload'
+import toast from './toast'
 
 export default {
-  mixins: [confirmUnload],
+  mixins: [confirmUnload, toast],
   props: {
     practiceId: { type: String, required: true }
   },
@@ -145,6 +146,7 @@ export default {
       })
         .then(() => {
           this.editing = false
+          this.toast('保存しました！')
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
