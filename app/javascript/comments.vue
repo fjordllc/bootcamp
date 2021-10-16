@@ -217,7 +217,9 @@ export default {
         })
     },
     updateComment(description, id) {
-      const updatedComment = this.comments.find(comment => comment.id === id)
+      const updatedComment = this.comments.find((comment) => {
+        return comment.id === id
+      })
       updatedComment.description = description
     },
     setDefaultTextareaSize() {

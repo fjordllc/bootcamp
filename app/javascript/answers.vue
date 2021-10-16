@@ -207,7 +207,9 @@ export default {
         })
     },
     updateAnswer(description, id) {
-      const updatedAnswer = this.answers.find(answer => answer.id === id)
+      const updatedAnswer = this.answers.find((answer) => {
+        return answer.id === id
+      })
       updatedAnswer.description = description
     },
     requestSolveQuestion: function (id, isCancel) {
