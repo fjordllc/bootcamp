@@ -70,7 +70,9 @@
           :currentUser='currentUser',
           :reactionableId='`Question_${question.id}`'
         )
-        footer.card-footer
+        footer.card-footer(
+          v-if='currentUser.id === question.user.id || currentUser.role === "admin"'
+        )
           .card-main-actions
             ul.card-main-actions__items
               li.card-main-actions__item
