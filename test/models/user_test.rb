@@ -352,7 +352,7 @@ class UserTest < ActiveSupport::TestCase
     assert kimura.watching?(hatsuno)
   end
 
-  test '#following_list ' do
+  test '#followees_list ' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
     hajime = users(:hajime)
@@ -360,9 +360,9 @@ class UserTest < ActiveSupport::TestCase
     kimura.follow(hatsuno, watch: true)
     kimura.follow(hajime, watch: true)
     kimura.follow(yamada, watch: false)
-    assert_equal 3, kimura.following_list.count
-    assert_equal 2, kimura.following_list(watch: 'true').count
-    assert_equal 1, kimura.following_list(watch: 'false').count
+    assert_equal 3, kimura.followees_list.count
+    assert_equal 2, kimura.followees_list(watch: 'true').count
+    assert_equal 1, kimura.followees_list(watch: 'false').count
   end
 
   test '#completed_practices_size' do
