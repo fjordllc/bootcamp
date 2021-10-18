@@ -2,8 +2,8 @@
 .thread-list-item(:class='announcement.wip ? "is-wip" : ""')
   .thread-list-item__inner
     .thread-list-item__author
-      a.thread-list-item__author-link(:href='announcement.user.url')
-        img.thread-list-item__author-icon.a-user-icon(
+      a.a-user-name(:href='announcement.user.url')
+        img.thread-list-item__user-icon.a-user-icon(
           :title='announcement.user.icon_title',
           :alt='announcement.user.icon_title',
           :src='announcement.user.avatar_url',
