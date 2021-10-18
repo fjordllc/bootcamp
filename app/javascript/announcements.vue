@@ -1,96 +1,7 @@
 <template lang="pug">
 .page-body
   .container.is-md(v-if='!loaded')
-    .thread-list.a-card.is-loading
-      .thread-list-item
-        .thread-list-item__inner
-          .thread-list-item__author
-            .thread-list-item__author-icon.a-user-icon.a-placeholder
-          .thread-list-item__rows
-            .thread-list-item__row
-              .thread-list-item-title.a-placeholder
-            .thread-list-item__row
-              .thread-list-item-meta__items.a-placeholder
-                .thread-list-item-meta__item
-                .thread-list-item-meta__item
-      .thread-list-item
-        .thread-list-item__inner
-          .thread-list-item__author
-            .thread-list-item__author-icon.a-user-icon.a-placeholder
-          .thread-list-item__rows
-            .thread-list-item__row
-              .thread-list-item-title.a-placeholder
-            .thread-list-item__row
-              .thread-list-item-meta__items.a-placeholder
-                .thread-list-item-meta__item
-                .thread-list-item-meta__item
-      .thread-list-item
-        .thread-list-item__inner
-          .thread-list-item__author
-            .thread-list-item__author-icon.a-user-icon.a-placeholder
-          .thread-list-item__rows
-            .thread-list-item__row
-              .thread-list-item-title.a-placeholder
-            .thread-list-item__row
-              .thread-list-item-meta__items.a-placeholder
-                .thread-list-item-meta__item
-                .thread-list-item-meta__item
-      .thread-list-item
-        .thread-list-item__inner
-          .thread-list-item__author
-            .thread-list-item__author-icon.a-user-icon.a-placeholder
-          .thread-list-item__rows
-            .thread-list-item__row
-              .thread-list-item-title.a-placeholder
-            .thread-list-item__row
-              .thread-list-item-meta__items.a-placeholder
-                .thread-list-item-meta__item
-                .thread-list-item-meta__item
-      .thread-list-item
-        .thread-list-item__inner
-          .thread-list-item__author
-            .thread-list-item__author-icon.a-user-icon.a-placeholder
-          .thread-list-item__rows
-            .thread-list-item__row
-              .thread-list-item-title.a-placeholder
-            .thread-list-item__row
-              .thread-list-item-meta__items.a-placeholder
-                .thread-list-item-meta__item
-                .thread-list-item-meta__item
-      .thread-list-item
-        .thread-list-item__inner
-          .thread-list-item__author
-            .thread-list-item__author-icon.a-user-icon.a-placeholder
-          .thread-list-item__rows
-            .thread-list-item__row
-              .thread-list-item-title.a-placeholder
-            .thread-list-item__row
-              .thread-list-item-meta__items.a-placeholder
-                .thread-list-item-meta__item
-                .thread-list-item-meta__item
-      .thread-list-item
-        .thread-list-item__inner
-          .thread-list-item__author
-            .thread-list-item__author-icon.a-user-icon.a-placeholder
-          .thread-list-item__rows
-            .thread-list-item__row
-              .thread-list-item-title.a-placeholder
-            .thread-list-item__row
-              .thread-list-item-meta__items.a-placeholder
-                .thread-list-item-meta__item
-                .thread-list-item-meta__item
-      .thread-list-item
-        .thread-list-item__inner
-          .thread-list-item__author
-            .thread-list-item__author-icon.a-user-icon.a-placeholder
-          .thread-list-item__rows
-            .thread-list-item__row
-              .thread-list-item-title.a-placeholder
-            .thread-list-item__row
-              .thread-list-item-meta__items.a-placeholder
-                .thread-list-item-meta__item
-                .thread-list-item-meta__item
-
+    loadingList
   .container(v-else-if='announcements.length === 0')
     .o-empty-message
       .o-empty-message__icon
@@ -113,11 +24,13 @@
 </template>
 
 <script>
+import LoadingList from './loading-list.vue'
 import Announcement from './announcement.vue'
 import Pager from './pager.vue'
 
 export default {
   components: {
+    loadingList: LoadingList,
     announcement: Announcement,
     pager: Pager
   },
