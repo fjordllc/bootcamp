@@ -1,10 +1,10 @@
 <template lang="pug">
-a(:href='user.url', :class='`${threadClass}author-link`')
+a(:href='user.url', :class='`${blockClass}user-link`')
   img(
     :src='user.avatar_url',
     :alt='user.icon_title',
     :title='user.icon_title',
-    :class='[`${threadClass}author-icon`, "a-user-icon", roleClass, daimyoClass]'
+    :class='[`${blockClass}user-icon`, "a-user-icon", roleClass, daimyoClass]'
   )
 </template>
 
@@ -12,11 +12,11 @@ a(:href='user.url', :class='`${threadClass}author-link`')
 export default {
   props: {
     user: { type: Object, required: true },
-    threadClassSuffix: { type: String, required: true }
+    blockClassSuffix: { type: String, required: true }
   },
   computed: {
-    threadClass: function () {
-      return `thread${this.threadClassSuffix}__`
+    blockClass: function () {
+      return `${this.blockClassSuffix}__`
     },
     roleClass: function () {
       return `is-${this.user.role}`

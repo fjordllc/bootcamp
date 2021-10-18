@@ -20,7 +20,7 @@
   )
   .thread-comment-form
     .thread-comment__author
-      img.thread-comment__author-icon.a-user-icon(
+      img.thread-comment__user-icon.a-user-icon(
         :src='currentUser.avatar_url',
         :class='[roleClass, daimyoClass]',
         :title='currentUser.icon_title'

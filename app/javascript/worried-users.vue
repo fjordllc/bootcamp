@@ -3,12 +3,22 @@
   .container(v-if='!loaded')
     | ロード中
   .container.is-md(v-else)
-    .thread-list.a-card
-      worriedUsers(
-        v-for='worriedUser in worriedUsers',
-        :key='worriedUser.id',
-        :worriedUser='worriedUser'
-      )
+    .admin-table
+      table.admin-table__table
+        thead.admin-table__header
+          tr.admin-table__labels
+            th.admin-table__label
+              | ユーザー
+            th.admin-table__label
+              | ID
+            th.admin-table__label
+              | 進捗
+        tbody.admin-table__items
+          worriedUsers(
+            v-for='worriedUser in worriedUsers',
+            :key='worriedUser.id',
+            :worriedUser='worriedUser'
+          )
 </template>
 
 <script>
