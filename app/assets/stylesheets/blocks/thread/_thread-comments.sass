@@ -10,7 +10,7 @@ $thread-header-author: 3.5rem
   border-radius: .25rem
   margin-bottom: 2rem
   padding-left: $thread-header-author + 1.25rem
-  &.is-no-author-icon
+  &.is-no-user-icon
     padding-left: 0
   +media-breakpoint-down(sm)
     padding-left: 0
@@ -22,7 +22,7 @@ $thread-header-author: 3.5rem
   +media-breakpoint-down(sm)
     display: none
 
-.thread-comment__author-icon
+.thread-comment__user-icon
   +size(3.5rem)
 
 .thread-comment__title
@@ -67,8 +67,8 @@ $thread-header-author: 3.5rem
   // +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
   &::after
     margin-left: -1.4375rem
-  .thread-comment.is-no-author-icon &::before,
-  .thread-comment.is-no-author-icon &::after
+  .thread-comment.is-no-user-icon &::before,
+  .thread-comment.is-no-user-icon &::after
     content: none
   +media-breakpoint-down(sm)
     &::before,

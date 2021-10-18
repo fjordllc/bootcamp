@@ -3,7 +3,7 @@
   .thread-list-item__inner
     .thread-list-item__author
       a.a-user-name(:href='announcement.user.url')
-        img.thread-list-item__author-icon.a-user-icon(
+        img.thread-list-item__user-icon.a-user-icon(
           :title='announcement.user.icon_title',
           :alt='announcement.user.icon_title',
           :src='announcement.user.avatar_url',

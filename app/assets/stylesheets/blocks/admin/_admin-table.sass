@@ -84,7 +84,8 @@
 .admin-table__user-icon
   +size(2.125rem)
   display: inline-block
-  margin-right: .5rem
+  &:not(:last-child)
+    margin-right: .5rem
 
 .admin-table__user-login-name
   overflow-wrap: break-word

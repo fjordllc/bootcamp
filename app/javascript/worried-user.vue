@@ -1,19 +1,17 @@
 <template lang="pug">
-.thread-list-item
-  .thread-list-item__inner
-    .thread-list-item__author
-      user-icon(
-        :user='worriedUser',
-        link_class='a-user-name',
-        threadClassSuffix='-list-item'
-      )
-    .thread-list-item__rows
-      .thread-list-item__row
-        .thread-list-item-name
-          a.a-user-name(:href='worriedUser.url')
-            | {{ worriedUser.long_name }}
+tr.admin-table__item
+  td.admin-table__item-value.is-text-align-center
+    user-icon(
+      :user='worriedUser',
+      link_class='a-user-name',
+      blockClassSuffix='admin-table'
+    )
+  td.admin-table__item-value.is-text-align-center
+    a.a-user-name(:href='worriedUser.url')
+      | {{ worriedUser.long_name }}
+  td.admin-table__item-value.is-text-align-center
+    img.admin-table__user-icon(src="/images/emotion/sad.svg")
 </template>
-
 <script>
 import UserIcon from './user-icon'
 

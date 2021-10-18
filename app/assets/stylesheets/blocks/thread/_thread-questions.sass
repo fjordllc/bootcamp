@@ -8,7 +8,7 @@ $thread-header-author: 3.5rem
   border-radius: .25rem
   margin-bottom: 2rem
   padding-left: $thread-header-author + 1.25rem
-  &.is-no-author-icon
+  &.is-no-user-icon
     padding-left: 0
   +media-breakpoint-down(sm)
     padding-left: 0
@@ -20,7 +20,7 @@ $thread-header-author: 3.5rem
   +media-breakpoint-down(sm)
     display: none
 
-.thread-question__author-icon
+.thread-question__user-icon
   +size(3.5rem)
 
 .thread-question__title
@@ -63,8 +63,8 @@ $thread-header-author: 3.5rem
   // +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
   &::after
     margin-left: -1.4375rem
-  .thread-question.is-no-author-icon &::before,
-  .thread-question.is-no-author-icon &::after
+  .thread-question.is-no-user-icon &::before,
+  .thread-question.is-no-user-icon &::after
     content: none
   +media-breakpoint-down(sm)
     &::before,
