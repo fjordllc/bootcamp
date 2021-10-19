@@ -10,7 +10,7 @@ tr.admin-table__item
     a.a-user-name(:href='worriedUser.url')
       | {{ worriedUser.long_name }}
   td.admin-table__item-value.is-text-align-center
-    img.admin-table__user-icon(src="/images/emotion/sad.svg")
+    img.admin-table__user-icon(src='/images/emotion/sad.svg')
 </template>
 <script>
 import UserIcon from './user-icon'
