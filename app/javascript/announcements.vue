@@ -1,7 +1,7 @@
 <template lang="pug">
 .page-body
   .container.is-md(v-if='!loaded')
-    loadingList
+    loadingListPlaceholder
   .container(v-else-if='announcements.length === 0')
     .o-empty-message
       .o-empty-message__icon
@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import LoadingList from './loading-list.vue'
+import LoadingListPlaceholder from './loading-list-placeholder.vue'
 import Announcement from './announcement.vue'
 import Pager from './pager.vue'
 
 export default {
   components: {
-    loadingList: LoadingList,
+    loadingListPlaceholder: LoadingListPlaceholder,
     announcement: Announcement,
     pager: Pager
   },
