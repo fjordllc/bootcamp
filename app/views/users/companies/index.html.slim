@@ -1,0 +1,18 @@
+- title '企業別'
+
+header.page-header.is-border-bottom-none
+  .container
+    .page-header__inner
+      h2.page-header__title ユーザー一覧
+      .page-header-actions
+        ul.page-header-actions__items
+
+= render '/users/lg_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        h1.page-main-header__title
+          = title
+  #js-companies
