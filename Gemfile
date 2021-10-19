@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.4'
+ruby '3.0.2'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'date', '>= 3.2.1' # CVE-2021-41817対応
