@@ -42,7 +42,8 @@
             textarea#js-new-comment.a-text-input.js-warning-form.thread-comment-form__textarea(
               v-model='description',
               name='answer[description]',
-              data-preview='#new-comment-preview'
+              data-preview='#new-comment-preview',
+              @keyup="editAnswer"
             )
           .thread-comment-form__markdown.js-tabs__content(
             :class='{ "is-active": isActive("preview") }'
@@ -62,6 +63,7 @@
 import Answer from './answer.vue'
 import TextareaInitializer from './textarea-initializer'
 import CommentPleaceholder from './comment-placeholder'
+import confirmUnload from './confirm-unload'
 import toast from './toast'
 
 export default {
@@ -69,7 +71,7 @@ export default {
     answer: Answer,
     commentPlaceholder: CommentPleaceholder
   },
-  mixins: [toast],
+  mixins: [toast, confirmUnload],
   props: {
     questionId: { type: String, required: true },
     questionUser: { type: Object, required: true },
@@ -84,6 +86,7 @@ export default {
       question: { correctAnswer: null },
       defaultTextareaSize: null,
       loaded: false,
+      editing: false,
       placeholderCount: 3
     }
   },
@@ -267,6 +270,9 @@ export default {
     resizeTextarea: function () {
       const textarea = document.getElementById('js-new-comment')
       textarea.style.height = `${this.defaultTextareaSize}px`
+    },
+    editAnswer() {
+      this.editing = true
     }
   }
 }
