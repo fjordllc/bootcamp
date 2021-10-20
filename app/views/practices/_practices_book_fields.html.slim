@@ -1,0 +1,14 @@
+.col-xl-4.col-md-6.col-xs-12.nested-fields
+  .reference-books-form
+    .reference-books-form__items
+      .reference-books-form-item
+        = f.label '参考書籍', class: 'a-form-label'
+        = f.select(:book_id, Book.all.collect { |book| [ book.title, book.id ] },{ include_blank: true }, { class: 'js-select2' })
+      .reference-books-form-item.is-inline
+        = f.label '必読' , class: 'a-form-label'
+        label.a-on-off-checkbox.is-sm.reference-books-form-item__must-read
+          = f.check_box :must_read
+          span
+    .reference-books-form__delete
+      = link_to_remove_association f, class: 'reference-books-form__delete-link' do
+        i.fas.fa-times
