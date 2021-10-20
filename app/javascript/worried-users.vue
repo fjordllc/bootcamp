@@ -14,7 +14,7 @@
             th.admin-table__label
               | 進捗
         tbody.admin-table__items
-          worriedUsers(
+          worriedUser(
             v-for='worriedUser in worriedUsers',
             :key='worriedUser.id',
             :worriedUser='worriedUser'
@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import WorriedUsers from './worried-user.vue'
+import WorriedUser from './worried-user.vue'
 
 export default {
   components: {
-    worriedUsers: WorriedUsers
+    worriedUser: WorriedUser
   },
   data() {
     return {
