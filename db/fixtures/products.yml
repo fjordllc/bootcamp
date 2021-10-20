@@ -119,13 +119,3 @@ product62:
   user: take8
   body: テストの提出物62です。
   published_at: <%= (now - 60 * 60 * 24 * 10).to_s(:db) %>
-
-<% (0..13).each do |i| %>
-product<%= i + 63 %>:
-  practice: practice1
-  user: <%= [:fujiyasu, :ogaoga, :tomomi, :akiyosi, :tomo, :kunimi, :take, :rie, :nobu, :jobseeker, :osnashi, :kananashi, :nippounashi, :muryou][i] %>
-  body: テストの提出物63です。
-  published_at: <%= (today - 2.weeks - i.day).to_s(:db) %>
-  created_at: <%= (today - 2.weeks - i.day).to_s(:db) %>
-  updated_at: <%= (today - 2.weeks - i.day).to_s(:db) %>
-<% end %>
