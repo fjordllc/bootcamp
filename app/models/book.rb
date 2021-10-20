@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-class ReferenceBook < ApplicationRecord
+class Book < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
 
   COVER_SIZE = '100x150>'
-  belongs_to :practice
+  has_many :practices, through: :practices_books
+  has_many :practices_books, dependent: :destroy
   has_one_attached :cover
   validates :title, presence: true
   validates :price, presence: true, numericality: { only_integer: true }
   validates :page_url, presence: true
-  validates :must_read, inclusion: { in: [true, false] }
   validates :cover,
             content_type: %w[image/png image/jpg image/jpeg],
             size: { less_than: 10.megabytes }
