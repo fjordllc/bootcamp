@@ -3,6 +3,8 @@
 module Searchable
   extend ActiveSupport::Concern
 
+  COLUMN_NAMES_FOR_SEARCH_USER_ID = %i[user_id last_updated_user_id].freeze
+
   included do
     # 拡張する場合はこのスコープを上書きする
     scope :search_by_keywords_scope, -> { all }
@@ -30,6 +32,8 @@ module Searchable
     end
 
     def word_to_groupings(word)
+      return { _join_column_names => word } if COLUMN_NAMES_FOR_SEARCH_USER_ID.none? { |column_name| has_attribute?(column_name) }
+
       case word
       when /user:(.*)/
         create_parameter_for_search_user_id(Regexp.last_match(1))
@@ -44,7 +48,7 @@ module Searchable
 
     def create_parameter_for_search_user_id(name)
       user = User.find_by(login_name: name)
-      { 'user_id_or_last_updated_user_id_eq' => user&.id || 0 }
+      { "#{COLUMN_NAMES_FOR_SEARCH_USER_ID.join('_or_')}_eq" => user&.id || 0 }
     end
   end
   # rubocop:enable Metrics/BlockLength
