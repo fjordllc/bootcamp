@@ -4,9 +4,14 @@ class API::MentorController < API::BaseController
   before_action :require_login
 
   def index
-    @worried_users = User.joins(:products)
-                         .select('users.*', :published_at)
-                         .where('published_at <= ?', 2.weeks.ago.to_date)
-                         .order(published_at: :desc)
+    sql = Learning.select(:user_id, 'MAX(updated_at) AS completed_at')
+                  .where(status: 3)
+                  .group(:user_id).to_sql
+
+    @worried_users = User.students_and_trainees
+                         .joins("JOIN (#{sql}) learnings ON users.id = user_id")
+                         .select('users.*', :completed_at)
+                         .where('completed_at <= ?', 2.weeks.ago.end_of_day)
+                         .order(completed_at: :asc)
   end
 end
