@@ -21,6 +21,7 @@ class FollowingsTest < ApplicationSystemTestCase
     visit_with_auth user_path(users(:hatsuno)), 'kimura'
     find('.following').click
     click_button 'コメントあり'
+    find('.following').click
     click_button 'フォローしない'
     assert_selector 'summary', text: 'フォローする'
   end
