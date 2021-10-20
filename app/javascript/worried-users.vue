@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     url() {
-      return `/api/mentor`
+      return `/api/users/worried`
     }
   },
   created() {
