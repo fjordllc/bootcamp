@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::MentorController < API::BaseController
+class API::Users::WorriedController < API::BaseController
   before_action :require_login
 
   def index

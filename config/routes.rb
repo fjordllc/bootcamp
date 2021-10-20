@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     resources :mention_users, only: %i(index)
     namespace :users do
       resources :companies, only: %i(index)
+      resources :worried, only: %i(index)
     end
     resources :users, only: %i(index show update)
     resources :user_icon_urls, only: %i(index)
@@ -80,7 +81,6 @@ Rails.application.routes.draw do
     resources :niconico_calendars, only: %i(show)
     resources :bookmarks, only: %i(index create destroy)
     resources :events, only: %i(index)
-    resources :mentor, only: %i(index)
   end
 
   namespace :admin do
