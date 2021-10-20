@@ -1,0 +1,38 @@
+.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
+  .users-item
+    .users-item__inner.a-card
+      header.users-item__header
+        .users-item__header-container
+          .user-profile__names
+            h1.user-profile__login-name
+              = book.title
+            ul.users-item-names
+              li.users-item-names__item
+                .users-item-names__ful-name
+                  = book.description
+          .users-item__icon
+            = link_to book.page_url, target: '_blank', rel: 'noopener'  do
+              = image_tag book.cover_url, title: book.title, alt: book.title, class: 'users-item__user-icon-image a-user-icon is-studentn'
+          .user-data__sub
+            .user-metas
+              .user-metas__items
+                .user-metas__item
+                  .user-metas__item-label
+                    | URL
+                  .user-metas__item-value.company_website
+                    = link_to simple_format(book.page_url), book.page_url, target: '_blank', rel: 'noopener' 
+                .user-metas__item
+                  .user-metas__item-label
+                    | 値段
+                  .user-metas__item-value.company_website
+                    = number_to_currency(book.price, unit: '円（税込）')
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            - if current_user.admin_or_mentor?
+              li.card-main-actions__item
+                = link_to edit_book_path(book), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                  | 編集
+              li.card-main-actions__item
+                = link_to book_path(book), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                  | 削除

@@ -1,0 +1,10 @@
+- title '参考書籍 編集'
+- content_for(:extra_body_classes, 'no-recent-reports')
+
+.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title = title
+.page-body
+  .container.is-xxxl
+    = render 'form', book: @book
