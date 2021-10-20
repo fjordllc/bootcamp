@@ -185,6 +185,7 @@ export default {
         return null
       }
       this.buttonDisabled = true
+      this.editing = false
       const params = {
         comment: { description: this.description },
         commentable_type: this.commentableType,
