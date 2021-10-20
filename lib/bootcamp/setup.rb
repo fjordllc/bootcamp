@@ -10,7 +10,7 @@ module Bootcamp
       def attachment
         attach_user_avatar!
         attach_company_logo!
-        attach_reference_book_cover!
+        attach_book_cover!
       end
 
       private
@@ -36,10 +36,10 @@ module Bootcamp
         end
       end
 
-      def attach_reference_book_cover!
-        ReferenceBook.order(:created_at).each_with_index do |book, i|
+      def attach_book_cover!
+        Book.order(:created_at).each_with_index do |book, i|
           filename = "#{i + 1}.jpg"
-          path = Rails.root.join("#{fixtures_dir}/fixtures/files/reference_books/covers/#{filename}")
+          path = Rails.root.join("#{fixtures_dir}/fixtures/files/books/covers/#{filename}")
           book.cover.attach(io: File.open(path), filename: filename) if File.exist?(path)
         end
       end

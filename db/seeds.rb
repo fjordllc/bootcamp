@@ -27,7 +27,8 @@ tables = %i[
   participations
   practices
   pages
-  reference_books
+  books
+  practices_books
   products
   questions
   reactions
