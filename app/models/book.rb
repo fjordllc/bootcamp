@@ -15,7 +15,7 @@ class Book < ApplicationRecord
             size: { less_than: 10.megabytes }
 
   def cover_url
-    default_image_path = '/images/reference_books/covers/default.svg'
+    default_image_path = '/images/books/covers/default.svg'
     if cover.attached?
       cover.variant(resize: COVER_SIZE)
     else
