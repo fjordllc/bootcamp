@@ -147,6 +147,7 @@ export default {
         return null
       }
       this.buttonDisabled = true
+      this.editing = false
       const params = {
         answer: { description: this.description },
         question_id: this.questionId
