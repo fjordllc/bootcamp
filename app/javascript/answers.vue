@@ -14,7 +14,8 @@
       :hasCorrectAnswer='hasCorrectAnswer',
       @delete='deleteAnswer',
       @makeToBestAnswer='makeToBestAnswer',
-      @cancelBestAnswer='cancelBestAnswer'
+      @cancelBestAnswer='cancelBestAnswer',
+      @update='updateAnswer'
     )
     .thread-comment-form
       .thread-comment__author
@@ -204,6 +205,12 @@ export default {
         .catch((error) => {
           console.warn('Failed to parsing', error)
         })
+    },
+    updateAnswer(description, id) {
+      const updatedAnswer = this.answers.find((answer) => {
+        return answer.id === id
+      })
+      updatedAnswer.description = description
     },
     requestSolveQuestion: function (id, isCancel) {
       const params = {
