@@ -90,14 +90,15 @@
                       i.fa-solid.fa-question-circle
                       | 質問する
 
-          - if @practice.reference_books.exists?
+          - if @practice.practices_books.exists?
             .a-card
               header.card-header
                 h2.card-header__title
                   | 参考書籍
               .card-books
                 .card-books__items
-                  - @practice.reference_books.each do |book|
+                  - @practice.practices_books.each do |practices_book|
+                    - book = practices_book.book
                     .card-books-item
                       = link_to book.page_url, target: '_blank', rel: 'noopener', class: 'card-books-item__inner' do
                         .card-books-item__start
@@ -105,7 +106,7 @@
                             = image_tag book.cover_url, class: 'card-books-item__image', alt: book.title
                         .card-books-item__end
                           h3.card-books-item__title
-                            - if book.must_read
+                            - if practices_book.must_read
                               span.a-badge.is-danger.is-sm
                                 | 必読
                             span.card-books-item__title-label
