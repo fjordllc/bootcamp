@@ -11,5 +11,3 @@
           .thread-list-item-meta__item
           .thread-list-item-meta__item
 </template>
-
-<script></script>
