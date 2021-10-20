@@ -3,7 +3,9 @@
 require 'application_system_test_case'
 
 class ProductsTest < ApplicationSystemTestCase
-  PAGINATES_PER = 50
+  setup do
+    PAGINATES_PER = 50
+  end
 
   test 'non-staff user can not see listing self-assigned products' do
     visit_with_auth '/products/self_assigned', 'hatsuno'
