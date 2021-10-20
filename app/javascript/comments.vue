@@ -45,7 +45,7 @@
             v-model='description',
             name='new_comment[description]',
             data-preview='#new-comment-preview',
-            @keyup="editComment"
+            @keyup='editComment'
           )
         .thread-comment-form__markdown.js-tabs__content(
           :class='{ "is-active": isActive("preview") }'
