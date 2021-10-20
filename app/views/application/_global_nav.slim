@@ -26,7 +26,7 @@ nav.global-nav
             .global-nav-links__link-label 日報
         - if staff_login?
           li.global-nav-links__item
-            - products_link = admin_or_mentor_login? ? products_not_responded_index_path : products_path
+            - products_link = admin_or_mentor_login? ? products_unassigned_index_path : products_path
             = link_to products_link, class: "global-nav-links__link #{current_link(/^products/)}" do
               .global-nav-links__link-icon
                 i.fas.fa-fw.fa-hand-paper
