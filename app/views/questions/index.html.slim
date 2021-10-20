@@ -19,6 +19,13 @@ header.page-header
           #js-practice-select data-solved=params[:solved] data-current-user-id=current_user.id
   = render 'questions/tabs'
 
+- if @tag.present?
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | タグ「#{@tag}」のQ&A（#{@questions.total_count}）
 .page-body
   .container.is-lg
     = paginate @questions
