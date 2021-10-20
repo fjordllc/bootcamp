@@ -3,7 +3,9 @@
 require 'application_system_test_case'
 
 class ProductsTest < ApplicationSystemTestCase
-  PAGINATES_PER = 50
+  setup do
+    PAGINATES_PER = 50
+  end
 
   test 'see my product' do
     visit_with_auth "/products/#{products(:product1).id}", 'yamada'
