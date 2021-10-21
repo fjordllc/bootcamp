@@ -19,6 +19,7 @@ gem 'active_flag'
 gem 'active_storage_validations'
 gem 'acts_as_list'
 gem 'acts-as-taggable-on', '~> 7.0'
+gem 'any_login'
 gem 'cocoon'
 gem 'coffee-rails', '~> 5.0.0'
 gem 'commonmarker'
@@ -66,7 +67,6 @@ group :development do
   gem 'web-console', '>= 4.1.0'
 
   # not default
-  gem 'any_login'
   gem 'bullet'
   gem 'bundle_outdated_formatter'
   gem 'letter_opener_web', '~> 1.0'
