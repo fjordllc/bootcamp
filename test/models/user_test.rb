@@ -431,4 +431,73 @@ class UserTest < ActiveSupport::TestCase
     end
     assert_equal '新規メモ', user.mentor_memo
   end
+
+  test 'users 2 weeks from completion of last practice' do
+    user = users(:nippounashi)
+    practice1 = practices(:practice1)
+    practice2 = practices(:practice2)
+    today = Time.zone.today
+
+    Learning.create!(
+      user: user,
+      practice: practice1,
+      status: :complete,
+      created_at: (today - 2.weeks).to_s(:db),
+      updated_at: (today - 2.weeks).to_s(:db)
+    )
+
+    Learning.create!(
+      user: user,
+      practice: practice2,
+      status: :complete,
+      created_at: (today - (2.weeks + 1.day)).to_s(:db),
+      updated_at: (today - (2.weeks + 1.day)).to_s(:db)
+    )
+
+    worried_users = User.worried.order(completed_at: :asc)
+
+    assert_equal worried_users.size, 1
+    assert_equal worried_users.first.id, user.id
+  end
+
+  test 'users less than 2 weeks from completion of last practice' do
+    user = users(:nippounashi)
+    today = Time.zone.today
+
+    Learning.create!(
+      user: user,
+      practice: Practice.first,
+      status: :complete,
+      created_at: (today - (2.weeks - 1.day)).to_s(:db),
+      updated_at: (today - (2.weeks - 1.day)).to_s(:db)
+    )
+
+    worried_users = User.worried.order(completed_at: :asc)
+
+    assert_equal worried_users.size, 0
+  end
+
+  test 'users 2 weeks from completion of last practice by graduate' do
+    user = users(:nippounashi)
+    practice1 = practices(:practice1)
+    today = Time.zone.today
+
+    Learning.create!(
+      user: user,
+      practice: practice1,
+      status: :complete,
+      created_at: (today - 2.weeks).to_s(:db),
+      updated_at: (today - 2.weeks).to_s(:db)
+    )
+
+    worried_users = User.worried.order(completed_at: :asc)
+    assert_equal worried_users.size, 1
+    assert_equal worried_users.first.id, user.id
+
+    user.graduated_on = today
+    user.save!
+
+    worried_users = User.worried.order(completed_at: :asc)
+    assert_equal worried_users.size, 0
+  end
 end
