@@ -14,6 +14,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
       fill_in 'company[name]', with: 'テスト企業'
       fill_in 'company[description]', with: 'テストの企業です。'
       fill_in 'company[website]', with: 'https://example.com'
+      fill_in 'company[blog_url]', with: 'https://example.com'
       click_button '登録する'
     end
     assert_text '企業を作成しました。'
@@ -25,6 +26,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
       fill_in 'company[name]', with: 'テスト企業'
       fill_in 'company[description]', with: 'テストの企業です。'
       fill_in 'company[website]', with: 'https://example.com'
+      fill_in 'company[blog_url]', with: 'https://example.com'
       click_button '更新する'
     end
     assert_text '企業を更新しました。'
