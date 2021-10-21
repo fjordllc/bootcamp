@@ -45,6 +45,7 @@ class Admin::CoursesController < AdminController
     params.require(:course).permit(
       :title,
       :description,
+      :published,
       category_ids: []
     )
   end

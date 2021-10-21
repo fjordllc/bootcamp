@@ -39,6 +39,9 @@ Rails.application.routes.draw do
     resources :reactions, only: %i(create destroy)
     resources :checks, only: %i(index create destroy)
     resources :mention_users, only: %i(index)
+    namespace :users do
+      resources :companies, only: %i(index)
+    end
     resources :users, only: %i(index show update)
     resources :user_icon_urls, only: %i(index)
     get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
@@ -102,6 +105,7 @@ Rails.application.routes.draw do
 
   namespace :users do
     get "tags", to: "tags#index"
+    resources :companies, only: %i(index)
   end
 
   resources :announcements
@@ -129,7 +133,7 @@ Rails.application.routes.draw do
     resource :git_hub, only: %i(destroy), controller: "git_hub"
   end
 
-  resources :courses, except: %i(show) do
+  resources :courses, only: %i(index new create) do
     resources :practices, only: %i(index), controller: "courses/practices" do
       collection do
         resources :sort, only: %i(index), controller: "courses/practices/sort"

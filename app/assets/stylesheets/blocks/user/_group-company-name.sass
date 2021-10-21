@@ -1,0 +1,41 @@
+.group-company-name
+  +media-breakpoint-up(md)
+    font-size: 1.125rem
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+
+.group-company-name__link
+  text-decoration: none
+  color: $main-text
+  display: flex
+  align-items: center
+
+.group-company-name__icon
+  display: block
+  +size(2.5rem)
+  margin-right: .75rem
+
+.group-company-name__icon-image
+  +size(100%)
+  object-fit: cover
+  border-radius: .25rem
+
+.group-company-name__name
+  display: block
+
+.group-company-name__label
+  display: block
+  font-weight: 600
+  +media-breakpoint-up(md)
+   margin-right: .25em
+   a:hover &
+     text-decoration: underline
+
+.group-company-name__label-option
+  font-size: .75rem
+  font-weight: 400
+  color: $muted-text
+  margin-top: .5rem
+  display: block
+  a:hover &
+    text-decoration: none

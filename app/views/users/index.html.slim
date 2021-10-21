@@ -20,7 +20,7 @@ header.page-header.is-border-bottom-none
       .a-page-notice__inner
         p
           | 気になるユーザーをフォローしてみよう！自分が誰をフォローしているかを知られることはありません。
-          = link_to 'くわしくはこちら', '/pages/303'
+          = link_to 'くわしくはこちら', '/pages/follow_the_report'
 
 main.page-main
   header.page-main-header
@@ -35,9 +35,9 @@ main.page-main
               .page-main-header-actions__items
                 .page-main-header-actions__item.is-remove
                   - if current_user.tag_list.include?(params[:tag])
-                    = link_to 'このタグを自分から外す', "/users/tags/#{params[:tag]}", method: 'delete', class: 'a-button is-md is-muted is-block'
+                    = link_to 'このタグを自分から外す', "/users/tags/#{params[:tag]}", method: 'delete', class: 'a-button is-sm is-muted is-block'
                   - else
-                    = link_to 'このタグを自分に追加', "/users/tags/#{params[:tag]}", method: 'post', class: 'a-button is-md is-secondary is-block'
+                    = link_to 'このタグを自分に追加', "/users/tags/#{params[:tag]}", method: 'post', class: 'a-button is-sm is-secondary is-block'
         - else
           h1.page-main-header__title
             - if @watch

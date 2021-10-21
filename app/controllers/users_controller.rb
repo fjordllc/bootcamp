@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
     target_users =
       if @target == 'followings'
-        current_user.following_list(watch: @watch)
+        current_user.followees_list(watch: @watch)
       elsif params[:tag]
         User.tagged_with(params[:tag])
       else
