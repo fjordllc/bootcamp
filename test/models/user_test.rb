@@ -456,8 +456,8 @@ class UserTest < ActiveSupport::TestCase
 
     worried_users = User.worried.order(completed_at: :asc)
 
-    assert_equal worried_users.size, 1
-    assert_equal worried_users.first.id, user.id
+    assert_equal worried_users.where(id: user.id).size, 1
+    assert_equal worried_users.find(user.id).id, user.id
   end
 
   test 'users less than 2 weeks from completion of last practice' do
@@ -474,7 +474,7 @@ class UserTest < ActiveSupport::TestCase
 
     worried_users = User.worried.order(completed_at: :asc)
 
-    assert_equal worried_users.size, 0
+    assert_equal worried_users.where(id: user.id).size, 0
   end
 
   test 'users 2 weeks from completion of last practice by graduate' do
@@ -491,13 +491,13 @@ class UserTest < ActiveSupport::TestCase
     )
 
     worried_users = User.worried.order(completed_at: :asc)
-    assert_equal worried_users.size, 1
-    assert_equal worried_users.first.id, user.id
+    assert_equal worried_users.where(id: user.id).size, 1
+    assert_equal worried_users.find(user.id).id, user.id
 
     user.graduated_on = today
     user.save!
 
     worried_users = User.worried.order(completed_at: :asc)
-    assert_equal worried_users.size, 0
+    assert_equal worried_users.where(id: user.id).size, 0
   end
 end
