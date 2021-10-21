@@ -8,7 +8,8 @@
     :comment='comment',
     :currentUser='currentUser',
     :id='"comment_" + comment.id',
-    @delete='deleteComment'
+    @delete='deleteComment',
+    @update='updateComment'
   )
   .thread-comment-form
     .thread-comment__author
@@ -214,6 +215,12 @@ export default {
         .catch((error) => {
           console.warn('Failed to parsing', error)
         })
+    },
+    updateComment(description, id) {
+      const updatedComment = this.comments.find((comment) => {
+        return comment.id === id
+      })
+      updatedComment.description = description
     },
     setDefaultTextareaSize() {
       const textarea = document.getElementById('js-new-comment')
