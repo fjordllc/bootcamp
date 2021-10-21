@@ -2,6 +2,7 @@
   display: flex
   align-items: center
   justify-content: space-between
+  +text-block(.875rem 1.5, 600)
   +media-breakpoint-down(sm)
     flex-direction: column
     align-items: flex-start
@@ -37,7 +38,8 @@
   flex-basis: 100%
 
 .thread-list-item-title__link
-  +text-block(.875rem 1.5, 600 $side block)
+  color: $side
+  display: block
   word-break: break-all
   +hover-link-reversal
   .thread-list-item.is-wip &,
