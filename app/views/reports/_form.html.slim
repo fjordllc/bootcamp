@@ -59,6 +59,7 @@
       .row.js-markdown-parent
         .col-md-6.col-xs-12
           = f.label :description, class: 'a-form-label'
+          #js-report-template(template="#{current_user.report_template&.description}")
           .a-textarea-bottom-note
             = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
             .a-textarea-bottom-note__banner.is-hidden-md-down
