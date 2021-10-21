@@ -7,7 +7,6 @@ class Mentor::HomeTest < ApplicationSystemTestCase
     visit_with_auth '/mentor', 'komagata'
     assert_equal 'メンターページ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     assert_no_text 'jobseeker (就活 のぞむ)'
-    assert_text 'nippounashi (Nippou nashi)'
     assert_text 'muryou (Muryou Nosuke)'
   end
 

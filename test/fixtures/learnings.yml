@@ -82,9 +82,9 @@ learning15:
   practice: practice48
   status: "complete"
 
-<% (0..2).each do |i| %>
+<% (0..1).each do |i| %>
 learning<%= i + 16 %>:
-  user: <%= [:jobseeker, :muryou, :nippounashi][i] %>
+  user: <%= [:jobseeker, :muryou][i] %>
   practice: practice1
   status: "complete"
   created_at: <%= (today - (2.weeks - 1.day) - i.day).to_s(:db) %>
