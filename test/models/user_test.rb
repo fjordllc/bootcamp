@@ -472,7 +472,7 @@ class UserTest < ActiveSupport::TestCase
       updated_at: (today - (2.weeks - 1.day)).to_s(:db)
     )
 
-    worried_users = User.worried.order(completed_at: :asc)
+    worried_users = User.delayed.order(completed_at: :asc)
 
     assert_equal worried_users.where(id: user.id).size, 0
   end
@@ -490,14 +490,14 @@ class UserTest < ActiveSupport::TestCase
       updated_at: (today - 2.weeks).to_s(:db)
     )
 
-    worried_users = User.worried.order(completed_at: :asc)
+    worried_users = User.delayed.order(completed_at: :asc)
     assert_equal worried_users.where(id: user.id).size, 1
     assert_equal worried_users.find(user.id).id, user.id
 
     user.graduated_on = today
     user.save!
 
-    worried_users = User.worried.order(completed_at: :asc)
+    worried_users = User.delayed.order(completed_at: :asc)
     assert_equal worried_users.where(id: user.id).size, 0
   end
 end
