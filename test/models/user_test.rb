@@ -432,7 +432,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal '新規メモ', user.mentor_memo
   end
 
-  test 'users 2 weeks from completion of last practice' do
+  test '.delayed_in_two_weeks when there are users within 2 weeks from completion of last practice' do
     user = users(:nippounashi)
     practice1 = practices(:practice1)
     practice2 = practices(:practice2)
@@ -460,7 +460,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal worried_users.find(user.id).id, user.id
   end
 
-  test 'users less than 2 weeks from completion of last practice' do
+  test '.delayed_in_two_weeks when there are users within less than 2 weeks from completion of last practice' do
     user = users(:nippounashi)
     today = Time.zone.today
 
@@ -477,7 +477,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal worried_users.where(id: user.id).size, 0
   end
 
-  test 'users 2 weeks from completion of last practice by graduate' do
+  test '.delayed_in_two_weeks when there are graduate users within 2 weeks from completion of last practice' do
     user = users(:nippounashi)
     practice1 = practices(:practice1)
     today = Time.zone.today
