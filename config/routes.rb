@@ -80,6 +80,7 @@ Rails.application.routes.draw do
     resources :niconico_calendars, only: %i(show)
     resources :bookmarks, only: %i(index create destroy)
     resources :events, only: %i(index)
+    resources :report_templates, only: %i(create update)
   end
 
   namespace :admin do
