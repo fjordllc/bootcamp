@@ -22,8 +22,8 @@ class CompaniesTest < ApplicationSystemTestCase
 
   test 'show link to blog url if company has' do
     visit_with_auth "/companies/#{companies(:company1).id}", 'komagata'
-    within '.company-blog-links' do
-      assert_link 'Techブログ', href: 'https://tech.sample.com/'
+    within '.company-links' do
+      assert_link 'Techブログ', href: 'https://tech.sample.com'
     end
   end
 end
