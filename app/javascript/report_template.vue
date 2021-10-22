@@ -1,13 +1,16 @@
 <template lang="pug">
 div
-  button.a-button.is-md.is-primary.is-block(v-if='template !== ""' @click='replaceReport') テンプレート反映
-  div(v-if='template !== ""')
-    button.a-button.is-md.is-primary.is-block(@click='openModal') テンプレート変更
+  button.a-button.is-md.is-primary.is-block(v-if='registeredTemplate !== ""' @click.prevent='replaceReport') テンプレート反映
+  div(v-if='registeredTemplate !== ""')
+    button.a-button.is-md.is-primary.is-block(@click.prevent='openModal') テンプレート変更
   div(v-else)
-    button.a-button.is-md.is-primary.is-block(@click='openModal') テンプレート登録
+    button.a-button.is-md.is-primary.is-block(@click.prevent='openModal') テンプレート登録
   modal(
-    v-on:closeModal='closeModal()'
-    v-if='isEditingTemplate'
+    v-on:closeModal='closeModal'
+    v-if='showModal'
+    :editingTemplateProp='editingTemplate'
+    :isTemplateRegisteredProp='isTemplateRegistered'
+    :templateIdProp='templateIdProp'
   )
 </template>
 <script>
@@ -17,30 +20,36 @@ export default {
     'modal' : Modal
   },
   props: {
-    initialTemplate: {type: String, required: false, default: ''}
+    registeredTemplateProp: {type: String, required: false, default: ''},
+    templateIdProp: {type: Number, required: false, default: undefined}
   },
   data() {
     return {
-      isEditingTemplate: false,
-      template: ''
+      registeredTemplate: '',
+      editingTemplate: '',
+      showModal: false,
+      isTemplateRegistered: false
     }
   },
   mounted() {
-    this.template = this.initialTemplate
+    const report = document.querySelector('#report_description')
+    if (report.value === '') report.value = this.registeredTemplateProp
+    this.registeredTemplate = this.registeredTemplateProp
+    this.editingTemplate = this.registeredTemplateProp
+    if (this.registeredTemplate !== '') this.isTemplateRegistered = true
   },
   methods: {
     openModal() {
-      event.preventDefault();
-      this.isEditingTemplate = true
+      this.showModal = true
     },
-    closeModal() {
-      this.isEditingTemplate = false
+    closeModal(editingTemplate) {
+      this.editingTemplate = editingTemplate
+      this.showModal = false
     },
     replaceReport() {
-      event.preventDefault();
       const report = document.querySelector('#report_description')
       if (report.value === '' || confirm('日報が上書きされますが、よろしいですか？')) {
-        report.value = this.template
+        report.value = this.registeredTemplate
       }
     }
   }
