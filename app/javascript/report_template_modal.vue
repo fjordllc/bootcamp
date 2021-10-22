@@ -3,19 +3,43 @@
   .content
     h1
       | 日報テンプレート
-      div
-        | テンプレート
-      div
-        | プレビュー
-      textarea(v-model='editingTemplate')
-      div(v-if='!isTemplateRegisteredProp')
-        button.a-button(:disabled='!validation' @click.prevent='registerTemplate') 登録
-      div(v-else)
-        button.a-button(:disabled='!validation' @click.prevent='updateTemplate') 変更
-      div
-        button.a-button(@click.prevent='closeModal') キャンセル
+      .thread-comment-form__tabs.js-tabs
+        .thread-comment-form__tab.js-tabs__tab(
+          v-bind:class='{ "is-active": isActive("template") }'
+          @click='changeActiveTab("template")'
+        )
+          | テンプレート
+        .thread-comment-form__tab.js-tabs__tab(
+          v-bind:class='{ "is-active": isActive("preview") }'
+          @click='changeActiveTab("preview")'
+        )
+          | プレビュー
+        .thread-comment-form__markdown-parent.js-markdown-parent
+          .thread-comment-form__markdown.js-tabs__content(
+            v-bind:class='{ "is-active": isActive("template") }'
+          )
+            textarea.a-text-input.thread-comment-form__textarea(
+              :id='`js-template-content`'
+              :data-preview='`#js-template-preview`'
+              v-model='editingTemplate'
+            )
+          .thread-comment-form__markdown.js-tabs__content(
+            v-bind:class='{ "is-active": isActive("preview") } '
+          )
+            .is-long-text.thread-comment-form__preview(
+              :id='`js-template-preview`'
+            )
+        div(v-if='!isTemplateRegisteredProp')
+          button.a-button(:disabled='!validation' @click.prevent='registerTemplate') 登録
+        div(v-else)
+          button.a-button(:disabled='!validation' @click.prevent='updateTemplate') 変更
+        div
+          button.a-button(@click.prevent='closeModal') キャンセル
 </template>
 <script>
+import MarkdownInitializer from './markdown-initializer'
+import TextareaInitializer from './textarea-initializer'
+
 export default {
   props: {
     editingTemplateProp: {type: String, default: ''},
@@ -32,9 +56,14 @@ export default {
   computed: {
     validation() {
       return this.editingTemplate !== ''
+    },
+    markdownDescription() {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.editingTemplate)
     }
   },
   mounted() {
+    TextareaInitializer.initialize(`#js-template-content`)
     this.editingTemplate = this.editingTemplateProp
   },
   methods: {
@@ -42,11 +71,14 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    closeModal() {
-      this.$emit('closeModal', this.editingTemplate)
+    isActive(tab) {
+      return this.tab === tab
     },
     changeActiveTab(tab) {
       this.tab = tab
+    },
+    closeModal() {
+      this.$emit('closeModal', this.editingTemplate)
     },
     registerTemplate() {
       if (this.editingTemplate === '') {
@@ -67,6 +99,7 @@ export default {
         body: JSON.stringify(params)
       })
         .then(() => {
+          this.$emit('registerTemplate', this.editingTemplate)
           this.closeModal()
         })
         .catch((error) => {
@@ -92,6 +125,7 @@ export default {
         body: JSON.stringify(params)
       })
         .then(() => {
+          this.$emit('registerTemplate', this.editingTemplate)
           this.closeModal()
         })
         .catch((error) => {

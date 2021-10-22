@@ -7,6 +7,7 @@ div
     button.a-button.is-md.is-primary.is-block(@click.prevent='openModal') テンプレート登録
   modal(
     v-on:closeModal='closeModal'
+    v-on:registerTemplate='registerTemplate'
     v-if='showModal'
     :editingTemplateProp='editingTemplate'
     :isTemplateRegisteredProp='isTemplateRegistered'
@@ -15,13 +16,16 @@ div
 </template>
 <script>
 import Modal from './report_template_modal.vue'
+import toast from './toast'
+
 export default {
   components: {
     'modal' : Modal
   },
+  mixins: [toast],
   props: {
     registeredTemplateProp: {type: String, required: false, default: ''},
-    templateIdProp: {type: Number, required: false, default: undefined}
+    templateIdProp: {type: String, required: false, default: undefined}
   },
   data() {
     return {
@@ -51,6 +55,10 @@ export default {
       if (report.value === '' || confirm('日報が上書きされますが、よろしいですか？')) {
         report.value = this.registeredTemplate
       }
+    },
+    registerTemplate(template) {
+      this.registeredTemplate = template
+      this.toast('テンプレートを登録しました！')
     }
   }
 }
