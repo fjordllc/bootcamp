@@ -55,7 +55,8 @@ header.page-header
         .js-learning-status(data-practice-id="#{@practice.id}" data-status="#{status}" data-submission="#{@practice.submission}")
 
         - if current_user.mentor? && @practice.submission
-          #js-watch-toggle(data-watchable-id="#{@practice.id}", data-watchable-type='Practice')
+          .is-only-mentor
+            #js-watch-toggle(data-watchable-id="#{@practice.id}", data-watchable-type='Practice')
 
         - if @practice.last_updated_user.present?
           .practice-contents__pub-date
