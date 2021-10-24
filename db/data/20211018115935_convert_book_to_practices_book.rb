@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConvertBookToPracticesBook < ActiveRecord::Migration[6.1]
   def up
     Book.all.each do |book|
