@@ -232,4 +232,18 @@ class CommentsTest < ApplicationSystemTestCase
     find('#js-new-comment').set('@')
     assert_selector 'span.mention', text: 'mentor'
   end
+
+  test 'clicking "show old comments" will display old comments' do
+    visit_with_auth product_path(users(:hatsuno).products.first.id), 'komagata'
+
+    assert_no_text '提出物のコメント1です。'
+    assert_text '古いコメントを表示する'
+    assert_text '提出物のコメント13です。'
+
+    click_button '古いコメントを表示する'
+
+    assert_text '提出物のコメント1です。'
+    assert_no_text '古いコメントを表示する'
+    assert_text '提出物のコメント13です。'
+  end
 end
