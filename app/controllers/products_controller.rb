@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
     @practice = find_practice
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
     @footprints = find_footprints
-    @tweet_url = tweet_url(practice_title: @practice.title)
+    @tweet_url = tweet_url(practice: @practice)
     footprint!
     respond_to do |format|
       format.html
