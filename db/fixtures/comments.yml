@@ -98,6 +98,6 @@ comment<%= i + 16 %>:
   user: komagata
   commentable: product10 (Product)
   description: <%= "提出物のコメント#{i}です。" %>
-  created_at: <%= Time.current + i.seconds %>
-  updated_at: <%= Time.current + i.seconds %>
+  created_at: <%= Time.current + i.minutes %>
+  updated_at: <%= Time.current + i.minutes %>
 <% end %>
