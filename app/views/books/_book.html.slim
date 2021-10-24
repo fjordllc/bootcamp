@@ -11,7 +11,7 @@
                 .users-item-names__ful-name
                   = book.description
           .users-item__icon
-            = link_to book.page_url, target: '_blank', rel: 'noopener'  do
+            = link_to book.page_url, target: '_blank', rel: 'noopener' do
               = image_tag book.cover_url, title: book.title, alt: book.title, class: 'users-item__user-icon-image a-user-icon is-studentn'
           .user-data__sub
             .user-metas
@@ -20,7 +20,7 @@
                   .user-metas__item-label
                     | URL
                   .user-metas__item-value.company_website
-                    = link_to simple_format(book.page_url), book.page_url, target: '_blank', rel: 'noopener' 
+                    = link_to simple_format(book.page_url), book.page_url, target: '_blank', rel: 'noopener'
                 .user-metas__item
                   .user-metas__item-label
                     | 値段

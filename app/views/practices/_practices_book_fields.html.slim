@@ -3,9 +3,9 @@
     .reference-books-form__items
       .reference-books-form-item
         = f.label '参考書籍', class: 'a-form-label'
-        = f.select(:book_id, Book.all.collect { |book| [ book.title, book.id ] },{ include_blank: true }, { class: 'js-select2' })
+        = f.select(:book_id, Book.all.collect { |book| [book.title, book.id] }, { include_blank: true }, { class: 'js-select2' })
       .reference-books-form-item.is-inline
-        = f.label '必読' , class: 'a-form-label'
+        = f.label '必読', class: 'a-form-label'
         label.a-on-off-checkbox.is-sm.reference-books-form-item__must-read
           = f.check_box :must_read
           span
