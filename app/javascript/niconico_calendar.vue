@@ -48,7 +48,8 @@
           )
             a.niconico-calendar__day-inner(
               v-if='date.id',
-              :href='`/reports/${date.id}`'
+              :href='`/reports/${date.id}`',
+              :class='[emotionClass(date), todayClass(date)]'
             )
               .niconico-calendar__day-label {{ date.date }}
               .niconico-calendar__day-value
@@ -56,13 +57,14 @@
                   :src='`/images/emotion/${date.emotion}.svg`',
                   :alt='date.emotion'
                 )
-            a.niconico-calendar__day-inner(
+            a.niconico-calendar__day-inner.is-blank(
               v-else-if='date.date && isOlderThanTodayOrToday(date.date)',
               :href='buildLinkToReportForSpecificDate(date.date)'
             )
               .niconico-calendar__day-label {{ date.date }}
               .niconico-calendar__day-value
                 i.fas.fa-minus(v-if='date.date')
+                i.fas.fa-plus(v-if='date.date')
             niconico-calendar__day-inner(v-else)
               .niconico-calendar__day-label {{ date.date }}
               .niconico-calendar__day-value

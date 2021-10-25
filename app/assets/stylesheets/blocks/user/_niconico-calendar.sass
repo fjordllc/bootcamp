@@ -53,7 +53,7 @@
     background-color: #fff9e8
   &.is-today
     .niconico-calendar__day-inner
-      border: dashed 2px $info
+      border: dashed 1px $info
     .niconico-calendar__day-label
       font-weight: 600
       color: $info
@@ -63,10 +63,38 @@
   +padding(vertical, .25rem .125rem)
   +size(100%)
 
-a.niconico-calendar__day-inner
+.niconico-calendar__day-inner
   transition: all .2s ease-out
-  &:hover
-    background-color: rgba($warning, .1)
+  &.is-sad
+    &:hover
+      box-shadow: #75c6e6 0 0 0 1px inset
+  &.is-happy
+    &:hover
+      box-shadow: #fdc49d 0 0 0 1px inset
+  &.is-soso
+    &:hover
+      box-shadow: #fdc928 0 0 0 1px inset
+  &.is-blank
+    +position(relative)
+    .fa-minus
+      display: inline
+    .fa-plus
+      display: none
+    &:hover
+      box-shadow: #add0e2 0 0 0 1px inset
+      background-color: rgba(white, .9)
+      .fa-minus
+        display: none
+      .fa-plus
+        display: inline
+      .niconico-calendar__day-label,
+      .niconico-calendar__day-value
+        color: #98cee4
+
+
+.niconico-calendar__day-label,
+.niconico-calendar__day-value
+  transition: all .2s ease-out
 
 .niconico-calendar__day-label
   +text-block(.625rem 1, center $default-text)
