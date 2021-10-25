@@ -2,11 +2,15 @@
 #comments.thread-comments(v-if='loaded === false')
   commentPlaceholder(v-for='num in placeholderCount', :key='num')
 #comments.thread-comments(v-else)
-  button#js-shortcut-post-comment.a-button.is-md.is-primary.is-block(
-    @click='showComments',
-    v-show='!loadedComment'
-  )
-    | 古いコメントを表示する
+  .thread-comments-more(
+      v-show='!loadedComment'
+    )
+    .thread-comments-more__inner
+      .thread-comments-more__action
+        button#js-shortcut-post-comment.a-button.is-lg.is-text.is-block(
+          @click='showComments',
+        )
+          | 古いコメントを表示する
   comment(
     v-for='(comment, index) in comments',
     :key='comment.id',
