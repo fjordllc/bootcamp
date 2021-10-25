@@ -2,13 +2,11 @@
 #comments.thread-comments(v-if='loaded === false')
   commentPlaceholder(v-for='num in placeholderCount', :key='num')
 #comments.thread-comments(v-else)
-  .thread-comments-more(
-      v-show='!loadedComment'
-    )
+  .thread-comments-more(v-show='!loadedComment')
     .thread-comments-more__inner
       .thread-comments-more__action
         button#js-shortcut-post-comment.a-button.is-lg.is-text.is-block(
-          @click='showComments',
+          @click='showComments'
         )
           | 古いコメントを表示する
   comment(
