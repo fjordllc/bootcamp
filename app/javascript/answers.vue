@@ -273,7 +273,9 @@ export default {
       textarea.style.height = `${this.defaultTextareaSize}px`
     },
     editAnswer() {
-      this.editing = true
+      if (this.description.length > 0) {
+        this.editing = true
+      }
     }
   }
 }
