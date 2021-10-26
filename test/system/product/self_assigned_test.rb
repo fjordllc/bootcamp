@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class ProductsTest < ApplicationSystemTestCase
+class Product::SelfAssignedTest < ApplicationSystemTestCase
   test 'non-staff user can not see listing self-assigned products' do
     visit_with_auth '/products/self_assigned', 'hatsuno'
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'

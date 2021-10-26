@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class ProductsTest < ApplicationSystemTestCase
+class Product::UncheckedTest < ApplicationSystemTestCase
   test 'non-staff user can not see listing unchecked products' do
     visit_with_auth '/products/unchecked', 'hatsuno'
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'
