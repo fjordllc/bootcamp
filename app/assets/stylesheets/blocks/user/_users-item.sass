@@ -41,15 +41,15 @@
   +hover-link
 
 .users-item__user-icon-image
-  background-color: white
+  background-color: $base
   +media-breakpoint-up(md)
     +size(4rem)
     +position(absolute, left -1rem, top -.375rem)
-    border: solid $base .25rem
+    box-shadow: 0 0 0 4px $base
   +media-breakpoint-down(sm)
     +size(3rem)
     +position(absolute, left -.75rem, top -.5rem)
-    border: solid $base .125rem
+    box-shadow: 0 0 0 2px $base
 
 .users-item__body
   padding: .75rem 1rem 0
