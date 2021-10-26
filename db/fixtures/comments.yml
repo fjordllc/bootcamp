@@ -1,3 +1,5 @@
+<% now = Time.current %>
+
 comment1:
   user: machida
   commentable: report1 (Report)
@@ -9,12 +11,16 @@ comment2:
   commentable: report3 (Report)
   description: |-
     どういう教材がいいんでしょうかね？
+  created_at: <%= now %>
+  updated_at: <%= now %>
 
 comment3:
   user: machida
   commentable: report3 (Report)
   description: |-
     https://github.com/fjordllc/csstutorial/tree/master とかですかねー。
+  created_at: <%= now + 1.seconds %>
+  updated_at: <%= now + 1.seconds %>
 
 comment4:
   user: sotugyou
@@ -63,6 +69,8 @@ comment11:
   user: yamada
   commentable: report1 (Report)
   description: "テスト用 report1へのコメント"
+  created_at: <%= now + 2.seconds %>
+  updated_at: <%= now + 2.seconds %>
 
 comment12:
   user: yamada
@@ -84,3 +92,12 @@ comment15:
   commentable: report4 (Report)
   description: ":thumbsup:"
   created_at: "2019-01-02 12:00:01"
+
+<% (1..20).each do |i| %>
+comment<%= i + 16 %>:
+  user: komagata
+  commentable: product10 (Product)
+  description: <%= "提出物のコメント#{i}です。" %>
+  created_at: <%= Time.current + i.minutes %>
+  updated_at: <%= Time.current + i.minutes %>
+<% end %>
