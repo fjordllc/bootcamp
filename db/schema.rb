@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_21_225338) do
+ActiveRecord::Schema.define(version: 2021_10_23_050713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_225338) do
     t.datetime "updated_at"
     t.integer "position"
     t.text "description"
+    t.index ["position"], name: "index_categories_on_position"
   end
 
   create_table "categories_practices", force: :cascade do |t|
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_225338) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["category_id", "practice_id"], name: "index_categories_practices_on_category_id_and_practice_id"
+    t.index ["position"], name: "index_categories_practices_on_position"
     t.index ["practice_id", "category_id"], name: "index_categories_practices_on_practice_id_and_category_id"
   end
 
