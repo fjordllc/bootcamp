@@ -17,3 +17,11 @@
       .companies-item__body-row
         .companies-item__description.a-short-text
           = simple_format(company.description)
+
+  - if current_user.admin?
+    footer.card-footer.is-only-mentor
+      .card-main-actions
+        .card-main-actions__items
+          .card-main-actions__item
+            = link_to edit_admin_company_path(company), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+              | 管理者として編集

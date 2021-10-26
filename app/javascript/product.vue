@@ -110,7 +110,7 @@
         :productId='product.id'
       )
     .thread-list-item__author
-      a.a-user-name(:href='product.user.url')
+      a.thread-list-item__author-link(:href='product.user.url')
         img.thread-list-item__author-icon.a-user-icon(
           :title='product.user.icon_title',
           :alt='product.user.icon_title',

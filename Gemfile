@@ -8,7 +8,7 @@ ruby RUBY_VERSION
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'image_processing', '~> 1.2'
 gem 'jbuilder', '~> 2.7'
-gem 'puma', '~> 5.3'
+gem 'puma', '~> 5.5'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'

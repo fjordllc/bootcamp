@@ -12,14 +12,20 @@ header.page-header
 
 = form_tag :questions, method: 'get' do
   nav.sort-nav
-    .container
+    .container.is-md
       .sort-nav__inner
-        = hidden_field_tag :solved, params[:solved]
         = label_tag :practice_id, 'プラクティスで絞り込む:', class: 'sort-nav__label'
         .sort-nav__select
-          = select_tag :practice_id, options_from_collection_for_select(current_user.practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての質問を表示', onchange: 'this.form.submit()', class: 'js-select2'
+          #js-practice-select data-solved=params[:solved] data-current-user-id=current_user.id
   = render 'questions/tabs'
 
+- if @tag.present?
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | タグ「#{@tag}」のQ&A（#{@questions.total_count}）
 .page-body
   .container.is-lg
     = paginate @questions
@@ -29,8 +35,11 @@ header.page-header
           .thread-list.a-card
             = render @questions
         - else
-          .a-empty-message
-            = @questions_property.empty_message
+          .o-empty-message
+            .o-empty-message__icon
+              i.far.fa-smile
+            p.o-empty-message__text
+              = @questions_property.empty_message
       - if @tags.any?
         nav.page-tags-nav
           header.page-tags-nav__header

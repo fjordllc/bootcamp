@@ -8,7 +8,8 @@
     :comment='comment',
     :currentUser='currentUser',
     :id='"comment_" + comment.id',
-    @delete='deleteComment'
+    @delete='deleteComment',
+    @update='updateComment'
   )
   .thread-comment-form
     .thread-comment__author
@@ -65,12 +66,14 @@
 import Comment from './comment.vue'
 import TextareaInitializer from './textarea-initializer'
 import CommentPleaceholder from './comment-placeholder'
+import toast from './toast'
 
 export default {
   components: {
     comment: Comment,
     commentPlaceholder: CommentPleaceholder
   },
+  mixins: [toast],
   props: {
     commentableId: { type: String, required: true },
     commentableType: { type: String, required: true },
@@ -177,6 +180,7 @@ export default {
           this.tab = 'comment'
           this.buttonDisabled = false
           this.resizeTextarea()
+          this.toast('コメントを投稿しました！')
 
           if (
             this.commentableType === 'Product' &&
@@ -211,6 +215,12 @@ export default {
         .catch((error) => {
           console.warn('Failed to parsing', error)
         })
+    },
+    updateComment(description, id) {
+      const updatedComment = this.comments.find((comment) => {
+        return comment.id === id
+      })
+      updatedComment.description = description
     },
     setDefaultTextareaSize() {
       const textarea = document.getElementById('js-new-comment')

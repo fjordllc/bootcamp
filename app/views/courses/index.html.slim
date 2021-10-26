@@ -18,4 +18,4 @@ header.page-header
         - if current_user&.admin?
           = render @courses.order(:created_at)
         - else
-          = render @courses.where(open: true).order(:created_at)
+          = render @courses.where(published: true).order(:created_at)

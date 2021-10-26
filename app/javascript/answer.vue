@@ -220,6 +220,7 @@ export default {
         body: JSON.stringify(params)
       })
         .then(() => {
+          this.$emit('update', this.description, this.answer.id)
           this.editing = false
         })
         .catch((error) => {

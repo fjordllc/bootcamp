@@ -13,3 +13,6 @@
       li.page-tabs__item
         = link_to users_path(target: 'followings'), class: "page-tabs__item-link #{'is-active' if @target == 'followings'}"
           | フォロー中
+      li.page-tabs__item
+        = link_to users_companies_path, class: "page-tabs__item-link #{users_current_page_tab_or_not('companies')}" do
+          | 企業別

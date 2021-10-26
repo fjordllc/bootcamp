@@ -19,10 +19,10 @@ class CoursesTest < ApplicationSystemTestCase
   end
 
   test 'update course' do
-    visit_with_auth "/courses/#{courses(:course1).id}/edit", 'komagata'
+    visit_with_auth "/admin/courses/#{courses(:course1).id}/edit", 'komagata'
     within 'form[name=course]' do
       fill_in 'course[title]', with: 'テストコース'
-      find(:css, '#checkbox-open-course').set(true)
+      find(:css, '#checkbox-published-course').set(true)
       fill_in 'course[description]', with: 'テストのコースです。'
       click_button '内容を保存'
     end
@@ -35,5 +35,17 @@ class CoursesTest < ApplicationSystemTestCase
       find("#course_#{courses(:course3).id} .js-delete").click
     end
     assert_text 'コースを削除しました。'
+  end
+
+  test 'show published courses' do
+    visit_with_auth '/courses', 'yamada'
+    assert_no_text courses(:course1).title
+    visit_with_auth "/admin/courses/#{courses(:course1).id}/edit", 'komagata'
+    within 'form[name=course]' do
+      find(:css, '#checkbox-published-course').set(true)
+      click_button '内容を保存'
+    end
+    visit_with_auth '/courses', 'yamada'
+    assert_text courses(:course1).title
   end
 end

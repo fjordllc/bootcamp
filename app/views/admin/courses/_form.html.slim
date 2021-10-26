@@ -6,6 +6,13 @@
         = f.label :title, class: 'a-form-label'
         = f.text_field :title, class: 'a-text-input js-warning-form'
   .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label 'コースを表示する', class: 'a-form-label'
+        label.a-on-off-checkbox.is-md
+          = f.check_box :published, class: 'is-published-checkbox'
+          span#checkbox-published-course
+  .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
         = f.label :description, class: 'a-form-label'

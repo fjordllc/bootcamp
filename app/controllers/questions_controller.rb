@@ -18,6 +18,7 @@ class QuestionsController < ApplicationController
       else
         Question.not_solved
       end
+    @tag = params[:tag]
     @tags = questions.all_tags
     questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
     questions = questions.tagged_with(params[:tag]) if params[:tag]
@@ -89,11 +90,11 @@ class QuestionsController < ApplicationController
 
   def questions_property
     if params[:all] == 'true'
-      QuestionsProperty.new('全ての質問', '質問はまだありません。')
+      QuestionsProperty.new('全ての質問', '質問はありません。')
     elsif params[:solved] == 'true'
-      QuestionsProperty.new('解決済みの質問一覧', '解決済みの質問はまだありません。')
+      QuestionsProperty.new('解決済みの質問一覧', '解決済みの質問はありません。')
     else
-      QuestionsProperty.new('未解決の質問一覧', '未解決の質問はまだありません。')
+      QuestionsProperty.new('未解決の質問一覧', '未解決の質問はありません。')
     end
   end
 

@@ -43,3 +43,31 @@ page6:
   slug: help
   user: komagata
   published_at: "2021-07-01 00:00:00"
+
+page7:
+  title: 上手な質問の方法
+  body: 上手な質問の方法
+  slug: how_to_ask_questions
+  user: komagata
+  published_at: "2021-07-01 00:00:00"
+
+page8:
+  title: 他の受講生に質問をする方法
+  body: 質問をする方法
+  slug: use_the_question_room
+  user: komagata
+  published_at: "2021-07-01 00:00:00"
+
+page9:
+  title: 休会の手続き
+  body: 休会
+  slug: suspension_of_membership
+  user: komagata
+  published_at: "2021-07-01 00:00:00"
+
+page10:
+  title: 日報フォロー機能
+  body: フォロー機能
+  slug: follow_the_report
+  user: komagata
+  published_at: "2021-07-01 00:00:00"

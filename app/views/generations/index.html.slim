@@ -16,7 +16,7 @@ main.page-main
         h1.page-main-header__title
           = title
   .page-body
-    .container.is-md
+    .container.is-lg
       - if @generations.present?
         .a-card
           = render partial: 'generations/generation', collection: @generations, as: :generation
