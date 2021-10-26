@@ -1,0 +1,25 @@
+.thread-comments-more
+  +position(relative)
+  +media-breakpoint-up(md)
+    margin-bottom: 2rem
+    padding-left: $thread-header-author
+  +media-breakpoint-down(sm)
+    padding-left: 0
+    margin-bottom: 1rem
+  &::before,
+  &::after
+    content: ''
+    display: block
+    height: 8px
+    width: 100%
+    height: 7px
+    background: repeating-linear-gradient(-45deg, $border-shade, $border-shade 3px, transparent 3px, transparent 6px)
+
+.thread-comments-more__inner
+  +padding(vertical, 1rem)
+
+.thread-comments-more__action
+  +media-breakpoint-up(md)
+    max-width: 16rem
+    +padding(horizontal, .375rem)
+    +margin(horizontal, auto)
