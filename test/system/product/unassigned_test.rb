@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class ProductsTest < ApplicationSystemTestCase
+class Product::UnassignedTest < ApplicationSystemTestCase
   test 'non-staff user can not see listing unassigned products' do
     visit_with_auth '/products/unassigned', 'hatsuno'
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'
