@@ -103,7 +103,7 @@ class User < ApplicationRecord
            inverse_of: 'follower',
            dependent: :destroy
 
-  has_many :following,
+  has_many :followees,
            through: :active_relationships,
            source: :followed
 
@@ -509,9 +509,8 @@ class User < ApplicationRecord
   end
 
   def active_practice
-    return unless active_practices.first
-
-    active_practices.first.id
+    active_practice = active_practices.first
+    active_practice ? active_practice.id : nil
   end
 
   def follow(other_user, watch:)
@@ -519,27 +518,27 @@ class User < ApplicationRecord
   end
 
   def change_watching(other_user, watch)
-    following_row = Following.find_by(follower_id: self, followed_id: other_user)
-    following_row.update(watch: watch)
+    following = Following.find_by(follower_id: self, followed_id: other_user)
+    following.update(watch: watch)
   end
 
   def unfollow(other_user)
-    following.delete(other_user)
+    followees.delete(other_user)
   end
 
   def following?(other_user)
-    following.include?(other_user)
+    followees.include?(other_user)
   end
 
   def watching?(other_user)
     following?(other_user) ? Following.find_by(follower_id: self, followed_id: other_user).watch? : false
   end
 
-  def following_list(watch: '')
+  def followees_list(watch: '')
     if %w[true false].include?(watch)
-      following.includes(:passive_relationships).where(followings: { watch: watch })
+      followees.includes(:passive_relationships).where(followings: { watch: watch })
     else
-      following
+      followees
     end
   end
 

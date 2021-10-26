@@ -14,7 +14,8 @@
       :hasCorrectAnswer='hasCorrectAnswer',
       @delete='deleteAnswer',
       @makeToBestAnswer='makeToBestAnswer',
-      @cancelBestAnswer='cancelBestAnswer'
+      @cancelBestAnswer='cancelBestAnswer',
+      @update='updateAnswer'
     )
     .thread-comment-form
       .thread-comment__author
@@ -61,12 +62,14 @@
 import Answer from './answer.vue'
 import TextareaInitializer from './textarea-initializer'
 import CommentPleaceholder from './comment-placeholder'
+import toast from './toast'
 
 export default {
   components: {
     answer: Answer,
     commentPlaceholder: CommentPleaceholder
   },
+  mixins: [toast],
   props: {
     questionId: { type: String, required: true },
     questionUser: { type: Object, required: true },
@@ -166,6 +169,7 @@ export default {
           this.buttonDisabled = false
           this.resizeTextarea()
           this.updateAnswerCount()
+          this.toast('回答を投稿しました！')
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
@@ -201,6 +205,12 @@ export default {
         .catch((error) => {
           console.warn('Failed to parsing', error)
         })
+    },
+    updateAnswer(description, id) {
+      const updatedAnswer = this.answers.find((answer) => {
+        return answer.id === id
+      })
+      updatedAnswer.description = description
     },
     requestSolveQuestion: function (id, isCancel) {
       const params = {

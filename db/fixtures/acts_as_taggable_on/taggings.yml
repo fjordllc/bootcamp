@@ -42,3 +42,16 @@ kimura_tag_may_j_:
   taggable: kimura (User)
   context: tags
   tag: may_j_
+
+question13_tag_cat:
+  taggable: question13 (Question)
+  context: tags
+  tag: cat
+question13_tag_game:
+  taggable: question13 (Question)
+  context: tags
+  tag: game
+question14_tag_manga:
+  taggable: question14 (Question)
+  context: tags
+  tag: manga

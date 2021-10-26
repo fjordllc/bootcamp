@@ -1,5 +1,13 @@
 <% if Rails.env.production? %>
 <!-- Google Tag Manager -->
+  <script>
+      dataLayer = [];
+      <% if current_user %>
+        dataLayer.push({
+            'user_id': <%= current_user.id %>
+        });
+      <% end %>
+  </script>
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=

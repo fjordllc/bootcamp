@@ -1,0 +1,53 @@
+.multiselect
+  +position(absolute, left 0, top 0, right 0)
+
+.multiselect__single,
+.multiselect__input
+  @extend .a-text-input
+
+.multiselect__single
+  +position(relative, 1)
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  width: 100%
+
+.multiselect__content-wrapper
+  overflow-y: scroll
+  background-color: $base
+  border: solid 1px $border
+  +border-radius(bottom, .25rem)
+
+.multiselect--active
+  overflow-y: hidden !important
+
+.multiselect__content
+  display: block !important
+
+.multiselect__element
+  +media-breakpoint-up(md)
+    font-size: .875rem
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+  &:not(:first-child)
+    border-top: solid 1px $border
+  >span
+    display: flex
+    height: 2.75rem
+    +padding(horizontal, .75rem)
+    align-items: center
+    cursor: pointer
+    transition: all .2s ease-out
+    &:hover
+      background-color: $background-tint
+    >span
+      display: block
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+      width: 100%
+
+.multiselect__option--selected
+  pointer-events: none
+  // TODO 変数に
+  background-color: #fff5db

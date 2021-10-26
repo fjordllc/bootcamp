@@ -1,5 +1,5 @@
 <template lang="pug">
-details.following
+details.following(ref='followingDetailsRef')
   summary.a-button.is-warning.is-md.is-block(v-if='following && watching')
     i.fas.fa-check
     span
@@ -135,6 +135,9 @@ export default {
         .catch((error) => {
           console.warn('Failed to parsing', error)
         })
+        .finally(() => {
+          this.$refs.followingDetailsRef.open = false
+        })
     },
     unfollow() {
       const params = {
@@ -161,6 +164,9 @@ export default {
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
+        })
+        .finally(() => {
+          this.$refs.followingDetailsRef.open = false
         })
     }
   }
