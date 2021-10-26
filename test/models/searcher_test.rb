@@ -179,7 +179,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, comments(:comment13))
     assert_includes(result, comments(:comment14))
     assert_includes(result, comments(:comment16))
-    assert_equal(7, result.size)
+    assert_equal(27, result.size)
   end
 
   test 'returns only daimyos report when user param' do

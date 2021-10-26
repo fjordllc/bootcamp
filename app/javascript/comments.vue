@@ -2,6 +2,13 @@
 #comments.thread-comments(v-if='loaded === false')
   commentPlaceholder(v-for='num in placeholderCount', :key='num')
 #comments.thread-comments(v-else)
+  .thread-comments-more(v-show='!loadedComment')
+    .thread-comments-more__inner
+      .thread-comments-more__action
+        button#js-shortcut-post-comment.a-button.is-lg.is-text.is-block(
+          @click='showComments'
+        )
+          | 古いコメントを表示する
   comment(
     v-for='(comment, index) in comments',
     :key='comment.id',
@@ -88,7 +95,11 @@ export default {
       buttonDisabled: false,
       defaultTextareaSize: null,
       loaded: false,
-      placeholderCount: 3
+      placeholderCount: 3,
+      commentLimit: 8,
+      commentOffset: 0,
+      commentTotalCount: null,
+      loadedComment: false
     }
   },
   computed: {
@@ -109,35 +120,7 @@ export default {
     }
   },
   created() {
-    fetch(
-      `/api/comments.json?commentable_type=${this.commentableType}&commentable_id=${this.commentableId}`,
-      {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      }
-    )
-      .then((response) => {
-        return response.json()
-      })
-      .then((json) => {
-        json.forEach((c) => {
-          this.comments.push(c)
-        })
-      })
-      .catch((error) => {
-        console.warn('Failed to parsing', error)
-      })
-      .finally(() => {
-        this.loaded = true
-        this.$nextTick(() => {
-          TextareaInitializer.initialize('#js-new-comment')
-          this.setDefaultTextareaSize()
-        })
-      })
+    this.showComments()
   },
   methods: {
     token() {
@@ -149,6 +132,50 @@ export default {
     },
     changeActiveTab(tab) {
       this.tab = tab
+    },
+    showComments() {
+      fetch(
+        `/api/comments.json?commentable_type=${this.commentableType}&` +
+          `commentable_id=${this.commentableId}&comment_limit=${this.commentLimit}&` +
+          `comment_offset=${this.commentOffset}`,
+        {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          credentials: 'same-origin',
+          redirect: 'manual'
+        }
+      )
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          json.comments.forEach((c) => {
+            this.comments.unshift(c)
+          })
+          this.commentTotalCount = json.comment_total_count
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
+        .finally(() => {
+          if (this.loaded === false) {
+            this.loaded = true
+            this.$nextTick(() => {
+              TextareaInitializer.initialize('#js-new-comment')
+              this.setDefaultTextareaSize()
+            })
+          }
+          this.loadedComment =
+            this.commentLimit + this.commentOffset >= this.commentTotalCount
+          if (this.loadedComment === false) {
+            const commentLimit = this.commentLimit
+            this.commentLimit =
+              this.commentTotalCount - (this.commentLimit + this.commentOffset)
+            this.commentOffset = commentLimit
+          }
+        })
     },
     createComment() {
       if (this.description.length < 1) {
@@ -266,15 +293,12 @@ export default {
     async fetchProductAssign(productId) {
       for (let pageNumber = 1; ; pageNumber++) {
         const response = await this.fetchUncheckedProducts(pageNumber)
-
         if (response === null) {
           return null
         }
-
         const product = response.products.find(
           (product) => product.id === productId
         )
-
         if (product !== undefined) {
           return product.checker_id !== null
         }

@@ -51,8 +51,14 @@ header.page-header
               #js-annotation-modal
           h1.practice-contents__title
             = @practice.title
-        - status = @practice.status_by_learnings(current_user.learnings)
-        .js-learning-status(data-practice-id="#{@practice.id}" data-status="#{status}" data-submission="#{@practice.submission}")
+        .practice-first-actions
+          .practice-first-actions__start
+            - status = @practice.status_by_learnings(current_user.learnings)
+            .js-learning-status(data-practice-id="#{@practice.id}" data-status="#{status}" data-submission="#{@practice.submission}")
+
+          - if current_user.mentor? && @practice.submission
+            .practice-first-actions__end.is-only-mentor
+              #js-watch-toggle(data-watchable-id="#{@practice.id}", data-watchable-type='Practice')
 
         - if @practice.last_updated_user.present?
           .practice-contents__pub-date
