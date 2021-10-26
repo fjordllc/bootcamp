@@ -6,7 +6,13 @@
       |
       | ロード中
   .container.is-md(v-else)
-    .thread-list-tools(v-if='bookmarks.length')
+    .thread-list-tools(v-if='bookmarks.length === 0')
+      .o-empty-message
+        .o-empty-message__icon
+          i.far.fa-sad-tear
+        p.o-empty-message__text
+          | ブックマークしているものはありません。
+    .thread-list-tools(v-else)
       .form-item.is-inline
         label.a-form-label(for='thread-list-tools__action')
           | 編集
@@ -17,25 +23,19 @@
             v-model='checked'
           )
           span#spec-edit-mode
-    .thread-list-tools(v-else)
-      .o-empty-message
-        .o-empty-message__icon
-          i.far.fa-sad-tear
-        p.o-empty-message__text
-          | ブックマークしているものはありません。
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
-    .thread-list.a-card
-      .thread-list__items
-        bookmark(
-          v-for='bookmark in bookmarks',
-          :key='bookmark.id',
-          :bookmark='bookmark',
-          :checked='checked',
-          @updateIndex='updateIndex'
-        )
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
+      nav.pagination(v-if='totalPages > 1')
+        pager(v-bind='pagerProps')
+      .thread-list.a-card
+        .thread-list__items
+          bookmark(
+            v-for='bookmark in bookmarks',
+            :key='bookmark.id',
+            :bookmark='bookmark',
+            :checked='checked',
+            @updateIndex='updateIndex'
+          )
+      nav.pagination(v-if='totalPages > 1')
+        pager(v-bind='pagerProps')
 </template>
 <script>
 import Bookmark from './bookmark.vue'
