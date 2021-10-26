@@ -45,7 +45,7 @@
             v-model='description',
             name='new_comment[description]',
             data-preview='#new-comment-preview',
-            @keyup='editComment'
+            @input='editComment'
           )
         .thread-comment-form__markdown.js-tabs__content(
           :class='{ "is-active": isActive("preview") }'
@@ -326,7 +326,9 @@ export default {
       })
     },
     editComment() {
-      this.editing = true
+      if (this.description.length > 0) {
+        this.editing = true
+      }
     }
   }
 }
