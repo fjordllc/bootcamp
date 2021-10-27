@@ -5,12 +5,12 @@
       | 日報テンプレート
       .thread-comment-form__tabs.js-tabs
         .thread-comment-form__tab.js-tabs__tab(
-          v-bind:class='{ "is-active": isActive("template") }'
+          v-bind:class='{ "is-active": isActive("template") }',
           @click='changeActiveTab("template")'
         )
           | テンプレート
         .thread-comment-form__tab.js-tabs__tab(
-          v-bind:class='{ "is-active": isActive("preview") }'
+          v-bind:class='{ "is-active": isActive("preview") }',
           @click='changeActiveTab("preview")'
         )
           | プレビュー
@@ -19,20 +19,26 @@
             v-bind:class='{ "is-active": isActive("template") }'
           )
             textarea.a-text-input.thread-comment-form__textarea(
-              :id='`js-template-content`'
-              :data-preview='`#js-template-preview`'
+              :id='`js-template-content`',
+              :data-preview='`#js-template-preview`',
               v-model='editingTemplate'
             )
           .thread-comment-form__markdown.js-tabs__content(
-            v-bind:class='{ "is-active": isActive("preview") } '
+            v-bind:class='{ "is-active": isActive("preview") }'
           )
             .is-long-text.thread-comment-form__preview(
               :id='`js-template-preview`'
             )
         div(v-if='!isTemplateRegisteredProp')
-          button.a-button(:disabled='!validation' @click.prevent='registerTemplate') 登録
+          button.a-button(
+            :disabled='!validation',
+            @click.prevent='registerTemplate'
+          ) 登録
         div(v-else)
-          button.a-button(:disabled='!validation' @click.prevent='updateTemplate') 変更
+          button.a-button(
+            :disabled='!validation',
+            @click.prevent='updateTemplate'
+          ) 変更
         div
           button.a-button(@click.prevent='closeModal') キャンセル
 </template>
@@ -42,14 +48,14 @@ import TextareaInitializer from './textarea-initializer'
 
 export default {
   props: {
-    editingTemplateProp: {type: String, default: ''},
-    isTemplateRegisteredProp: {type: Boolean, default: false},
-    templateIdProp: {type: String, default: undefined}
+    editingTemplateProp: { type: String, default: '' },
+    isTemplateRegisteredProp: { type: Boolean, default: false },
+    templateIdProp: { type: String, default: undefined }
   },
   data() {
     return {
       editingTemplate: '',
-      isEditingTemplate : true,
+      isEditingTemplate: true,
       tab: 'template'
     }
   },
@@ -137,14 +143,14 @@ export default {
 </script>
 <style>
 .overlay {
-  z-index:1;
+  z-index: 1;
 
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background-color:rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 
   display: flex;
   align-items: center;
@@ -152,9 +158,9 @@ export default {
 }
 
 .content {
-  z-index:2;
-  width:50%;
+  z-index: 2;
+  width: 50%;
   padding: 1em;
-  background:#fff;
+  background: #fff;
 }
 </style>

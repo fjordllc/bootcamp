@@ -1,16 +1,19 @@
 <template lang="pug">
 div
-  button.a-button.is-md.is-primary.is-block(v-if='registeredTemplate !== ""' @click.prevent='replaceReport') テンプレート反映
+  button.a-button.is-md.is-primary.is-block(
+    v-if='registeredTemplate !== ""',
+    @click.prevent='replaceReport'
+  ) テンプレート反映
   div(v-if='registeredTemplate !== ""')
     button.a-button.is-md.is-primary.is-block(@click.prevent='openModal') テンプレート変更
   div(v-else)
     button.a-button.is-md.is-primary.is-block(@click.prevent='openModal') テンプレート登録
   modal(
-    v-on:closeModal='closeModal'
-    v-on:registerTemplate='registerTemplate'
-    v-if='showModal'
-    :editingTemplateProp='editingTemplate'
-    :isTemplateRegisteredProp='isTemplateRegistered'
+    v-on:closeModal='closeModal',
+    v-on:registerTemplate='registerTemplate',
+    v-if='showModal',
+    :editingTemplateProp='editingTemplate',
+    :isTemplateRegisteredProp='isTemplateRegistered',
     :templateIdProp='templateIdProp'
   )
 </template>
@@ -20,12 +23,12 @@ import toast from './toast'
 
 export default {
   components: {
-    'modal' : Modal
+    modal: Modal
   },
   mixins: [toast],
   props: {
-    registeredTemplateProp: {type: String, required: false, default: ''},
-    templateIdProp: {type: String, required: false, default: undefined}
+    registeredTemplateProp: { type: String, required: false, default: '' },
+    templateIdProp: { type: String, required: false, default: undefined }
   },
   data() {
     return {
@@ -52,7 +55,10 @@ export default {
     },
     replaceReport() {
       const report = document.querySelector('#report_description')
-      if (report.value === '' || confirm('日報が上書きされますが、よろしいですか？')) {
+      if (
+        report.value === '' ||
+        confirm('日報が上書きされますが、よろしいですか？')
+      ) {
         report.value = this.registeredTemplate
       }
     },
@@ -62,5 +68,4 @@ export default {
     }
   }
 }
-
 </script>
