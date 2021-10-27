@@ -16,111 +16,119 @@ header.page-header
               | 日報一覧
 
 .page-body
-  .container.is-lg
-    .thread
-      .thread__inner.a-card
-        header.thread-header
-          #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type='Report')
-          .thread-header__row
-            .thread-header-metas
-              .thread-header-metas__start
-                - if @report.wip?
-                  .thread-header-metas__meta
-                    .thread-header__wip
-                      | WIP
-                .thread-header-metas__meta
-                  = link_to @report.user, class: 'a-user-name', title: @report.user.name do
-                    = @report.user.long_name
-                .thread-header-metas__meta
-                  .a-meta
-                    = l @report.reported_on
-                    | （
-                    span.a-meta__count(class="#{@report.serial_number < 6 ? 'is-important' : ''}")
-                      = @report.number
-                    | ）
-                    = 'の日報' unless @report.first?
-                - if @report.published_at.present?
-                  .thread-header-metas__meta
-                    .a-meta
-                      .a-meta__label
-                        | 提出日
-                      = l @report.published_at
-                .thread-header-metas__meta
-                  - length = @report.comments.length
-                  a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-                    | コメント（
-                    span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                      = length
-                    | ）
-          .thread-header__row
-            .thread-header-title(class="#{@report.wip? ? 'is-wip' : ''}")
-              - if @report.emotion.present?
-                .thread-header__emotion
-                  = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: 'thread-header__emotion-image'
-              h1.thread-header-title__title
-                - if @report.user.daimyo?
-                  | ★
-                | #{@report.title}
-          .thread-header__row
-            .thread-header-actions
-              .thread-header-actions__start
-                .thread-header-actions__action
-                  #js-watch-toggle(data-watchable-id="#{@report.id}", data-watchable-type='Report')
-                .thread-header-actions__action
-                  #js-bookmark(data-bookmarkable-id="#{@report.id}", data-bookmarkable-type='Report')
-              .thread-header-actions__end
-                - if @report.user_id == current_user.id
-                  .thread-header-actions__action
-                    = link_to new_report_path(id: @report), class: 'a-button is-xs is-secondary is-block' do
-                      i.fas.fa-copy#copy
-                      | コピー
-                .thread-header-actions__action
-                  = link_to 'Raw', report_path(format: :md), class: 'a-button is-xs is-secondary is-block', target: '_blank', rel: 'noopener'
-        - if @report.practices.present?
-          .thread__tags
-            .tag-links
-              ul.tag-links__items
-                - @report.practices.eager_load(:categories).order('categories.position ASC, categories_practices.position ASC').each do |practice|
-                  li.tag-links__item
-                    = link_to practice, class: 'tag-links__item-link' do
-                      = practice.title
+  .container.is-xxxl
+    div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
+      div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
+        .thread
+          .thread__inner.a-card
+            header.thread-header
+              #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type='Report')
+              .thread-header__row
+                .thread-header-metas
+                  .thread-header-metas__start
+                    - if @report.wip?
+                      .thread-header-metas__meta
+                        .thread-header__wip
+                          | WIP
+                    .thread-header-metas__meta
+                      = link_to @report.user, class: 'a-user-name', title: @report.user.name do
+                        = @report.user.long_name
+                    .thread-header-metas__meta
+                      .a-meta
+                        = l @report.reported_on
+                        | （
+                        span.a-meta__count(class="#{@report.serial_number < 6 ? 'is-important' : ''}")
+                          = @report.number
+                        | ）
+                        = 'の日報' unless @report.first?
+                    - if @report.published_at.present?
+                      .thread-header-metas__meta
+                        .a-meta
+                          .a-meta__label
+                            | 提出日
+                          = l @report.published_at
+                    .thread-header-metas__meta
+                      - length = @report.comments.length
+                      a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
+                        | コメント（
+                        span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                          = length
+                        | ）
+              .thread-header__row
+                .thread-header-title(class="#{@report.wip? ? 'is-wip' : ''}")
+                  - if @report.emotion.present?
+                    .thread-header__emotion
+                      = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: 'thread-header__emotion-image'
+                  h1.thread-header-title__title
+                    - if @report.user.daimyo?
+                      | ★
+                    | #{@report.title}
+              .thread-header__row
+                .thread-header-actions
+                  .thread-header-actions__start
+                    .thread-header-actions__action
+                      #js-watch-toggle(data-watchable-id="#{@report.id}", data-watchable-type='Report')
+                    .thread-header-actions__action
+                      #js-bookmark(data-bookmarkable-id="#{@report.id}", data-bookmarkable-type='Report')
+                  .thread-header-actions__end
+                    - if @report.user_id == current_user.id
+                      .thread-header-actions__action
+                        = link_to new_report_path(id: @report), class: 'a-button is-xs is-secondary is-block' do
+                          i.fas.fa-copy#copy
+                          | コピー
+                    .thread-header-actions__action
+                      = link_to 'Raw', report_path(format: :md), class: 'a-button is-xs is-secondary is-block', target: '_blank', rel: 'noopener'
+            - if @report.practices.present?
+              .thread__tags
+                .tag-links
+                  ul.tag-links__items
+                    - @report.practices.eager_load(:categories).order('categories.position ASC, categories_practices.position ASC').each do |practice|
+                      li.tag-links__item
+                        = link_to practice, class: 'tag-links__item-link' do
+                          = practice.title
 
-        = render 'reports/learning_times', report: @report
+            = render 'reports/learning_times', report: @report
 
-        .thread__body
-          .thread__description.js-target-blank.is-long-text.js-markdown-view
-            = @report.description
-          = render 'reactions/reactions', reactionable: @report
-          - if @report.user_id == current_user.id
-            .card-footer
-              .card-main-actions
-                ul.card-main-actions__items
-                  li.card-main-actions__item
-                    = link_to edit_report_path(@report), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
-                      i.fas.fa-pen#new
-                      | 内容修正
-                  li.card-main-actions__item.is-sub
-                    = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
-                      span#delete
-                        | 削除する
+            .thread__body
+              .thread__description.js-target-blank.is-long-text.js-markdown-view
+                = @report.description
+              = render 'reactions/reactions', reactionable: @report
+              - if @report.user_id == current_user.id
+                .card-footer
+                  .card-main-actions
+                    ul.card-main-actions__items
+                      li.card-main-actions__item
+                        = link_to edit_report_path(@report), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
+                          i.fas.fa-pen#new
+                          | 内容修正
+                      li.card-main-actions__item.is-sub
+                        = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
+                          span#delete
+                            | 削除する
 
-        - if staff_login?
-          #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
+            - if staff_login?
+              #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
 
-      .thread-prev-next
-        .thread-prev-next__item
-          - if @report.previous
-            = link_to @report.previous, class: 'thread-prev-next__item-link is-prev' do
-              i.fas.fa-angle-left
-              | 前の日報
-        .thread-prev-next__item
-          = link_to user_reports_path(@report.user_id), class: 'thread-prev-next__item-link is-index' do
-            | 日報一覧
-        .thread-prev-next__item
-          - if @report.next
-            = link_to @report.next, class: 'thread-prev-next__item-link is-next' do
-              | 次の日報
-              i.fas.fa-angle-right
-      = render 'users/icon', user: @report.user, link_class: 'thread__author-link', image_class: 'thread__author-icon'
-    #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
-    = render 'footprints/footprints', footprints: @footprints
+          .thread-prev-next
+            .thread-prev-next__item
+              - if @report.previous
+                = link_to @report.previous, class: 'thread-prev-next__item-link is-prev' do
+                  i.fas.fa-angle-left
+                  | 前の日報
+            .thread-prev-next__item
+              = link_to user_reports_path(@report.user_id), class: 'thread-prev-next__item-link is-index' do
+                | 日報一覧
+            .thread-prev-next__item
+              - if @report.next
+                = link_to @report.next, class: 'thread-prev-next__item-link is-next' do
+                  | 次の日報
+                  i.fas.fa-angle-right
+          = render 'users/icon', user: @report.user, link_class: 'thread__author-link', image_class: 'thread__author-icon'
+
+        #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
+
+        = render 'footprints/footprints', footprints: @footprints
+
+      .is-only-mentor(class="#{admin_or_mentor_login? ? 'col-md-5 col-xs-12 is-hidden-sm-down' : ''}")
+        - if admin_or_mentor_login?
+          #js-user-mentor-memo(data-user-id='#{@report.user_id}')
