@@ -32,7 +32,7 @@ class BooksTest < ApplicationSystemTestCase
   test 'destroy book' do
     visit_with_auth '/books', 'komagata'
     accept_confirm do
-      click_link '削除'
+      click_link '削除', match: :first
     end
     assert_text '参考書籍を削除しました'
   end

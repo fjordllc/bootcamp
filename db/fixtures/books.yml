@@ -3,3 +3,8 @@ book1:
   price: 2592
   page_url: https://www.amazon.co.jp/dp/B07KQXFF6D
   description: Rubyを始める人にピッタリの本です！
+book2:
+  title: はじめて学ぶソフトウェアのテスト技法
+  price: 2640
+  page_url: https://www.amazon.co.jp/dp/4822282511
+  description: ソフトウェアテストの必修技法を満載した初心者にもわかりやすい解説書です。
