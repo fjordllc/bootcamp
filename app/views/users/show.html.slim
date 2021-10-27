@@ -72,7 +72,7 @@ header.page-header
           - if admin_or_mentor_login?
             #js-user-mentor-memo(data-user-id='#{@user.id}')
           - unless @user.total_learning_time.zero? || @user.mentor?
-            #js-grass(data-user-id="#{current_user.id}")
+            #js-grass(data-user-id="#{@user.id}")
           - if @user.github_account.present?
             = render 'users/github_grass', user: @user
           - if @user.active_practices.present?
