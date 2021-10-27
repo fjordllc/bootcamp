@@ -19,32 +19,32 @@ section.a-card.is-memo.is-only-mentor
     v-show='editing'
   )
     div(
-      :class='[{ "form-tabs": productsMode, "thread-comment-form__tabs": !productsMode }, "js-tabs"]'
+      :class='[{ "form-tabs": productsMode, "a-form-tabs": !productsMode }, "js-tabs"]'
     )
       div(
-        :class='[{ "is-active": isActive("memo"), "form-tabs__tab": productsMode, "thread-comment-form__tab": !productsMode }, "js-tabs__tab"]',
+        :class='[{ "is-active": isActive("memo"), "form-tabs__tab": productsMode, "a-form-tabs__tab": !productsMode }, "js-tabs__tab"]',
         @click='changeActiveTab("memo")'
       )
         | メモ
       div(
-        :class='[{ "is-active": isActive("preview"), "form-tabs__tab": productsMode, "thread-comment-form__tab": !productsMode }, "js-tabs__tab"]',
+        :class='[{ "is-active": isActive("preview"), "form-tabs__tab": productsMode, "a-form-tabs__tab": !productsMode }, "js-tabs__tab"]',
         @click='changeActiveTab("preview")'
       )
         | プレビュー
-    .thread-comment-form__markdown-parent.js-markdown-parent
-      .thread-comment-form__markdown.is-editor.js-tabs__content(
+    .a-markdown-input.js-markdown-parent
+      .a-markdown-input__inner.is-editor.js-tabs__content(
         :class='{ "is-active": isActive("memo") }'
       )
-        textarea.a-text-input.thread-comment-form__textarea(
+        textarea.a-text-input.a-markdown-input__textarea(
           :id='`js-user-mentor-memo`',
           data-preview='#user-mentor-memo-preview',
           v-model='memo',
           name='user[memo]'
         )
-      .thread-comment-form__markdown.is-preview.js-tabs__content(
+      .a-markdown-input__inner.is-preview.js-tabs__content(
         :class='{ "is-active": isActive("preview") }'
       )
-        .is-long-text.thread-comment-form__preview(v-html='markdownMemo')
+        .is-long-text.a-markdown-input__preview(v-html='markdownMemo')
     .card-footer
       .card-main-actions
         .card-main-actions__items
