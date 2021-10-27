@@ -9,11 +9,11 @@
     li.form-item-actions__item(v-else)
       button.a-button.is-sm.is-secondary.is-block(@click.prevent='openModal') テンプレート登録
     modal(
-      v-on:closeModal='closeModal'
-      v-on:registerTemplate='registerTemplate'
-      v-if='showModal'
-      :editingTemplateProp='editingTemplate'
-      :isTemplateRegisteredProp='isTemplateRegistered'
+      v-on:closeModal='closeModal',
+      v-on:registerTemplate='registerTemplate',
+      v-if='showModal',
+      :editingTemplateProp='editingTemplate',
+      :isTemplateRegisteredProp='isTemplateRegistered',
       :templateIdProp='templateIdProp'
     )
 </template>

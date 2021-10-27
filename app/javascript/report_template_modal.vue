@@ -6,12 +6,12 @@
         | 日報テンプレート
     .a-form-tabs.js-tabs
       .a-form-tabs__tab.js-tabs__tab(
-        v-bind:class='{ "is-active": isActive("template") }'
+        v-bind:class='{ "is-active": isActive("template") }',
         @click='changeActiveTab("template")'
       )
         | テンプレート
       .a-form-tabs__tab.js-tabs__tab(
-        v-bind:class='{ "is-active": isActive("preview") }'
+        v-bind:class='{ "is-active": isActive("preview") }',
         @click='changeActiveTab("preview")'
       )
         | プレビュー
@@ -20,23 +20,27 @@
         v-bind:class='{ "is-active": isActive("template") }'
       )
         textarea.a-text-input.a-markdown-input__textare(
-          :id='`js-template-content`'
-          :data-preview='`#js-template-preview`'
+          :id='`js-template-content`',
+          :data-preview='`#js-template-preview`',
           v-model='editingTemplate'
         )
       .a-markdown-input__inner.js-tabs__content(
-        v-bind:class='{ "is-active": isActive("preview") } '
+        v-bind:class='{ "is-active": isActive("preview") }'
       )
-        .is-long-text.a-markdown-input__preview(
-          :id='`js-template-preview`'
-        )
+        .is-long-text.a-markdown-input__preview(:id='`js-template-preview`')
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item(v-if='!isTemplateRegisteredProp')
-            button.a-button.is-primary.is-md.is-block(:disabled='!validation' @click.prevent='registerTemplate') 登録
+            button.a-button.is-primary.is-md.is-block(
+              :disabled='!validation',
+              @click.prevent='registerTemplate'
+            ) 登録
           li.card-main-actions__item(v-else)
-            button.a-button.is-primary.is-md.is-block(:disabled='!validation' @click.prevent='updateTemplate') 変更
+            button.a-button.is-primary.is-md.is-block(
+              :disabled='!validation',
+              @click.prevent='updateTemplate'
+            ) 変更
           li.card-main-actions__item.is-sub
             .card-main-actions__delete(@click.prevent='closeModal') キャンセル
 </template>
