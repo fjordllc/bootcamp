@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Practice < ApplicationRecord
+  include Watchable
   include Searchable
 
   has_many :learnings, dependent: :destroy

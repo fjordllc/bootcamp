@@ -12,6 +12,7 @@ class ProductCallbacks
 
   def after_save(product)
     if !product.wip? && product.published_at.nil?
+      notify_to_watching_mentor(product)
       if product.user.trainee?
         send_notification(
           product: product,
@@ -60,5 +61,16 @@ class ProductCallbacks
 
   def delete_notification(product)
     Notification.where(path: "/products/#{product.id}").destroy_all
+  end
+
+  def notify_to_watching_mentor(product)
+    practice = Practice.find(product.practice_id)
+    mentor_ids = practice.watches.where.not(user_id: product.user_id).pluck(:user_id)
+    mentors = User.where(id: mentor_ids)
+    send_notification(
+      product: product,
+      receivers: mentors,
+      message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
+    )
   end
 end

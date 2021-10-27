@@ -19,4 +19,4 @@
           | 提出物
       li.page-tabs__item
         = link_to user_questions_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('questions')}" do
-          | 質問
+          | 質問 （#{user.questions.length}）

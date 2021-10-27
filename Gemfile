@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby RUBY_VERSION
+ruby '2.7.4'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'image_processing', '~> 1.2'
@@ -72,7 +72,7 @@ group :development do
   gem 'letter_opener_web', '~> 1.0'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'rubocop', require: false
-  gem 'rubocop-fjord', require: false
+  gem 'rubocop-fjord', '~> 0.2.0', require: false
   gem 'rubocop-minitest', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
