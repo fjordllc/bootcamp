@@ -8,7 +8,7 @@ class AnswersTest < ApplicationSystemTestCase
   test 'answer form in questions/:id has comment tab and preview tab' do
     visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
     wait_for_vuejs
-    within('.thread-comment-form__tabs') do
+    within('.a-form-tabs') do
       assert_text 'コメント'
       assert_text 'プレビュー'
     end
@@ -20,7 +20,7 @@ class AnswersTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('answer[description]', with: 'test')
     end
-    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
     assert_text 'test'

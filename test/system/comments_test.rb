@@ -20,7 +20,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'comment form in reports/:id has comment tab and preview tab' do
     visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
-    within('.thread-comment-form__tabs') do
+    within('.a-form-tabs') do
       assert_text 'コメント'
       assert_text 'プレビュー'
     end
@@ -40,7 +40,7 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
-    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
@@ -134,7 +134,7 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: "1\n2\n3\n4\n5\n6\n7\n8\n9")
     end
-    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text "1\n2\n3\n4\n5\n6\n7\n8\n9"
   end
 
@@ -143,7 +143,7 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
-    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
@@ -155,7 +155,7 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
-    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
@@ -167,7 +167,7 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
-    page.all('.thread-comment-form__tab.js-tabs__tab')[1].click
+    page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
@@ -176,16 +176,16 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'comment tab is active after a comment has been posted' do
     visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
-    assert_equal 'コメント', find('.thread-comment-form__tab.is-active').text
+    assert_equal 'コメント', find('.a-form-tabs__tab.is-active').text
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
-    find('.thread-comment-form__tab', text: 'プレビュー').click
-    assert_equal 'プレビュー', find('.thread-comment-form__tab.is-active').text
+    find('.a-form-tabs__tab', text: 'プレビュー').click
+    assert_equal 'プレビュー', find('.a-form-tabs__tab.is-active').text
     click_button 'コメントする'
     wait_for_vuejs
     assert_text 'test'
-    assert_equal 'コメント', find('.thread-comment-form__tab.is-active').text
+    assert_equal 'コメント', find('.a-form-tabs__tab.is-active').text
   end
 
   test 'prevent double submit' do
