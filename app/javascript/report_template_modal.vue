@@ -1,46 +1,44 @@
 <template lang="pug">
 .overlay(@click.self='closeModal')
-  .content
-    h1
-      | 日報テンプレート
-      .thread-comment-form__tabs.js-tabs
-        .thread-comment-form__tab.js-tabs__tab(
-          v-bind:class='{ "is-active": isActive("template") }',
-          @click='changeActiveTab("template")'
+  .a-card.is-modal
+    header.card-header.is-sm
+      h1.card-header__title
+        | 日報テンプレート
+    .a-form-tabs.js-tabs
+      .a-form-tabs__tab.js-tabs__tab(
+        v-bind:class='{ "is-active": isActive("template") }'
+        @click='changeActiveTab("template")'
+      )
+        | テンプレート
+      .a-form-tabs__tab.js-tabs__tab(
+        v-bind:class='{ "is-active": isActive("preview") }'
+        @click='changeActiveTab("preview")'
+      )
+        | プレビュー
+    .a-markdown-input.js-markdown-parent
+      .a-markdown-input__inner.js-tabs__content(
+        v-bind:class='{ "is-active": isActive("template") }'
+      )
+        textarea.a-text-input.a-markdown-input__textare(
+          :id='`js-template-content`'
+          :data-preview='`#js-template-preview`'
+          v-model='editingTemplate'
         )
-          | テンプレート
-        .thread-comment-form__tab.js-tabs__tab(
-          v-bind:class='{ "is-active": isActive("preview") }',
-          @click='changeActiveTab("preview")'
+      .a-markdown-input__inner.js-tabs__content(
+        v-bind:class='{ "is-active": isActive("preview") } '
+      )
+        .is-long-text.a-markdown-input__preview(
+          :id='`js-template-preview`'
         )
-          | プレビュー
-        .thread-comment-form__markdown-parent.js-markdown-parent
-          .thread-comment-form__markdown.js-tabs__content(
-            v-bind:class='{ "is-active": isActive("template") }'
-          )
-            textarea.a-text-input.thread-comment-form__textarea(
-              :id='`js-template-content`',
-              :data-preview='`#js-template-preview`',
-              v-model='editingTemplate'
-            )
-          .thread-comment-form__markdown.js-tabs__content(
-            v-bind:class='{ "is-active": isActive("preview") }'
-          )
-            .is-long-text.thread-comment-form__preview(
-              :id='`js-template-preview`'
-            )
-        div(v-if='!isTemplateRegisteredProp')
-          button.a-button(
-            :disabled='!validation',
-            @click.prevent='registerTemplate'
-          ) 登録
-        div(v-else)
-          button.a-button(
-            :disabled='!validation',
-            @click.prevent='updateTemplate'
-          ) 変更
-        div
-          button.a-button(@click.prevent='closeModal') キャンセル
+    footer.card-footer
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item(v-if='!isTemplateRegisteredProp')
+            button.a-button.is-primary.is-md.is-block(:disabled='!validation' @click.prevent='registerTemplate') 登録
+          li.card-main-actions__item(v-else)
+            button.a-button.is-primary.is-md.is-block(:disabled='!validation' @click.prevent='updateTemplate') 変更
+          li.card-main-actions__item.is-sub
+            .card-main-actions__delete(@click.prevent='closeModal') キャンセル
 </template>
 <script>
 import MarkdownInitializer from './markdown-initializer'

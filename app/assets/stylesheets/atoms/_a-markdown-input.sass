@@ -1,0 +1,19 @@
+.a-markdown-input
+  +padding(horizontal, 1rem)
+  +media-breakpoint-down(sm)
+    +padding(horizontal, .75rem)
+
+.a-markdown-input__inner
+  display: none
+  &.is-active
+    display: block
+
+.a-markdown-input__textare
+  min-height: 9rem
+  overflow: hidden
+
+.a-markdown-input__preview
+  background-color: $base
+  +text-block(.875rem 1.8)
+  border-radius: .25rem
+  min-height: 6rem
