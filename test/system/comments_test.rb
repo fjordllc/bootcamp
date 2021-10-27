@@ -28,7 +28,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'edit comment form has comment tab and preview tab' do
     visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
-    within('.thread-comment:first-child') do
+    within('.thread-comment:nth-child(2)') do
       click_button '編集'
       assert_text 'コメント'
       assert_text 'プレビュー'
@@ -98,7 +98,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'edit the comment for report' do
     visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
-    within('.thread-comment:first-child') do
+    within('.thread-comment:nth-child(2)') do
       click_button '編集'
       within(:css, '.thread-comment-form__form') do
         fill_in('comment[description]', with: 'edit test')
@@ -110,7 +110,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'destroy the comment for report' do
     visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
-    within('.thread-comment:first-child') do
+    within('.thread-comment:nth-child(2)') do
       accept_alert do
         click_button('削除')
       end
@@ -231,5 +231,19 @@ class CommentsTest < ApplicationSystemTestCase
     sleep 1 # NOTE: ここでsleepしないとテストが失敗する
     find('#js-new-comment').set('@')
     assert_selector 'span.mention', text: 'mentor'
+  end
+
+  test 'clicking "show old comments" will display old comments' do
+    visit_with_auth product_path(users(:hatsuno).products.first.id), 'komagata'
+
+    assert_no_text '提出物のコメント1です。'
+    assert_text '古いコメントを表示する'
+    assert_text '提出物のコメント13です。'
+
+    click_button '古いコメントを表示する'
+
+    assert_text '提出物のコメント1です。'
+    assert_no_text '古いコメントを表示する'
+    assert_text '提出物のコメント13です。'
   end
 end

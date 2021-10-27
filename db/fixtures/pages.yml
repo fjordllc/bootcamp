@@ -71,3 +71,10 @@ page10:
   slug: follow_the_report
   user: komagata
   published_at: "2021-07-01 00:00:00"
+
+page11:
+  title: プラクティスに紐付いたDocs
+  body: プラクティスに紐付いている
+  user: komagata
+  practice: practice1
+  published_at: "2021-10-01 00:00:00"

@@ -5,7 +5,10 @@ class API::CommentsController < API::BaseController
   before_action :set_available_emojis, only: %i[index create]
 
   def index
-    @comments = commentable.comments.order(created_at: :asc)
+    @comments = commentable.comments.order(created_at: :desc)
+    @comment_total_count = @comments.size
+    @comments = @comments.limit(params[:comment_limit])
+                         .offset(params[:comment_offset])
   end
 
   def create

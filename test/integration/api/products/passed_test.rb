@@ -16,6 +16,6 @@ class API::Products::PassedTest < ActionDispatch::IntegrationTest
     assert_response :ok
     assert_match '5日経過：1件', response.body
     assert_match '6日経過：2件', response.body
-    assert_match '7日以上経過：5件', response.body
+    assert_match '7日以上経過：4件', response.body
   end
 end

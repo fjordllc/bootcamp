@@ -81,7 +81,7 @@ GEM
       activerecord (>= 4.2)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
-    any_login (1.4.3)
+    any_login (1.4.4)
       rails (>= 4.2.7)
     ast (2.4.2)
     bcrypt (3.1.16)
@@ -356,7 +356,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.8.0)
       parser (>= 3.0.1.1)
-    rubocop-fjord (0.1.4)
+    rubocop-fjord (0.2.0)
       rubocop (>= 1.0)
       rubocop-performance
     rubocop-minitest (0.11.0)
@@ -529,7 +529,7 @@ DEPENDENCIES
   ransack
   rollbar
   rubocop
-  rubocop-fjord
+  rubocop-fjord (~> 0.2.0)
   rubocop-minitest
   rubocop-performance
   rubocop-rails
@@ -553,7 +553,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 2.6.8p205
+   ruby 2.7.4p191
 
 BUNDLED WITH
-   2.2.24
+   2.2.27
