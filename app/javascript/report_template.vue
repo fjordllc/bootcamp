@@ -1,21 +1,21 @@
 <template lang="pug">
-div
-  button.a-button.is-md.is-primary.is-block(
-    v-if='registeredTemplate !== ""',
-    @click.prevent='replaceReport'
-  ) テンプレート反映
-  div(v-if='registeredTemplate !== ""')
-    button.a-button.is-md.is-primary.is-block(@click.prevent='openModal') テンプレート変更
-  div(v-else)
-    button.a-button.is-md.is-primary.is-block(@click.prevent='openModal') テンプレート登録
-  modal(
-    v-on:closeModal='closeModal',
-    v-on:registerTemplate='registerTemplate',
-    v-if='showModal',
-    :editingTemplateProp='editingTemplate',
-    :isTemplateRegisteredProp='isTemplateRegistered',
-    :templateIdProp='templateIdProp'
-  )
+.form-item-actions
+  ul.form-item-actions__items
+    li.form-item-actions__item(v-if='registeredTemplate !== ""')
+      a.form-item-actions__text-link.is-danger(@click.prevent='replaceReport')
+        | テンプレートを反映する
+    li.form-item-actions__item(v-if='registeredTemplate !== ""')
+      button.a-button.is-sm.is-secondary.is-block(@click.prevent='openModal') テンプレート変更
+    li.form-item-actions__item(v-else)
+      button.a-button.is-sm.is-secondary.is-block(@click.prevent='openModal') テンプレート登録
+    modal(
+      v-on:closeModal='closeModal',
+      v-on:registerTemplate='registerTemplate',
+      v-if='showModal',
+      :editingTemplateProp='editingTemplate',
+      :isTemplateRegisteredProp='isTemplateRegistered',
+      :templateIdProp='templateIdProp'
+    )
 </template>
 <script>
 import Modal from './report_template_modal.vue'

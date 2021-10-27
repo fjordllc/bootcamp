@@ -1,0 +1,25 @@
+.a-form-tabs
+  display: flex
+  background-color: $background-shade
+  border-bottom: solid 1px $border-more-more-shade
+  margin-bottom: 1rem
+  padding: .5rem .75rem 0
+
+.a-form-tabs__tab
+  +size(6.5rem 2.5rem)
+  +text-block(.8125rem 1, flex $semi-muted-text 600)
+  align-items: center
+  justify-content: center
+  border-bottom: none
+  cursor: pointer
+  +border-radius(top, .25rem)
+  border: solid 1px transparent
+  +position(relative, bottom -1px)
+  transition: all .2s ease-out
+  &:hover
+    color: $default-text
+  &.is-active
+    background-color: $base
+    color: $main-text
+    border-color: $border-more-more-shade
+    border-bottom-color: $base

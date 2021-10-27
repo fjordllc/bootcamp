@@ -24,30 +24,30 @@
           :title='currentUser.icon_title'
         )
       .thread-comment-form__form.a-card
-        .thread-comment-form__tabs.js-tabs
-          .thread-comment-form__tab.js-tabs__tab(
+        .a-form-tabs.js-tabs
+          .a-form-tabs__tab.js-tabs__tab(
             :class='{ "is-active": isActive("answer") }',
             @click='changeActiveTab("answer")'
           )
             | コメント
-          .thread-comment-form__tab.js-tabs__tab(
+          .a-form-tabs__tab.js-tabs__tab(
             :class='{ "is-active": isActive("preview") }',
             @click='changeActiveTab("preview")'
           )
             | プレビュー
-        .thread-comment-form__markdown-parent.js-markdown-parent
-          .thread-comment-form__markdown.js-tabs__content(
+        .a-markdown-input.js-markdown-parent
+          .a-markdown-input__inner.js-tabs__content(
             :class='{ "is-active": isActive("answer") }'
           )
-            textarea#js-new-comment.a-text-input.js-warning-form.thread-comment-form__textarea(
+            textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
               v-model='description',
               name='answer[description]',
               data-preview='#new-comment-preview'
             )
-          .thread-comment-form__markdown.js-tabs__content(
+          .a-markdown-input__inner.js-tabs__content(
             :class='{ "is-active": isActive("preview") }'
           )
-            #new-comment-preview.is-long-text.thread-comment-form__preview
+            #new-comment-preview.is-long-text.a-markdown-input__preview
         .card-footer
           .card-main-actions
             .card-main-actions__items
