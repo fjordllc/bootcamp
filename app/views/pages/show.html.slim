@@ -78,6 +78,8 @@ header.page-header
               .thread-header-actions__start
                 .thread-header-actions__action
                   #js-watch-toggle(data-watchable-id="#{@page.id}", data-watchable-type='Page')
+                .thread-header-actions__action
+                  #js-bookmark(data-bookmarkable-id="#{@page.id}", data-bookmarkable-type='Page')
         - if @page.practice.present?
           .thread-category
             = link_to @page.practice, class: 'thread-category__link' do
