@@ -1,17 +1,18 @@
-- title '参考書籍'
+- title '参考書籍一覧'
 
 header.page-header
   .container
     .page-header__inner
       h2.page-header__title
         = title
-      ul.page-header-actions__items
-        li.page-header-actions__item
-            = link_to new_book_path, class: 'a-button is-md is-secondary is-block' do
-              i.fas.fa-plus
-              | 書籍の作成
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+              = link_to new_book_path, class: 'a-button is-md is-secondary is-block' do
+                i.fas.fa-plus
+                | 参考書籍登録
 
 .page-body
   .container
-    .row.is-gutter-width-32
+    .row.is-gutter-width-24
       = render partial: 'books/book', collection: @books, as: :book
