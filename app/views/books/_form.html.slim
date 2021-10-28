@@ -30,12 +30,13 @@
     .form-item
       = f.label :description, class: 'a-form-label'
       = f.text_area :description, class: 'a-text-input', placeholder: '著者はあのXXXさん！！とても参考になる本です！'
-  .form-actions
-    ul.form-actions__items
-      li.form-actions__item.is-main
-        = f.submit '内容を保存', class: 'a-button is-lg is-warning is-block'
-      li.form-actions__item.is-sub
-        = link_to 'キャンセル', :back, class: 'a-button is-md is-secondary is-block'
-    .form-actions__delete
-      = link_to book_path(book), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'form-actions__delete-link' do
-        | 削除
+  - elsif controller.action_name == "edit"
+    .form-actions
+      ul.form-actions__items
+        li.form-actions__item.is-main
+          = f.submit '内容を保存', class: 'a-button is-lg is-warning is-block'
+        li.form-actions__item.is-sub
+          = link_to 'キャンセル', :back, class: 'a-button is-md is-secondary is-block'
+      .form-actions__delete
+        = link_to book_path(book), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'form-actions__delete-link' do
+          | 削除
