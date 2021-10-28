@@ -1,40 +1,41 @@
 = form_with model: book, local: true, class: 'form', html: { name: 'book' } do |f|
   = render 'errors', object: book
-  .form-item
-    .reference-books-form
-      .reference-books-form__items
-        .reference-books-form-item
-          = f.label :title, class: 'a-form-label'
-          = f.text_field :title, class: 'a-text-input'
-        .reference-books-form-item
-          = f.label :price, class: 'a-form-label'
-          .reference-books-form-item__price-container
-            = f.text_field :price, class: 'a-text-input', placeholder: '2728'
-            .reference-books-form-item__price-unit
-              | 円
-          .a-form-help
-            p
-              | 税込み表示、カンマは不要です。
-        .reference-books-form-item
-          = f.label :page_url, class: 'a-form-label'
-          = f.text_field :page_url, class: 'a-text-input', placeholder: 'https://www.amazon.co.jp/dp/4297101238'
-        .reference-books-form-item
-          = f.label :cover, class: 'a-form-label'
-          .form-item-file-input.js-file-input.a-file-input.is-book
-            label.js-file-input__preview
-              - if f.object.cover.attached?
-                p 画像を変更
-                = f.file_field :cover
-                = image_tag f.object.cover
-              - else
-                p 画像を選択
-                = f.file_field :cover
-        .reference-books-form-item
-          = f.label :description, class: 'a-form-label'
-          = f.text_area :description, class: 'a-text-input', placeholder: '著者はあのXXXさん！！とても参考になる本です！'
+  .form__items
+    .form-item
+      = f.label :title, class: 'a-form-label'
+      = f.text_field :title, class: 'a-text-input'
+    .form-item
+      = f.label :price, class: 'a-form-label'
+      .form-item__price-container
+        = f.text_field :price, class: 'a-text-input', placeholder: '2728'
+        .form-item__price-unit
+          | 円
+      .a-form-help
+        p
+          | 税込み表示、カンマは不要です。
+    .form-item
+      = f.label :page_url, class: 'a-form-label'
+      = f.text_field :page_url, class: 'a-text-input', placeholder: 'https://www.amazon.co.jp/dp/4297101238'
+    .form-item
+      = f.label :cover, class: 'a-form-label'
+      .form-item-file-input.js-file-input.a-file-input.is-book
+        label.js-file-input__preview
+          - if f.object.cover.attached?
+            p 画像を変更
+            = f.file_field :cover
+            = image_tag f.object.cover
+          - else
+            p 画像を選択
+            = f.file_field :cover
+    .form-item
+      = f.label :description, class: 'a-form-label'
+      = f.text_area :description, class: 'a-text-input', placeholder: '著者はあのXXXさん！！とても参考になる本です！'
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
         = f.submit '内容を保存', class: 'a-button is-lg is-warning is-block'
       li.form-actions__item.is-sub
         = link_to 'キャンセル', :back, class: 'a-button is-md is-secondary is-block'
+    .form-actions__delete
+      = link_to book_path(book), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'form-actions__delete-link' do
+        | 削除
