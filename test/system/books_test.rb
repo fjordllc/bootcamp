@@ -30,9 +30,9 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test 'destroy book' do
-    visit_with_auth '/books', 'komagata'
+    visit_with_auth "/books/#{books(:book1).id}/edit", 'komagata'
     accept_confirm do
-      click_link '削除', match: :first
+      click_link '削除'
     end
     assert_text '参考書籍を削除しました'
   end

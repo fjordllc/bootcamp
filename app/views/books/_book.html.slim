@@ -23,6 +23,3 @@
               li.card-main-actions__item
                 = link_to edit_book_path(book), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
                   | 編集
-              li.card-main-actions__item.is-sub
-                = link_to book_path(book), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
-                  | 削除
