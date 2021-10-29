@@ -22,12 +22,14 @@
         textarea.a-text-input.a-markdown-input__textare(
           :id='`js-template-content`',
           :data-preview='`#js-template-preview`',
-          v-model='editingTemplate'
+          v-model='editingTemplate',
+          name='report_template[description]'
         )
       .a-markdown-input__inner.js-tabs__content(
         v-bind:class='{ "is-active": isActive("preview") }'
+        v-html='markdownDescription'
       )
-        .is-long-text.a-markdown-input__preview(:id='`js-template-preview`')
+        #js-template-preview.is-long-text.a-markdown-input__preview
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
@@ -71,7 +73,7 @@ export default {
     }
   },
   mounted() {
-    TextareaInitializer.initialize(`#js-template-content`)
+    TextareaInitializer.initialize('#js-template-content')
     this.editingTemplate = this.editingTemplateProp
   },
   methods: {

@@ -20,6 +20,7 @@
 <script>
 import Modal from './report_template_modal.vue'
 import toast from './toast'
+import TextareaInitializer from './textarea-initializer'
 
 export default {
   components: {
@@ -40,7 +41,10 @@ export default {
   },
   mounted() {
     const report = document.querySelector('#report_description')
-    if (report.value === '') report.value = this.registeredTemplateProp
+    if (report.value === '') {
+      report.value = this.registeredTemplateProp
+      TextareaInitializer.initialize('.js-markdown')
+    }
     this.registeredTemplate = this.registeredTemplateProp
     this.editingTemplate = this.registeredTemplateProp
     if (this.registeredTemplate !== '') this.isTemplateRegistered = true
