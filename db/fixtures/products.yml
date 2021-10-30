@@ -1,4 +1,5 @@
 <% now = Time.current %>
+<% today = Time.zone.today %>
 product1:
   practice: practice1
   user: yamada
