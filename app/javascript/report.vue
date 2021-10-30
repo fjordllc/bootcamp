@@ -63,8 +63,8 @@
       time.stamp__content.is-created-at {{ report.checkDate }}
       .stamp__content.is-user-name {{ report.checkUserName }}
     .thread-list-item__author
-      a.thread-header__author-link(:href='report.user.url')
-        img.thread-list-item__author-icon.a-user-icon(
+      a.thread-header__author(:href='report.user.url')
+        img.thread-list-item__user-icon.a-user-icon(
           :src='report.user.avatar_url',
           :title='report.user.login_name',
           :alt='report.user.login_name',

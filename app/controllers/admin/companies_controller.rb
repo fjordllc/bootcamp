@@ -47,7 +47,8 @@ class Admin::CompaniesController < AdminController
       :name,
       :description,
       :website,
-      :logo
+      :logo,
+      :blog_url
     )
   end
 end

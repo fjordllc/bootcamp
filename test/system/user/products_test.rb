@@ -3,8 +3,6 @@
 require 'application_system_test_case'
 
 class User::ProductsTest < ApplicationSystemTestCase
-  PAGINATES_PER = 50
-
   test 'show listing products' do
     visit_with_auth "/users/#{users(:hatsuno).id}/products", 'komagata'
     assert_equal 'hatsunoの提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title

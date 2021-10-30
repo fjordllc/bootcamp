@@ -4,3 +4,7 @@ nav.company-links
       li.company-links__item
         = link_to company.website, target: '_blank', rel: 'noopener', class: 'a-button is-xs is-secondary is-block' do
           | 企業ページ
+    - if company.blog_url?
+      li.company-links__item
+        = link_to company.blog_url, target: '_blank', rel: 'noopener', class: 'a-button is-xs is-secondary is-block' do
+          | Techブログ

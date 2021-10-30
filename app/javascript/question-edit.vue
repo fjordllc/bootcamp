@@ -1,6 +1,6 @@
 <template lang="pug">
 .thread
-  userIcon(:user='question.user', threadClassSuffix='')
+  userIcon(:user='question.user', blockClassSuffix='thread')
   .thread__inner.a-card
     .thread-header.has-count
       a.a-count-badge(href='#comments')
