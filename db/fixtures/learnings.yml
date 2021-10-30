@@ -1,3 +1,4 @@
+<% today = Time.zone.today %>
 learning1:
   user: komagata
   practice: practice1
@@ -80,3 +81,12 @@ learning15:
   user: hajime
   practice: practice48
   status: "complete"
+
+<% (0..4).each do |i| %>
+learning<%= i + 16 %>:
+  user: <%= [:akiyosi, :fujiyasu, :jobseeker, :muryou, :nippounashi][i] %>
+  practice: practice1
+  status: "complete"
+  created_at: <%= (today - 2.weeks + 2.day + 12.hours - i.day).to_s(:db) %>
+  updated_at: <%= (today - 2.weeks + 2.day + 12.hours - i.day).to_s(:db) %>
+<% end %>
