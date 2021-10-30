@@ -2,9 +2,7 @@
 
 require 'application_system_test_case'
 
-class ProductsTest < ApplicationSystemTestCase
-  PAGINATES_PER = 50
-
+class Product::UncheckedTest < ApplicationSystemTestCase
   test 'non-staff user can not see listing unchecked products' do
     visit_with_auth '/products/unchecked', 'hatsuno'
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'
@@ -39,7 +37,7 @@ class ProductsTest < ApplicationSystemTestCase
     # id順で並べたときの最初と最後の提出物を、提出日順で見たときに最新と最古になるように入れ替える
     Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
     # 最古の提出物を画面上で判定するため、提出物を1ページ内に収める
-    Product.unchecked.not_wip.limit(Product.count - PAGINATES_PER).delete_all
+    Product.unchecked.not_wip.limit(Product.count - Product.default_per_page).delete_all
     newest_product = Product.unchecked.not_wip.reorder(:id).first
     newest_product.update(published_at: Time.current)
     oldest_product = Product.unchecked.not_wip.reorder(:id).last
