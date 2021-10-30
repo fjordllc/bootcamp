@@ -123,12 +123,9 @@ header.page-header
                 = link_to @report.next, class: 'thread-prev-next__item-link is-next' do
                   | 次の日報
                   i.fas.fa-angle-right
-          = render 'users/icon', user: @report.user, link_class: 'thread__author-link', image_class: 'thread__author-icon'
-
+          = render 'users/icon', user: @report.user, link_class: 'thread__user-link', image_class: 'thread__user-icon'
         #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
-
         = render 'footprints/footprints', footprints: @footprints
-
       .is-only-mentor(class="#{admin_or_mentor_login? ? 'col-md-5 col-xs-12 is-hidden-sm-down' : ''}")
         - if admin_or_mentor_login?
           #js-user-mentor-memo(data-user-id='#{@report.user_id}')

@@ -142,7 +142,7 @@ header.page-header
               = link_to @product.practice, class: 'thread-prev-next__item-link is-index' do
                 | プラクティスに戻る
 
-          = render 'users/icon', user: @product.user, link_class: 'thread__author-link', image_class: 'thread__author-icon'
+          = render 'users/icon', user: @product.user, link_class: 'thread__user-link', image_class: 'thread__user-icon'
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
         = render 'footprints/footprints', footprints: @footprints
 

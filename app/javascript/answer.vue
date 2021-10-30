@@ -1,8 +1,8 @@
 <template lang="pug">
 .thread-comment
   .thread-comment__author
-    a.thread-comment__author-link(:href='answer.user.url', itemprop='url')
-      img.thread-comment__author-icon.a-user-icon(
+    a.thread-comment__user-link(:href='answer.user.url', itemprop='url')
+      img.thread-comment__user-icon.a-user-icon(
         :src='answer.user.avatar_url',
         :title='answer.user.icon_title',
         :class='[roleClass, daimyoClass]'

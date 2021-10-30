@@ -1,8 +1,8 @@
 <template lang="pug">
 .thread-comment
   .thread-comment__author
-    .thread-comment__author-icon.a-user-icon.a-placeholder
-  .thread-comment__body.a-card.is-loading
+    .thread-comment__user-icon.a-user-icon.a-placeholder
+  .thread-comment__body.a-card
     .thread-comment__body-header
       .thread-comment__title
         .thread-comment__title-link.a-placeholder

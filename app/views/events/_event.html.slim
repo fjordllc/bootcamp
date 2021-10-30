@@ -11,6 +11,13 @@
               .a-meta
                 time.a-meta__value(datetime="#{event.created_at.to_datetime}" pubdate='pubdate')
                   = l event.updated_at
+            .thread-header-metas__meta
+              - length = event.comments.length
+              a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
+                | コメント（
+                span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                  = length
+                | ）
 
       .thread-header__row
         h1.thread-header-title
@@ -69,8 +76,8 @@
 
   = render 'users/icon',
     user: event.user,
-    link_class: 'thread__author-link',
-    image_class: 'thread__author-icon'
+    link_class: 'thread__user-link',
+    image_class: 'thread__user-icon'
 
 - unless event.wip?
   .thread.participants
