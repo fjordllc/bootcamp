@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 2021_10_23_050713) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "tos"
+    t.string "blog_url"
   end
 
   create_table "courses", force: :cascade do |t|
