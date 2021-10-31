@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class ReportTemplateTest < ApplicationSystemTestCase
+class ReportTemplatesTest < ApplicationSystemTestCase
   test 'register template' do
     visit_with_auth '/reports/new', 'yamada'
     click_button 'テンプレート登録'
