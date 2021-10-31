@@ -64,6 +64,7 @@ export default {
         confirm('日報が上書きされますが、よろしいですか？')
       ) {
         report.value = this.registeredTemplate
+        TextareaInitializer.initialize('.js-markdown')
       }
     },
     registerTemplate(template) {
