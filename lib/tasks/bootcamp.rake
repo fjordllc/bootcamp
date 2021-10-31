@@ -25,6 +25,14 @@ namespace :bootcamp do
     Rake::Task['db:reset'].execute if ENV['DB_NAME'] == 'bootcamp_staging'
   end
 
+  desc 'Reset Stripe test DB.'
+  task reset_stripe: :environment do
+    customer = Stripe::Customer.create(email: 'hatsuno@fjord.jp')
+    Subscription.new.create(
+      customer.id
+    )
+  end
+
   namespace :oneshot do
     desc 'Cloud Build Task'
     task cloudbuild: :environment do
