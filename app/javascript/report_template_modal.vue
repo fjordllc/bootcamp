@@ -26,7 +26,7 @@
           name='report_template[description]'
         )
       .a-markdown-input__inner.js-tabs__content(
-        v-bind:class='{ "is-active": isActive("preview") }'
+        v-bind:class='{ "is-active": isActive("preview") }',
         v-html='markdownDescription'
       )
         #js-template-preview.is-long-text.a-markdown-input__preview
