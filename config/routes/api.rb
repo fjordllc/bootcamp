@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resource :position, only: %i(update), controller: "courses_categories/position"
     end
     resources :notifications, only: %i(index)
+    resources :subscriptions, only: %i(index)
     resources :comments, only: %i(index create update destroy)
     resources :answers, only: %i(index create update destroy) do
       resource :correct_answer, only: %i(create update)
