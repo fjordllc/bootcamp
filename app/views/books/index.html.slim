@@ -7,10 +7,11 @@ header.page-header
         = title
       .page-header-actions
         ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to new_book_path, class: 'a-button is-md is-secondary is-block' do
-              i.fas.fa-plus
-              | 参考書籍登録
+          - if current_user.admin_or_mentor?
+            li.page-header-actions__item
+              = link_to new_book_path, class: 'a-button is-md is-secondary is-block' do
+                i.fas.fa-plus
+                | 参考書籍登録
 
 .page-body
   .container
