@@ -47,10 +47,7 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.reports = []
-          json.reports.forEach((r) => {
-            this.reports.push(r)
-          })
+          this.reports = json.reports
           this.currentUserId = json.currentUserId
         })
         .catch((error) => {
