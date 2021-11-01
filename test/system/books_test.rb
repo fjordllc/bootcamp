@@ -53,10 +53,6 @@ class BooksTest < ApplicationSystemTestCase
 
   test "can't create book" do
     visit_with_auth new_book_url, 'kimura'
-
-    assert_no_text '参考書籍 作成'
-
-    visit new_book_path
     assert_text '管理者・メンターとしてログインしてください'
   end
 
