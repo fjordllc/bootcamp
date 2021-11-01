@@ -9,8 +9,8 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-              = link_to books_path, class: 'a-button is-md is-secondary is-block is-back' do
-                | 参考書籍一覧
+            = link_to books_path, class: 'a-button is-md is-secondary is-block is-back' do
+              | 参考書籍一覧
 .page-body
   .container.is-xxxl
     = render 'form', book: @book
