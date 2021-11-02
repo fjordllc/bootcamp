@@ -17,6 +17,10 @@
             a.thread-list-item-title__link(:href='announcement.url')
               | {{ announcement.title }}
       .thread-list-item__row
+        .thread-list-item-name
+          a.a-user-name(:href='announcement.user.url')
+            | {{ announcement.user.long_name }}
+      .thread-list-item__row
         .thread-list-item-meta__items
           .thread-list-item-meta__item
             .thread-list-item-meta(v-if='announcement.wip')
