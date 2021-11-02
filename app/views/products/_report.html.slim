@@ -4,14 +4,15 @@
       = render 'users/icon', user: report.user, link_class: 'a-user-name', image_class: 'thread-list-item__user-icon'
     .thread-list-item__rows
       .thread-list-item__row
-        .thread-list-item-title__start
-          - if report.wip?
-            .thread-list-item-title__icon.is-wip WIP
-          h2.thread-list-item-title__title(itemprop="name")
-            = link_to report, itemprop: 'url', class: 'thread-list-item-title__link js-unconfirmed-link' do
-              - if report.user.daimyo?
-                | ★
-              = report.title
+        .thread-list-item-title
+          .thread-list-item-title__start
+            - if report.wip?
+              .thread-list-item-title__icon.is-wip WIP
+            h2.thread-list-item-title__title(itemprop="name")
+              = link_to report, itemprop: 'url', class: 'thread-list-item-title__link js-unconfirmed-link' do
+                - if report.user.daimyo?
+                  | ★
+                = report.title
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items

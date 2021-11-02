@@ -26,20 +26,19 @@
   +size(3.5rem)
 
 .thread-comment__title
-  +text-block(1rem 1.4)
-  margin-right: .5rem
   width: 100%
+  +text-block(.875rem 1.4, 600)
+  +media-breakpoint-up(md)
+    margin-right: .5rem
   +media-breakpoint-down(sm)
-    +text-block(.875rem 1.4 0 .25rem)
-    margin-right: 0
+    margin-bottom: .25ren
 
 .thread-comment__title-link
   color: $main-text
   height: 100%
   display: flex
   align-items: center
-  .thread-comment__title.is-user-comments &
-    +hover-link
+  +hover-link-reversal
   &.a-placeholder
     width: 15%
     height: 1.4em
@@ -102,7 +101,6 @@
       min-height: 0
     .thread-comment__created-at
       align-self: flex-end
-
 
 .thread-comment__user-icon
   +size(2.75rem auto)
