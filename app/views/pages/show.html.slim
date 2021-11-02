@@ -11,7 +11,7 @@ header.page-header
               i.fas.fa-plus
               | Doc作成
           li.page-header-actions__item
-            = link_to :pages, class: 'a-button is-md is-secondary is-block' do
+            = link_to :pages, class: 'a-button is-md is-secondary is-block is-back' do
               | Docs
 
 .page-body
@@ -24,9 +24,13 @@ header.page-header
               .thread-header-metas__start
                 - if @page.wip?
                   .thread-header-metas__meta
+                    .thread-header__wip
+                      | WIP
+                  .thread-header-metas__meta
                     .a-meta
                       span.a-meta__label
-                        | Doc作成中 by
+                        | Doc作成中
+                      span.a-meta__value
                         = render 'users/icon',
                           user: @page.user,
                           link_class: 'thread-header__user-icon-link',
@@ -68,9 +72,6 @@ header.page-header
                       = @page.slug
           .thread-header__row
             h1.thread-header-title(class="#{@page.wip? ? 'is-wip' : ''}")
-              - if @page.wip?
-                span.thread-header-title__label
-                  | WIP
               span.thread-header-title__title
                 | #{@page.title}
           .thread-header__row
