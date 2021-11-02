@@ -127,7 +127,6 @@ class PracticesTest < ApplicationSystemTestCase
     practice = practices(:practice1)
     visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
     within '#reference_books' do
-      click_link '書籍を選択'
       find('.js-select2').find("option[value='#{books(:book2).id}']").select_option
       find('.reference-books-form-item__must-read').click
     end
