@@ -23,7 +23,7 @@ class GraduationController < ApplicationController
   def notify_to_chat(user)
     ChatNotifier.message(
       "「#{user.login_name}さんが卒業になりました」",
-      webhook_url: ENV['DISCORD_NOTICE_WEBHOOK_URL']
+      webhook_url: ENV['DISCORD_GRADUATION_NOTICE_WEBHOOK_URL']
     )
   end
 end
