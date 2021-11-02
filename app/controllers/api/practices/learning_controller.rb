@@ -29,7 +29,7 @@ class API::Practices::LearningController < API::BaseController
     status = learning.new_record? ? :created : :ok
 
     if learning.save
-      notify_to_chat_for_employment_counseling(learning) if status == :created && learning.practice_id == 163
+      notify_to_chat_for_employment_counseling(learning) if status == :created && learning.practice.title == '就職相談部屋を作る'
       head status
     else
       render json: learning.errors, status: :unprocessable_entity
