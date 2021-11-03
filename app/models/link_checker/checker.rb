@@ -31,7 +31,7 @@ module LinkChecker
       locks = Queue.new
       5.times { locks.push :lock }
       all_links.reject! do |link|
-        url = URI.encode(link.url) # rubocop:disable Lint/UriEscapeUnescape
+        url = URI.encode_www_form_component(link.url)
         uri = URI.parse(url)
 
         !uri || DENY_LIST.include?(uri.host)
