@@ -163,7 +163,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     within('#new_report') do
       fill_in('report[title]', with: 'test title 1')
       fill_in('report[description]', with: 'test 1')
-      fill_in('report[reported_on]', with: '2021-09-01')
+      fill_in('report[reported_on]', with: Date.current.prev_day)
       find('#sad').click
     end
     all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
@@ -176,7 +176,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     within('#new_report') do
       fill_in('report[title]', with: 'test title 2')
       fill_in('report[description]', with: 'test 2')
-      fill_in('report[reported_on]', with: '2021-09-03')
+      fill_in('report[reported_on]', with: Date.current)
       find('#sad').click
     end
     all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
