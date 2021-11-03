@@ -542,4 +542,15 @@ class ReportsTest < ApplicationSystemTestCase
       assert_text '2'
     end
   end
+
+  test 'cannot post a new report with future date' do
+    visit_with_auth '/reports/new', 'komagata'
+    within('#new_report') do
+      fill_in('report[title]', with: '未来日では日報を作成できない')
+      fill_in('report[description]', with: 'エラーになる')
+      fill_in('report[reported_on]', with: Time.current.next_day)
+    end
+    click_button '提出'
+    assert_text '未来の日付では日報を保存できません。'
+  end
 end
