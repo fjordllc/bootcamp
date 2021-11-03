@@ -5,6 +5,7 @@ class AnnouncementCallbacks
     return if announce.wip?
 
     after_first_publish(announce)
+    create_author_watch(announce)
   end
 
   def after_update(announce)
@@ -44,5 +45,9 @@ class AnnouncementCallbacks
 
   def delete_notification(announce)
     Notification.where(path: "/announcements/#{announce.id}").destroy_all
+  end
+
+  def create_author_watch(announce)
+    Watch.create!(user: announce.user, watchable: announce)
   end
 end
