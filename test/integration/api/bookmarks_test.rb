@@ -70,4 +70,17 @@ class API::BookmarksTest < ActionDispatch::IntegrationTest
          headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :created
   end
+
+  test 'POST page' do
+    page = pages(:page2)
+    token = create_token('kimura', 'testtest')
+    post api_bookmarks_path(format: :json),
+         params: {
+           user: 'kimura',
+           bookmarkable_id: page.id,
+           bookmarkable_type: 'Page'
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :created
+  end
 end
