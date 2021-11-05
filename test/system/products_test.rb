@@ -429,7 +429,7 @@ class ProductsTest < ApplicationSystemTestCase
   test 'can access unassigned products page after click unassigned-tab' do
     visit_with_auth products_path, 'komagata'
     find('.page-tabs__item-link', text: '未アサイン').click
-    assert find('h2.page-header__title', text: '未アサインの提出物')
+    assert find('h2.page-header__title', text: '提出物')
   end
 
   test 'show unassigned products counter and can change counter after click assignee-button on unassigned-tab' do
