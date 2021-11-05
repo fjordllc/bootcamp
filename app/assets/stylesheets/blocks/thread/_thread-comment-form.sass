@@ -17,56 +17,7 @@
 
 .thread-comment-form__form
   +position(relative)
-  // +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
   +media-breakpoint-down(sm)
     &::before,
     &::after
       content: none
-
-.thread-comment-form__tabs
-  display: flex
-  background-color: $background-shade
-  border-bottom: solid 1px $border-more-more-shade
-  margin-bottom: 1rem
-  padding: .5rem .75rem 0
-  +media-breakpoint-down(sm)
-    +padding(horizontal, .75rem)
-
-.thread-comment-form__tab
-  +size(6.5rem 2.5rem)
-  +text-block(.8125rem 1, flex $semi-muted-text 600)
-  align-items: center
-  justify-content: center
-  border-bottom: none
-  cursor: pointer
-  +border-radius(top, .25rem)
-  border: solid 1px transparent
-  +position(relative, bottom -1px)
-  transition: all .2s ease-out
-  &:hover
-    color: $default-text
-  &.is-active
-    background-color: $base
-    color: $main-text
-    border-color: $border-more-more-shade
-    border-bottom-color: $base
-
-.thread-comment-form__markdown-parent
-  +padding(horizontal, 1rem)
-  +media-breakpoint-down(sm)
-    +padding(horizontal, .75rem)
-
-.thread-comment-form__markdown
-  display: none
-  &.is-active
-    display: block
-
-.thread-comment-form__textarea
-  min-height: 9rem
-  overflow: hidden
-
-.thread-comment-form__preview
-  background-color: $base
-  +text-block(.875rem 1.8)
-  border-radius: .25rem
-  min-height: 6rem

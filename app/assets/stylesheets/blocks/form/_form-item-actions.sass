@@ -1,0 +1,25 @@
+.form-item-actions
+  +media-breakpoint-up(md)
+    margin-top: -.75rem
+  +media-breakpoint-down(sm)
+    margin-top: -.5rem
+
+.form-item-actions__items
+  display: flex
+  align-items: center
+  +margin(horizontal, -.375rem)
+
+.form-item-actions__item
+  +padding(horizontal, .375rem)
+
+.form-item-actions__text-link
+  +hover-link-reversal
+  cursor: pointer
+  line-height: 1.4
+  +media-breakpoint-up(md)
+    font-size: .8125rem
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+  &.is-danger
+    color: $danger
+    font-weight: 600
