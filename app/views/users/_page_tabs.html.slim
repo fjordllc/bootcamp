@@ -16,7 +16,7 @@
           | コメント
       li.page-tabs__item
         = link_to user_products_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('products')}" do
-          | 提出物
+          | 提出物 （#{user.products.length}）
       li.page-tabs__item
         = link_to user_questions_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('questions')}" do
           | 質問 （#{user.questions.length}）
