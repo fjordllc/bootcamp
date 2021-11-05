@@ -41,7 +41,7 @@ class API::Practices::LearningController < API::BaseController
   def notify_to_chat_for_employment_counseling(learning)
     ChatNotifier.message(
       "お知らせ：#{learning.user.name}がプラクティス「#{learning.practice.title}」に進みました。",
-      webhook_url: ENV['DISCORD_EMPLOYMENT_COUNSELING_WEBHOOK_URL']
+      webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL']
     )
   end
 end
