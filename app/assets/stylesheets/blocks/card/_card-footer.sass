@@ -4,12 +4,12 @@
     padding: .75rem 1.25rem
   +media-breakpoint-down(sm)
     padding: .75rem
-  .card-body + &
+  .card-body + &,
+  .card-header + &,
+  .a-markdown-input + &
     border-top: none
   &:last-child
     +border-radius(bottom, .25rem)
-  .card-header + &
-    border-top: none
 
 .card-footer__description
   +text-block(.75rem 1.4 .5rem, center $muted-text)
