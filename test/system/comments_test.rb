@@ -237,13 +237,14 @@ class CommentsTest < ApplicationSystemTestCase
     visit_with_auth product_path(users(:hatsuno).products.first.id), 'komagata'
 
     assert_no_text '提出物のコメント1です。'
-    assert_text '古いコメントを表示する'
+    old_comments = find('#js-shortcut-post-comment.a-button.is-lg.is-text.is-block').text
+    assert_text old_comments
     assert_text '提出物のコメント13です。'
 
-    click_button '古いコメントを表示する'
+    click_button old_comments
 
     assert_text '提出物のコメント1です。'
-    assert_no_text '古いコメントを表示する'
+    assert_no_text old_comments
     assert_text '提出物のコメント13です。'
   end
 end
