@@ -550,10 +550,6 @@ class User < ApplicationRecord
     end
   end
 
-  def completed_all_practices?(category)
-    category.practices.size == completed_practices_size(category)
-  end
-
   def practices
     course.practices.order('categories.position', 'practices.position')
   end
