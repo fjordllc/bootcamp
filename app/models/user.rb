@@ -355,7 +355,7 @@ class User < ApplicationRecord
 
   def completed_practices_hash
     Practice
-      .select("count(DISTINCT practices.id) as completed_count, categories_practices.category_id")
+      .select('count(DISTINCT practices.id) as completed_count, categories_practices.category_id')
       .joins({ categories: :categories_practices }, :learnings)
       .where(
         learnings: {
@@ -363,7 +363,7 @@ class User < ApplicationRecord
           status: 'complete'
         }
       )
-      .group("categories_practices.category_id")
+      .group('categories_practices.category_id')
       .each_with_object({}) do |practice, hash|
         hash[practice.category_id] = practice.completed_count
       end
