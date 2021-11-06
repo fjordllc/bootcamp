@@ -353,22 +353,20 @@ class User < ApplicationRecord
     "#{completed_practices_include_progress.size}/#{practices_include_progress.size}"
   end
 
-  def completed_practices_size(category)
+  def completed_practices_hash
     Practice
+      .select("count(DISTINCT practices.id) as completed_count, categories_practices.category_id")
       .joins({ categories: :categories_practices }, :learnings)
-      .distinct(:id)
       .where(
-        categories_practices: { category_id: category.id },
         learnings: {
           user_id: id,
           status: 'complete'
         }
       )
-      .size
-  end
-
-  def completed_percentage_by(category)
-    completed_practices_size(category).to_f / category.practices.size * 100
+      .group("categories_practices.category_id")
+      .each_with_object({}) do |practice, hash|
+        hash[practice.category_id] = practice.completed_count
+      end
   end
 
   def active?
