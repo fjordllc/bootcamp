@@ -365,16 +365,10 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, kimura.followees_list(watch: 'false').count
   end
 
-  test '#completed_practices_size' do
+  test '#completed_practices_hash' do
     kimura = users(:kimura)
     category2 = categories(:category2)
-    assert_equal 1, kimura.completed_practices_size(category2)
-  end
-
-  test '#completed_all_practices?' do
-    hajime = users(:hajime)
-    category11 = categories(:category11)
-    assert hajime.completed_all_practices?(category11)
+    assert_equal 1, kimura.completed_practices_hash[category2.id]
   end
 
   test "don't unfollow user when other user unfollow user" do
