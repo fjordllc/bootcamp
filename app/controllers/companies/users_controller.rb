@@ -5,7 +5,7 @@ class Companies::UsersController < ApplicationController
 
   def index
     @target = params[:target]
-    @target = 'trainee' unless target_allowlist.include?(@target)
+    @target = 'student_and_trainee' unless target_allowlist.include?(@target)
     @company = Company.find(params[:company_id])
 
     target_users =
@@ -21,6 +21,6 @@ class Companies::UsersController < ApplicationController
   private
 
   def target_allowlist
-    %w[trainee all]
+    %w[student_and_trainee all]
   end
 end
