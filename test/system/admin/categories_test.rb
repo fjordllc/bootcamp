@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Admin::CategoriesTest < ApplicationSystemTestCase
   test 'show listing categories' do
     visit_with_auth '/admin/categories', 'komagata'
-    assert_equal 'カテゴリー | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '管理ページ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'create category' do
