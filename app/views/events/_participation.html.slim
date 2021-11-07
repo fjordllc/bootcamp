@@ -1,4 +1,4 @@
-- if event.opening?
+- if event.opening? || event.closing?
   - if current_user.participating?(event)
     .event-main-actions.is-participationed
       .event-main-actions__description
@@ -8,7 +8,7 @@
         li.event-main-actions__item
           = link_to event_participation_path(event_id: event), method: :delete, data: { confirm: 'イベントの参加をキャンセルします。よろしいですか?' }, class: 'event-main-actions__item-cancel' do
             | 参加を取り消す
-  - else
+  - elsif event.opening?
     .event-main-actions.is-unparticipationed(class="#{event.capacity > event.participants.count ? 'is-available' : 'is-capacity-over'}")
       .event-main-actions__description
         - if event.capacity > event.participants.count
