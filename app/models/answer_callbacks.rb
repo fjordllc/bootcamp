@@ -2,8 +2,7 @@
 
 class AnswerCallbacks
   def after_create(answer)
-    notify_answer(answer) if answer.sender != answer.receiver
-
+    notify_answer(answer)
     create_watch(answer)
     notify_to_watching_user(answer)
   end
@@ -21,6 +20,15 @@ class AnswerCallbacks
   private
 
   def notify_answer(answer)
+    question = answer.question
+    questioner = question.user_id
+    watcher_ids = Watch.where(watchable_id: question.id).pluck(:user_id)
+    mention_user_ids = answer.new_mention_users.ids
+
+    return unless answer.sender != answer.receiver
+    return if mention_user_ids.include?(questioner)
+    return if watcher_ids.include?(questioner)
+
     NotificationFacade.came_answer(answer)
   end
 
