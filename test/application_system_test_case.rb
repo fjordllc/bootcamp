@@ -21,7 +21,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   if ENV['HEADED']
     driven_by :selenium, using: :chrome
   else
-    driven_by :selenium, using: :headless_chrome
+    driven_by(:selenium, using: :headless_chrome) do |driver_option|
+      driver_option.add_argument('--no-sandbox')
+    end
   end
 
   def wait_for_vuejs
