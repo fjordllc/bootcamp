@@ -24,5 +24,6 @@ header.page-header
 
 .page-body
   - if @target
-    = link_to "#{t("notification.#{@target}")}の通知を既読にする", categorymarks_path(target: @target), method: :post, class: "a-button is-md is-warning is-block #{current_user.notifications.by_target(@target.presence&.to_sym).unreads.empty? ? 'is-disabled' : ''}"
+    = link_to "#{t("notification.#{@target}")}の通知を既読にする", categorymarks_path(target: @target), method: :post,
+            class: "a-button is-md is-warning is-block #{current_user.notifications.by_target(@target.presence&.to_sym).unreads.empty? ? 'is-disabled' : ''}"
   #js-notifications(data-is-mentor="#{mentor_login?}" data-target="#{@target}")
