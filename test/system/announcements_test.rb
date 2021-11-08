@@ -189,7 +189,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text "コメント（\n2\n）"
   end
 
-  test 'watching is automatically displayed when when admin create new announcement' do
+  test 'watching is automatically displayed when admin create new announcement' do
     visit_with_auth new_announcement_path, 'komagata'
 
     fill_in 'announcement[title]', with: 'Watch中になるかのテスト'
