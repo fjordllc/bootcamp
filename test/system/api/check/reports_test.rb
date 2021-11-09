@@ -22,19 +22,6 @@ class Check::ReportsTest < ApplicationSystemTestCase
     assert_text '確認済'
   end
 
-  test "success adviser's report checking" do
-    visit_with_auth '/', 'advijirou'
-    assert_equal '/', current_path
-    click_link '日報'
-    assert_text '作業週2日目'
-    click_link '作業週2日目'
-    assert has_button? '日報を確認'
-    click_button '日報を確認'
-    assert has_button? '日報の確認を取り消す'
-    visit reports_path
-    assert_text '確認済'
-  end
-
   test 'success report checking cancel' do
     visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
     click_button '日報を確認'
