@@ -15,13 +15,6 @@ class Check::ProductsTest < ApplicationSystemTestCase
     assert has_button? '提出物の確認を取り消す'
   end
 
-  test "success adviser's product checking" do
-    visit_with_auth "/products/#{products(:product1).id}", 'advijirou'
-    click_button '提出物を確認'
-    assert_text '確認済'
-    assert has_button? '提出物の確認を取り消す'
-  end
-
   test 'when product checked learning status to complete' do
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     click_button '提出物を確認'
