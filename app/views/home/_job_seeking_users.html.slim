@@ -12,7 +12,7 @@
         header.thread-list-item-title
           h2.thread-list-item-title__title(itemprop='name')
             = link_to user, itemprop: 'url', class: 'thread-list-item-title__link' do
-              | #{user.name}（#{user.login_name}）
+              | #{user.login_name} （#{user.name}）
 
         .thread-list-item-meta
           .thread-list-item-meta__items
