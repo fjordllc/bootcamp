@@ -13,7 +13,7 @@
           | 日報
       li.page-tabs__item
         = link_to user_comments_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('comments')}" do
-          | コメント
+          | コメント （#{user.products.length}）
       li.page-tabs__item
         = link_to user_products_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('products')}" do
           | 提出物
