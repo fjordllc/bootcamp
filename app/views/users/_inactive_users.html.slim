@@ -17,6 +17,7 @@
                     .thread-list-item-title
                       h2.thread-list-item-title__title(itemprop='name')
                         = link_to user, itemprop: 'url', class: 'thread-list-item-title__link' do
+                          = user.id
                           = user.name
                   .thread-list-item__row
                     .thread-list-item-meta
