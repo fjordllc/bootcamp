@@ -1,5 +1,5 @@
 <template lang="pug">
-.overlay(@click.self='closeModal')
+.a-overlay.is-vue(@click.self='closeModal')
   .a-card.is-modal
     header.card-header.is-sm
       h1.card-header__title
@@ -19,7 +19,7 @@
       .a-markdown-input__inner.js-tabs__content(
         v-bind:class='{ "is-active": isActive("template") }'
       )
-        textarea.a-text-input.a-markdown-input__textare(
+        textarea.a-text-input.a-markdown-input__textare.has-max-height(
           :id='`js-template-content`',
           :data-preview='`#js-template-preview`',
           v-model='editingTemplate',
@@ -145,26 +145,3 @@ export default {
   }
 }
 </script>
-<style>
-.overlay {
-  z-index: 1;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.content {
-  z-index: 2;
-  width: 50%;
-  padding: 1em;
-  background: #fff;
-}
-</style>
