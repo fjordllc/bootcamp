@@ -18,13 +18,16 @@
               - if user.company.present? && user.company.logo.attached?
                 = link_to company_path(user.company) do
                   = image_tag user.company.logo_url, class: 'user-item__company-logo'
-            - if user.discord_account?
-              li.users-item-names__item
-                .users-item-names__chat
-                  .users-item-names__chat-label
-                    i.fab.fa-discord
-                  .users-item-names__chat-value
-                    = user.discord_account
+            li.users-item-names__item
+              .users-item-names__chat
+                .users-item-names__chat-label
+                  i.fab.fa-discord
+                - if user.times_url?
+                  = link_to user.times_url, class: 'users-item-names__chat-value' do
+                    = user.discord_account.presence || 'Discord未設定'
+                - else
+                  span.users-item-names__chat-value
+                    = user.discord_account.presence || 'Discord未設定'
           - if admin_or_mentor_login? && user.student_or_trainee?
             = render 'users/user_secret_attributes', user: user
           .users-item__icon

@@ -73,11 +73,11 @@ header.page-header
                   .thread-header-actions__end
                     - if @report.user_id == current_user.id
                       .thread-header-actions__action
-                        = link_to new_report_path(id: @report), class: 'a-button is-xs is-secondary is-block' do
+                        = link_to new_report_path(id: @report), class: 'a-button is-sm is-secondary is-block' do
                           i.fas.fa-copy#copy
                           | コピー
                     .thread-header-actions__action
-                      = link_to 'Raw', report_path(format: :md), class: 'a-button is-xs is-secondary is-block', target: '_blank', rel: 'noopener'
+                      = link_to 'Raw', report_path(format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener'
             - if @report.practices.present?
               .thread__tags
                 .tag-links
