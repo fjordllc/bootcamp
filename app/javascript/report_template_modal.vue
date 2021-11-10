@@ -25,11 +25,11 @@
           v-model='editingTemplate',
           name='report_template[description]'
         )
-      .a-markdown-input__inner.js-tabs__content(
+      .a-markdown-input__inner.js-tabs__content.is-long-text.a-markdown-input__preview(
         v-bind:class='{ "is-active": isActive("preview") }',
         v-html='markdownDescription'
       )
-        #js-template-preview.is-long-text.a-markdown-input__preview
+        #js-template-preview
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
