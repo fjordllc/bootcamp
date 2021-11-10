@@ -233,7 +233,7 @@ class CommentsTest < ApplicationSystemTestCase
     assert_selector 'span.mention', text: 'mentor'
   end
 
-  test 'clicking "show old comments" will display old comments' do
+  test 'clicking "see more comments" will display old comments' do
     visit_with_auth product_path(users(:hatsuno).products.first.id), 'komagata'
 
     assert_no_text '提出物のコメント1です。'
