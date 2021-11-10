@@ -92,7 +92,9 @@
                 strong
                   | 提出者
                 | ）
-              time.a-meta(v-else-if='product.mentor_last_commented_at_date_time')
+              time.a-meta(
+                v-else-if='product.mentor_last_commented_at_date_time'
+              )
                 | 〜 {{ product.mentor_last_commented_at }}（メンター）
 
     .stamp.stamp-approve(v-if='product.checks.size > 0')
