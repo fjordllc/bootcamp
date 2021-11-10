@@ -70,25 +70,25 @@
                     )
 
             .thread-list-item-meta__item(
-              v-if='product.self_last_comment_at_date_time && product.mentor_last_comment_at_date_time'
+              v-if='product.self_last_commented_at_date_time && product.mentor_last_comment_at_date_time'
             )
               time.a-meta(
-                v-if='product.self_last_comment_at_date_time > product.mentor_last_comment_at_date_time'
+                v-if='product.self_last_commented_at_date_time > product.mentor_last_comment_at_date_time'
               )
-                | 〜 {{ product.self_last_comment_at }}（
+                | 〜 {{ product.self_last_commented_at }}（
                 strong
                   | 提出者
                 | ）
               time.a-meta(
-                v-if='product.self_last_comment_at_date_time < product.mentor_last_comment_at_date_time'
+                v-if='product.self_last_commented_at_date_time < product.mentor_last_comment_at_date_time'
               )
                 | 〜 {{ product.mentor_last_comment_at }}（メンター）
 
             .thread-list-item-meta__item(
-              v-else-if='product.self_last_comment_at_date_time || product.mentor_last_comment_at_date_time'
+              v-else-if='product.self_last_commented_at_date_time || product.mentor_last_comment_at_date_time'
             )
-              time.a-meta(v-if='product.self_last_comment_at_date_time')
-                | 〜 {{ product.self_last_comment_at }}（
+              time.a-meta(v-if='product.self_last_commented_at_date_time')
+                | 〜 {{ product.self_last_commented_at }}（
                 strong
                   | 提出者
                 | ）
