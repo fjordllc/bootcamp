@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_061152) do
+ActiveRecord::Schema.define(version: 2021_11_10_063403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -316,7 +316,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_061152) do
     t.datetime "published_at"
     t.bigint "checker_id"
     t.datetime "self_last_commented_at"
-    t.datetime "mentor_last_comment_at"
+    t.datetime "mentor_last_commented_at"
     t.datetime "commented_at"
     t.index ["commented_at"], name: "index_products_on_commented_at"
     t.index ["practice_id"], name: "index_products_on_practice_id"
