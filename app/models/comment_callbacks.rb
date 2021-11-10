@@ -34,7 +34,7 @@ class CommentCallbacks
   private
 
   def reset_last_comment_at(product)
-    product.mentor_last_comment_at = nil
+    product.mentor_last_commented_at = nil
     product.self_last_commented_at = nil
   end
 
@@ -45,7 +45,7 @@ class CommentCallbacks
 
     product.comments.each do |comment|
       if comment.user.mentor
-        product.mentor_last_comment_at = comment.updated_at
+        product.mentor_last_commented_at = comment.updated_at
       elsif comment.user == product.user
         product.self_last_commented_at = comment.updated_at
       end
@@ -56,7 +56,7 @@ class CommentCallbacks
   def update_last_comment_at(comment)
     product = Product.find(comment.commentable.id)
     if comment.user.mentor
-      product.mentor_last_comment_at = comment.updated_at
+      product.mentor_last_commented_at = comment.updated_at
     elsif comment.user == product.user
       product.self_last_commented_at = comment.updated_at
     end
