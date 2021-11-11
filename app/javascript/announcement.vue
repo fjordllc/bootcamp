@@ -2,8 +2,8 @@
 .thread-list-item(:class='announcement.wip ? "is-wip" : ""')
   .thread-list-item__inner
     .thread-list-item__author
-      a.thread-list-item__author-link(:href='announcement.user.url')
-        img.thread-list-item__author-icon.a-user-icon(
+      a.a-user-name(:href='announcement.user.url')
+        img.thread-list-item__user-icon.a-user-icon(
           :title='announcement.user.icon_title',
           :alt='announcement.user.icon_title',
           :src='announcement.user.avatar_url',
@@ -16,6 +16,10 @@
           h2.thread-list-item-title__title
             a.thread-list-item-title__link(:href='announcement.url')
               | {{ announcement.title }}
+      .thread-list-item__row
+        .thread-list-item-name
+          a.a-user-name(:href='announcement.user.url')
+            | {{ announcement.user.long_name }}
       .thread-list-item__row
         .thread-list-item-meta__items
           .thread-list-item-meta__item

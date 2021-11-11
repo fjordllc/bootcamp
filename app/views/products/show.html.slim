@@ -128,7 +128,7 @@ header.page-header
                       = link_to @product, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
                         | 削除する
 
-            - if staff_login?
+            - if (@product.user.daimyo? && staff_login?) || admin_or_mentor_login?
               #js-check(data-checkable-id="#{@product.id}"
                         data-checkable-type='Product'
                         data-checkable-label="#{Product.model_name.human}"
@@ -142,7 +142,7 @@ header.page-header
               = link_to @product.practice, class: 'thread-prev-next__item-link is-index' do
                 | プラクティスに戻る
 
-          = render 'users/icon', user: @product.user, link_class: 'thread__author-link', image_class: 'thread__author-icon'
+          = render 'users/icon', user: @product.user, link_class: 'thread__user-link', image_class: 'thread__user-icon'
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
         = render 'footprints/footprints', footprints: @footprints
 

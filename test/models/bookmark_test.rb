@@ -26,4 +26,12 @@ class BookmarkTest < ActiveSupport::TestCase
     Bookmark.create(user: user, bookmarkable: product)
     assert_not Bookmark.new(user: user, bookmarkable: product).valid?
   end
+
+  test 'prohibit to duplicate page registration' do
+    user = users(:kimura)
+    page = pages(:page1)
+
+    Bookmark.create(user: user, bookmarkable: page)
+    assert_not Bookmark.new(user: user, bookmarkable: page).valid?
+  end
 end

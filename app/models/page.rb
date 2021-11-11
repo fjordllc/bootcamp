@@ -7,6 +7,7 @@ class Page < ApplicationRecord
   include Reactionable
   include Commentable
   include Watchable
+  include Bookmarkable
 
   belongs_to :user
   belongs_to :practice, optional: true

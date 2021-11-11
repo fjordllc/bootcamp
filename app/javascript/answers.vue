@@ -19,35 +19,36 @@
     )
     .thread-comment-form
       .thread-comment__author
-        img.thread-comment__author-icon.a-user-icon(
+        img.thread-comment__user-icon.a-user-icon(
           :src='currentUser.avatar_url',
           :title='currentUser.icon_title'
         )
       .thread-comment-form__form.a-card
-        .thread-comment-form__tabs.js-tabs
-          .thread-comment-form__tab.js-tabs__tab(
+        .a-form-tabs.js-tabs
+          .a-form-tabs__tab.js-tabs__tab(
             :class='{ "is-active": isActive("answer") }',
             @click='changeActiveTab("answer")'
           )
             | コメント
-          .thread-comment-form__tab.js-tabs__tab(
+          .a-form-tabs__tab.js-tabs__tab(
             :class='{ "is-active": isActive("preview") }',
             @click='changeActiveTab("preview")'
           )
             | プレビュー
-        .thread-comment-form__markdown-parent.js-markdown-parent
-          .thread-comment-form__markdown.js-tabs__content(
+        .a-markdown-input.js-markdown-parent
+          .a-markdown-input__inner.js-tabs__content(
             :class='{ "is-active": isActive("answer") }'
           )
-            textarea#js-new-comment.a-text-input.js-warning-form.thread-comment-form__textarea(
+            textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
               v-model='description',
               name='answer[description]',
-              data-preview='#new-comment-preview'
+              data-preview='#new-comment-preview',
+              @input='editAnswer'
             )
-          .thread-comment-form__markdown.js-tabs__content(
+          .a-markdown-input__inner.js-tabs__content(
             :class='{ "is-active": isActive("preview") }'
           )
-            #new-comment-preview.is-long-text.thread-comment-form__preview
+            #new-comment-preview.is-long-text.a-markdown-input__preview
         .card-footer
           .card-main-actions
             .card-main-actions__items
@@ -62,6 +63,7 @@
 import Answer from './answer.vue'
 import TextareaInitializer from './textarea-initializer'
 import CommentPleaceholder from './comment-placeholder'
+import confirmUnload from './confirm-unload'
 import toast from './toast'
 
 export default {
@@ -69,7 +71,7 @@ export default {
     answer: Answer,
     commentPlaceholder: CommentPleaceholder
   },
-  mixins: [toast],
+  mixins: [toast, confirmUnload],
   props: {
     questionId: { type: String, required: true },
     questionUser: { type: Object, required: true },
@@ -84,6 +86,7 @@ export default {
       question: { correctAnswer: null },
       defaultTextareaSize: null,
       loaded: false,
+      editing: false,
       placeholderCount: 3
     }
   },
@@ -144,6 +147,7 @@ export default {
         return null
       }
       this.buttonDisabled = true
+      this.editing = false
       const params = {
         answer: { description: this.description },
         question_id: this.questionId
@@ -267,6 +271,11 @@ export default {
     resizeTextarea: function () {
       const textarea = document.getElementById('js-new-comment')
       textarea.style.height = `${this.defaultTextareaSize}px`
+    },
+    editAnswer() {
+      if (this.description.length > 0) {
+        this.editing = true
+      }
     }
   }
 }

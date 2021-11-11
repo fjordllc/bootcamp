@@ -7,7 +7,7 @@
 .thread-comment
   +position(relative)
   border-radius: .25rem
-  &.is-no-author-icon
+  &.is-no-user-icon
     padding-left: 0
   +media-breakpoint-up(md)
     margin-bottom: 2rem
@@ -22,24 +22,23 @@
   +media-breakpoint-down(sm)
     display: none
 
-.thread-comment__author-icon
+.thread-comment__user-icon
   +size(3.5rem)
 
 .thread-comment__title
-  +text-block(1rem 1.4)
-  margin-right: .5rem
   width: 100%
+  +text-block(.875rem 1.4, 600)
+  +media-breakpoint-up(md)
+    margin-right: .5rem
   +media-breakpoint-down(sm)
-    +text-block(.875rem 1.4 0 .25rem)
-    margin-right: 0
+    margin-bottom: .25ren
 
 .thread-comment__title-link
   color: $main-text
   height: 100%
   display: flex
   align-items: center
-  .thread-comment__title.is-user-comments &
-    +hover-link
+  +hover-link-reversal
   &.a-placeholder
     width: 15%
     height: 1.4em
@@ -67,8 +66,8 @@
   // +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
   &::after
     margin-left: -1.4375rem
-  .thread-comment.is-no-author-icon &::before,
-  .thread-comment.is-no-author-icon &::after
+  .thread-comment.is-no-user-icon &::before,
+  .thread-comment.is-no-user-icon &::after
     content: none
   +media-breakpoint-down(sm)
     &::before,
@@ -102,7 +101,6 @@
       min-height: 0
     .thread-comment__created-at
       align-self: flex-end
-
 
 .thread-comment__user-icon
   +size(2.75rem auto)

@@ -24,20 +24,20 @@
         @click='changeActiveTab("preview")'
       )
         | プレビュー
-    .thread-comment-form__markdown-parent.js-markdown-parent
-      .thread-comment-form__markdown.is-editor.js-tabs__content(
+    .a-markdown-input.js-markdown-parent
+      .a-markdown-input__inner.is-editor.js-tabs__content(
         :class='{ "is-active": isActive("memo") }'
       )
-        textarea.a-text-input.thread-comment-form__textarea(
+        textarea.a-text-input.a-markdown-input__textarea(
           :id='`js-practice-memo`',
           data-preview='#practice-memo-preview',
           v-model='memo',
           name='practice[memo]'
         )
-      .thread-comment-form__markdown.is-preview.js-tabs__content(
+      .a-markdown-input__inner.is-preview.js-tabs__content(
         :class='{ "is-active": isActive("preview") }'
       )
-        .is-long-text.thread-comment-form__preview(v-html='markdownMemo')
+        .is-long-text.a-markdown-input__preview(v-html='markdownMemo')
     .card-footer
       .card-main-actions
         .card-main-actions__items

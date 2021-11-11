@@ -1,4 +1,6 @@
 = render 'notification_mailer_template', title: "「#{@question.practice.title}」についての質問がありました。", link_url: notification_url(@notification), link_text: '質問へ' do
-  p #{@question.user.login_name}さんから「#{@question.practice.title}」についての質問がありました。アドバイスや回答を投稿しよう！！
+  p #{@question.user.login_name}さんから質問がありました。アドバイスや回答を投稿しよう！！
   div(style='border-top: solid 1px #ccc; height: 0;')
+  h1(style='margin-top: 1em; border-left: solid 6px #4638a0; padding: 0 0 0 1rem; font-size: 1.5em; border-bottom: none; color: #444444;')
+    = @question.title
   = md2html(@question.description)

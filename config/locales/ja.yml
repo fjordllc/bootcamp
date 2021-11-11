@@ -109,6 +109,7 @@ ja:
         description: 詳細
         website: ウェブサイト
         logo: ロゴ
+        blog_url: Techブログ
       category:
         name: 名前
         slug: URLスラッグ
