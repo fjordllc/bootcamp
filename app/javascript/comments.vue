@@ -8,7 +8,7 @@
         button#js-shortcut-post-comment.a-button.is-lg.is-text.is-block(
           @click='showComments'
         )
-          | 古いコメントを表示する
+          | コメント（{{ commentLimit }}）をもっと見る
   comment(
     v-for='(comment, index) in comments',
     :key='comment.id',
