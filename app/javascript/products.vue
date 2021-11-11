@@ -1,7 +1,7 @@
 <template lang="pug">
 .page-body
-  .container(v-if='!loaded')
-    | ロード中
+  .container.is-md(v-if='!loaded')
+    loadingListPlaceholder
   .container(v-else-if='products.length === 0')
     .o-empty-message
       .o-empty-message__icon
@@ -34,12 +34,14 @@
 <script>
 import Product from './product.vue'
 import unconfirmedLinksOpenButton from './unconfirmed_links_open_button.vue'
+import LoadingListPlaceholder from './loading-list-placeholder.vue'
 import Pager from './pager.vue'
 
 export default {
   components: {
     product: Product,
     'unconfirmed-links-open-button': unconfirmedLinksOpenButton,
+    loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager
   },
   props: {
