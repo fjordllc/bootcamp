@@ -20,15 +20,12 @@ class AnswerCallbacks
   private
 
   def notify_answer(answer)
+    return if answer.sender == answer.receiver
+
     question = answer.question
     watcher_ids = Watch.where(watchable_id: question.id).pluck(:user_id)
     mention_user_ids = answer.new_mention_users.ids
-
-    return unless answer.sender != answer.receiver
-    return if mention_user_ids.include?(answer.receiver.id)
-    return if watcher_ids.include?(answer.receiver.id)
-
-    NotificationFacade.came_answer(answer)
+    NotificationFacade.came_answer(answer) if watcher_ids.concat(mention_user_ids).exclude?(answer.receiver.id)
   end
 
   def notify_to_watching_user(answer)
