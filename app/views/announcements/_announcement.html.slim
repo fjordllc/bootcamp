@@ -29,6 +29,8 @@
       .thread-header__row
         .thread-header-actions
           .thread-header-actions__start
+            .thread-header-actions__action
+              #js-watch-toggle(data-watchable-id="#{@announcement.id}", data-watchable-type='Announcement')
           .thread-header-actions__end
             .thread-header-actions__action
               = link_to new_announcement_path(id: announcement), class: 'a-button is-xs is-secondary is-block' do

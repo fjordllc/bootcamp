@@ -6,6 +6,7 @@ class Announcement < ApplicationRecord
   include Searchable
   include Reactionable
   include WithAvatar
+  include Watchable
 
   enum target: {
     all: 0,
@@ -13,6 +14,7 @@ class Announcement < ApplicationRecord
     job_seekers: 2
   }, _prefix: true
 
+  has_many :watches, as: :watchable, dependent: :destroy
   belongs_to :user
   alias sender user
 
