@@ -1,9 +1,6 @@
 <template lang="pug">
-.reports(v-if='reports === null')
-  .empty
-    .fas.fa-spinner.fa-pulse
-    |
-    | ロード中
+.reports.is-md(v-if='reports === null')
+  loadingListPlaceholder
 .reports(v-else-if='reports.length > 0 || !isUncheckedReportsPage')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
@@ -27,12 +24,14 @@
 <script>
 import Report from './report.vue'
 import UnconfirmedLink from './unconfirmed_link.vue'
+import LoadingListPlaceholder from './loading-list-placeholder.vue'
 import Pager from './pager.vue'
 
 export default {
   components: {
     report: Report,
     'unconfirmed-link': UnconfirmedLink,
+    loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager
   },
   data() {
