@@ -3,8 +3,6 @@
 require 'application_system_test_case'
 
 class ProductsTest < ApplicationSystemTestCase
-  PAGINATES_PER = 50
-
   test 'see my product' do
     visit_with_auth "/products/#{products(:product1).id}", 'yamada'
     assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
@@ -195,7 +193,7 @@ class ProductsTest < ApplicationSystemTestCase
     # id順で並べたときの最初と最後の提出物を、作成日順で見たときに最新と最古になるように入れ替える
     Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
     # 最古の提出物を画面上で判定するため、提出物を1ページ内に収める
-    Product.limit(Product.count - PAGINATES_PER).delete_all
+    Product.limit(Product.count - Product.default_per_page).delete_all
     newest_product = Product.reorder(:id).first
     newest_product.update(created_at: Time.current)
     oldest_product = Product.reorder(:id).last
@@ -226,7 +224,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'click on the pager button' do
-    (PAGINATES_PER - Product.count + 1).times do |n|
+    (Product.default_per_page - Product.count + 1).times do |n|
       Product.create!(
         body: 'test',
         user: users(:hajime),
@@ -246,7 +244,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'specify the page number in the URL' do
-    (PAGINATES_PER - Product.count + 1).times do |n|
+    (Product.default_per_page - Product.count + 1).times do |n|
       Product.create!(
         body: 'test',
         user: users(:hajime),
@@ -262,7 +260,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'clicking the browser back button will show the previous page' do
-    (PAGINATES_PER - Product.count + 1).times do |n|
+    (Product.default_per_page - Product.count + 1).times do |n|
       Product.create!(
         body: 'test',
         user: users(:hajime),
@@ -282,7 +280,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'When the number of pages is one, the pager will not be displayed' do
-    count_of_delete = Product.count - PAGINATES_PER
+    count_of_delete = Product.count - Product.default_per_page
     if count_of_delete.positive?
       Product.all.each_with_index do |product, index|
         product.delete
@@ -431,7 +429,7 @@ class ProductsTest < ApplicationSystemTestCase
   test 'can access unassigned products page after click unassigned-tab' do
     visit_with_auth products_path, 'komagata'
     find('.page-tabs__item-link', text: '未アサイン').click
-    assert find('h2.page-header__title', text: '未アサインの提出物')
+    assert find('h2.page-header__title', text: '提出物')
   end
 
   test 'show unassigned products counter and can change counter after click assignee-button on unassigned-tab' do

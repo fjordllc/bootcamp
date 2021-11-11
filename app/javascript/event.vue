@@ -5,7 +5,7 @@
       user-icon(
         :user='event.user',
         link_class='a-user-name',
-        threadClassSuffix='-list-item'
+        blockClassSuffix='thread-list-item'
       )
     .thread-list-item__rows
       .thread-list-item__row

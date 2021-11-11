@@ -64,6 +64,7 @@ class User < ApplicationRecord
   has_many :watches, dependent: :destroy
   has_many :articles, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
+  has_one :report_template, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -280,8 +281,17 @@ class User < ApplicationRecord
       .order(updated_at: :desc)
       .tagged_with(tag_name)
   }
-
   scope :search_by_keywords_scope, -> { unretired }
+  scope :delayed, lambda {
+    sql = Learning.select(:user_id, 'MAX(updated_at) AS completed_at')
+                  .where(status: :complete)
+                  .group(:user_id).to_sql
+
+    students_and_trainees
+      .joins("JOIN (#{sql}) learnings ON users.id = user_id")
+      .select('users.*', :completed_at)
+      .where('completed_at <= ?', 2.weeks.ago.end_of_day)
+  }
 
   columns_for_keyword_search(
     :login_name,

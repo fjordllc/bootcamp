@@ -8,13 +8,11 @@
         label.thread-list-item__show-user-detail(for="show-user-detail-#{user.id}")
           i.fas.fa-angle-down
         .thread-list-item__author
-          = render 'users/icon',
-            user: user,
-            image_class: 'thread-list-item__author-icon'
+          = render 'users/icon', user: user, image_class: 'thread-list-item__user-icon'
         header.thread-list-item-title
           h2.thread-list-item-title__title(itemprop='name')
             = link_to user, itemprop: 'url', class: 'thread-list-item-title__link' do
-              | #{user.name}（#{user.login_name}）
+              | #{user.login_name} （#{user.name}）
 
         .thread-list-item-meta
           .thread-list-item-meta__items

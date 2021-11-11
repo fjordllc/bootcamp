@@ -1,0 +1,7 @@
+.page-tabs
+  .container.is-padding-horizontal-0-sm-down
+    ul.page-tabs__items
+      li.page-tabs__item
+        = link_to 'メンターページ',
+                mentor_root_path,
+                class: "page-tabs__item-link #{current_link(/^mentor-home/)}"

@@ -31,6 +31,7 @@ class Report < ApplicationRecord
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
   validates :emotion, presence: true
+  validate :reported_on_or_before_today
 
   after_save   ReportCallbacks.new
   after_create ReportCallbacks.new
@@ -99,5 +100,9 @@ class Report < ApplicationRecord
 
   def total_learning_time
     (learning_times.sum(&:diff) / 60).to_i
+  end
+
+  def reported_on_or_before_today
+    errors.add(:reported_on, 'は今日以前の日付にしてください') if reported_on > Date.current
   end
 end

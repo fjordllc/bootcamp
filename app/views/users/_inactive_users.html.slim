@@ -11,16 +11,13 @@
             .thread-list-item
               .thread-list-item__inner
                 .thread-list-item__author
-                  = render 'users/icon',
-                    user: user,
-                    link_class: 'thread-list-item__author-link',
-                    image_class: 'thread-list-item__author-icon'
+                  = render 'users/icon', user: user, link_class: 'a-user-name', image_class: 'thread-list-item__user-icon'
                 .thread-list-item__rows
                   .thread-list-item__row
                     .thread-list-item-title
                       h2.thread-list-item-title__title(itemprop='name')
                         = link_to user, itemprop: 'url', class: 'thread-list-item-title__link' do
-                          = user.name
+                          | #{user.login_name} （#{user.name}）
                   .thread-list-item__row
                     .thread-list-item-meta
                       time.a-meta

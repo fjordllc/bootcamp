@@ -1,8 +1,8 @@
 <template lang="pug">
 .thread-comment
   .thread-comment__author
-    a.thread-comment__author-link(:href='answer.user.url', itemprop='url')
-      img.thread-comment__author-icon.a-user-icon(
+    a.thread-comment__user-link(:href='answer.user.url', itemprop='url')
+      img.thread-comment__user-icon.a-user-icon(
         :src='answer.user.avatar_url',
         :title='answer.user.icon_title',
         :class='[roleClass, daimyoClass]'
@@ -63,31 +63,31 @@
             button.card-main-actions__delete(@click='deleteAnswer')
               | 削除する
   .thread-comment-form__form.a-card(v-show='editing')
-    .thread-comment-form__tabs.js-tabs
-      .thread-comment-form__tab.js-tabs__tab(
+    .a-form-tabs.js-tabs
+      .a-form-tabs__tab.js-tabs__tab(
         v-bind:class='{ "is-active": isActive("answer") }',
         @click='changeActiveTab("answer")'
       )
         | コメント
-      .thread-comment-form__tab.js-tabs__tab(
+      .a-form-tabs__tab.js-tabs__tab(
         v-bind:class='{ "is-active": isActive("preview") }',
         @click='changeActiveTab("preview")'
       )
         | プレビュー
-    .thread-comment-form__markdown-parent.js-markdown-parent
-      .thread-comment-form__markdown.js-tabs__content(
+    .a-markdown-input.js-markdown-parent
+      .a-markdown-input__inner.js-tabs__content(
         v-bind:class='{ "is-active": isActive("answer") }'
       )
-        textarea.a-text-input.thread-comment-form__textarea(
+        textarea.a-text-input.a-markdown-input__textarea(
           v-model='description',
           :id='`js-comment-${this.answer.id}`',
           :data-preview='`#js-comment-preview-${this.answer.id}`',
           name='answer[description]'
         )
-      .thread-comment-form__markdown.js-tabs__content(
+      .a-markdown-input__inner.js-tabs__content(
         v-bind:class='{ "is-active": isActive("preview") }'
       )
-        .js-preview.is-long-text.thread-comment-form__preview(
+        .js-preview.is-long-text.a-markdown-input__preview(
           :id='`js-comment-preview-${this.answer.id}`'
         )
     .card-footer
