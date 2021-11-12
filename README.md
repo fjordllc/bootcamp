@@ -63,6 +63,13 @@ $ eslint 'app/javascript/**/*.{js,vue}' --fix
 $ prettier app/javascript/**/*.{js,vue} --write
 ```
 
+## Profiler
+
+rack-mini-profilerによりプロファイリングはデフォルトではOFFになっています。ONにする場合は下記のようにサーバーと立ち上げます。
+
+```
+$ PROFILE=1 rails server
+```
 
 ## その他
 
