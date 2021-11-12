@@ -3,6 +3,14 @@
     | メンターメニュー
   ul.header-dropdown__items
     li.header-dropdown__item
+      = link_to mentor_root_path,
+        class: 'header-dropdown__item-link' do
+        | メンターページ
+    li.header-dropdown__item
+      = link_to new_article_path,
+        class: 'header-dropdown__item-link' do
+        | ブログ投稿
+    li.header-dropdown__item
       = link_to ENV['REDASH_DASHBOARD_URL'],
         class: 'header-dropdown__item-link',
         target: '_blank', rel: 'noopener' do
@@ -12,7 +20,3 @@
         class: 'header-dropdown__item-link',
         target: '_blank', rel: 'noopener' do
         | 確認数の集計
-    li.header-dropdown__item
-      = link_to mentor_root_path,
-        class: 'header-dropdown__item-link' do
-        | メンターページ
