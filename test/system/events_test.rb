@@ -181,6 +181,18 @@ class EventsTest < ApplicationSystemTestCase
     end
   end
 
+  test 'user can cancel event even if deadline has passed' do
+    event = events(:event5)
+    visit_with_auth event_path(event), 'kimura'
+    accept_confirm do
+      click_link '参加を取り消す'
+    end
+    assert_difference 'event.users.count', -1 do
+      assert_text '参加を取り消しました。'
+    end
+    assert_no_link '参加申込'
+  end
+
   test 'autolink location when url is included' do
     url = 'https://bootcamp.fjord.jp/'
     visit_with_auth new_event_path, 'komagata'

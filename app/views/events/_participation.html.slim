@@ -1,29 +1,28 @@
-- if event.opening?
-  - if current_user.participating?(event)
-    .event-main-actions.is-participationed
-      .event-main-actions__description
+- if current_user.participating?(event)
+  .event-main-actions.is-participationed
+    .event-main-actions__description
+      p
+        | 参加登録しています。
+    ul.event-main-actions__items
+      li.event-main-actions__item
+        = link_to event_participation_path(event_id: event), method: :delete, data: { confirm: 'イベントの参加をキャンセルします。よろしいですか?' }, class: 'event-main-actions__item-cancel' do
+          | 参加を取り消す
+- elsif event.opening?
+  .event-main-actions.is-unparticipationed(class="#{event.capacity > event.participants.count ? 'is-available' : 'is-capacity-over'}")
+    .event-main-actions__description
+      - if event.capacity > event.participants.count
+        // TODO helprtにしてわかりやすくしたい↑
         p
-          | 参加登録しています。
-      ul.event-main-actions__items
-        li.event-main-actions__item
-          = link_to event_participation_path(event_id: event), method: :delete, data: { confirm: 'イベントの参加をキャンセルします。よろしいですか?' }, class: 'event-main-actions__item-cancel' do
-            | 参加を取り消す
-  - else
-    .event-main-actions.is-unparticipationed(class="#{event.capacity > event.participants.count ? 'is-available' : 'is-capacity-over'}")
-      .event-main-actions__description
+          | あと#{event.capacity - event.participants.count}名が参加できます。
+      - else
+        p
+          | 参加者が定員を超えているので補欠での登録になります。
+    ul.event-main-actions__items
+      li.event-main-actions__item
         - if event.capacity > event.participants.count
           // TODO helprtにしてわかりやすくしたい↑
-          p
-            | あと#{event.capacity - event.participants.count}名が参加できます。
+          = link_to event_participations_path(event_id: event), method: :post, data: { confirm: 'イベント参加申込をします。よろしいですか?' }, class: 'a-button is-primary is-lg is-block' do
+            | 参加申込
         - else
-          p
-            | 参加者が定員を超えているので補欠での登録になります。
-      ul.event-main-actions__items
-        li.event-main-actions__item
-          - if event.capacity > event.participants.count
-            // TODO helprtにしてわかりやすくしたい↑
-            = link_to event_participations_path(event_id: event), method: :post, data: { confirm: 'イベント参加申込をします。よろしいですか?' }, class: 'a-button is-primary is-lg is-block' do
-              | 参加申込
-          - else
-            = link_to event_participations_path(event_id: event), method: :post, data: { confirm: '補欠としてイベント参加申込をします。よろしいですか?' }, class: 'a-button is-warning is-lg is-block' do
-              | 補欠登録
+          = link_to event_participations_path(event_id: event), method: :post, data: { confirm: '補欠としてイベント参加申込をします。よろしいですか?' }, class: 'a-button is-warning is-lg is-block' do
+            | 補欠登録
