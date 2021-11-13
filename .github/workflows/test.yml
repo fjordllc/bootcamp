@@ -20,7 +20,6 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
-      TZ: '/usr/share/zoneinfo/Asia/Tokyo'
 
     services:
       postgres:
@@ -36,6 +35,11 @@ jobs:
           --health-retries 5
 
     steps:
+    - name: Set Timezone
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Asia/Tokyo"
+
     - uses: actions/checkout@v2
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -50,6 +54,7 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-node-
+
     - name: yarn install
       run:  yarn install --check-files
 
