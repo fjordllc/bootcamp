@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2022_09_11_042216) do
+=======
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 2021_11_10_063403) do
+=======
+ActiveRecord::Schema.define(version: 2021_11_14_072105) do
+>>>>>>> 65d2b506c (FeaturedEntryモデルの作成)
+>>>>>>> d6e969e3d (FeaturedEntryモデルの作成)
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,6 +197,14 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
     t.boolean "wip", default: false, null: false
     t.boolean "job_hunting", default: false, null: false
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "featured_entries", force: :cascade do |t|
+    t.string "featureable_type", null: false
+    t.bigint "featureable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["featureable_type", "featureable_id"], name: "index_featured_entries_on_featureable"
   end
 
   create_table "followings", force: :cascade do |t|
