@@ -61,6 +61,7 @@ import '../training-info-toggler.js'
 import '../company-products.js'
 import '../welcome_message_for_adviser.js'
 import '../regular-events.js'
+import '../featured_entry.js'
 
 import VueMounter from '../VueMounter.js'
 import Hello from '../components/hello.vue'
