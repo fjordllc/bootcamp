@@ -14,13 +14,15 @@ main.page-main
   header.page-main-header
     .container
       .page-main-header__inner
-        h1.page-main-header__title
-          = title
-        .page-header-actions
-          ul.page-header-actions__items
-            li.page-header-actions__item
-              = link_to generations_path, class: 'a-button is-md is-block is-secondary is-back' do
-                | 期一覧
+        .page-main-header__start
+          h1.page-main-header__title
+            = title
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to generations_path, class: 'a-button is-sm is-block is-secondary is-back' do
+                  | 期一覧
 
   .page-body
     .container
