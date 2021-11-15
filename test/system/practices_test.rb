@@ -70,7 +70,8 @@ class PracticesTest < ApplicationSystemTestCase
       fill_in 'practice[description]', with: 'テストの内容です'
       within '#reference_books' do
         click_link '書籍を選択'
-        find('.js-select2').find("option[value='#{books(:book1).id}']").select_option
+        find('.multiselect').click
+        first('.multiselect__element').click
         find('.reference-books-form-item__must-read').click
       end
       fill_in 'practice[goal]', with: 'テストのゴールの内容です'
@@ -89,7 +90,8 @@ class PracticesTest < ApplicationSystemTestCase
       fill_in 'practice[memo]', with: 'メンター向けのメモの内容です'
       within '#reference_books' do
         click_link '書籍を選択'
-        find('.js-select2').find("option[value='#{books(:book2).id}']").select_option
+        find('.multiselect').click
+        first('.multiselect__element').click
         find('.reference-books-form-item__must-read').click
       end
       click_button '更新する'
@@ -117,7 +119,8 @@ class PracticesTest < ApplicationSystemTestCase
     visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
     within '#reference_books' do
       click_link '書籍を選択'
-      find('.js-select2').find("option[value='#{books(:book1).id}']").select_option
+      find('.multiselect').click
+      first('.multiselect__element').click
       find('.reference-books-form-item__must-read').click
     end
     click_button '更新する'
@@ -127,7 +130,8 @@ class PracticesTest < ApplicationSystemTestCase
     practice = practices(:practice1)
     visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
     within '#reference_books' do
-      find('.js-select2').find("option[value='#{books(:book2).id}']").select_option
+      find('.multiselect').click
+      first('.multiselect__element').click
       find('.reference-books-form-item__must-read').click
     end
     click_button '更新する'
@@ -194,7 +198,8 @@ class PracticesTest < ApplicationSystemTestCase
       fill_in 'practice[title]', with: 'テストプラクティス'
       within '#reference_books' do
         click_link '書籍を選択'
-        find('.js-select2').find("option[value='#{books(:book1).id}']").select_option
+        find('.multiselect').click
+        first('.multiselect__element').click
         find('.reference-books-form-item__must-read').click
       end
       click_button '更新する'
