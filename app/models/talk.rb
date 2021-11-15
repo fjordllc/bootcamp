@@ -1,2 +1,0 @@
-class Talk < ApplicationRecord
-end

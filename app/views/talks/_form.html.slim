@@ -1,9 +1,0 @@
-= form_for @talk do |f|
-  - if @talk.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@talk.errors.count, "error")} prohibited this talk from being saved:"
-      ul
-        - @talk.errors.full_messages.each do |message|
-          li = message
-
-  .actions = f.submit
