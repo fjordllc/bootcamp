@@ -1,19 +1,11 @@
-h1 Listing talks
+- title '相談部屋'
 
-table
-  thead
-    tr
-      th
-      th
-      th
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
 
-  tbody
-    - @talks.each do |talk|
-      tr
-        td = link_to 'Show', talk
-        td = link_to 'Edit', edit_talk_path(talk)
-        td = link_to 'Destroy', talk, data: { confirm: 'Are you sure?' }, method: :delete
-
-br
-
-= link_to 'New Talk', new_talk_path
+.page-body
+  .container.is-md
+    #js-talks
