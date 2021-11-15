@@ -11,7 +11,7 @@ class CommentCallbacks
 
     return unless comment.commentable.instance_of?(Product)
 
-    update_last_comment_at(comment)
+    update_last_commented_at(comment)
     update_commented_at(comment)
     delete_product_cache(comment.commentable.id)
   end
@@ -19,46 +19,46 @@ class CommentCallbacks
   def after_update(comment)
     return unless comment.commentable.instance_of?(Product)
 
-    update_last_comment_at(comment)
+    update_last_commented_at(comment)
     update_commented_at(comment)
   end
 
   def after_destroy(comment)
     return unless comment.commentable.instance_of?(Product)
 
-    delete_last_comment_at(comment.commentable.id)
+    delete_last_commented_at(comment.commentable.id)
     delete_commented_at(comment)
     delete_product_cache(comment.commentable.id)
   end
 
   private
 
-  def reset_last_comment_at(product)
-    product.mentor_last_comment_at = nil
-    product.self_last_comment_at = nil
+  def reset_last_commented_at(product)
+    product.mentor_last_commented_at = nil
+    product.self_last_commented_at = nil
   end
 
-  def delete_last_comment_at(product_id)
+  def delete_last_commented_at(product_id)
     product = Product.find(product_id)
 
-    reset_last_comment_at(product)
+    reset_last_commented_at(product)
 
     product.comments.each do |comment|
       if comment.user.mentor
-        product.mentor_last_comment_at = comment.updated_at
+        product.mentor_last_commented_at = comment.updated_at
       elsif comment.user == product.user
-        product.self_last_comment_at = comment.updated_at
+        product.self_last_commented_at = comment.updated_at
       end
     end
     product.save!
   end
 
-  def update_last_comment_at(comment)
+  def update_last_commented_at(comment)
     product = Product.find(comment.commentable.id)
     if comment.user.mentor
-      product.mentor_last_comment_at = comment.updated_at
+      product.mentor_last_commented_at = comment.updated_at
     elsif comment.user == product.user
-      product.self_last_comment_at = comment.updated_at
+      product.self_last_commented_at = comment.updated_at
     end
     product.save!
   end

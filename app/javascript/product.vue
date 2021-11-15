@@ -70,30 +70,32 @@
                     )
 
             .thread-list-item-meta__item(
-              v-if='product.self_last_comment_at_date_time && product.mentor_last_comment_at_date_time'
+              v-if='product.self_last_commented_at_date_time && product.mentor_last_commented_at_date_time'
             )
               time.a-meta(
-                v-if='product.self_last_comment_at_date_time > product.mentor_last_comment_at_date_time'
+                v-if='product.self_last_commented_at_date_time > product.mentor_last_commented_at_date_time'
               )
-                | 〜 {{ product.self_last_comment_at }}（
+                | 〜 {{ product.self_last_commented_at }}（
                 strong
                   | 提出者
                 | ）
               time.a-meta(
-                v-if='product.self_last_comment_at_date_time < product.mentor_last_comment_at_date_time'
+                v-if='product.self_last_commented_at_date_time < product.mentor_last_commented_at_date_time'
               )
-                | 〜 {{ product.mentor_last_comment_at }}（メンター）
+                | 〜 {{ product.mentor_last_commented_at }}（メンター）
 
             .thread-list-item-meta__item(
-              v-else-if='product.self_last_comment_at_date_time || product.mentor_last_comment_at_date_time'
+              v-else-if='product.self_last_commented_at_date_time || product.mentor_last_commented_at_date_time'
             )
-              time.a-meta(v-if='product.self_last_comment_at_date_time')
-                | 〜 {{ product.self_last_comment_at }}（
+              time.a-meta(v-if='product.self_last_commented_at_date_time')
+                | 〜 {{ product.self_last_commented_at }}（
                 strong
                   | 提出者
                 | ）
-              time.a-meta(v-else-if='product.mentor_last_comment_at_date_time')
-                | 〜 {{ product.mentor_last_comment_at }}（メンター）
+              time.a-meta(
+                v-else-if='product.mentor_last_commented_at_date_time'
+              )
+                | 〜 {{ product.mentor_last_commented_at }}（メンター）
 
     .stamp.stamp-approve(v-if='product.checks.size > 0')
       h2.stamp__content.is-title 確認済
