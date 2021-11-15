@@ -22,9 +22,6 @@
   +media-breakpoint-down(sm)
     display: none
 
-.thread-comment__user-icon
-  +size(3.5rem)
-
 .thread-comment__title
   width: 100%
   +text-block(.875rem 1.4, 600)
@@ -103,7 +100,8 @@
       align-self: flex-end
 
 .thread-comment__user-icon
-  +size(2.75rem auto)
+  +size(3.5rem)
+  object-fit: cover
   border-radius: 50%
   +position(absolute, left 0, top 0)
   +margin(vertical, .75rem)
