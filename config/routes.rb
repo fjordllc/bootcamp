@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :talks
   root to: "home#index"
   get "test", to: "home#test", as: "test"
   get "welcome", to: "welcome#index", as: "welcome"
