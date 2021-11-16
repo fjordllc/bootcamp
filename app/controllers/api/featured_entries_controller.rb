@@ -1,10 +1,12 @@
-class API::FeaturedEntriesController < ApplicationController
+class API::FeaturedEntriesController < API::BaseController
   def index
+    return unless params[:featureable_id] && params[:featureable_type]
     @featured_entries = FeaturedEntry.where(featureable: featureable)
   end
 
   def create
     @featured_entry = FeaturedEntry.create!(featureable: featureable)
+
     render status: :created, json: @featured_entry
   end
 
