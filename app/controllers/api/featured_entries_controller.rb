@@ -1,4 +1,8 @@
 class API::FeaturedEntriesController < ApplicationController
+  def index
+    @featured_entries = FeaturedEntry.where(featureable: featureable)
+  end
+
   def create
     @featured_entry = FeaturedEntry.create!(featureable: featureable)
     render status: :created, json: @featured_entry
