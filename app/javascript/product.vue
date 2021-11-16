@@ -17,6 +17,10 @@
     .thread-list-item__rows
       .thread-list-item__row
         .thread-list-item-title
+          .thread-list-item-title__notresponded(
+            v-if='product.self_last_comment_at_date_time > product.mentor_last_comment_at_date_time || product.comments.size === 0'
+            )
+            | ○
           .thread-list-item-title__start
             .thread-list-item-title__icon.is-wip(v-if='product.wip') WIP
           h2.thread-list-item-title__title(itemprop='name')
