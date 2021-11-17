@@ -131,6 +131,6 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     assert_equal [user.login_name], names
     visit_with_auth '/products/self_assigned', 'yamada'
     wait_for_vuejs
-    assert_text 'レビューを担当する未返信の提出物はありません'
+    assert_text 'レビューを担当する提出物はありません'
   end
 end
