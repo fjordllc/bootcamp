@@ -15,8 +15,7 @@ class HomeController < ApplicationController
         @collegue_trainees = current_user.collegue_trainees&.with_attached_avatar&.includes(:reports, :products, :comments)
         display_events_on_dashboard
         display_welcome_message_for_adviser
-        set_required_fields
-        render aciton: :index
+        @featured_entries = FeaturedEntry.all.order(created_at: :desc).limit(5)
       end
     else
       render template: 'welcome/index', layout: 'welcome'

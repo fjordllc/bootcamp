@@ -58,6 +58,20 @@ header.page-header
           - if (current_user.admin? || current_user.adviser?) && @job_seeking_users.present?
             = render 'job_seeking_users', users: @job_seeking_users
           - if current_user.student_or_trainee? && !cookies[:user_grass]
+
+          .a-card
+            header.card-header.is-sm
+              h2.card-header__title
+                | 注目エントリー
+            = render partial: 'featured_entries', collection: @featured_entries, as: :featured_entry
+            / footer.thread-list__footer
+            /   .thread-list__footer-to-index
+            /     = link_to announcements_path, class: 'thread-list__footer-text-link' do
+            /       | 全ての注目エントリー
+
+          - if (current_user.admin? || current_user.adviser?) && User.all.job_seeking.present?
+            = render 'job_seeking_users', users: User.all.job_seeking
+          - if current_user.total_learning_time.positive? || !current_user.mentor?
             #js-grass(data-user-id="#{current_user.id}")
           - if current_user.github_account.present?
             = render 'users/github_grass', user: current_user

@@ -1,2 +1,4 @@
-featured_entry1:
-  featureable: report1 (Report)
+<% (1..10).each do |id| %>
+  featured_entry<%= id %>:
+    featureable: report<%= id %> (Report)
+<% end %>
