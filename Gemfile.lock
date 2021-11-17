@@ -124,6 +124,7 @@ GEM
     crass (1.0.6)
     data_migrate (6.6.0)
       rails (>= 5.0)
+    date (3.2.1)
     dead_end (1.1.7)
     declarative (0.0.20)
     declarative-option (0.1.0)
@@ -511,6 +512,7 @@ DEPENDENCIES
   coffee-rails (~> 5.0.0)
   commonmarker
   data_migrate
+  date (>= 3.2.1)
   dead_end
   diffy
   discord-notifier
