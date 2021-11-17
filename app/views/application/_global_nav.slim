@@ -48,7 +48,7 @@ nav.global-nav
               i.fas.fa-fw.fa-file
             .global-nav-links__link-label Docs
         li.global-nav-links__item
-          = link_to users_path, class: "global-nav-links__link #{current_link(/^users/)}" do
+          = link_to users_path, class: "global-nav-links__link #{current_link(/^users-(index|show)/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-users
             .global-nav-links__link-label ユーザー
@@ -64,7 +64,7 @@ nav.global-nav
             .global-nav-links__link-label ヘルプ
         li.global-nav-links__item
           - talks_link = admin_login? ? talks_path : user_talk_path(current_user)
-          = link_to talks_link, class: "global-nav-links__link #{current_link(/^talks/)}" do
+          = link_to talks_link, class: "global-nav-links__link #{current_link(/talk/)}" do
             .global-nav-links__link-icon
               i.fas.fa-hands-helping
             .global-nav-links__link-label 相談
