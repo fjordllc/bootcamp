@@ -5,42 +5,42 @@ require 'application_system_test_case'
 class Admin::UsersTest < ApplicationSystemTestCase
   test 'show listing users' do
     visit_with_auth '/admin/users?target=all', 'komagata'
-    assert_equal 'ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '管理ページ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing students' do
     visit_with_auth '/admin/users', 'komagata'
-    assert_equal 'ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '管理ページ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing inactive users' do
     visit_with_auth '/admin/users?target=inactive', 'komagata'
-    assert_equal 'ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '管理ページ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing retired users' do
     visit_with_auth '/admin/users?target=retired', 'komagata'
-    assert_equal 'ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '管理ページ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing graduated users' do
     visit_with_auth '/admin/users?target=graduate', 'komagata'
-    assert_equal 'ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '管理ページ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing advisers' do
     visit_with_auth '/admin/users?target=adviser', 'komagata'
-    assert_equal 'ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '管理ページ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing mentors' do
     visit_with_auth '/admin/users?target=mentor', 'komagata'
-    assert_equal 'ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '管理ページ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing trainee' do
     visit_with_auth '/admin/users?target=trainee', 'komagata'
-    assert_equal 'ユーザー一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '管理ページ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     assert_text 'kensyu（Kensyu Seiko）'
   end
 
