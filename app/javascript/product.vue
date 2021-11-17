@@ -18,7 +18,7 @@
       .thread-list-item__row
         .thread-list-item-title
           .thread-list-item-title__notresponded(
-            v-if='product.self_last_comment_at_date_time > product.mentor_last_comment_at_date_time || product.comments.size === 0'
+            v-if='notRespondedSign'
             )
             | ○
           .thread-list-item-title__start
@@ -188,6 +188,9 @@ export default {
     },
     unassigned() {
       return location.pathname === '/products/unassigned'
+    },
+    notRespondedSign() {
+      return this.product.self_last_comment_at_date_time > this.product.mentor_last_comment_at_date_time || this.product.comments.size === 0
     }
   }
 }
