@@ -186,7 +186,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111')
 
-    VCR.use_cassette 'sign_up/valid-card' do
+    VCR.use_cassette 'sign_up/valid-card', record: :once do
       click_button '参加する'
       assert_text 'に使用できない文字列が含まれています'
     end
@@ -257,7 +257,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111')
 
-    VCR.use_cassette 'sign_up/valid-card' do
+    VCR.use_cassette 'sign_up/valid-card', record: :once do
       click_button '参加する'
       assert_text '自己紹介を入力してください'
     end
