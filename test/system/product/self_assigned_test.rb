@@ -69,7 +69,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     product.checker_id = checker.id
     product.save
     visit_with_auth '/products/self_assigned?target=self_assigned_all', 'komagata'
-    assert_text 'レビューを担当する提出物はありません'
+    assert_text '提出物はありません'
   end
 
   test 'display no replied products if click on self-assigned-tab' do
