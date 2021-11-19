@@ -19,7 +19,7 @@ class API::FeaturedEntriesTest < ActionDispatch::IntegrationTest
          params: {
            featureable_id: report.id,
            featureable_type: 'Report'
-        }
+         }
     assert_response :unauthorized
 
     token = create_token('machida', 'testtest')

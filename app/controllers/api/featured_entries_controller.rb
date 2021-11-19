@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class API::FeaturedEntriesController < API::BaseController
   PAGER_NUMBER = 25
 
