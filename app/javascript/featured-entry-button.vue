@@ -14,13 +14,12 @@ export default {
   props: {
     featureableId: { type: Number, required: true },
     featureableType: { type: String, required: true },
-    checked: { type: Boolean, required: false, default: false },
     featuredEntryIndexId: { type: Number, required: false, default: 0 }
   },
   data() {
     return {
       featuredEntryId: null,
-      featuredEntryLabel: '☆',
+      featuredEntryLabel: '☆'
     }
   },
   created() {
@@ -39,36 +38,31 @@ export default {
       }
     },
     getFeaturedEntry() {
-      if (this.checked) {
-        this.featuredEntryId = this.featuredEntryIndexId
-        this.featuredEntryLabel = '削除'
-      } else {
-        fetch(
-          `/api/featured_entries.json?featureable_type=${this.featureableType}&featureable_id=${this.featureableId}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8',
-              'X-Requested-With': 'XMLHttpRequest',
-              'X-CSRF-Token': this.token()
-            },
-            credentials: 'same-origin',
-            redirect: 'manual'
+      fetch(
+        `/api/featured_entries.json?featureable_type=${this.featureableType}&featureable_id=${this.featureableId}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-Token': this.token()
+          },
+          credentials: 'same-origin',
+          redirect: 'manual'
+        }
+      )
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          if (json.featuredEntries.length) {
+            this.featuredEntryId = json.featuredEntries[0].id
+            this.featuredEntryLabel = '⭐︎'
           }
-        )
-          .then((response) => {
-            return response.json()
-          })
-          .then((json) => {
-            if (json.featuredEntries.length) {
-              this.featuredEntryId = json.featuredEntries[0].id
-              this.featuredEntryLabel = '⭐︎'
-            }
-          })
-          .catch((error) => {
-            console.warn('Failed to parsing', error)
-          })
-      }
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     },
     feature() {
       fetch(
