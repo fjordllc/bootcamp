@@ -8,6 +8,8 @@ class API::FeaturedEntriesController < API::BaseController
     @featured_entries = Kaminari.paginate_array(featured_entries).page(params[:page]).per(PAGER_NUMBER)
 
     return unless params[:featureable_id] && params[:featureable_type]
+
+    @featured_entries = FeaturedEntry.where(featureable: featureable)
   end
 
   def create
