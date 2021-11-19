@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   draw :connection
   draw :products
   draw :reports
+  resources :featured_entries, only: %i(index)
   resources :announcements
   resource :retirement, only: %i(show new create), controller: "retirement"
   resource :hibernation, only: %i(show new create), controller: "hibernation"
