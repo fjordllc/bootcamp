@@ -6,3 +6,7 @@
       - Notification::TARGETS_TO_KINDS.each_key do |target|
         li.page-tabs__item
           = link_to t("notification.#{target}"), notifications_path(status: 'unread', target: target), class: "page-tabs__item-link #{'is-active' if @target == target.to_s}".strip
+          - if target.to_s == 'announcement'
+            | (#{Cache.read_announcement_count(current_user.id)})
+            - if Cache.unread_announcement_count(current_user.id).positive?
+              = Cache.unread_announcement_count(current_user.id)
