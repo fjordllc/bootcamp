@@ -25,7 +25,9 @@ class HomeController < ApplicationController
 
   def pricing; end
 
-  def test; end
+  def test
+    render :test, layout: false
+  end
 
   private
 

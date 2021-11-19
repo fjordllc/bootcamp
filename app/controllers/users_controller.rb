@@ -31,7 +31,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @completed_learnings = @user.learnings.where(status: 3).order(updated_at: :desc)
+    @completed_learnings = @user
+                           .learnings
+                           .includes(:practice)
+                           .where(status: 3)
+                           .order(updated_at: :desc)
   end
 
   def new

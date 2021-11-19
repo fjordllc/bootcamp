@@ -33,7 +33,7 @@
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
-              a.a-user-name(:href='report.user.url') {{ report.user.login_name }}
+              a.a-user-name(:href='report.user.url') {{ report.user.long_name }}
             .thread-list-item-meta__item
               time.a-meta {{ report.reportedOn }}
                 | の日報

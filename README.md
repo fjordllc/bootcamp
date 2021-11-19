@@ -63,6 +63,13 @@ $ eslint 'app/javascript/**/*.{js,vue}' --fix
 $ prettier app/javascript/**/*.{js,vue} --write
 ```
 
+## Profiler
+
+rack-mini-profilerによりプロファイリングはデフォルトではOFFになっています。ONにする場合は下記のようにサーバーと立ち上げます。
+
+```
+$ PROFILE=1 rails server
+```
 
 ## その他
 
@@ -73,3 +80,5 @@ $ prettier app/javascript/**/*.{js,vue} --write
 - [nodeのバージョン切り替え](https://github.com/fjordllc/bootcamp/wiki/node%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88)
 
 - [Rake Taskの実装方法](https://github.com/fjordllc/bootcamp/wiki/Rake-Task%E3%81%AE%E5%AE%9F%E8%A3%85%E6%96%B9%E6%B3%95)
+
+- [Develop環境をDockerで動かす方法](doc/development_on_docker.md)

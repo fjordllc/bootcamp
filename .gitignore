@@ -11,8 +11,9 @@
 /db/*.sqlite3
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
+/log/*
 /tmp
+!/log/.keep
 
 vendor/bundle/
 
@@ -43,3 +44,4 @@ storage/
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+.envrc
