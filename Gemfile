@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.4'
 
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'date', '>= 3.2.1' # CVE-2021-41817対応
 gem 'image_processing', '~> 1.2'
 gem 'jbuilder', '~> 2.7'
 gem 'puma', '~> 5.5'
@@ -47,7 +48,7 @@ gem 'rollbar'
 gem 'slim-rails'
 gem 'sorcery'
 gem 'sorcery-jwt'
-gem 'stripe', '~> 4.5.0'
+gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
 gem 'sucker_punch', '~> 2.0'
 

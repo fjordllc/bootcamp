@@ -353,22 +353,17 @@ class User < ApplicationRecord
     "#{completed_practices_include_progress.size}/#{practices_include_progress.size}"
   end
 
-  def completed_practices_size(category)
+  def completed_practices_size_by_category
     Practice
       .joins({ categories: :categories_practices }, :learnings)
-      .distinct(:id)
       .where(
-        categories_practices: { category_id: category.id },
         learnings: {
           user_id: id,
           status: 'complete'
         }
       )
-      .size
-  end
-
-  def completed_percentage_by(category)
-    completed_practices_size(category).to_f / category.practices.size * 100
+      .group('categories_practices.category_id')
+      .count('DISTINCT practices.id')
   end
 
   def active?
@@ -550,10 +545,6 @@ class User < ApplicationRecord
     else
       followees
     end
-  end
-
-  def completed_all_practices?(category)
-    category.practices.size == completed_practices_size(category)
   end
 
   def practices

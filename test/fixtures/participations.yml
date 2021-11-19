@@ -25,3 +25,8 @@ participation5:
   user: sotugyou
   event: event2
   enable: true
+
+participation6:
+  user: kimura
+  event: event5
+  enable: true

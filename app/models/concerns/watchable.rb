@@ -25,12 +25,14 @@ module Watchable
       "「#{self[:title]}」のイベント"
     when Page
       "「#{self[:title]}」のDocs"
+    when Announcement
+      " [#{self[:title]}]のお知らせ"
     end
   end
 
   def body
     case self
-    when Question, Event, Report
+    when Question, Event, Report, Announcement
       self[:description]
     else
       self[:body]
