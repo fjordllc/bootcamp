@@ -64,11 +64,10 @@ header.page-header
               h2.card-header__title
                 | 注目エントリー
             = render partial: 'featured_entries', collection: @featured_entries, as: :featured_entry
-            / footer.thread-list__footer
-            /   .thread-list__footer-to-index
-            /     = link_to announcements_path, class: 'thread-list__footer-text-link' do
-            /       | 全ての注目エントリー
-
+            footer.card-footer
+              .card-footer__footer-link
+                = link_to featured_entries_path, class: 'card-footer__footer-text-link' do
+                  | 全ての注目エントリー
           - if (current_user.admin? || current_user.adviser?) && User.all.job_seeking.present?
             = render 'job_seeking_users', users: User.all.job_seeking
           - if current_user.total_learning_time.positive? || !current_user.mentor?
