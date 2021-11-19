@@ -3,8 +3,8 @@
     ul.page-tabs__items
       li.page-tabs__item
         = link_to notifications_path(status: 'unread'), class: "page-tabs__item-link #{'is-active' if @target.nil?}".strip
-          | 全て （#{current_user.notifications.length})
-          - if current_user.notifications.unreads.count > 0
+          | 全て （#{current_user.notifications.length}）
+          - if current_user.notifications.unreads.count.positive?
             .page-tabs__item-count.a-notification-count
               = current_user.notifications.unreads.count
       - Notification::TARGETS_TO_KINDS.each_key do |target|
