@@ -35,7 +35,8 @@ export default {
       return `is-${this.featuredEntry.featured_entry_class_name}`
     },
     createdAt() {
-      const date = this.featuredEntry.reported_on || this.featuredEntry.created_at
+      const date =
+        this.featuredEntry.reported_on || this.featuredEntry.created_at
       return dayjs(date).format('YYYY年MM月DD日(dd) HH:mm')
     }
   }
