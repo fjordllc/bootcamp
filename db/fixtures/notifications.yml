@@ -125,3 +125,27 @@ notification_chose_correct_answer:
   message: hajimeさんの質問【 解決済みの質問 】でadvijirouさんの回答がベストアンサーに選ばれました。
   path: "/questions/<%= ActiveRecord::FixtureSet.identify(:question12) %>"
   read: false
+
+notification_announcement_1:
+  kind: 5
+  user: komagata
+  sender: yamada
+  message: yamadaさんからお知らせです。
+  path: "/announcements/<%= ActiveRecord::FixtureSet.identify(:announcement81) %>"
+  read: false
+
+notification_announcement_2:
+  kind: 5
+  user: komagata
+  sender: machida
+  message: machidaさんからお知らせです。
+  path: "/announcements/<%= ActiveRecord::FixtureSet.identify(:announcement82) %>"
+  read: false
+
+notification_announcement_3:
+  kind: 5
+  user: komagata
+  sender: machida
+  message: machidaさんからお知らせです。
+  path: "/announcements/<%= ActiveRecord::FixtureSet.identify(:announcement83) %>"
+  read: true
