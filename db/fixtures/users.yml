@@ -654,3 +654,50 @@ ringo:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-02-01 00:00:30"
   created_at: "2021-02-01 00:00:30"
+
+daimyo-adviser: # 大名エンジニアカレッジのアドバイザー
+  login_name: daimyo-adviser
+  email: daimyo-adviser@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 大名 次郎
+  name_kana: ダイミョウ 次郎
+  discord_account: daimyo-adviser#9999
+  github_account: daimyo-adviser
+  twitter_account: daimyo-adviser
+  facebook_url: http://www.facebook.com/senpai
+  blog_url: http://senpai.org
+  company: company4
+  description: "大名エンジニアカレッジからきました。アドバイザーをしています。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  adviser: true
+  unsubscribe_email_token: E8ycg7ahXNYj5bPA9Ic7aw
+  updated_at: "2014-01-01 00:00:12"
+  created_at: "2014-01-01 00:00:12"
+
+daimyo-kensyu: # 大名エンジニアカレッジの研修生
+  login_name: daimyo-kensyu
+  email: daimyo-kensyu@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 大名 三郎
+  name_kana: ダイミョウ サブロウ
+  discord_account: daimyo-kensyu#9999
+  github_account: daimyo-kensyu
+  twitter_account: daimyo-kensyu
+  facebook_url: http://www.facebook.com/kensyu
+  blog_url: http://kensyu.org
+  company: company4
+  description: "大名エンジニアカレッジの研修生です"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  trainee: true
+  free: true
+  unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
