@@ -22,7 +22,7 @@ main.page-main
             h1.page-main-header__title
               = t("notification.#{@target}")
           .page-main-header__end
-            = link_to "#{t("notification.#{@target}")}の通知を既読にする", categorymarks_path(target: @target), method: :post,
+            = link_to "#{t("notification.#{@target}")}の通知を既読にする", read_by_category_path(target: @target), method: :post,
                     class: "a-button is-sm is-warning is-block #{current_user.notifications.by_target(@target.presence&.to_sym).unreads.empty? ? 'is-disabled' : ''}"
 
 .page-tools
