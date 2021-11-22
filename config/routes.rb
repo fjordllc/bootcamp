@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   resources :notifications, only: %i(index show) do
     collection do
       resources :allmarks, only: %i(create), controller: "notifications/allmarks"
+      resource :read_by_category, only: %i(create), controller: "notifications/read_by_category"
     end
   end
   resources :works, except: %i(index)
