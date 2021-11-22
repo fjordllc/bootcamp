@@ -1,7 +1,7 @@
 .user-group class="#{users_tags_gradation(tag.count, @top3_tags_counts[0])}"
   header.user-group__header
     h2.user-group__title.is-inline
-      = link_to "/users/tags/#{tag.name}", class: 'user-group__title-link'
+      = link_to users_tag_path(tag.name), class: 'user-group__title-link'
         - rank = users_tags_rank(tag.count, @top3_tags_counts)
         - if rank.present?
           span.user-group__title-icon(class="#{users_tags_rank(tag.count, @top3_tags_counts)}")
