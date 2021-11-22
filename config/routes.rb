@@ -67,7 +67,7 @@ Rails.application.routes.draw do
   end
   resources :generations, only: %i(show index)
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
-  get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/
+  get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/, format: "html"
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"
