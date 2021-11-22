@@ -273,4 +273,32 @@ class NotificationsTest < ApplicationSystemTestCase
     assert_text '未読のお知らせの通知'
     assert_no_text '既読のお知らせの通知'
   end
+
+  test 'click on the category marks button' do
+    Notification.create(message: 'お知らせのテスト通知',
+                        kind: 'announced',
+                        path: '/announcements/1',
+                        user: users(:komagata),
+                        sender: users(:machida))
+    Notification.create(message: 'コメントのテスト通知',
+                        kind: 'came_comment',
+                        path: '/reports/1',
+                        user: users(:komagata),
+                        sender: users(:machida))
+    visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
+    wait_for_vuejs
+    click_link 'お知らせの通知を既読にする'
+
+    visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
+    wait_for_vuejs
+    assert_no_text 'お知らせのテスト通知'
+
+    visit_with_auth '/notifications?status=unread&target=comment', 'komagata'
+    wait_for_vuejs
+    assert_text 'コメントのテスト通知'
+
+    visit_with_auth '/notifications?status=unread', 'komagata'
+    wait_for_vuejs
+    assert_text 'コメントのテスト通知'
+  end
 end
