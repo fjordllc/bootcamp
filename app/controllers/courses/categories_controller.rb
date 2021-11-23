@@ -5,6 +5,9 @@ class Courses::CategoriesController < ApplicationController
 
   def index
     @course = Course.find(params[:course_id])
-    @courses_categories = @course.courses_categories.order(:position)
+    @courses_categories = @course
+                          .courses_categories
+                          .includes(:category)
+                          .order(:position)
   end
 end
