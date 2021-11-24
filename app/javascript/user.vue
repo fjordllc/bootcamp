@@ -24,7 +24,9 @@
               .users-item-names__chat
                 .users-item-names__chat-label
                   i.fab.fa-discord
-                a.users-item-names__chat-value(:href='user.times_url')(v-if='user.times_url')
+                a.users-item-names__chat-value(:href='user.times_url')(
+                  v-if='user.times_url'
+                )
                   | {{ user.discord_account }}
                 span.users-item-names__chat-value(v-else)
                   | {{ user.discord_account }}
