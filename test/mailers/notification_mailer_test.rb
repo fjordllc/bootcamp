@@ -113,7 +113,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
-    assert_equal '[bootcamp] komagataさんからお知らせです。', email.subject
+    assert_equal '[bootcamp] お知らせ 「お知らせ1」', email.subject
     assert_match(/お知らせ/, email.body.to_s)
   end
 
