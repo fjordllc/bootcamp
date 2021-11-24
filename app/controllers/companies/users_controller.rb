@@ -9,12 +9,7 @@ class Companies::UsersController < ApplicationController
     @target = 'student_and_trainee' unless TARGETS.include?(@target)
     @company = Company.find(params[:company_id])
 
-    target_users =
-      if params[:tag]
-        User.tagged_with(params[:tag])
-      else
-        User.users_role(@target)
-      end
+    target_users = User.users_role(@target)
 
     @users = target_users.with_attached_avatar.where(company: @company).order(updated_at: :desc)
   end
