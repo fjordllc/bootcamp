@@ -16,9 +16,9 @@ header.page-header
               | 日報一覧
 
 .page-body
-  .container.is-xxl
-    div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
-      div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
+  .container.is-xxxl
+    .row.is-jc:c
+      .col-md-7.col-xs-12
         .thread
           .thread__inner.a-card
             header.thread-header
@@ -124,11 +124,29 @@ header.page-header
                 = link_to @report.next, class: 'thread-prev-next__item-link is-next' do
                   | 次の日報
                   i.fas.fa-angle-right
-          = render 'users/icon', user: @report.user, link_class: 'thread__author-link', image_class: 'thread__author-icon'
+          = render 'users/icon', user: @report.user, link_class: 'thread__user-link', image_class: 'thread__user-icon'
 
         #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
 
         = render 'footprints/footprints', footprints: @footprints
 
-      .col-lg-4.col-xs-12
-        #js-user-recent-reports(user-id="#{@report.user.id}")
+      .col-md-5.col-xs-12
+        - if current_user.mentor? || current_user.admin?
+          .side-tabs
+            input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
+            input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
+            .side-tabs-nav.is-only-mentor
+              .side-tabs-nav__items
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-1 for='side-tabs-1'
+                    | 直近の日報
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-2 for='side-tabs-2'
+                    | ユーザーメモ
+            .side-tabs-contents
+              .side-tabs-contents__item#side-tabs-content-1
+                #js-user-recent-reports(user-id="#{@report.user.id}")
+              .side-tabs-contents__item#side-tabs-content-2.is-only-mentor
+                #js-user-mentor-memo(data-user-id='#{@report.user_id}')
+        - else
+          #js-user-recent-reports(user-id="#{@report.user.id}")

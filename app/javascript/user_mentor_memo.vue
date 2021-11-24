@@ -14,20 +14,15 @@ section.a-card.is-memo.is-only-mentor
           )
             i.fas.fa-pen
             | 編集
-  div(
-    :class='{ "a-card": productsMode, "thread-comment-form__form": !productsMode }',
-    v-show='editing'
-  )
-    div(
-      :class='[{ "form-tabs": productsMode, "a-form-tabs": !productsMode }, "js-tabs"]'
-    )
-      div(
-        :class='[{ "is-active": isActive("memo"), "form-tabs__tab": productsMode, "a-form-tabs__tab": !productsMode }, "js-tabs__tab"]',
+  .a-card__inner(v-show='editing')
+    .form-tabs.js-tabs
+      .form-tabs__tab.js-tabs__tab(
+        :class='{ "is-active": isActive("memo") }',
         @click='changeActiveTab("memo")'
       )
         | メモ
-      div(
-        :class='[{ "is-active": isActive("preview"), "form-tabs__tab": productsMode, "a-form-tabs__tab": !productsMode }, "js-tabs__tab"]',
+      .form-tabs__tab.js-tabs__tab(
+        :class='{ "is-active": isActive("preview") }',
         @click='changeActiveTab("preview")'
       )
         | プレビュー

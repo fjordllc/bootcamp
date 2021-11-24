@@ -1,5 +1,8 @@
 <template lang="pug">
 .thread-list.a-card
+  .card-header.is-sm
+    h2.card-header__title
+      | 直近の日報
   .thread-list__items.has-no-author-image
     report(
       v-for='report in reports',
