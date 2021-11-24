@@ -1,7 +1,7 @@
 nav.pill-nav
-  .container.is-padding-horizontal-0-sm-down
-    ul.pill-nav__items
-      - targets = %w[self_assigned_no_replied self_assigned_all]
+  .container.is-padding-horizontal-0-sm-dow
+    ul.tab-nav__items
+      - targets = %w[self_assigned_all self_assigned_no_replied]
       - targets.each do |target|
         li.pill-nav__item
           = link_to t("target.#{target}"), products_self_assigned_index_path(target: target), class: (@target == target ? ['is-active'] : []) << 'pill-nav__item-link'

@@ -17,6 +17,7 @@
     .thread-list-item__rows
       .thread-list-item__row
         .thread-list-item-title
+          .thread-list-item-title__notresponded(v-if='notRespondedSign')
           .thread-list-item-title__start
             .thread-list-item-title__icon.is-wip(v-if='product.wip') WIP
           h2.thread-list-item-title__title(itemprop='name')
@@ -184,6 +185,13 @@ export default {
     },
     unassigned() {
       return location.pathname === '/products/unassigned'
+    },
+    notRespondedSign() {
+      return (
+        this.product.self_last_comment_at_date_time >
+          this.product.mentor_last_comment_at_date_time ||
+        this.product.comments.size === 0
+      )
     }
   }
 }
