@@ -2,7 +2,7 @@
 .tag-links
   ul.tag-links__items(v-if='!editing')
     li.tag-links__item(v-for='tag in tags')
-      a.tag-links__item-link(:href='`tags/${tag.text}`')
+      a.tag-links__item-link(:href='`tags/${encodeURIComponent(tag.text)}`')
         | {{ tag.text }}
     li.tag-links__item(v-if='tagsEditable')
       .tag-links__item-edit(@click='editTag')
