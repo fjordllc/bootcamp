@@ -24,14 +24,12 @@
               .users-item-names__chat
                 .users-item-names__chat-label
                   i.fab.fa-discord
-                .users-item-names__chat-value
+                a.users-item-names__chat-value(:href='user.times_url')(
+                  v-if='user.times_url'
+                )
                   | {{ user.discord_account }}
-                .users-item-names__chat-times(v-if='user.times_url')
-                  | （
-                  a(:href='user.times_url')
-                    | 分報
-                  | ）
-          user-secret-attributes(:user='user', :currentUser='currentUser')
+                span.users-item-names__chat-value(v-else)
+                  | {{ user.discord_account }}
           .users-item__icon
             a(:href='user.url')
               img.users-item__user-icon-image.a-user-icon(
@@ -59,7 +57,6 @@
               )
 </template>
 <script>
-import UserSecretAttributes from './user-secret-attributes.vue'
 import Following from './following.vue'
 import UserSns from './user-sns.vue'
 import UserTags from './user-tags.vue'
@@ -68,7 +65,6 @@ import UserPracticeProgress from './user-practice-progress.vue'
 export default {
   components: {
     following: Following,
-    'user-secret-attributes': UserSecretAttributes,
     'user-sns': UserSns,
     'user-tags': UserTags,
     'user-practice-progress': UserPracticeProgress

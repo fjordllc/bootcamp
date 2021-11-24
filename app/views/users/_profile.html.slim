@@ -7,18 +7,20 @@
         | ★
       = user.login_name
     h2.user-profile__full-name
-      = user.name
+      | #{user.name}
       span.user-profile__kana-full-name
-        = user.name_kana
+        | （#{user.name_kana}）
     ul.users-item-names
       li.users-item-names__item
         .users-item-names__chat
           .users-item-names__chat-label
             i.fab.fa-discord
-          .users-item-names__chat-value
-            = user.discord_account.presence || 'Discord未設定'
-            - if user.times_url?
-              | （#{link_to '分報', user.times_url}）
+          - if user.times_url?
+            = link_to user.times_url, class: 'users-item-names__chat-value' do
+              = user.discord_account.presence || 'Discord未設定'
+          - else
+            span.users-item-names__chat-value
+              = user.discord_account.presence || 'Discord未設定'
     = render 'users/sns', user: user
   - if user.company.present? && user.company.logo.attached?
     = link_to company_path(user.company) do
