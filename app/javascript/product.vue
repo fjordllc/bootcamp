@@ -18,7 +18,6 @@
       .thread-list-item__row
         .thread-list-item-title
           .thread-list-item-title__notresponded(v-if='notRespondedSign')
-            | ○
           .thread-list-item-title__start
             .thread-list-item-title__icon.is-wip(v-if='product.wip') WIP
           h2.thread-list-item-title__title(itemprop='name')
