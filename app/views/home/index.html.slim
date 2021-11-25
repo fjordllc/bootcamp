@@ -44,8 +44,8 @@ header.page-header
             = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
 
         .col-xs-12.col-xl-6.col-xxl-6
-          - if (current_user.admin? || current_user.adviser?) && User.all.job_seeking.present?
-            = render 'job_seeking_users', users: User.all.job_seeking
+          - if (current_user.admin? || current_user.adviser?) && @job_seeking_users.present?
+            = render 'job_seeking_users', users: @job_seeking_users
           - if current_user.total_learning_time.positive? || !current_user.mentor?
             #js-grass(data-user-id="#{current_user.id}")
           - if current_user.github_account.present?
