@@ -297,7 +297,7 @@ class ProductsTest < ApplicationSystemTestCase
   test 'be person on charge at comment on product of there are not person on charge' do
     visit_with_auth products_not_responded_index_path, 'machida'
     def assigned_product_count
-      find_link('自分の担当').find('.page-tabs__item-count').text.to_i
+      text[/自分の担当 （(\d+)）/, 1].to_i
     end
 
     before_comment = assigned_product_count
@@ -325,7 +325,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth products_not_responded_index_path, 'machida'
 
     def assigned_product_count
-      find_link('自分の担当').find('.page-tabs__item-count').text.to_i
+      text[/自分の担当 （(\d+)）/, 1].to_i
     end
 
     before_comment = assigned_product_count
