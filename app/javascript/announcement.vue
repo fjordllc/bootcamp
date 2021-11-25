@@ -1,7 +1,7 @@
 <template lang="pug">
 .thread-list-item(:class='announcement.wip ? "is-wip" : ""')
   .thread-list-item__inner
-    .thread-list-item__author
+    .thread-list-item__user
       a.a-user-name(:href='announcement.user.url')
         img.thread-list-item__user-icon.a-user-icon(
           :title='announcement.user.icon_title',
@@ -12,7 +12,8 @@
     .thread-list-item__rows
       .thread-list-item__row
         .thread-list-item-title
-          .thread-list-item-title__icon.is-wip(v-if='announcement.wip') WIP
+          .thread-list-item-title__icon.is-wip(v-if='announcement.wip')
+            | WIP
           h2.thread-list-item-title__title
             a.thread-list-item-title__link(:href='announcement.url')
               | {{ announcement.title }}
