@@ -701,3 +701,25 @@ daimyo-kensyu: # 大名エンジニアカレッジの研修生
   unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
+
+tatenoicon: # アイコンが長方形のユーザー
+  login_name: tatenoicon
+  email: tatenoicon@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Tatenoicon dayo
+  name_kana: タテノアイコン ダヨ
+  discord_account: tatenoicon#0001
+  github_account: tatenoicon
+  twitter_account: tatenoicon
+  facebook_url: http://www.facebook.com/tatenoicon
+  blog_url: http://tatenoicon.org
+  description: "アイコンが長方形のユーザーです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  organization: 長方形大学
+  unsubscribe_email_token: QV8qOjwxrYxqh6P_Q9B76M
+  updated_at: "2021-01-01 00:00:18"
+  created_at: "2021-01-01 00:00:18"
