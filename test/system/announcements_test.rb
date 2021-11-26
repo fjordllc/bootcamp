@@ -75,7 +75,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせを作成しました'
 
     visit_with_auth '/notifications', 'hatsuno'
-    assert_text 'お知らせ「タイトルtest」'
+    assert_text 'お知らせ 「タイトルtest」'
 
     visit_with_auth '/announcements', 'komagata'
     click_on 'タイトルtest'
@@ -85,7 +85,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせを削除しました'
 
     visit_with_auth '/notifications', 'hatsuno'
-    assert_no_text 'お知らせ「タイトルtest」'
+    assert_no_text 'お知らせ 「タイトルtest」'
   end
 
   test 'announcement notification receive only active users' do
@@ -99,25 +99,25 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせを作成しました'
 
     visit_with_auth '/notifications', 'komagata'
-    assert_text 'お知らせ「現役生にのみお知らせtest」'
+    assert_text 'お知らせ 「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'kimura'
-    assert_text 'お知らせ「現役生にのみお知らせtest」'
+    assert_text 'お知らせ 「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'sotugyou'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
+    assert_no_text 'お知らせ 「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'advijirou'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
+    assert_no_text 'お知らせ 「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'yameo'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
+    assert_no_text 'お知らせ 「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'yamada'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
+    assert_no_text 'お知らせ 「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'kensyu'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
+    assert_no_text 'お知らせ 「現役生にのみお知らせtest」'
   end
 
   test 'announcement notifications are only recived by job seekers' do
@@ -131,13 +131,13 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせを作成しました'
 
     visit_with_auth '/notifications', 'komagata'
-    assert_text 'お知らせ「就活希望者のみお知らせします」'
+    assert_text 'お知らせ 「就活希望者のみお知らせします」'
 
     visit_with_auth '/notifications', 'jobseeker'
-    assert_text 'お知らせ「就活希望者のみお知らせします」'
+    assert_text 'お知らせ 「就活希望者のみお知らせします」'
 
     visit_with_auth '/notifications', 'kimura'
-    assert_no_text 'お知らせ「就活希望者のみお知らせします」'
+    assert_no_text 'お知らせ 「就活希望者のみお知らせします」'
   end
 
   test "general user can't edit submitted announcement" do
