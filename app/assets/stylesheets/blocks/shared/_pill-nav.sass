@@ -1,27 +1,27 @@
-.tab-nav
-  border-bottom: solid 1px $background-shade
+.pill-nav
+  border-bottom: none
   &:not(:last-child)
     margin-bottom: 1.5rem
 
-.tab-nav__items
+.pill-nav__items
   display: flex
   +padding(vertical, .875rem)
   overflow-x: auto
   overflow-y: hidden
+  justify-content: center
+  padding-top: 1.5rem
+  padding-bottom: 0
 
-.tab-nav__item
-  margin-right: .375rem
-  +media-breakpoint-down(sm)
-    +margin(horizontal, .25rem)
-  &:last-child
-    +media-breakpoint-up(md)
-      margin-right: 0
+.pill-nav__item
+  &:first-child .pill-nav__item-link
+    +border-radius(left, 10em)
+  &:last-child .pill-nav__item-link
+    +border-radius(right, 10em)
 
-.tab-nav__item-link
+.pill-nav__item-link
   +block-link
   +text-block(.75rem 2.3, $semi-muted-text center nowrap)
   background-color: $background-shade
-  border-radius: 20rem
   width: 7rem
   transition: all.2s ease-out
   &:hover

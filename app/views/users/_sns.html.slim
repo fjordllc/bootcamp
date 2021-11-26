@@ -2,29 +2,36 @@
   ul.sns-links__items.is-button-group
     li.sns-links__item
       - if user.github_account?
-        = link_to user_github_url(user), class: 'sns-links__item-link a-button is-xs is-secondary is-icon' do
+        = link_to user_github_url(user), class: 'sns-links__item-link a-button is-sm is-secondary is-icon' do
           i.fab.fa-github-alt
       - else
-        .sns-links__item-link.a-button.is-xs.is-disabled.is-icon
+        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
           i.fab.fa-github-alt
     li.sns-links__item
       - if user.twitter_account?
-        = link_to user.twitter_url, class: 'sns-links__item-link a-button is-xs is-secondary is-icon' do
+        = link_to user.twitter_url, class: 'sns-links__item-link a-button is-sm is-secondary is-icon' do
           i.fab.fa-twitter
       - else
-        .sns-links__item-link.a-button.is-xs.is-disabled.is-icon
+        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
           i.fab.fa-twitter
     li.sns-links__item
       - if user.facebook_url?
-        = link_to user.facebook_url, class: 'sns-links__item-link a-button is-xs is-secondary is-icon' do
+        = link_to user.facebook_url, class: 'sns-links__item-link a-button is-sm is-secondary is-icon' do
           i.fab.fa-facebook
       - else
-        .sns-links__item-link.a-button.is-xs.is-disabled.is-icon
+        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
           i.fab.fa-facebook
     li.sns-links__item
       - if user.blog_url?
-        = link_to user.blog_url, class: 'sns-links__item-link a-button is-xs is-secondary is-icon' do
-          i.fas.fa-file
+        = link_to user.blog_url, class: 'sns-links__item-link a-button is-sm is-secondary is-icon' do
+          i.fas.fa-blog
       - else
-        .sns-links__item-link.a-button.is-xs.is-disabled.is-icon
-          i.fas.fa-file
+        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
+          i.fas.fa-blog
+    li.sns-links__item
+      - if user.times_url?
+        = link_to user.times_url, class: 'sns-links__item-link a-button is-sm is-secondary is-icon' do
+          i.far.fa-clock
+      - else
+        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
+          i.far.fa-clock

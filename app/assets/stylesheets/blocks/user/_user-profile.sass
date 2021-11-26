@@ -48,15 +48,9 @@
   +text-block(.875rem 1.45, 400)
 
 .user-profile__company-logo
-  max-width: 5rem
+  +size(3.5rem)
+  background-color: $base
+  object-fit: contain
   +position(absolute, right 0, top 0)
   border-radius: .25rem
   border: solid 1px $border
-  +media-breakpoint-down(lg)
-    max-height: 3.5rem
-    +position(absolute, right -2rem, top -2rem)
-    border-radius: 50%
-  +media-breakpoint-down(sm)
-    max-height: 3.5rem
-    +position(absolute, right -1.25rem, top -2rem)
-    border-radius: 50%

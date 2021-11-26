@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     get "mail_notification", to: "mail_notification#update", as: :mail_notification
   end
 
-  get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
+  get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/, format: "html"
 
   namespace :users do
     post "tags/:tag", to: "tags#update", tag: /.+/

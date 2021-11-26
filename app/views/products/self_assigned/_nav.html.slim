@@ -1,7 +1,7 @@
-nav.tab-nav.is-centered
-  .container.is-padding-horizontal-0-sm-down
-    ul.tab-nav__items
-      - targets = %w[self_assigned_no_replied self_assigned_all]
+nav.pill-nav
+  .container.is-padding-horizontal-0-sm-dow
+    ul.pill-nav__items
+      - targets = %w[self_assigned_all self_assigned_no_replied]
       - targets.each do |target|
-        li.tab-nav__item
-          = link_to t("target.#{target}"), products_self_assigned_index_path(target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
+        li.pill-nav__item
+          = link_to t("target.#{target}"), products_self_assigned_index_path(target: target), class: (@target == target ? ['is-active'] : []) << 'pill-nav__item-link'

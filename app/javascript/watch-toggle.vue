@@ -1,5 +1,5 @@
 <template lang="pug">
-#watch-button.a-watch-button.a-button.is-xs.is-block(
+#watch-button.a-watch-button.a-button.is-sm.is-block(
   :class='watchId ? "is-active is-main" : "is-inactive is-muted"',
   @click='buttonClick'
 )
