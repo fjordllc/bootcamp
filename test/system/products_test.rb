@@ -304,14 +304,13 @@ class ProductsTest < ApplicationSystemTestCase
 
     [
       '担当者がいない提出物の場合、担当者になる',
-      '自分が担当者の場合、担当者のまま',
-      'タブ上の数字は未返信の数字のため、返信するとカウントされない'
+      '自分が担当者の場合、担当者のまま'
     ].each do |comment|
       visit "/products/#{products(:product1).id}"
       post_comment(comment)
 
       visit products_not_responded_index_path
-      assert_equal before_comment, assigned_product_count
+      assert_equal before_comment + 1, assigned_product_count
     end
   end
 
