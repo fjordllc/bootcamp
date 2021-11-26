@@ -67,11 +67,9 @@
   padding-bottom: 1rem
 
 .user-item__company-logo
-  max-width: 3rem
+  +size(3rem)
+  object-fit: contain
   background-color: $base
   +position(absolute, right 0.5rem, top 0.5rem)
   border-radius: .25rem
   border: solid 1px $border
-  +media-breakpoint-down(lg)
-    +position(absolute, right -0.5rem, top -0.5rem)
-    border-radius: 50%

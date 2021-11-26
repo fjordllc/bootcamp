@@ -1,6 +1,6 @@
 .thread-list-item(class="#{question.correct_answer.present? ? 'is-solved' : ''}")
   .thread-list-item__inner
-    .thread-list-item__author
+    .thread-list-item__user
       = render 'users/icon',
         user: question.user,
         link_class: 'a-user-name',

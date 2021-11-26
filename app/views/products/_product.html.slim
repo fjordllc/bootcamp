@@ -1,6 +1,6 @@
 .thread-list-item(class="#{product.wip? ? 'is-wip' : ''} #{current_user.mentor? ? 'has-assigned' : ''}")
   .thread-list-item__inner
-    .thread-list-item__author
+    .thread-list-item__user
       = render 'users/icon', user: product.user, link_class: 'a-user-name', image_class: 'thread-list-item__user-icon'
     .thread-list-item__rows
       .thread-list-item__row

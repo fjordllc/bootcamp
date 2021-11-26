@@ -4,7 +4,7 @@ class API::Products::SelfAssignedController < API::BaseController
   before_action :require_staff_login_for_api
   def index
     @target = params[:target]
-    @target = 'self_assigned_no_replied' unless target_allowlist.include?(@target)
+    @target = 'self_assigned_all' unless target_allowlist.include?(@target)
     @products = case @target
                 when 'self_assigned_all'
                   Product.self_assigned_product(current_user.id)

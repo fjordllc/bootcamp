@@ -20,7 +20,7 @@
           .thread-list-item-meta__items
             .thread-list-item-meta__item
               time.a-meta(:datetime='notification.created_at') {{ formattedCreatedAtInJapanese }}
-    .thread-list-item__author
+    .thread-list-item__user
       img.thread-list-item__user-icon.a-user-icon(
         :title='notification.sender.icon_title',
         :src='notification.sender.avatar_url',
