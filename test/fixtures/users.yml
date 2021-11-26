@@ -398,3 +398,30 @@ with_hyphen:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:17"
   created_at: "2021-01-01 00:00:17"
+
+kensyuowata: # 研修が終わったユーザー
+  login_name: kensyuowata
+  email: kensyuowata@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Kensyu Owata
+  name_kana: ケンシュウ オワタ
+  discord_account: kensyuowata#5678
+  github_account: kensyuowata
+  twitter_account: kensyuowata
+  times_url: https://discord.com/channels/715806612824260640/123456789000000011
+  facebook_url: http://www.facebook.com/kensyuowata
+  blog_url: http://kensyuowata.org
+  company: company2
+  description: "研修終太です。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: 研修大学
+  trainee: true
+  free: true
+  retired_on: "2015-01-01"
+  unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
