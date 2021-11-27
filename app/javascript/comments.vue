@@ -5,9 +5,7 @@
   .thread-comments-more(v-show='!loadedComment')
     .thread-comments-more__inner
       .thread-comments-more__action
-        button#js-shortcut-post-comment.a-button.is-lg.is-text.is-block(
-          @click='showComments'
-        )
+        button#a.a-button.is-lg.is-text.is-block(@click='showComments')
           | コメント（{{ commentLimit }}）をもっと見る
   comment(
     v-for='(comment, index) in comments',
