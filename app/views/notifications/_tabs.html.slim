@@ -8,4 +8,3 @@
           = link_to t("notification.#{target}"), notifications_path(status: 'unread', target: target), class: "page-tabs__item-link #{'is-active' if @target == target.to_s}".strip
           = read_batche(target.to_s)
           = unread_batche(target.to_s)
-
