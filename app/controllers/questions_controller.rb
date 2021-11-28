@@ -18,12 +18,14 @@ class QuestionsController < ApplicationController
       else
         Question.not_solved
       end
-    @tag = params[:tag]
     @tags = questions.all_tags
     questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
     questions = questions.tagged_with(params[:tag]) if params[:tag]
-    questions = questions.includes(:practice, :answers).order(updated_at: :desc, id: :desc)
-    @questions = questions.with_avatar.page(params[:page])
+    @questions = questions
+                 .with_avatar
+                 .includes(:practice, :answers, :tags, :correct_answer, user: :company)
+                 .order(updated_at: :desc, id: :desc)
+                 .page(params[:page])
     @questions_property = questions_property
   end
 
