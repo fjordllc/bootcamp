@@ -37,27 +37,27 @@ class CurrentUser::ReportsController < ApplicationController
   end
 
   def create_reports_md(reports)
-    Dir.mktmpdir("exports") {|dir|
-      reports.each {|report|
-        File.open("#{dir}/#{report.reported_on}.md", "w") {|file|
+    Dir.mktmpdir('exports') do |dir|
+      reports.each do |report|
+        File.open("#{dir}/#{report.reported_on}.md", 'w') do |file|
           file.puts("# #{report.title}")
           file.puts
           file.puts(report.description)
-        }
-      }
+        end
+      end
       send_reports_md(dir)
-    }
+    end
   end
 
   def send_reports_md(folder_path)
     zip_filename = "#{folder_path}/reports.zip"
     filenames = Dir.open(folder_path, &:children)
-    
-    Zip::File.open(zip_filename, Zip::File::CREATE) {|zipfile|
-      filenames.each {|filename|
+
+    Zip::File.open(zip_filename, Zip::File::CREATE) do |zipfile|
+      filenames.each do |filename|
         zipfile.add(filename, File.join(folder_path, filename))
-      }
-    }
+      end
+    end
     send_data(File.read(zip_filename), filename: '日報一覧.zip')
   end
 end
