@@ -7,13 +7,13 @@ class CurrentUser::ReportsController < ApplicationController
   before_action :set_export, only: %i[index]
 
   require 'zip'
-  require 'fileutils'
+  require 'tmpdir'
 
   def index
     respond_to do |format|
       format.html
       format.md do
-        send_reports_md
+        create_reports_md(@reports_for_export)
       end
     end
   end
@@ -36,30 +36,28 @@ class CurrentUser::ReportsController < ApplicationController
     @reports_for_export = user.reports.not_wip
   end
 
-  def create_reports_md
-    @reports_for_export.each do |report|
-      File.open("tmp/exports/#{report.reported_on}.md", 'w') do |file|
-        file.puts("# #{report.title}")
-        file.puts
-        file.puts(report.description)
-      end
-    end
+  def create_reports_md(reports)
+    Dir.mktmpdir("exports") {|dir|
+      reports.each {|report|
+        File.open("#{dir}/#{report.reported_on}.md", "w") {|file|
+          file.puts("# #{report.title}")
+          file.puts
+          file.puts(report.description)
+        }
+      }
+      send_reports_md(dir)
+    }
   end
 
-  def send_reports_md
-    create_reports_md
-
-    folderpath = 'tmp/exports'
-    zip_filename = 'tmp/exports/reports.zip'
-    filenames = Dir.open(folderpath, &:children)
-
-    Zip::File.open(zip_filename, Zip::File::CREATE) do |zipfile|
-      filenames.each do |filename|
-        zipfile.add(filename, File.join(folderpath, filename))
-      end
-    end
-
+  def send_reports_md(folder_path)
+    zip_filename = "#{folder_path}/reports.zip"
+    filenames = Dir.open(folder_path, &:children)
+    
+    Zip::File.open(zip_filename, Zip::File::CREATE) {|zipfile|
+      filenames.each {|filename|
+        zipfile.add(filename, File.join(folder_path, filename))
+      }
+    }
     send_data(File.read(zip_filename), filename: '日報一覧.zip')
-    FileUtils.rm(Dir.glob("#{folderpath}/*"))
   end
 end
