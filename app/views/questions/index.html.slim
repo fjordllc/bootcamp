@@ -26,7 +26,8 @@ header.page-header
         .page-main-header__start
           h1.page-main-header__title
             | タグ「#{@tag.name}」のQ&A（#{@questions.total_count}）
-        #js-question-tag-edit(tag-id="#{@tag.id}" tag-name="#{@tag.name}")
+        - if admin_login?
+          #js-question-tag-edit(tag-id="#{@tag.id}" tag-name="#{@tag.name}")
 .page-body
   .container.is-xl
     = paginate @questions
