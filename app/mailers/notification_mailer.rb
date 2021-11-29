@@ -63,7 +63,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
   def post_announcement
     @user = @receiver
     @notification = @user.notifications.find_by(path: "/announcements/#{@announcement.id}")
-    mail to: @user.email, subject: "[bootcamp] #{@announcement.user.login_name}さんからお知らせです。"
+    mail to: @user.email, subject: "[bootcamp] お知らせ「#{@announcement.title}」"
   end
 
   # required params: question, receiver
