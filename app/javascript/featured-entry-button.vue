@@ -84,7 +84,7 @@ export default {
         .then((json) => {
           this.featuredEntryId = json.id
           this.featuredEntryLabel = '⭐︎'
-          this.toast('注目エントリーを登録しました！')
+          this.toast('注目エントリーに登録しました!')
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
@@ -104,7 +104,7 @@ export default {
         .then(() => {
           this.featuredEntryId = null
           this.featuredEntryLabel = '☆'
-          this.toast('注目エントリーを削除しました')
+          this.toast('注目エントリーから解除しました')
         })
         .then(() => {
           this.$emit('update-index')
