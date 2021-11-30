@@ -10,10 +10,6 @@ header.page-header
             = link_to new_report_path, class: 'a-button is-md is-secondary is-block' do
               i.fas.fa-plus
               | 日報作成
-          li.page-header-actions__item
-            = link_to current_user_reports_path(format: :md), class: 'a-button is-md is-secondary is-block' do
-              i.fas.fa-plus
-              | エクスポート
 
 = render 'home/page_tabs', user: @user
 
@@ -30,3 +26,10 @@ header.page-header
         p.o-empty-message__text
           | 日報はまだありません。
     = paginate @reports
+
+    .form-actions
+      ul.form-actions__items
+        li.form-actions__item.is-main
+          = link_to current_user_reports_path(format: :md), class: 'a-button is-md is-primary is-block' do
+            i.fas.fa-cloud-download-alt
+            | 日報一括ダウンロード
