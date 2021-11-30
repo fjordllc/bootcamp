@@ -17,9 +17,7 @@ class API::TagsController < API::BaseController
       update_target = taggings.where.not(taggable_id: taggable_ids)
       destroy_target = taggings.where(taggable_id: taggable_ids)
 
-      if update_target.update(tag_id: same_name_tag.id) && destroy_target.destroy_all
-        head :ok
-      end
+      head :ok if update_target.update(tag_id: same_name_tag.id) && destroy_target.destroy_all
     elsif tag.update(tag_params)
       head :ok
     else

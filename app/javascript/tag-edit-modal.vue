@@ -1,12 +1,8 @@
 <template lang="pug">
 .overlay(@click.self='closeModal')
   .content
-    label(for="tag_name") タグ編集
-    input(
-      v-model='name'
-      name='tag[name]'
-      id="tag_name"
-    )
+    label(for='tag_name') タグ編集
+    input#tag_name(v-model='name', name='tag[name]')
     button(:disabled='validation', @click.prevent='updateTag') 更新
     button(@click.prevent='closeModal') キャンセル
 </template>
@@ -25,7 +21,7 @@ export default {
   },
   computed: {
     validation() {
-      return (this.name === this.initialName) || (this.name === '')
+      return this.name === this.initialName || this.name === ''
     }
   },
   mounted() {
@@ -41,7 +37,7 @@ export default {
       this.$emit('closeModal')
     },
     updateTag() {
-      if ((this.name === '') || (this.name === this.initialName)) {
+      if (this.name === '' || this.name === this.initialName) {
         return null
       }
       const params = {
