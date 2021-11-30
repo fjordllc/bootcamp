@@ -11,7 +11,7 @@ class NotificationsController < ApplicationController
   def show
     link = @notification.read_attribute :link
     @notifications = current_user.notifications.where(link: link)
-    @notifications.update_all(read: true) # rubocop:disable Rails/SkipsModelValidations
+    @notifications.update(read: true)
     redirect_to link
   end
 
