@@ -12,7 +12,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
-Rails.application.config.assets.precompile += %w( application.css welcome.css qrcodes.css )
+Rails.application.config.assets.precompile += %w( application.css welcome.css completion.css )
 
 # Rubyが落ちるエラーがあり、原因としてSprocketsの関係で、assetsが並列でコンパイルされていることが考えられる。
 # ソースは以下。

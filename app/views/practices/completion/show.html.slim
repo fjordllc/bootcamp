@@ -4,7 +4,8 @@
 
 .page-body
   .container.is-md
-    p
-      = "「#{@practice.title}」を修了しました。お疲れ様でした！"
-    - if @practice.ogp_image.attached?
-      = image_tag @practice.ogp_image
+    .complestion
+      h1.complestion__title
+        = "「#{@practice.title}」を修了しました🎉🎉🎉"
+      - if @practice.ogp_image.attached?
+        = image_tag @practice.ogp_image, class: 'complestion__image'
