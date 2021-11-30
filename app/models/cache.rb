@@ -51,5 +51,17 @@ class Cache
     def delete_not_solved_question_count
       Rails.cache.delete 'not_solved_question_count'
     end
+
+    def mentioned_notification_count(user)
+      Rails.cache.fetch "#{user.id}-mentioned_notification_count" do
+        user.notifications.where(kind: :mentioned).count
+      end
+    end
+
+    def mentioned_and_unread_notification_count(user)
+      Rails.cache.fetch "#{user.id}-mentioned_and_unread_notification_count" do
+        user.notifications.where(kind: :mentioned, read: false).count
+      end
+    end
   end
 end
