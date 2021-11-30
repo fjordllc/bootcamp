@@ -1,13 +1,6 @@
-= render '/shared/modal', id: 'modal-learning_completion', title: 'おめでとうございます！！'
+= render '/shared/modal', id: 'modal-learning_completion', title: 'おめでとう！！'
   #modal-learning_completion-data.modal__description.is-md(data-practice-id="#{practice.id}" data-should-display-message-automatically="#{should_display_message_automatically}")
-    .a-short-text
-      p
-        | プラクティス
-      p
-        = "#{practice.title} を完了しました。"
-      p
-        | お疲れ様でした。
-      hr
-      p
-        | この喜びをTweetしよう！！
-      = link_to 'Twitterにシェアする', tweet_url, class: 'a-button is-md is-primary is-block', target: '_blank', rel: 'noopener'
+    .a-long-text
+      h3
+        | プラクティス「#{practice.title}」を修了しました🎉🎉🎉
+  = link_to 'この喜びをTweetしよう！！', tweet_url, class: 'a-button is-md is-primary is-block', target: '_blank', rel: 'noopener'
