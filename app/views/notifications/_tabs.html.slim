@@ -12,7 +12,8 @@
           = link_to notifications_path(status: 'unread', target: target), class: "page-tabs__item-link #{'is-active' if @target == target.to_s}".strip do
             - if target == :mention
               | #{t('notification.mention')} （#{current_user.notifications.where(kind: :mentioned).count}）
-              .page-tabs__item-count.a-notification-count
-                = current_user.notifications.where(kind: :mentioned, read: false).count
+              - if current_user.notifications.where(kind: :mentioned, read: false).count.positive?
+                .page-tabs__item-count.a-notification-count
+                  = current_user.notifications.where(kind: :mentioned, read: false).count
             - else
               = t("notification.#{target}")
