@@ -103,8 +103,18 @@ comment17:
   commentable: product63 (Product)
   description: "自分が担当する提出物に返信する"
 
+comment18:
+  user: hajime
+  commentable: report7 (Report)
+  description: "@kimura 1つ目のメンションありの未読通知を発生させる"
+
+comment19:
+  user: yamada
+  commentable: report7 (Report)
+  description: "@kimura 2つ目のメンションありの未読通知を発生させる"
+
 <% (1..20).each do |i| %>
-comment<%= i + 17 %>:
+comment<%= i + 19 %>:
   user: komagata
   commentable: product11 (Product)
   description: <%= "提出物のコメント#{i}です。" %>
