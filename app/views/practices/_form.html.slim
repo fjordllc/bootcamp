@@ -74,10 +74,20 @@
             = f.check_box :include_progress
             | 進捗の計算に含むようにする場合はチェック
   .form-item
-    = f.label :ogp_image, class: 'a-form-label'
-    - if f.object.ogp_image.attached?
-      = image_tag f.object.ogp_image.variant(resize: '100x100')
-    = f.file_field :ogp_image
+    .row.js-markdown-parent
+      .col-md-6.col-xs-12
+        = f.label '完了おめでとう画像', class: 'a-form-label'
+        .form-item-file-input.js-file-input.a-file-input
+          label.js-file-input__preview(for='practice_ogp_image')
+            - if f.object.ogp_image.attached?
+              = image_tag f.object.ogp_image.variant(resize: '100x100')
+              p 画像を変更
+            - else
+              p 画像を選択
+            = f.file_field :ogp_image
+        .a-form-help
+          | 画像サイズ: 1200px × 630xp
+
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
