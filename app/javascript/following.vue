@@ -5,9 +5,7 @@ details.following(ref='followingDetailsRef')
       i.fas.fa-check
       span
         | コメントあり
-    span.a-button.is-warning.is-md.is-block(
-      v-else-if='following && !watching'
-    )
+    span.a-button.is-warning.is-md.is-block(v-else-if='following && !watching')
       i.fas.fa-check
       span
         | コメントなし
