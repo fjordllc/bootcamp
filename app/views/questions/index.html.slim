@@ -19,13 +19,13 @@ header.page-header
           #js-practice-select data-solved=params[:solved] data-current-user-id=current_user.id
   = render 'questions/tabs'
 
-- if params[:tag].present?
+- if @tag.present?
   header.page-main-header
     .container
       .page-main-header__inner
         .page-main-header__start
           h1.page-main-header__title
-            | タグ「#{params[:tag]}」のQ&A（#{@questions.total_count}）
+            | タグ「#{@tag.name}」のQ&A（#{@questions.total_count}）
 .page-body
   .container.is-xl
     = paginate @questions
