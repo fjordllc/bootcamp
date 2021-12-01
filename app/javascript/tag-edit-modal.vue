@@ -1,10 +1,22 @@
 <template lang="pug">
-.overlay(@click.self='closeModal')
-  .content
-    label(for='tag_name') タグ編集
-    input#tag_name(v-model='name', name='tag[name]')
-    button(:disabled='validation', @click.prevent='updateTag') 更新
-    button(@click.prevent='closeModal') キャンセル
+.a-overlay.is-vue(@click.self='closeModal')
+  .a-card.is-modal
+    header.card-header.is-sm
+      h2.card-header__title
+        | タグ名変更
+    .card-body
+      label.a-form-label(for='tag_name')
+        | タグ名
+      input.a-text-input#tag_name(v-model='name', name='tag[name]')
+    footer.card-footer
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item.is-main
+            button.a-button.is-primary.is-md.is-block(:disabled='validation', @click.prevent='updateTag')
+              | 変更
+          li.card-main-actions__item.is-sub
+            .card-main-actions__delete(@click.prevent='closeModal')
+              | キャンセル
 </template>
 
 <script>
@@ -67,19 +79,6 @@ export default {
 </script>
 
 <style>
-.overlay {
-  z-index: 1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .content {
   z-index: 2;
   width: 50%;
