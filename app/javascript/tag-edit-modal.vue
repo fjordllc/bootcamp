@@ -7,12 +7,15 @@
     .card-body
       label.a-form-label(for='tag_name')
         | タグ名
-      input.a-text-input#tag_name(v-model='name', name='tag[name]')
+      input#tag_name.a-text-input(v-model='name', name='tag[name]')
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item.is-main
-            button.a-button.is-primary.is-md.is-block(:disabled='validation', @click.prevent='updateTag')
+            button.a-button.is-primary.is-md.is-block(
+              :disabled='validation',
+              @click.prevent='updateTag'
+            )
               | 変更
           li.card-main-actions__item.is-sub
             .card-main-actions__delete(@click.prevent='closeModal')
