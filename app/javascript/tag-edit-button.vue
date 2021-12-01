@@ -1,6 +1,8 @@
 <template lang="pug">
-div
-  button.a-button.is-md.is-primary.is-block(@click.prevent='openModal') このタグを編集する
+.page-main-header-actions__item
+  .a-button.is-sm.is-secondary.is-block(@click.prevent='openModal')
+    i.fas.fa-cog
+    | タグ名変更
   modal(
     @closeModal='closeModal',
     @updateTag='updateTag',
@@ -41,7 +43,7 @@ export default {
     },
     updateTag(name) {
       this.tagName = name
-      this.toast('タグを更新しました')
+      this.toast('タグ名を変更しました')
     }
   }
 }
