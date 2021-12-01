@@ -1,6 +1,6 @@
 <template lang="pug">
 .page-main-header-actions__item
-  .a-button.is-sm.is-secondary.is-block(@click.prevent='openModal')
+  button.a-button.is-sm.is-secondary.is-block(@click.prevent='openModal')
     i.fas.fa-cog
     | タグ名変更
   modal(
