@@ -45,13 +45,13 @@ class Question::TagsTest < ApplicationSystemTestCase
   test 'admin can edit tag' do
     tag = acts_as_taggable_on_tags('game')
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
-    assert_text('このタグを編集する')
+    assert_text('タグ名変更')
   end
 
   test 'users except admin cannot edit tag' do
     tag = acts_as_taggable_on_tags('game')
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'kimura'
-    assert_no_text('このタグを編集する')
+    assert_no_text('タグ名変更')
   end
 
   test 'update tag with not existing tag' do
@@ -59,9 +59,9 @@ class Question::TagsTest < ApplicationSystemTestCase
     update_tag_text = '上級者'
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
-    click_button 'このタグを編集する'
+    click_button 'タグ名変更'
     fill_in('tag[name]', with: update_tag_text)
-    click_button '更新'
+    click_button '変更'
     wait_for_vuejs
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
@@ -85,9 +85,9 @@ class Question::TagsTest < ApplicationSystemTestCase
     update_tag = acts_as_taggable_on_tags('intermediate')
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
-    click_button 'このタグを編集する'
+    click_button 'タグ名変更'
     fill_in('tag[name]', with: update_tag.name)
-    click_button '更新'
+    click_button '変更'
     wait_for_vuejs
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
@@ -110,8 +110,8 @@ class Question::TagsTest < ApplicationSystemTestCase
     tag = acts_as_taggable_on_tags('beginner')
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
-    click_button 'このタグを編集する'
+    click_button 'タグ名変更'
     fill_in('tag[name]', with: tag.name)
-    has_field?('更新', disabled: true)
+    has_field?('変更', disabled: true)
   end
 end
