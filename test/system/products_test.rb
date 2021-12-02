@@ -297,21 +297,20 @@ class ProductsTest < ApplicationSystemTestCase
   test 'be person on charge at comment on product of there are not person on charge' do
     visit_with_auth products_not_responded_index_path, 'machida'
     def assigned_product_count
-      find_link('自分の担当').find('.page-tabs__item-count').text.to_i
+      text[/自分の担当 （(\d+)）/, 1].to_i
     end
 
     before_comment = assigned_product_count
 
     [
       '担当者がいない提出物の場合、担当者になる',
-      '自分が担当者の場合、担当者のまま',
-      'タブ上の数字は未返信の数字のため、返信するとカウントされない'
+      '自分が担当者の場合、担当者のまま'
     ].each do |comment|
       visit "/products/#{products(:product1).id}"
       post_comment(comment)
 
       visit products_not_responded_index_path
-      assert_equal before_comment, assigned_product_count
+      assert_equal before_comment + 1, assigned_product_count
     end
   end
 
@@ -325,7 +324,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth products_not_responded_index_path, 'machida'
 
     def assigned_product_count
-      find_link('自分の担当').find('.page-tabs__item-count').text.to_i
+      text[/自分の担当 （(\d+)）/, 1].to_i
     end
 
     before_comment = assigned_product_count
