@@ -24,5 +24,6 @@
       li.page-tabs__item.is-only-mentor
         = link_to products_self_assigned_index_path, class: "page-tabs__item-link #{current_link(/^products-self_assigned-index/)}" do
           | 自分の担当 （#{Product.self_assigned_product(current_user.id).size}）
-          .page-tabs__item-count.a-notification-count.is-only-mentor
-            = Cache.self_assigned_no_replied_product_count(current_user.id)
+          - if Cache.self_assigned_no_replied_product_count(current_user.id).positive?
+            .page-tabs__item-count.a-notification-count.is-only-mentor
+              = Cache.self_assigned_no_replied_product_count(current_user.id)
