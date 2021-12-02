@@ -1,7 +1,7 @@
 <template lang="pug">
 .thread-list-item(:class='{ "is-wip": event.wip }')
   .thread-list-item__inner
-    .thread-list-item__author
+    .thread-list-item__user
       user-icon(
         :user='event.user',
         link_class='a-user-name',

@@ -9,6 +9,12 @@ header.page-header.is-border-bottom-none
 
 .page-tools
   = render 'companies/tabs', company: @company
+  nav.tab-nav
+    .container.is-padding-horizontal-0-sm-down
+      ul.tab-nav__items
+          - Companies::UsersController::TARGETS.each do |target|
+            li.tab-nav__item
+              = link_to t("target.#{target}"), company_users_path(target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
 
 .page-body
   .container
