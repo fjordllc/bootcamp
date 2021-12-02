@@ -11,8 +11,9 @@ class HomeController < ApplicationController
                                      .where(wip: false)
                                      .order(published_at: :desc)
                                      .limit(5)
-        @completed_learnings = current_user.learnings.where(status: 3).order(updated_at: :desc)
-        @inactive_students = User.inactive_students_and_trainees.order(updated_at: :desc)
+        @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
+        @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(updated_at: :desc)
+        @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
         cookies_ids = JSON.parse(cookies[:confirmed_event_ids]) if cookies[:confirmed_event_ids]
         @events_coming_soon = Event.where(start_at: today_to_tomorrow).or(Event.where(start_at: tomorrow_to_day_after_tomorrow)).where.not(id: cookies_ids)
         set_required_fields
