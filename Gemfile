@@ -45,7 +45,7 @@ gem 'rails_autolink'
 gem 'rails-i18n'
 gem 'ransack'
 gem 'rollbar'
-gem 'skylight'
+gem 'rubyzip'
 gem 'slim-rails'
 gem 'sorcery'
 gem 'sorcery-jwt'
@@ -90,4 +90,3 @@ group :test do
   gem 'webdrivers'
   gem 'webmock'
 end
-gem 'rubyzip'
