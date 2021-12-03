@@ -741,6 +741,10 @@ unadmentor:
   blog_url:
   company: company1
   description: "管理者権限の無いメンターです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
   organization: 株式会社フィヨルド
   admin: false
   mentor: true
