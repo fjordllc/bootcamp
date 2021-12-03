@@ -333,7 +333,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
   test 'show the total number of mentions on the mentioned tab' do
     user = users(:kimura)
-    expected_total_number_of_mentions = user.notifications.where(kind: :mentioned).count
+    expected_total_number_of_mentions = user.notifications.by_target(:mention).count
 
     visit_with_auth '/notifications', user.login_name
 
@@ -344,7 +344,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
   test 'show the number of unread mentions on the badge of the mentioned tab' do
     user = users(:kimura)
-    expected_number_of_unread_mentions = user.notifications.where(kind: :mentioned, read: false).count
+    expected_number_of_unread_mentions = user.notifications.by_target(:mention).where(read: false).count
 
     visit_with_auth '/notifications', user.login_name
 
@@ -357,7 +357,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
   test 'don\'t show the badge on the mentioned tab if no unread mentions' do
     user = users(:kimura)
-    user.notifications.where(kind: :mentioned, read: false).update_all(read: true) # rubocop:disable Rails/SkipsModelValidations
+    user.notifications.by_target(:mention).where(read: false).update_all(read: true) # rubocop:disable Rails/SkipsModelValidations
 
     visit_with_auth '/notifications', user.login_name
 
