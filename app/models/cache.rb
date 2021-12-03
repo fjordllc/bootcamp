@@ -54,7 +54,7 @@ class Cache
 
     def mentioned_notification_count(user)
       Rails.cache.fetch "#{user.id}-mentioned_notification_count" do
-        user.notifications.by_target(:mention).count
+        user.notifications.by_target(:mention).latest_of_each_link.size
       end
     end
 
@@ -64,7 +64,7 @@ class Cache
 
     def mentioned_and_unread_notification_count(user)
       Rails.cache.fetch "#{user.id}-mentioned_and_unread_notification_count" do
-        user.notifications.by_target(:mention).where(read: false).count
+        user.notifications.by_target(:mention).unreads.latest_of_each_link.size
       end
     end
 
