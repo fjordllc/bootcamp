@@ -2,19 +2,7 @@
 - category = @practice.category(current_user.course)
 
 = render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false
-
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__title
-        = @practice.title
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
-              class: 'a-button is-md is-secondary is-block is-back' do
-              | プラクティス一覧
-
+= render '/practices/page_header', title: title, category: category
 = render 'page_tabs', resource: @practice
 
 .page-body
@@ -71,6 +59,12 @@ header.page-header
                 = link_to @practice.last_updated_user, class: 'a-user-name' do
                   = @practice.last_updated_user.login_name
 
+        - if @practice.learning(current_user)&.complete?
+          .completion-massage
+            label.switch__label(for='modal-learning_completion')
+              span.switch__label-text.a-button.is-md.is-primary.is-block
+                | 完了Tweetする
+
         section.a-card
           header.card-header
             h2.card-header__title
@@ -121,20 +115,9 @@ header.page-header
             .js-markdown-view.js-target-blank.is-long-text
               = @practice.goal
             - if !current_user.adviser? && @practice.open_product?
-              .practice-content__body-notice
-                p
-                  | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
-                  = link_to practice_products_path(@practice) do
-                    | 他の人の提出物
-                  | も参考にしてください。
+              = render '/practices/practice_content_notice'
           footer.card-footer
             #js-learning(data-practice-id="#{@practice.id}")
-            - if @practice.learning(current_user)&.complete?
-              .card-footer
-                .switch
-                  label.switch__label(for='modal-learning_completion')
-                    span.switch__label-text.a-button.is-md.is-primary.is-block
-                      | 完了Tweetする
             - if @practice.submission
               .card-footer__alert
                 = link_to '提出の前に、提出時の注意点を確認しよう',

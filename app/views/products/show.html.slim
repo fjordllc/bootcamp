@@ -44,6 +44,12 @@ header.page-header
   .container.is-xxxl
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
+        - if @product.user == current_user && @learning&.complete?
+          .card-footer
+            .switch
+              label.switch__label(for='modal-learning_completion')
+                span.switch__label-text.a-button.is-md.is-primary.is-block
+                  | 完了Tweetする
         .thread
           .thread__inner.a-card
             header.thread-header
@@ -116,13 +122,6 @@ header.page-header
             .thread__description.js-target-blank.is-long-text.js-markdown-view(data-taskable-id="#{@product.id}" data-taskable-type='Product' data-taskable="#{@product.taskable?(current_user).to_s}")
               =  @product.body
             = render 'reactions/reactions', reactionable: @product
-
-            - if @product.user == current_user && @learning&.complete?
-              .card-footer
-                .switch
-                  label.switch__label(for='modal-learning_completion')
-                    span.switch__label-text.a-button.is-md.is-primary.is-block
-                      | 完了Tweetする
 
             - if @product.user == current_user || admin_or_mentor_login?
               .card-footer
