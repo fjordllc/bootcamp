@@ -14,7 +14,7 @@ header.page-header
   nav.sort-nav
     .container.is-md
       .sort-nav__inner
-        = label_tag :practice_id, 'プラクティスで絞り込む:', class: 'sort-nav__label'
+        = label_tag :practice_id, 'プラクティスで絞り込む', class: 'sort-nav__label'
         .sort-nav__select
           #js-practice-select data-solved=params[:solved] data-current-user-id=current_user.id
   = render 'questions/tabs'
