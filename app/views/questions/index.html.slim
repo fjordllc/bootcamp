@@ -27,7 +27,7 @@ header.page-header
           h1.page-main-header__title
             | タグ「#{params[:tag]}」のQ&A（#{@questions.total_count}）
 .page-body
-  .container.is-lg
+  .container.is-xl
     = paginate @questions
     .two-columns
       .two-columns__inner
