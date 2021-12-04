@@ -729,6 +729,29 @@ kensyuowata:
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
 
+unadmentor:
+  login_name: unadmentor
+  email: unadmentor@gmail.com
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Una Admen
+  name_kana: ウナ アドメン
+  twitter_account: unadmentor
+  facebook_url:
+  blog_url:
+  company: company1
+  description: "管理者権限の無いメンターです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: 株式会社フィヨルド
+  admin: false
+  mentor: true
+  unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
+  updated_at: "2021-11-01 00:00:02"
+  created_at: "2021-11-01 00:00:02"
+
 tatenoicon: # アイコンが長方形のユーザー
   login_name: tatenoicon
   email: tatenoicon@fjord.jp

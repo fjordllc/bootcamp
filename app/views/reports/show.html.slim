@@ -17,8 +17,8 @@ header.page-header
 
 .page-body
   .container.is-xxxl
-    div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
-      div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
+    .row.is-jc:c
+      .col-md-7.col-xs-12
         .thread
           .thread__inner.a-card
             header.thread-header
@@ -32,7 +32,7 @@ header.page-header
                           | WIP
                     .thread-header-metas__meta
                       = link_to @report.user, class: 'a-user-name', title: @report.user.name do
-                        = @report.user.long_name
+                        = @report.user.login_name
                     .thread-header-metas__meta
                       .a-meta
                         = l @report.reported_on
@@ -93,18 +93,19 @@ header.page-header
               .thread__description.js-target-blank.is-long-text.js-markdown-view
                 = @report.description
               = render 'reactions/reactions', reactionable: @report
-              - if @report.user_id == current_user.id
-                .card-footer
-                  .card-main-actions
-                    ul.card-main-actions__items
-                      li.card-main-actions__item
-                        = link_to edit_report_path(@report), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
-                          i.fas.fa-pen#new
-                          | 内容修正
-                      li.card-main-actions__item.is-sub
-                        = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
-                          span#delete
-                            | 削除する
+
+            - if @report.user_id == current_user.id
+              .card-footer
+                .card-main-actions
+                  ul.card-main-actions__items
+                    li.card-main-actions__item
+                      = link_to edit_report_path(@report), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
+                        i.fas.fa-pen#new
+                        | 内容修正
+                    li.card-main-actions__item.is-sub
+                      = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
+                        span#delete
+                          | 削除する
 
             - if (@report.user.daimyo? && staff_login?) || admin_or_mentor_login?
               #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
@@ -124,8 +125,28 @@ header.page-header
                   | 次の日報
                   i.fas.fa-angle-right
           = render 'users/icon', user: @report.user, link_class: 'thread__user-link', image_class: 'thread__user-icon'
+
         #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
+
         = render 'footprints/footprints', footprints: @footprints
-      .is-only-mentor(class="#{admin_or_mentor_login? ? 'col-md-5 col-xs-12 is-hidden-sm-down' : ''}")
-        - if admin_or_mentor_login?
-          #js-user-mentor-memo(data-user-id='#{@report.user_id}')
+
+      .col-md-5.col-xs-12
+        - if current_user.mentor? || current_user.admin?
+          .side-tabs
+            input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
+            input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
+            .side-tabs-nav.is-only-mentor
+              .side-tabs-nav__items
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-1 for='side-tabs-1'
+                    | 直近の日報
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-2 for='side-tabs-2'
+                    | ユーザーメモ
+            .side-tabs-contents
+              .side-tabs-contents__item#side-tabs-content-1
+                #js-user-recent-reports(user-id="#{@report.user.id}")
+              .side-tabs-contents__item#side-tabs-content-2.is-only-mentor
+                #js-user-mentor-memo(data-user-id='#{@report.user_id}')
+        - else
+          #js-user-recent-reports(user-id="#{@report.user.id}")

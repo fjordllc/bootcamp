@@ -15,7 +15,7 @@
           .thread-header-metas__start
             .thread-header-metas__meta
               a.a-user-name(:href='`/users/${question.user.id}`')
-                | {{ question.user.login_name }}
+                | {{ question.user.long_name }}
             .thread-header-metas__meta
               .a-meta
                 time.thread_header_date-value(
