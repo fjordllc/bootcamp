@@ -23,7 +23,6 @@ header.page-header
           tr.admin-table__labels
             th.admin-table__label = Company.human_attribute_name :name
             th.admin-table__label = Company.human_attribute_name :logo
-            th.admin-table__label = Company.human_attribute_name :description
             th.admin-table__label = Company.human_attribute_name :website
             th.admin-table__label.actions リンク
             th.admin-table__label.actions 操作
@@ -36,8 +35,6 @@ header.page-header
               td.admin-table__item-value.is-text-align-center
                 - if company.logo.attached?
                   = image_tag company.logo_url, class: 'admin-table__item-logo-image'
-              td.admin-table__item-value
-                = company.description
               td.admin-table__item-value
                 = company.website
               td.admin-table__item-value.is-text-align-center
