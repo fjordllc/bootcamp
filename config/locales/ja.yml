@@ -16,6 +16,7 @@ ja:
       time_only: "%H:%M"
       date_only: "%m月%d日"
       date_and_time: "%m月%d日%H:%M"
+      year_only: "%Y"
   activerecord:
     models:
       user: ユーザー
