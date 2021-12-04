@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Report < ApplicationRecord
   include Commentable
   include Checkable
@@ -128,3 +129,4 @@ class Report < ApplicationRecord
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
