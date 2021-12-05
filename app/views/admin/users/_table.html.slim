@@ -74,9 +74,11 @@
           td.admin-table__item-value.is-text-align-center
             - if user.subscription_id?
               = link_to user.subscription_url,
-                class: 'a-button is-sm is-info',
-                target: '_blank', rel: 'noopener' do
-                i.fas.fa-credit-card
+                class: 'subscription-status',
+                target: '_blank',
+                rel: 'noopener',
+                data: { 'subscription-id': user.subscription_id } do
+                i.fas.fa-spinner.fa-pulse
             - else
               | -
           td.admin-table__item-value.is-text-align-center
