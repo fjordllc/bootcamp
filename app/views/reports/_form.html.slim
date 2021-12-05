@@ -4,7 +4,8 @@
     .form__items-inner
       .form-item
         = f.label :practice, class: 'a-form-label'
-        .select-practices#js-select2
+        .select-practices
+          .select-practices#js-select2(data-practices=practice_options_within_course.to_json)
       .form-item
         = f.label :title, class: 'a-form-label'
         = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'display: inline-block の挙動の調査を進めた'
