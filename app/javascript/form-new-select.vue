@@ -24,7 +24,7 @@ export default {
 
     return {
       selected: null,
-      value: null,
+      value: [],
       options: practicesName,
       practicesId: practicesId
     }
@@ -33,14 +33,14 @@ export default {
     select(e) {
       for(const practice of this.practicesId) {
         if(practice[0] === e) {
-          return this.value = practice[1]
+          return this.value.push(practice[1]);
         };
       };
     }
   }
 }
 </script>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
 <style scoped>
 
 .multiselect {
