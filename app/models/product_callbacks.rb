@@ -9,6 +9,13 @@ class ProductCallbacks
     Cache.delete_self_assigned_no_replied_product_count(product.checker_id)
   end
 
+  def after_update(product)
+    return unless product.saved_change_to_attribute?('checker_id')
+
+    checker_id = product.checker_id || product.attribute_before_last_save('checker_id')
+    Cache.delete_self_assigned_no_replied_product_count(checker_id)
+  end
+
   def after_save(product)
     if !product.wip? && product.published_at.nil?
       notify_to_watching_mentor(product)
