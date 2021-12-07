@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class Report < ApplicationRecord
   include Commentable
   include Checkable
@@ -106,27 +105,4 @@ class Report < ApplicationRecord
   def reported_on_or_before_today
     errors.add(:reported_on, 'は今日以前の日付にしてください') if reported_on > Date.current
   end
-
-  def self.create_reports_md(reports, folder_path)
-    reports.each do |report|
-      File.open("#{folder_path}/#{report.reported_on}.md", 'w') do |file|
-        file.puts("# #{report.title}")
-        file.puts
-        file.puts(report.description)
-      end
-    end
-    create_zip_file(folder_path)
-  end
-
-  def self.create_zip_file(folder_path)
-    zip_filename = "#{folder_path}/reports.zip"
-    filenames = Dir.open(folder_path, &:children)
-
-    Zip::File.open(zip_filename, Zip::File::CREATE) do |zipfile|
-      filenames.each do |filename|
-        zipfile.add(filename, File.join(folder_path, filename))
-      end
-    end
-  end
 end
-# rubocop:enable Metrics/ClassLength

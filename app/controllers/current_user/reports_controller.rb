@@ -37,9 +37,9 @@ class CurrentUser::ReportsController < ApplicationController
   end
 
   def send_reports_md(reports)
-    Dir.mktmpdir('exports') do |dir|
-      Report.create_reports_md(reports, dir)
-      send_data(File.read("#{dir}/reports.zip"), filename: '日報一覧.zip')
+    Dir.mktmpdir('exports') do |folder_path|
+      ReportExporter.new(reports, folder_path).create
+      send_data(File.read("#{folder_path}/reports.zip"), filename: '日報一覧.zip')
     end
   end
 end
