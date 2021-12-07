@@ -16,6 +16,14 @@ header.page-header
     .courses-items
       .row
         - if current_user&.admin?
-          = render @courses.order(:created_at)
+          - courses_to_show = @courses
         - else
-          = render @courses.where(published: true).order(:created_at)
+          - courses_to_show = @courses.where(published: true)
+        - if courses_to_show.empty?
+          .o-empty-message
+            .o-empty-message__icon
+              i.far.fa-sad-tear
+            p.o-empty-message__text
+              | 公開コースはありません。
+        - else
+          = render courses_to_show.order(:created_at)
