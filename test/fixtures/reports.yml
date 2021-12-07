@@ -243,3 +243,33 @@ report30:
   description: |-
     頑張れませんでした
   reported_on: <%= Time.now - 1.month - 1.day %>
+
+<% (1..5).each do |i| %>
+report<%= i + 31 %>:
+  user: kimura
+  title: <%= "テスト日報#{i}です" %>
+  description: |-
+    # はじめに
+    これはエクスポート機能のテストデータです
+
+    # 今日やったこと
+    - テスト
+      - テスト
+      - テスト
+
+    # 学習メモ
+    ## テスト
+    テスト
+
+    ### テスト
+    テスト
+
+    # 感想
+    - テスト
+    - テスト
+
+    # 次にやること
+    - テスト
+    - テスト
+  reported_on: <%= Time.now - 1.month + i.day %>
+<% end %>
