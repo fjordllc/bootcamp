@@ -61,7 +61,7 @@ class PagesController < ApplicationController
 
   def page_params
     keys = %i[title body tag_list practice_id slug]
-    keys << :user_id if admin_login?
+    keys << :user_id if admin_or_mentor_login?
     params.require(:page).permit(*keys)
   end
 
