@@ -98,8 +98,13 @@ comment16:
   commentable: event1 (Event)
   description: "テスト用 event1へのコメント"
 
+comment17:
+  user: machida
+  commentable: product63 (Product)
+  description: "自分が担当する提出物に返信する"
+
 <% (1..20).each do |i| %>
-comment<%= i + 16 %>:
+comment<%= i + 17 %>:
   user: komagata
   commentable: product11 (Product)
   description: <%= "提出物のコメント#{i}です。" %>
