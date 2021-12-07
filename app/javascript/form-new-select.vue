@@ -8,7 +8,7 @@ div
     :clear-on-select="false",
     @select='select($event)'
   )
-  input(type="hidden", name="report[practice_ids][]", :value="value")
+  div(id="multiselect__values")
 </template>
 
 <script>
@@ -17,14 +17,15 @@ export default {
   components: { 
     Multiselect 
   },
-  props: ['practices'],
+  props: {
+      practices: { type: String, required: true }
+  },
   data () {
     const practicesId = JSON.parse(this.practices)
     const practicesName = practicesId.map(practice => practice[0]) // props の practices が this.practices で参照できる
 
     return {
       selected: null,
-      value: [],
       options: practicesName,
       practicesId: practicesId
     }
@@ -33,7 +34,12 @@ export default {
     select(e) {
       for(const practice of this.practicesId) {
         if(practice[0] === e) {
-          return this.value.push(practice[1]);
+          const valueBox = document.getElementById("multiselect__values")
+          const valueInput = document.createElement("input")
+          valueInput.name = "report[practice_ids][]"
+          valueInput.value = practice[1]
+          valueInput.type = "hidden"
+          valueBox.appendChild(valueInput)
         };
       };
     }
@@ -49,4 +55,5 @@ export default {
 .multiselect__input {
   display: initial;
 }
+
 </style>
