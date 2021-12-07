@@ -15,10 +15,7 @@ header.page-header
   .container
     .courses-items
       .row
-        - if current_user&.admin?
-          - courses_to_show = @courses
-        - else
-          - courses_to_show = @courses.where(published: true)
+        - courses_to_show = current_user&.admin? ? @courses : @courses.where(published: true)
         - if courses_to_show.empty?
           .o-empty-message
             .o-empty-message__icon
