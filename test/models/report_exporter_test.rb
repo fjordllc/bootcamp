@@ -9,6 +9,6 @@ class ReportExporterTest < ActiveSupport::TestCase
       ReportExporter.new(reports, folder_path).create
     end
 
-    assert_equal reports.map {|report| "#{report.reported_on}.md"}.sort, filenames
+    assert_equal reports.map { |report| "#{report.reported_on}.md" }.sort, filenames
   end
 end
