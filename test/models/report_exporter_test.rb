@@ -4,7 +4,7 @@ require 'test_helper'
 
 class ReportExporterTest < ActiveSupport::TestCase
   test '#create' do
-    reports = users(:kimura).reports
+    reports = users(:hajime).reports
     filenames = Dir.mktmpdir('exports') do |folder_path|
       ReportExporter.new(reports, folder_path).create
     end
