@@ -17,6 +17,7 @@ class Product < ApplicationRecord
   alias sender user
 
   after_create ProductCallbacks.new
+  after_update ProductCallbacks.new
   after_save ProductCallbacks.new
   after_destroy ProductCallbacks.new
 
