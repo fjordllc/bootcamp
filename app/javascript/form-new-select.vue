@@ -4,12 +4,15 @@ div
     v-model='selected',
     :options='options',
     placeholder='',
-    :multiple="true",
-    :clear-on-select="false",
-    @select='select($event)'
+    :multiple='true',
+    :clear-on-select='false',
+    label='title',
+    track-by='title',
+    @select='select($event)',
+    @remove='remove($event)'
   )
-  div(id="multiselect__values")
-</template>
+  div(id='multiselect__values')
+  </template>
 
 <script>
 import Multiselect from 'vue-multiselect'
@@ -22,30 +25,43 @@ export default {
   },
   data () {
     const practicesId = JSON.parse(this.practices)
-    const practicesName = practicesId.map(practice => practice[0]) // props の practices が this.practices で参照できる
+    const practicesName = practicesId.map(practice => { 
+      let robj = {title: practice[0], id: practice[1]}
+      return robj
+      })
+    console.log(practicesName)
 
     return {
-      selected: null,
+      selected: [],
       options: practicesName,
       practicesId: practicesId
     }
   },
   methods: {
     select(e) {
-      for(const practice of this.practicesId) {
-        if(practice[0] === e) {
-          const valueBox = document.getElementById("multiselect__values")
-          const valueInput = document.createElement("input")
-          valueInput.name = "report[practice_ids][]"
-          valueInput.value = practice[1]
-          valueInput.type = "hidden"
-          valueBox.appendChild(valueInput)
-        };
-      };
+      const valueBox = document.getElementById("multiselect__values")
+      const valueInput = document.createElement("input")
+      valueInput.name = "report[practice_ids][]"
+      valueInput.value = e.id
+      valueInput.id = e.title
+      valueInput.type = "hidden"
+      valueBox.appendChild(valueInput)
+    },
+    remove(e) {
+      console.log(e)
+      const removeInput = document.getElementById(e.title)
+      removeInput.remove()
+
+      // for(const valueInput of valueBox) {
+      //   if(valueInput.id === e.id) {
+      //     return valueInput.remove()
+      //   }  
+      // }
     }
   }
 }
 </script>
+
 
 <style scoped>
 
@@ -57,3 +73,4 @@ export default {
 }
 
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css">
