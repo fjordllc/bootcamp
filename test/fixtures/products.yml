@@ -348,3 +348,17 @@ product61:
   practice: practice46
   user: yamada
   body: 提出物の検索結果テスト用
+
+product62:
+  practice: practice45
+  user: kimura
+  body: 「自分の担当」かつ「未返信」の提出物
+  wip: false
+  checker_id: <%= ActiveRecord::FixtureSet.identify(:machida) %>
+
+product63:
+  practice: practice46
+  user: kimura
+  body: 「自分の担当」かつ「返信済み」の提出物
+  wip: false
+  checker_id: <%= ActiveRecord::FixtureSet.identify(:machida) %>
