@@ -174,4 +174,11 @@ class Product < ApplicationRecord
   def checker_avatar
     checker_id ? User.find(checker_id).avatar_url : nil
   end
+
+  def replied_status_changed?(previous_commented_user_id, current_commented_user_id)
+    is_replied_by_checker_previous = checker_id == previous_commented_user_id
+    is_replied_by_checker_current = checker_id == current_commented_user_id
+
+    is_replied_by_checker_previous != is_replied_by_checker_current
+  end
 end
