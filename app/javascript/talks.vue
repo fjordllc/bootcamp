@@ -2,7 +2,12 @@
 .page-body
   .container.is-md
     .thread-list.a-card
-      talk(v-for='user in users', :key='user.id', :user='user')
+      talk(
+        v-for='talk in talks',
+        :key='talk.id',
+        :user='talk.user',
+        :talk='talk'
+      )
 </template>
 
 <script>
@@ -13,23 +18,23 @@ export default {
   },
   data() {
     return {
-      users: []
+      talks: []
     }
   },
   computed: {
     url() {
-      return `/api/users`
+      return `/api/talks`
     }
   },
   created() {
-    this.getUsers()
+    this.getTalks()
   },
   methods: {
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    getUsers() {
+    getTalks() {
       fetch(this.url, {
         method: 'GET',
         headers: {
@@ -41,13 +46,13 @@ export default {
         redirect: 'manual'
       })
         .then((response) => {
+          console.log(response)
           return response.json()
         })
         .then((json) => {
-          console.log(json)
-          this.users = []
-          json.users.forEach((user) => {
-            this.users.push(user)
+          this.talks = []
+          json.talks.forEach((talk) => {
+            this.talks.push(talk)
           })
         })
         .catch((error) => {
