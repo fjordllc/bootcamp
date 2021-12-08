@@ -702,6 +702,75 @@ daimyo-kensyu: # 大名エンジニアカレッジの研修生
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
 
+daimyo-adviser: # 大名エンジニアカレッジのアドバイザー
+  login_name: daimyo-adviser
+  email: daimyo-adviser@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 大名 アドバイ
+  name_kana: ダイミョウ アドバイ
+  discord_account: daimyo-adviser#9999
+  github_account: daimyo-adviser
+  twitter_account: daimyo-adviser
+  facebook_url: http://www.facebook.com/adviser
+  blog_url: http://adviser.org
+  company: company4
+  description: "大名エンジニアカレッジのアドバイザーです"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  adviser: true
+  unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
+
+daimyo-mentor: # 大名エンジニアカレッジのメンター
+  login_name: daimyo-mentor
+  email: daimyo-mentor@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 大名 メンター
+  name_kana: ダイミョウ メンター
+  discord_account: daimyo-mentor#9999
+  github_account: daimyo-mentor
+  twitter_account: daimyo-mentor
+  facebook_url: http://www.facebook.com/daimyo-mentor
+  blog_url: http://mentor.org
+  company: company4
+  description: "大名エンジニアカレッジのメンターです"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  mentor: true
+  unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
+
+daimyo-sotugyou: # 大名エンジニアカレッジの卒業生
+  login_name: daimyo-sotugyou
+  email: daimyo-sotugyou@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 大名 卒業
+  name_kana: ダイミョウ ソツギョウ
+  discord_account: daimyo-sotugyou#9999
+  github_account: daimyo-sotugyou
+  twitter_account: daimyo-sotugyou
+  facebook_url: http://www.facebook.com/daimyo-sotugyou
+  blog_url: http://sotugyou.org
+  company: company4
+  description: "大名エンジニアカレッジの卒業生です"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  graduated_on: "2015-01-01"
+  unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
+
 kensyuowata:
   login_name: kensyuowata
   email: kensyuowata@fjord.jp

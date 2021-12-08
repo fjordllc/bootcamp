@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Companies::UsersController < ApplicationController
-  TARGETS = %w[student_and_trainee all].freeze
+  TARGETS = %w[all student_and_trainee graduate adviser mentor].freeze
   before_action :require_login
 
   def index
