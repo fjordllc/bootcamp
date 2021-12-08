@@ -64,10 +64,9 @@ class Question::TagsTest < ApplicationSystemTestCase
     click_button '変更'
     wait_for_vuejs
 
+    assert_text "タグ「#{update_tag_text}」のQ&A（1）"
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
     assert_text '質問はありません。'
-    visit_with_auth questions_tag_path(update_tag_text, all: 'true'), 'komagata'
-    assert_text "タグ「#{update_tag_text}」のQ&A（1）"
 
     visit_with_auth users_tag_path(tag.name), 'komagata'
     assert_text "#{tag.name}のユーザーはいません"
@@ -90,10 +89,9 @@ class Question::TagsTest < ApplicationSystemTestCase
     click_button '変更'
     wait_for_vuejs
 
+    assert_text "タグ「#{update_tag.name}」のQ&A（2）"
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
     assert_text '質問はありません。'
-    visit_with_auth questions_tag_path(update_tag.name, all: 'true'), 'komagata'
-    assert_text "タグ「#{update_tag.name}」のQ&A（2）"
 
     visit_with_auth users_tag_path(tag.name), 'komagata'
     assert_text "#{tag.name}のユーザーはいません"
