@@ -53,7 +53,7 @@ Rails.application.routes.draw do
     end
   end
   resources :works, except: %i(index)
-  resources :talks, only: %i(index)
+  resources :talks, only: %i(index show)
   resources :questions, only: %i(index show new create destroy)
   resources :courses, only: :index
   resource :inquiry, only: %i(new create)
