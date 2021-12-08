@@ -513,11 +513,6 @@ class User < ApplicationRecord
     reported_reports.size == DEPRESSED_SIZE && reported_reports.all?(&:sad?)
   end
 
-  def active_practice
-    active_practice = active_practices.first
-    active_practice ? active_practice.id : nil
-  end
-
   def follow(other_user, watch:)
     active_relationships.create(followed: other_user, watch: watch)
   end

@@ -17,7 +17,7 @@ module LayoutHelper
     body_class.exclude?('no-footer')
   end
 
-  def category_has_active_practice
+  def category_having_active_practice
     active_practice = current_user.active_practices.first
     active_practice.categories.first
   end
