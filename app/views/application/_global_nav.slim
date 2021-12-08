@@ -16,7 +16,7 @@ nav.global-nav
               i.fas.fa-fw.fa-book
             .global-nav-links__link-label プラクティス
         li.global-nav-links__item
-          - report_link = mentor_login? ? reports_unchecked_index_path : reports_path
+          - report_link = admin_or_mentor_login? ? reports_unchecked_index_path : reports_path
           = link_to report_link, class: "global-nav-links__link #{current_link(/^reports/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-pen
@@ -30,7 +30,7 @@ nav.global-nav
             = link_to products_link, class: "global-nav-links__link #{current_link(/^products/)}" do
               .global-nav-links__link-icon
                 i.fas.fa-fw.fa-hand-paper
-              - if admin_login? || mentor_login? && Cache.unassigned_product_count.positive?
+              - if admin_or_mentor_login? && Cache.unassigned_product_count.positive?
                 .global-nav__item-count.a-notification-count.is-only-mentor
                   = Cache.unassigned_product_count
               .global-nav-links__link-label 提出物
