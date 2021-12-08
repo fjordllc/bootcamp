@@ -21,9 +21,11 @@ export default {
     Multiselect 
   },
   props: {
-      practices: { type: String, required: true }
+      practices: { type: String, required: true },
+      editdata: { type: String }
   },
   data () {
+    console.log(this.editdata)
     const practicesId = JSON.parse(this.practices)
     const practicesName = practicesId.map(practice => { 
       let robj = {title: practice[0], id: practice[1]}
@@ -35,6 +37,11 @@ export default {
       selected: [],
       options: practicesName,
       practicesId: practicesId
+    }
+  },
+  created() {
+    if(this.editdata.length > 0) {
+      console.log(1)
     }
   },
   methods: {
@@ -51,12 +58,6 @@ export default {
       console.log(e)
       const removeInput = document.getElementById(e.title)
       removeInput.remove()
-
-      // for(const valueInput of valueBox) {
-      //   if(valueInput.id === e.id) {
-      //     return valueInput.remove()
-      //   }  
-      // }
     }
   }
 }
