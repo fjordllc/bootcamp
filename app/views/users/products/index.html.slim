@@ -1,9 +1,9 @@
-- title @user.login_name
+- title "#{@user.login_name}の提出物"
 header.page-header
   .container
     .page-header__inner
       h2.page-header__title
-        = title
+        = @user.login_name
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
