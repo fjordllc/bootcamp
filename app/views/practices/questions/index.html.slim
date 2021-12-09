@@ -31,7 +31,13 @@ nav.tab-nav
           = render 'questions/question', question: question
     - else
       .o-empty-message
-        .o-empty-message__icon
-          i.far.fa-sad-tear
-        p.o-empty-message__text
-          | 質問はまだありません。
+        - if params[:solved]
+          .o-empty-message__icon
+            i.far.fa-sad-tear
+          p.o-empty-message__text
+            | 質問はまだありません。
+        - else
+          .o-empty-message__icon
+            i.far.fa-smile
+          p.o-empty-message__text
+            | 未解決の質問はありません。
