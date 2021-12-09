@@ -10,7 +10,7 @@
             | ポートフォリオ
       li.page-tabs__item
         = link_to user_reports_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('reports')}" do
-          | 日報
+          | 日報 （#{user.comments.length}）
       li.page-tabs__item
         = link_to user_comments_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('comments')}" do
           | コメント （#{user.comments.length}）
