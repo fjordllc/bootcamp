@@ -163,7 +163,10 @@ class NotificationsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{report}", 'komagata'
     visit "/reports/#{report}"
     fill_in 'new_comment[description]', with: 'コメントと確認した'
-    click_button '確認OKにする'
+    wait_for_vuejs
+    accept_alert do
+      click_button '確認OKにする'
+    end
 
     visit_with_auth "/reports/#{report}", 'hatsuno'
     find('.header-links__link.test-show-notifications').click
