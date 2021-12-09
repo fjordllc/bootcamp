@@ -23,6 +23,7 @@
 
 =long-text-style($pc-font-size: 1rem, $mobile-font-size: .8125rem, $background: $base, $font: $default-text)
   font-size: $pc-font-size
+  word-break: break-all
   +media-breakpoint-down(sm)
     font-size: $mobile-font-size
   >*:first-child
@@ -60,7 +61,6 @@
   p
     +text-block(1em 1.86)
     margin-bottom: 1.5em
-    word-break: break-all
   a
     +hover-link-reversal
     +default-link
