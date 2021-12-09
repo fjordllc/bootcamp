@@ -6,7 +6,8 @@ header.page-header
       h2.page-header__title = title
       = render 'reports/new_report'
 
-= render 'page_tabs', user: current_user
+.page-tools
+  = render 'page_tabs', user: current_user
 
 - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
   .page-body
