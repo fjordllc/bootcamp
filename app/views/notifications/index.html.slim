@@ -25,14 +25,14 @@ main.page-main
             = link_to "#{t("notification.#{@target}")}の通知を既読にする", read_by_category_path(target: @target), method: :post,
                     class: "a-button is-sm is-warning is-block #{current_user.notifications.by_target(@target.presence&.to_sym).unreads.empty? ? 'is-disabled' : ''}"
 
-.page-tools
-  nav.pill-nav
-    .container.is-padding-horizontal-0-sm-down
-      ul.pill-nav__items
-        li.pill-nav__item
-          = link_to '未読', notifications_path(status: 'unread', target: @target), class: "pill-nav__item-link #{params[:status] == 'unread' ? 'is-active' : ''}"
-        li.pill-nav__item
-          = link_to '全て', notifications_path(target: @target), class: "pill-nav__item-link #{params[:status] == 'unread' ? '' : 'is-active'}"
+  .page-tools
+    nav.pill-nav
+      .container.is-padding-horizontal-0-sm-down
+        ul.pill-nav__items
+          li.pill-nav__item
+            = link_to '未読', notifications_path(status: 'unread', target: @target), class: "pill-nav__item-link #{params[:status] == 'unread' ? 'is-active' : ''}"
+          li.pill-nav__item
+            = link_to '全て', notifications_path(target: @target), class: "pill-nav__item-link #{params[:status] == 'unread' ? '' : 'is-active'}"
 
   .page-body
     #js-notifications(data-is-mentor="#{mentor_login?}" data-target="#{@target}")
