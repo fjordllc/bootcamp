@@ -1,5 +1,5 @@
 body.is-completion
-  background-color: $background-tint
+  background-color: #00a0dd
 
 .completion-wrapper
   min-height: 100vh
@@ -13,7 +13,7 @@ body.is-completion
     +size(100%)
     opacity: .075
     +media-breakpoint-up(md)
-      background-size: 18rem auto
+      background-size: 16rem auto
 
 .completion-wrapper__start
   flex: 1
@@ -26,16 +26,15 @@ body.is-completion
   +padding(vertical, 4rem 2rem)
 
 .complestion__title
-  +text-block(2rem 1.5, 800 center)
-  font-family: YakuHanJPs_Narrow,Hiragino Sans,Hiragino Kaku Gothic ProN,BIZ UDPGothic,Meiryo,sans-serif
+  +text-block(2rem 1.5, 800 center $reversal-text)
+  font-family: YakuHanJP_Narrow,Hiragino Sans,Hiragino Kaku Gothic ProN,BIZ UDPGothic,Meiryo,sans-serif
 
 .complestion__body
   margin-top: 3rem
 
 .complestion__image
-  border-radius: .75rem
-  box-shadow: rgba(black, .4) 0 0 1.5rem
-  border: solid 1px rgba(black, .2)
+  border-radius: 1rem
+  border: solid .75rem $base
 
 .welcome-footer
   +media-breakpoint-up(md)
