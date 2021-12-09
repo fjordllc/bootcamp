@@ -11,7 +11,7 @@ class NotificationsController < ApplicationController
   def show
     link = @notification.read_attribute :link
     @notifications = current_user.notifications.where(link: link)
-    @notifications.update(read: true)
+    current_user.mark_all_as_read_and_delete_cache_of_unreads(target_notifications: @notifications)
     redirect_to link
   end
 
