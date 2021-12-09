@@ -6,6 +6,8 @@
 = render 'page_tabs', resource: @practice
 
 .page-body
+  - if @practice.learning(current_user)&.complete?
+    = render '/products/completion_message', practice: @practice
   .container.is-xl
     .practice-contents
       .practice-contents__inner
@@ -58,12 +60,6 @@
                   image_class: 'thread-header__user-icon'
                 = link_to @practice.last_updated_user, class: 'a-user-name' do
                   = @practice.last_updated_user.login_name
-
-        - if @practice.learning(current_user)&.complete?
-          .completion-massage
-            label.switch__label(for='modal-learning_completion')
-              span.switch__label-text.a-button.is-md.is-primary.is-block
-                | 完了Tweetする
 
         section.a-card
           header.card-header

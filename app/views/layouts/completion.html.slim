@@ -21,7 +21,9 @@ html.is-application lang='ja'
   body.is-completion#body(class="#{body_class}")
     = render 'google_tag_manager_body'
     = render 'flash'
-    main.main
-      .welcome-page
-        = yield
-    = render 'welcome/welcome_footer'
+    .completion-wrapper
+      .completion-wrapper__start
+        .welcome-page
+          = yield
+      .completion-wrapper__end
+        = render 'welcome/welcome_footer'
