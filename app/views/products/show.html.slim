@@ -26,12 +26,6 @@ header.page-header
 = render 'page_tabs', resource: @product.practice
 
 .page-body
-  - if !current_user.adviser? && @product.practice.open_product?
-    .a-page-notice.page-notice
-      .container
-        .a-page-notice__inner
-          p
-            | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
   - if @product.user == current_user && !@product.wip? && !@product.checked? && @product.commented_users.mentor.empty?
     .a-page-alert
       .container.is-md
@@ -41,15 +35,13 @@ header.page-header
               | 7日以内にメンターがレビューしますので、次のプラクティスにお進みください。
               br
               | もし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。
+
+  - if @product.user == current_user && @learning&.complete?
+    = render 'completion_message', practice: @product.practice
+
   .container.is-xxxl
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
-        - if @product.user == current_user && @learning&.complete?
-          .card-footer
-            .switch
-              label.switch__label(for='modal-learning_completion')
-                span.switch__label-text.a-button.is-md.is-primary.is-block
-                  | 完了Tweetする
         .thread
           .thread__inner.a-card
             header.thread-header
@@ -201,3 +193,9 @@ header.page-header
                   = render 'users/user_secret_attributes', user: @product.user
                   = render 'users/metas', user: @product.user
                 #js-user-mentor-memo(data-user-id="#{@product.user.id}" data-products-mode="#{true}")
+
+- if !current_user.adviser? && @product.practice.open_product?
+  .sticky-message
+    .container
+      p
+        | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
