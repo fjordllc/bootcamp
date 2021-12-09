@@ -66,8 +66,8 @@
             )
           .a-textarea-bottom-note
             = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
-            .a-textarea-bottom-note__banner.is-hidden-md-down
-              | command + s で途中保存ができます。間違って消さないようにマメに保存しよう。
+            .a-textarea-bottom-note__banner
+              | 途中保存は「command + s」 マメに保存しよう。
         .col-md-6.col-xs-12
           .a-form-label
             | プレビュー
