@@ -19,7 +19,10 @@ button(
     | {{ this.name }}
 </template>
 <script>
+import toast from './toast'
+
 export default {
+  mixins: [toast],
   props: {
     checkerId: { type: Number, required: false, default: null },
     checkerName: { type: String, required: false, default: null },
@@ -73,6 +76,9 @@ export default {
           } else {
             this.id = json.checker_id
             this.name = json.checker_name
+            this.buttonLabel !== '担当する'
+              ? this.toast('担当になりました。')
+              : this.toast('担当から外れました。')
           }
         })
     }
