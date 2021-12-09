@@ -104,12 +104,15 @@ export default {
         })
     },
     checkSad() {
-      if(this.checkHasSadEmotion && !this.checkHasComment && !this.checkId){
-        if(window.confirm('今日の気分は「sad」ですが、コメント無しで確認しますか？')){
+      if (this.checkHasSadEmotion && !this.checkHasComment && !this.checkId) {
+        if (
+          window.confirm(
+            '今日の気分は「sad」ですが、コメント無しで確認しますか？'
+          )
+        ) {
           this.check()
         }
-      }
-      else {
+      } else {
         this.check()
       }
     }

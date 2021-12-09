@@ -16,7 +16,10 @@ class Check::ReportsTest < ApplicationSystemTestCase
   test 'success report checking' do
     visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
     assert has_button? '日報を確認'
-    click_button '日報を確認'
+    wait_for_vuejs
+    accept_alert do
+      click_button '日報を確認'
+    end
     assert has_button? '日報の確認を取り消す'
     visit reports_path
     assert_text '確認済'
@@ -24,7 +27,10 @@ class Check::ReportsTest < ApplicationSystemTestCase
 
   test 'success report checking cancel' do
     visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
-    click_button '日報を確認'
+    wait_for_vuejs
+    accept_alert do
+      click_button '日報を確認'
+    end
     click_button '日報の確認を取り消す'
     within('.thread') do
       assert_no_text '確認済'
@@ -35,20 +41,29 @@ class Check::ReportsTest < ApplicationSystemTestCase
   test 'comment and check report' do
     visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
     fill_in 'new_comment[description]', with: '日報でcomment+確認OKにするtest'
-    click_button '確認OKにする'
+    wait_for_vuejs
+    accept_alert do
+      click_button '確認OKにする'
+    end
     assert_text '確認済'
     assert_text '日報でcomment+確認OKにするtest'
   end
 
   test 'success recent report checking' do
     visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
-    click_button '日報を確認'
+    wait_for_vuejs
+    accept_alert do
+      click_button '日報を確認'
+    end
     assert page.first('.recent-reports-item').has_css?('.stamp-approve')
   end
 
   test 'success recent report checking cancel' do
     visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
-    click_button '日報を確認'
+    wait_for_vuejs
+    accept_alert do
+      click_button '日報を確認'
+    end
     wait_for_vuejs
     click_button '日報の確認を取り消す'
     assert page.first('.recent-reports-item').has_no_css?('.stamp-approve')
