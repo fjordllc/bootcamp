@@ -1,6 +1,7 @@
 <template lang="pug">
 div
   multiselect(
+    id='select',
     v-model='selected',
     :options='options',
     placeholder='',
@@ -22,26 +23,28 @@ export default {
   },
   props: {
       practices: { type: String, required: true },
-      editdata: { type: String }
+      editdata: { type: [Array], default: ()=>[] }
   },
   data () {
-    console.log(this.editdata)
-    const practicesId = JSON.parse(this.practices)
-    const practicesName = practicesId.map(practice => { 
+    const jsonPractices = JSON.parse(this.practices)
+    const practices = jsonPractices.map(practice => { 
       let robj = {title: practice[0], id: practice[1]}
       return robj
       })
-    console.log(practicesName)
-
     return {
       selected: [],
-      options: practicesName,
-      practicesId: practicesId
+      options: practices
     }
   },
-  created() {
-    if(this.editdata.length > 0) {
-      console.log(1)
+  mounted() {
+    for(const data of this.editdata) {
+      console.log(data)
+      for(const practice of this.options) {
+        if(data === practice.id) {
+          this.selected.push({ title: practice.title, id: practice.id})
+          this.select(practice)        
+        }
+      }
     }
   },
   methods: {
@@ -55,7 +58,6 @@ export default {
       valueBox.appendChild(valueInput)
     },
     remove(e) {
-      console.log(e)
       const removeInput = document.getElementById(e.title)
       removeInput.remove()
     }
