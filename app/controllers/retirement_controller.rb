@@ -11,10 +11,10 @@ class RetirementController < ApplicationController
     current_user.assign_attributes(retire_reason_params)
     current_user.retired_on = Date.current
     if current_user.save(context: :retirement)
-      user = current_user
-      UserMailer.retire(user).deliver_now
+      UserMailer.retire(current_user).deliver_now
       destroy_subscription
       notify_to_admins
+      notify_to_discord
       logout
       redirect_to retirement_url
     else
@@ -35,6 +35,21 @@ class RetirementController < ApplicationController
   def notify_to_admins
     User.admins.each do |admin_user|
       Notification.retired(current_user, admin_user)
+    end
+  end
+
+  def notify_to_discord
+    User.retired.find_each do |retired_user|
+      if retired_user.retired_on == Date.current.prev_month(n = 3)
+      ChatNotifier.message(
+      "#{retired_user.login_name} さんが退会して3ヶ月経過しました。
+      Discord ID
+      #{retired_user.discord_account}
+      ユーザーページ
+      https://bootcamp.fjord.jp/users/#{retired_user.id}",
+    webhook_url: ENV['DISCORD_TEST_WEBHOOK_URL']
+    )
+      end
     end
   end
 end

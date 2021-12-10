@@ -864,3 +864,26 @@ thuynga: # アイコンが小さい画像のユーザー
   unsubscribe_email_token: KVcUc3Ew3L6yt1Pwjdp-iQ
   updated_at: "2021-12-01 00:00:11"
   created_at: "2021-12-01 00:00:11"
+
+taikai: # 退会３ヶ月後のユーザー
+  login_name: taikai
+  email: taikai@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 退会3ヶ月後
+  name_kana: タイカイサンカゲツゴ
+  discord_account: taikai#5678
+  github_account: taikai
+  twitter_account: taikai
+  facebook_url: http://www.facebook.com/taikai
+  blog_url: http://taikai.org
+  description: "退会３ヶ月後です。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: なし
+  retired_on: <%= Date.current.prev_month(n = 3) %>
+  unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
+  updated_at: "2021-12-10 00:00:11"
+  created_at: "2021-12-10 00:00:11"
