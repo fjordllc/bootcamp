@@ -20,6 +20,7 @@
     = render 'users/form/avatar', f: f, user: user
     = render 'users/form/description', f: f, user: user
     = render 'users/form/tags', f: f, user: user
+    = render 'users/form/after_graduation_hope', f: f, user: user
     - unless user.adviser?
       = render 'users/form/job', f: f
       = render 'users/form/os', f: f
@@ -27,7 +28,6 @@
       = render 'users/form/experience', f: f
     - if user.student?
       = render 'users/form/job_seeker', f: f
-
   - if from == :edit
     .form__items
       h3.form__items-title パスワードの変更
