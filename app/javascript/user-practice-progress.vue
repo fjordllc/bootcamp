@@ -18,9 +18,16 @@ export default {
     user: { type: Object, required: true }
   },
   data() {
-    return {
-      percentage: this.user.cached_completed_percentage,
-      fraction: this.user.completed_fraction
+    if (this.user.role === 'graduate') {
+      return {
+        percentage: 100,
+        fraction: '卒業'
+      }
+    } else {
+      return {
+        percentage: this.user.cached_completed_percentage,
+        fraction: this.user.completed_fraction
+      }
     }
   },
   computed: {
