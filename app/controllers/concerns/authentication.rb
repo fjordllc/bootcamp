@@ -10,7 +10,8 @@ module Authentication
                   :adviser_login?,
                   :staff_login?,
                   :paid_login?,
-                  :staff_or_paid_login?
+                  :staff_or_paid_login?,
+                  :student_login?
   end
 
   def admin_login?
