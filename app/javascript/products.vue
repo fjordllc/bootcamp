@@ -118,7 +118,8 @@ export default {
         .then((json) => {
           if (
             location.pathname === '/products/not_responded' ||
-            location.pathname === '/products/unassigned'
+            location.pathname === '/products/unassigned' ||
+            location.pathname === '/products/unchecked'
           ) {
             this.latestProductSubmittedJust5days =
               json.latest_product_submitted_just_5days
