@@ -54,6 +54,69 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_equal oldest_product.user.login_name, names.last
   end
 
+  test 'not display products in listing unchecked if unchecked products all checked' do
+    product = products(:product3)
+    checker = users(:komagata)
+    product.checker_id = checker.id
+    product.save
+    visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
+    assert_text '提出物はありません'
+  end
+
+  test 'display replied products if click on unchecked-tab' do
+    checker = users(:yamada)
+    practice = practices(:practice5)
+    user = users(:kimura)
+    Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+    visit_with_auth '/products/unchecked', 'yamada'
+    wait_for_vuejs
+    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    names = all('.thread-list-item-meta .a-user-name').map(&:text)
+    assert_equal ["#{practice.title}の提出物"], titles
+    assert_equal [user.login_name], names
+  end
+
+  test 'display replied products if click on replied-button' do
+  checker = users(:yamada)
+    practice = practices(:practice5)
+    user = users(:kimura)
+    Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+    visit_with_auth '/products/unchecked?target=unchecked_replied', 'yamada'
+    wait_for_vuejs
+    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    names = all('.thread-list-item-meta .a-user-name').map(&:text)
+    assert_equal ["#{practice.title}の提出物"], titles
+    assert_equal [user.login_name], names
+  end
+
+  test 'display replied products if click on unchecked-all-button' do
+    checker = users(:yamada)
+    practice = practices(:practice5)
+    user = users(:kimura)
+    product = Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+    visit_with_auth '/products/unchecked?target=unchecked_all', 'yamada'
+    wait_for_vuejs
+    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    names = all('.thread-list-item-meta .a-user-name').map(&:text)
+    assert_equal ["#{practice.title}の提出物"], titles
+    assert_equal [user.login_name], names
+  end
+
   test 'show incomplete' do
     visit_with_auth '/products/unchecked', 'komagata'
     assert_link '未完了'

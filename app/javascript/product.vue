@@ -1,6 +1,8 @@
 <template lang="pug">
 .thread-list-item.has-assigned(:class='product.wip ? "is-wip" : ""')
-  .thread-list-item__strip-label(v-if='notResponded || unassigned')
+  .thread-list-item__strip-label(
+    v-if='notResponded || unassigned || unchecked'
+  )
     .thread-list-item__elapsed-days.is-reply-warning.is-only-mentor(
       v-if='isLatestProductSubmittedJust5days'
     )
@@ -185,6 +187,9 @@ export default {
     },
     unassigned() {
       return location.pathname === '/products/unassigned'
+    },
+    unchecked() {
+      return location.pathname === '/products/unchecked'
     },
     notRespondedSign() {
       return (
