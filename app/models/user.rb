@@ -122,6 +122,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   before_create UserCallbacks.new
+  after_create UserCallbacks.new
   after_update UserCallbacks.new
 
   validates :email, presence: true, uniqueness: true
