@@ -5,7 +5,7 @@ div
     v-model='selected',
     :options='options',
     placeholder='',
-    :multiple='true',
+    :multiple='dividedCase',
     :clear-on-select='false',
     label='title',
     track-by='title',
@@ -23,7 +23,7 @@ export default {
   },
   props: {
       practices: { type: String, required: true },
-      editdata: { type: [Array], default: ()=>[] }
+      editpractices: { type: [Array], default: ()=>[] }
   },
   data () {
     const jsonPractices = JSON.parse(this.practices)
@@ -33,12 +33,12 @@ export default {
       })
     return {
       selected: [],
-      options: practices
+      options: practices,
+      editdata: this.editdata || []
     }
   },
   mounted() {
     for(const data of this.editdata) {
-      console.log(data)
       for(const practice of this.options) {
         if(data === practice.id) {
           this.selected.push({ title: practice.title, id: practice.id})
@@ -51,7 +51,7 @@ export default {
     select(e) {
       const valueBox = document.getElementById("multiselect__values")
       const valueInput = document.createElement("input")
-      valueInput.name = "report[practice_ids][]"
+      valueInput.name = this.dividedName
       valueInput.value = e.id
       valueInput.id = e.title
       valueInput.type = "hidden"
@@ -60,6 +60,29 @@ export default {
     remove(e) {
       const removeInput = document.getElementById(e.title)
       removeInput.remove()
+    }
+  },
+  computed: {
+    dividedCase: function() {
+      const path = location.pathname
+      const reg = /\/[reports].+/;
+      console.log(path)
+      if(reg.test(path)){
+        return true
+      }else{
+        return false 
+      }
+    },
+    dividedName: function() {
+      const path = location.pathname
+      const regRepo = /\/[reports].+/;
+      const regQ = /\/[question].+/;
+      console.log(path)
+      if(regRepo.test(path)){
+        return "report[practice_ids][]"
+      }else if(regQ.test(path)){
+        return "question[practice_id]"
+      }
     }
   }
 }
