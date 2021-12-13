@@ -1,6 +1,12 @@
 <template lang="pug">
 .reports.is-md(v-if='reports === null')
   loadingListPlaceholder
+.reports(v-else-if='reports.length === 0')
+  .o-empty-message
+    .o-empty-message__icon
+      i.far.fa-sad-tear
+    .o-empty-message__text
+      | 日報はまだありません。
 .reports(v-else-if='reports.length > 0 || !isUncheckedReportsPage')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
