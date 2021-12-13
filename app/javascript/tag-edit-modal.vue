@@ -21,7 +21,6 @@
             .card-main-actions__delete(@click.prevent='closeModal')
               | キャンセル
 </template>
-
 <script>
 export default {
   props: {
@@ -80,7 +79,6 @@ export default {
   }
 }
 </script>
-
 <style>
 .content {
   z-index: 2;
