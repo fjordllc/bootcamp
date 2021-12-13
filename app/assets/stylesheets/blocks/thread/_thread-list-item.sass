@@ -48,6 +48,8 @@
   padding-left: 3.75rem
   +media-breakpoint-up(md)
     min-height: 2.75rem
+  .has-no-author-image &
+    padding-left: 0
   +media-breakpoint-down(sm)
     padding-left: 3rem
 
@@ -113,6 +115,8 @@
 
 .thread-list-item__user
   +position(absolute, left 0, top 0)
+  .has-no-author-image &
+    display: none
 
 .thread-list-item__user-icon
   +size(2.75rem)

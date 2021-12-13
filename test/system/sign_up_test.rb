@@ -3,6 +3,14 @@
 require 'application_system_test_case'
 
 class SignUpTest < ApplicationSystemTestCase
+  VCR_OPTIONS = {
+    record: :once,
+    match_requests_on: [
+      :method,
+      VCR.request_matchers.uri_without_param(:source)
+    ]
+  }.freeze
+
   test 'sign up' do
     visit '/users/new'
     within 'form[name=user]' do
@@ -47,7 +55,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('4000 0000 0000 0069', '12 / 21', '111')
 
-    VCR.use_cassette 'sign_up/expired-card' do
+    VCR.use_cassette 'sign_up/expired-card', VCR_OPTIONS do
       click_button '参加する'
       assert_text 'クレジットカードが有効期限切れです。'
     end
@@ -72,7 +80,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('4000 0000 0000 0127', '12 / 21', '111')
 
-    VCR.use_cassette 'sign_up/incorrect-cvc-card' do
+    VCR.use_cassette 'sign_up/incorrect-cvc-card', VCR_OPTIONS do
       click_button '参加する'
       assert_text 'クレジットカードセキュリティコードが正しくありません。'
     end
@@ -97,7 +105,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('4000 0000 0000 0002', '12 / 21', '111')
 
-    VCR.use_cassette 'sign_up/declined-card' do
+    VCR.use_cassette 'sign_up/declined-card', VCR_OPTIONS do
       click_button '参加する'
       assert_text 'クレジットカードへの請求が拒否されました。'
     end
@@ -178,7 +186,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111')
 
-    VCR.use_cassette 'sign_up/valid-card' do
+    VCR.use_cassette 'sign_up/valid-card', record: :once do
       click_button '参加する'
       assert_text 'に使用できない文字列が含まれています'
     end
@@ -249,7 +257,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111')
 
-    VCR.use_cassette 'sign_up/valid-card' do
+    VCR.use_cassette 'sign_up/valid-card', record: :once do
       click_button '参加する'
       assert_text '自己紹介を入力してください'
     end

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resource :position, only: %i(update), controller: "courses_categories/position"
     end
     resources :notifications, only: %i(index)
+    resources :subscriptions, only: %i(index)
     resources :comments, only: %i(index create update destroy)
     resources :answers, only: %i(index create update destroy) do
       resource :correct_answer, only: %i(create update)
@@ -25,7 +26,9 @@ Rails.application.routes.draw do
       resources :companies, only: %i(index)
       resources :worried, only: %i(index)
     end
-    resources :users, only: %i(index show update)
+    resources :users, only: %i(index show update) do
+      resources :recent_reports, only: %i(index), controller: "users/recent_reports"
+    end
     resources :user_icon_urls, only: %i(index)
     get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
     resources :practices, only: %i(index show update) do

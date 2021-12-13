@@ -10,13 +10,3 @@
       = link_to new_article_path,
         class: 'header-dropdown__item-link' do
         | ブログ投稿
-    li.header-dropdown__item
-      = link_to ENV['REDASH_DASHBOARD_URL'],
-        class: 'header-dropdown__item-link',
-        target: '_blank', rel: 'noopener' do
-        | メンターダッシュボード
-    li.header-dropdown__item
-      = link_to ENV['REDASH_CHECK_COUNT_URL'],
-        class: 'header-dropdown__item-link',
-        target: '_blank', rel: 'noopener' do
-        | 確認数の集計
