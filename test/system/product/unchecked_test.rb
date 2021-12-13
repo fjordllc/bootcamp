@@ -82,7 +82,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
   end
 
   test 'display replied products if click on replied-button' do
-  checker = users(:yamada)
+    checker = users(:yamada)
     practice = practices(:practice5)
     user = users(:kimura)
     Product.create!(
@@ -103,7 +103,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     checker = users(:yamada)
     practice = practices(:practice5)
     user = users(:kimura)
-    product = Product.create!(
+    Product.create!(
       body: 'test',
       user: user,
       practice: practice,
