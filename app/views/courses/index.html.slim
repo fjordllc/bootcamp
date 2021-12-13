@@ -15,12 +15,21 @@ header.page-header
   .container
     .courses-items
       .row
-        - courses_to_show = current_user&.admin? ? @courses : @courses.where(published: true)
-        - if courses_to_show.empty?
-          .o-empty-message
-            .o-empty-message__icon
-              i.far.fa-sad-tear
-            p.o-empty-message__text
-              | 公開コースはありません。
+        - if current_user&.admin?
+          - if @courses.present?
+            = render @courses.order(:created_at)
+          - else
+            .o-empty-message
+              .o-empty-message__icon
+                i.far.fa-sad-tear
+              p.o-empty-message__text
+                | 公開コースはありません。
         - else
-          = render courses_to_show.order(:created_at)
+          - if @courses.where(published: true).present?
+            = render @courses.where(published: true).order(:created_at)
+          - else
+            .o-empty-message
+              .o-empty-message__icon
+                i.far.fa-sad-tear
+              p.o-empty-message__text
+                | 公開コースはありません。
