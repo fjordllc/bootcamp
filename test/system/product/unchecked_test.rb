@@ -90,7 +90,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
   end
 
   test 'display replied products if click on replied-button' do
-    checker = users(:yamada)
+    checker = users(:komagata)
     practice = practices(:practice47)
     user = users(:kimura)
     product = Product.create!(
@@ -102,7 +102,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'komagata'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
-    visit_with_auth '/products/unchecked?target=unchecked_replied', 'yamada'
+    visit_with_auth '/products/unchecked?target=unchecked_replied', 'komagata'
     wait_for_vuejs
     assert_text product.practice.title
   end
