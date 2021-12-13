@@ -76,9 +76,11 @@ export default {
           } else {
             this.id = json.checker_id
             this.name = json.checker_name
-            this.buttonLabel === '担当する'
-              ? this.toast('担当から外れました。')
-              : this.toast('担当になりました。')
+            if (this.buttonLabel === '担当する') {
+              this.toast('担当から外れました。')
+            } else {
+              this.toast('担当になりました。')
+            }
           }
         })
     }
