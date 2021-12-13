@@ -1,47 +1,56 @@
 talk1:
-  user: sotugyou
+  user: komagata
 
 talk2:
-  user: yamada
+  user: machida
 
 talk3:
-  user: kimura
+  user: sotugyou
 
 talk4:
-  user: hatsuno
+  user: advijirou
 
 talk5:
-  user: hajime
-
-talk6:
-  user: muryou
-
-talk7:
-  user: kensyu
-
-talk8:
-  user: kananashi
-
-talk9:
-  user: osnashi
-
-talk10:
-  user: jobseeker
-
-talk11:
-  user: daimyo
-
-talk12:
-  user: nippounashi
-
-talk13:
-  user: with_hyphen
-
-talk14:
-  user: kensyuowata
-
-talk15:
   user: yameo
 
+talk6:
+  user: yamada
+
+talk7:
+  user: kimura
+
+talk8:
+  user: hatsuno
+
+talk9:
+  user: hajime
+
+talk10:
+  user: muryou
+
+talk11:
+  user: kensyu
+
+talk12:
+  user: senpai
+
+talk13:
+  user: kananashi
+
+talk14:
+  user: osnashi
+
+talk15:
+  user: jobseeker
+
 talk16:
-  user: taguo
+  user: daimyo
+
+talk17:
+  user: nippounashi
+
+talk18:
+  user: with_hyphen
+
+talk19:
+  user: kensyuowata
