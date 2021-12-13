@@ -8,17 +8,17 @@ class API::Products::UncheckedController < API::BaseController
     @products = case @target
                 when 'unchecked_all'
                   Product.unchecked
-                    .not_wip
-                    .list
-                    .order_for_not_wip_list
-                    .page(params[:page])
+                         .not_wip
+                         .list
+                         .order_for_not_wip_list
+                         .page(params[:page])
                 when 'unchecked_replied'
                   Product.unchecked_replied_products(current_user.id)
-                    .unchecked
-                    .not_wip
-                    .list
-                    .order_for_not_wip_list
-                    .page(params[:page])
+                         .unchecked
+                         .not_wip
+                         .list
+                         .order_for_not_wip_list
+                         .page(params[:page])
                 end
     @latest_product_submitted_just_5days = @products.find { |product| product.elapsed_days == 5 }
     @latest_product_submitted_just_6days = @products.find { |product| product.elapsed_days == 6 }
@@ -26,7 +26,7 @@ class API::Products::UncheckedController < API::BaseController
   end
 
   private
-  
+
   def target_allowlist
     %w[unchecked_all unchecked_replied]
   end
