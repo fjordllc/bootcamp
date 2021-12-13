@@ -11,7 +11,6 @@
     :nameProp='tagName'
   )
 </template>
-
 <script>
 import Modal from './tag-edit-modal.vue'
 import toast from './toast'
