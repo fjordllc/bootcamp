@@ -55,66 +55,74 @@ class Product::UncheckedTest < ApplicationSystemTestCase
   end
 
   test 'not display products in listing unchecked if unchecked products all checked' do
-    product = products(:product3)
     checker = users(:komagata)
-    product.checker_id = checker.id
-    product.save
-    visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
-    assert_text '提出物はありません'
-  end
-
-  test 'display replied products if click on unchecked-tab' do
-    checker = users(:yamada)
-    practice = practices(:practice5)
-    user = users(:kimura)
-    Product.create!(
+    practice = practices(:practice47)
+    user = users(:yamada)
+    product = Product.create!(
       body: 'test',
       user: user,
       practice: practice,
       checker_id: checker.id
     )
-    visit_with_auth '/products/unchecked', 'yamada'
+    visit_with_auth "/products/#{product.id}", 'komagata'
+    click_button '提出物を確認'
+    visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
     wait_for_vuejs
-    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
-    names = all('.thread-list-item-meta .a-user-name').map(&:text)
-    assert_equal ["#{practice.title}の提出物"], titles
-    assert_equal [user.login_name], names
+    assert_no_text product.practice.title
+  end
+
+  test 'display replied products if click on unchecked-tab' do
+    checker = users(:komagata)
+    practice = practices(:practice47)
+    user = users(:kimura)
+    product = Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+    visit_with_auth "/products/#{product.id}", 'komagata'
+    fill_in('new_comment[description]', with: 'test')
+    click_button 'コメントする'
+    visit_with_auth '/products/unchecked', 'komagata'
+    wait_for_vuejs
+    assert_text product.practice.title
   end
 
   test 'display replied products if click on replied-button' do
     checker = users(:yamada)
-    practice = practices(:practice5)
+    practice = practices(:practice47)
     user = users(:kimura)
-    Product.create!(
+    product = Product.create!(
       body: 'test',
       user: user,
       practice: practice,
       checker_id: checker.id
     )
+    visit_with_auth "/products/#{product.id}", 'komagata'
+    fill_in('new_comment[description]', with: 'test')
+    click_button 'コメントする'
     visit_with_auth '/products/unchecked?target=unchecked_replied', 'yamada'
     wait_for_vuejs
-    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
-    names = all('.thread-list-item-meta .a-user-name').map(&:text)
-    assert_equal ["#{practice.title}の提出物"], titles
-    assert_equal [user.login_name], names
+    assert_text product.practice.title
   end
 
   test 'display replied products if click on unchecked-all-button' do
-    checker = users(:yamada)
-    practice = practices(:practice5)
+    checker = users(:komagata)
+    practice = practices(:practice47)
     user = users(:kimura)
-    Product.create!(
+    product = Product.create!(
       body: 'test',
       user: user,
       practice: practice,
       checker_id: checker.id
     )
+    visit_with_auth "/products/#{product.id}", 'komagata'
+    fill_in('new_comment[description]', with: 'test')
+    click_button 'コメントする'
     visit_with_auth '/products/unchecked?target=unchecked_all', 'yamada'
     wait_for_vuejs
-    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
-    names = all('.thread-list-item-meta .a-user-name').map(&:text)
-    assert_equal ["#{practice.title}の提出物"], titles
-    assert_equal [user.login_name], names
+    assert_text product.practice.title
   end
 
   test 'show incomplete' do
