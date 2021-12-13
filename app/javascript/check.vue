@@ -64,11 +64,11 @@ export default {
     },
     checkHasSadEmotion() {
       const sadEmotion = document.querySelector('#sad')
-      return sadEmotion !== undefined ? 1 : 0
+      return sadEmotion !== undefined
     },
     checkHasComment() {
       const comment = document.querySelector('.thread-comment')
-      return comment !== null ? 1 : 0
+      return comment !== null
     }
   },
   methods: {
