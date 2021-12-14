@@ -504,9 +504,11 @@
     white-space: pre-wrap;
   }
 
-  .a-long-text img[data-emoji] {
-    display: inline;
-    border: none;
-    vertical-align: text-bottom;
+  img[data-emoji],
+  img[data-emo] {
+    display: inline-block !important;
+    border: none !important;
+    vertical-align: text-bottom !important;
+    margin: 0 !important;
   }
 </style>
