@@ -9,8 +9,6 @@
               = f.label :practice, class: 'a-form-label'
               .select-practices
                 .select-practices#js-form-new-select(data-practices=practice_options(categories).to_json)
-                / f.select(:practice_id, practice_options(categories), { selected: params[:practice_id] }, { class: 'js-select2' })
-
       .form-item
         .row.js-markdown-parent
           .col-md-6.col-xs-12

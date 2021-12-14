@@ -34,7 +34,7 @@ export default {
     return {
       selected: [],
       options: practices,
-      editdata: this.editdata || []
+      editdata: this.editpractices || []
     }
   },
   mounted() {
@@ -65,9 +65,10 @@ export default {
   computed: {
     dividedCase: function() {
       const path = location.pathname
-      const reg = /\/[reports].+/;
+      const reg = /(\/reports\/).+/;
       console.log(path)
       if(reg.test(path)){
+        console.log(2)
         return true
       }else{
         return false 
@@ -75,13 +76,16 @@ export default {
     },
     dividedName: function() {
       const path = location.pathname
-      const regRepo = /\/[reports].+/;
-      const regQ = /\/[question].+/;
+      const regRepo = /(\/reports\/).+/;
+      const regQ = /(\/questions\/).+/;
+      const regPage = /(\/pages\/).+/;
       console.log(path)
       if(regRepo.test(path)){
         return "report[practice_ids][]"
       }else if(regQ.test(path)){
         return "question[practice_id]"
+      }else if(regPage.test(path)){
+        return "page[practice_id]"
       }
     }
   }
