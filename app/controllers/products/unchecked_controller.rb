@@ -10,6 +10,6 @@ class Products::UncheckedController < ApplicationController
   private
 
   def target_allowlist
-    %w[unchecked_all unchecked_replied]
+    %w[unchecked_all unchecked_no_replied]
   end
 end

@@ -71,7 +71,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_no_text product.practice.title
   end
 
-  test 'display replied products if click on unchecked-tab' do
+  test 'display no-replied products if click on unchecked-tab' do
     checker = users(:komagata)
     practice = practices(:practice47)
     user = users(:kimura)
@@ -81,7 +81,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       practice: practice,
       checker_id: checker.id
     )
-    visit_with_auth "/products/#{product.id}", 'komagata'
+    visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
     visit_with_auth '/products/unchecked', 'komagata'
@@ -89,7 +89,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_text product.practice.title
   end
 
-  test 'display replied products if click on replied-button' do
+  test 'display no-replied products if click on no-replied-button' do
     checker = users(:komagata)
     practice = practices(:practice47)
     user = users(:kimura)
@@ -99,15 +99,33 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       practice: practice,
       checker_id: checker.id
     )
-    visit_with_auth "/products/#{product.id}", 'komagata'
+    visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
-    visit_with_auth '/products/unchecked?target=unchecked_replied', 'komagata'
+    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
     wait_for_vuejs
     assert_text product.practice.title
   end
 
-  test 'display replied products if click on unchecked-all-button' do
+  test 'display no-replied products if click on unchecked-all-button' do
+    checker = users(:komagata)
+    practice = practices(:practice47)
+    user = users(:kimura)
+    product = Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+    visit_with_auth "/products/#{product.id}", 'kimura'
+    fill_in('new_comment[description]', with: 'test')
+    click_button 'コメントする'
+    visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
+    wait_for_vuejs
+    assert_text product.practice.title
+  end
+
+  test 'not display replied products if click on no-replied-button' do
     checker = users(:komagata)
     practice = practices(:practice47)
     user = users(:kimura)
@@ -120,9 +138,9 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'komagata'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
-    visit_with_auth '/products/unchecked?target=unchecked_all', 'yamada'
+    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
     wait_for_vuejs
-    assert_text product.practice.title
+    assert_no_text product.practice.title
   end
 
   test 'show incomplete' do

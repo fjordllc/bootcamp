@@ -119,7 +119,7 @@ class Product < ApplicationRecord
     Product.find_by_sql(sql).map(&:id)
   end
 
-  def self.unchecked_replied_products_ids(current_user_id)
+  def self.unchecked_no_replied_products_ids(current_user_id)
     sql = <<~SQL
       WITH last_comments AS (
         SELECT *
@@ -141,8 +141,8 @@ class Product < ApplicationRecord
       SELECT unchecked_products.id
       FROM unchecked_products
       LEFT JOIN last_comments ON unchecked_products.id = last_comments.commentable_id
-      WHERE last_comments.id IS NOT NULL
-      AND last_comments.user_id = ?
+      WHERE last_comments.id IS NULL
+      OR last_comments.user_id != ?
       ORDER BY unchecked_products.created_at DESC
     SQL
     Product.find_by_sql([sql, current_user_id]).map(&:id)
@@ -155,9 +155,9 @@ class Product < ApplicationRecord
            .order(created_at: :desc)
   end
 
-  def self.unchecked_replied_products(current_user_id)
-    replied_products_ids = unchecked_replied_products_ids(current_user_id)
-    Product.where(id: replied_products_ids)
+  def self.unchecked_no_replied_products(current_user_id)
+    no_replied_products_ids = unchecked_no_replied_products_ids(current_user_id)
+    Product.where(id: no_replied_products_ids)
            .order(created_at: :desc)
   end
 
