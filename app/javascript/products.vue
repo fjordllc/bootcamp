@@ -76,7 +76,6 @@ export default {
     unconfirmedLinksName() {
       return {
         unchecked: '未完了',
-        'not-responded': '未返信',
         'self-assigned': '自分の担当',
         unassigned: '未アサイン'
       }[this.selectedTab]
@@ -117,7 +116,6 @@ export default {
         })
         .then((json) => {
           if (
-            location.pathname === '/products/not_responded' ||
             location.pathname === '/products/unassigned' ||
             location.pathname === '/products/unchecked'
           ) {

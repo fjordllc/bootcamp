@@ -10,12 +10,6 @@
             .page-tabs__item-count.a-notification-count.is-only-mentor
               = Cache.unchecked_product_count
       li.page-tabs__item
-        = link_to products_not_responded_index_path, class: "page-tabs__item-link #{current_link(/^products-not_responded-index/)}" do
-          | 未返信
-          - if Cache.not_responded_product_count.positive?
-            .page-tabs__item-count.a-notification-count.is-only-mentor
-              = Cache.not_responded_product_count
-      li.page-tabs__item
         = link_to products_unassigned_index_path, class: "page-tabs__item-link #{current_link(/^products-unassigned-index/)}", id: 'test-unassigned-tab' do
           | 未アサイン
           - if Cache.unassigned_product_count.positive?

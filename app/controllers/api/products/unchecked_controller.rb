@@ -12,8 +12,8 @@ class API::Products::UncheckedController < API::BaseController
                          .list
                          .order_for_not_wip_list
                          .page(params[:page])
-                when 'unchecked_replied'
-                  Product.unchecked_replied_products(current_user.id)
+                when 'unchecked_no_replied'
+                  Product.unchecked_no_replied_products(current_user.id)
                          .unchecked
                          .not_wip
                          .list
@@ -28,6 +28,6 @@ class API::Products::UncheckedController < API::BaseController
   private
 
   def target_allowlist
-    %w[unchecked_all unchecked_replied]
+    %w[unchecked_all unchecked_no_replied]
   end
 end

@@ -1,7 +1,7 @@
 nav.pill-nav
   .container.is-padding-horizontal-0-sm-dow
     ul.pill-nav__items
-      - targets = %w[unchecked_replied unchecked_all]
+      - targets = %w[unchecked_no_replied unchecked_all]
       - targets.each do |target|
         li.pill-nav__item
           = link_to t("target.#{target}"), products_unchecked_index_path(target: target), class: (@target == target ? ['is-active'] : []) << 'pill-nav__item-link'
