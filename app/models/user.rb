@@ -308,7 +308,7 @@ class User < ApplicationRecord
   class << self
     def notify_to_discord
       User.retired.find_each do |retired_user|
-        if retired_user.retired_on == Date.current.prev_month(n = 3)
+        if retired_user.retired_on <= Date.current.prev_month(n = 3)
           ChatNotifier.message(
             "#{retired_user.login_name} さんが退会して3ヶ月経過しました。
             Discord ID
