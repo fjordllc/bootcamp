@@ -11,6 +11,7 @@ html.is-application lang='ja'
     = render 'pwa'
     = render 'favicons'
     = render 'rollbar' if Rails.env.production?
+    = render 'current_user'
     link(rel='manifest' href='/manifest.json')
     = stylesheet_link_tag 'welcome', media: 'all'
     - if page_classes.include?('welcome-home')
