@@ -20,3 +20,7 @@
       li.page-tabs__item
         = link_to user_questions_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('questions')} #{user.questions.length.zero? ? 'is-inactive' : ''}" do
           | 質問 （#{user.questions.length}）
+      li.page-tabs__item
+        = link_to user_answers_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('answers')}" do
+          | 回答（#{user.answers.length}）
+
