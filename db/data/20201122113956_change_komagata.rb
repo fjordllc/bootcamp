@@ -3,8 +3,7 @@
 class ChangeKomagata < ActiveRecord::Migration[6.0]
   def up
     user = User.find_by(login_name: 'komagata')
-    user.name += 'test'
-    user.save!
+    user.update!(name: "#{user.name}test")
   end
 
   def down
