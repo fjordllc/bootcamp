@@ -1,0 +1,25 @@
+.thread-list-item
+  .thread-list-item__inner
+    .thread-list-item__user
+      = render 'users/icon',
+              user: answer.user,
+              link_class: 'a-user-name',
+              image_class: 'thread-list-item__user-icon'
+    .thread-list-item__rows
+      .thread-list-item__row
+        .thread-list-item-title
+          h1.thread-list-item-title__title(itemprop='name')
+            = link_to answer, itemprop: 'url', class: 'thread-list-item-title__link' do
+              = answer.description
+      .thread-list-item__row
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              = link_to answer.user.long_name, answer.user, class: 'a-user-name'
+            .thread-list-item-meta__item
+              time.a-meta(datetime="#{answer.updated_at.to_datetime}" pubdate='pubdate')
+                = l answer.updated_at
+              .thread-list-item-meta__item
+                .thread-list-item-comment
+                  .thread-list-item-comment__label
+                    |（#{answer.description}）
