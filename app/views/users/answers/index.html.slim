@@ -1,0 +1,25 @@
+- title "#{@user.login_name}の質問"
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to 'ユーザー一覧', users_path, class: 'a-button is-md is-secondary is-block is-back'
+
+.page-tools
+  = render 'users/page_tabs', user: @user
+
+.page-body
+  .container.is-md
+    - if @answers.present?
+      .thread-list.a-card
+        = render partial: 'users/answers/answer', collection: @answers, as: :answer
+    - else
+      .o-empty-message
+        .o-empty-message__icon
+          i.far.fa-sad-tear
+        p.o-empty-message__text
+          | 回答はまだありません。
