@@ -6,58 +6,58 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
-require('../textarea.js')
-require('../markdown.js')
-require('../shortcut.js')
-require('../learning.js')
-require('../learning-status.js')
-require('../check.js')
-require('../check-stamp.js')
-require('../unconfirmed-links-open.js')
-require('../reports.js')
-require('../recent_reports.js')
-require('../comments.js')
-require('../notifications_bell.js')
-require('../question.js')
-require('../category-select.js')
-require('../grass.js')
-require('../fileinput.js')
-require('../reaction.js')
-require('../practice_memo.js')
-require('../card.js')
-require('../watch-toggle.js')
-require('../checkBox.js')
-require('../js-select2.js')
-require('../warning.js')
-require('../date-input-toggler')
-require('../github_grass')
-require('../tags-input.js')
-require('../page_tags.js')
-require('../following.js')
-require('../user_tags.js')
-require('../hide-user.js')
-require('../categories.js')
-require('../categories-practice.js')
-require('../notifications.js')
-require('../products.js')
-require('../announcements.js')
-require('../courses-categories.js')
-require('../courses-practices.js')
-require('../no_learn.js')
-require('../users.js')
-require('../watches.js')
-require('../searchables.js')
-require('../niconico_calendar.js')
-require('../user_mentor_memo.js')
-require('../mentor-mode.js')
-require('../bookmark.js')
-require('../bookmarks.js')
-require('../events.js')
-require('../agreements.js')
-require('../incoming-events.js')
-require('../practice-select.js')
-require('../companies.js')
-require('../worried-users.js')
-require('../report_template.js')
-require('../user-recent-reports.js')
-require('../subscription-status.js')
+import '../textarea.js'
+import '../markdown.js'
+import '../shortcut.js'
+import '../learning.js'
+import '../learning-status.js'
+import '../check.js'
+import '../check-stamp.js'
+import '../unconfirmed-links-open.js'
+import '../reports.js'
+import '../recent_reports.js'
+import '../comments.js'
+import '../notifications_bell.js'
+import '../question.js'
+import '../category-select.js'
+import '../grass.js'
+import '../fileinput.js'
+import '../reaction.js'
+import '../practice_memo.js'
+import '../card.js'
+import '../watch-toggle.js'
+import '../checkBox.js'
+import '../js-select2.js'
+import '../warning.js'
+import '../date-input-toggler'
+import '../github_grass'
+import '../tags-input.js'
+import '../page_tags.js'
+import '../following.js'
+import '../user_tags.js'
+import '../hide-user.js'
+import '../categories.js'
+import '../categories-practice.js'
+import '../notifications.js'
+import '../products.js'
+import '../announcements.js'
+import '../courses-categories.js'
+import '../courses-practices.js'
+import '../no_learn.js'
+import '../users.js'
+import '../watches.js'
+import '../searchables.js'
+import '../niconico_calendar.js'
+import '../user_mentor_memo.js'
+import '../mentor-mode.js'
+import '../bookmark.js'
+import '../bookmarks.js'
+import '../events.js'
+import '../agreements.js'
+import '../incoming-events.js'
+import '../practice-select.js'
+import '../companies.js'
+import '../worried-users.js'
+import '../report_template.js'
+import '../user-recent-reports.js'
+import '../subscription-status.js'
