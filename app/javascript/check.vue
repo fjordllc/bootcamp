@@ -64,7 +64,7 @@ export default {
     },
     checkHasSadEmotion() {
       const sadEmotion = document.querySelector('#sad')
-      return sadEmotion !== undefined
+      return sadEmotion !== null
     },
     checkHasComment() {
       const comment = document.querySelector('.thread-comment')
