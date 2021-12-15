@@ -12,9 +12,15 @@ div
 
 <script>
 import Multiselect from 'vue-multiselect'
-
-const blankOption = { id: '', title: '全ての質問を表示' }
-
+const path = location.pathname
+const regQ = /(\/questions).*/;
+const regRepo = /(\/reports).*/;
+const blankOption = 
+  regQ.test(path) 
+    ? { id: '', title: '全ての質問を表示' }
+    : regRepo.test(path)
+    ? { id: '', title: '全ての日報を表示' }
+    : ''
 export default {
   components: {
     Multiselect

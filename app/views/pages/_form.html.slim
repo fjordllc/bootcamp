@@ -9,7 +9,6 @@
             .select-practices
               - editdata = (page.practice&.id ? page.practice.id : "") 
               .select-practices#js-form-new-select(data-practices=practice_options(categories).to_json data-edit=[editdata])
-              / f.select(:practice_id, practice_options(categories), { include_blank: '関連プラクティスを指定しない' }, { class: 'js-select2' })
     .form-item
       .row
         .col-md-6.col-xs-12

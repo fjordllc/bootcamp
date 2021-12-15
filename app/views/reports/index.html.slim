@@ -14,7 +14,8 @@ header.page-header
         .sort-nav__inner
           = label_tag :practice_id, 'プラクティスで絞り込む:', class: 'sort-nav__label'
           .sort-nav__select
-            = select_tag :practice_id, options_from_collection_for_select(current_user.practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての日報を表示', onchange: 'this.form.submit()', class: 'js-select2'
+            #js-practice-select data-solved=params[:solved] data-current-user-id=current_user.id
+            / select_tag :practice_id, options_from_collection_for_select(current_user.practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての日報を表示', onchange: 'this.form.submit()', class: 'js-select2'
 
   - if current_user.admin?
     = render 'reports/tabs'
