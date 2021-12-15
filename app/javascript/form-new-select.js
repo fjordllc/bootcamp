@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const practiceSelect = document.querySelector(selector)
   if (practiceSelect) {
     const practices = practiceSelect.getAttribute("data-practices")
-    let editdata = practiceSelect.getAttribute("data-edit")
+    const editdata = practiceSelect.getAttribute("data-edit")
     new Vue({
       render: (h) =>
         h(FormNewSelect, {

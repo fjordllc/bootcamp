@@ -28,13 +28,24 @@ export default {
   data () {
     const jsonPractices = JSON.parse(this.practices)
     const practices = jsonPractices.map(practice => { 
-      let robj = {title: practice[0], id: practice[1]}
+      const robj = {title: practice[0], id: practice[1]}
       return robj
       })
     return {
       selected: [],
       options: practices,
       editdata: this.editpractices || []
+    }
+  },
+  computed: {
+    dividedCase: function() {
+      const path = location.pathname
+      const reg = /(\/reports\/).+/;
+      if(reg.test(path)){
+        return true
+      }else{
+        return false 
+      }
     }
   },
   mounted() {
@@ -60,17 +71,6 @@ export default {
     remove(e) {
       const removeInput = document.getElementById(e.title)
       removeInput.remove()
-    }
-  },
-  computed: {
-    dividedCase: function() {
-      const path = location.pathname
-      const reg = /(\/reports\/).+/;
-      if(reg.test(path)){
-        return true
-      }else{
-        return false 
-      }
     },
     dividedName: function() {
       const path = location.pathname
