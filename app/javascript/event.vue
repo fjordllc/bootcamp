@@ -11,7 +11,7 @@
       .thread-list-item__row
         .thread-list-item-title
           .thread-list-item-title__icon.is-wip(v-if='event.wip') WIP
-          .thread-list-item-title__icon.is-ended(v-if='event.ended') 終了
+          .thread-list-item-title__icon.is-ended(v-else-if='event.ended') 終了
           h2.thread-list-item-title__title(itemprop='name')
             a.thread-list-item-title__link(:href='event.url', itemprop='url')
               | {{ event.title }}
