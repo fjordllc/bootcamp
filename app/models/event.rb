@@ -54,6 +54,10 @@ class Event < ApplicationRecord
     Time.current > open_end_at && Time.current < end_at
   end
 
+  def ended?
+    Time.current >= end_at
+  end
+
   def participants
     first_come_first_served.limit(capacity)
   end
