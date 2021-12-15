@@ -25,7 +25,9 @@ export default {
   },
   computed: {
     roundedPercentage() {
-      return this.user.role === 'graduate' ? '100%' : Math.round(this.percentage) + '%'
+      return this.user.role === 'graduate'
+        ? '100%'
+        : Math.round(this.percentage) + '%'
     }
   },
   methods: {
