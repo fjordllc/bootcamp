@@ -146,11 +146,20 @@ export default {
     paginateClickCallback(pageNumber) {
       this.currentPage = pageNumber
       this.getProductsPerPage()
-      history.pushState(
-        null,
-        null,
-        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
-      )
+      history.pushState(null, null, this.newUrl(pageNumber))
+    },
+    newUrl(pageNumber) {
+      if (this.params.target) {
+        return (
+          location.pathname +
+          `?target=${this.params.target}` +
+          (pageNumber === 1 ? '' : `&page=${pageNumber}`)
+        )
+      } else {
+        return (
+          location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
+        )
+      }
     },
     getParams() {
       const params = {}
