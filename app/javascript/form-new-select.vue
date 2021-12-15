@@ -66,9 +66,7 @@ export default {
     dividedCase: function() {
       const path = location.pathname
       const reg = /(\/reports\/).+/;
-      console.log(path)
       if(reg.test(path)){
-        console.log(2)
         return true
       }else{
         return false 
@@ -79,7 +77,6 @@ export default {
       const regRepo = /(\/reports\/).+/;
       const regQ = /(\/questions\/).+/;
       const regPage = /(\/pages\/).+/;
-      console.log(path)
       if(regRepo.test(path)){
         return "report[practice_ids][]"
       }else if(regQ.test(path)){

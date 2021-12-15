@@ -7,8 +7,7 @@
           .form-item
             = f.label :practice, class: 'a-form-label'
             .select-practices
-              - editdata = (page.practice&.id ? page.practice.id : "") 
-              .select-practices#js-form-new-select(data-practices=practice_options(categories).to_json data-edit=[editdata])
+              .select-practices#js-form-new-select(data-practices=practice_options(categories).to_json data-edit=(page.practice&.id ? [page.practice.id] : ['']))
     .form-item
       .row
         .col-md-6.col-xs-12
