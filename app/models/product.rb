@@ -72,7 +72,7 @@ class Product < ApplicationRecord
       self_assigned_products AS (
         SELECT products.*
         FROM products
-        WHERE checker_id = #{current_user_id}
+        WHERE checker_id = ?
       )
       SELECT self_assigned_products.id
       FROM self_assigned_products
@@ -81,7 +81,7 @@ class Product < ApplicationRecord
       OR self_assigned_products.checker_id != last_comments.user_id
       ORDER BY self_assigned_products.created_at DESC
     SQL
-    Product.find_by_sql(sql).map(&:id)
+    Product.find_by_sql([sql, current_user_id]).map(&:id)
   end
 
   def self.unchecked_no_replied_products_ids(current_user_id)
