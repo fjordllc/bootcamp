@@ -100,7 +100,7 @@
         - when 'edit', 'update'
           = link_to 'キャンセル', report_path, class: 'a-button is-md is-secondary is-block'
 
-= render '/shared/modal', id: 'modal-progress', title: '学習時間は無しとは？'
+= render '/shared/modal', id: 'modal-progress', modal_title: '学習時間は無しとは？'
   .modal__description.is-md
     .a-short-text
       p
@@ -111,7 +111,7 @@
         | 日報を書くということも文章を書くこと、アウトプットに慣れるための大事な学習です。
         | なので、今この日報を書いている時間も学習時間に含めてしまって問題ないですよ。
 
-= render '/shared/modal', id: 'modal-wip', title: 'WIPとは？'
+= render '/shared/modal', id: 'modal-wip', modal_title: 'WIPとは？'
   .modal__description.is-md
     .a-short-text
       p
