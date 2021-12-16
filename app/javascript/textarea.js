@@ -1,5 +1,10 @@
 import TextareaInitializer from './textarea-initializer'
 
 document.addEventListener('DOMContentLoaded', () => {
-  TextareaInitializer.initialize('.js-markdown')
+  const selector = '.js-markdown'
+  if (!selector) {
+    return null
+  }
+
+  TextareaInitializer.initialize(selector)
 })
