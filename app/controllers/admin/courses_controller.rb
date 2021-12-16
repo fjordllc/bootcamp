@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::CoursesController < AdminController
-  before_action :set_course, only: %i[edit update destroy]
+  before_action :set_course, only: %i[edit update]
 
   def index
     @courses = Course.order(created_at: :desc)
