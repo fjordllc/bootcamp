@@ -18,7 +18,8 @@
           .a-form-label
             | 担当者
             .select-mentors
-              = f.select(:checker_id, User.where(mentor: true).where(retired_on: nil).pluck(:login_name, :id).sort, { include_blank: true }, { class: 'js-select2' })
+              #js-checker-select(data-checkers=User.where(mentor: true).where(retired_on: nil).pluck(:login_name, :id).sort.to_json data-checker=product.checker_id)
+              / f.select(:checker_id, User.where(mentor: true).where(retired_on: nil).pluck(:login_name, :id).sort, { include_blank: true }, { class: 'js-select2' })
 
   .form-actions
     ul.form-actions__items.is-ais-flex-start
