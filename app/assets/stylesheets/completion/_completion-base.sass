@@ -1,5 +1,7 @@
+$completion: #00a0dd
+
 body.is-completion
-  background-color: #00a0dd
+  background-color: $completion
 
 .completion-wrapper
   min-height: 100vh
@@ -34,7 +36,7 @@ body.is-completion
 
 .complestion__image
   border-radius: 1rem
-  border: solid .75rem $base
+  border: solid .75rem shade($completion, 30%)
 
 .welcome-footer
   +media-breakpoint-up(md)
@@ -44,7 +46,6 @@ body.is-completion
     body.welcome & .container
       +padding(horizontal, 0)
 
-
 .welcome-footer__nav
   margin-bottom: 1.5rem
 
@@ -53,13 +54,12 @@ body.is-completion
     display: flex
     justify-content: center
 
-
 .welcome-footer__nav-item
   +media-breakpoint-up(md)
     +padding(horizontal, .5rem)
 
 .welcome-footer__nav-item-link
-  +text-block(.875rem 1, $default-text)
+  +text-block(.875rem 1, $reversal-text)
   +media-breakpoint-up(md)
     +hover-link
   +media-breakpoint-down(sm)
@@ -73,7 +73,7 @@ body.is-completion
 .welcome-footer-copyright
   justify-content: center
   align-items: center
-  +text-block(.875rem 1.45, flex)
+  +text-block(.875rem 1.45, flex $reversal-text)
 
 .welcome-footer-copyright__author
   display: block

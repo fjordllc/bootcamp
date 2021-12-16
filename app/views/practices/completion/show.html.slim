@@ -1,6 +1,10 @@
 - title @practice.title
 - if @practice.ogp_image.attached?
   - set_meta_tags(og: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+  - set_meta_tags(twitter: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+- else
+  - set_meta_tags(og: { image: image_url('completion/completion_default.png'), url: request.url })
+  - set_meta_tags(twitter: { image: image_url('completion/completion_default.png'), url: request.url })
 
 .page-body
   .complestion
