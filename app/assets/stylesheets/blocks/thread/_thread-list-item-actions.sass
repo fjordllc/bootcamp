@@ -1,17 +1,20 @@
 .thread-list-item-actions__trigger
-  +position(absolute, right -.75rem, top -.5rem, 2)
   +size(2.25rem)
   display: flex
   align-items: center
   justify-content: center
   cursor: pointer
   color: $muted-text
-  //border: solid 1px $border
-  border-radius: .25rem
+  align-self: flex-start
+  +media-breakpoint-up(md)
+    margin-top: -.5rem
+    margin-right: -.5rem
+  +media-breakpoint-down(sm)
+    +position(absolute, left 0, top 2.75rem)
 
 .thread-list-item-actions__inner
   display: none
-  +position(absolute, right 0, top 0, 3)
+  +position(absolute, right -.5rem, top -.5rem, 3)
   input:checked + &
     display: block
 
@@ -27,7 +30,7 @@
     border-top: dashed 1px $border
 
 .thread-list-item-actions__action
-  +text-block(.875rem, $default-text)
+  +text-block(.8125rem, $default-text)
   +flex-link
   align-items: center
   background-color: $base
