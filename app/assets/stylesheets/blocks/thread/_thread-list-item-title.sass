@@ -14,18 +14,19 @@
   height: 1.125rem
   margin-right: .5rem
   border-radius: .75rem
+  align-self: flex-start
   align-items: center
   justify-content: center
   +media-breakpoint-down(sm)
     float: left
   &.is-wip
-    background-color: #e9ebef
+    background-color: $background-tint
   &.is-unread
     background-color: $danger
     color: $reversal-text
     font-size: .625rem
   &.is-ended
-    background-color: $danger
+    background-color: #bbbbbb
     color: $reversal-text
 
 .thread-list-item-title__start
@@ -35,6 +36,9 @@
     flex: 1
   +media-breakpoint-down(sm)
     width: 100%
+
+.thread-list-item-title__end
+  align-self: flex-start
 
 .thread-list-item-title__title
   +text-block(.875rem 1.5, 600)

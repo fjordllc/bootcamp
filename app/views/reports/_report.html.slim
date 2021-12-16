@@ -1,8 +1,5 @@
 .thread-list-item(class="#{report.wip? ? 'is-wip' : ''}")
   .thread-list-item__inner
-    - if current_user == report.user
-      label.thread-list-item-actions__trigger(for="#{report.id}")
-        i.fas.fa-ellipsis-h
     .thread-list-item__user
       = render 'users/icon', user: report.user, link_class: 'a-user-name', image_class: 'thread-list-item__user-icon'
     .thread-list-item__rows
@@ -18,6 +15,8 @@
                 = report.title
           - if current_user == report.user
             .thread-list-item-title__end
+              label.thread-list-item-actions__trigger(for="#{report.id}")
+                i.fas.fa-ellipsis-h
               .thread-list-item-actions
                 input.a-toggle-checkbox(type="checkbox" id=="#{report.id}")
                 .thread-list-item-actions__inner
