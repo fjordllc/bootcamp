@@ -13,11 +13,6 @@
         .col-md-6.col-xs-12
           = f.label :title, class: 'a-form-label'
           = f.text_field :title, class: 'a-text-input js-warning-form'
-        - if admin_or_mentor_login?
-          .col-md-3.col-xs-6
-            = f.label :user, class: 'a-form-label'
-            .select-users
-              = f.select(:user_id, User.where(retired_on: nil).pluck(:login_name, :id).sort, { include_blank: (page.user || current_user).login_name }, { class: 'js-select2' })
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
