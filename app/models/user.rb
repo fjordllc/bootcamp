@@ -306,6 +306,21 @@ class User < ApplicationRecord
   )
 
   class << self
+    def notify_to_discord
+      User.retired.find_each do |retired_user|
+        if retired_user.retired_on <= Date.current - 3.months
+          ChatNotifier.message(
+            "#{retired_user.login_name} さんが退会して3ヶ月経過しました。
+            Discord ID
+            #{retired_user.discord_account}
+            ユーザーページ
+            https://bootcamp.fjord.jp/users/#{retired_user.id}",
+            webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL']
+          )
+        end
+      end
+    end
+
     def announcement_receiver(target)
       case target
       when 'all'

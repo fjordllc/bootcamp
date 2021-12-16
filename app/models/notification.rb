@@ -161,6 +161,17 @@ class Notification < ApplicationRecord
     )
   end
 
+  def self.retired_after_three_months(sender, receiver)
+    Notification.create!(
+      kind: 9,
+      user: receiver,
+      sender: sender,
+      path: Rails.application.routes.url_helpers.polymorphic_path(sender),
+      message: "#{sender.login_name}さんが退会して3ヶ月経過しました。Discord ID【#{sender.discord_account}】・ユーザーページ【https://bootcamp.fjord.jp/users/#{sender.id}】",
+      read: false
+    )
+  end
+
   def self.trainee_report(report, receiver)
     Notification.create!(
       kind: 10,
