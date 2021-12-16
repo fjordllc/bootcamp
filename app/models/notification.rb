@@ -256,4 +256,15 @@ class Notification < ApplicationRecord
   def unread?
     !read
   end
+
+  def unique?(scope: [])
+    !other_duplicates(scope: scope).exists?
+  end
+
+  private
+
+  def other_duplicates(scope: [])
+    duplicates = scope.inject(Notification.all) { |notifications, scope_item| notifications.where(scope_item => self[scope_item]) }
+    duplicates.where.not(id: id)
+  end
 end
