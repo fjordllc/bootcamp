@@ -1,0 +1,45 @@
+.thread-list-item(class="#{product.wip? ? 'is-wip' : ''}")
+  .thread-list-item__inner
+    .thread-list-item__user
+      = render 'users/icon', user: product.user, link_class: 'a-user-name', image_class: 'thread-list-item__user-icon'
+    .thread-list-item__rows
+      .thread-list-item__row
+        .thread-list-item-title
+          .thread-list-item-title__start
+            - if product.wip?
+              .thread-list-item-title__icon.is-wip WIP
+            h2.thread-list-item-title__title(itemprop="name")
+              = link_to product, itemprop: 'url', class: 'thread-list-item-title__link js-unconfirmed-link' do
+                - if product.user.daimyo?
+                  | ★
+                = product.title
+      .thread-list-item__row
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              time.a-meta(datetime="#{product.published_at.to_datetime}")
+                = l product.published_at
+                = 'の提出物'
+      - if product.comments.any?
+        hr.thread-list-item__row-separator
+        .thread-list-item__row
+          .thread-list-item-meta
+            .thread-list-item-meta__items
+              .thread-list-item-meta__item
+                .thread-list-item-comment
+                  .thread-list-item-comment__label
+                    | コメント
+                  .thread-list-item-comment__count
+                    | （#{product.comments.size}）
+                  .thread-list-item-comment__user-icons
+                    = render partial: 'comments/user_icons', collection: product.comments.commented_users, as: :user
+                  time.a-meta(datetime="#{product.comments.last.updated_at.to_datetime}" pubdate='pubdate')
+                    | 〜 #{l product.comments.last.updated_at, format: :date_and_time}
+
+    - if product.checks.any?
+      .stamp.stamp-approve
+        h2.stamp__content.is-title 確認済
+        time.stamp__content.is-created-at
+          = l product.checks.last.created_at.to_date, format: :short
+        .stamp__content.is-user-name
+          = product.checks.last.user.login_name
