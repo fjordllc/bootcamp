@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   const selector = '.subscription-status'
   const statuses = document.querySelectorAll(selector)
-  if (statuses) {
+  if (statuses.length > 0) {
     let subs = []
 
     fetch('/api/subscriptions.json', {
