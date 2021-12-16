@@ -10,7 +10,9 @@
               a.thread-list-item-title__link.js-unconfirmed-link(
                 :href='report.url'
               ) {{ report.user.daimyo ? "★" + report.title : report.title }}
-            .thread-list-item-title__end(v-if='currentUserId == report.user.id')
+            .thread-list-item-title__end(
+              v-if='currentUserId == report.user.id'
+            )
               label.thread-list-item-actions__trigger(:for='report.id')
                 i.fas.fa-ellipsis-h
               .thread-list-item-actions
@@ -18,7 +20,9 @@
                 .thread-list-item-actions__inner
                   ul.thread-list-item-actions__items
                     li.thread-list-item-actions__item
-                      a.thread-list-item-actions__action(:href='report.editURL')
+                      a.thread-list-item-actions__action(
+                        :href='report.editURL'
+                      )
                         i.fas.fa-pen
                         | 内容変更
                     li.thread-list-item-actions__item
