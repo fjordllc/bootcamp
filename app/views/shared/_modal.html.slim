@@ -7,8 +7,5 @@ input.a-toggle-checkbox(id="#{id}" type="checkbox")
         h2.modal-title
           = modal_title
         label.modal-header__close(for="#{id}")
-    - else
-      .modal-close
-        label.modal-header__close(for="#{id}")
     .modal-body
       = yield
