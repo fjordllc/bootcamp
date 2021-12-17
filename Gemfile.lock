@@ -83,6 +83,8 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     any_login (1.4.4)
       rails (>= 4.2.7)
+    appsignal (3.0.17)
+      rack
     ast (2.4.2)
     bcrypt (3.1.16)
     bindex (0.8.1)
@@ -503,6 +505,7 @@ DEPENDENCIES
   acts-as-taggable-on (~> 7.0)
   acts_as_list
   any_login
+  appsignal
   bootsnap (>= 1.4.4)
   bullet
   bundle_outdated_formatter
@@ -571,4 +574,4 @@ RUBY VERSION
    ruby 2.7.4p191
 
 BUNDLED WITH
-   2.2.27
+   2.2.30
