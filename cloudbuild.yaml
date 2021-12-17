@@ -80,6 +80,7 @@ steps:
       - '--set-env-vars=BASIC_AUTH_USER=$_BASIC_AUTH_USER'
       - '--set-env-vars=BASIC_AUTH_PASSWORD=$_BASIC_AUTH_PASSWORD'
       - '--set-env-vars=ROLLBAR_CLIENT_TOKEN=$_ROLLBAR_CLIENT_TOKEN'
+      - '--set-env-vars=APPSIGNAL_PUSH_API_KEY=$_APPSIGNAL_PUSH_API_KEY'
       - '--set-env-vars=$_ENVS'
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
@@ -115,6 +116,7 @@ substitutions:
   _BASIC_AUTH_USER: _
   _BASIC_AUTH_PASSWORD: _
   _ROLLBAR_CLIENT_TOKEN: _
+  _APPSIGNAL_PUSH_API_KEY: _
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
