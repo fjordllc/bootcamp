@@ -3,7 +3,8 @@
 class ConvertReportEmotionNullToSoso < ActiveRecord::Migration[6.1]
   def up
     Report.where(emotion: nil).find_each do |report|
-      report.update!(emotion: Report.emotions[:soso])
+      report.emotion = Report.emotions[:soso]
+      report.save!(validate: false)
     end
   end
 
