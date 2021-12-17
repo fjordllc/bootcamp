@@ -8,7 +8,9 @@ class ReportCallbacks
 
     return unless report.first_public?
 
-    report.update!(published_at: report.updated_at)
+    report.published_at = report.updated_at
+    report.save!(validate: false)
+
     notify_users(report)
   end
 
