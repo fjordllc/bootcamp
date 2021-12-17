@@ -3,7 +3,10 @@
 class AddEmptyStringToNilDescription < ActiveRecord::Migration[6.1]
   def up
     User.find_each do |user|
-      user.update!(description: '自己紹介文はありません。') if user.description.nil?
+      if user.description.nil?
+        user.description = '自己紹介文はありません。'
+        user.save!(validate: false)
+      end
     end
   end
 
