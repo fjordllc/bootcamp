@@ -10,8 +10,8 @@ header.page-header
             | 変更完了
       .page-header-actions
         ul.page-header-actions__items
-          - if current_user.admin?
-            li.page-header-actions__item
+          - if current_user.admin_or_mentor?
+            li.page-header-actions__item.is-only-mentor
               = link_to new_practice_path(course_id: @course), class: 'a-button is-md is-secondary is-block' do
                 i.fas.fa-plus
                 | プラクティス作成
