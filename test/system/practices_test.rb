@@ -37,21 +37,21 @@ class PracticesTest < ApplicationSystemTestCase
   test 'complete and tweet' do
     visit_with_auth "/practices/#{practices(:practice2).id}", 'kimura'
     find('#js-complete').click
-    assert_text 'Twitterにシェアする'
+    assert_text '喜びを Tweet する！'
 
-    click_link 'Twitterにシェアする'
+    click_link '喜びを Tweet する！'
     switch_to_window(windows.last)
     assert_includes current_url, 'https://twitter.com/intent/tweet'
   end
 
   test 'can see tweet button when current_user has completed a practice' do
     visit_with_auth "/practices/#{practices(:practice1).id}", 'kimura'
-    assert_text '完了Tweetする'
+    assert_text '完了 Tweet する'
 
     find('span.switch__label-text').click
-    assert_text 'Twitterにシェアする'
+    assert_text '喜びを Tweet する！'
 
-    click_link 'Twitterにシェアする'
+    click_link '喜びを Tweet する！'
     switch_to_window(windows.last)
     assert_includes current_url, 'https://twitter.com/intent/tweet'
   end
