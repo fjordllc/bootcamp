@@ -18,6 +18,7 @@
     "lodash.template": "^4.5.0",
     "markdown-it": "^12.3.2",
     "markdown-it-emoji": "^1.4.0",
+    "markdown-it-github-headings": "^2.0.0",
     "markdown-it-regexp": "^0.4.0",
     "markdown-it-task-lists": "^2.1.1",
     "mem": "^4.0.0",
