@@ -363,3 +363,9 @@ product63:
   body: 「自分の担当」かつ「返信済み」の提出物
   wip: false
   checker_id: <%= ActiveRecord::FixtureSet.identify(:machida) %>
+
+product64:
+  practice: practice10
+  user: kimura
+  body: 担当者のいる提出物です。
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:machida) %>"
