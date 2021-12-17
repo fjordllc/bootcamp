@@ -10,13 +10,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }).$mount(selector)
   }
 
-  const eventSets = [
-    ['event_start_at', 'event_end_at'],
-    ['event_open_start_at', 'event_open_end_at']
-  ]
-  eventSets.forEach((eventSet) => {
-    document.getElementById(eventSet[0]).addEventListener('blur', (event) => {
-      document.getElementById(eventSet[1]).value = event.target.value
+  document
+    .getElementById('event_start_at')
+    .addEventListener('blur', (event) => {
+      const eventStartAtDate = event.target.value
+      const idsToSubstituteDate = ['event_end_at', 'event_open_end_at']
+      idsToSubstituteDate.forEach((idToSubstituteDate) => {
+        substituteDate(
+          eventStartAtDate,
+          document.getElementById(idToSubstituteDate)
+        )
+      })
     })
-  })
+
+  function substituteDate(date, destElement) {
+    if (destElement.value === '') {
+      destElement.value = date
+    }
+  }
 })
