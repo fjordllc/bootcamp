@@ -27,12 +27,4 @@ class Admin::CoursesTest < ApplicationSystemTestCase
     end
     assert_text 'コースを更新しました。'
   end
-
-  test 'delete course' do
-    visit_with_auth '/admin/courses', 'komagata'
-    accept_confirm do
-      find("#course_#{courses(:course3).id} .js-delete").click
-    end
-    assert_text 'コースを削除しました。'
-  end
 end
