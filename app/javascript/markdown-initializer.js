@@ -7,6 +7,9 @@ import MarkdownItLinkingImage from './markdown-it-linking-image'
 import MarkdownOption from './markdown-it-option'
 import UserIconRenderer from './user-icon-renderer'
 import MarkdownItTaskListsInitializer from './markdown-it-task-lists-initializer'
+import MarkdownItHeadings, {
+  initMarkdownItHeadings
+} from './markdown-it-headings'
 
 export default class {
   replace(selector) {
@@ -22,7 +25,11 @@ export default class {
 
     new UserIconRenderer().render(selector)
 
+<<<<<<< HEAD
     MarkdownItTaskListsInitializer.initialize()
+=======
+    initMarkdownItHeadings()
+>>>>>>> d3c3d4bae (マックダウンの見出しにanchorを入れる)
   }
 
   render(text) {
@@ -32,6 +39,7 @@ export default class {
     md.use(MarkdownItUserIcon)
     md.use(MarkdownItLinkingImage)
     md.use(MarkdownItTaskLists)
+    md.use(MarkdownItHeadings)
 
     return md.render(text)
   }
