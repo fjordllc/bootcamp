@@ -29,15 +29,18 @@
   justify-content: center
   +size(2.75rem)
   cursor: pointer
-  margin-right: -.75rem
-  opacity: .7
+  opacity: .4
   transition: all .2s ease-out
   position: relative
+  +media-breakpoint-up(md)
+    margin-right: -1.5rem
+  +media-breakpoint-down(sm)
+    margin-right: -1rem
   &::before,
   &::after
     content: ""
     display: block
-    +size(50% 2px)
+    +size(40% 2px)
     background-color: $default-text
     +position(absolute, left 50%, top 50%)
     border-radius: 2px
@@ -47,13 +50,6 @@
     transform: translate(-50%, -50%) rotate(-45deg)
   &:hover
     opacity: 1
-
-.modal-close
-  display: flex
-  align-items: center
-  justify-content: flex-end
-  +padding(horizontal, .75rem)
-  margin-bottom: -.5rem
 
 .modal-content
   +position(absolute, left 50%, top 50%, 1)
@@ -75,12 +71,13 @@
     padding: 1rem 1.5rem
   +media-breakpoint-down(sm)
     padding: 1rem
-  .modal-close + &
-    padding-top: 0
 
 .modal-title
-  font-size: 1.25rem
   font-weight: 600
+  +media-breakpoint-up(md)
+    font-size: 1.25rem
+  +media-breakpoint-down(sm)
+    font-size: 1rem
 
 .modal-footer
   +media-breakpoint-up(md)
