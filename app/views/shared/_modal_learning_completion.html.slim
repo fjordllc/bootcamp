@@ -1,8 +1,9 @@
-= render '/shared/modal', id: 'modal-learning_completion'
+- id = 'modal-learning_completion'
+= render '/shared/modal', id: id
   #modal-learning_completion-data(data-practice-id="#{practice.id}" data-should-display-message-automatically="#{should_display_message_automatically}")
     .congrats-card-body
       h2.congrats-card-body__title
-        | プラクティス「#{practice.title}」を修了しました🎉🎉🎉
+        | プラクティス「#{practice.title}」を修了しました🎉
       .congrats-card-body__image-container
         - if practice.ogp_image.attached?
           = image_tag @practice.ogp_image, class: 'congrats-card-body__image', alt: "#{practice.title}修了おめでとうカード"
@@ -11,4 +12,7 @@
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item
-            = link_to 'この喜びをTweetしよう！！', tweet_url, class: 'a-button is-md is-primary is-block', target: '_blank', rel: 'noopener'
+            = link_to '喜びを Tweet する！', tweet_url, class: 'a-button is-md is-primary is-block', target: '_blank', rel: 'noopener'
+          li.card-main-actions__item.is-sub
+            label.card-main-actions__delete(for="#{id}")
+              | 閉じる
