@@ -171,6 +171,7 @@ ja:
         end_at: イベント終了日時
         open_start_at: 募集開始日時
         open_end_at: 募集終了日時
+        job_hunting: 就活関係のイベントの場合はチェック
       reference_book:
         title: タイトル
         price: 価格

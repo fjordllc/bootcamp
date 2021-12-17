@@ -23,6 +23,9 @@
       .form-item
         = f.label :open_end_at, class: 'a-form-label'
         = f.datetime_field :open_end_at, class: 'a-text-input js-warning-form'
+      .form-item
+        = f.label :job_hunting, class: 'a-form-label'
+        = f.check_box :job_hunting, class: 'a-text-input js-warning-form'
   .form__items
     .form-item
       .row.js-markdown-parent
