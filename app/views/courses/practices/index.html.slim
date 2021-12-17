@@ -35,7 +35,7 @@ header.page-header
               label.a-on-off-checkbox.is-sm(for='display-progress')
                 input.js-users-visibility__trigger#display-progress(type = 'checkbox' checked = 'checked')
                 span#checkbox-progress
-          - if current_user.admin?
+          - if current_user.admin_or_mentor?
             li.page-header-actions__item.is-only-mentor
               = link_to new_practice_path(course_id: @course), class: 'a-button is-md is-secondary is-block' do
                 i.fas.fa-plus
