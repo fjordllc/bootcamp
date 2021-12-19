@@ -153,7 +153,7 @@ header.page-header
               .side-tabs-contents__item#side-tabs-content-2.is-only-mentor
                 #js-user-mentor-memo(data-user-id='#{@report.user_id}')
               .side-tabs-contents__item#side-tabs-content-3.is-only-mentor
-                thread-list.a-card
+                .thread-list.a-card
                   - if @products.present?
                     - @products.each do |product|
                       = render partial: 'product', locals: { product: product }
