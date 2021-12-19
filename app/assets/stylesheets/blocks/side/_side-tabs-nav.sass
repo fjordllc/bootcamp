@@ -4,22 +4,20 @@
   +margin(horizontal, auto)
   max-width: 50rem
 
-#side-tabs-1:checked ~ .side-tabs-nav #side-tabs-nav-1
-  background-color: $base
-  color: $default-text
+.side-tabs-nav__item
+  min-width: 6.5rem
 
-#side-tabs-2:checked ~ .side-tabs-nav #side-tabs-nav-2
-  background-color: $base
-  color: $default-text
-
+#side-tabs-1:checked ~ .side-tabs-nav #side-tabs-nav-1,
+#side-tabs-2:checked ~ .side-tabs-nav #side-tabs-nav-2,
 #side-tabs-3:checked ~ .side-tabs-nav #side-tabs-nav-3
   background-color: $base
   color: $default-text
 
 .side-tabs-nav__item-link
-  +text-block(.8125rem 1.4, flex 600)
+  +text-block(.8125rem 1.4, flex 600 center)
+  justify-content: center
   cursor: pointer
-  padding: .75em 1.25em
+  padding: .75em 1em
   border: solid 1px $border-more-shade
   border-bottom: none
   +position(relative, bottom -1px)
