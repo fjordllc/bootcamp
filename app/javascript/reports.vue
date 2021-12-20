@@ -52,6 +52,9 @@ export default {
     isUncheckedReportsPage() {
       return location.pathname.includes('unchecked')
     },
+    isCurrentUserReportsPage() {
+      return location.pathname.includes('current_user')
+    },
     newParams() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
@@ -64,6 +67,8 @@ export default {
       const params = this.newParams
       if (this.isUncheckedReportsPage) {
         return `/api/reports/unchecked.json?${params}`
+      } else if (this.isCurrentUserReportsPage) {
+        return `/api/users/current_user_reports.json?${params}`
       } else {
         return `/api/reports.json?${params}`
       }
