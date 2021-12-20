@@ -39,23 +39,16 @@ export default {
     this.getReports()
   },
   methods: {
-    getReports() {
-      fetch(this.reportsAPI, {
+    async getReports() {
+      const response = await fetch(this.reportsAPI, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          this.reports = json.reports
-          this.currentUserId = json.currentUserId
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
+      const json = await response.json().catch(error => console.warn('Failed to parsing', error))
+      this.reports = json.reports
+      this.currentUserId = json.currentUserId
     }
   }
 }

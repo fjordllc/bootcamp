@@ -95,27 +95,17 @@ export default {
       history.pushState(null, null, this.newURL)
       this.getReports()
     },
-    getReports() {
-      fetch(this.reportsAPI, {
+    async getReports() {
+      const response = await fetch(this.reportsAPI, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          this.reports = []
-          json.reports.forEach((r) => {
-            this.reports.push(r)
-          })
-          this.currentUserId = json.currentUserId
-          this.totalPages = parseInt(json.totalPages)
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
+      const json = await response.json().catch(error => console.warn('Failed to parsing', error))
+      this.reports = json.reports
+      this.currentUserId = json.currentUserId
+      this.totalPages = parseInt(json.totalPages)
     }
   }
 }
