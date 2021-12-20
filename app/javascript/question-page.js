@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Question from './question.vue'
+import Question from './question-page.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const questionElement = document.getElementById('js-question')
