@@ -58,11 +58,16 @@ class Report < ApplicationRecord
       .default_order
   }
 
-  def self.faces
-    @faces ||= emotions.keys
-                       .zip(%w[emotion/sad.svg emotion/soso.svg emotion/happy.svg])
-                       .to_h
-                       .with_indifferent_access
+  class << self
+    def self.faces
+      @faces ||= emotions.keys
+                         .zip(%w[emotion/sad.svg emotion/soso.svg emotion/happy.svg])
+                         .to_h
+                         .with_indifferent_access
+    end
+
+    def save_as_markdown!
+    end
   end
 
   def previous

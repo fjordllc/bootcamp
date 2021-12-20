@@ -13,7 +13,7 @@ class CurrentUser::ReportsController < ApplicationController
     respond_to do |format|
       format.html
       format.md do
-        send_reports_md(@reports_for_export)
+        send_reports_markdown(@reports_for_export)
       end
     end
   end
@@ -36,9 +36,9 @@ class CurrentUser::ReportsController < ApplicationController
     @reports_for_export = user.reports.not_wip
   end
 
-  def send_reports_md(reports)
-    Dir.mktmpdir('exports') do |folder_path|
-      ReportExporter.new(reports, folder_path).create
+  def send_reports_markdown(reports)
+    Dir.mktmpdir do |folder_path|
+      ReportExporter.export(reports, folder_path)
       send_data(File.read("#{folder_path}/reports.zip"), filename: '日報一覧.zip')
     end
   end
