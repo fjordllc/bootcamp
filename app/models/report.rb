@@ -59,7 +59,7 @@ class Report < ApplicationRecord
   }
 
   class << self
-    def self.faces
+    def faces
       @faces ||= emotions.keys
                          .zip(%w[emotion/sad.svg emotion/soso.svg emotion/happy.svg])
                          .to_h
