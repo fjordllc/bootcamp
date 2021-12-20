@@ -71,19 +71,6 @@ export default {
     remove(e) {
       const removeInput = document.getElementById(e.title)
       removeInput.remove()
-    },
-    dividedName: function() {
-      const path = location.pathname
-      const regRepo = /(\/reports\/).+/;
-      const regQ = /(\/questions\/).+/;
-      const regPage = /(\/pages\/).+/;
-      if(regRepo.test(path)){
-        return "report[practice_ids][]"
-      }else if(regQ.test(path)){
-        return "question[practice_id]"
-      }else if(regPage.test(path)){
-        return "page[practice_id]"
-      }
     }
   }
 }

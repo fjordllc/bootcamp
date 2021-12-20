@@ -107,16 +107,23 @@
                   .fas.fa-spinner.fa-pulse
                   | ロード中
               .select-practices(v-show='practices !== null')
-                select.js-select2(
-                  v-model='edited.practiceId',
-                  v-select2,
-                  name='question[practice]'
+                multiselect(
+                  v-model='selected',
+                  :options='practices',
+                  placeholder=''
+                  label='categoryAndPracticeName'
                 )
-                  option(
-                    v-for='practice in practices',
-                    :key='practice.id',
-                    :value='practice.id'
-                  ) {{ practice.categoryAndPracticeName }}
+                input(:value='selected.id', name='question[practice]', type='hidden' )
+                //- select.js-select2(
+                //-   v-model='edited.practiceId',
+                //-   v-select2,
+                //-   name='question[practice]'
+                //- )
+                //-   option(
+                //-     v-for='practice in practices',
+                //-     :key='practice.id',
+                //-     :value='practice.id'
+                //-   ) {{  }}
             .form-item
               .a-form-label
                 | タイトル
@@ -177,6 +184,7 @@ import UserIcon from './user-icon.vue'
 import confirmUnload from './confirm-unload'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
+import Multiselect from 'vue-multiselect'
 dayjs.locale(ja)
 
 export default {
@@ -185,7 +193,8 @@ export default {
     BookmarkButton: BookmarkButton,
     tags: Tags,
     reaction: Reaction,
-    userIcon: UserIcon
+    userIcon: UserIcon,
+    Multiselect
   },
   directives: {
     select2: {
@@ -216,7 +225,8 @@ export default {
       editing: false,
       displayedUpdateMessage: false,
       tab: 'question',
-      practices: null
+      practices: [],
+      selected: this.question.practice
     }
   },
   computed: {
@@ -228,6 +238,8 @@ export default {
     },
     practiceTitle() {
       const { practices, question, practiceId } = this
+  console.log(practices);
+    console.log(question);
 
       return practices === null
         ? question.practice.title
@@ -246,6 +258,7 @@ export default {
     this.fetchPractices()
   },
   mounted() {
+    debugger
     TextareaInitializer.initialize(`#js-question-content`)
   },
   methods: {
@@ -345,3 +358,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.multiselect {
+  position: initial;
+}
+</style>
