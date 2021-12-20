@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  namespace "api" do
+  namespace 'api' do
+    namespace 'admin' do
+      resource :count, controller: 'count', only: %i(show)
+    end
     resource :session, controller: "session", only: %i(create)
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
