@@ -180,4 +180,6 @@ header.page-header
               .side-tabs-contents__item#side-tabs-content-2
                 #js-practice-memo(data-practice-id="#{@product.practice_id}")
               .side-tabs-contents__item#side-tabs-content-3
+                = render 'users/user_secret_attributes', user: @product.user
+                = render 'users/metas', user: @product.user
                 #js-user-mentor-memo(data-user-id="#{@product.user.id}" data-products-mode="#{true}")
