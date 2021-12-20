@@ -2,6 +2,7 @@
 
 class ReportExporter
   def self.export(reports, folder_path)
+    Report.save_as_markdown!(reports, folder_path)
   end
 
   class ZipFile
