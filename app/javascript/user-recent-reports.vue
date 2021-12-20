@@ -45,8 +45,8 @@ export default {
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         credentials: 'same-origin',
         redirect: 'manual'
-      })
-      const json = await response.json().catch(error => console.warn('Failed to parsing', error))
+      }).catch(error => console.warn(error))
+      const json = await response.json().catch(error => console.warn(error))
       this.reports = json.reports
       this.currentUserId = json.currentUserId
     }
