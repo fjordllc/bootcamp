@@ -18,6 +18,11 @@ class EventTest < ActiveSupport::TestCase
     assert event.closing?
   end
 
+  test '#ended?' do
+    event = events(:event6)
+    assert event.ended?
+  end
+
   test '#participants' do
     event = events(:event2)
     participants = users(:hatsuno)
