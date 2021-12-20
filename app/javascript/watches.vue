@@ -1,7 +1,7 @@
 <template lang="pug">
 .page-body
   .container.is-md(v-if='!loaded')
-    | ロード中
+    loadingListPlaceholder
   .container.is-md(v-else)
     .thread-list-tools(v-if='watches.length')
       .form-item.is-inline
@@ -32,10 +32,12 @@
 <script>
 import watch from './watch.vue'
 import Pager from './pager.vue'
+import LoadingListPlaceholder from './loading-list-placeholder.vue'
 
 export default {
   components: {
     watch: watch,
+    loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager
   },
   data() {
