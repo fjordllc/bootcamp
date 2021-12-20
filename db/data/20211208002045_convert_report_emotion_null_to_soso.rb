@@ -2,10 +2,7 @@
 
 class ConvertReportEmotionNullToSoso < ActiveRecord::Migration[6.1]
   def up
-    Report.where(emotion: nil).find_each do |report|
-      report.emotion = Report.emotions[:soso]
-      report.save!(validate: false)
-    end
+    Report.where(emotion: nil).update_all(emotion: Report.emotions[:soso]) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def down
