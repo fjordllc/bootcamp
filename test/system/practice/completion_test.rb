@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Practice::CompletionTest < ApplicationSystemTestCase
   test 'not logging-in user can access show' do
     visit "/practices/#{practices(:practice1).id}/completion"
-    assert_text 'おめでとうございます！！\\n「OS X Mountain Lionをクリーンインストールする」を\\n修了しました🎉'
+    assert_text '「OS X Mountain Lionをクリーンインストールする」'
   end
 
   test 'ogp image is displayed' do
