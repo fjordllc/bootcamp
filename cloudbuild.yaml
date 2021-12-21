@@ -82,6 +82,7 @@ steps:
       - '--set-env-vars=ROLLBAR_CLIENT_TOKEN=$_ROLLBAR_CLIENT_TOKEN'
       - '--set-env-vars=APPSIGNAL_PUSH_API_KEY=$_APPSIGNAL_PUSH_API_KEY'
       - '--set-env-vars=SKYLIGHT_TOKEN=$_SKYLIGHT_TOKEN'
+      - '--set-env-vars=RUST_LOG=$_RUST_LOG'
       - '--set-env-vars=$_ENVS'
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
@@ -119,6 +120,7 @@ substitutions:
   _ROLLBAR_CLIENT_TOKEN: _
   _APPSIGNAL_PUSH_API_KEY: _
   _SKYLIGHT_TOKEN: _
+  _RUST_LOG: _
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
