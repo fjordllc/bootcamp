@@ -353,4 +353,20 @@ class EventsTest < ApplicationSystemTestCase
     visit_with_auth '/events', 'kimura'
     assert_selector 'nav.pagination', count: 2
   end
+
+  test 'dates of target events get filled automatically only when they are empty' do
+    visit_with_auth new_event_path, 'komagata'
+    within 'form[name=event]' do
+      fill_in 'event[start_at]', with: Time.zone.local(2050, 12, 24, 23, 59)
+    end
+    find('body').click
+    assert_equal find('#event_end_at').value, '2050-12-24T23:59'
+    assert_equal find('#event_open_end_at').value, '2050-12-24T23:59'
+    within 'form[name=event]' do
+      fill_in 'event[start_at]', with: Time.zone.local(2050, 12, 24, 11, 11)
+    end
+    find('body').click
+    assert_equal find('#event_end_at').value, '2050-12-24T23:59'
+    assert_equal find('#event_open_end_at').value, '2050-12-24T23:59'
+  end
 end
