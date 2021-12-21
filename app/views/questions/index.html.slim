@@ -46,4 +46,4 @@ header.page-header
               - Question.all.all_tags.each do |tag|
                 - if tag.present?
                   li.page-tags-nav__item
-                    = link_to tag.name, questions_path(tag: tag.name, all: true), class: 'page-tags-nav__item-link'
+                    = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'page-tags-nav__item-link'
