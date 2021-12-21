@@ -244,7 +244,7 @@ class QuestionsTest < ApplicationSystemTestCase
     visit questions_path(solved: 'true')
 
     assert_selector '.thread-list-item', count: 25
-    click_link '2', match: :first
+    first('.pagination__item-link', text: '2').click
     assert_selector '.thread-list-item', count: 25
   end
 
