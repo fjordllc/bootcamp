@@ -26,7 +26,7 @@
       li.card-main-actions__item(:class='checkId ? "is-sub" : ""')
         button#js-shortcut-check.is-block(
           :class='checkId ? "card-main-actions__delete" : "a-button is-md is-danger"',
-          @click='check'
+          @click='checkSad'
         )
           | {{ buttonLabel }}
 </template>
@@ -61,6 +61,14 @@ export default {
     },
     method() {
       return this.checkId ? 'DELETE' : 'POST'
+    },
+    checkHasSadEmotion() {
+      const sadEmotion = document.querySelector('#sad')
+      return sadEmotion !== null
+    },
+    checkHasComment() {
+      const comment = document.querySelector('.thread-comment')
+      return comment !== null
     }
   },
   methods: {
@@ -94,6 +102,19 @@ export default {
         .catch((error) => {
           console.warn('Failed to parsing', error)
         })
+    },
+    checkSad() {
+      if (this.checkHasSadEmotion && !this.checkHasComment && !this.checkId) {
+        if (
+          window.confirm(
+            '今日の気分は「sad」ですが、コメント無しで確認しますか？'
+          )
+        ) {
+          this.check()
+        }
+      } else {
+        this.check()
+      }
     }
   }
 }
