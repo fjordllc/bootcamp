@@ -9,7 +9,7 @@
             - if target == :watching
               | #{t("notification.#{target}")} (#{Cache.notification_all_count(current_user, 'watching')})
               - if Cache.notification_unread_count(current_user, 'watching').positive?
-              .page-tabs__item-count.a-notification-count
-                = Cache.notification_unread_count(current_user, 'watching')
+                .page-tabs__item-count.a-notification-count
+                  = Cache.notification_unread_count(current_user, 'watching')
             - else
               = t("notification.#{target}")
