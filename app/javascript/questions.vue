@@ -1,24 +1,23 @@
 <template lang="pug">
 div
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
   div(v-if='questions === null')
     loadingListPlaceholder
   .o-empty-message(v-else-if='questions.length === 0')
     .o-empty-message__icon
       i.far.fa-smile
     p.o-empty-message__text
-      | {{ title }}はありません
-  div(v-else)
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
-    .thread-list.a-card
-      .thread-list__items
-        question(
-          v-for='question in questions',
-          :key='question.id',
-          :question='question'
-        )
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
+      | {{ emptyMessage }}
+  .thread-list.a-card(v-else)
+    .thread-list__items
+      question(
+        v-for='question in questions',
+        :key='question.id',
+        :question='question'
+      )
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
 </template>
 
 <script>
@@ -33,20 +32,21 @@ export default {
     question: Question
   },
   props: {
-    title: { type: String, required: true }
+    emptyMessage: { type: String, required: true },
+    selectedTag: { type: String, required: true }
   },
   data() {
     return {
       questions: null,
       currentPage: this.pageParam(),
-      totalPages: null,
-      currentUserId: null
+      totalPages: null
     }
   },
   computed: {
     newParams() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
+      if (this.selectedTag) params.set('tag', this.selectedTag)
       return params
     },
     newURL() {
@@ -81,6 +81,7 @@ export default {
     clickCallback(pageNum) {
       this.currentPage = pageNum
       history.pushState(null, null, this.newURL)
+      this.questions = null
       this.getQuestions()
     },
     getQuestions() {

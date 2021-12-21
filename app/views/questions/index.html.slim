@@ -35,7 +35,7 @@ header.page-header
   .container.is-xl
     .two-columns
       .two-columns__inner
-        #js-questions(data-title=title)
+        #js-questions data-empty-message=@questions_property.empty_message data-selected-tag=params[:tag]
       - if @tags.any?
         nav.page-tags-nav
           header.page-tags-nav__header
