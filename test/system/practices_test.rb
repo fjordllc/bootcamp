@@ -155,7 +155,7 @@ class PracticesTest < ApplicationSystemTestCase
   test 'add ogp image' do
     practice = practices(:practice1)
     visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
-    attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg'
+    attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
     click_button '更新する'
 
     visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
