@@ -29,14 +29,6 @@ class CoursesTest < ApplicationSystemTestCase
     assert_text 'コースを更新しました。'
   end
 
-  test 'delete course' do
-    visit_with_auth '/courses', 'komagata'
-    accept_confirm do
-      find("#course_#{courses(:course3).id} .js-delete").click
-    end
-    assert_text 'コースを削除しました。'
-  end
-
   test 'show published courses' do
     visit_with_auth '/courses', 'yamada'
     assert_no_text courses(:course1).title

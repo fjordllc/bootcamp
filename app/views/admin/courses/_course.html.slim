@@ -11,6 +11,3 @@ tr.admin-table__item(id="course_#{course.id}")
       li
         = link_to course_categories_path(course), class: 'a-button is-sm is-secondary is-icon is-block' do
           i.fas.fa-align-justify
-      li
-        = link_to admin_course_path(course), method: :delete, class: 'a-button is-sm is-danger is-icon is-block js-delete', data: { confirm: '本当によろしいですか？' } do
-          i.far.fa-trash-alt
