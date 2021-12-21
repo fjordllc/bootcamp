@@ -15,7 +15,7 @@ div
         question(
           v-for='question in questions',
           :key='question.id',
-          :question='question',
+          :question='question'
         )
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
@@ -33,7 +33,7 @@ export default {
     question: Question
   },
   props: {
-    title: { type: String, required: true },
+    title: { type: String, required: true }
   },
   data() {
     return {
