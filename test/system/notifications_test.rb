@@ -336,8 +336,6 @@ class NotificationsTest < ApplicationSystemTestCase
     click_link 'sotugyouさんの【 「学習週1日目」の日報 】にhajimeさんがコメントしました'
     visit_with_auth '/notifications?status=unread&target=watching', 'sotugyou'
 
-    total_number_unread_watching = users(:sotugyou).notifications.by_target(:watching).by_read_status('unread').count
-
     within '.page-tabs__item', text: 'Watch中' do
       assert_no_selector('.a-notification-count')
     end
