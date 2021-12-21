@@ -34,6 +34,9 @@ class Notification < ApplicationRecord
     consecutive_sad_report: 15
   }
 
+  after_create NotificationCallbacks.new
+  after_update NotificationCallbacks.new
+
   scope :reads, lambda {
     where(created_at: into_one.values).order(created_at: :desc)
   }
