@@ -228,6 +228,8 @@ ja:
     followings: フォロー中
     self_assigned_all: 全て
     self_assigned_no_replied: 未返信
+    unchecked_no_replied: 未返信
+    unchecked_all: 全て
   watch:
     all: すべて
     true: コメントあり
