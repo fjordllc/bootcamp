@@ -7,9 +7,9 @@
         li.page-tabs__item
           = link_to notifications_path(status: 'unread', target: target), class: "page-tabs__item-link #{'is-active' if @target == target.to_s}".strip do
             - if target == :watching
-              | #{t("notification.#{target}")} (#{Cache.notification_all_count(current_user, "watching")})
-              - if Cache.notification_unread_count(current_user, "watching").positive?
+              | #{t("notification.#{target}")} (#{Cache.notification_all_count(current_user, 'watching')})
+              - if Cache.notification_unread_count(current_user, 'watching').positive?
               .page-tabs__item-count.a-notification-count
-                = Cache.notification_unread_count(current_user, "watching")
+                = Cache.notification_unread_count(current_user, 'watching')
             - else
               = t("notification.#{target}")
