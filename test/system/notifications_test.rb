@@ -301,4 +301,45 @@ class NotificationsTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_text 'コメントのテスト通知'
   end
+
+  test 'show total number watching' do
+    total_number_watching = users(:sotugyou).notifications.by_target(:watching).by_read_status('read').count
+
+    visit_with_auth '/notifications?status=unread&target=watching', 'sotugyou'
+    assert_text "Watch中 (#{total_number_watching})"
+  end
+
+  test 'show total number unread watching' do
+    total_number_unread_watching = users(:sotugyou).notifications.by_target(:watching).by_read_status('unread').count
+
+    visit_with_auth '/notifications?status=unread&target=watching', 'sotugyou'
+    within '.page-tabs__item', text: 'Watch中' do
+      assert_equal total_number_unread_watching, find('.a-notification-count').text.to_i
+    end
+  end
+
+  test 'create notification total number watching' do
+    Notification.create(message: 'sotugyouさんの【 「学習週3日目」の日報 】にmachidaさんがコメントしました',
+                        kind: 'watching',
+                        path: '/reports/3',
+                        user: users(:sotugyou),
+                        sender: users(:machida))
+
+    total_number_watching = users(:sotugyou).notifications.by_target(:watching).by_read_status('read').count
+
+    visit_with_auth '/notifications?status=unread&target=watching', 'sotugyou'
+    assert_text "Watch中 (#{total_number_watching})"
+  end
+
+  test 'update notification total number unread watching' do
+    visit_with_auth '/notifications?status=unread&target=watching', 'sotugyou'
+    click_link 'sotugyouさんの【 「学習週1日目」の日報 】にhajimeさんがコメントしました'
+    visit_with_auth '/notifications?status=unread&target=watching', 'sotugyou'
+
+    total_number_unread_watching = users(:sotugyou).notifications.by_target(:watching).by_read_status('unread').count
+
+    within '.page-tabs__item', text: 'Watch中' do
+      assert_equal total_number_unread_watching, find('.a-notification-count').text.to_i
+    end
+  end
 end

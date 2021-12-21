@@ -133,3 +133,19 @@ notification_consecutive_sad_report:
   message: hajimeさんが2回連続でsadアイコンの日報を提出しました。
   path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report16) %>"
   read: false
+
+notification_watching_unread:
+  kind: 8
+  user: sotugyou
+  sender: hajime
+  message: sotugyouさんの【 「学習週1日目」の日報 】にhajimeさんがコメントしました
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>"
+  read: false
+
+notification_watching_read:
+  kind: 8
+  user: sotugyou
+  sender: kensyu
+  message: sotugyouさんの【 「学習週2日目」の日報 】にkensyuさんがコメントしました
+  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report6) %>"
+  read: true
