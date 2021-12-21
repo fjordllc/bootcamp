@@ -43,6 +43,7 @@ export default {
     const report = document.querySelector('#report_description')
     if (report.value === '') {
       report.value = this.registeredTemplateProp
+      TextareaInitializer.uninitialize('.js-markdown')
       TextareaInitializer.initialize('.js-markdown')
     }
     this.registeredTemplate = this.registeredTemplateProp
@@ -64,6 +65,7 @@ export default {
         confirm('日報が上書きされますが、よろしいですか？')
       ) {
         report.value = this.registeredTemplate
+        TextareaInitializer.uninitialize('.js-markdown')
         TextareaInitializer.initialize('.js-markdown')
       }
     },
