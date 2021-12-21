@@ -22,16 +22,6 @@ class Cache
       Rails.cache.delete 'unchecked_product_count'
     end
 
-    def not_responded_product_count
-      Rails.cache.fetch 'not_responded_product_count' do
-        Product.not_responded_products.count
-      end
-    end
-
-    def delete_not_responded_product_count
-      Rails.cache.delete 'not_responded_product_count'
-    end
-
     def unassigned_product_count
       Rails.cache.fetch 'unassigned_product_count' do
         Product.unassigned.unchecked.not_wip.count

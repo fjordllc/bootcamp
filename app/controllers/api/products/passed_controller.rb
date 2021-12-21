@@ -3,7 +3,6 @@
 class API::Products::PassedController < API::BaseController
   def show
     products = Product
-               .not_responded_products
                .list
                .order_for_not_wip_list
     @passed5 = products.count { |product| product.elapsed_days == 5 }
