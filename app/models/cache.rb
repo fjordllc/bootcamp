@@ -61,5 +61,25 @@ class Cache
     def delete_not_solved_question_count
       Rails.cache.delete 'not_solved_question_count'
     end
+
+    def notification_all_count(user, kind)
+      Rails.cache.fetch "#{user.id}-notification_all_count" do
+        user.notifications.by_target(kind.to_sym).by_read_status('read').count
+      end
+    end
+
+    def notification_unread_count(user, kind)
+      Rails.cache.fetch "#{user.id}-notification_unread_count" do
+        user.notifications.by_target(kind.to_sym).by_read_status('unread').count
+      end
+    end
+
+    def delete_notification_all_count(user_id)
+      Rails.cache.delete "#{user_id}-notification_all_count"
+    end
+
+    def delete_notification_unread_count(user_id)
+      Rails.cache.delete "#{user_id}-notification_unread_count"
+    end
   end
 end
