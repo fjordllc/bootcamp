@@ -7,9 +7,14 @@
         = User.human_attribute_name :created_at
       .user-metas__item-value
         = l user.created_at.to_date
-        | &nbsp;#{user.elapsed_days}日目&nbsp;
-        = link_to generation_path(user.generation)
-          | #{user.generation}期生
+        - if user.graduated?
+          | &nbsp;(#{l user.graduated_on}卒業&nbsp;#{user.elapsed_days}日)&nbsp;
+          = link_to generation_path(user.generation)
+            | #{user.generation}期生
+        - else
+          | &nbsp;#{user.elapsed_days}日目&nbsp;
+          = link_to generation_path(user.generation)
+            | #{user.generation}期生
     .user-metas__item
       .user-metas__item-label
         | 都道府県
