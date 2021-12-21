@@ -265,3 +265,6 @@ ja:
     check: 提出物の確認
     watching: Watch中
     following_report: フォロー中
+  notification_mailer:
+    three_months_after_retirement:
+      subject: "[bootcamp] %{user}さんが退会してから3カ月が経過しました。"

@@ -100,11 +100,9 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
   end
 
   # required params: sender, receiver
-  def retired_after_three_months
-    @user = @receiver
+  def three_months_after_retirement
     @notification = @user.notifications.find_by(path: "/users/#{@sender.id}")
-    subject = "[bootcamp] #{@sender.login_name}さんが退会して3ヶ月経過しました。"
-    mail to: @user.email, subject: subject
+    mail(to: @user.email, subject: default_i18n_subject(user: "#{@sender.login_name}"))
   end
 
   # required params: report, receiver
