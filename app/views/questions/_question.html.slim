@@ -42,7 +42,7 @@
             ul.thread-list-item-tags__items
               - question.tags.each do |tag|
                 li.thread-list-item-tags__item
-                  = link_to tag.name, questions_path(tag: tag.name), class: 'thread-list-item-tags__item-link'
+                  = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'thread-list-item-tags__item-link'
     - if question.correct_answer.present?
       .stamp.is-circle.is-solved
         .stamp__content.is-icon 解
