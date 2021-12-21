@@ -50,29 +50,29 @@ export default class {
     Array.from(textareas).forEach((textarea) => {
       /* eslint-disable no-new */
       new TextareaMarkdown(textarea, {
-          endPoint: '/api/image.json',
-          paramName: 'file',
-          responseKey: 'url',
-          csrfToken: token,
-          placeholder: '%filenameをアップロード中...',
-          afterPreview: () => {
-            autosize.update(textarea)
+        endPoint: '/api/image.json',
+        paramName: 'file',
+        responseKey: 'url',
+        csrfToken: token,
+        placeholder: '%filenameをアップロード中...',
+        afterPreview: () => {
+          autosize.update(textarea)
 
-            const event = new Event('input', {
-              bubbles: true,
-              cancelable: true
-            })
-            textarea.dispatchEvent(event)
-          },
-          plugins: [
-            MarkdownItEmoji,
-            MarkdownItMention,
-            MarkdownItUserIcon,
-            MarkdownItTaskLists
-          ],
-          markdownOptions: MarkdownOption
-        })
-        /* eslint-enable no-new */
+          const event = new Event('input', {
+            bubbles: true,
+            cancelable: true
+          })
+          textarea.dispatchEvent(event)
+        },
+        plugins: [
+          MarkdownItEmoji,
+          MarkdownItMention,
+          MarkdownItUserIcon,
+          MarkdownItTaskLists
+        ],
+        markdownOptions: MarkdownOption
+      })
+      /* eslint-enable no-new */
     })
 
     // user-icon
