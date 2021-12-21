@@ -5,6 +5,6 @@ class Users::QuestionsController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @questions = @user.questions.order(created_at: :desc)
+    @questions = @user.questions.includes(%i[correct_answer practice answers tag_taggings tags]).order(created_at: :desc)
   end
 end
