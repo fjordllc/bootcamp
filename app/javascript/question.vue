@@ -31,7 +31,10 @@
           .thread-list-item-meta__item
             a.a-user-name {{ question.user.long_name }}
           .thread-list-item-meta__item
-            time.a-meta(:datetime='question.updated_at.datetime', pubdate='pubdate') {{ question.updated_at.locale }}
+            time.a-meta(
+              :datetime='question.updated_at.datetime',
+              pubdate='pubdate'
+            ) {{ question.updated_at.locale }}
 
     .thread-list-item__row(v-if='question.tags.length > 0')
       .thread-list-item-tags
