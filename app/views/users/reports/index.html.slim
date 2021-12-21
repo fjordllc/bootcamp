@@ -18,4 +18,14 @@ header.page-header
 
 .page-body
   .container.is-md
-    #js-reports
+    = paginate @reports
+    - if @reports.present?
+      .thread-list.a-card
+        = render partial: 'reports/report', collection: @reports, as: :report
+    - else
+      .o-empty-message
+        .o-empty-message__icon
+          i.far.fa-sad-tear
+        p.o-empty-message__text
+          | 日報はまだありません。
+    = paginate @reports

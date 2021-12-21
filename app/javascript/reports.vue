@@ -68,7 +68,7 @@ export default {
       if (this.isUncheckedReportsPage) {
         return `/api/reports/unchecked.json?${params}`
       } else if (this.isCurrentUserReportsPage) {
-        return `/api/users/current_user_reports.json?${params}`
+        return `/api/current_user/reports.json?${params}`
       } else {
         return `/api/reports.json?${params}`
       }
