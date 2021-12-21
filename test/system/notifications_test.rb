@@ -339,7 +339,7 @@ class NotificationsTest < ApplicationSystemTestCase
     total_number_unread_watching = users(:sotugyou).notifications.by_target(:watching).by_read_status('unread').count
 
     within '.page-tabs__item', text: 'Watch中' do
-      assert_equal total_number_unread_watching, find('.a-notification-count').text.to_i
+      assert_no_selector('.a-notification-count')
     end
   end
 end
