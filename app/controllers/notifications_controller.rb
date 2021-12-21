@@ -11,7 +11,7 @@ class NotificationsController < ApplicationController
   def show
     path = @notification.read_attribute :path
     @notifications = current_user.notifications.where(path: path)
-    @notifications.update_all(read: true) # rubocop:disable Rails/SkipsModelValidations
+    @notifications.update(read: true)
     redirect_to path
   end
 
