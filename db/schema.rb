@@ -248,7 +248,7 @@ ActiveRecord::Schema.define(version: 2021_12_17_034500) do
     t.bigint "user_id"
     t.integer "sender_id", null: false
     t.string "message"
-    t.string "path"
+    t.string "link"
     t.boolean "read", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

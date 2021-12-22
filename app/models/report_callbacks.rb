@@ -73,6 +73,6 @@ class ReportCallbacks
   end
 
   def delete_notification(report)
-    Notification.where(path: "/reports/#{report.id}").destroy_all
+    Notification.where(link: "/reports/#{report.id}").destroy_all
   end
 end
