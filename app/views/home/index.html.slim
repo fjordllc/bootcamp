@@ -44,7 +44,7 @@ header.page-header
             = render '/users/practices/active_practices', user: current_user
           - if current_user.completed_practices.present?
             = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
-          - if current_user.after_graduation_hope.presence
+          - if current_user.after_graduation_hope?
             = current_user.after_graduation_hope
 
         .col-xs-12.col-xl-6.col-xxl-6
