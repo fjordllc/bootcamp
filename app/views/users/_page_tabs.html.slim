@@ -12,11 +12,11 @@
         = link_to user_reports_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('reports')}" do
           | 日報 （#{user.reports.length}）
       li.page-tabs__item
-        = link_to user_comments_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('comments')}" do
+        = link_to user_comments_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('comments')} #{user.comments.length.zero? ? 'is-inactive' : ''}" do
           | コメント （#{user.comments.length}）
       li.page-tabs__item
-        = link_to user_products_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('products')}" do
+        = link_to user_products_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('products')} #{user.products.length.zero? ? 'is-inactive' : ''}" do
           | 提出物 （#{user.products.length}）
       li.page-tabs__item
-        = link_to user_questions_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('questions')}" do
+        = link_to user_questions_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('questions')} #{user.questions.length.zero? ? 'is-inactive' : ''}" do
           | 質問 （#{user.questions.length}）
