@@ -7,6 +7,8 @@ class Check < ApplicationRecord
   after_destroy CheckCallbacks.new
   alias sender user
 
+  validates :user_id, uniqueness: { scope: %i[checkable_id checkable_type] }
+
   def receiver
     checkable.user
   end
