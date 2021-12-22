@@ -19,21 +19,5 @@ header.page-header
           | タグ 「#{params[:tag]}」
           = link_to pages_path, class: 'page-body__optional-title-cancel' do
             i.fas.fa-times.fa-fw
-.page-body
-  .container.is-xl
-    = paginate @pages
-    .two-columns
-      .two-columns__inner
-        .thread-list.a-card
-          = render partial: 'pages/page', collection: @pages, as: :page
-      - if Page.all_tags.any?
-        nav.page-tags-nav
-          header.page-tags-nav__header
-            h2.page-tags-nav__title
-              | タグ一覧
-          .page-tags-nav__body
-            ul.page-tags-nav__items
-              - Page.all_tags.each do |tag|
-                li.page-tags-nav__item
-                  = link_to tag.name, pages_tag_path(tag.name), class: 'page-tags-nav__item-link'
-    = paginate @pages
+
+#js-pages(data-title="#{title}" data-current-user-id="#{current_user.id}")
