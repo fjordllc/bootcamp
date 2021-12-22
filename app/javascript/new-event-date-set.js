@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const idsToSubstituteDate = ['event_end_at', 'event_open_end_at']
       idsToSubstituteDate.forEach((idToSubstituteDate) => {
         substituteDate(
-            eventStartAtDate,
-            document.getElementById(idToSubstituteDate)
+          eventStartAtDate,
+          document.getElementById(idToSubstituteDate)
         )
       })
     })
