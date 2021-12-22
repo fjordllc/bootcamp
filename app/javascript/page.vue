@@ -55,7 +55,7 @@
                       :class='[roleClass, daimyoClass]'
                     )
                   a.a-user-name(:href='page.user.url')
-                  | {{page.user.login_name }}
+                  | {{ page.user.login_name }}
       .thread-list-item__row(v-if='page.tags.length > 0')
         .thread-list-item-tags
           .thread-list-item-tags__label

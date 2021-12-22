@@ -14,11 +14,7 @@
     .two-columns
       .two-columns__inner
         .thread-list.a-card
-          page(
-            v-for='page in pages',
-            :key='page.id',
-            :page='page'
-          )
+          page(v-for='page in pages', :key='page.id', :page='page')
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
 </template>
