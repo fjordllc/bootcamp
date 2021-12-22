@@ -186,11 +186,7 @@ class NotificationsTest < ApplicationSystemTestCase
     20.times do |n|
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
                           kind: 'mentioned',
-<<<<<<< HEAD
-                          path: "/reports/#{n}",
-=======
                           link: "/reports/#{n}",
->>>>>>> urlではなく、linkに変更する
                           user: users(:yamada),
                           sender: users(:machida))
     end
@@ -207,11 +203,7 @@ class NotificationsTest < ApplicationSystemTestCase
   test 'non-mentor can not see a button to open all unread notifications' do
     Notification.create(message: 'machidaさんがコメントしました',
                         kind: 'came_comment',
-<<<<<<< HEAD
-                        path: '/reports/20400118',
-=======
                         link: '/reports/20400118',
->>>>>>> urlではなく、linkに変更する
                         user: users(:hatsuno),
                         sender: users(:machida))
     visit_with_auth '/notifications?status=unread', 'hatsuno'
