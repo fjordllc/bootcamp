@@ -259,7 +259,6 @@ ja:
         job_change: 転職や引っ越しなど環境の変化によって学びが継続できなくなったから
         training_end: 企業研修で利用をしていて研修期間が終了したため
   notification:
-    all: 全て
     announcement: お知らせ
     mention: メンション
     comment: コメント
