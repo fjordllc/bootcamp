@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     end
     resources :memos, only: %i(create update destroy)
     resources :mentor_memos, only: %i(update)
-    resources :tags, only: %i(index)
+    resources :tags, only: %i(index update)
     resources :pages, only: %i(update)
     resources :questions, only: %i(show update)
     resources :followings, only: %i(create update destroy)
