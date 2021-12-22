@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
+require 'tmpdir'
+
 class CurrentUser::ReportsController < ApplicationController
   before_action :require_login
   before_action :set_user
   before_action :set_reports
   before_action :set_export, only: %i[index]
-
-  require 'zip'
-  require 'tmpdir'
 
   def index
     respond_to do |format|
