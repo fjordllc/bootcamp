@@ -89,27 +89,17 @@ export default {
       history.pushState(null, null, this.newURL)
       this.getWatches()
     },
-    getWatches() {
-      fetch(this.watchesAPI, {
+    async getWatches() {
+      const response = await fetch(this.watchesAPI, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         credentials: 'same-origin',
         redirect: 'manual'
-      })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          this.watches = []
-          json.watches.forEach((r) => {
-            this.watches.push(r)
-          })
-          this.totalPages = parseInt(json.totalPages)
-          this.loaded = true
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
+      }).catch((error) => console.warn(error))
+      const json = await response.json().catch((error) => console.warn(error))
+      this.watches = json.watches
+      this.totalPages = parseInt(json.totalPages)
+      this.loaded = true
     },
     updateIndex() {
       this.getWatches()
