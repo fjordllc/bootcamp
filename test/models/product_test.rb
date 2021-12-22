@@ -8,7 +8,7 @@ class ProductTest < ActiveSupport::TestCase
     practice = practices(:practice5)
     product = Product.create!(practice: practice, user: user, body: 'test')
     product.destroy
-    assert_not Notification.where(path: "/products/#{product.id}").exists?
+    assert_not Notification.where(link: "/products/#{product.id}").exists?
   end
 
   test 'adviser watches trainee product when trainee create product' do

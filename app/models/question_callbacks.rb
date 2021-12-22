@@ -20,6 +20,6 @@ class QuestionCallbacks
   end
 
   def delete_notification(question)
-    Notification.where(path: "/questions/#{question.id}").destroy_all
+    Notification.where(link: "/questions/#{question.id}").destroy_all
   end
 end
