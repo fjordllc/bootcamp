@@ -42,3 +42,33 @@ kimura_tag_may_j_:
   taggable: kimura (User)
   context: tags
   tag: may_j_
+kimura_tag_beginner:
+  taggable: kimura (User)
+  context: tags
+  tag: beginner
+hajime_tag_intermediate:
+  taggable: hajime (User)
+  context: tags
+  tag: intermediate
+
+question3_tag_beginner:
+  taggable: question3 (Question)
+  context: tags
+  tag: beginner
+question3_tag_intermediate:
+  taggable: question3 (Question)
+  context: tags
+  tag: intermediate
+question4_tag_intermediate:
+  taggable: question4 (Question)
+  context: tags
+  tag: intermediate
+
+page1_tag_beginner:
+  taggable: page1 (Page)
+  context: tags
+  tag: beginner
+page2_tag_intermediate:
+  taggable: page2 (Page)
+  context: tags
+  tag: intermediate
