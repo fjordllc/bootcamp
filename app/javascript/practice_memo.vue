@@ -1,7 +1,15 @@
 <template lang="pug">
 .practice-content.is-memo
   section.a-card(v-if='!editing')
-    .practice-content__body
+    .thread-list(v-if='!memo')
+      .thread-list__inner
+        .container
+          .o-empty-message
+            .o-empty-message__icon
+              i.far.fa-sad-tear
+            .o-empty-message__text
+              | プラクティスメモはまだ空です。
+    .practice-content__body(v-else)
       .js-target-blank.is-long-text(v-html='markdownMemo')
     footer.card-footer
       .card-main-actions
