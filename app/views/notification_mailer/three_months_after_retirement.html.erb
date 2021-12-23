@@ -1,6 +1,5 @@
-<%= @sender.login_name %>さんが退会して3ヶ月経過しました。
-
-  Discord ID
+<%= t('.retire_notice', user: @sender.login_name) %>
+  Discord ID:
     <%= @sender.discord_account %>
-  ユーザーページ
+  ユーザーページ:
      https://bootcamp.fjord.jp/users/<%= @sender.id %>

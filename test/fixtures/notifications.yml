@@ -86,6 +86,14 @@ notification_retired:
   link: "/users/<%= ActiveRecord::FixtureSet.identify(:yameo) %>"
   read: false
 
+notification_three_months_after_retirement:
+  kind: 9
+  user: komagata
+  sender: taikai3
+  message: taikai3さんが退会してから3カ月が経過しました。Discord ID:taikai#3333, ユーザーページ:https://bootcamp.fjord.jp/users/1008501353
+  path: "/users/<%= ActiveRecord::FixtureSet.identify(:taikai3) %>"
+  read: false
+
 notification_trainee_report:
   kind: 10
   user: senpai
