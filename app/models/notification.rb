@@ -216,10 +216,10 @@ class Notification < ApplicationRecord
     )
   end
 
-  def self.chose_correct_answer(answer, _receiver)
+  def self.chose_correct_answer(answer, receiver)
     Notification.create!(
-      kind: 14,
-      user: kinds[:chose_correct_answer],
+      kind: kinds[:chose_correct_answer],
+      user: receiver,
       sender: answer.receiver,
       link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
       message: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
