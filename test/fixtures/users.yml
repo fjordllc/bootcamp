@@ -425,3 +425,50 @@ kensyuowata: # 研修が終わったユーザー
   unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
+
+taikai: # 退会直後のユーザー
+  login_name: taikai
+  email: taikai@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 退会直後
+  name_kana: タイカイチョクゴ
+  discord_account: taikai#5678
+  github_account: taikai
+  twitter_account: taikai
+  facebook_url: http://www.facebook.com/taikai
+  blog_url: http://taikai.org
+  description: "退会直後後です。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: なし
+  retired_on: <%= Date.current %>
+  unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
+  updated_at: "2021-12-10 00:00:11"
+  created_at: "2021-12-10 00:00:11"
+
+taikai3: # 退会3ヶ月後のユーザー
+  login_name: taikai3
+  email: taikai3@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 退会三
+  name_kana: タイカイサン
+  discord_account: taikai#3333
+  github_account: taikai3
+  twitter_account: taikai3
+  facebook_url: http://www.facebook.com/taikai3
+  blog_url: http://taikai3.org
+  description: "退会3ヶ月後です。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: なし
+  retired_on: <%= Date.current - 4.months %>
+  retired_notification: false
+  unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
+  updated_at: "2021-12-10 00:00:11"
+  created_at: "2021-12-10 00:00:11"

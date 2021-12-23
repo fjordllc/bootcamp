@@ -13,6 +13,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not users(:komagata).retired?
   end
 
+  test '#retired_three_months_ago_and_not_send_notification?' do
+    assert users(:taikai3).retired_three_months_ago_and_not_send_notification?(users(:yameo))
+    assert_not users(:taikai).retired_three_months_ago_and_not_send_notification?(users(:taikai))
+  end
+
   test '#active?' do
     travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
       assert users(:komagata).active?
