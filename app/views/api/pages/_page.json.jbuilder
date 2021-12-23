@@ -15,8 +15,10 @@ if page.updated_at.present?
   json.updated_at_date_time page.updated_at.to_datetime
 end
 
-if page.last_updated_user.present?
-  json.last_updated_user page.last_updated_user
+json.last_updated_user do
+  if page.last_updated_user.present?
+    json.partial! 'api/users/user', user: page.last_updated_user
+  end
 end
 
 json.commentsSize page.comments.size
