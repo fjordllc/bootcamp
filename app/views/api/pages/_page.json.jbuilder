@@ -15,8 +15,8 @@ if page.updated_at.present?
   json.updated_at_date_time page.updated_at.to_datetime
 end
 
-json.last_updated_user do
-  if page.last_updated_user.present?
+if page.last_updated_user.present?
+  json.last_updated_user do
     json.partial! 'api/users/user', user: page.last_updated_user
   end
 end
