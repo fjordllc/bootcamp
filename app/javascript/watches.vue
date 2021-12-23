@@ -90,14 +90,14 @@ export default {
       this.getWatches()
     },
     async getWatches() {
-      const response = fetch(this.watchesAPI, {
+      const response = await fetch(this.watchesAPI, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         credentials: 'same-origin',
         redirect: 'manual'
       }).catch((error) => console.warn(error))
-      const json = response.json().catch((error) => console.warn(error))
-      this.watches = json.watches
+      const json = await response.json().catch((error) => console.warn(error))
+      this.watches = json.watches ? json.watches : []
       this.totalPages = parseInt(json.totalPages)
       this.loaded = true
     },
