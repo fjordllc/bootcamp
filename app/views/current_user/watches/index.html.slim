@@ -7,10 +7,10 @@ header.page-header
 
 = render 'home/page_tabs', user: @user
 
-.page-body
-  - if @watches.present?
-    #js-watches
-  - else
+- if @watches.present?
+  #js-watches
+- else
+  .page-body
     .o-empty-message
       .o-empty-message__icon
         i.far.fa-sad-tear
