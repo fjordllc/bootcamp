@@ -14,7 +14,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#retired_three_months_ago_and_not_send_notification?' do
-    assert users(:taikai3).retired_three_months_ago_and_not_send_notification?(users(:yameo))
+    assert users(:taikai3).retired_three_months_ago_and_not_send_notification?(users(:taikai3))
     assert_not users(:taikai).retired_three_months_ago_and_not_send_notification?(users(:taikai))
   end
 
