@@ -309,11 +309,11 @@ class User < ApplicationRecord
     def notify_to_discord
       User.retired.find_each do |retired_user|
         if retired_user.retired_three_months_ago_and_not_send_notification?(retired_user)
-          ChatNotifier.message(<<~EOS, webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL'])
+          ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL'])
             #{I18n.t('.retire_notice', user: retired_user.login_name)}
             Discord ID: #{retired_user.discord_account}
             ユーザーページ: https://bootcamp.fjord.jp/users/#{retired_user.id}
-          EOS
+          TEXT
         end
       end
     end
