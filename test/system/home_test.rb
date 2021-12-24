@@ -96,4 +96,19 @@ class HomeTest < ApplicationSystemTestCase
       assert_text '直近イベントの表示テスト用(翌日)'
     end
   end
+
+  test 'show job events on dashboard for only job seeker' do
+    travel_to Time.zone.local(2017, 4, 1, 10, 0, 0) do
+      visit_with_auth '/', 'jobseeker'
+      assert_text '直近イベントの表示テスト用(当日)'
+      assert_text '直近イベントの表示テスト用(翌日)'
+      assert_text '就職関係かつ直近イベントの表示テスト用'
+      logout
+
+      visit_with_auth '/', 'komagata'
+      assert_text '直近イベントの表示テスト用(当日)'
+      assert_text '直近イベントの表示テスト用(翌日)'
+      assert_no_text '就職関係かつ直近イベントの表示テスト用'
+    end
+  end
 end
