@@ -82,7 +82,6 @@ ja:
         job_seeker: 就職を希望する
         github_collaborator: GitHubチーム
         tag_list: タグ
-        notice: さんが退会してから3カ月が経過しました。
       course:
         title: タイトル
         description: 詳細
@@ -266,7 +265,6 @@ ja:
     check: 提出物の確認
     watching: Watch中
     following_report: フォロー中
-    three_months_after_retirement:
   notification_mailer:
     three_months_after_retirement:
       subject: "[bootcamp] %{user}さんが退会してから3カ月が経過しました。"
