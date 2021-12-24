@@ -13,10 +13,14 @@ header.page-header
     .container.is-lg
       = render 'welcome_message'
 .page-body
-  - if @events_coming_soon.present?
+  - if @events_coming_soon.present? && current_user.job_seeker
     #events_on_dashboard.confirmed_event
       .page-notices
         = render partial: 'event', collection: @events_coming_soon, as: :event
+  - if @events_except_job_hunting_coming_soon.present? && !current_user.job_seeker
+    #events_on_dashboard.confirmed_event
+      .page-notices
+        = render partial: 'event', collection: @events_except_job_hunting_coming_soon, as: :event
   .container.is-xxl
     .columns
       .row
