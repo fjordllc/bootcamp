@@ -10,38 +10,37 @@ div
     @select='select($event)',
     @remove='remove($event)'
   )
-  div(id='multiselect__values')
-  </template>
+  #multiselect__values
+</template>
 
 <script>
 import Multiselect from 'vue-multiselect'
 export default {
-  components: { 
-    Multiselect 
+  components: {
+    Multiselect
   },
   props: {
-      practices: { type: String, required: true },
-      editpractices: { type: [Array], default: ()=>[] }
+    practices: { type: String, required: true },
+    editpractices: { type: [Array], default: () => [] }
   },
-  data () {
+  data() {
     const jsonPractices = JSON.parse(this.practices)
-    const practices = jsonPractices.map(practice => { 
-      const robj = {title: practice[0], id: practice[1]}
+    const practices = jsonPractices.map((practice) => {
+      const robj = { title: practice[0], id: practice[1] }
       return robj
-      })
+    })
     return {
       selected: [],
       options: practices,
       editdata: this.editpractices || []
     }
   },
-  computed: {
-  },
+  computed: {},
   mounted() {
-    for(const data of this.editdata) {
-      for(const practice of this.options) {
-        if(data === practice.id) {
-          this.selected.push({ title: practice.title, id: practice.id})
+    for (const data of this.editdata) {
+      for (const practice of this.options) {
+        if (data === practice.id) {
+          this.selected.push({ title: practice.title, id: practice.id })
           this.select(practice)
         }
       }
@@ -49,8 +48,8 @@ export default {
   },
   methods: {
     select(e) {
-      const valueBox = document.getElementById("multiselect__values")
-      const valueInput = document.createElement("input")
+      const valueBox = document.getElementById('multiselect__values')
+      const valueInput = document.createElement('input')
       valueInput.name = 'report[practice_ids][]'
       valueInput.value = e.id
       valueInput.id = e.title
@@ -73,5 +72,4 @@ export default {
 .multiselect__input {
   display: initial;
 }
-
 </style>
