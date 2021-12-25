@@ -13,7 +13,7 @@
       margin-top: 1rem
   &.is-borderd
     border: solid 4px $welcome-default-text
-  [class*=col-] + [class*=col-] &:first-child
+  [class*=col-] + [class*=col-] >&:first-child
     +media-breakpoint-down(md)
       margin-top: 1rem
   &.is-modal

@@ -16,3 +16,7 @@ _net_framework:
   name: .NET_Framework
 may_j_:
   name: May_J.
+beginner:
+  name: 初心者
+intermediate:
+  name: 中級者

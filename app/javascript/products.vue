@@ -76,7 +76,6 @@ export default {
     unconfirmedLinksName() {
       return {
         unchecked: '未完了',
-        'not-responded': '未返信',
         'self-assigned': '自分の担当',
         unassigned: '未アサイン'
       }[this.selectedTab]
@@ -117,8 +116,8 @@ export default {
         })
         .then((json) => {
           if (
-            location.pathname === '/products/not_responded' ||
-            location.pathname === '/products/unassigned'
+            location.pathname === '/products/unassigned' ||
+            location.pathname === '/products/unchecked'
           ) {
             this.latestProductSubmittedJust5days =
               json.latest_product_submitted_just_5days
@@ -147,11 +146,20 @@ export default {
     paginateClickCallback(pageNumber) {
       this.currentPage = pageNumber
       this.getProductsPerPage()
-      history.pushState(
-        null,
-        null,
-        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
-      )
+      history.pushState(null, null, this.newUrl(pageNumber))
+    },
+    newUrl(pageNumber) {
+      if (this.params.target) {
+        return (
+          location.pathname +
+          `?target=${this.params.target}` +
+          (pageNumber === 1 ? '' : `&page=${pageNumber}`)
+        )
+      } else {
+        return (
+          location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
+        )
+      }
     },
     getParams() {
       const params = {}

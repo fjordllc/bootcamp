@@ -553,4 +553,17 @@ class ReportsTest < ApplicationSystemTestCase
     click_button '提出'
     assert_text '学習日は今日以前の日付にしてください'
   end
+
+  test 'display list of submission when mentor is access' do
+    visit_with_auth report_path(reports(:report5)), 'komagata'
+    assert_text '提出物'
+    find('#side-tabs-nav-3').click
+    assert_text 'Terminalの基礎を覚える'
+    assert_text 'PC性能の見方を知る'
+  end
+
+  test 'not display list of submission when mentor is access' do
+    visit_with_auth report_path(reports(:report5)), 'kimura'
+    assert_no_selector '#side-tabs-content-3'
+  end
 end

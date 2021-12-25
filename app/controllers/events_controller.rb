@@ -54,7 +54,8 @@ class EventsController < ApplicationController
       :start_at,
       :end_at,
       :open_start_at,
-      :open_end_at
+      :open_end_at,
+      :job_hunting
     )
   end
 
