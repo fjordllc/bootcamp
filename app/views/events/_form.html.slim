@@ -23,6 +23,15 @@
       .form-item
         = f.label :open_end_at, class: 'a-form-label'
         = f.datetime_field :open_end_at, class: 'a-text-input js-warning-form'
+      .form-item
+        label.a-form-label
+          | イベント内容
+        .checkboxes
+          ul.checkboxes__items
+            li.checkboxes__item
+              = f.label :job_hunting do
+                | 就活関係のイベントの場合はチェック
+                = f.check_box :job_hunting, class: 'a-text-input js-warning-form'
   .form__items
     .form-item
       .row.js-markdown-parent

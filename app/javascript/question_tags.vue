@@ -2,7 +2,9 @@
 .tag-links
   ul.tag-links__items(v-if='!editing')
     li.tag-links__item(v-for='tag in tags')
-      a.tag-links__item-link(:href='`/questions/tags/${tag.text}?all=true`')
+      a.tag-links__item-link(
+        :href='`/questions/tags/${encodeURIComponent(tag.text)}?all=true`'
+      )
         | {{ tag.text }}
     li.tag-links__item
       .tag-links__item-edit(@click='editTag')
