@@ -58,6 +58,9 @@ export default {
     newParams() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
+      if (this.isCurrentUserReportsPage) {
+        params.set('current_user', true.toString())
+      }
       return params
     },
     newURL() {
@@ -67,8 +70,6 @@ export default {
       const params = this.newParams
       if (this.isUncheckedReportsPage) {
         return `/api/reports/unchecked.json?${params}`
-      } else if (this.isCurrentUserReportsPage) {
-        return `/api/current_user/reports.json?${params}`
       } else {
         return `/api/reports.json?${params}`
       }
