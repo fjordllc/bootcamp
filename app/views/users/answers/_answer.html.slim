@@ -1,0 +1,46 @@
+.thread-list-item(class="#{answer.question.correct_answer.present? ? 'is-solved' : ''}")
+  .thread-list-item__inner
+    .thread-list-item__user
+      = render 'users/icon',
+              user: answer.question.user,
+              link_class: 'a-user-name',
+              image_class: 'thread-list-item__user-icon'
+    .thread-list-item__rows
+      .thread-list-item__row
+        .thread-list-item-title
+          h1.thread-list-item-title__title(itemprop='name')
+            = link_to answer.question, itemprop: 'url', class: 'thread-list-item-title__link' do
+              = answer.question.title
+      - if answer.question.practice
+        .thread-list-item__row
+          .thread-list-item-meta
+            .thread-list-item-meta__items
+              .thread-list-item-meta__item
+                .thread-list-item-sub-title
+                  = answer.question.practice.title
+      .thread-list-item__row
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              = link_to answer.question.user.long_name, answer.question.user, class: 'a-user-name'
+            .thread-list-item-meta__item
+              time.a-meta(datetime="#{answer.updated_at.to_datetime}" pubdate='pubdate')
+                = l answer.updated_at
+            - if answer.question.tags.present?
+              .thread-list-item__row
+                .thread-list-item-tags
+                  .thread-list-item-tags__label
+                    i.fas.fa-tags
+                  ul.thread-list-item-tags__items
+                    - question.tags.each do |tag|
+                      li.thread-list-item-tags__item
+                        = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'thread-list-item-tags__item-link'
+            - if answer.type == 'CorrectAnswer'
+              .answer-badge
+                .answer-badge__icon
+                  i.fas.fa-star
+                .answer-badge__label ベストアンサー
+            .thread-list-item-meta__item
+              .thread-list-item-comment
+                .thread-list-item-comment__label
+                  |#{answer.description}
