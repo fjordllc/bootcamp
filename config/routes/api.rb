@@ -30,7 +30,7 @@ Rails.application.routes.draw do
       resources :worried, only: %i(index)
     end
     namespace :current_user do
-      resources :reports, only: %i(index)
+      resources :reports, only: %i(index), controller: "reports"
     end
     resources :users, only: %i(index show update) do
       resources :recent_reports, only: %i(index), controller: "users/recent_reports"

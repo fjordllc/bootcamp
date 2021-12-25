@@ -55,6 +55,9 @@ export default {
     newParams() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
+      if (this.isCurrentUserReportsPage) {
+        params.set('current_user', true.toString())
+      }
       return params
     },
     newURL() {
