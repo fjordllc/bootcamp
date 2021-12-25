@@ -9,7 +9,6 @@
           :src='question.user.avatar_url',
           :class='[roleClass, daimyoClass]'
         )
-
     .thread-list-item__rows
       .thread-list-item__row
         .thread-list-item-title
@@ -18,13 +17,11 @@
               :href='question.url',
               itemprop='url'
             ) {{ question.title }}
-
     .thread-list-item__row(v-if='question.practice')
       .thread-list-item-meta
         .thread-list-item-meta__items
           .thread-list-item-meta__item
             .thread-list-item-sub-title {{ question.practice.title }}
-
     .thread-list-item__row
       .thread-list-item-meta
         .thread-list-item-meta__items
@@ -43,7 +40,6 @@
         ul.thread-list-item-tags__items
           li.thread-list-item-tags__item(v-for='tag in question.tags')
             a.thread-list-item-tags__item-link(:href='tag.url') {{ tag.name }}
-
     .stamp.is-circle.is-solved(v-if='question.has_correct_answer')
       .stamp__content.is-icon 解
       .stamp__content.is-icon 決
