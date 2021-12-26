@@ -19,7 +19,7 @@ class Notification::AnswersTest < ApplicationSystemTestCase
     login_user 'machida', 'testtest'
 
     open_notification
-    assert_equal 'kimuraさんが相談部屋でコメントをしました。', notification_message
+    assert_equal 'kimuraさんからコメントが届きました。', notification_message
   end
 
   test '自分以外の誰かが自分の相談部屋でコメントをした際に通知を受け取る' do
@@ -38,6 +38,6 @@ class Notification::AnswersTest < ApplicationSystemTestCase
     login_user 'kimura', 'testtest'
 
     open_notification
-    assert_equal 'komagataさんから相談部屋でコメントが届きました。', notification_message
+    assert_equal 'komagataさんからコメントが届きました。', notification_message
   end
 end
