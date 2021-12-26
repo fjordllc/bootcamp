@@ -69,6 +69,9 @@ Rails.application.routes.draw do
     resources :bookmarks, only: %i(index create destroy)
     resources :events, only: %i(index)
     resources :report_templates, only: %i(create update)
+    namespace :talks do
+      resources :unreplied, only: %i(index)
+    end
     resources :talks, only: %i(index)
   end
 end
