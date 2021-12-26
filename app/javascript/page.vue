@@ -23,7 +23,7 @@
             .thread-list-item-meta__item
               .thread-list-item-sub-title
                 | {{ page.practice.title }}
-            .thread-list-item-meta__item
+            .thread-list-item-meta__item(v-if='page.commentsSize > 0')
               .thread-list-item-comment
                 .thread-list-item-comment__label
                   | コメント
