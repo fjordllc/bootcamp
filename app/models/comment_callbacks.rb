@@ -76,19 +76,8 @@ class CommentCallbacks
   end
 
   def notify_comment(comment)
-    if comment.commentable.instance_of?(Talk)
-      NotificationFacade.came_comment(
-        comment,
-        comment.receiver,
-        "#{comment.sender.login_name}さんから相談部屋でコメントが届きました。"
-      )
-    else
-      NotificationFacade.came_comment(
-        comment,
-        comment.receiver,
-        "#{comment.sender.login_name}さんからコメントが届きました。"
-      )
-    end
+    message = comment.commentable.instance_of?(Talk) ? "#{comment.sender.login_name}さんから相談部屋でコメントが届きました。" : "#{comment.sender.login_name}さんからコメントが届きました。"
+    NotificationFacade.came_comment(comment, comment.receiver, message)
   end
 
   def notify_to_watching_user(comment)
@@ -123,20 +112,9 @@ class CommentCallbacks
   end
 
   def notify_to_admins(comment)
+    message = comment.commentable.instance_of?(Talk) ? "#{comment.sender.login_name}さんが相談部屋でコメントをしました。" : "#{comment.sender.login_name}さんがコメントをしました。"
     User.admins.each do |admin_user|
-      if comment.commentable.instance_of?(Talk)
-        NotificationFacade.came_comment(
-          comment,
-          admin_user,
-          "#{comment.sender.login_name}さんが相談部屋でコメントをしました。"
-        )
-      else
-        NotificationFacade.came_comment(
-          comment,
-          comment.receiver,
-          "#{comment.sender.login_name}さんからコメントが届きました。"
-        )
-      end
+      NotificationFacade.came_comment(comment, admin_user, message)
     end
   end
 end
