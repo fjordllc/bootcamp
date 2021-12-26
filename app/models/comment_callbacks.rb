@@ -7,6 +7,8 @@ class CommentCallbacks
       notify_to_watching_user(comment)
     elsif comment.sender != comment.receiver
       notify_comment(comment)
+    elsif comment.commentable.instance_of?(Talk)
+      notify_to_admins(comment)
     end
 
     return unless comment.commentable.instance_of?(Product)
@@ -74,11 +76,19 @@ class CommentCallbacks
   end
 
   def notify_comment(comment)
-    NotificationFacade.came_comment(
-      comment,
-      comment.receiver,
-      "#{comment.sender.login_name}さんからコメントが届きました。"
-    )
+    if comment.commentable.instance_of?(Talk)
+      NotificationFacade.came_comment(
+        comment,
+        comment.receiver,
+        "#{comment.sender.login_name}さんから相談部屋でコメントが届きました。"
+      )
+    else
+      NotificationFacade.came_comment(
+        comment,
+        comment.receiver,
+        "#{comment.sender.login_name}さんからコメントが届きました。"
+      )
+    end
   end
 
   def notify_to_watching_user(comment)
@@ -110,5 +120,23 @@ class CommentCallbacks
 
   def delete_product_cache(product_id)
     Rails.cache.delete "/model/product/#{product_id}/last_commented_user"
+  end
+
+  def notify_to_admins(comment)
+    User.admins.each do |admin_user|
+      if comment.commentable.instance_of?(Talk)
+        NotificationFacade.came_comment(
+          comment,
+          admin_user,
+          "#{comment.sender.login_name}さんが相談部屋でコメントをしました。"
+        )
+      else
+        NotificationFacade.came_comment(
+          comment,
+          comment.receiver,
+          "#{comment.sender.login_name}さんからコメントが届きました。"
+        )
+      end
+    end
   end
 end
