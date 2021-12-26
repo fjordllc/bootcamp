@@ -54,7 +54,7 @@ class Notification < ApplicationRecord
       kind: 0,
       user: receiver,
       sender: comment.sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
+      link: Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
       message: message,
       read: false
     )
@@ -65,7 +65,7 @@ class Notification < ApplicationRecord
       kind: 1,
       user: check.receiver,
       sender: check.sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(check.checkable),
+      link: Rails.application.routes.url_helpers.polymorphic_path(check.checkable),
       message: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
       read: false
     )
@@ -76,7 +76,7 @@ class Notification < ApplicationRecord
       kind: 2,
       user: receiver,
       sender: mentionable.sender,
-      path: mentionable.path,
+      link: mentionable.path,
       message: "#{mentionable.sender.login_name}さんからメンションがきました。",
       read: false
     )
@@ -87,7 +87,7 @@ class Notification < ApplicationRecord
       kind: 3,
       user: receiver,
       sender: subject.user,
-      path: Rails.application.routes.url_helpers.polymorphic_path(subject),
+      link: Rails.application.routes.url_helpers.polymorphic_path(subject),
       message: message,
       read: false
     )
@@ -98,7 +98,7 @@ class Notification < ApplicationRecord
       kind: 4,
       user: answer.receiver,
       sender: answer.sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
+      link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
       message: "#{answer.user.login_name}さんから回答がありました。",
       read: false
     )
@@ -109,7 +109,7 @@ class Notification < ApplicationRecord
       kind: 5,
       user: receiver,
       sender: announce.sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(announce),
+      link: Rails.application.routes.url_helpers.polymorphic_path(announce),
       message: "お知らせ「#{announce.title}」",
       read: false
     )
@@ -120,7 +120,7 @@ class Notification < ApplicationRecord
       kind: 6,
       user: receiver,
       sender: question.sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(question),
+      link: Rails.application.routes.url_helpers.polymorphic_path(question),
       message: "#{question.user.login_name}さんから質問がありました。",
       read: false
     )
@@ -131,7 +131,7 @@ class Notification < ApplicationRecord
       kind: 7,
       user: receiver,
       sender: report.sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(report),
+      link: Rails.application.routes.url_helpers.polymorphic_path(report),
       message: "#{report.user.login_name}さんがはじめての日報を書きました！",
       read: false
     )
@@ -144,7 +144,7 @@ class Notification < ApplicationRecord
       kind: 8,
       user: receiver,
       sender: sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(watchable),
+      link: Rails.application.routes.url_helpers.polymorphic_path(watchable),
       message: "#{watchable_user.login_name}さんの【 #{watchable.notification_title} 】に#{comment.user.login_name}さんがコメントしました。",
       read: false
     )
@@ -155,7 +155,7 @@ class Notification < ApplicationRecord
       kind: 9,
       user: receiver,
       sender: sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(sender),
+      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
       message: "#{sender.login_name}さんが退会しました。",
       read: false
     )
@@ -166,7 +166,7 @@ class Notification < ApplicationRecord
       kind: 10,
       user: receiver,
       sender: report.sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(report),
+      link: Rails.application.routes.url_helpers.polymorphic_path(report),
       message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
       read: false
     )
@@ -177,7 +177,7 @@ class Notification < ApplicationRecord
       kind: 11,
       user: receiver,
       sender: event.user,
-      path: Rails.application.routes.url_helpers.polymorphic_path(event),
+      link: Rails.application.routes.url_helpers.polymorphic_path(event),
       message: "#{event.title}で、補欠から参加に繰り上がりました。",
       read: false
     )
@@ -188,7 +188,7 @@ class Notification < ApplicationRecord
       kind: 12,
       user: reciever,
       sender: page.sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(page),
+      link: Rails.application.routes.url_helpers.polymorphic_path(page),
       message: "#{page.user.login_name}さんがDocsに#{page.title}を投稿しました。",
       read: false
     )
@@ -199,7 +199,7 @@ class Notification < ApplicationRecord
       kind: 13,
       user: receiver,
       sender: report.sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(report),
+      link: Rails.application.routes.url_helpers.polymorphic_path(report),
       message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
       read: false
     )
@@ -210,7 +210,7 @@ class Notification < ApplicationRecord
       kind: 14,
       user: receiver,
       sender: answer.receiver,
-      path: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
+      link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
       message: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
       read: false
     )
@@ -221,13 +221,13 @@ class Notification < ApplicationRecord
       kind: 15,
       user: receiver,
       sender: report.sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(report),
+      link: Rails.application.routes.url_helpers.polymorphic_path(report),
       message: "#{report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。",
       read: false
     )
   end
 
   def self.into_one
-    select(:path).group(:path).maximum(:created_at)
+    select(:link).group(:link).maximum(:created_at)
   end
 end
