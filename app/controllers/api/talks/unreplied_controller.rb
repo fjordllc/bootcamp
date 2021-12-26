@@ -2,6 +2,6 @@
 
 class API::Talks::UnrepliedController < API::BaseController
   def index
-    @talks = Talk.all
+    @talks = Talk.unreplied
   end
 end
