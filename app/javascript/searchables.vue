@@ -1,7 +1,7 @@
 <template lang="pug">
 .page-body
   .container(v-if='!loaded')
-    | ロード中
+    loadingListPlaceholder
   .container(v-else-if='searchables.length === 0')
     .o-empty-message
       .o-empty-message__icon
@@ -25,9 +25,11 @@
 <script>
 import Searchable from './searchable.vue'
 import Pager from './pager.vue'
+import LoadingListPlaceholder from './loading-list-placeholder.vue'
 export default {
   components: {
     searchable: Searchable,
+    loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager
   },
   props: {
