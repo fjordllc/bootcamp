@@ -13,7 +13,7 @@
           | 日報 （#{user.reports.length}）
       li.page-tabs__item
         = link_to user_comments_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('comments')} #{user.comments.length.zero? ? 'is-inactive' : ''}" do
-          | コメント （#{user.comments.length}）
+          | コメント （#{user.comments.where.not(commentable_type: 'Talk').length}）
       li.page-tabs__item
         = link_to user_products_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('products')} #{user.products.length.zero? ? 'is-inactive' : ''}" do
           | 提出物 （#{user.products.length}）
