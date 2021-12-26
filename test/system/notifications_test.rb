@@ -47,7 +47,7 @@ class NotificationsTest < ApplicationSystemTestCase
                         read: true,
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
-                        path: '/reports/20400118',
+                        link: '/reports/20400118',
                         user: users(:yamada),
                         sender: users(:machida))
     visit_with_auth '/notifications?status=unread', 'yamada'
@@ -60,20 +60,20 @@ class NotificationsTest < ApplicationSystemTestCase
     19.times do |n|
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
                           kind: 'mentioned',
-                          path: "/reports/#{n}",
+                          link: "/reports/#{n}",
                           user: users(:yamada),
                           sender: users(:machida))
     end
     Notification.create(message: '1番新しい通知',
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
-                        path: '/reports/20400118',
+                        link: '/reports/20400118',
                         user: users(:yamada),
                         sender: users(:machida))
     Notification.create(message: '1番古い通知',
                         created_at: '2000-01-18 06:06:42',
                         kind: 'mentioned',
-                        path: '/reports/20000118',
+                        link: '/reports/20000118',
                         user: users(:yamada),
                         sender: users(:machida))
     visit_with_auth '/notifications', 'yamada'
@@ -95,20 +95,20 @@ class NotificationsTest < ApplicationSystemTestCase
     19.times do |n|
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
                           kind: 'mentioned',
-                          path: "/reports/#{n}",
+                          link: "/reports/#{n}",
                           user: users(:yamada),
                           sender: users(:machida))
     end
     Notification.create(message: '1番新しい通知',
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
-                        path: '/reports/20400118',
+                        link: '/reports/20400118',
                         user: users(:yamada),
                         sender: users(:machida))
     Notification.create(message: '1番古い通知',
                         created_at: '2000-01-18 06:06:42',
                         kind: 'mentioned',
-                        path: '/reports/20000118',
+                        link: '/reports/20000118',
                         user: users(:yamada),
                         sender: users(:machida))
     login_user 'yamada', 'testtest'
@@ -125,20 +125,20 @@ class NotificationsTest < ApplicationSystemTestCase
     19.times do |n|
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
                           kind: 'mentioned',
-                          path: "/reports/#{n}",
+                          link: "/reports/#{n}",
                           user: users(:yamada),
                           sender: users(:machida))
     end
     Notification.create(message: '1番新しい通知',
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
-                        path: '/reports/20400118',
+                        link: '/reports/20400118',
                         user: users(:yamada),
                         sender: users(:machida))
     Notification.create(message: '1番古い通知',
                         created_at: '2000-01-18 06:06:42',
                         kind: 'mentioned',
-                        path: '/reports/20000118',
+                        link: '/reports/20000118',
                         user: users(:yamada),
                         sender: users(:machida))
     login_user 'yamada', 'testtest'
@@ -175,7 +175,7 @@ class NotificationsTest < ApplicationSystemTestCase
     Notification.create(message: 'machidaさんからメンションが届きました',
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
-                        path: '/reports/20400118',
+                        link: '/reports/20400118',
                         user: users(:yamada),
                         sender: users(:machida))
 
@@ -186,7 +186,7 @@ class NotificationsTest < ApplicationSystemTestCase
     20.times do |n|
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
                           kind: 'mentioned',
-                          path: "/reports/#{n}",
+                          link: "/reports/#{n}",
                           user: users(:yamada),
                           sender: users(:machida))
     end
@@ -203,7 +203,7 @@ class NotificationsTest < ApplicationSystemTestCase
   test 'non-mentor can not see a button to open all unread notifications' do
     Notification.create(message: 'machidaさんがコメントしました',
                         kind: 'came_comment',
-                        path: '/reports/20400118',
+                        link: '/reports/20400118',
                         user: users(:hatsuno),
                         sender: users(:machida))
     visit_with_auth '/notifications?status=unread', 'hatsuno'
@@ -214,7 +214,7 @@ class NotificationsTest < ApplicationSystemTestCase
   test 'mentor can see a button to open to open all unread notifications' do
     Notification.create(message: 'machidaさんがコメントしました',
                         kind: 'came_comment',
-                        path: '/reports/20400118',
+                        link: '/reports/20400118',
                         user: users(:komagata),
                         sender: users(:machida))
     visit_with_auth '/notifications?status=unread', 'komagata'
@@ -225,12 +225,12 @@ class NotificationsTest < ApplicationSystemTestCase
   test 'show listing notification that target is all' do
     Notification.create(message: 'お知らせの通知',
                         kind: 'announced',
-                        path: '/announcements/1',
+                        link: '/announcements/1',
                         user: users(:komagata),
                         sender: users(:machida))
     Notification.create(message: 'コメントの通知',
                         kind: 'came_comment',
-                        path: '/reports/1',
+                        link: '/reports/1',
                         user: users(:komagata),
                         sender: users(:machida))
     visit_with_auth '/notifications', 'komagata'
@@ -242,12 +242,12 @@ class NotificationsTest < ApplicationSystemTestCase
   test 'show listing notification that target is announcements' do
     Notification.create(message: 'お知らせの通知',
                         kind: 'announced',
-                        path: '/announcements/1',
+                        link: '/announcements/1',
                         user: users(:komagata),
                         sender: users(:machida))
     Notification.create(message: 'コメントの通知',
                         kind: 'came_comment',
-                        path: '/reports/1',
+                        link: '/reports/1',
                         user: users(:komagata),
                         sender: users(:machida))
     visit_with_auth '/notifications?target=announcement', 'komagata'
@@ -259,12 +259,12 @@ class NotificationsTest < ApplicationSystemTestCase
   test 'show listing unread notification that target is announcements' do
     Notification.create(message: '未読のお知らせの通知',
                         kind: 'announced',
-                        path: '/announcements/1',
+                        link: '/announcements/1',
                         user: users(:komagata),
                         sender: users(:machida))
     Notification.create(message: '既読のお知らせの通知',
                         kind: 'announced',
-                        path: '/announcements/2',
+                        link: '/announcements/2',
                         user: users(:komagata),
                         sender: users(:machida),
                         read: true)
@@ -277,12 +277,12 @@ class NotificationsTest < ApplicationSystemTestCase
   test 'click on the category marks button' do
     Notification.create(message: 'お知らせのテスト通知',
                         kind: 'announced',
-                        path: '/announcements/1',
+                        link: '/announcements/1',
                         user: users(:komagata),
                         sender: users(:machida))
     Notification.create(message: 'コメントのテスト通知',
                         kind: 'came_comment',
-                        path: '/reports/1',
+                        link: '/reports/1',
                         user: users(:komagata),
                         sender: users(:machida))
     visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
