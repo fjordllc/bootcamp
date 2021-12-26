@@ -21,8 +21,15 @@ export default {
     }
   },
   computed: {
+    isUnrepliedTalksPage() {
+      return location.pathname.includes('unreplied')
+    },
     url() {
-      return `/api/talks`
+      if (this.isUnrepliedTalksPage) {
+        return `/api/talks/unreplied`
+      } else {
+        return `/api/talks`
+      }
     }
   },
   created() {
