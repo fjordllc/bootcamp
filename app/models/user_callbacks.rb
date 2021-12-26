@@ -7,7 +7,7 @@ class UserCallbacks
 
   def after_create(user)
     user.build_talk
-    user.save
+    user.save!
   end
 
   def after_update(user)
