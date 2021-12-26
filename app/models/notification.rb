@@ -166,7 +166,7 @@ class Notification < ApplicationRecord
       kind: kinds[:retired],
       user: receiver,
       sender: sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(sender),
+      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
       message: "#{I18n.t('.retire_notice', user: sender.login_name)}Discord ID: #{sender.discord_account}, ユーザーページ: https://bootcamp.fjord.jp/users/#{sender.id}",
       read: false
     )
