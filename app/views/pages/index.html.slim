@@ -21,11 +21,10 @@ header.page-header
             i.fas.fa-times.fa-fw
 .page-body
   .container.is-xl
-    = paginate @pages
     .two-columns
       .two-columns__inner
-        .thread-list.a-card
-          = render partial: 'pages/page', collection: @pages, as: :page
+        #js-pages(data-selected-tag="#{params[:tag]}")
+
       - if Page.all_tags.any?
         nav.page-tags-nav
           header.page-tags-nav__header
@@ -36,4 +35,3 @@ header.page-header
               - Page.all_tags.each do |tag|
                 li.page-tags-nav__item
                   = link_to tag.name, pages_tag_path(tag.name), class: 'page-tags-nav__item-link'
-    = paginate @pages
