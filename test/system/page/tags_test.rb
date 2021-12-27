@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Question::TagsTest < ApplicationSystemTestCase
+class Page::TagsTest < ApplicationSystemTestCase
   test 'search pages by tag' do
     visit_with_auth pages_url, 'kimura'
     click_on 'Doc作成'
