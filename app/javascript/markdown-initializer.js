@@ -10,6 +10,7 @@ import MarkdownItTaskListsInitializer from './markdown-it-task-lists-initializer
 import MarkdownItHeadings, {
   initMarkdownItHeadings
 } from './markdown-it-headings'
+import MarkdownItHeadings from './markdown-it-headings'
 
 export default class {
   replace(selector) {
@@ -24,12 +25,8 @@ export default class {
     })
 
     new UserIconRenderer().render(selector)
-
-<<<<<<< HEAD
     MarkdownItTaskListsInitializer.initialize()
-=======
     initMarkdownItHeadings()
->>>>>>> d3c3d4bae (マックダウンの見出しにanchorを入れる)
   }
 
   render(text) {
