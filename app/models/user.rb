@@ -308,7 +308,7 @@ class User < ApplicationRecord
   class << self
     def notify_to_discord
       User.retired.find_each do |retired_user|
-        if retired_user.retired_three_months_ago_and_notification_not_sent?(retired_user)
+        if retired_user.retired_three_months_ago_and_notification_not_sent?
           ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL'])
             #{I18n.t('.retire_notice', user: retired_user.login_name)}
             Discord ID: #{retired_user.discord_account}
@@ -353,8 +353,8 @@ class User < ApplicationRecord
     end
   end
 
-  def retired_three_months_ago_and_notification_not_sent?(retired_user)
-    retired_user.retired_on <= Date.current - 3.months && !retired_user.retired_notification
+  def retired_three_months_ago_and_notification_not_sent?
+    retired_on <= Date.current - 3.months && !retired_notification
   end
 
   def away?
