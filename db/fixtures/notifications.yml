@@ -34,7 +34,7 @@ notification_submitted:
   kind: 3
   user: komagata
   sender: sotugyou
-  message: sogugyouさんが「Terminalの基礎を覚える」の提出物を提出しました。
+  message: sotugyouさんが「Terminalの基礎を覚える」の提出物を提出しました。
   link: "/products/<%= ActiveRecord::FixtureSet.identify(:product3) %>"
   read: false
 
