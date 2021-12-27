@@ -266,6 +266,8 @@ class User < ApplicationRecord
       left_outer_joins(order_by.pluralize.to_sym)
         .group('users.id')
         .order(Arel.sql("count(#{order_by.pluralize}.id) #{direction}, users.created_at"))
+    elsif order_by == 'created_at'
+      order(order_by.to_sym => direction.to_sym)
     else
       order(order_by.to_sym => direction.to_sym, created_at: :asc)
     end
