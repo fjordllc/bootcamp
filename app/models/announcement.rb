@@ -7,6 +7,7 @@ class Announcement < ApplicationRecord
   include Reactionable
   include WithAvatar
   include Watchable
+  include Taskable
 
   enum target: {
     all: 0,
