@@ -94,7 +94,7 @@ header.page-header
             data-page-id="#{@page.id}"
           )
         .thread__body
-          .thread__description.js-markdown-view.js-target-blank.is-long-text
+          .thread__description.js-markdown-view.js-target-blank.is-long-text(data-taskable-id="#{@page.id}", data-taskable-type='Page')
             = @page.body
           = render 'reactions/reactions', reactionable: @page
         footer.card-footer
