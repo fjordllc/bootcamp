@@ -354,7 +354,7 @@ class User < ApplicationRecord
   end
 
   def retired_three_months_ago_and_notification_not_sent?
-    retired_on <= Date.current - 3.months && !retired_notification
+    retired_on <= Date.current - 3.months && !notified_retirement
   end
 
   def away?

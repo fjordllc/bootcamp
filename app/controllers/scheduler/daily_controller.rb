@@ -8,7 +8,7 @@ class Scheduler::DailyController < SchedulerController
         User.admins.each do |admin_user|
           Notification.three_months_after_retirement(retired_user, admin_user)
           NotificationFacade.three_months_after_retirement(retired_user, admin_user)
-          retired_user.update!(retired_notification: true)
+          retired_user.update!(notified_retirement: true)
         end
       end
     end
