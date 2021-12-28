@@ -90,7 +90,7 @@ header.page-header
             = render 'reports/learning_times', report: @report
 
             .thread__body
-              .thread__description.js-target-blank.is-long-text.js-markdown-view
+              .thread__description.js-target-blank.is-long-text.js-markdown-view(data-taskable-id="#{@report.id}", data-taskable-type='Report')
                 = @report.description
               = render 'reactions/reactions', reactionable: @report
 
