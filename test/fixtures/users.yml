@@ -468,7 +468,7 @@ taikai3: # 退会3ヶ月後のユーザー
   experience: rails
   organization: なし
   retired_on: <%= Date.current - 4.months %>
-  retired_notification: false
+  notified_retirement: false
   unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
   updated_at: "2021-12-10 00:00:11"
   created_at: "2021-12-10 00:00:11"
