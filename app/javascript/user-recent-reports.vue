@@ -46,9 +46,7 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       }).catch((error) => console.warn(error))
-      const json = await response
-        .json()
-        .catch((error) => console.warn(error))
+      const json = await response.json().catch((error) => console.warn(error))
       this.reports = json.reports
       this.currentUserId = json.currentUserId
     }

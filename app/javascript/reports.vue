@@ -52,6 +52,9 @@ export default {
     isUncheckedReportsPage() {
       return location.pathname.includes('unchecked')
     },
+    isCurrentUserReportsPage() {
+      return location.pathname.includes('current_user')
+    },
     newParams() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
@@ -105,9 +108,7 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       }).catch((error) => console.warn(error))
-      const json = await response
-        .json()
-        .catch((error) => console.warn(error))
+      const json = await response.json().catch((error) => console.warn(error))
       this.reports = json.reports
       this.currentUserId = json.currentUserId
       this.totalPages = parseInt(json.totalPages)
