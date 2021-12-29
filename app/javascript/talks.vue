@@ -9,7 +9,6 @@
         :talk='talk'
       )
 </template>
-
 <script>
 import Talk from './talk.vue'
 export default {
