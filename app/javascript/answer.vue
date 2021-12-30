@@ -24,6 +24,9 @@
       )
         | {{ updatedAt }}
     .thread-comment__description.js-target-blank.is-long-text(
+      :id='`js-answer-markdown-view-${this.answer.id}`',
+      :data-taskable-id='this.answer.id',
+      :data-taskable-type='"Answer"',
       v-html='markdownDescription'
     )
     reaction(
@@ -105,6 +108,7 @@
 </template>
 <script>
 import Reaction from './reaction.vue'
+import MarkdownItTaskListsInitializer from './markdown-it-task-lists-initializer'
 import MarkdownInitializer from './markdown-initializer'
 import TextareaInitializer from './textarea-initializer'
 import confirmUnload from './confirm-unload'
@@ -162,6 +166,9 @@ export default {
   },
   mounted: function () {
     TextareaInitializer.initialize(`#js-comment-${this.answer.id}`)
+    MarkdownItTaskListsInitializer.initialize(
+      `#js-answer-markdown-view-${this.answer.id}`
+    )
 
     const answerAnchor = location.hash
     if (answerAnchor) {
