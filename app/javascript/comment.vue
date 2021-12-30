@@ -19,6 +19,9 @@
       )
         | {{ updatedAt }}
     .thread-comment__description.js-target-blank.is-long-text(
+      :id='`js-comment-markdown-view-${this.comment.id}`',
+      :data-taskable-id='this.comment.id',
+      :data-taskable-type='"Comment"',
       v-html='markdownDescription'
     )
     reaction(
@@ -89,6 +92,7 @@ import confirmUnload from './confirm-unload'
 import autosize from 'autosize'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
+import MarkdownItTaskListsInitializer from './markdown-it-task-lists-initializer'
 dayjs.locale(ja)
 
 export default {
@@ -138,6 +142,9 @@ export default {
   },
   mounted() {
     TextareaInitializer.initialize(`#js-comment-${this.comment.id}`)
+    MarkdownItTaskListsInitializer.initialize(
+      `#js-comment-markdown-view-${this.comment.id}`
+    )
 
     const commentAnchor = location.hash
     if (commentAnchor) {
