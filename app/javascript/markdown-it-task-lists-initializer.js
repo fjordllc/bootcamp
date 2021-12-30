@@ -1,18 +1,20 @@
 import Swal from 'sweetalert2'
 
 export default class {
-  static initialize() {
+  static initialize(parent, selector) {
     const meta = document.querySelector('meta[name="csrf-token"]')
     const token = meta ? meta.content : ''
 
-    const markdowns = document.querySelectorAll('.js-markdown-view')
+    const markdowns = document.querySelectorAll(parent || '.js-markdown-view')
 
     markdowns.forEach((md) => {
       const taskableId = Number(md.getAttribute('data-taskable-id'))
       const taskableType = md.getAttribute('data-taskable-type')
 
       if (taskableId && taskableType) {
-        const checkboxes = md.querySelectorAll('.task-list-item-checkbox')
+        const checkboxes = md.querySelectorAll(
+          selector || '.task-list-item-checkbox'
+        )
 
         checkboxes.forEach((checkbox, i) => {
           checkbox.disabled = false

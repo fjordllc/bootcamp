@@ -4,6 +4,7 @@ class Comment < ApplicationRecord
   include Reactionable
   include Searchable
   include Mentioner
+  include Taskable
 
   belongs_to :user, touch: true
   belongs_to :commentable, polymorphic: true
