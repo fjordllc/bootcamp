@@ -1,56 +1,74 @@
 talk1:
   user: komagata
+  unreplied: false
 
 talk2:
   user: machida
+  unreplied: false
 
 talk3:
   user: sotugyou
+  unreplied: false
 
 talk4:
   user: advijirou
+  unreplied: false
 
 talk5:
   user: yameo
+  unreplied: false
 
 talk6:
   user: yamada
+  unreplied: false
 
 talk7:
   user: kimura
+  unreplied: false
 
 talk8:
   user: hatsuno
+  unreplied: false
 
 talk9:
   user: hajime
+  unreplied: false
 
 talk10:
   user: muryou
+  unreplied: false
 
 talk11:
   user: kensyu
 
 talk12:
   user: senpai
+  unreplied: false
 
 talk13:
   user: kananashi
+  unreplied: false
 
 talk14:
   user: osnashi
+  unreplied: false
 
 talk15:
   user: jobseeker
+  unreplied: false
 
 talk16:
   user: daimyo
+  unreplied: false
 
 talk17:
   user: nippounashi
+  unreplied: false
 
 talk18:
   user: with_hyphen
+  unreplied: true
 
 talk19:
   user: kensyuowata
+  unreplied: false
