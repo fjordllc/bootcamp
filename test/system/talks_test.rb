@@ -26,4 +26,35 @@ class PagesTest < ApplicationSystemTestCase
     visit_with_auth talk_path(visited_user.talk), 'komagata'
     assert_text "#{visited_user.name}さんの相談部屋"
   end
+
+  test '管理者以外がコメントした場合未返信タブに相談部屋が表示される' do
+    user = users(:kimura)
+    visit_with_auth "/talks/#{user.talk.id}", 'kimura'
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+    all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    assert_text 'test'
+    click_button 'コメントする'
+
+    logout
+    visit_with_auth '/talks', 'komagata'
+    find('.page-tabs__item-link', text: '未返信').click
+    assert_text "#{user.login_name} (#{user.name}) さんの相談部屋"
+  end
+
+  test '未返信の相談部屋で管理者がコメントすると未返信タブから相談部屋が取り除かれる' do
+    user = users(:with_hyphen)
+    visit_with_auth "/talks", 'komagata'
+    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+    all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    assert_text 'test'
+    click_button 'コメントする'
+    visit '/talks'
+    find('.page-tabs__item-link', text: '未返信').click
+    assert_no_text "#{user.login_name} (#{user.name}) さんの相談部屋"
+  end
 end
