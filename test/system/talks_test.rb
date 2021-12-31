@@ -45,7 +45,7 @@ class PagesTest < ApplicationSystemTestCase
 
   test '未返信の相談部屋で管理者がコメントすると未返信タブから相談部屋が取り除かれる' do
     user = users(:with_hyphen)
-    visit_with_auth "/talks", 'komagata'
+    visit_with_auth '/talks', 'komagata'
     click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
