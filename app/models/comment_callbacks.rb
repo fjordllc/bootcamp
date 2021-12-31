@@ -7,8 +7,11 @@ class CommentCallbacks
       notify_to_watching_user(comment)
     elsif comment.sender != comment.receiver
       notify_comment(comment)
-    elsif comment.commentable.instance_of?(Talk)
+    end
+
+    if comment.commentable.instance_of?(Talk)
       notify_to_admins(comment)
+      update_unreplied(comment)
     end
 
     return unless comment.commentable.instance_of?(Product)
@@ -122,5 +125,10 @@ class CommentCallbacks
         "#{comment.sender.login_name}さんからコメントが届きました。"
       )
     end
+  end
+
+  def update_unreplied(comment)
+    unreplied = !comment.user.admin
+    comment.commentable.update!(unreplied: unreplied)
   end
 end
