@@ -1,4 +1,5 @@
 <% User.all.each_with_index do |user, index| %>
 talk<%= index %>:
   user_id: <%= user.id %>
+  unreplied: false
 <% end %>
