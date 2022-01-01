@@ -159,4 +159,14 @@ class NotificationFacade
       receiver: receiver
     ).consecutive_sad_report.deliver_later(wait: 5)
   end
+
+  def self.assigned_as_checker(product, receiver)
+    Notification.assigned_as_checker(product, receiver)
+    return unless receiver.mail_notification? && !receiver.retired_on?
+
+  #   NotificationMailer.with(
+  #     product: product,
+  #     receiver: receiver
+  #   ).assigned_as_checker.deliver_later(wait: 5)
+  end
 end

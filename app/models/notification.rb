@@ -31,7 +31,8 @@ class Notification < ApplicationRecord
     create_pages: 12,
     following_report: 13,
     chose_correct_answer: 14,
-    consecutive_sad_report: 15
+    consecutive_sad_report: 15,
+    assigned_as_checker: 16
   }
 
   scope :reads, lambda {
@@ -223,6 +224,17 @@ class Notification < ApplicationRecord
       sender: report.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
       message: "#{report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。",
+      read: false
+    )
+  end
+
+def self.assigned_as_checker(product, receiver)
+    Notification.create!(
+      kind: 16,
+      user: receiver,
+      sender: product.sender,
+      path: Rails.application.routes.url_helpers.polymorphic_path(product),
+      message: "#{product.user.login_name}さんの提出物#{product.title}の担当になりました。",
       read: false
     )
   end
