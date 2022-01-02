@@ -1,7 +1,7 @@
 <template lang="pug">
-.practice-content.is-memo
-  section.a-card(v-if='!editing')
-    .practice-content__body(v-if='memo')
+div
+  .a-card(v-if='!editing')
+    .card-body
       .js-target-blank.is-long-text(v-html='markdownMemo')
     .thread-list(v-else)
       .thread-list__inner
@@ -32,20 +32,21 @@
         @click='changeActiveTab("preview")'
       )
         | プレビュー
-    .a-markdown-input.js-markdown-parent
-      .a-markdown-input__inner.is-editor.js-tabs__content(
-        :class='{ "is-active": isActive("memo") }'
-      )
-        textarea.a-text-input.a-markdown-input__textarea(
-          :id='`js-practice-memo`',
-          data-preview='#practice-memo-preview',
-          v-model='memo',
-          name='practice[memo]'
+    .card-body
+      .a-markdown-input.js-markdown-parent
+        .a-markdown-input__inner.is-editor.js-tabs__content(
+          :class='{ "is-active": isActive("memo") }'
         )
-      .a-markdown-input__inner.is-preview.js-tabs__content(
-        :class='{ "is-active": isActive("preview") }'
-      )
-        .is-long-text.a-markdown-input__preview(v-html='markdownMemo')
+          textarea.a-text-input.a-markdown-input__textarea(
+            :id='`js-practice-memo`',
+            data-preview='#practice-memo-preview',
+            v-model='memo',
+            name='practice[memo]'
+          )
+        .a-markdown-input__inner.is-preview.js-tabs__content(
+          :class='{ "is-active": isActive("preview") }'
+        )
+          .is-long-text.a-markdown-input__preview(v-html='markdownMemo')
     .card-footer
       .card-main-actions
         .card-main-actions__items

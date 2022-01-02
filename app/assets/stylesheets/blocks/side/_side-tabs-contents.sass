@@ -1,15 +1,6 @@
 .side-tabs-contents
   +position(relative, 1)
 
-.side-tabs-contents__item
-  display: none
-  .a-card
-    border-top-left-radius: 0
-    max-height: calc(100vh - 100px)
-    overflow-y: auto
-  .card-header
-    display: none
-
 #side-tabs-1:checked ~ .side-tabs-contents #side-tabs-content-1
   display: block
 
@@ -18,3 +9,62 @@
 
 #side-tabs-3:checked ~ .side-tabs-contents #side-tabs-content-3
   display: block
+
+.side-tabs-contents__item
+  display: none
+  .a-card
+    border-top-left-radius: 0
+  .user-info + .a-card
+    border-top-right-radius: 0
+  .card-header
+    display: none
+  .card-body
+    max-height: calc(100vh - 181px)
+    overflow-y: auto
+  .user-info + .a-card .card-body
+    max-height: calc(100vh - 330px)
+  .user-info
+    padding: 1rem
+    background-color: $base
+    border: solid 1px $border-more-shade
+    border-bottom: none
+    height: 11rem
+    overflow: auto
+  .user-metas
+    margin-top: 0
+    & + .user-metas
+      margin-top: -1px
+  .user-metas__title
+    padding: .25rem .5rem
+    font-size: .625rem
+    background-color: $background
+  .user-metas__items
+    display: flex
+    flex-wrap: wrap
+    padding: .25rem .5rem
+  .user-metas__item
+    flex: 0 0 auto
+    +text-block(.75rem 1.6)
+    padding: 0
+    border: none
+    &:not(:last-child)::after
+      content: '、'
+  .user-metas__item:not(:last-child)
+    border: none
+  .user-metas__item:nth-child(even)
+    background-color: $base
+  .user-metas__item-label,
+  .user-metas__item-value
+    padding: 0
+  .user-metas__item-label
+    border-right: none
+    flex: 0 0 auto
+    &::after
+      content: ':'
+      +margin(horizontal, .125rem)
+  .form-tabs
+    margin-bottom: 0
+  .a-markdown-input
+    +padding(horizontal, 0)
+  .is-long-text
+    font-size: .8125rem
