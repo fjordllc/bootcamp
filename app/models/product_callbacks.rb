@@ -32,7 +32,9 @@ class ProductCallbacks
   end
 
   def after_update(product)
-    notify_assigned_as_checker(product)
+    if !product.wip? && product.checker_id && !(product.sender == product.checker_id) #ログイン中のユーザーまたはupdateしたユーザー情報を禁止する
+      notify_assigned_as_checker(product)
+    end
   end
 
   def after_destroy(product)
