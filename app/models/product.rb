@@ -18,7 +18,6 @@ class Product < ApplicationRecord
   after_create ProductCallbacks.new
   after_save ProductCallbacks.new
   after_destroy ProductCallbacks.new
-  after_update ProductCallbacks.new
 
   columns_for_keyword_search :body
 

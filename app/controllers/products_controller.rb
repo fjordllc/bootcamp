@@ -51,6 +51,9 @@ class ProductsController < ApplicationController
     else
       render :edit
     end
+    if (current_user.id != @product.checker_id) && current_user.mentor
+      NotificationFacade.assigned_as_checker(@product, User.find(@product.checker_id))
+    end
   end
 
   def destroy
