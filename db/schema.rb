@@ -182,6 +182,14 @@ ActiveRecord::Schema.define(version: 2022_02_01_020526) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "featured_entries", force: :cascade do |t|
+    t.string "featureable_type", null: false
+    t.bigint "featureable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["featureable_type", "featureable_id"], name: "index_featured_entries_on_featureable"
+  end
+
   create_table "followings", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
