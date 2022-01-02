@@ -31,12 +31,6 @@ class ProductCallbacks
     Cache.delete_unchecked_product_count
   end
 
-  def after_update(product)
-    if !product.wip? && product.checker_id
-      notify_assigned_as_checker(product)
-    end
-  end
-
   def after_destroy(product)
     delete_notification(product)
 
@@ -76,9 +70,5 @@ class ProductCallbacks
       receivers: mentors,
       message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
     )
-  end
-
-  def notify_assigned_as_checker(product)
-      NotificationFacade.assigned_as_checker(product, User.find(product.checker_id))
   end
 end
