@@ -42,14 +42,6 @@ kimura_tag_may_j_:
   taggable: kimura (User)
   context: tags
   tag: may_j_
-kimura_tag_test1:
-  taggable: kimura (User)
-  context: tags
-  tag: test1
-kimura_tag_test2:
-  taggable: kimura (User)
-  context: tags
-  tag: test2
 
 question13_tag_cat:
   taggable: question13 (Question)
@@ -63,11 +55,3 @@ question14_tag_manga:
   taggable: question14 (Question)
   context: tags
   tag: manga
-question14_tag_test1:
-  taggable: question14 (Question)
-  context: tags
-  tag: test1
-question15_tag_test2:
-  taggable: question14 (Question)
-  context: tags
-  tag: test2
