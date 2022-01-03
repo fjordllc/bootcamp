@@ -12,6 +12,7 @@ class RemoveSharpAndOctothorpOfTagNameHead < ActiveRecord::Migration[6.1]
           tagging_to_be_replaced.tag_id = existing_tag_id
           tagging_to_be_replaced.save!(validate: false)
         end
+        tag_to_remove_name_head.destroy
       else
         tag_to_remove_name_head.name = head_removed_name
         tag_to_remove_name_head.save!(validate: false)
