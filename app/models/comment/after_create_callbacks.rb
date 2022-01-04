@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CommentCallbacks
+class Comment::AfterCreateCallbacks
   def after_create(comment)
     if comment.commentable.class.include?(Watchable)
       create_watch(comment)
@@ -22,46 +22,7 @@ class CommentCallbacks
     delete_assigned_and_unreplied_product_count_cache(comment)
   end
 
-  def after_update(comment)
-    return unless comment.commentable.instance_of?(Product)
-
-    update_last_commented_at(comment)
-    update_commented_at(comment)
-  end
-
-  def after_destroy(comment)
-    return unless comment.commentable.instance_of?(Product)
-
-    delete_last_commented_at(comment.commentable.id)
-    delete_commented_at(comment)
-    delete_product_cache(comment.commentable.id)
-
-    return unless comment.latest?
-
-    delete_assigned_and_unreplied_product_count_cache(comment)
-  end
-
   private
-
-  def reset_last_commented_at(product)
-    product.mentor_last_commented_at = nil
-    product.self_last_commented_at = nil
-  end
-
-  def delete_last_commented_at(product_id)
-    product = Product.find(product_id)
-
-    reset_last_commented_at(product)
-
-    product.comments.each do |comment|
-      if comment.user.mentor
-        product.mentor_last_commented_at = comment.updated_at
-      elsif comment.user == product.user
-        product.self_last_commented_at = comment.updated_at
-      end
-    end
-    product.save!
-  end
 
   def update_last_commented_at(comment)
     product = Product.find(comment.commentable.id)
@@ -75,12 +36,6 @@ class CommentCallbacks
 
   def update_commented_at(comment)
     comment.commentable.update!(commented_at: comment.updated_at)
-  end
-
-  def delete_commented_at(comment)
-    last_comment = comment.commentable.comments.last
-    comment.commentable.commented_at = last_comment ? last_comment.updated_at : nil
-    comment.commentable.save!
   end
 
   def notify_comment(comment)
