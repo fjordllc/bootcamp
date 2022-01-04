@@ -228,7 +228,7 @@ class Notification < ApplicationRecord
     )
   end
 
-def self.assigned_as_checker(product, receiver)
+  def self.assigned_as_checker(product, receiver)
     Notification.create!(
       kind: 16,
       user: receiver,
