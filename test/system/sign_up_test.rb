@@ -28,7 +28,7 @@ class SignUpTest < ApplicationSystemTestCase
       check '利用規約に同意', allow_label_click: true
     end
 
-    fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111')
+    fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
 
     VCR.use_cassette 'sign_up/valid-card', record: :once, match_requests_on: %i[method uri] do
       click_button '参加する'
@@ -53,7 +53,7 @@ class SignUpTest < ApplicationSystemTestCase
       check '利用規約に同意', allow_label_click: true
     end
 
-    fill_stripe_element('4000 0000 0000 0069', '12 / 21', '111')
+    fill_stripe_element('4000 0000 0000 0069', '12 / 50', '111')
 
     VCR.use_cassette 'sign_up/expired-card', VCR_OPTIONS do
       click_button '参加する'
@@ -78,7 +78,7 @@ class SignUpTest < ApplicationSystemTestCase
       check '利用規約に同意', allow_label_click: true
     end
 
-    fill_stripe_element('4000 0000 0000 0127', '12 / 21', '111')
+    fill_stripe_element('4000 0000 0000 0127', '12 / 50', '111')
 
     VCR.use_cassette 'sign_up/incorrect-cvc-card', VCR_OPTIONS do
       click_button '参加する'
@@ -103,7 +103,7 @@ class SignUpTest < ApplicationSystemTestCase
       check '利用規約に同意', allow_label_click: true
     end
 
-    fill_stripe_element('4000 0000 0000 0002', '12 / 21', '111')
+    fill_stripe_element('4000 0000 0000 0002', '12 / 50', '111')
 
     VCR.use_cassette 'sign_up/declined-card', VCR_OPTIONS do
       click_button '参加する'
@@ -184,7 +184,7 @@ class SignUpTest < ApplicationSystemTestCase
       check '利用規約に同意', allow_label_click: true
     end
 
-    fill_stripe_element('4242 4242 4242 4242', '12 / 21', '111')
+    fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
 
     VCR.use_cassette 'sign_up/valid-card', record: :once do
       click_button '参加する'
@@ -255,7 +255,7 @@ class SignUpTest < ApplicationSystemTestCase
       check '利用規約に同意', allow_label_click: true
     end
 
-    fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111')
+    fill_stripe_element('5555 5555 5555 4444', '12 / 50', '111')
 
     VCR.use_cassette 'sign_up/valid-card', record: :once do
       click_button '参加する'
@@ -286,7 +286,7 @@ class SignUpTest < ApplicationSystemTestCase
       tag_input.native.send_keys :return
     end
 
-    fill_stripe_element('5555 5555 5555 4444', '12 / 21', '111')
+    fill_stripe_element('5555 5555 5555 4444', '12 / 50', '111')
 
     VCR.use_cassette 'sign_up/tag', record: :once, match_requests_on: %i[method uri] do
       click_button '参加する'
