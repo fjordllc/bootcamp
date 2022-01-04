@@ -26,6 +26,8 @@ class API::FeaturedEntriesController < API::BaseController
   private
 
   def featureable
+    # 現在はReportのみ許可するが、状況によって変更する
+    raise BadRequest if params[:featureable_type] != 'Report'
     params[:featureable_type].constantize.find_by(id: params[:featureable_id])
   end
 end
