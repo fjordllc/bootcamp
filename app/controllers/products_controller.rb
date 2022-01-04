@@ -51,9 +51,7 @@ class ProductsController < ApplicationController
     else
       render :edit
     end
-    if (current_user.id != @product.checker_id) && current_user.mentor && !@product.wip?
-      NotificationFacade.assigned_as_checker(@product, User.find(@product.checker_id))
-    end
+    notice_another_mentor_assined_as_checker
   end
 
   def destroy
@@ -122,6 +120,13 @@ class ProductsController < ApplicationController
       '提出物を提出しました。'
     when :update
       '提出物を更新しました。'
+    end
+  end
+
+  def notice_another_mentor_assined_as_checker
+    @checker_id = @product.checker_id
+    if (current_user.id != @checker_id) && admin_or_mentor_login? && !@product.wip?
+      NotificationFacade.assigned_as_checker(@product, User.find(@checker_id))
     end
   end
 end
