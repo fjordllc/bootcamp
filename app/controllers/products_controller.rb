@@ -125,8 +125,8 @@ class ProductsController < ApplicationController
 
   def notice_another_mentor_assined_as_checker
     @checker_id = @product.checker_id
-    if @checker_id && admin_or_mentor_login? && (@checker_id != current_user.id) && !@product.wip?
-      NotificationFacade.assigned_as_checker(@product, User.find(@checker_id))
-    end
+    return unless @checker_id && admin_or_mentor_login? && (@checker_id != current_user.id) && !@product.wip?
+
+    NotificationFacade.assigned_as_checker(@product, User.find(@checker_id))
   end
 end
