@@ -315,7 +315,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
     if ActionMailer::Base.deliveries.present?
       last_mail = ActionMailer::Base.deliveries.last
-      assert_equal "yamadaさんの提出物#{products(:product1).title}の担当になりました。", last_mail.subject
+      assert_equal "[bootcamp] yamadaさんの提出物#{products(:product1).title}の担当になりました。", last_mail.subject
     end
   end
 
