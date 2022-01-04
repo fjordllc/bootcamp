@@ -301,4 +301,33 @@ class NotificationsTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_text 'コメントのテスト通知'
   end
+
+  test 'notice another mentor assigned as checker' do
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
+    click_link '内容修正'
+    select 'machida', from: 'product_checker_id'
+    click_button '提出する'
+    assert_text 'machida'
+
+    visit_with_auth '/notifications?status=unread', 'machida'
+    wait_for_vuejs
+    assert_text "yamadaさんの提出物#{products(:product1).title}の担当になりました。"
+
+    if ActionMailer::Base.deliveries.present?
+      last_mail = ActionMailer::Base.deliveries.last
+      assert_equal "yamadaさんの提出物#{products(:product1).title}の担当になりました。", last_mail.subject
+    end
+  end
+
+  test 'not notice self assigned as checker' do
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
+    click_link '内容修正'
+    select 'komagata', from: 'product_checker_id'
+    click_button '提出する'
+    assert_text '担当から外れる'
+
+    visit_with_auth '/notifications?status=unread', 'komagata'
+    wait_for_vuejs
+    assert_no_text "yamadaさんの提出物#{products(:product1).title}の担当になりました。"
+  end
 end
