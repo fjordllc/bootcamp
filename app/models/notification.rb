@@ -5,7 +5,7 @@ class Notification < ApplicationRecord
     announcement: [:announced],
     mention: [:mentioned],
     comment: %i[came_comment answered],
-    check: [:checked],
+    check: %i[checked assigned_as_checker],
     watching: [:watching],
     following_report: [:following_report]
   }.freeze
@@ -233,7 +233,7 @@ def self.assigned_as_checker(product, receiver)
       kind: 16,
       user: receiver,
       sender: product.sender,
-      path: Rails.application.routes.url_helpers.polymorphic_path(product),
+      link: Rails.application.routes.url_helpers.polymorphic_path(product),
       message: "#{product.user.login_name}さんの提出物#{product.title}の担当になりました。",
       read: false
     )
