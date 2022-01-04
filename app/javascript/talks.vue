@@ -1,6 +1,10 @@
 <template lang="pug">
 .page-body
-  .container.is-md
+  .container(v-if='!loaded')
+    | ロード中
+  .container.is-md(v-else-if='talks.length === 0')
+    | 未返信の相談部屋はありません
+  .container.is-md(v-else)
     .thread-list.a-card
       talk(
         v-for='talk in talks',
@@ -17,7 +21,8 @@ export default {
   },
   data() {
     return {
-      talks: []
+      talks: [],
+      loaded: false
     }
   },
   computed: {
@@ -60,6 +65,7 @@ export default {
           json.talks.forEach((talk) => {
             this.talks.push(talk)
           })
+          this.loaded = true
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
