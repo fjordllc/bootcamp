@@ -23,14 +23,14 @@ export default {
     }
   },
   created() {
-    this.getComaniesPage()
+    this.getCompaniesPage()
   },
   methods: {
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    getComaniesPage() {
+    getCompaniesPage() {
       fetch('/api/users/companies', {
         method: 'GET',
         headers: {
