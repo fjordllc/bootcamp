@@ -21,4 +21,8 @@ module LayoutHelper
     active_practice = current_user.active_practices.first
     active_practice.categories.first
   end
+
+  def category_having_top_unstarted_practice
+    current_user.top_unstarted_practice.categories.first
+  end
 end
