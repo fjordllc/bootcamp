@@ -8,11 +8,15 @@ class RemoveSharpAndOctothorpOfTagNameHead < ActiveRecord::Migration[6.1]
       head_removed_name = tag_to_remove_name_head.name.sub(/^(#|＃|♯)( |　)*/, '')
       existing_tag_id = ActsAsTaggableOn::Tag.where(name: head_removed_name).pick(:id)
       if existing_tag_id
-        ActsAsTaggableOn::Tagging.where(tag_id: tag_to_remove_name_head.id).find_each do |tagging_to_be_replaced|
-          tagging_to_be_replaced.tag_id = existing_tag_id
-          tagging_to_be_replaced.save!(validate: false)
+        ActsAsTaggableOn::Tag.transaction do
+          ActsAsTaggableOn::Tagging.transaction do
+            ActsAsTaggableOn::Tagging.where(tag_id: tag_to_remove_name_head.id).find_each do |tagging_to_be_replaced|
+              tagging_to_be_replaced.tag_id = existing_tag_id
+              tagging_to_be_replaced.save!(validate: false)
+            end
+            tag_to_remove_name_head.destroy
+          end
         end
-        tag_to_remove_name_head.destroy
       else
         tag_to_remove_name_head.name = head_removed_name
         tag_to_remove_name_head.save!(validate: false)
