@@ -8,7 +8,7 @@ class API::MarkdownTasksController < API::BaseController
     checked = params[:checked].to_s.casecmp('true').zero?
     nth = params[:nth].to_i
     taskable_id = params[:taskable_id]
-    taskable = taskable_type.camelcase.constantize.find(taskable_id)
+    taskable = taskable_type.constantize.find(taskable_id)
 
     taskable.toggle_task(nth, checked)
 
