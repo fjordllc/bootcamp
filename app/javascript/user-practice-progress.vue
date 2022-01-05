@@ -25,9 +25,7 @@ export default {
   },
   computed: {
     roundedPercentage() {
-      return this.user.graduated_on
-        ? '100%'
-        : Math.round(this.percentage) + '%'
+      return this.user.graduated_on ? '100%' : Math.round(this.percentage) + '%'
     }
   },
   methods: {
