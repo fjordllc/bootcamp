@@ -8,10 +8,11 @@ export default class {
     const markdowns = document.querySelectorAll(parent || '.js-markdown-view')
 
     markdowns.forEach((md) => {
+      const taskable = md.getAttribute('data-taskable') === 'true'
       const taskableId = Number(md.getAttribute('data-taskable-id'))
       const taskableType = md.getAttribute('data-taskable-type')
 
-      if (taskableId && taskableType) {
+      if (taskable && taskableId && taskableType) {
         const checkboxes = md.querySelectorAll(
           selector || '.task-list-item-checkbox'
         )

@@ -8,7 +8,7 @@ class API::MarkdownTasksController < API::BaseController
     nth = params[:nth].to_i
     @taskable.toggle_task(nth, checked)
 
-    if !@taskable.toggleable?(current_user)
+    if !@taskable.taskable?(current_user)
       head :bad_request
     elsif @taskable.save
       render json: { body: @taskable.body }, status: :ok
