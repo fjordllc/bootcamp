@@ -13,7 +13,7 @@ class HomeController < ApplicationController
         @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
         cookies_ids = JSON.parse(cookies[:confirmed_event_ids]) if cookies[:confirmed_event_ids]
         @events_coming_soon = Event.where(start_at: today_to_tomorrow).or(Event.where(start_at: tomorrow_to_day_after_tomorrow)).where.not(id: cookies_ids)
-        @events_except_job_hunting_coming_soon = @events_coming_soon.where.not(job_hunting: true)
+        @events_coming_soon_except_job_hunting = @events_coming_soon.where.not(job_hunting: true)
         set_required_fields
         render aciton: :index
       end
