@@ -47,6 +47,7 @@ class Product < ApplicationRecord
   }
   scope :order_for_list, -> { order(created_at: :desc, id: :desc) }
   scope :order_for_not_wip_list, -> { order(published_at: :desc, id: :desc) }
+  scope :order_for_self_assigned_list, -> { order(commented_at: :desc, published_at: :desc) }
 
   def self.add_latest_commented_at
     Product.all.includes(:comments).find_each do |product|
@@ -118,7 +119,7 @@ class Product < ApplicationRecord
   def self.self_assigned_no_replied_products(current_user_id)
     no_replied_product_ids = self_assigned_no_replied_product_ids(current_user_id)
     Product.where(id: no_replied_product_ids)
-           .order(created_at: :desc)
+           .order(commented_at: :desc, published_at: :desc)
   end
 
   def self.unchecked_no_replied_products(current_user_id)
