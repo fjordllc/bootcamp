@@ -32,7 +32,7 @@
                   .thread-list-item-tags__label
                     i.fas.fa-tags
                   ul.thread-list-item-tags__items
-                    - question.tags.each do |tag|
+                    - answer.question.tags.each do |tag|
                       li.thread-list-item-tags__item
                         = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'thread-list-item-tags__item-link'
             - if answer.type == 'CorrectAnswer'
