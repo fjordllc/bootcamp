@@ -8,10 +8,6 @@ header.page-header
 
 = render 'page_tabs', user: current_user
 
-- if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
-  .page-body
-    .container.is-lg
-      = render 'welcome_message'
 .page-body
   - if @events_coming_soon.present? && current_user.job_seeker
     #events_on_dashboard.confirmed_event
@@ -21,6 +17,9 @@ header.page-header
     #events_on_dashboard.confirmed_event
       .page-notices
         = render partial: 'event', collection: @events_coming_soon_except_job_hunting, as: :event
+  - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
+    .container.is-md
+      = render 'welcome_message'
   .container.is-xxl
     .columns
       .row
