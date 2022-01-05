@@ -64,8 +64,8 @@ import confirmUnload from './confirm-unload'
 export default {
   mixins: [confirmUnload],
   props: {
-    userId: {type: String, required: true},
-    productsMode: {type: Boolean, required: true}
+    userId: { type: String, required: true },
+    productsMode: { type: Boolean, required: true }
   },
   data() {
     return {
@@ -89,17 +89,17 @@ export default {
       credentials: 'same-origin',
       redirect: 'manual'
     })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          if (json.mentor_memo) {
-            this.memo = json.mentor_memo
-          }
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        if (json.mentor_memo) {
+          this.memo = json.mentor_memo
+        }
+      })
+      .catch((error) => {
+        console.warn('Failed to parsing', error)
+      })
   },
   mounted() {
     TextareaInitializer.initialize('#js-user-mentor-memo')
@@ -132,13 +132,13 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
-          .then((response) => {
-            this.editing = false
-            return response
-          })
-          .catch((error) => {
-            console.warn('Failed to parsing', error)
-          })
+        .then((response) => {
+          this.editing = false
+          return response
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
     },
     cancel() {
       fetch(`/api/users/${this.userId}.json`, {
@@ -149,15 +149,15 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-          .then((response) => {
-            return response.json()
-          })
-          .then((json) => {
-            this.memo = json.mentor_memo
-          })
-          .catch((error) => {
-            console.warn('Failed to parsing', error)
-          })
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          this.memo = json.mentor_memo
+        })
+        .catch((error) => {
+          console.warn('Failed to parsing', error)
+        })
       this.editing = false
     },
     editMemo() {
