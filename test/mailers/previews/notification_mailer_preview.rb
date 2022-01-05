@@ -94,6 +94,13 @@ class NotificationMailerPreview < ActionMailer::Preview
     NotificationMailer.with(sender: sender, receiver: receiver).retired
   end
 
+  def three_months_after_retirement
+    sender = User.find(ActiveRecord::FixtureSet.identify(:kensyuowata))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+
+    NotificationMailer.with(sender: sender, receiver: receiver).three_months_after_retirement
+  end
+
   def trainee_report
     report = Report.find(ActiveRecord::FixtureSet.identify(:report11))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:senpai))

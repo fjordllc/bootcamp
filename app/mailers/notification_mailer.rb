@@ -99,6 +99,12 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     mail to: @user.email, subject: subject
   end
 
+  # required params: sender, receiver
+  def three_months_after_retirement
+    @notification = @receiver.notifications.find_by(link: "/users/#{@sender.id}")
+    mail(to: @receiver.email, subject: default_i18n_subject(user: @sender.login_name.to_s))
+  end
+
   # required params: report, receiver
   def trainee_report
     @user = @receiver
