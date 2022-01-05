@@ -56,7 +56,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
 
   test 'not display products in listing unchecked if unchecked products all checked' do
     checker = users(:komagata)
-    practice = practices(:practice47)
+    practice = practices(:practice46)
     user = users(:yamada)
     product = Product.create!(
       body: 'test',
