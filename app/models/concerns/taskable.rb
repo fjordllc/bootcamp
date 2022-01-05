@@ -14,4 +14,8 @@ module Taskable
       end
     end
   end
+
+  def toggleable?(other_user)
+    user == other_user
+  end
 end
