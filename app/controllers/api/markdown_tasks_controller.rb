@@ -21,7 +21,7 @@ class API::MarkdownTasksController < API::BaseController
 
   def set_taskable
     taskable_type = params[:taskable_type]
-    raise ActionController::BadRequest.new, 'Unsupported taskable type' unless %w[Announcement Answer Comment Page Report].include?(taskable_type)
+    raise ActionController::BadRequest.new, 'Unsupported taskable type' unless %w[Report Product].include?(taskable_type)
 
     taskable_id = params[:taskable_id]
     @taskable = taskable_type.constantize.find(taskable_id)
