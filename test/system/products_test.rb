@@ -62,8 +62,8 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'update product' do
-    product = products(:product62) # 管理者orメンターが提出物を更新すると担当者変更の通知の有無を判断されてテストが落ちるため受講生の提出物に変更
-    visit_with_auth "/products/#{product.id}/edit", 'kimura'
+    product = products(:product58) # 管理者orメンターが提出物を更新すると担当者変更の通知の有無を判断されてテストが落ちるため受講生の提出物に変更
+    visit_with_auth "/products/#{product.id}/edit", 'with_hyphen'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
@@ -72,8 +72,8 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'update product if product page is WIP' do
-    product = products(:product62)
-    visit_with_auth "/products/#{product.id}/edit", 'kimura'
+    product = products(:product58)
+    visit_with_auth "/products/#{product.id}/edit", 'with_hyphen'
     click_button 'WIP'
     visit "/products/#{product.id}"
     click_button '提出する'
