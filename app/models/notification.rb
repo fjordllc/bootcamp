@@ -51,7 +51,7 @@ class Notification < ApplicationRecord
 
   def self.came_comment(comment, receiver, message)
     Notification.create!(
-      kind: 0,
+      kind: kinds[:came_comment],
       user: receiver,
       sender: comment.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
@@ -62,7 +62,7 @@ class Notification < ApplicationRecord
 
   def self.checked(check)
     Notification.create!(
-      kind: 1,
+      kind: kinds[:checked],
       user: check.receiver,
       sender: check.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(check.checkable),
@@ -73,7 +73,7 @@ class Notification < ApplicationRecord
 
   def self.mentioned(mentionable, receiver)
     Notification.create!(
-      kind: 2,
+      kind: kinds[:mentioned],
       user: receiver,
       sender: mentionable.sender,
       link: mentionable.path,
@@ -84,7 +84,7 @@ class Notification < ApplicationRecord
 
   def self.submitted(subject, receiver, message)
     Notification.create!(
-      kind: 3,
+      kind: kinds[:submitted],
       user: receiver,
       sender: subject.user,
       link: Rails.application.routes.url_helpers.polymorphic_path(subject),
@@ -95,7 +95,7 @@ class Notification < ApplicationRecord
 
   def self.came_answer(answer)
     Notification.create!(
-      kind: 4,
+      kind: kinds[:answered],
       user: answer.receiver,
       sender: answer.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
@@ -106,7 +106,7 @@ class Notification < ApplicationRecord
 
   def self.post_announcement(announce, receiver)
     Notification.create!(
-      kind: 5,
+      kind: kinds[:announced],
       user: receiver,
       sender: announce.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(announce),
@@ -117,7 +117,7 @@ class Notification < ApplicationRecord
 
   def self.came_question(question, receiver)
     Notification.create!(
-      kind: 6,
+      kind: kinds[:came_question],
       user: receiver,
       sender: question.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(question),
@@ -128,7 +128,7 @@ class Notification < ApplicationRecord
 
   def self.first_report(report, receiver)
     Notification.create!(
-      kind: 7,
+      kind: kinds[:first_report],
       user: receiver,
       sender: report.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
@@ -141,7 +141,7 @@ class Notification < ApplicationRecord
     watchable_user = watchable.user
     sender = comment.user
     Notification.create!(
-      kind: 8,
+      kind: kinds[:watching],
       user: receiver,
       sender: sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(watchable),
@@ -152,7 +152,7 @@ class Notification < ApplicationRecord
 
   def self.retired(sender, receiver)
     Notification.create!(
-      kind: 9,
+      kind: kinds[:retired],
       user: receiver,
       sender: sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(sender),
@@ -161,9 +161,20 @@ class Notification < ApplicationRecord
     )
   end
 
+  def self.three_months_after_retirement(sender, receiver)
+    Notification.create!(
+      kind: kinds[:retired],
+      user: receiver,
+      sender: sender,
+      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
+      message: "#{I18n.t('.retire_notice', user: sender.login_name)}Discord ID: #{sender.discord_account}, ユーザーページ: https://bootcamp.fjord.jp/users/#{sender.id}",
+      read: false
+    )
+  end
+
   def self.trainee_report(report, receiver)
     Notification.create!(
-      kind: 10,
+      kind: kinds[:trainee_report],
       user: receiver,
       sender: report.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
@@ -174,7 +185,7 @@ class Notification < ApplicationRecord
 
   def self.moved_up_event_waiting_user(event, receiver)
     Notification.create!(
-      kind: 11,
+      kind: kinds[:moved_up_event_waiting_user],
       user: receiver,
       sender: event.user,
       link: Rails.application.routes.url_helpers.polymorphic_path(event),
@@ -185,7 +196,7 @@ class Notification < ApplicationRecord
 
   def self.create_page(page, reciever)
     Notification.create!(
-      kind: 12,
+      kind: kinds[:create_pages],
       user: reciever,
       sender: page.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(page),
@@ -196,7 +207,7 @@ class Notification < ApplicationRecord
 
   def self.following_report(report, receiver)
     Notification.create!(
-      kind: 13,
+      kind: kinds[:following_report],
       user: receiver,
       sender: report.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
@@ -207,7 +218,7 @@ class Notification < ApplicationRecord
 
   def self.chose_correct_answer(answer, receiver)
     Notification.create!(
-      kind: 14,
+      kind: kinds[:chose_correct_answer],
       user: receiver,
       sender: answer.receiver,
       link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
@@ -218,7 +229,7 @@ class Notification < ApplicationRecord
 
   def self.consecutive_sad_report(report, receiver)
     Notification.create!(
-      kind: 15,
+      kind: kinds[:consecutive_sad_report],
       user: receiver,
       sender: report.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),

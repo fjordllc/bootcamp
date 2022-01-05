@@ -306,6 +306,18 @@ class User < ApplicationRecord
   )
 
   class << self
+    def notify_to_discord
+      User.retired.find_each do |retired_user|
+        if retired_user.retired_three_months_ago_and_notification_not_sent?
+          ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL'])
+            #{I18n.t('.retire_notice', user: retired_user.login_name)}
+            Discord ID: #{retired_user.discord_account}
+            ユーザーページ: https://bootcamp.fjord.jp/users/#{retired_user.id}
+          TEXT
+        end
+      end
+    end
+
     def announcement_receiver(target)
       case target
       when 'all'
@@ -339,6 +351,10 @@ class User < ApplicationRecord
     def tags
       unretired.all_tag_counts(order: 'count desc, name asc')
     end
+  end
+
+  def retired_three_months_ago_and_notification_not_sent?
+    retired_on <= Date.current - 3.months && !notified_retirement
   end
 
   def away?
