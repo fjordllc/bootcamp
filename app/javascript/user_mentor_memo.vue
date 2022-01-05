@@ -54,9 +54,6 @@ section.a-card.is-memo.is-only-mentor
           .card-main-actions__item
             button.a-button.is-md.is-secondary.is-block(@click='cancel')
               | キャンセル
-
-
-
 </template>
 
 <script>
