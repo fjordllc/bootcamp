@@ -4,7 +4,7 @@ class Admin::CompaniesController < AdminController
   before_action :set_company, only: %i[edit update destroy]
 
   def index
-    @companies = Company.with_attached_logo.order(:id).page(params[:page])
+    # @companies = Company.with_attached_logo.order(:id).page(params[:page])
   end
 
   def new
