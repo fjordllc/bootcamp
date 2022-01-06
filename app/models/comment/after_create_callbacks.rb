@@ -88,6 +88,7 @@ class Comment::AfterCreateCallbacks
   def notify_to_admins(comment)
     User.admins.each do |admin_user|
       next if comment.sender == admin_user
+
       NotificationFacade.came_comment(
         comment,
         admin_user,
