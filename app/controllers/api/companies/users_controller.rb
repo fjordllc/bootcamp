@@ -3,6 +3,7 @@
 class API::Companies::UsersController < API::BaseController
   TARGETS = %w[all student_and_trainee graduate adviser mentor].freeze
   before_action :require_login
+  PAGER_NUMBER = 20
 
   def index
     @target = params[:target]
@@ -11,6 +12,6 @@ class API::Companies::UsersController < API::BaseController
 
     target_users = User.users_role(@target)
 
-    @users = target_users.with_attached_avatar.where(company: @company).order(updated_at: :desc).page(params[:page])
+    @users = target_users.with_attached_avatar.where(company: @company).order(updated_at: :desc).page(params[:page]).per(PAGER_NUMBER)
   end
 end
