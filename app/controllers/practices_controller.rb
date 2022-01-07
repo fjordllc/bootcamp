@@ -11,7 +11,7 @@ class PracticesController < ApplicationController
 
   def show
     @categories = @practice.categories
-    @tweet_url = tweet_url(practice: @practice)
+    @tweet_url = practice_tweet_url
   end
 
   def new
