@@ -19,9 +19,9 @@
       .row.is-gutter-width-32(v-else)
         .o-empty-message
           .o-empty-message__icon
-            i.far.fa-sad-tear
+            i.far.fa-smile
           p.o-empty-message__text
-            | {{ targetName }}のユーザーはいません
+            | {{ generationID }}期のユーザー一覧はありません
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>
