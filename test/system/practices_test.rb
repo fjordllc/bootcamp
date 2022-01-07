@@ -48,7 +48,7 @@ class PracticesTest < ApplicationSystemTestCase
     visit_with_auth "/practices/#{practices(:practice1).id}", 'kimura'
     assert_text '完了 Tweet する'
 
-    find('.a-button.is-tweet').click
+    find(:label, '完了 Tweet する').click
     assert_text '喜びを Tweet する！'
 
     click_link '喜びを Tweet する！'
