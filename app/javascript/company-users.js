@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (users) {
     const companyID = users.getAttribute('company-id')
     new Vue({
-      render: (h) => h(CompanyUsers, {
+      render: (h) =>
+        h(CompanyUsers, {
           props: {
-              companyID: companyID
+            companyID: companyID
           }
-      })
+        })
     }).$mount(selector)
   }
 })
