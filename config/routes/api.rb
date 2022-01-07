@@ -76,5 +76,6 @@ Rails.application.routes.draw do
     resources :companies, only: %i(index show) do
       resources :users, only: %i(index), controller: "companies/users"
     end
+    resources :generations, only: %i(show)
   end
 end
