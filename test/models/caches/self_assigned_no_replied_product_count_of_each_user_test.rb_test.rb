@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class SelfAssignedNoRepliedProductCountOfEachUserTest < ActiveSupport::TestCase
-  test "increase the cached count of a mentor's unreplied products by 1 after the mentor is assigned to a product" do
+  test "cached count of a mentor's unreplied products increases by 1 after the mentor gets assigned to a product" do
     mentor_id = users(:machida).id
     unassigned_product = Product.not_wip.unassigned.first
 
@@ -12,7 +12,7 @@ class SelfAssignedNoRepliedProductCountOfEachUserTest < ActiveSupport::TestCase
     end
   end
 
-  test "decreace the cached count of a mentor's unreplied products by 1 after the mentor is unassigned from an unreplied product" do
+  test "cached count of a mentor's unreplied products decreases by 1 after the mentor gets unassigned from an unreplied product" do
     mentor_id = users(:machida).id
     assigned_and_unreplied_product = Product.self_assigned_no_replied_products(mentor_id).first
 
@@ -21,7 +21,7 @@ class SelfAssignedNoRepliedProductCountOfEachUserTest < ActiveSupport::TestCase
     end
   end
 
-  test "decrease the cached count of a mentor's unreplied products by 1 after the mentor comments to an unreplied product" do
+  test "cached count of a mentor's unreplied products decreases by 1 after the mentor comments to an unreplied product" do
     mentor = users(:machida)
     assigned_and_unreplied_product = Product.self_assigned_no_replied_products(mentor.id).first
 
@@ -31,7 +31,7 @@ class SelfAssignedNoRepliedProductCountOfEachUserTest < ActiveSupport::TestCase
     end
   end
 
-  test "increase the cached count of a mentor's unreplied products by 1 after another user comments to a mentor's replied product" do
+  test "cached count of a mentor's unreplied products increases by 1 after another user comments to a mentor's replied product" do
     mentor = users(:machida)
     assigned_and_replied_product = Product.self_assigned_and_replied_products(mentor.id).first
 
@@ -41,7 +41,7 @@ class SelfAssignedNoRepliedProductCountOfEachUserTest < ActiveSupport::TestCase
     end
   end
 
-  test "decreace the cached count of a mentor's unreplied products by 1 when the mentor's comment become latest after destory the latest comment" do
+  test "cached count of a mentor's unreplied products decreases by 1 when the mentor's comment becomes latest after destroying the latest comment" do
     mentor = users(:machida)
     assigned_and_replied_product = Product.self_assigned_and_replied_products(mentor.id).first
     latest_comment_from_another_user = assigned_and_replied_product.comments.create!(description: '担当者以外のユーザーが提出物へ返信', user: users(:komagata))
@@ -52,7 +52,7 @@ class SelfAssignedNoRepliedProductCountOfEachUserTest < ActiveSupport::TestCase
     end
   end
 
-  test "increase the cached count of a mentor's unreplied products by 1 when the mentor's comment is no longer the latest after destory the latest comment" do
+  test "cached count of a mentor's unreplied products increases by 1 when the mentor's comment is no longer the latest after destroying the latest comment" do
     mentor = users(:machida)
     assigned_and_unreplied_product = Product.self_assigned_no_replied_products(mentor.id).first
     latest_comment_from_mentor = assigned_and_unreplied_product.comments.create!(description: '担当者が提出物へ返信', user: mentor)
