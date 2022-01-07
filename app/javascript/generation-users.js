@@ -2,7 +2,7 @@ import Vue from 'vue'
 import GenerationUsers from './generation-users.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-	const selector = '#js-generation-users'
+  const selector = '#js-generation-users'
   const users = document.querySelector(selector)
   if (users) {
     const generationID = users.getAttribute('generation-id')
