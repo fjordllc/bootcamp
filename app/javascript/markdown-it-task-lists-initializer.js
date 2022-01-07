@@ -52,7 +52,7 @@ export default class {
       })
       .then((_json) => {
         Swal.fire({
-          title: 'チェクボクスを変更しました！',
+          title: 'チェックボックスを変更しました！',
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
