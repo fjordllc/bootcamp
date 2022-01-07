@@ -34,7 +34,7 @@ export default {
     user: User,
     pager: Pager
   },
-    props: {
+  props: {
     generationID: { type: String, required: true }
   },
   data() {
