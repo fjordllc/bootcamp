@@ -34,7 +34,7 @@ export default {
     user: User,
     pager: Pager
   },
-    props: {
+  props: {
     companyID: { type: String, required: true }
   },
   data() {
