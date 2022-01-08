@@ -6,6 +6,7 @@ import MarkdownItUserIcon from './markdown-it-user-icon'
 import MarkdownItLinkingImage from './markdown-it-linking-image'
 import MarkdownOption from './markdown-it-option'
 import UserIconRenderer from './user-icon-renderer'
+import MarkdownItTaskListsInitializer from './markdown-it-task-lists-initializer'
 
 export default class {
   replace(selector) {
@@ -20,6 +21,8 @@ export default class {
     })
 
     new UserIconRenderer().render(selector)
+
+    MarkdownItTaskListsInitializer.initialize()
   }
 
   render(text) {
