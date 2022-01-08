@@ -9,7 +9,6 @@ export default {
         alert('ドット1つだけのタグは作成できません') // eslint-disable-line no-undef
       } else {
         if (/^(#|＃|♯)/.test(text)) {
-          alert('先頭の記号は無視されます') // eslint-disable-line no-undef
           if (text.length === 1) {
             return
           }
