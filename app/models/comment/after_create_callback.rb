@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Comment::AfterCreateCallbacks
+class Comment::AfterCreateCallback
   def after_create(comment)
     if comment.commentable.class.include?(Watchable)
       create_watch(comment)
