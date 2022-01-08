@@ -5,7 +5,7 @@ class API::GenerationsController < API::BaseController
   PAGER_NUMBER = 20
 
   def show
-    @generation = params[:id].to_i
-    @users = Generation.new(@generation).users.page(params[:page]).per(PAGER_NUMBER)
+    generation = params[:id].to_i
+    @users = Generation.new(generation).users.page(params[:page]).per(PAGER_NUMBER)
   end
 end
