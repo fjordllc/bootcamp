@@ -24,6 +24,8 @@
           :name='tagsParamName',
           :id='tagsInputId'
         )
+    div(v-if='tagNameHeadIsSharpOrOctothorpe')
+      | 先頭の記号は無視されます
     .form-actions(v-if='tagsEditable')
       ul.form-actions__items
         li.form-actions__item.is-main
@@ -90,6 +92,10 @@ export default {
           tag.text.toLowerCase().indexOf(this.inputTag.toLowerCase()) !== -1
         )
       })
+    },
+    tagNameHeadIsSharpOrOctothorpe() {
+      const regex = /^(#|＃|♯).*/
+      return regex.test(this.inputTag)
     }
   },
   mounted() {
