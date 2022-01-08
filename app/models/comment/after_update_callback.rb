@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Comment::AfterUpdateCallbacks
+class Comment::AfterUpdateCallback
   def after_update(comment)
     return unless comment.commentable.instance_of?(Product)
 
