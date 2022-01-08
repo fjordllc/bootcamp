@@ -36,11 +36,11 @@ class Notification < ApplicationRecord
   }
 
   scope :reads, lambda {
-    where(created_at: into_one.values).order(created_at: :desc)
+    latest_of_each_link.order(created_at: :desc)
   }
 
   scope :unreads, lambda {
-    where(read: false, created_at: into_one.values).order(created_at: :desc)
+    where(read: false).latest_of_each_link.order(created_at: :desc)
   }
 
   scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
@@ -49,6 +49,7 @@ class Notification < ApplicationRecord
   scope :by_target, lambda { |target|
     target ? where(kind: TARGETS_TO_KINDS[target]) : all
   }
+  scope :latest_of_each_link, -> { where(created_at: into_one.values) }
 
   def self.came_comment(comment, receiver, message)
     Notification.create!(
