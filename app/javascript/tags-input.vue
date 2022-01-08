@@ -9,6 +9,8 @@ div
     @before-adding-tag='validateTagName'
   )
   input(type='hidden', :value='tagsValue', :name='tagsParamName')
+  div(v-if='tagNameHeadIsSharpOrOctothorpe')
+    | 先頭の記号は無視されます
 </template>
 
 <script>
@@ -38,6 +40,10 @@ export default {
           tag.text.toLowerCase().indexOf(this.inputTag.toLowerCase()) !== -1
         )
       })
+    },
+    tagNameHeadIsSharpOrOctothorpe() {
+      const regex = /^(#|＃|♯).*/
+      return regex.test(this.inputTag)
     }
   },
   mounted() {
