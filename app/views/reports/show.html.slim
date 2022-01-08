@@ -151,6 +151,9 @@ header.page-header
               .side-tabs-contents__item#side-tabs-content-1
                 #js-user-recent-reports(user-id="#{@report.user.id}")
               .side-tabs-contents__item#side-tabs-content-2.is-only-mentor
+                .user-info
+                  = render 'users/user_secret_attributes', user: @report.user
+                  = render 'users/metas', user: @report.user
                 #js-user-mentor-memo(data-user-id='#{@report.user_id}')
               .side-tabs-contents__item#side-tabs-content-3.is-only-mentor
                 .thread-list.a-card
