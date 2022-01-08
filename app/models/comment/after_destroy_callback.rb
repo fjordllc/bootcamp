@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Comment::AfterDestroyCallbacks
+class Comment::AfterDestroyCallback
   def after_destroy(comment)
     return unless comment.commentable.instance_of?(Product)
 
