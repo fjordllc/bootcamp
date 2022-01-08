@@ -71,4 +71,17 @@ class User::TagsTest < ApplicationSystemTestCase
     visit user_path(users(:hajime))
     assert_no_text name
   end
+
+  test 'the first letter is ignored when adding a tag whose name begins with octothorpe' do
+    visit_with_auth user_path(users(:hatsuno)), 'hatsuno'
+    page.all('.tag-links__item-edit')[0].click
+    tag_input = find('.ti-new-tag-input')
+    tag_input.set '#ハッシュハッシュ'
+    find('body').click
+    click_button '保存する'
+
+    visit_with_auth user_path(users(:hatsuno)), 'komagata'
+    assert_no_text '#ハッシュハッシュ'
+    assert_text 'ハッシュハッシュ'
+  end
 end
