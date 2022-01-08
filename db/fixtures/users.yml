@@ -864,3 +864,26 @@ thuynga: # アイコンが小さい画像のユーザー
   unsubscribe_email_token: KVcUc3Ew3L6yt1Pwjdp-iQ
   updated_at: "2021-12-01 00:00:11"
   created_at: "2021-12-01 00:00:11"
+
+sotugyou-adviser: # 区分が卒業生ではない卒業したユーザー
+  login_name: sotugyou-adviser
+  email: sotugyou-adviser@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 卒業 アドバイザー
+  name_kana: ソツギョウ アドバイザー
+  twitter_account: sotugyou-adviser
+  facebook_url: http://www.facebook.com/sotugyou-adviser
+  blog_url: http://sotugyou-adviser.example.com/
+  description: "区分が卒業生ではない卒業したユーザーです"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  job_seeker: true
+  organization: 株式会社卒業
+  graduated_on: "2015-01-01"
+  adviser: true
+  unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
+  updated_at: "2014-01-01 00:00:03"
+  created_at: "2014-01-01 00:00:03"

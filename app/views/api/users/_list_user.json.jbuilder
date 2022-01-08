@@ -1,4 +1,4 @@
-json.(user, :id, :login_name, :name, :discord_account, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :times_url, :job_seeker, :free, :job, :os, :experience, :email, :role, :icon_title, :cached_completed_percentage, :completed_fraction)
+json.(user, :id, :login_name, :name, :discord_account, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :times_url, :job_seeker, :free, :job, :os, :experience, :email, :role, :icon_title, :cached_completed_percentage, :completed_fraction, :graduated_on)
 json.tag_list user.tags.pluck(:name)
 json.url user_url(user)
 json.updated_at l(user.updated_at)
