@@ -65,14 +65,14 @@ ja:
         organization: 現在の所属組織
         company: 企業
         created_at: 開始日
-        updated_at: 最終ログイン日時
+        updated_at: 最終ログイン
         nda: 秘密保持契約
         graduated_on: 卒業日
         adviser: アドバイザー
         trainee: 研修生
         job_seeking: 就職活動中
         retired_on: 退会日
-        free: 無料ユーザー
+        free: 無料
         avatar: ユーザーアイコン
         retire_reasons: 選択入力の退会理由
         retire_reason: 自由記入の退会理由

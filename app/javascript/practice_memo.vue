@@ -1,7 +1,7 @@
 <template lang="pug">
-.practice-content.is-memo
-  section.a-card(v-if='!editing')
-    .practice-content__body(v-if='memo')
+.a-card
+  div(v-if='!editing')
+    .card-body(v-if='memo')
       .js-target-blank.is-long-text(v-html='markdownMemo')
     .thread-list(v-else)
       .thread-list__inner
@@ -20,7 +20,7 @@
             )
               i.fas.fa-pen
               | 編集
-  .a-card(v-show='editing')
+  div(v-show='editing')
     .form-tabs.js-tabs
       .form-tabs__tab.js-tabs__tab(
         :class='{ "is-active": isActive("memo") }',
