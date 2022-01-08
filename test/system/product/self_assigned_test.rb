@@ -42,6 +42,28 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     end
   end
 
+  test 'products order on self assigned tab' do
+    checker = users(:komagata)
+    # id順で並べたときの最初と最後の提出物を、コメントの日付順・提出日順で見たときに最新と最古になるように入れ替える
+    # 最古の提出物を画面上で判定するため、提出物を1ページ内に収める
+    Product.update_all(created_at: 3.days.ago, published_at: 3.days.ago, checker_id: checker.id) # rubocop:disable Rails/SkipsModelValidations
+    Product.unchecked.limit(Product.count - Product.default_per_page).delete_all
+    newest_product = Product.self_assigned_product(checker.id).unchecked.reorder(:id).first
+    newest_product.update(published_at: 1.day.ago)
+    oldest_product = Product.self_assigned_product(checker.id).unchecked.reorder(:id).last
+    oldest_product.update(commented_at: Time.current, published_at: Time.current)
+
+    visit_with_auth '/products/self_assigned', 'komagata'
+
+    # 作成日の降順で並んでいることを検証する
+    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    names = all('.thread-list-item-meta .a-user-name').map(&:text)
+    assert_equal "#{newest_product.practice.title}の提出物", titles.first
+    assert_equal newest_product.user.login_name, names.first
+    assert_equal "#{oldest_product.practice.title}の提出物", titles.last
+    assert_equal oldest_product.user.login_name, names.last
+  end
+
   test 'not display products in listing self-assigned if self-assigned products all checked' do
     product = products(:product3)
     checker = users(:komagata)
