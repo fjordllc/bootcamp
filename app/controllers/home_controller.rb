@@ -7,13 +7,14 @@ class HomeController < ApplicationController
         logout
         redirect_to retire_path
       else
-        @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(5)
+        @announcements = Announcement.with_avatar
+                                     .where(wip: false)
+                                     .order(published_at: :desc)
+                                     .limit(5)
         @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
         @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(updated_at: :desc)
         @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
-        cookies_ids = JSON.parse(cookies[:confirmed_event_ids]) if cookies[:confirmed_event_ids]
-        @events_coming_soon = Event.where(start_at: today_to_tomorrow).or(Event.where(start_at: tomorrow_to_day_after_tomorrow)).where.not(id: cookies_ids)
-        @events_coming_soon_except_job_hunting = @events_coming_soon.where.not(job_hunting: true)
+        display_events_on_dashboard
         set_required_fields
         render aciton: :index
       end
@@ -44,5 +45,11 @@ class HomeController < ApplicationController
 
   def tomorrow_to_day_after_tomorrow
     (Time.zone.tomorrow + 9.hours)..(Time.zone.tomorrow + 1.day + 9.hours)
+  end
+
+  def display_events_on_dashboard
+    cookies_ids = JSON.parse(cookies[:confirmed_event_ids]) if cookies[:confirmed_event_ids]
+    @events_coming_soon = Event.where(start_at: today_to_tomorrow).or(Event.where(start_at: tomorrow_to_day_after_tomorrow)).where.not(id: cookies_ids)
+    @events_coming_soon_except_job_hunting = @events_coming_soon.where.not(job_hunting: true)
   end
 end
