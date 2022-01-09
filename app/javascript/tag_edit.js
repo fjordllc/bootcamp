@@ -2,7 +2,7 @@ import Vue from 'vue'
 import TagEditButton from './tag-edit-button.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const selector = '#js-question-tag-edit'
+  const selector = '#js-tag-edit'
   const tagEdit = document.querySelector(selector)
   if (tagEdit) {
     const tagId = tagEdit.getAttribute('tag-id')
