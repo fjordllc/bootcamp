@@ -93,6 +93,7 @@ class User::TagsTest < ApplicationSystemTestCase
     click_button '変更'
     wait_for_vuejs
 
+    visit_with_auth users_tag_path(tag.name), 'komagata'
     assert_text "#{tag.name}のユーザーはいません"
     visit_with_auth users_tag_path(update_tag_text), 'komagata'
     assert_text "タグ「#{update_tag_text}」のユーザー（1）"
@@ -113,9 +114,10 @@ class User::TagsTest < ApplicationSystemTestCase
     click_button '変更'
     wait_for_vuejs
 
-    assert_text "タグ「#{update_tag.name}」のユーザー（2）"
-    visit_with_auth users_tag_path(update_tag.name, all: 'true'), 'komagata'
+    visit_with_auth users_tag_path(tag.name), 'komagata'
     assert_text "#{tag.name}のユーザーはいません"
+    visit_with_auth users_tag_path(update_tag.name), 'komagata'
+    assert_text "タグ「#{update_tag.name}」のユーザー（2）"
 
     visit_with_auth pages_tag_path(tag.name), 'komagata'
     has_no_selector?('thread-list-item')
