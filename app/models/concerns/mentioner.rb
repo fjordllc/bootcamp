@@ -20,7 +20,7 @@ module Mentioner
     when Comment
       "#{target_of_comment(commentable.class, commentable)}へのコメント"
     when Answer
-      "#{self.receiver.login_name}さんのQ&A「#{question[:title]}」へのコメント"
+      "#{receiver.login_name}さんのQ&A「#{question[:title]}」へのコメント"
     end
   end
 
