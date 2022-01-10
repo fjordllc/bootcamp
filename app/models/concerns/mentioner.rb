@@ -19,6 +19,8 @@ module Mentioner
       "#{user.login_name}さんの日報「#{self[:title]}」"
     when Comment
       "#{target_of_comment(commentable.class, commentable)}へのコメント"
+    when Answer
+      "#{self.receiver.login_name}さんのQ&A「#{question[:title]}」へのコメント"
     end
   end
 
