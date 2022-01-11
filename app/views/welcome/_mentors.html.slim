@@ -135,6 +135,17 @@ section.welcome-child-section
             | #{link_to 'Shinjuku.rb', 'https://shinjukurb.connpass.com/'}管理者。
             | 好きなメソッドはObject#object_idです。
       .col-xs-12.col-md-6.col-lg-4
+        = render 'welcome/mentor', name: '井上 夏樹',
+                job: 'プログラマー',
+                image: 'inoue.jpg',
+                github_id: 'summertree128',
+                blog_url: 'https://summertree.hatenablog.com/',
+                twitter_id: '_SummerTree' do
+          p
+            | バックエンドエンジニア/ソフトウェアアーキテクト。
+            | 東京の会社でマイクロサービスの設計・開発やアーキテクチャ改善などをやっています。
+            | 好きなRubyのメソッドはKernel.#pです。
+      .col-xs-12.col-md-6.col-lg-4
         = render 'welcome/mentor', name: '岡嵜 雄平',
                                    job: 'プログラマー',
                                    image: 'yuuu.png',
