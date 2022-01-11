@@ -42,7 +42,10 @@ class Notification < ApplicationRecord
   scope :by_target, lambda { |target|
     target ? where(kind: TARGETS_TO_KINDS[target]) : all
   }
-  scope :latest_of_each_link, -> { where(created_at: into_one.values) }
+
+  scope :latest_of_each_link, lambda {
+    select('DISTINCT ON (link) *').order(link: :asc, created_at: :desc, id: :desc) # 「作成日時が最新の通知」が複数ある場合に取得する1件の通知を一定にするため、ORDER BY の最後に id の降順を指定した
+  }
 
   def self.came_comment(comment, receiver, message)
     Notification.create!(
@@ -242,9 +245,5 @@ class Notification < ApplicationRecord
       message: "#{product.user.login_name}さんの提出物#{product.title}の担当になりました。",
       read: false
     )
-  end
-
-  def self.into_one
-    select(:link).group(:link).maximum(:created_at)
   end
 end
