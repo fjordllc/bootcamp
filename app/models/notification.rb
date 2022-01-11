@@ -35,16 +35,9 @@ class Notification < ApplicationRecord
     assigned_as_checker: 16
   }
 
-  scope :reads, lambda {
-    latest_of_each_link.order(created_at: :desc)
-  }
-
-  scope :unreads, lambda {
-    where(read: false).latest_of_each_link.order(created_at: :desc)
-  }
-
+  scope :unreads, -> { where(read: false) }
   scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
-  scope :by_read_status, ->(status) { status == 'unread' ? unreads.with_avatar.limit(99) : reads.with_avatar }
+  scope :by_read_status, ->(status) { status == 'unread' ? unreads.with_avatar.limit(99) : with_avatar }
 
   scope :by_target, lambda { |target|
     target ? where(kind: TARGETS_TO_KINDS[target]) : all

@@ -490,7 +490,7 @@ class User < ApplicationRecord
   end
 
   def unread_notifications_count
-    @unread_notifications_count ||= notifications.unreads.count
+    @unread_notifications_count ||= notifications.unreads.latest_of_each_link.size
   end
 
   def unread_notifications_exists?
