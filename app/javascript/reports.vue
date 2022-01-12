@@ -40,6 +40,12 @@ export default {
     loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager
   },
+  props: {
+    userId: {
+      type: String,
+      default: null
+    }
+  },
   data() {
     return {
       reports: null,
@@ -52,14 +58,11 @@ export default {
     isUncheckedReportsPage() {
       return location.pathname.includes('unchecked')
     },
-    isCurrentUserReportsPage() {
-      return location.pathname.includes('current_user')
-    },
     newParams() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
-      if (this.isCurrentUserReportsPage) {
-        params.set('current_user', true.toString())
+      if (this.userId) {
+        params.set('user_id', this.userId)
       }
       return params
     },
