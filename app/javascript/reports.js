@@ -6,10 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const reports = document.querySelector(selector)
   if (reports) {
     const userId = reports.getAttribute('data-user-id')
+    const limit = reports.getAttribute('data-limit')
     new Vue({
       render: (h) =>
         h(Reports, {
-          props: { userId: userId }
+          props: { userId: userId, limit: limit }
         })
     }).$mount(selector)
   }
