@@ -53,7 +53,6 @@ class BookmarksTest < ApplicationSystemTestCase
 
   test 'show question bookmark on lists' do
     visit_with_auth '/current_user/bookmarks', 'kimura'
-    assert_equal 'ブックマーク一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     assert_text @question.title
   end
 
