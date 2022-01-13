@@ -11,7 +11,7 @@ class API::Admin::CompaniesTest < ActionDispatch::IntegrationTest
 
     token = create_token('komagata', 'testtest')
     get api_users_path(format: :json),
-      headers: { 'Authorization' => "Bearer #{token}" }
+        headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
   end
 
@@ -20,7 +20,7 @@ class API::Admin::CompaniesTest < ActionDispatch::IntegrationTest
     get api_admin_companies_path
 
     delete api_admin_company_path(companies(:company2).id, format: :json),
-      headers: { 'Authorization' => "Bearer #{token}" }
+           headers: { 'Authorization' => "Bearer #{token}" }
 
     assert_response :success
   end
