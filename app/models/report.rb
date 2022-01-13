@@ -10,6 +10,7 @@ class Report < ApplicationRecord
   include WithAvatar
   include Mentioner
   include Bookmarkable
+  include Taskable
 
   enum emotion: {
     sad: 1,

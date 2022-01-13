@@ -78,4 +78,12 @@ export default class {
     // user-icon
     new UserIconRenderer().render(selector)
   }
+
+  static uninitialize(selector) {
+    const textareas = document.querySelectorAll(selector)
+    textareas.forEach((textarea) => {
+      const cloneTextarea = textarea.cloneNode(true)
+      textarea.parentNode.replaceChild(cloneTextarea, textarea)
+    })
+  }
 }

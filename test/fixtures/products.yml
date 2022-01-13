@@ -2,6 +2,7 @@ product1: # 自分のコメントあり(2つ)
   practice: practice1
   user: yamada
   body: テストの提出物1です。
+  checker_id: nil
 
 product2: # チェック済
   practice: practice1

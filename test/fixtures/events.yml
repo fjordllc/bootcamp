@@ -124,3 +124,15 @@ event28:
   open_start_at: 2017-3-26 9:00
   open_end_at: 2017-4-02 9:00
   user: komagata
+
+event29:
+  title: "就職関係かつ直近イベントの表示テスト用"
+  description: "就職関係かつ直近イベントの表示テスト用"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: 2017-04-02 00:00:00
+  end_at: 2017-4-2 12:00:00
+  open_start_at: 2017-3-26 9:00
+  open_end_at: 2017-4-02 9:00
+  job_hunting: true
+  user: komagata

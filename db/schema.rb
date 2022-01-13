@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_17_034500) do
+ActiveRecord::Schema.define(version: 2021_12_23_071408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -248,7 +248,7 @@ ActiveRecord::Schema.define(version: 2021_12_17_034500) do
     t.bigint "user_id"
     t.integer "sender_id", null: false
     t.string "message"
-    t.string "path"
+    t.string "link"
     t.boolean "read", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -457,6 +457,7 @@ ActiveRecord::Schema.define(version: 2021_12_17_034500) do
     t.text "mentor_memo"
     t.string "discord_account"
     t.string "times_url"
+    t.boolean "notified_retirement", default: false, null: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true

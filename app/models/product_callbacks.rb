@@ -58,7 +58,7 @@ class ProductCallbacks
   end
 
   def delete_notification(product)
-    Notification.where(path: "/products/#{product.id}").destroy_all
+    Notification.where(link: "/products/#{product.id}").destroy_all
   end
 
   def notify_to_watching_mentor(product)

@@ -33,18 +33,9 @@ header.page-header
                 #js-question-tag-edit(tag-id="#{@tag.id}" tag-name="#{@tag.name}")
 .page-body
   .container.is-xl
-    = paginate @questions
     .two-columns
       .two-columns__inner
-        - if @questions.present?
-          .thread-list.a-card
-            = render @questions
-        - else
-          .o-empty-message
-            .o-empty-message__icon
-              i.far.fa-smile
-            p.o-empty-message__text
-              = @questions_property.empty_message
+        #js-questions data-empty-message=@questions_property.empty_message data-selected-tag=params[:tag]
       - if @tags.any?
         nav.page-tags-nav
           header.page-tags-nav__header
@@ -56,4 +47,3 @@ header.page-header
                 - if tag.present?
                   li.page-tags-nav__item
                     = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'page-tags-nav__item-link'
-    = paginate @questions

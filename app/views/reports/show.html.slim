@@ -90,7 +90,7 @@ header.page-header
             = render 'reports/learning_times', report: @report
 
             .thread__body
-              .thread__description.js-target-blank.is-long-text.js-markdown-view
+              .thread__description.js-target-blank.is-long-text.js-markdown-view(data-taskable-id="#{@report.id}" data-taskable-type='Report' data-taskable="#{@report.taskable?(current_user).to_s}")
                 = @report.description
               = render 'reactions/reactions', reactionable: @report
 
@@ -151,6 +151,9 @@ header.page-header
               .side-tabs-contents__item#side-tabs-content-1
                 #js-user-recent-reports(user-id="#{@report.user.id}")
               .side-tabs-contents__item#side-tabs-content-2.is-only-mentor
+                .user-info
+                  = render 'users/user_secret_attributes', user: @report.user
+                  = render 'users/metas', user: @report.user
                 #js-user-mentor-memo(data-user-id='#{@report.user_id}')
               .side-tabs-contents__item#side-tabs-content-3.is-only-mentor
                 .thread-list.a-card

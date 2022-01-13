@@ -217,6 +217,26 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/退会/, email.body.to_s)
   end
 
+  test 'three_months_after_retirement' do
+    user = users(:kensyuowata)
+    admin = users(:komagata)
+    mailer = NotificationMailer.with(
+      sender: user,
+      receiver: admin
+    ).three_months_after_retirement
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[bootcamp] kensyuowataさんが退会してから3カ月が経過しました。', email.subject
+    assert_match(/退会/, email.body.to_s)
+  end
+
   test 'trainee_report' do
     report = reports(:report11)
     trainee_report = notifications(:notification_trainee_report)

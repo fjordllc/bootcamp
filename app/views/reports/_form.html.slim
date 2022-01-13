@@ -65,7 +65,7 @@
               template-id="#{current_user.report_template&.id}"
             )
           .a-textarea-bottom-note
-            = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
+            = f.text_area :description, class: 'a-text-input js-warning-form js-report-content markdown-form__text-area', data: { 'preview': '.js-preview' }
             .a-textarea-bottom-note__banner
               | 途中保存は「command + s」 マメに保存しよう。
         .col-md-6.col-xs-12
