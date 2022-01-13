@@ -6,7 +6,7 @@ class Answer < ApplicationRecord
   include Mentioner
 
   belongs_to :user, touch: true
-  belongs_to :question, touch: true
+  belongs_to :question, touch: false
   alias sender user
 
   after_create AnswerCallbacks.new

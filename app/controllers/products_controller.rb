@@ -48,6 +48,7 @@ class ProductsController < ApplicationController
     set_wip
     if @product.update(product_params)
       redirect_to @product, notice: notice_message(@product, :update)
+      notice_another_mentor_assined_as_checker
     else
       render :edit
     end
@@ -120,5 +121,12 @@ class ProductsController < ApplicationController
     when :update
       '提出物を更新しました。'
     end
+  end
+
+  def notice_another_mentor_assined_as_checker
+    @checker_id = @product.checker_id
+    return unless @checker_id && admin_or_mentor_login? && (@checker_id != current_user.id) && !@product.wip?
+
+    NotificationFacade.assigned_as_checker(@product, User.find(@checker_id))
   end
 end

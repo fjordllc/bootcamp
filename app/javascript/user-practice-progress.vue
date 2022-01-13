@@ -25,17 +25,15 @@ export default {
   },
   computed: {
     roundedPercentage() {
-      return this.user.role === 'graduate'
-        ? '100%'
-        : Math.round(this.percentage) + '%'
+      return this.user.graduated_on ? '100%' : Math.round(this.percentage) + '%'
     }
   },
   methods: {
     ariaValuenow() {
-      return this.user.role === 'graduate' ? 100 : this.percentage
+      return this.user.graduated_on ? 100 : this.percentage
     },
     completedPracticesProgressNumber() {
-      return this.user.role === 'graduate' ? '卒業' : this.fraction
+      return this.user.graduated_on ? '卒業' : this.fraction
     }
   }
 }

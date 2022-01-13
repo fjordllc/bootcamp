@@ -124,3 +124,14 @@ event28:
   open_start_at: 2019-12-10 9:00
   open_end_at: 2019-12-16 9:00
   user: komagata
+
+event29:
+  title: "就職関係かつ直近イベントの表示テスト用"
+  description: "就職関係かつ直近イベントの表示テスト用"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: <%= Date.tomorrow %>
+  end_at: 2019-12-17 12:00:00
+  open_start_at: 2019-12-10 9:00
+  open_end_at: 2019-12-16 9:00
+  user: komagata

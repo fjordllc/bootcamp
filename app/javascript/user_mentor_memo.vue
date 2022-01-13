@@ -14,18 +14,18 @@ section.a-card.is-memo.is-only-mentor
           )
             i.fas.fa-pen
             | 編集
-  .a-card__inner(v-show='editing')
-    .form-tabs.js-tabs
-      .form-tabs__tab.js-tabs__tab(
-        :class='{ "is-active": isActive("memo") }',
-        @click='changeActiveTab("memo")'
-      )
-        | メモ
-      .form-tabs__tab.js-tabs__tab(
-        :class='{ "is-active": isActive("preview") }',
-        @click='changeActiveTab("preview")'
-      )
-        | プレビュー
+  .form-tabs.js-tabs(v-show='editing')
+    .form-tabs__tab.js-tabs__tab(
+      :class='{ "is-active": isActive("memo") }',
+      @click='changeActiveTab("memo")'
+    )
+      | メモ
+    .form-tabs__tab.js-tabs__tab(
+      :class='{ "is-active": isActive("preview") }',
+      @click='changeActiveTab("preview")'
+    )
+      | プレビュー
+  .card-body(v-show='editing')
     .a-markdown-input.js-markdown-parent
       .a-markdown-input__inner.is-editor.js-tabs__content(
         :class='{ "is-active": isActive("memo") }'
@@ -40,15 +40,15 @@ section.a-card.is-memo.is-only-mentor
         :class='{ "is-active": isActive("preview") }'
       )
         .is-long-text.a-markdown-input__preview(v-html='markdownMemo')
-    .card-footer
-      .card-main-actions
-        .card-main-actions__items
-          .card-main-actions__item
-            button.a-button.is-md.is-warning.is-block(@click='updateMemo')
-              | 保存する
-          .card-main-actions__item
-            button.a-button.is-md.is-secondary.is-block(@click='cancel')
-              | キャンセル
+  .card-footer(v-show='editing')
+    .card-main-actions
+      .card-main-actions__items
+        .card-main-actions__item
+          button.a-button.is-md.is-warning.is-block(@click='updateMemo')
+            | 保存する
+        .card-main-actions__item
+          button.a-button.is-md.is-secondary.is-block(@click='cancel')
+            | キャンセル
 </template>
 
 <script>

@@ -3,7 +3,7 @@
 class NotificationFacade
   def self.came_comment(comment, receiver, message)
     Notification.came_comment(comment, receiver, message)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       comment: comment,
@@ -15,14 +15,14 @@ class NotificationFacade
   def self.checked(check)
     Notification.checked(check)
     receiver = check.receiver
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(check: check).checked.deliver_later(wait: 5)
   end
 
   def self.mentioned(mentionable, receiver)
     Notification.mentioned(mentionable, receiver)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       mentionable: mentionable,
@@ -32,7 +32,7 @@ class NotificationFacade
 
   def self.submitted(subject, receiver, message)
     Notification.submitted(subject, receiver, message)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       product: subject,
@@ -44,14 +44,14 @@ class NotificationFacade
   def self.came_answer(answer)
     Notification.came_answer(answer)
     receiver = answer.receiver
-    return unless answer.receiver.mail_notification? && !receiver.retired_on?
+    return unless answer.receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(answer: answer).came_answer.deliver_later(wait: 5)
   end
 
   def self.post_announcement(announce, receiver)
     Notification.post_announcement(announce, receiver)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       announcement: announce,
@@ -61,7 +61,7 @@ class NotificationFacade
 
   def self.came_question(question, receiver)
     Notification.came_question(question, receiver)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       question: question,
@@ -71,7 +71,7 @@ class NotificationFacade
 
   def self.first_report(report, receiver)
     Notification.first_report(report, receiver)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       report: report,
@@ -81,7 +81,7 @@ class NotificationFacade
 
   def self.watching_notification(watchable, receiver, comment)
     Notification.watching_notification(watchable, receiver, comment)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       watchable: watchable,
@@ -92,7 +92,7 @@ class NotificationFacade
 
   def self.retired(sender, receiver)
     Notification.retired(sender, receiver)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       sender: sender,
@@ -100,9 +100,19 @@ class NotificationFacade
     ).retired.deliver_later(wait: 5)
   end
 
+  def self.three_months_after_retirement(sender, receiver)
+    Notification.three_months_after_retirement(sender, receiver)
+    return unless receiver.mail_notification? && !receiver.retired?
+
+    NotificationMailer.with(
+      sender: sender,
+      receiver: receiver
+    ).three_months_after_retirement.deliver_later(wait: 5)
+  end
+
   def self.trainee_report(report, receiver)
     Notification.trainee_report(report, receiver)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       report: report,
@@ -112,7 +122,7 @@ class NotificationFacade
 
   def self.following_report(report, receiver)
     Notification.following_report(report, receiver)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       report: report,
@@ -122,7 +132,7 @@ class NotificationFacade
 
   def self.moved_up_event_waiting_user(event, receiver)
     Notification.moved_up_event_waiting_user(event, receiver)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       event: event,
@@ -132,7 +142,7 @@ class NotificationFacade
 
   def self.create_page(page, receiver)
     Notification.create_page(page, receiver)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       page: page,
@@ -142,7 +152,7 @@ class NotificationFacade
 
   def self.chose_correct_answer(answer, receiver)
     Notification.chose_correct_answer(answer, receiver)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       answer: answer,
@@ -152,11 +162,21 @@ class NotificationFacade
 
   def self.consecutive_sad_report(report, receiver)
     Notification.consecutive_sad_report(report, receiver)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       report: report,
       receiver: receiver
     ).consecutive_sad_report.deliver_later(wait: 5)
+  end
+
+  def self.assigned_as_checker(product, receiver)
+    Notification.assigned_as_checker(product, receiver)
+    return unless receiver.mail_notification? && !receiver.retired_on?
+
+    NotificationMailer.with(
+      product: product,
+      receiver: receiver
+    ).assigned_as_checker.deliver_later(wait: 5)
   end
 end

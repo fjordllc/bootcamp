@@ -3,7 +3,7 @@ notification_commented:
   user: sotugyou
   sender: komagata
   message: komagataさんからコメントが届きました。
-  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>"
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>"
   read: false
 
 notification_checked:
@@ -11,7 +11,7 @@ notification_checked:
   user: sotugyou
   sender: machida
   message: machidaさんが学習週1日目を確認しました。
-  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>"
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>"
   read: false
 
 notification_mentioned:
@@ -19,7 +19,7 @@ notification_mentioned:
   user: sotugyou
   sender: komagata
   message: komagataさんからメンションがきました。
-  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>#comment_<%= ActiveRecord::FixtureSet.identify(:comment9)%>"
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>#comment_<%= ActiveRecord::FixtureSet.identify(:comment9)%>"
   read: false
 
 notification_read:
@@ -27,15 +27,15 @@ notification_read:
   user: sotugyou
   sender: machida
   message: machidaさんからコメントが届きました。
-  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>"
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>"
   read: true
 
 notification_submitted:
   kind: 3
   user: komagata
   sender: sotugyou
-  message: sogugyouさんが「Terminalの基礎を覚える」の提出物を提出しました。
-  path: "/products/<%= ActiveRecord::FixtureSet.identify(:product3) %>"
+  message: sotugyouさんが「Terminalの基礎を覚える」の提出物を提出しました。
+  link: "/products/<%= ActiveRecord::FixtureSet.identify(:product3) %>"
   read: false
 
 notification_answered:
@@ -43,7 +43,7 @@ notification_answered:
   user: sotugyou
   sender: komagata
   message: komagataさんから回答がありました。
-  path: "/questions/<%= ActiveRecord::FixtureSet.identify(:question2) %>"
+  link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question2) %>"
   read: false
 
 notification_announced:
@@ -51,7 +51,7 @@ notification_announced:
   user: sotugyou
   sender: komagata
   message: komagataさんからお知らせです。
-  path: "/announcements/<%= ActiveRecord::FixtureSet.identify(:announcement1) %>"
+  link: "/announcements/<%= ActiveRecord::FixtureSet.identify(:announcement1) %>"
   read: false
 
 notification_questioned:
@@ -59,7 +59,7 @@ notification_questioned:
   user: komagata
   sender: sotugyou
   message: sotugyouさんから質問がありました。
-  path: "/questions/<%= ActiveRecord::FixtureSet.identify(:question2) %>"
+  link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question2) %>"
   read: false
 
 notification_first_report:
@@ -67,7 +67,7 @@ notification_first_report:
   user: komagata
   sender: hajime
   message: hajimeさんがはじめての日報を書きました！
-  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report10) %>"
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report10) %>"
   read: false
 
 notification_watching:
@@ -75,7 +75,7 @@ notification_watching:
   user: kimura
   sender: komagata
   message: komagataさんの【 「作業週1日目」の日報 】にmachidaさんがコメントしました。
-  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report1) %>"
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report1) %>"
   read: false
 
 notification_retired:
@@ -83,7 +83,15 @@ notification_retired:
   user: komagata
   sender: yameo
   message: yameoさんが退会しました。
-  path: "/users/<%= ActiveRecord::FixtureSet.identify(:yameo) %>"
+  link: "/users/<%= ActiveRecord::FixtureSet.identify(:yameo) %>"
+  read: false
+
+notification_three_months_after_retirement:
+  kind: 9
+  user: komagata
+  sender: taikai3
+  message: taikai3さんが退会してから3カ月が経過しました。Discord ID:taikai#3333, ユーザーページ:https://bootcamp.fjord.jp/users/1008501353
+  link: "/users/<%= ActiveRecord::FixtureSet.identify(:taikai3) %>"
   read: false
 
 notification_trainee_report:
@@ -91,7 +99,7 @@ notification_trainee_report:
   user: senpai
   sender: kensyu
   message: kensyuさんが日報【 研修の日報 】を書きました！
-  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report11) %>"
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report11) %>"
   read: false
 
 notification_moved_up_event_waiting_user:
@@ -99,7 +107,7 @@ notification_moved_up_event_waiting_user:
   user: hajime
   sender: komagata
   message: 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。
-  path: "/events/<%= ActiveRecord::FixtureSet.identify(:event3) %>"
+  link: "/events/<%= ActiveRecord::FixtureSet.identify(:event3) %>"
   read: false
 
 notification_create_page:
@@ -107,7 +115,7 @@ notification_create_page:
   user: hatsuno
   sender: komagata
   message: "komagataさんがDocsにBootcampの作業のページを投稿しました。"
-  path: "/pages/<%= ActiveRecord::FixtureSet.identify(:page4) %>"
+  link: "/pages/<%= ActiveRecord::FixtureSet.identify(:page4) %>"
   read: false
 
 notification_following_report:
@@ -115,7 +123,7 @@ notification_following_report:
   user: muryou
   sender: kensyu
   message: kensyuさんが日報【 フォローされた日報 】を書きました！
-  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report23) %>"
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report23) %>"
   read: false
 
 notification_chose_correct_answer:
@@ -123,7 +131,7 @@ notification_chose_correct_answer:
   user: advijirou
   sender: hajime
   message: hajimeさんの質問【 解決済みの質問 】でadvijirouさんの回答がベストアンサーに選ばれました。
-  path: "/questions/<%= ActiveRecord::FixtureSet.identify(:question12) %>"
+  link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question12) %>"
   read: false
 
 notification_consecutive_sad_report:
@@ -131,5 +139,5 @@ notification_consecutive_sad_report:
   user: komagata
   sender: hajime
   message: hajimeさんが2回連続でsadアイコンの日報を提出しました。
-  path: "/reports/<%= ActiveRecord::FixtureSet.identify(:report16) %>"
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report16) %>"
   read: false

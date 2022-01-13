@@ -83,10 +83,10 @@ class UsersTest < ApplicationSystemTestCase
     end
 
     visit_with_auth "/users/#{users(:kimura).id}", 'komagata'
-    assert_text '最終ログイン日時'
+    assert_text '最終ログイン'
 
     visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
-    assert_no_text '最終ログイン日時'
+    assert_no_text '最終ログイン'
   end
 
   test 'show inactive message on users page' do

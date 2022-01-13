@@ -1,103 +1,60 @@
 <template lang="pug">
-.page-body
-  .container(v-if='question === null || currentUser === null')
-    .empty
-      .fas.fa-spinner.fa-pulse
-      | ロード中
-  .container.is-lg(v-else)
-    questionEdit(
-      :question='question',
-      :answerCount='answerCount',
-      :isAnswerCountUpdated='isAnswerCountUpdated',
-      :currentUser='currentUser'
-    )
-    a#comments.a-anchor
-    answers(
-      :questionId='questionId',
-      :questionUser='question.user',
-      :currentUser='currentUser',
-      @updateAnswerCount='updateAnswerCount',
-      @solveQuestion='solveQuestion',
-      @cancelSolveQuestion='cancelSolveQuestion'
-    )
+.thread-list-item(:class='question.has_correct_answer ? "is-solved" : ""')
+  .thread-list-item__inner
+    .thread-list-item__user
+      a.a-user-name(:href='question.user.url')
+        img.thread-list-item__user-icon.a-user-icon(
+          :title='question.user.icon_title',
+          :alt='question.user.icon_title',
+          :src='question.user.avatar_url',
+          :class='[roleClass, daimyoClass]'
+        )
+    .thread-list-item__rows
+      .thread-list-item__row
+        .thread-list-item-title
+          h1.thread-list-item-title__title(itemprop='name')
+            a.thread-list-item-title__link(
+              :href='question.url',
+              itemprop='url'
+            ) {{ question.title }}
+    .thread-list-item__row(v-if='question.practice')
+      .thread-list-item-meta
+        .thread-list-item-meta__items
+          .thread-list-item-meta__item
+            .thread-list-item-sub-title {{ question.practice.title }}
+    .thread-list-item__row
+      .thread-list-item-meta
+        .thread-list-item-meta__items
+          .thread-list-item-meta__item
+            a.a-user-name {{ question.user.long_name }}
+          .thread-list-item-meta__item
+            time.a-meta(
+              :datetime='question.updated_at.datetime',
+              pubdate='pubdate'
+            ) {{ question.updated_at.locale }}
+
+    .thread-list-item__row(v-if='question.tags.length > 0')
+      .thread-list-item-tags
+        .thread-list-item-tags__label
+          i.fas.fa-tags
+        ul.thread-list-item-tags__items
+          li.thread-list-item-tags__item(v-for='tag in question.tags')
+            a.thread-list-item-tags__item-link(:href='tag.url') {{ tag.name }}
+    .stamp.is-circle.is-solved(v-if='question.has_correct_answer')
+      .stamp__content.is-icon 解
+      .stamp__content.is-icon 決
 </template>
 <script>
-import QuestionEdit from './question-edit.vue'
-import Answers from './answers.vue'
-
 export default {
-  components: {
-    questionEdit: QuestionEdit,
-    answers: Answers
-  },
   props: {
-    currentUserId: { type: String, required: true },
-    questionId: { type: String, required: true }
+    question: { type: Object, required: true }
   },
-  data() {
-    return {
-      question: null,
-      currentUser: null,
-      answerCount: 0,
-      isAnswerCountUpdated: false
-    }
-  },
-  created() {
-    this.fetchQuestion(this.questionId)
-    this.fetchUser(this.currentUserId)
-  },
-  methods: {
-    fetchQuestion(id) {
-      fetch(`/api/questions/${id}.json`, {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin'
-      })
-        .then((response) => {
-          return response.json()
-        })
-        .then((question) => {
-          this.question = question
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
+  computed: {
+    roleClass() {
+      return `is-${this.question.user.role}`
     },
-    fetchUser(id) {
-      fetch(`/api/users/${id}.json`, {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      })
-        .then((response) => {
-          return response.json()
-        })
-        .then((user) => {
-          this.currentUser = user
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
-    },
-    solveQuestion(answer) {
-      this.question.correct_answer = answer
-    },
-    cancelSolveQuestion() {
-      this.question.correct_answer = null
-    },
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
-    updateAnswerCount(count) {
-      this.answerCount = count
-      this.isAnswerCountUpdated = true
+    daimyoClass() {
+      return { 'is-daimyo': this.question.user.daimyo }
     }
   }
 }

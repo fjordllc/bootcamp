@@ -34,7 +34,7 @@ class RetirementController < ApplicationController
 
   def notify_to_admins
     User.admins.each do |admin_user|
-      Notification.retired(current_user, admin_user)
+      NotificationFacade.retired(current_user, admin_user)
     end
   end
 end

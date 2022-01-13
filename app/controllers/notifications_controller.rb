@@ -9,10 +9,10 @@ class NotificationsController < ApplicationController
   end
 
   def show
-    path = @notification.read_attribute :path
-    @notifications = current_user.notifications.where(path: path)
+    link = @notification.read_attribute :link
+    @notifications = current_user.notifications.where(link: link)
     @notifications.update_all(read: true) # rubocop:disable Rails/SkipsModelValidations
-    redirect_to path
+    redirect_to link
   end
 
   private

@@ -44,7 +44,7 @@ class AnnouncementCallbacks
   end
 
   def delete_notification(announce)
-    Notification.where(path: "/announcements/#{announce.id}").destroy_all
+    Notification.where(link: "/announcements/#{announce.id}").destroy_all
   end
 
   def create_author_watch(announce)
