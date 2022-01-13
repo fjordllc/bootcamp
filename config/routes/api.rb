@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'admin' do
       resource :count, controller: 'count', only: %i(show)
-      resources :companies, controller: 'companies', only: %i(index)
+      resources :companies, controller: 'companies', only: %i(index destroy)
     end
     resource :session, controller: "session", only: %i(create)
     resource :image, controller: "image", only: %i(create)
