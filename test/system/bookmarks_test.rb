@@ -10,7 +10,7 @@ class BookmarksTest < ApplicationSystemTestCase
 
   test 'show my bookmark lists' do
     visit_with_auth '/current_user/bookmarks', 'komagata'
-    assert_text 'ダッシュボード'
+    assert_equal 'ブックマーク一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     assert_text @report.title
   end
 
@@ -53,7 +53,7 @@ class BookmarksTest < ApplicationSystemTestCase
 
   test 'show question bookmark on lists' do
     visit_with_auth '/current_user/bookmarks', 'kimura'
-    assert_text 'ダッシュボード'
+    assert_equal 'ブックマーク一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     assert_text @question.title
   end
 
