@@ -89,7 +89,7 @@ export default {
     return meta ? meta.getAttribute('content') : ''
     },
     getCompaniesPage() {
-      fetch('/api/admin/companies', {
+      fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
