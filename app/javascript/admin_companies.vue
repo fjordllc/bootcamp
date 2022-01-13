@@ -17,10 +17,7 @@
           th.admin-table__label.actions
             | 操作
       tbody.admin-table__items
-        tr.admin-table__item(
-          v-for='company in companies',
-          :key='company.id'
-        )
+        tr.admin-table__item(v-for='company in companies', :key='company.id')
           td.admin-table__item-value
             | {{ company.name }}
           td.admin-table__item-value.is-text-align-center
@@ -79,14 +76,14 @@ export default {
   created() {
     window.onpopstate = () => {
       this.currentPage = this.getCurrentPage()
-      this.getCompaniesPerPage()
+      this.getCompaniesPage()
     }
     this.getCompaniesPage()
   },
   methods: {
     token() {
-    const meta = document.querySelector('meta[name="csrf-token"]')
-    return meta ? meta.getAttribute('content') : ''
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      return meta ? meta.getAttribute('content') : ''
     },
     getCompaniesPage() {
       fetch(this.url, {
@@ -112,28 +109,26 @@ export default {
     destroy(company) {
       if (window.confirm('本当によろしいですか？')) {
         fetch(`/api/admin/companies/${company.id}.json`, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8',
-              'X-Requested-With': 'XMLHttpRequest',
-              'X-CSRF-Token': this.token()
-            },
-            credentials: 'same-origin',
-            redirect: 'manual'
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-Token': this.token()
+          },
+          credentials: 'same-origin',
+          redirect: 'manual'
+        })
+          .then((response) => {
+            if (response.ok) {
+              // eslint-disable-next-line vue/no-mutating-props
+              this.companies = this.companies.filter((v) => v.id !== company.id)
+            } else {
+              alert('削除に失敗しました')
+            }
           })
-            .then((response) => {
-              if (response.ok) {
-                // eslint-disable-next-line vue/no-mutating-props
-                this.companies = this.companies.filter(
-                  (v) => v.id !== company.id
-                )
-              } else {
-                alert('削除に失敗しました')
-              }
-            })
-            .catch((error) => {
-              console.warn('Failed to parsing', error)
-            })
+          .catch((error) => {
+            console.warn('Failed to parsing', error)
+          })
       }
     },
     getCurrentPage() {
