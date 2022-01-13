@@ -14,7 +14,7 @@ class Work < ApplicationRecord
             size: { less_than: 10.megabytes }
 
   def thumbnail_url
-    if thumbnail.attached?
+    if thumbnail.attached? && title && description && url_or_repository
       thumbnail.variant(resize: THUMBNAIL_SIZE).processed.url
     else
       image_url('/images/works/thumbnails/default.png')
