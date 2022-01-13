@@ -1,7 +1,11 @@
 <template lang="pug">
 .thread-list-item(:class='modelName')
   .thread-list-item__inner
-    .thread-list-item__label
+    .thread-list-item__label(
+      v-if='["comment", "answer"].includes(searchable.model_name_original)'
+    )
+      | {{ searchable.model_name_with_i18n }}コメント
+    .thread-list-item__label(v-else)
       | {{ searchable.model_name_with_i18n }}
     .thread-list-item__rows
       .thread-list-item__row
@@ -12,6 +16,20 @@
       .thread-list-item__row
         .thread-list-item__summary
           p(v-html='summary')
+      .thread-list-item__row(
+        v-if='["comment", "answer"].includes(searchable.model_name_original)'
+      )
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              a.a-user-name(:href='contributorUserUrl')
+                | [↓がコメントだった場合の元の投稿]{{ searchable.contributor_login_name }}
+            .thread-list-item-meta__item
+              time.a-meta(
+                :datetime='searchable.created_at_original',
+                pubdate='pubdate'
+              )
+                | {{ createdAtOriginal }}
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -19,7 +37,7 @@
               v-if='!["practice", "page", "user"].includes(searchable.model_name)'
             )
               a.a-user-name(:href='userUrl')
-                | {{ searchable.login_name }}
+                | [検索結果]{{ searchable.login_name }}
             .thread-list-item-meta__item
               time.a-meta(:datetime='searchable.updated_at', pubdate='pubdate')
                 | {{ updatedAt }}
@@ -37,11 +55,22 @@ export default {
     modelName() {
       return `is-${this.searchable.model_name}`
     },
+    modelNameOriginal() {
+      return `is-${this.searchable.model_name_original}`
+    },
     userUrl() {
       return `/users/${this.searchable.user_id}`
     },
+    contributorUserUrl() {
+      return `/users/${this.searchable.contributor_user_id}`
+    },
     updatedAt() {
       return dayjs(this.searchable.updated_at).format(
+        'YYYY年MM月DD日(dd) HH:mm'
+      )
+    },
+    createdAtOriginal() {
+      return dayjs(this.searchable.created_at_original).format(
         'YYYY年MM月DD日(dd) HH:mm'
       )
     },
