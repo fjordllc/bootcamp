@@ -67,11 +67,3 @@ company4:
   description: "このデータはDAIMYOの判定・動作確認で使用する"
   website: "http://example.com/loriann"
   created_at: 2000-01-01 00:00:04
-
-<% (5..27).each do |i| %>
-company<%= i %>:
-  name: "テスト企業"
-  description: "このデータはページャーの確認用"
-  website: "http://example.com/test"
-  created_at: 2000-01-01 00:00:05
-<% end %>
