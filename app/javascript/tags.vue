@@ -24,6 +24,8 @@
           :name='tagsParamName',
           :id='tagsInputId'
         )
+    div(v-if='headIsSharpOrOctothorpe(inputTag)')
+      | 先頭の記号は無視されます
     .form-actions(v-if='tagsEditable')
       ul.form-actions__items
         li.form-actions__item.is-main
@@ -37,13 +39,14 @@
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
 import validateTagName from './validate-tag-name'
+import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe'
 
 export default {
   name: 'Tags',
   components: {
     VueTagsInput
   },
-  mixins: [validateTagName],
+  mixins: [validateTagName, headIsSharpOrOctothorpe],
   props: {
     tagsInitialValue: {
       type: String,
