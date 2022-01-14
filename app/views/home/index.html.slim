@@ -18,10 +18,9 @@ header.page-header
       .page-notices
         = render partial: 'event', collection: @events_coming_soon_except_job_hunting, as: :event
   - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
-    .container.is-md
-      = render 'welcome_message'
-  .container.is-xxl
-    .columns
+    = render 'welcome_message'
+  .columns
+    .container.is-xxl
       .row
         .col-xs-12.col-xl-6.col-xxl-6
           .thread-list.a-card
