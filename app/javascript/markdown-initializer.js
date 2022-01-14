@@ -23,7 +23,6 @@ export default class {
 
     new UserIconRenderer().render(selector)
     MarkdownItTaskListsInitializer.initialize()
-    initMarkdownItHeadings()
   }
 
   render(text) {
