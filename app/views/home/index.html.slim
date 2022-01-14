@@ -4,6 +4,7 @@ header.page-header
   .container
     .page-header__inner
       h2.page-header__title = title
+      = link_to '自分のプロフィール', user_path(id: current_user.id)
       = render 'reports/new_report'
 
 = render 'page_tabs', user: current_user
