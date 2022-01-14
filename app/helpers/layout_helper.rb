@@ -16,22 +16,4 @@ module LayoutHelper
   def display_footer?
     body_class.exclude?('no-footer')
   end
-
-  def category_having_active_practice
-    active_practice = current_user.active_practices.first
-    active_practice.categories.first
-  end
-
-  def category_having_unstarted_practice
-    unstarted_practice = current_user.unstarted_practices.first
-    unstarted_practice.categories.first
-  end
-
-  def category_active_or_unstarted_practice
-    if current_user.active_practices.present?
-      category_having_active_practice
-    elsif current_user.unstarted_practices.present?
-      category_having_unstarted_practice
-    end
-  end
 end
