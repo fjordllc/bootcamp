@@ -13,6 +13,16 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new(open_start_at: Time.current.beginning_of_minute)
+
+    return unless params[:id]
+
+    event              = Event.find(params[:id])
+    @event.title       = event.title
+    @event.location    = event.location
+    @event.capacity    = event.capacity
+    @event.open_start_at = Time.current.beginning_of_minute
+    @event.description = event.description
+    flash.now[:notice] = 'イベントをコピーしました。'
   end
 
   def create
