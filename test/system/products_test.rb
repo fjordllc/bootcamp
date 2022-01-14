@@ -158,7 +158,7 @@ class ProductsTest < ApplicationSystemTestCase
     product = products(:product1)
     visit_with_auth "/products/#{product.id}/edit", 'yamada'
     within('form[name=product]') do
-      fill_in('product[body]', with: 'test')
+      fill_in('product[body]', with: '')
     end
     click_button 'WIP'
     assert_text '本文を入力してください'
