@@ -10,13 +10,12 @@ class API::Products::SelfAssignedController < API::BaseController
                   Product.self_assigned_product(current_user.id)
                          .unchecked
                          .list
-                         .order_for_list
+                         .order_for_self_assigned_list
                          .page(params[:page])
                 when 'self_assigned_no_replied'
                   Product.self_assigned_no_replied_products(current_user.id)
                          .unchecked
                          .list
-                         .order_for_list
                          .page(params[:page])
                 end
   end

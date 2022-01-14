@@ -44,13 +44,14 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
 
   test 'products order on self assigned tab' do
     checker = users(:komagata)
-    # id順で並べたときの最初と最後の提出物を、作成日順で見たときに最新と最古になるように入れ替える
+    # id順で並べたときの最初と最後の提出物を、コメントの日付順・提出日順で見たときに最新と最古になるように入れ替える
     # 最古の提出物を画面上で判定するため、提出物を1ページ内に収める
-    Product.limit(Product.default_per_page).update_all(created_at: 1.day.ago, published_at: 1.day.ago, checker_id: checker.id) # rubocop:disable Rails/SkipsModelValidations
+    Product.update_all(created_at: 3.days.ago, published_at: 3.days.ago, checker_id: checker.id) # rubocop:disable Rails/SkipsModelValidations
+    Product.unchecked.limit(Product.count - Product.default_per_page).delete_all
     newest_product = Product.self_assigned_product(checker.id).unchecked.reorder(:id).first
-    newest_product.update(created_at: Time.current)
+    newest_product.update(published_at: 1.day.ago)
     oldest_product = Product.self_assigned_product(checker.id).unchecked.reorder(:id).last
-    oldest_product.update(created_at: 2.days.ago)
+    oldest_product.update(commented_at: Time.current, published_at: Time.current)
 
     visit_with_auth '/products/self_assigned', 'komagata'
 
