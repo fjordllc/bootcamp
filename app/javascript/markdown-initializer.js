@@ -7,9 +7,6 @@ import MarkdownItLinkingImage from './markdown-it-linking-image'
 import MarkdownOption from './markdown-it-option'
 import UserIconRenderer from './user-icon-renderer'
 import MarkdownItTaskListsInitializer from './markdown-it-task-lists-initializer'
-import MarkdownItHeadings, {
-  initMarkdownItHeadings
-} from './markdown-it-headings'
 import MarkdownItHeadings from './markdown-it-headings'
 
 export default class {
