@@ -17,6 +17,7 @@ class Product < ApplicationRecord
   alias sender user
 
   after_create ProductCallbacks.new
+  after_update ProductCallbacks.new
   after_save ProductCallbacks.new
   after_destroy ProductCallbacks.new
 
@@ -35,6 +36,7 @@ class Product < ApplicationRecord
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: 'Product').pluck(:checkable_id)) }
   scope :unassigned, -> { where(checker_id: nil) }
   scope :self_assigned_product, ->(current_user_id) { where(checker_id: current_user_id) }
+  scope :self_assigned_and_replied_products, ->(user_id) { self_assigned_product(user_id).where.not(id: self_assigned_no_replied_product_ids(user_id)) }
 
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
@@ -172,5 +174,12 @@ class Product < ApplicationRecord
 
   def checker_avatar
     checker_id ? User.find(checker_id).avatar_url : nil
+  end
+
+  def replied_status_changed?(previous_commented_user_id, current_commented_user_id)
+    is_replied_by_checker_previous = checker_id == previous_commented_user_id
+    is_replied_by_checker_current = checker_id == current_commented_user_id
+
+    is_replied_by_checker_previous != is_replied_by_checker_current
   end
 end
