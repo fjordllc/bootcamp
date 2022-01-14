@@ -11,14 +11,19 @@ header.page-header
               i.fas.fa-plus
               | Doc作成
 
-- if params[:tag]
+-  if @tag.present?
   .page-optional-header
     .container
       .page-optional-header__inner
         h2.page-optional-header__title
-          | タグ 「#{params[:tag]}」
+          | タグ 「#{@tag.name}」
           = link_to pages_path, class: 'page-body__optional-title-cancel' do
             i.fas.fa-times.fa-fw
+      - if admin_login?
+         .page-main-header__end
+            .page-main-header-actions
+              .page-main-header-actions__items
+                #js-question-tag-edit(tag-id="#{@tag.id}" tag-name="#{@tag.name}")
 .page-body
   .container.is-xl
     .two-columns
