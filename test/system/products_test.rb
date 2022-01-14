@@ -154,6 +154,16 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物をWIPとして保存しました。'
   end
 
+  test 'update product as WIP with blank body to fail update and successfully get back to editor' do
+    product = products(:product1)
+    visit_with_auth "/products/#{product.id}/edit", 'yamada'
+    within('form[name=product]') do
+      fill_in('product[body]', with: 'test')
+    end
+    click_button 'WIP'
+    assert_text '本文を入力してください'
+  end
+
   test "Don't notify if create product as WIP" do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
