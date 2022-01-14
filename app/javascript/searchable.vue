@@ -65,11 +65,6 @@ export default {
         'YYYY年MM月DD日(dd) HH:mm'
       )
     },
-    createdAtOriginal() {
-      return dayjs(this.searchable.created_at_original).format(
-        'YYYY年MM月DD日(dd) HH:mm'
-      )
-    },
     summary() {
       const word = this.word
       const wordsPattern = word
