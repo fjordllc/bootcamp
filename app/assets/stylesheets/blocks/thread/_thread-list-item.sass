@@ -113,6 +113,37 @@
     background-color: #7cbd9c
     color: $reversal-text
 
+.thread-list-item__label-option
+  +position(absolute)
+  +media-breakpoint-up(md)
+    +position(left -.125rem, right -.125rem, bottom -.375rem)
+  +media-breakpoint-down(sm)
+    +position(left -.5rem, right -.5rem, bottom -.375rem)
+    transform: scale(.8)
+  background-color: $base
+  +text-block(.625rem 1.4, flex center)
+  align-items: center
+  justify-content: center
+  border: solid 1px
+  border-radius: 1rem
+  .thread-list-item.is-report &
+    color: #7f6fb7
+  .thread-list-item.is-practice &
+    color: #79bcc3
+  .thread-list-item.is-question &
+    color: #de9172
+  .thread-list-item.is-page &
+    color: #9fc593
+  .thread-list-item.is-announcement &
+    color: #a9831c
+    border-color: #f7cd5b
+  .thread-list-item.is-event &
+    color: #ef9da8
+  .thread-list-item.is-product &
+    color: #909b3c
+  .thread-list-item.is-user &
+    color: #7cbd9c
+
 .thread-list-item__user
   +position(absolute, left 0, top 0)
   .has-no-author-image &
