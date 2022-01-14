@@ -6,6 +6,11 @@ header.page-header
     .page-header__inner
       h2.page-header__title
         = title
+.a-page-notice
+  .container.is-sm
+    .a-page-notice__inner
+      p
+        | 再提出をした際はコメントから<br class='is-hidden-md-up'>メンターに連絡をお願いします。
 .page-body
   .container.is-xxl
     = render 'form', practice: @practice, product: @product
