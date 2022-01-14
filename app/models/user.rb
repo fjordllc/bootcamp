@@ -589,6 +589,14 @@ class User < ApplicationRecord
                .or(practices.joins(:learnings).where(learnings: { user_id: id, status: 3 }))
   end
 
+  def category_active_or_unstarted_practice
+    if active_practices.present?
+      category_having_active_practice
+    elsif unstarted_practices.present?
+      category_having_unstarted_practice
+    end
+  end
+
   private
 
   def password_required?
@@ -602,5 +610,15 @@ class User < ApplicationRecord
   def completed_practices_include_progress
     practices_include_progress.joins(:learnings)
                               .merge(Learning.complete.where(user_id: id))
+  end
+
+  def category_having_active_practice
+    active_practice = active_practices.first
+    active_practice.categories.first
+  end
+
+  def category_having_unstarted_practice
+    unstarted_practice = unstarted_practices.first
+    unstarted_practice.categories.first
   end
 end
