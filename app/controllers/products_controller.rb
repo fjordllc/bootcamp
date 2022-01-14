@@ -45,6 +45,7 @@ class ProductsController < ApplicationController
 
   def update
     @product = find_my_product
+    @practice = @product.practice
     set_wip
     if @product.update(product_params)
       redirect_to @product, notice: notice_message(@product, :update)
