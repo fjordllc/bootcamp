@@ -7,12 +7,15 @@ header.page-header
       h2.page-header__title
         = title
 .page-body
-  .container
-    .a-card
-      .card-header
-        h2.card-header__title
-          = Practice.human_attribute_name :goal
-      .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text
-        = @product.practice.goal
-
-    = render 'form', practice: @practice, product: @product
+  .page-body__rows
+    .page-body__row
+      .container.is-lg
+        .a-card
+          .card-header
+            h2.card-header__title
+              = Practice.human_attribute_name :goal
+          .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text
+            = @product.practice.goal
+    .page-body__row
+      .container.is-xxl
+        = render 'form', practice: @practice, product: @product
