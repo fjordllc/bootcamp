@@ -32,11 +32,25 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit nil, class: 'a-button is-lg is-warning is-block'
-      - case params[:action]
-      - when 'new', 'create'
-        li.form-actions__item
-          = link_to 'キャンセル', questions_path, class: 'a-button is-md is-secondary'
-      - when 'edit', 'update'
-        li.form-actions__item.is-sub
+        = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
+      li.form-actions__item.is-main
+        = button_tag(class: 'a-button is-lg is-warning is-block') do
+          - if params[:action] == 'new' || params[:action] == 'create' || params[:action] == 'edit' || params[:action] == 'update'
+            | 登録する
+          - else
+            | 内容を投稿
+      / li.form-actions__item.is-main
+      /   / = f.submit nil, class: 'a-button is-lg is-warning is-block'
+      / - case params[:action]
+      / - when 'new', 'create'
+      /   li.form-actions__item
+      /     = link_to 'キャンセル', questions_path, class: 'a-button is-md is-secondary'
+      / - when 'edit', 'update'
+      /   li.form-actions__item.is-sub
+      /     = link_to 'キャンセル', question_path, class: 'a-button is-md is-secondary is-block'
+      li.form-actions__item.is-sub
+        - case params[:action]
+        - when 'new', 'create'
+          = link_to 'キャンセル', questions_path, class: 'a-button is-md is-secondary is-block'
+        - when 'edit', 'update'
           = link_to 'キャンセル', question_path, class: 'a-button is-md is-secondary is-block'

@@ -3,7 +3,7 @@
 class QuestionsController < ApplicationController
   include Rails.application.routes.url_helpers
   before_action :require_login
-  before_action :set_question, only: %i[show destroy]
+  before_action :set_question, only: %i[show edit update destroy]
   before_action :set_categories, only: %i[new show create]
   before_action :set_watch, only: %i[show]
 
@@ -41,15 +41,27 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
+  def edit; end
+
   def create
     @question = Question.new(question_params)
     @question.user = current_user
+    set_wip
     if @question.save
       create_mentors_watch
       notify_to_chat(@question)
-      redirect_to @question, notice: '質問を作成しました。'
+      redirect_to @question, notice: notice_message(@question, :create)
     else
       render :new
+    end
+  end
+
+  def update
+    set_wip
+    if @question.update(question_params)
+      redirect_to @question, notice: notice_message(@question, :update)
+    else
+      render :edit
     end
   end
 
@@ -114,6 +126,21 @@ class QuestionsController < ApplicationController
         updated_at: Time.current,
         user_id: mentor.id
       }
+    end
+  end
+
+  def set_wip
+    @question.wip = params[:commit] == 'WIP'
+  end
+
+  def notice_message(question, action_name)
+    return '質問をWIPとして保存しました。' if question.wip?
+
+    case action_name
+    when :create
+      '質問を作成しました。'
+    when :update
+      '質問を更新しました。'
     end
   end
 end
