@@ -38,6 +38,8 @@ header.page-header
             = render 'users/pages/wip_pages', user: current_user
           - if current_user.reports.wip.present?
             = render 'users/reports/wip_reports', user: current_user
+          - if current_user.questions.wip.present?
+            = render 'users/questions/wip_questions', user: current_user
           - if current_user.products.wip.present?
             = render 'users/products/wip_products', user: current_user
           - if current_user.active_practices.present?
