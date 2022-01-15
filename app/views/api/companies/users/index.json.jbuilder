@@ -1,5 +1,5 @@
 json.users @users do |user|
-  json.partial! "api/companies/users/user", user: user
+  json.partial! "api/users/list_user", user: user
 end
 
 json.currentUser do
