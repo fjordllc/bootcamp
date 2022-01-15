@@ -2,6 +2,7 @@ json.id question.id
 json.title truncate(question.title, {length: 46, escape: false})
 json.url question_url(question)
 json.has_correct_answer question.correct_answer.present?
+json.wip question.wip?
 
 json.updated_at do
   json.datetime question.updated_at.to_datetime

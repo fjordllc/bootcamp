@@ -1,5 +1,7 @@
 <template lang="pug">
-.thread-list-item(:class='question.has_correct_answer ? "is-solved" : ""')
+.thread-list-item(
+  :class='question.has_correct_answer ? "is-solved" : question.wip ? "is-wip" : ""'
+)
   .thread-list-item__inner
     .thread-list-item__user
       a.a-user-name(:href='question.user.url')
@@ -12,11 +14,13 @@
     .thread-list-item__rows
       .thread-list-item__row
         .thread-list-item-title
+          .thread-list-item-title__icon.is-wip(v-if='question.wip')
+            | WIP
           h1.thread-list-item-title__title(itemprop='name')
             a.thread-list-item-title__link(
               :href='question.url',
               itemprop='url'
-            ) {{ question.title }}
+            ) {{ question.title }}{{ question.wip }}
     .thread-list-item__row(v-if='question.practice')
       .thread-list-item-meta
         .thread-list-item-meta__items
@@ -26,9 +30,13 @@
       .thread-list-item-meta
         .thread-list-item-meta__items
           .thread-list-item-meta__item
+            .a-meta(v-if='question.wip')
+              | 質問作成中
+          .thread-list-item-meta__item
             a.a-user-name {{ question.user.long_name }}
           .thread-list-item-meta__item
             time.a-meta(
+              v-if='!question.wip',
               :datetime='question.updated_at.datetime',
               pubdate='pubdate'
             ) {{ question.updated_at.locale }}

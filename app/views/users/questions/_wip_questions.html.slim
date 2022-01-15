@@ -1,0 +1,9 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | WIPの質問
+  .card-list.is-wip
+    .card-list__items
+      - user.questions.wip.each do |question|
+        .card-list__item
+          = link_to question.title, question, class: 'card-list__item-link'
