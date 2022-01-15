@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class API::Companies::UsersController < API::BaseController
-  TARGETS = %w[all student_and_trainee graduate adviser mentor].freeze
   before_action :require_login
+  TARGETS = %w[all student_and_trainee graduate adviser mentor].freeze
   PAGER_NUMBER = 20
 
   def index
