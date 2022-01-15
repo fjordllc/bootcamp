@@ -582,13 +582,6 @@ class User < ApplicationRecord
     end
   end
 
-  def unstarted_practices
-    practices -
-      practices.joins(:learnings).where(learnings: { user_id: id, status: 1 })
-               .or(practices.joins(:learnings).where(learnings: { user_id: id, status: 2 }))
-               .or(practices.joins(:learnings).where(learnings: { user_id: id, status: 3 }))
-  end
-
   def category_active_or_unstarted_practice
     if active_practices.present?
       category_having_active_practice
@@ -612,13 +605,18 @@ class User < ApplicationRecord
                               .merge(Learning.complete.where(user_id: id))
   end
 
+  def unstarted_practices
+    practices -
+      practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
+               .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
+               .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
+  end
+
   def category_having_active_practice
-    active_practice = active_practices.first
-    active_practice.categories.first
+    active_practices.first.categories.first
   end
 
   def category_having_unstarted_practice
-    unstarted_practice = unstarted_practices.first
-    unstarted_practice.categories.first
+    unstarted_practices.first.categories.first
   end
 end
