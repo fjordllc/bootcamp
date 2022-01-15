@@ -45,13 +45,7 @@ export default {
       this.toast('タグ名を変更しました')
       const url = location.pathname.split('/')
       const path = url[url.length - 3]
-      let tagType
-      if (path === 'questions') {
-        tagType = 'questions'
-      } else if (path === 'users') {
-        tagType = 'users'
-      }
-      location.href = `/${tagType}/tags/${encodeURIComponent(name)}?all=true`
+      location.href = `/${path}/tags/${encodeURIComponent(name)}?all=true`
     }
   }
 }

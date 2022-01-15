@@ -266,7 +266,7 @@ class EventsTest < ApplicationSystemTestCase
     end
     within '.waitlist' do
       wait_user = all('img').map { |img| img['alt'] }
-      assert_equal %w[kimura\ (Kimura\ Tadasi)], wait_user
+      assert_equal ['kimura (Kimura Tadasi)'], wait_user
     end
   end
 

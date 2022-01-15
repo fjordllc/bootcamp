@@ -7,7 +7,7 @@
       - if !user.staff? || user.reports.present?
         li.page-tabs__item
           = link_to current_user_reports_path, class: "page-tabs__item-link #{current_page_tab_or_not('reports')}" do
-            | 自分の日報
+            | 自分の日報 （#{user.reports.length}）
       - if !user.staff? || user.products.present?
         li.page-tabs__item
           = link_to current_user_products_path, class: "page-tabs__item-link #{current_page_tab_or_not('products')}" do

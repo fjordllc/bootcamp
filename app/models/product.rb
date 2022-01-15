@@ -17,6 +17,7 @@ class Product < ApplicationRecord
   alias sender user
 
   after_create ProductCallbacks.new
+  after_update ProductCallbacks.new
   after_save ProductCallbacks.new
   after_destroy ProductCallbacks.new
 
@@ -35,6 +36,7 @@ class Product < ApplicationRecord
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: 'Product').pluck(:checkable_id)) }
   scope :unassigned, -> { where(checker_id: nil) }
   scope :self_assigned_product, ->(current_user_id) { where(checker_id: current_user_id) }
+  scope :self_assigned_and_replied_products, ->(user_id) { self_assigned_product(user_id).where.not(id: self_assigned_no_replied_product_ids(user_id)) }
 
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
@@ -47,6 +49,7 @@ class Product < ApplicationRecord
   }
   scope :order_for_list, -> { order(created_at: :desc, id: :desc) }
   scope :order_for_not_wip_list, -> { order(published_at: :desc, id: :desc) }
+  scope :order_for_self_assigned_list, -> { order(commented_at: :desc, published_at: :desc) }
 
   def self.add_latest_commented_at
     Product.all.includes(:comments).find_each do |product|
@@ -118,7 +121,7 @@ class Product < ApplicationRecord
   def self.self_assigned_no_replied_products(current_user_id)
     no_replied_product_ids = self_assigned_no_replied_product_ids(current_user_id)
     Product.where(id: no_replied_product_ids)
-           .order(created_at: :desc)
+           .order(commented_at: :desc, published_at: :desc)
   end
 
   def self.unchecked_no_replied_products(current_user_id)
@@ -172,5 +175,12 @@ class Product < ApplicationRecord
 
   def checker_avatar
     checker_id ? User.find(checker_id).avatar_url : nil
+  end
+
+  def replied_status_changed?(previous_commented_user_id, current_commented_user_id)
+    is_replied_by_checker_previous = checker_id == previous_commented_user_id
+    is_replied_by_checker_current = checker_id == current_commented_user_id
+
+    is_replied_by_checker_previous != is_replied_by_checker_current
   end
 end

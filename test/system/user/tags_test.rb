@@ -51,11 +51,12 @@ class User::TagsTest < ApplicationSystemTestCase
     visit_with_auth user_path(users(:hatsuno)), 'hatsuno'
     page.all('.tag-links__item-edit')[0].click
     tag_input = find('.ti-new-tag-input')
-    tag_input.set '課金'
+    tag_input.set 'タグタグ'
+    find('body').click
     click_button '保存する'
 
     visit_with_auth user_path(users(:hatsuno)), 'komagata'
-    assert_text '課金'
+    assert_text 'タグタグ'
     assert_no_text 'タグ編集'
   end
 
@@ -132,5 +133,18 @@ class User::TagsTest < ApplicationSystemTestCase
     click_button 'タグ名変更'
     fill_in('tag[name]', with: tag.name)
     has_field?('変更', disabled: true)
+  end
+
+  test 'the first letter is ignored when adding a tag whose name begins with octothorpe' do
+    visit_with_auth user_path(users(:hatsuno)), 'hatsuno'
+    page.all('.tag-links__item-edit')[0].click
+    tag_input = find('.ti-new-tag-input')
+    tag_input.set '#ハッシュハッシュ'
+    find('body').click
+    click_button '保存する'
+
+    visit_with_auth user_path(users(:hatsuno)), 'komagata'
+    assert_no_text '#ハッシュハッシュ'
+    assert_text 'ハッシュハッシュ'
   end
 end
