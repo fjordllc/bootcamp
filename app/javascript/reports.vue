@@ -1,31 +1,44 @@
 <template lang="pug">
-.reports.is-md(v-if='reports === null')
-  loadingListPlaceholder
-.reports(v-else-if='reports.length === 0')
-  .o-empty-message
-    .o-empty-message__icon
-      i.far.fa-sad-tear
-    .o-empty-message__text
-      | 日報はまだありません。
-.reports(v-else-if='reports.length > 0 || !isUncheckedReportsPage')
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
+div(v-if='limit')
   .thread-list.a-card
-    .thread-list__items
+    .card-header.is-sm
+      h2.card-header__title
+        | 直近の日報
+    .thread-list__items.has-no-author-image
       report(
         v-for='report in reports',
         :key='report.id',
         :report='report',
         :current-user-id='currentUserId'
       )
-    unconfirmed-link(v-if='isUncheckedReportsPage', label='未チェックの日報を一括で開く')
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
-.o-empty-message(v-else)
-  .o-empty-message__icon
-    i.far.fa-smile
-  p.o-empty-message__text
-    | 未チェックの日報はありません
+div(v-else)
+  .reports.is-md(v-if='reports === null')
+    loadingListPlaceholder
+  .reports(v-else-if='reports.length === 0')
+    .o-empty-message
+      .o-empty-message__icon
+        i.far.fa-sad-tear
+      .o-empty-message__text
+        | 日報はまだありません。
+  .reports(v-else-if='reports.length > 0 || !isUncheckedReportsPage')
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
+    .thread-list.a-card
+      .thread-list__items
+        report(
+          v-for='report in reports',
+          :key='report.id',
+          :report='report',
+          :current-user-id='currentUserId'
+        )
+      unconfirmed-link(v-if='isUncheckedReportsPage', label='未チェックの日報を一括で開く')
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
+  .o-empty-message(v-else)
+    .o-empty-message__icon
+      i.far.fa-smile
+    p.o-empty-message__text
+      | 未チェックの日報はありません
 </template>
 <script>
 import Report from './report.vue'
@@ -39,6 +52,16 @@ export default {
     'unconfirmed-link': UnconfirmedLink,
     loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager
+  },
+  props: {
+    userId: {
+      type: String,
+      default: null
+    },
+    limit: {
+      type: String,
+      default: null
+    }
   },
   data() {
     return {
@@ -55,6 +78,12 @@ export default {
     newParams() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
+      if (this.userId) {
+        params.set('user_id', this.userId)
+      }
+      if (this.limit) {
+        params.set('limit', this.limit)
+      }
       return params
     },
     newURL() {
@@ -95,27 +124,17 @@ export default {
       history.pushState(null, null, this.newURL)
       this.getReports()
     },
-    getReports() {
-      fetch(this.reportsAPI, {
+    async getReports() {
+      const response = await fetch(this.reportsAPI, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         credentials: 'same-origin',
         redirect: 'manual'
-      })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          this.reports = []
-          json.reports.forEach((r) => {
-            this.reports.push(r)
-          })
-          this.currentUserId = json.currentUserId
-          this.totalPages = parseInt(json.totalPages)
-        })
-        .catch((error) => {
-          console.warn('Failed to parsing', error)
-        })
+      }).catch((error) => console.warn(error))
+      const json = await response.json().catch((error) => console.warn(error))
+      this.reports = json.reports
+      this.currentUserId = json.currentUserId
+      this.totalPages = parseInt(json.totalPages)
     }
   }
 }

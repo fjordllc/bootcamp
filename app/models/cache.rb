@@ -33,7 +33,7 @@ class Cache
     end
 
     def self_assigned_no_replied_product_count(current_user_id)
-      Rails.cache.fetch("#{current_user_id}-self_assigned_no_replied_products_count") do
+      Rails.cache.fetch("#{current_user_id}-self_assigned_no_replied_product_count") do
         Product.self_assigned_no_replied_products(current_user_id).unchecked.count
       end
     end
