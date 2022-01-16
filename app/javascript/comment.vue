@@ -27,7 +27,7 @@
       v-bind:reactionableId='reactionableId'
     )
     footer.card-footer(
-      v-if='comment.user.id === currentUser.id || currentUser.role === "admin"'
+      v-if='comment.user.id === currentUser.id || currentUser.role[0] === "admin"'
     )
       .card-main-actions
         ul.card-main-actions__items
