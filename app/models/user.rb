@@ -489,14 +489,6 @@ class User < ApplicationRecord
     !staff? && !graduated?
   end
 
-  def unread_notifications_count
-    @unread_notifications_count ||= notifications.unreads.latest_of_each_link.size
-  end
-
-  def unread_notifications_exists?
-    unread_notifications_count.positive?
-  end
-
   def avatar_url
     default_image_path = '/images/users/avatars/default.png'
     if avatar.attached?
