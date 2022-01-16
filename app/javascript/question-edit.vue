@@ -71,7 +71,7 @@
           :reactionableId='`Question_${question.id}`'
         )
         footer.card-footer(
-          v-if='currentUser.id === question.user.id || currentUser.role === "mentor" || currentUser.role === "admin"'
+          v-if='currentUser.id === question.user.id || currentUser.role[0] === "admin"'
         )
           .card-main-actions
             ul.card-main-actions__items
