@@ -11,12 +11,12 @@ module UserDecorator
       { role: :mentor, value: mentor },
       { role: :adviser, value: adviser },
       { role: :trainee, value: trainee },
-      { role: :graduate, value: graduated_on },
+      { role: :graduate, value: graduated_on }
     ]
     if student? && !graduated?
       [:student]
     else
-      roles.select { |v| v[:value] }.map{ |h| h[:role] }
+      roles.select { |v| v[:value] }.map { |h| h[:role] }
     end
   end
 
