@@ -19,7 +19,7 @@ export default {
       return `${this.blockClassSuffix}__`
     },
     roleClass: function () {
-      return `is-${this.user.role}`
+      return `is-${this.user.role[0]}`
     },
     daimyoClass: function () {
       return { 'is-daimyo': this.user.daimyo }

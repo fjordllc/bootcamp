@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     roleClass() {
-      return `is-${this.question.user.role}`
+      return `is-${this.question.user.role[0]}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.question.user.daimyo }

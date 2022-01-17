@@ -4,4 +4,4 @@ json.(user, *columns)
 json.avatar_url user.avatar_url
 json.daimyo user.daimyo?
 json.delayed user.completed_at >= 2.weeks.ago.end_of_day if user.respond_to?(:completed_at)
-json.role user.role[0]
+json.role user.role
