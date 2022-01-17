@@ -13,10 +13,10 @@
       ul.card-list__items
         - unless current_user.avatar.attached?
           li.card-list__item
-            = link_to 'ユーザーアイコンを登録してください。', edit_current_user_path, class: 'card-list__item-link'
-        - if current_user.tag_list.empty?
+            = link_to 'ユーザーアイコンを登録してください。', edit_current_user_path(anchor: 'form-user-avater'), class: 'card-list__item-link'
+        - if current_user.student? && current_user.after_graduation_hope.blank?
           li.card-list__item
-            = link_to 'タグを登録してください。', edit_current_user_path, class: 'card-list__item-link'
+            = link_to 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。', edit_current_user_path(anchor: 'form-after-graduation-hope'), class: 'card-list__item-link'
         - @required_fields.errors.each do |error|
           li.card-list__item
             = link_to error.message, edit_current_user_path, class: "card-list__item-link is-#{error.attribute}"
