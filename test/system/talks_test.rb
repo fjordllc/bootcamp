@@ -27,7 +27,7 @@ class PagesTest < ApplicationSystemTestCase
     assert_text "#{visited_user.name}さんの相談部屋"
   end
 
-  test '管理者以外がコメントした場合未返信タブに相談部屋が表示される' do
+  test 'a talk room is shown up on unreplied tab when users except admin comments there' do
     user = users(:kimura)
     visit_with_auth "/talks/#{user.talk.id}", 'kimura'
     within('.thread-comment-form__form') do
@@ -43,7 +43,7 @@ class PagesTest < ApplicationSystemTestCase
     assert_text "#{user.login_name} (#{user.name}) さんの相談部屋"
   end
 
-  test '未返信の相談部屋で管理者がコメントすると未返信タブから相談部屋が取り除かれる' do
+  test 'a talk room is removed from unreplied tab when admin comments there' do
     user = users(:with_hyphen)
     visit_with_auth '/talks', 'komagata'
     click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
