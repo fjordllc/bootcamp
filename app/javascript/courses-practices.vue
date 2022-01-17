@@ -19,9 +19,7 @@
             )
               | 完了
         .categories-item__description
-          .categories-item__edit.is-only-mentor(
-            v-if='currentUser.role.includes("admin")'
-          )
+          .categories-item__edit.is-only-mentor(v-if='roleAdmin')
             a.categories-item__edit-link(
               :href='`${category.edit_admin_category_path}`'
             )
@@ -78,6 +76,9 @@ export default {
     containsPractices() {
       if (!this.categories) return null
       return this.categories.filter((value) => value.practices.length)
+    },
+    roleAdmin: function () {
+      return this.currentUser.role.includes('admin')
     }
   },
   created() {

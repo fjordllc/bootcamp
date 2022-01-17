@@ -2,7 +2,7 @@
 .m-user-icons__item
   a.m-user-icons__item-link(:href='startedStudent.user_link')
     img(
-      :class='`m-user-icons__item-icon a-user-icon ${activeOrInactive} is-${startedStudent.role}`',
+      :class='`m-user-icons__item-icon a-user-icon ${activeOrInactive} is-${startedStudent.role[0]}`',
       :src='startedStudent.avatar_url',
       :title='`${startedStudent.icon_title}`'
     )
