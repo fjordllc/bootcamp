@@ -27,7 +27,7 @@
       v-bind:reactionableId='reactionableId'
     )
     footer.card-footer(
-      v-if='comment.user.id === currentUser.id || currentUser.role[0] === "admin"'
+      v-if='comment.user.id === currentUser.id || currentUser.role.includes("admin")'
     )
       .card-main-actions
         ul.card-main-actions__items
@@ -121,7 +121,7 @@ export default {
       return dayjs(this.comment.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     roleClass() {
-      return `is-${this.comment.user.role}`
+      return `is-${this.comment.user.role[0]}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.comment.user.daimyo }
