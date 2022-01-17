@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::Admin::CompaniesController < API::BaseController
+class API::Admin::CompaniesController < API::Admin::BaseController
   before_action :require_login
 
   def index
