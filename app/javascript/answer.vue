@@ -36,7 +36,7 @@
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item(
-            v-if='answer.user.id == currentUser.id || currentUser.role[0] == "admin"'
+            v-if='answer.user.id == currentUser.id || currentUser.role.includes("admin")'
           )
             button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
               @click='editAnswer'
@@ -44,21 +44,21 @@
               i.fas.fa-pen
               | 内容修正
           li.card-main-actions__item(
-            v-if='!hasCorrectAnswer && answer.type != "CorrectAnswer" && (currentUser.id === questionUser.id || currentUser.role[0] === "admin")'
+            v-if='!hasCorrectAnswer && answer.type != "CorrectAnswer" && (currentUser.id === questionUser.id || currentUser.role.includes("admin"))'
           )
             button.card-main-actions__action.a-button.is-md.is-primary.is-block(
               @click='makeToBestAnswer'
             )
               | ベストアンサーにする
           li.card-main-actions__item(
-            v-if='hasCorrectAnswer && answer.type == "CorrectAnswer" && (currentUser.id === questionUser.id || currentUser.role[0] === "admin")'
+            v-if='hasCorrectAnswer && answer.type == "CorrectAnswer" && (currentUser.id === questionUser.id || currentUser.role.includes("admin"))'
           )
             button.card-main-actions__action.a-button.is-md.is-muted.is-block(
               @click='cancelBestAnswer'
             )
               | ベストアンサーを取り消す
           li.card-main-actions__item.is-sub(
-            v-if='answer.user.id == currentUser.id || currentUser.role[0] == "admin"'
+            v-if='answer.user.id == currentUser.id || currentUser.includes("admin")'
           )
             button.card-main-actions__delete(@click='deleteAnswer')
               | 削除する
@@ -145,7 +145,7 @@ export default {
       return dayjs(this.answer.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     roleClass: function () {
-      return `is-${this.answer.user.role}`
+      return `is-${this.answer.user.role[0]}`
     },
     daimyoClass: function () {
       return { 'is-daimyo': this.answer.user.daimyo }

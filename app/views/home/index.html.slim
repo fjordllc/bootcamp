@@ -61,5 +61,9 @@ header.page-header
           - if current_user.mentor?
             = render 'users/sad_emotion_report', users: User.students_and_trainees
             = render 'users/inactive_users', users: @inactive_students
+<<<<<<< HEAD
           - if current_user.primary_role == :student
+=======
+          - if current_user.role.include?(:student)
+>>>>>>> 41a86b59f (user.roleから値を取り出す方法を変更)
             = render 'required_field', user: current_user
