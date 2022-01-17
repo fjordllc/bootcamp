@@ -149,7 +149,7 @@ export default {
   },
   computed: {
     roleClass() {
-      return `is-${this.product.user.role}`
+      return `is-${this.product.user.role[0]}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.product.user.daimyo }

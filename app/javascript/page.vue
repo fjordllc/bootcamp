@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     roleClass() {
-      return `is-${this.page.user.role}`
+      return `is-${this.page.user.role[0]}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.page.user.daimyo }
