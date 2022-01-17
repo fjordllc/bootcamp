@@ -90,7 +90,7 @@
           - event.participants.each do |participant|
             li.footprints-item
               = link_to participant do
-                = image_tag participant.avatar_url, title: participant.icon_title, class: "footprints-item__checker-icon a-user-icon is-#{participant.login_name} is-#{participant.role}", alt: participant.login_name
+                = image_tag participant.avatar_url, title: participant.icon_title, class: "footprints-item__checker-icon a-user-icon is-#{participant.login_name} is-#{participant.role[0]}", alt: participant.login_name
 
 - if event.waitlist.count.positive?
   .thread.waitlist
