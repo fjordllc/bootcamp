@@ -10,7 +10,7 @@ class API::Admin::CompaniesTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
 
     token = create_token('komagata', 'testtest')
-    get api_users_path(format: :json),
+    get api_admin_companies_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
   end
