@@ -26,8 +26,8 @@
     pager(v-bind='pagerProps')
 </template>
 <script>
-import User from './user.vue'
-import Pager from './pager.vue'
+import User from 'user.vue'
+import Pager from 'pager.vue'
 
 export default {
   components: {

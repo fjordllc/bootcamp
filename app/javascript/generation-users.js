@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import GenerationUsers from './generation-users.vue'
+import GenerationUsers from 'generation-users.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-generation-users'
