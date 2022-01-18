@@ -22,12 +22,13 @@
             span.users-item-names__chat-value
               = user.discord_account.presence || 'Discord未設定'
     = render 'users/sns', user: user
-    .form-actions
-      ul.form-actions__items
-        li.form-actions__item.is-main
-          = link_to user_path(format: :md), class: 'a-button is-md is-primary is-block' do
-            i.fas.fa-cloud-download-alt
-            | 日報一括ダウンロード
+    - if admin_login?
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item.is-main
+            = link_to user_path(format: :md), class: 'a-button is-md is-primary is-block' do
+              i.fas.fa-cloud-download-alt
+              | 日報一括ダウンロード
   - if user.company.present? && user.company.logo.attached?
     = link_to company_path(user.company) do
       = image_tag user.company.logo_url, class: 'user-profile__company-logo'
