@@ -1,7 +1,10 @@
 - content_for :extra_body_classes, "welcome"
+- title @article.title
+- add_breadcrumb 'Home', root_path
+- add_breadcrumb 'ブログ記事一覧', articles_path
+- add_breadcrumb title, ''
 
 notice = @notice
-- title @article.title
 
 section.o-static-page
   header.o-static-page-header
@@ -48,24 +51,13 @@ section.o-static-page
               - if @article.thumbnail.attached?
                 .o-static-article__main-image-container
                   = image_tag(@article.thumbnail_url, class: 'o-static-article__main-image')
-              .a-long-text.js-markdown-view.js-target-blank
+              .a-long-text.is-lg.js-markdown-view.js-target-blank
                 = @article.body
           - if admin_login?
             .o-static-article__footer
-              .m-inline-icon-list
-                ul.m-inline-icon-list__items
-                  li.m-inline-icon-list__item
-                    = link_to edit_article_path(@article), class: "a-button is-md is-warning is-icon", id: "js-shortcut-edit" do
-                      i.fas.fa-pen#edit
-nav.o-basic-breadcrumbs
-  .l-container.is-mxw-100pc
-    ol.o-basic-breadcrumbs__items
-      li.o-basic-breadcrumbs__item
-        = link_to root_path, class: "o-basic-breadcrumbs__item-link" do
-          | Home
-      li.o-basic-breadcrumbs__item
-        = link_to articles_path, class: "o-basic-breadcrumbs__item-link" do
-          | お知らせ一覧
-      li.o-basic-breadcrumbs__item
-        = link_to @article, class: "o-basic-breadcrumbs__item-link" do
-          = @article.title
+              .l-container.is-md
+                .m-inline-icon-list
+                  ul.m-inline-icon-list__items
+                    li.m-inline-icon-list__item
+                      = link_to edit_article_path(@article), class: "a-button is-md is-warning is-icon", id: "js-shortcut-edit" do
+                        i.fas.fa-pen#edit

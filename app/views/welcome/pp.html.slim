@@ -1,12 +1,18 @@
 - title 'プライバシーポリシー'
+- add_breadcrumb "Home", root_path
+- add_breadcrumb title, ''
 
-header.welcome-page-header
-  .container.is-xl
-    h1.welcome-page-header__title
-      | プライバシーポリシー
+header.o-static-page-header
+  .o-static-page-header__main
+    .l-container
+      .o-static-page-header__inner
+        h1.o-static-page-header__title
+          = title
 
-.welcome-sections
-  .welcome-section
-    .container.is-md
-      .tos.is-long-text
-        = render 'welcome/pp'
+.t-lp__contents
+  .m-lp-content
+    .l-container.is-md
+      .m-lp-content__inner
+        .m-lp-content__body
+          .a-long-text
+            = render 'welcome/pp'

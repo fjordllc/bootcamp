@@ -29,7 +29,10 @@
                         = l(article.published_at)
                   .m-inline-list__item
                     .m-media-attributes__author
-                      = image_tag(article.user.avatar_url, class: "a-circle-image")
+                      = image_tag article.user.avatar_url, class: 'a-circle-image'
+                  .m-inline-list__item
+                    .m-media-attributes__author
+                      = image_tag article.user.avatar_url, class: 'a-circle-image'
                       .m-media-attributes__author-name
                         = article.user.login_name
   - if admin_login?

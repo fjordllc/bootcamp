@@ -4,13 +4,15 @@ $sm-font-sizes: (xs: fz(1), sm: fz(1), md: fz(2), h6: fz(2), h5: fz(2), h4: fz(3
 
 =short-text-style($size)
   $font-sizes: ""
-  @if $size == md
+  @if $size == lg
+    $font-sizes: $lg-font-sizes
+  @else if $size == md
     $font-sizes: $md-font-sizes
   @else if $size == sm
     $font-sizes: $sm-font-sizes
-  >*:first-child
+  *:first-child
     margin-top: 0
-  >*:last-child
+  *:last-child
     margin-bottom: 0
   p
     +text-block(map-get($font-sizes, md) 1.5 .75em)
