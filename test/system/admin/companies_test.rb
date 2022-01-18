@@ -33,9 +33,6 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   end
 
   test 'show pagination' do
-    26.times do
-      Company.create(name: 'test', description: 'test', website: 'test')
-    end
     visit_with_auth '/admin/companies', 'komagata'
     assert_selector 'nav.pagination', count: 2
   end
