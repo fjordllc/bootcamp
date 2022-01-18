@@ -26,13 +26,15 @@ main.page-main
   header.page-main-header
     .container
       .page-main-header__inner
-        - if params[:tag]
+        - if @tag.present?
           .page-main-header__start
             h1.page-main-header__title
-              | タグ「#{params[:tag]}」のユーザー（#{@users.total_count}）
+              | タグ「#{@tag.name}」のユーザー（#{@users.total_count}）
           .page-main-header__end
             .page-main-header-actions
               .page-main-header-actions__items
+                - if admin_login?
+                  #js-tag-edit(tag-id="#{@tag.id}" tag-name="#{@tag.name}")
                 .page-main-header-actions__item.is-remove
                   - if current_user.tag_list.include?(params[:tag])
                     = link_to 'このタグを自分から外す', "/users/tags/#{params[:tag]}", method: 'delete', class: 'a-button is-sm is-muted is-block'
