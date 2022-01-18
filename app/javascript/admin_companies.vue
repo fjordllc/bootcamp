@@ -17,22 +17,31 @@
           th.admin-table__label.actions
             | 操作
       tbody.admin-table__items
-        tr.admin-table__item(v-for='company in companies', :key='company.id')
+        tr.admin-table__item(
+          v-for='company in companies',
+          :key='company.id',
+          :id='`company_${company.id}`',
+          v-if='companies'
+        )
           td.admin-table__item-value
             | {{ company.name }}
           td.admin-table__item-value.is-text-align-center
-            img.admin-table__item-logo-image(:src='company.logo_url')
+            img.admin-table__item-logo-image(
+              v-if='company.logo_url',
+              :src='company.logo_url'
+            )
           td.admin-table__item-value
             | {{ company.website }}
           td.admin-table__item-value.is-text-align-center
             a.a-button.is-sm.is-secondary.is-icon(
+              :title='"アドバイザーサインアップURL"',
               :href='company.adviser_sign_up_url'
             )
               i.fas.fa-user-plus
           td.admin-table__item-value.is-text-align-center
             ul.is-inline-buttons
               li
-                a.a-button.is-sm.is-secondary.is-icon.spec-edit(
+                a.a-button.is-sm.is-secondary.is-icon(
                   :href='`/admin/companies/${company.id}/edit`'
                 )
                   i.fas.fa-pen
