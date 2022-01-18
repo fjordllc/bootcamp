@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class API::Admin::CompaniesController < API::Admin::BaseController
-  before_action :require_login
-
   def index
     @companies = Company.with_attached_logo
                         .order(:id)

@@ -3,4 +3,4 @@ json.companies do
     json.partial! "api/admin/companies/company", company: company
   end
 end
-json.total_pages @companies.page(1).total_pages
+json.total_pages @companies.total_pages
