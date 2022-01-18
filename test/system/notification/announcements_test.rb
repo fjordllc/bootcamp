@@ -18,6 +18,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     find("textarea[name='announcement[description]']").set('お知らせ内容です')
     find("input[value='all']", { visible: false }).set(true)
     click_button '作成'
+  test 'all member recieve a notification when announcement posted' do
     logout
 
     visit_with_auth '/', 'sotugyou'
