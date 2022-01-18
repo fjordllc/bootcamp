@@ -73,5 +73,8 @@ Rails.application.routes.draw do
       resources :unreplied, only: %i(index)
     end
     resources :talks, only: %i(index)
+    resources :companies, only: %i(index show) do
+      resources :users, only: %i(index), controller: "companies/users"
+    end
   end
 end
