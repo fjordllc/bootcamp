@@ -52,7 +52,7 @@ class User::TagsTest < ApplicationSystemTestCase
     page.all('.tag-links__item-edit')[0].click
     tag_input = find('.ti-new-tag-input')
     tag_input.set 'タグタグ'
-    find('body').click
+    tag_input.native.send_keys :return
     click_button '保存する'
 
     visit_with_auth user_path(users(:hatsuno)), 'komagata'
@@ -140,7 +140,7 @@ class User::TagsTest < ApplicationSystemTestCase
     page.all('.tag-links__item-edit')[0].click
     tag_input = find('.ti-new-tag-input')
     tag_input.set '#ハッシュハッシュ'
-    find('body').click
+    tag_input.native.send_keys :return
     click_button '保存する'
 
     visit_with_auth user_path(users(:hatsuno)), 'komagata'
