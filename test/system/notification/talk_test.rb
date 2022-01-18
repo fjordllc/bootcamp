@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Notification::AnswersTest < ApplicationSystemTestCase
+class Notification::TalkTest < ApplicationSystemTestCase
   test 'Admin receive a notification when someone comments on a talk room' do
     talk_id = users(:kimura).talk.id
     visit_with_auth "/talks/#{talk_id}", 'kimura'
