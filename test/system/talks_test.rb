@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class PagesTest < ApplicationSystemTestCase
+class TalksTest < ApplicationSystemTestCase
   test 'admin can access talks page' do
     visit_with_auth '/talks', 'komagata'
     assert_equal '相談部屋 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
