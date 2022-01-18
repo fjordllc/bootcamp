@@ -39,4 +39,13 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     visit_with_auth '/admin/companies', 'komagata'
     assert_selector 'nav.pagination', count: 2
   end
+
+  test 'delete company' do
+    visit_with_auth '/admin/companies', 'komagata'
+    wait_for_vuejs
+    accept_confirm do
+      find("#company_#{companies(:company2).id} a.a-button.is-sm.is-danger.is-icon.js-delete").click
+    end
+    assert_no_text companies(:company2).name
+  end
 end
