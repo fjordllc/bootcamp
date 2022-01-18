@@ -19,6 +19,7 @@ class Page < ApplicationRecord
   paginates_per 20
   alias sender user
   after_create PageCallbacks.new
+  after_save PageCallbacks.new
   after_update PageCallbacks.new
 
   columns_for_keyword_search :title, :body

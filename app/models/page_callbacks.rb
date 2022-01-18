@@ -7,7 +7,7 @@ class PageCallbacks
     send_notification(page)
     notify_to_chat(page)
     create_author_watch(page)
-
+    
     page.published_at = Time.current
     page.save
   end
@@ -15,7 +15,6 @@ class PageCallbacks
   def after_update(page)
     return unless page.wip == false && page.published_at.nil?
 
-    send_notification(page)
     notify_to_chat(page)
     create_author_watch(page)
 
@@ -23,11 +22,16 @@ class PageCallbacks
     page.save
   end
 
+  def after_save(page)
+    notify_followers(page)
+  end
+
   private
 
   def send_notification(page)
     receivers = User.where(retired_on: nil, graduated_on: nil, adviser: false, trainee: false)
     receivers.each do |receiver|
+      p page
       NotificationFacade.create_page(page, receiver) if page.sender != receiver
     end
   end
@@ -50,5 +54,21 @@ class PageCallbacks
 
   def create_author_watch(page)
     Watch.create!(user: page.user, watchable: page)
+  end
+
+  def notify_followers(page)
+    followers = page.user.followers
+    send_notification(
+      product: page,
+      receivers: followers,
+      message: "#{page.user.login_name}さんがDocsに#{page.title}を投稿しました。"
+    )
+    page.user.followers.each do |follower|
+      create_following_watch(page, follower) if follower.watching?(page.user)
+    end
+  end
+
+  def create_following_watch(page, follower)
+    Watch.create!(user: follower, watchable: page)
   end
 end
