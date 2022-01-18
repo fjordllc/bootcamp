@@ -11,6 +11,7 @@ class ProductCallbacks
 
   def after_save(product)
     if !product.wip? && product.published_at.nil?
+      notify_followers(product)
       notify_to_watching_mentor(product)
       if product.user.trainee?
         send_notification(
@@ -70,5 +71,21 @@ class ProductCallbacks
       receivers: mentors,
       message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
     )
+  end
+
+  def notify_followers(product)
+    followers = product.user.followers
+    send_notification(
+      product: product,
+      receivers: followers,
+      message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
+    )
+    product.user.followers.each do |follower|
+      create_following_watch(product, follower) if follower.watching?(product.user)
+    end
+  end
+
+  def create_following_watch(product, follower)
+    Watch.create!(user: follower, watchable: product)
   end
 end
