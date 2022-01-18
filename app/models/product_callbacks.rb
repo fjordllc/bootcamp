@@ -14,6 +14,7 @@ class ProductCallbacks
 
     checker_id = product.checker_id || product.attribute_before_last_save('checker_id')
     Cache.delete_self_assigned_no_replied_product_count(checker_id)
+    Cache.delete_unassigned_product_count
   end
 
   def after_save(product)
@@ -42,7 +43,7 @@ class ProductCallbacks
     delete_notification(product)
 
     Cache.delete_unchecked_product_count
-    Cache.delete_unassigned_product_count
+    Cache.delete_unassigned_product_count if product.unassigned?
     Cache.delete_self_assigned_no_replied_product_count(product.checker_id)
   end
 

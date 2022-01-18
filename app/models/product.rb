@@ -164,6 +164,10 @@ class Product < ApplicationRecord
     checker_id.present? && checker_id.to_s != current_user_id
   end
 
+  def unassigned?
+    checker_id.nil?
+  end
+
   def checker_name
     checker_id ? User.find(checker_id).login_name : nil
   end
