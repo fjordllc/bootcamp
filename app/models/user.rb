@@ -613,12 +613,10 @@ class User < ApplicationRecord
   end
 
   def category_having_active_practice
-    active_practice = active_practices&.first
-    active_practice.categories&.first
+    active_practices&.first&.categories&.first
   end
 
   def category_having_unstarted_practice
-    unstarted_practice = unstarted_practices&.first
-    unstarted_practice.categories&.first
+    unstarted_practices&.first&.categories&.first
   end
 end
