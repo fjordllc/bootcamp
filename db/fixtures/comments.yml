@@ -53,7 +53,7 @@ comment7:
 comment8:
   user: komagata
   commentable: product10 (Product)
-  description: "提出物のコメントです。"
+  description: "提出物のコメント0です。"
 
 comment9:
   user: komagata
@@ -104,10 +104,25 @@ comment<%= i + 16 %>:
 
 comment37:
   user: machida
-  commentable: page10 (Page)
-  description: "Docsのコメントです。"
+  commentable: report1 (Report)
+  description: "日報のコメントです。"
 
 comment38:
   user: machida
+  commentable: product1 (Product)
+  description: "提出物のコメントです。"
+
+comment39:
+  user: machida
+  commentable: page1 (Page)
+  description: "Docsのコメントです。"
+
+comment40:
+  user: machida
   commentable: event1 (Event)
   description: "イベントのコメントです。"
+
+comment41:
+  user: machida
+  commentable: announcement1 (Announcement)
+  description: "お知らせのコメントです。"
