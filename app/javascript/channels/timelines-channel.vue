@@ -5,7 +5,7 @@
         img.thread-timeline__author-icon.a-user-icon(:src="currentUser.avatar_url" :title="currentUser.icon_title")
       .thread-timeline-form__form.a-card
         .thread-timeline-form__markdown-parent.js-markdown-parent
-          markdown-textarea(v-model="description" id="js-new-timeline" class="a-text-input js-warning-form thread-timeline-form__textarea js-markdown" name="new_timeline[description]")
+          #js-new-timeline.a-text-input.js-warning-form.thread-timeline-form__textarea.js-markdown(v-model="description" name="new_timeline[description]")
         .thread-timeline-form__actions
           .thread-timeline-form__action
             button(v-on:click="createTimeline" :disabled="!validation || buttonDisabled")
@@ -20,12 +20,10 @@
 </template>
 <script>
   import Timeline from './timeline.vue'
-  import MarkdownTextarea from '../markdown-textarea'
 
   export default {
     components: {
       'timeline': Timeline,
-      'markdown-textarea': MarkdownTextarea
     },
     data: () => {
       return {

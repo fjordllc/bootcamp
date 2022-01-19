@@ -28,10 +28,8 @@
         | キャンセル
 </template>
 <script>
-  import MarkdownTextarea from '../markdown-textarea'
-  import MarkdownIt from 'markdown-it'
-  import MarkdownItEmoji from 'markdown-it-emoji'
-  import moment from 'moment'
+  import MarkdownInitializer from '../markdown-initializer'
+  import TextareaInitializer from '../textarea-initializer'
   import dayjs from 'dayjs'
   import ja from 'dayjs/locale/ja'
   dayjs.locale(ja)
@@ -39,7 +37,6 @@
   export default {
     props: ['timeline', 'currentUser'],
     components: {
-      'markdown-textarea': MarkdownTextarea
     },
     data: () => {
       return {
@@ -51,7 +48,6 @@
       this.description = this.timeline.description;
     },
     mounted: function() {
-      $('textarea').textareaAutoSize();
     },
     methods: {
       editTimeline: function() {
