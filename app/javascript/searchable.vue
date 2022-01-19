@@ -1,9 +1,7 @@
 <template lang="pug">
 .thread-list-item(:class='modelName')
   .thread-list-item__inner
-    .thread-list-item__label(
-      v-if='["comment", "answer", "correct_answer"].includes(searchable.model_name_original)'
-    )
+    .thread-list-item__label(v-if='searchable.is_comment_or_answer')
       | {{ searchable.model_name_with_i18n }}
       .thread-list-item__label-option
         | コメント
@@ -30,13 +28,12 @@
               time.a-meta(:datetime='searchable.updated_at', pubdate='pubdate')
                 | {{ updatedAt }}
             .thread-list-item-meta__item(
-              v-if='["comment", "answer", "correct_answer"].includes(searchable.model_name_original)'
+              v-if='searchable.is_comment_or_answer'
             )
               .a-meta
                 | （
                 a.a-user-name(:href='documentAuthorUserUrl')
-                  | {{ searchable.document_author_login_name }}
-                | {{ searchable.model_name_with_i18n }}
+                  | {{ searchable.document_author_login_name }} {{ searchable.model_name_with_i18n }}
                 | ）
 </template>
 <script>
@@ -51,9 +48,6 @@ export default {
   computed: {
     modelName() {
       return `is-${this.searchable.model_name}`
-    },
-    modelNameOriginal() {
-      return `is-${this.searchable.model_name_original}`
     },
     userUrl() {
       return `/users/${this.searchable.user_id}`

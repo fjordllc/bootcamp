@@ -35,4 +35,8 @@ module SearchHelper
       searchable.description
     end
   end
+
+  def comment_or_answer?(searchable)
+    searchable.is_a?(Comment) || searchable.is_a?(Answer)
+  end
 end
