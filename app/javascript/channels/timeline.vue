@@ -28,76 +28,75 @@
         | キャンセル
 </template>
 <script>
-  import MarkdownInitializer from '../markdown-initializer'
-  import TextareaInitializer from '../textarea-initializer'
-  import dayjs from 'dayjs'
-  import ja from 'dayjs/locale/ja'
-  dayjs.locale(ja)
+import TextareaInitializer from '../textarea-initializer'
+import dayjs from 'dayjs'
+import ja from 'dayjs/locale/ja'
+dayjs.locale(ja)
 
-  export default {
-    props: ['timeline', 'currentUser'],
-    components: {
+export default {
+  props: ['timeline', 'currentUser'],
+  components: {
+  },
+  data: () => {
+    return {
+      description: '',
+      editing: false,
+    }
+  },
+  created: function() {
+    this.description = this.timeline.description;
+  },
+  mounted: function() {
+  },
+  methods: {
+    editTimeline: function() {
+      this.editing = true;
     },
-    data: () => {
-      return {
-        description: '',
-        editing: false,
-      }
-    },
-    created: function() {
+    cancel: function() {
       this.description = this.timeline.description;
+      this.editing = false;
     },
-    mounted: function() {
-    },
-    methods: {
-      editTimeline: function() {
-        this.editing = true;
-      },
-      cancel: function() {
-        this.description = this.timeline.description;
-        this.editing = false;
-      },
-      updateTimeline: function () {
-        if (this.description.length < 1) { return null}
-        let params = {
-          'id' : this.timeline.id,
-          'timeline' : { 'description': this.description }
-        }
-        this.$emit('update', params);
-        this.editing = false;
-      },
-      deleteTimeline: function () {
-        let params = {
-          'id' : this.timeline.id
-        }
-        if (window.confirm('削除してよろしいですか？')) {
-          this.$emit('delete', params);
-        }
+    updateTimeline: function () {
+      if (this.description.length < 1) { return null}
+      let params = {
+        'id' : this.timeline.id,
+        'timeline' : { 'description': this.description }
       }
+      this.$emit('update', params);
+      this.editing = false;
     },
-    computed: {
-      markdownDescription: function() {
-        const md = new MarkdownIt({
-          html: true,
-          breaks: true,
-          linkify: true,
-          langPrefix: 'language-'
-        });
-        md.use(MarkdownItEmoji)
-        return md.render(this.timeline.description);
-      },
-      classTimelineId: function() {
-        return `timeline-id-${this.timeline.id}`
-      },
-      userRole: function(){
-        return `is-${this.timeline.user.role}`
-      },
-      createdAt: function() {
-        return dayjs(this.timeline.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
-      },
-      validation: function () {
-        return this.description.length > 0
+    deleteTimeline: function () {
+      let params = {
+        'id' : this.timeline.id
+      }
+      if (window.confirm('削除してよろしいですか？')) {
+        this.$emit('delete', params);
       }
     }
+  },
+  computed: {
+    markdownDescription: function() {
+      const md = new MarkdownIt({
+        html: true,
+        breaks: true,
+        linkify: true,
+        langPrefix: 'language-'
+      });
+      md.use(MarkdownItEmoji)
+      return md.render(this.timeline.description);
+    },
+    classTimelineId: function() {
+      return `timeline-id-${this.timeline.id}`
+    },
+    userRole: function(){
+      return `is-${this.timeline.user.role}`
+    },
+    createdAt: function() {
+      return dayjs(this.timeline.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+    },
+    validation: function () {
+      return this.description.length > 0
+    }
   }
+}
 </script>
