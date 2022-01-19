@@ -101,3 +101,13 @@ comment<%= i + 16 %>:
   created_at: <%= Time.current + i.minutes %>
   updated_at: <%= Time.current + i.minutes %>
 <% end %>
+
+comment37:
+  user: machida
+  commentable: page10 (Page)
+  description: "Docsのコメントです。"
+
+comment38:
+  user: machida
+  commentable: event1 (Event)
+  description: "イベントのコメントです。"
