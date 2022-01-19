@@ -60,7 +60,16 @@ Rails.application.routes.draw do
   resources :events do
     resources :participations, only: %i(create destroy), controller: "events/participations"
   end
+  resources :companies, only: %i(index show) do
+    resources :users, only: %i(index), controller: "companies/users"
+    resources :reports, only: %i(index), controller: "companies/reports"
+    resources :products, only: %i(index), controller: "companies/products"
+  end
+  resources :generations, only: %i(show index)
   resources :timelines, only: %i(index)
+  get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
+  get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"
+  get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/, format: "html"
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"
   post "user_sessions" => "user_sessions#create"
