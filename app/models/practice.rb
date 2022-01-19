@@ -144,6 +144,13 @@ class Practice < ApplicationRecord
     Category.category(practice: self, course: course) || categories.first || Category.first
   end
 
+  def tweet_url(practice_completion_url)
+    completion_text = "プラクティス「#{title}」を修了しました🎉"
+    # ref: https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/guides/web-intent
+    tweet_param = URI.encode_www_form(text: completion_text, url: practice_completion_url, hashtags: 'fjordbootcamp')
+    "https://twitter.com/intent/tweet?#{tweet_param}"
+  end
+
   private
 
   def total_learning_minute(report)

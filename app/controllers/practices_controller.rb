@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class PracticesController < ApplicationController
-  include LearningCompletion
-
   before_action :require_login
   before_action :require_admin_login, only: %i[new create]
   before_action :require_admin_or_mentor_login, only: %i[edit update]
@@ -11,7 +9,7 @@ class PracticesController < ApplicationController
 
   def show
     @categories = @practice.categories
-    @tweet_url = practice_tweet_url
+    @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
   end
 
   def new
