@@ -32,6 +32,9 @@
   import MarkdownIt from 'markdown-it'
   import MarkdownItEmoji from 'markdown-it-emoji'
   import moment from 'moment'
+  import dayjs from 'dayjs'
+  import ja from 'dayjs/locale/ja'
+  dayjs.locale(ja)
 
   export default {
     props: ['timeline', 'currentUser'],
@@ -94,7 +97,7 @@
         return `is-${this.timeline.user.role}`
       },
       createdAt: function() {
-        return moment(this.timeline.created_at).format('YYYY年MM月DD日(dd) HH:mm')
+        return dayjs(this.timeline.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
       },
       validation: function () {
         return this.description.length > 0
