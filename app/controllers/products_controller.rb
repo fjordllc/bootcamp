@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
-  include LearningCompletion
-
   before_action :require_login
   before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
@@ -16,7 +14,7 @@ class ProductsController < ApplicationController
     @practice = find_practice
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
     @footprints = find_footprints
-    @tweet_url = practice_tweet_url
+    @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
     footprint!
     respond_to do |format|
       format.html
