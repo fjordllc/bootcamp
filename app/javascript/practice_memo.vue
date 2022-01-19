@@ -10,7 +10,7 @@
             .o-empty-message__icon
               i.far.fa-sad-tear
             .o-empty-message__text
-              | プラクティスメモはまだ空です。
+              | プラクティスメモはまだありません。
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
