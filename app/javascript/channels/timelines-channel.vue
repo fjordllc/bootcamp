@@ -2,13 +2,17 @@
   .thread-timeline-container
     .thread-timeline-form.a-card(v-show="currentUrl === '/timelines' || userId === currentUser.id")
       .thread-timeline__author
-        img.thread-timeline__author-icon.a-user-icon(:src="currentUser.avatar_url" :title="currentUser.icon_title")
+        img.thread-timeline__author-icon.a-user-icon(
+          :src="currentUser.avatar_url"
+          :title="currentUser.icon_title")
       .thread-timeline-form__form.a-card
         .thread-timeline-form__markdown-parent.js-markdown-parent
-          #js-new-timeline.a-text-input.js-warning-form.thread-timeline-form__textarea.js-markdown(v-model="description" name="new_timeline[description]")
+          textarea#js-new-timeline.a-text-input.js-warning-form.thread-timeline-form__textarea.js-markdown(
+            v-model="description"
+            name="new_timeline[description]")
         .thread-timeline-form__actions
           .thread-timeline-form__action
-            button(v-on:click="createTimeline" :disabled="!validation || buttonDisabled")
+            button.a-button.is-primary.is-block(v-on:click="createTimeline" :disabled="!validation || buttonDisabled")
               | 投稿する
     .thread-timelines
       timeline(v-for="(timeline, index) in timelines"
@@ -20,6 +24,7 @@
 </template>
 <script>
 import Timeline from './timeline.vue'
+import TextareaInitializer from 'textarea-initializer'
 
 export default {
   components: {
@@ -40,6 +45,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll, true)
   },
   created () {
+    TextareaInitializer.initialize('#js-new-timeline')
     this.timelinesChannel = this.$cable.subscriptions.create({channel: this.selectChannel(), user_id: this.userId}, {
       connected: () => {
         console.log('connected successfully');

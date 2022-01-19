@@ -21,13 +21,18 @@
                   | 削除
       .thread-timeline__description.js-target-blank.is-long-text(v-if="!editing" v-html="markdownDescription")
     .thread-timeline-form__form.a-card(v-show="editing")
-      markdown-textarea(v-model="description" :class="classTimelineId" class="a-text-input js-warning-form thread-timeline-form__textarea js-timeline-markdown" name="timeline[description]")
+      textarea.a-text-input.js-warning-form.thread-timeline-form__textarea.js-timeline-markdown(
+        :id='`js-timeline-${this.timeline.id}`',
+        :class="classTimelineId"
+        v-model="description"
+        name="timeline[description]")
       button(v-on:click="updateTimeline" v-bind:disabled="!validation")
         | 保存する
       button(v-on:click="cancel")
         | キャンセル
 </template>
 <script>
+import MarkdownInitializer from '../markdown-initializer'
 import TextareaInitializer from '../textarea-initializer'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
@@ -47,6 +52,7 @@ export default {
     this.description = this.timeline.description;
   },
   mounted: function() {
+    TextareaInitializer.initialize(`#js-timeline-${this.timeline.id}`)
   },
   methods: {
     editTimeline: function() {
@@ -76,14 +82,8 @@ export default {
   },
   computed: {
     markdownDescription: function() {
-      const md = new MarkdownIt({
-        html: true,
-        breaks: true,
-        linkify: true,
-        langPrefix: 'language-'
-      });
-      md.use(MarkdownItEmoji)
-      return md.render(this.timeline.description);
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.description)
     },
     classTimelineId: function() {
       return `timeline-id-${this.timeline.id}`
