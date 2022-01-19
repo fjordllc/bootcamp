@@ -1,268 +1,268 @@
-timeline_1:
+timeline1:
   user: hajime
   description: |-
     今は勉強中です
   created_at: <%= Time.current %>
 
-timeline_2:
+timeline2:
   user: hajime
   description: |-
     チェリー本第1章を読みました
   created_at: <%= Time.current + 1.minutes %>
 
-timeline_3:
+timeline3:
   user: hajime
   description: |-
     チェリー本第2章を読みました
   created_at: <%= Time.current + 2.minutes %>
 
-timeline_4:
+timeline4:
   user: hajime
   description: |-
     チェリー本第3章を読みました
   created_at: <%= Time.current + 3.minutes %>
 
-timeline_5:
+timeline5:
   user: hajime
   description: |-
     チェリー本第4章を読みました
   created_at: <%= Time.current + 4.minutes %>
 
-timeline_6:
+timeline6:
   user: hajime
   description: |-
     チェリー本第5章を読みました
   created_at: <%= Time.current + 5.minutes %>
 
-timeline_7:
+timeline7:
   user: hajime
   description: |-
     チェリー本第6章を読みました
   created_at: <%= Time.current + 6.minutes %>
 
-timeline_8:
+timeline8:
   user: hajime
   description: |-
     チェリー本第7章を読みました
   created_at: <%= Time.current + 7.minutes %>
 
-timeline_9:
+timeline9:
   user: hajime
   description: |-
     チェリー本第8章を読みました
   created_at: <%= Time.current + 8.minutes %>
 
-timeline_10:
+timeline10:
   user: hajime
   description: |-
     チェリー本第9章を読みました
   created_at: <%= Time.current + 9.minutes %>
 
-timeline_11:
+timeline11:
   user: hajime
   description: |-
     チェリー本第10章を読みました
   created_at: <%= Time.current + 10.minutes %>
 
-timeline_12:
+timeline12:
   user: hajime
   description: |-
     チェリー本第11章を読みました
   created_at: <%= Time.current + 11.minutes %>
 
-timeline_13:
+timeline13:
   user: hajime
   description: |-
     チェリー本第12章を読みました
   created_at: <%= Time.current + 12.minutes %>
 
-timeline_14:
+timeline14:
   user: hajime
   description: |-
     ゼロからわかるRuby超入門CHAPTER 1を読みました
   created_at: <%= Time.current + 13.minutes %>
 
-timeline_15:
+timeline15:
   user: hajime
   description: |-
     ゼロからわかるRuby超入門CHAPTER 2を読みました
   created_at: <%= Time.current + 14.minutes %>
 
-timeline_16:
+timeline16:
   user: hajime
   description: |-
     ゼロからわかるRuby超入門CHAPTER 3を読みました
   created_at: <%= Time.current + 15.minutes %>
 
-timeline_17:
+timeline17:
   user: hajime
   description: |-
     ゼロからわかるRuby超入門CHAPTER 4を読みました
   created_at: <%= Time.current + 16.minutes %>
 
-timeline_18:
+timeline18:
   user: hajime
   description: |-
     ゼロからわかるRuby超入門CHAPTER 5を読みました
   created_at: <%= Time.current + 17.minutes %>
 
-timeline_19:
+timeline19:
   user: hajime
   description: |-
     ゼロからわかるRuby超入門CHAPTER 6を読みました
   created_at: <%= Time.current + 18.minutes %>
 
-timeline_20:
+timeline20:
   user: hajime
   description: |-
     ゼロからわかるRuby超入門CHAPTER 7を読みました
   created_at: <%= Time.current + 19.minutes %>
 
-timeline_21:
+timeline21:
   user: hajime
   description: |-
     ゼロからわかるRuby超入門CHAPTER 8を読みました
   created_at: <%= Time.current + 20.minutes %>
 
-timeline_22:
+timeline22:
   user: hajime
   description: |-
     ゼロからわかるRuby超入門CHAPTER 9を読みました
   created_at: <%= Time.current + 21.minutes %>
 
-timeline_23:
+timeline23:
   user: hajime
   description: |-
     ゼロからわかるRuby超入門CHAPTER 10を読みました
   created_at: <%= Time.current + 22.minutes %>
 
-timeline_24:
+timeline24:
   user: hajime
   description: |-
     ゼロからわかるRuby超入門CHAPTER 11を読みました
   created_at: <%= Time.current + 23.minutes %>
 
-timeline_25:
+timeline25:
   user: hajime
   description: |-
     オブジェクト指向設計実践ガイド第1章を読みました
   created_at: <%= Time.current + 24.minutes %>
 
-timeline_26:
+timeline26:
   user: hajime
   description: |-
     オブジェクト指向設計実践ガイド第2章を読みました
   created_at: <%= Time.current + 25.minutes %>
 
-timeline_27:
+timeline27:
   user: hajime
   description: |-
     オブジェクト指向設計実践ガイド第3章を読みました
   created_at: <%= Time.current + 26.minutes %>
 
-timeline_28:
+timeline28:
   user: hajime
   description: |-
     オブジェクト指向設計実践ガイド第4章を読みました
   created_at: <%= Time.current + 27.minutes %>
 
-timeline_29:
+timeline29:
   user: hajime
   description: |-
     オブジェクト指向設計実践ガイド第5章を読みました
   created_at: <%= Time.current + 28.minutes %>
 
-timeline_30:
+timeline30:
   user: hajime
   description: |-
     オブジェクト指向設計実践ガイド第6章を読みました
   created_at: <%= Time.current + 29.minutes %>
 
-timeline_31:
+timeline31:
   user: hajime
   description: |-
     オブジェクト指向設計実践ガイド第7章を読みました
   created_at: <%= Time.current + 30.minutes %>
 
-timeline_32:
+timeline32:
   user: hajime
   description: |-
     オブジェクト指向設計実践ガイド第8章を読みました
   created_at: <%= Time.current + 31.minutes %>
 
-timeline_33:
+timeline33:
   user: hajime
   description: |-
     オブジェクト指向設計実践ガイド第9章を読みました
   created_at: <%= Time.current + 32.minutes %>
 
-timeline_34:
+timeline34:
   user: hajime
   description: |-
     改訂2版 パーフェクトRuby第1章を読みました
   created_at: <%= Time.current + 33.minutes %>
 
-timeline_35:
+timeline35:
   user: hajime
   description: |-
     改訂2版 パーフェクトRuby第2章を読みました
   created_at: <%= Time.current + 34.minutes %>
 
-timeline_36:
+timeline36:
   user: hajime
   description: |-
     改訂2版 パーフェクトRuby第3章を読みました
   created_at: <%= Time.current + 35.minutes %>
 
-timeline_37:
+timeline37:
   user: hajime
   description: |-
     改訂2版 パーフェクトRuby第4章を読みました
   created_at: <%= Time.current + 36.minutes %>
 
-timeline_38:
+timeline38:
   user: hajime
   description: |-
     改訂2版 パーフェクトRuby第5章を読みました
   created_at: <%= Time.current + 37.minutes %>
 
-timeline_39:
+timeline39:
   user: hajime
   description: |-
     改訂2版 パーフェクトRuby第6章を読みました
   created_at: <%= Time.current + 38.minutes %>
 
-timeline_40:
+timeline40:
   user: hajime
   description: |-
     改訂2版 パーフェクトRuby第7章を読みました
   created_at: <%= Time.current + 39.minutes %>
 
-timeline_41:
+timeline41:
   user: kimura
   description: |-
     これから学習します
   created_at: <%= Time.current + 40.minutes %>
 
-timeline_42:
+timeline42:
   user: hatsuno
   description: |-
     これから勉強します
   created_at: <%= Time.current + 41.minutes %>
 
-timeline_43:
+timeline43:
   user: komagata
   description: |-
     test
   created_at: <%= Time.current + 42.minutes %>
 
-timeline_44:
+timeline44:
   user: machida
   description: |-
     test
   created_at: <%= Time.current + 43.minutes %>
 
-timeline_45:
+timeline45:
   user: hajime
   description: |-
     今は勉強中です
