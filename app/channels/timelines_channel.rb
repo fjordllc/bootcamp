@@ -1,22 +1,24 @@
 # frozen_string_literal: true
 
 class TimelinesChannel < ApplicationCable::Channel
-  before_subscribe :set_host_for_disk_storage
+  before_subscribe :set_active_storage_current_host
 
   TIMELINES_LIMIT = 20
 
   def subscribed
     stream_from 'timelines_channel'
     if !subscription_rejected?
-      transmit({ event: 'subscribe', current_user: decorated(current_user).format_to_channel, timelines: formatted_timelines })
+      transmit({ event: 'subscribe', current_user: decorate(current_user).format_to_channel, timelines: formatted_timelines })
     else
       transmit({ event: 'failed_to_subscribe' })
     end
   end
 
   def create_timeline(data)
-    # ApplicationCable::Channelにはcontrollerで使えるbefore_actionなどのコールバックが使えないため、set_host_for_disk_storageを呼び出している
-    set_host_for_disk_storage
+    # ApplicationCable::Channelにはcontrollerで使えるbefore_actionなどの
+    # コールバックが使えないため、set_active_storage_current_hostを呼び出している
+    set_active_storage_current_host
+
     @timeline = Timeline.new(permitted(data))
     @timeline.user_id = current_user.id
     if @timeline.save
@@ -62,10 +64,14 @@ class TimelinesChannel < ApplicationCable::Channel
                            .where('id != ?', timeline['id'])
                            .order(created_at: :desc)
                            .limit(TIMELINES_LIMIT)
-                           .map { |tl| decorated(tl).format_to_channel } })
+                           .map { |tl| decorate(tl).format_to_channel } })
   end
 
   private
+
+  def set_active_storage_current_host
+    ActiveStorage::Current.host = Rails.application.config.action_controller.asset_host
+  end
 
   def permitted(data)
     params = ActionController::Parameters.new(data)
@@ -73,26 +79,19 @@ class TimelinesChannel < ApplicationCable::Channel
   end
 
   def broadcast_to_timelines_channel(event, timeline)
-    ActionCable.server.broadcast 'timelines_channel', { event: event, timeline: decorated(timeline).format_to_channel }
+    ActionCable.server.broadcast 'timelines_channel', { event: event, timeline: decorate(timeline).format_to_channel }
   end
 
   def broadcast_to_user_timelines_channel(event, timeline)
-    ActionCable.server.broadcast "user_#{current_user.id}_timelines_channel", { event: event, timeline: decorated(timeline).format_to_channel }
+    ActionCable.server.broadcast "user_#{current_user.id}_timelines_channel", { event: event, timeline: decorate(timeline).format_to_channel }
   end
 
-  def decorated(obj)
+  def decorate(obj)
     ActiveDecorator::Decorator.instance.decorate(obj)
   end
 
   def formatted_timelines
-    Timeline.order(created_at: :desc).limit(TIMELINES_LIMIT).map { |timeline| decorated(timeline).format_to_channel }
-  end
-
-  # local・test環境でActiveStorage::Current.hostが定義されずユーザーアイコンのservice_urlを取得することができなかったため、以下のように定義
-  def set_host_for_disk_storage
-    return unless %i[local test].include? Rails.application.config.active_storage.service
-
-    ActiveStorage::Current.host = Rails.application.config.action_cable.url.gsub(/cable/, '')
+    Timeline.order(created_at: :desc).limit(TIMELINES_LIMIT).map { |timeline| decorate(timeline).format_to_channel }
   end
 
   def ajusted_timeline_created_at(timeline)
