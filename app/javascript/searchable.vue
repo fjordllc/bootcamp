@@ -2,7 +2,7 @@
 .thread-list-item(:class='modelName')
   .thread-list-item__inner
     .thread-list-item__label(
-      v-if='["comment", "answer"].includes(searchable.model_name_original)'
+      v-if='["comment", "answer", "correct_answer"].includes(searchable.model_name_original)'
     )
       | {{ searchable.model_name_with_i18n }}
       .thread-list-item__label-option
@@ -30,12 +30,13 @@
               time.a-meta(:datetime='searchable.updated_at', pubdate='pubdate')
                 | {{ updatedAt }}
             .thread-list-item-meta__item(
-              v-if='["comment", "answer"].includes(searchable.model_name_original)'
+              v-if='["comment", "answer", "correct_answer"].includes(searchable.model_name_original)'
             )
               .a-meta
                 | （
-                a.a-user-name(:href='contributorUserUrl')
-                  | {{ searchable.contributor_login_name }} {{ searchable.model_name_with_i18n }}
+                a.a-user-name(:href='documentAuthorUserUrl')
+                  | {{ searchable.document_author_login_name }}
+                | {{ searchable.model_name_with_i18n }}
                 | ）
 </template>
 <script>
@@ -57,8 +58,8 @@ export default {
     userUrl() {
       return `/users/${this.searchable.user_id}`
     },
-    contributorUserUrl() {
-      return `/users/${this.searchable.contributor_user_id}`
+    documentAuthorUserUrl() {
+      return `/users/${this.searchable.document_author_user_id}`
     },
     updatedAt() {
       return dayjs(this.searchable.updated_at).format(
