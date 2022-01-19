@@ -66,6 +66,7 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "companies/products"
   end
   resources :generations, only: %i(show index)
+  resources :timelines, only: %i(index)
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/, format: "html"

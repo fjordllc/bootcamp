@@ -1,0 +1,269 @@
+timeline1:
+  user: hajime
+  description: |-
+    今は勉強中です
+  created_at: <%= Time.current %>
+
+timeline2:
+  user: hajime
+  description: |-
+    チェリー本第1章を読みました
+  created_at: <%= Time.current + 1.minutes %>
+
+timeline3:
+  user: hajime
+  description: |-
+    チェリー本第2章を読みました
+  created_at: <%= Time.current + 2.minutes %>
+
+timeline4:
+  user: hajime
+  description: |-
+    チェリー本第3章を読みました
+  created_at: <%= Time.current + 3.minutes %>
+
+timeline5:
+  user: hajime
+  description: |-
+    チェリー本第4章を読みました
+  created_at: <%= Time.current + 4.minutes %>
+
+timeline6:
+  user: hajime
+  description: |-
+    チェリー本第5章を読みました
+  created_at: <%= Time.current + 5.minutes %>
+
+timeline7:
+  user: hajime
+  description: |-
+    チェリー本第6章を読みました
+  created_at: <%= Time.current + 6.minutes %>
+
+timeline8:
+  user: hajime
+  description: |-
+    チェリー本第7章を読みました
+  created_at: <%= Time.current + 7.minutes %>
+
+timeline9:
+  user: hajime
+  description: |-
+    チェリー本第8章を読みました
+  created_at: <%= Time.current + 8.minutes %>
+
+timeline10:
+  user: hajime
+  description: |-
+    チェリー本第9章を読みました
+  created_at: <%= Time.current + 9.minutes %>
+
+timeline11:
+  user: hajime
+  description: |-
+    チェリー本第10章を読みました
+  created_at: <%= Time.current + 10.minutes %>
+
+timeline12:
+  user: hajime
+  description: |-
+    チェリー本第11章を読みました
+  created_at: <%= Time.current + 11.minutes %>
+
+timeline13:
+  user: hajime
+  description: |-
+    チェリー本第12章を読みました
+  created_at: <%= Time.current + 12.minutes %>
+
+timeline14:
+  user: hajime
+  description: |-
+    ゼロからわかるRuby超入門CHAPTER 1を読みました
+  created_at: <%= Time.current + 13.minutes %>
+
+timeline15:
+  user: hajime
+  description: |-
+    ゼロからわかるRuby超入門CHAPTER 2を読みました
+  created_at: <%= Time.current + 14.minutes %>
+
+timeline16:
+  user: hajime
+  description: |-
+    ゼロからわかるRuby超入門CHAPTER 3を読みました
+  created_at: <%= Time.current + 15.minutes %>
+
+timeline17:
+  user: hajime
+  description: |-
+    ゼロからわかるRuby超入門CHAPTER 4を読みました
+  created_at: <%= Time.current + 16.minutes %>
+
+timeline18:
+  user: hajime
+  description: |-
+    ゼロからわかるRuby超入門CHAPTER 5を読みました
+  created_at: <%= Time.current + 17.minutes %>
+
+timeline19:
+  user: hajime
+  description: |-
+    ゼロからわかるRuby超入門CHAPTER 6を読みました
+  created_at: <%= Time.current + 18.minutes %>
+
+timeline20:
+  user: hajime
+  description: |-
+    ゼロからわかるRuby超入門CHAPTER 7を読みました
+  created_at: <%= Time.current + 19.minutes %>
+
+timeline21:
+  user: hajime
+  description: |-
+    ゼロからわかるRuby超入門CHAPTER 8を読みました
+  created_at: <%= Time.current + 20.minutes %>
+
+timeline22:
+  user: hajime
+  description: |-
+    ゼロからわかるRuby超入門CHAPTER 9を読みました
+  created_at: <%= Time.current + 21.minutes %>
+
+timeline23:
+  user: hajime
+  description: |-
+    ゼロからわかるRuby超入門CHAPTER 10を読みました
+  created_at: <%= Time.current + 22.minutes %>
+
+timeline24:
+  user: hajime
+  description: |-
+    ゼロからわかるRuby超入門CHAPTER 11を読みました
+  created_at: <%= Time.current + 23.minutes %>
+
+timeline25:
+  user: hajime
+  description: |-
+    オブジェクト指向設計実践ガイド第1章を読みました
+  created_at: <%= Time.current + 24.minutes %>
+
+timeline26:
+  user: hajime
+  description: |-
+    オブジェクト指向設計実践ガイド第2章を読みました
+  created_at: <%= Time.current + 25.minutes %>
+
+timeline27:
+  user: hajime
+  description: |-
+    オブジェクト指向設計実践ガイド第3章を読みました
+  created_at: <%= Time.current + 26.minutes %>
+
+timeline28:
+  user: hajime
+  description: |-
+    オブジェクト指向設計実践ガイド第4章を読みました
+  created_at: <%= Time.current + 27.minutes %>
+
+timeline29:
+  user: hajime
+  description: |-
+    オブジェクト指向設計実践ガイド第5章を読みました
+  created_at: <%= Time.current + 28.minutes %>
+
+timeline30:
+  user: hajime
+  description: |-
+    オブジェクト指向設計実践ガイド第6章を読みました
+  created_at: <%= Time.current + 29.minutes %>
+
+timeline31:
+  user: hajime
+  description: |-
+    オブジェクト指向設計実践ガイド第7章を読みました
+  created_at: <%= Time.current + 30.minutes %>
+
+timeline32:
+  user: hajime
+  description: |-
+    オブジェクト指向設計実践ガイド第8章を読みました
+  created_at: <%= Time.current + 31.minutes %>
+
+timeline33:
+  user: hajime
+  description: |-
+    オブジェクト指向設計実践ガイド第9章を読みました
+  created_at: <%= Time.current + 32.minutes %>
+
+timeline34:
+  user: hajime
+  description: |-
+    改訂2版 パーフェクトRuby第1章を読みました
+  created_at: <%= Time.current + 33.minutes %>
+
+timeline35:
+  user: hajime
+  description: |-
+    改訂2版 パーフェクトRuby第2章を読みました
+  created_at: <%= Time.current + 34.minutes %>
+
+timeline36:
+  user: hajime
+  description: |-
+    改訂2版 パーフェクトRuby第3章を読みました
+  created_at: <%= Time.current + 35.minutes %>
+
+timeline37:
+  user: hajime
+  description: |-
+    改訂2版 パーフェクトRuby第4章を読みました
+  created_at: <%= Time.current + 36.minutes %>
+
+timeline38:
+  user: hajime
+  description: |-
+    改訂2版 パーフェクトRuby第5章を読みました
+  created_at: <%= Time.current + 37.minutes %>
+
+timeline39:
+  user: hajime
+  description: |-
+    改訂2版 パーフェクトRuby第6章を読みました
+  created_at: <%= Time.current + 38.minutes %>
+
+timeline40:
+  user: hajime
+  description: |-
+    改訂2版 パーフェクトRuby第7章を読みました
+  created_at: <%= Time.current + 39.minutes %>
+
+timeline41:
+  user: kimura
+  description: |-
+    これから学習します
+  created_at: <%= Time.current + 40.minutes %>
+
+timeline42:
+  user: hatsuno
+  description: |-
+    これから勉強します
+  created_at: <%= Time.current + 41.minutes %>
+
+timeline43:
+  user: komagata
+  description: |-
+    test
+  created_at: <%= Time.current + 42.minutes %>
+
+timeline44:
+  user: machida
+  description: |-
+    test
+  created_at: <%= Time.current + 43.minutes %>
+
+timeline45:
+  user: hajime
+  description: |-
+    今は勉強中です
+  created_at: <%= Time.current + 44.minutes %>

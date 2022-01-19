@@ -65,4 +65,17 @@ module UserDecorator
   def long_name
     "#{login_name} (#{name})"
   end
+
+  def format_to_channel
+    {
+      id: id,
+      login_name: login_name,
+      # 上記のurlメソッドをtimeline_channel.rbで使用した場合、user_urlでNomethoderrorが発生する。
+      # user_urlが絶対パスを返す時、timeline_channel.rbがhostに関する情報を持たないことが原因だと考えられるが、channelにおけるhostの定義方法が分からず、以下のように記述した。
+      path: Rails.application.routes.url_helpers.user_path(self),
+      role: role,
+      icon_title: icon_title,
+      avatar_url: avatar_url
+    }
+  end
 end

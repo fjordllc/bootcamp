@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "users/products"
     resources :questions, only: %i(index), controller: "users/questions"
     resources :answers, only: %i(index), controller: "users/answers"
+    resources :timelines, only: %i(index), controller: "users/timelines"
     get "portfolio" => "users/works#index", as: :portfolio
     patch "graduation", to: "graduation#update", as: :graduation
     get "mail_notification", to: "mail_notification#update", as: :mail_notification
