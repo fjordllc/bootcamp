@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
     if @product.update(product_params)
       redirect_to @product, notice: notice_message(@product, :update)
       notice_another_mentor_assined_as_checker
-      notice_product_update
+      notice_product_update if @product.checker_id.present?
     else
       render :edit
     end
