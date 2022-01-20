@@ -11,6 +11,7 @@ product2: # チェック済
   created_at: <%= 1.day.ago %>
   updated_at: <%= 1.day.ago %>
   published_at: <%= 1.day.ago %>
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:komagata) %>"
 
 product3: # チェック済, 他者のコメントあり
   practice: practice2
