@@ -37,7 +37,7 @@ namespace :bootcamp do
     desc 'Cloud Build Task'
     task cloudbuild: :environment do
       puts '== START Cloud Build Task =='
-      Product.add_latest_commented_at
+      # code ...
       puts '== END   Cloud Build Task =='
     end
   end
