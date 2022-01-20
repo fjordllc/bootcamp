@@ -20,6 +20,11 @@ class NotificationFacade
     NotificationMailer.with(check: check).checked.deliver_later(wait: 5)
   end
 
+  def self.product_update(product, receiver)
+    Notification.product_update(product, receiver)
+    return if receiver.retired?
+  end
+
   def self.mentioned(mentionable, receiver)
     Notification.mentioned(mentionable, receiver)
     return unless receiver.mail_notification? && !receiver.retired?
