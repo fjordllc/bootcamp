@@ -28,6 +28,17 @@ class WorksTest < ApplicationSystemTestCase
     assert_text 'ポートフォリオに作品を追加しました'
   end
 
+  test 'vailidaiton error when create a work with thumbnail ' do
+    visit_with_auth new_work_path, 'kimura'
+    image_path = Rails.root.join('test/fixtures/files/companies/logos/1.jpg')
+    attach_file('work[thumbnail]', image_path, make_visible: true)
+    click_button '登録する'
+    assert_text '入力内容にエラーがありました'
+    assert_text 'タイトルを入力してください'
+    assert_text '説明を入力してください'
+    assert_text 'URLまたはリポジトリを入力してください'
+  end
+
   test 'update my work' do
     visit_with_auth work_path(works(:work1)), 'kimura'
     click_link '内容修正'
