@@ -22,7 +22,7 @@
         .form-item-file-input.js-file-input.a-file-input.is-work-thumbnail
           label.js-file-input__preview
             - if work.thumbnail.attached?
-              = image_tag work.thumbnail_url
+              = image_tag work.thumbnail
               p 画像を変更
             - else
               p 画像を選択
