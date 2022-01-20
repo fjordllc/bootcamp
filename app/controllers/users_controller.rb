@@ -28,6 +28,7 @@ class UsersController < ApplicationController
 
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
+    @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
   end
 
   def show

@@ -67,45 +67,6 @@ class PagesTest < ApplicationSystemTestCase
     assert_text 'ページをWIPとして保存しました。'
   end
 
-  test 'search pages by tag' do
-    visit_with_auth pages_url, 'kimura'
-    click_on 'Doc作成'
-    tag_list = ['tag1',
-                'ドットつき.タグ',
-                'ドットが.2つ以上の.タグ',
-                '.先頭がドット',
-                '最後がドット.']
-    within 'form[name=page]' do
-      fill_in 'page[title]', with: 'tagのテスト'
-      fill_in 'page[body]', with: 'tagをつけます。空白とカンマはタグには使えません。'
-      tag_input = find('.ti-new-tag-input')
-      tag_list.each do |tag|
-        tag_input.set tag
-        tag_input.native.send_keys :return
-      end
-      click_on '内容を保存'
-    end
-    click_on 'Docs', match: :first
-
-    tag_list.each do |tag|
-      assert_text tag
-      click_on tag, match: :first
-      assert_text 'tagのテスト'
-      assert_no_text 'Bootcampの作業のページ'
-    end
-  end
-
-  test 'update tags without page transitions' do
-    visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
-    find('.tag-links__item-edit').click
-    tag_input = find('.ti-new-tag-input')
-    tag_input.set '追加タグ'
-    tag_input.native.send_keys :return
-    click_on '保存'
-    wait_for_vuejs
-    assert_text '追加タグ'
-  end
-
   test 'administrator can change doc user' do
     visit_with_auth "/pages/#{pages(:page1).id}/edit", 'komagata'
 

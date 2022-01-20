@@ -30,5 +30,7 @@ class CheckCallbacks
 
   def delete_product_cache(check)
     return unless check.checkable_type == 'Product'
+
+    Cache.delete_unchecked_product_count
   end
 end

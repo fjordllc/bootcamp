@@ -409,8 +409,6 @@ GEM
       faraday (>= 0.17.3, < 2.0)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
-    skylight (5.1.1)
-      activesupport (>= 5.2.0)
     slim (4.1.0)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
@@ -553,7 +551,6 @@ DEPENDENCIES
   rubyzip
   sass-rails (>= 6)
   selenium-webdriver
-  skylight
   slim-rails
   slim_lint
   sorcery

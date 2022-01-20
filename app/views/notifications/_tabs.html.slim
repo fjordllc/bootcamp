@@ -3,10 +3,10 @@
     ul.page-tabs__items
       li.page-tabs__item
         = link_to notifications_path(status: 'unread'), class: "page-tabs__item-link #{'is-active' if @target.nil?}".strip
-          | 全て （#{current_user.notifications.length}）
-          - if current_user.notifications.unreads.count.positive?
+          | 全て
+          - if current_user.notifications.unreads.latest_of_each_link.size.positive?
             .page-tabs__item-count.a-notification-count
-              = current_user.notifications.unreads.count
+              = current_user.notifications.unreads.latest_of_each_link.size
       - Notification::TARGETS_TO_KINDS.each_key do |target|
         li.page-tabs__item
           = link_to t("notification.#{target}"), notifications_path(status: 'unread', target: target), class: "page-tabs__item-link #{'is-active' if @target == target.to_s}".strip

@@ -149,7 +149,7 @@ header.page-header
                     | 提出物
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
-                #js-user-recent-reports(user-id="#{@report.user.id}")
+                #js-reports(data-user-id="#{@report.user.id}" data-limit="10")
               .side-tabs-contents__item#side-tabs-content-2.is-only-mentor
                 .user-info
                   = render 'users/user_secret_attributes', user: @report.user
@@ -169,4 +169,4 @@ header.page-header
                           .o-empty-message__text
                             | 提出物はまだありません。
         - else
-          #js-user-recent-reports(user-id="#{@report.user.id}")
+          #js-reports(data-user-id="#{@report.user.id}" data-limit="10")

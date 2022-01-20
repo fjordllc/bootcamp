@@ -1,6 +1,6 @@
 <template lang="pug">
 .container.is-md(v-if='!loaded')
-  | ロード中
+  loadingListPlaceholder
 .container(v-else-if='notifications.length === 0')
   .o-empty-message
     .o-empty-message__icon
@@ -28,12 +28,14 @@
 
 <script>
 import Notification from './notification.vue'
+import LoadingListPlaceholder from './loading-list-placeholder.vue'
 import Pager from './pager.vue'
 import UnconfirmedLinksOpenButton from './unconfirmed_links_open_button'
 
 export default {
   components: {
     notification: Notification,
+    loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager,
     'unconfirmed-links-open-button': UnconfirmedLinksOpenButton
   },
