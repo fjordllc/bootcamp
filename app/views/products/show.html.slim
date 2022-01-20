@@ -141,6 +141,11 @@ header.page-header
             .thread-prev-next__item
               = link_to @product.practice, class: 'thread-prev-next__item-link is-index' do
                 | プラクティスに戻る
+            - if current_user.mentor?
+              .thread-prev-next__item
+                = link_to '提出物・自分の担当', products_self_assigned_index_path, class: 'thread-prev-next__item-link is-index'
+              .thread-prev-next__item
+                = link_to '提出物・未アサイン', products_unassigned_index_path, class: 'thread-prev-next__item-link is-index'
 
           = render 'users/icon', user: @product.user, link_class: 'thread__user-link', image_class: 'thread__user-icon'
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")

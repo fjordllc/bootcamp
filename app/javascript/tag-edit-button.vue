@@ -43,7 +43,9 @@ export default {
     updateTag(name) {
       this.tagName = name
       this.toast('タグ名を変更しました')
-      location.href = `/questions/tags/${encodeURIComponent(name)}?all=true`
+      const url = location.pathname.split('/')
+      const path = url[url.length - 3]
+      location.href = `/${path}/tags/${encodeURIComponent(name)}?all=true`
     }
   }
 }

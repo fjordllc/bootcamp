@@ -41,4 +41,18 @@ class Comment < ApplicationRecord
   def path
     Rails.application.routes.url_helpers.polymorphic_path(commentable, anchor: anchor)
   end
+
+  def previous
+    commentable.comments.order(created_at: :desc).find_by('created_at < ?', created_at)
+  end
+
+  def latest?
+    !later_exists?
+  end
+
+  private
+
+  def later_exists?
+    commentable.comments.where('created_at > ?', created_at).exists?
+  end
 end
