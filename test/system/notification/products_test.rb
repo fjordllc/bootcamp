@@ -17,6 +17,22 @@ class Notification::ProductsTest < ApplicationSystemTestCase
 
     open_notification
     assert_equal "kensyuさんが「#{practices(:practice5).title}」の提出物を提出しました。",
-                 notification_message
+      notification_message
+  end
+
+  test 'update product notificationmessage' do
+    binding.pry
+    product = products(:product2)
+    visit_with_auth "/products/#{product.id}/edit", 'kimura'
+    within('form[name=product]') do
+      fill_in('product[body]', with: 'test')
+    end
+    click_button '提出する'
+    assert_text '提出物を更新しました。'
+    logout
+    login_user 'komagata', 'testtest'
+    open_notification
+    assert_equal 'kimuraさんの提出物が更新されました',
+      notification_message
   end
 end
