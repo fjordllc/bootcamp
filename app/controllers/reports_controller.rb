@@ -51,7 +51,7 @@ class ReportsController < ApplicationController
     set_wip
     canonicalize_learning_times(@report)
     if @report.save
-      redirect_to redirect_url(@report, notify_qa_hash(@report)), notice: notice_message(@report)
+      redirect_to redirect_url(@report, params_hash(@report)), notice: notice_message(@report)
     else
       render :new
     end
@@ -63,7 +63,7 @@ class ReportsController < ApplicationController
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
     if @report.save
-      redirect_to redirect_url(@report, notify_qa_hash(@report)), notice: notice_message(@report)
+      redirect_to redirect_url(@report, params_hash(@report)), notice: notice_message(@report)
     else
       render :edit
     end
@@ -132,7 +132,7 @@ class ReportsController < ApplicationController
     @report.wip = params[:commit] == 'WIP'
   end
 
-  def redirect_url(report, params_hash)
+  def redirect_url(report, params_hash = {})
     report.wip? ? edit_report_url(report) : report_url(report, **params_hash)
   end
 
@@ -140,7 +140,7 @@ class ReportsController < ApplicationController
     report.wip? ? '日報をWIPとして保存しました。' : '日報を保存しました。'
   end
 
-  def notify_qa_hash(report)
+  def params_hash(report)
     { notify_qa: report.wip? ? false : report.sad? }
   end
 
