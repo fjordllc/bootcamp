@@ -1,0 +1,51 @@
+- title 'お試し延長'
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to new_admin_extended_trial_path, class: 'a-button is-md is-secondary is-block' do
+              i.fa.fa-plus
+              | お試し期間延長 作成
+
+.page-tools
+  = render 'admin/admin_page_tabs'
+
+.page-body
+  .container.is-padding-horizontal-0-sm-down
+    .admin-table
+      table.admin-table__table
+        thead.admin-table__header
+          tr.admin-table__labels
+            th.admin-table__label
+              | ステータス
+            th.admin-table__label
+              | 開始日
+            th.admin-table__label
+              | 終了日
+            th.admin-table__label
+              | 延長期間
+            th.admin-table__label
+              | 操作
+        tbody.admin-table__items
+          - @extended_trials.each do |extended_trial|
+            tr.admin-table__item(id="extended_trial_#{extended_trial.id}")
+              td.admin-table__item-value
+                - if (extended_trial.end_at..nil).cover? Time.now
+                  | 終了
+              td.admin-table__item-value
+                | #{l extended_trial.start_at}
+              td.admin-table__item-value
+                | #{l extended_trial.end_at}
+              td.admin-table__item-value.admin-table__item-value.is-text-align-center
+                = extended_trial.term
+              td.admin-table__item-value.is-text-align-center
+                ul.is-inline-buttons
+                  li
+                    - if (nil..extended_trial.end_at).cover? Time.now
+                      = link_to edit_admin_extended_trial_path(extended_trial), class: 'a-button is-sm is-secondary is-icon' do
+                        i.fas.fa-pen
