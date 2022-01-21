@@ -1,0 +1,2 @@
+class ExtendedTrial < ApplicationRecord
+end
