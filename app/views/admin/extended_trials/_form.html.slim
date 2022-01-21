@@ -1,0 +1,20 @@
+= form_with model: [:admin, @extended_trial], local: true, class: 'form', html: { name: 'extended_trial' } do |f|
+  = render 'errors', object: @extended_trial
+  .form__items
+    .form__items-inner
+      .form-item
+        = f.label :start_at, class: 'a-form-label'
+        = f.datetime_field :start_at, class: 'a-text-input js-warning-form'
+      .form-item
+        = f.label :end_at, class: 'a-form-label'
+        = f.datetime_field :end_at, class: 'a-text-input js-warning-form'
+        .form-item
+          = f.label :term, class: 'a-form-label'
+          = f.text_area :term, class: 'a-text-input js-warning-form'
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        button.a-button.is-lg.is-warning.is-block
+          | 内容を保存
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', admin_extended_trials_path, class: 'a-button is-md is-secondary is-block'
