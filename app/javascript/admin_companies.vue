@@ -56,11 +56,13 @@
 
 <script>
 import Pager from './pager'
+import toast from './toast'
 
 export default {
   components: {
     pager: Pager
   },
+  mixins: [toast],
   data() {
     return {
       companies: [],
@@ -131,6 +133,7 @@ export default {
             if (response.ok) {
               // eslint-disable-next-line vue/no-mutating-props
               this.companies = this.companies.filter((v) => v.id !== company.id)
+              this.toast('企業を削除しました。')
             } else {
               alert('削除に失敗しました')
             }

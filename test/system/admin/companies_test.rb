@@ -46,6 +46,6 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     accept_confirm do
       find("#company_#{companies(:company2).id} a.a-button.is-sm.is-danger.is-icon.js-delete").click
     end
-    assert_no_text companies(:company2).name
+    assert_text '企業を削除しました。'
   end
 end
