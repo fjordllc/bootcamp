@@ -134,6 +134,7 @@ class ProductsController < ApplicationController
 
   def notice_product_update
     @checker_id = @product.checker_id
+    return if admin_or_mentor_login? || @product.wip?
     NotificationFacade.product_update(@product, User.find(@checker_id))
   end
 end
