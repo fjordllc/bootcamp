@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     roleClass() {
-      return `is-${this.announcement.user.role[0]}`
+      return `is-${this.announcement.user.primary_role}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.announcement.user.daimyo }

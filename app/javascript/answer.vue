@@ -145,7 +145,7 @@ export default {
       return dayjs(this.answer.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     roleClass: function () {
-      return `is-${this.answer.user.role[0]}`
+      return `is-${this.answer.user.primary_role}`
     },
     daimyoClass: function () {
       return { 'is-daimyo': this.answer.user.daimyo }
@@ -157,7 +157,7 @@ export default {
       return `Answer_${this.answer.id}`
     },
     roleAdmin: function () {
-      return this.currentUser.role.includes('admin')
+      return this.currentUser.roles.includes('admin')
     }
   },
   created: function () {
