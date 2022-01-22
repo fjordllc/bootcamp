@@ -114,10 +114,16 @@ export default {
       return this.$store.getters.checkId
     },
     roleClass() {
-      return `is-${this.currentUser.role}`
+      return `is-${this.currentUser.primary_role}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.currentUser.daimyo }
+    },
+    roleAdmin: function () {
+      return this.currentUser.roles.includes('admin')
+    },
+    roleAdviser: function () {
+      return this.currentUser.roles.includes('adviser')
     }
   },
   created() {

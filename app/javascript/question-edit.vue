@@ -242,7 +242,7 @@ export default {
       return title.length > 0 && description.length > 0
     },
     roleAdmin: function () {
-      return this.currentUser.role.includes('admin')
+      return this.currentUser.roles.includes('admin')
     }
   },
   created() {

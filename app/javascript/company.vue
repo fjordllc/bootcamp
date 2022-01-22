@@ -21,7 +21,7 @@
           img(
             :src='user.avatar_url',
             :title='user.icon_title',
-            :class='`m-user-icons__item-icon a-user-icon is-${user.role[0]}`'
+            :class='`m-user-icons__item-icon a-user-icon is-${user.primary_role}`'
           )
 </template>
 <script>

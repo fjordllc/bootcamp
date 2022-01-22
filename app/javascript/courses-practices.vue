@@ -78,7 +78,7 @@ export default {
       return this.categories.filter((value) => value.practices.length)
     },
     roleAdmin: function () {
-      return this.currentUser.role.includes('admin')
+      return this.currentUser.roles.includes('admin')
     }
   },
   created() {

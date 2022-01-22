@@ -65,7 +65,7 @@
         | 区分
       .user-metas__item-value
         ul
-          - user.role.each do |role|
+          - user.roles.each do |role|
             li
               = t "target.#{role}"
     - if user.graduated_on.present?

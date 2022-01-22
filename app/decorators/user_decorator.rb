@@ -5,19 +5,21 @@ module UserDecorator
     "https://twitter.com/#{twitter_account}"
   end
 
-  def role
-    roles = [
-      { role: :admin, value: admin },
-      { role: :mentor, value: mentor },
-      { role: :adviser, value: adviser },
-      { role: :trainee, value: trainee },
-      { role: :graduate, value: graduated_on }
-    ]
-    if student? && !graduated?
-      [:student]
-    else
-      roles.select { |v| v[:value] }.map { |h| h[:role] }
-    end
+  def roles
+    roles = []
+
+    roles << :admin if admin?
+    roles << :mentor if mentor?
+    roles << :adviser if adviser?
+    roles << :trainee if trainee?
+    roles << :graduate if graduated_on?
+    roles << :student if roles.empty?
+
+    roles
+  end
+
+  def primary_role
+    roles.first
   end
 
   def staff_roles
@@ -42,7 +44,7 @@ module UserDecorator
 
   def icon_classes(*classes)
     classes << 'a-user-icon'
-    classes << "is-#{role}"
+    classes << "is-#{primary_role}"
     classes << 'is-daimyo' if daimyo?
     classes.join(' ')
   end

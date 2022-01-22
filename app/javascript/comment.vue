@@ -119,7 +119,7 @@ export default {
       return dayjs(this.comment.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     roleClass() {
-      return `is-${this.comment.user.role[0]}`
+      return `is-${this.comment.user.primary_role}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.comment.user.daimyo }
@@ -131,7 +131,7 @@ export default {
       return `Comment_${this.comment.id}`
     },
     roleAdmin: function () {
-      return this.currentUser.role.includes('admin')
+      return this.currentUser.roles.includes('admin')
     }
   },
   created() {
