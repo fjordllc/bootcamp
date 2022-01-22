@@ -1,7 +1,7 @@
 <template lang="pug">
-#comments.thread-comments(v-if='loaded === false')
+#comments.thread-comments.loading(v-if='loaded === false')
   commentPlaceholder(v-for='num in placeholderCount', :key='num')
-#comments.thread-comments(v-else)
+#comments.thread-comments.loaded(v-else)
   .thread-comments-more(v-show='!loadedComment')
     .thread-comments-more__inner
       .thread-comments-more__action
