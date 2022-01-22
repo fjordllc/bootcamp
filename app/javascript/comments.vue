@@ -71,14 +71,14 @@
 <script>
 import Comment from './comment.vue'
 import TextareaInitializer from './textarea-initializer'
-import CommentPleaceholder from './comment-placeholder'
+import CommentPlaceholder from './comment-placeholder'
 import confirmUnload from './confirm-unload'
 import toast from './toast'
 
 export default {
   components: {
     comment: Comment,
-    commentPlaceholder: CommentPleaceholder
+    commentPlaceholder: CommentPlaceholder
   },
   mixins: [toast, confirmUnload],
   props: {
