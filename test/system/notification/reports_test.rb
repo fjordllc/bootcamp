@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class Notification::ReportsTest < ApplicationSystemTestCase
-  test 'はじめての日報が投稿されたときに全員が通知を受け取る' do
+  test 'はじめての日報が投稿されたときにメンターと現役生が通知を受け取る' do
     visit_with_auth '/reports', 'muryou'
     click_link '日報作成'
 
@@ -22,15 +22,47 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     login_user 'komagata', 'testtest'
     open_notification
-    assert_equal 'muryouさんがはじめての日報を書きました！',
-                 notification_message
+    assert_equal 'muryouさんがはじめての日報を書きました！', notification_message
     logout
 
-    login_user 'yamada', 'testtest'
+    login_user 'kimura', 'testtest'
     open_notification
-    assert_equal 'muryouさんがはじめての日報を書きました！',
-                 notification_message
+    assert_equal 'muryouさんがはじめての日報を書きました！', notification_message
     logout
+  end
+
+  test 'はじめての日報が投稿されたときにアドバイザーと卒業生は通知を受け取らない' do
+    # 他のテストの通知に影響を受けないよう、テスト実行前に通知を削除する
+    visit_with_auth '/notifications', 'advijirou'
+    click_link '全て既読にする'
+
+    visit_with_auth '/notifications', 'sotugyou'
+    click_link '全て既読にする'
+
+    visit_with_auth '/reports', 'muryou'
+    click_link '日報作成'
+
+    within('#new_report') do
+      fill_in('report[title]', with: 'test title')
+      fill_in('report[description]', with: 'test')
+    end
+
+    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
+    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
+    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
+    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
+
+    click_button '提出'
+    logout
+
+    login_user 'advijirou', 'testtest'
+    # sleepメソッドで一定時間停止しないと、cssが読み込まれる前に”assert page.has_css?('.has-no-count')”を実行してしまう。
+    sleep 1
+    assert page.has_css?('.has-no-count')
+
+    login_user 'sotugyou', 'testtest'
+    sleep 1
+    assert page.has_css?('.has-no-count')
   end
 
   test '複数の日報が投稿されているときは通知が飛ばない' do
