@@ -230,6 +230,7 @@ ja:
     self_assigned_no_replied: 未返信
     unchecked_no_replied: 未返信
     unchecked_all: 全て
+    extended_trial: お試し延長
   watch:
     all: すべて
     true: コメントあり
