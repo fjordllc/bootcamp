@@ -5,7 +5,7 @@
   .a-card
     header.auth-form__header
       h1.auth-form__title = title
-    = '現在、お試し期間の延長が適用されています' if ExtendedTrial.recently_extended_trial.cover?(Date.today)
+    = '現在、お試し期間の延長が適用されています' if ExtendedTrial.today_is_extended_trial?
     .auth-form__body
       = render 'form', from: :new, url: users_path, user: @user
     footer.auth-form__footer
