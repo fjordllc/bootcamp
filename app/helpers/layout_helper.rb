@@ -9,10 +9,6 @@ module LayoutHelper
     current_user && body_class.exclude?('no-global-nav')
   end
 
-  def display_recent_reports?
-    logged_in? && body_class.exclude?('no-recent-reports') && !admin_page? && body_class.exclude?('is-edit-page')
-  end
-
   def display_footer?
     body_class.exclude?('no-footer')
   end
