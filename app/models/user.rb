@@ -297,7 +297,7 @@ class User < ApplicationRecord
       .select('users.*', :completed_at)
       .where('completed_at <= ?', 2.weeks.ago.end_of_day)
   }
-  scope :extended_trial, -> { where(created_at: recently_extended_trial) }
+  scope :extended_trial, -> { where(created_at: ExtendedTrial.recently_extended_trial) }
   columns_for_keyword_search(
     :login_name,
     :name,
@@ -355,15 +355,6 @@ class User < ApplicationRecord
 
     def tags
       unretired.all_tag_counts(order: 'count desc, name asc')
-    end
-
-    def recently_extended_trial
-      extended_trial = ExtendedTrial.order(end_at: :desc).first
-      extended_trial.start_at..extended_trial.end_at
-    end
-
-    def extended_trial_term
-      extended_trial_term = ExtendedTrial.order(end_at: :desc).first.term
     end
   end
 
