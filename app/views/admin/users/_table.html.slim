@@ -18,6 +18,8 @@
         th.admin-table__label
           | 登録日時
           = render 'sort_column', order_by: 'created_at', direction: direction, target: @target
+        th.admin-table__label
+          | お試し延長終了日時
         th.admin-table__label カード登録
         th.admin-table__label サブスク
         th.admin-table__label 卒業
@@ -63,6 +65,8 @@
             = l user.updated_at
           td.admin-table__item-value.is-text-align-center
             = l user.created_at
+          td.admin-table__item-value.is-text-align-center
+            = l user.created_at + User.extended_trial_term.days if params[:target] == "extended_trial"
           td.admin-table__item-value.is-text-align-center
             - if user.card?
               = link_to user.customer_url,
