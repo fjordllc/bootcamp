@@ -40,7 +40,7 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
-    page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
@@ -49,18 +49,31 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'post new comment with mention for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
-    sleep 1
-    find('#js-new-comment').set("login_nameの補完テスト: @koma\n")
+    find('#comments.loaded', wait: 10)
+
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      until find('#js-new-comment').value == 'login_nameの補完テスト: @komagata '
+        find('#js-new-comment').set('')
+        find('#js-new-comment').set("login_nameの補完テスト: @koma\n")
+      end
+    end
+
     click_button 'コメントする'
-    wait_for_vuejs
     assert_text 'login_nameの補完テスト: @komagata'
     assert_selector :css, "a[href='/users/komagata']"
   end
 
   test 'post new comment with mention to mentor for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
-    sleep 1
-    find('#js-new-comment').set("login_nameの補完テスト: @men\n")
+    find('#comments.loaded', wait: 10)
+
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      until find('#js-new-comment').value == 'login_nameの補完テスト: @mentor '
+        find('#js-new-comment').set('')
+        find('#js-new-comment').set("login_nameの補完テスト: @men\n")
+      end
+    end
+
     click_button 'コメントする'
     wait_for_vuejs
     assert_text 'login_nameの補完テスト: @mentor'
@@ -69,8 +82,15 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'post new comment with emoji for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
-    sleep 1
-    find('#js-new-comment').set("絵文字の補完テスト: :cat\n")
+    find('#comments.loaded', wait: 10)
+
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      until find('#js-new-comment').value == '絵文字の補完テスト: 😺 '
+        find('#js-new-comment').set('')
+        find('#js-new-comment').set("絵文字の補完テスト: :cat\n")
+      end
+    end
+
     click_button 'コメントする'
     wait_for_vuejs
     assert_text '絵文字の補完テスト: 😺'
@@ -78,7 +98,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'post new comment with image for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
-    sleep 1
+    find('#comments.loaded', wait: 10)
     find('#js-new-comment').set("![Image](https://example.com/test.png)'")
     click_button 'コメントする'
     wait_for_vuejs
@@ -88,8 +108,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'post new comment with linked image for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
-    sleep 1
-
+    find('#comments.loaded', wait: 10)
     find('#js-new-comment').set('[![Image](https://example.com/test.png)](https://example.com)')
     click_button 'コメントする'
     wait_for_vuejs
@@ -134,7 +153,7 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: "1\n2\n3\n4\n5\n6\n7\n8\n9")
     end
-    page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text "1\n2\n3\n4\n5\n6\n7\n8\n9"
   end
 
@@ -143,7 +162,7 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
-    page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
@@ -155,7 +174,7 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
-    page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
@@ -167,7 +186,7 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
-    page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
     wait_for_vuejs
@@ -216,7 +235,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'comment url is copied when click its updated_time' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
-    wait_for_vuejs
+    find('#comments.loaded', wait: 10)
     first(:css, '.thread-comment__created-at').click
     # クリップボードを直接読み取る方法がないので、未入力のテキストエリアを経由してクリップボードの値を読み取っている
     # また、Ctrl-Vではペーストできなかったので、かわりにShift-Insertをショートカットキーとして使っている
@@ -228,8 +247,10 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'suggest mention to mentor' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
-    sleep 1 # NOTE: ここでsleepしないとテストが失敗する
-    find('#js-new-comment').set('@')
+    find('#comments.loaded', wait: 10)
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      find('#js-new-comment').set('@') until has_selector?('span.mention', wait: false)
+    end
     assert_selector 'span.mention', text: 'mentor'
   end
 
