@@ -1,7 +1,7 @@
 <template lang="pug">
-#comments.thread-comments(v-if='loaded === false')
+#comments.thread-comments.loading(v-if='loaded === false')
   commentPlaceholder(v-for='num in placeholderCount', :key='num')
-#comments.thread-comments(v-else)
+#comments.thread-comments.loaded(v-else)
   .thread-comments-more(v-show='!loadedComment')
     .thread-comments-more__inner
       .thread-comments-more__action
@@ -71,14 +71,14 @@
 <script>
 import Comment from './comment.vue'
 import TextareaInitializer from './textarea-initializer'
-import CommentPleaceholder from './comment-placeholder'
+import CommentPlaceholder from './comment-placeholder'
 import confirmUnload from './confirm-unload'
 import toast from './toast'
 
 export default {
   components: {
     comment: Comment,
-    commentPlaceholder: CommentPleaceholder
+    commentPlaceholder: CommentPlaceholder
   },
   mixins: [toast, confirmUnload],
   props: {
