@@ -66,7 +66,7 @@
             )
           .a-textarea-bottom-note
             = f.text_area :description,
-              class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' ? '' : 'js-markdown'}",
+              class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
               data: { 'preview': '.js-preview' }
             .a-textarea-bottom-note__banner
               | 途中保存は「command + s」 マメに保存しよう。

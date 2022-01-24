@@ -10,14 +10,16 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     @receiver_count = User.where(retired_on: nil).size - 1 # 送信者は除くため-1
   end
 
-  test 'all menber recieve a notification when announcement posted' do
-    visit_with_auth '/announcements', 'komagata'
-    click_link 'お知らせ作成'
+  test 'all member recieve a notification when announcement posted' do
+    visit_with_auth '/announcements/new', 'komagata'
 
-    find("input[name='announcement[title]']").set('タイトル通知用の確認です')
-    find("textarea[name='announcement[description]']").set('お知らせ内容です')
-    find("input[value='all']", { visible: false }).set(true)
-    click_button '作成'
+    within 'form[name=announcement]' do
+      fill_in 'announcement[title]', with: 'タイトル通知用の確認です'
+      fill_in 'announcement[description]', with: 'お知らせ内容です'
+      choose '全員にお知らせ', allow_label_click: true
+      click_button '作成'
+    end
+
     logout
 
     visit_with_auth '/', 'sotugyou'
@@ -28,6 +30,8 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     visit_with_auth '/', 'komagata'
     refute_text @notice_text
 
-    assert_equal(@notified_count + @receiver_count, Notification.where(kind: @notice_kind).size)
+    expected = @notified_count + @receiver_count
+    actual = Notification.where(kind: @notice_kind).size
+    assert_equal expected, actual
   end
 end

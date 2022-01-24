@@ -4,6 +4,7 @@ page1:
     ## test
     test
   user: komagata
+  published_at: "2018-01-01 00:00:00"
 
 page2:
   title: テスト
@@ -12,6 +13,7 @@ page2:
     テスト
     [example](http://example.com)
   user: komagata
+  published_at: "2019-01-01 00:00:00"
 
 page3:
   title: Docsページ

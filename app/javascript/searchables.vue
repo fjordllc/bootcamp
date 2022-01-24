@@ -1,6 +1,6 @@
 <template lang="pug">
 .page-body
-  .container(v-if='!loaded')
+  .container.is-md(v-if='!loaded')
     loadingListPlaceholder
   .container(v-else-if='searchables.length === 0')
     .o-empty-message

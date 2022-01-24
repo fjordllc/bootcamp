@@ -2,15 +2,18 @@
   padding-top: .25rem
   display: flex
   justify-content: space-between
+  flex-wrap: wrap
+  margin-bottom: -.5rem
 
 .thread-header-actions__start,
 .thread-header-actions__end
   display: flex
   flex: 1
+  padding-bottom: .5rem
   +media-breakpoint-up(md)
     +margin(horizontal, -.25rem)
   +media-breakpoint-down(sm)
-    +margin(horizontal, -.125rem)
+    +margin(horizontal, -.25rem)
 
 .thread-header-actions__start
   +media-breakpoint-down(sm)
@@ -28,7 +31,7 @@
     +padding(horizontal, .25rem)
     min-width: 7rem
   +media-breakpoint-down(sm)
-    +padding(horizontal, .125rem)
+    +padding(horizontal, .25rem)
     width: 50%
   .a-button
     +padding(horizontal, 0)

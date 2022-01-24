@@ -9,15 +9,18 @@ div
     @before-adding-tag='validateTagName'
   )
   input(type='hidden', :value='tagsValue', :name='tagsParamName')
+  div(v-if='headIsSharpOrOctothorpe(inputTag)')
+    | 先頭の記号は無視されます
 </template>
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
 import validateTagName from './validate-tag-name'
+import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe'
 
 export default {
   components: { VueTagsInput },
-  mixins: [validateTagName],
+  mixins: [validateTagName, headIsSharpOrOctothorpe],
   props: {
     tagsInitialValue: { type: String, required: true },
     tagsParamName: { type: String, required: true },

@@ -2,28 +2,18 @@
 
 class Practices::QuestionsController < ApplicationController
   before_action :require_login
-  before_action :set_practice
-  before_action :set_questions
 
-  def index; end
-
-  private
-
-  def set_practice
+  def index
     @practice = Practice.find(params[:practice_id])
-  end
-
-  def set_questions
-    questions = practice.questions.eager_load(:user, :answers)
-    @questions =
+    questions =
       if params[:solved].present?
-        questions.solved
+        @practice.questions.solved
       else
-        questions.not_solved
-      end.order(updated_at: :desc, id: :desc)
-  end
-
-  def practice
-    @practice ||= Practice.find(params[:practice_id])
+        @practice.questions.not_solved
+      end
+    @questions = questions
+                 .with_avatar
+                 .includes(:answers, :tags, :correct_answer, user: :company)
+                 .order(updated_at: :desc, id: :desc)
   end
 end
