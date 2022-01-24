@@ -494,4 +494,18 @@ class UserTest < ActiveSupport::TestCase
     worried_users = User.delayed.order(completed_at: :asc)
     assert_equal worried_users.where(id: user.id).size, 0
   end
+
+  test 'get category active or unstarted practice' do
+    komagata = users(:komagata)
+    assert_equal 917_504_053, komagata.category_active_or_unstarted_practice.id
+
+    machida = users(:machida)
+    practice1 = practices(:practice1)
+    Learning.create!(
+      user: machida,
+      practice: practice1,
+      status: :complete
+    )
+    assert_equal 685_020_562, machida.category_active_or_unstarted_practice.id
+  end
 end

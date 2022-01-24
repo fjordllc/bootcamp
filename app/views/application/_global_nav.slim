@@ -10,7 +10,7 @@ nav.global-nav
               i.fas.fa-fw.fa-bullhorn
             .global-nav-links__link-label お知らせ
         li.global-nav-links__item
-          - anchor = "category-#{current_user.category_having_active_practice.id}" if current_user.active_practices.present?
+          - anchor = "category-#{current_user.category_active_or_unstarted_practice.id}" if current_user.category_active_or_unstarted_practice.present?
           = link_to course_practices_path(current_user.course, anchor: anchor), class: "global-nav-links__link #{current_link(/^(courses-practices|practices)-/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-book
