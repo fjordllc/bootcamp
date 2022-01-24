@@ -35,6 +35,6 @@ class Admin::ExtendedTrialsController < AdminController
   end
 
   def extended_trial_params
-    params.require(:extended_trial).permit(:start_at, :end_at, :term)
+    params.require(:extended_trial).permit(:start_at, :end_at, :title)
   end
 end
