@@ -51,6 +51,24 @@ class EventsTest < ApplicationSystemTestCase
     assert_text 'イベントを作成しました。'
   end
 
+  test 'create copy event' do
+    event = events(:event1)
+    visit_with_auth event_path(event), 'komagata'
+    click_link 'コピー'
+    assert_text 'イベントをコピーしました'
+    within 'form[name=event]' do
+      fill_in 'event[start_at]', with: Time.current.next_day
+      fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
+      fill_in 'event[open_end_at]', with: Time.current + 2.hours
+      click_button '作成'
+    end
+    assert_text 'イベントを作成しました。'
+    assert_text event.title
+    assert_text event.location
+    assert_text event.capacity
+    assert_text event.description
+  end
+
   test 'update event' do
     visit_with_auth edit_event_path(events(:event1)), 'komagata'
     within 'form[name=event]' do
