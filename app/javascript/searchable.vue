@@ -32,8 +32,9 @@
             )
               .a-meta
                 | （
-                a.a-user-name(:href='documentAuthorUserUrl')
-                  | {{ searchable.document_author_login_name }} {{ searchable.model_name_with_i18n }}
+                a.a-user-name(:href='contributorUserUrl')
+                  | {{ searchable.document_author_login_name }}
+                | &nbsp;{{ searchable.model_name_with_i18n }}
                 | ）
 </template>
 <script>
