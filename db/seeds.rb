@@ -33,6 +33,7 @@ ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', %i[
   reactions
   watches
   works
+  talks
 ]
 
 Bootcamp::Setup.attachment
