@@ -8,10 +8,6 @@ header.page-header
 
 = render 'page_tabs', user: current_user
 
-- if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
-  .page-body
-    .container.is-lg
-      = render 'welcome_message'
 .page-body
   - if @events_coming_soon.present? && current_user.job_seeker
     #events_on_dashboard.confirmed_event
@@ -21,19 +17,13 @@ header.page-header
     #events_on_dashboard.confirmed_event
       .page-notices
         = render partial: 'event', collection: @events_coming_soon_except_job_hunting, as: :event
-  .container.is-xxl
-    .columns
+  - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
+    = render 'welcome_message'
+  .columns
+    .container.is-xxl
       .row
         .col-xs-12.col-xl-6.col-xxl-6
-          .thread-list.a-card
-            header.card-header.is-sm
-              h2.card-header__title
-                | 最新のお知らせ
-            = render partial: 'announcements', collection: @announcements, as: :announcement
-            footer.thread-list__footer
-              .thread-list__footer-to-index
-                = link_to announcements_path, class: 'thread-list__footer-text-link' do
-                  | 全てのお知らせ
+          = render partial: 'announcements'
           - if current_user.pages.wip.present?
             = render 'users/pages/wip_pages', user: current_user
           - if current_user.reports.wip.present?
@@ -46,6 +36,20 @@ header.page-header
             = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
 
         .col-xs-12.col-xl-6.col-xxl-6
+          - if current_user.student_or_trainee?
+            = render 'required_field', user: current_user
+          - if current_user.after_graduation_hope?
+            .a-card
+              header.card-header.is-sm
+                h2.card-header__title
+                  | 卒業後のゴール
+              .card-body
+                .a-long-text
+                  = simple_format(current_user.after_graduation_hope)
+              .card-footer
+                .card-footer__footer-link
+                  = link_to edit_current_user_path(anchor: 'form-after-graduation-hope'), class: 'card-footer__footer-text-link' do
+                    | 内容を更新
           - if (current_user.admin? || current_user.adviser?) && @job_seeking_users.present?
             = render 'job_seeking_users', users: @job_seeking_users
           - if current_user.total_learning_time.positive? || !current_user.mentor?
@@ -57,5 +61,3 @@ header.page-header
           - if current_user.mentor?
             = render 'users/sad_emotion_report', users: User.students_and_trainees
             = render 'users/inactive_users', users: @inactive_students
-          - if current_user.role == :student
-            = render 'required_field', user: current_user
