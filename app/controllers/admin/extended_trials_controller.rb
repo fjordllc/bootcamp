@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::ExtendedTrialsController < AdminController
   before_action :set_extended_trial, only: %i[edit update]
   def new
@@ -17,8 +19,7 @@ class Admin::ExtendedTrialsController < AdminController
     @extended_trials = ExtendedTrial.order(created_at: :desc)
   end
 
-  def edit;
-  end
+  def edit; end
 
   def update
     if @extended_trial.update(extended_trial_params)

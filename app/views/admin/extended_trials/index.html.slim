@@ -35,7 +35,7 @@ header.page-header
           - @extended_trials.each do |extended_trial|
             tr.admin-table__item(id="extended_trial_#{extended_trial.id}")
               td.admin-table__item-value
-                - if (extended_trial.end_at..nil).cover? Time.now
+                - if (extended_trial.end_at..nil).cover? Time.zone.now
                   | 終了
               td.admin-table__item-value
                 = extended_trial.title
@@ -46,6 +46,6 @@ header.page-header
               td.admin-table__item-value.is-text-align-center
                 ul.is-inline-buttons
                   li
-                    - if (nil..extended_trial.end_at).cover? Time.now
+                    - if (nil..extended_trial.end_at).cover? Time.zone.now
                       = link_to edit_admin_extended_trial_path(extended_trial), class: 'a-button is-sm is-secondary is-icon' do
                         i.fas.fa-pen
