@@ -3,6 +3,11 @@
 require 'application_system_test_case'
 
 class ReportsTest < ApplicationSystemTestCase
+  setup do
+    @komagata = users(:komagata)
+    @kimura = users(:kimura)
+  end
+
   test 'create report as WIP' do
     visit_with_auth '/reports/new', 'komagata'
     within('#new_report') do
@@ -442,29 +447,23 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'delete report with notification' do
-    visit_with_auth '/reports/new', 'kimura'
-    within('#new_report') do
-      fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'test')
-      fill_in('report[reported_on]', with: Time.current)
-    end
-    within('.learning-time__started-at') do
-      select '07'
-      select '30'
-    end
-    within('.learning-time__finished-at') do
-      select '08'
-      select '30'
-    end
+    report = @kimura.reports.create!(
+      title: 'test title',
+      description: 'test.',
+      reported_on: Date.current
+    )
 
-    click_button '提出'
-    assert_text '日報を保存しました。'
+    Notification.create!(
+      kind: 7,
+      user: @komagata,
+      sender: @kimura,
+      message: "#{@kimura.login_name}さんがはじめての日報を書きました！",
+      link: "/reports/#{report.id}",
+      read: false
+    )
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_text 'kimuraさんがはじめての日報を書きました！'
+    visit_with_auth "/reports/#{report.id}", 'kimura'
 
-    visit_with_auth '/reports', 'kimura'
-    click_on 'test title'
     accept_confirm do
       click_link '削除'
     end

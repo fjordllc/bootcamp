@@ -65,6 +65,7 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_one :report_template, dependent: :destroy
+  has_one :talk, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -121,6 +122,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   before_create UserCallbacks.new
+  after_create UserCallbacks.new
   after_update UserCallbacks.new
 
   validates :email, presence: true, uniqueness: true
@@ -582,6 +584,14 @@ class User < ApplicationRecord
     end
   end
 
+  def category_active_or_unstarted_practice
+    if active_practices.present?
+      category_having_active_practice
+    elsif unstarted_practices.present?
+      category_having_unstarted_practice
+    end
+  end
+
   private
 
   def password_required?
@@ -595,5 +605,20 @@ class User < ApplicationRecord
   def completed_practices_include_progress
     practices_include_progress.joins(:learnings)
                               .merge(Learning.complete.where(user_id: id))
+  end
+
+  def unstarted_practices
+    practices -
+      practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
+               .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
+               .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
+  end
+
+  def category_having_active_practice
+    active_practices&.first&.categories&.first
+  end
+
+  def category_having_unstarted_practice
+    unstarted_practices&.first&.categories&.first
   end
 end
