@@ -32,7 +32,7 @@
             )
               .a-meta
                 | （
-                a.a-user-name(:href='contributorUserUrl')
+                a.a-user-name(:href='documentAuthorUserUrl')
                   | {{ searchable.document_author_login_name }}
                 | &nbsp;{{ searchable.model_name_with_i18n }}
                 | ）
@@ -54,7 +54,7 @@ export default {
       return `/users/${this.searchable.user_id}`
     },
     documentAuthorUserUrl() {
-      return `/users/${this.searchable.document_author_user_id}`
+      return `/users/${this.searchable.document_author_id}`
     },
     updatedAt() {
       return dayjs(this.searchable.updated_at).format(
