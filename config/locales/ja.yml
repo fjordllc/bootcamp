@@ -35,6 +35,7 @@ ja:
       event: イベント
       memo: メモ
       reference_book: 参考書籍
+      extended_trial: お試し延長
     attributes:
       user:
         login_name: アカウント
@@ -178,6 +179,10 @@ ja:
         must_read: 必読
         cover: 表紙画像
         description: 説明
+      extended_trial:
+        start_at: 開始日時
+        end_at: 終了日時
+        term: お試し延長日数
     enums:
       user:
         job:
