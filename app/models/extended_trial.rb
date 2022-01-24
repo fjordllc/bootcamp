@@ -12,10 +12,14 @@ class ExtendedTrial < ApplicationRecord
 
   def self.recently_extended_trial
     extended_trial = ExtendedTrial.order(end_at: :desc).first
+    return if extended_trial == nil
+
     extended_trial.start_at..extended_trial.end_at
   end
 
   def self.today_is_extended_trial?
+    return if recently_extended_trial == nil
+
     self.recently_extended_trial.cover?(Date.today)
   end
 

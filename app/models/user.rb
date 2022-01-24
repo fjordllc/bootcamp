@@ -45,7 +45,6 @@ class User < ApplicationRecord
 
   belongs_to :company, optional: true
   belongs_to :course
-  belongs_to :extended_trial
   has_many :learnings, dependent: :destroy
   has_many :pages, dependent: :destroy
   has_many :comments,      dependent: :destroy
