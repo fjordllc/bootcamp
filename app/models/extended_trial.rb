@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExtendedTrial < ApplicationRecord
   validates :start_at, presence: true
   validates :end_at, presence: true
@@ -7,20 +9,20 @@ class ExtendedTrial < ApplicationRecord
   end
 
   def self.extended_trial_term
-    extended_trial_term = ExtendedTrial.order(end_at: :desc).first.term
+    ExtendedTrial.order(end_at: :desc).first.term
   end
 
   def self.recently_extended_trial
     extended_trial = ExtendedTrial.order(end_at: :desc).first
-    return if extended_trial == nil
+    return if extended_trial.nil?
 
     extended_trial.start_at..extended_trial.end_at
   end
 
   def self.today_is_extended_trial?
-    return if recently_extended_trial == nil
+    return if recently_extended_trial.nil?
 
-    self.recently_extended_trial.cover?(Date.today)
+    recently_extended_trial.cover?(Time.zone.today)
   end
 
   private
