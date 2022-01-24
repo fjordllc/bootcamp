@@ -56,7 +56,7 @@ header.page-header
             #js-grass(data-user-id="#{current_user.id}")
           - if current_user.github_account.present?
             = render 'users/github_grass', user: current_user
-          - if current_user.student_or_trainee?
+          - if current_user.student?
             #js-niconico_calendar(data-user-id="#{current_user.id}")
           - if current_user.mentor?
             = render 'users/sad_emotion_report', users: User.students_and_trainees
