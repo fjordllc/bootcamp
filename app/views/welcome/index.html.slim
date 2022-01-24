@@ -4,7 +4,7 @@
 
 = render 'welcome/main_visual'
 .welcome-sections
-  = render 'welcome/campaign'
+  = render 'welcome/campaign' if ExtendedTrial.today_is_extended_trial?
   = render 'welcome/about'
   = render 'welcome/pricing'
   = render 'welcome/tutorials'
