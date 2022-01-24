@@ -28,8 +28,6 @@ header.page-header
             th.admin-table__label
               | 終了日
             th.admin-table__label
-              | 延長期間
-            th.admin-table__label
               | 操作
         tbody.admin-table__items
           - @extended_trials.each do |extended_trial|
@@ -41,8 +39,6 @@ header.page-header
                 | #{l extended_trial.start_at}
               td.admin-table__item-value
                 | #{l extended_trial.end_at}
-              td.admin-table__item-value.admin-table__item-value.is-text-align-center
-                = extended_trial.term
               td.admin-table__item-value.is-text-align-center
                 ul.is-inline-buttons
                   li
