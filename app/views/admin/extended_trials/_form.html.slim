@@ -8,6 +8,9 @@
       .form-item
         = f.label :end_at, class: 'a-form-label'
         = f.datetime_field :end_at, class: 'a-text-input js-warning-form'
+      .form-item
+        = f.label :title, class: 'a-form-label'
+        = f.text_field :title, class: 'a-text-input js-warning-form'
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main

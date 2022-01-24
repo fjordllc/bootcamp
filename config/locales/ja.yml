@@ -182,7 +182,7 @@ ja:
       extended_trial:
         start_at: 開始日時
         end_at: 終了日時
-        term: お試し延長日数
+        title: タイトル
     enums:
       user:
         job:
