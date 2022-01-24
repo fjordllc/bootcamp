@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CommentCallbacks
+class Comment::AfterCreateCallback
   def after_create(comment)
     if comment.commentable.class.include?(Watchable)
       create_watch(comment)
@@ -9,54 +9,20 @@ class CommentCallbacks
       notify_comment(comment)
     end
 
+    if comment.commentable.instance_of?(Talk)
+      notify_to_admins(comment)
+      update_unreplied(comment)
+    end
+
     return unless comment.commentable.instance_of?(Product)
 
     update_last_commented_at(comment)
     update_commented_at(comment)
     delete_product_cache(comment.commentable.id)
-    delete_assigned_and_unreplied_product_count_cache(comment)
-  end
-
-  def after_update(comment)
-    return unless comment.commentable.instance_of?(Product)
-
-    update_last_commented_at(comment)
-    update_commented_at(comment)
-  end
-
-  def after_destroy(comment)
-    return unless comment.commentable.instance_of?(Product)
-
-    delete_last_commented_at(comment.commentable.id)
-    delete_commented_at(comment)
-    delete_product_cache(comment.commentable.id)
-
-    return unless comment.latest?
-
     delete_assigned_and_unreplied_product_count_cache(comment)
   end
 
   private
-
-  def reset_last_commented_at(product)
-    product.mentor_last_commented_at = nil
-    product.self_last_commented_at = nil
-  end
-
-  def delete_last_commented_at(product_id)
-    product = Product.find(product_id)
-
-    reset_last_commented_at(product)
-
-    product.comments.each do |comment|
-      if comment.user.mentor
-        product.mentor_last_commented_at = comment.updated_at
-      elsif comment.user == product.user
-        product.self_last_commented_at = comment.updated_at
-      end
-    end
-    product.save!
-  end
 
   def update_last_commented_at(comment)
     product = Product.find(comment.commentable.id)
@@ -70,12 +36,6 @@ class CommentCallbacks
 
   def update_commented_at(comment)
     comment.commentable.update!(commented_at: comment.updated_at)
-  end
-
-  def delete_commented_at(comment)
-    last_comment = comment.commentable.comments.last
-    comment.commentable.commented_at = last_comment ? last_comment.updated_at : nil
-    comment.commentable.save!
   end
 
   def notify_comment(comment)
@@ -123,5 +83,22 @@ class CommentCallbacks
     return unless product.checker_id.present? && product.replied_status_changed?(comment.previous&.user_id, comment.user_id)
 
     Cache.delete_self_assigned_no_replied_product_count(product.checker_id)
+  end
+
+  def notify_to_admins(comment)
+    User.admins.each do |admin_user|
+      next if comment.sender == admin_user
+
+      NotificationFacade.came_comment(
+        comment,
+        admin_user,
+        "#{comment.sender.login_name}さんからコメントが届きました。"
+      )
+    end
+  end
+
+  def update_unreplied(comment)
+    unreplied = !comment.user.admin
+    comment.commentable.update!(unreplied: unreplied)
   end
 end

@@ -1,3 +1,5 @@
+# userを増やした場合test/fixtures/talks.ymlにも追記する
+
 komagata:
   login_name: komagata
   email: komagata@fjord.jp

@@ -65,6 +65,7 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_one :report_template, dependent: :destroy
+  has_one :talk, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -121,6 +122,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   before_create UserCallbacks.new
+  after_create UserCallbacks.new
   after_update UserCallbacks.new
 
   validates :email, presence: true, uniqueness: true
