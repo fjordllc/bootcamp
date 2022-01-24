@@ -71,7 +71,7 @@
           :reactionableId='`Question_${question.id}`'
         )
         footer.card-footer(
-          v-if='currentUser.id === question.user.id || roleAdmin'
+          v-if='currentUser.id === question.user.id || isAdmin'
         )
           .card-main-actions
             ul.card-main-actions__items
@@ -241,7 +241,7 @@ export default {
       const { title, description } = this.edited
       return title.length > 0 && description.length > 0
     },
-    roleAdmin: function () {
+    isAdmin: function () {
       return this.currentUser.roles.includes('admin')
     }
   },

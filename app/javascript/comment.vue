@@ -26,7 +26,7 @@
       v-bind:currentUser='currentUser',
       v-bind:reactionableId='reactionableId'
     )
-    footer.card-footer(v-if='comment.user.id === currentUser.id || roleAdmin')
+    footer.card-footer(v-if='comment.user.id === currentUser.id || isAdmin')
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item
@@ -130,7 +130,7 @@ export default {
     reactionableId() {
       return `Comment_${this.comment.id}`
     },
-    roleAdmin: function () {
+    isAdmin: function () {
       return this.currentUser.roles.includes('admin')
     }
   },

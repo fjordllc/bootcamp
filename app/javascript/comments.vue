@@ -119,10 +119,10 @@ export default {
     daimyoClass() {
       return { 'is-daimyo': this.currentUser.daimyo }
     },
-    roleAdmin: function () {
+    isAdmin: function () {
       return this.currentUser.roles.includes('admin')
     },
-    roleAdviser: function () {
+    isAdviser: function () {
       return this.currentUser.roles.includes('adviser')
     }
   },

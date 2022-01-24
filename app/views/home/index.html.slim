@@ -61,5 +61,5 @@ header.page-header
           - if current_user.mentor?
             = render 'users/sad_emotion_report', users: User.students_and_trainees
             = render 'users/inactive_users', users: @inactive_students
-          - if current_user.role.include?(:student)
+          - if current_user.roles.include?(:student)
             = render 'required_field', user: current_user
