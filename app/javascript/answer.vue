@@ -44,14 +44,14 @@
               i.fas.fa-pen
               | 内容修正
           li.card-main-actions__item(
-            v-if='!hasCorrectAnswer && answer.type != "CorrectAnswer" && (currentUser.id === questionUser.id || currentUser.role === "admin")'
+            v-if='!hasCorrectAnswer && answer.type != "CorrectAnswer" && (currentUser.id === questionUser.id || currentUser.role === "mentor" || currentUser.role == "admin")'
           )
             button.card-main-actions__action.a-button.is-md.is-primary.is-block(
               @click='makeToBestAnswer'
             )
               | ベストアンサーにする
           li.card-main-actions__item(
-            v-if='hasCorrectAnswer && answer.type == "CorrectAnswer" && (currentUser.id === questionUser.id || currentUser.role === "admin")'
+            v-if='hasCorrectAnswer && answer.type == "CorrectAnswer" && (currentUser.id === questionUser.id || currentUser.role === "mentor" || currentUser.role == "admin")'
           )
             button.card-main-actions__action.a-button.is-md.is-muted.is-block(
               @click='cancelBestAnswer'
