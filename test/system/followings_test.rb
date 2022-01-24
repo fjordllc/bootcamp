@@ -3,6 +3,11 @@
 require 'application_system_test_case'
 
 class FollowingsTest < ApplicationSystemTestCase
+  setup do
+    @hatsuno = users(:hatsuno)
+    @kimura = users(:kimura)
+  end
+
   test 'follow with comments' do
     visit_with_auth user_path(users(:hatsuno)), 'kimura'
     find('.following').click
@@ -18,9 +23,9 @@ class FollowingsTest < ApplicationSystemTestCase
   end
 
   test 'unfollow' do
+    @kimura.follow(@hatsuno, watch: false)
+
     visit_with_auth user_path(users(:hatsuno)), 'kimura'
-    find('.following').click
-    click_button 'コメントあり'
     find('.following').click
     click_button 'フォローしない'
     assert_selector 'summary', text: 'フォローする'

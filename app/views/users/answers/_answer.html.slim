@@ -19,6 +19,9 @@
                 .thread-list-item-sub-title
                   = answer.question.practice.title
       .thread-list-item__row
+        .thread-list-item__summary
+          = md_summary(answer.description, 90)
+      .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
@@ -26,21 +29,8 @@
             .thread-list-item-meta__item
               time.a-meta(datetime="#{answer.updated_at.to_datetime}" pubdate='pubdate')
                 = l answer.updated_at
-            - if answer.question.tags.present?
-              .thread-list-item__row
-                .thread-list-item-tags
-                  .thread-list-item-tags__label
-                    i.fas.fa-tags
-                  ul.thread-list-item-tags__items
-                    - answer.question.tags.each do |tag|
-                      li.thread-list-item-tags__item
-                        = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'thread-list-item-tags__item-link'
-            - if answer.type == 'CorrectAnswer'
-              .answer-badge
-                .answer-badge__icon
-                  i.fas.fa-star
-                .answer-badge__label ベストアンサー
-            .thread-list-item-meta__item
-              .thread-list-item-comment
-                .thread-list-item-comment__label
-                  |#{answer.description}
+      - if answer.type == 'CorrectAnswer'
+        .answer-badge
+          .answer-badge__icon
+            i.fas.fa-star
+          .answer-badge__label ベストアンサー

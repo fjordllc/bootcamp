@@ -3,7 +3,8 @@ import Comments from './comments.vue'
 import store from './check-store.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const comments = document.getElementById('js-comments')
+  const selector = '#js-comments'
+  const comments = document.querySelector(selector)
   if (comments) {
     const commentableId = comments.getAttribute('data-commentable-id')
     const commentableType = comments.getAttribute('data-commentable-type')
@@ -20,6 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
             currentUser: currentUser
           }
         })
-    }).$mount('#js-comments')
+    }).$mount(selector)
   }
 })

@@ -266,6 +266,8 @@ class User < ApplicationRecord
       left_outer_joins(order_by.pluralize.to_sym)
         .group('users.id')
         .order(Arel.sql("count(#{order_by.pluralize}.id) #{direction}, users.created_at"))
+    elsif order_by == 'created_at'
+      order(order_by.to_sym => direction.to_sym)
     else
       order(order_by.to_sym => direction.to_sym, created_at: :asc)
     end
@@ -485,14 +487,6 @@ class User < ApplicationRecord
 
   def student_or_trainee_or_retired?
     !staff? && !graduated?
-  end
-
-  def unread_notifications_count
-    @unread_notifications_count ||= notifications.unreads.count
-  end
-
-  def unread_notifications_exists?
-    unread_notifications_count.positive?
   end
 
   def avatar_url
