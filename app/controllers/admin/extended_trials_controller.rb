@@ -1,7 +1,7 @@
 class Admin::ExtendedTrialsController < AdminController
   before_action :set_extended_trial, only: %i[edit update]
   def new
-    @extended_trial = ExtendedTrial.new
+    @extended_trial = ExtendedTrial.new(start_at: Time.current.beginning_of_day)
   end
 
   def create
@@ -14,7 +14,7 @@ class Admin::ExtendedTrialsController < AdminController
   end
 
   def index
-    @extended_trials = ExtendedTrial.all
+    @extended_trials = ExtendedTrial.order(created_at: :desc)
   end
 
   def edit;
