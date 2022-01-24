@@ -1,0 +1,11 @@
+.thread-list-item
+  .thread-list-item__inner
+    .thread-list-item__user
+      = render 'users/icon', user: announcement.user, link_class: 'a-user-name', image_class: 'thread-list-item__user-icon'
+    header.thread-list-item-title
+      h2.thread-list-item-title__title(itemprop='name')
+        = link_to announcement, itemprop: 'url', class: 'thread-list-item-title__link' do
+          = announcement.title
+    .thread-list-item-meta
+      time.a-meta(datetime="#{announcement.published_at.to_datetime}" pubdate='pubdate')
+        = l announcement.published_at
