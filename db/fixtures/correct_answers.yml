@@ -9,3 +9,9 @@ correct_answer2:
   user: advijirou
   question: question12
   type: "CorrectAnswer"
+
+correct_answer3:
+  description: Q&Aのコメントです。(ベストアンサー)
+  user: machida
+  question: question1
+  type: "CorrectAnswer"

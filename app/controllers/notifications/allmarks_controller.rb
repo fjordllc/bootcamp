@@ -2,8 +2,7 @@
 
 class Notifications::AllmarksController < ApplicationController
   def create
-    @notifications = current_user.notifications
-    @notifications.update_all(read: true, updated_at: Time.current) # rubocop:disable Rails/SkipsModelValidations
+    current_user.mark_all_as_read_and_delete_cache_of_unreads
     redirect_to notifications_path, notice: '全て既読にしました'
   end
 end

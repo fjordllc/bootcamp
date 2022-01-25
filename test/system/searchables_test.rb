@@ -123,4 +123,16 @@ class SearchablesTest < ApplicationSystemTestCase
     find('#test-search').click
     assert_selector 'strong.matched_word', text: '検索ワードが太字で表示されるかのテスト'
   end
+
+  test 'returns document author name when comment' do
+    visit_with_auth '/', 'hatsuno'
+    within('form[name=search]') do
+      select 'すべて'
+      fill_in 'word', with: '提出物のコメントです。'
+    end
+    find('#test-search').click
+    assert_text 'komagata'
+    assert_text 'kimura'
+    assert_no_text 'machida'
+  end
 end

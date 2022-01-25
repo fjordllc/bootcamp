@@ -1,0 +1,23 @@
+- title "#{@user.name}さんの相談部屋"
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+
+.page-body
+  .container.is-lg
+    .thread
+      .thread__inner.a-card
+        header.thread-header.has-count
+          .thread-header__row
+            h1.thread-header-title
+              = title
+        .thread__body
+          .thread__description.is-long-text
+            p
+              | ここは#{@user.name}さんと管理者のみが閲覧することのできる相談部屋です。
+              | 就職に関することや受講に関することなど、何か相談したいことがある場合にお気軽にコメントをしてください。
+    a#comments.a-anchor
+    #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
