@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  start_at: 2022-01-21 12:59:38
-  end_at: 2022-01-21 12:59:38
-  term: 1
+extended_trial1:
+  start_at: <%= Time.zone.today %>
+  end_at: <%= Time.zone.today + 3.days %>
+  title: 'GW特別キャンペーン'
 
-two:
-  start_at: 2022-01-21 12:59:38
-  end_at: 2022-01-21 12:59:38
-  term: 1
+extended_trial2:
+  start_at: <%= Time.zone.today - 1.months %>
+  end_at: <%= Time.zone.today - 1.months + 7.days %>
+  title: 'GWスペシャルキャンペーン'
