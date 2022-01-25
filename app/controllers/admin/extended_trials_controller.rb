@@ -16,7 +16,7 @@ class Admin::ExtendedTrialsController < AdminController
   end
 
   def index
-    @extended_trials = ExtendedTrial.order(created_at: :desc)
+    @extended_trials = ExtendedTrial.order(end_at: :desc)
   end
 
   def edit; end
