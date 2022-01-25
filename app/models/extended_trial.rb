@@ -3,13 +3,10 @@
 class ExtendedTrial < ApplicationRecord
   validates :start_at, presence: true
   validates :end_at, presence: true
+  validates :title, presence: true
 
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
-  end
-
-  def self.extended_trial_term
-    ExtendedTrial.order(end_at: :desc).first.term
   end
 
   def self.recently_extended_trial
