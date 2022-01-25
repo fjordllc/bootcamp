@@ -22,7 +22,7 @@ class Check::ProductsTest < ApplicationSystemTestCase
     assert has_button? '提出物の確認を取り消す'
 
     visit_with_auth "/practices/#{products(:product1).practice.id}", 'yamada'
-    assert_equal first('.test-completed').text, '完了しています'
+    assert_text '完了しています'
   end
 
   test 'success product checking cancel' do

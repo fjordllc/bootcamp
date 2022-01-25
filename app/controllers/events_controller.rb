@@ -13,6 +13,10 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new(open_start_at: Time.current.beginning_of_minute)
+
+    return unless params[:id]
+
+    copy_event(@event)
   end
 
   def create
@@ -82,5 +86,17 @@ class EventsController < ApplicationController
     when 'update'
       event.wip? ? 'イベントをWIPとして保存しました。' : 'イベントを更新しました。'
     end
+  end
+
+  def copy_event(new_event)
+    event = Event.find(params[:id])
+    new_event.title       = event.title
+    new_event.location    = event.location
+    new_event.capacity    = event.capacity
+    new_event.open_start_at = Time.current.beginning_of_minute
+    new_event.description = event.description
+    new_event.job_hunting = event.job_hunting
+
+    flash.now[:notice] = 'イベントをコピーしました。'
   end
 end

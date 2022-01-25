@@ -330,4 +330,39 @@ class NotificationsTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_no_text "yamadaさんの提出物#{products(:product1).title}の担当になりました。"
   end
+
+  test 'show the total number of mentions on the mentioned tab' do
+    user = users(:kimura)
+    expected_total_number_of_mentions = user.notifications.by_target(:mention).latest_of_each_link.size
+
+    visit_with_auth '/notifications', user.login_name
+
+    within '.page-tabs__item', text: 'メンション' do
+      assert_text format('メンション （%d）', expected_total_number_of_mentions)
+    end
+  end
+
+  test 'show the number of unread mentions on the badge of the mentioned tab' do
+    user = users(:kimura)
+    expected_number_of_unread_mentions = user.notifications.by_target(:mention).unreads.latest_of_each_link.size
+
+    visit_with_auth '/notifications', user.login_name
+
+    within '.page-tabs__item', text: 'メンション' do
+      actual_number_of_unread_mentions = find('.a-notification-count').text.to_i
+
+      assert_equal expected_number_of_unread_mentions, actual_number_of_unread_mentions
+    end
+  end
+
+  test 'don\'t show the badge on the mentioned tab if no unread mentions' do
+    user = users(:kimura)
+    user.notifications.by_target(:mention).where(read: false).update_all(read: true) # rubocop:disable Rails/SkipsModelValidations
+
+    visit_with_auth '/notifications', user.login_name
+
+    within '.page-tabs__item', text: 'メンション' do
+      assert_no_selector '.a-notification-count'
+    end
+  end
 end

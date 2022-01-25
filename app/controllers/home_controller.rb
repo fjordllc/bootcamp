@@ -10,7 +10,7 @@ class HomeController < ApplicationController
         @announcements = Announcement.with_avatar
                                      .where(wip: false)
                                      .order(published_at: :desc)
-                                     .limit(5)
+                                     .limit(3)
         @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
         @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(updated_at: :desc)
         @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)

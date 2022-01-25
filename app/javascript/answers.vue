@@ -62,14 +62,14 @@
 <script>
 import Answer from './answer.vue'
 import TextareaInitializer from './textarea-initializer'
-import CommentPleaceholder from './comment-placeholder'
+import CommentPlaceholder from './comment-placeholder'
 import confirmUnload from './confirm-unload'
 import toast from './toast'
 
 export default {
   components: {
     answer: Answer,
-    commentPlaceholder: CommentPleaceholder
+    commentPlaceholder: CommentPlaceholder
   },
   mixins: [toast, confirmUnload],
   props: {
