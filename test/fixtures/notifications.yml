@@ -22,6 +22,30 @@ notification_mentioned:
   link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>#comment_<%= ActiveRecord::FixtureSet.identify(:comment9)%>"
   read: false
 
+notification_mentioned_and_already_read:
+  kind: 2
+  user: kimura
+  sender: machida
+  message: machidaさんからメンションがきました。
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report6) %>#comment_<%= ActiveRecord::FixtureSet.identify(:comment17)%>"
+  read: true
+
+notification_mentioned_and_unread_1:
+  kind: 2
+  user: kimura
+  sender: hajime
+  message: hajimeさんからメンションがきました。
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report7) %>#comment_<%= ActiveRecord::FixtureSet.identify(:comment18)%>"
+  read: false
+
+notification_mentioned_and_unread_2:
+  kind: 2
+  user: kimura
+  sender: yamada
+  message: yamadaさんからメンションがきました。
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report8) %>#comment_<%= ActiveRecord::FixtureSet.identify(:comment19)%>"
+  read: false
+
 notification_read:
   kind: 0
   user: sotugyou
