@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Admin::CompaniesController < AdminController
-  before_action :set_company, only: %i[update]
+  before_action :set_company, only: %i[edit update]
+
+  def index; end
 
   def new
     @company = Company.new
@@ -16,6 +18,8 @@ class Admin::CompaniesController < AdminController
       render 'new'
     end
   end
+
+  def edit; end
 
   def update
     if @company.update(company_params)
