@@ -22,3 +22,8 @@ answer5:
   description: テストの回答5です。
   user: komagata
   question: question6
+
+answer6:
+  description: Q&Aのコメントです。(ベストアンサーではない)
+  user: machida
+  question: question6
