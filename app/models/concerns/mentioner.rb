@@ -21,6 +21,8 @@ module Mentioner
       "#{target_of_comment(commentable.class, commentable)}へのコメント"
     when Answer
       "#{receiver.login_name}さんのQ&A「#{question[:title]}」へのコメント"
+    when Question
+      "#{user.login_name}さんのQ&A「#{practice[:title]}」"
     end
   end
 
