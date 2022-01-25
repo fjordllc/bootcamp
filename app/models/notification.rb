@@ -75,7 +75,7 @@ class Notification < ApplicationRecord
       user: receiver,
       sender: mentionable.sender,
       link: mentionable.path,
-      message: "#{mentionable.sender.login_name}さんからメンションがきました。",
+      message: "#{mentionable.where_mention}で#{mentionable.sender.login_name}さんからメンションがきました。",
       read: false
     )
   end
