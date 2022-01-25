@@ -20,16 +20,16 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
 
     notification_message = 'muryouさんがはじめての日報を書きました！'
-    visit_with_auth "/notifications", 'komagata'
+    visit_with_auth '/notifications', 'komagata'
     assert_text notification_message
 
-    visit_with_auth "/notifications", 'kimura'
+    visit_with_auth '/notifications', 'kimura'
     assert_text notification_message
 
-    visit_with_auth "/notifications", 'advijirou'
+    visit_with_auth '/notifications', 'advijirou'
     assert_no_text notification_message
 
-    visit_with_auth "/notifications", 'sotugyou'
+    visit_with_auth '/notifications', 'sotugyou'
     assert_no_text notification_message
   end
 
