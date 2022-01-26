@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ExtendedTrial < ApplicationRecord
+class Campaign < ApplicationRecord
   validates :start_at, presence: true
   validates :end_at, presence: true
   validates :title, presence: true
@@ -9,17 +9,17 @@ class ExtendedTrial < ApplicationRecord
     validate :end_at_be_greater_than_start_at
   end
 
-  def self.recently_extended_trial
-    extended_trial = ExtendedTrial.order(end_at: :desc).first
-    return if extended_trial.nil?
+  def self.recently_campaign
+    campaign = Campaign.order(end_at: :desc).first
+    return if campaign.nil?
 
-    extended_trial.start_at..extended_trial.end_at
+    campaign.start_at..campaign.end_at
   end
 
-  def self.today_is_extended_trial?
-    return if recently_extended_trial.nil?
+  def self.today_is_campaign?
+    return if recently_campaign.nil?
 
-    recently_extended_trial.cover?(Time.zone.today)
+    recently_campaign.cover?(Time.zone.today)
   end
 
   private

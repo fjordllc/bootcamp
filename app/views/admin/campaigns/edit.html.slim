@@ -8,7 +8,7 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to admin_extended_trials_path, class: 'a-button is-md is-secondary is-block' do
+            = link_to admin_campaigns_path, class: 'a-button is-md is-secondary is-block' do
               | お試し延長編集
 
 .page-tools
@@ -16,4 +16,4 @@ header.page-header
 
 .page-body
   .container
-    = render 'form', extended_trial: @extended_trial
+    = render 'form', campaign: @campaign
