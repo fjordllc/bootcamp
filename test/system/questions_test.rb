@@ -257,4 +257,10 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text 'Watch中'
   end
+
+  test 'number of comments' do
+    question = questions(:question6)
+    visit_with_auth questions_path, 'kimura'
+    assert_equal 1, question.answers.size
+  end
 end
