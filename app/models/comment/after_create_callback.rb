@@ -16,7 +16,7 @@ class Comment::AfterCreateCallback
 
     return unless comment.commentable.instance_of?(Product)
 
-    create_check(comment)
+    create_checker_id(comment)
     update_last_commented_at(comment)
     update_commented_at(comment)
     delete_product_cache(comment.commentable.id)
@@ -74,11 +74,9 @@ class Comment::AfterCreateCallback
     @watch.save!
   end
 
-  def create_check(comment)
+  def create_checker_id(comment)
     product = comment.commentable
-    return if product.checker_id.present?
-
-    product.checker_id = comment.sender.id
+    product.checker_id.present? ? product.checker_id = comment.sender.id : return
   end
 
   def delete_product_cache(product_id)
