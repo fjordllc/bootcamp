@@ -61,7 +61,7 @@ module LinkChecker
     end
 
     test '::MARKDOWN_LINK_REGEXP' do
-      actual = pages(:page8).body.scan(Extractor::MARKDOWN_LINK_REGEXP)
+      actual = pages(:page8).body.scan(Extractor::MARKDOWN_LINK_REGEXP).map { |match| match.take(2) }
       expected = [
         ['TEST', '/test'],
         %w[missing test],
@@ -73,7 +73,7 @@ module LinkChecker
     end
 
     test '::MARKDOWN_LINK_REGEXP matches exactly an url that ends with closing parentheses' do
-      actual = '[末尾が閉じ括弧の URL のリンク](https://example.com/(hoge))'.scan(Extractor::MARKDOWN_LINK_REGEXP)
+      actual = '[末尾が閉じ括弧の URL のリンク](https://example.com/(hoge))'.scan(Extractor::MARKDOWN_LINK_REGEXP).map { |match| match.take(2) }
       expected = [['末尾が閉じ括弧の URL のリンク', 'https://example.com/(hoge)']]
 
       assert_equal expected, actual
