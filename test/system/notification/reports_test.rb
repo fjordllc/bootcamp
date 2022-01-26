@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class Notification::ReportsTest < ApplicationSystemTestCase
-  test 'はじめての日報が投稿されたときにメンターと現役生のみが通知を受け取る' do
+  test 'the first daily report notification is sent only to current students and mentors' do
     report = users(:muryou).reports.create!(
       title: 'test title',
       description: 'test',
