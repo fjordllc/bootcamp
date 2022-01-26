@@ -1,5 +1,5 @@
-= form_with model: [:admin, @extended_trial], local: true, class: 'form', html: { name: 'extended_trial' } do |f|
-  = render 'errors', object: @extended_trial
+= form_with model: [:admin, @campaign], local: true, class: 'form', html: { name: 'campaign' } do |f|
+  = render 'errors', object: @campaign
   .form__items
     .form__items-inner
       .form-item
@@ -17,4 +17,4 @@
         button.a-button.is-lg.is-warning.is-block
           | 内容を保存
       li.form-actions__item.is-sub
-        = link_to 'キャンセル', admin_extended_trials_path, class: 'a-button is-md is-secondary is-block'
+        = link_to 'キャンセル', admin_campaigns_path, class: 'a-button is-md is-secondary is-block'

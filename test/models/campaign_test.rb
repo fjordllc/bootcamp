@@ -2,17 +2,17 @@
 
 require 'test_helper'
 
-class ExtendedTrialTest < ActiveSupport::TestCase
-  test 'recently extended_trial' do
-    later_extended_trial = extended_trials(:extended_trial2)
-    earlier_extended_trial = extended_trials(:extended_trial1)
+class CampaignTest < ActiveSupport::TestCase
+  test 'recently campaign' do
+    later_campaign = campaigns(:campaign2)
+    earlier_campaign = campaigns(:campaign1)
 
-    assert_equal ExtendedTrial.recently_extended_trial, earlier_extended_trial.start_at..earlier_extended_trial.end_at
-    assert_not_equal ExtendedTrial.recently_extended_trial, later_extended_trial.start_at..later_extended_trial.end_at
+    assert_equal Campaign.recently_campaign, earlier_campaign.start_at..earlier_campaign.end_at
+    assert_not_equal Campaign.recently_campaign, later_campaign.start_at..later_campaign.end_at
   end
 
-  test 'today is extended_trial?' do
-    extended_trial = extended_trials(:extended_trial1)
-    assert_equal ExtendedTrial.today_is_extended_trial?, (extended_trial.start_at..extended_trial.end_at).cover?(Time.zone.today)
+  test 'today is campaign?' do
+    campaign = campaigns(:campaign1)
+    assert_equal Campaign.today_is_campaign?, (campaign.start_at..campaign.end_at).cover?(Time.zone.today)
   end
 end

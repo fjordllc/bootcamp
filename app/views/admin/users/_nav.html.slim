@@ -1,6 +1,6 @@
 nav.tab-nav.is-in-tab
   .container.is-padding-horizontal-0-sm-down
     ul.tab-nav__items
-      - %w[all student_and_trainee inactive retired graduate adviser mentor trainee year_end_party extended_trial].each do |target|
+      - %w[all student_and_trainee inactive retired graduate adviser mentor trainee year_end_party campaign].each do |target|
         li.tab-nav__item
           = link_to t("target.#{target}"), admin_users_path(target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'

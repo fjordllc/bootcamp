@@ -9,6 +9,6 @@ Rails.application.routes.draw do
     end
     resources :categories, except: %i(show)
     resources :courses, except: %i(show destroy)
-    resources :extended_trials, only: %i(new create index edit update)
+    resources :campaigns, only: %i(new create index edit update)
   end
 end

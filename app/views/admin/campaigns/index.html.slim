@@ -8,7 +8,7 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to new_admin_extended_trial_path, class: 'a-button is-md is-secondary is-block' do
+            = link_to new_admin_campaign_path, class: 'a-button is-md is-secondary is-block' do
               i.fa.fa-plus
               | お試し期間延長 作成
 
@@ -32,20 +32,20 @@ header.page-header
             th.admin-table__label
               | 操作
         tbody.admin-table__items
-          - @extended_trials.each do |extended_trial|
-            tr.admin-table__item(id="extended_trial_#{extended_trial.id}")
+          - @campaigns.each do |campaign|
+            tr.admin-table__item(id="campaign_#{campaign.id}")
               td.admin-table__item-value
-                - if (extended_trial.end_at..nil).cover? Time.zone.now
+                - if (campaign.end_at..nil).cover? Time.zone.now
                   | 終了
               td.admin-table__item-value
-                = extended_trial.title
+                = campaign.title
               td.admin-table__item-value
-                | #{l extended_trial.start_at}
+                | #{l campaign.start_at}
               td.admin-table__item-value
-                | #{l extended_trial.end_at}
+                | #{l campaign.end_at}
               td.admin-table__item-value.is-text-align-center
                 ul.is-inline-buttons
                   li
-                    - if (nil..extended_trial.end_at).cover? Time.zone.now
-                      = link_to edit_admin_extended_trial_path(extended_trial), class: 'a-button is-sm is-secondary is-icon' do
+                    - if (nil..campaign.end_at).cover? Time.zone.now
+                      = link_to edit_admin_campaign_path(campaign), class: 'a-button is-sm is-secondary is-icon' do
                         i.fas.fa-pen
