@@ -43,8 +43,8 @@ class CampaignsTest < ApplicationSystemTestCase
     end
     assert_text 'お試し延長を更新しました。'
     assert_text '春のお試し祭り'
-    assert_text (yesterday).strftime("%Y年%m月%d日(#{wd[yesterday.wday]}) %H:%M")
-    assert_text (five_days_later).strftime("%Y年%m月%d日(#{wd[five_days_later.wday]}) %H:%M")
+    assert_text yesterday.strftime("%Y年%m月%d日(#{wd[yesterday.wday]}) %H:%M")
+    assert_text five_days_later.strftime("%Y年%m月%d日(#{wd[five_days_later.wday]}) %H:%M")
   end
 
   test 'cannot create a new campaign when start_at > end_at' do
