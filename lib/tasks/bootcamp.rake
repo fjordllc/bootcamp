@@ -38,25 +38,7 @@ namespace :bootcamp do
     task cloudbuild: :environment do
       puts '== START Cloud Build Task =='
 
-      receiver_login_name = if Rails.env.development? || ENV['DB_NAME'] == 'bootcamp_staging'
-                              'komagata'
-                            elsif Rails.env.production?
-                              'AudioStakes'
-                            end
-      receiver = User.find_by(login_name: receiver_login_name)
-      sender = User.find_by(login_name: 'machida')
-      link = Product.first.path
-      now = Time.current
-
-      2.times do |i|
-        Notification.create!(
-          user: receiver,
-          sender: sender,
-          message: "【動作確認用】「通知元リンクが同じ」通知のなかで「作成日時が最新かつ同値」である通知#{i + 1}つ目",
-          link: link,
-          created_at: now
-        )
-      end
+      User.all.each(&:create_talk!)
 
       puts '== END   Cloud Build Task =='
     end
