@@ -261,9 +261,6 @@ export default {
       this.createComment()
       check.click()
     },
-    isProductAssignableUser(userRole) {
-      return /^(admin|mentor)$/.test(userRole)
-    },
     async fetchUncheckedProducts(page) {
       return fetch(`/api/products/unchecked?page=${page}`, {
         method: 'GET',
