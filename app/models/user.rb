@@ -484,7 +484,7 @@ class User < ApplicationRecord
   end
 
   def student_or_trainee?
-    !staff? && !retired? && !graduated?
+    !staff? && !retired? && !graduated? && student? || trainee
   end
 
   def student_or_trainee_or_retired?
