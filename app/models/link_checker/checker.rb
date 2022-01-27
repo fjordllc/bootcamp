@@ -4,9 +4,9 @@ require 'net/http'
 
 module LinkChecker
   class Checker
-    DENY_HOST = %w[
-      codepen.io
-      www.amazon.co.jp
+    DENY_HOST = [
+      'codepen.io',
+      'www.amazon.co.jp' # アクセスを繰り返すとリンク切れ判定のレスポンスが返されるようになるため
     ].freeze
     attr_reader :errors
 
