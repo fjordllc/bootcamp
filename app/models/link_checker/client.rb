@@ -11,22 +11,11 @@ module LinkChecker
     end
 
     def request
-      @url = encode_ja(@url)
-      uri = URI.parse(@url)
-      response = Net::HTTP.get_response(uri)
+      uri = Addressable::URI.parse(@url)
+      response = Net::HTTP.get_response(uri.normalize)
       response.code.to_i
     rescue StandardError => _e
       false
-    end
-
-    def encode_ja(url)
-      url.split(//).map do |c|
-        if c.match?(%r{[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]})
-          c
-        else
-          CGI.escape(c)
-        end
-      end.join
     end
   end
 end
