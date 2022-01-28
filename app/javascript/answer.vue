@@ -225,7 +225,7 @@ export default {
           this.editing = false
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     deleteAnswer: function () {

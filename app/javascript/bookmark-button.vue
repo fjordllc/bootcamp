@@ -68,7 +68,7 @@ export default {
             }
           })
           .catch((error) => {
-            console.warn('Failed to parsing', error)
+            console.warn(error)
           })
       }
     },
@@ -95,7 +95,7 @@ export default {
           this.toast('Bookmarkしました！')
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     unbookmark() {
@@ -118,7 +118,7 @@ export default {
           this.$emit('update-index')
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     }
   }
