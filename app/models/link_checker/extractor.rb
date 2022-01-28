@@ -17,15 +17,13 @@ module LinkChecker
     end
 
     def extract_links
-      links = @document.body.scan(MARKDOWN_LINK_REGEXP).map do |title, url_or_path|
+      @document.body.scan(MARKDOWN_LINK_REGEXP).map do |title, url_or_path|
         title = title.strip
         url_or_path = url_or_path.strip
         url_or_path = "https://bootcamp.fjord.jp#{url_or_path}" if url_or_path.match?(%r{^/})
 
         Link.new(title, url_or_path, @document.title, "https://bootcamp.fjord.jp#{@document.path}")
       end
-
-      links.select { |link| URI::DEFAULT_PARSER.make_regexp.match(link.url) }
     end
   end
 end
