@@ -173,9 +173,6 @@ ActiveRecord::Schema.define(version: 2022_04_18_054838) do
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
   end
 
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
-  end
-
   create_table "events", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
