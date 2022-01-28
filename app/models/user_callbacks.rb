@@ -5,6 +5,10 @@ class UserCallbacks
     user.unsubscribe_email_token = SecureRandom.urlsafe_base64
   end
 
+  def after_create(user)
+    user.create_talk!
+  end
+
   def after_update(user)
     if user.saved_change_to_retired_on?
       Product.where(user: user).unchecked.destroy_all

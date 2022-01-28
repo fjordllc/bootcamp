@@ -1,0 +1,8 @@
+.page-tabs.is-only-mentor
+  .container
+    ul.page-tabs__items
+      li.page-tabs__item
+        = link_to '全て', talks_path, class: "page-tabs__item-link #{current_link(/^talks-index/)}"
+      li.page-tabs__item
+        = link_to talks_unreplied_index_path, class: "page-tabs__item-link #{current_link(/^talks-unreplied-index/)}" do
+          | 未返信
