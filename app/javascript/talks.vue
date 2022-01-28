@@ -68,7 +68,7 @@ export default {
           this.loaded = true
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     }
   }

@@ -101,7 +101,7 @@ export default {
           })
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     destroyReaction: function (kind) {
@@ -146,7 +146,7 @@ export default {
           )
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     footerReaction: function (kind) {
