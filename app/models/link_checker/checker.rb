@@ -28,6 +28,8 @@ module LinkChecker
       @links = links
       @errors = []
       @broken_links = []
+      @locks = Queue.new
+      5.times { @locks.push :lock }
     end
 
     def notify_broken_links
@@ -43,18 +45,15 @@ module LinkChecker
     end
 
     def check
-      locks = Queue.new
-      5.times { locks.push :lock }
-
       @links = @links.select { |link| self.class.valid_url?(link.url) && !self.class.denied_host?(link.url) }
 
       @links.map do |link|
         Thread.new do
-          lock = locks.pop
+          lock = @locks.pop
           response = Client.request(link.url)
           link.response = response
           @broken_links << link if !response || response > 403
-          locks.push lock
+          @locks.push lock
         end
       end.each(&:join)
 
