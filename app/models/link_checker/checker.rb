@@ -12,12 +12,14 @@ module LinkChecker
 
     class << self
       def valid_url?(url)
-        url = URI.encode_www_form_component(url)
-        URI.parse(url)
+        uri = Addressable::URI.parse(url)
+        uri.scheme && uri.host
+      rescue Addressable::URI::InvalidURIError
+        false
       end
 
       def denied_host?(url)
-        uri = URI.parse(url)
+        uri = Addressable::URI.parse(url)
         DENY_HOST.include?(uri.host)
       end
     end
