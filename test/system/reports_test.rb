@@ -575,4 +575,28 @@ class ReportsTest < ApplicationSystemTestCase
       assert_selector 'h1', text: 'h1'
     end
   end
+
+  test 'description of the daily report is previewed when editing' do
+    report = reports(:report31)
+    visit_with_auth report_path(report), 'kimura'
+    click_link '内容修正'
+    within("#edit_report_#{report.id}") do
+      fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
+    end
+    assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
+      assert_selector 'h1', text: 'h1'
+    end
+  end
+
+  test 'description of the daily report is previewed when copied' do
+    report = reports(:report31)
+    visit_with_auth report_path(report), 'kimura'
+    click_link 'コピー'
+    within('#new_report') do
+      fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
+    end
+    assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
+      assert_selector 'h1', text: 'h1'
+    end
+  end
 end
