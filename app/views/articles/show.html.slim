@@ -5,16 +5,22 @@
     .a-card
       .article__inner
         header.article__header
-          h1.article__title
+          h1.article__title(class="#{@article.wip? ? 'is-wip' : ''}")
             = title
           .article__metas
             .article__meta
+              - if @article.wip?
+                span.article_header__wip
+                  | WIP
               .article__author
                 = image_tag @article.user.avatar_url
                 = @article.user.login_name
             .article__meta
               .article__published-at
-                = l(@article.created_at)
+                - if @article.wip?
+                  = '執筆中'
+                - else
+                  = l(@article.published_at.nil? ? @article.created_at : @article.published_at)
         .article__body
           .js-markdown-view.is-long-text
             = @article.body

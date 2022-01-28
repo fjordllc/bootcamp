@@ -11,7 +11,10 @@
       .a-card
         .articles__items
           - @articles.each do |article|
-              .articles__item
+              div class=(article.wip? ? 'articles__item is-wip' : 'articles__item')
+                - if article.wip?
+                  .articles__icon.is-wip
+                    | WIP
                 = link_to article, class: 'articles__item-link' do
                   h2.articles__item-title
                     = article.title
@@ -22,4 +25,7 @@
                         = article.user.login_name
                     .articles__item-meta
                       .articles__item-published-at
-                        = l(article.created_at)
+                        - if article.wip?
+                          | 執筆中
+                        - else
+                          = l(article.published_at.nil? ? article.created_at : article.published_at)
