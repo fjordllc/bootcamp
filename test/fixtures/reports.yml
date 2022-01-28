@@ -243,10 +243,3 @@ report30:
   description: |-
     頑張れませんでした
   reported_on: <%= Time.now - 1.month - 1.day %>
-
-report31:
-  user: kimura
-  title: "プレビュー用のテスト"
-  description:
-    プレビュー用のテストです。
-  reported_on: "2020-11-10"
