@@ -567,7 +567,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'description of the daily report is previewed' do
-    visit_with_auth '/reports/new', 'kimura'
+    visit_with_auth '/reports/new', 'komagata'
     within('#new_report') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
@@ -577,10 +577,9 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'description of the daily report is previewed when editing' do
-    report = reports(:report31)
-    visit_with_auth report_path(report), 'kimura'
+    visit_with_auth report_path(reports(:report1)), 'komagata'
     click_link '内容修正'
-    within("#edit_report_#{report.id}") do
+    within("#edit_report_#{reports(:report1).id}") do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
     assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
@@ -589,8 +588,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'description of the daily report is previewed when copied' do
-    report = reports(:report31)
-    visit_with_auth report_path(report), 'kimura'
+    visit_with_auth report_path(reports(:report1)), 'komagata'
     click_link 'コピー'
     within('#new_report') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
