@@ -1,8 +1,6 @@
 <template lang="pug">
-.page-body__inner(v-if='categories === null')
-  .empty
-    .fas.fa-spinner.fa-pulse
-    | ロード中
+.page-body__inner.is-md(v-if='categories === null')
+  coursesPracticesLoadingListPlaceholder
 .page-body__inner(v-else)
   .categories-items
     .categories-items__inner
@@ -49,10 +47,13 @@
 import CoursesPractice from './courses-practice.vue'
 import MarkdownInitializer from './markdown-initializer'
 import role from './role'
+import CoursesPracticesLoadingListPlaceholder from './courses-practices-loading-list-placeholder'
 
 export default {
   components: {
-    'courses-practice': CoursesPractice
+    'courses-practice': CoursesPractice,
+    coursesPracticesLoadingListPlaceholder:
+      CoursesPracticesLoadingListPlaceholder
   },
   mixins: [role],
   props: {
