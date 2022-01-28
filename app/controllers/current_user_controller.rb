@@ -28,7 +28,8 @@ class CurrentUserController < ApplicationController
       :job, :organization, :os,
       :experience, :prefecture_code, :company_id,
       :nda, :avatar, :trainee,
-      :mail_notification, :job_seeker, :tag_list
+      :mail_notification, :job_seeker, :tag_list,
+      :after_graduation_hope
     )
   end
 

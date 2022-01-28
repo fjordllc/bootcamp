@@ -1,0 +1,159 @@
+talk_komagata:
+  user: komagata
+  unreplied: false
+
+talk_machida:
+  user: machida
+  unreplied: false
+
+talk_sotugyou:
+  user: sotugyou
+  unreplied: false
+
+talk_advijirou:
+  user: advijirou
+  unreplied: false
+
+talk_yameo:
+  user: yameo
+  unreplied: false
+
+talk_yamada:
+  user: yamada
+  unreplied: false
+
+talk_kimura:
+  user: kimura
+  unreplied: false
+
+talk_hatsuno:
+  user: hatsuno
+  unreplied: false
+
+talk_hajime:
+  user: hajime
+  unreplied: false
+
+talk_muryou:
+  user: muryou
+  unreplied: false
+
+talk_kensyu:
+  user: kensyu
+  unreplied: false
+
+talk_senpai:
+  user: senpai
+  unreplied: false
+
+talk_kananashi:
+  user: kananashi
+  unreplied: false
+
+talk_osnashi:
+  user: osnashi
+  unreplied: false
+
+talk_jobseeker:
+  user: jobseeker
+  unreplied: false
+
+talk_daimyo:
+  user: daimyo
+  unreplied: false
+
+talk_nippounashi:
+  user: nippounashi
+  unreplied: false
+
+talk_with_hyphen:
+  user: with_hyphen
+  unreplied: false
+
+talk_sumi:
+  user: sumi
+  unreplied: false
+
+talk_nobu:
+  user: nobu
+  unreplied: false
+
+talk_rie:
+  user: rie
+  unreplied: false
+
+talk_take:
+  user: take
+  unreplied: false
+
+talk_kunimi:
+  user: kunimi
+  unreplied: false
+
+talk_tomo:
+  user: tomo
+  unreplied: false
+
+talk_akiyosi:
+  user: akiyosi
+  unreplied: false
+
+talk_tomomi:
+  user: tomomi
+  unreplied: false
+
+talk_ogaoga:
+  user: ogaoga
+  unreplied: false
+
+talk_take8:
+  user: take8
+  unreplied: false
+
+talk_fujiyasu:
+  user: fujiyasu
+  unreplied: false
+
+talk_ringo:
+  user: ringo
+  unreplied: false
+
+talk_daimyo-adviser:
+  user: dimyo-adviser
+  unreplied: false
+
+talk_daimyo-kensyu:
+  user: daimyo-kensyu
+  unreplied: false
+
+talk_daimyo-kensyu:
+  user: daimyo-kensyu
+  unreplied: false
+
+talk_daimyo-mentor:
+  user: daimyo-mentor
+  unreplied: false
+
+talk_daimyo-sotugyou:
+  user: daimyo-sotugyou
+  unreplied: false
+
+talk_kensyuowata:
+  user: kensyuowata
+  unreplied: false
+
+talk_unadmentor:
+  user: unadmentor
+  unreplied: false
+
+talk_tatenoicon:
+  user: tatenoicon
+  unreplied: false
+
+talk_thuynga:
+  user: thuynga
+  unreplied: false
+
+talk_sotugyou-adviser:
+  user: sotugyou-adviser
+  unreplied: false

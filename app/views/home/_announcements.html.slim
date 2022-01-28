@@ -1,11 +1,10 @@
-.thread-list-item
-  .thread-list-item__inner
-    .thread-list-item__user
-      = render 'users/icon', user: announcement.user, link_class: 'a-user-name', image_class: 'thread-list-item__user-icon'
-    header.thread-list-item-title
-      h2.thread-list-item-title__title(itemprop='name')
-        = link_to announcement, itemprop: 'url', class: 'thread-list-item-title__link' do
-          = announcement.title
-    .thread-list-item-meta
-      time.a-meta(datetime="#{announcement.published_at.to_datetime}" pubdate='pubdate')
-        = l announcement.published_at
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | 最新のお知らせ
+  .thread-list
+    = render partial: 'announcement', collection: @announcements, as: :announcement
+  footer.card-footer
+    .card-footer__footer-link
+      = link_to announcements_path, class: 'card-footer__footer-text-link' do
+        | 全てのお知らせ

@@ -5,6 +5,11 @@ section.a-card.is-memo.is-only-mentor
       | メンター向けユーザーメモ
   .card-body(v-if='!editing')
     .js-target-blank.is-long-text(v-html='markdownMemo')
+    .o-empty-message(v-if='memo.length === 0')
+      .o-empty-message__icon
+        i.far.fa-sad-tear
+      .o-empty-message__text
+        | ユーザーメモはまだありません。
   footer.card-footer(v-if='!editing')
     .card-main-actions
       .card-main-actions__items

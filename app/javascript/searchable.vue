@@ -1,7 +1,11 @@
 <template lang="pug">
 .thread-list-item(:class='modelName')
   .thread-list-item__inner
-    .thread-list-item__label
+    .thread-list-item__label(v-if='searchable.is_comment_or_answer')
+      | {{ searchable.model_name_with_i18n }}
+      .thread-list-item__label-option
+        | コメント
+    .thread-list-item__label(v-else)
       | {{ searchable.model_name_with_i18n }}
     .thread-list-item__rows
       .thread-list-item__row
@@ -23,6 +27,15 @@
             .thread-list-item-meta__item
               time.a-meta(:datetime='searchable.updated_at', pubdate='pubdate')
                 | {{ updatedAt }}
+            .thread-list-item-meta__item(
+              v-if='searchable.is_comment_or_answer'
+            )
+              .a-meta
+                | （
+                a.a-user-name(:href='documentAuthorUserUrl')
+                  | {{ searchable.document_author_login_name }}
+                | &nbsp;{{ searchable.model_name_with_i18n }}
+                | ）
 </template>
 <script>
 import dayjs from 'dayjs'
@@ -39,6 +52,9 @@ export default {
     },
     userUrl() {
       return `/users/${this.searchable.user_id}`
+    },
+    documentAuthorUserUrl() {
+      return `/users/${this.searchable.document_author_id}`
     },
     updatedAt() {
       return dayjs(this.searchable.updated_at).format(

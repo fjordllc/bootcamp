@@ -21,6 +21,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[description]', with: 'テスト太郎です。'
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
+      fill_in 'user[after_graduation_hope]', with: '起業したいです'
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
