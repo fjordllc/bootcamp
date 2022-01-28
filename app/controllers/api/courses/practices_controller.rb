@@ -7,7 +7,7 @@ class API::Courses::PracticesController < API::BaseController
     @course_id = params[:course_id]
     @categories = Category
                   .joins(:courses_categories)
-                  .where(courses_categories: {course_id: @course_id})
+                  .where(courses_categories: { course_id: @course_id })
                   .includes(practices: [{ started_students: { avatar_attachment: :blob } }, :learning_minute_statistic])
                   .order('courses_categories.position ASC, categories.position ASC')
     @learnings = current_user.learnings
