@@ -41,7 +41,7 @@ module LinkChecker
         texts << "- <#{link.url}|#{link.title}> in: <#{link.source_url}|#{link.source_title}>"
       end
 
-      ChatNotifier.message(texts.join("\n"), username: 'リンクチェッカー')
+      ChatNotifier.message(texts.join("\n"), username: 'リンクチェッカー', webhook_url: ENV['DISCORD_BUG_WEBHOOK_URL'])
     end
 
     def check
