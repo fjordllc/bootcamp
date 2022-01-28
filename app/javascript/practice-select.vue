@@ -62,7 +62,7 @@ export default {
     },
     submit() {
       this.$nextTick(() => {
-        location.href = `${location.pathname}?solved=${this.solved}&practice_id=${this.selected.id}&title=${this.selected.title}`
+        location.href = `${location.pathname}?all=true&solved=${this.solved}&practice_id=${this.selected.id}&title=${this.selected.title}`
       })
     }
   }
