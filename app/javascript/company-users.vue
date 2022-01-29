@@ -54,11 +54,12 @@ export default {
     },
     url() {
       return (
-        `/api/companies/${this.companyID}/users.json` +
+        '/api/users/' +
         (this.params.tag ? `tags/${this.params.tag}` : '') +
         `?page=${this.currentPage}` +
         (this.params.target ? `&target=${this.params.target}` : '') +
-        (this.params.watch ? `&watch=${this.params.watch}` : '')
+        (this.params.watch ? `&watch=${this.params.watch}` : '') +
+        (this.companyID ? `&company_id=${this.companyID}` : '')
       )
     },
     pagerProps() {
