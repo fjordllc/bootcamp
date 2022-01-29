@@ -38,3 +38,10 @@ page6:
   title: Docsの検索結果テスト用
   body: Docsの検索結果テスト用
   user: komagata
+
+page7:
+  title: プラクティスに紐付いたDocs
+  body: プラクティスに紐付いている
+  user: komagata
+  practice: practice1
+  published_at: "2021-10-01 00:00:00"
