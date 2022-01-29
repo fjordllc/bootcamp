@@ -59,7 +59,7 @@
               )
                 | コメントする
             .card-main-actions__item.is-only-mentor(
-              v-if='(currentUser.role == "mentor" || currentUser.role == "admin") && commentType && !checkId'
+              v-if='(isRole("mentor") || isRole("admin")) && commentType && !checkId'
             )
               button.a-button.is-md.is-danger.is-block(
                 @click='commentAndCheck',
@@ -139,6 +139,9 @@ export default {
     },
     changeActiveTab(tab) {
       this.tab = tab
+    },
+    isRole(role) {
+      return this.currentUser.roles.includes(role)
     },
     showComments() {
       fetch(
