@@ -64,7 +64,6 @@ module LinkChecker
       actual = pages(:page8).body.scan(Extractor::MARKDOWN_LINK_REGEXP).map { |match| match.take(2) }
       expected = [
         ['TEST', '/test'],
-        %w[missing test],
         ['APT - Wikipedia', 'http://ja.wikipedia.org/wiki/APT'],
         ['正規表現', 'https://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE']
       ]
