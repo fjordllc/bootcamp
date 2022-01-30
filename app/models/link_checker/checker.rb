@@ -13,15 +13,15 @@ module LinkChecker
     def initialize(links = [])
       @links = links
       @errors = []
-      @error_links = []
+      @broken_links = []
     end
 
-    def notify_missing_links
+    def notify_broken_links
       check
-      return if @error_links.empty?
+      return if @broken_links.empty?
 
       texts = ['リンク切れがありました。']
-      @error_links.map do |link|
+      @broken_links.map do |link|
         texts << "- <#{link.url}|#{link.title}> in: <#{link.source_url}|#{link.source_title}>"
       end
 
@@ -42,12 +42,12 @@ module LinkChecker
           lock = locks.pop
           response = Client.request(link.url)
           link.response = response
-          @error_links << link if !response || response > 403
+          @broken_links << link if !response || response > 403
           locks.push lock
         end
       end.each(&:join)
 
-      @error_links.sort { |a, b| b.source_url <=> a.source_url }
+      @broken_links.sort { |a, b| b.source_url <=> a.source_url }
     end
 
     def all_links
