@@ -6,32 +6,21 @@ module LinkChecker
   class Extractor
     class << self
       def extract_all_links(documents)
-        documents.flat_map do |document|
-          new(
-            document.body,
-            document.title,
-            "https://bootcamp.fjord.jp#{document.path}"
-          )
-        end
+        documents.flat_map { |document| new(document).extract_links }
       end
     end
 
-    def initialize(markdown_text, source_title, source_url)
-      @markdown_text = markdown_text
-      @source_title = source_title
-      @source_url = source_url
+    def initialize(document)
+      @document = document
     end
 
     def extract_links
-      links = @markdown_text.scan(/\[(.*?)\]\((.+?)\)/)&.map do |match|
+      links = @document.body.scan(/\[(.*?)\]\((.+?)\)/)&.map do |match|
         title = match[0].strip
         url = match[1].strip
-        if url.match?(%r{^/})
-          uri = URI(@source_url)
-          uri.path = ''
-          url = uri.to_s + url
-        end
-        Link.new(title, url, @source_title, @source_url)
+        url = "https://bootcamp.fjord.jp#{url}" if url.match?(%r{^/})
+
+        Link.new(title, url, @document.title, "https://bootcamp.fjord.jp#{@document.path}")
       end
 
       links.select { |link| URI::DEFAULT_PARSER.make_regexp.match(link.url) }
