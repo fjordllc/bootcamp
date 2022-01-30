@@ -61,11 +61,5 @@ module LinkChecker
         assert_equal expected, checker.check
       end
     end
-
-    test '#all_links' do
-      checker = LinkChecker::Checker.new
-      expected = [@link_example, @link_not_exist, @link_cpu, @link_hdd, @link_mac]
-      assert_equal Set.new(expected), Set.new(checker.all_links)
-    end
   end
 end

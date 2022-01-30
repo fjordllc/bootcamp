@@ -4,7 +4,7 @@ require 'test_helper'
 
 module LinkChecker
   class ExtractorTest < ActiveSupport::TestCase
-    test '#extract' do
+    test '#extract_links' do
       extractor = LinkChecker::Extractor.new(<<~TEXT, 'apt', 'https://bootcamp.fjord.jp/1234')
                         aptとはdebianでソフトウェアをネットワークからインストールするコマンドです。
         #{'        '}
@@ -44,7 +44,7 @@ module LinkChecker
         )
       ]
 
-      assert_equal expected, extractor.extract
+      assert_equal expected, extractor.extract_links
     end
   end
 end

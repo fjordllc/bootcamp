@@ -49,45 +49,5 @@ module LinkChecker
 
       @broken_links.sort { |a, b| b.source_url <=> a.source_url }
     end
-
-    def all_links
-      page_links + practice_links
-    end
-
-    private
-
-    def page_links
-      links = []
-      Page.order(:created_at).each do |page|
-        extractor = Extractor.new(
-          page.body,
-          page.title,
-          "https://bootcamp.fjord.jp#{Rails.application.routes.url_helpers.polymorphic_path(page)}"
-        )
-        links += extractor.extract
-      end
-      links
-    end
-
-    def practice_links
-      links = []
-      Practice.order(:created_at).each do |practice|
-        practice_url = Rails.application.routes.url_helpers.polymorphic_path(practice)
-        extractor = Extractor.new(
-          practice.description,
-          practice.title,
-          "https://bootcamp.fjord.jp#{practice_url}"
-        )
-        links += extractor.extract
-
-        extractor = Extractor.new(
-          practice.goal,
-          practice.title,
-          "https://bootcamp.fjord.jp#{practice_url}"
-        )
-        links += extractor.extract
-      end
-      links
-    end
   end
 end
