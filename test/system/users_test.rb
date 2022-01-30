@@ -246,4 +246,18 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users', 'kimura'
     assert_no_link '相談部屋'
   end
+
+  test 'show daily report download button' do
+    kimura = users(:kimura)
+
+    visit_with_auth "/users/#{kimura.id}", 'komagata'
+    assert_text '日報一括ダウンロード'
+  end
+
+  test 'not show daily report download button' do
+    kimura = users(:kimura)
+
+    visit_with_auth "/users/#{kimura.id}", 'hatsuno'
+    assert_no_text '日報一括ダウンロード'
+  end
 end
