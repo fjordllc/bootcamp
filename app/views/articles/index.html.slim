@@ -25,7 +25,4 @@
                         = article.user.login_name
                     .articles__item-meta
                       .articles__item-published-at
-                        - if article.wip?
-                          | 執筆中
-                        - else
-                          = l(article.published_at.nil? ? article.created_at : article.published_at)
+                        = article.wip? ? '執筆中' : l(article.published_at)
