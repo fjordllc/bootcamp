@@ -51,6 +51,7 @@ module LinkChecker
 
     test '.valid_url? returns true with a valid url' do
       assert Checker.valid_url?('http://example.com')
+      assert Checker.valid_url?('https://ja.wikipedia.org/wiki/あ')
     end
 
     test '.valid_url? returns false with an invalid url' do
