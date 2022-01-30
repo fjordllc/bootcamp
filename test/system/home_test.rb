@@ -116,4 +116,18 @@ class HomeTest < ApplicationSystemTestCase
       assert_no_text '就職関係かつ直近イベントの表示テスト用'
     end
   end
+
+  test 'transition to my profile page from dashboard' do
+    visit_with_auth '/', 'kimura'
+    assert_text 'ダッシュボード'
+    click_link 'マイプロフィール'
+    assert_text 'kimuraのプロフィール'
+  end
+
+  test 'transition to daily report creation page from dashboard' do
+    visit_with_auth '/', 'kimura'
+    assert_text 'ダッシュボード'
+    click_link '日報作成'
+    assert_text '日報作成'
+  end
 end
