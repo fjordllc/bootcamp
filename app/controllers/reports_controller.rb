@@ -141,7 +141,7 @@ class ReportsController < ApplicationController
   end
 
   def params_hash(report)
-    { notify_qa: report.wip? ? false : report.sad? }
+    { notify_qa: !report.wip? && report.sad? }
   end
 
   def set_watch
