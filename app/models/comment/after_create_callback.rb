@@ -76,7 +76,7 @@ class Comment::AfterCreateCallback
 
   def create_checker_id(comment)
     product = comment.commentable
-    product.checker_id.blank? ? product.checker_id = comment.sender.id : return
+    product.checker_id = comment.sender.id if product.checker_id.blank?
   end
 
   def delete_product_cache(product_id)
