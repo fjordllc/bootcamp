@@ -49,6 +49,14 @@ module LinkChecker
       )
     end
 
+    test '.valid_url? returns true with a valid url' do
+      assert Checker.valid_url?('http://example.com')
+    end
+
+    test '.valid_url? returns false with an invalid url' do
+      assert_not Checker.valid_url?('http://invalid space exists')
+    end
+
     test '#check' do
       VCR.use_cassette 'link_checker/checker/check' do
         links = [@link_hdd, @link_cpu, @link_not_exist, @link_example, @link_mac]

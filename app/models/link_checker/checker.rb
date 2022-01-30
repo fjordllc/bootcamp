@@ -10,6 +10,13 @@ module LinkChecker
     ].freeze
     attr_reader :errors
 
+    class << self
+      def valid_url?(url)
+        url = URI.encode_www_form_component(url)
+        URI.parse(url)
+      end
+    end
+
     def initialize(links = [])
       @links = links
       @errors = []
