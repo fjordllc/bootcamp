@@ -4,7 +4,7 @@ require 'net/http'
 
 module LinkChecker
   class Checker
-    DENY_LIST = %w[
+    DENY_HOST = %w[
       codepen.io
       www.amazon.co.jp
     ].freeze
@@ -14,6 +14,11 @@ module LinkChecker
       def valid_url?(url)
         url = URI.encode_www_form_component(url)
         URI.parse(url)
+      end
+
+      def denied_host?(url)
+        uri = URI.parse(url)
+        DENY_HOST.include?(uri.host)
       end
     end
 
@@ -38,11 +43,8 @@ module LinkChecker
     def check
       locks = Queue.new
       5.times { locks.push :lock }
-      @links.reject! do |link|
-        url = URI.encode_www_form_component(link.url)
-        uri = URI.parse(url)
-        !uri || DENY_LIST.include?(uri.host)
-      end
+
+      @links = @links.select { |link| self.class.valid_url?(link.url) && !self.class.denied_host?(link.url) }
 
       @links.map do |link|
         Thread.new do

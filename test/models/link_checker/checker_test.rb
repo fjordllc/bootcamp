@@ -57,6 +57,15 @@ module LinkChecker
       assert_not Checker.valid_url?('http://invalid space exists')
     end
 
+    test '.denied_host? returns true when an url contains a denied host' do
+      assert Checker.denied_host?('https://codepen.io/')
+      assert Checker.denied_host?('https://www.amazon.co.jp')
+    end
+
+    test '.denied_host? returns false when an url doesn\'t contain a denied host' do
+      assert_not Checker.denied_host?('http://example.com')
+    end
+
     test '#check' do
       VCR.use_cassette 'link_checker/checker/check' do
         links = [@link_hdd, @link_cpu, @link_not_exist, @link_example, @link_mac]
