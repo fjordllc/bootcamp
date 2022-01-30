@@ -2,40 +2,15 @@
 
 eval_gemfile File.expand_path('../Gemfile', __dir__)
 
-# gemをGitHubから取得し、tmp/repos/に置く
-git_clone = lambda do |repo|
-  github_uri = "https://github.com/#{repo}.git"
-  name = repo.split('/').last
-  dest = File.expand_path("../tmp/repos/#{name}", __dir__)
-
-  system "git clone --depth 1 #{github_uri} #{dest}" unless File.exist?(dest)
-  dest
-end
-
-# Rails 7.0.alpha2でも使えるようにgemspecを書き換え
-replace_deps = lambda do |name, path|
-  spec_path = File.expand_path("#{name}.gemspec", path)
-  new_content = File.read(spec_path).gsub('< 6.2', '< 7.0')
-  File.write(spec_path, new_content)
-end
-
 # 依存関係を上書きするため、一度gemの依存を削除
 overwrite_gems = %w[rails acts-as-taggable-on meta-tags zeitwerk data_migrate ransack bullet any_login]
 dependencies.delete_if { |d| overwrite_gems.include?(d.name) }
 
-gem 'rails', github: 'rails/rails', tag: 'v7.0.0.alpha2'
+gem 'rails', github: 'rails/rails', tag: 'v7.0.1'
 
 gem 'any_login', github: 'igorkasyanchuk/any_login'
-gem 'data_migrate', github: 'podia/data-migrate', branch: 'rails-7'
-gem 'ransack', github: 'activerecord-hackery/ransack'
-gem 'zeitwerk', github: 'fxn/zeitwerk', tag: 'v2.5.0.beta3'
-
-# gemspecを上書きする
-repos = {
-  'acts-as-taggable-on' => git_clone['mbleigh/acts-as-taggable-on'],
-  'meta-tags' => git_clone['kpumuk/meta-tags']
-}
-repos.each { |name, path| replace_deps[name, path] }
-
-gem 'acts-as-taggable-on', path: repos['acts-as-taggable-on']
-gem 'meta-tags', path: repos['meta-tags']
+gem 'data_migrate', '7.0.2'
+gem 'ransack', '2.5.0'
+gem 'zeitwerk', '2.5.4'
+gem 'acts-as-taggable-on', '9.0.1'
+gem 'meta-tags', '2.16.0'
