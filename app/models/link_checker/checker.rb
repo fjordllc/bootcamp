@@ -8,7 +8,7 @@ module LinkChecker
       'codepen.io',
       'www.amazon.co.jp' # アクセスを繰り返すとリンク切れ判定のレスポンスが返されるようになるため
     ].freeze
-    attr_reader :errors
+    attr_reader :broken_links
 
     class << self
       def valid_url?(url)
@@ -26,7 +26,6 @@ module LinkChecker
 
     def initialize(links = [])
       @links = links
-      @errors = []
       @broken_links = []
       @locks = Queue.new
       5.times { @locks.push :lock }
