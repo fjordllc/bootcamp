@@ -37,7 +37,7 @@ module LinkChecker
 
       texts = ['リンク切れがありました。']
       @broken_links.map do |link|
-        texts << "- <#{link.url}|#{link.title}> in: <#{link.source_url}|#{link.source_title}>"
+        texts << "- <#{link.url} | #{link.title}> in: <#{link.source_url} | #{link.source_title}>"
       end
 
       ChatNotifier.message(texts.join("\n"), username: 'リンクチェッカー', webhook_url: ENV['DISCORD_BUG_WEBHOOK_URL'])
