@@ -8,6 +8,7 @@ class API::UsersController < API::BaseController
   def index
     @tag = params[:tag]
     @target = params[:target]
+    @company = params[:company_id]
     @target = 'student_and_trainee' unless target_allowlist.include?(@target)
     @watch = params[:watch]
 
@@ -16,6 +17,8 @@ class API::UsersController < API::BaseController
         current_user.followees_list(watch: @watch)
       elsif params[:tag]
         User.tagged_with(params[:tag])
+      elsif @company
+        User.where(company_id: @company).users_role(@target)
       else
         User.users_role(@target)
       end
@@ -23,8 +26,9 @@ class API::UsersController < API::BaseController
     @users = target_users
              .page(params[:page]).per(PAGER_NUMBER)
              .preload(:company, :avatar_attachment, :course, :tags)
-             .unretired
              .order(updated_at: :desc)
+
+    @users = @users.unretired unless @company
   end
 
   def show; end
@@ -42,6 +46,7 @@ class API::UsersController < API::BaseController
   def target_allowlist
     target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
     target_allowlist.push('job_seeking') if current_user.adviser?
+    target_allowlist.push('all') if @company
     target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
     target_allowlist
   end
