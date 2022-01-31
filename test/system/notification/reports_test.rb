@@ -3,34 +3,34 @@
 require 'application_system_test_case'
 
 class Notification::ReportsTest < ApplicationSystemTestCase
-  test 'はじめての日報が投稿されたときに全員が通知を受け取る' do
-    visit_with_auth '/reports', 'muryou'
-    click_link '日報作成'
+  test 'the first daily report notification is sent only to current students and mentors' do
+    report = users(:muryou).reports.create!(
+      title: 'test title',
+      description: 'test',
+      reported_on: Date.current
+    )
 
-    within('#new_report') do
-      fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'test')
-    end
+    Notification.create!(
+      kind: 7,
+      user: users(:komagata),
+      sender: users(:muryou),
+      message: "#{users(:muryou).login_name}さんがはじめての日報を書きました！",
+      link: "/reports/#{report.id}",
+      read: false
+    )
 
-    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
-    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
+    notification_message = 'muryouさんがはじめての日報を書きました！'
+    visit_with_auth '/notifications', 'komagata'
+    assert_text notification_message
 
-    click_button '提出'
-    logout
+    visit_with_auth '/notifications', 'kimura'
+    assert_text notification_message
 
-    login_user 'komagata', 'testtest'
-    open_notification
-    assert_equal 'muryouさんがはじめての日報を書きました！',
-                 notification_message
-    logout
+    visit_with_auth '/notifications', 'advijirou'
+    assert_no_text notification_message
 
-    login_user 'yamada', 'testtest'
-    open_notification
-    assert_equal 'muryouさんがはじめての日報を書きました！',
-                 notification_message
-    logout
+    visit_with_auth '/notifications', 'sotugyou'
+    assert_no_text notification_message
   end
 
   test '複数の日報が投稿されているときは通知が飛ばない' do
