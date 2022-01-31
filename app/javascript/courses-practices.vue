@@ -19,7 +19,7 @@
             )
               | 完了
         .categories-item__description
-          .categories-item__edit.is-only-mentor(v-if='isAdmin')
+          .categories-item__edit.is-only-mentor(v-if='isRole("admin")')
             a.categories-item__edit-link(
               :href='`${category.edit_admin_category_path}`'
             )
@@ -48,11 +48,13 @@
 <script>
 import CoursesPractice from './courses-practice.vue'
 import MarkdownInitializer from './markdown-initializer'
+import isRole from './is-role'
 
 export default {
   components: {
     'courses-practice': CoursesPractice
   },
+  mixins: [isRole],
   props: {
     courseId: { type: String, required: true },
     currentUser: { type: Object, required: true }
@@ -76,9 +78,6 @@ export default {
     containsPractices() {
       if (!this.categories) return null
       return this.categories.filter((value) => value.practices.length)
-    },
-    isAdmin: function () {
-      return this.currentUser.roles.includes('admin')
     }
   },
   created() {
