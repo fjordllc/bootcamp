@@ -1,19 +1,11 @@
 steps:
-  - id: Fetch
-    name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args: ['-c', 'docker pull asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0']
-  - id: Build
-    name: gcr.io/cloud-builders/docker
-    args: ['build',
-           '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA',
-           '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest',
-           '--cache-from', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest',
-           '.',
-           '-f', 'Dockerfile']
-  - id: Push
-    name: gcr.io/cloud-builders/docker
-    args: ['push', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
+  - id: Docker Build and Push
+    name: gcr.io/kaniko-project/executor:latest
+    args:
+      - --destination=asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA
+      - --destination=asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest
+      - --dockerfile=Dockerfile
+      - --cache=true
   - id: SqlProxy
     name: "gcr.io/cloudsql-docker/gce-proxy:1.16"
     waitFor: ["-"]
@@ -23,7 +15,7 @@ steps:
     args: ["/cloud_sql_proxy", "-dir=/cloudsql", "-instances=$_CLOUD_SQL_HOST"]
   - id: DB_Migrate
     name: "asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA"
-    waitFor: ["Build"]
+    waitFor: ["Docker Build and Push"]
     volumes:
       - name: db
         path: "/cloudsql"
@@ -90,8 +82,6 @@ steps:
     env:
       - DB_NAME=$_DB_NAME
       - DEPLOY_NOTIFY_WEBHOOK_URL=$_DEPLOY_NOTIFY_WEBHOOK_URL
-images:
-  - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
 options:
   substitutionOption: ALLOW_LOOSE
 substitutions:
