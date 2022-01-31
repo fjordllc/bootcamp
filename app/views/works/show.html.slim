@@ -17,7 +17,7 @@ header.page-header
       .thread__inner.a-card
         header.thread-header
           = link_to user_portfolio_path(@work.user), itemprop: 'url', class: 'a-user-name-link' do
-            = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: "a-user-name-icon a-user-icon is-#{@work.user.role}"
+            = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: "a-user-name-icon a-user-icon is-#{@work.user.role[0]}"
           .thread-header__row
             .thread-header-metas
               .thread-header-metas__start
