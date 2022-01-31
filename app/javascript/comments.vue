@@ -74,13 +74,14 @@ import TextareaInitializer from './textarea-initializer'
 import CommentPlaceholder from './comment-placeholder'
 import confirmUnload from './confirm-unload'
 import toast from './toast'
+import isRole from './is-role'
 
 export default {
   components: {
     comment: Comment,
     commentPlaceholder: CommentPlaceholder
   },
-  mixins: [toast, confirmUnload],
+  mixins: [toast, confirmUnload, isRole],
   props: {
     commentableId: { type: String, required: true },
     commentableType: { type: String, required: true },
@@ -118,12 +119,6 @@ export default {
     },
     daimyoClass() {
       return { 'is-daimyo': this.currentUser.daimyo }
-    },
-    isAdmin: function () {
-      return this.currentUser.roles.includes('admin')
-    },
-    isAdviser: function () {
-      return this.currentUser.roles.includes('adviser')
     }
   },
   created() {
@@ -139,9 +134,6 @@ export default {
     },
     changeActiveTab(tab) {
       this.tab = tab
-    },
-    isRole(role) {
-      return this.currentUser.roles.includes(role)
     },
     showComments() {
       fetch(

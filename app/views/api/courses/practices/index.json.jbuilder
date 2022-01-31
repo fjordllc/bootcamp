@@ -16,7 +16,8 @@ json.categories @categories do |category|
         json.user_link user_path(user)
         json.avatar_url user.avatar_url
         json.icon_title user.icon_title
-        json.role user.role
+        json.roles user.roles
+        json.primary_role user.primary_role
       end
     end
   end

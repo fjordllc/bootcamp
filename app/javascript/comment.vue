@@ -26,7 +26,9 @@
       v-bind:currentUser='currentUser',
       v-bind:reactionableId='reactionableId'
     )
-    footer.card-footer(v-if='comment.user.id === currentUser.id || isAdmin')
+    footer.card-footer(
+      v-if='comment.user.id === currentUser.id || isRole("admin")'
+    )
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item
@@ -87,13 +89,15 @@ import confirmUnload from './confirm-unload'
 import autosize from 'autosize'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
+import isRole from './is-role'
+
 dayjs.locale(ja)
 
 export default {
   components: {
     reaction: Reaction
   },
-  mixins: [confirmUnload],
+  mixins: [confirmUnload, isRole],
   props: {
     comment: { type: Object, required: true },
     currentUser: { type: Object, required: true }
@@ -129,9 +133,6 @@ export default {
     },
     reactionableId() {
       return `Comment_${this.comment.id}`
-    },
-    isAdmin: function () {
-      return this.currentUser.roles.includes('admin')
     }
   },
   created() {
