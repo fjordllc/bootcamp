@@ -34,16 +34,13 @@ class CampaignsTest < ApplicationSystemTestCase
   test 'update a campaign' do
     visit_with_auth edit_admin_campaign_path(campaigns(:campaign1)), 'komagata'
     within 'form[name=campaign]' do
-      fill_in 'campaign[start_at]', with: '002022-03-01' # 年の入力欄が6桁のため先頭に00を追加
-      fill_in 'campaign[end_at]', with: '002022-03-08'
-
+      fill_in 'campaign[start_at]', with: '2022-03-01'
+      fill_in 'campaign[end_at]', with: '2022-03-08'
       fill_in 'campaign[title]', with: '春のお試し祭り'
       click_button '内容を保存'
     end
     assert_text 'お試し延長を更新しました。'
     assert_text '春のお試し祭り'
-    assert_text '2022年03月01日(火)'
-    assert_text '2022年03月08日(火)'
   end
 
   test 'cannot create a new campaign when start_at > end_at' do
