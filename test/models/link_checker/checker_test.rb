@@ -51,11 +51,14 @@ module LinkChecker
 
     test '#check' do
       VCR.use_cassette 'link_checker/checker/check' do
-        checker = LinkChecker::Checker.new
+        links = [@link_hdd, @link_cpu, @link_not_exist, @link_example, @link_mac]
+        checker = Checker.new(links)
+
         @link_hdd.response = false
         @link_not_exist.response = 404
         expected = [@link_hdd, @link_not_exist]
-        assert_equal Set.new(expected), Set.new(checker.check)
+
+        assert_equal expected, checker.check
       end
     end
 
