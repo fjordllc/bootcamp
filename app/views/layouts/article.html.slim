@@ -8,6 +8,8 @@ html.is-application lang='ja'
     = javascript_include_tag 'application'
     = javascript_pack_tag 'application'
     = csrf_meta_tags
+    - if defined?(@article) && @article.wip?
+      meta name="robots" content="none"
     = render 'favicons'
     = render 'current_user'
     = render 'rollbar' if Rails.env.production?
