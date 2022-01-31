@@ -57,10 +57,9 @@
                 :userId='user.id',
                 :isWatching='user.isWatching'
               )
-          a.users-item__linkto_talk.is-only-admin(:href='user.talkurl')(
-            v-if='currentUser.admin'
-          )
-            | 相談部屋
+            li.card-main-actions__item.is-only-admin(v-if='currentUser.admin')
+              a.a-button.is-secondary.is-md.is-block(:href='user.talkurl')
+                | 相談部屋
 </template>
 <script>
 import Following from './following.vue'
