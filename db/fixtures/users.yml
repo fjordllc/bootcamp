@@ -887,3 +887,27 @@ sotugyou-adviser: # 区分が卒業生ではない卒業したユーザー
   unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
   updated_at: "2014-01-01 00:00:03"
   created_at: "2014-01-01 00:00:03"
+
+<% 1.upto(22) do |i| %>
+marumarushain<%= i %>: # ページネーション確認のためのユーザー
+  login_name: marumarushain<%= i %>
+  email: marumarushain<%= i %>@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: marumarushain<%= i %>
+  name_kana: マルマル シャイン<%= i %>
+  twitter_account:
+  facebook_url:
+  blog_url:
+  company: company1
+  description: マルマル企業の社員<%= i %>
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: 株式会社フィヨルド
+  github_collaborator: true
+  unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
+  updated_at: "2014-01-01 00:00:02"
+  created_at: "2014-01-01 00:00:02"
+<% end %>
