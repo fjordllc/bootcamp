@@ -119,7 +119,7 @@ talk_ringo:
   unreplied: false
 
 talk_daimyo-adviser:
-  user: dimyo-adviser
+  user: daimyo-adviser
   unreplied: false
 
 talk_daimyo-kensyu:
