@@ -19,7 +19,7 @@ class Campaign < ApplicationRecord
   def self.today_is_campaign?
     return if recently_campaign.nil?
 
-    recently_campaign.cover?(Time.zone.today)
+    recently_campaign.cover?(Time.current)
   end
 
   private

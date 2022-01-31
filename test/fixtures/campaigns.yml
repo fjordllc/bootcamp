@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 campaign1:
-  start_at: <%= Time.zone.today %>
-  end_at: <%= Time.zone.today + 3.days %>
+  start_at: <%= Time.current %>
+  end_at: <%= Time.current + 3.days %>
   title: 'GW特別キャンペーン'
 
 campaign2:
-  start_at: <%= Time.zone.today - 1.months %>
-  end_at: <%= Time.zone.today - 1.months + 7.days %>
+  start_at: <%= Time.current - 1.months %>
+  end_at: <%= Time.current - 1.months + 7.days %>
   title: 'GWスペシャルキャンペーン'

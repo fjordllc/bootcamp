@@ -35,7 +35,7 @@ header.page-header
           - @campaigns.each do |campaign|
             tr.admin-table__item(id="campaign_#{campaign.id}")
               td.admin-table__item-value
-                - if (campaign.end_at..nil).cover? Time.zone.now
+                - if (campaign.end_at..nil).cover? Time.current
                   | 終了
               td.admin-table__item-value
                 = campaign.title
@@ -46,6 +46,6 @@ header.page-header
               td.admin-table__item-value.is-text-align-center
                 ul.is-inline-buttons
                   li
-                    - if (nil..campaign.end_at).cover? Time.zone.now
+                    - if (nil..campaign.end_at).cover? Time.current
                       = link_to edit_admin_campaign_path(campaign), class: 'a-button is-sm is-secondary is-icon' do
                         i.fas.fa-pen

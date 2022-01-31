@@ -3,6 +3,8 @@
 require 'application_system_test_case'
 
 class CampaignsTest < ApplicationSystemTestCase
+  WEEK_DAY = %w[日 月 火 水 木 金 土].freeze
+
   test 'show link new campaign' do
     visit_with_auth admin_campaigns_path, 'komagata'
     assert_link 'お試し期間延長 作成'
@@ -14,9 +16,8 @@ class CampaignsTest < ApplicationSystemTestCase
   end
 
   test 'create a new campaign' do
-    today = Time.zone.today
-    seven_days_later = Time.zone.today + 7.days
-    wd = %w[日 月 火 水 木 金 土]
+    today = Time.current
+    seven_days_later = Time.current + 7.days
     visit_with_auth new_admin_campaign_path, 'komagata'
     within 'form[name=campaign]' do
       fill_in 'campaign[start_at]', with: Time.zone.parse(today.to_s)
@@ -26,25 +27,23 @@ class CampaignsTest < ApplicationSystemTestCase
     end
     assert_text 'お試し延長を作成しました。'
     assert_text 'お正月キャンペーン'
-    assert_text today.strftime("%Y年%m月%d日(#{wd[today.wday]}) %H:%M")
-    assert_text seven_days_later.strftime("%Y年%m月%d日(#{wd[seven_days_later.wday]}) %H:%M")
+    assert_text today.strftime("%Y年%m月%d日(#{WEEK_DAY[today.wday]}) %H:%M")
+    assert_text seven_days_later.strftime("%Y年%m月%d日(#{WEEK_DAY[seven_days_later.wday]}) %H:%M")
   end
 
   test 'update a campaign' do
-    yesterday = Time.zone.today - 1.day
-    five_days_later = Time.zone.today + 5.days
-    wd = %w[日 月 火 水 木 金 土]
     visit_with_auth edit_admin_campaign_path(campaigns(:campaign1)), 'komagata'
     within 'form[name=campaign]' do
-      fill_in 'campaign[start_at]', with: Time.zone.parse(yesterday.to_s)
-      fill_in 'campaign[end_at]', with: Time.zone.parse(five_days_later.to_s)
+      fill_in 'campaign[start_at]', with: '002022-03-01' # 年の入力欄が6桁のため先頭に00を追加
+      fill_in 'campaign[end_at]', with: '002022-03-08'
+
       fill_in 'campaign[title]', with: '春のお試し祭り'
       click_button '内容を保存'
     end
     assert_text 'お試し延長を更新しました。'
     assert_text '春のお試し祭り'
-    assert_text yesterday.strftime("%Y年%m月%d日(#{wd[yesterday.wday]}) %H:%M")
-    assert_text five_days_later.strftime("%Y年%m月%d日(#{wd[five_days_later.wday]}) %H:%M")
+    assert_text '2022年03月01日(火)'
+    assert_text '2022年03月08日(火)'
   end
 
   test 'cannot create a new campaign when start_at > end_at' do
