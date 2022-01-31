@@ -10,7 +10,8 @@ module LinkChecker
     ].freeze
     attr_reader :errors
 
-    def initialize
+    def initialize(links = [])
+      @links = links
       @errors = []
       @error_links = []
     end
@@ -30,13 +31,13 @@ module LinkChecker
     def check
       locks = Queue.new
       5.times { locks.push :lock }
-      all_links.reject! do |link|
+      @links.reject! do |link|
         url = URI.encode_www_form_component(link.url)
         uri = URI.parse(url)
-
         !uri || DENY_LIST.include?(uri.host)
       end
-      all_links.map do |link|
+
+      @links.map do |link|
         Thread.new do
           lock = locks.pop
           response = Client.request(link.url)
