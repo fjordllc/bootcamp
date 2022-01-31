@@ -16,8 +16,11 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    require_admin_or_mentor_login if @article.wip?
-    render layout: 'article'
+    if !@article.wip? || admin_or_mentor_login?
+      render layout: 'article'
+    else
+      redirect_to root_path, alert: '管理者・メンターとしてログインしてください'
+    end
   end
 
   def new
@@ -31,7 +34,7 @@ class ArticlesController < ApplicationController
     @article.user = current_user
     set_wip_or_published_time
     if @article.save
-      redirect_to @article, notice: notice_message(@article)
+      redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :new
     end
@@ -40,7 +43,7 @@ class ArticlesController < ApplicationController
   def update
     set_wip_or_published_time
     if @article.update(article_params)
-      redirect_to @article, notice: notice_message(@article)
+      redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :edit
     end
@@ -61,10 +64,15 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :body, :tag_list)
   end
 
+  def redirect_url(article)
+    article.wip? ? edit_article_url(article) : article
+  end
+
   def set_wip_or_published_time
     if params[:commit] == 'WIP'
       @article.wip = true
     else
+      @article.wip = false
       @article.published_at = Time.current
     end
   end
