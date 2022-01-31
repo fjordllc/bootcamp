@@ -3,5 +3,5 @@ h4 学習中ユーザー
 - active_users.each do |user|
   p
     = link_to user do
-      = image_tag user.avatar_url, class: "is-#{user.role}"
+      = image_tag user.avatar_url, class: "is-#{user.role[0]}"
       span(style='margin-left:5px') = user.login_name

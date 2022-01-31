@@ -1,6 +1,6 @@
 .user-profile
   .user-profile__icon
-    = image_tag user.avatar_url, title: user.icon_title, class: "user-profile__user-icon-image a-user-icon is-#{user.role} #{user.daimyo? ? 'is-daimyo' : ''}"
+    = image_tag user.avatar_url, title: user.icon_title, class: "user-profile__user-icon-image a-user-icon is-#{user.role[0]} #{user.daimyo? ? 'is-daimyo' : ''}"
   .user-profile__names
     h1.user-profile__login-name
       - if user.daimyo?

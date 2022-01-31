@@ -12,9 +12,12 @@ module UserDecorator
       { role: :adviser, value: adviser },
       { role: :trainee, value: trainee },
       { role: :graduate, value: graduated_on },
-      { role: :student, value: true }
     ]
-    roles.detect { |v| v[:value] }[:role]
+    if student? && !graduated?
+      [:student]
+    else
+      roles.select { |v| v[:value] }.map{ |h| h[:role] }
+    end
   end
 
   def staff_roles

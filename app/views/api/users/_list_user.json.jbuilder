@@ -1,4 +1,4 @@
-json.(user, :id, :login_name, :name, :discord_account, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :times_url, :job_seeker, :free, :job, :os, :experience, :email, :role, :icon_title, :cached_completed_percentage, :completed_fraction, :graduated_on)
+json.(user, :id, :login_name, :name, :discord_account, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :times_url, :job_seeker, :free, :job, :os, :experience, :email, :icon_title, :cached_completed_percentage, :completed_fraction, :graduated_on)
 json.tag_list user.tags.pluck(:name)
 json.url user_url(user)
 json.updated_at l(user.updated_at)
@@ -14,6 +14,7 @@ json.student_or_trainee user.student_or_trainee?
 json.edit_admin_user_path edit_admin_user_path(user)
 json.isFollowing current_user.following?(user)
 json.isWatching current_user.watching?(user)
+json.role user.role[0]
 
 json.company do
   if user.company.present?
