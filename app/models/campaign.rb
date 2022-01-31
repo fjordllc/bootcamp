@@ -5,6 +5,9 @@ class Campaign < ApplicationRecord
   validates :end_at, presence: true
   validates :title, presence: true
 
+  # TODO: Rails 7に更新後、 `ComparisonValidator` を使うように直す。
+  # refs: https://github.com/rails/rails/pull/40095
+  # validates :end_at, greater_than: :start_at
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
   end
