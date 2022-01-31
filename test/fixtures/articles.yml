@@ -2,8 +2,19 @@ article1:
   title: タイトル１
   body: 本文１
   user: komagata
+  wip: false
+  published_at: "2022-01-01 00:00:00"
 
 article2:
   title: タイトル２
   body: 本文２
   user: machida
+  wip: false
+  published_at: "2022-01-02 00:00:00"
+
+article3:
+  title: タイトル３
+  body: 本文３
+  user: komagata
+  wip: true
+  published_at: "2022-01-03 00:00:00"
