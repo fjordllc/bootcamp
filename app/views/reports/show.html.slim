@@ -172,9 +172,13 @@ header.page-header
           #js-reports(data-user-id="#{@report.user.id}" data-limit="10")
 
 - if params[:notify_qa].eql?('true')
-    = render '/shared/modal', id: 'modal-notify-qa', title: '今日も学習お疲れ様でした！', auto_show: true
+    = render '/shared/modal', id: 'modal-notify-qa', title: '🍵 今日も学習お疲れ様でした！', auto_show: true
       .modal__description.is-md
-        .a-short-text
+        .a-long-text
           p
-            a href='https://bootcamp.fjord.jp/pages/help' ヘルプページ
-            | には学習のヒントになる情報が載っているので困った時はぜひのぞいてみてください。
+            = link_to '/pages/help' do
+              | ヘルプページ
+            | には学習のヒントになる情報が載っています。
+            | 困った時はぜひのぞいてみてください。
+            | ヘルプページは左のナビゲーションにリンクがあるので、
+            | いつでもそこからアクセスができます。
