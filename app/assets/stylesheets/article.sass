@@ -1,12 +1,13 @@
 @import common-imports
 @import /blocks/base/body
 @import /blocks/footer/footer
+@import /blocks/shared/flash
 
 .articles__header
   margin-bottom: 1rem
 
 .articles__title
-  +text-block(1.75rem 1.4, center)
+  +text-block(1.75rem 1.4, center 700)
 
 .articles__item:not(:first-child)
   border-top: solid 1px $border
@@ -19,7 +20,9 @@
       text-decoration: underline
 
 .articles__item-title
-  +text-block(1.125rem 1.4, $default-text)
+  +text-block(1.125rem 1.4, $default-text 700)
+  .articles__item.is-wip &
+    color: $muted-text
 
 .articles__item-metas
   display: flex
@@ -81,6 +84,8 @@
     font-size: 2rem
   +media-breakpoint-down(sm)
     font-size: 1.625rem
+  &.is-wip
+    color: $muted-text
 
 .article__metas
   display: flex
@@ -180,3 +185,16 @@
     +media-breakpoint-up(md)
       max-width: 20rem
       +margin(horizontal, auto)
+
+.article__title-label
+  background-color: #ccc
+  font-size: .75rem
+  display: inline-block
+  vertical-align: middle
+  padding: .25rem .5rem
+  margin-right: .25rem
+  border-radius: 1rem
+  margin-top: -.5em
+  font-weight: 400
+  color: $default-text
+  line-height: 1
