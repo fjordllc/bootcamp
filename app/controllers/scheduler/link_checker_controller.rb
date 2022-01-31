@@ -7,6 +7,6 @@ class Scheduler::LinkCheckerController < SchedulerController
     checker = LinkChecker::Checker.new(links)
     checker.notify_broken_links
 
-    render plain: checker.errors.join("\n")
+    render plain: checker.broken_links.join("\n")
   end
 end
