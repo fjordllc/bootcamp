@@ -12,11 +12,11 @@
         .articles__items
           - @articles.each do |article|
               div class=(article.wip? ? 'articles__item is-wip' : 'articles__item')
-                - if article.wip?
-                  .articles__icon.is-wip
-                    | WIP
                 = link_to article, class: 'articles__item-link' do
                   h2.articles__item-title
+                    - if article.wip?
+                      span.article__title-label.is-wip
+                        | WIP
                     = article.title
                   .articles__item-metas
                     .articles__item-meta

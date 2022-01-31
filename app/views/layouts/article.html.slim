@@ -22,7 +22,7 @@ html.is-application lang='ja'
   body#body class="#{body_class}"
     = render 'google_tag_manager_body'
     - if notice
-      .flash
+      .flash.is-notice
         .flash__container
           p.flash__message
             = notice.html_safe
