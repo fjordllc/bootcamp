@@ -34,6 +34,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mentionable', '~> 0.2.1'
 gem 'meta-tags'
+gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
 gem 'oauth2'
 gem 'omniauth', '~> 1.9.1'
 gem 'omniauth-github', '~> 1.4.0'
@@ -52,7 +53,6 @@ gem 'sorcery-jwt', github: 'komagata/sorcery-jwt', branch: 'update-requirements'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
 gem 'sucker_punch', '~> 2.0'
-gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
