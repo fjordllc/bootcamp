@@ -110,14 +110,14 @@ import TextareaInitializer from './textarea-initializer'
 import confirmUnload from './confirm-unload'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
-import isRole from './is-role'
+import role from './role'
 dayjs.locale(ja)
 
 export default {
   components: {
     reaction: Reaction
   },
-  mixins: [confirmUnload, isRole],
+  mixins: [confirmUnload, role],
   props: {
     answer: { type: Object, required: true },
     currentUser: { type: Object, required: true },

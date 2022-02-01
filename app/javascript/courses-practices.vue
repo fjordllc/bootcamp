@@ -48,13 +48,13 @@
 <script>
 import CoursesPractice from './courses-practice.vue'
 import MarkdownInitializer from './markdown-initializer'
-import isRole from './is-role'
+import role from './role'
 
 export default {
   components: {
     'courses-practice': CoursesPractice
   },
-  mixins: [isRole],
+  mixins: [role],
   props: {
     courseId: { type: String, required: true },
     currentUser: { type: Object, required: true }
