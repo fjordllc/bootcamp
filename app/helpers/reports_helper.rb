@@ -10,7 +10,8 @@ module ReportsHelper
   end
 
   def practice_options_within_course
-    current_user.course.categories.flat_map do |category|
+    user_course_categories = current_user.course.categories.includes(:practices)
+    user_course_categories.flat_map do |category|
       category.practices.map do |practice|
         ["[#{category.name}] #{practice.title}", practice.id]
       end

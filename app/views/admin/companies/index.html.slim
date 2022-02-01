@@ -15,42 +15,4 @@ header.page-header
   = render 'admin/admin_page_tabs'
 
 .page-body
-  = paginate @companies
-  .container.is-padding-horizontal-0-sm-down
-    .admin-table
-      table.admin-table__table
-        thead.admin-table__header
-          tr.admin-table__labels
-            th.admin-table__label = Company.human_attribute_name :name
-            th.admin-table__label = Company.human_attribute_name :logo
-            th.admin-table__label = Company.human_attribute_name :website
-            th.admin-table__label.actions リンク
-            th.admin-table__label.actions 操作
-        tbody.admin-table__items
-          - @companies.each do |company|
-            tr.admin-table__item(id="company_#{company.id}")
-              td.admin-table__item-value
-                - if company.present?
-                  = company.name
-              td.admin-table__item-value.is-text-align-center
-                - if company.logo.attached?
-                  = image_tag company.logo_url, class: 'admin-table__item-logo-image'
-              td.admin-table__item-value
-                = company.website
-              td.admin-table__item-value.is-text-align-center
-                = link_to company.adviser_sign_up_url,
-                  title: 'アドバイザーサインアップURL',
-                  class: 'a-button is-sm is-secondary is-icon' do
-                  i.fas.fa-user-plus
-              td.admin-table__item-value.is-text-align-center
-                ul.is-inline-buttons
-                  li
-                    = link_to edit_admin_company_path(company), class: 'a-button is-sm is-secondary is-icon' do
-                      i.fas.fa-pen
-                  li
-                    = link_to [:admin, company],
-                      data: { confirm: '本当によろしいですか？' },
-                      method: :delete,
-                      class: 'a-button is-sm is-danger is-icon js-delete' do
-                      i.fas.fa-trash-alt
-  = paginate @companies
+  #js-admin-companies

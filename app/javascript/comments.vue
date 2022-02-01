@@ -210,15 +210,6 @@ export default {
           this.buttonDisabled = false
           this.resizeTextarea()
           this.toast('コメントを投稿しました！')
-
-          if (
-            this.commentableType === 'Product' &&
-            this.isProductAssignableUser(this.currentUser.role) &&
-            (await this.fetchProductAssign(Number(this.commentableId))) ===
-              false
-          ) {
-            this.toggleProductAssignment()
-          }
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
@@ -270,9 +261,6 @@ export default {
       this.createComment()
       check.click()
     },
-    isProductAssignableUser(userRole) {
-      return /^(admin|mentor)$/.test(userRole)
-    },
     async fetchUncheckedProducts(page) {
       return fetch(`/api/products/unchecked?page=${page}`, {
         method: 'GET',
@@ -291,37 +279,6 @@ export default {
           console.warn('Failed to parsing', error)
           return null
         })
-    },
-    async fetchProductAssign(productId) {
-      for (let pageNumber = 1; ; pageNumber++) {
-        const response = await this.fetchUncheckedProducts(pageNumber)
-        if (response === null) {
-          return null
-        }
-        const product = response.products.find(
-          (product) => product.id === productId
-        )
-        if (product !== undefined) {
-          return product.checker_id !== null
-        }
-      }
-    },
-    toggleProductAssignment() {
-      const params = {
-        product_id: this.commentableId,
-        current_user_id: this.currentUserId
-      }
-      fetch('/api/products/checker', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
     },
     editComment() {
       if (this.description.length > 0) {

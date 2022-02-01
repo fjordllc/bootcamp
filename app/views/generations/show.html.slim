@@ -24,16 +24,4 @@ main.page-main
                 = link_to generations_path, class: 'a-button is-sm is-block is-secondary is-back' do
                   | 期一覧
 
-  .page-body
-    .container
-      - if @users.present?
-        .users
-          .row.is-gutter-width-32
-            = render partial: 'users/user', collection: @users, as: :user
-      - else
-        .o-empty-message
-          .o-empty-message__icon
-            i.far.fa-smile
-          p.o-empty-message__text
-            = title
-            | はありません
+  #js-generation-users(generation-id="#{@generation}")

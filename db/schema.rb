@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_26_141419) do
+ActiveRecord::Schema.define(version: 2022_01_27_083838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,6 +233,7 @@ ActiveRecord::Schema.define(version: 2021_12_26_141419) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["user_id", "practice_id"], name: "index_learnings_on_user_id_and_practice_id", unique: true
+    t.index ["user_id", "status"], name: "index_learnings_on_user_id_and_status"
   end
 
   create_table "memos", force: :cascade do |t|
