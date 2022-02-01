@@ -16,8 +16,4 @@ header.page-header.is-border-bottom-none
             li.tab-nav__item
               = link_to t("target.#{target}"), company_users_path(target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
 
-.page-body
-  .container
-    .users
-      .row.is-gutter-width-32
-        = render partial: 'users/user', collection: @users, as: :user
+#js-company-users(company-id="#{@company.id}")

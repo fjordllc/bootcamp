@@ -1,17 +1,13 @@
 # frozen_string_literal: true
 
 class Admin::CompaniesController < AdminController
-  before_action :set_company, only: %i[edit update destroy]
+  before_action :set_company, only: %i[edit update]
 
-  def index
-    @companies = Company.with_attached_logo.order(:id).page(params[:page])
-  end
+  def index; end
 
   def new
     @company = Company.new
   end
-
-  def edit; end
 
   def create
     @company = Company.new(company_params)
@@ -23,6 +19,8 @@ class Admin::CompaniesController < AdminController
     end
   end
 
+  def edit; end
+
   def update
     if @company.update(company_params)
       redirect_to admin_companies_url, notice: '企業を更新しました。'
@@ -31,10 +29,7 @@ class Admin::CompaniesController < AdminController
     end
   end
 
-  def destroy
-    @company.destroy
-    redirect_to admin_companies_url, notice: '企業を削除しました。'
-  end
+  def destroy; end
 
   private
 

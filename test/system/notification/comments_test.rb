@@ -17,7 +17,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
     login_user 'machida', 'testtest'
 
     open_notification
-    assert_equal 'komagataさんからメンションがきました。',
+    assert_equal 'komagataさんの日報「作業週1日目」へのコメントでkomagataさんからメンションがきました。',
                  notification_message
     assert_selector '.header-notification-count', text: '1'
   end
