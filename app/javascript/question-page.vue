@@ -2,7 +2,7 @@
 .page-body
   .container(v-if='question === null || currentUser === null')
     .empty
-      loadingListPlaceholder
+      loadingListQuestionPagePlaceholder
   .container.is-lg(v-else)
     questionEdit(
       :question='question',
@@ -23,11 +23,12 @@
 <script>
 import QuestionEdit from './question-edit.vue'
 import Answers from './answers.vue'
-import LoadingListPlaceholder from './loading-list-placeholder.vue'
+import LoadingQuestionPagePlaceholder from './loading-question-page-placeholder.vue'
 
 export default {
   components: {
-    loadingListPlaceholder: LoadingListPlaceholder,
+    LoadingQuestionPagePlaceholder: LoadingQuestionPagePlaceholder,
+    /* app/javascript/loading-question-page-placeholder.vue */
     questionEdit: QuestionEdit,
     answers: Answers
   },
