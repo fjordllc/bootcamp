@@ -4,11 +4,11 @@
 </template>
 
 <script>
-import LoadingListQuestionPageItemPlaceholder from './loading-question-page-itme-placeholder.vue'
+import LoadingQuestionPageItemPlaceholder from './loading-question-page-itme-placeholder.vue'
 
 export default {
   components: {
-    loadingListQuestionPageItemPlaceholder: LoadingListQuestionPageItemPlaceholder
+    loadingQuestionPageItemPlaceholder: LoadingQuestionPageItemPlaceholder
   },
   data() {
     return {

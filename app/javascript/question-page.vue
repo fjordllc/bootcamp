@@ -1,7 +1,7 @@
 <template lang="pug">
 .page-body
   .container(v-if='question === null || currentUser === null')
-    loadingListQuestionPagePlaceholder
+    loadingQuestionPagePlaceholder
   .container.is-lg(v-else)
     questionEdit(
       :question='question',
