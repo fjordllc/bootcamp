@@ -3,7 +3,7 @@
 module LinkChecker
   class Client
     SSL_VERIFY_NONE_HOST = [
-      'www.tablesgenerator.com'
+      'www.tablesgenerator.com' # 中間証明書を取得できず、SSLサーバー証明書の検証に失敗するため
     ].freeze
 
     def self.request(url)
