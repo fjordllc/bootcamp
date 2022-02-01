@@ -18,7 +18,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'machida'
 
     within first('.thread-list-item.is-unread') do
-      assert_text 'kimuraさんからコメントが届きました。'
+      assert_text 'kimuraさんの相談部屋でkimuraさんからコメントが届きました。'
     end
   end
 
@@ -37,13 +37,13 @@ class Notification::TalkTest < ApplicationSystemTestCase
     visit '/notifications'
 
     within first('.thread-list-item.is-unread') do
-      assert_no_text 'komagataさんからコメントが届きました。'
+      assert_no_text 'kimuraさんの相談部屋でkomagataさんからコメントが届きました。'
     end
 
     visit_with_auth '/notifications', 'machida'
 
     within first('.thread-list-item.is-unread') do
-      assert_text 'komagataさんからコメントが届きました。'
+      assert_text 'kimuraさんの相談部屋でkomagataさんからコメントが届きました。'
     end
   end
 
