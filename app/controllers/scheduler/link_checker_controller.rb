@@ -5,8 +5,9 @@ class Scheduler::LinkCheckerController < SchedulerController
     documents = Page.all + Practice.all
     links = LinkChecker::Extractor.extract_all_links(documents)
     checker = LinkChecker::Checker.new(links)
-    checker.notify_broken_links
 
-    render plain: checker.broken_links.join("\n")
+    ChatNotifier.message(checker.summary_of_broken_links, username: 'リンクチェッカー', webhook_url: ENV['DISCORD_BUG_WEBHOOK_URL'])
+
+    render plain: checker.summary_of_broken_links
   end
 end

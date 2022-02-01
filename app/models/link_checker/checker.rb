@@ -8,7 +8,6 @@ module LinkChecker
       'codepen.io',
       'www.amazon.co.jp' # アクセスを繰り返すとリンク切れ判定のレスポンスが返されるようになるため
     ].freeze
-    attr_reader :broken_links
 
     class << self
       def valid_url?(url)
@@ -26,13 +25,15 @@ module LinkChecker
 
     def initialize(links = [])
       @links = links
+      @is_checked = false
       @broken_links = []
       @locks = Queue.new
       5.times { @locks.push :lock }
     end
 
-    def notify_broken_links
-      check
+    def summary_of_broken_links
+      check unless @is_checked
+
       return if @broken_links.empty?
 
       texts = ['リンク切れがありました。']
@@ -40,7 +41,7 @@ module LinkChecker
         texts << "- <#{link.url} | #{link.title}> in: <#{link.source_url} | #{link.source_title}>"
       end
 
-      ChatNotifier.message(texts.join("\n"), username: 'リンクチェッカー', webhook_url: ENV['DISCORD_BUG_WEBHOOK_URL'])
+      texts.join("\n")
     end
 
     def check
@@ -56,6 +57,7 @@ module LinkChecker
         end
       end.each(&:join)
 
+      @is_checked = true
       @broken_links.sort { |a, b| b.source_url <=> a.source_url }
     end
   end
