@@ -79,7 +79,7 @@ question13:
   user: hajime
   practice: practice1
 
-question14:
+question_for_comment_count:
   title: コメント数表示テスト用の質問
   description: こちらの質問はQ&A一覧ページでコメント(回答)がついているものにのみ「回答・コメント（コメント数）」という表示がついているかどうかのテスト用の質問です。
   user: komagata

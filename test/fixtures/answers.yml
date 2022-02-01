@@ -23,7 +23,7 @@ answer5:
   user: komagata
   question: question6
 
-answer6:
+answer_for_comment_count:
   description: コメント(回答)数表示テスト用の回答です。
   user: machida
-  question: question14
+  question: question_for_comment_count
