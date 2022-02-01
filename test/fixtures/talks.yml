@@ -72,3 +72,7 @@ talk18:
 talk19:
   user: kensyuowata
   unreplied: false
+
+talk20:
+  user: adminonly
+  unreplied: false
