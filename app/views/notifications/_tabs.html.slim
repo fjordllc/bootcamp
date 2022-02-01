@@ -17,3 +17,6 @@
                   = Cache.mentioned_and_unread_notification_count(current_user)
             - else
               = t("notification.#{target}")
+              - if current_user.notifications.by_target(target).unreads.latest_of_each_link.size.positive?
+                .page-tabs__item-count.a-notification-count
+                  = current_user.notifications.by_target(target).unreads.latest_of_each_link.size

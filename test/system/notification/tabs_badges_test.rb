@@ -1,0 +1,72 @@
+# frozen_string_literal: true
+
+require 'application_system_test_case'
+
+class Notification::TabsBadgesTest < ApplicationSystemTestCase
+  test 'unread badges are displayed' do
+    Notification.create!(
+      message: 'watch中',
+      kind: 8,
+      link: '/notifications/1',
+      user: users(:sotugyou),
+      sender: users(:komagata)
+    )
+    Notification.create!(
+      message: 'フォロー中',
+      kind: 13,
+      link: '/notifications/1',
+      user: users(:sotugyou),
+      sender: users(:komagata)
+    )
+
+    visit_with_auth '/notifications', 'sotugyou'
+
+    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(1) > a > div' do
+      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(2) > a > div' do
+      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(3) > a > div' do
+      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(4) > a > div' do
+      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(5) > a > div' do
+      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(6) > a > div' do
+      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(7) > a > div' do
+      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+  end
+
+  test 'unread badges are not displayed' do
+    visit_with_auth '/notifications', 'machida'
+
+    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(1) > a > div' do
+      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(2) > a > div' do
+      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(3) > a > div' do
+      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(4) > a > div' do
+      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(5) > a > div' do
+      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(6) > a > div' do
+      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(7) > a > div' do
+      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    end
+  end
+end
