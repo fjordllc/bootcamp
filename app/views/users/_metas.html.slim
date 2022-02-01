@@ -64,7 +64,10 @@
       .user-metas__item-label
         | 区分
       .user-metas__item-value
-        = t "target.#{user.role}"
+        ul
+          - user.roles.each do |role|
+            li
+              = t "target.#{role}"
     - if user.graduated_on.present?
       .user-metas__item
         .user-metas__item-label

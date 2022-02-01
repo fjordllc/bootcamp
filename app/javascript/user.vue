@@ -94,7 +94,7 @@ export default {
       return paragraphs
     },
     roleClass() {
-      return `is-${this.user.role}`
+      return `is-${this.user.primary_role}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.user.daimyo }
