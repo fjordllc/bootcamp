@@ -252,6 +252,17 @@ class Notification < ApplicationRecord
         read: false
       )
     end
+
+    def product_update(product, receiver)
+      Notification.create!(
+        kind: 17,
+        user: receiver,
+        sender: product.user,
+        link: Rails.application.routes.url_helpers.polymorphic_path(product),
+        message: "#{product.user.login_name}さんの提出物が更新されました",
+        read: false
+      )
+    end
   end
 
   def unread?
@@ -267,16 +278,5 @@ class Notification < ApplicationRecord
   def other_duplicates(scope: [])
     duplicates = scope.inject(Notification.all) { |notifications, scope_item| notifications.where(scope_item => self[scope_item]) }
     duplicates.where.not(id: id)
-  end
-
-  def self.product_update(product, receiver)
-    Notification.create!(
-      kind: 17,
-      user: receiver,
-      sender: product.user,
-      link: Rails.application.routes.url_helpers.polymorphic_path(product),
-      message: "#{product.user.login_name}さんの提出物が更新されました",
-      read: false
-    )
   end
 end
