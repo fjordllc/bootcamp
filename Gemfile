@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.4'
+ruby '3.1.0'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'date', '>= 3.2.1' # CVE-2021-41817対応
@@ -52,6 +52,7 @@ gem 'sorcery-jwt', github: 'komagata/sorcery-jwt', branch: 'update-requirements'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
 gem 'sucker_punch', '~> 2.0'
+gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
