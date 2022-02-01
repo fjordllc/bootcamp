@@ -1,5 +1,5 @@
 <script>
-  var currentUser = <%= raw (current_user ? current_user : nil).to_json(only: [:id, :login_name, :name], methods: [:avatar_url, :daimyo?, :role]) %>;
+  var currentUser = <%= raw (current_user ? current_user : nil).to_json(only: [:id, :login_name, :name], methods: [:avatar_url, :daimyo?, :roles, :primary_role]) %>;
 <% if logged_in? %>
   currentUser['daimyo'] = currentUser['daimyo?']
 <% end %>

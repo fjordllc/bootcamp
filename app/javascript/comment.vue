@@ -27,7 +27,7 @@
       v-bind:reactionableId='reactionableId'
     )
     footer.card-footer(
-      v-if='comment.user.id === currentUser.id || currentUser.role === "admin"'
+      v-if='comment.user.id === currentUser.id || isRole("admin")'
     )
       .card-main-actions
         ul.card-main-actions__items
@@ -89,13 +89,15 @@ import confirmUnload from './confirm-unload'
 import autosize from 'autosize'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
+import role from './role'
+
 dayjs.locale(ja)
 
 export default {
   components: {
     reaction: Reaction
   },
-  mixins: [confirmUnload],
+  mixins: [confirmUnload, role],
   props: {
     comment: { type: Object, required: true },
     currentUser: { type: Object, required: true }
@@ -121,7 +123,7 @@ export default {
       return dayjs(this.comment.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     roleClass() {
-      return `is-${this.comment.user.role}`
+      return `is-${this.comment.user.primary_role}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.comment.user.daimyo }

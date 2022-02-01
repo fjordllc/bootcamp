@@ -71,7 +71,7 @@
           :reactionableId='`Question_${question.id}`'
         )
         footer.card-footer(
-          v-if='currentUser.id === question.user.id || currentUser.role === "mentor" || currentUser.role === "admin"'
+          v-if='currentUser.id === question.user.id || isRole("mentor") || isRole("admin")'
         )
           .card-main-actions
             ul.card-main-actions__items
@@ -177,6 +177,7 @@ import UserIcon from './user-icon.vue'
 import confirmUnload from './confirm-unload'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
+import role from './role'
 dayjs.locale(ja)
 
 export default {
@@ -196,7 +197,7 @@ export default {
       }
     }
   },
-  mixins: [confirmUnload],
+  mixins: [confirmUnload, role],
   props: {
     question: { type: Object, required: true },
     answerCount: { type: Number, required: true },
