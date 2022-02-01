@@ -74,14 +74,14 @@ import TextareaInitializer from './textarea-initializer'
 import CommentPlaceholder from './comment-placeholder'
 import confirmUnload from './confirm-unload'
 import toast from './toast'
-import isRole from './is-role'
+import role from './role'
 
 export default {
   components: {
     comment: Comment,
     commentPlaceholder: CommentPlaceholder
   },
-  mixins: [toast, confirmUnload, isRole],
+  mixins: [toast, confirmUnload, role],
   props: {
     commentableId: { type: String, required: true },
     commentableType: { type: String, required: true },

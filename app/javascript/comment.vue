@@ -89,7 +89,7 @@ import confirmUnload from './confirm-unload'
 import autosize from 'autosize'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
-import isRole from './is-role'
+import role from './role'
 
 dayjs.locale(ja)
 
@@ -97,7 +97,7 @@ export default {
   components: {
     reaction: Reaction
   },
-  mixins: [confirmUnload, isRole],
+  mixins: [confirmUnload, role],
   props: {
     comment: { type: Object, required: true },
     currentUser: { type: Object, required: true }
