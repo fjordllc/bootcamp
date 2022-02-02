@@ -32,6 +32,12 @@
               :datetime='question.updated_at.datetime',
               pubdate='pubdate'
             ) {{ question.updated_at.locale }}
+          .thread-list-item-meta__item(v-if='question.answers.size > 0')
+            .thread-list-item-comment
+              .thread-list-item-comment__label
+                | 回答・コメント
+              .thread-list-item-comment__count
+                | （{{ question.answers.size }}）
 
     .thread-list-item__row(v-if='question.tags.length > 0')
       .thread-list-item-tags

@@ -22,3 +22,8 @@ answer5:
   description: テストの回答5です。
   user: komagata
   question: question6
+
+answer_for_comment_count:
+  description: コメント(回答)数表示テスト用の回答です。
+  user: machida
+  question: question_for_comment_count
