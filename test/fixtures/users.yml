@@ -49,6 +49,29 @@ machida:
   updated_at: "2014-01-01 00:00:02"
   created_at: "2014-01-01 00:00:02"
 
+adminonly: # adminのroleだけを持ったユーザー
+  login_name: adminonly
+  email: adminonly@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: アドミン 能美代
+  name_kana: アドミン ノミヨ
+  twitter_account: adminonly
+  facebook_url: http://www.facebook.com/adminonly
+  github_account: adminonly
+  blog_url: http://adminonly.org
+  description: "管理者権限のみを持つユーザーです(メンターではない)"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: アドミン株式会社
+  admin: true
+  mentor: false
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-02-01 00:00:30"
+  created_at: "2021-02-01 00:00:30"
+
 sotugyou:
   login_name: sotugyou
   email: sotugyou@example.com

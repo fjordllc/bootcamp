@@ -78,3 +78,9 @@ question13:
   description: こちらの質問は検索ワードの表示に関するテスト用の質問です。検索ワードが太字で表示されるかのテスト。こちらの質問は検索ワードの表示に関するテスト用の質問です。
   user: hajime
   practice: practice1
+
+question_for_comment_count:
+  title: コメント数表示テスト用の質問
+  description: こちらの質問はQ&A一覧ページでコメント(回答)がついているものにのみ「回答・コメント（コメント数）」という表示がついているかどうかのテスト用の質問です。
+  user: komagata
+  practice: practice1

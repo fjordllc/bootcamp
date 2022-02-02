@@ -63,6 +63,11 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_text 'ニコニコカレンダー'
   end
 
+  test 'show the Nico Nico calendar for trainees' do
+    visit_with_auth '/', 'kensyu'
+    assert_text 'ニコニコカレンダー'
+  end
+
   test 'show Nico Nico calendar page that matches URL params' do
     visit_with_auth '/?niconico_calendar=2020-01', 'hajime'
     find('.niconico-calendar-nav').assert_text '2020年1月'
