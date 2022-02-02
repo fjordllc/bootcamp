@@ -10,13 +10,13 @@ class BooksTest < ApplicationSystemTestCase
 
   test 'create book' do
     visit_with_auth new_book_url, 'komagata'
-
-    fill_in 'book[title]', with: books(:book1).title
-    fill_in 'book[price]', with: books(:book1).price
-    fill_in 'book[page_url]', with: books(:book1).page_url
-    fill_in 'book[description]', with: books(:book1).description
-    click_on '内容を保存'
-
+    within 'form[name=book]' do
+      fill_in 'book[title]', with: books(:book1).title
+      fill_in 'book[price]', with: books(:book1).price
+      fill_in 'book[page_url]', with: books(:book1).page_url
+      fill_in 'book[description]', with: books(:book1).description
+      click_on '内容を保存'
+    end
     assert_text '参考書籍を作成しました'
   end
 
@@ -39,12 +39,12 @@ class BooksTest < ApplicationSystemTestCase
 
   test 'title & body not allow blank' do
     visit_with_auth new_book_url, 'komagata'
-
-    fill_in 'book[title]', with: ''
-    fill_in 'book[price]', with: ''
-    fill_in 'book[page_url]', with: ''
-    click_on '内容を保存'
-
+    within 'form[name=book]' do
+      fill_in 'book[title]', with: ''
+      fill_in 'book[price]', with: ''
+      fill_in 'book[page_url]', with: ''
+      click_on '内容を保存'
+    end
     assert_text 'タイトルを入力してください'
     assert_text '価格を入力してください'
     assert_text '価格は数値で入力してください'
