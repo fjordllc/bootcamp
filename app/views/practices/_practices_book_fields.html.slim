@@ -3,12 +3,11 @@
     .reference-books-form__items
       .reference-books-form-item
         = f.label '参考書籍', class: 'a-form-label'
-        - books = Book.all.collect { |book| [book.id, book.title] }
         = f.hidden_field :book_id, value: ''
         - if f.index != 'new_practices_books'
-          .js-book-select(data-selected-book=[@practice.practices_books[f.index.to_i]&.book&.id, @practice.practices_books[f.index.to_i]&.book&.title] data-books=books)
+          .js-book-select(data-selected-book=[@practice.practices_books[f.index.to_i]&.book&.id, @practice.practices_books[f.index.to_i]&.book&.title] data-books=all_books)
         - else
-          .js-book-select(data-selected-book=[] data-books=books)
+          .js-book-select(data-selected-book=[] data-books=all_books)
       .reference-books-form-item.is-inline
         = f.label '必読', class: 'a-form-label'
         label.a-on-off-checkbox.is-sm.reference-books-form-item__must-read
