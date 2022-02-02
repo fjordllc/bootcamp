@@ -1,6 +1,7 @@
 <template lang="pug">
-.thread-list.a-card.is-loading
-  loadingQuestionPageItemPlaceholder(v-for='num in itemCount', :key='num')
+.page-body
+  .container.is-lg
+    loadingQuestionPageItemPlaceholder(v-for='num in itemCount', :key='num')
 </template>
 
 <script>
@@ -12,7 +13,7 @@ export default {
   },
   data() {
     return {
-      itemCount: 8
+      itemCount: 1
     }
   }
 }
