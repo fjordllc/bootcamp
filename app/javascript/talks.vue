@@ -57,7 +57,6 @@ export default {
         redirect: 'manual'
       })
         .then((response) => {
-          console.log(response)
           return response.json()
         })
         .then((json) => {
