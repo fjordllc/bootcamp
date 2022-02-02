@@ -1,6 +1,5 @@
 .users-item
   height: 100%
-  overflow: hidden
   +media-breakpoint-up(md)
     +padding(vertical, .375rem 1.5rem)
   +media-breakpoint-down(sm)
@@ -11,6 +10,7 @@
   background-color: $danger
   +text-block(.625rem 1.4, center $reversal-text)
   padding: .25rem
+  +border-radius(top, .1875rem)
 
 .users-item__inner
   +media-breakpoint-up(md)
