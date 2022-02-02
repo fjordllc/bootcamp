@@ -96,11 +96,11 @@ class UsersTest < ApplicationSystemTestCase
 
     visit_with_auth '/users', 'komagata'
     assert_no_selector 'div.users-item.inactive'
-    assert_text '1ヶ月ログインがありません'
+    assert_text '1ヶ月以上ログインがありません'
 
     visit_with_auth '/users', 'hatsuno'
     assert_no_selector 'div.users-item.inactive'
-    assert_no_text '1ヶ月ログインがありません'
+    assert_no_text '1ヶ月以上ログインがありません'
   end
 
   test 'show inactive users only to mentors' do
