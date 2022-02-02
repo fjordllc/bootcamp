@@ -9,11 +9,13 @@ class Practice < ApplicationRecord
   has_many :started_learnings,
            -> { where(status: 'started') },
            class_name: 'Learning',
-           inverse_of: 'practice'
+           inverse_of: 'practice',
+           dependent: nil
   has_many :completed_learnings,
            -> { where(status: 'complete') },
            class_name: 'Learning',
-           inverse_of: 'practice'
+           inverse_of: 'practice',
+           dependent: nil
   has_many :started_users,
            through: :started_learnings,
            source: :user

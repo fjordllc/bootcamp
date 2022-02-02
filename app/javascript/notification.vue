@@ -43,7 +43,7 @@ export default {
       )
     },
     roleClass() {
-      return `is-${this.notification.sender.role}`
+      return `is-${this.notification.sender.primary_role}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.notification.sender.daimyo }

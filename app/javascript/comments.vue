@@ -59,7 +59,7 @@
               )
                 | コメントする
             .card-main-actions__item.is-only-mentor(
-              v-if='(currentUser.role == "mentor" || currentUser.role == "admin") && commentType && !checkId'
+              v-if='(isRole("mentor") || isRole("admin")) && commentType && !checkId'
             )
               button.a-button.is-md.is-danger.is-block(
                 @click='commentAndCheck',
@@ -74,13 +74,14 @@ import TextareaInitializer from './textarea-initializer'
 import CommentPlaceholder from './comment-placeholder'
 import confirmUnload from './confirm-unload'
 import toast from './toast'
+import role from './role'
 
 export default {
   components: {
     comment: Comment,
     commentPlaceholder: CommentPlaceholder
   },
-  mixins: [toast, confirmUnload],
+  mixins: [toast, confirmUnload, role],
   props: {
     commentableId: { type: String, required: true },
     commentableType: { type: String, required: true },
@@ -114,7 +115,7 @@ export default {
       return this.$store.getters.checkId
     },
     roleClass() {
-      return `is-${this.currentUser.role}`
+      return `is-${this.currentUser.primary_role}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.currentUser.daimyo }
