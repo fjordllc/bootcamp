@@ -4,19 +4,19 @@
     pager(v-bind='pagerProps')
   .container
     .users
-      .row.is-gutter-width-32(v-if='users === null')
+      .row(v-if='users === null')
         .empty
           .fas.fa-spinner.fa-pulse
           |
           | ロード中
-      .row.is-gutter-width-32(v-else-if='users.length !== 0')
+      .row(v-else-if='users.length !== 0')
         user(
           v-for='user in users',
           :key='user.id',
           :user='user',
           :currentUser='currentUser'
         )
-      .row.is-gutter-width-32(v-else)
+      .row(v-else)
         .o-empty-message
           .o-empty-message__icon
             i.far.fa-sad-tear
