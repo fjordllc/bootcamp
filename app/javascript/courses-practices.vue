@@ -40,7 +40,8 @@
           :key='category.id'
         )
           a.page-nav__item-link(:href='`practices#category-${category.id}`')
-            | {{ category.name }}
+            span.page-nav__item-link-inner
+              | {{ category.name }}
 </template>
 
 <script>
