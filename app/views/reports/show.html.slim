@@ -18,7 +18,7 @@ header.page-header
 .page-body
   .container.is-xxxl
     .row.is-jc:c
-      .col-md-7.col-xs-12
+      .col-xl-7.col-xs-12
         .thread
           .thread__inner.a-card
             header.thread-header
@@ -130,7 +130,7 @@ header.page-header
 
         = render 'footprints/footprints', footprints: @footprints
 
-      .col-md-5.col-xs-12
+      .col-xl-5.col-xs-12
         - if current_user.mentor? || current_user.admin?
           .side-tabs
             input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
