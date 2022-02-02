@@ -44,4 +44,5 @@ header.page-header
               - if category.practices.present?
                 li.page-nav__item
                   a.page-nav__item-link(href="#category-#{category.id}")
-                    = category.name
+                    span.page-nav__item-link-inner
+                      = category.name

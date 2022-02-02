@@ -1,9 +1,34 @@
 <template lang="pug">
-.thread-list.a-card.is-loading
-  coursesPracticesLoadingListItemPlaceholder(
-    v-for='num in itemCount',
-    :key='num'
-  )
+.page-body__inner
+  .categories-items
+    .categories-items__inner
+      coursesPracticesLoadingListItemPlaceholder(
+        v-for='num in itemCount',
+        :key='num'
+      )
+    .page-nav
+      .page-nav__items
+        .page-nav__item
+          .page-nav__item-link
+            .page-nav__item-link-inner.a-placeholder
+        .page-nav__item
+          .page-nav__item-link
+            .page-nav__item-link-inner.a-placeholder
+        .page-nav__item
+          .page-nav__item-link
+            .page-nav__item-link-inner.a-placeholder
+        .page-nav__item
+          .page-nav__item-link
+            .page-nav__item-link-inner.a-placeholder
+        .page-nav__item
+          .page-nav__item-link
+            .page-nav__item-link-inner.a-placeholder
+        .page-nav__item
+          .page-nav__item-link
+            .page-nav__item-link-inner.a-placeholder
+        .page-nav__item
+          .page-nav__item-link
+            .page-nav__item-link-inner.a-placeholder
 </template>
 
 <script>
