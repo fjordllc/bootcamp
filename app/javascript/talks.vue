@@ -15,6 +15,8 @@
 </template>
 <script>
 import Talk from './talk.vue'
+import Pager from './pager.vue'
+
 export default {
   components: {
     talk: Talk
