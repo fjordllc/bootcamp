@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/komagata/sorcery-jwt.git
-  revision: fcf139263a3331e4e955287ebd57ca5a9996ee78
-  branch: update-requirements
-  specs:
-    sorcery-jwt (0.1.12)
-      jwt (>= 1.0, < 3.0)
-      sorcery (>= 0.13, < 0.17)
-
-GIT
   remote: https://github.com/komagata/stripe-i18n
   revision: 584c711fc66ad71a5293a9dc21d717ec608c4692
   branch: update-depencency
@@ -440,6 +431,9 @@ GEM
       bcrypt (~> 3.1)
       oauth (~> 0.5, >= 0.5.5)
       oauth2 (~> 1.0, >= 0.8.0)
+    sorcery-jwt (0.1.13)
+      jwt (>= 1.0, < 3.0)
+      sorcery (>= 0.13, < 0.17)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -570,7 +564,7 @@ DEPENDENCIES
   slim-rails
   slim_lint
   sorcery (~> 0.16.2)
-  sorcery-jwt!
+  sorcery-jwt
   spring
   spring-watcher-listen (~> 2.0.0)
   stripe
