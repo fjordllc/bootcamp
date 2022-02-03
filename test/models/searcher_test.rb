@@ -63,7 +63,7 @@ class SearchableTest < ActiveSupport::TestCase
 
   test 'sort search results in descending order of updated date' do
     result = Searcher.search('検索結果確認用', document_type: :reports)
-    assert_equal [reports(:report14), reports(:report13), reports(:report12)], result
+    assert_equal [reports(:report12), reports(:report14), reports(:report13)], result
     assert_not_includes(result, Answer)
   end
 
