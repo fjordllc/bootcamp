@@ -19,12 +19,12 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     first('.select2-selection--single').click
     find('li', text: '[Mac OS X] OS X Mountain Lionをクリーンインストールする').click
     click_button '登録する'
-    logout
 
-    login_user 'yamada', 'testtest'
-    open_notification
-    assert_equal @notice_text, notification_message
-    logout
+    visit_with_auth '/notifications', 'yamada'
+
+    within first('.thread-list-item.is-unread') do
+      assert_text @notice_text
+    end
 
     assert_equal @notified_count + @mentor_count, Notification.where(kind: @notice_kind).size
   end
