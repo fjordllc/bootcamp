@@ -59,7 +59,7 @@
               )
                 | コメントする
             .card-main-actions__item.is-only-mentor(
-              v-if='(currentUser.role == "mentor" || currentUser.role == "admin") && commentType && !checkId'
+              v-if='(isRole("mentor") || isRole("admin")) && commentType && !checkId'
             )
               button.a-button.is-md.is-danger.is-block(
                 @click='commentAndCheck',
@@ -74,13 +74,14 @@ import TextareaInitializer from './textarea-initializer'
 import CommentPlaceholder from './comment-placeholder'
 import confirmUnload from './confirm-unload'
 import toast from './toast'
+import role from './role'
 
 export default {
   components: {
     comment: Comment,
     commentPlaceholder: CommentPlaceholder
   },
-  mixins: [toast, confirmUnload],
+  mixins: [toast, confirmUnload, role],
   props: {
     commentableId: { type: String, required: true },
     commentableType: { type: String, required: true },
@@ -114,7 +115,7 @@ export default {
       return this.$store.getters.checkId
     },
     roleClass() {
-      return `is-${this.currentUser.role}`
+      return `is-${this.currentUser.primary_role}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.currentUser.daimyo }
@@ -210,15 +211,6 @@ export default {
           this.buttonDisabled = false
           this.resizeTextarea()
           this.toast('コメントを投稿しました！')
-
-          if (
-            this.commentableType === 'Product' &&
-            this.isProductAssignableUser(this.currentUser.role) &&
-            (await this.fetchProductAssign(Number(this.commentableId))) ===
-              false
-          ) {
-            this.toggleProductAssignment()
-          }
         })
         .catch((error) => {
           console.warn('Failed to parsing', error)
@@ -270,9 +262,6 @@ export default {
       this.createComment()
       check.click()
     },
-    isProductAssignableUser(userRole) {
-      return /^(admin|mentor)$/.test(userRole)
-    },
     async fetchUncheckedProducts(page) {
       return fetch(`/api/products/unchecked?page=${page}`, {
         method: 'GET',
@@ -291,37 +280,6 @@ export default {
           console.warn('Failed to parsing', error)
           return null
         })
-    },
-    async fetchProductAssign(productId) {
-      for (let pageNumber = 1; ; pageNumber++) {
-        const response = await this.fetchUncheckedProducts(pageNumber)
-        if (response === null) {
-          return null
-        }
-        const product = response.products.find(
-          (product) => product.id === productId
-        )
-        if (product !== undefined) {
-          return product.checker_id !== null
-        }
-      }
-    },
-    toggleProductAssignment() {
-      const params = {
-        product_id: this.commentableId,
-        current_user_id: this.currentUserId
-      }
-      fetch('/api/products/checker', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
     },
     editComment() {
       if (this.description.length > 0) {

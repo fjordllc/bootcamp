@@ -114,12 +114,12 @@ talk_fujiyasu:
   user: fujiyasu
   unreplied: false
 
-talk_ringo:
-  user: ringo
+talk_adminonly:
+  user: adminonly
   unreplied: false
 
 talk_daimyo-adviser:
-  user: dimyo-adviser
+  user: daimyo-adviser
   unreplied: false
 
 talk_daimyo-kensyu:

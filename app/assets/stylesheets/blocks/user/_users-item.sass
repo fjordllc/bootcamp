@@ -1,27 +1,42 @@
 .users-item
-  +media-breakpoint-up(md)
-    +padding(vertical, .375rem 1.5rem)
   height: 100%
+  +media-breakpoint-up(md)
+    +padding(vertical, .375rem .5rem)
+  +media-breakpoint-down(sm)
+    [class*=col-]:not(:first-child) &
+      margin-top: 1rem
 
 .users-item__inactive-message
   background-color: $danger
-  +text-block(.75rem 1.4, center $reversal-text)
+  +text-block(.625rem 1.4, center $reversal-text)
   padding: .25rem
-  margin-bottom: .25rem
+  +border-radius(top, .1875rem)
 
 .users-item__inner
   +media-breakpoint-up(md)
     height: 100%
+    display: flex
+    flex-direction: column
 
 .users-item__header
   +position(relative)
-  padding-left: 3.5rem
-  padding-right: 1rem
+  +padding(horizontal, 1rem)
   padding-top: .5rem
   border-bottom: solid 1px $background
   padding-bottom: .5rem
+
+.users-item__header-inner
+  display: flex
+
+.users-item__header-start
+  margin-right: 1rem
+
+.users-item__user-icon-image
+  background-color: $base
+  +media-breakpoint-up(md)
+    +size(3.5rem)
   +media-breakpoint-down(sm)
-    padding-left: 3rem
+    +size(2.5rem)
 
 .users-item__name
   +text-block(1em 1.4, 600 $main block)
@@ -40,19 +55,10 @@
   display: block
   +hover-link
 
-.users-item__user-icon-image
-  background-color: $base
-  +media-breakpoint-up(md)
-    +size(4rem)
-    +position(absolute, left -1rem, top -.375rem)
-    box-shadow: 0 0 0 4px $base
-  +media-breakpoint-down(sm)
-    +size(3rem)
-    +position(absolute, left -.75rem, top -.5rem)
-    box-shadow: 0 0 0 2px $base
-
 .users-item__body
   padding: .75rem 1rem 0
+  +media-breakpoint-up(md)
+    flex: 1
 
 .users-item__description
   p

@@ -1,5 +1,5 @@
 - title '日報作成'
-- content_for(:extra_body_classes, 'no-recent-reports')
+
 header.page-header
   .container
     .page-header__inner
@@ -13,4 +13,4 @@ header.page-header
 
 .page-body
   .container.is-xxxl
-    = render 'form', report: @report, categories: @categories
+    = render 'form', report: @report

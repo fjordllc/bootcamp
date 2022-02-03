@@ -233,6 +233,15 @@ class ProductsTest < ApplicationSystemTestCase
     assert_button '担当する'
   end
 
+  test 'add comment setting checker' do
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
+    fill_in 'new_comment[description]', with: 'コメントしたら担当になるテスト'
+    click_button 'コメントする'
+    visit current_path
+    assert_text '担当から外れる'
+    assert_no_text '担当する'
+  end
+
   test 'click on the pager button' do
     (Product.default_per_page - Product.count + 1).times do |n|
       Product.create!(

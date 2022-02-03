@@ -6,8 +6,8 @@
 .users-item-names__item
   +text-block(.75rem 1.4, flex $semi-muted-text)
   align-items: center
-  &:not(:first-child)
-    &::before
+  &:not(:last-child)
+    &::after
       content: "、"
 
 .users-item-names__chat
