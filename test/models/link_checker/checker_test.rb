@@ -88,5 +88,18 @@ module LinkChecker
     test '.denied_host? returns false when an url doesn\'t contain a denied host' do
       assert_not Checker.denied_host?('http://example.com')
     end
+
+    test '.summary' do
+      expected = <<~TEXT
+        リンク切れがありました。
+        - <http://example.com/xxxxx | 存在しないページ> in: <https://bootcamp.fjord.jp/pages/380151014 | Docsページ>
+        - <http://example.com | example> in: <https://bootcamp.fjord.jp/pages/565154931 | テスト>
+        - <http://homepage2.nifty.com/kamurai/HDD.htm | HDDが分かる> in: <https://bootcamp.fjord.jp/practices/1019809339 | PC性能の見方を知る>
+        - <https://docs.komagata.org/4433 | Macの型番調べ辛い> in: <https://bootcamp.fjord.jp/practices/1019809339 | PC性能の見方を知る>
+        - <https://www.pc-master.jp/words/cpu.html | CPUとは> in: <https://bootcamp.fjord.jp/practices/1019809339 | PC性能の見方を知る>
+      TEXT
+
+      assert_equal expected.chomp, Checker.summary([@link_hdd, @link_cpu, @link_not_exist, @link_example, @link_mac])
+    end
   end
 end
