@@ -13,13 +13,12 @@ class Notification::AnswersTest < ApplicationSystemTestCase
       fill_in('answer[description]', with: 'reduceも使ってみては？')
     end
     click_button 'コメントする'
-    wait_for_vuejs
-    logout
 
-    visit_with_auth '/', 'sotugyou'
-    open_notification
-    assert_equal @notice_text, notification_message
-    logout
+    visit_with_auth '/notifications', 'sotugyou'
+
+    within first('.thread-list-item.is-unread') do
+      assert_text @notice_text
+    end
 
     visit_with_auth '/', 'komagata'
     refute_text @notice_text
