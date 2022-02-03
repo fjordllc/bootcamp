@@ -12,12 +12,11 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     click_button '提出する'
     assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
 
-    logout
-    login_user 'senpai', 'testtest'
+    visit_with_auth '/notifications', 'senpai'
 
-    open_notification
-    assert_equal "kensyuさんが「#{practices(:practice5).title}」の提出物を提出しました。",
-                 notification_message
+    within first('.thread-list-item.is-unread') do
+      assert_text "kensyuさんが「#{practices(:practice5).title}」の提出物を提出しました。"
+    end
   end
 
   test 'update product notificationmessage' do
@@ -29,11 +28,11 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     end
     click_button '提出する'
     assert_text '提出物を更新しました。'
-    logout
 
-    login_user 'komagata', 'testtest'
-    open_notification
-    assert_equal 'kimuraさんの提出物が更新されました',
-                 notification_message
+    visit_with_auth '/notifications', 'komagata'
+
+    within first('.thread-list-item.is-unread') do
+      assert_text 'kimuraさんの提出物が更新されました'
+    end
   end
 end

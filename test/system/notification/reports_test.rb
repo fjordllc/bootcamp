@@ -185,11 +185,10 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
 
-    logout
+    visit_with_auth '/notifications', mentor
 
-    login_user mentor, 'testtest'
-    open_notification
-
-    assert_equal "#{student}さんが2回連続でsadアイコンの日報を提出しました。", notification_message
+    within first('.thread-list-item.is-unread') do
+      assert_text "#{student}さんが2回連続でsadアイコンの日報を提出しました。"
+    end
   end
 end

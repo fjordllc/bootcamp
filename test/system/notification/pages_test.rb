@@ -13,17 +13,17 @@ class Notification::PagesTest < ApplicationSystemTestCase
     end
     click_button '内容を保存'
 
-    logout
-    login_user 'hatsuno', 'testtest'
-    open_notification
-    assert_equal 'komagataさんがDocsにDocsTestを投稿しました。',
-                 notification_message
+    visit_with_auth '/notifications', 'hatsuno'
 
-    logout
-    login_user 'machida', 'testtest'
-    open_notification
-    assert_equal 'komagataさんがDocsにDocsTestを投稿しました。',
-                 notification_message
+    within first('.thread-list-item.is-unread') do
+      assert_text 'komagataさんがDocsにDocsTestを投稿しました。'
+    end
+
+    visit_with_auth '/notifications', 'machida'
+
+    within first('.thread-list-item.is-unread') do
+      assert_text 'komagataさんがDocsにDocsTestを投稿しました。'
+    end
 
     logout
     visit_with_auth '/notifications', 'yameo'
@@ -52,10 +52,10 @@ class Notification::PagesTest < ApplicationSystemTestCase
     click_link '内容変更'
     click_button '内容を保存'
 
-    logout
-    login_user 'machida', 'testtest'
-    open_notification
-    assert_equal 'komagataさんがDocsにWIPのテストを投稿しました。',
-                 notification_message
+    visit_with_auth '/notifications', 'machida'
+
+    within first('.thread-list-item.is-unread') do
+      assert_text 'komagataさんがDocsにWIPのテストを投稿しました。'
+    end
   end
 end

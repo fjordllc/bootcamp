@@ -15,11 +15,11 @@ class Notification::TalkTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_text 'test'
 
-    logout
-    login_user 'machida', 'testtest'
+    visit_with_auth '/notifications', 'machida'
 
-    open_notification
-    assert_equal 'kimuraさんからコメントが届きました。', notification_message
+    within first('.thread-list-item.is-unread') do
+      assert_text 'kimuraさんからコメントが届きました。'
+    end
   end
 
   test 'Admin except myself receive a notification when other admin comments on a talk room' do
@@ -33,15 +33,18 @@ class Notification::TalkTest < ApplicationSystemTestCase
     click_button 'コメントする'
     wait_for_vuejs
     assert_text 'test'
-    visit '/'
-    open_notification
-    assert_no_text 'komagataさんからコメントが届きました。'
 
-    logout
-    login_user 'machida', 'testtest'
+    visit '/notifications'
 
-    open_notification
-    assert_equal 'komagataさんからコメントが届きました。', notification_message
+    within first('.thread-list-item.is-unread') do
+      assert_no_text 'komagataさんからコメントが届きました。'
+    end
+
+    visit_with_auth '/notifications', 'machida'
+
+    within first('.thread-list-item.is-unread') do
+      assert_text 'komagataさんからコメントが届きました。'
+    end
   end
 
   test 'Receive a notification when someone except myself comments on my talk room' do
@@ -56,10 +59,10 @@ class Notification::TalkTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_text 'test'
 
-    logout
-    login_user 'kimura', 'testtest'
+    visit_with_auth '/notifications', 'kimura'
 
-    open_notification
-    assert_equal 'komagataさんからコメントが届きました。', notification_message
+    within first('.thread-list-item.is-unread') do
+      assert_text 'komagataさんからコメントが届きました。'
+    end
   end
 end
