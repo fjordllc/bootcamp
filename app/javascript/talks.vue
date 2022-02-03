@@ -19,7 +19,8 @@ import Pager from './pager.vue'
 
 export default {
   components: {
-    talk: Talk
+    talk: Talk,
+    pager: Pager
   },
   data() {
     return {
