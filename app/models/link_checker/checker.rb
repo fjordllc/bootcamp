@@ -50,10 +50,7 @@ module LinkChecker
       return if broken_links.empty?
 
       texts = ['リンク切れがありました。']
-      broken_links.sort { |a, b| b.source_url <=> a.source_url }.map do |link|
-        texts << "- <#{link.url} | #{link.title}> in: <#{link.source_url} | #{link.source_title}>"
-      end
-
+      texts << broken_links.sort.map(&:to_s)
       texts.join("\n")
     end
   end
