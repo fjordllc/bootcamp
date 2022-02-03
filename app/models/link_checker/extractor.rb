@@ -3,26 +3,22 @@
 module LinkChecker
   Link = Struct.new(:title, :url, :source_title, :source_url, :response)
 
-  class Extractor
+  module Extractor
     MARKDOWN_LINK_REGEXP = %r{\[(.*?)\]\((#{URI::DEFAULT_PARSER.make_regexp}|/.*?)\)}.freeze
 
-    class << self
-      def extract_all_links(documents)
-        documents.flat_map { |document| new(document).extract_links }
-      end
+    module_function
+
+    def extract_links_from_multi(documents)
+      documents.flat_map { |document| extract_links_from_a(document) }
     end
 
-    def initialize(document)
-      @document = document
-    end
-
-    def extract_links
-      @document.body.scan(MARKDOWN_LINK_REGEXP).map do |title, url_or_path|
+    def extract_links_from_a(document)
+      document.body.scan(MARKDOWN_LINK_REGEXP).map do |title, url_or_path|
         title = title.strip
         url_or_path = url_or_path.strip
         url_or_path = "https://bootcamp.fjord.jp#{url_or_path}" if url_or_path.match?(%r{^/})
 
-        Link.new(title, url_or_path, @document.title, "https://bootcamp.fjord.jp#{@document.path}")
+        Link.new(title, url_or_path, document.title, "https://bootcamp.fjord.jp#{document.path}")
       end
     end
   end
