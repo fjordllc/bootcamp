@@ -13,12 +13,11 @@ class Notification::CommentsTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_text '@machida @machida test'
 
-    logout
-    login_user 'machida', 'testtest'
+    visit_with_auth '/notifications', 'machida'
 
-    open_notification
-    assert_equal 'komagataさんの日報「作業週1日目」へのコメントでkomagataさんからメンションがきました。',
-                 notification_message
+    within first('.thread-list-item.is-unread') do
+      assert_text 'komagataさんの日報「作業週1日目」へのコメントでkomagataさんからメンションがきました。'
+    end
     assert_selector '.header-notification-count', text: '1'
   end
 end
