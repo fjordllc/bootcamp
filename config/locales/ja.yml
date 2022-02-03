@@ -35,6 +35,7 @@ ja:
       event: イベント
       memo: メモ
       reference_book: 参考書籍
+      campaign: お試し延長
     attributes:
       user:
         login_name: アカウント
@@ -178,6 +179,10 @@ ja:
         must_read: 必読
         cover: 表紙画像
         description: 説明
+      campaign:
+        start_at: 開始日時
+        end_at: 終了日時
+        title: タイトル
     enums:
       user:
         job:
@@ -230,6 +235,7 @@ ja:
     self_assigned_no_replied: 未返信
     unchecked_no_replied: 未返信
     unchecked_all: 全て
+    campaign: お試し延長
   watch:
     all: すべて
     true: コメントあり

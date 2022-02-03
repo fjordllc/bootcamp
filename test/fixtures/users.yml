@@ -497,3 +497,24 @@ taikai3: # 退会3ヶ月後のユーザー
   unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
   updated_at: "2021-12-10 00:00:11"
   created_at: "2021-12-10 00:00:11"
+
+otameshi:
+  login_name: otameshi
+  email: otameshi@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: お試し 延長
+  name_kana: オタメシ エンチョウ
+  github_account: otameshi
+  discord_account: otameshi#1234
+  twitter_account: otameshi
+  facebook_url: http://www.facebook.com/otameshi
+  blog_url: http://otameshi.org
+  description: "testユーザーです。お試し延長期間テスト用。"
+  course: course1
+  job: student
+  os: mac
+  experience: ruby
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: <%= Time.current %>
+  created_at: <%= Time.current %>

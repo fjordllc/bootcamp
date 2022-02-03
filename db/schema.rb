@@ -172,6 +172,14 @@ ActiveRecord::Schema.define(version: 2022_01_27_083838) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "campaigns", force: :cascade do |t|
+    t.datetime "start_at", null: false
+    t.datetime "end_at", null: false
+    t.string "title", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "followings", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
