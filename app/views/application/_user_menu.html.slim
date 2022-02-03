@@ -4,9 +4,6 @@
       = link_to root_path, class: 'header-dropdown__item-link' do
         | ダッシュボード
     li.header-dropdown__item
-      = link_to user_path(current_user), class: 'header-dropdown__item-link' do
-        | 自分のプロフィール
-    li.header-dropdown__item
       = link_to edit_current_user_path, class: 'header-dropdown__item-link' do
         | 登録情報変更
     - if !current_user.adviser? && !current_user.mentor? && !current_user.trainee?
