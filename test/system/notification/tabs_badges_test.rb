@@ -57,29 +57,30 @@ class Notification::TabsBadgesTest < ApplicationSystemTestCase
       read: false
     )
   end
+  
   test 'unread badges are displayed' do
     visit_with_auth '/notifications', 'sotugyou'
 
-    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(1) > a > div' do
-      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    within first('.page-tabs__item:nth-child(1)') do
+      find('div', text: '10')
     end
-    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(2) > a > div' do
-      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    within first('.page-tabs__item:nth-child(2)') do
+      find('div', text: '2')
     end
-    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(3) > a > div' do
-      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    within first('.page-tabs__item:nth-child(3)') do
+      find('div', text: '2')
     end
-    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(4) > a > div' do
-      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    within first('.page-tabs__item:nth-child(4)') do
+      find('div', text: '3')
     end
-    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(5) > a > div' do
-      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    within first('.page-tabs__item:nth-child(5)') do
+      find('div', text: '2')
     end
-    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(6) > a > div' do
-      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    within first('.page-tabs__item:nth-child(6)') do
+      find('div', text: '1')
     end
-    assert_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(7) > a > div' do
-      assert_selector 'div.page-tabs__item-count.a-notification-count'
+    within first('.page-tabs__item:nth-child(7)') do
+      find('div', text: '1')
     end
   end
 
@@ -89,26 +90,26 @@ class Notification::TabsBadgesTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'sotugyou'
 
-    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(1) > a > div' do
-      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    within all('.page-tabs__item')[0] do
+      assert_no_selector '.page-tabs__item-count'
     end
-    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(2) > a > div' do
-      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    within all('.page-tabs__item')[1] do
+      assert_no_selector '.page-tabs__item-count'
     end
-    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(3) > a > div' do
-      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    within all('.page-tabs__item')[2] do
+      assert_no_selector '.page-tabs__item-count'
     end
-    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(4) > a > div' do
-      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    within all('.page-tabs__item')[3] do
+      assert_no_selector '.page-tabs__item-count'
     end
-    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(5) > a > div' do
-      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    within all('.page-tabs__item')[4] do
+      assert_no_selector '.page-tabs__item-count'
     end
-    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(6) > a > div' do
-      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    within all('.page-tabs__item')[5] do
+      assert_no_selector '.page-tabs__item-count'
     end
-    assert_no_selector '#body > div.wrapper > main > div > div > ul > li:nth-child(7) > a > div' do
-      assert_no_selector 'div.page-tabs__item-count.a-notification-count'
+    within all('.page-tabs__item')[6] do
+      assert_no_selector '.page-tabs__item-count'
     end
   end
 end
