@@ -7,7 +7,7 @@ class Notification::AnswersTest < ApplicationSystemTestCase
     @notice_text = 'komagataさんから回答がありました。'
   end
 
-  test "recieve a notification when I got my question's answer" do
+  test "receive a notification when I got my question's answer" do
     visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
     within('.thread-comment-form__form') do
       fill_in('answer[description]', with: 'reduceも使ってみては？')
