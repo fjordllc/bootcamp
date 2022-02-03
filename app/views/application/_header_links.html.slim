@@ -15,7 +15,7 @@
       li.header-links__item
         label.header-links__link.test-show-menu(for='header-menu')
           .header-current-user
-            = image_tag current_user.avatar_url, title: current_user.icon_title, class: "header-current-user__icon a-user-icon is-#{current_user.role}"
+            = image_tag current_user.avatar_url, title: current_user.icon_title, class: "header-current-user__icon a-user-icon is-#{current_user.primary_role}"
           .header-links__link-label
             | Me
         input.a-toggle-checkbox#header-menu(type='checkbox')

@@ -20,6 +20,11 @@ class NotificationFacade
     NotificationMailer.with(check: check).checked.deliver_later(wait: 5)
   end
 
+  def self.product_update(product, receiver)
+    Notification.product_update(product, receiver)
+    return if receiver.retired?
+  end
+
   def self.mentioned(mentionable, receiver)
     Notification.mentioned(mentionable, receiver)
     return unless receiver.mail_notification? && !receiver.retired?
@@ -70,7 +75,7 @@ class NotificationFacade
   end
 
   def self.first_report(report, receiver)
-    Notification.first_report(report, receiver)
+    Notification.first_report(report, receiver) if receiver.student_or_trainee? || receiver.admin_or_mentor?
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
