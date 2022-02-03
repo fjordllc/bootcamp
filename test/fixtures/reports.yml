@@ -98,6 +98,7 @@ report12:
   description:
     今年で150歳でーす
   reported_on: "2020-01-01"
+  updated_at: "2020-01-01 00:00:00"
   created_at: "2020-01-01 00:00:00"
 
 report13:
@@ -106,6 +107,7 @@ report13:
   description:
     きたるべき20世紀
   reported_on: "1900-01-01"
+  updated_at: "1900-01-01 00:00:00"
   created_at: "1900-01-01 00:00:00"
 
 report14:
@@ -114,6 +116,7 @@ report14:
   description:
     あれから100年か
   reported_on: "2000-01-01"
+  updated_at: "2000-01-01 00:00:00"
   created_at: "2000-01-01 00:00:00"
 
 report15:
