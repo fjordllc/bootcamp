@@ -3,62 +3,58 @@
 require 'net/http'
 
 module LinkChecker
-  class Checker
+  module Checker
     DENY_HOST = [
       'codepen.io',
       'www.amazon.co.jp' # アクセスを繰り返すとリンク切れ判定のレスポンスが返されるようになるため
     ].freeze
 
-    class << self
-      def valid_url?(url)
-        uri = Addressable::URI.parse(url)
-        uri.scheme && uri.host
-      rescue Addressable::URI::InvalidURIError
-        false
-      end
+    module_function
 
-      def denied_host?(url)
-        uri = Addressable::URI.parse(url)
-        DENY_HOST.include?(uri.host)
-      end
+    def check_broken_links(links)
+      links_with_valid_url = links.select { |link| valid_url?(link.url) && !denied_host?(link.url) }
+      links_with_response = check_response(links_with_valid_url)
+      broken_links = links_with_response.select { |link| !link.response || link.response > 403 }
+
+      summary(broken_links)
     end
 
-    def initialize(links = [])
-      @links = links
-      @is_checked = false
-      @broken_links = []
-      @locks = Queue.new
-      5.times { @locks.push :lock }
+    def valid_url?(url)
+      uri = Addressable::URI.parse(url)
+      uri.scheme && uri.host
+    rescue Addressable::URI::InvalidURIError
+      false
     end
 
-    def summary_of_broken_links
-      check unless @is_checked
+    def denied_host?(url)
+      uri = Addressable::URI.parse(url)
+      DENY_HOST.include?(uri.host)
+    end
 
-      return if @broken_links.empty?
+    def check_response(links)
+      locks = Queue.new
+      5.times { locks.push :lock }
+
+      links.each do |link|
+        Thread.new do
+          lock = locks.pop
+          link.response = Client.request(link.url)
+          locks.push lock
+        end.join
+      end
+
+      links
+    end
+
+    def summary(broken_links)
+      return if broken_links.empty?
 
       texts = ['リンク切れがありました。']
-      @broken_links.map do |link|
+      broken_links.sort { |a, b| b.source_url <=> a.source_url }.map do |link|
         texts << "- <#{link.url} | #{link.title}> in: <#{link.source_url} | #{link.source_title}>"
       end
 
       texts.join("\n")
-    end
-
-    def check
-      @links = @links.select { |link| self.class.valid_url?(link.url) && !self.class.denied_host?(link.url) }
-
-      @links.map do |link|
-        Thread.new do
-          lock = @locks.pop
-          response = Client.request(link.url)
-          link.response = response
-          @broken_links << link if !response || response > 403
-          @locks.push lock
-        end
-      end.each(&:join)
-
-      @is_checked = true
-      @broken_links.sort { |a, b| b.source_url <=> a.source_url }
     end
   end
 end

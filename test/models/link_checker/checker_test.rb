@@ -34,19 +34,42 @@ module LinkChecker
         "https://bootcamp.fjord.jp/pages/#{pages(:page2).id}"
       )
 
-      @link_example = LinkChecker::Link.new(
-        'example',
-        'http://example.com',
-        'テスト',
-        "https://bootcamp.fjord.jp/pages/#{pages(:page2).id}"
-      )
-
       @link_mac = LinkChecker::Link.new(
         'Macの型番調べ辛い',
         'https://docs.komagata.org/4433',
         'PC性能の見方を知る',
         "https://bootcamp.fjord.jp/practices/#{practices(:practice3).id}"
       )
+    end
+
+    test '.check_response' do
+      VCR.use_cassette 'link_checker/checker/check_response' do
+        expected = [
+          LinkChecker::Link.new(
+            'HDDが分かる',
+            'http://homepage2.nifty.com/kamurai/HDD.htm',
+            'PC性能の見方を知る',
+            "https://bootcamp.fjord.jp/practices/#{practices(:practice3).id}",
+            false
+          ),
+          LinkChecker::Link.new(
+            '存在しないページ',
+            'http://example.com/xxxxx',
+            'Docsページ',
+            "https://bootcamp.fjord.jp/pages/#{pages(:page3).id}",
+            404
+          ),
+          LinkChecker::Link.new(
+            'example',
+            'http://example.com',
+            'テスト',
+            "https://bootcamp.fjord.jp/pages/#{pages(:page2).id}",
+            200
+          )
+        ]
+
+        assert_equal expected, Checker.check_response([@link_hdd, @link_not_exist, @link_example])
+      end
     end
 
     test '.valid_url? returns true with a valid url' do
@@ -65,19 +88,6 @@ module LinkChecker
 
     test '.denied_host? returns false when an url doesn\'t contain a denied host' do
       assert_not Checker.denied_host?('http://example.com')
-    end
-
-    test '#check' do
-      VCR.use_cassette 'link_checker/checker/check' do
-        links = [@link_hdd, @link_cpu, @link_not_exist, @link_example, @link_mac]
-        checker = Checker.new(links)
-
-        @link_hdd.response = false
-        @link_not_exist.response = 404
-        expected = [@link_hdd, @link_not_exist]
-
-        assert_equal expected, checker.check
-      end
     end
   end
 end
