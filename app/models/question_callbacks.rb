@@ -6,6 +6,9 @@ class QuestionCallbacks
 
     send_notification_to_mentors(question)
     Cache.delete_not_solved_question_count
+
+    question.published_at = Time.current
+    question.save
   end
 
   def after_update(question)
@@ -13,6 +16,9 @@ class QuestionCallbacks
 
     send_notification_to_mentors(question)
     Cache.delete_not_solved_question_count
+
+    question.published_at = Time.current
+    question.save
   end
 
   def after_destroy(question)
