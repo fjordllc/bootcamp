@@ -8,7 +8,7 @@ class CurrentUser::ReportsTest < ApplicationSystemTestCase
     assert_equal '自分の日報 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
-  test 'show reports download btn when reports is present' do
+  test 'show reports download btn when reports exist' do
     # 日報があるユーザーでログイン
     visit_with_auth '/current_user/reports', 'hatsuno'
     assert_text '日報一括ダウンロード'
