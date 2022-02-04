@@ -52,7 +52,7 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     assert_response :created
 
     # mentor login
-    token = create_token('yamada', 'testtest')
+    token = create_token('mentor', 'testtest')
     post api_checks_path(format: :json),
          params: { checkable_type: @check4.checkable_type, checkable_id: @check4.checkable_id },
          headers: { 'Authorization' => "Bearer #{token}" }
@@ -82,7 +82,7 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     assert_response :no_content
 
     # mentor login
-    token = create_token('yamada', 'testtest')
+    token = create_token('mentor', 'testtest')
     delete api_check_path(@check4.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :no_content

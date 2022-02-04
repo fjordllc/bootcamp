@@ -30,7 +30,7 @@ class PracticesTest < ApplicationSystemTestCase
   end
 
   test "don't show [提出物を作る] link if user don't have to submit product" do
-    visit_with_auth "/practices/#{practices(:practice1).id}", 'yamada'
+    visit_with_auth "/practices/#{practices(:practice1).id}", 'mentor'
     assert_no_link '提出物を作る'
   end
 
@@ -58,7 +58,7 @@ class PracticesTest < ApplicationSystemTestCase
   # end
 
   test "only show when user isn't admin " do
-    visit_with_auth "/practices/#{practices(:practice1).id}/edit", 'yamada'
+    visit_with_auth "/practices/#{practices(:practice1).id}/edit", 'mentor'
     assert_not_equal 'プラクティス編集', title
   end
 
@@ -204,7 +204,7 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'update practice in the role of mentor' do
     practice = practices(:practice2)
-    visit_with_auth "/practices/#{practice.id}/edit", 'yamada'
+    visit_with_auth "/practices/#{practice.id}/edit", 'mentor'
     within 'form[name=practice]' do
       fill_in 'practice[title]', with: 'テストプラクティス'
       within '#reference_books' do

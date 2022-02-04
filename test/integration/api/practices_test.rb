@@ -25,7 +25,7 @@ class API::PracticesTest < ActionDispatch::IntegrationTest
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :unauthorized
 
-    token = create_token('yamada', 'testtest')
+    token = create_token('mentor', 'testtest')
     get api_practice_path(practices(:practice1).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
@@ -42,7 +42,7 @@ class API::PracticesTest < ActionDispatch::IntegrationTest
           headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :unauthorized
 
-    token = create_token('yamada', 'testtest')
+    token = create_token('mentor', 'testtest')
     patch api_practice_path(practices(:practice1).id, format: :json),
           params: { practice: { memo: 'test' } },
           headers: { 'Authorization' => "Bearer #{token}" }

@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class ProductsTest < ApplicationSystemTestCase
   test 'see my product' do
-    visit_with_auth "/products/#{products(:product1).id}", 'yamada'
+    visit_with_auth "/products/#{products(:product1).id}", 'mentor'
     assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
@@ -80,7 +80,7 @@ class ProductsTest < ApplicationSystemTestCase
   # end
 
   test 'create product' do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'yamada'
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentor'
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -90,7 +90,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'create product change status submitted' do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'yamada'
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentor'
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -103,7 +103,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'update product' do
     product = products(:product1)
-    visit_with_auth "/products/#{product.id}/edit", 'yamada'
+    visit_with_auth "/products/#{product.id}/edit", 'mentor'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
@@ -113,7 +113,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'update product if product page is WIP' do
     product = products(:product1)
-    visit_with_auth "/products/#{product.id}/edit", 'yamada'
+    visit_with_auth "/products/#{product.id}/edit", 'mentor'
     click_button 'WIP'
     visit "/products/#{product.id}"
     click_button '提出する'
@@ -122,7 +122,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'delete product' do
     product = products(:product1)
-    visit_with_auth "/products/#{product.id}", 'yamada'
+    visit_with_auth "/products/#{product.id}", 'mentor'
     accept_confirm do
       click_link '削除'
     end
@@ -131,7 +131,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'product has a comment form ' do
-    visit_with_auth "/products/#{products(:product1).id}", 'yamada'
+    visit_with_auth "/products/#{products(:product1).id}", 'mentor'
     assert_selector '.thread-comment-form'
   end
 
@@ -176,7 +176,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'create product as WIP' do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'yamada'
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentor'
     within('#new_product') do
       fill_in('product[body]', with: 'test')
     end
@@ -186,7 +186,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'update product as WIP' do
     product = products(:product1)
-    visit_with_auth "/products/#{product.id}/edit", 'yamada'
+    visit_with_auth "/products/#{product.id}/edit", 'mentor'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
@@ -196,7 +196,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'update product as WIP with blank body to fail update and successfully get back to editor' do
     product = products(:product1)
-    visit_with_auth "/products/#{product.id}/edit", 'yamada'
+    visit_with_auth "/products/#{product.id}/edit", 'mentor'
     within('form[name=product]') do
       fill_in('product[body]', with: '')
     end
@@ -397,7 +397,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'show user full_name next to user login_name' do
     visit_with_auth "/products/#{products(:product1).id}", 'kimura'
-    assert_text 'yamada (Yamada Taro)'
+    assert_text 'mentor (メンタ 麺太郎)'
   end
 
   test 'notice accessibility to open products on products index' do
@@ -433,7 +433,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'mentors can see block for mentors' do
-    visit_with_auth "/products/#{products(:product2).id}", 'yamada'
+    visit_with_auth "/products/#{products(:product2).id}", 'mentor'
     assert_text '直近の日報'
     assert_text 'プラクティスメモ'
     assert_text 'ユーザーメモ'

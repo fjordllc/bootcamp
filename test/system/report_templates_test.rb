@@ -4,11 +4,11 @@ require 'application_system_test_case'
 
 class ReportTemplatesTest < ApplicationSystemTestCase
   test 'register template' do
-    visit_with_auth '/reports/new', 'yamada'
+    visit_with_auth '/reports/new', 'mentor'
     click_button 'テンプレート登録'
     fill_in('report_template[description]', with: 'create test')
     click_button '登録'
-    visit_with_auth '/reports/new', 'yamada'
+    visit_with_auth '/reports/new', 'mentor'
     click_button 'テンプレート変更'
     assert_text 'create test'
   end

@@ -48,9 +48,9 @@ class NotificationsTest < ApplicationSystemTestCase
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
                         link: '/reports/20400118',
-                        user: users(:yamada),
+                        user: users(:mentor),
                         sender: users(:machida))
-    visit_with_auth '/notifications?status=unread', 'yamada'
+    visit_with_auth '/notifications?status=unread', 'mentor'
     wait_for_vuejs
     assert_no_text '1番新しい既読の通知'
   end
@@ -61,22 +61,22 @@ class NotificationsTest < ApplicationSystemTestCase
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
                           kind: 'mentioned',
                           link: "/reports/#{n}",
-                          user: users(:yamada),
+                          user: users(:mentor),
                           sender: users(:machida))
     end
     Notification.create(message: '1番新しい通知',
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
                         link: '/reports/20400118',
-                        user: users(:yamada),
+                        user: users(:mentor),
                         sender: users(:machida))
     Notification.create(message: '1番古い通知',
                         created_at: '2000-01-18 06:06:42',
                         kind: 'mentioned',
                         link: '/reports/20000118',
-                        user: users(:yamada),
+                        user: users(:mentor),
                         sender: users(:machida))
-    visit_with_auth '/notifications', 'yamada'
+    visit_with_auth '/notifications', 'mentor'
     wait_for_vuejs
     within first('nav.pagination') do
       find('a', text: '2').click
@@ -96,22 +96,22 @@ class NotificationsTest < ApplicationSystemTestCase
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
                           kind: 'mentioned',
                           link: "/reports/#{n}",
-                          user: users(:yamada),
+                          user: users(:mentor),
                           sender: users(:machida))
     end
     Notification.create(message: '1番新しい通知',
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
                         link: '/reports/20400118',
-                        user: users(:yamada),
+                        user: users(:mentor),
                         sender: users(:machida))
     Notification.create(message: '1番古い通知',
                         created_at: '2000-01-18 06:06:42',
                         kind: 'mentioned',
                         link: '/reports/20000118',
-                        user: users(:yamada),
+                        user: users(:mentor),
                         sender: users(:machida))
-    login_user 'yamada', 'testtest'
+    login_user 'mentor', 'testtest'
     visit '/notifications?page=2'
     wait_for_vuejs
     assert_text '1番古い通知'
@@ -126,22 +126,22 @@ class NotificationsTest < ApplicationSystemTestCase
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
                           kind: 'mentioned',
                           link: "/reports/#{n}",
-                          user: users(:yamada),
+                          user: users(:mentor),
                           sender: users(:machida))
     end
     Notification.create(message: '1番新しい通知',
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
                         link: '/reports/20400118',
-                        user: users(:yamada),
+                        user: users(:mentor),
                         sender: users(:machida))
     Notification.create(message: '1番古い通知',
                         created_at: '2000-01-18 06:06:42',
                         kind: 'mentioned',
                         link: '/reports/20000118',
-                        user: users(:yamada),
+                        user: users(:mentor),
                         sender: users(:machida))
-    login_user 'yamada', 'testtest'
+    login_user 'mentor', 'testtest'
     visit '/notifications?page=2'
     wait_for_vuejs
     within first('nav.pagination') do
@@ -176,10 +176,10 @@ class NotificationsTest < ApplicationSystemTestCase
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
                         link: '/reports/20400118',
-                        user: users(:yamada),
+                        user: users(:mentor),
                         sender: users(:machida))
 
-    visit_with_auth '/notifications', 'yamada'
+    visit_with_auth '/notifications', 'mentor'
     wait_for_vuejs
     assert_selector '.header-notification-count', text: '1'
 
@@ -187,10 +187,10 @@ class NotificationsTest < ApplicationSystemTestCase
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
                           kind: 'mentioned',
                           link: "/reports/#{n}",
-                          user: users(:yamada),
+                          user: users(:mentor),
                           sender: users(:machida))
     end
-    visit_with_auth '/notifications', 'yamada'
+    visit_with_auth '/notifications', 'mentor'
     wait_for_vuejs
     assert_selector '.header-notification-count', text: '21'
   end
@@ -311,11 +311,11 @@ class NotificationsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications?status=unread', 'machida'
     wait_for_vuejs
-    assert_text "yamadaさんの提出物#{products(:product1).title}の担当になりました。"
+    assert_text "mentorさんの提出物#{products(:product1).title}の担当になりました。"
 
     if ActionMailer::Base.deliveries.present?
       last_mail = ActionMailer::Base.deliveries.last
-      assert_equal "[bootcamp] yamadaさんの提出物#{products(:product1).title}の担当になりました。", last_mail.subject
+      assert_equal "[bootcamp] mentorさんの提出物#{products(:product1).title}の担当になりました。", last_mail.subject
     end
   end
 
@@ -328,7 +328,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     wait_for_vuejs
-    assert_no_text "yamadaさんの提出物#{products(:product1).title}の担当になりました。"
+    assert_no_text "mentorさんの提出物#{products(:product1).title}の担当になりました。"
   end
 
   test 'show the total number of mentions on the mentioned tab' do
