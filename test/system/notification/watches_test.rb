@@ -19,6 +19,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
       fill_in('new_comment[description]', with: 'コメントありがとうございます。')
     end
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました！'
 
     visit_with_auth '/notifications', 'kimura'
 
@@ -49,6 +50,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
       fill_in('answer[description]', with: '質問へのご回答ありがとうございます。')
     end
     click_button 'コメントする'
+    assert_text '回答を投稿しました！'
 
     visit_with_auth '/notifications', 'kimura'
 
