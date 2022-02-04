@@ -117,6 +117,7 @@ product15:
   created_at: <%= 6.day.ago %>
   updated_at: <%= 6.day.ago %>
   published_at: <%= 6.day.ago %>
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:machida) %>"
 
 product16:
   practice: practice2
