@@ -1,6 +1,6 @@
 <template lang="pug">
 .page-body__inner.is-md(v-if='categories === null')
-  coursesPracticesLoadingListPlaceholder
+  loadingCoursesPracticesPagePlaceholder
 .page-body__inner(v-else)
   .categories-items
     .categories-items__inner
@@ -48,13 +48,13 @@
 import CoursesPractice from './courses-practice.vue'
 import MarkdownInitializer from './markdown-initializer'
 import role from './role'
-import CoursesPracticesLoadingListPlaceholder from './courses-practices-loading-list-placeholder'
+import LoadingCoursesPracticesPagePlaceholder from './loading-courses-practices-page-placeholder'
 
 export default {
   components: {
     'courses-practice': CoursesPractice,
-    coursesPracticesLoadingListPlaceholder:
-      CoursesPracticesLoadingListPlaceholder
+    loadingCoursesPracticesPagePlaceholder:
+      LoadingCoursesPracticesPagePlaceholder
   },
   mixins: [role],
   props: {
