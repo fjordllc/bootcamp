@@ -33,7 +33,7 @@ class User::MemoTest < ApplicationSystemTestCase
   end
 
   test 'mentor can see memo' do
-    visit_with_auth user_path(users(:hatsuno)), 'yamada'
+    visit_with_auth user_path(users(:hatsuno)), 'mentor'
     assert_text 'メンター向けユーザーメモ'
   end
 

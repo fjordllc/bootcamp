@@ -86,7 +86,7 @@ class SearchablesTest < ApplicationSystemTestCase
       fill_in 'word', with: 'テストの日報'
     end
     find('#test-search').click
-    assert_text 'yamada'
+    assert_text 'mentor'
     assert_css '.a-meta'
     assert_no_text 'テストの回答'
   end
