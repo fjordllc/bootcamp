@@ -9,6 +9,7 @@ class Notification::EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '参加を取り消す'
     end
+    assert_text '参加を取り消しました。'
 
     visit_with_auth '/notifications', 'hatsuno'
 
@@ -24,6 +25,7 @@ class Notification::EventsTest < ApplicationSystemTestCase
 
     fill_in 'event_capacity', with: 2
     click_button '内容変更'
+    assert_text 'イベントを更新しました。'
 
     visit_with_auth '/notifications', 'hatsuno'
 

@@ -19,6 +19,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     first('.select2-selection--single').click
     find('li', text: '[Mac OS X] OS X Mountain Lionをクリーンインストールする').click
     click_button '登録する'
+    assert_text '質問を作成しました。'
 
     visit_with_auth '/notifications', 'yamada'
 

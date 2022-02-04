@@ -19,6 +19,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
       choose '全員にお知らせ', allow_label_click: true
       click_button '作成'
     end
+    assert_text 'お知らせを作成しました。'
 
     visit_with_auth '/notifications', 'sotugyou'
 
