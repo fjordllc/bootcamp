@@ -76,3 +76,7 @@ talk19:
 talk20:
   user: adminonly
   unreplied: false
+
+talk21:
+  user: otameshi
+  unreplied: false
