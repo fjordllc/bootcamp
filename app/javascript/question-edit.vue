@@ -163,20 +163,20 @@
             ul.card-main-actions__items
               li.card-main-actions__item
                 button.a-button.is-md.is-primary.is-block(
-                  @click='updateWipQuestion',
+                  @click='updateQuestion(true)',
                   :disabled='!validation',
                   type='button'
                 )
                   | WIP
               li.card-main-actions__item
                 button.a-button.is-md.is-warning.is-block(
-                  @click='updateQuestion',
+                  @click='updateQuestion(false)',
                   :disabled='!validation',
                   type='button'
                 )(v-if='question.wip')
                   | 質問を公開
                 button.a-button.is-md.is-warning.is-block(
-                  @click='updateQuestion',
+                  @click='updateQuestion(false)',
                   :disabled='!validation',
                   type='button'
                 )(v-else)
@@ -324,7 +324,13 @@ export default {
         return val !== this[key]
       })
     },
-    updateQuestion() {
+    updateQuestion(wip) {
+      debugger
+      if (this.question.wip === wip) {
+        this.finishEditing(true)
+        return
+      }
+
       if (!this.changedQuestion(this.edited)) {
         // 何も変更していなくても、更新メッセージは表示する
         // 表示しないとユーザーが更新されていないと不安に感じる
@@ -333,43 +339,6 @@ export default {
       }
 
       const { title, description, practiceId } = this.edited
-      const params = {
-        question: {
-          title,
-          description,
-          practice_id: practiceId
-        }
-      }
-      fetch(`/api/questions/${this.question.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
-        .then(() => {
-          Object.entries(this.edited).forEach(([key, val]) => {
-            this[key] = val
-          })
-          this.finishEditing(true)
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
-    },
-    updateWipQuestion() {
-      if (!this.changedQuestion(this.edited)) {
-        // 何も変更していなくても、更新メッセージは表示する
-        // 表示しないとユーザーが更新されていないと不安に感じる
-        this.finishEditing(true)
-        return
-      }
-
-      const { title, description, practiceId, wip } = this.edited
       const params = {
         question: {
           title,
@@ -396,7 +365,7 @@ export default {
           this.finishEditing(true)
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     cancel() {
