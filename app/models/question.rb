@@ -16,6 +16,7 @@ class Question < ApplicationRecord
   alias sender user
 
   after_create QuestionCallbacks.new
+  after_update QuestionCallbacks.new
   after_destroy QuestionCallbacks.new
 
   validates :title, presence: true, length: { maximum: 256 }

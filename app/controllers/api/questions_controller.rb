@@ -28,8 +28,7 @@ class API::QuestionsController < API::BaseController
 
   def update
     question = Question.find(params[:id])
-
-    if !question.nil? && question.update(question_params)
+    if question.update(question_params)
       head :ok
     else
       head :bad_request
@@ -39,6 +38,6 @@ class API::QuestionsController < API::BaseController
   private
 
   def question_params
-    params.require(:question).permit(:title, :description, :practice_id, :tag_list)
+    params.require(:question).permit(:title, :description, :practice_id, :tag_list, :wip)
   end
 end

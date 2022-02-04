@@ -12,7 +12,7 @@ class QuestionCallbacks
   end
 
   def after_update(question)
-    return unless question.wip == question.published_at.nil?
+    return unless question.wip == false && question.published_at.nil?
 
     send_notification_to_mentors(question)
     Cache.delete_not_solved_question_count
