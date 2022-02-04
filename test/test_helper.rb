@@ -12,6 +12,7 @@ Capybara.default_max_wait_time = 5
 Capybara.disable_animation = true
 Webdrivers.cache_time = 86_400
 Minitest::Retry.use! if ENV['CI']
+Selenium::WebDriver.logger.ignore(:browser_options) # TODO: Remove it when capybara-3.36.0 greater is released.
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
