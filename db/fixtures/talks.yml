@@ -157,3 +157,7 @@ talk_thuynga:
 talk_sotugyou-adviser:
   user: sotugyou-adviser
   unreplied: false
+
+talk_otameshi:
+  user: otameshi
+  unreplied: false
