@@ -163,20 +163,20 @@
             ul.card-main-actions__items
               li.card-main-actions__item
                 button.a-button.is-md.is-primary.is-block(
-                  @click='updateQuestion(true)',
+                  @click='updateQuestion({ wip: true })',
                   :disabled='!validation',
                   type='button'
                 )
                   | WIP
               li.card-main-actions__item
                 button.a-button.is-md.is-warning.is-block(
-                  @click='updateQuestion(false)',
+                  @click='updateQuestion({ wip: false })',
                   :disabled='!validation',
                   type='button'
                 )(v-if='question.wip')
                   | 質問を公開
                 button.a-button.is-md.is-warning.is-block(
-                  @click='updateQuestion(false)',
+                  @click='updateQuestion({ wip: false })',
                   :disabled='!validation',
                   type='button'
                 )(v-else)
@@ -231,17 +231,17 @@ export default {
       title: this.question.title,
       description: this.question.description,
       practiceId: this.question.practice.id,
-      wip: this.question.wip,   // ←付け加えた
+      wip: this.question.wip,
       edited: {
         title: this.question.title,
         description: this.question.description,
         practiceId: this.question.practice.id,
-        wip: this.question.wip  // ←付け加えた
+        wip: this.question.wip
       },
       editing: false,
       displayedUpdateMessage: false,
       tab: 'question',
-      practices: null
+      practices: null,
     }
   },
   computed: {
@@ -324,13 +324,13 @@ export default {
         return val !== this[key]
       })
     },
-    updateQuestion(wip) {
-      debugger
-      if (this.question.wip === wip) {
-        this.finishEditing(true)
-        return
-      }
-
+    updateQuestion({wip}) {
+      // setWip = true
+      // if (this.question.wip === wip) {
+      //   this.finishEditing(true)
+      //   return
+      // }
+      this.edited.wip = wip
       if (!this.changedQuestion(this.edited)) {
         // 何も変更していなくても、更新メッセージは表示する
         // 表示しないとユーザーが更新されていないと不安に感じる
