@@ -19,5 +19,14 @@ header.page-header
             p
               | ここは#{@user.name}さんと管理者のみが閲覧することのできる相談部屋です。
               | 就職に関することや受講に関することなど、何か相談したいことがある場合にお気軽にコメントをしてください。
+            p
+              | 相談部屋にアクセスできるメンバー
+            - @admins.each do |admin_user|
+              = link_to user_path(admin_user.id)
+                = image_tag admin_user.avatar_url
+              = link_to admin_user.login_name, user_path(admin_user.id)
+            = link_to user_path(@user.id)
+              = image_tag @user.avatar_url
+            = link_to @user.name, user_path(@user.id)
     a#comments.a-anchor
     #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
