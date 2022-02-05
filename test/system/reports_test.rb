@@ -597,4 +597,27 @@ class ReportsTest < ApplicationSystemTestCase
       assert_selector 'h1', text: 'h1'
     end
   end
+
+  test 'textarea-of-new-report-automatically-resize' do
+    visit_with_auth '/reports/new', 'komagata'
+    fill_in('report[description]', with: 'test')
+    height = find('#report_description').style('height')['height'][/\d+/].to_i
+
+    fill_in('report[description]', with: "\n1\n2\n3\n4\n5\n6\7\n8\n9\n10\n11\n12\n13\n14\n15")
+    after_height = find('#report_description').style('height')['height'][/\d+/].to_i
+
+    assert height < after_height
+  end
+
+  test 'textarea-of-edit-report-automatically-resize' do
+    visit_with_auth report_path(reports(:report1)), 'komagata'
+    click_link '内容修正'
+
+    height = find('#report_description').style('height')['height'][/\d+/].to_i
+
+    fill_in('report[description]', with: "\n1\n2\n3\n4\n5\n6\7\n8\n9\n10\n11\n12\n13\n14\n15")
+    after_height = find('#report_description').style('height')['height'][/\d+/].to_i
+
+    assert height < after_height
+  end
 end
