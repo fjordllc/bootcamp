@@ -3,3 +3,5 @@ json.talks do
     json.partial! "api/talks/talk", talk: talk
   end
 end
+
+json.totalPages @talks.total_pages
