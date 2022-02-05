@@ -20,7 +20,7 @@
             a.thread-list-item-title__link(
               :href='question.url',
               itemprop='url'
-            ) {{ question.title }}{{ question.wip }}
+            ) {{ question.title }}
     .thread-list-item__row(v-if='question.practice')
       .thread-list-item-meta
         .thread-list-item-meta__items
