@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class UsersTest < ApplicationSystemTestCase
   test 'show profile' do
     visit_with_auth "/users/#{users(:hatsuno).id}", 'hatsuno'
-    assert_equal 'hatsunoのプロフィール | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'hatsuno | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'autolink profile when url is included' do
