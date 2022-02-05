@@ -31,7 +31,7 @@ export default {
       talks: [],
       currentPage: this.pageParam(),
       loaded: false,
-      totalPages: null,
+      totalPages: null
     }
   },
   computed: {
@@ -61,7 +61,7 @@ export default {
     },
     newURL() {
       return `${location.pathname}?${this.newParams}`
-    },
+    }
   },
   created() {
     this.currentPage = this.pageParam()
