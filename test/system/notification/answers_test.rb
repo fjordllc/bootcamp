@@ -13,6 +13,7 @@ class Notification::AnswersTest < ApplicationSystemTestCase
       fill_in('answer[description]', with: 'reduceも使ってみては？')
     end
     click_button 'コメントする'
+    assert_text '回答を投稿しました！'
 
     visit_with_auth '/notifications', 'sotugyou'
 

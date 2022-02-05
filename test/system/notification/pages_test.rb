@@ -12,6 +12,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
       fill_in('page[body]', with: 'DocsTestBody')
     end
     click_button '内容を保存'
+    assert_text 'ページを作成しました。'
 
     visit_with_auth '/notifications', 'hatsuno'
 
@@ -39,6 +40,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
       fill_in('page[body]', with: 'DocsTestBody')
     end
     click_button 'WIP'
+    assert_text 'ページをWIPとして保存しました。'
 
     logout
     visit_with_auth '/notifications', 'hatsuno'
@@ -51,6 +53,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
 
     click_link '内容変更'
     click_button '内容を保存'
+    assert_text 'ページを更新しました。'
 
     visit_with_auth '/notifications', 'machida'
 
