@@ -187,4 +187,11 @@ class PracticesTest < ApplicationSystemTestCase
     wait_for_vuejs
     assert_equal 'テストプラクティス | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
+
+  test 'show last updated user icon' do
+    visit_with_auth "/practices/#{practices(:practice55).id}", 'hajime'
+    within '.thread-header__user-icon-link' do
+      assert_selector 'img[alt="komagata (Komagata Masaki): 管理者、メンター"]'
+    end
+  end
 end
