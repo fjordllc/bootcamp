@@ -65,4 +65,22 @@ class Notification::TalkTest < ApplicationSystemTestCase
       assert_text 'komagataさんからコメントが届きました。'
     end
   end
+
+  test 'The number of unreplied comments is displayed in the global navigation of the talks room' do
+    visit_with_auth '/', 'komagata'
+    within(:css, "a[href='/talks']") do
+      assert_selector '.global-nav__item-count.a-notification-count.is-only-mentor', count: 1
+    end
+    talk_id = users(:with_hyphen).talk.id
+    visit_with_auth "/talks/#{talk_id}", 'komagata'
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+    click_button 'コメントする'
+    # refreshはブラウザをリロードするメソッド
+    refresh
+    within(:css, "a[href='/talks']") do
+      assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
+    end
+  end
 end
