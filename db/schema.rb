@@ -85,6 +85,14 @@ ActiveRecord::Schema.define(version: 2022_01_27_083838) do
     t.index ["bookmarkable_type", "bookmarkable_id"], name: "index_bookmarks_on_bookmarkable"
   end
 
+  create_table "campaigns", force: :cascade do |t|
+    t.datetime "start_at", null: false
+    t.datetime "end_at", null: false
+    t.string "title", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "categories", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "slug"
@@ -170,14 +178,6 @@ ActiveRecord::Schema.define(version: 2022_01_27_083838) do
     t.boolean "wip", default: false, null: false
     t.boolean "job_hunting", default: false, null: false
     t.index ["user_id"], name: "index_events_on_user_id"
-  end
-
-  create_table "campaigns", force: :cascade do |t|
-    t.datetime "start_at", null: false
-    t.datetime "end_at", null: false
-    t.string "title", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "followings", force: :cascade do |t|
@@ -474,8 +474,8 @@ ActiveRecord::Schema.define(version: 2022_01_27_083838) do
     t.text "mentor_memo"
     t.string "discord_account"
     t.string "times_url"
-    t.boolean "notified_retirement", default: false, null: false
     t.text "after_graduation_hope"
+    t.boolean "notified_retirement", default: false, null: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
