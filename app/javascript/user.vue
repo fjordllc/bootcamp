@@ -2,43 +2,45 @@
 .col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
   .users-item
     .users-item__inner.a-card
+      .users-item__inactive-message.is-only-mentor(
+        v-if='currentUser.mentor && user.student_or_trainee && !user.active'
+      )
+        | 1ヶ月以上ログインがありません
       header.users-item__header
-        .users-item__header-container
-          .users-item__inactive-message.is-only-mentor(
-            v-if='currentUser.mentor && user.student_or_trainee && !user.active'
-          )
-            | 1ヶ月ログインがありません
-          .users-item__name
-            a.users-item__name-link(:href='user.url')
-              | {{ loginName }}
-          ul.users-item-names
-            li.users-item-names__item
-              .users-item-names__ful-name
-                | {{ user.name }}
+        .users-item__header-inner
+          .users-item__header-start
+            .users-item__icon
+              a(:href='user.url')
+                img.users-item__user-icon-image.a-user-icon(
+                  :title='user.icon_title',
+                  :alt='user.icon_title',
+                  :src='user.avatar_url',
+                  :class='[roleClass, daimyoClass]'
+                )
+          .users-item__header-end
+            .users-item__name
+              a.users-item__name-link(:href='user.url')
+                | {{ loginName }}
               a(
                 v-if='user.company && user.company.logo_url',
                 :href='user.company.url'
               )
                 img.user-item__company-logo(:src='user.company.logo_url')
-            li.users-item-names__item(v-if='user.discord_account')
-              .users-item-names__chat
-                .users-item-names__chat-label
-                  i.fab.fa-discord
-                a.users-item-names__chat-value(:href='user.times_url')(
-                  v-if='user.times_url'
-                )
-                  | {{ user.discord_account }}
-                span.users-item-names__chat-value(v-else)
-                  | {{ user.discord_account }}
-          .users-item__icon
-            a(:href='user.url')
-              img.users-item__user-icon-image.a-user-icon(
-                :title='user.icon_title',
-                :alt='user.icon_title',
-                :src='user.avatar_url',
-                :class='[roleClass, daimyoClass]'
-              )
-        user-sns(:user='user')
+            ul.users-item-names
+              li.users-item-names__item
+                .users-item-names__ful-name
+                  | {{ user.name }}
+              li.users-item-names__item(v-if='user.discord_account')
+                .users-item-names__chat
+                  .users-item-names__chat-label
+                    i.fab.fa-discord
+                  a.users-item-names__chat-value(:href='user.times_url')(
+                    v-if='user.times_url'
+                  )
+                    | {{ user.discord_account }}
+                  span.users-item-names__chat-value(v-else)
+                    | {{ user.discord_account }}
+            user-sns(:user='user')
       .users-item__body
         .users-item__description.a-short-text
           p(v-for='paragraph in userDescParagraphs', :key='paragraph.id')
@@ -55,6 +57,9 @@
                 :userId='user.id',
                 :isWatching='user.isWatching'
               )
+            li.card-main-actions__item.is-only-admin(v-if='currentUser.admin')
+              a.a-button.is-secondary.is-md.is-block(:href='user.talkUrl')
+                | 相談部屋
 </template>
 <script>
 import Following from './following.vue'

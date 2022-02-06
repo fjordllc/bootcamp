@@ -1,4 +1,4 @@
-<% today = Time.zone.today %>
+<% today = Time.current %>
 learning1:
   user: komagata
   practice: practice1

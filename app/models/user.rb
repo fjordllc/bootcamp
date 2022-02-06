@@ -296,7 +296,7 @@ class User < ApplicationRecord
       .select('users.*', :completed_at)
       .where('completed_at <= ?', 2.weeks.ago.end_of_day)
   }
-
+  scope :campaign, -> { where(created_at: Campaign.recently_campaign) }
   columns_for_keyword_search(
     :login_name,
     :name,

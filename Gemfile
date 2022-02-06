@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.4'
+ruby '3.1.0'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'date', '>= 3.2.1' # CVE-2021-41817対応
@@ -34,6 +34,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mentionable', '~> 0.2.1'
 gem 'meta-tags'
+gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
 gem 'oauth2'
 gem 'omniauth', '~> 1.9.1'
 gem 'omniauth-github', '~> 1.4.0'
@@ -48,7 +49,7 @@ gem 'rollbar'
 gem 'rubyzip'
 gem 'slim-rails'
 gem 'sorcery', '~> 0.16.2'
-gem 'sorcery-jwt', github: 'komagata/sorcery-jwt', branch: 'update-requirements'
+gem 'sorcery-jwt'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
 gem 'sucker_punch', '~> 2.0'
@@ -86,7 +87,7 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'minitest-retry'
   gem 'selenium-webdriver'
-  gem 'vcr'
+  gem 'vcr', github: 'vcr/vcr'
   gem 'webdrivers'
   gem 'webmock'
 end

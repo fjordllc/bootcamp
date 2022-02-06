@@ -19,19 +19,19 @@ class Notification::WatchesTest < ApplicationSystemTestCase
       fill_in('new_comment[description]', with: 'コメントありがとうございます。')
     end
     click_button 'コメントする'
-    wait_for_vuejs
-    logout
+    assert_text 'コメントを投稿しました！'
 
-    login_user 'kimura', 'testtest'
-    open_notification
-    assert_equal "komagataさんの【 「#{reports(:report1).title}」の日報 】にkomagataさんがコメントしました。",
-                 notification_message
+    visit_with_auth '/notifications', 'kimura'
 
-    login_user 'machida', 'testtest'
-    open_notification
+    within first('.thread-list-item.is-unread') do
+      assert_text "komagataさんの【 「#{reports(:report1).title}」の日報 】にkomagataさんがコメントしました。"
+    end
 
-    assert_equal "komagataさんの【 「#{reports(:report1).title}」の日報 】にkomagataさんがコメントしました。",
-                 notification_message
+    visit_with_auth '/notifications', 'machida'
+
+    within first('.thread-list-item.is-unread') do
+      assert_text "komagataさんの【 「#{reports(:report1).title}」の日報 】にkomagataさんがコメントしました。"
+    end
   end
 
   test '質問作成者がコメントをした際、ウォッチ通知が飛ばないバグの再現' do
@@ -50,17 +50,18 @@ class Notification::WatchesTest < ApplicationSystemTestCase
       fill_in('answer[description]', with: '質問へのご回答ありがとうございます。')
     end
     click_button 'コメントする'
-    wait_for_vuejs
-    logout
+    assert_text '回答を投稿しました！'
 
-    login_user 'kimura', 'testtest'
-    open_notification
-    assert_equal "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんがコメントしました。",
-                 notification_message
+    visit_with_auth '/notifications', 'kimura'
 
-    login_user 'komagata', 'testtest'
-    open_notification
-    assert_equal "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんがコメントしました。",
-                 notification_message
+    within first('.thread-list-item.is-unread') do
+      assert_text "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんがコメントしました。"
+    end
+
+    visit_with_auth '/notifications', 'komagata'
+
+    within first('.thread-list-item.is-unread') do
+      assert_text "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんがコメントしました。"
+    end
   end
 end
