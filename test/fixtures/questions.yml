@@ -84,3 +84,23 @@ question_for_comment_count:
   description: こちらの質問はQ&A一覧ページでコメント(回答)がついているものにのみ「回答・コメント（コメント数）」という表示がついているかどうかのテスト用の質問です。
   user: komagata
   practice: practice1
+
+question_for_wip__is_wip:
+  title: wipテスト用の質問(wip中)
+  description: こちらの質問はwipテスト用の「wip中」の質問です。
+  user: kimura
+  practice: practice1
+  wip: true
+
+question_for_wip__already_published:
+  title: wipテスト用の質問(公開中)
+  description: こちらの質問はwipテスト用の「既に公開中」の質問です。
+  user: kimura
+  wip: false
+
+question_for_wip__is_wip_to_published:
+  title: wipテスト用の質問(wip後に公開中)
+  description: こちらの質問はwipテスト用の「wip後に公開された」質問です。
+  user: kimura
+  wip: false
+  published_at: "2021-10-01 00:00:00"
