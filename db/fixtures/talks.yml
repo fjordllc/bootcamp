@@ -114,8 +114,8 @@ talk_fujiyasu:
   user: fujiyasu
   unreplied: false
 
-talk_ringo:
-  user: ringo
+talk_adminonly:
+  user: adminonly
   unreplied: false
 
 talk_daimyo-adviser:
@@ -156,4 +156,8 @@ talk_thuynga:
 
 talk_sotugyou-adviser:
   user: sotugyou-adviser
+  unreplied: false
+
+talk_otameshi:
+  user: otameshi
   unreplied: false

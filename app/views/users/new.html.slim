@@ -1,10 +1,11 @@
 - title @user.adviser? ? 'アドバイザー登録' : 'フィヨルドブートキャンプ参加登録'
-- content_for :extra_body_classes, 'no-header no-footer no-recent-reports no-global-nav is-auth-page is-piyo-background'
+- content_for :extra_body_classes, 'no-header no-footer no-global-nav is-auth-page is-piyo-background'
 
 .auth-form.is-sign-up
   .a-card
     header.auth-form__header
       h1.auth-form__title = title
+    = '現在、お試し期間の延長が適用されています' if Campaign.today_is_campaign?
     .auth-form__body
       = render 'form', from: :new, url: users_path, user: @user
     footer.auth-form__footer

@@ -4,7 +4,16 @@ header.page-header
   .container
     .page-header__inner
       h2.page-header__title = title
-      = render 'reports/new_report'
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to user_path(id: current_user.id), class: 'a-button is-md is-secondary is-block' do
+              i.fas.fa-user
+              | マイプロフィール
+          .page-header-actions__item
+            = link_to new_report_path, class: 'a-button is-md is-secondary is-block' do
+              i.fas.fa-plus
+              | 日報作成
 
 = render 'page_tabs', user: current_user
 

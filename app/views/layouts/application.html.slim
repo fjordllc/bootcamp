@@ -38,8 +38,6 @@ html.is-application lang='ja'
         = yield
       - if display_footer?
         = render 'footer'
-    - if display_recent_reports?
-      #js-recent-reports
-    - elsif @random_tags
+    - if @random_tags
       = render '/users/random_tags'
     = any_login_here if defined?(AnyLogin)

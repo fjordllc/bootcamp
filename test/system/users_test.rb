@@ -96,11 +96,11 @@ class UsersTest < ApplicationSystemTestCase
 
     visit_with_auth '/users', 'komagata'
     assert_no_selector 'div.users-item.inactive'
-    assert_text '1ヶ月ログインがありません'
+    assert_text '1ヶ月以上ログインがありません'
 
     visit_with_auth '/users', 'hatsuno'
     assert_no_selector 'div.users-item.inactive'
-    assert_no_text '1ヶ月ログインがありません'
+    assert_no_text '1ヶ月以上ログインがありません'
   end
 
   test 'show inactive users only to mentors' do
@@ -235,5 +235,15 @@ class UsersTest < ApplicationSystemTestCase
 
     visit current_path
     assert_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
+  end
+
+  test 'only admin can see link to talk on user list page' do
+    visit_with_auth '/users', 'komagata'
+    assert_link '相談部屋'
+  end
+
+  test 'not admin cannot see link to talk on user list page' do
+    visit_with_auth '/users', 'kimura'
+    assert_no_link '相談部屋'
   end
 end

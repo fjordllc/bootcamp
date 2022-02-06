@@ -1,6 +1,5 @@
 - title "#{@product.practice.title}の提出物"
 - category = @product.category(current_user.course)
-- content_for(:extra_body_classes, 'no-recent-reports')
 
 header.page-header
   .container
@@ -38,7 +37,7 @@ header.page-header
               | もし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。
   .container.is-xxxl
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
-      div(class="#{current_user.mentor? || current_user.admin? ? 'col-md-7 col-xs-12' : ''}")
+      div(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-7 col-xs-12' : ''}")
         .thread
           .thread__inner.a-card
             header.thread-header
@@ -151,7 +150,7 @@ header.page-header
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
         = render 'footprints/footprints', footprints: @footprints
 
-      .is-only-mentor(class="#{current_user.mentor? || current_user.admin? ? 'col-md-5 col-xs-12 is-hidden-sm-down' : ''}")
+      .is-only-mentor(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")
         - if current_user.mentor? || current_user.admin?
           .side-tabs
             input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
