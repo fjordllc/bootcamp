@@ -8,7 +8,7 @@ Dockerと[direnv](https://github.com/direnv/direnv)が必要なので、事前�
 
 ```bash
 export COMPOSE_PROJECT_NAME=bootcamp
-export COMPOSE_FILE=.devcontainer/docker-compose.yml:docker-compose.darwin.yml
+export COMPOSE_FILE=.devcontainer/docker-compose.yml:.devcontainer/docker-compose.darwin.yml
 ```
 
 `direnv allow` を実行して`docker-compose` コマンドでコンテナを起動します。
