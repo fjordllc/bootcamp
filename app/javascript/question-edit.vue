@@ -13,12 +13,12 @@
       .thread-header__row
         .thread-header-metas
           .thread-header-metas__start
-            .thread-header-metas__meta
-              .thread-header__wip(v-if='question.wip')
+            .thread-header-metas__meta(v-if='question.wip')
+              .thread-header__wip
                 | WIP
-            .thread-header-metas__meta
+            .thread-header-metas__meta(v-if='question.wip')
               .a-meta
-                span.a-meta__label(v-if='question.wip')
+                span.a-meta__label
                   | 質問作成中
             .thread-header-metas__meta
               a.a-user-name(:href='`/users/${question.user.id}`')
@@ -241,7 +241,7 @@ export default {
       editing: false,
       displayedUpdateMessage: false,
       tab: 'question',
-      practices: null,
+      practices: null
     }
   },
   computed: {
@@ -325,11 +325,6 @@ export default {
       })
     },
     updateQuestion({wip}) {
-      // setWip = true
-      // if (this.question.wip === wip) {
-      //   this.finishEditing(true)
-      //   return
-      // }
       this.edited.wip = wip
       if (!this.changedQuestion(this.edited)) {
         // 何も変更していなくても、更新メッセージは表示する
@@ -363,6 +358,7 @@ export default {
             this[key] = val
           })
           this.finishEditing(true)
+          this.$emit('do-reload')
         })
         .catch((error) => {
           console.warn(error)

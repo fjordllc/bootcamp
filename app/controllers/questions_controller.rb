@@ -91,7 +91,8 @@ class QuestionsController < ApplicationController
       :user_id,
       :resolve,
       :practice_id,
-      :tag_list
+      :tag_list,
+      :wip
     )
   end
 

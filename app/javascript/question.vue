@@ -29,8 +29,8 @@
     .thread-list-item__row
       .thread-list-item-meta
         .thread-list-item-meta__items
-          .thread-list-item-meta__item
-            .a-meta(v-if='question.wip')
+          .thread-list-item-meta__item(v-if='question.wip')
+            .a-meta
               | 質問作成中
           .thread-list-item-meta__item
             a.a-user-name {{ question.user.long_name }}
