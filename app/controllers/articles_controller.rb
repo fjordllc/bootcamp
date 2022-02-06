@@ -5,12 +5,7 @@ class ArticlesController < ApplicationController
   before_action :require_admin_login, except: %i[index show]
 
   def index
-    @articles =
-      if admin_or_mentor_login?
-        Article.all.order(created_at: :desc)
-      else
-        Article.all.where(wip: false).order(created_at: :desc)
-      end
+    @articles = list_articles
     @articles = @articles.tagged_with(params[:tag]) if params[:tag]
     render layout: 'article'
   end
@@ -58,6 +53,14 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.find(params[:id])
+  end
+
+  def list_articles
+    if admin_or_mentor_login?
+      Article.all.order(created_at: :desc)
+    else
+      Article.all.where(wip: false).order(created_at: :desc)
+    end
   end
 
   def article_params
