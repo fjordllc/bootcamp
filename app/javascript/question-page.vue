@@ -8,6 +8,7 @@
       :answerCount='answerCount',
       :isAnswerCountUpdated='isAnswerCountUpdated',
       :currentUser='currentUser'
+      @do-reload='doReload'
     )
     a#comments.a-anchor
     answers(
@@ -95,6 +96,9 @@ export default {
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
+    },
+    doReload() {
+      this.fetchQuestion(this.questionId)
     },
     updateAnswerCount(count) {
       this.answerCount = count
