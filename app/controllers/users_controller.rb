@@ -4,8 +4,7 @@ class UsersController < ApplicationController
   before_action :require_login, except: %i[new create]
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
-  before_action :set_reports, only: %i[show]
-  before_action :set_export, only: %i[show]
+
   PAGER_NUMBER = 20
 
   def index
@@ -39,12 +38,6 @@ class UsersController < ApplicationController
                            .includes(:practice)
                            .where(status: 3)
                            .order(updated_at: :desc)
-    respond_to do |format|
-      format.html
-      format.md do
-        send_reports_markdown(@reports_for_export)
-      end
-    end
   end
 
   def new
@@ -160,18 +153,4 @@ class UsersController < ApplicationController
     redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
   end
 
-  def set_reports
-    @reports = @user.reports.list.page(params[:page])
-  end
-
-  def set_export
-    @reports_for_export = @user.reports.not_wip
-  end
-
-  def send_reports_markdown(reports)
-    Dir.mktmpdir do |folder_path|
-      ReportExporter.export(reports, folder_path)
-      send_data(File.read("#{folder_path}/reports.zip"), filename: '日報一覧.zip')
-    end
-  end
 end
