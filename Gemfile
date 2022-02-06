@@ -88,6 +88,6 @@ group :test do
   gem 'minitest-retry'
   gem 'selenium-webdriver'
   gem 'vcr', github: 'vcr/vcr'
-  gem 'webdrivers'
+  gem 'webdrivers', require: false
   gem 'webmock'
 end

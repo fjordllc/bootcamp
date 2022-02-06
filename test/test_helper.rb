@@ -7,10 +7,11 @@ require 'capybara/rails'
 require 'minitest/retry'
 require 'supports/api_helper'
 require 'supports/vcr_helper'
+require 'webdrivers' unless RUBY_PLATFORM.match?(/aarch64/)
 
 Capybara.default_max_wait_time = 5
 Capybara.disable_animation = true
-Webdrivers.cache_time = 86_400
+Webdrivers.cache_time = 86_400 if defined?(Webdrivers)
 Minitest::Retry.use! if ENV['CI']
 Selenium::WebDriver.logger.ignore(:browser_options) # TODO: Remove it when capybara-3.36.0 greater is released.
 

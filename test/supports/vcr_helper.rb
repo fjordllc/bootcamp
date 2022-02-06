@@ -26,6 +26,8 @@ VCR.configure do |c|
     http_message.body.encoding.name == name
   end
 
-  driver_hosts = Webdrivers::Common.subclasses.map { |driver| URI(driver.base_url).host }
-  c.ignore_hosts(*driver_hosts)
+  if defined?(Webdrivers)
+    driver_hosts = Webdrivers::Common.subclasses.map { |driver| URI(driver.base_url).host }
+    c.ignore_hosts(*driver_hosts)
+  end
 end
