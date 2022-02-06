@@ -13,6 +13,7 @@ services:
       DATABASE_URL: "postgres://postgres:postgres@db:5432"
       EDITOR: "code"
       RAILS_MASTER_KEY:
+    shm_size: 1gb
 
   db:
     image: postgres:12-alpine
