@@ -280,7 +280,7 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text '質問をWIPとして保存しました。'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text "kimuraさんから質問がありました。"
+    assert_no_text 'kimuraさんから質問がありました。'
   end
 
   test 'show WIP question' do
@@ -301,7 +301,7 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text '質問文を入力してください'
   end
 
-  test "Do not notify if update question as WIP" do
+  test 'Do not notify if update question as WIP' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
@@ -319,10 +319,10 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text "kimuraさんから質問がありました。"
+    assert_no_text 'kimuraさんから質問がありました。'
   end
 
-  test "notify if update question as WIP to published" do
+  test 'notify if update question as WIP to published' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
@@ -340,10 +340,10 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_text "kimuraさんから質問がありました。"
+    assert_text 'kimuraさんから質問がありました。'
   end
 
-  test "notify if update question as WIP to published without modification" do
+  test 'notify if update question as WIP to published without modification' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
@@ -360,7 +360,7 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_text "kimuraさんから質問がありました。"
+    assert_text 'kimuraさんから質問がありました。'
   end
 
   test 'update a question as wip to published' do
@@ -368,7 +368,7 @@ class QuestionsTest < ApplicationSystemTestCase
     visit_with_auth question_path(question), 'kimura'
     updated_question = {
       title: 'テストの質問（修正）',
-      description: 'テストの質問です。（修正）',
+      description: 'テストの質問です。（修正）'
     }
     wait_for_vuejs
     click_button '内容修正'

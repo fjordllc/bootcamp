@@ -7,7 +7,7 @@
       :question='question',
       :answerCount='answerCount',
       :isAnswerCountUpdated='isAnswerCountUpdated',
-      :currentUser='currentUser'
+      :currentUser='currentUser',
       @do-reload='doReload'
     )
     a#comments.a-anchor
