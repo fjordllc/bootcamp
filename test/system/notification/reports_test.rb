@@ -20,7 +20,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
 
     notification_message = 'muryouさんがはじめての日報を書きました！'
-    visit_with_auth '/notifications', 'komagata'
+    visit_with_auth '/notifications', 'machida'
     wait_for_vuejs
     assert_text notification_message
 
