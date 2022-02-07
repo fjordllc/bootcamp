@@ -34,12 +34,36 @@
               | 質問作成中
           .thread-list-item-meta__item
             a.a-user-name {{ question.user.long_name }}
-          .thread-list-item-meta__item
+    .thread-list-item__row
+      .thread-list-item-meta
+        .thread-list-item-meta__items
+          .thread-list-item-meta__item(v-if='!question.wip')
             time.a-meta(
-              v-if='!question.wip',
-              :datetime='question.updated_at.datetime',
+              :datetime='question.published_at_date_time',
               pubdate='pubdate'
-            ) {{ question.updated_at.locale }}
+            )(
+              v-if='question.published_at'
+            )
+              span.a-meta__label
+                | 公開
+              span.a-meta__value
+                | {{ question.published_at }}
+            time.a-meta(
+              :datetime='question.created_at_date_time',
+              pubdate='pubdate'
+            )(
+              v-else
+            )
+              span.a-meta__label
+                | 公開
+              span.a-meta__value
+                | {{ question.created_at }}
+          .thread-list-item-meta__item(v-if='!question.wip')
+            time.a-meta(:datetime='question.datetime', pubdate='pubdate')
+              span.a-meta__label
+                | 更新
+              span.a-meta__value
+                | {{ question.updated_at.locale }}
           .thread-list-item-meta__item(v-if='question.answers.size > 0')
             .thread-list-item-comment
               .thread-list-item-comment__label

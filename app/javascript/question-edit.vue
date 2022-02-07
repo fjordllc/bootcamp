@@ -24,7 +24,24 @@
               a.a-user-name(:href='`/users/${question.user.id}`')
                 | {{ question.user.long_name }}
             .thread-header-metas__meta(v-if='!question.wip')
+              time.a-meta(:datetime='publishedAtISO8601', pubdate='pubdate')(
+                v-if='question.published_at'
+              )
+                span.a-meta__label
+                  | 公開
+                span.a-meta__value
+                  | {{ publishedAt }}
+              time.a-meta(:datetime='createdAtISO8601', pubdate='pubdate')(
+                v-else
+              )
+                span.a-meta__label
+                  | 公開
+                span.a-meta__value
+                  | {{ createdAt }}
+            .thread-header-metas__meta(v-if='!question.wip')
               .a-meta
+                span.a-meta__label
+                  | 更新
                 time.thread_header_date-value(
                   :datetime='updatedAtISO8601',
                   pubdate='pubdate'
@@ -173,13 +190,17 @@
                   @click='updateQuestion({ wip: false })',
                   :disabled='!validation',
                   type='button'
-                )(v-if='question.wip')
+                )(
+                  v-if='question.wip'
+                )
                   | 質問を公開
                 button.a-button.is-md.is-warning.is-block(
                   @click='updateQuestion({ wip: false })',
                   :disabled='!validation',
                   type='button'
-                )(v-else)
+                )(
+                  v-else
+                )
                   | 更新する
               li.card-main-actions__item
                 button.a-button.is-md.is-secondary.is-block(
@@ -250,6 +271,20 @@ export default {
     },
     updatedAt() {
       return dayjs(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+    },
+    createdAtISO8601() {
+      return dayjs(this.question.created_at).format()
+    },
+    createdAt() {
+      return dayjs(this.question.created_at).format('YYYY年MM月DD日(dd) HH:mm')
+    },
+    publishedAtISO8601() {
+      return dayjs(this.question.published_at).format()
+    },
+    publishedAt() {
+      return dayjs(this.question.published_at).format(
+        'YYYY年MM月DD日(dd) HH:mm'
+      )
     },
     practiceTitle() {
       const { practices, question, practiceId } = this
@@ -324,7 +359,7 @@ export default {
         return val !== this[key]
       })
     },
-    updateQuestion({wip}) {
+    updateQuestion({ wip }) {
       this.edited.wip = wip
       if (!this.changedQuestion(this.edited)) {
         // 何も変更していなくても、更新メッセージは表示する
