@@ -135,16 +135,16 @@ yameo:
   updated_at: "2014-01-01 00:00:05"
   created_at: "2014-01-01 00:00:05"
 
-mentor:
-  login_name: mentor
-  email: mentor@fjord.jp
+mentormentaro:
+  login_name: mentormentaro
+  email: mentormentaro@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: メンタ 麺太郎
   name_kana: メンタ メンタロウ
-  twitter_account: mentor
-  facebook_url: http://www.facebook.com/mentor
-  blog_url: http://mentor.com
+  twitter_account: mentormentaro
+  facebook_url: http://www.facebook.com/mentormentaro
+  blog_url: http://mentormentaro.com
   description: "メンタ麺太郎です。メンターです。"
   course: course1
   job: office_worker

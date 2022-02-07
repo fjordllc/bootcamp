@@ -4,7 +4,7 @@ require 'test_helper'
 
 class NotificationTest < ActiveSupport::TestCase
   setup do
-    @receiver = users(:mentor)
+    @receiver = users(:mentormentaro)
     @sender = users(:machida)
     @link = 'path/to/link'
     @now = Time.current
