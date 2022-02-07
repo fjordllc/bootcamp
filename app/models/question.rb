@@ -15,8 +15,7 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
   alias sender user
 
-  after_create QuestionCallbacks.new
-  after_update QuestionCallbacks.new
+  after_save QuestionCallbacks.new
   after_destroy QuestionCallbacks.new
 
   validates :title, presence: true, length: { maximum: 256 }
@@ -30,4 +29,8 @@ class Question < ApplicationRecord
   columns_for_keyword_search :title, :description
 
   mentionable_as :description
+
+  def first_public?
+    !wip && published_at.nil?
+  end
 end
