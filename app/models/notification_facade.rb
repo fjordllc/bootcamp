@@ -75,7 +75,7 @@ class NotificationFacade
   end
 
   def self.first_report(report, receiver)
-    Notification.first_report(report, receiver) if receiver.current_student?
+    Notification.first_report(report, receiver) if receiver.current_student? || receiver.admin_or_mentor?
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
