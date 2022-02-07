@@ -198,15 +198,22 @@ class Notification < ApplicationRecord
       )
     end
 
-    def create_page(page, reciever)
-      Notification.create!(
-        kind: kinds[:create_pages],
-        user: reciever,
-        sender: page.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(page),
-        message: "#{page.user.login_name}さんがDocsに#{page.title}を投稿しました。",
-        read: false
-      )
+    def notify_all_receivers_of_new_page(page, receivers)
+      now = Time.current
+      notification_records = receivers.map do |receiver|
+        {
+          kind: kinds[:create_pages],
+          user_id: receiver.id,
+          sender_id: page.sender.id,
+          link: Rails.application.routes.url_helpers.polymorphic_path(page),
+          message: "#{page.user.login_name}さんがDocsに#{page.title}を投稿しました。",
+          read: false,
+          created_at: now,
+          updated_at: now
+        }
+      end
+
+      Notification.insert_all!(notification_records) # rubocop:disable Rails/SkipsModelValidations
     end
 
     def following_report(report, receiver)

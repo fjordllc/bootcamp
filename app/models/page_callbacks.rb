@@ -26,10 +26,8 @@ class PageCallbacks
   private
 
   def send_notification(page)
-    receivers = User.where(retired_on: nil, graduated_on: nil, adviser: false, trainee: false)
-    receivers.each do |receiver|
-      NotificationFacade.create_page(page, receiver) if page.sender != receiver
-    end
+    receivers = User.where(retired_on: nil, graduated_on: nil, adviser: false, trainee: false).where.not(id: page.sender.id)
+    NotificationFacade.notify_all_receivers_of_new_page(page, receivers)
   end
 
   def notify_to_chat(page)

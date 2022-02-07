@@ -145,14 +145,17 @@ class NotificationFacade
     ).moved_up_event_waiting_user.deliver_later(wait: 5)
   end
 
-  def self.create_page(page, receiver)
-    Notification.create_page(page, receiver)
-    return unless receiver.mail_notification? && !receiver.retired?
+  def self.notify_all_receivers_of_new_page(page, receivers)
+    Notification.notify_all_receivers_of_new_page(page, receivers)
 
-    NotificationMailer.with(
-      page: page,
-      receiver: receiver
-    ).create_page.deliver_later(wait: 5)
+    receivers.each do |receiver|
+      next unless receiver.mail_notification? && !receiver.retired?
+
+      NotificationMailer.with(
+        page: page,
+        receiver: receiver
+      ).create_page.deliver_later(wait: 5)
+    end
   end
 
   def self.chose_correct_answer(answer, receiver)
