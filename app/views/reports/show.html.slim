@@ -172,7 +172,7 @@ header.page-header
           #js-reports(data-user-id="#{@report.user.id}" data-limit="10")
 
 - if params[:notify_help].eql?('true')
-    = render '/shared/modal', id: 'modal-notify-qa', title: '🍵 今日も学習お疲れ様でした！', auto_show: true
+    = render '/shared/modal', id: 'modal-notify-help', title: '🍵 今日も学習お疲れ様でした！', auto_show: true
       .modal__description.is-md
         .a-long-text
           p
