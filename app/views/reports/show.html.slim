@@ -16,6 +16,9 @@ header.page-header
               | 日報一覧
 
 .page-body
+  - if mentor_login? && !@report.first? && @report.latest? && @report.interval >= 10
+      p.is-important
+      | #{@report.interval}日ぶりの日報です
   .container.is-xxxl
     .row.is-jc:c
       .col-xl-7.col-xs-12
