@@ -367,7 +367,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'report has a comment form ' do
-    visit_with_auth "/reports/#{reports(:report1).id}", 'mentor'
+    visit_with_auth "/reports/#{reports(:report1).id}", 'mentormentaro'
     assert_selector '.thread-comment-form'
   end
 

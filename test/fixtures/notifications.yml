@@ -41,8 +41,8 @@ notification_mentioned_and_unread_1:
 notification_mentioned_and_unread_2:
   kind: 2
   user: kimura
-  sender: mentor
-  message: mentorさんからメンションがきました。
+  sender: mentormentaro
+  message: mentormentaroさんからメンションがきました。
   link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report8) %>#comment_<%= ActiveRecord::FixtureSet.identify(:comment19)%>"
   read: false
 

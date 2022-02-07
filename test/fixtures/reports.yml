@@ -55,7 +55,7 @@ report7:
   reported_on: "2017-01-03"
 
 report8:
-  user: mentor
+  user: mentormentaro
   title: テストの日報
   description: |-
     いろいろやりました。
@@ -93,7 +93,7 @@ sotugyou:
   reported_on: "2018-02-01"
 
 report12:
-  user: mentor
+  user: mentormentaro
   title: 検索結果確認用-C
   description:
     今年で150歳でーす
@@ -102,7 +102,7 @@ report12:
   created_at: "2020-01-01 00:00:00"
 
 report13:
-  user: mentor
+  user: mentormentaro
   title: 検索結果確認用-A
   description:
     きたるべき20世紀
@@ -111,7 +111,7 @@ report13:
   created_at: "1900-01-01 00:00:00"
 
 report14:
-  user: mentor
+  user: mentormentaro
   title: 検索結果確認用-B
   description:
     あれから100年か
@@ -136,10 +136,10 @@ report16:
   reported_on: <%= Time.now - 2.day %>
 
 report17:
-  user: mentor
+  user: mentormentaro
   title: 1時間だけ学習
   description: |-
-    mentorです、メンターです。
+    mentormentaroです、メンターです。
     今日は1時間学習しました。
   practices: practice1
   reported_on: "2020-06-01"

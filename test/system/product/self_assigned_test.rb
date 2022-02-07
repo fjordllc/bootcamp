@@ -74,7 +74,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
   end
 
   test 'display no replied products if click on self-assigned-tab' do
-    checker = users(:mentor)
+    checker = users(:mentormentaro)
     practice = practices(:practice5)
     user = users(:kimura)
     Product.create!(
@@ -83,7 +83,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       practice: practice,
       checker_id: checker.id
     )
-    visit_with_auth '/products/self_assigned', 'mentor'
+    visit_with_auth '/products/self_assigned', 'mentormentaro'
     wait_for_vuejs
     titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
     names = all('.thread-list-item-meta .a-user-name').map(&:text)
@@ -92,7 +92,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
   end
 
   test 'display no replied products if click on no-replied-button' do
-    checker = users(:mentor)
+    checker = users(:mentormentaro)
     practice = practices(:practice5)
     user = users(:kimura)
     Product.create!(
@@ -101,7 +101,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       practice: practice,
       checker_id: checker.id
     )
-    visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentor'
+    visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentormentaro'
     wait_for_vuejs
     titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
     names = all('.thread-list-item-meta .a-user-name').map(&:text)
@@ -110,7 +110,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
   end
 
   test 'display replied products if click on self_assigned_all-button' do
-    checker = users(:mentor)
+    checker = users(:mentormentaro)
     practice = practices(:practice5)
     user = users(:kimura)
     product = Product.create!(
@@ -119,18 +119,18 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       practice: practice,
       checker_id: checker.id
     )
-    visit_with_auth "/products/#{product.id}", 'mentor'
+    visit_with_auth "/products/#{product.id}", 'mentormentaro'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
     click_button 'コメントする'
-    visit_with_auth '/products/self_assigned?target=self_assigned_all', 'mentor'
+    visit_with_auth '/products/self_assigned?target=self_assigned_all', 'mentormentaro'
     wait_for_vuejs
     titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
     names = all('.thread-list-item-meta .a-user-name').map(&:text)
     assert_equal ["#{practice.title}の提出物"], titles
     assert_equal [user.login_name], names
-    visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentor'
+    visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentormentaro'
     wait_for_vuejs
     assert_text 'レビューを担当する未返信の提出物はありません'
   end
