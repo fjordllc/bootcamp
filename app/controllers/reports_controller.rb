@@ -141,7 +141,8 @@ class ReportsController < ApplicationController
   end
 
   def flash_contents(report)
-    { notify_help: !report.wip? && report.sad? }
+    { notify_help: !report.wip? && report.sad?,
+      celebrate_hundred: !report.wip? && current_user.reports.count == 100 }
   end
 
   def set_watch
