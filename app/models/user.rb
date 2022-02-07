@@ -460,7 +460,7 @@ class User < ApplicationRecord
   end
 
   def current_student?
-    student_or_trainee? && !graduated? && !retired?
+    !admin? && !adviser? && !mentor? && !graduated? && !retired?
   end
 
   def staff?
