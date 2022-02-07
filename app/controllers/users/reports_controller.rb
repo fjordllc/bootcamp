@@ -8,10 +8,10 @@ class Users::ReportsController < ApplicationController
 
   def index
     respond_to do |format|
-        format.html
-        format.md do
-          send_reports_markdown(@reports_for_export)
-        end
+      format.html
+      format.md do
+        send_reports_markdown(@reports_for_export)
+      end
     end
   end
 
@@ -39,5 +39,4 @@ class Users::ReportsController < ApplicationController
       send_data(File.read("#{folder_path}/reports.zip"), filename: '日報一覧.zip')
     end
   end
-
 end
