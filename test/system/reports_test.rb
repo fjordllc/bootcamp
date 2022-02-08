@@ -598,7 +598,7 @@ class ReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'textarea-of-new-report-automatically-resize' do
+  test 'automatically resizes textarea of a new report' do
     visit_with_auth '/reports/new', 'komagata'
     fill_in('report[description]', with: 'test')
     height = find('#report_description').style('height')['height'][/\d+/].to_i
@@ -609,7 +609,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert height < after_height
   end
 
-  test 'textarea-of-edit-report-automatically-resize' do
+  test 'automatically resizes textarea of an edit report' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
     click_link '内容修正'
 
