@@ -62,12 +62,17 @@ header.page-header
             footer.card-footer
               .card-main-actions
                 ul.card-main-actions__items
-                  - unless current_user == @user
-                    li.card-main-actions__item
-                      .js-following(data-is-following="#{current_user.following?(@user)}" data-user-id="#{@user.id}" data-is-watching="#{current_user.watching?(@user)}")
                   - if current_user == @user
                     li.card-main-actions__item
                       = link_to '登録情報変更', edit_current_user_path, class: 'card-main-actions__action a-button is-md is-secondary is-block'
+                  - elsif current_user != @user && current_user.adviser? == false || current_user.adviser? != @user.trainee
+                    li.card-main-actions__item
+                      .js-following(data-is-following="#{current_user.following?(@user)}" data-user-id="#{@user.id}" data-is-watching="#{current_user.watching?(@user)}")
+                  - elsif current_user != @user && current_user.adviser? == true && current_user.adviser? == @user.trainee
+                    li.card-main-actions__item
+                      div
+                        = "自社研修生"
+
                   - elsif admin_login?
                     li.card-main-actions__item
                       = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
