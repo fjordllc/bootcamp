@@ -73,6 +73,7 @@ group :development do
   gem 'bullet'
   gem 'bundle_outdated_formatter'
   gem 'letter_opener_web', '~> 1.0'
+  gem 'rack-dev-mark'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'rubocop', require: false
   gem 'rubocop-fjord', '~> 0.2.0', require: false
