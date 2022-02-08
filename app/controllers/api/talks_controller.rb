@@ -2,6 +2,6 @@
 
 class API::TalksController < API::BaseController
   def index
-    @talks = Talk.all
+    @talks = Talk.page(params[:page])
   end
 end
