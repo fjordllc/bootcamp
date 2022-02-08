@@ -61,9 +61,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '~> 3.3'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'listen'
   gem 'web-console', '>= 4.1.0'
 
   # not default

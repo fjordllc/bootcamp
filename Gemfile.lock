@@ -95,7 +95,7 @@ GEM
     ast (2.4.2)
     bcrypt (3.1.16)
     bindex (0.8.1)
-    bootsnap (1.10.2)
+    bootsnap (1.10.3)
       msgpack (~> 1.2)
     builder (3.2.4)
     bullet (7.0.1)
@@ -364,7 +364,7 @@ GEM
       activerecord (>= 5.2.4)
       activesupport (>= 5.2.4)
       i18n
-    rb-fsevent (0.11.0)
+    rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (2.2.0)
@@ -375,7 +375,7 @@ GEM
     retriable (3.1.2)
     rexml (3.2.5)
     rollbar (3.3.0)
-    rubocop (1.25.0)
+    rubocop (1.25.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -440,10 +440,6 @@ GEM
     sorcery-jwt (0.1.13)
       jwt (>= 1.0, < 3.0)
       sorcery (>= 0.13, < 0.17)
-    spring (2.1.1)
-    spring-watcher-listen (2.0.1)
-      listen (>= 2.7, < 4.0)
-      spring (>= 1.2, < 3.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -536,7 +532,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   letter_opener_web (~> 1.0)
-  listen (~> 3.3)
+  listen
   mentionable (~> 0.2.1)
   meta-tags
   minitest-retry
@@ -568,8 +564,6 @@ DEPENDENCIES
   slim_lint
   sorcery (~> 0.16.2)
   sorcery-jwt
-  spring
-  spring-watcher-listen (~> 2.0.0)
   stripe
   stripe-i18n!
   traceroute
