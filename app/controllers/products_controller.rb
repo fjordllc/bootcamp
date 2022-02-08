@@ -89,13 +89,13 @@ class ProductsController < ApplicationController
   end
 
   def find_footprints
-    find_product.footprints.with_avatar.order(created_at: :desc)
+    @product.footprints.with_avatar.order(created_at: :desc)
   end
 
   def footprint!
-    return unless find_product.user != current_user
+    return unless @product.user != current_user
 
-    find_product.footprints.create_or_find_by(user: current_user)
+    @product.footprints.create_or_find_by(user: current_user)
   end
 
   def check_permission!
