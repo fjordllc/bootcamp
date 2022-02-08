@@ -274,5 +274,32 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth "/users/#{hatsuno.id}", 'kimura'
     assert_text 'プロフィール'
     assert_no_link '相談部屋'
+    
+  test 'show trainees for adviser' do
+    visit_with_auth "/users/#{users(:kensyu).id}", 'senpai'
+    assert_text '自社研修生'
+    assert_no_text 'フォローする'
+    assert_no_text '登録情報変更'
+  end
+
+  test 'show Students' do
+    visit_with_auth "/users/#{users(:kensyu).id}", 'yamada'
+    assert_no_text '自社研修生'
+    assert_text 'フォローする'
+    assert_no_text '登録情報変更'
+  end
+
+  test 'show no trainees for adviser' do
+    visit_with_auth "/users/#{users(:yamada).id}", 'senpai'
+    assert_no_text '自社研修生'
+    assert_text 'フォローする'
+    assert_no_text '登録情報変更'
+  end
+
+  test 'show myself' do
+    visit_with_auth "/users/#{users(:kensyu).id}", 'kensyu'
+    assert_no_text '自社研修生'
+    assert_no_text 'フォローする'
+    assert_text '登録情報変更'
   end
 end
