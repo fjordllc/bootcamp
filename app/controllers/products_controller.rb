@@ -10,7 +10,11 @@ class ProductsController < ApplicationController
 
   def show
     @product = find_product
-    @reports = @product.user.reports.limit(10).order(reported_on: :DESC)
+    @reports = @product.user
+                       .reports
+                       .limit(10)
+                       .includes(:comments, :checks)
+                       .order(reported_on: :DESC)
     @practice = find_practice
     @footprints = find_footprints
     footprint!
