@@ -57,7 +57,7 @@ class Notification::TabsBadgesTest < ApplicationSystemTestCase
       read: false
     )
   end
-  
+
   test 'unread badges are displayed' do
     visit_with_auth '/notifications', 'sotugyou'
 
