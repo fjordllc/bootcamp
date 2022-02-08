@@ -134,7 +134,6 @@ GEM
     data_migrate (7.0.2)
       activerecord (>= 5.0)
       railties (>= 5.0)
-    date (3.2.2)
     dead_end (3.1.1)
     declarative (0.0.20)
     diffy (3.4.0)
@@ -537,7 +536,6 @@ DEPENDENCIES
   coffee-rails (~> 5.0.0)
   commonmarker
   data_migrate
-  date (>= 3.2.1)
   dead_end
   diffy
   discord-notifier
