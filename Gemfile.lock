@@ -466,8 +466,6 @@ GEM
       unicode_utils (~> 1.4)
     strings-ansi (0.2.0)
     stripe (5.43.0)
-    sucker_punch (2.1.2)
-      concurrent-ruby (~> 1.0)
     temple (0.8.2)
     thor (1.2.1)
     tilt (2.0.10)
@@ -583,7 +581,6 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   stripe
   stripe-i18n!
-  sucker_punch (~> 2.0)
   traceroute
   vcr!
   view_source_map
