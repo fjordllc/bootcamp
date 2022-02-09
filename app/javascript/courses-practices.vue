@@ -1,8 +1,6 @@
 <template lang="pug">
-.page-body__inner(v-if='categories === null')
-  .empty
-    .fas.fa-spinner.fa-pulse
-    | ロード中
+.page-body__inner.is-md(v-if='categories === null')
+  loadingCoursesPracticesPagePlaceholder
 .page-body__inner(v-else)
   .categories-items
     .categories-items__inner
@@ -42,17 +40,21 @@
           :key='category.id'
         )
           a.page-nav__item-link(:href='`practices#category-${category.id}`')
-            | {{ category.name }}
+            span.page-nav__item-link-inner
+              | {{ category.name }}
 </template>
 
 <script>
 import CoursesPractice from './courses-practice.vue'
 import MarkdownInitializer from './markdown-initializer'
 import role from './role'
+import LoadingCoursesPracticesPagePlaceholder from './loading-courses-practices-page-placeholder'
 
 export default {
   components: {
-    'courses-practice': CoursesPractice
+    'courses-practice': CoursesPractice,
+    loadingCoursesPracticesPagePlaceholder:
+      LoadingCoursesPracticesPagePlaceholder
   },
   mixins: [role],
   props: {
