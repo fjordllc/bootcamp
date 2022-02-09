@@ -98,7 +98,7 @@ export default {
         }
       })
       .catch((error) => {
-        console.warn('Failed to parsing', error)
+        console.warn(error)
       })
   },
   mounted() {
@@ -131,7 +131,7 @@ export default {
           this.memo = json.memo
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
       this.editing = false
     },
@@ -157,7 +157,7 @@ export default {
           this.toast('保存しました！')
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     editMemo() {

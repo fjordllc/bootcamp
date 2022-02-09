@@ -86,7 +86,7 @@ export default {
         this.autocompleteTags.push(...suggestions)
       })
       .catch((error) => {
-        console.warn('Failed to parsing', error)
+        console.warn(error)
       })
   },
   methods: {
@@ -135,7 +135,7 @@ export default {
           this.editing = false
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     cancel() {

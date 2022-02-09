@@ -104,7 +104,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     updateMemo: function () {
@@ -142,7 +142,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     deleteMemo: function () {
@@ -167,7 +167,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     }
   }

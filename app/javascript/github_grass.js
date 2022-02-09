@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
           grass.innerHTML = text
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     })
   }
