@@ -99,6 +99,10 @@ class Practice < ApplicationRecord
     [title, description, goal].join("\n")
   end
 
+  def body
+    [description, goal].join("\n")
+  end
+
   def product(user)
     products.find_by(user: user)
   end

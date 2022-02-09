@@ -6,7 +6,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.0'
 
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'date', '>= 3.2.1' # CVE-2021-41817対応
 gem 'image_processing', '~> 1.2'
 gem 'jbuilder', '~> 2.7'
 gem 'puma', '~> 5.5'
@@ -20,9 +19,9 @@ gem 'active_flag'
 gem 'active_storage_validations'
 gem 'acts_as_list'
 gem 'acts-as-taggable-on', '~> 7.0'
+gem 'addressable'
 gem 'any_login'
 gem 'cocoon'
-gem 'coffee-rails', '~> 5.0.0'
 gem 'commonmarker'
 gem 'data_migrate'
 gem 'diffy'
@@ -52,7 +51,6 @@ gem 'sorcery', '~> 0.16.2'
 gem 'sorcery-jwt'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
-gem 'sucker_punch', '~> 2.0'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -64,7 +62,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '~> 3.3'
+  gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 4.1.0'

@@ -98,7 +98,7 @@ class Comment::AfterCreateCallback
       NotificationFacade.came_comment(
         comment,
         admin_user,
-        "#{comment.sender.login_name}さんからコメントが届きました。"
+        "#{comment.commentable.user.login_name}さんの相談部屋で#{comment.sender.login_name}さんからコメントが届きました。"
       )
     end
   end

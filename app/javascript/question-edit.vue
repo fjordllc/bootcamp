@@ -273,7 +273,7 @@ export default {
           })
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     startEditing() {
@@ -334,7 +334,7 @@ export default {
           this.finishEditing(true)
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     cancel() {

@@ -1,9 +1,7 @@
 <template lang="pug">
 .page-body
   .container(v-if='question === null || currentUser === null')
-    .empty
-      .fas.fa-spinner.fa-pulse
-      | ロード中
+    loadingQuestionPagePlaceholder
   .container.is-lg(v-else)
     questionEdit(
       :question='question',
@@ -24,9 +22,12 @@
 <script>
 import QuestionEdit from './question-edit.vue'
 import Answers from './answers.vue'
+import LoadingQuestionPagePlaceholder from './loading-question-page-placeholder.vue'
 
 export default {
   components: {
+    LoadingQuestionPagePlaceholder: LoadingQuestionPagePlaceholder,
+    /* app/javascript/loading-question-page-placeholder.vue */
     questionEdit: QuestionEdit,
     answers: Answers
   },
@@ -63,7 +64,7 @@ export default {
           this.question = question
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     fetchUser(id) {
@@ -82,7 +83,7 @@ export default {
           this.currentUser = user
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     solveQuestion(answer) {

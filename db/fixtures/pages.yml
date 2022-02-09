@@ -35,7 +35,6 @@ page5:
   title: WIPのテスト
   body: WIP
   user: komagata
-  published_at: "2021-04-01 00:00:00"
 
 page6:
   title: ヘルプのページ
@@ -78,3 +77,29 @@ page11:
   user: komagata
   practice: practice1
   published_at: "2021-10-01 00:00:00"
+
+page12:
+  title: apt
+  body: |-
+    aptとはdebianでソフトウェアをネットワークからインストールするコマンドです。
+    [TEST](/test)(/test2)
+    [missing](test)
+    - 参考
+        - [APT - Wikipedia](http://ja.wikipedia.org/wiki/APT)
+    ## Q&A
+    - Q. `$ apt-cache search vim` の検索結果が多すぎる
+    - A. [正規表現](https://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE) を使う。
+      - 完全一致: `$ apt-cache search ^vim$`
+      - 前方一致: `$ apt-cache search ^vim`
+  user: komagata
+  published_at: "2022-01-01 00:00:00"
+
+page13:
+  title: リンク切れチェッカーのテスト用リンクを載せたページ
+  body: |-
+    [リンク切れ判定対象外の URL へのリンク](https://www.amazon.co.jp)
+    [末尾が閉じ括弧の URL へのリンク](https://ja.wikipedia.org/wiki/マジックナンバー_(プログラム))
+    [SSLサーバー証明書の検証に失敗する host へのリンク](https://www.tablesgenerator.com/markdown_tables)
+    [日本語を含む URL へのリンク](https://ja.wikipedia.org/wiki/あ)
+  user: komagata
+  published_at: "2022-01-01 00:00:00"

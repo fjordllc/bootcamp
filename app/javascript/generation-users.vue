@@ -106,7 +106,7 @@ export default {
           this.totalPages = json.totalPages
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     getParams() {
