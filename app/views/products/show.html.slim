@@ -11,7 +11,7 @@ header.page-header
   .container
     .page-header__inner
       h1.page-header__title
-        = "#{@product.user.login_name}の提出物"
+        = title
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
@@ -35,9 +35,10 @@ header.page-header
               | 7日以内にメンターがレビューしますので、次のプラクティスにお進みください。
               br
               | もし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。
-
-  - if @product.user == current_user && @learning&.complete?
-    = render 'completion_message', practice: @product.practice
+  //
+    [TODO]完了Tweetの正式リリース後にコメントを外す
+    - if @product.user == current_user && @learning&.complete?
+      = render 'completion_message', practice: @product.practice
 
   .container.is-xxxl
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")

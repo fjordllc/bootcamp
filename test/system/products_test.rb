@@ -39,6 +39,8 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text 'プラクティスを完了するまで他の人の提出物は見れません。'
   end
 
+  =begin
+  [TODO]完了Tweetの正式リリース後にコメントを外す
   test 'can not see tweet button when current_user does not complete a practice' do
     visit_with_auth "/products/#{products(:product1).id}", 'yamada'
     assert_no_text '完了 Tweet する'
@@ -77,6 +79,7 @@ class ProductsTest < ApplicationSystemTestCase
     switch_to_window(windows.last)
     assert_includes current_url, 'https://twitter.com/intent/tweet'
   end
+  =end
 
   test 'create product' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'yamada'
