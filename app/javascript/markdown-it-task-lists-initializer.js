@@ -61,7 +61,7 @@ export default class {
         })
       })
       .catch((error) => {
-        console.warn('Failed to parsing', error)
+        console.warn(error)
       })
   }
 }

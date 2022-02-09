@@ -57,7 +57,7 @@ export default {
         }
       })
       .catch((error) => {
-        console.warn('Failed to parsing', error)
+        console.warn(error)
       })
   },
   methods: {
@@ -87,7 +87,7 @@ export default {
           this.complete = true
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     }
   }

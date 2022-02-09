@@ -64,7 +64,7 @@ export default {
           this.question = question
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     fetchUser(id) {
@@ -83,7 +83,7 @@ export default {
           this.currentUser = user
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     solveQuestion(answer) {
