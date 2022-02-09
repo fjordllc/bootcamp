@@ -23,21 +23,23 @@ export default {
     hiddenNameParam: { type: String, required: true }
   },
   data() {
-    const books = JSON.parse(this.books).map(function (book) {
-      return { id: book[0], name: book[1] }
-    })
-    const bookSelected =
+    return {
+      value: {},
+      options: {},
+      hiddenName: this.hiddenNameParam
+    }
+  },
+  created() {
+    this.value =
       JSON.parse(this.bookSelected).length !== 0
         ? {
             id: JSON.parse(this.bookSelected)[0],
             name: JSON.parse(this.bookSelected)[1]
           }
         : { id: '', name: '本を選んでください' }
-    return {
-      value: bookSelected,
-      options: books,
-      hiddenName: this.hiddenNameParam
-    }
+    this.options = JSON.parse(this.books).map(function (book) {
+      return { id: book[0], name: book[1] }
+    })
   },
   mounted() {
     const element = document.getElementsByName(this.hiddenName)[0]
