@@ -96,11 +96,5 @@ question_for_wip__already_published:
   title: wipテスト用の質問(公開中)
   description: こちらの質問はwipテスト用の「既に公開中」の質問です。
   user: kimura
+  practice: practice1
   wip: false
-
-question_for_wip__is_wip_to_published:
-  title: wipテスト用の質問(wip後に公開中)
-  description: こちらの質問はwipテスト用の「wip後に公開された」質問です。
-  user: kimura
-  wip: false
-  published_at: "2021-10-01 00:00:00"

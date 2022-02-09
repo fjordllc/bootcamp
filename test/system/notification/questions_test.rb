@@ -39,4 +39,82 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_selector '.page-header__title', text: '通知'
     assert_no_text 'mentormentaroさんから質問「皆さんに質問！！」が投稿されました。'
   end
+
+  test 'Do not notify if create question as WIP' do
+    visit_with_auth '/notifications', 'komagata'
+    click_link '全て既読にする'
+
+    visit_with_auth new_question_path, 'kimura'
+    within('.form') do
+      fill_in('question[title]', with: 'WIPtest')
+      fill_in('question[description]', with: 'WIPtest')
+    end
+    click_button 'WIP'
+    assert_text '質問をWIPとして保存しました。'
+
+    visit_with_auth '/notifications?status=unread', 'komagata'
+    assert_no_text 'kimuraさんから質問がありました。'
+  end
+
+  test 'Do not notify if update question as WIP' do
+    visit_with_auth '/notifications', 'komagata'
+    click_link '全て既読にする'
+
+    visit_with_auth new_question_path, 'kimura'
+    within('.form') do
+      fill_in('question[title]', with: 'WIPtest')
+      fill_in('question[description]', with: 'WIPtest')
+    end
+    click_button 'WIP'
+    assert_text '質問をWIPとして保存しました。'
+
+    click_button '内容修正'
+    fill_in('question[description]', with: 'WIPtest update')
+    click_button 'WIP'
+    assert_text '質問を更新しました'
+
+    visit_with_auth '/notifications?status=unread', 'komagata'
+    assert_no_text 'kimuraさんから質問がありました。'
+  end
+
+  test 'notify if update question as WIP to published' do
+    visit_with_auth '/notifications', 'komagata'
+    click_link '全て既読にする'
+
+    visit_with_auth new_question_path, 'kimura'
+    within('.form') do
+      fill_in('question[title]', with: 'WIPtest')
+      fill_in('question[description]', with: 'WIPtest')
+    end
+    click_button 'WIP'
+    assert_text '質問をWIPとして保存しました。'
+
+    click_button '内容修正'
+    fill_in('question[description]', with: 'WIPtest update')
+    click_button '質問を公開'
+    assert_text '質問を更新しました'
+
+    visit_with_auth '/notifications?status=unread', 'komagata'
+    assert_text 'kimuraさんから質問がありました。'
+  end
+
+  test 'notify if update question as WIP to published without modification' do
+    visit_with_auth '/notifications', 'komagata'
+    click_link '全て既読にする'
+
+    visit_with_auth new_question_path, 'kimura'
+    within('.form') do
+      fill_in('question[title]', with: 'WIPtest')
+      fill_in('question[description]', with: 'WIPtest')
+    end
+    click_button 'WIP'
+    assert_text '質問をWIPとして保存しました。'
+
+    click_button '内容修正'
+    click_button '質問を公開'
+    assert_text '質問を更新しました'
+
+    visit_with_auth '/notifications?status=unread', 'komagata'
+    assert_text 'kimuraさんから質問がありました。'
+  end
 end
