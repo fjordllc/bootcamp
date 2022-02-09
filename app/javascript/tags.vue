@@ -140,7 +140,7 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       }).catch((error) => {
-        console.warn('Failed to parsing', error)
+        console.warn(error)
       })
     },
     token() {
@@ -165,7 +165,7 @@ export default {
       })
     },
     parseTagsError(error) {
-      console.warn('Failed to parsing', error)
+      console.warn(error)
     },
     editTag() {
       this.editing = true

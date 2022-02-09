@@ -21,6 +21,7 @@ page3:
     ## 存在しないDocsページ遷移テスト
     [存在しないページ](http://example.com/xxxxx)
   user: komagata
+  published_at: "2020-01-01 00:00:00"
 
 page4:
   title: Bootcampの作業のページ
@@ -28,6 +29,7 @@ page4:
     ## テスト
     テスト
   user: komagata
+  published_at: "2020-01-01 00:00:00"
 
 page5:
   title: WIPのテスト
@@ -38,6 +40,7 @@ page6:
   title: Docsの検索結果テスト用
   body: Docsの検索結果テスト用
   user: komagata
+  published_at: "2020-01-01 00:00:00"
 
 page7:
   title: プラクティスに紐付いたDocs
@@ -45,3 +48,24 @@ page7:
   user: komagata
   practice: practice1
   published_at: "2021-10-01 00:00:00"
+
+page8:
+  title: apt
+  body: |-
+    aptとはdebianでソフトウェアをネットワークからインストールするコマンドです。
+
+    [TEST](/test)(/test2)
+
+    [missing](test)
+
+    - 参考
+        - [APT - Wikipedia](http://ja.wikipedia.org/wiki/APT)
+
+    ## Q&A
+
+    - Q. `$ apt-cache search vim` の検索結果が多すぎる
+    - A. [正規表現](https://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE) を使う。
+      - 完全一致: `$ apt-cache search ^vim$`
+      - 前方一致: `$ apt-cache search ^vim`
+  user: komagata
+  published_at: "2022-01-01 00:00:00"

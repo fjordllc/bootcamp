@@ -51,7 +51,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     }
   },
@@ -92,7 +92,7 @@ export default {
           this.toast('Watchしました！')
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     unwatch() {
@@ -114,7 +114,7 @@ export default {
           this.$emit('update-index')
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     }
   }

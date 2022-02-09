@@ -159,7 +159,7 @@ export default {
           this.commentTotalCount = json.comment_total_count
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
         .finally(() => {
           if (this.loaded === false) {
@@ -213,7 +213,7 @@ export default {
           this.toast('コメントを投稿しました！')
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     deleteComment(id) {
@@ -234,7 +234,7 @@ export default {
           })
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     updateComment(description, id) {
@@ -277,7 +277,7 @@ export default {
           return response.json()
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
           return null
         })
     },

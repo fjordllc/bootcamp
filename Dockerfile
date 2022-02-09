@@ -1,4 +1,4 @@
-FROM ruby:2.7.4-alpine
+FROM ruby:3.1.0-alpine
 
 ENV RAILS_ENV production
 WORKDIR /app
@@ -6,7 +6,7 @@ WORKDIR /app
 # Update rubygems
 RUN gem update --system
 RUN printf "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri" > ~/.gemrc
-RUN gem install --no-document --force bundler -v 2.2.24
+RUN gem install --no-document --force bundler -v 2.3.6
 RUN bundle config set without development:test
 
 # Install packages

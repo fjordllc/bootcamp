@@ -171,7 +171,9 @@ header.page-header
         ul.page-nav__items
           - category.practices.each do |practice|
             li.page-nav__item
-              = link_to practice.title, practice_path(practice), class: "page-nav__item-link #{@practice == practice ? 'is-current' : ''}"
+              = link_to practice_path(practice), class: "page-nav__item-link #{@practice == practice ? 'is-current' : ''}" do
+                span.page-nav__item-link-inner
+                  = practice.title
 
 .sticky-message
   p
