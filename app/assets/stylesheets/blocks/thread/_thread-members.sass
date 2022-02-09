@@ -3,11 +3,17 @@
 
 .thread-members__items
   display: flex
-  margin-top: .5rem
   gap: .75rem
+  +media-breakpoint-up(md)
+    margin-top: .75rem
+  +media-breakpoint-down(sm)
+    margin-top: .5rem
 
 .thread-members__item
-  font-size: .875rem
+  +media-breakpoint-up(md)
+    font-size: .875rem
+  +media-breakpoint-down(sm)
+    font-size: .75rem
   .a-user-name
     +text-block(1em 1.4, $default-text)
 
