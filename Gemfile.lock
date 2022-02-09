@@ -262,6 +262,10 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    net-pop (0.1.1)
+      digest
+      net-protocol
+      timeout
     net-protocol (0.1.2)
       io-wait
       timeout
@@ -541,6 +545,7 @@ DEPENDENCIES
   mentionable (~> 0.2.1)
   meta-tags
   minitest-retry
+  net-pop
   net-smtp
   oauth2
   omniauth (~> 1.9.1)
