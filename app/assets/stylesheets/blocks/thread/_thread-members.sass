@@ -1,0 +1,21 @@
+.thread-members__title
+  +text-block(.8125rem 1.4)
+
+.thread-members__items
+  display: flex
+  margin-top: .5rem
+  gap: .75rem
+
+.thread-members__item
+  font-size: .875rem
+  .a-user-name
+    +text-block(1em 1.4, $default-text)
+
+.thread-members__user-icon-link
+  margin-right: .25em
+
+.thread-members__user-icon
+  +media-breakpoint-up(md)
+    +size(1.5rem)
+  +media-breakpoint-down(sm)
+    +size(1rem)
