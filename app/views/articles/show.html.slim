@@ -5,7 +5,10 @@
     .a-card
       .article__inner
         header.article__header
-          h1.article__title
+          h1.article__title(class="#{@article.wip? ? 'is-wip' : ''}")
+            - if @article.wip?
+              span.article__title-label
+                | WIP
             = title
           .article__metas
             .article__meta
@@ -14,7 +17,7 @@
                 = @article.user.login_name
             .article__meta
               .article__published-at
-                = l(@article.created_at)
+                = @article.wip? ? '執筆中' : l(@article.published_at)
         .article__body
           .js-markdown-view.is-long-text
             = @article.body
