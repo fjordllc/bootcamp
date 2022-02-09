@@ -512,6 +512,7 @@ DEPENDENCIES
   active_storage_validations
   acts-as-taggable-on (~> 7.0)
   acts_as_list
+  addressable
   any_login
   bootsnap (>= 1.4.4)
   bullet
