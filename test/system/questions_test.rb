@@ -247,22 +247,6 @@ class QuestionsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'Do not notify if create question as WIP' do
-    visit_with_auth '/notifications', 'komagata'
-    click_link '全て既読にする'
-
-    visit_with_auth new_question_path, 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: 'WIPtest')
-      fill_in('question[description]', with: 'WIPtest')
-    end
-    click_button 'WIP'
-    assert_text '質問をWIPとして保存しました。'
-
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問がありました。'
-  end
-
   test 'show WIP question' do
     user = users(:komagata)
     Question.create(title: 'WIPtest', description: 'WIPtest', user: user, wip: true)
@@ -281,68 +265,6 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text '質問文を入力してください'
   end
 
-  test 'Do not notify if update question as WIP' do
-    visit_with_auth '/notifications', 'komagata'
-    click_link '全て既読にする'
-
-    visit_with_auth new_question_path, 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: 'WIPtest')
-      fill_in('question[description]', with: 'WIPtest')
-    end
-    click_button 'WIP'
-    assert_text '質問をWIPとして保存しました。'
-
-    click_button '内容修正'
-    fill_in('question[description]', with: 'WIPtest update')
-    click_button 'WIP'
-    assert_text '質問を更新しました'
-
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問がありました。'
-  end
-
-  test 'notify if update question as WIP to published' do
-    visit_with_auth '/notifications', 'komagata'
-    click_link '全て既読にする'
-
-    visit_with_auth new_question_path, 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: 'WIPtest')
-      fill_in('question[description]', with: 'WIPtest')
-    end
-    click_button 'WIP'
-    assert_text '質問をWIPとして保存しました。'
-
-    click_button '内容修正'
-    fill_in('question[description]', with: 'WIPtest update')
-    click_button '質問を公開'
-    assert_text '質問を更新しました'
-
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_text 'kimuraさんから質問がありました。'
-  end
-
-  test 'notify if update question as WIP to published without modification' do
-    visit_with_auth '/notifications', 'komagata'
-    click_link '全て既読にする'
-
-    visit_with_auth new_question_path, 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: 'WIPtest')
-      fill_in('question[description]', with: 'WIPtest')
-    end
-    click_button 'WIP'
-    assert_text '質問をWIPとして保存しました。'
-
-    click_button '内容修正'
-    click_button '質問を公開'
-    assert_text '質問を更新しました'
-
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_text 'kimuraさんから質問がありました。'
-  end
-
   test 'update a question as wip to published' do
     question = questions(:question_for_wip__is_wip)
     visit_with_auth question_path(question), 'kimura'
@@ -357,9 +279,27 @@ class QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[description]', with: updated_question[:description]
       click_button '質問を公開'
     end
-
-    wait_for_vuejs # Vueが実行したREST APIがDBに反映されるのを待つ
+    wait_for_vuejs
     question.reload
     assert_text '未解決'
+  end
+
+  test 'update a question as published to wip' do
+    question = questions(:question_for_wip__already_published)
+    visit_with_auth question_path(question), 'kimura'
+    updated_question = {
+      title: 'テストの質問（修正）',
+      description: 'テストの質問です。（修正）'
+    }
+    wait_for_vuejs
+    click_button '内容修正'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: updated_question[:title]
+      fill_in 'question[description]', with: updated_question[:description]
+      click_button 'WIP'
+    end
+    wait_for_vuejs
+    question.reload
+    assert_text 'WIP'
   end
 end

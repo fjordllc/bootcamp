@@ -59,7 +59,10 @@
               span.a-meta__value
                 | {{ question.created_at }}
           .thread-list-item-meta__item(v-if='!question.wip')
-            time.a-meta(:datetime='question.datetime', pubdate='pubdate')
+            time.a-meta(
+              :datetime='question.updated_at.datetime',
+              pubdate='pubdate'
+            )
               span.a-meta__label
                 | 更新
               span.a-meta__value
