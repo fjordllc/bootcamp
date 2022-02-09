@@ -40,6 +40,7 @@ class Product < ApplicationRecord
 
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
+  scope :five_days_and_earlier, -> { where('published_at <= ?', 5.days.ago.to_s) }
   scope :list, lambda {
     with_avatar
       .preload(:practice,
