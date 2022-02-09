@@ -6,8 +6,10 @@
 = render 'page_tabs', resource: @practice
 
 .page-body
-  - if @practice.learning(current_user)&.complete?
-    = render '/products/completion_message', practice: @practice
+  //
+    [TODO]完了Tweetの正式リリース後にコメントを外す
+    - if @practice.learning(current_user)&.complete?
+      = render '/products/completion_message', practice: @practice
   .container.is-xl
     .practice-contents
       .practice-contents__inner

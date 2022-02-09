@@ -44,6 +44,8 @@ class PracticesTest < ApplicationSystemTestCase
     assert_includes current_url, 'https://twitter.com/intent/tweet'
   end
 
+  =begin
+  [TODO]完了Tweetの正式リリース後にコメントを外す
   test 'can see tweet button when current_user has completed a practice' do
     visit_with_auth "/practices/#{practices(:practice1).id}", 'kimura'
     assert_text '完了 Tweet する'
@@ -55,6 +57,7 @@ class PracticesTest < ApplicationSystemTestCase
     switch_to_window(windows.last)
     assert_includes current_url, 'https://twitter.com/intent/tweet'
   end
+  =end
 
   test "only show when user isn't admin " do
     visit_with_auth "/practices/#{practices(:practice1).id}/edit", 'yamada'
