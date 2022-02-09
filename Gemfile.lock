@@ -550,10 +550,7 @@ DEPENDENCIES
   mentionable (~> 0.2.1)
   meta-tags
   minitest-retry
-<<<<<<< HEAD
-=======
   net-imap
->>>>>>> 1f4319271 (ruby3.1からbundle gemになったnet-pop, net-imapを追加)
   net-pop
   net-smtp
   oauth2
