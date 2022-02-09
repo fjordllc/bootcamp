@@ -1,4 +1,4 @@
-- title "#{@user.name}さんの相談部屋"
+- title "#{@user.login_name}さんの相談部屋"
 
 header.page-header
   .container
@@ -10,23 +10,36 @@ header.page-header
   .container.is-lg
     .thread
       .thread__inner.a-card
-        header.thread-header.has-count
+        header.thread-header
           .thread-header__row
             h1.thread-header-title
               = title
         .thread__body
           .thread__description.is-long-text
             p
-              | ここは#{@user.name}さんと管理者のみが閲覧することのできる相談部屋です。
+              | ここは#{@user.login_name}さんと管理者のみが閲覧することのできる相談部屋です。
               | 就職に関することや受講に関することなど、何か相談したいことがある場合にお気軽にコメントをしてください。
-            p
-              | 相談部屋にアクセスできるメンバー
-            - @admins.each do |admin_user|
-              = link_to user_path(admin_user.id)
-                = image_tag admin_user.avatar_url
-              = link_to admin_user.login_name, user_path(admin_user.id)
-            = link_to user_path(@user.id)
-              = image_tag @user.avatar_url
-            = link_to @user.name, user_path(@user.id)
+        .thread-footer
+          .thread-footer__inner
+            .thread-members
+              h2.thread-members__title
+                | 相談部屋にアクセスできるメンバー
+              ul.thread-members__items
+                - @admins.each do |admin_user|
+                  li.thread-members__item
+                    = render 'users/icon',
+                      user: admin_user,
+                      link_class: 'thread-members__user-icon-link',
+                      image_class: 'thread-members__user-icon'
+                    = link_to user_path(admin_user.id), class: 'a-user-name' do
+                      = admin_user.login_name
+                - unless @user.admin?
+                  li.thread-members__item
+                    = render 'users/icon',
+                      user: @user,
+                      link_class: 'thread-members__user-icon-link',
+                      image_class: 'thread-members__user-icon'
+                    = link_to user_path(@user.id), class: 'a-user-name' do
+                      = @user.login_name
     a#comments.a-anchor
     #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
