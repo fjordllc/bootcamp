@@ -262,6 +262,10 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    net-imap (0.2.3)
+      digest
+      net-protocol
+      strscan
     net-pop (0.1.1)
       digest
       net-protocol
@@ -462,6 +466,7 @@ GEM
       unicode_utils (~> 1.4)
     strings-ansi (0.2.0)
     stripe (5.43.0)
+    strscan (3.0.1)
     temple (0.8.2)
     thor (1.2.1)
     tilt (2.0.10)
@@ -545,6 +550,10 @@ DEPENDENCIES
   mentionable (~> 0.2.1)
   meta-tags
   minitest-retry
+<<<<<<< HEAD
+=======
+  net-imap
+>>>>>>> 1f4319271 (ruby3.1からbundle gemになったnet-pop, net-imapを追加)
   net-pop
   net-smtp
   oauth2
