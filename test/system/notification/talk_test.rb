@@ -66,21 +66,28 @@ class Notification::TalkTest < ApplicationSystemTestCase
     end
   end
 
-  test 'The number of unreplied comments is displayed in the global navigation of the talks room' do
-    visit_with_auth '/', 'komagata'
-    within(:css, "a[href='/talks']") do
-      assert_selector '.global-nav__item-count.a-notification-count.is-only-mentor', count: 1
+  test 'The number of unreplied comments is displayed in the global navigation and unreplied tab of the talks room' do
+    visit_with_auth '/talks/unreplied', 'komagata'
+    within(:css, '.global-nav') do
+      within(:css, "a[href='/talks']") do
+        assert_selector '.global-nav__item-count.a-notification-count.is-only-mentor', count: 1
+      end
     end
+    assert_selector '.page-tabs__item-count.a-notification-count', count: 1
+
     talk_id = users(:with_hyphen).talk.id
     visit_with_auth "/talks/#{talk_id}", 'komagata'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
     click_button 'コメントする'
-    # refreshはブラウザをリロードするメソッド
-    refresh
-    within(:css, "a[href='/talks']") do
-      assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
+
+    visit '/talks/unreplied'
+    within(:css, '.global-nav') do
+      within(:css, "a[href='/talks'") do
+        assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
+      end
     end
+    assert_no_selector '.page-tabs__item-count.a-notification-count'
   end
 end
