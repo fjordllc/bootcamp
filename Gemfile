@@ -33,6 +33,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mentionable', '~> 0.2.1'
 gem 'meta-tags'
+gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
 gem 'oauth2'
 gem 'omniauth', '~> 1.9.1'
