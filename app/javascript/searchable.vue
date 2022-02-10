@@ -64,7 +64,7 @@ export default {
       )
     },
     canDisplayTalk() {
-      if ((this.searchable.model_name === 'user' && this.searchable.talk_id) && this.searchable.admin || this.searchable.current_user) {
+      if (this.searchable.model_name === 'user' && this.searchable.talk_id && this.searchable.display_talk) {
         return true
       } else {
         return false
