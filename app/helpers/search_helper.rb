@@ -41,7 +41,7 @@ module SearchHelper
   end
 
   def talk?(searchable)
-    searchable.instance_of?(User) && Talk.find_by(user_id: searchable.id) ? true : false
+    searchable.instance_of?(User) && Talk.find_by(user_id: searchable.id)
   end
 
   def talk_id(searchable)
