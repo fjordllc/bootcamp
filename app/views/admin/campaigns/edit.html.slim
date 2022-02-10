@@ -8,12 +8,18 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to admin_campaigns_path, class: 'a-button is-md is-secondary is-block' do
+            = link_to admin_campaigns_path, class: 'a-button is-md is-secondary is-block is-back' do
               | お試し延長一覧
 
 .page-tools
   = render 'admin/admin_page_tabs'
 
-.page-body
-  .container
-    = render 'form', campaign: @campaign
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        h1.page-main-header__title
+          | お試し延長編集
+  .page-body
+    .container.is-lg
+      = render 'form', campaign: @campaign

@@ -7,7 +7,7 @@ class CampaignsTest < ApplicationSystemTestCase
 
   test 'show link new campaign' do
     visit_with_auth admin_campaigns_path, 'komagata'
-    assert_link 'お試し期間延長 作成'
+    assert_link 'お試し延長作成'
   end
 
   test 'not visit except admin' do
