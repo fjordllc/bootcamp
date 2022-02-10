@@ -10,10 +10,7 @@
         th.admin-table__label.actions
           | 操作
     tbody.admin-table__items
-      tr.admin-table__item(
-        v-for='category in categories',
-        :key='category.id'
-      )
+      tr.admin-table__item(v-for='category in categories', :key='category.id')
         td.admin-table__item-value
           | {{ category.name }}
         td.admin-table__item-value
