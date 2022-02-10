@@ -353,48 +353,6 @@ class ProductsTest < ApplicationSystemTestCase
     assert_not page.has_css?('.pagination')
   end
 
-  test 'be person on charge at comment on product of there are not person on charge' do
-    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'machida'
-    def assigned_product_count
-      text[/自分の担当 （(\d+)）/, 1].to_i
-    end
-
-    before_comment = assigned_product_count
-
-    [
-      '担当者がいない提出物の場合、担当者になる',
-      '自分が担当者の場合、担当者のまま'
-    ].each do |comment|
-      visit "/products/#{products(:product1).id}"
-      post_comment(comment)
-
-      visit '/products/unchecked?target=unchecked_no_replied'
-      assert_equal before_comment + 1, assigned_product_count
-    end
-  end
-
-  test 'be not person on charge at comment on product of there are person on charge' do
-    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
-    product = find('.thread-list-item', match: :first)
-    product.click_button '担当する'
-    show_product_path = product.find_link(href: /products/)[:href]
-    logout
-
-    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'machida'
-
-    def assigned_product_count
-      text[/自分の担当 （(\d+)）/, 1].to_i
-    end
-
-    before_comment = assigned_product_count
-
-    visit show_product_path
-    post_comment('担当者がいる提出物の場合、担当者にならない')
-
-    visit '/products/unchecked?target=unchecked_no_replied'
-    assert_equal before_comment, assigned_product_count
-  end
-
   test 'show user full_name next to user login_name' do
     visit_with_auth "/products/#{products(:product1).id}", 'kimura'
     assert_text 'yamada (Yamada Taro)'
