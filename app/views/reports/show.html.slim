@@ -171,7 +171,7 @@ header.page-header
         - else
           #js-reports(data-user-id="#{@report.user.id}" data-limit="10")
 
-- if params[:notify_help].eql?('true')
+- if flash[:notify_help]
     = render '/shared/modal', id: 'modal-notify-help', title: '🍵 今日も学習お疲れ様でした！', auto_show: true
       .modal__description.is-md
         .a-long-text
