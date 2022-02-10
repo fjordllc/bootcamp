@@ -56,7 +56,7 @@ Rails.application.routes.draw do
     namespace :products do
       resources :unchecked, only: %i(index)
       resources :unassigned, only: %i(index) do
-        get 'text', on: :collection
+        get 'counts', on: :collection
       end
       resources :self_assigned, only: %i(index)
       resource :checker, only: %i(update), controller: 'checker'
