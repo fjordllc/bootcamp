@@ -36,6 +36,8 @@
                   | {{ searchable.document_author_login_name }}
                 | &nbsp;{{ searchable.model_name_with_i18n }}
                 | ）
+            a(v-if='canDisplayTalk', :href='talkUrl')
+              | 相談部屋
 </template>
 <script>
 import dayjs from 'dayjs'
@@ -60,6 +62,16 @@ export default {
       return dayjs(this.searchable.updated_at).format(
         'YYYY年MM月DD日(dd) HH:mm'
       )
+    },
+    canDisplayTalk() {
+      if ((this.searchable.model_name === 'user' && this.searchable.talk_id) && this.searchable.admin || this.searchable.current_user) {
+        return true
+      } else {
+        return false
+      }
+    },
+    talkUrl() {
+      return `/talks/${this.searchable.talk_id}`
     },
     summary() {
       const word = this.word
