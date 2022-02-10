@@ -35,6 +35,7 @@ class Practice < ApplicationRecord
   has_many :categories_practices, dependent: :destroy
   has_many :categories, through: :categories_practices
   has_many :reference_books, inverse_of: :practice, dependent: :destroy
+  has_one_attached :ogp_image
   accepts_nested_attributes_for :reference_books, reject_if: :all_blank, allow_destroy: true
 
   validates :title, presence: true
@@ -147,6 +148,13 @@ class Practice < ApplicationRecord
 
   def category(course)
     Category.category(practice: self, course: course) || categories.first || Category.first
+  end
+
+  def tweet_url(practice_completion_url)
+    completion_text = "プラクティス「#{title}」を修了しました🎉"
+    # ref: https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/guides/web-intent
+    tweet_param = URI.encode_www_form(text: completion_text, url: practice_completion_url, hashtags: 'fjordbootcamp')
+    "https://twitter.com/intent/tweet?#{tweet_param}"
   end
 
   private

@@ -15,7 +15,8 @@ header.page-header
               i.fas.fa-plus
               | 日報作成
 
-= render 'page_tabs', user: current_user
+.page-tools
+  = render 'page_tabs', user: current_user
 
 .page-body
   - if @events_coming_soon.present? && current_user.job_seeker
