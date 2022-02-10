@@ -55,8 +55,9 @@ Rails.application.routes.draw do
     resources :followings, only: %i(create update destroy)
     namespace :products do
       resources :unchecked, only: %i(index)
-      resources :unassigned, only: %i(index)
-      resource :unassigned_text, only: %i(show), controller: 'unassigned_text'
+      resources :unassigned, only: %i(index) do
+        get 'text', on: :collection
+      end
       resources :self_assigned, only: %i(index)
       resource :checker, only: %i(update), controller: 'checker'
       resource :passed, only: %i(show), controller: 'passed'
