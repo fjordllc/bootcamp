@@ -25,6 +25,7 @@ class Question < ApplicationRecord
   scope :solved, -> { where(id: CorrectAnswer.pluck(:question_id)) }
   scope :not_solved, -> { where.not(id: CorrectAnswer.pluck(:question_id)) }
   scope :wip, -> { where(wip: true) }
+  scope :not_wip, -> { where(wip: false) }
 
   columns_for_keyword_search :title, :description
 
