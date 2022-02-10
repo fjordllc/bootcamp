@@ -64,11 +64,7 @@ export default {
       )
     },
     canDisplayTalk() {
-      if (this.searchable.model_name === 'user' && this.searchable.talk_id && this.searchable.display_talk) {
-        return true
-      } else {
-        return false
-      }
+      return this.searchable.model_name === 'user' && this.searchable.talk_id
     },
     talkUrl() {
       return `/talks/${this.searchable.talk_id}`
