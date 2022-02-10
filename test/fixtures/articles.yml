@@ -17,3 +17,10 @@ article3:
   body: 本文３
   user: komagata
   wip: true
+
+# published_at=nilかつwip=false
+article4:
+  title: タイトル４
+  body: 本文４
+  user: komagata
+  wip: false
