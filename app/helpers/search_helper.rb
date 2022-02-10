@@ -40,7 +40,7 @@ module SearchHelper
     searchable.is_a?(Comment) || searchable.is_a?(Answer)
   end
 
-  def has_talk?(searchable)
+  def talk?(searchable)
     searchable.instance_of?(User) && Talk.find_by(user_id: searchable.id) ? true : false
   end
 
