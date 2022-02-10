@@ -237,13 +237,7 @@ class CommentsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     find('#comments.loaded', wait: 10)
     first(:css, '.thread-comment__created-at').click
-    # 参考：https://gist.github.com/ParamagicDev/5fe937ee60695ff1d227f18fe4b1d5c4
-    page.driver.browser.execute_cdp(
-      'Browser.setPermission',
-      { origin: page.server_url, permission: { name: 'clipboard-read' }, setting: 'granted' }
-    )
-    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
-    assert_equal current_url + "#comment_#{comments(:comment1).id}", clip_text
+    assert_equal current_url + "#comment_#{comments(:comment1).id}", Clipboard.paste
   end
 
   test 'suggest mention to mentor' do
