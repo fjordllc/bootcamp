@@ -57,7 +57,7 @@ gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'upda
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'clipboard'
-  gem 'ffi', :platforms => [:mswin, :mingw]
+  gem 'ffi', platforms: %i[mswin mingw]
 
   # not default
   gem 'dead_end'
