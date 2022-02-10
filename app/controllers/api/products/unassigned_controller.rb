@@ -22,6 +22,5 @@ class API::Products::UnassignedController < API::BaseController
     @passed5 = products.count { |product| product.elapsed_days == 5 }
     @passed6 = products.count { |product| product.elapsed_days == 6 }
     @over7 = products.count { |product| product.elapsed_days >= 7 }
-    render 'counts.txt'
   end
 end
