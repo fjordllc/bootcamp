@@ -17,9 +17,6 @@ end
 if has_talk?(searchable)
   json.talk_id talk_id(searchable)
 end
-if current_user.admin?
-  json.admin true
-end
-if current_user.id == searchable.id
-  json.current_user true
+if display_talk?(searchable)
+  json.display_talk true
 end
