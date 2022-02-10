@@ -9,6 +9,7 @@ class PracticesController < ApplicationController
 
   def show
     @categories = @practice.categories
+    @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
   end
 
   def new
@@ -47,6 +48,7 @@ class PracticesController < ApplicationController
       :submission,
       :open_product,
       :include_progress,
+      :ogp_image,
       :memo,
       category_ids: [],
       reference_books_attributes: %i[id title price page_url must_read cover description _destroy]

@@ -10,8 +10,9 @@
         i.fas.fa-check
         | 完了しています
     li.card-main-actions__item(v-else)
-      button#js-complete.a-button.is-md.is-warning.is-block(
-        @click='pushComplete'
+      label#js-complete.a-button.is-md.is-warning.is-block(
+        @click='pushComplete',
+        for='modal-learning_completion'
       )
         i.fas.fa-check
         | 完了

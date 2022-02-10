@@ -1,0 +1,28 @@
+doctype html
+html.is-application lang='ja'
+  head
+    = render 'google_tag_manager_head'
+    meta content='IE=edge' http-equiv='X-UA-Compatible'
+    meta name='robots' content='noindex'
+    = display_meta_tags default_meta_tags
+    = javascript_include_tag 'application'
+    = javascript_pack_tag 'application'
+    = csrf_meta_tags
+    = render 'pwa'
+    = render 'favicons'
+    = render 'rollbar' if Rails.env.production?
+    link(rel='manifest' href='/manifest.json')
+    = stylesheet_link_tag 'completion', media: 'all'
+    link(rel='canonical' href='https://bootcamp.fjord.jp/')
+    = stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/yakuhanjp@3.2.0/dist/css/yakuhanjp-narrow.min.css', media: 'all'
+    = render '/head/fontawsome'
+    = content_for(:head_last) if content_for?(:head_last)
+  body.is-completion
+    = render 'google_tag_manager_body'
+    = render 'flash'
+    .completion-wrapper
+      .completion-wrapper__start
+        .welcome-page
+          = yield
+      .completion-wrapper__end
+        = render 'welcome/welcome_footer'

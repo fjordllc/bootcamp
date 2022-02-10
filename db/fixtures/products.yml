@@ -119,3 +119,8 @@ product62:
   user: take8
   body: テストの提出物62です。
   published_at: <%= (now - 60 * 60 * 24 * 10).to_s(:db) %>
+
+product63:
+  practice: practice6
+  user: kimura
+  body: プラクティス完了メッセージ未表示の提出物です。

@@ -1,0 +1,29 @@
+.a-completion-message
+  background-color: $info
+  +padding(vertical, .75rem)
+  &:not(:last-child)
+    margin-bottom: 1.25rem
+
+.a-completion-message__inner
+  +media-breakpoint-up(md)
+    display: flex
+    justify-content: center
+    align-items: center
+
+.a-completion-message__title
+  +text-block(1em 1.45, center $reversal-text 600)
+  +media-breakpoint-up(md)
+    font-size: 1rem
+  +media-breakpoint-down(sm)
+    font-size: .8125rem
+
+.a-completion-message__actions-item
+  +media-breakpoint-up(md)
+    width: 10rem
+  +media-breakpoint-down(sm)
+
+.a-completion-message__inner-end
+  +media-breakpoint-up(md)
+    margin-left: 1rem
+  +media-breakpoint-down(sm)
+    margin-top: .75rem

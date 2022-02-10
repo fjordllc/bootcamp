@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     resources :questions, only: %i(index), controller: "practices/questions"
     resources :products, only: %i(index), controller: "practices/products"
     resources :pages, only: %i(index), controller: "practices/pages"
+    resource :completion, only: %i(show), controller: "practices/completion"
   end
   resources :pages, param: :slug_or_id
   resources :notifications, only: %i(index show) do
