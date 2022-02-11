@@ -51,7 +51,11 @@
       footer.card-footer
         .card-main-actions
           ul.card-main-actions__items
-            li.card-main-actions__item(v-if='currentUser.id != user.id')
+            li.card-main-actions__item(
+              v-if='currentUser.id != user.id && currentUser.adviser == true && user.company && currentUser.company_id == user.company.id'
+            )
+              | 自社研修生
+            li.card-main-actions__item(v-else-if='currentUser.id != user.id')
               following(
                 :isFollowing='user.isFollowing',
                 :userId='user.id',
