@@ -304,8 +304,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'show users trainees for adviser' do
-    visit_with_auth "/users?target=trainee", 'senpai'
+    visit_with_auth '/users?target=trainee', 'senpai'
     assert_text '自社研修生'
   end
-
 end
