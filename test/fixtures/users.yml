@@ -77,8 +77,8 @@ sotugyou_with_job:
   email: sotugyouwithjob@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  name: 卒業 仕事し太郎
-  name_kana: ソツギョウ シゴトシタロウ
+  name: 卒業 就職済美
+  name_kana: ソツギョウ シュウショクズミ
   twitter_account: sotugyou_with_job
   facebook_url: http://www.facebook.com/sotugyou_with_job
   blog_url: http://sotugyou_with_job.example.com/
