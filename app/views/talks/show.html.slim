@@ -50,4 +50,4 @@ header.page-header
             .user-info
               = render 'users/user_secret_attributes', user: @user
               = render 'users/metas', user: @user
-            #js-user-mentor-memo(data-user-id="#{@user}" data-products-mode="#{true}")
+            #js-user-mentor-memo(data-user-id="#{@user.id}" data-products-mode="#{true}")
