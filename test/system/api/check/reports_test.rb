@@ -48,4 +48,24 @@ class Check::ReportsTest < ApplicationSystemTestCase
     assert_text '確認済'
     assert_text '日報でcomment+確認OKにするtest'
   end
+
+  test 'comment and check report by mentor' do
+    visit_with_auth "/reports/#{reports(:report20).id}", 'yamada'
+    fill_in 'new_comment[description]', with: '日報でcomment+確認OKにするtest'
+    page.accept_confirm do
+      click_on '確認OKにする'
+    end
+    assert_text '確認済'
+    assert_text '日報でcomment+確認OKにするtest'
+  end
+
+  test 'comment and check report by admin' do
+    visit_with_auth "/reports/#{reports(:report20).id}", 'adminonly'
+    fill_in 'new_comment[description]', with: '日報でcomment+確認OKにするtest'
+    page.accept_confirm do
+      click_on '確認OKにする'
+    end
+    assert_text '確認済'
+    assert_text '日報でcomment+確認OKにするtest'
+  end
 end
