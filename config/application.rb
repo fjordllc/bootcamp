@@ -29,6 +29,7 @@ module Bootcamp
 
     config.active_storage.resolve_model_to_route = :rails_storage_proxy
 
+    config.rack_dev_mark.enable = !Rails.env.production?
     config.rack_dev_mark.theme = [:title, Rack::DevMark::Theme::GithubForkRibbon.new(position: 'right-bottom')]
   end
 end
