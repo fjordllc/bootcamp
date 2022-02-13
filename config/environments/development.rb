@@ -85,4 +85,7 @@ Rails.application.configure do
      Bullet.add_footer = true
      Bullet.bullet_logger = true
    end
+
+  config.rack_dev_mark.enable = true
+  config.rack_dev_mark.theme = [:title, Rack::DevMark::Theme::GithubForkRibbon.new(position: 'right-bottom')]
 end
