@@ -36,8 +36,8 @@ header.page-header
     a#comments.a-anchor
     #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
 
-  .is-only-mentor(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")
-    - if current_user.mentor? || current_user.admin?
+  .is-only-mentor(class="#{current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")
+    - if current_user.admin?
       .side-tabs
         input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
         .side-tabs-nav
