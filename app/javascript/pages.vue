@@ -77,6 +77,7 @@ export default {
       history.pushState(null, null, this.newURL)
       this.pages = null
       this.getPages()
+      window.scrollTo(0, 0)
     },
     getPages() {
       fetch(this.pagesAPI, {
