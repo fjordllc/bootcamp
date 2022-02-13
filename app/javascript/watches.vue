@@ -88,6 +88,7 @@ export default {
       this.currentPage = pageNum
       history.pushState(null, null, this.newURL)
       this.getWatches()
+      window.scrollTo(0, 0)
     },
     async getWatches() {
       const response = await fetch(this.watchesAPI, {
