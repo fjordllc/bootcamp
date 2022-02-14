@@ -1,8 +1,8 @@
 <template lang="pug">
 .page-body
-  .container(v-if='!loaded')
-    | ロード中
-  .container.is-md(v-else-if='talks.length === 0')
+  .container.is-md(v-if='!loaded')
+    loadingListPlaceholder
+  .container(v-else-if='talks.length === 0')
     | 未返信の相談部屋はありません
   .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
@@ -19,11 +19,13 @@
 </template>
 <script>
 import Talk from './talk.vue'
+import LoadingListPlaceholder from './loading-list-placeholder.vue'
 import Pager from './pager.vue'
 
 export default {
   components: {
     talk: Talk,
+    loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager
   },
   data() {
