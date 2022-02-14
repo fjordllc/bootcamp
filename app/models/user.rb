@@ -47,20 +47,20 @@ class User < ApplicationRecord
   belongs_to :course
   has_many :learnings, dependent: :destroy
   has_many :pages, dependent: :destroy
-  has_many :comments,      dependent: :destroy
-  has_many :reports,       dependent: :destroy
-  has_many :checks,        dependent: :destroy
-  has_many :footprints,    dependent: :destroy
-  has_many :images,        dependent: :destroy
-  has_many :products,      dependent: :destroy
-  has_many :questions,     dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :reports, dependent: :destroy
+  has_many :checks, dependent: :destroy
+  has_many :footprints, dependent: :destroy
+  has_many :images, dependent: :destroy
+  has_many :products, dependent: :destroy
+  has_many :questions, dependent: :destroy
   has_many :announcements, dependent: :destroy
-  has_many :reactions,     dependent: :destroy
-  has_many :works,         dependent: :destroy
+  has_many :reactions, dependent: :destroy
+  has_many :works, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :events,        dependent: :destroy
+  has_many :events, dependent: :destroy
   has_many :participations, dependent: :destroy
-  has_many :answers,      dependent: :destroy
+  has_many :answers, dependent: :destroy
   has_many :watches, dependent: :destroy
   has_many :articles, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
@@ -139,16 +139,6 @@ class User < ApplicationRecord
             }
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
-
-  with_options if: -> { validation_context != :retirement } do
-  validates :discord_account,
-            format: {
-              allow_blank: true,
-              with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
-              message: 'は「ユーザー名#４桁の数字」で入力してください'
-            }
-  end
-
   validates :times_url,
             format: {
               allow_blank: true,
@@ -159,25 +149,25 @@ class User < ApplicationRecord
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
 
   validates :avatar, attached: false,
-                     content_type: {
-                       in: %w[image/png image/jpg image/jpeg image/gif],
-                       message: 'はPNG, JPG, GIF形式にしてください'
-                     }
+            content_type: {
+              in: %w[image/png image/jpg image/jpeg image/gif],
+              message: 'はPNG, JPG, GIF形式にしてください'
+            }
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
-                           format: {
-                             with: /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i,
-                             message: 'は半角英数字と-（ハイフン）のみが使用できます 先頭と最後にハイフンを使用することはできません ハイフンを連続して使用することはできません'
-                           }
+              format: {
+                with: /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i,
+                message: 'は半角英数字と-（ハイフン）のみが使用できます 先頭と最後にハイフンを使用することはできません ハイフンを連続して使用することはできません'
+              }
   end
 
   with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
-    validates :name_kana,  presence: true,
-                           format: {
-                             with: /\A[\p{katakana}\p{blank}ー－]+\z/,
-                             message: 'はスペースとカタカナのみが使用できます'
-                           }
+    validates :name_kana, presence: true,
+              format: {
+                with: /\A[\p{katakana}\p{blank}ー－]+\z/,
+                message: 'はスペースとカタカナのみが使用できます'
+              }
   end
 
   with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
@@ -188,6 +178,15 @@ class User < ApplicationRecord
 
   with_options if: -> { validation_context == :retirement } do
     validates :satisfaction, presence: true
+  end
+
+  with_options if: -> { validation_context != :retirement } do
+    validates :discord_account,
+              format: {
+                allow_blank: true,
+                with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
+                message: 'は「ユーザー名#４桁の数字」で入力してください'
+              }
   end
 
   flag :retire_reasons, %i[
