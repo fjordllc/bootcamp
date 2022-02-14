@@ -5,8 +5,8 @@ require 'application_system_test_case'
 class Notification::ReportsTest < ApplicationSystemTestCase
   test 'the first daily report notification is sent only to current students and mentors' do
     report = users(:muryou).reports.create!(
-      title: 'test title',
-      description: 'test',
+      title: '初日報です',
+      description: '初日報の内容です',
       reported_on: Date.current
     )
 
@@ -20,16 +20,20 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
 
     notification_message = 'muryouさんがはじめての日報を書きました！'
-    visit_with_auth '/notifications', 'komagata'
+    visit_with_auth '/notifications', 'machida'
+    find('#notifications.loaded', wait: 10)
     assert_text notification_message
 
     visit_with_auth '/notifications', 'kimura'
+    find('#notifications.loaded', wait: 10)
     assert_text notification_message
 
     visit_with_auth '/notifications', 'advijirou'
+    find('#notifications.loaded', wait: 10)
     assert_no_text notification_message
 
     visit_with_auth '/notifications', 'sotugyou'
+    find('#notifications.loaded', wait: 10)
     assert_no_text notification_message
   end
 

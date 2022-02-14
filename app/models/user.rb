@@ -459,6 +459,10 @@ class User < ApplicationRecord
     !admin? && !adviser? && !mentor? && !trainee?
   end
 
+  def current_student?
+    !admin? && !adviser? && !mentor? && !graduated? && !retired?
+  end
+
   def staff?
     admin? || mentor? || adviser?
   end
