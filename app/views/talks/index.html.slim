@@ -11,51 +11,6 @@ header.page-header
 .page-tools
 = render 'talks/nav'
 
-- @users_talk.each do |talk|
-  .page-body
-    .container
-      .users
-        .row.is-gutter-width-32
-          .col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
-            .users-item
-              .users-item__inner.a-card
-                header.users-item__header
-                  .users-item__header-container
-                    .users-item__name
-                      = link_to talk_path(id: talk.id), class: 'users-item__name-link' do
-                        - if talk.user.daimyo?
-                          | ★
-                        = talk.user.login_name
-                    ul.users-item-names
-                      li.users-item-names__item
-                        .users-item-names__ful-name
-                          = talk.user.name
-                        - if talk.user.company.present? && talk.user.company.logo.attached?
-                          = link_to company_path(talk.user.company) do
-                            = image_tag talk.user.company.logo_url, class: 'user-item__company-logo'
-                      li.users-item-names__item
-                        .users-item-names__chat
-                          .users-item-names__chat-label
-                            i.fab.fa-discord
-                          - if talk.user.times_url?
-                            = link_to talk.user.times_url, class: 'users-item-names__chat-value' do
-                              = talk.user.discord_account.presence || 'Discord未設定'
-                          - else
-                            span.users-item-names__chat-value
-                              = talk.user.discord_account.presence || 'Discord未設定'
-                    - if admin_or_mentor_login? && talk.user.student_or_trainee?
-                      = render 'users/user_secret_attributes', user: talk.user
-                    .users-item__icon
-                      = render 'users/icon',
-                              user: talk.user,
-                              image_class: 'users-item__user-icon-image'
-                  = render 'users/sns', user: talk.user
-                .users-item__body
-                  .users-item__description.a-short-text
-                    = simple_format h truncate talk.user.description, length: 200
-
-/ ここの#js-talks以外の部分は、talksコントローラでできているから、
-/ talks contorollerが必要なのかも。
 .page-body
   .container.is-md
     #js-talks
