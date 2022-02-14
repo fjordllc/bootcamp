@@ -139,12 +139,16 @@ class User < ApplicationRecord
             }
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
+
+  with_options if: -> { validation_context != :retirement } do
   validates :discord_account,
             format: {
               allow_blank: true,
               with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
               message: 'は「ユーザー名#４桁の数字」で入力してください'
             }
+  end
+
   validates :times_url,
             format: {
               allow_blank: true,
