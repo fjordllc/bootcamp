@@ -272,14 +272,12 @@ class QuestionsTest < ApplicationSystemTestCase
       title: 'テストの質問（修正）',
       description: 'テストの質問です。（修正）'
     }
-    wait_for_vuejs
     click_button '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: updated_question[:title]
       fill_in 'question[description]', with: updated_question[:description]
       click_button '質問を公開'
     end
-    wait_for_vuejs
     question.reload
     assert_text '未解決'
   end
@@ -291,14 +289,12 @@ class QuestionsTest < ApplicationSystemTestCase
       title: 'テストの質問（修正）',
       description: 'テストの質問です。（修正）'
     }
-    wait_for_vuejs
     click_button '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: updated_question[:title]
       fill_in 'question[description]', with: updated_question[:description]
       click_button 'WIP'
     end
-    wait_for_vuejs
     question.reload
     assert_text 'WIP'
   end
