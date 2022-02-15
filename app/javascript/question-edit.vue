@@ -14,11 +14,8 @@
         .thread-header-metas
           .thread-header-metas__start
             .thread-header-metas__meta(v-if='question.wip')
-              .thread-header__wip
-                | WIP
-            .thread-header-metas__meta(v-if='question.wip')
               .a-meta
-                span.a-meta__label
+                span.a-meta__value
                   | 質問作成中
             .thread-header-metas__meta
               a.a-user-name(:href='`/users/${question.user.id}`')
