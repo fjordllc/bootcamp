@@ -5,3 +5,4 @@ json.talks do
 end
 
 json.target t("target.#{@target}")
+json.totalPages @users_talk.total_pages
