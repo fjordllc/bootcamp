@@ -17,14 +17,14 @@ class TalksTest < ApplicationSystemTestCase
     visited_user = users(:hatsuno)
     visit_user = users(:mentormentaro)
     visit_with_auth talk_path(visited_user.talk), 'mentormentaro'
-    assert_no_text "#{visited_user.name}さんの相談部屋"
-    assert_text "#{visit_user.name}さんの相談部屋"
+    assert_no_text "#{visited_user.login_name}さんの相談部屋"
+    assert_text "#{visit_user.login_name}さんの相談部屋"
   end
 
   test 'admin can access users talk page' do
     visited_user = users(:hatsuno)
     visit_with_auth talk_path(visited_user.talk), 'komagata'
-    assert_text "#{visited_user.name}さんの相談部屋"
+    assert_text "#{visited_user.login_name}さんの相談部屋"
   end
 
   test 'a talk room is shown up on unreplied tab when users except admin comments there' do
