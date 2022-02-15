@@ -1,6 +1,6 @@
 nav.tab-nav
   .container.is-padding-horizontal-0-sm-down
     ul.tab-nav__items
-      - TalksController::TARGETS.each do |target|
+      - API::TalksController::TARGETS.each do |target|
         li.tab-nav__item
         = link_to t("target.#{target}"), talks_path(target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
