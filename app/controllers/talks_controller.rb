@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TalksController < ApplicationController
-  TARGETS = %w[student_and_trainee graduate adviser mentor trainee retired all].freeze
+  TARGETS = %w[student_and_trainee mentor graduate adviser trainee retired all].freeze
   before_action :set_talk, only: %i[show]
   before_action :set_user, only: %i[show]
   before_action :require_admin_login, only: %i[index]
