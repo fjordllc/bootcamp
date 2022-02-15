@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::TalksController < API::BaseController
-  TARGETS = %w[student_and_trainee graduate adviser mentor trainee retired all].freeze
+  TARGETS = %w[student_and_trainee mentor graduate adviser trainee retired all].freeze
   PAGER_NUMBER = 20
 
   def index
