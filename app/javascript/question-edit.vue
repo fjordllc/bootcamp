@@ -21,14 +21,20 @@
               a.a-user-name(:href='`/users/${question.user.id}`')
                 | {{ question.user.long_name }}
             .thread-header-metas__meta(v-if='!question.wip')
-              time.a-meta(:datetime='publishedAtISO8601', pubdate='pubdate')(
+              time.a-meta(
+                :datetime='question.published_at_date_time',
+                pubdate='pubdate'
+              )(
                 v-if='question.published_at'
               )
                 span.a-meta__label
                   | 公開
                 span.a-meta__value
                   | {{ publishedAt }}
-              time.a-meta(:datetime='createdAtISO8601', pubdate='pubdate')(
+              time.a-meta(
+                :datetime='question.created_at_date_time',
+                pubdate='pubdate'
+              )(
                 v-else
               )
                 span.a-meta__label
@@ -40,7 +46,7 @@
                 span.a-meta__label
                   | 更新
                 time.thread_header_date-value(
-                  :datetime='updatedAtISO8601',
+                  :datetime='question.updated_at_date_time',
                   pubdate='pubdate'
                 )
                   | {{ updatedAt }}
@@ -263,20 +269,11 @@ export default {
     }
   },
   computed: {
-    updatedAtISO8601() {
-      return dayjs(this.question.updated_at).format()
-    },
     updatedAt() {
       return dayjs(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
-    createdAtISO8601() {
-      return dayjs(this.question.created_at).format()
-    },
     createdAt() {
       return dayjs(this.question.created_at).format('YYYY年MM月DD日(dd) HH:mm')
-    },
-    publishedAtISO8601() {
-      return dayjs(this.question.published_at).format()
     },
     publishedAt() {
       return dayjs(this.question.published_at).format(

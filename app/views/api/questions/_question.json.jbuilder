@@ -5,11 +5,8 @@ json.has_correct_answer question.correct_answer.present?
 json.wip question.wip?
 json.created_at l(question.created_at)
 json.created_at_date_time question.created_at.to_datetime
-
-json.updated_at do
-  json.datetime question.updated_at.to_datetime
-  json.locale l(question.updated_at)
-end
+json.updated_at l(question.updated_at)
+json.updated_at_date_time question.updated_at.to_datetime
 
 if question.published_at.present?
   json.published_at l(question.published_at)

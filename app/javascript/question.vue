@@ -60,13 +60,13 @@
                 | {{ question.created_at }}
           .thread-list-item-meta__item(v-if='!question.wip')
             time.a-meta(
-              :datetime='question.updated_at.datetime',
+              :datetime='question.updated_at_date_time',
               pubdate='pubdate'
             )
               span.a-meta__label
                 | 更新
               span.a-meta__value
-                | {{ question.updated_at.locale }}
+                | {{ question.updated_at }}
           .thread-list-item-meta__item(v-if='question.answers.size > 0')
             .thread-list-item-comment
               .thread-list-item-comment__label
