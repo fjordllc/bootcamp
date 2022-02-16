@@ -25,6 +25,12 @@ class Campaign < ApplicationRecord
     recently_campaign.cover?(Time.current)
   end
 
+  def self.current_title
+    return if !today_is_campaign?
+
+    Campaign.order(end_at: :desc).first.title
+  end
+
   private
 
   def end_at_be_greater_than_start_at
