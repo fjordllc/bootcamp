@@ -9,7 +9,6 @@ class TalksController < ApplicationController
   def index
     @target = params[:target]
     @target = 'student_and_trainee' unless API::TalksController::TARGETS.include?(@target)
-    @users_talk = Talk.joins(:user).merge(User.users_role(@target))
   end
 
   def show; end
