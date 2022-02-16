@@ -120,7 +120,7 @@ class CampaignsTest < ApplicationSystemTestCase
     end
 
     visit welcome_path
-    assert_text "通常 3日間 のお試し期間が"
+    assert_text '通常 3日間 のお試し期間が'
     assert_text "#{trial_period}日間 となります。"
     assert_text "#{trial_period}日以内に退会すれば受講料はかかりません。"
 
