@@ -2,8 +2,9 @@
 
 class Admin::CampaignsController < AdminController
   before_action :set_campaign, only: %i[edit update]
+
   def new
-    @campaign = Campaign.new(start_at: Time.current.beginning_of_day)
+    @campaign = Campaign.new(start_at: Time.current.beginning_of_day, trial_period: 4)
   end
 
   def create
@@ -36,6 +37,6 @@ class Admin::CampaignsController < AdminController
   end
 
   def campaign_params
-    params.require(:campaign).permit(:start_at, :end_at, :title)
+    params.require(:campaign).permit(:start_at, :end_at, :title, :trial_period)
   end
 end

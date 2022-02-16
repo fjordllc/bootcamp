@@ -1,8 +1,10 @@
+- trial_period = Campaign.trial_period
+
 .form-notice
   p
     | クレジットカード登録日を含む
-    = Campaign.today_campaign? ? '7日間' : '3日間'
-    | はお試し期間です。お試し期間の間に退会をすれば課金されることはありません
+    = trial_period
+    | 日間はお試し期間です。お試し期間の間に退会をすれば課金されることはありません
     - if current_user
       | （#{link_to '退会はこちらから', new_retirement_path}）。
   p
