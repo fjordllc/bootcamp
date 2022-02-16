@@ -283,14 +283,14 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'show Students' do
-    visit_with_auth "/users/#{users(:kensyu).id}", 'yamada'
+    visit_with_auth "/users/#{users(:kensyu).id}", 'hatsuno'
     assert_no_text '自社研修生'
     assert_text 'フォローする'
     assert_no_text '登録情報変更'
   end
 
   test 'show no trainees for adviser' do
-    visit_with_auth "/users/#{users(:yamada).id}", 'senpai'
+    visit_with_auth "/users/#{users(:hatsuno).id}", 'senpai'
     assert_no_text '自社研修生'
     assert_text 'フォローする'
     assert_no_text '登録情報変更'
