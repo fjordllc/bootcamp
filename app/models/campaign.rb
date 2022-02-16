@@ -26,7 +26,7 @@ class Campaign < ApplicationRecord
   end
 
   def self.current_title
-    return if !today_is_campaign?
+    return unless today_is_campaign?
 
     Campaign.order(end_at: :desc).first.title
   end
