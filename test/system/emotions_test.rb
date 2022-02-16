@@ -21,6 +21,7 @@ class EmotionsTest < ApplicationSystemTestCase
     assert_text '日報を保存しました。'
     assert_selector 'img#happy'
   end
+
   test 'create a report with the sad emotion' do
     visit_with_auth '/reports/new', 'komagata'
     within('#new_report') do
