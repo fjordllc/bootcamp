@@ -7,8 +7,8 @@ class API::TalksController < API::BaseController
   def index
     @target = params[:target]
     @target = 'student_and_trainee' unless TARGETS.include?(@target)
-    @users_talk = Talk.joins(:user).merge(User.users_role(@target))
-                      .page(params[:page]).per(PAGER_NUMBER)
-                      .order(updated_at: :desc)
+    @users_talks = Talk.joins(:user).merge(User.users_role(@target))
+                       .page(params[:page]).per(PAGER_NUMBER)
+                       .order(updated_at: :desc)
   end
 end
