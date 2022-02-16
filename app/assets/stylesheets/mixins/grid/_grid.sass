@@ -8,4 +8,4 @@
     +media-breakpoint-up($breakpoint)
       @for $i from 1 through $columns
         .col-#{$breakpoint}-#{$i}
-          +make-col-span($i, $columns)
+          +make-col-span($i, $columns, $gutter)

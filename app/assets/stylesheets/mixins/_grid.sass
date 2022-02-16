@@ -13,27 +13,12 @@
 
 =grid($gutter-size)
   &.row
-    gap: $gutter-size
+    gap: px_to_rem($gutter-size)
 
 // helper
 .row
   @for $i from 0 through 16
     $gutter-size: $i * 4
-    $breakpoints: xs, sm, md, lg, xl, false
-    $scopes: up, down, only
-    @each $breakpoint in $breakpoints
-      @if $breakpoint
-        @each $scope in $scopes
-          &.is-gutter-width-#{$gutter-size}-#{$breakpoint}-#{$scope}
-            @if $scope == up
-              +media-breakpoint-up($breakpoint)
-                gap: $gutter-size
-            @else if $scope == down
-              +media-breakpoint-down($breakpoint)
-                gap: $gutter-size
-            @else if $scope == only
-              +media-breakpoint-only($breakpoint)
-                gap: $gutter-size
-      @else
-        &.is-gutter-width-#{$gutter-size}
-          gap: $gutter-size
+    &.is-gutter-width-#{$gutter-size}
+      gap: #{$gutter-size / 16}rem
+      +make-grid-columns($grid-columns, #{$gutter-size / 16}rem)
