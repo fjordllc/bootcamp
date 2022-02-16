@@ -197,7 +197,7 @@ header.page-header
           p
             == notify_help_body
 - elsif flash[:celebrate_report_counts]
-    = render '/shared/modal', id: 'modal-hundred-celebration', title: '🎉 おめでとう！', auto_show: true
+    = render '/shared/modal', id: 'modal-report-counts-celebration', modal_title: '🎉 おめでとう！', auto_show: true
       .modal__description.is-md
         .a-long-text
           p
