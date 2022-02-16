@@ -4,6 +4,7 @@ class Campaign < ApplicationRecord
   validates :start_at, presence: true
   validates :end_at, presence: true
   validates :title, presence: true
+  validates :trial_period, presence: true, numericality: { greater_than_or_equal_to: 4 }
 
   # TODO: Rails 7に更新後、 `ComparisonValidator` を使うように直す。
   # refs: https://github.com/rails/rails/pull/40095
@@ -23,6 +24,13 @@ class Campaign < ApplicationRecord
     return if recently_campaign.nil?
 
     recently_campaign.cover?(Time.current)
+  end
+
+  def self.trial_period
+    campaign = Campaign.order(end_at: :desc).first
+    return if Campaign.nil?
+
+    today_is_campaign? ? campaign.trial_period : 3
   end
 
   private

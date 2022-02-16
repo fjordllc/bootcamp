@@ -1,6 +1,12 @@
 - content_for :extra_body_classes, 'welcome'
 - title '料金'
 
+- trial_period = Campaign.trial_period
+
+- example_start_at = Time.current.strftime('%-m月%-d日10時10分10秒')
+- example_end_at = (Time.current + trial_period.days - 1).strftime('%-m月%-d日10時10分9秒')
+- example_pay_at = (Time.current + trial_period.days).strftime('%-m月%-d日10時10分10秒')
+
 .welcome-page-header
   .container.is-xl
     h1.welcome-page-header__title
@@ -29,17 +35,18 @@
         h2.welcome-small-sections__title
           = image_tag 'pjord-face.svg',
             class: 'welcome-small-sections__title-icon'
-          = Campaign.today_is_campaign? ? 'お試し延長中につき、7日間' : '3日間'
-          | のお試し期間
+          = 'お試し延長中につき、' if Campaign.today_is_campaign?
+          = trial_period
+          | 日間のお試し期間
         .welcome-section__description
           p
             | 月額29,800円は決して安い金額ではありません。
             | 自分は本当にフィヨルドブートキャンプを使うべきかを判断するために
-            = Campaign.today_is_campaign? ? '7日間' : '3日間'
-            | のお試し期間を用意しています。
+            = trial_period
+            | 日間のお試し期間を用意しています。
             | その
-            = Campaign.today_is_campaign? ? '7日間' : '3日間'
-            | 、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。
+            = trial_period
+            | 日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。
             | お試し期間の間に退会をしないと料金が請求されてしまうのでご注意ください。
       .welcome-small-section
         h2.welcome-small-sections__title
@@ -49,20 +56,26 @@
         .welcome-section__description
           p
             | 厳密にはお試し期間は
-            = Campaign.today_is_campaign? ? '168時間（7日間）' : '72時間（3日間）'
-            | になります。
-            | 例えば7月20日10時10分10秒にフィヨルドブートキャンプを利用開始したとすると、
+            = trial_period * 24
+            | 時間（
+            = trial_period
+            | 日間）になります。
+            | 例えば
+            = example_start_at
+            | にフィヨルドブートキャンプを利用開始したとすると、
             | そこから
-            = Campaign.today_is_campaign? ? '7日後の7月27日' : '3日後の7月23日'
-            | 10時10分9秒がお試し期間終了のタイミングになります。
-            | その後7月
-            = Campaign.today_is_campaign? ? '27' : '23'
-            | 日10時10分10秒に最初の1ヶ月分の料金が引き落とされます。
+            = trial_period
+            | 日後の
+            = example_end_at
+            | がお試し期間終了のタイミングになります。
+            | その後
+            = example_pay_at
+            | に最初の1ヶ月分の料金が引き落とされます。
           table.welcome-trial-period-table.is-hidden-sm-down
             tr
-              th 7月20日10時10分10秒
-              th.trial_end = Campaign.today_is_campaign? ? '7月27日10時10分9秒' : '7月23日10時10分9秒'
-              th = Campaign.today_is_campaign? ? '7月27日10時10分10秒' : '7月23日10時10分10秒'
+              th = example_start_at
+              th.trial_end = example_end_at
+              th = example_pay_at
             tr
               td お試し期間
               td.trial_end
@@ -73,14 +86,14 @@
 
           table.welcome-trial-period-table.is-hidden-md-up
             tr
-              th 7月20日10時10分10秒
+              th = example_start_at
               td お試し期間
             tr
-              th.trial_end = Campaign.today_is_campaign? ? '7月27日10時10分9秒' : '7月23日10時10分9秒'
+              th.trial_end = example_end_at
               td.trial_end
                 | お試し期間終了時刻
                 br
                 | 無料退会期限
             tr
-              th = Campaign.today_is_campaign? ? '7月27日10時10分10秒' : '7月23日10時10分10秒'
+              th = example_pay_at
               td 初回引き落とし

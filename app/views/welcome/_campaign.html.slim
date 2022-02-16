@@ -1,3 +1,5 @@
+- trial_period = Campaign.trial_period
+
 section.welcome-section.is-gw
   .container.is-xl
     h2.welcome-section__title
@@ -7,8 +9,11 @@ section.welcome-section.is-gw
     .welcome-section__description
       p
         | 12/26(日)～1/4(火)の期間中にご入会いただくと、
-        | 通常 <em class='em'>3日間</em> のお試し期間が <em class='em is-danger'>7日間</em> となります。
-        | 7日以内に退会すれば受講料はかかりません。この機会にぜひフィヨルドブートキャンプをガッツリお試しください！！
+        | 通常 <em class='em'>3日間</em> のお試し期間が <em class='em is-danger'>
+        = trial_period
+        | 日間</em> となります。
+        = trial_period
+        | 日以内に退会すれば受講料はかかりません。この機会にぜひフィヨルドブートキャンプをガッツリお試しください！！
     .welcome-actions__items
       .welcome-actions__item
         = link_to 'お問い合わせ・質問', new_inquiry_path, class: 'a-welcome-button'

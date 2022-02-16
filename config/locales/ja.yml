@@ -184,6 +184,7 @@ ja:
         start_at: 開始日時
         end_at: 終了日時
         title: タイトル
+        trial_period: お試し期間
     enums:
       user:
         job:
