@@ -468,4 +468,16 @@ class ProductsTest < ApplicationSystemTestCase
       assert_text '2'
     end
   end
+
+  test 'submit-wip-submitted product does not suddenly show up as overdue' do
+    visit_with_auth "/products/#{products(:product8).id}/edit", 'kimura'
+    click_button 'WIP'
+    click_button '提出する'
+
+    visit_with_auth '/api/products/unassigned/counts.txt', 'komagata'
+
+    assert_text '5日経過：1件'
+    assert_text '6日経過：1件'
+    assert_text '7日以上経過：5件'
+  end
 end
