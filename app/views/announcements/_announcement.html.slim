@@ -44,13 +44,10 @@
       .card-footer
         .card-main-actions
           ul.card-main-actions__items
-            // 要デザイン（ここから）
             - if announcement.published_at
-              li.card-main-actions__item
-                = link_to edit_announcement_path(announcement), class: 'card-main-actions__delete' do
-                  i.fas.fa-pen#new
+              li.card-main-actions__item.is-sub
+                = link_to edit_announcement_path(announcement), class: 'card-main-actions__muted-action' do
                   | 内容修正
-            // 要デザイン（ここまで）
             - else
               li.card-main-actions__item
                 = link_to edit_announcement_path(announcement), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
