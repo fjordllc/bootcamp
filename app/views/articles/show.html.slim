@@ -17,7 +17,12 @@
                 = @article.user.login_name
             .article__meta
               .article__published-at
-                = @article.wip? ? '執筆中' : l(@article.published_at)
+                - if @article.wip?
+                  = '執筆中'
+                - elsif @article.published_at.nil?
+                  = l(@article.created_at)
+                - else
+                  = l(@article.published_at)
         .article__body
           .js-markdown-view.is-long-text
             = @article.body
