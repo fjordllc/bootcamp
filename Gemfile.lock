@@ -326,6 +326,8 @@ GEM
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
+    rack-dev-mark (0.7.9)
+      rack (>= 1.1, < 2.3)
     rack-mini-profiler (2.3.3)
       rack (>= 1.2.0)
     rack-proxy (0.7.2)
@@ -561,6 +563,7 @@ DEPENDENCIES
   pry-byebug
   puma (~> 5.6)
   rack-cors
+  rack-dev-mark
   rack-mini-profiler (~> 2.0)
   rack-user_agent
   rails (~> 6.1.4.4)
