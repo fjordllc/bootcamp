@@ -3,8 +3,10 @@ ignore_unused_routes:
   - static_pages#thanks
   - static_pages#retire
   - any_login\/.*
+  - active_storage\/.*
 ignore_unreachable_actions:
   - rails\/.*
+  - active_storage\/.*
   - .*#admin_login\?
   - .*#mentor_login\?
   - .*#admin_or_mentor_login\?
