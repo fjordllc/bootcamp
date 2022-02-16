@@ -179,7 +179,12 @@ header.page-header
         - else
           #js-reports(data-user-id="#{@report.user.id}" data-limit="10")
 
-- notify_help_body = "#{link_to('ヘルプページ', '/pages/help')}には学習のヒントになる情報が載っています。\n困った時はぜひのぞいてみてください。\nヘルプページは左のナビゲーションにリンクがあるので、\nいつでもそこからアクセスができます。"
+- notify_help_body = \
+  "#{link_to('ヘルプページ', '/pages/help')}には\
+  学習のヒントになる情報が載っています。\
+  困った時はぜひのぞいてみてください。\
+  ヘルプページは左のナビゲーションにリンクがあるので、\
+  いつでもそこからアクセスができます。"
 - celebrate_report_counts_body = "日報を#{flash[:celebrate_report_counts]}回提出しました！"
 
 - if flash[:notify_help] && flash[:celebrate_report_counts]
