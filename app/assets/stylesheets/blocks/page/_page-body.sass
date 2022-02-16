@@ -8,6 +8,17 @@
 .page-body__inner
   position: relative
 
+.page-body__columns
+  +media-breakpoint-up(lg)
+    display: flex
+    gap: 1.5rem
+
+.page-body__column
+  &.is-main
+    flex: 1
+  &.is-sub
+    flex: 0 0 14rem
+
 .page-optional-header
   +padding(vertical, .875rem)
   border-bottom: solid 1px $border-more-shade

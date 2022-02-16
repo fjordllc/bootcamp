@@ -9,7 +9,3 @@
       @for $i from 1 through $columns
         .col-#{$breakpoint}-#{$i}
           +make-col-span($i, $columns)
-      @each $modifier in pull, push, offset
-        @for $i from 0 through $columns
-          .#{$modifier}-#{$breakpoint}-#{$i}
-            +make-col-modifier($modifier, $i, $columns)

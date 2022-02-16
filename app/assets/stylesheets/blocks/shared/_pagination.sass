@@ -1,22 +1,17 @@
 .pagination
   +position(relative, 1)
-  +media-breakpoint-up(md)
-    margin-bottom: 1rem
-    .page-body &:first-child
+  &:first-child
+    +media-breakpoint-up(md)
+      margin-bottom: 1rem
       margin-top: -.75rem
-  +media-breakpoint-down(sm)
-    margin-bottom: .5rem
-    .page-body &:first-child
+    +media-breakpoint-down(sm)
+      margin-bottom: .5rem
       margin-top: -.25rem
-  .container + &,
-  .thread-list + &,
-  .two-columns + &
+  &:not(:first-child)
     +media-breakpoint-up(md)
       margin-top: 1rem
-      margin-bottom: 0
     +media-breakpoint-down(sm)
       margin-top: .5rem
-      margin-bottom: 0
 
 .pagination__items
   display: flex

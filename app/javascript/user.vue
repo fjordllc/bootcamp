@@ -1,5 +1,5 @@
 <template lang="pug">
-.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
+.col-xxl-3.col-xl-6.col-lg-6.col-md-6.col-xs-12
   .users-item
     .users-item__inner.a-card
       .users-item__inactive-message.is-only-mentor(

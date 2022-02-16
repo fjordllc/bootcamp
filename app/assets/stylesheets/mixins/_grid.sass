@@ -1,19 +1,3 @@
-// Container widths
-//
-// Set the container width, and override it for fixed navbars in media queries.
-
-.#{$container-class-name}
-  +make-container
-  max-width: $container-max-width
-
-// Fluid container
-//
-// Utilizes the mixin meant for fixed width containers, but without any defined
-// width for fluid, full width layouts.
-
-.container-fluid
-  +make-container
-
 // Row
 //
 // Rows contain and clear the floats of your columns.
@@ -25,129 +9,11 @@
 //
 // Common styles for small and large grid columns
 
-.row>[class*=col-]
-  position: relative
-  // Inner gutter via padding
-  +padding(horizontal, $grid-gutter-width / 2)
-
 +make-grid-columns
-
-.col-xs-first
-  order: -1
-.col-xs-last
-  order: 1
-
-+media-breakpoint-up(sm)
-  .col-sm-first
-    order: -1
-  .col-sm-last
-    order: 1
-
-+media-breakpoint-up(md)
-  .col-md-first
-    order: -1
-  .col-md-last
-    order: 1
-
-+media-breakpoint-up(lg)
-  .col-lg-first
-    order: -1
-  .col-lg-last
-    order: 1
-
-+media-breakpoint-up(xl)
-  .col-xl-first
-    order: -1
-  .col-xl-last
-    order: 1
-
-// Alignment for every column in row
-
-.row-xs-top
-  align-items: flex-start
-.row-xs-center
-  align-items: center
-.row-xs-bottom
-  align-items: flex-end
-
-+media-breakpoint-up(sm)
-  .row-sm-top
-    align-items: flex-start
-  .row-sm-center
-    align-items: center
-  .row-sm-bottom
-    align-items: flex-end
-
-+media-breakpoint-up(md)
-  .row-md-top
-    align-items: flex-start
-  .row-md-center
-    align-items: center
-  .row-md-bottom
-    align-items: flex-end
-
-+media-breakpoint-up(lg)
-  .row-lg-top
-    align-items: flex-start
-  .row-lg-center
-    align-items: center
-  .row-lg-bottom
-    align-items: flex-end
-
-+media-breakpoint-up(xl)
-  .row-xl-top
-    align-items: flex-start
-  .row-xl-center
-    align-items: center
-  .row-xl-bottom
-    align-items: flex-end
-
-// Alignment per column
-
-.col-xs-top
-  align-self: flex-start
-.col-xs-center
-  align-self: center
-.col-xs-bottom
-  align-self: flex-end
-
-+media-breakpoint-up(sm)
-  .col-sm-top
-    align-self: flex-start
-  .col-sm-center
-    align-self: center
-  .col-sm-bottom
-    align-self: flex-end
-
-+media-breakpoint-up(md)
-  .col-md-top
-    align-self: flex-start
-  .col-md-center
-    align-self: center
-  .col-md-bottom
-    align-self: flex-end
-
-+media-breakpoint-up(lg)
-  .col-lg-top
-    align-self: flex-start
-  .col-lg-center
-    align-self: center
-  .col-lg-bottom
-    align-self: flex-end
-
-+media-breakpoint-up(xl)
-  .col-xl-top
-    align-self: flex-start
-  .col-xl-center
-    align-self: center
-  .col-xl-bottom
-    align-self: flex-end
 
 =grid($gutter-size)
   &.row
-    +margin(horizontal, $gutter-size/2 * -1)
-    >*
-      +padding(horizontal, $gutter-size/2)
+    gap: $gutter-size
 
 // helper
 .row
@@ -161,21 +27,13 @@
           &.is-gutter-width-#{$gutter-size}-#{$breakpoint}-#{$scope}
             @if $scope == up
               +media-breakpoint-up($breakpoint)
-                +margin(horizontal, px_to_rem($gutter-size * 1px, $base-px) / -2)
-                >[class*=col-]
-                  +padding(horizontal, px_to_rem($gutter-size * 1px, $base-px) / 2)
+                gap: $gutter-size
             @else if $scope == down
               +media-breakpoint-down($breakpoint)
-                +margin(horizontal, px_to_rem($gutter-size * 1px, $base-px) / -2)
-                >[class*=col-]
-                  +padding(horizontal, px_to_rem($gutter-size * 1px, $base-px) / 2)
+                gap: $gutter-size
             @else if $scope == only
               +media-breakpoint-only($breakpoint)
-                +margin(horizontal, px_to_rem($gutter-size * 1px, $base-px) / -2)
-                >[class*=col-]
-                  +padding(horizontal, px_to_rem($gutter-size * 1px, $base-px) / 2)
+                gap: $gutter-size
       @else
         &.is-gutter-width-#{$gutter-size}
-          +margin(horizontal, px_to_rem($gutter-size * 1px, $base-px) / -2)
-          >[class*=col-]
-            +padding(horizontal, px_to_rem($gutter-size * 1px, $base-px) / 2)
+          gap: $gutter-size
