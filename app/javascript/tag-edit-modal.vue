@@ -18,7 +18,7 @@
             )
               | 変更
           li.card-main-actions__item.is-sub
-            .card-main-actions__delete(@click.prevent='closeModal')
+            .card-main-actions__muted-action(@click.prevent='closeModal')
               | キャンセル
 </template>
 <script>

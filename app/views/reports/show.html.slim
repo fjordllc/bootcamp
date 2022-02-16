@@ -103,7 +103,7 @@ header.page-header
                         i.fas.fa-pen#new
                         | 内容修正
                     li.card-main-actions__item.is-sub
-                      = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
+                      = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                         span#delete
                           | 削除する
 
