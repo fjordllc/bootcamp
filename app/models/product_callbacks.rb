@@ -18,7 +18,7 @@ class ProductCallbacks
   end
 
   def after_save(product)
-    if !product.wip? && product.published_at.nil?
+    unless product.wip
       notify_to_watching_mentor(product)
       if product.user.trainee?
         send_notification(
@@ -31,8 +31,6 @@ class ProductCallbacks
           watchable: product
         )
       end
-      product.published_at = Time.current
-      product.save
       product.change_learning_status(:submitted)
     end
 
