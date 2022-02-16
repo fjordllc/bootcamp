@@ -1,27 +1,26 @@
 <template lang="pug">
-.page-body
+.users
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
-  .container
-    .users
-      .row(v-if='users === null')
-        .empty
-          .fas.fa-spinner.fa-pulse
-          |
-          | ロード中
-      .row(v-else-if='users.length !== 0')
-        user(
-          v-for='user in users',
-          :key='user.id',
-          :user='user',
-          :currentUser='currentUser'
-        )
-      .row(v-else)
-        .o-empty-message
-          .o-empty-message__icon
-            i.far.fa-sad-tear
-          p.o-empty-message__text
-            | {{ targetName }}のユーザーはいません
+  .users__items
+    .row(v-if='users === null')
+      .empty
+        .fas.fa-spinner.fa-pulse
+        |
+        | ロード中
+    .row(v-else-if='users.length !== 0')
+      user(
+        v-for='user in users',
+        :key='user.id',
+        :user='user',
+        :currentUser='currentUser'
+      )
+    .row(v-else)
+      .o-empty-message
+        .o-empty-message__icon
+          i.far.fa-sad-tear
+        p.o-empty-message__text
+          | {{ targetName }}のユーザーはいません
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>
