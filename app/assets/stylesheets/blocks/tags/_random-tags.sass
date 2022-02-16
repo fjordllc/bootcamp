@@ -1,23 +1,6 @@
-.random-tags
-  +position(fixed, right 0, top 0, bottom 0, 3)
-  +size(14rem 100vh)
-  background-color: $main
-  overflow-y: auto
-  +media-breakpoint-down(lg)
-    display: none
-
-.random-tags__header
-  border-bottom: solid 1px $side-border
-
-.random-tags__header-inner
-  +padding(vertical, .75rem)
-
-.random-tags__title
-  +text-block(.875rem 1.4, center $reversal-text)
-
 .random-tags__item
   &:not(:last-child)
-    border-bottom: dashed 1px $side-border
+    border-bottom: dashed 1px $border
 
 .random-tags__item-link
   +flex-link
@@ -36,11 +19,11 @@
 
 .random-tags__item-count
   +position(absolute, right 0, top 2px)
-  +text-block(.625rem, flex center $reversal-text)
+  +text-block(.625rem, flex center $default-text)
   justify-content: center
   align-items: center
   +padding(horizontal, .75em)
-  background-color: rgba(black, .4)
+  background-color: $background
   height: 1.5em
   border-radius: 1em
 
@@ -57,13 +40,13 @@
     +fa(fas '\f521')
   .is-first &,
   .is-first &::before
-    color: #deea20
+    color: #e3a822
   .is-second &,
   .is-second &::before
-    color: $reversal-text
+    color: #898888
   .is-third &,
   .is-third &::before
-    color: #f3b8a6
+    color: #dc7e61
   .is-up &
     font-size: 1.125em
   .is-low &
