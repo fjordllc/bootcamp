@@ -26,12 +26,16 @@ class ProductCallbacks
           receivers: product.user.company.advisers,
           message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
         )
-        create_watch(
-          watchers: product.user.company.advisers,
-          watchable: product
-        )
       end
-      product.change_learning_status(:submitted)
+      if product.published_at.nil?
+        if product.user.trainee?
+          create_watch(
+            watchers: product.user.company.advisers,
+            watchable: product
+          )
+        end
+        product.change_learning_status(:submitted)
+      end
     end
 
     Cache.delete_unchecked_product_count
