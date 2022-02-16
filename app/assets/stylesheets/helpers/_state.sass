@@ -5,16 +5,20 @@ html
     display: none !important
 
   body
+    .is-hidden-lg-up
+      +media-breakpoint-up(lg)
+        display: none
+
+    .is-hidden-lg-down
+      +media-breakpoint-down(lg)
+        display: none
+
     .is-hidden-md-up
       +media-breakpoint-up(md)
         display: none
 
     .is-hidden-md-down
       +media-breakpoint-down(md)
-        display: none
-
-    .is-hidden-lg-up
-      +media-breakpoint-up(lg)
         display: none
 
     .is-hidden-sm-down
