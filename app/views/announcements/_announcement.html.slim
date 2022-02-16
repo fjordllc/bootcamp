@@ -43,7 +43,7 @@
       = render 'reactions/reactions', reactionable: @announcement
       .card-footer
         .card-main-actions
-          ul.card-main-actions__items
+          ul.card-main-actions__items(class="#{announcement.published_at ? 'is-sub-actions' : ''}")
             - if announcement.published_at
               li.card-main-actions__item.is-sub
                 = link_to edit_announcement_path(announcement), class: 'card-main-actions__muted-action' do
