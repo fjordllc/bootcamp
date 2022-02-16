@@ -1,5 +1,4 @@
 .welcome-small-sections
-  margin-bottom: -2rem
   .welcome-child-section__title + &
     margin-top: 1.5rem
   .welcome-section__title + &
@@ -53,16 +52,12 @@
 
 .welcome-small-section
   height: 100%
-  padding-bottom: 2rem
   &.is-wide
     height: auto
     padding-bottom: 0
     max-width: 55rem
     margin-top: 1.5rem
     +margin(horizontal, auto)
-  .welcome-small-sections.is-about [class*=col-]:not(:last-child) &
-    +media-breakpoint-down(sm)
-      padding-bottom: 3rem
   .welcome-child-section.is-unlimited &
     padding-bottom: 0
 

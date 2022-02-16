@@ -7,14 +7,12 @@
   flex-wrap: wrap
   gap: $gutter
 
-=make-col-span($size, $columns: $grid-columns)
-  content: $size
+=make-col-span($size, $columns: $grid-columns, $grid-gutter-width: 1rem)
   $one-line-columns-count: $columns / $size
   $gutter-count: $one-line-columns-count - 1
-  $total-gutter-width: $grid-gutter-width * $gutter-count
+  $total-gutter-width: calc(#{$grid-gutter-width} * #{$gutter-count})
   $column-margin: $total-gutter-width / $one-line-columns-count
 
   flex: 0 0 calc(#{percentage($size / $columns)} - #{$column-margin})
-  //
-    width: calc(#{percentage($size / $columns)} - #{$column-margin})
-    max-width: calc(#{percentage($size / $columns)} - #{$column-margin})
+  width: calc(#{percentage($size / $columns)} - #{$column-margin})
+  max-width: calc(#{percentage($size / $columns)} - #{$column-margin})

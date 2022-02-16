@@ -1,12 +1,3 @@
-.random-tags__header
-  border-bottom: solid 1px $border
-
-.random-tags__header-inner
-  +padding(vertical, .75rem)
-
-.random-tags__title
-  +text-block(.875rem 1.4, center)
-
 .random-tags__item
   &:not(:last-child)
     border-bottom: dashed 1px $border
@@ -32,7 +23,7 @@
   justify-content: center
   align-items: center
   +padding(horizontal, .75em)
-  background-color: rgba(black, .4)
+  background-color: $background
   height: 1.5em
   border-radius: 1em
 
@@ -49,13 +40,13 @@
     +fa(fas '\f521')
   .is-first &,
   .is-first &::before
-    color: #deea20
+    color: #e3a822
   .is-second &,
   .is-second &::before
-    color: $default-text
+    color: #898888
   .is-third &,
   .is-third &::before
-    color: #f3b8a6
+    color: #dc7e61
   .is-up &
     font-size: 1.125em
   .is-low &
