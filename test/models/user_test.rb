@@ -146,7 +146,7 @@ class UserTest < ActiveSupport::TestCase
   test '.order_by_counts' do
     ordered_users = User.order_by_counts('report', 'desc')
     more_report_user = users(:sotugyou)
-    less_report_user = users(:yamada)
+    less_report_user = users(:mentormentaro)
     assert ordered_users.index(more_report_user) < ordered_users.index(less_report_user)
 
     ordered_users = User.order_by_counts('comment', 'asc')
@@ -290,7 +290,7 @@ class UserTest < ActiveSupport::TestCase
     assert_includes(target, users(:komagata))
     assert_not_includes(target, users(:yameo))
     assert_not_includes(target, users(:sotugyou))
-    assert_not_includes(target, users(:yamada))
+    assert_not_includes(target, users(:mentormentaro))
     assert_not_includes(target, users(:advijirou))
     assert_not_includes(target, users(:kensyu))
   end
@@ -356,10 +356,10 @@ class UserTest < ActiveSupport::TestCase
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
     hajime = users(:hajime)
-    yamada = users(:yamada)
+    mentormentaro = users(:mentormentaro)
     kimura.follow(hatsuno, watch: true)
     kimura.follow(hajime, watch: true)
-    kimura.follow(yamada, watch: false)
+    kimura.follow(mentormentaro, watch: false)
     assert_equal 3, kimura.followees_list.count
     assert_equal 2, kimura.followees_list(watch: 'true').count
     assert_equal 1, kimura.followees_list(watch: 'false').count

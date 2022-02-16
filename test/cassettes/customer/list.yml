@@ -76,7 +76,7 @@ http_interactions:
   recorded_at: Sun, 20 Jun 2021 05:25:14 GMT
 - request:
     method: get
-    uri: https://api.stripe.com/v1/customers?email=yamada@example.com&limit=1
+    uri: https://api.stripe.com/v1/customers?email=mentormentaro@example.com&limit=1
     body:
       encoding: US-ASCII
       string: ''
@@ -154,7 +154,7 @@ http_interactions:
               "delinquent": false,
               "description": null,
               "discount": null,
-              "email": "yamada@example.com",
+              "email": "mentormentaro@example.com",
               "invoice_prefix": "12FF086E",
               "invoice_settings": {
                 "custom_fields": null,

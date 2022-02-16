@@ -159,7 +159,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
   test 'notify to mentors when a student submitted reports with sad icon at twice in a row' do
     student = 'kimura'
-    mentor = 'yamada'
+    mentor = 'mentormentaro'
 
     visit_with_auth '/reports', student
 
