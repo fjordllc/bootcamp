@@ -27,7 +27,7 @@ main.page-main
 
   .page-tools
     nav.pill-nav
-      .container.is-padding-horizontal-0-sm-down
+      .container
         ul.pill-nav__items
           li.pill-nav__item
             = link_to '未読', notifications_path(status: 'unread', target: @target), class: "pill-nav__item-link #{params[:status] == 'unread' ? 'is-active' : ''}"
