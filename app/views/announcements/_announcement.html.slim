@@ -55,7 +55,7 @@
                   | 内容修正
             - if admin_or_mentor_login? || @announcement.user_id == current_user.id
               li.card-main-actions__item.is-sub
-                = link_to announcement_path(announcement), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
+                = link_to announcement_path(announcement), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                   span#delete
                   | 削除する
 
