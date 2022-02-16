@@ -2,10 +2,12 @@
 
 campaign1:
   start_at: <%= Time.current %>
-  end_at: <%= Time.current + 3.days %>
+  end_at: <%= Time.current + 5.days %>
   title: 'GW特別キャンペーン'
+  trial_period: 5
 
 campaign2:
   start_at: <%= Time.current - 1.months %>
   end_at: <%= Time.current - 1.months + 7.days %>
   title: 'GWスペシャルキャンペーン'
+  trial_period: 7

@@ -24,34 +24,39 @@ header.page-header
   .page-body
     .container.is-lg
       .admin-table
-        table.admin-table__table
-          thead.admin-table__header
-            tr.admin-table__labels
-              th.admin-table__label
-                | ステータス
-              th.admin-table__label
-                | タイトル
-              th.admin-table__label
-                | 開始日
-              th.admin-table__label
-                | 終了日
-              th.admin-table__label
-                | 操作
-          tbody.admin-table__items
-            - @campaigns.each do |campaign|
-              tr.admin-table__item(id="campaign_#{campaign.id}")
-                td.admin-table__item-value
-                  - if (campaign.end_at..nil).cover? Time.current
-                    | 終了
-                td.admin-table__item-value
-                  = campaign.title
-                td.admin-table__item-value
-                  | #{l campaign.start_at}
-                td.admin-table__item-value
-                  | #{l campaign.end_at}
-                td.admin-table__item-value.is-text-align-center
-                  ul.is-inline-buttons
-                    li
-                      - if (nil..campaign.end_at).cover? Time.current
-                        = link_to edit_admin_campaign_path(campaign), class: 'a-button is-sm is-secondary is-icon' do
-                          i.fas.fa-pen
+      table.admin-table__table
+        thead.admin-table__header
+          tr.admin-table__labels
+            th.admin-table__label
+              | ステータス
+            th.admin-table__label
+              | タイトル
+            th.admin-table__label
+              | お試し期間
+            th.admin-table__label
+              | 開始日
+            th.admin-table__label
+              | 終了日
+            th.admin-table__label
+              | 操作
+        tbody.admin-table__items
+          - @campaigns.each do |campaign|
+            tr.admin-table__item(id="campaign_#{campaign.id}")
+              td.admin-table__item-value
+                - if (campaign.end_at..nil).cover? Time.current
+                  | 終了
+              td.admin-table__item-value
+                = campaign.title
+              td.admin-table__item-value
+                = campaign.trial_period
+                | 日
+              td.admin-table__item-value
+                | #{l campaign.start_at}
+              td.admin-table__item-value
+                | #{l campaign.end_at}
+              td.admin-table__item-value.is-text-align-center
+                ul.is-inline-buttons
+                  li
+                    - if (nil..campaign.end_at).cover? Time.current
+                      = link_to edit_admin_campaign_path(campaign), class: 'a-button is-sm is-secondary is-icon' do
+                        i.fas.fa-pen
