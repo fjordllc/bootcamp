@@ -135,6 +135,33 @@ export default {
     changeActiveTab(tab) {
       this.tab = tab
     },
+    check() {
+      const params = {
+        checkable_type: this.commentableType,
+        checkable_id: this.commentableId
+      }
+
+      fetch('/api/checks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+        body: JSON.stringify(params)
+      })
+        .then(() => {
+          this.$store.dispatch('setCheckable', {
+            checkableId: this.commentableId,
+            checkableType: this.commentableType
+          })
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
+    },
     showComments() {
       fetch(
         `/api/comments.json?commentable_type=${this.commentableType}&` +
@@ -257,10 +284,16 @@ export default {
         !window.confirm('提出物を確認済にしてよろしいですか？')
       ) {
         return null
+      } else if (
+        this.commentableType === 'Report'
+      ) {
+        this.createComment()
+        this.check()
+      } else {
+        this.createComment()
+        const check = document.getElementById('js-shortcut-check')
+        check.click()
       }
-      const check = document.getElementById('js-shortcut-check')
-      this.createComment()
-      check.click()
     },
     async fetchUncheckedProducts(page) {
       return fetch(`/api/products/unchecked?page=${page}`, {
