@@ -284,15 +284,9 @@ export default {
         !window.confirm('提出物を確認済にしてよろしいですか？')
       ) {
         return null
-      } else if (
-        this.commentableType === 'Report'
-      ) {
-        this.createComment()
-        this.check()
       } else {
         this.createComment()
-        const check = document.getElementById('js-shortcut-check')
-        check.click()
+        this.check()
       }
     },
     async fetchUncheckedProducts(page) {
