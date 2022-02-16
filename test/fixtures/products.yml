@@ -1,6 +1,6 @@
 product1: # 自分のコメントあり(2つ)
   practice: practice1
-  user: yamada
+  user: mentormentaro
   body: テストの提出物1です。
   checker_id: nil
 
@@ -23,7 +23,7 @@ product3: # チェック済, 他者のコメントあり
 
 product4: # チェック済
   practice: practice2
-  user: yamada
+  user: mentormentaro
   body: テストの提出物4です。
   created_at: <%= 3.day.ago %>
   updated_at: <%= 3.day.ago %>
@@ -48,7 +48,7 @@ product6:
 
 product7: # チェック済
   practice: practice3
-  user: yamada
+  user: mentormentaro
   body: テストの提出物7です。
   created_at: <%= 6.day.ago %>
   updated_at: <%= 6.day.ago %>
@@ -64,7 +64,7 @@ product8:
 
 product9: # チェック済
   practice: practice4
-  user: yamada
+  user: mentormentaro
   body: テストの提出物9です。
   created_at: <%= 8.day.ago %>
   updated_at: <%= 8.day.ago %>
@@ -88,7 +88,7 @@ product11:
 
 product12:
   practice: practice5
-  user: yamada
+  user: mentormentaro
   body: リアクションテスト
   created_at: <%= 11.day.ago %>
   updated_at: <%= 11.day.ago %>
@@ -349,7 +349,7 @@ product60:
 
 product61:
   practice: practice46
-  user: yamada
+  user: mentormentaro
   body: 提出物の検索結果テスト用
 
 product62:

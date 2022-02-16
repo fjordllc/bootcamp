@@ -18,8 +18,8 @@ talk_yameo:
   user: yameo
   unreplied: false
 
-talk_yamada:
-  user: yamada
+talk_mentormentaro:
+  user: mentormentaro
   unreplied: false
 
 talk_kimura:

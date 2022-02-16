@@ -113,7 +113,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test '.self_assigned_no_replied_products' do
-    current_user = users(:yamada)
+    current_user = users(:mentormentaro)
     product = Product.create!(
       body: 'test',
       user: users(:kimura),
