@@ -47,8 +47,4 @@ module SearchHelper
   def find_talk_id_from_user_id(searchable)
     Talk.find_by(user_id: searchable.id).id
   end
-
-  def display_talk?(searchable)
-    current_user.admin?
-  end
 end
