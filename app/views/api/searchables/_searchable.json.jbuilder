@@ -14,6 +14,6 @@ if comment_or_answer?(searchable)
   json.document_author_login_name document.user.login_name
   json.document_author_id document.user.id
 end
-if talk?(searchable) && current_user.admin?
+if talk?(searchable)
   json.talk_id find_talk_id_from_user_id(searchable)
 end
