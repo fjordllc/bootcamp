@@ -53,4 +53,15 @@ class CampaignsTest < ApplicationSystemTestCase
     end
     assert_text '終了日時は開始日時よりも後の日時にしてください。'
   end
+
+  test 'welcome trial extension campaign start to end' do
+    start_at = Campaign.recently_campaign.first
+    end_at = Campaign.recently_campaign.last
+
+    campaign_start = start_at.strftime("%-m/%-d(#{WEEK_DAY[start_at.wday]})")
+    campaign_end = end_at.strftime("%-m/%-d(#{WEEK_DAY[end_at.wday]})")
+
+    visit welcome_path
+    assert_text "#{campaign_start}〜#{campaign_end}の期間中にご入会いただくと、"
+  end
 end
