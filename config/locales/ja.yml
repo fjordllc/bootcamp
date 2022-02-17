@@ -17,6 +17,7 @@ ja:
       date_only: "%m月%d日"
       date_and_time: "%m月%d日%H:%M"
       year_only: "%Y"
+      mda_unique: "%-m/%-d(%a)"
   activerecord:
     models:
       user: ユーザー
