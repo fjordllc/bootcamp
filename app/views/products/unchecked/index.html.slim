@@ -6,8 +6,7 @@ header.page-header
       h2.page-header__title
         = title
 
-.page-tools
-  = render 'products/tabs'
-  = render 'nav'
+= render 'products/tabs'
+= render 'nav'
 
 #js-products(data-title="#{title}" data-selected-tab="unchecked" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
