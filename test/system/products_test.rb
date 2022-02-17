@@ -85,6 +85,8 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
     assert_text 'Watch中'
   end
@@ -108,6 +110,8 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text '提出物を更新しました。'
   end
 
@@ -117,6 +121,8 @@ class ProductsTest < ApplicationSystemTestCase
     click_button 'WIP'
     visit "/products/#{product.id}"
     click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text '提出物を更新しました。'
   end
 
@@ -181,6 +187,7 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
+    assert_text '提出物作成中'
     assert_text '提出物をWIPとして保存しました。'
   end
 
