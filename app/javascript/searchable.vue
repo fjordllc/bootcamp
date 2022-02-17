@@ -36,17 +36,24 @@
                   | {{ searchable.document_author_login_name }}
                 | &nbsp;{{ searchable.model_name_with_i18n }}
                 | ）
-            a(v-if='canDisplayTalk', :href='talkUrl')
+            a(v-if='isRole("admin") && canDisplayTalk', :href='talkUrl')
               | 相談部屋
 </template>
 <script>
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
+import role from './role'
 dayjs.locale(ja)
 export default {
+  mixins: [role],
   props: {
     searchable: { type: Object, required: true },
     word: { type: String, required: true }
+  },
+  data() {
+    return {
+      currentUser: window.currentUser
+    }
   },
   computed: {
     modelName() {
