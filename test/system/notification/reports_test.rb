@@ -175,7 +175,6 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
-    find('.modal-header__close').click
 
     click_link '日報作成'
     within('#new_report') do
@@ -189,7 +188,6 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
-    find('.modal-header__close').click
 
     visit_with_auth '/notifications', mentor
 
