@@ -49,6 +49,6 @@ module SearchHelper
   end
 
   def display_talk?(searchable)
-    current_user.admin? || current_user.id == searchable.id
+    current_user.admin?
   end
 end
