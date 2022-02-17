@@ -14,7 +14,11 @@ json.student_or_trainee user.student_or_trainee?
 json.edit_admin_user_path edit_admin_user_path(user)
 json.isFollowing current_user.following?(user)
 json.isWatching current_user.watching?(user)
-json.talkUrl talk_path(user.talk)
+
+if user.talk.present?
+  json.talkUrl talk_path(user.talk)
+  json.talkPresence true
+end
 
 json.company do
   if user.company.present?
