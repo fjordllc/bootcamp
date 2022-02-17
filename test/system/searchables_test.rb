@@ -135,4 +135,24 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_text 'kimura'
     assert_no_text 'machida'
   end
+
+  test 'check that link to talk room is displayed properly' do
+    visit_with_auth '/', 'hatsuno'
+    within('form[name=search]') do
+      select 'ユーザー'
+      fill_in 'word', with: 'a'
+    end
+    find('#test-search').click
+    assert_no_text '相談部屋'
+
+    logout
+
+    visit_with_auth '/', 'komagata'
+    within('form[name=search]') do
+      select 'ユーザー'
+      fill_in 'word', with: 'a'
+    end
+    find('#test-search').click
+    assert_text '相談部屋'
+  end
 end
