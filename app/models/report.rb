@@ -120,7 +120,10 @@ class Report < ApplicationRecord
   end
 
   def latest?
-    self == Report.not_wip.where(user: user, wip: false).order(reported_on: :desc).first
+    self == Report.not_wip
+                  .where(user: user, wip: false)
+                  .order(reported_on: :desc)
+                  .first
   end
 
   def interval
