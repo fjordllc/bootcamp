@@ -41,7 +41,6 @@ class Check::ReportsTest < ApplicationSystemTestCase
   test 'comment and check report' do
     visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
     fill_in 'new_comment[description]', with: '日報でcomment+確認OKにするtest'
-    wait_for_vuejs
     click_button '確認OKにする'
     assert_text '確認済'
     assert_text '日報でcomment+確認OKにするtest'
