@@ -7,6 +7,12 @@ GIT
       i18n (>= 0.6, < 2.0)
       railties (>= 4.0)
 
+GIT
+  remote: https://github.com/vcr/vcr.git
+  revision: 8ced6c96e01737a418cd270e0382a8c2c6d85f7f
+  specs:
+    vcr (6.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -78,8 +84,8 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    acts-as-taggable-on (7.0.0)
-      activerecord (>= 5.0, < 6.2)
+    acts-as-taggable-on (9.0.1)
+      activerecord (>= 6.0, < 7.1)
     acts_as_list (1.0.4)
       activerecord (>= 4.2)
     addressable (2.8.0)
@@ -89,7 +95,7 @@ GEM
     ast (2.4.2)
     bcrypt (3.1.16)
     bindex (0.8.1)
-    bootsnap (1.10.2)
+    bootsnap (1.10.3)
       msgpack (~> 1.2)
     builder (3.2.4)
     bullet (7.0.1)
@@ -113,13 +119,6 @@ GEM
     childprocess (4.1.0)
     cocoon (1.2.15)
     coderay (1.1.3)
-    coffee-rails (5.0.0)
-      coffee-script (>= 2.2.0)
-      railties (>= 5.2.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     commonmarker (0.23.2)
     concurrent-ruby (1.1.9)
     crack (0.4.5)
@@ -128,15 +127,14 @@ GEM
     data_migrate (7.0.2)
       activerecord (>= 5.0)
       railties (>= 5.0)
-    date (3.2.2)
     dead_end (3.1.1)
     declarative (0.0.20)
     diffy (3.4.0)
+    digest (3.1.0)
     digest-crc (0.6.4)
       rake (>= 12.0.0, < 14.0.0)
     discord-notifier (1.0.3)
     erubi (1.10.0)
-    execjs (2.8.1)
     faraday (1.9.3)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
@@ -201,11 +199,12 @@ GEM
     hashie (5.0.0)
     holiday_jp (0.8.1)
     httpclient (2.8.3)
-    i18n (1.9.1)
+    i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.1)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
+    io-wait (0.2.1)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -263,6 +262,21 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    net-imap (0.2.3)
+      digest
+      net-protocol
+      strscan
+    net-pop (0.1.1)
+      digest
+      net-protocol
+      timeout
+    net-protocol (0.1.2)
+      io-wait
+      timeout
+    net-smtp (0.3.1)
+      digest
+      net-protocol
+      timeout
     nio4r (2.5.8)
     nokogiri (1.13.1)
       mini_portile2 (~> 2.7.0)
@@ -291,7 +305,7 @@ GEM
       ast (~> 2.4.1)
     pastel (0.8.0)
       tty-color (~> 0.5)
-    pg (1.3.0)
+    pg (1.3.1)
     postmark (1.22.0)
       json
     postmark-rails (0.22.0)
@@ -306,12 +320,14 @@ GEM
     psych (4.0.3)
       stringio
     public_suffix (4.0.6)
-    puma (5.6.1)
+    puma (5.6.2)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
+    rack-dev-mark (0.7.9)
+      rack (>= 1.1, < 2.3)
     rack-mini-profiler (2.3.3)
       rack (>= 1.2.0)
     rack-proxy (0.7.2)
@@ -358,7 +374,7 @@ GEM
       activerecord (>= 5.2.4)
       activesupport (>= 5.2.4)
       i18n
-    rb-fsevent (0.11.0)
+    rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (2.2.0)
@@ -369,7 +385,7 @@ GEM
     retriable (3.1.2)
     rexml (3.2.5)
     rollbar (3.3.0)
-    rubocop (1.25.0)
+    rubocop (1.25.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -452,11 +468,11 @@ GEM
       unicode_utils (~> 1.4)
     strings-ansi (0.2.0)
     stripe (5.43.0)
-    sucker_punch (2.1.2)
-      concurrent-ruby (~> 1.0)
+    strscan (3.0.1)
     temple (0.8.2)
     thor (1.2.1)
     tilt (2.0.10)
+    timeout (0.2.0)
     traceroute (0.8.1)
       rails (>= 3.0.0)
     trailblazer-option (0.1.2)
@@ -472,7 +488,6 @@ GEM
     unicode-display_width (2.1.0)
     unicode_utils (1.4.0)
     uniform_notifier (1.14.2)
-    vcr (6.0.0)
     view_source_map (0.3.0)
       rails (>= 5)
     web-console (4.2.0)
@@ -510,8 +525,9 @@ DEPENDENCIES
   active_decorator
   active_flag
   active_storage_validations
-  acts-as-taggable-on (~> 7.0)
+  acts-as-taggable-on
   acts_as_list
+  addressable
   any_login
   bootsnap (>= 1.4.4)
   bullet
@@ -519,10 +535,8 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   cocoon
-  coffee-rails (~> 5.0.0)
   commonmarker
   data_migrate
-  date (>= 3.2.1)
   dead_end
   diffy
   discord-notifier
@@ -534,18 +548,22 @@ DEPENDENCIES
   jquery-rails
   kaminari
   letter_opener_web (~> 1.0)
-  listen (~> 3.3)
+  listen
   mentionable (~> 0.2.1)
   meta-tags
   minitest-retry
+  net-imap
+  net-pop
+  net-smtp
   oauth2
   omniauth (~> 1.9.1)
   omniauth-github (~> 1.4.0)
   pg
   postmark-rails
   pry-byebug
-  puma (~> 5.5)
+  puma (~> 5.6)
   rack-cors
+  rack-dev-mark
   rack-mini-profiler (~> 2.0)
   rack-user_agent
   rails (~> 6.1.4.4)
@@ -569,9 +587,8 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   stripe
   stripe-i18n!
-  sucker_punch (~> 2.0)
   traceroute
-  vcr
+  vcr!
   view_source_map
   web-console (>= 4.1.0)
   webdrivers
@@ -579,7 +596,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 2.7.4p191
+   ruby 3.1.0p0
 
 BUNDLED WITH
-   2.2.30
+   2.3.6

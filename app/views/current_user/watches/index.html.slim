@@ -5,7 +5,8 @@ header.page-header
       h2.page-header__title
         | ダッシュボード
 
-= render 'home/page_tabs', user: @user
+.page-tools
+  = render 'home/page_tabs', user: @user
 
 .page-body
   - if @watches.present?

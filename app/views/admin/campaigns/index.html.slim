@@ -1,0 +1,57 @@
+- title '管理ページ'
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to new_admin_campaign_path, class: 'a-button is-md is-secondary is-block' do
+              i.fa.fa-plus
+              | お試し延長作成
+
+.page-tools
+  = render 'admin/admin_page_tabs'
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        h1.page-main-header__title
+          | お試し延長一覧
+  .page-body
+    .container.is-lg
+      .admin-table
+        table.admin-table__table
+          thead.admin-table__header
+            tr.admin-table__labels
+              th.admin-table__label
+                | ステータス
+              th.admin-table__label
+                | タイトル
+              th.admin-table__label
+                | 開始日
+              th.admin-table__label
+                | 終了日
+              th.admin-table__label
+                | 操作
+          tbody.admin-table__items
+            - @campaigns.each do |campaign|
+              tr.admin-table__item(id="campaign_#{campaign.id}")
+                td.admin-table__item-value
+                  - if (campaign.end_at..nil).cover? Time.current
+                    | 終了
+                td.admin-table__item-value
+                  = campaign.title
+                td.admin-table__item-value
+                  | #{l campaign.start_at}
+                td.admin-table__item-value
+                  | #{l campaign.end_at}
+                td.admin-table__item-value.is-text-align-center
+                  ul.is-inline-buttons
+                    li
+                      - if (nil..campaign.end_at).cover? Time.current
+                        = link_to edit_admin_campaign_path(campaign), class: 'a-button is-sm is-secondary is-icon' do
+                          i.fas.fa-pen

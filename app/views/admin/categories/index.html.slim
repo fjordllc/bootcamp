@@ -15,4 +15,5 @@ header.page-header
   = render 'admin/admin_page_tabs'
 
 .page-body
-  #js-categories(data-categories="#{@categories.to_json}")
+  .container.is-lg
+    #js-categories(data-categories="#{@categories.to_json}")

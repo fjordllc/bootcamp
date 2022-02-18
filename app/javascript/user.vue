@@ -40,7 +40,7 @@
                     | {{ user.discord_account }}
                   span.users-item-names__chat-value(v-else)
                     | {{ user.discord_account }}
-            user-sns(:user='user')
+        user-sns(:user='user')
       .users-item__body
         .users-item__description.a-short-text
           p(v-for='paragraph in userDescParagraphs', :key='paragraph.id')
@@ -57,6 +57,9 @@
                 :userId='user.id',
                 :isWatching='user.isWatching'
               )
+            li.card-main-actions__item.is-only-admin(v-if='currentUser.admin')
+              a.a-button.is-secondary.is-md.is-block(:href='user.talkUrl')
+                | 相談部屋
 </template>
 <script>
 import Following from './following.vue'

@@ -4,6 +4,7 @@
 
 = render 'welcome/main_visual'
 .welcome-sections
+  = render 'welcome/campaign' if Campaign.today_is_campaign?
   = render 'welcome/about'
   = render 'welcome/pricing'
   = render 'welcome/tutorials'

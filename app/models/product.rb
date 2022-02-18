@@ -143,6 +143,14 @@ class Product < ApplicationRecord
     learning.update(status: status)
   end
 
+  # nilの場合あり
+  def learning
+    Learning.find_by(
+      user_id: user.id,
+      practice_id: practice.id
+    )
+  end
+
   def last_commented_user
     Rails.cache.fetch "/model/product/#{id}/last_commented_user" do
       commented_users.last

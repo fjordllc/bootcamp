@@ -11,14 +11,16 @@ header.page-header
               i.fas.fa-plus
               | 日報作成
 
-= render 'home/page_tabs', user: @user
+.page-tools
+  = render 'home/page_tabs', user: @user
 
 .page-body
   .container.is-md
     #js-reports(data-user-id="#{current_user.id}")
-    .form-actions
-      ul.form-actions__items
-        li.form-actions__item.is-main
-          = link_to current_user_reports_path(format: :md), class: 'a-button is-md is-primary is-block' do
-            i.fas.fa-cloud-download-alt
-            | 日報一括ダウンロード
+    - if current_user.reports.present?
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item.is-main
+            = link_to current_user_reports_path(format: :md), class: 'a-button is-md is-primary is-block' do
+              i.fas.fa-cloud-download-alt
+              | 日報一括ダウンロード

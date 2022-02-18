@@ -367,7 +367,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'report has a comment form ' do
-    visit_with_auth "/reports/#{reports(:report1).id}", 'yamada'
+    visit_with_auth "/reports/#{reports(:report1).id}", 'mentormentaro'
     assert_selector '.thread-comment-form'
   end
 
@@ -596,5 +596,28 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
       assert_selector 'h1', text: 'h1'
     end
+  end
+
+  test 'automatically resizes textarea of a new report' do
+    visit_with_auth '/reports/new', 'komagata'
+    fill_in('report[description]', with: 'test')
+    height = find('#report_description').style('height')['height'][/\d+/].to_i
+
+    fill_in('report[description]', with: "\n1\n2\n3\n4\n5\n6\7\n8\n9\n10\n11\n12\n13\n14\n15")
+    after_height = find('#report_description').style('height')['height'][/\d+/].to_i
+
+    assert height < after_height
+  end
+
+  test 'automatically resizes textarea of an edit report' do
+    visit_with_auth report_path(reports(:report1)), 'komagata'
+    click_link '内容修正'
+
+    height = find('#report_description').style('height')['height'][/\d+/].to_i
+
+    fill_in('report[description]', with: "\n1\n2\n3\n4\n5\n6\7\n8\n9\n10\n11\n12\n13\n14\n15")
+    after_height = find('#report_description').style('height')['height'][/\d+/].to_i
+
+    assert height < after_height
   end
 end

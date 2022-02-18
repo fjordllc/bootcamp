@@ -132,7 +132,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
         .finally(() => {
           this.$refs.followingDetailsRef.open = false
@@ -162,7 +162,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
         .finally(() => {
           this.$refs.followingDetailsRef.open = false

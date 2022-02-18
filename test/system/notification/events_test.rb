@@ -9,13 +9,13 @@ class Notification::EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '参加を取り消す'
     end
-    sleep 1
-    logout
+    assert_text '参加を取り消しました。'
 
-    login_user 'hatsuno', 'testtest'
-    open_notification
-    assert_equal "#{event.title}で、補欠から参加に繰り上がりました。",
-                 notification_message
+    visit_with_auth '/notifications', 'hatsuno'
+
+    within first('.thread-list-item.is-unread') do
+      assert_text "#{event.title}で、補欠から参加に繰り上がりました。"
+    end
   end
 
   test 'waiting user receive notification when the event capacity is increased' do
@@ -25,11 +25,12 @@ class Notification::EventsTest < ApplicationSystemTestCase
 
     fill_in 'event_capacity', with: 2
     click_button '内容変更'
-    logout
+    assert_text 'イベントを更新しました。'
 
-    login_user 'hatsuno', 'testtest'
-    open_notification
-    assert_equal "#{event.title}で、補欠から参加に繰り上がりました。",
-                 notification_message
+    visit_with_auth '/notifications', 'hatsuno'
+
+    within first('.thread-list-item.is-unread') do
+      assert_text "#{event.title}で、補欠から参加に繰り上がりました。"
+    end
   end
 end

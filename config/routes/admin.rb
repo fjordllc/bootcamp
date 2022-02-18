@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     end
     resources :categories, except: %i(show)
     resources :courses, except: %i(show destroy)
+    resources :campaigns, only: %i(new create index edit update)
   end
 end

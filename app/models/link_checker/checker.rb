@@ -3,90 +3,55 @@
 require 'net/http'
 
 module LinkChecker
-  class Checker
-    DENY_LIST = %w[
-      codepen.io
-      www.amazon.co.jp
+  module Checker
+    DENY_HOST = [
+      'codepen.io',
+      'www.amazon.co.jp' # アクセスを繰り返すとリンク切れ判定のレスポンスが返されるようになるため
     ].freeze
-    attr_reader :errors
 
-    def initialize
-      @errors = []
-      @error_links = []
+    module_function
+
+    def check_broken_links(links)
+      links_with_valid_url = links.select { |link| valid_url?(link.url) && !denied_host?(link.url) }
+      links_with_response = check_response(links_with_valid_url)
+      broken_links = links_with_response.select { |link| !link.response || link.response > 403 }
+
+      summary(broken_links)
     end
 
-    def notify_missing_links
-      check
-      return if @error_links.empty?
-
-      texts = ['リンク切れがありました。']
-      @error_links.map do |link|
-        texts << "- <#{link.url}|#{link.title}> in: <#{link.source_url}|#{link.source_title}>"
-      end
-
-      ChatNotifier.message(texts.join("\n"), username: 'リンクチェッカー')
+    def valid_url?(url)
+      uri = Addressable::URI.parse(url)
+      uri.scheme && uri.host
+    rescue Addressable::URI::InvalidURIError
+      false
     end
 
-    def check
+    def denied_host?(url)
+      uri = Addressable::URI.parse(url)
+      DENY_HOST.include?(uri.host)
+    end
+
+    def check_response(links)
       locks = Queue.new
       5.times { locks.push :lock }
-      all_links.reject! do |link|
-        url = URI.encode_www_form_component(link.url)
-        uri = URI.parse(url)
 
-        !uri || DENY_LIST.include?(uri.host)
-      end
-      all_links.map do |link|
+      links.each do |link|
         Thread.new do
           lock = locks.pop
-          response = Client.request(link.url)
-          link.response = response
-          @error_links << link if !response || response > 403
+          link.response = Client.request(link.url)
           locks.push lock
-        end
-      end.each(&:join)
-
-      @error_links.sort { |a, b| b.source_url <=> a.source_url }
-    end
-
-    def all_links
-      page_links + practice_links
-    end
-
-    private
-
-    def page_links
-      links = []
-      Page.order(:created_at).each do |page|
-        extractor = Extractor.new(
-          page.body,
-          page.title,
-          "https://bootcamp.fjord.jp#{Rails.application.routes.url_helpers.polymorphic_path(page)}"
-        )
-        links += extractor.extract
+        end.join
       end
+
       links
     end
 
-    def practice_links
-      links = []
-      Practice.order(:created_at).each do |practice|
-        practice_url = Rails.application.routes.url_helpers.polymorphic_path(practice)
-        extractor = Extractor.new(
-          practice.description,
-          practice.title,
-          "https://bootcamp.fjord.jp#{practice_url}"
-        )
-        links += extractor.extract
+    def summary(broken_links)
+      return if broken_links.empty?
 
-        extractor = Extractor.new(
-          practice.goal,
-          practice.title,
-          "https://bootcamp.fjord.jp#{practice_url}"
-        )
-        links += extractor.extract
-      end
-      links
+      texts = ['リンク切れがありました。']
+      texts << broken_links.sort.map(&:to_s)
+      texts.join("\n")
     end
   end
 end

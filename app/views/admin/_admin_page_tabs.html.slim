@@ -1,5 +1,5 @@
 .page-tabs
-  .container.is-padding-horizontal-0-sm-down
+  .container
     ul.page-tabs__items
       li.page-tabs__item
         = link_to '管理ページ',
@@ -21,3 +21,7 @@
         = link_to '企業',
           admin_companies_path,
           class: "page-tabs__item-link #{current_link(/^admin-companies/)}"
+      li.page-tabs__item
+        = link_to 'お試し延長',
+          admin_campaigns_path,
+          class: "page-tabs__item-link #{current_link(/^admin-campaigns/)}"

@@ -1,0 +1,25 @@
+- title '管理ページ'
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to admin_campaigns_path, class: 'a-button is-md is-secondary is-block is-back' do
+              | お試し延長一覧
+
+.page-tools
+  = render 'admin/admin_page_tabs'
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        h1.page-main-header__title
+          | お試し延長編集
+  .page-body
+    .container.is-lg
+      = render 'form', campaign: @campaign

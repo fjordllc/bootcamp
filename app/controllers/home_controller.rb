@@ -12,8 +12,9 @@ class HomeController < ApplicationController
                                      .order(published_at: :desc)
                                      .limit(3)
         @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
-        @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(updated_at: :desc)
+        @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.includes(:company).order(updated_at: :desc)
         @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
+        @students_and_trainees = User.students_and_trainees.with_attached_avatar.includes(:company)
         display_events_on_dashboard
         set_required_fields
         render aciton: :index

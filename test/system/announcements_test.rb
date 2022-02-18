@@ -113,7 +113,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'yameo'
     assert_no_text 'お知らせ「現役生にのみお知らせtest」'
 
-    visit_with_auth '/notifications', 'yamada'
+    visit_with_auth '/notifications', 'mentormentaro'
     assert_no_text 'お知らせ「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'kensyu'

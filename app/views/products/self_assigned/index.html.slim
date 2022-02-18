@@ -6,9 +6,8 @@ header.page-header
       h2.page-header__title
         = title
 
-.page-tools
-  = render 'products/tabs'
-  = render 'nav'
+= render 'products/tabs'
+= render 'nav'
 
 - title 'レビューを担当する未返信の提出物' if @target == 'self_assigned_no_replied'
 
