@@ -1,9 +1,12 @@
 <template lang="pug">
-.page-body
+.talks
   #talks.container.is-md.loading(v-if='!loaded')
     loadingListPlaceholder
-  .container(v-else-if='talks.length === 0')
-    | 未返信の相談部屋はありません
+  .o-empty-message(v-else-if='talks.length === 0')
+    .o-empty-message__icon
+      i.far.fa-smile
+    p.o-empty-message__text
+      | 未返信の相談部屋はありません
   #talks.container.is-md.loaded(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
