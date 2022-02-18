@@ -3,7 +3,7 @@
 class TalksController < ApplicationController
   before_action :set_talk, only: %i[show]
   before_action :set_user, only: %i[show]
-  before_action :set_admins, only: %i[show]
+  before_action :set_members, only: %i[show]
   before_action :require_admin_login, only: %i[index]
   before_action :allow_show_talk_page_only_admin, only: %i[show]
 
@@ -30,7 +30,8 @@ class TalksController < ApplicationController
     @user = current_user.admin? ? @talk.user : current_user
   end
 
-  def set_admins
-    @admins = User.admins.order(id: :desc)
+  def set_members
+    admins = User.admins.order(id: :desc).to_a
+    @members = @talk.user.admin? ? admins : admins << @talk.user
   end
 end
