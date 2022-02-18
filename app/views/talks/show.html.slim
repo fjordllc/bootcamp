@@ -25,21 +25,13 @@ header.page-header
               h2.thread-members__title
                 | 相談部屋にアクセスできるメンバー
               ul.thread-members__items
-                - @admins.each do |admin_user|
+                - @members.each do |member|
                   li.thread-members__item
                     = render 'users/icon',
-                      user: admin_user,
+                      user: member,
                       link_class: 'thread-members__user-icon-link',
                       image_class: 'thread-members__user-icon'
-                    = link_to user_path(admin_user.id), class: 'a-user-name' do
-                      = admin_user.login_name
-                - unless @user.admin?
-                  li.thread-members__item
-                    = render 'users/icon',
-                      user: @user,
-                      link_class: 'thread-members__user-icon-link',
-                      image_class: 'thread-members__user-icon'
-                    = link_to user_path(@user.id), class: 'a-user-name' do
-                      = @user.login_name
+                    = link_to user_path(member.id), class: 'a-user-name' do
+                      = member.login_name
     a#comments.a-anchor
     #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
