@@ -3,22 +3,21 @@
     margin-top: 1rem
 
 .card-main-actions__items
+  display: flex
+  gap: .75rem
+  +position(relative)
+  justify-content: center
+  flex-wrap: wrap
   +media-breakpoint-up(md)
-    +margin(horizontal, -.375rem)
-    margin-bottom: -.625rem
-    display: flex
-    +position(relative)
-    justify-content: center
-    flex-wrap: wrap
-    align-items: flex-end
     min-height: 1.875rem
+    align-items: flex-end
+  +media-breakpoint-down(sm)
+    flex-direction: column
 
 .card-main-actions__item
-  margin-bottom: .625rem
   +media-breakpoint-up(md)
-    +padding(horizontal, .375rem)
     flex: 0 0 16rem
-    max-width: 50%
+    max-width: calc(50% - .375rem)
     &.is-sub
       +position(absolute, right 0, bottom 0)
   +media-breakpoint-down(sm)
@@ -26,11 +25,6 @@
     max-width: 100%
     &.is-sub
       text-align: right
-  &.is-end
-    margin-left: auto
-    flex-basis: 2.5rem
-    +media-breakpoint-down(sm)
-      margin-bottom: 0
 
 .card-main-actions__delete
   +hover-link-reversal
