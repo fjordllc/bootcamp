@@ -102,14 +102,12 @@ class TalksTest < ApplicationSystemTestCase
   test 'are both public information and private information displayed correctly' do
     user = users(:kimura)
     visit_with_auth "/talks/#{user.talk.id}", 'kimura'
-    wait_for_vuejs
     assert_no_text 'ユーザー非公開情報'
     assert_no_text 'ユーザー公開情報'
 
     logout
     visit_with_auth '/talks', 'komagata'
     click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
-    wait_for_vuejs
     assert_text 'ユーザー非公開情報'
     assert_text 'ユーザー公開情報'
   end
@@ -118,12 +116,10 @@ class TalksTest < ApplicationSystemTestCase
     user = users(:kimura)
     visit_with_auth '/talks', 'komagata'
     click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
-    wait_for_vuejs
     assert_text 'kimuraさんのメモ'
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: '相談部屋テストメモ'
     click_button '保存する'
-    wait_for_vuejs
     assert_text '相談部屋テストメモ'
     assert_no_text 'kimuraさんのメモ'
   end
