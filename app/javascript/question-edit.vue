@@ -71,7 +71,7 @@
           :reactionableId='`Question_${question.id}`'
         )
         footer.card-footer(
-          v-if='currentUser.id === question.user.id || isRole("mentor") || isRole("admin")'
+          v-if='currentUser.id === question.user.id || isRole("mentor")'
         )
           .card-main-actions
             ul.card-main-actions__items
@@ -273,7 +273,7 @@ export default {
           })
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     startEditing() {
@@ -334,7 +334,7 @@ export default {
           this.finishEditing(true)
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     cancel() {

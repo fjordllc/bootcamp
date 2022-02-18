@@ -1,5 +1,5 @@
 <template lang="pug">
-.container.is-padding-horizontal-0-sm-down
+.container.is-lg
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
   .admin-table
@@ -50,8 +50,8 @@
                   @click='destroy(company)'
                 )
                   i.fas.fa-trash-alt
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
 </template>
 
 <script>
@@ -114,7 +114,7 @@ export default {
           this.loaded = true
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     destroy(company) {

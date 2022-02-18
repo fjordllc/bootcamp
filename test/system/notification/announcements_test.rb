@@ -19,13 +19,13 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
       choose '全員にお知らせ', allow_label_click: true
       click_button '作成'
     end
+    assert_text 'お知らせを作成しました。'
 
-    logout
+    visit_with_auth '/notifications', 'sotugyou'
 
-    visit_with_auth '/', 'sotugyou'
-    open_notification
-    assert_equal @notice_text, notification_message
-    logout
+    within first('.thread-list-item.is-unread') do
+      assert_text @notice_text
+    end
 
     visit_with_auth '/', 'komagata'
     refute_text @notice_text

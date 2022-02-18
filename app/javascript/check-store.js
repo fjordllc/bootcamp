@@ -67,7 +67,7 @@ export default new Vuex.Store({
           }
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     }
   }

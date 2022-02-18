@@ -39,5 +39,11 @@ module LinkChecker
         assert_equal 200, Client.new('https://developer.mozilla.org/ja/docs/Web/JavaScript#Tutorials').request
       end
     end
+
+    test '#request can get a response from the server whose server certificate cannot be verified' do
+      VCR.use_cassette 'link_checker/client/request/www.tablesgenerator.com' do
+        assert_equal 200, Client.request('https://www.tablesgenerator.com/markdown_tables')
+      end
+    end
   end
 end

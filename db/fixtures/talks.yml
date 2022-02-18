@@ -18,8 +18,8 @@ talk_yameo:
   user: yameo
   unreplied: false
 
-talk_yamada:
-  user: yamada
+talk_mentormentaro:
+  user: mentormentaro
   unreplied: false
 
 talk_kimura:
@@ -157,3 +157,12 @@ talk_thuynga:
 talk_sotugyou-adviser:
   user: sotugyou-adviser
   unreplied: false
+
+talk_otameshi:
+  user: otameshi
+  unreplied: false
+
+talk_sotugyou-with-job:
+  user: sotugyou_with_job
+  unreplied: false
+

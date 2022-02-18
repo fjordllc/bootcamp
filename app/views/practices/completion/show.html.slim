@@ -1,0 +1,24 @@
+- title @practice.title
+- if @practice.ogp_image.attached?
+  - set_meta_tags(og: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+  - set_meta_tags(twitter: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+- else
+  - set_meta_tags(og: { image: image_url('completion/completion_default.png'), url: request.url })
+  - set_meta_tags(twitter: { image: image_url('completion/completion_default.png'), url: request.url })
+
+.page-body
+  .complestion
+    .complestion__header
+      .container
+        h1.complestion__title
+          | おめでとうございます！！
+          br
+          | 「#{@practice.title}」を
+          br
+          | 修了しました🎉
+    .complestion__body
+      .container.is-md
+        - if @practice.ogp_image.attached?
+          = image_tag @practice.ogp_image, class: 'complestion__image', alt: "#{@practice.title}修了おめでとうカード"
+        - else
+          = image_tag('completion/completion_default.png', class: 'complestion__image', alt: "#{@practice.title}修了おめでとうカード")

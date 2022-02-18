@@ -1,5 +1,5 @@
 <template lang="pug">
-.container.is-md(v-if='!loaded')
+#notifications.container.is-md.loaing(v-if='!loaded')
   loadingListPlaceholder
 .container(v-else-if='notifications.length === 0')
   .o-empty-message
@@ -9,7 +9,7 @@
       | 未読の通知はありません
     p.o-empty-message__text(v-else)
       | 通知はありません
-.container.is-md(v-else)
+#notifications.container.is-md.loaded(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
   .thread-list.a-card
@@ -104,7 +104,7 @@ export default {
           this.loaded = true
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     paginateClickCallback: function (pageNumber) {

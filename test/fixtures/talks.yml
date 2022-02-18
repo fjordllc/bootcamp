@@ -19,7 +19,7 @@ talk5:
   unreplied: false
 
 talk6:
-  user: yamada
+  user: mentormentaro
   unreplied: false
 
 talk7:
@@ -75,4 +75,12 @@ talk19:
 
 talk20:
   user: adminonly
+  unreplied: false
+
+talk21:
+  user: otameshi
+  unreplied: false
+
+talk22:
+  user: sotugyou_with_job
   unreplied: false

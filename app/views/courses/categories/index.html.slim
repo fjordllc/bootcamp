@@ -13,4 +13,5 @@ header.page-header
               | コース一覧
 
 .page-body
-  #js-courses-categories(data-courses-categories="#{@courses_categories.to_json(include: :category)}")
+  .container.is-lg
+    #js-courses-categories(data-courses-categories="#{@courses_categories.to_json(include: :category)}")

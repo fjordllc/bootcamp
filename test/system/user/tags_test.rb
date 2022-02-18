@@ -12,7 +12,7 @@ class User::TagsTest < ApplicationSystemTestCase
       click_on name
       assert_text "タグ「#{name}」のユーザー"
       assert_text user.name
-      assert_no_text "#{user.name}のプロフィール"
+      assert_no_text 'プロフィール'
     end
   end
 

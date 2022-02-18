@@ -68,4 +68,7 @@ nav.global-nav
             = link_to talks_link, class: "global-nav-links__link #{current_link(/talk/)}" do
               .global-nav-links__link-icon
                 i.fas.fa-comment-alt-smile
+              - if admin_or_mentor_login? && Talk.unreplied.count.positive?
+                .global-nav__item-count.a-notification-count.is-only-mentor
+                  = Talk.unreplied.count
               .global-nav-links__link-label 相談

@@ -61,29 +61,29 @@ comment9:
   description: "@sotugyou 🎉🎉🎉🎉"
 
 comment10:
-  user: yamada
+  user: mentormentaro
   commentable: product1 (Product)
   description: "提出物へのコメント"
 
 comment11:
-  user: yamada
+  user: mentormentaro
   commentable: report1 (Report)
   description: "テスト用 report1へのコメント"
   created_at: <%= now + 2.seconds %>
   updated_at: <%= now + 2.seconds %>
 
 comment12:
-  user: yamada
+  user: mentormentaro
   commentable: announcement1 (Announcement)
   description: "テスト用 announcement1へのコメント"
 
 comment13:
-  user: yamada
+  user: mentormentaro
   commentable: product1 (Product)
   description: "テスト用 product1へのコメント"
 
 comment14:
-  user: yamada
+  user: mentormentaro
   commentable: product3 (Product)
   description: "テスト用 product3へのコメント"
 
@@ -94,7 +94,7 @@ comment15:
   created_at: "2019-01-02 12:00:01"
 
 comment16:
-  user: yamada
+  user: mentormentaro
   commentable: event1 (Event)
   description: "テスト用 event1へのコメント"
 
@@ -109,7 +109,7 @@ comment18:
   description: "@kimura 1つ目のメンションありの未読通知を発生させる"
 
 comment19:
-  user: yamada
+  user: mentormentaro
   commentable: report7 (Report)
   description: "@kimura 2つ目のメンションありの未読通知を発生させる"
 
