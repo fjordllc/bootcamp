@@ -25,6 +25,10 @@ class Users::ReportsController < ApplicationController
     @reports = user.reports.list.page(params[:page])
   end
 
+  def set_report
+    @report = @reports[0]
+  end
+
   def user
     @user ||= User.find(params[:user_id])
   end
