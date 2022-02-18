@@ -21,6 +21,7 @@ class Users::ReportsController < ApplicationController
 
   def allow_download_reports_only_admin
     return if current_user.admin? || @report.user_id == current_user.id
+
     redirect_to root_path, alert: '自分以外の日報はダウンロードすることができません'
   end
 
