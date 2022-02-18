@@ -39,5 +39,6 @@ class EmotionsTest < ApplicationSystemTestCase
     click_button '提出'
     assert_text '日報を保存しました。'
     assert_selector 'img#sad'
+    assert_text '困った時は'
   end
 end
