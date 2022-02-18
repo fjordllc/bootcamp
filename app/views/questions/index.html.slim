@@ -34,16 +34,17 @@ header.page-header
 .page-body
   .container.is-xl
     .two-columns
-      .two-columns__inner
+      .two-columns__column.is-main
         #js-questions data-empty-message=@questions_property.empty_message data-selected-tag=params[:tag]
       - if @tags.any?
-        nav.page-tags-nav
-          header.page-tags-nav__header
-            h2.page-tags-nav__title
-              | タグ一覧
-          .page-tags-nav__body
-            ul.page-tags-nav__items
-              - Question.all.all_tags.each do |tag|
-                - if tag.present?
-                  li.page-tags-nav__item
-                    = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'page-tags-nav__item-link'
+        .two-columns__column.is-sub
+          nav.page-tags-nav
+            header.page-tags-nav__header
+              h2.page-tags-nav__title
+                | タグ一覧
+            .page-tags-nav__body
+              ul.page-tags-nav__items
+                - Question.all.all_tags.each do |tag|
+                  - if tag.present?
+                    li.page-tags-nav__item
+                      = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'page-tags-nav__item-link'
