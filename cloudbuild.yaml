@@ -27,7 +27,7 @@ steps:
     volumes:
       - name: db
         path: "/cloudsql"
-    args: ['bin/rails', 'db:create', 'bootcamp:migrate']
+    args: ['bin/rails', 'bootcamp:migrate']
     env:
       - 'RAILS_ENV=production'
       - 'DB_HOST=/cloudsql/$_CLOUD_SQL_HOST'
