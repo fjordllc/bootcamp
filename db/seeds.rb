@@ -24,9 +24,9 @@ ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', %i[
   learnings
   memos
   notifications
-  pages
   participations
   practices
+  pages
   reference_books
   products
   questions
