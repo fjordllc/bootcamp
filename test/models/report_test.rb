@@ -51,4 +51,13 @@ class ReportTest < ActiveSupport::TestCase
     report.save!
     assert_not_nil Watch.find_by(user: adviser, watchable: report)
   end
+
+  test '#latest?' do
+    assert_not reports(:report31).latest?
+    assert reports(:report32).latest?
+  end
+
+  test '#interval' do
+    assert_equal reports(:report32).interval, 10
+  end
 end
