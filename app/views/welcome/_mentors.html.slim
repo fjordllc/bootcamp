@@ -185,6 +185,18 @@ section.welcome-child-section
             | #{link_to '平成.rb', 'https://heiseirb.connpass.com/'}の運営に携わっていたことがあります。
             | 好きなRubyのメソッドはEnumerable#all?です。
       .col-xs-12.col-md-6.col-lg-4
+        = render 'welcome/mentor', name: '梅本 祥平',
+                                   job: 'プログラマー',
+                                   image: 'cafedomancer.jpg',
+                                   github_id: 'cafedomancer',
+                                   blog_url: 'https://cafedomancer.com/',
+                                   twitter_id: 'cafedomancer',
+                                   facebook_id: 'cafedomancer' do
+          p
+            | #{link_to '株式会社えにしテック', 'https://www.enishi-tech.com/'}のプログラマー。
+            | 普段は Rails を中心とした技術支援を業務として行っている。
+            | フィヨルドブートキャンプでは受講生の方とのペアプロやモブプロを主に担当。
+      .col-xs-12.col-md-6.col-lg-4
         = render 'welcome/mentor', name: '町田 哲平',
                                    job: 'デザイナー',
                                    image: 'machida.jpg',
