@@ -10,8 +10,9 @@
         i.fas.fa-check
         | 完了しています
     li.card-main-actions__item(v-else)
-      button#js-complete.a-button.is-md.is-warning.is-block(
-        @click='pushComplete'
+      label#js-complete.a-button.is-md.is-warning.is-block(
+        @click='pushComplete',
+        for='modal-learning_completion'
       )
         i.fas.fa-check
         | 完了
@@ -57,7 +58,7 @@ export default {
         }
       })
       .catch((error) => {
-        console.warn('Failed to parsing', error)
+        console.warn(error)
       })
   },
   methods: {
@@ -87,7 +88,7 @@ export default {
           this.complete = true
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     }
   }

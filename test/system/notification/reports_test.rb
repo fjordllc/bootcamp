@@ -5,8 +5,8 @@ require 'application_system_test_case'
 class Notification::ReportsTest < ApplicationSystemTestCase
   test 'the first daily report notification is sent only to current students and mentors' do
     report = users(:muryou).reports.create!(
-      title: 'test title',
-      description: 'test',
+      title: '初日報です',
+      description: '初日報の内容です',
       reported_on: Date.current
     )
 
@@ -20,16 +20,20 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
 
     notification_message = 'muryouさんがはじめての日報を書きました！'
-    visit_with_auth '/notifications', 'komagata'
+    visit_with_auth '/notifications', 'machida'
+    find('#notifications.loaded', wait: 10)
     assert_text notification_message
 
     visit_with_auth '/notifications', 'kimura'
+    find('#notifications.loaded', wait: 10)
     assert_text notification_message
 
     visit_with_auth '/notifications', 'advijirou'
+    find('#notifications.loaded', wait: 10)
     assert_no_text notification_message
 
     visit_with_auth '/notifications', 'sotugyou'
+    find('#notifications.loaded', wait: 10)
     assert_no_text notification_message
   end
 
@@ -155,7 +159,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
   test 'notify to mentors when a student submitted reports with sad icon at twice in a row' do
     student = 'kimura'
-    mentor = 'yamada'
+    mentor = 'mentormentaro'
 
     visit_with_auth '/reports', student
 
@@ -171,6 +175,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
+    find('.modal-header__close').click
 
     click_link '日報作成'
     within('#new_report') do
@@ -184,6 +189,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
+    find('.modal-header__close').click
 
     visit_with_auth '/notifications', mentor
 

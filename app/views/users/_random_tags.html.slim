@@ -1,9 +1,7 @@
-.random-tags
-  header.random-tags__header
-    .container
-      .random-tags__header-inner
-        h2.random-tags__title
-          | ユーザータグ
+.random-tags.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | ユーザータグ
   .random-tags__items
     ul.random-tags__items
       - @random_tags.each do |tag|
@@ -14,4 +12,6 @@
                 = tag.name
               .random-tags__item-count
                 = tag.count
-    = link_to 'もっとみる', users_tags_path, class: 'recent-reports__to-index'
+  footer.card-footer
+    .card-footer__footer-link
+      = link_to 'もっとみる', users_tags_path, class: 'card-footer__footer-text-link'

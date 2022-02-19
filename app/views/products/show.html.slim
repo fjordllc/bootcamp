@@ -1,11 +1,16 @@
 - title "#{@product.practice.title}の提出物"
 - category = @product.category(current_user.course)
 
+= render '/shared/modal_learning_completion',
+  practice: @product.practice,
+  tweet_url: @tweet_url,
+  should_display_message_automatically: @learning&.should_display_message_automatically?(current_user: current_user)
+
 header.page-header
   .container
     .page-header__inner
       h1.page-header__title
-        = "#{@product.user.login_name}の提出物"
+        = title
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
@@ -20,12 +25,6 @@ header.page-header
 = render 'page_tabs', resource: @product.practice
 
 .page-body
-  - if !current_user.adviser? && @product.practice.open_product?
-    .a-page-notice.page-notice
-      .container
-        .a-page-notice__inner
-          p
-            | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
   - if @product.user == current_user && !@product.wip? && !@product.checked? && @product.commented_users.mentor.empty?
     .a-page-alert
       .container.is-md
@@ -35,6 +34,11 @@ header.page-header
               | 7日以内にメンターがレビューしますので、次のプラクティスにお進みください。
               br
               | もし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。
+  //
+    [TODO]完了Tweetの正式リリース後にコメントを外す
+    - if @product.user == current_user && @learning&.complete?
+      = render 'completion_message', practice: @product.practice
+
   .container.is-xxxl
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-7 col-xs-12' : ''}")
@@ -110,6 +114,7 @@ header.page-header
             .thread__description.js-target-blank.is-long-text.js-markdown-view(data-taskable-id="#{@product.id}" data-taskable-type='Product' data-taskable="#{@product.taskable?(current_user).to_s}")
               =  @product.body
             = render 'reactions/reactions', reactionable: @product
+
             - if @product.user == current_user || admin_or_mentor_login?
               .card-footer
                 .card-main-actions
@@ -188,3 +193,9 @@ header.page-header
                   = render 'users/user_secret_attributes', user: @product.user
                   = render 'users/metas', user: @product.user
                 #js-user-mentor-memo(data-user-id="#{@product.user.id}" data-products-mode="#{true}")
+
+- if !current_user.adviser? && @product.practice.open_product?
+  .sticky-message
+    .container
+      p
+        | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。

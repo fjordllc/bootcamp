@@ -47,6 +47,28 @@ machida:
   updated_at: "2014-01-01 00:00:02"
   created_at: "2014-01-01 00:00:02"
 
+sotugyou_with_job:
+  login_name: sotugyou-with-job
+  email: sotugyouwithjob@example.com
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 卒業 就職済美
+  name_kana: ソツギョウ シュウショクズミ
+  twitter_account: sotugyou_with_job
+  facebook_url: http://www.facebook.com/sotugyou_with_job
+  blog_url: http://sotugyou_with_job.example.com/
+  description: "卒業です。卒業しちゃいました。就職は希望していません。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  job_seeker: false
+  organization: 株式会社卒業
+  graduated_on: "2015-01-01"
+  unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwj
+  updated_at: "2014-01-01 00:00:03"
+  created_at: "2014-01-01 00:00:03"
+
 sotugyou:
   login_name: sotugyou
   email: sotugyou@example.com
@@ -59,11 +81,9 @@ sotugyou:
   blog_url: http://sotugyou.example.com/
   description: "卒業です。卒業しちゃいました。"
   course: course1
-  job: office_worker
   os: mac
   experience: rails
   job_seeker: true
-  organization: 株式会社卒業
   graduated_on: "2015-01-01"
   unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
   updated_at: "2014-01-01 00:00:03"
@@ -109,22 +129,22 @@ yameo:
   updated_at: "2014-01-01 00:00:05"
   created_at: "2014-01-01 00:00:05"
 
-yamada:
-  login_name: yamada
-  email: yamada@fjord.jp
+mentormentaro:
+  login_name: mentormentaro
+  email: mentormentaro@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  name: Yamada Taro
-  name_kana: ヤマダ タロウ
-  twitter_account: yamada
-  facebook_url: http://www.facebook.com/yamada
-  blog_url: http://yamada.com
-  description: "山田です。メンターです。"
+  name: メンタ 麺太郎
+  name_kana: メンタ メンタロウ
+  twitter_account: mentormentaro
+  facebook_url: http://www.facebook.com/mentormentaro
+  blog_url: http://mentor.com
+  description: "メンタ麺太郎です。メンターです。"
   course: course1
   job: office_worker
   os: mac
   experience: inexperienced
-  organization: 木村大学
+  organization: メンター大学
   mentor: true
   unsubscribe_email_token: -PmtH0Rmh36FIPhbxzkMGA
   updated_at: "2014-01-01 00:00:06"

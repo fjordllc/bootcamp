@@ -18,6 +18,8 @@ article1:
     ![Image from Gyazo](https://i.gyazo.com/9be15807028d985676f0f3a21526d55c.png)
     あとはインストーラーの指示に従ってインストールしましょう。
   user: komagata
+  wip: false
+  published_at: "2022-01-01 00:00:00"
 
 article2:
   title: Debian用の仮想マシンを作ろう
@@ -41,3 +43,15 @@ article2:
     左側にDebian用の仮想マシンが表示されました。
     しかしこれは中身の空っぽの仮想マシンができた状態なので続けてOSをインストールしましょう。
   user: machida
+  wip: false
+  published_at: "2022-01-02 00:00:00"
+
+article3:
+  title: 仮想マシンにDebianをインストールしよう
+  body: |-
+    仮想マシンにOS(Debian)をインストールしましょう。
+    仮想マシンの作成方法は下記の記事をみてください。
+    [Debian用の仮想マシンを作ろう](https://bootcamp.fjord.jp/articles/4)
+    物理マシンでしたらインストールCD（やUSB）をマシンに入れてインストールしますが、仮想マシンの場合は、仮想のCDドライブにCDイメージをセットしてインストールします。
+  user: komagata
+  wip: true

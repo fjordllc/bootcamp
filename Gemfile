@@ -6,10 +6,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.0'
 
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'date', '>= 3.2.1' # CVE-2021-41817対応
 gem 'image_processing', '~> 1.2'
 gem 'jbuilder', '~> 2.7'
-gem 'puma', '~> 5.5'
+gem 'puma', '~> 5.6'
 gem 'rails', '~> 6.1.4.4'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
@@ -19,10 +18,10 @@ gem 'active_decorator'
 gem 'active_flag'
 gem 'active_storage_validations'
 gem 'acts_as_list'
-gem 'acts-as-taggable-on', '~> 7.0'
+gem 'acts-as-taggable-on'
+gem 'addressable'
 gem 'any_login'
 gem 'cocoon'
-gem 'coffee-rails', '~> 5.0.0'
 gem 'commonmarker'
 gem 'data_migrate'
 gem 'diffy'
@@ -34,6 +33,8 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mentionable', '~> 0.2.1'
 gem 'meta-tags'
+gem 'net-imap', require: false
+gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
 gem 'oauth2'
 gem 'omniauth', '~> 1.9.1'
@@ -52,7 +53,6 @@ gem 'sorcery', '~> 0.16.2'
 gem 'sorcery-jwt'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
-gem 'sucker_punch', '~> 2.0'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -64,7 +64,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '~> 3.3'
+  gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 4.1.0'
@@ -73,6 +73,7 @@ group :development do
   gem 'bullet'
   gem 'bundle_outdated_formatter'
   gem 'letter_opener_web', '~> 1.0'
+  gem 'rack-dev-mark'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'rubocop', require: false
   gem 'rubocop-fjord', '~> 0.2.0', require: false

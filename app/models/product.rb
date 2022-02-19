@@ -14,6 +14,7 @@ class Product < ApplicationRecord
 
   belongs_to :practice
   belongs_to :user, touch: true
+  belongs_to :checker, class_name: 'Product', optional: true
   alias sender user
 
   after_create ProductCallbacks.new
@@ -140,6 +141,14 @@ class Product < ApplicationRecord
       practice_id: practice.id
     )
     learning.update(status: status)
+  end
+
+  # nilの場合あり
+  def learning
+    Learning.find_by(
+      user_id: user.id,
+      practice_id: practice.id
+    )
   end
 
   def last_commented_user

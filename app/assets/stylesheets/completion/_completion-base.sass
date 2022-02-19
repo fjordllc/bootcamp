@@ -1,0 +1,80 @@
+$completion: #00a0dd
+
+body.is-completion
+  background-color: $completion
+
+.completion-wrapper
+  min-height: 100vh
+  display: flex
+  flex-direction: column
+  &::before
+    content: ''
+    background-image: image_url('completion/completion_background.svg')
+    background-repeat: repeat
+    +position(fixed, left 0, top 0, right 0, bottom 0, 1)
+    +size(100%)
+    opacity: .075
+    +media-breakpoint-up(md)
+      background-size: 16rem auto
+
+.completion-wrapper__start
+  flex: 1
+  +position(relative, 2)
+
+.completion-wrapper__end
+  +position(relative, 2)
+
+.complestion
+  +padding(vertical, 4rem 2rem)
+
+.complestion__title
+  +text-block(2rem 1.5, 800 center $reversal-text)
+  font-family: YakuHanJP_Narrow,Hiragino Sans,Hiragino Kaku Gothic ProN,BIZ UDPGothic,Meiryo,sans-serif
+
+.complestion__body
+  margin-top: 3rem
+
+.complestion__image
+  border-radius: 1rem
+  border: solid .75rem shade($completion, 30%)
+
+.welcome-footer
+  +media-breakpoint-up(md)
+    +padding(vertical, 3rem)
+  +media-breakpoint-down(sm)
+    padding-bottom: 1.5rem
+    body.welcome & .container
+      +padding(horizontal, 0)
+
+.welcome-footer__nav
+  margin-bottom: 1.5rem
+
+.welcome-footer__nav-items
+  +media-breakpoint-up(md)
+    display: flex
+    justify-content: center
+
+.welcome-footer__nav-item
+  +media-breakpoint-up(md)
+    +padding(horizontal, .5rem)
+
+.welcome-footer__nav-item-link
+  +text-block(.875rem 1, $reversal-text)
+  +media-breakpoint-up(md)
+    +hover-link
+  +media-breakpoint-down(sm)
+    text-decoration: none
+    display: flex
+    align-items: center
+    +padding(horizontal, 1rem)
+    border-bottom: solid 1px $border
+    +size(100% 2.75rem)
+
+.welcome-footer-copyright
+  justify-content: center
+  align-items: center
+  +text-block(.875rem 1.45, flex $reversal-text)
+
+.welcome-footer-copyright__author
+  display: block
+  +margin(horizontal, .1em .5em)

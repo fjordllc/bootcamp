@@ -3,41 +3,49 @@ learning1:
   user: komagata
   practice: practice1
   status: "started"
+  completion_message_displayed: false
 
 learning2:
   user: komagata
   practice: practice2
   status: "complete"
+  completion_message_displayed: true
 
 learning3:
   user: komagata
   practice: practice3
   status: "unstarted"
+  completion_message_displayed: false
 
 learning4:
   user: machida
   practice: practice2
   status: "complete"
+  completion_message_displayed: true
 
 learning5:
   user: sotugyou
   practice: practice2
   status: "complete"
+  completion_message_displayed: true
 
 learning6:
   user: kimura
   practice: practice1
   status: "complete"
+  completion_message_displayed: true
 
 learning7:
   user: komagata
   practice: practice4
   status: "submitted"
+  completion_message_displayed: false
 
 learning8:
   user: machida
   practice: practice5
   status: "complete"
+  completion_message_displayed: true
   created_at: "2020-04-12 14:05:53.782503"
   updated_at: "2020-04-12 14:05:53.782503"
 
@@ -47,6 +55,7 @@ learning9:
   status: "complete"
   created_at: "2020-04-10 14:05:53.782503"
   updated_at: "2020-04-10 14:05:53.782503"
+  completion_message_displayed: true
 
 learning10:
   user: machida
@@ -54,6 +63,7 @@ learning10:
   status: "complete"
   created_at: "2020-04-19 14:05:53.782503"
   updated_at: "2020-04-19 14:05:53.782503"
+  completion_message_displayed: true
 
 learning11:
   user: machida
@@ -61,29 +71,46 @@ learning11:
   status: "complete"
   created_at: "2020-04-22 14:05:53.782503"
   updated_at: "2020-04-22 14:05:53.782503"
+  completion_message_displayed: true
 
 learning12:
   user: hajime
   practice: practice1
   status: "started"
+  completion_message_displayed: false
 
 learning13:
   user: kananashi
   practice: practice3
   status: "started"
+  completion_message_displayed: false
 
 learning14:
   user: hajime
   practice: practice27
   status: "complete"
+  completion_message_displayed: true
 
 learning15:
   user: hajime
   practice: practice48
   status: "complete"
+  completion_message_displayed: true
+
+learning16:
+  user: kimura
+  practice: practice6
+  status: "complete"
+  completion_message_displayed: false
+
+learning17:
+  user: sotugyou
+  practice: practice3
+  status: "submitted"
+  completion_message_displayed: false
 
 <% (0..4).each do |i| %>
-learning<%= i + 16 %>:
+learning<%= i + 18 %>:
   user: <%= [:akiyosi, :fujiyasu, :jobseeker, :muryou, :nippounashi][i] %>
   practice: practice1
   status: "complete"

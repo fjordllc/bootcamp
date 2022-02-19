@@ -1,10 +1,14 @@
 .two-columns
   +position(relative)
-  +media-breakpoint-up(lg)
-    display: flex
-    justify-content: space-between
-    align-items: flex-start
+  display: flex
+  gap: 1.5rem
+  +media-breakpoint-down(md)
+    flex-direction: column
 
-.two-columns__inner
-  flex: 100
-  max-width: $thread-max-width
+.two-columns__column
+  &.is-main
+    flex: 1
+    max-width: $thread-max-width
+  &.is-sub
+    +media-breakpoint-up(lg)
+      flex: 0 0 20rem

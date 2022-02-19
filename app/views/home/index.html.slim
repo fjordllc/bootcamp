@@ -15,7 +15,8 @@ header.page-header
               i.fas.fa-plus
               | 日報作成
 
-= render 'page_tabs', user: current_user
+.page-tools
+  = render 'page_tabs', user: current_user
 
 .page-body
   - if @events_coming_soon.present? && current_user.job_seeker
@@ -68,5 +69,5 @@ header.page-header
           - if current_user.student_or_trainee?
             #js-niconico_calendar(data-user-id="#{current_user.id}")
           - if current_user.mentor?
-            = render 'users/sad_emotion_report', users: User.students_and_trainees
+            = render 'users/sad_emotion_report', users: @students_and_trainees
             = render 'users/inactive_users', users: @inactive_students

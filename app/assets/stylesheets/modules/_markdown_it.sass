@@ -7,22 +7,16 @@
   h6
     scroll-snap-align: start
     scroll-snap-stop: always
+    cursor: pointer
+    position: relative
+    &:hover
+      .header-anchor
+        opacity: 1
     &::before
       display: block
       content: " "
       visibility: hidden
       pointer-events: none
-h1,
-h2,
-h3,
-h4,
-h5,
-h6
-  cursor: pointer
-  position: relative
-  &:hover
-    .header-anchor
-      opacity: 1
 
 .header-anchor
   display: flex

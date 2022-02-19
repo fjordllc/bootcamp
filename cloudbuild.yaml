@@ -27,7 +27,7 @@ steps:
     volumes:
       - name: db
         path: "/cloudsql"
-    args: ['bin/rails', 'db:create', 'bootcamp:migrate']
+    args: ['bin/rails', 'bootcamp:migrate']
     env:
       - 'RAILS_ENV=production'
       - 'DB_HOST=/cloudsql/$_CLOUD_SQL_HOST'
@@ -77,6 +77,7 @@ steps:
       - '--set-env-vars=DISCORD_NOTICE_WEBHOOK_URL=$_DISCORD_NOTICE_WEBHOOK_URL'
       - '--set-env-vars=DISCORD_ALL_WEBHOOK_URL=$_DISCORD_ALL_WEBHOOK_URL'
       - '--set-env-vars=DISCORD_ADMIN_WEBHOOK_URL=$_DISCORD_ADMIN_WEBHOOK_URL'
+      - '--set-env-vars=DISCORD_BUG_WEBHOOK_URL=$_DISCORD_BUG_WEBHOOK_URL'
       - '--set-env-vars=BASIC_AUTH_USER=$_BASIC_AUTH_USER'
       - '--set-env-vars=BASIC_AUTH_PASSWORD=$_BASIC_AUTH_PASSWORD'
       - '--set-env-vars=ROLLBAR_CLIENT_TOKEN=$_ROLLBAR_CLIENT_TOKEN'

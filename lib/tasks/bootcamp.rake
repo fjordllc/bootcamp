@@ -40,6 +40,13 @@ namespace :bootcamp do
 
       User.all.each(&:create_talk!)
 
+      if ENV['DB_NAME'] == 'bootcamp_staging'
+        Article.where(wip: false).where(published_at: nil).find_each do |article|
+          article.published_at = article.created_at
+          article.save!(validate: false)
+        end
+      end
+
       puts '== END   Cloud Build Task =='
     end
   end

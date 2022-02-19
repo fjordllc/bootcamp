@@ -40,7 +40,7 @@
                     | {{ user.discord_account }}
                   span.users-item-names__chat-value(v-else)
                     | {{ user.discord_account }}
-            user-sns(:user='user')
+        user-sns(:user='user')
       .users-item__body
         .users-item__description.a-short-text
           p(v-for='paragraph in userDescParagraphs', :key='paragraph.id')
