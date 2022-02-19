@@ -620,4 +620,16 @@ class ReportsTest < ApplicationSystemTestCase
 
     assert height < after_height
   end
+
+  test 'display report interval for mentor while undoing wip' do
+    visit_with_auth report_path(reports(:report32)), 'komagata'
+    assert_selector '.a-page-notice.is-only-mentor.is-danger', text: '10日ぶりの日報です'
+
+    visit_with_auth report_path(reports(:report33)), 'kananashi'
+    click_link '内容修正'
+    click_button '提出'
+
+    visit_with_auth report_path(reports(:report32)), 'komagata'
+    assert_selector '.a-page-notice.is-only-mentor', text: '9日ぶりの日報です'
+  end
 end
