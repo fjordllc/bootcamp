@@ -139,8 +139,8 @@ class SearchablesTest < ApplicationSystemTestCase
   test 'check that link to talk room is displayed properly' do
     visit_with_auth '/', 'hatsuno'
     within('form[name=search]') do
-      select 'ユーザー'
-      fill_in 'word', with: 'a'
+      select 'すべて'
+      fill_in 'word', with: ''
     end
     find('#test-search').click
     assert_no_text '相談部屋'
@@ -150,7 +150,7 @@ class SearchablesTest < ApplicationSystemTestCase
     visit_with_auth '/', 'komagata'
     within('form[name=search]') do
       select 'ユーザー'
-      fill_in 'word', with: 'a'
+      fill_in 'word', with: ''
     end
     find('#test-search').click
     assert_text '相談部屋'
