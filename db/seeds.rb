@@ -38,6 +38,3 @@ insert_fixture 'reactions'
 insert_fixture 'watches'
 insert_fixture 'works'
 insert_fixture 'talks'
-
-Bootcamp::Setup.attachment
-Rake::Task['bootcamp:statistics:save_learning_minute_statistics'].execute
