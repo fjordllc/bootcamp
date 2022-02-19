@@ -257,7 +257,12 @@ class User < ApplicationRecord
   scope :trainees, -> { where(trainee: true) }
   scope :job_seeking, -> { where(job_seeking: true) }
   scope :job_seekers, lambda {
-    students.where(
+    where(
+      admin: false,
+      mentor: false,
+      adviser: false,
+      trainee: false,
+      retired_on: nil,
       job_seeker: true
     )
   }
@@ -457,6 +462,10 @@ class User < ApplicationRecord
 
   def student?
     !admin? && !adviser? && !mentor? && !trainee?
+  end
+
+  def current_student?
+    !admin? && !adviser? && !mentor? && !graduated? && !retired?
   end
 
   def staff?

@@ -1,21 +1,15 @@
 - title @practice.title
 - category = @practice.category(current_user.course)
 
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__title
-        = @practice.title
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
-              class: 'a-button is-md is-secondary is-block is-back' do
-              | プラクティス一覧
-
+= render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false
+= render '/practices/page_header', title: title, category: category
 = render 'page_tabs', resource: @practice
 
 .page-body
+  //
+    [TODO]完了Tweetの正式リリース後にコメントを外す
+    - if @practice.learning(current_user)&.complete?
+      = render '/products/completion_message', practice: @practice
   .container.is-xl
     .practice-contents
       .practice-contents__inner
@@ -119,12 +113,7 @@ header.page-header
             .js-markdown-view.js-target-blank.is-long-text
               = @practice.goal
             - if !current_user.adviser? && @practice.open_product?
-              .practice-content__body-notice
-                p
-                  | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
-                  = link_to practice_products_path(@practice) do
-                    | 他の人の提出物
-                  | も参考にしてください。
+              = render '/practices/practice_content_notice'
           footer.card-footer
             #js-learning(data-practice-id="#{@practice.id}")
             - if @practice.submission
@@ -171,7 +160,9 @@ header.page-header
         ul.page-nav__items
           - category.practices.each do |practice|
             li.page-nav__item
-              = link_to practice.title, practice_path(practice), class: "page-nav__item-link #{@practice == practice ? 'is-current' : ''}"
+              = link_to practice_path(practice), class: "page-nav__item-link #{@practice == practice ? 'is-current' : ''}" do
+                span.page-nav__item-link-inner
+                  = practice.title
 
 .sticky-message
   p

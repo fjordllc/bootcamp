@@ -1,18 +1,7 @@
 - title @practice.title
 - category = @practice.category(current_user.course)
 
-header.page-header
-  .container
-    .page-header__inner
-      h1.page-header__title
-        = title
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
-              class: 'a-button is-md is-secondary is-block is-back' do
-              | プラクティス一覧
-
+= render '/practices/page_header', title: title, category: category
 = render 'page_tabs', resource: @practice
 
 .page-body

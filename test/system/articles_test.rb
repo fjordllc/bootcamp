@@ -5,6 +5,7 @@ require 'application_system_test_case'
 class ArticlesTest < ApplicationSystemTestCase
   setup do
     @article = articles(:article1)
+    @article3 = articles(:article3)
   end
 
   # 仮デザインなので一時的に無効化
@@ -49,5 +50,56 @@ class ArticlesTest < ApplicationSystemTestCase
 
     visit edit_article_path(@article)
     assert_text '管理者としてログインしてください'
+  end
+
+  test 'save article with WIP' do
+    visit_with_auth new_article_path, 'komagata'
+
+    fill_in 'article[title]', with: 'タイトル４'
+    fill_in 'article[body]', with: '本文４'
+    click_on 'WIP'
+    assert_text 'WIPとして保存しました'
+  end
+
+  test 'WIP label visible on index and show' do
+    visit_with_auth articles_path, 'komagata'
+    assert_text 'WIP'
+    assert_text '執筆中'
+
+    click_on @article3.title
+    assert_text 'WIP'
+    assert_text '執筆中'
+    assert_selector 'head', visible: false do
+      assert_selector "meta[name='robots'][content='none']", visible: false
+    end
+  end
+
+  test 'WIP articles not visible to users' do
+    visit_with_auth articles_url, 'kimura'
+    assert_no_text 'WIP'
+  end
+
+  test 'WIP articles not accessible to users' do
+    visit_with_auth article_path(@article3), 'kimura'
+    assert_text '管理者・メンターとしてログインしてください'
+  end
+
+  test 'no WIP marks after publication' do
+    visit_with_auth edit_article_path(@article3), 'komagata'
+    click_on '更新する'
+    assert_no_text 'WIP'
+    assert_no_text '執筆中'
+    assert_selector 'head', visible: false do
+      assert_no_selector "meta[name='robots'][content='none']", visible: false
+    end
+
+    visit_with_auth articles_url, 'kimura'
+    assert_text @article3.title
+    assert_no_text 'WIP'
+    assert_no_text '執筆中'
+
+    click_on @article3.title
+    assert_text @article3.title
+    assert_text @article3.body
   end
 end

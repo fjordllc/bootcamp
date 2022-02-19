@@ -1,10 +1,14 @@
-input.a-toggle-checkbox(id="#{id}" type="checkbox")
+- if defined?(auto_show) && auto_show
+  input.a-toggle-checkbox(id="#{id}" type="checkbox" checked)
+- else
+  input.a-toggle-checkbox(id="#{id}" type="checkbox")
 .modal
   label.modal__overlay(for="#{id}")
   .modal-content
-    .modal-header
-      h2.modal-title
-        = title
-      label.modal-header__close(for="#{id}")
+    - if defined?(modal_title)
+      .modal-header
+        h2.modal-title
+          = modal_title
+        label.modal-header__close(for="#{id}")
     .modal-body
       = yield

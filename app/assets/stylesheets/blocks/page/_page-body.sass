@@ -2,19 +2,32 @@
   +padding(vertical, 1.5rem)
   +media-breakpoint-down(sm)
     +padding(vertical, 1.125rem)
+  .page-header + &
+    border-top: solid 1px $border-shade
 
 .page-body__inner
   position: relative
 
+.page-body__columns
+  +media-breakpoint-up(lg)
+    display: flex
+    gap: 1.5rem
+
+.page-body__column
+  &.is-main
+    flex: 1
+  &.is-sub
+    flex: 0 0 14rem
+
 .page-optional-header
   +padding(vertical, .875rem)
-  border-bottom: solid 1px $border-shade
+  border-bottom: solid 1px $border-more-shade
 
 .page-optional-header__title
-  +text-block(1em 1.4, center flex)
+  +text-block(1em 1.4, center 600 flex)
   align-items: center
   +media-breakpoint-up(md)
-    font-size: 1.25rem
+    font-size: 1.125rem
   +media-breakpoint-down(sm)
     font-size: 1rem
 

@@ -98,7 +98,7 @@ export default {
         }
       })
       .catch((error) => {
-        console.warn('Failed to parsing', error)
+        console.warn(error)
       })
   },
   mounted() {
@@ -137,7 +137,7 @@ export default {
           return response
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
     },
     cancel() {
@@ -156,7 +156,7 @@ export default {
           this.memo = json.mentor_memo
         })
         .catch((error) => {
-          console.warn('Failed to parsing', error)
+          console.warn(error)
         })
       this.editing = false
     },

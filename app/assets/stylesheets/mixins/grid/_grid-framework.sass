@@ -2,39 +2,17 @@
 //
 // Generate semantic grid columns with these mixins.
 
-=make-container($gutter: $grid-gutter-width)
-  +padding(horizontal, $gutter / 2)
-
 =make-row($gutter: $grid-gutter-width)
   display: flex
   flex-wrap: wrap
-  +margin(horizontal, $gutter / -2)
+  gap: $gutter
 
-=make-col($gutter: $grid-gutter-width)
-  position: relative
-  min-height: 1px
-  +padding(horizontal, $gutter / 2)
+=make-col-span($size, $columns: $grid-columns, $grid-gutter-width: 1rem)
+  $one-line-columns-count: $columns / $size
+  $gutter-count: $one-line-columns-count - 1
+  $total-gutter-width: calc(#{$grid-gutter-width} * #{$gutter-count})
+  $column-margin: $total-gutter-width / $one-line-columns-count
 
-=make-col-span($size, $columns: $grid-columns)
-  flex: 0 0 percentage($size / $columns)
-  width: percentage($size / $columns)
-  // for firefox bug
-  max-width: percentage($size / $columns)
-
-=make-col-offset($size, $columns: $grid-columns)
-  margin-left: percentage($size / $columns)
-
-=make-col-push($size, $columns: $grid-columns)
-  left: if($size > 0, percentage($size / $columns), auto)
-
-=make-col-pull($size, $columns: $grid-columns)
-  right: if($size > 0, percentage($size / $columns), auto)
-
-=make-col-modifier($type, $size, $columns)
-  // Work around the lack of dynamic mixin @include support (https://github.com/sass/sass/issues/626)
-  @if $type == push
-    +make-col-push($size, $columns)
-  @else if $type == pull
-    +make-col-pull($size, $columns)
-  @else if $type == offset
-    +make-col-offset($size, $columns)
+  flex: 0 0 calc(#{percentage($size / $columns)} - #{$column-margin})
+  width: calc(#{percentage($size / $columns)} - #{$column-margin})
+  max-width: calc(#{percentage($size / $columns)} - #{$column-margin})

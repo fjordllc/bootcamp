@@ -11,6 +11,7 @@ class Comment::AfterCreateCallback
 
     if comment.commentable.instance_of?(Talk)
       notify_to_admins(comment)
+      notify_to_chat(comment) unless comment.sender.admin?
       update_unreplied(comment)
     end
 
@@ -75,8 +76,10 @@ class Comment::AfterCreateCallback
   end
 
   def create_checker_id(comment)
+    return nil unless comment.user.mentor?
+
     product = comment.commentable
-    product.checker_id = comment.sender.id if product.checker_id.blank?
+    product.checker_id = comment.sender.id unless product.checker_id?
   end
 
   def delete_product_cache(product_id)
@@ -98,7 +101,7 @@ class Comment::AfterCreateCallback
       NotificationFacade.came_comment(
         comment,
         admin_user,
-        "#{comment.sender.login_name}さんからコメントが届きました。"
+        "#{comment.commentable.user.login_name}さんの相談部屋で#{comment.sender.login_name}さんからコメントが届きました。"
       )
     end
   end
@@ -106,5 +109,13 @@ class Comment::AfterCreateCallback
   def update_unreplied(comment)
     unreplied = !comment.user.admin
     comment.commentable.update!(unreplied: unreplied)
+  end
+
+  def notify_to_chat(comment)
+    ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL'])
+      相談部屋にて#{comment.user.login_name}さんからコメントがありました。
+      本文： #{comment.description}
+      URL： https://bootcamp.fjord.jp/talks/#{comment.commentable_id}
+    TEXT
   end
 end

@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class UsersTest < ApplicationSystemTestCase
   test 'show profile' do
     visit_with_auth "/users/#{users(:hatsuno).id}", 'hatsuno'
-    assert_equal 'hatsunoのプロフィール | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'hatsuno | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'autolink profile when url is included' do
@@ -18,12 +18,12 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'access by other users' do
     user = users(:hatsuno)
-    visit_with_auth edit_admin_user_path(user.id), 'yamada'
+    visit_with_auth edit_admin_user_path(user.id), 'mentormentaro'
     assert_text '管理者としてログインしてください'
   end
 
   test 'graduation date is displayed' do
-    visit_with_auth "/users/#{users(:yamada).id}", 'komagata'
+    visit_with_auth "/users/#{users(:mentormentaro).id}", 'komagata'
     assert_no_text '卒業日'
 
     visit "/users/#{users(:sotugyou).id}"
@@ -58,7 +58,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth "/users/#{users(:komagata).id}", 'komagata'
     assert_text '管理者'
 
-    visit_with_auth "/users/#{users(:yamada).id}", 'yamada'
+    visit_with_auth "/users/#{users(:mentormentaro).id}", 'mentormentaro'
     assert_text 'メンター'
 
     visit_with_auth "/users/#{users(:advijirou).id}", 'advijirou'
@@ -153,7 +153,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'mentor access control' do
-    visit_with_auth '/users', 'yamada'
+    visit_with_auth '/users', 'mentormentaro'
     assert find_link('就職活動中')
     assert find_link('全員')
   end

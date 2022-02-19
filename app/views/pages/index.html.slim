@@ -27,16 +27,17 @@ header.page-header
 .page-body
   .container.is-xl
     .two-columns
-      .two-columns__inner
+      .two-columns__column.is-main
         #js-pages(data-selected-tag="#{params[:tag]}")
 
       - if Page.all_tags.any?
-        nav.page-tags-nav
-          header.page-tags-nav__header
-            h2.page-tags-nav__title
-              | タグ一覧
-          .page-tags-nav__body
-            ul.page-tags-nav__items
-              - Page.all_tags.each do |tag|
-                li.page-tags-nav__item
-                  = link_to tag.name, pages_tag_path(tag.name), class: 'page-tags-nav__item-link'
+        .two-columns__column.is-sub
+          nav.page-tags-nav
+            header.page-tags-nav__header
+              h2.page-tags-nav__title
+                | タグ一覧
+            .page-tags-nav__body
+              ul.page-tags-nav__items
+                - Page.all_tags.each do |tag|
+                  li.page-tags-nav__item
+                    = link_to tag.name, pages_tag_path(tag.name), class: 'page-tags-nav__item-link'

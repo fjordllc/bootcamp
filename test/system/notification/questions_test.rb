@@ -21,7 +21,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button '登録する'
     assert_text '質問を作成しました。'
 
-    visit_with_auth '/notifications', 'yamada'
+    visit_with_auth '/notifications', 'mentormentaro'
 
     within first('.thread-list-item.is-unread') do
       assert_text @notice_text
@@ -31,7 +31,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'There is no notification to the mentor who posted' do
-    visit_with_auth '/questions/new', 'yamada'
+    visit_with_auth '/questions/new', 'mentormentaro'
     within 'form[name=question]' do
       fill_in('question[title]', with: '皆さんに質問！！')
       fill_in('question[description]', with: '通知行ってますか？')
@@ -41,11 +41,11 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button '登録する'
     logout
 
-    login_user users(:yamada).login_name, 'testtest'
+    login_user users(:mentormentaro).login_name, 'testtest'
     # 通知メッセージが非表示項目でassert_textでは取得できないため、findでvisible指定
     # 存在時、findは複数取得してエラーになるためassert_raisesにて検証
     assert_raises Capybara::ElementNotFound do
-      find('yamadaさんから質問がありました。', visible: false)
+      find('mentormentaroさんから質問がありました。', visible: false)
     end
     logout
   end

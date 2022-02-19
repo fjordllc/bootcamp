@@ -4,7 +4,7 @@ header.header
       .header__start
         = link_to root_path, class: 'header__title' do
           = image_tag('pjord-face.svg', alt: 'プログラミングスクール', class: 'header__title-image')
-          - unless current_user.student_or_trainee?
+          - unless current_user.current_student?
             .a-user-role.is-header
               - if current_user.graduated_on?
                 span.a-user-role__label(class='is-graduate') 卒業生
@@ -31,7 +31,7 @@ header.header
 
         #js-notifications-mobile
 
-= render '/shared/modal', id: 'modal-mentor-mode', title: 'メンターモードとは？'
+= render '/shared/modal', id: 'modal-mentor-mode', modal_title: 'メンターモードとは？'
   .modal__description.is-md
     .a-short-text
       p
