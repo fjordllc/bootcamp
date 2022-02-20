@@ -1,7 +1,5 @@
 <template lang="pug">
-.thread-list-item(
-  :class='question.has_correct_answer ? "is-solved" : question.wip ? "is-wip" : ""'
-)
+.thread-list-item(:class='isClass')
   .thread-list-item__inner
     .thread-list-item__user
       a.a-user-name(:href='question.user.url')
@@ -41,23 +39,11 @@
             time.a-meta(
               :datetime='question.published_at_date_time',
               pubdate='pubdate'
-            )(
-              v-if='question.published_at'
             )
               span.a-meta__label
                 | 公開
               span.a-meta__value
                 | {{ question.published_at }}
-            time.a-meta(
-              :datetime='question.created_at_date_time',
-              pubdate='pubdate'
-            )(
-              v-else
-            )
-              span.a-meta__label
-                | 公開
-              span.a-meta__value
-                | {{ question.created_at }}
           .thread-list-item-meta__item(v-if='!question.wip')
             time.a-meta(
               :datetime='question.updated_at_date_time',
@@ -96,6 +82,15 @@ export default {
     },
     daimyoClass() {
       return { 'is-daimyo': this.question.user.daimyo }
+    },
+    isClass() {
+      if (this.question.has_correct_answer) {
+        return 'is-solved'
+      } else if (this.question.wip) {
+        return 'is-wip'
+      } else {
+        return ''
+      }
     }
   }
 }
