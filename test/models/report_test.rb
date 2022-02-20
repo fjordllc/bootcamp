@@ -58,6 +58,6 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test '#interval' do
-    assert_equal reports(:report32).interval, 10
+    assert_equal 10, reports(:report32).interval
   end
 end
