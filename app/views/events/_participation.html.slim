@@ -19,10 +19,14 @@
           | 参加者が定員を超えているので補欠での登録になります。
     ul.event-main-actions__items
       li.event-main-actions__item
-        - if event.capacity > event.participants.count
-          // TODO helprtにしてわかりやすくしたい↑
-          = link_to event_participations_path(event_id: event), method: :post, data: { confirm: 'イベント参加申込をします。よろしいですか?' }, class: 'a-button is-primary is-lg is-block' do
-            | 参加申込
+        - if current_user.trainee && event.job_hunting
+          p
+            | 参加できません
         - else
-          = link_to event_participations_path(event_id: event), method: :post, data: { confirm: '補欠としてイベント参加申込をします。よろしいですか?' }, class: 'a-button is-warning is-lg is-block' do
-            | 補欠登録
+          - if event.capacity > event.participants.count
+            // TODO helprtにしてわかりやすくしたい↑
+            = link_to event_participations_path(event_id: event), method: :post, data: { confirm: 'イベント参加申込をします。よろしいですか?' }, class: 'a-button is-primary is-lg is-block' do
+              | 参加申込
+          - else
+            = link_to event_participations_path(event_id: event), method: :post, data: { confirm: '補欠としてイベント参加申込をします。よろしいですか?' }, class: 'a-button is-warning is-lg is-block' do
+              | 補欠登録
