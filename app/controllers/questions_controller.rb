@@ -74,7 +74,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :description, :user_id, :resolve, :practice_id, :tag_list, :wip)
+    params.require(:question).permit(:title, :description, :user_id, :resolve, :practice_id, :tag_list)
   end
 
   def notify_to_chat(question)

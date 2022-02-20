@@ -24,23 +24,11 @@
               time.a-meta(
                 :datetime='question.published_at_date_time',
                 pubdate='pubdate'
-              )(
-                v-if='question.published_at'
               )
                 span.a-meta__label
                   | 公開
                 span.a-meta__value
                   | {{ publishedAt }}
-              time.a-meta(
-                :datetime='question.created_at_date_time',
-                pubdate='pubdate'
-              )(
-                v-else
-              )
-                span.a-meta__label
-                  | 公開
-                span.a-meta__value
-                  | {{ createdAt }}
             .thread-header-metas__meta(v-if='!question.wip')
               .a-meta
                 span.a-meta__label
@@ -255,12 +243,10 @@ export default {
       title: this.question.title,
       description: this.question.description,
       practiceId: this.question.practice.id,
-      wip: this.question.wip,
       edited: {
         title: this.question.title,
         description: this.question.description,
         practiceId: this.question.practice.id,
-        wip: this.question.wip
       },
       editing: false,
       displayedUpdateMessage: false,
@@ -271,9 +257,6 @@ export default {
   computed: {
     updatedAt() {
       return dayjs(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
-    },
-    createdAt() {
-      return dayjs(this.question.created_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     publishedAt() {
       return dayjs(this.question.published_at).format(
