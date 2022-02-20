@@ -6,9 +6,12 @@ class TalksController < ApplicationController
   before_action :require_admin_login, only: %i[index]
   before_action :allow_show_talk_page_only_admin, only: %i[show]
 
-  def index; end
+  def index
+    @target = params[:target]
+    @target = 'student_and_trainee' unless API::TalksController::TARGETS.include?(@target)
+  end
 
-  def show;  end
+  def show; end
 
   private
 

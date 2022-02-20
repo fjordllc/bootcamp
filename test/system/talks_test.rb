@@ -57,4 +57,40 @@ class TalksTest < ApplicationSystemTestCase
     find('.page-tabs__item-link', text: '未返信').click
     assert_no_text "#{user.login_name} (#{user.name}) さんの相談部屋"
   end
+
+  test 'a list of current students is displayed' do
+    visit_with_auth '/talks?target=student_and_trainee', 'komagata'
+    find('#talks.loaded', wait: 10)
+    assert_text 'kimura (Kimura Tadasi) さんの相談部屋'
+  end
+
+  test 'a list of graduates is displayed' do
+    visit_with_auth '/talks?target=graduate', 'komagata'
+    find('#talks.loaded', wait: 10)
+    assert_text 'sotugyou (卒業 太郎) さんの相談部屋'
+  end
+
+  test 'a list of advisers is displayed' do
+    visit_with_auth '/talks?target=adviser', 'komagata'
+    find('#talks.loaded', wait: 10)
+    assert_text 'advijirou (アドバイ 次郎) さんの相談部屋'
+  end
+
+  test 'a list of mentors is displayed' do
+    visit_with_auth '/talks?target=mentor', 'komagata'
+    find('#talks.loaded', wait: 10)
+    assert_text 'machida (Machida Teppei) さんの相談部屋'
+  end
+
+  test 'a list of trainees is displayed' do
+    visit_with_auth '/talks?target=trainee', 'komagata'
+    find('#talks.loaded', wait: 10)
+    assert_text 'kensyu (Kensyu Seiko) さんの相談部屋'
+  end
+
+  test 'a list of retire users is displayed' do
+    visit_with_auth '/talks?target=retired', 'komagata'
+    find('#talks.loaded', wait: 10)
+    assert_text 'yameo (辞目 辞目夫) さんの相談部屋'
+  end
 end
