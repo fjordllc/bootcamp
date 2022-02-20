@@ -630,6 +630,6 @@ class ReportsTest < ApplicationSystemTestCase
     click_button '提出'
 
     visit_with_auth report_path(reports(:report32)), 'komagata'
-    assert_selector '.a-page-notice.is-only-mentor', text: '9日ぶりの日報です'
+    assert_no_selector '.a-page-notice.is-only-mentor.is-danger', text: '9日ぶりの日報です'
   end
 end
