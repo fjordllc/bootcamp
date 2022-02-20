@@ -9,7 +9,7 @@ li.header-links__item(v-bind:class='hasCountClass')
         .header-notification-count.a-notification-count.test-notification-count(
           v-show='notificationExist'
         ) {{ this.notificationCount }}
-        .loadding-notifications-bell(v-if='loading')
+        .header-loadding-notifications-bell(v-if='loading')
           | loading
         i.fas.fa-bell
         .header-links__link-label 通知
