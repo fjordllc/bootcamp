@@ -17,7 +17,6 @@ json.isWatching current_user.watching?(user)
 
 if user.talk.present?
   json.talkUrl talk_path(user.talk)
-  json.talkPresence true
 end
 
 json.company do
