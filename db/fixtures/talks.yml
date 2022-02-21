@@ -166,3 +166,8 @@ talk_sotugyou-with-job:
   user: sotugyou_with_job
   unreplied: false
 
+<% 1.upto(22) do |i| %>
+marumarushain<%= i %>: # ページネーション確認のためのユーザー
+  user: marumarushain<%= i %>
+  unreplied: false
+<% end %>
