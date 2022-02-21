@@ -48,6 +48,7 @@ page7:
   user: komagata
   practice: practice1
   published_at: "2021-10-01 00:00:00"
+  last_updated_user: komagata
 
 page8:
   title: apt
