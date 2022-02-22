@@ -31,7 +31,7 @@ class TalksController < ApplicationController
   end
 
   def set_members
-    admins = User.admins.order(id: :desc).to_a
-    @members = @talk.user.admin? ? admins : admins << @talk.user
+    admins = User.admins.order(:id)
+    @members = admins.or(User.where(id: @talk.user_id))
   end
 end
