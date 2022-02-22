@@ -15,7 +15,7 @@ header.page-header
             = link_to reports_path, class: 'a-button is-md is-secondary is-block is-back' do
               | 日報一覧
 
-- if mentor_login? && !@report.first? && @report.latest?
+- if mentor_login? && !@report.first? && @report.latest_of_user?
   .a-page-notice.is-only-mentor(class="#{@report.interval >= 10 ? 'is-danger' : ''}")
     .container
       .a-page-notice__inner
