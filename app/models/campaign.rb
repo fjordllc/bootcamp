@@ -12,23 +12,25 @@ class Campaign < ApplicationRecord
     validate :end_at_be_greater_than_start_at
   end
 
-  def self.recently_campaign
-    campaign = Campaign.order(end_at: :desc).first
-    return if campaign.nil?
+  class << self
+    def recently_campaign
+      campaign = Campaign.order(end_at: :desc).first
+      return if campaign.nil?
 
-    campaign.start_at..campaign.end_at
-  end
+      campaign.start_at..campaign.end_at
+    end
 
-  def self.today_is_campaign?
-    return if recently_campaign.nil?
+    def today_is_campaign?
+      return if recently_campaign.nil?
 
-    recently_campaign.cover?(Time.current)
-  end
+      recently_campaign.cover?(Time.current)
+    end
 
-  def self.current_title
-    return unless today_is_campaign?
+    def current_title
+      return unless today_is_campaign?
 
-    Campaign.order(end_at: :desc).first.title
+      Campaign.order(end_at: :desc).first.title
+    end
   end
 
   private
