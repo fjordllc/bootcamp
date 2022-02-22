@@ -7,9 +7,4 @@ class  SearchHelperTest < ActionView::TestCase
     user = users(:kimura)
     assert_equal true, talk?(user)
   end
-
-  test 'can get correct user id' do
-    user = users(:kimura)
-    assert_equal 915604563, find_talk_id_from_user_id(user)
-  end
 end
