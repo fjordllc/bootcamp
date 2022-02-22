@@ -20,7 +20,7 @@ class Campaign < ApplicationRecord
       campaign.start_at..campaign.end_at
     end
 
-    def is_today_campaign?
+    def today_campaign?
       return if recently_campaign.nil?
 
       recently_campaign.cover?(Time.current)
