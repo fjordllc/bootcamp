@@ -9,7 +9,7 @@ class User::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'cannot access other users download reports' do
-    visit_with_auth "/users/#{users(:hatsuno).id}/reports.md", 'yamada'
+    visit_with_auth "/users/#{users(:hatsuno).id}/reports.md", 'kimura'
     assert_text '自分以外の日報はダウンロードすることができません'
   end
 end
