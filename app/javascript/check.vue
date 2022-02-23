@@ -33,13 +33,13 @@
 <script>
 import 'whatwg-fetch'
 import ProductChecker from './product_checker'
-import checkMixin from './checkMixin.js'
+import checkable from './checkable.js'
 
 export default {
   components: {
     'product-checker': ProductChecker
   },
-  mixins: [checkMixin],
+  mixins: [checkable],
   props: {
     checkableId: { type: Number, required: true },
     checkableType: { type: String, required: true },
