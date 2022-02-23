@@ -75,13 +75,14 @@ import CommentPlaceholder from './comment-placeholder'
 import confirmUnload from './confirm-unload'
 import toast from './toast'
 import role from './role'
+import checkMixin from './checkMixin.js'
 
 export default {
   components: {
     comment: Comment,
     commentPlaceholder: CommentPlaceholder
   },
-  mixins: [toast, confirmUnload, role],
+  mixins: [toast, confirmUnload, role, checkMixin],
   props: {
     commentableId: { type: String, required: true },
     commentableType: { type: String, required: true },
@@ -134,33 +135,6 @@ export default {
     },
     changeActiveTab(tab) {
       this.tab = tab
-    },
-    check() {
-      const params = {
-        checkable_type: this.commentableType,
-        checkable_id: this.commentableId
-      }
-
-      fetch('/api/checks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
-        .then(() => {
-          this.$store.dispatch('setCheckable', {
-            checkableId: this.commentableId,
-            checkableType: this.commentableType
-          })
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
     },
     showComments() {
       fetch(
@@ -286,7 +260,7 @@ export default {
         return null
       } else {
         this.createComment()
-        this.check()
+        this.check(this.commentableType, this.commentableId, '/api/checks', 'POST',  this.token())
       }
     },
     async fetchUncheckedProducts(page) {
