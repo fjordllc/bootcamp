@@ -6,7 +6,6 @@ class Users::ReportsController < ApplicationController
   before_action :set_reports
   before_action :set_report
   before_action :set_export
-  before_action :allow_download_reports_only_admin
 
   def index
     respond_to do |format|
