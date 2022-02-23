@@ -115,7 +115,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物を更新しました。'
   end
 
-  test 'update product if product page is WIP' do
+  test 'update product to publish from WIP' do
     product = products(:product1)
     visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
     click_button 'WIP'
