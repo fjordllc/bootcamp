@@ -85,10 +85,22 @@ export default {
             '今日の気分は「sad」ですが、コメント無しで確認しますか？'
           )
         ) {
-          this.check(this.checkableType, this.checkableId, this.url, this.method,  this.token())
+          this.check(
+            this.checkableType,
+            this.checkableId,
+            this.url,
+            this.method,
+            this.token()
+          )
         }
       } else {
-        this.check(this.checkableType, this.checkableId, this.url, this.method,  this.token())
+        this.check(
+          this.checkableType,
+          this.checkableId,
+          this.url,
+          this.method,
+          this.token()
+        )
       }
     }
   }

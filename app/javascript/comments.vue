@@ -260,7 +260,13 @@ export default {
         return null
       } else {
         this.createComment()
-        this.check(this.commentableType, this.commentableId, '/api/checks', 'POST',  this.token())
+        this.check(
+          this.commentableType,
+          this.commentableId,
+          '/api/checks',
+          'POST',
+          this.token()
+        )
       }
     },
     async fetchUncheckedProducts(page) {
