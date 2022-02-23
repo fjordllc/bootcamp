@@ -12,7 +12,11 @@ class Users::ReportsController < ApplicationController
     respond_to do |format|
       format.html
       format.md do
+        if allow_download_reports_only_admin
         send_reports_markdown(@reports_for_export)
+        else
+          redirect_to root_path, alert: '自分以外の日報はダウンロードすることができません'
+        end
       end
     end
   end
@@ -20,9 +24,7 @@ class Users::ReportsController < ApplicationController
   private
 
   def allow_download_reports_only_admin
-    return if current_user.admin? || @report.user_id == current_user.id
-
-    redirect_to root_path, alert: '自分以外の日報はダウンロードすることができません'
+    current_user.admin? || @report.user_id == current_user.id
   end
 
   def set_user
