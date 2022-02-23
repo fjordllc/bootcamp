@@ -75,14 +75,14 @@ import CommentPlaceholder from './comment-placeholder'
 import confirmUnload from './confirm-unload'
 import toast from './toast'
 import role from './role'
-import checkMixin from './checkMixin.js'
+import checkable from './checkable.js'
 
 export default {
   components: {
     comment: Comment,
     commentPlaceholder: CommentPlaceholder
   },
-  mixins: [toast, confirmUnload, role, checkMixin],
+  mixins: [toast, confirmUnload, role, checkable],
   props: {
     commentableId: { type: String, required: true },
     commentableType: { type: String, required: true },
