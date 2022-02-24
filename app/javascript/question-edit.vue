@@ -370,7 +370,7 @@ export default {
             this[key] = val
           })
           this.finishEditing(true)
-          this.$emit('do-reload')
+          this.$emit('afterUpdateQuestion')
         })
         .catch((error) => {
           console.warn(error)
