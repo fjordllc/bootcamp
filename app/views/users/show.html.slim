@@ -72,7 +72,7 @@ header.page-header
                     li.card-main-actions__item
                       div
                         = '自社研修生'
-                  - elsif current_user != @user
+                  - else
                     li.card-main-actions__item
                       .js-following(data-is-following="#{current_user.following?(@user)}" data-user-id="#{@user.id}" data-is-watching="#{current_user.watching?(@user)}")
         .col-xs-12.col-lg-6.col-xxl-6
