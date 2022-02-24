@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       resource :learning, only: %i(show update), controller: "practices/learning" do
         resource :completion_message, only: %i(update), controller: "practices/learning/completion_message"
       end
+      resources :pages, only: %i(index), controller: "practices/pages"
     end
     resources :reports, only: %i(index)
     namespace "reports" do
