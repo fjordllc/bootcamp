@@ -121,7 +121,7 @@ header.page-header
                   ul.card-main-actions__items
                     - if @product.wip?
                       li.card-main-actions__item
-                        = form_for @product do |f|
+                        = form_with model: @product, local: true do |f|
                           = f.hidden_field :body
                           = f.submit '提出する', class: 'a-button is-md is-warning is-block'
                     li.card-main-actions__item
