@@ -1,22 +1,7 @@
 # frozen_string_literal: true
 
 class QuestionCallbacks
-  # def after_save(question)
-  #   return if question.wip?
-
-  #   send_notification_to_mentors(question)
-  #   Cache.delete_not_solved_question_count
-
-  #   question.published_at = Time.current
-  #   question.save
-  # end
-
   def after_save(question)
-    if question.wip?
-      question.published_at = nil
-      question.save
-    end
-
     return unless question.wip == false && question.published_at.nil?
 
     send_notification_to_mentors(question)

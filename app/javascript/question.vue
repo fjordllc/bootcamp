@@ -85,11 +85,11 @@ export default {
     },
     isClass() {
       if (this.question.has_correct_answer) {
-        return 'is-solved'
+        return `is-solved`
       } else if (this.question.wip) {
-        return 'is-wip'
+        return `is-wip`
       } else {
-        return ''
+        return ``
       }
     }
   }

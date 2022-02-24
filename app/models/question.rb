@@ -32,8 +32,4 @@ class Question < ApplicationRecord
   columns_for_keyword_search :title, :description
 
   mentionable_as :description
-
-  def first_public?
-    !wip && published_at.nil?
-  end
 end

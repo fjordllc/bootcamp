@@ -246,7 +246,7 @@ export default {
       edited: {
         title: this.question.title,
         description: this.question.description,
-        practiceId: this.question.practice.id,
+        practiceId: this.question.practice.id
       },
       editing: false,
       displayedUpdateMessage: false,
