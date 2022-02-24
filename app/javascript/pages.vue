@@ -27,6 +27,7 @@ export default {
     page: page
   },
   props: {
+    nestedPath: { type: String, default: '', required: false },
     selectedTag: { type: String, required: true }
   },
   data() {
@@ -48,7 +49,8 @@ export default {
     },
     pagesAPI() {
       const params = this.newParams
-      return `/api/pages.json?${params}`
+      const nestedPath = this.nestedPath
+      return `/api/${nestedPath}pages.json?${params}`
     },
     pagerProps() {
       return {
