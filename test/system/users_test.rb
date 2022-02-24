@@ -282,7 +282,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_text '登録情報変更'
   end
 
-  test 'show Students' do
+  test 'show students' do
     visit_with_auth "/users/#{users(:kensyu).id}", 'hatsuno'
     assert_no_text '自社研修生'
     assert_text 'フォローする'
