@@ -5,6 +5,8 @@ question1:
     どのエディターを使うのが一番良いでしょうか？
   user: machida
   practice: practice1
+  created_at: "2022-01-01"
+  published_at: "2022-01-01"
 
 question2:
   title: injectとreduce
@@ -12,57 +14,85 @@ question2:
     injectとreduceはどちらを使うのが一般的でしょうか？
   user: sotugyou
   practice: practice26
+  created_at: "2022-01-02"
+  published_at: "2022-01-02"
 
 question3:
   title: テストの質問1
   description: テスト1の内容です。
   user: komagata
   practice: practice1
+  created_at: "2022-01-03"
+  published_at: "2022-01-03"
 
 question4:
   title: テストの質問2
   description: テスト2の内容です。
   user: komagata
   practice: practice1
+  created_at: "2022-01-04"
+  published_at: "2022-01-04"
 
 question5:
   title: テストの質問3
   description: テスト3の内容です。
   user: komagata
   practice: practice1
+  created_at: "2022-01-05"
+  published_at: "2022-01-05"
 
 question6:
   title: テストの質問4
   description: テスト1の内容です。
   user: komagata
   practice: practice1
+  created_at: "2022-01-06"
+  published_at: "2022-01-06"
 
 question7:
   title: テストの質問5
   description: テスト1の内容です。
   user: komagata
   practice: practice1
+  created_at: "2022-01-07"
+  published_at: "2022-01-07"
 
 question8:
   title: テストの質問
   description: テストの内容です。
   user: kimura
   practice: practice1
+  created_at: "2022-01-08"
+  published_at: "2022-01-08"
 
 question12:
   title: 解決済みの質問
   description: 解決済みの内容です。
   user: hajime
   practice: practice1
+  created_at: "2022-01-12"
+  published_at: "2022-01-12"
 
 question13:
   title: tagが付与された質問1
   description: tagが付与された質問1の内容です。
   user: komagata
   practice: practice1
+  created_at: "2022-01-13"
+  published_at: "2022-01-13"
 
 question14:
   title: tagが付与された質問2
   description: tagが付与された質問2の内容です。
   user: komagata
   practice: practice1
+  created_at: "2022-01-14"
+  published_at: "2022-01-14"
+
+question15:
+  title: wipの質問
+  description: wipの質問の内容です。
+  user: kimura
+  practice: practice1
+  created_at: "2022-01-14"
+  wip: true
