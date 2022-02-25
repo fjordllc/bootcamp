@@ -6,7 +6,7 @@ header.page-header
         = title
       .page-header-actions
         ul.page-header-actions__items
-          - if (current_user.admin && !@user.admin) || current_user == @user # komagataさんが自分の表示されちゃう
+          - if current_user.admin && !@user.admin
             li.page-header-actions__item
               = link_to talk_path(@user.talk), class: 'a-button is-md is-secondary is-block is-back' do
                 | 相談部屋
