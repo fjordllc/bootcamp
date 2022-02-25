@@ -7,7 +7,7 @@
           :title='page.user.icon_title',
           :alt='page.user.icon_title',
           :src='page.user.avatar_url',
-          :class='[roleClass, daimyoClass]'
+          :class='[roleClassPublishedUser, daimyoClass]'
         )
 
     .thread-list-item__rows
@@ -53,7 +53,7 @@
                     :title='page.last_updated_user.icon_title',
                     :alt='page.last_updated_user.icon_title',
                     :src='page.last_updated_user.avatar_url',
-                    :class='[roleClass, daimyoClass]'
+                    :class='[roleClassLastUpdatedUser, daimyoClass]'
                   )
                 .thread-list-item-name
                   a.a-user-name(:href='page.last_updated_user.url')
@@ -78,8 +78,11 @@ export default {
     page: { type: Object, required: true }
   },
   computed: {
-    roleClass() {
+    roleClassPublishedUser() {
       return `is-${this.page.user.primary_role}`
+    },
+    roleClassLastUpdatedUser() {
+      return `is-${this.page.last_updated_user.primary_role}`
     },
     daimyoClass() {
       return { 'is-daimyo': this.page.user.daimyo }
