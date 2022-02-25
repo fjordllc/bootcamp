@@ -14,32 +14,60 @@ class HomeTest < ApplicationSystemTestCase
     assert_equal 'ダッシュボード | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
-  test 'GET / without github account ' do
+  test 'verify message presence of github_account registration' do
     visit_with_auth '/', 'hajime'
-    within('.card-list__item-link.is-github_account') do
-      assert_text 'GitHubアカウントを登録してください。'
-    end
+    assert_text 'GitHubアカウントを登録してください。'
+    users(:hajime).update!(github_account: 'hajime')
+    page.refresh
+    assert_no_text 'GitHubアカウントを登録してください。'
   end
 
-  test 'GET / with github account' do
-    user = users(:hajime)
-    user.update!(github_account: 'hajime')
+  test 'verify message presence of discord_account registration' do
     visit_with_auth '/', 'hajime'
-    assert_no_selector '.card-list__item-link.is-github_account'
+    assert_text 'Discordアカウントを登録してください。'
+    users(:hajime).update!(discord_account: 'hajime#1111')
+    page.refresh
+    assert_no_text 'Discordアカウントを登録してください。'
   end
 
-  test 'GET / without discord_account' do
+  test 'verify message presence of avatar registration' do
     visit_with_auth '/', 'hajime'
-    within('.card-list__item-link.is-discord_account') do
-      assert_text 'Discordアカウントを登録してください。'
-    end
+    assert_text 'ユーザーアイコンを登録してください。'
+    path = Rails.root.join('test/fixtures/files/users/avatars/default.jpg')
+    users(:hajime).avatar.attach(io: File.open(path), filename: 'hajime.jpg')
+    page.refresh
+    assert_no_text 'ユーザーアイコンを登録してください。'
   end
 
-  test 'GET / with discord_account' do
-    user = users(:hajime)
-    user.update!(discord_account: 'hajime#1111')
-    visit_with_auth '/', 'hajime'
-    assert_no_selector '.card-list__item-link.is-discord_account'
+  test 'verify message presence of tags registration' do
+    visit_with_auth '/', 'hatsuno'
+    assert_text 'タグを登録してください。'
+    users(:hatsuno).update!(tag_list: ['猫'])
+    page.refresh
+    assert_no_text 'タグを登録してください。'
+  end
+
+  test 'verify message presence of after_graduation_hope registration' do
+    visit_with_auth '/', 'hatsuno'
+    assert_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
+    users(:hatsuno).update!(after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。')
+    page.refresh
+    assert_no_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
+  end
+
+  test 'not show messages of required field' do
+    user = users(:hatsuno)
+    # hatsuno の未入力項目を登録
+    user.update!(
+      tag_list: ['猫'],
+      after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。',
+      discord_account: 'hatsuno#1234'
+    )
+    path = Rails.root.join('test/fixtures/files/users/avatars/hatsuno.jpg')
+    user.avatar.attach(io: File.open(path), filename: 'hatsuno.jpg')
+
+    visit_with_auth '/', 'hatsuno'
+    assert_no_text '未入力の項目'
   end
 
   test 'show latest announcements on dashboard' do

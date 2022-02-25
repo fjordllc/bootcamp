@@ -34,9 +34,11 @@ class HomeController < ApplicationController
 
   def set_required_fields
     @required_fields = RequiredField.new(
-      description: current_user.description,
-      github_account: current_user.github_account,
-      discord_account: current_user.discord_account
+      avatar_attached: current_user.avatar.attached?,
+      tag_list_count: current_user.tag_list.size,
+      after_graduation_hope: current_user.after_graduation_hope,
+      discord_account: current_user.discord_account,
+      github_account: current_user.github_account
     )
   end
 
