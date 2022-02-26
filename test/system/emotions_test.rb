@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class EmotionsTest < ApplicationSystemTestCase
   test 'create a report with an emotion' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
     end
@@ -24,7 +24,7 @@ class EmotionsTest < ApplicationSystemTestCase
 
   test 'create a report with the sad emotion' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
     end
