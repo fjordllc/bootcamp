@@ -2,7 +2,7 @@
 
 class QuestionCallbacks
   def after_save(question)
-    return unless question.wip == false && question.published_at.nil?
+    return unless question.will_be_published?
 
     send_notification_to_mentors(question)
     Cache.delete_not_solved_question_count

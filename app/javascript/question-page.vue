@@ -97,9 +97,6 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    // doQuestionReload() {
-    //   this.fetchQuestion(this.questionId)
-    // },
     updateAnswerCount(count) {
       this.answerCount = count
       this.isAnswerCountUpdated = true
