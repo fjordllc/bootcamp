@@ -33,7 +33,7 @@ class RetirementTest < ApplicationSystemTestCase
 
   test 'delete unchecked products when the user retired' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice5).id}", 'muryou'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
