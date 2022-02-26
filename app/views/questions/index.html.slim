@@ -10,7 +10,7 @@ header.page-header
               i.fas.fa-plus
               | 質問する
 
-= form_with url: questions_path, method: 'get' do |f|
+= form_with url: questions_path, method: 'get',local: true
   nav.sort-nav
     .container.is-md
       .sort-nav__inner

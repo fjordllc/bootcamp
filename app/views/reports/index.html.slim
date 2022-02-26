@@ -9,7 +9,7 @@ header.page-header
 
 .page-tools
   nav.sort-nav
-    = form_with url: reports_path, local: true, method: 'get' do |f|
+    = form_with url: reports_path, local: true, method: 'get'
       .container.is-md
         .sort-nav__inner
           = label_tag :practice_id, 'プラクティスで絞り込む', class: 'sort-nav__label'
