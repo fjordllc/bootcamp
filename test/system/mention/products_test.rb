@@ -10,7 +10,7 @@ module Mention
     test 'mention from a production' do
       post_mention = lambda { |body|
         visit "#{new_product_path}?practice_id=#{practices(:practice5).id}"
-        within('form[name=product]) do
+        within('form[name=product]') do
           fill_in('product[body]', with: body)
         end
         click_button '提出する'
