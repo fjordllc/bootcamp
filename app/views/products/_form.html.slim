@@ -1,5 +1,5 @@
 = render 'errors', object: product
-= form_for product, html: { name: 'product', class: 'form' } do |f|
+= form_with model: product, local: true, html: { name: 'product', class: 'form' } do |f|
   = hidden_field_tag :practice_id, practice.id
   .form__items
     .form-item
