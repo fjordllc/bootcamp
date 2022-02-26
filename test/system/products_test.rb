@@ -85,6 +85,8 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
     assert_text 'Watch中'
   end
@@ -108,15 +110,19 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text '提出物を更新しました。'
   end
 
-  test 'update product if product page is WIP' do
+  test 'update product to publish from WIP' do
     product = products(:product1)
     visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
     click_button 'WIP'
     visit "/products/#{product.id}"
     click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text '提出物を更新しました。'
   end
 
@@ -181,6 +187,7 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
+    assert_text '提出物作成中'
     assert_text '提出物をWIPとして保存しました。'
   end
 
@@ -467,5 +474,17 @@ class ProductsTest < ApplicationSystemTestCase
     within(:css, '.is-emphasized') do
       assert_text '2'
     end
+  end
+
+  test 'submit-wip-submitted product does not suddenly show up as overdue' do
+    visit_with_auth "/products/#{products(:product8).id}/edit", 'kimura'
+    click_button 'WIP'
+    click_button '提出する'
+
+    visit_with_auth '/api/products/unassigned/counts.txt', 'komagata'
+
+    assert_text '5日経過：1件'
+    assert_text '6日経過：1件'
+    assert_text '7日以上経過：5件'
   end
 end
