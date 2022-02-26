@@ -33,11 +33,13 @@
 <script>
 import 'whatwg-fetch'
 import ProductChecker from './product_checker'
+import checkable from './checkable.js'
 
 export default {
   components: {
     'product-checker': ProductChecker
   },
+  mixins: [checkable],
   props: {
     checkableId: { type: Number, required: true },
     checkableType: { type: String, required: true },
@@ -76,33 +78,6 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    check() {
-      const params = {
-        checkable_type: this.checkableType,
-        checkable_id: this.checkableId
-      }
-
-      fetch(this.url, {
-        method: this.method,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
-        .then(() => {
-          this.$store.dispatch('setCheckable', {
-            checkableId: this.checkableId,
-            checkableType: this.checkableType
-          })
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
-    },
     checkSad() {
       if (this.checkHasSadEmotion && !this.checkHasComment && !this.checkId) {
         if (
@@ -110,10 +85,22 @@ export default {
             '今日の気分は「sad」ですが、コメント無しで確認しますか？'
           )
         ) {
-          this.check()
+          this.check(
+            this.checkableType,
+            this.checkableId,
+            this.url,
+            this.method,
+            this.token()
+          )
         }
       } else {
-        this.check()
+        this.check(
+          this.checkableType,
+          this.checkableId,
+          this.url,
+          this.method,
+          this.token()
+        )
       }
     }
   }
