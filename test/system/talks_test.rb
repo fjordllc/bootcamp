@@ -13,6 +13,11 @@ class TalksTest < ApplicationSystemTestCase
     assert_text '管理者としてログインしてください'
   end
 
+  test 'non-admin user cannot access talks unreplied page' do
+    visit_with_auth '/talks/unreplied', 'mentormentaro'
+    assert_text '管理者としてログインしてください'
+  end
+
   test 'cannot access other users talk page' do
     visited_user = users(:hatsuno)
     visit_user = users(:mentormentaro)
