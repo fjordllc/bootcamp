@@ -35,6 +35,7 @@ page5:
   title: WIPのテスト
   body: WIP
   user: komagata
+  wip: true # wip の場合は published_at の値が未設定の状態でレコードが作成される
 
 page6:
   title: Docsの検索結果テスト用
