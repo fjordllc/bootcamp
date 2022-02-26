@@ -247,55 +247,58 @@ class QuestionsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'show WIP question' do
-    user = users(:komagata)
-    Question.create(title: 'WIPtest', description: 'WIPtest', user: user, wip: true)
-    visit_with_auth '/questions', 'kimura'
-    assert_selector '.thread-list-item-meta__item'
-    assert_text '質問作成中'
-  end
-
-  test 'create question as WIP with blank description to fail create' do
+  test 'create a WIP question' do
     visit_with_auth new_question_path, 'kimura'
     within('.form') do
-      fill_in('question[title]', with: 'WIPtest')
-      fill_in('question[description]', with: '')
+      fill_in('question[title]', with: 'WIPタイトル')
+      fill_in('question[description]', with: 'WIP本文')
     end
     click_button 'WIP'
-    assert_text '質問文を入力してください'
+    assert_text '質問をWIPとして保存しました。'
   end
 
-  test 'update a question as wip to published' do
-    question = questions(:question_for_wip__is_wip)
+  test 'update a WIP question to be WIP' do
+    question = questions(:question_for_wip)
     visit_with_auth question_path(question), 'kimura'
-    updated_question = {
-      title: 'テストの質問（修正）',
-      description: 'テストの質問です。（修正）'
-    }
     click_button '内容修正'
     within 'form[name=question]' do
-      fill_in 'question[title]', with: updated_question[:title]
-      fill_in 'question[description]', with: updated_question[:description]
-      click_button '質問を公開'
+      fill_in 'question[title]', with: '更新されたWIPタイトル'
+      fill_in 'question[description]', with: '更新されたWIP本文'
     end
-    question.reload
-    assert_text '未解決'
+    click_button 'WIP'
+    assert_selector '.thread-header-title__label.is-wip', text: 'WIP'
   end
 
-  test 'update a question as published to wip' do
-    question = questions(:question_for_wip__already_published)
+  test 'update a WIP question to be published' do
+    question = questions(:question_for_wip)
     visit_with_auth question_path(question), 'kimura'
-    updated_question = {
-      title: 'テストの質問（修正）',
-      description: 'テストの質問です。（修正）'
-    }
     click_button '内容修正'
     within 'form[name=question]' do
-      fill_in 'question[title]', with: updated_question[:title]
-      fill_in 'question[description]', with: updated_question[:description]
-      click_button 'WIP'
+      fill_in 'question[title]', with: '更新されたタイトル'
+      fill_in 'question[description]', with: '更新された本文'
     end
-    question.reload
-    assert_text 'WIP'
+    click_button '質問を公開'
+    assert_selector '.thread-header-title__label.is-solved.is-danger', text: '未解決'
+  end
+
+  test 'update a published question to be WIP' do
+    question = questions(:question8)
+    visit_with_auth question_path(question), 'kimura'
+    click_button '内容修正'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: '更新されたWIPタイトル'
+      fill_in 'question[description]', with: '更新されたWIP本文'
+    end
+    click_button 'WIP'
+    assert_selector '.thread-header-title__label.is-wip', text: 'WIP'
+  end
+
+  test 'show a WIP question on the Q&A list page' do
+    visit_with_auth questions_path, 'kimura'
+    assert_text 'wipテスト用の質問(wip中)'
+    element = all('.thread-list-item').find { |component| component.has_text?('wipテスト用の質問(wip中)') }
+    within element do
+      assert_selector '.thread-list-item-title__icon.is-wip', text: 'WIP'
+    end
   end
 end
