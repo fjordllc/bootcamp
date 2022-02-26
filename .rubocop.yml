@@ -19,6 +19,7 @@ Metrics/ClassLength:
     - app/models/practice.rb
     - app/models/user.rb
     - app/models/product.rb
+    - app/models/report.rb
 
 AllCops:
   Exclude:
