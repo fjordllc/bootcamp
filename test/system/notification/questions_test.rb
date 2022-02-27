@@ -40,7 +40,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_no_text 'mentormentaroさんから質問「皆さんに質問！！」が投稿されました。'
   end
 
-  test 'should not notify when a previously published question was updated' do
+  test 'should not notify when an already published question was updated' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
@@ -57,7 +57,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_no_text 'kimuraさんから質問がありました。'
   end
 
-  test 'should not notify when a  previously published question was updated to be WIP' do
+  test 'should not notify when an already published question was updated to be WIP' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
