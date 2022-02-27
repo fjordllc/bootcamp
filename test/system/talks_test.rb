@@ -99,7 +99,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'yameo (辞目 辞目夫) さんの相談部屋'
   end
 
-  test 'are both public information and private information displayed correctly' do
+  test 'make sure that both public and private information is displayed correctly' do
     user = users(:kimura)
     visit_with_auth "/talks/#{user.talk.id}", 'kimura'
     assert_no_text 'ユーザー非公開情報'
