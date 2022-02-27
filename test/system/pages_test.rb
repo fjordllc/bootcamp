@@ -160,4 +160,14 @@ class PagesTest < ApplicationSystemTestCase
       assert_selector 'img[alt="komagata (Komagata Masaki): 管理者、メンター"]'
     end
   end
+
+  test 'show a WIP Doc on Docs list page' do
+    visit_with_auth pages_path, 'kimura'
+    assert_text 'WIPのテスト'
+    element = all('.thread-list-item__rows').find { |component| component.has_text?('WIPのテスト') }
+    within element do
+      assert_selector '.thread-list-item-title__icon.is-wip', text: 'WIP'
+      assert_selector '.a-meta', text: 'Doc作成中'
+    end
+  end
 end
