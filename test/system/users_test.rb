@@ -260,20 +260,21 @@ class UsersTest < ApplicationSystemTestCase
   test 'show link to talk room when logined as admin' do
     kimura = users(:kimura)
     visit_with_auth "/users/#{kimura.id}", 'komagata'
-    assert_link '相談部屋',href: "/talks/#{kimura.talk.id}"
+    assert_text 'プロフィール'
+    assert_link '相談部屋', href: "/talks/#{kimura.talk.id}"
   end
 
-  test 'should not show link to talk room of admin when logined as admin' do
+  test 'should not show link to talk room of admin even if logined as admin' do
     machida = users(:machida)
     visit_with_auth "/users/#{machida.id}", 'komagata'
+    assert_text 'プロフィール'
     assert_no_link '相談部屋'
   end
 
   test 'should not show link to talk room when logined as no-admin' do
     hatsuno = users(:hatsuno)
     visit_with_auth "/users/#{hatsuno.id}", 'fujiyasu'
+    assert_text 'プロフィール'
     assert_no_link '相談部屋'
   end
 end
-
-
