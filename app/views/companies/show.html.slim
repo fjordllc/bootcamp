@@ -4,7 +4,7 @@ header.page-header
   .container
     .page-header__inner
       h2.page-header__title
-        = title
+        = @company.name
 
 .page-tools
   = render 'companies/tabs', company: @company
