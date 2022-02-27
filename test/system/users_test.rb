@@ -273,7 +273,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'should not show link to talk room when logined as no-admin' do
     hatsuno = users(:hatsuno)
-    visit_with_auth "/users/#{hatsuno.id}", 'fujiyasu'
+    visit_with_auth "/users/#{hatsuno.id}", 'kimura'
     assert_text 'プロフィール'
     assert_no_link '相談部屋'
   end
