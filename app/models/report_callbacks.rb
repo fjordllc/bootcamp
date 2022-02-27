@@ -8,8 +8,7 @@ class ReportCallbacks
 
     return unless report.first_public?
 
-    report.published_at = report.updated_at
-    report.save!(validate: false)
+    report.update_column(:published_at, report.updated_at) # rubocop:disable Rails/SkipsModelValidations
 
     notify_users(report)
   end
