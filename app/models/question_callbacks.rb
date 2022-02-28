@@ -2,13 +2,10 @@
 
 class QuestionCallbacks
   def after_save(question)
-    return unless question.will_be_published?
+    return unless question.saved_change_to_attribute?(:published_at, from: nil)
 
     send_notification_to_mentors(question)
     Cache.delete_not_solved_question_count
-
-    question.published_at = Time.current
-    question.save
   end
 
   def after_destroy(question)
