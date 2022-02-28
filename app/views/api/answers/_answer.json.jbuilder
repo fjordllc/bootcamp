@@ -1,6 +1,7 @@
 json.(answer, :id, :description, :created_at, :updated_at, :type, :question_id)
 json.question do
   json.created_at answer.question.created_at
+  json.url question_url(answer.question)
 end
 json.user do
   json.partial! "api/users/user", user: answer.user
