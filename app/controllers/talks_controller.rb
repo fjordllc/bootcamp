@@ -31,7 +31,6 @@ class TalksController < ApplicationController
   end
 
   def set_members
-    admins = User.admins.order(:id)
-    @members = admins.or(User.where(id: @talk.user_id))
+    @members = User.where(id: [@talk.user_id] + User.admins.pluck(:id)).order(:id)
   end
 end
