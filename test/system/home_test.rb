@@ -105,11 +105,6 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_text '学習時間'
   end
 
-  test 'not show the grass for administrators' do
-    visit_with_auth '/', 'komagata'
-    assert_no_text 'ニコニコカレンダー'
-  end
-
   test 'show test events on dashboard' do
     travel_to Time.zone.local(2017, 4, 1, 10, 0, 0) do
       visit_with_auth '/', 'komagata'
