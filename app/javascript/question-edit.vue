@@ -87,7 +87,7 @@
                 // - いい実装方法ではないが、
                 // - Rails特定の属性(data-confirm, data-method)を付与して、
                 // - 確認ダイアログとDELETE methodのリンクを実装する
-                a.js-delete.card-main-actions__delete(
+                a.js-delete.card-main-actions__muted-action(
                   :href='`/questions/${question.id}`',
                   data-confirm='本当によろしいですか？',
                   data-method='delete'
