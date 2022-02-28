@@ -253,6 +253,7 @@ report31:
   description: |-
     最新のwipの日報です
   reported_on: <%= Time.now %>
+  created_at: <%= Time.now %>
   wip: true
 
 report32:
@@ -261,6 +262,7 @@ report32:
   description: |-
     wipを除いた最新の日報です
   reported_on: <%= Time.now - 1.day %>
+  created_at: <%= Time.now - 1.day %>
 
 report33:
   user: kananashi
@@ -270,6 +272,7 @@ report33:
     最新から9日前の日報でwipにしています
     今日の気分がなしでwipから投稿ができないので、emotionを設定
   reported_on: <%= Time.now - 10.day %>
+  created_at: <%= Time.now - 10.day %>
   wip: true
 
 report34:
@@ -278,3 +281,4 @@ report34:
   description: |-
     最新から10日前の日報です
   reported_on: <%= Time.now - 11.day %>
+  created_at: <%= Time.now - 11.day %>
