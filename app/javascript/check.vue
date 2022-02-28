@@ -25,7 +25,7 @@
         )
       li.card-main-actions__item(:class='checkId ? "is-sub" : ""')
         button#js-shortcut-check.is-block(
-          :class='checkId ? "card-main-actions__delete" : "a-button is-md is-danger"',
+          :class='checkId ? "card-main-actions__muted-action" : "a-button is-md is-danger"',
           @click='checkSad'
         )
           | {{ buttonLabel }}

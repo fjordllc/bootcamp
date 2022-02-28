@@ -5,14 +5,21 @@
 .card-main-actions__items
   display: flex
   gap: .75rem
-  +position(relative)
-  justify-content: center
-  flex-wrap: wrap
   +media-breakpoint-up(md)
-    min-height: 1.875rem
+    +position(relative)
+    justify-content: center
+    flex-wrap: wrap
     align-items: flex-end
+    min-height: 1.875rem
   +media-breakpoint-down(sm)
     flex-direction: column
+  &.is-sub-actions
+    justify-content: flex-end
+    +media-breakpoint-down(sm)
+      flex-direction: row
+    .card-main-actions__item.is-sub
+      position: static
+      flex: 0 0 auto
 
 .card-main-actions__item
   +media-breakpoint-up(md)
@@ -26,7 +33,7 @@
     &.is-sub
       text-align: right
 
-.card-main-actions__delete
+.card-main-actions__muted-action
   +hover-link-reversal
   +text-block(.875rem 1.4, $muted-text)
   &:hover
