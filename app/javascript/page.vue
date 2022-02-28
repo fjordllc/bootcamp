@@ -37,7 +37,7 @@
               .a-meta(v-if='page.wip')
                 | Doc作成中
               time.a-meta(:datetime='page.published_at.to_datetime')(
-                else-if='page.published_at'
+                v-else-if='page.published_at'
               )
                 span.a-meta__label
                   | 公開
