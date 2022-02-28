@@ -43,7 +43,10 @@ main.page-main
             - if @watch
               | #{t("target.#{@target}")}：#{t("watch.#{@watch}")}（#{@users.total_count}）
             - else
-              | #{t("target.#{@target}")}（#{@users.total_count}）
+              | #{t("target.#{@target}")}
+              - if admin_or_mentor_login?
+                span.is-only-mentor
+                  |（#{@users.total_count}）
   .page-body
     .container
       .page-body__columns
