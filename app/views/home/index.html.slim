@@ -62,7 +62,7 @@ header.page-header
                     | 内容を更新
           - if (current_user.admin? || current_user.adviser?) && @job_seeking_users.present?
             = render 'job_seeking_users', users: @job_seeking_users
-          - unless current_user.mentor? || current_user.adviser? || current_user.admin?
+          - if current_user.student_or_trainee?
             #js-grass(data-user-id="#{current_user.id}")
           - if current_user.github_account.present?
             = render 'users/github_grass', user: current_user
