@@ -88,20 +88,30 @@ class HomeTest < ApplicationSystemTestCase
     assert_current_path(/niconico_calendar=#{1.month.ago.strftime('%Y-%m')}/)
   end
 
-  test 'show the grass except for mentors, advisers, and administrators' do
-    visit_with_auth '/', 'hajime'
+  test 'show the grass for student and trainee' do
+    visit_with_auth '/', 'kimura'
+    # 生徒は学習時間の草を表示する
     assert_text '学習時間'
     logout
 
+    # 研修生は学習時間の草を表示する
+    visit_with_auth '/', 'kensyu'
+    assert_text '学習時間'
+  end
+
+  test 'not show the grass for mentor, adviser, and admin' do
+    # メンターは学習時間の草を表示しない
     visit_with_auth '/', 'yamada'
     assert_no_text '学習時間'
     logout
 
+    # アドバイザーは学習時間の草を表示しない
     visit_with_auth '/', 'advijirou'
     assert_no_text '学習時間'
     logout
 
-    visit_with_auth '/', 'adminonly'
+    # 管理者は学習時間の草を表示しない
+    visit_with_auth '/', 'komagata'
     assert_no_text '学習時間'
   end
 
