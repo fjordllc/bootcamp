@@ -35,13 +35,13 @@ class ProductTest < ActiveSupport::TestCase
       wip: true
     )
     product.save!
-    assert_nil product.published_at
+
+    assert_nil Watch.find_by(user: adviser, watchable: product)
 
     product.wip = false
     product.save!
 
     assert_not_nil Watch.find_by(user: adviser, watchable: product)
-    assert_not_nil product.published_at
   end
 
   test '#change_learning_status' do

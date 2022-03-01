@@ -118,4 +118,21 @@ class Report < ApplicationRecord
   def reported_on_or_before_today
     errors.add(:reported_on, 'は今日以前の日付にしてください') if reported_on > Date.current
   end
+
+  def latest_of_user?
+    self == Report.not_wip
+                  .where(user: user, wip: false)
+                  .order(reported_on: :desc)
+                  .first
+  end
+
+  def interval
+    (reported_on - not_wip_previous_of_user.reported_on).to_i
+  end
+
+  def not_wip_previous_of_user
+    Report.where(user: user, wip: false)
+          .order(reported_on: :desc)
+          .second
+  end
 end

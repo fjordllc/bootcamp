@@ -1,7 +1,8 @@
 json.talks do
-  json.array! @talks do |talk|
+  json.array! @users_talks do |talk|
     json.partial! "api/talks/talk", talk: talk
   end
 end
 
-json.totalPages @talks.total_pages
+json.target t("target.#{@target}")
+json.totalPages @users_talks.total_pages
