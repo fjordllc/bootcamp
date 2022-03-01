@@ -89,8 +89,8 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test 'show the grass for student and trainee' do
-    visit_with_auth '/', 'kimura'
     # 生徒は学習時間の草を表示する
+    visit_with_auth '/', 'kimura'
     assert_text '学習時間'
     logout
 
