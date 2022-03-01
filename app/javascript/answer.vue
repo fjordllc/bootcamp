@@ -60,7 +60,7 @@
           li.card-main-actions__item.is-sub(
             v-if='answer.user.id == currentUser.id || isRole("mentor")'
           )
-            button.card-main-actions__delete(@click='deleteAnswer')
+            button.card-main-actions__muted-action(@click='deleteAnswer')
               | 削除する
   .thread-comment-form__form.a-card(v-show='editing')
     .a-form-tabs.js-tabs

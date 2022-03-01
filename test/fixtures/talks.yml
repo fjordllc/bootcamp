@@ -84,3 +84,7 @@ talk21:
 talk22:
   user: sotugyou_with_job
   unreplied: false
+
+talk23:
+  user: discordinvalid
+  unreplied: false

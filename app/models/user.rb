@@ -47,20 +47,20 @@ class User < ApplicationRecord
   belongs_to :course
   has_many :learnings, dependent: :destroy
   has_many :pages, dependent: :destroy
-  has_many :comments,      dependent: :destroy
-  has_many :reports,       dependent: :destroy
-  has_many :checks,        dependent: :destroy
-  has_many :footprints,    dependent: :destroy
-  has_many :images,        dependent: :destroy
-  has_many :products,      dependent: :destroy
-  has_many :questions,     dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :reports, dependent: :destroy
+  has_many :checks, dependent: :destroy
+  has_many :footprints, dependent: :destroy
+  has_many :images, dependent: :destroy
+  has_many :products, dependent: :destroy
+  has_many :questions, dependent: :destroy
   has_many :announcements, dependent: :destroy
-  has_many :reactions,     dependent: :destroy
-  has_many :works,         dependent: :destroy
+  has_many :reactions, dependent: :destroy
+  has_many :works, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :events,        dependent: :destroy
+  has_many :events, dependent: :destroy
   has_many :participations, dependent: :destroy
-  has_many :answers,      dependent: :destroy
+  has_many :answers, dependent: :destroy
   has_many :watches, dependent: :destroy
   has_many :articles, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
@@ -139,12 +139,6 @@ class User < ApplicationRecord
             }
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
-  validates :discord_account,
-            format: {
-              allow_blank: true,
-              with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
-              message: 'は「ユーザー名#４桁の数字」で入力してください'
-            }
   validates :times_url,
             format: {
               allow_blank: true,
@@ -169,11 +163,11 @@ class User < ApplicationRecord
   end
 
   with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
-    validates :name_kana,  presence: true,
-                           format: {
-                             with: /\A[\p{katakana}\p{blank}ー－]+\z/,
-                             message: 'はスペースとカタカナのみが使用できます'
-                           }
+    validates :name_kana, presence: true,
+                          format: {
+                            with: /\A[\p{katakana}\p{blank}ー－]+\z/,
+                            message: 'はスペースとカタカナのみが使用できます'
+                          }
   end
 
   with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
@@ -184,6 +178,15 @@ class User < ApplicationRecord
 
   with_options if: -> { validation_context == :retirement } do
     validates :satisfaction, presence: true
+  end
+
+  with_options if: -> { validation_context != :retirement } do
+    validates :discord_account,
+              format: {
+                allow_blank: true,
+                with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
+                message: 'は「ユーザー名#４桁の数字」で入力してください'
+              }
   end
 
   flag :retire_reasons, %i[

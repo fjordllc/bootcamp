@@ -21,6 +21,6 @@ header.page-header
       .form-actions
         ul.form-actions__items
           li.form-actions__item.is-main
-            = link_to current_user_reports_path(format: :md), class: 'a-button is-md is-primary is-block' do
+            = link_to user_reports_path(@user, format: :md), class: 'a-button is-md is-primary is-block' do
               i.fas.fa-cloud-download-alt
               | 日報一括ダウンロード

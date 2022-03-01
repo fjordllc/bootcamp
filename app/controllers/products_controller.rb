@@ -42,6 +42,7 @@ class ProductsController < ApplicationController
     @product.practice = @practice
     @product.user = current_user
     set_wip
+    update_published_at
     if @product.save
       redirect_to @product, notice: notice_message(@product, :create)
     else
@@ -53,6 +54,7 @@ class ProductsController < ApplicationController
     @product = find_my_product
     @practice = @product.practice
     set_wip
+    update_published_at
     if @product.update(product_params)
       redirect_to @product, notice: notice_message(@product, :update)
       notice_another_mentor_assined_as_checker
@@ -69,6 +71,12 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def update_published_at
+    return if @product.wip
+
+    @product.published_at = Time.current
+  end
 
   def find_product
     Product.find(params[:id])

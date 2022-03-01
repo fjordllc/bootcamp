@@ -116,6 +116,7 @@ class UsersTest < ApplicationSystemTestCase
       daimyo
       nippounashi
       with_hyphen
+      discordinvalid
     ].each do |name|
       users(name).touch # rubocop:disable Rails/SkipsModelValidations
     end
@@ -245,5 +246,15 @@ class UsersTest < ApplicationSystemTestCase
   test 'not admin cannot see link to talk on user list page' do
     visit_with_auth '/users', 'kimura'
     assert_no_link '相談部屋'
+  end
+
+  test 'show daily report download button' do
+    visit_with_auth "/users/#{users(:kimura).id}", 'komagata'
+    assert_text '日報一括ダウンロード'
+  end
+
+  test 'not show daily report download button' do
+    visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
+    assert_no_text '日報一括ダウンロード'
   end
 end
