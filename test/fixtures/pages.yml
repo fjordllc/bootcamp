@@ -71,3 +71,11 @@ page8:
       - 前方一致: `$ apt-cache search ^vim`
   user: komagata
   published_at: "2022-01-01 00:00:00"
+
+page9:
+  title: プラクティスに紐付いたDocs(kimura更新)
+  body: プラクティスに紐付いている(kimura更新)
+  user: komagata
+  practice: practice2
+  published_at: "2022-02-28 00:00:00"
+  last_updated_user: kimura
