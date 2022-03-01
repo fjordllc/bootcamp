@@ -101,7 +101,7 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'not show the grass for mentor, adviser, and admin' do
     # メンターは学習時間の草を表示しない
-    visit_with_auth '/', 'yamada'
+    visit_with_auth '/', 'mentormentaro'
     assert_no_text '学習時間'
     logout
 
