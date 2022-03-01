@@ -1,4 +1,4 @@
-- title "#{@user.name}さんの相談部屋"
+- title "#{@user.login_name}さんの相談部屋"
 
 header.page-header
   .container
@@ -10,14 +10,28 @@ header.page-header
   .container.is-lg
     .thread
       .thread__inner.a-card
-        header.thread-header.has-count
+        header.thread-header.has-no-icon
           .thread-header__row
             h1.thread-header-title
               = title
         .thread__body
           .thread__description.is-long-text
             p
-              | ここは#{@user.name}さんと管理者のみが閲覧することのできる相談部屋です。
+              | ここは#{@user.login_name}さんと管理者のみが閲覧することのできる相談部屋です。
               | 就職に関することや受講に関することなど、何か相談したいことがある場合にお気軽にコメントをしてください。
+        .thread-footer
+          .thread-footer__inner
+            .thread-members
+              h2.thread-members__title
+                | 相談部屋にアクセスできるメンバー
+              ul.thread-members__items
+                - @members.each do |member|
+                  li.thread-members__item
+                    = render 'users/icon',
+                      user: member,
+                      link_class: 'thread-members__user-icon-link',
+                      image_class: 'thread-members__user-icon'
+                    = link_to user_path(member.id), class: 'a-user-name' do
+                      = member.login_name
     a#comments.a-anchor
     #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
