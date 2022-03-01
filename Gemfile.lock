@@ -201,7 +201,7 @@ GEM
     httpclient (2.8.3)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
-    image_processing (1.12.1)
+    image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
     io-wait (0.2.1)
@@ -542,7 +542,7 @@ DEPENDENCIES
   discord-notifier
   google-cloud-storage (~> 1.25)
   holiday_jp
-  image_processing (~> 1.2)
+  image_processing (~> 1.12)
   jbuilder (~> 2.7)
   jp_prefecture
   jquery-rails
