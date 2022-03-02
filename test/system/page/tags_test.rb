@@ -88,7 +88,7 @@ class Page::TagsTest < ApplicationSystemTestCase
     click_button 'タグ名変更'
     fill_in('tag[name]', with: update_tag.name)
     click_button '変更'
-    wait_for_vuejs
+    assert_text 'タグ 「中級者」'
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
     assert_text '質問はありません。'
