@@ -3,6 +3,9 @@ footer.welcome-footer
     nav.welcome-footer__nav
       ul.welcome-footer__nav-items
         li.welcome-footer__nav-item
+          = link_to root_path, class: 'welcome-footer__nav-item-link' do
+            | フィヨルドブートキャンプ
+        li.welcome-footer__nav-item
           = link_to tos_path, class: 'welcome-footer__nav-item-link' do
             | 利用規約
         li.welcome-footer__nav-item
@@ -21,4 +24,4 @@ footer.welcome-footer
       i.far.fa-copyright
       span.welcome-footer-copyright__author
         = link_to 'Fjord Inc.', 'https://fjord.jp', target: '_blank', rel: 'noopener', class: 'welcome-footer-copyright__author-link'
-        | 2012 - #{Date.current.year}
+      | 2012 - #{Date.current.year}
