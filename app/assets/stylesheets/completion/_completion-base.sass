@@ -31,15 +31,22 @@ body.is-completion
   +padding(vertical, 4rem 2rem)
 
 .complestion__title
-  +text-block(2rem 1.5, 800 center $reversal-text)
+  +text-block(1em 1.5, 800 center $reversal-text)
   font-family: YakuHanJP_Narrow,Hiragino Sans,Hiragino Kaku Gothic ProN,BIZ UDPGothic,Meiryo,sans-serif
+  +media-breakpoint-up(md)
+    font-size: 2rem
+  +media-breakpoint-down(sm)
+    font-size: 1.5rem
 
 .complestion__body
   margin-top: 3rem
 
 .complestion__image
   border-radius: 1rem
-  border: solid .75rem shade($completion, 30%)
+  +media-breakpoint-up(md)
+    border: solid .75rem shade($completion, 30%)
+  +media-breakpoint-down(sm)
+    border: solid .5rem shade($completion, 30%)
 
 .welcome-footer
   +media-breakpoint-up(md)
@@ -77,7 +84,11 @@ body.is-completion
   justify-content: center
   align-items: center
   +text-block(.875rem 1.45, flex $reversal-text)
+  gap: .25rem
 
 .welcome-footer-copyright__author
   display: block
-  +margin(horizontal, .1em .5em)
+
+.welcome-footer-copyright__author-link
+  +hover-link
+  color: $reversal-text
