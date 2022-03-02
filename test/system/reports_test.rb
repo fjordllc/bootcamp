@@ -684,6 +684,6 @@ class ReportsTest < ApplicationSystemTestCase
 
     click_button '提出'
     assert_text 'おめでとう！'
-    assert_text '100回提出しました！'
+    assert_text '100日目の日報を提出しました。'
   end
 end
