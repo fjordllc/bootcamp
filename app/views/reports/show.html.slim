@@ -179,31 +179,17 @@ header.page-header
         - else
           #js-reports(data-user-id="#{@report.user.id}" data-limit="10")
 
-- notify_help_body = "\
-  #{link_to('ヘルプページ', '/pages/help')}には\
-  学習のヒントになる情報が載っています。\
-  困った時はぜひのぞいてみてください。\
-  ヘルプページは左のナビゲーションにリンクがあるので、\
-  いつでもそこからアクセスができます。"
-- celebrate_report_counts_body = "日報を#{flash[:celebrate_report_counts]}回提出しました！"
-
 - if flash[:notify_help] && flash[:celebrate_report_counts]
-    = render '/shared/modal', id: 'modal-notify-help', modal_title: '🎉 おめでとう！ 🍵 今日も学習お疲れ様でした！', auto_show: true
+    = render '/shared/modal', id: 'modal-notify-help', modal_title: '🎉 おめでとう！', auto_show: true
+      .modal__description
+        = render('celebrate_report_counts_body')
       .modal__description.is-md
-        .a-long-text
-          p
-            = celebrate_report_counts_body
-          p
-            == notify_help_body
+        = render('notify_help_body')
 - elsif flash[:notify_help]
     = render '/shared/modal', id: 'modal-notify-help', modal_title: '🍵 今日も学習お疲れ様でした！', auto_show: true
       .modal__description.is-md
-        .a-long-text
-          p
-            == notify_help_body
+        = render('notify_help_body')
 - elsif flash[:celebrate_report_counts]
     = render '/shared/modal', id: 'modal-report-counts-celebration', modal_title: '🎉 おめでとう！', auto_show: true
-      .modal__description.is-md
-        .a-long-text
-          p
-            = celebrate_report_counts_body
+      .modal__description
+        = render('celebrate_report_counts_body')
