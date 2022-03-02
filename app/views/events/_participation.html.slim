@@ -1,6 +1,12 @@
 - if current_user.trainee && event.job_hunting
-  p
-    | 参加できません
+  .event-main-actions.is-non-participationed
+    .event-main-actions__description
+      p
+        | 企業研修で参加されている方はこのイベントに参加できません。
+    ul.event-main-actions__items
+      li.event-main-actions__item
+        .a-button.is-disabled.is-lg.is-block
+          | 参加申込
 - elsif current_user.participating?(event)
   .event-main-actions.is-participationed
     .event-main-actions__description
