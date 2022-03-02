@@ -42,7 +42,7 @@
       - if admin_or_mentor_login? && announcement.new_record?
         li.form-actions__item.is-main.is-help
           = f.submit '作成', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
-      - if admin_or_mentor_login? || announcement.published_at
+      - elsif admin_or_mentor_login? || announcement.published_at
         li.form-actions__item.is-main.is-help
           = f.submit '公開', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
       li.form-actions__item.is-sub
