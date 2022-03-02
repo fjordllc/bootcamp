@@ -118,7 +118,7 @@ class CampaignsTest < ApplicationSystemTestCase
     example_pay_at = (today + trial_period.days).strftime('%-m月%-d日10時10分10秒')
 
     visit pricing_path
-    assert_text "お試し延長中につき、#{trial_period}日間のお試し期間"
+    assert_text "キャンペーン中につき、#{trial_period}日間のお試し期間"
     assert_text "フィヨルドブートキャンプを使うべきかを判断するために#{trial_period}日間のお試し期間を用意"
     assert_text "その#{trial_period}日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。"
 

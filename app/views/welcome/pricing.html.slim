@@ -33,9 +33,11 @@
             | 退会した月も日割りでの請求ではなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
       .welcome-small-section
         h2.welcome-small-sections__title
-          = image_tag 'pjord-face.svg',
-            class: 'welcome-small-sections__title-icon'
-          = 'お試し延長中につき、' if Campaign.today_is_campaign?
+          - if Campaign.today_is_campaign?
+            | キャンペーン中につき、
+          - else
+            = image_tag 'pjord-face.svg',
+              class: 'welcome-small-sections__title-icon'
           = trial_period
           | 日間のお試し期間
         .welcome-section__description
@@ -43,8 +45,10 @@
             | 月額29,800円は決して安い金額ではありません。
             | 自分は本当にフィヨルドブートキャンプを使うべきかを判断するために
             = trial_period
-            | 日間のお試し期間を用意しています。
-            | その
+            | 日間のお試し期間を用意しています
+            - if Campaign.today_is_campaign?
+              | （現在、キャンペーン中のためお試し期間を延長しています）
+            | 。その
             = trial_period
             | 日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。
             | お試し期間の間に退会をしないと料金が請求されてしまうのでご注意ください。
