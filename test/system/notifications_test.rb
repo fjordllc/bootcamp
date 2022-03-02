@@ -307,6 +307,7 @@ class NotificationsTest < ApplicationSystemTestCase
     click_link '内容修正'
     select 'machida', from: 'product_checker_id'
     click_button '提出する'
+    assert_text '提出物を更新しました'
     assert_text 'machida'
 
     visit_with_auth '/notifications?status=unread', 'machida'
