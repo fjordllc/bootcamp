@@ -88,7 +88,7 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text "#{example_start_at} #{example_end_at} #{example_pay_at}"
 
     visit new_user_path
-    assert_no_text '現在、お試し期間の延長が適用されています'
+    assert_no_text 'お試し期間の延長が適用されます。'
     assert_text 'クレジットカード登録日を含む3日間はお試し期間です。'
 
     visit_with_auth '/', 'hatsuno'
@@ -130,7 +130,7 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text "#{example_start_at} #{example_end_at} #{example_pay_at}"
 
     visit new_user_path
-    assert_text '現在、お試し期間の延長が適用されています'
+    assert_text 'お試し期間の延長が適用されます。'
     assert_text "クレジットカード登録日を含む#{trial_period}日間はお試し期間です。"
 
     visit_with_auth '/', 'hatsuno'
