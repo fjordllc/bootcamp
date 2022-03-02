@@ -92,7 +92,7 @@ class User::TagsTest < ApplicationSystemTestCase
     click_button 'タグ名変更'
     fill_in('tag[name]', with: update_tag_text)
     click_button '変更'
-    wait_for_vuejs
+    assert_text 'タグ「上級者」'
 
     visit_with_auth users_tag_path(tag.name), 'komagata'
     assert_text "#{tag.name}のユーザーはいません"
@@ -113,7 +113,7 @@ class User::TagsTest < ApplicationSystemTestCase
     click_button 'タグ名変更'
     fill_in('tag[name]', with: update_tag.name)
     click_button '変更'
-    wait_for_vuejs
+    assert_text 'タグ「中級者」'
 
     visit_with_auth users_tag_path(tag.name), 'komagata'
     assert_text "#{tag.name}のユーザーはいません"

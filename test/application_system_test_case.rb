@@ -16,6 +16,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ReportHelper
   include CommentHelper
 
+  # VUEJS_WAIT_SECOND = (ENV["VUEJS_WAIT_SECOND"] || 2).to_i
   VUEJS_WAIT_SECOND = 0
 
   if ENV['HEADED']

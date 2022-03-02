@@ -38,6 +38,7 @@ class AnswersTest < ApplicationSystemTestCase
 
   test 'admin can edit and delete any questions' do
     visit_with_auth "/questions/#{questions(:question1).id}", 'komagata'
+    assert_text 'vimしかないでしょう。常識的に考えて。'
     wait_for_vuejs
     answer_by_user = page.all('.thread-comment')[1]
     within answer_by_user do
@@ -73,10 +74,11 @@ class AnswersTest < ApplicationSystemTestCase
 
     assert_difference 'ActionMailer::Base.deliveries.count', 1 do
       perform_enqueued_jobs do
+        assert_no_text '解決済'
         accept_alert do
           click_button 'ベストアンサーにする'
         end
-        wait_for_vuejs
+        assert_text '解決済'
       end
     end
 
