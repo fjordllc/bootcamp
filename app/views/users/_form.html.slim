@@ -1,6 +1,6 @@
-- if from == :new
-  = javascript_include_tag 'https://js.stripe.com/v3/'
-= form_with model: user, url: url, local: true, id: 'payment-form', html: { name: 'user', autocomplete: 'address-line3' } do |f|
+= form_with model: user, url: url, local: true, class: 'form', id: 'payment-form', html: { name: 'user', autocomplete: 'address-line3' } do |f|
+  - if from == :new
+    = javascript_include_tag 'https://js.stripe.com/v3/'
   = f.hidden_field :adviser
   = f.hidden_field :trainee
   = f.hidden_field :company_id
