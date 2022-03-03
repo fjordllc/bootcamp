@@ -3,12 +3,16 @@
 class TalksController < ApplicationController
   before_action :set_talk, only: %i[show]
   before_action :set_user, only: %i[show]
+  before_action :set_members, only: %i[show]
   before_action :require_admin_login, only: %i[index]
   before_action :allow_show_talk_page_only_admin, only: %i[show]
 
-  def index; end
+  def index
+    @target = params[:target]
+    @target = 'student_and_trainee' unless API::TalksController::TARGETS.include?(@target)
+  end
 
-  def show;  end
+  def show; end
 
   private
 
@@ -24,5 +28,9 @@ class TalksController < ApplicationController
 
   def set_user
     @user = current_user.admin? ? @talk.user : current_user
+  end
+
+  def set_members
+    @members = User.where(id: [@talk.user_id] + User.admins.pluck(:id)).order(:id)
   end
 end

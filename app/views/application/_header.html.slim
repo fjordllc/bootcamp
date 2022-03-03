@@ -26,14 +26,12 @@ header.header
               input.js-mentor-mode__trigger#display-only-mentor(type = 'checkbox' checked = 'checked')
               span#checkbox-mentor-mode
 
+          = render '/shared/modal', id: 'modal-mentor-mode', modal_title: 'メンターモードとは？'
+            .modal__description.is-md
+              .a-short-text
+                p
+                  | メンターモードをONにしたときだけ、メンターにしか見えない情報が表示されます。
+                  | 画面共有をする際などは、見えてはいけない情報が表示されるのを防ぐため、メンターモードをOFFにするようお願いします🙏
       .header__end
         = render 'header_links'
-
         #js-notifications-mobile
-
-= render '/shared/modal', id: 'modal-mentor-mode', modal_title: 'メンターモードとは？'
-  .modal__description.is-md
-    .a-short-text
-      p
-        | メンターモードをONにしたときだけ、メンターにしか見えない情報が表示されます。
-        | 画面共有をする際などは、見えてはいけない情報が表示されるのを防ぐため、メンターモードをOFFにするようお願いします🙏

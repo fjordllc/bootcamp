@@ -57,7 +57,9 @@
                 :userId='user.id',
                 :isWatching='user.isWatching'
               )
-            li.card-main-actions__item.is-only-admin(v-if='currentUser.admin')
+            li.card-main-actions__item.is-only-admin(
+              v-if='currentUser.admin && user.talkUrl'
+            )
               a.a-button.is-secondary.is-md.is-block(:href='user.talkUrl')
                 | 相談部屋
 </template>
