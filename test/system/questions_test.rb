@@ -90,7 +90,6 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'delete a question' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
-    wait_for_vuejs
     accept_confirm do
       click_link '削除する'
     end
@@ -111,7 +110,6 @@ class QuestionsTest < ApplicationSystemTestCase
 
     visit_with_auth '/questions', 'kimura'
     click_on 'タイトルtest'
-    wait_for_vuejs
     accept_confirm do
       click_link '削除する'
     end

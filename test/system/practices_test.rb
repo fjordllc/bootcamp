@@ -109,7 +109,6 @@ class PracticesTest < ApplicationSystemTestCase
     end
     assert_text 'プラクティスを更新しました'
     visit "/products/#{product.id}"
-    wait_for_vuejs
     find('#side-tabs-nav-2').click
     assert_text 'メンター向けのメモの内容です'
   end
@@ -219,7 +218,6 @@ class PracticesTest < ApplicationSystemTestCase
     end
     assert_text 'プラクティスを更新しました'
     visit "/practices/#{practice.id}"
-    wait_for_vuejs
     assert_equal 'テストプラクティス | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 

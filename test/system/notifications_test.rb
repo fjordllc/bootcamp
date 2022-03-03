@@ -9,7 +9,6 @@ class NotificationsTest < ApplicationSystemTestCase
       fill_in('new_comment[description]', with: 'test')
     end
     click_button 'コメントする'
-    wait_for_vuejs
 
     if ActionMailer::Base.deliveries.present?
       last_mail = ActionMailer::Base.deliveries.last
@@ -32,12 +31,10 @@ class NotificationsTest < ApplicationSystemTestCase
 
     find('#js-new-comment').set("login_nameの補完テスト: @komagata\n")
     click_button 'コメントする'
-    wait_for_vuejs
     assert_text 'login_nameの補完テスト: @komagata'
     assert_selector :css, "a[href='/users/komagata']"
 
     visit_with_auth '/notifications', 'komagata'
-    wait_for_vuejs
     assert_no_text 'kensyuさんがはじめての日報を書きました！'
     assert_text 'kensyuさんからメンションがきました。'
   end
@@ -51,7 +48,6 @@ class NotificationsTest < ApplicationSystemTestCase
                         user: users(:mentormentaro),
                         sender: users(:machida))
     visit_with_auth '/notifications?status=unread', 'mentormentaro'
-    wait_for_vuejs
     assert_no_text '1番新しい既読の通知'
   end
 
@@ -77,7 +73,6 @@ class NotificationsTest < ApplicationSystemTestCase
                         user: users(:mentormentaro),
                         sender: users(:machida))
     visit_with_auth '/notifications', 'mentormentaro'
-    wait_for_vuejs
     within first('nav.pagination') do
       find('a', text: '2').click
     end
@@ -113,7 +108,6 @@ class NotificationsTest < ApplicationSystemTestCase
                         sender: users(:machida))
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?page=2'
-    wait_for_vuejs
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
     all('.pagination .is-active').each do |active_button|
@@ -143,12 +137,10 @@ class NotificationsTest < ApplicationSystemTestCase
                         sender: users(:machida))
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?page=2'
-    wait_for_vuejs
     within first('nav.pagination') do
       find('a', text: '1').click
     end
     page.go_back
-    wait_for_vuejs
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
     all('.pagination .is-active').each do |active_button|
@@ -167,7 +159,6 @@ class NotificationsTest < ApplicationSystemTestCase
 
     visit_with_auth "/reports/#{report}", 'hatsuno'
     find('.header-links__link.test-show-notifications').click
-    wait_for_vuejs
     assert_text 'hatsunoさんの【 「コメントと」の日報 】にkomagataさんがコメントしました。'
   end
 
@@ -180,7 +171,6 @@ class NotificationsTest < ApplicationSystemTestCase
                         sender: users(:machida))
 
     visit_with_auth '/notifications', 'mentormentaro'
-    wait_for_vuejs
     assert_selector '.header-notification-count', text: '1'
 
     20.times do |n|
@@ -191,7 +181,6 @@ class NotificationsTest < ApplicationSystemTestCase
                           sender: users(:machida))
     end
     visit_with_auth '/notifications', 'mentormentaro'
-    wait_for_vuejs
     assert_selector '.header-notification-count', text: '21'
   end
 
@@ -207,7 +196,6 @@ class NotificationsTest < ApplicationSystemTestCase
                         user: users(:hatsuno),
                         sender: users(:machida))
     visit_with_auth '/notifications?status=unread', 'hatsuno'
-    wait_for_vuejs
     assert_no_button '未読の通知を一括で開く'
   end
 
@@ -218,7 +206,6 @@ class NotificationsTest < ApplicationSystemTestCase
                         user: users(:komagata),
                         sender: users(:machida))
     visit_with_auth '/notifications?status=unread', 'komagata'
-    wait_for_vuejs
     assert_button '未読の通知を一括で開く'
   end
 
@@ -234,7 +221,6 @@ class NotificationsTest < ApplicationSystemTestCase
                         user: users(:komagata),
                         sender: users(:machida))
     visit_with_auth '/notifications', 'komagata'
-    wait_for_vuejs
     assert_text 'コメントの通知'
     assert_text 'お知らせの通知'
   end
@@ -251,7 +237,6 @@ class NotificationsTest < ApplicationSystemTestCase
                         user: users(:komagata),
                         sender: users(:machida))
     visit_with_auth '/notifications?target=announcement', 'komagata'
-    wait_for_vuejs
     assert_text 'お知らせの通知'
     assert_no_text 'コメントの通知'
   end
@@ -269,7 +254,6 @@ class NotificationsTest < ApplicationSystemTestCase
                         sender: users(:machida),
                         read: true)
     visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
-    wait_for_vuejs
     assert_text '未読のお知らせの通知'
     assert_no_text '既読のお知らせの通知'
   end
@@ -286,19 +270,15 @@ class NotificationsTest < ApplicationSystemTestCase
                         user: users(:komagata),
                         sender: users(:machida))
     visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
-    wait_for_vuejs
     click_link 'お知らせの通知を既読にする'
 
     visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
-    wait_for_vuejs
     assert_no_text 'お知らせのテスト通知'
 
     visit_with_auth '/notifications?status=unread&target=comment', 'komagata'
-    wait_for_vuejs
     assert_text 'コメントのテスト通知'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    wait_for_vuejs
     assert_text 'コメントのテスト通知'
   end
 
@@ -313,7 +293,6 @@ class NotificationsTest < ApplicationSystemTestCase
     end
 
     visit_with_auth '/notifications?status=unread', 'machida'
-    wait_for_vuejs
     assert_text "mentormentaroさんの提出物#{products(:product1).title}の担当になりました。"
 
     if ActionMailer::Base.deliveries.present?
@@ -330,7 +309,6 @@ class NotificationsTest < ApplicationSystemTestCase
     assert_text '担当から外れる'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    wait_for_vuejs
     assert_no_text "mentormentaroさんの提出物#{products(:product1).title}の担当になりました。"
   end
 
