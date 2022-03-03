@@ -10,7 +10,6 @@ class Notification::CommentsTest < ApplicationSystemTestCase
       fill_in('new_comment[description]', with: '@machida @machida test')
     end
     click_button 'コメントする'
-    wait_for_vuejs
     assert_text '@machida @machida test'
 
     visit_with_auth '/notifications', 'machida'

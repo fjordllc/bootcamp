@@ -81,7 +81,6 @@ class HomeTest < ApplicationSystemTestCase
   test 'keep Nico Nico calendar page even when leave dashboard' do
     visit_with_auth '/', 'hajime'
     find('.niconico-calendar-nav__previous').click
-    wait_for_vuejs
     find('.niconico-calendar-nav').assert_text 1.month.ago.strftime('%Y年%-m月')
     find('.niconico-calendar').click_link href: /reports/, match: :first
     go_back

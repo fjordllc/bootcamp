@@ -12,7 +12,6 @@ class Notification::TalkTest < ApplicationSystemTestCase
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
-    wait_for_vuejs
     assert_text 'test'
 
     visit_with_auth '/notifications', 'machida'
@@ -31,7 +30,6 @@ class Notification::TalkTest < ApplicationSystemTestCase
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
-    wait_for_vuejs
     assert_text 'test'
 
     visit '/notifications'
@@ -56,7 +54,6 @@ class Notification::TalkTest < ApplicationSystemTestCase
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
-    wait_for_vuejs
     assert_text 'test'
 
     visit_with_auth '/notifications', 'kimura'

@@ -17,7 +17,6 @@ class Check::ReportsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
     assert has_button? '日報を確認'
     accept_alert do
-      wait_for_vuejs
       click_button '日報を確認'
     end
     assert has_button? '日報の確認を取り消す'
@@ -28,7 +27,6 @@ class Check::ReportsTest < ApplicationSystemTestCase
   test 'success report checking cancel' do
     visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
     accept_alert do
-      wait_for_vuejs
       click_button '日報を確認'
     end
     click_button '日報の確認を取り消す'

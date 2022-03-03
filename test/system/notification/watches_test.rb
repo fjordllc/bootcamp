@@ -11,7 +11,6 @@ class Notification::WatchesTest < ApplicationSystemTestCase
       fill_in('new_comment[description]', with: 'いい日報ですね。')
     end
     click_button 'コメントする'
-    wait_for_vuejs
     logout
 
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
@@ -42,7 +41,6 @@ class Notification::WatchesTest < ApplicationSystemTestCase
       fill_in('answer[description]', with: 'Vimチュートリアルがおすすめです。')
     end
     click_button 'コメントする'
-    wait_for_vuejs
     logout
 
     visit_with_auth "/questions/#{questions(:question1).id}", 'machida'

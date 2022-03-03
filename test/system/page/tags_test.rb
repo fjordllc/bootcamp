@@ -38,7 +38,6 @@ class Page::TagsTest < ApplicationSystemTestCase
     tag_input.set '追加タグ'
     tag_input.native.send_keys :return
     click_on '保存'
-    wait_for_vuejs
     assert_text '追加タグ'
   end
 
