@@ -1,15 +1,15 @@
 .card-books__items
+  margin-top: -1px
   +media-breakpoint-up(md)
     display: flex
     flex-wrap: wrap
 
 .card-books-item
+  border-top: solid 1px $border
   +media-breakpoint-up(md)
     flex: 0 0 50%
     &:nth-child(odd)
       border-right: solid 1px $border
-  &:not(:first-child)
-    border-top: solid 1px $border
 
 .card-books-item__inner
   +size(100%)
