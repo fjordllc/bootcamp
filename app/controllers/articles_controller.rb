@@ -30,11 +30,7 @@ class ArticlesController < ApplicationController
     set_wip_or_published_time
     if @article.save
       @article.resize_thumbnail!
-<<<<<<< HEAD
       redirect_to redirect_url(@article), notice: notice_message(@article)
-=======
-      redirect_to @article, notice: '記事を作成しました'
->>>>>>> 91c5f73ff (:cop:)
     else
       render :new
     end
@@ -44,11 +40,7 @@ class ArticlesController < ApplicationController
     set_wip_or_published_time
     if @article.update(article_params)
       @article.resize_thumbnail!
-<<<<<<< HEAD
       redirect_to redirect_url(@article), notice: notice_message(@article)
-=======
-      redirect_to @article, notice: '記事を更新しました'
->>>>>>> 91c5f73ff (:cop:)
     else
       render :edit
     end
