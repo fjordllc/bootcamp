@@ -306,9 +306,11 @@ class NotificationsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     click_link '内容修正'
     select 'machida', from: 'product_checker_id'
-    click_button '提出する'
-    assert_text '提出物を更新しました'
-    assert_text 'machida'
+    assert_difference -> { Notification.count }, 1 do
+      click_button '提出する'
+      assert_text '提出物を更新しました'
+      assert_text 'machida'
+    end
 
     visit_with_auth '/notifications?status=unread', 'machida'
     wait_for_vuejs
