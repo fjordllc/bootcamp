@@ -7,4 +7,9 @@ class User::ReportsTest < ApplicationSystemTestCase
     visit_with_auth "/users/#{users(:hatsuno).id}/reports", 'hatsuno'
     assert_equal 'hatsuno | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
+
+  test 'cannot access other users download reports' do
+    visit_with_auth "/users/#{users(:hatsuno).id}/reports.md", 'kimura'
+    assert_text '自分以外の日報はダウンロードすることができません'
+  end
 end

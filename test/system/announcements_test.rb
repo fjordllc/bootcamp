@@ -71,6 +71,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     fill_in 'announcement[title]', with: 'タイトルtest'
     fill_in 'announcement[description]', with: '内容test'
 
+    assert has_no_button? '公開'
     click_button '作成'
     assert_text 'お知らせを作成しました'
 
@@ -140,20 +141,56 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_no_text 'お知らせ「就活希望者のみお知らせします」'
   end
 
-  test "general user can't edit submitted announcement" do
-    announcement = announcements(:announcement1)
-    visit_with_auth announcement_path(announcement), 'kimura'
-    within '.thread__inner' do
-      assert_no_text '内容修正'
-    end
+  test "general user can't create announcement" do
+    visit_with_auth '/announcements', 'kimura'
+    click_link 'お知らせ作成'
+    assert has_no_button? '作成'
+    assert has_no_button? '公開'
+    assert_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
   end
 
-  test 'general user can edit wip announcement' do
+  test 'admin user can publish wip announcement' do
+    announcement = announcements(:announcement_wip)
+    visit_with_auth announcement_path(announcement), 'komagata'
+    within '.thread__inner' do
+      click_link '内容修正'
+    end
+    assert has_no_button? '作成'
+    assert has_button? '公開'
+    assert_no_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
+  end
+
+  test "general user can't publish wip announcement" do
     announcement = announcements(:announcement_wip)
     visit_with_auth announcement_path(announcement), 'kimura'
     within '.thread__inner' do
-      assert_text '内容修正'
+      click_link '内容修正'
     end
+    assert has_no_button? '作成'
+    assert has_no_button? '公開'
+    assert_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
+  end
+
+  test 'adimin user can publish submitted announcement' do
+    announcement = announcements(:announcement1)
+    visit_with_auth announcement_path(announcement), 'komagata'
+    within '.thread__inner' do
+      click_link '内容修正'
+    end
+    assert has_no_button? '作成'
+    assert has_button? '公開'
+    assert_no_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
+  end
+
+  test 'general user can publish submitted announcement' do
+    announcement = announcements(:announcement1)
+    visit_with_auth announcement_path(announcement), 'kimura'
+    within '.thread__inner' do
+      click_link '内容修正'
+    end
+    assert has_no_button? '作成'
+    assert has_button? '公開'
+    assert_no_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
   end
 
   test 'general user can copy submitted announcement' do
