@@ -41,7 +41,7 @@ class BookmarksTest < ApplicationSystemTestCase
 
   test 'unbookmark' do
     visit_with_auth "/reports/#{@report.id}", 'komagata'
-    wait_for_vuejs
+    assert_selector '#bookmark-button.is-active'
     find('#bookmark-button').click
     wait_for_vuejs
     assert_selector '#bookmark-button.is-inactive'
@@ -83,7 +83,7 @@ class BookmarksTest < ApplicationSystemTestCase
 
   test 'unbookmark question' do
     visit_with_auth "/questions/#{@question.id}", 'kimura'
-    wait_for_vuejs
+    assert_selector '#bookmark-button.is-active'
     find('#bookmark-button').click
     wait_for_vuejs
     assert_selector '#bookmark-button.is-inactive'
