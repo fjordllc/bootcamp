@@ -89,7 +89,7 @@ class FollowingsTest < ApplicationSystemTestCase
     click_button 'コメントなし'
 
     visit_with_auth '/reports/new', 'hatsuno'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -120,7 +120,7 @@ class FollowingsTest < ApplicationSystemTestCase
     click_button 'コメントなし'
 
     visit_with_auth '/reports/new', 'hatsuno'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
