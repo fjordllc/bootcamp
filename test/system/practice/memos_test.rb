@@ -10,7 +10,7 @@ class Practice::MemoTest < ApplicationSystemTestCase
     click_button '編集'
     fill_in('js-practice-memo', with: 'メンター向けメモをページ遷移せず編集')
     click_button '保存する'
-    wait_for_vuejs
+    assert_text '保存しました'
     assert_text 'メンター向けメモをページ遷移せず編集'
   end
 end
