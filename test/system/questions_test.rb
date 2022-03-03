@@ -100,8 +100,8 @@ class QuestionsTest < ApplicationSystemTestCase
       select updated_question[:practice].title, from: 'question[practice]'
       click_button '更新する'
     end
+    assert_text '質問を更新しました'
 
-    wait_for_vuejs # Vueが実行したREST APIがDBに反映されるのを待つ
     question = Question.last
     updated_question.each do |key, val|
       is_practice_value = key == :practice
