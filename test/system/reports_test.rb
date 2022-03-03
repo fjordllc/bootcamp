@@ -339,9 +339,6 @@ class ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[1].all('.learning-time__finished-at select')[1].select('30')
     click_button '内容変更'
 
-    # Watchの非同期処理ための待ち時間
-    sleep 0.5
-
     assert_selector('ul.learning-times__items li.learning-times__item:nth-child(1)', text: '07:30 〜 08:30')
     assert_selector('ul.learning-times__items li.learning-times__item:nth-child(2)', text: '19:30 〜 20:15')
   end
@@ -371,11 +368,17 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector '.thread-comment-form'
   end
 
+  # 画面上では更新の完了がわからないため、やむを得ずsleepする
+  # 注意）安易に使用しないこと!! https://bootcamp.fjord.jp/pages/use-assert-text-instead-of-wait-for-vuejs
+  def wait_for_watch_change
+    sleep 1
+  end
+
   test 'unwatch' do
     visit_with_auth report_path(reports(:report1)), 'kimura'
     assert_difference('Watch.count', -1) do
       find('div.a-watch-button', text: 'Watch中').click
-      sleep 0.5
+      wait_for_watch_change
     end
   end
 
@@ -383,7 +386,7 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth report_path(reports(:report1)), 'kimura'
     assert_difference('Watch.count', -1) do
       find('div.a-watch-button', text: 'Watch中').click
-      sleep 0.5
+      wait_for_watch_change
     end
   end
 
