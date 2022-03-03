@@ -71,6 +71,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     fill_in 'announcement[title]', with: 'タイトルtest'
     fill_in 'announcement[description]', with: '内容test'
 
+    assert has_no_button? '公開'
     click_button '作成'
     assert_text 'お知らせを作成しました'
 
@@ -144,6 +145,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     visit_with_auth '/announcements', 'kimura'
     click_link 'お知らせ作成'
     assert has_no_button? '作成'
+    assert has_no_button? '公開'
     assert_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
   end
 
@@ -153,6 +155,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     within '.thread__inner' do
       click_link '内容修正'
     end
+    assert has_no_button? '作成'
     assert has_button? '公開'
     assert_no_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
   end
@@ -163,6 +166,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     within '.thread__inner' do
       click_link '内容修正'
     end
+    assert has_no_button? '作成'
     assert has_no_button? '公開'
     assert_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
   end
@@ -173,6 +177,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     within '.thread__inner' do
       click_link '内容修正'
     end
+    assert has_no_button? '作成'
     assert has_button? '公開'
     assert_no_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
   end
@@ -183,6 +188,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     within '.thread__inner' do
       click_link '内容修正'
     end
+    assert has_no_button? '作成'
     assert has_button? '公開'
     assert_no_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
   end
