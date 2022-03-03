@@ -5,9 +5,9 @@ require 'test_helper'
 class SearchHelperTest < ActionView::TestCase
   test 'return whether talk' do
     user = users(:kimura)
-    assert_equal true, talk?(user)
+    assert true, talk?(user)
 
     user = users(:taikai3)
-    assert_equal false, talk?(user)
+    assert_not false, talk?(user)
   end
 end
