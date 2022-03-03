@@ -98,7 +98,7 @@ class CommentsTest < ApplicationSystemTestCase
   test 'post new comment with image for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     find('#comments.loaded', wait: 10)
-    find('#js-new-comment').set("画像付きで説明します。 ![Image](https://example.com/test.png)")
+    find('#js-new-comment').set('画像付きで説明します。 ![Image](https://example.com/test.png)')
     click_button 'コメントする'
     assert_text '画像付きで説明します。'
     assert_match '<a href="https://example.com/test.png" target="_blank" rel="noopener noreferrer"><img src="https://example.com/test.png" alt="Image"></a>',
