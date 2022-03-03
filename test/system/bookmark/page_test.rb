@@ -39,7 +39,7 @@ class Bookmark::PageTest < ApplicationSystemTestCase
 
   test 'unbookmark page' do
     visit_with_auth "/pages/#{@page.id}", 'kimura'
-    wait_for_vuejs
+    assert_selector '#bookmark-button.is-active'
     find('#bookmark-button').click
     wait_for_vuejs
     assert_selector '#bookmark-button.is-inactive'
