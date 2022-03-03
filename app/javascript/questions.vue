@@ -33,7 +33,8 @@ export default {
   },
   props: {
     emptyMessage: { type: String, required: true },
-    selectedTag: { type: String, required: true }
+    selectedTag: { type: String, required: true },
+    usersPath: { type: String, default: '', required: false }
   },
   data() {
     return {
@@ -54,7 +55,8 @@ export default {
     },
     questionsAPI() {
       const params = this.newParams
-      return `/api/questions.json?${params}`
+      const usersPath = this.usersPath
+      return `/api/${usersPath}questions.json?${params}`
     },
     pagerProps() {
       return {
