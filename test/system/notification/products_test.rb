@@ -6,7 +6,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
   test 'send adviser a notification when trainee create product' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice5).id}", 'kensyu'
 
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'

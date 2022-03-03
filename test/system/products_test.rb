@@ -81,7 +81,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'create product' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
@@ -93,7 +93,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'create product change status submitted' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
@@ -183,7 +183,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'create product as WIP' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
@@ -216,7 +216,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
@@ -231,7 +231,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'

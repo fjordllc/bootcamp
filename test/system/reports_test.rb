@@ -10,7 +10,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create report as WIP' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
     end
@@ -20,7 +20,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create a report' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -39,7 +39,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create a report without learning time' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -83,7 +83,7 @@ class ReportsTest < ApplicationSystemTestCase
     user.update!(company: nil)
 
     visit_with_auth '/reports/new', 'kensyu'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -100,7 +100,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create and update learning times in a report' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -391,7 +391,7 @@ class ReportsTest < ApplicationSystemTestCase
     Report.destroy_all
 
     visit_with_auth '/reports/new', 'kensyu'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -416,7 +416,7 @@ class ReportsTest < ApplicationSystemTestCase
     Report.all.each(&:destroy)
 
     visit_with_auth '/reports/new', 'kensyu'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -504,7 +504,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'reports can be checked as plain markdown' do
     visit_with_auth '/reports/new', 'kimura'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'check plain markdown')
       fill_in('report[description]', with: '## this is heading2')
       fill_in('report[reported_on]', with: Time.current)
@@ -544,7 +544,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'cannot post a new report with future date' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: '学習日が未来日では日報を作成できない')
       fill_in('report[description]', with: 'エラーになる')
       fill_in('report[reported_on]', with: Date.current.next_day)
@@ -568,7 +568,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'description of the daily report is previewed' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
     assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
@@ -579,7 +579,7 @@ class ReportsTest < ApplicationSystemTestCase
   test 'description of the daily report is previewed when editing' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
     click_link '内容修正'
-    within("#edit_report_#{reports(:report1).id}") do
+    within('form[name=report]') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
     assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
@@ -590,7 +590,7 @@ class ReportsTest < ApplicationSystemTestCase
   test 'description of the daily report is previewed when copied' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
     click_link 'コピー'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
     assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
