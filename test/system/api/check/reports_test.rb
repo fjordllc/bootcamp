@@ -26,6 +26,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
 
   test 'success report checking cancel' do
     visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
+    assert_text '昨日よりできませんでした'
     accept_alert do
       click_button '日報を確認'
     end
@@ -33,7 +34,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     within('.thread') do
       assert_no_text '確認済'
     end
-    assert has_button? '日報を確認'
+    assert_button '日報を確認'
   end
 
   test 'comment and check report' do
