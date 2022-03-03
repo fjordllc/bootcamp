@@ -952,3 +952,24 @@ otameshi:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: <%= Time.current %>
   created_at: <%= Time.current %>
+
+discordinvalid: #Discord IDが不正なユーザー
+  login_name: discordinvalid
+  email: discordinvalid@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: ユーザーです Discord IDが不正
+  name_kana: ディスコード フセイ
+  discord_account: discordinvalid#1234567890
+  github_account: discordinvalid
+  twitter_account: discordinvalid
+  times_url: https://discord.com/channels/715806612824260640/123456789000000014
+  facebook_url: http://www.facebook.com/discordinvalid
+  blog_url: http://discordinvalid.org
+  description: "Discord IDが不正なユーザーです"
+  course: course1
+  job: office_worker
+  experience: rails
+  unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
+  updated_at: "2014-01-01 00:00:12"
+  created_at: "2014-01-01 00:00:12"
