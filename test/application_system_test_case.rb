@@ -16,18 +16,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ReportHelper
   include CommentHelper
 
-  VUEJS_WAIT_SECOND = (ENV['VUEJS_WAIT_SECOND'] || 2).to_i
-
   if ENV['HEADED']
     driven_by :selenium, using: :chrome
   else
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
       driver_option.add_argument('--no-sandbox')
     end
-  end
-
-  def wait_for_vuejs
-    # https://bootcamp.fjord.jp/questions/468 に書いた理由により、やむを得ずsleepする
-    sleep VUEJS_WAIT_SECOND
   end
 end

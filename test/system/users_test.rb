@@ -180,7 +180,6 @@ class UsersTest < ApplicationSystemTestCase
   test 'not show welcome message' do
     visit_with_auth practice_path(practices(:practice1).id), 'hatsuno'
     click_button '着手'
-    wait_for_vuejs
     visit '/'
     assert_no_text 'ようこそ'
   end
@@ -193,7 +192,6 @@ class UsersTest < ApplicationSystemTestCase
     within '.niconico-calendar-nav' do
       assert_text "#{today.year}年#{today.month}月"
       find('.niconico-calendar-nav__previous').click
-      wait_for_vuejs
       assert_text "#{last_month.year}年#{last_month.month}月"
     end
   end
@@ -211,7 +209,6 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth root_path, 'hatsuno'
     visit user_path(users(:hajime).id)
     find('.niconico-calendar-nav__previous').click
-    wait_for_vuejs
     assert_no_selector '.niconico-calendar__day.is-today'
   end
 

@@ -220,7 +220,6 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
     fill_in 'new_comment[description]', with: 'コメント数表示のテストです。'
     click_button 'コメントする'
-    wait_for_vuejs
 
     visit current_path
     assert_text "コメント（\n2\n）"

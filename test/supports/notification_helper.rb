@@ -9,13 +9,19 @@ module NotificationHelper
     all('.test-notification-message').map(&:text)
   end
 
+  # TODO: このモジュール以外では使用禁止。いつかなくしたい
+  # 本来であればsleepは使いたくないが、テストコードがロジカルすぎてすぐに修正できないため、やむを得ず残したままにする
+  def wait_for_vuejs_再利用禁止 # rubocop:disable Naming/MethodName, Naming/AsciiIdentifiers
+    sleep 2
+  end
+
   # notification_messages.include?(text)
   # でも可能だが、notification_messagesは
   # open_notificationを実行した(右上のベルボタンを押した)かで
   # 戻り値が変更されるため、これを作成
   def exists_unread_notification?(message)
     visit notifications_path(status: 'unread')
-    wait_for_vuejs # 通知一覧はVueでREST APIを利用して表示しているため
+    wait_for_vuejs_再利用禁止 # 通知一覧はVueでREST APIを利用して表示しているため # rubocop:disable Naming/AsciiIdentifiers
     exists = page.has_selector?('span.thread-list-item-title__link-label',
                                 text: message)
     go_back
@@ -24,7 +30,7 @@ module NotificationHelper
 
   def link_to_page_by_unread_notification(message)
     visit notifications_path(status: 'unread')
-    wait_for_vuejs # 通知一覧はVueでREST APIを利用して表示しているため
+    wait_for_vuejs_再利用禁止 # 通知一覧はVueでREST APIを利用して表示しているため # rubocop:disable Naming/AsciiIdentifiers
     click_link message, class: 'thread-list-item-title__link'
   end
 
