@@ -102,20 +102,26 @@ class QuestionsTest < ApplicationSystemTestCase
     fill_in 'question[title]', with: 'タイトルtest'
     fill_in 'question[description]', with: '内容test'
 
-    click_button '登録する'
-    assert_text '質問を作成しました。'
+    assert_difference -> { Question.count }, 1 do
+      click_button '登録する'
+      assert_text '質問を作成しました。'
+    end
 
     visit_with_auth '/notifications', 'komagata'
+    assert_text 'yameoさんが退会しました。'
     assert_text 'kimuraさんから質問がありました。'
 
     visit_with_auth '/questions', 'kimura'
     click_on 'タイトルtest'
-    accept_confirm do
-      click_link '削除する'
+    assert_difference -> { Question.count }, -1 do
+      accept_confirm do
+        click_link '削除する'
+      end
+      assert_text '質問を削除しました。'
     end
-    assert_text '質問を削除しました。'
 
     visit_with_auth '/notifications', 'komagata'
+    assert_text 'yameoさんが退会しました。'
     assert_no_text 'kimuraさんから質問がありました。'
   end
 
