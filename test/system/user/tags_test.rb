@@ -142,9 +142,14 @@ class User::TagsTest < ApplicationSystemTestCase
     tag_input.set '#ハッシュハッシュ'
     tag_input.native.send_keys :return
     click_button '保存する'
+    within '.tag-links__items' do
+      assert_text 'ハッシュハッシュ'
+    end
 
     visit_with_auth user_path(users(:hatsuno)), 'komagata'
-    assert_no_text '#ハッシュハッシュ'
-    assert_text 'ハッシュハッシュ'
+    within '.tag-links__items' do
+      assert_text 'ハッシュハッシュ'
+      assert_no_text '#ハッシュハッシュ'
+    end
   end
 end
