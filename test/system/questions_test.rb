@@ -73,42 +73,27 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'update question for practice without questioner\'s course' do
     visit_with_auth edit_current_user_path, 'kimura'
 
-    login_user = User.find_by(login_name: find_field(id: 'user_login_name').value)
-    practice = Practice.where.not(
-      id: login_user.course.practices.map(&:id)
-    ).first
-
     visit new_question_path
     within 'form[name=question]' do
       fill_in 'question[title]', with: '質問者のコースにはないプラクティスの質問を編集できるかのテスト'
       fill_in 'question[description]', with: '編集できれば期待通りの動作'
-      select practice.title, from: 'question[practice_id]'
+      select 'iOSへのビルドと固有の問題', from: 'question[practice_id]'
       click_button '登録する'
     end
     assert_text '質問を作成しました。'
 
-    updated_question = {
-      title: '質問者のコースにはないプラクティスの質問でも',
-      description: '編集できる',
-      practice: practice
-    }
-    wait_for_vuejs
     click_button '内容修正'
     within 'form[name=question]' do
-      fill_in 'question[title]', with: updated_question[:title]
-      fill_in 'question[description]', with: updated_question[:description]
-      select updated_question[:practice].title, from: 'question[practice]'
+      fill_in 'question[title]', with: '質問者のコースにはないプラクティスの質問でも'
+      fill_in 'question[description]', with: '編集できる'
+      select 'iOSへのビルドと固有の問題', from: 'question[practice]'
       click_button '更新する'
     end
     assert_text '質問を更新しました'
 
-    question = Question.last
-    updated_question.each do |key, val|
-      is_practice_value = key == :practice
-      assert_equal val, is_practice_value ? question.practice : question[key]
-      assert_text is_practice_value ? question.practice.title : val
-    end
-    assert_text '質問を更新しました'
+    assert_text '質問者のコースにはないプラクティスの質問でも'
+    assert_text '編集できる'
+    assert_text 'iOSへのビルドと固有の問題'
   end
 
   test 'delete a question' do
