@@ -249,15 +249,15 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'create a WIP question' do
     visit_with_auth new_question_path, 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: 'WIPタイトル')
-      fill_in('question[description]', with: 'WIP本文')
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'WIPタイトル'
+      fill_in 'question[description]', with: 'WIP本文'
     end
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
   end
 
-  test 'update a WIP question to be WIP' do
+  test 'update a WIP question as WIP' do
     question = questions(:question_for_wip)
     visit_with_auth question_path(question), 'kimura'
     click_button '内容修正'
@@ -269,7 +269,7 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_selector '.thread-header-title__label.is-wip', text: 'WIP'
   end
 
-  test 'update a WIP question to be published' do
+  test 'update a WIP question as published' do
     question = questions(:question_for_wip)
     visit_with_auth question_path(question), 'kimura'
     click_button '内容修正'
@@ -281,7 +281,7 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_selector '.thread-header-title__label.is-solved.is-danger', text: '未解決'
   end
 
-  test 'update a published question to be WIP' do
+  test 'update a published question as WIP' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
     click_button '内容修正'
@@ -300,5 +300,13 @@ class QuestionsTest < ApplicationSystemTestCase
     within element do
       assert_selector '.thread-list-item-title__icon.is-wip', text: 'WIP'
     end
+  end
+
+  test "visit user profile page when clicked on user's name on question" do
+    visit_with_auth questions_path, 'kimura'
+    assert_text '質問のタブの作り方'
+    click_link 'hatsuno (Hatsuno Shinji)', match: :first
+    assert_text 'プロフィール'
+    assert_text 'Hatsuno Shinji（ハツノ シンジ）'
   end
 end
