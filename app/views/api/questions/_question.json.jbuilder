@@ -9,9 +9,6 @@ json.updated_at_date_time question.updated_at.to_datetime
 if question.published_at.present?
   json.published_at l(question.published_at)
   json.published_at_date_time question.published_at.to_datetime
-else
-  json.published_at l(question.created_at)
-  json.published_at_date_time question.created_at.to_datetime
 end
 
 json.user do

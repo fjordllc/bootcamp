@@ -1,5 +1,5 @@
 <template lang="pug">
-.thread-list-item(:class='isClass')
+.thread-list-item(:class='questionClass')
   .thread-list-item__inner
     .thread-list-item__user
       a.a-user-name(:href='question.user.url')
@@ -31,7 +31,8 @@
             .a-meta
               | 質問作成中
           .thread-list-item-meta__item
-            a.a-user-name {{ question.user.long_name }}
+            a.a-user-name(:href='`/users/${question.user.id}`')
+              | {{ question.user.long_name }}
     .thread-list-item__row
       .thread-list-item-meta
         .thread-list-item-meta__items
@@ -83,13 +84,13 @@ export default {
     daimyoClass() {
       return { 'is-daimyo': this.question.user.daimyo }
     },
-    isClass() {
+    questionClass() {
       if (this.question.has_correct_answer) {
-        return `is-solved`
+        return 'is-solved'
       } else if (this.question.wip) {
-        return `is-wip`
+        return 'is-wip'
       } else {
-        return ``
+        return ''
       }
     }
   }

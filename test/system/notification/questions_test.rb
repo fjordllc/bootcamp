@@ -57,7 +57,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_no_text 'kimuraさんから質問がありました。'
   end
 
-  test 'should not notify when an already published question was updated to be WIP' do
+  test 'should not notify when an already published question was updated as WIP' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
@@ -74,14 +74,14 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_no_text 'kimuraさんから質問がありました。'
   end
 
-  test 'should not notify when a WIP question was created' do
+  test 'should not notify when a newly question was created as WIP' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
     visit_with_auth '/questions/new', 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: 'WIPタイトル')
-      fill_in('question[description]', with: 'WIP本文')
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'WIPタイトル'
+      fill_in 'question[description]', with: 'WIP本文'
     end
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
@@ -90,14 +90,14 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_no_text 'kimuraさんから質問がありました。'
   end
 
-  test 'notify when a published question was created' do
+  test 'notify when a newly question was created as published' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
     visit_with_auth '/questions/new', 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: '公開タイトル')
-      fill_in('question[description]', with: '公開本文')
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: '公開タイトル'
+      fill_in 'question[description]', with: '公開本文'
     end
     click_button '登録する'
     assert_text '質問を作成しました。'
@@ -111,9 +111,9 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth '/questions/new', 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: 'WIPタイトル')
-      fill_in('question[description]', with: 'WIP本文')
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'WIPタイトル'
+      fill_in 'question[description]', with: 'WIP本文'
     end
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
@@ -130,14 +130,14 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_no_text 'kimuraさんから質問がありました。'
   end
 
-  test 'notify when a WIP question with modification was updated to be published' do
+  test 'notify when a WIP question with modification was updated as published' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
     visit_with_auth '/questions/new', 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: 'WIPタイトル')
-      fill_in('question[description]', with: 'WIP本文')
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'WIPタイトル'
+      fill_in 'question[description]', with: 'WIP本文'
     end
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
@@ -154,14 +154,14 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text 'kimuraさんから質問がありました。'
   end
 
-  test 'notify when a WIP question without modification was updated to be published' do
+  test 'notify when a WIP question without modification was updated as published' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
     visit_with_auth '/questions/new', 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: 'WIPタイトル')
-      fill_in('question[description]', with: 'WIP本文')
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'WIPタイトル'
+      fill_in 'question[description]', with: 'WIP本文'
     end
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
@@ -174,11 +174,11 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text 'kimuraさんから質問がありました。'
   end
 
-  test 'should not notify when a published question with modification was updated to be WIP' do
+  test 'should not notify when a published question with modification was updated as WIP' do
     visit_with_auth '/questions/new', 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: '公開タイトル')
-      fill_in('question[description]', with: '公開本文')
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: '公開タイトル'
+      fill_in 'question[description]', with: '公開本文'
     end
     click_button '登録する'
     assert_text '質問を作成しました。'
@@ -200,11 +200,11 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_no_text 'kimuraさんから質問がありました。'
   end
 
-  test 'should not notify when a published question without modification was updated to be WIP' do
+  test 'should not notify when a published question without modification was updated as WIP' do
     visit_with_auth '/questions/new', 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: '公開タイトル')
-      fill_in('question[description]', with: '公開本文')
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: '公開タイトル'
+      fill_in 'question[description]', with: '公開本文'
     end
     click_button '登録する'
     assert_text '質問を作成しました。'
@@ -224,9 +224,9 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
 
   test 'should not notify when a published question was updated' do
     visit_with_auth '/questions/new', 'kimura'
-    within('.form') do
-      fill_in('question[title]', with: '公開タイトル')
-      fill_in('question[description]', with: '公開本文')
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: '公開タイトル'
+      fill_in 'question[description]', with: '公開本文'
     end
     click_button '登録する'
     assert_text '質問を作成しました。'
