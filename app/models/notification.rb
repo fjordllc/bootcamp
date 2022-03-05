@@ -125,7 +125,7 @@ class Notification < ApplicationRecord
         user: receiver,
         sender: question.sender,
         link: Rails.application.routes.url_helpers.polymorphic_path(question),
-        message: "#{question.user.login_name}さんから質問がありました。",
+        message: "#{question.user.login_name}さんから質問「#{question.title}」が投稿されました。",
         read: false
       )
     end
