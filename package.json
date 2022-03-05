@@ -9,6 +9,7 @@
     "@rails/webpacker": "5.4.3",
     "@sindresorhus/slugify": "^2.1.0",
     "autosize": "^4.0.2",
+    "choices.js": "^10.1.0",
     "css-loader": "^5.0.1",
     "dayjs": "^1.10.4",
     "escape-html": "^1.0.3",
