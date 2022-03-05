@@ -26,6 +26,7 @@
         th.admin-table__label 削除
     tbody.admin-table__items
       - users.each do |user|
+        - next if params[:target] == 'campaign' && user.adviser
         tr.admin-table__item class="#{user.retired_on? ? 'is-inactive' : '' }"
           td.admin-table__item-value.is-text-align-center
             - if user.admin?
