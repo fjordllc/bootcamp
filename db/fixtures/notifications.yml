@@ -106,6 +106,9 @@ notification_create_page:
   user: hatsuno
   sender: komagata
   message: "komagataさんがDocsにBootcampの作業のページを投稿しました。"
+  link: "/pages/<%= ActiveRecord::FixtureSet.identify(:page4) %>"
+  read: false
+
 notification_following_report:
   user: muryou
   sender: kensyu
