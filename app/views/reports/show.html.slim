@@ -179,7 +179,7 @@ header.page-header
         - else
           #js-reports(data-user-id="#{@report.user.id}" data-limit="10")
 
-- if flash[:notify_help] && flash[:celebrate_report_counts]
+- if flash[:notify_help] && flash[:celebrate_report_count]
     = render '/shared/modal', id: 'modal-notify-help', modal_title: '🎉 おめでとう！', auto_show: true
       .modal__description
         = render('celebrate_report_counts_body')
@@ -189,7 +189,7 @@ header.page-header
     = render '/shared/modal', id: 'modal-notify-help', modal_title: '🍵 今日も学習お疲れ様でした！', auto_show: true
       .modal__description.is-md
         = render('notify_help_body')
-- elsif flash[:celebrate_report_counts]
+- elsif flash[:celebrate_report_count]
     = render '/shared/modal', id: 'modal-report-counts-celebration', modal_title: '🎉 おめでとう！', auto_show: true
       .modal__description
         = render('celebrate_report_counts_body')
