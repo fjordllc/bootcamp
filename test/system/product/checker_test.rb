@@ -17,6 +17,7 @@ class Product::CheckerTest < ApplicationSystemTestCase
     ].each do |comment|
       visit "/products/#{products(:product1).id}"
       post_comment(comment)
+      assert_text 'コメントを投稿しました'
 
       visit '/products/unchecked?target=unchecked_no_replied'
       assert_equal before_comment + 1, assigned_product_count

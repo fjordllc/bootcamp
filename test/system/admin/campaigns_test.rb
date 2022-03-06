@@ -137,4 +137,15 @@ class CampaignsTest < ApplicationSystemTestCase
     visit_with_auth '/', 'hatsuno'
     assert_text "入会から#{PERIOD}日間（#{PERIOD * 24}時間）は機能制限なくフルでフィヨルドブートキャンプを活用いただけます"
   end
+
+  test 'welcome trial extension campaign start to end' do
+    start_at = Campaign.recently_campaign.first
+    end_at = Campaign.recently_campaign.last
+
+    campaign_start = start_at.strftime("%-m/%-d(#{WEEK_DAY[start_at.wday]})")
+    campaign_end = end_at.strftime("%-m/%-d(#{WEEK_DAY[end_at.wday]})")
+
+    visit welcome_path
+    assert_text "#{campaign_start}〜#{campaign_end}の期間中にご入会いただくと、"
+  end
 end

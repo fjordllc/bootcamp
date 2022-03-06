@@ -2,7 +2,7 @@
 
 require 'active_record/fixtures'
 
-ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', %i[
+tables = %i[
   acts_as_taggable_on/taggings
   acts_as_taggable_on/tags
   users
@@ -36,5 +36,6 @@ ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', %i[
   talks
 ]
 
-Bootcamp::Setup.attachment
-Rake::Task['bootcamp:statistics:save_learning_minute_statistics'].execute
+tables.each do |table|
+  ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', table
+end

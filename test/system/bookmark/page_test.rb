@@ -14,14 +14,12 @@ class Bookmark::PageTest < ApplicationSystemTestCase
 
   test 'show active button when bookmarked page' do
     visit_with_auth "/pages/#{@page.id}", 'kimura'
-    wait_for_vuejs
     assert_selector '#bookmark-button.is-active'
     assert_no_selector '#bookmark-button.is-inactive'
   end
 
   test 'show inactive button when not bookmarked page' do
     visit_with_auth "/pages/#{@page.id}", 'komagata'
-    wait_for_vuejs
     assert_selector '#bookmark-button.is-inactive'
     assert_no_selector '#bookmark-button.is-active'
   end
@@ -29,7 +27,6 @@ class Bookmark::PageTest < ApplicationSystemTestCase
   test 'bookmark page' do
     visit_with_auth "/pages/#{@page.id}", 'komagata'
     find('#bookmark-button').click
-    wait_for_vuejs
     assert_selector '#bookmark-button.is-active'
     assert_no_selector '#bookmark-button.is-inactive'
 
@@ -39,9 +36,8 @@ class Bookmark::PageTest < ApplicationSystemTestCase
 
   test 'unbookmark page' do
     visit_with_auth "/pages/#{@page.id}", 'kimura'
-    wait_for_vuejs
+    assert_selector '#bookmark-button.is-active'
     find('#bookmark-button').click
-    wait_for_vuejs
     assert_selector '#bookmark-button.is-inactive'
     assert_no_selector '#bookmark-button.is-active'
 

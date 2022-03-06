@@ -5,7 +5,7 @@ ja:
       ym_jp: "%Y年%m月"
       ym: "%Y%m"
       ymd_hy: "%Y-%m-%d"
-      da_jp: "%e日(%a)"
+      dw_jp: "%e日(%a)"
       short: "%Y/%m/%d"
       md: "%m月%d日"
       sm: "%m/%d"
@@ -17,6 +17,7 @@ ja:
       date_only: "%m月%d日"
       date_and_time: "%m月%d日%H:%M"
       year_only: "%Y"
+      mdw_unique: "%-m/%-d(%a)"
   activerecord:
     models:
       user: ユーザー

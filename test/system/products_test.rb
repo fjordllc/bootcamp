@@ -52,7 +52,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   # test 'not display learning completion message when a user of the completed product visits after the second time' do
   #   visit_with_auth "/products/#{products(:product65).id}", 'kimura'
-  #   find('label.card-main-actions__delete').click
+  #   find('label.card-main-actions__muted-action').click
   #   visit current_path
   #   assert_no_text '喜びを Tweet する！'
   # end
@@ -81,17 +81,19 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'create product' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
     assert_text 'Watch中'
   end
 
   test 'create product change status submitted' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
@@ -108,15 +110,19 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text '提出物を更新しました。'
   end
 
-  test 'update product if product page is WIP' do
+  test 'update product to publish from WIP' do
     product = products(:product1)
     visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
     click_button 'WIP'
     visit "/products/#{product.id}"
     click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text '提出物を更新しました。'
   end
 
@@ -126,7 +132,6 @@ class ProductsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
-    wait_for_vuejs
     assert_text '提出物を削除しました。'
   end
 
@@ -141,7 +146,6 @@ class ProductsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
-    wait_for_vuejs
     assert_text '提出物を削除しました。'
   end
 
@@ -177,10 +181,11 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'create product as WIP' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
+    assert_text '提出物作成中'
     assert_text '提出物をWIPとして保存しました。'
   end
 
@@ -209,7 +214,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
@@ -224,7 +229,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
@@ -277,6 +282,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     fill_in 'new_comment[description]', with: 'コメントしたら担当になるテスト'
     click_button 'コメントする'
+    assert_text 'コメントしたら担当になるテスト'
     visit current_path
     assert_text '担当から外れる'
     assert_no_text '担当する'
@@ -457,7 +463,6 @@ class ProductsTest < ApplicationSystemTestCase
     assignee_buttons.first.click
 
     unassigned_tab.click
-    wait_for_vuejs
     operated_counter = find('#test-unassigned-counter').text
     assert_not_equal initial_counter, operated_counter
   end
@@ -467,5 +472,17 @@ class ProductsTest < ApplicationSystemTestCase
     within(:css, '.is-emphasized') do
       assert_text '2'
     end
+  end
+
+  test 'submit-wip-submitted product does not suddenly show up as overdue' do
+    visit_with_auth "/products/#{products(:product8).id}/edit", 'kimura'
+    click_button 'WIP'
+    click_button '提出する'
+
+    visit_with_auth '/api/products/unassigned/counts.txt', 'komagata'
+
+    assert_text '5日経過：1件'
+    assert_text '6日経過：1件'
+    assert_text '7日以上経過：5件'
   end
 end

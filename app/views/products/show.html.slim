@@ -121,7 +121,7 @@ header.page-header
                   ul.card-main-actions__items
                     - if @product.wip?
                       li.card-main-actions__item
-                        = form_for @product do |f|
+                        = form_with model: @product, local: true do |f|
                           = f.hidden_field :body
                           = f.submit '提出する', class: 'a-button is-md is-warning is-block'
                     li.card-main-actions__item
@@ -129,7 +129,7 @@ header.page-header
                         i.fas.fa-pen
                         | 内容修正
                     li.card-main-actions__item.is-sub
-                      = link_to @product, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
+                      = link_to @product, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                         | 削除する
 
             - if (@product.user.daimyo? && staff_login?) || admin_or_mentor_login?

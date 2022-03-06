@@ -13,7 +13,7 @@ class PageCallbacks
   end
 
   def after_update(page)
-    return unless page.wip == false && page.published_at.nil?
+    return unless page.saved_change_to_attribute?(:wip, from: true, to: false) && page.published_at.nil?
 
     send_notification(page)
     notify_to_chat(page)

@@ -15,6 +15,14 @@ header.page-header
             = link_to reports_path, class: 'a-button is-md is-secondary is-block is-back' do
               | 日報一覧
 
+- if mentor_login? && !@report.first? && @report.latest_of_user?
+  .a-page-notice.is-only-mentor(class="#{@report.interval >= 10 ? 'is-danger' : ''}")
+    .container
+      .a-page-notice__inner
+        p
+          strong
+            | #{@report.interval}日
+          | ぶりの日報です
 .page-body
   .container.is-xxxl
     .row.is-jc:c
@@ -103,7 +111,7 @@ header.page-header
                         i.fas.fa-pen#new
                         | 内容修正
                     li.card-main-actions__item.is-sub
-                      = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__delete' do
+                      = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                         span#delete
                           | 削除する
 
@@ -172,13 +180,13 @@ header.page-header
           #js-reports(data-user-id="#{@report.user.id}" data-limit="10")
 
 - if flash[:notify_help]
-    = render '/shared/modal', id: 'modal-notify-help', modal_title: '🍵 今日も学習お疲れ様でした！', auto_show: true
-      .modal__description.is-md
-        .a-long-text
-          p
-            = link_to '/pages/help' do
-              | ヘルプページ
-            | には学習のヒントになる情報が載っています。
-            | 困った時はぜひのぞいてみてください。
-            | ヘルプページは左のナビゲーションにリンクがあるので、
-            | いつでもそこからアクセスができます。
+  = render '/shared/modal', id: 'modal-notify-help', modal_title: '🍵 今日も学習お疲れ様でした！', auto_show: true
+    .modal__description.is-md
+      .a-long-text
+        p
+          = link_to '/pages/help' do
+            | ヘルプページ
+          | には学習のヒントになる情報が載っています。
+          | 困った時はぜひのぞいてみてください。
+          | ヘルプページは左のナビゲーションにリンクがあるので、
+          | いつでもそこからアクセスができます。

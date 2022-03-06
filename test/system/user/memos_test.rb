@@ -9,7 +9,6 @@ class User::MemoTest < ApplicationSystemTestCase
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: 'ユーザーメンターメモ'
     click_button '保存する'
-    wait_for_vuejs
     assert_text 'ユーザーメンターメモ'
     assert_no_text 'ユーザーメモはまだありません。'
   end
@@ -21,7 +20,6 @@ class User::MemoTest < ApplicationSystemTestCase
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: 'ユーザーメンターメモ'
     click_button 'キャンセル'
-    wait_for_vuejs
     assert_no_text 'ユーザーメンターメモ'
     assert_text 'kimuraさんのメモ'
     assert_no_text 'ユーザーメモはまだありません。'

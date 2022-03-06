@@ -180,10 +180,10 @@ class EventsTest < ApplicationSystemTestCase
   test 'user can participate in an event' do
     event = events(:event2)
     visit_with_auth event_path(event), 'kimura'
-    accept_confirm do
-      click_link '参加申込'
-    end
     assert_difference 'event.users.count', 1 do
+      accept_confirm do
+        click_link '参加申込'
+      end
       assert_text '参加登録しました。'
     end
   end
@@ -191,10 +191,10 @@ class EventsTest < ApplicationSystemTestCase
   test 'user can cancel event' do
     event = events(:event2)
     visit_with_auth event_path(event), 'hatsuno'
-    accept_confirm do
-      click_link '参加を取り消す'
-    end
     assert_difference 'event.users.count', -1 do
+      accept_confirm do
+        click_link '参加を取り消す'
+      end
       assert_text '参加を取り消しました。'
     end
   end
@@ -202,10 +202,10 @@ class EventsTest < ApplicationSystemTestCase
   test 'user can cancel event even if deadline has passed' do
     event = events(:event5)
     visit_with_auth event_path(event), 'kimura'
-    accept_confirm do
-      click_link '参加を取り消す'
-    end
     assert_difference 'event.users.count', -1 do
+      accept_confirm do
+        click_link '参加を取り消す'
+      end
       assert_text '参加を取り消しました。'
     end
     assert_no_link '参加申込'
@@ -246,13 +246,14 @@ class EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '参加申込'
     end
-    sleep 1
+    assert_text '参加登録しました'
 
     visit_with_auth events_path, 'kimura'
     click_link '先着順のイベント'
     accept_confirm do
       click_link '参加申込'
     end
+    assert_text '参加登録しました'
     within '.participants' do
       participants = all('img').map { |img| img['alt'] }
       assert_equal %w[komagata kimura], participants
@@ -275,13 +276,14 @@ class EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '参加申込'
     end
-    sleep 1
+    assert_text '参加登録しました'
 
     visit_with_auth events_path, 'kimura'
     click_link '補欠者のいるイベント'
     accept_confirm do
       click_link '補欠登録'
     end
+    assert_text '参加登録しました'
     within '.waitlist' do
       wait_user = all('img').map { |img| img['alt'] }
       assert_equal ['kimura (Kimura Tadasi)'], wait_user
@@ -304,13 +306,14 @@ class EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '参加申込'
     end
-    sleep 1
+    assert_text '参加登録しました'
 
     visit_with_auth events_path, 'kimura'
     click_link '補欠者が繰り上がるイベント'
     accept_confirm do
       click_link '補欠登録'
     end
+    assert_text '参加登録しました'
     within '.participants' do
       participants = all('img').map { |img| img['alt'] }
       assert_equal %w[komagata], participants
@@ -321,6 +324,7 @@ class EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '参加を取り消す'
     end
+    assert_text '参加を取り消しました'
     within '.participants' do
       participants = all('img').map { |img| img['alt'] }
       assert_equal %w[kimura], participants
@@ -343,7 +347,7 @@ class EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '参加申込'
     end
-    sleep 1
+    assert_text '参加登録しました'
 
     assert_no_selector '.waitlist'
   end

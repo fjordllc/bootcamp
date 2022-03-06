@@ -10,7 +10,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create report as WIP' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
     end
@@ -20,7 +20,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create a report' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -39,7 +39,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create a report without learning time' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -83,7 +83,7 @@ class ReportsTest < ApplicationSystemTestCase
     user.update!(company: nil)
 
     visit_with_auth '/reports/new', 'kensyu'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -100,7 +100,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create and update learning times in a report' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -339,9 +339,6 @@ class ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[1].all('.learning-time__finished-at select')[1].select('30')
     click_button '内容変更'
 
-    # Watchの非同期処理ための待ち時間
-    sleep 0.5
-
     assert_selector('ul.learning-times__items li.learning-times__item:nth-child(1)', text: '07:30 〜 08:30')
     assert_selector('ul.learning-times__items li.learning-times__item:nth-child(2)', text: '19:30 〜 20:15')
   end
@@ -371,11 +368,17 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector '.thread-comment-form'
   end
 
+  # 画面上では更新の完了がわからないため、やむを得ずsleepする
+  # 注意）安易に使用しないこと!! https://bootcamp.fjord.jp/pages/use-assert-text-instead-of-wait-for-vuejs
+  def wait_for_watch_change
+    sleep 1
+  end
+
   test 'unwatch' do
     visit_with_auth report_path(reports(:report1)), 'kimura'
     assert_difference('Watch.count', -1) do
       find('div.a-watch-button', text: 'Watch中').click
-      sleep 0.5
+      wait_for_watch_change
     end
   end
 
@@ -383,7 +386,7 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth report_path(reports(:report1)), 'kimura'
     assert_difference('Watch.count', -1) do
       find('div.a-watch-button', text: 'Watch中').click
-      sleep 0.5
+      wait_for_watch_change
     end
   end
 
@@ -391,7 +394,7 @@ class ReportsTest < ApplicationSystemTestCase
     Report.destroy_all
 
     visit_with_auth '/reports/new', 'kensyu'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -416,7 +419,7 @@ class ReportsTest < ApplicationSystemTestCase
     Report.all.each(&:destroy)
 
     visit_with_auth '/reports/new', 'kensyu'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -504,7 +507,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'reports can be checked as plain markdown' do
     visit_with_auth '/reports/new', 'kimura'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'check plain markdown')
       fill_in('report[description]', with: '## this is heading2')
       fill_in('report[reported_on]', with: Time.current)
@@ -544,7 +547,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'cannot post a new report with future date' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: '学習日が未来日では日報を作成できない')
       fill_in('report[description]', with: 'エラーになる')
       fill_in('report[reported_on]', with: Date.current.next_day)
@@ -568,7 +571,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'description of the daily report is previewed' do
     visit_with_auth '/reports/new', 'komagata'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
     assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
@@ -579,7 +582,7 @@ class ReportsTest < ApplicationSystemTestCase
   test 'description of the daily report is previewed when editing' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
     click_link '内容修正'
-    within("#edit_report_#{reports(:report1).id}") do
+    within('form[name=report]') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
     assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
@@ -590,7 +593,7 @@ class ReportsTest < ApplicationSystemTestCase
   test 'description of the daily report is previewed when copied' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
     click_link 'コピー'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
     assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
@@ -619,5 +622,17 @@ class ReportsTest < ApplicationSystemTestCase
     after_height = find('#report_description').style('height')['height'][/\d+/].to_i
 
     assert height < after_height
+  end
+
+  test 'display report interval for mentor while undoing wip' do
+    visit_with_auth report_path(reports(:report32)), 'komagata'
+    assert_selector '.a-page-notice.is-only-mentor.is-danger', text: '10日ぶりの日報です'
+
+    visit_with_auth report_path(reports(:report33)), 'kananashi'
+    click_link '内容修正'
+    click_button '提出'
+
+    visit_with_auth report_path(reports(:report32)), 'komagata'
+    assert_no_selector '.a-page-notice.is-only-mentor.is-danger', text: '9日ぶりの日報です'
   end
 end

@@ -109,7 +109,6 @@ class PracticesTest < ApplicationSystemTestCase
     end
     assert_text 'プラクティスを更新しました'
     visit "/products/#{product.id}"
-    wait_for_vuejs
     find('#side-tabs-nav-2').click
     assert_text 'メンター向けのメモの内容です'
   end
@@ -170,11 +169,17 @@ class PracticesTest < ApplicationSystemTestCase
     assert_text '進捗の計算'
   end
 
+  # 画面上では更新の完了がわからないため、やむを得ずsleepする
+  # 注意）安易に使用しないこと!! https://bootcamp.fjord.jp/pages/use-assert-text-instead-of-wait-for-vuejs
+  def wait_for_status_change
+    sleep 1
+  end
+
   test 'change status' do
     practice = practices(:practice1)
     visit_with_auth "/practices/#{practice.id}", 'hatsuno'
     first('.js-started').click
-    sleep 5
+    wait_for_status_change
     assert_equal 'started', practice.status(users(:hatsuno))
   end
 
@@ -182,15 +187,14 @@ class PracticesTest < ApplicationSystemTestCase
     practice = practices(:practice1)
     visit_with_auth "/practices/#{practice.id}", 'hatsuno'
     first('.js-started').click
-    sleep 5
+    wait_for_status_change
     assert_equal 'started', practice.status(users(:hatsuno))
 
     practice = practices(:practice2)
     visit "/practices/#{practice.id}"
-    first('.js-started').click
-    sleep 5
-    assert_equal page.driver.browser.switch_to.alert.text, "すでに着手しているプラクティスがあります。\n提出物を提出するか完了すると新しいプラクティスを開始できます。"
-    page.driver.browser.switch_to.alert.accept
+    accept_alert "すでに着手しているプラクティスがあります。\n提出物を提出するか完了すると新しいプラクティスを開始できます。" do
+      first('.js-started').click
+    end
   end
 
   test 'show other practices' do
@@ -219,7 +223,13 @@ class PracticesTest < ApplicationSystemTestCase
     end
     assert_text 'プラクティスを更新しました'
     visit "/practices/#{practice.id}"
-    wait_for_vuejs
     assert_equal 'テストプラクティス | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+  end
+
+  test 'show last updated user icon' do
+    visit_with_auth "/practices/#{practices(:practice55).id}", 'hajime'
+    within '.thread-header__user-icon-link' do
+      assert_selector 'img[alt="komagata (Komagata Masaki): 管理者、メンター"]'
+    end
   end
 end

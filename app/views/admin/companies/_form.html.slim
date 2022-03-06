@@ -1,4 +1,4 @@
-= form_for [:admin, company], html: { name: 'company' } do |f|
+= form_with model: [:admin, company], local: true, html: { name: 'company' } do |f|
   .form__items
     .form-item
       = f.label :name, class: 'a-form-label'
