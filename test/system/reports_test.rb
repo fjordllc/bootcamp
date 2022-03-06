@@ -674,7 +674,7 @@ class ReportsTest < ApplicationSystemTestCase
       )
     end
     visit_with_auth '/reports/new', 'nippounashi'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: '100回目の日報')
       fill_in('report[description]', with: '日報の内容 100')
       fill_in('report[reported_on]', with: Time.current)
