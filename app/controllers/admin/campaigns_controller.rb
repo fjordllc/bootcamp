@@ -4,7 +4,12 @@ class Admin::CampaignsController < AdminController
   before_action :set_campaign, only: %i[edit update]
 
   def new
-    @campaign = Campaign.new(start_at: Time.current.beginning_of_day, trial_period: 4)
+    start_at = Time.current.beginning_of_day
+    @campaign = Campaign.new(
+      start_at: start_at,
+      end_at: start_at + 4.days - 1.minute,
+      trial_period: 4
+    )
   end
 
   def create

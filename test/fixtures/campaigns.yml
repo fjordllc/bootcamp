@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 campaign1:
-  start_at: <%= Time.current %>
-  end_at: <%= Time.current + 5.days %>
-  title: 'GW特別キャンペーン'
-  trial_period: 5
+  start_at: <%= Time.current - 1.months %>
+  end_at: <%= Time.current - 1.months + 10.days %>
+  title: '1ヶ月前の日付で入力したキャンペーン'
+  trial_period: 10
 
 campaign2:
-  start_at: <%= Time.current - 1.months %>
-  end_at: <%= Time.current - 1.months + 7.days %>
-  title: 'GWスペシャルキャンペーン'
+  start_at: <%= Time.current - 6.months %>
+  end_at: <%= Time.current - 6.months + 7.days %>
+  title: '6ヶ月前に終了したキャンペーン'
   trial_period: 7
