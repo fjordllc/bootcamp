@@ -5,7 +5,9 @@ section.welcome-section.is-gw
     h2.welcome-section__title
       | お正月のプログラミング<br>学習応援キャンペーン
     h3.welcome-section__sub-title
-      | お試し期間が倍以上に延長！！
+      | お試し期間が
+      = '倍以上に' if trial_period >= 6
+      | 延長！！
     .welcome-section__description
       p
         | 12/26(日)～1/4(火)の期間中にご入会いただくと、
