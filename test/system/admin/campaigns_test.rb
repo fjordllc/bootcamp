@@ -3,6 +3,7 @@
 require 'application_system_test_case'
 
 class CampaignsTest < ApplicationSystemTestCase
+  WEEK_DAY = %w[日 月 火 水 木 金 土].freeze
   TODAY = Time.current
   PERIOD = 6
 
@@ -108,8 +109,14 @@ class CampaignsTest < ApplicationSystemTestCase
 
     assert_equal Campaign.today_is_campaign?, Campaign.recently_campaign.cover?(TODAY)
 
+    start_at = Campaign.recently_campaign.first
+    end_at = Campaign.recently_campaign.last
+    campaign_start = start_at.strftime("%-m/%-d(#{WEEK_DAY[start_at.wday]})")
+    campaign_end = end_at.strftime("%-m/%-d(#{WEEK_DAY[end_at.wday]})")
+
     visit welcome_path
     assert_text 'お試し期間が倍以上に延長！！'
+    assert_text "#{campaign_start}〜#{campaign_end}の期間中にご入会いただくと、"
     assert_text '通常 3日間 のお試し期間が'
     assert_text "#{PERIOD}日間 となります。"
     assert_text "#{PERIOD}日以内に退会すれば受講料はかかりません。"
@@ -136,16 +143,5 @@ class CampaignsTest < ApplicationSystemTestCase
 
     visit_with_auth '/', 'hatsuno'
     assert_text "入会から#{PERIOD}日間（#{PERIOD * 24}時間）は機能制限なくフルでフィヨルドブートキャンプを活用いただけます"
-  end
-
-  test 'welcome trial extension campaign start to end' do
-    start_at = Campaign.recently_campaign.first
-    end_at = Campaign.recently_campaign.last
-
-    campaign_start = start_at.strftime("%-m/%-d(#{WEEK_DAY[start_at.wday]})")
-    campaign_end = end_at.strftime("%-m/%-d(#{WEEK_DAY[end_at.wday]})")
-
-    visit welcome_path
-    assert_text "#{campaign_start}〜#{campaign_end}の期間中にご入会いただくと、"
   end
 end
