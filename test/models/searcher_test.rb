@@ -182,6 +182,10 @@ class SearchableTest < ActiveSupport::TestCase
     assert_equal(29, result.size)
   end
 
+  test 'can not search a comment of talk' do
+    assert_equal 0, Searcher.search('相談部屋').size
+  end
+
   test 'returns only daimyos report when user param' do
     result = Searcher.search('ユーザーネームで検索できるよ user:daimyo')
     assert_includes(result, reports(:report24))
