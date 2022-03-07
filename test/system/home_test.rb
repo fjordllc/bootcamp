@@ -102,16 +102,19 @@ class HomeTest < ApplicationSystemTestCase
   test 'not show the grass for mentor, adviser, and admin' do
     assert users(:mentormentaro).mentor?
     visit_with_auth '/', 'mentormentaro'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text '学習時間'
     logout
 
     assert users(:advijirou).adviser?
     visit_with_auth '/', 'advijirou'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text '学習時間'
     logout
 
     assert users(:komagata).admin?
     visit_with_auth '/', 'komagata'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text '学習時間'
   end
 
