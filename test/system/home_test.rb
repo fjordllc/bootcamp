@@ -89,28 +89,28 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test 'show the grass for student and trainee' do
-    # 生徒は学習時間の草を表示する
+    assert users(:kimura).student?
     visit_with_auth '/', 'kimura'
     assert_text '学習時間'
     logout
 
-    # 研修生は学習時間の草を表示する
+    assert users(:kensyu).trainee?
     visit_with_auth '/', 'kensyu'
     assert_text '学習時間'
   end
 
   test 'not show the grass for mentor, adviser, and admin' do
-    # メンターは学習時間の草を表示しない
+    assert users(:mentormentaro).mentor?
     visit_with_auth '/', 'mentormentaro'
     assert_no_text '学習時間'
     logout
 
-    # アドバイザーは学習時間の草を表示しない
+    assert users(:advijirou).adviser?
     visit_with_auth '/', 'advijirou'
     assert_no_text '学習時間'
     logout
 
-    # 管理者は学習時間の草を表示しない
+    assert users(:komagata).admin?
     visit_with_auth '/', 'komagata'
     assert_no_text '学習時間'
   end
