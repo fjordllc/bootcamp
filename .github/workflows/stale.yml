@@ -6,7 +6,7 @@ on:
 jobs:
   stale:
     name: stale
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
       issues: write
