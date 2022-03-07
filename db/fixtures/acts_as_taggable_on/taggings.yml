@@ -2,42 +2,52 @@ komagata_tag_cat:
   taggable: komagata (User)
   context: tags
   tag: cat
+
 komagata_tag_game:
   taggable: komagata (User)
   context: tags
   tag: game
+
 komagata_tag_manga:
   taggable: komagata (User)
   context: tags
   tag: manga
+
 machida_tag_designer:
   taggable: machida (User)
   context: tags
   tag: designer
+
 machida_tag_guitar:
   taggable: machida (User)
   context: tags
   tag: guitar
+
 kimura_tag_cat:
   taggable: kimura (User)
   context: tags
   tag: cat
+
 hajime_tag_cat:
   taggable: hajime (User)
   context: tags
   tag: cat
+
 kimura_tag_shinjuku_rb:
   taggable: kimura (User)
   context: tags
   tag: shinjuku_rb
+
 kimura_tag_neovim_v_zero_five_zero:
   taggable: kimura (User)
   context: tags
   tag: neovim_v_zero_five_zero
+
 kimura_tag__net_framework:
   taggable: kimura (User)
   context: tags
   tag: _net_framework
+
 kimura_tag_may_j_:
   taggable: kimura (User)
   context: tags
@@ -46,12 +56,44 @@ kimura_tag_may_j_:
 question13_tag_cat:
   taggable: question13 (Question)
   context: tags
+
   tag: cat
 question13_tag_game:
   taggable: question13 (Question)
   context: tags
   tag: game
+
 question14_tag_manga:
   taggable: question14 (Question)
   context: tags
   tag: manga
+
+page3_tag_shinjuku_rb:
+  taggable: page3 (Page)
+  context: tags
+  tag: shinjuku_rb
+
+page4_tag_designer:
+  taggable: page4 (Page)
+  context: tags
+  tag: designer
+
+page6_tag_may_j_:
+  taggable: page6 (Page)
+  context: tags
+  tag: may_j_
+
+page9_tag_cat:
+  taggable: page9 (Page)
+  context: tags
+  tag: cat
+
+page12_neovim_v_zero_five_zero:
+  taggable: page12 (Page)
+  context: tags
+  tag: neovim_v_zero_five_zero
+
+page13_tag_net_framework:
+  taggable: page13 (Page)
+  context: tags
+  tag: _net_framework
