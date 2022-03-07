@@ -2,6 +2,9 @@ name: "Close stale issues"
 on:
   schedule:
     - cron: "0 1 * * *"
+  push:
+    paths:
+      - '.github/workflows/stale.yml'
 
 jobs:
   stale:
@@ -21,3 +24,4 @@ jobs:
           days-before-close: 7
           exempt-issue-labels: "pinned,security,release,bug,バグ"
           stale-issue-label: stale
+          debug-only: ${{ github.event_name == 'push' }}
