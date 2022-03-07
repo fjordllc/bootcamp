@@ -7,47 +7,48 @@ header.page-header
         = title
 
 .page-body
-  .container.is-lg
-    .thread
-      .thread__inner.a-card
-        header.thread-header.has-no-icon
-          .thread-header__row
-            h1.thread-header-title
-              = title
-        .thread__body
-          .thread__description.is-long-text
-            p
-              | ここは#{@user.login_name}さんと管理者のみが閲覧することのできる相談部屋です。
-              | 就職に関することや受講に関することなど、何か相談したいことがある場合にお気軽にコメントをしてください。
-        .thread-footer
-          .thread-footer__inner
-            .thread-members
-              h2.thread-members__title
-                | 相談部屋にアクセスできるメンバー
-              ul.thread-members__items
-                - @members.each do |member|
-                  li.thread-members__item
-                    = render 'users/icon',
-                      user: member,
-                      link_class: 'thread-members__user-icon-link',
-                      image_class: 'thread-members__user-icon'
-                    = link_to user_path(member.id), class: 'a-user-name' do
-                      = member.login_name
-    a#comments.a-anchor
-    #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
-
-  .is-only-mentor(class="#{current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")
-    - if current_user.admin?
-      .side-tabs
-        input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
-        .side-tabs-nav
-          .side-tabs-nav__items
-            .side-tabs-nav__item
-              label.side-tabs-nav__item-link#side-tabs-nav-1 for='side-tabs-1'
-                | ユーザーメモ
-        .side-tabs-contents
-          .side-tabs-contents__item#side-tabs-content-1
-            .user-info
-              = render 'users/user_secret_attributes', user: @user
-              = render 'users/metas', user: @user
-            #js-user-mentor-memo(data-user-id="#{@user.id}" data-products-mode="#{true}")
+  .container.is-xxxl
+    .row.is-jc:c
+      .col-xl-7.col-xs-12
+        .thread
+          .thread__inner.a-card
+            header.thread-header.has-no-icon
+              .thread-header__row
+                h1.thread-header-title
+                  = title
+            .thread__body
+              .thread__description.is-long-text
+                p
+                  | ここは#{@user.login_name}さんと管理者のみが閲覧することのできる相談部屋です。
+                  | 就職に関することや受講に関することなど、何か相談したいことがある場合にお気軽にコメントをしてください。
+            .thread-footer
+              .thread-footer__inner
+                .thread-members
+                  h2.thread-members__title
+                    | 相談部屋にアクセスできるメンバー
+                  ul.thread-members__items
+                    - @members.each do |member|
+                      li.thread-members__item
+                        = render 'users/icon',
+                          user: member,
+                          link_class: 'thread-members__user-icon-link',
+                          image_class: 'thread-members__user-icon'
+                        = link_to user_path(member.id), class: 'a-user-name' do
+                          = member.login_name
+        a#comments.a-anchor
+        #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
+      .is-only-mentor(class="#{current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")
+        - if current_user.admin?
+          .side-tabs
+            input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
+            .side-tabs-nav
+              .side-tabs-nav__items
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-1 for='side-tabs-1'
+                    | ユーザーメモ
+            .side-tabs-contents
+              .side-tabs-contents__item#side-tabs-content-1
+                .user-info
+                  = render 'users/user_secret_attributes', user: @user
+                  = render 'users/metas', user: @user
+                #js-user-mentor-memo(data-user-id="#{@user.id}" data-products-mode="#{true}")
