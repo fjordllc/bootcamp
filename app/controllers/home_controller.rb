@@ -38,7 +38,8 @@ class HomeController < ApplicationController
       tag_list_count: current_user.tag_list.size,
       after_graduation_hope: current_user.after_graduation_hope,
       discord_account: current_user.discord_account,
-      github_account: current_user.github_account
+      github_account: current_user.github_account,
+      blog_url: current_user.blog_url
     )
   end
 
