@@ -91,12 +91,12 @@ class HomeTest < ApplicationSystemTestCase
   test 'show the grass for student and trainee' do
     assert users(:kimura).student?
     visit_with_auth '/', 'kimura'
-    assert_text '学習時間'
+    assert_selector 'h2.card-header__title', text: '学習時間'
     logout
 
     assert users(:kensyu).trainee?
     visit_with_auth '/', 'kensyu'
-    assert_text '学習時間'
+    assert_selector 'h2.card-header__title', text: '学習時間'
   end
 
   test 'not show the grass for mentor, adviser, and admin' do
