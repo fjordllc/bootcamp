@@ -16,43 +16,83 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'verify message presence of github_account registration' do
     visit_with_auth '/', 'hajime'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'GitHubアカウントを登録してください。'
+
+    # GitHub との連携処理を update! で代用
     users(:hajime).update!(github_account: 'hajime')
-    page.refresh
+    visit '/'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'GitHubアカウントを登録してください。'
   end
 
   test 'verify message presence of discord_account registration' do
     visit_with_auth '/', 'hajime'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'Discordアカウントを登録してください。'
-    users(:hajime).update!(discord_account: 'hajime#1111')
-    page.refresh
+
+    visit '/current_user/edit'
+    fill_in 'user[discord_account]', with: 'hajime#1111'
+    click_button '更新する'
+    visit '/'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'Discordアカウントを登録してください。'
   end
 
   test 'verify message presence of avatar registration' do
     visit_with_auth '/', 'hajime'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'ユーザーアイコンを登録してください。'
-    path = Rails.root.join('test/fixtures/files/users/avatars/default.jpg')
-    users(:hajime).avatar.attach(io: File.open(path), filename: 'hajime.jpg')
-    page.refresh
+
+    visit '/current_user/edit'
+    file_path = Rails.root.join('test/fixtures/files/users/avatars/default.jpg')
+    attach_file 'user[avatar]', file_path, make_visible: true
+    click_button '更新する'
+    visit '/'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'ユーザーアイコンを登録してください。'
   end
 
   test 'verify message presence of tags registration' do
     visit_with_auth '/', 'hatsuno'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'タグを登録してください。'
-    users(:hatsuno).update!(tag_list: ['猫'])
-    page.refresh
+
+    visit '/current_user/edit'
+    tag_input = find('.ti-new-tag-input')
+    tag_input.set '猫'
+    tag_input.native.send_keys :return
+    click_button '更新する'
+    visit '/'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'タグを登録してください。'
   end
 
   test 'verify message presence of after_graduation_hope registration' do
     visit_with_auth '/', 'hatsuno'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
-    users(:hatsuno).update!(after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。')
-    page.refresh
+
+    visit '/current_user/edit'
+    fill_in 'user[after_graduation_hope]', with: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。'
+    click_button '更新する'
+    visit '/'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
+  end
+
+  test 'verify message presence of blog_url registration' do
+    users(:hatsuno).update!(blog_url: '') # 確認のために削除
+    visit_with_auth '/', 'hatsuno'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
+    assert_text 'ブログURLを登録してください。'
+
+    visit '/current_user/edit'
+    fill_in 'user[blog_url]', with: 'http://hatsuno.org'
+    click_button '更新する'
+    visit '/'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
+    assert_no_text 'ブログURLを登録してください。'
   end
 
   test 'not show messages of required field' do
@@ -67,6 +107,7 @@ class HomeTest < ApplicationSystemTestCase
     user.avatar.attach(io: File.open(path), filename: 'hatsuno.jpg')
 
     visit_with_auth '/', 'hatsuno'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text '未入力の項目'
   end
 
