@@ -121,3 +121,9 @@ comment<%= i + 19 %>:
   created_at: <%= Time.current + i.minute %>
   updated_at: <%= Time.current + i.minute %>
 <% end %>
+
+commentOfTalk:
+  user: komagata
+  commentable: talk1 (Talk)
+  description: |-
+    これは相談部屋の会話です。
