@@ -19,8 +19,10 @@
                         | #{user.login_name} （#{user.name}）
                 .thread-list-item__row
                   .thread-list-item-meta
-                    time.a-meta
-                      span.a-meta__label
-                        = User.human_attribute_name :updated_at
-                      span.a-meta__value
-                        = l user.updated_at
+                    .thread-list-item-meta__items
+                      .thread-list-item-meta__item
+                        time.a-meta
+                          span.a-meta__label
+                            = User.human_attribute_name :updated_at
+                          span.a-meta__value
+                            = l user.updated_at
