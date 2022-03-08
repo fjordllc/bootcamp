@@ -8,6 +8,9 @@
     padding: .75rem
     min-height: 3.5rem
 
+.thread-list-item__rows
+  flex: 1
+
 .products-self_assigned-index .thread-list-item__notresponded
   +position(absolute, left -.25rem, top -.25rem, 2)
   +size(.5rem)
@@ -76,14 +79,15 @@
   text-overflow: ellipsis
 
 .thread-list-item__label
-  +position(absolute, left 0, top 0)
-  +size(3rem)
   border-radius: 50%
   background-color: $accent
   display: flex
   align-items: center
   justify-content: center
   +text-block(.625rem 1.3, center 600)
+  position: relative
+  +media-breakpoint-up(md)
+    +size(3rem)
   +media-breakpoint-down(sm)
     +size(2.5rem)
   .thread-list-item.is-report &
@@ -142,8 +146,16 @@
   .thread-list-item.is-user &
     color: #7cbd9c
 
+<<<<<<< HEAD
+=======
+.thread-list-item__user
+  .has-no-author-image &
+    display: none
+
+>>>>>>> 863c96d9b (flexのmarginをgapに変更)
 .thread-list-item__user-icon
-  +size(2.75rem)
+  +media-breakpoint-up(md)
+    +size(2.75rem)
   +media-breakpoint-down(sm)
     +size(2.25rem)
   .thread-list-item.is-wip &
@@ -168,13 +180,13 @@
       padding-right: 8.5rem
 
 .thread-list-item__show-user-detail
-  +position(absolute, top 0)
   +size(2.75rem)
   display: flex
   align-items: center
   justify-content: center
   cursor: pointer
   transition: all .2s ease-out
+  position: relative
   +media-breakpoint-up(md)
     +position(right -1rem)
   +media-breakpoint-down(sm)
