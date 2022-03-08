@@ -5,7 +5,7 @@
     h1.auth-form__title = title
   .auth-form__body
     = render 'errors', object: @user
-    = form_for @user, url: password_reset_path(@token), html: { method: :put, class: 'form', name: 'password_reset', autocomplete: :nope } do |f|
+    = form_with model: @user, local: true, url: password_reset_path(@token), html: { method: :put, class: 'form', name: 'password_reset', autocomplete: :nope } do |f|
       .form__items
         .form-item
           = f.label :password, class: 'a-form-label is-required'

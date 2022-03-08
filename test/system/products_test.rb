@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class ProductsTest < ApplicationSystemTestCase
   test 'see my product' do
-    visit_with_auth "/products/#{products(:product1).id}", 'yamada'
+    visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
     assert_equal "#{products(:product1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
   end
 
@@ -52,7 +52,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   # test 'not display learning completion message when a user of the completed product visits after the second time' do
   #   visit_with_auth "/products/#{products(:product65).id}", 'kimura'
-  #   find('label.card-main-actions__delete').click
+  #   find('label.card-main-actions__muted-action').click
   #   visit current_path
   #   assert_no_text '喜びを Tweet する！'
   # end
@@ -80,18 +80,20 @@ class ProductsTest < ApplicationSystemTestCase
   # end
 
   test 'create product' do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'yamada'
-    within('#new_product') do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
     assert_text 'Watch中'
   end
 
   test 'create product change status submitted' do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'yamada'
-    within('#new_product') do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
@@ -103,35 +105,38 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'update product' do
     product = products(:product1)
-    visit_with_auth "/products/#{product.id}/edit", 'yamada'
+    visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text '提出物を更新しました。'
   end
 
-  test 'update product if product page is WIP' do
+  test 'update product to publish from WIP' do
     product = products(:product1)
-    visit_with_auth "/products/#{product.id}/edit", 'yamada'
+    visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
     click_button 'WIP'
     visit "/products/#{product.id}"
     click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text '提出物を更新しました。'
   end
 
   test 'delete product' do
     product = products(:product1)
-    visit_with_auth "/products/#{product.id}", 'yamada'
+    visit_with_auth "/products/#{product.id}", 'mentormentaro'
     accept_confirm do
       click_link '削除'
     end
-    wait_for_vuejs
     assert_text '提出物を削除しました。'
   end
 
   test 'product has a comment form ' do
-    visit_with_auth "/products/#{products(:product1).id}", 'yamada'
+    visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
     assert_selector '.thread-comment-form'
   end
 
@@ -141,7 +146,6 @@ class ProductsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
-    wait_for_vuejs
     assert_text '提出物を削除しました。'
   end
 
@@ -176,17 +180,18 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'create product as WIP' do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'yamada'
-    within('#new_product') do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
+    assert_text '提出物作成中'
     assert_text '提出物をWIPとして保存しました。'
   end
 
   test 'update product as WIP' do
     product = products(:product1)
-    visit_with_auth "/products/#{product.id}/edit", 'yamada'
+    visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
@@ -196,7 +201,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'update product as WIP with blank body to fail update and successfully get back to editor' do
     product = products(:product1)
-    visit_with_auth "/products/#{product.id}/edit", 'yamada'
+    visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
     within('form[name=product]') do
       fill_in('product[body]', with: '')
     end
@@ -209,7 +214,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
@@ -224,7 +229,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
@@ -277,6 +282,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     fill_in 'new_comment[description]', with: 'コメントしたら担当になるテスト'
     click_button 'コメントする'
+    assert_text 'コメントしたら担当になるテスト'
     visit current_path
     assert_text '担当から外れる'
     assert_no_text '担当する'
@@ -353,51 +359,9 @@ class ProductsTest < ApplicationSystemTestCase
     assert_not page.has_css?('.pagination')
   end
 
-  test 'be person on charge at comment on product of there are not person on charge' do
-    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'machida'
-    def assigned_product_count
-      text[/自分の担当 （(\d+)）/, 1].to_i
-    end
-
-    before_comment = assigned_product_count
-
-    [
-      '担当者がいない提出物の場合、担当者になる',
-      '自分が担当者の場合、担当者のまま'
-    ].each do |comment|
-      visit "/products/#{products(:product1).id}"
-      post_comment(comment)
-
-      visit '/products/unchecked?target=unchecked_no_replied'
-      assert_equal before_comment + 1, assigned_product_count
-    end
-  end
-
-  test 'be not person on charge at comment on product of there are person on charge' do
-    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
-    product = find('.thread-list-item', match: :first)
-    product.click_button '担当する'
-    show_product_path = product.find_link(href: /products/)[:href]
-    logout
-
-    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'machida'
-
-    def assigned_product_count
-      text[/自分の担当 （(\d+)）/, 1].to_i
-    end
-
-    before_comment = assigned_product_count
-
-    visit show_product_path
-    post_comment('担当者がいる提出物の場合、担当者にならない')
-
-    visit '/products/unchecked?target=unchecked_no_replied'
-    assert_equal before_comment, assigned_product_count
-  end
-
   test 'show user full_name next to user login_name' do
     visit_with_auth "/products/#{products(:product1).id}", 'kimura'
-    assert_text 'yamada (Yamada Taro)'
+    assert_text 'mentormentaro (メンタ 麺太郎)'
   end
 
   test 'notice accessibility to open products on products index' do
@@ -433,7 +397,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'mentors can see block for mentors' do
-    visit_with_auth "/products/#{products(:product2).id}", 'yamada'
+    visit_with_auth "/products/#{products(:product2).id}", 'mentormentaro'
     assert_text '直近の日報'
     assert_text 'プラクティスメモ'
     assert_text 'ユーザーメモ'
@@ -499,7 +463,6 @@ class ProductsTest < ApplicationSystemTestCase
     assignee_buttons.first.click
 
     unassigned_tab.click
-    wait_for_vuejs
     operated_counter = find('#test-unassigned-counter').text
     assert_not_equal initial_counter, operated_counter
   end
@@ -509,5 +472,17 @@ class ProductsTest < ApplicationSystemTestCase
     within(:css, '.is-emphasized') do
       assert_text '2'
     end
+  end
+
+  test 'submit-wip-submitted product does not suddenly show up as overdue' do
+    visit_with_auth "/products/#{products(:product8).id}/edit", 'kimura'
+    click_button 'WIP'
+    click_button '提出する'
+
+    visit_with_auth '/api/products/unassigned/counts.txt', 'komagata'
+
+    assert_text '5日経過：1件'
+    assert_text '6日経過：1件'
+    assert_text '7日以上経過：5件'
   end
 end

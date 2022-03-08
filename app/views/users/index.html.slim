@@ -1,5 +1,3 @@
-- content_for(:extra_body_classes, 'has-random-tags')
-
 - title 'ユーザー一覧'
 
 header.page-header.is-border-bottom-none
@@ -45,5 +43,14 @@ main.page-main
             - if @watch
               | #{t("target.#{@target}")}：#{t("watch.#{@watch}")}（#{@users.total_count}）
             - else
-              | #{t("target.#{@target}")}（#{@users.total_count}）
-  #js-users
+              | #{t("target.#{@target}")}
+              - if admin_or_mentor_login?
+                span.is-only-mentor
+                  |（#{@users.total_count}）
+  .page-body
+    .container
+      .page-body__columns
+        .page-body__column.is-main
+          #js-users
+        .page-body__column.is-sub.is-hidden-lg-down
+          = render '/users/random_tags'

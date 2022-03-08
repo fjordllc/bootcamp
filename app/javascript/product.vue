@@ -188,8 +188,8 @@ export default {
     },
     notRespondedSign() {
       return (
-        this.product.self_last_comment_at_date_time >
-          this.product.mentor_last_comment_at_date_time ||
+        this.product.self_last_commented_at_date_time >
+          this.product.mentor_last_commented_at_date_time ||
         this.product.comments.size === 0
       )
     }

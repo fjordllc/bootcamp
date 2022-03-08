@@ -1,48 +1,66 @@
 steps:
-  - id: Fetch
-    name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args: ['-c', 'docker pull asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0']
-  - id: Build
-    name: gcr.io/cloud-builders/docker
-    args: ['build',
-           '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA',
-           '-t', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest',
-           '--cache-from', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest',
-           '.',
-           '-f', 'Dockerfile']
-  - id: Push
-    name: gcr.io/cloud-builders/docker
-    args: ['push', 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
-  - id: SqlProxy
-    name: "gcr.io/cloudsql-docker/gce-proxy:1.16"
-    waitFor: ["-"]
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - '-c'
+      - 'docker pull asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0'
+    id: Fetch
+    entrypoint: bash
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - '-t'
+      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+      - '-t'
+      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
+      - '--cache-from'
+      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
+      - .
+      - '-f'
+      - Dockerfile
+    id: Build
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+    id: Push
+  - name: 'gcr.io/cloudsql-docker/gce-proxy:1.16'
+    args:
+      - /cloud_sql_proxy
+      - '-dir=/cloudsql'
+      - '-instances=$_CLOUD_SQL_HOST'
+    id: SqlProxy
+    waitFor:
+      - '-'
     volumes:
       - name: db
-        path: "/cloudsql"
-    args: ["/cloud_sql_proxy", "-dir=/cloudsql", "-instances=$_CLOUD_SQL_HOST"]
-  - id: DB_Migrate
-    name: "asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA"
-    waitFor: ["Build"]
-    volumes:
-      - name: db
-        path: "/cloudsql"
-    args: ['bin/rails', 'db:create', 'bootcamp:migrate']
+        path: /cloudsql
+  - name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
     env:
-      - 'RAILS_ENV=production'
-      - 'DB_HOST=/cloudsql/$_CLOUD_SQL_HOST'
-      - 'DB_NAME=$_DB_NAME'
-      - 'DB_PASS=$_DB_PASS'
-      - 'DB_USER=$_DB_USER'
-      - 'RAILS_MASTER_KEY=$_RAILS_MASTER_KEY'
-  - id: Kill_SqlProxy
-    name: "gcr.io/cloud-builders/docker"
-    waitFor: ["DB_Migrate"]
-    entrypoint: "sh"
-    args: ["-c", 'docker kill -s TERM $(docker ps -q --filter "volume=db")']
-  - id: Deploy
-    name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    entrypoint: gcloud
+      - RAILS_ENV=production
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
+      - DB_NAME=$_DB_NAME
+      - DB_PASS=$_DB_PASS
+      - DB_USER=$_DB_USER
+      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+    args:
+      - bin/rails
+      - 'db:reset'
+    id: DB_Migrate
+    waitFor:
+      - Push
+    volumes:
+      - name: db
+        path: /cloudsql
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - '-c'
+      - docker kill -s TERM $(docker ps -q --filter "volume=db")
+    id: Kill_SqlProxy
+    waitFor:
+      - DB_Migrate
+    entrypoint: sh
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
       - run
       - deploy
@@ -54,9 +72,9 @@ steps:
       - '--allow-unauthenticated'
       - '--clear-vpc-connector'
       - '--add-cloudsql-instances'
-      - '$_CLOUD_SQL_HOST'
+      - $_CLOUD_SQL_HOST
       - '--memory'
-      - '$_MEMORY'
+      - $_MEMORY
       - '--set-env-vars=LANG=ja_JP.UTF-8'
       - '--set-env-vars=TZ=Asia/Tokyo'
       - '--set-env-vars=RAILS_SERVE_STATIC_FILES=true'
@@ -85,41 +103,46 @@ steps:
       - '--set-env-vars=$_ENVS'
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
-  - id: Notify
-    name: asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest
-    args: ['bin/notify']
+    id: Deploy
+    entrypoint: gcloud
+  - name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
     env:
       - DB_NAME=$_DB_NAME
       - DEPLOY_NOTIFY_WEBHOOK_URL=$_DEPLOY_NOTIFY_WEBHOOK_URL
+    args:
+      - bin/notify
+    id: Notify
+    waitFor:
+      - Deploy
+timeout: 7200s
 images:
   - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
 options:
   substitutionOption: ALLOW_LOOSE
 substitutions:
-  _MEMORY: 2GB
-  _SERVICE_NAME: _
-  _LABELS: _
-  _ENVS: _
-  _TRIGGER_ID: _
-  _CLOUD_SQL_HOST: _
-  _RAILS_MASTER_KEY: _
-  _APP_HOST_NAME: _
-  _CLOUD_RUN_HOST_NAME: _
-  _DB_NAME: _
-  _DB_USER: _
-  _DB_PASS: _
-  _GOOGLE_CREDENTIALS: _
-  _REDIS_URL: _
-  _GCS_BUCKET: _
-  _TOKEN: _
-  _DISCORD_NOTICE_WEBHOOK_URL: _
-  _DISCORD_ALL_WEBHOOK_URL: _
   _BASIC_AUTH_USER: _
   _BASIC_AUTH_PASSWORD: _
-  _ROLLBAR_CLIENT_TOKEN: _
+  _DISCORD_ALL_WEBHOOK_URL: _
+  _REDIS_URL: _
+  _TRIGGER_ID: _
+  _DB_NAME: _
   _APPSIGNAL_PUSH_API_KEY: _
+  _GCS_BUCKET: _
+  _MEMORY: 2GB
+  _DB_PASS: _
+  _CLOUD_SQL_HOST: _
+  _GOOGLE_CREDENTIALS: _
+  _APP_HOST_NAME: _
+  _RAILS_MASTER_KEY: _
+  _DB_USER: _
+  _ROLLBAR_CLIENT_TOKEN: _
+  _ENVS: _
+  _SERVICE_NAME: _
+  _DISCORD_NOTICE_WEBHOOK_URL: _
+  _CLOUD_RUN_HOST_NAME: _
+  _LABELS: _
+  _TOKEN: _
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
   - bootcamp
-timeout: 7200s

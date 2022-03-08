@@ -1,5 +1,5 @@
 = render 'errors', object: work
-= form_for work, class: 'form' do |f|
+= form_with model: work, local: true, class: 'form' do |f|
   .form__items
     .form__items-inner
       .form-item

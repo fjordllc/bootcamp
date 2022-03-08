@@ -1,6 +1,7 @@
 report1:
   user: komagata
   title: "作業週1日目"
+  emotion: 2
   description: |-
     今日はローカルで怖話を動かしてみました。
     rbenv で ruby を動かすのは初めてだったので、色々手間取りました。
@@ -11,6 +12,7 @@ report1:
 report2:
   user: komagata
   title: "作業週2日目"
+  emotion: 2
   description: |-
     今日はローカルで Fjord Bootcamp を動かしてみました。
     ruby の指定バージョンが 2.2.3 だったので、 rbenv で ruby のバージョンを上げました。
@@ -20,6 +22,7 @@ report2:
 report3:
   user: komagata
   title: "学習週3日目"
+  emotion: 1
   description: |-
     今日は CSS の勉強をしました。デザイン難しい。。。
   reported_on: "2017-01-03"
@@ -28,6 +31,7 @@ report3:
 report4:
   user: machida
   title: "Fjord Bootcamp で Bootstrap のバージョン更新"
+  emotion: 2
   description: |-
     Fjord Bootcamp で Bootstrap のバージョン更新を行った他、デザインの微調整を行いました。
   reported_on: "2017-01-01"
@@ -35,6 +39,7 @@ report4:
 report5:
   user: sotugyou
   title: "学習週1日目"
+  emotion: 2
   description: |-
     今日は　Rubyの基礎 を学習しました。
   reported_on: "2017-01-01"
@@ -42,6 +47,7 @@ report5:
 report6:
   user: sotugyou
   title: "学習週2日目"
+  emotion: 2
   description: |-
     今日は　Railsの基礎 を学習しました。
   reported_on: "2017-01-02"
@@ -49,13 +55,15 @@ report6:
 report7:
   user: sotugyou
   title: "学習週3日目"
+  emotion: 2
   description: |-
     今日は　RSpecの基礎 を学習しました。
   reported_on: "2017-01-03"
 
 report8:
-  user: yamada
+  user: mentormentaro
   title: テストの日報
+  emotion: 2
   description: |-
     いろいろやりました。
   reported_on: "2017-01-01"
@@ -63,6 +71,7 @@ report8:
 report9:
   user: sotugyou
   title: WIPの日報
+  emotion: 2
   description: |-
     WIP
   reported_on: "2019-01-01"
@@ -71,6 +80,7 @@ report9:
 report10:
   user: hajime
   title: 初日報です
+  emotion: 2
   description:
     学習の準備をしました。
   reported_on: "2019-01-01"
@@ -78,6 +88,7 @@ report10:
 report11:
   user: kensyu
   title: 研修の日報
+  emotion: 2
   description:
     研修を行いました。
   reported_on: "2019-01-01"
@@ -85,28 +96,32 @@ report11:
 sotugyou:
   user: sotugyou
   title: テストの日報
+  emotion: 2
   description: いろいろやりました
   reported_on: "2018-02-01"
 
 report12:
-  user: yamada
+  user: mentormentaro
   title: 検索結果確認用-C
+  emotion: 1
   description:
     今年で150歳でーす
   reported_on: "2020-01-01"
   created_at: "2020-01-01 00:00:00"
 
 report13:
-  user: yamada
+  user: mentormentaro
   title: 検索結果確認用-A
+  emotion: 2
   description:
     きたるべき20世紀
   reported_on: "1900-01-01"
   created_at: "1900-01-01 00:00:00"
 
 report14:
-  user: yamada
+  user: mentormentaro
   title: 検索結果確認用-B
+  emotion: 2
   description:
     あれから100年か
   reported_on: "2000-01-01"
@@ -129,10 +144,11 @@ report16:
   reported_on: <%= Time.now - 2.day %>
 
 report17:
-  user: yamada
+  user: mentormentaro
   title: 1時間だけ学習
+  emotion: 2
   description: |-
-    yamadaです、メンターです。
+    mentormentaroです、メンターです。
     今日は1時間学習しました。
   practices: practice1
   reported_on: "2020-06-01"
@@ -141,6 +157,7 @@ report17:
 report18:
   user: daimyo
   title: テストのnippou
+  emotion: 2
   description: |-
     今日は1時間学習しました。
   reported_on: "2020-06-01"
@@ -165,6 +182,7 @@ report20:
 report21:
   user: sotugyou
   title: "学習週4日目"
+  emotion: 2
   description: |-
     今日は　Vueの基礎 を学習しました。
   practices: practice1
@@ -173,6 +191,7 @@ report21:
 report22:
   user: sotugyou
   title: 卒業生による日報
+  emotion: 2
   description:
     卒業しました。
   practices: practice2
@@ -182,6 +201,7 @@ report22:
 report23:
   user: kensyu
   title: フォローされた日報
+  emotion: 2
   description:
     フォローされました。
   reported_on: "2020-11-10"
@@ -189,6 +209,7 @@ report23:
 report24:
   user: daimyo
   title: 検索用の日報
+  emotion: 2
   description:
     ユーザーネームで検索できるよ
   reported_on: "2020-11-20"
@@ -196,6 +217,7 @@ report24:
 report25:
   user: hatsuno
   title: 検索用の日報
+  emotion: 2
   description:
     ユーザーネームで検索できるよ
   reported_on: "2020-11-20"
@@ -203,6 +225,7 @@ report25:
 report26:
   user: sotugyou
   title: 卒業の翌日の日報
+  emotion: 2
   description:
     「前の日報」をクリックすれば、前日の日報にちゃんと行ける
   reported_on: "2020-09-11"
@@ -211,6 +234,7 @@ report26:
 report27:
   user: sotugyou
   title: 卒業の前日(遡って日報を作成)
+  emotion: 2
   description:
     遡って作成しましたが、卒業の前日の分の日報です。
   reported_on: "2020-09-09"
@@ -252,6 +276,7 @@ report31:
 report<%= i + 31 %>:
   user: kimura
   title: <%= "テスト日報#{i}です" %>
+  emotion: 2
   description: |-
     # はじめに
     これはエクスポート機能のテストデータです

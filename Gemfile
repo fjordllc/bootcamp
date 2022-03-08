@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.0'
 
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.12'
 gem 'jbuilder', '~> 2.7'
 gem 'puma', '~> 5.6'
 gem 'rails', '~> 6.1.4.4'
@@ -18,7 +18,7 @@ gem 'active_decorator'
 gem 'active_flag'
 gem 'active_storage_validations'
 gem 'acts_as_list'
-gem 'acts-as-taggable-on', '~> 7.0'
+gem 'acts-as-taggable-on'
 gem 'addressable'
 gem 'any_login'
 gem 'cocoon'
@@ -73,6 +73,7 @@ group :development do
   gem 'bullet'
   gem 'bundle_outdated_formatter'
   gem 'letter_opener_web', '~> 1.0'
+  gem 'rack-dev-mark'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'rubocop', require: false
   gem 'rubocop-fjord', '~> 0.2.0', require: false

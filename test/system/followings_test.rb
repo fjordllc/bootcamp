@@ -37,14 +37,14 @@ class FollowingsTest < ApplicationSystemTestCase
     click_button 'コメントあり'
     assert_selector 'summary', text: 'コメントあり'
 
-    visit_with_auth user_path(users(:yamada)), 'kimura'
+    visit_with_auth user_path(users(:mentormentaro)), 'kimura'
     find('.following').click
     click_button 'コメントなし'
     assert_selector 'summary', text: 'コメントなし'
 
     visit '/users?target=followings'
     assert_text users(:hatsuno).login_name
-    assert_text users(:yamada).login_name
+    assert_text users(:mentormentaro).login_name
   end
 
   test 'show followings with comments' do
@@ -53,14 +53,14 @@ class FollowingsTest < ApplicationSystemTestCase
     click_button 'コメントあり'
     assert_selector 'summary', text: 'コメントあり'
 
-    visit_with_auth user_path(users(:yamada)), 'kimura'
+    visit_with_auth user_path(users(:mentormentaro)), 'kimura'
     find('.following').click
     click_button 'コメントなし'
     assert_selector 'summary', text: 'コメントなし'
 
     visit '/users?target=followings&watch=true'
     assert_text users(:hatsuno).login_name
-    assert_no_text users(:yamada).login_name
+    assert_no_text users(:mentormentaro).login_name
   end
 
   test 'show followings with no comments' do
@@ -69,14 +69,14 @@ class FollowingsTest < ApplicationSystemTestCase
     click_button 'コメントあり'
     assert_selector 'summary', text: 'コメントあり'
 
-    visit_with_auth user_path(users(:yamada)), 'kimura'
+    visit_with_auth user_path(users(:mentormentaro)), 'kimura'
     find('.following').click
     click_button 'コメントなし'
     assert_selector 'summary', text: 'コメントなし'
 
     visit '/users?target=followings&watch=false'
     assert_no_text users(:hatsuno).login_name
-    assert_text users(:yamada).login_name
+    assert_text users(:mentormentaro).login_name
   end
 
   test 'receive a notification when following user create a report' do
@@ -84,12 +84,12 @@ class FollowingsTest < ApplicationSystemTestCase
     find('.following').click
     click_button 'コメントあり'
 
-    visit_with_auth user_path(users(:hatsuno)), 'yamada'
+    visit_with_auth user_path(users(:hatsuno)), 'mentormentaro'
     find('.following').click
     click_button 'コメントなし'
 
     visit_with_auth '/reports/new', 'hatsuno'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -106,7 +106,7 @@ class FollowingsTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'kimura'
     assert_text 'hatsunoさんが日報【 test title 】を書きました！'
 
-    visit_with_auth '/notifications', 'yamada'
+    visit_with_auth '/notifications', 'mentormentaro'
     assert_text 'hatsunoさんが日報【 test title 】を書きました！'
   end
 
@@ -115,12 +115,12 @@ class FollowingsTest < ApplicationSystemTestCase
     find('.following').click
     click_button 'コメントあり'
 
-    visit_with_auth user_path(users(:hatsuno)), 'yamada'
+    visit_with_auth user_path(users(:hatsuno)), 'mentormentaro'
     find('.following').click
     click_button 'コメントなし'
 
     visit_with_auth '/reports/new', 'hatsuno'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
       fill_in('report[reported_on]', with: Time.current)
@@ -144,7 +144,7 @@ class FollowingsTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'kimura'
     assert_text 'hatsunoさんの【 「test title」の日報 】にhatsunoさんがコメントしました。'
 
-    visit_with_auth '/notifications', 'yamada'
+    visit_with_auth '/notifications', 'mentormentaro'
     assert_no_text 'hatsunoさんの【 「test title」の日報 】にhatsunoさんがコメントしました。'
   end
 end

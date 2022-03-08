@@ -18,12 +18,12 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'access by other users' do
     user = users(:hatsuno)
-    visit_with_auth edit_admin_user_path(user.id), 'yamada'
+    visit_with_auth edit_admin_user_path(user.id), 'mentormentaro'
     assert_text '管理者としてログインしてください'
   end
 
   test 'graduation date is displayed' do
-    visit_with_auth "/users/#{users(:yamada).id}", 'komagata'
+    visit_with_auth "/users/#{users(:mentormentaro).id}", 'komagata'
     assert_no_text '卒業日'
 
     visit "/users/#{users(:sotugyou).id}"
@@ -58,7 +58,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth "/users/#{users(:komagata).id}", 'komagata'
     assert_text '管理者'
 
-    visit_with_auth "/users/#{users(:yamada).id}", 'yamada'
+    visit_with_auth "/users/#{users(:mentormentaro).id}", 'mentormentaro'
     assert_text 'メンター'
 
     visit_with_auth "/users/#{users(:advijirou).id}", 'advijirou'
@@ -116,6 +116,7 @@ class UsersTest < ApplicationSystemTestCase
       daimyo
       nippounashi
       with_hyphen
+      discordinvalid
     ].each do |name|
       users(name).touch # rubocop:disable Rails/SkipsModelValidations
     end
@@ -153,7 +154,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'mentor access control' do
-    visit_with_auth '/users', 'yamada'
+    visit_with_auth '/users', 'mentormentaro'
     assert find_link('就職活動中')
     assert find_link('全員')
   end
@@ -179,7 +180,6 @@ class UsersTest < ApplicationSystemTestCase
   test 'not show welcome message' do
     visit_with_auth practice_path(practices(:practice1).id), 'hatsuno'
     click_button '着手'
-    wait_for_vuejs
     visit '/'
     assert_no_text 'ようこそ'
   end
@@ -192,7 +192,6 @@ class UsersTest < ApplicationSystemTestCase
     within '.niconico-calendar-nav' do
       assert_text "#{today.year}年#{today.month}月"
       find('.niconico-calendar-nav__previous').click
-      wait_for_vuejs
       assert_text "#{last_month.year}年#{last_month.month}月"
     end
   end
@@ -210,7 +209,6 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth root_path, 'hatsuno'
     visit user_path(users(:hajime).id)
     find('.niconico-calendar-nav__previous').click
-    wait_for_vuejs
     assert_no_selector '.niconico-calendar__day.is-today'
   end
 
@@ -245,5 +243,15 @@ class UsersTest < ApplicationSystemTestCase
   test 'not admin cannot see link to talk on user list page' do
     visit_with_auth '/users', 'kimura'
     assert_no_link '相談部屋'
+  end
+
+  test 'show daily report download button' do
+    visit_with_auth "/users/#{users(:kimura).id}", 'komagata'
+    assert_text '日報一括ダウンロード'
+  end
+
+  test 'not show daily report download button' do
+    visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
+    assert_no_text '日報一括ダウンロード'
   end
 end

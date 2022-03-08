@@ -1,12 +1,11 @@
 .courses-item
-  padding-bottom: 1.25rem
   height: 100%
 
 .courses-item__inner
   height: 100%
 
 .courses-item__header
-  padding: 1.25rem 1.25rem 0
+  padding: .75rem 1.25rem 0
 
 .courses-item__title
   +text-block(1.125rem 1.4)
@@ -32,6 +31,7 @@
 .courses-item__title-label
   color: $main-text
   transition: all .2s ease-out
+  font-weight: 700
   .is-closed &
     color: $muted-text
   .is-closed .courses-item__title-link:hover &,
@@ -40,6 +40,6 @@
     color: $main-text
 
 .courses-item__description
-  padding: .5rem 1.25rem 1.25rem
+  padding: .5rem 1.25rem .75rem
   p
     +text-block(.8125rem 1.6)

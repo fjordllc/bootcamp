@@ -7,30 +7,24 @@
   h6
     scroll-snap-align: start
     scroll-snap-stop: always
-    &::before
-      display: block
-      content: " "
-      visibility: hidden
-      pointer-events: none
-h1,
-h2,
-h3,
-h4,
-h5,
-h6
-  cursor: pointer
-  position: relative
-  &:hover
-    .header-anchor
-      opacity: 1
+    position: relative
+    outline-style: none
+    &:hover
+      .header-anchor
+        opacity: 1
 
 .header-anchor
   display: flex
-  +text-block(1rem, 400)
+  +text-block(.75rem, 400)
+  float: left
+  +position(absolute)
+  margin-left: -1.5rem
   text-decoration: none !important
-  +size(#{calc(100% + 1.25rem)} 2.75rem)
+  +size(1.5rem 100%)
   align-items: center
-  justify-content: flex-start
-  +position(absolute, left -1.25rem, bottom 0)
-  transition: opacity .2s ease-out
+  justify-content: center
+  transition: all .2s ease-out
   opacity: 0
+  &:link,
+  &:visited
+    color: $main
