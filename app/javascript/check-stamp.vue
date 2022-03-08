@@ -5,7 +5,8 @@
   time.stamp__content.is-created-at
     | {{ checkCreatedAt }}
   .stamp__content.is-user-name
-    | {{ checkUserName }}
+    .stamp__content-inner
+      | {{ checkUserName }}
 </template>
 <script>
 import 'whatwg-fetch'
