@@ -4,18 +4,13 @@
     font-size: .75rem
 
 .thread-list-item-meta__items
-  +text-block(.75rem 1.4)
-  +media-breakpoint-up(md)
-    display: flex
-    gap: .5rem
+  +text-block(.75rem 1.4, flex)
+  flex-wrap: wrap
+  gap: .5rem
 
 .thread-list-item-meta__item
   .a-user-icon
     +size(1rem)
-  .a-meta .a-user-icon
-    +margin(horizontal, .5em)
-  .thread-list-item-comment__user-icons .a-user-icon
-    +margin(horizontal, .125em)
 
 .thread-list-item-meta__item-note
   +text-block(.75rem 1.4, $default-text)
@@ -29,3 +24,7 @@
 
 .thread-list-item-meta__created-at
   +text-block(.75rem 1.4, $muted-text)
+
+.thread-list-item-meta__user
+  display: flex
+  gap: .25rem
