@@ -71,6 +71,7 @@
         time.stamp__content.is-created-at
           = l product.checks.last.created_at.to_date, format: :short
         .stamp__content.is-user-name
-          = product.checks.last.user.login_name
+          .stamp__content-inner
+            = product.checks.last.user.login_name
     - if current_user.mentor? && product.checks.empty?
       .js-checker(data-checker-id="#{product.checker_id}" data-checker-name="#{product.checker_name}" data-current-user-id="#{current_user.id}" data-product-id="#{product.id}")

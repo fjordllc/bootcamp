@@ -61,9 +61,13 @@
                 )
                   | 〜 {{ report.lastCommentDate }}
     .stamp.stamp-approve(v-if='this.report.hasCheck')
-      h2.stamp__content.is-title 確認済
-      time.stamp__content.is-created-at {{ report.checkDate }}
-      .stamp__content.is-user-name {{ report.checkUserName }}
+      h2.stamp__content.is-title
+        | 確認済
+      time.stamp__content.is-created-at
+        | {{ report.checkDate }}
+      .stamp__content.is-user-name
+        .stamp__content-inner
+          | {{ report.checkUserName }}
     .thread-list-item__user
       a.thread-header__author(:href='report.user.url')
         img.thread-list-item__user-icon.a-user-icon(
