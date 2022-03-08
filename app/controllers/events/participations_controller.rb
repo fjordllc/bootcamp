@@ -4,6 +4,8 @@ class Events::ParticipationsController < ApplicationController
   before_action :set_event
 
   def create
+    return if current_user.trainee && @event.job_hunting
+
     return unless @event.participations.create(user: current_user, enable: @event.can_participate?)
 
     create_watch
