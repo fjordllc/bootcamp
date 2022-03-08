@@ -59,7 +59,7 @@
               )
                 | コメントする
             .card-main-actions__item.is-only-mentor(
-              v-if='(isRole("mentor") || isRole("admin")) && commentType && !checkId'
+              v-if='isRole("mentor") && commentType && !checkId'
             )
               button.a-button.is-md.is-danger.is-block(
                 @click='commentAndCheck',
@@ -75,13 +75,14 @@ import CommentPlaceholder from './comment-placeholder'
 import confirmUnload from './confirm-unload'
 import toast from './toast'
 import role from './role'
+import checkable from './checkable.js'
 
 export default {
   components: {
     comment: Comment,
     commentPlaceholder: CommentPlaceholder
   },
-  mixins: [toast, confirmUnload, role],
+  mixins: [toast, confirmUnload, role, checkable],
   props: {
     commentableId: { type: String, required: true },
     commentableType: { type: String, required: true },
@@ -257,10 +258,16 @@ export default {
         !window.confirm('提出物を確認済にしてよろしいですか？')
       ) {
         return null
+      } else {
+        this.createComment()
+        this.check(
+          this.commentableType,
+          this.commentableId,
+          '/api/checks',
+          'POST',
+          this.token()
+        )
       }
-      const check = document.getElementById('js-shortcut-check')
-      this.createComment()
-      check.click()
     },
     async fetchUncheckedProducts(page) {
       return fetch(`/api/products/unchecked?page=${page}`, {

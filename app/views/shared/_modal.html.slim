@@ -1,4 +1,7 @@
-input.a-toggle-checkbox(id="#{id}" type="checkbox")
+- if defined?(auto_show) && auto_show
+  input.a-toggle-checkbox(id="#{id}" type="checkbox" checked)
+- else
+  input.a-toggle-checkbox(id="#{id}" type="checkbox")
 .modal
   label.modal__overlay(for="#{id}")
   .modal-content

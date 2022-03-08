@@ -31,9 +31,24 @@ class RetirementTest < ApplicationSystemTestCase
     assert_text 'ログインができません'
   end
 
+  test 'enables retirement regardless of validity of discord id' do
+    user = users(:discordinvalid)
+    visit_with_auth new_retirement_path, 'discordinvalid'
+    choose 'とても悪い', visible: false
+    click_on '退会する'
+    page.accept_confirm
+    assert_text '退会処理が完了しました'
+    assert_equal Date.current, user.reload.retired_on
+    assert_equal 'discordinvalidさんが退会しました。', users(:komagata).notifications.last.message
+    assert_equal 'discordinvalidさんが退会しました。', users(:machida).notifications.last.message
+
+    login_user 'discordinvalid', 'testtest'
+    assert_text 'ログインができません'
+  end
+
   test 'delete unchecked products when the user retired' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice5).id}", 'muryou'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
@@ -54,7 +69,7 @@ class RetirementTest < ApplicationSystemTestCase
 
   test 'delete WIP reports when the user retired' do
     visit_with_auth '/reports/new', 'muryou'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
     end

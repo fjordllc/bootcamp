@@ -23,8 +23,8 @@ class CardTest < ActiveSupport::TestCase
 
   test '#search' do
     VCR.use_cassette 'customer/list' do
-      customer = @card.search(email: 'yamada@example.com')
-      assert_equal 'yamada@example.com', customer['email']
+      customer = @card.search(email: 'mentormentaro@example.com')
+      assert_equal 'mentormentaro@example.com', customer['email']
     end
   end
 end

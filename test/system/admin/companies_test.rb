@@ -39,7 +39,6 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
 
   test 'delete company' do
     visit_with_auth '/admin/companies', 'komagata'
-    wait_for_vuejs
     accept_confirm do
       find("#company_#{companies(:company1).id} a.a-button.is-sm.is-danger.is-icon.js-delete").click
     end

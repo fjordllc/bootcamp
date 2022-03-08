@@ -55,7 +55,7 @@ report7:
   reported_on: "2017-01-03"
 
 report8:
-  user: yamada
+  user: mentormentaro
   title: テストの日報
   description: |-
     いろいろやりました。
@@ -93,7 +93,7 @@ sotugyou:
   reported_on: "2018-02-01"
 
 report12:
-  user: yamada
+  user: mentormentaro
   title: 検索結果確認用-C
   description:
     今年で150歳でーす
@@ -102,7 +102,7 @@ report12:
   created_at: "2020-01-01 00:00:00"
 
 report13:
-  user: yamada
+  user: mentormentaro
   title: 検索結果確認用-A
   description:
     きたるべき20世紀
@@ -111,7 +111,7 @@ report13:
   created_at: "1900-01-01 00:00:00"
 
 report14:
-  user: yamada
+  user: mentormentaro
   title: 検索結果確認用-B
   description:
     あれから100年か
@@ -136,10 +136,10 @@ report16:
   reported_on: <%= Time.now - 2.day %>
 
 report17:
-  user: yamada
+  user: mentormentaro
   title: 1時間だけ学習
   description: |-
-    yamadaです、メンターです。
+    mentormentaroです、メンターです。
     今日は1時間学習しました。
   practices: practice1
   reported_on: "2020-06-01"
@@ -246,3 +246,39 @@ report30:
   description: |-
     頑張れませんでした
   reported_on: <%= Time.now - 1.month - 1.day %>
+
+report31:
+  user: kananashi
+  title: 最新のwipの日報
+  description: |-
+    最新のwipの日報です
+  reported_on: <%= Time.current %>
+  created_at: <%= Time.current %>
+  wip: true
+
+report32:
+  user: kananashi
+  title: wipを除いた最新の日報
+  description: |-
+    wipを除いた最新の日報です
+  reported_on: <%= Time.current - 1.day %>
+  created_at: <%= Time.current - 1.day %>
+
+report33:
+  user: kananashi
+  title: 最新から9日前の日報
+  emotion: 1
+  description: |-
+    最新から9日前の日報でwipにしています
+    今日の気分がなしでwipから投稿ができないので、emotionを設定
+  reported_on: <%= Time.current - 10.day %>
+  created_at: <%= Time.current - 10.day %>
+  wip: true
+
+report34:
+  user: kananashi
+  title: 最新から10日前の日報
+  description: |-
+    最新から10日前の日報です
+  reported_on: <%= Time.current - 11.day %>
+  created_at: <%= Time.current - 11.day %>

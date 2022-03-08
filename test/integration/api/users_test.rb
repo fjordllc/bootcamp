@@ -30,7 +30,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_users_path(users(:kimura).id, format: :json)
     assert_response :unauthorized
 
-    token = create_token('yamada', 'testtest')
+    token = create_token('mentormentaro', 'testtest')
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok

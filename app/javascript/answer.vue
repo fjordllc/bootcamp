@@ -44,23 +44,23 @@
               i.fas.fa-pen
               | 内容修正
           li.card-main-actions__item(
-            v-if='!hasCorrectAnswer && answer.type != "CorrectAnswer" && (currentUser.id === questionUser.id || isRole("mentor") || isRole("admin"))'
+            v-if='!hasCorrectAnswer && answer.type != "CorrectAnswer" && (currentUser.id === questionUser.id || isRole("mentor"))'
           )
             button.card-main-actions__action.a-button.is-md.is-primary.is-block(
               @click='makeToBestAnswer'
             )
               | ベストアンサーにする
           li.card-main-actions__item(
-            v-if='hasCorrectAnswer && answer.type == "CorrectAnswer" && (currentUser.id === questionUser.id || isRole("mentor") || isRole("admin"))'
+            v-if='hasCorrectAnswer && answer.type == "CorrectAnswer" && (currentUser.id === questionUser.id || isRole("mentor"))'
           )
             button.card-main-actions__action.a-button.is-md.is-muted.is-block(
               @click='cancelBestAnswer'
             )
               | ベストアンサーを取り消す
           li.card-main-actions__item.is-sub(
-            v-if='answer.user.id == currentUser.id || isRole("mentor") || isRole("admin")'
+            v-if='answer.user.id == currentUser.id || isRole("mentor")'
           )
-            button.card-main-actions__delete(@click='deleteAnswer')
+            button.card-main-actions__muted-action(@click='deleteAnswer')
               | 削除する
   .thread-comment-form__form.a-card(v-show='editing')
     .a-form-tabs.js-tabs

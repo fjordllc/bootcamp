@@ -21,7 +21,7 @@ class Check::ProductsTest < ApplicationSystemTestCase
     assert_text '確認済'
     assert has_button? '提出物の確認を取り消す'
 
-    visit_with_auth "/practices/#{products(:product1).practice.id}", 'yamada'
+    visit_with_auth "/practices/#{products(:product1).practice.id}", 'mentormentaro'
     assert_text '完了しています'
   end
 

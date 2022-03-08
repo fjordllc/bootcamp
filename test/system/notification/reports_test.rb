@@ -45,7 +45,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     visit_with_auth '/reports', 'komagata'
     click_link '日報作成'
 
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
     end
@@ -159,12 +159,12 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
   test 'notify to mentors when a student submitted reports with sad icon at twice in a row' do
     student = 'kimura'
-    mentor = 'yamada'
+    mentor = 'mentormentaro'
 
     visit_with_auth '/reports', student
 
     click_link '日報作成'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title 1')
       fill_in('report[description]', with: 'test 1')
       fill_in('report[reported_on]', with: Date.current.prev_day)
@@ -175,9 +175,10 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
+    find('.modal-header__close').click
 
     click_link '日報作成'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title 2')
       fill_in('report[description]', with: 'test 2')
       fill_in('report[reported_on]', with: Date.current)
@@ -188,6 +189,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
+    find('.modal-header__close').click
 
     visit_with_auth '/notifications', mentor
 

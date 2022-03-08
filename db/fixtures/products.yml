@@ -2,7 +2,7 @@
 <% today = Time.zone.today %>
 product1:
   practice: practice1
-  user: yamada
+  user: mentormentaro
   body: テストの提出物1です。
   published_at: <%= (now - 60 * 60 * 24 * 1).to_s(:db) %>
   created_at: <%= (now - 60 * 60 * 24 * 1).to_s(:db) %>
@@ -23,7 +23,7 @@ product3:
 
 product4:
   practice: practice2
-  user: yamada
+  user: mentormentaro
   body: テストの提出物4です。
   published_at: <%= (now - 60 * 60 * 24 * 4).to_s(:db) %>
   created_at: <%= (now - 60 * 60 * 24 * 4).to_s(:db) %>
@@ -44,7 +44,7 @@ product6:
 
 product7:
   practice: practice3
-  user: yamada
+  user: mentormentaro
   body: テストの提出物7です。
   published_at: <%= (now - 60 * 60 * 24 * 7).to_s(:db) %>
   created_at: <%= (now - 60 * 60 * 24 * 7).to_s(:db) %>
@@ -58,7 +58,7 @@ product8:
 
 product9:
   practice: practice4
-  user: yamada
+  user: mentormentaro
   body: テストの提出物9です。
   published_at: <%= (now - 60 * 60 * 24 * 9).to_s(:db) %>
   created_at: <%= (now - 60 * 60 * 24 * 9).to_s(:db) %>
@@ -79,7 +79,7 @@ product11:
 
 product12:
   practice: practice5
-  user: yamada
+  user: mentormentaro
   body: リアクションテスト
   published_at: <%= (now - 60 * 60 * 24 * 12).to_s(:db) %>
   created_at: <%= (now - 60 * 60 * 24 * 12).to_s(:db) %>

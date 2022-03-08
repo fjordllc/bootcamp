@@ -35,13 +35,13 @@ class ProductTest < ActiveSupport::TestCase
       wip: true
     )
     product.save!
-    assert_nil product.published_at
+
+    assert_nil Watch.find_by(user: adviser, watchable: product)
 
     product.wip = false
     product.save!
 
     assert_not_nil Watch.find_by(user: adviser, watchable: product)
-    assert_not_nil product.published_at
   end
 
   test '#change_learning_status' do
@@ -113,7 +113,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test '.self_assigned_no_replied_products' do
-    current_user = users(:yamada)
+    current_user = users(:mentormentaro)
     product = Product.create!(
       body: 'test',
       user: users(:kimura),

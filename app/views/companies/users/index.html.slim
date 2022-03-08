@@ -3,17 +3,23 @@ header.page-header.is-border-bottom-none
   .container
     .page-header__inner
       h2.page-header__title
-        = "#{title}一覧（#{@users.size}）"
+        = @company.name
       .page-header-actions
         ul.page-header-actions__items
 
+= render 'companies/tabs', company: @company
 .page-tools
-  = render 'companies/tabs', company: @company
   nav.tab-nav
-    .container.is-padding-horizontal-0-sm-down
+    .container
       ul.tab-nav__items
           - Companies::UsersController::TARGETS.each do |target|
             li.tab-nav__item
               = link_to t("target.#{target}"), company_users_path(target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
 
-#js-company-users(company-id="#{@company.id}")
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        h1.page-main-header__title
+          = "#{t("target.#{@target}")}（#{@users.size}）"
+  #js-company-users(company-id="#{@company.id}")

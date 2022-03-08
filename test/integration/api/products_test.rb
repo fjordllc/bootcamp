@@ -7,7 +7,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     get api_products_path(format: :json)
     assert_response :unauthorized
 
-    token = create_token('yamada', 'testtest')
+    token = create_token('mentormentaro', 'testtest')
     get api_products_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
@@ -22,7 +22,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :unauthorized
 
-    token = create_token('yamada', 'testtest')
+    token = create_token('mentormentaro', 'testtest')
     get api_products_unchecked_index_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
@@ -37,7 +37,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :unauthorized
 
-    token = create_token('yamada', 'testtest')
+    token = create_token('mentormentaro', 'testtest')
     get api_products_self_assigned_index_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok

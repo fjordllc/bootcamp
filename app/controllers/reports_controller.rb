@@ -51,7 +51,7 @@ class ReportsController < ApplicationController
     set_wip
     canonicalize_learning_times(@report)
     if @report.save
-      redirect_to redirect_url(@report), notice: notice_message(@report)
+      redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
       render :new
     end
@@ -63,7 +63,7 @@ class ReportsController < ApplicationController
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
     if @report.save
-      redirect_to redirect_url(@report), notice: notice_message(@report)
+      redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
       render :edit
     end
@@ -133,11 +133,15 @@ class ReportsController < ApplicationController
   end
 
   def redirect_url(report)
-    report.wip? ? edit_report_url(report) : report
+    report.wip? ? edit_report_url(report) : report_url(report)
   end
 
   def notice_message(report)
     report.wip? ? '日報をWIPとして保存しました。' : '日報を保存しました。'
+  end
+
+  def flash_contents(report)
+    { notify_help: !report.wip? && report.sad? }
   end
 
   def set_watch

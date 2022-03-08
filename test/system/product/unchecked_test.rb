@@ -57,7 +57,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
   test 'not display products in listing unchecked if unchecked products all checked' do
     checker = users(:komagata)
     practice = practices(:practice47)
-    user = users(:yamada)
+    user = users(:mentormentaro)
     product = Product.create!(
       body: 'test',
       user: user,
@@ -67,7 +67,6 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'komagata'
     click_button '提出物を確認'
     visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
-    wait_for_vuejs
     assert_no_text product.practice.title
   end
 
@@ -85,7 +84,6 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
     visit_with_auth '/products/unchecked', 'komagata'
-    wait_for_vuejs
     click_link '自分の担当'
     assert_text product.practice.title
   end
@@ -104,7 +102,6 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
-    wait_for_vuejs
     assert_text product.practice.title
   end
 
@@ -122,7 +119,6 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
     visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
-    wait_for_vuejs
     click_link '自分の担当'
     assert_text product.practice.title
   end
@@ -141,7 +137,6 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
-    wait_for_vuejs
     assert_no_text product.practice.title
   end
 

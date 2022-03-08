@@ -38,6 +38,4 @@ html.is-application lang='ja'
         = yield
       - if display_footer?
         = render 'footer'
-    - if @random_tags
-      = render '/users/random_tags'
     = any_login_here if defined?(AnyLogin)

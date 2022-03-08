@@ -1,20 +1,22 @@
-= form_with model: [:admin, @campaign], local: true, class: 'form', html: { name: 'campaign' } do |f|
-  = render 'errors', object: @campaign
-  .form__items
-    .form__items-inner
-      .form-item
-        = f.label :start_at, class: 'a-form-label'
-        = f.datetime_field :start_at, class: 'a-text-input js-warning-form'
-      .form-item
-        = f.label :end_at, class: 'a-form-label'
-        = f.datetime_field :end_at, class: 'a-text-input js-warning-form'
-      .form-item
-        = f.label :title, class: 'a-form-label'
-        = f.text_field :title, class: 'a-text-input js-warning-form'
-  .form-actions
-    ul.form-actions__items
-      li.form-actions__item.is-main
-        button.a-button.is-lg.is-warning.is-block
-          | 内容を保存
-      li.form-actions__item.is-sub
-        = link_to 'キャンセル', admin_campaigns_path, class: 'a-button is-md is-secondary is-block'
+.page-body
+  .container.is-md
+    = form_with model: [:admin, @campaign], local: true, class: 'form', html: { name: 'campaign' } do |f|
+      = render 'errors', object: @campaign
+      .form__items
+        .form__items-inner
+          .form-item
+            = f.label :start_at, class: 'a-form-label'
+            = f.datetime_field :start_at, class: 'a-text-input js-warning-form'
+          .form-item
+            = f.label :end_at, class: 'a-form-label'
+            = f.datetime_field :end_at, class: 'a-text-input js-warning-form'
+          .form-item
+            = f.label :title, class: 'a-form-label'
+            = f.text_field :title, class: 'a-text-input js-warning-form'
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item.is-main
+            button.a-button.is-lg.is-warning.is-block
+              | 内容を保存
+          li.form-actions__item.is-sub
+            = link_to 'キャンセル', admin_campaigns_path, class: 'a-button is-md is-secondary is-block'
