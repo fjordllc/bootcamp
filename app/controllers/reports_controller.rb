@@ -146,13 +146,11 @@ class ReportsController < ApplicationController
   end
 
   def celebrating_count(report)
-    return false if report.wip
+    return nil if report.wip
 
     celebrating_counts = [100]
     report_count = current_user.reports.count
-    celebrating_counts.find do |count|
-      count == report_count
-    end
+    celebrating_counts.find { |count| count == report_count }
   end
 
   def set_watch
