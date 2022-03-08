@@ -20,12 +20,14 @@
                 :href='notification.path',
                 itemprop='url'
               )
-                span.thread-list-item-title__link-label {{ notification.message }}
+                span.thread-list-item-title__link-label
+                  | {{ notification.message }}
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
-              time.a-meta(:datetime='notification.created_at') {{ formattedCreatedAtInJapanese }}
+              time.a-meta(:datetime='notification.created_at')
+                | {{ formattedCreatedAtInJapanese }}
 </template>
 <script>
 import dayjs from 'dayjs'

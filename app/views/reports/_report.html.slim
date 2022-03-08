@@ -34,28 +34,26 @@
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
-              .thread-list-item-name
-                = link_to report.user, class: 'a-user-name' do
-                  = report.user.login_name
+              = link_to report.user, class: 'a-user-name' do
+                = report.user.login_name
             .thread-list-item-meta__item
               time.a-meta(datetime="#{report.reported_on.to_datetime}")
                 = l report.reported_on
-                = 'の日報'
+                | の日報
       - if report.comments.any?
         hr.thread-list-item__row-separator
         .thread-list-item__row
           .thread-list-item-meta
             .thread-list-item-meta__items
               .thread-list-item-meta__item
-                .thread-list-item-comment
-                  .thread-list-item-comment__label
-                    | コメント
-                  .thread-list-item-comment__count
-                    | （#{report.comments.size}）
-                  .thread-list-item-comment__user-icons
-                    = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
-                  time.a-meta(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate='pubdate')
-                    | 〜 #{l report.comments.last.updated_at, format: :date_and_time}
+                .a-meta
+                  | コメント（#{report.comments.size}）
+              .thread-list-item-meta__item
+                .thread-list-item-comment__user-icons
+                  = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
+              .thread-list-item-meta__item
+                time.a-meta(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate='pubdate')
+                  | 〜 #{l report.comments.last.updated_at, format: :date_and_time}
 
     - if report.checks.any?
       .stamp.stamp-approve
