@@ -99,9 +99,13 @@
                 | 〜 {{ product.mentor_last_commented_at }}（メンター）
 
     .stamp.stamp-approve(v-if='product.checks.size > 0')
-      h2.stamp__content.is-title 確認済
-      time.stamp__content.is-created-at {{ product.checks.last_created_at }}
-      .stamp__content.is-user-name {{ product.checks.last_user_login_name }}
+      h2.stamp__content.is-title
+        | 確認済
+      time.stamp__content.is-created-at
+        | {{ product.checks.last_created_at }}
+      .stamp__content.is-user-name
+        .stamp__content-inner
+          | {{ product.checks.last_user_login_name }}
     .thread-list-item__assignee.is-only-mentor(
       v-if='isMentor && product.checks.size == 0'
     )
