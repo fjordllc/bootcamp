@@ -8,8 +8,9 @@
   justify-content: center
   align-items: center
   flex-wrap: wrap
-  +margin(horizontal, -1rem)
-  margin-bottom: -2rem
+  +media-breakpoint-up(md)
+    +margin(horizontal, -1rem)
+    margin-bottom: -2rem
   +media-breakpoint-down(sm)
     +margin(horizontal, -.75rem)
     margin-bottom: -1.5rem
