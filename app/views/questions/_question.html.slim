@@ -29,11 +29,8 @@
                 = l question.updated_at
             - if question.answers.present?
               .thread-list-item-meta__item
-                .thread-list-item-comment
-                  .thread-list-item-comment__label
-                    | 回答・コメント
-                  .thread-list-item-comment__count
-                    | （#{question.answers.size}）
+                .a-meta
+                  | 回答・コメント（#{question.answers.size}）
       - if question.tags.present?
         .thread-list-item__row
           .thread-list-item-tags
