@@ -5,11 +5,8 @@
   - users.each do |user|
     .thread-list-item
       .thread-list-item__inner
-        label.thread-list-item__show-user-detail(for="show-user-detail-#{user.id}")
-          i.fas.fa-angle-down
         .thread-list-item__user
           = render 'users/icon', user: user, image_class: 'thread-list-item__user-icon'
-
         .thread-list-item__rows
           .thread-list-item__row
             header.thread-list-item-title
@@ -31,7 +28,8 @@
                   .thread-list-item-meta__item
                     = link_to user_portfolio_path(user), class: 'thread-list-item-meta__item-link a-text-link' do
                       | ポートフォリオ（#{user.works.count}）
-
+        label.thread-list-item__show-user-detail(for="show-user-detail-#{user.id}")
+          i.fas.fa-angle-down
       input.a-toggle-checkbox(id="show-user-detail-#{user.id}" type='checkbox')
       .thread-list-item__user-detail
         .thread-list-item__user-description.a-short-text
