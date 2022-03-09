@@ -15,7 +15,8 @@
         .thread-list-item-title
           .thread-list-item-title__icon.is-wip(v-if='page.wip') WIP
           h2.thread-list-item-title__title(itemprop='name')
-            a.thread-list-item-title__link(:href='page.url', itemprop='url') {{ page.title }}
+            a.thread-list-item-title__link(:href='page.url', itemprop='url')
+              | {{ page.title }}
 
       .thread-list-item__row(v-if='page.practice')
         .thread-list-item-meta
@@ -45,7 +46,7 @@
                 span.a-meta__label
                   | 更新
                 span.a-meta__value
-                  | {{ page.updated_at }} by
+                  | {{ page.updated_at }}
             .thread-list-item-meta__item
               .thread-list-item-meta__user
                 a.thread-list-item-meta__icon-link(
