@@ -27,7 +27,7 @@ export default {
     page: page
   },
   props: {
-    nestedPath: { type: String, default: '', required: false },
+    practiceId: { type: String, required: true },
     selectedTag: { type: String, required: true }
   },
   data() {
@@ -41,6 +41,7 @@ export default {
     newParams() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
+      if (this.practiceId) params.set('practice_id', this.practiceId)
       if (this.selectedTag) params.set('tag', this.selectedTag)
       return params
     },
@@ -49,8 +50,7 @@ export default {
     },
     pagesAPI() {
       const params = this.newParams
-      const nestedPath = this.nestedPath
-      return `/api/${nestedPath}pages.json?${params}`
+      return `/api/pages.json?${params}`
     },
     pagerProps() {
       return {
