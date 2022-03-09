@@ -610,6 +610,10 @@ class User < ApplicationRecord
     Cache.delete_mentioned_and_unread_notification_count(id)
   end
 
+  def latest_report
+    reports.first(3)
+  end
+
   private
 
   def password_required?
