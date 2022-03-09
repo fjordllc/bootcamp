@@ -23,7 +23,7 @@
               = user.discord_account.presence || 'Discord未設定'
     = render 'users/sns', user: user
     - if admin_login?
-      .form-actions
+      .form-actions.is-only-mentor
         ul.form-actions__items
           li.form-actions__item.is-main
             = link_to user_reports_path(user, format: :md), class: 'a-button is-md is-primary is-block' do
