@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         h(Pages, {
           props: {
             selectedTag: selectedTag,
-            nestedPath: `practices/${practiceId}/`
+            practiceId: practiceId
           }
         })
     }).$mount(selector)
