@@ -4,21 +4,13 @@ class API::PagesController < API::BaseController
   before_action :set_page, only: %i[update]
 
   def index
-    if params[:practice_id]
-      practice = Practice.find(params[:practice_id])
-      @pages = practice.pages.with_avatar
-                       .includes(:comments,
-                                 { last_updated_user: { avatar_attachment: :blob } })
-                       .order(updated_at: :desc)
-                       .page(params[:page])
-    else
-      @pages = Page.with_avatar
-                   .includes(:comments, :practice, :tags,
-                             { last_updated_user: { avatar_attachment: :blob } })
-                   .order(updated_at: :desc)
-                   .page(params[:page])
-      @pages = @pages.tagged_with(params[:tag]) if params[:tag]
-    end
+    @pages = Page.with_avatar
+                 .includes(:comments, :practice, :tags,
+                           { last_updated_user: { avatar_attachment: :blob } })
+                 .order(updated_at: :desc)
+                 .page(params[:page])
+    @pages = @pages.where(practice_id: params[:practice_id]) if params[:practice_id]
+    @pages = @pages.tagged_with(params[:tag]) if params[:tag]
   end
 
   def update
