@@ -7,8 +7,8 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           - if current_user.admin && !@user.admin
-            li.page-header-actions__item
-              = link_to talk_path(@user.talk), class: 'a-button is-md is-secondary is-block is-back' do
+            li.page-header-actions__item.is-only-mentor
+              = link_to talk_path(@user.talk), class: 'a-button is-md is-secondary is-block' do
                 | 相談部屋
           - if current_user == @user
             li.page-header-actions__item
