@@ -57,9 +57,9 @@ class ArticlesController < ApplicationController
 
   def list_articles
     if admin_or_mentor_login?
-      Article.all.order(created_at: :desc)
+      Article.order(created_at: :desc).page(params[:page])
     else
-      Article.all.where(wip: false).order(created_at: :desc)
+      Article.where(wip: false).order(created_at: :desc).page(params[:page])
     end
   end
 
