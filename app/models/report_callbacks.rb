@@ -11,6 +11,7 @@ class ReportCallbacks
     report.update_column(:published_at, report.updated_at) # rubocop:disable Rails/SkipsModelValidations
 
     notify_users(report)
+    notify_to_chat(report)
   end
 
   def after_create(report)
@@ -73,5 +74,13 @@ class ReportCallbacks
 
   def delete_notification(report)
     Notification.where(link: "/reports/#{report.id}").destroy_all
+  end
+
+  def notify_to_chat(report)
+    ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_REPORT_WEBHOOK_URL'])
+      #{report.user.login_name}さんが#{I18n.l report.reported_on}の日報を公開しました。
+      タイトル：「#{report.title}」
+      URL： https://bootcamp.fjord.jp/reports/#{report.id}
+    TEXT
   end
 end
