@@ -258,4 +258,11 @@ class PracticesTest < ApplicationSystemTestCase
     assert_text '未解決'
     assert_equal practice.questions.length, 11
   end
+
+  test 'show common description on each page' do
+    visit_with_auth "/practices/#{practices(:practice1).id}", 'hajime'
+    assert_text '困った時は'
+    visit "/practices/#{practices(:practice2).id}"
+    assert_text '困った時は'
+  end
 end
