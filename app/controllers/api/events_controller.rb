@@ -6,7 +6,7 @@ class API::EventsController < API::BaseController
   def index
     @events = Event.with_avatar
                    .includes(:comments, :users)
-                   .order(created_at: :desc)
+                   .order(start_at: :desc)
                    .page(params[:page])
   end
 end
