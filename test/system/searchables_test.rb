@@ -136,7 +136,7 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_no_text 'machida'
   end
 
-  test 'check that link to talk room is displayed properly' do
+  test 'link to consultation room does not appear except for administrator' do
     visit_with_auth '/', 'hatsuno'
     within('form[name=search]') do
       select 'すべて'
@@ -144,9 +144,9 @@ class SearchablesTest < ApplicationSystemTestCase
     end
     find('#test-search').click
     assert_no_text '相談部屋'
+  end
 
-    logout
-
+  test 'administrator will see link to consultation room' do
     visit_with_auth '/', 'komagata'
     within('form[name=search]') do
       select 'ユーザー'
