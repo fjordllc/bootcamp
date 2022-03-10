@@ -1,6 +1,6 @@
 .form-item
   = f.label :company, class: 'a-form-label'
-  .a-button.is-md.is-secondary.is-select.is-block
-    = f.collection_select :company_id, all_companies_with_empty, :id, :name, {}
+  .is-md.is-secondary.is-select.is-block
+    = f.collection_select :company_id, all_companies_with_empty, :id, :name, {}, { id: 'js-company-select' }
   .a-form-help
     p アドバイザー、研修生、就職した卒業生は登録。
