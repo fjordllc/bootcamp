@@ -6,14 +6,4 @@
 
 .page-body
   .container.is-md
-    = paginate @pages
-    - if @pages.present?
-      .thread-list.a-card
-        = render partial: 'pages/page', collection: @pages, as: :page
-      = paginate @pages
-    - else
-      .o-empty-message
-        .o-empty-message__icon
-          i.far.fa-sad-tear
-        .o-empty-message__text
-          | Docsはまだありません。
+    #js-practices-pages(data-selected-tag="#{params[:tag]}" data-practice-id="#{params[:practice_id]}")
