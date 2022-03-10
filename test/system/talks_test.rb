@@ -98,4 +98,29 @@ class TalksTest < ApplicationSystemTestCase
     find('#talks.loaded', wait: 10)
     assert_text 'yameo (辞目 辞目夫) さんの相談部屋'
   end
+
+  test 'both public and private information is displayed' do
+    user = users(:kimura)
+    visit_with_auth "/talks/#{user.talk.id}", 'kimura'
+    assert_no_text 'ユーザー非公開情報'
+    assert_no_text 'ユーザー公開情報'
+
+    logout
+    visit_with_auth '/talks', 'komagata'
+    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    assert_text 'ユーザー非公開情報'
+    assert_text 'ユーザー公開情報'
+  end
+
+  test 'update memo' do
+    user = users(:kimura)
+    visit_with_auth '/talks', 'komagata'
+    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    assert_text 'kimuraさんのメモ'
+    click_button '編集'
+    fill_in 'js-user-mentor-memo', with: '相談部屋テストメモ'
+    click_button '保存する'
+    assert_text '相談部屋テストメモ'
+    assert_no_text 'kimuraさんのメモ'
+  end
 end

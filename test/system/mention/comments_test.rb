@@ -14,7 +14,6 @@ module Mention
           fill_in('new_comment[description]', with: comment)
         end
         click_button 'コメントする'
-        wait_for_vuejs
       }
       assert_notify_mention(post_mention)
     end

@@ -92,7 +92,7 @@ class User::TagsTest < ApplicationSystemTestCase
     click_button 'タグ名変更'
     fill_in('tag[name]', with: update_tag_text)
     click_button '変更'
-    wait_for_vuejs
+    assert_text 'タグ「上級者」'
 
     visit_with_auth users_tag_path(tag.name), 'komagata'
     assert_text "#{tag.name}のユーザーはいません"
@@ -113,7 +113,7 @@ class User::TagsTest < ApplicationSystemTestCase
     click_button 'タグ名変更'
     fill_in('tag[name]', with: update_tag.name)
     click_button '変更'
-    wait_for_vuejs
+    assert_text 'タグ「中級者」'
 
     visit_with_auth users_tag_path(tag.name), 'komagata'
     assert_text "#{tag.name}のユーザーはいません"
@@ -142,9 +142,14 @@ class User::TagsTest < ApplicationSystemTestCase
     tag_input.set '#ハッシュハッシュ'
     tag_input.native.send_keys :return
     click_button '保存する'
+    within '.tag-links__items' do
+      assert_text 'ハッシュハッシュ'
+    end
 
     visit_with_auth user_path(users(:hatsuno)), 'komagata'
-    assert_no_text '#ハッシュハッシュ'
-    assert_text 'ハッシュハッシュ'
+    within '.tag-links__items' do
+      assert_text 'ハッシュハッシュ'
+      assert_no_text '#ハッシュハッシュ'
+    end
   end
 end

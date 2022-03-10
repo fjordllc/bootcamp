@@ -81,7 +81,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'create product' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
@@ -93,7 +93,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'create product change status submitted' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
@@ -132,7 +132,6 @@ class ProductsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
-    wait_for_vuejs
     assert_text '提出物を削除しました。'
   end
 
@@ -147,7 +146,6 @@ class ProductsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
-    wait_for_vuejs
     assert_text '提出物を削除しました。'
   end
 
@@ -183,7 +181,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'create product as WIP' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
@@ -216,7 +214,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
@@ -231,7 +229,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    within('#new_product') do
+    within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
@@ -284,6 +282,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     fill_in 'new_comment[description]', with: 'コメントしたら担当になるテスト'
     click_button 'コメントする'
+    assert_text 'コメントしたら担当になるテスト'
     visit current_path
     assert_text '担当から外れる'
     assert_no_text '担当する'
@@ -464,7 +463,6 @@ class ProductsTest < ApplicationSystemTestCase
     assignee_buttons.first.click
 
     unassigned_tab.click
-    wait_for_vuejs
     operated_counter = find('#test-unassigned-counter').text
     assert_not_equal initial_counter, operated_counter
   end

@@ -60,4 +60,5 @@
         time.stamp__content.is-created-at
           = l report.checks.last.created_at.to_date, format: :short
         .stamp__content.is-user-name
-          = report.checks.last.user.login_name
+          .stamp__content-inner
+            = report.checks.last.user.login_name

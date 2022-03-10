@@ -10,16 +10,18 @@
     background-color: #f8fff2
     +border(vertical, 1px solid $success)
     color: #4e732e
-  &.is-unparticipationed
-    +border(vertical, 1px solid)
-    &.is-available
-      border-color: $primary
-      background-color: #e9f9ff
-      color: #116e94
-    &.is-capacity-over
-      border-color: $warning
-      background-color: #fff9e7
-      color: #6f5819
+  &.is-unparticipationed.is-available
+    +border(vertical, 1px solid $primary)
+    background-color: #e9f9ff
+    color: #116e94
+  &.is-unparticipationed.is-capacity-over
+    +border(vertical, 1px solid $warning)
+    background-color: #fff9e7
+    color: #6f5819
+  &.is-non-participationed
+    +border(vertical, 1px solid $danger)
+    background-color: $danger-shade
+    color: $danger
 
 .event-main-actions__description
   +text-block(.8125rem 1.4, center)
