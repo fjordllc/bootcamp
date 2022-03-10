@@ -68,7 +68,7 @@ header.page-header
                   - elsif admin_login?
                     li.card-main-actions__item
                       = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
-                  - elsif current_user != @user && current_user.adviser? == true && current_user.company_id == @user.company_id && @user.trainee == true
+                  - elsif current_user != @user && current_user.adviser? && current_user.company_id == @user.company_id && @user.trainee
                     li.card-main-actions__item
                       .a-button.is-disabled.is-md.is-block
                         i.fas.fa-check
