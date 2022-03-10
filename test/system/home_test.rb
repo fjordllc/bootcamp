@@ -19,9 +19,8 @@ class HomeTest < ApplicationSystemTestCase
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'GitHubアカウントを登録してください。'
 
-    # GitHub との連携処理を update! で代用
     users(:hajime).update!(github_account: 'hajime')
-    visit '/'
+    refresh
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'GitHubアカウントを登録してください。'
   end
@@ -31,10 +30,8 @@ class HomeTest < ApplicationSystemTestCase
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'Discordアカウントを登録してください。'
 
-    visit '/current_user/edit'
-    fill_in 'user[discord_account]', with: 'hajime#1111'
-    click_button '更新する'
-    visit '/'
+    users(:hajime).update!(discord_account: 'hajime#1111')
+    refresh
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'Discordアカウントを登録してください。'
   end
@@ -44,11 +41,9 @@ class HomeTest < ApplicationSystemTestCase
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'ユーザーアイコンを登録してください。'
 
-    visit '/current_user/edit'
-    file_path = Rails.root.join('test/fixtures/files/users/avatars/default.jpg')
-    attach_file 'user[avatar]', file_path, make_visible: true
-    click_button '更新する'
-    visit '/'
+    path = Rails.root.join('test/fixtures/files/users/avatars/default.jpg')
+    users(:hajime).avatar.attach(io: File.open(path), filename: 'hajime.jpg')
+    refresh
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'ユーザーアイコンを登録してください。'
   end
@@ -58,12 +53,8 @@ class HomeTest < ApplicationSystemTestCase
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'タグを登録してください。'
 
-    visit '/current_user/edit'
-    tag_input = find('.ti-new-tag-input')
-    tag_input.set '猫'
-    tag_input.native.send_keys :return
-    click_button '更新する'
-    visit '/'
+    users(:hatsuno).update!(tag_list: ['猫'])
+    refresh
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'タグを登録してください。'
   end
@@ -73,10 +64,8 @@ class HomeTest < ApplicationSystemTestCase
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
 
-    visit '/current_user/edit'
-    fill_in 'user[after_graduation_hope]', with: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。'
-    click_button '更新する'
-    visit '/'
+    users(:hatsuno).update!(after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。')
+    refresh
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
   end
@@ -87,10 +76,8 @@ class HomeTest < ApplicationSystemTestCase
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'ブログURLを登録してください。'
 
-    visit '/current_user/edit'
-    fill_in 'user[blog_url]', with: 'http://hatsuno.org'
-    click_button '更新する'
-    visit '/'
+    users(:hatsuno).update!(blog_url: 'http://hatsuno.org')
+    refresh
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'ブログURLを登録してください。'
   end
