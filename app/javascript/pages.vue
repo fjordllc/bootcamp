@@ -27,7 +27,7 @@ export default {
     page: page
   },
   props: {
-    practiceId: { type: String, default: '', required: false },
+    practiceId: { type: String, default: null, required: false },
     selectedTag: { type: String, required: true }
   },
   data() {
