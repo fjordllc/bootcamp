@@ -274,6 +274,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth "/users/#{hatsuno.id}", 'kimura'
     assert_text 'プロフィール'
     assert_no_link '相談部屋'
+  end
     
   test 'show trainees for adviser' do
     visit_with_auth "/users/#{users(:kensyu).id}", 'senpai'
