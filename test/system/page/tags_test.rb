@@ -38,7 +38,6 @@ class Page::TagsTest < ApplicationSystemTestCase
     tag_input.set '追加タグ'
     tag_input.native.send_keys :return
     click_on '保存'
-    wait_for_vuejs
     assert_text '追加タグ'
   end
 
@@ -62,7 +61,7 @@ class Page::TagsTest < ApplicationSystemTestCase
     click_button 'タグ名変更'
     fill_in('tag[name]', with: update_tag_text)
     click_button '変更'
-    wait_for_vuejs
+    assert_text 'タグ 「上級者」'
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
     assert_text '質問はありません。'
@@ -88,7 +87,7 @@ class Page::TagsTest < ApplicationSystemTestCase
     click_button 'タグ名変更'
     fill_in('tag[name]', with: update_tag.name)
     click_button '変更'
-    wait_for_vuejs
+    assert_text 'タグ 「中級者」'
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
     assert_text '質問はありません。'

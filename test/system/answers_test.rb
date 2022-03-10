@@ -7,7 +7,6 @@ class AnswersTest < ApplicationSystemTestCase
 
   test 'answer form in questions/:id has comment tab and preview tab' do
     visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
-    wait_for_vuejs
     within('.a-form-tabs') do
       assert_text 'コメント'
       assert_text 'プレビュー'
@@ -16,7 +15,6 @@ class AnswersTest < ApplicationSystemTestCase
 
   test 'post new comment for question' do
     visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
-    wait_for_vuejs
     within('.thread-comment-form__form') do
       fill_in('answer[description]', with: 'test')
     end
@@ -28,7 +26,6 @@ class AnswersTest < ApplicationSystemTestCase
 
   test 'edit answer form has comment tab and preview tab' do
     visit_with_auth "/questions/#{questions(:question3).id}", 'komagata'
-    wait_for_vuejs
     within('.thread-comment:first-child') do
       click_button '内容修正'
       assert_text 'コメント'
@@ -38,7 +35,7 @@ class AnswersTest < ApplicationSystemTestCase
 
   test 'admin can edit and delete any questions' do
     visit_with_auth "/questions/#{questions(:question1).id}", 'komagata'
-    wait_for_vuejs
+    assert_text 'vimしかないでしょう。常識的に考えて。'
     answer_by_user = page.all('.thread-comment')[1]
     within answer_by_user do
       assert_text '内容修正'
@@ -48,7 +45,6 @@ class AnswersTest < ApplicationSystemTestCase
 
   test "admin can resolve user's question" do
     visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
-    wait_for_vuejs
     assert_text 'ベストアンサーにする'
     accept_alert do
       click_button 'ベストアンサーにする'
@@ -58,7 +54,6 @@ class AnswersTest < ApplicationSystemTestCase
 
   test 'delete best answer' do
     visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
-    wait_for_vuejs
     accept_alert do
       click_button 'ベストアンサーにする'
     end
@@ -73,10 +68,11 @@ class AnswersTest < ApplicationSystemTestCase
 
     assert_difference 'ActionMailer::Base.deliveries.count', 1 do
       perform_enqueued_jobs do
+        assert_no_text '解決済'
         accept_alert do
           click_button 'ベストアンサーにする'
         end
-        wait_for_vuejs
+        assert_text '解決済'
       end
     end
 

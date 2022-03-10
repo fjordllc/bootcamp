@@ -180,7 +180,6 @@ class UsersTest < ApplicationSystemTestCase
   test 'not show welcome message' do
     visit_with_auth practice_path(practices(:practice1).id), 'hatsuno'
     click_button '着手'
-    wait_for_vuejs
     visit '/'
     assert_no_text 'ようこそ'
   end
@@ -193,7 +192,6 @@ class UsersTest < ApplicationSystemTestCase
     within '.niconico-calendar-nav' do
       assert_text "#{today.year}年#{today.month}月"
       find('.niconico-calendar-nav__previous').click
-      wait_for_vuejs
       assert_text "#{last_month.year}年#{last_month.month}月"
     end
   end
@@ -211,7 +209,6 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth root_path, 'hatsuno'
     visit user_path(users(:hajime).id)
     find('.niconico-calendar-nav__previous').click
-    wait_for_vuejs
     assert_no_selector '.niconico-calendar__day.is-today'
   end
 
@@ -256,5 +253,26 @@ class UsersTest < ApplicationSystemTestCase
   test 'not show daily report download button' do
     visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
     assert_no_text '日報一括ダウンロード'
+  end
+
+  test 'show link to talk room when logined as admin' do
+    kimura = users(:kimura)
+    visit_with_auth "/users/#{kimura.id}", 'komagata'
+    assert_text 'プロフィール'
+    assert_link '相談部屋', href: "/talks/#{kimura.talk.id}"
+  end
+
+  test 'should not show link to talk room of admin even if logined as admin' do
+    machida = users(:machida)
+    visit_with_auth "/users/#{machida.id}", 'komagata'
+    assert_text 'プロフィール'
+    assert_no_link '相談部屋'
+  end
+
+  test 'should not show link to talk room when logined as no-admin' do
+    hatsuno = users(:hatsuno)
+    visit_with_auth "/users/#{hatsuno.id}", 'kimura'
+    assert_text 'プロフィール'
+    assert_no_link '相談部屋'
   end
 end

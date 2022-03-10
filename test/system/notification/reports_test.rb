@@ -45,7 +45,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     visit_with_auth '/reports', 'komagata'
     click_link '日報作成'
 
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
     end
@@ -164,7 +164,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     visit_with_auth '/reports', student
 
     click_link '日報作成'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title 1')
       fill_in('report[description]', with: 'test 1')
       fill_in('report[reported_on]', with: Date.current.prev_day)
@@ -178,7 +178,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     find('.modal-header__close').click
 
     click_link '日報作成'
-    within('#new_report') do
+    within('form[name=report]') do
       fill_in('report[title]', with: 'test title 2')
       fill_in('report[description]', with: 'test 2')
       fill_in('report[reported_on]', with: Date.current)
