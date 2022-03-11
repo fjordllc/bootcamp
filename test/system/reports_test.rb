@@ -660,6 +660,8 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text Time.current.strftime('%Y年%m月%d日')
     assert_text 'Watch中'
     assert_match 'Message to Discord.', mock_log.to_s
+  end
+
   test 'celebrating one hundred reports' do
     user = users(:nippounashi)
     99.times do |i|
