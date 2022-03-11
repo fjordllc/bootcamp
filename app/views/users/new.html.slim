@@ -7,7 +7,7 @@
       h1.auth-form__title = title
     = '現在、お試し期間の延長が適用されています' if Campaign.today_campaign?
     .auth-form__body
-      - if !@user.adviser? && Campaign.today_is_campaign?
+      - if !@user.adviser? && Campaign.today_campaign?
         = render 'checked_campaign'
       = render 'form', from: :new, url: users_path, user: @user
     footer.auth-form__footer
