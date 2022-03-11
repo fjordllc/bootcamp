@@ -39,7 +39,7 @@ class Campaign < ApplicationRecord
     campaign = Campaign.order(end_at: :desc).first
     return if Campaign.nil?
 
-    today_is_campaign? ? campaign.trial_period : 3
+    today_campaign? ? campaign.trial_period : 3
   end
 
   private

@@ -66,7 +66,7 @@ class CampaignsTest < ApplicationSystemTestCase
   end
 
   test 'welcome trial extension campaign period outside' do
-    assert_equal Campaign.today_is_campaign?, Campaign.recently_campaign.cover?(TODAY)
+    assert_equal Campaign.today_campaign?, Campaign.recently_campaign.cover?(TODAY)
 
     visit welcome_path
     assert_no_text '通常 3日間 のお試し期間が'
@@ -118,7 +118,7 @@ class CampaignsTest < ApplicationSystemTestCase
       click_button '内容を保存'
     end
 
-    assert_equal Campaign.today_is_campaign?, Campaign.recently_campaign.cover?(TODAY)
+    assert_equal Campaign.today_campaign?, Campaign.recently_campaign.cover?(TODAY)
 
     start_at = Campaign.recently_campaign.first
     end_at = Campaign.recently_campaign.last
