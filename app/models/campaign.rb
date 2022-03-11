@@ -33,13 +33,13 @@ class Campaign < ApplicationRecord
 
       Campaign.order(end_at: :desc).first.title
     end
-  end
 
-  def self.trial_period
-    campaign = Campaign.order(end_at: :desc).first
-    return if Campaign.nil?
+    def trial_period
+      campaign = Campaign.order(end_at: :desc).first
+      return if Campaign.nil?
 
-    today_campaign? ? campaign.trial_period : 3
+      today_campaign? ? campaign.trial_period : 3
+    end
   end
 
   private
