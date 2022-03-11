@@ -1,0 +1,19 @@
+name: "Close stale issues"
+on:
+  schedule:
+    - cron: "0 1 * * *"
+
+jobs:
+  stale:
+    name: stale
+    runs-on: ubuntu:latest
+    steps:
+      - uses: actions/stale@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-issue-message: 'このissue|PRは60日間更新がないため7日後にcloseします。closeしたくない場合はstaleラベルを外してください。'
+          close-issue-message: 'このissue|PRはstaleラベルを付けた後7日間更新がないためcloseしました。'
+          days-before-stale: 60
+          days-before-close: 7
+          exempt-issue-labels: "pinned,security,release,bug,バグ"
+          stale-issue-label: stale
