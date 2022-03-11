@@ -39,4 +39,8 @@ module SearchHelper
   def comment_or_answer?(searchable)
     searchable.is_a?(Comment) || searchable.is_a?(Answer)
   end
+
+  def talk?(searchable)
+    searchable.instance_of?(User) && searchable.talk.present?
+  end
 end

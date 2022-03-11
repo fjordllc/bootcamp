@@ -635,4 +635,30 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth report_path(reports(:report32)), 'komagata'
     assert_no_selector '.a-page-notice.is-only-mentor.is-danger', text: '9日ぶりの日報です'
   end
+
+  test 'notify to chat after create a report' do
+    visit_with_auth '/reports/new', 'kimura'
+    within('form[name=report]') do
+      fill_in('report[title]', with: 'test title')
+      fill_in('report[description]', with: 'test')
+      fill_in('report[reported_on]', with: Time.current)
+    end
+
+    first('.learning-time').all('.learning-time__started-at select')[0].select('07')
+    first('.learning-time').all('.learning-time__started-at select')[1].select('30')
+    first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
+    first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
+
+    mock_log = []
+    stub_info = proc { |i| mock_log << i }
+
+    Rails.logger.stub(:info, stub_info) do
+      click_button '提出'
+    end
+
+    assert_text '日報を保存しました。'
+    assert_text Time.current.strftime('%Y年%m月%d日')
+    assert_text 'Watch中'
+    assert_match 'Message to Discord.', mock_log.to_s
+  end
 end

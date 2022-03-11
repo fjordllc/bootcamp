@@ -14,3 +14,6 @@ if comment_or_answer?(searchable)
   json.document_author_login_name document.user.login_name
   json.document_author_id document.user.id
 end
+if talk?(searchable)
+  json.talk_id searchable.talk.id
+end

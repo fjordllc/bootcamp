@@ -13,6 +13,7 @@ page2:
     テスト
     [example](http://example.com)
   user: komagata
+  practice: practice44
   published_at: "2019-01-01 00:00:00"
 
 page3:
@@ -29,6 +30,7 @@ page4:
     ## テスト
     テスト
   user: komagata
+  practice: practice51
   published_at: "2021-01-01 00:00:00"
 
 page5:
@@ -49,6 +51,7 @@ page7:
   body: 上手な質問の方法
   slug: how_to_ask_questions
   user: komagata
+  practice: practice11
   published_at: "2021-07-01 00:00:00"
 
 page8:
@@ -70,6 +73,7 @@ page10:
   body: フォロー機能
   slug: follow_the_report
   user: komagata
+  practice: practice33
   published_at: "2021-07-01 00:00:00"
 
 page11:
@@ -94,6 +98,7 @@ page12:
       - 完全一致: `$ apt-cache search ^vim$`
       - 前方一致: `$ apt-cache search ^vim`
   user: komagata
+  practice: practice6
   published_at: "2022-01-01 00:00:00"
 
 page13:

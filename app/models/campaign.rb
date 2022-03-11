@@ -14,17 +14,25 @@ class Campaign < ApplicationRecord
   validates :title, presence: true
   validates :trial_period, presence: true, numericality: { greater_than_or_equal_to: 4 }
 
-  def self.recently_campaign
-    campaign = Campaign.order(end_at: :desc).first
-    return if campaign.nil?
+  class << self
+    def recently_campaign
+      campaign = Campaign.order(end_at: :desc).first
+      return if campaign.nil?
 
-    campaign.start_at..campaign.end_at
-  end
+      campaign.start_at..campaign.end_at
+    end
 
-  def self.today_is_campaign?
-    return if recently_campaign.nil?
+    def today_campaign?
+      return if recently_campaign.nil?
 
-    recently_campaign.cover?(Time.current)
+      recently_campaign.cover?(Time.current)
+    end
+
+    def current_title
+      return unless today_campaign?
+
+      Campaign.order(end_at: :desc).first.title
+    end
   end
 
   def self.trial_period
