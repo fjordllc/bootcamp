@@ -7,8 +7,8 @@ class Admin::CampaignsController < AdminController
     start_at = Time.current.beginning_of_day
     @campaign = Campaign.new(
       start_at: start_at,
-      end_at: start_at + 4.days - 1.minute,
-      trial_period: 4
+      end_at: start_at + 7.days - 1.minute,
+      trial_period: 7
     )
   end
 

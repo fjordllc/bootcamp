@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class CampaignsTest < ApplicationSystemTestCase
   WEEK_DAY = %w[日 月 火 水 木 金 土].freeze
-  TODAY = Time.current
+  TODAY = Time.current.beginning_of_day
   PERIOD = 6
 
   test 'non-admin cannot be visited campaign page' do
@@ -23,35 +23,45 @@ class CampaignsTest < ApplicationSystemTestCase
       fill_in 'campaign[start_at]', with: Time.zone.parse('2021-12-10 00:00')
       fill_in 'campaign[end_at]', with: Time.zone.parse('2021-12-15 23:58')
       fill_in 'campaign[title]', with: '終了日時の入力値がお試し日数に満たないケース'
-      fill_in 'campaign[trial_period]', with: PERIOD
+      fill_in 'campaign[trial_period]', with: 6
       click_button '内容を保存'
     end
+    assert_text '入力内容にエラーがありました'
     assert_text '終了日時は2021/12/15 23:59以降を入力してください。'
   end
 
   test 'new campaign can be created' do
     visit_with_auth new_admin_campaign_path, 'komagata'
     within 'form[name=campaign]' do
-      fill_in 'campaign[start_at]', with: Time.zone.parse(TODAY.to_s)
-      fill_in 'campaign[end_at]', with: Time.zone.parse((TODAY + PERIOD.days).to_s)
-      fill_in 'campaign[title]', with: 'お正月キャンペーン'
-      fill_in 'campaign[trial_period]', with: PERIOD
+      fill_in 'campaign[start_at]', with: Time.zone.parse('2021-12-10 00:00')
+      fill_in 'campaign[end_at]', with: Time.zone.parse('2021-12-15 23:59')
+      fill_in 'campaign[title]', with: '終了日時の入力値がお試し日数を満たすケース'
+      fill_in 'campaign[trial_period]', with: 6
       click_button '内容を保存'
     end
     assert_text 'お試し延長を作成しました。'
-    assert_text 'お正月キャンペーン'
-    assert_text I18n.l(TODAY)
-    assert_text I18n.l(TODAY + PERIOD.days)
+    assert_text '終了日時の入力値がお試し日数を満たすケース'
+    assert_text '6日'
+    assert_text '2021年12月10日(金) 00:00'
+    assert_text '2021年12月15日(水) 23:59'
   end
 
+  # 開始日・終了日(datetime_field)のfill_inの年は６桁入るため頭を00で埋めている
+  # 参照先：https://teratail.com/questions/301872
   test 'created campaign can be updated' do
     visit_with_auth edit_admin_campaign_path(campaigns(:campaign1)), 'komagata'
     within 'form[name=campaign]' do
-      fill_in 'campaign[title]', with: '春のお試し祭り'
+      fill_in 'campaign[start_at]', with: '002022-01-25-00-00'
+      fill_in 'campaign[end_at]', with: '002022-01-29-23-59'
+      fill_in 'campaign[title]', with: 'タイトル・お試し期間・開始日・終了日を更新'
+      fill_in 'campaign[trial_period]', with: 5
       click_button '内容を保存'
     end
     assert_text 'お試し延長を更新しました。'
-    assert_text '春のお試し祭り'
+    assert_text 'タイトル・お試し期間・開始日・終了日を更新'
+    assert_text '5日'
+    assert_text '2022年01月25日(火) 00:00'
+    assert_text '2022年01月29日(土) 23:59'
   end
 
   test 'welcome trial extension campaign period outside' do
@@ -62,7 +72,7 @@ class CampaignsTest < ApplicationSystemTestCase
 
     visit pricing_path
     example_start_at = TODAY.strftime('%-m月%-d日10時10分10秒')
-    example_end_at = (TODAY + 3.days - 1).strftime('%-m月%-d日10時10分9秒')
+    example_end_at = (TODAY + 3.days).strftime('%-m月%-d日10時10分9秒')
     example_pay_at = (TODAY + 3.days).strftime('%-m月%-d日10時10分10秒')
 
     assert_text "3日間のお試し期間\n月額29,800円は決して安い金額ではありません。"
@@ -102,7 +112,7 @@ class CampaignsTest < ApplicationSystemTestCase
     within 'form[name=campaign]' do
       fill_in 'campaign[start_at]', with: Time.zone.parse(TODAY.to_s)
       fill_in 'campaign[end_at]', with: Time.zone.parse((TODAY + PERIOD.days).to_s)
-      fill_in 'campaign[title]', with: 'お正月キャンペーン'
+      fill_in 'campaign[title]', with: 'お試し延長キャンペーンの表示テスト'
       fill_in 'campaign[trial_period]', with: PERIOD
       click_button '内容を保存'
     end
@@ -115,6 +125,7 @@ class CampaignsTest < ApplicationSystemTestCase
     campaign_end = end_at.strftime("%-m/%-d(#{WEEK_DAY[end_at.wday]})")
 
     visit welcome_path
+    assert_text 'お試し延長キャンペーンの表示テスト'
     assert_text 'お試し期間が倍以上に延長！！'
     assert_text "#{campaign_start}〜#{campaign_end}の期間中にご入会いただくと、"
     assert_text '通常 3日間 のお試し期間が'
@@ -122,7 +133,7 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text "#{PERIOD}日以内に退会すれば受講料はかかりません。"
 
     example_start_at = TODAY.strftime('%-m月%-d日10時10分10秒')
-    example_end_at = (TODAY + PERIOD.days - 1).strftime('%-m月%-d日10時10分9秒')
+    example_end_at = (TODAY + PERIOD.days).strftime('%-m月%-d日10時10分9秒')
     example_pay_at = (TODAY + PERIOD.days).strftime('%-m月%-d日10時10分10秒')
 
     visit pricing_path
