@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 campaign1:
-  start_at: <%= Time.current - 1.months %>
-  end_at: <%= Time.current - 1.months + 10.days %>
-  title: '1ヶ月前の日付で入力したキャンペーン'
+  start_at: <%= Time.current - 3.months %>
+  end_at: <%= Time.current - 3.months + 10.days %>
+  title: '3ヶ月前に終了したキャンペーン'
   trial_period: 10
 
 campaign2:
