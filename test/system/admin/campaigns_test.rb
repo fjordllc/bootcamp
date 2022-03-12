@@ -51,8 +51,8 @@ class CampaignsTest < ApplicationSystemTestCase
   test 'created campaign can be updated' do
     visit_with_auth edit_admin_campaign_path(campaigns(:campaign1)), 'komagata'
     within 'form[name=campaign]' do
-      fill_in 'campaign[start_at]', with: '002022-01-25-00-00'
-      fill_in 'campaign[end_at]', with: '002022-01-29-23-59'
+      fill_in 'campaign[start_at]', with: '00202201250000'
+      fill_in 'campaign[end_at]', with: '00202201292359'
       fill_in 'campaign[title]', with: 'タイトル・お試し期間・開始日・終了日を更新'
       fill_in 'campaign[trial_period]', with: 5
       click_button '内容を保存'
