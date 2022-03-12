@@ -46,21 +46,15 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text '2021年12月15日(水) 23:59'
   end
 
-  # 開始日・終了日の月以降を入力してもCI上では年の部分にしか入力されないため、年のみ入力
   test 'created campaign can be updated' do
     visit_with_auth edit_admin_campaign_path(campaigns(:campaign1)), 'komagata'
     within 'form[name=campaign]' do
-      fill_in 'campaign[start_at]', with: '2019'
-      fill_in 'campaign[end_at]', with: '2020'
-      fill_in 'campaign[title]', with: 'タイトル・お試し期間・開始日・終了日を更新'
+      fill_in 'campaign[title]', with: '(タイトルを更新)'
       fill_in 'campaign[trial_period]', with: 5
       click_button '内容を保存'
     end
     assert_text 'お試し延長を更新しました。'
-    assert_text 'タイトル・お試し期間・開始日・終了日を更新'
-    assert_text '5日'
-    assert_text '2019年'
-    assert_text '2020年'
+    assert_text '(タイトルを更新)'
   end
 
   test 'welcome trial extension campaign start to end' do
@@ -97,6 +91,7 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text "#{example_start_at} #{example_end_at} #{example_pay_at}"
 
     visit new_user_path
+    assert_no_text 'キャンペーン適用'
     assert_no_text 'お試し期間延長が適用され'
     assert_text 'クレジットカード登録日を含む3日間はお試し期間です。'
 
@@ -161,6 +156,7 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text "#{example_start_at} #{example_end_at} #{example_pay_at}"
 
     visit new_user_path
+    assert_text 'キャンペーン適用'
     assert_text 'お試し期間が倍以上の延長キャンペーン！！！ のお試し期間延長が適用され、'
     assert_text "通常 3日間 のお試し期間が #{PERIOD}日間 になります。"
     assert_text "クレジットカード登録日を含む#{PERIOD}日間はお試し期間です。"
