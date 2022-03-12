@@ -4,7 +4,8 @@
 .auth-form.is-sign-up
   .a-card
     header.auth-form__header
-      h1.auth-form__title = title
+      h1.auth-form__title
+        = title
     .auth-form__body
       - if !@user.adviser? && Campaign.today_campaign?
         = render 'checked_campaign'
