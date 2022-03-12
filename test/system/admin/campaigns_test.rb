@@ -162,7 +162,7 @@ class CampaignsTest < ApplicationSystemTestCase
 
     visit new_user_path
     assert_text 'お試し期間が倍以上の延長キャンペーン！！！ のお試し期間延長が適用され、'
-    assert_text "通常 3日間 のお試し期間が #{PERIOD}日間になります。"
+    assert_text "通常 3日間 のお試し期間が #{PERIOD}日間 になります。"
     assert_text "クレジットカード登録日を含む#{PERIOD}日間はお試し期間です。"
 
     visit_with_auth '/', 'hatsuno'
