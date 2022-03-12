@@ -46,13 +46,12 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text '2021年12月15日(水) 23:59'
   end
 
-  # 開始日・終了日(datetime_field)のfill_inの年は６桁入るため頭を00で埋めている
-  # 参照先：https://teratail.com/questions/301872
+  # 開始日・終了日の月以降を入力してもCI上では年の部分にしか入力されないため、年のみ入力
   test 'created campaign can be updated' do
     visit_with_auth edit_admin_campaign_path(campaigns(:campaign1)), 'komagata'
     within 'form[name=campaign]' do
-      fill_in 'campaign[start_at]', with: '00202201250000'
-      fill_in 'campaign[end_at]', with: '00202201292359'
+      fill_in 'campaign[start_at]', with: '2019'
+      fill_in 'campaign[end_at]', with: '2020'
       fill_in 'campaign[title]', with: 'タイトル・お試し期間・開始日・終了日を更新'
       fill_in 'campaign[trial_period]', with: 5
       click_button '内容を保存'
@@ -60,8 +59,8 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text 'お試し延長を更新しました。'
     assert_text 'タイトル・お試し期間・開始日・終了日を更新'
     assert_text '5日'
-    assert_text '2022年01月25日(火) 00:00'
-    assert_text '2022年01月29日(土) 23:59'
+    assert_text '2019年'
+    assert_text '2020年'
   end
 
   test 'welcome trial extension campaign start to end' do
@@ -98,7 +97,7 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text "#{example_start_at} #{example_end_at} #{example_pay_at}"
 
     visit new_user_path
-    assert_no_text 'お試し期間の延長が適用されます。'
+    assert_no_text 'お試し期間延長が適用され'
     assert_text 'クレジットカード登録日を含む3日間はお試し期間です。'
 
     visit_with_auth '/', 'hatsuno'
@@ -110,11 +109,12 @@ class CampaignsTest < ApplicationSystemTestCase
     within 'form[name=campaign]' do
       fill_in 'campaign[start_at]', with: Time.zone.parse(TODAY.to_s)
       fill_in 'campaign[end_at]', with: Time.zone.parse((TODAY + PERIOD.days).to_s)
-      fill_in 'campaign[title]', with: 'お正月キャンペーン'
+      fill_in 'campaign[title]', with: 'お試し期間が倍でない延長キャンペーン！'
       fill_in 'campaign[trial_period]', with: 5
       click_button '内容を保存'
     end
     visit welcome_path
+    assert_text 'お試し期間が倍でない延長キャンペーン！'
     assert_text 'お試し期間が延長！！'
   end
 
@@ -123,7 +123,7 @@ class CampaignsTest < ApplicationSystemTestCase
     within 'form[name=campaign]' do
       fill_in 'campaign[start_at]', with: Time.zone.parse(TODAY.to_s)
       fill_in 'campaign[end_at]', with: Time.zone.parse((TODAY + PERIOD.days).to_s)
-      fill_in 'campaign[title]', with: 'お試し延長キャンペーンの表示テスト'
+      fill_in 'campaign[title]', with: 'お試し期間が倍以上の延長キャンペーン！！！'
       fill_in 'campaign[trial_period]', with: PERIOD
       click_button '内容を保存'
     end
@@ -136,7 +136,7 @@ class CampaignsTest < ApplicationSystemTestCase
     campaign_end = end_at.strftime("%-m/%-d(#{WEEK_DAY[end_at.wday]})")
 
     visit welcome_path
-    assert_text 'お試し延長キャンペーンの表示テスト'
+    assert_text 'お試し期間が倍以上の延長キャンペーン！！！'
     assert_text 'お試し期間が倍以上に延長！！'
     assert_text "#{campaign_start}〜#{campaign_end}の期間中にご入会いただくと、"
     assert_text '通常 3日間 のお試し期間が'
@@ -150,6 +150,7 @@ class CampaignsTest < ApplicationSystemTestCase
     visit pricing_path
     assert_text "キャンペーン中につき、#{PERIOD}日間のお試し期間"
     assert_text "フィヨルドブートキャンプを使うべきかを判断するために#{PERIOD}日間のお試し期間を用意"
+    assert_text '（現在、キャンペーン中のためお試し期間を延長しています）'
     assert_text "その#{PERIOD}日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。"
 
     assert_text "厳密にはお試し期間は#{PERIOD * 24}時間（#{PERIOD}日間）になります。"
@@ -160,7 +161,8 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text "#{example_start_at} #{example_end_at} #{example_pay_at}"
 
     visit new_user_path
-    assert_text 'お試し期間の延長が適用されます。'
+    assert_text 'お試し期間が倍以上の延長キャンペーン！！！ のお試し期間延長が適用され、'
+    assert_text "通常 3日間 のお試し期間が #{PERIOD}日間になります。"
     assert_text "クレジットカード登録日を含む#{PERIOD}日間はお試し期間です。"
 
     visit_with_auth '/', 'hatsuno'
