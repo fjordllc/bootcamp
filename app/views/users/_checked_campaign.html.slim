@@ -5,6 +5,9 @@
         .form-checkbox.is-dammy
           .form-checkbox__label.is-checked
             | キャンペーン適用
-      .a-form-help.is-danger
+      .a-form-help
         p
-          | お試し期間の延長が適用されます。
+          | #{Campaign.current_title} のお試し期間延長が適用され、
+          em
+            | 通常 3日間 のお試し期間が #{Campaign.trial_period}日間&nbsp;
+          | になります。
