@@ -43,4 +43,15 @@ class API::QuestionsTest < ActionDispatch::IntegrationTest
       assert_equal changed_title, @question.reload.title
     end
   end
+
+  test 'get users question with REST API' do
+    user = users(:hajime)
+    get api_questions_path(user_id: user.id, format: :json)
+    assert_response :unauthorized
+
+    token = create_token('hajime', 'testtest')
+    get api_questions_path(user_id: user.id, format: :json),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+  end
 end
