@@ -128,6 +128,7 @@ export default {
       this.currentPage = pageNumber
       this.getUsers()
       history.pushState(null, null, this.newUrl(pageNumber))
+      window.scrollTo(0, 0)
     },
     newUrl(pageNumber) {
       if (this.params.target) {
