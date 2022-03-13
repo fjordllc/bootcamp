@@ -13,7 +13,7 @@ class TalksController < ApplicationController
   end
 
   def show
-    @reports = @talk.user.latest_report
+    @reports = @talk.user.latest_reports
   end
 
   private
