@@ -136,8 +136,16 @@ product64:
 product<%= 65 + i*4+n %>:
   practice: practice<%= 4 + i*4+n %>
   user: hatsuno
-  body: テストの提出物<%= n+1 %>日前です。
-  published_at: <%= (now - (60 * 60 * 24 * (n+1))).to_s(:db) %>
-  created_at: <%= (now - (60 * 60 * 24 * (n+1))).to_s(:db) %>
-  <% end %>
+  body: <%= i+1 %>日前の提出物です。
+  published_at: <%= (now - (60 * 60 * 24 * (i+1))).to_s(:db) %>
+  created_at: <%= (now - (60 * 60 * 24 * (i+1))).to_s(:db) %>
+<% end %>
+
+<% (0..3).each do |i| %>
+product<%= 68 + i %>:
+  practice: practice<%= 8 + i %>
+  user: hatsuno
+  body: <%= i+1 %>日前の提出物です。
+  published_at: <%= (now - (60 * 60 * 24 * (i+1))).to_s(:db) %>
+  created_at: <%= (now - (60 * 60 * 24 * (i+1))).to_s(:db) %>
 <% end %>
