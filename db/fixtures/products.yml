@@ -131,3 +131,13 @@ product64:
   user: daimyo
   body: publish_atがnilの提出物です。
   published_at: nil
+<% (0..2).each do |i| %>
+  <% (0..3).each do |n| %>
+product<%= 65 + i*4+n %>:
+  practice: practice<%= 4 + i*4+n %>
+  user: hatsuno
+  body: テストの提出物<%= n+1 %>日前です。
+  published_at: <%= (now - (60 * 60 * 24 * (n+1))).to_s(:db) %>
+  created_at: <%= (now - (60 * 60 * 24 * (n+1))).to_s(:db) %>
+  <% end %>
+<% end %>
