@@ -70,7 +70,6 @@
             .thread-list-item-meta__item
               time.a-meta(v-if='product.updated_at')
                 | 更新（{{ product.updated_at }}）
-
       hr.thread-list-item__row-separator(v-if='product.comments.size > 0')
       .thread-list-item__row(v-if='product.comments.size > 0')
         .thread-list-item-meta
@@ -138,6 +137,7 @@
       )
 </template>
 <script>
+import { formatDistance } from 'date-fns'
 import ProductChecker from './product_checker'
 export default {
   components: {
@@ -182,6 +182,9 @@ export default {
       required: false,
       default: null
     }
+  },
+  data() {
+    return { formatDistance }
   },
   computed: {
     roleClass() {
