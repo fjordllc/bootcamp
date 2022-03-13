@@ -109,7 +109,6 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getProductsPerPage() {
-      console.log(this.url)
       fetch(this.url, {
         method: 'GET',
         headers: {
