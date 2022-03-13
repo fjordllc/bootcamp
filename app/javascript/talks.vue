@@ -82,6 +82,7 @@ export default {
       this.currentPage = pageNum
       history.pushState(null, null, this.newURL)
       this.getTalks()
+      window.scrollTo(0, 0)
     },
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
