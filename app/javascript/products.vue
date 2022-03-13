@@ -19,6 +19,7 @@
           :product='product',
           :currentUserId='currentUserId',
           :isMentor='isMentor',
+          :latestProductSubmittedJust3days='latestProductSubmittedJust3days',
           :latestProductSubmittedJust5days='latestProductSubmittedJust5days',
           :latestProductSubmittedJust6days='latestProductSubmittedJust6days',
           :latestProductSubmittedOver7days='latestProductSubmittedOver7days'
@@ -56,6 +57,7 @@ export default {
       totalPages: 0,
       currentPage: Number(this.getPageValueFromParameter()) || 1,
       loaded: false,
+      latestProductSubmittedJust3days: null,
       latestProductSubmittedJust5days: null,
       latestProductSubmittedJust6days: null,
       latestProductSubmittedOver7days: null,
@@ -101,6 +103,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getProductsPerPage() {
+      console.log(this.url)
       fetch(this.url, {
         method: 'GET',
         headers: {
@@ -119,6 +122,8 @@ export default {
             location.pathname === '/products/unassigned' ||
             location.pathname === '/products/unchecked'
           ) {
+            this.latestProductSubmittedJust3days =
+              json.latest_product_submitted_just_3days
             this.latestProductSubmittedJust5days =
               json.latest_product_submitted_just_5days
             this.latestProductSubmittedJust6days =

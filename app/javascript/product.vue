@@ -2,7 +2,11 @@
 .thread-list-item.has-assigned(:class='product.wip ? "is-wip" : ""')
   .thread-list-item__strip-label(v-if='unassigned || unchecked')
     .thread-list-item__elapsed-days.is-reply-warning.is-only-mentor(
-      v-if='isLatestProductSubmittedJust5days'
+      v-if='isLatestProductSubmittedJust3days'
+    )
+      | 3日経過
+    .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
+      v-else-if='isLatestProductSubmittedJust5days'
     )
       | 5日経過
     .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
@@ -135,6 +139,11 @@ export default {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: String, required: true },
+    latestProductSubmittedJust3days: {
+      type: Object,
+      required: false,
+      default: null
+    },
     latestProductSubmittedJust5days: {
       type: Object,
       required: false,
@@ -162,6 +171,13 @@ export default {
       return this.product.user.daimyo
         ? `★${this.product.practice.title}の提出物`
         : `${this.product.practice.title}の提出物`
+    },
+    isLatestProductSubmittedJust3days() {
+      if (this.latestProductSubmittedJust3days !== null) {
+        return this.product.id === this.latestProductSubmittedJust3days.id
+      } else {
+        return false
+      }
     },
     isLatestProductSubmittedJust5days() {
       if (this.latestProductSubmittedJust5days !== null) {
