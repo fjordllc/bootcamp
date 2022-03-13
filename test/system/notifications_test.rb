@@ -314,17 +314,6 @@ class NotificationsTest < ApplicationSystemTestCase
     assert_no_text "mentormentaroさんの提出物#{products(:product1).title}の担当になりました。"
   end
 
-  test 'show the total number of mentions on the mentioned tab' do
-    user = users(:kimura)
-    expected_total_number_of_mentions = user.notifications.by_target(:mention).latest_of_each_link.size
-
-    visit_with_auth '/notifications', user.login_name
-
-    within '.page-tabs__item', text: 'メンション' do
-      assert_text format('メンション （%d）', expected_total_number_of_mentions)
-    end
-  end
-
   test 'show the number of unread mentions on the badge of the mentioned tab' do
     user = users(:kimura)
     expected_number_of_unread_mentions = user.notifications.by_target(:mention).unreads.latest_of_each_link.size
