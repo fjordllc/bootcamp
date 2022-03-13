@@ -206,21 +206,21 @@ export default {
         return false
       }
     },
-        isLatestProductSubmittedJust2days() {
+    isLatestProductSubmittedJust2days() {
       if (this.latestProductSubmittedJust2days !== null) {
         return this.product.id === this.latestProductSubmittedJust2days.id
       } else {
         return false
       }
     },
-        isLatestProductSubmittedJust3days() {
+    isLatestProductSubmittedJust3days() {
       if (this.latestProductSubmittedJust3days !== null) {
         return this.product.id === this.latestProductSubmittedJust3days.id
       } else {
         return false
       }
     },
-        isLatestProductSubmittedJust4days() {
+    isLatestProductSubmittedJust4days() {
       if (this.latestProductSubmittedJust4days !== null) {
         return this.product.id === this.latestProductSubmittedJust4days.id
       } else {
