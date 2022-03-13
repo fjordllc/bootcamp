@@ -34,7 +34,7 @@ export default {
   props: {
     emptyMessage: { type: String, required: true },
     selectedTag: { type: String, required: true },
-    usersPath: { type: String, default: '', required: false }
+    userId: { type: String, default: null, required: false }
   },
   data() {
     return {
@@ -48,6 +48,7 @@ export default {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
       if (this.selectedTag) params.set('tag', this.selectedTag)
+      if (this.userId) params.set('user_id', this.userId)
       return params
     },
     newURL() {
@@ -55,8 +56,7 @@ export default {
     },
     questionsAPI() {
       const params = this.newParams
-      const usersPath = this.usersPath
-      return `/api/${usersPath}questions.json?${params}`
+      return `/api/questions.json?${params}`
     },
     pagerProps() {
       return {
