@@ -9,7 +9,10 @@ class API::Products::UnassignedController < API::BaseController
                 .not_wip
                 .list
                 .order_for_not_wip_list
+    @latest_product_submitted_just_a_day = @products.find { |product| product.elapsed_days == 1 }
+    @latest_product_submitted_just_2days = @products.find { |product| product.elapsed_days == 2 }
     @latest_product_submitted_just_3days = @products.find { |product| product.elapsed_days == 3 }
+    @latest_product_submitted_just_4days = @products.find { |product| product.elapsed_days == 4 }
     @latest_product_submitted_just_5days = @products.find { |product| product.elapsed_days == 5 }
     @latest_product_submitted_just_6days = @products.find { |product| product.elapsed_days == 6 }
     @latest_product_submitted_over_7days = @products.find { |product| product.elapsed_days >= 7 }

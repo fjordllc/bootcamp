@@ -19,7 +19,10 @@
           :product='product',
           :currentUserId='currentUserId',
           :isMentor='isMentor',
+          :latestProductSubmittedJustAday='latestProductSubmittedJustAday',
+          :latestProductSubmittedJust2days='latestProductSubmittedJust2days',
           :latestProductSubmittedJust3days='latestProductSubmittedJust3days',
+          :latestProductSubmittedJust4days='latestProductSubmittedJust4days',
           :latestProductSubmittedJust5days='latestProductSubmittedJust5days',
           :latestProductSubmittedJust6days='latestProductSubmittedJust6days',
           :latestProductSubmittedOver7days='latestProductSubmittedOver7days'
@@ -57,7 +60,10 @@ export default {
       totalPages: 0,
       currentPage: Number(this.getPageValueFromParameter()) || 1,
       loaded: false,
+      latestProductSubmittedJustAday: null,
+      latestProductSubmittedJust2days: null,
       latestProductSubmittedJust3days: null,
+      latestProductSubmittedJust4days: null,
       latestProductSubmittedJust5days: null,
       latestProductSubmittedJust6days: null,
       latestProductSubmittedOver7days: null,
@@ -122,8 +128,14 @@ export default {
             location.pathname === '/products/unassigned' ||
             location.pathname === '/products/unchecked'
           ) {
+            this.latestProductSubmittedJustAday =
+              json.latest_product_submitted_just_a_day
+            this.latestProductSubmittedJust2days =
+              json.latest_product_submitted_just_2days
             this.latestProductSubmittedJust3days =
               json.latest_product_submitted_just_3days
+            this.latestProductSubmittedJust4days =
+              json.latest_product_submitted_just_4days
             this.latestProductSubmittedJust5days =
               json.latest_product_submitted_just_5days
             this.latestProductSubmittedJust6days =

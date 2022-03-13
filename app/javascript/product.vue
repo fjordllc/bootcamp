@@ -2,9 +2,21 @@
 .thread-list-item.has-assigned(:class='product.wip ? "is-wip" : ""')
   .thread-list-item__strip-label(v-if='unassigned || unchecked')
     .thread-list-item__elapsed-days.is-reply-warning.is-only-mentor(
-      v-if='isLatestProductSubmittedJust3days'
+      v-if='isLatestProductSubmittedJustAday'
+    )
+      | 1日経過
+    .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
+      v-else-if='isLatestProductSubmittedJust2days'
+    )
+      | 2日経過
+    .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
+      v-else-if='isLatestProductSubmittedJust3days'
     )
       | 3日経過
+    .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
+      v-else-if='isLatestProductSubmittedJust4days'
+    )
+      | 4日経過
     .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
       v-else-if='isLatestProductSubmittedJust5days'
     )
@@ -139,7 +151,22 @@ export default {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: String, required: true },
+    latestProductSubmittedJustAday: {
+      type: Object,
+      required: false,
+      default: null
+    },
+    latestProductSubmittedJust2days: {
+      type: Object,
+      required: false,
+      default: null
+    },
     latestProductSubmittedJust3days: {
+      type: Object,
+      required: false,
+      default: null
+    },
+    latestProductSubmittedJust4days: {
       type: Object,
       required: false,
       default: null
@@ -172,9 +199,30 @@ export default {
         ? `★${this.product.practice.title}の提出物`
         : `${this.product.practice.title}の提出物`
     },
-    isLatestProductSubmittedJust3days() {
+    isLatestProductSubmittedJustAday() {
+      if (this.latestProductSubmittedJustAday !== null) {
+        return this.product.id === this.latestProductSubmittedJustAday.id
+      } else {
+        return false
+      }
+    },
+        isLatestProductSubmittedJust2days() {
+      if (this.latestProductSubmittedJust2days !== null) {
+        return this.product.id === this.latestProductSubmittedJust2days.id
+      } else {
+        return false
+      }
+    },
+        isLatestProductSubmittedJust3days() {
       if (this.latestProductSubmittedJust3days !== null) {
         return this.product.id === this.latestProductSubmittedJust3days.id
+      } else {
+        return false
+      }
+    },
+        isLatestProductSubmittedJust4days() {
+      if (this.latestProductSubmittedJust4days !== null) {
+        return this.product.id === this.latestProductSubmittedJust4days.id
       } else {
         return false
       }
