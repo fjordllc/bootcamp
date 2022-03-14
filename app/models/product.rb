@@ -50,7 +50,7 @@ class Product < ApplicationRecord
   }
   scope :order_for_list, -> { order(created_at: :desc, id: :desc) }
   scope :order_for_not_wip_list_descinding, -> { order(published_at: :desc, id: :desc) }
-  scope :order_for_not_wip_list_ascending, -> { order(published_at: :asc, id: :desc) }
+  scope :order_for_not_wip_list_ascending, -> { order(published_at: :asc, id: :asc) }
   scope :order_for_self_assigned_list, -> { order(commented_at: :desc, published_at: :desc) }
 
   def self.add_latest_commented_at
