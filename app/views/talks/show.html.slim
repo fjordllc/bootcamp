@@ -57,4 +57,4 @@ header.page-header
                   = render 'users/metas', user: @user
                 #js-user-mentor-memo(data-user-id="#{@user.id}" data-products-mode="#{true}")
               .side-tabs-contents__item#side-tabs-content-2
-                #js-reports(data-user-id="#{@talk.user.id}" data-limit="10")
+                #js-reports(data-user-id="#{@user.id}" data-limit="10")
