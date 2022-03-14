@@ -57,18 +57,7 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text '(タイトルを更新)'
   end
 
-  test 'welcome trial extension campaign start to end' do
-    start_at = Campaign.recently_campaign.first
-    end_at = Campaign.recently_campaign.last
-
-    campaign_start = start_at.strftime("%-m/%-d(#{WEEK_DAY[start_at.wday]})")
-    campaign_end = end_at.strftime("%-m/%-d(#{WEEK_DAY[end_at.wday]})")
-
-    visit welcome_path
-    assert_text "#{campaign_start}〜#{campaign_end}の期間中にご入会いただくと、"
-  end
-
-  test 'welcome trial extension campaign period outside' do
+  test 'trial extension campaign period outside' do
     assert_equal Campaign.today_campaign?, Campaign.recently_campaign.cover?(TODAY)
 
     visit welcome_path
@@ -94,12 +83,9 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_no_text 'キャンペーン適用'
     assert_no_text 'お試し期間延長が適用され'
     assert_text 'クレジットカード登録日を含む3日間はお試し期間です。'
-
-    visit_with_auth '/', 'hatsuno'
-    assert_text '入会から3日間（72時間）は機能制限なくフルでフィヨルドブートキャンプを活用いただけます'
   end
 
-  test 'welcome 5days trial extension campaign period inside' do
+  test '5days trial extension campaign period inside' do
     visit_with_auth new_admin_campaign_path, 'komagata'
     within 'form[name=campaign]' do
       fill_in 'campaign[start_at]', with: Time.zone.parse(TODAY.to_s)
@@ -113,7 +99,7 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text 'お試し期間が延長！！'
   end
 
-  test 'welcome trial extension campaign period inside' do
+  test '6days trial extension campaign period inside' do
     visit_with_auth new_admin_campaign_path, 'komagata'
     within 'form[name=campaign]' do
       fill_in 'campaign[start_at]', with: Time.zone.parse(TODAY.to_s)
@@ -160,8 +146,57 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_text 'お試し期間が倍以上の延長キャンペーン！！！ のお試し期間延長が適用され、'
     assert_text "通常 3日間 のお試し期間が #{PERIOD}日間 になります。"
     assert_text "クレジットカード登録日を含む#{PERIOD}日間はお試し期間です。"
+  end
+
+  test 'when user joined campaign period just before/after the start' do
+    current_time = Time.current
+    visit_with_auth new_admin_campaign_path, 'komagata'
+    within 'form[name=campaign]' do
+      fill_in 'campaign[start_at]', with: Time.zone.parse(current_time.to_s)
+      fill_in 'campaign[end_at]', with: Time.zone.parse((current_time + 10.days).to_s)
+      fill_in 'campaign[title]', with: 'キャンペーン期間の開始直前/後に入会したとき'
+      fill_in 'campaign[trial_period]', with: 7
+      click_button '内容を保存'
+    end
+
+    assert_nil Campaign.target_user?(join_date: current_time - 1.minute)
+    assert Campaign.target_user?(join_date: current_time, current_time: current_time + 7.days - 1.minute)
+    assert_not Campaign.target_user?(join_date: current_time, current_time: current_time + 7.days)
+  end
+
+  test 'when user joined campaign period just before/after the end' do
+    current_time = Time.current
+    visit_with_auth new_admin_campaign_path, 'komagata'
+    within 'form[name=campaign]' do
+      fill_in 'campaign[start_at]', with: Time.zone.parse((current_time - 10.days).to_s)
+      fill_in 'campaign[end_at]', with: Time.zone.parse((current_time + 1.minute).to_s)
+      fill_in 'campaign[title]', with: 'キャンペーン期間の終了直前/後に入会したとき'
+      fill_in 'campaign[trial_period]', with: 7
+      click_button '内容を保存'
+    end
+
+    assert Campaign.target_user?(join_date: current_time, current_time: current_time + 7.days - 1.minute)
+    assert_not Campaign.target_user?(join_date: current_time, current_time: current_time + 7.days)
+    assert_nil Campaign.target_user?(join_date: current_time + 1.minute)
+  end
+
+  test 'welcome page when user joined campaign period outside' do
+    visit_with_auth '/', 'hatsuno'
+    assert_text '入会から3日間（72時間）は機能制限なくフルでフィヨルドブートキャンプを活用いただけます'
+  end
+
+  test 'welcome page when user joined campaign period inside' do
+    visit_with_auth new_admin_campaign_path, 'komagata'
+    within 'form[name=campaign]' do
+      fill_in 'campaign[start_at]', with: Time.zone.parse((TODAY - 2.years).to_s)
+      fill_in 'campaign[end_at]', with: Time.zone.parse((TODAY + 2.years).to_s)
+      fill_in 'campaign[title]', with: 'お試し期間が倍でない延長キャンペーン！'
+      fill_in 'campaign[trial_period]', with: 777
+      click_button '内容を保存'
+    end
 
     visit_with_auth '/', 'hatsuno'
-    assert_text "入会から#{PERIOD}日間（#{PERIOD * 24}時間）は機能制限なくフルでフィヨルドブートキャンプを活用いただけます"
+    assert_text 'お試し期間延長のキャンペーンが適用されているので、'
+    assert_text "入会から777日間（#{777 * 24}時間）は機能制限なくフルでフィヨルドブートキャンプを活用いただけます"
   end
 end
