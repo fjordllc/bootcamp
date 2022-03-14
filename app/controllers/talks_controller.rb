@@ -12,9 +12,7 @@ class TalksController < ApplicationController
     @target = 'student_and_trainee' unless API::TalksController::TARGETS.include?(@target)
   end
 
-  def show
-    @reports = @talk.user.recent_reports
-  end
+  def show; end
 
   private
 
