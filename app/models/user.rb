@@ -610,8 +610,8 @@ class User < ApplicationRecord
     Cache.delete_mentioned_and_unread_notification_count(id)
   end
 
-  def latest_reports
-    reports.order(reported_on: :DESC).first(3)
+  def recent_reports
+    reports.order(reported_on: :DESC).first(10)
   end
 
   private
