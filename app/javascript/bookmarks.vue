@@ -118,6 +118,7 @@ export default {
         null,
         location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
       )
+      window.scrollTo(0, 0)
     },
     updateIndex() {
       this.getBookmarks()
