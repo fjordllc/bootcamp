@@ -40,6 +40,13 @@ class Campaign < ApplicationRecord
 
       today_campaign? ? campaign.trial_period : 3
     end
+
+    def target_user?(join_date:, current_time: Time.current)
+      return if recently_campaign.nil?
+      return unless recently_campaign.cover?(join_date)
+
+      (join_date..(join_date + trial_period.days - 1.minute)).cover?(current_time)
+    end
   end
 
   private
