@@ -29,6 +29,9 @@ header.page-header
         = render partial: 'event', collection: @events_coming_soon_except_job_hunting, as: :event
   - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
     = render 'welcome_message'
+  - if current_user.adviser?
+    = render 'welcome_message_for_adviser'
+
   .columns
     .container.is-xxl
       .row
