@@ -1,0 +1,17 @@
+.columns
+  .welcome-message
+    .a-card
+      .welcome-message__author
+        = image_tag('pjord-face.svg', alt: 'プログラミングスクール', class: 'welcome-message__author-image')
+      .welcome-message__inner
+        header.welcome-message__header
+          h1.welcome-message__title
+            | フィヨルドブートキャンプへようこそ 🎉
+        .welcome-message__body
+          .a-long-text
+            p
+              | はじめまして、#{current_user.name} さん。
+            p
+              | この度はフィヨルドブートキャンプのアドバイザーにご協力いただきありがとうございます。
+
+/ TODO:クラス名を修正する
