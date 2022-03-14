@@ -117,6 +117,7 @@ class UsersTest < ApplicationSystemTestCase
       nippounashi
       with_hyphen
       discordinvalid
+      twitterinvalid
     ].each do |name|
       users(name).touch # rubocop:disable Rails/SkipsModelValidations
     end
