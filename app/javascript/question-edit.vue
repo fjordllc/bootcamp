@@ -171,14 +171,14 @@
             ul.card-main-actions__items
               li.card-main-actions__item
                 button.a-button.is-md.is-primary.is-block(
-                  @click='updateQuestion({ wip: true })',
+                  @click='updateQuestion(true)',
                   :disabled='!validation',
                   type='button'
                 )
                   | WIP
               li.card-main-actions__item
                 button.a-button.is-md.is-warning.is-block(
-                  @click='updateQuestion({ wip: false })',
+                  @click='updateQuestion(false)',
                   :disabled='!validation',
                   type='button'
                 )(
@@ -186,7 +186,7 @@
                 )
                   | 質問を公開
                 button.a-button.is-md.is-warning.is-block(
-                  @click='updateQuestion({ wip: false })',
+                  @click='updateQuestion(false)',
                   :disabled='!validation',
                   type='button'
                 )(
@@ -336,7 +336,7 @@ export default {
         return val !== this[key]
       })
     },
-    updateQuestion({ wip }) {
+    updateQuestion(wip) {
       this.edited.wip = wip
       if (!this.changedQuestion(this.edited)) {
         // 何も変更していなくても、更新メッセージは表示する
