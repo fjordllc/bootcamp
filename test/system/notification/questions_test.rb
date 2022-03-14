@@ -54,7 +54,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問がありました。'
+    assert_no_text 'kimuraさんから質問「更新されたタイトル」が投稿されました。'
   end
 
   test 'should not notify when an already published question was updated as WIP' do
@@ -71,7 +71,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問がありました。'
+    assert_no_text 'kimuraさんから質問「更新されたタイトル」が投稿されました。'
   end
 
   test 'should not notify when a newly question was created as WIP' do
@@ -87,7 +87,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問をWIPとして保存しました。'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問がありました。'
+    assert_no_text 'kimuraさんから質問「WIPタイトル」が投稿されました。'
   end
 
   test 'notify when a newly question was created as published' do
@@ -103,7 +103,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を作成しました。'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_text 'kimuraさんから質問がありました。'
+    assert_text 'kimuraさんから質問「公開タイトル」が投稿されました。'
   end
 
   test 'should not notify when a WIP question was updated' do
@@ -127,7 +127,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問がありました。'
+    assert_no_text 'kimuraさんから質問「更新されたWIPタイトル」が投稿されました。'
   end
 
   test 'notify when a WIP question with modification was updated as published' do
@@ -151,7 +151,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_text 'kimuraさんから質問がありました。'
+    assert_text 'kimuraさんから質問「更新された公開タイトル」が投稿されました。'
   end
 
   test 'notify when a WIP question without modification was updated as published' do
@@ -171,7 +171,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_text 'kimuraさんから質問がありました。'
+    assert_text 'kimuraさんから質問「WIPタイトル」が投稿されました。'
   end
 
   test 'should not notify when a published question with modification was updated as WIP' do
@@ -197,7 +197,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問がありました。'
+    assert_no_text 'kimuraさんから質問「更新されたWIPタイトル」が投稿されました。'
   end
 
   test 'should not notify when a published question without modification was updated as WIP' do
@@ -219,7 +219,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問がありました。'
+    assert_no_text 'kimuraさんから質問「公開タイトル」が投稿されました。'
   end
 
   test 'should not notify when a published question was updated' do
@@ -245,6 +245,6 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問がありました。'
+    assert_no_text 'kimuraさんから質問「更新されたタイトル」が投稿されました。'
   end
 end
