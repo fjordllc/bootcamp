@@ -57,9 +57,9 @@ class ArticlesController < ApplicationController
 
   def list_articles
     if admin_or_mentor_login?
-      Article.order(created_at: :desc).page(params[:page])
+      Article.includes(user: { avatar_attachment: :blob }).order(created_at: :desc).page(params[:page])
     else
-      Article.where(wip: false).order(created_at: :desc).page(params[:page])
+      Article.includes(user: { avatar_attachment: :blob }).where(wip: false).order(created_at: :desc).page(params[:page])
     end
   end
 
