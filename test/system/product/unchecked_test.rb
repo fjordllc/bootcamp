@@ -27,7 +27,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       newest_product = Product
                        .unchecked
                        .not_wip
-                       .order_for_not_wip_list
+                       .order_for_not_wip_list_descinding
                        .first
       assert_text newest_product.body
     end
