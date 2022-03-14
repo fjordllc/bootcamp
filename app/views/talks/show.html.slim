@@ -57,14 +57,4 @@ header.page-header
                   = render 'users/metas', user: @user
                 #js-user-mentor-memo(data-user-id="#{@user.id}" data-products-mode="#{true}")
               .side-tabs-contents__item#side-tabs-content-2
-                - if @reports.present?
-                  .thread-list.a-card
-                    = render partial: 'reports/report', collection: @reports, as: :report
-                - else
-                  .thread-list__inner
-                    .container
-                      .o-empty-message
-                        .o-empty-message__icon
-                          i.far.fa-sad-tear
-                        .o-empty-message__text
-                          | 日報はまだありません。
+                #js-reports(data-user-id="#{@talk.user.id}" data-limit="10")
