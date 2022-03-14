@@ -154,7 +154,7 @@ class CampaignsTest < ApplicationSystemTestCase
     within 'form[name=campaign]' do
       fill_in 'campaign[start_at]', with: Time.zone.parse(current_time.to_s)
       fill_in 'campaign[end_at]', with: Time.zone.parse((current_time + 10.days).to_s)
-      fill_in 'campaign[title]', with: 'キャンペーン期間の開始直前/後に入会したとき'
+      fill_in 'campaign[title]', with: 'キャンペーン期間の開始直前/後に入会したときのtarget_user?メソッドテスト'
       fill_in 'campaign[trial_period]', with: 7
       click_button '内容を保存'
     end
@@ -170,7 +170,7 @@ class CampaignsTest < ApplicationSystemTestCase
     within 'form[name=campaign]' do
       fill_in 'campaign[start_at]', with: Time.zone.parse((current_time - 10.days).to_s)
       fill_in 'campaign[end_at]', with: Time.zone.parse((current_time + 1.minute).to_s)
-      fill_in 'campaign[title]', with: 'キャンペーン期間の終了直前/後に入会したとき'
+      fill_in 'campaign[title]', with: 'キャンペーン期間の終了直前/後に入会したときのtarget_user?メソッドテスト'
       fill_in 'campaign[trial_period]', with: 7
       click_button '内容を保存'
     end
@@ -190,7 +190,7 @@ class CampaignsTest < ApplicationSystemTestCase
     within 'form[name=campaign]' do
       fill_in 'campaign[start_at]', with: Time.zone.parse((TODAY - 2.years).to_s)
       fill_in 'campaign[end_at]', with: Time.zone.parse((TODAY + 2.years).to_s)
-      fill_in 'campaign[title]', with: 'お試し期間が倍でない延長キャンペーン！'
+      fill_in 'campaign[title]', with: 'キャンペーン適用中のユーザーを想定したウェルカムページの表示切り替えテスト'
       fill_in 'campaign[trial_period]', with: 777
       click_button '内容を保存'
     end
