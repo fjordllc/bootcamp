@@ -6,6 +6,14 @@ require 'supports/tag_helper'
 class PagesTest < ApplicationSystemTestCase
   include TagHelper
 
+  setup do
+    @raise_server_errors = Capybara.raise_server_errors
+  end
+
+  teardown do
+    Capybara.raise_server_errors = @raise_server_errors
+  end
+
   test 'GET /pages' do
     visit_with_auth '/pages', 'kimura'
     assert_equal 'Docs | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
@@ -168,5 +176,13 @@ class PagesTest < ApplicationSystemTestCase
       assert_selector '.thread-list-item-title__icon.is-wip', text: 'WIP'
       assert_selector '.a-meta', text: 'Doc作成中'
     end
+  end
+
+  test 'show 404 page when accessed with slug does not exist in Docs' do
+    Capybara.raise_server_errors = false
+
+    slug = 'help12345'
+    visit_with_auth "/pages/#{slug}", 'kimura'
+    assert_text 'ActiveRecord::RecordNotFound'
   end
 end
