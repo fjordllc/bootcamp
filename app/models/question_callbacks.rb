@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class QuestionCallbacks
-  def after_create(question)
+  def after_save(question)
+    return unless question.saved_change_to_attribute?(:published_at, from: nil)
+
     send_notification_to_mentors(question)
     Cache.delete_not_solved_question_count
   end

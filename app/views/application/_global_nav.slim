@@ -38,9 +38,9 @@ nav.global-nav
           = link_to questions_path, class: "global-nav-links__link #{current_link(/^questions/)}" do
             .global-nav-links__link-icon
               i.fas.fa-fw.fa-question
-            - if Question.not_solved.count.positive?
+            - if Question.not_solved.not_wip.count.positive?
               .global-nav__item-count.a-notification-count
-                = Question.not_solved.count
+                = Question.not_solved.not_wip.count
             .global-nav-links__link-label Q&A
         li.global-nav-links__item
           = link_to '/pages', class: "global-nav-links__link #{(@page&.slug != 'help') && current_link(/^pages/)}" do
