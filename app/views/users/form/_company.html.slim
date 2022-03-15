@@ -3,4 +3,7 @@
   .is-md.is-secondary.is-select.is-block
     = f.collection_select :company_id, all_companies_with_empty, :id, :name, {}, { id: 'js-company-select' }
   .a-form-help
-    p アドバイザー、研修生、就職した卒業生は登録。
+    p
+      | 企業で利用しているアドバイザー、研修生は登録。
+      br
+      | 就職した卒業生、メンターは個人情報にあたるため、希望者のみ登録。
