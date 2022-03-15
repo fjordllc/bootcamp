@@ -125,5 +125,5 @@ comment<%= i + 19 %>:
 commentOfTalk:
   user: komagata
   commentable: talk1 (Talk)
-  description: |-
-    これは相談部屋の会話です。
+  description: "これは相談部屋の会話です。"
+  updated_at: "2019-01-02 00:00:00 JST"
