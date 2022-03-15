@@ -5,7 +5,11 @@ header.page-header
     .page-header__inner
       h2.page-header__title = title
 - if @article.wip?
-  | この記事はまだ公開されていません
+  .a-page-notice
+    .container
+      .a-page-notice__inner
+        p
+          | この記事はまだ公開されていません。
 .page-body
   .container.is-xxl
     = render 'form', article: @article
