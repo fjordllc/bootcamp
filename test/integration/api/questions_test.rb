@@ -44,7 +44,7 @@ class API::QuestionsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'get users question with REST API' do
+  test 'get users question with API' do
     user = users(:hajime)
     get api_questions_path(user_id: user.id, format: :json)
     assert_response :unauthorized
