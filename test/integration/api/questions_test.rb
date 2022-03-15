@@ -12,7 +12,7 @@ class API::QuestionsTest < ActionDispatch::IntegrationTest
                                         .find_by(admin: false).login_name
   end
 
-  test 'get question with REST API' do
+  test 'GET api/questions.json' do
     get @path
     assert_response :unauthorized
 
@@ -24,7 +24,7 @@ class API::QuestionsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'update question with REST API' do
+  test 'UPDATE api/questions.json' do
     patch @path, params: { question: { title: '認証失敗' } }
     assert_response :unauthorized
 
@@ -44,7 +44,7 @@ class API::QuestionsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'get users question with API' do
+  test 'GET /api/questions.json?user_id=253826460' do
     user = users(:hajime)
     get api_questions_path(user_id: user.id, format: :json)
     assert_response :unauthorized
